@@ -9,10 +9,10 @@
     "statClassification": "Highest",
     "traits": "Tank, Control"
   },
-  "revision": "Draft 4 / Sand classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Sand classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0"
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Sand",
@@ -41,24 +41,21 @@
   },
   "examples": [
     {
-      "name": "Erosion of Eternity",
-      "archetype": "Burst",
+      "name": "Sovereign of the Hour",
+      "archetype": "Self-amplification",
       "ids": [
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "heal": 2
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 4
       },
       "advanced_arts": [
-        "Erosion of Eternity"
+        "Sovereign of the Hour"
       ]
     },
     {
@@ -72,10 +69,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10,
-        "decreasedamagetaken": 2,
-        "heal": 2
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 8,
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "The Inevitable Hour"
@@ -85,15 +82,14 @@
       "name": "Timeless Bastion",
       "archetype": "Fortress",
       "ids": [
-        "01",
         "06",
         "07",
-        "08"
+        "08",
+        "09"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "decreasedamagegiven": 5,
         "decreasedamagetaken": 10,
         "heal": 5
       },
@@ -115,8 +111,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
-        "heal": 2
+        "decreasedamagetaken": 4
       },
       "advanced_arts": [
         "Stilled Hourglass"
@@ -146,10 +141,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 10,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "heal": 5
     },
@@ -163,14 +157,15 @@
       "increasedamagetaken": 2
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "heal",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -189,33 +184,29 @@
       },
       {
         "id": "02",
-        "name": "Grinding Sands",
+        "name": "Quickened Sands",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Eternity Flux",
-          "Timelapse",
-          "Timeshift"
+          "Momentum Shift"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
         "id": "03",
-        "name": "Erosion of Eternity",
+        "name": "Sovereign of the Hour",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Eternity Flux",
-          "Timelapse",
-          "Timeshift"
+          "Momentum Shift"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -224,8 +215,8 @@
         "name": "Brittle with Age",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Momentum Shift",
           "Timeshift"
@@ -239,13 +230,13 @@
         "name": "The Inevitable Hour",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 13,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Momentum Shift",
           "Timeshift"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -257,7 +248,6 @@
         "raw_flat_total": 4,
         "row_weighted_total": 4,
         "covered_jutsu": [
-          "Cellular Regeneration",
           "Timelapse"
         ],
         "covered_rows": 2,
@@ -283,8 +273,8 @@
         "name": "Timeless Bastion",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Cellular Regeneration",
           "Timelapse"
@@ -312,8 +302,8 @@
         "name": "Stilled Hourglass",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 9,
-        "row_weighted_total": 9,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
           "Timelapse"
         ],
@@ -325,31 +315,33 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "04",
-        "05"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10,
+        "heal": 5
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 31,
+      "raw_flat_total": 21,
+      "row_weighted_total": 23,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "07",
-      "name": "Held in Stasis",
+      "id": "02",
+      "name": "Quickened Sands",
       "category": "Hidden Art",
       "depth": 2,
       "raw_flat_total": 3,
       "row_weighted_total": 3,
       "covered_jutsu": [
-        "Timelapse"
+        "Momentum Shift"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
@@ -364,12 +356,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "increasedamagegiven": 10,
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 27,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -383,14 +374,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 10,
+          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 25,
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -404,12 +394,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 10
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 31,
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -423,14 +412,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 22,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -442,14 +430,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "heal": 2
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -461,15 +448,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 3,
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 16,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -481,13 +466,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 10,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 8,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 29,
+        "raw_flat_total": 14,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -502,12 +487,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 5,
-          "heal": 2
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -520,13 +505,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 3,
-          "increasedamagetaken": 5,
-          "decreasedamagetaken": 2,
-          "heal": 2
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -539,12 +523,13 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
+          "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10,
           "heal": 5
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 21,
+        "raw_flat_total": 21,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "08"
         ],
@@ -559,10 +544,9 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 3,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "heal": 2
+          "decreasedamagetaken": 5
         },
         "raw_flat_total": 14,
         "row_weighted_total": 16,
@@ -580,11 +564,10 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
-          "heal": 2
+          "decreasedamagetaken": 4
         },
-        "raw_flat_total": 20,
-        "row_weighted_total": 22,
+        "raw_flat_total": 18,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "10"
         ],
@@ -598,12 +581,12 @@
           "09"
         ],
         "bonuses": {
-          "decreasedamagegiven": 3,
+          "decreasedamagegiven": 5,
           "decreasedamagetaken": 10,
           "heal": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 20,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "08"
         ],
@@ -618,11 +601,10 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 10,
-          "decreasedamagetaken": 7,
-          "heal": 2
+          "decreasedamagetaken": 7
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "10"
         ],
@@ -803,6 +785,244 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Timelapse",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Sand"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      },
+      {
+        "jutsu": "Timeshift",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Sand"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Eternity Flux",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Sand"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Sovereign of the Hour",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Brittle with Age",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "increasedamagetaken": 4
+          },
+          "raw_total": 14,
+          "row_weighted": 18
+        },
+        {
+          "id": "06",
+          "name": "Suspended Moment",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "The Inevitable Hour",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Quickened Sands",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 8
+          },
+          "raw_total": 13,
+          "row_weighted": 21
+        },
+        {
+          "id": "06",
+          "name": "Suspended Moment",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 8,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 22
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Timeless Bastion",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10,
+        "heal": 5
+      },
+      "path_row_weighted": 17,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Borrowed Hours",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10,
+            "heal": 5
+          },
+          "raw_total": 21,
+          "row_weighted": 23
+        },
+        {
+          "id": "09",
+          "name": "Leaden Seconds",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 5,
+            "decreasedamagetaken": 10,
+            "heal": 5
+          },
+          "raw_total": 20,
+          "row_weighted": 20
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Stilled Hourglass",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 4
+      },
+      "path_row_weighted": 14,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Borrowed Hours",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 4
+          },
+          "raw_total": 18,
+          "row_weighted": 20
+        },
+        {
+          "id": "07",
+          "name": "Held in Stasis",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 7
+          },
+          "raw_total": 17,
+          "row_weighted": 17
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

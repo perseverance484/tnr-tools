@@ -9,11 +9,11 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Draft 4 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "universal node: 01 (Hallowed Seed) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
-    "ally-hazard area rows amplified (friendly fire none/ALL): Guardian's Grove#1"
+    "universal node: 01 (Hallowed Seed), 06 (Grasping Roots) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Wood",
@@ -44,36 +44,18 @@
   },
   "examples": [
     {
-      "name": "The Forest Devours",
-      "archetype": "Burst",
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 5
-      },
-      "advanced_arts": [
-        "The Forest Devours"
-      ]
-    },
-    {
       "name": "Heartwood Awakened",
-      "archetype": "Amplification",
+      "archetype": "Self amplification",
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "06"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10
+        "increasedamagegiven": 6,
+        "increasedamagetaken": 2
       },
       "advanced_arts": [
         "Heartwood Awakened"
@@ -83,47 +65,61 @@
       "name": "Judgement of the Grove",
       "archetype": "Exposure",
       "ids": [
-        "01",
         "06",
         "07",
-        "08"
+        "08",
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Judgement of the Grove"
       ]
+    },
+    {
+      "name": "Seed and Snare",
+      "archetype": "No-capstone hybrid",
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 5
+      },
+      "advanced_arts": []
     }
   ],
   "audit": {
-    "available_skills": 8,
+    "available_skills": 6,
     "foundation_count": 2,
-    "hidden_art_count": 3,
-    "advanced_art_count": 3,
+    "hidden_art_count": 2,
+    "advanced_art_count": 2,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
-    "minimum_two_advanced_cost": 5,
+    "minimum_two_advanced_cost": 6,
     "maximum_parents_per_node": 1,
     "maximum_depth": 3,
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 4,
-      "3": 7,
-      "4": 8
+      "2": 3,
+      "3": 4,
+      "4": 3
     },
-    "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "full_budget_allocations": 3,
+    "non_dominated_full_allocations": 3,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
+      "increasedamagegiven": 6,
       "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
@@ -133,11 +129,12 @@
       "increasedamagetaken": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -154,44 +151,12 @@
         "tags_without_rows": []
       },
       {
-        "id": "02",
-        "name": "Fangs of Heartwood",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Eternal Forest",
-          "Exploding Wood Serpent",
-          "Guardian's Grove"
-        ],
-        "covered_rows": 3,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "03",
-        "name": "The Forest Devours",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
-        "covered_jutsu": [
-          "Eternal Forest",
-          "Exploding Wood Serpent",
-          "Guardian's Grove"
-        ],
-        "covered_rows": 3,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
         "id": "04",
         "name": "Rooted in Wisdom",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Forest Wisdom"
         ],
@@ -204,8 +169,8 @@
         "name": "Heartwood Awakened",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Forest Wisdom"
         ],
@@ -246,14 +211,12 @@
         "name": "Judgement of the Grove",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Eternal Forest",
-          "Exploding Wood Serpent",
           "Guardian's Grove"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -261,125 +224,36 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "04",
-        "05"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 10
       },
       "raw_flat_total": 12,
-      "row_weighted_total": 26,
+      "row_weighted_total": 14,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "06",
-      "name": "Grasping Roots",
-      "category": "Foundation",
-      "depth": 1,
-      "raw_flat_total": 2,
+      "id": "04",
+      "name": "Rooted in Wisdom",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 1,
       "row_weighted_total": 2,
       "covered_jutsu": [
-        "Guardian's Grove"
+        "Forest Wisdom"
       ],
-      "covered_rows": 1,
+      "covered_rows": 2,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
     "full_builds": [
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 5
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 25,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 21,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 10
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 26,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 2
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 18,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 15,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
       {
         "ids": [
           "01",
@@ -388,11 +262,11 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 6,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "05"
         ],
@@ -406,11 +280,11 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 3,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 8,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -422,12 +296,11 @@
           "08"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "increasedamagetaken": 10
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 17,
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -449,10 +322,6 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
@@ -465,21 +334,6 @@
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "06"
-        ],
         [
           "01",
           "04",
@@ -504,36 +358,6 @@
       "4": [
         [
           "01",
-          "02",
-          "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        [
-          "01",
           "04",
           "05",
           "06"
@@ -553,6 +377,109 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Exploding Wood Serpent",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Wood"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Guardian's Grove",
+        "row": 1,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Wood"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      },
+      {
+        "jutsu": "Eternal Forest",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Wood"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "05",
+      "name": "Heartwood Awakened",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 6
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Grasping Roots",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 6,
+            "increasedamagetaken": 2
+          },
+          "raw_total": 8,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Judgement of the Grove",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagetaken": 10
+      },
+      "path_row_weighted": 10,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hallowed Seed",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 12,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

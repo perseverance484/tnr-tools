@@ -9,10 +9,11 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Storm classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "universal node: 01 (Mandate of Thunder) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+    "universal node: 01 (Mandate of Thunder) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Storm",
@@ -49,14 +50,12 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "reflect": 2
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 5
       },
       "advanced_arts": [
         "Thunder King's Wrath"
@@ -67,14 +66,13 @@
       "archetype": "Exposure",
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "02"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 10
       },
       "advanced_arts": [
@@ -83,7 +81,7 @@
     },
     {
       "name": "Thunder Answers Thunder",
-      "archetype": "Bulwark",
+      "archetype": "Retaliation",
       "ids": [
         "01",
         "06",
@@ -92,7 +90,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "reflect": 10
       },
@@ -124,8 +122,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 7,
       "increasedamagetaken": 10,
       "reflect": 10
     },
@@ -137,12 +134,13 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -166,14 +164,12 @@
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Izanagi's Hammer",
-          "Storm Style: Daibutsu Thunder",
-          "Storm Style: Divine Railgun",
+          "Indra's Storm Cloak",
           "Strike: Raijin"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -183,14 +179,12 @@
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "row_weighted_total": 9,
         "covered_jutsu": [
-          "Izanagi's Hammer",
-          "Storm Style: Daibutsu Thunder",
-          "Storm Style: Divine Railgun",
+          "Indra's Storm Cloak",
           "Strike: Raijin"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -213,14 +207,12 @@
         "name": "Judgement from Above",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 14,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Indra's Storm Cloak",
-          "Izanagi's Hammer",
-          "Strike: Raijin"
+          "Izanagi's Hammer"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -257,13 +249,12 @@
         "name": "Thunder Answers Thunder",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 14,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Indra's Storm Cloak",
-          "Strike: Raijin"
+          "Indra's Storm Cloak"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -272,18 +263,17 @@
       "ids": [
         "01",
         "02",
-        "04",
-        "05"
+        "03",
+        "04"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 5
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 33,
+      "raw_flat_total": 12,
+      "row_weighted_total": 26,
       "advanced_arts": [
-        "05"
+        "03"
       ],
       "non_dominated": true
     },
@@ -310,12 +300,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 7,
           "increasedamagetaken": 5
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 31,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "03"
         ],
@@ -329,13 +318,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 7,
           "increasedamagetaken": 2,
           "reflect": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 30,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -349,12 +337,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 33,
+        "raw_flat_total": 14,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -368,13 +355,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 5,
           "reflect": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -386,13 +372,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "reflect": 5
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -404,12 +389,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 10,
           "reflect": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 27,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "05"
         ],
@@ -440,12 +425,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "reflect": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 27,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "08"
         ],
@@ -571,6 +556,184 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Storm Style: Daibutsu Thunder",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Storm"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      },
+      {
+        "jutsu": "Izanagi's Hammer",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Storm"
+        ],
+        "method": "AOE_SPIRAL_SHOOT",
+        "steps": []
+      },
+      {
+        "jutsu": "Storm Style: Divine Railgun",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Storm"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Strike: Raijin",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Storm"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Thunder King's Wrath",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 23,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Lightning Rod",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 26
+        },
+        {
+          "id": "06",
+          "name": "Raiment of Storms",
+          "category": "Foundation",
+          "adds": {
+            "reflect": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "increasedamagetaken": 2,
+            "reflect": 2
+          },
+          "raw_total": 11,
+          "row_weighted": 25
+        }
+      ],
+      "highest_diagnostic_fourth": "04"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Judgement from Above",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 10
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Vajra Tempering",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 22
+        },
+        {
+          "id": "06",
+          "name": "Raiment of Storms",
+          "category": "Foundation",
+          "adds": {
+            "reflect": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 10,
+            "reflect": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Thunder Answers Thunder",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "reflect": 10
+      },
+      "path_row_weighted": 10,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Mandate of Thunder",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "reflect": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

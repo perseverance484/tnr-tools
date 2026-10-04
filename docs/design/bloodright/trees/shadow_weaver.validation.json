@@ -9,7 +9,7 @@
     "statClassification": "Bukijutsu",
     "traits": "Sustained Dps"
   },
-  "revision": "Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
   "structure_errors": [],
   "warnings": [],
   "classification": {
@@ -63,8 +63,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "damage": 2,
+        "increasedamagegiven": 6,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 3
       },
@@ -83,9 +83,9 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
-        "decreasedamagetaken": 3
+        "decreasedamagetaken": 5
       },
       "advanced_arts": [
         "Strings Cut Short"
@@ -129,12 +129,12 @@
       "4": 12
     },
     "full_budget_allocations": 12,
-    "non_dominated_full_allocations": 11,
+    "non_dominated_full_allocations": 10,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "damage": 2,
+      "increasedamagegiven": 7,
       "decreasedamagegiven": 10,
       "decreasedamagetaken": 10
     },
@@ -176,14 +176,13 @@
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Shadow Dance",
           "Shadow Domain",
-          "Shadow Severance",
+          "Shadow Shell",
           "Shadow Step"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -192,15 +191,16 @@
         "name": "Night Unraveled",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "raw_flat_total": 4,
+        "row_weighted_total": 14,
         "covered_jutsu": [
           "Shadow Dance",
           "Shadow Domain",
           "Shadow Severance",
+          "Shadow Shell",
           "Shadow Step"
         ],
-        "covered_rows": 4,
+        "covered_rows": 7,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -223,15 +223,13 @@
         "name": "Strings Cut Short",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 14,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
-          "Shadow Domain",
           "Shadow Severance",
-          "Shadow Shell",
-          "Shadow Step"
+          "Shadow Shell"
         ],
-        "covered_rows": 4,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -300,18 +298,18 @@
       "ids": [
         "01",
         "02",
-        "04",
-        "05"
+        "03",
+        "04"
       ],
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 10
+        "increasedamagegiven": 6,
+        "decreasedamagegiven": 5
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 33,
+      "raw_flat_total": 13,
+      "row_weighted_total": 31,
       "advanced_arts": [
-        "05"
+        "03"
       ],
       "non_dominated": true
     },
@@ -338,11 +336,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "damage": 2,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 5
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 31,
         "advanced_arts": [
           "03"
@@ -357,12 +355,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
+          "damage": 2,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 3
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 31,
         "advanced_arts": [
           "03"
@@ -377,12 +375,12 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "decreasedamagegiven": 10
+          "increasedamagegiven": 4,
+          "decreasedamagegiven": 10,
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 33,
+        "raw_flat_total": 16,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -396,15 +394,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 5,
           "decreasedamagetaken": 3
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "row_weighted_total": 20,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -414,15 +411,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 6
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "row_weighted_total": 20,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -432,13 +428,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 7,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 3
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "row_weighted_total": 26,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -450,12 +445,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "decreasedamagetaken": 3
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 28,
+        "raw_flat_total": 17,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "05"
         ],
@@ -493,7 +488,7 @@
         "raw_flat_total": 13,
         "row_weighted_total": 23,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -707,6 +702,266 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Shadow Domain",
+        "row": 1,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_SPIRAL_SHOOT",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Shadow Severance",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Shadow Step",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Shadow Dance",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Night Unraveled",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 6,
+        "decreasedamagegiven": 2
+      },
+      "path_row_weighted": 28,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Frayed Resolve",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 6,
+            "decreasedamagegiven": 5
+          },
+          "raw_total": 13,
+          "row_weighted": 31
+        },
+        {
+          "id": "06",
+          "name": "Cloak of Woven Night",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 6,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 3
+          },
+          "raw_total": 13,
+          "row_weighted": 31
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Strings Cut Short",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Barbed Thread",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 24
+        },
+        {
+          "id": "06",
+          "name": "Cloak of Woven Night",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 21
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Seamless Shroud",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Loom of Dusk",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 4,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 24
+        },
+        {
+          "id": "09",
+          "name": "Umbral Whetstone",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 25
+        }
+      ],
+      "highest_diagnostic_fourth": "09"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
