@@ -1,6 +1,6 @@
 {
   "title": "Vaporia — Scald and Steam",
-  "revision": "Draft 2 / Boil classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Boil classification / forked tree",
   "bloodline": {
     "id": "f7IgtcsLqomqmmBgAYS1O",
     "review_id": "BR-090",
@@ -35,10 +35,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Boil damage — Damage on three Taijutsu formula rows (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP)",
-    "secondary": "Liquid Ember Shell window — Afterburn (enemy) with Increase Damage Given and Lifesteal (self) on one 40 AP cast",
-    "tertiary": "Steam body — Decrease Damage Taken (Surfing Strike), Reflect (Scorch Break), Heal (Azure Dragon Palm); Drowning Strike's exposure as glue",
-    "rationale": "The kit's ten supported rows split 3/7: three Boil Taijutsu formula Damage rows (40, 45, 40 EP at jutsu level 25) on 60 AP area attacks, and seven single-row percentage or static tags. Liquid Ember Shell is the signature 40 AP cast: Lifesteal 40% and Increase Damage Given 35% on the caster plus Afterburn 35% on the target, all for 2 rounds, so the burn and sustain routes both deepen that one window. Surfing Strike's 30% Decrease Damage Taken, Scorch Break's 40% Reflect and Azure Dragon Palm's static Heal 25 (250 HP per tick) give a defensive face that a Taijutsu rusher with 'Consistent Damage' otherwise lacks; Drowning Strike's 35% Increase Damage Taken is a tile-bound exposure with friendly fire, kept small as root and capstone glue. Potency reaches matching supported tags on all Boil jutsu (RUL-2026-10-03-005)."
+    "primary": "Rush offense from Rising Steam: Drowning Strike's spiral exposure into +2 Damage on the three Boil attacks (Drowning Strike 40, Surfing Strike 45, Scorch Break 40 EP), or Afterburn branded on the Liquid Ember Shell's target",
+    "secondary": "Outlasting the exchange from Vapor Shroud: Lifesteal with an Azure Dragon Palm Heal rider, or Reflect behind Decrease Damage Taken",
+    "tertiary": "Foundation glue: Increase Damage Given and Increase Damage Taken on Rising Steam, Decrease Damage Taken on Vapor Shroud",
+    "rationale": "The kit's ten supported rows are three Boil Taijutsu formula Damage rows (40/45/40 EP at jutsu level 25) on 60 AP area attacks and seven single-row tags, three of them on one 40 AP Liquid Ember Shell cast (Lifesteal 40% and Increase Damage Given 35% on the caster, Afterburn 35% on the target). Rising Steam answers \"How do I make the rush hit harder: scald everyone around me or brand one target?\": Caldera Burst sets up Drowning Strike's spiral exposure and pays off with a controlled +2 Damage on all three attacks (no tier crossing), Boiling Point brands the Shell's target with +10% Afterburn. Vapor Shroud answers \"How do I outlast the exchange: heal through my own hits or punish theirs?\": Dew of the Dragon reaches the +5% Lifesteal ceiling with a palm Heal rider, Wall of Steam returns 50% of incoming hits behind 35% Decrease Damage Taken. Potency reaches matching supported tags on all Boil jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -87,24 +87,25 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "Pressure finds the smallest crack and bursts through it.",
-      "coverage_note": "Drowning Strike 40 → 42, Surfing Strike 45 → 47, Scorch Break 40 → 42 EP; three Boil Taijutsu formula rows, all area deliveries.",
+      "flavor": "The ground erupts around the fist and scalds every guard open.",
+      "coverage_note": "Exposure set-up: Drowning Strike Increase Damage Taken 37 → 40% with Rising Steam on every spiral tile within 4 of the caster (2 rounds; ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Drowning Strike",
-          "Scorch Break",
-          "Surfing Strike"
+          "Drowning Strike"
         ],
-        "effect_rows": 3
+        "effect_rows": 1,
+        "ally_hazard_rows": [
+          "Drowning Strike#1"
+        ]
       }
     },
     {
@@ -118,12 +119,12 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 3,
+          "flat": 2,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "The whole basin boils over at once; nothing standing in it is spared.",
-      "coverage_note": "Route total +5 Damage: Drowning Strike 40 → 45, Surfing Strike 45 → 50, Scorch Break 40 → 45 EP.",
+      "coverage_note": "Burst payoff: +2 Damage on all three Boil attacks, Drowning Strike 40 → 42, Surfing Strike 45 → 47, Scorch Break 40 → 42 EP (no tier crossing), landing on the route's 40% exposure.",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
@@ -153,7 +154,7 @@
         }
       ],
       "flavor": "Steam clings where it lands and keeps on burning long after the blow.",
-      "coverage_note": "Liquid Ember Shell Afterburn 35 → 38% on its target (2 rounds); every non-pierce hit it takes adds that share, 60% cap per hit.",
+      "coverage_note": "Liquid Ember Shell Afterburn 35 → 38% on its target (2 rounds); every matching non-pierce hit it takes adds that share, 60% cap per hit.",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
@@ -179,34 +180,20 @@
           "tag": "afterburn",
           "flat": 7,
           "display_role": "ENEMY DEBUFF"
-        },
-        {
-          "tag": "increasedamagetaken",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
-        },
-        {
-          "tag": "increasedamagegiven",
-          "flat": 3,
-          "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Past this heat there is no simmer left, only the roar.",
-      "coverage_note": "Burn route total +10%: Afterburn 35 → 45%; with Rising Steam, Liquid Ember Shell buff 35 → 40% and Drowning Strike exposure 35 → 40% (ally hazard).",
+      "coverage_note": "Burn route total +10%: Liquid Ember Shell Afterburn 35 → 45% on its target for 2 rounds; every matching non-pierce hit it takes, allies' included, adds 45% (60% cap per hit).",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Drowning Strike",
           "Liquid Ember Shell"
         ],
-        "effect_rows": 3,
-        "ally_hazard_rows": [
-          "Drowning Strike#1"
-        ],
-        "rows_via_authored_classification": 2
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -220,25 +207,19 @@
           "tag": "decreasedamagetaken",
           "flat": 2,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "heal",
-          "flat": 2,
-          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "A veil of steam wraps the body; what it cannot turn aside, it mends.",
-      "coverage_note": "Surfing Strike Decrease Damage Taken 30 → 32% (self, 2 rounds); Azure Dragon Palm Heal 25 → 27 (270 HP per tick, 2 rounds).",
+      "flavor": "A veil of steam wraps the body and turns aside part of every blow.",
+      "coverage_note": "Surfing Strike Decrease Damage Taken 30 → 32% (self, 2 rounds after the 60 AP rush).",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Azure Dragon Palm",
           "Surfing Strike"
         ],
-        "effect_rows": 2
+        "effect_rows": 1
       }
     },
     {
@@ -291,7 +272,7 @@
         }
       ],
       "flavor": "What rose as steam settles again as cool water on the dragon's scales.",
-      "coverage_note": "Sustain route total +5% Lifesteal (Shell 40 → 45%, the hard ceiling); with Vapor Shroud, Azure Dragon Palm Heal 25 → 32 (320 HP per tick).",
+      "coverage_note": "Sustain route total +5% Lifesteal (Liquid Ember Shell 40 → 45%, the hard ceiling); Azure Dragon Palm Heal 25 → 30 (250 → 300 HP per tick).",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
@@ -354,7 +335,7 @@
         }
       ],
       "flavor": "Stand behind the boil and let the enemy learn what it costs to reach through.",
-      "coverage_note": "Bulwark route total +10%: Scorch Break Reflect 40 → 50% (under the 60% cap); with Vapor Shroud, Surfing Strike Decrease Damage Taken 30 → 35% (self, 2 rounds, pierce excluded).",
+      "coverage_note": "Retaliation route total +10%: Scorch Break Reflect 40 → 50% (under the 60% cap); with Vapor Shroud, Surfing Strike Decrease Damage Taken 30 → 35% (self, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Boil",
       "scope": "all Boil jutsu",
@@ -376,16 +357,15 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
-      "rationale": "+5 Damage on all three Boil attacks (Drowning Strike 40 → 45, Surfing Strike 45 → 50, Scorch Break 40 → 45 EP) before the bloodline's Fire/Water/Boil/None Increase Damage Given passive and Liquid Ember Shell's own buff (37% with Rising Steam) raise them. Rising Steam also puts Drowning Strike's exposure at 37% on its spiral tiles. Vapor Shroud is the fourth purchase for a rounded rusher (32% Decrease Damage Taken after Surfing Strike, 270 HP heal ticks after Azure Dragon Palm); Blistering Mist (Afterburn 38%) is the all-offence alternative.",
+      "rationale": "Exposure into a controlled raw-Damage payoff: Drowning Strike's spiral exposure 35 → 40% (Rising Steam +2%, Geyser Fist +3%; ally hazard), then +2 Damage on all three Boil attacks (Drowning Strike and Scorch Break 40 → 42, Surfing Strike 45 → 47 EP; no tier crossing), with the Shell buff at 37%. Blistering Mist is the strongest fourth purchase (Afterburn 38%); Vapor Shroud (Decrease Damage Taken 32%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "heal": 2
+        "increasedamagetaken": 5,
+        "afterburn": 3
       },
       "finals": [
         {
@@ -436,8 +416,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 3,
+          "final": 38.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -454,8 +434,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -472,8 +452,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -490,8 +470,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 5,
-          "final": 50.0,
+          "gain": 2,
+          "final": 47.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -508,8 +488,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 2,
-          "final": 32.0,
+          "gain": 0,
+          "final": 30.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -544,8 +524,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -598,8 +578,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 2,
-          "final": 27.0,
+          "gain": 0,
+          "final": 25.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -611,21 +591,20 @@
     },
     {
       "name": "Boiling Point",
-      "archetype": "Pressure",
+      "archetype": "Burn",
       "ids": [
         "01",
         "04",
         "05",
         "06"
       ],
-      "rationale": "The Liquid Ember Shell pressure build: Afterburn 35 → 45% on the target for 2 rounds, so every non-pierce hit it takes from the caster, allies, weapons or normal jutsu adds 45% more (60% cap per hit), while the caster's own buff sits at 40% and Drowning Strike's exposure at 40% on its tiles. Vapor Shroud rounds it with 32% Decrease Damage Taken and 270 HP heal ticks; Geyser Fist (attacks 42/47/42 EP) is the alternative fourth purchase for a build that gives up all mitigation.",
+      "rationale": "Brand one target: Liquid Ember Shell's Afterburn 35 → 45% for 2 rounds, so every matching non-pierce hit it takes, allies' included, adds 45% more (60% cap per hit); Rising Steam puts the Shell buff and Drowning Strike's exposure at 37%. Vapor Shroud is the fourth purchase here (Decrease Damage Taken 32%); Geyser Fist (exposure 40%) is the all-offence alternative.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "heal": 2
+        "afterburn": 10
       },
       "finals": [
         {
@@ -658,8 +637,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -712,8 +691,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -838,8 +817,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 2,
-          "final": 27.0,
+          "gain": 0,
+          "final": 25.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -858,14 +837,14 @@
         "07",
         "08"
       ],
-      "rationale": "Lifesteal 40 → 45% (the +5% hard ceiling) and Increase Damage Given 35 → 37% on the same Liquid Ember Shell cast: for 2 rounds every hit the caster lands, Azure Dragon Palm's 58 EP pierce included, returns 45% of its damage as health within the shared 60% leech cap, and Azure Dragon Palm's heal ticks reach 320 HP. Rising Steam is the fourth purchase here so the leech window is also the damage window; Scalding Backlash (Reflect 43%) is the pure-sustain alternative. Damage and Afterburn are untouched.",
+      "rationale": "Lifesteal 40 → 45% (the +5% hard ceiling) on the Liquid Ember Shell window: for 2 rounds every hit the caster lands, Azure Dragon Palm's 58 EP pierce included, returns 45% within the shared 60% leech budget; Azure Dragon Palm's Heal 25 → 30 (300 HP per tick) and Surfing Strike's Decrease Damage Taken 32%. Rising Steam is the fourth purchase so the leech window is also a 37% damage window; Scalding Backlash (Reflect 43%) is the all-defence alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 5,
-        "heal": 7
+        "heal": 5
       },
       "finals": [
         {
@@ -1078,8 +1057,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 7,
-          "final": 32.0,
+          "gain": 5,
+          "final": 30.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -1091,20 +1070,19 @@
     },
     {
       "name": "Wall of Steam",
-      "archetype": "Bulwark",
+      "archetype": "Retaliation",
       "ids": [
         "06",
         "07",
         "09",
         "10"
       ],
-      "rationale": "The turtle: Scorch Break's Reflect 40 → 50% (pierce included, under the 60% per-hit cap) and Surfing Strike's Decrease Damage Taken 30 → 35% for their 2-round windows, with Liquid Ember Shell's Lifesteal at 42% and 270 HP heal ticks from Vapor Shroud. It carries no Rising Steam, so the build shows the offensive root is not a universal opener; Rising Steam in place of Siphoned Heat (buff 37%, exposure 37%) is the alternative fourth purchase. No Damage, no Afterburn.",
+      "rationale": "Scorch Break's Reflect 40 → 50% (pierce included, under the 60% per-hit cap) and Surfing Strike's Decrease Damage Taken 30 → 35% for their 2-round windows, with the Shell's Lifesteal at 42% from Siphoned Heat as the fourth purchase. No Damage, Afterburn or Increase Damage Given; Rising Steam is the alternative fourth (Shell buff and exposure 37%).",
       "cost": 4,
       "bonuses": {
         "decreasedamagetaken": 5,
         "lifesteal": 2,
-        "reflect": 10,
-        "heal": 2
+        "reflect": 10
       },
       "finals": [
         {
@@ -1317,8 +1295,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 25.0,
-          "gain": 2,
-          "final": 27.0,
+          "gain": 0,
+          "final": 25.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -1331,22 +1309,22 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: two roots mirror the kit's faces. Rising Steam (+2% IDG on the Shell, +2% IDT on Drowning Strike) forks into Geyser Fist → Caldera Burst (Damage +2/+3, three Boil rows) and Blistering Mist → Boiling Point (Afterburn +3%/+7%, +3% IDT, +3% IDG). Vapor Shroud (+2% DDT, +2% Heal) forks into Siphoned Heat → Dew of the Dragon (Lifesteal +2%/+3%, Heal +5%) and Scalding Backlash → Wall of Steam (Reflect +3%/+7%, DDT +3%). No capstone secondary shares a tag with a sibling Hidden Art.",
-    "Routes: Burst +5 Damage; Pressure +10% Afterburn (3/7, as Eternal Noon); Sustain +5% Lifesteal (2/3, the hard ceiling; was +8%); Bulwark +10% Reflect (3/7; was +8%). Glue maxima over all legal allocations: IDG, IDT and DDT +5% each (2+3); Heal +7% (Vapor Shroud +2%, Dew of the Dragon +5%; 25 → 32, 250 → 320 HP per tick). Dew's Heal secondary rises from +3% to +5% to offset the Lifesteal cut, as Feast of the Fallen carries a +5% secondary on Blood-Enchanted Eyes' +5% Lifesteal route.",
-    "Delivery at the pin: SELF rows on area jutsu land directly on the caster once per cast (actions.ts 987–1002, 1062–1066), so Surfing Strike's DDT, Scorch Break's Reflect and the Shell's self rows are plain 2-round self buffs from the cast round, not ground effects. Drowning Strike's Damage and IDT are INHERIT rows on a GROUND spiral: ground effects on every tile within 4 of the caster, own tile excluded (util.ts 2893–2894), re-applied each round to whoever stands there (process.ts 296–340).",
-    "Interactions: the Shell's IDG and Lifesteal and Drowning Strike's IDT are Taijutsu-filtered but element-less, so they match every element-less hit of any stat type plus Taijutsu elemental hits, the three Boil attacks included; Surfing Strike's DDT and Scorch Break's Reflect list all four stat types. Damage modifiers and Afterburn skip pierce (Azure Dragon Palm's 58 pierce gets none); Lifesteal and Reflect include it. The bloodline IDG passive multiplies enhanced Damage rows downstream.",
-    "Uptime: every jutsu has cooldown 7. The Shell is 40 AP, range 4, single target, and needs a legal OTHER_USER target for its self rows to land; the Boil attacks and Azure Dragon Palm cost 60 AP (Drowning Strike: spiral radius 4 around the caster; Surfing Strike: radius-1 circle at range 5 plus a move; Scorch Break: radius-1 circle on a target, enemies only). Buff, IDT and Afterburn windows are 2 following rounds; the static Heal is read as two ticks of value ×10 HP.",
-    "Fourth purchases: Burst (01,02,03) adds Vapor Shroud (32% DDT, 270 HP ticks) or Blistering Mist (Afterburn 38%); Pressure (01,04,05) adds Vapor Shroud or Geyser Fist (attacks 42/47/42 EP); Sustain (06,07,08) adds Rising Steam (IDG and IDT 37%) or Scalding Backlash (Reflect 43%); Bulwark (06,09,10) adds Siphoned Heat (Lifesteal 42%) or Rising Steam. 01,02,04,05 (attacks 42/47/42 EP, Afterburn 45%, IDG and IDT 40%) is the strongest unadvertised pressure build, with no mitigation. All 14 legal full builds are non-dominated."
+    "Graph unchanged: 01→02→03, 01→04→05, 06→07→08, 06→09→10. 2026-10-04 re-cut under BALANCE_REVIEW_METHOD.md: Geyser Fist +2 Damage → +3% Increase Damage Taken and Caldera Burst +3 → +2 Damage, because the +5 route lifted Drowning Strike and Scorch Break 40 → 45 (a full tier) and Surfing Strike 45 → 50 (semi-nuke to Nuke); Boiling Point drops its +3% Increase Damage Taken / +3% Increase Damage Given riders for a single +7% Afterburn, since the riders multiplied the burn and Geyser Fist's +2 Damage made 01,02,04,05 the strongest build; Vapor Shroud drops its +2% Heal glue.",
+    "Maxima over every legal allocation: Damage +2 (40 → 42, 45 → 47), Increase Damage Given +2%, Increase Damage Taken +5%, Decrease Damage Taken +5%, Afterburn +10%, Lifesteal +5%, Reflect +10%, Heal +5%. No capstone shares a tag with its sibling Hidden Art.",
+    "Delivery at the pin: SELF rows land on the caster once per cast (actions.ts 980–1004, 1062–1066), so Surfing Strike's Decrease Damage Taken, Scorch Break's Reflect and the Shell's Lifesteal and Increase Damage Given are plain 2-round self buffs. Drowning Strike's rows are INHERIT rows on a GROUND spiral of radius 4 around the caster (own tile excluded); its 2-round exposure is a ground effect re-applied each round to whoever stands on a tile.",
+    "Interactions: the Shell's three rows and Drowning Strike's exposure are Taijutsu-filtered but element-less, so they match every element-less hit of any stat type plus Taijutsu elemental hits, the three Boil attacks included; Afterburn reads the hit after Increase Damage Given and Increase Damage Taken. Damage modifiers and Afterburn skip pierce; Lifesteal and Reflect include it. The bloodline Increase Damage Given passive multiplies last.",
+    "Uptime: every jutsu has cooldown 7. The Shell is 40 AP, single target, and needs a legal OTHER_USER target for its self rows; the Boil attacks and Azure Dragon Palm cost 60 AP. Buff, exposure and Afterburn windows are the 2 rounds after the cast.",
+    "Fourth purchases: Burst (01,02,03) + Blistering Mist or Vapor Shroud; Burn (01,04,05) + Geyser Fist or Vapor Shroud; Sustain (06,07,08) + Rising Steam or Scalding Backlash; Retaliation (06,09,10) + Siphoned Heat or Rising Steam. The strongest are the offensive siblings: on a Shell-branded target standing in the spiral, during the Shell buff, Burst + Blistering Mist gives ×1.37 × 1.40 × 1.38 ≈ ×2.65 plus +2 EP on the attacks and Burn + Geyser Fist ×1.37 × 1.40 × 1.45 ≈ ×2.78 on every matching hit, against the kit's own ×1.35 × 1.35 × 1.35 ≈ ×2.46; both give up all mitigation. Retaliation + Rising Steam is the highest row-weighted build only because Rising Steam touches two glue rows; it stacks no tag with the capstone."
   ],
   "risks": [
     "Classification: Boil is the single signature element on the three Damage rows and no other captured bloodline has Boil jutsu; ordinary Boil jutsu are in scope by rule and unverified. 3 of 10 supported kit rows carry Boil; the other seven need the proposed jutsu-classification resolver, and Liquid Ember Shell (no Boil row) qualifies in-kit only through an authored Boil jutsu classification (ENGINE_GAP_REGISTER G1).",
-    "Ally hazard (validator warns): Drowning Strike row 1 IDT is an INHERIT row on a GROUND spiral with friendly fire none (=ALL): allies within 4 of the caster at the cast, or stepping onto a spiral tile while the ground effect lasts, take the exposure too. Rising Steam (+2%) and Boiling Point (+3%) raise it on them to 37% / 40%; the Damage row (friendly fire ENEMIES) is unaffected. Positioning decides.",
-    "Lifesteal: Dew of the Dragon puts the Shell's Lifesteal at 45% for 2 rounds on every hit the caster lands, basic attacks, weapons, normal jutsu and Azure Dragon Palm's pierce included, sharing the 60%-of-pre-shield-damage leech budget with any vamp. +5% is the hard Lifesteal ceiling (RUL-2026-10-03-005).",
-    "Afterburn: Boiling Point makes the Shell's Afterburn 45% on one target for 2 following rounds; each non-pierce hit it takes adds floor(damage × 0.45) up to a cumulative 60% of that hit, so a second Afterburn source saturates the cap and part of the +10% is lost. Not simulated. Casting the Shell on an ally for its self rows afterburns that ally.",
-    "Reflect: Wall of Steam returns 50% of each hit the caster takes during Scorch Break's 2-round window, pierce included, capped at 60% of pre-shield damage and bypassing shields; the self row needs a legal OTHER_USER target on the cast. The route carries no Damage, Afterburn or IDG, so the turtle is deliberately the weakest burst option. Realized value depends on incoming damage; not simulated.",
-    "Damage is formula-calculated (sqrt stat scaling on Taijutsu / Speed, Strength) and then raised by the bloodline's IDG passive, the Shell's buff and Drowning Strike's exposure, so +5 EP is not a linear +5 damage. All three Damage rows are area deliveries, so the +5 is paid on every enemy hit and realized value scales with target count, which was not modelled.",
-    "Heal timing: Azure Dragon Palm's Heal is static 25 with rounds 2, read as two ticks of value x10 HP on the following rounds (250 → 270 → 320 HP per tick); tick count and pool were not simulated. It rides a 60 AP single-target cast whose 58 EP pierce is unsupported, so +7% Heal is at most +140 HP per 7-round cycle: the lowest-value tag in the tree by HP.",
-    "Unsupported rows and scope: Surfing Strike's move and Azure Dragon Palm's pierce receive nothing; the kit has no hidden, item-gated, mode-restricted, injected or adverse rows, and the Water DDT passive is not a potency target. Skill-tree effects are skipped in ranked modes. Non-dominance of full allocations is arithmetic, not evidence of equal combat strength; no combat simulation."
+    "Ally hazard (validator warns): Drowning Strike's Increase Damage Taken is an INHERIT ground row with friendly fire none (=ALL); allies on a spiral tile, and the caster if it steps onto one, take the exposure too. Rising Steam (+2%) and Geyser Fist (+3%) raise it to 37% / 40%; the Damage row (friendly fire ENEMIES) is unaffected. Positioning decides.",
+    "Afterburn: Boiling Point makes the Shell's Afterburn 45% on one target for 2 rounds; a second Afterburn source saturates the 60% per-hit cap and wastes part of the +10%. Casting the Shell on an ally for its self rows afterburns that ally. Not simulated.",
+    "Lifesteal: Dew of the Dragon's 45% reads every hit the caster lands in the Shell window, pierce included, within the 60%-of-pre-shield-damage leech budget shared with vamp; +5% is the hard ceiling.",
+    "Reflect: Wall of Steam returns 50% of each hit taken during Scorch Break's window, pierce included and bypassing shields; realized value depends on incoming damage. Not simulated.",
+    "Damage: Caldera Burst's +2 is formula power on three area attacks, multiplied by the exposure, the Shell's buff and the bloodline passive; realized value scales with target count, which was not modelled.",
+    "Heal: Azure Dragon Palm's static 25 is two ticks of 250 HP; Dew's +5% makes them 300 HP, +100 HP per 7-round cycle, a rider rather than a route.",
+    "Unsupported rows and scope: Surfing Strike's move and Azure Dragon Palm's pierce receive nothing; no hidden, item-gated, mode-restricted, injected or adverse rows; the Water Decrease Damage Taken passive is not a potency target. Skill-tree effects are skipped in ranked modes. No combat simulation."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1387,14 +1365,14 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "damage": 2,
+      "increasedamagegiven": 2,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 5,
       "afterburn": 10,
       "lifesteal": 5,
       "reflect": 10,
-      "heal": 7
+      "heal": 5
     },
     "supported_rows_in_kit": 10,
     "supported_rows_by_tag": {
@@ -1418,7 +1396,7 @@
       "reflect"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 2 / Boil classification / forked tree (RUL-2026-10-03-005 recalibration)",
+    "revision": "Fable proposal — 2026-10-04 batch rebalance / Boil classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1433,14 +1411,14 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 5,
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 5,
         "afterburn": 10,
         "lifesteal": 5,
         "reflect": 10,
-        "heal": 7
+        "heal": 5
       },
       "ceilings": {
         "damage": 5,
@@ -1475,11 +1453,11 @@
           ],
           "steps": [
             0,
-            2,
-            3
+            0,
+            2
           ],
-          "total": 5,
-          "on_band": true
+          "total": 2,
+          "on_band": false
         },
         {
           "advanced_art": "05",
@@ -1545,9 +1523,9 @@
         "04"
       ],
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "afterburn": 3
       }
     },
@@ -1559,11 +1537,10 @@
         "06"
       ],
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "heal": 2
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
       }
     },
     {
@@ -1574,8 +1551,7 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 5,
         "afterburn": 10
       }
@@ -1588,12 +1564,10 @@
         "06"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "afterburn": 3,
-        "heal": 2
+        "afterburn": 3
       }
     },
     {
@@ -1604,12 +1578,10 @@
         "07"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "lifesteal": 2,
-        "heal": 2
+        "lifesteal": 2
       }
     },
     {
@@ -1620,12 +1592,10 @@
         "09"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
-        "reflect": 3,
-        "heal": 2
+        "reflect": 3
       }
     },
     {
@@ -1636,11 +1606,10 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
-        "afterburn": 10,
-        "heal": 2
+        "afterburn": 10
       }
     },
     {
@@ -1655,8 +1624,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3,
-        "lifesteal": 2,
-        "heal": 2
+        "lifesteal": 2
       }
     },
     {
@@ -1671,8 +1639,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3,
-        "reflect": 3,
-        "heal": 2
+        "reflect": 3
       }
     },
     {
@@ -1687,7 +1654,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 5,
-        "heal": 7
+        "heal": 5
       }
     },
     {
@@ -1702,8 +1669,7 @@
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 2,
-        "reflect": 3,
-        "heal": 2
+        "reflect": 3
       }
     },
     {
@@ -1717,8 +1683,7 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
-        "reflect": 10,
-        "heal": 2
+        "reflect": 10
       }
     },
     {
@@ -1732,7 +1697,7 @@
         "decreasedamagetaken": 2,
         "lifesteal": 5,
         "reflect": 3,
-        "heal": 7
+        "heal": 5
       }
     },
     {
@@ -1745,9 +1710,26 @@
       "bonuses": {
         "decreasedamagetaken": 5,
         "lifesteal": 2,
-        "reflect": 10,
-        "heal": 2
+        "reflect": 10
       }
     }
-  ]
+  ],
+  "design_review": {
+    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "foundation_sentences": {
+      "01": "How do I make the rush hit harder: scald everyone around me or brand one target?",
+      "06": "How do I outlast the exchange: heal through my own hits or punish theirs?"
+    },
+    "route_identities": {
+      "03": "area burst: spiral exposure set up, controlled +2 Damage payoff",
+      "05": "branded-target attrition (Afterburn)",
+      "08": "sustain (Lifesteal with a palm Heal rider)",
+      "10": "retaliation fortress (Reflect behind Decrease Damage Taken)"
+    },
+    "director_review": "none",
+    "concerns": [
+      "Geyser Fist raises Drowning Strike's ally-hazard exposure to 40% on everyone standing in the spiral, allies and a caster who steps onto it included.",
+      "Burn and Sustain both deepen the one Liquid Ember Shell cast; their realized value depends on sequencing and was not simulated."
+    ]
+  }
 }
