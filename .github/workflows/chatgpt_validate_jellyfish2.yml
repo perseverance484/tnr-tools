@@ -5,7 +5,7 @@ on:
     branches:
       - chatgpt/jellyfish-beach-quest-20261004
     paths:
-      - ".github/workflows/chatgpt_validate_jellyfish2.yml"
+      - ".github/workflows/chatgpt_validate_jellyfish2.yml"\n      - "push/61_jellyfish_coast_quest.gen.py"
   workflow_dispatch:
 
 permissions:
