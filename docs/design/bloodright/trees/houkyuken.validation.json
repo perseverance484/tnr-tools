@@ -90,7 +90,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "reflect": 2
@@ -137,7 +137,7 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -276,13 +276,12 @@
         "name": "Absolute Alignment",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Houkyu Dance",
           "Houkyuken: Magnetic Assignment"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -319,20 +318,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "04",
+        "05",
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8,
+        "decreasedamagetaken": 2,
         "reflect": 2
       },
-      "raw_flat_total": 18,
+      "raw_flat_total": 14,
       "row_weighted_total": 24,
       "advanced_arts": [
-        "08"
+        "05"
       ],
       "non_dominated": true
     },
@@ -443,7 +442,7 @@
         "raw_flat_total": 13,
         "row_weighted_total": 19,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -527,13 +526,13 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10,
           "reflect": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 24,
+        "raw_flat_total": 16,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "08"
         ],
@@ -585,12 +584,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
           "reflect": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -1025,11 +1023,10 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
         "reflect": 2
       },
-      "path_row_weighted": 16,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "01",
@@ -1040,13 +1037,13 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 10,
             "reflect": 2
           },
-          "raw_total": 18,
-          "row_weighted": 24
+          "raw_total": 16,
+          "row_weighted": 20
         },
         {
           "id": "09",
@@ -1056,12 +1053,11 @@
             "reflect": 3
           },
           "bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "reflect": 5
           },
-          "raw_total": 17,
-          "row_weighted": 19
+          "raw_total": 15,
+          "row_weighted": 15
         }
       ],
       "highest_diagnostic_fourth": "01"

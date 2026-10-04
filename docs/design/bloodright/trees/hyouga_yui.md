@@ -2,9 +2,9 @@
 
 **Bloodline:** Hyouga Yui (BR-034, rank A, `lPcN4q0dtX2muWT2KlXGg`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Own Ice strikes landing harder (Permafrost Heart): heavier on every cast (a +1 commit, then +2 Damage: Nine Hell's Spear and Glacial Shatter: Purgatory 45 → 48, Cerulean Storm: Avalanche 40 → 43 EP), or harder inside the window (+8% on both self buffs, Avalanche and Glacier's Will 35 → 43%) · secondary Control of the exchange (Cocytus Vigil): +8% exposure on Cocytus's target and Spear's circle (35 → 43%), or +10% guard on Cocytus (35 → 45%) and Glacier's Will's tiles (30 → 40%) · tertiary A real Burst-or-Amplifier choice: on the same three nodes the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener gives Burst 308.5 strike power against the Amplifier's 306.5; Burst stays 2 EP ahead on every strike outside a window, the Amplifier takes ×1.043 on every other own hit inside it. Every capstone carries one tag.
+**Emphasis:** primary Own Ice strikes landing harder (Permafrost Heart): heavier on every cast (a +1 commit, then +1 Damage with a +2% exposure rider: Nine Hell's Spear and Glacial Shatter: Purgatory 45 → 47, Cerulean Storm: Avalanche 40 → 42 EP, Spear's circle and Cocytus's target 35 → 37%), or harder inside the window (+8% on both self buffs, Avalanche and Glacier's Will 35 → 43%) · secondary Control of the exchange (Cocytus Vigil): +8% exposure on Cocytus's target and Spear's circle (35 → 43%), or +10% guard on Cocytus (35 → 45%) and Glacier's Will's tiles (30 → 40%) · tertiary A real Burst-or-Amplifier choice: on the same three nodes the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener gives Burst 307.0 strike power against the Amplifier's 306.5; Burst stays 1 EP ahead on every strike and leaves 37% exposures for the party, the Amplifier takes ×1.043 on every other own hit inside its window. Every capstone leads with one tag; only Burst carries a rider.
 
-Permafrost Heart answers "How do I make my Ice strikes land harder: heavier on every cast, or harder inside my window?": Weight of the Avalanche commits +1 Damage and Buried in the Avalanche pays +2 more on every strike; Deepening Frost and The Glacier Advances raise both 2-round self buffs. Cocytus Vigil answers "How do I control the exchange: open them to every blow, or shut us off from theirs?": Nine Hells Opened deepens both marks to 43%, Locked in Cocytus guards the caster and the allies on Glacier's Will's tiles. Each percentage tag already owns one Hidden Art, so Burst's Hidden Art commits flat Damage instead of twinning one. Flat Damage stops at +3 (48 / 48 / 43 EP): +5 would turn both 45s into 50 Nukes and the 40 into a 45. Wound, shield and move are unsupported. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005).
+Permafrost Heart answers "How do I make my Ice strikes land harder: heavier on every cast, or harder inside my window?": Weight of the Avalanche commits +1 Damage and Buried in the Avalanche pays +1 more on every strike with +2% Increase Damage Taken on Spear's circle and Cocytus's target; Deepening Frost and The Glacier Advances raise both 2-round self buffs. Cocytus Vigil answers "How do I control the exchange: open them to every blow, or shut us off from theirs?": Nine Hells Opened deepens both marks to 43%, Locked in Cocytus guards the caster and the allies on Glacier's Will's tiles. Each percentage tag already owns one Hidden Art, so Burst's Hidden Art commits flat Damage instead of twinning one. Flat Damage stops at the exemplars' controlled +2 (47 / 47 / 42 EP): +5 would turn both 45s into 50 Nukes and the 40 into a 45. Wound, shield and move are unsupported. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005).
 
 **Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
 
@@ -12,16 +12,16 @@ Permafrost Heart answers "How do I make my Ice strikes land harder: heavier on e
 |---|---|---|
 | Permafrost Heart | Foundation | How do I make my Ice strikes land harder: heavier on every cast, or harder inside my window? |
 | Cocytus Vigil | Foundation | How do I control the exchange: open them to every blow, or shut us off from theirs? |
-| Buried in the Avalanche | Advanced Art | burst: a +1 commit, then +2 raw Damage on all three Ice circle strikes on every cast, no window |
+| Buried in the Avalanche | Advanced Art | burst: a +1 commit, then +1 raw Damage on all three Ice circle strikes on every cast, with a small exposure rider on Spear's circle and Cocytus's target |
 | The Glacier Advances | Advanced Art | sustained self-amplification: both self buffs compound on every own hit in the 2-round window |
 | Nine Hells Opened | Advanced Art | team exposure: a deep mark on Spear's circle and Cocytus's target that lifts every attacker's hits |
 | Locked in Cocytus | Advanced Art | fortress: pure guard for the caster under Cocytus and the party on Glacier's Will's tiles |
 
-**Director review recommended:** Three items. (1) Nine Hells Opened is a primary team-exposure route at +8% on two compounding rows (×1.43² ≈ ×2.04 on allies' hits as well), the roster's open question for two-row exposure. (2) Locked in Cocytus keeps +10% Decrease Damage Taken on two compounding guard rows (×0.33 with both live), above the +8% two-row default, citing Blood-Enchanted Eyes' Deathless Vitality. (3) Burst totals +3 Damage (Spear and Purgatory 45 → 48, Avalanche 40 → 43; an off-kit 50 EP Ice row would read 53) because its setup is now a +1 commit on the Hidden Art; Buried in the Avalanche at +1 would cap it at the exemplars' +2 (47 / 47 / 42) with Burst trailing the Amplifier on the same three nodes (302.0 against 306.5).
+**Director review recommended:** Two items. (1) Nine Hells Opened is a primary team-exposure route at +8% on two compounding rows (×1.43² ≈ ×2.04 on allies' hits as well), the roster's open question for two-row exposure. (2) Locked in Cocytus keeps +10% Decrease Damage Taken on two compounding guard rows (×0.33 with both live), above the +8% two-row default, citing Blood-Enchanted Eyes' Deathless Vitality.
 
-- Concern: Burst and the Amplifier are deliberately close: on the same three nodes the opener gives 308.5 against 306.5; Burst is 2 EP ahead on every strike outside a window, the Amplifier ×1.043 on every other own hit inside it. With Cocytus Vigil as the fourth the pair reads 306.0 against 304.7. Not simulated.
-- Concern: Weight of the Avalanche carries flat Damage on a Hidden Art, against the roster's payoff-only convention: each percentage tag already owns a Hidden Art on the same two rows, so a percentage setup would twin one. The Amplifier can buy the +1 as its fourth (46 / 46 / 41).
-- Concern: The Burst route is +3 Damage on 45 / 45 / 40 EP area strikes, one point over the exemplars' +2; it crosses no kit tier, but an off-kit 50 EP Ice row would read 53 (unverified).
+- Concern: Burst and the Amplifier are deliberately close and differ in kind: on the same three nodes the opener gives 307.0 against 306.5; Burst is 1 EP ahead on every strike and leaves 37% exposures for the party, the Amplifier ×1.043 on every other own hit inside its window. With Cocytus Vigil as the fourth the pair reads 304.4 against 304.7. Not simulated.
+- Concern: Weight of the Avalanche carries flat Damage on a Hidden Art, against the roster's payoff-only convention: each percentage tag already owns a Hidden Art on the same two rows, so a percentage setup would twin one. The Amplifier can buy the +1 as its fourth (46 / 46 / 41); Buried in the Avalanche's exposure rider is what keeps the Burst capstone worth more than that commit.
+- Concern: Burst's +2% Increase Damage Taken rider touches Nine Hells Opened's two rows: Burst + Cocytus Vigil reaches 39% exposures (×1.06 for the party), half the Exposure route's +8%, and it dominates the capstone-less 01+02+06+07 (+1 Damage, otherwise identical).
 - Concern: Exposure stays at +8% on two compounding team rows and Fortress at +10% on two compounding guard rows; Fortress + Cracks in the Ice puts +4% IDT beside the ×0.33 guard.
 - Concern: Five of the nine supported rows depend on the proposed jutsu-classification resolver; off-kit Ice coverage is unverified.
 
@@ -33,7 +33,7 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 |---|---|---|---|---|---|
 | 01 | Permafrost Heart | Foundation | None | +3% Increase Damage Given (self buff) | Cerulean Storm: Avalanche, Glacier's Will / 2 |
 | 02 | Weight of the Avalanche | Hidden Art | Permafrost Heart | +1 Damage (damage) | Cerulean Storm: Avalanche, Glacial Shatter: Purgatory, Nine Hell's Spear / 3 |
-| 03 | Buried in the Avalanche | Advanced Art | Weight of the Avalanche | +2 Damage (damage) | Cerulean Storm: Avalanche, Glacial Shatter: Purgatory, Nine Hell's Spear / 3 |
+| 03 | Buried in the Avalanche | Advanced Art | Weight of the Avalanche | +1 Damage (damage); +2% Increase Damage Taken (enemy debuff) | Cerulean Storm: Avalanche, Glacial Descent: Cocytus, Glacial Shatter: Purgatory, Nine Hell's Spear / 5 |
 | 04 | Deepening Frost | Hidden Art | Permafrost Heart | +2% Increase Damage Given (self buff) | Cerulean Storm: Avalanche, Glacier's Will / 2 |
 | 05 | The Glacier Advances | Advanced Art | Deepening Frost | +3% Increase Damage Given (self buff) | Cerulean Storm: Avalanche, Glacier's Will / 2 |
 | 06 | Cocytus Vigil | Foundation | None | +2% Increase Damage Taken (enemy debuff); +2% Decrease Damage Taken (self buff) | Glacial Descent: Cocytus, Glacier's Will, Nine Hell's Spear / 4 |
@@ -46,7 +46,7 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 - **Permafrost Heart** — The cold settles in the chest first. Everything after it strikes harder. Self damage buffs 35 → 38%: Avalanche's (Ice, Water, Wind and element-less hits) and Glacier's Will's (every non-pierce hit), live for the 2 rounds after each cast.
 - **Weight of the Avalanche** — Snow gathers on the slope long before it falls. Every strike carries a little more of it. Damage +1 EP on the three Ice circle strikes (Spear and Purgatory 45 → 46, Avalanche 40 → 41) on every enemy in each circle: Burst's commit, live on every cast, outside any window.
-- **Buried in the Avalanche** — No one digs out of the ninth winter. Burst route total +3 Damage: Spear and Purgatory 45 → 48, Avalanche 40 → 43 EP on every enemy in each circle, on every cast and outside any window; no tier crossed.
+- **Buried in the Avalanche** — No one digs out of the ninth winter. Burst route total +2 Damage: Spear and Purgatory 45 → 47, Avalanche 40 → 42 EP on every enemy in each circle, on every cast; no tier crossed. Rider: exposure 35 → 37% on Spear's circle and Cocytus's target for the two rounds after the cast.
 - **Deepening Frost** — Frost does not stop at the skin. It keeps going down. Both self damage buffs 40% with Permafrost Heart; Avalanche's lands with its 60 AP strike, Glacier's Will's with its 40 AP ground cast.
 - **The Glacier Advances** — A glacier moves a hand's width a day and nothing in its path survives the year. Amplifier route total +8%: both self buffs 35 → 43%, ×1.43 × 1.43 ≈ ×2.04 (×1.82 unbuffed) on own hits both cover in the two rounds after the casts.
 - **Cocytus Vigil** — Keep watch over the frozen lake. What is held in it cannot strike back. Exposure 35 → 37% on Cocytus's target and Nine Hell's Spear's circle; guard 35 → 37% on Cocytus (self) and 30 → 32% on Glacier's Will's tiles.
@@ -59,15 +59,15 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 | Build | Purchases | DMG | IDG | IDT | DDT |
 |---|---|---:|---:|---:|---:|
-| Buried in the Avalanche (Burst) | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Deepening Frost | +3 | +5% | — | — |
+| Buried in the Avalanche (Burst) | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Deepening Frost | +2 | +5% | +2% | — |
 | The Glacier Advances (Amplifier) | Permafrost Heart, Deepening Frost, The Glacier Advances, Cocytus Vigil | — | +8% | +2% | +2% |
 | Nine Hells Opened (Exposure) | Cocytus Vigil, Cracks in the Ice, Nine Hells Opened, Permafrost Heart | — | +3% | +8% | +2% |
 | Locked in Cocytus (Fortress) | Cocytus Vigil, Rime Mantle, Locked in Cocytus, Cracks in the Ice | — | — | +4% | +10% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken. Values are per-matching-row static additions, not final combat percentages.
 
-- **Buried in the Avalanche:** Weight of the Avalanche commits +1 Damage and Buried in the Avalanche pays +2 more on all three Ice circle strikes, on every cast and outside any window (Spear and Purgatory 45 → 48, Avalanche 40 → 43 EP). Deepening Frost is the solo fourth (self buffs 40%): in the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener the strikes total 43 + 94.1 + 171.5 = 308.5, against 306.5 for the Amplifier on the same three nodes, and every strike outside a window is 2 EP ahead of it. Cocytus Vigil (exposure 37%, guard 37% / 32%; 306.0) is the party fourth.
-- **The Glacier Advances:** Both self buffs 35 → 43%: cast together (Avalanche 60 AP + Glacier's Will 40 AP) they compound ×1.43 × 1.43 ≈ ×2.04 (×1.82 unbuffed) on own hits both cover for the next two rounds, strikes, weapons and normal jutsu alike; Avalanche's own hit takes neither. In the same opener the strikes total 40 + 92.0 + 172.7 = 304.7. Cocytus Vigil is the fourth (exposure 37%, guard 37% / 32%); Weight of the Avalanche (+1 Damage, 306.5) is the solo alternative, ×(1.43 / 1.40)² ≈ ×1.043 over Burst on every other own hit in the window but 2 EP behind on every strike.
+- **Buried in the Avalanche:** Weight of the Avalanche commits +1 Damage and Buried in the Avalanche pays +1 more on all three Ice circle strikes, on every cast and outside any window (Spear and Purgatory 45 → 47, Avalanche 40 → 42 EP), with exposure 37% on Spear's circle and Cocytus's target, so each Spear deepens the mark the next strike lands on. Deepening Frost is the solo fourth (self buffs 40%): in the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener the strikes total 42 + 92.1 + 172.9 = 307.0, against 306.5 for the Amplifier on the same three nodes, and every strike is 1 EP ahead of it. Cocytus Vigil (exposures 39%, guard 37% / 32%; 304.4) is the party fourth.
+- **The Glacier Advances:** Both self buffs 35 → 43%: cast together (Avalanche 60 AP + Glacier's Will 40 AP) they compound ×1.43 × 1.43 ≈ ×2.04 (×1.82 unbuffed) on own hits both cover for the next two rounds, strikes, weapons and normal jutsu alike; Avalanche's own hit takes neither. In the same opener the strikes total 40 + 92.0 + 172.7 = 304.7. Cocytus Vigil is the fourth (exposure 37%, guard 37% / 32%); Weight of the Avalanche (+1 Damage, 306.5) is the solo alternative, ×(1.43 / 1.40)² ≈ ×1.043 over Burst on every other own hit in the window but 1 EP behind on every strike and without Burst's 37% exposures.
 - **Nine Hells Opened:** Both exposures 35 → 43% for the two rounds after the cast: Spear marks every enemy in its circle against every non-pierce hit, Cocytus marks one target against element-less hits and hits of the caster's highest offence stat; on a target holding both, covered hits from the caster and allies compound ×1.43 × 1.43 ≈ ×2.04 (×1.122 over unbuffed). The caster's own opener is 40 + 85.7 + 175.2 = 300.9, so the route pays in a party. Permafrost Heart is the fourth (self buffs 38%); Rime Mantle (guard 40% / 35%) is the defensive alternative.
 - **Locked in Cocytus:** Guard at the route maximum: Cocytus 45% on the caster, Glacier's Will's tiles 40% for the caster and allies on them, ×0.55 × 0.60 = ×0.33 on non-pierce hits while both are live (×0.46 unbuffed). Cracks in the Ice is the fourth: +4% IDT (both exposures 39%, ×1.06 on marked targets) beside that guard, against Exposure + Rime Mantle's 43% exposures beside ×0.39; Permafrost Heart (self buffs 38%, exposure 37%) is the alternative.
 
@@ -75,14 +75,14 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 
 | Jutsu | Row | Tag | Recipient | Base | Burst | Amplifier | Exposure | Fortress |
 |---|---:|---|---|---:|---:|---:|---:|---:|
-| Glacial Descent: Cocytus | 0 | Increase Damage Taken | enemy | 35% | 35% | 37% (+2) | 43% (+8) | 39% (+4) |
+| Glacial Descent: Cocytus | 0 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 43% (+8) | 39% (+4) |
 | Glacial Descent: Cocytus | 1 | Decrease Damage Taken | self | 35% | 35% | 37% (+2) | 37% (+2) | 45% (+10) |
-| Nine Hell's Spear | 0 | Damage | enemy | 45 | 48 (+3) | 45 | 45 | 45 |
-| Nine Hell's Spear | 1 | Increase Damage Taken | enemy | 35% | 35% | 37% (+2) | 43% (+8) | 39% (+4) |
+| Nine Hell's Spear | 0 | Damage | enemy | 45 | 47 (+2) | 45 | 45 | 45 |
+| Nine Hell's Spear | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 43% (+8) | 39% (+4) |
 | Nine Hell's Spear | 2 | wound (unsupported) | enemy | 30% | 30% | 30% | 30% | 30% |
-| Cerulean Storm: Avalanche | 0 | Damage | enemy | 40 | 43 (+3) | 40 | 40 | 40 |
+| Cerulean Storm: Avalanche | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
 | Cerulean Storm: Avalanche | 1 | Increase Damage Given | self | 35% | 40% (+5) | 43% (+8) | 38% (+3) | 35% |
-| Glacial Shatter: Purgatory | 0 | Damage | enemy | 45 | 48 (+3) | 45 | 45 | 45 |
+| Glacial Shatter: Purgatory | 0 | Damage | enemy | 45 | 47 (+2) | 45 | 45 | 45 |
 | Glacial Shatter: Purgatory | 1 | shield (unsupported) | self | 110 | 110 | 110 | 110 | 110 |
 | Glacier's Will | 0 | Decrease Damage Taken | self | 30% | 30% | 32% (+2) | 32% (+2) | 40% (+10) |
 | Glacier's Will | 1 | Increase Damage Given | self | 35% | 40% (+5) | 43% (+8) | 38% (+3) | 35% |
@@ -91,10 +91,10 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
-- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +3 Damage, +8% Increase Damage Given, +8% Increase Damage Taken, +10% Decrease Damage Taken (not jointly attainable)
+- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 13; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +2 Damage, +8% Increase Damage Given, +8% Increase Damage Taken, +10% Decrease Damage Taken (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Buried in the Avalanche: +3 Damage (0 + 1 + 2; off band)
+  - Route Buried in the Avalanche: +2 Damage (0 + 1 + 1; off band)
   - Route The Glacier Advances: +8% Increase Damage Given (3 + 2 + 3; off band)
   - Route Nine Hells Opened: +8% Increase Damage Taken (2 + 2 + 4; off band)
   - Route Locked in Cocytus: +10% Decrease Damage Taken (2 + 3 + 5; on band)
@@ -106,11 +106,11 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 
 Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
 
-| Jutsu | Row | Base (tier) | +1 Damage | +3 Damage |
+| Jutsu | Row | Base (tier) | +1 Damage | +2 Damage |
 |---|---:|---|---|---|
-| Nine Hell's Spear | 0 | 45 (High) | 46 (High) | 48 (High) |
-| Cerulean Storm: Avalanche | 0 | 40 (Normal) | 41 (Normal) | 43 (Normal) |
-| Glacial Shatter: Purgatory | 0 | 45 (High) | 46 (High) | 48 (High) |
+| Nine Hell's Spear | 0 | 45 (High) | 46 (High) | 47 (High) |
+| Cerulean Storm: Avalanche | 0 | 40 (Normal) | 41 (Normal) | 42 (Normal) |
+| Glacial Shatter: Purgatory | 0 | 45 (High) | 46 (High) | 47 (High) |
 
 ### Fourth-BP audit
 
@@ -118,8 +118,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
 |---|---|---|---|---:|
-| Buried in the Avalanche | +3 Damage, +3% IDG | Deepening Frost | +3 Damage, +5% IDG | 19 |
-| Buried in the Avalanche | +3 Damage, +3% IDG | Cocytus Vigil *(highest diagnostic)* | +3 Damage, +3% IDG, +2% IDT, +2% DDT | 23 |
+| Buried in the Avalanche | +2 Damage, +3% IDG, +2% IDT | Deepening Frost | +2 Damage, +5% IDG, +2% IDT | 20 |
+| Buried in the Avalanche | +2 Damage, +3% IDG, +2% IDT | Cocytus Vigil *(highest diagnostic)* | +2 Damage, +3% IDG, +4% IDT, +2% DDT | 24 |
 | The Glacier Advances | +8% IDG | Weight of the Avalanche | +1 Damage, +8% IDG | 19 |
 | The Glacier Advances | +8% IDG | Cocytus Vigil *(highest diagnostic)* | +8% IDG, +2% IDT, +2% DDT | 24 |
 | Nine Hells Opened | +8% IDT, +2% DDT | Permafrost Heart | +3% IDG, +8% IDT, +2% DDT | 26 |
@@ -131,8 +131,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Deepening Frost | +3 Damage, +5% IDG |
-| 2 | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Cocytus Vigil | +3 Damage, +3% IDG, +2% IDT, +2% DDT |
+| 1 | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Deepening Frost | +2 Damage, +5% IDG, +2% IDT |
+| 2 | Permafrost Heart, Weight of the Avalanche, Buried in the Avalanche, Cocytus Vigil | +2 Damage, +3% IDG, +4% IDT, +2% DDT |
 | 3 | Permafrost Heart, Weight of the Avalanche, Deepening Frost, The Glacier Advances | +1 Damage, +8% IDG |
 | 4 | Permafrost Heart, Weight of the Avalanche, Deepening Frost, Cocytus Vigil | +1 Damage, +5% IDG, +2% IDT, +2% DDT |
 | 5 | Permafrost Heart, Weight of the Avalanche, Cocytus Vigil, Cracks in the Ice | +1 Damage, +3% IDG, +4% IDT, +2% DDT |
@@ -148,21 +148,21 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 ## Design notes
 
-- Structure kept (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10; 2 Foundations, 4 Hidden Arts, 4 Advanced Arts). Routes: Burst +3 Damage (Weight of the Avalanche +1, Buried in the Avalanche +2); Amplifier +8% Increase Damage Given (3 + 2 + 3); Exposure +8% Increase Damage Taken (2 + 2 + 4); Fortress +10% Decrease Damage Taken (2 + 3 + 5). Every capstone carries one tag and pays more than its Hidden Art. Maxima over every legal allocation: Damage +3, IDG +8%, IDT +8%, DDT +10%.
-- Roster pass: The Glacier Advances +5 → +3 and Nine Hells Opened +5 → +4 (Cracks in the Ice +3 → +2) hold both two-row compounding routes at the roster's +8% (×1.43² ≈ ×2.04, ×1.122 over unbuffed) instead of +10% (×2.10). Weight of the Avalanche drops its +3% Increase Damage Taken setup: it twinned Cracks in the Ice on the same two rows, and at a +3 exposure capstone it would have been worth exactly Nine Hells Opened (01+02+06+07 and 01+06+07+08 both +3% IDG / +8% IDT / +2% DDT).
-- Why Burst's Hidden Art is a +1 Damage commit: the kit's only tags are Damage, IDG, IDT and DDT, and each percentage tag already owns a Hidden Art on the same two rows (Deepening Frost, Cracks in the Ice, Rime Mantle), so any percentage setup twins one of them; an IDG setup would also take the Amplifier past +8% with its sibling as the fourth. Why the payoff is +2 (route +3), not +1: the Amplifier can buy the commit as its fourth, so on the same three nodes a +1 payoff gives Burst 302.0 against 306.5 in the opener below, and Burst + Cocytus Vigil (299.5) would trail the capstone-less 01+02+04+06 (300.4); +2 gives 308.5 against 306.5.
-- Opener used in this tree: R1 Avalanche + Glacier's Will, R2 Spear + Cocytus, R3 Purgatory on a target in Spear's circle; the R1 self buffs are live in R2–R3 and both marks in R3. Strike power is EP × the live percentage rows, before the passive (271.5 unbuffed). Full builds: Burst + Deepening Frost 308.5, Amplifier + Weight of the Avalanche 306.5, Burst + Cocytus Vigil 306.0, Amplifier + Cocytus Vigil 304.7, Exposure + Permafrost Heart 300.9 for the caster, with allies' hits on the marked target ×1.122. Not simulated.
-- Damage tiers: the strikes are 45 / 45 / 40 EP radius-1 area casts. The Burst route's +3 gives 48 / 48 / 43 and crosses no tier; +5 would turn both 45s into 50 Nukes and the 40 into a 45. Other builds borrow at most the +1 commit (46 / 46 / 41).
+- Structure kept (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10; 2 Foundations, 4 Hidden Arts, 4 Advanced Arts). Routes: Burst +2 Damage (Weight of the Avalanche +1, Buried in the Avalanche +1 with a +2% Increase Damage Taken rider); Amplifier +8% Increase Damage Given (+3% + 2% + 3%); Exposure +8% Increase Damage Taken (+2% + 2% + 4%); Fortress +10% Decrease Damage Taken (+2% + 3% + 5%). Every capstone pays more than its Hidden Art. Maxima over every legal allocation: Damage +2, IDG +8%, IDT +8%, DDT +10%.
+- Roster pass: The Glacier Advances +5% → +3% Increase Damage Given and Nine Hells Opened +5% → +4% (Cracks in the Ice +3% → +2%) Increase Damage Taken hold both two-row compounding routes at the roster's +8% (×1.43² ≈ ×2.04, ×1.122 over unbuffed) instead of +10% (×2.10). Weight of the Avalanche drops its +3% Increase Damage Taken setup: it twinned Cracks in the Ice on the same two rows, and the capstone-less 01+02+06+07 would have read +7% IDT, 1% under Nine Hells Opened.
+- Why Burst's Hidden Art is a +1 Damage commit: the kit's only tags are Damage, IDG, IDT and DDT, and each percentage tag already owns a Hidden Art on the same two rows (Deepening Frost, Cracks in the Ice, Rime Mantle), so any percentage setup twins one of them; an IDG setup would also take the Amplifier past +8% with its sibling as the fourth. Why the payoff is +1 Damage with a +2% Increase Damage Taken rider: route +2 holds the strikes at the exemplars' controlled +2 (47 / 47 / 42) and an off-kit 50 EP Ice row at 52. Alone, a +1 payoff bought less than a Hidden Art, because the Amplifier can buy the commit as its fourth: Burst + Cocytus Vigil (299.5) trailed the capstone-less 01+02+04+06 (300.4). The rider gives the payoff a second job instead of more flat Damage: Spear lands heavier and deepens its own circle's mark for the strike that follows. An IDG rider would make Burst + Deepening Frost (+2 Damage, +7% IDG) a copy of Amplifier + Weight of the Avalanche (+1 Damage, +8% IDG); a DDT rider would not make a strike land harder.
+- Opener used in this tree: R1 Avalanche + Glacier's Will, R2 Spear + Cocytus, R3 Purgatory on a target in Spear's circle; the R1 self buffs are live in R2–R3 and both marks in R3. Strike power is EP × the live percentage rows, before the passive (271.5 unbuffed). Full builds: Burst + Deepening Frost 307.0, Amplifier + Weight of the Avalanche 306.5, Amplifier + Cocytus Vigil 304.7, Burst + Cocytus Vigil 304.4, Exposure + Permafrost Heart 300.9 for the caster, with allies' hits on the marked target ×1.122 (×1.060 after Burst + Cocytus Vigil). Not simulated.
+- Damage tiers: the strikes are 45 / 45 / 40 EP radius-1 area casts. The Burst route's +2 gives 47 / 47 / 42 and crosses no tier; +5 would turn both 45s into 50 Nukes and the 40 into a 45. Other builds borrow at most the +1 commit (46 / 46 / 41).
 - Fortress keeps +10% on two compounding guard rows (×0.55 × 0.60 = ×0.33, ×0.725 against unbuffed), above the roster's +8% two-row default, for three kit reasons: Blood-Enchanted Eyes' director-reviewed Deathless Vitality holds +10% Decrease Damage Taken on two self rows with +5% Decrease Damage Given on top; Glacier's Will's guard is positional, live only on its radius-1 tiles; and guard raises no output.
-- Fourth purchases: Burst takes Deepening Frost or Cocytus Vigil; Amplifier, Weight of the Avalanche or Cocytus Vigil; Exposure, Permafrost Heart or Rime Mantle; Fortress, Cracks in the Ice or Permafrost Heart. No fourth adds a step of the capstone's own tag. Fortress + Cracks in the Ice puts +4% IDT (exposures 39%, ×1.06) beside the ×0.33 guard; Exposure + Rime Mantle puts +5% DDT (×0.39) beside 43% exposures (×1.122).
+- Fourth purchases: Burst takes Deepening Frost or Cocytus Vigil; Amplifier, Weight of the Avalanche or Cocytus Vigil; Exposure, Permafrost Heart or Rime Mantle; Fortress, Cracks in the Ice or Permafrost Heart. No fourth adds a step of the capstone's primary tag. Burst + Cocytus Vigil puts +4% IDT (exposures 39%, ×1.06) beside +2 Damage, half of Nine Hells Opened's +8%; Fortress + Cracks in the Ice puts the same +4% IDT beside the ×0.33 guard; Exposure + Rime Mantle puts +5% DDT (×0.39) beside 43% exposures (×1.122).
 - Delivery (SOURCE_MECHANICS §3b, §4b): all cooldown 7. Strikes: 60 AP, range 4, radius-1 circle, friendly fire ENEMIES. Cocytus: 40 AP single target, exposure on the target and guard on the caster. Glacier's Will: 40 AP EMPTY_GROUND; self buff SELF, guard an INHERIT FRIENDLY ground circle re-applied each round to the caster and allies on the tiles. Buff and debuff rows are live in the two rounds after the cast round, never in it.
 
 ## Risks and unproven interactions
 
 - Classification: element-wide Ice scope (RUL-2026-10-03-005); sharing Ice with other bloodlines is expected. 4 of the 9 supported rows carry Ice; Glacial Descent: Cocytus and Glacier's Will carry no Ice row and qualify in-kit only through an authored jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Ice coverage is unverified.
 - Self-buff stacking: Avalanche and Glacier's Will fit one 100 AP turn, so at 43% both compound to ×1.43 × 1.43 ≈ ×2.04 (×1.82 unbuffed) on hits both cover, before the 25% + 0.15/level passive applies last. Glacier's Will's row also reaches basic attacks, weapons and normal jutsu.
-- Exposure reach: Spear's exposure (no element) raises every non-pierce hit on every enemy in its circle, from any attacker; Cocytus's raises element-less hits and hits of the caster's highest offence stat. Spear and Cocytus fit one turn, so one target can carry ×1.43 × 1.43 ≈ ×2.04 for two rounds, allies' hits included.
-- Damage reach: the Burst route's +3 reaches every Ice Damage row the owner casts, so an off-kit 45 or 50 EP Ice row would read 48 or 53; off-kit Ice coverage is unverified and the validator checks kit rows only.
+- Exposure reach: Spear's exposure (no element) raises every non-pierce hit on every enemy in its circle, from any attacker; Cocytus's raises element-less hits and hits of the caster's highest offence stat. Spear and Cocytus fit one turn, so one target can carry ×1.43 × 1.43 ≈ ×2.04 for two rounds, allies' hits included. Burst's rider reaches the same two rows (39% with Cocytus Vigil).
+- Damage reach: the Burst route's +2 reaches every Ice Damage row the owner casts, so an off-kit 45 or 50 EP Ice row would read 47 or 52, the exemplars' controlled payoff (RUL-2026-10-04-001/002); off-kit Ice coverage is unverified and the validator checks kit rows only.
 - Guard scale: Cocytus 45% and Glacier's Will 40% apply in sequence, ×0.55 × 0.60 = ×0.33 (×0.46 unbuffed) on non-pierce hits while both are live. The ground guard is positional and also covers allies on the tiles.
 - Ally hazard: none on supported rows (strikes and Spear's exposure are friendly fire ENEMIES; Glacier's Will's supported rows are SELF or FRIENDLY). Spear's wound and Glacier's Will's move are the kit's only hazard rows; both are unsupported.
 - Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed; balance values remain director-owned.

@@ -91,7 +91,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
@@ -139,7 +139,7 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 12,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -305,12 +305,12 @@
         "name": "Chain Reaction",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Charge 4 Explosion"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -460,7 +460,7 @@
         "raw_flat_total": 14,
         "row_weighted_total": 16,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -565,12 +565,12 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 21,
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "09"
         ],
@@ -603,12 +603,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagetaken": 3,
           "decreasedamagetaken": 5,
           "afterburn": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "09"
         ],
@@ -1001,11 +1000,10 @@
         "09"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 3,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
-      "path_row_weighted": 15,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "01",
@@ -1017,12 +1015,12 @@
           },
           "bonuses": {
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "afterburn": 10
           },
-          "raw_total": 19,
-          "row_weighted": 21
+          "raw_total": 16,
+          "row_weighted": 18
         },
         {
           "id": "06",
@@ -1032,12 +1030,11 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagetaken": 3,
             "decreasedamagetaken": 5,
             "afterburn": 10
           },
-          "raw_total": 18,
-          "row_weighted": 18
+          "raw_total": 15,
+          "row_weighted": 15
         }
       ],
       "highest_diagnostic_fourth": "01"
