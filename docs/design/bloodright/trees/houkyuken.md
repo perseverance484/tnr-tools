@@ -14,13 +14,13 @@ Ten supported rows sit on five casts. The four Magnet Taijutsu Damage rows (Magn
 | Repelling Field | Foundation | How do I answer the blows aimed at me: blunt them, or throw them back? |
 | Starfall Hammer | Advanced Art | burst: self-amplification setup, controlled +2 Damage payoff on every strike |
 | Inexorable Pull | Advanced Art | exposure: mark one target for every attacker |
-| Absolute Alignment | Advanced Art | fortress: the Magnetic Assignment window as armour that still swings |
+| Absolute Alignment | Advanced Art | fortress: the Magnetic Assignment window as armour |
 | Violent Repulsion | Advanced Art | retaliation: every blow in the window costs the attacker |
 
-**Director review recommended:** Magnetic Pulse Strike 50 → 52 under Starfall Hammer (above the Nuke tier; the controlled +2 payoff of the RUL-2026-10-04-001/002 pattern, see above_nuke_rationale). Exposure stays +8% on two compounding team-wide rows (roster two-row exposure question). Fortress + Lodestone Draw is the strongest 1v1 allocation (concerns).
+**Director review recommended:** Magnetic Pulse Strike 50 → 52 under Starfall Hammer (above the Nuke tier; the controlled +2 payoff of the RUL-2026-10-04-001/002 pattern, see above_nuke_rationale). Exposure stays +8% on two compounding team-wide rows (roster two-row exposure question). Fortress + Lodestone Draw remains the strongest 1v1 allocation by 5 to 7% (concerns).
 
 - Concern: Inside a fully set-up single-target window Exposure + Polarized Fist (≈ ×3.95) still leads Burst + Reversed Polarity (×3.88 to ×3.92), and non-Magnet or allied hits favour Exposure further. Burst's niche is +2 Damage on every own strike regardless of window, across Houkyu Dance's area and through a debuff cleanse. Party size and window uptime were not simulated.
-- Concern: Fortress + Lodestone Draw is the strongest 1v1 allocation: ×1.09 own damage with ×0.846 incoming in each Magnetic Assignment window (outgoing/incoming ≈ 1.29 against 1.17 to 1.19 for the offense builds). Kept on Arashima's Unbroken Horizon precedent. Dropping Absolute Alignment's +2% Increase Damage Given rider (≈ 1.25) or stepping Decrease Damage Taken 2/3/3 (≈ 1.25; ≈ 1.21 with both) narrows the gap but does not close it, because the (1 − p) leverage drives it.
+- Concern: Fortress + Lodestone Draw is still the strongest 1v1 allocation: ×1.06 own damage with ×0.846 incoming in each Magnetic Assignment window (outgoing/incoming ≈ 1.25 against 1.17 to 1.19 for the offense builds), a 5 to 7% lead, about the 6% Arashima's approved fortress holds on the same lens. Dropping Absolute Alignment's Increase Damage Given rider took it from ≈ 1.29. Stepping Decrease Damage Taken 2/3/3 (≈ 1.21) was not taken: Absolute Alignment would add no more than Magnetized Guard, and Fortress's 8% would sit next to Retaliation + Magnetized Guard's 7% plus +10% Reflect. It remains the director's lever if the lead should close further; the (1 − p) leverage, not a rider, now drives the gap.
 - Concern: Exposure is +8% on two compounding team-wide rows, the batch's two-row exposure convention; the director templates hold exposure near +5%. If the director wants template-level exposure, Houkyuken should move together with the other two-row exposure trees, not alone.
 - Concern: Retaliation keeps Reflect at +10% (50%) on one row; its value scales with the number of attackers in the window and was not simulated, and its Decrease Damage Taken rider trims what Reflect returns (design notes).
 
@@ -37,7 +37,7 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | 05 | Inexorable Pull | Advanced Art | Reversed Polarity | +4% Increase Damage Taken (enemy debuff) | Houkyuken: Magnetic Assignment, Morning Star / 2 |
 | 06 | Repelling Field | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Reflect (self buff) | Houkyuken: Magnetic Assignment, Rising Star / 2 |
 | 07 | Magnetized Guard | Hidden Art | Repelling Field | +3% Decrease Damage Taken (self buff) | Houkyuken: Magnetic Assignment / 1 |
-| 08 | Absolute Alignment | Advanced Art | Magnetized Guard | +5% Decrease Damage Taken (self buff); +2% Increase Damage Given (self buff) | Houkyu Dance, Houkyuken: Magnetic Assignment / 3 |
+| 08 | Absolute Alignment | Advanced Art | Magnetized Guard | +5% Decrease Damage Taken (self buff) | Houkyuken: Magnetic Assignment / 1 |
 | 09 | Like Poles Repel | Hidden Art | Repelling Field | +3% Reflect (self buff) | Rising Star / 1 |
 | 10 | Violent Repulsion | Advanced Art | Like Poles Repel | +5% Reflect (self buff); +2% Decrease Damage Taken (self buff) | Houkyuken: Magnetic Assignment, Rising Star / 2 |
 
@@ -50,7 +50,7 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 - **Inexorable Pull** — Nothing with iron in its blood escapes the draw. Exposure: both enemy rows 35 → 43% on the full route, raising non-pierce hits on the target from every attacker, the party's included. Morning Star covers every such hit; Magnetic Assignment covers Lightning, Magnet, Wind and element-less hits (×1.43² ≈ ×2.04 where both apply, ×1.43 otherwise).
 - **Repelling Field** — Turn the pole outward and every blow meets an invisible hand. Magnetic Assignment Decrease Damage Taken 35 → 37% (every non-pierce hit, 40 AP); Rising Star Reflect 40 → 42% (includes pierce hits).
 - **Magnetized Guard** — Filings align along the skin; the body becomes its own armour. Magnetic Assignment Decrease Damage Taken only: 40% with Repelling Field; one universal row, 2 rounds per 40 AP cast, cooldown 7.
-- **Absolute Alignment** — Every particle set in order; what strikes you finds nothing out of place. Fortress: Magnetic Assignment Decrease Damage Taken 35 → 45% on the full route (incoming ×0.55, ×0.65 at base); both self damage buffs 35 → 37% (39% with Lodestone Draw).
+- **Absolute Alignment** — Every particle set in order; what strikes you finds nothing out of place. Fortress: Magnetic Assignment Decrease Damage Taken 35 → 45% on the full route, so incoming is ×0.55 against ×0.65 at base (≈ ×0.846) for the two rounds after each 40 AP cast.
 - **Like Poles Repel** — Bring like to like and the strike is thrown back on the one who threw it. Rising Star Reflect only: 45% with Repelling Field; one self row, 2 rounds per 60 AP single-target cast, under the 60% per-hit cap.
 - **Violent Repulsion** — The closer the enemy presses, the harder the field hurls them away. Retaliation: Rising Star Reflect 40 → 50% on the full route (under the 60% per-hit cap); Magnetic Assignment Decrease Damage Taken 39% with Repelling Field (42% with Magnetized Guard), which also trims the post-mitigation damage Reflect returns.
 
@@ -60,14 +60,14 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 |---|---|---:|---:|---:|---:|---:|
 | Starfall Hammer (Burst) | Lodestone Draw, Polarized Fist, Starfall Hammer, Repelling Field | +2 | +4% | +2% | +2% | +2% |
 | Inexorable Pull (Exposure) | Lodestone Draw, Reversed Polarity, Inexorable Pull, Polarized Fist | — | +4% | +8% | — | — |
-| Absolute Alignment (Fortress) | Repelling Field, Magnetized Guard, Absolute Alignment, Lodestone Draw | — | +4% | +2% | +10% | +2% |
+| Absolute Alignment (Fortress) | Repelling Field, Magnetized Guard, Absolute Alignment, Lodestone Draw | — | +2% | +2% | +10% | +2% |
 | Violent Repulsion (Retaliation) | Repelling Field, Like Poles Repel, Violent Repulsion, Magnetized Guard | — | — | — | +7% | +10% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · REF = Reflect. Values are per-matching-row static additions, not final combat percentages.
 
 - **Starfall Hammer:** +2 Damage on all four Magnet strikes (Pulse Strike 52, Houkyu Dance 47, Rising Star and Morning Star 42 EP) on every cast, over both self damage buffs at 39% (×1.39² ≈ ×1.93 on a hit both cover, ×1.82 at base) and exposure 37% for the two rounds after their casts. Repelling Field is the fourth purchase (Magnetic Assignment Decrease Damage Taken 37%, Rising Star Reflect 42%); Reversed Polarity (exposure 39%) is the all-in alternative.
 - **Inexorable Pull:** Both exposure rows 35 → 43% with both self buffs 39% from Polarized Fist as the fourth purchase: ×1.43² × 1.39² ≈ ×3.95 on a kit strike under all four rows (×3.32 at base), and the exposure half also raises allies' non-pierce hits on the target. This is the strongest in-window offense; Starfall Hammer with Reversed Polarity reaches ×1.39⁴ ≈ ×3.73 before its +2 Damage (×3.88 on Pulse Strike, ×3.92 on a 40 EP strike) but keeps the +2 outside the windows. Repelling Field is the defensive alternative.
-- **Absolute Alignment:** Magnetic Assignment's universal Decrease Damage Taken 35 → 45% for the two rounds after each 40 AP cast (incoming ×0.55 against ×0.65 at base, ≈ ×0.846), with both self damage buffs 39% from the capstone rider and Lodestone Draw as the fourth purchase (≈ ×1.09 own damage on a fully covered strike), exposure 37% and Reflect 42%: the tree's strongest 1v1 allocation. Like Poles Repel (Reflect 45%) is the all-defense alternative.
+- **Absolute Alignment:** Magnetic Assignment's universal Decrease Damage Taken 35 → 45% for the two rounds after each 40 AP cast (incoming ×0.55 against ×0.65 at base, ≈ ×0.846). Lodestone Draw is the fourth purchase: both self damage buffs and both exposure rows 37% (≈ ×1.06 own damage on a fully covered strike) and Reflect 42%. On the 1v1 race lens (outgoing / incoming ≈ 1.25 against 1.17 to 1.19 for the offense builds) it is still the tree's strongest allocation. Like Poles Repel (Reflect 45%) is the all-defense alternative.
 - **Violent Repulsion:** Rising Star Reflect 40 → 50% (60% per-hit cap untouched) with Magnetic Assignment Decrease Damage Taken 42% (+7%): every blow in the window costs the attacker half of what lands while the kit's strikes stay at base. Per 100 incoming before mitigation it takes 58 and returns 29, against 65 and 26 at base. Magnetized Guard is the fourth purchase; Lodestone Draw (buffs and exposure 37%) is the offensive alternative.
 
 ## Before/after effect rows
@@ -81,16 +81,16 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 | Morning Star | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
 | Morning Star | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 43% (+8) | 37% (+2) | 35% |
 | Houkyuken: Magnetic Assignment | 0 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 45% (+10) | 42% (+7) |
-| Houkyuken: Magnetic Assignment | 1 | Increase Damage Given | self | 35% | 39% (+4) | 39% (+4) | 39% (+4) | 35% |
+| Houkyuken: Magnetic Assignment | 1 | Increase Damage Given | self | 35% | 39% (+4) | 39% (+4) | 37% (+2) | 35% |
 | Houkyuken: Magnetic Assignment | 2 | Increase Damage Taken | enemy | 35% | 37% (+2) | 43% (+8) | 37% (+2) | 35% |
 | Houkyu Dance | 0 | Damage | enemy | 45 | 47 (+2) | 45 | 45 | 45 |
 | Houkyu Dance | 1 | move (unsupported) | self | 1 | 1 | 1 | 1 | 1 |
-| Houkyu Dance | 2 | Increase Damage Given | self | 35% | 39% (+4) | 39% (+4) | 39% (+4) | 35% |
+| Houkyu Dance | 2 | Increase Damage Given | self | 35% | 39% (+4) | 39% (+4) | 37% (+2) | 35% |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
-- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 13; all nodes appear in a non-dominated build: True
+- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
 - Maximum individually achievable additions over every legal allocation: +2 Damage, +4% Increase Damage Given, +8% Increase Damage Taken, +10% Decrease Damage Taken, +10% Reflect (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
   - Route Starfall Hammer: +2 Damage (0 + 0 + 2; off band)
@@ -98,7 +98,7 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
   - Route Absolute Alignment: +10% Decrease Damage Taken (2 + 3 + 5; on band)
   - Route Violent Repulsion: +10% Reflect (2 + 3 + 5; on band)
 - Supported rows in kit: 10 (DMG 4, DDT 1, IDG 2, IDT 2, REF 1)
-- Strongest full build by row-weighted total: Lodestone Draw, Repelling Field, Magnetized Guard, Absolute Alignment (raw +18, row-weighted 24)
+- Strongest full build by row-weighted total: Lodestone Draw, Reversed Polarity, Inexorable Pull, Repelling Field (raw +14, row-weighted 24)
 - Lowest row-weighted node: Magnetized Guard (3)
 
 Validator warnings:
@@ -128,8 +128,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | Starfall Hammer | +2 Damage, +4% IDG, +2% IDT | Repelling Field *(highest diagnostic)* | +2 Damage, +4% IDG, +2% IDT, +2% DDT, +2% REF | 24 |
 | Inexorable Pull | +2% IDG, +8% IDT | Polarized Fist | +4% IDG, +8% IDT | 24 |
 | Inexorable Pull | +2% IDG, +8% IDT | Repelling Field *(highest diagnostic)* | +2% IDG, +8% IDT, +2% DDT, +2% REF | 24 |
-| Absolute Alignment | +2% IDG, +10% DDT, +2% REF | Lodestone Draw *(highest diagnostic)* | +4% IDG, +2% IDT, +10% DDT, +2% REF | 24 |
-| Absolute Alignment | +2% IDG, +10% DDT, +2% REF | Like Poles Repel | +2% IDG, +10% DDT, +5% REF | 19 |
+| Absolute Alignment | +10% DDT, +2% REF | Lodestone Draw *(highest diagnostic)* | +2% IDG, +2% IDT, +10% DDT, +2% REF | 20 |
+| Absolute Alignment | +10% DDT, +2% REF | Like Poles Repel | +10% DDT, +5% REF | 15 |
 | Violent Repulsion | +4% DDT, +10% REF | Lodestone Draw *(highest diagnostic)* | +2% IDG, +2% IDT, +4% DDT, +10% REF | 22 |
 | Violent Repulsion | +4% DDT, +10% REF | Magnetized Guard | +7% DDT, +10% REF | 17 |
 
@@ -146,21 +146,21 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | 7 | Lodestone Draw, Reversed Polarity, Inexorable Pull, Repelling Field | +2% IDG, +8% IDT, +2% DDT, +2% REF |
 | 8 | Lodestone Draw, Reversed Polarity, Repelling Field, Magnetized Guard | +2% IDG, +4% IDT, +5% DDT, +2% REF |
 | 9 | Lodestone Draw, Reversed Polarity, Repelling Field, Like Poles Repel | +2% IDG, +4% IDT, +2% DDT, +5% REF |
-| 10 | Lodestone Draw, Repelling Field, Magnetized Guard, Absolute Alignment | +4% IDG, +2% IDT, +10% DDT, +2% REF |
+| 10 | Lodestone Draw, Repelling Field, Magnetized Guard, Absolute Alignment | +2% IDG, +2% IDT, +10% DDT, +2% REF |
 | 11 | Lodestone Draw, Repelling Field, Magnetized Guard, Like Poles Repel | +2% IDG, +2% IDT, +5% DDT, +5% REF |
 | 12 | Lodestone Draw, Repelling Field, Like Poles Repel, Violent Repulsion | +2% IDG, +2% IDT, +4% DDT, +10% REF |
-| 13 | Repelling Field, Magnetized Guard, Absolute Alignment, Like Poles Repel | +2% IDG, +10% DDT, +5% REF |
+| 13 | Repelling Field, Magnetized Guard, Absolute Alignment, Like Poles Repel | +10% DDT, +5% REF |
 | 14 | Repelling Field, Magnetized Guard, Like Poles Repel, Violent Repulsion | +7% DDT, +10% REF |
 
 ## Design notes
 
-- Structure unchanged (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10). Maxima over every legal allocation: Damage +2 (Starfall Hammer only), Increase Damage Given +4%, Increase Damage Taken +8% (01+04+05), Decrease Damage Taken +10%, Reflect +10%. Not jointly attainable.
-- 2026-10-04 rebalance. First pass: the pre-batch +5 Damage Burst route (Polarized Fist +2, Starfall Hammer +3) lifted Rising Star and Morning Star 40 → 45, Houkyu Dance 45 → 50 and Magnetic Pulse Strike 50 → 55 and was cut; Exposure came down from +10% to +8% and Inexorable Pull lost its Increase Damage Given rider. Roster pass: the pure +4% Increase Damage Given Starfall Hammer that replaced Burst mirrored Exposure (both ×3.95 at 4 BP), so Burst returns in the director pattern: Polarized Fist's +2% Increase Damage Given setup, then Starfall Hammer's controlled +2 Damage (RUL-2026-10-04-001/002; above_nuke_rationale).
+- Structure unchanged (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10). Maxima over every legal allocation: Damage +2 (Starfall Hammer only), Increase Damage Given +4% (01+02), Increase Damage Taken +8% (01+04+05), Decrease Damage Taken +10%, Reflect +10%. Not jointly attainable.
+- 2026-10-04 rebalance. First pass: the pre-batch +5 Damage Burst route (Polarized Fist +2, Starfall Hammer +3) lifted Rising Star and Morning Star 40 → 45, Houkyu Dance 45 → 50 and Magnetic Pulse Strike 50 → 55 and was cut; Exposure came down from +10% to +8% and Inexorable Pull lost its Increase Damage Given rider. Roster pass: the pure +4% Increase Damage Given Starfall Hammer that replaced Burst mirrored Exposure (both ×3.95 at 4 BP), so Burst returns in the director pattern: Polarized Fist's +2% Increase Damage Given setup, then Starfall Hammer's controlled +2 Damage (RUL-2026-10-04-001/002; above_nuke_rationale). Final review: Absolute Alignment's +2% Increase Damage Given rider equalled Polarized Fist, so Fortress + Lodestone Draw held Starfall Hammer's whole self-buff package plus +10% Decrease Damage Taken (outgoing / incoming ≈ 1.29); the rider is dropped.
 - Damage tiers: the +2 reaches all four Magnet strikes in one step: Magnetic Pulse Strike 50 → 52 (past the Nuke tier; director review), Houkyu Dance 45 → 47, Rising Star and Morning Star 40 → 42. No lower tier is crossed. It is +2, not +3, because four rows move together (Arashima's 45 → 47 default).
 - Offense is sized by multiplier: +8% exposure on two compounding rows is ×1.43² ≈ ×2.04 against ×1.82 at base. On a fully covered own strike, Exposure + Polarized Fist is ×1.43² × 1.39² ≈ ×3.95 (×3.32 at base, +19%) and Burst + Reversed Polarity ×1.39⁴ ≈ ×3.73 before its +2 Damage (×3.88 to ×3.92 after). Burst gives up a little in-window peak for +2 Damage on every strike, window or not, across Houkyu Dance's whole area and through a debuff cleanse. Both Hidden Arts stay +2% so each offense route's obvious fourth adds no more than Lodestone Draw already does.
-- Defense keeps the single-row pattern: +10% on the one Decrease Damage Taken row and the one Reflect row, each with a +2% rider (Arashima's Unbroken Horizon, RUL-2026-10-04-003, is the same +10% on one 35% row). Decrease Damage Taken works on (1 − p): 35 → 45% makes incoming ×0.55/0.65 ≈ ×0.846 (about +18% effective HP) per window, more than either offense route adds at 3 BP (×1.14 to ×1.16 on a fully covered strike). Fortress + Lodestone Draw (01+06+07+08) pairs that with ×1.39² × 1.37² / 1.35⁴ ≈ ×1.09 own damage, an outgoing/incoming ratio of about 1.29 against 1.17 to 1.19 for every offense build with either fourth: it is the strongest 1v1 allocation. Absolute Alignment's Increase Damage Given rider (one Magnetic Assignment cast carries the shield and the self buff) keeps Fortress distinct from Retaliation.
+- Defense keeps the single-row pattern: +10% on the one Decrease Damage Taken row (Arashima's Unbroken Horizon, RUL-2026-10-04-003, is the same +10% on one 35% row) and +10% on the one Reflect row. Decrease Damage Taken works on (1 − p): 35 → 45% makes incoming ×0.55/0.65 ≈ ×0.846 (about +18% effective HP) per window, more than either offense route adds at 3 BP (×1.14 to ×1.16 on a fully covered strike). Absolute Alignment is pure Decrease Damage Taken: the kit's only other defensive tag is Reflect, and a Reflect rider would make Fortress a mirror of Violent Repulsion. Fortress + Lodestone Draw (01+06+07+08) pairs ×0.846 incoming with ×1.37⁴ / 1.35⁴ ≈ ×1.06 own damage, an outgoing/incoming ratio of about 1.25 against 1.17 to 1.19 for every offense build with either fourth: still the strongest 1v1 allocation, by 5 to 7%, about the 6% lead Arashima's approved fortress holds on the same lens (Unbroken Horizon + Tempest Hymn against Sundered Sky + Stillness in the Squall).
 - Reflect reads post-mitigation damage (the post-damage family runs after the damage modifiers; SOURCE_MECHANICS §3, process.ts 415-612), so Decrease Damage Taken trims what Reflect returns while Magnetic Assignment's window is live. Per 100 incoming before mitigation: base takes 65 and returns 26; the Retaliation route (Decrease Damage Taken 39%, Reflect 50%) takes 61 and returns 30.5 (+17%, not the +25% the Reflect print suggests); with Magnetized Guard 58 and 29 (+12%); Fortress + Like Poles Repel 55 and 24.75, below base. Violent Repulsion keeps its rider because a counter-tank has to survive the window it punishes.
-- Fourth purchases: Burst takes Reversed Polarity (all-in) or Repelling Field; Exposure Polarized Fist (all-in) or Repelling Field; Fortress Lodestone Draw or Like Poles Repel; Retaliation Magnetized Guard or Lodestone Draw. 13 of 14 full allocations are non-dominated on tag totals: 01+02+06+07 is dominated by the Fortress build with Lodestone Draw because Absolute Alignment's rider equals Polarized Fist; every node still appears in a non-dominated build.
+- Fourth purchases: Burst takes Reversed Polarity (all-in) or Repelling Field; Exposure Polarized Fist (all-in) or Repelling Field; Fortress Lodestone Draw or Like Poles Repel; Retaliation Magnetized Guard or Lodestone Draw. All 14 full allocations are non-dominated on tag totals, so every node appears in a non-dominated build.
 - Filters and order: Magnetic Assignment's self Increase Damage Given row is Taijutsu-filtered with no element, so at the pin (SOURCE_MECHANICS §3) it raises every Taijutsu or element-less hit; Houkyu Dance's row (Lightning/Magnet/None/Wind) raises Lightning, Magnet, Wind and element-less hits. Both compound (computeDamagePacket, §3b) and the 25% + 0.15/level bloodline passive applies last. Increase Damage Given, Increase Damage Taken and Decrease Damage Taken never touch pierce.
 - Delivery: every cast has cooldown 7 and every percentage row is live the two rounds after its cast round, never in it (§3b); flat Damage needs no window. Magnetic Assignment (D rank, 40 AP, OTHER_USER, range 4) carries three supported rows; a fully covered strike needs Magnetic Assignment plus Houkyu Dance (Burst) or Morning Star (Exposure) in the two rounds before it.
 

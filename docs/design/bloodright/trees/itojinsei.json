@@ -38,7 +38,7 @@
     "primary": "Wielder offense (Taut Filament): a steady raw-Damage edge on all four Magnet strikes, or the two compounding self Increase Damage Given buffs (Spiraling Wires, Eternal Embrace) in their windows",
     "secondary": "Binding the target (Tangling Snare): Decrease Damage Given on Wire Blast Plus and Eternal Embrace, or Increase Damage Taken on Lightning Threads",
     "tertiary": "One rider: the single-row Exposure capstone carries +2% Decrease Damage Given; the two-row Suppression capstone carries none",
-    "rationale": "Nine supported rows sit on five casts, all cooldown 7: four Magnet Bukijutsu Damage rows (Iron Web Entrapment 45; Wire Blast Plus, Spiraling Wires and Lightning Threads 40), two 35% self Increase Damage Given rows (Spiraling Wires, Eternal Embrace) that compound on a hit both cover, two universal Decrease Damage Given rows (Wire Blast Plus 30%, an ally-hazard circle; Eternal Embrace 35%) and one 35% Increase Damage Taken row on Lightning Threads. Taut Filament answers \"How do I make my own wires cut harder: a keener strand, or a stronger hand?\": the Severing Lattice route (Razor Strands +1, capstone +2) adds +3 Damage to every Magnet strike on every cast, with no window (no kit tier crossed), and the Weaver Ascendant route raises both self buffs to 43% for the two rounds after each cast. Tangling Snare answers \"How do I bind the target: blunt its blows, or lay it open to ours?\": the Iron Cocoon route takes both suppression rows +10%, and the Galvanic Marionette route takes Lightning Threads' exposure +10% with a +2% suppression rider because its own tag reaches one row. The kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row, so there is no self-defensive route. Potency reaches matching supported tags on all Magnet jutsu (RUL-2026-10-03-005)."
+    "rationale": "Nine supported rows sit on five casts, all cooldown 7: four Magnet Bukijutsu Damage rows (Iron Web Entrapment 45; Wire Blast Plus, Spiraling Wires and Lightning Threads 40), two 35% self Increase Damage Given rows (Spiraling Wires, Eternal Embrace) that compound on a hit both cover, two universal Decrease Damage Given rows (Wire Blast Plus 30%, an ally-hazard circle; Eternal Embrace 35%) and one 35% Increase Damage Taken row on Lightning Threads. Taut Filament answers \"How do I make my own wires cut harder: a keener strand, or a stronger hand?\": the Severing Lattice route (Razor Strands +1, capstone +1) adds +2 Damage to every Magnet strike on every cast, with no window (no kit tier crossed), and the Weaver Ascendant route raises both self buffs to 43% for the two rounds after each cast. Tangling Snare answers \"How do I bind the target: blunt its blows, or lay it open to ours?\": the Iron Cocoon route takes both suppression rows +10%, and the Galvanic Marionette route takes Lightning Threads' exposure +10% with a +2% suppression rider because its own tag reaches one row. The kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row, so there is no self-defensive route. Potency reaches matching supported tags on all Magnet jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -110,12 +110,12 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 2,
+          "flat": 1,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "Where the web closes, nothing leaves in one piece.",
-      "coverage_note": "Steady edge: all four Magnet Damage rows +3 EP on the full route (Razor Strands +1, capstone +2), every cast, in or out of a buff window: Iron Web Entrapment 45 → 48, the other three 40 → 43 in the kit (no tier crossed). Stun, redirection and decrease-heal are unsupported.",
+      "coverage_note": "Steady edge: all four Magnet Damage rows +2 EP on the full route (Razor Strands +1, capstone +1), every cast, in or out of a buff window: Iron Web Entrapment 45 → 47, the other three 40 → 42 in the kit (no tier crossed). Stun, redirection and decrease-heal are unsupported.",
       "parent_rule": "ALL",
       "potency_classification": "Magnet",
       "scope": "all Magnet jutsu",
@@ -365,10 +365,10 @@
         "03",
         "06"
       ],
-      "rationale": "+3 Damage on all four Magnet strikes, every cast and in or out of a buff window (Iron Web Entrapment 45 → 48; Wire Blast Plus, Spiraling Wires and Lightning Threads 40 → 43 EP), with both self buffs at 37%. Tangling Snare is the fourth purchase because the rotation already casts Lightning Threads, Wire Blast Plus and Eternal Embrace: exposure 37%, suppression 32%/37%. Threadbound Vigor (both buffs 39%) is the all-offense alternative.",
+      "rationale": "+2 Damage on all four Magnet strikes, every cast and in or out of a buff window (Iron Web Entrapment 45 → 47; Wire Blast Plus, Spiraling Wires and Lightning Threads 40 → 42 EP), with both self buffs at 37%. Tangling Snare is the fourth purchase because the rotation already casts Lightning Threads, Wire Blast Plus and Eternal Embrace: exposure 37%, suppression 32%/37%. Threadbound Vigor (both buffs 39%) is the all-offense alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
@@ -386,8 +386,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 45.0,
-          "gain": 3,
-          "final": 48.0,
+          "gain": 2,
+          "final": 47.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -422,8 +422,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 3,
-          "final": 43.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -458,8 +458,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 3,
-          "final": 43.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -512,8 +512,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 3,
-          "final": 43.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1407,18 +1407,18 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Structure, names and edges unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10). Edge route: Razor Strands +2 → +1 Damage and Severing Lattice +3 → +2 Damage; the +5 route lifted Wire Blast Plus, Spiraling Wires and Lightning Threads 40 → 45 (a full tier) and Iron Web Entrapment, the kit's stun line, 45 → 50 (semi-nuke to Nuke). Amplifier: Threadbound Vigor +3% → +2% and Weaver Ascendant +5% → +4% Increase Damage Given; Weaver Ascendant drops its +2% Increase Damage Taken rider. Roster pass: Iron Cocoon drops its +2% Increase Damage Taken rider; the rest of the Tangling Snare branch keeps its Draft 4 values.",
-    "Maxima over every legal allocation: Damage +3 (in the kit 40 → 43, 45 → 48; no kit tier crossed), Increase Damage Given +8%, Decrease Damage Given +10%, Increase Damage Taken +10%. Not jointly attainable. Off-kit Magnet Damage rows are unverified; a 50 EP one would reach 53.",
-    "Sized by leverage, not printed totals. The two self buffs compound on a hit both cover, so +8% takes ×1.82 to ×2.04 (+12%); +10% would reach ×2.10. The edge route's +3 EP is +7.5% on a 40 EP strike and +6.7% on Iron Web Entrapment (formula damage is linear in EP: tags.ts powerEffect), on every cast, including the setup casts no buff reaches in their own round. Razor Strands keeps +1 flat Damage on a Hidden Art because every percentage setup in this root duplicates a sibling: Increase Damage Given twins Threadbound Vigor and lets 01+02+04+05 reach +10% on the two compounding buffs; Increase Damage Taken twins Conductive Seam. The two Decrease Damage Given rows reduce in sequence: +10% takes an enemy under both from ×0.455 to ×0.33 of its damage, the value approved for Blood-Enchanted Eyes' Red Pestilence on the same universal 30%/35% pair (RUL-2026-10-04-001), which is this tree's reason for +10% on two compounding rows; Iron Cocoon carries no rider, lighter than Red Pestilence's +3% Decrease Damage Taken. Increase Damage Taken has one row but multiplies every matching hit on the target, so it is a route of its own.",
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Structure, names and edges unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10). Edge route: Razor Strands +2 → +1 Damage and Severing Lattice +3 → +2 Damage; the +5 route lifted Wire Blast Plus, Spiraling Wires and Lightning Threads 40 → 45 (a full tier) and Iron Web Entrapment, the kit's stun line, 45 → 50 (semi-nuke to Nuke). Amplifier: Threadbound Vigor +3% → +2% and Weaver Ascendant +5% → +4% Increase Damage Given; Weaver Ascendant drops its +2% Increase Damage Taken rider. Roster pass: Iron Cocoon drops its +2% Increase Damage Taken rider; the rest of the Tangling Snare branch keeps its Draft 4 values. Final review: Severing Lattice +2 → +1 Damage, so the edge route is +2 (45 → 47, 40 → 42), the four-row default Houkyuken holds on the same Magnet element; +3 had been kept only for parity with the Amplifier.",
+    "Maxima over every legal allocation: Damage +2 (in the kit 40 → 42, 45 → 47; no kit tier crossed), Increase Damage Given +8%, Decrease Damage Given +10%, Increase Damage Taken +10%. Not jointly attainable. Off-kit Magnet Damage rows are unverified; a 50 EP one would reach 52.",
+    "Sized by leverage, not printed totals. The two self buffs compound on a hit both cover, so +8% takes ×1.82 to ×2.04 (+12%); +10% would reach ×2.10. The edge route's +2 EP is +5% on a 40 EP strike and +4.4% on Iron Web Entrapment (formula damage is linear in EP: tags.ts powerEffect), on every cast, including the setup casts no buff reaches in their own round. Razor Strands keeps +1 flat Damage on a Hidden Art because every percentage setup in this root duplicates a sibling: Increase Damage Given twins Threadbound Vigor and lets 01+02+04+05 reach +10% on the two compounding buffs; Increase Damage Taken twins Conductive Seam. The two Decrease Damage Given rows reduce in sequence: +10% takes an enemy under both from ×0.455 to ×0.33 of its damage, the value approved for Blood-Enchanted Eyes' Red Pestilence on the same universal 30%/35% pair (RUL-2026-10-04-001), which is this tree's reason for +10% on two compounding rows; Iron Cocoon carries no rider, lighter than Red Pestilence's +3% Decrease Damage Taken. Increase Damage Taken has one row but multiplies every matching hit on the target, so it is a route of its own.",
     "Filters (SOURCE_MECHANICS §3): Spiraling Wires' self buff (Bukijutsu/Speed/Strength, no element) reaches every Bukijutsu-typed or element-less hit, weapons and basic attacks included; Eternal Embrace's reaches Lightning, Magnet, Wind and element-less hits; both cover the four kit strikes, and the 25% + 0.15/level bloodline passive multiplies last. Both Decrease Damage Given rows list all four stat types and no element, so they reach every non-pierce hit; Lightning Threads' exposure lists Lightning, Magnet, Wind and None.",
     "Delivery (§3b, §4b): every cast is cooldown 7 and every percentage row is live the two rounds after its cast, never on its own hit. Spiraling Wires (60 AP) and Eternal Embrace (40 AP) open both self buffs in one round; Wire Blast Plus and Eternal Embrace do the same for both suppression rows. The four Damage casts are 60 AP, one per turn, so two of the other three strikes fit a self-buff window and Spiraling Wires is never under its own buff. All five jutsu are OTHER_USER.",
-    "Fourth purchases: Edge takes Tangling Snare or Threadbound Vigor; Amplifier takes Razor Strands or Tangling Snare; Suppression takes Taut Filament or Conductive Seam; Exposure takes Constricting Coils or Taut Filament. The two all-offense builds share Taut Filament, Razor Strands and Threadbound Vigor and differ only in the capstone: a 40 EP kit strike under both buffs is 43 × 1.39² ≈ 83 (Severing Lattice) against 41 × 1.43² ≈ 84 (Weaver Ascendant), and over one cooldown cycle (Spiraling Wires + Eternal Embrace, Iron Web Entrapment and one 40 EP strike in the window, one after it) about 262 against 260 on kit strikes; the edge keeps +3 EP outside the windows, the amplifier reaches weapons, basic attacks and element-less hits inside them. The two control builds with the sibling Hidden Art share Tangling Snare, Constricting Coils and Conductive Seam and differ only in the capstone: Iron Cocoon gives suppression 40%/45% (enemy ×0.33) with exposure 40%, Galvanic Marionette 37%/42% (×0.365) with exposure 45%."
+    "Fourth purchases: Edge takes Tangling Snare or Threadbound Vigor; Amplifier takes Razor Strands or Tangling Snare; Suppression takes Taut Filament or Conductive Seam; Exposure takes Constricting Coils or Taut Filament. The two all-offense builds share Taut Filament, Razor Strands and Threadbound Vigor and differ only in the capstone: a 40 EP kit strike under both buffs is 42 × 1.39² ≈ 81 (Severing Lattice) against 41 × 1.43² ≈ 84 (Weaver Ascendant), and over one cooldown cycle (Spiraling Wires + Eternal Embrace, Iron Web Entrapment and one 40 EP strike in the window, one after it) about 256 against 260 on kit strikes; the edge keeps one more EP on every Magnet hit outside the windows (42 against 41), the amplifier reaches weapons, basic attacks and element-less hits inside them. The two control builds with the sibling Hidden Art share Tangling Snare, Constricting Coils and Conductive Seam and differ only in the capstone: Iron Cocoon gives suppression 40%/45% (enemy ×0.33) with exposure 40%, Galvanic Marionette 37%/42% (×0.365) with exposure 45%."
   ],
   "risks": [
     "Self-buff reach: both self Increase Damage Given rows reach beyond the kit (Spiraling Wires: any Bukijutsu-typed or element-less hit; Eternal Embrace: any Lightning, Magnet, Wind or element-less hit), so the +8% maximum also raises matching normal jutsu, weapons and basic attacks in each window; where both windows overlap they compound (×1.43² ≈ ×2.04) before the passive. Uptime not simulated.",
     "Ally hazard: Wire Blast Plus row 1 (Decrease Damage Given) is an OTHER_USER AOE_CIRCLE_SPAWN with friendly fire none (=ALL), so allies in the radius-1 circle also receive it, up to 40% at the Suppression maximum; the caster is never a target (SOURCE_MECHANICS §4b). Eternal Embrace's row is friendly fire ENEMIES. Positioning decides.",
     "Exposure concentration: one row (Lightning Threads, 60 AP, single target, 2 rounds) reaches 45% and multiplies every matching non-pierce hit on the target, the party's included; on the caster's hits it compounds with the self buffs. Party value was not simulated.",
-    "Damage: +3 EP on four Magnet rows keeps Iron Web Entrapment's stun line at High tier (48) in the kit. Off-kit NORMAL/SPECIAL/EVENT Magnet Damage rows are unverified; a 50 EP one would reach 53 (Houkyuken's 50 EP Magnetic Pulse Strike is bloodline-locked, so an Itojinsei owner cannot cast it). The hits are formula-calculated and the self buffs and passive multiply them, so +3 EP is not +3 damage. Not simulated.",
+    "Damage: +2 EP on four Magnet rows keeps Iron Web Entrapment's stun line at High tier (47) in the kit. Off-kit NORMAL/SPECIAL/EVENT Magnet Damage rows are unverified; a 50 EP one would reach 52, the 50 → 52 flagged for Blood-Enchanted Eyes, Shakunetsu Sakura and Houkyuken (Houkyuken's 50 EP Magnetic Pulse Strike is bloodline-locked, so an Itojinsei owner cannot cast it). The hits are formula-calculated and the self buffs and passive multiply them, so +2 EP is not +2 damage. Not simulated.",
     "Eternal Embrace delivery: the self buff is realized on the caster at cast time (actions.ts 980–1004/1060–1075; SOURCE_MECHANICS §3b) whenever the circle spawn has a legal target, an ally included; the Decrease Damage Given row (friendly fire ENEMIES) hits each living enemy in the circle once. Buffprevent is unsupported.",
     "Classification: Magnet is shared with Houkyuken (expected under RUL-2026-10-03-005). The Damage rows, Eternal Embrace's self buff and Lightning Threads' exposure carry Magnet; Spiraling Wires' self buff and both Decrease Damage Given rows carry no element, so the Suppression route and half the Amplifier depend on the proposed jutsu-classification resolver (ENGINE_GAP_REGISTER G1). Off-kit Magnet coverage is unverified.",
     "No self-defensive route: the kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row (the 15% Lightning Decrease Damage Taken passive is not a jutsu row); stun, redirection, decrease-heal and buffprevent receive nothing.",
@@ -1463,7 +1463,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 3,
+      "damage": 2,
       "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 10
@@ -1497,7 +1497,7 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 10
@@ -1532,9 +1532,9 @@
           "steps": [
             0,
             1,
-            2
+            1
           ],
-          "total": 3,
+          "total": 2,
           "on_band": false
         },
         {
@@ -1601,7 +1601,7 @@
         "04"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 4
       }
     },
@@ -1613,7 +1613,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
@@ -1783,15 +1783,15 @@
       "06": "How do I bind the target: blunt its blows, or lay it open to ours?"
     },
     "route_identities": {
-      "03": "steady edge (flat-Damage burst): +3 EP on every Magnet strike, every cast, in or out of a window",
+      "03": "steady edge (flat-Damage burst): +2 EP on every Magnet strike, every cast, in or out of a window",
       "05": "windowed self-amplification: two compounding self buffs on every matching hit in the 2-round window, kit or not",
       "08": "suppression: every enemy caught in the circles hits softer, for the whole party",
       "10": "exposure: one target marked for every attacker"
     },
-    "director_review": "The edge route is +3 Damage on four kit rows (Iron Web Entrapment 45 → 48, three 40 → 43), one above the exemplars' +2 and the roster default; the kit reason is the first concern. Off-kit Magnet Damage rows are unverified: a 50 EP one would reach 53, past the 50 → 52 flagged for Blood-Enchanted Eyes and Shakunetsu Sakura. If +2 is required, Severing Lattice +1 is the lever, at the cost the concern states.",
+    "director_review": "No Damage-tier issue: the edge route is +2 Damage on four Magnet rows (Iron Web Entrapment 45 → 47, three 40 → 42), the default Houkyuken holds on the same element; an off-kit 50 EP Magnet row would read 52 (unverified). It trails the Amplifier by about 1.5% per cooldown cycle on kit strikes; Severing Lattice +2 (route +3) is the lever if the director wants it level (first concern). Two magnitudes move with the roster: Iron Cocoon keeps +10% Decrease Damage Given on two compounding rows (Red Pestilence precedent; roster convention +8%), and Galvanic Marionette keeps single-row team exposure at +10% (Lightning Threads 35 → 45%), above the anchors' +5% exposure.",
     "concerns": [
-      "Severing Lattice's route is +3 Damage (Razor Strands +1, capstone +2), not the exemplars' +2 behind a percentage setup, because this root's only self tags are Damage and Increase Damage Given. An Increase Damage Given Razor Strands would let Weaver Ascendant plus that sibling Hidden Art (01+02+04+05) reach +10% on the two compounding self buffs (×1.45² ≈ ×2.10), the stacking this tree trims to +8%; an Increase Damage Taken setup would twin Conductive Seam. With the +1 commit, a +1 capstone would leave the edge build (01+02+03+04) at 42 × 1.39² ≈ 81 in the window against the amplifier build (01+02+04+05) at 41 × 1.43² ≈ 84, and about 256 against 260 on kit strikes over one cooldown cycle, while the amplifier also reaches weapons, basic attacks and element-less hits: the route would be a trap. At +2 it is 43 × 1.39² ≈ 83 and about 262 against 260. No kit tier is crossed (40 → 43, 45 → 48).",
-      "Off-kit reach: potency is element-wide and off-kit NORMAL/SPECIAL/EVENT Magnet Damage rows are unverified; a 50 EP one would reach 53 under the edge route.",
+      "Severing Lattice's route is +2 Damage (Razor Strands +1, capstone +1); the capstone repeats the commit's tag because this root's only self tags are Damage and Increase Damage Given: an Increase Damage Given Razor Strands would twin Threadbound Vigor and let 01+02+04+05 reach +10% on the two compounding self buffs (×1.45² ≈ ×2.10), and an Increase Damage Taken setup would twin Conductive Seam. The edge is not raised to match the Amplifier: on the shared all-offense nodes the edge build (01+02+03+04) is 42 × 1.39² ≈ 81 on a 40 EP strike under both buffs against the amplifier build (01+02+04+05) at 41 × 1.43² ≈ 84, and about 256 against 260 on kit strikes over one cooldown cycle, while the amplifier also reaches weapons, basic attacks and element-less hits. The edge leads on every Magnet hit outside the two-round windows (42 against 41, or 40 for the amplifier with Tangling Snare), including Spiraling Wires' own hit and the strike after the window, and needs no buff cast. No kit tier is crossed (40 → 42, 45 → 47).",
+      "Off-kit reach: potency is element-wide and off-kit NORMAL/SPECIAL/EVENT Magnet Damage rows are unverified; a 50 EP one would reach 52 under the edge route.",
       "Suppression stays at +10% Decrease Damage Given on two compounding rows (an enemy under both circles ×0.455 → ×0.33), above the roster's +8% two-row default, because Blood-Enchanted Eyes' Red Pestilence holds +10% on the identical universal 30%/35% pair. Iron Cocoon dropped its +2% Increase Damage Taken rider in this pass, so the two control builds no longer mirror; it remains the tree's most leveraged route.",
       "Increase Damage Taken stays at +10% on one single-target row because that row multiplies every matching hit on the target from every attacker; single-row team exposure at +10% is a roster-wide director question, and its party value was not simulated."
     ]

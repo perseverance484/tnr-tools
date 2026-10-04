@@ -97,7 +97,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 7
+        "decreasedamagetaken": 5
       },
       "advanced_arts": [
         "Heart of the Singularity"
@@ -115,7 +115,7 @@
       "cost": 4,
       "bonuses": {
         "decreasedamagegiven": 7,
-        "decreasedamagetaken": 4,
+        "decreasedamagetaken": 3,
         "lifesteal": 5
       },
       "advanced_arts": [
@@ -150,7 +150,7 @@
       "increasedamagegiven": 5,
       "decreasedamagegiven": 7,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 7,
+      "decreasedamagetaken": 5,
       "afterburn": 10,
       "lifesteal": 5
     },
@@ -270,8 +270,8 @@
         "name": "Event Horizon",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Cosmic Aura",
           "Cosmic Chains",
@@ -286,8 +286,8 @@
         "name": "Heart of the Singularity",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cosmic Aura",
           "Cosmic Chains",
@@ -330,20 +330,21 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "02",
+        "03",
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 2,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 7
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 29,
+      "raw_flat_total": 16,
+      "row_weighted_total": 25,
       "advanced_arts": [
-        "08"
+        "03"
       ],
       "non_dominated": true
     },
@@ -452,10 +453,10 @@
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4
+          "decreasedamagetaken": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -510,11 +511,11 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 3,
           "afterburn": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 23,
+        "raw_flat_total": 12,
+        "row_weighted_total": 20,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -549,10 +550,10 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 7
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 29,
+        "raw_flat_total": 11,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "08"
         ],
@@ -569,11 +570,11 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 3,
           "lifesteal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "raw_flat_total": 11,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -607,11 +608,11 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 2,
-          "decreasedamagetaken": 7,
+          "decreasedamagetaken": 5,
           "lifesteal": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 25,
+        "raw_flat_total": 9,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "08"
         ],
@@ -626,11 +627,11 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 7,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 3,
           "lifesteal": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 24,
+        "raw_flat_total": 15,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "10"
         ],
@@ -974,9 +975,9 @@
       ],
       "path_bonuses": {
         "decreasedamagegiven": 2,
-        "decreasedamagetaken": 7
+        "decreasedamagetaken": 5
       },
-      "path_row_weighted": 23,
+      "path_row_weighted": 17,
       "fourths": [
         {
           "id": "01",
@@ -990,10 +991,10 @@
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 7
+            "decreasedamagetaken": 5
           },
-          "raw_total": 13,
-          "row_weighted": 29
+          "raw_total": 11,
+          "row_weighted": 23
         },
         {
           "id": "09",
@@ -1004,11 +1005,11 @@
           },
           "bonuses": {
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 7,
+            "decreasedamagetaken": 5,
             "lifesteal": 2
           },
-          "raw_total": 11,
-          "row_weighted": 25
+          "raw_total": 9,
+          "row_weighted": 19
         }
       ],
       "highest_diagnostic_fourth": "01"
@@ -1051,15 +1052,15 @@
           "name": "Event Horizon",
           "category": "Hidden Art",
           "adds": {
-            "decreasedamagetaken": 2
+            "decreasedamagetaken": 1
           },
           "bonuses": {
             "decreasedamagegiven": 7,
-            "decreasedamagetaken": 4,
+            "decreasedamagetaken": 3,
             "lifesteal": 5
           },
-          "raw_total": 16,
-          "row_weighted": 24
+          "raw_total": 15,
+          "row_weighted": 21
         }
       ],
       "highest_diagnostic_fourth": "01"
