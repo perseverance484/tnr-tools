@@ -441,7 +441,7 @@ A dedicated Damage path should normally use **+2 Damage on the Hidden Art + +3 D
 
 **Date:** 2026-10-03  
 **Domain:** Bloodright / Blood-Enchanted Eyes  
-**Status:** ACTIVE  
+**Status:** SUPERSEDED (operative node values) by RUL-2026-10-04-001  
 **Supersedes:** none
 
 **Ruling:** Blood-Enchanted Eyes uses the user-approved title **Crimson Covenant**, replacing **Tithe of the Red Eye** everywhere in the design source and generated outputs.
@@ -467,3 +467,66 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 **Rationale:** This gives the bloodline two clearly offensive and two clearly defensive commitments, restores the intended Damage route, keeps Lifesteal as the second offensive identity, and makes the defensive half mirror cleanly: Fortress reaches +10% Decrease Damage Taken with +5% Decrease Damage Given support, while Suppression reaches +10% Decrease Damage Given with +5% Decrease Damage Taken support. It also keeps Damage and Lifesteal at the new +5 ceilings.
 
 **Canonical destination:** `docs/design/bloodright/trees/blood_enchanted_eyes.json` and its generated Markdown/SVG/validation, plus the cross-roster balance outputs on the active Fable branch.
+
+---
+
+## RUL-2026-10-04-001 — Blood-Enchanted Eyes Burst route re-cut (exposure into controlled Damage)
+
+**Date:** 2026-10-04  
+**Domain:** Bloodright / Blood-Enchanted Eyes  
+**Status:** ACTIVE  
+**Supersedes:** RUL-2026-10-03-006 (operative node values only; its title, four-path structure, branch identities, Shadow scope and no-Afterburn decision carry forward)
+
+**Ruling:** Blood-Enchanted Eyes — **Crimson Covenant** keeps the RUL-2026-10-03-006 graph and names (Scarlet Gaze → Opened Veins → Rite of Exsanguination; Scarlet Gaze → Crimson Thirst → Feast of the Fallen; Iron in the Blood → Closed Wounds → Deathless Vitality; Iron in the Blood → Carrion Fever → Red Pestilence). The Burst route changes: **Opened Veins** is now +3% Increase Damage Taken (was +2 Damage) and **Rite of Exsanguination** is now +2 Damage (was +3 Damage). Every other node keeps its RUL-2026-10-03-006 values: Scarlet Gaze +2% IDG / +2% IDT; Crimson Thirst +2% Lifesteal; Feast of the Fallen +3% Lifesteal / +5% IDG; Iron in the Blood +2% DDT / +2% DDG; Closed Wounds +3% DDT; Deathless Vitality +5% DDT / +3% DDG; Carrion Fever +3% DDG; Red Pestilence +5% DDG / +3% DDT. No dedicated Afterburn path.
+
+**Rationale:** Under `docs/design/bloodright/BALANCE_REVIEW_METHOD.md`, the earlier +5 Damage route reached four Shadow Damage rows (40/40/40/50), lifting three a full tier and one past the 50 Nuke tier. Setting up exposure on the Hidden Art and paying off with a controlled +2 Damage keeps the Burst identity at a fraction of the tier impact. The +2 still lifts Reaper's Embrace 50 → 52; that is recorded in the tree for director confirmation.
+
+**Canonical destination:** `docs/design/bloodright/trees/blood_enchanted_eyes.json` and its generated Markdown/SVG/validation on the active Fable Bloodright branch.
+
+---
+
+## RUL-2026-10-04-002 — Shakunetsu Sakura director-approved structure
+
+**Date:** 2026-10-04  
+**Domain:** Bloodright / Shakunetsu Sakura  
+**Status:** ACTIVE  
+**Supersedes:** none (replaces the Fable Draft 2 proposal values)
+
+**Ruling:** Shakunetsu Sakura uses this structure. Edges: 01→02→03, 01→07→08, 06→04→05, 06→09→10.
+
+- **Ember Dragon's Roots** (Foundation) — +2% Increase Damage Given. *“How do I increase my killing pressure?”*
+  - **Kindled Boughs** (Hidden) — +3% Increase Damage Given → **Dragon in Full Blossom** (Advanced) — +5% Increase Damage Given; +5% Heal.
+  - **Blossom Dominion** (Hidden) — +3% Increase Damage Given → **Scorching Hanami** (Advanced) — +5% Increase Damage Given; +3% Decrease Damage Given.
+- **Falling Ember Petals** (Foundation) — +2% Decrease Damage Given. *“How do I control the exchange?”*
+  - **Burning Petal Carpet** (Hidden) — +2% Increase Damage Taken → **Conflagration in Bloom** (Advanced) — +3% Increase Damage Taken; +2 Damage.
+  - **Smothering Petal Rain** (Hidden) — +3% Decrease Damage Given → **Deluge of Burning Petals** (Advanced) — +5% Decrease Damage Given; +5% Heal.
+
+The earlier +5 Damage Conflagration route is not to be restored.
+
+**Rationale:** The +5 Damage route lifted Sakuragari 40 → 45 and Sakura-ame 50 → 55, crossing and extending the player damage tiers. The approved structure gives each Foundation a coherent sentence, uses narrower flat Damage, and handles the single native Decrease Damage Given row with a readable suppression value plus Heal instead of an inflated number. Two mechanical consequences are recorded in the tree for director confirmation rather than changed: a capstone plus the sibling Hidden Art reaches +13% Increase Damage Given (01+02+03+07 or 01+07+08+02), recorded as a director exception; and Conflagration in Bloom's +2 lifts Sakura-ame 50 → 52.
+
+**Canonical destination:** `docs/design/bloodright/trees/shakunetsu_sakura.json` and its generated outputs on the active Fable Bloodright branch.
+
+---
+
+## RUL-2026-10-04-003 — Arashima director-approved structure and names
+
+**Date:** 2026-10-04  
+**Domain:** Bloodright / Arashima  
+**Status:** ACTIVE  
+**Supersedes:** none (replaces the Fable Draft 4 proposal values and the name Reaper's Harvest)
+
+**Ruling:** Arashima uses the title **Arashima — Reaper's Tempest** and this structure (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10):
+
+- **Tempest Hymn** (Foundation) — +3% Increase Damage Given.
+  - **Gathering Thunderhead** (Hidden) — +2% Increase Damage Given → **Sundered Sky** (Advanced) — +3% Increase Damage Given; +2 Damage.
+  - **Crimson Downpour** (Hidden) — +2% Lifesteal → **The Storm's Due** (Advanced) — +3% Lifesteal; +5% Increase Damage Given.
+- **Stillness in the Squall** (Foundation) — +2% Decrease Damage Taken; +2% Decrease Damage Given.
+  - **Stormwarden's Hide** (Hidden) — +3% Decrease Damage Taken → **Unbroken Horizon** (Advanced) — +5% Decrease Damage Taken; +2% Lifesteal.
+  - **Deadwind Dirge** (Hidden) — +3% Decrease Damage Given → **Silence After Thunder** (Advanced) — +5% Decrease Damage Given; +2% Decrease Damage Taken.
+
+The names Crimson Downpour, The Storm's Due, Stormwarden's Hide and Deadwind Dirge are fixed; do not revert to Reaper's Harvest or Torrential Downpour.
+
+**Rationale:** Director review under `BALANCE_REVIEW_METHOD.md` replaced the old +5 Damage route with a buff-led Burst that adds a narrow +2 Damage to the two 45 EP Storm attacks (45 → 47, no tier crossing), kept Lifesteal at the +5% hard ceiling on the Sustain route, and gave the Fortress a small Lifesteal rider.
+
+**Canonical destination:** `docs/design/bloodright/trees/arashima.json` and its generated outputs on the active Fable Bloodright branch.

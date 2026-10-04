@@ -12,6 +12,7 @@
   "revision": "approved reference (handoff v4 values) regenerated under RUL-2026-10-03-005",
   "structure_errors": [],
   "warnings": [
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Incandescent Nova 50 -> 52, Incandescent Nova 50 -> 55",
     "ally-hazard area rows amplified (friendly fire none/ALL): Solar Reverb#0, Stellar Inferno#1"
   ],
   "classification": {
@@ -807,6 +808,376 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2,
+      5
+    ],
+    "rows": [
+      {
+        "jutsu": "Solar Reverb",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Scorch"
+        ],
+        "method": "AOE_SPIRAL_SHOOT",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 5,
+            "final": 45.0,
+            "tier_before": "Normal",
+            "tier_after": "High",
+            "tier_change": true,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Incandescent Nova",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Scorch"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 5,
+            "final": 55.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Stellar Inferno",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Scorch"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
+            "added": 5,
+            "final": 45.0,
+            "tier_before": "Normal",
+            "tier_after": "High",
+            "tier_change": true,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [
+      [
+        "Incandescent Nova",
+        0,
+        2
+      ],
+      [
+        "Incandescent Nova",
+        0,
+        5
+      ],
+      [
+        "Solar Reverb",
+        0,
+        5
+      ],
+      [
+        "Stellar Inferno",
+        0,
+        5
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Incandescent Nova",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      },
+      {
+        "jutsu": "Incandescent Nova",
+        "row": 0,
+        "base": 50.0,
+        "added": 5,
+        "final": 55.0
+      }
+    ]
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Solar Cataclysm",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 21,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Emberwake",
+          "category": "Hidden Art",
+          "adds": {
+            "afterburn": 3
+          },
+          "bonuses": {
+            "damage": 5,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "afterburn": 3
+          },
+          "raw_total": 12,
+          "row_weighted": 24
+        },
+        {
+          "id": "06",
+          "name": "Sunward Oath",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 5,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 13,
+          "row_weighted": 25
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Eternal Noon",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      },
+      "path_row_weighted": 25,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Crown of Cinders",
+          "category": "Hidden Art",
+          "adds": {
+            "damage": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 5,
+            "afterburn": 10
+          },
+          "raw_total": 22,
+          "row_weighted": 31
+        },
+        {
+          "id": "06",
+          "name": "Sunward Oath",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 24,
+          "row_weighted": 29
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Sovereign Sun",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Dawnheart",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 19,
+          "row_weighted": 24
+        },
+        {
+          "id": "09",
+          "name": "Ashen Verdict",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagegiven": 5,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 18,
+          "row_weighted": 21
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Dying Light",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 17,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Dawnheart",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 7,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 21,
+          "row_weighted": 23
+        },
+        {
+          "id": "07",
+          "name": "Golden Mantle",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 20,
+          "row_weighted": 20
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

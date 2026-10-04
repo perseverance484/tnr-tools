@@ -43,6 +43,7 @@ def main() -> int:
     rc = max(rc, run([os.path.join(HERE, "roster_ledger.py")] + flag))
     rc = max(rc, run([os.path.join(HERE, "classification_table.py")] + flag))
     rc = max(rc, run([os.path.join(HERE, "cross_roster_review.py")] + flag))
+    rc = max(rc, run([os.path.join(HERE, "rebalance_audit.py")] + flag))
     rc = max(rc, run([os.path.join(HERE, "planning_status.py")] + flag))
     print("build_all:", "OK" if rc == 0 else f"exit {rc}")
     return rc

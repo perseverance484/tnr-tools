@@ -267,6 +267,20 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
     errors.extend(c_err)
     warnings.extend(c_warn)
     tree["audit"]["ceilings"] = c_report
+    # Review audits (BALANCE_REVIEW_METHOD.md): damage tiers, fourth purchases, route overlap.
+    dta = L.damage_threshold_audit(tree, rows)
+    if dta["above_nuke"]:
+        worst = max(dta["above_nuke"], key=lambda x: (x["final"], x["jutsu"]))
+        lst = ", ".join(sorted({f"{x['jutsu']} {x['base']:g} -> {x['final']:g}" for x in dta["above_nuke"]}))
+        why = str(tree.get("above_nuke_rationale") or "").strip()
+        if why:
+            warnings.append(f"Damage above the 50 Nuke tier in a legal allocation (director review): {lst}")
+        else:
+            errors.append(f"Damage above the 50 Nuke tier in a legal allocation without an above_nuke_rationale: {lst} (worst {worst['final']:g})")
+    for ov in L.route_overlap(tree):
+        if ov["same_primary_tag"]:
+            warnings.append(f"route overlap (diagnostic): {ov['a_name']} and {ov['b_name']} share their primary tag"
+                            f"{' as siblings' if ov['siblings'] else ''} (path cosine {ov['path_cosine']})")
     if cls["label_kind"] != "element":
         warnings.append(f"classification status: {cls['classification_status']} (director decision)")
     universal = [nid for nid in by_id if audit["full_builds"] and all(nid in b["ids"] for b in audit["full_builds"])]
@@ -300,6 +314,9 @@ def normalize(tree: dict, kit: dict, record: dict, rows: list[L.Row], level: int
         "examples": [{"name": e.get("name"), "archetype": e.get("archetype"), "ids": e["ids"], "cost": e["cost"],
                       "bonuses": e["bonuses"], "advanced_arts": e["advanced_arts"]} for e in examples],
         "audit": audit,
+        "damage_thresholds": L.damage_threshold_audit(tree, rows),
+        "fourth_bp": L.fourth_bp_audit(tree, rows),
+        "route_overlap": L.route_overlap(tree),
         "evaluation_level": level,
         "game_source_pin": L.GAME_SOURCE_PIN,
         "combat_simulation_performed": False,

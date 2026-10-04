@@ -1,6 +1,6 @@
 {
   "title": "Arashima — Reaper's Tempest",
-  "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Director-approved structure (RUL-2026-10-04-003) / Storm classification / forked tree",
   "bloodline": {
     "id": "9F6Ruhuf82gSzpZcsUaPW",
     "review_id": "BR-005",
@@ -40,10 +40,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Lifesteal (sustain; the kit's identity, at the +5% hard ceiling)",
-    "secondary": "Decrease Damage Taken and Decrease Damage Given (fortress and suppression routes, +10% each)",
-    "tertiary": "Damage (Storm AoE burst, +5) and Increase Damage Given (glue across routes, up to +8%)",
-    "rationale": "Stormsinger is the kit's identity: one 40 AP self-cast carries Lifesteal 40%, Increase Damage Given 35% and Decrease Damage Taken 35% for two rounds, so sustain is the primary emphasis. Lifesteal is held to the +5% hard ceiling (40 → 45%, well under the 60% leech cap), so the Sustain route pairs it with the tree's largest Increase Damage Given gain (43% with Tempest Hymn): bigger hits feed the leech. Reapers Storm and Demons Strike are the only Damage rows (45 EP each, Storm, AoE circle spawn, 60 AP) and form the burst route. Death's Storm's Decrease Damage Given 30% is the kit's only enemy debuff and anchors the suppression route; its pierce row is unsupported and untouched. 'Primary' names the kit's identity, not the largest addition: the fortress and suppression routes reach +10% on their tags."
+    "primary": "Offense from Stormsinger's self buff: Storm burst or sustain offense (Tempest Hymn)",
+    "secondary": "Defense: fortress on Stormsinger or suppression on Death's Storm (Stillness in the Squall)",
+    "tertiary": "Lifesteal as the Sustain route's payoff and a light rider on the Fortress",
+    "rationale": "Director-approved structure (RUL-2026-10-04-003). Tempest Hymn answers \"How do I win the storm offensively?\": Sundered Sky pushes the Stormsinger buff and adds a narrow +2 Damage to the two 45 EP Storm attacks, while The Storm's Due converts the same buff into +5% Lifesteal sustain. Stillness in the Squall answers \"How do I outlast the storm?\": Unbroken Horizon protects the singer (+10% Decrease Damage Taken with a small Lifesteal rider) and Silence After Thunder suppresses everyone in Death's Storm (+10% Decrease Damage Given). Potency reaches matching supported tags on all Storm jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -60,7 +60,7 @@
         }
       ],
       "flavor": "The storm sings through Arashima blood; every verse is a wound and a drink.",
-      "coverage_note": "Stormsinger Increase Damage Given 35 → 38% (self buff, 2 rounds per 40 AP cast); no gates, no adverse rows.",
+      "coverage_note": "Stormsinger self Increase Damage Given 35 → 38% (2 rounds per 40 AP cast).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -83,23 +83,23 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
+          "tag": "increasedamagegiven",
           "flat": 2,
-          "display_role": "DAMAGE"
+          "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Clouds mass over the field, heavy with what is about to fall.",
-      "coverage_note": "Reapers Storm and Demons Strike Storm Damage 45 → 47 EP (AoE circle spawns, 60 AP); Death's Storm's pierce row is unsupported.",
+      "coverage_note": "Stormsinger self buff 38 → 40% with Tempest Hymn.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Demons Strike",
-          "Reapers Storm"
+          "Stormsinger"
         ],
-        "effect_rows": 2
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -112,13 +112,18 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
+          "tag": "increasedamagegiven",
           "flat": 3,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "damage",
+          "flat": 2,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "The whole sky comes down at once. Nothing beneath it is spared.",
-      "coverage_note": "Damage route total +5: both Storm Damage rows 45 → 50 EP; both are AoE, so every enemy in the circle takes the full gain.",
+      "coverage_note": "Burst: Stormsinger self buff 35 → 43% on the full route; Reapers Storm and Demons Strike Storm Damage 45 → 47 EP (both AoE).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -126,9 +131,11 @@
       "coverage": {
         "jutsu": [
           "Demons Strike",
-          "Reapers Storm"
+          "Reapers Storm",
+          "Stormsinger"
         ],
-        "effect_rows": 2
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -147,7 +154,7 @@
         }
       ],
       "flavor": "The rain that follows the storm runs red, and it runs toward the singer.",
-      "coverage_note": "Stormsinger Lifesteal 40 → 42%; leech shares the 60%-of-damage cap with vamp.",
+      "coverage_note": "Stormsinger Lifesteal 40 → 42%.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -162,7 +169,7 @@
     },
     {
       "id": "05",
-      "name": "Reaper's Harvest",
+      "name": "The Storm's Due",
       "category": "Advanced Art",
       "cost": 1,
       "parents": [
@@ -180,8 +187,8 @@
           "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "What the storm cuts down, the reaper gathers in.",
-      "coverage_note": "Lifesteal route total +5% (Stormsinger 40 → 45%, the hard ceiling) and Increase Damage Given 35 → 43% with Tempest Hymn, on the same 2-round cast.",
+      "flavor": "The storm takes its toll from everything it touches, and pays it back to the singer.",
+      "coverage_note": "Sustain offense: Stormsinger Lifesteal 40 → 45% on the full route (under the 60% leech budget) and self buff 35 → 43% with Tempest Hymn.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -213,7 +220,7 @@
         }
       ],
       "flavor": "At the heart of the tempest there is a calm that belongs to Arashima alone.",
-      "coverage_note": "Stormsinger Decrease Damage Taken 35 → 37% (self, 2 rounds) and Death's Storm Decrease Damage Given 30 → 32% (enemy, AoE, 2 rounds, debuff-prevent gated; ally hazard).",
+      "coverage_note": "Stormsinger Decrease Damage Taken 35 → 37% (self) and Death's Storm Decrease Damage Given 30 → 32% (enemy circle; ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -246,7 +253,7 @@
         }
       ],
       "flavor": "Years of standing in the gale leave skin the wind no longer bites.",
-      "coverage_note": "Stormsinger Decrease Damage Taken 40% with Stillness in the Squall (self, 2 rounds); four stat types and no element, so it covers almost every incoming hit; pierce bypasses it.",
+      "coverage_note": "Stormsinger Decrease Damage Taken 37 → 40% with Stillness in the Squall.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -274,13 +281,13 @@
           "display_role": "SELF BUFF"
         },
         {
-          "tag": "increasedamagegiven",
+          "tag": "lifesteal",
           "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The storm has raged all night; at dawn the line still holds.",
-      "coverage_note": "Decrease Damage Taken route total +10% (Stormsinger 35 → 45%); Increase Damage Given 40% with Tempest Hymn; both ride the same 2-round cast window.",
+      "coverage_note": "Fortress: Stormsinger Decrease Damage Taken 35 → 45% on the full route; Stormsinger Lifesteal 40 → 42%.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -309,7 +316,7 @@
         }
       ],
       "flavor": "The wind after Death's Storm carries the strength out of every arm it touches.",
-      "coverage_note": "Death's Storm Decrease Damage Given 35% with Stillness in the Squall, 2 rounds, everyone in the circle (allies too: ally hazard); needs the 60 AP cast, debuff-prevent gated.",
+      "coverage_note": "Death's Storm Decrease Damage Given 32 → 35% with Stillness in the Squall (everyone in the circle; ally hazard).",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -345,7 +352,7 @@
         }
       ],
       "flavor": "When the thunder stops, only the Arashima still has the will to strike.",
-      "coverage_note": "Decrease Damage Given route total +10% (Death's Storm 30 → 40%, ally hazard in the circle); Stormsinger Decrease Damage Taken +2% (39% with Stillness in the Squall).",
+      "coverage_note": "Suppression: Death's Storm Decrease Damage Given 30 → 40% on the full route; Stormsinger Decrease Damage Taken 37 → 39% with Stillness in the Squall.",
       "parent_rule": "ALL",
       "potency_classification": "Storm",
       "scope": "all Storm jutsu",
@@ -365,7 +372,246 @@
   ],
   "examples": [
     {
-      "name": "Reaper's Harvest",
+      "name": "Sundered Sky",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "Stormsinger self buff 35 → 43%; Reapers Storm and Demons Strike 45 → 47 EP; Stillness in the Squall is the fourth purchase (+2% DDT/DDG).",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Stormsinger",
+          "row": 0,
+          "tag": "lifesteal",
+          "label": "Lifesteal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stormsinger",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Stormsinger",
+          "row": 2,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Sounds of Tempest",
+          "row": 0,
+          "tag": "poison",
+          "label": "poison",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Sounds of Tempest",
+          "row": 1,
+          "tag": "increasepoolcost",
+          "label": "increasepoolcost",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 80.0,
+          "gain": 0,
+          "final": 80.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reapers Storm",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Storm"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 2,
+          "final": 47.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Reapers Storm",
+          "row": 1,
+          "tag": "drain",
+          "label": "drain",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 250.0,
+          "gain": 0,
+          "final": 250.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demons Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Storm"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 45.0,
+          "gain": 2,
+          "final": 47.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demons Strike",
+          "row": 1,
+          "tag": "shield",
+          "label": "shield",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Demons Strike",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death’s Storm",
+          "row": 0,
+          "tag": "pierce",
+          "label": "pierce",
+          "combat_elements": [
+            "Storm"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 58.0,
+          "gain": 0,
+          "final": 58.0,
+          "calculation": "formula",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Death’s Storm",
+          "row": 1,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 30.0,
+          "gain": 2,
+          "final": 32.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Sundered Sky"
+      ]
+    },
+    {
+      "name": "The Storm's Due",
       "archetype": "Sustain",
       "ids": [
         "01",
@@ -373,7 +619,7 @@
         "05",
         "06"
       ],
-      "rationale": "The Lifesteal route takes Stormsinger from 40% to 45% leech (the +5% hard ceiling) and its Increase Damage Given from 35% to 43% for the same two-round window. The enhanced Increase Damage Given lifts both Storm Damage rows and any hit that uses your highest offence stat or carries no element (not Death's Storm's pierce, which bypasses damage modifiers); the leech draws from nearly every damage row, including Death's Storm's 58 EP pierce at full ratio. Stillness in the Squall is the fourth purchase (Decrease Damage Taken 37%, Death's Storm's debuff 32%): a duelist who out-sustains the exchange rather than ending it quickly.",
+      "rationale": "Stormsinger Lifesteal 40 → 45% and self buff 35 → 43% on the same 2-round cast; Stillness in the Squall is the fourth purchase.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 8,
@@ -600,25 +846,25 @@
         }
       ],
       "advanced_arts": [
-        "Reaper's Harvest"
+        "The Storm's Due"
       ]
     },
     {
-      "name": "Sundered Sky",
-      "archetype": "Burst",
+      "name": "Unbroken Horizon",
+      "archetype": "Fortress",
       "ids": [
         "01",
-        "02",
-        "03",
-        "06"
+        "06",
+        "07",
+        "08"
       ],
-      "rationale": "+5 Damage lifts Reapers Storm and Demons Strike from 45 to 50 EP on every enemy in their circles, and the bloodline's own Storm Increase Damage Given passive multiplies that downstream. Tempest Hymn is the required ancestor (Increase Damage Given 38%); Stillness in the Squall is the fourth purchase for a little mitigation. This is the burst option: it gives up the sustain and the fortress entirely.",
+      "rationale": "Stormsinger Decrease Damage Taken 35 → 45%, Lifesteal 42%, self buff 38% with Tempest Hymn as the fourth purchase.",
       "cost": 4,
       "bonuses": {
-        "damage": 5,
         "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
       },
       "finals": [
         {
@@ -633,8 +879,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -653,244 +899,6 @@
           "base": 35.0,
           "gain": 3,
           "final": 38.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Stormsinger",
-          "row": 2,
-          "tag": "decreasedamagetaken",
-          "label": "Decrease Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Sounds of Tempest",
-          "row": 0,
-          "tag": "poison",
-          "label": "poison",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Sounds of Tempest",
-          "row": 1,
-          "tag": "increasepoolcost",
-          "label": "increasepoolcost",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 80.0,
-          "gain": 0,
-          "final": 80.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reapers Storm",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Storm"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 45.0,
-          "gain": 5,
-          "final": 50.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Reapers Storm",
-          "row": 1,
-          "tag": "drain",
-          "label": "drain",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 250.0,
-          "gain": 0,
-          "final": 250.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Demons Strike",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Storm"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 45.0,
-          "gain": 5,
-          "final": 50.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Demons Strike",
-          "row": 1,
-          "tag": "shield",
-          "label": "shield",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Demons Strike",
-          "row": 2,
-          "tag": "move",
-          "label": "move",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 1.0,
-          "gain": 0,
-          "final": 1.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Death’s Storm",
-          "row": 0,
-          "tag": "pierce",
-          "label": "pierce",
-          "combat_elements": [
-            "Storm"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 58.0,
-          "gain": 0,
-          "final": 58.0,
-          "calculation": "formula",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Death’s Storm",
-          "row": 1,
-          "tag": "decreasedamagegiven",
-          "label": "Decrease Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 30.0,
-          "gain": 2,
-          "final": 32.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        }
-      ],
-      "advanced_arts": [
-        "Sundered Sky"
-      ]
-    },
-    {
-      "name": "Unbroken Horizon",
-      "archetype": "Fortress",
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "08"
-      ],
-      "rationale": "The Decrease Damage Taken route takes Stormsinger from 35% to 45% for its two rounds, and Tempest Hymn's +3% plus the Advanced Art's +2% give 40% Increase Damage Given on the same cast: a fortified-offence build that tanks the trade and answers it. Lifesteal stays at 40% and Death's Storm's debuff at 32%, so it is clearly not the sustain or suppression build.",
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 10
-      },
-      "finals": [
-        {
-          "jutsu": "Stormsinger",
-          "row": 0,
-          "tag": "lifesteal",
-          "label": "Lifesteal",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Stormsinger",
-          "row": 1,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1089,7 +1097,7 @@
         "09",
         "10"
       ],
-      "rationale": "The Decrease Damage Given route takes Death's Storm's enemy debuff from 30% to 40% on every enemy in its circle for two rounds; the Advanced Art's +2% and Stillness in the Squall leave Stormsinger at 39% Decrease Damage Taken, and Tempest Hymn adds 38% Increase Damage Given. It suppresses groups rather than killing them; Stormwarden's Hide instead of Tempest Hymn is the pure turtle at 42% Decrease Damage Taken / 40% Decrease Damage Given.",
+      "rationale": "Death's Storm Decrease Damage Given 30 → 40%, Stormsinger Decrease Damage Taken 39%, self buff 38% with Tempest Hymn.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 3,
@@ -1321,22 +1329,15 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Node split: four routes map one-to-one onto the kit's four distinct non-glue tags (Damage, Lifesteal, Decrease Damage Taken, Decrease Damage Given). Increase Damage Given is the glue (Tempest Hymn +3%, Reaper's Harvest +5%, Unbroken Horizon +2%) and never sits on a Hidden Art. Lifesteal sits only on the Sustain route, so no legal allocation exceeds the +5% hard ceiling.",
-    "Routes (RUL-2026-10-03-005): Burst +5 Damage (Gathering Thunderhead +2, Sundered Sky +3) on two rows; Sustain +5% Lifesteal (Crimson Downpour +2%, Reaper's Harvest +3%) with a +5% Increase Damage Given secondary; Fortress +10% Decrease Damage Taken and Suppression +10% Decrease Damage Given (Stillness in the Squall +2%, Hidden Art +3%, Advanced Art +5%). Maxima over every legal allocation: Damage +5, Lifesteal +5%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Increase Damage Given +8% (Tempest Hymn plus Reaper's Harvest).",
-    "Recalibration: Lifesteal left Tempest Hymn and Silence After Thunder and the Sustain route fell from +10% to +5%; Reaper's Harvest's Increase Damage Given rose to +5% and Tempest Hymn's to +3% (Unbroken Horizon's fell to +2%) so the four example builds each total 17 row-weighted points and all 14 legal full builds stay non-dominated.",
-    "Interaction with the main tree and passives: Stormsinger's Increase Damage Given, Decrease Damage Taken and Lifesteal rows are self buffs with two-round durations, so enhancing them also reaches normal jutsu and weapons used inside that window, subject to efficiency matching (see risks): the Lifesteal row lists all four stat types and so draws from every damage row that declares a stat type plus all pierce (including Death's Storm's own unsupported pierce row, which the engine feeds into lifesteal); the DDT row lists the same four stat types and reduces every incoming damage row that declares a stat type but never pierce, which the engine applies after the damage-modifier pass (so no IDG, DDT or DDG node touches a pierce hit); the IDG row's single 'Highest' stat type reaches the kit's two Storm Damage rows and any damage row that uses the caster's highest offence stat or carries no element. The bloodline's own IDG passive (25% + 0.15/level on Water/Lightning/Storm/None) multiplies the enhanced Damage rows downstream. Death's Storm's DDG is an enemy debuff, so it also softens enemy normal jutsu (not enemy pierce) against allies. None of these downstream effects were simulated.",
-    "Delivery and uptime: every Stormsinger-row node shares one 40 AP cast with a 7-round cooldown and a 2-round buff, so a sustain or fortress build's realised value is capped by that window; the Damage rows cost 60 AP on 7-round cooldowns and are AoE circle spawns, so their raw EP bonus is paid once per enemy hit; DDG requires landing the 60 AP Death's Storm and is debuff-prevent gated. Skill-tree effects (and therefore Bloodright potency) are skipped in RANKED_PVP and RANKED_SPARRING at the pin.",
-    "Fourth-purchase choices: after any 3 BP route the natural fourth is the other Foundation. Hybrids with no Advanced Art (e.g. 01+02+04+06: +2 Damage, +2% Lifesteal, +3% IDG, +2% DDT/DDG) and the all-defence 06+07+09+10 (+7% DDT, +10% DDG) are legal and non-dominated; 01+02+04+05 is the strongest unadvertised sustain build (+2 Damage, +5% Lifesteal, +8% IDG) at the cost of any mitigation.",
-    "Presentation: the renderer prints full jutsu names for this kit because 'Reapers Storm' and 'Death's Storm' would both abbreviate to 'Storm', which is also the classification label; JSON and Markdown always carried full names."
+    "Director-approved structure (RUL-2026-10-04-003): edges 01→02→03, 01→04→05, 06→07→08, 06→09→10; names Crimson Downpour, The Storm's Due, Stormwarden's Hide and Deadwind Dirge are fixed (not Reaper's Harvest or Torrential Downpour).",
+    "Maxima over every legal allocation: Increase Damage Given +10% (01+04+05+02), Lifesteal +5%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Damage +2 (45 → 47, no tier crossing).",
+    "Delivery: Stormsinger is one 40 AP self cast (Lifesteal 40%, Increase Damage Given 35%, Decrease Damage Taken 35%, 2 rounds, cooldown 7), so three routes share its window. The Storm Damage rows are 60 AP AoE circle spawns; Death's Storm's Decrease Damage Given lands on everyone in its circle (ally hazard)."
   ],
   "risks": [
-    "Classification: Storm is shared with Godstorm Eclipse, Shinrai Ou and Stormboat Willy (expected under RUL-2026-10-03-005). 2 of 6 kit rows carry Storm; Death's Storm's Decrease Damage Given row and Stormsinger's three rows need the proposed jutsu-classification resolver, and Stormsinger (no Storm row) additionally needs an authored Storm jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Storm coverage is unverified.",
-    "Lifesteal cap: lifesteal and vamp share one 60%-of-pre-shield-damage leech budget per hit. The route tops out at 45%, leaving 15 points of headroom for vamp from the main tree or items. Lifesteal requires both combatants alive and is blocked by healprevent on the caster. Verified at the pin: pierce runs before the post-damage pass (process.ts 563–585), the lifesteal handler has no pierce exclusion (tags.ts 2028–2054, unlike recoil and afterburn) and getEfficiencyRatio returns 1 for pierce (3478–3479), so Stormsinger's leech also draws from Death's Storm's 58 EP pierce at full ratio.",
-    "Efficiency matching (tags.ts 3477–3510, G15): Stormsinger's Increase Damage Given row (statTypes ['Highest'], no elements) matches the kit's Storm Damage rows and any hit that uses the caster's highest offence stat or carries no element, but not an elemental hit of a different stat type. The Lifesteal and Decrease Damage Taken rows list all four stat types and no element, so they match almost every hit; Decrease Damage Taken never sees pierce (pierce is applied after the damage-modifier pass), and Increase Damage Given and Decrease Damage Given never touch pierce either.",
-    "Stacking: BATTLE_TAG_STACKING is true at the pin, so a Bloodright potency effect stacks with any other potency source rather than being deduplicated.",
-    "No adverse rows, hidden rows, item gates, mode restrictions or injected children exist in this kit (the one ally-hazard row is covered below); the unsupported drain, pierce, poison, increasepoolcost, shield and move rows are unchanged by every node.",
-    "No combat simulation: non-dominance of the 14 allocations is an arithmetic result over per-row additions, not evidence of equal combat strength; AoE target counts, uptime, AP economy and the Storm Increase Damage Given passive's multiplication were not modelled.",
-    "Ally hazard: Death's Storm row 1 Decrease Damage Given is an OTHER_USER AOE_CIRCLE_SPAWN row with friendly fire none (=ALL), so allies inside the circle also take the debuff for its 2 rounds (the caster never does, §4b); nodes 06, 09 and 10 raise it on them too (30% → up to 40%). The pierce row (friendly fire ENEMIES) is unaffected. Positioning decides; not simulated."
+    "Classification: Storm is shared with other bloodlines (expected under RUL-2026-10-03-005). Stormsinger carries no Storm row, so in-kit it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Storm coverage is unverified.",
+    "Lifesteal shares one 60% leech budget with vamp; 45% at the route maximum leaves 15 points of headroom. Lifesteal includes pierce hits and is blocked by healprevent.",
+    "Ally hazard: Death's Storm's Decrease Damage Given (friendly fire none = ALL) also reaches allies in its circle, up to 40% at the Suppression maximum; the caster is never a target.",
+    "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1373,12 +1374,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
       "decreasedamagetaken": 10,
       "lifesteal": 5
@@ -1399,7 +1400,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 4 / Storm classification / forked tree (RUL-2026-10-03-005 recalibration)",
+    "revision": "Director-approved structure (RUL-2026-10-04-003) / Storm classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1414,8 +1415,8 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 5,
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "decreasedamagetaken": 10,
         "lifesteal": 5
@@ -1442,23 +1443,23 @@
         {
           "advanced_art": "03",
           "name": "Sundered Sky",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagegiven",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            0,
+            3,
             2,
             3
           ],
-          "total": 5,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "advanced_art": "05",
-          "name": "Reaper's Harvest",
+          "name": "The Storm's Due",
           "primary_tag": "lifesteal",
           "path": [
             "01",
@@ -1520,8 +1521,8 @@
         "04"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 3,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "lifesteal": 2
       }
     },
@@ -1533,8 +1534,8 @@
         "06"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 3,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 2
       }
@@ -1547,8 +1548,7 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 8,
+        "increasedamagegiven": 10,
         "lifesteal": 5
       }
     },
@@ -1560,8 +1560,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 2
@@ -1575,8 +1574,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 5
       }
@@ -1589,8 +1587,7 @@
         "09"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
         "decreasedamagetaken": 2
       }
@@ -1645,9 +1642,10 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
-        "decreasedamagetaken": 10
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
       }
     },
     {
@@ -1684,9 +1682,9 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
-        "decreasedamagetaken": 10
+        "decreasedamagetaken": 10,
+        "lifesteal": 2
       }
     },
     {

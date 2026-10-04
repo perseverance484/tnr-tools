@@ -88,6 +88,36 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 - Strongest full build by row-weighted total: Sovereign's Decree, Veil of the Monarch, Woven Starlight, Immovable Throne (raw +19, row-weighted 39)
 - Lowest row-weighted node: Stardust Afterglow (3)
 
+Validator warnings:
+
+- Damage above the 50 Nuke tier in a legal allocation (director review): Tamashī no Sakeme 50 -> 52, Tamashī no Sakeme 50 -> 55
+
+### Damage tiers (base → final)
+
+Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
+
+| Jutsu | Row | Base (tier) | +2 Damage | +5 Damage |
+|---|---:|---|---|---|
+| Tamashī no Sakeme | 0 | 50 (Nuke) | **52 (above Nuke)** | **55 (above Nuke)** |
+| Celestial Sealing | 1 | 40 (Normal) | 42 (Normal) | 45 (High) ↑ |
+
+Above-Nuke rationale: Director-corrected tree (2026-10-03; protected from the 2026-10-04 batch): the Burst route's +5 Damage (Tear in the Soul +2, Ethereal Coronation +3) lifts Tamashī no Sakeme 50 → 55 (52 with Tear in the Soul alone), past the 50 Nuke tier. Not retuned here; flagged for director review under BALANCE_REVIEW_METHOD.md.
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Ethereal Coronation | +5 Damage, +2% IDG, +2% IDT | Stardust Afterglow | +5 Damage, +2% IDG, +2% IDT, +3% AB | 21 |
+| Ethereal Coronation | +5 Damage, +2% IDG, +2% IDT | Veil of the Monarch *(highest diagnostic)* | +5 Damage, +2% IDG, +2% IDT, +2% DDT, +2% REF | 24 |
+| Rain of Fallen Stars | +5% IDG, +5% IDT, +10% AB | Tear in the Soul | +2 Damage, +5% IDG, +5% IDT, +10% AB | 34 |
+| Rain of Fallen Stars | +5% IDG, +5% IDT, +10% AB | Veil of the Monarch *(highest diagnostic)* | +5% IDG, +5% IDT, +2% DDT, +10% AB, +2% REF | 36 |
+| Immovable Throne | +3% IDG, +10% DDT, +2% REF | Sovereign's Decree *(highest diagnostic)* | +5% IDG, +2% IDT, +10% DDT, +2% REF | 39 |
+| Immovable Throne | +3% IDG, +10% DDT, +2% REF | Mirrored Construct | +3% IDG, +10% DDT, +5% REF | 34 |
+| Monarch's Retribution | +3% IDT, +4% DDT, +10% REF | Sovereign's Decree *(highest diagnostic)* | +2% IDG, +5% IDT, +4% DDT, +10% REF | 29 |
+| Monarch's Retribution | +3% IDT, +4% DDT, +10% REF | Woven Starlight | +3% IDT, +7% DDT, +10% REF | 27 |
+
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |

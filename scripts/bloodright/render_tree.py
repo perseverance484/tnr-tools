@@ -580,6 +580,40 @@ def render_md(tree: dict, validation: dict | None) -> str:
             out.append("\nValidator warnings:\n")
             for w in validation["warnings"]:
                 out.append(f'- {w}')
+    if validation and validation.get("damage_thresholds", {}).get("rows"):
+        dt = validation["damage_thresholds"]
+        out.append("\n### Damage tiers (base → final)\n")
+        out.append("Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.\n")
+        adds = dt["damage_totals_reachable"]
+        out.append("| Jutsu | Row | Base (tier) | " + " | ".join(f"+{d} Damage" for d in adds) + " |")
+        out.append("|---|---:|---|" + "|".join("---" for _ in adds) + "|")
+        for r in dt["rows"]:
+            cells = []
+            for st in r["steps"]:
+                c = f'{st["final"]:g} ({st["tier_after"]})'
+                if st["above_nuke"]:
+                    c = f"**{c}**"
+                elif st["tier_change"]:
+                    c = f"{c} ↑"
+                cells.append(c)
+            out.append(f'| {r["jutsu"]} | {r["row"]} | {r["base"]:g} ({r["tier"]}) | ' + " | ".join(cells) + " |")
+        if tree.get("above_nuke_rationale"):
+            out.append(f'\nAbove-Nuke rationale: {tree["above_nuke_rationale"]}')
+    if validation and validation.get("fourth_bp"):
+        out.append("\n### Fourth-BP audit\n")
+        out.append("Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.\n")
+        out.append("| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |\n|---|---|---|---|---:|")
+        for fb in validation["fourth_bp"]:
+            pkg = ", ".join(L.mod_text(k, v, abbr=True) for k, v in fb["path_bonuses"].items())
+            for f in fb["fourths"]:
+                star = " *(highest diagnostic)*" if f["id"] == fb["highest_diagnostic_fourth"] else ""
+                full = ", ".join(L.mod_text(k, v, abbr=True) for k, v in f["bonuses"].items())
+                out.append(f'| {fb["name"]} | {pkg} | {f["name"]}{star} | {full} | {f["row_weighted"]} |')
+    if validation and validation.get("route_overlap"):
+        out.append("\n### Route overlap (diagnostic)\n")
+        for ov in validation["route_overlap"]:
+            why = "same primary tag" if ov["same_primary_tag"] else "similar packages"
+            out.append(f'- {ov["a_name"]} / {ov["b_name"]}: {why}{" (siblings)" if ov["siblings"] else ""}, path cosine {ov["path_cosine"]}, shared capstone tags: {", ".join(ov["shared_capstone_tags"]) or "none"}')
     out.append("\n### All legal full-budget allocations\n")
     out.append("| # | Nodes | Bonuses |\n|---:|---|---|")
     for i, b in enumerate(tree.get("legal_full_budget_builds", []), 1):

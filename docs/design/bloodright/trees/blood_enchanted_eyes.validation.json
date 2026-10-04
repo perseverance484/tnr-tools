@@ -9,9 +9,10 @@
     "statClassification": "Highest",
     "traits": "Burst Healing, Sustained Damage"
   },
-  "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
+  "revision": "Director-reviewed structure (RUL-2026-10-04-001) / Shadow classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Reaper's Embrace 50 -> 52",
     "ally-hazard area rows amplified (friendly fire none/ALL): Crimson Impact#3, Ring of Spilled Blood#1",
     "supported tags present in kit but not targeted by any node: afterburn"
   ],
@@ -67,10 +68,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -162,10 +163,10 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
+      "damage": 2,
       "increasedamagegiven": 7,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 2,
+      "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "lifesteal": 5
     },
@@ -214,15 +215,14 @@
         "name": "Opened Veins",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 8,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Crimson Impact",
-          "Crimson Tithe",
-          "Reaper's Embrace",
-          "Ring of Spilled Blood"
+          "Sanguine Plague",
+          "Thousand Strike"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -231,8 +231,8 @@
         "name": "Rite of Exsanguination",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 12,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Crimson Impact",
           "Crimson Tithe",
@@ -398,14 +398,14 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 13,
-        "row_weighted_total": 38,
+        "row_weighted_total": 35,
         "advanced_arts": [
           "03"
         ],
@@ -419,13 +419,13 @@
           "09"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "lifesteal": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 32,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "03"
         ],
@@ -439,14 +439,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 32,
+        "raw_flat_total": 14,
+        "row_weighted_total": 33,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -458,14 +457,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 32,
+        "raw_flat_total": 14,
+        "row_weighted_total": 33,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -477,15 +475,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "raw_flat_total": 13,
+        "row_weighted_total": 29,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -497,13 +494,12 @@
           "10"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 7,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 5,
           "lifesteal": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 33,
+        "raw_flat_total": 17,
+        "row_weighted_total": 34,
         "advanced_arts": [
           "10"
         ],
@@ -837,6 +833,349 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Ring of Spilled Blood",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_SPIRAL_SHOOT",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Crimson Tithe",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Reaper's Embrace",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Crimson Impact",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [
+      [
+        "Reaper's Embrace",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Reaper's Embrace",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Rite of Exsanguination",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      },
+      "path_row_weighted": 27,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Iron in the Blood",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 13,
+          "row_weighted": 35
+        },
+        {
+          "id": "09",
+          "name": "Crimson Thirst",
+          "category": "Hidden Art",
+          "adds": {
+            "lifesteal": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "lifesteal": 2
+          },
+          "raw_total": 11,
+          "row_weighted": 29
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Red Pestilence",
+      "path": [
+        "06",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 5
+      },
+      "path_row_weighted": 30,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Scarlet Gaze",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 19,
+          "row_weighted": 40
+        },
+        {
+          "id": "07",
+          "name": "Closed Wounds",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 8
+          },
+          "raw_total": 18,
+          "row_weighted": 36
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Deathless Vitality",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 5,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 30,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Scarlet Gaze",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 5,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 19,
+          "row_weighted": 40
+        },
+        {
+          "id": "04",
+          "name": "Carrion Fever",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 8,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 18,
+          "row_weighted": 36
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Feast of the Fallen",
+      "path": [
+        "01",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 2,
+        "lifesteal": 5
+      },
+      "path_row_weighted": 25,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Opened Veins",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "increasedamagetaken": 5,
+            "lifesteal": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 34
+        },
+        {
+          "id": "06",
+          "name": "Iron in the Blood",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 7,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 5
+          },
+          "raw_total": 18,
+          "row_weighted": 33
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    }
+  ],
+  "route_overlap": [
+    {
+      "a": "05",
+      "a_name": "Red Pestilence",
+      "b": "08",
+      "b_name": "Deathless Vitality",
+      "siblings": true,
+      "same_primary_tag": false,
+      "shared_capstone_tags": [
+        "decreasedamagegiven",
+        "decreasedamagetaken"
+      ],
+      "path_cosine": 0.8
+    }
+  ],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
