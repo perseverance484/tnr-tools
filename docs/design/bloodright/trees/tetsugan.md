@@ -1,10 +1,28 @@
 # Tetsugan — Discipline of Iron
 
-**Bloodline:** Tetsugan (BR-083, rank H, `T-MyR4yQ1_aVbaJDLoI07`) · **Revision:** Draft 4 / Metal classification / forked tree (RUL-2026-10-03-005 recalibration) · **Classification:** Metal (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Tetsugan (BR-083, rank H, `T-MyR4yQ1_aVbaJDLoI07`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Metal classification / forked tree · **Classification:** Metal (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Damage (seven Metal weapon strikes, +5 route) · secondary Decrease Damage Taken and Increase Damage Given (the Middle Guard Stance / Inner Peace / Pivoting Fortress stance buffs) · tertiary Increase Damage Taken and Afterburn exposure (Phantom Slash, Equilibrium Guard Strike, Vacuum Fan, Crimson Thrust); Reflect and Decrease Damage Given counter-play (Harmonious Slash, Tranquil Guard, Vacuum Fan).
+**Emphasis:** primary Offense (Eye of Iron): self-amplification through the Increase Damage Given rows of Middle Guard Stance and Inner Peace, or branding the enemy with Crimson Thrust's Afterburn and exposure · secondary Defense (Tempered Stance): a fortress on the three Decrease Damage Taken rows, or retaliation through Harmonious Slash's Reflect with suppression · tertiary No flat Damage: the seven Metal strikes keep their 40/45/50 tiers.
 
-Seven of the twenty supported rows are Metal damage (Phantom Slash 50 EP; Equilibrium Guard Strike and Harmonious Slash 45; Tranquil Guard Flowing Form, Enduring Resonance Ward, Pivoting Fortress and Crimson Thrust 40 at jutsu level 25, all 60 AP), split across the kit's staff, dagger and sword styles, so a weapon-school offense is the primary emphasis. The two 40 AP self stances carry three Increase Damage Given rows (Inner Peace twice) and, with Pivoting Fortress, three Decrease Damage Taken rows, which makes a stance-fortification route the natural second emphasis. Exposure (three Increase Damage Taken rows plus Crimson Thrust's single Afterburn row) and counter-play (Harmonious Slash's single Reflect row plus two Decrease Damage Given rows) are the tertiary routes. No heal, lifesteal or increase-heal row exists, so no sustain route is invented. Potency reaches matching supported tags on all Metal jutsu (RUL-2026-10-03-005).
+Eye of Iron answers "How do I win offensively: sharpen my own strikes or brand the enemy?": One Cut Decides takes the stances' Increase Damage Given 35 → 43%, and Branding Iron takes Crimson Thrust's Afterburn 35 → 45% with exposure 40%. Tempered Stance answers "How do I win defensively: endure the blow or send it back?": Hammer and Anvil takes Decrease Damage Taken to 43/43/38%, and Every Blow Returned takes Harmonious Slash's Reflect 40 → 50% with suppression. No node targets Damage: it reaches all seven strikes, and any flat point lifts Phantom Slash past the 50 Nuke tier. Potency reaches matching supported tags on all Metal jutsu (RUL-2026-10-03-005).
+
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Eye of Iron | Foundation | How do I win offensively: sharpen my own strikes or brand the enemy? |
+| Tempered Stance | Foundation | How do I win defensively: endure the blow or send it back? |
+| One Cut Decides | Advanced Art | self-amplification: sharpen my own strikes |
+| Branding Iron | Advanced Art | attrition: brand the target so every hit burns |
+| Hammer and Anvil | Advanced Art | fortress: endure the blow |
+| Every Blow Returned | Advanced Art | retaliation: parry and send the blow back |
+
+**Director review recommended:** Two stance-kit magnitudes need the director, because three compounding rows make them the largest gains among the protected references. (1) One Cut Decides: +8% Increase Damage Given gives ×1.19 with both stances (×1.12 in Inner Peace alone), above Blood-Enchanted Eyes' Feast of the Fallen ×1.11, Shakunetsu Sakura ×1.07/×1.10 and Arashima ×1.06/×1.07; +5% (Honed Edge +2%, One Cut Decides +3%) would give ×1.12. (2) Hammer and Anvil, cut to +8% Decrease Damage Taken: both stances ×0.77 against Blood-Enchanted Eyes' Deathless Vitality ×0.75, but all three rows (sword, staff and a third cast) reach ×0.68.
+
+- Concern: One Cut Decides applies no coverage discount: +8% is Arashima's single-row value on three compounding rows (×1.19 against ×1.06–×1.11 for the protected self-amplification routes), offset only by the stances' two-round windows on cooldown 7 and Inner Peace's sword gate. Cutting it would also leave it behind Branding Iron; with the all-offence fourth purchases and every row up the two are level today (×1.27 against ×1.28).
+- Concern: Hammer and Anvil's three-row case (×0.68) still exceeds Blood-Enchanted Eyes' two-row fortress; it needs both the sword and the staff, and simultaneous wield was not read at the pin (ENGINE_GAP_REGISTER G7).
+- Concern: Every Blow Returned's suppression trims its own Reflect (×1.07 under both suppression rows, ×0.99 with Folded Steel and a stance up): the retaliation route leans defensive rather than returning much more damage.
+- Concern: The seven Metal strikes are unamplified: no node targets Damage, because every flat point lifts Phantom Slash past the 50 Nuke tier.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Metal jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -12,135 +30,155 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 
 | ID | Skill | Tier | Requires | Exact bonus and recipient | Kit coverage (example jutsu / rows) |
 |---|---|---|---|---|---|
-| 01 | Tempered Stance | Foundation | None | +2% Increase Damage Given (self buff); +2% Decrease Damage Taken (self buff) | Inner Peace, Middle Guard Stance, Pivoting Fortress / 6 |
+| 01 | Tempered Stance | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Decrease Damage Given (enemy debuff) | Inner Peace, Middle Guard Stance, Pivoting Fortress, Tranquil Guard Flowing Form, Vacuum Fan / 5 |
 | 02 | Folded Steel | Hidden Art | Tempered Stance | +3% Decrease Damage Taken (self buff) | Inner Peace, Middle Guard Stance, Pivoting Fortress / 3 |
-| 03 | Hammer and Anvil | Advanced Art | Folded Steel | +5% Decrease Damage Taken (self buff); +3% Increase Damage Given (self buff) | Inner Peace, Middle Guard Stance, Pivoting Fortress / 6 |
+| 03 | Hammer and Anvil | Advanced Art | Folded Steel | +3% Decrease Damage Taken (self buff) | Inner Peace, Middle Guard Stance, Pivoting Fortress / 3 |
 | 04 | Resonant Parry | Hidden Art | Tempered Stance | +3% Reflect (self buff) | Harmonious Slash / 1 |
 | 05 | Every Blow Returned | Advanced Art | Resonant Parry | +7% Reflect (self buff); +3% Decrease Damage Given (enemy debuff) | Harmonious Slash, Tranquil Guard Flowing Form, Vacuum Fan / 3 |
-| 06 | Eye of Iron | Foundation | None | +2% Increase Damage Taken (enemy debuff); +2% Decrease Damage Given (enemy debuff) | Equilibrium Guard Strike, Phantom Slash, Tranquil Guard Flowing Form, Vacuum Fan / 5 |
-| 07 | Honed Edge | Hidden Art | Eye of Iron | +2 Damage (damage) | Crimson Thrust, Enduring Resonance Ward, Equilibrium Guard Strike, Harmonious Slash, Phantom Slash, Pivoting Fortress, Tranquil Guard Flowing Form / 7 |
-| 08 | One Cut Decides | Advanced Art | Honed Edge | +3 Damage (damage) | Crimson Thrust, Enduring Resonance Ward, Equilibrium Guard Strike, Harmonious Slash, Phantom Slash, Pivoting Fortress, Tranquil Guard Flowing Form / 7 |
+| 06 | Eye of Iron | Foundation | None | +2% Increase Damage Taken (enemy debuff) | Equilibrium Guard Strike, Phantom Slash, Vacuum Fan / 3 |
+| 07 | Honed Edge | Hidden Art | Eye of Iron | +3% Increase Damage Given (self buff) | Inner Peace, Middle Guard Stance / 3 |
+| 08 | One Cut Decides | Advanced Art | Honed Edge | +5% Increase Damage Given (self buff) | Inner Peace, Middle Guard Stance / 3 |
 | 09 | Sparks from the Forge | Hidden Art | Eye of Iron | +3% Afterburn (enemy debuff) | Crimson Thrust / 1 |
 | 10 | Branding Iron | Advanced Art | Sparks from the Forge | +7% Afterburn (enemy debuff); +3% Increase Damage Taken (enemy debuff) | Crimson Thrust, Equilibrium Guard Strike, Phantom Slash, Vacuum Fan / 4 |
 
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
-- **Tempered Stance** — Breathe. Settle the feet. Let the iron in the blood go still. Middle Guard Stance and Inner Peace buffs 35 → 37% (Increase Damage Given 3 rows, Decrease Damage Taken 2 rows); Pivoting Fortress guard 30 → 32%. Inner Peace and Pivoting Fortress are item-gated.
-- **Folded Steel** — Steel folded a thousand times does not break on the first blow. Decrease Damage Taken only: Middle Guard Stance and Inner Peace 40% with Tempered Stance, Pivoting Fortress 35%. 3 self rows.
-- **Hammer and Anvil** — Take the blow on the anvil; answer it with the hammer. Fortified route total +10% Decrease Damage Taken (Middle Guard Stance and Inner Peace 35 → 45%, Pivoting Fortress 30 → 40%); Increase Damage Given +3% (Stance and both Inner Peace rows 40% with Tempered Stance).
-- **Resonant Parry** — A good parry rings. A perfect one sings back. Harmonious Slash Reflect only (one self row, 40 → 43%, 2 rounds per 60 AP sword strike; gated). Returned damage caps at 60% of each hit.
-- **Every Blow Returned** — What is aimed at the iron eye comes back along the same line. Counter route total +10%: Harmonious Slash Reflect 40 → 50%; Decrease Damage Given +3% on Tranquil Guard Flowing Form (gated) and Vacuum Fan (ally hazard).
-- **Eye of Iron** — The iron eye sees where the guard is thin and names the opening aloud. Exposure 35 → 37%: Phantom Slash (gated), Equilibrium Strike (gated; ally hazard), Vacuum Fan. Suppression +2%: Tranquil Guard (gated), Fan.
-- **Honed Edge** — An edge is only as sharp as the patience that honed it. All seven Metal Damage rows 40/45/50 → 42/47/52 EP: Tranquil Guard, Resonance Ward, Fortress, Phantom, Crimson, Equilibrium, Harmonious.
-- **One Cut Decides** — The school teaches one cut. It has never needed a second. Same seven Metal rows; route total +5 Damage (Phantom Slash 50 → 55 EP, Equilibrium Strike and Harmonious Slash 45 → 50, the other four 40 → 45). All gated.
-- **Sparks from the Forge** — Where the steel bites the ground, the sparks keep burning. Crimson Thrust Afterburn only (dagger-gated ground circle, range 5, cooldown 6, enemies only, 2 rounds): 35 → 38%; fed by every non-pierce hit.
-- **Branding Iron** — The mark of hot iron, pressed into the enemy's guard. Burn route total +10%: Crimson Thrust (dagger-gated) Afterburn 35 → 45%, 60% hit cap; exposure 40% with Eye of Iron: Phantom (gated), Equilibrium (gated; ally hazard), Fan.
+- **Tempered Stance** — Breathe. Settle the feet. Let the iron in the blood go still. Decrease Damage Taken 35 → 37% on Middle Guard Stance and Inner Peace, 30 → 32% on Pivoting Fortress (self); Decrease Damage Given 30 → 32% on Tranquil Guard Flowing Form and 35 → 37% on Vacuum Fan (enemy; the fan's spiral also reaches allies).
+- **Folded Steel** — Steel folded a thousand times does not break on the first blow. Decrease Damage Taken with Tempered Stance: Middle Guard Stance and Inner Peace 40%, Pivoting Fortress 35% (self, 2 rounds).
+- **Hammer and Anvil** — Be the anvil. The hammer tires long before the iron does. Fortress: Decrease Damage Taken 35 → 43% on both stances and 30 → 38% on Pivoting Fortress on the full route (+8%); a hit under both stances lands at ×0.32 instead of ×0.42.
+- **Resonant Parry** — A good parry rings. A perfect one sings back. Harmonious Slash Reflect 40 → 43% for the two rounds after each 60 AP sword strike (gated); returned damage caps at 60% of each hit.
+- **Every Blow Returned** — What is aimed at the iron eye comes back along the same line. Retaliation: Harmonious Slash Reflect 40 → 50% on the full route; Decrease Damage Given 35% on Tranquil Guard Flowing Form and 40% on Vacuum Fan with Tempered Stance (+5%). Reflect reads the reduced hit, so under both suppression rows the returned share rises only ×1.07.
+- **Eye of Iron** — The iron eye sees where the guard is thin and names the opening aloud. Increase Damage Taken 35 → 37% on Phantom Slash (gated), Equilibrium Guard Strike (gated line; ally hazard) and Vacuum Fan (enemy debuffs, 2 rounds).
+- **Honed Edge** — The stance is the whetstone: held with patience, it hones every edge drawn from it. Increase Damage Given 35 → 38% on Middle Guard Stance and on both Inner Peace rows (self, 2 rounds).
+- **One Cut Decides** — Settle into the stance and the iron eye finds the opening: for two breaths, every cut is the deciding one. Self-amplification: Increase Damage Given 35 → 43% on Middle Guard Stance and both Inner Peace rows on the full route (+8%); Inner Peace's two rows take a hit from ×1.82 to ×2.04, ×2.92 with Middle Guard Stance also up.
+- **Sparks from the Forge** — Where the steel bites the ground, the sparks keep burning. Crimson Thrust Afterburn 35 → 38% (dagger-gated ground circle, range 5, enemies only, 2 rounds); fed by every non-pierce hit the target takes.
+- **Branding Iron** — The mark of hot iron, pressed into the enemy's guard. Attrition: Crimson Thrust Afterburn 35 → 45% on the full route (60% per-hit cap); Increase Damage Taken 40% with Eye of Iron on Phantom Slash, Equilibrium Guard Strike and Vacuum Fan, so the hits the burn reads are larger too.
 
 ## Complete four-purchase examples
 
-| Build | Purchases | DMG | IDG | DDG | IDT | DDT | AB | REF |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| One Cut Decides (Burst) | Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides | +5 | +2% | +2% | +2% | +2% | — | — |
-| Hammer and Anvil (Fortified) | Tempered Stance, Folded Steel, Hammer and Anvil, Eye of Iron | — | +5% | +2% | +2% | +10% | — | — |
-| Branding Iron (Burn pressure) | Tempered Stance, Eye of Iron, Sparks from the Forge, Branding Iron | — | +2% | +2% | +5% | +2% | +10% | — |
-| Every Blow Returned (Counter) | Tempered Stance, Resonant Parry, Every Blow Returned, Eye of Iron | — | +2% | +5% | +2% | +2% | — | +10% |
+| Build | Purchases | IDG | DDG | IDT | DDT | AB | REF |
+|---|---|---:|---:|---:|---:|---:|---:|
+| One Cut Decides (Self-amplification) | Eye of Iron, Honed Edge, One Cut Decides, Tempered Stance | +8% | +2% | +2% | +2% | — | — |
+| Branding Iron (Attrition) | Eye of Iron, Sparks from the Forge, Branding Iron, Honed Edge | +3% | — | +5% | — | +10% | — |
+| Hammer and Anvil (Fortress) | Tempered Stance, Folded Steel, Hammer and Anvil, Eye of Iron | — | +2% | +2% | +8% | — | — |
+| Every Blow Returned (Retaliation) | Tempered Stance, Resonant Parry, Every Blow Returned, Folded Steel | — | +5% | — | +5% | — | +10% |
 
-Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn · REF = Reflect. Values are per-matching-row static additions, not final combat percentages.
+Abbreviations: IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn · REF = Reflect. Values are per-matching-row static additions, not final combat percentages.
 
-- **One Cut Decides:** +5 Damage on every one of the seven Metal weapon strikes (Phantom Slash 55 EP; Equilibrium Guard Strike and Harmonious Slash 50; Tranquil Guard, Resonance Ward, Pivoting Fortress and Crimson Thrust 45), multiplied downstream by the bloodline's own Increase Damage Given passive. Eye of Iron is the required root (exposure and suppression +2%); Tempered Stance is the fourth purchase for +2% on both stance buffs. Sparks from the Forge (Afterburn 38%) is the all-offence alternative fourth purchase. It gives up the fortified stances, the reflect and the burn.
-- **Hammer and Anvil:** The stance route: Decrease Damage Taken reaches 45% on Middle Guard Stance and Inner Peace and 40% on Pivoting Fortress, while Increase Damage Given reaches 40% on Middle Guard Stance and on both Inner Peace rows, all from 40 AP self casts (Pivoting Fortress rides a 60 AP strike). Eye of Iron is the fourth purchase for +2% exposure and suppression; Resonant Parry (Reflect 43%) is the all-defence alternative. Damage is untouched, so it is not the burst build.
-- **Branding Iron:** Crimson Thrust's Afterburn goes from 35% to 45% for its two rounds on any enemy standing in the circle, so every non-pierce hit those targets take (the seven Metal strikes, weapons, normal jutsu, allies) carries up to 45% extra within the 60% per-hit cap; the capstone's +3% exposure with Eye of Iron takes Phantom Slash, Equilibrium Guard Strike and Vacuum Fan to 40%. Tempered Stance is the fourth purchase; Honed Edge (Damage +2) is the all-offence alternative. Single application row, dagger-gated, Damage untouched.
-- **Every Blow Returned:** Harmonious Slash's Reflect rises from 40% to 50% for two rounds after each 60 AP sword strike, ten points under the 60% per-hit cap, and the capstone's +3% suppression with Eye of Iron takes Tranquil Guard Flowing Form to 35% and Vacuum Fan to 40% Decrease Damage Given. Tempered Stance adds +2% to the stance buffs as the fourth purchase; Folded Steel (Decrease Damage Taken +5%) is the all-defence alternative. The whole route is inert without the sword-style item that gates Harmonious Slash.
+- **One Cut Decides:** Increase Damage Given 35 → 43% on Middle Guard Stance and both Inner Peace rows: a hit inside Inner Peace's window goes from ×1.82 to ×2.04, ×2.92 with Middle Guard Stance also up; Eye of Iron adds exposure 37%. Tempered Stance is the fourth purchase because the same two stance casts carry Decrease Damage Taken (37%); Sparks from the Forge (Afterburn 38%) is the all-offence alternative. Middle Guard Stance is free; Inner Peace's double row needs the sword-style item.
+- **Branding Iron:** Crimson Thrust's Afterburn 35 → 45% and exposure 35 → 40% on Phantom Slash, Equilibrium Guard Strike and Vacuum Fan: a hit on a target under one exposure row and the burn goes from ×1.82 to ×2.03, and allied, weapon and normal-jutsu hits count too. Honed Edge (Increase Damage Given 38%) is the all-offence fourth purchase; Tempered Stance is the defensive alternative. The burn is inert without the dagger-style item.
+- **Hammer and Anvil:** Decrease Damage Taken 35 → 43% on both stances and 30 → 38% on Pivoting Fortress: a hit under both stances lands at ×0.32 instead of ×0.42, and at ×0.20 instead of ×0.30 with the staff guard also up; suppression 32/37%. Eye of Iron is the fourth purchase (exposure 37%); Resonant Parry (Reflect 43%) is the all-defence alternative.
+- **Every Blow Returned:** Harmonious Slash's Reflect 40 → 50% for the two rounds after each sword strike (60% per-hit cap), with Decrease Damage Given 35% on Tranquil Guard Flowing Form and 40% on Vacuum Fan. Reflect returns a share of the hit after reductions, so the suppression trims it: of a raw enemy hit with no stance up the route returns 50% instead of 40% (×1.25), 30% instead of 26% under Vacuum Fan (×1.15) and 19.5% instead of 18.2% under both suppression rows (×1.07), while the caster takes ×0.86 of the base-kit hit. Folded Steel is the all-defence fourth purchase (stances 40%, Pivoting Fortress 35%): with a stance up under both suppression rows the returned share is flat (×0.99) and the hit taken falls to ×0.79. Eye of Iron is the offensive alternative. Inert without the sword-style item.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Fortified | Burn pressure | Counter |
+| Jutsu | Row | Tag | Recipient | Base | Self-amplification | Attrition | Fortress | Retaliation |
 |---|---:|---|---|---:|---:|---:|---:|---:|
-| Tranquil Guard Flowing Form | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
-| Tranquil Guard Flowing Form | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 32% (+2) | 32% (+2) | 35% (+5) |
+| Tranquil Guard Flowing Form | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
+| Tranquil Guard Flowing Form | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 30% | 32% (+2) | 35% (+5) |
 | Tranquil Guard Flowing Form | 2 | shield (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
-| Enduring Resonance Ward | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
+| Enduring Resonance Ward | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
 | Enduring Resonance Ward | 1 | recoil (unsupported) | enemy | 40% | 40% | 40% | 40% | 40% |
-| Pivoting Fortress | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
-| Pivoting Fortress | 1 | Decrease Damage Taken | self | 30% | 32% (+2) | 40% (+10) | 32% (+2) | 32% (+2) |
-| Phantom Slash | 0 | Damage | enemy | 50 | 55 (+5) | 50 | 50 | 50 |
-| Phantom Slash | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 37% (+2) |
+| Pivoting Fortress | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
+| Pivoting Fortress | 1 | Decrease Damage Taken | self | 30% | 32% (+2) | 30% | 38% (+8) | 35% (+5) |
+| Phantom Slash | 0 | Damage | enemy | 50 | 50 | 50 | 50 | 50 |
+| Phantom Slash | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 35% |
 | Phantom Slash | 2 | recoil (unsupported) | enemy | 40% | 40% | 40% | 40% | 40% |
-| Crimson Thrust | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
-| Crimson Thrust | 1 | Afterburn | enemy | 35% | 35% | 35% | 45% (+10) | 35% |
+| Crimson Thrust | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
+| Crimson Thrust | 1 | Afterburn | enemy | 35% | 35% | 45% (+10) | 35% | 35% |
 | Crimson Thrust | 2 | move (unsupported) | self | 1 | 1 | 1 | 1 | 1 |
 | Shadow Pierce | 0 | pierce (unsupported) | enemy | 60 | 60 | 60 | 60 | 60 |
 | Shadow Pierce | 1 | wound (unsupported) | enemy | 30% | 30% | 30% | 30% | 30% |
-| Middle Guard Stance | 0 | Increase Damage Given | self | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
-| Middle Guard Stance | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 45% (+10) | 37% (+2) | 37% (+2) |
+| Middle Guard Stance | 0 | Increase Damage Given | self | 35% | 43% (+8) | 38% (+3) | 35% | 35% |
+| Middle Guard Stance | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 43% (+8) | 40% (+5) |
 | Middle Guard Stance | 2 | debuffprevent (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
-| Equilibrium Guard Strike | 0 | Damage | enemy | 45 | 50 (+5) | 45 | 45 | 45 |
-| Equilibrium Guard Strike | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 37% (+2) |
-| Harmonious Slash | 0 | Damage | enemy | 45 | 50 (+5) | 45 | 45 | 45 |
+| Equilibrium Guard Strike | 0 | Damage | enemy | 45 | 45 | 45 | 45 | 45 |
+| Equilibrium Guard Strike | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 35% |
+| Harmonious Slash | 0 | Damage | enemy | 45 | 45 | 45 | 45 | 45 |
 | Harmonious Slash | 1 | Reflect | self | 40% | 40% | 40% | 40% | 50% (+10) |
-| Vacuum Fan | 0 | Increase Damage Taken | enemy | 35% | 37% (+2) | 37% (+2) | 40% (+5) | 37% (+2) |
+| Vacuum Fan | 0 | Increase Damage Taken | enemy | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 35% |
 | Vacuum Fan | 1 | redirection (unsupported) | enemy | 4 | 4 | 4 | 4 | 4 |
-| Vacuum Fan | 2 | Decrease Damage Given | enemy | 35% | 37% (+2) | 37% (+2) | 37% (+2) | 40% (+5) |
-| Inner Peace | 0 | Increase Damage Given | self | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
-| Inner Peace | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 45% (+10) | 37% (+2) | 37% (+2) |
-| Inner Peace | 2 | Increase Damage Given | self | 35% | 37% (+2) | 40% (+5) | 37% (+2) | 37% (+2) |
+| Vacuum Fan | 2 | Decrease Damage Given | enemy | 35% | 37% (+2) | 35% | 37% (+2) | 40% (+5) |
+| Inner Peace | 0 | Increase Damage Given | self | 35% | 43% (+8) | 38% (+3) | 35% | 35% |
+| Inner Peace | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 43% (+8) | 40% (+5) |
+| Inner Peace | 2 | Increase Damage Given | self | 35% | 43% (+8) | 38% (+3) | 35% | 35% |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
 - Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +5 Damage, +5% Increase Damage Given, +5% Decrease Damage Given, +5% Increase Damage Taken, +10% Decrease Damage Taken, +10% Afterburn, +10% Reflect (not jointly attainable)
+- Maximum individually achievable additions over every legal allocation: +8% Increase Damage Given, +5% Decrease Damage Given, +5% Increase Damage Taken, +8% Decrease Damage Taken, +10% Afterburn, +10% Reflect (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Hammer and Anvil: +10% Decrease Damage Taken (2 + 3 + 5; on band)
+  - Route Hammer and Anvil: +8% Decrease Damage Taken (2 + 3 + 3; off band)
   - Route Every Blow Returned: +10% Reflect (0 + 3 + 7; on band)
-  - Route One Cut Decides: +5 Damage (0 + 2 + 3; on band)
+  - Route One Cut Decides: +8% Increase Damage Given (0 + 3 + 5; off band)
   - Route Branding Iron: +10% Afterburn (0 + 3 + 7; on band)
 - Supported rows in kit: 20 (AB 1, DMG 7, DDG 2, DDT 3, IDG 3, IDT 3, REF 1)
-- Strongest full build by row-weighted total: Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides (raw +13, row-weighted 57)
+- Supported tags present but not targeted: damage
+- Strongest full build by row-weighted total: Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides (raw +14, row-weighted 40)
 - Lowest row-weighted node: Resonant Parry (3)
 
 Validator warnings:
 
-- ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#0, Equilibrium Guard Strike#1, Vacuum Fan#2
+- ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#1, Vacuum Fan#2
+- supported tags present in kit but not targeted by any node: damage
+
+### Damage tiers (base → final)
+
+No node adds flat Damage; every Damage row keeps its base (Tranquil Guard Flowing Form 40 (Normal), Enduring Resonance Ward 40 (Normal), Pivoting Fortress 40 (Normal), Phantom Slash 50 (Nuke), Crimson Thrust 40 (Normal), Equilibrium Guard Strike 45 (High), Harmonious Slash 45 (High)).
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Hammer and Anvil | +2% DDG, +8% DDT | Resonant Parry | +2% DDG, +8% DDT, +3% REF | 31 |
+| Hammer and Anvil | +2% DDG, +8% DDT | Eye of Iron *(highest diagnostic)* | +2% DDG, +2% IDT, +8% DDT | 34 |
+| Every Blow Returned | +5% DDG, +2% DDT, +10% REF | Folded Steel *(highest diagnostic)* | +5% DDG, +5% DDT, +10% REF | 35 |
+| Every Blow Returned | +5% DDG, +2% DDT, +10% REF | Eye of Iron | +5% DDG, +2% IDT, +2% DDT, +10% REF | 32 |
+| One Cut Decides | +8% IDG, +2% IDT | Tempered Stance *(highest diagnostic)* | +8% IDG, +2% DDG, +2% IDT, +2% DDT | 40 |
+| One Cut Decides | +8% IDG, +2% IDT | Sparks from the Forge | +8% IDG, +2% IDT, +3% AB | 33 |
+| Branding Iron | +5% IDT, +10% AB | Tempered Stance *(highest diagnostic)* | +2% DDG, +5% IDT, +2% DDT, +10% AB | 35 |
+| Branding Iron | +5% IDT, +10% AB | Honed Edge | +3% IDG, +5% IDT, +10% AB | 34 |
 
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Tempered Stance, Folded Steel, Hammer and Anvil, Resonant Parry | +5% IDG, +10% DDT, +3% REF |
-| 2 | Tempered Stance, Folded Steel, Hammer and Anvil, Eye of Iron | +5% IDG, +2% DDG, +2% IDT, +10% DDT |
-| 3 | Tempered Stance, Folded Steel, Resonant Parry, Every Blow Returned | +2% IDG, +3% DDG, +5% DDT, +10% REF |
-| 4 | Tempered Stance, Folded Steel, Resonant Parry, Eye of Iron | +2% IDG, +2% DDG, +2% IDT, +5% DDT, +3% REF |
-| 5 | Tempered Stance, Folded Steel, Eye of Iron, Honed Edge | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +5% DDT |
-| 6 | Tempered Stance, Folded Steel, Eye of Iron, Sparks from the Forge | +2% IDG, +2% DDG, +2% IDT, +5% DDT, +3% AB |
-| 7 | Tempered Stance, Resonant Parry, Every Blow Returned, Eye of Iron | +2% IDG, +5% DDG, +2% IDT, +2% DDT, +10% REF |
-| 8 | Tempered Stance, Resonant Parry, Eye of Iron, Honed Edge | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT, +3% REF |
-| 9 | Tempered Stance, Resonant Parry, Eye of Iron, Sparks from the Forge | +2% IDG, +2% DDG, +2% IDT, +2% DDT, +3% AB, +3% REF |
-| 10 | Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT |
-| 11 | Tempered Stance, Eye of Iron, Honed Edge, Sparks from the Forge | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT, +3% AB |
-| 12 | Tempered Stance, Eye of Iron, Sparks from the Forge, Branding Iron | +2% IDG, +2% DDG, +5% IDT, +2% DDT, +10% AB |
-| 13 | Eye of Iron, Honed Edge, One Cut Decides, Sparks from the Forge | +5 Damage, +2% DDG, +2% IDT, +3% AB |
-| 14 | Eye of Iron, Honed Edge, Sparks from the Forge, Branding Iron | +2 Damage, +2% DDG, +5% IDT, +10% AB |
+| 1 | Tempered Stance, Folded Steel, Hammer and Anvil, Resonant Parry | +2% DDG, +8% DDT, +3% REF |
+| 2 | Tempered Stance, Folded Steel, Hammer and Anvil, Eye of Iron | +2% DDG, +2% IDT, +8% DDT |
+| 3 | Tempered Stance, Folded Steel, Resonant Parry, Every Blow Returned | +5% DDG, +5% DDT, +10% REF |
+| 4 | Tempered Stance, Folded Steel, Resonant Parry, Eye of Iron | +2% DDG, +2% IDT, +5% DDT, +3% REF |
+| 5 | Tempered Stance, Folded Steel, Eye of Iron, Honed Edge | +3% IDG, +2% DDG, +2% IDT, +5% DDT |
+| 6 | Tempered Stance, Folded Steel, Eye of Iron, Sparks from the Forge | +2% DDG, +2% IDT, +5% DDT, +3% AB |
+| 7 | Tempered Stance, Resonant Parry, Every Blow Returned, Eye of Iron | +5% DDG, +2% IDT, +2% DDT, +10% REF |
+| 8 | Tempered Stance, Resonant Parry, Eye of Iron, Honed Edge | +3% IDG, +2% DDG, +2% IDT, +2% DDT, +3% REF |
+| 9 | Tempered Stance, Resonant Parry, Eye of Iron, Sparks from the Forge | +2% DDG, +2% IDT, +2% DDT, +3% AB, +3% REF |
+| 10 | Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides | +8% IDG, +2% DDG, +2% IDT, +2% DDT |
+| 11 | Tempered Stance, Eye of Iron, Honed Edge, Sparks from the Forge | +3% IDG, +2% DDG, +2% IDT, +2% DDT, +3% AB |
+| 12 | Tempered Stance, Eye of Iron, Sparks from the Forge, Branding Iron | +2% DDG, +5% IDT, +2% DDT, +10% AB |
+| 13 | Eye of Iron, Honed Edge, One Cut Decides, Sparks from the Forge | +8% IDG, +2% IDT, +3% AB |
+| 14 | Eye of Iron, Honed Edge, Sparks from the Forge, Branding Iron | +3% IDG, +5% IDT, +10% AB |
 
 ## Design notes
 
-- Node split: Tempered Stance (self IDG/DDT) forks into Guard (DDT) and Counter (Reflect); Eye of Iron (enemy IDT/DDG) into Blade (Damage) and Burn (Afterburn); 14 full builds, none dominated. Blade 2/3, Burn 3/7 + IDT 3 and Guard 2/3/5 reuse Taiyo Kami's Crown of Cinders/Solar Cataclysm, Emberwake/Eternal Noon and Sunward Oath/Golden Mantle/Sovereign Sun flats. Departures: Branding Iron drops Eternal Noon's IDG +3% (a second path to the IDG maximum), and the Reflect route is new (3/7, mirroring Branding Iron).
-- Routes: Burst +5 Damage (Honed Edge +2, One Cut Decides +3; seven rows, all item-gated); Fortified +10% Decrease Damage Taken (Tempered Stance +2%, Folded Steel +3%, Hammer and Anvil +5%; three self rows); Burn +10% Afterburn (Sparks from the Forge +3%, Branding Iron +7%; 35 → 45%); Counter +10% Reflect (Resonant Parry +3%, Every Blow Returned +7%; 40 → 50%). Glue tags IDG, IDT and DDG stop at +5% (Foundation +2%, capstone +3%) on no Hidden Art, so no capstone outbids a sibling. Recalibration: Fortified rises from +6% (2/2/2) and Counter from +8% to the +10% band; stacking on three DDT rows is in risks.
-- Filters (getEfficiencyRatio returns 1 on any shared stat/general/element tag): Middle Guard Stance row 0 and Inner Peace row 0 are Highest-filtered and element-less, so they apply to element-less hits and to hits of the user's highest stat; Inner Peace row 2 lists Earth/Fire/Metal/None/Water. The DDT rows, Phantom Slash exposure and both suppression rows are element-less with stat filters. Equilibrium Strike and Vacuum Fan exposure carry Metal plus four stats: any stat-typed hit.
-- Passives and delivery: the passive IDG (25 + 0.15/level on Earth/Fire/Metal/None/Water) multiplies the enhanced damage rows downstream; nothing touches Shadow Pierce's pierce row. The seven damage casts are 60 AP, cooldown 7 (Crimson Thrust 6: an EMPTY_GROUND circle at range 5, re-applied each round to enemies standing in it). Middle Guard Stance and Inner Peace are 40 AP self casts, cooldown 7, two-round buffs. Vacuum Fan: 40 AP spiral, range 5. No rotation simulated.
-- Fourth purchase choices: Burst takes Tempered Stance (stance buffs +2%) or Sparks from the Forge (Afterburn +3%); Fortified takes Eye of Iron or Resonant Parry (Reflect +3%); Burn takes Tempered Stance or Honed Edge (all-offence 06/07/09/10: Damage +2, Afterburn +10%, exposure +5%); Counter takes Eye of Iron or Folded Steel (all-defence 01/02/04/05: DDT +5%, Reflect +10%, suppression +3%). No-capstone hybrids spread small flats across five or six tags. Four examples: each capstone anchors a role.
-- Gates: three bloodline items gate nine of eleven jutsu and align with the records' jutsuWeapon values (staff: Tranquil Guard, Resonance Ward, Pivoting Fortress; dagger: Phantom Slash, Crimson Thrust, Shadow Pierce; sword: Equilibrium Guard Strike, Harmonious Slash, Inner Peace). Every damage row, the Afterburn row, the Reflect row and two of three IDG/DDT rows sit behind a gate; only Middle Guard Stance and Vacuum Fan are free. Equipment gates castability only; no node is limited by an item.
+- Structure kept (edges 01→02→03, 01→04→05, 06→07→08, 06→09→10); values re-cut in the 2026-10-04 batch. Eye of Iron carries only exposure and leads to self-amplification and attrition; Tempered Stance carries Decrease Damage Taken and Decrease Damage Given and leads to fortress and retaliation. Middle Guard Stance and Inner Peace carry both halves: Eye of Iron's routes sharpen their Increase Damage Given, Tempered Stance's routes harden their Decrease Damage Taken. Maxima over every legal allocation: Increase Damage Given +8%, Increase Damage Taken +5%, Afterburn +10%, Decrease Damage Taken +8%, Decrease Damage Given +5%, Reflect +10%, no Damage.
+- No flat Damage. The Damage tag reaches all seven Metal strikes (40/40/40/40/45/45/50), so any flat point lifts Phantom Slash past the 50 Nuke tier; the former +5 route took it to 55, both 45 strikes to 50 and the four 40 strikes to 45. Honed Edge and One Cut Decides now sharpen the stances' Increase Damage Given instead.
+- Both stance routes stop at +8% because their rows compound on the same two 40 AP casts (Middle Guard Stance free, Inner Peace sword-gated). Increase Damage Given: a hit inside Inner Peace's window ×1.12, ×1.19 with Middle Guard Stance also up. That is the largest self-amplification gain among the protected references (Blood-Enchanted Eyes' Feast of the Fallen ×1.11 over two rows; Shakunetsu Sakura ×1.07, ×1.10 with the sibling Hidden Art; Arashima ×1.06, ×1.07 with a fourth purchase): +8% is Arashima's single-row value on three compounding rows, so no coverage discount is applied; listed for the director. Decrease Damage Taken: both stances ×0.77, just short of Blood-Enchanted Eyes' Deathless Vitality (×0.75 over two rows, with +5% Decrease Damage Given beside it) and above Arashima's Unbroken Horizon (×0.85 on one row); all three rows reach ×0.68 but need a third 60 AP cast and the staff as well as the sword. Afterburn has one row; Branding Iron stops at +10% and adds exposure beside it. Reflect has one row and sits at its +10% ceiling; Every Blow Returned's suppression comes in addition and trims what Reflect returns (×1.07 under both suppression rows instead of ×1.25 unsuppressed).
+- Fourth purchases: the all-offence builds mirror each other (One Cut Decides + Sparks: Increase Damage Given 8%, Increase Damage Taken 2%, Afterburn 3%; Branding Iron + Honed Edge: Afterburn 10%, Increase Damage Taken 5%, Increase Damage Given 3%). Gains over the unbought kit: in a self window with no exposure or burn One Cut Decides gives ×1.19 against ×1.07; on allied hits into a burning target under all three exposure rows Branding Iron gives ×1.20 against ×1.07; with every row up they are within 1% (×1.27, ×1.28). Defence routes add the sibling Hidden Art or Eye of Iron; Every Blow Returned + Folded Steel trades return for survival (returned share ×0.99, hit taken ×0.79 with a stance up under both suppression rows). No fourth stacks a capstone's own primary.
+- Filters: Middle Guard Stance row 0 and Inner Peace row 0 are Highest-filtered and element-less, so they match element-less hits and hits of the user's highest stat; Inner Peace row 2 lists Earth/Fire/Metal/None/Water. Equilibrium Guard Strike and Vacuum Fan exposure carry Metal plus four stats (any stat-typed hit). The bloodline passive Increase Damage Given multiplies last.
+- Delivery and gates: seven 60 AP strikes (cooldown 7; Crimson Thrust 6, an EMPTY_GROUND circle re-applied each round to enemies in it); Middle Guard Stance and Inner Peace are 40 AP self casts, cooldown 7, two-round buffs; Vacuum Fan is a free 40 AP spiral. Three weapon-style items gate nine of eleven jutsu (staff: Tranquil Guard, Resonance Ward, Pivoting Fortress; dagger: Phantom Slash, Crimson Thrust, Shadow Pierce; sword: Equilibrium Guard Strike, Harmonious Slash, Inner Peace). Equipment gates castability only.
 
 ## Risks and unproven interactions
 
-- Item gates: the Counter route is inert without the sword-style item (Harmonious Slash holds the only Reflect row); the Burn route's Afterburn is inert without the dagger-style item (Crimson Thrust); the Blade route needs all three items for full coverage. Whether equipping the matching weapon type is also required was not read at the pin; this projection evaluates effect rows only.
-- Ally hazard (validator warning accepted): Equilibrium Guard Strike rows 0–1 (damage, exposure; line, friendly fire none) and Vacuum Fan row 2 (suppression; spiral, friendly fire none). Honed Edge and One Cut Decides raise the line's damage to allies in it; Eye of Iron and Branding Iron raise their exposure; Eye of Iron and Every Blow Returned raise suppression on allies in the spiral.
-- Stance stacking (process.ts 468–476, 1692–1770; constants.ts 3096): in the damage pipeline jutsu IDG rows multiply and percentage DDT rows apply as sequential reductions, floored at 10% of post-system-DR damage (DMG_REDUCTION_CAP 0.9). Both stances at base leave x0.4225 of a hit and three IDG rows give x2.46; at the Fortified maximum (DDT 45%, IDG 40%) x0.3025 and x2.74, and Pivoting Fortress at 40% can add a third reduction. The IDG rise applies to every damage source, not only bloodline strikes. Not simulated.
-- Seven-row damage: +5 Damage is the reference per-cast gain (Hidden +2 / Advanced +3), but Tetsugan lands a bloodline strike every round (seven 60 AP casts, cooldown 6–7) where Taiyo Kami lands three per seven, so realised per-battle uplift is about 2.3x the reference. Not simulated.
-- Afterburn is downstream: one ground-circle application row (Crimson Thrust, 2 rounds, enemies only, re-applied to any enemy standing in the circle); its value comes from every non-pierce hit the burning target takes, allies and weapons included, capped at 60% of each hit; other Afterburn sources saturate at that cap. Shadow Pierce's pierce row does not feed it. No proc or uptime simulation.
-- Downstream reach: the stance buffs raise or blunt normal jutsu, weapon and basic hits passing their stat filters in the two-round window (Inner Peace row 2 only for Earth/Fire/Metal/Water or element-less hits); enemy-side exposure and suppression alter allied and weapon damage too, and the Metal-plus-four-stat exposure rows match any stat-typed hit. Casting scope does not limit downstream benefit.
-- Classification: no other captured bloodline has Metal jutsu; ordinary Metal jutsu are in scope by rule and unverified. 10 of 20 supported kit rows carry Metal (seven damage rows, Inner Peace row 2, the two Metal-tagged exposure rows); the other 10 need the proposed jutsu-classification resolver, and Middle Guard Stance (no Metal row) qualifies in-kit only through an authored Metal jutsu classification (ENGINE_GAP_REGISTER G1).
-- Ranked PvP and ranked sparring suppress skill-tree effects at the pin, so the tree is inert there. Reflect value depends on hits taken (pierce included) inside each two-round window and was not simulated. Normal-tree potency policy is not approved; a combined potency budget with the main tree still needs review before any implementation.
+- Item gates: retaliation is inert without the sword-style item (Harmonious Slash) and the burn without the dagger-style item (Crimson Thrust); self-amplification keeps only Middle Guard Stance without the sword, and the fortress's third row needs the staff. Whether two hand weapons can be wielded at once was not read at the pin (ENGINE_GAP_REGISTER G7).
+- Stacking: jutsu Increase Damage Given/Taken rows multiply; Decrease Damage Taken/Given apply in sequence with a 10% floor. At the route maxima three Increase Damage Given rows give ×2.92 (from ×2.46) and three Decrease Damage Taken rows ×0.20 (from ×0.30). The stance buffs apply to every hit passing their filters, not only bloodline strikes. Not simulated.
+- Afterburn is downstream: one ground-circle application row; every non-pierce hit the burning target takes (allies and weapons included) adds the percentage of the exposed hit, capped at 60% of that hit. No uptime simulation.
+- Reflect reads the hit after reductions, so Tempered Stance, Folded Steel and the suppression rider shrink what is returned while they protect the caster: on the full route the returned share of a raw hit rises ×1.25 unsuppressed, ×1.15 under Vacuum Fan and ×1.07 under both suppression rows, and with Folded Steel and a stance up under both it is flat (×0.99). Pierce hits are reflected; cap 60% of each hit. Value depends on hits taken in each two-round window; not simulated.
+- Ally hazard (validator warning accepted): Equilibrium Guard Strike row 1 (line exposure) is raised by Eye of Iron and Branding Iron; Vacuum Fan row 2 (spiral suppression) by Tempered Stance and Every Blow Returned. Allies in the area receive the raised values.
+- Classification: no other captured bloodline has Metal jutsu; ordinary Metal jutsu are in scope by rule and unverified. Three of the thirteen targeted kit rows carry Metal (Inner Peace row 2, Equilibrium Guard Strike and Vacuum Fan exposure); the rest need the proposed jutsu-classification resolver, and Middle Guard Stance qualifies only through an authored Metal classification (ENGINE_GAP_REGISTER G1).
+- Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed. A combined potency budget with the main tree is not reviewed.
 
 ## Limits
 
