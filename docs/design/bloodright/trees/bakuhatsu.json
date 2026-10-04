@@ -37,10 +37,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Increase Damage Given and a controlled +2 Damage payoff (the charge and the detonation: Charge 4 Explosion and Howitzer Crash self buffs, which compound, and the three Explosion area attacks)",
-    "secondary": "Afterburn (the mark Charge 4 Explosion leaves on its target) and Increase Damage Taken (the same cast's exposure, Ground Zero's setup)",
-    "tertiary": "Decrease Damage Taken (Blast Shield)",
-    "rationale": "Three of the eight supported rows are Explosion Damage on 60 AP area attacks (Kinetic Nova 50, Inferno Cataclysm and Howitzer Crash 40 EP), so the detonation keeps a burst route, held to the director pattern: Shaped Charge sets up +3% exposure and Ground Zero pays off with +2 Damage (Nova 50 → 52, the 40 rows 42). Primed Fuse answers \"How do I make my detonations land harder: charge myself or aim the charge?\" with Critical Mass (both compounding self buffs 43%) and Ground Zero. Smoke and Shrapnel answers \"How do I win what the blast leaves behind: shelter in the smoke or leave the shrapnel burning?\" with Siege Battery (Blast Shield 45%) and Chain Reaction (Afterburn 45%). The kit has no heal, lifesteal, reflect or Decrease Damage Given rows, so no sustain or suppression route is invented."
+    "primary": "Increase Damage Given and Increase Damage Taken (charge and aim: the Charge 4 Explosion and Howitzer Crash self buffs, which compound, and Charge 4 Explosion's exposure on its target)",
+    "secondary": "Afterburn (the mark Charge 4 Explosion leaves on its target)",
+    "tertiary": "Decrease Damage Taken (Blast Shield); Damage is not amplified",
+    "rationale": "Three of the eight supported rows are Explosion Damage (Kinetic Nova 50, Inferno Cataclysm and Howitzer Crash 40 EP), but the kit's trait is AoE Control, not Burst, and Kinetic Nova shares rank A, 60 AP and cooldown 7 with Inferno Cataclysm, so Damage stays unamplified and Nova stays at 50. Primed Fuse answers \"How do I make my detonations land harder: charge myself or aim the charge?\" with Critical Mass (both compounding self buffs 43%) and Ground Zero (Charge 4 Explosion exposure 45%). Smoke and Shrapnel answers \"How do I win what the blast leaves behind: shelter in the smoke or leave the shrapnel burning?\" with Siege Battery (Blast Shield 45%) and Chain Reaction (Afterburn 45%). The kit has no heal, lifesteal, reflect or Decrease Damage Given rows, so no sustain or suppression route is invented."
   },
   "nodes": [
     {
@@ -91,7 +91,7 @@
         }
       ],
       "flavor": "The blast is not larger; it is aimed.",
-      "coverage_note": "Aims the charge: Charge 4 Explosion exposure 37 → 40% with Primed Fuse (single target, range 4, 40 AP, live the two rounds after the cast); Earth, Explosion, Lightning and element-less hits on it, all three Explosion attacks included, land ×1.40.",
+      "coverage_note": "Aims the charge (Ground Zero's setup): Charge 4 Explosion exposure 37 → 40% with Primed Fuse (single target, range 4, 40 AP, live the two rounds after the cast); Earth, Explosion, Lightning and element-less hits on it land ×1.40.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -113,24 +113,22 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagetaken",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "Where the charge lands, the map is redrawn.",
-      "coverage_note": "Burst payoff: Kinetic Nova 50 → 52 EP (past the 50 Nuke tier; director review), Inferno Cataclysm and Howitzer Crash 40 → 42 EP (still Normal) on every cast, charge round or not.",
+      "coverage_note": "Exposure payoff: Charge 4 Explosion exposure 35 → 45% on the full route (+10%) from one 40 AP cast; for the two rounds after it, every Earth, Explosion, Lightning or element-less hit on the target, allies' included, lands ×1.45 (×1.35 unmodified, ×1.074).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Howitzer Crash",
-          "Inferno Cataclysm",
-          "Kinetic Nova"
+          "Charge 4 Explosion"
         ],
-        "effect_rows": 3
+        "effect_rows": 1
       }
     },
     {
@@ -266,26 +264,19 @@
           "tag": "decreasedamagetaken",
           "flat": 5,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "increasedamagegiven",
-          "flat": 2,
-          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Dug in behind the blast wall, the battery keeps firing.",
-      "coverage_note": "Fortress: Blast Shield 35 → 45% on the full route (+10%), incoming hits ×0.55 (×0.65 unmodified); both self buffs +2% (37%, 39% with Primed Fuse).",
+      "flavor": "Dug in behind the blast wall, the battery outlasts the barrage.",
+      "coverage_note": "Fortress: Blast Shield 35 → 45% on the full route (+10%), incoming hits ×0.55 (×0.65 unmodified, ×0.846); caster-only, two rounds per 40 AP cast.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Blast Shield",
-          "Charge 4 Explosion",
-          "Howitzer Crash"
+          "Blast Shield"
         ],
-        "effect_rows": 3,
+        "effect_rows": 1,
         "rows_via_authored_classification": 1
       }
     },
@@ -349,19 +340,18 @@
   "examples": [
     {
       "name": "Ground Zero",
-      "archetype": "Burst",
+      "archetype": "Exposure",
       "ids": [
         "01",
         "02",
         "03",
         "04"
       ],
-      "rationale": "Every Kinetic Nova lands at 52 EP and every Inferno Cataclysm and Howitzer Crash at 42 EP (Ground Zero +2), with no charge round needed. Charge 4 Explosion's exposure reaches 40% (Primed Fuse +2%, Shaped Charge +3%), so a Nova on the exposed target lands ×1.40 before the bloodline passive. Powder Keg is the offensive fourth: after Charge 4 Explosion and Howitzer Crash in one 100 AP round both self buffs are 39%, and a 52 EP Nova on the exposed target lands ×1.39 × 1.39 × 1.40 ≈ ×2.70. Smoke and Shrapnel (Blast Shield 37%, Afterburn 37%) is the safer fourth.",
+      "rationale": "One 40 AP Charge 4 Explosion leaves its target at exposure 45% for two rounds (Primed Fuse +2%, Shaped Charge +3%, Ground Zero +5%): every Earth, Explosion, Lightning or element-less hit on it, allies' included, lands ×1.45 (×1.35 unmodified). Powder Keg is the offensive fourth: after Charge 4 Explosion and Howitzer Crash in one 100 AP round both self buffs are 39%, so the caster's Kinetic Nova on the target lands ×1.39 × 1.39 × 1.45 ≈ ×2.80 before the bloodline passive (×2.46 unmodified). Smoke and Shrapnel (Blast Shield 37%, Afterburn 37%) is the safer fourth.",
       "cost": 4,
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 4,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 10
       },
       "finals": [
         {
@@ -376,8 +366,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -412,8 +402,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 2,
-          "final": 52.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -505,8 +495,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -541,8 +531,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1079,10 +1069,10 @@
         "07",
         "01"
       ],
-      "rationale": "Blast Shield's reduction reaches 45% on the caster for the two rounds after each 40 AP cast (incoming hits ×0.55; allies do not receive it). Primed Fuse is the fourth that keeps the battery firing: with Siege Battery's +2% both self buffs reach 39% and the exposure 37%, so the shielded caster still fires a charged Nova (×1.39 × 1.39 ≈ ×1.93 with both buffs up). Slow Burn (Afterburn 40%) is the alternative fourth for a bunker that still burns.",
+      "rationale": "Blast Shield's reduction reaches 45% on the caster for the two rounds after each 40 AP cast (incoming hits ×0.55 against ×0.65, ×0.846; allies do not receive it). Primed Fuse is the fourth that keeps the battery firing: both self buffs 37% and the exposure 37% (×1.37 × 1.37 ≈ ×1.88 with both buffs up). Slow Burn (Afterburn 40%) is the alternative fourth for a bunker that still burns.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 2
@@ -1208,8 +1198,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1301,8 +1291,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1314,18 +1304,18 @@
     }
   ],
   "design_notes": [
-    "2026-10-04 rebalance, roster pass (BALANCE_REVIEW_METHOD.md; corrected Director precedent). The first pass removed the Burst branch only to keep Kinetic Nova at 50, shrinking the tree to eight nodes with Primed Fuse universal. This pass restores it as the director pattern: Shaped Charge is now a +3% Increase Damage Taken setup (was +2 Damage) and Ground Zero a +2 Damage payoff (was +3), so the only Damage total is +2 (pre-batch +5: Nova 55, the 40 rows 45). The pre-batch wiring returns with it: Smoke and Shrapnel (+2% Decrease Damage Taken, +2% Afterburn; the first pass's Eye of the Blast) roots the fortress and the mark, and Slow Burn returns under it at +3% Afterburn (first pass +5%). Kept from the first pass: Powder Keg +2% and Critical Mass +4% Increase Damage Given (pre-batch +3% and +5%). Chain Reaction keeps its +5% Afterburn and drops its pre-batch +3% Increase Damage Taken (final review): on the same Charge 4 Explosion cast as the burn it took the mark to exposure 40% / Afterburn 45% with Primed Fuse (≈ ×2.03), and it raised the same exposure row as Shaped Charge's setup. Unchanged: Primed Fuse, Hardened Casing, Siege Battery.",
-    "Increase Damage Given is held at +8%, not +10%: its two self buffs compound when both are live, so +8% takes the double-buff window from ×1.82 to ×2.04; +10% would reach ×2.10. Exposure is one row, +5% at most (Primed Fuse plus Shaped Charge, the only Hidden or Advanced Art that raises it). Maxima over every legal allocation: Increase Damage Given +8%, Increase Damage Taken +5%, Afterburn +10%, Decrease Damage Taken +10%, Damage +2.",
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md; roster cleanup pass). Damage is left unamplified: the dossier trait is AoE Control, not Burst, and Kinetic Nova, the only 50 row, shares rank A, 60 AP and cooldown 7 with Inferno Cataclysm (every kit jutsu has cooldown 7), so no dossier fact makes it a signature finisher. Against the pre-batch tree: Shaped Charge +2 Damage → +3% Increase Damage Taken, Ground Zero +3 Damage → +5% Increase Damage Taken (pre-batch Kinetic Nova reached 55), Powder Keg +3% → +2% and Critical Mass +5% → +4% Increase Damage Given, Siege Battery drops its +2% Increase Damage Given rider (no offensive rider on a fortress), and Chain Reaction drops its +3% Increase Damage Taken (it raised the exposure on the same cast as its burn). Unchanged: Primed Fuse, Smoke and Shrapnel, Hardened Casing, Slow Burn.",
+    "Increase Damage Given is held at +8%, not +10%: its two self buffs compound when both are live, so +8% takes the double-buff window from ×1.82 to ×2.04 (×1.122); +10% would reach ×2.10. Exposure is one row: Ground Zero's route takes it 35 → 45% (×1.45/1.35 ≈ ×1.074, the anchor table's single-row figure, level with Shakunetsu Sakura's ×1.075). Top offensive package: Critical Mass with Shaped Charge, ×1.122 × 1.037 ≈ ×1.164, under Blood-Enchanted Eyes' ×1.234. Maxima over every legal allocation: Increase Damage Given +8%, Increase Damage Taken +10%, Afterburn +10%, Decrease Damage Taken +10%, no Damage.",
     "Filters (§3): both Increase Damage Given rows list the Highest stat and no element, so they match every element-less hit of any stat type and the caster's highest-stat elemental hits, all three Explosion attacks included. The exposure lists Earth, Explosion, Lightning and None; Afterburn and Blast Shield's row list all four stat types and no element. The bloodline Increase Damage Given passive (25% + 0.15 per level; Lightning, Earth, Explosion, None) multiplies last; the Earth-only 15% Decrease Damage Taken passive is separate from Blast Shield's row.",
     "Delivery (§3b, §4b): every jutsu has cooldown 7. The three Damage casts cost 60 AP (Inferno Cataclysm spiral around the caster, Kinetic Nova circle on a target, Howitzer Crash circle on empty ground that moves the caster) and are ENEMIES-only. Charge 4 Explosion (40 AP, single target, range 4) carries the self buff, the exposure and the Afterburn; Howitzer Crash carries the second self buff; Blast Shield (40 AP) the reduction. SELF rows land on the caster at cast. Every buff and debuff is live only in the two rounds after its cast, so neither self buff raises its own jutsu's hit.",
-    "Fourth purchases: Ground Zero takes Powder Keg (self buffs 39%) or Smoke and Shrapnel; Critical Mass takes Shaped Charge (exposure 40%) or Smoke and Shrapnel; Chain Reaction takes Primed Fuse (self buffs 37%, exposure 37%: an ally's hit on the mark ×1.37 × 1.45 ≈ ×1.99) or Hardened Casing; Siege Battery takes Primed Fuse (self buffs 39%) or Slow Burn (Afterburn 40%). Shaped Charge cannot join Chain Reaction (5 BP), so no build stacks the setup onto the mark. The two all-offense Primed Fuse builds share three nodes and differ in the capstone: in the double-buff window a Nova on the exposed target comes to 50 × 2.86 ≈ 143 with Critical Mass and 52 × 2.70 ≈ 141 with Ground Zero, so Critical Mass wins whenever the charge round is paid (and on weapons, basic attacks and off-kit hits), Ground Zero whenever it is not (52 against 50, 42 against 40). No fourth makes a route automatic."
+    "Fourth purchases: Ground Zero takes Powder Keg (self buffs 39%) or Smoke and Shrapnel (Blast Shield 37%, Afterburn 37%); Critical Mass takes Shaped Charge (exposure 40%) or Smoke and Shrapnel; Chain Reaction takes Primed Fuse (self buffs 37%, exposure 37%: an ally's hit on the mark ×1.37 × 1.45 ≈ ×1.99) or Hardened Casing; Siege Battery takes Primed Fuse (self buffs 37%, exposure 37%) or Slow Burn (Afterburn 40%). Neither Shaped Charge nor Ground Zero can join Chain Reaction (5 BP), so exposure beside the Afterburn capstone stays at +2%. The two all-offense Primed Fuse builds share three nodes and differ in the capstone: in the double-buff window the caster's hit on the charged target lands ×1.43 × 1.43 × 1.40 ≈ ×2.86 with Critical Mass and ×1.39 × 1.39 × 1.45 ≈ ×2.80 with Ground Zero, so Critical Mass wins on the caster's own hits on every target and Ground Zero on allies' hits on the target (×1.45 against ×1.40) and whenever the self-buff round is not paid. No fourth makes a route automatic."
   ],
   "risks": [
-    "Damage tier: Ground Zero lifts Kinetic Nova 50 → 52, past the 50 Nuke tier (above_nuke_rationale; director precedent RUL-2026-10-04-001/-002). Inferno Cataclysm and Howitzer Crash 40 → 42 stay Normal.",
-    "Classification: Explosion is shared with Bakuhatsu Suru Nendo (expected under RUL-2026-10-03-005). The three Damage rows and the exposure row carry Explosion; both self buffs, the Afterburn row and Blast Shield's row need the proposed jutsu-classification resolver, and Blast Shield (no Explosion row) also needs an authored classification (ENGINE_GAP_REGISTER G1). Off-kit Explosion coverage is unverified.",
+    "Damage tier: no node raises Damage, so Kinetic Nova stays 50 (Nuke) and Inferno Cataclysm and Howitzer Crash 40 (Normal) in every allocation.",
+    "Classification: Explosion is shared with Bakuhatsu Suru Nendo (expected under RUL-2026-10-03-005). The exposure row carries Explosion; both self buffs, the Afterburn row and Blast Shield's row need the proposed jutsu-classification resolver, and Blast Shield (no Explosion row) also needs an authored classification (ENGINE_GAP_REGISTER G1). Off-kit Explosion coverage is unverified.",
     "Reach: the self buffs multiply every matching caster hit in their window, on every target an area attack catches, plus weapons, basic attacks and off-kit jutsu; the exposure and Afterburn raise allies' hits on the mark. Blast Shield's reduction is caster-only.",
-    "Charge 4 Explosion concentration: one 40 AP cast can carry three enhanced rows (Chain Reaction with Primed Fuse: self buff 37%, exposure 37%, Afterburn 45%; Critical Mass with Shaped Charge: self buff 43%, exposure 40%). Afterburn per hit is capped at 60% of the hit, so 45% leaves 15 points for other Afterburn sources.",
-    "Friendly fire: the Damage rows are ENEMIES-only, so +2 Damage never reaches allies. Charge 4 Explosion may be aimed at an ally (OTHER_USER); its enhanced exposure and Afterburn then land on the ally while the self buff stays on the caster. Kinetic Nova's wound (ally hazard) and Blast Shield's barrier (enemy hazard) are unsupported and untouched.",
+    "Charge 4 Explosion concentration: one 40 AP cast can carry up to three enhanced rows (Ground Zero with Powder Keg: self buff 39%, exposure 45%; Critical Mass with Shaped Charge: self buff 43%, exposure 40%; Chain Reaction with Primed Fuse: self buff 37%, exposure 37%, Afterburn 45%). Afterburn per hit is capped at 60% of the hit, so 45% leaves 15 points for other Afterburn sources.",
+    "Friendly fire: Charge 4 Explosion may be aimed at an ally (OTHER_USER); its enhanced exposure and Afterburn then land on the ally while the self buff stays on the caster. Kinetic Nova's wound (ally hazard) and Blast Shield's barrier (enemy hazard) are unsupported and untouched.",
     "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
@@ -1363,13 +1353,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
       "increasedamagegiven": 8,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "afterburn": 10
     },
@@ -1383,12 +1372,13 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "revision": "Fable proposal — 2026-10-04 batch rebalance / Explosion classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
@@ -1404,14 +1394,12 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 2,
         "increasedamagegiven": 8,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
       "ceilings": {
-        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
@@ -1432,19 +1420,19 @@
         {
           "advanced_art": "03",
           "name": "Ground Zero",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagetaken",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            0,
-            0,
-            2
+            2,
+            3,
+            5
           ],
-          "total": 2,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "07",
@@ -1510,9 +1498,8 @@
         "04"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 4,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 10
       }
     },
     {
@@ -1523,9 +1510,8 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 2,
         "afterburn": 2
       }
@@ -1634,7 +1620,7 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 2
@@ -1676,7 +1662,6 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
         "afterburn": 5
       }
@@ -1701,17 +1686,17 @@
       "05": "How do I win what the blast leaves behind: shelter in the smoke or leave the shrapnel burning?"
     },
     "route_identities": {
-      "03": "burst: exposure set up, controlled raw-Damage payoff on every area cast",
+      "03": "exposure: the charged target takes more from every matching hit, the party's included",
       "10": "sustained amplification: both self buffs charged, every hit in the window lands harder",
       "09": "mark: Afterburn on one target, paid out by every hit from the party",
-      "07": "fortress that keeps firing"
+      "07": "fortress: Blast Shield's reduction on the caster"
     },
-    "director_review": "Ground Zero's +2 Damage lifts Kinetic Nova 50 → 52, past the 50 Nuke tier, as the controlled payoff of the Shaped Charge exposure setup (Blood-Enchanted Eyes / Shakunetsu Sakura precedent, RUL-2026-10-04-001/-002); confirm it for this kit.",
+    "director_review": "Roster questions: DQ-B (Ground Zero +10% exposure on one row, Charge 4 Explosion 35 → 45%, ×1.074).",
     "concerns": [
-      "Chain Reaction with Primed Fuse puts exposure 37% beside Afterburn 45% on one 40 AP cast (an ally's hit on the mark ×1.37 × 1.45 ≈ ×1.99), level with Light of Dead Stars (×1.99) and under Consuming Malice's ×2.02. Chain Reaction dropped its pre-batch +3% Increase Damage Taken (40% / 45%, ≈ ×2.03), so the exposure row now belongs to Shaped Charge alone and the burst setup never reaches the mark (5 BP).",
-      "Critical Mass with Shaped Charge is the strongest solo build on the charged target (×2.04 × 1.40 ≈ ×2.86); Ground Zero with Powder Keg is within 2% on a Nova in that window and ahead outside it.",
-      "Every amplified row except the three Damage rows and the exposure depends on the proposed jutsu-classification resolver."
+      "Ground Zero and Chain Reaction both mark the Charge 4 Explosion target. Exposure multiplies only Earth, Explosion, Lightning and element-less hits; Afterburn adds to every non-pierce hit, capped at 60% per hit. No allocation holds both capstones, and with the other branch's Foundation as fourth each reaches ×1.45 × 1.37 ≈ ×1.99 on an ally's matching hit (×1.82 unmodified).",
+      "Critical Mass with Shaped Charge is the top offensive package (×1.164, under Blood-Enchanted Eyes' ×1.234); Ground Zero with Powder Keg is ×1.060 × 1.074 ≈ ×1.139 and ahead on allies' hits on the target.",
+      "Damage is left unamplified on kit evidence (AoE Control, no Burst; Kinetic Nova's AP and cooldown match Inferno Cataclysm's); a controlled +2 Damage Ground Zero would return only if the director reads Nova as the kit's signature finisher.",
+      "Every amplified row except the exposure depends on the proposed jutsu-classification resolver."
     ]
-  },
-  "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Ground Zero's +2 Damage is the controlled payoff of the Shaped Charge exposure setup and lifts Kinetic Nova 50 → 52, past the 50 Nuke tier; Inferno Cataclysm and Howitzer Crash go 40 → 42 and stay Normal. No legal allocation adds more than +2 Damage. Pending director review."
+  }
 }

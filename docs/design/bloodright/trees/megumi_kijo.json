@@ -35,10 +35,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "emphasis": {
-    "primary": "Sustain from Mountain Hag's Mercy — Heal on Onibaba's Laughter and Increase Heal on Kijo's Benevolence (1 row each); one branch leans onto Laughter (450 HP tick) under a narrow Damage capstone, the other onto Benevolence's 40% healing field",
+    "primary": "Sustain from Mountain Hag's Mercy — Heal on Onibaba's Laughter (400 → 420 HP) and Increase Heal on Kijo's Benevolence (1 row each); its single chain raises Benevolence's healing field to 40%",
     "secondary": "Control — Decrease Damage Given on Phantom Realm Oblivion (1 row), 30 → 40% on the Suppression route",
-    "tertiary": "Damage — +2 on the two Genjutsu attacks (Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47), on Appetite of Oblivion only",
-    "rationale": "Five supported rows on three cooldown-7 jutsu. Mountain Hag's Mercy answers \"How do I sustain the hag's fight: through the Laughter that bites as it mends, or the hearth where she stands?\": Teeth Behind the Smile is a small Heal step on Onibaba's Laughter, the jutsu that both hits and heals (450 HP tick), and gates Appetite of Oblivion's controlled +2 Damage on both attacks, which crosses no damage tier; Teeth does not set that Damage up (design_review); Nursed by Demon Hands and The Ever-Lit Hearth raise Benevolence's Increase Heal field to 40% for the caster and allies standing in it. Hagmother's Welcome answers \"How do I make my guest harmless?\" with one Suppression chain on Phantom Realm Oblivion's single Decrease Damage Given row (30 → 40%), the kit's only supported damage-reduction row against its standing 10% Increase Damage Taken passive; Benevolence's 35% absorb also mitigates but is unsupported, as is its move row. No IDG, IDT, Lifesteal, Reflect or Afterburn row exists, and none is invented."
+    "tertiary": "Damage — +2 on the two Genjutsu attacks (Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47) on the steady-edge route only, +1 at Teeth Behind the Smile and +1 at Appetite of Oblivion",
+    "rationale": "Five supported rows on three cooldown-7 jutsu. Hagmother's Welcome answers \"How do I deal with my guest: lull it harmless, or eat it?\": Numbing Lullaby and Cradle of the Kijo take Phantom Realm Oblivion's single Decrease Damage Given row 30 → 40% (Suppression), the kit's only supported damage-reduction row against its standing 10% Increase Damage Taken passive, and Teeth Behind the Smile and Appetite of Oblivion add +1 Damage each to both Genjutsu attacks (steady edge, no tier crossed). Mountain Hag's Mercy answers \"How do I mend the hag and everyone at her hearth?\": Nursed by Demon Hands and The Ever-Lit Hearth raise Benevolence's Increase Heal field to 40% for the caster and allies standing in it. Benevolence's 35% absorb also mitigates but is unsupported, as is its move row. No IDG, IDT, Lifesteal, Reflect or Afterburn row exists, and none is invented."
   },
   "nodes": [
     {
@@ -66,6 +66,66 @@
         ],
         "effect_rows": 1,
         "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "02",
+      "name": "Teeth Behind the Smile",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Guests who look too long at the smile see the teeth behind it.",
+      "coverage_note": "Steady-edge commit: Phantom Realm Oblivion 40 → 41 and Onibaba's Laughter 45 → 46 EP per enemy in its circle, every cast.",
+      "parent_rule": "ALL",
+      "potency_classification": "Megumi Kijo",
+      "scope": "all Megumi Kijo-classified jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Onibaba's Laughter",
+          "Phantom Realm Oblivion"
+        ],
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
+      }
+    },
+    {
+      "id": "03",
+      "name": "Appetite of Oblivion",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "What the phantom realm swallows, it does not give back.",
+      "coverage_note": "Steady edge: Phantom Realm Oblivion 40 → 42 and Onibaba's Laughter 45 → 47 EP per enemy in its circle on the full route, every cast (no tier crossed).",
+      "parent_rule": "ALL",
+      "potency_classification": "Megumi Kijo",
+      "scope": "all Megumi Kijo-classified jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Onibaba's Laughter",
+          "Phantom Realm Oblivion"
+        ],
+        "effect_rows": 2,
+        "rows_via_authored_classification": 2
       }
     },
     {
@@ -160,65 +220,6 @@
       }
     },
     {
-      "id": "02",
-      "name": "Teeth Behind the Smile",
-      "category": "Hidden Art",
-      "cost": 1,
-      "parents": [
-        "06"
-      ],
-      "modifiers": [
-        {
-          "tag": "heal",
-          "flat": 3,
-          "display_role": "SELF BUFF"
-        }
-      ],
-      "flavor": "Behind the kindly smile are teeth, and her cackle mends her even as it bites.",
-      "coverage_note": "Onibaba's Laughter Heal 42 → 45 with Mountain Hag's Mercy: 450 HP on the round after each cast, once however many enemies the circle hits.",
-      "parent_rule": "ALL",
-      "potency_classification": "Megumi Kijo",
-      "scope": "all Megumi Kijo-classified jutsu",
-      "minimum_path_bp": 2,
-      "coverage": {
-        "jutsu": [
-          "Onibaba's Laughter"
-        ],
-        "effect_rows": 1,
-        "rows_via_authored_classification": 1
-      }
-    },
-    {
-      "id": "03",
-      "name": "Appetite of Oblivion",
-      "category": "Advanced Art",
-      "cost": 1,
-      "parents": [
-        "02"
-      ],
-      "modifiers": [
-        {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
-        }
-      ],
-      "flavor": "What the phantom realm swallows, it does not give back.",
-      "coverage_note": "Sustain offense: Phantom Realm Oblivion 40 → 42 and Onibaba's Laughter 45 → 47 EP per enemy in its circle (no tier crossed), on top of the route's 450 HP Laughter heal.",
-      "parent_rule": "ALL",
-      "potency_classification": "Megumi Kijo",
-      "scope": "all Megumi Kijo-classified jutsu",
-      "minimum_path_bp": 3,
-      "coverage": {
-        "jutsu": [
-          "Onibaba's Laughter",
-          "Phantom Realm Oblivion"
-        ],
-        "effect_rows": 2,
-        "rows_via_authored_classification": 2
-      }
-    },
-    {
       "id": "07",
       "name": "Nursed by Demon Hands",
       "category": "Hidden Art",
@@ -280,20 +281,18 @@
   "examples": [
     {
       "name": "Appetite of Oblivion",
-      "archetype": "Sustain offense",
+      "archetype": "Steady edge",
       "ids": [
-        "06",
+        "01",
         "02",
         "03",
-        "01"
+        "04"
       ],
-      "rationale": "Onibaba's Laughter 45 → 47 EP per enemy and Phantom Realm Oblivion 40 → 42, with Laughter's tick at 450 HP (+5% Heal) and the field at 32% Increase Heal. Hagmother's Welcome is the fourth purchase (suppression 32% riding the Oblivion hit); Nursed by Demon Hands (field 35%) is the alternative.",
+      "rationale": "Phantom Realm Oblivion 40 → 42 and Onibaba's Laughter 45 → 47 EP per enemy, every cast, with Numbing Lullaby as the fourth purchase so the same Oblivion cast suppresses at 35%. Mountain Hag's Mercy (Laughter 420 HP, field 32%) is the alternative fourth.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "decreasedamagegiven": 2,
-        "increaseheal": 2,
-        "heal": 5
+        "decreasedamagegiven": 5
       },
       "finals": [
         {
@@ -326,8 +325,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 2,
-          "final": 32.0,
+          "gain": 5,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -362,8 +361,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -398,8 +397,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 2,
-          "final": 32.0,
+          "gain": 0,
+          "final": 30.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -436,7 +435,7 @@
         "05",
         "06"
       ],
-      "rationale": "Phantom Realm Oblivion's Decrease Damage Given 30 → 40% on one enemy for 2 rounds, cutting every non-pierce hit it deals. Mountain Hag's Mercy is the only legal fourth purchase (Laughter 420 HP, field 32%).",
+      "rationale": "Phantom Realm Oblivion's Decrease Damage Given 30 → 40% on one enemy for 2 rounds, cutting every non-pierce hit it deals. Mountain Hag's Mercy is the fourth purchase (Laughter 420 HP, field 32%); Teeth Behind the Smile (+1 Damage: Oblivion 41, Laughter 46) is the alternative.",
       "cost": 4,
       "bonuses": {
         "decreasedamagegiven": 10,
@@ -582,13 +581,14 @@
         "06",
         "07",
         "08",
-        "02"
+        "01"
       ],
-      "rationale": "Kijo's Benevolence Increase Heal 30 → 40% for the caster and allies in the field, with Teeth Behind the Smile as the fourth purchase for a 450 HP Laughter tick; Hagmother's Welcome (suppression 32%) is the alternative.",
+      "rationale": "Kijo's Benevolence Increase Heal 30 → 40% for the caster and allies in the field, with Laughter's tick at 420 HP (588 HP when it lands in a live field). Hagmother's Welcome (suppression 32%) is the only legal fourth purchase.",
       "cost": 4,
       "bonuses": {
+        "decreasedamagegiven": 2,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
       "finals": [
         {
@@ -621,8 +621,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 0,
-          "final": 30.0,
+          "gain": 2,
+          "final": 32.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -657,8 +657,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "static",
           "supported": true,
           "capped_at_100": false
@@ -723,18 +723,19 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Heal x1, Increase Heal x1). Mountain Hag's Mercy forks onto Onibaba's Laughter (Heal, capped by a +2 Damage capstone) and onto Benevolence's field (Increase Heal); Hagmother's Welcome is a single chain because Decrease Damage Given is one row, and a second Welcome route would either repeat Suppression or take the Damage that now caps the Laughter lane. A fourth capstone on these rows would be filler. Mountain Hag's Mercy is a universal node (in all 8 legal 4-BP builds) because Welcome roots a 3-node chain.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Heal x1, Increase Heal x1). The enemy-facing Hagmother's Welcome forks into Suppression and the steady-edge Damage chain; the self-facing Mountain Hag's Mercy is a single chain onto Benevolence's field. A fourth capstone would be filler: Heal is one static tick (+10 HP per +1% once per 7 rounds), and a second Decrease Damage Given or Increase Heal route would repeat Suppression or the Hearth on the same row. Hagmother's Welcome is a universal node (in all 8 legal 4-BP builds) because Mercy roots a single 3-node chain.",
   "design_notes": [
-    "Rewire (2026-10-04 batch): Teeth Behind the Smile moves from Hagmother's Welcome to Mountain Hag's Mercy. Welcome's Decrease Damage Given had no part in the old Damage route, and its +2/+3 Damage lifted Phantom Realm Oblivion 40 → 45 (a full tier) and Onibaba's Laughter 45 → 50 (semi-nuke to nuke). Teeth is now a +3% Heal step on Onibaba's Laughter (450 HP tick), and Appetite of Oblivion adds a controlled +2 Damage (40 → 42, 45 → 47), as on Arashima's 45 EP attacks. Teeth gates that Damage without setting it up: every percentage setup on this branch would twin a sibling (design_review concerns and director_review).",
-    "Values: Suppression stays 2/3/5 (30 → 40%) and drops Cradle's +2% Heal glue. The Ever-Lit Hearth is +5% Increase Heal (route 30 → 40%), replacing the old Heal/Increase Heal capstone, so Laughter's Heal belongs to the Laughter lane and each capstone carries one effect. Maxima over every legal allocation: Damage +2, Decrease Damage Given +10%, Increase Heal +10%, Heal +5%.",
+    "Rewire (2026-10-04 batch, final pass): Teeth Behind the Smile returns under Hagmother's Welcome, as in the pre-batch tree, as a +1 Damage commit, and Appetite of Oblivion drops to +1 (route +2: Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47; the pre-batch +2/+3 lifted them 40 → 45 and 45 → 50). The earlier pass hung the chain under Mountain Hag's Mercy behind a +3% Heal step (+30 HP once per 7-round cast) that gated the Damage without setting it up, and Mercy's sustain sentence did not cover a Damage child. Under Welcome both children act on the guest (lull it or eat it), the dossier's two traits, Control and Sustained Damage.",
+    "Why a +1 Damage commit (steady edge, not burst): the kit has no Increase Damage Given or Taken row to set Damage up, a Decrease Damage Given step would twin Numbing Lullaby (a legal fourth for this route), and Heal or Increase Heal would be glue. No row is above 45, so no Damage result reaches the Nuke tier.",
+    "Values: Suppression stays 2/3/5 (30 → 40%) without the pre-batch Cradle +2% Heal rider. The Ever-Lit Hearth is +5% Increase Heal (route 30 → 40%), so each capstone carries one effect and Heal is Mountain Hag's Mercy's +2% alone. Maxima over every legal allocation: Damage +2, Decrease Damage Given +10%, Increase Heal +10%, Heal +2%.",
     "Delivery: all cooldown 7. Phantom Realm Oblivion (single target, 60 AP) lands its hit and 2-round suppression together. Onibaba's Laughter (radius-1 circle, 60 AP) hits each enemy inside; its self Heal ticks once the next round. Kijo's Benevolence (40 AP) lays a FRIENDLY Increase Heal field within 4 tiles, then moves the caster, who gets it from the next round while standing in it. The bloodline's Genjutsu Increase Damage Given passive multiplies both attacks last.",
-    "Fourth purchases: Appetite → Hagmother's Welcome (suppression 32%) or Nursed by Demon Hands (field 35%); Cradle → Mountain Hag's Mercy only; Hearth → Teeth Behind the Smile (Laughter 450 HP) or Welcome. No fourth purchase adds Damage to another route, and Damage never exceeds +2."
+    "Fourth purchases: Appetite → Numbing Lullaby (suppression 35%) or Mountain Hag's Mercy (Laughter 420 HP, field 32%); Cradle → Mercy or Teeth Behind the Smile (+1 Damage: 41 / 46); Hearth → Hagmother's Welcome only (suppression 32%). Only Appetite's route reaches +2 Damage."
   ],
   "risks": [
     "Classification: no kit row carries a non-None element, so the tree requires a classification extension: 'Megumi Kijo' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision (ENGINE_GAP_REGISTER G1). Targeting None instead would reach every non-elemental row in the game. Off-kit coverage is unverified.",
     "Suppression at 40%: Phantom Realm Oblivion's Decrease Damage Given row has no element and lists all four stat types, so for 2 rounds it reduces every non-pierce hit the debuffed enemy deals to anyone. It is one target per 7-round cooldown, debuff-prevent gated, and compounds with other reductions as ×(1 − p/100) in turn. It does not touch pierce.",
-    "Increase Heal: Benevolence's field is a FRIENDLY ground effect re-applied each round to whoever stands in it, allies included and never enemies (actions.ts 1006–1016, process.ts 321–340; the dossier says self), and adjustHealGiven raises heal_hp, lifesteal_hp, vampRatio and absorb_hp for its holder (tags.ts 1110–1195), so 40% also lifts Benevolence's own 35% absorb and any healing in the window. A Laughter tick landing while the caster stands in a live field is raised too: the ground-derived buff copies the field's cleared isNew/castThisRound (process.ts 301, 333–339) and heal adjusters run after heals (process.ts 440, 600), so the tick is 420 × 1.40 = 588 HP on a Hearth build (450 × 1.40 = 630 with Teeth), and nothing in the field's cast round. Lifesteal and vamp raised there still share the 60% leech budget, which is applied to the adjusted values when consequences resolve (process.ts 733–766, 905–917).",
-    "Heal timing: Laughter's Heal is one static tick on the following round (×10 HP per point), deduplicated however many enemies the circle hits and blocked by healprevent, so +5% Heal is +50 HP per cast once per 7 rounds.",
+    "Increase Heal: Benevolence's field is a FRIENDLY ground effect re-applied each round to whoever stands in it, allies included and never enemies (actions.ts 1006–1016, process.ts 321–340; the dossier says self), and adjustHealGiven raises heal_hp, lifesteal_hp, vampRatio and absorb_hp for its holder (tags.ts 1110–1195), so 40% also lifts Benevolence's own 35% absorb and any healing in the window. A Laughter tick landing while the caster stands in a live field is raised too: the ground-derived buff copies the field's cleared isNew/castThisRound (process.ts 301, 333–339) and heal adjusters run after heals (process.ts 440, 600), so the tick is 420 × 1.40 = 588 HP on a Hearth build, and nothing in the field's cast round. Lifesteal and vamp raised there still share the 60% leech budget, which is applied to the adjusted values when consequences resolve (process.ts 733–766, 905–917).",
+    "Heal timing: Laughter's Heal is one static tick on the following round (×10 HP per point), deduplicated however many enemies the circle hits and blocked by healprevent, so Mountain Hag's Mercy's +2% Heal is +20 HP per cast once per 7 rounds.",
     "Damage is formula-calculated and multiplied by the Genjutsu damage passive, so +2 EP is not a linear +2; Laughter's +2 applies per enemy in its circle (friendly fire ENEMIES, no ally hazard). The 10% damage-taken passive stays. Skill-tree and bloodline effects are skipped in ranked modes. No combat simulation."
   ],
   "progression": {
@@ -779,7 +780,7 @@
       "damage": 2,
       "decreasedamagegiven": 10,
       "increaseheal": 10,
-      "heal": 5
+      "heal": 2
     },
     "supported_rows_in_kit": 5,
     "supported_rows_by_tag": {
@@ -813,7 +814,7 @@
         "damage": 2,
         "decreasedamagegiven": 10,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
       "ceilings": {
         "damage": 5,
@@ -838,14 +839,14 @@
           "name": "Appetite of Oblivion",
           "primary_tag": "damage",
           "path": [
-            "06",
+            "01",
             "02",
             "03"
           ],
           "steps": [
             0,
-            0,
-            2
+            1,
+            1
           ],
           "total": 2,
           "on_band": false
@@ -894,13 +895,37 @@
         "01",
         "02",
         "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "decreasedamagegiven": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
         "06"
       ],
       "bonuses": {
         "damage": 2,
         "decreasedamagegiven": 2,
         "increaseheal": 2,
-        "heal": 5
+        "heal": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "decreasedamagegiven": 10
       }
     },
     {
@@ -911,9 +936,10 @@
         "06"
       ],
       "bonuses": {
+        "damage": 1,
         "decreasedamagegiven": 5,
         "increaseheal": 2,
-        "heal": 5
+        "heal": 2
       }
     },
     {
@@ -924,9 +950,10 @@
         "07"
       ],
       "bonuses": {
+        "damage": 1,
         "decreasedamagegiven": 2,
         "increaseheal": 5,
-        "heal": 5
+        "heal": 2
       }
     },
     {
@@ -967,50 +994,25 @@
         "increaseheal": 10,
         "heal": 2
       }
-    },
-    {
-      "ids": [
-        "02",
-        "03",
-        "06",
-        "07"
-      ],
-      "bonuses": {
-        "damage": 2,
-        "increaseheal": 5,
-        "heal": 5
-      }
-    },
-    {
-      "ids": [
-        "02",
-        "06",
-        "07",
-        "08"
-      ],
-      "bonuses": {
-        "increaseheal": 10,
-        "heal": 5
-      }
     }
   ],
   "design_review": {
     "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
-      "01": "How do I make my guest harmless?",
-      "06": "How do I sustain the hag's fight: through the Laughter that bites as it mends, or the hearth where she stands?"
+      "01": "How do I deal with my guest: lull it harmless, or eat it?",
+      "06": "How do I mend the hag and everyone at her hearth?"
     },
     "route_identities": {
-      "03": "sustain offense: a controlled +2 Damage on both attacks (no tier crossed), on the lane whose Laughter both hits and heals",
+      "03": "steady edge: +1 Damage commit then +1 on both Genjutsu attacks, every cast (40 → 42, 45 → 47; no tier crossed)",
       "05": "suppression",
       "08": "healing field for the caster and allies"
     },
-    "director_review": "One roster question, to answer once for every kit it touches: what fills the Hidden-Art step before a flat-Damage capstone when every percentage setup would twin a sibling? Teeth Behind the Smile is a +3% Heal commit (Laughter 420 → 450 HP, +30 HP once per 7-round cast) that gates Appetite of Oblivion's +2 Damage without setting it up. The same constraint gets three answers in this batch: a Heal commit (Loup-Garou, this tree), a +1 Damage commit on the Hidden Art (Musashi Ken, Nature's Blessing) and no dedicated setup, with the Damage riding a Heal capstone (Lycanthropy). Here: (a) Heal commit, as proposed; (b) +1 Damage commit, Teeth +1 Damage and Appetite +1 (route still 40 → 42, 45 → 47, with Oblivion 41 and Laughter 46 at Teeth; the route's Laughter tick stays 420 HP, and Hearth's Teeth fourth becomes +1 Damage instead of Laughter's +30 HP); (c) still needs a Hidden Art under Appetite, and Heal is the only choice there that neither twins a sibling nor carries Damage, so on this tree it collapses into (a).",
+    "director_review": "Roster questions: DQ-D (Teeth Behind the Smile carries +1 Damage as the commit before Appetite of Oblivion's +1; route +2, Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47).",
     "concerns": [
-      "Appetite of Oblivion is the leanest payoff (+2 EP on two cooldown-7 attacks). +2 is the roster default for 40/45 EP rows (Arashima 45 → 47); +3 (40 → 43, 45 → 48) would cross no tier but would join the roster's 45 → 48 outliers, so it is not proposed.",
-      "Teeth Behind the Smile is Heal glue, not a setup: its +3% Heal is +30 HP once per 7-round Laughter cast (420 → 450 HP) and neither raises nor enables Appetite's Damage; its job is to gate Appetite of Oblivion. Every other Hidden-Art option on this branch fails: Increase Heal twins Nursed by Demon Hands, Decrease Damage Given twins Numbing Lullaby, and flat Damage on a Hidden Art needs the roster convention in director_review. As a result Appetite + Nursed (06,02,03,07) and The Ever-Lit Hearth + Teeth (06,02,07,08) share three nodes and differ only in the capstone: +2 Damage (Oblivion 40 → 42, Laughter 45 → 47) against +5% Increase Heal (field 35 → 40%).",
-      "Cradle of the Kijo is single-tag (+5% Decrease Damage Given) where the director anchors' suppression capstones carry a rider; the kit's only candidates (Heal, Increase Heal) are the other two routes' identities, so none is added as glue.",
-      "The Ever-Lit Hearth's 40% Increase Heal reaches allies in the field and Benevolence's own absorb, and lifts a Laughter tick taken in the field to 588 HP (630 with Teeth); it is positional and absent in the field's cast round (risks).",
+      "Appetite of Oblivion is the leanest payoff (+2 EP on two cooldown-7 attacks). +2 is the roster default for 40/45 EP rows (Arashima 45 → 47) and the batch ceiling for flat Damage, so nothing larger is proposed.",
+      "Teeth Behind the Smile is a +1 Damage commit, not a setup (DQ-D): no percentage setup exists that neither twins Numbing Lullaby nor is Heal glue. As a result Appetite + Numbing Lullaby (01,02,03,04) and Cradle + Teeth (01,02,04,05) share three nodes and differ only in the capstone: +1 Damage (Oblivion 41 → 42, Laughter 46 → 47) against +5% Decrease Damage Given (35 → 40%).",
+      "Cradle of the Kijo is single-tag (+5% Decrease Damage Given) where the director anchors' suppression capstones carry a rider; the kit's candidates are Heal (glue on a once-per-7-rounds tick), Increase Heal (the Hearth's identity) and Damage (an offensive rider), so none is added.",
+      "The Ever-Lit Hearth's 40% Increase Heal reaches allies in the field and Benevolence's own absorb, and lifts a Laughter tick taken in the field to 588 HP; it is positional and absent in the field's cast round (risks).",
       "The 'Megumi Kijo' classification extension is a director/engine decision; off-kit coverage is unverified."
     ]
   }
