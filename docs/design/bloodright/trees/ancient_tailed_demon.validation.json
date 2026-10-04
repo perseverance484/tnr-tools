@@ -9,10 +9,11 @@
     "statClassification": "Highest",
     "traits": "Sustained Damage"
   },
-  "revision": "Draft 4 / Ancient Tailed Demon classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Ancient Tailed Demon classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "classification status: requires classification extension (director decision)"
+    "classification status: requires classification extension (director decision)",
+    "universal node: 06 (Demon's Marrow) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Ancient Tailed Demon",
@@ -41,29 +42,8 @@
   },
   "examples": [
     {
-      "name": "Howl of Annihilation",
-      "archetype": "Roar burst",
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "06"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 4,
-        "decreasedamagetaken": 2,
-        "afterburn": 2
-      },
-      "advanced_arts": [
-        "Howl of Annihilation"
-      ]
-    },
-    {
       "name": "Consuming Malice",
-      "archetype": "Burn pressure",
+      "archetype": "Marked prey",
       "ids": [
         "01",
         "04",
@@ -83,7 +63,7 @@
     },
     {
       "name": "Unyielding Husk",
-      "archetype": "Fortified",
+      "archetype": "Fortress",
       "ids": [
         "01",
         "06",
@@ -92,7 +72,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 2
@@ -103,7 +83,7 @@
     },
     {
       "name": "Primordial Rampage",
-      "archetype": "Empowered",
+      "archetype": "Field rampage",
       "ids": [
         "01",
         "06",
@@ -112,9 +92,10 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4,
+        "decreasedamagetaken": 2,
         "afterburn": 2
       },
       "advanced_arts": [
@@ -123,10 +104,10 @@
     }
   ],
   "audit": {
-    "available_skills": 10,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 4,
-    "advanced_art_count": 4,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -136,17 +117,17 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 5,
-      "3": 10,
-      "4": 14
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 8,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "afterburn": 10
@@ -176,35 +157,6 @@
         "raw_flat_total": 4,
         "row_weighted_total": 4,
         "covered_jutsu": [
-          "Demonic Embrace"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "02",
-        "name": "Rending Bellow",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
-        "covered_jutsu": [
-          "Ancient Demon Roar"
-        ],
-        "covered_rows": 1,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "03",
-        "name": "Howl of Annihilation",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
-        "covered_jutsu": [
-          "Ancient Demon Roar",
           "Demonic Embrace"
         ],
         "covered_rows": 2,
@@ -272,12 +224,12 @@
         "name": "Unyielding Husk",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Demonic Vitae"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -300,9 +252,10 @@
         "name": "Primordial Rampage",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
+          "Ancient Demon Roar",
           "Demonic Vitae"
         ],
         "covered_rows": 2,
@@ -331,136 +284,20 @@
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "02",
-      "name": "Rending Bellow",
+      "id": "04",
+      "name": "Festering Brand",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 2,
-      "row_weighted_total": 2,
+      "raw_flat_total": 3,
+      "row_weighted_total": 3,
       "covered_jutsu": [
-        "Ancient Demon Roar"
+        "Demonic Embrace"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
     "full_builds": [
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagetaken": 4,
-          "afterburn": 5
-        },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 4,
-          "decreasedamagetaken": 2,
-          "afterburn": 2
-        },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagetaken": 5,
-          "afterburn": 10
-        },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "afterburn": 5
-        },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
-          "afterburn": 2
-        },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "afterburn": 2
-        },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
       {
         "ids": [
           "01",
@@ -525,13 +362,13 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10,
           "afterburn": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "08"
         ],
@@ -563,13 +400,14 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4,
+          "decreasedamagetaken": 2,
           "afterburn": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "10"
         ],
@@ -583,11 +421,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -601,11 +439,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
-          "decreasedamagetaken": 7
+          "damage": 2,
+          "increasedamagegiven": 8,
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],
@@ -627,10 +466,6 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
@@ -647,21 +482,6 @@
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "06"
-        ],
         [
           "01",
           "04",
@@ -699,42 +519,6 @@
         ]
       ],
       "4": [
-        [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
         [
           "01",
           "04",
@@ -786,6 +570,177 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Ancient Demon Roar",
+        "row": 1,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "None"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "09",
+              "10"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "05",
+      "name": "Consuming Malice",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      },
+      "path_row_weighted": 15,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Demon's Marrow",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 19,
+          "row_weighted": 19
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Unyielding Husk",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Demon's Grasp",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2,
+            "afterburn": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10,
+            "afterburn": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        },
+        {
+          "id": "09",
+          "name": "Boiling Ichor",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Primordial Rampage",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 8,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Demon's Grasp",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2,
+            "afterburn": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "afterburn": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        },
+        {
+          "id": "07",
+          "name": "Scarred Hide",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 8,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
