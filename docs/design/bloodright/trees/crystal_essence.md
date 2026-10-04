@@ -1,12 +1,12 @@
 # Crystal Essence — Prism and Lattice
 
-**Bloodline:** Crystal Essence (BR-020, rank A, `ssevlOGQ4JjPn2sHZtq0c`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree · **Classification:** Crystal (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Crystal Essence (BR-020, rank A, `ssevlOGQ4JjPn2sHZtq0c`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree · **Classification:** Crystal (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Offense from Prismatic Focus: the Kōsai Shippū self buff (Increase Damage Given, one row, up to +10%; sustained amplification) or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%) · secondary Defense from Jade Lattice: Crystal Sphere Decrease Damage Taken (fortress, +10%) or Crystal Cave Reflect (retaliation, +10%) · tertiary No flat Damage: the traits are Defensive and Sustained Damage, not Burst, and Prism's 50 EP row would pass the Nuke tier.
 
 Crystal Essence is a rank-A Defensive / Sustained Damage kit with eight supported rows on five tags. Its three Crystal attacks are Prism 50 and Kōsai Shippū and Crystal Cave 40 EP, all 60 AP on cooldown 7, so the tree amplifies the rows that multiply those attacks and leaves Damage alone. Prismatic Focus answers "How do I make my Crystal strikes count: sharpen my own blows or crack the enemy open for everyone?" (Shippū self buff 35 → 45%, or both exposure marks 35 → 43%). Jade Lattice answers "How do I hold my ground: endure the blows or turn them back?" (Sphere Decrease Damage Taken 35 → 45%, or Cave Reflect 40 → 50%). Each Advanced Art carries one tag; no tag is shared glue.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

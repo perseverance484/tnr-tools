@@ -1,12 +1,12 @@
 # Kyuko-sei — Ash of Dying Stars
 
-**Bloodline:** Kyuko-sei (BR-040, rank A, `Y10fxyLR39IBJ3ICkAdEp`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree · **Classification:** Dust (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Kyuko-sei (BR-040, rank A, `Y10fxyLR39IBJ3ICkAdEp`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree · **Classification:** Dust (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Burst and exposure: Shattered Firmament's self amplify setup (35 → 40% on two rows) into Heat Death's +2 Damage on all four Dust strikes (40 → 42, Particle Storm 50 → 52); Collapse of Ages' exposure +8% on two compounding rows (35 → 43%, ≈ ×1.122) · secondary Defense: Temporal Erosion guard (Outlasting Eternity) and Ethereal Particle Storm suppression (All Returns to Dust), +10% on one row each · tertiary Recipient split at the root: self buffs (Hush of the Void) against enemy debuffs (Weight of Eons), so the burst setup and the exposure capstone never share a 4-BP build.
 
 The Foundations split self from enemy. Hush of the Void answers "How do I make myself the dying star: strike harder or take less?" with Heat Death (amplify setup into raw Damage) or Outlasting Eternity (the Temporal Erosion guard). Weight of Eons answers "How do I wear the enemy down: make them take more or deal less?" with Collapse of Ages (both exposure rows) or All Returns to Dust (the Particle Storm suppression). The Burst trait keeps a raw-Damage route on the Blood-Enchanted Eyes pattern: a percentage setup on the Hidden Art and a controlled +2 Damage payoff on the Advanced Art, which lifts Particle Storm 50 → 52 as the director precedent does. Potency reaches matching supported tags on all Dust jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

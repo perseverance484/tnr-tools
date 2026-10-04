@@ -1,12 +1,12 @@
 # Shinseina Ki — Sacred Heartwood
 
-**Bloodline:** Shinseina Ki (BR-066, rank A, `vA8I_7iBNgvkuKOpnG1yD`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Shinseina Ki (BR-066, rank A, `vA8I_7iBNgvkuKOpnG1yD`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Self amplification — Forest Wisdom's two Increase Damage Given rows, both live after one 40 AP cast and compounding (+6% route) · secondary Exposure — Guardian's Grove's area Increase Damage Taken, which multiplies every attacker's hits on the caught enemies (one row, +10% route, ×1.074) · tertiary Burst — Fangs of Heartwood primes both Forest Wisdom rows (+1%) and The Forest Devours pays off with a controlled +2 Damage on the three Wood strikes (Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP).
 
 Shinseina Ki is a rank-A Burst kit whose six supported rows are three Wood formula hits (Exploding Wood Serpent 40, Guardian's Grove 40, Eternal Forest 50 EP at jutsu level 25; 60 AP, cooldown 7), two 35% self Increase Damage Given rows on the 40 AP Forest Wisdom cast, and one 35% Increase Damage Taken row on Grove's circle. Its biggest spike comes from those three multipliers compounding (×1.35³ ≈ ×2.46 on a window hit). Hallowed Seed answers "How do I make Forest Wisdom's two rounds my strongest window?" with self amplification of the caster's own Wood, Earth, Water and element-less hits (both rows on the kit's attacks). Grasping Roots answers "How do I turn the Grove's catch into a kill: open it to every attacker, or set up a heavier Wood strike?" with the exposure route and the burst route: Fangs of Heartwood's +1% Forest Wisdom setup, then a controlled +2 Damage payoff on The Forest Devours (the Blood-Enchanted Eyes / Shakunetsu Sakura shape; see above_nuke_rationale). Raw Damage sits apart from the full self buff, so no build stacks it on the +6% window. Recoil, poison, wound, summon and visual rows are unsupported, and Wood Warrior Summon (PVP only) carries no supported row. Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

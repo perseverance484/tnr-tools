@@ -1,12 +1,12 @@
 # Nature's Blessing — Root and Thorn
 
-**Bloodline:** Nature's Blessing (BR-049, rank B, `clh4d6qbf000ctb0h7o5amr0o`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Nature's Blessing (BR-049, rank B, `clh4d6qbf000ctb0h7o5amr0o`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Co-primary — Wood Damage on the Fury → Curse one-two (Nature's Fury and Nature's Curse) and Verdant Bastion healing (Increase Heal, with a small Heal lift from Sap of the Grove) · secondary Increase Damage Taken: Nature's Fury's exposure, one row that multiplies every non-pierce hit the marked target takes in its window · tertiary Absorb and drain on Nature's Curse are unsupported and receive nothing.
 
 Verdant Bastion (A-rank, 40 AP, cooldown 7) carries the two healing rows (Heal 40 = one 400 HP tick on the following round; Increase Heal 30% for the 2 rounds after the cast, for the caster and allies in the circle) and the two B-rank 60 AP attacks carry the two Wood Damage rows (40 EP each at level 25) plus Fury's 35% exposure. Thorn and Rot answers "How do I bring down the marked target: hit it harder or open it wider?": the Old Growth's Wrath route adds a steady +2 Damage to both Wood attacks (40 → 42, Normal tier kept) and the Blight and Harvest route deepens the mark to 43% for every hit on that target. Sap of the Grove answers "How do I keep the grove standing?" through one chain, the Everbloom Sanctuary route's sustained healing (Increase Heal 40% in the circle, Bastion's tick 420 HP). Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005). Absorb and drain are unsupported and receive nothing directly.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

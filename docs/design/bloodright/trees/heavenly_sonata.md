@@ -1,12 +1,12 @@
 # Heavenly Sonata — Music of the Spheres
 
-**Bloodline:** Heavenly Sonata (BR-032, rank A, `clh4d6q6s000atb0h0qdqdh1z`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Yin-Yang classification / forked tree · **Classification:** Yin-Yang (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Heavenly Sonata (BR-032, rank A, `clh4d6q6s000atb0h0qdqdh1z`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Yin-Yang classification / forked tree · **Classification:** Yin-Yang (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Defense from Harmonic Balance: Celestial Harmony Shield fortress (Decrease Damage Taken) or Harmonic Chamber suppression (Decrease Damage Given) · secondary Offense from Opening Measure: Lullaby's self buff into a controlled +2 Damage burst, or Foreboding Interlude exposure on every attacker's Genjutsu and element-less hits · tertiary Paired +2% Foundation glue on each side's two rows.
 
 Heavenly Sonata is a Defensive/Tank Genjutsu kit with one supported row on each of four percentage tags and three Yin-Yang Damage rows (Foreboding Interlude 40, Frozen Melody 45, Lullaby 40 EP at jutsu level 25). Harmonic Balance answers "How do I win defensively: shelter myself or silence them?": Celestial Sanctum takes the Shield's self reduction 35 → 45%, Final Rest takes Harmonic Chamber's suppression 35 → 45%. Opening Measure answers "How do I win offensively: amplify my own song or expose the target?": Rising Crescendo lifts Lullaby's self buff and Fortissimo Finale pays off with +2 Damage (40 → 42, 45 → 47, no tier crossing), while Prelude to Ruin takes Interlude's exposure 35 → 45% on every attacker's Genjutsu and element-less hits. The earlier +5 Damage route (40 → 45 twice, Frozen Melody 45 → 50) is retired. No Afterburn, Lifesteal, Reflect or Heal row exists, so none is invented. Potency reaches matching supported tags on all Yin-Yang jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

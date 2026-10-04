@@ -1,12 +1,12 @@
 # Sea-King's Blessing — Dominion of the Deep
 
-**Bloodline:** Sea-King's Blessing (BR-061, rank C, `juZy8qwituqM2Km6cOiL4`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Water classification / forked tree · **Classification:** Water (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Sea-King's Blessing (BR-061, rank C, `juZy8qwituqM2Km6cOiL4`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Water classification / forked tree · **Classification:** Water (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Increase Damage Taken — Crushing Abyss's broad circle exposure and Water Dome's Water-only exposure (two rows, +8% route, ×1.124) · secondary Water Damage — Sea King's Armor and Crushing Abyss (two 38 EP formula rows, +2 steady-edge route) · tertiary Decrease Damage Taken — Sea King's Armor's self reduction (one row, +10% route).
 
 Sea-King's Blessing is a rank-C kit whose five supported rows split 2/2/1: two 38 EP Water hits (Sea King's Armor, Crushing Abyss; 60 AP, cooldown 7), two enemy Increase Damage Taken rows (Abyss 30% on enemies in its circle, all four stat types and no element; Water Dome 35% Water-only on a 40 AP, cooldown-6 cast) and one 30% self Decrease Damage Taken row on Armor. Exposure is primary: one cast amplifies every matching hit the target takes for two rounds, allies' included, and the two rows compound on Water hits, so the route stops at +8% (×1.124 with both windows live, against Blood-Enchanted Eyes' ×1.115 exposure maximum). Scales of the Deep answers "How do I win the exchange myself: hit harder, or take less?" (Steady edge, Fortress); Salt in the Wound answers "How do I make them take more from everyone?" (Exposure). Each Advanced Art carries one tag; the only flat Damage is the steady-edge route's +2 (Grip of the Riptide's +1 commit, Weight of the Trench +1), which takes both hits from Light to Normal (38 → 40). Potency reaches matching supported tags on all Water jutsu (RUL-2026-10-03-005). Absorb and shield rows are unsupported.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

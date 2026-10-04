@@ -1,12 +1,12 @@
 # Hyouga Yui — Nine Hells Frozen
 
-**Bloodline:** Hyouga Yui (BR-034, rank A, `lPcN4q0dtX2muWT2KlXGg`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Hyouga Yui (BR-034, rank A, `lPcN4q0dtX2muWT2KlXGg`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Own Ice strikes landing harder (Permafrost Heart): heavier on every cast (a +1 commit, then +1 Damage with a +2% exposure rider: Nine Hell's Spear and Glacial Shatter: Purgatory 45 → 47, Cerulean Storm: Avalanche 40 → 42 EP, Spear's circle and Cocytus's target 35 → 37%), or harder inside the window (+8% on both self buffs, Avalanche and Glacier's Will 35 → 43%) · secondary Control of the exchange (Cocytus Vigil): +8% exposure on Cocytus's target and Spear's circle (35 → 43%), or +10% guard on Cocytus (35 → 45%) and Glacier's Will's tiles (30 → 40%) · tertiary A real edge-or-amplifier choice: on the same three nodes the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener gives the steady edge 307.0 strike power against the Amplifier's 306.5; the edge stays 1 EP ahead on every strike and leaves 37% exposures for the party, the Amplifier takes ×1.043 on every other own hit inside its window. Every capstone leads with one tag; only the edge carries a rider.
 
 Permafrost Heart answers "How do I make my Ice strikes land harder: heavier on every cast, or harder inside my window?": Weight of the Avalanche commits +1 Damage and Buried in the Avalanche pays +1 more on every strike with +2% Increase Damage Taken on Spear's circle and Cocytus's target; Deepening Frost and The Glacier Advances raise both 2-round self buffs. Cocytus Vigil answers "How do I control the exchange: open them to every blow, or shut us off from theirs?": Nine Hells Opened deepens both marks to 43%, Locked in Cocytus guards the caster and the allies on Glacier's Will's tiles. Each percentage tag already owns one Hidden Art, so the steady edge's Hidden Art commits flat Damage instead of twinning one. Flat Damage stops at the same +2 the director-approved anchors use (47 / 47 / 42 EP): +5 would turn both 45s into 50 Nukes and the 40 into a 45. Wound, shield and move are unsupported. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

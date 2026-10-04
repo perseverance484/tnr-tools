@@ -1,12 +1,12 @@
 # Itojinsei — The Iron Loom
 
-**Bloodline:** Itojinsei (BR-036, rank A, `j4_9ypNqYq8Ifbqf-9D2r`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Magnet classification / forked tree · **Classification:** Magnet (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Itojinsei (BR-036, rank A, `j4_9ypNqYq8Ifbqf-9D2r`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree · **Classification:** Magnet (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Wielder offense (Taut Filament): a steady raw-Damage edge on all four Magnet strikes, or the two compounding self Increase Damage Given buffs (Spiraling Wires, Eternal Embrace) in their windows · secondary Binding the target (Tangling Snare): Decrease Damage Given on Wire Blast Plus and Eternal Embrace, or Increase Damage Taken on Lightning Threads · tertiary One rider: the single-row Exposure capstone carries +2% Decrease Damage Given; the two-row Suppression capstone carries none.
 
 Nine supported rows sit on five casts, all cooldown 7: four Magnet Bukijutsu Damage rows (Iron Web Entrapment 45; Wire Blast Plus, Spiraling Wires and Lightning Threads 40), two 35% self Increase Damage Given rows (Spiraling Wires, Eternal Embrace) that compound on a hit both cover, two universal Decrease Damage Given rows (Wire Blast Plus 30%, an ally-hazard circle; Eternal Embrace 35%) and one 35% Increase Damage Taken row on Lightning Threads. Taut Filament answers "How do I make my own wires cut harder: a keener strand, or a stronger hand?": the Severing Lattice route (Razor Strands +1, capstone +1) adds +2 Damage to every Magnet strike on every cast, with no window (no kit tier crossed), and the Weaver Ascendant route raises both self buffs to 43% for the two rounds after each cast. Tangling Snare answers "How do I bind the target: blunt its blows, or lay it open to ours?": the Iron Cocoon route takes both suppression rows +10% (×0.725), and the Galvanic Marionette route takes Lightning Threads' exposure +10% (35 → 45%, ×1.074) with a +2% suppression rider because its own tag reaches one row. The kit has no Decrease Damage Taken, Reflect, Lifesteal or Heal row, so there is no self-defensive route. Potency reaches matching supported tags on all Magnet jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

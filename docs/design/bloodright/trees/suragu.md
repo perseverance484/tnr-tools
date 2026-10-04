@@ -1,12 +1,12 @@
 # Suragu — Blood of the Caldera
 
-**Bloodline:** Suragu (BR-074, rank A, `Ksb6ogNqc5mp4l_hRgPuW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lava classification / forked tree · **Classification:** Lava (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Suragu (BR-074, rank A, `Ksb6ogNqc5mp4l_hRgPuW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Lava classification / forked tree · **Classification:** Lava (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Offense from Magma Vein: a Lava Wave buff window into a narrow +2 Damage burst, or Eruption Strike Afterburn pressure (+10% route) · secondary Survival from Cooling Crust: Lava Wave's Decrease Damage Taken tile (+10% route) or Infernal Stream Lifesteal sustain (+5% ceiling) · tertiary Increase Damage Taken on Blow of Devastation as Foundation glue only (+2%, ×1.015); Increase Damage Given as the Burst setup.
 
 Suragu is a rank A Sustained DPS kit with one supported row per percentage tag and two Lava Damage rows (Infernal Stream 40, Magma Slayer 45 in PVP only). Magma Vein answers "How do I win offensively: empower my own Lava strikes or set the enemy burning?": Pyroclastic Surge builds Lava Wave's self buff to 43% and pays off with +2 Damage (Infernal Stream 40 → 42, Magma Slayer 45 → 47; no tier crossing), while The Mountain Wakes takes Eruption Strike's Afterburn to 45%, which every later non-pierce hit on the target feeds. Cooling Crust answers "How do I stay standing in a long fight: harden the crust or drink the flow?": Heart of the Caldera makes Lava Wave a 40% mitigation tile, and Unquenchable Furnace takes Infernal Stream's Lifesteal to the +5% ceiling with a light mitigation rider. Potency reaches matching supported tags on all Lava jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

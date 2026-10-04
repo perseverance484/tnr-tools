@@ -1,12 +1,12 @@
 # Lycanthropy — Blood Under the Moon
 
-**Bloodline:** Lycanthropy (BR-043, rank B, `_zHoQitqM_tiiqX7Egv-p`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lycanthropy classification / forked tree · **Classification:** Lycanthropy (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Lycanthropy (BR-043, rank B, `_zHoQitqM_tiiqX7Egv-p`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree · **Classification:** Lycanthropy (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Frenzy — Increase Damage Given on Frenzy Assault and Feral Wrath (two self rows that compound) · secondary Regeneration — Heal on Frenzy Assault (one static row) · tertiary None: Damage is left unamplified. The dossier traits are Healing and Sustain, not Burst, so Moonlit Fury 40 and Feral Wrath 50 stay at base in every legal allocation.
 
 Five supported rows: two 35% self Increase Damage Given rows (Frenzy Assault, Feral Wrath) that each amplify every element-less hit the caster lands in the two rounds after the cast and compound when both are up; two Taijutsu formula Damage rows (Moonlit Fury 40, Feral Wrath 50 at jutsu level 25); one static Heal row (Frenzy Assault 40 = 400 HP once per 7 rounds). Each Foundation owns one identity: The Beast Within feeds the frenzy (Red Moon Rising, +8% on both buff rows) and Moonbound Vigor outlasts the fight (Undying Hunger, +8% Heal on the kit's one Heal row). Damage is left unamplified. Wound, cleanseprevent and move are unsupported; the 10% lifesteal passive is not a jutsu row.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

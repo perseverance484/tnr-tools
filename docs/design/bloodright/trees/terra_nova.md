@@ -1,6 +1,6 @@
 # Terra Nova — Tectonic Creed
 
-**Bloodline:** Terra Nova (BR-081, rank C, `AohWgMy9uYF14ivDlE-xq`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Earth classification / forked tree · **Classification:** Earth (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Terra Nova (BR-081, rank C, `AohWgMy9uYF14ivDlE-xq`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Earth classification / forked tree · **Classification:** Earth (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Earth strikes (Fault Line): raw Damage on Earthen Fortitude and Terra Spire, or Earthen Fortitude's suppression · secondary Earth Wall's window (Bedrock Stance): Decrease Damage Taken or Earth-only Increase Damage Given · tertiary No riders: each capstone carries one effect. The kit has no Afterburn, Heal, Lifesteal or Reflect rows.
 

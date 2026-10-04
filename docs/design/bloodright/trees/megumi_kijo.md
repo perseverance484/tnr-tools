@@ -1,12 +1,12 @@
 # Megumi Kijo — Hearth of the Hag
 
-**Bloodline:** Megumi Kijo (BR-045, rank B, `tBhjGw6fPVKhAgdVElIzW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Megumi Kijo classification / forked tree · **Classification:** Megumi Kijo (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Megumi Kijo (BR-045, rank B, `tBhjGw6fPVKhAgdVElIzW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Megumi Kijo classification / forked tree · **Classification:** Megumi Kijo (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Sustain from Mountain Hag's Mercy — Heal on Onibaba's Laughter (400 → 420 HP) and Increase Heal on Kijo's Benevolence (1 row each); its single chain raises Benevolence's healing field to 40% · secondary Control — Decrease Damage Given on Phantom Realm Oblivion (1 row), 30 → 40% on the Suppression route · tertiary Damage — +2 on the two Genjutsu attacks (Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47) on the steady-edge route only, +1 at Teeth Behind the Smile and +1 at Appetite of Oblivion.
 
 Five supported rows on three cooldown-7 jutsu. Hagmother's Welcome answers "How do I deal with my guest: lull it harmless, or eat it?": Numbing Lullaby and Cradle of the Kijo take Phantom Realm Oblivion's single Decrease Damage Given row 30 → 40% (Suppression), the kit's only supported damage-reduction row against its standing 10% Increase Damage Taken passive, and Teeth Behind the Smile and Appetite of Oblivion add +1 Damage each to both Genjutsu attacks (steady edge, no tier crossed). Mountain Hag's Mercy answers "How do I mend the hag and everyone at her hearth?": Nursed by Demon Hands and The Ever-Lit Hearth raise Benevolence's Increase Heal field to 40% for the caster and allies standing in it. Benevolence's 35% absorb also mitigates but is unsupported, as is its move row. No IDG, IDT, Lifesteal, Reflect or Afterburn row exists, and none is invented.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

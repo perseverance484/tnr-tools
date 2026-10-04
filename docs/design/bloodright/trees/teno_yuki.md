@@ -1,12 +1,12 @@
 # Teno Yuki — Court of Heaven's Snow
 
-**Bloodline:** Teno Yuki (BR-077, rank A, `clh4d6qjs000gtb0hr357gjvv`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Teno Yuki (BR-077, rank A, `clh4d6qjs000gtb0hr357gjvv`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree · **Classification:** Ice (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Control by identity: exposure on Ice Palace's circle (Increase Damage Taken 35%) and suppression on Ice Coffin (Decrease Damage Given 30%) · secondary Ice offense: the Frostbound Ascendancy self buff (Increase Damage Given 35%) set up for a controlled +2 Damage on the three Ice attacks (45/40/40) · tertiary Self preservation on Cryostorm Aegis (Decrease Damage Taken 35%, Heal 25).
 
 Teno Yuki is an A-rank Genjutsu bloodline with the Control and Defensive traits. Every non-Damage tag has a single row on a single jutsu, so each route is built on one cast: Frostbound Ascendancy's self buff and the three Ice Damage rows (Burst), Ice Palace's area exposure (Exposure), both Cryostorm Aegis rows (Fortress) and Ice Coffin's suppression with a small Aegis guard rider (Suppression). First Snow of Heaven answers "How do I win offensively: sharpen my own strikes or expose them to everyone's?"; Vigil of Winter answers "How do I win defensively: protect myself or suppress them?". Burst is a percentage setup on the Hidden Art with a +2 Damage payoff (Imperial Freeze 45 → 47, Ice Coffin and Ice Palace 40 → 42) instead of +5 Damage, which made the stunning Imperial Freeze a 50 Nuke and lifted both 40 attacks a full tier. Stun, absorb and recoil are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

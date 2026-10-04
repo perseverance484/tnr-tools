@@ -1,12 +1,12 @@
 # Night Parade of A Thousand Demons — The Lantern Procession
 
-**Bloodline:** Night Parade of A Thousand Demons (BR-051, rank H, `r_99Xg8SIOYw2awCMSR7e`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow classification / forked tree · **Classification:** Shadow (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Night Parade of A Thousand Demons (BR-051, rank H, `r_99Xg8SIOYw2awCMSR7e`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree · **Classification:** Shadow (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Otherworldly Conduit self buffs (Hour of the Ox): sustain offense on Lifesteal with Increase Damage Given, or a Decrease Damage Taken fortress · secondary Burst from Oni's Heavy Hand: Herald of the Black Night exposure set up on the Hidden Art, paid off with +2 Damage on Possessing Yurei and Oni Hammer Swing (45 → 47) · tertiary Suppression on Oni Hammer Swing's Decrease Damage Given (ally hazard).
 
 Three of the seven supported rows ride one 40 AP self cast, Otherworldly Conduit (Increase Damage Given 35%, Decrease Damage Taken 35%, Lifesteal 40% at jutsu level 25, live for the 2 rounds after the cast), so root A, Hour of the Ox, is the Conduit: "How do I let the Conduit carry me through the fight: feed on it or wall it out?" Feast of a Thousand Mouths feeds (Lifesteal to the +5% ceiling with Increase Damage Given) and Barred Gate of Yomi walls (+10% Decrease Damage Taken, nothing else). Root B, Oni's Heavy Hand, works only on the enemy: "How do I break the enemy: mark them for the kill or crush the strength out of them?" March of a Thousand Demons is burst, with Marked by the Herald setting up exposure and a controlled +2 Damage on the two 45 EP Shadow hits as the payoff. Toll of the Night Bell is suppression on Oni Hammer Swing. Root A touches only Conduit rows and root B only enemy-side rows. Marked by the Herald's +3% is March's setup, the Opened Veins step of the Blood-Enchanted Eyes pattern (RUL-2026-10-04-001), not an exposure route: the Herald reaches 35 → 40% on one row (×1.037, under Shakunetsu Sakura's ×1.075). Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Stun, buffprevent and summon are unsupported and untouched.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

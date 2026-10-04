@@ -1,12 +1,12 @@
 # Shinrai Ou — Throne of Thunder
 
-**Bloodline:** Shinrai Ou (BR-065, rank A, `xO4Dycx7FFEqxwvAEXBxY`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Storm classification / forked tree · **Classification:** Storm (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Shinrai Ou (BR-065, rank A, `xO4Dycx7FFEqxwvAEXBxY`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Storm classification / forked tree · **Classification:** Storm (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Damage (Burst: Vajra Tempering charges the Storm Cloak and Raijin self buffs, then Thunder King's Wrath pays off with +2 Damage on all four Storm attacks) · secondary Increase Damage Taken (Izanagi's Hammer area exposure, +10% route, ×1.074) and Reflect (Indra's Storm Cloak retaliation, +10% route) · tertiary Increase Damage Given (Mandate of Thunder and the Burst setup; three compounding rows held at +4%).
 
 Shinrai Ou is a rank-A Burst kit whose four Storm attacks are 50, 45, 40 and 40 EP (60 AP, cooldown 7). The pre-batch +5 Damage route took Daibutsu Thunder to 55, Railgun to 50 and both 40s up a tier. Burst now follows the Blood-Enchanted Eyes pattern instead: Vajra Tempering sets up by charging the three compounding self buffs (two on the 40 AP Storm Cloak, one on Raijin), and Thunder King's Wrath pays off with a controlled +2 Damage (50 → 52, 45 → 47, 40 → 42). Mandate of Thunder answers "How do I make my thunder land harder: charge myself or expose them?" with Burst and with Judgement from Above's Hammer exposure (+10%, 35 → 45%, ×1.074). Raiment of Storms answers "How do I make attackers pay for striking me?" with the Cloak's Reflect (+10%). Potency reaches matching supported tags on all Storm jutsu (RUL-2026-10-03-005).
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|

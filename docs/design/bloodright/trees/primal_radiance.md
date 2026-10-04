@@ -1,6 +1,6 @@
 # Primal Radiance — The Burning Hunt
 
-**Bloodline:** Primal Radiance (BR-055, rank C, `ZewrhKT-qBQxT1eNoBWFP`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Fire classification / forked tree · **Classification:** Fire (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Primal Radiance (BR-055, rank C, `ZewrhKT-qBQxT1eNoBWFP`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Fire classification / forked tree · **Classification:** Fire (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
 **Emphasis:** primary Offense, three ways to kill: Primal Incineration's brand, burned (Pyre of the Hunted, Afterburn) or laid open (Apex Conflagration, exposure); Fire Style: Beast's self Increase Damage Given (Primal Rampage) · secondary Defense: Fire Style: Squirrel's self Decrease Damage Taken (Den of Embers) · tertiary Damage unamplified: Fire Style: Beast stays at 50 (Nuke) and Fire Style: Squirrel at 40.
 
