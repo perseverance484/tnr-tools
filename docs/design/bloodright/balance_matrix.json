@@ -213,8 +213,8 @@
       "routes": [
         {
           "name": "Total Disintegration",
-          "primary_tag": "increasedamagegiven",
-          "total": 7,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
@@ -238,9 +238,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Atomic Shield: burst amplification or retaliation (Scouring Veil)",
+        "primary": "Atomic Shield: self-amplified burst into +2 Damage, or retaliation (Scouring Veil)",
         "secondary": "Enemy decay: exposure or suppression from Windshear Decay and Death's March (Entropic Grasp)",
-        "tertiary": "No flat Damage: Particle Cannon is a 50 EP Nuke-tier strike"
+        "tertiary": "Controlled flat Damage: +2 on the burst capstone only (Particle Cannon 50 → 52 on the director precedent)"
       },
       "nodes": 10,
       "tiers": {
@@ -255,7 +255,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 7,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "reflect": 10
@@ -263,24 +264,24 @@
       "max_full_build_raw_flat_total": 16,
       "max_full_build_row_weighted_total": 24,
       "max_row_weighted_per_supported_row": 2.67,
-      "median_full_build_row_weighted_total": 20,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
+          "02",
           "04",
-          "05",
           "06"
         ],
         "names": [
           "Entropic Grasp",
+          "Particle Collapse",
           "Hollowing Wind",
-          "Terminal Decay",
           "Scouring Veil"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 8,
+          "increasedamagetaken": 5,
           "reflect": 2
         }
       },
@@ -300,9 +301,10 @@
             "01"
           ],
           "raw_flat_total": 13,
-          "row_weighted_total": 22,
+          "row_weighted_total": 24,
           "bonuses": {
-            "increasedamagegiven": 7,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "reflect": 2
@@ -317,10 +319,10 @@
             "08",
             "02"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "raw_flat_total": 15,
+          "row_weighted_total": 20,
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 5,
             "reflect": 10
           }
         },
@@ -360,9 +362,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -8,
         "max_row_weighted_delta": -7,
@@ -390,6 +390,12 @@
       "classification_status": "requires classification extension",
       "routes": [
         {
+          "name": "Howl of Annihilation",
+          "primary_tag": "increasedamagetaken",
+          "total": 7,
+          "on_band": false
+        },
+        {
           "name": "Consuming Malice",
           "primary_tag": "afterburn",
           "total": 10,
@@ -410,33 +416,33 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "The host (Demon's Marrow, in every build): a field rampage or a fortress, both on Demonic Vitae",
-        "secondary": "The marked prey (Demon's Grasp): Afterburn and exposure together on one Demonic Embrace target",
-        "tertiary": "Ancient Demon Roar Damage as Primordial Rampage's controlled +2 payoff (45 → 47, High tier kept)"
+        "primary": "The host (Demon's Marrow): a sustained rampage or a fortress, both on Demonic Vitae",
+        "secondary": "The marked prey (Demon's Grasp): Demonic Embrace's exposure and Afterburn, cashed in as a Roar burst or a burn",
+        "tertiary": "Ancient Demon Roar Damage as Howl of Annihilation's controlled +2 payoff (45 → 47, High tier kept) after an exposure setup"
       },
-      "nodes": 8,
+      "nodes": 10,
       "tiers": {
         "F": 2,
-        "H": 3,
-        "A": 3
+        "H": 4,
+        "A": 4
       },
       "structure_errors": [],
-      "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 8,
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 14,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 2,
         "increasedamagegiven": 8,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 7,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
-      "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 19,
-      "max_row_weighted_per_supported_row": 3.8,
-      "median_full_build_row_weighted_total": 15,
+      "max_full_build_raw_flat_total": 16,
+      "max_full_build_row_weighted_total": 16,
+      "max_row_weighted_per_supported_row": 3.2,
+      "median_full_build_row_weighted_total": 14,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -452,31 +458,50 @@
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         }
       },
       "lowest_value_node": {
-        "name": "Festering Brand",
-        "row_weighted_total": 3
+        "name": "Rending Grip",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
         {
+          "name": "Howl of Annihilation",
+          "archetype": "Exposure into burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 7,
+            "decreasedamagetaken": 2,
+            "afterburn": 2
+          }
+        },
+        {
           "name": "Consuming Malice",
-          "archetype": "Marked prey",
+          "archetype": "Burn",
           "ids": [
             "01",
             "04",
             "05",
             "06"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 19,
+          "raw_flat_total": 16,
+          "row_weighted_total": 16,
           "bonuses": {
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "afterburn": 10
           }
@@ -501,17 +526,16 @@
         },
         {
           "name": "Primordial Rampage",
-          "archetype": "Field rampage",
+          "archetype": "Sustained amplification",
           "ids": [
             "01",
             "06",
             "09",
             "10"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 14,
+          "row_weighted_total": 14,
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
@@ -519,11 +543,11 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has five supported rows, one per tag, on three casts. Afterburn and Increase Damage Taken share Demonic Embrace's one target and 2-round window and both multiply each hit that target takes, so they form one marked-prey route, not two: the former Flayed Quarry → Howl of Annihilation route and Consuming Malice were the same choice with names hidden. Ancient Demon Roar's single 45 EP Damage row cannot carry a route of its own without reaching the 50 Nuke tier, so its +2 rides Primordial Rampage. A fourth Advanced Art would repeat one of the three. Demon's Marrow is a universal node (in all 8 legal 4-BP builds) because Demon's Grasp roots a single 3-node chain, so every build carries Vitae 37% / 27% and the Consuming Malice build's fourth purchase is fixed.",
+      "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -12,
+        "max_raw_flat_total_delta": -8,
+        "max_row_weighted_delta": -15,
         "supported_rows_delta": -4
       }
     },
@@ -728,6 +752,12 @@
       "classification_status": "element",
       "routes": [
         {
+          "name": "Ground Zero",
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
+        },
+        {
           "name": "Siege Battery",
           "primary_tag": "decreasedamagetaken",
           "total": 10,
@@ -748,88 +778,107 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Increase Damage Given (the charge: Charge 4 Explosion and Howitzer Crash self buffs, which compound)",
+        "primary": "Increase Damage Given and a controlled +2 Damage payoff (the charge and the detonation: Charge 4 Explosion and Howitzer Crash self buffs, which compound, and the three Explosion area attacks)",
         "secondary": "Afterburn and Increase Damage Taken (the mark Charge 4 Explosion leaves on its target)",
         "tertiary": "Decrease Damage Taken (Blast Shield)"
       },
-      "nodes": 8,
+      "nodes": 10,
       "tiers": {
         "F": 2,
-        "H": 3,
-        "A": 3
+        "H": 4,
+        "A": 4
       },
       "structure_errors": [],
-      "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 7,
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 12,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 8,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
       "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 23,
-      "max_row_weighted_per_supported_row": 2.88,
-      "median_full_build_row_weighted_total": 20,
+      "max_full_build_row_weighted_total": 22,
+      "max_row_weighted_per_supported_row": 2.75,
+      "median_full_build_row_weighted_total": 19,
       "strongest_full_build": {
         "ids": [
           "01",
-          "04",
-          "08",
-          "09"
+          "05",
+          "06",
+          "07"
         ],
         "names": [
           "Primed Fuse",
-          "Powder Keg",
-          "Slow Burn",
-          "Chain Reaction"
+          "Smoke and Shrapnel",
+          "Hardened Casing",
+          "Siege Battery"
         ],
         "bonuses": {
           "increasedamagegiven": 4,
-          "increasedamagetaken": 5,
-          "afterburn": 10
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10,
+          "afterburn": 2
         }
       },
       "lowest_value_node": {
-        "name": "Eye of the Blast",
-        "row_weighted_total": 2
+        "name": "Shaped Charge",
+        "row_weighted_total": 3
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
         {
+          "name": "Ground Zero",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ],
+          "raw_flat_total": 11,
+          "row_weighted_total": 19,
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 5
+          }
+        },
+        {
           "name": "Critical Mass",
-          "archetype": "Area burst",
+          "archetype": "Sustained amplification",
           "ids": [
             "01",
             "04",
             "10",
-            "08"
+            "02"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 23,
+          "raw_flat_total": 13,
+          "row_weighted_total": 21,
           "bonuses": {
             "increasedamagegiven": 8,
-            "increasedamagetaken": 2,
-            "afterburn": 5
+            "increasedamagetaken": 5
           }
         },
         {
           "name": "Chain Reaction",
           "archetype": "Mark",
           "ids": [
-            "01",
+            "05",
             "08",
             "09",
-            "04"
+            "01"
           ],
           "raw_flat_total": 19,
-          "row_weighted_total": 23,
+          "row_weighted_total": 21,
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 5,
+            "decreasedamagetaken": 2,
             "afterburn": 10
           }
         },
@@ -842,22 +891,21 @@
             "07",
             "01"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 20,
+          "raw_flat_total": 18,
+          "row_weighted_total": 22,
           "bonuses": {
             "increasedamagegiven": 4,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 10
+            "decreasedamagetaken": 10,
+            "afterburn": 2
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. Supported rows: three Explosion Damage rows, two Increase Damage Given self buffs, and one row each of Increase Damage Taken and Afterburn (both on Charge 4 Explosion's target) and Decrease Damage Taken (Blast Shield). Flat Damage is declined because Kinetic Nova is a 50 EP Nuke and any flat Damage lifts it past 50, so the old Burst branch (Shaped Charge → Ground Zero) is removed rather than re-cut. Increase Damage Taken and Afterburn share one cast, target and window, so they form one mark route, not two; Decrease Damage Taken is one row, so Eye of the Blast roots a single fortress chain. A fourth Advanced Art would repeat one of the three. Primed Fuse is a universal node (in all 8 legal 4 BP builds) because the defensive root has no second defensive tag for a leaf.",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": -8,
+        "max_row_weighted_delta": -9,
         "supported_rows_delta": -1
       }
     },
@@ -1282,7 +1330,7 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Burst from multipliers, not flat Damage: Increase Damage Taken on Cosmic Intent and Cosmic Chains (+5%) and Increase Damage Given on Cosmic Energy (+8%) build the window a 50 EP Cosmic Explosion lands into",
+        "primary": "Burst: Collapsing Star charges Cosmic Energy's self Increase Damage Given (+5% on the route), Supernova Unbound opens Increase Damage Taken on Cosmic Intent and Cosmic Chains (+5%) and pays off with a controlled +2 Damage on the 50 EP Cosmic Explosion (50 → 52)",
         "secondary": "Defense: a Decrease Damage Taken fortress on three casts (+7%), or Lifesteal (+5%) with Decrease Damage Given suppression on Cosmic Aura (+7%)",
         "tertiary": "Cosmic Intent's Afterburn (+10%) as one-cast, party-wide pressure on the marked enemy"
       },
@@ -1299,7 +1347,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 7,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 7,
@@ -1345,10 +1394,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 26,
+          "raw_flat_total": 16,
+          "row_weighted_total": 25,
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2
@@ -1408,9 +1458,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -6,
         "max_row_weighted_delta": -2,
@@ -1439,9 +1487,9 @@
       "routes": [
         {
           "name": "Splintered Mountain Heart",
-          "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
         },
         {
           "name": "Break Along the Flaw",
@@ -1464,9 +1512,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense from Prismatic Focus: the Kōsai Shippū self buff (Increase Damage Given, one row, up to +10%) or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%)",
+        "primary": "Offense from Prismatic Focus: a Kōsai Shippū self-buff setup paid off with a controlled +2 Damage on all three Crystal attacks (Burst), or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%)",
         "secondary": "Defense from Jade Lattice: Crystal Sphere Decrease Damage Taken (fortress, +10%) or Crystal Cave Reflect (retaliation, +10%)",
-        "tertiary": "No flat Damage: Prism is 50 EP, so any Damage bonus would pass the Nuke tier"
+        "tertiary": "Increase Damage Given (Kōsai Shippū, one row) only as the Burst setup, up to +5%"
       },
       "nodes": 10,
       "tiers": {
@@ -1481,7 +1529,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
@@ -1489,7 +1538,7 @@
       "max_full_build_raw_flat_total": 16,
       "max_full_build_row_weighted_total": 22,
       "max_row_weighted_per_supported_row": 2.75,
-      "median_full_build_row_weighted_total": 18,
+      "median_full_build_row_weighted_total": 19,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -1518,17 +1567,18 @@
       "examples": [
         {
           "name": "Splintered Mountain Heart",
-          "archetype": "Burst window",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
             "03",
             "04"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 20,
+          "raw_flat_total": 12,
+          "row_weighted_total": 21,
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 5
           }
         },
@@ -1586,9 +1636,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -8,
         "max_row_weighted_delta": -9,
@@ -1736,7 +1784,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows, but Damage reaches one row (Overloaded Impact, 40 EP, cooldown 6) and Increase Damage Taken one useful row (Chakra Overload's 35% exposure) plus the adverse self row on Overloaded Impact. Apart, a Damage-only route (the former +3, 40 → 43) added to one strike per cycle and trailed Amplification from about one window hit, and an Increase Damage Taken route cost the caster more than it gained one-on-one. Together they are one lever, since Chakra Overload's exposure is what Overloaded Impact lands into, so they form one exposure → strike route (Cracked Vessel → Shattered Vessel); Chakra Surcharge and Breaking Point are removed. A fourth Advanced Art would repeat Amplification or Suppression on the same rows. Sage's Rebuke is a universal node (in all 8 legal 4-BP builds) because Brimming Cup roots a single 3-node chain, so Boundless Reservoir's fourth purchase is fixed.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than Draft 5's ten and four. Damage reaches one row (Overloaded Impact, 40 EP, cooldown 6) and the only thing that can set up that strike is Chakra Overload's exposure, cast a round earlier: Overloaded Impact's own self buff is inert in its cast round and expires before its next cast. So Draft 5's Burst (Chakra Surcharge → Breaking Point) and Exposure routes are one lever and form one exposure → strike route (Cracked Vessel → Shattered Vessel); Chakra Surcharge and Breaking Point are removed. No distinct fourth Advanced Art exists: a separate strike route would need either an Increase Damage Taken setup (a twin of Cracked Vessel) or an Increase Damage Given one, which never reaches the strike, only repeats Amplification at a smaller size, and under Brimming Cup would push the kit's one Increase Damage Given row past +10% as Boundless Reservoir's fourth purchase; a separate exposure route is net-negative one-on-one (caster ×1.04 against target ×1.037) and twins Cracked Vessel; an amplify-and-suppress capstone only blends the two existing routes on the same rows. Sage's Rebuke is a universal node (in all 8 legal 4-BP builds) because Brimming Cup roots a single 3-node chain; the only way to break that is a Hidden-Art leaf under Brimming Cup, which would be filler, so Boundless Reservoir's fourth purchase is fixed.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -11,
@@ -1952,9 +2000,9 @@
       "routes": [
         {
           "name": "Throne of Broken Light",
-          "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
         },
         {
           "name": "Judgment of the Forsaken",
@@ -1977,7 +2025,7 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Burst on two sides: amplify the caster (Increase Damage Given on illuminance) or brand the target (Afterburn on Imperial Swords)",
+        "primary": "Burst and branding: a self-buff setup paid off by a controlled +2 Damage on the three Light strikes (Throne of Broken Light), or Afterburn on Imperial Swords (Judgment of the Forsaken)",
         "secondary": "Self defence on illuminance and Lux (Decrease Damage Taken, Reflect)",
         "tertiary": "Exposure (Increase Damage Taken) at the Foundation only"
       },
@@ -1994,7 +2042,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 10,
@@ -2033,17 +2082,18 @@
       "examples": [
         {
           "name": "Throne of Broken Light",
-          "archetype": "Self-amplification",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
             "03",
             "04"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 19,
+          "raw_flat_total": 12,
+          "row_weighted_total": 20,
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "afterburn": 3
           }
@@ -2101,9 +2151,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -6,
         "max_row_weighted_delta": -9,
@@ -2133,15 +2181,15 @@
       "routes": [
         {
           "name": "Total Eclipse",
-          "primary_tag": "increasedamagetaken",
-          "total": 8,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
           "name": "Storm-God Ascendant",
           "primary_tag": "increasedamagegiven",
-          "total": 7,
-          "on_band": false
+          "total": 5,
+          "on_band": true
         },
         {
           "name": "Pillar of Heaven",
@@ -2158,9 +2206,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Burst, two ways: exposure (Increase Damage Taken on Event Horizon Gate, Sky-Splitting Wall and Storm-God's Heart; Total Eclipse, +8%) or self-amplification (Increase Damage Given on Wall, Tempest, Bulwark and Marrow Mantle; Storm-God Ascendant, +7%); no flat Damage",
-        "secondary": "Endurance: Decrease Damage Taken on Gate or Bulwark (Pillar of Heaven, +10%) and Tempest Lifesteal (Eater of Suns, +5%)",
-        "tertiary": "Lifesteal and Increase Damage Given riders on the endurance routes; Afterburn and Damage left unamplified"
+        "primary": "Burst (Burst Heavy): Hammer of the Heavens sets up exposure (Increase Damage Taken on Event Horizon Gate, Sky-Splitting Wall and Storm-God's Heart, 35 → 40% with Black Sun Rising) and Total Eclipse pays it off with +2 Damage on all five strikes (Raijin's Cage 50 → 52; Heart, Palm and Cataract 45 → 47; Tomb 40 → 42)",
+        "secondary": "Sustained self-amplification (Storm-God Ascendant: Increase Damage Given 35 → 40% on Wall, Tempest, Bulwark and Marrow Mantle) and endurance: Decrease Damage Taken on Gate or Bulwark (Pillar of Heaven, +10%) and Tempest Lifesteal (Eater of Suns, +5%)",
+        "tertiary": "Riders: Lifesteal on the fortress (+2%) and Afterburn on the leech (Tempest 35 → 38%)"
       },
       "nodes": 10,
       "tiers": {
@@ -2170,36 +2218,40 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 12,
+      "non_dominated_full_allocations": 13,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 7,
-        "increasedamagetaken": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
+        "afterburn": 3,
         "lifesteal": 5
       },
       "max_full_build_raw_flat_total": 16,
-      "max_full_build_row_weighted_total": 40,
-      "max_row_weighted_per_supported_row": 2.5,
-      "median_full_build_row_weighted_total": 32,
+      "max_full_build_row_weighted_total": 37,
+      "max_row_weighted_per_supported_row": 2.31,
+      "median_full_build_row_weighted_total": 30,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
           "03",
-          "04"
+          "06"
         ],
         "names": [
           "Black Sun Rising",
           "Hammer of the Heavens",
           "Total Eclipse",
-          "Charged Firmament"
+          "Stormgod's Marrow"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 8
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 5,
+          "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
@@ -2210,35 +2262,36 @@
       "examples": [
         {
           "name": "Total Eclipse",
-          "archetype": "Exposure",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 36,
+          "raw_flat_total": 11,
+          "row_weighted_total": 37,
           "bonuses": {
+            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 8,
+            "increasedamagetaken": 5,
             "decreasedamagetaken": 2
           }
         },
         {
           "name": "Storm-God Ascendant",
-          "archetype": "Amplify",
+          "archetype": "Self-amplification",
           "ids": [
             "01",
             "02",
             "04",
             "05"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 40,
+          "raw_flat_total": 10,
+          "row_weighted_total": 35,
           "bonuses": {
-            "increasedamagegiven": 7,
-            "increasedamagetaken": 4
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 5
           }
         },
         {
@@ -2269,23 +2322,21 @@
             "10"
           ],
           "raw_flat_total": 14,
-          "row_weighted_total": 35,
+          "row_weighted_total": 26,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
+            "afterburn": 3,
             "lifesteal": 5
           }
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "afterburn",
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -8,
-        "max_row_weighted_delta": 9,
+        "max_row_weighted_delta": 6,
         "supported_rows_delta": 7
       }
     },
@@ -2331,22 +2382,21 @@
       "emphasis": {
         "primary": "Enemy debuff control: Decrease Damage Given (Wailing Bark, Petal Nightmare) and Increase Damage Taken (Blighted Tree)",
         "secondary": "Self amplification: the Wailing Bark Increase Damage Given row, which multiplies every non-pierce hit the caster lands in its window",
-        "tertiary": "A small Damage option, the Hardened Heartwood leaf: Blighted Tree's formula hit 40 → 42 EP (Normal tier); Petal Nightmare's Damage row is static, a fixed 40 HP, so it gains +2 HP"
+        "tertiary": "None: Damage is left unamplified. Its one meaningful row is Blighted Tree's formula 40 EP hit; Petal Nightmare's Damage row is static, 40 raw HP outside the EP ladder"
       },
-      "nodes": 9,
+      "nodes": 8,
       "tiers": {
         "F": 2,
-        "H": 4,
+        "H": 3,
         "A": 3
       },
       "structure_errors": [],
-      "full_budget_allocations": 12,
-      "non_dominated_full_allocations": 12,
+      "full_budget_allocations": 8,
+      "non_dominated_full_allocations": 8,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 2,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8
@@ -2354,7 +2404,7 @@
       "max_full_build_raw_flat_total": 13,
       "max_full_build_row_weighted_total": 23,
       "max_row_weighted_per_supported_row": 3.83,
-      "median_full_build_row_weighted_total": 15,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -2418,18 +2468,20 @@
             "06",
             "09",
             "10",
-            "07"
+            "01"
           ],
           "raw_flat_total": 12,
           "row_weighted_total": 14,
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 10
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 2
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows, but Damage reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static, a fixed 40 HP before modifiers, while a 40 EP formula hit scales with level (about 255 HP at user level 50), so each point of Damage there is 1 HP. The former Burst route (Hardened Heartwood → Nightmare in Bloom, +3 Damage) therefore paid ×1.075 on one hit every 7 rounds and was near-dominated by Thousand-Leaf Dream, whose +10% multiplies every non-pierce hit in the Wailing Bark window, Blighted Tree's included when cast there. Nightmare in Bloom is removed rather than re-cut: more Damage would lift Blighted Tree 40 → 45 (Normal → High), and every compatible secondary (Increase Damage Given, Increase Damage Taken, Decrease Damage Given) already owns a route. Hardened Heartwood stays as a +2 Damage leaf, so the self root completes a full build (06, 07, 09, 10), every route keeps two fourth purchases, and no node is in every legal 4-BP build.",
-      "tags_not_targeted": [],
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows; Decrease Damage Given (suppression), Increase Damage Taken (exposure) and Increase Damage Given (amplification) each own a route, and the fourth, Damage, reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static and deals its raw power, 40 HP before modifiers, so +N Damage there is +N HP. A Burst capstone at the most a single Normal row allows (+3, Blighted Tree 40 → 43 EP; +5 would cross into High) is ×1.075 on one hit every 7 rounds, the same gain Thousand-Leaf Dream's +10% gives that hit inside its window (×1.45 / 1.35 ≈ ×1.074) while the amplifier also lifts every other hit there, so Burst would be near-dominated; its percentage setup could only twin Rising Sap, Veil of Falling Petals or Blight Takes Root. The pre-batch Burst route (Hardened Heartwood → Nightmare in Bloom) is therefore not kept, and the Hardened Heartwood leaf is removed rather than kept only to avoid a universal node. Mourning Boughs is universal: it is in every legal 4-BP build, so the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given.",
+      "tags_not_targeted": [
+        "damage"
+      ],
       "vs_reference": {
         "max_raw_flat_total_delta": -11,
         "max_row_weighted_delta": -8,
@@ -2484,7 +2536,7 @@
       "director_exceptions": [],
       "emphasis": {
         "primary": "Defense from Harmonic Balance: Celestial Harmony Shield fortress (Decrease Damage Taken) or Harmonic Chamber suppression (Decrease Damage Given)",
-        "secondary": "Offense from Opening Measure: Lullaby's self buff into a controlled +2 Damage burst, or Foreboding Interlude exposure for every attacker",
+        "secondary": "Offense from Opening Measure: Lullaby's self buff into a controlled +2 Damage burst, or Foreboding Interlude exposure on every attacker's Genjutsu and element-less hits",
         "tertiary": "Paired +2% Foundation glue on each side's two rows"
       },
       "nodes": 10,
@@ -2636,8 +2688,8 @@
       "routes": [
         {
           "name": "Starfall Hammer",
-          "primary_tag": "increasedamagegiven",
-          "total": 8,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
@@ -2661,9 +2713,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense from Lodestone Draw: Burst on the two self damage buffs (Increase Damage Given on Houkyuken: Magnetic Assignment and Houkyu Dance) or Exposure on the two enemy debuffs (Increase Damage Taken on Morning Star and Houkyuken: Magnetic Assignment)",
+        "primary": "Offense from Lodestone Draw: Burst (Polarized Fist's self Increase Damage Given setup on Houkyuken: Magnetic Assignment and Houkyu Dance, paid off by Starfall Hammer's +2 Damage on all four Magnet strikes) or Exposure (Increase Damage Taken on Morning Star and Houkyuken: Magnetic Assignment)",
         "secondary": "Defense from Repelling Field: Fortress (Decrease Damage Taken on Houkyuken: Magnetic Assignment) or Retaliation (Reflect on Rising Star)",
-        "tertiary": "No flat Damage: Magnetic Pulse Strike is a 50 EP Nuke, so any Damage bonus would pass the Nuke tier"
+        "tertiary": "Flat Damage only as Starfall Hammer's controlled +2 payoff: Magnetic Pulse Strike 50 → 52 (above the Nuke tier; director review), Houkyu Dance 45 → 47, Rising Star and Morning Star 40 → 42 EP"
       },
       "nodes": 10,
       "tiers": {
@@ -2678,7 +2730,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
@@ -2722,10 +2775,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 14,
+          "raw_flat_total": 12,
           "row_weighted_total": 24,
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
@@ -2783,9 +2837,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -6,
         "max_row_weighted_delta": -7,
@@ -2820,14 +2872,14 @@
         {
           "name": "The Glacier Advances",
           "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "Nine Hells Opened",
           "primary_tag": "increasedamagetaken",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "Locked in Cocytus",
@@ -2838,9 +2890,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Own Ice strikes landing harder (Permafrost Heart): crack them, then bury them (+3% exposure, then +3 Damage on Nine Hell's Spear 45 → 48, Glacial Shatter: Purgatory 45 → 48, Cerulean Storm: Avalanche 40 → 43 EP), or +10% on both self buffs (Avalanche, Glacier's Will)",
-        "secondary": "Control of the exchange (Cocytus Vigil): +10% exposure on Cocytus's target and Spear's circle, or +10% guard on Cocytus and Glacier's Will's tiles",
-        "tertiary": "A real Burst-or-Amplifier choice: with Cocytus Vigil as the fourth, the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener gives Burst 313.6 strike power against 312.2 and +6.7 to 7.5% on any strike outside a window, while the Amplifier takes ×1.104 on every other own hit inside it (×1.057 on a target holding Burst's 40% marks). Every capstone carries one tag"
+        "primary": "Own Ice strikes landing harder (Permafrost Heart): heavier on every cast (a +1 commit, then +2 Damage: Nine Hell's Spear and Glacial Shatter: Purgatory 45 → 48, Cerulean Storm: Avalanche 40 → 43 EP), or harder inside the window (+8% on both self buffs, Avalanche and Glacier's Will 35 → 43%)",
+        "secondary": "Control of the exchange (Cocytus Vigil): +8% exposure on Cocytus's target and Spear's circle (35 → 43%), or +10% guard on Cocytus (35 → 45%) and Glacier's Will's tiles (30 → 40%)",
+        "tertiary": "A real Burst-or-Amplifier choice: on the same three nodes the R1 Avalanche + Glacier's Will / R2 Spear + Cocytus / R3 Purgatory opener gives Burst 308.5 strike power against the Amplifier's 306.5; Burst stays 2 EP ahead on every strike outside a window, the Amplifier takes ×1.043 on every other own hit inside it. Every capstone carries one tag"
       },
       "nodes": 10,
       "tiers": {
@@ -2850,42 +2902,42 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 13,
+      "non_dominated_full_allocations": 14,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 3,
-        "increasedamagegiven": 10,
-        "increasedamagetaken": 10,
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 15,
       "max_full_build_row_weighted_total": 30,
       "max_row_weighted_per_supported_row": 3.33,
-      "median_full_build_row_weighted_total": 26,
+      "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
           "06",
-          "07",
-          "08"
+          "09",
+          "10"
         ],
         "names": [
           "Permafrost Heart",
           "Cocytus Vigil",
-          "Cracks in the Ice",
-          "Nine Hells Opened"
+          "Rime Mantle",
+          "Locked in Cocytus"
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "increasedamagetaken": 10,
-          "decreasedamagetaken": 2
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 10
         }
       },
       "lowest_value_node": {
-        "name": "Deepening Frost",
-        "row_weighted_total": 4
+        "name": "Weight of the Avalanche",
+        "row_weighted_total": 3
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -2896,15 +2948,13 @@
             "01",
             "02",
             "03",
-            "06"
+            "04"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 29,
+          "raw_flat_total": 8,
+          "row_weighted_total": 19,
           "bonuses": {
             "damage": 3,
-            "increasedamagegiven": 3,
-            "increasedamagetaken": 5,
-            "decreasedamagetaken": 2
+            "increasedamagegiven": 5
           }
         },
         {
@@ -2916,10 +2966,10 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 28,
+          "raw_flat_total": 12,
+          "row_weighted_total": 24,
           "bonuses": {
-            "increasedamagegiven": 10,
+            "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
@@ -2933,11 +2983,11 @@
             "08",
             "01"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 30,
+          "raw_flat_total": 13,
+          "row_weighted_total": 26,
           "bonuses": {
             "increasedamagegiven": 3,
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "decreasedamagetaken": 2
           }
         },
@@ -2950,10 +3000,10 @@
             "10",
             "07"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 30,
+          "raw_flat_total": 14,
+          "row_weighted_total": 28,
           "bonuses": {
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 4,
             "decreasedamagetaken": 10
           }
         }
@@ -3012,9 +3062,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Wielder offense (Taut Filament): raw Damage on all four Magnet strikes, or the two compounding self Increase Damage Given buffs (Spiraling Wires, Eternal Embrace)",
+        "primary": "Wielder offense (Taut Filament): a steady raw-Damage edge on all four Magnet strikes, or the two compounding self Increase Damage Given buffs (Spiraling Wires, Eternal Embrace) in their windows",
         "secondary": "Binding the target (Tangling Snare): Decrease Damage Given on Wire Blast Plus and Eternal Embrace, or Increase Damage Taken on Lightning Threads",
-        "tertiary": "Mirror riders: each control capstone carries +2% of its sibling's tag"
+        "tertiary": "One rider: the single-row Exposure capstone carries +2% Decrease Damage Given; the two-row Suppression capstone carries none"
       },
       "nodes": 10,
       "tiers": {
@@ -3035,8 +3085,8 @@
         "increasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 28,
-      "max_row_weighted_per_supported_row": 3.11,
+      "max_full_build_row_weighted_total": 26,
+      "max_row_weighted_per_supported_row": 2.89,
       "median_full_build_row_weighted_total": 20,
       "strongest_full_build": {
         "ids": [
@@ -3054,7 +3104,7 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 2
         }
       },
       "lowest_value_node": {
@@ -3065,7 +3115,7 @@
       "examples": [
         {
           "name": "Severing Lattice",
-          "archetype": "Burst",
+          "archetype": "Steady Edge",
           "ids": [
             "01",
             "02",
@@ -3107,12 +3157,12 @@
             "08",
             "01"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 28,
+          "raw_flat_total": 14,
+          "row_weighted_total": 26,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
-            "increasedamagetaken": 4
+            "increasedamagetaken": 2
           }
         },
         {
@@ -3136,7 +3186,7 @@
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -3,
+        "max_row_weighted_delta": -5,
         "supported_rows_delta": 0
       }
     },
@@ -3162,8 +3212,8 @@
       "routes": [
         {
           "name": "Heat Death",
-          "primary_tag": "increasedamagegiven",
-          "total": 8,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
@@ -3187,9 +3237,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense multipliers: self amplification (Hush of the Void → Heat Death) and exposure (Weight of Eons → Collapse of Ages), each +8% on two compounding rows",
+        "primary": "Burst and exposure: Shattered Firmament's self amplify setup (35 → 40% on two rows) into Heat Death's +2 Damage on all four Dust strikes (40 → 42, Particle Storm 50 → 52); Collapse of Ages' exposure +8% on two compounding rows",
         "secondary": "Defense: Temporal Erosion guard (Outlasting Eternity) and Ethereal Particle Storm suppression (All Returns to Dust), +10% on one row each",
-        "tertiary": "Damage left unamplified: Ethereal Particle Storm is 50 EP, so any flat Damage passes the Nuke tier"
+        "tertiary": "Recipient split at the root: self buffs (Hush of the Void) against enemy debuffs (Weight of Eons), so the burst setup and the exposure capstone never share a 4-BP build"
       },
       "nodes": 10,
       "tiers": {
@@ -3204,15 +3254,16 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 16,
-      "max_full_build_row_weighted_total": 24,
-      "max_row_weighted_per_supported_row": 2.4,
-      "median_full_build_row_weighted_total": 20,
+      "max_full_build_row_weighted_total": 26,
+      "max_row_weighted_per_supported_row": 2.6,
+      "median_full_build_row_weighted_total": 21,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -3227,7 +3278,8 @@
           "Hush of the Void"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
@@ -3248,10 +3300,11 @@
             "03",
             "01"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 24,
+          "raw_flat_total": 13,
+          "row_weighted_total": 26,
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
@@ -3266,10 +3319,10 @@
             "08",
             "02"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "raw_flat_total": 15,
+          "row_weighted_total": 20,
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 5,
             "decreasedamagetaken": 10
           }
         },
@@ -3309,12 +3362,10 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -8,
-        "max_row_weighted_delta": -7,
+        "max_row_weighted_delta": -5,
         "supported_rows_delta": 1
       }
     },
@@ -3359,8 +3410,8 @@
       "director_exceptions": [],
       "emphasis": {
         "primary": "The hunt's two windows — Increase Damage Given (Nature's Hunter self buff) and Increase Damage Taken (Life reaver), one high-leverage 2-round window each",
-        "secondary": "The kill — Damage on Nature's Hunter's strike (40 → 43 at most, no tier crossed) with its own Heal as the feeding rider",
-        "tertiary": "Sustain — Nature's Hunter's static Heal (Killing Bite and Hunter's Moon only)"
+        "secondary": "The kill that feeds — Damage on Nature's Hunter's strike (40 → 43, Killing Bite only, no tier crossed) with the same cast's Heal as the route's setup and rider",
+        "tertiary": "Sustain — Nature's Hunter's static Heal (Rending Claws, Killing Bite and Hunter's Moon; 250 → 330 HP per tick at most)"
       },
       "nodes": 8,
       "tiers": {
@@ -3378,34 +3429,35 @@
         "damage": 3,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
-        "heal": 5
+        "heal": 8
       },
-      "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 14,
-      "max_row_weighted_per_supported_row": 3.5,
-      "median_full_build_row_weighted_total": 12,
+      "max_full_build_raw_flat_total": 15,
+      "max_full_build_row_weighted_total": 15,
+      "max_row_weighted_per_supported_row": 3.75,
+      "median_full_build_row_weighted_total": 14,
       "strongest_full_build": {
         "ids": [
           "01",
-          "04",
-          "05",
+          "02",
+          "03",
           "06"
         ],
         "names": [
           "Scent of Blood",
-          "Run to Ground",
-          "The Pack Closes",
+          "Rending Claws",
+          "Killing Bite",
           "Hunter's Moon"
         ],
         "bonuses": {
+          "damage": 3,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 10,
-          "heal": 2
+          "increasedamagetaken": 2,
+          "heal": 8
         }
       },
       "lowest_value_node": {
-        "name": "Rending Claws",
-        "row_weighted_total": 1
+        "name": "Scent of Blood",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -3418,13 +3470,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 12,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
             "damage": 3,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "heal": 5
+            "heal": 8
           }
         },
         {
@@ -3462,11 +3514,11 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported rows, one per tag, on two casts (Damage, Increase Damage Given and Heal on Nature's Hunter; Increase Damage Taken on Life reaver); the Wolf Companion summon and Life reaver's absorb are unsupported. Three identities exist, one per phase of the hunt: the strike (Damage with its Heal rider), the mark (Increase Damage Taken) and the frenzy (Increase Damage Given). A fourth capstone would twin one of them on the same row or stand on Heal alone (10 HP per tick per point); that filler is declined. Scent of Blood is a universal node (in all 8 legal 4-BP builds) because Hunter's Moon roots a single 3-node chain, so every build carries +2% exposure and Frenzy's fourth purchase is fixed.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported rows, one per tag, on two casts (Damage, Increase Damage Given and Heal on Nature's Hunter; Increase Damage Taken on Life reaver); the Wolf Companion summon and Life reaver's absorb are unsupported. Three identities exist, one per phase of the hunt: the kill that feeds (Damage with the same cast's Heal), the mark (Increase Damage Taken) and the frenzy (Increase Damage Given). A fourth capstone would twin one of them on the same row or stand on Heal alone (10 HP per tick per point); that filler is declined. Scent of Blood is a universal node (in all 8 legal 4-BP builds) because Hunter's Moon roots a single 3-node chain, so every build carries +2% exposure and Frenzy's fourth purchase is fixed.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -17,
+        "max_raw_flat_total_delta": -9,
+        "max_row_weighted_delta": -16,
         "supported_rows_delta": -5
       }
     },
@@ -3504,8 +3556,8 @@
       "director_exceptions": [],
       "emphasis": {
         "primary": "Frenzy — Increase Damage Given on Frenzy Assault and Feral Wrath (two self rows that compound)",
-        "secondary": "Regeneration — Heal on Frenzy Assault (one static row) with a frenzy rider",
-        "tertiary": "Damage left unamplified: Feral Wrath is a 50 EP Nuke-tier hit"
+        "secondary": "Regeneration — Heal on Frenzy Assault (one static row)",
+        "tertiary": "Raw strike — a controlled +2 Damage payoff on Undying Hunger (Moonlit Fury 40 → 42, Feral Wrath 50 → 52, above the Nuke tier; director review)"
       },
       "nodes": 6,
       "tiers": {
@@ -3515,17 +3567,18 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 3,
-      "non_dominated_full_allocations": 2,
+      "non_dominated_full_allocations": 3,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 6,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 8,
         "heal": 10
       },
-      "max_full_build_raw_flat_total": 15,
-      "max_full_build_row_weighted_total": 20,
-      "max_row_weighted_per_supported_row": 4.0,
+      "max_full_build_raw_flat_total": 14,
+      "max_full_build_row_weighted_total": 18,
+      "max_row_weighted_per_supported_row": 3.6,
       "median_full_build_row_weighted_total": 18,
       "strongest_full_build": {
         "ids": [
@@ -3541,7 +3594,8 @@
           "Undying Hunger"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "damage": 2,
+          "increasedamagegiven": 2,
           "heal": 10
         }
       },
@@ -3569,28 +3623,27 @@
         },
         {
           "name": "Undying Hunger",
-          "archetype": "Regeneration",
+          "archetype": "Sustain offense",
           "ids": [
             "06",
             "07",
             "08",
             "01"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 20,
+          "raw_flat_total": 14,
+          "row_weighted_total": 18,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "damage": 2,
+            "increasedamagegiven": 2,
             "heal": 10
           }
         }
       ],
-      "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four: the kit has three supported tags on five rows, and this revision targets two of them (Increase Damage Given x2, Heal x1). The two identities are two 3-node chains: The Beast Within → Blood on the Wind → Red Moon Rising (frenzy) and Moonbound Vigor → Lick the Wound → Undying Hunger (regeneration). Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the real choice is which chain to finish; the only other full build is the no-capstone hybrid (both Hidden Arts). A third route was declined: the only remaining tag is Damage, and any flat Damage lifts Feral Wrath 50 past the Nuke tier; a second Hidden Art under either Foundation could only repeat Increase Damage Given or Heal on the same rows (filler, and an Increase Damage Given sibling would stack with Red Moon Rising).",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four: the kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Heal x1), and only two Hidden Arts can differ in tag: Increase Damage Given (Blood on the Wind) and Heal (Lick the Wound); Damage is kept for the Advanced-Art payoff. The two identities are two 3-node chains: The Beast Within → Blood on the Wind → Red Moon Rising (frenzy) and Moonbound Vigor → Lick the Wound → Undying Hunger (regeneration with the tree's only flat Damage, a +2 payoff). Draft 4's seventh node, Gnashing Fangs, was a flat-Damage Hidden Art that put Feral Wrath at 52 as Red Moon Rising's fourth purchase; a third route would need a Hidden Art that repeats Increase Damage Given (a twin of Blood on the Wind, and under The Beast Within a fourth purchase that lifts Red Moon Rising past +8%), repeats Heal on the one Heal row, or carries flat Damage before the payoff, so none is added. Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the real choice is which chain to finish; the only other full build is the no-capstone hybrid (both Hidden Arts).",
+      "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -9,
-        "max_row_weighted_delta": -11,
+        "max_raw_flat_total_delta": -10,
+        "max_row_weighted_delta": -13,
         "supported_rows_delta": -4
       }
     },
@@ -3634,7 +3687,7 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Sustain from Mountain Hag's Mercy — Heal on Onibaba's Laughter and Increase Heal on Kijo's Benevolence (1 row each), feeding either a narrow Damage payoff or a 40% healing field",
+        "primary": "Sustain from Mountain Hag's Mercy — Heal on Onibaba's Laughter and Increase Heal on Kijo's Benevolence (1 row each); one branch leans onto Laughter (450 HP tick) under a narrow Damage capstone, the other onto Benevolence's 40% healing field",
         "secondary": "Control — Decrease Damage Given on Phantom Realm Oblivion (1 row), 30 → 40% on the Suppression route",
         "tertiary": "Damage — +2 on the two Genjutsu attacks (Phantom Realm Oblivion 40 → 42, Onibaba's Laughter 45 → 47), on Appetite of Oblivion only"
       },
@@ -3736,7 +3789,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Heal x1, Increase Heal x1). Mountain Hag's Mercy forks into feeding (Laughter's Heal into a +2 Damage payoff) and the hearth (Increase Heal); Hagmother's Welcome is a single chain because Decrease Damage Given is one row, and a second Welcome route would either repeat Suppression or carry the Damage that now pays off the feeding lane. A fourth capstone on these rows would be filler. Mountain Hag's Mercy is a universal node (in all 8 legal 4-BP builds) because Welcome roots a 3-node chain.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Decrease Damage Given x1, Heal x1, Increase Heal x1). Mountain Hag's Mercy forks onto Onibaba's Laughter (Heal, capped by a +2 Damage capstone) and onto Benevolence's field (Increase Heal); Hagmother's Welcome is a single chain because Decrease Damage Given is one row, and a second Welcome route would either repeat Suppression or take the Damage that now caps the Laughter lane. A fourth capstone on these rows would be filler. Mountain Hag's Mercy is a universal node (in all 8 legal 4-BP builds) because Welcome roots a 3-node chain.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -9,
@@ -3765,7 +3818,7 @@
         {
           "name": "Cut of No Return",
           "primary_tag": "damage",
-          "total": 4,
+          "total": 2,
           "on_band": false
         },
         {
@@ -3795,35 +3848,35 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 8,
+      "non_dominated_full_allocations": 7,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 4,
+        "damage": 2,
         "increasedamagegiven": 5,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 12,
       "max_full_build_row_weighted_total": 17,
       "max_row_weighted_per_supported_row": 2.83,
-      "median_full_build_row_weighted_total": 16,
+      "median_full_build_row_weighted_total": 15,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
-          "03",
-          "04"
+          "04",
+          "05",
+          "06"
         ],
         "names": [
           "Drawn Steel",
-          "Single Stroke",
-          "Cut of No Return",
-          "Second Sword"
+          "Second Sword",
+          "Two Heavens as One",
+          "Reading the Field"
         ],
         "bonuses": {
-          "damage": 4,
-          "increasedamagegiven": 3
+          "increasedamagegiven": 5,
+          "decreasedamagetaken": 2
         }
       },
       "lowest_value_node": {
@@ -3842,10 +3895,11 @@
             "04"
           ],
           "raw_flat_total": 7,
-          "row_weighted_total": 17,
+          "row_weighted_total": 15,
           "bonuses": {
-            "damage": 4,
-            "increasedamagegiven": 3
+            "damage": 2,
+            "increasedamagegiven": 3,
+            "decreasedamagetaken": 2
           }
         },
         {
@@ -3881,7 +3935,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given ×3, Damage ×2, Decrease Damage Taken ×1); a fourth Advanced Art would twin a capstone on the same rows or push the single Decrease Damage Taken row past +10%. Reading the Field therefore runs one guard chain and Drawn Steel is universal: it is in every legal 4-BP build, so the Fortress build is fixed and every build carries +2% Increase Damage Given. The earlier Answering Cut leaf that avoided this twinned Single Stroke and is removed.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given ×3, Damage ×2, Decrease Damage Taken ×1); a fourth Advanced Art would twin a capstone on the same rows or push the single Decrease Damage Taken row past +10%. Reading the Field therefore runs one guard chain and Drawn Steel is universal: it is in every legal 4-BP build, so the Fortress build is fixed and every build carries +2% Increase Damage Given. Every leaf that could avoid this is filler or illegal: a Damage leaf twins Single Stroke (the pre-batch Answering Cut, removed), an Increase Damage Given leaf only re-sells Drawn Steel as Fortress's fourth, and a Decrease Damage Taken leaf lifts the guard chain past +10%.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -12,
@@ -4085,7 +4139,7 @@
         {
           "name": "Old Growth's Wrath",
           "primary_tag": "damage",
-          "total": 3,
+          "total": 2,
           "on_band": false
         },
         {
@@ -4103,8 +4157,8 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Co-primary — Wood Damage on the Fury → Curse one-two (Nature's Fury and Nature's Curse) and Verdant Bastion healing (Heal and Increase Heal, Sap of the Grove)",
-        "secondary": "Increase Damage Taken: Nature's Fury's exposure (Thorn and Rot), one row that multiplies every non-pierce hit the marked target takes in its window",
+        "primary": "Co-primary — Wood Damage on the Fury → Curse one-two (Nature's Fury and Nature's Curse) and Verdant Bastion healing (Heal and Increase Heal)",
+        "secondary": "Increase Damage Taken: Nature's Fury's exposure, one row that multiplies every non-pierce hit the marked target takes in its window",
         "tertiary": "Absorb and drain on Nature's Curse are unsupported and receive nothing"
       },
       "nodes": 9,
@@ -4120,7 +4174,7 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagetaken": 10,
         "increaseheal": 10,
         "heal": 5
@@ -4162,10 +4216,10 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 8,
-          "row_weighted_total": 11,
+          "raw_flat_total": 7,
+          "row_weighted_total": 9,
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagetaken": 5
           }
         },
@@ -4203,7 +4257,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1), and both healing rows sit on the one Verdant Bastion cast. A fourth Advanced Art would either split that single cast into a second healing capstone or repeat a Thorn and Rot route. Instead Sap of the Grove carries one leaf, Sudden Greening (+3% Heal, burst healing beside Deepening Roots' sustained healing), so the grove root has its own 4 BP build and no node is universal.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1), and both healing rows sit on the one Verdant Bastion cast. A fourth Advanced Art would either split that single cast into a second healing capstone or repeat a Thorn and Rot route. Instead Sap of the Grove carries one leaf, Sudden Greening (+3% Heal: the bloodline's Burst Healing trait beside Deepening Roots' Sustained Healing, and Everbloom Sanctuary's natural fourth), so the grove root has its own 4 BP build and no node is universal.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -9,
@@ -4415,9 +4469,9 @@
       "routes": [
         {
           "name": "Absolute Erasure",
-          "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
         },
         {
           "name": "Writ of Oblivion",
@@ -4440,9 +4494,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense under Brand of Oblivion: Cursed Beast Form's self buff (Absolute Erasure) or a Shadow Surge Lifesteal drain (Maw of Oblivion)",
+        "primary": "Offense under Brand of Oblivion: a Cursed Beast Form self-buff setup paid off by a controlled +2 Damage on the three Shadow attacks (Absolute Erasure), or a Shadow Surge Lifesteal drain that also feeds the self buff (Maw of Oblivion)",
         "secondary": "Control under Umbral Refuge: Shadow Surge's Decrease Damage Taken fortress (Sealed Against Ruin) or Shadowrend's exposure held behind that reduction (Writ of Oblivion)",
-        "tertiary": "Flat Damage deliberately unamplified (Shadow Tether is 50 EP)"
+        "tertiary": "Flat Damage only as Absolute Erasure's +2 payoff (Shadow Tether 50 → 52, pending director review)"
       },
       "nodes": 10,
       "tiers": {
@@ -4452,37 +4506,38 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 13,
+      "non_dominated_full_allocations": 12,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "lifesteal": 5
       },
-      "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 14,
-      "max_row_weighted_per_supported_row": 2.0,
-      "median_full_build_row_weighted_total": 12,
+      "max_full_build_raw_flat_total": 15,
+      "max_full_build_row_weighted_total": 15,
+      "max_row_weighted_per_supported_row": 2.14,
+      "median_full_build_row_weighted_total": 13,
       "strongest_full_build": {
         "ids": [
           "01",
           "02",
-          "03",
-          "06"
+          "09",
+          "10"
         ],
         "names": [
           "Brand of Oblivion",
           "Umbral Claws",
-          "Absolute Erasure",
-          "Umbral Refuge"
+          "Hungering Shade",
+          "Maw of Oblivion"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
+          "lifesteal": 5
         }
       },
       "lowest_value_node": {
@@ -4493,34 +4548,35 @@
       "examples": [
         {
           "name": "Absolute Erasure",
-          "archetype": "Self-amplification",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
             "03",
             "06"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 14,
+          "raw_flat_total": 11,
+          "row_weighted_total": 15,
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
         },
         {
           "name": "Maw of Oblivion",
-          "archetype": "Drain",
+          "archetype": "Sustain offense",
           "ids": [
             "01",
             "02",
             "09",
             "10"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 12,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "lifesteal": 5
           }
@@ -4561,12 +4617,10 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -17,
+        "max_raw_flat_total_delta": -9,
+        "max_row_weighted_delta": -16,
         "supported_rows_delta": -2
       }
     },
@@ -4591,6 +4645,12 @@
       "classification_status": "element",
       "routes": [
         {
+          "name": "Apex Conflagration",
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
+        },
+        {
           "name": "Pyre of the Hunted",
           "primary_tag": "afterburn",
           "total": 10,
@@ -4611,23 +4671,24 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense from the kit's two windows: Fire Style: Beast's self Increase Damage Given (Primal Rampage) and Primal Incineration's brand, Afterburn over exposure (Pyre of the Hunted)",
+        "primary": "Offense, three ways to kill: Primal Incineration's brand, Afterburn over exposure (Pyre of the Hunted); a controlled +2 Damage on both Fire strikes (Apex Conflagration); Fire Style: Beast's self Increase Damage Given (Primal Rampage)",
         "secondary": "Defense: Fire Style: Squirrel's self Decrease Damage Taken (Den of Embers)",
-        "tertiary": "Flat Damage stays unamplified: Fire Style: Beast is already a 50 EP Nuke"
+        "tertiary": "Exposure held at +2% (Hunter's Brand) so the brand does not enlarge its own Afterburn"
       },
-      "nodes": 8,
+      "nodes": 10,
       "tiers": {
         "F": 2,
-        "H": 3,
-        "A": 3
+        "H": 4,
+        "A": 4
       },
       "structure_errors": [],
-      "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 8,
+      "full_budget_allocations": 14,
+      "non_dominated_full_allocations": 10,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
@@ -4636,7 +4697,7 @@
       "max_full_build_raw_flat_total": 16,
       "max_full_build_row_weighted_total": 16,
       "max_row_weighted_per_supported_row": 2.67,
-      "median_full_build_row_weighted_total": 14,
+      "median_full_build_row_weighted_total": 12,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -4664,8 +4725,26 @@
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
         {
+          "name": "Apex Conflagration",
+          "archetype": "Burst",
+          "ids": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "raw_flat_total": 10,
+          "row_weighted_total": 12,
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          }
+        },
+        {
           "name": "Pyre of the Hunted",
-          "archetype": "Brand",
+          "archetype": "Exposure brand",
           "ids": [
             "01",
             "04",
@@ -4715,10 +4794,8 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. Supported rows: two Fire Damage rows (Fire Style: Beast 50, Fire Style: Squirrel 40 EP) and one row each of Afterburn and Increase Damage Taken (both on Primal Incineration's target), Increase Damage Given (Beast's self buff) and Decrease Damage Taken (Squirrel's self buff). Flat Damage is declined because Beast is a 50 EP Nuke and any flat Damage lifts it past 50, so the old Burst branch (Fang and Ember → Apex Conflagration) is removed rather than re-cut. Afterburn and Increase Damage Taken share one cast, target and window, so Hunter's Brand roots one brand chain; a second brand capstone would read as the same choice. Hide and Fang is a universal node (in all 8 legal 4 BP builds) because Hunter's Brand roots a single chain.",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": null,
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -8,
         "max_row_weighted_delta": -15,
@@ -4863,7 +4940,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route: burst (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route that maximizes it: self-amplification (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -10,
@@ -4895,8 +4972,8 @@
         {
           "name": "Sovereign of the Hour",
           "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "The Inevitable Hour",
@@ -4921,7 +4998,7 @@
       "emphasis": {
         "primary": "Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle)",
         "secondary": "Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration)",
-        "tertiary": "Momentum Shift's self Increase Damage Given; Sand Damage (Timeshift 40, Timelapse 40, Eternity Flux 50) is left unamplified"
+        "tertiary": "Strike — Sand Damage (Timeshift 40, Timelapse 40, Eternity Flux 50) through a controlled +2 burst payoff, set up on Momentum Shift's self Increase Damage Given"
       },
       "nodes": 10,
       "tiers": {
@@ -4936,7 +5013,8 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
@@ -4945,7 +5023,7 @@
       "max_full_build_raw_flat_total": 21,
       "max_full_build_row_weighted_total": 23,
       "max_row_weighted_per_supported_row": 2.56,
-      "median_full_build_row_weighted_total": 18,
+      "median_full_build_row_weighted_total": 20,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -4975,7 +5053,7 @@
       "examples": [
         {
           "name": "Sovereign of the Hour",
-          "archetype": "Self-amplification",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
@@ -4983,9 +5061,10 @@
             "04"
           ],
           "raw_flat_total": 14,
-          "row_weighted_total": 18,
+          "row_weighted_total": 22,
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 8,
             "increasedamagetaken": 4
           }
         },
@@ -5044,9 +5123,7 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -3,
         "max_row_weighted_delta": -8,
@@ -5074,7 +5151,7 @@
         {
           "name": "Weight of the Trench",
           "primary_tag": "damage",
-          "total": 3,
+          "total": 2,
           "on_band": false
         },
         {
@@ -5086,14 +5163,14 @@
         {
           "name": "Wrath of the Sea-King",
           "primary_tag": "increasedamagetaken",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         }
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Increase Damage Taken — Crushing Abyss's broad circle exposure and Water Dome's Water-only exposure (two rows, +10% route)",
-        "secondary": "Water Damage — Sea King's Armor and Crushing Abyss (two 38 EP formula rows, +3 route)",
+        "primary": "Increase Damage Taken — Crushing Abyss's broad circle exposure and Water Dome's Water-only exposure (two rows, +8% route)",
+        "secondary": "Water Damage — Sea King's Armor and Crushing Abyss (two 38 EP formula rows, +2 route)",
         "tertiary": "Decrease Damage Taken — Sea King's Armor's self reduction (one row, +10% route)"
       },
       "nodes": 8,
@@ -5109,14 +5186,14 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "damage": 3,
-        "increasedamagetaken": 10,
+        "damage": 2,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 12,
-      "max_full_build_row_weighted_total": 22,
-      "max_row_weighted_per_supported_row": 4.4,
-      "median_full_build_row_weighted_total": 14,
+      "max_full_build_row_weighted_total": 18,
+      "max_row_weighted_per_supported_row": 3.6,
+      "median_full_build_row_weighted_total": 12,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -5131,7 +5208,7 @@
           "Wrath of the Sea-King"
         ],
         "bonuses": {
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2
         }
       },
@@ -5150,10 +5227,10 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 7,
-          "row_weighted_total": 12,
+          "raw_flat_total": 6,
+          "row_weighted_total": 10,
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           }
@@ -5183,19 +5260,19 @@
             "07",
             "08"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 22,
+          "raw_flat_total": 10,
+          "row_weighted_total": 18,
           "bonuses": {
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "decreasedamagetaken": 2
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), one route each: Scales of the Deep forks into Burst (Grip of the Riptide → Weight of the Trench) and Fortress (Deepwater Carapace → Hull of the Leviathan); Salt in the Wound → Dragged Under → Wrath of the Sea-King is the single exposure chain. A fourth route needs a fourth tag (absorb and shield are not potency targets). Universal node accepted: Scales of the Deep is in all 8 legal full builds, so Exposure's fourth purchase is always its +2% Decrease Damage Taken. A 1 BP leaf under Salt in the Wound would end that, but each option fails: Increase Damage Taken lifts the exposure build past +10%, Damage puts flat Damage on the exposure capstone's build, and Decrease Damage Taken is an off-axis twin of Scales of the Deep (or dominates or is dominated by it).",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four, as in the pre-batch tree. The kit has three supported tags on five rows (Damage x2, Increase Damage Taken x2, Decrease Damage Taken x1), one route each: Scales of the Deep forks into Burst (Grip of the Riptide → Weight of the Trench) and Fortress (Deepwater Carapace → Hull of the Leviathan); Salt in the Wound → Dragged Under → Wrath of the Sea-King is the single exposure chain. A fourth route needs a fourth tag (absorb and shield are not potency targets). Universal node accepted: Scales of the Deep is in all 8 legal full builds, so Exposure's fourth purchase is always its +2% Decrease Damage Taken. A 1 BP leaf under Salt in the Wound would end that, but each option fails: Increase Damage Taken twins Dragged Under and hands Exposure's fourth its own tag again (back toward the +10% the route was cut from), Damage puts flat Damage on the exposure capstone's build, and Decrease Damage Taken is an off-axis twin of Scales of the Deep (or dominates or is dominated by it).",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -12,
-        "max_row_weighted_delta": -9,
+        "max_row_weighted_delta": -13,
         "supported_rows_delta": -4
       }
     },
@@ -5239,9 +5316,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Burst from Loom of Dusk: Increase Damage Given setup on three stacking self buffs, paid off with a controlled +2 Damage on four 40 EP Shadow attacks",
+        "primary": "Burst from Loom of Dusk: Barbed Thread sets up the three stacking self buffs (Increase Damage Given) and Night Unraveled pays off with a controlled +2 Damage on four 40 EP Shadow attacks",
         "secondary": "Fortress on Shadow Shell's Decrease Damage Taken (+10%) and Suppression on Shadow Severance's Decrease Damage Given (+10%)",
-        "tertiary": "Increase Damage Given outside Burst: a +2% rider on the Fortress and the Umbral Whetstone lean"
+        "tertiary": "Increase Damage Given outside Burst: a +2% rider on the Fortress and the Umbral Whetstone lean (+4% together)"
       },
       "nodes": 9,
       "tiers": {
@@ -5251,20 +5328,20 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 12,
-      "non_dominated_full_allocations": 10,
+      "non_dominated_full_allocations": 9,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
         "decreasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 31,
-      "max_row_weighted_per_supported_row": 3.44,
-      "median_full_build_row_weighted_total": 24,
+      "max_full_build_raw_flat_total": 15,
+      "max_full_build_row_weighted_total": 28,
+      "max_row_weighted_per_supported_row": 3.11,
+      "median_full_build_row_weighted_total": 18,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -5280,13 +5357,13 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 6,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 5
         }
       },
       "lowest_value_node": {
-        "name": "Frayed Resolve",
-        "row_weighted_total": 3
+        "name": "Loom of Dusk",
+        "row_weighted_total": 2
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
@@ -5299,11 +5376,11 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 31,
+          "raw_flat_total": 12,
+          "row_weighted_total": 28,
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 6,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "decreasedamagetaken": 3
           }
@@ -5317,10 +5394,9 @@
             "05",
             "06"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 21,
+          "raw_flat_total": 15,
+          "row_weighted_total": 15,
           "bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
             "decreasedamagetaken": 5
           }
@@ -5334,19 +5410,19 @@
             "08",
             "09"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 25,
+          "raw_flat_total": 14,
+          "row_weighted_total": 22,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 4,
             "decreasedamagetaken": 10
           }
         }
       ],
-      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Decrease Damage Given x1, Decrease Damage Taken x1). Burst takes Damage with Increase Damage Given as its setup, Suppression takes Decrease Damage Given and Fortress takes Decrease Damage Taken. A fourth capstone could only be a second Increase Damage Given route, which would read as Burst without the Damage and would let a capstone plus a sibling Hidden Art stack three compounding self buffs. Umbral Whetstone is a leaf so that the defensive root completes a full build (06, 07, 08, 09) without Loom of Dusk; it is +3% while Barbed Thread is +2% because Barbed Thread's value is the route behind it.",
+      "narrow_kit_exception": "Nine nodes and three Advanced Arts rather than ten and four, as before the batch. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Decrease Damage Given x1, Decrease Damage Taken x1). Burst takes Damage with Increase Damage Given as its setup, Suppression takes Decrease Damage Given and Fortress takes Decrease Damage Taken. A fourth capstone could only be a second Increase Damage Given route: it would read as Burst without the Damage, and on three compounding self buffs it could not exceed Burst's +5% without becoming the tree's strongest offensive stack. Umbral Whetstone is a Hidden-Art leaf so that the defensive root completes a full build (06, 07, 08, 09) without Loom of Dusk; it shares Barbed Thread's tag and rows (see design_review.concerns).",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": 0,
+        "max_raw_flat_total_delta": -9,
+        "max_row_weighted_delta": -3,
         "supported_rows_delta": 0
       }
     },
@@ -5554,8 +5630,8 @@
       "routes": [
         {
           "name": "Thunder King's Wrath",
-          "primary_tag": "increasedamagegiven",
-          "total": 7,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
@@ -5573,9 +5649,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Increase Damage Given (Burst: the Storm Cloak's two self buffs and Raijin's compound; +7% route)",
+        "primary": "Damage (Burst: Vajra Tempering charges the Storm Cloak and Raijin self buffs, then Thunder King's Wrath pays off with +2 Damage on all four Storm attacks)",
         "secondary": "Increase Damage Taken (Izanagi's Hammer area exposure, +10% route) and Reflect (Indra's Storm Cloak retaliation, +10% route)",
-        "tertiary": "Damage has no node: every flat bonus would lift Daibutsu Thunder past the 50 Nuke tier"
+        "tertiary": "Increase Damage Given (Mandate of Thunder and the Burst setup; three compounding rows held at +4%)"
       },
       "nodes": 8,
       "tiers": {
@@ -5590,13 +5666,14 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 7,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 10,
         "reflect": 10
       },
       "max_full_build_raw_flat_total": 14,
-      "max_full_build_row_weighted_total": 26,
-      "max_row_weighted_per_supported_row": 2.89,
+      "max_full_build_row_weighted_total": 25,
+      "max_row_weighted_per_supported_row": 2.78,
       "median_full_build_row_weighted_total": 19,
       "strongest_full_build": {
         "ids": [
@@ -5612,7 +5689,8 @@
           "Lightning Rod"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "damage": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 5
         }
       },
@@ -5631,10 +5709,11 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 26,
+          "raw_flat_total": 11,
+          "row_weighted_total": 25,
           "bonuses": {
-            "increasedamagegiven": 7,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 5
           }
         },
@@ -5672,13 +5751,11 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1), and Damage is deliberately left without a node because every flat bonus reaches Daibutsu Thunder at 50. That leaves three tags and three identities: self-amplification, exposure and retaliation; a fourth Advanced Art would twin one of them. Mandate of Thunder forks into the two offensive routes and Raiment of Storms carries the single Reflect chain, so Mandate of Thunder is a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A Hidden Art leaf under Raiment would be a one- or two-point sliver of a tag another node already owns. Burst and Exposure each keep two fourth-purchase choices; Retaliation has one.",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four, the same shape as before the batch. The kit has four supported tags on nine rows (Damage x4, Increase Damage Given x3, Increase Damage Taken x1, Reflect x1), and each Advanced Art owns one idea: burst (self-charge setup into +2 Damage), exposure (Hammer) and retaliation (the Cloak's Reflect). A fourth capstone would twin one of them: a pure Increase Damage Given route would reuse Vajra Tempering's three compounding rows, whose compounding holds them to about +5%, so it would be Burst without its payoff; a second exposure or Reflect route would split a single row; a second Damage route would repeat the 50 → 52 payoff. Mandate of Thunder forks into Burst and Exposure and Raiment of Storms carries the single Reflect chain, so Mandate of Thunder is a universal node (in all 8 legal full builds): Raiment's 3-BP chain needs a fourth purchase and Mandate is the only prerequisite-closed one. A Hidden Art leaf under Raiment would be filler: a Reflect leaf lifts Reflect past +10%, an Increase Damage Given leaf is a one-point sliver or, with Vajra Tempering, pushes the three compounding rows past +5%, an exposure leaf twins Lightning Rod, and a Damage leaf puts flat Damage on a Hidden Art. Burst and Exposure each keep two fourth-purchase choices; Retaliation has one.",
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -10,
-        "max_row_weighted_delta": -5,
+        "max_row_weighted_delta": -6,
         "supported_rows_delta": 0
       }
     },
@@ -5701,6 +5778,12 @@
       "classification_status": "element",
       "routes": [
         {
+          "name": "The Forest Devours",
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
+        },
+        {
           "name": "Heartwood Awakened",
           "primary_tag": "increasedamagegiven",
           "total": 6,
@@ -5717,28 +5800,29 @@
       "emphasis": {
         "primary": "Self amplification — Forest Wisdom's two Increase Damage Given rows, both live after one 40 AP cast and compounding (+6% route)",
         "secondary": "Exposure — Guardian's Grove's area Increase Damage Taken, which multiplies every attacker's hits on the caught enemies (one row, +10% route)",
-        "tertiary": "none: Wood Damage (40 / 40 / 50 EP) is deliberately unamplified, because any flat Damage lifts Eternal Forest past the 50 Nuke tier"
+        "tertiary": "Burst — a controlled +2 Damage on the three Wood strikes (Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP) on every cast, set up by Grove's exposure"
       },
-      "nodes": 6,
+      "nodes": 8,
       "tiers": {
         "F": 2,
-        "H": 2,
-        "A": 2
+        "H": 3,
+        "A": 3
       },
       "structure_errors": [],
-      "full_budget_allocations": 3,
-      "non_dominated_full_allocations": 3,
+      "full_budget_allocations": 8,
+      "non_dominated_full_allocations": 8,
       "maximum_advanced_arts": 1,
-      "minimum_two_advanced_cost": 6,
+      "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 6,
         "increasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 12,
       "max_full_build_row_weighted_total": 14,
       "max_row_weighted_per_supported_row": 2.33,
-      "median_full_build_row_weighted_total": 14,
+      "median_full_build_row_weighted_total": 12,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -5796,26 +5880,25 @@
           }
         },
         {
-          "name": "Seed and Snare",
-          "archetype": "No-capstone hybrid",
+          "name": "The Forest Devours",
+          "archetype": "Burst",
           "ids": [
-            "01",
-            "04",
             "06",
-            "07"
+            "02",
+            "03",
+            "01"
           ],
-          "raw_flat_total": 8,
-          "row_weighted_total": 11,
+          "raw_flat_total": 6,
+          "row_weighted_total": 12,
           "bonuses": {
-            "increasedamagegiven": 3,
-            "increasedamagetaken": 5
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
           }
         }
       ],
-      "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2 on one cast, Increase Damage Taken x1), and this revision targets two of them. Flat Damage is declined: Eternal Forest is a 50 EP Nuke, so any flat Damage lifts it past 50, and the previous +5 route (Fangs of Heartwood → The Forest Devours) took Serpent and Grove 40 → 45 and Eternal Forest 50 → 55; that branch is removed rather than re-cut. The two identities are two 3-node chains: Hallowed Seed → Rooted in Wisdom → Heartwood Awakened (self amplification) and Grasping Roots → Rootbound Prey → Judgement of the Grove (exposure). Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the choice is which chain to finish, or the no-capstone hybrid (both Hidden Arts). A second Hidden Art under either Foundation could only repeat Increase Damage Given or Increase Damage Taken on the same rows (filler, and it would stack with that root's capstone).",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four, as before the 2026-10-04 batch. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2 on one cast, Increase Damage Taken x1), so it holds exactly three identities: self amplification (Hallowed Seed → Rooted in Wisdom → Heartwood Awakened), exposure (Grasping Roots → Rootbound Prey → Judgement of the Grove) and burst (Grasping Roots → Fangs of Heartwood → The Forest Devours). A fourth capstone could only repeat one of those tags on the same rows. Universal node accepted: Grasping Roots is in all 8 legal full builds, because Heartwood Awakened's only prerequisite-closed fourth purchase is the other Foundation. A second Hidden Art under Hallowed Seed would be filler: an Increase Damage Given leaf twins Rooted in Wisdom on the same two rows and stacks with Heartwood Awakened, an Increase Damage Taken leaf twins Rootbound Prey, and a Damage leaf twins Fangs of Heartwood and becomes Heartwood Awakened's best fourth, the raw Damage on the compounding window that this layout keeps apart.",
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -12,
         "max_row_weighted_delta": -17,
@@ -5858,8 +5941,8 @@
         {
           "name": "Eye of the Tempest",
           "primary_tag": "decreasedamagetaken",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "White Maelstrom",
@@ -5890,32 +5973,32 @@
         "damage": 2,
         "increasedamagegiven": 8,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 10,
+        "decreasedamagetaken": 8,
         "afterburn": 10,
         "heal": 5
       },
-      "max_full_build_raw_flat_total": 19,
-      "max_full_build_row_weighted_total": 33,
-      "max_row_weighted_per_supported_row": 3.0,
+      "max_full_build_raw_flat_total": 17,
+      "max_full_build_row_weighted_total": 32,
+      "max_row_weighted_per_supported_row": 2.91,
       "median_full_build_row_weighted_total": 24,
       "strongest_full_build": {
         "ids": [
           "01",
-          "06",
-          "07",
-          "08"
+          "04",
+          "05",
+          "06"
         ],
         "names": [
           "Fivefold Kindling",
-          "Pale Vessel",
-          "Gale Bulwark",
-          "Eye of the Tempest"
+          "Charred Current",
+          "White Immolation",
+          "Pale Vessel"
         ],
         "bonuses": {
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
-          "heal": 5
+          "decreasedamagetaken": 2,
+          "afterburn": 10
         }
       },
       "lowest_value_node": {
@@ -5926,7 +6009,7 @@
       "examples": [
         {
           "name": "Divine Convergence",
-          "archetype": "Burst / execution",
+          "archetype": "Exposure / team burst",
           "ids": [
             "01",
             "02",
@@ -5977,18 +6060,18 @@
         },
         {
           "name": "Eye of the Tempest",
-          "archetype": "Fortress",
+          "archetype": "Fortress with sustain",
           "ids": [
             "06",
             "07",
             "08",
             "09"
           ],
-          "raw_flat_total": 19,
-          "row_weighted_total": 33,
+          "raw_flat_total": 17,
+          "row_weighted_total": 29,
           "bonuses": {
             "increasedamagegiven": 4,
-            "decreasedamagetaken": 10,
+            "decreasedamagetaken": 8,
             "heal": 5
           }
         }
@@ -5996,8 +6079,8 @@
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -5,
-        "max_row_weighted_delta": 2,
+        "max_raw_flat_total_delta": -7,
+        "max_row_weighted_delta": 1,
         "supported_rows_delta": 2
       }
     },
@@ -6256,7 +6339,7 @@
       "max_full_build_raw_flat_total": 19,
       "max_full_build_row_weighted_total": 19,
       "max_row_weighted_per_supported_row": 2.38,
-      "median_full_build_row_weighted_total": 15,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -6345,13 +6428,13 @@
             "10",
             "01"
           ],
-          "raw_flat_total": 16,
-          "row_weighted_total": 16,
+          "raw_flat_total": 18,
+          "row_weighted_total": 18,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 2
+            "decreasedamagetaken": 4
           }
         }
       ],
@@ -6391,8 +6474,8 @@
         {
           "name": "Tipping the Balance",
           "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "Eclipse in Hand",
@@ -6403,7 +6486,7 @@
         {
           "name": "Stillness Breaks",
           "primary_tag": "increasedamagetaken",
-          "total": 9,
+          "total": 7,
           "on_band": false
         }
       ],
@@ -6427,14 +6510,14 @@
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 9
+        "increasedamagetaken": 7
       },
-      "max_full_build_raw_flat_total": 17,
-      "max_full_build_row_weighted_total": 28,
-      "max_row_weighted_per_supported_row": 3.5,
-      "median_full_build_row_weighted_total": 24,
+      "max_full_build_raw_flat_total": 16,
+      "max_full_build_row_weighted_total": 24,
+      "max_row_weighted_per_supported_row": 3.0,
+      "median_full_build_row_weighted_total": 18,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -6449,13 +6532,13 @@
           "Waning Crescent"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 8,
           "decreasedamagegiven": 4,
           "increasedamagetaken": 2
         }
       },
       "lowest_value_node": {
-        "name": "Hushed Inferno",
+        "name": "Unspoken Blow",
         "row_weighted_total": 3
       },
       "nodes_absent_from_non_dominated_builds": [],
@@ -6469,13 +6552,13 @@
             "03",
             "06"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 24,
+          "raw_flat_total": 8,
+          "row_weighted_total": 16,
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 2
           }
         },
         {
@@ -6487,12 +6570,12 @@
             "05",
             "02"
           ],
-          "raw_flat_total": 15,
-          "row_weighted_total": 28,
+          "raw_flat_total": 11,
+          "row_weighted_total": 21,
           "bonuses": {
-            "increasedamagegiven": 10,
-            "decreasedamagegiven": 2,
-            "increasedamagetaken": 3
+            "damage": 1,
+            "increasedamagegiven": 8,
+            "decreasedamagegiven": 2
           }
         },
         {
@@ -6504,10 +6587,10 @@
             "08",
             "01"
           ],
-          "raw_flat_total": 17,
-          "row_weighted_total": 24,
+          "raw_flat_total": 16,
+          "row_weighted_total": 22,
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 4,
             "decreasedamagegiven": 10,
             "increasedamagetaken": 2
           }
@@ -6521,20 +6604,20 @@
             "10",
             "01"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 26,
+          "raw_flat_total": 11,
+          "row_weighted_total": 20,
           "bonuses": {
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 9
+            "increasedamagetaken": 7
           }
         }
       ],
       "narrow_kit_exception": null,
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -7,
-        "max_row_weighted_delta": -3,
+        "max_raw_flat_total_delta": -8,
+        "max_row_weighted_delta": -7,
         "supported_rows_delta": -1
       }
     },
@@ -6747,8 +6830,8 @@
         },
         {
           "name": "One Cut Decides",
-          "primary_tag": "increasedamagegiven",
-          "total": 8,
+          "primary_tag": "damage",
+          "total": 2,
           "on_band": false
         },
         {
@@ -6760,9 +6843,9 @@
       ],
       "director_exceptions": [],
       "emphasis": {
-        "primary": "Offense (Eye of Iron): self-amplification through the Increase Damage Given rows of Middle Guard Stance and Inner Peace, or branding the enemy with Crimson Thrust's Afterburn and exposure",
+        "primary": "Offense (Eye of Iron): burst that hones the stances' Increase Damage Given and pays off with +2 Damage on the seven Metal strikes, or branding the enemy with Crimson Thrust's Afterburn and exposure",
         "secondary": "Defense (Tempered Stance): a fortress on the three Decrease Damage Taken rows, or retaliation through Harmonious Slash's Reflect with suppression",
-        "tertiary": "No flat Damage: the seven Metal strikes keep their 40/45/50 tiers"
+        "tertiary": "Flat Damage only as One Cut Decides' controlled +2 payoff (40 → 42, 45 → 47, Phantom Slash 50 → 52)"
       },
       "nodes": 10,
       "tiers": {
@@ -6777,17 +6860,18 @@
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 3,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 4,
         "decreasedamagetaken": 8,
         "afterburn": 10,
         "reflect": 10
       },
       "max_full_build_raw_flat_total": 20,
-      "max_full_build_row_weighted_total": 40,
-      "max_row_weighted_per_supported_row": 2.0,
-      "median_full_build_row_weighted_total": 33,
+      "max_full_build_row_weighted_total": 39,
+      "max_row_weighted_per_supported_row": 1.95,
+      "median_full_build_row_weighted_total": 32,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -6802,7 +6886,8 @@
           "One Cut Decides"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
@@ -6816,17 +6901,18 @@
       "examples": [
         {
           "name": "One Cut Decides",
-          "archetype": "Self-amplification",
+          "archetype": "Burst",
           "ids": [
             "06",
             "07",
             "08",
             "01"
           ],
-          "raw_flat_total": 14,
-          "row_weighted_total": 40,
+          "raw_flat_total": 11,
+          "row_weighted_total": 39,
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 3,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
@@ -6841,11 +6927,11 @@
             "10",
             "07"
           ],
-          "raw_flat_total": 18,
-          "row_weighted_total": 34,
+          "raw_flat_total": 17,
+          "row_weighted_total": 31,
           "bonuses": {
             "increasedamagegiven": 3,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 4,
             "afterburn": 10
           }
         },
@@ -6885,12 +6971,10 @@
         }
       ],
       "narrow_kit_exception": null,
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -4,
-        "max_row_weighted_delta": 9,
+        "max_row_weighted_delta": 8,
         "supported_rows_delta": 11
       }
     },
@@ -7100,10 +7184,16 @@
       "classification_status": "element",
       "routes": [
         {
+          "name": "Ethereal Dragon Unbound",
+          "primary_tag": "damage",
+          "total": 2,
+          "on_band": false
+        },
+        {
           "name": "Apotheosis of Thunder",
           "primary_tag": "increasedamagegiven",
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "name": "Unassailable Radiance",
@@ -7115,45 +7205,45 @@
       "director_exceptions": [],
       "emphasis": {
         "primary": "Lightning amplification — Increase Damage Given (Luminous Illusion Bind, Ethereal Dragon's Whispers; two self rows)",
-        "secondary": "Blitz guard — Decrease Damage Taken (Voltara Blitz; one self row, the fortress route)",
-        "tertiary": "none: Lightning Damage (Bind 40, Whispers 50 EP) is deliberately unamplified, because any flat Damage lifts Whispers past the 50 Nuke tier"
+        "secondary": "Lightning burst — Damage (Bind 40, Whispers 50 EP): a controlled +2 payoff on each strike's own cast, Whispers 50 → 52 above the Nuke tier",
+        "tertiary": "Blitz guard — Decrease Damage Taken (Voltara Blitz; one self row, the fortress route)"
       },
-      "nodes": 6,
+      "nodes": 8,
       "tiers": {
         "F": 2,
-        "H": 2,
-        "A": 2
+        "H": 3,
+        "A": 3
       },
       "structure_errors": [],
-      "full_budget_allocations": 3,
-      "non_dominated_full_allocations": 3,
+      "full_budget_allocations": 8,
+      "non_dominated_full_allocations": 6,
       "maximum_advanced_arts": 1,
-      "minimum_two_advanced_cost": 6,
+      "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
       "maximum_tag_bonuses": {
+        "damage": 2,
         "increasedamagegiven": 10,
         "decreasedamagetaken": 10
       },
       "max_full_build_raw_flat_total": 12,
-      "max_full_build_row_weighted_total": 22,
-      "max_row_weighted_per_supported_row": 4.4,
-      "median_full_build_row_weighted_total": 15,
+      "max_full_build_row_weighted_total": 20,
+      "max_row_weighted_per_supported_row": 4.0,
+      "median_full_build_row_weighted_total": 16,
       "strongest_full_build": {
         "ids": [
           "01",
+          "02",
           "04",
-          "05",
-          "06"
+          "05"
         ],
         "names": [
           "Anointed by Lightning",
+          "Dragon's Whispered Wrath",
           "Luminous Conduit",
-          "Apotheosis of Thunder",
-          "Halo of Static"
+          "Apotheosis of Thunder"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
-          "decreasedamagetaken": 2
+          "increasedamagegiven": 10
         }
       },
       "lowest_value_node": {
@@ -7163,19 +7253,34 @@
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
         {
-          "name": "Apotheosis of Thunder",
-          "archetype": "Amplification",
+          "name": "Ethereal Dragon Unbound",
+          "archetype": "Burst",
           "ids": [
             "01",
-            "04",
-            "05",
-            "06"
+            "02",
+            "03",
+            "04"
           ],
-          "raw_flat_total": 12,
-          "row_weighted_total": 22,
+          "raw_flat_total": 9,
+          "row_weighted_total": 18,
           "bonuses": {
-            "increasedamagegiven": 10,
-            "decreasedamagetaken": 2
+            "damage": 2,
+            "increasedamagegiven": 7
+          }
+        },
+        {
+          "name": "Apotheosis of Thunder",
+          "archetype": "Sustained amplification",
+          "ids": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "raw_flat_total": 10,
+          "row_weighted_total": 20,
+          "bonuses": {
+            "increasedamagegiven": 10
           }
         },
         {
@@ -7193,31 +7298,13 @@
             "increasedamagegiven": 2,
             "decreasedamagetaken": 10
           }
-        },
-        {
-          "name": "Conduit and Aegis",
-          "archetype": "No-capstone hybrid",
-          "ids": [
-            "01",
-            "04",
-            "06",
-            "07"
-          ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 15,
-          "bonuses": {
-            "increasedamagegiven": 5,
-            "decreasedamagetaken": 5
-          }
         }
       ],
-      "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1; Blitz's move and pierce and Bind's stun are unsupported), and this revision targets two of them. Flat Damage is declined: Ethereal Dragon's Whispers is a 50 EP Nuke, so any flat Damage lifts it past 50, and the +2 Damage re-cut (behind a +3% Increase Damage Given setup) read as the amplification route with one tag swapped. The two identities are two 3-node chains: Anointed by Lightning → Luminous Conduit → Apotheosis of Thunder (sustained amplification) and Halo of Static → Aegis of Living Light → Unassailable Radiance (fortress). Universal nodes accepted as inherent to a 3-tag, 5-row kit: with two 3-node chains every 4 BP build holds both Foundations, so the choice is which chain to finish, or the no-capstone hybrid (both Hidden Arts). A second Hidden Art under either Foundation could only repeat Increase Damage Given or Decrease Damage Taken on the same rows (filler, and it would stack with that root's capstone).",
-      "tags_not_targeted": [
-        "damage"
-      ],
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1; Blitz's move and pierce and Bind's stun are unsupported). A fourth Advanced Art would twin a capstone on the same rows or push Blitz's single Decrease Damage Taken row past +10%. Halo of Static therefore runs one chain (Aegis of Living Light → Unassailable Radiance) and Anointed by Lightning is universal: it is in every legal 4 BP build, so the Fortress build is fixed (06, 07, 08 + 01). The pre-batch Heaven's Retort leaf that avoided this is not restored: it was +2 Damage on a Hidden Art kept only so no node was universal, and any other second leaf under Halo of Static could only repeat Decrease Damage Taken on Blitz's row or Increase Damage Given from the other root.",
+      "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -12,
-        "max_row_weighted_delta": -9,
+        "max_row_weighted_delta": -11,
         "supported_rows_delta": -4
       }
     },
@@ -7262,7 +7349,7 @@
       "emphasis": {
         "primary": "Increase Damage Given — Forgotten Ember Blade's self heat window (the Sustained DPS identity; the bloodline passive is also a Bukijutsu Increase Damage Given)",
         "secondary": "Increase Damage Taken — Forbidden Chakra Fury's exposure, which every attacker's non-pierce hits use",
-        "tertiary": "Damage — a controlled +2 payoff on both attacks (40 → 42 EP), set up by exposure"
+        "tertiary": "Damage — a controlled +2 on both attacks (40 → 42 EP): a +1 commit on Searing Edge and a +1 payoff on Blade That Never Cools"
       },
       "nodes": 8,
       "tiers": {
@@ -7272,7 +7359,7 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 8,
-      "non_dominated_full_allocations": 6,
+      "non_dominated_full_allocations": 8,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
@@ -7281,26 +7368,26 @@
         "increasedamagegiven": 10,
         "increasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 13,
-      "max_full_build_row_weighted_total": 13,
-      "max_row_weighted_per_supported_row": 3.25,
-      "median_full_build_row_weighted_total": 12,
+      "max_full_build_raw_flat_total": 12,
+      "max_full_build_row_weighted_total": 12,
+      "max_row_weighted_per_supported_row": 3.0,
+      "median_full_build_row_weighted_total": 10,
       "strongest_full_build": {
         "ids": [
           "01",
-          "02",
           "04",
-          "05"
+          "05",
+          "06"
         ],
         "names": [
           "Heat in the Steel",
-          "Searing Edge",
           "Fever Pitch",
-          "White-Hot Blood"
+          "White-Hot Blood",
+          "Blistered Guard"
         ],
         "bonuses": {
           "increasedamagegiven": 10,
-          "increasedamagetaken": 3
+          "increasedamagetaken": 2
         }
       },
       "lowest_value_node": {
@@ -7318,12 +7405,11 @@
             "03",
             "04"
           ],
-          "raw_flat_total": 10,
-          "row_weighted_total": 12,
+          "raw_flat_total": 7,
+          "row_weighted_total": 9,
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 5,
-            "increasedamagetaken": 3
+            "increasedamagegiven": 5
           }
         },
         {
@@ -7335,11 +7421,11 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 13,
+          "raw_flat_total": 11,
+          "row_weighted_total": 12,
           "bonuses": {
-            "increasedamagegiven": 10,
-            "increasedamagetaken": 3
+            "damage": 1,
+            "increasedamagegiven": 10
           }
         },
         {
@@ -7359,11 +7445,11 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four: the kit has three supported tags on four rows (Damage on both attacks, one self Increase Damage Given row on Forgotten Ember Blade, one enemy Increase Damage Taken row on Forbidden Chakra Fury); Chakra Shield's absorb and shield are not potency targets, so no sustain or defensive identity exists for a fourth route. Universal opener accepted: Heat in the Steel is in all 8 legal full builds because Blistered Guard has one child. A leaf Hidden Art under Blistered Guard would only blur or twin a route: an Increase Damage Taken leaf lifts the exposure maximum above +10%, a Damage leaf hands the Exposure route the Burst payoff, and an Increase Damage Given leaf merely replaces Heat in the Steel as the Exposure route's fourth.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four: the kit has three supported tags on four rows (Damage on both attacks, one self Increase Damage Given row on Forgotten Ember Blade, one enemy Increase Damage Taken row on Forbidden Chakra Fury); Chakra Shield's absorb and shield are not potency targets, so no sustain or defensive identity exists for a fourth route. Universal opener accepted: Heat in the Steel is in all 8 legal full builds because Blistered Guard has one child. Every second leaf under Blistered Guard would twin an existing node on the same row: an Increase Damage Given leaf twins Heat in the Steel (and only replaces it as the Exposure route's fourth), a Damage leaf twins Searing Edge, and an Increase Damage Taken leaf twins Seams Laid Bare and lifts the exposure maximum above +10%.",
       "tags_not_targeted": [],
       "vs_reference": {
-        "max_raw_flat_total_delta": -11,
-        "max_row_weighted_delta": -18,
+        "max_raw_flat_total_delta": -12,
+        "max_row_weighted_delta": -19,
         "supported_rows_delta": -5
       }
     }
