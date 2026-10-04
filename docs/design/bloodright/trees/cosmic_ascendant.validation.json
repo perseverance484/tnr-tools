@@ -12,8 +12,8 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Cosmic Ascendant classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "classification status: requires classification extension (director decision)",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Cosmic Explosion 50 -> 52",
+    "classification status: requires classification extension (director decision)"
   ],
   "classification": {
     "potency_classification": "Cosmic Ascendant",
@@ -54,7 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2
@@ -145,7 +146,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "decreasedamagegiven": 7,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 7,
@@ -164,15 +166,14 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
+      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -209,11 +210,11 @@
         "name": "Supernova Unbound",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Cosmic Chains",
-          "Cosmic Energy",
+          "Cosmic Explosion",
           "Cosmic Intent"
         ],
         "covered_rows": 3,
@@ -369,12 +370,13 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 5,
           "afterburn": 3
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 21,
+        "raw_flat_total": 15,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -388,13 +390,14 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 26,
+        "raw_flat_total": 16,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -809,7 +812,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Cosmic Explosion",
@@ -820,11 +825,40 @@
           "None"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Cosmic Explosion",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Cosmic Explosion",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -836,10 +870,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5
       },
-      "path_row_weighted": 18,
+      "path_row_weighted": 17,
       "fourths": [
         {
           "id": "04",
@@ -849,12 +884,13 @@
             "afterburn": 3
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 5,
             "afterburn": 3
           },
-          "raw_total": 16,
-          "row_weighted": 21
+          "raw_total": 15,
+          "row_weighted": 20
         },
         {
           "id": "06",
@@ -865,13 +901,14 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 5,
             "decreasedamagetaken": 2
           },
-          "raw_total": 17,
-          "row_weighted": 26
+          "raw_total": 16,
+          "row_weighted": 25
         }
       ],
       "highest_diagnostic_fourth": "06"

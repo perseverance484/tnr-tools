@@ -12,8 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Ancient Tailed Demon classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "classification status: requires classification extension (director decision)",
-    "universal node: 06 (Demon's Marrow) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+    "classification status: requires classification extension (director decision)"
   ],
   "classification": {
     "potency_classification": "Ancient Tailed Demon",
@@ -42,8 +41,29 @@
   },
   "examples": [
     {
+      "name": "Howl of Annihilation",
+      "archetype": "Exposure into burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 7,
+        "decreasedamagetaken": 2,
+        "afterburn": 2
+      },
+      "advanced_arts": [
+        "Howl of Annihilation"
+      ]
+    },
+    {
       "name": "Consuming Malice",
-      "archetype": "Marked prey",
+      "archetype": "Burn",
       "ids": [
         "01",
         "04",
@@ -53,7 +73,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
@@ -83,7 +103,7 @@
     },
     {
       "name": "Primordial Rampage",
-      "archetype": "Field rampage",
+      "archetype": "Sustained amplification",
       "ids": [
         "01",
         "06",
@@ -92,7 +112,6 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 8,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
@@ -104,10 +123,10 @@
     }
   ],
   "audit": {
-    "available_skills": 8,
+    "available_skills": 10,
     "foundation_count": 2,
-    "hidden_art_count": 3,
-    "advanced_art_count": 3,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -117,18 +136,18 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 4,
-      "3": 7,
-      "4": 8
+      "2": 5,
+      "3": 10,
+      "4": 14
     },
-    "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 8,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 7,
       "decreasedamagetaken": 10,
       "afterburn": 10
     },
@@ -164,6 +183,35 @@
         "tags_without_rows": []
       },
       {
+        "id": "02",
+        "name": "Rending Grip",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
+        "covered_jutsu": [
+          "Demonic Embrace"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Howl of Annihilation",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
+        "covered_jutsu": [
+          "Ancient Demon Roar",
+          "Demonic Embrace"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
         "id": "04",
         "name": "Festering Brand",
         "category": "Hidden Art",
@@ -182,12 +230,12 @@
         "name": "Consuming Malice",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Demonic Embrace"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -252,13 +300,12 @@
         "name": "Primordial Rampage",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Ancient Demon Roar",
           "Demonic Vitae"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -272,24 +319,24 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
-      "raw_flat_total": 19,
-      "row_weighted_total": 19,
+      "raw_flat_total": 16,
+      "row_weighted_total": 16,
       "advanced_arts": [
         "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Festering Brand",
+      "id": "02",
+      "name": "Rending Grip",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
       "covered_jutsu": [
         "Demonic Embrace"
       ],
@@ -301,18 +348,130 @@
       {
         "ids": [
           "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagetaken": 7,
+          "afterburn": 5
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 7,
+          "decreasedamagetaken": 2,
+          "afterburn": 2
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "increasedamagetaken": 4,
+          "afterburn": 10
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "afterburn": 5
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 5,
+          "afterburn": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 4,
+          "decreasedamagetaken": 2,
+          "afterburn": 2
+        },
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
           "04",
           "05",
           "06"
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "05"
         ],
@@ -400,14 +559,13 @@
           "10"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 8,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "10"
         ],
@@ -439,12 +597,11 @@
           "10"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 8,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [
           "10"
         ],
@@ -466,6 +623,10 @@
       "2": [
         [
           "01",
+          "02"
+        ],
+        [
+          "01",
           "04"
         ],
         [
@@ -482,6 +643,21 @@
         ]
       ],
       "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
         [
           "01",
           "04",
@@ -519,6 +695,42 @@
         ]
       ],
       "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
         [
           "01",
           "04",
@@ -594,9 +806,9 @@
             "above_nuke": false,
             "allocations": 3,
             "smallest_allocation": [
-              "06",
-              "09",
-              "10"
+              "01",
+              "02",
+              "03"
             ]
           }
         ]
@@ -607,6 +819,57 @@
   },
   "fourth_bp": [
     {
+      "advanced_art": "03",
+      "name": "Howl of Annihilation",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagetaken": 7,
+        "afterburn": 2
+      },
+      "path_row_weighted": 11,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Festering Brand",
+          "category": "Hidden Art",
+          "adds": {
+            "afterburn": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagetaken": 7,
+            "afterburn": 5
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
+        {
+          "id": "06",
+          "name": "Demon's Marrow",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 7,
+            "decreasedamagetaken": 2,
+            "afterburn": 2
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
       "advanced_art": "05",
       "name": "Consuming Malice",
       "path": [
@@ -615,11 +878,25 @@
         "05"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "afterburn": 10
       },
-      "path_row_weighted": 15,
+      "path_row_weighted": 12,
       "fourths": [
+        {
+          "id": "02",
+          "name": "Rending Grip",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagetaken": 4,
+            "afterburn": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
         {
           "id": "06",
           "name": "Demon's Marrow",
@@ -630,12 +907,12 @@
           },
           "bonuses": {
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "afterburn": 10
           },
-          "raw_total": 19,
-          "row_weighted": 19
+          "raw_total": 16,
+          "row_weighted": 16
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -697,11 +974,10 @@
         "10"
       ],
       "path_bonuses": {
-        "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagetaken": 2
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 10,
       "fourths": [
         {
           "id": "01",
@@ -712,14 +988,13 @@
             "afterburn": 2
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "afterburn": 2
           },
-          "raw_total": 16,
-          "row_weighted": 16
+          "raw_total": 14,
+          "row_weighted": 14
         },
         {
           "id": "07",
@@ -729,12 +1004,11 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 8,
             "decreasedamagetaken": 5
           },
-          "raw_total": 15,
-          "row_weighted": 15
+          "raw_total": 13,
+          "row_weighted": 13
         }
       ],
       "highest_diagnostic_fourth": "01"

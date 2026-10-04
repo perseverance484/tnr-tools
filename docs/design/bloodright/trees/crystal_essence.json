@@ -1,6 +1,6 @@
 {
   "title": "Crystal Essence — Prism and Lattice",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree",
   "bloodline": {
     "id": "ssevlOGQ4JjPn2sHZtq0c",
     "review_id": "BR-020",
@@ -38,10 +38,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Offense from Prismatic Focus: the Kōsai Shippū self buff (Increase Damage Given, one row, up to +10%) or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%)",
+    "primary": "Offense from Prismatic Focus: a Kōsai Shippū self-buff setup paid off with a controlled +2 Damage on all three Crystal attacks (Burst), or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%)",
     "secondary": "Defense from Jade Lattice: Crystal Sphere Decrease Damage Taken (fortress, +10%) or Crystal Cave Reflect (retaliation, +10%)",
-    "tertiary": "No flat Damage: Prism is 50 EP, so any Damage bonus would pass the Nuke tier",
-    "rationale": "Crystal Essence is a rank-A Defensive / Sustained Damage kit with eight supported rows on five tags. Its three Crystal attacks are Prism 50 and Kōsai Shippū and Crystal Cave 40 EP; any flat Damage lifts Prism past the 50 Nuke tier, so the tree amplifies the setup rows that multiply those attacks instead. Prismatic Focus answers \"How do I make my Crystal strikes count: sharpen myself or crack them open?\" (Shippū self buff 35 → 45%, or both exposure marks 35 → 43%). Jade Lattice answers \"How do I hold my ground: endure the blows or turn them back?\" (Sphere Decrease Damage Taken 35 → 45%, or Cave Reflect 40 → 50%). Each Advanced Art carries one tag; no tag is shared glue."
+    "tertiary": "Increase Damage Given (Kōsai Shippū, one row) only as the Burst setup, up to +5%",
+    "rationale": "Crystal Essence is a rank-A Defensive / Sustained Damage kit with eight supported rows on five tags. Its three Crystal attacks are Prism 50 and Kōsai Shippū and Crystal Cave 40 EP. Prismatic Focus answers \"How do I make my Crystal strikes count: sharpen my own blows or crack the enemy open for everyone?\": Burst sharpens Shippū's self buff (35 → 40%) and pays off with +2 Damage (Prism 50 → 52, above the Nuke tier on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent; Shippū and Cave 40 → 42), while Exposure takes both marks 35 → 43% for every attacker. Jade Lattice answers \"How do I hold my ground: endure the blows or turn them back?\" (Sphere Decrease Damage Taken 35 → 45%, or Cave Reflect 40 → 50%). Each Advanced Art carries one tag; no tag is shared glue."
   },
   "nodes": [
     {
@@ -94,7 +94,7 @@
         }
       ],
       "flavor": "Grown edge upon edge, the lattice hones every strike before it leaves the hand.",
-      "coverage_note": "Kōsai Shippū self Increase Damage Given 37 → 40% with Prismatic Focus, live for the two rounds after the 60 AP cast on the caster's later Ninjutsu hits and Crystal, Earth, Fire or element-less hits.",
+      "coverage_note": "Burst setup: Kōsai Shippū self Increase Damage Given 37 → 40% with Prismatic Focus, live for the two rounds after the 60 AP cast on the caster's later Ninjutsu hits and Crystal, Earth, Fire or element-less hits.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -116,22 +116,24 @@
       ],
       "modifiers": [
         {
-          "tag": "increasedamagegiven",
-          "flat": 5,
-          "display_role": "SELF BUFF"
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
         }
       ],
-      "flavor": "Break the mountain's heart and every splinter carries its weight into the next blow.",
-      "coverage_note": "Burst-window route total +10%: Kōsai Shippū self buff 35 → 45%, so the caster's matching hits in the next two rounds (a Prism cast into the window, say) take ×1.45 instead of ×1.35; Prism stays 50 EP.",
+      "flavor": "Break the mountain's heart and every splinter remembers the weight it carried.",
+      "coverage_note": "Burst payoff: +2 Damage on all three Crystal attacks, Prism 50 → 52 EP (above the 50 Nuke tier; director precedent) and Kōsai Shippū and Crystal Cave 40 → 42 EP; with the route's Shippū self buff at 40%, a Prism cast into the window lands 52 EP at ×1.40.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Kōsai Shippū"
+          "Crystal Cave",
+          "Kōsai Shippū",
+          "Prism"
         ],
-        "effect_rows": 1
+        "effect_rows": 3
       }
     },
     {
@@ -345,17 +347,18 @@
   "examples": [
     {
       "name": "Splintered Mountain Heart",
-      "archetype": "Burst window",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
         "03",
         "04"
       ],
-      "rationale": "Shippū self buff 35 → 45%: every matching hit the caster lands in the two rounds after Shippū takes ×1.45 instead of ×1.35, so a Prism cast into the window lands harder while Prism stays 50 EP. Flaw in the Stone as the fourth purchase takes both exposure marks to 40%; Jade Lattice (Sphere Decrease Damage Taken 37%, Cave Reflect 42%) is the defensive alternative.",
+      "rationale": "Shippū's self buff 35 → 40% is the setup and +2 Damage on all three Crystal attacks the payoff: Prism 50 → 52 (above the Nuke tier, director precedent), Shippū and the Cave 40 → 42, so a Prism cast into the Shippū window lands 52 EP at ×1.40 instead of 50 EP at ×1.35. Flaw in the Stone as the fourth purchase takes both exposure marks to 40%; Jade Lattice (Sphere Decrease Damage Taken 37%, Cave Reflect 42%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5
       },
       "finals": [
@@ -389,8 +392,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -410,8 +413,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -428,8 +431,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -500,8 +503,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1176,20 +1179,22 @@
       ]
     }
   ],
+  "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001, Reaper's Embrace 50 → 52; RUL-2026-10-04-002, Sakura-ame 50 → 52): Splintered Mountain Heart's +2 Damage lifts Prism 50 → 52, past the 50 Nuke tier, as the payoff of Razor Lattice's Kōsai Shippū self-buff setup; Shippū and Crystal Cave go 40 → 42 and stay Normal. It is the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55. The pre-batch tree's primary route was +5 Damage (Prism 50 → 55); the controlled payoff keeps the burst identity at a fraction of that tier impact. Fable proposal; flagged for director review.",
   "design_notes": [
-    "Batch rebalance (2026-10-04): the +5 Damage route (Prism 50 → 55, Shippū and Cave 40 → 45) and the Razor Lattice +2 Damage fourth purchase (Prism 50 → 52) are removed, because every flat Damage total lifts Prism past the 50 Nuke tier. Razor Lattice and Splintered Mountain Heart now carry Increase Damage Given (+3%, +5%), and the +3% Increase Damage Given riders on Break Along the Flaw, Adamant Core and Entombed in Crystal are removed as shared glue. Maxima over every legal allocation: Increase Damage Given +10%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Reflect +10%, no Damage.",
-    "Magnitudes follow leverage, not printed totals. Increase Damage Given has one row, but it multiplies every matching hit the caster lands in the two rounds after Shippū (×1.35 → ×1.45; the bloodline passive multiplies last), so it takes the full +10%. Increase Damage Taken has two rows from two casts that amplify every attacker's matching hits and compound on a doubly marked enemy (×1.82 → ×2.04), so it stops at +8%. Decrease Damage Taken +10% (a hit taken ×0.65 → ×0.55) and Reflect +10% (40 → 50% returned) each move about a tenth of every hit taken in their window.",
-    "Narrow coverage: Increase Damage Given, Decrease Damage Taken and Reflect have one row each. Each capstone stays single-tag because the only remaining secondaries are a sibling Hidden Art's tag (a capstone plus that Hidden Art would stack it) or the other Foundation's tags (which would blur the offense/defense split).",
-    "Fourth purchases: Burst window (01, 02, 03) adds Flaw in the Stone (marks 40%) or Jade Lattice; Exposure (01, 04, 05) Razor Lattice (Shippū 40%) or Jade Lattice; Fortress (06, 07, 08) Light Turned Back (Reflect 45%) or Prismatic Focus; Retaliation (06, 09, 10) Flawless Sphere (Decrease Damage Taken 40%) or Prismatic Focus. The two all-offense builds (01, 02, 03, 04 and 01, 02, 04, 05) land within 1% of each other on a doubly marked enemy in the Shippū window (×1.45 × 1.40 × 1.40 ≈ ×2.84 against ×1.40 × 1.43 × 1.43 ≈ ×2.86) and differ in whose hits they amplify, so neither dominates.",
+    "Roster pass (2026-10-04): the first batch pass replaced the pre-batch +5 Damage route (Prism 50 → 55, Shippū and Cave 40 → 45) with a bare +10% Increase Damage Given capstone on Shippū's one row that was still labelled burst. This pass restores the director pattern (RUL-2026-10-04-001/002): Razor Lattice's +3% Increase Damage Given is the setup and Splintered Mountain Heart pays it off with +2 Damage (Prism 50 → 52, Shippū and Cave 40 → 42). The setup is a self buff rather than a second +3% Increase Damage Taken Hidden Art, because Flaw in the Stone already owns both exposure rows. Maxima over every legal allocation: Damage +2, Increase Damage Given +5%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Reflect +10%.",
+    "Magnitudes follow leverage, not printed totals. Increase Damage Given has one row; at +5% it is a setup (the caster's matching hits ×1.35 → ×1.40 for two rounds after Shippū), not a route of its own. Increase Damage Taken has two rows from two casts that amplify every attacker's matching hits and compound on a doubly marked enemy (×1.82 → ×2.04), so it stops at +8%. Decrease Damage Taken +10% (a hit taken ×0.65 → ×0.55) and Reflect +10% (40 → 50% returned) each sit on one row.",
+    "Defensive capstones stay single-tag. The kit's only defensive rows are Sphere's Decrease Damage Taken and the Cave's Reflect, one each; a mirrored rider in the Blood-Enchanted Eyes shape would make Fortress + Light Turned Back (+10% / +8%) and Retaliation + Flawless Sphere (+8% / +10%) the same two-tag build, and Decrease Damage Taken trims what Reflect returns. The remaining candidates (Shippū's buff, the marks) would blur the offense/defense split.",
+    "Fourth purchases: Burst (01, 02, 03) adds Flaw in the Stone (marks 40%) or Jade Lattice; Exposure (01, 04, 05) Razor Lattice (Shippū 40%) or Jade Lattice; Fortress (06, 07, 08) Light Turned Back (Reflect 45%) or Prismatic Focus; Retaliation (06, 09, 10) Flawless Sphere (Decrease Damage Taken 40%) or Prismatic Focus. On a doubly marked enemy in the Shippū window, Burst + Flaw lands Prism at 52 EP × 1.40 × 1.40 × 1.40 (≈ ×2.85 of a 50 EP hit) against Exposure + Razor's ×1.40 × 1.43 × 1.43 ≈ ×2.86. Burst leads on Shippū and the Cave (42 EP, ≈ ×2.88) and outside the windows (+2 Damage on every own strike), Exposure on allies' hits, so neither dominates.",
     "Filters and delivery: Shippū's self buff (Crystal/Earth/Fire/None, Ninjutsu filter) amplifies any Ninjutsu hit and any Crystal, Earth, Fire or element-less hit of any stat type; Sphere's mark (Ninjutsu, no element) any Ninjutsu or element-less hit; the Cave's mark Crystal, Earth, Fire or element-less hits. Every jutsu has cooldown 7; Shippū and the Cave are 60 AP circle spawns, Prism a 60 AP single shot, the Sphere a 40 AP single cast. Rows are live in the two rounds after their cast round, and SELF rows land on the caster at cast time once the cast has a legal target. Pierce ignores every modifier here except Reflect.",
-    "Untouched rows: the three Damage rows are unamplified in this revision; Prism's wound and the Jade summon are unsupported. Skill-tree effects and passives are skipped in RANKED_PVP and RANKED_SPARRING."
+    "Untouched rows: Prism's wound and the Jade summon are unsupported. Skill-tree effects and passives are skipped in RANKED_PVP and RANKED_SPARRING."
   ],
   "risks": [
     "Classification: Crystal is shared with Sea-Maiden's Kiss (expected under RUL-2026-10-03-005). 5 of 8 kit rows carry Crystal; Crystal Sphere's two rows and Crystal Cave's Reflect row need the proposed jutsu-classification resolver, and Crystal Sphere qualifies only through an authored Crystal jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Crystal coverage is unverified.",
+    "Damage tier: Prism 50 → 52 under Splintered Mountain Heart is past the 50 Nuke tier. It rests on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent, not on a ruling for this kit; no legal allocation adds more than +2, and Shippū and the Cave stay Normal at 42.",
     "Exposure breadth: at +8% both marks are 43% for two rounds and amplify allies' matching hits as well as the caster's (pierce excluded); a doubly marked enemy takes ×1.43 × 1.43 ≈ ×2.04 against ×1.82 unmodified. Team value was not simulated.",
-    "Increase Damage Given stacking: Shippū's 45% compounds with any main-tree or item Increase Damage Given, and the bloodline passive (about 28.75% at level 25) multiplies last (×1.45 × 1.29 ≈ ×1.87 in the window). The window's realized value depends on landing Prism or the Cave inside it.",
+    "Increase Damage Given stacking: Shippū's 40% compounds with any main-tree or item Increase Damage Given, and the bloodline passive (about 28.75% at level 25) multiplies last (×1.40 × 1.29 ≈ ×1.80 in the window). The window's value depends on landing Prism or the Cave inside it; the +2 Damage applies to every own strike regardless.",
     "Reflect cap and uptime: 50% leaves ten points under the 60%-of-hit cap, but main-tree or item Reflect could saturate it. Reflect pays only when the caster is hit in the two rounds after a 60 AP Cave cast, and Decrease Damage Taken active at the same time lowers what is reflected.",
-    "Friendly fire: Crystal Sphere is an OTHER_USER single cast whose mark (friendly fire none = ALL) lands on an ally if the Sphere targets one, up to 43% on the Exposure route; its Decrease Damage Taken window also needs a legal target in range 4. Shippū's and the Cave's damage and the Cave's mark reach only enemies.",
+    "Friendly fire: Crystal Sphere is an OTHER_USER single cast whose mark (friendly fire none = ALL) lands on an ally if the Sphere targets one, up to 43% on the Exposure route; its Decrease Damage Taken window also needs a legal target in range 4. Prism's damage (friendly fire ALL) hits an ally it targets, at 52 EP with Splintered Mountain Heart. Shippū's and the Cave's damage and the Cave's mark reach only enemies.",
     "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
@@ -1231,7 +1236,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
@@ -1245,15 +1251,14 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1268,12 +1273,14 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
@@ -1294,19 +1301,19 @@
         {
           "advanced_art": "03",
           "name": "Splintered Mountain Heart",
-          "primary_tag": "increasedamagegiven",
+          "primary_tag": "damage",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            2,
-            3,
-            5
+            0,
+            0,
+            2
           ],
-          "total": 10,
-          "on_band": true
+          "total": 2,
+          "on_band": false
         },
         {
           "advanced_art": "05",
@@ -1372,7 +1379,8 @@
         "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5
       }
     },
@@ -1384,7 +1392,8 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -1554,21 +1563,23 @@
     }
   ],
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
-      "01": "How do I make my Crystal strikes count: sharpen myself or crack them open?",
+      "01": "How do I make my Crystal strikes count: sharpen my own blows or crack the enemy open for everyone?",
       "06": "How do I hold my ground: endure the blows or turn them back?"
     },
     "route_identities": {
-      "03": "burst window: self amplification (Shippū window into Prism)",
+      "03": "burst: Shippū self-buff setup, controlled +2 Damage payoff on all three Crystal attacks",
       "05": "exposure: team-wide marks that compound on one target",
-      "08": "fortress",
-      "10": "retaliation"
+      "08": "fortress: Crystal Sphere's guard window",
+      "10": "retaliation: the Cave returns half of every blow in its window"
     },
-    "director_review": "none",
+    "director_review": "Two choices recorded. (1) Prism 50 → 52 under Splintered Mountain Heart: the controlled +2 payoff after Razor Lattice's self-buff setup, restored on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002; see above_nuke_rationale); confirm it for this kit, or keep Damage unamplified and accept a pure Increase Damage Given capstone that is sustained amplification, not burst. (2) Break Along the Flaw is a primary team-wide exposure route at +8% on two compounding rows (≈ ×1.12 on a doubly marked enemy), above the anchors' +5% exposure; it should move with the roster's other two-row exposure routes, not alone.",
     "concerns": [
-      "No flat Damage on a kit whose attacks are 50/40/40 EP: Prism is 50, so any Damage bonus passes the Nuke tier. If the director prefers the Blood-Enchanted Eyes pattern (exposure setup into +2 Damage, Prism 50 → 52, Shippū and Cave 40 → 42), Break Along the Flaw is where it would go.",
-      "Burst window (+10% on one self row from one cast) and Exposure (+8% on two compounding, team-wide rows from two casts) are set by multiplier and uptime, not printed total; rotation was not simulated.",
+      "Prism 50 → 52 under Splintered Mountain Heart is above the Nuke tier; it rests on the director precedent, not on a ruling for this kit.",
+      "Break Along the Flaw keeps exposure at +8% on two compounding team-wide rows, the batch's two-row convention and above the anchors' +5%.",
+      "Adamant Core and Entombed in Crystal are single-tag, lighter than the anchors' defensive riders; the kit has one row per defensive tag and the only riders are each other's tag or the offensive rows (design notes).",
+      "Burst + Flaw in the Stone (≈ ×2.85 on Prism, ≈ ×2.88 on Shippū and the Cave) and Exposure + Razor Lattice (≈ ×2.86) are close in a fully set-up Shippū window on a doubly marked enemy; Burst leads outside the windows, Exposure on allies' hits. Uptime and party play were not simulated.",
       "Fortress, Retaliation and half of Exposure depend on Crystal Sphere's authored classification or the element-less Cave Reflect row reaching the proposed resolver (G1)."
     ]
   }

@@ -9,10 +9,10 @@
     "statClassification": "Ninjutsu",
     "traits": "Defensive, Sustained Damage"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Prism 50 -> 52"
   ],
   "classification": {
     "potency_classification": "Crystal",
@@ -45,7 +45,7 @@
   "examples": [
     {
       "name": "Splintered Mountain Heart",
-      "archetype": "Burst window",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -54,7 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5
       },
       "advanced_arts": [
@@ -143,7 +144,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
@@ -157,14 +159,13 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -201,12 +202,14 @@
         "name": "Splintered Mountain Heart",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Kōsai Shippū"
+          "Crystal Cave",
+          "Kōsai Shippū",
+          "Prism"
         ],
-        "covered_rows": 1,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -355,11 +358,12 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -373,13 +377,14 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 18,
+        "raw_flat_total": 13,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "03"
         ],
@@ -783,7 +788,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Kōsai Shippū",
@@ -794,7 +801,22 @@
           "Crystal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Prism",
@@ -805,7 +827,22 @@
           "Crystal"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Crystal Cave",
@@ -816,11 +853,40 @@
           "Crystal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Prism",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Prism",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -832,10 +898,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 14,
+      "path_row_weighted": 15,
       "fourths": [
         {
           "id": "04",
@@ -845,11 +912,12 @@
             "increasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 5
           },
-          "raw_total": 15,
-          "row_weighted": 20
+          "raw_total": 12,
+          "row_weighted": 21
         },
         {
           "id": "06",
@@ -860,13 +928,14 @@
             "reflect": 2
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "reflect": 2
           },
-          "raw_total": 16,
-          "row_weighted": 18
+          "raw_total": 13,
+          "row_weighted": 19
         }
       ],
       "highest_diagnostic_fourth": "04"
