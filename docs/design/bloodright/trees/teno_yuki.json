@@ -1,6 +1,6 @@
 {
   "title": "Teno Yuki — Court of Heaven's Snow",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
   "bloodline": {
     "id": "clh4d6qjs000gtb0hr357gjvv",
     "review_id": "BR-077",
@@ -46,7 +46,7 @@
     "primary": "Control by identity: exposure on Ice Palace's circle (Increase Damage Taken 35%) and suppression on Ice Coffin (Decrease Damage Given 30%)",
     "secondary": "Ice offense: the Frostbound Ascendancy self buff (Increase Damage Given 35%) set up for a controlled +2 Damage on the three Ice attacks (45/40/40)",
     "tertiary": "Self preservation on Cryostorm Aegis (Decrease Damage Taken 35%, Heal 25)",
-    "rationale": "Teno Yuki is an A-rank Genjutsu bloodline with the Control and Defensive traits. Every non-Damage tag has a single row on a single jutsu, so each route owns one cast: Frostbound Ascendancy's self buff and the three Ice Damage rows (Burst), Ice Palace's area exposure (Exposure), both Cryostorm Aegis rows (Fortress) and Ice Coffin's suppression (Suppression). First Snow of Heaven answers \"How do I win offensively: sharpen my own strikes or expose them to everyone's?\"; Vigil of Winter answers \"How do I win defensively: protect myself or suppress them?\". Burst is now a percentage setup on the Hidden Art with a +2 Damage payoff (Imperial Freeze 45 → 47, Ice Coffin and Ice Palace 40 → 42) instead of +5 Damage, which made the stunning Imperial Freeze a 50 Nuke and lifted both 40 attacks a full tier. Stun, absorb and recoil are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005)."
+    "rationale": "Teno Yuki is an A-rank Genjutsu bloodline with the Control and Defensive traits. Every non-Damage tag has a single row on a single jutsu, so each route is built on one cast: Frostbound Ascendancy's self buff and the three Ice Damage rows (Burst), Ice Palace's area exposure (Exposure), both Cryostorm Aegis rows (Fortress) and Ice Coffin's suppression with a small Aegis guard rider (Suppression). First Snow of Heaven answers \"How do I win offensively: sharpen my own strikes or expose them to everyone's?\"; Vigil of Winter answers \"How do I win defensively: protect myself or suppress them?\". Burst is a percentage setup on the Hidden Art with a +2 Damage payoff (Imperial Freeze 45 → 47, Ice Coffin and Ice Palace 40 → 42) instead of +5 Damage, which made the stunning Imperial Freeze a 50 Nuke and lifted both 40 attacks a full tier. Stun, absorb and recoil are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -344,19 +344,26 @@
           "tag": "decreasedamagegiven",
           "flat": 5,
           "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "decreasedamagetaken",
+          "flat": 2,
+          "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Snow deadens every sound. The enemy's fury arrives as a whisper.",
-      "coverage_note": "Suppression: Ice Coffin Decrease Damage Given 30 → 40% on the full route (+10%), on the target's non-pierce hits against anyone for the 2 rounds after the cast; Coffin still lands its 40 EP Ice hit.",
+      "coverage_note": "Suppression: Ice Coffin Decrease Damage Given 30 → 40% on the full route (+10%), on the target's non-pierce hits against anyone for the 2 rounds after the cast, while Coffin still lands its 40 EP Ice hit; rider: Cryostorm Aegis Decrease Damage Taken 37 → 39% with Vigil of Winter.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "all Ice jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
+          "Cryostorm Aegis",
           "Ice Coffin"
         ],
-        "effect_rows": 1
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     }
   ],
@@ -1049,13 +1056,13 @@
         "10",
         "01"
       ],
-      "rationale": "Ice Coffin cuts its target's hits on anyone to ×0.60 for two rounds while dealing its 40 EP hit, with Aegis at 37%. First Snow of Heaven is the Control fourth (Palace exposure and Frostbound 37%); Permafrost Mantle (Aegis 40%, ×0.60 × 0.60 = ×0.36 against the Coffined enemy) is the pure-defense fourth.",
+      "rationale": "Ice Coffin cuts its target's hits on anyone to ×0.60 for two rounds while dealing its 40 EP hit, and Aegis guards at 39%: against the Coffined enemy the caster takes ×0.61 × 0.60 ≈ ×0.366 (Fortress at 3 BP: ×0.55 × 0.68 ≈ ×0.374), and allies share the cut. First Snow of Heaven is the Control fourth (Palace exposure and Frostbound 37%); Permafrost Mantle (Aegis 42%, ×0.58 × 0.60 ≈ ×0.35 against the Coffined enemy) is the pure-defense fourth.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 4
       },
       "finals": [
         {
@@ -1070,8 +1077,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1270,19 +1277,19 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Kept: graph, names, Foundations, Exposure, Fortress and the defensive Hidden Arts. Changed: Killing Frost +2 Damage → +3% Increase Damage Given; Reign of Absolute Zero +3 → +2 Damage; Court of Splintered Ice drops its +3% Increase Damage Given; Silence of Falling Snow drops its +2% Heal. The old +5 Damage route made Imperial Freeze (a 2-round stun) 45 → 50 and lifted Coffin and Palace 40 → 45; Damage on the Hidden Art also let Exposure buy +2 Damage as its fourth.",
-    "Each route owns one cast: Burst the Frostbound buff and the Damage rows, Exposure Ice Palace's Increase Damage Taken, Fortress both Aegis rows, Suppression Ice Coffin's Decrease Damage Given. Heal stays only on Still Heart of Winter, where it is the guard cast's own second row; a +20 HP-per-tick rider on Silence was glue. Maxima over every legal allocation: Damage +2, Increase Damage Given +5%, Increase Damage Taken +10%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Heal +3%.",
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Kept: graph, names, Foundations, Exposure, Fortress and the defensive Hidden Arts. First pass: Killing Frost +2 Damage → +3% Increase Damage Given; Reign of Absolute Zero +3 → +2 Damage; Court of Splintered Ice drops its +3% Increase Damage Given; Silence of Falling Snow drops its +2% Heal. The old +5 Damage route made Imperial Freeze (a 2-round stun) 45 → 50 and lifted Coffin and Palace 40 → 45; Damage on the Hidden Art also let Exposure buy +2 Damage as its fourth. Roster pass: Silence of Falling Snow gains +2% Decrease Damage Taken (Arashima's Silence After Thunder pattern, RUL-2026-10-04-003); Court's +10% exposure is kept and sent to the director.",
+    "Route ownership: Burst holds the Frostbound buff and the Damage rows, Exposure Ice Palace's Increase Damage Taken, Fortress both Aegis rows, Suppression Ice Coffin's Decrease Damage Given plus a +2% share of the Aegis guard. Heal stays only on Still Heart of Winter, where it is the guard cast's own second row; a Heal rider on Silence was glue. Maxima over every legal allocation: Damage +2, Increase Damage Given +5%, Increase Damage Taken +10%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Heal +3%.",
     "Resolver reads (§3): Aegis Decrease Damage Taken and Coffin Decrease Damage Given list all four stat types and no element, so the filter is not binding: every non-pierce hit the caster takes or the Coffined enemy deals. Ice Palace Increase Damage Taken and Frostbound Increase Damage Given list Ice/None/Water/Wind: they match Ice, Water, Wind and element-less hits, never pierce.",
     "Delivery: all five jutsu have cooldown 7; the attacks cost 60 AP, Aegis and Frostbound 40 AP. Buff and debuff rows and Aegis heal ticks are live the two rounds after the cast (§3b), so Palace's exposure never raises its own hit and Frostbound only raises later-round attacks. Frostbound's buff row is SELF, realized on the caster at cast (actions.ts 980-1004). Ice Palace lands both rows once on each living non-caster in its radius-1 circle.",
-    "Fourth purchases: Burst takes Hairline Fracture (Palace 40%) or Vigil of Winter; Exposure takes Killing Frost (Frostbound 40%) or Vigil of Winter; Fortress takes Cold Saps the Will (Coffin 35%) or First Snow of Heaven; Suppression takes Permafrost Mantle (Aegis 40%) or First Snow of Heaven. The two all-offense builds differ only in Reign's +2 Damage against Court's +5% exposure, and the two all-defense builds both reach about ×0.36 against a Coffined enemy (Fortress adds 60 HP per Aegis cast; Suppression's 40% also shields allies), so no fourth makes one route automatic."
+    "Fourth purchases: Burst takes Hairline Fracture (Palace 40%) or Vigil of Winter; Exposure takes Killing Frost (Frostbound 40%) or Vigil of Winter; Fortress takes Cold Saps the Will (Coffin 35%) or First Snow of Heaven; Suppression takes Permafrost Mantle (Aegis 42%) or First Snow of Heaven. The two all-offense builds differ only in Reign's +2 Damage against Court's +5% exposure. Against a Coffined enemy the all-defense builds reach ×0.55 × 0.65 ≈ ×0.36 (Fortress) and ×0.58 × 0.60 ≈ ×0.35 (Suppression); Fortress keeps the higher guard against every other attacker and 60 HP more healing per Aegis cast, while Suppression's 40% also shields allies, so no fourth makes one route automatic."
   ],
   "risks": [
     "Classification: Ice is the single qualifying element; sharing it with other bloodlines (Blue Blade Eyes, Hyouga Yui and others) is expected (RUL-2026-10-03-005). Aegis Decrease Damage Taken and Heal and Coffin Decrease Damage Given are element-less, and Cryostorm Aegis carries no Ice row, so it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Ice coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified; Reign's +2 Damage reaches any such Ice Damage row.",
     "Ally hazard: Ice Palace rows 0 (Damage) and 1 (Increase Damage Taken) are AOE_CIRCLE_SPAWN with friendly fire none (= ALL): Reign raises the hit on allies in the circle to 42, and the exposure nodes expose them at up to 45%. The caster is never a target. Ice Coffin reaches an ally only if aimed at one; Imperial Freeze's Damage row is ENEMIES-only.",
     "Exposure downstream: one 45% Palace multiplies every matching non-pierce hit on everyone in the circle by ×1.45 from caster and allies for two rounds, so its value grows with party size and enemies caught. Same-tag debuffs from different casters all apply (process.ts 1109-1117): two Palaces compound to ×1.45 × 1.45 ≈ ×2.10.",
-    "Guard and suppression: Aegis and Coffin together cost 100 AP and apply in sequence to the Coffined enemy's hits on the caster; the 4-BP maxima are ×0.55 × 0.65 ≈ ×0.36 (Fortress + Cold Saps the Will) and ×0.60 × 0.60 = ×0.36 (Suppression + Permafrost Mantle), well above the 10% floor; the Water-only 15% Decrease Damage Taken passive applies last.",
+    "Guard and suppression: Aegis and Coffin together cost 100 AP and apply in sequence to the Coffined enemy's hits on the caster; the 4-BP maxima are ×0.55 × 0.65 ≈ ×0.36 (Fortress + Cold Saps the Will) and ×0.58 × 0.60 ≈ ×0.35 (Suppression + Permafrost Mantle), well above the 10% floor; the Water-only 15% Decrease Damage Taken passive applies last.",
     "Heal: Aegis heals 250 HP per tick on the two rounds after the cast; Still Heart of Winter adds 30 HP per tick. healprevent on the caster blocks it.",
-    "Rank and passive: the Increase Damage Given passive (25% + 0.15 per user level: 28.75% at user level 25, 40% at 100; Water, Wind, Ice, None) multiplies last on every Burst and Exposure hit. Skill-tree and bloodline effects are skipped in ranked modes. No combat simulation was performed; cross-bloodline comparison is deferred to the roster review."
+    "Rank and passive: the Increase Damage Given passive (25% + 0.15 per user level: 28.75% at user level 25, 40% at 100; Water, Wind, Ice, None) multiplies last on every Burst and Exposure hit. Skill-tree and bloodline effects are skipped in ranked modes. No combat simulation was performed."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -1348,7 +1355,7 @@
       "increasedamagetaken"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1627,7 +1634,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 4
       }
     },
     {
@@ -1652,26 +1659,28 @@
       ],
       "bonuses": {
         "decreasedamagegiven": 10,
-        "decreasedamagetaken": 5
+        "decreasedamagetaken": 7
       }
     }
   ],
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
       "01": "How do I win offensively: sharpen my own strikes or expose them to everyone's?",
       "06": "How do I win defensively: protect myself or suppress them?"
     },
     "route_identities": {
-      "03": "burst: self-buff setup, controlled raw-Damage payoff",
-      "05": "exposure: party-wide area amplification",
-      "08": "fortress: guard and mend on one cast",
-      "10": "suppression: blunt one enemy's blows for the whole party"
+      "03": "burst: self-buff setup on the Hidden Art, controlled +2 Damage payoff on the three Ice attacks",
+      "05": "exposure: party-wide area amplification on Ice Palace's circle",
+      "08": "fortress: guard and mend against every attacker on one cast",
+      "10": "suppression: blunt one enemy's blows for the whole party, with a small guard rider"
     },
-    "director_review": "none",
+    "director_review": "Court of Splintered Ice keeps +10% Increase Damage Taken on Ice Palace's single area row (35 → 45% on everyone in the radius-1 circle, allies included; ×1.45 / ×1.35 ≈ ×1.074 on every matching hit from the whole party), twice the +5% exposure maximum of Blood-Enchanted Eyes and Shakunetsu Sakura (Arashima has no exposure route). Confirm it together with the roster's other exposure routes above +5%, or trim Court to +3% (Palace 43%); neither changes the graph.",
     "concerns": [
-      "Silence of Falling Snow now carries one effect while Still Heart of Winter keeps a Heal rider; if a rider is wanted, +2% Decrease Damage Taken (the Arashima suppression pattern) fits, Heal does not.",
-      "Exposure keeps +10% Increase Damage Taken on one area row; in group play it is the highest-leverage route in the tree."
+      "Court of Splintered Ice is the tree's highest-leverage route in group play. Solo it is level with Reign: Court + Killing Frost gives the caster ×1.40 × 1.45 ≈ ×2.03 on 45/40 EP, Reign + Hairline Fracture ×1.40 × 1.40 = ×1.96 on 47/42 EP with the +2 Damage also live outside the window. Trimmed to +3% (Palace 43%), Court would be only a +3% top-up on allies over Reign + Hairline Fracture (40%), so the magnitude is kept for the director.",
+      "Reign of Absolute Zero lifts Imperial Freeze, a 2-round stun, 45 → 47 (Arashima's 45 → 47 precedent, no tier change); no Damage row exceeds 50.",
+      "Fortress and Suppression split on attackers and party: against one Coffined enemy Suppression is slightly ahead (×0.366 against ×0.374 at 3 BP, ×0.35 against ×0.36 at 4 BP) and shields allies; Fortress guards 45% against every attacker and heals 60 HP more per Aegis cast. Each rests on one row, so both read lighter than the multi-row anchors' defensive packages.",
+      "Aegis's two rows and Coffin's Decrease Damage Given are element-less, so the defensive half depends on the proposed jutsu-classification resolver, and Cryostorm Aegis on an authored jutsu classification (ENGINE_GAP_REGISTER G1)."
     ]
   }
 }

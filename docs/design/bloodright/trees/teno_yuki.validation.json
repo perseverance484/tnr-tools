@@ -9,7 +9,7 @@
     "statClassification": "Genjutsu",
     "traits": "Control, Defensive"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Ice Palace#0, Ice Palace#1"
@@ -120,7 +120,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 4
       },
       "advanced_arts": [
         "Silence of Falling Snow"
@@ -311,12 +311,13 @@
         "name": "Silence of Falling Snow",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
+          "Cryostorm Aegis",
           "Ice Coffin"
         ],
-        "covered_rows": 1,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -575,10 +576,10 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
+          "decreasedamagetaken": 4
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "10"
         ],
@@ -612,10 +613,10 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 10,
-          "decreasedamagetaken": 5
+          "decreasedamagetaken": 7
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "10"
         ],
@@ -1044,9 +1045,9 @@
       ],
       "path_bonuses": {
         "decreasedamagegiven": 10,
-        "decreasedamagetaken": 2
+        "decreasedamagetaken": 4
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "01",
@@ -1060,10 +1061,10 @@
             "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 2
+            "decreasedamagetaken": 4
           },
-          "raw_total": 16,
-          "row_weighted": 16
+          "raw_total": 18,
+          "row_weighted": 18
         },
         {
           "id": "07",
@@ -1074,10 +1075,10 @@
           },
           "bonuses": {
             "decreasedamagegiven": 10,
-            "decreasedamagetaken": 5
+            "decreasedamagetaken": 7
           },
-          "raw_total": 15,
-          "row_weighted": 15
+          "raw_total": 17,
+          "row_weighted": 17
         }
       ],
       "highest_diagnostic_fourth": "01"

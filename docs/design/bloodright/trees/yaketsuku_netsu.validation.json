@@ -53,8 +53,7 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 3
+        "increasedamagegiven": 5
       },
       "advanced_arts": [
         "Blade That Never Cools"
@@ -71,8 +70,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
-        "increasedamagetaken": 3
+        "damage": 1,
+        "increasedamagegiven": 10
       },
       "advanced_arts": [
         "White-Hot Blood"
@@ -116,7 +115,7 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 6,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -156,12 +155,13 @@
         "name": "Searing Edge",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Forbidden Chakra Fury"
+          "Forbidden Chakra Fury",
+          "Forgotten Ember Blade"
         ],
-        "covered_rows": 1,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -170,8 +170,8 @@
         "name": "Blade That Never Cools",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Forbidden Chakra Fury",
           "Forgotten Ember Blade"
@@ -224,7 +224,7 @@
       },
       {
         "id": "07",
-        "name": "Heat Finds the Seam",
+        "name": "Seams Laid Bare",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
@@ -254,16 +254,16 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "06"
       ],
       "bonuses": {
         "increasedamagegiven": 10,
-        "increasedamagetaken": 3
+        "increasedamagetaken": 2
       },
-      "raw_flat_total": 13,
-      "row_weighted_total": 13,
+      "raw_flat_total": 12,
+      "row_weighted_total": 12,
       "advanced_arts": [
         "05"
       ],
@@ -293,11 +293,10 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 3
+          "increasedamagegiven": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 12,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
         "advanced_arts": [
           "03"
         ],
@@ -313,10 +312,10 @@
         "bonuses": {
           "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 11,
+        "raw_flat_total": 6,
+        "row_weighted_total": 8,
         "advanced_arts": [
           "03"
         ],
@@ -330,11 +329,11 @@
           "05"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
-          "increasedamagetaken": 3
+          "damage": 1,
+          "increasedamagegiven": 10
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 13,
+        "raw_flat_total": 11,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "05"
         ],
@@ -348,11 +347,12 @@
           "06"
         ],
         "bonuses": {
+          "damage": 1,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 9,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -364,13 +364,14 @@
           "07"
         ],
         "bonuses": {
+          "damage": 1,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 8
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 10,
+        "raw_flat_total": 8,
+        "row_weighted_total": 9,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -388,7 +389,7 @@
         "advanced_arts": [
           "05"
         ],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -546,6 +547,7 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
+      1,
       2
     ],
     "rows": [
@@ -559,6 +561,19 @@
         ],
         "method": "SINGLE",
         "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 6,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
           {
             "added": 2,
             "final": 42.0,
@@ -585,6 +600,19 @@
         ],
         "method": "SINGLE",
         "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 6,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
           {
             "added": 2,
             "final": 42.0,
@@ -616,10 +644,9 @@
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 3
+        "increasedamagegiven": 2
       },
-      "path_row_weighted": 9,
+      "path_row_weighted": 6,
       "fourths": [
         {
           "id": "04",
@@ -630,11 +657,10 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 5,
-            "increasedamagetaken": 3
+            "increasedamagegiven": 5
           },
-          "raw_total": 10,
-          "row_weighted": 12
+          "raw_total": 7,
+          "row_weighted": 9
         },
         {
           "id": "06",
@@ -646,10 +672,10 @@
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 2
           },
-          "raw_total": 9,
-          "row_weighted": 11
+          "raw_total": 6,
+          "row_weighted": 8
         }
       ],
       "highest_diagnostic_fourth": "04"
@@ -672,14 +698,14 @@
           "name": "Searing Edge",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "damage": 1
           },
           "bonuses": {
-            "increasedamagegiven": 10,
-            "increasedamagetaken": 3
+            "damage": 1,
+            "increasedamagegiven": 10
           },
-          "raw_total": 13,
-          "row_weighted": 13
+          "raw_total": 11,
+          "row_weighted": 12
         },
         {
           "id": "06",
@@ -696,7 +722,7 @@
           "row_weighted": 12
         }
       ],
-      "highest_diagnostic_fourth": "02"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "08",
