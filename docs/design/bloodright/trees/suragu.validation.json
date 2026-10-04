@@ -92,7 +92,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
       },
@@ -276,12 +276,12 @@
         "name": "Heart of the Caldera",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Lava Wave"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -526,12 +526,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -583,12 +583,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
           "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "08"
         ],
@@ -957,10 +956,9 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagetaken": 10
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 10,
       "fourths": [
         {
           "id": "01",
@@ -971,12 +969,12 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 10
           },
-          "raw_total": 16,
-          "row_weighted": 16
+          "raw_total": 14,
+          "row_weighted": 14
         },
         {
           "id": "09",
@@ -986,12 +984,11 @@
             "lifesteal": 2
           },
           "bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "lifesteal": 2
           },
-          "raw_total": 14,
-          "row_weighted": 14
+          "raw_total": 12,
+          "row_weighted": 12
         }
       ],
       "highest_diagnostic_fourth": "01"
