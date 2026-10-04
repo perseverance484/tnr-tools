@@ -1,6 +1,6 @@
 {
   "title": "Night Parade of A Thousand Demons — The Lantern Procession",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow classification / forked tree",
   "bloodline": {
     "id": "r_99Xg8SIOYw2awCMSR7e",
     "review_id": "BR-051",
@@ -1182,7 +1182,7 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Node split: two roots, four Hidden Arts, four Advanced Arts, every capstone 3 BP deep, two capstones 5 BP under one root or 6 across roots. Hour of the Ox (+2% Increase Damage Given, +2% Decrease Damage Taken on the Conduit) forks into Sustain offense (Hungry Ghost's Draught +2% Lifesteal → Feast of a Thousand Mouths +3% Lifesteal, +3% Increase Damage Given) and Fortress (Hide of the Oni +3% Decrease Damage Taken → Barred Gate of Yomi +5% Decrease Damage Taken). Oni's Heavy Hand (+2% Decrease Damage Given on the Hammer, +2% Increase Damage Taken on the Herald) forks into Burst (Marked by the Herald +3% Increase Damage Taken → March of a Thousand Demons +2 Damage) and Suppression (Dread of the Procession +3% Decrease Damage Given → Toll of the Night Bell +5% Decrease Damage Given). Root A touches only Conduit rows; root B only the two hits, the Hammer's suppression and the Herald's exposure.",
-    "2026-10-04 rebalance. Root B: the old Burst route (Grip of the Yurei +2, March +3 Damage) lifted both 45 EP hits to 50, turning two semi-nukes into nukes, and put flat Damage on a Hidden Art. March is now the only Damage node (+2, 45 → 47, no tier change) and pays off the exposure that Marked by the Herald sets up. The old Pressure route (+10% Increase Damage Taken) is gone: Herald exposure has the tree's highest downstream leverage, so it stops at +5% (35 → 40%) as Burst setup; Grip of the Yurei is renamed Dread of the Procession and leads Suppression. After review, Barred Gate of Yomi lost its +2% Lifesteal rider (with Hungry Ghost's Draught the Fortress fourth reached 44% Lifesteal and out-sustained Feast) and Toll of the Night Bell lost its +2% Conduit Decrease Damage Taken rider (it did not answer root B's sentence and pulled Suppression toward Fortress).",
+    "2026-10-04 rebalance. Root B: the old Burst route (Grip of the Yurei +2, March +3 Damage) lifted both 45 EP hits to 50, turning two semi-nukes into nukes, and put flat Damage on a Hidden Art. March is now the only Damage node (+2, 45 → 47, no tier change) and pays off the exposure that Marked by the Herald sets up. The old Pressure route (+10% Increase Damage Taken) is gone: Herald exposure has the tree's highest downstream leverage, so it stops at +5% (35 → 40%) as Burst setup; Grip of the Yurei is renamed Dread of the Procession and leads Suppression. After review, Barred Gate of Yomi lost its +2% Lifesteal rider (with Hungry Ghost's Draught the Fortress fourth reached 44% Lifesteal and out-sustained Feast) and Toll of the Night Bell lost its +2% Conduit Decrease Damage Taken rider (it did not answer root B's sentence and pulled Suppression toward Fortress). Roster pass: checked against the roster conventions with no value or structure change. The kit's two Damage rows are 45 EP, and March's +2 (45 → 47, Arashima's High-tier value) is already the controlled payoff after a percentage setup; exposure stays at the Blood-Enchanted Eyes / Shakunetsu Sakura +5%.",
     "Maxima over every legal allocation: Damage +2 (March only); Lifesteal +5% (Feast route only; any other allocation reaches +2% at most, Hungry Ghost's Draught); Decrease Damage Taken +10% (Fortress only; +5% elsewhere at most, Hour of the Ox with Hide of the Oni); Decrease Damage Given +10% (Suppression only); Increase Damage Given +5%; Increase Damage Taken +5%.",
     "Fourth purchases: Sustain offense takes Hide of the Oni (40% given, 40% taken, 45% Lifesteal) or Oni's Heavy Hand. Fortress takes Oni's Heavy Hand (32% suppression, 37% exposure) or Hungry Ghost's Draught (42% Lifesteal). In an even trade of raw damage D, Feast with Hide heals 0.45 × 1.40D ≈ 0.63D and takes 0.60D; Fortress with Hungry Ghost's Draught heals 0.42 × 1.37D ≈ 0.58D and takes 0.55D, so Feast nets more while trading and Fortress wins once incoming raw damage passes about 1.1× outgoing. Burst takes Hour of the Ox (Conduit 37% given / taken) or Dread of the Procession (35% suppression). Suppression takes Marked by the Herald (40% exposure, Burst's whole setup) or Hour of the Ox (Conduit 37% given / taken). Three capstones carry one tag each and Feast's Increase Damage Given rider stacks only with its own Foundation, so no fourth carries a tag past its own route.",
     "Interactions: every non-damage supported row is element-less and lists all four stat types, so at the pin the Conduit's buffs, the Herald's exposure and the Hammer's suppression match every non-pierce hit of any stat type (Lifesteal also counts pierce). Formula damage is linear in EP (tags.ts powerEffect), so +2 EP is ×47/45 ≈ ×1.044 on each 45 EP hit; the sqrt scaling applies to stats, not EP. Jutsu Increase Damage Given and Increase Damage Taken compound (×1.40 × 1.37 ≈ ×1.92 on a marked target in the Burst build with Hour of the Ox); Decrease Damage Given and Decrease Damage Taken apply in sequence. The bloodline passive (Increase Damage Given 25% + 0.15/level) is not a potency target and multiplies last.",
@@ -1260,7 +1260,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1573,7 +1573,7 @@
     }
   ],
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
       "01": "How do I let the Conduit carry me through the fight: feed on it or wall it out?",
       "06": "How do I break the enemy: mark them for the kill or crush the strength out of them?"
@@ -1586,10 +1586,11 @@
     },
     "director_review": "none",
     "concerns": [
-      "The old Pressure route (+10% Herald exposure) is dropped; exposure now stops at +5% as Burst setup. If the director wants a dedicated team-exposure route, it would replace Suppression and should stay well under +10% because the exposure reaches every source's hits.",
+      "The old Pressure route (+10% Herald exposure) is dropped; exposure stops at +5% (35 → 40%) as Burst setup, the Blood-Enchanted Eyes / Shakunetsu Sakura value; no director anchor sets exposure higher. A dedicated team-exposure route, if the director wants one, would replace Suppression and should stay well under +10% because the exposure reaches every source's hits.",
       "Burst's distinct value is narrow. Suppression's realistic fourth (Marked by the Herald, 06, 07, 09, 10) takes Burst's whole 40% exposure setup, so against Burst with Dread of the Procession (06, 07, 08, 09) the only difference is +2 EP (×1.044 on two 60 AP, cooldown 7 hits) versus +5% Hammer suppression. This mirrors the director-accepted Blood-Enchanted Eyes pattern (Feast of the Fallen with Opened Veins); widening exposure past +5% to make it unique was rejected because exposure reaches every source's hits. Not simulated.",
-      "Barred Gate of Yomi and Toll of the Night Bell are single-tag capstones, lighter than the Blood-Enchanted Eyes and Arashima fortress / suppression capstones. Each rider the kit offers either stacks with a sibling route within 4 BP (Lifesteal or Increase Damage Given on the Fortress into Feast via Hungry Ghost's Draught; Decrease Damage Given on the Fortress and Decrease Damage Taken on Toll into each other across the roots; Increase Damage Taken on Toll into Burst via Marked by the Herald) or hands one route's payoff to another (flat Damage; Lifesteal on Toll).",
+      "Barred Gate of Yomi and Toll of the Night Bell are single-tag capstones, lighter than the Blood-Enchanted Eyes and Arashima fortress / suppression capstones. Each rider the kit offers either stacks with a sibling route within 4 BP (Lifesteal or Increase Damage Given on the Fortress into Feast via Hungry Ghost's Draught, which shares Hour of the Ox with the Fortress, whereas Arashima's Lifesteal Hidden Art sits under the other root; Decrease Damage Given on the Fortress and Decrease Damage Taken on Toll into each other across the roots; Increase Damage Taken on Toll into Burst via Marked by the Herald) or hands one route's payoff to another (flat Damage; Lifesteal on Toll).",
       "Feast keeps +3% Increase Damage Given (route +5%), below the +5% capstone in the Blood-Enchanted Eyes and Arashima templates. At +5% Feast with Oni's Heavy Hand (×1.42 × 1.37 ≈ ×1.95 with 45% Lifesteal) would come within 3% of Burst with Hour of the Ox (≈ ×2.00) on the two kit hits and pass it on every other hit; the director may still prefer the template value.",
+      "Off-kit Shadow Damage rows are unverified: March's +2 would take a 50 EP Shadow jutsu to 52 (the Blood-Enchanted Eyes precedent, RUL-2026-10-04-001) and a 38 EP one to 40 (Light to Normal). The kit's two 45 EP rows cross no tier.",
       "Suppression raises the Hammer's ally-hazard Decrease Damage Given to 40% for allies standing in the circle as well as enemies."
     ]
   }

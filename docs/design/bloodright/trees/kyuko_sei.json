@@ -1,6 +1,6 @@
 {
   "title": "Kyuko-sei — Ash of Dying Stars",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree",
   "bloodline": {
     "id": "Y10fxyLR39IBJ3ICkAdEp",
     "review_id": "BR-040",
@@ -38,10 +38,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Offense multipliers: self amplification (Hush of the Void → Heat Death) and exposure (Weight of Eons → Collapse of Ages), each +8% on two compounding rows",
+    "primary": "Burst and exposure: Shattered Firmament's self amplify setup (35 → 40% on two rows) into Heat Death's +2 Damage on all four Dust strikes (40 → 42, Particle Storm 50 → 52); Collapse of Ages' exposure +8% on two compounding rows",
     "secondary": "Defense: Temporal Erosion guard (Outlasting Eternity) and Ethereal Particle Storm suppression (All Returns to Dust), +10% on one row each",
-    "tertiary": "Damage left unamplified: Ethereal Particle Storm is 50 EP, so any flat Damage passes the Nuke tier",
-    "rationale": "The Foundations split self from enemy. Hush of the Void answers \"How do I make myself the dying star: strike harder or take less?\" with Heat Death (both self amplify rows) or Outlasting Eternity (the Temporal Erosion guard). Weight of Eons answers \"How do I wear the enemy down: make them take more or deal less?\" with Collapse of Ages (both exposure rows) or All Returns to Dust (the Particle Storm suppression). The Burst trait is carried by the amplify and exposure multipliers rather than flat Damage, because every flat Damage point also reaches Particle Storm's 50 EP row. Potency reaches matching supported tags on all Dust jutsu (RUL-2026-10-03-005)."
+    "tertiary": "Recipient split at the root: self buffs (Hush of the Void) against enemy debuffs (Weight of Eons), so the burst setup and the exposure capstone never share a 4-BP build",
+    "rationale": "The Foundations split self from enemy. Hush of the Void answers \"How do I make myself the dying star: strike harder or take less?\" with Heat Death (amplify setup into raw Damage) or Outlasting Eternity (the Temporal Erosion guard). Weight of Eons answers \"How do I wear the enemy down: make them take more or deal less?\" with Collapse of Ages (both exposure rows) or All Returns to Dust (the Particle Storm suppression). The Burst trait keeps a raw-Damage route on the Blood-Enchanted Eyes pattern: a percentage setup on the Hidden Art and a controlled +2 Damage payoff on the Advanced Art, which lifts Particle Storm 50 → 52 as the director precedent does. Potency reaches matching supported tags on all Dust jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -89,12 +89,12 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 2,
+          "flat": 3,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The sky cracks, and the light of a dying star pours through you.",
-      "coverage_note": "Abysmal End and Singularity self amplify 37 → 39% with Hush of the Void.",
+      "coverage_note": "Setup: Abysmal End and Singularity self amplify 37 → 40% with Hush of the Void (2 rounds each).",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
@@ -118,24 +118,25 @@
       ],
       "modifiers": [
         {
-          "tag": "increasedamagegiven",
-          "flat": 4,
-          "display_role": "SELF BUFF"
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
         }
       ],
       "flavor": "Every fire goes out. Yours merely goes first.",
-      "coverage_note": "Burst: both self amplify rows 35 → 43% on the full route; with both up, the caster's matching hits are multiplied ×1.43 × 1.43 ≈ ×2.04 (×1.82 at base).",
+      "coverage_note": "Burst payoff: +2 Damage on all four Dust strikes, Temporal Erosion, Singularity and Resonance 40 → 42 and Ethereal Particle Storm 50 → 52 EP (above the 50 Nuke tier; director review). The route's two self amplify rows sit at 40%.",
       "parent_rule": "ALL",
       "potency_classification": "Dust",
       "scope": "all Dust jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Abysmal End",
-          "Singularity"
+          "Ethereal Particle Storm",
+          "Resonance",
+          "Singularity",
+          "Temporal Erosion"
         ],
-        "effect_rows": 2,
-        "rows_via_authored_classification": 1
+        "effect_rows": 4
       }
     },
     {
@@ -364,10 +365,11 @@
         "03",
         "01"
       ],
-      "rationale": "Abysmal End and Singularity self amplify 35 → 43% (both up: ×1.43 × 1.43 ≈ ×2.04); Weight of Eons is the fourth purchase (exposure 37%, Particle Storm suppression 32%). Temporal Erosion guard 32%.",
+      "rationale": "Self amplify setup into raw Damage: Abysmal End and Singularity amplify 35 → 40% (both up: ×1.40 × 1.40 = ×1.96), then +2 Damage on all four Dust strikes (Temporal Erosion, Singularity and Resonance 40 → 42; Particle Storm 50 → 52 EP). Weight of Eons is the fourth purchase (exposure 37%, suppression 32%); Temporal Erosion guard 32%.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -385,8 +387,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -457,8 +459,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -475,8 +477,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -496,8 +498,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -550,8 +552,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -568,8 +570,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -606,10 +608,10 @@
         "08",
         "02"
       ],
-      "rationale": "Temporal Erosion guard 30 → 40%; Shattered Firmament is the fourth purchase, so both self amplify rows reach 39% and the guarded window still strikes back.",
+      "rationale": "Temporal Erosion guard 30 → 40%; Shattered Firmament is the fourth purchase, so both self amplify rows reach 40% on every target the guarded window strikes. In a duel Weight of Eons (exposure 37%, suppression 32%) is the stronger defensive fourth.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 10
       },
       "finals": [
@@ -697,8 +699,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -736,8 +738,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 4,
-          "final": 39.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1086,7 +1088,7 @@
         "10",
         "06"
       ],
-      "rationale": "Particle Storm suppression 30 → 40%; Hush of the Void is the fourth purchase (Temporal Erosion guard 32%, self amplify 37%); exposure 37%.",
+      "rationale": "Particle Storm suppression 30 → 40%; Hush of the Void is the fourth purchase (Temporal Erosion guard 32%, self amplify 37%); exposure 37%. Aeons Laid Bare (exposure 39%) is the group-play alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -1322,15 +1324,16 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Rewire (2026-10-04 batch): the old offence/defence Foundations became self/enemy Foundations; Shattered Firmament moved under Hush of the Void and Dimming of Stars under Weight of Eons. With flat Damage gone, an offence Foundation would have held two multiplier routes (amplify, exposure) whose obvious fourth purchase was each other's Hidden Art, ending in the same build. Split by recipient, each multiplier route's sibling is a defensive one.",
-    "Damage removed: the old +2/+3 route lifted Temporal Erosion, Singularity and Resonance 40 → 45 and Ethereal Particle Storm 50 → 52 at the Hidden Art and 55 at the capstone. Potency cannot leave Particle Storm out, so the Burst trait rides on the multipliers instead.",
-    "Values: Heat Death and Collapse of Ages stop at +8% (2/2/4) because each tag's two rows compound on one target (×1.43 × 1.43 ≈ ×2.04, ×1.82 at base). Outlasting Eternity and All Returns to Dust reach +10% (2/3/5) on one row each (×0.60 instead of ×0.70). Each capstone carries one effect; the old riders (Increase Damage Given on Collapse of Ages and Outlasting Eternity, Increase Damage Taken on All Returns to Dust) are gone. Maxima over every legal allocation: Increase Damage Given +8%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Decrease Damage Given +10%, no Damage.",
-    "Fourth purchases: Heat Death takes Weight of Eons (exposure 37%, suppression 32%) or Dilated Moment (guard 35%); Outlasting Eternity takes Shattered Firmament (amplify 39%) or Weight of Eons; Collapse of Ages takes Dimming of Stars (suppression 35%) or Hush of the Void; All Returns to Dust takes Aeons Laid Bare (exposure 39%) or Hush of the Void. The strongest offensive build is one multiplier route plus the other Foundation: +8% on one multiplier and +2% on the other.",
-    "Delivery: every jutsu has cooldown 7 and its percentage rows last the 2 rounds after the cast. Abysmal End (40 AP, no damage) carries one amplify and one exposure row, so both multiplier routes use it; Heat Death's other row is on Singularity, Collapse of Ages' on Temporal Erosion. The guard rides on Temporal Erosion and the suppression on Particle Storm, both 60 AP attacks. No rotation simulated."
+    "Root axis: the Foundations split self buffs (Hush of the Void: amplify and guard) from enemy debuffs (Weight of Eons: exposure and suppression), unlike the offence/defence roots of the director anchors. This keeps Shattered Firmament (the burst setup) and Collapse of Ages (the exposure capstone) in different roots. No 4-BP build stacks the +5% amplify on the +8% exposure route, and each multiplier route's other multiplier stays at the other Foundation's +2%. Under the pre-batch offence/defence wiring, Collapse of Ages' obvious fourth would be Shattered Firmament: exposure 43% and amplify 40% together. The cost is that a duel barely separates the two Foundations.",
+    "Damage restored (roster pass): the pre-batch +2/+3 route lifted Temporal Erosion, Singularity and Resonance 40 → 42 → 45 and Ethereal Particle Storm 50 → 52 → 55 (Hidden Art, then capstone), and the first pass removed it. Following Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002), Shattered Firmament now sets up with +3% Increase Damage Given and Heat Death pays off with +2 Damage: 40 → 42 on three strikes and Particle Storm 50 → 52, never 55. The setup is self amplification rather than exposure because Aeons Laid Bare already owns the exposure rows.",
+    "Values: Heat Death's route is +5% amplify (Abysmal End and Singularity 35 → 40%; with both up ×1.40 × 1.40 = ×1.96, ×1.82 at base) plus +2 Damage. Collapse of Ages stops at +8% (2/2/4) because its two exposure rows compound on one target (×1.43 × 1.43 ≈ ×2.04). Outlasting Eternity and All Returns to Dust reach +10% (2/3/5) on one row each (×0.60 instead of ×0.70). Each capstone carries one effect. Maxima over every legal allocation: Damage +2, Increase Damage Given +5%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Decrease Damage Given +10%.",
+    "Fourth purchases: Heat Death takes Weight of Eons (exposure 37%, suppression 32%) or Dilated Moment (guard 35%). Outlasting Eternity takes Shattered Firmament (amplify 40%: slightly more damage, on every target hit) or Weight of Eons (exposure 37%, suppression 32%: the stronger duel defence). Collapse of Ages takes Hush of the Void (amplify 37%, guard 32%) or Dimming of Stars (suppression 35%). All Returns to Dust takes Hush of the Void, the better duel choice, or Aeons Laid Bare (exposure 39%), which pays only in group play, where allies' hits and Abysmal End's circle use it.",
+    "Delivery: every jutsu has cooldown 7 and its percentage rows last the 2 rounds after the cast. Abysmal End (40 AP, no damage) carries one amplify and one exposure row; the amplify's other row is on Singularity, the exposure's on Temporal Erosion. Heat Death's +2 Damage reaches all four Dust strikes (60 AP each), so the payoff lands on hits the amplify window multiplies. The guard rides on Temporal Erosion and the suppression on Particle Storm, both 60 AP attacks. No rotation simulated."
   ],
   "risks": [
     "Ally hazard: Abysmal End's exposure lands on every living non-caster user in its radius-1 circle (friendly fire none = ALL), allies included; Weight of Eons, Aeons Laid Bare and Collapse of Ages raise it to 43% at most.",
-    "Exposure stacking: Temporal Erosion and Abysmal End each apply their own 2-round Increase Damage Taken and both apply to one target (BATTLE_TAG_STACKING), on every matching hit from the caster, allies and weapons: ×1.82 at base, ×2.04 at the Collapse of Ages maximum. Heat Death's two self buffs compound the same way on the caster's own hits.",
+    "Exposure stacking: Temporal Erosion and Abysmal End each apply their own 2-round Increase Damage Taken and both apply to one target (BATTLE_TAG_STACKING), on every matching hit from the caster, allies and weapons: ×1.82 at base, ×2.04 at the Collapse of Ages maximum. The two self amplify rows compound the same way on the caster's own hits (×1.96 at Shattered Firmament's 40%).",
+    "Damage tier: every build with Heat Death lifts Ethereal Particle Storm 50 → 52 EP, past the Nuke tier (above_nuke_rationale; director review). The three 40 EP strikes reach 42 and stay in the Normal tier.",
     "Reach: Abysmal End's amplify and exposure rows are Ninjutsu-filtered and element-less, so they match the kit's Ninjutsu Dust attacks and every element-less hit; Singularity's amplify lists Dust/Earth/None/Wind; the guard and suppression rows list every stat type and match effectively every non-pierce hit. Pierce ignores all four tags.",
     "Classification: Dust is shared with Aerathiel and Nejireru Funjin (expected under RUL-2026-10-03-005). Only Singularity's amplify among the buff/debuff rows carries Dust; the other five need the proposed jutsu-classification resolver, and Abysmal End qualifies only by authored classification (ENGINE_GAP_REGISTER G1). Off-kit Dust coverage is unverified.",
     "Unsupported rows (Resonance Mirror, Singularity Move) are unchanged. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
@@ -1374,7 +1377,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10
@@ -1388,15 +1392,14 @@
       "increasedamagetaken": 2
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1411,12 +1414,14 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 10,
@@ -1437,18 +1442,18 @@
         {
           "advanced_art": "03",
           "name": "Heat Death",
-          "primary_tag": "increasedamagegiven",
+          "primary_tag": "damage",
           "path": [
             "06",
             "02",
             "03"
           ],
           "steps": [
-            2,
-            2,
-            4
+            0,
+            0,
+            2
           ],
-          "total": 8,
+          "total": 2,
           "on_band": false
         },
         {
@@ -1515,7 +1520,8 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -1529,7 +1535,7 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 4,
         "decreasedamagetaken": 2
@@ -1543,7 +1549,7 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
@@ -1557,7 +1563,7 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -1679,7 +1685,8 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 5
       }
     },
@@ -1691,29 +1698,31 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 10
       }
     }
   ],
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
       "06": "How do I make myself the dying star: strike harder or take less?",
       "01": "How do I wear the enemy down: make them take more or deal less?"
     },
     "route_identities": {
-      "03": "burst: a self-amplified strike window (two compounding self buffs on the caster's hits)",
+      "03": "burst: self amplify setup into a controlled +2 Damage payoff on all four strikes",
       "08": "fortress: a timed guard on Temporal Erosion",
       "05": "exposure: the marked target takes more from every source, allies included",
       "10": "suppression: the struck enemy deals less to everyone"
     },
-    "director_review": "none",
+    "director_review": "Three open choices. (1) Heat Death's +2 Damage lifts Ethereal Particle Storm 50 → 52 on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): confirm it, or keep Damage unamplified and accept that the two offensive capstones mirror in a duel. (2) Collapse of Ages is a primary team-wide exposure route at +8% on two compounding rows, above the anchors' +5% exposure; it should move with the roster's other two-row exposure routes. (3) The root splits self from enemy, not offence from defence as in the anchors.",
     "concerns": [
-      "No flat Damage node on a kit with four Damage rows and the Burst trait: Ethereal Particle Storm is 50 EP, so any flat Damage passes the Nuke tier. If the director prefers the Blood-Enchanted Eyes pattern, Heat Death is where +2 Damage would go (40 → 42 on three rows, Particle Storm 50 → 52).",
-      "In a duel Heat Death and Collapse of Ages both multiply the caster's hits on the target; they separate in group play (a self buff on any target and Singularity's area versus a debuff that also multiplies allies' hits) and by Foundation. Rotation and uptime were not simulated.",
+      "Root axis: the self/enemy split departs from the offence/defence roots of Blood-Enchanted Eyes, Shakunetsu Sakura and Arashima, and a duel barely sees it (each Foundation gives +2% to one multiplier pair and one defensive row). It is kept so that the burst setup cannot be Collapse of Ages' fourth purchase. Under the offence/defence wiring, Collapse of Ages + Shattered Firmament would reach exposure 43% and amplify 40% together.",
+      "In a duel the defensive capstones mirror: Outlasting Eternity (+10% guard, +2% amplify) and All Returns to Dust (+10% suppression, +2% exposure) cut the caster's damage taken by the same factor. They separate only in group play (several attackers against the guard, or the suppressed enemy hitting allies). This is accepted as in Blood-Enchanted Eyes' fortress/suppression pair. Both are single-tag, lighter than the anchors' riders.",
+      "Shattered Firmament and Collapse of Ages each count Abysmal End as one of their two rows, and Abysmal End is Dust only by authored jutsu classification. Without that classification Collapse of Ages reaches only Temporal Erosion and the amplify setup only Singularity, so the +8% two-row exposure value and the +5% amplify should be revisited. Heat Death's +2 Damage reaches four natively Dust rows and does not depend on it.",
       "The defensive routes rest on one row each, live 2 rounds per 7-round cooldown.",
       "Five of the six buff/debuff rows depend on the proposed jutsu-classification resolver."
     ]
-  }
+  },
+  "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): Heat Death's +2 Damage lifts Ethereal Particle Storm 50 → 52, past the 50 Nuke tier, as the payoff of Shattered Firmament's self amplify setup. Element-wide potency cannot leave Particle Storm out; the result never reaches 55. Fable proposal; flagged for director review."
 }

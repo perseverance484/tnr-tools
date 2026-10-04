@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Burst Healing and Sustained Healing"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
   "structure_errors": [],
   "warnings": [],
   "classification": {
@@ -51,7 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagetaken": 5
       },
       "advanced_arts": [
@@ -119,7 +119,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 3,
+      "damage": 2,
       "increasedamagetaken": 10,
       "increaseheal": 10,
       "heal": 5
@@ -173,8 +173,8 @@
         "name": "Old Growth's Wrath",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Nature's Curse",
           "Nature's Fury"
@@ -309,11 +309,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
         "advanced_arts": [
           "03"
         ],
@@ -327,13 +327,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 2,
           "increaseheal": 2,
           "heal": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 12,
+        "raw_flat_total": 8,
+        "row_weighted_total": 10,
         "advanced_arts": [
           "03"
         ],
@@ -679,7 +679,7 @@
   "damage_thresholds": {
     "damage_totals_reachable": [
       1,
-      3
+      2
     ],
     "rows": [
       {
@@ -706,8 +706,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 43.0,
+            "added": 2,
+            "final": 42.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -745,8 +745,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 43.0,
+            "added": 2,
+            "final": 42.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -774,10 +774,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 8,
+      "path_row_weighted": 6,
       "fourths": [
         {
           "id": "04",
@@ -787,11 +787,11 @@
             "increasedamagetaken": 3
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagetaken": 5
           },
-          "raw_total": 8,
-          "row_weighted": 11
+          "raw_total": 7,
+          "row_weighted": 9
         },
         {
           "id": "06",
@@ -802,13 +802,13 @@
             "heal": 2
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagetaken": 2,
             "increaseheal": 2,
             "heal": 2
           },
-          "raw_total": 9,
-          "row_weighted": 12
+          "raw_total": 8,
+          "row_weighted": 10
         }
       ],
       "highest_diagnostic_fourth": "06"

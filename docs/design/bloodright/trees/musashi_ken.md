@@ -1,27 +1,30 @@
 # Musashi Ken — The Drawn Blade
 
-**Bloodline:** Musashi Ken (BR-047, rank D, `EZRt16BYzQRMiGSf_P7is`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Musashi Ken classification / forked tree · **Classification:** Musashi Ken (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Musashi Ken (BR-047, rank D, `EZRt16BYzQRMiGSf_P7is`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Musashi Ken classification / forked tree · **Classification:** Musashi Ken (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
 **Emphasis:** primary Bukijutsu tempo — Increase Damage Given (Heiho, Iaido, Iaijutsu; three self rows that compound) · secondary The draw — Damage on Iaido and Iaijutsu (two 38 EP Light-tier strikes) · tertiary Guard — Decrease Damage Taken (Heiho; one row).
 
-Six supported rows on three casts. Every jutsu carries a 35% self Increase Damage Given row for 2 rounds; each lands on the caster at cast time, acts only in the two rounds after, and compounds with the others on every element-less hit, so self amplification is the kit's highest-leverage lever and the Tempo route's job. The two 38 EP Bukijutsu / Speed, Strength strikes (Iaido single target, Iaijutsu ground circle; 60 AP, cooldown 7) are the only Damage rows and sit in the Light tier, so Burst gets a controlled +4 (38 → 42) whose Normal-tier step comes from the capstone. Heiho's single 35% Decrease Damage Taken row is the only defensive lever and carries the Fortress chain alone; Iaijutsu's move row is unsupported.
+Six supported rows on three casts. Every jutsu carries a 35% self Increase Damage Given row for 2 rounds; each lands on the caster at cast time, acts only in the two rounds after, and compounds with the others on every element-less hit, so self amplification is the kit's highest-leverage lever and the Tempo route's job. The two 38 EP Bukijutsu / Speed, Strength strikes (Iaido single target, Iaijutsu ground circle; 60 AP, cooldown 7) are the only Damage rows and sit in the Light tier, so Burst stops at the Normal line (+2, 38 → 40) and the Normal-tier step comes from the capstone. Heiho's single 35% Decrease Damage Taken row is the only defensive lever; it carries the Fortress chain and Burst's small guard rider. Iaijutsu's move row is unsupported.
 
-**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
+**Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|
 | Drawn Steel | Foundation | How do I win with the drawn blade: make the draw itself land harder, or keep a chain of buffs multiplying every cut? |
 | Reading the Field | Foundation | How do I hold Heiho's guard? |
-| Cut of No Return | Advanced Art | burst / execution: the draw lands at Normal tier on its own cast |
+| Cut of No Return | Advanced Art | burst: the draw reaches Normal tier (38 → 40) on its own cast, with a small guard rider |
 | Two Heavens as One | Advanced Art | sustained amplification: three compounding self buffs |
 | Victory in the Sheath | Advanced Art | fortress: Heiho's guard |
 
-- Concern: Burst and Tempo are close in throughput by design (rough model: within about 1% either way over a no-tree build, depending on how much damage the strikes carry); Burst's case is immediacy and the Light → Normal step on two strikes (38 → 42), Tempo's is ×1.40 per live buff on every element-less hit. If the director wants Burst sharper, Cut of No Return at +4 (38 → 43) still stays below High but would put Burst level with Tempo in filler-heavy rotations and ahead in strike-heavy ones.
-- Concern: Single Stroke keeps flat Damage on a Hidden Art (+1, 38 → 39, no tier crossing) because both percentage setups fail: Increase Damage Given stacks with Two Heavens as One and Decrease Damage Taken twins Reading the Field.
-- Concern: Drawn Steel is universal now that Answering Cut is gone; the Fortress build is fixed (01, 06, 07, 08) and is pure guard.
-- Concern: The 'Musashi Ken' classification extension and off-kit coverage remain director/engine decisions.
+**Director review recommended:** Light-tier convention: Burst on this 38 EP kit stops at the Normal line (+2 Damage, 38 → 40). Cut of No Return +2 (route +3, 38 → 41) is the lever if the director wants Burst level with Tempo: in the same rough model Burst with Second Sword would sit at ×1.043–1.060 against Tempo with Single Stroke's ×1.052–1.056. The convention is shared with the roster's other 38 EP Burst routes and should be confirmed for them together.
 
-> **Narrow-kit exception:** Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given ×3, Damage ×2, Decrease Damage Taken ×1); a fourth Advanced Art would twin a capstone on the same rows or push the single Decrease Damage Taken row past +10%. Reading the Field therefore runs one guard chain and Drawn Steel is universal: it is in every legal 4-BP build, so the Fortress build is fixed and every build carries +2% Increase Damage Given. The earlier Answering Cut leaf that avoided this twinned Single Stroke and is removed.
+- Concern: Burst trails Tempo on sustained throughput now that it stops at the Normal line (rough model: 0.7–1.4% behind Tempo with Single Stroke, within 1% of Tempo with Reading the Field at equal 37% guard). Its case is the draw at 40 EP with at most one buff live, plus Cut of No Return's +2% guard.
+- Concern: Single Stroke keeps +1 flat Damage on a Hidden Art (38 → 39, still Light) because every percentage setup duplicates a sibling: Increase Damage Given twins Second Sword and lifts Tempo's fourth to +6% on three compounding rows; Decrease Damage Taken twins Unbroken Guard.
+- Concern: Cut of No Return's +2% Decrease Damage Taken rider departs from the anchors' offensive burst riders (Arashima +3% Increase Damage Given, Shakunetsu Sakura +3% Increase Damage Taken): the kit's only offensive percentage tag is Tempo's, so an offensive rider would make Burst a near-copy of Tempo.
+- Concern: Drawn Steel is universal (acknowledged in the narrow-kit exception); the Fortress build is fixed (01, 06, 07, 08) and is pure guard.
+- Concern: The 'Musashi Ken' classification extension and off-kit coverage remain director/engine decisions; an off-kit Damage row given the classification would also take +2 (a 50 EP row would read 52), unverified.
+
+> **Narrow-kit exception:** Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Increase Damage Given ×3, Damage ×2, Decrease Damage Taken ×1); a fourth Advanced Art would twin a capstone on the same rows or push the single Decrease Damage Taken row past +10%. Reading the Field therefore runs one guard chain and Drawn Steel is universal: it is in every legal 4-BP build, so the Fortress build is fixed and every build carries +2% Increase Damage Given. Every leaf that could avoid this is filler or illegal: a Damage leaf twins Single Stroke (the pre-batch Answering Cut, removed), an Increase Damage Given leaf only re-sells Drawn Steel as Fortress's fourth, and a Decrease Damage Taken leaf lifts the guard chain past +10%.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Musashi Ken-classified jutsu (requires classification extension). Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -31,7 +34,7 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 |---|---|---|---|---|---|
 | 01 | Drawn Steel | Foundation | None | +2% Increase Damage Given (self buff) | Heiho, Iaido, Iaijutsu / 3 |
 | 02 | Single Stroke | Hidden Art | Drawn Steel | +1 Damage (damage) | Iaido, Iaijutsu / 2 |
-| 03 | Cut of No Return | Advanced Art | Single Stroke | +3 Damage (damage) | Iaido, Iaijutsu / 2 |
+| 03 | Cut of No Return | Advanced Art | Single Stroke | +1 Damage (damage); +2% Decrease Damage Taken (self buff) | Heiho, Iaido, Iaijutsu / 3 |
 | 04 | Second Sword | Hidden Art | Drawn Steel | +1% Increase Damage Given (self buff) | Heiho, Iaido, Iaijutsu / 3 |
 | 05 | Two Heavens as One | Advanced Art | Second Sword | +2% Increase Damage Given (self buff) | Heiho, Iaido, Iaijutsu / 3 |
 | 06 | Reading the Field | Foundation | None | +2% Decrease Damage Taken (self buff) | Heiho / 1 |
@@ -41,8 +44,8 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08. Advanced Arts: 3; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Drawn Steel** — Steel leaves the sheath and the whole battle narrows to the length of one blade. All three self buffs 35 → 37% for 2 rounds: Heiho and Iaijutsu (Bukijutsu-filtered, element-less), Iaido (all four stat types). 3 rows.
-- **Single Stroke** — One stroke, begun and finished before the eye can follow it. Commitment: Iaido and Iaijutsu Damage 38 → 39 EP, still Light tier; the Normal-tier step and three of the four EP belong to Cut of No Return. 2 rows.
-- **Cut of No Return** — The blade does not return to the sheath until the matter is settled. Burst: Iaido and Iaijutsu 38 → 42 EP on the full route (Light → Normal, 3 below High). Flat Damage acts on the strike's own cast; the self buffs never do.
+- **Single Stroke** — One stroke, begun and finished before the eye can follow it. Commitment: Iaido and Iaijutsu Damage 38 → 39 EP, still Light tier; the Normal-tier step belongs to Cut of No Return. 2 rows.
+- **Cut of No Return** — The blade does not return to the sheath until the matter is settled. Burst: Iaido and Iaijutsu 38 → 40 EP on the full route (Light → Normal), landing on the strike's own cast, which no buff does. Rider: Heiho's guard 35 → 37% (39% with Reading the Field). 3 rows.
 - **Second Sword** — The off hand was never idle; a second edge waits where the first was parried. All three self buffs 37 → 38% with Drawn Steel; each lands on the caster at cast time and is live the 2 rounds after. 3 rows.
 - **Two Heavens as One** — Sword and strategy, long blade and short, drawn as a single will. Sustained amplification: all three self buffs 35 → 40% on the full route, compounding to ×1.96 with two live and ≈ ×2.74 with three. 3 rows.
 - **Reading the Field** — Before the first cut, the strategist has already chosen the ground. Heiho Decrease Damage Taken 35 → 37% (all four stat types, 2 rounds, cooldown 5). 1 row.
@@ -53,13 +56,13 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08. Advanced Arts
 
 | Build | Purchases | DMG | IDG | DDT |
 |---|---|---:|---:|---:|
-| Cut of No Return (Burst) | Drawn Steel, Single Stroke, Cut of No Return, Second Sword | +4 | +3% | — |
+| Cut of No Return (Burst) | Drawn Steel, Single Stroke, Cut of No Return, Second Sword | +2 | +3% | +2% |
 | Two Heavens as One (Tempo) | Drawn Steel, Second Sword, Two Heavens as One, Reading the Field | — | +5% | +2% |
 | Victory in the Sheath (Fortress) | Drawn Steel, Reading the Field, Unbroken Guard, Victory in the Sheath | — | +2% | +10% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDT = Decrease Damage Taken. Values are per-matching-row static additions, not final combat percentages.
 
-- **Cut of No Return:** Iaido and Iaijutsu 38 → 42 EP, applied on each strike's own cast with no setup round, and all three self buffs at 38% (Drawn Steel +2%, Second Sword +1%) multiplying any strike that follows an earlier cast. Second Sword is the offensive fourth purchase; Reading the Field (guard 37%, buffs 37%) is the safer alternative.
+- **Cut of No Return:** Iaido and Iaijutsu 38 → 40 EP (Light → Normal) on each strike's own cast with no setup round, all three self buffs at 38% (Drawn Steel +2%, Second Sword +1%) multiplying any strike that follows an earlier cast, and Heiho's guard at 37% from Cut of No Return's rider. Second Sword is the offensive fourth purchase; Reading the Field (buffs 37%, guard 39%) is the guarded alternative.
 - **Two Heavens as One:** All three self buffs 35 → 40%. Heiho and Iaido cast together (100 AP) multiply every element-less hit next round by ×1.40 × 1.40 = ×1.96 (×1.82 at base); with Iaijutsu cast in that round all three are live the round after, ≈ ×2.74 (≈ ×2.46). Reading the Field (guard 37%) is the safer fourth purchase; Single Stroke (strikes 39 EP, still Light) is the offensive one.
 - **Victory in the Sheath:** Heiho's Decrease Damage Taken at 45% (×0.55 of each non-pierce hit, against ×0.65 at base) for the 2 rounds after each cast (cooldown 5), with all three self buffs at 37% from Drawn Steel, the only legal fourth purchase.
 
@@ -68,24 +71,24 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDT = Decrease Dam
 | Jutsu | Row | Tag | Recipient | Base | Burst | Tempo | Fortress |
 |---|---:|---|---|---:|---:|---:|---:|
 | Heiho | 0 | Increase Damage Given | self | 35% | 38% (+3) | 40% (+5) | 37% (+2) |
-| Heiho | 1 | Decrease Damage Taken | self | 35% | 35% | 37% (+2) | 45% (+10) |
-| Iaido | 0 | Damage | enemy | 38 | 42 (+4) | 38 | 38 |
+| Heiho | 1 | Decrease Damage Taken | self | 35% | 37% (+2) | 37% (+2) | 45% (+10) |
+| Iaido | 0 | Damage | enemy | 38 | 40 (+2) | 38 | 38 |
 | Iaido | 1 | Increase Damage Given | self | 35% | 38% (+3) | 40% (+5) | 37% (+2) |
-| Iaijutsu | 0 | Damage | enemy | 38 | 42 (+4) | 38 | 38 |
+| Iaijutsu | 0 | Damage | enemy | 38 | 40 (+2) | 38 | 38 |
 | Iaijutsu | 1 | Increase Damage Given | self | 35% | 38% (+3) | 40% (+5) | 37% (+2) |
 | Iaijutsu | 2 | move (unsupported) | self | 1 | 1 | 1 | 1 |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 4, 3: 7, 4: 8
-- Full-budget allocations: 8; numerically non-dominated (per-tag totals): 8; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +4 Damage, +5% Increase Damage Given, +10% Decrease Damage Taken (not jointly attainable)
+- Full-budget allocations: 8; numerically non-dominated (per-tag totals): 7; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +2 Damage, +5% Increase Damage Given, +10% Decrease Damage Taken (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Cut of No Return: +4 Damage (0 + 1 + 3; off band)
+  - Route Cut of No Return: +2 Damage (0 + 1 + 1; off band)
   - Route Two Heavens as One: +5% Increase Damage Given (2 + 1 + 2; on band)
   - Route Victory in the Sheath: +10% Decrease Damage Taken (2 + 3 + 5; on band)
 - Supported rows in kit: 6 (DMG 2, DDT 1, IDG 3)
-- Strongest full build by row-weighted total: Drawn Steel, Single Stroke, Cut of No Return, Second Sword (raw +7, row-weighted 17)
+- Strongest full build by row-weighted total: Drawn Steel, Second Sword, Two Heavens as One, Reading the Field (raw +7, row-weighted 17)
 - Lowest row-weighted node: Single Stroke (2)
 
 Validator warnings:
@@ -97,10 +100,10 @@ Validator warnings:
 
 Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
 
-| Jutsu | Row | Base (tier) | +1 Damage | +4 Damage |
+| Jutsu | Row | Base (tier) | +1 Damage | +2 Damage |
 |---|---:|---|---|---|
-| Iaido | 0 | 38 (Light) | 39 (Light) | 42 (Normal) ↑ |
-| Iaijutsu | 0 | 38 (Light) | 39 (Light) | 42 (Normal) ↑ |
+| Iaido | 0 | 38 (Light) | 39 (Light) | 40 (Normal) ↑ |
+| Iaijutsu | 0 | 38 (Light) | 39 (Light) | 40 (Normal) ↑ |
 
 ### Fourth-BP audit
 
@@ -108,8 +111,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
 |---|---|---|---|---:|
-| Cut of No Return | +4 Damage, +2% IDG | Second Sword *(highest diagnostic)* | +4 Damage, +3% IDG | 17 |
-| Cut of No Return | +4 Damage, +2% IDG | Reading the Field | +4 Damage, +2% IDG, +2% DDT | 16 |
+| Cut of No Return | +2 Damage, +2% IDG, +2% DDT | Second Sword *(highest diagnostic)* | +2 Damage, +3% IDG, +2% DDT | 15 |
+| Cut of No Return | +2 Damage, +2% IDG, +2% DDT | Reading the Field | +2 Damage, +2% IDG, +4% DDT | 14 |
 | Two Heavens as One | +5% IDG | Single Stroke | +1 Damage, +5% IDG | 17 |
 | Two Heavens as One | +5% IDG | Reading the Field *(highest diagnostic)* | +5% IDG, +2% DDT | 17 |
 | Victory in the Sheath | +10% DDT | Drawn Steel *(highest diagnostic)* | +2% IDG, +10% DDT | 16 |
@@ -118,8 +121,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Drawn Steel, Single Stroke, Cut of No Return, Second Sword | +4 Damage, +3% IDG |
-| 2 | Drawn Steel, Single Stroke, Cut of No Return, Reading the Field | +4 Damage, +2% IDG, +2% DDT |
+| 1 | Drawn Steel, Single Stroke, Cut of No Return, Second Sword | +2 Damage, +3% IDG, +2% DDT |
+| 2 | Drawn Steel, Single Stroke, Cut of No Return, Reading the Field | +2 Damage, +2% IDG, +4% DDT |
 | 3 | Drawn Steel, Single Stroke, Second Sword, Two Heavens as One | +1 Damage, +5% IDG |
 | 4 | Drawn Steel, Single Stroke, Second Sword, Reading the Field | +1 Damage, +3% IDG, +2% DDT |
 | 5 | Drawn Steel, Single Stroke, Reading the Field, Unbroken Guard | +1 Damage, +2% IDG, +5% DDT |
@@ -129,19 +132,20 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 ## Design notes
 
-- Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Drawn Steel (+2% IDG) forks into Single Stroke → Cut of No Return (+1, then +3 Damage) and Second Sword → Two Heavens as One (+1%, then +2% IDG). Reading the Field (+2% DDT) carries Unbroken Guard → Victory in the Sheath (+3%, then +5% DDT). Each capstone is single-tag. Any two Advanced Arts cost 5 BP under Drawn Steel or 6 BP across roots. Maxima over every legal allocation: Damage +4 (38 → 42), Increase Damage Given +5%, Decrease Damage Taken +10%.
-- 2026-10-04 rebalance: the +5 Damage route (Single Stroke +2, Cut of No Return +3; 38 → 43) becomes +4 (+1, then +3; 38 → 42). Single Stroke's +1 keeps the strikes Light (39) when Tempo buys it as a fourth, so the Light → Normal step and three of Burst's four EP stay exclusive to the capstone. A percentage setup on Single Stroke was rejected: Increase Damage Given there would stack with Two Heavens as One as its fourth purchase, and Decrease Damage Taken would twin Reading the Field. Answering Cut (+2 Damage leaf under Reading the Field) is removed: it twinned Single Stroke and gave the guard route Normal-tier strikes.
-- Riders removed: Two Heavens as One loses its +2% Decrease Damage Taken, which gave every Tempo build 2% more guard than the matching Burst build with no reason in Tempo's identity; Victory in the Sheath loses its +1% Increase Damage Given, a filler that only matched printed totals. Tempo is pure amplification and Fortress pure guard (37% buffs from the mandatory Drawn Steel); the kit has no sustain or second defensive tag to give Fortress an identity-compatible secondary, so its one row carries the 2/3/5 chain alone.
-- Fourth purchases: Burst (01,02,03) adds Second Sword (42 EP, buffs 38%) or Reading the Field (42 EP, buffs 37%, guard 37%); Tempo (01,04,05) adds Single Stroke (39 EP, buffs 40%) or Reading the Field (38 EP, buffs 40%, guard 37%); Fortress (06,07,08) adds only Drawn Steel (buffs 37%, guard 45%). Burst and Tempo each take one point from the other's Hidden Art at best: Tempo's Single Stroke takes 1 of Burst's 4 EP, Burst's Second Sword 1 of Tempo's 5%.
+- Node split: 2 Foundations, 3 Hidden Arts, 3 Advanced Arts. Drawn Steel (+2% IDG) forks into Single Stroke → Cut of No Return (+1 Damage, then +1 Damage with +2% DDT) and Second Sword → Two Heavens as One (+1%, then +2% IDG). Reading the Field (+2% DDT) carries Unbroken Guard → Victory in the Sheath (+3%, then +5% DDT). Any two Advanced Arts cost 5 BP under Drawn Steel or 6 BP across roots. Maxima over every legal allocation: Damage +2 (38 → 40), Increase Damage Given +5%, Decrease Damage Taken +10%.
+- Roster pass: Burst goes from +4 (Single Stroke +1, Cut of No Return +3; 38 → 42) to +2 (+1, then +1; 38 → 40). +4 was the largest non-protected flat-Damage gain in the roster (×1.105 per strike, 2 EP past the Normal line); the roster convention for kits whose only strikes are 38 EP Light rows stops Burst at the Normal line. Single Stroke keeps a +1 commit (39, still Light) because every percentage setup duplicates a sibling: Increase Damage Given twins Second Sword under the same Foundation and lifts Tempo's Single Stroke fourth to +6% on three compounding rows; Decrease Damage Taken twins Unbroken Guard on Heiho's one guard row and Reading the Field as Tempo's fourth. The Light → Normal step is the capstone's.
+- Guard rider: at +2 EP, Burst with Second Sword (40 EP, buffs 38%) would trail Tempo with Single Stroke (39 EP, 40%) on almost every hit: Tempo's ×1.029 with two buffs live beats Burst's ×1.026 on two strikes, and only a draw with at most one buff live favours Burst. Cut of No Return therefore adds +2% Decrease Damage Taken on Heiho rather than more EP: the draw is made from guard and the blade stays up until the matter is settled. An Increase Damage Given rider was rejected because Burst with Second Sword (40 EP, 39%) would then be Tempo with Single Stroke (39 EP, 40%) with one point moved. With the rider, Burst with Second Sword and Tempo with Reading the Field hold the same 37% guard and trade +2 EP on two strikes against +2% on three buffs.
+- First-pass riders stay removed: Two Heavens as One's +2% Decrease Damage Taken gave Tempo guard with no reason in its identity (Tempo already leads on throughput), and Victory in the Sheath's +1% Increase Damage Given was filler that only matched printed totals. Tempo is pure amplification and Fortress pure guard (buffs 37% from the mandatory Drawn Steel); the kit has no sustain or second defensive tag to give Fortress an identity-compatible secondary, so its one row carries the 2/3/5 chain alone.
+- Fourth purchases: Burst (01,02,03) adds Second Sword (40 EP, buffs 38%, guard 37%) or Reading the Field (40 EP, buffs 37%, guard 39%); Tempo (01,04,05) adds Single Stroke (39 EP, buffs 40%) or Reading the Field (38 EP, buffs 40%, guard 37%); Fortress (06,07,08) adds only Drawn Steel (buffs 37%, guard 45%). Tempo's Single Stroke takes 1 of Burst's 2 EP but not the Normal-tier step; Burst's Second Sword takes 1 of Tempo's 5%.
 - Interactions: every supported row is element-less. The Bukijutsu filter on Heiho's and Iaijutsu's IDG is not binding: it matches every element-less hit of any stat type (weapons, basic attacks, non-elemental jutsu) and excludes only elemental Nin/Gen/Tai hits; Iaido's IDG and Heiho's DDT list all four stat types and match every non-pierce hit. Live IDG rows multiply a hit one after another (×1.40 × 1.40 = ×1.96), DDT applies as ×(1 − p/100), and the 15% Bukijutsu IDG passive applies last. Formula Damage is linear in EP.
 - Delivery: Heiho (40 AP self cast, cooldown 5) is live 2 of every 5 rounds; Iaido and Iaijutsu are 60 AP, cooldown 7. No buff acts in its cast round, so Tempo pays off only in later rounds, while Burst's flat Damage lands on the strike itself, including an opening or finishing draw with nothing live.
 
 ## Risks and unproven interactions
 
 - Classification: no kit row carries a non-None element, so the tree requires a classification extension: 'Musashi Ken' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision. All three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Targeting None instead would reach every non-elemental row in the game. Off-kit coverage is unverified.
-- Burst and Tempo trade throughput, marginal to marginal. Burst with Second Sword (42 EP, buffs 38%) against Tempo with Single Stroke (39 EP, 40%): Tempo gains ×1.40/1.38 per live buff (×1.029 with two live, ×1.044 with three) on every element-less hit; Burst gains ×1.077 on its two cooldown-7 strikes (42/39), on their own cast with nothing live. Against Tempo with Reading the Field (38 EP) the strikes gain ×1.105. A rough rotation model (indicative only: 100 AP per round, element-less filler, buffs live the 2 rounds after each cast) puts both full builds near ×1.05 over a no-tree build: Tempo ahead by up to 0.5% when filler carries most damage, Burst ahead by 0.5–0.8% when the strikes carry more. Not simulated in the engine.
+- Burst and Tempo trade throughput, marginal to marginal. Burst with Second Sword (40 EP, buffs 38%, guard 37%) against Tempo with Single Stroke (39 EP, 40%, guard 35%): Tempo gains ×1.40/1.38 per live buff (×1.029 with two live, ×1.044 with three) on every element-less hit; Burst gains ×1.026 (40/39) on its two cooldown-7 strikes, on their own cast with nothing live, and takes ×0.63 against ×0.65 while Heiho is live. Against Tempo with Reading the Field (38 EP, guard 37%) Burst's strikes gain ×1.053 at equal guard. A rough rotation model (indicative only: 100 AP per round, element-less filler, buffs live the 2 rounds after each cast, strikes carrying 18–41% of damage) puts Burst with Second Sword at ×1.038–1.049 over a no-tree build, Tempo with Single Stroke at ×1.052–1.056 and Tempo with Reading the Field at ×1.045–1.047: Burst trails the all-offence Tempo by 0.7–1.4% and is within 1% either way of the equal-guard Tempo. Not simulated in the engine.
 - Iaijutsu delivery: the Damage row is INHERIT on an EMPTY_GROUND circle with friendly fire ENEMIES, so only enemies are hit; its IDG row is target SELF and lands on the caster at cast time (actions.ts 980-1004), not through the tiles. Only the unsupported move row is positional (enemy hazard), and no node touches it.
-- Guard is one row at 40% uptime: Victory in the Sheath puts Heiho's DDT at 45% (×0.55 against ×0.65 at base) for the 2 rounds after each cast against every non-pierce hit; it runs against the bloodline's 5% Increase Damage Taken passive, which no node changes. Fortress gives up about 2–3% throughput to Tempo with Reading the Field (buffs 37% against 40%) for ×0.55 against ×0.63 while Heiho is live.
+- Guard is one row at 40% uptime: Victory in the Sheath puts Heiho's DDT at 45% (×0.55 against ×0.65 at base) for the 2 rounds after each cast against every non-pierce hit; it runs against the bloodline's 5% Increase Damage Taken passive, which no node changes. Fortress gives up about 3% throughput to Tempo with Reading the Field (buffs 37% against 40%) for ×0.55 against ×0.63 while Heiho is live; Burst with Reading the Field sits between them (guard 39%, ×0.61).
 - Unsupported rows and modes: Iaijutsu's move receives nothing; the bloodline passives (15% Bukijutsu IDG, 5% IDT, sealprevent) are not jutsu rows. Skill-tree and bloodline effects are skipped in ranked PvP / sparring at the pin. No hidden, item-gated, mode-restricted, adverse or ally-hazard rows exist in this kit.
 
 ## Limits
