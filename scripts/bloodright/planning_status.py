@@ -58,6 +58,11 @@ def build() -> str:
                       f"{t.get('classification', {}).get('potency_classification')} ({t.get('classification', {}).get('classification_status')})")
             if t.get("narrow_kit_exception"):
                 detail += "; narrow-kit exception"
+            dr = t.get("design_review") or {}
+            if dr.get("status"):
+                detail += f"; status: {dr['status']}"
+            if dr.get("director_review") and dr["director_review"] != "none":
+                detail += "; director review recommended"
             rv = review.get(slug)
             if rv:
                 detail += f"; review: {rv.get('final_review')}"
