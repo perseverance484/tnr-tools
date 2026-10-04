@@ -46,8 +46,8 @@
   "emphasis": {
     "primary": "The trade of blows (Sapphire Edge): Burst sets up the four self damage buffs and pays off with +2 Damage on the five Ice attacks, or Suppression takes Icebound Might's circle to 40% Decrease Damage Given",
     "secondary": "Outlasting the fight (Unblinking Sapphire): a Decrease Damage Taken fortress on the two weaponless casts, or Arctic Frost's Lifesteal drain with exposure",
-    "tertiary": "Increase Damage Given and Increase Damage Taken held to +5%, because four and three rows compound with one another and with the 28.75% passive: ×1.157 on the four self buffs, ×1.115 on the three exposure rows (Blood-Enchanted Eyes' exposure maximum)",
-    "rationale": "Fable proposal (2026-10-04 batch rebalance, roster pass). Sapphire Edge answers \"How do I win the trade of blows: sharpen mine or dull theirs?\": Burst takes the four self damage buffs to 40% on Honed Crescent and pays off with a controlled +2 Damage on Stroke That Splits Stone (40 → 42 and 45 → 47 EP, no tier change), and Suppression (Numb to the Marrow) takes Icebound Might's circle to 40% Decrease Damage Given with a light guard rider. Unblinking Sapphire answers \"How do I outlast them: refuse their blows, or drink them dry?\": Fortress (Glacier Does Not Yield) takes both guard rows to 45%, and Drain (Winter Takes Its Due) takes Arctic Frost's Lifesteal to the 45% ceiling with exposure 35 → 40% on three rows (×1.115). Shield, stun, buffprevent, wound, move and redirection are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005)."
+    "tertiary": "Increase Damage Given held to +4% (R14′: the burst package with flat Damage stays under ×1.234) and Increase Damage Taken to +5% (R3 on three rows); four and three rows compound with one another and with the 28.75% passive: ×1.124 on the four self buffs, ×1.115 on the three exposure rows (Blood-Enchanted Eyes' exposure maximum)",
+    "rationale": "Fable proposal (2026-10-04 batch rebalance, roster pass). Sapphire Edge answers \"How do I win the trade of blows: sharpen mine or dull theirs?\": Burst takes the four self damage buffs to 39% on Honed Crescent and pays off with a controlled +2 Damage on Stroke That Splits Stone (40 → 42 and 45 → 47 EP, no tier change), and Suppression (Numb to the Marrow) takes Icebound Might's circle to 40% Decrease Damage Given with a light guard rider. Unblinking Sapphire answers \"How do I outlast them: refuse their blows, or drink them dry?\": Fortress (Glacier Does Not Yield) takes both guard rows to 45%, and Drain (Winter Takes Its Due) takes Arctic Frost's Lifesteal to the 45% ceiling with exposure 35 → 40% on three rows (×1.115). Shield, stun, buffprevent, wound, move and redirection are unsupported and untouched. Potency reaches matching supported tags on all Ice jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -98,12 +98,12 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Between strikes the crescent is honed, until the air itself parts before it.",
-      "coverage_note": "Burst set-up: all four self damage buffs 40% with Sapphire Edge (Glacial Volley, Blue Crimson, Arctic Frost, Quintessential Flake); they compound with one another on every matching hit in their windows.",
+      "coverage_note": "Burst set-up: all four self damage buffs 39% with Sapphire Edge (Glacial Volley, Blue Crimson, Arctic Frost, Quintessential Flake); they compound with one another on every matching hit in their windows.",
       "parent_rule": "ALL",
       "potency_classification": "Ice",
       "scope": "all Ice jutsu",
@@ -395,11 +395,11 @@
         "03",
         "06"
       ],
-      "rationale": "All four self damage buffs at 40%: a Blue Blade owner with Blue Crimson, Arctic Frost and Quintessential Flake up multiplies matching hits by ×1.40³ ≈ ×2.74 (×2.46 at base) before the passive, and the five Ice attacks hit at 42 / 47 EP. Unblinking Sapphire is the fourth purchase: its exposure (37% on three rows, ×1.045) compounds with the four buffs (×1.157) to ×1.209, the tree's top offensive package and under Blood-Enchanted Eyes' ×1.234, and it adds guard 37%; Frostbitten Grip (suppression 35%) is the alternative.",
+      "rationale": "All four self damage buffs at 39%: a Blue Blade owner with Blue Crimson, Arctic Frost and Quintessential Flake up multiplies matching hits by ×1.39³ ≈ ×2.69 (×2.46 at base) before the passive, and the five Ice attacks hit at 42 / 47 EP. Unblinking Sapphire is the fourth purchase: its exposure (37% on three rows, ×1.045) compounds with the four buffs (×1.124) to ×1.175, ≈ ×1.233 with the +2 Damage on a 40 EP strike, the tree's top offensive package and just under Blood-Enchanted Eyes' ×1.234 (R14′), and it adds guard 37%; Frostbitten Grip (suppression 35%) is the alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -507,8 +507,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -619,8 +619,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -673,8 +673,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -767,8 +767,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -823,7 +823,7 @@
         "05",
         "06"
       ],
-      "rationale": "Icebound Might suppresses every enemy in its circle at 40% for the two rounds after the cast, and both guard rows reach 39%: a suppressed enemy's hit on the guarded caster is multiplied by ×0.60 × 0.61 × 0.61 ≈ ×0.22 (×0.30 at base). Unblinking Sapphire is the fourth purchase for that guard and exposure 37%; Honed Crescent (self damage buffs 40%, Burst's set-up without its payoff) is the offensive alternative.",
+      "rationale": "Icebound Might suppresses every enemy in its circle at 40% for the two rounds after the cast, and both guard rows reach 39%: a suppressed enemy's hit on the guarded caster is multiplied by ×0.60 × 0.61 × 0.61 ≈ ×0.22 (×0.30 at base). Unblinking Sapphire is the fourth purchase for that guard and exposure 37%; Honed Crescent (self damage buffs 39%, Burst's set-up without its payoff) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -2098,10 +2098,10 @@
   "narrow_kit_exception": null,
   "design_notes": [
     "Structure kept from Draft 4 (01→02→03, 01→04→05, 06→07→08, 06→09→10). Each Foundation pairs a self buff with an enemy debuff and its children lean to opposite sides: Sapphire Edge (Increase Damage Given + Decrease Damage Given) forks into Burst (Honed Crescent → Stroke That Splits Stone) and Suppression (Frostbitten Grip → Numb to the Marrow); Unblinking Sapphire (Increase Damage Taken + Decrease Damage Taken) forks into Fortress (Hoarfrost Bulwark → Glacier Does Not Yield) and Drain (Thirst of the Frost → Winter Takes Its Due). Lifesteal stands in for Afterburn (no Afterburn rows).",
-    "Damage: Draft 4's +5 route (Honed Crescent +2, Stroke That Splits Stone +3) lifted every Damage row in the kit a tier: Icebound Might, Glacial Volley and Blue Crimson 40 → 45, Ice Shackles and Blade Resonance 45 → 50 (High to Nuke). Burst now sets up on Honed Crescent (+3% Increase Damage Given) and pays a single +2 Damage on Stroke That Splits Stone: 40 → 42 and 45 → 47 EP, no tier change, and +2 is the maximum over every legal allocation.",
-    "Leverage: Increase Damage Given (four self rows) and Increase Damage Taken (three enemy rows; every attacker on the target benefits) compound per hit with one another and with the 28.75% passive, so both stop at +5%: three rows up at once give ×1.40³ ≈ ×2.74 against ×2.46 at base (+11.5%). Draft 4's +3% Increase Damage Given rider on Numb to the Marrow (Suppression out-amplified Burst) and +3% exposure rider on Glacier Does Not Yield (both Unblinking Sapphire capstones leaned on exposure) are removed, and Winter Takes Its Due's exposure rider falls from +5% to +3% so Lifesteal stays the Drain identity (Increase Damage Taken maximum +7% → +5%).",
+    "Damage: Draft 4's +5 route (Honed Crescent +2, Stroke That Splits Stone +3) lifted every Damage row in the kit a tier: Icebound Might, Glacial Volley and Blue Crimson 40 → 45, Ice Shackles and Blade Resonance 45 → 50 (High to Nuke). Burst now sets up on Honed Crescent (+2% Increase Damage Given) and pays a single +2 Damage on Stroke That Splits Stone: 40 → 42 and 45 → 47 EP, no tier change, and +2 is the maximum over every legal allocation.",
+    "Leverage: Increase Damage Given (four self rows) and Increase Damage Taken (three enemy rows; every attacker on the target benefits) compound per hit with one another and with the 28.75% passive, so Increase Damage Given stops at +4% and Increase Damage Taken at +5%: three self buffs up at once give ×1.39³ ≈ ×2.69 against ×2.46 at base (+9.2%), three exposure rows ×1.40³ ≈ ×2.74 (+11.5%). Draft 4's +3% Increase Damage Given rider on Numb to the Marrow (Suppression out-amplified Burst) and +3% exposure rider on Glacier Does Not Yield (both Unblinking Sapphire capstones leaned on exposure) are removed, and Winter Takes Its Due's exposure rider falls from +5% to +3% so Lifesteal stays the Drain identity (Increase Damage Taken maximum +7% → +5%).",
     "Narrow coverage: Decrease Damage Given (Icebound Might) and Lifesteal (Arctic Frost) each reach one row, so those capstones carry a light identity-compatible rider (guard +2% Decrease Damage Taken, below Hoarfrost Bulwark's +3%; exposure +3% Increase Damage Taken) instead of a larger primary. The Damage (five rows) and Decrease Damage Taken (two rows) capstones carry their primary alone.",
-    "Roster passes: graph and values unchanged. The kit has no 50 EP Damage row, so R1′ does not apply; Burst carries the dossier's Burst trait and follows the director pattern: a percentage setup on the Hidden Art (Honed Crescent, self amplification, a tag no other Hidden Art carries) and a controlled +2 Damage payoff on the Advanced Art, the flat-Damage maximum over every legal allocation (R2, R4, R8). Increase Damage Given and Increase Damage Taken stay at R3's three-or-more-row +5% cap. Glacier Does Not Yield's +10% Decrease Damage Taken sits on two compounding rows, above R3's +8% two-row default: a guarded hit falls to (0.55 / 0.65)² ≈ ×0.716 of its base-guard value (×0.696 with Sapphire Edge's suppression inside Icebound Might's circle), stronger than Blood-Enchanted Eyes' Deathless Vitality (×0.747) because both guard rows start at 35%. It is kept and named as DQ-C; +8% split 2/2/4 (Hoarfrost Bulwark +2, Glacier Does Not Yield +4, so the bare capstone still exceeds its Hidden step; both rows 43%, ×0.769) is the stated alternative. The Fortress takes no rider (R13).",
+    "Roster passes: graph unchanged; the consistency pass trims Honed Crescent +3 → +2% Increase Damage Given (R14′): at +3% Burst + Unblinking Sapphire reached ≈ ×1.27 on a 40 EP strike counting the +2 Damage, above Blood-Enchanted Eyes' ×1.234; at +2% it is ≈ ×1.233. The kit has no 50 EP Damage row, so the 50-row test (R1″) does not apply; Burst carries the dossier's Burst trait and follows the director pattern: a percentage setup on the Hidden Art (Honed Crescent, self amplification, a tag no other Hidden Art carries) and a controlled +2 Damage payoff on the Advanced Art, the flat-Damage maximum over every legal allocation (R2, R4, R8). Increase Damage Taken stays at R3's three-or-more-row +5% cap; Increase Damage Given now stops at +4%. Glacier Does Not Yield's +10% Decrease Damage Taken sits on two compounding rows, above R3's +8% two-row default: a guarded hit falls to (0.55 / 0.65)² ≈ ×0.716 of its base-guard value (×0.696 with Sapphire Edge's suppression inside Icebound Might's circle), stronger than Blood-Enchanted Eyes' Deathless Vitality (×0.747) because both guard rows start at 35%. It is kept and named as DQ-C; +8% split 2/2/4 (Hoarfrost Bulwark +2, Glacier Does Not Yield +4, so the bare capstone still exceeds its Hidden step; both rows 43%, ×0.769) is the stated alternative. The Fortress takes no rider (R13).",
     "Castability: six of eight jutsu need one of two HAND-slot bloodline weapons (The Threefold Gaze: Icebound Might, Glacial Volley, Ice Shackles; The Blue Blade: Blade Resonance, Blue Crimson, Arctic Frost); no node lists an item and no bonus is limited by one. Castable rows: Threefold Gaze = Damage 3, IDG 2, DDG 1, IDT 1, DDT 2; Blue Blade = Damage 2, IDG 3, IDT 3, DDT 2, Lifesteal 1; no weapon = IDG 1, IDT 1, DDT 2. Dual wielding was not read at the pin.",
     "Resolver and delivery: nine of eleven buff/debuff rows have a stat filter but no element, so getEfficiencyRatio (SOURCE_MECHANICS §3) matches them to Ice hits, normal jutsu, weapons and basic attacks alike; Blade Resonance's exposure and Arctic Frost's damage buff carry Earth/Ice/None/Water/Wind. Cooldown 7 on every jutsu; damage casts cost 60 AP, the rest 40 AP; percentage rows live the 2 rounds after the cast (§3b), so Glacial Volley's and Blue Crimson's own buff never boosts their own hit. Quintessential Flake's guard and damage buff are SELF rows realized on the caster at cast, not through the tile (actions.ts 980-1004).",
     "Fourth purchases: Burst adds Unblinking Sapphire or Frostbitten Grip; Suppression adds Unblinking Sapphire or Honed Crescent; Fortress adds Sapphire Edge or Thirst of the Frost; Drain adds Hoarfrost Bulwark or Sapphire Edge. No capstone shares a tag with its sibling Hidden Art, so no fourth purchase stacks a capstone's own tag; the strongest cross-route fourth, Honed Crescent under Suppression, trades Stroke That Splits Stone's +2 Damage for Numb to the Marrow's suppression and guard."
@@ -2110,7 +2110,7 @@
     "Classification: Ice is shared with Hyouga Yui, Teno Yuki and other census bloodlines (expected under RUL-2026-10-03-005). 7 of 16 kit rows carry Ice; the other nine need the proposed jutsu-classification resolver, and Quintessential Flake and Sapphire Command (no Ice row) additionally need an authored Ice jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Ice coverage is unverified.",
     "Castability: 12 of 16 supported rows sit on weapon-gated jutsu. Burst's Damage rows are split across both weapons (three on The Threefold Gaze, two on The Blue Blade); Suppression's row is cast with The Threefold Gaze and Drain's with The Blue Blade; only the Fortress's primary rows need no weapon. Gates decide castability, not eligibility.",
     "Ally hazard: Icebound Might row 0 (Damage, AOE_CIRCLE_SPAWN, friendly fire none = ALL) hits allies in the circle, never the caster; Stroke That Splits Stone raises that to 42 EP for allies inside. Sapphire Command's exposure row (friendly fire none, single target) exposes an ally at 37–40% if cast on one.",
-    "Multiplier stacking: four self damage buffs reach 40% each at the maximum and all stack (process.ts 1109-1117): three timed to share a round give ×1.40³ ≈ ×2.74 (×2.46 at base), all four (both weapons) ×1.40⁴ ≈ ×3.84, and the 28.75% passive then multiplies. The three exposure rows reach the same 40% under Drain and multiply with them. Rotation and uptime were not simulated.",
+    "Multiplier stacking: four self damage buffs reach 39% each at the maximum and all stack (process.ts 1109-1117): three timed to share a round give ×1.39³ ≈ ×2.69 (×2.46 at base), all four (both weapons) ×1.39⁴ ≈ ×3.73, and the 28.75% passive then multiplies. The three exposure rows reach 40% under Drain and multiply with them. Rotation and uptime were not simulated.",
     "Lifesteal: Arctic Frost's leech reaches 45% of every hit landed in its two-round window (no element: Ice hits, normal jutsu, weapons and basic attacks qualify; pierce included). It shares the 60%-of-pre-shield-damage budget with vamp; needs both combatants alive; healprevent on the caster blocks it.",
     "Suppression and guard: Decrease Damage Given is one AOE row on a 60 AP cast (40% at maximum; value scales with enemies inside). Decrease Damage Taken is two SELF rows on 40 AP casts; with both up matching non-pierce hits take ×0.55 × 0.55 ≈ ×0.30 at the Fortress maximum (×0.42 at base; damage never falls below 10% of the boosted, system-reduced hit). Not simulated.",
     "No adverse rows, hidden rows, mode restrictions or injected children exist; the unsupported rows are unchanged and pierce is absent. Skill-tree and bloodline effects are suppressed in ranked modes. Rank context: S-rank with a 28.75% Increase Damage Given passive at jutsu level 25 and a 100 regen bonus; cross-bloodline comparison is deferred to the roster review."
@@ -2155,7 +2155,7 @@
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
-      "increasedamagegiven": 5,
+      "increasedamagegiven": 4,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
@@ -2195,7 +2195,7 @@
     "ceilings": {
       "maximum_over_all_legal_allocations": {
         "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
@@ -2303,7 +2303,7 @@
       ],
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 5
       }
     },
@@ -2316,7 +2316,7 @@
       ],
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -2330,7 +2330,7 @@
         "05"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 10,
         "decreasedamagetaken": 2
       }
@@ -2343,7 +2343,7 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -2357,7 +2357,7 @@
         "07"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
@@ -2371,7 +2371,7 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
@@ -2508,9 +2508,9 @@
     "concerns": [
       "Suppression and Drain primaries each reach one row on one weapon (Icebound Might on The Threefold Gaze; Arctic Frost on The Blue Blade), so a single-weapon owner can play only one of them; their +10% / +5% values follow the director-approved single-row precedents.",
       "Nine of 16 rows, including every Decrease Damage Given, Decrease Damage Taken and Lifesteal row, need the jutsu-classification resolver (G1); with the current element-matching resolver only the five Damage rows, Arctic Frost's damage buff and Blade Resonance's exposure would be reachable.",
-      "Burst and Drain both end their offensive tag at 40%: Burst's self buffs on four rows (×1.157), Drain's exposure on three (×1.115); Burst adds +2 Damage, Drain adds Lifesteal. Exposure also helps allies' hits, which the row arithmetic does not measure.",
+      "Burst ends its self buffs at 39% on four rows (×1.124) and Drain its exposure at 40% on three (×1.115); Burst adds +2 Damage, Drain adds Lifesteal. Exposure also helps allies' hits, which the row arithmetic does not measure.",
       "Glacier Does Not Yield keeps +10% Decrease Damage Taken on two compounding rows (Quintessential Flake and Sapphire Command 45%: ×0.55 × 0.55 ≈ ×0.30 against ×0.42 at base, ×0.716), above R3's +8% two-row default and stronger than Blood-Enchanted Eyes' Deathless Vitality (×0.747) because both guard rows start at 35%; recorded as DQ-C. For it: a single-tag route that guards only the caster, so no ally's hits are multiplied. Against it: both rows need no weapon, so every owner can run the Fortress. Trimming to +8% (2/2/4, both rows 43%, ×0.769) is the alternative.",
-      "Burst with its strongest fourth (Unblinking Sapphire) is the tree's top offensive package: ×1.157 (four self buffs 35 → 40%) × 1.045 (three exposure rows 35 → 37%) ≈ ×1.209 with every window live, under Blood-Enchanted Eyes' Feast of the Fallen + Crimson Thirst + Opened Veins (×1.234, R14). Burst alone is ×1.157 against Rite of Exsanguination + Opened Veins + Iron in the Blood's ×1.149. Counting flat Damage as the anchor table does, the +2 adds ×1.05 on a 40 EP strike (×1.044 on 45), so Burst is about ×1.21 and Burst + Unblinking Sapphire about ×1.27 on that strike, above the Rite route's ≈ ×1.19 with its 50-row Damage, though the Damage here stays in tier. All four buffs need both weapons (dual wielding not read); a Blue Blade owner has three (×1.166 with the exposure).",
+      "Burst with its strongest fourth (Unblinking Sapphire) is the tree's top offensive package: ×1.124 (four self buffs 35 → 39%) × 1.045 (three exposure rows 35 → 37%) ≈ ×1.175 with every window live, and with the +2 Damage on a 40 EP strike (×1.05) ≈ ×1.233 (×1.227 on 45), just under Blood-Enchanted Eyes' Feast of the Fallen + Crimson Thirst + Opened Veins (×1.234, R14′). Burst alone is ×1.124, ≈ ×1.18 with the +2 Damage on a 40 strike, under Rite of Exsanguination + Opened Veins + Iron in the Blood (×1.149, ≈ ×1.19 with Reaper's Embrace 50 → 52, ×1.206 on its 40 rows), and the Damage here stays in tier. All four buffs need both weapons (dual wielding not read); a Blue Blade owner has three (×1.141 with the exposure).",
       "Off-kit Ice jutsu receive Stroke That Splits Stone's +2 Damage; any off-kit 50 EP Ice strike would read 52 (the off-kit catalog is unverified)."
     ]
   }
