@@ -9,9 +9,12 @@
     "statClassification": "Highest",
     "traits": "Damage Over time, Sustained DPS "
   },
-  "revision": "Draft 2 / Scorch classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Director-approved structure (RUL-2026-10-04-002) / Scorch classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "maximum Increase Damage Given +13% Increase Damage Given exceeds +10% under a director-review exception (director-approved tree; 4-BP maximum surfaced for confirmation): Director-approved Shakunetsu Sakura structure (RUL-2026-10-04-002): both Ember Dragon's Roots routes lean on the single Sakura Dragon Tree self buff, and +13% arises only from a capstone plus the sibling Hidden Art (01+02+03+07 or 01+07+08+02).",
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Hiru-Sakura: Sakura-ame 50 -> 52",
+    "route overlap (diagnostic): Dragon in Full Blossom and Scorching Hanami share their primary tag as siblings (path cosine 0.857)",
     "ally-hazard area rows amplified (friendly fire none/ALL): Hiru-Sakura: Sakura-ame#0, Hiru-Sakura: Sakuragari#0, Hiru-Sakura: Sakuragari#1"
   ],
   "classification": {
@@ -43,58 +46,18 @@
   },
   "examples": [
     {
-      "name": "Conflagration in Bloom",
-      "archetype": "Burst",
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "08"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "heal": 2
-      },
-      "advanced_arts": [
-        "Conflagration in Bloom"
-      ]
-    },
-    {
-      "name": "Scorching Hanami",
-      "archetype": "Exposure",
-      "ids": [
-        "01",
-        "04",
-        "05",
-        "06"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 4,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "heal": 2
-      },
-      "advanced_arts": [
-        "Scorching Hanami"
-      ]
-    },
-    {
       "name": "Dragon in Full Blossom",
-      "archetype": "Amplifier",
+      "archetype": "Amplification",
       "ids": [
         "01",
         "02",
         "03",
-        "04"
+        "06"
       ],
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 10,
-        "increasedamagetaken": 2,
+        "decreasedamagegiven": 2,
         "heal": 5
       },
       "advanced_arts": [
@@ -102,18 +65,57 @@
       ]
     },
     {
+      "name": "Scorching Hanami",
+      "archetype": "Dominance",
+      "ids": [
+        "01",
+        "07",
+        "08",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 5
+      },
+      "advanced_arts": [
+        "Scorching Hanami"
+      ]
+    },
+    {
+      "name": "Conflagration in Bloom",
+      "archetype": "Exposure burst",
+      "ids": [
+        "06",
+        "04",
+        "05",
+        "01"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5
+      },
+      "advanced_arts": [
+        "Conflagration in Bloom"
+      ]
+    },
+    {
       "name": "Deluge of Burning Petals",
       "archetype": "Suppression",
       "ids": [
         "06",
-        "07",
         "09",
-        "10"
+        "10",
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
-        "decreasedamagegiven": 10
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "heal": 5
       },
       "advanced_arts": [
         "Deluge of Burning Petals"
@@ -139,12 +141,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 11,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 13,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 5,
       "heal": 5
@@ -171,13 +173,12 @@
         "name": "Ember Dragon's Roots",
         "category": "Foundation",
         "depth": 1,
-        "raw_flat_total": 4,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
-          "Asazakura – Sakura Dragon Tree",
-          "Yozakura: Sakura Dragon Pearl"
+          "Asazakura – Sakura Dragon Tree"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -200,8 +201,8 @@
         "name": "Dragon in Full Blossom",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Asazakura – Sakura Dragon Tree",
           "Yozakura: Sakura Dragon Pearl"
@@ -211,32 +212,31 @@
         "tags_without_rows": []
       },
       {
-        "id": "04",
-        "name": "Branded by Petals",
+        "id": "07",
+        "name": "Blossom Dominion",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Asazakura – Sakura Dragon Tree",
-          "Hiru-Sakura: Sakuragari"
+          "Asazakura – Sakura Dragon Tree"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
       {
-        "id": "05",
+        "id": "08",
         "name": "Scorching Hanami",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
+        "raw_flat_total": 8,
         "row_weighted_total": 8,
         "covered_jutsu": [
           "Asazakura – Sakura Dragon Tree",
-          "Hiru-Sakura: Sakuragari"
+          "Hiru-Sakura: Sakura-ame"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -255,14 +255,14 @@
         "tags_without_rows": []
       },
       {
-        "id": "07",
+        "id": "04",
         "name": "Burning Petal Carpet",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 2,
         "row_weighted_total": 4,
         "covered_jutsu": [
-          "Hiru-Sakura: Sakura-ame",
+          "Asazakura – Sakura Dragon Tree",
           "Hiru-Sakura: Sakuragari"
         ],
         "covered_rows": 2,
@@ -270,17 +270,18 @@
         "tags_without_rows": []
       },
       {
-        "id": "08",
+        "id": "05",
         "name": "Conflagration in Bloom",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
+          "Asazakura – Sakura Dragon Tree",
           "Hiru-Sakura: Sakura-ame",
           "Hiru-Sakura: Sakuragari"
         ],
-        "covered_rows": 2,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -303,70 +304,51 @@
         "name": "Deluge of Burning Petals",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 7,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Hiru-Sakura: Sakura-ame",
-          "Hiru-Sakura: Sakuragari"
+          "Yozakura: Sakura Dragon Pearl"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
     ],
     "strongest_full_build_by_row_weight": {
       "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
+        "04",
+        "06",
+        "09",
+        "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
         "heal": 5
       },
       "raw_flat_total": 17,
       "row_weighted_total": 19,
       "advanced_arts": [
-        "03"
+        "10"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "06",
-      "name": "Falling Ember Petals",
+      "id": "01",
+      "name": "Ember Dragon's Roots",
       "category": "Foundation",
       "depth": 1,
       "raw_flat_total": 2,
       "row_weighted_total": 2,
       "covered_jutsu": [
-        "Hiru-Sakura: Sakura-ame"
+        "Asazakura – Sakura Dragon Tree"
       ],
       "covered_rows": 1,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
     "full_builds": [
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 10,
-          "increasedamagetaken": 2,
-          "heal": 5
-        },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
       {
         "ids": [
           "01",
@@ -390,18 +372,17 @@
         "ids": [
           "01",
           "02",
-          "04",
-          "05"
+          "03",
+          "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
-          "increasedamagetaken": 5,
-          "heal": 2
+          "increasedamagegiven": 13,
+          "heal": 5
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 19,
+        "raw_flat_total": 18,
+        "row_weighted_total": 18,
         "advanced_arts": [
-          "05"
+          "03"
         ],
         "non_dominated": true
       },
@@ -415,11 +396,10 @@
         "bonuses": {
           "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "heal": 2
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -431,15 +411,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "decreasedamagegiven": 2,
-          "heal": 2
+          "increasedamagegiven": 8,
+          "decreasedamagegiven": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -450,12 +428,29 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "decreasedamagegiven": 5,
-          "heal": 2
+          "decreasedamagegiven": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 12,
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
         "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 13,
+          "decreasedamagegiven": 3
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
+        "advanced_arts": [
+          "08"
+        ],
         "non_dominated": true
       },
       {
@@ -466,12 +461,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "damage": 2,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5,
-          "heal": 2
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 13,
+        "raw_flat_total": 11,
         "row_weighted_total": 18,
         "advanced_arts": [
           "05"
@@ -486,14 +481,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "heal": 2
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -507,11 +500,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 2,
-          "heal": 2
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -523,68 +515,10 @@
           "08"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
-          "heal": 2
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "08"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "07",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 5,
-          "heal": 2
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 10,
-          "heal": 2
-        },
-        "raw_flat_total": 15,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "10"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "08",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 5,
+          "increasedamagegiven": 10,
           "decreasedamagegiven": 5
         },
-        "raw_flat_total": 10,
+        "raw_flat_total": 15,
         "row_weighted_total": 15,
         "advanced_arts": [
           "08"
@@ -593,17 +527,72 @@
       },
       {
         "ids": [
+          "01",
           "06",
           "07",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "decreasedamagegiven": 5
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 10,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "06",
           "09",
           "10"
         ],
         "bonuses": {
-          "damage": 3,
-          "decreasedamagegiven": 10
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 10,
+          "heal": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 16,
+        "raw_flat_total": 17,
+        "row_weighted_total": 17,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "04",
+          "05",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "04",
+          "06",
+          "09",
+          "10"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 10,
+          "increasedamagetaken": 2,
+          "heal": 5
+        },
+        "raw_flat_total": 17,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "10"
         ],
@@ -629,15 +618,15 @@
         ],
         [
           "01",
-          "04"
-        ],
-        [
-          "01",
           "06"
         ],
         [
-          "06",
+          "01",
           "07"
+        ],
+        [
+          "04",
+          "06"
         ],
         [
           "06",
@@ -653,17 +642,12 @@
         [
           "01",
           "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
           "06"
         ],
         [
           "01",
-          "04",
-          "05"
+          "02",
+          "07"
         ],
         [
           "01",
@@ -681,13 +665,18 @@
           "09"
         ],
         [
-          "06",
+          "01",
           "07",
           "08"
         ],
         [
+          "04",
+          "05",
+          "06"
+        ],
+        [
+          "04",
           "06",
-          "07",
           "09"
         ],
         [
@@ -701,19 +690,13 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
           "06"
         ],
         [
           "01",
           "02",
-          "04",
-          "05"
+          "03",
+          "07"
         ],
         [
           "01",
@@ -732,6 +715,12 @@
           "02",
           "06",
           "09"
+        ],
+        [
+          "01",
+          "02",
+          "07",
+          "08"
         ],
         [
           "01",
@@ -770,20 +759,298 @@
           "10"
         ],
         [
+          "04",
+          "05",
           "06",
-          "07",
-          "08",
           "09"
         ],
         [
+          "04",
           "06",
-          "07",
           "09",
           "10"
         ]
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Hiru-Sakura: Sakuragari",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Scorch"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "04",
+              "05",
+              "06"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Hiru-Sakura: Sakura-ame",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Scorch"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "04",
+              "05",
+              "06"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [
+      [
+        "Hiru-Sakura: Sakura-ame",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Hiru-Sakura: Sakura-ame",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Dragon in Full Blossom",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 10,
+        "heal": 5
+      },
+      "path_row_weighted": 15,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Falling Ember Petals",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 2,
+            "heal": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 17
+        },
+        {
+          "id": "07",
+          "name": "Blossom Dominion",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 13,
+            "heal": 5
+          },
+          "raw_total": 18,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "07"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Conflagration in Bloom",
+      "path": [
+        "06",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Ember Dragon's Roots",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 11,
+          "row_weighted": 18
+        },
+        {
+          "id": "09",
+          "name": "Smothering Petal Rain",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "decreasedamagegiven": 5,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 19
+        }
+      ],
+      "highest_diagnostic_fourth": "09"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Scorching Hanami",
+      "path": [
+        "01",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 3
+      },
+      "path_row_weighted": 13,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Kindled Boughs",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 13,
+            "decreasedamagegiven": 3
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        },
+        {
+          "id": "06",
+          "name": "Falling Ember Petals",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "decreasedamagegiven": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Deluge of Burning Petals",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "heal": 5
+      },
+      "path_row_weighted": 15,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Ember Dragon's Roots",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "heal": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 17
+        },
+        {
+          "id": "04",
+          "name": "Burning Petal Carpet",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "heal": 5
+          },
+          "raw_total": 17,
+          "row_weighted": 19
+        }
+      ],
+      "highest_diagnostic_fourth": "04"
+    }
+  ],
+  "route_overlap": [
+    {
+      "a": "03",
+      "a_name": "Dragon in Full Blossom",
+      "b": "08",
+      "b_name": "Scorching Hanami",
+      "siblings": true,
+      "same_primary_tag": true,
+      "shared_capstone_tags": [
+        "increasedamagegiven"
+      ],
+      "path_cosine": 0.857
+    }
+  ],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

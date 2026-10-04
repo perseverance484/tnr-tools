@@ -309,13 +309,13 @@ class ReferenceTrees(unittest.TestCase):
         self.assertEqual(routes, {"Solar Cataclysm": ("damage", 5), "Eternal Noon": ("afterburn", 10),
                                   "Sovereign Sun": ("decreasedamagetaken", 10), "Dying Light": ("decreasedamagegiven", 10)})
 
-    def test_blood_enchanted_eyes_matches_rul_2026_10_03_006(self):
+    def test_blood_enchanted_eyes_matches_rul_2026_10_04_001(self):
         t = self._tree("blood_enchanted_eyes")
         self.assertEqual(t["title"], "Blood-Enchanted Eyes — Crimson Covenant")
         want = {
             "01": ("Scarlet Gaze", "Foundation", (), (("increasedamagegiven", 2), ("increasedamagetaken", 2))),
-            "02": ("Opened Veins", "Hidden Art", ("01",), (("damage", 2),)),
-            "03": ("Rite of Exsanguination", "Advanced Art", ("02",), (("damage", 3),)),
+            "02": ("Opened Veins", "Hidden Art", ("01",), (("increasedamagetaken", 3),)),
+            "03": ("Rite of Exsanguination", "Advanced Art", ("02",), (("damage", 2),)),
             "09": ("Crimson Thirst", "Hidden Art", ("01",), (("lifesteal", 2),)),
             "10": ("Feast of the Fallen", "Advanced Art", ("09",), (("lifesteal", 3), ("increasedamagegiven", 5))),
             "06": ("Iron in the Blood", "Foundation", (), (("decreasedamagetaken", 2), ("decreasedamagegiven", 2))),
@@ -330,7 +330,7 @@ class ReferenceTrees(unittest.TestCase):
         self.assertEqual(t["classification"]["applies_to"], "matching supported tags on all Shadow jutsu")
         self.assertEqual({e["archetype"] for e in t["examples"]}, {"Burst", "Sustain Offense", "Fortress", "Suppression"})
         mx = t["audit"]["ceilings"]["maximum_over_all_legal_allocations"]
-        self.assertEqual((mx["damage"], mx["lifesteal"], mx["decreasedamagetaken"], mx["decreasedamagegiven"]), (5, 5, 10, 10))
+        self.assertEqual((mx["damage"], mx["lifesteal"], mx["decreasedamagetaken"], mx["decreasedamagegiven"]), (2, 5, 10, 10))
         # the keystones are castability gates, never prerequisites or printed scope
         for ext in (".json", ".md", ".svg"):
             txt = open(os.path.join(L.TREES_DIR, "blood_enchanted_eyes" + ext), encoding="utf-8").read()
@@ -339,6 +339,45 @@ class ReferenceTrees(unittest.TestCase):
                 self.assertNotIn("Wraith Pendant", txt.split('<metadata')[0])
                 self.assertNotIn("Reaper's Ring", txt.split('<metadata')[0])
                 self.assertIn("Bonuses apply to matching supported tags on all Shadow jutsu.", txt)
+
+    def test_shakunetsu_sakura_matches_rul_2026_10_04_002(self):
+        t = self._tree("shakunetsu_sakura")
+        want = {
+            "01": ("Ember Dragon's Roots", "Foundation", (), (("increasedamagegiven", 2),)),
+            "02": ("Kindled Boughs", "Hidden Art", ("01",), (("increasedamagegiven", 3),)),
+            "03": ("Dragon in Full Blossom", "Advanced Art", ("02",), (("increasedamagegiven", 5), ("heal", 5))),
+            "04": ("Burning Petal Carpet", "Hidden Art", ("06",), (("increasedamagetaken", 2),)),
+            "05": ("Conflagration in Bloom", "Advanced Art", ("04",), (("increasedamagetaken", 3), ("damage", 2))),
+            "06": ("Falling Ember Petals", "Foundation", (), (("decreasedamagegiven", 2),)),
+            "07": ("Blossom Dominion", "Hidden Art", ("01",), (("increasedamagegiven", 3),)),
+            "08": ("Scorching Hanami", "Advanced Art", ("07",), (("increasedamagegiven", 5), ("decreasedamagegiven", 3))),
+            "09": ("Smothering Petal Rain", "Hidden Art", ("06",), (("decreasedamagegiven", 3),)),
+            "10": ("Deluge of Burning Petals", "Advanced Art", ("09",), (("decreasedamagegiven", 5), ("heal", 5))),
+        }
+        self.assertEqual(self._mods(t), want)
+        # the approved tree reaches +13% IDG with a capstone plus the sibling Hidden Art: recorded, not silent
+        self.assertEqual(t["audit"]["ceilings"]["maximum_over_all_legal_allocations"]["increasedamagegiven"], 13)
+        self.assertEqual([e["tag"] for e in t["director_exceptions"]], ["increasedamagegiven"])
+        self.assertEqual(L.ceiling_findings(t)[0], [])
+
+    def test_arashima_matches_rul_2026_10_04_003(self):
+        t = self._tree("arashima")
+        self.assertEqual(t["title"], "Arashima — Reaper's Tempest")
+        want = {
+            "01": ("Tempest Hymn", "Foundation", (), (("increasedamagegiven", 3),)),
+            "02": ("Gathering Thunderhead", "Hidden Art", ("01",), (("increasedamagegiven", 2),)),
+            "03": ("Sundered Sky", "Advanced Art", ("02",), (("increasedamagegiven", 3), ("damage", 2))),
+            "04": ("Crimson Downpour", "Hidden Art", ("01",), (("lifesteal", 2),)),
+            "05": ("The Storm's Due", "Advanced Art", ("04",), (("lifesteal", 3), ("increasedamagegiven", 5))),
+            "06": ("Stillness in the Squall", "Foundation", (), (("decreasedamagetaken", 2), ("decreasedamagegiven", 2))),
+            "07": ("Stormwarden's Hide", "Hidden Art", ("06",), (("decreasedamagetaken", 3),)),
+            "08": ("Unbroken Horizon", "Advanced Art", ("07",), (("decreasedamagetaken", 5), ("lifesteal", 2))),
+            "09": ("Deadwind Dirge", "Hidden Art", ("06",), (("decreasedamagegiven", 3),)),
+            "10": ("Silence After Thunder", "Advanced Art", ("09",), (("decreasedamagegiven", 5), ("decreasedamagetaken", 2))),
+        }
+        self.assertEqual(self._mods(t), want)
+        names = {n["name"] for n in t["nodes"]}
+        self.assertFalse(names & {"Reaper's Harvest", "Torrential Downpour"})
 
     def test_ethereal_monarch_director_correction(self):
         t = self._tree("ethereal_monarch")
@@ -376,6 +415,72 @@ class ReferenceTrees(unittest.TestCase):
                 self.assertNotIn(name, c["applies_to"], p)
                 for n in t["nodes"]:
                     self.assertNotIn(name, n["scope"], p)
+
+
+class ReviewAudits(unittest.TestCase):
+    """BALANCE_REVIEW_METHOD.md evidence: damage tiers, fourth purchases, overlap."""
+
+    def _rows(self, bases):
+        return [L.Row("j%d" % i, "J%d" % i, "A", "BLOODLINE", "", 0, "damage", "Damage", "formula", float(b), b, 0, 0,
+                      ["Shadow"], ["Shadow"], "INHERIT", "OPPONENT", None, "enemy", "enemy", "DAMAGE", False, None, None,
+                      None, True, "public", None, "BOTH", False, False, 60, 7, "SINGLE", 4) for i, b in enumerate(bases)]
+
+    def test_damage_tiers(self):
+        self.assertEqual([L.damage_tier(v) for v in (37, 38, 40, 44, 45, 49, 50, 51)],
+                         ["below Light", "Light", "Normal", "Normal", "High", "High", "Nuke", "above Nuke"])
+
+    def test_damage_threshold_audit_covers_every_reachable_total(self):
+        t = _tree_with({"02": [("damage", 2)], "03": [("damage", 3)], "04": [("damage", 1)]})
+        a = L.damage_threshold_audit(t, self._rows([40, 45, 50]))
+        self.assertEqual(a["damage_totals_reachable"], [1, 2, 3, 5, 6])  # 01+04, 01+02, 01+02+04, 01+02+03, 01+02+03+04
+        r40 = next(r for r in a["rows"] if r["base"] == 40)
+        self.assertEqual([s["final"] for s in r40["steps"]], [41, 42, 43, 45, 46])
+        self.assertTrue(next(s for s in r40["steps"] if s["added"] == 5)["tier_change"])  # 40 Normal -> 45 High
+        self.assertEqual({(x["base"], x["final"]) for x in a["above_nuke"]}, {(45, 51), (50, 51), (50, 52), (50, 53), (50, 55), (50, 56)})
+
+    def test_above_nuke_needs_rationale(self):
+        import validate_tree as V
+        t = L.load_json(os.path.join(L.TREES_DIR, "taiyo_kami.json"))
+        self.assertTrue(t.get("above_nuke_rationale"))  # protected reference: Incandescent Nova 50 -> 55 is explained
+        a = L.damage_threshold_audit(t, taiyo_rows())
+        self.assertIn((50.0, 55.0), {(x["base"], x["final"]) for x in a["above_nuke"]})
+        t2 = copy.deepcopy(t)
+        t2.pop("above_nuke_rationale")
+        snap = L.load_snapshot(); roster = L.load_roster()
+        kit, rec = V.find_kit(t2, snap, roster)
+        _, _, errors, _ = V.normalize(t2, kit, rec, taiyo_rows(), L.DEFAULT_JUTSU_LEVEL)
+        self.assertTrue(any("above the 50 Nuke tier" in e for e in errors), errors)
+
+    def test_fourth_bp_audit_lists_every_legal_fourth(self):
+        t = _tree_with({"02": [("damage", 2)], "03": [("damage", 3)], "04": [("lifesteal", 5)]})
+        rows = self._rows([40]) + [L.Row("k", "K", "A", "BLOODLINE", "", 0, "lifesteal", "Lifesteal", "percentage", 20.0, 20, 0, 2,
+                                         [], ["None"], "SELF", "SELF", None, "self", "self", "SELF BUFF", False, None, None, None,
+                                         True, "public", None, "BOTH", False, False, 40, 7, "SINGLE", 0)]
+        fb = {x["advanced_art"]: x for x in L.fourth_bp_audit(t, rows)}
+        c = fb["03"]
+        self.assertEqual(c["path"], ["01", "02", "03"])
+        self.assertEqual(sorted(f["id"] for f in c["fourths"]), ["04", "06"])  # sibling Hidden Art or the other Foundation
+        self.assertEqual(c["highest_diagnostic_fourth"], "04")  # +5% Lifesteal on one row outweighs +1% IDG
+        self.assertEqual(next(f for f in c["fourths"] if f["id"] == "04")["bonuses"]["lifesteal"], 5)
+
+    def test_route_overlap_flags_same_primary_siblings(self):
+        t = _tree_with({"03": [("increasedamagegiven", 5)], "05": [("increasedamagegiven", 5), ("heal", 3)],
+                        "08": [("decreasedamagetaken", 5)], "10": [("decreasedamagegiven", 5)]})
+        ov = L.route_overlap(t)
+        pair = next(o for o in ov if {o["a"], o["b"]} == {"03", "05"})
+        self.assertTrue(pair["same_primary_tag"] and pair["siblings"])
+        self.assertFalse(any({o["a"], o["b"]} == {"08", "10"} and o["same_primary_tag"] for o in ov))
+
+    def test_display_label_lint(self):
+        t = {"design_notes": ["+2 Damage power on both rows"], "risks": ["the static row adds 5 heal power (300 HP per tick)"]}
+        hits = L.stale_language(t)
+        self.assertEqual(len(hits), 1, hits)
+        self.assertIn("design_notes", hits[0])
+
+    def test_rebalance_audit_output_is_current(self):
+        import rebalance_audit as RA
+        d = RA.build()
+        self.assertEqual(open(RA.OUT_MD, encoding="utf-8").read(), RA.md(d))
 
 
 class ScopeAndDisplay(unittest.TestCase):
@@ -477,13 +582,19 @@ class Ceilings(unittest.TestCase):
         self.assertEqual(errs, [])
         self.assertEqual(rep["maximum_over_all_legal_allocations"]["decreasedamagetaken"], 10)
 
-    def test_irregular_route_warns_without_rationale(self):
+    def test_bands_are_guardrails_not_targets(self):
+        # BALANCE_REVIEW_METHOD.md: route totals are reported, never warned for being off band
         mods = {"06": [("decreasedamagetaken", 2)], "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 2)]}
-        errs, warns, _ = L.ceiling_findings(_tree_with(mods))
+        errs, warns, rep = L.ceiling_findings(_tree_with(mods))
         self.assertEqual(errs, [])
-        self.assertTrue(any("route Hotel primary total +7% Decrease Damage Taken is off the 5/10/15 bands" in w for w in warns), warns)
+        self.assertFalse(any("band" in w for w in warns), warns)
+        hotel = next(r for r in rep["routes"] if r["advanced_art"] == "08")
+        self.assertEqual((hotel["total"], hotel["on_band"]), (7, False))
+        # a Damage route that is not Hidden +2 / Advanced +3 is not a warning either
+        errs, warns, _ = L.ceiling_findings(_tree_with({"02": [("increasedamagetaken", 3)], "03": [("damage", 2)]}))
+        self.assertFalse(any("default" in w for w in warns), warns)
+        # an optional rationale is still carried, and must name an Advanced Art
         errs, warns, rep = L.ceiling_findings(_tree_with(mods, {"route_band_rationale": {"08": "single 2-round row"}}))
-        self.assertFalse(any("route Hotel" in w for w in warns), warns)
         self.assertEqual(next(r for r in rep["routes"] if r["advanced_art"] == "08")["band_rationale"], "single 2-round row")
         self.assertTrue(L.ceiling_findings(_tree_with(mods, {"route_band_rationale": {"07": "x"}}))[0])
 

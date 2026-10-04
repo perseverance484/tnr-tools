@@ -134,13 +134,18 @@ def short_kind(kind: str | None) -> str:
 # (RUL-2026-10-03-005/006). Authored tree prose must not use it.
 STALE_PHRASES = (
     "bloodline-scoped", "bloodline scoped", "bloodline-keyed", "census collision", "whole-kit classification",
-    "damage power", "heal power", "planning guardrail", "tithe of the red eye",
+    "planning guardrail", "tithe of the red eye",
     # jutsu damage modifiers compound in computeDamagePacket; they do not add a share of a
     # staged base (SOURCE_MECHANICS §3b, corrected 2026-10-03)
     "staged base",
 )
 PROSE_FIELDS = ("title", "flavor", "coverage_note", "rationale", "primary", "secondary", "tertiary",
                 "narrow_kit_exception", "design_notes", "risks", "name", "archetype")
+
+
+# Old display labels: "+2 Damage power", "+3 Heal power" (mechanics prose such as
+# "adds 5 heal power" stays allowed).
+STALE_PATTERNS = (re.compile(r"\+\s*\d+\s+(damage|heal) power", re.I),)
 
 
 def stale_language(tree: dict) -> list[str]:
@@ -153,6 +158,10 @@ def stale_language(tree: dict) -> list[str]:
             for ph in STALE_PHRASES:
                 if ph in low:
                     hits.append(f"{where}: {ph!r}")
+            for pat in STALE_PATTERNS:
+                m = pat.search(val)
+                if m:
+                    hits.append(f"{where}: {m.group(0)!r}")
         elif isinstance(val, list):
             for i, v in enumerate(val):
                 scan(f"{where}[{i}]", v)
@@ -851,11 +860,8 @@ def ceiling_findings(tree: dict) -> tuple[list[str], list[str], dict]:
         r["on_band"] = r["total"] in ROUTE_BANDS
         if why:
             r["band_rationale"] = why
-        if not r["on_band"] and not why:
-            warnings.append(f"route {r['name']} primary total {mod_text(r['primary_tag'], r['total'])} is off the 5/10/15 bands "
-                            "without a route_band_rationale")
-        if r["primary_tag"] == "damage" and r["steps"][-2:] != [2, 3] and not why:
-            warnings.append(f"Damage route {r['name']} uses {'/'.join(str(x) for x in r['steps'])} rather than the default Hidden +2 / Advanced +3")
+        # Bands are guardrails, not targets (BALANCE_REVIEW_METHOD.md, 2026-10-04): route
+        # totals are reported for review; off-band totals and Damage splits are not warnings.
     for k in rationale:
         if k not in by_id or by_id[k].category != "Advanced Art":
             errors.append(f"route_band_rationale key {k!r} is not an Advanced Art id")
@@ -869,6 +875,124 @@ def ceiling_findings(tree: dict) -> tuple[list[str], list[str], dict]:
         "director_exceptions": list(tree.get("director_exceptions") or []),
     }
     return errors, warnings, report
+
+
+# ---------------------------------------------------------------------------
+# Review audits (BALANCE_REVIEW_METHOD.md): evidence for design review, not a score
+# ---------------------------------------------------------------------------
+
+# Player-jutsu damage tiers (skills/building-tnr-content/references/balance.md §2).
+DAMAGE_TIERS = ((50, "Nuke"), (45, "High"), (40, "Normal"), (38, "Light"))
+NUKE = 50
+
+
+def damage_tier(value: float) -> str:
+    if value > NUKE:
+        return "above Nuke"
+    for floor, name in DAMAGE_TIERS:
+        if value >= floor:
+            return name
+    return "below Light"
+
+
+def damage_threshold_audit(tree: dict, rows: list[Row]) -> dict:
+    """Every supported Damage row: base -> final for each flat Damage total a legal
+    allocation (any size) can reach, the tier before/after and the allocations that
+    reach it. Flags any result above the 50 Nuke tier."""
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    reach: dict[int, list[list[str]]] = {}
+    for size, lst in enumerate_legal(by_id).items():
+        for ids in lst:
+            d = bonuses_for(set(ids), by_id).get("damage", 0)
+            if d:
+                reach.setdefault(d, []).append(list(ids))
+    dmg_rows = [r for r in rows if r.supported and r.tag == "damage"]
+    out_rows = []
+    above = []
+    for r in dmg_rows:
+        steps = []
+        for d in sorted(reach):
+            final = r.base + d
+            tb, ta = damage_tier(r.base), damage_tier(final)
+            minimal = min(reach[d], key=lambda ids: (len(ids), ids))
+            steps.append({"added": d, "final": round(final, 2), "tier_before": tb, "tier_after": ta,
+                          "tier_change": tb != ta, "above_nuke": final > NUKE,
+                          "allocations": len(reach[d]), "smallest_allocation": minimal})
+            if final > NUKE:
+                above.append({"jutsu": r.jutsu_name, "row": r.row, "base": r.base, "added": d, "final": round(final, 2)})
+        out_rows.append({"jutsu": r.jutsu_name, "row": r.row, "base": r.base, "tier": damage_tier(r.base),
+                         "elements": r.elements_effective, "method": r.method, "steps": steps})
+    return {
+        "damage_totals_reachable": sorted(reach),
+        "rows": out_rows,
+        "tier_crossings": sorted({(x["jutsu"], x["row"], s["added"]) for x in out_rows for s in x["steps"] if s["tier_change"]}),
+        "above_nuke": above,
+    }
+
+
+def _row_weight(bon: dict[str, int], rows_by_tag: dict[str, int]) -> int:
+    return sum(v * rows_by_tag.get(t, 0) for t, v in bon.items())
+
+
+def fourth_bp_audit(tree: dict, rows: list[Row]) -> list[dict]:
+    """For every Advanced Art: its 3-BP path package and every legal fourth purchase with
+    the resulting modifiers. 'Highest diagnostic' orders fourths by row-weighted total
+    (then raw total); it is a review pointer, not a verdict."""
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    rows_by_tag: dict[str, int] = {}
+    for r in rows:
+        if r.supported:
+            rows_by_tag[r.tag] = rows_by_tag.get(r.tag, 0) + 1
+    out = []
+    for adv in sorted((n for n in by_id.values() if n.category == "Advanced Art"), key=lambda z: z.id):
+        path = closure(adv.id, by_id)
+        base = bonuses_for(path, by_id)
+        fourths = []
+        for cand in sorted(by_id):
+            if cand in path:
+                continue
+            s = path | {cand}
+            if len(s) > BP_CAP or not is_closed(s, by_id):
+                continue
+            bon = bonuses_for(s, by_id)
+            fourths.append({"id": cand, "name": by_id[cand].name, "category": by_id[cand].category,
+                            "adds": {t: v for t, v in bonuses_for({cand}, by_id).items() if v},
+                            "bonuses": {t: bon[t] for t in SUPPORTED_TAGS if bon[t]},
+                            "raw_total": sum(bon.values()), "row_weighted": _row_weight(bon, rows_by_tag)})
+        top = max(fourths, key=lambda f: (f["row_weighted"], f["raw_total"], f["id"])) if fourths else None
+        out.append({"advanced_art": adv.id, "name": adv.name,
+                    "path": sorted(path, key=lambda i: depth(i, by_id)),
+                    "path_bonuses": {t: base[t] for t in SUPPORTED_TAGS if base[t]},
+                    "path_row_weighted": _row_weight(base, rows_by_tag),
+                    "fourths": fourths,
+                    "highest_diagnostic_fourth": top["id"] if top else None})
+    return out
+
+
+def route_overlap(tree: dict) -> list[dict]:
+    """Pairs of Advanced Arts whose 3-BP packages share a primary tag or most of their
+    tag mass (cosine similarity of the path bonus vectors >= 0.8). Diagnostic only."""
+    import math
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    advs = sorted((n for n in by_id.values() if n.category == "Advanced Art"), key=lambda z: z.id)
+    pk = {a.id: bonuses_for(closure(a.id, by_id), by_id) for a in advs}
+    prim = {a.id: a.modifiers[0]["tag"] for a in advs if a.modifiers}
+    root = {a.id: sorted(closure(a.id, by_id), key=lambda i: depth(i, by_id))[0] for a in advs}
+    out = []
+    for a, b in itertools.combinations(advs, 2):
+        va, vb = pk[a.id], pk[b.id]
+        dot = sum(va[t] * vb[t] for t in SUPPORTED_TAGS)
+        na = math.sqrt(sum(v * v for v in va.values()))
+        nb = math.sqrt(sum(v * v for v in vb.values()))
+        cos = round(dot / (na * nb), 3) if na and nb else 0.0
+        own_a = {m["tag"] for m in a.modifiers}
+        own_b = {m["tag"] for m in b.modifiers}
+        same_primary = prim.get(a.id) == prim.get(b.id)
+        if same_primary or cos >= 0.8:
+            out.append({"a": a.id, "a_name": a.name, "b": b.id, "b_name": b.name,
+                        "siblings": root[a.id] == root[b.id], "same_primary_tag": same_primary,
+                        "shared_capstone_tags": sorted(own_a & own_b), "path_cosine": cos})
+    return out
 
 
 def audit_tree(tree: dict, rows: list[Row]) -> dict:

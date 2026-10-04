@@ -66,7 +66,35 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Dam
 
 Validator warnings:
 
+- Damage above the 50 Nuke tier in a legal allocation (director review): Incandescent Nova 50 -> 52, Incandescent Nova 50 -> 55
 - ally-hazard area rows amplified (friendly fire none/ALL): Solar Reverb#0, Stellar Inferno#1
+
+### Damage tiers (base → final)
+
+Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
+
+| Jutsu | Row | Base (tier) | +2 Damage | +5 Damage |
+|---|---:|---|---|---|
+| Solar Reverb | 0 | 40 (Normal) | 42 (Normal) | 45 (High) ↑ |
+| Incandescent Nova | 0 | 50 (Nuke) | **52 (above Nuke)** | **55 (above Nuke)** |
+| Stellar Inferno | 0 | 40 (Normal) | 42 (Normal) | 45 (High) ↑ |
+
+Above-Nuke rationale: Approved worked reference (handoff v4; protected from the 2026-10-04 batch): the Burst route's +5 Damage lifts Incandescent Nova 50 → 55 (52 with Crown of Cinders alone), past the 50 Nuke tier. Not retuned here; flagged for director review under BALANCE_REVIEW_METHOD.md.
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Solar Cataclysm | +5 Damage, +2% IDG, +2% IDT | Emberwake | +5 Damage, +2% IDG, +2% IDT, +3% AB | 24 |
+| Solar Cataclysm | +5 Damage, +2% IDG, +2% IDT | Sunward Oath *(highest diagnostic)* | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT | 25 |
+| Eternal Noon | +5% IDG, +5% IDT, +10% AB | Crown of Cinders *(highest diagnostic)* | +2 Damage, +5% IDG, +5% IDT, +10% AB | 31 |
+| Eternal Noon | +5% IDG, +5% IDT, +10% AB | Sunward Oath | +5% IDG, +2% DDG, +5% IDT, +2% DDT, +10% AB | 29 |
+| Sovereign Sun | +3% IDG, +2% DDG, +10% DDT | Dawnheart *(highest diagnostic)* | +5% IDG, +2% DDG, +2% IDT, +10% DDT | 24 |
+| Sovereign Sun | +3% IDG, +2% DDG, +10% DDT | Ashen Verdict | +3% IDG, +5% DDG, +10% DDT | 21 |
+| Dying Light | +10% DDG, +5% IDT, +2% DDT | Dawnheart *(highest diagnostic)* | +2% IDG, +10% DDG, +7% IDT, +2% DDT | 23 |
+| Dying Light | +10% DDG, +5% IDT, +2% DDT | Golden Mantle | +10% DDG, +5% IDT, +5% DDT | 20 |
 
 ### All legal full-budget allocations
 

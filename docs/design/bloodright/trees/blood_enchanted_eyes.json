@@ -1,6 +1,6 @@
 {
   "title": "Blood-Enchanted Eyes — Crimson Covenant",
-  "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
+  "revision": "Director-reviewed structure (RUL-2026-10-04-001) / Shadow classification / forked tree",
   "bloodline": {
     "id": "ovZIWu28ANn-Cij5TjT8S",
     "review_id": "BR-011",
@@ -10,10 +10,10 @@
     "traits": "Burst Healing, Sustained Damage"
   },
   "emphasis": {
-    "primary": "Offense: Shadow Damage burst and Lifesteal sustain from Scarlet Gaze",
+    "primary": "Offense: exposure-into-burst and Lifesteal sustain from Scarlet Gaze",
     "secondary": "Defense: Decrease Damage Taken (Fortress) and Decrease Damage Given (Suppression) from Iron in the Blood",
     "tertiary": "Increase Damage Given / Increase Damage Taken glue",
-    "rationale": "RUL-2026-10-03-006 fixes every name, value and edge. Scarlet Gaze opens the two offensive routes (Burst +5 Damage; Sustain Offense +5% Lifesteal with a +5% Increase Damage Given rider); Iron in the Blood opens the two defensive routes, which mirror each other (Fortress +10% Decrease Damage Taken with +5% Decrease Damage Given; Suppression +10% Decrease Damage Given with +5% Decrease Damage Taken). There is no Afterburn path in this revision: native Afterburn stays usable but unamplified. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005)."
+    "rationale": "Director-reviewed structure (RUL-2026-10-04-001, superseding the RUL-2026-10-03-006 numbers). Scarlet Gaze answers \"How do I win offensively: amplify myself or expose them?\": Burst sets up exposure on the Hidden Art (Opened Veins +3% Increase Damage Taken) and pays off with a controlled +2 Damage on Rite of Exsanguination; Sustain Offense pairs +5% Lifesteal with +7% Increase Damage Given. Iron in the Blood answers \"How do I win defensively: protect myself or suppress them?\": Fortress (+10% Decrease Damage Taken, +5% Decrease Damage Given) and Suppression (+10% Decrease Damage Given, +5% Decrease Damage Taken) mirror each other. No Afterburn path. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -66,13 +66,13 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "Every cut the eye marks is a cut that bleeds a little longer.",
-      "coverage_note": "Kit examples: Shadow Damage on Ring of Spilled Blood 40, Crimson Tithe 40, Reaper's Embrace 50, Crimson Impact 40.",
+      "flavor": "Every cut the eye marks is a cut that bleeds a little longer, and the next blow finds it.",
+      "coverage_note": "Kit examples: Increase Damage Taken 35 → 40% with Scarlet Gaze on Sanguine Plague, Crimson Impact and Thousand Strike (enemy).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "all Shadow jutsu",
@@ -80,12 +80,14 @@
       "coverage": {
         "jutsu": [
           "Crimson Impact",
-          "Crimson Tithe",
-          "Reaper's Embrace",
-          "Ring of Spilled Blood"
+          "Sanguine Plague",
+          "Thousand Strike"
         ],
-        "effect_rows": 4,
-        "item_gated_rows": 4
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Crimson Impact#3"
+        ],
+        "item_gated_rows": 3
       }
     },
     {
@@ -99,12 +101,12 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 3,
+          "flat": 2,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "What begins as a wound ends as an emptying. Nothing is left in the vessel.",
-      "coverage_note": "Same Shadow Damage rows: 40 → 45 and 50 → 55 EP on the full route (+5 Damage).",
+      "coverage_note": "Shadow Damage rows +2 EP: Ring of Spilled Blood, Crimson Tithe and Crimson Impact 40 → 42; Reaper's Embrace 50 → 52 (above the 50 Nuke tier; director-reviewed).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow",
       "scope": "all Shadow jutsu",
@@ -383,13 +385,13 @@
         "03",
         "06"
       ],
-      "rationale": "+5 Damage on every Shadow Damage row the owner casts (40 → 45, 50 → 55 EP on the kit's four rows). Scarlet Gaze is the required ancestor (+2% IDG/IDT) and Iron in the Blood the fourth purchase (+2% DDT/DDG).",
+      "rationale": "Exposure into a controlled raw-Damage payoff: +5% Increase Damage Taken on the enemy (Sanguine Plague, Crimson Impact, Thousand Strike 35 → 40%) and +2 Damage on every Shadow Damage row (40 → 42, Reaper's Embrace 50 → 52). Scarlet Gaze is the required ancestor (+2% IDG); Iron in the Blood is the fourth purchase (+2% DDT/DDG).",
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       },
       "finals": [
@@ -405,8 +407,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -441,8 +443,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -499,8 +501,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -553,8 +555,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 5,
-          "final": 55.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -661,8 +663,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -715,8 +717,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -805,8 +807,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2142,7 +2144,7 @@
     }
   ],
   "design_notes": [
-    "Exact director structure (RUL-2026-10-03-006): edges 01→02→03, 01→09→10, 06→07→08, 06→04→05; names, tiers and values are copied from the ruling. Damage +5 and Lifesteal +5% sit exactly at the hard ceilings; Decrease Damage Taken and Decrease Damage Given reach +10% at most in any legal allocation; Increase Damage Given peaks at +7% (Scarlet Gaze + Feast of the Fallen), Increase Damage Taken at +2%.",
+    "Director-reviewed structure (RUL-2026-10-04-001): edges 01→02→03, 01→09→10, 06→07→08, 06→04→05. The Burst route was re-cut from the RUL-2026-10-03-006 +2/+3 Damage line to Opened Veins +3% Increase Damage Taken and Rite of Exsanguination +2 Damage, because +5 Damage reached four Shadow Damage rows (40/40/40/50) and lifted three of them a full tier and one past the Nuke tier. Maxima over every legal allocation: Damage +2, Lifesteal +5%, Increase Damage Taken +5%, Increase Damage Given +7%, Decrease Damage Taken +10%, Decrease Damage Given +10%.",
     "Scope: matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Other bloodlines' Shadow jutsu are castable only by their own owners (train.ts 185-188); NORMAL/SPECIAL/EVENT/FORBIDDEN Shadow jutsu would qualify, and how many exist is unverified. Unholy Enhancement and Hemocure carry no element on any row, so they are Shadow jutsu only through an authored jutsu classification (ENGINE_GAP_REGISTER G1).",
     "Equipment gates castability only. Six kit jutsu need a keystone to be cast (one keystone per battle at the pin), but no node lists an item as a prerequisite and no bonus is limited by one.",
     "No Afterburn path in this revision: Sanguine Plague's 35% Afterburn row stays usable but unamplified."
@@ -2232,10 +2234,10 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
+      "damage": 2,
       "increasedamagegiven": 7,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 2,
+      "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "lifesteal": 5
     },
@@ -2260,7 +2262,7 @@
     "supported_tags_in_kit_not_targeted": [
       "afterburn"
     ],
-    "revision": "Final approved structure (RUL-2026-10-03-006) / Shadow classification / forked tree",
+    "revision": "Director-reviewed structure (RUL-2026-10-04-001) / Shadow classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -2275,10 +2277,10 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 7,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "lifesteal": 5
       },
@@ -2313,11 +2315,11 @@
           ],
           "steps": [
             0,
-            2,
-            3
+            0,
+            2
           ],
-          "total": 5,
-          "on_band": true
+          "total": 2,
+          "on_band": false
         },
         {
           "advanced_art": "05",
@@ -2383,10 +2385,10 @@
         "06"
       ],
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       }
     },
@@ -2398,9 +2400,9 @@
         "09"
       ],
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "lifesteal": 2
       }
     },
@@ -2412,10 +2414,9 @@
         "06"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       }
     },
@@ -2427,10 +2428,9 @@
         "07"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 5
       }
     },
@@ -2442,10 +2442,9 @@
         "09"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
         "lifesteal": 2
       }
@@ -2458,9 +2457,8 @@
         "10"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 7,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "lifesteal": 5
       }
     },
@@ -2575,5 +2573,6 @@
         "decreasedamagetaken": 10
       }
     }
-  ]
+  ],
+  "above_nuke_rationale": "Director-reviewed (RUL-2026-10-04-001): Rite of Exsanguination's +2 Damage lifts Reaper's Embrace 50 → 52, past the 50 Nuke tier. Kept as approved; flagged for director confirmation."
 }
