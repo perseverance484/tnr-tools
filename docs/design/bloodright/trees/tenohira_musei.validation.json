@@ -59,7 +59,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
+        "damage": 3,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2
@@ -149,7 +149,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
+      "damage": 3,
       "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 7
@@ -205,8 +205,8 @@
         "name": "Deafening Silence",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 1,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Silent Palm Strike",
           "Silent Rift",
@@ -367,11 +367,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 3,
           "increasedamagegiven": 4
         },
-        "raw_flat_total": 6,
-        "row_weighted_total": 14,
+        "raw_flat_total": 7,
+        "row_weighted_total": 17,
         "advanced_arts": [
           "03"
         ],
@@ -385,13 +385,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
+          "damage": 3,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 16,
+        "raw_flat_total": 9,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "03"
         ],
@@ -793,7 +793,7 @@
   "damage_thresholds": {
     "damage_totals_reachable": [
       1,
-      2
+      3
     ],
     "rows": [
       {
@@ -820,8 +820,8 @@
             ]
           },
           {
-            "added": 2,
-            "final": 42.0,
+            "added": 3,
+            "final": 43.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -859,8 +859,8 @@
             ]
           },
           {
-            "added": 2,
-            "final": 42.0,
+            "added": 3,
+            "final": 43.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -898,8 +898,8 @@
             ]
           },
           {
-            "added": 2,
-            "final": 42.0,
+            "added": 3,
+            "final": 43.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -927,10 +927,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 2,
+        "damage": 3,
         "increasedamagegiven": 2
       },
-      "path_row_weighted": 10,
+      "path_row_weighted": 13,
       "fourths": [
         {
           "id": "04",
@@ -940,11 +940,11 @@
             "increasedamagegiven": 2
           },
           "bonuses": {
-            "damage": 2,
+            "damage": 3,
             "increasedamagegiven": 4
           },
-          "raw_total": 6,
-          "row_weighted": 14
+          "raw_total": 7,
+          "row_weighted": 17
         },
         {
           "id": "06",
@@ -955,13 +955,13 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
+            "damage": 3,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2
           },
-          "raw_total": 8,
-          "row_weighted": 16
+          "raw_total": 9,
+          "row_weighted": 19
         }
       ],
       "highest_diagnostic_fourth": "06"

@@ -80,7 +80,7 @@
   "examples": [
     {
       "name": "Divine Convergence",
-      "archetype": "Exposure / team burst",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -90,8 +90,8 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -100,16 +100,18 @@
     },
     {
       "name": "White Immolation",
-      "archetype": "Attrition / burn",
+      "archetype": "Attrition / team burn",
       "ids": [
         "01",
         "04",
         "05",
-        "02"
+        "06"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
         "afterburn": 10
       },
       "advanced_arts": [
@@ -174,13 +176,13 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 11,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 8,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 2,
       "decreasedamagetaken": 8,
       "afterburn": 10,
       "heal": 5
@@ -221,14 +223,14 @@
       },
       {
         "id": "02",
-        "name": "Opened to the Elements",
+        "name": "Gathering Palm",
         "category": "Hidden Art",
         "depth": 2,
         "raw_flat_total": 3,
         "row_weighted_total": 6,
         "covered_jutsu": [
-          "Element Divine",
-          "Fire Release"
+          "Fire Release",
+          "Wind Release"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -402,7 +404,8 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 2,
           "afterburn": 3
         },
         "raw_flat_total": 10,
@@ -421,8 +424,8 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 11,
@@ -440,7 +443,8 @@
           "05"
         ],
         "bonuses": {
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 2,
           "afterburn": 10
         },
         "raw_flat_total": 15,
@@ -458,8 +462,8 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
@@ -476,8 +480,8 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
         "raw_flat_total": 12,
@@ -493,14 +497,14 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 11,
         "row_weighted_total": 22,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -556,7 +560,7 @@
         "raw_flat_total": 11,
         "row_weighted_total": 22,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -593,7 +597,7 @@
         "raw_flat_total": 11,
         "row_weighted_total": 22,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -898,7 +902,8 @@
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagetaken": 5
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 2
       },
       "path_row_weighted": 14,
       "fourths": [
@@ -911,7 +916,8 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagetaken": 5,
+            "increasedamagegiven": 3,
+            "increasedamagetaken": 2,
             "afterburn": 3
           },
           "raw_total": 10,
@@ -927,8 +933,8 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
           "raw_total": 11,
@@ -953,13 +959,14 @@
       "fourths": [
         {
           "id": "02",
-          "name": "Opened to the Elements",
+          "name": "Gathering Palm",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "increasedamagegiven": 3
           },
           "bonuses": {
-            "increasedamagetaken": 5,
+            "increasedamagegiven": 3,
+            "increasedamagetaken": 2,
             "afterburn": 10
           },
           "raw_total": 15,

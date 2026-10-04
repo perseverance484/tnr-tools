@@ -78,7 +78,7 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 7
+        "increasedamagegiven": 5
       },
       "advanced_arts": [
         "Ethereal Dragon Unbound"
@@ -210,8 +210,8 @@
         "name": "Luminous Conduit",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Ethereal Dragon's Whispers",
           "Luminous Illusion Bind"
@@ -225,8 +225,8 @@
         "name": "Apotheosis of Thunder",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Ethereal Dragon's Whispers",
           "Luminous Illusion Bind"
@@ -296,16 +296,17 @@
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "06",
-      "name": "Halo of Static",
-      "category": "Foundation",
-      "depth": 1,
-      "raw_flat_total": 2,
+      "id": "04",
+      "name": "Luminous Conduit",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 1,
       "row_weighted_total": 2,
       "covered_jutsu": [
-        "Voltara Blitz"
+        "Ethereal Dragon's Whispers",
+        "Luminous Illusion Bind"
       ],
-      "covered_rows": 1,
+      "covered_rows": 2,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
@@ -319,10 +320,10 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 7
+          "increasedamagegiven": 5
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 18,
+        "raw_flat_total": 7,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "03"
         ],
@@ -372,11 +373,11 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 16,
+        "raw_flat_total": 7,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -394,7 +395,7 @@
         "raw_flat_total": 9,
         "row_weighted_total": 13,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -422,13 +423,13 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 3,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 8,
+        "row_weighted_total": 11,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -663,14 +664,14 @@
           "name": "Luminous Conduit",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagegiven": 3
+            "increasedamagegiven": 1
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 7
+            "increasedamagegiven": 5
           },
-          "raw_total": 9,
-          "row_weighted": 18
+          "raw_total": 7,
+          "row_weighted": 14
         },
         {
           "id": "06",
@@ -688,7 +689,7 @@
           "row_weighted": 14
         }
       ],
-      "highest_diagnostic_fourth": "04"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "05",

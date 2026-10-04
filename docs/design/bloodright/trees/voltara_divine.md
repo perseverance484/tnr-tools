@@ -13,15 +13,15 @@ Five supported rows sit on three casts. Both Lightning strikes carry a 35% self 
 | Anointed by Lightning | Foundation | How do I win with the Lightning strikes: land harder on the strike's own cast, or amplify every blow in the window it opens? |
 | Halo of Static | Foundation | How do I hold my ground once the blitz carries me in? |
 | Ethereal Dragon Unbound | Advanced Art | burst: window setup on the Hidden Art, controlled +2 Damage payoff on each strike's own cast |
-| Apotheosis of Thunder | Advanced Art | sustained amplification: both self buffs at 43% (45% with the sibling setup), every hit in the windows |
+| Apotheosis of Thunder | Advanced Art | sustained amplification: +5% payoff on the capstone, both self buffs at 43% (45% with the sibling setup), every hit in the windows |
 | Unassailable Radiance | Advanced Art | fortress: Blitz guard at 40%, the kit's only defence |
 
-**Director review recommended:** Ethereal Dragon Unbound's controlled +2 Damage lifts Ethereal Dragon's Whispers 50 → 52 (above the Nuke tier; Bind 40 → 42) as the payoff of Dragon's Whispered Wrath's window setup, restoring the burst route the first pass removed, on the RUL-2026-10-04-001/002 precedent (see above_nuke_rationale); confirm it. Also confirm Dragon's Whispered Wrath sharing both self-buff rows with Luminous Conduit: this kit has no percentage setup that does not twin a Hidden Art.
+**Director review recommended:** Ethereal Dragon Unbound's controlled +2 Damage lifts Ethereal Dragon's Whispers 50 → 52 (above the Nuke tier; Bind 40 → 42) as the payoff of Dragon's Whispered Wrath's window setup, restoring the burst route the first pass removed, on the RUL-2026-10-04-001/002 precedent (see above_nuke_rationale); confirm it. Also confirm the twin Hidden Arts: Dragon's Whispered Wrath (+2%) and Luminous Conduit (+1%) both put Increase Damage Given on the two self-buff rows under Anointed by Lightning (roster R4). This kit has no percentage setup that does not twin a Hidden Art; the tree follows the Shakunetsu Sakura precedent (RUL-2026-10-04-002: Kindled Boughs and Blossom Dominion, both +3% Increase Damage Given under Ember Dragon's Roots, with each capstone carrying the payoff), so Luminous Conduit is only the commitment and Apotheosis of Thunder carries +5%. Its strongest fourth, Dragon's Whispered Wrath, reaches +10% Increase Damage Given on those two rows, with the kit reason in the design notes.
 
-- Concern: Dragon's Whispered Wrath (+2%) and Luminous Conduit (+3%) put Increase Damage Given on the same two self rows under one Foundation (roster R4). Every percentage setup in this three-tag kit twins a Hidden Art (Decrease Damage Taken would twin Aegis of Living Light on Blitz's row); Increase Damage Given is used because it feeds its own payoff (the first strike's window carries the second strike's +2 Damage), and the director kept twin Increase Damage Given Hidden Arts under one Foundation in Shakunetsu Sakura. The capstone carries the choice; the route-overlap diagnostic flags Ethereal Dragon Unbound and Apotheosis of Thunder as similar (path cosine 0.894) for the same reason.
-- Concern: Apotheosis of Thunder's strongest fourth is its sibling setup (capstone plus Dragon's Whispered Wrath, +10% Increase Damage Given): the stacking the fourth-BP audit warns about, held at the +10% the first-pass route already had and behind Burst on the strike pair.
+- Concern: Dragon's Whispered Wrath (+2%) and Luminous Conduit (+1%) put Increase Damage Given on the same two self rows under one Foundation (roster R4). Every percentage setup in this three-tag kit twins a Hidden Art (Decrease Damage Taken would twin Aegis of Living Light on Blitz's row); Increase Damage Given is used because it feeds its own payoff (the first strike's window carries the second strike's +2 Damage), and the director kept twin Increase Damage Given Hidden Arts under one Foundation in Shakunetsu Sakura. To keep the twin small, Luminous Conduit is only the commitment (+1%) and Apotheosis of Thunder is the payoff (+5%), so the capstone carries the choice. The route-overlap diagnostic still flags Ethereal Dragon Unbound and Apotheosis of Thunder as similar (path cosine 0.894) because it compares 3-BP tag totals (+2 Damage and +4% against +8%), and this split leaves those totals unchanged.
+- Concern: Apotheosis of Thunder's strongest fourth is its sibling setup (capstone plus Dragon's Whispered Wrath, +10% Increase Damage Given on two compounding rows). That is the stacking the fourth-BP audit warns about. It stays at the +10% the first-pass route already had, behind Burst with Luminous Conduit on the strike pair (112.5 against 114.8) and ahead on every other windowed hit (×1.45 against ×1.40).
 - Concern: Anointed by Lightning is universal (in all 8 legal 4 BP builds) and the Fortress build is fixed (06, 07, 08 + 01); the pre-batch Heaven's Retort leaf that avoided this was a Hidden-Art Damage leaf kept only for that purpose and is not restored.
-- Concern: Burst and amplification are close in throughput by design; Burst's case is the strike's own cast and the strike pair, amplification's every other hit in the windows.
+- Concern: Burst and amplification stay close in total throughput: Burst leads with one other 40 EP hit in the windows per pair, Apotheosis from two (within 1%). Burst's case is the strike's own cast and the strike pair; amplification's is every other hit in the windows. If Burst takes Luminous Conduit as its fourth, the two best builds still share three nodes, but the capstones now differ by +2 Damage against +5% Increase Damage Given, and Halo of Static is a close alternative fourth for Burst.
 
 > **Narrow-kit exception:** Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Decrease Damage Taken x1; Blitz's move and pierce and Bind's stun are unsupported). A fourth Advanced Art would twin a capstone on the same rows or push Blitz's single Decrease Damage Taken row past +10%. Halo of Static therefore runs one chain (Aegis of Living Light → Unassailable Radiance) and Anointed by Lightning is universal: it is in every legal 4 BP build, so the Fortress build is fixed (06, 07, 08 + 01). The pre-batch Heaven's Retort leaf that avoided this is not restored: it was +2 Damage on a Hidden Art kept only so no node was universal, and any other second leaf under Halo of Static could only repeat Decrease Damage Taken on Blitz's row or Increase Damage Given from the other root.
 
@@ -34,8 +34,8 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | 01 | Anointed by Lightning | Foundation | None | +2% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
 | 02 | Dragon's Whispered Wrath | Hidden Art | Anointed by Lightning | +2% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
 | 03 | Ethereal Dragon Unbound | Advanced Art | Dragon's Whispered Wrath | +2 Damage (damage) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
-| 04 | Luminous Conduit | Hidden Art | Anointed by Lightning | +3% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
-| 05 | Apotheosis of Thunder | Advanced Art | Luminous Conduit | +3% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
+| 04 | Luminous Conduit | Hidden Art | Anointed by Lightning | +1% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
+| 05 | Apotheosis of Thunder | Advanced Art | Luminous Conduit | +5% Increase Damage Given (self buff) | Ethereal Dragon's Whispers, Luminous Illusion Bind / 2 |
 | 06 | Halo of Static | Foundation | None | +2% Decrease Damage Taken (self buff) | Voltara Blitz / 1 |
 | 07 | Aegis of Living Light | Hidden Art | Halo of Static | +3% Decrease Damage Taken (self buff) | Voltara Blitz / 1 |
 | 08 | Unassailable Radiance | Advanced Art | Aegis of Living Light | +5% Decrease Damage Taken (self buff) | Voltara Blitz / 1 |
@@ -45,8 +45,8 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08. Advanced Arts
 - **Anointed by Lightning** — The storm chose this blood before birth; every pulse carries its blessing. Both self damage buffs 35 → 37% for 2 rounds: Bind's (Lightning hits only) and Whispers' (every non-pierce hit, any stat type).
 - **Dragon's Whispered Wrath** — What the ethereal dragon whispers, the sky repeats as thunder. Setup: both self buffs 37 → 39% with Anointed by Lightning, so the first strike's window carries the second strike's raw Damage.
 - **Ethereal Dragon Unbound** — No seal, no sky, no prayer holds the dragon once it has been named. Burst: Luminous Illusion Bind 40 → 42 (still Normal) and Ethereal Dragon's Whispers 50 → 52 EP (above the 50 Nuke tier; director-flagged) on each strike's own cast; both self buffs 39% on the route.
-- **Luminous Conduit** — Light runs through the body as through wire, losing nothing on the way. Both self buffs 37 → 40% with Anointed by Lightning.
-- **Apotheosis of Thunder** — The faithful do not wield the lightning. They become it. Sustained amplification: both self buffs 35 → 43% on the full route (×1.43/1.35 ≈ ×1.06 per windowed hit; 45% with Dragon's Whispered Wrath). Whispers' row multiplies every non-pierce hit and Bind's every Lightning hit for the two rounds after each cast.
+- **Luminous Conduit** — Light runs through the body as through wire, losing nothing on the way. Commitment: both self buffs 37 → 38% with Anointed by Lightning; the amplification payoff sits on Apotheosis of Thunder.
+- **Apotheosis of Thunder** — The faithful do not wield the lightning. They become it. Sustained amplification payoff: +5% of the route's +8%, both self buffs 38 → 43% (×1.43/1.35 ≈ ×1.06 per windowed hit on the full route; 45% with Dragon's Whispered Wrath). Whispers' row multiplies every non-pierce hit and Bind's every Lightning hit for the two rounds after each cast.
 - **Halo of Static** — Where the blitz ends, a ring of charged air lingers and refuses to break. Voltara Blitz Decrease Damage Taken 30 → 32% (self at cast, all four stat types, 2 rounds, cooldown 7); the root of the fortress route.
 - **Aegis of Living Light** — A mantle of living light; blows arrive softened, as if through a dream. Voltara Blitz Decrease Damage Taken 32 → 35% with Halo of Static.
 - **Unassailable Radiance** — Radiance so complete that harm itself hesitates at the threshold. Fortress: Voltara Blitz Decrease Damage Taken 30 → 40% on the full route (damage taken ×0.60 against ×0.70) against every non-pierce hit for the 2 rounds after each cast. It takes the full +10% because this is the kit's only defensive row and is live 2 rounds in 7.
@@ -55,13 +55,13 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08. Advanced Arts
 
 | Build | Purchases | DMG | IDG | DDT |
 |---|---|---:|---:|---:|
-| Ethereal Dragon Unbound (Burst) | Anointed by Lightning, Dragon's Whispered Wrath, Ethereal Dragon Unbound, Luminous Conduit | +2 | +7% | — |
+| Ethereal Dragon Unbound (Burst) | Anointed by Lightning, Dragon's Whispered Wrath, Ethereal Dragon Unbound, Luminous Conduit | +2 | +5% | — |
 | Apotheosis of Thunder (Sustained amplification) | Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Apotheosis of Thunder | — | +10% | — |
 | Unassailable Radiance (Fortress) | Halo of Static, Aegis of Living Light, Unassailable Radiance, Anointed by Lightning | — | +2% | +10% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDT = Decrease Damage Taken. Values are per-matching-row static additions, not final combat percentages.
 
-- **Ethereal Dragon Unbound:** Bind 42 and Whispers 52 EP on their own casts, both self buffs 42%. Bind then Whispers lands 42 + 52 × 1.42 ≈ 115.8 EP-equivalent against 107.5 with no tree and 112.5 for Apotheosis of Thunder with Dragon's Whispered Wrath; on every other windowed hit it trails that build (×1.42 against ×1.45). Luminous Conduit is the offensive fourth; Halo of Static instead leaves the buffs at 39% and sets Blitz's guard to 32%.
+- **Ethereal Dragon Unbound:** Bind 42 and Whispers 52 EP on their own casts, both self buffs 40%. Bind then Whispers lands 42 + 52 × 1.40 = 114.8 EP-equivalent against 107.5 with no tree and 112.5 for Apotheosis of Thunder with Dragon's Whispered Wrath; on every other windowed hit it trails that build (×1.40 against ×1.45). Luminous Conduit adds only +1% here, so Halo of Static is a close alternative fourth: the buffs stay at 39% (pair ≈ 114.3) and Blitz's guard rises to 32%.
 - **Apotheosis of Thunder:** Both self buffs 35 → 45%: inside Whispers' window every non-pierce hit the caster lands is multiplied by 1.45 (weapons, basic attacks and normal jutsu included), inside Bind's every Lightning hit, so the second strike of the pair lands at ×1.45 (×1.35 at base). A Lightning hit in the one round both are live takes ×1.45 × 1.45 ≈ ×2.10 (×1.82 at base), but both strikes are on cooldown then. Dragon's Whispered Wrath is the offensive fourth; Halo of Static instead leaves the buffs at 43% and sets Blitz's guard to 32%.
 - **Unassailable Radiance:** Voltara Blitz's Decrease Damage Taken at 40% for the 2 rounds after each cast (cooldown 7), against every non-pierce hit of any stat type, Wind included: damage taken ×0.60 against ×0.70 at base. Anointed by Lightning is the only legal fourth purchase (both self buffs 37%).
 
@@ -74,9 +74,9 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDT = Decrease Dam
 | Voltara Blitz | 2 | pierce (unsupported) | enemy | 56 | 56 | 56 | 56 |
 | Luminous Illusion Bind | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 |
 | Luminous Illusion Bind | 1 | stun (unsupported) | enemy | 100 | 100 | 100 | 100 |
-| Luminous Illusion Bind | 2 | Increase Damage Given | self | 35% | 42% (+7) | 45% (+10) | 37% (+2) |
+| Luminous Illusion Bind | 2 | Increase Damage Given | self | 35% | 40% (+5) | 45% (+10) | 37% (+2) |
 | Ethereal Dragon's Whispers | 0 | Damage | enemy | 50 | 52 (+2) | 50 | 50 |
-| Ethereal Dragon's Whispers | 1 | Increase Damage Given | self | 35% | 42% (+7) | 45% (+10) | 37% (+2) |
+| Ethereal Dragon's Whispers | 1 | Increase Damage Given | self | 35% | 40% (+5) | 45% (+10) | 37% (+2) |
 
 ## Allocation audit
 
@@ -85,11 +85,11 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDT = Decrease Dam
 - Maximum individually achievable additions over every legal allocation: +2 Damage, +10% Increase Damage Given, +10% Decrease Damage Taken (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
   - Route Ethereal Dragon Unbound: +2 Damage (0 + 0 + 2; off band)
-  - Route Apotheosis of Thunder: +8% Increase Damage Given (2 + 3 + 3; off band)
+  - Route Apotheosis of Thunder: +8% Increase Damage Given (2 + 1 + 5; off band)
   - Route Unassailable Radiance: +10% Decrease Damage Taken (2 + 3 + 5; on band)
 - Supported rows in kit: 5 (DMG 2, DDT 1, IDG 2)
 - Strongest full build by row-weighted total: Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Apotheosis of Thunder (raw +10, row-weighted 20)
-- Lowest row-weighted node: Halo of Static (2)
+- Lowest row-weighted node: Luminous Conduit (2)
 
 Validator warnings:
 
@@ -113,8 +113,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
 |---|---|---|---|---:|
-| Ethereal Dragon Unbound | +2 Damage, +4% IDG | Luminous Conduit *(highest diagnostic)* | +2 Damage, +7% IDG | 18 |
-| Ethereal Dragon Unbound | +2 Damage, +4% IDG | Halo of Static | +2 Damage, +4% IDG, +2% DDT | 14 |
+| Ethereal Dragon Unbound | +2 Damage, +4% IDG | Luminous Conduit | +2 Damage, +5% IDG | 14 |
+| Ethereal Dragon Unbound | +2 Damage, +4% IDG | Halo of Static *(highest diagnostic)* | +2 Damage, +4% IDG, +2% DDT | 14 |
 | Apotheosis of Thunder | +8% IDG | Dragon's Whispered Wrath *(highest diagnostic)* | +10% IDG | 20 |
 | Apotheosis of Thunder | +8% IDG | Halo of Static | +8% IDG, +2% DDT | 18 |
 | Unassailable Radiance | +10% DDT | Anointed by Lightning *(highest diagnostic)* | +2% IDG, +10% DDT | 14 |
@@ -127,20 +127,20 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Anointed by Lightning, Dragon's Whispered Wrath, Ethereal Dragon Unbound, Luminous Conduit | +2 Damage, +7% IDG |
+| 1 | Anointed by Lightning, Dragon's Whispered Wrath, Ethereal Dragon Unbound, Luminous Conduit | +2 Damage, +5% IDG |
 | 2 | Anointed by Lightning, Dragon's Whispered Wrath, Ethereal Dragon Unbound, Halo of Static | +2 Damage, +4% IDG, +2% DDT |
 | 3 | Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Apotheosis of Thunder | +10% IDG |
-| 4 | Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Halo of Static | +7% IDG, +2% DDT |
+| 4 | Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Halo of Static | +5% IDG, +2% DDT |
 | 5 | Anointed by Lightning, Dragon's Whispered Wrath, Halo of Static, Aegis of Living Light | +4% IDG, +5% DDT |
 | 6 | Anointed by Lightning, Luminous Conduit, Apotheosis of Thunder, Halo of Static | +8% IDG, +2% DDT |
-| 7 | Anointed by Lightning, Luminous Conduit, Halo of Static, Aegis of Living Light | +5% IDG, +5% DDT |
+| 7 | Anointed by Lightning, Luminous Conduit, Halo of Static, Aegis of Living Light | +3% IDG, +5% DDT |
 | 8 | Anointed by Lightning, Halo of Static, Aegis of Living Light, Unassailable Radiance | +2% IDG, +10% DDT |
 
 ## Design notes
 
-- Structure: edges 01→02→03, 01→04→05 and 06→07→08. Anointed by Lightning (+2% Increase Damage Given) forks into Dragon's Whispered Wrath +2% → Ethereal Dragon Unbound +2 Damage (burst) and Luminous Conduit +3% → Apotheosis of Thunder +3% (amplification, both self buffs 43%); Halo of Static +2% / Aegis of Living Light +3% / Unassailable Radiance +5% Decrease Damage Taken (Blitz guard 40%). Eight legal 4 BP builds, six non-dominated. Maxima over every legal allocation: Increase Damage Given +10% (Apotheosis of Thunder with Dragon's Whispered Wrath), Decrease Damage Taken +10%, Damage +2 (Ethereal Dragon Unbound only).
-- Burst against amplification is immediacy against window: flat Damage acts on the strike's own cast, the buffs never do, and Bind and Whispers (60 AP each) cannot share a turn. Their strongest builds share Anointed by Lightning, Dragon's Whispered Wrath and Luminous Conduit and differ only in the capstone (+2 Damage against +3% Increase Damage Given). Burst leads on the strike pair (Bind then Whispers: 42 + 52 × 1.42 ≈ 115.8 against 40 + 50 × 1.45 = 112.5 EP-equivalent) and on any strike outside a window (42/52 against 40/50); Apotheosis of Thunder leads on every other windowed hit (×1.45 against ×1.42) and on a Lightning hit in the overlap round (≈ ×2.10 against ≈ ×2.02). With two other 40 EP hits in the windows per pair they are within about 0.5%.
-- Magnitudes: the amplification route is +8% (two rows that compound on a hit in their overlap round), down from +10%, so Dragon's Whispered Wrath can sit under Anointed by Lightning without lifting Apotheosis of Thunder's fourth purchase past +10%. That fourth returns it to +10% (per windowed hit ×1.45/1.35 ≈ ×1.07), which the timing allows: the windows overlap only in the round after the second strike, when both strikes are on cooldown (6, 7) and Blitz's hit is pierce. Unassailable Radiance keeps +10% because Blitz's row is the kit's only defence and is live 2 rounds in 7 (damage taken ×0.60 against ×0.70, ≈ ×0.86).
+- Structure: edges 01→02→03, 01→04→05 and 06→07→08. Anointed by Lightning (+2% Increase Damage Given) forks into Dragon's Whispered Wrath +2% → Ethereal Dragon Unbound +2 Damage (burst) and Luminous Conduit +1% → Apotheosis of Thunder +5% (amplification, both self buffs 43%); Halo of Static +2% / Aegis of Living Light +3% / Unassailable Radiance +5% Decrease Damage Taken (Blitz guard 40%). Eight legal 4 BP builds, six non-dominated. Maxima over every legal allocation: Increase Damage Given +10% (Apotheosis of Thunder with Dragon's Whispered Wrath), Decrease Damage Taken +10%, Damage +2 (Ethereal Dragon Unbound only).
+- Burst against amplification is immediacy against window: flat Damage acts on the strike's own cast, the buffs never do, and Bind and Whispers (60 AP each) cannot share a turn. The amplification payoff sits on the capstone (Luminous Conduit +1%, Apotheosis of Thunder +5%), so the capstone choice is +2 Damage against +5% Increase Damage Given, and Burst's fourth is a real choice between Luminous Conduit (+1%, buffs 40%) and Halo of Static (buffs 39%, Blitz's guard 32%). Burst with Luminous Conduit leads on the strike pair (Bind then Whispers: 42 + 52 × 1.40 = 114.8 against 40 + 50 × 1.45 = 112.5 EP-equivalent) and on any strike outside a window (42/52 against 40/50); Apotheosis of Thunder with Dragon's Whispered Wrath leads on every other windowed hit (×1.45 against ×1.40, about 3.6%) and on a Lightning hit in the overlap round (≈ ×2.10 against ×1.96). Burst stays ahead with one other 40 EP hit in the windows per pair (170.8 against 170.5); from two, Apotheosis leads (228.5 against 226.8, about 0.75%).
+- Magnitudes: the amplification route is +8% (two rows that compound on a hit in their overlap round), down from +10%, with +5% of it on the capstone, so Dragon's Whispered Wrath can sit under Anointed by Lightning without lifting Apotheosis of Thunder's fourth purchase past +10%. That fourth returns it to +10% (per windowed hit ×1.45/1.35 ≈ ×1.07), which the timing allows: the windows overlap only in the round after the second strike, when both strikes are on cooldown (6, 7) and Blitz's hit is pierce. Unassailable Radiance keeps +10% because Blitz's row is the kit's only defence and is live 2 rounds in 7 (damage taken ×0.60 against ×0.70, ≈ ×0.86).
 - Timing (SOURCE_MECHANICS §3b): each Increase Damage Given and Decrease Damage Taken row is live the two rounds after its cast, never on its own strike; Bind then Whispers (or the reverse) gives the second strike the first strike's row. Blitz's guard is realized on the caster at cast.
 
 ## Risks and unproven interactions
