@@ -9,11 +9,12 @@
     "statClassification": "Taijutsu",
     "traits": "Healing and Sustain"
   },
-  "revision": "Draft 4 / Lycanthropy classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "classification status: requires classification extension (director decision)",
-    "universal node: 01 (The Beast Within) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+    "universal node: 01 (The Beast Within), 06 (Moonbound Vigor) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Lycanthropy",
@@ -42,84 +43,67 @@
   },
   "examples": [
     {
-      "name": "Jaws of the Alpha",
-      "archetype": "Burst",
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 5
-      },
-      "advanced_arts": [
-        "Jaws of the Alpha"
-      ]
-    },
-    {
       "name": "Red Moon Rising",
       "archetype": "Frenzy",
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "06"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10
+        "increasedamagegiven": 8,
+        "heal": 2
       },
       "advanced_arts": [
         "Red Moon Rising"
       ]
     },
     {
-      "name": "Lick the Wound",
-      "archetype": "Sustain",
+      "name": "Undying Hunger",
+      "archetype": "Regeneration",
       "ids": [
-        "01",
-        "04",
         "06",
-        "07"
+        "07",
+        "08",
+        "01"
       ],
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 5,
-        "heal": 5
+        "heal": 10
       },
-      "advanced_arts": []
+      "advanced_arts": [
+        "Undying Hunger"
+      ]
     }
   ],
   "audit": {
-    "available_skills": 7,
+    "available_skills": 6,
     "foundation_count": 2,
-    "hidden_art_count": 3,
+    "hidden_art_count": 2,
     "advanced_art_count": 2,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
-    "minimum_two_advanced_cost": 5,
+    "minimum_two_advanced_cost": 6,
     "maximum_parents_per_node": 1,
     "maximum_depth": 3,
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 4,
-      "3": 6,
-      "4": 7
+      "2": 3,
+      "3": 4,
+      "4": 3
     },
-    "full_budget_allocations": 7,
-    "non_dominated_full_allocations": 7,
+    "full_budget_allocations": 3,
+    "non_dominated_full_allocations": 2,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
-      "heal": 5
+      "increasedamagegiven": 8,
+      "heal": 10
     },
     "supported_rows_in_kit": 5,
     "supported_rows_by_tag": {
@@ -128,11 +112,12 @@
       "increasedamagegiven": 2
     },
     "tags_targeted_by_tree": [
-      "damage",
       "heal",
       "increasedamagegiven"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -150,42 +135,12 @@
         "tags_without_rows": []
       },
       {
-        "id": "02",
-        "name": "Gnashing Fangs",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
-        "covered_jutsu": [
-          "Feral Wrath",
-          "Moonlit Fury"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "03",
-        "name": "Jaws of the Alpha",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Feral Wrath",
-          "Moonlit Fury"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
         "id": "04",
         "name": "Blood on the Wind",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Feral Wrath",
           "Frenzy Assault"
@@ -199,8 +154,8 @@
         "name": "Red Moon Rising",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Feral Wrath",
           "Frenzy Assault"
@@ -236,23 +191,38 @@
         "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
+      },
+      {
+        "id": "08",
+        "name": "Undying Hunger",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 8,
+        "row_weighted_total": 11,
+        "covered_jutsu": [
+          "Feral Wrath",
+          "Frenzy Assault"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
       }
     ],
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
-        "04",
-        "05"
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10
+        "increasedamagegiven": 5,
+        "heal": 10
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 24,
+      "raw_flat_total": 15,
+      "row_weighted_total": 20,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
@@ -274,105 +244,16 @@
       {
         "ids": [
           "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 5
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 20,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "heal": 2
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 10
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 24,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "heal": 2
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 16,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "heal": 5
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
           "04",
           "05",
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 8,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "raw_flat_total": 10,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "05"
         ],
@@ -386,12 +267,30 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 4,
           "heal": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 5,
+          "heal": 10
+        },
+        "raw_flat_total": 15,
+        "row_weighted_total": 20,
+        "advanced_arts": [
+          "08"
+        ],
         "non_dominated": true
       }
     ],
@@ -410,10 +309,6 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
@@ -428,21 +323,6 @@
       "3": [
         [
           "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "06"
-        ],
-        [
-          "01",
           "04",
           "05"
         ],
@@ -455,39 +335,14 @@
           "01",
           "06",
           "07"
+        ],
+        [
+          "06",
+          "07",
+          "08"
         ]
       ],
       "4": [
-        [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
         [
           "01",
           "04",
@@ -499,10 +354,109 @@
           "04",
           "06",
           "07"
+        ],
+        [
+          "01",
+          "06",
+          "07",
+          "08"
         ]
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Moonlit Fury",
+        "row": 2,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "None"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Feral Wrath",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "None"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "05",
+      "name": "Red Moon Rising",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 8
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Moonbound Vigor",
+          "category": "Foundation",
+          "adds": {
+            "heal": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 8,
+            "heal": 2
+          },
+          "raw_total": 10,
+          "row_weighted": 18
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Undying Hunger",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 3,
+        "heal": 10
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "The Beast Within",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "heal": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 20
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

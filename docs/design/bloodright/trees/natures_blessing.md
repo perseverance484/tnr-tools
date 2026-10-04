@@ -1,12 +1,27 @@
 # Nature's Blessing — Root and Thorn
 
-**Bloodline:** Nature's Blessing (BR-049, rank B, `clh4d6qbf000ctb0h7o5amr0o`) · **Revision:** Draft 6 / Wood classification / forked tree (RUL-2026-10-03-005 recalibration) · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Nature's Blessing (BR-049, rank B, `clh4d6qbf000ctb0h7o5amr0o`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree · **Classification:** Wood (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Co-primary — Sustain (Verdant Bastion Heal and Increase Heal) and Wood Damage (Nature's Fury, Nature's Curse) · secondary Exposure — Increase Damage Taken (Nature's Fury) · tertiary None — absorb and drain on Nature's Curse are unsupported.
+**Emphasis:** primary Co-primary — Wood Damage on the Fury → Curse one-two (Nature's Fury and Nature's Curse) and Verdant Bastion healing (Heal and Increase Heal, Sap of the Grove) · secondary Increase Damage Taken: Nature's Fury's exposure (Thorn and Rot), one row that multiplies every non-pierce hit the marked target takes in its window · tertiary Absorb and drain on Nature's Curse are unsupported and receive nothing.
 
-Verdant Bastion (A-rank, 40 AP, cooldown 7) carries the two sustain rows (Heal 40 = one 400 HP tick on the following round; Increase Heal 30% for the 2 rounds after the cast) and the two B-rank 60 AP attacks carry the two Wood Damage rows (40 EP each at level 25), so sustain and damage are co-primary; the Burst Healing / Sustained Healing traits lean the theme toward sustain. Increase Damage Taken is one 35% row on Nature's Fury, secondary by row count, but it amplifies every non-pierce hit the target takes in its window. Routes: Burst +5 Damage, Exposure +10% Increase Damage Taken, Sustain +5% Heal with +8% Increase Heal. Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005). Absorb and drain are unsupported and receive nothing directly.
+Verdant Bastion (A-rank, 40 AP, cooldown 7) carries the two healing rows (Heal 40 = one 400 HP tick on the following round; Increase Heal 30% for the 2 rounds after the cast, for the caster and allies in the circle) and the two B-rank 60 AP attacks carry the two Wood Damage rows (40 EP each at level 25) plus Fury's 35% exposure. Thorn and Rot answers "How do I bring down the marked target?": the Old Growth's Wrath route strikes the mark harder with a controlled +3 Damage (40 → 43, no tier crossing) and the Blight and Harvest route deepens the mark to 45% for every hit on that target. Sap of the Grove answers "How do I keep the grove standing?" with the bloodline's own two traits: the Everbloom Sanctuary route's sustained healing (Increase Heal 40% in the circle) or Sudden Greening's burst healing (a 450 HP tick with Sap). Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005). Absorb and drain are unsupported and receive nothing directly.
 
-> **Narrow-kit exception:** Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1), and both sustain rows sit on the one Verdant Bastion cast, which the Sustain route already carries. A fourth Advanced Art under Sap of the Grove would either split that single cast into a second sustain capstone or repeat a Thorn and Rot route (a second path to the +5 Damage or +10% Increase Damage Taken maximum). Instead the grove root carries one leaf, Bramble Warden (+1 Damage, +1% Increase Heal), so that root has its own 4 BP build and no node is universal.
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Thorn and Rot | Foundation | How do I bring down the marked target? |
+| Sap of the Grove | Foundation | How do I keep the grove standing? |
+| Old Growth's Wrath | Advanced Art | burst: the Fury → Curse one-two with controlled raw Damage |
+| Blight and Harvest | Advanced Art | exposure: a deeper mark for every hit on one target |
+| Everbloom Sanctuary | Advanced Art | sanctuary: sustained healing for everyone in the circle |
+
+- Concern: Healing is the kit's low-leverage side: +1% Heal is +10 HP once per Bastion cast and Increase Heal only multiplies healing in a 2-round, positional window, so Everbloom Sanctuary is the trait-identity pick rather than the power pick; the kit has no Decrease Damage, Reflect or Lifesteal rows to give it more weight.
+- Concern: Exposure (45%) is a single row but multiplies every non-pierce hit the marked target takes from anyone for 2 rounds; in team play Blight and Harvest is the strongest route even as a single-effect capstone.
+- Concern: Burst at +3 Damage (43 EP) is deliberately below the 45 High tier, and its +2 Damage capstone reads lighter on the poster than Blight and Harvest's +5%; in EP terms it leads the Fury → Curse one-two, and +4 (44) is the most it could take without reaching the High tier.
+- Concern: Damage +3 and Increase Damage Taken +10% reach every Wood jutsu; off-kit Wood coverage is unverified.
+
+> **Narrow-kit exception:** Nine nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on five rows (Damage x2, Increase Damage Taken x1, Increase Heal x1, Heal x1), and both healing rows sit on the one Verdant Bastion cast. A fourth Advanced Art would either split that single cast into a second healing capstone or repeat a Thorn and Rot route. Instead Sap of the Grove carries one leaf, Sudden Greening (+3% Heal, burst healing beside Deepening Roots' sustained healing), so the grove root has its own 4 BP build and no node is universal.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Wood jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -15,99 +30,121 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | ID | Skill | Tier | Requires | Exact bonus and recipient | Kit coverage (example jutsu / rows) |
 |---|---|---|---|---|---|
 | 01 | Thorn and Rot | Foundation | None | +2% Increase Damage Taken (enemy debuff) | Nature's Fury / 1 |
-| 02 | Ironwood Lash | Hidden Art | Thorn and Rot | +2 Damage (damage) | Nature's Curse, Nature's Fury / 2 |
-| 03 | Old Growth's Wrath | Advanced Art | Ironwood Lash | +3 Damage (damage) | Nature's Curse, Nature's Fury / 2 |
+| 02 | Ironwood Lash | Hidden Art | Thorn and Rot | +1 Damage (damage) | Nature's Curse, Nature's Fury / 2 |
+| 03 | Old Growth's Wrath | Advanced Art | Ironwood Lash | +2 Damage (damage) | Nature's Curse, Nature's Fury / 2 |
 | 04 | Stripped Bark | Hidden Art | Thorn and Rot | +3% Increase Damage Taken (enemy debuff) | Nature's Fury / 1 |
-| 05 | Blight and Harvest | Advanced Art | Stripped Bark | +5% Increase Damage Taken (enemy debuff); +3% Increase Heal (self buff) | Nature's Fury, Verdant Bastion / 2 |
+| 05 | Blight and Harvest | Advanced Art | Stripped Bark | +5% Increase Damage Taken (enemy debuff) | Nature's Fury / 1 |
 | 06 | Sap of the Grove | Foundation | None | +2% Heal (self buff); +2% Increase Heal (self buff) | Verdant Bastion / 2 |
 | 07 | Deepening Roots | Hidden Art | Sap of the Grove | +3% Increase Heal (self buff) | Verdant Bastion / 1 |
-| 08 | Everbloom Sanctuary | Advanced Art | Deepening Roots | +3% Heal (self buff); +3% Increase Heal (self buff) | Verdant Bastion / 2 |
-| 09 | Bramble Warden | Hidden Art | Sap of the Grove | +1 Damage (damage); +1% Increase Heal (self buff) | Nature's Curse, Nature's Fury, Verdant Bastion / 3 |
+| 08 | Everbloom Sanctuary | Advanced Art | Deepening Roots | +5% Increase Heal (self buff) | Verdant Bastion / 1 |
+| 09 | Sudden Greening | Hidden Art | Sap of the Grove | +3% Heal (self buff) | Verdant Bastion / 1 |
 
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09. Advanced Arts: 3; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Thorn and Rot** — The forest takes its tithe in blood and bark alike. Nature's Fury exposure 35 → 37% (one target, 2 rounds after the cast). 1 row, no gates.
-- **Ironwood Lash** — Boughs hardened over a hundred winters swing like iron. Nature's Fury and Nature's Curse Wood Damage rows 40 → 42 EP. 2 rows, both 60 AP, range 4, cooldown 7.
-- **Old Growth's Wrath** — What the old trees remember, they repay. The same two Wood Damage rows: route total +5 Damage (40 → 45 EP on both attacks), then scaled by the bloodline's Wood damage passive.
+- **Ironwood Lash** — Boughs hardened over a hundred winters swing like iron. Nature's Fury and Nature's Curse Wood Damage 40 → 41 EP. 2 rows, both 60 AP, range 4, cooldown 7.
+- **Old Growth's Wrath** — What the old trees remember, they repay. Burst payoff: both Wood Damage rows 40 → 43 EP on the full route (+3, below the 45 High tier), then scaled by the bloodline's Wood damage passive.
 - **Stripped Bark** — Peel away the bark and the heartwood cannot hide. Nature's Fury Increase Damage Taken only (one enemy row, 2 rounds, 60 AP, cooldown 7): 37 → 40% with Thorn and Rot.
-- **Blight and Harvest** — Every blighted thing returns to the soil, and the soil feeds the grove. Fury exposure 35 → 45% on the full route (+10%, one target, 2 rounds); Bastion Increase Heal 30 → 33% (35% with Sap), you or allies in the circle.
+- **Blight and Harvest** — What the blight has softened, the forest reaps. Exposure payoff: Nature's Fury Increase Damage Taken 35 → 45% on the full route (+10%, one target, the 2 rounds after the cast), so every non-pierce hit it takes there is ×1.45. 1 row.
 - **Sap of the Grove** — Living sap runs where blood once spilled. Verdant Bastion only: Heal 40 → 42 (400 → 420 HP next round); Increase Heal 30 → 32% for 2 rounds, for you or allies in the circle. 40 AP, CD 7.
-- **Deepening Roots** — Roots that reach deeper drink more than rain. Verdant Bastion Increase Heal only (one row, 2 rounds, you or allies in the circle): 32 → 35% with Sap of the Grove. Lifts absorb/lifesteal.
-- **Everbloom Sanctuary** — Within the bastion, nothing withers. Sustain route: Verdant Bastion Heal 40 → 45 (+5%; one 450 HP tick on the following round) and Increase Heal 30 → 38% for you or allies in the circle.
-- **Bramble Warden** — The grove's warden fights from among the briars and mends between blows. Fury and Curse Wood Damage 40 → 41 EP; Bastion Increase Heal 32 → 33% with Sap (39% on the full grove route), for you or allies in the circle.
+- **Deepening Roots** — Roots that reach deeper drink more than rain. Verdant Bastion Increase Heal only (one row, 2 rounds, you or allies in the circle): 32 → 35% with Sap of the Grove. Lifts heals, lifesteal and absorb there.
+- **Everbloom Sanctuary** — Within the bastion, nothing withers. Sustained healing: Verdant Bastion Increase Heal 30 → 40% on the full route (+10%) for the 2 rounds after the cast, for you and allies in the circle.
+- **Sudden Greening** — Cut the grove and it greens over the wound in a single breath. Burst healing: Verdant Bastion Heal 42 → 45 with Sap of the Grove (one 450 HP tick on the following round, self). 1 row.
 
 ## Complete four-purchase examples
 
 | Build | Purchases | DMG | IDT | IH | HEAL |
 |---|---|---:|---:|---:|---:|
-| Old Growth's Wrath (Burst) | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Sap of the Grove | +5 | +2% | +2% | +2% |
-| Blight and Harvest (Exposure) | Thorn and Rot, Stripped Bark, Blight and Harvest, Sap of the Grove | — | +10% | +5% | +2% |
-| Everbloom Sanctuary (Sustain) | Thorn and Rot, Sap of the Grove, Deepening Roots, Everbloom Sanctuary | — | +2% | +8% | +5% |
+| Old Growth's Wrath (Burst) | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Stripped Bark | +3 | +5% | — | — |
+| Blight and Harvest (Exposure) | Thorn and Rot, Stripped Bark, Blight and Harvest, Sap of the Grove | — | +10% | +2% | +2% |
+| Everbloom Sanctuary (Sanctuary) | Sap of the Grove, Deepening Roots, Everbloom Sanctuary, Sudden Greening | — | — | +10% | +5% |
 
 Abbreviations: DMG = Damage · IDT = Increase Damage Taken · IH = Increase Heal · HEAL = Heal. Values are per-matching-row static additions, not final combat percentages.
 
-- **Old Growth's Wrath:** +5 Damage on both Wood attacks (40 → 45 EP, then multiplied by the bloodline's Wood Increase Damage Given passive) with Thorn and Rot's 37% exposure, which helps a Nature's Curse cast in the 2 rounds after Nature's Fury, never Fury's own hit. Sap of the Grove is the fourth purchase (Bastion 420 HP at 32% Increase Heal); Stripped Bark (exposure 40%) is the all-offence alternative.
-- **Blight and Harvest:** Nature's Fury's exposure reaches 45% (+10%) on one target for the 2 rounds after the cast, multiplying every non-pierce hit it takes there by 1.45 from the kit, normal jutsu, weapons and allies (all four stat types, no element). Verdant Bastion: Increase Heal 35% (Blight and Harvest +3%, Sap of the Grove +2%) and a 420 HP tick. Ironwood Lash (attacks 42 EP; Bastion 400 HP at 33%) is the sharper fourth purchase.
-- **Everbloom Sanctuary:** Verdant Bastion as the centrepiece: one 450 HP tick on the following round (a SELF row, not positional) and Increase Heal 38% for the 2 rounds after the cast for the caster and allies on the tiles, lifting Curse's absorb and their heals, lifesteal and vamp there. The 38% also adjusts Bastion's own tick when the caster is on the tiles: 450 x 1.38 = 621 HP vs 400 x 1.30 = 520 (+19.4%); off them, 450 vs 400. Fourth purchase: Thorn and Rot (exposure 37%) or Bramble Warden (Increase Heal 39%, attacks 41 EP).
+- **Old Growth's Wrath:** +3 Damage on both Wood attacks (40 → 43 EP, below the 45 High tier, then multiplied by the bloodline's Wood Increase Damage Given passive). Stripped Bark is the strongest fourth: Fury marks the target at 40% and a Nature's Curse cast in the 2 rounds after lands at 43 EP under ×1.40 (Fury's own hit never benefits). Sap of the Grove (Bastion 420 HP, Increase Heal 32%) is the defensive alternative.
+- **Blight and Harvest:** Nature's Fury's exposure reaches 45% (+10%) on one target for the 2 rounds after the cast, so every non-pierce hit it takes there is ×1.45 instead of ×1.35, from Curse, normal jutsu, weapons and allies (all four stat types, no element). Sap of the Grove as the fourth: Bastion Increase Heal 32% and a 420 HP tick. Ironwood Lash (attacks 41 EP) is the all-offence alternative.
+- **Everbloom Sanctuary:** Verdant Bastion's Increase Heal reaches 40% (2/3/5) for the caster and allies on the tiles in the 2 rounds after the cast, lifting their heals, lifesteal, vamp and absorb (Curse's 30% absorb included). Sudden Greening as the fourth raises the SELF tick to 450 HP: 450 x 1.40 = 630 HP on the tiles vs 400 x 1.30 = 520 (+21.2%); off them, 450 vs 400. Thorn and Rot (exposure 37%) is the offensive alternative.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Exposure | Sustain |
+| Jutsu | Row | Tag | Recipient | Base | Burst | Exposure | Sanctuary |
 |---|---:|---|---|---:|---:|---:|---:|
-| Verdant Bastion | 0 | Heal | self | 40 | 42 (+2) | 42 (+2) | 45 (+5) |
-| Verdant Bastion | 1 | Increase Heal | self | 30% | 32% (+2) | 35% (+5) | 38% (+8) |
-| Nature's Fury | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 |
-| Nature's Fury | 1 | Increase Damage Taken | enemy | 35% | 37% (+2) | 45% (+10) | 37% (+2) |
-| Nature's Curse | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 |
+| Verdant Bastion | 0 | Heal | self | 40 | 40 | 42 (+2) | 45 (+5) |
+| Verdant Bastion | 1 | Increase Heal | self | 30% | 30% | 32% (+2) | 40% (+10) |
+| Nature's Fury | 0 | Damage | enemy | 40 | 43 (+3) | 40 | 40 |
+| Nature's Fury | 1 | Increase Damage Taken | enemy | 35% | 40% (+5) | 45% (+10) | 35% |
+| Nature's Curse | 0 | Damage | enemy | 40 | 43 (+3) | 40 | 40 |
 | Nature's Curse | 1 | absorb (unsupported) | self | 30% | 30% | 30% | 30% |
 | Nature's Curse | 2 | drain (unsupported) | enemy | 200 | 200 | 200 | 200 |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 9, 4: 12
-- Full-budget allocations: 12; numerically non-dominated (per-tag totals): 11; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +5 Damage, +10% Increase Damage Taken, +9% Increase Heal, +5% Heal (not jointly attainable)
+- Full-budget allocations: 12; numerically non-dominated (per-tag totals): 12; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +3 Damage, +10% Increase Damage Taken, +10% Increase Heal, +5% Heal (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Old Growth's Wrath: +5 Damage (0 + 2 + 3; on band)
+  - Route Old Growth's Wrath: +3 Damage (0 + 1 + 2; off band)
   - Route Blight and Harvest: +10% Increase Damage Taken (2 + 3 + 5; on band)
-  - Route Everbloom Sanctuary: +5% Heal (2 + 0 + 3; on band)
+  - Route Everbloom Sanctuary: +10% Increase Heal (2 + 3 + 5; on band)
 - Supported rows in kit: 5 (DMG 2, HEAL 1, IDT 1, IH 1)
-- Strongest full build by row-weighted total: Thorn and Rot, Stripped Bark, Blight and Harvest, Sap of the Grove (raw +17, row-weighted 17)
+- Strongest full build by row-weighted total: Sap of the Grove, Deepening Roots, Everbloom Sanctuary, Sudden Greening (raw +15, row-weighted 15)
 - Lowest row-weighted node: Thorn and Rot (2)
+
+### Damage tiers (base → final)
+
+Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
+
+| Jutsu | Row | Base (tier) | +1 Damage | +3 Damage |
+|---|---:|---|---|---|
+| Nature's Fury | 0 | 40 (Normal) | 41 (Normal) | 43 (Normal) |
+| Nature's Curse | 0 | 40 (Normal) | 41 (Normal) | 43 (Normal) |
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Old Growth's Wrath | +3 Damage, +2% IDT | Stripped Bark | +3 Damage, +5% IDT | 11 |
+| Old Growth's Wrath | +3 Damage, +2% IDT | Sap of the Grove *(highest diagnostic)* | +3 Damage, +2% IDT, +2% IH, +2% HEAL | 12 |
+| Blight and Harvest | +10% IDT | Ironwood Lash | +1 Damage, +10% IDT | 12 |
+| Blight and Harvest | +10% IDT | Sap of the Grove *(highest diagnostic)* | +10% IDT, +2% IH, +2% HEAL | 14 |
+| Everbloom Sanctuary | +10% IH, +2% HEAL | Thorn and Rot | +2% IDT, +10% IH, +2% HEAL | 14 |
+| Everbloom Sanctuary | +10% IH, +2% HEAL | Sudden Greening *(highest diagnostic)* | +10% IH, +5% HEAL | 15 |
 
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Stripped Bark | +5 Damage, +5% IDT |
-| 2 | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Sap of the Grove | +5 Damage, +2% IDT, +2% IH, +2% HEAL |
-| 3 | Thorn and Rot, Ironwood Lash, Stripped Bark, Blight and Harvest | +2 Damage, +10% IDT, +3% IH |
-| 4 | Thorn and Rot, Ironwood Lash, Stripped Bark, Sap of the Grove | +2 Damage, +5% IDT, +2% IH, +2% HEAL |
-| 5 | Thorn and Rot, Ironwood Lash, Sap of the Grove, Deepening Roots | +2 Damage, +2% IDT, +5% IH, +2% HEAL |
-| 6 | Thorn and Rot, Ironwood Lash, Sap of the Grove, Bramble Warden | +3 Damage, +2% IDT, +3% IH, +2% HEAL |
-| 7 | Thorn and Rot, Stripped Bark, Blight and Harvest, Sap of the Grove | +10% IDT, +5% IH, +2% HEAL |
+| 1 | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Stripped Bark | +3 Damage, +5% IDT |
+| 2 | Thorn and Rot, Ironwood Lash, Old Growth's Wrath, Sap of the Grove | +3 Damage, +2% IDT, +2% IH, +2% HEAL |
+| 3 | Thorn and Rot, Ironwood Lash, Stripped Bark, Blight and Harvest | +1 Damage, +10% IDT |
+| 4 | Thorn and Rot, Ironwood Lash, Stripped Bark, Sap of the Grove | +1 Damage, +5% IDT, +2% IH, +2% HEAL |
+| 5 | Thorn and Rot, Ironwood Lash, Sap of the Grove, Deepening Roots | +1 Damage, +2% IDT, +5% IH, +2% HEAL |
+| 6 | Thorn and Rot, Ironwood Lash, Sap of the Grove, Sudden Greening | +1 Damage, +2% IDT, +2% IH, +5% HEAL |
+| 7 | Thorn and Rot, Stripped Bark, Blight and Harvest, Sap of the Grove | +10% IDT, +2% IH, +2% HEAL |
 | 8 | Thorn and Rot, Stripped Bark, Sap of the Grove, Deepening Roots | +5% IDT, +5% IH, +2% HEAL |
-| 9 | Thorn and Rot, Stripped Bark, Sap of the Grove, Bramble Warden | +1 Damage, +5% IDT, +3% IH, +2% HEAL |
-| 10 | Thorn and Rot, Sap of the Grove, Deepening Roots, Everbloom Sanctuary | +2% IDT, +8% IH, +5% HEAL |
-| 11 | Thorn and Rot, Sap of the Grove, Deepening Roots, Bramble Warden | +1 Damage, +2% IDT, +6% IH, +2% HEAL |
-| 12 | Sap of the Grove, Deepening Roots, Everbloom Sanctuary, Bramble Warden | +1 Damage, +9% IH, +5% HEAL |
+| 9 | Thorn and Rot, Stripped Bark, Sap of the Grove, Sudden Greening | +5% IDT, +2% IH, +5% HEAL |
+| 10 | Thorn and Rot, Sap of the Grove, Deepening Roots, Everbloom Sanctuary | +2% IDT, +10% IH, +2% HEAL |
+| 11 | Thorn and Rot, Sap of the Grove, Deepening Roots, Sudden Greening | +2% IDT, +5% IH, +5% HEAL |
+| 12 | Sap of the Grove, Deepening Roots, Everbloom Sanctuary, Sudden Greening | +10% IH, +5% HEAL |
 
 ## Design notes
 
-- Shape: Thorn and Rot (enemy-facing: +2% Increase Damage Taken) forks into Ironwood Lash → Old Growth's Wrath (Burst) and Stripped Bark → Blight and Harvest (Exposure). Sap of the Grove (self-facing: +2% Heal, +2% Increase Heal) runs Deepening Roots → Everbloom Sanctuary (Sustain) and carries the leaf Bramble Warden, a fight-inside-the-grove pick. 2 Foundations, 4 Hidden Arts, 3 Advanced Arts; any two Advanced Arts cost 5 or 6 BP. The kit has no Increase Damage Given, Afterburn or Decrease Damage rows, so the offensive Foundation carries exposure only and the self-facing root is Bastion sustain.
-- Recalibration (RUL-2026-10-03-005): Thorn and Rot drops its +1 Damage so Burst is the default +5 Damage (Ironwood Lash +2, Old Growth's Wrath +3; both attacks 40 → 45 EP); Stripped Bark rises from +2% to +3% and Blight and Harvest's Increase Damage Taken from +3% to +5%, so Exposure lands on +10% (2/3/5; Fury 35 → 45%). Sustain is unchanged: Heal +5% (Sap +2%, Everbloom +3%; 400 → 450 HP) with Increase Heal 2/3/3 along the route. Maxima over every legal allocation: Damage +5, Increase Damage Taken +10%, Increase Heal +9% (Sustain route plus Bramble Warden, 39%), Heal +5%.
-- Arithmetic and timing: the bloodline's Increase Damage Given passive (20 + 0.15/level on Water, Earth, Wood, None) is fromType bloodline and multiplies the enhanced Wood hits; Fury's exposure is a jutsu-sourced stage-2 multiplier on each matching hit (×1.35 at base, ×1.45 on the full route; §3b), applied before the passive. Buffs and debuffs act only in the 2 rounds after their cast round (§3b), so Fury's own hit never benefits from its exposure; a Curse, normal jutsu, weapon or ally hit on that target in those rounds does. All three jutsu have cooldown 7.
+- Shape: Thorn and Rot (+2% Increase Damage Taken) forks into Ironwood Lash → Old Growth's Wrath (Burst) and Stripped Bark → Blight and Harvest (Exposure). Sap of the Grove (+2% Heal, +2% Increase Heal) runs Deepening Roots → Everbloom Sanctuary (sustained healing) and carries the leaf Sudden Greening (burst healing). 2 Foundations, 4 Hidden Arts, 3 Advanced Arts; any two Advanced Arts cost 5 or 6 BP. The kit has no Increase Damage Given, Decrease Damage, Lifesteal or Afterburn rows.
+- 2026-10-04 rebalance: the old Burst route (Ironwood Lash +2, Old Growth's Wrath +3 Damage) lifted both 40 EP attacks to 45, a full tier on the kit's only two Damage rows; it is now +3 (Lash +1, Wrath +2; 40 → 43). Bramble Warden (+1 Damage, +1% Increase Heal) was a filler hybrid and is replaced in the same slot by Sudden Greening (+3% Heal), and Everbloom Sanctuary trades its +3% Heal / +3% Increase Heal for a single +5% Increase Heal, so the Sap fork reads as the bloodline's traits: sustained or burst healing. Blight and Harvest drops its 3% Increase Heal rider and is a single +5% Increase Damage Taken capstone, so the strongest route no longer carries a share of Everbloom Sanctuary's only tag. Exposure keeps 2/3/5% (Fury 35 → 45%) because that matches Burst step for step: ×1.45/1.35 ≈ +7.4% on each hit into the mark against 43/40 = +7.5% EP on each Wood attack, so the choice is reach (every hit on one target, allies' included) against certainty (both Wood attacks, Fury's own hit included). Maxima over every legal allocation: Damage +3, Increase Damage Taken +10%, Increase Heal +10%, Heal +5%.
+- Arithmetic and timing: Fury's exposure is a jutsu-sourced stage-2 multiplier on each matching hit (×1.35 at base, ×1.45 on the full Exposure route; §3b), applied before the bloodline's Increase Damage Given passive (20 + 0.15/level on Water, Earth, Wood, None), which multiplies last. Buffs and debuffs act only in the 2 rounds after their cast round, so Fury's own hit never benefits from its exposure; a Curse, normal jutsu, weapon or ally hit on that target in those rounds does. All three jutsu have cooldown 7.
 - Verdant Bastion (ground circle, range 0, 40 AP): Heal is target SELF, realized on the caster at cast time (§4b, actions.ts 980–1004): one 400 HP tick next round wherever the caster stands. Increase Heal is INHERIT / FRIENDLY: a ground effect re-applied each round to the caster and allies on the tiles (process.ts 321–340), live the 2 rounds after the cast. It raises the holder's heals, lifesteal, vamp and absorb (tags.ts 1110–1195), Bastion's own tick included while the caster is inside.
-- Fourth purchases: Burst → Sap of the Grove or Stripped Bark; Exposure → Sap of the Grove or Ironwood Lash; Sustain → Thorn and Rot (exposure 37%) or Bramble Warden (Increase Heal 39%).
+- Fourth purchases: Burst → Stripped Bark (Curse 43 EP into a 40% mark) or Sap of the Grove; Exposure → Sap of the Grove or Ironwood Lash (41 EP into a 45% mark); Sanctuary → Sudden Greening (450 HP tick) or Thorn and Rot (37% mark). In EP terms the two all-offence builds sit within 3% on the Fury → Curse one-two (43 + 43 x 1.40 ≈ 103 vs 41 + 41 x 1.45 ≈ 100); Exposure overtakes once other hits land on the marked target in the window.
 
 ## Risks and unproven interactions
 
 - Classification: Wood is shared with Shinseina Ki (expected under RUL-2026-10-03-005). 2 of 5 kit rows carry Wood; Fury's exposure row and Bastion's two rows need the proposed jutsu-classification resolver, and Verdant Bastion carries no element on any row, so in-kit it qualifies only through an authored Wood jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Wood coverage is unverified.
 - Broad exposure: Blight and Harvest builds put Fury's Increase Damage Taken at 45% on one target for the 2 rounds after the cast; with all four stat types and no element it multiplies every non-pierce hit the target takes there by 1.45 (§3b, G16), allies' hits included. Same-tag sources all apply, each as its own multiplier (process.ts 1692–1825): with another 35% exposure live a hit takes ×1.45 × 1.35 ≈ ×1.96. Cooldown 7 bars self-overlap.
-- Increase Heal reach (holder side): the buff raises heal_hp, lifesteal_hp, vampRatio and absorb_hp for its holder (tags.ts 1110–1195), so Bastion's up to +9% also lifts Nature's Curse's 30% absorb, the 10% absorb passive and main-tree or item heals, lifesteal and vamp in its window. Maximum 39% is far below the 100 cap; lifesteal and vamp still share the 60% leech budget.
+- Increase Heal reach (holder side): the buff raises heal_hp, lifesteal_hp, vampRatio and absorb_hp for its holder (tags.ts 1110–1195), so Bastion's up to +10% also lifts Nature's Curse's 30% absorb, the 10% absorb passive and main-tree or item heals, lifesteal and vamp in its window. Maximum 40% is far below the 100 cap; lifesteal and vamp still share the 60% leech budget.
 - Ally reach (verified, G16): the Increase Heal row is INHERIT / FRIENDLY on a ground spawn, re-applied each round to the caster and allies on the tiles, never enemies (actions.ts 1006–1016, process.ts 321–340), so every Increase Heal node also lifts allies' heals, lifesteal, vamp and absorb there. The dossier's SELF BUFF label comes from bloodright_lib.recipient_for collapsing area_allies to self.
-- Heal timing: Bastion's Heal ticks once the next round (rounds 1, static x10; tags.ts 1721–1775). The ground-derived Increase Heal effect copies its cleared isNew/castThisRound (process.ts 301, 333–339) and heal adjusters run after heals (process.ts 440, 600), so a caster on the tiles gets 450 x 1.38 = 621 HP on the full Sustain route vs 400 x 1.30 = 520 (+19.4%); off them, 450 vs 400 (+12.5%).
-- Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Wood Increase Damage Given passive, so +5 raw EP is not +5 damage; realized value depends on stats and the passive's level scaling. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed.
+- Heal timing: Bastion's Heal ticks once the next round (rounds 1, static x10; tags.ts 1721–1775). The ground-derived Increase Heal effect copies its cleared isNew/castThisRound (process.ts 301, 333–339) and heal adjusters run after heals (process.ts 440, 600), so a caster on the tiles gets 420 x 1.40 = 588 HP on the Sanctuary route (+13.1% over 400 x 1.30 = 520) and 450 x 1.40 = 630 HP with Sudden Greening (+21.2%); off the tiles, 420 or 450 vs 400.
+- Damage is formula-calculated (sqrt stat scaling) and then multiplied by the Wood Increase Damage Given passive, so +3 raw EP is not +3 damage; realized value depends on stats and the passive's level scaling. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed.
 
 ## Limits
 

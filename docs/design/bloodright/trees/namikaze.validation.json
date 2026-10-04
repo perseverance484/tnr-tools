@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Draft 4 / Wind classification / forked tree (RUL-2026-10-03-005 wording; values unchanged)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Wind classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Tempest Shroud#2"
@@ -78,8 +78,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 3,
+        "damage": 2,
+        "increasedamagegiven": 6,
         "decreasedamagegiven": 2,
         "decreasedamagetaken": 2
       },
@@ -94,13 +94,11 @@
         "01",
         "04",
         "05",
-        "06"
+        "02"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 2,
+        "increasedamagegiven": 6,
         "afterburn": 10
       },
       "advanced_arts": [
@@ -114,12 +112,11 @@
         "06",
         "07",
         "08",
-        "01"
+        "09"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
+        "decreasedamagegiven": 5,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -133,13 +130,13 @@
         "06",
         "09",
         "10",
-        "07"
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
+        "increasedamagegiven": 3,
         "decreasedamagegiven": 10,
-        "decreasedamagetaken": 5
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Dead Calm"
@@ -169,8 +166,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
+      "damage": 2,
+      "increasedamagegiven": 6,
       "decreasedamagegiven": 10,
       "decreasedamagetaken": 10,
       "afterburn": 10
@@ -212,14 +209,13 @@
         "name": "Razor Crosswind",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
+        "raw_flat_total": 3,
         "row_weighted_total": 6,
         "covered_jutsu": [
           "Cutting Tempest",
-          "Tempest Shroud",
-          "Wind Step"
+          "Soaring Fujin"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -228,8 +224,8 @@
         "name": "Cleaving Cyclone",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cutting Tempest",
           "Tempest Shroud",
@@ -258,14 +254,12 @@
         "name": "Fanning the Flames",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 9,
-        "row_weighted_total": 11,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
-          "Cutting Tempest",
-          "Soaring Fujin",
           "Tempest Shroud"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -303,14 +297,12 @@
         "name": "Heart of the Tempest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Cutting Tempest",
-          "Soaring Fujin",
           "Tempest Shroud"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -333,14 +325,12 @@
         "name": "Dead Calm",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Cutting Tempest",
-          "Tempest Shroud",
           "Wind Step"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -353,12 +343,11 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 6,
         "afterburn": 10
       },
-      "raw_flat_total": 17,
-      "row_weighted_total": 26,
+      "raw_flat_total": 16,
+      "row_weighted_total": 22,
       "advanced_arts": [
         "05"
       ],
@@ -387,12 +376,12 @@
           "04"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 3,
+          "damage": 2,
+          "increasedamagegiven": 6,
           "afterburn": 3
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 24,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -406,13 +395,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 3,
+          "damage": 2,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 25,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "03"
         ],
@@ -426,12 +415,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 6,
           "afterburn": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 26,
+        "raw_flat_total": 16,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
@@ -445,13 +433,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
@@ -464,12 +451,11 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
@@ -482,12 +468,11 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 6,
           "decreasedamagegiven": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
+        "raw_flat_total": 13,
         "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
@@ -500,13 +485,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 24,
+        "raw_flat_total": 17,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "05"
         ],
@@ -556,12 +541,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 3,
           "decreasedamagegiven": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 22,
+        "raw_flat_total": 15,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "08"
         ],
@@ -592,13 +577,12 @@
           "10"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 3,
           "decreasedamagegiven": 10,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 21,
+        "raw_flat_total": 15,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "10"
         ],
@@ -612,12 +596,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -631,12 +614,11 @@
           "10"
         ],
         "bonuses": {
-          "damage": 1,
           "decreasedamagegiven": 10,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],
@@ -817,6 +799,285 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Wind Step",
+        "row": 1,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Wind"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Tempest Shroud",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Wind"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Cutting Tempest",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Wind"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Cleaving Cyclone",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 6
+      },
+      "path_row_weighted": 18,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Searing Squall",
+          "category": "Hidden Art",
+          "adds": {
+            "afterburn": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 6,
+            "afterburn": 3
+          },
+          "raw_total": 11,
+          "row_weighted": 21
+        },
+        {
+          "id": "06",
+          "name": "Eye of the Storm",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 6,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 12,
+          "row_weighted": 22
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Fanning the Flames",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 3,
+        "afterburn": 10
+      },
+      "path_row_weighted": 16,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Razor Crosswind",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 6,
+            "afterburn": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 22
+        },
+        {
+          "id": "06",
+          "name": "Eye of the Storm",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 17,
+          "row_weighted": 20
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Heart of the Tempest",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Wind at the Back",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagegiven": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 18
+        },
+        {
+          "id": "09",
+          "name": "Smothering Headwind",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 5,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Dead Calm",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Wind at the Back",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 3,
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 15,
+          "row_weighted": 18
+        },
+        {
+          "id": "07",
+          "name": "Windward Guard",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
