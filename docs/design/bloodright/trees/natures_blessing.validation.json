@@ -11,7 +11,9 @@
   },
   "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "universal node: 01 (Thorn and Rot) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+  ],
   "classification": {
     "potency_classification": "Wood",
     "label_kind": "element",
@@ -69,7 +71,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "increaseheal": 2,
         "heal": 2
       },
@@ -81,15 +83,16 @@
       "name": "Everbloom Sanctuary",
       "archetype": "Sanctuary",
       "ids": [
+        "01",
         "06",
         "07",
-        "08",
-        "09"
+        "08"
       ],
       "cost": 4,
       "bonuses": {
+        "increasedamagetaken": 2,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
       "advanced_arts": [
         "Everbloom Sanctuary"
@@ -97,9 +100,9 @@
     }
   ],
   "audit": {
-    "available_skills": 9,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 4,
+    "hidden_art_count": 3,
     "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
@@ -110,19 +113,19 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 5,
-      "3": 9,
-      "4": 12
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 12,
-    "non_dominated_full_allocations": 12,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
-      "increasedamagetaken": 10,
+      "increasedamagetaken": 8,
       "increaseheal": 10,
-      "heal": 5
+      "heal": 2
     },
     "supported_rows_in_kit": 5,
     "supported_rows_by_tag": {
@@ -202,8 +205,8 @@
         "name": "Blight and Harvest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Nature's Fury"
         ],
@@ -252,35 +255,22 @@
         "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
-      },
-      {
-        "id": "09",
-        "name": "Sudden Greening",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
-        "covered_jutsu": [
-          "Verdant Bastion"
-        ],
-        "covered_rows": 1,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
       }
     ],
     "strongest_full_build_by_row_weight": {
       "ids": [
+        "01",
         "06",
         "07",
-        "08",
-        "09"
+        "08"
       ],
       "bonuses": {
+        "increasedamagetaken": 2,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
-      "raw_flat_total": 15,
-      "row_weighted_total": 15,
+      "raw_flat_total": 14,
+      "row_weighted_total": 14,
       "advanced_arts": [
         "08"
       ],
@@ -348,10 +338,10 @@
         ],
         "bonuses": {
           "damage": 1,
-          "increasedamagetaken": 10
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 12,
+        "raw_flat_total": 9,
+        "row_weighted_total": 10,
         "advanced_arts": [
           "05"
         ],
@@ -387,24 +377,6 @@
           "increasedamagetaken": 2,
           "increaseheal": 5,
           "heal": 2
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 11,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 1,
-          "increasedamagetaken": 2,
-          "increaseheal": 2,
-          "heal": 5
         },
         "raw_flat_total": 10,
         "row_weighted_total": 11,
@@ -419,12 +391,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "increaseheal": 2,
           "heal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [
           "05"
         ],
@@ -450,23 +422,6 @@
       {
         "ids": [
           "01",
-          "04",
-          "06",
-          "09"
-        ],
-        "bonuses": {
-          "increasedamagetaken": 5,
-          "increaseheal": 2,
-          "heal": 5
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 12,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
           "06",
           "07",
           "08"
@@ -478,41 +433,6 @@
         },
         "raw_flat_total": 14,
         "row_weighted_total": 14,
-        "advanced_arts": [
-          "08"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "07",
-          "09"
-        ],
-        "bonuses": {
-          "increasedamagetaken": 2,
-          "increaseheal": 5,
-          "heal": 5
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 12,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "08",
-          "09"
-        ],
-        "bonuses": {
-          "increaseheal": 10,
-          "heal": 5
-        },
-        "raw_flat_total": 15,
-        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -547,10 +467,6 @@
         [
           "06",
           "07"
-        ],
-        [
-          "06",
-          "09"
         ]
       ],
       "3": [
@@ -585,19 +501,9 @@
           "07"
         ],
         [
-          "01",
-          "06",
-          "09"
-        ],
-        [
           "06",
           "07",
           "08"
-        ],
-        [
-          "06",
-          "07",
-          "09"
         ]
       ],
       "4": [
@@ -633,12 +539,6 @@
         ],
         [
           "01",
-          "02",
-          "06",
-          "09"
-        ],
-        [
-          "01",
           "04",
           "05",
           "06"
@@ -651,27 +551,9 @@
         ],
         [
           "01",
-          "04",
-          "06",
-          "09"
-        ],
-        [
-          "01",
           "06",
           "07",
           "08"
-        ],
-        [
-          "01",
-          "06",
-          "07",
-          "09"
-        ],
-        [
-          "06",
-          "07",
-          "08",
-          "09"
         ]
       ]
     }
@@ -699,7 +581,7 @@
             "tier_after": "Normal",
             "tier_change": false,
             "above_nuke": false,
-            "allocations": 7,
+            "allocations": 6,
             "smallest_allocation": [
               "01",
               "02"
@@ -738,7 +620,7 @@
             "tier_after": "Normal",
             "tier_change": false,
             "above_nuke": false,
-            "allocations": 7,
+            "allocations": 6,
             "smallest_allocation": [
               "01",
               "02"
@@ -822,9 +704,9 @@
         "05"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 10
+        "increasedamagetaken": 8
       },
-      "path_row_weighted": 10,
+      "path_row_weighted": 8,
       "fourths": [
         {
           "id": "02",
@@ -835,10 +717,10 @@
           },
           "bonuses": {
             "damage": 1,
-            "increasedamagetaken": 10
+            "increasedamagetaken": 8
           },
-          "raw_total": 11,
-          "row_weighted": 12
+          "raw_total": 9,
+          "row_weighted": 10
         },
         {
           "id": "06",
@@ -849,12 +731,12 @@
             "heal": 2
           },
           "bonuses": {
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "increaseheal": 2,
             "heal": 2
           },
-          "raw_total": 14,
-          "row_weighted": 14
+          "raw_total": 12,
+          "row_weighted": 12
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -887,23 +769,9 @@
           },
           "raw_total": 14,
           "row_weighted": 14
-        },
-        {
-          "id": "09",
-          "name": "Sudden Greening",
-          "category": "Hidden Art",
-          "adds": {
-            "heal": 3
-          },
-          "bonuses": {
-            "increaseheal": 10,
-            "heal": 5
-          },
-          "raw_total": 15,
-          "row_weighted": 15
         }
       ],
-      "highest_diagnostic_fourth": "09"
+      "highest_diagnostic_fourth": "01"
     }
   ],
   "route_overlap": [],
