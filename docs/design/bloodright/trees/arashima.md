@@ -6,6 +6,17 @@
 
 Director-approved structure (RUL-2026-10-04-003). Tempest Hymn answers "How do I win the storm offensively?": Sundered Sky pushes the Stormsinger buff and adds a narrow +2 Damage to the two 45 EP Storm attacks, while The Storm's Due converts the same buff into +5% Lifesteal sustain. Stillness in the Squall answers "How do I outlast the storm?": Unbroken Horizon protects the singer (+10% Decrease Damage Taken with a small Lifesteal rider) and Silence After Thunder suppresses everyone in Death's Storm (+10% Decrease Damage Given). Potency reaches matching supported tags on all Storm jutsu (RUL-2026-10-03-005).
 
+**Review status:** Director-approved (RUL-2026-10-04-003); protected from the 2026-10-04 batch
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Tempest Hymn | Foundation | How do I win the storm offensively? |
+| Stillness in the Squall | Foundation | How do I outlast the storm? |
+| Sundered Sky | Advanced Art | burst |
+| The Storm's Due | Advanced Art | sustain offense |
+| Unbroken Horizon | Advanced Art | fortress |
+| Silence After Thunder | Advanced Art | suppression |
+
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Storm jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills

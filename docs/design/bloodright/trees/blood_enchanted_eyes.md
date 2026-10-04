@@ -6,6 +6,19 @@
 
 Director-reviewed structure (RUL-2026-10-04-001, superseding the RUL-2026-10-03-006 numbers). Scarlet Gaze answers "How do I win offensively: amplify myself or expose them?": Burst sets up exposure on the Hidden Art (Opened Veins +3% Increase Damage Taken) and pays off with a controlled +2 Damage on Rite of Exsanguination; Sustain Offense pairs +5% Lifesteal with +7% Increase Damage Given. Iron in the Blood answers "How do I win defensively: protect myself or suppress them?": Fortress (+10% Decrease Damage Taken, +5% Decrease Damage Given) and Suppression (+10% Decrease Damage Given, +5% Decrease Damage Taken) mirror each other. No Afterburn path. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005).
 
+**Review status:** Director-reviewed (RUL-2026-10-04-001); protected from the 2026-10-04 batch
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Scarlet Gaze | Foundation | How do I win offensively: amplify myself or expose them? |
+| Iron in the Blood | Foundation | How do I win defensively: protect myself or suppress them? |
+| Rite of Exsanguination | Advanced Art | burst: exposure set up, controlled raw-Damage payoff |
+| Feast of the Fallen | Advanced Art | sustain offense |
+| Deathless Vitality | Advanced Art | fortress |
+| Red Pestilence | Advanced Art | suppression |
+
+**Director review recommended:** Reaper's Embrace 50 → 52 under Rite of Exsanguination (above the Nuke tier) is recorded for confirmation.
+
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Shadow jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills

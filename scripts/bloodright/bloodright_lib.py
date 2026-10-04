@@ -170,7 +170,7 @@ def stale_language(tree: dict) -> list[str]:
                 if k in PROSE_FIELDS or k in ("emphasis",):
                     scan(f"{where}.{k}", v)
 
-    for k in ("title", "emphasis", "narrow_kit_exception", "design_notes", "risks"):
+    for k in ("title", "emphasis", "narrow_kit_exception", "design_notes", "risks", "above_nuke_rationale"):
         if k in tree:
             scan(k, tree[k])
     for n in tree.get("nodes", []):
@@ -181,6 +181,11 @@ def stale_language(tree: dict) -> list[str]:
         scan(f"route_band_rationale.{k}", v)
     for e in tree.get("director_exceptions") or []:
         scan("director_exceptions", e.get("reason"))
+    dr = tree.get("design_review") or {}
+    for k in ("foundation_sentences", "route_identities"):
+        for nid, v in (dr.get(k) or {}).items():
+            scan(f"design_review.{k}.{nid}", v)
+    scan("design_review.concerns", dr.get("concerns") or [])
     return hits
 
 

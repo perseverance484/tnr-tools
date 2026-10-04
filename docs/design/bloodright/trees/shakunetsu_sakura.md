@@ -6,6 +6,19 @@
 
 Director-approved structure (RUL-2026-10-04-002). Ember Dragon's Roots answers "How do I increase my killing pressure?": Dragon in Full Blossom sustains amplification (+10% Increase Damage Given with a Pearl Heal rider) and Scorching Hanami turns the same buff into combat dominance (+10% Increase Damage Given with Decrease Damage Given). Falling Ember Petals answers "How do I control the exchange?": Conflagration in Bloom builds exposure into a narrow +2 Damage payoff, and Deluge of Burning Petals reaches +10% Decrease Damage Given with a Heal rider instead of an inflated single-row suppression number. Potency reaches matching supported tags on all Scorch jutsu (RUL-2026-10-03-005).
 
+**Review status:** Director-approved (RUL-2026-10-04-002); protected from the 2026-10-04 batch
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Ember Dragon's Roots | Foundation | How do I increase my killing pressure? |
+| Falling Ember Petals | Foundation | How do I control the exchange? |
+| Dragon in Full Blossom | Advanced Art | sustained amplification |
+| Scorching Hanami | Advanced Art | combat dominance |
+| Conflagration in Bloom | Advanced Art | exposure into a narrow burst |
+| Deluge of Burning Petals | Advanced Art | suppression with sustain |
+
+**Director review recommended:** Two mechanical consequences recorded for confirmation: +13% Increase Damage Given with a capstone plus the sibling Hidden Art, and Sakura-ame 50 → 52 under Conflagration in Bloom.
+
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Scorch jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills

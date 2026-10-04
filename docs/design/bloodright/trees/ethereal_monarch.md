@@ -6,6 +6,10 @@
 
 Ten supported kit rows on six casts: two Yin-Yang Damage rows, three element-less 35% Increase Damage Given self buffs, two Decrease Damage Taken self rows, one Reflect row and Stardust's two enemy debuffs. The offensive root (Sovereign's Decree) forks into a Damage route and a Stardust burn route; the defensive root (Veil of the Monarch) forks into a Decrease Damage Taken route and a Reflect route. Potency reaches matching supported tags on all Yin-Yang jutsu (RUL-2026-10-03-005). Starlight Veil, Heavenly Constructs and Stardust carry no Yin-Yang row, so in-kit they qualify only through an authored jutsu classification (ENGINE_GAP_REGISTER G1); injection provenance is not a selector.
 
+**Review status:** Director-corrected (2026-10-03); protected from the 2026-10-04 batch
+
+**Director review recommended:** Tamashī no Sakeme 50 → 55 under the Burst route is flagged under BALANCE_REVIEW_METHOD.md; not retuned.
+
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Yin-Yang jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills

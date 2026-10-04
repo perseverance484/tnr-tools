@@ -2,6 +2,10 @@
 
 **Bloodline:** Taiyo Kami (BR-075, rank A, `6C2t3jK35hvPoVocLiHEl`) · **Revision:** approved reference (handoff v4 values) regenerated under RUL-2026-10-03-005 · **Classification:** Scorch (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
+**Review status:** Approved worked reference; protected from the 2026-10-04 batch (values unchanged)
+
+**Director review recommended:** Incandescent Nova 50 → 55 under the Burst route is flagged under BALANCE_REVIEW_METHOD.md; not retuned.
+
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Scorch jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
 ## Skills
