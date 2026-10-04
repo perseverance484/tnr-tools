@@ -42,7 +42,7 @@
   "examples": [
     {
       "name": "Severing Lattice",
-      "archetype": "Steady Edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -54,7 +54,7 @@
         "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 5
       },
       "advanced_arts": [
         "Severing Lattice"
@@ -136,7 +136,7 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 13,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -180,15 +180,12 @@
         "name": "Razor Strands",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Iron Web Entrapment",
-          "Lightning Threads",
-          "Spiraling Wires",
-          "Wire Blast Plus"
+          "Lightning Threads"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -197,8 +194,8 @@
         "name": "Severing Lattice",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 1,
-        "row_weighted_total": 4,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Iron Web Entrapment",
           "Lightning Threads",
@@ -336,8 +333,8 @@
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "09",
-      "name": "Conductive Seam",
+      "id": "02",
+      "name": "Razor Strands",
       "category": "Hidden Art",
       "depth": 2,
       "raw_flat_total": 3,
@@ -359,10 +356,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 4
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 3
         },
-        "raw_flat_total": 6,
-        "row_weighted_total": 16,
+        "raw_flat_total": 9,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "03"
         ],
@@ -379,10 +377,10 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 18,
+        "raw_flat_total": 11,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "03"
         ],
@@ -396,11 +394,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 8
+          "increasedamagegiven": 8,
+          "increasedamagetaken": 3
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 20,
+        "raw_flat_total": 11,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -414,13 +412,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 18,
+        "raw_flat_total": 11,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -432,13 +429,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 19,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -450,15 +446,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 17,
+        "raw_flat_total": 12,
+        "row_weighted_total": 16,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -781,7 +776,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -795,19 +789,6 @@
         ],
         "method": "AOE_LINE_SHOOT",
         "steps": [
-          {
-            "added": 1,
-            "final": 46.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 47.0,
@@ -835,19 +816,6 @@
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
           {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
-          {
             "added": 2,
             "final": 42.0,
             "tier_before": "Normal",
@@ -874,19 +842,6 @@
         "method": "SINGLE",
         "steps": [
           {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
-          {
             "added": 2,
             "final": 42.0,
             "tier_before": "Normal",
@@ -912,19 +867,6 @@
         ],
         "method": "SINGLE",
         "steps": [
-          {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 42.0,
@@ -956,9 +898,10 @@
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 3
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 15,
       "fourths": [
         {
           "id": "04",
@@ -969,10 +912,11 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 4
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 3
           },
-          "raw_total": 6,
-          "row_weighted": 16
+          "raw_total": 9,
+          "row_weighted": 19
         },
         {
           "id": "06",
@@ -986,10 +930,10 @@
             "damage": 2,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 2
+            "increasedamagetaken": 5
           },
-          "raw_total": 8,
-          "row_weighted": 18
+          "raw_total": 11,
+          "row_weighted": 21
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -1012,14 +956,14 @@
           "name": "Razor Strands",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagetaken": 3
           },
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 8
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 3
           },
-          "raw_total": 9,
-          "row_weighted": 20
+          "raw_total": 11,
+          "row_weighted": 19
         },
         {
           "id": "06",
