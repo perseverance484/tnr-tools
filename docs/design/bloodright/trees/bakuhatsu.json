@@ -1,6 +1,6 @@
 {
   "title": "Bakuhatsu — Doctrine of Detonation",
-  "revision": "Draft 4 / Explosion classification / forked tree (RUL-2026-10-03-005 recalibration; Increase Damage Given route added)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Explosion classification / forked tree",
   "bloodline": {
     "id": "RNUcHSH2c00IhOLc2C9aJ",
     "review_id": "BR-008",
@@ -37,10 +37,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Damage (Explosion area attacks)",
-    "secondary": "Afterburn and Increase Damage Taken (Charge 4 Explosion pressure)",
-    "tertiary": "Increase Damage Given and Decrease Damage Taken (charge self buffs / Blast Shield)",
-    "rationale": "Three of the eight supported rows are Explosion Damage on 60 AP area attacks (Kinetic Nova 50, Inferno Cataclysm 40, Howitzer Crash 40 EP at jutsu level 25), so burst is the declared role. Charge 4 Explosion carries three supported rows on one 40 AP single-target cast (self Increase Damage Given 35%, enemy Increase Damage Taken 35%, Afterburn 35%, live the two rounds after the cast), which makes it the pressure hub; Howitzer Crash adds a second Increase Damage Given self buff, realized on the caster at cast time and never raising its own hit. Blast Shield's single Decrease Damage Taken row (35%, a caster-only self buff for two rounds) is the only defensive row. There are no heal, lifesteal, reflect or Decrease Damage Given rows, so no sustain or suppression route is invented."
+    "primary": "Increase Damage Given (the charge: Charge 4 Explosion and Howitzer Crash self buffs, which compound)",
+    "secondary": "Afterburn and Increase Damage Taken (the mark Charge 4 Explosion leaves on its target)",
+    "tertiary": "Decrease Damage Taken (Blast Shield)",
+    "rationale": "The three Explosion Damage rows (Kinetic Nova 50, Inferno Cataclysm and Howitzer Crash 40 EP) stay unamplified: Kinetic Nova is already a Nuke, so any flat Damage lifts it past 50. The burst is carried by the charge instead: the two 35% Increase Damage Given self buffs multiply every matching caster hit, area attacks included, in the two rounds after their casts. Primed Fuse answers \"How do I make the detonation land harder: charge myself or mark the target?\" with Critical Mass (both self buffs 43%) and Chain Reaction (Charge 4 Explosion's Afterburn 45% and exposure 40%). Eye of the Blast answers \"How do I survive at the centre of my own blasts?\" with one fortress, Siege Battery (Blast Shield 45%). The kit has no heal, lifesteal, reflect or Decrease Damage Given rows, so no sustain or suppression route is invented."
   },
   "nodes": [
     {
@@ -62,7 +62,7 @@
         }
       ],
       "flavor": "Every detonation begins as a held breath and a lit fuse.",
-      "coverage_note": "Charge 4 Explosion and Howitzer Crash self buffs 35 → 37%; Charge 4 Explosion exposure debuff 35 → 37%. 3 rows, no gates.",
+      "coverage_note": "Charge 4 Explosion and Howitzer Crash self buffs 35 → 37%; Charge 4 Explosion exposure 35 → 37%. In every legal build, because Eye of the Blast roots a single chain.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -71,66 +71,6 @@
         "jutsu": [
           "Charge 4 Explosion",
           "Howitzer Crash"
-        ],
-        "effect_rows": 3
-      }
-    },
-    {
-      "id": "02",
-      "name": "Shaped Charge",
-      "category": "Hidden Art",
-      "cost": 1,
-      "parents": [
-        "01"
-      ],
-      "modifiers": [
-        {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
-        }
-      ],
-      "flavor": "The blast is not larger; it is aimed.",
-      "coverage_note": "Explosion Damage on Inferno Cataclysm and Howitzer Crash 40 → 42 EP and Kinetic Nova 50 → 52 EP (three area rows, all 60 AP, cooldown 7).",
-      "parent_rule": "ALL",
-      "potency_classification": "Explosion",
-      "scope": "all Explosion jutsu",
-      "minimum_path_bp": 2,
-      "coverage": {
-        "jutsu": [
-          "Howitzer Crash",
-          "Inferno Cataclysm",
-          "Kinetic Nova"
-        ],
-        "effect_rows": 3
-      }
-    },
-    {
-      "id": "03",
-      "name": "Ground Zero",
-      "category": "Advanced Art",
-      "cost": 1,
-      "parents": [
-        "02"
-      ],
-      "modifiers": [
-        {
-          "tag": "damage",
-          "flat": 3,
-          "display_role": "DAMAGE"
-        }
-      ],
-      "flavor": "Where the charge lands, the map is redrawn.",
-      "coverage_note": "Damage route total +5: Kinetic Nova 50 → 55 EP, Inferno Cataclysm and Howitzer Crash 40 → 45 EP.",
-      "parent_rule": "ALL",
-      "potency_classification": "Explosion",
-      "scope": "all Explosion jutsu",
-      "minimum_path_bp": 3,
-      "coverage": {
-        "jutsu": [
-          "Howitzer Crash",
-          "Inferno Cataclysm",
-          "Kinetic Nova"
         ],
         "effect_rows": 3
       }
@@ -146,12 +86,12 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 3,
+          "flat": 2,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "The body is a magazine; patience is the match.",
-      "coverage_note": "Both Increase Damage Given self buffs (Charge 4 Explosion, Howitzer Crash) 40% with Primed Fuse, each realized at cast time.",
+      "coverage_note": "Commits to the charge: both self buffs 37 → 39% with Primed Fuse, each live the two rounds after its cast (×1.39 × 1.39 ≈ ×1.93 with both up).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -175,12 +115,12 @@
       "modifiers": [
         {
           "tag": "increasedamagegiven",
-          "flat": 5,
+          "flat": 4,
           "display_role": "SELF BUFF"
         }
       ],
       "flavor": "Pack enough charge into one body and the body becomes the bomb.",
-      "coverage_note": "Increase Damage Given route total +10%: the Charge 4 Explosion and Howitzer Crash self buffs 35 → 45%, live the two rounds after each cast.",
+      "coverage_note": "Area burst: both self buffs 35 → 43% on the full route (+8%); with both live, every caster hit that is element-less or uses the highest offence stat lands ×1.43 × 1.43 ≈ ×2.04 (×1.82 unmodified).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -194,8 +134,69 @@
       }
     },
     {
+      "id": "08",
+      "name": "Slow Burn",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Shrapnel lodges hot and stays hot.",
+      "coverage_note": "Marks the target: Charge 4 Explosion Afterburn 35 → 40% (single target, range 4, 40 AP, live the two rounds after the cast).",
+      "parent_rule": "ALL",
+      "potency_classification": "Explosion",
+      "scope": "all Explosion jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Charge 4 Explosion"
+        ],
+        "effect_rows": 1
+      }
+    },
+    {
+      "id": "09",
+      "name": "Chain Reaction",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "08"
+      ],
+      "modifiers": [
+        {
+          "tag": "afterburn",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "increasedamagetaken",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "One blast primes the next. Nothing lands only once.",
+      "coverage_note": "Mark: Charge 4 Explosion Afterburn 35 → 45% (+10%) and exposure 35 → 40% with Primed Fuse, from one 40 AP cast; every non-pierce hit on the target, allies' included, burns for 45%.",
+      "parent_rule": "ALL",
+      "potency_classification": "Explosion",
+      "scope": "all Explosion jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Charge 4 Explosion"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
       "id": "05",
-      "name": "Smoke and Shrapnel",
+      "name": "Eye of the Blast",
       "category": "Foundation",
       "cost": 1,
       "parents": [],
@@ -204,25 +205,19 @@
           "tag": "decreasedamagetaken",
           "flat": 2,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "afterburn",
-          "flat": 2,
-          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "The blast is over. Its cloud and its fragments are not.",
-      "coverage_note": "Blast Shield Decrease Damage Taken 35 → 37% (caster-only self buff, 2 rounds) and Charge 4 Explosion Afterburn 35 → 37%. 2 rows, 40 AP each.",
+      "flavor": "Every detonation has a still centre. Stand in it.",
+      "coverage_note": "Blast Shield Decrease Damage Taken 35 → 37% (caster-only self buff, 2 rounds per 40 AP cast).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Blast Shield",
-          "Charge 4 Explosion"
+          "Blast Shield"
         ],
-        "effect_rows": 2,
+        "effect_rows": 1,
         "rows_via_authored_classification": 1
       }
     },
@@ -242,7 +237,7 @@
         }
       ],
       "flavor": "Debris packs into a wall that holds the second time, too.",
-      "coverage_note": "Blast Shield Decrease Damage Taken 40% with Smoke and Shrapnel (one caster-only row, 2 rounds per 40 AP cast).",
+      "coverage_note": "Blast Shield Decrease Damage Taken 37 → 40% with Eye of the Blast (one caster-only row).",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -276,7 +271,7 @@
         }
       ],
       "flavor": "Dug in behind the blast wall, the battery keeps firing.",
-      "coverage_note": "Decrease Damage Taken route total +10% (Blast Shield 35 → 45%); both Increase Damage Given self buffs +2% (39% with Primed Fuse).",
+      "coverage_note": "Fortress: Blast Shield 35 → 45% on the full route (+10%), incoming hits ×0.55 (×0.65 unmodified); both self buffs +2%, 39% with Primed Fuse, the route's only fourth purchase.",
       "parent_rule": "ALL",
       "potency_classification": "Explosion",
       "scope": "all Explosion jutsu",
@@ -290,326 +285,24 @@
         "effect_rows": 3,
         "rows_via_authored_classification": 1
       }
-    },
-    {
-      "id": "08",
-      "name": "Slow Burn",
-      "category": "Hidden Art",
-      "cost": 1,
-      "parents": [
-        "05"
-      ],
-      "modifiers": [
-        {
-          "tag": "afterburn",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
-        }
-      ],
-      "flavor": "Shrapnel lodges hot and stays hot.",
-      "coverage_note": "Charge 4 Explosion Afterburn 40% with Smoke and Shrapnel (single target, range 4, 40 AP, 2 rounds).",
-      "parent_rule": "ALL",
-      "potency_classification": "Explosion",
-      "scope": "all Explosion jutsu",
-      "minimum_path_bp": 2,
-      "coverage": {
-        "jutsu": [
-          "Charge 4 Explosion"
-        ],
-        "effect_rows": 1
-      }
-    },
-    {
-      "id": "09",
-      "name": "Chain Reaction",
-      "category": "Advanced Art",
-      "cost": 1,
-      "parents": [
-        "08"
-      ],
-      "modifiers": [
-        {
-          "tag": "afterburn",
-          "flat": 5,
-          "display_role": "ENEMY DEBUFF"
-        },
-        {
-          "tag": "increasedamagetaken",
-          "flat": 3,
-          "display_role": "ENEMY DEBUFF"
-        }
-      ],
-      "flavor": "One blast primes the next. Nothing lands only once.",
-      "coverage_note": "Afterburn route total +10% (Charge 4 Explosion 35 → 45%) and its exposure +3% (38%, 40% with Primed Fuse); one 40 AP cast raises both debuffs.",
-      "parent_rule": "ALL",
-      "potency_classification": "Explosion",
-      "scope": "all Explosion jutsu",
-      "minimum_path_bp": 3,
-      "coverage": {
-        "jutsu": [
-          "Charge 4 Explosion"
-        ],
-        "effect_rows": 2
-      }
     }
   ],
   "examples": [
     {
-      "name": "Ground Zero",
-      "archetype": "Burst",
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "rationale": "+5 Damage on all three Explosion area attacks (Kinetic Nova 50 → 55, Inferno Cataclysm and Howitzer Crash 40 → 45 EP) plus Primed Fuse. Powder Keg is the all-in fourth purchase: both Increase Damage Given self buffs reach 40%. Cast Charge 4 Explosion and Howitzer Crash (100 AP) in one round; a Kinetic Nova in either of the next two rounds takes both 40% buffs (×1.40 × 1.40) and the 37% exposure. Smoke and Shrapnel (Blast Shield 37%, Afterburn 37%) is the balanced alternative.",
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 2
-      },
-      "finals": [
-        {
-          "jutsu": "Inferno Cataclysm",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Explosion"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Inferno Cataclysm",
-          "row": 1,
-          "tag": "recoil",
-          "label": "recoil",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Kinetic Nova",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Explosion"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 5,
-          "final": 55.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Kinetic Nova",
-          "row": 1,
-          "tag": "wound",
-          "label": "wound",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 25.0,
-          "gain": 0,
-          "final": 25.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Blast Shield",
-          "row": 0,
-          "tag": "decreasedamagetaken",
-          "label": "Decrease Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Blast Shield",
-          "row": 1,
-          "tag": "barrier",
-          "label": "barrier",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 100.0,
-          "gain": 0,
-          "final": 100.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Charge 4 Explosion",
-          "row": 0,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Charge 4 Explosion",
-          "row": 1,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "Earth",
-            "Explosion",
-            "Lightning",
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Charge 4 Explosion",
-          "row": 2,
-          "tag": "afterburn",
-          "label": "Afterburn",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Howitzer Crash",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Explosion"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Howitzer Crash",
-          "row": 1,
-          "tag": "move",
-          "label": "move",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 1.0,
-          "gain": 0,
-          "final": 1.0,
-          "calculation": "static",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Howitzer Crash",
-          "row": 2,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        }
-      ],
-      "advanced_arts": [
-        "Ground Zero"
-      ]
-    },
-    {
       "name": "Critical Mass",
-      "archetype": "Empowered",
+      "archetype": "Area burst",
       "ids": [
         "01",
-        "02",
         "04",
-        "10"
+        "10",
+        "08"
       ],
-      "rationale": "Both Increase Damage Given self buffs reach 45% (Primed Fuse +2%, Powder Keg +3%, Critical Mass +5%): after Charge 4 Explosion and Howitzer Crash in one 100 AP round, every caster hit in the next two rounds that passes their Highest-stat or element-less filter takes both 45% buffs (×1.45 × 1.45 ≈ ×2.10), normal jutsu and weapons included, and Charge 4 Explosion's exposure sits at 37%. Shaped Charge is the fourth purchase (Explosion strikes 42 / 52 EP); Smoke and Shrapnel (Blast Shield 37%, Afterburn 37%) is the defensive alternative.",
+      "rationale": "Both self buffs reach 43% (Primed Fuse +2%, Powder Keg +2%, Critical Mass +4%). Cast Charge 4 Explosion and Howitzer Crash in one 100 AP round; in the next two rounds every Kinetic Nova, Inferno Cataclysm or other caster hit that is element-less or uses the highest offence stat lands ×1.43 × 1.43 ≈ ×2.04 on everything it hits, and the bloodline passive multiplies last. Slow Burn is the offensive fourth (Afterburn 40% and exposure 37% on the charged target); Eye of the Blast (Blast Shield 37%) is the safe one.",
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10,
-        "increasedamagetaken": 2
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 2,
+        "afterburn": 5
       },
       "finals": [
         {
@@ -624,8 +317,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -660,8 +353,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 2,
-          "final": 52.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -732,8 +425,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
+          "gain": 8,
+          "final": 43.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -771,8 +464,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -789,8 +482,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -825,8 +518,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
+          "gain": 8,
+          "final": 43.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -838,19 +531,18 @@
     },
     {
       "name": "Chain Reaction",
-      "archetype": "Pressure",
+      "archetype": "Mark",
       "ids": [
-        "05",
+        "01",
         "08",
         "09",
-        "01"
+        "04"
       ],
-      "rationale": "Charge 4 Explosion becomes the whole plan: Afterburn 45% (Smoke and Shrapnel +2%, Slow Burn +3%, Chain Reaction +5%) and exposure 40% (Primed Fuse +2%, Chain Reaction +3%) on one 40 AP cast; in the two rounds after it, every non-pierce hit the target takes, from the caster, allies or weapons, is burned by Afterburn, and raised by the exposure when the hit is Earth, Explosion, Lightning or element-less. Primed Fuse is the fourth purchase because it adds the self buff (37%) and completes the exposure; Hardened Casing (Blast Shield 40%) is the defensive alternative.",
+      "rationale": "One 40 AP Charge 4 Explosion marks its target for two rounds: Afterburn 45% (Slow Burn +5%, Chain Reaction +5%) and exposure 40% (Primed Fuse +2%, Chain Reaction +3%). Every non-pierce hit on the mark, from the caster or allies, adds 45% Afterburn, and Earth, Explosion, Lightning or element-less hits are first raised ×1.40. Powder Keg is the offensive fourth: with both self buffs at 39% a caster hit on the mark lands ×1.39 × 1.39 × 1.40 ≈ ×2.70, then burns for 45% of that. Eye of the Blast (Blast Shield 37%) is the defensive fourth.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
         "afterburn": 10
       },
       "finals": [
@@ -938,8 +630,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -974,8 +666,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1067,8 +759,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1080,20 +772,19 @@
     },
     {
       "name": "Siege Battery",
-      "archetype": "Fortified",
+      "archetype": "Fortress",
       "ids": [
         "05",
         "06",
         "07",
         "01"
       ],
-      "rationale": "Blast Shield's reduction rises to 45% on the caster (a self buff live the two rounds after each 40 AP cast; allies do not receive it), and Siege Battery's +2% Increase Damage Given keeps the self buffs at 39% with Primed Fuse, so the shielded caster still amplifies a Nova cast after the charge round. Primed Fuse also brings the 37% exposure; Slow Burn (Afterburn 40%) is the alternative fourth purchase for a bunker that still burns.",
+      "rationale": "Blast Shield's reduction reaches 45% on the caster for the two rounds after each 40 AP cast (incoming hits ×0.55; allies do not receive it). Primed Fuse is the only fourth purchase, because Eye of the Blast roots a single chain: with Siege Battery's +2% both self buffs reach 39% and the exposure 37%, so the shielded caster still fires a charged Nova (×1.39 × 1.39 ≈ ×1.93 with both buffs up).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "afterburn": 2
+        "decreasedamagetaken": 10
       },
       "finals": [
         {
@@ -1255,8 +946,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1321,24 +1012,19 @@
       ]
     }
   ],
-  "narrow_kit_exception": null,
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. Supported rows: three Explosion Damage rows, two Increase Damage Given self buffs, and one row each of Increase Damage Taken and Afterburn (both on Charge 4 Explosion's target) and Decrease Damage Taken (Blast Shield). Flat Damage is declined because Kinetic Nova is a 50 EP Nuke and any flat Damage lifts it past 50, so the old Burst branch (Shaped Charge → Ground Zero) is removed rather than re-cut. Increase Damage Taken and Afterburn share one cast, target and window, so they form one mark route, not two; Decrease Damage Taken is one row, so Eye of the Blast roots a single fortress chain. A fourth Advanced Art would repeat one of the three. Primed Fuse is a universal node (in all 8 legal 4 BP builds) because the defensive root has no second defensive tag for a leaf.",
   "design_notes": [
-    "Node split: the roots mirror the two support casts. Primed Fuse (both Increase Damage Given self buffs, Charge 4 Explosion's exposure) forks into Burst (Shaped Charge → Ground Zero) and Empowered (Powder Keg → Critical Mass). Smoke and Shrapnel (Blast Shield reduction, Charge 4 Explosion Afterburn) forks into Fortified (Hardened Casing → Siege Battery) and Pressure (Slow Burn → Chain Reaction). 2/4/4; any two Advanced Arts cost 5–6 BP. The 'AoE Control' trait lives in unsupported rows (recoil, wound, barrier, move) and area shapes, which no node changes.",
-    "Routes: Burst +5 Damage on three rows (Shaped Charge +2, Ground Zero +3); Empowered +10% Increase Damage Given on two self buffs (Primed Fuse +2%, Powder Keg +3%, Critical Mass +5%); Fortified +10% Decrease Damage Taken (Smoke and Shrapnel +2%, Hardened Casing +3%, Siege Battery +5%); Pressure +10% Afterburn (Smoke and Shrapnel +2%, Slow Burn +3%, Chain Reaction +5%). Increase Damage Taken has no route because it shares Charge 4 Explosion's cast, target and window with Afterburn: Primed Fuse +2% plus Chain Reaction +3%, maximum +5%.",
-    "Structure change: the earlier nine-node narrow-kit exception left Powder Keg as a leaf to hold the two-row Increase Damage Given tag at +5% under the superseded two-row guardrail. RUL-2026-10-03-005 sets that tag's ceiling at +10%, so the kit supports a fourth distinct route and Critical Mass now sits above Powder Keg (+5% only; Siege Battery's +2% secondary cannot combine with it). Powder Keg remains the Burst route's all-in fourth purchase.",
-    "Filters/passives: both Increase Damage Given rows filter the Highest stat, no element, so they raise every element-less hit of any stat type and Highest-stat elemental hits; the exposure row lists Earth/Explosion/Lightning/None; Afterburn and Blast Shield rows take every non-pierce hit. The bloodline Increase Damage Given passive (25% + 0.15/level, Lightning/Earth/Explosion/None) multiplies last, after the jutsu rows (SOURCE_MECHANICS §3b); the Earth-only 15% Decrease Damage Taken passive does not touch Blast Shield's row.",
-    "Delivery and uptime: all five jutsu have cooldown 7. Damage casts cost 60 AP (Inferno Cataclysm spiral of radius 4 around the caster; Kinetic Nova circle spawn on a target, range 4; Howitzer Crash circle spawn on empty ground, range 5, moving the caster). Charge 4 Explosion: 40 AP, single target, range 4. Blast Shield: 40 AP. Every buff and debuff row is live only in the two rounds after its cast; the SELF rows (both IDG, Blast Shield's DDT) land on the caster at cast, not through tiles.",
-    "Fourth purchase choices: Burst takes Powder Keg (Increase Damage Given +5%, all-in) or Smoke and Shrapnel (Decrease Damage Taken and Afterburn +2%); Empowered takes Shaped Charge (+2 Damage) or Smoke and Shrapnel; Pressure takes Primed Fuse (self buffs +2%, exposure +5% total) or Hardened Casing (Decrease Damage Taken +5%); Fortified takes Primed Fuse (self buffs +4%, exposure +2%) or Slow Burn (Afterburn +5%). Hybrids with no Advanced Art spread smaller gains across four tags. All 14 legal full builds are non-dominated and no node is universal.",
-    "Stacking (§3b): same-tag effects from different jutsu or casters all apply and compound. Howitzer Crash plus Charge 4 Explosion in one 100 AP round leaves both Increase Damage Given self buffs live for the next two rounds: ×1.35 × 1.35 ≈ ×1.82 unmodified, ×1.37 × 1.37 ≈ ×1.88 with Primed Fuse, ×1.39 × 1.39 ≈ ×1.93 with Fuse and Siege Battery, ×1.40 × 1.40 = ×1.96 with Fuse and Powder Keg, ×1.45 × 1.45 ≈ ×2.10 on the Empowered route. Cooldown 7 exceeds each two-round window, so one jutsu's windows never overlap. An ally's Increase Damage Taken on the charged target applies alongside the exposure, and an ally's Afterburn adds to it (Afterburn capped at 60% per hit)."
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Removed: Shaped Charge (+2 Damage) and Ground Zero (+3 Damage); the +5 route lifted Kinetic Nova 50 → 55 and Inferno Cataclysm and Howitzer Crash 40 → 45, and even +2 lifts Nova past 50. Rewired: Slow Burn moves from Smoke and Shrapnel to Primed Fuse (Afterburn +3% → +5%), so the mark sits beside the charge on the offensive root; Smoke and Shrapnel becomes Eye of the Blast (+2% Decrease Damage Taken; its +2% Afterburn moved into Slow Burn). Changed: Powder Keg +3% → +2% and Critical Mass +5% → +4% Increase Damage Given. Kept: Primed Fuse, Hardened Casing, Siege Battery and Chain Reaction values; the Chain Reaction build with Eye of the Blast as its fourth has the old Pressure build's totals.",
+    "Increase Damage Given is held at +8%, not +10%: its two self buffs compound when both are live, so +8% takes the double-buff window from ×1.82 to ×2.04 (+12%, about what a +16% step does on one row); +10% would reach ×2.10. Maxima over every legal allocation: Increase Damage Given +8%, Afterburn +10%, Increase Damage Taken +5%, Decrease Damage Taken +10%, no flat Damage.",
+    "Filters (§3): both Increase Damage Given rows list the Highest stat and no element, so they match every element-less hit of any stat type and the caster's highest-stat elemental hits, all three Explosion attacks included. The exposure lists Earth, Explosion, Lightning and None; Afterburn and Blast Shield's row list all four stat types and no element. The bloodline Increase Damage Given passive (25% + 0.15 per level; Lightning, Earth, Explosion, None) multiplies last; the Earth-only 15% Decrease Damage Taken passive is separate from Blast Shield's row.",
+    "Delivery (§3b, §4b): every jutsu has cooldown 7. Charge 4 Explosion (40 AP, single target, range 4) carries the self buff, the exposure and the Afterburn; Howitzer Crash (60 AP, empty-ground circle, range 5, moves the caster) carries the second self buff; Blast Shield (40 AP) the reduction. SELF rows land on the caster at cast. Every buff and debuff is live only in the two rounds after its cast, so neither self buff raises its own jutsu's hit.",
+    "Fourth purchases: Critical Mass takes Slow Burn (Afterburn 40%) or Eye of the Blast; Chain Reaction takes Powder Keg (self buffs 39%) or Eye of the Blast; Siege Battery takes Primed Fuse. The two all-offense builds share Primed Fuse, Powder Keg and Slow Burn and differ only in the capstone; a caster hit on the mark with both buffs up comes to the same total (×1.43² × 1.37 × 1.40 ≈ ×1.39² × 1.40 × 1.45 ≈ ×3.92), so Critical Mass wins on every other target its area reaches and Chain Reaction wins for allies hitting the mark (×1.40 × 1.45 ≈ ×2.03 against ×1.37 × 1.40 ≈ ×1.92). No fourth makes a route automatic."
   ],
   "risks": [
-    "Single-cast concentration: Chain Reaction raises both Charge 4 Explosion debuff rows (Afterburn 45%, exposure 38–40%) and Primed Fuse / Powder Keg / Critical Mass / Siege Battery raise its self buff, so one 40 AP C-rank cast can carry three enhanced rows at once. Per-AP value of that cast rises more than the 60 AP damage route's; no combat simulation was run.",
-    "Row reach: the enhanced Increase Damage Given rows multiply every caster hit (jutsu, weapon, basic attack) passing their Highest-stat or element-less filter (×1.45 each, compounding, at the Empowered maximum); the exposure and Afterburn debuffs raise damage dealt by allies and weapons to the charged target; Blast Shield's enhanced reduction is caster-only. Casting scope does not restrict downstream benefit.",
-    "Afterburn value is downstream: it depends on how many non-pierce hits the charged target takes during the two-round window, and cumulative Afterburn per hit is capped at 60% of that hit, so a 45% debuff leaves only 15 points for any other Afterburn source. Pierce hits are skipped by Afterburn and by the exposure modifier alike.",
-    "Howitzer Crash delivery: its Increase Damage Given row is SELF, realized on the caster at cast and live the two rounds after; not positional, never on allies, so Powder Keg, Critical Mass and Siege Battery values on it need only an empty tile in range 5 (Charge 4 Explosion's need a living non-caster target). Its damage row (ENEMIES) and unsupported move row (Enemy hazard) are tile-delivered INHERIT rows.",
-    "Friendly fire: damage rows are ENEMIES-only, so the Damage route never raises damage to allies; Kinetic Nova's unsupported wound row (ally hazard) is untouched. Charge 4 Explosion may be aimed at an ally (OTHER_USER): its enhanced exposure and Afterburn then land on the ally, the self buff still on the caster. Blast Shield's unsupported barrier row reaches anyone on its tiles, enemies included.",
-    "Classification: Explosion is shared with Bakuhatsu Suru Nendo (expected under RUL-2026-10-03-005). 4 of 8 kit rows carry Explosion (three Damage rows and the exposure row); both self buffs, the Afterburn row and Blast Shield's row need the proposed jutsu-classification resolver, and Blast Shield (no Explosion row) additionally needs an authored Explosion jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Explosion coverage is unverified.",
-    "Both Increase Damage Given rows and Blast Shield's reduction are percentage rows at 35% base; the route maxima (45%) are far from the 100 cap, but each is live only in the two rounds after its cast, so realised uptime, not the flat, decides their value.",
+    "Classification: Explosion is shared with Bakuhatsu Suru Nendo (expected under RUL-2026-10-03-005). With flat Damage gone, the exposure row is the only amplified row that carries Explosion; both self buffs, the Afterburn row and Blast Shield's row need the proposed jutsu-classification resolver, and Blast Shield (no Explosion row) also needs an authored classification (ENGINE_GAP_REGISTER G1). Off-kit Explosion coverage is unverified.",
+    "Reach: the self buffs multiply every matching caster hit in their window, on every target an area attack catches, plus weapons, basic attacks and off-kit jutsu; the exposure and Afterburn raise allies' hits on the mark. Blast Shield's reduction is caster-only.",
+    "Charge 4 Explosion concentration: in the Chain Reaction build with Powder Keg one 40 AP cast carries three enhanced rows (self buff 39%, exposure 40%, Afterburn 45%). Afterburn per hit is capped at 60% of the hit, so 45% leaves 15 points for other Afterburn sources.",
+    "Friendly fire: Charge 4 Explosion may be aimed at an ally (OTHER_USER); its enhanced exposure and Afterburn then land on the ally while the self buff stays on the caster. Kinetic Nova's wound (ally hazard) and Blast Shield's barrier (enemy hazard) are unsupported and untouched.",
     "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
@@ -1358,10 +1044,10 @@
     "hidden_kit_snapshot": "2026-09-30"
   },
   "audit": {
-    "available_skills": 10,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 4,
-    "advanced_art_count": 4,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -1371,17 +1057,16 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 5,
-      "3": 10,
-      "4": 14
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 7,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 10,
+      "increasedamagegiven": 8,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "afterburn": 10
@@ -1396,13 +1081,14 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 4 / Explosion classification / forked tree (RUL-2026-10-03-005 recalibration; Increase Damage Given route added)",
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance / Explosion classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1417,14 +1103,12 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 5,
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
       "ceilings": {
-        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
@@ -1442,23 +1126,6 @@
         15
       ],
       "routes": [
-        {
-          "advanced_art": "03",
-          "name": "Ground Zero",
-          "primary_tag": "damage",
-          "path": [
-            "01",
-            "02",
-            "03"
-          ],
-          "steps": [
-            0,
-            2,
-            3
-          ],
-          "total": 5,
-          "on_band": true
-        },
         {
           "advanced_art": "07",
           "name": "Siege Battery",
@@ -1481,13 +1148,13 @@
           "name": "Chain Reaction",
           "primary_tag": "afterburn",
           "path": [
-            "05",
+            "01",
             "08",
             "09"
           ],
           "steps": [
-            2,
-            3,
+            0,
+            5,
             5
           ],
           "total": 10,
@@ -1504,11 +1171,11 @@
           ],
           "steps": [
             2,
-            3,
-            5
+            2,
+            4
           ],
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         }
       ],
       "director_exceptions": []
@@ -1518,101 +1185,14 @@
     {
       "ids": [
         "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 2
-      }
-    },
-    {
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "05"
-      ],
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "afterburn": 2
-      }
-    },
-    {
-      "ids": [
-        "01",
-        "02",
-        "04",
-        "05"
-      ],
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "afterburn": 2
-      }
-    },
-    {
-      "ids": [
-        "01",
-        "02",
-        "04",
-        "10"
-      ],
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10,
-        "increasedamagetaken": 2
-      }
-    },
-    {
-      "ids": [
-        "01",
-        "02",
-        "05",
-        "06"
-      ],
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 5,
-        "afterburn": 2
-      }
-    },
-    {
-      "ids": [
-        "01",
-        "02",
-        "05",
-        "08"
-      ],
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "afterburn": 5
-      }
-    },
-    {
-      "ids": [
-        "01",
         "04",
         "05",
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 5,
-        "afterburn": 2
+        "decreasedamagetaken": 5
       }
     },
     {
@@ -1623,7 +1203,7 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 5
@@ -1637,10 +1217,35 @@
         "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2,
-        "afterburn": 2
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "08",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 2,
+        "afterburn": 5
       }
     },
     {
@@ -1653,8 +1258,7 @@
       "bonuses": {
         "increasedamagegiven": 4,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "afterburn": 2
+        "decreasedamagetaken": 10
       }
     },
     {
@@ -1684,32 +1288,24 @@
         "decreasedamagetaken": 2,
         "afterburn": 10
       }
-    },
-    {
-      "ids": [
-        "05",
-        "06",
-        "07",
-        "08"
-      ],
-      "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagetaken": 10,
-        "afterburn": 5
-      }
-    },
-    {
-      "ids": [
-        "05",
-        "06",
-        "08",
-        "09"
-      ],
-      "bonuses": {
-        "increasedamagetaken": 3,
-        "decreasedamagetaken": 5,
-        "afterburn": 10
-      }
     }
-  ]
+  ],
+  "design_review": {
+    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "foundation_sentences": {
+      "01": "How do I make the detonation land harder: charge myself or mark the target?",
+      "05": "How do I survive at the centre of my own blasts?"
+    },
+    "route_identities": {
+      "10": "area burst: both self buffs charged, every blast in the window lands harder on all it hits",
+      "09": "mark: exposure and Afterburn on one target, paid out by every hit from the party",
+      "07": "fortress that keeps firing"
+    },
+    "director_review": "Structural: flat Damage is removed rather than re-cut (any flat Damage lifts Kinetic Nova past 50), leaving three Advanced Arts with Primed Fuse in every build. Confirm the narrow-kit exception, or choose the Blood-Enchanted Eyes pattern as a fourth route (Shaped Charge +3% Increase Damage Taken → Ground Zero +2 Damage, Kinetic Nova 50 → 52).",
+    "concerns": [
+      "Critical Mass is held at +8% Increase Damage Given because the two self buffs compound; it remains the strongest solo route against targets other than the mark.",
+      "Primed Fuse is universal, so the fortress's fourth purchase is forced; the kit has no second defensive tag for a leaf under Eye of the Blast.",
+      "Every amplified row except the exposure depends on the proposed jutsu-classification resolver."
+    ]
+  }
 }

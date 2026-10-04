@@ -1,10 +1,28 @@
 # Dai Kenja — Doctrine of Overflow
 
-**Bloodline:** Dai Kenja (BR-021, rank D, `Dqqw3zcIGDserD-qEE9QW`) · **Revision:** Draft 5 / Dai Kenja classification extension / forked tree (RUL-2026-10-03-005 recalibration) · **Classification:** Dai Kenja (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
+**Bloodline:** Dai Kenja (BR-021, rank D, `Dqqw3zcIGDserD-qEE9QW`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Dai Kenja classification / forked tree · **Classification:** Dai Kenja (classification extension) · **Engine status:** proposal_requires_jutsu_classification_resolver_and_classification_extension
 
-**Emphasis:** primary Overloaded Impact offense (Damage and Increase Damage Given) · secondary Decrease Damage Given (Chakra Overload / Chakra Cannon suppression) · tertiary Increase Damage Taken (Chakra Overload exposure; adverse on Overloaded Impact).
+**Emphasis:** primary Overloaded Impact's window: Increase Damage Given on the caster's hits in the two rounds after the strike · secondary Decrease Damage Given suppression on Chakra Overload and Chakra Cannon · tertiary Exposure into the strike: Chakra Overload's Increase Damage Taken (adverse on Overloaded Impact) paid off by a controlled +2 Damage.
 
-Six supported rows on three casts, none carrying an element. Overloaded Impact holds the only Damage row (40 EP at jutsu level 25) and the only Increase Damage Given row (30% self; Ninjutsu filter with no element, so it also admits every non-elemental hit, and it is live only in the two rounds after the cast), so offense through that cast is primary in two forms: +5 Damage on the hit (Burst) or a +10% amplifier for the hits that follow (Amplifier). Decrease Damage Given is the broadest tag (25% on Chakra Overload, 30% on the AOE Chakra Cannon, all stat types) and is the secondary +10% Suppression route. Increase Damage Taken reaches Chakra Overload's 35% enemy exposure but also the adverse 25% self exposure on Overloaded Impact, so it is a small, explicitly accepted +5% Exposure route. Chakra Cannon's pierce and Chakra Overload's pool-cost row are unsupported. Potency reaches matching supported tags on all Dai Kenja-classified jutsu (RUL-2026-10-03-005; requires a classification extension).
+Six supported rows on three casts, none carrying an element. Brimming Cup answers "How do I make the window after Overloaded Impact hit harder?": Boundless Reservoir takes the self buff 30 → 40% for the two rounds after the cast. Sage's Rebuke answers "How do I break the enemy: blunt their blows, or crack them open for my strike?": Edict of Silence reaches +10% Decrease Damage Given on both control casts; the Shattered Vessel route adds +5% Increase Damage Taken (Cracked Vessel +3, Shattered Vessel +2), taking Chakra Overload's exposure 35 → 40%, and Shattered Vessel's +2 Damage lands Overloaded Impact into it at 42 EP (Normal tier kept). The same Increase Damage Taken raises the caster's own exposure after Overloaded Impact (25 → 30%). Damage and Increase Damage Taken each reach one useful row, so they share one route (narrow-kit exception). Chakra Cannon's pierce and Chakra Overload's pool-cost row are unsupported. Potency reaches matching supported tags on all Dai Kenja-classified jutsu (RUL-2026-10-03-005; requires a classification extension).
+
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Brimming Cup | Foundation | How do I make the window after Overloaded Impact hit harder? |
+| Sage's Rebuke | Foundation | How do I break the enemy: blunt their blows, or crack them open for my strike? |
+| Boundless Reservoir | Advanced Art | sustained amplification: the caster's own hits in the two rounds after the strike |
+| Edict of Silence | Advanced Art | suppression: both control casts, compounding on one target |
+| Shattered Vessel | Advanced Art | exposure into a controlled strike: Chakra Overload cracks the target, Overloaded Impact lands into it |
+
+**Director review recommended:** Structural: four Advanced Arts become three (narrow-kit exception); the Burst route (Chakra Surcharge → Breaking Point) and the Exposure capstone merge into one exposure → strike route (Cracked Vessel +3% → Shattered Vessel +2 Damage, +2% Increase Damage Taken). The adverse Overloaded Impact self row (25 → 30%) is proposed under OPEN_DECISIONS D11, still open, at its drafted +5% size.
+
+- Concern: Shattered Vessel against Boundless Reservoir one-on-one (like-for-like 4-BP builds): damage dealt is about even with one strike-sized window hit per round and Boundless Reservoir leads from the third window hit, while Shattered Vessel's caster takes ×1.04 in the two rounds after the strike; allies hitting the marked target favour Shattered Vessel. Arithmetic only, not simulated.
+- Concern: The exposure half of Shattered Vessel is slightly net-negative one-on-one (target ×1.037, caster ×1.04); its solo value is the +2 Damage strike.
+- Concern: Sage's Rebuke is in every legal 4-BP build, so Boundless Reservoir's fourth purchase is fixed at +2% Decrease Damage Given.
+
+> **Narrow-kit exception:** Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows, but Damage reaches one row (Overloaded Impact, 40 EP, cooldown 6) and Increase Damage Taken one useful row (Chakra Overload's 35% exposure) plus the adverse self row on Overloaded Impact. Apart, a Damage-only route (the former +3, 40 → 43) added to one strike per cycle and trailed Amplification from about one window hit, and an Increase Damage Taken route cost the caster more than it gained one-on-one. Together they are one lever, since Chakra Overload's exposure is what Overloaded Impact lands into, so they form one exposure → strike route (Cracked Vessel → Shattered Vessel); Chakra Surcharge and Breaking Point are removed. A fourth Advanced Art would repeat Amplification or Suppression on the same rows. Sage's Rebuke is a universal node (in all 8 legal 4-BP builds) because Brimming Cup roots a single 3-node chain, so Boundless Reservoir's fourth purchase is fixed.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Dai Kenja-classified jutsu (requires classification extension). Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -13,70 +31,63 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | ID | Skill | Tier | Requires | Exact bonus and recipient | Kit coverage (example jutsu / rows) |
 |---|---|---|---|---|---|
 | 01 | Brimming Cup | Foundation | None | +2% Increase Damage Given (self buff) | Overloaded Impact / 1 |
-| 02 | Chakra Surcharge | Hidden Art | Brimming Cup | +2 Damage (damage) | Overloaded Impact / 1 |
-| 03 | Breaking Point | Advanced Art | Chakra Surcharge | +3 Damage (damage); +2% Increase Damage Given (self buff) | Overloaded Impact / 2 |
 | 04 | Flooded Meridians | Hidden Art | Brimming Cup | +3% Increase Damage Given (self buff) | Overloaded Impact / 1 |
 | 05 | Boundless Reservoir | Advanced Art | Flooded Meridians | +5% Increase Damage Given (self buff) | Overloaded Impact / 1 |
 | 06 | Sage's Rebuke | Foundation | None | +2% Decrease Damage Given (enemy debuff) | Chakra Cannon, Chakra Overload / 2 |
 | 07 | Smothered Current | Hidden Art | Sage's Rebuke | +3% Decrease Damage Given (enemy debuff) | Chakra Cannon, Chakra Overload / 2 |
 | 08 | Edict of Silence | Advanced Art | Smothered Current | +5% Decrease Damage Given (enemy debuff) | Chakra Cannon, Chakra Overload / 2 |
-| 09 | Cracked Vessel | Hidden Art | Sage's Rebuke | +2% Increase Damage Taken (enemy debuff) | Chakra Overload, Overloaded Impact / 2 · **adverse:** Overloaded Impact#2 |
-| 10 | Shattered Vessel | Advanced Art | Cracked Vessel | +3% Increase Damage Taken (enemy debuff); +3% Decrease Damage Given (enemy debuff) | Chakra Cannon, Chakra Overload, Overloaded Impact / 4 · **adverse:** Overloaded Impact#2 |
+| 09 | Cracked Vessel | Hidden Art | Sage's Rebuke | +3% Increase Damage Taken (enemy debuff) | Chakra Overload, Overloaded Impact / 2 · **adverse:** Overloaded Impact#2 |
+| 10 | Shattered Vessel | Advanced Art | Cracked Vessel | +2 Damage (damage); +2% Increase Damage Taken (enemy debuff) | Chakra Overload, Overloaded Impact / 3 · **adverse:** Overloaded Impact#2 |
 
-Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
+Connections: 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 3; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Brimming Cup** — A sage's chakra fills the cup past its rim and keeps pouring. Overloaded Impact self damage buff 30 → 32%; multiplies Ninjutsu or non-elemental hits in the 2 rounds after each cast, never its own hit.
-- **Chakra Surcharge** — Every impact carries more than the body was meant to hold. Overloaded Impact Damage only (40 → 42 EP); one 60 AP single-target cast at range 4, cooldown 6. Chakra Cannon's pierce is unsupported.
-- **Breaking Point** — Push the overload one breath further than wisdom allows. Route total +5 Damage: Overloaded Impact 40 → 45 EP; its self buff +2% (34% with Brimming Cup), live after the cast round, never on this hit.
 - **Flooded Meridians** — Open every channel; let the current run where it will. Overloaded Impact self damage buff only (35% with Brimming Cup); Ninjutsu or non-elemental hits in the 2 rounds after each cast.
-- **Boundless Reservoir** — There is no bottom to the well the Great Sage draws from. Same self buff; route total +10% (30 → 40%) for the 2 rounds after each 60 AP cast, cooldown 6. No other row.
-- **Sage's Rebuke** — A word from the sage, and the enemy's chakra falters. Decrease Damage Given on Chakra Overload 25 → 27% (enemies) and Chakra Cannon 30 → 32% (any non-caster in its circle); all stat types, 2 rounds.
+- **Boundless Reservoir** — There is no bottom to the well the Great Sage draws from. Sustained amplification: the self buff 30 → 40% on the full route (×1.40) for the 2 rounds after each 60 AP cast, cooldown 6; never the cast's own hit.
+- **Sage's Rebuke** — A word from the sage, and the enemy's chakra falters. Decrease Damage Given on Chakra Overload 25 → 27% (enemies) and Chakra Cannon 30 → 32% (any non-caster in its circle); all stat types, 2 rounds. In every 4-BP build.
 - **Smothered Current** — Their flow is pinched to a trickle under the sage's hand. Both Decrease Damage Given rows +3% more (30% / 35% with Sage's Rebuke); the two debuffs compound on one target when both casts land.
-- **Edict of Silence** — The sage speaks once; the enemy's power answers in a whisper. Route total +10%: Chakra Overload 25 → 35%, Chakra Cannon 30 → 40% (×0.65 × 0.60 = ×0.39 on a hit when both sit on one target). Cannon also reaches allies in its circle.
-- **Cracked Vessel** — Overload leaves fissures in the vessel, yours and theirs. Chakra Overload enemy exposure 35 → 37% (Ninjutsu or non-elemental hits) and the adverse Overloaded Impact self exposure 25 → 27% (all damage).
-- **Shattered Vessel** — What is overfilled must break; the sage chooses when. Exposure route total +5%: Chakra Overload 40%, adverse self exposure 30%; both Decrease Damage Given rows +3% (30% / 35% with Sage's Rebuke).
+- **Edict of Silence** — The sage speaks once; the enemy's power answers in a whisper. Suppression: Chakra Overload 25 → 35% and Chakra Cannon 30 → 40% on the full route (×0.65 × 0.60 = ×0.39 on a hit when both sit on one target). Cannon also reaches allies in its circle.
+- **Cracked Vessel** — Overload leaves fissures in the vessel, yours and theirs. Setup: Chakra Overload's enemy exposure 35 → 38% (Ninjutsu or non-elemental hits) for the strike to land into; the adverse Overloaded Impact self exposure also rises 25 → 28% (all damage).
+- **Shattered Vessel** — What is overfilled must break; the sage chooses when. Payoff: Overloaded Impact 40 → 42 EP (Normal tier kept), landing into Chakra Overload's exposure at 40% on the full route; the adverse self row reaches 30% after the strike.
 
 ## Complete four-purchase examples
 
 | Build | Purchases | DMG | IDG | DDG | IDT |
 |---|---|---:|---:|---:|---:|
-| Breaking Point (Burst) | Brimming Cup, Chakra Surcharge, Breaking Point, Sage's Rebuke | +5 | +4% | +2% | — |
 | Boundless Reservoir (Amplifier) | Brimming Cup, Flooded Meridians, Boundless Reservoir, Sage's Rebuke | — | +10% | +2% | — |
 | Edict of Silence (Suppression) | Brimming Cup, Sage's Rebuke, Smothered Current, Edict of Silence | — | +2% | +10% | — |
-| Shattered Vessel (Exposure) | Sage's Rebuke, Smothered Current, Cracked Vessel, Shattered Vessel | — | — | +8% | +5% |
+| Shattered Vessel (Exposure burst) | Brimming Cup, Sage's Rebuke, Cracked Vessel, Shattered Vessel | +2 | +2% | +2% | +5% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken. Values are per-matching-row static additions, not final combat percentages.
 
-- **Breaking Point:** +5 Damage on the kit's only Damage row (Overloaded Impact 40 → 45 EP) and its self buff at 34% for the two rounds after the cast, never on the cast's own hit. Sage's Rebuke is the fourth purchase because it opens the control root (Decrease Damage Given 27% / 32%) without touching Overloaded Impact again; Flooded Meridians (buff 37%) is the all-in alternative.
-- **Boundless Reservoir:** Overloaded Impact as a two-round amplifier: its self Increase Damage Given reaches 40% (+10%) and multiplies every Ninjutsu or non-elemental hit (normal jutsu, basic attacks, weapons) landed in the two rounds after the cast by ×1.40, never the cast's own hit. Sage's Rebuke is the fourth purchase for a small suppression floor (27% / 32%); Chakra Surcharge (42 EP) is the offensive alternative.
-- **Edict of Silence:** Both Decrease Damage Given rows at the route maximum (+10%: Chakra Overload 35% on enemies, Chakra Cannon 40% on any non-caster in its circle), compounding to ×0.65 × 0.60 = ×0.39 on a non-pierce hit from a target carrying both debuffs (casts in the same or consecutive rounds). Brimming Cup is the fourth purchase because it raises the self buff to 32% at no exposure cost; Cracked Vessel (exposure 37%, adverse self 27%) is the aggressive alternative.
-- **Shattered Vessel:** The overload gamble: Chakra Overload's enemy exposure (Ninjutsu or non-elemental damage, from every attacker) reaches 40% (+5%) while Overloaded Impact's own self exposure (all damage) rises to 30%, and both suppression rows sit at +8% (33% / 38%). Smothered Current is the fourth purchase because it compounds the control casts; Brimming Cup (buff 32%) is the offensive alternative.
+- **Boundless Reservoir:** The window after the strike: the self buff reaches 40% and multiplies every Ninjutsu or non-elemental hit landed in the two rounds after the cast by ×1.40, never the cast's own hit. Sage's Rebuke is the fixed fourth purchase (Decrease Damage Given 27% / 32%); Overloaded Impact stays at 40 EP and the self exposure at 25%.
+- **Edict of Silence:** Both Decrease Damage Given rows at the route maximum (Chakra Overload 35% on enemies, Chakra Cannon 40% on any non-caster in its circle), compounding to ×0.65 × 0.60 = ×0.39 on a non-pierce hit from a target carrying both. Brimming Cup is the fourth purchase (self buff 32%, no self cost); Cracked Vessel (exposure 38%, adverse self 28%) is the aggressive alternative.
+- **Shattered Vessel:** Cast Chakra Overload a round before Overloaded Impact: its exposure reaches 40% for every attacker's Ninjutsu or non-elemental hits, and the strike lands into it at 42 EP (×1.05 × 1.40/1.35 ≈ ×1.089 against the Boundless Reservoir build). The caster's own exposure after the strike rises to 30%. Brimming Cup is the offensive fourth purchase (self buff 32%); Smothered Current (Decrease Damage Given 30% / 35%) instead blunts the target the caster has opened.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Amplifier | Suppression | Exposure |
-|---|---:|---|---|---:|---:|---:|---:|---:|
-| Overloaded Impact | 0 | Damage | enemy | 40 | 45 (+5) | 40 | 40 | 40 |
-| Overloaded Impact | 1 | Increase Damage Given | self | 30% | 34% (+4) | 40% (+10) | 32% (+2) | 30% |
-| Overloaded Impact | 2 | Increase Damage Taken **adverse** | self | 25% | 25% | 25% | 25% | 30% (+5) |
-| Chakra Overload | 0 | Decrease Damage Given | enemy | 25% | 27% (+2) | 27% (+2) | 35% (+10) | 33% (+8) |
-| Chakra Overload | 1 | Increase Damage Taken | enemy | 35% | 35% | 35% | 35% | 40% (+5) |
-| Chakra Overload | 2 | increasepoolcost (unsupported) | enemy | 100% | 100% | 100% | 100% | 100% |
-| Chakra Cannon | 0 | pierce (unsupported) | enemy | 58 | 58 | 58 | 58 | 58 |
-| Chakra Cannon | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 32% (+2) | 40% (+10) | 38% (+8) |
+| Jutsu | Row | Tag | Recipient | Base | Amplifier | Suppression | Exposure burst |
+|---|---:|---|---|---:|---:|---:|---:|
+| Overloaded Impact | 0 | Damage | enemy | 40 | 40 | 40 | 42 (+2) |
+| Overloaded Impact | 1 | Increase Damage Given | self | 30% | 40% (+10) | 32% (+2) | 32% (+2) |
+| Overloaded Impact | 2 | Increase Damage Taken **adverse** | self | 25% | 25% | 25% | 30% (+5) |
+| Chakra Overload | 0 | Decrease Damage Given | enemy | 25% | 27% (+2) | 35% (+10) | 27% (+2) |
+| Chakra Overload | 1 | Increase Damage Taken | enemy | 35% | 35% | 35% | 40% (+5) |
+| Chakra Overload | 2 | increasepoolcost (unsupported) | enemy | 100% | 100% | 100% | 100% |
+| Chakra Cannon | 0 | pierce (unsupported) | enemy | 58 | 58 | 58 | 58 |
+| Chakra Cannon | 1 | Decrease Damage Given | enemy | 30% | 32% (+2) | 40% (+10) | 32% (+2) |
 
 ## Allocation audit
 
-- Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
-- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 13; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +5 Damage, +10% Increase Damage Given, +10% Decrease Damage Given, +5% Increase Damage Taken (not jointly attainable)
+- Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 4, 3: 7, 4: 8
+- Full-budget allocations: 8; numerically non-dominated (per-tag totals): 8; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +2 Damage, +10% Increase Damage Given, +10% Decrease Damage Given, +5% Increase Damage Taken (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Breaking Point: +5 Damage (0 + 2 + 3; on band)
   - Route Boundless Reservoir: +10% Increase Damage Given (2 + 3 + 5; on band)
   - Route Edict of Silence: +10% Decrease Damage Given (2 + 3 + 5; on band)
-  - Route Shattered Vessel: +5% Increase Damage Taken (0 + 2 + 3; on band)
+  - Route Shattered Vessel: +2 Damage (0 + 0 + 2; off band)
 - Supported rows in kit: 6 (DMG 1, DDG 2, IDG 1, IDT 2)
-- Strongest full build by row-weighted total: Sage's Rebuke, Smothered Current, Cracked Vessel, Shattered Vessel (raw +13, row-weighted 26)
+- Strongest full build by row-weighted total: Sage's Rebuke, Smothered Current, Edict of Silence, Cracked Vessel (raw +13, row-weighted 26)
 - Lowest row-weighted node: Brimming Cup (2)
 
 Validator warnings:
@@ -84,46 +95,62 @@ Validator warnings:
 - node 09 (Cracked Vessel) also amplifies adverse rows: Overloaded Impact#2
 - node 10 (Shattered Vessel) also amplifies adverse rows: Overloaded Impact#2
 - classification status: requires classification extension (director decision)
+- universal node: 06 (Sage's Rebuke) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)
 - ally-hazard area rows amplified (friendly fire none/ALL): Chakra Cannon#1
+
+### Damage tiers (base → final)
+
+Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
+
+| Jutsu | Row | Base (tier) | +2 Damage |
+|---|---:|---|---|
+| Overloaded Impact | 0 | 40 (Normal) | 42 (Normal) |
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Boundless Reservoir | +10% IDG | Sage's Rebuke *(highest diagnostic)* | +10% IDG, +2% DDG | 14 |
+| Edict of Silence | +10% DDG | Brimming Cup | +2% IDG, +10% DDG | 22 |
+| Edict of Silence | +10% DDG | Cracked Vessel *(highest diagnostic)* | +10% DDG, +3% IDT | 26 |
+| Shattered Vessel | +2 Damage, +2% DDG, +5% IDT | Brimming Cup | +2 Damage, +2% IDG, +2% DDG, +5% IDT | 18 |
+| Shattered Vessel | +2 Damage, +2% DDG, +5% IDT | Smothered Current *(highest diagnostic)* | +2 Damage, +5% DDG, +5% IDT | 22 |
 
 ### All legal full-budget allocations
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Brimming Cup, Chakra Surcharge, Breaking Point, Flooded Meridians | +5 Damage, +7% IDG |
-| 2 | Brimming Cup, Chakra Surcharge, Breaking Point, Sage's Rebuke | +5 Damage, +4% IDG, +2% DDG |
-| 3 | Brimming Cup, Chakra Surcharge, Flooded Meridians, Boundless Reservoir | +2 Damage, +10% IDG |
-| 4 | Brimming Cup, Chakra Surcharge, Flooded Meridians, Sage's Rebuke | +2 Damage, +5% IDG, +2% DDG |
-| 5 | Brimming Cup, Chakra Surcharge, Sage's Rebuke, Smothered Current | +2 Damage, +2% IDG, +5% DDG |
-| 6 | Brimming Cup, Chakra Surcharge, Sage's Rebuke, Cracked Vessel | +2 Damage, +2% IDG, +2% DDG, +2% IDT |
-| 7 | Brimming Cup, Flooded Meridians, Boundless Reservoir, Sage's Rebuke | +10% IDG, +2% DDG |
-| 8 | Brimming Cup, Flooded Meridians, Sage's Rebuke, Smothered Current | +5% IDG, +5% DDG |
-| 9 | Brimming Cup, Flooded Meridians, Sage's Rebuke, Cracked Vessel | +5% IDG, +2% DDG, +2% IDT |
-| 10 | Brimming Cup, Sage's Rebuke, Smothered Current, Edict of Silence | +2% IDG, +10% DDG |
-| 11 | Brimming Cup, Sage's Rebuke, Smothered Current, Cracked Vessel | +2% IDG, +5% DDG, +2% IDT |
-| 12 | Brimming Cup, Sage's Rebuke, Cracked Vessel, Shattered Vessel | +2% IDG, +5% DDG, +5% IDT |
-| 13 | Sage's Rebuke, Smothered Current, Edict of Silence, Cracked Vessel | +10% DDG, +2% IDT |
-| 14 | Sage's Rebuke, Smothered Current, Cracked Vessel, Shattered Vessel | +8% DDG, +5% IDT |
+| 1 | Brimming Cup, Flooded Meridians, Boundless Reservoir, Sage's Rebuke | +10% IDG, +2% DDG |
+| 2 | Brimming Cup, Flooded Meridians, Sage's Rebuke, Smothered Current | +5% IDG, +5% DDG |
+| 3 | Brimming Cup, Flooded Meridians, Sage's Rebuke, Cracked Vessel | +5% IDG, +2% DDG, +3% IDT |
+| 4 | Brimming Cup, Sage's Rebuke, Smothered Current, Edict of Silence | +2% IDG, +10% DDG |
+| 5 | Brimming Cup, Sage's Rebuke, Smothered Current, Cracked Vessel | +2% IDG, +5% DDG, +3% IDT |
+| 6 | Brimming Cup, Sage's Rebuke, Cracked Vessel, Shattered Vessel | +2 Damage, +2% IDG, +2% DDG, +5% IDT |
+| 7 | Sage's Rebuke, Smothered Current, Edict of Silence, Cracked Vessel | +10% DDG, +3% IDT |
+| 8 | Sage's Rebuke, Smothered Current, Cracked Vessel, Shattered Vessel | +2 Damage, +5% DDG, +5% IDT |
 
 ## Design notes
 
-- Node split mirrors the kit's two sides. Brimming Cup (self) opens Overloaded Impact and forks into raw power (Chakra Surcharge → Breaking Point) and self buff (Flooded Meridians → Boundless Reservoir); Sage's Rebuke (enemy) opens Chakra Overload / Chakra Cannon and forks into suppression (Smothered Current → Edict of Silence) and exposure (Cracked Vessel → Shattered Vessel). Every Advanced Art is 3 BP deep.
-- Routes (RUL-2026-10-03-005): Burst +5 Damage (Chakra Surcharge +2, Breaking Point +3); Amplifier +10% Increase Damage Given (Brimming Cup +2%, Flooded Meridians +3%, Boundless Reservoir +5%); Suppression +10% Decrease Damage Given (Sage's Rebuke +2%, Smothered Current +3%, Edict of Silence +5%); Exposure +5% Increase Damage Taken (Cracked Vessel +2%, Shattered Vessel +3%). Maxima over every legal allocation: Damage +5, Increase Damage Given +10%, Decrease Damage Given +10%, Increase Damage Taken +5%; not jointly attainable.
-- Recalibration from Draft 4: Chakra Surcharge +3 → +2 Damage (hard +5 ceiling; was +6), Brimming Cup +3% → +2% and Boundless Reservoir +4% → +5% (Amplifier stays +10%), Smothered Current +2% → +3% and Edict of Silence +4% → +5% (Suppression +8% → +10%, on band). Exposure stays +5%: the adverse self row keeps it small.
-- Timing (SOURCE_MECHANICS §3b): Overloaded Impact's self buff is inert in its cast round (tags.ts 925; util.ts 2567–2577), so it never touches its own hit, and cooldown 6 outlives it. In the two rounds after the cast the enhanced 32–40% multiplies every Ninjutsu or non-elemental hit (×1.32 to ×1.40; getEfficiencyRatio, tags.ts 3477–3510; computeDamagePacket, process.ts 1692–1825); the 15% bloodline passive applies last.
-- Delivery and uptime: Overloaded Impact is 60 AP, cooldown 6, one single-target hit at range 4; its buff and self exposure live two rounds in every six. Chakra Overload is 40 AP single target, cooldown 6; Chakra Cannon a 60 AP AOE circle, cooldown 7. Both suppression debuffs sit on one target only when the casts land in the same or consecutive rounds (100 AP in all), so ×0.65 × 0.60 = ×0.39 is a ceiling. Nothing was simulated.
-- Fourth purchases: Burst takes Sage's Rebuke (27% / 32%) or Flooded Meridians (buff 37%); Amplifier, Sage's Rebuke or Chakra Surcharge (42 EP); Suppression, Brimming Cup (buff 32%) or Cracked Vessel (exposure 37%, self 27%); Exposure, Smothered Current or Brimming Cup. Counting Increase Damage Taken as a gain, 13 of 14 full builds are non-dominated; IDT-neutral, 8 are and neither Vessel node appears, so Cracked Vessel earns its place as the Shattered Vessel gate. Adverse-aware dominance is tooling debt.
+- Structure (rewired to 2/3/3): Brimming Cup roots one amplification chain (Flooded Meridians → Boundless Reservoir); Sage's Rebuke forks into suppression (Smothered Current → Edict of Silence) and exposure → strike (Cracked Vessel → Shattered Vessel). Brimming Cup: "How do I make the window after Overloaded Impact hit harder?" Sage's Rebuke: "How do I break the enemy: blunt their blows, or crack them open for my strike?"
+- Routes: Amplification +10% Increase Damage Given (2 + 3 + 5); Suppression +10% Decrease Damage Given (2 + 3 + 5); exposure → strike +5% Increase Damage Taken (Cracked Vessel +3, Shattered Vessel +2) and +2 Damage (Shattered Vessel). Maxima over every legal allocation: Damage +2, Increase Damage Given +10%, Decrease Damage Given +10%, Increase Damage Taken +5%; not jointly attainable.
+- Changes from the previous proposal: the Burst route (Chakra Surcharge +1 → Breaking Point +2 Damage, 40 → 43) and the Exposure route (+8% Increase Damage Taken, self row 33%) merge. Burst had no setup that Amplification lacked and trailed it from about one window hit; Exposure's self row (×1.33/1.25) outweighed its enemy row (×1.43/1.35) one-on-one. Increase Damage Taken returns to Draft 5's +5% (self row 30%) and flat Damage drops to +2 (40 → 42), paid off only after the exposure setup (the RUL-2026-10-04-001/002 pattern).
+- Timing (SOURCE_MECHANICS §3b): buffs and debuffs are inert in their cast round (tags.ts 925, 1010; util.ts 2567–2577) and live in the two rounds after it. Shattered Vessel's strike lands into Chakra Overload's exposure only when Chakra Overload was cast in an earlier round; both have cooldown 6, so the order can hold every cycle. Overloaded Impact's self buff and self exposure then run for the two rounds after the strike; the buff multiplies every Ninjutsu or non-elemental hit in that window (getEfficiencyRatio, tags.ts 3477–3510; computeDamagePacket, process.ts 1692–1825), and the 15% bloodline passive applies last.
+- Like-for-like (both builds hold Brimming Cup and Sage's Rebuke), Shattered Vessel against Boundless Reservoir: the strike ×1.05 × 1.40/1.35 ≈ ×1.089; a caster hit in the round after the strike (exposure and buff both live) ×1.32/1.35 ≈ ×0.978, one in the next round ×1.32/1.40 ≈ ×0.943; an ally's Ninjutsu or non-elemental hit on the target in Chakra Overload's window ×1.037; hits the caster takes in the two rounds after the strike ×1.30/1.25 = ×1.04. With strike-sized hits, one window hit per round is about even (+0.12 against −0.04 − 0.08 strike-units); Boundless Reservoir leads from the third window hit, and allies on the target favour Shattered Vessel. Damage taken as proportional to EP; not simulated.
+- Delivery and uptime: Overloaded Impact is 60 AP, cooldown 6, one single-target hit at range 4. Chakra Overload is 40 AP single target, cooldown 6; Chakra Cannon a 60 AP AOE circle, cooldown 7. Both suppression debuffs sit on one target only when the casts land in the same or consecutive rounds (100 AP in all), so ×0.39 is a ceiling.
+- Fourth purchases: Amplification's is fixed (Sage's Rebuke, +2% Decrease Damage Given). Suppression takes Brimming Cup (+2% Increase Damage Given, no self cost) or Cracked Vessel (+3% exposure, self row 28%). Exposure → strike takes Brimming Cup (self buff 32%) or Smothered Current (Decrease Damage Given 30% / 35%). No sibling Hidden Art carries its capstone's primary tag, so no fourth purchase pushes a route past its own total or rebuilds a sibling route: Suppression with Cracked Vessel has no Damage, and Shattered Vessel with Smothered Current stops at +5% Decrease Damage Given.
 
 ## Risks and unproven interactions
 
-- Adverse row accepted (OPEN_DECISIONS D11, ENGINE_GAP_REGISTER G14): Increase Damage Taken nodes also raise Overloaded Impact's self exposure (all damage; 27% with Cracked Vessel, 30% with Shattered Vessel) in the two rounds after each cast, atop the 5% IDT passive. Only the Exposure route carries the tag; the enemy row (Chakra Overload, Ninjutsu or non-elemental, 35 → 40%) needs its own 40 AP cast.
-- Ally hazard (Chakra Cannon#1): Cannon is an OTHER_USER AOE circle with friendly fire ALL, so an ally in the circle (never the caster) receives its two-round suppression at the enhanced 32–40% (actions.ts 1029–1060; process.ts 154–183); every Decrease Damage Given node raises it, and positioning decides. Chakra Overload's suppression is ENEMIES-only; its ALL exposure row lands on an ally only if aimed at one.
-- Single-cast concentration: all five root-A nodes modify Overloaded Impact only (one 60 AP single-target cast, cooldown 6). The Burst route adds +5 Damage to one hit per cycle; the Amplifier route pays only on Ninjutsu or non-elemental hits landed in the two rounds after that cast.
-- Suppression stacking: Chakra Overload and Chakra Cannon apply separate two-round Decrease Damage Given debuffs; with BATTLE_TAG_STACKING on, every same-tag effect applies and the reductions compound in sequence (process.ts 1109–1117, 1692–1825), so one target's non-pierce hits are cut to ×0.75 × 0.70 = ×0.525 at baseline and ×0.65 × 0.60 = ×0.39 at the +10% route maximum (floor ×0.10), lower still with an allied Dai Kenja. Not simulated.
+- Adverse row proposed under OPEN_DECISIONS D11 (open; ENGINE_GAP_REGISTER G14), held at the drafted +5%: Increase Damage Taken nodes also raise Overloaded Impact's self exposure (all damage; 28% with Cracked Vessel, 30% with Shattered Vessel) for the two rounds after each cast, atop the 5% passive. One-on-one the self row's cost (×1.30/1.25 = ×1.04) slightly exceeds the enemy row's gain (×1.40/1.35 ≈ ×1.037), so the exposure half is net-negative alone; the route pays through Shattered Vessel's +2 Damage strike, and its exposure only when allies focus the target.
+- Ally hazard (Chakra Cannon#1): Cannon is an OTHER_USER AOE circle with friendly fire ALL, so an ally in the circle (never the caster) receives its two-round suppression at the enhanced 32–40% (actions.ts 1029–1060); every Decrease Damage Given node raises it, and positioning decides. Chakra Overload's suppression is ENEMIES-only; its ALL exposure row lands on an ally only if aimed at one.
+- Single-cast concentration: the Brimming Cup chain and Shattered Vessel's Damage modify Overloaded Impact only (one 60 AP single-target cast, cooldown 6). Amplification pays only on Ninjutsu or non-elemental hits in the two rounds after that cast, Shattered Vessel's +2 on one hit per cycle, so their order depends on the rest of the caster's loadout and on allies.
+- Suppression stacking: Chakra Overload and Chakra Cannon apply separate two-round Decrease Damage Given debuffs; with BATTLE_TAG_STACKING on, every same-tag effect applies and the reductions compound in sequence (process.ts 1109–1117, 1692–1825), so one target's non-pierce hits are cut to ×0.75 × 0.70 = ×0.525 at baseline and ×0.65 × 0.60 = ×0.39 at the route maximum (floor ×0.10), lower still with an allied Dai Kenja. Not simulated.
 - Downstream reach: the self buff multiplies every Ninjutsu or non-elemental hit the caster lands in its window (normal jutsu, basic attacks, weapons); enemy-side suppression and exposure alter damage from allies and weapons too. Stat filters on element-less rows are not binding (SOURCE_MECHANICS §3, getEfficiencyRatio).
-- Classification: no kit row carries an element, so the tree requires a classification extension. 'Dai Kenja' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision. Potency reaches matching supported tags on every jutsu given that classification, whatever its source; all three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.
-- Unsupported rows: Chakra Cannon's pierce (58 at level 25) and Chakra Overload's increasepoolcost (100%) receive no bonus; pierce is processed after the damage-modifier pass, so the Amplifier and Exposure routes do not raise the pierce hit and the Suppression route does not reduce enemy pierce.
-- Rank context: Dai Kenja is a D-rank bloodline with B/C/A-rank jutsu; the tree equalises marginal opportunity, not final strength. Normal-tree potency policy is not approved, so a combined stacking audit precedes implementation. Skill-tree effects are skipped in ranked PvP and ranked sparring. No combat simulation was performed.
+- Classification: no kit row carries an element, so the tree requires a classification extension. 'Dai Kenja' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision. All three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.
+- Unsupported rows: Chakra Cannon's pierce (58 at level 25) and Chakra Overload's increasepoolcost (100%) receive no bonus; pierce is processed after the damage-modifier pass, so the self buff and the exposure do not raise the pierce hit and Suppression does not reduce enemy pierce.
+- Rank context: Dai Kenja is a D-rank bloodline with B/C/A-rank jutsu; the tree weighs marginal opportunity, not final strength. Skill-tree effects are skipped in ranked PvP and ranked sparring. No combat simulation was performed.
 
 ## Limits
 

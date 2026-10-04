@@ -1,6 +1,6 @@
 {
   "title": "Crystal Essence — Prism and Lattice",
-  "revision": "Draft 3 / Crystal classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
   "bloodline": {
     "id": "ssevlOGQ4JjPn2sHZtq0c",
     "review_id": "BR-020",
@@ -38,10 +38,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Damage (Crystal burst on all three attacks, +5)",
-    "secondary": "Increase Damage Taken (Crystal Sphere and Crystal Cave exposure, two rows, +10%)",
-    "tertiary": "Decrease Damage Taken (Crystal Sphere, +10%) and Reflect (Crystal Cave, +10%), with Increase Damage Given as route glue (up to +5% on Kōsai Shippū)",
-    "rationale": "Crystal Essence is a rank-A Defensive / Sustained Damage kit with eight supported rows on five tags. Three of its five jutsu carry a Crystal Damage row (Prism 50, Kōsai Shippū 40, Crystal Cave 40 EP, all 60 AP / cooldown 7), so raw Crystal Damage is the primary emphasis and the deepest offensive commitment. Its two Increase Damage Taken rows (Sphere single target, Cave area enemies, both 35% for two rounds) anchor an exposure route, while the 40 AP Crystal Sphere's 35% Decrease Damage Taken and the Cave's 40% Reflect each anchor a defensive route that honours the Defensive trait. Increase Damage Given has a single row (Shippū 35%, self) that the bloodline's own Increase Damage Given passive already multiplies, so it stays Foundation and Advanced Art secondary glue capped at +5% rather than earning a route."
+    "primary": "Offense from Prismatic Focus: the Kōsai Shippū self buff (Increase Damage Given, one row, up to +10%) or the Crystal Sphere and Crystal Cave exposure marks (Increase Damage Taken, two rows, up to +8%)",
+    "secondary": "Defense from Jade Lattice: Crystal Sphere Decrease Damage Taken (fortress, +10%) or Crystal Cave Reflect (retaliation, +10%)",
+    "tertiary": "No flat Damage: Prism is 50 EP, so any Damage bonus would pass the Nuke tier",
+    "rationale": "Crystal Essence is a rank-A Defensive / Sustained Damage kit with eight supported rows on five tags. Its three Crystal attacks are Prism 50 and Kōsai Shippū and Crystal Cave 40 EP; any flat Damage lifts Prism past the 50 Nuke tier, so the tree amplifies the setup rows that multiply those attacks instead. Prismatic Focus answers \"How do I make my Crystal strikes count: sharpen myself or crack them open?\" (Shippū self buff 35 → 45%, or both exposure marks 35 → 43%). Jade Lattice answers \"How do I hold my ground: endure the blows or turn them back?\" (Sphere Decrease Damage Taken 35 → 45%, or Cave Reflect 40 → 50%). Each Advanced Art carries one tag; no tag is shared glue."
   },
   "nodes": [
     {
@@ -63,7 +63,7 @@
         }
       ],
       "flavor": "Light bent through one facet burns where it lands and steadies the hand that aims it.",
-      "coverage_note": "Kōsai Shippū Increase Damage Given 35 → 37% (self, 2 rounds) and exposure on Crystal Sphere (single) and Crystal Cave (area enemies) 35 → 37% for 2 rounds.",
+      "coverage_note": "Kōsai Shippū self Increase Damage Given 35 → 37% and both exposure marks (Crystal Sphere single target, Crystal Cave area enemies) 35 → 37%, 2 rounds each.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -88,24 +88,22 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 2,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagegiven",
+          "flat": 3,
+          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Grown edge upon edge, the lattice cuts along every plane at once.",
-      "coverage_note": "Crystal Damage on Prism 50 → 52 EP and on Kōsai Shippū and Crystal Cave 40 → 42 EP (all Ninjutsu, 60 AP, cooldown 7). Prism's wound row is untouched.",
+      "flavor": "Grown edge upon edge, the lattice hones every strike before it leaves the hand.",
+      "coverage_note": "Kōsai Shippū self Increase Damage Given 37 → 40% with Prismatic Focus, live for the two rounds after the 60 AP cast on the caster's later Ninjutsu hits and Crystal, Earth, Fire or element-less hits.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Crystal Cave",
-          "Kōsai Shippū",
-          "Prism"
+          "Kōsai Shippū"
         ],
-        "effect_rows": 3
+        "effect_rows": 1
       }
     },
     {
@@ -118,24 +116,22 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 3,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagegiven",
+          "flat": 5,
+          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Break the mountain's heart and every splinter remembers the weight it carried.",
-      "coverage_note": "Damage route total +5: Prism 50 → 55 EP, Kōsai Shippū and Crystal Cave 40 → 45 EP.",
+      "flavor": "Break the mountain's heart and every splinter carries its weight into the next blow.",
+      "coverage_note": "Burst-window route total +10%: Kōsai Shippū self buff 35 → 45%, so the caster's matching hits in the next two rounds (a Prism cast into the window, say) take ×1.45 instead of ×1.35; Prism stays 50 EP.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Crystal Cave",
-          "Kōsai Shippū",
-          "Prism"
+          "Kōsai Shippū"
         ],
-        "effect_rows": 3
+        "effect_rows": 1
       }
     },
     {
@@ -154,7 +150,7 @@
         }
       ],
       "flavor": "Every stone has a flaw. Find it, and the whole face waits to split.",
-      "coverage_note": "Both exposure rows 40% with Prismatic Focus: Crystal Sphere (single target, Ninjutsu filter, no element) and Crystal Cave (area enemies, Crystal/Earth/Fire/None), 2 rounds.",
+      "coverage_note": "Both exposure marks 37 → 40% with Prismatic Focus: Crystal Sphere (single target, Ninjutsu filter, no element) and Crystal Cave (area enemies, Crystal/Earth/Fire/None), 2 rounds.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -179,17 +175,12 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 5,
-          "display_role": "ENEMY DEBUFF"
-        },
-        {
-          "tag": "increasedamagegiven",
           "flat": 3,
-          "display_role": "SELF BUFF"
+          "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "The first crack is the invitation; everything after travels the line it opened.",
-      "coverage_note": "Increase Damage Taken route total +10%: Sphere and Cave exposure 35 → 45%; +3% Increase Damage Given lifts Shippū's self buff to 40% with Prismatic Focus.",
+      "coverage_note": "Exposure route total +8%: both marks 35 → 43%; an enemy under both takes ×1.43 × 1.43 ≈ ×2.04 on a hit matching both filters (×1.82 unmodified), from the caster and allies alike.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -197,10 +188,9 @@
       "coverage": {
         "jutsu": [
           "Crystal Cave",
-          "Crystal Sphere",
-          "Kōsai Shippū"
+          "Crystal Sphere"
         ],
-        "effect_rows": 3,
+        "effect_rows": 2,
         "rows_via_authored_classification": 1
       }
     },
@@ -253,7 +243,7 @@
         }
       ],
       "flavor": "A sphere without seam gives a blow no edge to catch and no face to break.",
-      "coverage_note": "Crystal Sphere Decrease Damage Taken 40% with Jade Lattice (self, 2 rounds, nearly every non-pierce hit); the same cast's exposure row is unchanged by it.",
+      "coverage_note": "Crystal Sphere Decrease Damage Taken 37 → 40% with Jade Lattice (self, 2 rounds after the 40 AP cast, nearly every non-pierce hit).",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -279,25 +269,19 @@
           "tag": "decreasedamagetaken",
           "flat": 5,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "increasedamagegiven",
-          "flat": 3,
-          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "What cannot be cut does not need to hurry; it sharpens while the enemy tires.",
-      "coverage_note": "Decrease Damage Taken route total +10% (Crystal Sphere 35 → 45%); +3% Increase Damage Given lifts Shippū's self buff to 38%, or 40% with Prismatic Focus.",
+      "flavor": "What cannot be cut does not need to hurry; it waits while the enemy tires.",
+      "coverage_note": "Fortress route total +10%: Crystal Sphere Decrease Damage Taken 35 → 45%, so a hit taken in the window lands at ×0.55 instead of ×0.65 (pierce excluded).",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Crystal Sphere",
-          "Kōsai Shippū"
+          "Crystal Sphere"
         ],
-        "effect_rows": 2,
+        "effect_rows": 1,
         "rows_via_authored_classification": 1
       }
     },
@@ -317,7 +301,7 @@
         }
       ],
       "flavor": "The cavern keeps no light for itself; it returns every spark to the one who brought it.",
-      "coverage_note": "Crystal Cave Reflect 45% with Jade Lattice (pierce included, 60% cap), live 2 rounds after a 60 AP area cast, cooldown 7.",
+      "coverage_note": "Crystal Cave Reflect 42 → 45% with Jade Lattice (pierce included, 60% cap), live 2 rounds after the 60 AP area cast.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
@@ -342,43 +326,36 @@
           "tag": "reflect",
           "flat": 5,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "increasedamagegiven",
-          "flat": 3,
-          "display_role": "SELF BUFF"
         }
       ],
-      "flavor": "Walls that bite, and a heart that cuts sharper for every blow they turn away.",
-      "coverage_note": "Reflect route total +10% (Crystal Cave 40 → 50%); the +3% Increase Damage Given rides Shippū's self buff (38%, or 40% with Prismatic Focus), not the Cave.",
+      "flavor": "Walls that bite: every blow thrown inside the cavern rings back to the hand that threw it.",
+      "coverage_note": "Retaliation route total +10%: Crystal Cave Reflect 40 → 50%, ten points under the 60%-of-hit cap, for the two rounds after the Cave lands.",
       "parent_rule": "ALL",
       "potency_classification": "Crystal",
       "scope": "all Crystal jutsu",
       "minimum_path_bp": 3,
       "coverage": {
         "jutsu": [
-          "Crystal Cave",
-          "Kōsai Shippū"
+          "Crystal Cave"
         ],
-        "effect_rows": 2
+        "effect_rows": 1
       }
     }
   ],
   "examples": [
     {
       "name": "Splintered Mountain Heart",
-      "archetype": "Burst",
+      "archetype": "Burst window",
       "ids": [
         "01",
         "02",
         "03",
         "04"
       ],
-      "rationale": "+5 Damage on all three Crystal attacks: Prism 50 → 55, Kōsai Shippū and Crystal Cave 40 → 45 EP. Flaw in the Stone as the fourth purchase takes both exposure rows to 40% with Prismatic Focus, so an enemy marked by Sphere or the Cave takes more from a Prism cast in the following two rounds; Shippū's self buff sits at 37%. Jade Lattice is the alternative fourth purchase (Sphere Decrease Damage Taken 37%, Cave Reflect 42%) for a caster who opens with the Cave and expects to be hit.",
+      "rationale": "Shippū self buff 35 → 45%: every matching hit the caster lands in the two rounds after Shippū takes ×1.45 instead of ×1.35, so a Prism cast into the window lands harder while Prism stays 50 EP. Flaw in the Stone as the fourth purchase takes both exposure marks to 40%; Jade Lattice (Sphere Decrease Damage Taken 37%, Cave Reflect 42%) is the defensive alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 5
       },
       "finals": [
@@ -412,8 +389,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -433,8 +410,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 10,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -451,8 +428,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 5,
-          "final": 55.0,
+          "gain": 0,
+          "final": 50.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -523,8 +500,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 5,
-          "final": 45.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -580,222 +557,14 @@
         "01",
         "04",
         "05",
-        "02"
+        "06"
       ],
-      "rationale": "The exposure route takes both Increase Damage Taken rows from 35% to 45% for the two rounds after each cast, pierce excluded. Sphere's single-target mark amplifies element-less hits of any stat type and Ninjutsu hits of any element; the Cave's area mark amplifies Crystal, Earth, Fire and element-less hits of any stat type; both count allies' hits, and an enemy under both marks takes both (×1.45 × 1.45 on a hit matching both filters). The Advanced Art's +3% Increase Damage Given with Prismatic Focus lifts Shippū's self buff to 40%, and Razor Lattice adds +2 Damage to all three Crystal attacks; Jade Lattice is the defensive alternative fourth purchase.",
+      "rationale": "Both exposure marks 35 → 43% for the two rounds after each cast (Sphere single target, Cave area enemies), amplifying every attacker's matching hits, allies included, pierce excluded; an enemy under both takes ×1.43 × 1.43 ≈ ×2.04 on a hit matching both filters (e.g. Prism). Shippū's self buff sits at 37%. Jade Lattice as the fourth purchase (Sphere Decrease Damage Taken 37%, Cave Reflect 42%) covers the caster while marking; Razor Lattice (Shippū 40%) is the all-offense alternative.",
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10
-      },
-      "finals": [
-        {
-          "jutsu": "Summoning: Jade",
-          "row": 0,
-          "tag": "summon",
-          "label": "summon",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 60.0,
-          "gain": 0,
-          "final": 60.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Kōsai Shippū",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Crystal"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Kōsai Shippū",
-          "row": 1,
-          "tag": "increasedamagegiven",
-          "label": "Increase Damage Given",
-          "combat_elements": [
-            "Crystal",
-            "Earth",
-            "Fire",
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Prism",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Crystal"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 50.0,
-          "gain": 2,
-          "final": 52.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Prism",
-          "row": 1,
-          "tag": "wound",
-          "label": "wound",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 25.0,
-          "gain": 0,
-          "final": 25.0,
-          "calculation": "percentage",
-          "supported": false,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crystal Sphere",
-          "row": 0,
-          "tag": "decreasedamagetaken",
-          "label": "Decrease Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crystal Sphere",
-          "row": 1,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crystal Cave",
-          "row": 0,
-          "tag": "damage",
-          "label": "Damage",
-          "combat_elements": [
-            "Crystal"
-          ],
-          "recipient": "enemy",
-          "role": "DAMAGE",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
-          "calculation": "formula",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crystal Cave",
-          "row": 1,
-          "tag": "increasedamagetaken",
-          "label": "Increase Damage Taken",
-          "combat_elements": [
-            "Crystal",
-            "Earth",
-            "Fire",
-            "None"
-          ],
-          "recipient": "enemy",
-          "role": "ENEMY DEBUFF",
-          "adverse": false,
-          "base": 35.0,
-          "gain": 10,
-          "final": 45.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        },
-        {
-          "jutsu": "Crystal Cave",
-          "row": 2,
-          "tag": "reflect",
-          "label": "Reflect",
-          "combat_elements": [
-            "None"
-          ],
-          "recipient": "self",
-          "role": "SELF BUFF",
-          "adverse": false,
-          "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
-          "calculation": "percentage",
-          "supported": true,
-          "capped_at_100": false
-        }
-      ],
-      "advanced_arts": [
-        "Break Along the Flaw"
-      ]
-    },
-    {
-      "name": "Adamant Core",
-      "archetype": "Bastion",
-      "ids": [
-        "06",
-        "07",
-        "08",
-        "01"
-      ],
-      "rationale": "The bastion route takes Crystal Sphere's Decrease Damage Taken from 35% to 45% for the two rounds after each 40 AP cast, and the Advanced Art's +3% Increase Damage Given with Prismatic Focus lifts Shippū's self buff to 40%, so the kit both weathers more and hits harder in the Shippū window. Prismatic Focus also leaves both exposure rows at 37% and Jade Lattice the Cave Reflect at 42%. Light Turned Back (Reflect 45%) is the alternative fourth purchase for a pure defender who skips the offensive root.",
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8,
+        "decreasedamagetaken": 2,
         "reflect": 2
       },
       "finals": [
@@ -850,8 +619,215 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Prism",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Crystal"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 50.0,
+          "gain": 0,
+          "final": 50.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Prism",
+          "row": 1,
+          "tag": "wound",
+          "label": "wound",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 25.0,
+          "gain": 0,
+          "final": 25.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crystal Sphere",
+          "row": 0,
+          "tag": "decreasedamagetaken",
+          "label": "Decrease Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crystal Sphere",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crystal Cave",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Crystal"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
           "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crystal Cave",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "Crystal",
+            "Earth",
+            "Fire",
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Crystal Cave",
+          "row": 2,
+          "tag": "reflect",
+          "label": "Reflect",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Break Along the Flaw"
+      ]
+    },
+    {
+      "name": "Adamant Core",
+      "archetype": "Fortress",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "rationale": "Crystal Sphere Decrease Damage Taken 35 → 45% for the two rounds after each 40 AP cast: a hit taken in the window lands at ×0.55 instead of ×0.65 (pierce excluded; the 15% Earth passive applies last). Light Turned Back as the fourth purchase takes Cave Reflect to 45% for a pure defender; Prismatic Focus (Shippū 37%, both marks 37%) is the alternative.",
+      "cost": 4,
+      "bonuses": {
+        "decreasedamagetaken": 10,
+        "reflect": 5
+      },
+      "finals": [
+        {
+          "jutsu": "Summoning: Jade",
+          "row": 0,
+          "tag": "summon",
+          "label": "summon",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 60.0,
+          "gain": 0,
+          "final": 60.0,
+          "calculation": "percentage",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Kōsai Shippū",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Crystal"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Kōsai Shippū",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Crystal",
+            "Earth",
+            "Fire",
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -922,8 +898,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -961,8 +937,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -979,8 +955,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 40.0,
-          "gain": 2,
-          "final": 42.0,
+          "gain": 5,
+          "final": 45.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -992,17 +968,17 @@
     },
     {
       "name": "Entombed in Crystal",
-      "archetype": "Reprisal",
+      "archetype": "Retaliation",
       "ids": [
         "06",
         "09",
         "10",
         "01"
       ],
-      "rationale": "The reprisal route takes Crystal Cave's Reflect from 40% to 50%, ten points under the 60% per-hit cap, for the two rounds after the Cave lands, and its Advanced Art's +3% Increase Damage Given with Prismatic Focus lifts Shippū's self buff to 40%, so the caster who weathers the counter-attack hits back harder in the next window. Prismatic Focus also leaves both exposure rows at 37% and Jade Lattice the Sphere Decrease Damage Taken at 37%. Flawless Sphere (Decrease Damage Taken 40%, Reflect 50%, Increase Damage Given 38%) is the alternative fourth purchase for a caster who never buys into the offensive root.",
+      "rationale": "Crystal Cave Reflect 40 → 50% for the two rounds after the Cave lands: half of each hit the caster takes (pierce included, shields bypassed, capped at 60% of the hit) returns to the attacker. Prismatic Focus as the fourth purchase gives Shippū 37% and both marks 37%; Jade Lattice leaves Sphere Decrease Damage Taken at 37%. Flawless Sphere (Decrease Damage Taken 40%) is the pure-defense alternative, though less damage taken also means less reflected.",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 10
@@ -1059,8 +1035,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1200,24 +1176,20 @@
       ]
     }
   ],
-  "narrow_kit_exception": null,
   "design_notes": [
-    "Reference reuse: flats follow Taiyo Kami where rows match (Prismatic Focus = Dawnheart; Razor Lattice and Splintered Mountain Heart = Crown of Cinders and Solar Cataclysm; Flawless Sphere and Adamant Core = Golden Mantle and Sovereign Sun), as the kit shares Taiyo's three-row burst and Increase Damage Given / Increase Damage Taken glue. Departures: no Decrease Damage Given or Afterburn rows, so Jade Lattice pairs Decrease Damage Taken with Reflect, and the exposure and Reflect routes use the same +2% / +3% / +5% ladder.",
-    "Routes (RUL-2026-10-03-005): Burst +5 Damage on three rows; Exposure +10% Increase Damage Taken on two rows (Prismatic Focus +2%, Flaw in the Stone +3%, Break Along the Flaw +5%); Bastion +10% Decrease Damage Taken and Reprisal +10% Reflect (Jade Lattice +2%, Hidden Art +3%, Advanced Art +5%). Recalibration: Flaw in the Stone +2% → +3% and Break Along the Flaw +3% → +5% Increase Damage Taken (route +7% → +10%; the earlier two-row hold is superseded).",
-    "Advanced Art secondaries: Break Along the Flaw, Adamant Core and Entombed in Crystal all carry +3% Increase Damage Given. It is the only kit tag no Hidden Art carries, so it cannot out-bid a sibling purchase; the cost is that three routes share Shippū's 40% and differ by primary. All 14 legal full builds are non-dominated.",
-    "Main tree and passives: for the two rounds after its cast, Shippū's Increase Damage Given row (Crystal/Earth/Fire/None, Ninjutsu filter) amplifies any Ninjutsu hit and any Crystal, Earth, Fire or element-less hit of any stat type: later Crystal strikes, basic attacks, and any matching normal jutsu or weapon (normal-jutsu catalog unverified). Main-tree or item Increase Damage Given applies as its own multiplier and the bloodline passive (25% + 0.15/lvl) multiplies last (SOURCE_MECHANICS §3b). Both exposure rows amplify allies' matching hits too. Pierce ignores Increase Damage Given, Increase Damage Taken and Decrease Damage Taken.",
-    "Delivery and uptime: every jutsu has cooldown 7. Kōsai Shippū and Crystal Cave are 60 AP circle spawns on an OTHER_USER target at range 4; Prism is a 60 AP single-target shot; Crystal Sphere a 40 AP single-target cast. Buff and exposure rows are live only in the two rounds after the cast round, so staggered casts give enhanced windows on four to six of every seven rounds. SELF rows (Shippū Increase Damage Given, Sphere Decrease Damage Taken, Cave Reflect) land on the caster at cast time once the cast has a legal target.",
-    "Fourth-purchase choices: Burst (01, 02, 03) adds Flaw in the Stone (exposure 40%) or Jade Lattice (Decrease Damage Taken 37%, Reflect 42%); Exposure (01, 04, 05) Razor Lattice (+2 Damage) or Jade Lattice; Bastion (06, 07, 08) Prismatic Focus (Increase Damage Given 40%, exposure 37%) or Light Turned Back (Reflect 45%); Reprisal (06, 09, 10) Prismatic Focus (Increase Damage Given 40%) or Flawless Sphere (Decrease Damage Taken 40%). Hybrids with no Advanced Art (e.g. 01, 02, 04, 06) spread +2 to +5 over five tags.",
-    "Defensive routes and untouched rows: Sphere's Decrease Damage Taken and the Cave's Reflect rows list all four stat types and no element, so each matches nearly every hit the caster takes (Decrease Damage Taken excludes pierce; Reflect includes it and bypasses shields). 45% and 50% stay under the caps (100; Reflect 60% of the hit); the 15% Earth Decrease Damage Taken passive applies last. Prism's wound and the Jade summon are unsupported and get nothing. Skill-tree effects and passives are skipped in RANKED_PVP and RANKED_SPARRING."
+    "Batch rebalance (2026-10-04): the +5 Damage route (Prism 50 → 55, Shippū and Cave 40 → 45) and the Razor Lattice +2 Damage fourth purchase (Prism 50 → 52) are removed, because every flat Damage total lifts Prism past the 50 Nuke tier. Razor Lattice and Splintered Mountain Heart now carry Increase Damage Given (+3%, +5%), and the +3% Increase Damage Given riders on Break Along the Flaw, Adamant Core and Entombed in Crystal are removed as shared glue. Maxima over every legal allocation: Increase Damage Given +10%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Reflect +10%, no Damage.",
+    "Magnitudes follow leverage, not printed totals. Increase Damage Given has one row, but it multiplies every matching hit the caster lands in the two rounds after Shippū (×1.35 → ×1.45; the bloodline passive multiplies last), so it takes the full +10%. Increase Damage Taken has two rows from two casts that amplify every attacker's matching hits and compound on a doubly marked enemy (×1.82 → ×2.04), so it stops at +8%. Decrease Damage Taken +10% (a hit taken ×0.65 → ×0.55) and Reflect +10% (40 → 50% returned) each move about a tenth of every hit taken in their window.",
+    "Narrow coverage: Increase Damage Given, Decrease Damage Taken and Reflect have one row each. Each capstone stays single-tag because the only remaining secondaries are a sibling Hidden Art's tag (a capstone plus that Hidden Art would stack it) or the other Foundation's tags (which would blur the offense/defense split).",
+    "Fourth purchases: Burst window (01, 02, 03) adds Flaw in the Stone (marks 40%) or Jade Lattice; Exposure (01, 04, 05) Razor Lattice (Shippū 40%) or Jade Lattice; Fortress (06, 07, 08) Light Turned Back (Reflect 45%) or Prismatic Focus; Retaliation (06, 09, 10) Flawless Sphere (Decrease Damage Taken 40%) or Prismatic Focus. The two all-offense builds (01, 02, 03, 04 and 01, 02, 04, 05) land within 1% of each other on a doubly marked enemy in the Shippū window (×1.45 × 1.40 × 1.40 ≈ ×2.84 against ×1.40 × 1.43 × 1.43 ≈ ×2.86) and differ in whose hits they amplify, so neither dominates.",
+    "Filters and delivery: Shippū's self buff (Crystal/Earth/Fire/None, Ninjutsu filter) amplifies any Ninjutsu hit and any Crystal, Earth, Fire or element-less hit of any stat type; Sphere's mark (Ninjutsu, no element) any Ninjutsu or element-less hit; the Cave's mark Crystal, Earth, Fire or element-less hits. Every jutsu has cooldown 7; Shippū and the Cave are 60 AP circle spawns, Prism a 60 AP single shot, the Sphere a 40 AP single cast. Rows are live in the two rounds after their cast round, and SELF rows land on the caster at cast time once the cast has a legal target. Pierce ignores every modifier here except Reflect.",
+    "Untouched rows: the three Damage rows are unamplified in this revision; Prism's wound and the Jade summon are unsupported. Skill-tree effects and passives are skipped in RANKED_PVP and RANKED_SPARRING."
   ],
   "risks": [
-    "Classification: Crystal is shared with Sea-Maiden's Kiss (expected under RUL-2026-10-03-005). 5 of 8 kit rows carry Crystal; Crystal Sphere's two rows and Crystal Cave's Reflect row need the proposed jutsu-classification resolver, and Crystal Sphere (and Summoning: Jade, which has no supported row) carry no Crystal row, so they qualify only through an authored Crystal jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Crystal coverage is unverified.",
-    "Exposure breadth: +10% makes both Increase Damage Taken rows 45% for two rounds (Sphere single, Cave area); both amplify allies' hits as well as the caster's (pierce excluded), and an enemy under both marks takes both: ×1.45 × 1.45 ≈ ×2.10 on a hit matching both filters (e.g. Prism), against ×1.35 × 1.35 ≈ ×1.82 unmodified (SOURCE_MECHANICS §3b). Team value was not simulated.",
-    "Reflect cap and uptime: 50% leaves ten points of headroom under the 60%-of-pre-shield-damage cap, but main-tree or item Reflect sources add to it and could saturate the cap, wasting part of the +10%. Reflect pays only when the caster is hit during the two rounds after a 60 AP Cave cast; realized value depends on enemy behaviour and was not simulated.",
-    "Increase Damage Given stacking: Shippū's row compounds with any main-tree or item Increase Damage Given (each applies as its own multiplier) and the bloodline passive (about 28.75% at level 25) multiplies last; the +5% maximum lifts Shippū's row to 40%. Each row stays far below the 100 cap, but the combined per-hit amplification in a Shippū window was not simulated against peer kits.",
-    "Decrease Damage Taken scope: it is a damage modifier and does not touch pierce hits; the Sphere's 35 → 45% window also only exists when the 40 AP cast has a legal OTHER_USER target (any living non-caster user, allies included) in range 4. The exposure half of the same cast is unchanged by the Decrease Damage Taken nodes and lands on whoever is targeted.",
-    "Damage calibration: Burst reaches +5 on three rows (Prism 55, Shippū 45, Cave 45 EP), Taiyo Kami parity at the hard ceiling. By row weight the Exposure build (01, 02, 04, 05) is now the strongest full build, because its +10% lands on two rows.",
-    "Delivery and friendly fire: Shippū's and the Cave's damage and the Cave's exposure reach only enemies on the spawn tiles (friendly fire ENEMIES; no ally-hazard rows); their SELF rows land on the caster at cast time. Prism's damage (ALL) and Sphere's exposure (none = ALL) land on an ally if one is targeted: the Damage nodes raise that hit, the exposure nodes that ally's exposure (45% with 01, 04, 05).",
+    "Classification: Crystal is shared with Sea-Maiden's Kiss (expected under RUL-2026-10-03-005). 5 of 8 kit rows carry Crystal; Crystal Sphere's two rows and Crystal Cave's Reflect row need the proposed jutsu-classification resolver, and Crystal Sphere qualifies only through an authored Crystal jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Crystal coverage is unverified.",
+    "Exposure breadth: at +8% both marks are 43% for two rounds and amplify allies' matching hits as well as the caster's (pierce excluded); a doubly marked enemy takes ×1.43 × 1.43 ≈ ×2.04 against ×1.82 unmodified. Team value was not simulated.",
+    "Increase Damage Given stacking: Shippū's 45% compounds with any main-tree or item Increase Damage Given, and the bloodline passive (about 28.75% at level 25) multiplies last (×1.45 × 1.29 ≈ ×1.87 in the window). The window's realized value depends on landing Prism or the Cave inside it.",
+    "Reflect cap and uptime: 50% leaves ten points under the 60%-of-hit cap, but main-tree or item Reflect could saturate it. Reflect pays only when the caster is hit in the two rounds after a 60 AP Cave cast, and Decrease Damage Taken active at the same time lowers what is reflected.",
+    "Friendly fire: Crystal Sphere is an OTHER_USER single cast whose mark (friendly fire none = ALL) lands on an ally if the Sphere targets one, up to 43% on the Exposure route; its Decrease Damage Taken window also needs a legal target in range 4. Shippū's and the Cave's damage and the Cave's mark reach only enemies.",
     "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
@@ -1259,9 +1231,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
-      "increasedamagegiven": 5,
-      "increasedamagetaken": 10,
+      "increasedamagegiven": 10,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "reflect": 10
     },
@@ -1274,14 +1245,15 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [],
-    "revision": "Draft 3 / Crystal classification / forked tree (RUL-2026-10-03-005 recalibration)",
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1296,14 +1268,12 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "damage": 5,
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10,
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
       },
       "ceilings": {
-        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
@@ -1324,18 +1294,18 @@
         {
           "advanced_art": "03",
           "name": "Splintered Mountain Heart",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagegiven",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            0,
             2,
-            3
+            3,
+            5
           ],
-          "total": 5,
+          "total": 10,
           "on_band": true
         },
         {
@@ -1350,10 +1320,10 @@
           "steps": [
             2,
             3,
-            5
+            3
           ],
-          "total": 10,
-          "on_band": true
+          "total": 8,
+          "on_band": false
         },
         {
           "advanced_art": "08",
@@ -1402,8 +1372,7 @@
         "04"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 5
       }
     },
@@ -1415,8 +1384,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -1430,9 +1398,8 @@
         "05"
       ],
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 10
+        "increasedamagetaken": 8
       }
     },
     {
@@ -1443,8 +1410,7 @@
         "06"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2,
         "reflect": 2
@@ -1458,8 +1424,7 @@
         "07"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
         "reflect": 2
@@ -1473,8 +1438,7 @@
         "09"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 5
@@ -1488,8 +1452,8 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
-        "increasedamagetaken": 10,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2,
         "reflect": 2
       }
@@ -1530,7 +1494,7 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "reflect": 2
@@ -1558,7 +1522,7 @@
         "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "reflect": 10
@@ -1572,7 +1536,6 @@
         "09"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
         "decreasedamagetaken": 10,
         "reflect": 5
       }
@@ -1585,10 +1548,28 @@
         "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 3,
         "decreasedamagetaken": 5,
         "reflect": 10
       }
     }
-  ]
+  ],
+  "design_review": {
+    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "foundation_sentences": {
+      "01": "How do I make my Crystal strikes count: sharpen myself or crack them open?",
+      "06": "How do I hold my ground: endure the blows or turn them back?"
+    },
+    "route_identities": {
+      "03": "burst window: self amplification (Shippū window into Prism)",
+      "05": "exposure: team-wide marks that compound on one target",
+      "08": "fortress",
+      "10": "retaliation"
+    },
+    "director_review": "none",
+    "concerns": [
+      "No flat Damage on a kit whose attacks are 50/40/40 EP: Prism is 50, so any Damage bonus passes the Nuke tier. If the director prefers the Blood-Enchanted Eyes pattern (exposure setup into +2 Damage, Prism 50 → 52, Shippū and Cave 40 → 42), Break Along the Flaw is where it would go.",
+      "Burst window (+10% on one self row from one cast) and Exposure (+8% on two compounding, team-wide rows from two casts) are set by multiplier and uptime, not printed total; rotation was not simulated.",
+      "Fortress, Retaliation and half of Exposure depend on Crystal Sphere's authored classification or the element-less Cave Reflect row reaching the proposed resolver (G1)."
+    ]
+  }
 }
