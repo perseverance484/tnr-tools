@@ -1,0 +1,34 @@
+name: ChatGPT Jellyfish manifest refresh
+
+on:
+  push:
+    branches:
+      - chatgpt/jellyfish-beach-quest-20261004
+    paths:
+      - ".github/workflows/chatgpt_validate_jellyfish2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate manifest
+        run: python3 push/61_jellyfish_coast_quest.gen.py
+      - name: Validate manifest
+        working-directory: skills/building-tnr-content/data
+        run: python3 ../scripts/validate.py ../../../push/61_jellyfish_coast_quest.json
+      - name: Persist manifest
+        run: |
+          git config user.name "chatgpt-manifest[bot]"
+          git config user.email "chatgpt-manifest@users.noreply.github.com"
+          git add push/61_jellyfish_coast_quest.json
+          git diff --cached --quiet && exit 0
+          git commit -m "content: refresh Jellyfish Coast manifest [auto]"
+          git push
