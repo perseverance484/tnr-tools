@@ -49,7 +49,7 @@
   "examples": [
     {
       "name": "Buried in the Avalanche",
-      "archetype": "Steady edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -142,7 +142,7 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
@@ -186,14 +186,13 @@
         "name": "Weight of the Avalanche",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
-          "Cerulean Storm: Avalanche",
-          "Glacial Shatter: Purgatory",
+          "Glacial Descent: Cocytus",
           "Nine Hell's Spear"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -202,15 +201,14 @@
         "name": "Buried in the Avalanche",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 7,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cerulean Storm: Avalanche",
-          "Glacial Descent: Cocytus",
           "Glacial Shatter: Purgatory",
           "Nine Hell's Spear"
         ],
-        "covered_rows": 5,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -345,14 +343,13 @@
       "name": "Weight of the Avalanche",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 1,
-      "row_weighted_total": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 4,
       "covered_jutsu": [
-        "Cerulean Storm: Avalanche",
-        "Glacial Shatter: Purgatory",
+        "Glacial Descent: Cocytus",
         "Nine Hell's Spear"
       ],
-      "covered_rows": 3,
+      "covered_rows": 2,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
@@ -404,15 +401,15 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 8
+          "increasedamagegiven": 8,
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 19,
+        "raw_flat_total": 10,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "05"
         ],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -422,13 +419,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 21,
+        "raw_flat_total": 11,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -440,13 +436,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 4,
+          "increasedamagetaken": 6,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 21,
+        "raw_flat_total": 11,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -458,13 +453,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 2,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 23,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -789,7 +783,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -803,19 +796,6 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
-          {
-            "added": 1,
-            "final": 46.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 47.0,
@@ -843,19 +823,6 @@
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
           {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
-          {
             "added": 2,
             "final": 42.0,
             "tier_before": "Normal",
@@ -881,19 +848,6 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
-          {
-            "added": 1,
-            "final": 46.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 47.0,
@@ -983,14 +937,14 @@
           "name": "Weight of the Avalanche",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 8
+            "increasedamagegiven": 8,
+            "increasedamagetaken": 2
           },
-          "raw_total": 9,
-          "row_weighted": 19
+          "raw_total": 10,
+          "row_weighted": 20
         },
         {
           "id": "06",

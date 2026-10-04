@@ -42,7 +42,7 @@
   "examples": [
     {
       "name": "Caldera Burst",
-      "archetype": "Steady edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -52,8 +52,8 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
         "afterburn": 3
       },
       "advanced_arts": [
@@ -145,8 +145,8 @@
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
-      "increasedamagegiven": 2,
-      "increasedamagetaken": 5,
+      "increasedamagegiven": 5,
+      "increasedamagetaken": 2,
       "decreasedamagetaken": 5,
       "afterburn": 10,
       "lifesteal": 5,
@@ -196,14 +196,12 @@
         "name": "Geyser Fist",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
+        "raw_flat_total": 3,
         "row_weighted_total": 3,
         "covered_jutsu": [
-          "Drowning Strike",
-          "Scorch Break",
-          "Surfing Strike"
+          "Liquid Ember Shell"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -212,14 +210,14 @@
         "name": "Caldera Burst",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
+        "raw_flat_total": 2,
         "row_weighted_total": 6,
         "covered_jutsu": [
           "Drowning Strike",
           "Scorch Break",
           "Surfing Strike"
         ],
-        "covered_rows": 4,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -368,8 +366,8 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
           "afterburn": 3
         },
         "raw_flat_total": 12,
@@ -388,8 +386,8 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagegiven": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 11,
@@ -407,12 +405,11 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 15,
+        "raw_flat_total": 17,
         "row_weighted_total": 17,
         "advanced_arts": [
           "05"
@@ -427,13 +424,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 10,
+        "raw_flat_total": 12,
         "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
@@ -446,13 +442,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 9,
+        "raw_flat_total": 11,
         "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
@@ -465,13 +460,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 3
         },
-        "raw_flat_total": 10,
+        "raw_flat_total": 12,
         "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
@@ -810,7 +804,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -824,19 +817,6 @@
         ],
         "method": "AOE_SPIRAL_SHOOT",
         "steps": [
-          {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 42.0,
@@ -864,19 +844,6 @@
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
           {
-            "added": 1,
-            "final": 46.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
-          {
             "added": 2,
             "final": 47.0,
             "tier_before": "High",
@@ -902,19 +869,6 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
-          {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 42.0,
@@ -946,8 +900,8 @@
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2
       },
       "path_row_weighted": 13,
       "fourths": [
@@ -960,8 +914,8 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2,
             "afterburn": 3
           },
           "raw_total": 12,
@@ -976,8 +930,8 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
           "raw_total": 11,
@@ -1006,15 +960,14 @@
           "name": "Geyser Fist",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagegiven": 3
           },
           "bonuses": {
-            "damage": 1,
-            "increasedamagegiven": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "afterburn": 10
           },
-          "raw_total": 15,
+          "raw_total": 17,
           "row_weighted": 17
         },
         {
