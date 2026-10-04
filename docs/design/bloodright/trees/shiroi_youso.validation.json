@@ -80,7 +80,7 @@
   "examples": [
     {
       "name": "Divine Convergence",
-      "archetype": "Burst / execution",
+      "archetype": "Exposure / team burst",
       "ids": [
         "01",
         "02",
@@ -137,7 +137,7 @@
     },
     {
       "name": "Eye of the Tempest",
-      "archetype": "Fortress",
+      "archetype": "Fortress with sustain",
       "ids": [
         "06",
         "07",
@@ -147,7 +147,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
-        "decreasedamagetaken": 10,
+        "decreasedamagetaken": 8,
         "heal": 5
       },
       "advanced_arts": [
@@ -181,7 +181,7 @@
       "damage": 2,
       "increasedamagegiven": 8,
       "increasedamagetaken": 5,
-      "decreasedamagetaken": 10,
+      "decreasedamagetaken": 8,
       "afterburn": 10,
       "heal": 5
     },
@@ -315,8 +315,8 @@
         "name": "Eye of the Tempest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 8,
+        "row_weighted_total": 11,
         "covered_jutsu": [
           "Earth Release",
           "Water Release",
@@ -360,20 +360,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "07",
-        "08"
+        "04",
+        "05",
+        "06"
       ],
       "bonuses": {
         "increasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "heal": 5
+        "decreasedamagetaken": 2,
+        "afterburn": 10
       },
-      "raw_flat_total": 19,
-      "row_weighted_total": 33,
+      "raw_flat_total": 16,
+      "row_weighted_total": 32,
       "advanced_arts": [
-        "08"
+        "05"
       ],
       "non_dominated": true
     },
@@ -568,11 +568,11 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
+          "decreasedamagetaken": 8,
           "heal": 5
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 33,
+        "raw_flat_total": 17,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "08"
         ],
@@ -623,11 +623,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 4,
-          "decreasedamagetaken": 10,
+          "decreasedamagetaken": 8,
           "heal": 5
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 33,
+        "raw_flat_total": 17,
+        "row_weighted_total": 29,
         "advanced_arts": [
           "08"
         ],
@@ -995,10 +995,10 @@
       ],
       "path_bonuses": {
         "increasedamagegiven": 2,
-        "decreasedamagetaken": 10,
+        "decreasedamagetaken": 8,
         "heal": 5
       },
-      "path_row_weighted": 29,
+      "path_row_weighted": 25,
       "fourths": [
         {
           "id": "01",
@@ -1010,11 +1010,11 @@
           "bonuses": {
             "increasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 10,
+            "decreasedamagetaken": 8,
             "heal": 5
           },
-          "raw_total": 19,
-          "row_weighted": 33
+          "raw_total": 17,
+          "row_weighted": 29
         },
         {
           "id": "09",
@@ -1025,11 +1025,11 @@
           },
           "bonuses": {
             "increasedamagegiven": 4,
-            "decreasedamagetaken": 10,
+            "decreasedamagetaken": 8,
             "heal": 5
           },
-          "raw_total": 19,
-          "row_weighted": 33
+          "raw_total": 17,
+          "row_weighted": 29
         }
       ],
       "highest_diagnostic_fourth": "09"

@@ -1,6 +1,6 @@
 {
   "title": "Reptilian — Cold Blood and Scale",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Reptilian classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Reptilian classification / forked tree",
   "bloodline": {
     "id": "z78aHAPRQfctiw7_qNXMx",
     "review_id": "BR-057",
@@ -38,24 +38,27 @@
     "primary": "Increase Damage Given — two 35% rows that compound on a caster carrying both buffs (Reptile Chimera self, Cool-Blooded Empowerment circle)",
     "secondary": "Decrease Damage Taken — Reptile Chimera hide (single row, +10% Fortress route)",
     "tertiary": "Lifesteal — Cool-Blooded Empowerment circle (single row, +5% hard ceiling) with an Increase Damage Given rider",
-    "rationale": "Four supported rows sit on two 40 AP, cooldown-7 buffs, each live for the 2 rounds after its cast: Reptile Chimera (SELF) carries 35% Increase Damage Given and 35% Decrease Damage Taken; Cool-Blooded Empowerment (ALLY, radius-1 circle, caster included) carries 35% Increase Damage Given and 35% Lifesteal. The tree gives each tag one owner: Jaws of the Chimera takes both IDG rows to 42% (a caster carrying both buffs goes from ×1.82 to ×2.02); Basilisk Carapace takes the hide to 45% (hits ×0.65 → ×0.55); Feast of Scales takes the circle's Lifesteal to the 40% ceiling with a small IDG rider. No row deals damage, so no node carries flat Damage. Potency reaches matching supported tags on all jutsu of the proposed Reptilian classification (RUL-2026-10-03-005). Summoning: Reptile Zoo (summon, injectjutsus, visual; PVP only) and its injected Reptile King are unsupported."
+    "rationale": "Four supported rows sit on two 40 AP, cooldown-7 buffs, each live for the 2 rounds after its cast: Reptile Chimera (SELF) carries 35% Increase Damage Given and 35% Decrease Damage Taken; Cool-Blooded Empowerment (ALLY, radius-1 circle, caster included) carries 35% Increase Damage Given and 35% Lifesteal. Each tag has one route that maximizes it: Jaws of the Chimera takes both IDG rows to 42% (a caster carrying both buffs goes from ×1.82 to ×2.02); Basilisk Carapace takes the hide to 45% (hits ×0.65 → ×0.55); Feast of Scales takes the circle's Lifesteal to the 40% ceiling with a +2% IDG rider on both IDG rows. No row deals damage, so no node carries flat Damage. Potency reaches matching supported tags on all jutsu of the proposed Reptilian classification (RUL-2026-10-03-005). Summoning: Reptile Zoo (summon, injectjutsus, visual; PVP only) and its injected Reptile King are unsupported."
   },
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
       "01": "How do I win the exchange: bite harder or harden the hide?",
       "06": "How do I keep the brood fed?"
     },
     "route_identities": {
-      "03": "burst: stack both Increase Damage Given buffs into one amplified window",
-      "05": "fortress",
-      "08": "pack sustain: the circle leeches deeper from harder hits"
+      "03": "self-amplification: both Increase Damage Given buffs stacked on the caster in one window (the circle row also lifts allies)",
+      "05": "fortress: the one hide row to +10%",
+      "08": "pack sustain offense: circle Lifesteal at the ceiling, with an IDG rider so recipients leech from larger hits"
     },
-    "director_review": "none",
+    "director_review": "Jaws of the Chimera's +7% Increase Damage Given (Draft 4: +5%) sits on two rows that compound on the caster (×1.82 → ×2.02 with both buffs), and one of them, Cool-Blooded Empowerment's circle, also lifts every same-village ally in radius 1 (×1.35 → ×1.42). The nearest precedent, Blood-Enchanted Eyes' Feast of the Fallen (+7% on two self rows), has no ally reach. Confirm +7% or return the route to +5%.",
     "concerns": [
-      "Jaws of the Chimera rises from +5% to +7% IDG on two rows that compound on the caster (×1.96 → ×2.02 with both buffs); it matches Feast of the Fallen's 35 → 42% on two self IDG rows.",
+      "Jaws of the Chimera rises from Draft 4's +5% to +7% Increase Damage Given, within the two-compounding-row convention (≤ +8%). Feast of the Fallen (35 → 42%) is only a partial precedent: both its rows are SELF and its +7% is a secondary on a Lifesteal route, whereas one Reptilian row is the Cool-Blooded Empowerment circle, so Jaws also gives allies in the circle 42%. The two rows compound only on the caster (×1.82 → ×2.02, +10.6%); allies get one row (×1.35 → ×1.42, +5.2%). Kept at +7% for director attention, not as a settled match.",
+      "Basilisk Carapace takes one narrow row to the +10% Decrease Damage Taken ceiling with no secondary: Reptile Chimera's hide 35 → 45%, self only, live 2 of every 7 rounds. Arashima's Unbroken Horizon (Stormsinger's single hide row 35 → 45%) is the precedent, but it carries a +2% Lifesteal rider; this tree declines the rider so Lifesteal is raised by one route only. A lower value with a rider is the alternative if defensive capstones should read like the anchors.",
+      "Feast of Scales' +2% IDG rider reaches both IDG rows, so Pack sustain carries +4% IDG with the forced Chimeric Blood: as much as Fortress with Apex Instinct, below Jaws' +7%. It is a small share of the amplification route's tag, as the old +2% DDT rider was of the Fortress's.",
       "Pack sustain is team-dependent: solo the circle reaches only the caster, so it is likely the weakest 1v1 route (not simulated).",
       "Chimeric Blood stays universal (all 8 legal builds), as in Draft 4.",
+      "Row-weighted intensity: the strongest build (Jaws + Hardened Scales, row-weighted 19 on four rows; Draft 4's best was 18) is 4.75 per supported row, the highest per-row figure in the first-pass balance matrix. Four BP on four rows makes that largely structural; row weight is diagnostic only.",
       "The Reptilian classification extension and off-kit coverage remain director/engine decisions."
     ]
   },
@@ -151,7 +154,7 @@
         }
       ],
       "flavor": "Three sets of jaws close at once, and nothing caught between them is let go.",
-      "coverage_note": "Burst: both Increase Damage Given rows 35 → 42% on the full route (+7%); a caster carrying both buffs hits at ×1.42 × 1.42 ≈ ×2.02 (×1.82 unenhanced) for the 2 rounds after the 80% AP double cast; allies in the circle ×1.42.",
+      "coverage_note": "Amplification: both Increase Damage Given rows 35 → 42% on the full route (+7%); a caster carrying both buffs hits at ×1.42 × 1.42 ≈ ×2.02 (×1.82 unenhanced) for the 2 rounds after the 80% AP double cast; allies in the circle ×1.42.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
       "scope": "all Reptilian-classified jutsu",
@@ -304,7 +307,7 @@
         }
       ],
       "flavor": "The brood feeds together, and every mouthful sharpens the next bite.",
-      "coverage_note": "Pack sustain: Cool-Blooded Empowerment Lifesteal 35 → 40% on the full route (+5%, the hard ceiling); both Increase Damage Given rows +2% (37%, or 39% with Chimeric Blood), so the circle leeches from larger hits.",
+      "coverage_note": "Pack sustain: Cool-Blooded Empowerment Lifesteal 35 → 40% on the full route (+5%, the hard ceiling); both Increase Damage Given rows +2% (37%, or 39% with Chimeric Blood), the circle row and Reptile Chimera's self row alike, so recipients leech from larger hits.",
       "parent_rule": "ALL",
       "potency_classification": "Reptilian",
       "scope": "all Reptilian-classified jutsu",
@@ -329,7 +332,7 @@
         "03",
         "04"
       ],
-      "rationale": "Burst with a hide: both Increase Damage Given rows reach 42% (+7%), so the double cast puts ×1.42 × 1.42 ≈ ×2.02 on the caster for two rounds and ×1.42 on allies in the circle; Hardened Scales, the strongest fourth, makes the same Chimera window a 40% hide. Blood of the Brood is the alternative fourth (circle Lifesteal 36%).",
+      "rationale": "Self-amplification with a hide: both Increase Damage Given rows reach 42% (+7%), so the double cast puts ×1.42 × 1.42 ≈ ×2.02 on the caster for two rounds and ×1.42 on allies in the circle; Hardened Scales, the strongest fourth, makes the same Chimera window a 40% hide. Blood of the Brood is the alternative fourth (circle Lifesteal 36%).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 7,
@@ -494,7 +497,7 @@
         "04",
         "05"
       ],
-      "rationale": "Survival: Reptile Chimera's Decrease Damage Taken reaches 45% (+10%) for its 2-round window every 7 rounds; Apex Instinct, the strongest fourth, keeps a bite with both Increase Damage Given rows at 39%. Blood of the Brood is the alternative fourth (circle Lifesteal 36%, IDG 37%).",
+      "rationale": "Survival: Reptile Chimera's Decrease Damage Taken, the kit's one hide row, reaches 45% (+10%) for its 2-round window every 7 rounds; Apex Instinct, the strongest fourth, keeps a bite with both Increase Damage Given rows at 39%. Blood of the Brood is the alternative fourth (circle Lifesteal 36%, IDG 37%).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 4,
@@ -817,11 +820,11 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route: burst (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route that maximizes it: self-amplification (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
   "design_notes": [
     "Layout: Chimeric Blood (+2% IDG, +2% DDT; both Reptile Chimera rows plus the circle's IDG row) forks into Apex Instinct → Jaws of the Chimera (IDG 2/2/3 = +7%) and Hardened Scales → Basilisk Carapace (DDT 2/3/5 = +10%). Blood of the Brood runs one chain, Serpent's Thirst → Feast of Scales (Lifesteal 1/2/2 = +5%, plus +2% IDG on the capstone). Every Advanced Art is 3 BP deep; any two cost 5 or 6 BP.",
-    "Changes from Draft 4: Lifesteal no longer rides on Jaws of the Chimera or Basilisk Carapace (it was a +2% rider on all three capstones), so Lifesteal belongs to Pack sustain alone. Jaws becomes a pure IDG capstone and Apex Instinct a real commitment (+1% → +2%, Jaws +2% → +3%; route +5% → +7%). Feast of Scales swaps its +2% DDT, a small copy of the Fortress, for +2% IDG on the same circle cast that carries its Lifesteal. Basilisk Carapace keeps +5% DDT. Maxima over every legal allocation: IDG +7%, DDT +10%, Lifesteal +5%.",
-    "Impact: both IDG rows are jutsu-sourced, element-less and multiply in sequence (§3b), so the double cast (80% AP) gives ×1.42 × 1.42 ≈ ×2.02 on the full route against ×1.82 unenhanced (+10.6%), each buff alone ×1.42 against ×1.35 (+5.2%). Feast of the Fallen's 35 → 42% on two self IDG rows is the director precedent. The Fortress cuts hits in its window from ×0.65 to ×0.55 (−15.4%). Pack sustain: 40% Lifesteal on 39% IDG hits gives a recipient 0.40 × 1.39 ≈ 0.56 HP per point of unbuffed damage against 0.35 × 1.35 ≈ 0.47. The Ninjutsu IDG passive multiplies last; the 10% Genjutsu Increase Damage Taken passive is blunted only inside the Chimera window.",
+    "Changes from Draft 4: Lifesteal no longer rides on Jaws of the Chimera or Basilisk Carapace (it was a +2% rider on all three capstones), so Pack sustain is the one route that raises it. Jaws becomes a pure IDG capstone and Apex Instinct a real commitment (+1% → +2%, Jaws +2% → +3%; route +5% → +7%). Feast of Scales trades its +2% DDT rider for +2% IDG. The modifier reaches every IDG row, so it lifts both the circle row and Reptile Chimera's self row (Pack sustain +4% IDG with Chimeric Blood); it stays because larger hits mean more leech, the Lifesteal-plus-IDG pairing of the director-approved Feast of the Fallen and The Storm's Due. Basilisk Carapace keeps +5% DDT: one self row, live 2 of 7 rounds, reaches the +10% single-row ceiling, as Stormsinger's hide does under Arashima's Unbroken Horizon (which adds a +2% Lifesteal rider this tree declines). Maxima over every legal allocation: IDG +7%, DDT +10%, Lifesteal +5%.",
+    "Impact: both IDG rows are jutsu-sourced, element-less and multiply in sequence (§3b), so the double cast (80% AP) gives ×1.42 × 1.42 ≈ ×2.02 on the full route against ×1.82 unenhanced (+10.6%), each buff alone ×1.42 against ×1.35 (+5.2%). Feast of the Fallen's 35 → 42% on two self IDG rows is the nearest director precedent; it has no ally reach, while Jaws also lifts allies in the circle. The Fortress cuts hits in its window from ×0.65 to ×0.55 (−15.4%). Pack sustain: 40% Lifesteal on 39% IDG hits gives a recipient 0.40 × 1.39 ≈ 0.56 HP per point of unbuffed damage against 0.35 × 1.35 ≈ 0.47. The Ninjutsu IDG passive multiplies last; the 10% Genjutsu Increase Damage Taken passive is blunted only inside the Chimera window.",
     "Fourth purchases: Jaws (01,02,03) adds Hardened Scales (hide 40%, strongest) or Blood of the Brood (Lifesteal 36%); Fortress (01,04,05) adds Apex Instinct (IDG 39%, strongest) or Blood of the Brood; Pack sustain (06,07,08) only Chimeric Blood. No fourth adds the route's own primary tag: the sibling Hidden Arts carry different tags and Blood of the Brood carries no IDG or DDT.",
     "Delivery: both carriers cost 40 AP with cooldown 7; at most 2 of 7 rounds carry each buff, and neither acts in its cast round. Reptile Chimera is SELF. Cool-Blooded Empowerment is ALLY, AOE_CIRCLE_SPAWN: the clicked tile must hold a living same-side user (the caster's own tile qualifies: util.ts 2750–2752) and its rows apply once at cast to every same-village user within radius 1 (actions.ts 1239–1240; friendlyFire FRIENDLY). Not a ground effect."
   ],
@@ -830,7 +833,7 @@
     "IDG stacking: the caster is a legal ALLY target, so Reptile Chimera and Cool-Blooded Empowerment can both sit on the caster; same-tag effects from different jutsu each apply as their own multiplier (§3b; process.ts 1692–1825), giving ×2.02 on the Jaws route before the Ninjutsu passive. The window costs 80% AP in the cast round, which itself gets no bonus. Combined final damage was not simulated.",
     "Lifesteal budget: lifesteal and vamp share one 60%-of-damage leech budget per hit. Pack sustain reaches 40%; a caster inside the circle adds the 10% Ninjutsu passive (50%), so vamp or lifesteal from the main tree or items fills the last 10 points. The recipient heals from their own hits (pierce included); both combatants must be alive; healprevent on the recipient blocks it.",
     "Highest resolution: Cool-Blooded Empowerment's rows carry statTypes [Highest], resolved from the caster's highestOffence (G16), so on an ally the ratio tests the caster's highest stat. Element-less rows still match every element-less hit of any stat type and exclude only elemental hits of another stat (§3, §4b).",
-    "Team dependence: the circle reaches same-village users only (getTargetUser compares villageId); in a 1v1 it reaches only the caster, so Pack sustain is likely the weakest solo route and gains most in team fights. Jaws also lifts allies' Empowerment IDG.",
+    "Team dependence: the circle reaches same-village users only (getTargetUser compares villageId); in a 1v1 it reaches only the caster, so Pack sustain is likely the weakest solo route and gains most in team fights. Jaws, and Feast's rider, also lift allies' Empowerment IDG.",
     "Summoning: Reptile Zoo (PVP only) and its injected Reptile King (SPECIAL, empty bloodlineId, summon row only) have no supported rows; no node changes them. The unsupported visual rows (adverse) are untouched. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. Uptime against real opponents was not simulated."
   ],
   "progression": {
@@ -888,7 +891,7 @@
       "lifesteal"
     ],
     "supported_tags_in_kit_not_targeted": [],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Reptilian classification / forked tree",
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Reptilian classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",

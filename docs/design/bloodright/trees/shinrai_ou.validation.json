@@ -9,11 +9,11 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Storm classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Storm classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "universal node: 01 (Mandate of Thunder) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Storm Style: Daibutsu Thunder 50 -> 52",
+    "universal node: 01 (Mandate of Thunder) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Storm",
@@ -54,7 +54,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 5
       },
       "advanced_arts": [
@@ -122,7 +123,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 7,
+      "damage": 2,
+      "increasedamagegiven": 4,
       "increasedamagetaken": 10,
       "reflect": 10
     },
@@ -134,13 +136,12 @@
       "reflect": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -178,13 +179,15 @@
         "name": "Thunder King's Wrath",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 8,
         "covered_jutsu": [
-          "Indra's Storm Cloak",
+          "Izanagi's Hammer",
+          "Storm Style: Daibutsu Thunder",
+          "Storm Style: Divine Railgun",
           "Strike: Raijin"
         ],
-        "covered_rows": 3,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -267,11 +270,12 @@
         "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 7,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 5
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 26,
+      "raw_flat_total": 11,
+      "row_weighted_total": 25,
       "advanced_arts": [
         "03"
       ],
@@ -300,11 +304,12 @@
           "04"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "damage": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 26,
+        "raw_flat_total": 11,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -318,12 +323,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "damage": 2,
+          "increasedamagegiven": 4,
           "increasedamagetaken": 2,
           "reflect": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 25,
+        "raw_flat_total": 10,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "03"
         ],
@@ -557,7 +563,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Storm Style: Daibutsu Thunder",
@@ -568,7 +576,22 @@
           "Storm"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Izanagi's Hammer",
@@ -579,7 +602,22 @@
           "Storm"
         ],
         "method": "AOE_SPIRAL_SHOOT",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Storm Style: Divine Railgun",
@@ -590,7 +628,22 @@
           "Storm"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Strike: Raijin",
@@ -601,11 +654,40 @@
           "Storm"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Storm Style: Daibutsu Thunder",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Storm Style: Daibutsu Thunder",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -617,10 +699,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 7,
+        "damage": 2,
+        "increasedamagegiven": 4,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 23,
+      "path_row_weighted": 22,
       "fourths": [
         {
           "id": "04",
@@ -630,11 +713,12 @@
             "increasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagegiven": 7,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 5
           },
-          "raw_total": 12,
-          "row_weighted": 26
+          "raw_total": 11,
+          "row_weighted": 25
         },
         {
           "id": "06",
@@ -644,12 +728,13 @@
             "reflect": 2
           },
           "bonuses": {
-            "increasedamagegiven": 7,
+            "damage": 2,
+            "increasedamagegiven": 4,
             "increasedamagetaken": 2,
             "reflect": 2
           },
-          "raw_total": 11,
-          "row_weighted": 25
+          "raw_total": 10,
+          "row_weighted": 24
         }
       ],
       "highest_diagnostic_fourth": "04"
