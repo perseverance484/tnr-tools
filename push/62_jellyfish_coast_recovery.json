@@ -1,0 +1,373 @@
+{
+ "_note": "Recovery manifest after push/61 partial execution. Creates renamed basic AI and the quest only. Reuses the already-created Tidewatch Beach background and Royal Jellyfish by literal live IDs. No rewards. No scene characters.",
+ "dedupNames": true,
+ "imgSizes": {
+  "avatar_basic_jellyfish_v1.webp": 155014
+ },
+ "items": [
+  {
+   "name": "Shallows Jellyfish",
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "jelly_ai_basic",
+   "data": {
+    "username": "Shallows Jellyfish",
+    "level": 100,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "poolsMultiplier": 1,
+    "statsMultiplier": 1,
+    "isSummon": false,
+    "hidden": true,
+    "primaryElement": "Water",
+    "secondaryElement": "",
+    "jutsus": [
+     "mOA1hXNf4CcuwOhnnN7ZK",
+     "LiVOnYq6qHzjB0XkIIA2e",
+     "UnQKfwq_JoRVu10aTX6Uv",
+     "m-ur3A8TS8r5jGb84L9x7",
+     "UAgYZvo_7DUtmBsBAaAar"
+    ],
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "LiVOnYq6qHzjB0XkIIA2e",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "target": "RANDOM_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "RANDOM_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false,
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "avatar": "@img:avatar_basic_jellyfish_v1.webp",
+    "preferredStat": "Ninjutsu",
+    "preferredGeneral1": "Intelligence",
+    "preferredGeneral2": "Willpower"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "The Crown in the Surf",
+   "srcId": "jelly_quest_crown_in_surf",
+   "data": {
+    "name": "The Crown in the Surf",
+    "description": "A quiet stretch of Tidewatch Beach has been closed after luminous jellyfish began washing into the shallows. Clear the water, then find what is driving the swarm toward shore.",
+    "successDescription": "The Royal Jellyfish retreats beyond the breakers, and the scattered swarm drifts back out to sea. Tidewatch Beach is safe again.",
+    "questType": "event",
+    "tierLevel": null,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "startsAt": null,
+    "endsAt": null,
+    "content": {
+     "objectives": [
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>Morning light flashes across Tidewatch Beach, but the usual fishing skiffs are pulled high above the tide line. A warning rope cuts across the path to the water.</i> <br> <br> Overnight, luminous jellyfish drifted into the shallows and drove everyone off the beach. The assignment on the weathered patrol board is simple: clear the water and determine why the swarm came ashore.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_o0",
+       "nextObjectiveId": [
+        {
+         "text": "Step onto the beach.",
+         "nextObjectiveId": "jelly_o1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The next wave leaves a cold blue glow behind it. A jellyfish rises from the foam, its bell pulsing above the surface while thin tendrils drag across the wet sand.</i> <br> <br> More lights drift farther out, but this one holds the shallows as if guarding the way seaward.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_o1",
+       "nextObjectiveId": [
+        {
+         "text": "Clear the shallows.",
+         "nextObjectiveId": "jelly_b1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "start_battle",
+       "opponentAIs": [
+        {
+         "ids": [
+          "@ai:jelly_ai_basic"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "You failed to defeat the opponent",
+       "fleeDescription": "You fled from the opponent",
+       "drawDescription": "The battle ended in a draw",
+       "scaleGains": 1,
+       "id": "jelly_b1",
+       "opponent_scaled_to_user": true,
+       "keepOriginalPools": false,
+       "nextObjectiveId": "jelly_o2",
+       "failObjectiveId": "jelly_f1"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A numbing sting catches you before you can break away. You retreat above the tide line as the jellyfish sinks back into the surf.</i> <br> <br> It does not pursue. The creature simply waits in the shallows, pulsing with cold blue light.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_f1",
+       "nextObjectiveId": [
+        {
+         "text": "Regain your footing.",
+         "nextObjectiveId": "jelly_r1"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "reset_quest",
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "id": "jelly_r1",
+       "resetObjectiveId": "jelly_o1"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The jellyfish collapses into the receding foam. At once, the scattered lights beyond the breakers begin moving together.</i> <br> <br> The water darkens beneath a broad shadow. A much larger bell rises offshore, edged in bright points like a crown. The smaller jellyfish were not simply washing ashore. They were following it.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_o2",
+       "nextObjectiveId": [
+        {
+         "text": "Follow the retreating swarm.",
+         "nextObjectiveId": "jelly_o3"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Royal Jellyfish lifts with the swell until its crown clears the water. Long tendrils comb the surf, and the tide itself seems to pull toward the creature before spilling back across the sand.</i> <br> <br> The beach will not clear while the swarm still has something to follow.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_o3",
+       "nextObjectiveId": [
+        {
+         "text": "Challenge the Royal Jellyfish.",
+         "nextObjectiveId": "jelly_b2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "start_battle",
+       "opponentAIs": [
+        {
+         "ids": [
+          "fviJBCJMx8YAnT91TjK7B"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "completionOutcome": "Win",
+       "failDescription": "You failed to defeat the opponent",
+       "fleeDescription": "You fled from the opponent",
+       "drawDescription": "The battle ended in a draw",
+       "scaleGains": 1,
+       "id": "jelly_b2",
+       "opponent_scaled_to_user": true,
+       "keepOriginalPools": false,
+       "nextObjectiveId": "jelly_o4",
+       "failObjectiveId": "jelly_f2"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>A crushing surge throws you back toward dry sand. The Royal Jellyfish settles beyond the breakers while the smaller lights gather around it again.</i> <br> <br> The swarm has not scattered. Another approach is still possible.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_f2",
+       "nextObjectiveId": [
+        {
+         "text": "Regroup at the tide line.",
+         "nextObjectiveId": "jelly_r2"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "task": "reset_quest",
+       "description": "",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "id": "jelly_r2",
+       "resetObjectiveId": "jelly_o3"
+      },
+      {
+       "task": "dialog",
+       "image": "",
+       "description": "<i>The Royal Jellyfish sinks beneath the final breaker. Its crown is the last glimmer to vanish.</i> <br> <br> Without it, the remaining jellyfish lose their pattern. One by one, their blue lights turn away from shore and drift back into deeper water. The warning rope can finally come down.",
+       "successDescription": "",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "attackers": [],
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "id": "jelly_o4",
+       "nextObjectiveId": [
+        {
+         "text": "Reopen the shore.",
+         "nextObjectiveId": "jelly_win"
+        }
+       ],
+       "attackers_scaled_to_user": false
+      },
+      {
+       "description": "",
+       "successDescription": "The Royal Jellyfish retreats beyond the breakers, and the scattered swarm drifts back out to sea. Tidewatch Beach is safe again.",
+       "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+       "sceneCharacters": [],
+       "task": "win_quest",
+       "id": "jelly_win"
+      }
+     ],
+     "reward": {},
+     "sceneBackground": "Pz52vtn130CkDPjUjhPvN",
+     "sceneCharacters": []
+    },
+    "hidden": true
+   }
+  }
+ ]
+}
