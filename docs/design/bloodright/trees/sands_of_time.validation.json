@@ -12,8 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Sand classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "Damage above the 50 Nuke tier in a legal allocation (director review): Eternity Flux 50 -> 52",
-    "ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0"
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Sand",
@@ -43,7 +42,7 @@
   "examples": [
     {
       "name": "Sovereign of the Hour",
-      "archetype": "Burst",
+      "archetype": "Sustained amplification",
       "ids": [
         "01",
         "02",
@@ -52,8 +51,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 8,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 4
       },
       "advanced_arts": [
@@ -143,8 +141,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
-      "increasedamagegiven": 8,
+      "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
@@ -160,14 +157,15 @@
       "increasedamagetaken": 2
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "heal",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -204,14 +202,11 @@
         "category": "Advanced Art",
         "depth": 3,
         "raw_flat_total": 5,
-        "row_weighted_total": 9,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Eternity Flux",
-          "Momentum Shift",
-          "Timelapse",
-          "Timeshift"
+          "Momentum Shift"
         ],
-        "covered_rows": 4,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -361,12 +356,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 8,
+          "increasedamagegiven": 10,
           "increasedamagetaken": 4
         },
         "raw_flat_total": 14,
-        "row_weighted_total": 22,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -380,14 +374,13 @@
           "06"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 8,
+          "increasedamagegiven": 10,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 16,
-        "row_weighted_total": 22,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -793,9 +786,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Timelapse",
@@ -806,22 +797,7 @@
           "Sand"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Timeshift",
@@ -832,22 +808,7 @@
           "Sand"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Eternity Flux",
@@ -858,40 +819,11 @@
           "Sand"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 52.0,
-            "tier_before": "Nuke",
-            "tier_after": "above Nuke",
-            "tier_change": true,
-            "above_nuke": true,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
-    "tier_crossings": [
-      [
-        "Eternity Flux",
-        0,
-        2
-      ]
-    ],
-    "above_nuke": [
-      {
-        "jutsu": "Eternity Flux",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0
-      }
-    ]
+    "tier_crossings": [],
+    "above_nuke": []
   },
   "fourth_bp": [
     {
@@ -903,11 +835,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 8,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 18,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "04",
@@ -917,12 +848,11 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 8,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 4
           },
           "raw_total": 14,
-          "row_weighted": 22
+          "row_weighted": 18
         },
         {
           "id": "06",
@@ -933,14 +863,13 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 8,
+            "increasedamagegiven": 10,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
           "raw_total": 16,
-          "row_weighted": 22
+          "row_weighted": 18
         }
       ],
       "highest_diagnostic_fourth": "06"

@@ -2,9 +2,9 @@
 
 **Bloodline:** Sands of Time (BR-059, rank H, `yzbSbZ5rqRVIjiwN-farx`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance (roster pass) / Sand classification / forked tree · **Classification:** Sand (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle) · secondary Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration) · tertiary Strike — Sand Damage (Timeshift 40, Timelapse 40, Eternity Flux 50) through a controlled +2 burst payoff, set up on Momentum Shift's self Increase Damage Given.
+**Emphasis:** primary Control — Increase Damage Taken (Timeshift, Momentum Shift; two enemy rows) and Decrease Damage Given (Timelapse circle) · secondary Tank — Decrease Damage Taken (Timelapse self row) and Heal (Cellular Regeneration) · tertiary Self-amplification — Momentum Shift's self Increase Damage Given (one row) on the caster's own hits against every target in its window; Sand Damage (Timeshift 40, Timelapse 40, Eternity Flux 50) is left unamplified.
 
-Sands of Time is a rank H Tank / Control kit built from paired rows: Momentum Shift marks the target (35% Increase Damage Taken) and buffs the caster (35% Increase Damage Given); Timelapse weakens every enemy in its circle (30% Decrease Damage Given) and shields the caster (30% Decrease Damage Taken). Timeshift adds a second, broad 35% exposure row and Cellular Regeneration a static Heal 25 (250 HP per tick). The tree follows those pairs: an offensive Foundation on Momentum Shift (strike harder myself or age the target) and a defensive Foundation on Timelapse (shelter myself or weaken them). Routes: Burst +8% Increase Damage Given into a controlled +2 Damage payoff (Timeshift and Timelapse 40 → 42, Eternity Flux 50 → 52), Exposure +8% Increase Damage Taken, Fortress +10% Decrease Damage Taken with +5% Heal, Suppression +10% Decrease Damage Given. Stun, timecompression and barrier are unsupported and receive nothing.
+Sands of Time is a rank H Tank / Control kit built from paired rows: Momentum Shift marks the target (35% Increase Damage Taken) and buffs the caster (35% Increase Damage Given); Timelapse weakens every enemy in its circle (30% Decrease Damage Given) and shields the caster (30% Decrease Damage Taken). Timeshift adds a second, broad 35% exposure row and Cellular Regeneration a static Heal 25 (250 HP per tick). The tree follows those pairs: an offensive Foundation on Momentum Shift (strike harder myself or age the target) and a defensive Foundation on Timelapse (shelter myself or weaken them). Routes: Sustained amplification +10% Increase Damage Given on Momentum Shift's self row, Exposure +8% Increase Damage Taken, Fortress +10% Decrease Damage Taken with +5% Heal, Suppression +10% Decrease Damage Given. Damage stays unamplified: the Traits are Tank and Control, and the 50 row is Eternity Flux's, a C-rank stun cast (60 AP, cooldown 7), not a signature finisher. Stun, timecompression and barrier are unsupported and receive nothing.
 
 **Review status:** Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved
 
@@ -12,17 +12,17 @@ Sands of Time is a rank H Tank / Control kit built from paired rows: Momentum Sh
 |---|---|---|
 | Borrowed Hours | Foundation | How do I turn time into damage: quicken my own hand or age my target? |
 | Suspended Moment | Foundation | How do I hold back the hour: shelter myself or slow the hands raised against us? |
-| Sovereign of the Hour | Advanced Art | burst: self-amplification setup, controlled +2 Damage payoff on the caster's Sand strikes, any target |
+| Sovereign of the Hour | Advanced Art | sustained amplification: the caster's own hits on every target in Momentum Shift's window (pure Increase Damage Given, not burst) |
 | The Inevitable Hour | Advanced Art | exposure: one marked target takes more from everyone |
 | Timeless Bastion | Advanced Art | fortress: endure and recover |
 | Stilled Hourglass | Advanced Art | suppression: blunt every enemy in the circle |
 
-**Director review recommended:** Two questions. (1) Sovereign of the Hour's +2 Damage lifts Eternity Flux 50 → 52, past the Nuke tier, as the controlled payoff of Quickened Sands' self-amplification setup (Blood-Enchanted Eyes / Shakunetsu Sakura precedent, RUL-2026-10-04-001/002): confirm it, or keep Damage unamplified. (2) The Inevitable Hour is a primary team-wide exposure route at +8% Increase Damage Taken on two compounding rows, above the +5% the director accepted for exposure on Blood-Enchanted Eyes and Shakunetsu Sakura: confirm or trim, together with the roster's other two-row exposure routes.
+**Director review recommended:** Roster questions: DQ-B (The Inevitable Hour +8% Increase Damage Taken on two rows, ×1.122).
 
-- Concern: Eternity Flux 50 → 52 under Sovereign of the Hour (above_nuke_rationale). If the director declines it, Damage stays unamplified and Sovereign needs another identity-compatible rider beside its +3% Increase Damage Given; a bare +10% single-row route would have no anchor (Shakunetsu Sakura's +10% single-row Increase Damage Given routes carry +5% Heal or +3% Decrease Damage Given, and Arashima's single row stops at +8% with a +2 Damage or Lifesteal rider).
-- Concern: Increase Damage Taken +8% on two compounding, team-wide rows is above the +5% the director accepted for exposure on Blood-Enchanted Eyes (three rows) and Shakunetsu Sakura (two rows, with a +2 Damage payoff). It is the kit's primary Control identity; it should move with the roster's other two-row exposure routes (Aerathiel, Crystal Essence, Kyuko-sei, Godstorm Eclipse, Houkyuken), not alone.
-- Concern: Exposure out-values Burst on allies' hits and on the caster's non-Sand hits whenever Timeshift's row is live (combo window ×2.80 vs ×2.68 element-less; an ally's hit ×2.04 vs ×1.88); Burst leads on the caster's Sand strikes outside the Timeshift window and on unmarked targets, and is within 1% of Exposure on Sand strikes inside it. Party size and window uptime were not simulated.
-- Concern: Every percentage row except Momentum Shift's exposure needs the proposed jutsu-classification resolver; Burst's +2 Damage reaches three natively Sand rows and does not.
+- Concern: Damage is unamplified (Traits Tank, Control; Eternity Flux's 50 row is a C-rank, 60 AP stun cast, not a signature finisher), so Sovereign of the Hour is a bare +10% on one self row (2/3/5, ×1.074). Shakunetsu Sakura's single-row +10% routes also carry a +5% Heal or +3% Decrease Damage Given rider; a rider here would borrow a defensive route's tag (Heal, Decrease Damage Taken or Given).
+- Concern: The Inevitable Hour's +8% Increase Damage Taken on two compounding, team-wide rows is ×1.122, just above Blood-Enchanted Eyes' exposure maximum (×1.115) and above Shakunetsu Sakura's ×1.075. It is the kit's primary Control identity and should be ruled with the roster's other two-row exposure routes (Aerathiel, Crystal Essence, Kyuko-sei, Houkyuken, Hyouga Yui and Sea-King's Blessing at +8%, Tenohira Musei at +7%), not alone.
+- Concern: At 3 BP Exposure out-values Sovereign of the Hour wherever both exposure rows reach a hit (an ally's hit on the mark ×2.04 vs ×1.88; the caster's hit with all three rows live ×2.80 vs ×2.72) and on a hit that meets one exposure row without the self buff (×1.43 vs ×1.37). Sovereign leads wherever its self buff meets only one exposure row (×1.99 vs ×1.96: the Momentum Shift window alone, a Timeshift-marked target that Momentum Shift did not mark, or a highest-stat hit outside Earth/None/Sand/Wind on a target with all three rows live) and on unmarked targets such as Timelapse's circle (×1.45 vs ×1.37). Party size, target count and window uptime were not simulated.
+- Concern: Every percentage row except Momentum Shift's exposure carries no Sand and needs the proposed jutsu-classification resolver; Sovereign of the Hour's whole route depends on it.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Sand jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -32,7 +32,7 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 |---|---|---|---|---|---|
 | 01 | Borrowed Hours | Foundation | None | +2% Increase Damage Taken (enemy debuff); +2% Increase Damage Given (self buff) | Momentum Shift, Timeshift / 3 |
 | 02 | Quickened Sands | Hidden Art | Borrowed Hours | +3% Increase Damage Given (self buff) | Momentum Shift / 1 |
-| 03 | Sovereign of the Hour | Advanced Art | Quickened Sands | +3% Increase Damage Given (self buff); +2 Damage (damage) | Eternity Flux, Momentum Shift, Timelapse, Timeshift / 4 |
+| 03 | Sovereign of the Hour | Advanced Art | Quickened Sands | +5% Increase Damage Given (self buff) | Momentum Shift / 1 |
 | 04 | Brittle with Age | Hidden Art | Borrowed Hours | +2% Increase Damage Taken (enemy debuff) | Momentum Shift, Timeshift / 2 |
 | 05 | The Inevitable Hour | Advanced Art | Brittle with Age | +4% Increase Damage Taken (enemy debuff) | Momentum Shift, Timeshift / 2 |
 | 06 | Suspended Moment | Foundation | None | +2% Decrease Damage Taken (self buff); +2% Decrease Damage Given (enemy debuff) | Timelapse / 2 |
@@ -45,9 +45,9 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 - **Borrowed Hours** — Every second stolen from them is a second lent to you. Increase Damage Taken 35 → 37% on Timeshift (four stat types, no element) and Momentum Shift (Earth/None/Sand/Wind hits); Momentum Shift self Increase Damage Given 35 → 37%. 2 rounds after each cast.
 - **Quickened Sands** — For you the grains run fast; for everyone else they barely fall. Setup: Momentum Shift self Increase Damage Given 37 → 40% with Borrowed Hours (2 rounds after the 40 AP cast).
-- **Sovereign of the Hour** — The hour answers to one hand, and that hand strikes with every second of it. Burst: Momentum Shift self buff 35 → 43% on the full route (+8%); +2 Damage on every Sand strike, Timeshift and Timelapse 40 → 42 and Eternity Flux 50 → 52 EP (above the 50 Nuke tier; director review).
-- **Brittle with Age** — Centuries pass in a heartbeat, and bone remembers every one of them. Timeshift and Momentum Shift Increase Damage Taken 37 → 39% with Borrowed Hours (enemy, 2 rounds after the cast); allies' hits on that target gain too.
-- **The Inevitable Hour** — Nothing outruns the hour that was always coming. Exposure: both rows 35 → 43% on the full route (+8%); a hit under both takes ×1.43 × 1.43 ≈ ×2.04 (×1.82 at base). Pierce excluded.
+- **Sovereign of the Hour** — The hour answers to one hand, and that hand strikes with every second of it. Sustained amplification: Momentum Shift self Increase Damage Given 35 → 45% on the full route (+10% on one row, ×1.074), on the caster's highest-stat and element-less hits against every target for the 2 rounds after the cast.
+- **Brittle with Age** — Centuries pass in a heartbeat, and bone remembers every one of them. Setup for The Inevitable Hour: Timeshift and Momentum Shift Increase Damage Taken 37 → 39% with Borrowed Hours (enemy, 2 rounds after the cast).
+- **The Inevitable Hour** — Nothing outruns the hour that was always coming. Exposure: both rows 35 → 43% on the full route (+8%); a hit under both takes ×1.43 × 1.43 ≈ ×2.04 (×1.82 at base), ×1.122 compounded against Blood-Enchanted Eyes' ×1.115 and Shakunetsu Sakura's ×1.075. Pierce excluded.
 - **Suspended Moment** — Between one grain and the next, the world forgets to hurt you. Timelapse self Decrease Damage Taken 30 → 32% and Decrease Damage Given 30 → 32% on every enemy in the circle (2 rounds).
 - **Held in Stasis** — The blow arrives; the moment it should land never does. Timelapse self Decrease Damage Taken 32 → 35% with Suspended Moment; self-targeted, so it lands on the caster wherever the circle is placed.
 - **Timeless Bastion** — Stand still long enough and time learns to flow around you. Fortress: Timelapse self Decrease Damage Taken 30 → 40% on the full route (+10%); Cellular Regeneration Heal 25 → 30 (250 → 300 HP per tick, 600 per cast).
@@ -56,67 +56,59 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 ## Complete four-purchase examples
 
-| Build | Purchases | DMG | IDG | DDG | IDT | DDT | HEAL |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Sovereign of the Hour (Burst) | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Brittle with Age | +2 | +8% | — | +4% | — | — |
-| The Inevitable Hour (Exposure) | Borrowed Hours, Brittle with Age, The Inevitable Hour, Suspended Moment | — | +2% | +2% | +8% | +2% | — |
-| Timeless Bastion (Fortress) | Suspended Moment, Held in Stasis, Timeless Bastion, Leaden Seconds | — | — | +5% | — | +10% | +5% |
-| Stilled Hourglass (Suppression) | Borrowed Hours, Suspended Moment, Leaden Seconds, Stilled Hourglass | — | +2% | +10% | +2% | +4% | — |
+| Build | Purchases | IDG | DDG | IDT | DDT | HEAL |
+|---|---|---:|---:|---:|---:|---:|
+| Sovereign of the Hour (Sustained amplification) | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Brittle with Age | +10% | — | +4% | — | — |
+| The Inevitable Hour (Exposure) | Borrowed Hours, Brittle with Age, The Inevitable Hour, Suspended Moment | +2% | +2% | +8% | +2% | — |
+| Timeless Bastion (Fortress) | Suspended Moment, Held in Stasis, Timeless Bastion, Leaden Seconds | — | +5% | — | +10% | +5% |
+| Stilled Hourglass (Suppression) | Borrowed Hours, Suspended Moment, Leaden Seconds, Stilled Hourglass | +2% | +10% | +2% | +4% | — |
 
-Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · HEAL = Heal. Values are per-matching-row static additions, not final combat percentages.
+Abbreviations: IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · HEAL = Heal. Values are per-matching-row static additions, not final combat percentages.
 
-- **Sovereign of the Hour:** Strike: Momentum Shift's self buff at 43% and +2 Damage on every Sand strike (Eternity Flux 52, Timeshift and Timelapse 42 EP), on any target and outside the debuff windows too; Brittle with Age puts both exposure rows at 39%. Eternity Flux under all three rows takes 52/50 × 1.43 × 1.39 × 1.39 ≈ ×2.87 (×2.46 at base). Suspended Moment is the defensive alternative fourth.
+- **Sovereign of the Hour:** Self-amplification: Momentum Shift's self buff at 45% lifts the caster's own hits on every target for the two rounds after the cast, Timelapse's whole circle included; Brittle with Age puts both exposure rows at 39%. A hit under all three rows takes ×1.45 × 1.39 × 1.39 ≈ ×2.80 (×2.46 at base). Suspended Moment is the defensive alternative fourth.
 - **The Inevitable Hour:** Team focus: Timeshift and Momentum Shift mark one target at 43% each, so nearly every non-pierce hit from the caster or an ally gains (Momentum Shift's row only Earth/None/Sand/Wind hits); a hit under both rows and the 37% self buff takes ×1.37 × 1.43 × 1.43 ≈ ×2.80. Suspended Moment adds Timelapse's 32% / 32% defence. Quickened Sands is the strongest offensive fourth (self buff 40%, ≈ ×2.86).
 - **Timeless Bastion:** Outlast: Timelapse's self Decrease Damage Taken at 40% and Decrease Damage Given 35% on the circled enemy cut its hits on the caster to ×0.60 × 0.65 = ×0.39 (×0.49 at base), and Cellular Regeneration heals 300 HP per tick. Borrowed Hours is the alternative fourth for some exposure (37%).
 - **Stilled Hourglass:** Team control: Decrease Damage Given 40% on every enemy in the Timelapse circle protects the whole side, self Decrease Damage Taken 34%, and Borrowed Hours adds 37% exposure and self buff. Held in Stasis instead of Borrowed Hours is the duel build: Decrease Damage Taken 37%, an enemy in the circle hits the caster at ×0.60 × 0.63 ≈ ×0.38.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst | Exposure | Fortress | Suppression |
+| Jutsu | Row | Tag | Recipient | Base | Sustained amplification | Exposure | Fortress | Suppression |
 |---|---:|---|---|---:|---:|---:|---:|---:|
-| Timelapse | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
+| Timelapse | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
 | Timelapse | 1 | Decrease Damage Given | enemy | 30% | 30% | 32% (+2) | 35% (+5) | 40% (+10) |
 | Timelapse | 2 | Decrease Damage Taken | self | 30% | 30% | 32% (+2) | 40% (+10) | 34% (+4) |
-| Timeshift | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
+| Timeshift | 0 | Damage | enemy | 40 | 40 | 40 | 40 | 40 |
 | Timeshift | 1 | Increase Damage Taken | enemy | 35% | 39% (+4) | 43% (+8) | 35% | 37% (+2) |
 | Timeshift | 2 | timecompression (unsupported) | enemy | 100% | 100% | 100% | 100% | 100% |
-| Eternity Flux | 0 | Damage | enemy | 50 | 52 (+2) | 50 | 50 | 50 |
+| Eternity Flux | 0 | Damage | enemy | 50 | 50 | 50 | 50 | 50 |
 | Eternity Flux | 1 | stun (unsupported) | enemy | 100 | 100 | 100 | 100 | 100 |
 | Cellular Regeneration | 0 | barrier (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
 | Cellular Regeneration | 1 | Heal | self | 25 | 25 | 25 | 30 (+5) | 25 |
 | Momentum Shift | 0 | Increase Damage Taken | enemy | 35% | 39% (+4) | 43% (+8) | 35% | 37% (+2) |
-| Momentum Shift | 1 | Increase Damage Given | self | 35% | 43% (+8) | 37% (+2) | 35% | 37% (+2) |
+| Momentum Shift | 1 | Increase Damage Given | self | 35% | 45% (+10) | 37% (+2) | 35% | 37% (+2) |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
 - Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +2 Damage, +8% Increase Damage Given, +10% Decrease Damage Given, +8% Increase Damage Taken, +10% Decrease Damage Taken, +5% Heal (not jointly attainable)
+- Maximum individually achievable additions over every legal allocation: +10% Increase Damage Given, +10% Decrease Damage Given, +8% Increase Damage Taken, +10% Decrease Damage Taken, +5% Heal (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
-  - Route Sovereign of the Hour: +8% Increase Damage Given (2 + 3 + 3; off band)
+  - Route Sovereign of the Hour: +10% Increase Damage Given (2 + 3 + 5; on band)
   - Route The Inevitable Hour: +8% Increase Damage Taken (2 + 2 + 4; off band)
   - Route Timeless Bastion: +10% Decrease Damage Taken (2 + 3 + 5; on band)
   - Route Stilled Hourglass: +10% Decrease Damage Given (2 + 3 + 5; on band)
 - Supported rows in kit: 9 (DMG 3, DDG 1, DDT 1, HEAL 1, IDG 1, IDT 2)
+- Supported tags present but not targeted: damage
 - Strongest full build by row-weighted total: Borrowed Hours, Suspended Moment, Held in Stasis, Timeless Bastion (raw +21, row-weighted 23)
 - Lowest row-weighted node: Quickened Sands (3)
 
 Validator warnings:
 
-- Damage above the 50 Nuke tier in a legal allocation (director review): Eternity Flux 50 -> 52
-- ally-hazard area rows amplified (friendly fire none/ALL): Timelapse#0
+- supported tags present in kit but not targeted by any node: damage
 
 ### Damage tiers (base → final)
 
-Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
-
-| Jutsu | Row | Base (tier) | +2 Damage |
-|---|---:|---|---|
-| Timelapse | 0 | 40 (Normal) | 42 (Normal) |
-| Timeshift | 0 | 40 (Normal) | 42 (Normal) |
-| Eternity Flux | 0 | 50 (Nuke) | **52 (above Nuke)** |
-
-Above-Nuke rationale: Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): Sovereign of the Hour's +2 Damage lifts Eternity Flux 50 → 52, past the 50 Nuke tier, as the payoff of Quickened Sands' self-amplification setup; Timeshift and Timelapse go 40 → 42 and stay Normal. It restores at +2 the burst route the pre-batch tree carried at +5 (50 → 55). No legal allocation adds more than +2 Damage. Fable proposal; flagged for director review.
+No node adds flat Damage; every Damage row keeps its base (Timelapse 40 (Normal), Timeshift 40 (Normal), Eternity Flux 50 (Nuke)).
 
 ### Fourth-BP audit
 
@@ -124,8 +116,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
 |---|---|---|---|---:|
-| Sovereign of the Hour | +2 Damage, +8% IDG, +2% IDT | Brittle with Age | +2 Damage, +8% IDG, +4% IDT | 22 |
-| Sovereign of the Hour | +2 Damage, +8% IDG, +2% IDT | Suspended Moment *(highest diagnostic)* | +2 Damage, +8% IDG, +2% DDG, +2% IDT, +2% DDT | 22 |
+| Sovereign of the Hour | +10% IDG, +2% IDT | Brittle with Age | +10% IDG, +4% IDT | 18 |
+| Sovereign of the Hour | +10% IDG, +2% IDT | Suspended Moment *(highest diagnostic)* | +10% IDG, +2% DDG, +2% IDT, +2% DDT | 18 |
 | The Inevitable Hour | +2% IDG, +8% IDT | Quickened Sands | +5% IDG, +8% IDT | 21 |
 | The Inevitable Hour | +2% IDG, +8% IDT | Suspended Moment *(highest diagnostic)* | +2% IDG, +2% DDG, +8% IDT, +2% DDT | 22 |
 | Timeless Bastion | +2% DDG, +10% DDT, +5% HEAL | Borrowed Hours *(highest diagnostic)* | +2% IDG, +2% DDG, +2% IDT, +10% DDT, +5% HEAL | 23 |
@@ -137,8 +129,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 | # | Nodes | Bonuses |
 |---:|---|---|
-| 1 | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Brittle with Age | +2 Damage, +8% IDG, +4% IDT |
-| 2 | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Suspended Moment | +2 Damage, +8% IDG, +2% DDG, +2% IDT, +2% DDT |
+| 1 | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Brittle with Age | +10% IDG, +4% IDT |
+| 2 | Borrowed Hours, Quickened Sands, Sovereign of the Hour, Suspended Moment | +10% IDG, +2% DDG, +2% IDT, +2% DDT |
 | 3 | Borrowed Hours, Quickened Sands, Brittle with Age, The Inevitable Hour | +5% IDG, +8% IDT |
 | 4 | Borrowed Hours, Quickened Sands, Brittle with Age, Suspended Moment | +5% IDG, +2% DDG, +4% IDT, +2% DDT |
 | 5 | Borrowed Hours, Quickened Sands, Suspended Moment, Held in Stasis | +5% IDG, +2% DDG, +2% IDT, +5% DDT |
@@ -154,16 +146,15 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 
 ## Design notes
 
-- Structure unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10); the Foundations follow the kit's paired jutsu. Changes from Draft 4: the +5 Damage route becomes a controlled burst (Grinding Sands / Erosion of Eternity become Quickened Sands +3% Increase Damage Given / Sovereign of the Hour +3% Increase Damage Given and +2 Damage); The Inevitable Hour drops its Increase Damage Given rider and is pure exposure (2/2/4 = +8%); Suspended Moment trades Heal +2% for Decrease Damage Given +2%; Timeless Bastion carries the whole +5% Heal; Stilled Hourglass is +5% Decrease Damage Given (route still +10%) with +2% Decrease Damage Taken. Roster pass: Sovereign of the Hour was a bare +5% Increase Damage Given (route +10% on one row, out-valued by Exposure in most windows); it is now Arashima's Sundered Sky shape, +3% and +2 Damage (RUL-2026-10-04-003).
-- Flat Damage is +2 and sits on the Advanced Art only: Timeshift and Timelapse 40 → 42 (still Normal), Eternity Flux 50 → 52, past the Nuke tier (above_nuke_rationale). The old +5 took the 40s to 45 and Eternity Flux to 55. Damage reaches the caster's Sand strikes only; the kit's percentage rows and the Earth/None/Sand/Wind Increase Damage Given passive multiply it.
-- Burst vs Exposure at 3 BP, with the offensive fourth (Brittle with Age / Quickened Sands) in brackets; base kit ×2.46 with all three Momentum Shift / Timeshift rows live. In that combo window the caster's Eternity Flux takes ×2.79 [×2.87] under Burst and ×2.80 [×2.86] under Exposure, a Timelapse hit ×2.82 [×2.90] vs ×2.80 [×2.86], but an element-less hit (no flat Damage) only ×2.68 [×2.76]. Sand strikes in the Timeshift window alone: ×1.42–1.44 [×1.45–1.46] vs ×1.43; in the Momentum Shift window alone: ×2.04–2.06 [×2.07–2.09] vs ×1.96 [×2.00]. Outside the windows Burst keeps +4–5% on every Sand strike and Exposure gives nothing; an ally's hit on the marked target takes ×1.88 [×1.93] vs ×2.04. Exposure is the team route and wins the caster's non-Sand hits whenever Timeshift's row is live; Burst owns the caster's own Sand strikes, on unmarked targets too (Timelapse's circle in the Momentum Shift window ×1.50 vs ×1.37). Exposure stays at the batch's two-row +8% (director question).
-- Defence: both routes use one Timelapse cast. An enemy in the circle hits the caster at ×0.408 (Fortress) or ×0.396 (Suppression) at 3 BP, ×0.39 or ×0.378 with the sibling Hidden Art (base ×0.49); the Fortress keeps its Heal, the Suppression covers every enemy in the circle and the caster's allies. Maxima over every legal allocation: Increase Damage Given +8%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Heal +5%, Damage +2.
+- Structure unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10); the Foundations follow the kit's paired jutsu. Changes from Draft 4: the +5 Damage route (Grinding Sands / Erosion of Eternity; the 40s to 45, Eternity Flux 50 → 55) becomes self-amplification, Quickened Sands +3% / Sovereign of the Hour +5% Increase Damage Given (2/3/5 = +10% on Momentum Shift's one self row); The Inevitable Hour drops its Increase Damage Given rider and is pure exposure (2/2/4 = +8%); Suspended Moment trades Heal +2% for Decrease Damage Given +2%; Timeless Bastion carries the whole +5% Heal; Stilled Hourglass is +5% Decrease Damage Given (route still +10%) with +2% Decrease Damage Taken. The roster pass's +2 Damage on Sovereign is withdrawn: with Tank / Control Traits and a 50 row on a C-rank stun cast there is no kit reason to lift Eternity Flux past the Nuke tier, so Damage is unamplified (Timeshift and Timelapse 40, Eternity Flux 50 EP in every allocation).
+- Sovereign vs Exposure at 3 BP, with the offensive fourth (Brittle with Age / Quickened Sands) in brackets; base kit ×2.46 with all three Momentum Shift / Timeshift rows live. With all three live a caster's hit takes ×2.72 [×2.80] under Sovereign and ×2.80 [×2.86] under Exposure; Timeshift window alone ×1.37 [×1.39] vs ×1.43; Momentum Shift window alone ×1.99 [×2.02] vs ×1.96 [×2.00]; an ally's hit on the mark ×1.88 [×1.93] vs ×2.04. Exposure is the single-target team route; Sovereign leads on the caster's hits where its self buff meets only one exposure row, and on unmarked targets (Timelapse's circle ×1.45 vs ×1.37 [×1.40]). Exposure stays at the batch's two-row +8%, ×1.122 compounded (director question).
+- Defence: both routes use one Timelapse cast. An enemy in the circle hits the caster at ×0.408 (Fortress) or ×0.396 (Suppression) at 3 BP, ×0.39 or ×0.378 with the sibling Hidden Art (base ×0.49); the Fortress keeps its Heal, the Suppression covers every enemy in the circle and the caster's allies. Maxima over every legal allocation: Increase Damage Given +10%, Increase Damage Taken +8%, Decrease Damage Taken +10%, Decrease Damage Given +10%, Heal +5%; no flat Damage.
 - Matching and delivery (tags.ts 3477–3510; §3b): Timeshift's exposure and Timelapse's rows list four stat types and no element, so they match nearly every non-pierce hit; Momentum Shift's exposure matches only Earth/None/Sand/Wind hits; its self buff ('Highest', no element) matches the caster's highest-stat and element-less hits. Every cast has cooldown 7 and buff/debuff rows act the two rounds after the cast round only.
 
 ## Risks and unproven interactions
 
 - Classification: Sand is the single signature element and no other captured kit carries it. 4 of 9 kit rows carry Sand; the other five need the proposed jutsu-classification resolver, and Cellular Regeneration carries no element on any row, so in-kit it qualifies only through an authored Sand jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Sand coverage is unverified.
-- Ally hazard: Timelapse's Sand damage hits every other user inside the circle, allies included (friendly fire none = ALL; the caster never; actions.ts 1029-1060), so Sovereign of the Hour raises it 40 → 42 EP for them too. Only enemies get its Decrease Damage Given row, and the Decrease Damage Taken row is self-targeted.
+- Ally hazard: Timelapse's Sand damage hits every other user inside the circle, allies included (friendly fire none = ALL; the caster never; actions.ts 1029-1060); the tree adds no Damage to it (40 EP). Only enemies get its Decrease Damage Given row, and the Decrease Damage Taken row is self-targeted.
 - Exposure reach: The Inevitable Hour's 43% rows amplify allies' hits as well as the caster's, and any other Increase Damage Taken source multiplies again (stacking on, process.ts 1109-1117). Team value is larger than the duel arithmetic above.
 - Area suppression reach: Stilled Hourglass's 40% Decrease Damage Given lands on every enemy in the Timelapse circle and cuts their damage to the caster's allies too; worth more in team battles than one row suggests.
 - Heal: static heal is ×10 HP per tick, so +5% Heal adds 50 HP per tick (600 per cast vs 500). The SELF row on the EMPTY_GROUND spiral lands on the caster at cast time, not through the tiles (actions.ts 980-1004), and ticks on the two following rounds only. Healprevent blocks it.
