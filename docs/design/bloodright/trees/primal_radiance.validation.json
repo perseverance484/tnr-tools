@@ -9,9 +9,12 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Draft 4 / Fire classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Fire classification / forked tree",
   "structure_errors": [],
-  "warnings": [],
+  "warnings": [
+    "universal node: 06 (Hide and Fang) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "supported tags present in kit but not targeted by any node: damage"
+  ],
   "classification": {
     "potency_classification": "Fire",
     "label_kind": "element",
@@ -67,28 +70,8 @@
   },
   "examples": [
     {
-      "name": "Apex Conflagration",
-      "archetype": "Burst",
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "06"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "damage": 5,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
-      },
-      "advanced_arts": [
-        "Apex Conflagration"
-      ]
-    },
-    {
       "name": "Pyre of the Hunted",
-      "archetype": "Burn pressure",
+      "archetype": "Brand",
       "ids": [
         "01",
         "04",
@@ -98,7 +81,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
@@ -107,27 +90,8 @@
       ]
     },
     {
-      "name": "Den of Embers",
-      "archetype": "Fortified",
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "08"
-      ],
-      "cost": 4,
-      "bonuses": {
-        "increasedamagegiven": 4,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 10
-      },
-      "advanced_arts": [
-        "Den of Embers"
-      ]
-    },
-    {
       "name": "Primal Rampage",
-      "archetype": "Buff window",
+      "archetype": "Fury window",
       "ids": [
         "01",
         "06",
@@ -138,18 +102,36 @@
       "bonuses": {
         "increasedamagegiven": 10,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 4
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Primal Rampage"
       ]
+    },
+    {
+      "name": "Den of Embers",
+      "archetype": "Fortress",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 10
+      },
+      "advanced_arts": [
+        "Den of Embers"
+      ]
     }
   ],
   "audit": {
-    "available_skills": 10,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 4,
-    "advanced_art_count": 4,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -159,18 +141,17 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 5,
-      "3": 10,
-      "4": 14
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
       "increasedamagegiven": 10,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 2,
       "decreasedamagetaken": 10,
       "afterburn": 10
     },
@@ -184,12 +165,13 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -202,36 +184,6 @@
           "Primal Incineration"
         ],
         "covered_rows": 1,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "02",
-        "name": "Fang and Ember",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
-        "covered_jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "03",
-        "name": "Apex Conflagration",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel"
-        ],
-        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -254,12 +206,12 @@
         "name": "Pyre of the Hunted",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 10,
-        "row_weighted_total": 10,
+        "raw_flat_total": 7,
+        "row_weighted_total": 7,
         "covered_jutsu": [
           "Primal Incineration"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -297,13 +249,12 @@
         "name": "Den of Embers",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Fire Style: Beast",
           "Fire Style: Squirrel"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -326,13 +277,12 @@
         "name": "Primal Rampage",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Fire Style: Beast",
-          "Fire Style: Squirrel"
+          "Fire Style: Beast"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -346,12 +296,12 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 10
       },
-      "raw_flat_total": 19,
-      "row_weighted_total": 19,
+      "raw_flat_total": 16,
+      "row_weighted_total": 16,
       "advanced_arts": [
         "05"
       ],
@@ -375,131 +325,18 @@
       {
         "ids": [
           "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagetaken": 2,
-          "afterburn": 3
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagetaken": 5,
-          "afterburn": 10
-        },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2,
-          "afterburn": 3
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 2,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 5
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 2,
-          "decreasedamagetaken": 2
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
           "04",
           "05",
           "06"
         ],
         "bonuses": {
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 10
         },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "05"
         ],
@@ -549,12 +386,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -587,10 +424,10 @@
         "bonuses": {
           "increasedamagegiven": 10,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 4
+          "decreasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "10"
         ],
@@ -604,11 +441,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 7,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "08"
         ],
@@ -623,10 +460,10 @@
         ],
         "bonuses": {
           "increasedamagegiven": 10,
-          "decreasedamagetaken": 7
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 17,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],
@@ -648,10 +485,6 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
@@ -668,21 +501,6 @@
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "06"
-        ],
         [
           "01",
           "04",
@@ -720,42 +538,6 @@
         ]
       ],
       "4": [
-        [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
         [
           "01",
           "04",
@@ -807,6 +589,164 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [],
+    "rows": [
+      {
+        "jutsu": "Fire Style: Beast",
+        "row": 0,
+        "base": 50.0,
+        "tier": "Nuke",
+        "elements": [
+          "Fire"
+        ],
+        "method": "SINGLE",
+        "steps": []
+      },
+      {
+        "jutsu": "Fire Style: Squirrel",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "Fire"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": []
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "05",
+      "name": "Pyre of the Hunted",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Hide and Fang",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "Den of Embers",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hunter's Brand",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
+        {
+          "id": "09",
+          "name": "Kindled Fury",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "09"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Primal Rampage",
+      "path": [
+        "06",
+        "09",
+        "10"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 10,
+        "decreasedamagetaken": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hunter's Brand",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
+        {
+          "id": "07",
+          "name": "Radiant Hide",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 10,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "07"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

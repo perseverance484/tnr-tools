@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "Summoning "
   },
-  "revision": "Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Oni Hammer Swing#1"
@@ -58,7 +58,7 @@
   "examples": [
     {
       "name": "Feast of a Thousand Mouths",
-      "archetype": "Sustain",
+      "archetype": "Sustain offense",
       "ids": [
         "01",
         "02",
@@ -89,8 +89,7 @@
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
-        "lifesteal": 2
+        "decreasedamagetaken": 10
       },
       "advanced_arts": [
         "Barred Gate of Yomi"
@@ -101,16 +100,16 @@
       "archetype": "Burst",
       "ids": [
         "06",
-        "07",
+        "09",
         "08",
         "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 5,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -119,18 +118,17 @@
     },
     {
       "name": "Toll of the Night Bell",
-      "archetype": "Pressure",
+      "archetype": "Suppression",
       "ids": [
         "06",
-        "09",
+        "07",
         "10",
-        "07"
+        "09"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "decreasedamagegiven": 5,
-        "increasedamagetaken": 10
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 5
       },
       "advanced_arts": [
         "Toll of the Night Bell"
@@ -156,14 +154,14 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
+      "damage": 2,
       "increasedamagegiven": 5,
-      "decreasedamagegiven": 5,
-      "increasedamagetaken": 10,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 5,
       "decreasedamagetaken": 10,
       "lifesteal": 5
     },
@@ -247,12 +245,12 @@
         "name": "Barred Gate of Yomi",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
           "Otherworldly Conduit"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -266,36 +264,6 @@
         "covered_jutsu": [
           "Herald of the Black Night",
           "Oni Hammer Swing"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "07",
-        "name": "Grip of the Yurei",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
-        "covered_jutsu": [
-          "Oni Hammer Swing",
-          "Possessing Yurei"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "08",
-        "name": "March of a Thousand Demons",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Oni Hammer Swing",
-          "Possessing Yurei"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -316,17 +284,45 @@
         "tags_without_rows": []
       },
       {
+        "id": "08",
+        "name": "March of a Thousand Demons",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Oni Hammer Swing",
+          "Possessing Yurei"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "07",
+        "name": "Dread of the Procession",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Oni Hammer Swing"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
         "id": "10",
         "name": "Toll of the Night Bell",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 8,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Herald of the Black Night",
           "Oni Hammer Swing"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
@@ -334,20 +330,21 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "06",
-        "09",
-        "10"
+        "02",
+        "03",
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 5,
-        "increasedamagetaken": 10,
-        "decreasedamagetaken": 2
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2,
+        "lifesteal": 5
       },
-      "raw_flat_total": 19,
-      "row_weighted_total": 19,
+      "raw_flat_total": 16,
+      "row_weighted_total": 16,
       "advanced_arts": [
-        "10"
+        "03"
       ],
       "non_dominated": true
     },
@@ -416,10 +413,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
-          "lifesteal": 4
+          "lifesteal": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "05"
         ],
@@ -442,7 +439,7 @@
         "raw_flat_total": 13,
         "row_weighted_total": 13,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -452,15 +449,14 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 14,
+        "raw_flat_total": 13,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -494,11 +490,10 @@
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 10,
-          "lifesteal": 2
+          "decreasedamagetaken": 10
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 18,
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
         "advanced_arts": [
           "05"
         ],
@@ -512,14 +507,13 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 15,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -546,20 +540,17 @@
           "01",
           "06",
           "07",
-          "08"
+          "09"
         ],
         "bonuses": {
-          "damage": 5,
           "increasedamagegiven": 2,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 2,
+          "decreasedamagegiven": 5,
+          "increasedamagetaken": 5,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 18,
-        "advanced_arts": [
-          "08"
-        ],
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
+        "advanced_arts": [],
         "non_dominated": true
       },
       {
@@ -567,6 +558,26 @@
           "01",
           "06",
           "07",
+          "10"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagegiven": 10,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 16,
+        "row_weighted_total": 16,
+        "advanced_arts": [
+          "10"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "06",
+          "08",
           "09"
         ],
         "bonuses": {
@@ -578,26 +589,8 @@
         },
         "raw_flat_total": 13,
         "row_weighted_total": 15,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 2,
-          "decreasedamagegiven": 5,
-          "increasedamagetaken": 10,
-          "decreasedamagetaken": 2
-        },
-        "raw_flat_total": 19,
-        "row_weighted_total": 19,
         "advanced_arts": [
-          "10"
+          "08"
         ],
         "non_dominated": true
       },
@@ -609,12 +602,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 5,
-          "decreasedamagegiven": 2,
+          "damage": 2,
+          "decreasedamagegiven": 5,
           "increasedamagetaken": 5
         },
         "raw_flat_total": 12,
-        "row_weighted_total": 17,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "08"
         ],
@@ -628,12 +621,11 @@
           "10"
         ],
         "bonuses": {
-          "damage": 2,
-          "decreasedamagegiven": 5,
-          "increasedamagetaken": 10
+          "decreasedamagegiven": 10,
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],
@@ -713,17 +705,17 @@
         [
           "06",
           "07",
-          "08"
-        ],
-        [
-          "06",
-          "07",
           "09"
         ],
         [
           "06",
-          "09",
+          "07",
           "10"
+        ],
+        [
+          "06",
+          "08",
+          "09"
         ]
       ],
       "4": [
@@ -785,19 +777,19 @@
           "01",
           "06",
           "07",
-          "08"
-        ],
-        [
-          "01",
-          "06",
-          "07",
           "09"
         ],
         [
           "01",
           "06",
-          "09",
+          "07",
           "10"
+        ],
+        [
+          "01",
+          "06",
+          "08",
+          "09"
         ],
         [
           "06",
@@ -814,6 +806,269 @@
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Possessing Yurei",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "08",
+              "09"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Oni Hammer Swing",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "Shadow"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "06",
+              "08",
+              "09"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Feast of a Thousand Mouths",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagetaken": 2,
+        "lifesteal": 5
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Hide of the Oni",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagetaken": 5,
+            "lifesteal": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        },
+        {
+          "id": "06",
+          "name": "Oni's Heavy Hand",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 5,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2,
+            "lifesteal": 5
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Barred Gate of Yomi",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 10
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "02",
+          "name": "Hungry Ghost's Draught",
+          "category": "Hidden Art",
+          "adds": {
+            "lifesteal": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 10,
+            "lifesteal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
+        {
+          "id": "06",
+          "name": "Oni's Heavy Hand",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "March of a Thousand Demons",
+      "path": [
+        "06",
+        "09",
+        "08"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5
+      },
+      "path_row_weighted": 11,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hour of the Ox",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 5,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 13,
+          "row_weighted": 15
+        },
+        {
+          "id": "07",
+          "name": "Dread of the Procession",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagegiven": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "decreasedamagegiven": 5,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
+    {
+      "advanced_art": "10",
+      "name": "Toll of the Night Bell",
+      "path": [
+        "06",
+        "07",
+        "10"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hour of the Ox",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 16,
+          "row_weighted": 16
+        },
+        {
+          "id": "09",
+          "name": "Marked by the Herald",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

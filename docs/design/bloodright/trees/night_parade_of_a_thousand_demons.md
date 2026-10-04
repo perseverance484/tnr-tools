@@ -1,10 +1,27 @@
 # Night Parade of A Thousand Demons — The Lantern Procession
 
-**Bloodline:** Night Parade of A Thousand Demons (BR-051, rank H, `r_99Xg8SIOYw2awCMSR7e`) · **Revision:** Draft 2 / Shadow classification / forked tree (RUL-2026-10-03-005 recalibration) · **Classification:** Shadow (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
+**Bloodline:** Night Parade of A Thousand Demons (BR-051, rank H, `r_99Xg8SIOYw2awCMSR7e`) · **Revision:** Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree · **Classification:** Shadow (element) · **Engine status:** proposal_requires_jutsu_classification_resolver
 
-**Emphasis:** primary Otherworldly Conduit self buffs: Decrease Damage Taken (+10% route) and Lifesteal (+5% route), with Increase Damage Given as +5% glue · secondary Damage on the two Shadow hits, Possessing Yurei and Oni Hammer Swing (+5) · tertiary Enemy debuffs: Herald of the Black Night exposure (Increase Damage Taken, +10% route) with Oni Hammer Swing suppression (Decrease Damage Given, +5%, ally hazard).
+**Emphasis:** primary Otherworldly Conduit self buffs (Hour of the Ox): sustain offense on Lifesteal with Increase Damage Given, or a Decrease Damage Taken fortress · secondary Burst from Oni's Heavy Hand: Herald of the Black Night exposure set up on the Hidden Art, paid off with +2 Damage on Possessing Yurei and Oni Hammer Swing (45 → 47) · tertiary Suppression on Oni Hammer Swing's Decrease Damage Given (ally hazard).
 
-Three of the seven supported rows ride one 40 AP self cast, Otherworldly Conduit (Increase Damage Given 35%, Decrease Damage Taken 35%, Lifesteal 40% at jutsu level 25, 2 rounds, realized on the caster at cast time), so the Conduit is the kit's engine and root A buffs it: Decrease Damage Taken and Lifesteal each take a route, Increase Damage Given is Foundation-plus-capstone glue. The two Shadow Damage rows (Possessing Yurei single target, Oni Hammer Swing radius-1 circle; 45 EP, 60 AP, cooldown 7) are the only direct damage and take the Damage route under root B, whose Foundation carries the two enemy debuffs: Oni Hammer Swing's 30% Decrease Damage Given and Herald of the Black Night's 35% Increase Damage Taken (element-less, all four stat types, friendly fire ENEMIES, radius-1 circle at range 5 for 40 AP). The Herald's exposure is the fourth route; it amplifies every non-pierce hit on exposed enemies from any source, the summoned Underworld Gate ally included. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Stun, buffprevent and summon are unsupported and untouched.
+Three of the seven supported rows ride one 40 AP self cast, Otherworldly Conduit (Increase Damage Given 35%, Decrease Damage Taken 35%, Lifesteal 40% at jutsu level 25, live for the 2 rounds after the cast), so root A, Hour of the Ox, is the Conduit: "How do I let the Conduit carry me through the fight: feed on it or wall it out?" Feast of a Thousand Mouths feeds (Lifesteal to the +5% ceiling with Increase Damage Given) and Barred Gate of Yomi walls (+10% Decrease Damage Taken, nothing else). Root B, Oni's Heavy Hand, works only on the enemy: "How do I break the enemy: mark them for the kill or crush the strength out of them?" March of a Thousand Demons is burst, with Marked by the Herald setting up exposure and a controlled +2 Damage on the two 45 EP Shadow hits as the payoff. Toll of the Night Bell is suppression on Oni Hammer Swing. Root A touches only Conduit rows and root B only enemy-side rows. Herald exposure amplifies every non-pierce hit on the marked from any source, so it stops at +5%. Potency reaches matching supported tags on all Shadow jutsu (RUL-2026-10-03-005). Stun, buffprevent and summon are unsupported and untouched.
+
+**Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
+
+| Node | Tier | Foundation sentence / route identity |
+|---|---|---|
+| Hour of the Ox | Foundation | How do I let the Conduit carry me through the fight: feed on it or wall it out? |
+| Oni's Heavy Hand | Foundation | How do I break the enemy: mark them for the kill or crush the strength out of them? |
+| Feast of a Thousand Mouths | Advanced Art | sustain offense |
+| Barred Gate of Yomi | Advanced Art | fortress |
+| March of a Thousand Demons | Advanced Art | burst: exposure set up, controlled raw-Damage payoff |
+| Toll of the Night Bell | Advanced Art | suppression |
+
+- Concern: The old Pressure route (+10% Herald exposure) is dropped; exposure now stops at +5% as Burst setup. If the director wants a dedicated team-exposure route, it would replace Suppression and should stay well under +10% because the exposure reaches every source's hits.
+- Concern: Burst's distinct value is narrow. Suppression's realistic fourth (Marked by the Herald, 06, 07, 09, 10) takes Burst's whole 40% exposure setup, so against Burst with Dread of the Procession (06, 07, 08, 09) the only difference is +2 EP (×1.044 on two 60 AP, cooldown 7 hits) versus +5% Hammer suppression. This mirrors the director-accepted Blood-Enchanted Eyes pattern (Feast of the Fallen with Opened Veins); widening exposure past +5% to make it unique was rejected because exposure reaches every source's hits. Not simulated.
+- Concern: Barred Gate of Yomi and Toll of the Night Bell are single-tag capstones, lighter than the Blood-Enchanted Eyes and Arashima fortress / suppression capstones. Each rider the kit offers either stacks with a sibling route within 4 BP (Lifesteal or Increase Damage Given on the Fortress into Feast via Hungry Ghost's Draught; Decrease Damage Given on the Fortress and Decrease Damage Taken on Toll into each other across the roots; Increase Damage Taken on Toll into Burst via Marked by the Herald) or hands one route's payoff to another (flat Damage; Lifesteal on Toll).
+- Concern: Feast keeps +3% Increase Damage Given (route +5%), below the +5% capstone in the Blood-Enchanted Eyes and Arashima templates. At +5% Feast with Oni's Heavy Hand (×1.42 × 1.37 ≈ ×1.95 with 45% Lifesteal) would come within 3% of Burst with Hour of the Ox (≈ ×2.00) on the two kit hits and pass it on every other hit; the director may still prefer the template value.
+- Concern: Suppression raises the Hammer's ally-hazard Decrease Damage Given to 40% for allies standing in the circle as well as enemies.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Shadow jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
 
@@ -16,74 +33,98 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | 02 | Hungry Ghost's Draught | Hidden Art | Hour of the Ox | +2% Lifesteal (self buff) | Otherworldly Conduit / 1 |
 | 03 | Feast of a Thousand Mouths | Advanced Art | Hungry Ghost's Draught | +3% Lifesteal (self buff); +3% Increase Damage Given (self buff) | Otherworldly Conduit / 2 |
 | 04 | Hide of the Oni | Hidden Art | Hour of the Ox | +3% Decrease Damage Taken (self buff) | Otherworldly Conduit / 1 |
-| 05 | Barred Gate of Yomi | Advanced Art | Hide of the Oni | +5% Decrease Damage Taken (self buff); +2% Lifesteal (self buff) | Otherworldly Conduit / 2 |
+| 05 | Barred Gate of Yomi | Advanced Art | Hide of the Oni | +5% Decrease Damage Taken (self buff) | Otherworldly Conduit / 1 |
 | 06 | Oni's Heavy Hand | Foundation | None | +2% Decrease Damage Given (enemy debuff); +2% Increase Damage Taken (enemy debuff) | Herald of the Black Night, Oni Hammer Swing / 2 |
-| 07 | Grip of the Yurei | Hidden Art | Oni's Heavy Hand | +2 Damage (damage) | Oni Hammer Swing, Possessing Yurei / 2 |
-| 08 | March of a Thousand Demons | Advanced Art | Grip of the Yurei | +3 Damage (damage) | Oni Hammer Swing, Possessing Yurei / 2 |
 | 09 | Marked by the Herald | Hidden Art | Oni's Heavy Hand | +3% Increase Damage Taken (enemy debuff) | Herald of the Black Night / 1 |
-| 10 | Toll of the Night Bell | Advanced Art | Marked by the Herald | +5% Increase Damage Taken (enemy debuff); +3% Decrease Damage Given (enemy debuff) | Herald of the Black Night, Oni Hammer Swing / 2 |
+| 08 | March of a Thousand Demons | Advanced Art | Marked by the Herald | +2 Damage (damage) | Oni Hammer Swing, Possessing Yurei / 2 |
+| 07 | Dread of the Procession | Hidden Art | Oni's Heavy Hand | +3% Decrease Damage Given (enemy debuff) | Oni Hammer Swing / 1 |
+| 10 | Toll of the Night Bell | Advanced Art | Dread of the Procession | +5% Decrease Damage Given (enemy debuff) | Oni Hammer Swing / 1 |
 
-Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
+Connections: 01→02, 02→03, 01→04, 04→05, 06→09, 09→08, 06→07, 07→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Hour of the Ox** — At the hour of the ox the veil thins, and what crosses it walks beside you. Otherworldly Conduit self buffs: Increase Damage Given 35 → 37%, Decrease Damage Taken 35 → 37%; one 40 AP self cast, 2 rounds, non-pierce hits.
-- **Hungry Ghost's Draught** — The hungry dead drink what you spill, and leave a share for the one who opened the way. Otherworldly Conduit Lifesteal only, 40 → 42%: a share of every hit you land (pierce included) for 2 rounds; 60% leech cap shared with vamp.
-- **Feast of a Thousand Mouths** — A thousand mouths at the table, and every one of them feeds you. Conduit Lifesteal to 45% (route +5%, the hard ceiling; 15 points under the 60% leech cap) and its Increase Damage Given +3% (40% with Hour of the Ox); same 40 AP cast.
+- **Hungry Ghost's Draught** — The hungry dead drink what you spill, and leave a share for the one who opened the way. Otherworldly Conduit Lifesteal only, 40 → 42%: a share of every hit you land (pierce included) for 2 rounds; 60% leech cap shared with vamp. The Sustain route's setup; Lifesteal appears on no other route.
+- **Feast of a Thousand Mouths** — A thousand mouths at the table, and every one of them feeds you. Sustain offense: Conduit Lifesteal 40 → 45% on the full route (the +5% hard ceiling, inside the 60% leech budget) and Increase Damage Given 35 → 40% with Hour of the Ox; same 40 AP cast.
 - **Hide of the Oni** — An oni's hide turns the blade that would have split a lesser thing. Otherworldly Conduit Decrease Damage Taken only: 37 → 40% with Hour of the Ox; every non-pierce hit of any stat type, 2 rounds per 40 AP cast.
-- **Barred Gate of Yomi** — Yomi's gate is barred from the inside; what stands behind it does not come to harm. Conduit Decrease Damage Taken to 45% (route +10%) and Lifesteal +2% (42%, or 44% with Hungry Ghost's Draught); one 40 AP self cast, 2 rounds.
+- **Barred Gate of Yomi** — Yomi's gate is barred from the inside; what stands behind it does not come to harm. Fortress: Conduit Decrease Damage Taken 35 → 45% on the full route, against every non-pierce hit for the 2 rounds after one 40 AP self cast. No Lifesteal: that belongs to Feast of a Thousand Mouths.
 - **Oni's Heavy Hand** — The oni does not lift the hammer. The hammer lifts the oni, and comes down. Oni Hammer Swing Decrease Damage Given 30 → 32% on its radius-1 circle (allies too); Herald of the Black Night exposure 35 → 37% on its circle (enemies only).
-- **Grip of the Yurei** — A yurei's fingers close where the heart used to be, and do not let go. Possessing Yurei (single target) and Oni Hammer Swing (radius-1 circle) Shadow Damage 45 → 47 EP; range 4, 60 AP, CD 7.
-- **March of a Thousand Demons** — The lanterns bob, the drums roll, and the whole procession walks over you. Same two Shadow Damage rows; route total +5 Damage (45 → 50 EP at jutsu level 25). Yurei's stun and the Hammer's rider unchanged.
-- **Marked by the Herald** — The herald names you to the parade, and the parade remembers. Herald of the Black Night exposure only, 37 → 40% with Oni's Heavy Hand: radius-1 circle at range 5 (friendly fire ENEMIES), 40 AP; every non-pierce hit, 2 rounds.
-- **Toll of the Night Bell** — When the night bell tolls, every hand raised against you weakens and every wound deepens. Herald exposure to 45% (route +10%) and Oni Hammer Swing Decrease Damage Given +3% (35% with Oni's Heavy Hand; allies in its circle too).
+- **Marked by the Herald** — The herald names you to the parade, and the parade remembers. Burst setup: Herald of the Black Night exposure 37 → 40% with Oni's Heavy Hand (radius-1 circle at range 5, enemies only, 40 AP); every non-pierce hit the marked take, from any source, for 2 rounds.
+- **March of a Thousand Demons** — The lanterns bob, the drums roll, and the whole procession walks over you. Burst payoff: Possessing Yurei (single target) and Oni Hammer Swing (radius-1 circle) Shadow Damage 45 → 47 EP, still High tier; Herald exposure 40% on the full route.
+- **Dread of the Procession** — Those who watch the parade pass find their arms too heavy to lift. Oni Hammer Swing Decrease Damage Given 32 → 35% with Oni's Heavy Hand, on everyone in its radius-1 circle (allies too), for 2 rounds.
+- **Toll of the Night Bell** — When the night bell tolls, every hand raised against the procession falters. Suppression: Oni Hammer Swing Decrease Damage Given 30 → 40% on the full route, on everyone in its radius-1 circle (allies too) for 2 rounds; a suppressed enemy's hits are cut ×0.60 against the whole team.
 
 ## Complete four-purchase examples
 
 | Build | Purchases | DMG | IDG | DDG | IDT | DDT | LS |
 |---|---|---:|---:|---:|---:|---:|---:|
-| Feast of a Thousand Mouths (Sustain) | Hour of the Ox, Hungry Ghost's Draught, Feast of a Thousand Mouths, Hide of the Oni | — | +5% | — | — | +5% | +5% |
-| Barred Gate of Yomi (Fortress) | Hour of the Ox, Hide of the Oni, Barred Gate of Yomi, Oni's Heavy Hand | — | +2% | +2% | +2% | +10% | +2% |
-| March of a Thousand Demons (Burst) | Oni's Heavy Hand, Grip of the Yurei, March of a Thousand Demons, Hour of the Ox | +5 | +2% | +2% | +2% | +2% | — |
-| Toll of the Night Bell (Pressure) | Oni's Heavy Hand, Marked by the Herald, Toll of the Night Bell, Grip of the Yurei | +2 | — | +5% | +10% | — | — |
+| Feast of a Thousand Mouths (Sustain offense) | Hour of the Ox, Hungry Ghost's Draught, Feast of a Thousand Mouths, Hide of the Oni | — | +5% | — | — | +5% | +5% |
+| Barred Gate of Yomi (Fortress) | Hour of the Ox, Hide of the Oni, Barred Gate of Yomi, Oni's Heavy Hand | — | +2% | +2% | +2% | +10% | — |
+| March of a Thousand Demons (Burst) | Oni's Heavy Hand, Marked by the Herald, March of a Thousand Demons, Hour of the Ox | +2 | +2% | +2% | +5% | +2% | — |
+| Toll of the Night Bell (Suppression) | Oni's Heavy Hand, Dread of the Procession, Toll of the Night Bell, Marked by the Herald | — | — | +10% | +5% | — | — |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · DDG = Decrease Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · LS = Lifesteal. Values are per-matching-row static additions, not final combat percentages.
 
-- **Feast of a Thousand Mouths:** The whole Conduit, raised: one 40 AP self cast now gives Lifesteal 45% (+5%, the hard ceiling, under the 60% leech cap), Increase Damage Given 40% (+5%) and Decrease Damage Taken 40% (+5%) for 2 rounds, so every hit the caster lands in the window hits harder and heals more while taking less. Hide of the Oni is the fourth purchase because it deepens the same cast; Oni's Heavy Hand (01, 02, 03, 06) trades that for a 32% Hammer suppression and 37% Herald exposure.
-- **Barred Gate of Yomi:** Decrease Damage Taken on the Conduit reaches 45% (+10%, the Golden Mantle / Sovereign Sun shape) against every non-pierce hit of any stat type, with Lifesteal 42% and Increase Damage Given 37% from the same cast. Oni's Heavy Hand is the cross-root fourth purchase: the Hammer's suppression at 32% and the Herald's exposure at 37%. Hungry Ghost's Draught (01, 02, 04, 05) is the pure-Conduit alternative at 45% reduction and 44% lifesteal.
-- **March of a Thousand Demons:** The two-row Damage route in full: Possessing Yurei and Oni Hammer Swing 45 → 50 EP (+5) before the bloodline's Increase Damage Given passive and the Conduit buff multiply them, with the Hammer's suppression at 32% and the Herald's exposure at 37%. Hour of the Ox is the fourth purchase so the Conduit frames the hits (37% given, 37% taken); Marked by the Herald (06, 07, 08, 09) is the all-offence alternative that exposes the targets at 40% first.
-- **Toll of the Night Bell:** Herald of the Black Night exposes every enemy in its circle at 45% (+10%) for 2 rounds and the Hammer's suppression reaches 35% (+5%): the marked take more from every source, the kit, normal jutsu, weapons, allies and the Underworld Gate summon, and deal less back. Grip of the Yurei is the fourth purchase (both hits 47 EP) so the caster has something heavier to land in the window; Hour of the Ox (06, 09, 10, 01) is the Conduit alternative.
+- **Feast of a Thousand Mouths:** One 40 AP Conduit cast carries the route: Lifesteal 45% (+5%, the hard ceiling, inside the 60% leech budget shared with vamp) and Increase Damage Given 40% for the 2 rounds after the cast, so every hit lands harder and heals more. Hide of the Oni is the realistic fourth (Decrease Damage Taken 40% on the same cast); Oni's Heavy Hand (01, 02, 03, 06) trades it for 32% Hammer suppression and 37% Herald exposure. No other allocation passes 42% Lifesteal.
+- **Barred Gate of Yomi:** Decrease Damage Taken on the Conduit reaches 45% (+10%) against every non-pierce hit for the 2 rounds after the cast, with Increase Damage Given 37%; Lifesteal stays at 40%. Oni's Heavy Hand is the realistic fourth: a hit from an enemy under the 32% Hammer suppression is cut ×0.68 × 0.55 ≈ ×0.37, and the Herald exposes at 37%. Hungry Ghost's Draught (01, 02, 04, 05) adds only Lifesteal 42%, so the fortress does not take over the Sustain route.
+- **March of a Thousand Demons:** Mark, then crush: the Herald exposes every enemy in its circle at 40% for 2 rounds, and Possessing Yurei and Oni Hammer Swing land at 47 EP (+2, still High tier; ×1.044 per hit, since formula damage is linear in EP). On a marked target inside the Conduit window the jutsu modifiers compound ×1.40 × 1.37 ≈ ×1.92 (×2.00 with the +2 EP) before the bloodline passive multiplies last. Hour of the Ox is the realistic fourth for that frame (37% given, 37% taken); Dread of the Procession (06, 07, 08, 09) adds 35% Hammer suppression instead.
+- **Toll of the Night Bell:** Oni Hammer Swing's suppression reaches 40% (+10%) on everyone in its circle for 2 rounds, allies included, so a suppressed enemy's hits are cut ×0.60 against the whole team. Marked by the Herald is the fourth that works both sides of the exchange (Herald exposure 40%, Burst's full setup). Hour of the Ox (01, 06, 07, 10) adds the Conduit instead (37% given and taken): a suppressed enemy's hit inside the Conduit window is cut ×0.60 × 0.63 ≈ ×0.38.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Sustain | Fortress | Burst | Pressure |
+| Jutsu | Row | Tag | Recipient | Base | Sustain offense | Fortress | Burst | Suppression |
 |---|---:|---|---|---:|---:|---:|---:|---:|
-| Possessing Yurei | 0 | Damage | enemy | 45 | 45 | 45 | 50 (+5) | 47 (+2) |
+| Possessing Yurei | 0 | Damage | enemy | 45 | 45 | 45 | 47 (+2) | 45 |
 | Possessing Yurei | 1 | stun (unsupported) | enemy | 100 | 100 | 100 | 100 | 100 |
-| Oni Hammer Swing | 0 | Damage | enemy | 45 | 45 | 45 | 50 (+5) | 47 (+2) |
-| Oni Hammer Swing | 1 | Decrease Damage Given | enemy | 30% | 30% | 32% (+2) | 32% (+2) | 35% (+5) |
+| Oni Hammer Swing | 0 | Damage | enemy | 45 | 45 | 45 | 47 (+2) | 45 |
+| Oni Hammer Swing | 1 | Decrease Damage Given | enemy | 30% | 30% | 32% (+2) | 32% (+2) | 40% (+10) |
 | Otherworldly Conduit | 0 | Increase Damage Given | self | 35% | 40% (+5) | 37% (+2) | 37% (+2) | 35% |
 | Otherworldly Conduit | 1 | Decrease Damage Taken | self | 35% | 40% (+5) | 45% (+10) | 37% (+2) | 35% |
-| Otherworldly Conduit | 2 | Lifesteal | self | 40% | 45% (+5) | 42% (+2) | 40% | 40% |
+| Otherworldly Conduit | 2 | Lifesteal | self | 40% | 45% (+5) | 40% | 40% | 40% |
 | Summoning: Underworld Gate | 0 | summon (unsupported) | self | 100% | 100% | 100% | 100% | 100% |
 | Herald of the Black Night | 0 | buffprevent (unsupported) | enemy | 100 | 100 | 100 | 100 | 100 |
-| Herald of the Black Night | 1 | Increase Damage Taken | enemy | 35% | 35% | 37% (+2) | 37% (+2) | 45% (+10) |
+| Herald of the Black Night | 1 | Increase Damage Taken | enemy | 35% | 35% | 37% (+2) | 40% (+5) | 40% (+5) |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
-- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 13; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +5 Damage, +5% Increase Damage Given, +5% Decrease Damage Given, +10% Increase Damage Taken, +10% Decrease Damage Taken, +5% Lifesteal (not jointly attainable)
+- Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
+- Maximum individually achievable additions over every legal allocation: +2 Damage, +5% Increase Damage Given, +10% Decrease Damage Given, +5% Increase Damage Taken, +10% Decrease Damage Taken, +5% Lifesteal (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
   - Route Feast of a Thousand Mouths: +5% Lifesteal (0 + 2 + 3; on band)
   - Route Barred Gate of Yomi: +10% Decrease Damage Taken (2 + 3 + 5; on band)
-  - Route March of a Thousand Demons: +5 Damage (0 + 2 + 3; on band)
-  - Route Toll of the Night Bell: +10% Increase Damage Taken (2 + 3 + 5; on band)
+  - Route March of a Thousand Demons: +2 Damage (0 + 0 + 2; off band)
+  - Route Toll of the Night Bell: +10% Decrease Damage Given (2 + 3 + 5; on band)
 - Supported rows in kit: 7 (DMG 2, DDG 1, DDT 1, IDG 1, IDT 1, LS 1)
-- Strongest full build by row-weighted total: Hour of the Ox, Oni's Heavy Hand, Marked by the Herald, Toll of the Night Bell (raw +19, row-weighted 19)
+- Strongest full build by row-weighted total: Hour of the Ox, Hungry Ghost's Draught, Feast of a Thousand Mouths, Oni's Heavy Hand (raw +16, row-weighted 16)
 - Lowest row-weighted node: Hungry Ghost's Draught (2)
 
 Validator warnings:
 
 - ally-hazard area rows amplified (friendly fire none/ALL): Oni Hammer Swing#1
+
+### Damage tiers (base → final)
+
+Player-jutsu tiers: 38 Light, 40 Normal, 45 High, 50 Nuke; anything above 50 is past the ladder. Each column is a flat Damage total some legal allocation reaches.
+
+| Jutsu | Row | Base (tier) | +2 Damage |
+|---|---:|---|---|
+| Possessing Yurei | 0 | 45 (High) | 47 (High) |
+| Oni Hammer Swing | 0 | 45 (High) | 47 (High) |
+
+### Fourth-BP audit
+
+Each Advanced Art's three-purchase path and every legal fourth purchase. *Highest diagnostic* marks the fourth with the largest row-weighted total; it points at what to review, not at the right answer.
+
+| Advanced Art | Path package | Fourth purchase | Full package | Row-weighted |
+|---|---|---|---|---:|
+| Feast of a Thousand Mouths | +5% IDG, +2% DDT, +5% LS | Hide of the Oni | +5% IDG, +5% DDT, +5% LS | 15 |
+| Feast of a Thousand Mouths | +5% IDG, +2% DDT, +5% LS | Oni's Heavy Hand *(highest diagnostic)* | +5% IDG, +2% DDG, +2% IDT, +2% DDT, +5% LS | 16 |
+| Barred Gate of Yomi | +2% IDG, +10% DDT | Hungry Ghost's Draught | +2% IDG, +10% DDT, +2% LS | 14 |
+| Barred Gate of Yomi | +2% IDG, +10% DDT | Oni's Heavy Hand *(highest diagnostic)* | +2% IDG, +2% DDG, +2% IDT, +10% DDT | 16 |
+| March of a Thousand Demons | +2 Damage, +2% DDG, +5% IDT | Hour of the Ox *(highest diagnostic)* | +2 Damage, +2% IDG, +2% DDG, +5% IDT, +2% DDT | 15 |
+| March of a Thousand Demons | +2 Damage, +2% DDG, +5% IDT | Dread of the Procession | +2 Damage, +5% DDG, +5% IDT | 14 |
+| Toll of the Night Bell | +10% DDG, +2% IDT | Hour of the Ox *(highest diagnostic)* | +2% IDG, +10% DDG, +2% IDT, +2% DDT | 16 |
+| Toll of the Night Bell | +10% DDG, +2% IDT | Marked by the Herald | +10% DDG, +5% IDT | 15 |
 
 ### All legal full-budget allocations
 
@@ -91,39 +132,36 @@ Validator warnings:
 |---:|---|---|
 | 1 | Hour of the Ox, Hungry Ghost's Draught, Feast of a Thousand Mouths, Hide of the Oni | +5% IDG, +5% DDT, +5% LS |
 | 2 | Hour of the Ox, Hungry Ghost's Draught, Feast of a Thousand Mouths, Oni's Heavy Hand | +5% IDG, +2% DDG, +2% IDT, +2% DDT, +5% LS |
-| 3 | Hour of the Ox, Hungry Ghost's Draught, Hide of the Oni, Barred Gate of Yomi | +2% IDG, +10% DDT, +4% LS |
+| 3 | Hour of the Ox, Hungry Ghost's Draught, Hide of the Oni, Barred Gate of Yomi | +2% IDG, +10% DDT, +2% LS |
 | 4 | Hour of the Ox, Hungry Ghost's Draught, Hide of the Oni, Oni's Heavy Hand | +2% IDG, +2% DDG, +2% IDT, +5% DDT, +2% LS |
-| 5 | Hour of the Ox, Hungry Ghost's Draught, Oni's Heavy Hand, Grip of the Yurei | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT, +2% LS |
+| 5 | Hour of the Ox, Hungry Ghost's Draught, Oni's Heavy Hand, Dread of the Procession | +2% IDG, +5% DDG, +2% IDT, +2% DDT, +2% LS |
 | 6 | Hour of the Ox, Hungry Ghost's Draught, Oni's Heavy Hand, Marked by the Herald | +2% IDG, +2% DDG, +5% IDT, +2% DDT, +2% LS |
-| 7 | Hour of the Ox, Hide of the Oni, Barred Gate of Yomi, Oni's Heavy Hand | +2% IDG, +2% DDG, +2% IDT, +10% DDT, +2% LS |
-| 8 | Hour of the Ox, Hide of the Oni, Oni's Heavy Hand, Grip of the Yurei | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +5% DDT |
+| 7 | Hour of the Ox, Hide of the Oni, Barred Gate of Yomi, Oni's Heavy Hand | +2% IDG, +2% DDG, +2% IDT, +10% DDT |
+| 8 | Hour of the Ox, Hide of the Oni, Oni's Heavy Hand, Dread of the Procession | +2% IDG, +5% DDG, +2% IDT, +5% DDT |
 | 9 | Hour of the Ox, Hide of the Oni, Oni's Heavy Hand, Marked by the Herald | +2% IDG, +2% DDG, +5% IDT, +5% DDT |
-| 10 | Hour of the Ox, Oni's Heavy Hand, Grip of the Yurei, March of a Thousand Demons | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT |
-| 11 | Hour of the Ox, Oni's Heavy Hand, Grip of the Yurei, Marked by the Herald | +2 Damage, +2% IDG, +2% DDG, +5% IDT, +2% DDT |
-| 12 | Hour of the Ox, Oni's Heavy Hand, Marked by the Herald, Toll of the Night Bell | +2% IDG, +5% DDG, +10% IDT, +2% DDT |
-| 13 | Oni's Heavy Hand, Grip of the Yurei, March of a Thousand Demons, Marked by the Herald | +5 Damage, +2% DDG, +5% IDT |
-| 14 | Oni's Heavy Hand, Grip of the Yurei, Marked by the Herald, Toll of the Night Bell | +2 Damage, +5% DDG, +10% IDT |
+| 10 | Hour of the Ox, Oni's Heavy Hand, Dread of the Procession, Marked by the Herald | +2% IDG, +5% DDG, +5% IDT, +2% DDT |
+| 11 | Hour of the Ox, Oni's Heavy Hand, Dread of the Procession, Toll of the Night Bell | +2% IDG, +10% DDG, +2% IDT, +2% DDT |
+| 12 | Hour of the Ox, Oni's Heavy Hand, March of a Thousand Demons, Marked by the Herald | +2 Damage, +2% IDG, +2% DDG, +5% IDT, +2% DDT |
+| 13 | Oni's Heavy Hand, Dread of the Procession, March of a Thousand Demons, Marked by the Herald | +2 Damage, +5% DDG, +5% IDT |
+| 14 | Oni's Heavy Hand, Dread of the Procession, Marked by the Herald, Toll of the Night Bell | +10% DDG, +5% IDT |
 
 ## Design notes
 
-- Node split: two roots, four Hidden Arts, four Advanced Arts, every capstone 3 BP deep, two capstones 5 BP under one root or 6 across roots. Root A (Hour of the Ox, +2% Increase Damage Given and +2% Decrease Damage Taken on the Conduit) forks into Lifesteal (+2%, then +3% with +3% Increase Damage Given) and Decrease Damage Taken (+3%, then +5% with +2% Lifesteal). Root B (Oni's Heavy Hand, +2% Decrease Damage Given on the Hammer and +2% Increase Damage Taken on the Herald) forks into Damage (+2, then +3) and Increase Damage Taken (+3%, then +5% with +3% Decrease Damage Given).
-- Recalibration (RUL-2026-10-03-005): Oni's Heavy Hand trades its +1 Damage for +2% Increase Damage Taken, so Burst is the default +5 Damage (Grip of the Yurei +2, March of a Thousand Demons +3; 45 → 50 EP); Lifesteal drops to the +5% hard ceiling (Hungry Ghost's Draught +3% → +2%, Feast of a Thousand Mouths +5% → +3%; 40 → 45%); Toll of the Night Bell's Increase Damage Taken rises from +4% to +5%, so with the Foundation's +2% Pressure lands on +10% (35 → 45%). Fortress is unchanged at +10% Decrease Damage Taken (2/3/5; 35 → 45%).
-- Maxima over every legal allocation: Damage +5, Lifesteal +5% (Feast route; Barred Gate of Yomi's +2% with Hungry Ghost's Draught reaches 4%), Increase Damage Taken +10%, Decrease Damage Taken +10%, Increase Damage Given +5%, Decrease Damage Given +5%.
-- Capstone secondaries never out-bid a sibling Hidden Art: Barred Gate of Yomi's +2% Lifesteal equals Hungry Ghost's Draught; Feast of a Thousand Mouths takes +3% Increase Damage Given, a tag no Hidden Art carries; Toll of the Night Bell takes +3% Decrease Damage Given, which otherwise only the root carries. March of a Thousand Demons is Damage-only, like Solar Cataclysm.
-- Interactions: every non-damage supported row is element-less and lists all four stat types, so at the pin the Conduit's buffs, the Herald's exposure and the Hammer's suppression match every non-pierce hit of any stat type (Lifesteal also counts pierce). The bloodline passive (Increase Damage Given 25% + 0.15/level; Earth, None, Shadow, Water, Wind) is not a potency target; it multiplies last (fromType bloodline) and compounds with the Conduit buff, which is its own stage-2 multiplier (§3b). Damage modifiers skip pierce.
-- Delivery and uptime: the Conduit is a SELF cast, so its three rows are realized on the caster at cast time (not positional); 40 AP, cooldown 7, 2 rounds, so at most 2 of 7 rounds. Herald of the Black Night (OTHER_USER, AOE_CIRCLE_SPAWN radius 1, range 5, 40 AP, cooldown 7) applies its exposure once to each living enemy on the tiles; the caster is never a target. Oni Hammer Swing (OPPONENT, same method, range 4, 60 AP) damages enemies only; its Decrease Damage Given rider (friendly fire none) reaches allies too.
-- Fourth purchases: Sustain (01, 02, 03) takes Hide of the Oni (40% reduction) or Oni's Heavy Hand (32% suppression, 37% exposure); Fortress (01, 04, 05) takes Oni's Heavy Hand or Hungry Ghost's Draught (44% lifesteal); Burst (06, 07, 08) takes Hour of the Ox (37% given / taken) or Marked by the Herald (40% exposure); Pressure (06, 09, 10) takes Grip of the Yurei (47 EP) or Hour of the Ox. Capstone-less hybrids are enumerated by the validator; see the audit.
+- Node split: two roots, four Hidden Arts, four Advanced Arts, every capstone 3 BP deep, two capstones 5 BP under one root or 6 across roots. Hour of the Ox (+2% Increase Damage Given, +2% Decrease Damage Taken on the Conduit) forks into Sustain offense (Hungry Ghost's Draught +2% Lifesteal → Feast of a Thousand Mouths +3% Lifesteal, +3% Increase Damage Given) and Fortress (Hide of the Oni +3% Decrease Damage Taken → Barred Gate of Yomi +5% Decrease Damage Taken). Oni's Heavy Hand (+2% Decrease Damage Given on the Hammer, +2% Increase Damage Taken on the Herald) forks into Burst (Marked by the Herald +3% Increase Damage Taken → March of a Thousand Demons +2 Damage) and Suppression (Dread of the Procession +3% Decrease Damage Given → Toll of the Night Bell +5% Decrease Damage Given). Root A touches only Conduit rows; root B only the two hits, the Hammer's suppression and the Herald's exposure.
+- 2026-10-04 rebalance. Root B: the old Burst route (Grip of the Yurei +2, March +3 Damage) lifted both 45 EP hits to 50, turning two semi-nukes into nukes, and put flat Damage on a Hidden Art. March is now the only Damage node (+2, 45 → 47, no tier change) and pays off the exposure that Marked by the Herald sets up. The old Pressure route (+10% Increase Damage Taken) is gone: Herald exposure has the tree's highest downstream leverage, so it stops at +5% (35 → 40%) as Burst setup; Grip of the Yurei is renamed Dread of the Procession and leads Suppression. After review, Barred Gate of Yomi lost its +2% Lifesteal rider (with Hungry Ghost's Draught the Fortress fourth reached 44% Lifesteal and out-sustained Feast) and Toll of the Night Bell lost its +2% Conduit Decrease Damage Taken rider (it did not answer root B's sentence and pulled Suppression toward Fortress).
+- Maxima over every legal allocation: Damage +2 (March only); Lifesteal +5% (Feast route only; any other allocation reaches +2% at most, Hungry Ghost's Draught); Decrease Damage Taken +10% (Fortress only; +5% elsewhere at most, Hour of the Ox with Hide of the Oni); Decrease Damage Given +10% (Suppression only); Increase Damage Given +5%; Increase Damage Taken +5%.
+- Fourth purchases: Sustain offense takes Hide of the Oni (40% given, 40% taken, 45% Lifesteal) or Oni's Heavy Hand. Fortress takes Oni's Heavy Hand (32% suppression, 37% exposure) or Hungry Ghost's Draught (42% Lifesteal). In an even trade of raw damage D, Feast with Hide heals 0.45 × 1.40D ≈ 0.63D and takes 0.60D; Fortress with Hungry Ghost's Draught heals 0.42 × 1.37D ≈ 0.58D and takes 0.55D, so Feast nets more while trading and Fortress wins once incoming raw damage passes about 1.1× outgoing. Burst takes Hour of the Ox (Conduit 37% given / taken) or Dread of the Procession (35% suppression). Suppression takes Marked by the Herald (40% exposure, Burst's whole setup) or Hour of the Ox (Conduit 37% given / taken). Three capstones carry one tag each and Feast's Increase Damage Given rider stacks only with its own Foundation, so no fourth carries a tag past its own route.
+- Interactions: every non-damage supported row is element-less and lists all four stat types, so at the pin the Conduit's buffs, the Herald's exposure and the Hammer's suppression match every non-pierce hit of any stat type (Lifesteal also counts pierce). Formula damage is linear in EP (tags.ts powerEffect), so +2 EP is ×47/45 ≈ ×1.044 on each 45 EP hit; the sqrt scaling applies to stats, not EP. Jutsu Increase Damage Given and Increase Damage Taken compound (×1.40 × 1.37 ≈ ×1.92 on a marked target in the Burst build with Hour of the Ox); Decrease Damage Given and Decrease Damage Taken apply in sequence. The bloodline passive (Increase Damage Given 25% + 0.15/level) is not a potency target and multiplies last.
+- Delivery and uptime: the Conduit is a SELF cast realized on the caster at cast time; 40 AP, cooldown 7, live for the 2 rounds after the cast. Herald of the Black Night (OTHER_USER, AOE_CIRCLE_SPAWN radius 1, range 5, 40 AP, cooldown 7) exposes each living enemy on the tiles; the caster is never a target. Oni Hammer Swing (OPPONENT, same method, range 4, 60 AP, cooldown 7) damages enemies only; its Decrease Damage Given rider (friendly fire none) reaches allies on the tiles too.
 
 ## Risks and unproven interactions
 
-- Classification: Shadow is shared with other bloodlines (expected under RUL-2026-10-03-005). 2 of 7 kit rows carry Shadow; the other five need the proposed jutsu-classification resolver, and Otherworldly Conduit, Herald of the Black Night and Summoning: Underworld Gate carry no element on any row, so in-kit they qualify only through an authored Shadow jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Shadow coverage is unverified.
-- Ally hazard (accepted, small): Oni Hammer Swing row 1 (Decrease Damage Given 30%) is an INHERIT row on an OPPONENT AOE_CIRCLE_SPAWN with friendly fire none, so allies on the radius-1 tiles around the target receive the suppression too; the caster never does. Oni's Heavy Hand (+2%) and Toll of the Night Bell (+3%) raise it to 35% for allies and enemies alike. Positioning decides; solo it is gain.
-- Increase Damage Taken reach: the Herald's exposure (element-less, all four stat types) amplifies every non-pierce hit each exposed enemy takes for 2 rounds from any source (allies, weapons, normal jutsu, the Underworld Gate summon), and one cast can expose several enemies, so per-row weight understates the Pressure route's +10% (35 → 45%). Oni's Heavy Hand's +2% also reaches every root-B build.
-- Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp, so 45% leaves 15 points of headroom and any vamp from equipment or the main tree erodes the capstone's value. healprevent on the caster blocks it entirely; the kit itself applies none. Lifesteal includes pierce hits, which the kit does not have, so only weapons or normal jutsu with pierce feed it that way.
-- Increase Damage Given stacking: the +5% glue raises the Conduit's 35% self buff to 40% (×1.40 on matching hits instead of ×1.35), which compounds with the bloodline passive (applied last, honouring allowBloodlineDamageIncrease), any exposure on the target and any main-tree or gear modifiers, each its own multiplier (§3b). Combined final damage was not simulated.
-- Realized value: all five jutsu share cooldown 7 and both damage casts cost 60 AP, so the Conduit's 2-round window rarely covers both hits and the Herald's exposure in one rotation; per-row numbers overstate per-round value. Buffs and debuffs act only in the rounds after their cast round (SOURCE_MECHANICS §3b). Nothing was simulated.
-- Damage is formula-calculated (sqrt scaling on Highest / Highest) and then multiplied by the Increase Damage Given passive, the Conduit buff and any exposure, so +5 raw EP is not a linear +5 damage. Each Damage row fires at most once per 7 rounds.
-- Unsupported rows and modes: Possessing Yurei's stun, Herald of the Black Night's buffprevent (itself an ally-hazard row, unchanged by any node) and the Underworld Gate summon receive nothing. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING, so no node applies there.
+- Classification: Shadow is shared with other bloodlines (expected under RUL-2026-10-03-005). 2 of 7 kit rows carry Shadow; Otherworldly Conduit, Herald of the Black Night and Summoning: Underworld Gate carry no element on any row, so in-kit they qualify only through an authored Shadow jutsu classification (ENGINE_GAP_REGISTER G1). Off-kit Shadow coverage is unverified; March's +2 would lift any off-kit 50 EP Shadow row to 52.
+- Ally hazard: Oni Hammer Swing row 1 (Decrease Damage Given 30%) is an INHERIT row on an OPPONENT AOE_CIRCLE_SPAWN with friendly fire none, so allies on the radius-1 tiles around the target receive it too; the caster never does. Oni's Heavy Hand gives 32%, Dread of the Procession 35%, and the full Suppression route 40% for allies and enemies alike. Positioning decides; solo it is pure gain.
+- Increase Damage Taken reach: the Herald's exposure amplifies every non-pierce hit each exposed enemy takes for 2 rounds from any source (allies, weapons, normal jutsu, the Underworld Gate summon), and one cast can expose several enemies. That is why it stops at +5% (35 → 40%) and has no dedicated route.
+- Lifesteal budget: the 60%-of-pre-shield-damage leech cap is shared with vamp, so Feast's 45% leaves 15 points of headroom. healprevent on the caster blocks it; the kit applies none.
+- Realized value: the four supported-row jutsu share cooldown 7 (the Underworld Gate summon is 10) and both damage casts cost 60 AP, so one rotation rarely fits the Conduit window, the Herald's exposure and both hits. Buffs and debuffs act only in the rounds after their cast round (SOURCE_MECHANICS §3b). Formula damage is linear in EP (powerEffect), so March's +2 is ×1.044 on each 45 EP hit before Increase Damage Given / Taken and the passive multiply it; the sqrt applies to stats, not EP. Nothing was simulated.
+- Unsupported rows and modes: Possessing Yurei's stun, Herald of the Black Night's buffprevent (itself an ally-hazard row) and the Underworld Gate summon receive nothing. Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING.
 
 ## Limits
 

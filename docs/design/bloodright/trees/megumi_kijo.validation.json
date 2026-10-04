@@ -9,11 +9,11 @@
     "statClassification": "Genjutsu",
     "traits": "Control, Sustained Damage"
   },
-  "revision": "Draft 2 / Megumi Kijo classification extension / forked tree (RUL-2026-10-03-005 recalibration)",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Megumi Kijo classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "classification status: requires classification extension (director decision)",
-    "universal node: 01 (Hagmother's Welcome) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+    "universal node: 06 (Mountain Hag's Mercy) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Megumi Kijo",
@@ -43,19 +43,19 @@
   "examples": [
     {
       "name": "Appetite of Oblivion",
-      "archetype": "Burst",
+      "archetype": "Sustain offense",
       "ids": [
-        "01",
+        "06",
         "02",
         "03",
-        "06"
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 5,
+        "damage": 2,
         "decreasedamagegiven": 2,
         "increaseheal": 2,
-        "heal": 2
+        "heal": 5
       },
       "advanced_arts": [
         "Appetite of Oblivion"
@@ -74,29 +74,28 @@
       "bonuses": {
         "decreasedamagegiven": 10,
         "increaseheal": 2,
-        "heal": 4
+        "heal": 2
       },
       "advanced_arts": [
         "Cradle of the Kijo"
       ]
     },
     {
-      "name": "Laughter That Mends",
-      "archetype": "Sustain",
+      "name": "The Ever-Lit Hearth",
+      "archetype": "Healing field",
       "ids": [
-        "01",
         "06",
         "07",
-        "08"
+        "08",
+        "02"
       ],
       "cost": 4,
       "bonuses": {
-        "decreasedamagegiven": 2,
-        "increaseheal": 8,
+        "increaseheal": 10,
         "heal": 5
       },
       "advanced_arts": [
-        "Laughter That Mends"
+        "The Ever-Lit Hearth"
       ]
     }
   ],
@@ -123,9 +122,9 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 5,
+      "damage": 2,
       "decreasedamagegiven": 10,
-      "increaseheal": 8,
+      "increaseheal": 10,
       "heal": 5
     },
     "supported_rows_in_kit": 5,
@@ -158,36 +157,6 @@
         "tags_without_rows": []
       },
       {
-        "id": "02",
-        "name": "Teeth Behind the Smile",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
-        "covered_jutsu": [
-          "Onibaba's Laughter",
-          "Phantom Realm Oblivion"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "03",
-        "name": "Appetite of Oblivion",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
-        "covered_jutsu": [
-          "Onibaba's Laughter",
-          "Phantom Realm Oblivion"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
         "id": "04",
         "name": "Numbing Lullaby",
         "category": "Hidden Art",
@@ -206,13 +175,12 @@
         "name": "Cradle of the Kijo",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 7,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Onibaba's Laughter",
           "Phantom Realm Oblivion"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -226,6 +194,35 @@
         "covered_jutsu": [
           "Kijo's Benevolence",
           "Onibaba's Laughter"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Teeth Behind the Smile",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 3,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Onibaba's Laughter"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Appetite of Oblivion",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Onibaba's Laughter",
+          "Phantom Realm Oblivion"
         ],
         "covered_rows": 2,
         "adverse_rows_amplified": [],
@@ -247,36 +244,34 @@
       },
       {
         "id": "08",
-        "name": "Laughter That Mends",
+        "name": "The Ever-Lit Hearth",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 6,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Kijo's Benevolence",
-          "Onibaba's Laughter"
+          "Kijo's Benevolence"
         ],
-        "covered_rows": 2,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       }
     ],
     "strongest_full_build_by_row_weight": {
       "ids": [
-        "01",
-        "04",
-        "05",
-        "06"
+        "02",
+        "06",
+        "07",
+        "08"
       ],
       "bonuses": {
-        "decreasedamagegiven": 10,
-        "increaseheal": 2,
-        "heal": 4
+        "increaseheal": 10,
+        "heal": 5
       },
-      "raw_flat_total": 16,
-      "row_weighted_total": 16,
+      "raw_flat_total": 15,
+      "row_weighted_total": 15,
       "advanced_arts": [
-        "05"
+        "08"
       ],
       "non_dominated": true
     },
@@ -300,73 +295,35 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 5,
-          "decreasedamagegiven": 5
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
           "06"
         ],
         "bonuses": {
-          "damage": 5,
+          "damage": 2,
           "decreasedamagegiven": 2,
           "increaseheal": 2,
-          "heal": 2
-        },
-        "raw_flat_total": 11,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "decreasedamagegiven": 10,
-          "heal": 2
-        },
-        "raw_flat_total": 14,
-        "row_weighted_total": 16,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
-          "06"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "decreasedamagegiven": 5,
-          "increaseheal": 2,
-          "heal": 2
+          "heal": 5
         },
         "raw_flat_total": 11,
         "row_weighted_total": 13,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "decreasedamagegiven": 5,
+          "increaseheal": 2,
+          "heal": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -378,13 +335,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 2,
           "decreasedamagegiven": 2,
           "increaseheal": 5,
-          "heal": 2
+          "heal": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 13,
+        "raw_flat_total": 12,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -398,10 +354,10 @@
         "bonuses": {
           "decreasedamagegiven": 10,
           "increaseheal": 2,
-          "heal": 4
+          "heal": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 16,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "05"
         ],
@@ -433,7 +389,44 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 2,
-          "increaseheal": 8,
+          "increaseheal": 10,
+          "heal": 2
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increaseheal": 5,
+          "heal": 5
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increaseheal": 10,
           "heal": 5
         },
         "raw_flat_total": 15,
@@ -459,14 +452,14 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
           "01",
+          "06"
+        ],
+        [
+          "02",
           "06"
         ],
         [
@@ -475,16 +468,6 @@
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
         [
           "01",
           "02",
@@ -502,6 +485,16 @@
         ],
         [
           "01",
+          "06",
+          "07"
+        ],
+        [
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "02",
           "06",
           "07"
         ],
@@ -516,19 +509,7 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
           "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
         ],
         [
           "01",
@@ -559,10 +540,213 @@
           "06",
           "07",
           "08"
+        ],
+        [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        [
+          "02",
+          "06",
+          "07",
+          "08"
         ]
       ]
     }
   },
+  "damage_thresholds": {
+    "damage_totals_reachable": [
+      2
+    ],
+    "rows": [
+      {
+        "jutsu": "Phantom Realm Oblivion",
+        "row": 0,
+        "base": 40.0,
+        "tier": "Normal",
+        "elements": [
+          "None"
+        ],
+        "method": "SINGLE",
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
+      },
+      {
+        "jutsu": "Onibaba's Laughter",
+        "row": 0,
+        "base": 45.0,
+        "tier": "High",
+        "elements": [
+          "None"
+        ],
+        "method": "AOE_CIRCLE_SPAWN",
+        "steps": [
+          {
+            "added": 2,
+            "final": 47.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
+      }
+    ],
+    "tier_crossings": [],
+    "above_nuke": []
+  },
+  "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Appetite of Oblivion",
+      "path": [
+        "06",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increaseheal": 2,
+        "heal": 5
+      },
+      "path_row_weighted": 11,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hagmother's Welcome",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "decreasedamagegiven": 2,
+            "increaseheal": 2,
+            "heal": 5
+          },
+          "raw_total": 11,
+          "row_weighted": 13
+        },
+        {
+          "id": "07",
+          "name": "Nursed by Demon Hands",
+          "category": "Hidden Art",
+          "adds": {
+            "increaseheal": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increaseheal": 5,
+            "heal": 5
+          },
+          "raw_total": 12,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "07"
+    },
+    {
+      "advanced_art": "05",
+      "name": "Cradle of the Kijo",
+      "path": [
+        "01",
+        "04",
+        "05"
+      ],
+      "path_bonuses": {
+        "decreasedamagegiven": 10
+      },
+      "path_row_weighted": 10,
+      "fourths": [
+        {
+          "id": "06",
+          "name": "Mountain Hag's Mercy",
+          "category": "Foundation",
+          "adds": {
+            "increaseheal": 2,
+            "heal": 2
+          },
+          "bonuses": {
+            "decreasedamagegiven": 10,
+            "increaseheal": 2,
+            "heal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
+    {
+      "advanced_art": "08",
+      "name": "The Ever-Lit Hearth",
+      "path": [
+        "06",
+        "07",
+        "08"
+      ],
+      "path_bonuses": {
+        "increaseheal": 10,
+        "heal": 2
+      },
+      "path_row_weighted": 12,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hagmother's Welcome",
+          "category": "Foundation",
+          "adds": {
+            "decreasedamagegiven": 2
+          },
+          "bonuses": {
+            "decreasedamagegiven": 2,
+            "increaseheal": 10,
+            "heal": 2
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
+        {
+          "id": "02",
+          "name": "Teeth Behind the Smile",
+          "category": "Hidden Art",
+          "adds": {
+            "heal": 3
+          },
+          "bonuses": {
+            "increaseheal": 10,
+            "heal": 5
+          },
+          "raw_total": 15,
+          "row_weighted": 15
+        }
+      ],
+      "highest_diagnostic_fourth": "02"
+    }
+  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,
