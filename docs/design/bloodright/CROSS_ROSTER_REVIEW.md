@@ -10,35 +10,35 @@ Row-weighted total = Σ (addition × supported rows of that tag). It favours kit
 
 | Bloodline | Build | Row-weighted | Raw | Per row | Additions |
 |---|---|---|---|---|---|
-| Tetsugan | Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides | 57 | 13 | 2.85 | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT |
-| Tetsugan | Tempered Stance, Folded Steel, Hammer and Anvil, Eye of Iron | 55 | 19 | 2.75 | +5% IDG, +2% DDG, +2% IDT, +10% DDT |
-| Tetsugan | Tempered Stance, Folded Steel, Hammer and Anvil, Resonant Parry | 48 | 18 | 2.4 | +5% IDG, +10% DDT, +3% REF |
-| Tetsugan | Eye of Iron, Honed Edge, One Cut Decides, Sparks from the Forge | 48 | 12 | 2.4 | +5 Damage, +2% DDG, +2% IDT, +3% AB |
-| Godstorm Eclipse | Black Sun Rising, Stormgod's Marrow, Obsidian Skin, Pillar of Heaven | 46 | 17 | 2.88 | +5% IDG, +2% IDT, +10% DDT |
-| Blue Blade Eyes | Sapphire Edge, Unblinking Sapphire, Hoarfrost Bulwark, Glacier Does Not Yield | 45 | 19 | 2.81 | +2% IDG, +2% DDG, +5% IDT, +10% DDT |
-| Blue Blade Eyes | Sapphire Edge, Honed Crescent, Stroke That Splits Stone, Unblinking Sapphire | 45 | 13 | 2.81 | +5 Damage, +2% IDG, +2% DDG, +2% IDT, +2% DDT |
-| Tetsugan | Tempered Stance, Folded Steel, Eye of Iron, Honed Edge | 45 | 13 | 2.25 | +2 Damage, +2% IDG, +2% DDG, +2% IDT, +5% DDT |
-| Godstorm Eclipse | Black Sun Rising, Hammer of the Heavens, Charged Firmament, Lingering Corona | 43 | 19 | 2.69 | +2 Damage, +2% IDG, +5% IDT, +10% AB |
-| Tetsugan | Eye of Iron, Honed Edge, Sparks from the Forge, Branding Iron | 43 | 19 | 2.15 | +2 Damage, +2% DDG, +5% IDT, +10% AB |
-| Godstorm Eclipse | Black Sun Rising, Hammer of the Heavens, Total Eclipse, Stormgod's Marrow | 43 | 11 | 2.69 | +5 Damage, +2% IDG, +2% IDT, +2% DDT |
-| Godstorm Eclipse | Black Sun Rising, Hammer of the Heavens, Total Eclipse, Charged Firmament | 42 | 12 | 2.62 | +5 Damage, +2% IDG, +2% IDT, +3% AB |
+| Blue Blade Eyes | Sapphire Edge, Honed Crescent, Stroke That Splits Stone, Unblinking Sapphire | 42 | 13 | 2.62 | +2 Damage, +5% IDG, +2% DDG, +2% IDT, +2% DDT |
+| Blood-Enchanted Eyes | Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood | 40 | 19 | 2.67 | +2% IDG, +10% DDG, +2% IDT, +5% DDT |
+| Blood-Enchanted Eyes | Scarlet Gaze, Iron in the Blood, Closed Wounds, Deathless Vitality | 40 | 19 | 2.67 | +2% IDG, +5% DDG, +2% IDT, +10% DDT |
+| Tetsugan | Tempered Stance, Eye of Iron, Honed Edge, One Cut Decides | 40 | 14 | 2.0 | +8% IDG, +2% DDG, +2% IDT, +2% DDT |
+| Godstorm Eclipse | Black Sun Rising, Hammer of the Heavens, Total Eclipse, Charged Firmament | 40 | 12 | 2.5 | +4% IDG, +8% IDT |
+| Godstorm Eclipse | Black Sun Rising, Hammer of the Heavens, Charged Firmament, Storm-God Ascendant | 40 | 11 | 2.5 | +7% IDG, +4% IDT |
+| Ethereal Monarch | Sovereign's Decree, Veil of the Monarch, Woven Starlight, Immovable Throne | 39 | 19 | 3.9 | +5% IDG, +2% IDT, +10% DDT, +2% REF |
+| Blue Blade Eyes | Sapphire Edge, Honed Crescent, Unblinking Sapphire, Hoarfrost Bulwark | 38 | 14 | 2.38 | +5% IDG, +2% DDG, +2% IDT, +5% DDT |
+| Godstorm Eclipse | Black Sun Rising, Charged Firmament, Storm-God Ascendant, Stormgod's Marrow | 38 | 11 | 2.38 | +7% IDG, +2% IDT, +2% DDT |
+| Ethereal Monarch | Sovereign's Decree, Stardust Afterglow, Rain of Fallen Stars, Veil of the Monarch | 36 | 24 | 3.6 | +5% IDG, +5% IDT, +2% DDT, +10% AB, +2% REF |
+| Blood-Enchanted Eyes | Carrion Fever, Red Pestilence, Iron in the Blood, Closed Wounds | 36 | 18 | 2.4 | +10% DDG, +8% DDT |
+| Blood-Enchanted Eyes | Carrion Fever, Iron in the Blood, Closed Wounds, Deathless Vitality | 36 | 18 | 2.4 | +8% DDG, +10% DDT |
 
 **By per-row intensity**
 
 | Bloodline | Build | Per row | Row-weighted | Additions |
 |---|---|---|---|---|
-| Voltara Divine | Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Apotheosis of Thunder | 5.2 | 26 | +2 Damage, +10% IDG, +2% DDT |
-| Voltara Divine | Anointed by Lightning, Luminous Conduit, Apotheosis of Thunder, Halo of Static | 4.8 | 24 | +10% IDG, +4% DDT |
-| Sea-King's Blessing | Scales of the Deep, Salt in the Wound, Dragged Under, Wrath of the Sea-King | 4.8 | 24 | +1 Damage, +10% IDT, +2% DDT |
-| Lycanthropy | The Beast Within, Gnashing Fangs, Blood on the Wind, Red Moon Rising | 4.8 | 24 | +2 Damage, +10% IDG |
-| Reptilian | Chimeric Blood, Apex Instinct, Hardened Scales, Basilisk Carapace | 4.5 | 18 | +3% IDG, +10% DDT, +2% LS |
-| Lycanthropy | The Beast Within, Blood on the Wind, Red Moon Rising, Moonbound Vigor | 4.4 | 22 | +10% IDG, +2% HEAL |
-| Dai Kenja | Sage's Rebuke, Smothered Current, Cracked Vessel, Shattered Vessel | 4.33 | 26 | +8% DDG, +5% IDT |
-| Shinseina Ki | Hallowed Seed, Fangs of Heartwood, Rooted in Wisdom, Heartwood Awakened | 4.33 | 26 | +2 Damage, +10% IDG |
-| Loup-Garou | Scent of Blood, Run to Ground, The Pack Closes, Hunter's Moon | 4.25 | 17 | +5% IDG, +10% IDT, +2% HEAL |
-| Loup-Garou | Scent of Blood, Hunter's Moon, Feral Frenzy, Beast Unchained | 4.25 | 17 | +10% IDG, +2% IDT, +5% HEAL |
-| Tenohira Musei | Waxing Crescent, Waning Crescent, Bared to the Moon, Stillness Breaks | 4.25 | 34 | +2 Damage, +3% IDG, +2% DDG, +10% IDT |
-| Reptilian | Chimeric Blood, Hardened Scales, Basilisk Carapace, Blood of the Brood | 4.25 | 17 | +2% IDG, +10% DDT, +3% LS |
+| Reptilian | Chimeric Blood, Apex Instinct, Jaws of the Chimera, Hardened Scales | 4.75 | 19 | +7% IDG, +5% DDT |
+| Reptilian | Chimeric Blood, Apex Instinct, Hardened Scales, Basilisk Carapace | 4.5 | 18 | +4% IDG, +10% DDT |
+| Sea-King's Blessing | Scales of the Deep, Salt in the Wound, Dragged Under, Wrath of the Sea-King | 4.4 | 22 | +10% IDT, +2% DDT |
+| Voltara Divine | Anointed by Lightning, Luminous Conduit, Apotheosis of Thunder, Halo of Static | 4.4 | 22 | +10% IDG, +2% DDT |
+| Dai Kenja | Sage's Rebuke, Smothered Current, Edict of Silence, Cracked Vessel | 4.33 | 26 | +10% DDG, +3% IDT |
+| Reptilian | Chimeric Blood, Apex Instinct, Jaws of the Chimera, Blood of the Brood | 4.25 | 17 | +7% IDG, +2% DDT, +1% LS |
+| Lycanthropy | The Beast Within, Moonbound Vigor, Lick the Wound, Undying Hunger | 4.0 | 20 | +5% IDG, +10% HEAL |
+| Ethereal Monarch | Sovereign's Decree, Veil of the Monarch, Woven Starlight, Immovable Throne | 3.9 | 39 | +5% IDG, +2% IDT, +10% DDT, +2% REF |
+| Ha Yanagi | Mourning Boughs, Veil of Falling Petals, Grave Willow's Hush, Blight Takes Root | 3.83 | 23 | +10% DDG, +3% IDT |
+| Ha Yanagi | Mourning Boughs, Veil of Falling Petals, Grave Willow's Hush, Whispering Canopy | 3.83 | 23 | +3% IDG, +10% DDG |
+| Ancient Tailed Demon | Demon's Grasp, Festering Brand, Consuming Malice, Demon's Marrow | 3.8 | 19 | +2% IDG, +5% IDT, +2% DDT, +10% AB |
+| Reptilian | Chimeric Blood, Hardened Scales, Basilisk Carapace, Blood of the Brood | 3.75 | 15 | +2% IDG, +10% DDT, +1% LS |
 
 **By raw flat total**
 
@@ -46,56 +46,56 @@ Row-weighted total = Σ (addition × supported rows of that tag). It favours kit
 |---|---|---|---|---|
 | Ethereal Monarch | Sovereign's Decree, Stardust Afterglow, Rain of Fallen Stars, Veil of the Monarch | 24 | 36 | +5% IDG, +5% IDT, +2% DDT, +10% AB, +2% REF |
 | Taiyo Kami | Dawnheart, Emberwake, Eternal Noon, Sunward Oath | 24 | 29 | +5% IDG, +2% DDG, +5% IDT, +2% DDT, +10% AB |
-| Vaporia | Rising Steam, Blistering Mist, Boiling Point, Vapor Shroud | 24 | 24 | +5% IDG, +5% IDT, +2% DDT, +10% AB, +2% HEAL |
 | Ethereal Monarch | Sovereign's Decree, Tear in the Soul, Stardust Afterglow, Rain of Fallen Stars | 22 | 34 | +2 Damage, +5% IDG, +5% IDT, +10% AB |
 | Taiyo Kami | Dawnheart, Crown of Cinders, Emberwake, Eternal Noon | 22 | 31 | +2 Damage, +5% IDG, +5% IDT, +10% AB |
-| Vaporia | Rising Steam, Geyser Fist, Blistering Mist, Boiling Point | 22 | 26 | +2 Damage, +5% IDG, +5% IDT, +10% AB |
-| Suragu | Magma Vein, Scalding Tide, Clinging Slag, The Mountain Wakes | 22 | 24 | +2 Damage, +5% IDG, +5% IDT, +10% AB |
-| Suragu | Magma Vein, Clinging Slag, The Mountain Wakes, Cooling Crust | 22 | 22 | +5% IDG, +5% IDT, +2% DDT, +10% AB |
-| Tetsugan | Tempered Stance, Eye of Iron, Sparks from the Forge, Branding Iron | 21 | 41 | +2% IDG, +2% DDG, +5% IDT, +2% DDT, +10% AB |
-| Tetsugan | Tempered Stance, Resonant Parry, Every Blow Returned, Eye of Iron | 21 | 38 | +2% IDG, +5% DDG, +2% IDT, +2% DDT, +10% REF |
-| Eyes of the Forsaken King | Gaze of the Deposed, Searing Afterimage, Judgment of the Forsaken, Mantle of Exile | 21 | 31 | +2% IDG, +5% IDT, +2% DDT, +10% AB, +2% REF |
-| Cosmic Ascendant | Celestial Alignment, Searing Starlight, Light of Dead Stars, Gravity Well | 21 | 30 | +2% IDG, +2% DDG, +5% IDT, +2% DDT, +10% AB |
+| Ethereal Monarch | Sovereign's Decree, Veil of the Monarch, Mirrored Construct, Monarch's Retribution | 21 | 29 | +2% IDG, +5% IDT, +4% DDT, +10% REF |
+| Taiyo Kami | Dawnheart, Sunward Oath, Ashen Verdict, Dying Light | 21 | 23 | +2% IDG, +10% DDG, +7% IDT, +2% DDT |
+| Sands of Time | Borrowed Hours, Suspended Moment, Held in Stasis, Timeless Bastion | 21 | 23 | +2% IDG, +2% DDG, +2% IDT, +10% DDT, +5% HEAL |
+| Tetsugan | Tempered Stance, Folded Steel, Resonant Parry, Every Blow Returned | 20 | 35 | +5% DDG, +5% DDT, +10% REF |
+| Ethereal Monarch | Veil of the Monarch, Woven Starlight, Mirrored Construct, Monarch's Retribution | 20 | 27 | +3% IDT, +7% DDT, +10% REF |
+| Taiyo Kami | Sunward Oath, Golden Mantle, Ashen Verdict, Dying Light | 20 | 20 | +10% DDG, +5% IDT, +5% DDT |
+| Sands of Time | Suspended Moment, Held in Stasis, Timeless Bastion, Leaden Seconds | 20 | 20 | +5% DDG, +10% DDT, +5% HEAL |
+| Blood-Enchanted Eyes | Scarlet Gaze, Carrion Fever, Red Pestilence, Iron in the Blood | 19 | 40 | +2% IDG, +10% DDG, +2% IDT, +5% DDT |
 
-Dominated legal full builds across the roster: 19 — Blood-Enchanted Eyes: Scarlet Gaze, Carrion Fever, Iron in the Blood, Closed Wounds; Dai Kenja: Brimming Cup, Sage's Rebuke, Smothered Current, Cracked Vessel; Hyouga Yui: Permafrost Heart, Weight of the Avalanche, Cocytus Vigil, Cracks in the Ice; Loup-Garou: Scent of Blood, Run to Ground, Hunter's Moon, Feral Frenzy; Musashi Ken: Drawn Steel, Single Stroke, Second Sword, Reading the Field; Musashi Ken: Drawn Steel, Single Stroke, Reading the Field, Answering Cut; Musashi Ken: Drawn Steel, Second Sword, Reading the Field, Unbroken Guard; Musashi Ken: Drawn Steel, Second Sword, Reading the Field, Answering Cut; Nature's Blessing: Thorn and Rot, Stripped Bark, Sap of the Grove, Deepening Roots; Night Parade of A Thousand Demons: Hour of the Ox, Hungry Ghost's Draught, Hide of the Oni, Oni's Heavy Hand; Reptilian: Chimeric Blood, Apex Instinct, Hardened Scales, Blood of the Brood; Reptilian: Chimeric Blood, Apex Instinct, Blood of the Brood, Serpent's Thirst; Reptilian: Chimeric Blood, Hardened Scales, Blood of the Brood, Serpent's Thirst; Shadow Weaver: Loom of Dusk, Frayed Resolve, Cloak of Woven Night, Umbral Whetstone; Tenohira Musei: Waxing Crescent, Unspoken Blow, Waning Crescent, Bared to the Moon; Tenohira Musei: Waxing Crescent, Held Breath, Waning Crescent, Hushed Inferno; Voltara Divine: Anointed by Lightning, Dragon's Whispered Wrath, Luminous Conduit, Halo of Static; Voltara Divine: Anointed by Lightning, Dragon's Whispered Wrath, Halo of Static, Heaven's Retort; Voltara Divine: Anointed by Lightning, Luminous Conduit, Halo of Static, Heaven's Retort. A dominated build is legal but worse on every tag than another legal build of the same tree.
+Dominated legal full builds across the roster: 20 — Arashima: Tempest Hymn, Gathering Thunderhead, Crimson Downpour, Stillness in the Squall; Arashima: Tempest Hymn, Crimson Downpour, Stillness in the Squall, Stormwarden's Hide; Bakuhatsu: Primed Fuse, Powder Keg, Eye of the Blast, Hardened Casing; Blood-Enchanted Eyes: Scarlet Gaze, Carrion Fever, Iron in the Blood, Closed Wounds; Godstorm Eclipse: Black Sun Rising, Charged Firmament, Stormgod's Marrow, Devouring Eclipse; Godstorm Eclipse: Black Sun Rising, Stormgod's Marrow, Obsidian Skin, Devouring Eclipse; Houkyuken: Lodestone Draw, Polarized Fist, Repelling Field, Magnetized Guard; Hyouga Yui: Permafrost Heart, Weight of the Avalanche, Cocytus Vigil, Cracks in the Ice; Lycanthropy: The Beast Within, Blood on the Wind, Moonbound Vigor, Lick the Wound; Oblivion Seal: Unraveled Wards, Umbral Refuge, Veil of Nothing, Sealed Against Ruin; Reptilian: Chimeric Blood, Apex Instinct, Blood of the Brood, Serpent's Thirst; Shadow Weaver: Loom of Dusk, Barbed Thread, Frayed Resolve, Cloak of Woven Night; Shadow Weaver: Loom of Dusk, Barbed Thread, Cloak of Woven Night, Tightened Weave; Shakunetsu Sakura: Ember Dragon's Roots, Kindled Boughs, Falling Ember Petals, Blossom Dominion; Shakunetsu Sakura: Ember Dragon's Roots, Kindled Boughs, Falling Ember Petals, Smothering Petal Rain; Shakunetsu Sakura: Ember Dragon's Roots, Falling Ember Petals, Blossom Dominion, Smothering Petal Rain; Tenohira Musei: Waxing Crescent, Quiet Opening, Waning Crescent, Bared to the Moon; Tenohira Musei: Waxing Crescent, Held Breath, Waning Crescent, Hushed Inferno; Yaketsuku Netsu: Heat in the Steel, Searing Edge, Blistered Guard, Heat Finds the Seam; Yaketsuku Netsu: Heat in the Steel, Fever Pitch, White-Hot Blood, Blistered Guard. A dominated build is legal but worse on every tag than another legal build of the same tree.
 
 ## 2. Worst-value purchases
 
 | Bloodline | Weakest Advanced Arts | Row-weighted | Raw | Rows reached |
 |---|---|---|---|---|
-| Loup-Garou | Killing Bite | 3 | 3 | 1 |
-| Ha Yanagi | Thousand-Leaf Dream | 4 | 4 | 1 |
-| Reptilian | Feast of Scales | 4 | 4 | 2 |
-| Ancient Tailed Demon | Howl of Annihilation | 5 | 5 | 2 |
-| Dai Kenja | Breaking Point | 5 | 5 | 2 |
-| Dai Kenja | Boundless Reservoir | 5 | 5 | 1 |
-| Suragu | Unquenchable Furnace | 5 | 5 | 2 |
-| Yaketsuku Netsu | White-Hot Blood | 5 | 5 | 1 |
-| Arashima | Sundered Sky | 6 | 3 | 2 |
-| Ethereal Monarch | Ethereal Coronation | 6 | 3 | 2 |
-| Lycanthropy | Jaws of the Alpha | 6 | 3 | 2 |
-| Megumi Kijo | Appetite of Oblivion | 6 | 3 | 2 |
+| Terra Nova | Continental Rift | 2 | 1 | 2 |
+| Oblivion Seal | Maw of Oblivion | 3 | 3 | 1 |
+| Megumi Kijo | Appetite of Oblivion | 4 | 2 | 2 |
+| Nature's Blessing | Old Growth's Wrath | 4 | 2 | 2 |
+| Night Parade of A Thousand Demons | March of a Thousand Demons | 4 | 2 | 2 |
+| Sea-King's Blessing | Weight of the Trench | 4 | 2 | 2 |
+| Shiroi Youso | Divine Convergence | 4 | 2 | 2 |
+| Yaketsuku Netsu | Blade That Never Cools | 4 | 2 | 2 |
+| Aerathiel | Atomic Reprisal | 5 | 5 | 1 |
+| Aerathiel | Requiem of Dust | 5 | 5 | 1 |
+| Ancient Tailed Demon | Unyielding Husk | 5 | 5 | 1 |
+| Ancient Tailed Demon | Primordial Rampage | 5 | 5 | 2 |
 
 | Bloodline | Weakest purchases (any tier) | Tier | Row-weighted | Raw |
 |---|---|---|---|---|
+| Loup-Garou | Rending Claws | Hidden Art | 1 | 1 |
 | Reptilian | Blood of the Brood | Foundation | 1 | 1 |
-| Reptilian | Apex Instinct | Hidden Art | 2 | 1 |
-| Ancient Tailed Demon | Rending Bellow | Hidden Art | 2 | 2 |
+| Musashi Ken | Single Stroke | Hidden Art | 2 | 1 |
+| Nature's Blessing | Ironwood Lash | Hidden Art | 2 | 1 |
+| Sea-King's Blessing | Grip of the Riptide | Hidden Art | 2 | 1 |
+| Shinseina Ki | Rooted in Wisdom | Hidden Art | 2 | 1 |
+| Terra Nova | Rending Strata | Hidden Art | 2 | 1 |
+| Terra Nova | Continental Rift | Advanced Art | 2 | 1 |
+| Arashima | Gathering Thunderhead | Hidden Art | 2 | 2 |
 | Arashima | Crimson Downpour | Hidden Art | 2 | 2 |
+| Bakuhatsu | Eye of the Blast | Foundation | 2 | 2 |
 | Blood-Enchanted Eyes | Crimson Thirst | Hidden Art | 2 | 2 |
-| Blue Blade Eyes | Thirst of the Frost | Hidden Art | 2 | 2 |
-| Cosmic Ascendant | Collapsing Star | Hidden Art | 2 | 2 |
-| Cosmic Ascendant | Stellar Siphon | Hidden Art | 2 | 2 |
-| Dai Kenja | Brimming Cup | Foundation | 2 | 2 |
-| Dai Kenja | Chakra Surcharge | Hidden Art | 2 | 2 |
-| Godstorm Eclipse | Devouring Eclipse | Hidden Art | 2 | 2 |
-| Loup-Garou | Scent of Blood | Foundation | 2 | 2 |
 
 ## 3. Tag ceilings against engine caps
 
 Per tag: the highest single-row final and the summed finals at the best legal build. Engine caps (SOURCE_MECHANICS): percentage rows cap at 100; Afterburn damage per hit caps at 60% of that hit; Reflect returns at most 60% of a hit; Lifesteal plus vamp share one 60%-of-hit budget; static Heal is ×10 HP per tick.
 
-**Afterburn** — top 6 of 13 trees
+**Afterburn** — top 6 of 12 trees
 
 | Bloodline | Rows | Max addition | Max single-row final | Summed finals | Recipient |
 |---|---|---|---|---|---|
@@ -103,8 +103,8 @@ Per tag: the highest single-row final and the summed finals at the best legal bu
 | Ancient Tailed Demon | 1 | 10 | 45.0 | 45.0 | enemy |
 | Bakuhatsu | 1 | 10 | 45.0 | 45.0 | enemy |
 | Cosmic Ascendant | 1 | 10 | 45.0 | 45.0 | enemy |
-| Godstorm Eclipse | 1 | 10 | 45.0 | 45.0 | enemy |
 | Namikaze | 1 | 10 | 45.0 | 45.0 | enemy |
+| Primal Radiance | 1 | 10 | 45.0 | 45.0 | enemy |
 
 **Lifesteal** — top 6 of 10 trees
 
@@ -132,30 +132,30 @@ Per tag: the highest single-row final and the summed finals at the best legal bu
 
 | Bloodline | Rows | Max addition | Max single-row final | Summed finals | Recipient |
 |---|---|---|---|---|---|
-| Lycanthropy | 1 | 5 | 45.0 | 45.0 | self |
+| Lycanthropy | 1 | 10 | 50.0 | 50.0 | self |
 | Megumi Kijo | 1 | 5 | 45.0 | 45.0 | self |
 | Nature's Blessing | 1 | 5 | 45.0 | 45.0 | self |
-| Vaporia | 1 | 7 | 32.0 | 32.0 | self |
 | Loup-Garou | 1 | 5 | 30.0 | 30.0 | self |
 | Sands of Time | 1 | 5 | 30.0 | 30.0 | self |
+| Shakunetsu Sakura | 1 | 5 | 30.0 | 30.0 | self |
 
 **Increase Heal** — top 2 of 2 trees
 
 | Bloodline | Rows | Max addition | Max single-row final | Summed finals | Recipient |
 |---|---|---|---|---|---|
-| Nature's Blessing | 1 | 9 | 39.0 | 39.0 | self |
-| Megumi Kijo | 1 | 8 | 38.0 | 38.0 | self |
+| Megumi Kijo | 1 | 10 | 40.0 | 40.0 | self |
+| Nature's Blessing | 1 | 10 | 40.0 | 40.0 | self |
 
-**Damage** — top 6 of 43 trees
+**Damage** — top 6 of 27 trees
 
 | Bloodline | Rows | Max addition | Max single-row final | Summed finals | Recipient |
 |---|---|---|---|---|---|
 | Taiyo Kami | 3 | 5 | 55.0 | 145.0 | enemy |
-| Aerathiel | 3 | 5 | 55.0 | 145.0 | enemy |
-| Bakuhatsu | 3 | 5 | 55.0 | 145.0 | enemy |
-| Blood-Enchanted Eyes | 4 | 5 | 55.0 | 190.0 | enemy |
-| Cosmic Ascendant | 1 | 5 | 55.0 | 55.0 | enemy |
-| Crystal Essence | 3 | 5 | 55.0 | 145.0 | enemy |
+| Ethereal Monarch | 2 | 5 | 55.0 | 100.0 | enemy |
+| Blood-Enchanted Eyes | 4 | 2 | 52.0 | 178.0 | enemy |
+| Shakunetsu Sakura | 2 | 2 | 52.0 | 94.0 | enemy |
+| Hyouga Yui | 3 | 3 | 48.0 | 139.0 | enemy |
+| Itojinsei | 4 | 3 | 48.0 | 177.0 | enemy |
 
 ## 4. Stacking (same-tag rows on one recipient all apply — process.ts 1109–1117)
 
@@ -165,16 +165,16 @@ Jutsu-sourced percentage increases compound and reductions apply sequentially (`
 
 | Bloodline | Rows | Base combined multiplier | Tree max addition per row | Combined multiplier at max | Jutsu |
 |---|---|---|---|---|---|
-| Blue Blade Eyes | 3 | ×2.46 | +7% | ×2.863 | Arctic Frost, Blade Resonance, Sapphire Command |
-| Eyes of the Forsaken King | 3 | ×2.46 | +5% | ×2.744 | Chrono Stasis, Imperial Swords |
-| Godstorm Eclipse | 3 | ×2.46 | +5% | ×2.744 | Event Horizon Gate, Godstorm Mantle: Sky-Splitting Wall, Godstorm Mantle: Storm-God's Heart |
+| Godstorm Eclipse | 3 | ×2.46 | +8% | ×2.924 | Event Horizon Gate, Godstorm Mantle: Sky-Splitting Wall, Godstorm Mantle: Storm-God's Heart |
+| Blood-Enchanted Eyes | 3 | ×2.46 | +5% | ×2.744 | Crimson Impact, Sanguine Plague, Thousand Strike |
+| Blue Blade Eyes | 3 | ×2.46 | +5% | ×2.744 | Arctic Frost, Blade Resonance, Sapphire Command |
 | Tetsugan | 3 | ×2.46 | +5% | ×2.744 | Equilibrium Guard Strike, Phantom Slash, Vacuum Fan |
-| Blood-Enchanted Eyes | 3 | ×2.46 | +2% | ×2.571 | Crimson Impact, Sanguine Plague, Thousand Strike |
-| Aerathiel | 2 | ×1.823 | +10% | ×2.103 | Death's March, Windshear Decay |
-| Crystal Essence | 2 | ×1.823 | +10% | ×2.103 | Crystal Cave, Crystal Sphere |
-| Houkyuken | 2 | ×1.823 | +10% | ×2.103 | Houkyuken: Magnetic Assignment, Morning Star |
+| Eyes of the Forsaken King | 3 | ×2.46 | +2% | ×2.571 | Chrono Stasis, Imperial Swords |
 | Hyouga Yui | 2 | ×1.823 | +10% | ×2.103 | Glacial Descent: Cocytus, Nine Hell's Spear |
-| Kyuko-sei | 2 | ×1.823 | +10% | ×2.103 | Abysmal End, Temporal Erosion |
+| Tenohira Musei | 2 | ×1.823 | +9% | ×2.074 | Moonlit Inferno, Yin-Yang Cascade |
+| Aerathiel | 2 | ×1.823 | +8% | ×2.045 | Death's March, Windshear Decay |
+| Crystal Essence | 2 | ×1.823 | +8% | ×2.045 | Crystal Cave, Crystal Sphere |
+| Houkyuken | 2 | ×1.823 | +8% | ×2.045 | Houkyuken: Magnetic Assignment, Morning Star |
 
 Stack figures assume every row is active together; cooldowns, AP and the cast-round rule (no buff or debuff acts in its own cast round) usually prevent that.
 
@@ -182,16 +182,16 @@ Stack figures assume every row is active together; cooldowns, AP and the cast-ro
 
 | Bloodline | Rows | Base combined multiplier | Tree max addition per row | Combined multiplier at max | Jutsu |
 |---|---|---|---|---|---|
+| Godstorm Eclipse | 4 | ×3.322 | +7% | ×4.066 | Godstorm Mantle: Sky-Splitting Wall, Godstorm Mantle: Tempest, Godstorm Mantle: Thunder-Crowned Bulwark, Marrow Eclipse Mantle |
 | Blue Blade Eyes | 4 | ×3.322 | +5% | ×3.842 | Arctic Frost, Blue Crimson, Glacial Volley, Quintessential Flake |
-| Godstorm Eclipse | 4 | ×3.322 | +5% | ×3.842 | Godstorm Mantle: Sky-Splitting Wall, Godstorm Mantle: Tempest, Godstorm Mantle: Thunder-Crowned Bulwark, Marrow Eclipse Mantle |
+| Tetsugan | 3 | ×2.46 | +8% | ×2.924 | Inner Peace, Middle Guard Stance |
+| Shadow Weaver | 3 | ×2.46 | +7% | ×2.863 | Shadow Domain, Shadow Shell, Shadow Step |
+| Shinrai Ou | 3 | ×2.46 | +7% | ×2.863 | Indra's Storm Cloak, Strike: Raijin |
 | Ethereal Monarch | 3 | ×2.46 | +5% | ×2.744 | Celestial Sealing, Stardust, Starlight Veil |
 | Musashi Ken | 3 | ×2.46 | +5% | ×2.744 | Heiho, Iaido, Iaijutsu |
-| Shadow Weaver | 3 | ×2.46 | +5% | ×2.744 | Shadow Domain, Shadow Shell, Shadow Step |
-| Shinrai Ou | 3 | ×2.46 | +5% | ×2.744 | Indra's Storm Cloak, Strike: Raijin |
-| Tetsugan | 3 | ×2.46 | +5% | ×2.744 | Inner Peace, Middle Guard Stance |
-| Bakuhatsu | 2 | ×1.823 | +10% | ×2.103 | Charge 4 Explosion, Howitzer Crash |
 | Hyouga Yui | 2 | ×1.823 | +10% | ×2.103 | Cerulean Storm: Avalanche, Glacier's Will |
-| Itojinsei | 2 | ×1.823 | +10% | ×2.103 | Eternal Embrace, Spiraling Wires |
+| Tenohira Musei | 2 | ×1.823 | +10% | ×2.103 | Silent Rift, Yin-Yang Cascade |
+| Voltara Divine | 2 | ×1.823 | +10% | ×2.103 | Ethereal Dragon's Whispers, Luminous Illusion Bind |
 
 Stack figures assume every row is active together; cooldowns, AP and the cast-round rule (no buff or debuff acts in its own cast round) usually prevent that.
 
@@ -199,8 +199,8 @@ Stack figures assume every row is active together; cooldowns, AP and the cast-ro
 
 | Bloodline | Rows | Base combined multiplier | Tree max addition per row | Combined multiplier at max | Jutsu |
 |---|---|---|---|---|---|
-| Cosmic Ascendant | 3 | ×0.296 | +10% | ×0.182 | Cosmic Aura, Cosmic Chains, Cosmic Energy |
-| Tetsugan | 3 | ×0.296 | +10% | ×0.182 | Inner Peace, Middle Guard Stance, Pivoting Fortress |
+| Tetsugan | 3 | ×0.296 | +8% | ×0.201 | Inner Peace, Middle Guard Stance, Pivoting Fortress |
+| Cosmic Ascendant | 3 | ×0.296 | +7% | ×0.212 | Cosmic Aura, Cosmic Chains, Cosmic Energy |
 | Blue Blade Eyes | 2 | ×0.423 | +10% | ×0.303 | Quintessential Flake, Sapphire Command |
 | Godstorm Eclipse | 2 | ×0.423 | +10% | ×0.303 | Event Horizon Gate, Godstorm Mantle: Thunder-Crowned Bulwark |
 | Shiroi Youso | 2 | ×0.423 | +10% | ×0.303 | Earth Release, Wind Release |
@@ -226,54 +226,54 @@ Percentage rows pushed past the 100 cap by any legal build: 0.
 
 ## 3b. Ceilings and route bands (RUL-2026-10-03-005)
 
-Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: Damage +5, Lifesteal +5%, Afterburn +15%; every other tag +10% unless a director-review exception is recorded. Routes are scored by each Advanced Art's first modifier tag summed along its path; preferred totals are +5/+10/+15.
+Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: Damage +5, Lifesteal +5%, Afterburn +15%; every other tag +10% unless a director-review exception is recorded. Each route is shown by its Advanced Art's first modifier tag summed along its path. The +5/+10/+15 bands are guardrails, not targets (BALANCE_REVIEW_METHOD.md); "off band" is informational. Damage tiers, fourth purchases and route overlap are in REBALANCE_AUDIT.md.
 
 | Bloodline | Maximum over legal allocations | Over ceiling | Routes | Director-review exceptions |
 |---|---|---|---|---|
 | Taiyo Kami (reference) | +5 Damage, +5% IDG, +10% DDG, +7% IDT, +10% DDT, +10% AB | — | Solar Cataclysm +5 Damage; Eternal Noon +10% AB; Sovereign Sun +10% DDT; Dying Light +10% DDG | — |
-| Aerathiel | +5 Damage, +5% IDG, +10% DDG, +10% IDT, +10% REF | — | Total Disintegration +5 Damage; Terminal Decay +10% IDT; Atomic Reprisal +10% REF; Requiem of Dust +10% DDG | — |
-| Ancient Tailed Demon | +5 Damage, +10% IDG, +5% IDT, +10% DDT, +10% AB | — | Howl of Annihilation +5 Damage; Consuming Malice +10% AB; Unyielding Husk +10% DDT; Primordial Rampage +10% IDG | — |
-| Arashima | +5 Damage, +8% IDG, +10% DDG, +10% DDT, +5% LS | — | Sundered Sky +5 Damage; Reaper's Harvest +5% LS; Unbroken Horizon +10% DDT; Silence After Thunder +10% DDG | — |
-| Bakuhatsu | +5 Damage, +10% IDG, +5% IDT, +10% DDT, +10% AB | — | Ground Zero +5 Damage; Siege Battery +10% DDT; Chain Reaction +10% AB; Critical Mass +10% IDG | — |
-| Blood-Enchanted Eyes | +5 Damage, +7% IDG, +10% DDG, +2% IDT, +10% DDT, +5% LS | — | Rite of Exsanguination +5 Damage; Red Pestilence +10% DDG; Deathless Vitality +10% DDT; Feast of the Fallen +5% LS | — |
-| Blue Blade Eyes | +5 Damage, +5% IDG, +10% DDG, +7% IDT, +10% DDT, +5% LS | — | Stroke That Splits Stone +5 Damage; Numb to the Marrow +10% DDG; Glacier Does Not Yield +10% DDT; Winter Takes Its Due +5% LS | — |
-| Cosmic Ascendant | +5 Damage, +5% IDG, +7% DDG, +5% IDT, +10% DDT, +10% AB, +5% LS | — | Supernova Unbound +5 Damage; Light of Dead Stars +10% AB; Heart of the Singularity +10% DDT; Hunger of the Void +5% LS | — |
-| Crystal Essence | +5 Damage, +5% IDG, +10% IDT, +10% DDT, +10% REF | — | Splintered Mountain Heart +5 Damage; Break Along the Flaw +10% IDT; Adamant Core +10% DDT; Entombed in Crystal +10% REF | — |
-| Dai Kenja | +5 Damage, +10% IDG, +10% DDG, +5% IDT | — | Breaking Point +5 Damage; Boundless Reservoir +10% IDG; Edict of Silence +10% DDG; Shattered Vessel +5% IDT | — |
+| Aerathiel | +7% IDG, +10% DDG, +8% IDT, +10% REF | — | Total Disintegration +7% IDG (off band); Terminal Decay +8% IDT (off band); Atomic Reprisal +10% REF; Requiem of Dust +10% DDG | — |
+| Ancient Tailed Demon | +2 Damage, +8% IDG, +5% IDT, +10% DDT, +10% AB | — | Consuming Malice +10% AB; Unyielding Husk +10% DDT; Primordial Rampage +8% IDG (off band) | — |
+| Arashima | +2 Damage, +10% IDG, +10% DDG, +10% DDT, +5% LS | — | Sundered Sky +8% IDG (off band); The Storm's Due +5% LS; Unbroken Horizon +10% DDT; Silence After Thunder +10% DDG | — |
+| Bakuhatsu | +8% IDG, +5% IDT, +10% DDT, +10% AB | — | Siege Battery +10% DDT; Chain Reaction +10% AB; Critical Mass +8% IDG (off band) | — |
+| Blood-Enchanted Eyes | +2 Damage, +7% IDG, +10% DDG, +5% IDT, +10% DDT, +5% LS | — | Rite of Exsanguination +2 Damage (off band); Red Pestilence +10% DDG; Deathless Vitality +10% DDT; Feast of the Fallen +5% LS | — |
+| Blue Blade Eyes | +2 Damage, +5% IDG, +10% DDG, +5% IDT, +10% DDT, +5% LS | — | Stroke That Splits Stone +2 Damage (off band); Numb to the Marrow +10% DDG; Glacier Does Not Yield +10% DDT; Winter Takes Its Due +5% LS | — |
+| Cosmic Ascendant | +8% IDG, +7% DDG, +5% IDT, +7% DDT, +10% AB, +5% LS | — | Supernova Unbound +5% IDT; Light of Dead Stars +10% AB; Heart of the Singularity +7% DDT (off band); Hunger of the Void +5% LS | — |
+| Crystal Essence | +10% IDG, +8% IDT, +10% DDT, +10% REF | — | Splintered Mountain Heart +10% IDG; Break Along the Flaw +8% IDT (off band); Adamant Core +10% DDT; Entombed in Crystal +10% REF | — |
+| Dai Kenja | +2 Damage, +10% IDG, +10% DDG, +5% IDT | — | Boundless Reservoir +10% IDG; Edict of Silence +10% DDG; Shattered Vessel +2 Damage (off band) | — |
 | Ethereal Monarch | +5 Damage, +5% IDG, +5% IDT, +10% DDT, +10% AB, +10% REF | — | Ethereal Coronation +5 Damage; Rain of Fallen Stars +10% AB; Immovable Throne +10% DDT; Monarch's Retribution +10% REF | — |
-| Eyes of the Forsaken King | +5 Damage, +5% IDG, +5% IDT, +10% DDT, +10% AB, +10% REF | — | Throne of Broken Light +5 Damage; Judgment of the Forsaken +10% AB; Kingdom of One +10% DDT; Usurper's Reckoning +10% REF | — |
-| Godstorm Eclipse | +5 Damage, +5% IDG, +5% IDT, +10% DDT, +10% AB, +5% LS | — | Total Eclipse +5 Damage; Lingering Corona +10% AB; Pillar of Heaven +10% DDT; Eater of Suns +5% LS | — |
-| Ha Yanagi | +5 Damage, +10% IDG, +10% DDG, +10% IDT | — | Grave Willow's Hush +10% DDG; Hollow at the Heart +10% IDT; Nightmare in Bloom +5 Damage; Thousand-Leaf Dream +10% IDG | — |
-| Heavenly Sonata | +5 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT | — | Fortissimo Finale +5 Damage; Prelude to Ruin +10% IDT; Celestial Sanctum +10% DDT; Final Rest +10% DDG | — |
-| Houkyuken | +5 Damage, +4% IDG, +10% IDT, +10% DDT, +10% REF | — | Starfall Hammer +5 Damage; Inexorable Pull +10% IDT; Absolute Alignment +10% DDT; Violent Repulsion +10% REF | — |
-| Hyouga Yui | +5 Damage, +10% IDG, +10% IDT, +10% DDT | — | Buried in the Avalanche +5 Damage; The Glacier Advances +10% IDG; Nine Hells Opened +10% IDT; Locked in Cocytus +10% DDT | — |
-| Itojinsei | +5 Damage, +10% IDG, +10% DDG, +10% IDT | — | Severing Lattice +5 Damage; Weaver Ascendant +10% IDG; Iron Cocoon +10% DDG; Galvanic Marionette +10% IDT | — |
-| Kyuko-sei | +5 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT | — | Heat Death +5 Damage; Collapse of Ages +10% IDT; Outlasting Eternity +10% DDT; All Returns to Dust +10% DDG | — |
-| Loup-Garou | +5 Damage, +10% IDG, +10% IDT, +5% HEAL | — | Killing Bite +5 Damage; The Pack Closes +10% IDT; Beast Unchained +10% IDG | — |
-| Lycanthropy | +5 Damage, +10% IDG, +5% HEAL | — | Jaws of the Alpha +5 Damage; Red Moon Rising +10% IDG | — |
-| Megumi Kijo | +5 Damage, +10% DDG, +8% IH, +5% HEAL | — | Appetite of Oblivion +5 Damage; Cradle of the Kijo +10% DDG; Laughter That Mends +5% HEAL | — |
-| Musashi Ken | +5 Damage, +5% IDG, +10% DDT | — | Cut of No Return +5 Damage; Two Heavens as One +5% IDG; Victory in the Sheath +10% DDT | — |
-| Namikaze | +5 Damage, +5% IDG, +10% DDG, +10% DDT, +10% AB | — | Cleaving Cyclone +5 Damage; Fanning the Flames +10% AB; Heart of the Tempest +10% DDT; Dead Calm +10% DDG | — |
-| Nature's Blessing | +5 Damage, +10% IDT, +9% IH, +5% HEAL | — | Old Growth's Wrath +5 Damage; Blight and Harvest +10% IDT; Everbloom Sanctuary +5% HEAL | — |
-| Night Parade of A Thousand Demons | +5 Damage, +5% IDG, +5% DDG, +10% IDT, +10% DDT, +5% LS | — | Feast of a Thousand Mouths +5% LS; Barred Gate of Yomi +10% DDT; March of a Thousand Demons +5 Damage; Toll of the Night Bell +10% IDT | — |
-| Oblivion Seal | +5 Damage, +5% IDG, +10% IDT, +10% DDT, +5% LS | — | Absolute Erasure +5 Damage; Writ of Oblivion +10% IDT; Sealed Against Ruin +10% DDT; Maw of Oblivion +5% LS | — |
-| Primal Radiance | +5 Damage, +10% IDG, +5% IDT, +10% DDT, +10% AB | — | Apex Conflagration +5 Damage; Pyre of the Hunted +10% AB; Den of Embers +10% DDT; Primal Rampage +10% IDG | — |
-| Reptilian | +5% IDG, +10% DDT, +5% LS | — | Jaws of the Chimera +5% IDG; Basilisk Carapace +10% DDT; Feast of Scales +5% LS | — |
-| Sands of Time | +5 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT, +5% HEAL | — | Erosion of Eternity +5 Damage; The Inevitable Hour +10% IDT; Timeless Bastion +10% DDT; Stilled Hourglass +10% DDG | — |
-| Sea-King's Blessing | +5 Damage, +10% IDT, +10% DDT | — | Weight of the Trench +5 Damage; Hull of the Leviathan +10% DDT; Wrath of the Sea-King +10% IDT | — |
-| Shadow Weaver | +5 Damage, +5% IDG, +10% DDG, +10% DDT | — | Night Unraveled +5 Damage; Strings Cut Short +10% DDG; Seamless Shroud +10% DDT | — |
-| Shakunetsu Sakura | +5 Damage, +10% IDG, +10% DDG, +5% IDT, +5% HEAL | — | Dragon in Full Blossom +10% IDG; Scorching Hanami +5% IDT; Conflagration in Bloom +5 Damage; Deluge of Burning Petals +10% DDG | — |
-| Shinrai Ou | +5 Damage, +5% IDG, +10% IDT, +10% REF | — | Thunder King's Wrath +5 Damage; Judgement from Above +10% IDT; Thunder Answers Thunder +10% REF | — |
-| Shinseina Ki | +5 Damage, +10% IDG, +10% IDT | — | The Forest Devours +5 Damage; Heartwood Awakened +10% IDG; Judgement of the Grove +10% IDT | — |
-| Shiroi Youso | +5 Damage, +5% IDG, +7% IDT, +10% DDT, +10% AB, +5% HEAL | — | Divine Convergence +5 Damage; White Immolation +10% AB; Eye of the Tempest +10% DDT; Pull of the Undertow +5% IDT | — |
-| Suragu | +5 Damage, +5% IDG, +5% IDT, +10% DDT, +10% AB, +5% LS | — | Pyroclastic Surge +5 Damage; The Mountain Wakes +10% AB; Heart of the Caldera +10% DDT; Unquenchable Furnace +5% LS | — |
-| Teno Yuki | +5 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT, +3% HEAL | — | Reign of Absolute Zero +5 Damage; Court of Splintered Ice +10% IDT; Still Heart of Winter +10% DDT; Silence of Falling Snow +10% DDG | — |
-| Tenohira Musei | +5 Damage, +10% IDG, +10% DDG, +10% IDT | — | Deafening Silence +5 Damage; Tipping the Balance +10% IDG; Eclipse in Hand +10% DDG; Stillness Breaks +10% IDT | — |
-| Terra Nova | +5 Damage, +10% IDG, +10% DDG, +10% DDT | — | Continental Rift +5 Damage; Pressure of Ages +10% DDG; Unmoved Mountain +10% DDT; Landslide Momentum +10% IDG | — |
-| Tetsugan | +5 Damage, +5% IDG, +5% DDG, +5% IDT, +10% DDT, +10% AB, +10% REF | — | Hammer and Anvil +10% DDT; Every Blow Returned +10% REF; One Cut Decides +5 Damage; Branding Iron +10% AB | — |
-| Vaporia | +5 Damage, +5% IDG, +5% IDT, +5% DDT, +10% AB, +5% LS, +10% REF, +7% HEAL | — | Caldera Burst +5 Damage; Boiling Point +10% AB; Dew of the Dragon +5% LS; Wall of Steam +10% REF | — |
-| Voltara Divine | +5 Damage, +10% IDG, +10% DDT | — | Ethereal Dragon Unbound +5 Damage; Apotheosis of Thunder +10% IDG; Unassailable Radiance +10% DDT | — |
-| Yaketsuku Netsu | +5 Damage, +10% IDG, +10% IDT | — | Blade That Never Cools +5 Damage; White-Hot Blood +10% IDG; Nothing Left Forbidden +10% IDT | — |
+| Eyes of the Forsaken King | +10% IDG, +2% IDT, +10% DDT, +10% AB, +10% REF | — | Throne of Broken Light +10% IDG; Judgment of the Forsaken +10% AB; Kingdom of One +10% DDT; Usurper's Reckoning +10% REF | — |
+| Godstorm Eclipse | +7% IDG, +8% IDT, +10% DDT, +5% LS | — | Total Eclipse +8% IDT (off band); Storm-God Ascendant +7% IDG (off band); Pillar of Heaven +10% DDT; Eater of Suns +5% LS | — |
+| Ha Yanagi | +2 Damage, +10% IDG, +10% DDG, +8% IDT | — | Grave Willow's Hush +10% DDG; Hollow at the Heart +8% IDT (off band); Thousand-Leaf Dream +10% IDG | — |
+| Heavenly Sonata | +2 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT | — | Fortissimo Finale +2 Damage (off band); Prelude to Ruin +10% IDT; Celestial Sanctum +10% DDT; Final Rest +10% DDG | — |
+| Houkyuken | +8% IDG, +8% IDT, +10% DDT, +10% REF | — | Starfall Hammer +8% IDG (off band); Inexorable Pull +8% IDT (off band); Absolute Alignment +10% DDT; Violent Repulsion +10% REF | — |
+| Hyouga Yui | +3 Damage, +10% IDG, +10% IDT, +10% DDT | — | Buried in the Avalanche +3 Damage (off band); The Glacier Advances +10% IDG; Nine Hells Opened +10% IDT; Locked in Cocytus +10% DDT | — |
+| Itojinsei | +3 Damage, +8% IDG, +10% DDG, +10% IDT | — | Severing Lattice +3 Damage (off band); Weaver Ascendant +8% IDG (off band); Iron Cocoon +10% DDG; Galvanic Marionette +10% IDT | — |
+| Kyuko-sei | +8% IDG, +10% DDG, +8% IDT, +10% DDT | — | Heat Death +8% IDG (off band); Collapse of Ages +8% IDT (off band); Outlasting Eternity +10% DDT; All Returns to Dust +10% DDG | — |
+| Loup-Garou | +3 Damage, +10% IDG, +10% IDT, +5% HEAL | — | Killing Bite +3 Damage (off band); The Pack Closes +10% IDT; Beast Unchained +10% IDG | — |
+| Lycanthropy | +8% IDG, +10% HEAL | — | Red Moon Rising +8% IDG (off band); Undying Hunger +10% HEAL | — |
+| Megumi Kijo | +2 Damage, +10% DDG, +10% IH, +5% HEAL | — | Appetite of Oblivion +2 Damage (off band); Cradle of the Kijo +10% DDG; The Ever-Lit Hearth +10% IH | — |
+| Musashi Ken | +4 Damage, +5% IDG, +10% DDT | — | Cut of No Return +4 Damage (off band); Two Heavens as One +5% IDG; Victory in the Sheath +10% DDT | — |
+| Namikaze | +2 Damage, +6% IDG, +10% DDG, +10% DDT, +10% AB | — | Cleaving Cyclone +2 Damage (off band); Fanning the Flames +10% AB; Heart of the Tempest +10% DDT; Dead Calm +10% DDG | — |
+| Nature's Blessing | +3 Damage, +10% IDT, +10% IH, +5% HEAL | — | Old Growth's Wrath +3 Damage (off band); Blight and Harvest +10% IDT; Everbloom Sanctuary +10% IH | — |
+| Night Parade of A Thousand Demons | +2 Damage, +5% IDG, +10% DDG, +5% IDT, +10% DDT, +5% LS | — | Feast of a Thousand Mouths +5% LS; Barred Gate of Yomi +10% DDT; March of a Thousand Demons +2 Damage (off band); Toll of the Night Bell +10% DDG | — |
+| Oblivion Seal | +10% IDG, +8% IDT, +10% DDT, +5% LS | — | Absolute Erasure +10% IDG; Writ of Oblivion +6% IDT (off band); Sealed Against Ruin +10% DDT; Maw of Oblivion +5% LS | — |
+| Primal Radiance | +10% IDG, +2% IDT, +10% DDT, +10% AB | — | Pyre of the Hunted +10% AB; Den of Embers +10% DDT; Primal Rampage +10% IDG | — |
+| Reptilian | +7% IDG, +10% DDT, +5% LS | — | Jaws of the Chimera +7% IDG (off band); Basilisk Carapace +10% DDT; Feast of Scales +5% LS | — |
+| Sands of Time | +10% IDG, +10% DDG, +8% IDT, +10% DDT, +5% HEAL | — | Sovereign of the Hour +10% IDG; The Inevitable Hour +8% IDT (off band); Timeless Bastion +10% DDT; Stilled Hourglass +10% DDG | — |
+| Sea-King's Blessing | +3 Damage, +10% IDT, +10% DDT | — | Weight of the Trench +3 Damage (off band); Hull of the Leviathan +10% DDT; Wrath of the Sea-King +10% IDT | — |
+| Shadow Weaver | +2 Damage, +7% IDG, +10% DDG, +10% DDT | — | Night Unraveled +2 Damage (off band); Strings Cut Short +10% DDG; Seamless Shroud +10% DDT | — |
+| Shakunetsu Sakura | +2 Damage, +13% IDG, +10% DDG, +5% IDT, +5% HEAL | increasedamagegiven | Dragon in Full Blossom +10% IDG; Conflagration in Bloom +5% IDT; Scorching Hanami +10% IDG; Deluge of Burning Petals +10% DDG | IDG ≤ +13% |
+| Shinrai Ou | +7% IDG, +10% IDT, +10% REF | — | Thunder King's Wrath +7% IDG (off band); Judgement from Above +10% IDT; Thunder Answers Thunder +10% REF | — |
+| Shinseina Ki | +6% IDG, +10% IDT | — | Heartwood Awakened +6% IDG (off band); Judgement of the Grove +10% IDT | — |
+| Shiroi Youso | +2 Damage, +8% IDG, +5% IDT, +10% DDT, +10% AB, +5% HEAL | — | Divine Convergence +2 Damage (off band); White Immolation +10% AB; Eye of the Tempest +10% DDT; White Maelstrom +8% IDG (off band) | — |
+| Suragu | +2 Damage, +8% IDG, +2% IDT, +10% DDT, +10% AB, +5% LS | — | Pyroclastic Surge +8% IDG (off band); The Mountain Wakes +10% AB; Heart of the Caldera +10% DDT; Unquenchable Furnace +5% LS | — |
+| Teno Yuki | +2 Damage, +5% IDG, +10% DDG, +10% IDT, +10% DDT, +3% HEAL | — | Reign of Absolute Zero +2 Damage (off band); Court of Splintered Ice +10% IDT; Still Heart of Winter +10% DDT; Silence of Falling Snow +10% DDG | — |
+| Tenohira Musei | +2 Damage, +10% IDG, +10% DDG, +9% IDT | — | Deafening Silence +2 Damage (off band); Tipping the Balance +10% IDG; Eclipse in Hand +10% DDG; Stillness Breaks +9% IDT (off band) | — |
+| Terra Nova | +2 Damage, +10% IDG, +10% DDG, +10% DDT | — | Continental Rift +2 Damage (off band); Pressure of Ages +10% DDG; Unmoved Mountain +10% DDT; Landslide Momentum +10% IDG | — |
+| Tetsugan | +8% IDG, +5% DDG, +5% IDT, +8% DDT, +10% AB, +10% REF | — | Hammer and Anvil +8% DDT (off band); Every Blow Returned +10% REF; One Cut Decides +8% IDG (off band); Branding Iron +10% AB | — |
+| Vaporia | +2 Damage, +2% IDG, +5% IDT, +5% DDT, +10% AB, +5% LS, +10% REF, +5% HEAL | — | Caldera Burst +2 Damage (off band); Boiling Point +10% AB; Dew of the Dragon +5% LS; Wall of Steam +10% REF | — |
+| Voltara Divine | +10% IDG, +10% DDT | — | Apotheosis of Thunder +10% IDG; Unassailable Radiance +10% DDT | — |
+| Yaketsuku Netsu | +2 Damage, +10% IDG, +10% IDT | — | Blade That Never Cools +2 Damage (off band); White-Hot Blood +10% IDG; Nothing Left Forbidden +10% IDT | — |
 
 ## 5. Delivery, scope and classification
 
@@ -281,14 +281,14 @@ Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: 
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Taiyo Kami | A | Scorch (element) | 1 | Radiant Embers | 4/9 (5 None) | — | — | — | — | 2 | 0 | — | Celestial Ignition increasedamagegiven |
 | Aerathiel | A | Dust (element) | 2 | Windshear Decay | 5/9 (4 None) | — | — | — | — | 4 | 0 | — | Atomic Shield increasedamagegiven |
-| Ancient Tailed Demon | B | Ancient Tailed Demon (ext) | 0 | Ancient Demon Roar, Demonic Embrace, Demonic Vitae | 0/5 (5 None) | — | — | — | — | 0 | 0 | — | — |
+| Ancient Tailed Demon | B | Ancient Tailed Demon (ext) | 0 | Ancient Demon Roar, Demonic Embrace, Demonic Vitae | 0/5 (5 None) | — | — | — | Demon's Marrow | 0 | 0 | — | — |
 | Arashima | A | Storm (element) | 3 | Sounds of Tempest, Stormsinger | 2/6 (4 None) | — | — | — | — | 1 | 0 | — | — |
-| Bakuhatsu | A | Explosion (element) | 1 | Blast Shield | 4/8 (4 None) | — | — | — | — | 0 | 0 | — | — |
+| Bakuhatsu | A | Explosion (element) | 1 | Blast Shield | 4/8 (4 None) | — | — | — | Primed Fuse | 0 | 0 | — | — |
 | Blood-Enchanted Eyes | S | Shadow (element) | 13 | Hemocure, Unholy Enhancement | 5/15 (10 None) | afterburn, damage, increasedamagetaken, lifesteal | — | — | — | 2 | 0 | — | — |
 | Blue Blade Eyes | S | Ice (element) | 7 | Quintessential Flake, Sapphire Command | 7/16 (9 None) | damage, decreasedamagegiven, lifesteal | — | — | — | 1 | 0 | — | — |
 | Cosmic Ascendant | S | Cosmic Ascendant (ext) | 0 | Cosmic Aura, Cosmic Chains, Cosmic Energy, Cosmic Explosion, Cosmic Intent | 0/10 (10 None) | — | — | — | — | 0 | 0 | — | — |
 | Crystal Essence | A | Crystal (element) | 1 | Crystal Sphere, Summoning: Jade | 5/8 (3 None) | — | — | — | — | 0 | 0 | — | — |
-| Dai Kenja | D | Dai Kenja (ext) | 0 | Chakra Cannon, Chakra Overload, Overloaded Impact | 0/6 (6 None) | — | — | — | — | 1 | 0 | Overloaded Impact#2 increasedamagetaken | — |
+| Dai Kenja | D | Dai Kenja (ext) | 0 | Chakra Cannon, Chakra Overload, Overloaded Impact | 0/6 (6 None) | — | — | — | Sage's Rebuke | 1 | 0 | Overloaded Impact#2 increasedamagetaken | — |
 | Ethereal Monarch | S | Yin-Yang (element) | 8 | Heavenly Constructs, Stardust, Starlight Veil | 2/10 (8 None) | — | — | Stardust (bloodlineId match) | — | 0 | 0 | — | — |
 | Eyes of the Forsaken King | S | Light (element) | 6 | — | 5/10 (5 None) | — | — | — | — | 1 | 0 | — | Chrono Stasis increasedamagetaken |
 | Godstorm Eclipse | H | Shadow + Storm (multi) | 16 | Event Horizon Gate, Godstorm Mantle: Sky-Splitting Wall, Godstorm Mantle: Tempest, Godstorm Mantle: Thunder-Crowned Bulwark, Marrow Eclipse Mantle | 5/16 (11 None) | afterburn, damage, decreasedamagetaken, increasedamagegiven, increasedamagetaken, lifesteal | — | — | — | 2 | 0 | — | — |
@@ -299,21 +299,21 @@ Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: 
 | Itojinsei | A | Magnet (element) | 1 | — | 6/9 (3 None) | — | — | — | — | 1 | 0 | — | — |
 | Kyuko-sei | A | Dust (element) | 2 | Abysmal End | 5/10 (5 None) | — | — | — | — | 1 | 0 | — | — |
 | Loup-Garou | D | Loup-Garou (ext) | 0 | Life reaver, Nature's Hunter, Summon Wolf Companion | 0/4 (4 None) | — | — | — | Scent of Blood | 0 | 0 | — | — |
-| Lycanthropy | B | Lycanthropy (ext) | 0 | Feral Wrath, Frenzy Assault, Moonlit Fury | 0/5 (5 None) | — | — | — | The Beast Within | 0 | 0 | — | — |
-| Megumi Kijo | B | Megumi Kijo (ext) | 0 | Kijo's Benevolence, Onibaba's Laughter, Phantom Realm Oblivion | 0/5 (5 None) | — | — | — | Hagmother's Welcome | 0 | 0 | — | — |
-| Musashi Ken | D | Musashi Ken (ext) | 0 | Heiho, Iaido, Iaijutsu | 0/6 (6 None) | — | — | — | — | 0 | 0 | — | — |
+| Lycanthropy | B | Lycanthropy (ext) | 0 | Feral Wrath, Frenzy Assault, Moonlit Fury | 0/5 (5 None) | — | — | — | The Beast Within, Moonbound Vigor | 0 | 0 | — | — |
+| Megumi Kijo | B | Megumi Kijo (ext) | 0 | Kijo's Benevolence, Onibaba's Laughter, Phantom Realm Oblivion | 0/5 (5 None) | — | — | — | Mountain Hag's Mercy | 0 | 0 | — | — |
+| Musashi Ken | D | Musashi Ken (ext) | 0 | Heiho, Iaido, Iaijutsu | 0/6 (6 None) | — | — | — | Drawn Steel | 0 | 0 | — | — |
 | Namikaze | C | Wind (element) | 28 | — | 5/8 (3 None) | — | — | — | — | 1 | 0 | — | — |
 | Nature's Blessing | B | Wood (element) | 1 | Verdant Bastion | 2/5 (3 None) | — | — | — | — | 0 | 0 | — | — |
 | Night Parade of A Thousand Demons | H | Shadow (element) | 13 | Herald of the Black Night, Otherworldly Conduit, Summoning: Underworld Gate | 2/7 (5 None) | — | — | — | — | 1 | 0 | — | — |
 | Oblivion Seal | A | Shadow (element) | 13 | Shadow Surge | 4/7 (3 None) | — | — | — | — | 0 | 0 | — | — |
-| Primal Radiance | C | Fire (element) | 29 | — | 4/6 (2 None) | — | — | — | — | 0 | 0 | — | — |
+| Primal Radiance | C | Fire (element) | 29 | — | 4/6 (2 None) | — | — | — | Hide and Fang | 0 | 0 | — | — |
 | Reptilian | B | Reptilian (ext) | 0 | Cool-Blooded Empowerment, Reptile Chimera, Summoning: Reptile Zoo | 0/4 (4 None) | — | — | Summoning: Reptile King (bloodlineId none) | Chimeric Blood | 0 | 0 | — | — |
 | Sands of Time | H | Sand (element) | 0 | Cellular Regeneration | 4/9 (5 None) | — | — | — | — | 1 | 0 | — | — |
 | Sea-King's Blessing | C | Water (element) | 23 | — | 3/5 (2 None) | — | — | — | Scales of the Deep | 0 | 0 | — | — |
 | Shadow Weaver | A | Shadow (element) | 13 | Shadow Shell | 6/9 (3 None) | — | — | — | — | 0 | 0 | — | — |
 | Shakunetsu Sakura | A | Scorch (element) | 1 | Yozakura: Sakura Dragon Pearl | 3/7 (4 None) | — | — | — | — | 3 | 0 | — | — |
 | Shinrai Ou | A | Storm (element) | 3 | — | 6/9 (3 None) | — | — | — | Mandate of Thunder | 0 | 0 | — | Indra's Storm Cloak increasedamagegiven |
-| Shinseina Ki | A | Wood (element) | 1 | Wood Style: Wood Warrior Summon | 4/6 (2 None) | — | — | — | Hallowed Seed | 1 | 0 | — | Forest Wisdom increasedamagegiven |
+| Shinseina Ki | A | Wood (element) | 1 | Wood Style: Wood Warrior Summon | 4/6 (2 None) | — | — | — | Hallowed Seed, Grasping Roots | 1 | 0 | — | Forest Wisdom increasedamagegiven |
 | Shiroi Youso | S | Fire + Lightning (multi) | 34 | Earth Release, Water Release | 6/11 (5 None) | — | — | Planetary Devastation (bloodlineId none); Voltari (bloodlineId none); Great Fire Annihilation (bloodlineId none); Great Vacuum Bullet (bloodlineId none); Rising Water Slicer (bloodlineId none) | — | 2 | 0 | — | — |
 | Suragu | A | Lava (element) | 1 | Blow of Devastation | 3/7 (4 None) | — | Magma Slayer (PVP) | — | — | 1 | 0 | — | — |
 | Teno Yuki | A | Ice (element) | 7 | Cryostorm Aegis | 5/8 (3 None) | — | — | — | — | 2 | 0 | — | — |
@@ -321,7 +321,7 @@ Maximum per tag over every legal prerequisite-closed allocation. Hard ceilings: 
 | Terra Nova | C | Earth (element) | 23 | — | 3/5 (2 None) | — | — | — | — | 0 | 0 | — | — |
 | Tetsugan | H | Metal (element) | 0 | Middle Guard Stance | 10/20 (10 None) | afterburn, damage, reflect | — | — | — | 3 | 0 | — | Inner Peace increasedamagegiven |
 | Vaporia | A | Boil (element) | 0 | Liquid Ember Shell | 3/10 (7 None) | — | — | — | — | 1 | 0 | — | — |
-| Voltara Divine | C | Lightning (element) | 24 | Voltara Blitz | 3/5 (2 None) | — | — | — | — | 0 | 0 | — | — |
+| Voltara Divine | C | Lightning (element) | 24 | Voltara Blitz | 3/5 (2 None) | — | — | — | Anointed by Lightning, Halo of Static | 0 | 0 | — | — |
 | Yaketsuku Netsu | B | Yaketsuku Netsu (ext) | 0 | Chakra Shield, Forbidden Chakra Fury, Forgotten Ember Blade | 0/4 (4 None) | — | — | — | Heat in the Steel | 0 | 0 | — | — |
 
 Potency is element-wide (RUL-2026-10-03-005): every jutsu of the qualifying element qualifies, so sharing an element with other bloodlines is expected, not a collision. `Kit rows matching the element now` shows how much of each kit the current row-element resolver would reach; the rest needs the proposed jutsu-classification resolver (ENGINE_GAP_REGISTER G1–G2), and kit jutsu whose own rows carry no qualifying element additionally need an authored jutsu classification. Off-kit coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN jutsu of the element) is unverified. Item gates decide castability only.
@@ -332,50 +332,50 @@ Inherited strength is the kit as captured (rank, rows, baseline values at jutsu 
 
 | Bloodline | Rank | Jutsu | Supported rows | Damage rows / base sum | % rows / base sum | Added (max row-weighted) | Added share |
 |---|---|---|---|---|---|---|---|
-| Aerathiel | A | 5 | 9 | 3 / 130.0 | 6 / 215.0 | 36 | 10.4% |
+| Aerathiel | A | 5 | 9 | 3 / 130.0 | 6 / 215.0 | 24 | 7.0% |
 | Ancient Tailed Demon | B | 3 | 5 | 1 / 45.0 | 4 / 130.0 | 19 | 10.9% |
 | Arashima | A | 5 | 6 | 2 / 90.0 | 4 / 140.0 | 17 | 7.4% |
-| Bakuhatsu | A | 5 | 8 | 3 / 130.0 | 5 / 175.0 | 28 | 9.2% |
+| Bakuhatsu | A | 5 | 8 | 3 / 130.0 | 5 / 175.0 | 23 | 7.5% |
 | Blood-Enchanted Eyes | S | 8 | 15 | 4 / 170.0 | 11 / 345.0 | 40 | 7.8% |
-| Blue Blade Eyes | S | 8 | 16 | 5 / 210.0 | 11 / 385.0 | 45 | 7.6% |
-| Cosmic Ascendant | S | 5 | 10 | 1 / 50.0 | 9 / 310.0 | 41 | 11.4% |
-| Crystal Essence | A | 5 | 8 | 3 / 130.0 | 5 / 180.0 | 31 | 10.0% |
+| Blue Blade Eyes | S | 8 | 16 | 5 / 210.0 | 11 / 385.0 | 42 | 7.1% |
+| Cosmic Ascendant | S | 5 | 10 | 1 / 50.0 | 9 / 310.0 | 29 | 8.1% |
+| Crystal Essence | A | 5 | 8 | 3 / 130.0 | 5 / 180.0 | 22 | 7.1% |
 | Dai Kenja | D | 3 | 6 | 1 / 40.0 | 5 / 145.0 | 26 | 14.1% |
 | Ethereal Monarch | S | 6 | 10 | 2 / 90.0 | 8 / 275.0 | 39 | 10.7% |
-| Eyes of the Forsaken King | S | 5 | 10 | 3 / 130.0 | 7 / 235.0 | 33 | 9.0% |
-| Godstorm Eclipse | H | 12 | 16 | 5 / 225.0 | 11 / 390.0 | 46 | 7.5% |
-| Ha Yanagi | D | 3 | 6 | 2 / 80.0 | 4 / 130.0 | 24 | 11.4% |
-| Heavenly Sonata | A | 5 | 7 | 3 / 125.0 | 4 / 140.0 | 23 | 8.7% |
-| Houkyuken | A | 5 | 10 | 4 / 175.0 | 6 / 215.0 | 36 | 9.2% |
-| Hyouga Yui | A | 5 | 9 | 3 / 130.0 | 6 / 205.0 | 36 | 10.7% |
-| Itojinsei | A | 5 | 9 | 4 / 165.0 | 5 / 170.0 | 30 | 9.0% |
-| Kyuko-sei | A | 5 | 10 | 4 / 170.0 | 6 / 200.0 | 38 | 10.3% |
-| Loup-Garou | D | 3 | 4 | 1 / 40.0 | 2 / 70.0 | 17 | 15.5% |
-| Lycanthropy | B | 3 | 5 | 2 / 90.0 | 2 / 70.0 | 24 | 15.0% |
-| Megumi Kijo | B | 3 | 5 | 2 / 85.0 | 2 / 60.0 | 16 | 11.0% |
-| Musashi Ken | D | 3 | 6 | 2 / 76.0 | 4 / 140.0 | 21 | 9.7% |
-| Namikaze | C | 4 | 8 | 3 / 125.0 | 5 / 151.2 | 26 | 9.4% |
-| Nature's Blessing | B | 3 | 5 | 2 / 80.0 | 2 / 65.0 | 17 | 11.7% |
-| Night Parade of A Thousand Demons | H | 5 | 7 | 2 / 90.0 | 5 / 175.0 | 19 | 7.2% |
-| Oblivion Seal | A | 5 | 7 | 3 / 130.0 | 4 / 145.0 | 22 | 8.0% |
-| Primal Radiance | C | 3 | 6 | 2 / 90.0 | 4 / 135.0 | 19 | 8.4% |
-| Reptilian | B | 3 | 4 | 0 / 0 | 4 / 140.0 | 18 | 12.9% |
-| Sands of Time | H | 5 | 9 | 3 / 130.0 | 5 / 165.0 | 31 | 10.5% |
-| Sea-King's Blessing | C | 3 | 5 | 2 / 76.0 | 3 / 95.0 | 24 | 14.0% |
-| Shadow Weaver | A | 5 | 9 | 4 / 160.0 | 5 / 170.0 | 33 | 10.0% |
+| Eyes of the Forsaken King | S | 5 | 10 | 3 / 130.0 | 7 / 235.0 | 22 | 6.0% |
+| Godstorm Eclipse | H | 12 | 16 | 5 / 225.0 | 11 / 390.0 | 40 | 6.5% |
+| Ha Yanagi | D | 3 | 6 | 2 / 80.0 | 4 / 130.0 | 23 | 11.0% |
+| Heavenly Sonata | A | 5 | 7 | 3 / 125.0 | 4 / 140.0 | 18 | 6.8% |
+| Houkyuken | A | 5 | 10 | 4 / 175.0 | 6 / 215.0 | 24 | 6.2% |
+| Hyouga Yui | A | 5 | 9 | 3 / 130.0 | 6 / 205.0 | 30 | 9.0% |
+| Itojinsei | A | 5 | 9 | 4 / 165.0 | 5 / 170.0 | 28 | 8.4% |
+| Kyuko-sei | A | 5 | 10 | 4 / 170.0 | 6 / 200.0 | 24 | 6.5% |
+| Loup-Garou | D | 3 | 4 | 1 / 40.0 | 2 / 70.0 | 14 | 12.7% |
+| Lycanthropy | B | 3 | 5 | 2 / 90.0 | 2 / 70.0 | 20 | 12.5% |
+| Megumi Kijo | B | 3 | 5 | 2 / 85.0 | 2 / 60.0 | 15 | 10.3% |
+| Musashi Ken | D | 3 | 6 | 2 / 76.0 | 4 / 140.0 | 17 | 7.9% |
+| Namikaze | C | 4 | 8 | 3 / 125.0 | 5 / 151.2 | 22 | 8.0% |
+| Nature's Blessing | B | 3 | 5 | 2 / 80.0 | 2 / 65.0 | 15 | 10.3% |
+| Night Parade of A Thousand Demons | H | 5 | 7 | 2 / 90.0 | 5 / 175.0 | 16 | 6.0% |
+| Oblivion Seal | A | 5 | 7 | 3 / 130.0 | 4 / 145.0 | 14 | 5.1% |
+| Primal Radiance | C | 3 | 6 | 2 / 90.0 | 4 / 135.0 | 16 | 7.1% |
+| Reptilian | B | 3 | 4 | 0 / 0 | 4 / 140.0 | 19 | 13.6% |
+| Sands of Time | H | 5 | 9 | 3 / 130.0 | 5 / 165.0 | 23 | 7.8% |
+| Sea-King's Blessing | C | 3 | 5 | 2 / 76.0 | 3 / 95.0 | 22 | 12.9% |
+| Shadow Weaver | A | 5 | 9 | 4 / 160.0 | 5 / 170.0 | 31 | 9.4% |
 | Shakunetsu Sakura | A | 5 | 7 | 2 / 90.0 | 4 / 135.0 | 19 | 8.4% |
-| Shinrai Ou | A | 5 | 9 | 4 / 175.0 | 5 / 180.0 | 33 | 9.3% |
-| Shinseina Ki | A | 5 | 6 | 3 / 130.0 | 3 / 105.0 | 26 | 11.1% |
-| Shiroi Youso | S | 6 | 11 | 2 / 85.0 | 8 / 275.0 | 38 | 10.6% |
-| Suragu | A | 5 | 7 | 2 / 85.0 | 5 / 175.0 | 24 | 9.2% |
+| Shinrai Ou | A | 5 | 9 | 4 / 175.0 | 5 / 180.0 | 26 | 7.3% |
+| Shinseina Ki | A | 5 | 6 | 3 / 130.0 | 3 / 105.0 | 14 | 6.0% |
+| Shiroi Youso | S | 6 | 11 | 2 / 85.0 | 8 / 275.0 | 33 | 9.2% |
+| Suragu | A | 5 | 7 | 2 / 85.0 | 5 / 175.0 | 17 | 6.5% |
 | Taiyo Kami | A | 5 | 9 | 3 / 130.0 | 6 / 210.0 | 31 | 9.1% |
-| Teno Yuki | A | 5 | 8 | 3 / 125.0 | 4 / 135.0 | 23 | 8.8% |
-| Tenohira Musei | A | 5 | 8 | 3 / 120.0 | 5 / 175.0 | 34 | 11.5% |
-| Terra Nova | C | 3 | 5 | 2 / 76.0 | 3 / 100.0 | 17 | 9.7% |
-| Tetsugan | H | 11 | 20 | 7 / 300.0 | 13 / 450.0 | 57 | 7.6% |
-| Vaporia | A | 5 | 10 | 3 / 125.0 | 6 / 215.0 | 26 | 7.6% |
-| Voltara Divine | C | 3 | 5 | 2 / 90.0 | 3 / 100.0 | 26 | 13.7% |
-| Yaketsuku Netsu | B | 3 | 4 | 2 / 80.0 | 2 / 60.0 | 15 | 10.7% |
+| Teno Yuki | A | 5 | 8 | 3 / 125.0 | 4 / 135.0 | 19 | 7.3% |
+| Tenohira Musei | A | 5 | 8 | 3 / 120.0 | 5 / 175.0 | 28 | 9.5% |
+| Terra Nova | C | 3 | 5 | 2 / 76.0 | 3 / 100.0 | 15 | 8.5% |
+| Tetsugan | H | 11 | 20 | 7 / 300.0 | 13 / 450.0 | 40 | 5.3% |
+| Vaporia | A | 5 | 10 | 3 / 125.0 | 6 / 215.0 | 19 | 5.6% |
+| Voltara Divine | C | 3 | 5 | 2 / 90.0 | 3 / 100.0 | 22 | 11.6% |
+| Yaketsuku Netsu | B | 3 | 4 | 2 / 80.0 | 2 / 60.0 | 13 | 9.3% |
 
 ## 7. Interactions outside the tree
 
