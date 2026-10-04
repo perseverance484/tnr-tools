@@ -9,12 +9,12 @@
     "statClassification": "Taijutsu",
     "traits": "Healing and Sustain"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lycanthropy classification / forked tree",
   "structure_errors": [],
   "warnings": [
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Feral Wrath 50 -> 52",
     "classification status: requires classification extension (director decision)",
-    "universal node: 01 (The Beast Within), 06 (Moonbound Vigor) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
-    "supported tags present in kit but not targeted by any node: damage"
+    "universal node: 01 (The Beast Within), 06 (Moonbound Vigor) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Lycanthropy",
@@ -62,7 +62,7 @@
     },
     {
       "name": "Undying Hunger",
-      "archetype": "Regeneration",
+      "archetype": "Sustain offense",
       "ids": [
         "06",
         "07",
@@ -71,7 +71,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "heal": 10
       },
       "advanced_arts": [
@@ -98,10 +99,11 @@
       "4": 3
     },
     "full_budget_allocations": 3,
-    "non_dominated_full_allocations": 2,
+    "non_dominated_full_allocations": 3,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
+      "damage": 2,
       "increasedamagegiven": 8,
       "heal": 10
     },
@@ -112,12 +114,11 @@
       "increasedamagegiven": 2
     },
     "tags_targeted_by_tree": [
+      "damage",
       "heal",
       "increasedamagegiven"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -197,11 +198,12 @@
         "name": "Undying Hunger",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
         "covered_jutsu": [
           "Feral Wrath",
-          "Frenzy Assault"
+          "Frenzy Assault",
+          "Moonlit Fury"
         ],
         "covered_rows": 3,
         "adverse_rows_amplified": [],
@@ -216,11 +218,12 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "heal": 10
       },
-      "raw_flat_total": 15,
-      "row_weighted_total": 20,
+      "raw_flat_total": 14,
+      "row_weighted_total": 18,
       "advanced_arts": [
         "08"
       ],
@@ -273,7 +276,7 @@
         "raw_flat_total": 9,
         "row_weighted_total": 13,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -283,11 +286,12 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "damage": 2,
+          "increasedamagegiven": 2,
           "heal": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 20,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "08"
         ],
@@ -365,7 +369,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Moonlit Fury",
@@ -376,7 +382,22 @@
           "None"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 2,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Feral Wrath",
@@ -387,11 +408,40 @@
           "None"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 2,
+            "smallest_allocation": [
+              "06",
+              "07",
+              "08"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Feral Wrath",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Feral Wrath",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -433,10 +483,10 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 3,
+        "damage": 2,
         "heal": 10
       },
-      "path_row_weighted": 16,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "01",
@@ -446,11 +496,12 @@
             "increasedamagegiven": 2
           },
           "bonuses": {
-            "increasedamagegiven": 5,
+            "damage": 2,
+            "increasedamagegiven": 2,
             "heal": 10
           },
-          "raw_total": 15,
-          "row_weighted": 20
+          "raw_total": 14,
+          "row_weighted": 18
         }
       ],
       "highest_diagnostic_fourth": "01"

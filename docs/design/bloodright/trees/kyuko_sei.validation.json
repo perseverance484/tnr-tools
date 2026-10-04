@@ -9,11 +9,11 @@
     "statClassification": "Ninjutsu",
     "traits": "Burst, Control "
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "ally-hazard area rows amplified (friendly fire none/ALL): Abysmal End#0",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Ethereal Particle Storm 50 -> 52",
+    "ally-hazard area rows amplified (friendly fire none/ALL): Abysmal End#0"
   ],
   "classification": {
     "potency_classification": "Dust",
@@ -55,7 +55,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -75,7 +76,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -144,7 +145,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10
@@ -158,14 +160,13 @@
       "increasedamagetaken": 2
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "06",
@@ -188,8 +189,8 @@
         "name": "Shattered Firmament",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Abysmal End",
           "Singularity"
@@ -203,13 +204,15 @@
         "name": "Heat Death",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 4,
+        "raw_flat_total": 2,
         "row_weighted_total": 8,
         "covered_jutsu": [
-          "Abysmal End",
-          "Singularity"
+          "Ethereal Particle Storm",
+          "Resonance",
+          "Singularity",
+          "Temporal Erosion"
         ],
-        "covered_rows": 2,
+        "covered_rows": 4,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -324,13 +327,14 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 24,
+      "raw_flat_total": 13,
+      "row_weighted_total": 26,
       "advanced_arts": [
         "03"
       ],
@@ -359,13 +363,14 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 24,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "03"
         ],
@@ -379,13 +384,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 20,
+        "raw_flat_total": 13,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -397,13 +402,13 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -415,13 +420,13 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -583,11 +588,12 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 8,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 21,
+        "raw_flat_total": 12,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "03"
         ],
@@ -601,11 +607,11 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 5,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 18,
+        "raw_flat_total": 15,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "08"
         ],
@@ -787,7 +793,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Temporal Erosion",
@@ -798,7 +806,22 @@
           "Dust"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Singularity",
@@ -809,7 +832,22 @@
           "Dust"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Resonance",
@@ -820,7 +858,22 @@
           "Dust"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Ethereal Particle Storm",
@@ -831,11 +884,40 @@
           "Dust"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Ethereal Particle Storm",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Ethereal Particle Storm",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -847,10 +929,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagetaken": 2
       },
-      "path_row_weighted": 18,
+      "path_row_weighted": 20,
       "fourths": [
         {
           "id": "01",
@@ -861,13 +944,14 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 14,
-          "row_weighted": 24
+          "raw_total": 13,
+          "row_weighted": 26
         },
         {
           "id": "07",
@@ -877,11 +961,12 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagegiven": 8,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "decreasedamagetaken": 5
           },
-          "raw_total": 13,
-          "row_weighted": 21
+          "raw_total": 12,
+          "row_weighted": 23
         }
       ],
       "highest_diagnostic_fourth": "01"
@@ -970,14 +1055,14 @@
           "name": "Shattered Firmament",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagegiven": 2
+            "increasedamagegiven": 3
           },
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 5,
             "decreasedamagetaken": 10
           },
-          "raw_total": 14,
-          "row_weighted": 18
+          "raw_total": 15,
+          "row_weighted": 20
         }
       ],
       "highest_diagnostic_fourth": "01"

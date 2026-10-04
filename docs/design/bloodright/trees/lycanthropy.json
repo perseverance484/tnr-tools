@@ -1,6 +1,6 @@
 {
   "title": "Lycanthropy — Blood Under the Moon",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lycanthropy classification / forked tree",
   "bloodline": {
     "id": "_zHoQitqM_tiiqX7Egv-p",
     "review_id": "BR-043",
@@ -36,9 +36,9 @@
   },
   "emphasis": {
     "primary": "Frenzy — Increase Damage Given on Frenzy Assault and Feral Wrath (two self rows that compound)",
-    "secondary": "Regeneration — Heal on Frenzy Assault (one static row) with a frenzy rider",
-    "tertiary": "Damage left unamplified: Feral Wrath is a 50 EP Nuke-tier hit",
-    "rationale": "Five supported rows: two 35% self Increase Damage Given rows (Frenzy Assault, Feral Wrath) that each amplify every element-less hit the caster lands in the two rounds after the cast and compound when both are up; two Taijutsu formula Damage rows (Moonlit Fury 40, Feral Wrath 50 at jutsu level 25); one static Heal row (Frenzy Assault 40 = 400 HP once per 7 rounds). Each Foundation owns one identity: The Beast Within feeds the frenzy (Red Moon Rising, +8% on both buff rows) and Moonbound Vigor heals through the fight (Undying Hunger, Heal +10% with a +3% frenzy rider). Flat Damage is left out: any +N lifts Feral Wrath past the 50 Nuke tier, and the frenzy rows already multiply both attacks. Wound, cleanseprevent and move are unsupported; the 10% lifesteal passive is not a jutsu row."
+    "secondary": "Regeneration — Heal on Frenzy Assault (one static row)",
+    "tertiary": "Raw strike — a controlled +2 Damage payoff on Undying Hunger (Moonlit Fury 40 → 42, Feral Wrath 50 → 52, above the Nuke tier; director review)",
+    "rationale": "Five supported rows: two 35% self Increase Damage Given rows (Frenzy Assault, Feral Wrath) that each amplify every element-less hit the caster lands in the two rounds after the cast and compound when both are up; two Taijutsu formula Damage rows (Moonlit Fury 40, Feral Wrath 50 at jutsu level 25); one static Heal row (Frenzy Assault 40 = 400 HP once per 7 rounds). Each Foundation owns one identity: The Beast Within feeds the frenzy (Red Moon Rising, +8% on both buff rows) and Moonbound Vigor outlasts the fight and finishes it (Undying Hunger, Heal +10% with the tree's only flat Damage, +2 on both strikes). Wound, cleanseprevent and move are unsupported; the 10% lifesteal passive is not a jutsu row."
   },
   "nodes": [
     {
@@ -200,13 +200,13 @@
           "display_role": "SELF BUFF"
         },
         {
-          "tag": "increasedamagegiven",
-          "flat": 3,
-          "display_role": "SELF BUFF"
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
         }
       ],
       "flavor": "The wound closes, and the hunger only sharpens.",
-      "coverage_note": "Regeneration: Frenzy Assault Heal 40 → 50 on the full route (+10%, 500 HP on the following round); both frenzy rows 35 → 38%, 40% with The Beast Within.",
+      "coverage_note": "Regeneration with a raw-strike payoff: Frenzy Assault Heal 40 → 50 on the full route (+10%, 500 HP on the following round); Moonlit Fury 40 → 42 and Feral Wrath 50 → 52 EP (above the 50 Nuke tier; director review).",
       "parent_rule": "ALL",
       "potency_classification": "Lycanthropy",
       "scope": "all Lycanthropy-classified jutsu",
@@ -214,7 +214,8 @@
       "coverage": {
         "jutsu": [
           "Feral Wrath",
-          "Frenzy Assault"
+          "Frenzy Assault",
+          "Moonlit Fury"
         ],
         "effect_rows": 3,
         "rows_via_authored_classification": 3
@@ -231,7 +232,7 @@
         "05",
         "06"
       ],
-      "rationale": "Both frenzy rows 35 → 43% (+8%): every element-less hit the caster lands in the two rounds after each cast, basic attacks and weapons included, is amplified, and with both windows up the rows compound to about ×2.04 (×1.82 at base). Moonbound Vigor is the only legal fourth purchase (Frenzy Assault heals 420 HP).",
+      "rationale": "Both frenzy rows 35 → 43% (+8%): every element-less hit the caster lands in the two rounds after each cast, basic attacks and weapons included, is amplified, and with both windows up the rows compound to about ×2.04 (×1.82 at base). Moonbound Vigor is the only legal fourth purchase (+20 HP per Frenzy Assault cast, 400 → 420): a near-token point, accepted so that no second Increase Damage Given source sits beside Red Moon Rising.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 8,
@@ -389,17 +390,18 @@
     },
     {
       "name": "Undying Hunger",
-      "archetype": "Regeneration",
+      "archetype": "Sustain offense",
       "ids": [
         "06",
         "07",
         "08",
         "01"
       ],
-      "rationale": "Frenzy Assault's Heal 40 → 50 (+10%, 500 HP on the following round) with both frenzy rows at 40% (Undying Hunger +3%, The Beast Within +2%), so each cast mends and still leaves a frenzy. The Beast Within is the only legal fourth purchase; against the Frenzy build it trades 3% Increase Damage Given for 80 HP per cast.",
+      "rationale": "Frenzy Assault's Heal 40 → 50 (+10%, 500 HP on the following round) and both kit strikes +2 EP (Moonlit Fury 40 → 42, Feral Wrath 50 → 52, above the Nuke tier). The Beast Within is the only legal fourth purchase (both frenzy rows 37%). Against the Frenzy build it gives up 6% Increase Damage Given for 80 HP more per cast and the heavier strikes: inside one frenzy window the strikes come out about even (Feral Wrath 52 × 1.37 ≈ 71.2 against 50 × 1.43 = 71.5; Moonlit Fury 42 × 1.37 ≈ 57.5 against 57.2) and outside one they are 4–5% ahead, while every other hit in the windows is lighter (×1.37 against ×1.43; ×1.88 against ×2.04 with both up).",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "heal": 10
       },
       "finals": [
@@ -451,8 +453,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -469,8 +471,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -505,8 +507,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -541,8 +543,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -553,36 +555,38 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four: the kit has three supported tags on five rows, and this revision targets two of them (Increase Damage Given x2, Heal x1). The two identities are two 3-node chains: The Beast Within → Blood on the Wind → Red Moon Rising (frenzy) and Moonbound Vigor → Lick the Wound → Undying Hunger (regeneration). Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the real choice is which chain to finish; the only other full build is the no-capstone hybrid (both Hidden Arts). A third route was declined: the only remaining tag is Damage, and any flat Damage lifts Feral Wrath 50 past the Nuke tier; a second Hidden Art under either Foundation could only repeat Increase Damage Given or Heal on the same rows (filler, and an Increase Damage Given sibling would stack with Red Moon Rising).",
+  "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four: the kit has three supported tags on five rows (Increase Damage Given x2, Damage x2, Heal x1), and only two Hidden Arts can differ in tag: Increase Damage Given (Blood on the Wind) and Heal (Lick the Wound); Damage is kept for the Advanced-Art payoff. The two identities are two 3-node chains: The Beast Within → Blood on the Wind → Red Moon Rising (frenzy) and Moonbound Vigor → Lick the Wound → Undying Hunger (regeneration with the tree's only flat Damage, a +2 payoff). Draft 4's seventh node, Gnashing Fangs, was a flat-Damage Hidden Art that put Feral Wrath at 52 as Red Moon Rising's fourth purchase; a third route would need a Hidden Art that repeats Increase Damage Given (a twin of Blood on the Wind, and under The Beast Within a fourth purchase that lifts Red Moon Rising past +8%), repeats Heal on the one Heal row, or carries flat Damage before the payoff, so none is added. Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the real choice is which chain to finish; the only other full build is the no-capstone hybrid (both Hidden Arts).",
   "design_notes": [
-    "Structure: two 3-node chains, The Beast Within → Blood on the Wind → Red Moon Rising (Increase Damage Given +2/+2/+4%) and Moonbound Vigor → Lick the Wound → Undying Hunger (Heal +2/+3/+5%, with +3% Increase Damage Given on the capstone). Owning both Advanced Arts costs 6 BP, so a build holds one. Draft 4's Damage route (Gnashing Fangs → Jaws of the Alpha) is removed.",
-    "Damage: Draft 4's +5 route lifted Moonlit Fury 40 → 45 (a full tier) and Feral Wrath 50 → 55 (past the Nuke tier), and Gnashing Fangs alone put Feral Wrath at 52 as Red Moon Rising's fourth purchase. With no flat Damage both attacks stay at 40 and 50; the frenzy rows and the bloodline's Taijutsu Increase Damage Given passive still multiply them.",
+    "Structure: two 3-node chains, The Beast Within → Blood on the Wind → Red Moon Rising (Increase Damage Given +2/+2/+4%) and Moonbound Vigor → Lick the Wound → Undying Hunger (Heal +2/+3/+5%, with +2 Damage on the capstone). Owning both Advanced Arts costs 6 BP, so a build holds one. Draft 4's Damage chain (Gnashing Fangs → Jaws of the Alpha, +2/+3) is not restored; its controlled +2 is the payoff of the Heal chain, which replaces the first pass's +3% Increase Damage Given rider there.",
+    "Damage: Draft 4's +5 route lifted Moonlit Fury 40 → 45 (a full tier) and Feral Wrath 50 → 55 (past the Nuke tier), and Gnashing Fangs alone put Feral Wrath at 52 as Red Moon Rising's fourth purchase. Undying Hunger's +2 (Moonlit Fury 40 → 42, Feral Wrath 50 → 52) is the only flat Damage and needs the whole Moonbound Vigor chain, so Red Moon Rising's 43% frenzy never multiplies a 52 strike (6 BP). Formula damage is linear in EP (tags.ts powerEffect): +2 is ×1.05 on Moonlit Fury and ×1.04 on Feral Wrath.",
     "Frenzy magnitude: each 35% row multiplies every element-less hit for the two rounds after its cast (Frenzy Assault's Taijutsu filter is not binding on an element-less row), and the two compound when both are up. Red Moon Rising's route is held at +8% rather than the +10% guardrail: ×1.43 × 1.43 ≈ ×2.04 against ×1.82 at base (+12% in a shared window, +6% in a single one); +10% would give ×2.10.",
-    "Delivery: all three jutsu have cooldown 7. Frenzy Assault is a 40 AP self cast (Increase Damage Given 2 rounds; static Heal rounds 1 = one tick on the following round at 10 HP per heal power). Feral Wrath is a 60 AP ground circle whose Increase Damage Given row is SELF, realized on the caster at cast. Neither buff helps the round it is cast, Feral Wrath's own strike included (§3b); both windows coincide only when the two are cast in the same round (100 AP).",
-    "Allocations: three legal full builds, each holding both Foundations: Frenzy (01, 04, 05, 06: +8% Increase Damage Given, +2% Heal), Regeneration (01, 06, 07, 08: +5% Increase Damage Given, +10% Heal) and the no-capstone hybrid (01, 04, 06, 07: +4%, +5%), which Regeneration dominates. Row weight ranks Regeneration first (20 against 18), but a Heal point here is 10 HP once per 7 rounds, so Frenzy is the stronger build in play. Maxima over every legal allocation: Increase Damage Given +8%, Heal +10%, no Damage."
+    "Delivery: all three jutsu have cooldown 7. Frenzy Assault is a 40 AP self cast (Increase Damage Given 2 rounds; static Heal rounds 1 = one tick on the following round at 10 HP per heal power). Feral Wrath is a 60 AP ground circle whose Increase Damage Given row is SELF, realized on the caster at cast. Neither buff helps the round it is cast, Feral Wrath's own strike included (§3b). Both windows coincide fully only when the two are cast in the same round (100 AP); cast one round apart, Frenzy Assault first, they share one round and Feral Wrath's strike lands under Frenzy Assault's buff. Feral Wrath's strike is therefore under at most one kit window; Moonlit Fury and off-kit hits can be under both.",
+    "Allocations: three legal full builds, each holding both Foundations and none dominated: Frenzy (01, 04, 05, 06: +8% Increase Damage Given, +2% Heal), Undying Hunger (01, 06, 07, 08: +2% Increase Damage Given, +10% Heal, +2 Damage) and the no-capstone hybrid (01, 04, 06, 07: +4% Increase Damage Given, +5% Heal). Frenzy amplifies everything in the windows; Undying Hunger puts its weight on the kit's own strikes and the heal. Maxima over every legal allocation: Increase Damage Given +8%, Heal +10%, Damage +2."
   ],
   "risks": [
     "Classification: no kit row carries a non-None element, so the tree requires a classification extension: 'Lycanthropy' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision, and all three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Targeting None instead would reach every non-elemental row in the game. Off-kit coverage is unverified.",
-    "Regeneration value: static Heal is 10 HP per point, so Undying Hunger's route adds 100 HP once per 7 rounds (400 → 500) and the Regeneration build gives up 3% Increase Damage Given against Frenzy for 80 HP more per cast. The +3% frenzy rider is what keeps it a choice; a larger rider would blur it into a second frenzy route.",
+    "Regeneration value: static Heal is 10 HP per point, so Undying Hunger's route adds 100 HP once per 7 rounds (400 → 500), about 2% of a 5,050 HP level-100 pool (calcHP = 100 + 50 × (level − 1)). +10% is the single-row magnitude, not an extreme number, because each point is worth so little; the route's pull is its +2 Damage, and the Heal is the trait's only row.",
     "Frenzy breadth: both rows reach basic attacks, weapons and element-less normal jutsu as well as the kit, and the bloodline's Taijutsu Increase Damage Given passive multiplies last; extra damage also feeds the 10% lifesteal passive (shared 60% leech budget). Realized value depends on what lands in the windows; not simulated.",
-    "Damage is a supported tag the tree leaves unamplified. A raw-strike route on the Blood-Enchanted Eyes / Shakunetsu Sakura pattern (+2 Damage payoff) would lift Moonlit Fury 40 → 42 and Feral Wrath 50 → 52, above the Nuke tier, and would need a third chain and an above-nuke rationale.",
+    "Above the Nuke tier: Undying Hunger lifts Feral Wrath 50 → 52 (Moonlit Fury 40 → 42 stays Normal). Unlike the exposure setups of Blood-Enchanted Eyes and Shakunetsu Sakura, the Heal commitment does not multiply the payoff; the kit's own frenzy rows (37% with the forced fourth purchase, The Beast Within) and the bloodline passive do.",
     "Unsupported rows: Moonlit Fury's wound 30% and cleanseprevent, and Feral Wrath's move, receive nothing. Skill-tree and bloodline effects are skipped in ranked PvP / sparring at the pin. No combat simulation was performed."
   ],
+  "above_nuke_rationale": "Undying Hunger's +2 Damage lifts Feral Wrath 50 → 52, past the 50 Nuke tier (Moonlit Fury 40 → 42 stays Normal). It is the controlled +2 payoff kept on Blood-Enchanted Eyes' Rite of Exsanguination (RUL-2026-10-04-001) and Shakunetsu Sakura's Conflagration in Bloom (RUL-2026-10-04-002; the same 40/50 Damage pair): the tree's only flat Damage, reached only by finishing the Moonbound Vigor chain after a percentage commitment (Lick the Wound's Heal), and never alongside Red Moon Rising's +8% frenzy (6 BP). No legal allocation adds more than +2; Draft 4's 50 → 55 is not restored. Fable proposal; flagged for director review.",
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
       "01": "How do I make the frenzy hit harder?",
-      "06": "How do I outlast the fight?"
+      "06": "How do I outlast the fight and still finish it?"
     },
     "route_identities": {
-      "05": "sustained amplification: the full frenzy",
-      "08": "regeneration: a bigger heal that keeps a frenzy"
+      "05": "sustained amplification: the full frenzy, every hit in the windows",
+      "08": "sustain offense: regeneration with a controlled raw-strike payoff on the kit's two strikes"
     },
-    "director_review": "none",
+    "director_review": "Feral Wrath 50 → 52 under Undying Hunger (above the Nuke tier), on the RUL-2026-10-04-001/002 controlled +2 pattern but after a Heal commitment rather than an exposure setup, and on the sustain route rather than a dedicated burst chain; confirm it, or keep Damage unamplified and restore the +3% Increase Damage Given rider.",
     "concerns": [
-      "Regeneration is the weaker route in raw value: static Heal is 10 HP per point, so its +10% Heal is 100 HP per Frenzy Assault cast; the +3% frenzy rider keeps it a choice rather than a trap.",
-      "Both Foundations are in every legal full build (two 3-node chains); the choice is which chain to finish.",
-      "Damage is left unamplified; a +2 Damage payoff would lift Feral Wrath 50 → 52, above the Nuke tier."
+      "Draft 4 declined a Heal capstone (+5% is 50 HP per cast); the first pass accepted one whose +3% Increase Damage Given rider was about as large as Red Moon Rising's own +4% step. This revision keeps the capstone but replaces that rider with the tree's only flat Damage, so the route's reason to exist is strike weight rather than a second, lighter frenzy; its Heal (+100 HP per cast at +10%) stays low leverage.",
+      "Undying Hunger against Frenzy: about even on the kit's two strikes inside one frenzy window and 4–5% ahead outside one, behind on every other hit in the windows (×1.37 against ×1.43; ×1.88 against ×2.04 with both up), plus 80 HP per cast. Frenzy stays the stronger build for a player who weaves basic attacks, weapons and other element-less jutsu into the windows. Not simulated.",
+      "Six nodes against Draft 4's seven, and both Foundations are in every legal full build: no third Hidden Art exists that would not repeat Blood on the Wind or Lick the Wound or carry flat Damage before the payoff.",
+      "Red Moon Rising's only fourth purchase, Moonbound Vigor, adds 20 HP per cast; accepted so that no second Increase Damage Given source sits beside the +8% route."
     ]
   },
   "progression": {
@@ -620,10 +624,11 @@
       "4": 3
     },
     "full_budget_allocations": 3,
-    "non_dominated_full_allocations": 2,
+    "non_dominated_full_allocations": 3,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
+      "damage": 2,
       "increasedamagegiven": 8,
       "heal": 10
     },
@@ -634,13 +639,12 @@
       "increasedamagegiven": 2
     },
     "tags_targeted_by_tree": [
+      "damage",
       "heal",
       "increasedamagegiven"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree",
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lycanthropy classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -655,10 +659,12 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
+        "damage": 2,
         "increasedamagegiven": 8,
         "heal": 10
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "heal": 10
       },
@@ -745,7 +751,8 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagegiven": 5,
+        "damage": 2,
+        "increasedamagegiven": 2,
         "heal": 10
       }
     }
