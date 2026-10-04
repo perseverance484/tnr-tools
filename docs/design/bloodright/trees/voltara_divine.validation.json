@@ -13,7 +13,7 @@
   "structure_errors": [],
   "warnings": [
     "Damage above the 50 Nuke tier in a legal allocation (director review): Ethereal Dragon's Whispers 50 -> 52",
-    "universal node: 01 (Anointed by Lightning) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
+    "universal node: 06 (Halo of Static) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
   ],
   "classification": {
     "potency_classification": "Lightning",
@@ -70,15 +70,16 @@
       "name": "Ethereal Dragon Unbound",
       "archetype": "Burst",
       "ids": [
-        "01",
+        "06",
         "02",
         "03",
-        "04"
+        "01"
       ],
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 5
+        "increasedamagegiven": 4,
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Ethereal Dragon Unbound"
@@ -89,13 +90,14 @@
       "archetype": "Sustained amplification",
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "06"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10
+        "increasedamagegiven": 8,
+        "decreasedamagetaken": 2
       },
       "advanced_arts": [
         "Apotheosis of Thunder"
@@ -139,12 +141,12 @@
       "4": 8
     },
     "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 6,
+    "non_dominated_full_allocations": 7,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
-      "increasedamagegiven": 10,
+      "increasedamagegiven": 8,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 5,
@@ -176,6 +178,50 @@
         "tags_without_rows": []
       },
       {
+        "id": "04",
+        "name": "Luminous Conduit",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "05",
+        "name": "Apotheosis of Thunder",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
+        "covered_jutsu": [
+          "Ethereal Dragon's Whispers",
+          "Luminous Illusion Bind"
+        ],
+        "covered_rows": 2,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "06",
+        "name": "Halo of Static",
+        "category": "Foundation",
+        "depth": 1,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
+        "covered_jutsu": [
+          "Voltara Blitz"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
         "id": "02",
         "name": "Dragon's Whispered Wrath",
         "category": "Hidden Art",
@@ -202,50 +248,6 @@
           "Luminous Illusion Bind"
         ],
         "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "04",
-        "name": "Luminous Conduit",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 1,
-        "row_weighted_total": 2,
-        "covered_jutsu": [
-          "Ethereal Dragon's Whispers",
-          "Luminous Illusion Bind"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "05",
-        "name": "Apotheosis of Thunder",
-        "category": "Advanced Art",
-        "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
-        "covered_jutsu": [
-          "Ethereal Dragon's Whispers",
-          "Luminous Illusion Bind"
-        ],
-        "covered_rows": 2,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "06",
-        "name": "Halo of Static",
-        "category": "Foundation",
-        "depth": 1,
-        "raw_flat_total": 2,
-        "row_weighted_total": 2,
-        "covered_jutsu": [
-          "Voltara Blitz"
-        ],
-        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -281,54 +283,36 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
-        "02",
         "04",
-        "05"
+        "05",
+        "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 10
+        "increasedamagegiven": 8,
+        "decreasedamagetaken": 2
       },
       "raw_flat_total": 10,
-      "row_weighted_total": 20,
+      "row_weighted_total": 18,
       "advanced_arts": [
         "05"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Luminous Conduit",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 1,
+      "id": "06",
+      "name": "Halo of Static",
+      "category": "Foundation",
+      "depth": 1,
+      "raw_flat_total": 2,
       "row_weighted_total": 2,
       "covered_jutsu": [
-        "Ethereal Dragon's Whispers",
-        "Luminous Illusion Bind"
+        "Voltara Blitz"
       ],
-      "covered_rows": 2,
+      "covered_rows": 1,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
     "full_builds": [
-      {
-        "ids": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5
-        },
-        "raw_flat_total": 7,
-        "row_weighted_total": 14,
-        "advanced_arts": [
-          "03"
-        ],
-        "non_dominated": true
-      },
       {
         "ids": [
           "01",
@@ -353,31 +337,14 @@
           "01",
           "02",
           "04",
-          "05"
-        ],
-        "bonuses": {
-          "increasedamagegiven": 10
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 20,
-        "advanced_arts": [
-          "05"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "04",
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 6,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 12,
+        "raw_flat_total": 8,
+        "row_weighted_total": 14,
         "advanced_arts": [],
         "non_dominated": false
       },
@@ -423,17 +390,54 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
           "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "decreasedamagetaken": 10
+        },
+        "raw_flat_total": 12,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
           "06",
           "07",
           "08"
@@ -465,14 +469,14 @@
       "2": [
         [
           "01",
-          "02"
-        ],
-        [
-          "01",
           "04"
         ],
         [
           "01",
+          "06"
+        ],
+        [
+          "02",
           "06"
         ],
         [
@@ -481,16 +485,6 @@
         ]
       ],
       "3": [
-        [
-          "01",
-          "02",
-          "03"
-        ],
-        [
-          "01",
-          "02",
-          "04"
-        ],
         [
           "01",
           "02",
@@ -508,6 +502,16 @@
         ],
         [
           "01",
+          "06",
+          "07"
+        ],
+        [
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "02",
           "06",
           "07"
         ],
@@ -522,19 +526,7 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        [
-          "01",
-          "02",
-          "03",
           "06"
-        ],
-        [
-          "01",
-          "02",
-          "04",
-          "05"
         ],
         [
           "01",
@@ -562,6 +554,18 @@
         ],
         [
           "01",
+          "06",
+          "07",
+          "08"
+        ],
+        [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        [
+          "02",
           "06",
           "07",
           "08"
@@ -593,9 +597,9 @@
             "above_nuke": false,
             "allocations": 3,
             "smallest_allocation": [
-              "01",
               "02",
-              "03"
+              "03",
+              "06"
             ]
           }
         ]
@@ -619,9 +623,9 @@
             "above_nuke": true,
             "allocations": 3,
             "smallest_allocation": [
-              "01",
               "02",
-              "03"
+              "03",
+              "06"
             ]
           }
         ]
@@ -649,36 +653,23 @@
       "advanced_art": "03",
       "name": "Ethereal Dragon Unbound",
       "path": [
-        "01",
+        "06",
         "02",
         "03"
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 4
+        "increasedamagegiven": 2,
+        "decreasedamagetaken": 2
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 10,
       "fourths": [
         {
-          "id": "04",
-          "name": "Luminous Conduit",
-          "category": "Hidden Art",
-          "adds": {
-            "increasedamagegiven": 1
-          },
-          "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 5
-          },
-          "raw_total": 7,
-          "row_weighted": 14
-        },
-        {
-          "id": "06",
-          "name": "Halo of Static",
+          "id": "01",
+          "name": "Anointed by Lightning",
           "category": "Foundation",
           "adds": {
-            "decreasedamagetaken": 2
+            "increasedamagegiven": 2
           },
           "bonuses": {
             "damage": 2,
@@ -687,9 +678,24 @@
           },
           "raw_total": 8,
           "row_weighted": 14
+        },
+        {
+          "id": "07",
+          "name": "Aegis of Living Light",
+          "category": "Hidden Art",
+          "adds": {
+            "decreasedamagetaken": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 5
+          },
+          "raw_total": 9,
+          "row_weighted": 13
         }
       ],
-      "highest_diagnostic_fourth": "06"
+      "highest_diagnostic_fourth": "01"
     },
     {
       "advanced_art": "05",
@@ -705,19 +711,6 @@
       "path_row_weighted": 16,
       "fourths": [
         {
-          "id": "02",
-          "name": "Dragon's Whispered Wrath",
-          "category": "Hidden Art",
-          "adds": {
-            "increasedamagegiven": 2
-          },
-          "bonuses": {
-            "increasedamagegiven": 10
-          },
-          "raw_total": 10,
-          "row_weighted": 20
-        },
-        {
           "id": "06",
           "name": "Halo of Static",
           "category": "Foundation",
@@ -732,7 +725,7 @@
           "row_weighted": 18
         }
       ],
-      "highest_diagnostic_fourth": "02"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "08",
@@ -760,23 +753,26 @@
           },
           "raw_total": 12,
           "row_weighted": 14
+        },
+        {
+          "id": "02",
+          "name": "Dragon's Whispered Wrath",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 10
+          },
+          "raw_total": 12,
+          "row_weighted": 14
         }
       ],
-      "highest_diagnostic_fourth": "01"
+      "highest_diagnostic_fourth": "02"
     }
   ],
-  "route_overlap": [
-    {
-      "a": "03",
-      "a_name": "Ethereal Dragon Unbound",
-      "b": "05",
-      "b_name": "Apotheosis of Thunder",
-      "siblings": true,
-      "same_primary_tag": false,
-      "shared_capstone_tags": [],
-      "path_cosine": 0.894
-    }
-  ],
+  "route_overlap": [],
   "evaluation_level": 25,
   "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
   "combat_simulation_performed": false,

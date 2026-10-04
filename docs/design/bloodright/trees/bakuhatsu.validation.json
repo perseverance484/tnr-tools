@@ -12,7 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Explosion classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "Damage above the 50 Nuke tier in a legal allocation (director review): Kinetic Nova 50 -> 52"
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Explosion",
@@ -44,7 +44,7 @@
   "examples": [
     {
       "name": "Ground Zero",
-      "archetype": "Burst",
+      "archetype": "Exposure",
       "ids": [
         "01",
         "02",
@@ -53,9 +53,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
         "increasedamagegiven": 4,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 10
       },
       "advanced_arts": [
         "Ground Zero"
@@ -110,7 +109,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 2
@@ -139,13 +138,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
       "increasedamagegiven": 8,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 10,
       "decreasedamagetaken": 10,
       "afterburn": 10
     },
@@ -159,12 +157,13 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -200,14 +199,12 @@
         "name": "Ground Zero",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 6,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Howitzer Crash",
-          "Inferno Cataclysm",
-          "Kinetic Nova"
+          "Charge 4 Explosion"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -275,14 +272,12 @@
         "name": "Siege Battery",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 5,
+        "row_weighted_total": 5,
         "covered_jutsu": [
-          "Blast Shield",
-          "Charge 4 Explosion",
-          "Howitzer Crash"
+          "Blast Shield"
         ],
-        "covered_rows": 3,
+        "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -318,20 +313,20 @@
     "strongest_full_build_by_row_weight": {
       "ids": [
         "01",
+        "04",
         "05",
-        "06",
-        "07"
+        "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 10,
+        "decreasedamagetaken": 2,
         "afterburn": 2
       },
-      "raw_flat_total": 18,
+      "raw_flat_total": 14,
       "row_weighted_total": 22,
       "advanced_arts": [
-        "07"
+        "10"
       ],
       "non_dominated": true
     },
@@ -358,12 +353,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 4,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 10
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 19,
+        "raw_flat_total": 14,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -377,14 +371,13 @@
           "05"
         ],
         "bonuses": {
-          "damage": 2,
           "increasedamagegiven": 2,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 10,
           "decreasedamagetaken": 2,
           "afterburn": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 19,
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -478,7 +471,7 @@
         "raw_flat_total": 13,
         "row_weighted_total": 17,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -526,13 +519,13 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 4,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 10,
           "afterburn": 2
         },
-        "raw_flat_total": 18,
-        "row_weighted_total": 22,
+        "raw_flat_total": 16,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "07"
         ],
@@ -584,12 +577,11 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
           "decreasedamagetaken": 10,
           "afterburn": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 19,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "07"
         ],
@@ -789,9 +781,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Inferno Cataclysm",
@@ -802,22 +792,7 @@
           "Explosion"
         ],
         "method": "AOE_SPIRAL_SHOOT",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Kinetic Nova",
@@ -828,22 +803,7 @@
           "Explosion"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 52.0,
-            "tier_before": "Nuke",
-            "tier_after": "above Nuke",
-            "tier_change": true,
-            "above_nuke": true,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Howitzer Crash",
@@ -854,40 +814,11 @@
           "Explosion"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "01",
-              "02",
-              "03"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
-    "tier_crossings": [
-      [
-        "Kinetic Nova",
-        0,
-        2
-      ]
-    ],
-    "above_nuke": [
-      {
-        "jutsu": "Kinetic Nova",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0
-      }
-    ]
+    "tier_crossings": [],
+    "above_nuke": []
   },
   "fourth_bp": [
     {
@@ -899,11 +830,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 10
       },
-      "path_row_weighted": 15,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "04",
@@ -913,12 +843,11 @@
             "increasedamagegiven": 2
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 4,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 10
           },
-          "raw_total": 11,
-          "row_weighted": 19
+          "raw_total": 14,
+          "row_weighted": 18
         },
         {
           "id": "05",
@@ -929,14 +858,13 @@
             "afterburn": 2
           },
           "bonuses": {
-            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 10,
             "decreasedamagetaken": 2,
             "afterburn": 2
           },
-          "raw_total": 13,
-          "row_weighted": 19
+          "raw_total": 16,
+          "row_weighted": 18
         }
       ],
       "highest_diagnostic_fourth": "05"
@@ -950,11 +878,10 @@
         "07"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 2,
         "decreasedamagetaken": 10,
         "afterburn": 2
       },
-      "path_row_weighted": 16,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "01",
@@ -965,13 +892,13 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 4,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 10,
             "afterburn": 2
           },
-          "raw_total": 18,
-          "row_weighted": 22
+          "raw_total": 16,
+          "row_weighted": 18
         },
         {
           "id": "08",
@@ -981,12 +908,11 @@
             "afterburn": 3
           },
           "bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "afterburn": 5
           },
-          "raw_total": 17,
-          "row_weighted": 19
+          "raw_total": 15,
+          "row_weighted": 15
         }
       ],
       "highest_diagnostic_fourth": "01"
