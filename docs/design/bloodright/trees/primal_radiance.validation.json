@@ -9,11 +9,10 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Fire classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Fire classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "universal node: 06 (Hide and Fang) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Fire Style: Beast 50 -> 52"
   ],
   "classification": {
     "potency_classification": "Fire",
@@ -70,8 +69,28 @@
   },
   "examples": [
     {
+      "name": "Apex Conflagration",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "advanced_arts": [
+        "Apex Conflagration"
+      ]
+    },
+    {
       "name": "Pyre of the Hunted",
-      "archetype": "Brand",
+      "archetype": "Exposure brand",
       "ids": [
         "01",
         "04",
@@ -128,10 +147,10 @@
     }
   ],
   "audit": {
-    "available_skills": 8,
+    "available_skills": 10,
     "foundation_count": 2,
-    "hidden_art_count": 3,
-    "advanced_art_count": 3,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
@@ -141,15 +160,16 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 4,
-      "3": 7,
-      "4": 8
+      "2": 5,
+      "3": 10,
+      "4": 14
     },
-    "full_budget_allocations": 8,
-    "non_dominated_full_allocations": 8,
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 10,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
+      "damage": 2,
       "increasedamagegiven": 10,
       "increasedamagetaken": 2,
       "decreasedamagetaken": 10,
@@ -165,13 +185,12 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -184,6 +203,35 @@
           "Primal Incineration"
         ],
         "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Fang and Ember",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
+        "covered_jutsu": [
+          "Fire Style: Beast"
+        ],
+        "covered_rows": 1,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "Apex Conflagration",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
+        "covered_jutsu": [
+          "Fire Style: Beast",
+          "Fire Style: Squirrel"
+        ],
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -322,6 +370,117 @@
       "tags_without_rows": []
     },
     "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "afterburn": 3
+        },
+        "raw_flat_total": 9,
+        "row_weighted_total": 11,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 10,
+        "row_weighted_total": 12,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2,
+          "afterburn": 10
+        },
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
+        "advanced_arts": [
+          "05"
+        ],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2,
+          "afterburn": 3
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 5
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
+        "bonuses": {
+          "increasedamagegiven": 7,
+          "increasedamagetaken": 2,
+          "decreasedamagetaken": 2
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
+        "advanced_arts": [],
+        "non_dominated": false
+      },
       {
         "ids": [
           "01",
@@ -485,6 +644,10 @@
       "2": [
         [
           "01",
+          "02"
+        ],
+        [
+          "01",
           "04"
         ],
         [
@@ -501,6 +664,21 @@
         ]
       ],
       "3": [
+        [
+          "01",
+          "02",
+          "03"
+        ],
+        [
+          "01",
+          "02",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "06"
+        ],
         [
           "01",
           "04",
@@ -538,6 +716,42 @@
         ]
       ],
       "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "09"
+        ],
         [
           "01",
           "04",
@@ -590,7 +804,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Fire Style: Beast",
@@ -601,7 +817,22 @@
           "Fire"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Fire Style: Squirrel",
@@ -612,13 +843,93 @@
           "Fire"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Fire Style: Beast",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Fire Style: Beast",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "Apex Conflagration",
+      "path": [
+        "01",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 8,
+      "fourths": [
+        {
+          "id": "04",
+          "name": "Smoldering Trail",
+          "category": "Hidden Art",
+          "adds": {
+            "afterburn": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "afterburn": 3
+          },
+          "raw_total": 9,
+          "row_weighted": 11
+        },
+        {
+          "id": "06",
+          "name": "Hide and Fang",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 2,
+            "decreasedamagetaken": 2
+          },
+          "raw_total": 10,
+          "row_weighted": 12
+        }
+      ],
+      "highest_diagnostic_fourth": "06"
+    },
     {
       "advanced_art": "05",
       "name": "Pyre of the Hunted",
@@ -633,6 +944,21 @@
       },
       "path_row_weighted": 12,
       "fourths": [
+        {
+          "id": "02",
+          "name": "Fang and Ember",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2,
+            "afterburn": 10
+          },
+          "raw_total": 14,
+          "row_weighted": 14
+        },
         {
           "id": "06",
           "name": "Hide and Fang",

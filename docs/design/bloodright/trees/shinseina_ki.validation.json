@@ -9,11 +9,12 @@
     "statClassification": "Highest",
     "traits": "Burst"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "universal node: 01 (Hallowed Seed), 06 (Grasping Roots) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Eternal Forest 50 -> 51, Eternal Forest 50 -> 52",
+    "universal node: 06 (Grasping Roots) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "ally-hazard area rows amplified (friendly fire none/ALL): Guardian's Grove#1"
   ],
   "classification": {
     "potency_classification": "Wood",
@@ -80,45 +81,49 @@
       ]
     },
     {
-      "name": "Seed and Snare",
-      "archetype": "No-capstone hybrid",
+      "name": "The Forest Devours",
+      "archetype": "Burst",
       "ids": [
-        "01",
-        "04",
         "06",
-        "07"
+        "02",
+        "03",
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 3,
-        "increasedamagetaken": 5
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
       },
-      "advanced_arts": []
+      "advanced_arts": [
+        "The Forest Devours"
+      ]
     }
   ],
   "audit": {
-    "available_skills": 6,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 2,
-    "advanced_art_count": 2,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
-    "minimum_two_advanced_cost": 6,
+    "minimum_two_advanced_cost": 5,
     "maximum_parents_per_node": 1,
     "maximum_depth": 3,
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 3,
-      "3": 4,
-      "4": 3
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 3,
-    "non_dominated_full_allocations": 3,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
+      "damage": 2,
       "increasedamagegiven": 6,
       "increasedamagetaken": 10
     },
@@ -129,12 +134,11 @@
       "increasedamagetaken": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -219,6 +223,38 @@
         "covered_rows": 1,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
+      },
+      {
+        "id": "02",
+        "name": "Fangs of Heartwood",
+        "category": "Hidden Art",
+        "depth": 2,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Eternal Forest",
+          "Exploding Wood Serpent",
+          "Guardian's Grove"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
+      },
+      {
+        "id": "03",
+        "name": "The Forest Devours",
+        "category": "Advanced Art",
+        "depth": 3,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
+        "covered_jutsu": [
+          "Eternal Forest",
+          "Exploding Wood Serpent",
+          "Guardian's Grove"
+        ],
+        "covered_rows": 3,
+        "adverse_rows_amplified": [],
+        "tags_without_rows": []
       }
     ],
     "strongest_full_build_by_row_weight": {
@@ -254,6 +290,59 @@
       "tags_without_rows": []
     },
     "full_builds": [
+      {
+        "ids": [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 6,
+        "row_weighted_total": 12,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 3,
+          "increasedamagetaken": 2
+        },
+        "raw_flat_total": 6,
+        "row_weighted_total": 11,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagegiven": 2,
+          "increasedamagetaken": 5
+        },
+        "raw_flat_total": 8,
+        "row_weighted_total": 12,
+        "advanced_arts": [],
+        "non_dominated": true
+      },
       {
         "ids": [
           "01",
@@ -305,6 +394,42 @@
           "08"
         ],
         "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        "bonuses": {
+          "damage": 2,
+          "increasedamagetaken": 5
+        },
+        "raw_flat_total": 7,
+        "row_weighted_total": 11,
+        "advanced_arts": [
+          "03"
+        ],
+        "non_dominated": true
+      },
+      {
+        "ids": [
+          "02",
+          "06",
+          "07",
+          "08"
+        ],
+        "bonuses": {
+          "damage": 1,
+          "increasedamagetaken": 10
+        },
+        "raw_flat_total": 11,
+        "row_weighted_total": 13,
+        "advanced_arts": [
+          "08"
+        ],
+        "non_dominated": true
       }
     ],
     "legal_allocations": {
@@ -329,11 +454,20 @@
           "06"
         ],
         [
+          "02",
+          "06"
+        ],
+        [
           "06",
           "07"
         ]
       ],
       "3": [
+        [
+          "01",
+          "02",
+          "06"
+        ],
         [
           "01",
           "04",
@@ -350,12 +484,40 @@
           "07"
         ],
         [
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "02",
+          "06",
+          "07"
+        ],
+        [
           "06",
           "07",
           "08"
         ]
       ],
       "4": [
+        [
+          "01",
+          "02",
+          "03",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "04",
+          "06"
+        ],
+        [
+          "01",
+          "02",
+          "06",
+          "07"
+        ],
         [
           "01",
           "04",
@@ -373,12 +535,27 @@
           "06",
           "07",
           "08"
+        ],
+        [
+          "02",
+          "03",
+          "06",
+          "07"
+        ],
+        [
+          "02",
+          "06",
+          "07",
+          "08"
         ]
       ]
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      1,
+      2
+    ],
     "rows": [
       {
         "jutsu": "Exploding Wood Serpent",
@@ -389,7 +566,35 @@
           "Wood"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 6,
+            "smallest_allocation": [
+              "02",
+              "06"
+            ]
+          },
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Guardian's Grove",
@@ -400,7 +605,35 @@
           "Wood"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": []
+        "steps": [
+          {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 6,
+            "smallest_allocation": [
+              "02",
+              "06"
+            ]
+          },
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Eternal Forest",
@@ -411,13 +644,113 @@
           "Wood"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 1,
+            "final": 51.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 6,
+            "smallest_allocation": [
+              "02",
+              "06"
+            ]
+          },
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "02",
+              "03",
+              "06"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Eternal Forest",
+        0,
+        1
+      ],
+      [
+        "Eternal Forest",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Eternal Forest",
+        "row": 0,
+        "base": 50.0,
+        "added": 1,
+        "final": 51.0
+      },
+      {
+        "jutsu": "Eternal Forest",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
+    {
+      "advanced_art": "03",
+      "name": "The Forest Devours",
+      "path": [
+        "06",
+        "02",
+        "03"
+      ],
+      "path_bonuses": {
+        "damage": 2,
+        "increasedamagetaken": 2
+      },
+      "path_row_weighted": 8,
+      "fourths": [
+        {
+          "id": "01",
+          "name": "Hallowed Seed",
+          "category": "Foundation",
+          "adds": {
+            "increasedamagegiven": 2
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
+          },
+          "raw_total": 6,
+          "row_weighted": 12
+        },
+        {
+          "id": "07",
+          "name": "Rootbound Prey",
+          "category": "Hidden Art",
+          "adds": {
+            "increasedamagetaken": 3
+          },
+          "bonuses": {
+            "damage": 2,
+            "increasedamagetaken": 5
+          },
+          "raw_total": 7,
+          "row_weighted": 11
+        }
+      ],
+      "highest_diagnostic_fourth": "01"
+    },
     {
       "advanced_art": "05",
       "name": "Heartwood Awakened",
@@ -474,6 +807,20 @@
           },
           "raw_total": 12,
           "row_weighted": 14
+        },
+        {
+          "id": "02",
+          "name": "Fangs of Heartwood",
+          "category": "Hidden Art",
+          "adds": {
+            "damage": 1
+          },
+          "bonuses": {
+            "damage": 1,
+            "increasedamagetaken": 10
+          },
+          "raw_total": 11,
+          "row_weighted": 13
         }
       ],
       "highest_diagnostic_fourth": "01"

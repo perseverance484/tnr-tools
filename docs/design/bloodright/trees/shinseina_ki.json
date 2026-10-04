@@ -1,6 +1,6 @@
 {
   "title": "Shinseina Ki — Sacred Heartwood",
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
   "bloodline": {
     "id": "vA8I_7iBNgvkuKOpnG1yD",
     "review_id": "BR-066",
@@ -39,8 +39,8 @@
   "emphasis": {
     "primary": "Self amplification — Forest Wisdom's two Increase Damage Given rows, both live after one 40 AP cast and compounding (+6% route)",
     "secondary": "Exposure — Guardian's Grove's area Increase Damage Taken, which multiplies every attacker's hits on the caught enemies (one row, +10% route)",
-    "tertiary": "none: Wood Damage (40 / 40 / 50 EP) is deliberately unamplified, because any flat Damage lifts Eternal Forest past the 50 Nuke tier",
-    "rationale": "Shinseina Ki is a rank-A Burst kit whose six supported rows are three Wood formula hits (Exploding Wood Serpent 40, Guardian's Grove 40, Eternal Forest 50 EP at jutsu level 25; 60 AP, cooldown 7), two 35% self Increase Damage Given rows on the 40 AP Forest Wisdom cast, and one 35% Increase Damage Taken row on Grove's circle. Its burst already comes from those three multipliers compounding (×1.35³ ≈ ×2.46 on a window hit), so the tree amplifies the multipliers, not the hits: Hallowed Seed answers \"How do I make my own strikes land harder?\" (self amplification on every own hit, any target) and Grasping Roots answers \"How do I make the grove mark them for everyone?\" (exposure that also multiplies allies' hits). Flat Damage is left out because Eternal Forest is a 50 EP Nuke. Recoil, poison, wound, summon and visual rows are unsupported, and Wood Warrior Summon (PVP only) carries no supported row. Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005)."
+    "tertiary": "Burst — a controlled +2 Damage on the three Wood strikes (Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP) on every cast, set up by Grove's exposure",
+    "rationale": "Shinseina Ki is a rank-A Burst kit whose six supported rows are three Wood formula hits (Exploding Wood Serpent 40, Guardian's Grove 40, Eternal Forest 50 EP at jutsu level 25; 60 AP, cooldown 7), two 35% self Increase Damage Given rows on the 40 AP Forest Wisdom cast, and one 35% Increase Damage Taken row on Grove's circle. Its biggest spike comes from those three multipliers compounding (×1.35³ ≈ ×2.46 on a window hit). Hallowed Seed answers \"How do I make Forest Wisdom's two rounds my strongest window?\" with self amplification of the caster's own Wood, Earth, Water and element-less hits (both rows on the kit's attacks). Grasping Roots answers \"How do I make the enemy the roots catch pay: expose it to every attacker, or crush it under heavier Wood?\" with the exposure route and the burst route, which pays off Grove's exposure with a controlled +2 Damage on the Blood-Enchanted Eyes / Shakunetsu Sakura pattern. Raw Damage sits under the exposure root rather than beside the self buff, so no build stacks it on the +6% window. Recoil, poison, wound, summon and visual rows are unsupported, and Wood Warrior Summon (PVP only) carries no supported row. Potency reaches matching supported tags on all Wood jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -113,7 +113,7 @@
         }
       ],
       "flavor": "The sacred tree opens its eyes, and its will moves through every limb at once.",
-      "coverage_note": "Self amplification: both Forest Wisdom rows 35 → 41% on the full route (+6%), compounding to ×1.41 × 1.41 ≈ ×1.99 (×1.82 at base) on own Wood and element-less hits for 2 rounds.",
+      "coverage_note": "Self amplification: both Forest Wisdom rows 35 → 41% on the full route (+6%), compounding to ×1.41 × 1.41 ≈ ×1.99 (×1.82 at base) for 2 rounds on the kit's Wood attacks and every element-less hit; other Wood, Earth or Water hits get both rows only at the caster's highest stat, else row 1's ×1.41.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
       "scope": "all Wood jutsu",
@@ -139,7 +139,7 @@
         }
       ],
       "flavor": "Roots find the ankle first. After that, everything else finds the mark.",
-      "coverage_note": "Guardian's Grove exposure 35 → 37% (enemies in the circle, 2 rounds; range 4, 60 AP, cooldown 7).",
+      "coverage_note": "Guardian's Grove exposure 35 → 37% (enemies in the circle, 2 rounds; range 4, 60 AP, cooldown 7). The setup under both the exposure route and the burst route.",
       "parent_rule": "ALL",
       "potency_classification": "Wood",
       "scope": "all Wood jutsu",
@@ -206,6 +206,72 @@
         ],
         "effect_rows": 1
       }
+    },
+    {
+      "id": "02",
+      "name": "Fangs of Heartwood",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Heartwood does not splinter. It bites, and what it bites it holds.",
+      "coverage_note": "Commit step: all three Wood Damage rows +1, Serpent and Grove 40 → 41, Eternal Forest 50 → 51 EP. Flat Damage because the kit's other two tags belong to Rooted in Wisdom and Rootbound Prey; Grove's circle also hits allies in it.",
+      "parent_rule": "ALL",
+      "potency_classification": "Wood",
+      "scope": "all Wood jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Eternal Forest",
+          "Exploding Wood Serpent",
+          "Guardian's Grove"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Guardian's Grove#1"
+        ]
+      }
+    },
+    {
+      "id": "03",
+      "name": "The Forest Devours",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 1,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "Trunks close like jaws, and the field is forest again before the scream ends.",
+      "coverage_note": "Burst: Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP on the full route (+2 Damage; 52 is above the 50 Nuke tier, director review), on every cast including Grove's own cast-round hit, with Grove's exposure at 37% under it.",
+      "parent_rule": "ALL",
+      "potency_classification": "Wood",
+      "scope": "all Wood jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Eternal Forest",
+          "Exploding Wood Serpent",
+          "Guardian's Grove"
+        ],
+        "effect_rows": 3,
+        "ally_hazard_rows": [
+          "Guardian's Grove#1"
+        ]
+      }
     }
   ],
   "examples": [
@@ -218,7 +284,7 @@
         "05",
         "06"
       ],
-      "rationale": "Both Forest Wisdom rows 35 → 41% for the two rounds after the 40 AP cast: ×1.41 × 1.41 ≈ ×1.99 instead of ×1.82 (about ×1.09) on every own Wood and element-less hit (kit attacks, basic attacks, weapons) against any target; other Earth or Water hits get both rows with the caster's highest stat, else row 1's ×1.41. Grasping Roots is the only legal fourth purchase (Grove exposure 37%); with Forest Wisdom and Grove cast together in a duel, the window hit is ×1.41² × 1.37 ≈ ×2.72 against ×2.46 unmodified (about ×1.11).",
+      "rationale": "Both Forest Wisdom rows 35 → 41% for the two rounds after the 40 AP cast: ×1.41 × 1.41 ≈ ×1.99 instead of ×1.82 (about ×1.09) on the kit's Wood attacks and every element-less hit (basic attacks, weapons) against any target; other Wood, Earth or Water hits get both rows only with the caster's highest stat, else row 1's ×1.41, and other elements only row 0, at the highest stat. Grasping Roots is the only legal fourth purchase (Grove exposure 37%); with Forest Wisdom and Grove cast together in a duel, the window hit is ×1.41² × 1.37 ≈ ×2.72 against ×2.46 unmodified (about ×1.11).",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 6,
@@ -458,7 +524,7 @@
         "08",
         "01"
       ],
-      "rationale": "Guardian's Grove's area exposure 35 → 45% for the two rounds after the cast: every hit the caught enemies take, the caster's Serpent, Eternal Forest and basic attacks and every ally's hit, is ×1.45 instead of ×1.35 (about ×1.07); Grove's own hit lands in its cast round and is not amplified. Hallowed Seed is the only legal fourth purchase (Forest Wisdom 37% on both rows): in a duel the window hit is ×1.37² × 1.45 ≈ ×2.72, level with Heartwood Awakened, while allies hitting the circle gain ×1.07 instead of ×1.01.",
+      "rationale": "Guardian's Grove's area exposure 35 → 45% for the two rounds after the cast: every hit the caught enemies take, the caster's Serpent, Eternal Forest and basic attacks and every ally's hit, is ×1.45 instead of ×1.35 (about ×1.07); Grove's own hit lands in its cast round and is not amplified. Hallowed Seed is the duel fourth (Forest Wisdom 37% on both rows): the window hit is ×1.37² × 1.45 ≈ ×2.72, level with Heartwood Awakened, while allies hitting the circle gain ×1.07 instead of ×1.01. Fangs of Heartwood (41 / 41 / 51 EP) is the alternative fourth: ×2.71 on a 40 EP window hit, ahead of Hallowed Seed only on Wood strikes outside the Forest Wisdom window.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
@@ -690,19 +756,20 @@
       ]
     },
     {
-      "name": "Seed and Snare",
-      "archetype": "No-capstone hybrid",
+      "name": "The Forest Devours",
+      "archetype": "Burst",
       "ids": [
-        "01",
-        "04",
         "06",
-        "07"
+        "02",
+        "03",
+        "01"
       ],
-      "rationale": "Both Hidden Arts and no capstone: Forest Wisdom 38% on both rows and Grove exposure 40%. In a duel the window hit is ×1.38² × 1.40 ≈ ×2.67 (about ×1.08), below either capstone (about ×1.11), in exchange for some of each: ×1.04 on own hits away from the circle and ×1.04 on allies' hits inside it.",
+      "rationale": "Raw weight on every Wood cast with no window to time: Serpent and Grove 40 → 42, Eternal Forest 50 → 52 EP (×1.05, ×1.04 on Eternal Forest), including Grove's own hit, which its exposure never amplifies, and every cast outside the Forest Wisdom window; Grasping Roots holds Grove's exposure at 37%. Hallowed Seed is the solo fourth (Forest Wisdom 37%): a 40 EP window hit on a caught enemy is ×1.37³ × 1.05 ≈ ×2.70, just under the other two capstones' ×2.72, while every Wood strike outside the window stays ×1.05 ahead of them. Rootbound Prey is the team fourth (exposure 40%, allies' hits ×1.40; ×2.68 on the window hit).",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 3,
-        "increasedamagetaken": 5
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
       },
       "finals": [
         {
@@ -717,8 +784,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -753,8 +820,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -771,8 +838,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 0,
-          "final": 40.0,
+          "gain": 2,
+          "final": 42.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -807,8 +874,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 3,
-          "final": 38.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -828,8 +895,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 3,
-          "final": 38.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -900,8 +967,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -925,21 +992,26 @@
           "capped_at_100": false
         }
       ],
-      "advanced_arts": []
+      "advanced_arts": [
+        "The Forest Devours"
+      ]
     }
   ],
-  "narrow_kit_exception": "Six nodes and two Advanced Arts rather than ten and four. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2 on one cast, Increase Damage Taken x1), and this revision targets two of them. Flat Damage is declined: Eternal Forest is a 50 EP Nuke, so any flat Damage lifts it past 50, and the previous +5 route (Fangs of Heartwood → The Forest Devours) took Serpent and Grove 40 → 45 and Eternal Forest 50 → 55; that branch is removed rather than re-cut. The two identities are two 3-node chains: Hallowed Seed → Rooted in Wisdom → Heartwood Awakened (self amplification) and Grasping Roots → Rootbound Prey → Judgement of the Grove (exposure). Universal nodes accepted: with two 3-node chains every 4 BP build holds both Foundations, so the choice is which chain to finish, or the no-capstone hybrid (both Hidden Arts). A second Hidden Art under either Foundation could only repeat Increase Damage Given or Increase Damage Taken on the same rows (filler, and it would stack with that root's capstone).",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four, as before the 2026-10-04 batch. The kit has three supported tags on six rows (Damage x3, Increase Damage Given x2 on one cast, Increase Damage Taken x1), so it holds exactly three identities: self amplification (Hallowed Seed → Rooted in Wisdom → Heartwood Awakened), exposure (Grasping Roots → Rootbound Prey → Judgement of the Grove) and burst (Grasping Roots → Fangs of Heartwood → The Forest Devours). A fourth capstone could only repeat one of those tags on the same rows. Universal node accepted: Grasping Roots is in all 8 legal full builds, because Heartwood Awakened's only prerequisite-closed fourth purchase is the other Foundation. A second Hidden Art under Hallowed Seed would be filler: an Increase Damage Given leaf twins Rooted in Wisdom on the same two rows and stacks with Heartwood Awakened, an Increase Damage Taken leaf twins Rootbound Prey, and a Damage leaf twins Fangs of Heartwood and becomes Heartwood Awakened's best fourth, the raw Damage on the compounding window that this layout keeps apart.",
   "design_notes": [
-    "Structure: edges 01→04→05 and 06→07→08. Hallowed Seed +2% / Rooted in Wisdom +1% / Heartwood Awakened +3% Increase Damage Given (route +6%); Grasping Roots +2% / Rootbound Prey +3% / Judgement of the Grove +5% Increase Damage Taken (route +10%). Three legal 4 BP builds: each capstone plus the other Foundation, and the no-capstone hybrid. Maxima over every legal allocation: Increase Damage Given +6%, Increase Damage Taken +10%, no Damage.",
-    "Why the printed totals differ: every Increase Damage Given point lands on both Forest Wisdom rows, which compound, so the +6% route is ×(1.41/1.35)² ≈ ×1.09 on own hits while the +10% exposure route is ×1.45/1.35 ≈ ×1.07 on every attacker's hits. In a duel, with Forest Wisdom and Grove cast in the same round, both complete builds reach about ×1.11 over the unmodified ×1.35³ window; self amplification also covers targets outside the circle, exposure also lifts allies.",
-    "Damage is not targeted. Before this revision the Burst route reached +5 (Serpent and Grove 40 → 45, a full tier; Eternal Forest 50 → 55), and Judgement of the Grove's +1 and Fangs of Heartwood's +2 alone lifted Eternal Forest to 51 / 52. Any flat Damage does the same, so the kit's burst is left to its three native multipliers.",
-    "Interactions (SOURCE_MECHANICS §3/§3b): Forest Wisdom row 0 (no element, Highest filter) matches the kit's Wood hits, every element-less hit of any stat and elemental hits of the caster's highest stat; row 1 (Earth/None/Water/Wood) matches those elements. Matching rows each multiply the hit, and Grove's exposure multiplies again; the bloodline passive (25+0.15/level, Wood/Earth/Water/None) multiplies last.",
-    "Delivery and timing: cooldown 7 on every jutsu; buff and debuff rows act only in the two rounds after their cast. Forest Wisdom (40 AP, SELF) and Grove (60 AP, radius-1 circle on an OTHER_USER target, range 4) fit one round, so Serpent and Eternal Forest land in the shared window; Grove's exposure never amplifies its own hit."
+    "Structure: edges 01→04→05, 06→07→08 and 06→02→03. Hallowed Seed +2% / Rooted in Wisdom +1% / Heartwood Awakened +3% Increase Damage Given (route +6%); Grasping Roots +2% / Rootbound Prey +3% / Judgement of the Grove +5% Increase Damage Taken (route +10%); Fangs of Heartwood +1 / The Forest Devours +1 Damage (route +2, on Grasping Roots' +2% exposure). Any two capstones cost 5 or 6 BP. 8 legal full builds: five capstone builds and three without a capstone. Maxima over every legal allocation: Increase Damage Given +6%, Increase Damage Taken +10%, Damage +2.",
+    "Roster pass: the first pass of this batch removed flat Damage and shrank the tree to six nodes because any flat Damage lifts Eternal Forest past 50. The burst route is restored on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002) at +2, not the pre-batch +5 (40 → 45, 50 → 55): Serpent and Grove 40 → 42, Eternal Forest 50 → 52. It now hangs under Grasping Roots instead of Hallowed Seed: under Hallowed Seed, Fangs of Heartwood was Heartwood Awakened's best fourth (+6% Increase Damage Given with +1 Damage, ×2.75 on a window hit and the strongest duel opener of any build), because raw Damage and the compounding self buff multiply each other. Fangs of Heartwood is a +1 Damage commit (Terra Nova shape) because a percentage setup would twin Rooted in Wisdom or Rootbound Prey on the same rows.",
+    "Why the printed totals differ: every Increase Damage Given point lands on both Forest Wisdom rows, which compound, so the +6% route is ×(1.41/1.35)² ≈ ×1.09 on own hits in the window; the +10% exposure route is ×1.45/1.35 ≈ ×1.07 on every attacker's hits on the caught enemies; the +2 Damage route is ×1.05 (×1.04 on Eternal Forest) on every Wood cast, in or out of a window. Duel opener (Forest Wisdom and Grove in round 1, Serpent and Eternal Forest in rounds 2 and 3) against the unmodified kit: Heartwood Awakened + Grasping Roots ×1.091, Judgement of the Grove + Hallowed Seed ×1.090, The Forest Devours + Hallowed Seed ×1.085. Burst leads on every Wood strike outside the windows (×1.05 against ×1.00), self amplification on own hits away from the circle, exposure on allies' hits.",
+    "No-capstone builds (01, 02, 06, 07; 01, 02, 04, 06; 01, 04, 06, 07) are weaker in every situation (window hit in the circle, own hit away from it, hit outside the windows, allies' hits) than the capstone build suited to that situation; they exist only because the structure allows them.",
+    "Fourth purchases: Heartwood Awakened takes Grasping Roots only. Judgement of the Grove takes Hallowed Seed (duel) or Fangs of Heartwood (41 / 41 / 51 EP; better only on Wood strikes outside the Forest Wisdom window). The Forest Devours takes Hallowed Seed (solo) or Rootbound Prey (exposure 40%, team).",
+    "Interactions (SOURCE_MECHANICS §3/§3b): Forest Wisdom row 0 (no element, Highest filter) matches the kit's Wood hits, every element-less hit of any stat and elemental hits of the caster's highest stat; row 1 (Earth/None/Water/Wood) matches those elements. Matching rows each multiply the hit, and Grove's exposure multiplies again; the bloodline passive (25+0.15/level, Wood/Earth/Water/None) multiplies last. Formula damage is linear in EP (tags.ts powerEffect 1436–1461), so +2 EP is ×42/40 on a 40 row before every multiplier.",
+    "Delivery and timing: cooldown 7 on every jutsu; buff and debuff rows act only in the two rounds after their cast. Forest Wisdom (40 AP, SELF) and Grove (60 AP, radius-1 circle on an OTHER_USER target, range 4) fit one round, so Serpent and Eternal Forest land in the shared window; Grove's exposure never amplifies its own hit, and in that opener only the burst route raises it."
   ],
   "risks": [
-    "Classification: Wood is the single qualifying element; sharing it with Nature's Blessing is expected (RUL-2026-10-03-005). Forest Wisdom row 0 and Grove's exposure carry no element, so they need the proposed jutsu-classification resolver. Wood Warrior Summon carries no Wood row and no supported row. Off-kit Wood coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified.",
+    "Classification: Wood is the single qualifying element; sharing it with Nature's Blessing is expected (RUL-2026-10-03-005). Forest Wisdom row 0 and Grove's exposure carry no element, so they need the proposed jutsu-classification resolver; the three Damage rows carry Wood natively. Wood Warrior Summon carries no Wood row and no supported row. Off-kit Wood coverage (NORMAL/SPECIAL/EVENT/FORBIDDEN) is unverified.",
+    "Damage tier: every build with The Forest Devours lifts Eternal Forest 50 → 52 EP, past the Nuke tier, and Fangs of Heartwood alone gives 51 in three builds without the capstone (above_nuke_rationale; director review). Serpent and Grove stop at 42, Normal tier. The +2 reaches every Wood Damage row, so an off-kit Wood row at 45 or 50 would read 47 or 52; the validator enumerates kit rows only.",
     "Stacking: Heartwood Awakened's two Forest Wisdom rows compound with each other and with Grove's exposure (×1.41² × 1.37 ≈ ×2.72 on a window hit in its complete build); Judgement of the Grove's 45% applies to every enemy in the circle and to every attacker's hits, so its team value grows with the number of allies. Not simulated.",
-    "Ally hazard: Grove's damage and poison rows (friendly fire absent = ALL / ALL) still reach allies in the circle, but no node raises them; the exposure row is ENEMIES only.",
+    "Ally hazard: Grove's damage row (friendly fire absent = ALL) and poison row (ALL) hit allies standing in the radius-1 circle at cast time; Fangs of Heartwood and The Forest Devours raise that damage to 41 / 42 EP. The exposure row is ENEMIES only.",
     "Skill-tree effects are skipped in RANKED_PVP and RANKED_SPARRING. No combat simulation was performed."
   ],
   "progression": {
@@ -959,28 +1031,29 @@
     "hidden_kit_snapshot": "2026-09-30"
   },
   "audit": {
-    "available_skills": 6,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 2,
-    "advanced_art_count": 2,
+    "hidden_art_count": 3,
+    "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
     "maximum_advanced_arts": 1,
-    "minimum_two_advanced_cost": 6,
+    "minimum_two_advanced_cost": 5,
     "maximum_parents_per_node": 1,
     "maximum_depth": 3,
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 3,
-      "3": 4,
-      "4": 3
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 3,
-    "non_dominated_full_allocations": 3,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
+      "damage": 2,
       "increasedamagegiven": 6,
       "increasedamagetaken": 10
     },
@@ -991,13 +1064,12 @@
       "increasedamagetaken": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
-    "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
       "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
@@ -1012,10 +1084,12 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
+        "damage": 2,
         "increasedamagegiven": 6,
         "increasedamagetaken": 10
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10
       },
@@ -1031,6 +1105,23 @@
         15
       ],
       "routes": [
+        {
+          "advanced_art": "03",
+          "name": "The Forest Devours",
+          "primary_tag": "damage",
+          "path": [
+            "06",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            1,
+            1
+          ],
+          "total": 2,
+          "on_band": false
+        },
         {
           "advanced_art": "05",
           "name": "Heartwood Awakened",
@@ -1073,6 +1164,45 @@
     {
       "ids": [
         "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "01",
         "04",
         "05",
         "06"
@@ -1105,23 +1235,51 @@
         "increasedamagegiven": 2,
         "increasedamagetaken": 10
       }
+    },
+    {
+      "ids": [
+        "02",
+        "03",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "ids": [
+        "02",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "damage": 1,
+        "increasedamagetaken": 10
+      }
     }
   ],
   "design_review": {
-    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "status": "Fable proposal (2026-10-04 batch rebalance, roster pass); not director-approved",
     "foundation_sentences": {
-      "01": "How do I make my own strikes land harder?",
-      "06": "How do I make the grove mark them for everyone?"
+      "01": "How do I make Forest Wisdom's two rounds my strongest window?",
+      "06": "How do I make the enemy the roots catch pay: expose it to every attacker, or crush it under heavier Wood?"
     },
     "route_identities": {
-      "05": "self amplification: every own hit, any target, in the Forest Wisdom window",
-      "08": "exposure: the Grove circle multiplies every attacker's hits (team, area)"
+      "05": "self amplification: the caster's own Wood, Earth, Water and element-less hits in the Forest Wisdom window (both rows on the kit's attacks and element-less hits)",
+      "08": "exposure: the Grove circle multiplies every attacker's hits (team, area)",
+      "03": "burst: Grove exposure set up, controlled +2 Damage on every Wood cast with no window to time"
     },
-    "director_review": "Structural: the Damage route (Fangs of Heartwood → The Forest Devours) is removed rather than re-cut, because any flat Damage lifts Eternal Forest past 50; the tree shrinks to two chains with both Foundations universal. Confirm, or choose the Blood-Enchanted Eyes pattern as a third route (exposure setup → +2 Damage payoff, Serpent and Grove 40 → 42, Eternal Forest 50 → 52).",
+    "director_review": "Two open choices. (1) The restored burst route's +2 Damage lifts Eternal Forest 50 → 52, past the 50 Nuke tier, as the controlled payoff of Grasping Roots' exposure setup (Blood-Enchanted Eyes / Shakunetsu Sakura precedent, RUL-2026-10-04-001/002; above_nuke_rationale); Fangs of Heartwood's +1 commit alone gives 51 in three builds without the capstone. Confirm it, or keep Damage unamplified and return the tree to two chains. (2) Judgement of the Grove's +10% single-row area exposure is above the anchors' +5% exposure and should move with the roster's other exposure routes.",
     "concerns": [
-      "Heartwood Awakened is held at +6% because both Forest Wisdom rows compound; Rooted in Wisdom at +2% (route +7%, about ×1.12 in a duel) would make self amplification the default even in duels.",
-      "Rooted in Wisdom's +1% is a small printed step; it keeps the no-capstone hybrid (about ×1.08 in a duel) clearly below both capstones (about ×1.11).",
-      "Exposure's advantage is team play; in solo fights against several enemies self amplification is stronger because it does not depend on the circle."
+      "Heartwood Awakened is held at +6% (Rooted in Wisdom only +1%) because both Forest Wisdom rows compound; at +7% (Rooted in Wisdom +2%, about ×1.12 in a duel) self amplification would be the default even in duels. The roster's other two-row Increase Damage Given routes sit at +7–8% (R3 allows up to +8%).",
+      "With kit attacks Judgement of the Grove ties Heartwood Awakened at best in solo play (×2.72 against ×2.72 on a window hit in the circle; ×1.88 against ×1.99 on own hits away from it). Its edge is allies' hits (×1.45 against ×1.37) and off-element own hits in the circle (×1.99 against ×1.93). Grove's damage row (friendly fire absent = ALL) and poison row (ALL) hit any ally inside the radius-1 circle at cast time, so the melee allies the exposure route serves must not stand next to the target when Grove is cast. Values left for the director.",
+      "Fangs of Heartwood carries flat Damage on a Hidden Art (roster rule R6): it is the only commit step that twins neither Rooted in Wisdom nor Rootbound Prey, and it puts Eternal Forest at 51 in builds without the capstone (Judgement of the Grove + Fangs of Heartwood and two no-capstone builds).",
+      "The burst route is modest: in a duel opener it trails the other two capstones (×1.085 against ×1.09) and leads only on Wood strikes outside the windows (×1.05 against ×1.00). Its value is uptime on every cast, not size.",
+      "Grasping Roots is a universal node (all 8 legal full builds); see narrow_kit_exception."
     ]
-  }
+  },
+  "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001, Reaper's Embrace 50 → 52) and Shakunetsu Sakura (RUL-2026-10-04-002, Sakura-ame 50 → 52): the burst route's controlled +2 Damage (Fangs of Heartwood +1, The Forest Devours +1), the payoff of Grasping Roots' exposure setup, lifts Eternal Forest 50 → 52, past the 50 Nuke tier; Fangs of Heartwood alone gives 51. Exploding Wood Serpent and Guardian's Grove go 40 → 42 and stay Normal. No legal allocation adds more than +2 Damage. The kit's Burst trait and the pre-batch +5 Damage route (Eternal Forest 50 → 55) make burst part of its identity; the controlled payoff keeps it at a fraction of the old tier impact. Pending director review."
 }

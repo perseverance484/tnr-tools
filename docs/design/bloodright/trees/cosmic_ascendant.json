@@ -37,10 +37,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver_and_classification_extension"
   },
   "emphasis": {
-    "primary": "Burst from multipliers, not flat Damage: Increase Damage Taken on Cosmic Intent and Cosmic Chains (+5%) and Increase Damage Given on Cosmic Energy (+8%) build the window a 50 EP Cosmic Explosion lands into",
+    "primary": "Burst: Collapsing Star charges Cosmic Energy's self Increase Damage Given (+5% on the route), Supernova Unbound opens Increase Damage Taken on Cosmic Intent and Cosmic Chains (+5%) and pays off with a controlled +2 Damage on the 50 EP Cosmic Explosion (50 → 52)",
     "secondary": "Defense: a Decrease Damage Taken fortress on three casts (+7%), or Lifesteal (+5%) with Decrease Damage Given suppression on Cosmic Aura (+7%)",
     "tertiary": "Cosmic Intent's Afterburn (+10%) as one-cast, party-wide pressure on the marked enemy",
-    "rationale": "Cosmic Ascendant is a rank S Burst/Defensive kit with 10 supported rows on five cooldown-7 jutsu. Its only Damage row is Cosmic Explosion at 50 EP, the Nuke tier, so the tree leaves Damage unamplified and builds burst from the kit's compounding multipliers. Celestial Alignment answers \"How do I make the enemy I mark fall faster?\": Supernova Unbound charges the caster and opens both marks for one detonation window, while Light of Dead Stars makes every hit on Cosmic Intent's target burn. Gravity Well answers \"How do I outlast the exchange: harden myself, or drain and blunt them?\": Heart of the Singularity raises Decrease Damage Taken on all three guard casts, and Hunger of the Void leeches from Intent while Cosmic Aura blunts its target."
+    "rationale": "Cosmic Ascendant is a rank S Burst/Defensive kit with 10 supported rows on five cooldown-7 jutsu. Its only Damage row is Cosmic Explosion at 50 EP, the Nuke tier, so the Burst route follows the director pattern of Blood-Enchanted Eyes and Shakunetsu Sakura: a percentage setup on the Hidden Art and a controlled +2 Damage payoff (Explosion 50 → 52, flagged for director review) in place of the pre-batch +5 (50 → 55). Celestial Alignment answers \"How do I make the enemy I mark fall faster?\": Supernova Unbound charges the caster, opens both marks and detonates a stronger Explosion into the window, while Light of Dead Stars makes every hit on Cosmic Intent's target burn. Gravity Well answers \"How do I outlast the exchange: harden myself, or drain and blunt them?\": Heart of the Singularity raises Decrease Damage Taken on all three guard casts, and Hunger of the Void leeches from Intent while Cosmic Aura blunts its target."
   },
   "nodes": [
     {
@@ -121,13 +121,13 @@
           "display_role": "ENEMY DEBUFF"
         },
         {
-          "tag": "increasedamagegiven",
-          "flat": 3,
-          "display_role": "SELF BUFF"
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
         }
       ],
       "flavor": "What was held inside the star is held no longer.",
-      "coverage_note": "Burst window: exposure 35 → 40% on Intent and Chains and Energy's self buff 35 → 43% on the full route; Cosmic Explosion stays 50 EP and lands at ×1.40 × 1.40 × 1.43 ≈ ×2.80 into the full setup (base ≈ ×2.46).",
+      "coverage_note": "Burst: Cosmic Explosion 50 → 52 EP (past the 50 Nuke tier; director review), detonated into exposure 35 → 40% on Intent and Chains and Energy's self buff 35 → 40% on the full route: ×1.40 × 1.40 × 1.40 ≈ ×2.74 on 52 EP against ≈ ×2.46 on 50 EP at base, about ×1.16.",
       "parent_rule": "ALL",
       "potency_classification": "Cosmic Ascendant",
       "scope": "all Cosmic Ascendant-classified jutsu",
@@ -135,7 +135,7 @@
       "coverage": {
         "jutsu": [
           "Cosmic Chains",
-          "Cosmic Energy",
+          "Cosmic Explosion",
           "Cosmic Intent"
         ],
         "effect_rows": 3,
@@ -371,10 +371,11 @@
         "03",
         "06"
       ],
-      "rationale": "Intent and Chains each mark the enemy at 40% Increase Damage Taken and Cosmic Energy's self buff reaches 43%, so a Cosmic Explosion cast once all three are live hits at ×1.40 × 1.40 × 1.43 ≈ ×2.80 (base ≈ ×2.46) before the bloodline passive; its 50 EP is unchanged. Gravity Well is the fourth purchase (Decrease Damage Taken 37% / 32%, Decrease Damage Given 32%). Searing Starlight instead is the all-offense variant (Afterburn 38%).",
+      "rationale": "Collapsing Star charges Cosmic Energy's self buff to 40% and Supernova Unbound marks the enemy at 40% Increase Damage Taken on both Intent and Chains, then adds +2 Damage: a Cosmic Explosion cast once all three are live is 52 EP at ×1.40 × 1.40 × 1.40 ≈ ×2.74 (base 50 EP at ≈ ×2.46), about ×1.16 the unbuilt detonation before the bloodline passive; 52 EP is past the 50 Nuke tier (director review). Gravity Well is the fourth purchase (Decrease Damage Taken 37% / 32%, Decrease Damage Given 32%). Searing Starlight instead is the all-offense variant (Afterburn 38%; Explosion ×1.19, the caster's other hits ×1.14).",
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2
@@ -446,8 +447,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 50.0,
-          "gain": 0,
-          "final": 50.0,
+          "gain": 2,
+          "final": 52.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -518,8 +519,8 @@
           "role": "SELF BUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 8,
-          "final": 43.0,
+          "gain": 5,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1390,18 +1391,21 @@
     }
   ],
   "narrow_kit_exception": null,
+  "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Cosmic Explosion 50 → 52, past the 50 Nuke tier. Explosion is the kit's only Damage row and Supernova Unbound the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55. The pre-batch Burst route was +5 Damage (Explosion 50 → 55) on this Burst-trait kit; the controlled payoff keeps the burst identity at a fraction of that tier impact. Pending director review.",
   "design_notes": [
-    "2026-10-04 rebalance: flat Damage removed. Collapsing Star +2 and Supernova Unbound +3 lifted Cosmic Explosion 50 → 52 / 55, past the Nuke tier. Burst now sets up self-amplification on the Hidden Art (Collapsing Star +3% Increase Damage Given) and pays off with exposure (Supernova Unbound +3% Increase Damage Taken, +3% Increase Damage Given).",
-    "Light of Dead Stars dropped its +3% Increase Damage Taken: on the same Intent cast as the burn it compounded (×1.40 × 1.45), which made the old burn route the strongest offense for the caster and the party. Heart of the Singularity dropped its +3% Increase Damage Given, which overlapped Burst.",
-    "Fortress cut after review: Event Horizon +3% → +2% and Heart of the Singularity +5% → +3% Decrease Damage Taken (route +10% → +7%). At +10% the three compounding guard rows reached ≈ ×0.18 together (×0.61 against base) and the Fortress led every route by a wide margin; at +7% they reach ≈ ×0.21 (×0.72 against base, ×0.70 with Gravity Well's Decrease Damage Given), under Blood-Enchanted Eyes' two-row fortress package (≈ ×0.75 Decrease Damage Taken, ≈ ×0.64 with its Decrease Damage Given).",
-    "Hunger of the Void's Decrease Damage Given is back to +5% (route 30 → 37% on one Aura row): the batch's +8% only kept pace with the old Fortress. One Aura cast makes its target deal ×0.90 to the caster and allies for two rounds of seven, beside Lifesteal at the +5% hard ceiling.",
-    "Maxima over every legal allocation: Increase Damage Taken +5%, Increase Damage Given +8%, Afterburn +10%, Decrease Damage Taken +7%, Decrease Damage Given +7%, Lifesteal +5%; Damage is not targeted.",
-    "Offense trade (per-row arithmetic, not simulation, against base with Intent, Chains and Energy live): Supernova Unbound ×1.14 on the caster's hits and ×1.08 on allies'; Light of Dead Stars ×1.12 and ×1.11. With their offensive fourths (Searing Starlight; Collapsing Star): ×1.16 / ×1.10 against ×1.15 / ×1.11. Burst wins the caster's window, burn wins the party's.",
-    "Trade diagnostic (offence × 1/incoming against base, with all four setup casts live / averaged over single-cast states; per-row arithmetic, Lifesteal not counted): Fortress + Celestial Alignment 1.50 / 1.11, Hunger + Event Horizon 1.34 / 1.08, Supernova + Gravity Well 1.29 / 1.06, Light of Dead Stars + Gravity Well 1.27 / 1.06; all-offense Supernova + Searing Starlight 1.16 / 1.04. Before the cut the Fortress read 1.75 / 1.15.",
+    "2026-10-04 rebalance, roster pass (R1): the pre-batch Burst route was +5 Damage (Collapsing Star +2, Supernova Unbound +3; Cosmic Explosion 50 → 55). The first pass removed flat Damage and gave Supernova Unbound +3% Increase Damage Taken / +3% Increase Damage Given. This pass restores the director pattern on this Burst-trait kit: Collapsing Star keeps its +3% self Increase Damage Given as the percentage setup, and Supernova Unbound trades its +3% Increase Damage Given for a controlled +2 Damage (Explosion 50 → 52; above_nuke_rationale). The route keeps its first-pass weight but moves it into the detonation: Explosion ×1.14 → ×1.16 against base, the caster's other hits ×1.14 → ×1.12, allies' hits ×1.08 unchanged.",
+    "The setup is self amplification, not Blood-Enchanted Eyes' +3% Increase Damage Taken: an exposure Hidden Art would be Light of Dead Stars' natural fourth and put 40% exposure under the 45% burn on the same Intent mark. Collapsing Star as Light's fourth adds only the caster's Energy buff.",
+    "Light of Dead Stars dropped its pre-batch +3% Increase Damage Taken: on the same Intent cast as the burn it compounded (×1.40 × 1.45), which made the burn route the strongest offense for the caster and the party. Heart of the Singularity dropped its +3% Increase Damage Given, which overlapped Burst.",
+    "Fortress cut in the first pass: Event Horizon +3% → +2% and Heart of the Singularity +5% → +3% Decrease Damage Taken (route +10% → +7%). At +10% the three compounding guard rows reached ≈ ×0.18 together (×0.61 against base); at +7% they reach ≈ ×0.21 (×0.72 against base, ×0.70 with Gravity Well's Decrease Damage Given). That is slightly deeper than Blood-Enchanted Eyes' Decrease Damage Taken alone (≈ ×0.75 on two rows) and lighter than its full fortress package (≈ ×0.64 with Decrease Damage Given).",
+    "Hunger of the Void keeps the pre-batch +5% Decrease Damage Given (route 30 → 37% on one Aura row) beside Lifesteal at the +5% hard ceiling: one Aura cast makes its target deal ×0.90 to the caster and allies for two rounds of seven.",
+    "Maxima over every legal allocation: Damage +2 (Cosmic Explosion 50 → 52, only with Supernova Unbound), Increase Damage Taken +5%, Increase Damage Given +5%, Afterburn +10%, Decrease Damage Taken +7%, Decrease Damage Given +7%, Lifesteal +5%.",
+    "Offense trade (per-row arithmetic, not simulation, against base with Intent, Chains and Energy live): Supernova Unbound ×1.16 on Cosmic Explosion, ×1.12 on the caster's other hits and ×1.08 on allies'; Light of Dead Stars ×1.12 on every caster hit and ×1.11 on allies'. With their offensive fourths (Searing Starlight; Collapsing Star): Explosion ×1.19, other hits ×1.14, allies ×1.10 against ×1.15 / ×1.11. Burst wins the detonation; the burn wins every other hit and the party's.",
+    "Trade diagnostic (offence × 1/incoming against base on the caster's general hits, with all four setup casts live / averaged over single-cast states; per-row arithmetic, Lifesteal and the +2 Damage not counted): Fortress + Celestial Alignment 1.50 / 1.11, Hunger + Event Horizon 1.34 / 1.08, Light of Dead Stars + Gravity Well 1.27 / 1.06, Supernova + Gravity Well 1.26 / 1.06; all-offense Light + Collapsing Star 1.15 / 1.04, Supernova + Searing Starlight 1.14 / 1.03.",
     "Delivery: every jutsu has cooldown 7 and costs 40 AP except Cosmic Explosion (60 AP, range 4); every buff/debuff row is live the two rounds after its cast. Cosmic Energy's Increase Damage Given and Decrease Damage Taken are SELF rows realized on the caster at cast time, wherever the circle is placed."
   ],
   "risks": [
     "Classification: no kit row carries an element, so 'Cosmic Ascendant' is the placeholder name of a new jutsu classification (requires classification extension), not a bloodline-id selector. All five kit jutsu qualify only through that authored classification (ENGINE_GAP_REGISTER G1); targeting None instead would reach every non-elemental row. Off-kit coverage is unverified.",
+    "Damage: Supernova Unbound lifts Cosmic Explosion to 52 EP, past the 50 Nuke tier (director review). It is one single-target 60 AP cast on a 7-round cooldown; its Wound row is unsupported and unchanged.",
     "Exposure and Afterburn are party-wide: both Increase Damage Taken rows and the Afterburn row list all four stat types with no element, so they match every non-pierce hit the marked enemy takes from anyone. Afterburn reads the hit after Increase Damage Taken, so the two multiply; its 60% per-hit cap is shared with other Afterburn sources. Not simulated.",
     "Lifesteal tops out at 45%, fifteen points under the 60% leech budget shared with vamp; it includes pierce, needs both combatants alive and is blocked by healprevent.",
     "Targeting: Chains, Aura and Intent are OTHER_USER casts; aimed at an ally, their exposure, burn or Decrease Damage Given lands on that ally (§3b). Cosmic Energy's unsupported move row is an INHERIT ground effect (enemy hazard), unchanged.",
@@ -1414,17 +1418,18 @@
       "06": "How do I outlast the exchange: harden myself, or drain and blunt them?"
     },
     "route_identities": {
-      "03": "burst: charge yourself, open both marks, detonate into the window",
+      "03": "burst: self-charge setup, both marks opened, controlled +2 Damage detonation on Cosmic Explosion",
       "05": "pressure: one Intent cast makes every hit on the mark burn, party-wide",
       "08": "fortress: all three guard casts",
       "10": "drain and suppression: leech from your hits while Aura blunts theirs"
     },
-    "director_review": "none",
+    "director_review": "Cosmic Explosion 50 → 52 under Supernova Unbound (above the Nuke tier): the controlled +2 Damage payoff after Collapsing Star's self Increase Damage Given setup, restored on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002; see above_nuke_rationale). Confirm it for this kit, or keep Damage unamplified and return Supernova Unbound to the first-pass +3% Increase Damage Taken / +3% Increase Damage Given (labelled self-amplification and exposure, not burst).",
     "concerns": [
-      "No flat Damage on a Burst-trait kit: Cosmic Explosion (50 EP) is the only Damage row, so any Damage bonus would pass the Nuke tier; Burst is built from multipliers instead. For reference only, the Blood-Enchanted Eyes pattern (+2 Damage) would give Explosion 50 → 52 and need an above_nuke_rationale; it is not proposed.",
+      "Cosmic Explosion 50 → 52 under Supernova Unbound is above the Nuke tier (director review). The alternative is the first-pass capstone (+3% Increase Damage Taken / +3% Increase Damage Given, no Damage), which is not burst.",
+      "R3 departure: the Fortress is +7% Decrease Damage Taken on three compounding guard rows, above R3's +5% three-row guide (set on offensive Increase Damage Given anchors). Kept because those three separate 40 AP casts are the Defensive trait's engine and are usually staggered for uptime, and the full package (≈ ×0.70 against base with Gravity Well's Decrease Damage Given) stays lighter than Blood-Enchanted Eyes' director-reviewed fortress (≈ ×0.64). At +5% it would read ≈ ×0.79 (×0.77 with that Decrease Damage Given).",
       "The Fortress still leads the mitigation diagnostic (1.50 / 1.11 against 1.34 / 1.08 for Hunger + Event Horizon); that is its identity, and Hunger's Lifesteal is not counted. Not simulated.",
-      "Gravity Well (+2% Decrease Damage Taken on three rows) is the strongest fourth for both offensive capstones (Supernova + Gravity Well 1.29 against 1.16 with Searing Starlight); it is a defensive hedge that adds no offense, not a stacked payoff.",
-      "Burst beats the burn on the caster's own hits only with both marks live; with Intent's mark and Energy's buff but no Chains, the burn is ahead (×1.11 against ×1.10).",
+      "Gravity Well (+2% Decrease Damage Taken on three rows, +2% Decrease Damage Given) is the strongest fourth for both offensive capstones (Supernova + Gravity Well 1.26 against 1.14 with Searing Starlight); it is a defensive hedge that adds no offense, not a stacked payoff.",
+      "Burst beats the burn only on Cosmic Explosion (×1.16 against ×1.12 on the path packages); on the caster's other hits the two paths both read ≈ ×1.12, and the burn leads for allies (×1.11 against ×1.08). Supernova is the pick for a detonation, Light of Dead Stars for sustained party pressure.",
       "The 'Cosmic Ascendant' classification extension remains a director/engine decision; off-kit coverage is unverified."
     ]
   },
@@ -1467,7 +1472,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 8,
+      "damage": 2,
+      "increasedamagegiven": 5,
       "decreasedamagegiven": 7,
       "increasedamagetaken": 5,
       "decreasedamagetaken": 7,
@@ -1486,15 +1492,14 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
+      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "revision": "Fable proposal — 2026-10-04 batch rebalance / Cosmic Ascendant classification / forked tree",
     "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
     "limits": [
@@ -1510,7 +1515,8 @@
     ],
     "ceilings": {
       "maximum_over_all_legal_allocations": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 7,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 7,
@@ -1518,6 +1524,7 @@
         "lifesteal": 5
       },
       "ceilings": {
+        "damage": 5,
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 10,
@@ -1618,7 +1625,8 @@
         "04"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 5,
         "afterburn": 3
       }
@@ -1631,7 +1639,8 @@
         "06"
       ],
       "bonuses": {
-        "increasedamagegiven": 8,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 2
