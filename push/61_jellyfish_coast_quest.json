@@ -41,19 +41,26 @@
     "primaryElement": "Water",
     "secondaryElement": "",
     "jutsus": [
-     "mOA1hXNf4CcuwOhnnN7ZK",
+     "UAgYZvo_7DUtmBsBAaAar",
      "LiVOnYq6qHzjB0XkIIA2e",
-     "UnQKfwq_JoRVu10aTX6Uv",
      "m-ur3A8TS8r5jGb84L9x7",
-     "UAgYZvo_7DUtmBsBAaAar"
+     "mpHuTrJX7EonpuW_jBunt",
+     "UnQKfwq_JoRVu10aTX6Uv"
     ],
     "rules": [
      {
-      "conditions": [],
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
        "target": "RANDOM_OPPONENT"
       }
      },
@@ -85,7 +92,7 @@
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
        "target": "RANDOM_OPPONENT"
       }
      },
@@ -101,7 +108,7 @@
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "jutsuId": "mpHuTrJX7EonpuW_jBunt",
        "target": "RANDOM_OPPONENT"
       }
      },
@@ -110,14 +117,14 @@
        {
         "type": "distance_lower_than",
         "description": "Distance lower than or equal given value",
-        "value": 4,
+        "value": 6,
         "target": "RANDOM_OPPONENT"
        }
       ],
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "UAgYZvo_7DUtmBsBAaAar",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
        "target": "RANDOM_OPPONENT"
       }
      },
@@ -166,20 +173,27 @@
     "primaryElement": "Water",
     "secondaryElement": "",
     "jutsus": [
-     "AicYoMMpZmHAykb_5hYtY",
+     "RPdeeWhFI5AIUUpJXwUlf",
      "nOYLPmN3TXj6wEe_oE6HQ",
      "-45phqE2baTGC--lNSEx9",
-     "RPdeeWhFI5AIUUpJXwUlf",
+     "-M_BxzqB937XCdD1IMWW0",
      "UAgYZvo_7DUtmBsBAaAar",
      "ZvPl6uyJfwF5EjmLHouQR"
     ],
     "rules": [
      {
-      "conditions": [],
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "RANDOM_OPPONENT"
+       }
+      ],
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
        "target": "RANDOM_OPPONENT"
       }
      },
@@ -220,14 +234,14 @@
        {
         "type": "distance_lower_than",
         "description": "Distance lower than or equal given value",
-        "value": 6,
+        "value": 5,
         "target": "RANDOM_OPPONENT"
        }
       ],
       "action": {
        "type": "use_specific_jutsu",
        "description": "Select specific jutsu",
-       "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+       "jutsuId": "-M_BxzqB937XCdD1IMWW0",
        "target": "RANDOM_OPPONENT"
       }
      },
