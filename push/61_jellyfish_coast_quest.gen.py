@@ -53,8 +53,8 @@ IMG_SIZES = {
     BEACH_BG: 202578,
 }
 
-BASIC_KIT = ["EW03", "S29", "EW01", "S08", "EW02"]
-ROYAL_KIT = ["B20", "B03", "B29", "B16", "EW02", "B02"]
+BASIC_KIT = ["EW02", "S29", "S08", "S28", "EW01"]
+ROYAL_KIT = ["B16", "B03", "B29", "B12", "EW02", "B02"]
 
 SCENE = "@scene:" + BG_SRC
 
