@@ -244,6 +244,69 @@
         ],
         "path_cosine": 0.857
       }
+    ],
+    "capstone_free_near_ties": [],
+    "largest_offense_packages": [
+      {
+        "bloodline": "Blood-Enchanted Eyes",
+        "with_damage": 1.234,
+        "percent": 1.234
+      },
+      {
+        "bloodline": "Blue Blade Eyes",
+        "with_damage": 1.233,
+        "percent": 1.183
+      },
+      {
+        "bloodline": "Ethereal Monarch",
+        "with_damage": 1.214,
+        "percent": 1.157
+      },
+      {
+        "bloodline": "Godstorm Eclipse",
+        "with_damage": 1.209,
+        "percent": 1.209
+      },
+      {
+        "bloodline": "Houkyuken",
+        "with_damage": 1.19,
+        "percent": 1.19
+      },
+      {
+        "bloodline": "Shinrai Ou",
+        "with_damage": 1.189,
+        "percent": 1.172
+      },
+      {
+        "bloodline": "Taiyo Kami",
+        "with_damage": 1.176,
+        "percent": 1.115
+      },
+      {
+        "bloodline": "Hyouga Yui",
+        "with_damage": 1.172,
+        "percent": 1.172
+      },
+      {
+        "bloodline": "Shadow Weaver",
+        "with_damage": 1.171,
+        "percent": 1.115
+      },
+      {
+        "bloodline": "Tetsugan",
+        "with_damage": 1.166,
+        "percent": 1.166
+      },
+      {
+        "bloodline": "Bakuhatsu",
+        "with_damage": 1.164,
+        "percent": 1.164
+      },
+      {
+        "bloodline": "Crystal Essence",
+        "with_damage": 1.164,
+        "percent": 1.164
+      }
     ]
   },
   "entries": [
@@ -488,6 +551,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Total Disintegration",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "05",
+          "name": "Terminal Decay",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "10",
+          "name": "Requiem of Dust",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Entropic Grasp",
+            "Particle Collapse",
+            "Total Disintegration",
+            "Scouring Veil"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Entropic Grasp",
+            "Particle Collapse",
+            "Total Disintegration",
+            "Scouring Veil"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -863,6 +985,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Howl of Annihilation",
+          "tag": "increasedamagetaken",
+          "total": 7,
+          "rows": 1,
+          "factor": 1.052
+        },
+        {
+          "advanced_art": "08",
+          "name": "Unyielding Husk",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.867
+        },
+        {
+          "advanced_art": "10",
+          "name": "Primordial Rampage",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 1,
+          "factor": 1.059
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.075,
+          "allocation": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Demon's Grasp",
+            "Demon's Marrow",
+            "Boiling Ichor",
+            "Primordial Rampage"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.115,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Demon's Grasp",
+            "Rending Grip",
+            "Howl of Annihilation",
+            "Demon's Marrow"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -1267,6 +1448,63 @@
           "path_cosine": 0.823
         }
       ],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Sundered Sky",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 1,
+          "factor": 1.059
+        },
+        {
+          "advanced_art": "08",
+          "name": "Unbroken Horizon",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Silence After Thunder",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.074,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Tempest Hymn",
+            "Gathering Thunderhead",
+            "Crimson Downpour",
+            "The Storm's Due"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.106,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Tempest Hymn",
+            "Gathering Thunderhead",
+            "Sundered Sky"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -1639,6 +1877,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Ground Zero",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "07",
+          "name": "Siege Battery",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Critical Mass",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "10"
+          ],
+          "names": [
+            "Primed Fuse",
+            "Shaped Charge",
+            "Powder Keg",
+            "Critical Mass"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "10"
+          ],
+          "names": [
+            "Primed Fuse",
+            "Shaped Charge",
+            "Powder Keg",
+            "Critical Mass"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -2123,6 +2420,57 @@
           "path_cosine": 0.8
         }
       ],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Red Pestilence",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.725
+        },
+        {
+          "advanced_art": "08",
+          "name": "Deathless Vitality",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.747
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.234,
+          "allocation": [
+            "01",
+            "02",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Scarlet Gaze",
+            "Opened Veins",
+            "Crimson Thirst",
+            "Feast of the Fallen"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.234,
+          "allocation": [
+            "01",
+            "02",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Scarlet Gaze",
+            "Opened Veins",
+            "Crimson Thirst",
+            "Feast of the Fallen"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -2641,6 +2989,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Numb to the Marrow",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "08",
+          "name": "Glacier Does Not Yield",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.716
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.183,
+          "allocation": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Sapphire Edge",
+            "Unblinking Sapphire",
+            "Thirst of the Frost",
+            "Winter Takes Its Due"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.233,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Sapphire Edge",
+            "Honed Crescent",
+            "Stroke That Splits Stone",
+            "Unblinking Sapphire"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -3063,6 +3462,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Supernova Unbound",
+          "tag": "increasedamagetaken",
+          "total": 5,
+          "rows": 2,
+          "factor": 1.075
+        },
+        {
+          "advanced_art": "08",
+          "name": "Heart of the Singularity",
+          "tag": "decreasedamagetaken",
+          "total": 5,
+          "rows": 3,
+          "factor": 0.791
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.115,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Celestial Alignment",
+            "Collapsing Star",
+            "Supernova Unbound"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.16,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Celestial Alignment",
+            "Collapsing Star",
+            "Supernova Unbound"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -3463,6 +3909,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Splintered Mountain Heart",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "05",
+          "name": "Break Along the Flaw",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Adamant Core",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Prismatic Focus",
+            "Razor Lattice",
+            "Flaw in the Stone",
+            "Break Along the Flaw"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Prismatic Focus",
+            "Razor Lattice",
+            "Flaw in the Stone",
+            "Break Along the Flaw"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -3765,6 +4270,55 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Boundless Reservoir",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.077
+        },
+        {
+          "advanced_art": "08",
+          "name": "Edict of Silence",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.743
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.077,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Brimming Cup",
+            "Flooded Meridians",
+            "Boundless Reservoir"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.106,
+          "allocation": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Brimming Cup",
+            "Sage's Rebuke",
+            "Cracked Vessel",
+            "Shattered Vessel"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "05",
@@ -4203,6 +4757,47 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "08",
+          "name": "Immovable Throne",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.725
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.157,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Sovereign's Decree",
+            "Stardust Afterglow",
+            "Rain of Fallen Stars"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.214,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Sovereign's Decree",
+            "Tear in the Soul",
+            "Stardust Afterglow",
+            "Rain of Fallen Stars"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -4661,6 +5256,45 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "08",
+          "name": "Kingdom of One",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.084,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Gaze of the Deposed",
+            "Edge of the Regalia",
+            "Throne of Broken Light"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.138,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Gaze of the Deposed",
+            "Edge of the Regalia",
+            "Throne of Broken Light"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -5159,6 +5793,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Storm-God Ascendant",
+          "tag": "increasedamagegiven",
+          "total": 5,
+          "rows": 4,
+          "factor": 1.157
+        },
+        {
+          "advanced_art": "08",
+          "name": "Pillar of Heaven",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.716
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.209,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Black Sun Rising",
+            "Hammer of the Heavens",
+            "Charged Firmament",
+            "Storm-God Ascendant"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.209,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Black Sun Rising",
+            "Hammer of the Heavens",
+            "Charged Firmament",
+            "Storm-God Ascendant"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -5478,6 +6163,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Grave Willow's Hush",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.725
+        },
+        {
+          "advanced_art": "05",
+          "name": "Hollow at the Heart",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 1,
+          "factor": 1.062
+        },
+        {
+          "advanced_art": "10",
+          "name": "Thousand-Leaf Dream",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.085,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Mourning Boughs",
+            "Blight Takes Root",
+            "Hollow at the Heart",
+            "Whispering Canopy"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.085,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Mourning Boughs",
+            "Blight Takes Root",
+            "Hollow at the Heart",
+            "Whispering Canopy"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -5874,6 +6618,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Prelude to Ruin",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "08",
+          "name": "Celestial Sanctum",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Final Rest",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.114,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Opening Measure",
+            "Rising Crescendo",
+            "Dissonant Chord",
+            "Prelude to Ruin"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.129,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ],
+          "names": [
+            "Opening Measure",
+            "Rising Crescendo",
+            "Fortissimo Finale",
+            "Dissonant Chord"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -6338,6 +7141,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Inexorable Pull",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Absolute Alignment",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.19,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Lodestone Draw",
+            "Polarized Fist",
+            "Reversed Polarity",
+            "Inexorable Pull"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.19,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Lodestone Draw",
+            "Polarized Fist",
+            "Reversed Polarity",
+            "Inexorable Pull"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -6761,6 +7615,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "The Glacier Advances",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Nine Hells Opened",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "10",
+          "name": "Locked in Cocytus",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.725
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.172,
+          "allocation": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Permafrost Heart",
+            "Cocytus Vigil",
+            "Cracks in the Ice",
+            "Nine Hells Opened"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.172,
+          "allocation": [
+            "01",
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Permafrost Heart",
+            "Cocytus Vigil",
+            "Cracks in the Ice",
+            "Nine Hells Opened"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -7198,6 +8111,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Weaver Ascendant",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Iron Cocoon",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 2,
+          "factor": 0.725
+        },
+        {
+          "advanced_art": "10",
+          "name": "Galvanic Marionette",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.147,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Taut Filament",
+            "Razor Strands",
+            "Threadbound Vigor",
+            "Weaver Ascendant"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.147,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Taut Filament",
+            "Razor Strands",
+            "Threadbound Vigor",
+            "Weaver Ascendant"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -7656,6 +8628,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Collapse of Ages",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Outlasting Eternity",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "10",
+          "name": "All Returns to Dust",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Weight of Eons",
+            "Aeons Laid Bare",
+            "Collapse of Ages",
+            "Hush of the Void"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.163,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Weight of Eons",
+            "Shattered Firmament",
+            "Heat Death",
+            "Hush of the Void"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -7886,6 +8917,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "The Pack Closes",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "08",
+          "name": "Beast Unchained",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.09,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Scent of Blood",
+            "Run to Ground",
+            "The Pack Closes",
+            "Hunter's Moon"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.09,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Scent of Blood",
+            "Run to Ground",
+            "The Pack Closes",
+            "Hunter's Moon"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "05",
@@ -8069,6 +9151,45 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Red Moon Rising",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.122,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "The Beast Within",
+            "Blood on the Wind",
+            "Red Moon Rising"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.122,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "The Beast Within",
+            "Blood on the Wind",
+            "Red Moon Rising"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "05",
@@ -8369,6 +9490,45 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Cradle of the Kijo",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.0,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Hagmother's Welcome",
+            "Teeth Behind the Smile",
+            "Appetite of Oblivion"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.05,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Hagmother's Welcome",
+            "Teeth Behind the Smile",
+            "Appetite of Oblivion"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -8702,6 +9862,55 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Two Heavens as One",
+          "tag": "increasedamagegiven",
+          "total": 5,
+          "rows": 3,
+          "factor": 1.115
+        },
+        {
+          "advanced_art": "08",
+          "name": "Victory in the Sheath",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.115,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Drawn Steel",
+            "Second Sword",
+            "Two Heavens as One"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.145,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Drawn Steel",
+            "Single Stroke",
+            "Second Sword",
+            "Two Heavens as One"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -9082,6 +10291,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "08",
+          "name": "Heart of the Tempest",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "10",
+          "name": "Dead Calm",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.096,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Wind at the Back",
+            "Razor Crosswind",
+            "Cleaving Cyclone"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.151,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Wind at the Back",
+            "Razor Crosswind",
+            "Cleaving Cyclone"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -9440,6 +10696,47 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Blight and Harvest",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 1,
+          "factor": 1.059
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.059,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Thorn and Rot",
+            "Stripped Bark",
+            "Blight and Harvest"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.086,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Thorn and Rot",
+            "Ironwood Lash",
+            "Stripped Bark",
+            "Blight and Harvest"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -9812,6 +11109,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Barred Gate of Yomi",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Toll of the Night Bell",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.052,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Hour of the Ox",
+            "Hungry Ghost's Draught",
+            "Feast of a Thousand Mouths",
+            "Oni's Heavy Hand"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.099,
+          "allocation": [
+            "01",
+            "06",
+            "08",
+            "09"
+          ],
+          "names": [
+            "Hour of the Ox",
+            "Oni's Heavy Hand",
+            "March of a Thousand Demons",
+            "Marked by the Herald"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -10257,6 +11605,55 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Writ of Oblivion",
+          "tag": "increasedamagetaken",
+          "total": 6,
+          "rows": 1,
+          "factor": 1.044
+        },
+        {
+          "advanced_art": "08",
+          "name": "Sealed Against Ruin",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.075,
+          "allocation": [
+            "01",
+            "02",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Brand of Oblivion",
+            "Umbral Claws",
+            "Hungering Shade",
+            "Maw of Oblivion"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.105,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Brand of Oblivion",
+            "Umbral Claws",
+            "Absolute Erasure"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -10612,6 +12009,61 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Apex Conflagration",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "08",
+          "name": "Den of Embers",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "10",
+          "name": "Primal Rampage",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.09,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Hunter's Brand",
+            "Fang and Ember",
+            "Apex Conflagration"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.09,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Hunter's Brand",
+            "Fang and Ember",
+            "Apex Conflagration"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -10883,6 +12335,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Jaws of the Chimera",
+          "tag": "increasedamagegiven",
+          "total": 7,
+          "rows": 2,
+          "factor": 1.106
+        },
+        {
+          "advanced_art": "05",
+          "name": "Basilisk Carapace",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.106,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Chimeric Blood",
+            "Apex Instinct",
+            "Jaws of the Chimera"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.106,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Chimeric Blood",
+            "Apex Instinct",
+            "Jaws of the Chimera"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -11219,6 +12718,73 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Sovereign of the Hour",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "05",
+          "name": "The Inevitable Hour",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Timeless Bastion",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "10",
+          "name": "Stilled Hourglass",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Borrowed Hours",
+            "Quickened Sands",
+            "Brittle with Age",
+            "The Inevitable Hour"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.164,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Borrowed Hours",
+            "Quickened Sands",
+            "Brittle with Age",
+            "The Inevitable Hour"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -11569,6 +13135,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Hull of the Leviathan",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "08",
+          "name": "Wrath of the Sea-King",
+          "tag": "increasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.124
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.124,
+          "allocation": [
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Salt in the Wound",
+            "Dragged Under",
+            "Wrath of the Sea-King"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.124,
+          "allocation": [
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Salt in the Wound",
+            "Dragged Under",
+            "Wrath of the Sea-King"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -11909,6 +13522,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Strings Cut Short",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "08",
+          "name": "Seamless Shroud",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.115,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Loom of Dusk",
+            "Barbed Thread",
+            "Night Unraveled"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.171,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Loom of Dusk",
+            "Barbed Thread",
+            "Night Unraveled"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -12304,6 +13964,73 @@
           "path_cosine": 0.857
         }
       ],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Dragon in Full Blossom",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "05",
+          "name": "Conflagration in Bloom",
+          "tag": "increasedamagetaken",
+          "total": 5,
+          "rows": 2,
+          "factor": 1.075
+        },
+        {
+          "advanced_art": "08",
+          "name": "Scorching Hanami",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "10",
+          "name": "Deluge of Burning Petals",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.096,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "07"
+          ],
+          "names": [
+            "Ember Dragon's Roots",
+            "Kindled Boughs",
+            "Dragon in Full Blossom",
+            "Blossom Dominion"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.146,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Ember Dragon's Roots",
+            "Burning Petal Carpet",
+            "Conflagration in Bloom",
+            "Falling Ember Petals"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -12700,6 +14427,49 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Judgement from Above",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.172,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Mandate of Thunder",
+            "Vajra Tempering",
+            "Lightning Rod",
+            "Judgement from Above"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.189,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ],
+          "names": [
+            "Mandate of Thunder",
+            "Vajra Tempering",
+            "Thunder King's Wrath",
+            "Lightning Rod"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -13042,6 +14812,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Heartwood Awakened",
+          "tag": "increasedamagegiven",
+          "total": 6,
+          "rows": 2,
+          "factor": 1.091
+        },
+        {
+          "advanced_art": "08",
+          "name": "Judgement of the Grove",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.107,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Hallowed Seed",
+            "Rooted in Wisdom",
+            "Heartwood Awakened",
+            "Grasping Roots"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.113,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "06"
+          ],
+          "names": [
+            "Hallowed Seed",
+            "Fangs of Heartwood",
+            "The Forest Devours",
+            "Grasping Roots"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -13401,6 +15222,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "08",
+          "name": "Eye of the Tempest",
+          "tag": "decreasedamagetaken",
+          "total": 8,
+          "rows": 2,
+          "factor": 0.769
+        },
+        {
+          "advanced_art": "10",
+          "name": "White Maelstrom",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Fivefold Kindling",
+            "Pale Vessel",
+            "Rising Currents",
+            "White Maelstrom"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Fivefold Kindling",
+            "Pale Vessel",
+            "Rising Currents",
+            "White Maelstrom"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -13815,6 +15687,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Pyroclastic Surge",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 1,
+          "factor": 1.059
+        },
+        {
+          "advanced_art": "08",
+          "name": "Heart of the Caldera",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.075,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Magma Vein",
+            "Scalding Tide",
+            "Pyroclastic Surge"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.129,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Magma Vein",
+            "Scalding Tide",
+            "Pyroclastic Surge"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -14334,6 +16253,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "08",
+          "name": "Sovereign Sun",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Dying Light",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.115,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Dawnheart",
+            "Emberwake",
+            "Eternal Noon"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.176,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Dawnheart",
+            "Crown of Cinders",
+            "Solar Cataclysm"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -14774,6 +16740,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Court of Splintered Ice",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        },
+        {
+          "advanced_art": "08",
+          "name": "Still Heart of Winter",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Silence of Falling Snow",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.114,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "First Snow of Heaven",
+            "Killing Frost",
+            "Hairline Fracture",
+            "Court of Splintered Ice"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.129,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ],
+          "names": [
+            "First Snow of Heaven",
+            "Killing Frost",
+            "Reign of Absolute Zero",
+            "Hairline Fracture"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -15243,6 +17268,65 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Tipping the Balance",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Eclipse in Hand",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Stillness Breaks",
+          "tag": "increasedamagetaken",
+          "total": 7,
+          "rows": 2,
+          "factor": 1.106
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Waxing Crescent",
+            "Held Breath",
+            "Tipping the Balance",
+            "Waning Crescent"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.156,
+          "allocation": [
+            "01",
+            "04",
+            "05",
+            "06"
+          ],
+          "names": [
+            "Waxing Crescent",
+            "Held Breath",
+            "Tipping the Balance",
+            "Waning Crescent"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -15632,6 +17716,61 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Pressure of Ages",
+          "tag": "decreasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        },
+        {
+          "advanced_art": "08",
+          "name": "Unmoved Mountain",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.846
+        },
+        {
+          "advanced_art": "10",
+          "name": "Landslide Momentum",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.074
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.074,
+          "allocation": [
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Bedrock Stance",
+            "Weight Behind the Blow",
+            "Landslide Momentum"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.074,
+          "allocation": [
+            "06",
+            "09",
+            "10"
+          ],
+          "names": [
+            "Bedrock Stance",
+            "Weight Behind the Blow",
+            "Landslide Momentum"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -16038,6 +18177,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "03",
+          "name": "Hammer and Anvil",
+          "tag": "decreasedamagetaken",
+          "total": 5,
+          "rows": 3,
+          "factor": 0.791
+        },
+        {
+          "advanced_art": "08",
+          "name": "One Cut Decides",
+          "tag": "increasedamagegiven",
+          "total": 5,
+          "rows": 3,
+          "factor": 1.115
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.166,
+          "allocation": [
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Eye of Iron",
+            "Honed Edge",
+            "One Cut Decides"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.166,
+          "allocation": [
+            "06",
+            "07",
+            "08"
+          ],
+          "names": [
+            "Eye of Iron",
+            "Honed Edge",
+            "One Cut Decides"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -16512,6 +18698,36 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.052,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Rising Steam",
+            "Geyser Fist",
+            "Caldera Burst"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.105,
+          "allocation": [
+            "01",
+            "02",
+            "03"
+          ],
+          "names": [
+            "Rising Steam",
+            "Geyser Fist",
+            "Caldera Burst"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -16887,6 +19103,53 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "Apotheosis of Thunder",
+          "tag": "increasedamagegiven",
+          "total": 8,
+          "rows": 2,
+          "factor": 1.122
+        },
+        {
+          "advanced_art": "08",
+          "name": "Unassailable Radiance",
+          "tag": "decreasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 0.857
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.122,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Anointed by Lightning",
+            "Luminous Conduit",
+            "Apotheosis of Thunder"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.122,
+          "allocation": [
+            "01",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Anointed by Lightning",
+            "Luminous Conduit",
+            "Apotheosis of Thunder"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",
@@ -17172,6 +19435,57 @@
         }
       ],
       "route_overlap": [],
+      "route_factors": [
+        {
+          "advanced_art": "05",
+          "name": "White-Hot Blood",
+          "tag": "increasedamagegiven",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.077
+        },
+        {
+          "advanced_art": "08",
+          "name": "Nothing Left Forbidden",
+          "tag": "increasedamagetaken",
+          "total": 10,
+          "rows": 1,
+          "factor": 1.077
+        }
+      ],
+      "offense_packages": {
+        "percent": {
+          "factor": 1.102,
+          "allocation": [
+            "01",
+            "02",
+            "04",
+            "05"
+          ],
+          "names": [
+            "Heat in the Steel",
+            "Searing Edge",
+            "Fever Pitch",
+            "White-Hot Blood"
+          ]
+        },
+        "with_damage": {
+          "factor": 1.116,
+          "allocation": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ],
+          "names": [
+            "Heat in the Steel",
+            "Searing Edge",
+            "Blade That Never Cools",
+            "Fever Pitch"
+          ]
+        }
+      },
+      "near_ties": [],
       "routes": [
         {
           "advanced_art": "03",

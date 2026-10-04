@@ -1000,6 +1000,82 @@ def route_overlap(tree: dict) -> list[dict]:
     return out
 
 
+COMPOUNDING_TAGS = ("increasedamagegiven", "increasedamagetaken", "decreasedamagegiven", "decreasedamagetaken")
+
+
+def compounded_factor(tag: str, rows: list[Row], gain: int) -> float:
+    """Effect of +gain on every supported, non-adverse row of `tag` with all rows live at once:
+    x(1+p) per row for Increase Damage Given/Taken, x(1-p) per row for Decrease Damage Given/Taken
+    (SOURCE_MECHANICS 3b), relative to the unmodified kit. A comparison model, not a simulation."""
+    f = 1.0
+    for r in rows:
+        if r.tag != tag or not r.supported or r.adverse:
+            continue
+        b = r.base / 100.0
+        x = min((r.base + gain) / 100.0, 1.0)
+        if tag in ("increasedamagegiven", "increasedamagetaken"):
+            f *= (1 + x) / (1 + b)
+        elif b < 1:
+            f *= (1 - x) / (1 - b)
+    return f
+
+
+def route_factors(tree: dict, rows: list[Row]) -> list[dict]:
+    """Compounded factor of every Advanced Art route whose primary tag compounds."""
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    out = []
+    for r in route_totals(by_id):
+        tag = r["primary_tag"]
+        if tag not in COMPOUNDING_TAGS:
+            continue
+        n = sum(1 for x in rows if x.tag == tag and x.supported and not x.adverse)
+        out.append({"advanced_art": r["advanced_art"], "name": r["name"], "tag": tag, "total": r["total"],
+                    "rows": n, "factor": round(compounded_factor(tag, rows, r["total"]), 3)})
+    return out
+
+
+def offense_packages(tree: dict, rows: list[Row]) -> dict:
+    """Largest offensive factor (Increase Damage Given x Increase Damage Taken, all rows live) over
+    every legal allocation; and the same with flat Damage counted as (base + D) / base on the
+    most-lifted Damage row. Ties prefer an allocation that holds an Advanced Art."""
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    dmg = [r for r in rows if r.tag == "damage" and r.supported and r.base]
+    best = {"percent": (0.0, False, []), "with_damage": (0.0, False, [])}
+    for lst in enumerate_legal(by_id).values():
+        for ids in lst:
+            b = bonuses_for(set(ids), by_id)
+            v = (compounded_factor("increasedamagegiven", rows, b.get("increasedamagegiven", 0))
+                 * compounded_factor("increasedamagetaken", rows, b.get("increasedamagetaken", 0)))
+            d = b.get("damage", 0)
+            vd = v * max(((r.base + d) / r.base for r in dmg), default=1.0)
+            adv = any(by_id[i].category == "Advanced Art" for i in ids)
+            for key, val in (("percent", v), ("with_damage", vd)):
+                cur = best[key]
+                if val > cur[0] + 1e-9 or (abs(val - cur[0]) <= 1e-9 and adv and not cur[1]):
+                    best[key] = (val, adv, sorted(ids))
+    return {k: {"factor": round(v[0], 3), "allocation": v[2], "names": [by_id[i].name for i in v[2]]}
+            for k, v in best.items()}
+
+
+def capstone_free_near_ties(tree: dict, margin: int = 1) -> list[dict]:
+    """Advanced Arts whose route total on their primary tag is reached within `margin` points by a
+    legal allocation holding no Advanced Art (the capstone would add little). Diagnostic only."""
+    by_id = {n.id: n for n in parse_nodes(tree)}
+    free = [set(ids) for lst in enumerate_legal(by_id).values() for ids in lst
+            if not any(by_id[i].category == "Advanced Art" for i in ids)]
+    out = []
+    for r in route_totals(by_id):
+        tag = r["primary_tag"]
+        if tag == "damage":
+            continue
+        best = max(free, key=lambda s: (bonuses_for(s, by_id).get(tag, 0), -len(s)))
+        reach = bonuses_for(best, by_id).get(tag, 0)
+        if r["total"] - reach <= margin:
+            out.append({"advanced_art": r["advanced_art"], "name": r["name"], "tag": tag, "route_total": r["total"],
+                        "capstone_free": reach, "allocation": sorted(best)})
+    return out
+
+
 def audit_tree(tree: dict, rows: list[Row]) -> dict:
     """Full audit: assumes validate_structure returned no errors."""
     nodes = parse_nodes(tree)

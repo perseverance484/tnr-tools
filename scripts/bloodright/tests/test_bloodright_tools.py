@@ -477,6 +477,37 @@ class ReviewAudits(unittest.TestCase):
         self.assertEqual(len(hits), 1, hits)
         self.assertIn("design_notes", hits[0])
 
+    def _prow(self, tag, base, i=0, adverse=False):
+        return L.Row("p%d" % i, "P%d" % i, "A", "BLOODLINE", "", 0, tag, L.TAG_LABELS[tag], "percentage", float(base), base, 0, 2,
+                     ["Shadow"], ["Shadow"], "INHERIT", "SELF", None, "self", "self", "SELF BUFF", adverse, None, None, None,
+                     True, "public", None, "BOTH", False, False, 40, 7, "SINGLE", 0)
+
+    def test_compounded_factor(self):
+        rows = [self._prow("increasedamagetaken", 35, 0), self._prow("increasedamagetaken", 35, 1),
+                self._prow("decreasedamagetaken", 35, 2), self._prow("increasedamagetaken", 35, 3, adverse=True)]
+        self.assertAlmostEqual(L.compounded_factor("increasedamagetaken", rows, 8), (1.43 / 1.35) ** 2, places=9)  # adverse row ignored
+        self.assertAlmostEqual(L.compounded_factor("decreasedamagetaken", rows, 10), 0.55 / 0.65, places=9)
+        self.assertEqual(L.compounded_factor("increasedamagegiven", rows, 5), 1.0)
+
+    def test_capstone_free_near_ties(self):
+        mods = {"01": [("increasedamagegiven", 2)], "02": [("increasedamagegiven", 2)], "03": [("increasedamagegiven", 4)],
+                "04": [("increasedamagegiven", 3)], "05": [("heal", 5)], "06": [("decreasedamagetaken", 2)],
+                "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 5)], "09": [("heal", 2)], "10": [("heal", 3)]}
+        ties = L.capstone_free_near_ties(_tree_with(mods))
+        self.assertEqual([(n["advanced_art"], n["route_total"], n["capstone_free"]) for n in ties], [("03", 8, 7)])  # 01+02+04 reach +7
+        mods["04"] = [("increasedamagegiven", 1)]
+        self.assertEqual(L.capstone_free_near_ties(_tree_with(mods)), [])
+
+    def test_offense_packages_count_flat_damage(self):
+        mods = {"01": [("increasedamagegiven", 2)], "02": [("increasedamagegiven", 3)], "03": [("damage", 2)],
+                "04": [("decreasedamagetaken", 3)], "05": [("decreasedamagetaken", 5)], "06": [("decreasedamagetaken", 2)],
+                "07": [("decreasedamagetaken", 3)], "08": [("decreasedamagetaken", 5)], "09": [("heal", 2)], "10": [("heal", 3)]}
+        rows = self._rows([40, 50]) + [self._prow("increasedamagegiven", 35)]
+        op = L.offense_packages(_tree_with(mods), rows)
+        self.assertAlmostEqual(op["percent"]["factor"], round(1.40 / 1.35, 3))
+        self.assertAlmostEqual(op["with_damage"]["factor"], round(1.40 / 1.35 * 42 / 40, 3))  # most-lifted row is the 40
+        self.assertIn("03", op["with_damage"]["allocation"])
+
     def test_rebalance_audit_output_is_current(self):
         import rebalance_audit as RA
         d = RA.build()
