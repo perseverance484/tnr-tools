@@ -9,10 +9,12 @@
     "statClassification": "Genjutsu",
     "traits": null
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Ha Yanagi classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ha Yanagi classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "classification status: requires classification extension (director decision)"
+    "classification status: requires classification extension (director decision)",
+    "universal node: 01 (Mourning Boughs) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Ha Yanagi",
@@ -83,12 +85,12 @@
         "06",
         "09",
         "10",
-        "07"
+        "01"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 10
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 2
       },
       "advanced_arts": [
         "Thousand-Leaf Dream"
@@ -96,9 +98,9 @@
     }
   ],
   "audit": {
-    "available_skills": 9,
+    "available_skills": 8,
     "foundation_count": 2,
-    "hidden_art_count": 4,
+    "hidden_art_count": 3,
     "advanced_art_count": 3,
     "bloodright_point_cap": 4,
     "cost_per_skill": 1,
@@ -109,16 +111,15 @@
     "legal_allocations_by_size": {
       "0": 1,
       "1": 2,
-      "2": 5,
-      "3": 9,
-      "4": 12
+      "2": 4,
+      "3": 7,
+      "4": 8
     },
-    "full_budget_allocations": 12,
-    "non_dominated_full_allocations": 12,
+    "full_budget_allocations": 8,
+    "non_dominated_full_allocations": 8,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
       "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
       "increasedamagetaken": 8
@@ -131,12 +132,13 @@
       "increasedamagetaken": 1
     },
     "tags_targeted_by_tree": [
-      "damage",
       "decreasedamagegiven",
       "increasedamagegiven",
       "increasedamagetaken"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -222,21 +224,6 @@
           "Wailing Bark"
         ],
         "covered_rows": 1,
-        "adverse_rows_amplified": [],
-        "tags_without_rows": []
-      },
-      {
-        "id": "07",
-        "name": "Hardened Heartwood",
-        "category": "Hidden Art",
-        "depth": 2,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
-        "covered_jutsu": [
-          "Blighted Tree",
-          "Petal Nightmare"
-        ],
-        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -378,23 +365,6 @@
           "01",
           "02",
           "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 5
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 17,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "02",
-          "06",
           "09"
         ],
         "bonuses": {
@@ -430,24 +400,6 @@
           "01",
           "04",
           "06",
-          "07"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
-          "decreasedamagegiven": 2,
-          "increasedamagetaken": 3
-        },
-        "raw_flat_total": 10,
-        "row_weighted_total": 14,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "04",
-          "06",
           "09"
         ],
         "bonuses": {
@@ -464,47 +416,12 @@
         "ids": [
           "01",
           "06",
-          "07",
-          "09"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 5,
-          "decreasedamagegiven": 2
-        },
-        "raw_flat_total": 9,
-        "row_weighted_total": 13,
-        "advanced_arts": [],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "01",
-          "06",
           "09",
           "10"
         ],
         "bonuses": {
           "increasedamagegiven": 10,
           "decreasedamagegiven": 2
-        },
-        "raw_flat_total": 12,
-        "row_weighted_total": 14,
-        "advanced_arts": [
-          "10"
-        ],
-        "non_dominated": true
-      },
-      {
-        "ids": [
-          "06",
-          "07",
-          "09",
-          "10"
-        ],
-        "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 10
         },
         "raw_flat_total": 12,
         "row_weighted_total": 14,
@@ -541,10 +458,6 @@
         ],
         [
           "06",
-          "07"
-        ],
-        [
-          "06",
           "09"
         ]
       ],
@@ -577,16 +490,6 @@
         [
           "01",
           "06",
-          "07"
-        ],
-        [
-          "01",
-          "06",
-          "09"
-        ],
-        [
-          "06",
-          "07",
           "09"
         ],
         [
@@ -624,12 +527,6 @@
           "01",
           "02",
           "06",
-          "07"
-        ],
-        [
-          "01",
-          "02",
-          "06",
           "09"
         ],
         [
@@ -642,29 +539,11 @@
           "01",
           "04",
           "06",
-          "07"
-        ],
-        [
-          "01",
-          "04",
-          "06",
           "09"
         ],
         [
           "01",
           "06",
-          "07",
-          "09"
-        ],
-        [
-          "01",
-          "06",
-          "09",
-          "10"
-        ],
-        [
-          "06",
-          "07",
           "09",
           "10"
         ]
@@ -672,9 +551,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Blighted Tree",
@@ -685,21 +562,7 @@
           "None"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "06",
-              "07"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Petal Nightmare",
@@ -710,21 +573,7 @@
           "None"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "06",
-              "07"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
     "tier_crossings": [],
@@ -847,23 +696,9 @@
           },
           "raw_total": 12,
           "row_weighted": 14
-        },
-        {
-          "id": "07",
-          "name": "Hardened Heartwood",
-          "category": "Hidden Art",
-          "adds": {
-            "damage": 2
-          },
-          "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 10
-          },
-          "raw_total": 12,
-          "row_weighted": 14
         }
       ],
-      "highest_diagnostic_fourth": "07"
+      "highest_diagnostic_fourth": "01"
     }
   ],
   "route_overlap": [],

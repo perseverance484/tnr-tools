@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": "AOE Ground Control "
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
   "structure_errors": [],
   "warnings": [],
   "classification": {
@@ -54,14 +54,12 @@
         "01",
         "02",
         "03",
-        "06"
+        "04"
       ],
       "cost": 4,
       "bonuses": {
         "damage": 3,
-        "increasedamagegiven": 3,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2
+        "increasedamagegiven": 5
       },
       "advanced_arts": [
         "Buried in the Avalanche"
@@ -78,7 +76,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
@@ -98,7 +96,7 @@
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -116,7 +114,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 4,
         "decreasedamagetaken": 10
       },
       "advanced_arts": [
@@ -143,13 +141,13 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 14,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 3,
-      "increasedamagegiven": 10,
-      "increasedamagetaken": 10,
+      "increasedamagegiven": 8,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 9,
@@ -187,13 +185,14 @@
         "name": "Weight of the Avalanche",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
         "covered_jutsu": [
-          "Glacial Descent: Cocytus",
+          "Cerulean Storm: Avalanche",
+          "Glacial Shatter: Purgatory",
           "Nine Hell's Spear"
         ],
-        "covered_rows": 2,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -202,8 +201,8 @@
         "name": "Buried in the Avalanche",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cerulean Storm: Avalanche",
           "Glacial Shatter: Purgatory",
@@ -233,8 +232,8 @@
         "name": "The Glacier Advances",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 3,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Cerulean Storm: Avalanche",
           "Glacier's Will"
@@ -264,8 +263,8 @@
         "name": "Cracks in the Ice",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Glacial Descent: Cocytus",
           "Nine Hell's Spear"
@@ -279,8 +278,8 @@
         "name": "Nine Hells Opened",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Glacial Descent: Cocytus",
           "Nine Hell's Spear"
@@ -324,33 +323,34 @@
       "ids": [
         "01",
         "06",
-        "07",
-        "08"
+        "09",
+        "10"
       ],
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 10,
-        "decreasedamagetaken": 2
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
       },
       "raw_flat_total": 15,
       "row_weighted_total": 30,
       "advanced_arts": [
-        "08"
+        "10"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Deepening Frost",
+      "id": "02",
+      "name": "Weight of the Avalanche",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 2,
-      "row_weighted_total": 4,
+      "raw_flat_total": 1,
+      "row_weighted_total": 3,
       "covered_jutsu": [
         "Cerulean Storm: Avalanche",
-        "Glacier's Will"
+        "Glacial Shatter: Purgatory",
+        "Nine Hell's Spear"
       ],
-      "covered_rows": 2,
+      "covered_rows": 3,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
@@ -364,11 +364,10 @@
         ],
         "bonuses": {
           "damage": 3,
-          "increasedamagegiven": 5,
-          "increasedamagetaken": 3
+          "increasedamagegiven": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 25,
+        "raw_flat_total": 8,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "03"
         ],
@@ -384,11 +383,11 @@
         "bonuses": {
           "damage": 3,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 29,
+        "raw_flat_total": 10,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "03"
         ],
@@ -402,11 +401,11 @@
           "05"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
-          "increasedamagetaken": 3
+          "damage": 1,
+          "increasedamagegiven": 8
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 9,
+        "row_weighted_total": 19,
         "advanced_arts": [
           "05"
         ],
@@ -420,12 +419,13 @@
           "06"
         ],
         "bonuses": {
+          "damage": 1,
           "increasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 24,
+        "raw_flat_total": 10,
+        "row_weighted_total": 21,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -437,14 +437,15 @@
           "07"
         ],
         "bonuses": {
+          "damage": 1,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 8,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 10,
+        "row_weighted_total": 21,
         "advanced_arts": [],
-        "non_dominated": false
+        "non_dominated": true
       },
       {
         "ids": [
@@ -454,12 +455,13 @@
           "09"
         ],
         "bonuses": {
+          "damage": 1,
           "increasedamagegiven": 3,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 11,
+        "row_weighted_total": 23,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -471,12 +473,12 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 28,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "05"
         ],
@@ -491,11 +493,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 5,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 24,
+        "raw_flat_total": 11,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -525,11 +527,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 30,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "08"
         ],
@@ -544,11 +546,11 @@
         ],
         "bonuses": {
           "increasedamagegiven": 3,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 26,
+        "raw_flat_total": 12,
+        "row_weighted_total": 24,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -579,11 +581,11 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 30,
+        "raw_flat_total": 13,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "08"
         ],
@@ -597,11 +599,11 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 10
         },
-        "raw_flat_total": 15,
-        "row_weighted_total": 30,
+        "raw_flat_total": 14,
+        "row_weighted_total": 28,
         "advanced_arts": [
           "10"
         ],
@@ -784,6 +786,7 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
+      1,
       3
     ],
     "rows": [
@@ -797,6 +800,19 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
+          {
+            "added": 1,
+            "final": 46.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
           {
             "added": 3,
             "final": 48.0,
@@ -824,6 +840,19 @@
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
           {
+            "added": 1,
+            "final": 41.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
+          {
             "added": 3,
             "final": 43.0,
             "tier_before": "Normal",
@@ -849,6 +878,19 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
+          {
+            "added": 1,
+            "final": 46.0,
+            "tier_before": "High",
+            "tier_after": "High",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 7,
+            "smallest_allocation": [
+              "01",
+              "02"
+            ]
+          },
           {
             "added": 3,
             "final": 48.0,
@@ -880,10 +922,9 @@
       ],
       "path_bonuses": {
         "damage": 3,
-        "increasedamagegiven": 3,
-        "increasedamagetaken": 3
+        "increasedamagegiven": 3
       },
-      "path_row_weighted": 21,
+      "path_row_weighted": 15,
       "fourths": [
         {
           "id": "04",
@@ -894,11 +935,10 @@
           },
           "bonuses": {
             "damage": 3,
-            "increasedamagegiven": 5,
-            "increasedamagetaken": 3
+            "increasedamagegiven": 5
           },
-          "raw_total": 11,
-          "row_weighted": 25
+          "raw_total": 8,
+          "row_weighted": 19
         },
         {
           "id": "06",
@@ -911,11 +951,11 @@
           "bonuses": {
             "damage": 3,
             "increasedamagegiven": 3,
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 13,
-          "row_weighted": 29
+          "raw_total": 10,
+          "row_weighted": 23
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -929,23 +969,23 @@
         "05"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 10
+        "increasedamagegiven": 8
       },
-      "path_row_weighted": 20,
+      "path_row_weighted": 16,
       "fourths": [
         {
           "id": "02",
           "name": "Weight of the Avalanche",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "damage": 1
           },
           "bonuses": {
-            "increasedamagegiven": 10,
-            "increasedamagetaken": 3
+            "damage": 1,
+            "increasedamagegiven": 8
           },
-          "raw_total": 13,
-          "row_weighted": 26
+          "raw_total": 9,
+          "row_weighted": 19
         },
         {
           "id": "06",
@@ -956,12 +996,12 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 14,
-          "row_weighted": 28
+          "raw_total": 12,
+          "row_weighted": 24
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -975,10 +1015,10 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2
       },
-      "path_row_weighted": 24,
+      "path_row_weighted": 20,
       "fourths": [
         {
           "id": "01",
@@ -989,11 +1029,11 @@
           },
           "bonuses": {
             "increasedamagegiven": 3,
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "decreasedamagetaken": 2
           },
-          "raw_total": 15,
-          "row_weighted": 30
+          "raw_total": 13,
+          "row_weighted": 26
         },
         {
           "id": "09",
@@ -1003,11 +1043,11 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "decreasedamagetaken": 5
           },
-          "raw_total": 15,
-          "row_weighted": 30
+          "raw_total": 13,
+          "row_weighted": 26
         }
       ],
       "highest_diagnostic_fourth": "09"
@@ -1046,17 +1086,17 @@
           "name": "Cracks in the Ice",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "increasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagetaken": 5,
+            "increasedamagetaken": 4,
             "decreasedamagetaken": 10
           },
-          "raw_total": 15,
-          "row_weighted": 30
+          "raw_total": 14,
+          "row_weighted": 28
         }
       ],
-      "highest_diagnostic_fourth": "07"
+      "highest_diagnostic_fourth": "01"
     }
   ],
   "route_overlap": [],

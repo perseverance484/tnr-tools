@@ -9,7 +9,7 @@
     "statClassification": "Bukijutsu",
     "traits": "Control"
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Magnet classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "ally-hazard area rows amplified (friendly fire none/ALL): Wire Blast Plus#1"
@@ -42,7 +42,7 @@
   "examples": [
     {
       "name": "Severing Lattice",
-      "archetype": "Burst",
+      "archetype": "Steady Edge",
       "ids": [
         "01",
         "02",
@@ -92,7 +92,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 2
       },
       "advanced_arts": [
         "Iron Cocoon"
@@ -275,14 +275,13 @@
         "name": "Iron Cocoon",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 7,
-        "row_weighted_total": 12,
+        "raw_flat_total": 5,
+        "row_weighted_total": 10,
         "covered_jutsu": [
           "Eternal Embrace",
-          "Lightning Threads",
           "Wire Blast Plus"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -327,10 +326,10 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 2
       },
-      "raw_flat_total": 16,
-      "row_weighted_total": 28,
+      "raw_flat_total": 14,
+      "row_weighted_total": 26,
       "advanced_arts": [
         "08"
       ],
@@ -524,10 +523,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 16,
-        "row_weighted_total": 28,
+        "raw_flat_total": 14,
+        "row_weighted_total": 26,
         "advanced_arts": [
           "08"
         ],
@@ -578,10 +577,10 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 10,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 5
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 27,
+        "raw_flat_total": 15,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "08"
         ],
@@ -1051,9 +1050,9 @@
       ],
       "path_bonuses": {
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 2
       },
-      "path_row_weighted": 24,
+      "path_row_weighted": 22,
       "fourths": [
         {
           "id": "01",
@@ -1065,10 +1064,10 @@
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
-            "increasedamagetaken": 4
+            "increasedamagetaken": 2
           },
-          "raw_total": 16,
-          "row_weighted": 28
+          "raw_total": 14,
+          "row_weighted": 26
         },
         {
           "id": "09",
@@ -1079,10 +1078,10 @@
           },
           "bonuses": {
             "decreasedamagegiven": 10,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 5
           },
-          "raw_total": 17,
-          "row_weighted": 27
+          "raw_total": 15,
+          "row_weighted": 25
         }
       ],
       "highest_diagnostic_fourth": "01"
