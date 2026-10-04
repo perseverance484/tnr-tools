@@ -5,33 +5,6 @@
   "combat_simulation_performed": false,
   "strongest_by_row_weight": [
     {
-      "bloodline": "Blue Blade Eyes",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "06"
-      ],
-      "names": [
-        "Sapphire Edge",
-        "Honed Crescent",
-        "Stroke That Splits Stone",
-        "Unblinking Sapphire"
-      ],
-      "raw": 13,
-      "row_weighted": 42,
-      "per_row": 2.62,
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
-      },
-      "non_dominated": true
-    },
-    {
       "bloodline": "Blood-Enchanted Eyes",
       "reference": false,
       "ids": [
@@ -110,60 +83,7 @@
       "non_dominated": true
     },
     {
-      "bloodline": "Tetsugan",
-      "reference": false,
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "08"
-      ],
-      "names": [
-        "Tempered Stance",
-        "Eye of Iron",
-        "Honed Edge",
-        "One Cut Decides"
-      ],
-      "raw": 11,
-      "row_weighted": 39,
-      "per_row": 1.95,
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
-      },
-      "non_dominated": true
-    },
-    {
       "bloodline": "Blue Blade Eyes",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "06",
-        "07"
-      ],
-      "names": [
-        "Sapphire Edge",
-        "Honed Crescent",
-        "Unblinking Sapphire",
-        "Hoarfrost Bulwark"
-      ],
-      "raw": 14,
-      "row_weighted": 38,
-      "per_row": 2.38,
-      "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 5
-      },
-      "non_dominated": true
-    },
-    {
-      "bloodline": "Godstorm Eclipse",
       "reference": false,
       "ids": [
         "01",
@@ -172,44 +92,20 @@
         "06"
       ],
       "names": [
-        "Black Sun Rising",
-        "Hammer of the Heavens",
-        "Total Eclipse",
-        "Stormgod's Marrow"
+        "Sapphire Edge",
+        "Honed Crescent",
+        "Stroke That Splits Stone",
+        "Unblinking Sapphire"
       ],
-      "raw": 11,
-      "row_weighted": 37,
-      "per_row": 2.31,
+      "raw": 12,
+      "row_weighted": 38,
+      "per_row": 2.38,
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
-      },
-      "non_dominated": true
-    },
-    {
-      "bloodline": "Godstorm Eclipse",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "04"
-      ],
-      "names": [
-        "Black Sun Rising",
-        "Hammer of the Heavens",
-        "Total Eclipse",
-        "Charged Firmament"
-      ],
-      "raw": 10,
-      "row_weighted": 37,
-      "per_row": 2.31,
-      "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
-        "increasedamagetaken": 5
       },
       "non_dominated": true
     },
@@ -311,6 +207,109 @@
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 10
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Blood-Enchanted Eyes",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "names": [
+        "Scarlet Gaze",
+        "Opened Veins",
+        "Rite of Exsanguination",
+        "Iron in the Blood"
+      ],
+      "raw": 13,
+      "row_weighted": 35,
+      "per_row": 2.33,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Ethereal Monarch",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "names": [
+        "Sovereign's Decree",
+        "Tear in the Soul",
+        "Stardust Afterglow",
+        "Rain of Fallen Stars"
+      ],
+      "raw": 22,
+      "row_weighted": 34,
+      "per_row": 3.4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "afterburn": 10
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Ethereal Monarch",
+      "reference": false,
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "names": [
+        "Veil of the Monarch",
+        "Woven Starlight",
+        "Immovable Throne",
+        "Mirrored Construct"
+      ],
+      "raw": 18,
+      "row_weighted": 34,
+      "per_row": 3.4,
+      "bonuses": {
+        "increasedamagegiven": 3,
+        "decreasedamagetaken": 10,
+        "reflect": 5
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Blood-Enchanted Eyes",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "09",
+        "10"
+      ],
+      "names": [
+        "Scarlet Gaze",
+        "Opened Veins",
+        "Crimson Thirst",
+        "Feast of the Fallen"
+      ],
+      "raw": 17,
+      "row_weighted": 34,
+      "per_row": 2.27,
+      "bonuses": {
+        "increasedamagegiven": 7,
+        "increasedamagetaken": 5,
+        "lifesteal": 5
       },
       "non_dominated": true
     }
@@ -502,31 +501,6 @@
       "non_dominated": true
     },
     {
-      "bloodline": "Tetsugan",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "04",
-        "05"
-      ],
-      "names": [
-        "Tempered Stance",
-        "Folded Steel",
-        "Resonant Parry",
-        "Every Blow Returned"
-      ],
-      "raw": 20,
-      "row_weighted": 35,
-      "per_row": 1.75,
-      "bonuses": {
-        "decreasedamagegiven": 5,
-        "decreasedamagetaken": 5,
-        "reflect": 10
-      },
-      "non_dominated": true
-    },
-    {
       "bloodline": "Ethereal Monarch",
       "reference": false,
       "ids": [
@@ -624,6 +598,32 @@
         "decreasedamagegiven": 10,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Blood-Enchanted Eyes",
+      "reference": false,
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "names": [
+        "Scarlet Gaze",
+        "Iron in the Blood",
+        "Closed Wounds",
+        "Deathless Vitality"
+      ],
+      "raw": 19,
+      "row_weighted": 40,
+      "per_row": 2.67,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 10
       },
       "non_dominated": true
     }
@@ -727,29 +727,6 @@
       "non_dominated": true
     },
     {
-      "bloodline": "Voltara Divine",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "04",
-        "05"
-      ],
-      "names": [
-        "Anointed by Lightning",
-        "Dragon's Whispered Wrath",
-        "Luminous Conduit",
-        "Apotheosis of Thunder"
-      ],
-      "raw": 10,
-      "row_weighted": 20,
-      "per_row": 4.0,
-      "bonuses": {
-        "increasedamagegiven": 10
-      },
-      "non_dominated": true
-    },
-    {
       "bloodline": "Ethereal Monarch",
       "reference": false,
       "ids": [
@@ -820,32 +797,6 @@
       "bonuses": {
         "increasedamagegiven": 3,
         "decreasedamagegiven": 10
-      },
-      "non_dominated": true
-    },
-    {
-      "bloodline": "Loup-Garou",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "03",
-        "06"
-      ],
-      "names": [
-        "Scent of Blood",
-        "Rending Claws",
-        "Killing Bite",
-        "Hunter's Moon"
-      ],
-      "raw": 15,
-      "row_weighted": 15,
-      "per_row": 3.75,
-      "bonuses": {
-        "damage": 3,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "heal": 8
       },
       "non_dominated": true
     },
@@ -922,6 +873,58 @@
         "decreasedamagegiven": 10
       },
       "non_dominated": true
+    },
+    {
+      "bloodline": "Dai Kenja",
+      "reference": false,
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "names": [
+        "Sage's Rebuke",
+        "Smothered Current",
+        "Cracked Vessel",
+        "Shattered Vessel"
+      ],
+      "raw": 12,
+      "row_weighted": 22,
+      "per_row": 3.67,
+      "bonuses": {
+        "damage": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 5
+      },
+      "non_dominated": true
+    },
+    {
+      "bloodline": "Ethereal Monarch",
+      "reference": false,
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "names": [
+        "Sovereign's Decree",
+        "Stardust Afterglow",
+        "Rain of Fallen Stars",
+        "Veil of the Monarch"
+      ],
+      "raw": 24,
+      "row_weighted": 36,
+      "per_row": 3.6,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 5,
+        "decreasedamagetaken": 2,
+        "afterburn": 10,
+        "reflect": 2
+      },
+      "non_dominated": true
     }
   ],
   "dominated_builds": [
@@ -978,58 +981,6 @@
       "non_dominated": false
     },
     {
-      "bloodline": "Bakuhatsu",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "05",
-        "08"
-      ],
-      "names": [
-        "Primed Fuse",
-        "Shaped Charge",
-        "Smoke and Shrapnel",
-        "Slow Burn"
-      ],
-      "raw": 14,
-      "row_weighted": 16,
-      "per_row": 2.0,
-      "bonuses": {
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
-        "decreasedamagetaken": 2,
-        "afterburn": 5
-      },
-      "non_dominated": false
-    },
-    {
-      "bloodline": "Bakuhatsu",
-      "reference": false,
-      "ids": [
-        "01",
-        "04",
-        "05",
-        "06"
-      ],
-      "names": [
-        "Primed Fuse",
-        "Powder Keg",
-        "Smoke and Shrapnel",
-        "Hardened Casing"
-      ],
-      "raw": 13,
-      "row_weighted": 17,
-      "per_row": 2.12,
-      "bonuses": {
-        "increasedamagegiven": 4,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 5,
-        "afterburn": 2
-      },
-      "non_dominated": false
-    },
-    {
       "bloodline": "Blood-Enchanted Eyes",
       "reference": false,
       "ids": [
@@ -1070,19 +1021,42 @@
         "Obsidian Skin",
         "Devouring Eclipse"
       ],
-      "raw": 11,
-      "row_weighted": 26,
-      "per_row": 1.62,
+      "raw": 9,
+      "row_weighted": 20,
+      "per_row": 1.25,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
         "lifesteal": 2
       },
       "non_dominated": false
     },
     {
-      "bloodline": "Houkyuken",
+      "bloodline": "Hyouga Yui",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "names": [
+        "Permafrost Heart",
+        "Weight of the Avalanche",
+        "Deepening Frost",
+        "The Glacier Advances"
+      ],
+      "raw": 10,
+      "row_weighted": 20,
+      "per_row": 2.22,
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "increasedamagetaken": 2
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Hyouga Yui",
       "reference": false,
       "ids": [
         "01",
@@ -1091,19 +1065,43 @@
         "07"
       ],
       "names": [
-        "Lodestone Draw",
-        "Polarized Fist",
-        "Repelling Field",
-        "Magnetized Guard"
+        "Permafrost Heart",
+        "Weight of the Avalanche",
+        "Cocytus Vigil",
+        "Cracks in the Ice"
       ],
-      "raw": 13,
-      "row_weighted": 19,
-      "per_row": 1.9,
+      "raw": 11,
+      "row_weighted": 22,
+      "per_row": 2.44,
       "bonuses": {
-        "increasedamagegiven": 4,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 5,
-        "reflect": 2
+        "increasedamagegiven": 3,
+        "increasedamagetaken": 6,
+        "decreasedamagetaken": 2
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Itojinsei",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "names": [
+        "Taut Filament",
+        "Razor Strands",
+        "Tangling Snare",
+        "Conductive Seam"
+      ],
+      "raw": 12,
+      "row_weighted": 16,
+      "per_row": 1.78,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 8
       },
       "non_dominated": false
     },
@@ -1189,31 +1187,6 @@
         "01",
         "02",
         "04",
-        "05"
-      ],
-      "names": [
-        "Hunter's Brand",
-        "Fang and Ember",
-        "Smoldering Trail",
-        "Pyre of the Hunted"
-      ],
-      "raw": 14,
-      "row_weighted": 14,
-      "per_row": 2.33,
-      "bonuses": {
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "afterburn": 10
-      },
-      "non_dominated": false
-    },
-    {
-      "bloodline": "Primal Radiance",
-      "reference": false,
-      "ids": [
-        "01",
-        "02",
-        "04",
         "06"
       ],
       "names": [
@@ -1222,11 +1195,11 @@
         "Smoldering Trail",
         "Hide and Fang"
       ],
-      "raw": 11,
-      "row_weighted": 11,
-      "per_row": 1.83,
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.5,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3
@@ -1248,11 +1221,11 @@
         "Hide and Fang",
         "Radiant Hide"
       ],
-      "raw": 11,
-      "row_weighted": 11,
-      "per_row": 1.83,
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.5,
       "bonuses": {
-        "increasedamagegiven": 4,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 5
       },
@@ -1273,11 +1246,11 @@
         "Hide and Fang",
         "Kindled Fury"
       ],
-      "raw": 11,
-      "row_weighted": 11,
-      "per_row": 1.83,
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.5,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
@@ -1309,77 +1282,26 @@
       "non_dominated": false
     },
     {
-      "bloodline": "Shadow Weaver",
+      "bloodline": "Sea-King's Blessing",
       "reference": false,
       "ids": [
         "01",
         "02",
         "06",
-        "09"
+        "07"
       ],
       "names": [
-        "Loom of Dusk",
-        "Barbed Thread",
-        "Cloak of Woven Night",
-        "Umbral Whetstone"
+        "Scales of the Deep",
+        "Grip of the Riptide",
+        "Salt in the Wound",
+        "Dragged Under"
       ],
-      "raw": 10,
-      "row_weighted": 20,
-      "per_row": 2.22,
-      "bonuses": {
-        "increasedamagegiven": 5,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 3
-      },
-      "non_dominated": false
-    },
-    {
-      "bloodline": "Shadow Weaver",
-      "reference": false,
-      "ids": [
-        "01",
-        "04",
-        "06",
-        "09"
-      ],
-      "names": [
-        "Loom of Dusk",
-        "Frayed Resolve",
-        "Cloak of Woven Night",
-        "Umbral Whetstone"
-      ],
-      "raw": 10,
+      "raw": 8,
       "row_weighted": 14,
-      "per_row": 1.56,
+      "per_row": 2.8,
       "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 5,
-        "decreasedamagetaken": 3
-      },
-      "non_dominated": false
-    },
-    {
-      "bloodline": "Shadow Weaver",
-      "reference": false,
-      "ids": [
-        "01",
-        "06",
-        "07",
-        "09"
-      ],
-      "names": [
-        "Loom of Dusk",
-        "Cloak of Woven Night",
-        "Tightened Weave",
-        "Umbral Whetstone"
-      ],
-      "raw": 10,
-      "row_weighted": 14,
-      "per_row": 1.56,
-      "bonuses": {
-        "increasedamagegiven": 2,
-        "decreasedamagegiven": 2,
-        "decreasedamagetaken": 6
+        "increasedamagetaken": 6,
+        "decreasedamagetaken": 2
       },
       "non_dominated": false
     },
@@ -1456,52 +1378,175 @@
       "non_dominated": false
     },
     {
-      "bloodline": "Tenohira Musei",
+      "bloodline": "Shinseina Ki",
       "reference": false,
       "ids": [
         "01",
+        "02",
         "04",
-        "06",
-        "07"
+        "06"
       ],
       "names": [
-        "Waxing Crescent",
-        "Held Breath",
-        "Waning Crescent",
-        "Hushed Inferno"
+        "Hallowed Seed",
+        "Fangs of Heartwood",
+        "Rooted in Wisdom",
+        "Grasping Roots"
       ],
-      "raw": 11,
-      "row_weighted": 17,
-      "per_row": 2.12,
+      "raw": 6,
+      "row_weighted": 10,
+      "per_row": 1.67,
       "bonuses": {
         "increasedamagegiven": 4,
-        "decreasedamagegiven": 5,
         "increasedamagetaken": 2
       },
       "non_dominated": false
     },
     {
-      "bloodline": "Tenohira Musei",
+      "bloodline": "Shinseina Ki",
+      "reference": false,
+      "ids": [
+        "02",
+        "06",
+        "07",
+        "08"
+      ],
+      "names": [
+        "Fangs of Heartwood",
+        "Grasping Roots",
+        "Rootbound Prey",
+        "Judgement of the Grove"
+      ],
+      "raw": 11,
+      "row_weighted": 12,
+      "per_row": 2.0,
+      "bonuses": {
+        "increasedamagegiven": 1,
+        "increasedamagetaken": 10
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Shiroi Youso",
       "reference": false,
       "ids": [
         "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "names": [
+        "Fivefold Kindling",
+        "Gathering Palm",
+        "Charred Current",
+        "White Immolation"
+      ],
+      "raw": 14,
+      "row_weighted": 28,
+      "per_row": 2.55,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2,
+        "afterburn": 10
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Shiroi Youso",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
         "06",
-        "07",
         "09"
       ],
       "names": [
-        "Waxing Crescent",
-        "Waning Crescent",
-        "Hushed Inferno",
-        "Bared to the Moon"
+        "Fivefold Kindling",
+        "Gathering Palm",
+        "Pale Vessel",
+        "Rising Currents"
       ],
-      "raw": 11,
-      "row_weighted": 17,
-      "per_row": 2.12,
+      "raw": 10,
+      "row_weighted": 20,
+      "per_row": 1.82,
+      "bonuses": {
+        "increasedamagegiven": 6,
+        "increasedamagetaken": 2,
+        "decreasedamagetaken": 2
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Terra Nova",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "names": [
+        "Fault Line",
+        "Rending Strata",
+        "Burden of Stone",
+        "Bedrock Stance"
+      ],
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.8,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 4
+        "decreasedamagetaken": 2
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Terra Nova",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "names": [
+        "Fault Line",
+        "Rending Strata",
+        "Bedrock Stance",
+        "Rampart Discipline"
+      ],
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.8,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 5
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Terra Nova",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "names": [
+        "Fault Line",
+        "Rending Strata",
+        "Bedrock Stance",
+        "Weight Behind the Blow"
+      ],
+      "raw": 9,
+      "row_weighted": 9,
+      "per_row": 1.8,
+      "bonuses": {
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
+        "decreasedamagetaken": 2
       },
       "non_dominated": false
     },
@@ -1520,17 +1565,17 @@
         "Luminous Conduit",
         "Halo of Static"
       ],
-      "raw": 9,
-      "row_weighted": 16,
-      "per_row": 3.2,
+      "raw": 8,
+      "row_weighted": 14,
+      "per_row": 2.8,
       "bonuses": {
-        "increasedamagegiven": 7,
+        "increasedamagegiven": 6,
         "decreasedamagetaken": 2
       },
       "non_dominated": false
     },
     {
-      "bloodline": "Voltara Divine",
+      "bloodline": "Yaketsuku Netsu",
       "reference": false,
       "ids": [
         "01",
@@ -1539,22 +1584,57 @@
         "07"
       ],
       "names": [
-        "Anointed by Lightning",
-        "Dragon's Whispered Wrath",
-        "Halo of Static",
-        "Aegis of Living Light"
+        "Heat in the Steel",
+        "Searing Edge",
+        "Blistered Guard",
+        "Seams Laid Bare"
       ],
-      "raw": 9,
-      "row_weighted": 13,
-      "per_row": 2.6,
+      "raw": 10,
+      "row_weighted": 10,
+      "per_row": 2.5,
       "bonuses": {
-        "increasedamagegiven": 4,
-        "decreasedamagetaken": 5
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Yaketsuku Netsu",
+      "reference": false,
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "names": [
+        "Heat in the Steel",
+        "Fever Pitch",
+        "White-Hot Blood",
+        "Blistered Guard"
+      ],
+      "raw": 12,
+      "row_weighted": 12,
+      "per_row": 3.0,
+      "bonuses": {
+        "increasedamagegiven": 10,
+        "increasedamagetaken": 2
       },
       "non_dominated": false
     }
   ],
   "weakest_advanced_arts": [
+    {
+      "bloodline": "Megumi Kijo",
+      "reference": false,
+      "id": "03",
+      "name": "Appetite of Oblivion",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 1,
+      "row_weighted_total": 2,
+      "covered_rows": 2
+    },
     {
       "bloodline": "Nature's Blessing",
       "reference": false,
@@ -1565,50 +1645,6 @@
       "raw_flat_total": 1,
       "row_weighted_total": 2,
       "covered_rows": 2
-    },
-    {
-      "bloodline": "Sea-King's Blessing",
-      "reference": false,
-      "id": "03",
-      "name": "Weight of the Trench",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Terra Nova",
-      "reference": false,
-      "id": "03",
-      "name": "Continental Rift",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Yaketsuku Netsu",
-      "reference": false,
-      "id": "03",
-      "name": "Blade That Never Cools",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Shinseina Ki",
-      "reference": false,
-      "id": "03",
-      "name": "The Forest Devours",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 3,
-      "covered_rows": 3
     },
     {
       "bloodline": "Tenohira Musei",
@@ -1622,28 +1658,6 @@
       "covered_rows": 3
     },
     {
-      "bloodline": "Ancient Tailed Demon",
-      "reference": false,
-      "id": "10",
-      "name": "Primordial Rampage",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 3,
-      "row_weighted_total": 3,
-      "covered_rows": 1
-    },
-    {
-      "bloodline": "Megumi Kijo",
-      "reference": false,
-      "id": "03",
-      "name": "Appetite of Oblivion",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 2,
-      "row_weighted_total": 4,
-      "covered_rows": 2
-    },
-    {
       "bloodline": "Night Parade of A Thousand Demons",
       "reference": false,
       "id": "08",
@@ -1655,10 +1669,10 @@
       "covered_rows": 2
     },
     {
-      "bloodline": "Primal Radiance",
+      "bloodline": "Sea-King's Blessing",
       "reference": false,
       "id": "03",
-      "name": "Apex Conflagration",
+      "name": "Weight of the Trench",
       "category": "Advanced Art",
       "depth": 3,
       "raw_flat_total": 2,
@@ -1677,6 +1691,17 @@
       "covered_rows": 2
     },
     {
+      "bloodline": "Terra Nova",
+      "reference": false,
+      "id": "03",
+      "name": "Continental Rift",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 4,
+      "covered_rows": 2
+    },
+    {
       "bloodline": "Voltara Divine",
       "reference": false,
       "id": "03",
@@ -1686,6 +1711,50 @@
       "raw_flat_total": 2,
       "row_weighted_total": 4,
       "covered_rows": 2
+    },
+    {
+      "bloodline": "Yaketsuku Netsu",
+      "reference": false,
+      "id": "03",
+      "name": "Blade That Never Cools",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 2,
+      "row_weighted_total": 4,
+      "covered_rows": 2
+    },
+    {
+      "bloodline": "Musashi Ken",
+      "reference": false,
+      "id": "03",
+      "name": "Cut of No Return",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 3,
+      "row_weighted_total": 4,
+      "covered_rows": 3
+    },
+    {
+      "bloodline": "Ancient Tailed Demon",
+      "reference": false,
+      "id": "10",
+      "name": "Primordial Rampage",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 4,
+      "row_weighted_total": 4,
+      "covered_rows": 1
+    },
+    {
+      "bloodline": "Lycanthropy",
+      "reference": false,
+      "id": "08",
+      "name": "Undying Hunger",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 4,
+      "row_weighted_total": 4,
+      "covered_rows": 1
     }
   ],
   "weakest_purchases": [
@@ -1699,6 +1768,28 @@
       "raw_flat_total": 1,
       "row_weighted_total": 1,
       "covered_rows": 1
+    },
+    {
+      "bloodline": "Megumi Kijo",
+      "reference": false,
+      "id": "02",
+      "name": "Teeth Behind the Smile",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 1,
+      "row_weighted_total": 2,
+      "covered_rows": 2
+    },
+    {
+      "bloodline": "Megumi Kijo",
+      "reference": false,
+      "id": "03",
+      "name": "Appetite of Oblivion",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 1,
+      "row_weighted_total": 2,
+      "covered_rows": 2
     },
     {
       "bloodline": "Musashi Ken",
@@ -1734,28 +1825,6 @@
       "covered_rows": 2
     },
     {
-      "bloodline": "Sea-King's Blessing",
-      "reference": false,
-      "id": "02",
-      "name": "Grip of the Riptide",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Sea-King's Blessing",
-      "reference": false,
-      "id": "03",
-      "name": "Weight of the Trench",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
       "bloodline": "Shinseina Ki",
       "reference": false,
       "id": "04",
@@ -1767,45 +1836,12 @@
       "covered_rows": 2
     },
     {
-      "bloodline": "Terra Nova",
+      "bloodline": "Shinseina Ki",
       "reference": false,
       "id": "02",
-      "name": "Rending Strata",
+      "name": "Fangs of Heartwood",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Terra Nova",
-      "reference": false,
-      "id": "03",
-      "name": "Continental Rift",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Yaketsuku Netsu",
-      "reference": false,
-      "id": "02",
-      "name": "Searing Edge",
-      "category": "Hidden Art",
-      "depth": 2,
-      "raw_flat_total": 1,
-      "row_weighted_total": 2,
-      "covered_rows": 2
-    },
-    {
-      "bloodline": "Yaketsuku Netsu",
-      "reference": false,
-      "id": "03",
-      "name": "Blade That Never Cools",
-      "category": "Advanced Art",
-      "depth": 3,
       "raw_flat_total": 1,
       "row_weighted_total": 2,
       "covered_rows": 2
@@ -1815,6 +1851,39 @@
       "reference": false,
       "id": "02",
       "name": "Rending Grip",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
+      "covered_rows": 1
+    },
+    {
+      "bloodline": "Ancient Tailed Demon",
+      "reference": false,
+      "id": "09",
+      "name": "Boiling Ichor",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
+      "covered_rows": 1
+    },
+    {
+      "bloodline": "Arashima",
+      "reference": false,
+      "id": "02",
+      "name": "Gathering Thunderhead",
+      "category": "Hidden Art",
+      "depth": 2,
+      "raw_flat_total": 2,
+      "row_weighted_total": 2,
+      "covered_rows": 1
+    },
+    {
+      "bloodline": "Arashima",
+      "reference": false,
+      "id": "04",
+      "name": "Crimson Downpour",
       "category": "Hidden Art",
       "depth": 2,
       "raw_flat_total": 2,
@@ -1859,40 +1928,6 @@
         ]
       },
       {
-        "bloodline": "Aerathiel",
-        "rows": 3,
-        "base_sum": 130.0,
-        "max_sum": 136.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Bakuhatsu",
-        "rows": 3,
-        "base_sum": 130.0,
-        "max_sum": 136.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Blood-Enchanted Eyes",
         "rows": 4,
         "base_sum": 170.0,
@@ -1914,23 +1949,6 @@
         "rows": 1,
         "base_sum": 50.0,
         "max_sum": 52.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Crystal Essence",
-        "rows": 3,
-        "base_sum": 130.0,
-        "max_sum": 136.0,
         "addition": 2,
         "max_single": 52.0,
         "build": [
@@ -2012,23 +2030,6 @@
         ]
       },
       {
-        "bloodline": "Lycanthropy",
-        "rows": 2,
-        "base_sum": 90.0,
-        "max_sum": 94.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "06",
-          "07",
-          "08"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Oblivion Seal",
         "rows": 3,
         "base_sum": 130.0,
@@ -2040,40 +2041,6 @@
           "02",
           "03",
           "06"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Primal Radiance",
-        "rows": 2,
-        "base_sum": 90.0,
-        "max_sum": 94.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Sands of Time",
-        "rows": 3,
-        "base_sum": 130.0,
-        "max_sum": 136.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
         ],
         "recipients": [
           "enemy"
@@ -2131,23 +2098,6 @@
         ]
       },
       {
-        "bloodline": "Tetsugan",
-        "rows": 7,
-        "base_sum": 300.0,
-        "max_sum": 314.0,
-        "addition": 2,
-        "max_single": 52.0,
-        "build": [
-          "01",
-          "06",
-          "07",
-          "08"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Voltara Divine",
         "rows": 2,
         "base_sum": 90.0,
@@ -2158,41 +2108,7 @@
           "01",
           "02",
           "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Hyouga Yui",
-        "rows": 3,
-        "base_sum": 130.0,
-        "max_sum": 139.0,
-        "addition": 3,
-        "max_single": 48.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Itojinsei",
-        "rows": 4,
-        "base_sum": 165.0,
-        "max_sum": 177.0,
-        "addition": 3,
-        "max_single": 48.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
+          "06"
         ],
         "recipients": [
           "enemy"
@@ -2267,6 +2183,40 @@
         ]
       },
       {
+        "bloodline": "Hyouga Yui",
+        "rows": 3,
+        "base_sum": 130.0,
+        "max_sum": 136.0,
+        "addition": 2,
+        "max_single": 47.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
+        "bloodline": "Itojinsei",
+        "rows": 4,
+        "base_sum": 165.0,
+        "max_sum": 173.0,
+        "addition": 2,
+        "max_single": 47.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
         "bloodline": "Megumi Kijo",
         "rows": 2,
         "base_sum": 85.0,
@@ -2277,7 +2227,7 @@
           "01",
           "02",
           "03",
-          "06"
+          "04"
         ],
         "recipients": [
           "enemy"
@@ -2375,23 +2325,6 @@
         "max_sum": 131.0,
         "addition": 2,
         "max_single": 47.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Loup-Garou",
-        "rows": 1,
-        "base_sum": 40.0,
-        "max_sum": 43.0,
-        "addition": 3,
-        "max_single": 43.0,
         "build": [
           "01",
           "02",
@@ -2575,6 +2508,23 @@
         ]
       },
       {
+        "bloodline": "Crystal Essence",
+        "rows": 1,
+        "base_sum": 35.0,
+        "max_sum": 45.0,
+        "addition": 10,
+        "max_single": 45.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
         "bloodline": "Ha Yanagi",
         "rows": 1,
         "base_sum": 35.0,
@@ -2626,6 +2576,23 @@
         ]
       },
       {
+        "bloodline": "Sands of Time",
+        "rows": 1,
+        "base_sum": 35.0,
+        "max_sum": 45.0,
+        "addition": 10,
+        "max_single": 45.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
         "bloodline": "Terra Nova",
         "rows": 1,
         "base_sum": 35.0,
@@ -2643,17 +2610,17 @@
         ]
       },
       {
-        "bloodline": "Voltara Divine",
+        "bloodline": "Aerathiel",
         "rows": 2,
         "base_sum": 70.0,
-        "max_sum": 90.0,
-        "addition": 10,
-        "max_single": 45.0,
+        "max_sum": 86.0,
+        "addition": 8,
+        "max_single": 43.0,
         "build": [
           "01",
           "02",
-          "04",
-          "05"
+          "03",
+          "06"
         ],
         "recipients": [
           "self"
@@ -2762,23 +2729,6 @@
         ]
       },
       {
-        "bloodline": "Sands of Time",
-        "rows": 1,
-        "base_sum": 35.0,
-        "max_sum": 43.0,
-        "addition": 8,
-        "max_single": 43.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
         "bloodline": "Shiroi Youso",
         "rows": 2,
         "base_sum": 70.0,
@@ -2824,6 +2774,23 @@
           "02",
           "04",
           "05"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
+        "bloodline": "Voltara Divine",
+        "rows": 2,
+        "base_sum": 70.0,
+        "max_sum": 86.0,
+        "addition": 8,
+        "max_single": 43.0,
+        "build": [
+          "01",
+          "04",
+          "05",
+          "06"
         ],
         "recipients": [
           "self"
@@ -2916,58 +2883,7 @@
         ]
       },
       {
-        "bloodline": "Aerathiel",
-        "rows": 2,
-        "base_sum": 70.0,
-        "max_sum": 80.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "06"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
-        "bloodline": "Blue Blade Eyes",
-        "rows": 4,
-        "base_sum": 140.0,
-        "max_sum": 160.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
         "bloodline": "Cosmic Ascendant",
-        "rows": 1,
-        "base_sum": 35.0,
-        "max_sum": 40.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
-        "bloodline": "Crystal Essence",
         "rows": 1,
         "base_sum": 35.0,
         "max_sum": 40.0,
@@ -3154,6 +3070,40 @@
         ]
       },
       {
+        "bloodline": "Tetsugan",
+        "rows": 3,
+        "base_sum": 105.0,
+        "max_sum": 120.0,
+        "addition": 5,
+        "max_single": 40.0,
+        "build": [
+          "01",
+          "06",
+          "07",
+          "08"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
+        "bloodline": "Vaporia",
+        "rows": 1,
+        "base_sum": 35.0,
+        "max_sum": 40.0,
+        "addition": 5,
+        "max_single": 40.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
         "bloodline": "Yaketsuku Netsu",
         "rows": 1,
         "base_sum": 30.0,
@@ -3165,6 +3115,23 @@
           "02",
           "04",
           "05"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
+        "bloodline": "Blue Blade Eyes",
+        "rows": 4,
+        "base_sum": 140.0,
+        "max_sum": 156.0,
+        "addition": 4,
+        "max_single": 39.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
         ],
         "recipients": [
           "self"
@@ -3194,40 +3161,6 @@
         "max_sum": 117.0,
         "addition": 4,
         "max_single": 39.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
-        "bloodline": "Tetsugan",
-        "rows": 3,
-        "base_sum": 105.0,
-        "max_sum": 114.0,
-        "addition": 3,
-        "max_single": 38.0,
-        "build": [
-          "01",
-          "02",
-          "06",
-          "07"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
-        "bloodline": "Vaporia",
-        "rows": 1,
-        "base_sum": 35.0,
-        "max_sum": 37.0,
-        "addition": 2,
-        "max_single": 37.0,
         "build": [
           "01",
           "02",
@@ -3436,9 +3369,9 @@
         "max_single": 40.0,
         "build": [
           "01",
+          "02",
           "04",
-          "05",
-          "06"
+          "05"
         ],
         "recipients": [
           "enemy"
@@ -3564,23 +3497,6 @@
         ]
       },
       {
-        "bloodline": "Tetsugan",
-        "rows": 2,
-        "base_sum": 65.0,
-        "max_sum": 75.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "04",
-          "05"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Cosmic Ascendant",
         "rows": 1,
         "base_sum": 30.0,
@@ -3596,9 +3512,43 @@
         "recipients": [
           "enemy"
         ]
+      },
+      {
+        "bloodline": "Tetsugan",
+        "rows": 2,
+        "base_sum": 65.0,
+        "max_sum": 69.0,
+        "addition": 2,
+        "max_single": 37.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
       }
     ],
     "increasedamagetaken": [
+      {
+        "bloodline": "Bakuhatsu",
+        "rows": 1,
+        "base_sum": 35.0,
+        "max_sum": 45.0,
+        "addition": 10,
+        "max_single": 45.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
       {
         "bloodline": "Heavenly Sonata",
         "rows": 1,
@@ -3642,16 +3592,16 @@
         "max_single": 45.0,
         "build": [
           "01",
-          "02",
           "04",
-          "05"
+          "05",
+          "06"
         ],
         "recipients": [
           "enemy"
         ]
       },
       {
-        "bloodline": "Nature's Blessing",
+        "bloodline": "Primal Radiance",
         "rows": 1,
         "base_sum": 35.0,
         "max_sum": 45.0,
@@ -3660,8 +3610,8 @@
         "build": [
           "01",
           "02",
-          "04",
-          "05"
+          "03",
+          "04"
         ],
         "recipients": [
           "enemy"
@@ -3804,6 +3754,23 @@
         ]
       },
       {
+        "bloodline": "Nature's Blessing",
+        "rows": 1,
+        "base_sum": 35.0,
+        "max_sum": 43.0,
+        "addition": 8,
+        "max_single": 43.0,
+        "build": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
         "bloodline": "Oblivion Seal",
         "rows": 1,
         "base_sum": 35.0,
@@ -3906,23 +3873,6 @@
         ]
       },
       {
-        "bloodline": "Bakuhatsu",
-        "rows": 1,
-        "base_sum": 35.0,
-        "max_sum": 40.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Blood-Enchanted Eyes",
         "rows": 3,
         "base_sum": 105.0,
@@ -4009,23 +3959,6 @@
         ]
       },
       {
-        "bloodline": "Godstorm Eclipse",
-        "rows": 3,
-        "base_sum": 105.0,
-        "max_sum": 120.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
         "bloodline": "Night Parade of A Thousand Demons",
         "rows": 1,
         "base_sum": 35.0,
@@ -4054,40 +3987,6 @@
           "04",
           "05",
           "06"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Shiroi Youso",
-        "rows": 2,
-        "base_sum": 70.0,
-        "max_sum": 80.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Vaporia",
-        "rows": 1,
-        "base_sum": 35.0,
-        "max_sum": 40.0,
-        "addition": 5,
-        "max_single": 40.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
         ],
         "recipients": [
           "enemy"
@@ -4162,7 +4061,41 @@
         ]
       },
       {
-        "bloodline": "Primal Radiance",
+        "bloodline": "Godstorm Eclipse",
+        "rows": 3,
+        "base_sum": 105.0,
+        "max_sum": 111.0,
+        "addition": 2,
+        "max_single": 37.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
+        "bloodline": "Shiroi Youso",
+        "rows": 2,
+        "base_sum": 70.0,
+        "max_sum": 74.0,
+        "addition": 2,
+        "max_single": 37.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
+        "bloodline": "Suragu",
         "rows": 1,
         "base_sum": 35.0,
         "max_sum": 37.0,
@@ -4179,7 +4112,7 @@
         ]
       },
       {
-        "bloodline": "Suragu",
+        "bloodline": "Vaporia",
         "rows": 1,
         "base_sum": 35.0,
         "max_sum": 37.0,
@@ -4521,29 +4454,12 @@
         ]
       },
       {
-        "bloodline": "Tetsugan",
-        "rows": 3,
-        "base_sum": 100.0,
-        "max_sum": 124.0,
-        "addition": 8,
-        "max_single": 43.0,
-        "build": [
-          "01",
-          "02",
-          "03",
-          "04"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
         "bloodline": "Cosmic Ascendant",
         "rows": 3,
         "base_sum": 100.0,
-        "max_sum": 121.0,
-        "addition": 7,
-        "max_single": 42.0,
+        "max_sum": 115.0,
+        "addition": 5,
+        "max_single": 40.0,
         "build": [
           "01",
           "06",
@@ -4668,6 +4584,23 @@
           "06",
           "07",
           "08"
+        ],
+        "recipients": [
+          "self"
+        ]
+      },
+      {
+        "bloodline": "Tetsugan",
+        "rows": 3,
+        "base_sum": 100.0,
+        "max_sum": 115.0,
+        "addition": 5,
+        "max_single": 40.0,
+        "build": [
+          "01",
+          "02",
+          "03",
+          "04"
         ],
         "recipients": [
           "self"
@@ -5299,9 +5232,9 @@
         "bloodline": "Lycanthropy",
         "rows": 1,
         "base_sum": 40.0,
-        "max_sum": 50.0,
-        "addition": 10,
-        "max_single": 50.0,
+        "max_sum": 48.0,
+        "addition": 8,
+        "max_single": 48.0,
         "build": [
           "01",
           "06",
@@ -5316,9 +5249,9 @@
         "bloodline": "Megumi Kijo",
         "rows": 1,
         "base_sum": 40.0,
-        "max_sum": 45.0,
-        "addition": 5,
-        "max_single": 45.0,
+        "max_sum": 42.0,
+        "addition": 2,
+        "max_single": 42.0,
         "build": [
           "01",
           "02",
@@ -5333,26 +5266,9 @@
         "bloodline": "Nature's Blessing",
         "rows": 1,
         "base_sum": 40.0,
-        "max_sum": 45.0,
-        "addition": 5,
-        "max_single": 45.0,
-        "build": [
-          "01",
-          "02",
-          "06",
-          "09"
-        ],
-        "recipients": [
-          "self"
-        ]
-      },
-      {
-        "bloodline": "Loup-Garou",
-        "rows": 1,
-        "base_sum": 25.0,
-        "max_sum": 33.0,
-        "addition": 8,
-        "max_single": 33.0,
+        "max_sum": 42.0,
+        "addition": 2,
+        "max_single": 42.0,
         "build": [
           "01",
           "02",
@@ -5447,6 +5363,23 @@
         "recipients": [
           "self"
         ]
+      },
+      {
+        "bloodline": "Loup-Garou",
+        "rows": 1,
+        "base_sum": 25.0,
+        "max_sum": 27.0,
+        "addition": 2,
+        "max_single": 27.0,
+        "build": [
+          "01",
+          "04",
+          "05",
+          "06"
+        ],
+        "recipients": [
+          "self"
+        ]
       }
     ]
   },
@@ -5476,18 +5409,6 @@
       ]
     },
     {
-      "bloodline": "Godstorm Eclipse",
-      "rows": 3,
-      "base_multiplier": 2.46,
-      "max_multiplier": 2.744,
-      "addition": 5,
-      "jutsu": [
-        "Event Horizon Gate",
-        "Godstorm Mantle: Sky-Splitting Wall",
-        "Godstorm Mantle: Storm-God's Heart"
-      ]
-    },
-    {
       "bloodline": "Tetsugan",
       "rows": 3,
       "base_multiplier": 2.46,
@@ -5508,6 +5429,18 @@
       "jutsu": [
         "Chrono Stasis",
         "Imperial Swords"
+      ]
+    },
+    {
+      "bloodline": "Godstorm Eclipse",
+      "rows": 3,
+      "base_multiplier": 2.46,
+      "max_multiplier": 2.571,
+      "addition": 2,
+      "jutsu": [
+        "Event Horizon Gate",
+        "Godstorm Mantle: Sky-Splitting Wall",
+        "Godstorm Mantle: Storm-God's Heart"
       ]
     },
     {
@@ -5624,8 +5557,8 @@
       "bloodline": "Shiroi Youso",
       "rows": 2,
       "base_multiplier": 1.823,
-      "max_multiplier": 1.96,
-      "addition": 5,
+      "max_multiplier": 1.877,
+      "addition": 2,
       "jutsu": [
         "Element Divine",
         "Fire Release"
@@ -5633,19 +5566,6 @@
     }
   ],
   "stacked_self_idg": [
-    {
-      "bloodline": "Blue Blade Eyes",
-      "rows": 4,
-      "base_multiplier": 3.322,
-      "max_multiplier": 3.842,
-      "addition": 5,
-      "jutsu": [
-        "Arctic Frost",
-        "Blue Crimson",
-        "Glacial Volley",
-        "Quintessential Flake"
-      ]
-    },
     {
       "bloodline": "Godstorm Eclipse",
       "rows": 4,
@@ -5657,6 +5577,19 @@
         "Godstorm Mantle: Tempest",
         "Godstorm Mantle: Thunder-Crowned Bulwark",
         "Marrow Eclipse Mantle"
+      ]
+    },
+    {
+      "bloodline": "Blue Blade Eyes",
+      "rows": 4,
+      "base_multiplier": 3.322,
+      "max_multiplier": 3.733,
+      "addition": 4,
+      "jutsu": [
+        "Arctic Frost",
+        "Blue Crimson",
+        "Glacial Volley",
+        "Quintessential Flake"
       ]
     },
     {
@@ -5696,6 +5629,17 @@
       ]
     },
     {
+      "bloodline": "Tetsugan",
+      "rows": 3,
+      "base_multiplier": 2.46,
+      "max_multiplier": 2.744,
+      "addition": 5,
+      "jutsu": [
+        "Inner Peace",
+        "Middle Guard Stance"
+      ]
+    },
+    {
       "bloodline": "Shinrai Ou",
       "rows": 3,
       "base_multiplier": 2.46,
@@ -5707,25 +5651,13 @@
       ]
     },
     {
-      "bloodline": "Tetsugan",
-      "rows": 3,
-      "base_multiplier": 2.46,
-      "max_multiplier": 2.628,
-      "addition": 3,
-      "jutsu": [
-        "Inner Peace",
-        "Middle Guard Stance"
-      ]
-    },
-    {
-      "bloodline": "Voltara Divine",
+      "bloodline": "Aerathiel",
       "rows": 2,
       "base_multiplier": 1.823,
-      "max_multiplier": 2.103,
-      "addition": 10,
+      "max_multiplier": 2.045,
+      "addition": 8,
       "jutsu": [
-        "Ethereal Dragon's Whispers",
-        "Luminous Illusion Bind"
+        "Atomic Shield"
       ]
     },
     {
@@ -5795,6 +5727,17 @@
       ]
     },
     {
+      "bloodline": "Voltara Divine",
+      "rows": 2,
+      "base_multiplier": 1.823,
+      "max_multiplier": 2.045,
+      "addition": 8,
+      "jutsu": [
+        "Ethereal Dragon's Whispers",
+        "Luminous Illusion Bind"
+      ]
+    },
+    {
       "bloodline": "Blood-Enchanted Eyes",
       "rows": 2,
       "base_multiplier": 1.823,
@@ -5823,16 +5766,6 @@
       "addition": 5,
       "jutsu": [
         "Celestial Ignition"
-      ]
-    },
-    {
-      "bloodline": "Aerathiel",
-      "rows": 2,
-      "base_multiplier": 1.823,
-      "max_multiplier": 1.96,
-      "addition": 5,
-      "jutsu": [
-        "Atomic Shield"
       ]
     },
     {
@@ -5871,27 +5804,27 @@
   ],
   "stacked_self_ddt": [
     {
-      "bloodline": "Tetsugan",
-      "rows": 3,
-      "base_multiplier": 0.296,
-      "max_multiplier": 0.201,
-      "addition": 8,
-      "jutsu": [
-        "Inner Peace",
-        "Middle Guard Stance",
-        "Pivoting Fortress"
-      ]
-    },
-    {
       "bloodline": "Cosmic Ascendant",
       "rows": 3,
       "base_multiplier": 0.296,
-      "max_multiplier": 0.212,
-      "addition": 7,
+      "max_multiplier": 0.234,
+      "addition": 5,
       "jutsu": [
         "Cosmic Aura",
         "Cosmic Chains",
         "Cosmic Energy"
+      ]
+    },
+    {
+      "bloodline": "Tetsugan",
+      "rows": 3,
+      "base_multiplier": 0.296,
+      "max_multiplier": 0.234,
+      "addition": 5,
+      "jutsu": [
+        "Inner Peace",
+        "Middle Guard Stance",
+        "Pivoting Fortress"
       ]
     },
     {
@@ -6010,8 +5943,8 @@
       "bloodline": "Tetsugan",
       "rows": 2,
       "base_multiplier": 0.455,
-      "max_multiplier": 0.39,
-      "addition": 5,
+      "max_multiplier": 0.428,
+      "addition": 2,
       "jutsu": [
         "Tranquil Guard Flowing Form",
         "Vacuum Fan"
@@ -6089,8 +6022,7 @@
       "bloodline": "Aerathiel",
       "reference": false,
       "maximum": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "reflect": 10
@@ -6099,12 +6031,12 @@
       "routes": [
         {
           "name": "Total Disintegration",
-          "primary_tag": "damage",
-          "total": 2,
+          "primary_tag": "increasedamagegiven",
+          "total": 8,
           "steps": [
-            0,
-            0,
-            2
+            2,
+            2,
+            4
           ],
           "on_band": false,
           "band_rationale": null
@@ -6115,8 +6047,8 @@
           "total": 8,
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "on_band": false,
           "band_rationale": null
@@ -6203,8 +6135,8 @@
           "total": 8,
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "on_band": false,
           "band_rationale": null
@@ -6281,9 +6213,8 @@
       "bloodline": "Bakuhatsu",
       "reference": false,
       "maximum": {
-        "damage": 2,
         "increasedamagegiven": 8,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
@@ -6291,14 +6222,14 @@
       "routes": [
         {
           "name": "Ground Zero",
-          "primary_tag": "damage",
-          "total": 2,
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
           "steps": [
-            0,
-            0,
-            2
+            2,
+            3,
+            5
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -6411,7 +6342,7 @@
       "reference": false,
       "maximum": {
         "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 4,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 5,
         "decreasedamagetaken": 10,
@@ -6479,7 +6410,7 @@
         "increasedamagegiven": 5,
         "decreasedamagegiven": 7,
         "increasedamagetaken": 5,
-        "decreasedamagetaken": 7,
+        "decreasedamagetaken": 5,
         "afterburn": 10,
         "lifesteal": 5
       },
@@ -6512,13 +6443,13 @@
         {
           "name": "Heart of the Singularity",
           "primary_tag": "decreasedamagetaken",
-          "total": 7,
+          "total": 5,
           "steps": [
             2,
-            2,
-            3
+            1,
+            2
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -6541,8 +6472,7 @@
       "bloodline": "Crystal Essence",
       "reference": false,
       "maximum": {
-        "damage": 2,
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 10,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
         "reflect": 10
@@ -6551,14 +6481,14 @@
       "routes": [
         {
           "name": "Splintered Mountain Heart",
-          "primary_tag": "damage",
-          "total": 2,
+          "primary_tag": "increasedamagegiven",
+          "total": 10,
           "steps": [
-            0,
-            0,
-            2
+            2,
+            3,
+            5
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -6567,8 +6497,8 @@
           "total": 8,
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "on_band": false,
           "band_rationale": null
@@ -6788,7 +6718,7 @@
       "maximum": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 3,
         "lifesteal": 5
@@ -7029,7 +6959,7 @@
       "bloodline": "Hyouga Yui",
       "reference": false,
       "maximum": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 8,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10
@@ -7039,10 +6969,10 @@
         {
           "name": "Buried in the Avalanche",
           "primary_tag": "damage",
-          "total": 3,
+          "total": 2,
           "steps": [
             0,
-            1,
+            0,
             2
           ],
           "on_band": false,
@@ -7092,7 +7022,7 @@
       "bloodline": "Itojinsei",
       "reference": false,
       "maximum": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 10
@@ -7102,10 +7032,10 @@
         {
           "name": "Severing Lattice",
           "primary_tag": "damage",
-          "total": 3,
+          "total": 2,
           "steps": [
             0,
-            1,
+            0,
             2
           ],
           "on_band": false,
@@ -7219,25 +7149,12 @@
       "bloodline": "Loup-Garou",
       "reference": false,
       "maximum": {
-        "damage": 3,
         "increasedamagegiven": 10,
         "increasedamagetaken": 10,
-        "heal": 8
+        "heal": 2
       },
       "over_ceiling": [],
       "routes": [
-        {
-          "name": "Killing Bite",
-          "primary_tag": "damage",
-          "total": 3,
-          "steps": [
-            0,
-            0,
-            3
-          ],
-          "on_band": false,
-          "band_rationale": null
-        },
         {
           "name": "The Pack Closes",
           "primary_tag": "increasedamagetaken",
@@ -7270,9 +7187,8 @@
       "bloodline": "Lycanthropy",
       "reference": false,
       "maximum": {
-        "damage": 2,
         "increasedamagegiven": 8,
-        "heal": 10
+        "heal": 8
       },
       "over_ceiling": [],
       "routes": [
@@ -7291,13 +7207,13 @@
         {
           "name": "Undying Hunger",
           "primary_tag": "heal",
-          "total": 10,
+          "total": 8,
           "steps": [
             2,
-            3,
-            5
+            2,
+            4
           ],
-          "on_band": true,
+          "on_band": false,
           "band_rationale": null
         }
       ],
@@ -7311,7 +7227,7 @@
         "damage": 2,
         "decreasedamagegiven": 10,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
       "over_ceiling": [],
       "routes": [
@@ -7321,8 +7237,8 @@
           "total": 2,
           "steps": [
             0,
-            0,
-            2
+            1,
+            1
           ],
           "on_band": false,
           "band_rationale": null
@@ -7474,9 +7390,9 @@
       "reference": false,
       "maximum": {
         "damage": 2,
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "increaseheal": 10,
-        "heal": 5
+        "heal": 2
       },
       "over_ceiling": [],
       "routes": [
@@ -7495,13 +7411,13 @@
         {
           "name": "Blight and Harvest",
           "primary_tag": "increasedamagetaken",
-          "total": 10,
+          "total": 8,
           "steps": [
             2,
-            3,
-            5
+            2,
+            4
           ],
-          "on_band": true,
+          "on_band": false,
           "band_rationale": null
         },
         {
@@ -7653,9 +7569,8 @@
       "bloodline": "Primal Radiance",
       "reference": false,
       "maximum": {
-        "damage": 2,
         "increasedamagegiven": 10,
-        "increasedamagetaken": 2,
+        "increasedamagetaken": 10,
         "decreasedamagetaken": 10,
         "afterburn": 10
       },
@@ -7663,14 +7578,14 @@
       "routes": [
         {
           "name": "Apex Conflagration",
-          "primary_tag": "damage",
-          "total": 2,
+          "primary_tag": "increasedamagetaken",
+          "total": 10,
           "steps": [
+            2,
             0,
-            0,
-            2
+            8
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -7702,9 +7617,9 @@
           "primary_tag": "increasedamagegiven",
           "total": 10,
           "steps": [
-            2,
+            0,
             3,
-            5
+            7
           ],
           "on_band": true,
           "band_rationale": null
@@ -7767,8 +7682,7 @@
       "bloodline": "Sands of Time",
       "reference": false,
       "maximum": {
-        "damage": 2,
-        "increasedamagegiven": 8,
+        "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
         "increasedamagetaken": 8,
         "decreasedamagetaken": 10,
@@ -7779,13 +7693,13 @@
         {
           "name": "Sovereign of the Hour",
           "primary_tag": "increasedamagegiven",
-          "total": 8,
+          "total": 10,
           "steps": [
             2,
             3,
-            3
+            5
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -7844,8 +7758,8 @@
           "total": 2,
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "on_band": false,
           "band_rationale": null
@@ -8069,8 +7983,8 @@
           "total": 2,
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "on_band": false,
           "band_rationale": null
@@ -8109,7 +8023,7 @@
       "maximum": {
         "damage": 2,
         "increasedamagegiven": 8,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 8,
         "afterburn": 10,
         "heal": 5
@@ -8378,8 +8292,8 @@
           "total": 2,
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "on_band": false,
           "band_rationale": null
@@ -8413,9 +8327,9 @@
           "primary_tag": "increasedamagegiven",
           "total": 10,
           "steps": [
-            2,
+            0,
             3,
-            5
+            7
           ],
           "on_band": true,
           "band_rationale": null
@@ -8428,11 +8342,10 @@
       "bloodline": "Tetsugan",
       "reference": false,
       "maximum": {
-        "damage": 2,
-        "increasedamagegiven": 3,
-        "decreasedamagegiven": 5,
+        "increasedamagegiven": 5,
+        "decreasedamagegiven": 2,
         "increasedamagetaken": 4,
-        "decreasedamagetaken": 8,
+        "decreasedamagetaken": 5,
         "afterburn": 10,
         "reflect": 10
       },
@@ -8441,13 +8354,13 @@
         {
           "name": "Hammer and Anvil",
           "primary_tag": "decreasedamagetaken",
-          "total": 8,
+          "total": 5,
           "steps": [
             2,
-            3,
-            3
+            1,
+            2
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -8464,14 +8377,14 @@
         },
         {
           "name": "One Cut Decides",
-          "primary_tag": "damage",
-          "total": 2,
+          "primary_tag": "increasedamagegiven",
+          "total": 5,
           "steps": [
             0,
-            0,
-            2
+            2,
+            3
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -8495,8 +8408,8 @@
       "reference": false,
       "maximum": {
         "damage": 2,
-        "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagegiven": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
         "afterburn": 10,
         "lifesteal": 5,
@@ -8562,7 +8475,7 @@
       "reference": false,
       "maximum": {
         "damage": 2,
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "decreasedamagetaken": 10
       },
       "over_ceiling": [],
@@ -8585,8 +8498,8 @@
           "total": 8,
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "on_band": false,
           "band_rationale": null
@@ -8623,8 +8536,8 @@
           "total": 2,
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "on_band": false,
           "band_rationale": null
@@ -9188,7 +9101,8 @@
       "mode_restricted": [],
       "injected_children": [],
       "universal_nodes": [
-        "Scent of Blood"
+        "Scent of Blood",
+        "Hunter's Moon"
       ],
       "adverse_rows": [],
       "ally_hazard_rows": [],
@@ -9243,7 +9157,7 @@
       "mode_restricted": [],
       "injected_children": [],
       "universal_nodes": [
-        "Mountain Hag's Mercy"
+        "Hagmother's Welcome"
       ],
       "adverse_rows": [],
       "ally_hazard_rows": [],
@@ -9319,7 +9233,9 @@
       "tags_with_hidden_rows": [],
       "mode_restricted": [],
       "injected_children": [],
-      "universal_nodes": [],
+      "universal_nodes": [
+        "Thorn and Rot"
+      ],
       "adverse_rows": [],
       "ally_hazard_rows": [],
       "enemy_hazard_rows": [],
@@ -9490,7 +9406,9 @@
       "tags_with_hidden_rows": [],
       "mode_restricted": [],
       "injected_children": [],
-      "universal_nodes": [],
+      "universal_nodes": [
+        "Loom of Dusk"
+      ],
       "adverse_rows": [],
       "ally_hazard_rows": [],
       "enemy_hazard_rows": [],
@@ -9784,7 +9702,7 @@
       "mode_restricted": [],
       "injected_children": [],
       "universal_nodes": [
-        "Anointed by Lightning"
+        "Halo of Static"
       ],
       "adverse_rows": [],
       "ally_hazard_rows": [],
@@ -9889,8 +9807,8 @@
       "damage_base_sum": 210.0,
       "percentage_rows": 11,
       "percentage_base_sum": 385.0,
-      "added_max_row_weighted": 42,
-      "added_share_of_inherited_pct": 7.1
+      "added_max_row_weighted": 38,
+      "added_share_of_inherited_pct": 6.4
     },
     {
       "bloodline": "Cosmic Ascendant",
@@ -9901,8 +9819,8 @@
       "damage_base_sum": 50.0,
       "percentage_rows": 9,
       "percentage_base_sum": 310.0,
-      "added_max_row_weighted": 29,
-      "added_share_of_inherited_pct": 8.1
+      "added_max_row_weighted": 25,
+      "added_share_of_inherited_pct": 6.9
     },
     {
       "bloodline": "Crystal Essence",
@@ -9961,8 +9879,8 @@
       "damage_base_sum": 225.0,
       "percentage_rows": 11,
       "percentage_base_sum": 390.0,
-      "added_max_row_weighted": 37,
-      "added_share_of_inherited_pct": 6.0
+      "added_max_row_weighted": 30,
+      "added_share_of_inherited_pct": 4.9
     },
     {
       "bloodline": "Ha Yanagi",
@@ -10045,8 +9963,8 @@
       "damage_base_sum": 40.0,
       "percentage_rows": 2,
       "percentage_base_sum": 70.0,
-      "added_max_row_weighted": 15,
-      "added_share_of_inherited_pct": 13.6
+      "added_max_row_weighted": 14,
+      "added_share_of_inherited_pct": 12.7
     },
     {
       "bloodline": "Lycanthropy",
@@ -10069,8 +9987,8 @@
       "damage_base_sum": 85.0,
       "percentage_rows": 2,
       "percentage_base_sum": 60.0,
-      "added_max_row_weighted": 15,
-      "added_share_of_inherited_pct": 10.3
+      "added_max_row_weighted": 14,
+      "added_share_of_inherited_pct": 9.7
     },
     {
       "bloodline": "Musashi Ken",
@@ -10105,8 +10023,8 @@
       "damage_base_sum": 80.0,
       "percentage_rows": 2,
       "percentage_base_sum": 65.0,
-      "added_max_row_weighted": 15,
-      "added_share_of_inherited_pct": 10.3
+      "added_max_row_weighted": 14,
+      "added_share_of_inherited_pct": 9.7
     },
     {
       "bloodline": "Night Parade of A Thousand Demons",
@@ -10141,8 +10059,8 @@
       "damage_base_sum": 90.0,
       "percentage_rows": 4,
       "percentage_base_sum": 135.0,
-      "added_max_row_weighted": 16,
-      "added_share_of_inherited_pct": 7.1
+      "added_max_row_weighted": 15,
+      "added_share_of_inherited_pct": 6.7
     },
     {
       "bloodline": "Reptilian",
@@ -10309,8 +10227,8 @@
       "damage_base_sum": 300.0,
       "percentage_rows": 13,
       "percentage_base_sum": 450.0,
-      "added_max_row_weighted": 39,
-      "added_share_of_inherited_pct": 5.2
+      "added_max_row_weighted": 32,
+      "added_share_of_inherited_pct": 4.3
     },
     {
       "bloodline": "Vaporia",
@@ -10333,8 +10251,8 @@
       "damage_base_sum": 90.0,
       "percentage_rows": 3,
       "percentage_base_sum": 100.0,
-      "added_max_row_weighted": 20,
-      "added_share_of_inherited_pct": 10.5
+      "added_max_row_weighted": 18,
+      "added_share_of_inherited_pct": 9.5
     },
     {
       "bloodline": "Yaketsuku Netsu",
@@ -10345,8 +10263,8 @@
       "damage_base_sum": 80.0,
       "percentage_rows": 2,
       "percentage_base_sum": 60.0,
-      "added_max_row_weighted": 12,
-      "added_share_of_inherited_pct": 8.6
+      "added_max_row_weighted": 13,
+      "added_share_of_inherited_pct": 9.3
     }
   ],
   "review_log": {}

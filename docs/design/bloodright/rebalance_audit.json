@@ -11,14 +11,11 @@
   "trees": 44,
   "summary": {
     "trees_with_damage_nodes": [
-      "Aerathiel",
       "Ancient Tailed Demon",
       "Arashima",
-      "Bakuhatsu",
       "Blood-Enchanted Eyes",
       "Blue Blade Eyes",
       "Cosmic Ascendant",
-      "Crystal Essence",
       "Dai Kenja",
       "Ethereal Monarch",
       "Eyes of the Forsaken King",
@@ -28,16 +25,12 @@
       "Hyouga Yui",
       "Itojinsei",
       "Kyuko-sei",
-      "Loup-Garou",
-      "Lycanthropy",
       "Megumi Kijo",
       "Musashi Ken",
       "Namikaze",
       "Nature's Blessing",
       "Night Parade of A Thousand Demons",
       "Oblivion Seal",
-      "Primal Radiance",
-      "Sands of Time",
       "Sea-King's Blessing",
       "Shadow Weaver",
       "Shakunetsu Sakura",
@@ -49,20 +42,19 @@
       "Teno Yuki",
       "Tenohira Musei",
       "Terra Nova",
-      "Tetsugan",
       "Vaporia",
       "Voltara Divine",
       "Yaketsuku Netsu"
     ],
     "max_damage_by_tree": {
-      "Aerathiel": 2,
+      "Aerathiel": 0,
       "Ancient Tailed Demon": 2,
       "Arashima": 2,
-      "Bakuhatsu": 2,
+      "Bakuhatsu": 0,
       "Blood-Enchanted Eyes": 2,
       "Blue Blade Eyes": 2,
       "Cosmic Ascendant": 2,
-      "Crystal Essence": 2,
+      "Crystal Essence": 0,
       "Dai Kenja": 2,
       "Ethereal Monarch": 5,
       "Eyes of the Forsaken King": 2,
@@ -70,20 +62,20 @@
       "Ha Yanagi": 0,
       "Heavenly Sonata": 2,
       "Houkyuken": 2,
-      "Hyouga Yui": 3,
-      "Itojinsei": 3,
+      "Hyouga Yui": 2,
+      "Itojinsei": 2,
       "Kyuko-sei": 2,
-      "Loup-Garou": 3,
-      "Lycanthropy": 2,
+      "Loup-Garou": 0,
+      "Lycanthropy": 0,
       "Megumi Kijo": 2,
       "Musashi Ken": 2,
       "Namikaze": 2,
       "Nature's Blessing": 2,
       "Night Parade of A Thousand Demons": 2,
       "Oblivion Seal": 2,
-      "Primal Radiance": 2,
+      "Primal Radiance": 0,
       "Reptilian": 0,
-      "Sands of Time": 2,
+      "Sands of Time": 0,
       "Sea-King's Blessing": 2,
       "Shadow Weaver": 2,
       "Shakunetsu Sakura": 2,
@@ -95,30 +87,12 @@
       "Teno Yuki": 2,
       "Tenohira Musei": 2,
       "Terra Nova": 2,
-      "Tetsugan": 2,
+      "Tetsugan": 0,
       "Vaporia": 2,
       "Voltara Divine": 2,
       "Yaketsuku Netsu": 2
     },
     "above_nuke": [
-      {
-        "bloodline": "Aerathiel",
-        "jutsu": "Particle Cannon",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Bakuhatsu",
-        "jutsu": "Kinetic Nova",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
       {
         "bloodline": "Blood-Enchanted Eyes",
         "jutsu": "Reaper's Embrace",
@@ -131,15 +105,6 @@
       {
         "bloodline": "Cosmic Ascendant",
         "jutsu": "Cosmic Explosion",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Crystal Essence",
-        "jutsu": "Prism",
         "row": 0,
         "base": 50.0,
         "added": 2,
@@ -201,35 +166,8 @@
         "rationale": true
       },
       {
-        "bloodline": "Lycanthropy",
-        "jutsu": "Feral Wrath",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
-      {
         "bloodline": "Oblivion Seal",
         "jutsu": "Shadow Tether",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Primal Radiance",
-        "jutsu": "Fire Style: Beast",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Sands of Time",
-        "jutsu": "Eternity Flux",
         "row": 0,
         "base": 50.0,
         "added": 2,
@@ -259,15 +197,6 @@
         "jutsu": "Eternal Forest",
         "row": 0,
         "base": 50.0,
-        "added": 1,
-        "final": 51.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Shinseina Ki",
-        "jutsu": "Eternal Forest",
-        "row": 0,
-        "base": 50.0,
         "added": 2,
         "final": 52.0,
         "rationale": true
@@ -288,15 +217,6 @@
         "base": 50.0,
         "added": 5,
         "final": 55.0,
-        "rationale": true
-      },
-      {
-        "bloodline": "Tetsugan",
-        "jutsu": "Phantom Slash",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0,
         "rationale": true
       },
       {
@@ -330,13 +250,11 @@
     {
       "slug": "aerathiel",
       "name": "Aerathiel",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Total Disintegration's +2 Damage is the controlled payoff of Particle Collapse's self amplify setup on Atomic Shield and lifts Particle Cannon 50 → 52, past the 50 Nuke tier; Death's March and Decaying Touch go 40 → 42 and stay Normal. It is the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55. The pre-batch tree's burst route was +5 Damage (Particle Cannon 50 → 55) on this damage-led kit; the controlled payoff keeps the burst identity at a fraction of that tier impact. Pending director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Death's March",
@@ -347,22 +265,7 @@
               "Dust"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "02",
-                  "03",
-                  "06"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Decaying Touch",
@@ -373,22 +276,7 @@
               "Dust"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "02",
-                  "03",
-                  "06"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Particle Cannon",
@@ -399,40 +287,11 @@
               "Dust"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "02",
-                  "03",
-                  "06"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Particle Cannon",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Particle Cannon",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -444,8 +303,7 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 8,
             "reflect": 2
           },
           "path_row_weighted": 18,
@@ -459,13 +317,12 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 8,
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "reflect": 2
               },
-              "raw_total": 13,
+              "raw_total": 14,
               "row_weighted": 24
             },
             {
@@ -476,11 +333,10 @@
                 "reflect": 3
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 8,
                 "reflect": 5
               },
-              "raw_total": 12,
+              "raw_total": 13,
               "row_weighted": 21
             }
           ],
@@ -570,14 +426,14 @@
               "name": "Particle Collapse",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagegiven": 3
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 4,
                 "reflect": 10
               },
-              "raw_total": 15,
-              "row_weighted": 20
+              "raw_total": 14,
+              "row_weighted": 18
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -601,14 +457,14 @@
               "name": "Hollowing Wind",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagetaken": 2
               },
               "bonuses": {
                 "decreasedamagegiven": 10,
-                "increasedamagetaken": 5
+                "increasedamagetaken": 4
               },
-              "raw_total": 15,
-              "row_weighted": 20
+              "raw_total": 14,
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -636,18 +492,18 @@
         {
           "advanced_art": "03",
           "name": "Total Disintegration",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagegiven",
           "path": [
             "06",
             "02",
             "03"
           ],
           "steps": [
-            0,
-            0,
-            2
+            2,
+            2,
+            4
           ],
-          "total": 2
+          "total": 8
         },
         {
           "advanced_art": "05",
@@ -660,8 +516,8 @@
           ],
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "total": 8
         },
@@ -945,14 +801,14 @@
               "name": "Boiling Ichor",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagegiven": 3
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 4,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 15,
-              "row_weighted": 15
+              "raw_total": 14,
+              "row_weighted": 14
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -1067,8 +923,8 @@
           ],
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "total": 8
         }
@@ -1547,11 +1403,9 @@
       "name": "Bakuhatsu",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Explosion classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Ground Zero's +2 Damage is the controlled payoff of the Shaped Charge exposure setup and lifts Kinetic Nova 50 → 52, past the 50 Nuke tier; Inferno Cataclysm and Howitzer Crash go 40 → 42 and stay Normal. No legal allocation adds more than +2 Damage. Pending director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Inferno Cataclysm",
@@ -1562,22 +1416,7 @@
               "Explosion"
             ],
             "method": "AOE_SPIRAL_SHOOT",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Kinetic Nova",
@@ -1588,22 +1427,7 @@
               "Explosion"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Howitzer Crash",
@@ -1614,40 +1438,11 @@
               "Explosion"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Kinetic Nova",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Kinetic Nova",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -1659,11 +1454,10 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 10
           },
-          "path_row_weighted": 15,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "04",
@@ -1673,12 +1467,11 @@
                 "increasedamagegiven": 2
               },
               "bonuses": {
-                "damage": 2,
                 "increasedamagegiven": 4,
-                "increasedamagetaken": 5
+                "increasedamagetaken": 10
               },
-              "raw_total": 11,
-              "row_weighted": 19
+              "raw_total": 14,
+              "row_weighted": 18
             },
             {
               "id": "05",
@@ -1689,14 +1482,13 @@
                 "afterburn": 2
               },
               "bonuses": {
-                "damage": 2,
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagetaken": 10,
                 "decreasedamagetaken": 2,
                 "afterburn": 2
               },
-              "raw_total": 13,
-              "row_weighted": 19
+              "raw_total": 16,
+              "row_weighted": 18
             }
           ],
           "highest_diagnostic_fourth": "05"
@@ -1710,11 +1502,10 @@
             "07"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "afterburn": 2
           },
-          "path_row_weighted": 16,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "01",
@@ -1725,13 +1516,13 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 4,
+                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 10,
                 "afterburn": 2
               },
-              "raw_total": 18,
-              "row_weighted": 22
+              "raw_total": 16,
+              "row_weighted": 18
             },
             {
               "id": "08",
@@ -1741,12 +1532,11 @@
                 "afterburn": 3
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 10,
                 "afterburn": 5
               },
-              "raw_total": 17,
-              "row_weighted": 19
+              "raw_total": 15,
+              "row_weighted": 15
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -1760,11 +1550,10 @@
             "09"
           ],
           "path_bonuses": {
-            "increasedamagetaken": 3,
             "decreasedamagetaken": 2,
             "afterburn": 10
           },
-          "path_row_weighted": 15,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "01",
@@ -1776,12 +1565,12 @@
               },
               "bonuses": {
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2,
                 "afterburn": 10
               },
-              "raw_total": 19,
-              "row_weighted": 21
+              "raw_total": 16,
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -1791,12 +1580,11 @@
                 "decreasedamagetaken": 3
               },
               "bonuses": {
-                "increasedamagetaken": 3,
                 "decreasedamagetaken": 5,
                 "afterburn": 10
               },
-              "raw_total": 18,
-              "row_weighted": 18
+              "raw_total": 15,
+              "row_weighted": 15
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -1855,18 +1643,18 @@
         {
           "advanced_art": "03",
           "name": "Ground Zero",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagetaken",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            0,
-            0,
-            2
+            2,
+            3,
+            5
           ],
-          "total": 2
+          "total": 10
         },
         {
           "advanced_art": "07",
@@ -2507,7 +2295,7 @@
     {
       "slug": "blue_blade_eyes",
       "name": "Blue Blade Eyes",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -2660,10 +2448,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 4,
             "decreasedamagegiven": 2
           },
-          "path_row_weighted": 32,
+          "path_row_weighted": 28,
           "fourths": [
             {
               "id": "04",
@@ -2674,11 +2462,11 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 4,
                 "decreasedamagegiven": 5
               },
-              "raw_total": 12,
-              "row_weighted": 35
+              "raw_total": 11,
+              "row_weighted": 31
             },
             {
               "id": "06",
@@ -2690,13 +2478,13 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 4,
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 13,
-              "row_weighted": 42
+              "raw_total": 12,
+              "row_weighted": 38
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -2721,15 +2509,15 @@
               "name": "Honed Crescent",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagegiven": 3
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 4,
                 "decreasedamagegiven": 10,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 17,
-              "row_weighted": 34
+              "raw_total": 16,
+              "row_weighted": 30
             },
             {
               "id": "06",
@@ -2749,7 +2537,7 @@
               "row_weighted": 32
             }
           ],
-          "highest_diagnostic_fourth": "02"
+          "highest_diagnostic_fourth": "06"
         },
         {
           "advanced_art": "08",
@@ -3019,7 +2807,7 @@
       "name": "Cosmic Ascendant",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Cosmic Ascendant classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Cosmic Explosion 50 → 52, past the 50 Nuke tier. Explosion is the kit's only Damage row and Supernova Unbound the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55. The pre-batch Burst route was +5 Damage (Explosion 50 → 55) on this Burst-trait kit; the controlled payoff keeps the burst identity at a fraction of that tier impact. Pending director review.",
+      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier Traits read Burst, Defensive, and Cosmic Explosion is the kit's signature finisher: its only Damage row and its only 60 AP cast (cooldown 7, range 4). Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Explosion 50 → 52, past the 50 Nuke tier. Because Explosion is the kit's only Damage row, the route has no in-tier Damage effect: the +2 is purely a nuke extension. Supernova Unbound is the tree's only Damage node, so no legal allocation adds more than +2 and none without it exceeds 50. Pending director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -3183,9 +2971,9 @@
           ],
           "path_bonuses": {
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 7
+            "decreasedamagetaken": 5
           },
-          "path_row_weighted": 23,
+          "path_row_weighted": 17,
           "fourths": [
             {
               "id": "01",
@@ -3199,10 +2987,10 @@
                 "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
-                "decreasedamagetaken": 7
+                "decreasedamagetaken": 5
               },
-              "raw_total": 13,
-              "row_weighted": 29
+              "raw_total": 11,
+              "row_weighted": 23
             },
             {
               "id": "09",
@@ -3213,11 +3001,11 @@
               },
               "bonuses": {
                 "decreasedamagegiven": 2,
-                "decreasedamagetaken": 7,
+                "decreasedamagetaken": 5,
                 "lifesteal": 2
               },
-              "raw_total": 11,
-              "row_weighted": 25
+              "raw_total": 9,
+              "row_weighted": 19
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -3260,15 +3048,15 @@
               "name": "Event Horizon",
               "category": "Hidden Art",
               "adds": {
-                "decreasedamagetaken": 2
+                "decreasedamagetaken": 1
               },
               "bonuses": {
                 "decreasedamagegiven": 7,
-                "decreasedamagetaken": 4,
+                "decreasedamagetaken": 3,
                 "lifesteal": 5
               },
-              "raw_total": 16,
-              "row_weighted": 24
+              "raw_total": 15,
+              "row_weighted": 21
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -3319,10 +3107,10 @@
           ],
           "steps": [
             2,
-            2,
-            3
+            1,
+            2
           ],
-          "total": 7
+          "total": 5
         },
         {
           "advanced_art": "10",
@@ -3437,13 +3225,11 @@
     {
       "slug": "crystal_essence",
       "name": "Crystal Essence",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Crystal classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Crystal classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001, Reaper's Embrace 50 → 52; RUL-2026-10-04-002, Sakura-ame 50 → 52): Splintered Mountain Heart's +2 Damage lifts Prism 50 → 52, past the 50 Nuke tier, as the payoff of Razor Lattice's Kōsai Shippū self-buff setup; Shippū and Crystal Cave go 40 → 42 and stay Normal. It is the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55. The pre-batch tree's primary route was +5 Damage (Prism 50 → 55); the controlled payoff keeps the burst identity at a fraction of that tier impact. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Kōsai Shippū",
@@ -3454,22 +3240,7 @@
               "Crystal"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Prism",
@@ -3480,22 +3251,7 @@
               "Crystal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Crystal Cave",
@@ -3506,40 +3262,11 @@
               "Crystal"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Prism",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Prism",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -3551,26 +3278,24 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2
           },
-          "path_row_weighted": 15,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "04",
               "name": "Flaw in the Stone",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 5,
-                "increasedamagetaken": 5
+                "increasedamagegiven": 10,
+                "increasedamagetaken": 4
               },
-              "raw_total": 12,
-              "row_weighted": 21
+              "raw_total": 14,
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -3581,17 +3306,16 @@
                 "reflect": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 10,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2,
                 "reflect": 2
               },
-              "raw_total": 13,
-              "row_weighted": 19
+              "raw_total": 16,
+              "row_weighted": 18
             }
           ],
-          "highest_diagnostic_fourth": "04"
+          "highest_diagnostic_fourth": "06"
         },
         {
           "advanced_art": "05",
@@ -3743,18 +3467,18 @@
         {
           "advanced_art": "03",
           "name": "Splintered Mountain Heart",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagegiven",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
-            0,
-            0,
-            2
+            2,
+            3,
+            5
           ],
-          "total": 2
+          "total": 10
         },
         {
           "advanced_art": "05",
@@ -3767,8 +3491,8 @@
           ],
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "total": 8
         },
@@ -3877,7 +3601,7 @@
     {
       "slug": "dai_kenja",
       "name": "Dai Kenja",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dai Kenja classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Dai Kenja classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -4633,7 +4357,7 @@
       "name": "Eyes of the Forsaken King",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Light classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Throne of Broken Light's controlled +2 Damage lifts Lux 50 → 52, past the 50 Nuke tier, as the payoff of a deliberate burst route (Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, then +2 Damage on the three Light strikes): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Throne is the tree's only Damage node, so no legal allocation adds more than +2; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier's Traits line is Burst, and Lux is the kit's strongest strike and only 50 EP row (rank A, 60 AP, cooldown 7, an AOE line at range 4). Throne of Broken Light's controlled +2 Damage, the payoff of Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, lifts Lux 50 → 52, past the 50 Nuke tier. The full path (Gaze, Edge, Throne) is ≈ ×1.084 in percentages (self buff 35 → 40%, ×1.037; exposure 35 → 37% on three rows, ×1.045) and ≈ ×1.13 on Lux with the +2, under Blood-Enchanted Eyes' Rite of Exsanguination (≈ ×1.19 on Reaper's Embrace). Throne is the tree's only Damage node and an Advanced Art, so no legal allocation adds more than +2 and none without it exceeds 50; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Pending director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -4848,11 +4572,10 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "reflect": 2
           },
-          "path_row_weighted": 14,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "01",
@@ -4863,13 +4586,13 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 4,
+                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 10,
                 "reflect": 2
               },
-              "raw_total": 18,
-              "row_weighted": 22
+              "raw_total": 16,
+              "row_weighted": 20
             },
             {
               "id": "09",
@@ -4879,12 +4602,11 @@
                 "reflect": 3
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 10,
                 "reflect": 5
               },
-              "raw_total": 17,
-              "row_weighted": 17
+              "raw_total": 15,
+              "row_weighted": 15
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -5090,9 +4812,9 @@
     {
       "slug": "godstorm_eclipse",
       "name": "Godstorm Eclipse",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow + Storm classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow + Storm classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Total Eclipse's +2 Damage is the controlled payoff of Hammer of the Heavens' exposure setup on a Burst Heavy kit whose pre-batch Burst route took Raijin's Cage 50 → 55. It lifts Godstorm Mantle: Raijin's Cage 50 → 52, past the 50 Nuke tier; Storm-God's Heart, Corona Devourer Palm and Black Sun Cataract go 45 → 47 and Obsidian Tomb 40 → 42, with no tier crossing. Only builds holding Total Eclipse exceed 50, by at most +2. Pending director review.",
+      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact: the dossier Traits read Sustain / Burst Heavy / Tank, so the kit keeps a burst route: Hammer of the Heavens' +2% exposure setup and Total Eclipse's controlled +2 Damage payoff. Potency is element-wide over Shadow and Storm, so the payoff lifts Godstorm Mantle: Raijin's Cage 50 → 52, past the 50 Nuke tier; Storm-God's Heart, Corona Devourer Palm and Black Sun Cataract go 45 → 47 and Obsidian Tomb 40 → 42, with no tier crossing. Only builds holding Total Eclipse exceed 50, by at most +2. Pending director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -5258,9 +4980,9 @@
           "path_bonuses": {
             "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 2
           },
-          "path_row_weighted": 33,
+          "path_row_weighted": 24,
           "fourths": [
             {
               "id": "04",
@@ -5272,10 +4994,10 @@
               "bonuses": {
                 "damage": 2,
                 "increasedamagegiven": 3,
-                "increasedamagetaken": 5
+                "increasedamagetaken": 2
               },
-              "raw_total": 10,
-              "row_weighted": 37
+              "raw_total": 7,
+              "row_weighted": 28
             },
             {
               "id": "06",
@@ -5287,11 +5009,11 @@
               "bonuses": {
                 "damage": 2,
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 11,
-              "row_weighted": 37
+              "raw_total": 8,
+              "row_weighted": 28
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -5305,24 +5027,23 @@
             "05"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 5,
-            "increasedamagetaken": 2
+            "increasedamagegiven": 5
           },
-          "path_row_weighted": 26,
+          "path_row_weighted": 20,
           "fourths": [
             {
               "id": "02",
               "name": "Hammer of the Heavens",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagetaken": 2
               },
               "bonuses": {
                 "increasedamagegiven": 5,
-                "increasedamagetaken": 5
+                "increasedamagetaken": 2
               },
-              "raw_total": 10,
-              "row_weighted": 35
+              "raw_total": 7,
+              "row_weighted": 26
             },
             {
               "id": "06",
@@ -5333,11 +5054,10 @@
               },
               "bonuses": {
                 "increasedamagegiven": 5,
-                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 9,
-              "row_weighted": 30
+              "raw_total": 7,
+              "row_weighted": 24
             }
           ],
           "highest_diagnostic_fourth": "02"
@@ -5361,17 +5081,15 @@
               "name": "Black Sun Rising",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 2
+                "increasedamagegiven": 2
               },
               "bonuses": {
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 2,
                 "decreasedamagetaken": 10,
                 "lifesteal": 2
               },
-              "raw_total": 16,
-              "row_weighted": 36
+              "raw_total": 14,
+              "row_weighted": 30
             },
             {
               "id": "09",
@@ -5410,18 +5128,16 @@
               "name": "Black Sun Rising",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 2
+                "increasedamagegiven": 2
               },
               "bonuses": {
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2,
                 "afterburn": 3,
                 "lifesteal": 5
               },
-              "raw_total": 14,
-              "row_weighted": 26
+              "raw_total": 12,
+              "row_weighted": 20
             },
             {
               "id": "07",
@@ -5607,7 +5323,7 @@
     {
       "slug": "ha_yanagi",
       "name": "Ha Yanagi",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ha Yanagi classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Ha Yanagi classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -5870,7 +5586,7 @@
     {
       "slug": "heavenly_sonata",
       "name": "Heavenly Sonata",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Yin-Yang classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Yin-Yang classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -6296,7 +6012,7 @@
       "name": "Houkyuken",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Starfall Hammer's +2 Damage lifts Magnetic Pulse Strike 50 → 52, past the 50 Nuke tier, as the controlled payoff of a deliberate burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). No legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review.",
+      "above_nuke_rationale": "Kit fact: the Houkyuken dossier's Traits line is \"Burst, Control\"; Magnetic Pulse Strike (50 EP) is the highest of its four Magnet Taijutsu strikes. Starfall Hammer's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Starfall Hammer, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -6533,11 +6249,10 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10,
             "reflect": 2
           },
-          "path_row_weighted": 16,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "01",
@@ -6548,13 +6263,13 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 4,
+                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 10,
                 "reflect": 2
               },
-              "raw_total": 18,
-              "row_weighted": 24
+              "raw_total": 16,
+              "row_weighted": 20
             },
             {
               "id": "09",
@@ -6564,12 +6279,11 @@
                 "reflect": 3
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 10,
                 "reflect": 5
               },
-              "raw_total": 17,
-              "row_weighted": 19
+              "raw_total": 15,
+              "row_weighted": 15
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -6766,13 +6480,12 @@
     {
       "slug": "hyouga_yui",
       "name": "Hyouga Yui",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
-          3
+          2
         ],
         "rows": [
           {
@@ -6786,21 +6499,8 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
-                "added": 1,
-                "final": 46.0,
-                "tier_before": "High",
-                "tier_after": "High",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 48.0,
+                "added": 2,
+                "final": 47.0,
                 "tier_before": "High",
                 "tier_after": "High",
                 "tier_change": false,
@@ -6825,21 +6525,8 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 43.0,
+                "added": 2,
+                "final": 42.0,
                 "tier_before": "Normal",
                 "tier_after": "Normal",
                 "tier_change": false,
@@ -6864,21 +6551,8 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
-                "added": 1,
-                "final": 46.0,
-                "tier_before": "High",
-                "tier_after": "High",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 48.0,
+                "added": 2,
+                "final": 47.0,
                 "tier_before": "High",
                 "tier_after": "High",
                 "tier_change": false,
@@ -6906,10 +6580,11 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 3,
-            "increasedamagegiven": 3
+            "damage": 2,
+            "increasedamagegiven": 3,
+            "increasedamagetaken": 2
           },
-          "path_row_weighted": 15,
+          "path_row_weighted": 16,
           "fourths": [
             {
               "id": "04",
@@ -6919,11 +6594,12 @@
                 "increasedamagegiven": 2
               },
               "bonuses": {
-                "damage": 3,
-                "increasedamagegiven": 5
+                "damage": 2,
+                "increasedamagegiven": 5,
+                "increasedamagetaken": 2
               },
-              "raw_total": 8,
-              "row_weighted": 19
+              "raw_total": 9,
+              "row_weighted": 20
             },
             {
               "id": "06",
@@ -6934,13 +6610,13 @@
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 3,
+                "damage": 2,
                 "increasedamagegiven": 3,
-                "increasedamagetaken": 2,
+                "increasedamagetaken": 4,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 10,
-              "row_weighted": 23
+              "raw_total": 11,
+              "row_weighted": 24
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -6963,14 +6639,14 @@
               "name": "Weight of the Avalanche",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 1,
-                "increasedamagegiven": 8
+                "increasedamagegiven": 8,
+                "increasedamagetaken": 2
               },
-              "raw_total": 9,
-              "row_weighted": 19
+              "raw_total": 10,
+              "row_weighted": 20
             },
             {
               "id": "06",
@@ -7097,10 +6773,10 @@
           ],
           "steps": [
             0,
-            1,
+            0,
             2
           ],
-          "total": 3
+          "total": 2
         },
         {
           "advanced_art": "05",
@@ -7215,13 +6891,12 @@
     {
       "slug": "itojinsei",
       "name": "Itojinsei",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Magnet classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
-          3
+          2
         ],
         "rows": [
           {
@@ -7235,21 +6910,8 @@
             "method": "AOE_LINE_SHOOT",
             "steps": [
               {
-                "added": 1,
-                "final": 46.0,
-                "tier_before": "High",
-                "tier_after": "High",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 48.0,
+                "added": 2,
+                "final": 47.0,
                 "tier_before": "High",
                 "tier_after": "High",
                 "tier_change": false,
@@ -7274,21 +6936,8 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 43.0,
+                "added": 2,
+                "final": 42.0,
                 "tier_before": "Normal",
                 "tier_after": "Normal",
                 "tier_change": false,
@@ -7313,21 +6962,8 @@
             "method": "SINGLE",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 43.0,
+                "added": 2,
+                "final": 42.0,
                 "tier_before": "Normal",
                 "tier_after": "Normal",
                 "tier_change": false,
@@ -7352,21 +6988,8 @@
             "method": "SINGLE",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
-                "added": 3,
-                "final": 43.0,
+                "added": 2,
+                "final": 42.0,
                 "tier_before": "Normal",
                 "tier_after": "Normal",
                 "tier_change": false,
@@ -7394,10 +7017,11 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 3,
-            "increasedamagegiven": 2
+            "damage": 2,
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 3
           },
-          "path_row_weighted": 16,
+          "path_row_weighted": 15,
           "fourths": [
             {
               "id": "04",
@@ -7407,11 +7031,12 @@
                 "increasedamagegiven": 2
               },
               "bonuses": {
-                "damage": 3,
-                "increasedamagegiven": 4
+                "damage": 2,
+                "increasedamagegiven": 4,
+                "increasedamagetaken": 3
               },
-              "raw_total": 7,
-              "row_weighted": 20
+              "raw_total": 9,
+              "row_weighted": 19
             },
             {
               "id": "06",
@@ -7422,13 +7047,13 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 3,
+                "damage": 2,
                 "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
-                "increasedamagetaken": 2
+                "increasedamagetaken": 5
               },
-              "raw_total": 9,
-              "row_weighted": 22
+              "raw_total": 11,
+              "row_weighted": 21
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -7451,14 +7076,14 @@
               "name": "Razor Strands",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagetaken": 3
               },
               "bonuses": {
-                "damage": 1,
-                "increasedamagegiven": 8
+                "increasedamagegiven": 8,
+                "increasedamagetaken": 3
               },
-              "raw_total": 9,
-              "row_weighted": 20
+              "raw_total": 11,
+              "row_weighted": 19
             },
             {
               "id": "06",
@@ -7585,10 +7210,10 @@
           ],
           "steps": [
             0,
-            1,
+            0,
             2
           ],
-          "total": 3
+          "total": 2
         },
         {
           "advanced_art": "05",
@@ -7703,9 +7328,9 @@
     {
       "slug": "kyuko_sei",
       "name": "Kyuko-sei",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Dust classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): Heat Death's +2 Damage lifts Ethereal Particle Storm 50 → 52, past the 50 Nuke tier, as the payoff of Shattered Firmament's self amplify setup. Element-wide potency cannot leave Particle Storm out; the result never reaches 55. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": "Kit fact: the Kyuko-sei dossier's Traits line is \"Burst, Control\"; Ethereal Particle Storm (50 EP, 60 AP, cooldown 7, single target) is the highest of its four Dust strikes. Heat Death's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Shattered Firmament's +3% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Heat Death, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the three 40 EP strikes stay in the Normal tier (40 → 42). Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -8177,9 +7802,7 @@
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          3
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Nature's Hunter",
@@ -8190,78 +7813,13 @@
               "None"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 3,
-                "final": 43.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
         "tier_crossings": [],
         "above_nuke": []
       },
       "fourth_bp": [
-        {
-          "advanced_art": "03",
-          "name": "Killing Bite",
-          "path": [
-            "01",
-            "02",
-            "03"
-          ],
-          "path_bonuses": {
-            "damage": 3,
-            "increasedamagetaken": 2,
-            "heal": 6
-          },
-          "path_row_weighted": 11,
-          "fourths": [
-            {
-              "id": "04",
-              "name": "Run to Ground",
-              "category": "Hidden Art",
-              "adds": {
-                "increasedamagetaken": 3
-              },
-              "bonuses": {
-                "damage": 3,
-                "increasedamagetaken": 5,
-                "heal": 6
-              },
-              "raw_total": 14,
-              "row_weighted": 14
-            },
-            {
-              "id": "06",
-              "name": "Hunter's Moon",
-              "category": "Foundation",
-              "adds": {
-                "increasedamagegiven": 2,
-                "heal": 2
-              },
-              "bonuses": {
-                "damage": 3,
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 2,
-                "heal": 8
-              },
-              "raw_total": 15,
-              "row_weighted": 15
-            }
-          ],
-          "highest_diagnostic_fourth": "06"
-        },
         {
           "advanced_art": "05",
           "name": "The Pack Closes",
@@ -8275,20 +7833,6 @@
           },
           "path_row_weighted": 10,
           "fourths": [
-            {
-              "id": "02",
-              "name": "Rending Claws",
-              "category": "Hidden Art",
-              "adds": {
-                "heal": 3
-              },
-              "bonuses": {
-                "increasedamagetaken": 10,
-                "heal": 3
-              },
-              "raw_total": 13,
-              "row_weighted": 13
-            },
             {
               "id": "06",
               "name": "Hunter's Moon",
@@ -8343,22 +7887,6 @@
       ],
       "route_overlap": [],
       "routes": [
-        {
-          "advanced_art": "03",
-          "name": "Killing Bite",
-          "primary_tag": "damage",
-          "path": [
-            "01",
-            "02",
-            "03"
-          ],
-          "steps": [
-            0,
-            0,
-            3
-          ],
-          "total": 3
-        },
         {
           "advanced_art": "05",
           "name": "The Pack Closes",
@@ -8446,13 +7974,11 @@
     {
       "slug": "lycanthropy",
       "name": "Lycanthropy",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lycanthropy classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Lycanthropy classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Undying Hunger's +2 Damage lifts Feral Wrath 50 → 52, past the 50 Nuke tier (Moonlit Fury 40 → 42 stays Normal). It is the controlled +2 payoff kept on Blood-Enchanted Eyes' Rite of Exsanguination (RUL-2026-10-04-001) and Shakunetsu Sakura's Conflagration in Bloom (RUL-2026-10-04-002; the same 40/50 Damage pair): the tree's only flat Damage, reached only by finishing the Moonbound Vigor chain after a percentage commitment (Lick the Wound's Heal), and never alongside Red Moon Rising's +8% frenzy (6 BP). No legal allocation adds more than +2; Draft 4's 50 → 55 is not restored. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Moonlit Fury",
@@ -8463,22 +7989,7 @@
               "None"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 2,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Feral Wrath",
@@ -8489,40 +8000,11 @@
               "None"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 2,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Feral Wrath",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Feral Wrath",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -8564,10 +8046,9 @@
             "08"
           ],
           "path_bonuses": {
-            "damage": 2,
-            "heal": 10
+            "heal": 8
           },
-          "path_row_weighted": 14,
+          "path_row_weighted": 8,
           "fourths": [
             {
               "id": "01",
@@ -8577,12 +8058,11 @@
                 "increasedamagegiven": 2
               },
               "bonuses": {
-                "damage": 2,
                 "increasedamagegiven": 2,
-                "heal": 10
+                "heal": 8
               },
-              "raw_total": 14,
-              "row_weighted": 18
+              "raw_total": 10,
+              "row_weighted": 12
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -8617,10 +8097,10 @@
           ],
           "steps": [
             2,
-            3,
-            5
+            2,
+            4
           ],
-          "total": 10
+          "total": 8
         }
       ],
       "coverage": {
@@ -8669,11 +8149,12 @@
     {
       "slug": "megumi_kijo",
       "name": "Megumi Kijo",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Megumi Kijo classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Megumi Kijo classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
+          1,
           2
         ],
         "rows": [
@@ -8688,6 +8169,19 @@
             "method": "SINGLE",
             "steps": [
               {
+                "added": 1,
+                "final": 41.0,
+                "tier_before": "Normal",
+                "tier_after": "Normal",
+                "tier_change": false,
+                "above_nuke": false,
+                "allocations": 6,
+                "smallest_allocation": [
+                  "01",
+                  "02"
+                ]
+              },
+              {
                 "added": 2,
                 "final": 42.0,
                 "tier_before": "Normal",
@@ -8696,9 +8190,9 @@
                 "above_nuke": false,
                 "allocations": 3,
                 "smallest_allocation": [
+                  "01",
                   "02",
-                  "03",
-                  "06"
+                  "03"
                 ]
               }
             ]
@@ -8714,6 +8208,19 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
+                "added": 1,
+                "final": 46.0,
+                "tier_before": "High",
+                "tier_after": "High",
+                "tier_change": false,
+                "above_nuke": false,
+                "allocations": 6,
+                "smallest_allocation": [
+                  "01",
+                  "02"
+                ]
+              },
+              {
                 "added": 2,
                 "final": 47.0,
                 "tier_before": "High",
@@ -8722,9 +8229,9 @@
                 "above_nuke": false,
                 "allocations": 3,
                 "smallest_allocation": [
+                  "01",
                   "02",
-                  "03",
-                  "06"
+                  "03"
                 ]
               }
             ]
@@ -8738,50 +8245,49 @@
           "advanced_art": "03",
           "name": "Appetite of Oblivion",
           "path": [
-            "06",
+            "01",
             "02",
             "03"
           ],
           "path_bonuses": {
             "damage": 2,
-            "increaseheal": 2,
-            "heal": 5
+            "decreasedamagegiven": 2
           },
-          "path_row_weighted": 11,
+          "path_row_weighted": 6,
           "fourths": [
             {
-              "id": "01",
-              "name": "Hagmother's Welcome",
+              "id": "04",
+              "name": "Numbing Lullaby",
+              "category": "Hidden Art",
+              "adds": {
+                "decreasedamagegiven": 3
+              },
+              "bonuses": {
+                "damage": 2,
+                "decreasedamagegiven": 5
+              },
+              "raw_total": 7,
+              "row_weighted": 9
+            },
+            {
+              "id": "06",
+              "name": "Mountain Hag's Mercy",
               "category": "Foundation",
               "adds": {
-                "decreasedamagegiven": 2
+                "increaseheal": 2,
+                "heal": 2
               },
               "bonuses": {
                 "damage": 2,
                 "decreasedamagegiven": 2,
                 "increaseheal": 2,
-                "heal": 5
+                "heal": 2
               },
-              "raw_total": 11,
-              "row_weighted": 13
-            },
-            {
-              "id": "07",
-              "name": "Nursed by Demon Hands",
-              "category": "Hidden Art",
-              "adds": {
-                "increaseheal": 3
-              },
-              "bonuses": {
-                "damage": 2,
-                "increaseheal": 5,
-                "heal": 5
-              },
-              "raw_total": 12,
-              "row_weighted": 14
+              "raw_total": 8,
+              "row_weighted": 10
             }
           ],
-          "highest_diagnostic_fourth": "07"
+          "highest_diagnostic_fourth": "06"
         },
         {
           "advanced_art": "05",
@@ -8796,6 +8302,20 @@
           },
           "path_row_weighted": 10,
           "fourths": [
+            {
+              "id": "02",
+              "name": "Teeth Behind the Smile",
+              "category": "Hidden Art",
+              "adds": {
+                "damage": 1
+              },
+              "bonuses": {
+                "damage": 1,
+                "decreasedamagegiven": 10
+              },
+              "raw_total": 11,
+              "row_weighted": 12
+            },
             {
               "id": "06",
               "name": "Mountain Hag's Mercy",
@@ -8843,23 +8363,9 @@
               },
               "raw_total": 14,
               "row_weighted": 14
-            },
-            {
-              "id": "02",
-              "name": "Teeth Behind the Smile",
-              "category": "Hidden Art",
-              "adds": {
-                "heal": 3
-              },
-              "bonuses": {
-                "increaseheal": 10,
-                "heal": 5
-              },
-              "raw_total": 15,
-              "row_weighted": 15
             }
           ],
-          "highest_diagnostic_fourth": "02"
+          "highest_diagnostic_fourth": "01"
         }
       ],
       "route_overlap": [],
@@ -8869,14 +8375,14 @@
           "name": "Appetite of Oblivion",
           "primary_tag": "damage",
           "path": [
-            "06",
+            "01",
             "02",
             "03"
           ],
           "steps": [
             0,
-            0,
-            2
+            1,
+            1
           ],
           "total": 2
         },
@@ -8969,7 +8475,7 @@
     {
       "slug": "musashi_ken",
       "name": "Musashi Ken",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Musashi Ken classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Musashi Ken classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -9294,7 +8800,7 @@
     {
       "slug": "namikaze",
       "name": "Namikaze",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wind classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Wind classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -9714,7 +9220,7 @@
     {
       "slug": "natures_blessing",
       "name": "Nature's Blessing",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -9740,7 +9246,7 @@
                 "tier_after": "Normal",
                 "tier_change": false,
                 "above_nuke": false,
-                "allocations": 7,
+                "allocations": 6,
                 "smallest_allocation": [
                   "01",
                   "02"
@@ -9779,7 +9285,7 @@
                 "tier_after": "Normal",
                 "tier_change": false,
                 "above_nuke": false,
-                "allocations": 7,
+                "allocations": 6,
                 "smallest_allocation": [
                   "01",
                   "02"
@@ -9825,14 +9331,14 @@
               "name": "Stripped Bark",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagetaken": 2
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagetaken": 5
+                "increasedamagetaken": 4
               },
-              "raw_total": 7,
-              "row_weighted": 9
+              "raw_total": 6,
+              "row_weighted": 8
             },
             {
               "id": "06",
@@ -9863,9 +9369,9 @@
             "05"
           ],
           "path_bonuses": {
-            "increasedamagetaken": 10
+            "increasedamagetaken": 8
           },
-          "path_row_weighted": 10,
+          "path_row_weighted": 8,
           "fourths": [
             {
               "id": "02",
@@ -9876,10 +9382,10 @@
               },
               "bonuses": {
                 "damage": 1,
-                "increasedamagetaken": 10
+                "increasedamagetaken": 8
               },
-              "raw_total": 11,
-              "row_weighted": 12
+              "raw_total": 9,
+              "row_weighted": 10
             },
             {
               "id": "06",
@@ -9890,12 +9396,12 @@
                 "heal": 2
               },
               "bonuses": {
-                "increasedamagetaken": 10,
+                "increasedamagetaken": 8,
                 "increaseheal": 2,
                 "heal": 2
               },
-              "raw_total": 14,
-              "row_weighted": 14
+              "raw_total": 12,
+              "row_weighted": 12
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -9928,23 +9434,9 @@
               },
               "raw_total": 14,
               "row_weighted": 14
-            },
-            {
-              "id": "09",
-              "name": "Sudden Greening",
-              "category": "Hidden Art",
-              "adds": {
-                "heal": 3
-              },
-              "bonuses": {
-                "increaseheal": 10,
-                "heal": 5
-              },
-              "raw_total": 15,
-              "row_weighted": 15
             }
           ],
-          "highest_diagnostic_fourth": "09"
+          "highest_diagnostic_fourth": "01"
         }
       ],
       "route_overlap": [],
@@ -9976,10 +9468,10 @@
           ],
           "steps": [
             2,
-            3,
-            5
+            2,
+            4
           ],
-          "total": 10
+          "total": 8
         },
         {
           "advanced_art": "08",
@@ -10054,7 +9546,7 @@
     {
       "slug": "night_parade_of_a_thousand_demons",
       "name": "Night Parade of A Thousand Demons",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Shadow classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -10468,7 +9960,7 @@
       "name": "Oblivion Seal",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): Absolute Erasure's +2 Damage lifts Shadow Tether 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup; Cursed Beast Form and Curse Empowerment go 40 → 42 and stay Normal. Absolute Erasure is the tree's only Damage node, so no legal allocation adds more than +2 and nothing reaches 55; element-wide potency cannot leave Tether out. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": "Kit fact (R1′): the Oblivion Seal dossier's Traits line is \"Burst, Sustained DPS\", and Shadow Tether is the kit's only 50 EP row and heaviest Damage-tag strike (Shadowrend's 58 pierce row is not a supported tag; 60 AP, cooldown 7, single target). Absolute Erasure's controlled +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup: the pattern the director kept in Blood-Enchanted Eyes (Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Sakura-ame 50 → 52; RUL-2026-10-04-002). Absolute Erasure is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Cursed Beast Form and Curse Empowerment 40 → 42, still Normal); element-wide potency also lifts any other 50 EP Shadow jutsu the owner casts to 52. Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -10901,13 +10393,11 @@
     {
       "slug": "primal_radiance",
       "name": "Primal Radiance",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Fire classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Fire classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Apex Conflagration's +2 Damage lifts Fire Style: Beast 50 → 52 (Fire Style: Squirrel 40 → 42), past the 50 Nuke tier, as the payoff of a deliberate burst route (Hunter's Brand exposure → Fang and Ember self buff → Apex Conflagration). Precedent: RUL-2026-10-04-002, Shakunetsu Sakura, with the same 40/50 Damage tier pair (Scorch: Sakuragari 40 → 42, Sakura-ame 50 → 52 under Conflagration in Bloom's +2), and RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52). The reach differs: Fire is a far more widely shared element than Scorch (29 other bloodlines against Scorch's one), so Apex's +2 also lifts any off-kit 50 EP Fire row the owner casts to 52 (count unverified). Only builds holding Apex Conflagration exceed 50, by at most +2. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Fire Style: Beast",
@@ -10918,22 +10408,7 @@
               "Fire"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Fire Style: Squirrel",
@@ -10944,40 +10419,11 @@
               "Fire"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Fire Style: Beast",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Fire Style: Beast",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -10989,11 +10435,10 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 2,
             "increasedamagegiven": 2,
-            "increasedamagetaken": 2
+            "increasedamagetaken": 10
           },
-          "path_row_weighted": 8,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "04",
@@ -11003,33 +10448,30 @@
                 "afterburn": 3
               },
               "bonuses": {
-                "damage": 2,
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 2,
+                "increasedamagetaken": 10,
                 "afterburn": 3
               },
-              "raw_total": 9,
-              "row_weighted": 11
+              "raw_total": 15,
+              "row_weighted": 15
             },
             {
               "id": "06",
               "name": "Hide and Fang",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 4,
-                "increasedamagetaken": 2,
+                "increasedamagegiven": 2,
+                "increasedamagetaken": 10,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 10,
-              "row_weighted": 12
+              "raw_total": 14,
+              "row_weighted": 14
             }
           ],
-          "highest_diagnostic_fourth": "06"
+          "highest_diagnostic_fourth": "04"
         },
         {
           "advanced_art": "05",
@@ -11065,17 +10507,15 @@
               "name": "Hide and Fang",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2,
                 "afterburn": 10
               },
-              "raw_total": 16,
-              "row_weighted": 16
+              "raw_total": 14,
+              "row_weighted": 14
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -11089,10 +10529,9 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10
           },
-          "path_row_weighted": 12,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "01",
@@ -11102,12 +10541,11 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 14,
-              "row_weighted": 14
+              "raw_total": 12,
+              "row_weighted": 12
             },
             {
               "id": "09",
@@ -11117,11 +10555,11 @@
                 "increasedamagegiven": 3
               },
               "bonuses": {
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 3,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 15,
-              "row_weighted": 15
+              "raw_total": 13,
+              "row_weighted": 13
             }
           ],
           "highest_diagnostic_fourth": "09"
@@ -11178,18 +10616,18 @@
         {
           "advanced_art": "03",
           "name": "Apex Conflagration",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagetaken",
           "path": [
             "01",
             "02",
             "03"
           ],
           "steps": [
+            2,
             0,
-            0,
-            2
+            8
           ],
-          "total": 2
+          "total": 10
         },
         {
           "advanced_art": "05",
@@ -11233,9 +10671,9 @@
             "10"
           ],
           "steps": [
-            2,
+            0,
             3,
-            5
+            7
           ],
           "total": 10
         }
@@ -11308,7 +10746,7 @@
     {
       "slug": "reptilian",
       "name": "Reptilian",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Reptilian classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Reptilian classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -11540,13 +10978,11 @@
     {
       "slug": "sands_of_time",
       "name": "Sands of Time",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Sand classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Sand classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Controlled burst payoff on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002): Sovereign of the Hour's +2 Damage lifts Eternity Flux 50 → 52, past the 50 Nuke tier, as the payoff of Quickened Sands' self-amplification setup; Timeshift and Timelapse go 40 → 42 and stay Normal. It restores at +2 the burst route the pre-batch tree carried at +5 (50 → 55). No legal allocation adds more than +2 Damage. Fable proposal; flagged for director review.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Timelapse",
@@ -11557,22 +10993,7 @@
               "Sand"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Timeshift",
@@ -11583,22 +11004,7 @@
               "Sand"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Eternity Flux",
@@ -11609,40 +11015,11 @@
               "Sand"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "01",
-                  "02",
-                  "03"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Eternity Flux",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Eternity Flux",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -11654,11 +11031,10 @@
             "03"
           ],
           "path_bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 8,
+            "increasedamagegiven": 10,
             "increasedamagetaken": 2
           },
-          "path_row_weighted": 18,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "04",
@@ -11668,12 +11044,11 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 8,
+                "increasedamagegiven": 10,
                 "increasedamagetaken": 4
               },
               "raw_total": 14,
-              "row_weighted": 22
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -11684,14 +11059,13 @@
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 8,
+                "increasedamagegiven": 10,
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
               "raw_total": 16,
-              "row_weighted": 22
+              "row_weighted": 18
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -11858,9 +11232,9 @@
           "steps": [
             2,
             3,
-            3
+            5
           ],
-          "total": 8
+          "total": 10
         },
         {
           "advanced_art": "05",
@@ -11995,12 +11369,11 @@
     {
       "slug": "sea_kings_blessing",
       "name": "Sea-King's Blessing",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Water classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Water classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
           2
         ],
         "rows": [
@@ -12014,19 +11387,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 39.0,
-                "tier_before": "Light",
-                "tier_after": "Light",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 40.0,
@@ -12053,19 +11413,6 @@
             ],
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
-              {
-                "added": 1,
-                "final": 39.0,
-                "tier_before": "Light",
-                "tier_after": "Light",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 40.0,
@@ -12108,9 +11455,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
+            "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "path_row_weighted": 6,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "04",
@@ -12121,10 +11469,11 @@
               },
               "bonuses": {
                 "damage": 2,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 5
               },
-              "raw_total": 7,
-              "row_weighted": 9
+              "raw_total": 9,
+              "row_weighted": 13
             },
             {
               "id": "06",
@@ -12135,11 +11484,11 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagetaken": 2,
+                "increasedamagetaken": 4,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 6,
-              "row_weighted": 10
+              "raw_total": 8,
+              "row_weighted": 14
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -12162,14 +11511,14 @@
               "name": "Grip of the Riptide",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 1,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 11,
-              "row_weighted": 12
+              "raw_total": 12,
+              "row_weighted": 14
             },
             {
               "id": "06",
@@ -12232,8 +11581,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2
         },
@@ -12537,10 +11886,9 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10
           },
-          "path_row_weighted": 16,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "01",
@@ -12550,29 +11898,14 @@
                 "decreasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 14,
-              "row_weighted": 18
-            },
-            {
-              "id": "09",
-              "name": "Umbral Whetstone",
-              "category": "Hidden Art",
-              "adds": {
-                "increasedamagegiven": 2
-              },
-              "bonuses": {
-                "increasedamagegiven": 4,
-                "decreasedamagetaken": 10
-              },
-              "raw_total": 14,
-              "row_weighted": 22
+              "raw_total": 12,
+              "row_weighted": 12
             }
           ],
-          "highest_diagnostic_fourth": "09"
+          "highest_diagnostic_fourth": "01"
         }
       ],
       "route_overlap": [],
@@ -13107,9 +12440,9 @@
     {
       "slug": "shinrai_ou",
       "name": "Shinrai Ou",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Storm classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Storm classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002): Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering self-charge setup, lifts Storm Style: Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node, so no allocation exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). The kit's Burst trait and the pre-batch +5 Damage route make burst its identity; the controlled payoff keeps that identity at a fraction of the old tier impact. Flagged for director confirmation.",
+      "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002). Kit fact: the dossier's Traits line is Burst, and Storm Style: Daibutsu Thunder is the kit's strongest strike (rank A, 50 EP, 60 AP, cooldown 7). Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering percentage setup (+2% Increase Damage Given on the Cloak and Raijin self buffs), lifts Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). Flagged for director confirmation (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -13480,12 +12813,11 @@
     {
       "slug": "shinseina_ki",
       "name": "Shinseina Ki",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Wood classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Wood classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001, Reaper's Embrace 50 → 52) and Shakunetsu Sakura (RUL-2026-10-04-002, Sakura-ame 50 → 52): the burst route's controlled +2 Damage (Fangs of Heartwood +1, The Forest Devours +1), the payoff of Grasping Roots' exposure setup, lifts Eternal Forest 50 → 52, past the 50 Nuke tier; Fangs of Heartwood alone gives 51. Exploding Wood Serpent and Guardian's Grove go 40 → 42 and stay Normal. No legal allocation adds more than +2 Damage. The kit's Burst trait and the pre-batch +5 Damage route (Eternal Forest 50 → 55) make burst part of its identity; the controlled payoff keeps it at a fraction of the old tier impact. Pending director review.",
+      "above_nuke_rationale": "Fable proposal on the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): The Forest Devours' +2 Damage is the controlled payoff of Fangs of Heartwood's setup, +1% Increase Damage Given on both Forest Wisdom rows (cast Forest Wisdom, then strike in its two-round window), and lifts Eternal Forest 50 → 52, past the 50 Nuke tier. Kit fact: the dossier's only trait is Burst, and Eternal Forest is the kit's rank-A finisher and only 50 EP row (60 AP, cooldown 7). Only builds holding The Forest Devours carry Damage, so no allocation without the capstone exceeds 50 and none adds more than +2; Exploding Wood Serpent and Guardian's Grove go 40 → 42 and stay Normal tier. Pending director review.",
       "damage": {
         "damage_totals_reachable": [
-          1,
           2
         ],
         "rows": [
@@ -13499,19 +12831,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "02",
-                  "06"
-                ]
-              },
               {
                 "added": 2,
                 "final": 42.0,
@@ -13539,19 +12858,6 @@
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "02",
-                  "06"
-                ]
-              },
-              {
                 "added": 2,
                 "final": 42.0,
                 "tier_before": "Normal",
@@ -13578,19 +12884,6 @@
             "method": "SINGLE",
             "steps": [
               {
-                "added": 1,
-                "final": 51.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "02",
-                  "06"
-                ]
-              },
-              {
                 "added": 2,
                 "final": 52.0,
                 "tier_before": "Nuke",
@@ -13611,22 +12904,10 @@
           [
             "Eternal Forest",
             0,
-            1
-          ],
-          [
-            "Eternal Forest",
-            0,
             2
           ]
         ],
         "above_nuke": [
-          {
-            "jutsu": "Eternal Forest",
-            "row": 0,
-            "base": 50.0,
-            "added": 1,
-            "final": 51.0
-          },
           {
             "jutsu": "Eternal Forest",
             "row": 0,
@@ -13647,9 +12928,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
+            "increasedamagegiven": 1,
             "increasedamagetaken": 2
           },
-          "path_row_weighted": 8,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "01",
@@ -13660,11 +12942,11 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 2,
+                "increasedamagegiven": 3,
                 "increasedamagetaken": 2
               },
-              "raw_total": 6,
-              "row_weighted": 12
+              "raw_total": 7,
+              "row_weighted": 14
             },
             {
               "id": "07",
@@ -13675,10 +12957,11 @@
               },
               "bonuses": {
                 "damage": 2,
+                "increasedamagegiven": 1,
                 "increasedamagetaken": 5
               },
-              "raw_total": 7,
-              "row_weighted": 11
+              "raw_total": 8,
+              "row_weighted": 13
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -13745,14 +13028,14 @@
               "name": "Fangs of Heartwood",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagegiven": 1
               },
               "bonuses": {
-                "damage": 1,
+                "increasedamagegiven": 1,
                 "increasedamagetaken": 10
               },
               "raw_total": 11,
-              "row_weighted": 13
+              "row_weighted": 12
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -13771,8 +13054,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2
         },
@@ -13931,9 +13214,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagetaken": 5
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
           },
-          "path_row_weighted": 14,
+          "path_row_weighted": 12,
           "fourths": [
             {
               "id": "04",
@@ -13944,11 +13228,12 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 2,
+                "increasedamagetaken": 2,
                 "afterburn": 3
               },
-              "raw_total": 10,
-              "row_weighted": 20
+              "raw_total": 9,
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -13960,12 +13245,12 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 4,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 11,
-              "row_weighted": 22
+              "raw_total": 10,
+              "row_weighted": 20
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -13986,17 +13271,18 @@
           "fourths": [
             {
               "id": "02",
-              "name": "Opened to the Elements",
+              "name": "Gathering Palm",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 2,
+                "increasedamagetaken": 2,
                 "afterburn": 10
               },
-              "raw_total": 15,
-              "row_weighted": 30
+              "raw_total": 14,
+              "row_weighted": 28
             },
             {
               "id": "06",
@@ -14269,7 +13555,7 @@
     {
       "slug": "suragu",
       "name": "Suragu",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lava classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Lava classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -14442,10 +13728,9 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10
           },
-          "path_row_weighted": 12,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "01",
@@ -14456,12 +13741,12 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 4,
+                "increasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 16,
-              "row_weighted": 16
+              "raw_total": 14,
+              "row_weighted": 14
             },
             {
               "id": "09",
@@ -14471,12 +13756,11 @@
                 "lifesteal": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 10,
                 "lifesteal": 2
               },
-              "raw_total": 14,
-              "row_weighted": 14
+              "raw_total": 12,
+              "row_weighted": 12
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -15199,7 +14483,7 @@
     {
       "slug": "teno_yuki",
       "name": "Teno Yuki",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Ice classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Ice classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -15874,11 +15158,10 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagegiven": 10,
             "increasedamagetaken": 2
           },
-          "path_row_weighted": 18,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "01",
@@ -15888,12 +15171,12 @@
                 "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 4,
+                "increasedamagegiven": 2,
                 "decreasedamagegiven": 10,
                 "increasedamagetaken": 2
               },
-              "raw_total": 16,
-              "row_weighted": 22
+              "raw_total": 14,
+              "row_weighted": 18
             },
             {
               "id": "09",
@@ -15903,12 +15186,11 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagegiven": 10,
                 "increasedamagetaken": 4
               },
-              "raw_total": 16,
-              "row_weighted": 22
+              "raw_total": 14,
+              "row_weighted": 18
             }
           ],
           "highest_diagnostic_fourth": "09"
@@ -16089,12 +15371,11 @@
     {
       "slug": "terra_nova",
       "name": "Terra Nova",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Earth classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Earth classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
           2
         ],
         "rows": [
@@ -16108,19 +15389,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 39.0,
-                "tier_before": "Light",
-                "tier_after": "Light",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 40.0,
@@ -16147,19 +15415,6 @@
             ],
             "method": "AOE_SPIRAL_SHOOT",
             "steps": [
-              {
-                "added": 1,
-                "final": 39.0,
-                "tier_before": "Light",
-                "tier_after": "Light",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 40.0,
@@ -16202,9 +15457,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
+            "increasedamagegiven": 2,
             "decreasedamagegiven": 2
           },
-          "path_row_weighted": 6,
+          "path_row_weighted": 8,
           "fourths": [
             {
               "id": "04",
@@ -16215,17 +15471,17 @@
               },
               "bonuses": {
                 "damage": 2,
+                "increasedamagegiven": 2,
                 "decreasedamagegiven": 5
               },
-              "raw_total": 7,
-              "row_weighted": 9
+              "raw_total": 9,
+              "row_weighted": 11
             },
             {
               "id": "06",
               "name": "Bedrock Stance",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 2
               },
               "bonuses": {
@@ -16238,7 +15494,7 @@
               "row_weighted": 10
             }
           ],
-          "highest_diagnostic_fourth": "06"
+          "highest_diagnostic_fourth": "04"
         },
         {
           "advanced_art": "05",
@@ -16258,13 +15514,13 @@
               "name": "Rending Strata",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "damage": 1,
+                "increasedamagegiven": 2,
                 "decreasedamagegiven": 10
               },
-              "raw_total": 11,
+              "raw_total": 12,
               "row_weighted": 12
             },
             {
@@ -16272,16 +15528,14 @@
               "name": "Bedrock Stance",
               "category": "Foundation",
               "adds": {
-                "increasedamagegiven": 2,
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagegiven": 10,
                 "decreasedamagetaken": 2
               },
-              "raw_total": 14,
-              "row_weighted": 14
+              "raw_total": 12,
+              "row_weighted": 12
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -16295,10 +15549,9 @@
             "08"
           ],
           "path_bonuses": {
-            "increasedamagegiven": 2,
             "decreasedamagetaken": 10
           },
-          "path_row_weighted": 12,
+          "path_row_weighted": 10,
           "fourths": [
             {
               "id": "01",
@@ -16308,12 +15561,11 @@
                 "decreasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 14,
-              "row_weighted": 14
+              "raw_total": 12,
+              "row_weighted": 12
             },
             {
               "id": "09",
@@ -16323,11 +15575,11 @@
                 "increasedamagegiven": 3
               },
               "bonuses": {
-                "increasedamagegiven": 5,
+                "increasedamagegiven": 3,
                 "decreasedamagetaken": 10
               },
-              "raw_total": 15,
-              "row_weighted": 15
+              "raw_total": 13,
+              "row_weighted": 13
             }
           ],
           "highest_diagnostic_fourth": "09"
@@ -16392,8 +15644,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2
         },
@@ -16439,9 +15691,9 @@
             "10"
           ],
           "steps": [
-            2,
+            0,
             3,
-            5
+            7
           ],
           "total": 10
         }
@@ -16504,11 +15756,9 @@
       "name": "Tetsugan",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Metal classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "One Cut Decides' controlled +2 Damage lifts Phantom Slash 50 → 52, past the 50 Nuke tier. It is the payoff of a deliberate burst route (Honed Edge's +3% Increase Damage Given setup on the stances), the pattern the director kept on Blood-Enchanted Eyes (RUL-2026-10-04-001, Reaper's Embrace 50 → 52) and Shakunetsu Sakura (RUL-2026-10-04-002, Sakura-ame 50 → 52). No row passes 52; the 45 strikes stop at 47 and the 40 strikes at 42. Flagged for director confirmation.",
+      "above_nuke_rationale": null,
       "damage": {
-        "damage_totals_reachable": [
-          2
-        ],
+        "damage_totals_reachable": [],
         "rows": [
           {
             "jutsu": "Tranquil Guard Flowing Form",
@@ -16519,22 +15769,7 @@
               "Metal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Enduring Resonance Ward",
@@ -16545,22 +15780,7 @@
               "Metal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Pivoting Fortress",
@@ -16571,22 +15791,7 @@
               "Metal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Phantom Slash",
@@ -16597,22 +15802,7 @@
               "Metal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 52.0,
-                "tier_before": "Nuke",
-                "tier_after": "above Nuke",
-                "tier_change": true,
-                "above_nuke": true,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Crimson Thrust",
@@ -16623,22 +15813,7 @@
               "Metal"
             ],
             "method": "AOE_CIRCLE_SPAWN",
-            "steps": [
-              {
-                "added": 2,
-                "final": 42.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Equilibrium Guard Strike",
@@ -16649,22 +15824,7 @@
               "Metal"
             ],
             "method": "AOE_LINE_SHOOT",
-            "steps": [
-              {
-                "added": 2,
-                "final": 47.0,
-                "tier_before": "High",
-                "tier_after": "High",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           },
           {
             "jutsu": "Harmonious Slash",
@@ -16675,40 +15835,11 @@
               "Metal"
             ],
             "method": "SINGLE",
-            "steps": [
-              {
-                "added": 2,
-                "final": 47.0,
-                "tier_before": "High",
-                "tier_after": "High",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 3,
-                "smallest_allocation": [
-                  "06",
-                  "07",
-                  "08"
-                ]
-              }
-            ]
+            "steps": []
           }
         ],
-        "tier_crossings": [
-          [
-            "Phantom Slash",
-            0,
-            2
-          ]
-        ],
-        "above_nuke": [
-          {
-            "jutsu": "Phantom Slash",
-            "row": 0,
-            "base": 50.0,
-            "added": 2,
-            "final": 52.0
-          }
-        ]
+        "tier_crossings": [],
+        "above_nuke": []
       },
       "fourth_bp": [
         {
@@ -16721,9 +15852,9 @@
           ],
           "path_bonuses": {
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 8
+            "decreasedamagetaken": 5
           },
-          "path_row_weighted": 28,
+          "path_row_weighted": 19,
           "fourths": [
             {
               "id": "04",
@@ -16734,11 +15865,11 @@
               },
               "bonuses": {
                 "decreasedamagegiven": 2,
-                "decreasedamagetaken": 8,
+                "decreasedamagetaken": 5,
                 "reflect": 3
               },
-              "raw_total": 13,
-              "row_weighted": 31
+              "raw_total": 10,
+              "row_weighted": 22
             },
             {
               "id": "06",
@@ -16750,10 +15881,10 @@
               "bonuses": {
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
-                "decreasedamagetaken": 8
+                "decreasedamagetaken": 5
               },
-              "raw_total": 12,
-              "row_weighted": 34
+              "raw_total": 9,
+              "row_weighted": 25
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -16767,26 +15898,26 @@
             "05"
           ],
           "path_bonuses": {
-            "decreasedamagegiven": 5,
+            "decreasedamagegiven": 2,
             "decreasedamagetaken": 2,
             "reflect": 10
           },
-          "path_row_weighted": 26,
+          "path_row_weighted": 20,
           "fourths": [
             {
               "id": "02",
               "name": "Folded Steel",
               "category": "Hidden Art",
               "adds": {
-                "decreasedamagetaken": 3
+                "decreasedamagetaken": 1
               },
               "bonuses": {
-                "decreasedamagegiven": 5,
-                "decreasedamagetaken": 5,
+                "decreasedamagegiven": 2,
+                "decreasedamagetaken": 3,
                 "reflect": 10
               },
-              "raw_total": 20,
-              "row_weighted": 35
+              "raw_total": 15,
+              "row_weighted": 23
             },
             {
               "id": "06",
@@ -16796,16 +15927,16 @@
                 "increasedamagetaken": 2
               },
               "bonuses": {
-                "decreasedamagegiven": 5,
+                "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2,
                 "reflect": 10
               },
-              "raw_total": 19,
-              "row_weighted": 32
+              "raw_total": 16,
+              "row_weighted": 26
             }
           ],
-          "highest_diagnostic_fourth": "02"
+          "highest_diagnostic_fourth": "06"
         },
         {
           "advanced_art": "08",
@@ -16816,11 +15947,10 @@
             "08"
           ],
           "path_bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2
           },
-          "path_row_weighted": 29,
+          "path_row_weighted": 21,
           "fourths": [
             {
               "id": "01",
@@ -16831,14 +15961,13 @@
                 "decreasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 3,
+                "increasedamagegiven": 5,
                 "decreasedamagegiven": 2,
                 "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
               "raw_total": 11,
-              "row_weighted": 39
+              "row_weighted": 31
             },
             {
               "id": "09",
@@ -16848,13 +15977,12 @@
                 "afterburn": 3
               },
               "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 3,
+                "increasedamagegiven": 5,
                 "increasedamagetaken": 2,
                 "afterburn": 3
               },
               "raw_total": 10,
-              "row_weighted": 32
+              "row_weighted": 24
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -16895,15 +16023,15 @@
               "name": "Honed Edge",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagegiven": 3
+                "increasedamagegiven": 2
               },
               "bonuses": {
-                "increasedamagegiven": 3,
+                "increasedamagegiven": 2,
                 "increasedamagetaken": 4,
                 "afterburn": 10
               },
-              "raw_total": 17,
-              "row_weighted": 31
+              "raw_total": 16,
+              "row_weighted": 28
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -16922,10 +16050,10 @@
           ],
           "steps": [
             2,
-            3,
-            3
+            1,
+            2
           ],
-          "total": 8
+          "total": 5
         },
         {
           "advanced_art": "05",
@@ -16946,7 +16074,7 @@
         {
           "advanced_art": "08",
           "name": "One Cut Decides",
-          "primary_tag": "damage",
+          "primary_tag": "increasedamagegiven",
           "path": [
             "06",
             "07",
@@ -16954,10 +16082,10 @@
           ],
           "steps": [
             0,
-            0,
-            2
+            2,
+            3
           ],
-          "total": 2
+          "total": 5
         },
         {
           "advanced_art": "10",
@@ -17091,7 +16219,7 @@
     {
       "slug": "vaporia",
       "name": "Vaporia",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Boil classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Boil classification / forked tree",
       "reference": false,
       "above_nuke_rationale": null,
       "damage": {
@@ -17192,8 +16320,8 @@
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2,
-            "increasedamagetaken": 5
+            "increasedamagegiven": 5,
+            "increasedamagetaken": 2
           },
           "path_row_weighted": 13,
           "fourths": [
@@ -17206,8 +16334,8 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 5,
+                "increasedamagetaken": 2,
                 "afterburn": 3
               },
               "raw_total": 12,
@@ -17222,8 +16350,8 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 5,
+                "increasedamagetaken": 2,
                 "decreasedamagetaken": 2
               },
               "raw_total": 11,
@@ -17252,11 +16380,11 @@
               "name": "Geyser Fist",
               "category": "Hidden Art",
               "adds": {
-                "increasedamagetaken": 3
+                "increasedamagegiven": 3
               },
               "bonuses": {
-                "increasedamagegiven": 2,
-                "increasedamagetaken": 5,
+                "increasedamagegiven": 5,
+                "increasedamagetaken": 2,
                 "afterburn": 10
               },
               "raw_total": 17,
@@ -17556,9 +16684,9 @@
     {
       "slug": "voltara_divine",
       "name": "Voltara Divine",
-      "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Lightning classification / forked tree",
+      "revision": "Fable proposal — 2026-10-04 batch rebalance / Lightning classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Ethereal Dragon Unbound's controlled +2 Damage lifts Ethereal Dragon's Whispers 50 → 52, past the 50 Nuke tier, as the payoff of a deliberate burst route (Anointed by Lightning → Dragon's Whispered Wrath's +2% self Increase Damage Given setup → Ethereal Dragon Unbound): the pattern the director kept on Blood-Enchanted Eyes (RUL-2026-10-04-001, Reaper's Embrace 50 → 52) and Shakunetsu Sakura (RUL-2026-10-04-002, Sakura-ame 50 → 52). It is the tree's only Damage node, so no legal allocation adds more than +2 (Luminous Illusion Bind 40 → 42 stays Normal). The pre-batch Burst route reached +5 (Whispers 50 → 55, Bind 40 → 45); the controlled payoff keeps the burst identity without either tier jump. Fable proposal; flagged for director confirmation.",
+      "above_nuke_rationale": "Ethereal Dragon Unbound's controlled +2 Damage lifts Ethereal Dragon's Whispers 50 → 52, past the 50 Nuke tier. Kit fact (R1″): the dossier lists no traits, so both prongs must hold, and both do. Strike-led: both of the kit's offensive percentage rows (the 35% self Increase Damage Given rows, 2 of 2) sit on its two Damage jutsu, Luminous Illusion Bind and Ethereal Dragon's Whispers. Finisher: Whispers is the unique highest-rank strike (B; Bind is D). It is the payoff of a deliberate burst route (Halo of Static → Dragon's Whispered Wrath's +2% self Increase Damage Given setup → Ethereal Dragon Unbound), the pattern the director kept on Blood-Enchanted Eyes (RUL-2026-10-04-001, Reaper's Embrace 50 → 52) and Shakunetsu Sakura (RUL-2026-10-04-002, Sakura-ame 50 → 52). It is the tree's only Damage node, so no legal allocation adds more than +2 and none without the capstone passes 50 (Luminous Illusion Bind 40 → 42 stays Normal). Fable proposal; flagged for director confirmation (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -17583,9 +16711,9 @@
                 "above_nuke": false,
                 "allocations": 3,
                 "smallest_allocation": [
-                  "01",
                   "02",
-                  "03"
+                  "03",
+                  "06"
                 ]
               }
             ]
@@ -17609,9 +16737,9 @@
                 "above_nuke": true,
                 "allocations": 3,
                 "smallest_allocation": [
-                  "01",
                   "02",
-                  "03"
+                  "03",
+                  "06"
                 ]
               }
             ]
@@ -17639,36 +16767,23 @@
           "advanced_art": "03",
           "name": "Ethereal Dragon Unbound",
           "path": [
-            "01",
+            "06",
             "02",
             "03"
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagegiven": 4
+            "increasedamagegiven": 2,
+            "decreasedamagetaken": 2
           },
-          "path_row_weighted": 12,
+          "path_row_weighted": 10,
           "fourths": [
             {
-              "id": "04",
-              "name": "Luminous Conduit",
-              "category": "Hidden Art",
-              "adds": {
-                "increasedamagegiven": 3
-              },
-              "bonuses": {
-                "damage": 2,
-                "increasedamagegiven": 7
-              },
-              "raw_total": 9,
-              "row_weighted": 18
-            },
-            {
-              "id": "06",
-              "name": "Halo of Static",
+              "id": "01",
+              "name": "Anointed by Lightning",
               "category": "Foundation",
               "adds": {
-                "decreasedamagetaken": 2
+                "increasedamagegiven": 2
               },
               "bonuses": {
                 "damage": 2,
@@ -17677,9 +16792,24 @@
               },
               "raw_total": 8,
               "row_weighted": 14
+            },
+            {
+              "id": "07",
+              "name": "Aegis of Living Light",
+              "category": "Hidden Art",
+              "adds": {
+                "decreasedamagetaken": 3
+              },
+              "bonuses": {
+                "damage": 2,
+                "increasedamagegiven": 2,
+                "decreasedamagetaken": 5
+              },
+              "raw_total": 9,
+              "row_weighted": 13
             }
           ],
-          "highest_diagnostic_fourth": "04"
+          "highest_diagnostic_fourth": "01"
         },
         {
           "advanced_art": "05",
@@ -17695,19 +16825,6 @@
           "path_row_weighted": 16,
           "fourths": [
             {
-              "id": "02",
-              "name": "Dragon's Whispered Wrath",
-              "category": "Hidden Art",
-              "adds": {
-                "increasedamagegiven": 2
-              },
-              "bonuses": {
-                "increasedamagegiven": 10
-              },
-              "raw_total": 10,
-              "row_weighted": 20
-            },
-            {
               "id": "06",
               "name": "Halo of Static",
               "category": "Foundation",
@@ -17722,7 +16839,7 @@
               "row_weighted": 18
             }
           ],
-          "highest_diagnostic_fourth": "02"
+          "highest_diagnostic_fourth": "06"
         },
         {
           "advanced_art": "08",
@@ -17750,30 +16867,33 @@
               },
               "raw_total": 12,
               "row_weighted": 14
+            },
+            {
+              "id": "02",
+              "name": "Dragon's Whispered Wrath",
+              "category": "Hidden Art",
+              "adds": {
+                "increasedamagegiven": 2
+              },
+              "bonuses": {
+                "increasedamagegiven": 2,
+                "decreasedamagetaken": 10
+              },
+              "raw_total": 12,
+              "row_weighted": 14
             }
           ],
-          "highest_diagnostic_fourth": "01"
+          "highest_diagnostic_fourth": "02"
         }
       ],
-      "route_overlap": [
-        {
-          "a": "03",
-          "a_name": "Ethereal Dragon Unbound",
-          "b": "05",
-          "b_name": "Apotheosis of Thunder",
-          "siblings": true,
-          "same_primary_tag": false,
-          "shared_capstone_tags": [],
-          "path_cosine": 0.894
-        }
-      ],
+      "route_overlap": [],
       "routes": [
         {
           "advanced_art": "03",
           "name": "Ethereal Dragon Unbound",
           "primary_tag": "damage",
           "path": [
-            "01",
+            "06",
             "02",
             "03"
           ],
@@ -17795,8 +16915,8 @@
           ],
           "steps": [
             2,
-            3,
-            3
+            2,
+            4
           ],
           "total": 8
         },
@@ -17868,7 +16988,6 @@
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
           2
         ],
         "rows": [
@@ -17882,19 +17001,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 42.0,
@@ -17921,19 +17027,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 6,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 42.0,
@@ -17965,9 +17058,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 3
           },
-          "path_row_weighted": 6,
+          "path_row_weighted": 9,
           "fourths": [
             {
               "id": "04",
@@ -17978,10 +17072,11 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 5
+                "increasedamagegiven": 5,
+                "increasedamagetaken": 3
               },
-              "raw_total": 7,
-              "row_weighted": 9
+              "raw_total": 10,
+              "row_weighted": 12
             },
             {
               "id": "06",
@@ -17993,10 +17088,10 @@
               "bonuses": {
                 "damage": 2,
                 "increasedamagegiven": 2,
-                "increasedamagetaken": 2
+                "increasedamagetaken": 5
               },
-              "raw_total": 6,
-              "row_weighted": 8
+              "raw_total": 9,
+              "row_weighted": 11
             }
           ],
           "highest_diagnostic_fourth": "04"
@@ -18019,14 +17114,14 @@
               "name": "Searing Edge",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagetaken": 3
               },
               "bonuses": {
-                "damage": 1,
-                "increasedamagegiven": 10
+                "increasedamagegiven": 10,
+                "increasedamagetaken": 3
               },
-              "raw_total": 11,
-              "row_weighted": 12
+              "raw_total": 13,
+              "row_weighted": 13
             },
             {
               "id": "06",
@@ -18043,7 +17138,7 @@
               "row_weighted": 12
             }
           ],
-          "highest_diagnostic_fourth": "06"
+          "highest_diagnostic_fourth": "02"
         },
         {
           "advanced_art": "08",
@@ -18089,8 +17184,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2
         },
