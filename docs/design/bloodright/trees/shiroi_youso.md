@@ -4,24 +4,26 @@
 
 **Emphasis:** primary Elemental amplification (two compounding 35% five-element self Increase Damage Given buffs on Fire Release and Wind Release; two 35% five-element Increase Damage Taken exposures on Fire Release and Element Divine's area) · secondary Burst and burn on the marked target (Damage on Lightning Release 40 and Element Divine 45 EP, held to +2; Afterburn on the same two casts, 35% and 30%) · tertiary Defensive control (self Decrease Damage Taken on Wind Release and Earth Release; static Heal on Water Release).
 
-Eleven supported rows sit on six casts. The highest-leverage rows are the paired five-element percentage rows: two self Increase Damage Given buffs and two exposures, each multiplying every five-element hit in the two rounds after its cast, injected children included, and compounding with one another. The tree therefore splits by recipient. Fivefold Kindling marks the target ("How do I break the target: one decisive strike, or a burn that every hit feeds?") and forks into exposure set up for a +2 Damage payoff (Divine Convergence) and Afterburn (White Immolation). Pale Vessel strengthens the caster ("How do I strengthen myself: strike harder or stand firmer?") and forks into the compounding self buffs (White Maelstrom) and the self Decrease Damage Taken buffs with Water Release's Heal (Eye of the Tempest). Flat Damage stops at +2 because the kit's Damage rows are 40 and 45 EP: +5 would lift Lightning Release to 45 and Element Divine to 50. Potency scope is multi-element pending director review: Fire and Lightning (RUL-2026-10-03-005).
+Eleven supported rows sit on six casts. The highest-leverage rows are the paired five-element percentage rows: two self Increase Damage Given buffs and two exposures, each multiplying every five-element hit in the two rounds after its cast, injected children included, and compounding with one another. The tree therefore splits by recipient. Fivefold Kindling works on the target ("How do I break the target: mark it for the strikes that follow, or burn it so every hit feeds the fire?") and forks into a team-wide exposure mark with a controlled +2 Damage payoff (Divine Convergence) and Afterburn (White Immolation). Pale Vessel strengthens the caster ("How do I strengthen myself: strike harder or stand firmer?") and forks into the compounding self damage buffs (White Maelstrom) and the compounding self Decrease Damage Taken buffs with Water Release's Heal (Eye of the Tempest); both pairs stop at +8%. Flat Damage stops at +2 because the kit's Damage rows are 40 and 45 EP: +5 would lift Lightning Release to 45 and Element Divine to 50. Potency scope is multi-element pending director review: Fire and Lightning (RUL-2026-10-03-005).
 
 **Review status:** Fable proposal (2026-10-04 batch rebalance); not director-approved
 
 | Node | Tier | Foundation sentence / route identity |
 |---|---|---|
-| Fivefold Kindling | Foundation | How do I break the target: one decisive strike, or a burn that every hit feeds? |
+| Fivefold Kindling | Foundation | How do I break the target: mark it for the strikes that follow, or burn it so every hit feeds the fire? |
 | Pale Vessel | Foundation | How do I strengthen myself: strike harder or stand firmer? |
-| Divine Convergence | Advanced Art | burst / execution: exposure set up, controlled +2 Damage payoff |
+| Divine Convergence | Advanced Art | exposure / team burst: a mark every ally's five-element hit feeds, controlled +2 Damage payoff |
 | White Immolation | Advanced Art | attrition: a burn that every hit on the target feeds |
 | White Maelstrom | Advanced Art | sustained amplification: two compounding self buffs on every five-element hit, injected children included |
-| Eye of the Tempest | Advanced Art | fortress with sustain |
+| Eye of the Tempest | Advanced Art | fortress with sustain: two compounding self Decrease Damage Taken buffs and Water Release's Heal |
 
-**Director review recommended:** Classification only: the Fire + Lightning multi-element scope remains a director decision (unchanged by this batch). No director exception and no Damage row above 50.
+**Director review recommended:** Classification: the Fire + Lightning multi-element scope remains a director decision (unchanged by this batch). For the roster-wide decisions: White Immolation + Opened to the Elements raises both of Element Divine's area debuffs (+5% exposure, +10% Afterburn), and Eye of the Tempest stops at +8% Decrease Damage Taken on two compounding rows where the fortress anchors use +10%. No director exception and no Damage row above 50.
 
 - Concern: White Maelstrom is held at +8% Increase Damage Given because the two self buffs compound; if Voltari's own self buff is in scope, three buffs can compound (×1.43³ ≈ ×2.92), not simulated.
+- Concern: Eye of the Tempest stops at +8% Decrease Damage Taken on two compounding 35% rows (both live ×0.57² ≈ ×0.32, ×0.77 of unmodified), slightly lighter than Blood-Enchanted Eyes' Deathless Vitality (2 + 3 + 5 with one 15% row, ×0.75 of unmodified, plus a Decrease Damage Given rider). If the director wants the anchor fortress on two strong rows, Eye of the Tempest returns to +5%.
+- Concern: White Immolation with Opened to the Elements stacks +5% exposure and +10% Afterburn on Element Divine's area (later hits on its target ×1.96 against ×1.76 unmodified): the exposure-plus-Afterburn pattern the batch raises roster-wide. It costs the +2 Damage and every self buff, and the 60% per-hit cap clips it while both burns are live.
 - Concern: The two native burns already pass the 60% per-hit Afterburn cap together, so White Immolation's value depends on alternating Lightning Release and Element Divine.
-- Concern: Fivefold Kindling and Opened to the Elements raise Element Divine's area exposure, which also lands on allies in the circle.
+- Concern: Divine Convergence is a team route: solo, White Maelstrom with Fivefold Kindling gives the caster's hits about as much or more. Fivefold Kindling and Opened to the Elements also raise Element Divine's area exposure on allies in the circle.
 - Concern: Earth Release's Decrease Damage Taken and Water Release's Heal are reachable only through an authored jutsu classification (ENGINE_GAP_REGISTER G1).
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Fire and Lightning jutsu. Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
@@ -37,20 +39,20 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | 05 | White Immolation | Advanced Art | Charred Current | +7% Afterburn (enemy debuff) | Element Divine, Lightning Release / 2 |
 | 06 | Pale Vessel | Foundation | None | +2% Increase Damage Given (self buff); +2% Decrease Damage Taken (self buff) | Earth Release, Fire Release, Wind Release / 4 |
 | 07 | Gale Bulwark | Hidden Art | Pale Vessel | +3% Decrease Damage Taken (self buff) | Earth Release, Wind Release / 2 |
-| 08 | Eye of the Tempest | Advanced Art | Gale Bulwark | +5% Decrease Damage Taken (self buff); +5% Heal (self buff) | Earth Release, Water Release, Wind Release / 3 |
+| 08 | Eye of the Tempest | Advanced Art | Gale Bulwark | +3% Decrease Damage Taken (self buff); +5% Heal (self buff) | Earth Release, Water Release, Wind Release / 3 |
 | 09 | Rising Currents | Hidden Art | Pale Vessel | +2% Increase Damage Given (self buff) | Fire Release, Wind Release / 2 |
 | 10 | White Maelstrom | Advanced Art | Rising Currents | +4% Increase Damage Given (self buff) | Fire Release, Wind Release / 2 |
 
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Fivefold Kindling** — Five elements, one white spark. Whatever the clan marks becomes kindling. Exposure on Fire Release (single target) and Element Divine's area (ally hazard) 35 → 37%, live the two rounds after each cast.
-- **Opened to the Elements** — Heat finds the grain of a thing, and the next strike follows it in. Sets up the strike: both exposures 37 → 40% with Fivefold Kindling; a target carrying both takes five-element hits ×1.40 × 1.40 ≈ ×1.96 (×1.82 unmodified).
+- **Opened to the Elements** — Heat finds the grain of a thing, and the next strike follows it in. Sets up the strike: both exposures 37 → 40% with Fivefold Kindling; a target carrying both takes everyone's five-element hits ×1.40 × 1.40 ≈ ×1.96 (×1.82 unmodified).
 - **Divine Convergence** — When all five currents meet in one hand, the sky itself gives way. Controlled payoff: Lightning Release 40 → 42 and Element Divine 45 → 47 EP (no tier crossed; 60 AP each, cooldown 7). Element Divine's area damage hits enemies only.
 - **Charred Current** — Lightning leaves a charred path, and fire remembers the way. Afterburn debuff: Lightning Release 35 → 38%, Element Divine 30 → 33% (area, ally hazard); 2 rounds; raises the percent, not the duration.
 - **White Immolation** — Not a flame that burns, but a whiteness that consumes what the flame has touched. Burn: Afterburn Lightning Release 35 → 45% and Element Divine 30 → 40% on the full route (+10%); every non-pierce hit the target takes in the two rounds after the cast, allies' and injected children's included, adds that share (60% cap per hit).
 - **Pale Vessel** — The body is only the vessel; the five currents decide whether it strikes or stands. Self Increase Damage Given on Fire Release and Wind Release 35 → 37%; self Decrease Damage Taken on Wind Release and Earth Release 35 → 37%; all four land on the caster, live the two rounds after each cast.
 - **Gale Bulwark** — The wind does not stop the blade; it carries the blade past you. Both self Decrease Damage Taken rows 37 → 40% with Pale Vessel (all four stat types, element-less: every non-pierce hit); realized on the caster at cast time.
-- **Eye of the Tempest** — At the storm's heart the air is still, and the tide mends whatever the wind lets through. Fortress: Wind Release and Earth Release 35 → 45% Decrease Damage Taken on the full route (+10%; both live, incoming ×0.55 × 0.55 ≈ ×0.30); Water Release Heal 25 → 30 (300 HP per tick on the two following rounds).
+- **Eye of the Tempest** — At the storm's heart the air is still, and the tide mends whatever the wind lets through. Fortress with sustain: Wind Release and Earth Release 35 → 43% Decrease Damage Taken on the full route (+8%; both live, incoming ×0.57 × 0.57 ≈ ×0.32, ×0.42 unmodified); Water Release Heal 25 → 30 (300 HP per tick on the two following rounds).
 - **Rising Currents** — Each element poured into the vessel lifts the next. Both self damage buffs 37 → 39% with Pale Vessel (Fire Release, Wind Release); five-element hits only.
 - **White Maelstrom** — Five currents turning as one; nothing thrown from inside it lands softly. Amplification: Fire Release and Wind Release self buffs 35 → 43% on the full route (+8%); with both live every five-element caster hit lands ×1.43 × 1.43 ≈ ×2.04 (×1.82 unmodified), injected children's included.
 
@@ -58,27 +60,27 @@ Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09�
 
 | Build | Purchases | DMG | IDG | IDT | DDT | AB | HEAL |
 |---|---|---:|---:|---:|---:|---:|---:|
-| Divine Convergence (Burst / execution) | Fivefold Kindling, Opened to the Elements, Divine Convergence, Pale Vessel | +2 | +2% | +5% | +2% | — | — |
+| Divine Convergence (Exposure / team burst) | Fivefold Kindling, Opened to the Elements, Divine Convergence, Pale Vessel | +2 | +2% | +5% | +2% | — | — |
 | White Immolation (Attrition / burn) | Fivefold Kindling, Charred Current, White Immolation, Opened to the Elements | — | — | +5% | — | +10% | — |
 | White Maelstrom (Sustained amplification) | Pale Vessel, Rising Currents, White Maelstrom, Fivefold Kindling | — | +8% | +2% | +2% | — | — |
-| Eye of the Tempest (Fortress) | Pale Vessel, Gale Bulwark, Eye of the Tempest, Rising Currents | — | +4% | — | +10% | — | +5% |
+| Eye of the Tempest (Fortress with sustain) | Pale Vessel, Gale Bulwark, Eye of the Tempest, Rising Currents | — | +4% | — | +8% | — | +5% |
 
 Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Damage Taken · DDT = Decrease Damage Taken · AB = Afterburn · HEAL = Heal. Values are per-matching-row static additions, not final combat percentages.
 
-- **Divine Convergence:** Fire Release and Element Divine each leave a 40% exposure (Fivefold Kindling +2%, Opened to the Elements +3%). Lightning Release (42 EP) cast after both lands ×1.40 × 1.40 ≈ ×1.96, and Element Divine (47 EP) after Fire Release lands ×1.40; its own exposure never raises its own hit. Pale Vessel is the fourth purchase for 37% self buffs and 37% Decrease Damage Taken; Charred Current (Afterburn 38% / 33%) is the all-in alternative.
-- **White Immolation:** Afterburn at 45% on Lightning Release's target and 40% on Element Divine's area (+10%). In the two rounds after Lightning Release every non-pierce hit the stunned target takes, the injected Voltari and Planetary Devastation included, adds 45% of itself. The two burns together pass the 60% per-hit cap (85%; 65% unmodified), so the route pays when the casts alternate. Opened to the Elements is the offensive fourth (exposures 40%); Pale Vessel is the safe one.
+- **Divine Convergence:** Fire Release and Element Divine each leave a 40% exposure (Fivefold Kindling +2%, Opened to the Elements +3%) that multiplies allies' five-element hits too. Lightning Release (42 EP) cast after both lands ×1.40 × 1.40 ≈ ×1.96, and Element Divine (47 EP) after Fire Release lands ×1.40; its own exposure never raises its own hit. Solo, White Maelstrom with Fivefold Kindling gives the caster's hits about as much (×3.84 against this build's ×3.86 for Lightning Release on a doubly marked target) and more on every other hit; this route pays off when allies hit the mark, and its +2 Damage stays on outside the self-buff windows. Pale Vessel is the fourth purchase for 37% self buffs and 37% Decrease Damage Taken; Charred Current (Afterburn 38% / 33%) is the all-in alternative.
+- **White Immolation:** Afterburn at 45% on Lightning Release's target and 40% on Element Divine's area (+10%). In the two rounds after Lightning Release every non-pierce hit the stunned target takes, the injected Voltari and Planetary Devastation included, adds 45% of itself. The two burns together pass the 60% per-hit cap (85%; 65% unmodified), so the route pays when the casts alternate. Opened to the Elements is the offensive fourth (exposures 40%: a later hit on Element Divine's target lands ×1.40 and burns 40%, ×1.96 against ×1.35 × 1.30 ≈ ×1.76 unmodified); Pale Vessel is the safe one.
 - **White Maelstrom:** Both self buffs at 43% (Pale Vessel +2%, Rising Currents +2%, White Maelstrom +4%). Cast Fire Release and Wind Release (80 AP) and for the next two rounds every five-element hit the caster lands, on any target and from any jutsu, injected children included, is multiplied ×1.43 × 1.43 ≈ ×2.04; the bloodline passive multiplies last. Fivefold Kindling is the offensive fourth (exposures 37%); Gale Bulwark (Decrease Damage Taken 40%) is the defensive one.
-- **Eye of the Tempest:** Both self Decrease Damage Taken buffs at 45% (incoming ×0.55 each, ×0.30 with both live) and Water Release's heal at 300 HP per tick. Rising Currents is the fourth purchase (self buffs 39%), so the fortress still hits; Fivefold Kindling (exposures 37%) is the alternative.
+- **Eye of the Tempest:** Both self Decrease Damage Taken buffs at 43% (Pale Vessel +2%, Gale Bulwark +3%, Eye of the Tempest +3%; incoming ×0.57 each, ×0.32 with both live against ×0.42 unmodified) and Water Release's heal at 300 HP per tick. Rising Currents is the fourth purchase (self buffs 39%), so the fortress still hits; Fivefold Kindling (exposures 37%) is the alternative.
 
 ## Before/after effect rows
 
-| Jutsu | Row | Tag | Recipient | Base | Burst / execution | Attrition / burn | Sustained amplification | Fortress |
+| Jutsu | Row | Tag | Recipient | Base | Exposure / team burst | Attrition / burn | Sustained amplification | Fortress with sustain |
 |---|---:|---|---|---:|---:|---:|---:|---:|
 | Lightning Release | 0 | Damage | enemy | 40 | 42 (+2) | 40 | 40 | 40 |
 | Lightning Release | 1 | stun (unsupported) | enemy | 100 | 100 | 100 | 100 | 100 |
 | Lightning Release | 2 | injectjutsus (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
 | Lightning Release | 3 | Afterburn | enemy | 35% | 35% | 45% (+10) | 35% | 35% |
-| Wind Release | 0 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 37% (+2) | 45% (+10) |
+| Wind Release | 0 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 37% (+2) | 43% (+8) |
 | Wind Release | 1 | Increase Damage Given | self | 35% | 37% (+2) | 35% | 43% (+8) | 39% (+4) |
 | Wind Release | 2 | move (unsupported) | self | 1 | 1 | 1 | 1 | 1 |
 | Element Divine | 0 | Damage | enemy | 45 | 47 (+2) | 45 | 45 | 45 |
@@ -91,21 +93,21 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 | Water Release | 0 | Heal | self | 25 | 25 | 25 | 25 | 30 (+5) |
 | Water Release | 1 | absorb (unsupported) | self | 35% | 35% | 35% | 35% | 35% |
 | Water Release | 2 | injectjutsus (unsupported) | self | 110 | 110 | 110 | 110 | 110 |
-| Earth Release | 0 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 37% (+2) | 45% (+10) |
+| Earth Release | 0 | Decrease Damage Taken | self | 35% | 37% (+2) | 35% | 37% (+2) | 43% (+8) |
 | Earth Release | 1 | barrier (unsupported) | self | 100 | 100 | 100 | 100 | 100 |
 
 ## Allocation audit
 
 - Legal prerequisite-closed allocations by size: 0: 1, 1: 2, 2: 5, 3: 10, 4: 14
 - Full-budget allocations: 14; numerically non-dominated (per-tag totals): 14; all nodes appear in a non-dominated build: True
-- Maximum individually achievable additions over every legal allocation: +2 Damage, +8% Increase Damage Given, +5% Increase Damage Taken, +10% Decrease Damage Taken, +10% Afterburn, +5% Heal (not jointly attainable)
+- Maximum individually achievable additions over every legal allocation: +2 Damage, +8% Increase Damage Given, +5% Increase Damage Taken, +8% Decrease Damage Taken, +10% Afterburn, +5% Heal (not jointly attainable)
 - Ceilings (RUL-2026-10-03-005): Damage +5, Lifesteal +5%, Afterburn +15% hard; other tags +10% unless a director-review exception is recorded.
   - Route Divine Convergence: +2 Damage (0 + 0 + 2; off band)
   - Route White Immolation: +10% Afterburn (0 + 3 + 7; on band)
-  - Route Eye of the Tempest: +10% Decrease Damage Taken (2 + 3 + 5; on band)
+  - Route Eye of the Tempest: +8% Decrease Damage Taken (2 + 3 + 3; off band)
   - Route White Maelstrom: +8% Increase Damage Given (2 + 2 + 4; off band)
 - Supported rows in kit: 11 (AB 2, DMG 2, DDT 2, HEAL 1, IDG 2, IDT 2)
-- Strongest full build by row-weighted total: Fivefold Kindling, Pale Vessel, Gale Bulwark, Eye of the Tempest (raw +19, row-weighted 33)
+- Strongest full build by row-weighted total: Fivefold Kindling, Charred Current, White Immolation, Pale Vessel (raw +16, row-weighted 32)
 - Lowest row-weighted node: Fivefold Kindling (4)
 
 Validator warnings:
@@ -132,8 +134,8 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | Divine Convergence | +2 Damage, +5% IDT | Pale Vessel *(highest diagnostic)* | +2 Damage, +2% IDG, +5% IDT, +2% DDT | 22 |
 | White Immolation | +2% IDT, +10% AB | Opened to the Elements | +5% IDT, +10% AB | 30 |
 | White Immolation | +2% IDT, +10% AB | Pale Vessel *(highest diagnostic)* | +2% IDG, +2% IDT, +2% DDT, +10% AB | 32 |
-| Eye of the Tempest | +2% IDG, +10% DDT, +5% HEAL | Fivefold Kindling | +2% IDG, +2% IDT, +10% DDT, +5% HEAL | 33 |
-| Eye of the Tempest | +2% IDG, +10% DDT, +5% HEAL | Rising Currents *(highest diagnostic)* | +4% IDG, +10% DDT, +5% HEAL | 33 |
+| Eye of the Tempest | +2% IDG, +8% DDT, +5% HEAL | Fivefold Kindling | +2% IDG, +2% IDT, +8% DDT, +5% HEAL | 29 |
+| Eye of the Tempest | +2% IDG, +8% DDT, +5% HEAL | Rising Currents *(highest diagnostic)* | +4% IDG, +8% DDT, +5% HEAL | 29 |
 | White Maelstrom | +8% IDG, +2% DDT | Fivefold Kindling | +8% IDG, +2% IDT, +2% DDT | 24 |
 | White Maelstrom | +8% IDG, +2% DDT | Gale Bulwark *(highest diagnostic)* | +8% IDG, +5% DDT | 26 |
 
@@ -150,19 +152,19 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | 7 | Fivefold Kindling, Charred Current, White Immolation, Pale Vessel | +2% IDG, +2% IDT, +2% DDT, +10% AB |
 | 8 | Fivefold Kindling, Charred Current, Pale Vessel, Gale Bulwark | +2% IDG, +2% IDT, +5% DDT, +3% AB |
 | 9 | Fivefold Kindling, Charred Current, Pale Vessel, Rising Currents | +4% IDG, +2% IDT, +2% DDT, +3% AB |
-| 10 | Fivefold Kindling, Pale Vessel, Gale Bulwark, Eye of the Tempest | +2% IDG, +2% IDT, +10% DDT, +5% HEAL |
+| 10 | Fivefold Kindling, Pale Vessel, Gale Bulwark, Eye of the Tempest | +2% IDG, +2% IDT, +8% DDT, +5% HEAL |
 | 11 | Fivefold Kindling, Pale Vessel, Gale Bulwark, Rising Currents | +4% IDG, +2% IDT, +5% DDT |
 | 12 | Fivefold Kindling, Pale Vessel, Rising Currents, White Maelstrom | +8% IDG, +2% IDT, +2% DDT |
-| 13 | Pale Vessel, Gale Bulwark, Eye of the Tempest, Rising Currents | +4% IDG, +10% DDT, +5% HEAL |
+| 13 | Pale Vessel, Gale Bulwark, Eye of the Tempest, Rising Currents | +4% IDG, +8% DDT, +5% HEAL |
 | 14 | Pale Vessel, Gale Bulwark, Rising Currents, White Maelstrom | +8% IDG, +5% DDT |
 
 ## Design notes
 
-- 2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Rewired by recipient: Fivefold Kindling becomes the target root (+2% Increase Damage Taken; its +2% Increase Damage Given moves to the caster root) and Bedrock and Tide becomes Pale Vessel (+2% Increase Damage Given, +2% Decrease Damage Taken; its +2% Heal moves to Eye of the Tempest). Re-cut: Pale Lightning (+2 Damage) becomes Opened to the Elements (+3% Increase Damage Taken) and Divine Convergence goes +3 → +2 Damage, because +5 lifted Lightning Release 40 → 45 and Element Divine 45 → 50. Replaced: Tidal Mending (+3% Heal) and Pull of the Undertow (+5% Increase Damage Taken, +2% Decrease Damage Taken), a heal-gated exposure that did not fit a defensive Foundation, by Rising Currents (+2% Increase Damage Given) and White Maelstrom (+4%). White Immolation drops its +2% Increase Damage Taken; Eye of the Tempest's +3% Increase Damage Given becomes +5% Heal. Kept: Charred Current, White Immolation's +7% Afterburn, Gale Bulwark and Eye of the Tempest's +5% Decrease Damage Taken.
-- Maxima over every legal allocation: Damage +2, Increase Damage Taken +5%, Afterburn +10%, Increase Damage Given +8%, Decrease Damage Taken +10%, Heal +5%; not jointly attainable. Increase Damage Given is held at +8% because the two self buffs compound: +8% takes the double-buff window from ×1.82 to ×2.04, about what Divine Convergence's route gives its strikes on a doubly marked target (×1.82 → ×1.96 × 42/40 ≈ ×2.06).
+- 2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). Rewired by recipient: Fivefold Kindling becomes the target root (+2% Increase Damage Taken; its +2% Increase Damage Given moves to the caster root) and Bedrock and Tide becomes Pale Vessel (+2% Increase Damage Given, +2% Decrease Damage Taken). Re-cut: Pale Lightning (+2 Damage) becomes Opened to the Elements (+3% Increase Damage Taken) and Divine Convergence goes +3 → +2 Damage, because +5 lifted Lightning Release 40 → 45 and Element Divine 45 → 50. Replaced: Tidal Mending (+3% Heal) and Pull of the Undertow (+5% Increase Damage Taken, +2% Decrease Damage Taken), a heal-gated exposure that did not fit a defensive Foundation, by Rising Currents (+2% Increase Damage Given) and White Maelstrom (+4%). White Immolation drops its +2% Increase Damage Taken. Bedrock and Tide's +2% Heal and Tidal Mending's +3% Heal are removed; Eye of the Tempest's +3% Increase Damage Given becomes +5% Heal (Heal maximum unchanged at +5%). Second pass: Eye of the Tempest's Decrease Damage Taken goes +5% → +3% (route +10% → +8%; next note). Kept: Charred Current, White Immolation's +7% Afterburn and Gale Bulwark's +3%.
+- Maxima over every legal allocation: Damage +2, Increase Damage Taken +5%, Afterburn +10%, Increase Damage Given +8%, Decrease Damage Taken +8%, Heal +5%; not jointly attainable. Both self pairs compound on one hit, so both caster routes stop at +8%. Increase Damage Given: the double-buff window goes ×1.35² ≈ ×1.82 → ×1.43² ≈ ×2.04, about what Divine Convergence's route gives its strikes on a doubly marked target (×1.82 → ×1.96 × 42/40 ≈ ×2.06). Decrease Damage Taken: incoming with both buffs live goes ×0.65² ≈ ×0.42 → ×0.57² ≈ ×0.32 (+10% would reach ×0.55² ≈ ×0.30). Blood-Enchanted Eyes' Deathless Vitality runs 2 + 3 + 5 over two rows, but one is a 15% row on a 60 AP strike; here both are 35% buffs on 40 AP casts, so the tree holds them to the same test as the damage buffs. Exposure stays at +5% (two rows, team-wide) and Afterburn at +10% (the burns do not compound; they share the 60% per-hit cap).
 - Filters (SOURCE_MECHANICS §3/§3b): the Increase Damage Given and Increase Damage Taken rows list the five elements with no stat filter, so each multiplies five-element damage only, by 1 + power/100 per matching row: the kit's two Damage rows, the five injected children and any other five-element hit; element-less hits get ratio 0. The Decrease Damage Taken rows list all four stat types and no element: every non-pierce hit. The bloodline passive (25% + 0.15/level, five-element) multiplies last.
 - Delivery: all six casts are cooldown 7; Lightning Release and Element Divine cost 60 AP, the rest 40. Wind and Earth Release's rows are SELF rows realized on the caster at cast time (§4b); Water Release's heal lands on the caster. Every buff and debuff acts only in the two rounds after its cast (§3b), so Element Divine never raises its own hit: a strike sees Fire Release's mark and, for Lightning Release, an earlier Element Divine's.
-- Fourth purchases: Divine Convergence takes Pale Vessel or Charred Current; White Immolation Opened to the Elements or Pale Vessel; White Maelstrom Fivefold Kindling or Gale Bulwark; Eye of the Tempest Rising Currents or Fivefold Kindling. The all-offense builds 01+02+03+04 and 01+02+04+05 share three nodes and differ in the capstone: +2 Damage, or +7% Afterburn that adds nothing while both burns are live. White Maelstrom with Fivefold Kindling and Divine Convergence with Pale Vessel reach about the same multiplier on a caster Damage-row hit against a doubly marked target (×1.43² × 1.37² ≈ ×3.84 against ×1.37² × 1.40² × 42/40 ≈ ×3.86); White Maelstrom wins on every other target, Divine Convergence for allies hitting the mark. No fourth makes a route automatic.
+- Fourth purchases: Divine Convergence takes Pale Vessel or Charred Current; White Immolation Opened to the Elements or Pale Vessel; White Maelstrom Fivefold Kindling or Gale Bulwark; Eye of the Tempest Rising Currents or Fivefold Kindling. Two pairs share three nodes and differ only in the capstone. On the target, 01+02+03+04 and 01+02+04+05 trade +2 Damage for +7% Afterburn, which adds nothing while both burns are live. On the caster, 06+07+09 then chooses between Eye of the Tempest, about −10% incoming (×0.60² = ×0.36 → ×0.57² ≈ ×0.32 with both buffs live) plus 100 HP per Water Release cast, and White Maelstrom, about +6% output (×1.39² ≈ ×1.93 → ×1.43² ≈ ×2.04). White Maelstrom with Fivefold Kindling and Divine Convergence with Pale Vessel reach about the same multiplier on a caster Damage-row hit against a doubly marked target (×1.43² × 1.37² ≈ ×3.84 against ×1.37² × 1.40² × 42/40 ≈ ×3.86); White Maelstrom wins on every other caster hit, Divine Convergence when allies hit the mark. White Immolation with Opened to the Elements raises both of Element Divine's area debuffs (a later hit on its target ×1.40 × 1.40 ≈ ×1.96 against ×1.35 × 1.30 ≈ ×1.76) but gives up the +2 Damage and every self buff. No fourth makes a route automatic.
 
 ## Risks and unproven interactions
 

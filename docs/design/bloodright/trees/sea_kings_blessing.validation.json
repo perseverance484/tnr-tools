@@ -9,7 +9,7 @@
     "statClassification": "Highest",
     "traits": null
   },
-  "revision": "Fable proposal — 2026-10-04 batch rebalance / Water classification / forked tree",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance (roster pass) / Water classification / forked tree",
   "structure_errors": [],
   "warnings": [
     "universal node: 01 (Scales of the Deep) appears in every legal full-budget allocation (acknowledged in narrow_kit_exception)"
@@ -73,7 +73,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
@@ -110,7 +110,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2
       },
       "advanced_arts": [
@@ -141,8 +141,8 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 3,
-      "increasedamagetaken": 10,
+      "damage": 2,
+      "increasedamagetaken": 8,
       "decreasedamagetaken": 10
     },
     "supported_rows_in_kit": 5,
@@ -192,8 +192,8 @@
         "name": "Weight of the Trench",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Crushing Abyss",
           "Sea King's Armor"
@@ -250,8 +250,8 @@
         "name": "Dragged Under",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Crushing Abyss",
           "Water Dome"
@@ -265,8 +265,8 @@
         "name": "Wrath of the Sea-King",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 10,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Crushing Abyss",
           "Water Dome"
@@ -284,11 +284,11 @@
         "08"
       ],
       "bonuses": {
-        "increasedamagetaken": 10,
+        "increasedamagetaken": 8,
         "decreasedamagetaken": 2
       },
-      "raw_flat_total": 12,
-      "row_weighted_total": 22,
+      "raw_flat_total": 10,
+      "row_weighted_total": 18,
       "advanced_arts": [
         "08"
       ],
@@ -317,11 +317,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
         "advanced_arts": [
           "03"
         ],
@@ -335,12 +335,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 12,
+        "raw_flat_total": 6,
+        "row_weighted_total": 10,
         "advanced_arts": [
           "03"
         ],
@@ -390,11 +390,11 @@
         ],
         "bonuses": {
           "damage": 1,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 14,
+        "raw_flat_total": 7,
+        "row_weighted_total": 12,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -424,11 +424,11 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "decreasedamagetaken": 5
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 15,
+        "raw_flat_total": 9,
+        "row_weighted_total": 13,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -440,11 +440,11 @@
           "08"
         ],
         "bonuses": {
-          "increasedamagetaken": 10,
+          "increasedamagetaken": 8,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 22,
+        "raw_flat_total": 10,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "08"
         ],
@@ -573,7 +573,7 @@
   "damage_thresholds": {
     "damage_totals_reachable": [
       1,
-      3
+      2
     ],
     "rows": [
       {
@@ -600,8 +600,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 41.0,
+            "added": 2,
+            "final": 40.0,
             "tier_before": "Light",
             "tier_after": "Normal",
             "tier_change": true,
@@ -639,8 +639,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 41.0,
+            "added": 2,
+            "final": 40.0,
             "tier_before": "Light",
             "tier_after": "Normal",
             "tier_change": true,
@@ -659,12 +659,12 @@
       [
         "Crushing Abyss",
         0,
-        3
+        2
       ],
       [
         "Sea King's Armor",
         1,
-        3
+        2
       ]
     ],
     "above_nuke": []
@@ -679,10 +679,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 3,
+        "damage": 2,
         "decreasedamagetaken": 2
       },
-      "path_row_weighted": 8,
+      "path_row_weighted": 6,
       "fourths": [
         {
           "id": "04",
@@ -692,11 +692,11 @@
             "decreasedamagetaken": 3
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "decreasedamagetaken": 5
           },
-          "raw_total": 8,
-          "row_weighted": 11
+          "raw_total": 7,
+          "row_weighted": 9
         },
         {
           "id": "06",
@@ -706,12 +706,12 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 7,
-          "row_weighted": 12
+          "raw_total": 6,
+          "row_weighted": 10
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -769,9 +769,9 @@
         "08"
       ],
       "path_bonuses": {
-        "increasedamagetaken": 10
+        "increasedamagetaken": 8
       },
-      "path_row_weighted": 20,
+      "path_row_weighted": 16,
       "fourths": [
         {
           "id": "01",
@@ -781,11 +781,11 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagetaken": 10,
+            "increasedamagetaken": 8,
             "decreasedamagetaken": 2
           },
-          "raw_total": 12,
-          "row_weighted": 22
+          "raw_total": 10,
+          "row_weighted": 18
         }
       ],
       "highest_diagnostic_fourth": "01"

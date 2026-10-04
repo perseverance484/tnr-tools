@@ -12,7 +12,7 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "supported tags present in kit but not targeted by any node: damage"
+    "Damage above the 50 Nuke tier in a legal allocation (director review): Shadow Tether 50 -> 52"
   ],
   "classification": {
     "potency_classification": "Shadow",
@@ -56,7 +56,7 @@
   "examples": [
     {
       "name": "Absolute Erasure",
-      "archetype": "Self-amplification",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -65,7 +65,8 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
@@ -75,7 +76,7 @@
     },
     {
       "name": "Maw of Oblivion",
-      "archetype": "Drain",
+      "archetype": "Sustain offense",
       "ids": [
         "01",
         "02",
@@ -84,7 +85,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 5,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
         "lifesteal": 5
       },
@@ -150,11 +151,12 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 13,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "increasedamagegiven": 10,
+      "damage": 2,
+      "increasedamagegiven": 8,
       "increasedamagetaken": 8,
       "decreasedamagetaken": 10,
       "lifesteal": 5
@@ -168,14 +170,13 @@
       "lifesteal": 1
     },
     "tags_targeted_by_tree": [
+      "damage",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "lifesteal"
     ],
-    "supported_tags_in_kit_not_targeted": [
-      "damage"
-    ],
+    "supported_tags_in_kit_not_targeted": [],
     "node_values": [
       {
         "id": "01",
@@ -211,12 +212,14 @@
         "name": "Absolute Erasure",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 5,
-        "row_weighted_total": 5,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
-          "Cursed Beast Form"
+          "Curse Empowerment",
+          "Cursed Beast Form",
+          "Shadow Tether"
         ],
-        "covered_rows": 1,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -239,12 +242,13 @@
         "name": "Maw of Oblivion",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 6,
+        "row_weighted_total": 6,
         "covered_jutsu": [
+          "Cursed Beast Form",
           "Shadow Surge"
         ],
-        "covered_rows": 1,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -324,18 +328,18 @@
       "ids": [
         "01",
         "02",
-        "03",
-        "06"
+        "09",
+        "10"
       ],
       "bonuses": {
-        "increasedamagegiven": 10,
+        "increasedamagegiven": 8,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "lifesteal": 5
       },
-      "raw_flat_total": 14,
-      "row_weighted_total": 14,
+      "raw_flat_total": 15,
+      "row_weighted_total": 15,
       "advanced_arts": [
-        "03"
+        "10"
       ],
       "non_dominated": true
     },
@@ -362,12 +366,13 @@
           "06"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -381,12 +386,13 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 10,
+          "damage": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "lifesteal": 2
         },
-        "raw_flat_total": 14,
-        "row_weighted_total": 14,
+        "raw_flat_total": 11,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "03"
         ],
@@ -442,7 +448,7 @@
         "raw_flat_total": 11,
         "row_weighted_total": 11,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -452,12 +458,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 5,
+          "increasedamagegiven": 8,
           "increasedamagetaken": 2,
           "lifesteal": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 12,
+        "raw_flat_total": 15,
+        "row_weighted_total": 15,
         "advanced_arts": [
           "10"
         ],
@@ -562,13 +568,13 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 2,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "lifesteal": 5
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 11,
+        "raw_flat_total": 14,
+        "row_weighted_total": 14,
         "advanced_arts": [
           "10"
         ],
@@ -786,7 +792,9 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [],
+    "damage_totals_reachable": [
+      2
+    ],
     "rows": [
       {
         "jutsu": "Cursed Beast Form",
@@ -797,7 +805,22 @@
           "Shadow"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Curse Empowerment",
@@ -808,7 +831,22 @@
           "Shadow"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 42.0,
+            "tier_before": "Normal",
+            "tier_after": "Normal",
+            "tier_change": false,
+            "above_nuke": false,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       },
       {
         "jutsu": "Shadow Tether",
@@ -819,11 +857,40 @@
           "Shadow"
         ],
         "method": "SINGLE",
-        "steps": []
+        "steps": [
+          {
+            "added": 2,
+            "final": 52.0,
+            "tier_before": "Nuke",
+            "tier_after": "above Nuke",
+            "tier_change": true,
+            "above_nuke": true,
+            "allocations": 3,
+            "smallest_allocation": [
+              "01",
+              "02",
+              "03"
+            ]
+          }
+        ]
       }
     ],
-    "tier_crossings": [],
-    "above_nuke": []
+    "tier_crossings": [
+      [
+        "Shadow Tether",
+        0,
+        2
+      ]
+    ],
+    "above_nuke": [
+      {
+        "jutsu": "Shadow Tether",
+        "row": 0,
+        "base": 50.0,
+        "added": 2,
+        "final": 52.0
+      }
+    ]
   },
   "fourth_bp": [
     {
@@ -835,10 +902,11 @@
         "03"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 10,
+        "damage": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 12,
+      "path_row_weighted": 13,
       "fourths": [
         {
           "id": "06",
@@ -848,12 +916,13 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
-          "raw_total": 14,
-          "row_weighted": 14
+          "raw_total": 11,
+          "row_weighted": 15
         },
         {
           "id": "09",
@@ -863,12 +932,13 @@
             "lifesteal": 2
           },
           "bonuses": {
-            "increasedamagegiven": 10,
+            "damage": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "lifesteal": 2
           },
-          "raw_total": 14,
-          "row_weighted": 14
+          "raw_total": 11,
+          "row_weighted": 15
         }
       ],
       "highest_diagnostic_fourth": "09"
@@ -975,11 +1045,11 @@
         "10"
       ],
       "path_bonuses": {
-        "increasedamagegiven": 2,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2,
         "lifesteal": 5
       },
-      "path_row_weighted": 9,
+      "path_row_weighted": 12,
       "fourths": [
         {
           "id": "02",
@@ -989,12 +1059,12 @@
             "increasedamagegiven": 3
           },
           "bonuses": {
-            "increasedamagegiven": 5,
+            "increasedamagegiven": 8,
             "increasedamagetaken": 2,
             "lifesteal": 5
           },
-          "raw_total": 12,
-          "row_weighted": 12
+          "raw_total": 15,
+          "row_weighted": 15
         },
         {
           "id": "06",
@@ -1004,13 +1074,13 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "increasedamagegiven": 2,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2,
             "lifesteal": 5
           },
-          "raw_total": 11,
-          "row_weighted": 11
+          "raw_total": 14,
+          "row_weighted": 14
         }
       ],
       "highest_diagnostic_fourth": "02"
