@@ -57,10 +57,10 @@
     "engine_status": "proposal_requires_jutsu_classification_resolver"
   },
   "emphasis": {
-    "primary": "Burst (Burst Heavy): Hammer of the Heavens sets up exposure (Increase Damage Taken on Event Horizon Gate, Sky-Splitting Wall and Storm-God's Heart, 35 → 40% with Black Sun Rising) and Total Eclipse pays it off with +2 Damage on all five strikes (Raijin's Cage 50 → 52; Heart, Palm and Cataract 45 → 47; Tomb 40 → 42)",
+    "primary": "Burst (Burst Heavy): Hammer of the Heavens sets up exposure (Increase Damage Taken on Event Horizon Gate, Sky-Splitting Wall and Storm-God's Heart, 35 → 37%) and Total Eclipse pays it off with +2 Damage on all five strikes (Raijin's Cage 50 → 52; Heart, Palm and Cataract 45 → 47; Tomb 40 → 42)",
     "secondary": "Sustained self-amplification (Storm-God Ascendant: Increase Damage Given 35 → 40% on Wall, Tempest, Bulwark and Marrow Mantle) and endurance: Decrease Damage Taken on Gate or Bulwark (Pillar of Heaven, +10%) and Tempest Lifesteal (Eater of Suns, +5%)",
     "tertiary": "Riders: Lifesteal on the fortress (+2%) and Afterburn on the leech (Tempest 35 → 38%)",
-    "rationale": "Godstorm Eclipse is a rank H kit whose traits read Sustain / Burst Heavy / Tank, split across two keystones worn one at a time: Eclipse Marrow is needed to cast Gate, Marrow Mantle and the Shadow attacks (Tomb 40, Palm 45, Cataract 45, Midnight Verdict pierce); Godstorm Aegis is needed to cast the six Godstorm Mantle jutsu (Wall, Tempest, Bulwark, Heart 45, Raijin's Cage 50, Heavenbreaker Verdict pierce). Burst Heavy keeps a Burst route on the director pattern (RUL-2026-10-04-001/002): a percentage setup on the Hidden Art and a controlled +2 Damage payoff on the Advanced Art. Potency is element-wide and cannot separate the keystone sides, so the payoff also takes Raijin's Cage 50 → 52. Black Sun Rising answers \"How do I hit harder: crack the target open for the heavy strike, or amplify every hit I land?\" (Total Eclipse / Storm-God Ascendant); Stormgod's Marrow answers \"How do I outlast them: refuse the blow, or drink it back?\" (Pillar of Heaven / Eater of Suns). Potency reaches matching supported tags on all Shadow and Storm jutsu (RUL-2026-10-03-005; multi-element, director review)."
+    "rationale": "Godstorm Eclipse is a rank H kit whose traits read Sustain / Burst Heavy / Tank, split across two keystones worn one at a time: Eclipse Marrow is needed to cast Gate, Marrow Mantle and the Shadow attacks (Tomb 40, Palm 45, Cataract 45, Midnight Verdict pierce); Godstorm Aegis is needed to cast the six Godstorm Mantle jutsu (Wall, Tempest, Bulwark, Heart 45, Raijin's Cage 50, Heavenbreaker Verdict pierce). Burst Heavy keeps a Burst route on the director pattern (RUL-2026-10-04-001/002): a percentage setup on the Hidden Art and a controlled +2 Damage payoff on the Advanced Art. Raijin's Cage shares the Storm element with Storm-God's Heart and potency is element-wide, so the payoff also takes Raijin's Cage 50 → 52. Black Sun Rising answers \"How do I hit harder: crack the target open for the heavy strike, or amplify every hit I land?\" (Total Eclipse / Storm-God Ascendant); Stormgod's Marrow answers \"How do I outlast them: refuse the blow, or drink it back?\" (Pillar of Heaven / Eater of Suns). Potency reaches matching supported tags on all Shadow and Storm jutsu (RUL-2026-10-03-005; multi-element, director review)."
   },
   "nodes": [
     {
@@ -74,34 +74,24 @@
           "tag": "increasedamagegiven",
           "flat": 2,
           "display_role": "SELF BUFF"
-        },
-        {
-          "tag": "increasedamagetaken",
-          "flat": 2,
-          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "The eclipse crowns the storm, and whatever it looks upon is laid bare.",
-      "coverage_note": "Increase Damage Given 35 → 37% on Wall, Tempest, Bulwark and Marrow Mantle (self, 2 rounds); Increase Damage Taken 35 → 37% on Gate (ally hazard), Wall and Storm-God's Heart (enemy, 2 rounds).",
+      "flavor": "The eclipse crowns the storm, and every stroke beneath it lands heavier.",
+      "coverage_note": "Increase Damage Given 35 → 37% on Wall, Tempest, Bulwark and Marrow Mantle (self, 2 rounds).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow + Storm",
       "scope": "all Shadow and Storm jutsu",
       "minimum_path_bp": 1,
       "coverage": {
         "jutsu": [
-          "Event Horizon Gate",
           "Godstorm Mantle: Sky-Splitting Wall",
-          "Godstorm Mantle: Storm-God's Heart",
           "Godstorm Mantle: Tempest",
           "Godstorm Mantle: Thunder-Crowned Bulwark",
           "Marrow Eclipse Mantle"
         ],
-        "effect_rows": 7,
-        "ally_hazard_rows": [
-          "Event Horizon Gate#1"
-        ],
-        "item_gated_rows": 7,
-        "rows_via_authored_classification": 6
+        "effect_rows": 4,
+        "item_gated_rows": 4,
+        "rows_via_authored_classification": 4
       }
     },
     {
@@ -115,12 +105,12 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 3,
+          "flat": 2,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "The first stroke of the sky's hammer does not kill. It cracks the shell for the next.",
-      "coverage_note": "Burst setup: exposure 37 → 40% with Black Sun Rising on Gate (ally hazard), Wall and Storm-God's Heart (enemy, 2 rounds); every hit the marked target takes, allies' included, is ×1.40 per live row instead of ×1.35.",
+      "coverage_note": "Burst setup for Total Eclipse: exposure 35 → 37% on Gate (ally hazard), Wall and Storm-God's Heart (enemy, 2 rounds); ×1.045 with all three live, under Shakunetsu Sakura's ×1.075.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow + Storm",
       "scope": "all Shadow and Storm jutsu",
@@ -155,7 +145,7 @@
         }
       ],
       "flavor": "For one breath the sun is gone, and the sky's hammer falls on what the dark laid bare.",
-      "coverage_note": "Burst payoff: +2 Damage on all five strikes, Raijin's Cage 50 → 52 (past the Nuke tier), Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm (ally hazard) 45 → 47, Obsidian Tomb 40 → 42; all 60 AP. With the route's 40% exposure, a Cage hit with Wall, Tempest, Bulwark and Heart live is ×1.17 over the base kit.",
+      "coverage_note": "Burst payoff: +2 Damage on all five strikes, Raijin's Cage 50 → 52 (past the Nuke tier), Storm-God's Heart, Black Sun Cataract and Corona Devourer Palm (ally hazard) 45 → 47, Obsidian Tomb 40 → 42; all 60 AP. With the route's 37% self buffs and exposure, a Cage hit is ×1.15 over the base kit (every window live).",
       "parent_rule": "ALL",
       "potency_classification": "Shadow + Storm",
       "scope": "all Shadow and Storm jutsu",
@@ -322,7 +312,7 @@
         }
       ],
       "flavor": "Immovable beneath the whole weight of the sky; what breaks against it only feeds it.",
-      "coverage_note": "Fortress: Gate or Bulwark Decrease Damage Taken 35 → 45% on the full route (×0.55 instead of ×0.65 on hits taken); Tempest Lifesteal 40 → 42%.",
+      "coverage_note": "Fortress: Gate or Bulwark Decrease Damage Taken 35 → 45% on the full route (×0.846 per live row; ×0.716 with both live, past Blood-Enchanted Eyes' ×0.747); Tempest Lifesteal 40 → 42%.",
       "parent_rule": "ALL",
       "potency_classification": "Shadow + Storm",
       "scope": "all Shadow and Storm jutsu",
@@ -414,7 +404,7 @@
         "03",
         "06"
       ],
-      "rationale": "Exposure 35 → 40% on Gate, Wall and Storm-God's Heart sets up +2 Damage on all five strikes (Raijin's Cage 52; Heart, Palm and Cataract 47; Tomb 42); self buffs 37%. Stormgod's Marrow is the fourth purchase (Decrease Damage Taken 37%), which on Eclipse Marrow lifts both of Gate's rows. Charged Firmament is the all-in alternative (self buffs 38%; a Cage hit with every Aegis window live ×1.19).",
+      "rationale": "Exposure 35 → 37% on Gate, Wall and Storm-God's Heart sets up +2 Damage on all five strikes (Raijin's Cage 52; Heart, Palm and Cataract 47; Tomb 42); self buffs 37%. Stormgod's Marrow is the fourth purchase (Decrease Damage Taken 37%), so on Eclipse Marrow the build lifts both of Gate's rows. Charged Firmament is the all-in alternative (self buffs 38%; a Cage hit ×1.19 with every window live).",
       "cost": 4,
       "advanced_arts": [
         "Total Eclipse"
@@ -422,7 +412,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       },
       "finals": [
@@ -456,8 +446,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -510,8 +500,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -672,8 +662,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -977,14 +967,14 @@
         "04",
         "05"
       ],
-      "rationale": "Increase Damage Given 35 → 40% on Wall, Tempest, Bulwark and Marrow Mantle; three live Aegis buffs give ×2.74 on every hit the caster lands, on any target. Hammer of the Heavens is the fourth purchase (exposure 40%, ×1.20 on the caster's Aegis hits); Stormgod's Marrow is the defensive alternative (×1.15, Decrease Damage Taken 37%).",
+      "rationale": "Increase Damage Given 35 → 40% on Wall, Tempest, Bulwark and Marrow Mantle (×1.157 with all four live); three live Aegis buffs give ×2.74 on every hit the caster lands, on any target. Hammer of the Heavens is the fourth purchase (exposure 37%; ×1.209, the tree's top package); Stormgod's Marrow is the defensive alternative (×1.157, Decrease Damage Taken 37%).",
       "cost": 4,
       "advanced_arts": [
         "Storm-God Ascendant"
       ],
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 2
       },
       "finals": [
         {
@@ -1017,8 +1007,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1071,8 +1061,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1233,8 +1223,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 5,
-          "final": 40.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1538,11 +1528,10 @@
         "07",
         "08"
       ],
-      "rationale": "Gate or Bulwark Decrease Damage Taken 35 → 45%, Tempest Lifesteal 42%; Black Sun Rising is the fourth purchase (self buffs and exposure 37%). Devouring Eclipse instead takes Lifesteal to 44%.",
+      "rationale": "Gate or Bulwark Decrease Damage Taken 35 → 45%, Tempest Lifesteal 42%; Black Sun Rising is the fourth purchase (self buffs 37%). Devouring Eclipse instead takes Lifesteal to 44%.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       },
@@ -1577,8 +1566,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1631,8 +1620,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1793,8 +1782,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2101,11 +2090,10 @@
         "09",
         "10"
       ],
-      "rationale": "Tempest Lifesteal 40 → 45% and Afterburn 35 → 38%, Decrease Damage Taken 37%, with Black Sun Rising as the fourth purchase (self buffs and exposure 37%); Obsidian Skin instead gives Decrease Damage Taken 40%.",
+      "rationale": "Tempest Lifesteal 40 → 45% and Afterburn 35 → 38%, Decrease Damage Taken 37%, with Black Sun Rising as the fourth purchase (self buffs 37%); Obsidian Skin instead gives Decrease Damage Taken 40%.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3,
         "lifesteal": 5
@@ -2141,8 +2129,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2195,8 +2183,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2357,8 +2345,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 0,
+          "final": 35.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -2659,21 +2647,21 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "Structure unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10). Black Sun Rising forks into burst (Hammer of the Heavens +3% Increase Damage Taken → Total Eclipse +2 Damage, the Blood-Enchanted Eyes pattern) and sustained self-amplification (Increase Damage Given 2 + 1 + 2); Stormgod's Marrow forks into a wall (Pillar of Heaven, Decrease Damage Taken 2 + 3 + 5 with a +2% Lifesteal rider) and a leech (Eater of Suns, Lifesteal 2 + 3 with a +3% Afterburn rider, both rows on Tempest).",
-    "Roster pass: the first pass deleted the pre-batch Burst route (Hammer of the Heavens → Total Eclipse, +5 Damage) and made Total Eclipse a +8% exposure capstone. The kit's Burst Heavy trait and RUL-2026-10-04-001/002 restore it as a +3% exposure setup with a controlled +2 Damage payoff (roster rule R1). Self-amplification falls from +7% to +5%, the three-compounding-row value of Musashi Ken, Blue Blade Eyes and Ethereal Monarch, and Eater of Suns trades its Increase Damage Given rider for Afterburn so that Storm-God Ascendant owns its tag.",
+    "Structure unchanged (01→02→03, 01→04→05, 06→07→08, 06→09→10). Black Sun Rising forks into burst (Hammer of the Heavens +2% Increase Damage Taken → Total Eclipse +2 Damage, the Blood-Enchanted Eyes / Shakunetsu Sakura pattern) and sustained self-amplification (Increase Damage Given 2 + 1 + 2); Stormgod's Marrow forks into a wall (Pillar of Heaven, Decrease Damage Taken 2 + 3 + 5 with a +2% Lifesteal rider) and a leech (Eater of Suns, Lifesteal 2 + 3 with a +3% Afterburn rider, both rows on Tempest).",
+    "Roster pass: the kit's Burst Heavy trait (dossier Traits) keeps the burst route on the RUL-2026-10-04-001/002 pattern, a percentage setup and a controlled +2 Damage payoff (R1′). Final cleanup (R14): Black Sun Rising drops its +2% Increase Damage Taken and Hammer of the Heavens goes +3% → +2%, so Storm-God Ascendant + Hammer of the Heavens falls from ×1.29 to ×1.209, under Blood-Enchanted Eyes' ×1.234. Self-amplification stays +5% on four rows (2 + 1 + 2), the three-or-more-row value; Eater of Suns carries Afterburn, not Increase Damage Given, so Storm-God Ascendant owns its tag.",
     "Damage: Total Eclipse is the only flat Damage. Raijin's Cage 50 → 52 (above_nuke_rationale), Storm-God's Heart, Corona Devourer Palm and Black Sun Cataract 45 → 47 (High, as Arashima's 45 → 47), Obsidian Tomb 40 → 42 (stays Normal). No Hidden Art carries Damage and no allocation adds more than +2 Damage.",
-    "Exposure versus self-amplification: Increase Damage Taken multiplies every hit the marked target takes, from any source, allies included; Increase Damage Given multiplies only the caster's hits, but on every target and every hit type. Exposure is now the burst setup at +5% (Blood-Enchanted Eyes' value), not a capstone of its own, so no Hidden Art twins another.",
-    "Afterburn rides Eater of Suns (+3%, Tempest 35 → 38%): Tempest carries the kit's only Lifesteal row and only Afterburn row, so the leech route takes both. Eater of Suns cannot reach Hammer of the Heavens within 4 BP; with Black Sun Rising it meets only +2% exposure.",
+    "Exposure versus self-amplification: Increase Damage Taken multiplies every hit the marked target takes, from any source, allies included; Increase Damage Given multiplies only the caster's hits, but on every target and every hit type. Exposure is only the burst setup, +2% on three rows (×1.045 with all three live, under Shakunetsu Sakura's ×1.075 and Blood-Enchanted Eyes' ×1.115), not a capstone of its own, so no Hidden Art twins another.",
+    "Afterburn rides Eater of Suns (+3%, Tempest 35 → 38%): Tempest carries the kit's only Lifesteal row and only Afterburn row, so the leech route takes both. Eater of Suns cannot reach Hammer of the Heavens within 4 BP; with Black Sun Rising it meets no exposure.",
     "Keystones are exclusive per battle (ENGINE_GAP_REGISTER G7). In-kit, Wall, Tempest, Bulwark, Heart and Raijin's Cage are castable only with Godstorm Aegis, and Gate, Marrow Mantle, Tomb, Palm and Cataract only with Eclipse Marrow. An Aegis player therefore has three own Increase Damage Given rows, two exposure rows, one Decrease Damage Taken row and two Damage rows to cast; an Eclipse Marrow player has one Increase Damage Given, one exposure, one Decrease Damage Taken and three Damage rows. Off-kit Shadow or Storm jutsu with these rows (unverified) would also benefit.",
-    "Maxima over every legal allocation: Increase Damage Given +5% (01+04+05), Increase Damage Taken +5% (01+02), Decrease Damage Taken +10%, Lifesteal +5%, Afterburn +3%, Damage +2.",
-    "Fourth purchases never add to a capstone's own primary. Aegis model (a Cage hit by the caster with Wall, Tempest, Bulwark and Heart live): Total Eclipse ×1.17 at 3 BP and ×1.19 with Charged Firmament; Storm-God Ascendant ×1.15 at 3 BP and ×1.20 with Hammer of the Heavens, against ×1.22 and ×1.23 in the first pass. Storm-God Ascendant leads on basic attacks and other non-strike hits; Total Eclipse leads on allies' hits on the target (×1.075 against ×1.03 at 3 BP) and on Eclipse Marrow (a Cataract hit ×1.10 against ×1.05). Eater of Suns with Black Sun Rising reaches ×1.10 with 45% Lifesteal, below Storm-God Ascendant with Stormgod's Marrow (×1.15). Pillar of Heaven + Devouring Eclipse caps Lifesteal at 44%.",
+    "Maxima over every legal allocation: Increase Damage Given +5% (01+04+05, ×1.157 on four rows), Increase Damage Taken +2% (02, ×1.045 on three rows), Decrease Damage Taken +10% (×0.716 on two rows), Lifesteal +5%, Afterburn +3%, Damage +2.",
+    "Fourth purchases never add to a capstone's own primary. Every window live: Total Eclipse ×1.108 at 3 BP plus Raijin's Cage 50 → 52 (a Cage hit ×1.15), ×1.19 with Charged Firmament (Blood-Enchanted Eyes' Rite route figure); Storm-God Ascendant ×1.157 at 3 BP and ×1.209 with Hammer of the Heavens, the tree's top package. Storm-God Ascendant leads on basic attacks and other non-strike hits; Total Eclipse leads on allies' hits on the target (×1.045 against ×1.00) and on Eclipse Marrow (a Cataract hit ×1.08 against ×1.04). Eater of Suns with Black Sun Rising reaches ×1.061 with 45% Lifesteal, below Storm-God Ascendant with Stormgod's Marrow (×1.157). Pillar of Heaven + Devouring Eclipse caps Lifesteal at 44%.",
     "Delivery: buff casts are 40 AP, Damage casts 60 AP, cooldowns 7. Decrease Damage Taken, Increase Damage Given and Lifesteal rows land on the caster at cast and are live the two rounds after; no buff or debuff helps a hit in its cast round (§3b). The bloodline Increase Damage Given passive multiplies last. Ranked modes skip skill-tree effects."
   ],
   "risks": [
     "Classification (multi-element, director review): Shadow and Storm both sit on the kit's Damage rows, so the proposal reaches matching supported tags on all Shadow and all Storm jutsu; one element, both or an extension is the director's call. Gate, Tempest, Wall, Bulwark and Marrow Mantle carry no Shadow or Storm row, so in-kit they qualify only through an authored jutsu classification (ENGINE_GAP_REGISTER G1); 11 of 16 supported rows are unreachable by the current row-element resolver. Total Eclipse's five Damage rows carry their element and do not depend on it. Off-kit coverage is unverified.",
-    "Ally hazard: Event Horizon Gate's exposure (friendly fire none = ALL) also lands on allies in its radius-1 circle, up to 40% with Hammer of the Heavens; the caster is never a target. Corona Devourer Palm's Damage row is a GROUND spiral of radius 4 around the caster (own tile excluded) and hits allies on its tiles, at 47 with Total Eclipse.",
-    "Keystone split: in-kit, an Eclipse Marrow player casts only Gate (exposure, Decrease Damage Taken), Marrow Mantle (self buff) and the three Shadow strikes among this tree's rows, so Storm-God Ascendant's and Pillar of Heaven's primaries each reach one row there (Marrow Mantle, Gate) and Total Eclipse's route reaches Gate's exposure plus three strikes. Eater of Suns' Lifesteal and Afterburn rows are both on Tempest, which needs Godstorm Aegis to cast; on Eclipse Marrow its route adds only Stormgod's Marrow's +2% Decrease Damage Taken on Gate in-kit, while off-kit Shadow or Storm jutsu with those rows (unverified) would still benefit. Whether a keystone can be swapped mid-battle was not read at the pin.",
-    "Compounding: same-tag rows stack (BATTLE_TAG_STACKING true). Three live Aegis self buffs give ×2.46 at 35%, ×2.57 at 37% (Black Sun Rising) and ×2.74 at 40% (Storm-God Ascendant's route) on a hit all three cover, and exposure multiplies on top (Wall and Heart at 40%: ×1.96 against ×1.82). Lifesteal shares the 60% leech budget with vamp and counts pierce hits (Heavenbreaker Verdict on the same keystone); Afterburn skips pierce. The route comparisons are a two-round multiplier model with every buff live, not a combat simulation; uptime, AP and AoE target counts were not modelled."
+    "Ally hazard: Event Horizon Gate's exposure (friendly fire none = ALL) also lands on allies in its radius-1 circle, up to 37% with Hammer of the Heavens; the caster is never a target. Corona Devourer Palm's Damage row is a GROUND spiral of radius 4 around the caster (own tile excluded) and hits allies on its tiles, at 47 with Total Eclipse.",
+    "Keystone split: in-kit, an Eclipse Marrow player casts only Gate (exposure, Decrease Damage Taken), Marrow Mantle (self buff) and the three Shadow strikes among this tree's rows, so Storm-God Ascendant's and Pillar of Heaven's primaries each reach one row there (Marrow Mantle, Gate) and Total Eclipse's route reaches Gate's exposure, Black Sun Rising's +2% Increase Damage Given on Marrow Mantle and three strikes. Eater of Suns' Lifesteal and Afterburn rows are both on Tempest, which needs Godstorm Aegis to cast; on Eclipse Marrow its route adds only Stormgod's Marrow's +2% Decrease Damage Taken on Gate in-kit, while off-kit Shadow or Storm jutsu with those rows (unverified) would still benefit. Whether a keystone can be swapped mid-battle was not read at the pin.",
+    "Compounding: same-tag rows stack (BATTLE_TAG_STACKING true). Three live Aegis self buffs give ×2.46 at 35%, ×2.57 at 37% (Black Sun Rising) and ×2.74 at 40% (Storm-God Ascendant's route) on a hit all three cover, and exposure multiplies on top (Wall and Heart at 37%: ×1.88 against ×1.82). Lifesteal shares the 60% leech budget with vamp and counts pierce hits (Heavenbreaker Verdict on the same keystone); Afterburn skips pierce. The route comparisons are a two-round multiplier model with every buff live, not a combat simulation; uptime, AP and AoE target counts were not modelled."
   ],
   "progression": {
     "currency": "Bloodright Point",
@@ -2716,7 +2704,7 @@
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 5,
-      "increasedamagetaken": 5,
+      "increasedamagetaken": 2,
       "decreasedamagetaken": 10,
       "afterburn": 3,
       "lifesteal": 5
@@ -2756,7 +2744,7 @@
       "maximum_over_all_legal_allocations": {
         "damage": 2,
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "afterburn": 3,
         "lifesteal": 5
@@ -2864,7 +2852,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 3,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 2
       }
     },
     {
@@ -2877,7 +2865,7 @@
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       }
     },
@@ -2890,7 +2878,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 2
       }
     },
     {
@@ -2902,7 +2890,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       }
     },
@@ -2915,7 +2903,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 5
       }
     },
@@ -2928,7 +2916,7 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 5,
+        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 2
       }
@@ -2942,7 +2930,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 5,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 2
       }
     },
@@ -2955,7 +2942,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 5
       }
     },
@@ -2968,7 +2954,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 3,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "lifesteal": 2
       }
@@ -2982,7 +2967,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 10,
         "lifesteal": 2
       }
@@ -2996,7 +2980,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 5,
         "lifesteal": 2
       }
@@ -3010,7 +2993,6 @@
       ],
       "bonuses": {
         "increasedamagegiven": 2,
-        "increasedamagetaken": 2,
         "decreasedamagetaken": 2,
         "afterburn": 3,
         "lifesteal": 5
@@ -3054,14 +3036,15 @@
       "08": "fortress (Lifesteal rider)",
       "10": "sustain offense: Tempest's leech and burn"
     },
-    "director_review": "Two items. (1) Total Eclipse's +2 Damage lifts Raijin's Cage 50 → 52, past the 50 Nuke tier, as the controlled payoff of Hammer of the Heavens' exposure setup on the Blood-Enchanted Eyes / Shakunetsu Sakura precedent (RUL-2026-10-04-001/002); confirm it for this kit, or keep Damage unamplified. (2) The Shadow + Storm multi-element classification (one element, both or an extension).",
+    "director_review": "Roster questions: DQ-A (Godstorm Mantle: Raijin's Cage 50 → 52); DQ-C (Pillar of Heaven +10% Decrease Damage Taken on two rows, ×0.716 with both live; the rows sit on different keystones, ×0.846 in-kit). Tree-specific: the Shadow + Storm multi-element classification (one element, both or an extension).",
     "concerns": [
       "Total Eclipse's +2 Damage cannot skip Raijin's Cage: potency is element-wide over Shadow and Storm, so the payoff that lifts the 45 and 40 strikes also takes the 50 Nuke strike to 52.",
-      "Offensive ceilings: Storm-God Ascendant + Hammer of the Heavens ×1.20 and Total Eclipse + Charged Firmament ×1.19 on a Cage hit with Wall, Tempest, Bulwark and Heart live, level with Blood-Enchanted Eyes' Feast of the Fallen + Opened Veins (×1.19 in the roster review model). As in Blood-Enchanted Eyes, the burst setup is the amplification route's obvious fourth. Not simulated.",
-      "Charged Firmament is a +1% Hidden Art (Musashi Ken's 2/1/2 shape): the +5% three-row ceiling leaves little to split once Black Sun Rising holds +2%.",
+      "Offensive ceilings (every window live): Storm-God Ascendant + Hammer of the Heavens ×1.209 is the top package, under Blood-Enchanted Eyes' Feast of the Fallen + Crimson Thirst + Opened Veins ×1.234; Total Eclipse + Charged Firmament ×1.141 plus Raijin's Cage 50 → 52 ≈ ×1.19, level with Blood-Enchanted Eyes' Rite of Exsanguination + Opened Veins + Iron in the Blood. As in Blood-Enchanted Eyes, the burst setup is the amplification route's obvious fourth. Not simulated.",
+      "Charged Firmament is a +1% Hidden Art (Musashi Ken's 2/1/2 shape, accepted under R3 for a four-row route): the +5% ceiling leaves little to split once Black Sun Rising holds +2%.",
       "Eater of Suns is the Tempest route: both of its rows are on Tempest, which in-kit needs Godstorm Aegis to cast, so on Eclipse Marrow its in-kit value is Stormgod's Marrow's Decrease Damage Taken on Gate.",
-      "Godstorm Eclipse leaves the roster's +8% two-row exposure group: its exposure is now the burst setup at +5%, Blood-Enchanted Eyes' value."
+      "Exposure is only Hammer of the Heavens' +2% setup (×1.045); the earlier 2 + 3 split with Black Sun Rising let Storm-God Ascendant + Hammer of the Heavens reach ×1.29.",
+      "Pillar of Heaven's +10% Decrease Damage Taken on Gate and Bulwark is ×0.716 with both live, past Blood-Enchanted Eyes' Deathless Vitality ×0.747 (DQ-C); Gate needs Eclipse Marrow and Bulwark Godstorm Aegis, one keystone equipped at a time, so in-kit one row is live (×0.846)."
     ]
   },
-  "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52): Total Eclipse's +2 Damage is the controlled payoff of Hammer of the Heavens' exposure setup on a Burst Heavy kit whose pre-batch Burst route took Raijin's Cage 50 → 55. It lifts Godstorm Mantle: Raijin's Cage 50 → 52, past the 50 Nuke tier; Storm-God's Heart, Corona Devourer Palm and Black Sun Cataract go 45 → 47 and Obsidian Tomb 40 → 42, with no tier crossing. Only builds holding Total Eclipse exceed 50, by at most +2. Pending director review."
+  "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact: the dossier Traits read Sustain / Burst Heavy / Tank, so the kit keeps a burst route: Hammer of the Heavens' +2% exposure setup and Total Eclipse's controlled +2 Damage payoff. Potency is element-wide over Shadow and Storm, so the payoff lifts Godstorm Mantle: Raijin's Cage 50 → 52, past the 50 Nuke tier; Storm-God's Heart, Corona Devourer Palm and Black Sun Cataract go 45 → 47 and Obsidian Tomb 40 → 42, with no tier crossing. Only builds holding Total Eclipse exceed 50, by at most +2. Pending director review (DQ-A)."
 }

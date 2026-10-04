@@ -17,11 +17,11 @@ Three casts, one supported row per tag. Demonic Embrace's Afterburn (35%) and In
 | Unyielding Husk | Advanced Art | fortress |
 | Primordial Rampage | Advanced Art | sustained amplification: every own hit on any target harder for 3 rounds |
 
-**Director review recommended:** Two items, no Damage-tier issue (Roar 45 → 47). (1) Exposure calibration: Howl of Annihilation's route lifts Demonic Embrace's single team-wide exposure row +7% (35 → 42%), above the anchors' printed +5% though below their compounded exposure leverage; it belongs with the roster-wide exposure question. (2) Exposure with Afterburn across routes (R1 departure): Rending Grip, Howl's exposure setup, is a legal fourth for Consuming Malice, and Festering Brand for Howl, so one 40 AP Embrace cast can carry exposure 39% with Afterburn 45% (≈ ×1.39 × 1.45 ≈ ×2.02 on every non-pierce hit the mark takes, allies' included) or 42% with 40% (≈ ×1.42 × 1.40 ≈ ×1.99). This is the exposure-with-Afterburn question listed for Bakuhatsu and Primal Radiance; Primal Radiance and Cosmic Ascendant avoided it with a self Increase Damage Given setup, but here every alternative setup twins a Hidden Art (concerns). Confirm the stack, or choose Primal Radiance's answer (a self Increase Damage Given setup, here twinning Boiling Ichor), which costs Demon's Grasp its Foundation sentence and pulls Howl toward Primordial Rampage.
+**Director review recommended:** Roster questions: DQ-B (Howl of Annihilation +7% Increase Damage Taken on one row, Demonic Embrace 35 → 42%, ×1.052).
 
 - Concern: Rending Grip (+2% exposure) and Festering Brand (+3% Afterburn) both raise what Embrace's target takes, so at the Hidden tier they read alike; they differ in mechanics (exposure also multiplies residual ticks and the hit Afterburn reads; Afterburn skips pierce and shares a 60% per-hit cap) and in the payoff each leads to.
 - Concern: Howl of Annihilation is the narrowest route in 1v1: its +2 lands on one 60 AP cast per 7 rounds and it trails Consuming Malice by ≈ 2.1% on every hit the mark takes. It leads Malice when several enemies stand in Roar's circle (+4.4% on each other enemy) and leads Primordial Rampage on allies' hits on the mark (≈ ×1.95 against ×1.88). Not simulated.
-- Concern: R1 departure, kept (director review): Rending Grip feeds Consuming Malice's mark and Festering Brand feeds Howl's, so one 40 AP Embrace cast reaches exposure 39% / Afterburn 45% (≈ ×2.02 on the mark, party-wide) or 42% / 40% (≈ ×1.99). No non-twin setup exists: the kit has one supported row per tag, the other three percentage tags each own a Hidden Art, and flat Damage belongs on the payoff. An Afterburn setup would twin Festering Brand and push Malice past +10%; a self Increase Damage Given setup would twin Boiling Ichor, put a host buff under the mark's Foundation and pull Howl toward Primordial Rampage's Vitae amplification; Decrease Damage Taken would twin Scarred Hide and sets up no burst; a flat Damage Hidden Art would put Roar at 47 without the capstone (R6). Neither stack is dominant: on the caster's hits Malice + Demon's Marrow ties Malice + Rending Grip (≈ ×1.37 × 1.37 × 1.45 ≈ ×2.72 against ×1.35 × 1.39 × 1.45 ≈ ×2.72), so Grip leads only on allies' hits (≈ ×2.02 against ×1.99) and gives up Vitae's +2% / +2%; Howl + Festering Brand likewise trades them for allies' hits on the mark (≈ ×1.99 against ×1.95).
+- Concern: Cross-route stack: Rending Grip is a legal fourth for Consuming Malice and Festering Brand for Howl, so one 40 AP Embrace cast reaches exposure 39% / Afterburn 45% (≈ ×2.02 on the mark, party-wide) or 42% / 40% (≈ ×1.99); with Malice held exposure stays at +4% (×1.030), inside the roster's ≤ +5% beside an Afterburn capstone. No non-twin setup exists: the kit has one supported row per tag, the other three percentage tags each own a Hidden Art, and flat Damage belongs on the payoff. An Afterburn setup would twin Festering Brand and push Malice past +10%; a self Increase Damage Given setup would twin Boiling Ichor, put a host buff under the mark's Foundation and pull Howl toward Primordial Rampage's Vitae amplification; Decrease Damage Taken would twin Scarred Hide and sets up no burst. Neither stack is dominant: on the caster's hits Malice + Demon's Marrow ties Malice + Rending Grip (≈ ×1.37 × 1.37 × 1.45 ≈ ×2.72 against ×1.35 × 1.39 × 1.45 ≈ ×2.72), so Grip leads only on allies' hits (≈ ×2.02 against ×1.99) and gives up Vitae's +2% / +2%; Howl + Festering Brand likewise trades them for allies' hits on the mark (≈ ×1.99 against ×1.95).
 - Concern: Classification extension ('Ancient Tailed Demon' jutsu classification) remains a director/engine decision.
 
 All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is bought once; forks only. Bonuses apply to matching supported tags on all Ancient Tailed Demon-classified jutsu (requires classification extension). Bonuses are static additions under the proposed element-wide classification; no row's combat scope, recipient or filters change. Bloodline id, equipment, injected-child provenance and jutsu names are not selectors. Baselines at jutsu level 25.
@@ -38,20 +38,20 @@ All nodes cost 1 BP; the budget is 4 BP acquired with silver; each skill is boug
 | 06 | Demon's Marrow | Foundation | None | +2% Increase Damage Given (self buff); +2% Decrease Damage Taken (self buff) | Demonic Vitae / 2 |
 | 07 | Scarred Hide | Hidden Art | Demon's Marrow | +3% Decrease Damage Taken (self buff) | Demonic Vitae / 1 |
 | 08 | Unyielding Husk | Advanced Art | Scarred Hide | +5% Decrease Damage Taken (self buff) | Demonic Vitae / 1 |
-| 09 | Boiling Ichor | Hidden Art | Demon's Marrow | +3% Increase Damage Given (self buff) | Demonic Vitae / 1 |
-| 10 | Primordial Rampage | Advanced Art | Boiling Ichor | +3% Increase Damage Given (self buff) | Demonic Vitae / 1 |
+| 09 | Boiling Ichor | Hidden Art | Demon's Marrow | +2% Increase Damage Given (self buff) | Demonic Vitae / 1 |
+| 10 | Primordial Rampage | Advanced Art | Boiling Ichor | +4% Increase Damage Given (self buff) | Demonic Vitae / 1 |
 
 Connections: 01→02, 02→03, 01→04, 04→05, 06→07, 07→08, 06→09, 09→10. Advanced Arts: 4; any two cost at least 5 BP including prerequisites (cap 4); maximum affordable Advanced Arts: 1.
 
 - **Demon's Grasp** — A claw closes around the prey, and what it touches begins to smoulder. Demonic Embrace only: Afterburn 35 → 37% and exposure 35 → 37% on one target for 2 rounds (40 AP, range 4, cooldown 7).
 - **Rending Grip** — The claw does not merely hold the prey; it tears it open for what comes next. Demonic Embrace exposure 39% with Demon's Grasp (one target, 2 rounds): the setup for an Ancient Demon Roar cast the round after.
-- **Howl of Annihilation** — One breath, and the field remembers why the ancients sealed it away. Exposure into burst: on the full route Demonic Embrace exposure 35 → 42% (+7%) and Ancient Demon Roar 45 → 47 EP on every enemy in its circle (High tier kept); the marked one takes ≈ ×1.42 × 1.37 ≈ ×1.95 from each instant non-pierce hit, allies' included.
+- **Howl of Annihilation** — One breath, and the field remembers why the ancients sealed it away. Exposure into burst: on the full route Demonic Embrace exposure 35 → 42% (+7% on one row, ×1.052 on the mark, under Shakunetsu Sakura's ×1.075) and Ancient Demon Roar 45 → 47 EP on every enemy in its circle (High tier kept).
 - **Festering Brand** — Flesh the demon marks does not stop burning when the claw lets go. Demonic Embrace Afterburn 40% with Demon's Grasp: for 2 rounds the marked target takes 40% extra from each instant non-pierce hit, allies' included.
 - **Consuming Malice** — Hatred older than the villages, poured into a single victim. Burn: on the full route Demonic Embrace Afterburn 35 → 45% (+10%, below the 60% per-hit cap) with exposure 37%, so each instant non-pierce hit on the target is worth ≈ ×1.37 × 1.45 ≈ ×1.99 (×1.82 unmodified), allies' included, for 2 rounds.
 - **Demon's Marrow** — The blood runs black and hot, and the host grows harder to kill. Demonic Vitae only (self, 40 AP, cooldown 7): Increase Damage Given 35 → 37% for 3 rounds, Decrease Damage Taken 25 → 27% for 2; neither touches pierce hits.
 - **Scarred Hide** — A thousand years of wounds, and every one of them closed over. Demonic Vitae Decrease Damage Taken 30% with Demon's Marrow, for 2 rounds (non-pierce hits of any stat type).
 - **Unyielding Husk** — What the host cannot dodge, the demon simply refuses to feel. Fortress: Decrease Damage Taken route total +10%, Demonic Vitae 25 → 35% for 2 rounds (damage taken ×0.75 → ×0.65). Pierce still passes through.
-- **Boiling Ichor** — Let a little more of it loose, and every strike carries the heat. Demonic Vitae Increase Damage Given 40% with Demon's Marrow, for 3 rounds, on all your non-pierce damage (jutsu, weapons, basics).
+- **Boiling Ichor** — Let a little more of it loose, and every strike carries the heat. Demonic Vitae Increase Damage Given 39% with Demon's Marrow, for 3 rounds, on all your non-pierce damage (jutsu, weapons, basics).
 - **Primordial Rampage** — The seal holds, barely. Everything within reach learns what that costs. Sustained amplification: Demonic Vitae Increase Damage Given 35 → 43% (route +8%) for 3 rounds on every non-pierce hit you land on any target (Roar 45 EP ≈ ×1.43 on its whole circle).
 
 ## Complete four-purchase examples
@@ -67,7 +67,7 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
 
 - **Howl of Annihilation:** Embrace one enemy and cast Vitae (80 AP), then Roar the round after: Roar lands at 47 EP on every enemy in its circle (≈ 47 × 1.37 ≈ 64 with Vitae 37%), and on the marked one exposure 42% with Afterburn 37% makes each instant non-pierce hit ≈ ×1.42 × 1.37 ≈ ×1.95 from anyone (Roar ≈ 47 × 1.37 × 1.95 ≈ 125). Festering Brand instead of Demon's Marrow is the all-Grasp fourth (Afterburn 40%, ≈ ×1.99 on the mark, no Vitae gain).
 - **Consuming Malice:** Embrace one enemy and cast Vitae in the same round (80 AP), then fight it for 2 rounds: Afterburn 45% with exposure 37% makes each instant non-pierce hit it takes worth ≈ ×1.37 × 1.45 ≈ ×1.99 from anyone, and the caster's own hits carry Vitae 37% on top (≈ ×2.72). Roar stays at 45 EP. Rending Grip instead of Demon's Marrow lifts exposure to 39% (≈ ×2.02 on the mark) with no Vitae gain.
-- **Unyielding Husk:** Demonic Vitae's Decrease Damage Taken reaches 35% for 2 rounds (the +10% route; damage taken ×0.75 → ×0.65) with Increase Damage Given 37%. Demon's Grasp is the fourth purchase (Embrace 37% / 37%); Boiling Ichor instead gives Vitae Increase Damage Given 40%. Roar stays at 45 EP.
+- **Unyielding Husk:** Demonic Vitae's Decrease Damage Taken reaches 35% for 2 rounds (the +10% route; damage taken ×0.75 → ×0.65) with Increase Damage Given 37%. Demon's Grasp is the fourth purchase (Embrace 37% / 37%); Boiling Ichor instead gives Vitae Increase Damage Given 39%. Roar stays at 45 EP.
 - **Primordial Rampage:** Demonic Vitae's Increase Damage Given reaches 43% for the 3 rounds after each cast on every non-pierce hit the caster lands on any target: Roar at 45 EP becomes ≈ 45 × 1.43 ≈ 64 on every enemy in its circle (level with Howl's 47 × 1.37), and the Embrace target takes ≈ ×1.43 × 1.37 × 1.37 ≈ ×2.68 from the caster. Demon's Grasp adds Embrace 37% / 37%; Scarred Hide (Vitae Decrease Damage Taken 30%) is the all-Vitae alternative.
 
 ## Before/after effect rows
@@ -90,7 +90,7 @@ Abbreviations: DMG = Damage · IDG = Increase Damage Given · IDT = Increase Dam
   - Route Howl of Annihilation: +7% Increase Damage Taken (2 + 2 + 3; off band)
   - Route Consuming Malice: +10% Afterburn (2 + 3 + 5; on band)
   - Route Unyielding Husk: +10% Decrease Damage Taken (2 + 3 + 5; on band)
-  - Route Primordial Rampage: +8% Increase Damage Given (2 + 3 + 3; off band)
+  - Route Primordial Rampage: +8% Increase Damage Given (2 + 2 + 4; off band)
 - Supported rows in kit: 5 (AB 1, DMG 1, DDT 1, IDG 1, IDT 1)
 - Strongest full build by row-weighted total: Demon's Grasp, Festering Brand, Consuming Malice, Demon's Marrow (raw +16, row-weighted 16)
 - Lowest row-weighted node: Rending Grip (2)
@@ -118,7 +118,7 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | Consuming Malice | +2% IDT, +10% AB | Rending Grip | +4% IDT, +10% AB | 14 |
 | Consuming Malice | +2% IDT, +10% AB | Demon's Marrow *(highest diagnostic)* | +2% IDG, +2% IDT, +2% DDT, +10% AB | 16 |
 | Unyielding Husk | +2% IDG, +10% DDT | Demon's Grasp *(highest diagnostic)* | +2% IDG, +2% IDT, +10% DDT, +2% AB | 16 |
-| Unyielding Husk | +2% IDG, +10% DDT | Boiling Ichor | +5% IDG, +10% DDT | 15 |
+| Unyielding Husk | +2% IDG, +10% DDT | Boiling Ichor | +4% IDG, +10% DDT | 14 |
 | Primordial Rampage | +8% IDG, +2% DDT | Demon's Grasp *(highest diagnostic)* | +8% IDG, +2% IDT, +2% DDT, +2% AB | 14 |
 | Primordial Rampage | +8% IDG, +2% DDT | Scarred Hide | +8% IDG, +5% DDT | 13 |
 
@@ -131,14 +131,14 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 | 3 | Demon's Grasp, Rending Grip, Festering Brand, Consuming Malice | +4% IDT, +10% AB |
 | 4 | Demon's Grasp, Rending Grip, Festering Brand, Demon's Marrow | +2% IDG, +4% IDT, +2% DDT, +5% AB |
 | 5 | Demon's Grasp, Rending Grip, Demon's Marrow, Scarred Hide | +2% IDG, +4% IDT, +5% DDT, +2% AB |
-| 6 | Demon's Grasp, Rending Grip, Demon's Marrow, Boiling Ichor | +5% IDG, +4% IDT, +2% DDT, +2% AB |
+| 6 | Demon's Grasp, Rending Grip, Demon's Marrow, Boiling Ichor | +4% IDG, +4% IDT, +2% DDT, +2% AB |
 | 7 | Demon's Grasp, Festering Brand, Consuming Malice, Demon's Marrow | +2% IDG, +2% IDT, +2% DDT, +10% AB |
 | 8 | Demon's Grasp, Festering Brand, Demon's Marrow, Scarred Hide | +2% IDG, +2% IDT, +5% DDT, +5% AB |
-| 9 | Demon's Grasp, Festering Brand, Demon's Marrow, Boiling Ichor | +5% IDG, +2% IDT, +2% DDT, +5% AB |
+| 9 | Demon's Grasp, Festering Brand, Demon's Marrow, Boiling Ichor | +4% IDG, +2% IDT, +2% DDT, +5% AB |
 | 10 | Demon's Grasp, Demon's Marrow, Scarred Hide, Unyielding Husk | +2% IDG, +2% IDT, +10% DDT, +2% AB |
-| 11 | Demon's Grasp, Demon's Marrow, Scarred Hide, Boiling Ichor | +5% IDG, +2% IDT, +5% DDT, +2% AB |
+| 11 | Demon's Grasp, Demon's Marrow, Scarred Hide, Boiling Ichor | +4% IDG, +2% IDT, +5% DDT, +2% AB |
 | 12 | Demon's Grasp, Demon's Marrow, Boiling Ichor, Primordial Rampage | +8% IDG, +2% IDT, +2% DDT, +2% AB |
-| 13 | Demon's Marrow, Scarred Hide, Unyielding Husk, Boiling Ichor | +5% IDG, +10% DDT |
+| 13 | Demon's Marrow, Scarred Hide, Unyielding Husk, Boiling Ichor | +4% IDG, +10% DDT |
 | 14 | Demon's Marrow, Scarred Hide, Boiling Ichor, Primordial Rampage | +8% IDG, +5% DDT |
 
 ## Design notes
@@ -146,12 +146,12 @@ Each Advanced Art's three-purchase path and every legal fourth purchase. *Highes
 - Structure (2/4/4, the pre-batch shape): Demon's Grasp raises both Demonic Embrace debuffs and forks into exposure into burst (Rending Grip → Howl of Annihilation) or a burn (Festering Brand → Consuming Malice); Demon's Marrow raises both Demonic Vitae buffs and forks into fortress (Scarred Hide → Unyielding Husk) or sustained amplification (Boiling Ichor → Primordial Rampage). Each Hidden Art leans on a different tag, and no node is in every legal 4-BP build.
 - Roster pass: the first pass cut Draft 4's Roar route (Rending Bellow +2 Damage → Howl of Annihilation +3 Damage, +2% exposure) and hung Roar's +2 on Primordial Rampage. That route was a Roar burst, not a marked-prey twin, and a +2 payoff on a 45 row does not reach the Nuke tier (Arashima's Sundered Sky carries +2 on 45 rows). It is restored with the director pattern: a percentage setup at the Hidden Art (Rending Grip, exposure) and the only flat Damage on the Advanced Art (+2, 45 → 47). Primordial Rampage is back to Increase Damage Given alone.
 - Damage: Draft 4 lifted Ancient Demon Roar 45 → 50 (semi-nuke to nuke). Now the only flat Damage is Howl of Annihilation's +2 (45 → 47, High tier kept), the roster default for a High row; no Hidden Art carries flat Damage.
-- Embrace split: exposure belongs to Howl's route (+7%, 35 → 42%) and Afterburn to Malice's (+10%, 35 → 45%), and neither capstone carries the other's tag. A capstone plus the sibling Hidden Art reaches at most exposure 39% / Afterburn 45% (≈ ×1.39 × 1.45 ≈ ×2.02 on the mark) or exposure 42% / Afterburn 40% (≈ ×1.42 × 1.40 ≈ ×1.99), both below the first pass's Malice package (40% / 45%, ≈ ×2.03) and kept as an R1 departure (concerns, director review). Afterburn reads each hit after the damage modifiers, so the two compound; it is not damage over time and caps at 60% of a hit.
+- Embrace split: exposure belongs to Howl's route (+7%, 35 → 42%) and Afterburn to Malice's (+10%, 35 → 45%), and neither capstone carries the other's tag. A capstone plus the sibling Hidden Art reaches at most exposure 39% / Afterburn 45% (≈ ×1.39 × 1.45 ≈ ×2.02 on the mark) or exposure 42% / Afterburn 40% (≈ ×1.42 × 1.40 ≈ ×1.99), both below the first pass's Malice package (40% / 45%, ≈ ×2.03); with Malice held, exposure stays at +4% (×1.030), inside the roster's ≤ +5% beside an Afterburn capstone (concerns). Afterburn reads each hit after the damage modifiers, so the two compound; it is not damage over time and caps at 60% of a hit.
 - Narrow coverage: Roar's +2 is one row on one 60 AP cast per 7 rounds (+4.4% on that cast), so Howl carries an identity-compatible secondary (exposure on the target the Roar is aimed at) rather than more Damage. Exposure +7% on one row is ≈ ×1.05 on the mark, below the anchors' compounded exposure (Shakunetsu +5% on two rows ≈ ×1.075, Blood-Enchanted Eyes +5% on three ≈ ×1.115).
-- Pricing by reach: Vitae's Increase Damage Given multiplies every hit the caster lands on every target for 3 rounds, so Primordial Rampage stays at +8% (43%), not +10%.
+- Pricing by reach: Vitae's Increase Damage Given multiplies every hit the caster lands on every target for 3 rounds, so Primordial Rampage stays at +8% (43%, ×1.059), not +10%. Its steps are 2/2/4, so the capstone's +4% outweighs Boiling Ichor's +2%.
 - Fourth-BP comparisons (arithmetic only): Howl + Marrow against Rampage + Grasp puts Roar level on the rest of the circle (47 × 1.37 ≈ 64.4 against 45 × 1.43 ≈ 64.4); Howl leads on allies' hits on the mark (≈ ×1.95 against ×1.88) and on Roar on the mark (≈ 125 against 121), Rampage on the caster's hits against everyone else (+4.4%), slightly on its non-Roar hits on the mark (+0.7%) and in Vitae's third round. Malice + Marrow against Howl + Marrow: Malice +2.1% on every hit the mark takes; Howl's Roar +4.4% on every other enemy in its circle and ≈ +2.3% on the marked one.
-- No cross-riders: each Vitae capstone carries only its own route's tag. Capstone plus sibling Hidden Art: 06,07,08,09 gives Increase Damage Given 40% / Decrease Damage Taken 35%; 06,07,09,10 gives 43% / 30%.
-- Maxima over every legal allocation: Damage +2, Increase Damage Given +8%, Increase Damage Taken +7%, Decrease Damage Taken +10%, Afterburn +10%.
+- No cross-riders: each Vitae capstone carries only its own route's tag. Capstone plus sibling Hidden Art: 06,07,08,09 gives Increase Damage Given 39% / Decrease Damage Taken 35%; 06,07,09,10 gives 43% / 30%.
+- Maxima over every legal allocation: Damage +2, Increase Damage Given +8%, Increase Damage Taken +7%, Decrease Damage Taken +10%, Afterburn +10%. Top offensive package: Primordial Rampage with Demon's Grasp, ×1.059 × 1.015 ≈ ×1.075, under Blood-Enchanted Eyes' ×1.234.
 - Delivery: all three jutsu have cooldown 7 and no row acts in its own cast round (§3b). Embrace (one target, 40 AP) and Vitae (self, 40 AP) go a round before Roar (60 AP AoE circle) to touch it; Vitae's Increase Damage Given (3 rounds) raises Roar on every enemy in the circle, Embrace's debuffs only on the marked one.
 
 ## Risks and unproven interactions

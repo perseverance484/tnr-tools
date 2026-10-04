@@ -12,8 +12,8 @@
   "revision": "Fable proposal — 2026-10-04 batch rebalance / Metal classification / forked tree",
   "structure_errors": [],
   "warnings": [
-    "Damage above the 50 Nuke tier in a legal allocation (director review): Phantom Slash 50 -> 52",
-    "ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#0, Equilibrium Guard Strike#1, Vacuum Fan#2"
+    "ally-hazard area rows amplified (friendly fire none/ALL): Equilibrium Guard Strike#1, Vacuum Fan#2",
+    "supported tags present in kit but not targeted by any node: damage"
   ],
   "classification": {
     "potency_classification": "Metal",
@@ -43,7 +43,7 @@
   "examples": [
     {
       "name": "One Cut Decides",
-      "archetype": "Burst",
+      "archetype": "Sustained amplification",
       "ids": [
         "06",
         "07",
@@ -52,8 +52,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 5,
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
         "decreasedamagetaken": 2
@@ -73,7 +72,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 2,
         "increasedamagetaken": 4,
         "afterburn": 10
       },
@@ -94,7 +93,7 @@
       "bonuses": {
         "decreasedamagegiven": 2,
         "increasedamagetaken": 2,
-        "decreasedamagetaken": 8
+        "decreasedamagetaken": 5
       },
       "advanced_arts": [
         "Hammer and Anvil"
@@ -112,7 +111,7 @@
       "cost": 4,
       "bonuses": {
         "decreasedamagegiven": 2,
-        "decreasedamagetaken": 5,
+        "decreasedamagetaken": 3,
         "reflect": 10
       },
       "advanced_arts": [
@@ -143,11 +142,10 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 2,
-      "increasedamagegiven": 3,
+      "increasedamagegiven": 5,
       "decreasedamagegiven": 2,
       "increasedamagetaken": 4,
-      "decreasedamagetaken": 8,
+      "decreasedamagetaken": 5,
       "afterburn": 10,
       "reflect": 10
     },
@@ -163,14 +161,15 @@
     },
     "tags_targeted_by_tree": [
       "afterburn",
-      "damage",
       "decreasedamagegiven",
       "decreasedamagetaken",
       "increasedamagegiven",
       "increasedamagetaken",
       "reflect"
     ],
-    "supported_tags_in_kit_not_targeted": [],
+    "supported_tags_in_kit_not_targeted": [
+      "damage"
+    ],
     "node_values": [
       {
         "id": "01",
@@ -195,8 +194,8 @@
         "name": "Folded Steel",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 1,
+        "row_weighted_total": 3,
         "covered_jutsu": [
           "Inner Peace",
           "Middle Guard Stance",
@@ -211,8 +210,8 @@
         "name": "Hammer and Anvil",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Inner Peace",
           "Middle Guard Stance",
@@ -271,8 +270,8 @@
         "name": "Honed Edge",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 9,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Inner Peace",
           "Middle Guard Stance"
@@ -286,18 +285,13 @@
         "name": "One Cut Decides",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 14,
+        "raw_flat_total": 3,
+        "row_weighted_total": 9,
         "covered_jutsu": [
-          "Crimson Thrust",
-          "Enduring Resonance Ward",
-          "Equilibrium Guard Strike",
-          "Harmonious Slash",
-          "Phantom Slash",
-          "Pivoting Fortress",
-          "Tranquil Guard Flowing Form"
+          "Inner Peace",
+          "Middle Guard Stance"
         ],
-        "covered_rows": 7,
+        "covered_rows": 3,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -337,34 +331,35 @@
       "ids": [
         "01",
         "06",
-        "07",
-        "08"
+        "09",
+        "10"
       ],
       "bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2,
-        "decreasedamagetaken": 2
+        "increasedamagetaken": 4,
+        "decreasedamagetaken": 2,
+        "afterburn": 10
       },
-      "raw_flat_total": 11,
-      "row_weighted_total": 39,
+      "raw_flat_total": 18,
+      "row_weighted_total": 32,
       "advanced_arts": [
-        "08"
+        "10"
       ],
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "04",
-      "name": "Resonant Parry",
+      "id": "02",
+      "name": "Folded Steel",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 3,
+      "raw_flat_total": 1,
       "row_weighted_total": 3,
       "covered_jutsu": [
-        "Harmonious Slash"
+        "Inner Peace",
+        "Middle Guard Stance",
+        "Pivoting Fortress"
       ],
-      "covered_rows": 1,
+      "covered_rows": 3,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
@@ -378,11 +373,11 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 2,
-          "decreasedamagetaken": 8,
+          "decreasedamagetaken": 5,
           "reflect": 3
         },
-        "raw_flat_total": 13,
-        "row_weighted_total": 31,
+        "raw_flat_total": 10,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "03"
         ],
@@ -398,10 +393,10 @@
         "bonuses": {
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 8
+          "decreasedamagetaken": 5
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 34,
+        "raw_flat_total": 9,
+        "row_weighted_total": 25,
         "advanced_arts": [
           "03"
         ],
@@ -416,11 +411,11 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 2,
-          "decreasedamagetaken": 5,
+          "decreasedamagetaken": 3,
           "reflect": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 29,
+        "raw_flat_total": 15,
+        "row_weighted_total": 23,
         "advanced_arts": [
           "05"
         ],
@@ -436,11 +431,11 @@
         "bonuses": {
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
+          "decreasedamagetaken": 3,
           "reflect": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "raw_flat_total": 10,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -452,13 +447,13 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5
+          "decreasedamagetaken": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 34,
+        "raw_flat_total": 9,
+        "row_weighted_total": 25,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -472,11 +467,11 @@
         "bonuses": {
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
-          "decreasedamagetaken": 5,
+          "decreasedamagetaken": 3,
           "afterburn": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "raw_flat_total": 10,
+        "row_weighted_total": 22,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -508,14 +503,14 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "reflect": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "raw_flat_total": 11,
+        "row_weighted_total": 25,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -546,14 +541,13 @@
           "08"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 5,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2
         },
         "raw_flat_total": 11,
-        "row_weighted_total": 39,
+        "row_weighted_total": 31,
         "advanced_arts": [
           "08"
         ],
@@ -567,14 +561,14 @@
           "09"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
           "increasedamagetaken": 2,
           "decreasedamagetaken": 2,
           "afterburn": 3
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 28,
+        "raw_flat_total": 11,
+        "row_weighted_total": 25,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -606,13 +600,12 @@
           "09"
         ],
         "bonuses": {
-          "damage": 2,
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 5,
           "increasedamagetaken": 2,
           "afterburn": 3
         },
         "raw_flat_total": 10,
-        "row_weighted_total": 32,
+        "row_weighted_total": 24,
         "advanced_arts": [
           "08"
         ],
@@ -626,12 +619,12 @@
           "10"
         ],
         "bonuses": {
-          "increasedamagegiven": 3,
+          "increasedamagegiven": 2,
           "increasedamagetaken": 4,
           "afterburn": 10
         },
-        "raw_flat_total": 17,
-        "row_weighted_total": 31,
+        "raw_flat_total": 16,
+        "row_weighted_total": 28,
         "advanced_arts": [
           "10"
         ],
@@ -813,9 +806,7 @@
     }
   },
   "damage_thresholds": {
-    "damage_totals_reachable": [
-      2
-    ],
+    "damage_totals_reachable": [],
     "rows": [
       {
         "jutsu": "Tranquil Guard Flowing Form",
@@ -826,22 +817,7 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Enduring Resonance Ward",
@@ -852,22 +828,7 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Pivoting Fortress",
@@ -878,22 +839,7 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Phantom Slash",
@@ -904,22 +850,7 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 52.0,
-            "tier_before": "Nuke",
-            "tier_after": "above Nuke",
-            "tier_change": true,
-            "above_nuke": true,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Crimson Thrust",
@@ -930,22 +861,7 @@
           "Metal"
         ],
         "method": "AOE_CIRCLE_SPAWN",
-        "steps": [
-          {
-            "added": 2,
-            "final": 42.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Equilibrium Guard Strike",
@@ -956,22 +872,7 @@
           "Metal"
         ],
         "method": "AOE_LINE_SHOOT",
-        "steps": [
-          {
-            "added": 2,
-            "final": 47.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       },
       {
         "jutsu": "Harmonious Slash",
@@ -982,40 +883,11 @@
           "Metal"
         ],
         "method": "SINGLE",
-        "steps": [
-          {
-            "added": 2,
-            "final": 47.0,
-            "tier_before": "High",
-            "tier_after": "High",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 3,
-            "smallest_allocation": [
-              "06",
-              "07",
-              "08"
-            ]
-          }
-        ]
+        "steps": []
       }
     ],
-    "tier_crossings": [
-      [
-        "Phantom Slash",
-        0,
-        2
-      ]
-    ],
-    "above_nuke": [
-      {
-        "jutsu": "Phantom Slash",
-        "row": 0,
-        "base": 50.0,
-        "added": 2,
-        "final": 52.0
-      }
-    ]
+    "tier_crossings": [],
+    "above_nuke": []
   },
   "fourth_bp": [
     {
@@ -1028,9 +900,9 @@
       ],
       "path_bonuses": {
         "decreasedamagegiven": 2,
-        "decreasedamagetaken": 8
+        "decreasedamagetaken": 5
       },
-      "path_row_weighted": 28,
+      "path_row_weighted": 19,
       "fourths": [
         {
           "id": "04",
@@ -1041,11 +913,11 @@
           },
           "bonuses": {
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 8,
+            "decreasedamagetaken": 5,
             "reflect": 3
           },
-          "raw_total": 13,
-          "row_weighted": 31
+          "raw_total": 10,
+          "row_weighted": 22
         },
         {
           "id": "06",
@@ -1057,10 +929,10 @@
           "bonuses": {
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
-            "decreasedamagetaken": 8
+            "decreasedamagetaken": 5
           },
-          "raw_total": 12,
-          "row_weighted": 34
+          "raw_total": 9,
+          "row_weighted": 25
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -1085,15 +957,15 @@
           "name": "Folded Steel",
           "category": "Hidden Art",
           "adds": {
-            "decreasedamagetaken": 3
+            "decreasedamagetaken": 1
           },
           "bonuses": {
             "decreasedamagegiven": 2,
-            "decreasedamagetaken": 5,
+            "decreasedamagetaken": 3,
             "reflect": 10
           },
-          "raw_total": 17,
-          "row_weighted": 29
+          "raw_total": 15,
+          "row_weighted": 23
         },
         {
           "id": "06",
@@ -1112,7 +984,7 @@
           "row_weighted": 26
         }
       ],
-      "highest_diagnostic_fourth": "02"
+      "highest_diagnostic_fourth": "06"
     },
     {
       "advanced_art": "08",
@@ -1123,11 +995,10 @@
         "08"
       ],
       "path_bonuses": {
-        "damage": 2,
-        "increasedamagegiven": 3,
+        "increasedamagegiven": 5,
         "increasedamagetaken": 2
       },
-      "path_row_weighted": 29,
+      "path_row_weighted": 21,
       "fourths": [
         {
           "id": "01",
@@ -1138,14 +1009,13 @@
             "decreasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 5,
             "decreasedamagegiven": 2,
             "increasedamagetaken": 2,
             "decreasedamagetaken": 2
           },
           "raw_total": 11,
-          "row_weighted": 39
+          "row_weighted": 31
         },
         {
           "id": "09",
@@ -1155,13 +1025,12 @@
             "afterburn": 3
           },
           "bonuses": {
-            "damage": 2,
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 5,
             "increasedamagetaken": 2,
             "afterburn": 3
           },
           "raw_total": 10,
-          "row_weighted": 32
+          "row_weighted": 24
         }
       ],
       "highest_diagnostic_fourth": "01"
@@ -1202,15 +1071,15 @@
           "name": "Honed Edge",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagegiven": 3
+            "increasedamagegiven": 2
           },
           "bonuses": {
-            "increasedamagegiven": 3,
+            "increasedamagegiven": 2,
             "increasedamagetaken": 4,
             "afterburn": 10
           },
-          "raw_total": 17,
-          "row_weighted": 31
+          "raw_total": 16,
+          "row_weighted": 28
         }
       ],
       "highest_diagnostic_fourth": "01"
