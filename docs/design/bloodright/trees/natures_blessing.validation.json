@@ -44,7 +44,7 @@
   "examples": [
     {
       "name": "Old Growth's Wrath",
-      "archetype": "Burst",
+      "archetype": "Steady edge",
       "ids": [
         "01",
         "02",
@@ -54,7 +54,7 @@
       "cost": 4,
       "bonuses": {
         "damage": 2,
-        "increasedamagetaken": 5
+        "increasedamagetaken": 4
       },
       "advanced_arts": [
         "Old Growth's Wrath"
@@ -191,8 +191,8 @@
         "name": "Stripped Bark",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Nature's Fury"
         ],
@@ -205,8 +205,8 @@
         "name": "Blight and Harvest",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 3,
+        "raw_flat_total": 4,
+        "row_weighted_total": 4,
         "covered_jutsu": [
           "Nature's Fury"
         ],
@@ -300,10 +300,10 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagetaken": 5
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 9,
+        "raw_flat_total": 6,
+        "row_weighted_total": 8,
         "advanced_arts": [
           "03"
         ],
@@ -356,12 +356,12 @@
         ],
         "bonuses": {
           "damage": 1,
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "increaseheal": 2,
           "heal": 2
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 11,
+        "raw_flat_total": 9,
+        "row_weighted_total": 10,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -410,12 +410,12 @@
           "07"
         ],
         "bonuses": {
-          "increasedamagetaken": 5,
+          "increasedamagetaken": 4,
           "increaseheal": 5,
           "heal": 2
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 12,
+        "raw_flat_total": 11,
+        "row_weighted_total": 11,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -666,14 +666,14 @@
           "name": "Stripped Bark",
           "category": "Hidden Art",
           "adds": {
-            "increasedamagetaken": 3
+            "increasedamagetaken": 2
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagetaken": 5
+            "increasedamagetaken": 4
           },
-          "raw_total": 7,
-          "row_weighted": 9
+          "raw_total": 6,
+          "row_weighted": 8
         },
         {
           "id": "06",

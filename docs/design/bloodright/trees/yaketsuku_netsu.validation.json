@@ -43,7 +43,7 @@
   "examples": [
     {
       "name": "Blade That Never Cools",
-      "archetype": "Burst",
+      "archetype": "Steady edge",
       "ids": [
         "01",
         "02",
@@ -52,7 +52,7 @@
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 5
       },
       "advanced_arts": [
@@ -119,7 +119,7 @@
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
-      "damage": 3,
+      "damage": 2,
       "increasedamagegiven": 10,
       "increasedamagetaken": 10
     },
@@ -170,8 +170,8 @@
         "name": "Blade That Never Cools",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 2,
-        "row_weighted_total": 4,
+        "raw_flat_total": 1,
+        "row_weighted_total": 2,
         "covered_jutsu": [
           "Forbidden Chakra Fury",
           "Forgotten Ember Blade"
@@ -292,11 +292,11 @@
           "04"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 5
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 11,
+        "raw_flat_total": 7,
+        "row_weighted_total": 9,
         "advanced_arts": [
           "03"
         ],
@@ -310,12 +310,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 3,
+          "damage": 2,
           "increasedamagegiven": 2,
           "increasedamagetaken": 2
         },
-        "raw_flat_total": 7,
-        "row_weighted_total": 10,
+        "raw_flat_total": 6,
+        "row_weighted_total": 8,
         "advanced_arts": [
           "03"
         ],
@@ -548,7 +548,7 @@
   "damage_thresholds": {
     "damage_totals_reachable": [
       1,
-      3
+      2
     ],
     "rows": [
       {
@@ -575,8 +575,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 43.0,
+            "added": 2,
+            "final": 42.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -614,8 +614,8 @@
             ]
           },
           {
-            "added": 3,
-            "final": 43.0,
+            "added": 2,
+            "final": 42.0,
             "tier_before": "Normal",
             "tier_after": "Normal",
             "tier_change": false,
@@ -643,10 +643,10 @@
         "03"
       ],
       "path_bonuses": {
-        "damage": 3,
+        "damage": 2,
         "increasedamagegiven": 2
       },
-      "path_row_weighted": 8,
+      "path_row_weighted": 6,
       "fourths": [
         {
           "id": "04",
@@ -656,11 +656,11 @@
             "increasedamagegiven": 3
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagegiven": 5
           },
-          "raw_total": 8,
-          "row_weighted": 11
+          "raw_total": 7,
+          "row_weighted": 9
         },
         {
           "id": "06",
@@ -670,12 +670,12 @@
             "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 3,
+            "damage": 2,
             "increasedamagegiven": 2,
             "increasedamagetaken": 2
           },
-          "raw_total": 7,
-          "row_weighted": 10
+          "raw_total": 6,
+          "row_weighted": 8
         }
       ],
       "highest_diagnostic_fourth": "04"
