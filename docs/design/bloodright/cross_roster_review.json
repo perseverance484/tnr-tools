@@ -1476,6 +1476,56 @@
       "non_dominated": false
     },
     {
+      "bloodline": "Tenohira Musei",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "names": [
+        "Waxing Crescent",
+        "Unspoken Blow",
+        "Held Breath",
+        "Tipping the Balance"
+      ],
+      "raw": 12,
+      "row_weighted": 22,
+      "per_row": 2.75,
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2
+      },
+      "non_dominated": false
+    },
+    {
+      "bloodline": "Tenohira Musei",
+      "reference": false,
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "names": [
+        "Waxing Crescent",
+        "Unspoken Blow",
+        "Waning Crescent",
+        "Bared to the Moon"
+      ],
+      "raw": 10,
+      "row_weighted": 18,
+      "per_row": 2.25,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 6
+      },
+      "non_dominated": false
+    },
+    {
       "bloodline": "Terra Nova",
       "reference": false,
       "ids": [
@@ -1647,17 +1697,6 @@
       "covered_rows": 2
     },
     {
-      "bloodline": "Tenohira Musei",
-      "reference": false,
-      "id": "03",
-      "name": "Deafening Silence",
-      "category": "Advanced Art",
-      "depth": 3,
-      "raw_flat_total": 1,
-      "row_weighted_total": 3,
-      "covered_rows": 3
-    },
-    {
       "bloodline": "Night Parade of A Thousand Demons",
       "reference": false,
       "id": "08",
@@ -1750,6 +1789,17 @@
       "reference": false,
       "id": "08",
       "name": "Undying Hunger",
+      "category": "Advanced Art",
+      "depth": 3,
+      "raw_flat_total": 4,
+      "row_weighted_total": 4,
+      "covered_rows": 1
+    },
+    {
+      "bloodline": "Nature's Blessing",
+      "reference": false,
+      "id": "05",
+      "name": "Blight and Harvest",
       "category": "Advanced Art",
       "depth": 3,
       "raw_flat_total": 4,
@@ -3822,6 +3872,23 @@
         ]
       },
       {
+        "bloodline": "Tenohira Musei",
+        "rows": 2,
+        "base_sum": 70.0,
+        "max_sum": 86.0,
+        "addition": 8,
+        "max_single": 43.0,
+        "build": [
+          "01",
+          "06",
+          "09",
+          "10"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
         "bloodline": "Taiyo Kami",
         "rows": 1,
         "base_sum": 35.0,
@@ -3850,23 +3917,6 @@
           "02",
           "03",
           "04"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Tenohira Musei",
-        "rows": 2,
-        "base_sum": 70.0,
-        "max_sum": 84.0,
-        "addition": 7,
-        "max_single": 42.0,
-        "build": [
-          "01",
-          "06",
-          "09",
-          "10"
         ],
         "recipients": [
           "enemy"
@@ -3959,6 +4009,23 @@
         ]
       },
       {
+        "bloodline": "Ha Yanagi",
+        "rows": 1,
+        "base_sum": 30.0,
+        "max_sum": 40.0,
+        "addition": 10,
+        "max_single": 40.0,
+        "build": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "recipients": [
+          "enemy"
+        ]
+      },
+      {
         "bloodline": "Night Parade of A Thousand Demons",
         "rows": 1,
         "base_sum": 35.0,
@@ -4021,23 +4088,6 @@
           "06",
           "09",
           "10"
-        ],
-        "recipients": [
-          "enemy"
-        ]
-      },
-      {
-        "bloodline": "Ha Yanagi",
-        "rows": 1,
-        "base_sum": 30.0,
-        "max_sum": 38.0,
-        "addition": 8,
-        "max_single": 38.0,
-        "build": [
-          "01",
-          "02",
-          "04",
-          "05"
         ],
         "recipients": [
           "enemy"
@@ -5513,8 +5563,8 @@
       "bloodline": "Tenohira Musei",
       "rows": 2,
       "base_multiplier": 1.823,
-      "max_multiplier": 2.016,
-      "addition": 7,
+      "max_multiplier": 2.045,
+      "addition": 8,
       "jutsu": [
         "Moonlit Inferno",
         "Yin-Yang Cascade"
@@ -6783,7 +6833,7 @@
       "maximum": {
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       },
       "over_ceiling": [],
       "routes": [
@@ -6802,13 +6852,13 @@
         {
           "name": "Hollow at the Heart",
           "primary_tag": "increasedamagetaken",
-          "total": 8,
+          "total": 10,
           "steps": [
             0,
             3,
-            5
+            7
           ],
-          "on_band": false,
+          "on_band": true,
           "band_rationale": null
         },
         {
@@ -8219,7 +8269,7 @@
         "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
       "over_ceiling": [],
       "routes": [
@@ -8229,8 +8279,8 @@
           "total": 2,
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "on_band": false,
           "band_rationale": null
@@ -8262,11 +8312,11 @@
         {
           "name": "Stillness Breaks",
           "primary_tag": "increasedamagetaken",
-          "total": 7,
+          "total": 8,
           "steps": [
             2,
             2,
-            3
+            4
           ],
           "on_band": false,
           "band_rationale": null

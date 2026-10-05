@@ -127,7 +127,7 @@ Largest offensive package (IDG × IDT, all rows live): ×1.183 (Sapphire Edge, U
 Coverage: AB 1 row(s) on 1 jutsu (bases 35); DMG 1 row(s) on 1 jutsu (bases 50); DDG 1 row(s) on 1 jutsu (bases 30); DDT 3 row(s) on 3 jutsu (bases 30, 35, 35); IDG 1 row(s) on 1 jutsu (bases 35); IDT 2 row(s) on 2 jutsu (bases 35, 35); LS 1 row(s) on 1 jutsu (bases 40).
 
 Damage (+2): Cosmic Explosion 50 → 52 (above Nuke).
-  Above-Nuke rationale: Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier Traits read Burst, Defensive, and Cosmic Explosion is the kit's signature finisher: its only Damage row and its only 60 AP cast (cooldown 7, range 4). Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Explosion 50 → 52, past the 50 Nuke tier. Because Explosion is the kit's only Damage row, the route has no in-tier Damage effect: the +2 is purely a nuke extension. Supernova Unbound is the tree's only Damage node, so no legal allocation adds more than +2 and none without it exceeds 50. Pending director review (DQ-A).
+  Above-Nuke rationale: Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1″): the dossier's Traits include Burst (Traits: Burst, Defensive), and that trait is the deciding fact. The two-prong test is not relied on and would fail on strike-led: none of the four offensive percentage rows (Intent's exposure and Afterburn, Chains' exposure, Energy's self Increase Damage Given) sits on a jutsu with a Damage row; the finisher prong holds only trivially, since Cosmic Explosion (A rank, 60 AP, cooldown 7, range 4) is the kit's only Damage jutsu. Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Explosion 50 → 52, past the 50 Nuke tier. Because Explosion is the kit's only Damage row, the route has no in-tier Damage effect: the +2 is purely a nuke extension. Supernova Unbound is the tree's only Damage node, so no legal allocation adds more than +2 and none without it exceeds 50. Pending director review (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -196,7 +196,7 @@ Largest offensive package (IDG × IDT, all rows live): ×1.157 (Sovereign's Decr
 Coverage: AB 1 row(s) on 1 jutsu (bases 25); DMG 3 row(s) on 3 jutsu (bases 40, 40, 50); DDT 1 row(s) on 1 jutsu (bases 30); IDG 1 row(s) on 1 jutsu (bases 35); IDT 3 row(s) on 2 jutsu (bases 35, 35, 35); REF 1 row(s) on 1 jutsu (bases 40).
 
 Damage (+2): Shattered Reflection 40 → 42; Lux 50 → 52 (above Nuke); Imperial Swords 40 → 42.
-  Above-Nuke rationale: Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier's Traits line is Burst, and Lux is the kit's strongest strike and only 50 EP row (rank A, 60 AP, cooldown 7, an AOE line at range 4). Throne of Broken Light's controlled +2 Damage, the payoff of Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, lifts Lux 50 → 52, past the 50 Nuke tier. The full path (Gaze, Edge, Throne) is ≈ ×1.084 in percentages (self buff 35 → 40%, ×1.037; exposure 35 → 37% on three rows, ×1.045) and ≈ ×1.13 on Lux with the +2, under Blood-Enchanted Eyes' Rite of Exsanguination (≈ ×1.19 on Reaper's Embrace). Throne is the tree's only Damage node and an Advanced Art, so no legal allocation adds more than +2 and none without it exceeds 50; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Pending director review (DQ-A).
+  Above-Nuke rationale: Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1″): the dossier's Traits line is Burst, and that trait is the deciding fact. The two-prong test is not relied on: the finisher prong holds (Lux is the unique A-rank strike; Shattered Reflection is B, Imperial Swords D) but the strike-led prong fails (2 of 5 offensive percentage rows sit on a Damage jutsu; illuminance's damage buff and Chrono Stasis's exposure rows do not). Lux is the kit's only 50 EP row (60 AP, cooldown 7, an AOE line at range 4). Throne of Broken Light's controlled +2 Damage, the payoff of Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, lifts Lux 50 → 52, past the 50 Nuke tier. The full path (Gaze, Edge, Throne) is ≈ ×1.084 in percentages (self buff 35 → 40%, ×1.037; exposure 35 → 37% on three rows, ×1.045) and ≈ ×1.13 on Lux with the +2, under Blood-Enchanted Eyes' Rite of Exsanguination (≈ ×1.19 on Reaper's Embrace). Throne is the tree's only Damage node and an Advanced Art, so no legal allocation adds more than +2 and none without it exceeds 50; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Pending director review (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -236,12 +236,12 @@ Damage: no node adds flat Damage (Blighted Tree 40, Petal Nightmare 40).
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
 | Grave Willow's Hush | +10% Decrease Damage Given | +10% DDG | Whispering Canopy | +3% IDG, +10% DDG |
-| Hollow at the Heart | +8% Increase Damage Taken | +2% DDG, +8% IDT | Veil of Falling Petals | +5% DDG, +8% IDT |
+| Hollow at the Heart | +10% Increase Damage Taken | +2% DDG, +10% IDT | Veil of Falling Petals | +5% DDG, +10% IDT |
 | Thousand-Leaf Dream | +10% Increase Damage Given | +10% IDG | Mourning Boughs | +10% IDG, +2% DDG |
 
-Compounded route factors (all rows live): Grave Willow's Hush +10% DDG on 2 row(s) ×0.725; Hollow at the Heart +8% IDT on 1 row(s) ×1.062; Thousand-Leaf Dream +10% IDG on 1 row(s) ×1.074.
+Compounded route factors (all rows live): Grave Willow's Hush +10% DDG on 2 row(s) ×0.725; Hollow at the Heart +10% IDT on 1 row(s) ×1.077; Thousand-Leaf Dream +10% IDG on 1 row(s) ×1.074.
 
-Largest offensive package (IDG × IDT, all rows live): ×1.085 (Mourning Boughs, Blight Takes Root, Hollow at the Heart, Whispering Canopy); with flat Damage: ×1.085 (Mourning Boughs, Blight Takes Root, Hollow at the Heart, Whispering Canopy).
+Largest offensive package (IDG × IDT, all rows live): ×1.101 (Mourning Boughs, Blight Takes Root, Hollow at the Heart, Whispering Canopy); with flat Damage: ×1.101 (Mourning Boughs, Blight Takes Root, Hollow at the Heart, Whispering Canopy).
 
 ### Heavenly Sonata
 
@@ -265,7 +265,7 @@ Largest offensive package (IDG × IDT, all rows live): ×1.114 (Opening Measure,
 Coverage: DMG 4 row(s) on 4 jutsu (bases 40, 40, 45, 50); DDT 1 row(s) on 1 jutsu (bases 35); IDG 2 row(s) on 2 jutsu (bases 35, 35); IDT 2 row(s) on 2 jutsu (bases 35, 35); REF 1 row(s) on 1 jutsu (bases 40).
 
 Damage (+2): Magnetic Pulse Strike 50 → 52 (above Nuke); Rising Star 40 → 42; Morning Star 40 → 42; Houkyu Dance 45 → 47.
-  Above-Nuke rationale: Kit fact: the Houkyuken dossier's Traits line is "Burst, Control"; Magnetic Pulse Strike (50 EP) is the highest of its four Magnet Taijutsu strikes. Starfall Hammer's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Starfall Hammer, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review (DQ-A).
+  Above-Nuke rationale: Kit fact: the Houkyuken dossier's Traits line is Burst, Control, and the Burst trait is the deciding fact (Magnetic Pulse Strike shares rank A with Houkyu Dance, so no finisher role is claimed). Starfall Hammer's +2 Damage lifts Magnetic Pulse Strike 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Starfall Hammer, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -317,7 +317,7 @@ Largest offensive package (IDG × IDT, all rows live): ×1.147 (Taut Filament, R
 Coverage: DMG 4 row(s) on 4 jutsu (bases 40, 40, 40, 50); DDG 1 row(s) on 1 jutsu (bases 30); DDT 1 row(s) on 1 jutsu (bases 30); IDG 2 row(s) on 2 jutsu (bases 35, 35); IDT 2 row(s) on 2 jutsu (bases 35, 35).
 
 Damage (+2): Temporal Erosion 40 → 42; Singularity 40 → 42; Resonance 40 → 42; Ethereal Particle Storm 50 → 52 (above Nuke).
-  Above-Nuke rationale: Kit fact: the Kyuko-sei dossier's Traits line is "Burst, Control"; Ethereal Particle Storm (50 EP, 60 AP, cooldown 7, single target) is the highest of its four Dust strikes. Heat Death's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Shattered Firmament's +3% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Heat Death, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the three 40 EP strikes stay in the Normal tier (40 → 42). Fable proposal, flagged for director review (DQ-A).
+  Above-Nuke rationale: Kit fact: the Kyuko-sei dossier's Traits include Burst (Burst, Control), the deciding fact under R1″. The two-prong alternative would fail: strike-led, only 2 of the 4 offensive percentage rows sit on a Damage jutsu (Abysmal End carries none); finisher, Ethereal Particle Storm is B-rank while Temporal Erosion and Singularity are A-rank. Heat Death's +2 Damage lifts Ethereal Particle Storm (50 EP, 60 AP, cooldown 7, single target) 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Shattered Firmament's +3% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Heat Death, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the three 40 EP strikes stay in the Normal tier (40 → 42). Fable proposal, flagged for director review (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -447,7 +447,7 @@ Largest offensive package (IDG × IDT, all rows live): ×1.052 (Hour of the Ox, 
 Coverage: DMG 3 row(s) on 3 jutsu (bases 40, 40, 50); DDT 1 row(s) on 1 jutsu (bases 35); IDG 1 row(s) on 1 jutsu (bases 35); IDT 1 row(s) on 1 jutsu (bases 35); LS 1 row(s) on 1 jutsu (bases 40).
 
 Damage (+2): Cursed Beast Form 40 → 42; Curse Empowerment 40 → 42; Shadow Tether 50 → 52 (above Nuke).
-  Above-Nuke rationale: Kit fact (R1′): the Oblivion Seal dossier's Traits line is "Burst, Sustained DPS", and Shadow Tether is the kit's only 50 EP row and heaviest Damage-tag strike (Shadowrend's 58 pierce row is not a supported tag; 60 AP, cooldown 7, single target). Absolute Erasure's controlled +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup: the pattern the director kept in Blood-Enchanted Eyes (Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Sakura-ame 50 → 52; RUL-2026-10-04-002). Absolute Erasure is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Cursed Beast Form and Curse Empowerment 40 → 42, still Normal); element-wide potency also lifts any other 50 EP Shadow jutsu the owner casts to 52. Fable proposal, flagged for director review (DQ-A).
+  Above-Nuke rationale: Kit fact (R1″): the Oblivion Seal dossier's Traits include Burst (Traits: Burst, Sustained DPS), and that trait is the deciding fact. The two-prong test is not relied on and would fail: Shadowrend's exposure row sits on a jutsu with no Damage row (not strike-led), and Shadow Tether is C-rank under Cursed Beast Form's A (not the finisher). Shadow Tether is the kit's only 50 EP row (60 AP, cooldown 7, single target). Absolute Erasure's controlled +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup: the pattern the director kept in Blood-Enchanted Eyes (Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Sakura-ame 50 → 52; RUL-2026-10-04-002). Absolute Erasure is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Cursed Beast Form and Curse Empowerment 40 → 42, still Normal); element-wide potency also lifts any other 50 EP Shadow jutsu the owner casts to 52. Fable proposal, flagged for director review (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -565,7 +565,7 @@ Overlap: Dragon in Full Blossom / Scorching Hanami (same primary tag, cosine 0.8
 Coverage: DMG 4 row(s) on 4 jutsu (bases 40, 40, 45, 50); IDG 3 row(s) on 2 jutsu (bases 35, 35, 35); IDT 1 row(s) on 1 jutsu (bases 35); REF 1 row(s) on 1 jutsu (bases 40).
 
 Damage (+2): Storm Style: Daibutsu Thunder 50 → 52 (above Nuke); Izanagi's Hammer 40 → 42; Storm Style: Divine Railgun 45 → 47; Strike: Raijin 40 → 42.
-  Above-Nuke rationale: Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002). Kit fact: the dossier's Traits line is Burst, and Storm Style: Daibutsu Thunder is the kit's strongest strike (rank A, 50 EP, 60 AP, cooldown 7). Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering percentage setup (+2% Increase Damage Given on the Cloak and Raijin self buffs), lifts Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). Flagged for director confirmation (DQ-A).
+  Above-Nuke rationale: Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002). Kit fact: the dossier's Traits line is Burst, and the Burst trait is the deciding fact (the two-prong test would not pass: only 2 of the 4 offensive percentage rows, Raijin's self buff and Hammer's exposure, sit on a Damage jutsu, and Storm Style: Daibutsu Thunder shares rank A with Storm Style: Divine Railgun, so no finisher role is claimed). Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering percentage setup (+2% Increase Damage Given on the Cloak and Raijin self buffs), lifts Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). Flagged for director confirmation (DQ-A).
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
@@ -667,18 +667,18 @@ Largest offensive package (IDG × IDT, all rows live): ×1.114 (First Snow of He
 
 Coverage: DMG 3 row(s) on 3 jutsu (bases 40, 40, 40); DDG 1 row(s) on 1 jutsu (bases 35); IDG 2 row(s) on 2 jutsu (bases 35, 35); IDT 2 row(s) on 2 jutsu (bases 35, 35).
 
-Damage (+1, +2): Silent Rift 40 → 41 / 42; Yin-Yang Cascade 40 → 41 / 42; Silent Palm Strike 40 → 41 / 42.
+Damage (+2): Silent Rift 40 → 42; Yin-Yang Cascade 40 → 42; Silent Palm Strike 40 → 42.
 
 | Advanced Art | Route (primary) | Path package | Highest-diagnostic fourth | Full package |
 |---|---|---|---|---|
-| Deafening Silence | +2 Damage | +2 Damage, +2% IDG | Waning Crescent | +2 Damage, +2% IDG, +2% DDG, +2% IDT |
+| Deafening Silence | +2 Damage | +2 Damage, +2% IDG, +2% IDT | Waning Crescent | +2 Damage, +2% IDG, +2% DDG, +4% IDT |
 | Tipping the Balance | +8% Increase Damage Given | +8% IDG, +2% DDG | Waning Crescent | +8% IDG, +4% DDG, +2% IDT |
 | Eclipse in Hand | +10% Decrease Damage Given | +10% DDG, +2% IDT | Bared to the Moon | +10% DDG, +4% IDT |
-| Stillness Breaks | +7% Increase Damage Taken | +2% DDG, +7% IDT | Waxing Crescent | +2% IDG, +2% DDG, +7% IDT |
+| Stillness Breaks | +8% Increase Damage Taken | +2% DDG, +8% IDT | Waxing Crescent | +2% IDG, +2% DDG, +8% IDT |
 
-Compounded route factors (all rows live): Tipping the Balance +8% IDG on 2 row(s) ×1.122; Eclipse in Hand +10% DDG on 1 row(s) ×0.846; Stillness Breaks +7% IDT on 2 row(s) ×1.106.
+Compounded route factors (all rows live): Tipping the Balance +8% IDG on 2 row(s) ×1.122; Eclipse in Hand +10% DDG on 1 row(s) ×0.846; Stillness Breaks +8% IDT on 2 row(s) ×1.122.
 
-Largest offensive package (IDG × IDT, all rows live): ×1.156 (Waxing Crescent, Held Breath, Tipping the Balance, Waning Crescent); with flat Damage: ×1.156 (Waxing Crescent, Held Breath, Tipping the Balance, Waning Crescent).
+Largest offensive package (IDG × IDT, all rows live): ×1.156 (Waxing Crescent, Unspoken Blow, Held Breath, Tipping the Balance); with flat Damage: ×1.156 (Waxing Crescent, Unspoken Blow, Held Breath, Tipping the Balance).
 
 ### Terra Nova
 

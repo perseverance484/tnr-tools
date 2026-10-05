@@ -3206,7 +3206,7 @@
       "name": "Cosmic Ascendant",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Cosmic Ascendant classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier Traits read Burst, Defensive, and Cosmic Explosion is the kit's signature finisher: its only Damage row and its only 60 AP cast (cooldown 7, range 4). Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Explosion 50 → 52, past the 50 Nuke tier. Because Explosion is the kit's only Damage row, the route has no in-tier Damage effect: the +2 is purely a nuke extension. Supernova Unbound is the tree's only Damage node, so no legal allocation adds more than +2 and none without it exceeds 50. Pending director review (DQ-A).",
+      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1″): the dossier's Traits include Burst (Traits: Burst, Defensive), and that trait is the deciding fact. The two-prong test is not relied on and would fail on strike-led: none of the four offensive percentage rows (Intent's exposure and Afterburn, Chains' exposure, Energy's self Increase Damage Given) sits on a jutsu with a Damage row; the finisher prong holds only trivially, since Cosmic Explosion (A rank, 60 AP, cooldown 7, range 4) is the kit's only Damage jutsu. Supernova Unbound's +2 Damage is the controlled payoff of Collapsing Star's self Increase Damage Given setup and lifts Explosion 50 → 52, past the 50 Nuke tier. Because Explosion is the kit's only Damage row, the route has no in-tier Damage effect: the +2 is purely a nuke extension. Supernova Unbound is the tree's only Damage node, so no legal allocation adds more than +2 and none without it exceeds 50. Pending director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -4952,7 +4952,7 @@
       "name": "Eyes of the Forsaken King",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Light classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1′): the dossier's Traits line is Burst, and Lux is the kit's strongest strike and only 50 EP row (rank A, 60 AP, cooldown 7, an AOE line at range 4). Throne of Broken Light's controlled +2 Damage, the payoff of Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, lifts Lux 50 → 52, past the 50 Nuke tier. The full path (Gaze, Edge, Throne) is ≈ ×1.084 in percentages (self buff 35 → 40%, ×1.037; exposure 35 → 37% on three rows, ×1.045) and ≈ ×1.13 on Lux with the +2, under Blood-Enchanted Eyes' Rite of Exsanguination (≈ ×1.19 on Reaper's Embrace). Throne is the tree's only Damage node and an Advanced Art, so no legal allocation adds more than +2 and none without it exceeds 50; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Pending director review (DQ-A).",
+      "above_nuke_rationale": "Fable proposal following the director precedent of RUL-2026-10-04-001 (Blood-Enchanted Eyes, Reaper's Embrace 50 → 52) and RUL-2026-10-04-002 (Shakunetsu Sakura, Sakura-ame 50 → 52). Kit fact (R1″): the dossier's Traits line is Burst, and that trait is the deciding fact. The two-prong test is not relied on: the finisher prong holds (Lux is the unique A-rank strike; Shattered Reflection is B, Imperial Swords D) but the strike-led prong fails (2 of 5 offensive percentage rows sit on a Damage jutsu; illuminance's damage buff and Chrono Stasis's exposure rows do not). Lux is the kit's only 50 EP row (60 AP, cooldown 7, an AOE line at range 4). Throne of Broken Light's controlled +2 Damage, the payoff of Edge of the Regalia's +3% self Increase Damage Given setup on illuminance, lifts Lux 50 → 52, past the 50 Nuke tier. The full path (Gaze, Edge, Throne) is ≈ ×1.084 in percentages (self buff 35 → 40%, ×1.037; exposure 35 → 37% on three rows, ×1.045) and ≈ ×1.13 on Lux with the +2, under Blood-Enchanted Eyes' Rite of Exsanguination (≈ ×1.19 on Reaper's Embrace). Throne is the tree's only Damage node and an Advanced Art, so no legal allocation adds more than +2 and none without it exceeds 50; Shattered Reflection and Imperial Swords go 40 → 42 and stay Normal. Lux's line also hits allies standing in it. Pending director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -6095,9 +6095,9 @@
           ],
           "path_bonuses": {
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 8
+            "increasedamagetaken": 10
           },
-          "path_row_weighted": 12,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "02",
@@ -6108,10 +6108,10 @@
               },
               "bonuses": {
                 "decreasedamagegiven": 5,
-                "increasedamagetaken": 8
+                "increasedamagetaken": 10
               },
-              "raw_total": 13,
-              "row_weighted": 18
+              "raw_total": 15,
+              "row_weighted": 20
             },
             {
               "id": "06",
@@ -6123,10 +6123,10 @@
               "bonuses": {
                 "increasedamagegiven": 3,
                 "decreasedamagegiven": 2,
-                "increasedamagetaken": 8
+                "increasedamagetaken": 10
               },
-              "raw_total": 13,
-              "row_weighted": 15
+              "raw_total": 15,
+              "row_weighted": 17
             }
           ],
           "highest_diagnostic_fourth": "02"
@@ -6176,9 +6176,9 @@
           "advanced_art": "05",
           "name": "Hollow at the Heart",
           "tag": "increasedamagetaken",
-          "total": 8,
+          "total": 10,
           "rows": 1,
-          "factor": 1.062
+          "factor": 1.077
         },
         {
           "advanced_art": "10",
@@ -6191,7 +6191,7 @@
       ],
       "offense_packages": {
         "percent": {
-          "factor": 1.085,
+          "factor": 1.101,
           "allocation": [
             "01",
             "04",
@@ -6206,7 +6206,7 @@
           ]
         },
         "with_damage": {
-          "factor": 1.085,
+          "factor": 1.101,
           "allocation": [
             "01",
             "04",
@@ -6251,9 +6251,9 @@
           "steps": [
             0,
             3,
-            5
+            7
           ],
-          "total": 8
+          "total": 10
         },
         {
           "advanced_art": "10",
@@ -6815,7 +6815,7 @@
       "name": "Houkyuken",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Magnet classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Kit fact: the Houkyuken dossier's Traits line is \"Burst, Control\"; Magnetic Pulse Strike (50 EP) is the highest of its four Magnet Taijutsu strikes. Starfall Hammer's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Starfall Hammer, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review (DQ-A).",
+      "above_nuke_rationale": "Kit fact: the Houkyuken dossier's Traits line is Burst, Control, and the Burst trait is the deciding fact (Magnetic Pulse Strike shares rank A with Houkyu Dance, so no finisher role is claimed). Starfall Hammer's +2 Damage lifts Magnetic Pulse Strike 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Polarized Fist's +2% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Starfall Hammer, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the other rows stay in tier (45 → 47, 40 → 42). Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -8302,7 +8302,7 @@
       "name": "Kyuko-sei",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Dust classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Kit fact: the Kyuko-sei dossier's Traits line is \"Burst, Control\"; Ethereal Particle Storm (50 EP, 60 AP, cooldown 7, single target) is the highest of its four Dust strikes. Heat Death's +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Shattered Firmament's +3% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Heat Death, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the three 40 EP strikes stay in the Normal tier (40 → 42). Fable proposal, flagged for director review (DQ-A).",
+      "above_nuke_rationale": "Kit fact: the Kyuko-sei dossier's Traits include Burst (Burst, Control), the deciding fact under R1″. The two-prong alternative would fail: strike-led, only 2 of the 4 offensive percentage rows sit on a Damage jutsu (Abysmal End carries none); finisher, Ethereal Particle Storm is B-rank while Temporal Erosion and Singularity are A-rank. Heat Death's +2 Damage lifts Ethereal Particle Storm (50 EP, 60 AP, cooldown 7, single target) 50 → 52, past the 50 Nuke tier, as the controlled payoff of the burst route (Shattered Firmament's +3% Increase Damage Given setup, then +2 Damage): the pattern the director kept in Blood-Enchanted Eyes (Rite of Exsanguination, Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Conflagration in Bloom, Sakura-ame 50 → 52; RUL-2026-10-04-002). Flat Damage sits only on Heat Death, so no allocation without it exceeds 50; no legal allocation exceeds +2 Damage; the three 40 EP strikes stay in the Normal tier (40 → 42). Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -11308,7 +11308,7 @@
       "name": "Oblivion Seal",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Shadow classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Kit fact (R1′): the Oblivion Seal dossier's Traits line is \"Burst, Sustained DPS\", and Shadow Tether is the kit's only 50 EP row and heaviest Damage-tag strike (Shadowrend's 58 pierce row is not a supported tag; 60 AP, cooldown 7, single target). Absolute Erasure's controlled +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup: the pattern the director kept in Blood-Enchanted Eyes (Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Sakura-ame 50 → 52; RUL-2026-10-04-002). Absolute Erasure is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Cursed Beast Form and Curse Empowerment 40 → 42, still Normal); element-wide potency also lifts any other 50 EP Shadow jutsu the owner casts to 52. Fable proposal, flagged for director review (DQ-A).",
+      "above_nuke_rationale": "Kit fact (R1″): the Oblivion Seal dossier's Traits include Burst (Traits: Burst, Sustained DPS), and that trait is the deciding fact. The two-prong test is not relied on and would fail: Shadowrend's exposure row sits on a jutsu with no Damage row (not strike-led), and Shadow Tether is C-rank under Cursed Beast Form's A (not the finisher). Shadow Tether is the kit's only 50 EP row (60 AP, cooldown 7, single target). Absolute Erasure's controlled +2 Damage lifts it 50 → 52, past the 50 Nuke tier, as the payoff of Umbral Claws' Cursed Beast Form self-buff setup: the pattern the director kept in Blood-Enchanted Eyes (Reaper's Embrace 50 → 52; RUL-2026-10-04-001) and Shakunetsu Sakura (Sakura-ame 50 → 52; RUL-2026-10-04-002). Absolute Erasure is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Cursed Beast Form and Curse Empowerment 40 → 42, still Normal); element-wide potency also lifts any other 50 EP Shadow jutsu the owner casts to 52. Fable proposal, flagged for director review (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -14169,7 +14169,7 @@
       "name": "Shinrai Ou",
       "revision": "Fable proposal — 2026-10-04 batch rebalance / Storm classification / forked tree",
       "reference": false,
-      "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002). Kit fact: the dossier's Traits line is Burst, and Storm Style: Daibutsu Thunder is the kit's strongest strike (rank A, 50 EP, 60 AP, cooldown 7). Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering percentage setup (+2% Increase Damage Given on the Cloak and Raijin self buffs), lifts Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). Flagged for director confirmation (DQ-A).",
+      "above_nuke_rationale": "Fable proposal following the director precedent of Blood-Enchanted Eyes (RUL-2026-10-04-001) and Shakunetsu Sakura (RUL-2026-10-04-002). Kit fact: the dossier's Traits line is Burst, and the Burst trait is the deciding fact (the two-prong test would not pass: only 2 of the 4 offensive percentage rows, Raijin's self buff and Hammer's exposure, sit on a Damage jutsu, and Storm Style: Daibutsu Thunder shares rank A with Storm Style: Divine Railgun, so no finisher role is claimed). Thunder King's Wrath's controlled +2 Damage, the payoff of the Vajra Tempering percentage setup (+2% Increase Damage Given on the Cloak and Raijin self buffs), lifts Daibutsu Thunder 50 → 52, past the 50 Nuke tier. It is the tree's only Damage node and an Advanced Art, so no allocation without it exceeds 50 and none exceeds +2 (Divine Railgun 45 → 47, Izanagi's Hammer and Strike: Raijin 40 → 42; no other tier crossed). Flagged for director confirmation (DQ-A).",
       "damage": {
         "damage_totals_reachable": [
           2
@@ -16952,7 +16952,6 @@
       "above_nuke_rationale": null,
       "damage": {
         "damage_totals_reachable": [
-          1,
           2
         ],
         "rows": [
@@ -16966,19 +16965,6 @@
             ],
             "method": "AOE_CIRCLE_SPAWN",
             "steps": [
-              {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 42.0,
@@ -17006,19 +16992,6 @@
             "method": "SINGLE",
             "steps": [
               {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
-              {
                 "added": 2,
                 "final": 42.0,
                 "tier_before": "Normal",
@@ -17044,19 +17017,6 @@
             ],
             "method": "SINGLE",
             "steps": [
-              {
-                "added": 1,
-                "final": 41.0,
-                "tier_before": "Normal",
-                "tier_after": "Normal",
-                "tier_change": false,
-                "above_nuke": false,
-                "allocations": 7,
-                "smallest_allocation": [
-                  "01",
-                  "02"
-                ]
-              },
               {
                 "added": 2,
                 "final": 42.0,
@@ -17088,9 +17048,10 @@
           ],
           "path_bonuses": {
             "damage": 2,
-            "increasedamagegiven": 2
+            "increasedamagegiven": 2,
+            "increasedamagetaken": 2
           },
-          "path_row_weighted": 10,
+          "path_row_weighted": 14,
           "fourths": [
             {
               "id": "04",
@@ -17101,10 +17062,11 @@
               },
               "bonuses": {
                 "damage": 2,
-                "increasedamagegiven": 4
+                "increasedamagegiven": 4,
+                "increasedamagetaken": 2
               },
-              "raw_total": 6,
-              "row_weighted": 14
+              "raw_total": 8,
+              "row_weighted": 18
             },
             {
               "id": "06",
@@ -17118,10 +17080,10 @@
                 "damage": 2,
                 "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
-                "increasedamagetaken": 2
+                "increasedamagetaken": 4
               },
-              "raw_total": 8,
-              "row_weighted": 16
+              "raw_total": 10,
+              "row_weighted": 20
             }
           ],
           "highest_diagnostic_fourth": "06"
@@ -17145,15 +17107,15 @@
               "name": "Unspoken Blow",
               "category": "Hidden Art",
               "adds": {
-                "damage": 1
+                "increasedamagetaken": 2
               },
               "bonuses": {
-                "damage": 1,
                 "increasedamagegiven": 8,
-                "decreasedamagegiven": 2
+                "decreasedamagegiven": 2,
+                "increasedamagetaken": 2
               },
-              "raw_total": 11,
-              "row_weighted": 21
+              "raw_total": 12,
+              "row_weighted": 22
             },
             {
               "id": "06",
@@ -17230,9 +17192,9 @@
           ],
           "path_bonuses": {
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 8
           },
-          "path_row_weighted": 16,
+          "path_row_weighted": 18,
           "fourths": [
             {
               "id": "01",
@@ -17244,10 +17206,10 @@
               "bonuses": {
                 "increasedamagegiven": 2,
                 "decreasedamagegiven": 2,
-                "increasedamagetaken": 7
+                "increasedamagetaken": 8
               },
-              "raw_total": 11,
-              "row_weighted": 20
+              "raw_total": 12,
+              "row_weighted": 22
             },
             {
               "id": "07",
@@ -17258,10 +17220,10 @@
               },
               "bonuses": {
                 "decreasedamagegiven": 5,
-                "increasedamagetaken": 7
+                "increasedamagetaken": 8
               },
-              "raw_total": 12,
-              "row_weighted": 19
+              "raw_total": 13,
+              "row_weighted": 21
             }
           ],
           "highest_diagnostic_fourth": "01"
@@ -17289,9 +17251,9 @@
           "advanced_art": "10",
           "name": "Stillness Breaks",
           "tag": "increasedamagetaken",
-          "total": 7,
+          "total": 8,
           "rows": 2,
-          "factor": 1.106
+          "factor": 1.122
         }
       ],
       "offense_packages": {
@@ -17299,30 +17261,30 @@
           "factor": 1.156,
           "allocation": [
             "01",
+            "02",
             "04",
-            "05",
-            "06"
+            "05"
           ],
           "names": [
             "Waxing Crescent",
+            "Unspoken Blow",
             "Held Breath",
-            "Tipping the Balance",
-            "Waning Crescent"
+            "Tipping the Balance"
           ]
         },
         "with_damage": {
           "factor": 1.156,
           "allocation": [
             "01",
+            "02",
             "04",
-            "05",
-            "06"
+            "05"
           ],
           "names": [
             "Waxing Crescent",
+            "Unspoken Blow",
             "Held Breath",
-            "Tipping the Balance",
-            "Waning Crescent"
+            "Tipping the Balance"
           ]
         }
       },
@@ -17339,8 +17301,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2
         },
@@ -17388,9 +17350,9 @@
           "steps": [
             2,
             2,
-            3
+            4
           ],
-          "total": 7
+          "total": 8
         }
       ],
       "coverage": {
