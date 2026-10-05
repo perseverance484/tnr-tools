@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-04)
+# DRIFT.md - upstream contract drift (2026-10-05)
 
-Upstream: studie-tech/TheNinjaRPG@0ea29d1ec9999253e28b34f4def6ed3dad17e18b
+Upstream: studie-tech/TheNinjaRPG@2239a5d49acaec57a8751005d488f60b24359f13
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,18 +69,18 @@ ADDITIONS
 no breaking changes: 58 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
   now-required  item  farmYieldItemId  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
   now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  isFarmSeed  optional -> required
   now-required  item  farmSellValue  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  farmMinLevel  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -94,6 +94,7 @@ ADDITIONS
   field  item  farmYieldItemId
   field  item  isFarmFertilizer
   field  item  isFarmSeed
+  field  jutsu  elementClassification
   field  quest  requiredFarmingLevel
   ftype  item  farmExtractSeedCount  number
   ftype  item  farmExtractSeedItemId  string
@@ -107,6 +108,7 @@ ADDITIONS
   ftype  item  farmYieldItemId  string
   ftype  item  isFarmFertilizer  boolean
   ftype  item  isFarmSeed  boolean
+  ftype  jutsu  elementClassification  enum
   ftype  quest  requiredFarmingLevel  number
 
 BREAKING: 12 change(s) - DO NOT ADOPT (exit 1)
