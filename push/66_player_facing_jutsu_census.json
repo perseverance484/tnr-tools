@@ -1,22 +1,10 @@
 {
- "_note": "READ-ONLY player-facing jutsu census. Zero mutations. Seed target set includes every currently-known non-absent jutsu whose catalog type is one of NORMAL, SPECIAL, FORBIDDEN, LOYALTY, CLAN, or EVENT; AI and BLOODLINE seed records are excluded entirely. Seed hidden state is intentionally NOT trusted: every player-category record is point-read so the fresh live `hidden`, `jutsuType`, and `bloodlineId` fields decide availability. The post-seed hot shard has IDs but no type metadata, so its 19 delta IDs are included only as classification probes; final census MUST discard any live AI/BLOODLINE type, any non-empty bloodlineId/bloodline-owned record, and any hidden record. `jutsu.getAll` with hidden:false + excludedJutsuTypes:[AI,BLOODLINE] is included as a live coverage-count check; if that live count does not reconcile with the included full point-read set after filtering, treat the census as incomplete and run a delta follow-up. Zero live writes.",
+ "_note": "READ-ONLY player-facing jutsu census, corrected for Forge 0.5.0 list semantics. Zero mutations. Forge 0.5.0 capture.list() only supports getAllNames/getAllAiNames, so the invalid raw jutsu.getAll coverage call from the first version was removed. Seed target set includes every currently-known non-absent jutsu whose catalog type is NORMAL, SPECIAL, FORBIDDEN, LOYALTY, CLAN, or EVENT; AI and BLOODLINE seed records are excluded. Seed hidden state is NOT trusted: every player-category candidate is point-read so fresh live hidden, jutsuType, bloodlineId, and bloodline relation fields decide final availability. Post-seed hot-shard IDs absent from the seed are included as classification probes. Final census MUST discard any hidden record, any live AI/BLOODLINE type, and any record with direct bloodline ownership. jutsu.getAllNames is retained only as a live total-row coverage check; if its row count indicates the repository ID universe has drifted, run a delta follow-up before calling the census complete. Zero live writes.",
  "capture": {
   "before": [
    {
     "proc": "jutsu.getAllNames",
     "input": {}
-   },
-   {
-    "proc": "jutsu.getAll",
-    "input": {
-     "hidden": false,
-     "excludedJutsuTypes": [
-      "AI",
-      "BLOODLINE"
-     ],
-     "limit": 1000,
-     "cursor": 0
-    }
    },
    {
     "proc": "jutsu.get",
