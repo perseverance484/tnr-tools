@@ -1,0 +1,30 @@
+{
+  "_note": "READ-ONLY Dai Kenja jutsu art-direction capture. Zero mutations. Point-reads the three current public Dai Kenja jutsu as exact full records so description, battleDescription, image, cosmetics, targeting, and effect delivery can be used as the source for replacement bloodline/jutsu artwork. IDs are taken from the committed BR-021 Dai Kenja kit dossier at fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866. Do not infer visual behavior from the Bloodright projection when the captured authored descriptions disagree. Zero live writes.",
+  "capture": {
+    "before": [
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "hpL9HJyo1CLMRDX9QWNIS"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "X5vTPwSEcnEsBXRiAYTfy"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "ohlJeeZdmv7Q8GA64HS7i"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
