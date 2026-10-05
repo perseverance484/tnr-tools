@@ -47,8 +47,8 @@
   "emphasis": {
     "primary": "Damage multipliers: self Increase Damage Given (Silent Rift, Yin-Yang Cascade) and enemy Increase Damage Taken (Moonlit Inferno, Yin-Yang Cascade)",
     "secondary": "Suppression (Decrease Damage Given on Moonlit Inferno)",
-    "tertiary": "A steady +2 Damage edge (Unspoken Blow +1, Deafening Silence +1) on the three 40 EP Yin-Yang strikes, 40 → 42, every cast",
-    "rationale": "Eight supported rows sit on four casts: three 40 EP Yin-Yang Damage rows, two 35% self Increase Damage Given rows (Silent Rift, Yin-Yang Cascade), two 35% enemy Increase Damage Taken rows (Moonlit Inferno, Cascade) and one 35% Decrease Damage Given row (Moonlit Inferno). Waxing Crescent answers \"How do I make my own strikes count for more?\": Deafening Silence hits harder on every cast, Tipping the Balance charges both self buffs for their windows. Waning Crescent answers \"How do I weaken them?\": Eclipse in Hand blunts their hits, Stillness Breaks bares them to every hit. The Defensive and Control rows (seal, buff and debuff prevention, move) are unsupported. Potency reaches matching supported tags on all Yin-Yang jutsu (RUL-2026-10-03-005)."
+    "tertiary": "A burst: Unspoken Blow sets up +2% exposure on Moonlit Inferno and Yin-Yang Cascade, Deafening Silence pays it off with +2 Damage on the three 40 EP Yin-Yang strikes, 40 → 42, every cast",
+    "rationale": "Eight supported rows sit on four casts: three 40 EP Yin-Yang Damage rows, two 35% self Increase Damage Given rows (Silent Rift, Yin-Yang Cascade), two 35% enemy Increase Damage Taken rows (Moonlit Inferno, Cascade) and one 35% Decrease Damage Given row (Moonlit Inferno). Waxing Crescent answers \"How do I make my own strikes count for more?\": Deafening Silence's route opens the target, then hits harder on every cast, Tipping the Balance charges both self buffs for their windows. Waning Crescent answers \"How do I weaken them?\": Eclipse in Hand blunts their hits, Stillness Breaks bares them to every hit. The Defensive and Control rows (seal, buff and debuff prevention, move) are unsupported. Potency reaches matching supported tags on all Yin-Yang jutsu (RUL-2026-10-03-005)."
   },
   "nodes": [
     {
@@ -88,24 +88,24 @@
       ],
       "modifiers": [
         {
-          "tag": "damage",
-          "flat": 1,
-          "display_role": "DAMAGE"
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
         }
       ],
-      "flavor": "No cry, no warning. The palm has already landed.",
-      "coverage_note": "Edge commit: Silent Rift (per enemy in its circle), Yin-Yang Cascade and Silent Palm Strike Yin-Yang Damage 40 → 41 EP on every cast, the cast's own hit included.",
+      "flavor": "No cry, no warning. The palm has already landed, and the guard behind it is gone.",
+      "coverage_note": "Burst setup for Deafening Silence: Moonlit Inferno and Yin-Yang Cascade exposure 35 → 37% (39% with Waning Crescent) on one target for the two rounds after each cast, so the strikes that follow land into it.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "all Yin-Yang jutsu",
       "minimum_path_bp": 2,
       "coverage": {
         "jutsu": [
-          "Silent Palm Strike",
-          "Silent Rift",
+          "Moonlit Inferno",
           "Yin-Yang Cascade"
         ],
-        "effect_rows": 3
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
       }
     },
     {
@@ -119,12 +119,12 @@
       "modifiers": [
         {
           "tag": "damage",
-          "flat": 1,
+          "flat": 2,
           "display_role": "DAMAGE"
         }
       ],
       "flavor": "The quietest strike leaves the loudest ruin.",
-      "coverage_note": "Steady edge, route total +2 Damage with Unspoken Blow: the same three Yin-Yang strikes 40 → 42 EP, no tier crossed; it lands on every cast, the opener included, in or out of a buff window.",
+      "coverage_note": "Burst payoff: Silent Rift (per enemy in its circle), Yin-Yang Cascade and Silent Palm Strike 40 → 42 EP on every cast, no tier crossed; a strike with both of Unspoken Blow's 37% exposure rows live lands ×1.05 × (1.37/1.35)² ≈ ×1.081 over the base kit.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "all Yin-Yang jutsu",
@@ -335,12 +335,12 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 3,
+          "flat": 4,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "Their stillness breaks, and every hand that follows finds them open.",
-      "coverage_note": "Exposure route total +7%: Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken 35 → 42% on one target; with both live the caster's hits land ×(1.42/1.35)² ≈ ×1.106 against the unmodified kit (anchors: Shakunetsu ×1.075, Blood-Enchanted Eyes ×1.115). An ally's non-pierce hit gets Moonlit's ×1.052, and Cascade's only if it is element-less or uses the caster's highest offence stat.",
+      "coverage_note": "Exposure route total +8%: Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken 35 → 43% on one target; with both live the caster's hits land ×(1.43/1.35)² ≈ ×1.122 against the unmodified kit (anchors: Shakunetsu ×1.075, Blood-Enchanted Eyes ×1.115). An ally's non-pierce hit gets Moonlit's ×1.059, and Cascade's only if it is element-less or uses the caster's highest offence stat.",
       "parent_rule": "ALL",
       "potency_classification": "Yin-Yang",
       "scope": "all Yin-Yang jutsu",
@@ -358,20 +358,20 @@
   "examples": [
     {
       "name": "Deafening Silence",
-      "archetype": "Steady Edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
         "03",
         "06"
       ],
-      "rationale": "Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 42 EP on every cast, the opener included, with both self buffs at 37% and both exposure rows at 37%. Open with Moonlit Inferno and Cascade in one turn (100 AP); Rift and Palm Strike in the next two rounds land ×1.37 × 1.37 ≈ ×1.88 from exposure and ×1.37 more from Cascade's buff (Palm Strike also gets Rift's), and every extra enemy in Rift's circle takes the +2. Waning Crescent is the fourth purchase (it also puts Moonlit suppression at 37%); Held Breath (self buffs 39%) is the solo alternative.",
+      "rationale": "Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 42 EP on every cast, the opener included, with both exposure rows at 39% and both self buffs at 37%. Open with Moonlit Inferno and Cascade in one turn (100 AP); Rift and Palm Strike in the next two rounds land ×1.39 × 1.39 ≈ ×1.93 from exposure and ×1.37 more from Cascade's buff (Palm Strike also gets Rift's), and every extra enemy in Rift's circle takes the +2. Waning Crescent is the fourth purchase (exposure 39%, Moonlit suppression 37%); Held Breath (self buffs 39%) is the solo alternative.",
       "cost": 4,
       "bonuses": {
         "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 4
       },
       "finals": [
         {
@@ -404,8 +404,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -494,8 +494,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -605,14 +605,14 @@
         "01",
         "04",
         "05",
-        "02"
+        "06"
       ],
-      "rationale": "Both self Increase Damage Given rows at 43% (+8%), each live the two rounds after its 60 AP cast. Rift and Cascade cost 120 AP together, so their windows overlap one round; in that round a hit lands ×1.43 × 1.43 ≈ ×2.04 from the caster's side alone, on any target. Rift's own buff never touches Rift's hit, so its circle gets ×1.43 from Cascade's buff when Cascade opens. Moonlit suppression 37%. Unspoken Blow (strikes 41 EP) is the fourth purchase that stays on the self side; Waning Crescent (exposure 37%, suppression 39%) is the alternative.",
+      "rationale": "Both self Increase Damage Given rows at 43% (+8%), each live the two rounds after its 60 AP cast. Rift and Cascade cost 120 AP together, so their windows overlap one round; in that round a hit lands ×1.43 × 1.43 ≈ ×2.04 from the caster's side alone, on any target. Rift's own buff never touches Rift's hit, so its circle gets ×1.43 from Cascade's buff when Cascade opens. Waning Crescent is the fourth purchase (exposure 37%, Moonlit suppression 39%); Unspoken Blow gives the same 37% exposure without Waning Crescent's extra +2% suppression (37% instead of 39%).",
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 8,
-        "decreasedamagegiven": 2
+        "decreasedamagegiven": 4,
+        "increasedamagetaken": 2
       },
       "finals": [
         {
@@ -627,8 +627,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 2,
-          "final": 37.0,
+          "gain": 4,
+          "final": 39.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -645,8 +645,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -663,8 +663,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -717,8 +717,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -735,8 +735,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 0,
-          "final": 35.0,
+          "gain": 2,
+          "final": 37.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -774,8 +774,8 @@
           "role": "DAMAGE",
           "adverse": false,
           "base": 40.0,
-          "gain": 1,
-          "final": 41.0,
+          "gain": 0,
+          "final": 40.0,
           "calculation": "formula",
           "supported": true,
           "capped_at_100": false
@@ -1089,12 +1089,12 @@
         "10",
         "01"
       ],
-      "rationale": "Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken at 42%; cast together in one turn (100 AP), they make the caster's hits on the target in the next two rounds land ×1.42 × 1.42 ≈ ×2.02, ×1.106 over the unmodified kit's ×1.82. Every non-pierce ally hit on the target gets Moonlit's 42%; Cascade's applies only to an ally's element-less hits or hits of the caster's highest offence stat. Moonlit suppression 37%. Waxing Crescent is the fourth purchase (self buffs 37%); Hushed Inferno (suppression 40%) is the control alternative.",
+      "rationale": "Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken at 43%; cast together in one turn (100 AP), they make the caster's hits on the target in the next two rounds land ×1.43 × 1.43 ≈ ×2.04, ×1.122 over the unmodified kit's ×1.82. Every non-pierce ally hit on the target gets Moonlit's 43%; Cascade's applies only to an ally's element-less hits or hits of the caster's highest offence stat. Moonlit suppression 37%. Waxing Crescent is the fourth purchase (self buffs 37%); Hushed Inferno (suppression 40%) is the control alternative.",
       "cost": 4,
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
       "finals": [
         {
@@ -1127,8 +1127,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 8,
+          "final": 43.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1217,8 +1217,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 35.0,
-          "gain": 7,
-          "final": 42.0,
+          "gain": 8,
+          "final": 43.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -1324,15 +1324,15 @@
   ],
   "narrow_kit_exception": null,
   "design_notes": [
-    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). First pass: the old +5 Damage route lifted Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 45, a full tier on all three, and Stillness Breaks lost its Damage. Roster pass: Quiet Opening (+3% Increase Damage Taken) returned to its pre-batch name and job as Unspoken Blow (+1 Damage; reason in note 2) and Deafening Silence went +2 → +1 (route +2); Waxing Crescent +3 → +2% and Tipping the Balance +5 → +4% (Amplifier +10 → +8%); Bared to the Moon +3 → +2% and Stillness Breaks +4 → +3% (Exposure +9 → +7%). The final review raised Deafening Silence back to +2 (route +3); the final cleanup returns it to +1 (edge route +2, 40 → 42) under the batch's +2 flat-Damage limit, and Eclipse in Hand drops its +2% Increase Damage Given rider (no offensive rider on a suppression capstone). Graph and names unchanged.",
-    "Edge commit (R9′, checked by trial edit): every percentage setup on Unspoken Blow fails. Increase Damage Given fails (a), a stacking twin of Held Breath: it is a legal fourth for Tipping the Balance on the same two rows (01+02+04+05 reaches +10%, above R3's +8%). Increase Damage Taken fails (b), a near-tie: +2% puts the capstone-less 01+02+06+09 at +6% against Stillness Breaks' +7% (+3% ties); Bared to the Moon sits in the other branch, so it is not a twin. Decrease Damage Given fails (c): a defensive tag that does nothing for the route's strikes. So Unspoken Blow carries +1 flat Damage and the route is 1/1 = +2 (Itojinsei's steady-edge shape) with a bare capstone. The kit has no 50 EP row; 40 → 42 crosses no tier.",
-    "Magnitudes: the two self buffs and the two exposure debuffs each compound on one hit, so Amplifier is +8% (×(1.43/1.35)² ≈ ×1.122) and Exposure +7% (≈ ×1.106, between Shakunetsu's ×1.075 and Blood-Enchanted Eyes' ×1.115). Exposure is one point under Amplifier because Moonlit Inferno and Cascade (100 AP) put both exposure rows live for the same two rounds from one turn and also lift allies' hits, while Rift and Cascade (120 AP) need two turns and overlap one round. Suppression is one single-target row, so it keeps +10% (×0.846) with no rider. Tipping the Balance's +2% Decrease Damage Given is the yin-yang 'balance' (yang pools in the hand as yin drains from the target), a small defensive secondary on the Moonlit cast the route already wants. Maxima over every legal allocation: Damage +2 (40 → 42), Increase Damage Given +8%, Decrease Damage Given +10%, Increase Damage Taken +7%; the top offensive package (01+04+05+06) is ×1.156.",
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). First pass: the old +5 Damage route lifted Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 45, a full tier on all three, and Stillness Breaks lost its Damage. Roster pass: Quiet Opening (+3% Increase Damage Taken) returned to its pre-batch name and job as Unspoken Blow (+1 Damage) and Deafening Silence went +2 → +1 (route +2); Waxing Crescent +3 → +2% and Tipping the Balance +5 → +4% (Amplifier +10 → +8%); Bared to the Moon +3 → +2% and Stillness Breaks +4 → +3% (Exposure +9 → +7%). The final review raised Deafening Silence back to +2 (route +3); the final cleanup returns it to +1 (edge route +2, 40 → 42) under the batch's +2 flat-Damage limit, and Eclipse in Hand drops its +2% Increase Damage Given rider (no offensive rider on a suppression capstone). Consistency pass: Stillness Breaks +3 → +4% (Exposure +7 → +8%, R19), which clears the near-tie that had kept the edge commit, so Unspoken Blow became a +2% Increase Damage Taken setup and Deafening Silence +2 Damage (burst, 40 → 42). Graph and names unchanged.",
+    "Burst setup (R9′, checked with near_tie.py): Unspoken Blow carries +2% Increase Damage Taken on Moonlit Inferno and Cascade. The capstone-free 01+02+06+09 reaches +6% against Stillness Breaks' +8%, two points clear (at +7% it was a near-tie); Bared to the Moon sits in the other branch and is never a legal fourth for the burst route, nor Unspoken Blow for Stillness Breaks, so they are not twins. Increase Damage Given would be a stacking twin of Held Breath (01+02+04+05 at +10%). Deafening Silence pays off with +2 Damage on all three strikes; the kit has no 50 EP row, so 40 → 42 crosses no tier.",
+    "Magnitudes: the two self buffs and the two exposure debuffs each compound on one hit, so Amplifier and Exposure are both +8% on two rows (×(1.43/1.35)² ≈ ×1.122; anchors Shakunetsu ×1.075, Blood-Enchanted Eyes ×1.115). R19 lets exposure match the amplifier: Moonlit Inferno and Cascade (100 AP) put both exposure rows live for the same two rounds from one turn and also lift allies' hits, while Rift and Cascade (120 AP) need two turns and overlap one round but reach every own hit on any target. Suppression is one single-target row, so it keeps +10% (×0.846) with no rider. Tipping the Balance's +2% Decrease Damage Given is the yin-yang 'balance' (yang pools in the hand as yin drains from the target), a small defensive secondary on the Moonlit cast the route already wants. Maxima over every legal allocation: Damage +2 (40 → 42), Increase Damage Given +8%, Decrease Damage Given +10%, Increase Damage Taken +8%; the top offensive package is ×1.156 (01+04+05+06, 01+02+04+05 or 01+06+09+10), and the burst package 01+02+03+06 is ×1.146 with its +2 Damage (R14′, under ×1.234).",
     "Resolver and delivery (§3, §3b, §4b): stat filters on an element-less row bind only on elemental hits. Such a row matches every element-less hit of any stat type, and an elemental hit only when the row lists that hit's stat type; 'Highest' is the caster's highest offence, also on an enemy debuff. Moonlit Inferno's two debuffs list all four stat types, so they match every non-pierce hit. Cascade's exposure row (Highest) matches the caster's own strikes, but an ally's elemental hit only if it uses the Tenohira caster's highest offence stat. All five casts have cooldown 7; attacks cost 60 AP and Moonlit Inferno 40 AP. Each row is live the two rounds after its cast, never on its own hit; Rift's self buff is realized on the caster at cast (actions.ts 980–1004). IDG and IDT rows compound: four 35% rows on one hit are ×1.35⁴ ≈ ×3.32 before potency.",
-    "Fourth purchases: Edge → Waning Crescent or Held Breath; Amplifier → Unspoken Blow or Waning Crescent; Suppression → Waxing Crescent or Bared to the Moon; Exposure → Waxing Crescent or Hushed Inferno. In the in-kit solo rotation (R1 Moonlit Inferno + Cascade at 100 AP, R2 Rift, R3 Palm Strike; compounding IDG/IDT on the strikes) the three offense packages total 298.0 (Edge + Waning Crescent; 296.3 with Held Breath), 300.9 (Amplifier + Waning Crescent) and 301.9 (Exposure + Waxing Crescent) strike power against a 271.3 baseline; the best capstone-less build (01+02+06+09) gives 298.2. No fourth makes one route automatic. The edge adds +2 EP to every Yin-Yang cast in or out of a window, the opener included, and Rift's circle (57.5 per extra enemy against 57.2 for Amplifier + Waning Crescent); the Amplifier's 43% buffs lift every other own hit while live (basic attacks, weapons, element-less hits) ×1.43/1.37 ≈ ×1.044 over the edge build; Exposure's edge is a party."
+    "Fourth purchases: Burst → Waning Crescent or Held Breath; Amplifier → Waning Crescent (Unspoken Blow adds the same exposure without Waning Crescent's extra +2% suppression (37% instead of 39%)); Suppression → Waxing Crescent or Bared to the Moon; Exposure → Waxing Crescent or Hushed Inferno. In the in-kit solo rotation (R1 Moonlit Inferno + Cascade at 100 AP, R2 Rift, R3 Palm Strike; compounding IDG/IDT on the strikes) the three offense packages total 305.5 (Burst + Waning Crescent; 303.9 with Held Breath), 300.9 (Amplifier + Waning Crescent) and 305.6 (Exposure + Waxing Crescent) strike power against a 271.3 baseline; the best capstone-less build (01+02+06+09) gives 298.2. No fourth makes one route automatic. The burst adds +2 EP to every Yin-Yang cast in or out of a window, the opener included, and Rift's circle (57.5 per extra enemy against 57.2 for Amplifier + Waning Crescent); the Amplifier's 43% buffs lift every other own hit while live (basic attacks, weapons, element-less hits, any target) ×1.43/1.37 ≈ ×1.044 over the burst and exposure builds; Exposure's edge is a party."
   ],
   "risks": [
-    "Classification: Yin-Yang is shared with other bloodlines (expected under RUL-2026-10-03-005). 4 of 8 supported rows carry Yin-Yang; Moonlit Inferno has no Yin-Yang row, so in-kit it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1), and it carries all of Suppression and half of Exposure. Off-kit Yin-Yang coverage is unverified; the edge route's +2 reaches any such Yin-Yang Damage row (an off-kit 50 EP one would read 52).",
-    "Exposure downstream: at 42% (×1.052 over the kit's 35%) Moonlit Inferno's debuff multiplies every non-pierce hit on the target from the caster, allies and weapons, so its value grows with party size. Cascade's (Highest, element-less) adds a second factor for the caster's strikes and for allies' element-less hits or hits of the caster's highest offence stat only. It is single-target, two rounds per cooldown 7.",
+    "Classification: Yin-Yang is shared with other bloodlines (expected under RUL-2026-10-03-005). 4 of 8 supported rows carry Yin-Yang; Moonlit Inferno has no Yin-Yang row, so in-kit it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1), and it carries all of Suppression and half of Exposure. Off-kit Yin-Yang coverage is unverified; the burst route's +2 reaches any such Yin-Yang Damage row (an off-kit 50 EP one would read 52).",
+    "Exposure downstream: at 43% (×1.059 over the kit's 35%) Moonlit Inferno's debuff multiplies every non-pierce hit on the target from the caster, allies and weapons, so its value grows with party size. Cascade's (Highest, element-less) adds a second factor for the caster's strikes and for allies' element-less hits or hits of the caster's highest offence stat only. It is single-target, two rounds per cooldown 7.",
     "Self-buff reach: Rift's buff (Highest, no element) and Cascade's (Fire/Lightning/Yin-Yang/None) raise every matching hit the caster lands while live, on any target, basic attacks included. Neither touches its own cast's hit, so Rift's circle gets only Cascade's buff, when Cascade was cast in an earlier round. The 25% + 0.15/level Increase Damage Given passive multiplies last.",
     "Suppression rests on one Decrease Damage Given row (Moonlit Inferno, single target, two rounds per cooldown 7) and does not reduce pierce. It is the tree's only defensive route.",
     "Off-trait: seal (Silent Palm Strike), buff and debuff prevention (Eternal Stillness) and move (Silent Rift) are unsupported, so no route strengthens the bloodline's Defensive and Control traits and Eternal Stillness is untouched. Skill-tree and bloodline effects are skipped in ranked modes. No combat simulation was performed beyond the in-kit rotation arithmetic in the design notes."
@@ -1372,14 +1372,14 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7
+      "increasedamagetaken": 8
     },
     "supported_rows_in_kit": 8,
     "supported_rows_by_tag": {
@@ -1413,7 +1413,7 @@
         "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
       "ceilings": {
         "damage": 5,
@@ -1444,8 +1444,8 @@
           ],
           "steps": [
             0,
-            1,
-            1
+            0,
+            2
           ],
           "total": 2,
           "on_band": false
@@ -1496,9 +1496,9 @@
           "steps": [
             2,
             2,
-            3
+            4
           ],
-          "total": 7,
+          "total": 8,
           "on_band": false
         }
       ],
@@ -1515,7 +1515,8 @@
       ],
       "bonuses": {
         "damage": 2,
-        "increasedamagegiven": 4
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2
       }
     },
     {
@@ -1529,7 +1530,7 @@
         "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 4
       }
     },
     {
@@ -1540,9 +1541,9 @@
         "05"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 8,
-        "decreasedamagegiven": 2
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2
       }
     },
     {
@@ -1553,10 +1554,9 @@
         "06"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 4,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 4
       }
     },
     {
@@ -1567,10 +1567,9 @@
         "07"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 4
       }
     },
     {
@@ -1581,10 +1580,9 @@
         "09"
       ],
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 4
+        "increasedamagetaken": 6
       }
     },
     {
@@ -1662,7 +1660,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       }
     },
     {
@@ -1686,27 +1684,26 @@
       ],
       "bonuses": {
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       }
     }
   ],
   "design_review": {
     "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
     "foundation_sentences": {
-      "01": "How do I make my own strikes count for more: hit harder on every cast or charge my hand for the window?",
+      "01": "How do I make my own strikes count for more: open the target for a heavier blow, or charge my hand for the window?",
       "06": "How do I weaken them: blunt their strikes or bare them to every hit?"
     },
     "route_identities": {
-      "03": "steady edge: a +1 commit, then +1 raw Damage (40 → 42) on every Yin-Yang strike, every cast, no window",
+      "03": "burst: Unspoken Blow's +2% exposure set up on Moonlit Inferno and Cascade, controlled +2 Damage payoff on all three Yin-Yang strikes (40 → 42, no tier crossed)",
       "05": "sustained amplification: both self buffs lift every own hit in their windows; +2% suppression rider as the yin-yang balance",
       "08": "suppression: the target hits softer on everyone; single-tag capstone",
-      "10": "exposure: every matching hit on the marked target lands harder, allies' included (×1.106 for the caster with both rows live; Moonlit Inferno's ×1.052 on allies' non-pierce hits)"
+      "10": "exposure: every matching hit on the marked target lands harder, allies' included (×1.122 for the caster with both rows live; Moonlit Inferno's ×1.059 on allies' non-pierce hits)"
     },
-    "director_review": "Roster questions: DQ-B (Stillness Breaks +7% Increase Damage Taken on 2 rows: Moonlit Inferno 35 → 42%; Yin-Yang Cascade 35 → 42%; ≈ ×1.106, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115); DQ-D (Unspoken Blow +1 Damage commit; R9′ per candidate: Increase Damage Given fails (a), stacking twin of Held Breath as Tipping the Balance's fourth, 01+02+04+05 at +10%; Increase Damage Taken fails (b), near-tie, 01+02+06+09 at +6% against Stillness Breaks' +7%; Decrease Damage Given fails (c), no effect on the route's strikes). Tree-specific: at the +2 flat-Damage limit Deafening Silence repeats its commit's +1, so Edge + Waning Crescent (298.0) is level with the capstone-less 01+02+06+09 (298.2) in the solo rotation (first concern).",
+    "director_review": "Roster questions: DQ-B (Stillness Breaks +8% Increase Damage Taken on 2 rows: Moonlit Inferno 35 → 43%; Yin-Yang Cascade 35 → 43%; ≈ ×1.122, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115); trim option 2/2/3 (≈ ×1.106), which would put the capstone-free 01+02+06+09 (+6%) within 1 point again, so Unspoken Blow's setup would drop to +1% (R9′ setup size).",
     "concerns": [
-      "The edge route is +2 Damage (Unspoken Blow +1, Deafening Silence +1), the batch's flat-Damage limit, so the capstone repeats its commit: Edge + Waning Crescent (298.0) is level with the capstone-less 01+02+06+09 (298.2) and trails the Amplifier (300.9) and Exposure (301.9) in the solo rotation. Its lead is +2 EP on every Yin-Yang cast outside the windows, the opener included.",
-      "Unspoken Blow keeps +1 flat Damage on a Hidden Art, against the roster's flat-Damage-on-Advanced convention, because every percentage setup fails R9′ (design note 2: Increase Damage Given is a stacking twin of Held Breath, Increase Damage Taken near-ties Stillness Breaks, Decrease Damage Given does nothing for the strikes). It also lets Amplifier buy +1 EP as its fourth.",
-      "Exposure stays one point under Amplifier for the kit reason in the design notes; at +8% (×1.122) it would lead every route solo (305.6 against the Amplifier's 300.9) on top of its party reach.",
+      "In the solo rotation Burst + Waning Crescent (305.5) and Exposure + Waxing Crescent (305.6) lead Amplifier + Waning Crescent (300.9) by about 1.5%; the Amplifier's lead is reach: its 43% buffs lift every own hit on any target while live (×1.044 over the other builds' 37%).",
+      "Unspoken Blow and Bared to the Moon carry the same +2% exposure on the same two rows in different branches; they meet only in the capstone-free 01+02+06+09 (+6%), and outside the burst route Unspoken Blow is outbid or only ties (01+02+04+05 loses to Waning Crescent and 01+02+06+09 to Stillness Breaks; elsewhere it ties Bared to the Moon), so the setup is bought for its payoff.",
       "Only Suppression is defensive, now single-tag; the kit's Defensive and Control rows cannot be reached by potency."
     ]
   }

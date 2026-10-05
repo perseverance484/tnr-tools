@@ -38,7 +38,7 @@
     "primary": "Enemy debuff control: Decrease Damage Given (Wailing Bark, Petal Nightmare) and Increase Damage Taken (Blighted Tree)",
     "secondary": "Sustained amplification: the Wailing Bark Increase Damage Given row, which multiplies every non-pierce hit the caster lands in its window",
     "tertiary": "None: Damage is left unamplified. Its one meaningful row is Blighted Tree's formula 40 EP hit; Petal Nightmare's Damage row is static, 40 raw HP outside the EP ladder",
-    "rationale": "Three of the kit's six supported rows are enemy debuffs. Mourning Boughs answers \"How do I wither the enemy: blunt their blows or open them to every strike?\": Grave Willow's Hush takes both compounding Decrease Damage Given rows to +10% (Wailing Bark 45%, Petal Nightmare 40%), and Hollow at the Heart takes the single Blighted Tree exposure row to +8% (30 → 38%, ×1.062); that capstone carries no suppression rider, but its route keeps Mourning Boughs' +2% Decrease Damage Given (+5% with Veil of Falling Petals). Whispering Canopy answers \"How do I make my own blows land harder?\" with one chain: Thousand-Leaf Dream takes the one Wailing Bark self buff to 45%. No node targets Damage: Blighted Tree's formula 40 EP hit is its one meaningful row, and Petal Nightmare's static row deals 40 raw HP. Every percentage row lists all four stat types and no element, so each reaches every non-pierce hit, not Genjutsu only. Potency reaches matching supported tags on all Ha Yanagi-classified jutsu (RUL-2026-10-03-005; requires a classification extension)."
+    "rationale": "Three of the kit's six supported rows are enemy debuffs. Mourning Boughs answers \"How do I wither the enemy: blunt their blows or open them to every strike?\": Grave Willow's Hush takes both compounding Decrease Damage Given rows to +10% (Wailing Bark 45%, Petal Nightmare 40%), and Hollow at the Heart takes the single Blighted Tree exposure row to +10% (30 → 40%, ×1.077); that capstone carries no suppression rider, but its route keeps Mourning Boughs' +2% Decrease Damage Given (+5% with Veil of Falling Petals). Whispering Canopy answers \"How do I make my own blows land harder?\" with one chain: Thousand-Leaf Dream takes the one Wailing Bark self buff to 45%. No node targets Damage: Blighted Tree's formula 40 EP hit is its one meaningful row, and Petal Nightmare's static row deals 40 raw HP. Every percentage row lists all four stat types and no element, so each reaches every non-pierce hit, not Genjutsu only. Potency reaches matching supported tags on all Ha Yanagi-classified jutsu (RUL-2026-10-03-005; requires a classification extension)."
   },
   "nodes": [
     {
@@ -169,12 +169,12 @@
       "modifiers": [
         {
           "tag": "increasedamagetaken",
-          "flat": 5,
+          "flat": 7,
           "display_role": "ENEMY DEBUFF"
         }
       ],
       "flavor": "What the blight has hollowed, any passing wind can break.",
-      "coverage_note": "Exposure: Blighted Tree 30 → 38% on the full route, ×1.38 / 1.30 ≈ ×1.062 against the unmodified row (Shakunetsu Sakura ×1.075), on every non-pierce hit the target takes for 2 rounds, allies' hits included.",
+      "coverage_note": "Exposure: Blighted Tree 30 → 40% on the full route, ×1.40 / 1.30 ≈ ×1.077 against the unmodified row (Shakunetsu Sakura ×1.075), on every non-pierce hit the target takes for 2 rounds, allies' hits included.",
       "parent_rule": "ALL",
       "potency_classification": "Ha Yanagi",
       "scope": "all Ha Yanagi-classified jutsu",
@@ -412,11 +412,11 @@
         "04",
         "05"
       ],
-      "rationale": "Blighted Tree exposure 30 → 38% (×1.062 against the unmodified row): ×1.38 on every non-pierce hit the target takes in the 2 rounds after the cast, from you, allies or weapons, never Blighted Tree's own hit. Veil of Falling Petals is the fourth purchase: the route's +2% Decrease Damage Given from Mourning Boughs becomes +5% (suppression 35 → 40% and 30 → 35%), half the Suppression route's +10%. Whispering Canopy (self buff 38%, ×1.38 × 1.38 ≈ ×1.90 on a hit inside both windows) is the offensive alternative.",
+      "rationale": "Blighted Tree exposure 30 → 40% (×1.077 against the unmodified row): ×1.40 on every non-pierce hit the target takes in the 2 rounds after the cast, from you, allies or weapons, never Blighted Tree's own hit. Veil of Falling Petals is the fourth purchase: the route's +2% Decrease Damage Given from Mourning Boughs becomes +5% (suppression 35 → 40% and 30 → 35%), half the Suppression route's +10%. Whispering Canopy (self buff 38%, ×1.40 × 1.38 ≈ ×1.93 on a hit inside both windows) is the offensive alternative.",
       "cost": 4,
       "bonuses": {
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       },
       "finals": [
         {
@@ -485,8 +485,8 @@
           "role": "ENEMY DEBUFF",
           "adverse": false,
           "base": 30.0,
-          "gain": 8,
-          "final": 38.0,
+          "gain": 10,
+          "final": 40.0,
           "calculation": "percentage",
           "supported": true,
           "capped_at_100": false
@@ -662,20 +662,20 @@
       ]
     }
   ],
-  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows; Decrease Damage Given (suppression), Increase Damage Taken (exposure) and Increase Damage Given (amplification) each own a route, and the fourth, Damage, reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static and deals its raw power, 40 HP before modifiers, so +N Damage there is +N HP. A flat-Damage capstone at the batch's +2 maximum (Blighted Tree 40 → 42 EP) is ×1.05 on one hit every 7 rounds, less than Thousand-Leaf Dream's +10% gives that hit inside its window (×1.45 / 1.35 ≈ ×1.074) while the amplifier also lifts every other hit there, so the route would be outweighed; its percentage setup would either twin Rising Sap (an Increase Damage Given setup stacks with it through Thousand-Leaf Dream's fourth purchase) or repeat Veil of Falling Petals' or Blight Takes Root's tag on the same rows as a third commit. The pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom) is therefore not kept, and the Hardened Heartwood leaf is removed rather than kept only to avoid a universal node. Mourning Boughs is universal: it is in every legal 4-BP build, so the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given.",
+  "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows; Decrease Damage Given (suppression), Increase Damage Taken (exposure) and Increase Damage Given (amplification) each own a route, and the fourth, Damage, reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static and deals its raw power, 40 HP before modifiers, so +N Damage there is +N HP. No R9′ percentage setup can feed a +2 payoff on Blighted Tree: Blighted Tree cannot land inside its own 2-round exposure (cooldown 7), so an Increase Damage Taken setup never reaches the kit's only formula Damage row (c), unlike Dai Kenja, where Chakra Overload's exposure is a separate cast that the Overloaded Impact strike lands into; an Increase Damage Given setup on Wailing Bark's one self row belongs under Whispering Canopy, where it is a legal fourth for Thousand-Leaf Dream and stacks with Rising Sap (a); Decrease Damage Given sets up no hit (c). The steady-edge fallback (Blighted Tree 40 → 42 EP) is ×1.05 on one hit every 7 rounds, less than the ×1.074 (×1.45 / 1.35) that Thousand-Leaf Dream's +10% gives that hit inside its window while the amplifier also lifts every other hit there, so Damage is left unamplified. The pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom) is therefore not kept, and the Hardened Heartwood leaf is removed rather than kept only to avoid a universal node. Mourning Boughs is universal: it is in every legal 4-BP build, so the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given.",
   "design_notes": [
-    "Structure: Mourning Boughs (enemy, universal) forks into Veil of Falling Petals → Grave Willow's Hush (suppression) and Blight Takes Root → Hollow at the Heart (exposure); Whispering Canopy (self) runs one chain, Rising Sap → Thousand-Leaf Dream (sustained amplification). Maxima over every legal allocation: Decrease Damage Given +10%, Increase Damage Given +10%, Increase Damage Taken +8%; no node targets Damage.",
-    "2026-10-04 rebalance: the pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom, +5 Damage: Blighted Tree formula 40 → 45 EP, Normal → High; Petal Nightmare static 40 → 45 raw HP) was cut, then removed; the roster pass also removes its Hardened Heartwood leaf (narrow-kit exception). Also in this batch: the +2% Decrease Damage Given rider on Hollow at the Heart is removed and Hollow at the Heart +7% → +5% (exposure +10% → +8%); Rising Sap +3% → +2% and Thousand-Leaf Dream +4% → +5%, so Amplifier stays +10% with the payoff on the capstone.",
+    "Structure: Mourning Boughs (enemy, universal) forks into Veil of Falling Petals → Grave Willow's Hush (suppression) and Blight Takes Root → Hollow at the Heart (exposure); Whispering Canopy (self) runs one chain, Rising Sap → Thousand-Leaf Dream (sustained amplification). Maxima over every legal allocation: Decrease Damage Given +10%, Increase Damage Given +10%, Increase Damage Taken +10%; no node targets Damage.",
+    "2026-10-04 rebalance: the pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom, +5 Damage: Blighted Tree formula 40 → 45 EP, Normal → High; Petal Nightmare static 40 → 45 raw HP) was cut, then removed; the roster pass also removes its Hardened Heartwood leaf (narrow-kit exception). Also in this batch: the +2% Decrease Damage Given rider on Hollow at the Heart is removed and its +7% kept (exposure +10%, after an interim +8% hold); Rising Sap +3% → +2% and Thousand-Leaf Dream +4% → +5%, so Amplifier stays +10% with the payoff on the capstone.",
     "Fourth purchases: Suppression adds Whispering Canopy (+3% IDG) or Blight Takes Root (+3% IDT); Exposure adds Veil of Falling Petals (+5% DDG in all) or Whispering Canopy; Amplifier's fourth is always Mourning Boughs (+2% DDG). No fourth adds to its own route's primary tag, and none reaches more than half of a sibling route's primary.",
-    "Arithmetic: every percentage row lists all four stat types and no element, so each matches damage of any element (§3). Jutsu-sourced increases multiply the hit in turn and reductions apply in sequence (computeDamagePacket, §3b). Exposure with Whispering Canopy gives ×1.38 × 1.38 ≈ ×1.90 on a hit inside both windows, Amplifier ×1.45 × 1.30 ≈ ×1.89 with Blighted Tree's untreed mark up; Amplifier leads in the Wailing Bark window alone (×1.45 against ×1.38), Exposure in the Blighted Tree window alone (×1.38 against ×1.30) and on allies' hits. The +15% bloodline Increase Damage Given passive applies last; pierce runs after the modifier pass.",
+    "Arithmetic: every percentage row lists all four stat types and no element, so each matches damage of any element (§3). Jutsu-sourced increases multiply the hit in turn and reductions apply in sequence (computeDamagePacket, §3b). Exposure with Whispering Canopy gives ×1.40 × 1.38 ≈ ×1.93 on a hit inside both windows, Amplifier ×1.45 × 1.30 ≈ ×1.89 with Blighted Tree's untreed mark up; Amplifier leads in the Wailing Bark window alone (×1.45 against ×1.38), Exposure in the Blighted Tree window alone (×1.40 against ×1.30) and on allies' hits. The +15% bloodline Increase Damage Given passive applies last; pierce runs after the modifier pass.",
     "Delivery: all three casts are OTHER_USER SINGLE. Wailing Bark 40 AP, cooldown 6 (suppression row plus the self buff); Blighted Tree 60 AP, cooldown 7 (formula Damage plus exposure); Petal Nightmare 60 AP, cooldown 6 (static Damage, 40 raw HP, plus suppression). Every percentage row is live the two rounds after its cast, never in it, so no cast boosts its own hit. Both suppression debuffs on one target in one round cost 100 AP. Not simulated."
   ],
   "risks": [
     "Classification: no kit row carries an element, so the tree requires a classification extension. 'Ha Yanagi' is the placeholder name of a new jutsu classification assigned to jutsu records, not a bloodline-id selector; which jutsu carry it is a director/engine decision. All three kit jutsu qualify only through it (ENGINE_GAP_REGISTER G1). Off-kit coverage is unverified.",
     "Suppression stacking: Wailing Bark and Petal Nightmare each apply a separate two-round Decrease Damage Given debuff; with BATTLE_TAG_STACKING every active same-tag effect applies (process.ts 1109–1117, §3b) and the reductions compound, so one target's non-pierce hits fall to ×0.65 × 0.70 = ×0.455 at base and ×0.55 × 0.60 = ×0.33 at the +10% route maximum (floor ×0.10). The strongest defensive package in the tree. Not simulated.",
     "Downstream reach: the Wailing Bark self buff raises normal jutsu, weapons and basic attacks in its window; suppression cuts non-pierce damage from every source the target controls; exposure raises non-pierce hits from allies and weapons, so Hollow at the Heart is worth more in group fights than its single row suggests.",
-    "Single-row routes: Exposure (Blighted Tree, cooldown 7) and Amplifier (Wailing Bark, cooldown 6) each ride one row, live 2 rounds per cast. Exposure stops at +8% against Amplifier's +10% (kit reason in the design-review concerns). Hollow at the Heart carries no suppression rider, but the route keeps Mourning Boughs' +2% Decrease Damage Given (+5% with Veil of Falling Petals). Amplifier keeps +10% on the one self row.",
-    "Targeting: all three casts are OTHER_USER and may be aimed at any living non-caster user, allies included (util.ts 2747–2749; actions.ts 1029–1068). Every damage and debuff row has friendly fire none/ALL, so aimed at an ally it damages, suppresses (up to 45%) or exposes (up to 38%) that ally; SINGLE method, so this is player-controlled.",
+    "Single-row routes: Exposure (Blighted Tree, cooldown 7) and Amplifier (Wailing Bark, cooldown 6) each ride one row, live 2 rounds per cast, and both take the single-row +10% (×1.077 and ×1.074). Hollow at the Heart carries no suppression rider, but the route keeps Mourning Boughs' +2% Decrease Damage Given (+5% with Veil of Falling Petals).",
+    "Targeting: all three casts are OTHER_USER and may be aimed at any living non-caster user, allies included (util.ts 2747–2749; actions.ts 1029–1068). Every damage and debuff row has friendly fire none/ALL, so aimed at an ally it damages, suppresses (up to 45%) or exposes (up to 40%) that ally; SINGLE method, so this is player-controlled.",
     "Pierce and passives: no node touches pierce, and pierce runs after the modifier pass, so suppression and exposure do not change pierce hits. The bloodline's permanent +5% Increase Damage Taken passive (Taijutsu/Bukijutsu, no element) is not a jutsu row; no node raises or removes it.",
     "Rank and scope: Ha Yanagi is a D-rank bloodline. No node changes either Damage row: Blighted Tree's formula 40 EP hit and Petal Nightmare's static 40 raw HP stay at base. Skill-tree effects are skipped in ranked modes; no combat simulation was performed."
   ],
@@ -720,7 +720,7 @@
     "maximum_tag_bonuses": {
       "increasedamagegiven": 10,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 8
+      "increasedamagetaken": 10
     },
     "supported_rows_in_kit": 6,
     "supported_rows_by_tag": {
@@ -754,7 +754,7 @@
       "maximum_over_all_legal_allocations": {
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       },
       "ceilings": {
         "increasedamagegiven": 10,
@@ -802,10 +802,10 @@
           "steps": [
             0,
             3,
-            5
+            7
           ],
-          "total": 8,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "advanced_art": "10",
@@ -862,7 +862,7 @@
       ],
       "bonuses": {
         "decreasedamagegiven": 5,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       }
     },
     {
@@ -900,7 +900,7 @@
       "bonuses": {
         "increasedamagegiven": 3,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       }
     },
     {
@@ -940,11 +940,11 @@
       "05": "exposure: every matching hit on the marked target, allies' included",
       "10": "sustained amplification of the Wailing Bark window (pure self Increase Damage Given)"
     },
-    "director_review": "Roster questions: DQ-B (Hollow at the Heart +8% Increase Damage Taken on 1 row: Blighted Tree 30 → 38%; ≈ ×1.062, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115); held below the single-row +10% because at 0/3/7 (Blighted Tree 40%, ≈ ×1.077) it would match Thousand-Leaf Dream's own-hit gain (≈ ×1.074) and add allies' hits (third concern); DQ-C (Grave Willow's Hush +10% Decrease Damage Given on two rows, Wailing Bark 35 → 45% and Petal Nightmare 30 → 40%, ×0.725 with both live, equal to Red Pestilence on the same bases); DQ-H (10 → 8 nodes: the pre-batch flat-Damage route, Hardened Heartwood → Nightmare in Bloom, is removed, leaving three Advanced Arts, Mourning Boughs universal and Damage unamplified; narrow-kit exception).",
+    "director_review": "Roster questions: DQ-B (Hollow at the Heart +10% Increase Damage Taken on 1 row: Blighted Tree 30 → 40%; ≈ ×1.077, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115); trim option 0/3/5 (Hollow at the Heart +5%): +8%, 30 → 38%, ≈ ×1.062; DQ-C (Grave Willow's Hush +10% Decrease Damage Given on two rows, Wailing Bark 35 → 45% and Petal Nightmare 30 → 40%, ×0.725 with both live, equal to Red Pestilence on the same bases); DQ-H (10 → 8 nodes: the pre-batch flat-Damage route, Hardened Heartwood → Nightmare in Bloom, is removed, leaving three Advanced Arts, Mourning Boughs universal and Damage unamplified; narrow-kit exception).",
     "concerns": [
-      "Mourning Boughs is universal (acknowledged in the narrow-kit exception): the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given. Every leaf that would avoid this is filler: a Damage leaf reaches one meaningful row (Blighted Tree 40 → 42 EP, ×1.05 on one hit every 7 rounds), and a percentage leaf twins a Hidden Art on the same rows.",
-      "A Damage-focused player has no route and Damage is unamplified. A flat-Damage capstone at +2 (Blighted Tree 40 → 42 EP, ×1.05) would give that one hit less than Thousand-Leaf Dream already gives it in the window (×1.074) and only +2 raw HP on Petal Nightmare's static row.",
-      "Kit reason for exposure at +8% (Blighted Tree 38%, ≈ ×1.062), below the single-row +10%: at 0/3/7 (40%, ×1.40 / 1.30 ≈ ×1.077) Hollow at the Heart would match Thousand-Leaf Dream's own-hit gain (×1.45 / 1.35 ≈ ×1.074), add allies' hits and, with both casts up and Whispering Canopy as its fourth, lead ×1.40 × 1.38 ≈ ×1.93 against ×1.45 × 1.30 ≈ ×1.89 (×1.90 at +8%), leaving the single-row Amplifier only its cheaper 40 AP, cooldown 6 cast (DQ-B).",
+      "Mourning Boughs is universal (acknowledged in the narrow-kit exception): the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given. Every leaf that would avoid this is filler: a Damage leaf reaches one meaningful row (Blighted Tree 40 → 42 EP, ×1.05 on one hit every 7 rounds), an Increase Damage Given leaf under Whispering Canopy stacks with Rising Sap as Thousand-Leaf Dream's fourth, and a debuff leaf there would exist only to break the universal node.",
+      "A Damage-focused player has no route and Damage is unamplified (narrow-kit exception). No R9′ setup passes: Blighted Tree (cooldown 7) cannot land inside its own 2-round exposure, so an exposure setup cannot feed a +2 payoff on the kit's only formula Damage row (c; Petal Nightmare is static 40 HP), unlike Dai Kenja's separate Chakra Overload mark; an Increase Damage Given setup stacks with Rising Sap (a); Decrease Damage Given sets up no hit (c). The steady-edge fallback (Blighted Tree 40 → 42 EP, ×1.05 on one hit every 7 rounds) is under the ×1.074 Thousand-Leaf Dream already gives that hit in its window.",
+      "Hollow at the Heart takes the single-row +10% (Blighted Tree 40%, ×1.40 / 1.30 ≈ ×1.077), just above Thousand-Leaf Dream's own-hit gain (×1.45 / 1.35 ≈ ×1.074), as R19 allows: exposure adds allies' hits on one marked target per cooldown-7 cast, the amplifier lifts every hit you land on any target in its 40 AP, cooldown 6 window. With both casts up, Exposure + Whispering Canopy leads ×1.40 × 1.38 ≈ ×1.93 against Amplifier ×1.45 × 1.30 ≈ ×1.89 (it already led at +8%, ×1.90); the top package is ×1.101, under ×1.234 (R14′). Trim option in DQ-B.",
       "Suppression +10% on two compounding rows (×0.725 against the unmodified kit; ×0.33 on a target under both) is above the roster's +8% two-row convention (DQ-C); the written kit reason is the director-approved Blood-Enchanted Eyes Red Pestilence route, +10% Decrease Damage Given on the same 35% / 30% bases (RUL-2026-10-04-001). Grave Willow's Hush is single-tag where Red Pestilence carries a Decrease Damage Taken rider; the kit has no defensive self row, so this capstone reads lighter than the anchor.",
       "Thousand-Leaf Dream is a bare single-row +10% Increase Damage Given capstone, where the anchors give +10% amplification a rider or stop at +8% (Arashima). Its fixed fourth makes the full build +10% Increase Damage Given, +2% Decrease Damage Given, close to Shakunetsu Sakura's Scorching Hanami package (+10% / +3%); the kit has no other rider tag that is not a sibling's primary.",
       "The generated Damage-tier line labels Petal Nightmare's static row \"40 (Normal)\"; that row is 40 raw HP outside the player-jutsu EP ladder, so the label is a renderer limitation. No node changes it."

@@ -50,7 +50,7 @@
   "examples": [
     {
       "name": "Deafening Silence",
-      "archetype": "Steady Edge",
+      "archetype": "Burst",
       "ids": [
         "01",
         "02",
@@ -62,7 +62,7 @@
         "damage": 2,
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 2
+        "increasedamagetaken": 4
       },
       "advanced_arts": [
         "Deafening Silence"
@@ -75,13 +75,13 @@
         "01",
         "04",
         "05",
-        "02"
+        "06"
       ],
       "cost": 4,
       "bonuses": {
-        "damage": 1,
         "increasedamagegiven": 8,
-        "decreasedamagegiven": 2
+        "decreasedamagegiven": 4,
+        "increasedamagetaken": 2
       },
       "advanced_arts": [
         "Tipping the Balance"
@@ -119,7 +119,7 @@
       "bonuses": {
         "increasedamagegiven": 2,
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
       "advanced_arts": [
         "Stillness Breaks"
@@ -145,14 +145,14 @@
       "4": 14
     },
     "full_budget_allocations": 14,
-    "non_dominated_full_allocations": 14,
+    "non_dominated_full_allocations": 12,
     "all_nodes_in_non_dominated_builds": true,
     "nodes_absent_from_non_dominated_builds": [],
     "maximum_tag_bonuses": {
       "damage": 2,
       "increasedamagegiven": 8,
       "decreasedamagegiven": 10,
-      "increasedamagetaken": 7
+      "increasedamagetaken": 8
     },
     "supported_rows_in_kit": 8,
     "supported_rows_by_tag": {
@@ -189,14 +189,13 @@
         "name": "Unspoken Blow",
         "category": "Hidden Art",
         "depth": 2,
-        "raw_flat_total": 1,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 4,
         "covered_jutsu": [
-          "Silent Palm Strike",
-          "Silent Rift",
+          "Moonlit Inferno",
           "Yin-Yang Cascade"
         ],
-        "covered_rows": 3,
+        "covered_rows": 2,
         "adverse_rows_amplified": [],
         "tags_without_rows": []
       },
@@ -205,8 +204,8 @@
         "name": "Deafening Silence",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 1,
-        "row_weighted_total": 3,
+        "raw_flat_total": 2,
+        "row_weighted_total": 6,
         "covered_jutsu": [
           "Silent Palm Strike",
           "Silent Rift",
@@ -310,8 +309,8 @@
         "name": "Stillness Breaks",
         "category": "Advanced Art",
         "depth": 3,
-        "raw_flat_total": 3,
-        "row_weighted_total": 6,
+        "raw_flat_total": 4,
+        "row_weighted_total": 8,
         "covered_jutsu": [
           "Moonlit Inferno",
           "Yin-Yang Cascade"
@@ -341,18 +340,16 @@
       "non_dominated": true
     },
     "lowest_value_node_by_row_weight": {
-      "id": "02",
-      "name": "Unspoken Blow",
+      "id": "07",
+      "name": "Hushed Inferno",
       "category": "Hidden Art",
       "depth": 2,
-      "raw_flat_total": 1,
+      "raw_flat_total": 3,
       "row_weighted_total": 3,
       "covered_jutsu": [
-        "Silent Palm Strike",
-        "Silent Rift",
-        "Yin-Yang Cascade"
+        "Moonlit Inferno"
       ],
-      "covered_rows": 3,
+      "covered_rows": 1,
       "adverse_rows_amplified": [],
       "tags_without_rows": []
     },
@@ -366,10 +363,11 @@
         ],
         "bonuses": {
           "damage": 2,
-          "increasedamagegiven": 4
+          "increasedamagegiven": 4,
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 6,
-        "row_weighted_total": 14,
+        "raw_flat_total": 8,
+        "row_weighted_total": 18,
         "advanced_arts": [
           "03"
         ],
@@ -386,10 +384,10 @@
           "damage": 2,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 8,
-        "row_weighted_total": 16,
+        "raw_flat_total": 10,
+        "row_weighted_total": 20,
         "advanced_arts": [
           "03"
         ],
@@ -403,16 +401,16 @@
           "05"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 8,
-          "decreasedamagegiven": 2
+          "decreasedamagegiven": 2,
+          "increasedamagetaken": 2
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 21,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "05"
         ],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -422,13 +420,12 @@
           "06"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 4,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 17,
+        "raw_flat_total": 10,
+        "row_weighted_total": 18,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -440,13 +437,12 @@
           "07"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 2
+          "increasedamagetaken": 4
         },
-        "raw_flat_total": 10,
-        "row_weighted_total": 16,
+        "raw_flat_total": 11,
+        "row_weighted_total": 17,
         "advanced_arts": [],
         "non_dominated": true
       },
@@ -458,15 +454,14 @@
           "09"
         ],
         "bonuses": {
-          "damage": 1,
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 4
+          "increasedamagetaken": 6
         },
-        "raw_flat_total": 9,
-        "row_weighted_total": 17,
+        "raw_flat_total": 10,
+        "row_weighted_total": 18,
         "advanced_arts": [],
-        "non_dominated": true
+        "non_dominated": false
       },
       {
         "ids": [
@@ -567,10 +562,10 @@
         "bonuses": {
           "increasedamagegiven": 2,
           "decreasedamagegiven": 2,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 11,
-        "row_weighted_total": 20,
+        "raw_flat_total": 12,
+        "row_weighted_total": 22,
         "advanced_arts": [
           "10"
         ],
@@ -603,10 +598,10 @@
         ],
         "bonuses": {
           "decreasedamagegiven": 5,
-          "increasedamagetaken": 7
+          "increasedamagetaken": 8
         },
-        "raw_flat_total": 12,
-        "row_weighted_total": 19,
+        "raw_flat_total": 13,
+        "row_weighted_total": 21,
         "advanced_arts": [
           "10"
         ],
@@ -789,7 +784,6 @@
   },
   "damage_thresholds": {
     "damage_totals_reachable": [
-      1,
       2
     ],
     "rows": [
@@ -803,19 +797,6 @@
         ],
         "method": "AOE_CIRCLE_SPAWN",
         "steps": [
-          {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 42.0,
@@ -843,19 +824,6 @@
         "method": "SINGLE",
         "steps": [
           {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
-          {
             "added": 2,
             "final": 42.0,
             "tier_before": "Normal",
@@ -881,19 +849,6 @@
         ],
         "method": "SINGLE",
         "steps": [
-          {
-            "added": 1,
-            "final": 41.0,
-            "tier_before": "Normal",
-            "tier_after": "Normal",
-            "tier_change": false,
-            "above_nuke": false,
-            "allocations": 7,
-            "smallest_allocation": [
-              "01",
-              "02"
-            ]
-          },
           {
             "added": 2,
             "final": 42.0,
@@ -925,9 +880,10 @@
       ],
       "path_bonuses": {
         "damage": 2,
-        "increasedamagegiven": 2
+        "increasedamagegiven": 2,
+        "increasedamagetaken": 2
       },
-      "path_row_weighted": 10,
+      "path_row_weighted": 14,
       "fourths": [
         {
           "id": "04",
@@ -938,10 +894,11 @@
           },
           "bonuses": {
             "damage": 2,
-            "increasedamagegiven": 4
+            "increasedamagegiven": 4,
+            "increasedamagetaken": 2
           },
-          "raw_total": 6,
-          "row_weighted": 14
+          "raw_total": 8,
+          "row_weighted": 18
         },
         {
           "id": "06",
@@ -955,10 +912,10 @@
             "damage": 2,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 2
+            "increasedamagetaken": 4
           },
-          "raw_total": 8,
-          "row_weighted": 16
+          "raw_total": 10,
+          "row_weighted": 20
         }
       ],
       "highest_diagnostic_fourth": "06"
@@ -982,15 +939,15 @@
           "name": "Unspoken Blow",
           "category": "Hidden Art",
           "adds": {
-            "damage": 1
+            "increasedamagetaken": 2
           },
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 8,
-            "decreasedamagegiven": 2
+            "decreasedamagegiven": 2,
+            "increasedamagetaken": 2
           },
-          "raw_total": 11,
-          "row_weighted": 21
+          "raw_total": 12,
+          "row_weighted": 22
         },
         {
           "id": "06",
@@ -1067,9 +1024,9 @@
       ],
       "path_bonuses": {
         "decreasedamagegiven": 2,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
-      "path_row_weighted": 16,
+      "path_row_weighted": 18,
       "fourths": [
         {
           "id": "01",
@@ -1081,10 +1038,10 @@
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 8
           },
-          "raw_total": 11,
-          "row_weighted": 20
+          "raw_total": 12,
+          "row_weighted": 22
         },
         {
           "id": "07",
@@ -1095,10 +1052,10 @@
           },
           "bonuses": {
             "decreasedamagegiven": 5,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 8
           },
-          "raw_total": 12,
-          "row_weighted": 19
+          "raw_total": 13,
+          "row_weighted": 21
         }
       ],
       "highest_diagnostic_fourth": "01"
