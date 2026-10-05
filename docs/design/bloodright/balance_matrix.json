@@ -2366,8 +2366,8 @@
         {
           "name": "Hollow at the Heart",
           "primary_tag": "increasedamagetaken",
-          "total": 8,
-          "on_band": false
+          "total": 10,
+          "on_band": true
         },
         {
           "name": "Thousand-Leaf Dream",
@@ -2397,12 +2397,12 @@
       "maximum_tag_bonuses": {
         "increasedamagegiven": 10,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 8
+        "increasedamagetaken": 10
       },
-      "max_full_build_raw_flat_total": 13,
+      "max_full_build_raw_flat_total": 15,
       "max_full_build_row_weighted_total": 23,
       "max_row_weighted_per_supported_row": 3.83,
-      "median_full_build_row_weighted_total": 16,
+      "median_full_build_row_weighted_total": 17,
       "strongest_full_build": {
         "ids": [
           "01",
@@ -2452,11 +2452,11 @@
             "04",
             "05"
           ],
-          "raw_flat_total": 13,
-          "row_weighted_total": 18,
+          "raw_flat_total": 15,
+          "row_weighted_total": 20,
           "bonuses": {
             "decreasedamagegiven": 5,
-            "increasedamagetaken": 8
+            "increasedamagetaken": 10
           }
         },
         {
@@ -2476,12 +2476,12 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows; Decrease Damage Given (suppression), Increase Damage Taken (exposure) and Increase Damage Given (amplification) each own a route, and the fourth, Damage, reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static and deals its raw power, 40 HP before modifiers, so +N Damage there is +N HP. A flat-Damage capstone at the batch's +2 maximum (Blighted Tree 40 → 42 EP) is ×1.05 on one hit every 7 rounds, less than Thousand-Leaf Dream's +10% gives that hit inside its window (×1.45 / 1.35 ≈ ×1.074) while the amplifier also lifts every other hit there, so the route would be outweighed; its percentage setup would either twin Rising Sap (an Increase Damage Given setup stacks with it through Thousand-Leaf Dream's fourth purchase) or repeat Veil of Falling Petals' or Blight Takes Root's tag on the same rows as a third commit. The pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom) is therefore not kept, and the Hardened Heartwood leaf is removed rather than kept only to avoid a universal node. Mourning Boughs is universal: it is in every legal 4-BP build, so the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has four supported tags on six rows; Decrease Damage Given (suppression), Increase Damage Taken (exposure) and Increase Damage Given (amplification) each own a route, and the fourth, Damage, reaches one meaningful row: Blighted Tree's formula 40 EP hit (60 AP, cooldown 7). Petal Nightmare's Damage row is static and deals its raw power, 40 HP before modifiers, so +N Damage there is +N HP. No R9′ percentage setup can feed a +2 payoff on Blighted Tree: Blighted Tree cannot land inside its own 2-round exposure (cooldown 7), so an Increase Damage Taken setup never reaches the kit's only formula Damage row (c), unlike Dai Kenja, where Chakra Overload's exposure is a separate cast that the Overloaded Impact strike lands into; an Increase Damage Given setup on Wailing Bark's one self row belongs under Whispering Canopy, where it is a legal fourth for Thousand-Leaf Dream and stacks with Rising Sap (a); Decrease Damage Given sets up no hit (c). The steady-edge fallback (Blighted Tree 40 → 42 EP) is ×1.05 on one hit every 7 rounds, less than the ×1.074 (×1.45 / 1.35) that Thousand-Leaf Dream's +10% gives that hit inside its window while the amplifier also lifts every other hit there, so Damage is left unamplified. The pre-batch flat-Damage route (Hardened Heartwood → Nightmare in Bloom) is therefore not kept, and the Hardened Heartwood leaf is removed rather than kept only to avoid a universal node. Mourning Boughs is universal: it is in every legal 4-BP build, so the Amplifier build is fixed (06, 09, 10 + 01) and every build carries +2% Decrease Damage Given.",
       "tags_not_targeted": [
         "damage"
       ],
       "vs_reference": {
-        "max_raw_flat_total_delta": -11,
+        "max_raw_flat_total_delta": -9,
         "max_row_weighted_delta": -8,
         "supported_rows_delta": -3
       }
@@ -4914,7 +4914,7 @@
           }
         }
       ],
-      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route that maximizes it: sustained self-amplification (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
+      "narrow_kit_exception": "Eight nodes and three Advanced Arts rather than ten and four. The kit has three supported tags on four rows (Increase Damage Given on Reptile Chimera and Cool-Blooded Empowerment; Decrease Damage Taken on Reptile Chimera; Lifesteal on Cool-Blooded Empowerment), and each tag gets one route that maximizes it: sustained amplification (IDG), fortress (DDT), pack sustain (Lifesteal); a fourth Advanced Art would repeat one of them. Chimeric Blood is a universal node (in all 8 legal 4 BP builds) because Blood of the Brood's subtree is one 3-node chain. A 1 BP leaf under Blood of the Brood would need to beat Chimeric Blood (+2% IDG, +2% DDT) as Pack sustain's fourth: Lifesteal is already at the +5% ceiling, Decrease Damage Taken +3% twins Hardened Scales, and Increase Damage Given +3% lets 06, leaf, 01, 02 reach +7% IDG, the Jaws route without its capstone. A mirrored layout only moves the universal node to the other root.",
       "tags_not_targeted": [],
       "vs_reference": {
         "max_raw_flat_total_delta": -10,
@@ -6462,7 +6462,7 @@
         {
           "name": "Stillness Breaks",
           "primary_tag": "increasedamagetaken",
-          "total": 7,
+          "total": 8,
           "on_band": false
         }
       ],
@@ -6470,7 +6470,7 @@
       "emphasis": {
         "primary": "Damage multipliers: self Increase Damage Given (Silent Rift, Yin-Yang Cascade) and enemy Increase Damage Taken (Moonlit Inferno, Yin-Yang Cascade)",
         "secondary": "Suppression (Decrease Damage Given on Moonlit Inferno)",
-        "tertiary": "A steady +2 Damage edge (Unspoken Blow +1, Deafening Silence +1) on the three 40 EP Yin-Yang strikes, 40 → 42, every cast"
+        "tertiary": "A burst: Unspoken Blow sets up +2% exposure on Moonlit Inferno and Yin-Yang Cascade, Deafening Silence pays it off with +2 Damage on the three 40 EP Yin-Yang strikes, 40 → 42, every cast"
       },
       "nodes": 10,
       "tiers": {
@@ -6480,7 +6480,7 @@
       },
       "structure_errors": [],
       "full_budget_allocations": 14,
-      "non_dominated_full_allocations": 14,
+      "non_dominated_full_allocations": 12,
       "maximum_advanced_arts": 1,
       "minimum_two_advanced_cost": 5,
       "maximum_depth": 3,
@@ -6488,7 +6488,7 @@
         "damage": 2,
         "increasedamagegiven": 8,
         "decreasedamagegiven": 10,
-        "increasedamagetaken": 7
+        "increasedamagetaken": 8
       },
       "max_full_build_raw_flat_total": 14,
       "max_full_build_row_weighted_total": 24,
@@ -6514,27 +6514,27 @@
         }
       },
       "lowest_value_node": {
-        "name": "Unspoken Blow",
+        "name": "Hushed Inferno",
         "row_weighted_total": 3
       },
       "nodes_absent_from_non_dominated_builds": [],
       "examples": [
         {
           "name": "Deafening Silence",
-          "archetype": "Steady Edge",
+          "archetype": "Burst",
           "ids": [
             "01",
             "02",
             "03",
             "06"
           ],
-          "raw_flat_total": 8,
-          "row_weighted_total": 16,
+          "raw_flat_total": 10,
+          "row_weighted_total": 20,
           "bonuses": {
             "damage": 2,
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 2
+            "increasedamagetaken": 4
           }
         },
         {
@@ -6544,14 +6544,14 @@
             "01",
             "04",
             "05",
-            "02"
+            "06"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 21,
+          "raw_flat_total": 14,
+          "row_weighted_total": 24,
           "bonuses": {
-            "damage": 1,
             "increasedamagegiven": 8,
-            "decreasedamagegiven": 2
+            "decreasedamagegiven": 4,
+            "increasedamagetaken": 2
           }
         },
         {
@@ -6580,12 +6580,12 @@
             "10",
             "01"
           ],
-          "raw_flat_total": 11,
-          "row_weighted_total": 20,
+          "raw_flat_total": 12,
+          "row_weighted_total": 22,
           "bonuses": {
             "increasedamagegiven": 2,
             "decreasedamagegiven": 2,
-            "increasedamagetaken": 7
+            "increasedamagetaken": 8
           }
         }
       ],
