@@ -19,7 +19,7 @@ Direct ChatGPT implementation happens only when the user explicitly assigns it a
 For substantial review work:
 
 1. verify repository, current `main`, exact Fable branch, and frozen handoff SHA;
-2. read `state/active-context.md`, `state/status.json`, and `docs/00_INDEX.md`;
+2. read `docs/00_INDEX.md` and the selected task state; use one global projection only when the audit scope requires it;
 3. read `CHATGPT.md`, `CLAUDE.md`, and `docs/DEVELOPMENT_WORKFLOW.md`;
 4. read the governing task brief/plan and relevant skill/reference files;
 5. inspect the actual implementation, tests, fixtures, generated artifacts, and reports;

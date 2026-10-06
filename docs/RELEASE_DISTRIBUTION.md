@@ -1,0 +1,6 @@
+# Release and distribution
+
+
+Repo: commit, `git pull --rebase`, push; raw CDN caches ~5 min for root fetches (45c/45g/32b). Forge bundle releases are two-stage: feature branches keep the last released loader version and immutable `@require` pin, marking a newer package only with `@x-release-pending`; after merge, `release_pin.yml` atomically raises the loader `@version`, pins `forge_bundle.js` to the merge commit on jsDelivr, and removes the pending marker. The Forge loader carries `@updateURL`/`@downloadURL` pointing at the released loader on `main`, so ViolentMonkey can detect later version rises. **Refreshing required resources does not update the loader itself**: it only re-fetches whatever immutable `@require` URL the installed loader already names. Any install from before the self-update metadata existed needs one manual loader reinstall/update first. The panel title must show the expected Forge version before trusting a smoke result; `partial` means `45c`, `32b` or `45g` is missing from repo root (skillpack syncs root from skill `data/`).
+Skills: change lands in repo `/skills/` first, the packaging workflow rebuilds `/dist/`,
+download and reinstall; the container copy is never patched in place.

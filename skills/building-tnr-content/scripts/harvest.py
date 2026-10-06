@@ -14,7 +14,7 @@ call is never evidence of anything.
 
 Usage
   python3 tnr_harvest.py index   capture.json
-  python3 tnr_harvest.py get     capture.json --proc quests.get [--out quest.json]
+  python3 tnr_harvest.py get     capture.json --proc quests.get [--id ID | --all] [--out quest.json]
   python3 tnr_harvest.py assets  capture.json [--out assets.json]
   python3 tnr_harvest.py names   capture.json --proc jutsu.getAllNames
   python3 tnr_harvest.py diff    results_bundle.json   # pushed vs live, per entry
@@ -153,13 +153,19 @@ def _pick(cap, proc):
     return [e for e in entries(cap) if e["proc"] == proc and e["data"] is not None]
 
 
-def cmd_get(path, proc, out=None):
+def cmd_get(path, proc, out=None, record_id=None, all_matches=False):
     cap = load(path)
     hits = _pick(cap, proc)
+    if record_id:
+        hits = [e for e in hits if isinstance(e['data'], dict)
+                and (e['data'].get('id') or e['data'].get('userId')) == record_id]
     if not hits:
         print(f"{proc} not in this capture. Run `index` to see what is.")
         return 1
-    d = hits[-1]["data"]
+    if len(hits) > 1 and not all_matches:
+        print(f"AMBIGUOUS: {len(hits)} captures match {proc}; use --id and/or --all. No record selected.")
+        return 1
+    d = [e['data'] for e in hits] if all_matches else hits[0]["data"]
     if isinstance(d, dict):
         ident = d.get("id") or d.get("userId") or ""
         name = d.get("name") or d.get("username") or ""
@@ -170,7 +176,8 @@ def cmd_get(path, proc, out=None):
     elif isinstance(d, list):
         print(f"{proc}: {len(d)} rows")
     if out:
-        json.dump(d, open(out, "w"), indent=1)
+        with open(out, "w", encoding="utf-8") as handle:
+            json.dump(d, handle, indent=1)
         print(f"written to {out}")
     return 0
 
@@ -461,7 +468,7 @@ def main():
     if cmd == "index":
         return cmd_index(path)
     if cmd == "get":
-        return cmd_get(path, opt("--proc"), opt("--out"))
+        return cmd_get(path, opt("--proc"), opt("--out"), opt("--id"), "--all" in args)
     if cmd == "assets":
         return cmd_assets(path, opt("--out"))
     if cmd == "names":

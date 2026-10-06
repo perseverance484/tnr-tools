@@ -17,7 +17,7 @@ This role does not publish content, push the game, merge implementation by defau
 For a substantial audit:
 
 1. verify repository and live `main` head;
-2. read `state/active-context.md`, `state/status.json`, and `docs/00_INDEX.md`;
+2. read `docs/00_INDEX.md` and the selected task state; use one global projection only when the audit scope requires it;
 3. read `CHATGPT.md`, `CLAUDE.md`, and `docs/DEVELOPMENT_WORKFLOW.md`;
 4. inventory active Fable/ChatGPT/audit branches and exact SHAs relevant to the milestone;
 5. read governing plans/briefs, doctrine/laws, relevant skill references, generated contracts, reports, implementation/tests, workflows, captures, and pinned game source as needed;

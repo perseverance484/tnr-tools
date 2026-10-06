@@ -1,133 +1,24 @@
 {
-  "generated": "2026-09-20",
-  "session": "Forge Presentation Studio P0/P1: size pass, dossier/spec/lint, three review rounds, 0.5.1 release, closeout and the P2 design rulings",
+  "generated": "2026-10-06",
+  "session": "Task-first repository navigation; historical operational claims retain their original evidence dates",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "FORGE PRESENTATION STUDIO P0/P1 INTEGRATED AND RELEASED AS 0.5.1; P2 DESIGN DECISIONS SETTLED. main contains approved 5ac0e947196f88c695d0cdee7aabe75a2f0278b2 verbatim; loader @version 0.5.1 pins forge_bundle.js to 13b313d8eaf0687907178ceedc406a7154e0a473. The size pass took the bundle from 451,847/88,356 to 339,669/74,926 with the ratchet re-set to 354,000/78,000; the repository-side dossier/spec/registry/lint ship outside the runtime bundle and no Presentation Studio UI exists. Three independent review rounds closed F1-F7 and R1-R3 at 522 passing tests. The design contract at chatgpt/forge-presentation-studio-design@4532ef91 is ACCEPTED and four rulings are recorded (RUL-2026-09-20-001..004): decoration off, binaries uncommitted, Forge Next Phase 1 before P2. Checkpoint: docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md. Zero live-game requests or writes all session; dauntless has not yet installed 0.5.1.",
-  "ruled_this_session": [
-    "2026-09-20 ACCEPTED (user): the Presentation Studio design contract at chatgpt/forge-presentation-studio-design@4532ef91 is accepted as proposed, with its defaults - name Presentation Studio, Event poster + Staff brief, the 360px mobile floor and 1080px PNG master. RUL-2026-09-20-001.",
-    "2026-09-20 RULED (user): optional generated decorative art stays OFF; no generative step exists anywhere in the presentation renderer. RUL-2026-09-20-002.",
-    "2026-09-20 RULED (user): rendered posters/briefs/packages are generated deliverables and are NOT committed; the spec, source lock and bindings reproduce them. RUL-2026-09-20-003.",
-    "2026-09-20 RULED (user): Forge Next Phase 1 is the next implementation work; Presentation Studio P2/P3 wait behind it. The P2 brief is queued, not blocked. RUL-2026-09-20-004."
-  ],
-  "deployed": [
-    "Forge 0.5.1 released by main@42cbcb8a06a168e594e303c812a61b3d1a1cbeb3: loader version 0.5.1, immutable bundle pin 13b313d8eaf0687907178ceedc406a7154e0a473, no pending marker. Installed browser uptake unverified in this checkpoint.",
-    "Repo-backed image packs live in the shipped bundle: runner/imgpack.mjs (contract), storage/assets.mjs (digest-keyed asset cache + content-keyed upload ledger), core/imagepack.mjs (prepare/commit/gate).",
-    "forge/tools/make_image_pack.mjs authors a pack by reading blobs with git cat-file at a resolved commit, so an uncommitted file cannot be bound.",
-    "Two independent review rounds closed: F1 (Start did not bind the verified File) and F2 (stale preparation could write into a newer selection), both corrected and re-reviewed CLOSED.",
-    "Forge size pass integrated: budget ratchet 354000 raw/78000 gzip; measured release bundle 339669 raw/74926 gzip.",
-    "art/godstorm/ holds the eight approved processed WebPs with a README recording their provenance, verification and the command that regenerates the pack.",
-    "push/53_godstorm_failed_items_repair.json now carries an imagePack binding all eight images to 10fb2570 by path + SHA-256; validate.py 0 errors, 9 pre-existing warnings.",
-    "make_image_pack.mjs --write writes at the repository's one-space indent, so a pack insertion is a 45-line diff instead of a 2,762-line reformat.",
-    "Two drift guards keep the committed pack honest against the committed blobs, and forge.yml checks out with fetch-depth 0 so they can actually run in CI.",
-    "push/53 ran on Forge 0.5.0: 3 Stormcourt SCENE_BACKGROUND creates, 5 Marrow avatar edits and the Stormcourt quest update, all VERIFIED with verdict match.",
-    "The eight live asset URLs were fetched and hashed after the run; every digest equals the pack's, so repository blob -> verified fetch -> upload -> live record -> served bytes is content-identical throughout.",
-    "push/53 archived to archive/spent-manifests/push-2026-09-19/ with its outcome recorded, so the pickers no longer offer a spent write-manifest.",
-    "The pack drift guards resolve the manifest through findManifest(), so they keep checking it after archiving.",
-    "Presentation Studio P1 integrated at approved 5ac0e94: repository-side evidence dossier, presentation spec, lint and Godstorm golden fixture. Presentation modules remain outside forge_bundle.js; no studio UI added."
-  ],
+  "state_line": "Start the requested task through scripts/tnr.py or its workstream. This digest is navigation, not a live-content or deployment-status authority.",
+  "ruled_this_session": [],
+  "deployed": [],
   "in_progress": {
-    "forge_size_pass": "COMPLETE / integrated at 05e7156 and released in Forge 0.5.1. Budget ratchet now 354000 raw/78000 gzip; measured 339669/74926.",
-    "godstorm_publication": "The three new Stormcourt assets and the Stormcourt quest are live but HIDDEN, as doctrine requires. Publishing is a separate step that waits on the content admin's go-ahead and is dauntless's to perform.",
-    "forge_next_phase1": "NEXT IMPLEMENTATION WORK per RUL-2026-09-20-004. READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun.",
-    "branch_cleanup": "Approved keep/delete plan remains on main at docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. Redundant refs still present.",
-    "quest_studio_phase_s": "Accepted source chatgpt/forge-quest-studio-foundation@5ba636d85fe2dbd4e4bf0e2baa6070cdd7321b15 retained; not integrated.",
-    "forge_presentation_studio": "P0/P1 COMPLETE / integrated and released in Forge 0.5.1. Design contract ACCEPTED (RUL-2026-09-20-001); decoration off, binaries uncommitted (RUL-2026-09-20-002/003). P2 renderer is QUEUED BEHIND Forge Next Phase 1 (RUL-2026-09-20-004); its brief is ChatGPT's to write and is unblocked. Art prerequisites still gate P2: source-archive resolution at 1bca57ee, the approved-derivative path, and MIME/dimensions - 5 of 23 registry entries have verified bytes today."
+    "content_workstreams": "state/workstreams/INDEX.md (generated task navigation)",
+    "forge_roadmap": "state/prompt_forge_next_phase1.md; sequencing decision RUL-2026-09-20-004 in docs/RULINGS.md",
+    "presentation_checkpoint": "docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md (historical release evidence)",
+    "guide_studio": "guide-studio/README.md (component status and gates)",
+    "mission_observations": "python3 scripts/tnr.py missions check --rank A (capture dates and coverage in result)"
   },
-  "open_by_owner": {
-    "dauntless": [
-      "Godstorm repair is complete and verified; nothing further is owed on it. The three new assets and the quest are live but hidden.",
-      "Publishing the Godstorm content is a separate step and waits on the content admin's go-ahead.",
-      "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md."
-    ],
-    "claude": [
-      "P0 size pass and P1 dossier/spec/lint are integrated and released; no further R1-R3 correction remains.",
-      "After director acceptance of the design contract, prepare the concrete P2 brief including source-archive resolution, approved derivatives, MIME/dimensions and exact-art readiness. Keep renderer delivery separate from installed Android acceptance.",
-      "If any approved art/godstorm bytes change, regenerate the pack under its existing workflow; do not re-derive shipped art or alter historical captures."
-    ],
-    "chatgpt": [
-      "Design contract/Godstorm reference at chatgpt/forge-presentation-studio-design@4532ef917a1dfb40d00c554fd7f065e13216afc7 remains a proposal awaiting director acceptance before P2.",
-      "Continue design/review ownership; Fable retains implementation ownership. R1-R3 closure report is pinned at 939168b6045e2469ec2c9934429b2c61b4ef1a9a."
-    ],
-    "legacy_content_state": [
-      "The 2026-09-08 mission/law queue is still unreverified. lawmap.py reports 0 errors and 5 pre-existing classification warnings (laws 16d, 18, 37, 61, 69), which belong to the legacy law-provenance workstream and were deliberately not touched."
-    ]
-  },
+  "open_by_owner": {},
   "rulings_open": [
-    "Whether the pre-upload re-hash stays permanently, or identity alone suffices once the Forge size pass runs. Reviewer accepted it for now.",
-    "Repository path prefix policy for packs (any safe repo-relative path vs an art/ allowlist) remains intentionally open; digest plus commit bind the bytes either way.",
-    "Whether validate.py should learn the imagePack key by INVOKING the Node contract rather than duplicating it.",
-    "Legacy law-provenance issues, including laws 19/23/37, remain outside this work and must be reverified from their owning evidence.",
-    "Forge Next Phase 2+ director choices remain deferred until the brief for the phase that needs them. The Presentation Studio decisions are settled (RUL-2026-09-20-001..004)."
+    "Read relevant entries in docs/RULINGS.md and selected task blockers. This summary does not re-declare historical open decisions."
   ],
-  "verified": [
-    "Live refs verified: main 42cbcb8a06a168e594e303c812a61b3d1a1cbeb3; Fable branch 13b313d8eaf0687907178ceedc406a7154e0a473; approved 5ac0e947196f88c695d0cdee7aabe75a2f0278b2 is a direct ancestor of main.",
-    "History: eefefd1 -> 05e7156 -> 8830443 -> ac792ef -> 5ac0e94 -> 13b313d -> 42cbcb8. Approved implementation present verbatim.",
-    "Release delta is version/pin-only in five files. Replacing two 0.5.0 strings with 0.5.1 in the approved Forge bundle produces the released bundle byte for byte.",
-    "Presentation tree identical at approved/main: 44a4e8eb8c62455cde029ed3e8b07dd0f5adcf45. Main bundle equals immutable pin target; legacy builder bundle unchanged from its previous pin.",
-    "Package/runtime/loader 0.5.1; loader @require at 13b313d8eaf0687907178ceedc406a7154e0a473; no pending marker; release-pin check clean.",
-    "Release budget check: 339669 raw/74926 gzip, ceilings 354000/78000.",
-    "Prior review 939168b6045e2469ec2c9934429b2c61b4ef1a9a at approved 5ac0e94: R1-R3 closed; 522 tests and 17 focused assertions passed; build/fixtures reproducible. Those full checks were not rerun for this version-only checkpoint.",
-    "Session guards at release checkout: lawmap 0 errors/5 existing warnings; doctrine and packs current. Baseline parity adapter remains RED on checks:null; not changed or reported green.",
-    "Live-game requests 0; live-game writes 0; asset-CDN requests 0. No installed Android session, CDN delivery, renderer, or export/share validation.",
-    "Closeout integration verified independently before merge: presentation tree identical at approved 5ac0e94 and main (44a4e8eb); substituting the two 0.5.0 strings in the approved bundle reproduces the released bundle byte for byte; main's bundle blob equals the blob at the pinned commit 13b313d.",
-    "state/status.json and state/active-context.md re-derived from state/digest.json in a scratch tree: both byte-identical to the committed projections, so they are generated rather than hand-edited.",
-    "Doc guards on integrated main 566e4cd: doctrinemap 0 errors/0 warnings; doctrine projections current; packs and TOCs current; lawmap 0 errors / 5 pre-existing warnings."
-  ],
-  "token_ledger": [
-    {
-      "path": "state/digest.json",
-      "bytes": 10311,
-      "at": "03:19Z"
-    },
-    {
-      "path": "state/active-context.md",
-      "bytes": 5136,
-      "at": "03:19Z"
-    },
-    {
-      "path": "state/status.json",
-      "bytes": 9335,
-      "at": "03:19Z"
-    },
-    {
-      "path": "docs/00_INDEX.md",
-      "bytes": 8785,
-      "at": "03:19Z"
-    },
-    {
-      "path": "harvests/inbox/tnr_results_1789842714086.json",
-      "bytes": 207909,
-      "at": "03:19Z"
-    }
-  ],
-  "next": "Forge Next Phase 1 is next: implement from the frozen contract at state/prompt_forge_next_phase1.md. Presentation Studio P0/P1 are integrated and released as 0.5.1; its P2 brief is unblocked but queued behind Phase 1, and its art prerequisites still gate the renderer. dauntless still has to install 0.5.1 and confirm the panel reads forge 0.5.1. Godstorm publishing remains a separate user-owned action on the content admin's go-ahead.",
-  "forge_next": {
-    "phase_0": "COMPLETE / integrated",
-    "phase_1": "READY / FROZEN; implementation not begun at closeout",
-    "phase_s_quest_studio": "accepted source retained; not integrated",
-    "phase_2_plus": "not begun",
-    "cleanup": "selective consolidation complete; redundant branch-ref deletion pending",
-    "image_packs": "COMPLETE / integrated / released as 0.5.0 / first production run verified end to end by content",
-    "bundle_budget": "354000 raw/78000 gzip; size pass integrated and released in Forge 0.5.1; measured 339669/74926."
-  },
-  "legacy_state_notice": "Global state before this closeout was a 2026-09-08 mission-flatten digest and was not reliable as current Forge state. It is archived verbatim; live/content claims from it must be reverified before use.",
-  "godstorm_53": "RUN AND VERIFIED on Forge 0.5.0 (9/9 match); manifest archived; live content is hidden pending a publishing decision",
-  "forge_presentation_studio": {
-    "phase_p0": "COMPLETE / integrated / released in Forge 0.5.1",
-    "phase_p1": "COMPLETE / integrated; repository-side dossier/spec/lint",
-    "phase_p2_plus": "not begun in this handoff; design acceptance and exact-art prerequisites remain",
-    "approved_head": "5ac0e947196f88c695d0cdee7aabe75a2f0278b2",
-    "approval_report_head": "939168b6045e2469ec2c9934429b2c61b4ef1a9a",
-    "verified_main": "42cbcb8a06a168e594e303c812a61b3d1a1cbeb3",
-    "release_version": "0.5.1",
-    "release_bundle_pin": "13b313d8eaf0687907178ceedc406a7154e0a473",
-    "report": "docs/reviews/FORGE_PRESENTATION_STUDIO_P0_P1_CLOSEOUT.md",
-    "closeout_branch": "chatgpt/forge-presentation-studio-closeout",
-    "design_branch": "chatgpt/forge-presentation-studio-design",
-    "design_head": "4532ef917a1dfb40d00c554fd7f065e13216afc7",
-    "design_status": "proposal; director acceptance pending",
-    "installed_android_uptake": "unverified",
-    "live_requests": 0,
-    "live_writes": 0
-  }
+  "verified": [],
+  "token_ledger": [],
+  "next": "Continue the user's specified task. If none is specified, use workstream next; do not select unrelated work from a historical closeout.",
+  "historical_checkpoint": "archive/state/2026-09-20-forge-presentation-digest.json",
+  "history_notice": "Preserved verbatim, including obsolete claims. RUL-2026-09-20-001 records acceptance; old pending-acceptance wording is superseded. No new deployment/live-state claim is made by this navigation migration."
 }

@@ -198,7 +198,12 @@ def parity(path, rep):
     exists to prevent: the browser accepting what the container rejects, or
     worse, the reverse."""
     mine = set(check_ids())
-    theirs = set(json.load(open(path)).get("checks", []))
+    with open(path, encoding="utf-8") as handle:
+        inventory = json.load(handle).get("checks")
+    if not isinstance(inventory, list) or not all(isinstance(c, str) for c in inventory):
+        rep.err("parity", "No compatible checks inventory. Forge captures do not export legacy parity; use Forge's test suite. This is not a parity pass.")
+        return
+    theirs = set(inventory)
     for c in sorted(mine - theirs):
         rep.err("parity", f"'{c}' is checked here but NOT by the builder preflight")
     for c in sorted(theirs - mine):
