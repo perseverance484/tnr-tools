@@ -232,3 +232,33 @@ Phase 2 is ready for director acceptance when:
 4. Phase 3 starts only after acceptance and derives both Chakra Edge and Parry from these same locks.
 
 No live-game request, upload, publish or write is authorized by this phase.
+
+
+## Director correction — Phase 2B rejected
+
+**Date:** 2026-10-06  
+**Status:** ACTIVE correction to Phase 2B.
+
+The director rejected `weapon_master_katana_lock_v2.png` as the canonical Weapon Master katana. Although its provenance and reconstruction were deterministic, the result does not read convincingly as a katana and is visually below the quality of the earlier generated Icon Production Master sheet.
+
+Consequences:
+- `weapon_master_katana_lock_v2.png`, its preview, and its geometry JSON are **REJECTED / NON-CANONICAL**;
+- deterministic provenance does not outrank visual correctness for an art-direction decision;
+- do not use the rejected v2 sword in Chakra Edge, Parry, or later Bukijutsu;
+- Phase 2A identity lock remains unaffected;
+- Phase 2B is reopened and Phase 3 remains blocked.
+
+### Revised Phase 2B direction
+
+Use the earlier generated Icon Production Master sheet as the **weapon visual-quality and silhouette reference**, while keeping the original Weapon Master sheet and approved Parry composition as continuity checks.
+
+The new katana lock must:
+- read immediately as a traditional katana rather than a generic curved fantasy sword;
+- preserve the stronger blade-to-hilt proportions, curvature, kissaki, circular brass/gold tsuba, wrapped tsuka and pommel treatment visible in the preferred master-sheet weapon;
+- be isolated as one clean reusable weapon asset;
+- avoid independently regenerating a different sword for each jutsu;
+- prioritize visual quality and recognizability first, then freeze the accepted raster for deterministic reuse.
+
+The generated master sheet is promoted only as a **weapon design reference**. Its independently synthesized character turnarounds remain non-canonical for Weapon Master identity.
+
+Phase 2B is complete only after the director accepts the replacement katana.
