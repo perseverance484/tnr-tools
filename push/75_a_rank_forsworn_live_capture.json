@@ -1,0 +1,70 @@
+{
+  "_note": "READ-ONLY live refresh for the four Forsworn A-rank missions and their encounter AI. Zero mutations. Captures the exact current quest records for Three Rounds, The Long Winter, Old Ghost, and The Tenth Name, plus full AI profiles/kits and AI rule chains for Pale Fang, Winter Crow, Old Ghost, and Faceless Shadow. This capture exists specifically to resolve stale pre-flatten repository evidence before producing a player-facing A-rank showcase/guide. Treat the resulting Forge bundle as the current live-state authority for records held by the game. Zero live writes.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": { "id": "fBQNC1wFqTPYp7reiK79T" },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": { "id": "WIsqHEoo4c-ToRaV5_cZj" },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": { "id": "KmGPDnZnGOCvATQqA5LI8" },
+        "persist": "full"
+      },
+      {
+        "proc": "quests.get",
+        "input": { "id": "8ndqsf6RBZ88q3pfyZQQh" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "yTHaQ_sdw-JW0C35W-Uo9" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "WxsmoaAoV0y8vqcWYw96y" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "g8l7lt-ua1ptrWvhqjrnl" },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": { "userId": "2ZF5jMvECgiNBgrr4icqk" },
+        "persist": "full"
+      }
+    ],
+    "after": [
+      {
+        "proc": "ai.getAiProfile",
+        "input": { "id": "H0ItJ3_JKIymkKhCpDhVf" },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": { "id": "jCVEoYMOHFQK3SGjnxHoi" },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": { "id": "XhEb-qAi6gC_7CyazsTiK" },
+        "persist": "full"
+      },
+      {
+        "proc": "ai.getAiProfile",
+        "input": { "id": "zIxcNQTcZh-SlZGWBmKwW" },
+        "persist": "full"
+      }
+    ]
+  },
+  "items": []
+}
