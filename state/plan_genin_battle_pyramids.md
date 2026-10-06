@@ -9,7 +9,7 @@
 
 ## Design goal
 
-Create three entry-level Genin `battlepyramid` challenges at levels 15, 20 and 25 that feel like **real pieces of TNR's world**, not combat tutorials wearing a thin theme.
+Create three entry-level Genin `battlepyramid` challenges at levels 15, 20 and 30 that feel like **real pieces of TNR's world**, not combat tutorials wearing a thin theme.
 
 The three challenges form a loose roadside arc:
 
@@ -242,7 +242,7 @@ Human enemies should look like practical road criminals, not elite assassins: la
 
 # III. The Burned Crest
 
-**Gate:** Level 25–30  
+**Gate:** Level 30  
 **Quest rank:** C  
 **Combat shape:** 5 fights; max 2 enemies  
 **Core fantasy:** Discover the low-grade rogue shinobi supplying ordinary road crime with real fieldcraft.
@@ -358,7 +358,7 @@ The rogue shinobi should look like people who removed affiliation from old gear,
 
 # Progression summary
 
-| Feature | Lv15 — Quiet Mile | Lv20 — False Toll | Lv25 — Burned Crest |
+| Feature | Lv15 — Quiet Mile | Lv20 — False Toll | Lv30 — Burned Crest |
 |---|---|---|---|
 | Threat | displaced wildlife | organized road gang | low-grade rogue shinobi |
 | Story question | What happened to the cart? | Who is impersonating authority? | Who taught the criminals? |
@@ -425,7 +425,7 @@ User-owned.
 Recommended shape:
 - all reward at terminal victory;
 - no exclusive progression-critical item or jutsu;
-- clear 15 < 20 < 25 progression;
+- clear 15 < 20 < 30 progression;
 - tuned as optional repeatable Genin PvE, not a windfall;
 - cadence and exact reward values still require approval.
 
@@ -438,3 +438,193 @@ Recommended shape:
 5. Approve `maxLevel: 30`.
 6. Decide whether continuity remains soft/independent (recommended) or becomes prerequisite-chained.
 7. Decide reward values and repeat cadence.
+
+
+---
+
+# Reuse Audit — Existing AI, Lore and Scene Assets
+
+**Status:** REUSE DIRECTION PROPOSED — this section supersedes the bespoke enemy/art assumptions above where they conflict.  
+**Fresh usage evidence:** `harvests/inbox/tnr_results_1791233210169.json` (2026-10-05 quest census).  
+**Profile evidence:** `harvests/inbox/tnr_results_1788235198666.json` (2026-09-01 mission-AI audit).  
+**Asset evidence:** committed mission captures plus `skills/producing-tnr-art/data/style_refs.json`.  
+**Live requests/writes for this audit:** 0 / 0.
+
+## Lore boundary
+
+The archived `The Unwritten War` roadmap is explicitly marked stale and must not be revived as operative canon.
+
+The current live low-rank continuity is safer and more useful:
+
+- C-rank missions already deploy **Unmarked Stray**, **Unmarked Blade**, and **Unmarked Shadow**.
+- Their mission prose presents them as mouth-wrapped, affiliation-less paid operatives who care about route marks, schedules, caches and the job more than the fight.
+- The higher reusable covert-line doctrine exists separately in current `references/lines.md`.
+- Therefore these pyramids should expand the **existing Unmarked field pattern** without naming a hidden parent organization unless the user later rules one.
+
+This keeps mystery intact and adds lore without importing a superseded arc.
+
+## Verified reusable AI
+
+| AI | Level / Rank | Existing role evidence | Reuse verdict |
+|---|---|---|---|
+| **GENIN 01** | Lv20 GENIN | Used by `Poachers' Due`; basic Quick/Steady/Rapid kit | Mechanically usable, but generic displayed name and Flaming Sword make it a weaker narrative choice |
+| **Marauder** | Lv25 CHUNIN | Used by `The Long Road`; simple Opening Strike kit | **Strong reuse** as local hired muscle / road criminal |
+| **Unmarked Stray** | Lv25 GENIN | Used by `The Empty Contract`; older Waystation build used multiple Strays | **Primary reuse**; simple low-rank operative |
+| **Unmarked Blade** | Lv30 GENIN | Used by `Protection` and `The Waystation` | **Primary reuse**; natural Genin capstone operative |
+| **Unmarked Shadow** | Lv35 CHUNIN | Used by `Chalk and Corner` | **Primary Lv30-pyramid boss reuse**; stronger operative but already used by low-rank C content |
+| **Syndicate Thief** | Lv27 CHUNIN | Used by `Night Watch Shadow` | Existing art/profile but no equipped jutsu in audit; avoid unless separately repaired/verified |
+| **Seichi Bandit** | Lv15 GENIN | Existing generic bandit record | Reject for now: no AI profile/jutsu and default avatar in captured state |
+| **KGK Rogue** | Lv10 GENIN | Blacksteel/Genin Trials continuity | Mechanically reusable but faction-specific; do not dilute Kuroganekai identity into this arc |
+
+All three Unmarked records already have non-default battle avatars and shared-pool kits. Reusing them eliminates new AI-avatar production and avoids one-off jutsu work.
+
+### Unmarked combat profiles
+
+**Unmarked Stray — Lv25 GENIN**
+- 1x stats / 1x pools; 1300 HP.
+- Quick Strike, Steady Strike, Venom Strike, Fighter's Poise, Bruising Blow.
+- Reads as a basic paid fighter with one mild status rider.
+
+**Unmarked Blade — Lv30 GENIN**
+- 1x stats / 1x pools; 1550 HP.
+- Twin Shot, Enervating Strike, Minor Overflow, Searing Strike, Heavy Cut.
+- Reads as a trained mixed-range operative and is almost perfectly placed at the Genin level cap.
+
+**Unmarked Shadow — Lv35 CHUNIN**
+- 1x stats / 1x pools; 1800 HP.
+- Withering Weave, Sundering Blow, Numbing Shot, Warrior's Poise, Lingering Strike.
+- Too strong to be a normal Genin floor, but a good final threat for the level-30 pyramid because current C-rank content already deploys it against level-20 players.
+
+## Existing wildlife candidates
+
+The fresh quest census verifies these existing AIs as the targets of **D-rank hunting quests**:
+
+- **MossWolf** — `AkGY27OK7lNmxvGAcGtJr`
+- **Moonprowler** — `ld7Cd-yHU15NwRKyjToZs`
+- **OwlCat** — `HS5pnbz_JDK43lNDBEoig`
+- **Rust Ferret** — `R9JRTtK3cZubEWUMbEkfL`
+- **Badgertle** — `gHPiwKQMYdf5-M1kfdom_`
+
+This is strong evidence that TNR already has a native low-rank wildlife vocabulary. Their exact current level/profile/avatar suitability is **not** established by the quest census, so final floor assignment requires one read-only candidate capture before implementation.
+
+Preferred direction: retire the invented Brush Boar / Ridge Wolf / Black Bear trio and build The Quiet Mile from three existing D-hunt creatures. That gives the pyramid actual TNR fauna and potentially removes all three new wildlife avatars.
+
+## Verified reusable scene assets
+
+### Existing low-rank mission art
+
+| Asset | Existing use / read | Best reuse |
+|---|---|---|
+| **DM Long Road Dusk** — `7XdeP3QA1DqHqttxvg2iS` | `The Long Road` | **The Quiet Mile** primary road scene |
+| **DM Road Merchant** — `xsikTqetvzo5OXKdTicK6` | `The Long Road` | Optional witness / stranded merchant |
+| **DM Mission Counter** — `O2MokayxTOH32-smnzFL2` | D-rank mission framing | Optional pyramid briefing scene |
+| **DM Mission Clerk** — `XsLLy8awDAtaE6hXVIi_0` | D-rank mission framing | Optional common briefing NPC |
+| **DM Night Walls** — `a9ZwaJtcrwxHS1sJKDsfV` | `Night Watch Shadow` | Night approach / surveillance scene |
+| **Genin Trials Case Office** — `_Ca4nBppDdevDwBICFPUF` | Genin case-contract content | Optional connective briefing/debrief |
+| **Hall Steps Before Dawn** — `JAh1c6Ykf_nUfM5Xk67DW` | live C-rank Unmarked missions | C-rank briefing / threshold |
+| **Market Road Pre-Dawn** — `gXpaJL3VnawaQ5PGqSoAB` | live C-rank investigation | Road / checkpoint investigation |
+| **Back Alley Night** — `wyMQkpiugsLs8BQpDdTf2` | live Unmarked encounters | Unmarked surveillance / fight staging |
+
+### Existing approved scene-background reference assets already in the game
+
+- **Pass Road Dusk** — excellent Quiet Mile alternate stage.
+- **East Road Ambush Site** — road encounter composition.
+- **Waystation Door** — strong False Toll threshold/checkpoint substitute.
+- **Drying Shed** — modest rural road structure.
+- **Drying Yard** — extremely strong Burned Crest training-yard substitute.
+- **Warehouse Loading Floor** — plausible Burned Crest interior/store room.
+
+These are not merely style inspiration; they are captured existing `SCENE_BACKGROUND` game assets and can be literal reuse candidates.
+
+## Revised narrative and encounter plan
+
+### I. The Quiet Mile — Lv15 D
+
+Keep the investigative premise, but make the animals **native TNR hunting fauna**.
+
+The cart is found abandoned along the same kind of trade route already established in `The Long Road`. Wildlife has moved onto the spilled cargo and into the disturbed roadside.
+
+The deeper clue is not a new faction token. A milestone beside the wreck carries a fresh **chalk route mark** like the marks investigated later in `Chalk and Corner`.
+
+The player does not know what it means yet.
+
+**Proposed combat:** three existing D-hunt wildlife AIs, chosen after profile capture.
+
+**Preferred scenes:** DM Long Road Dusk + East Road Ambush Site / Pass Road Dusk.
+
+**New assets if candidates pass capture:** **0**.
+
+### II. The False Toll — Lv20 C
+
+Reframe the tollhouse as a **route-control job run by local muscle for anonymous Unmarked operatives**, rather than a wholly new road-gang faction.
+
+The false toll is valuable because it records who travels, when escorts pass, and which carts can be redirected. The money is useful; the information is the real product.
+
+The player first meets ordinary hired muscle, then discovers the people managing the operation are the same affiliation-less fighters appearing in other C-rank investigations.
+
+**Proposed floors:**
+1. **Marauder — Lv25**: local hired muscle.
+2. **Unmarked Stray — Lv25**: the first professional cutout.
+3. **Marauder + Unmarked Stray**: local crime and professional fieldcraft together.
+4. **Unmarked Blade — Lv30**: the operative protecting the ledger / route schedule.
+
+This is not a new difficulty precedent:
+- `The Long Road` is D-rank Lv20 and already uses Marauder Lv25.
+- `The Empty Contract` is C-rank Lv20 and already uses Unmarked Stray Lv25.
+- `Protection` / `The Waystation` are C-rank Lv20 and already use Unmarked Blade Lv30.
+
+**Preferred scenes:** Waystation Door or Drying Shed for the structure; Market Road Pre-Dawn for approach.
+
+**New AI/art required:** **0**.
+
+### III. The Burned Crest — Lv30 C
+
+The training yard becomes an **Unmarked staging yard** rather than a new rogue-shinobi faction.
+
+Old affiliation marks are scraped or burned from gear because the people passing through are expected to become untraceable paid hands. Some are disposable Strays; Blades receive more deliberate training; a Shadow supervises the site.
+
+This adds useful low-level lore: "Unmarked" is not necessarily a village, clan or grand conspiracy. It is a **method of doing deniable work**. The player sees a labor pipeline that explains why the same kind of anonymous operative appears across unrelated C-rank jobs.
+
+**Proposed floors:**
+1. **Unmarked Stray — Lv25**
+2. **Unmarked Blade — Lv30**
+3. **2x Unmarked Stray — Lv25**
+4. **Unmarked Stray + Unmarked Blade**
+5. **Unmarked Shadow — Lv35** final overseer
+
+The level-35 Shadow is deliberately boss-only. `Chalk and Corner` already uses this exact AI in current C-rank Lv20 content, so a Lv30 capstone use is conservative relative to existing deployment.
+
+**Preferred scenes:** Drying Yard for the exterior/training yard; Warehouse Loading Floor for the interior records/equipment area.
+
+**New AI/art required:** **0**.
+
+## Asset-count consequence
+
+Original bespoke direction implied approximately:
+
+- 10 new enemy avatars;
+- 6 new scene backgrounds;
+- optional scene characters.
+
+With the reuse direction:
+
+- **False Toll:** 0 new AI, 0 new battle avatars, likely 0 new backgrounds.
+- **Burned Crest:** 0 new AI, 0 new battle avatars, likely 0 new backgrounds.
+- **Quiet Mile:** potentially 0 new AI/avatars if three D-hunt wildlife candidates pass profile/art verification; 0 new backgrounds.
+- Briefing/witness characters can reuse DM Mission Clerk / DM Road Merchant or be omitted.
+
+**Best case: zero new production art.**  
+Realistic fallback: **1–2 new assets total**, only if the wildlife art/profile capture shows a mismatch.
+
+## Next evidence gate
+
+Before manifest design is frozen, run one small **read-only** capture containing:
+
+1. the five D-hunt wildlife candidate AIs above;
+2. Unmarked Stray / Blade / Shadow (fresh profile confirmation);
+3. Marauder (fresh confirmation);
+4. the selected scene assets if exact current image/type confirmation is desired.
+
+The Unmarked profile numbers above come from the 2026-09-01 mission-AI audit; the 2026-10-05 quest census proves they are still referenced by live missions but does not prove their profiles were unchanged.
+
+No write manifest should be authored until that reuse capture resolves the wildlife shortlist.
