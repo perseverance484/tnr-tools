@@ -8,19 +8,37 @@ from __future__ import annotations
 
 import contextlib
 import copy
+import hashlib
 import io
 import json
 import shutil
 import sys
 import tempfile
 import unittest
+import urllib.error
 from pathlib import Path
+
+from PIL import Image  # approved art dependency (CLAUDE.md section 9); materialize decodes with it
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jutsu_art as ja  # noqa: E402
 
 ROOT = ja.ROOT
-WEBP = b"RIFF\x10\x00\x00\x00WEBPVP8 " + b"\x00" * 16
+
+
+def _img(fmt: str, color=(200, 30, 30), frames: int = 1) -> bytes:
+    ims = [Image.new("RGB", (8, 8), (color[0], color[1], (color[2] + 40 * i) % 256)) for i in range(frames)]
+    buf = io.BytesIO()
+    kw = {"save_all": True, "append_images": ims[1:], "duration": 100} if frames > 1 else {}
+    ims[0].save(buf, format=fmt, **kw)
+    return buf.getvalue()
+
+
+PNG = _img("PNG")
+PNG_BLUE = _img("PNG", (30, 30, 200))
+JPEG = _img("JPEG")
+GIF_ANIM = _img("GIF", frames=3)
+WEBP_ANIM = _img("WEBP", frames=2)
 
 
 def _source_paths() -> list[str]:
@@ -75,7 +93,7 @@ class CorpusTests(unittest.TestCase):
 
     def test_drift_warning_preserved(self):
         cov = self.doc["coverage"]
-        self.assertEqual((cov["live_name_rows"], cov["known_name_rows"], cov["status"]), (1493, 1491, "UNRESOLVED"))
+        self.assertEqual((cov["live_name_rows"], cov["known_name_rows_at_census"], cov["status"]), (1493, 1491, "UNRESOLVED"))
         self.assertTrue(any("UNRESOLVED" in w for w in self.doc["warnings"]))
 
     def test_deterministic(self):
@@ -214,6 +232,46 @@ class FailClosedTests(unittest.TestCase):
             TempRepo.edit(root, ja.SOURCES["batches"][0]["bundle"], lambda d: [c["data"].update(hidden=True) for c in d["captures"]])
             self.assertFails(root, "expectations")
 
+    def test_catalog_growth_never_clears_coverage(self):
+        """JA-R1: two unrelated ids making today's count 1,493 must not resolve the census gap."""
+        def grow(d):
+            d["entities"]["jutsu"]["rows"] += [["review-new-id-1", "Review New Jutsu 1", None],
+                                               ["review-new-id-2", "Review New Jutsu 2", None]]
+        with TempRepo() as root:
+            (root / "answers").mkdir(exist_ok=True)
+            shutil.copyfile(ROOT / ja.OUTPUT, root / ja.OUTPUT)
+            TempRepo.edit(root, ja.SOURCES["known_names"]["hot"], grow)
+            rc, out, _ = run(["build"], root=root)
+            self.assertEqual(rc, 0)
+            self.assertIn("UNRESOLVED", out)
+            self.assertIn("today's known jutsu ids = 1493", out)
+            # the output does not depend on today's catalog at all
+            self.assertEqual((root / ja.OUTPUT).read_text(encoding="utf-8"), (ROOT / ja.OUTPUT).read_text(encoding="utf-8"))
+            rc, out, _ = run(["verify"], root=root)
+            self.assertEqual(rc, 0)
+            self.assertIn("UNRESOLVED", out)
+            rc, _, err = run(["lookup", "Review New Jutsu 1"], root=root)
+            self.assertEqual(rc, 1)
+            self.assertIn("UNRESOLVED", err)
+            doc = json.loads((root / ja.OUTPUT).read_text(encoding="utf-8"))
+            self.assertEqual(doc["coverage"]["status"], "UNRESOLVED")
+
+    def test_coverage_status_cannot_be_flipped_by_pin(self):
+        sources = copy.deepcopy(ja.SOURCES)
+        sources["coverage"]["status"] = "MATCHED"
+        with self.assertRaises(ja.ProvenanceError):
+            ja.build(ROOT, sources)
+        sources = copy.deepcopy(ja.SOURCES)
+        sources["coverage"]["resolution"] = {"bundle": "harvests/inbox/x.json"}
+        with self.assertRaises(ja.ProvenanceError):
+            ja.build(ROOT, sources)
+
+    def test_live_rows_pin(self):
+        with TempRepo() as root:
+            TempRepo.edit(root, ja.SOURCES["coverage"]["bundle"],
+                          lambda d: d["journal"]["capturesBeforePartial"][0].update(rows=1491))
+            self.assertFails(root, "rows")
+
     def test_verify_detects_stale_output(self):
         with TempRepo() as root:
             (root / "answers").mkdir(exist_ok=True)
@@ -249,16 +307,105 @@ class MaterializeTests(unittest.TestCase):
             if r["eligible"]:
                 ja.check_cdn_url(r["image"])
 
-    def test_fetch_writes_and_indexes(self):
+    def two(self):
+        return ["Crescent Reaper Fang", "Abyssal Surge"]
+
+    def assertConsistent(self, out: Path):
+        """Every indexed file exists and matches its hash; no stray temp files."""
+        index = json.loads((out / ja.INDEX_NAME).read_text(encoding="utf-8")) if (out / ja.INDEX_NAME).exists() else {}
+        files = sorted(p.name for p in out.iterdir() if p.name != ja.INDEX_NAME) if out.exists() else []
+        self.assertEqual(files, sorted(e["file"] for e in index.values()))
+        for e in index.values():
+            self.assertEqual(hashlib.sha256((out / e["file"]).read_bytes()).hexdigest(), e["sha256"])
+        return index
+
+    def test_valid_formats_succeed(self):
+        for data, ext, frames in ((PNG, "png", 1), (JPEG, "jpg", 1), (GIF_ANIM, "gif", 3), (WEBP_ANIM, "webp", 2)):
+            with self.subTest(ext=ext), tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp) / "ws"
+                res = ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u, d=data: d)
+                self.assertEqual(res[0]["file"], f"cjRErpuffG4GiwIU8OsCw.{ext}")
+                self.assertEqual(res[0]["frames"], frames)
+                self.assertEqual((out / res[0]["file"]).read_bytes(), data)
+                self.assertIn("cjRErpuffG4GiwIU8OsCw", self.assertConsistent(out))
+
+    def test_header_only_and_truncated_rejected(self):
+        """JA-R3: a signature is not an image."""
+        bad = [b"\x89PNG\r\n\x1a\n", b"GIF89a", b"\xff\xd8\xff", b"RIFF\x04\x00\x00\x00WEBP", b"<html>",
+               PNG[: len(PNG) // 2], JPEG[: len(JPEG) // 2], GIF_ANIM[: len(GIF_ANIM) - 20], WEBP_ANIM[: len(WEBP_ANIM) // 2]]
+        for data in bad:
+            with self.subTest(data=data[:12]), tempfile.TemporaryDirectory() as tmp:
+                out = Path(tmp) / "ws"
+                ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: PNG)
+                before = {p.name: p.read_bytes() for p in out.iterdir()}
+                with self.assertRaises(ja.ProvenanceError):
+                    ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u, d=data: d)
+                self.assertEqual({p.name: p.read_bytes() for p in out.iterdir()}, before)
+
+    def test_second_fetch_failure_fresh_dir(self):
+        """JA-R2: nothing is published unless the whole batch fetches and decodes."""
+        def fetch(url, calls=[]):
+            calls.append(url)
+            if len(calls) == 2:
+                raise urllib.error.URLError("boom")
+            return PNG
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "ws"
+            with self.assertRaises(urllib.error.URLError):
+                ja.materialize(self.doc, self.two(), out, fetch=fetch)
+            self.assertFalse(out.exists() and any(out.iterdir()))
+
+    def test_second_fetch_failure_keeps_prior_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "ws"
+            ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: PNG)
+            before = {p.name: p.read_bytes() for p in out.iterdir()}
+            replies = iter([PNG_BLUE, urllib.error.URLError("boom")])
+
+            def fetch(url):
+                r = next(replies)
+                if isinstance(r, Exception):
+                    raise r
+                return r
+            with self.assertRaises(urllib.error.URLError):
+                ja.materialize(self.doc, self.two(), out, fetch=fetch)
+            self.assertEqual({p.name: p.read_bytes() for p in out.iterdir()}, before)
+            self.assertConsistent(out)
+            # the same batch succeeding replaces both files and the index together
+            ja.materialize(self.doc, self.two(), out, fetch=lambda u: PNG_BLUE)
+            index = self.assertConsistent(out)
+            self.assertEqual(len(index), 2)
+            self.assertEqual(index["cjRErpuffG4GiwIU8OsCw"]["sha256"], hashlib.sha256(PNG_BLUE).hexdigest())
+
+    def test_format_change_drops_superseded_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "ws"
+            ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: PNG)
+            ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: JPEG)
+            index = self.assertConsistent(out)
+            self.assertEqual(index["cjRErpuffG4GiwIU8OsCw"]["file"], "cjRErpuffG4GiwIU8OsCw.jpg")
+
+    def test_inconsistent_existing_index_refused_before_fetch(self):
         calls = []
         with tempfile.TemporaryDirectory() as tmp:
-            out = Path(tmp)
-            res = ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: calls.append(u) or WEBP)
-            self.assertEqual(res[0]["file"], "cjRErpuffG4GiwIU8OsCw.webp")
-            self.assertEqual((out / res[0]["file"]).read_bytes(), WEBP)
-            index = json.loads((out / "materialized.json").read_text(encoding="utf-8"))
-            self.assertIn("cjRErpuffG4GiwIU8OsCw", index)
-        self.assertEqual(len(calls), 1)
+            out = Path(tmp) / "ws"
+            ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: PNG)
+            (out / "cjRErpuffG4GiwIU8OsCw.png").write_bytes(PNG_BLUE)  # drift behind the index's back
+            with self.assertRaises(ja.ProvenanceError):
+                ja.materialize(self.doc, ["Abyssal Surge"], out, fetch=lambda u: calls.append(u) or PNG)
+            (out / ja.INDEX_NAME).write_text("not json", encoding="utf-8")
+            with self.assertRaises(ja.ProvenanceError):
+                ja.materialize(self.doc, ["Abyssal Surge"], out, fetch=lambda u: calls.append(u) or PNG)
+        self.assertEqual(calls, [])
+
+    def test_unindexed_file_never_overwritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "ws"
+            out.mkdir()
+            (out / "cjRErpuffG4GiwIU8OsCw.png").write_bytes(b"user file")
+            with self.assertRaises(ja.ProvenanceError):
+                ja.materialize(self.doc, ["Crescent Reaper Fang"], out, fetch=lambda u: PNG)
+            self.assertEqual((out / "cjRErpuffG4GiwIU8OsCw.png").read_bytes(), b"user file")
 
     def test_any_miss_aborts_before_fetching(self):
         calls = []
@@ -267,18 +414,17 @@ class MaterializeTests(unittest.TestCase):
                 ja.materialize(self.doc, ["Crescent Reaper Fang", "No Such Jutsu"], Path(tmp), fetch=calls.append)
         self.assertEqual(calls, [])
 
-    def test_dry_run_and_non_image(self):
+    def test_dry_run(self):
         with tempfile.TemporaryDirectory() as tmp:
-            res = ja.materialize(self.doc, ["Crescent Reaper Fang"], Path(tmp), dry_run=True, fetch=None)
+            res = ja.materialize(self.doc, ["Crescent Reaper Fang"], Path(tmp) / "ws", dry_run=True, fetch=None)
             self.assertEqual(res[0]["action"], "would-fetch")
-            with self.assertRaises(ja.ProvenanceError):
-                ja.materialize(self.doc, ["Crescent Reaper Fang"], Path(tmp), fetch=lambda u: b"<html>")
+            self.assertFalse((Path(tmp) / "ws").exists())
 
     def test_excluded_refused(self):
         excluded = next(r for r in self.doc["records"] if not r["eligible"])
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(ja.ProvenanceError):
-                ja.materialize(self.doc, [excluded["id"]], Path(tmp), by_id=True, fetch=lambda u: WEBP)
+                ja.materialize(self.doc, [excluded["id"]], Path(tmp), by_id=True, fetch=lambda u: PNG)
 
 
 if __name__ == "__main__":

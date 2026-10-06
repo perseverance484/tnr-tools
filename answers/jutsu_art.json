@@ -16,7 +16,7 @@
  },
  "coverage": {
   "live_name_rows": 1493,
-  "known_name_rows": 1491,
+  "known_name_rows_at_census": 1491,
   "drift": 2,
   "status": "UNRESOLVED",
   "live_source": {
@@ -24,18 +24,13 @@
    "bundle_sha256": "6711af224bad5cd74fd18fb7d60e897be639957875f392229b961890495a75a5",
    "manifest_hash": "61579eea",
    "proc": "jutsu.getAllNames",
-   "live_rows": 1493
-  },
-  "known_source": {
-   "catalog": "answers/names_jutsu.json",
-   "catalog_rows": 1472,
-   "hot": "answers/hot.json",
-   "hot_new_rows": 19,
-   "total": 1491
+   "live_rows": 1493,
+   "known_rows_at_census": 1491,
+   "status": "UNRESOLVED"
   }
  },
  "warnings": [
-  "UNRESOLVED name-universe drift: live jutsu.getAllNames = 1493 rows (#66) vs 1491 known repository ids (1472 catalog + 19 hot). The census covers only the known candidate set; +2 live row(s) were never classified. Run a delta follow-up before claiming exhaustive coverage."
+  "UNRESOLVED name-universe drift: live jutsu.getAllNames = 1493 rows (#66) vs 1491 repository ids known at census time. The census covers only that known candidate set; +2 live row(s) were never classified. Only reviewed follow-up capture evidence clears this - never a catalog count."
  ],
  "sources": {
   "target": {

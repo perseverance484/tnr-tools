@@ -57,6 +57,15 @@ SOURCES = {
         "state": "RUNNING",
         "outcome": "open",
         "proc": "jutsu.getAllNames",
+        "live_rows": 1493,
+        # The census-time known universe (#67 note: 1,491 = 1,472 seed catalog + 19 hot), pinned
+        # as the historical fact it is. Today's answers/ count is a diagnostic only: equal counts
+        # from different snapshots never prove the extra live rows were classified (JA-R1).
+        "known_rows_at_census": 1491,
+        # UNRESOLVED until a reviewed change adopts follow-up capture evidence that identifies and
+        # classifies the missing live rows. No count, catalog regeneration or rebuild clears it.
+        "status": "UNRESOLVED",
+        "resolution": None,
     },
     # The 604-id target list. Its bundle is a stranded partial; only the manifest identity is used.
     "target": {
@@ -82,7 +91,8 @@ SOURCES = {
         {"manifest": "push/74_player_facing_jutsu_census_batch_7.json", "manifest_number": 74, "manifest_hash": "6209d917",
          "bundle": "harvests/inbox/tnr_results_1791248170855.json", "start": 600, "count": 4},
     ],
-    # The repository's known jutsu name universe: seed catalog plus the hot-shard delta.
+    # Today's known jutsu name universe (seed catalog plus hot-shard delta). DIAGNOSTIC ONLY: it is
+    # printed by build/verify but never written to the output and never changes coverage status.
     "known_names": {"catalog": "answers/names_jutsu.json", "hot": "answers/hot.json"},
     "expected": {"captured": 604, "eligible": 441, "eligible_unique_image_urls": 440},
 }
@@ -221,6 +231,10 @@ def load_corpus(root: Path = ROOT, sources: dict = SOURCES) -> dict:
     _need(s.get("ok") is True and s.get("error") is None and isinstance(s.get("rows"), int),
           f"{cov['bundle']}: {cov['proc']} did not complete cleanly")
     live_rows = s["rows"]
+    _need(live_rows == cov["live_rows"], f"{cov['bundle']}: {cov['proc']} rows {live_rows}, pinned {cov['live_rows']}")
+    if cov["resolution"] is not None or cov["status"] != "UNRESOLVED":
+        # No follow-up evidence path exists yet; adopting one is a reviewed code change, not a pin flip.
+        raise ProvenanceError("coverage resolution pinned without an implemented follow-up evidence check")
 
     # --- target list (#67) ------------------------------------------------------------------
     tgt = sources["target"]
@@ -282,7 +296,7 @@ def load_corpus(root: Path = ROOT, sources: dict = SOURCES) -> dict:
     _need(expected_start == len(target), f"batches cover {expected_start} ordinals, target has {len(target)}")
     _need(len({r["data"]["id"] for r in records}) == len(records), "duplicate record ids across batches")
 
-    # --- known name universe -------------------------------------------------------------
+    # --- known name universe (diagnostic only) --------------------------------------------
     kn = sources["known_names"]
     catalog = _load(root, kn["catalog"])
     hot = _load(root, kn["hot"])
@@ -296,10 +310,11 @@ def load_corpus(root: Path = ROOT, sources: dict = SOURCES) -> dict:
         "records": records,
         "batches": batch_meta,
         "coverage": {"bundle": cov["bundle"], "bundle_sha256": _sha256(root, cov["bundle"]),
-                     "manifest_hash": cov["manifest_hash"], "proc": cov["proc"], "live_rows": live_rows},
+                     "manifest_hash": cov["manifest_hash"], "proc": cov["proc"], "live_rows": live_rows,
+                     "known_rows_at_census": cov["known_rows_at_census"], "status": cov["status"]},
         "target": {"manifest": tgt["manifest"], "manifest_hash": tgt["manifest_hash"], "count": len(target)},
-        "known": {"catalog": kn["catalog"], "catalog_rows": len(cat_ids), "hot": kn["hot"],
-                  "hot_new_rows": len(hot_ids), "total": known},
+        "current_known": {"catalog": kn["catalog"], "catalog_rows": len(cat_ids), "hot": kn["hot"],
+                          "hot_new_rows": len(hot_ids), "total": known},
     }
 
 
@@ -351,14 +366,14 @@ def derive(corpus: dict, sources: dict = SOURCES) -> dict:
         by_url.setdefault(r["image"], []).append(r["id"])
     shared = [{"image": u, "ids": sorted(ids)} for u, ids in sorted(by_url.items()) if len(ids) > 1]
 
-    live, known = corpus["coverage"]["live_rows"], corpus["known"]["total"]
+    cov = corpus["coverage"]
+    live, known = cov["live_rows"], cov["known_rows_at_census"]
     warnings = []
-    if live != known:
+    if cov["status"] == "UNRESOLVED":
         warnings.append(
-            f"UNRESOLVED name-universe drift: live jutsu.getAllNames = {live} rows (#66) vs {known} known "
-            f"repository ids ({corpus['known']['catalog_rows']} catalog + {corpus['known']['hot_new_rows']} hot). "
-            f"The census covers only the known candidate set; {live - known:+d} live row(s) were never classified. "
-            "Run a delta follow-up before claiming exhaustive coverage."
+            f"UNRESOLVED name-universe drift: live jutsu.getAllNames = {live} rows (#66) vs {known} repository ids "
+            f"known at census time. The census covers only that known candidate set; {live - known:+d} live row(s) "
+            "were never classified. Only reviewed follow-up capture evidence clears this - never a catalog count."
         )
     if ambiguous:
         warnings.append(f"{len(ambiguous)} normalized name(s) map to more than one captured id; those names never auto-resolve")
@@ -379,9 +394,8 @@ def derive(corpus: dict, sources: dict = SOURCES) -> dict:
         "counts": counts,
         "expected": sources["expected"],
         "coverage": {
-            "live_name_rows": live, "known_name_rows": known, "drift": live - known,
-            "status": "UNRESOLVED" if live != known else "MATCHED",
-            "live_source": corpus["coverage"], "known_source": corpus["known"],
+            "live_name_rows": live, "known_name_rows_at_census": known, "drift": live - known,
+            "status": cov["status"], "live_source": cov,
         },
         "warnings": warnings,
         "sources": {"target": corpus["target"], "batches": corpus["batches"]},
@@ -401,11 +415,21 @@ def check_expected(doc: dict) -> list[str]:
 
 
 def build(root: Path = ROOT, sources: dict = SOURCES) -> tuple[dict, str]:
-    doc = derive(load_corpus(root, sources), sources)
+    doc, text, _ = build_with_diagnostics(root, sources)
+    return doc, text
+
+
+def build_with_diagnostics(root: Path = ROOT, sources: dict = SOURCES) -> tuple[dict, str, list[str]]:
+    corpus = load_corpus(root, sources)
+    doc = derive(corpus, sources)
     bad = check_expected(doc)
     if bad:
         raise ProvenanceError("derived corpus does not match pinned expectations: " + "; ".join(bad))
-    return doc, render(doc)
+    cur, cov = corpus["current_known"], corpus["coverage"]
+    diag = [f"diagnostic: today's known jutsu ids = {cur['total']} ({cur['catalog_rows']} catalog + "
+            f"{cur['hot_new_rows']} hot) vs {cov['known_rows_at_census']} at census time; "
+            "this count never changes coverage status"]
+    return doc, render(doc), diag
 
 
 # ---------------------------------------------------------------------------------------------
@@ -482,6 +506,7 @@ def check_cdn_url(url: str) -> str:
 
 
 def sniff(data: bytes) -> str | None:
+    """Container signature only - a cheap pre-filter. It proves nothing about decodability."""
     if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
         return "webp"
     if data[:8] == b"\x89PNG\r\n\x1a\n":
@@ -491,6 +516,39 @@ def sniff(data: bytes) -> str | None:
     if data[:6] in (b"GIF87a", b"GIF89a"):
         return "gif"
     return None
+
+
+_PIL_FORMATS = {"PNG": "png", "JPEG": "jpg", "GIF": "gif", "WEBP": "webp"}
+
+
+def decode_image(data: bytes) -> dict:
+    """Fully decode every frame with Pillow (the approved art dependency). Truncated, header-only
+    or otherwise undecodable bytes raise ProvenanceError. Animated GIF/WebP are kept as-is."""
+    try:
+        from PIL import Image, ImageFile
+    except ImportError as exc:  # pragma: no cover
+        raise ProvenanceError("materialize needs Pillow: pip install pillow --break-system-packages") from exc
+    import io
+    if ImageFile.LOAD_TRUNCATED_IMAGES:
+        raise ProvenanceError("PIL.ImageFile.LOAD_TRUNCATED_IMAGES is enabled; refusing to validate under it")
+    sig = sniff(data)
+    if sig is None:
+        raise ProvenanceError("response is not a recognised image container")
+    try:
+        with Image.open(io.BytesIO(data)) as im:
+            ext = _PIL_FORMATS.get(im.format)
+            frames = getattr(im, "n_frames", 1)
+            for i in range(frames):
+                im.seek(i)
+                im.load()
+            size = im.size
+    except ProvenanceError:
+        raise
+    except Exception as exc:  # UnidentifiedImageError, OSError (truncated), EOFError, SyntaxError, ...
+        raise ProvenanceError(f"response does not decode as an image ({type(exc).__name__}: {exc})") from exc
+    if ext != sig:
+        raise ProvenanceError(f"container signature {sig!r} disagrees with decoded format {ext!r}")
+    return {"ext": ext, "width": size[0], "height": size[1], "frames": frames}
 
 
 class _CdnRedirects(urllib.request.HTTPRedirectHandler):
@@ -508,32 +566,108 @@ def _fetch(url: str) -> bytes:
     return data
 
 
+INDEX_NAME = "materialized.json"
+
+
+def _read_index(out: Path) -> dict:
+    """The existing index, checked against the files it names. An index that does not describe
+    the directory exactly is refused before any request, so nothing is ever built on drift."""
+    index = out / INDEX_NAME
+    if not index.exists():
+        return {}
+    try:
+        prior = json.loads(index.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ProvenanceError(f"{index}: unreadable index ({exc})") from exc
+    if not isinstance(prior, dict):
+        raise ProvenanceError(f"{index}: not a JSON object")
+    for rid, e in prior.items():
+        f = e.get("file") if isinstance(e, dict) else None
+        if not isinstance(f, str) or "/" in f or "\\" in f or f.startswith(".") or not f.startswith(rid + "."):
+            raise ProvenanceError(f"{index}: entry {rid!r} names an invalid file {f!r}")
+        path = out / f
+        if not path.is_file():
+            raise ProvenanceError(f"{index}: {f} is indexed but missing")
+        if hashlib.sha256(path.read_bytes()).hexdigest() != e.get("sha256"):
+            raise ProvenanceError(f"{index}: {f} does not match its indexed sha256")
+    return prior
+
+
+def _write_temp(out: Path, data: bytes) -> Path:
+    import os
+    import tempfile
+    fd, tmp = tempfile.mkstemp(dir=out, prefix=".jutsu_art-", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "wb") as fh:
+            fh.write(data)
+            fh.flush()
+            os.fsync(fh.fileno())
+    except BaseException:
+        Path(tmp).unlink(missing_ok=True)
+        raise
+    return Path(tmp)
+
+
 def materialize(doc: dict, queries: list[str], out: Path, *, by_id=False, dry_run=False, fetch=_fetch) -> list[dict]:
-    rows = [resolve(doc, q, by_id=by_id) for q in queries]  # every name resolves before any request
+    """All-or-nothing: every name resolves, the existing index is verified, and every image is
+    fetched AND fully decoded before the directory is touched. Any failure up to that point leaves
+    the previous files and index exactly as they were. Publishing then stages every file as a
+    temp in the same directory and swaps them in with os.replace, index last."""
+    import os
+    rows, seen = [], set()
+    for q in queries:  # every name resolves before any request
+        row = resolve(doc, q, by_id=by_id)
+        if row["id"] not in seen:
+            seen.add(row["id"])
+            rows.append(row)
     for row in rows:
         if not row["eligible"]:
             raise ProvenanceError(f"{row['name'].strip()!r} is not eligible ({', '.join(row['exclusions'])})")
         check_cdn_url(row["image"])
-    results = []
+    if dry_run:
+        return [{"id": r["id"], "name": r["name"], "image": r["image"], "action": "would-fetch"} for r in rows]
+
+    prior = _read_index(out) if out.is_dir() else {}
+    if out.exists() and not out.is_dir():
+        raise ProvenanceError(f"{out} exists and is not a directory")
+
+    staged = []
     for row in rows:
-        entry = {"id": row["id"], "name": row["name"], "image": row["image"]}
-        if dry_run:
-            results.append({**entry, "action": "would-fetch"})
-            continue
         data = fetch(row["image"])
-        ext = sniff(data)
-        if ext is None:
-            raise ProvenanceError(f"{row['image']}: response is not a recognised image")
-        out.mkdir(parents=True, exist_ok=True)
-        dest = out / f"{row['id']}.{ext}"
-        dest.write_bytes(data)
-        results.append({**entry, "action": "fetched", "file": dest.name, "bytes": len(data),
-                        "sha256": hashlib.sha256(data).hexdigest()})
-    if not dry_run and results:
-        index = out / "materialized.json"
-        prior = json.loads(index.read_text(encoding="utf-8")) if index.is_file() else {}
-        prior.update({r["id"]: {k: v for k, v in r.items() if k != "action"} for r in results})
-        index.write_text(json.dumps(dict(sorted(prior.items())), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        try:
+            info = decode_image(data)
+        except ProvenanceError as exc:
+            raise ProvenanceError(f"{row['image']}: {exc}") from exc
+        name = f"{row['id']}.{info['ext']}"
+        old = prior.get(row["id"], {}).get("file")
+        if (out / name).exists() and old != name:
+            raise ProvenanceError(f"{out / name} exists but is not indexed for {row['id']}; refusing to overwrite it")
+        staged.append((row, data, info, name, old))
+
+    out.mkdir(parents=True, exist_ok=True)
+    temps: list[tuple[Path, Path]] = []
+    try:
+        for row, data, info, name, old in staged:
+            temps.append((_write_temp(out, data), out / name))
+        index = dict(prior)
+        results = []
+        for row, data, info, name, old in staged:
+            entry = {"id": row["id"], "name": row["name"], "image": row["image"], "file": name,
+                     "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(), **info}
+            del entry["ext"]
+            index[row["id"]] = entry
+            results.append({**entry, "action": "fetched"})
+        text = json.dumps(dict(sorted(index.items())), ensure_ascii=False, indent=1) + "\n"
+        temps.append((_write_temp(out, text.encode("utf-8")), out / INDEX_NAME))
+    except BaseException:
+        for tmp, _ in temps:
+            tmp.unlink(missing_ok=True)
+        raise
+    for tmp, final in temps:  # images first, index last
+        os.replace(tmp, final)
+    for row, data, info, name, old in staged:
+        if old and old != name:  # format changed: the superseded file is no longer indexed
+            (out / old).unlink(missing_ok=True)
     return results
 
 
@@ -589,16 +723,18 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
 
     try:
         if a.cmd == "build":
-            doc, text = build(root)
+            doc, text, diag = build_with_diagnostics(root)
             (root / OUTPUT).write_text(text, encoding="utf-8")
             c = doc["counts"]
             print(f"wrote {OUTPUT}: {c['captured']} captured / {c['eligible']} eligible / "
                   f"{c['eligible_unique_image_urls']} unique image URLs")
             for w in doc["warnings"]:
                 print(f"warning: {w}")
+            for d in diag:
+                print(d)
             return 0
         if a.cmd == "verify":
-            doc, text = build(root)
+            doc, text, diag = build_with_diagnostics(root)
             path = root / OUTPUT
             current = path.read_text(encoding="utf-8") if path.is_file() else None
             c = doc["counts"]
@@ -606,6 +742,8 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
                   f"{c['captured']} captured / {c['eligible']} eligible / {c['eligible_unique_image_urls']} unique image URLs")
             for w in doc["warnings"]:
                 print(f"warning: {w}")
+            for d in diag:
+                print(d)
             if current != text:
                 print(f"FAIL: {OUTPUT} is {'missing' if current is None else 'stale'} - run build", file=sys.stderr)
                 return 1
