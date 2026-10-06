@@ -1,0 +1,709 @@
+{
+ "_note": "READ-ONLY player-facing jutsu census recovery batch 2/7. This is a self-contained tranche of the 604 exact jutsu.get full-record reads from #67, covering source ordinals 100-199. It exists because Forge 0.5.0 capture-only jobs can strand in RUNNING state and cannot resume when items is empty. Run this manifest independently and wait for its results bundle to commit before starting the next batch. Zero items, zero mutations, zero after-captures. Every read uses persist:'full'. Do not combine this manifest's completion state with #66/#67; census assembly happens from the completed batch result bundles. The earlier #66 partial bundle established jutsu.getAllNames = 1,493 live rows and is not repeated here.",
+ "capture": {
+  "before": [
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "B6AWSCTjuD_BCcqUU1qZi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BCh5TpbqN26edVtuD8sul"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BEaaogbbqkL_WeEk95bPH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BGeq8KLkX4LxuoBoZDocA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BJk9Awam-JxyOkDxaVevS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BkM8yq3J-P9SkCsCoKrtG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "BqBjCXSCwtYqbhnH-dSKz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "C1S_SGYNao5gc85A7t-OF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "C1SdH7N13naMHG3bKE07k"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CAk3t-rGuFcA8hGphP30i"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CC50vyp4acY70vPQu1sLS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CFW_DHGiw6hkojiEvGj4m"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CGWAK5O7Rw_hXYjFDq-TG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CLlN7iJPGCGRIDbJTo4P5"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CM_NI6GdHsno1s-p-pQ2e"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CPKuVxo5AXUMJ_zQaMly6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CRWgh_h99ycd6jNk14Pd5"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CTYkpwuoqS9mJkOB3Lm8U"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CWdsrv5uM2R3hEyG6fvaX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CXYtHOI0c-PUYK5y_mtb2"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CXbUs7Ew7JVkh72rRWNrD"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "ClfVYHX15l9LiMfJ8SFCg"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CubnPmX8ZY98POMfp0HCS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DIveDAYAb_4uNUaaSXnRJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DJTj1M6tSLfpiPjhFtc3d"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DLPaN2DZNtPZawjlczNCE"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DUl5AGZYhabcVJ4rJkzbi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DYaMhFDhGH5hARA6oTSaI"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DaX0SIBgE5ah0SBc4C-FN"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Di74kqz5iVDCYvUT8Cna-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DlVHy0UL30IEonaZOrJU_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DreyCm9Mq66LzAMDIZkJh"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Dum9gYMAVt7u3YZfFt54G"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "DxxFYYHEMx9TdiHR611Na"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "E7DRBUZynlHZEaF_rZ4Y6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "E8euhHqWfP3ZRIL5YeIQ3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EDnJIgrOf_4bs9Wy05dl_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EOMOSOVn3za-UddIC2hY9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EOgm0Q9z3Gufq4BfyvmKe"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "ETJdXNecKAJj6kwdm4Uez"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EVeebYehoHdifIP1gR8b6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EWc-_JpDadE3QJN0ylV51"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EoPhRA0116ycHlkSo1L2J"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "EoU5oNp899c5tTXisqkQ2"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Ep5p4vQiWE4CmUe1DRMjW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "F48bNWBwIq71mlPNNchqL"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FCmBVda7T2tYdr-VvNXKk"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FN3c0uUI8fOiszUZCooyg"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FgIc9MSiKaVZS8QTbsiH4"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FjDi3AgMbPL1yB3vrKveW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FlQ0Mk8CB7afkYqxFempz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Fw9mlda5fSCtRbsMM-2Jw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FxaeTAck6DqJo0LnV37d6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FytS2iqFInf1go6WhOvUU"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "G6MRbppaDZ2a5Wr0GIjH8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "G92DCGepiq6nryDp2dtrn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "G9NyTKDVP4mCFzoZEzPmA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GAhckNCW8xUES4YGTJPGL"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GAyHRgaa1lkYGhE9WxlRL"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GEdvislNldCv_LgAb0UbP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GGJTdjQ90dVbOvWLXerlO"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GGZsbMftEA4Bxq8SjGXiJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GGms9iTcZq_gICEuZYF2Q"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GfTFDG-XVTA051VDTdqSb"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GiKpip6NxsC8QWlZi6l_R"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GlgS3FVoQ6F8k3RAo_Uht"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GnuyzNIf-Mdu41dnQv5dH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GsDJufr8bn-55VSGPe0hA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "H9XLJiU1YEro03QJ2mH8q"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "HBof21qe_fP_mUE5UNKtR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "HNMweb8uPrZFIJXlMhdkm"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Hj0l8y3PKMH1Mwuf6Au2q"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Hp6Bl4WTnLqgARL-cea37"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "IBBV99kCs0WHMDy37Ibp3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "IEQ9uPC_Z9e0GWv7Czagb"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "INuy-ITnPsH22eUoGQgwW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Ixz0pPNGtAaXDgBGAQzOr"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "J22hoECm1d4FL6ctAGQgZ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "J2KOpNHk5LJthnzb27H1h"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JKgaTbuFTeNZjYOXrb49M"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JR33Coe9tzgFKN6l1xOjK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JcZb5OE6sMoDxvOKhuKWv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JddcgfDdi4A4pJonCNjv1"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Je0gvHDVCm__vy2rT8YBB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JlGhMTpr_6c5jer6s-hw1"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JpDQJtPz-pbaGlpkgBOdi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "JytgVVxD-yqM0iOj5Xn3k"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "K0t6Z-Q4lau1jFt8Tkpot"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "K3xPtMXSV8rYfp5L79H5Y"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "K4jgu33AsEl6ahuwvze0_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "KDjCiZ-3tzuFPX2Wsj5IX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Ki9gt7RZI4pGb-ySjG6Zq"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "KlrfXTrfHsrwMNZ_HK030"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "KwP4Qz9rBMv-MlmclYE45"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LCIa6ZNN9mKocs_olrfC0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LJICxH0NvZ2VSQ7EcQttx"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LNqxd5sm6FicSD047XZYs"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LRgY4b-lE1n2gi6_P8B_1"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LXBw6TW0yRxGOfUhaTMkT"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "LfOvBN_hn5oYJtQfR25ob"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
