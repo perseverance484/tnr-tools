@@ -89,6 +89,7 @@ No clone means no state. Say so rather than working from memory.
 | Operative and raider lines (Unsigned, Verge, Forsworn) | skill `references/lines.md` |
 | Anything that pushes | skill `references/pipeline.md`, alongside the entity reference |
 | Art, any asset | skill `producing-tnr-art`; `chroma.py`, `artpreflight.py`, `shotlist.py` |
+| Existing jutsu art: name → captured record → image URL | `scripts/jutsu_art.py verify`, then `lookup`/`image-url`; `docs/workflows/JUTSU_ART_LOOKUP.md` |
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |
 | Full law text by number | `docs/ENGINE_LAWS.md`; cross-cutting clusters `docs/10_LAWS_core.md` |
 | A mission, any rank | `48_DATA_mission_profiles.json` + `mission.py sheet.json` |
