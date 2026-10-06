@@ -4,7 +4,7 @@ Use when a TNR content project (event, quest, mission arc) is large enough that 
 
 A **content workstream** makes the repository the bridge between conversations. A top-level planning conversation commits the roadmap and its durable resources; later specialised conversations initialize from the repository and execute one bounded task, without needing the predecessor chat.
 
-The roadmap is **coordination state, not canon.** `docs/00_INDEX.md` remains the only precedence table, `state/active-context.md` and `state/status.json` remain the global session state, and doctrine, engine laws, generated contracts, captures, art specs and `state/prompt_<task>.md` build contracts all keep their existing owners. The roadmap points at them and never restates them.
+The roadmap is **coordination state, not canon.** `docs/00_INDEX.md` remains the only precedence table, `state/active-context.md` and `state/status.json` are alternative global navigation projections, and doctrine, engine laws, generated contracts, captures, art specs and `state/prompt_<task>.md` build contracts all keep their existing owners. The roadmap points at them and never restates them.
 
 ## 1. Layout
 
@@ -26,7 +26,7 @@ When the user says something equivalent to:
 the session should:
 
 1. verify the live repository and the current `main` SHA;
-2. read `state/active-context.md`, `state/status.json`, `docs/00_INDEX.md`, `docs/RULINGS.md`, `CHATGPT.md` and the relevant role/workflow files as normal;
+2. use the short agent entry point; read the router and only task-relevant ruling entries. Do not hydrate both global state projections or unrelated roles;
 3. run the initializer, which is a deterministic view of the roadmap and not itself an authority:
    ```
    python3 scripts/content_workstream.py init <slug> --task <task-id>

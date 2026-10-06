@@ -15,7 +15,7 @@ REFS = os.path.join(SKILL, "references")
 TOC_DIR = os.path.join(REFS, "_toc")
 PACK_DIR = os.path.join(SKILL, "packs")
 PACKS_JSON = os.path.join(PACK_DIR, "PACKS.json")
-TOC_FILES = ["jutsu.md", "ai.md", "quest.md", "pipeline.md", "item.md"]
+TOC_FILES = ["jutsu.md", "ai.md", "quest.md", "pipeline.md", "item.md", "inspection.md"]
 HEADING = re.compile(r"^(#{2,3}) (.+)$", re.M)
 
 

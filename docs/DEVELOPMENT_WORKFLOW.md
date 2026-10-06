@@ -146,7 +146,7 @@ Use `docs/workflows/DIRECTOR_DECISIONS.md`.
 ### Start
 
 1. Verify live repository and `main` head.
-2. Read `state/active-context.md`, `state/status.json`, and `docs/00_INDEX.md`.
+2. Read `docs/00_INDEX.md` and the selected task state; consult one global projection only if relevant.
 3. Read `CLAUDE.md` and the relevant task plan/build brief, skill/reference, implementation, tests, and source contracts.
 4. Create or use the explicitly assigned Fable-owned task branch.
 5. Record exact base SHA when the base matters.
@@ -178,7 +178,7 @@ Use `docs/workflows/IMPLEMENTATION_HANDOFF.md`.
 
 ## 7. ChatGPT review cycle
 
-1. Reconstruct live repository state from `main`, current state files, and `docs/00_INDEX.md`.
+1. Verify the target revision and reconstruct the selected task from its sources and `docs/00_INDEX.md`.
 2. Verify the exact Fable handoff branch and SHA.
 3. Verify intended base/merge-base when it affects the review.
 4. Read `CHATGPT.md`, `docs/agents/README.md`, `docs/agents/ENGINEERING_AUDITOR.md`, and `docs/workflows/FABLE_REVIEW.md`.

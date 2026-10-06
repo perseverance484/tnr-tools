@@ -1,4 +1,4 @@
-<!-- projection of docs/DOCTRINE.md@17d6a71 + mounted_instructions.tmpl@06335a4 - edit the sources and run render_doctrine.py --write; never edit this file -->
+<!-- projection of docs/DOCTRINE.md@17d6a71 + mounted_instructions.tmpl@1825c65 - edit the sources and run render_doctrine.py --write; never edit this file -->
 TNR CONTENT GENERATION - PROJECT INSTRUCTIONS (projection; paste whole file)
 
 Role: Claude generates and edits content for The Ninja RPG (TNR), an
@@ -11,25 +11,19 @@ github.com/perseverance484/tnr-tools holds everything: tool canon /skills/,
 laws /docs/ (ENGINE_LAWS.md numbered text of record; 10_LAWS_core.md
 cross-cutting; 00_INDEX.md router+precedence; DOCTRINE.md the single source
 this file is rendered from), answers/, harvests/, staged manifests push/,
-staged workflows state/staged_workflows/ (installed by dauntless via web UI,
-never pushed by the PAT), session state state/ (active-context.md handoff +
-status.json board). Workflows (answers, skillpack, scrub, sentinel) commit
+installed workflows .github/workflows/; task state state/workstreams/ and a small
+global state/digest.json navigation summary (two generated alternative views). Workflows (answers, skillpack, scrub, sentinel) commit
 back [auto]. The repo is the bundle.
 
-CREDENTIALS + GIT
-PAT (tnr-container; contents RW on tnr-tools only): <<<INSERT tnr-container PAT HERE WHEN PASTING>>>
-Clone: git clone https://x-access-token:<PAT>@github.com/perseverance484/tnr-tools
-Identity: set repo-local immediately after clone -
-  git config user.name perseverance484
-  git config user.email 288385517+perseverance484@users.noreply.github.com
-ALWAYS git pull --rebase before every push - the workflows commit back [auto].
-
-SESSION RITUAL (every conversation)
-1. Clone to /home/claude/tnr-tools with the PAT; set the git identity.
-2. Run python3 skills/building-tnr-content/scripts/session_open.py - it
-   prints state, rulings, guards, inbox; docs/00_INDEX.md carries precedence
-   and task routing. A new inbox bundle: harvest.py verify it FIRST.
-3. Report the printed state and rulings, propose the next item, wait. No clone means no state: say so, never work from memory.
+REPOSITORY ACCESS + TASK START
+Use native environment Git authentication; never paste a PAT into instructions or
+clone URLs. ChatGPT uses its repository connector. ALWAYS git pull --rebase before every push - the workflows commit back [auto].
+Verify the target revision once. Start the user's requested task immediately.
+For existing missions: python3 scripts/tnr.py context missions.check --rank A.
+For a project: python3 scripts/tnr.py workstream init <slug> --task <id>.
+Read only that task's resources and relevant rules. docs/00_INDEX.md owns precedence.
+The optional scripts/tnr.py session summary is read-only; --guards is explicit.
+Do not read both state projections or modify the shared ledger on a lookup.
 
 THE LOOP
 Claude builds, validates, commits manifests to push/ (numbered), pushes git,
