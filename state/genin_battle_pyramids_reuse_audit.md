@@ -340,3 +340,62 @@ The story ladder becomes:
 **The Burned Crest** — professional Faceless/Unsigned operators stand behind that network.
 
 That is more TNR-native than introducing a separate road gang and a separate rogue-school faction.
+
+
+---
+
+## Wayward trio — recovered metadata and use boundary
+
+The current repository does not retain a full `profile.getAi` / `ai.getAiProfile` capture for the Wayward trio, so their **current equipped loadout and rule order are not verified** in this audit. Do not invent those fields.
+
+What is durably evidenced:
+
+### Wayward Blade — `aWwhu2wloj5nm9SgzeNxi`
+- seed catalog: **Lv70 JONIN**
+- registry role label: **None bruiser**
+- same registry section carries the associated Wayward package entries:
+  - `Cleaving Strike`
+  - `Guard Break`
+  - `Battle Stance`
+
+### Wayward Ember — `HufsRKWnBCEcGpqz-3sFb`
+- seed catalog: **Lv70 JONIN**
+- registry role label: **Fire caster**
+- same registry section carries:
+  - `Ember Ward`
+  - `Flame Bolt`
+  - `Ember Burst`
+
+### Wayward Gale — `jzS0ezsmF-No7GR42192N`
+- seed catalog: **Lv70 JONIN**
+- registry role label: **Wind assassin**
+- same registry section carries:
+  - `Gale Slash`
+  - `Razor Gale`
+  - `Predator Rush`
+
+The three 3-jutsu groupings above are the natural semantic grouping of the nine registry entries, but because the current repo lacks a full AI/profile capture they must be treated as **associated package evidence, not a verified equipped-loadout claim**.
+
+The registry also retains:
+- `Wayward Contracts HQ Briefing Room` — scene asset `fbAWWatJS6lGchO3gu-iP`
+- `Wayward Contracts ANBU Handler` — scene asset `lHd71xoW6d8aLXZLWNGVC`
+
+### Recommendation
+
+Do **not** use a Wayward record as a fixed-stat Lv30 Genin encounter as-is. All three are stored as Lv70 JONIN records and their current profiles are not captured.
+
+Valid reuse paths:
+1. **scaled encounter**, after a read-only point capture proves current kit/rules;
+2. **future Chunin/Jonin pyramid or contract content**, where their stored tier is more natural;
+3. **visual/lore reference only**, without claiming they belong to the Unmarked/Forsworn network.
+
+Do not silently fold the Wayward Contracts line into the Forsworn/Unmarked organization. The repository currently presents them as a separate named content line. Any contractor relationship would be a new lore decision owned by dauntless.
+
+### Capture gap before implementation
+
+If Wayward reuse is selected, prepare a read-only Forge capture for:
+- `profile.getAi` on all three Wayward ids;
+- then `ai.getAiProfile` on the returned profile ids;
+- zero mutation items.
+
+That capture is required before Fable hard-codes Wayward kits, rules or avatar assumptions.
