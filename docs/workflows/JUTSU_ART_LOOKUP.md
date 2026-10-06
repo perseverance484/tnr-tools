@@ -12,7 +12,9 @@ The corpus is pinned in `SOURCES` inside the script:
   (604 records, tranches of the #67 target list, in order).
 - **#67** manifest — the 604-id target list the batches must reproduce ordinal for ordinal.
 - **#66** partial bundle — used only for its completed `jutsu.getAllNames` row count (coverage).
-- `answers/names_jutsu.json` + `answers/hot.json` — the repository's known jutsu id universe.
+- `answers/names_jutsu.json` + `answers/hot.json` — today's known jutsu id count, printed by
+  `build`/`verify` as a **diagnostic only**. It is never written to the output and never changes
+  coverage status.
 
 Eligibility follows the #66 inclusion policy: live `hidden` exactly false, live `jutsuType` in
 NORMAL/SPECIAL/FORBIDDEN/LOYALTY/CLAN/EVENT, live `bloodlineId` empty. Current corpus:
@@ -27,9 +29,13 @@ when derived counts differ from the pinned expectations. `verify` also fails (ex
 `answers/jutsu_art.json` is not byte-identical to a fresh derivation.
 
 **Known caveat — preserved, not resolved:** live `jutsu.getAllNames` returned 1,493 rows (#66)
-against 1,491 known repository ids. Two live rows were never classified; the census is
-exhaustive only over the known candidate set. Every `build`/`verify` and every lookup miss
-prints this warning until a delta follow-up capture resolves it.
+against 1,491 repository ids known at census time. Two live rows were never classified; the
+census is exhaustive only over the known candidate set. The status is pinned `UNRESOLVED` in
+`SOURCES` together with both counts, and every `build`/`verify` and every lookup miss prints the
+warning. Catalog growth cannot clear it: two unrelated new ids would make today's count 1,493
+without classifying anything. Only a reviewed change that adopts follow-up capture evidence
+identifying and classifying the missing rows may resolve it; pinning a different status or a
+`resolution` without that evidence check fails closed.
 
 ## Commands
 
@@ -55,9 +61,21 @@ resolve and asks for `--id`.
 ## Network boundary
 
 Zero TNR requests in every command. `materialize` is the only networked command: HTTPS to the
-allowlisted asset CDNs only (redirects re-checked), game hosts refused outright, every name
-resolved before the first request, bytes sniffed as an image, files written as `<id>.<ext>`
-with a `materialized.json` index (url, bytes, sha256). Tests are socket-free:
+allowlisted asset CDNs only (redirects re-checked), game hosts refused outright. It is
+all-or-nothing:
+
+1. every name resolves and is eligible, and any existing `materialized.json` is verified against
+   the files it names (missing file, hash mismatch, or unreadable index → refused), before the
+   first request;
+2. every image is fetched **and fully decoded with Pillow, every frame** (signature must agree
+   with the decoded format; header-only or truncated bytes are rejected; animated GIF/WebP are
+   kept as served);
+3. only then are files staged as temps in the output directory and swapped in with
+   `os.replace`, index last. A fetch or decode failure leaves the previous files and index
+   byte-for-byte unchanged; an unindexed file at a target path is never overwritten.
+
+Files are `<id>.<ext>`; the index records url, bytes, sha256, dimensions and frame count.
+Requires Pillow (approved art dependency). Tests are socket-free:
 `python3 -m unittest scripts/test_jutsu_art.py`.
 
 ## Not yet built
