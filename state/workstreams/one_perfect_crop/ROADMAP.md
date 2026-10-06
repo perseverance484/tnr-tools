@@ -9,7 +9,7 @@
 
 Finish One Perfect Crop launch-final prose, art, scene wiring and admin content from the already reviewed and user-run hidden core, then complete final hidden readback before any publish decision.
 
-This roadmap is **coordination state, not canon.** It points at the authoritative sources below and never restates them. `docs/00_INDEX.md` remains the only precedence table; `state/active-context.md` and `state/status.json` remain the global session state.
+This roadmap is **coordination state, not canon.** It points at the authoritative sources below and never restates them. `docs/00_INDEX.md` remains the only precedence table; the global state projections are optional navigation; the selected roadmap owns task state.
 
 ## Workstream resources
 

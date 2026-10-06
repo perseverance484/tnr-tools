@@ -18,7 +18,7 @@ Fable / Claude Code remains the normal implementation owner for manifests, scrip
 
 Start with:
 
-1. `state/active-context.md` and `state/status.json` when current production state matters;
+1. the selected workstream state and dated evidence when production state matters; a global projection is optional navigation;
 2. `docs/00_INDEX.md` for precedence/evidence/task routing;
 3. `docs/DOCTRINE.md` for cross-surface rules relevant to the task;
 4. the appropriate pack/reference under `skills/building-tnr-content/`;

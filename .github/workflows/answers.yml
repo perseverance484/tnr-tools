@@ -4,6 +4,8 @@ on:
     paths:
       - "harvests/**"
       - ".github/scripts/build_answers.py"
+      - ".github/workflows/answers.yml"
+      - "skills/building-tnr-content/scripts/record_index.py"
   workflow_dispatch:
 
 permissions:
@@ -22,6 +24,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 .github/scripts/build_answers.py --repo . --out answers
+      - name: Verify evidence selection and read-only query behavior before publication
+        run: python3 -m unittest scripts/test_record_index.py scripts/test_repo_tasks.py
       - run: >-
           python3 .github/scripts/commit_generated.py
           "answers: regenerate [auto]"

@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - "skills/**"
+      - "docs/DOCTRINE.md"
+      - "docs/mounted_instructions.tmpl"
       - ".github/scripts/pack_skills.py"
   workflow_dispatch:
 

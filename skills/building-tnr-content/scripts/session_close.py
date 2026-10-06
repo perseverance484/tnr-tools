@@ -76,7 +76,10 @@ def run_guards(root, d):
 
     def run(name, command, cwd):
         proc = subprocess.run(command, cwd=cwd, capture_output=True, text=True)
-        tail = (proc.stdout.strip().splitlines() or ["(no output)"])[-1]
+        output = proc.stdout.strip()
+        if proc.returncode:
+            output += "\n" + proc.stderr.strip()
+        tail = " | ".join(output.strip().splitlines()[-8:]) or "(no output)"
         results.append((name, proc.returncode, tail))
 
     run("lawmap", ["python3", os.path.join(HERE, "lawmap.py"), root], root)
@@ -94,11 +97,18 @@ def run_guards(root, d):
     bundles = sorted(glob.glob(os.path.join(root, "harvests", "inbox", "*.json")))
     if bundles:
         bundle = bundles[-1]
-        run(
-            "parity " + os.path.basename(bundle),
-            ["python3", os.path.join(HERE, "validate.py"), "--parity", bundle],
-            data_dir,
-        )
+        try:
+            with open(bundle, encoding="utf-8") as handle:
+                capture = json.load(handle)
+            if capture.get("cfg") == "forge" and capture.get("checks") is None:
+                results.append(("legacy parity", 0,
+                    "NOT APPLICABLE: Forge does not export the legacy checks inventory; "
+                    "runtime validation remains covered by Forge's own tests"))
+            else:
+                run("parity " + os.path.basename(bundle),
+                    ["python3", os.path.join(HERE, "validate.py"), "--parity", bundle], data_dir)
+        except (OSError, ValueError, AttributeError) as error:
+            results.append(("parity input", 1, str(error)))
 
     d["verified_at_close"] = [
         "%s -> %s%s" % (name, tail, "" if code == 0 else " (EXIT %d)" % code)
@@ -178,7 +188,21 @@ def selftest():
         return 0
 
 
+def check(root):
+    digest_path, status_path, context_path, template_path = paths(root)
+    digest = json.load(open(digest_path, encoding="utf-8"))
+    expected = {status_path: render_status(digest), context_path: render_context(digest, template_path)}
+    stale = [path for path, text in expected.items()
+             if not os.path.exists(path) or open(path, encoding="utf-8").read() != text]
+    for path in stale:
+        print("STALE " + os.path.relpath(path, root))
+    print("session projections stale" if stale else "session projections current")
+    return int(bool(stale))
+
+
 if __name__ == "__main__":
+    if "--check" in sys.argv:
+        raise SystemExit(check(ROOT))
     if "--selftest" in sys.argv:
         raise SystemExit(selftest())
     raise SystemExit(close(ROOT, guards="--guards" in sys.argv))

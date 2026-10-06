@@ -519,7 +519,7 @@ def render_roadmap_md(roadmap: dict) -> str:
     out.append(
         "This roadmap is **coordination state, not canon.** It points at the authoritative "
         "sources below and never restates them. `docs/00_INDEX.md` remains the only precedence "
-        "table; `state/active-context.md` and `state/status.json` remain the global session state."
+        "table; the global state projections are optional navigation; the selected roadmap owns task state."
     )
     out.append("")
 
@@ -658,7 +658,7 @@ def render_index_md(roadmaps: list[dict]) -> str:
     out.append("")
     out.append(
         "Coordination projection for repository-backed content workstreams. This is **not** the "
-        "global board: `state/active-context.md` and `state/status.json` remain the session state, "
+        "global navigation summary: the selected roadmap owns task state, "
         "and `docs/00_INDEX.md` remains the precedence table. The workflow is "
         "`docs/workflows/CONTENT_WORKSTREAM.md`."
     )
@@ -748,10 +748,7 @@ def render_all(repo_root: Path, check: bool = False, only: Path | None = None) -
 
 
 GLOBAL_AUTHORITY = [
-    ("state/active-context.md", "current global session state - read first"),
-    ("state/status.json", "the board"),
     ("docs/00_INDEX.md", "precedence, evidence tiers, task routing - arbitrates disagreements"),
-    ("docs/RULINGS.md", "durable user rulings"),
     ("docs/workflows/CONTENT_WORKSTREAM.md", "how to work and close out a workstream task"),
 ]
 
@@ -829,7 +826,7 @@ def init_packet(roadmap: dict, task: dict, repo_root: Path) -> tuple[list[str], 
         out.append("  none")
     out.append("")
 
-    out.append("READ FIRST - global authority (verify the live repository head before substantive work)")
+    out.append("READ FIRST - task authority (verify the target repository revision once; load only relevant ruling entries)")
     out.append("")
     for path, why in GLOBAL_AUTHORITY:
         mark = " " if (repo_root / path).exists() else "!"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """scrub_check.py - fail-closed secret/privacy scrub, runnable pre-push.
 
-Mirrors the staged CI gate (state/staged_workflows/scrub.yml): FAIL-CLOSED.
+Mirrors the installed CI gate (.github/workflows/scrub.yml): FAIL-CLOSED.
 An empty or missing pattern list is a failure, not a pass - on a public repo
 "no patterns configured" must never read as "clean".
 

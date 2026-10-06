@@ -7,7 +7,11 @@ import argparse
 import datetime
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "skills/building-tnr-content/scripts"))
+from record_index import derive, encoded, mission_report, mission_text
 
 RAW = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main"
 SEEDS = {
@@ -111,10 +115,17 @@ def main() -> int:
     out = repo / args.out
     out.mkdir(parents=True, exist_ok=True)
     hot = inbox_rows(repo)
+    record_index = derive(repo)
+    (out / 'records.json').write_text(encoded(record_index), encoding='utf-8')
+    for rank in ('A', 'B', 'C', 'D', 'S'):
+        report = mission_report(record_index, rank)
+        report['inputs'] = record_index['inputs']
+        (out / f'missions_{rank}.json').write_text(encoded(report), encoding='utf-8')
+        (out / f'missions_{rank}.md').write_text(mission_text(report), encoding='utf-8')
     hot_out = {
         "note": (
-            "Recently harvested records NOT yet in the seed catalogs: newest inbox capture per entity, "
-            "minus rows the seed already holds. A name here is live even though names_<entity>.json lacks it."
+            "Records not yet in seed catalogs. Legacy name-list deltas are supplemented by eligible full "
+            "Forge observations. These are snapshots, not proof of current live state or complete population."
         ),
         "entities": {},
     }
@@ -126,6 +137,12 @@ def main() -> int:
         "`[id, name, hidden]`; `hidden: null` means the source did not carry the",
         "flag. `generated` stamps are DERIVED from sources, so regeneration is",
         "idempotent. Raw CDN caches ~5 min; fresher than that takes a capture.",
+        "",
+        "Mission checks: `python3 scripts/tnr.py missions check --rank A`.",
+        "Without a checkout, fetch `answers/missions_A.md` and, for provenance/coverage,",
+        "`answers/missions_A.json` at the SAME exact commit. B/C/D/S views also exist.",
+        "Full-record observations override seed names/visibility; see `answers/records.json`",
+        "for per-record evidence, input hashes, exclusions and unresolved observations.",
         "",
         "| entity | rows | source stamp | hot delta (newer, uncataloged) | fetch |",
         "|---|---|---|---|---|",
@@ -139,6 +156,9 @@ def main() -> int:
             continue
 
         rows, stamp = seed_rows(source)
+        observed = {r['id']: r for r in record_index['records'] if r['entity'] == entity}
+        rows = [[rid, observed[rid]['name'], observed[rid]['hidden']] if rid in observed
+                else [rid, name, hidden] for rid, name, hidden in rows]
         rows.sort(key=lambda row: (row[1] or "").lower())
         known_ids = {row[0] for row in rows}
         captured = hot.get(entity)
@@ -148,13 +168,18 @@ def main() -> int:
                 (row for row in captured["rows"] if row[0] not in known_ids),
                 key=lambda row: (row[1] or "").lower(),
             )
-            if delta:
-                hot_out["entities"][entity] = {
-                    "source_bundle": captured["source"],
-                    "captured": captured["captured"],
-                    "row_delta": len(delta),
-                    "rows": delta,
-                }
+        by_id = {row[0]: row for row in delta}
+        for rid, record in observed.items():
+            if rid not in known_ids:
+                by_id[rid] = [rid, record['name'], record['hidden']]
+        delta = sorted(by_id.values(), key=lambda row: (row[1].casefold(), row[0]))
+        if delta:
+            hot_out["entities"][entity] = {
+                "source_bundle": captured['source'] if captured else None,
+                "captured": captured['captured'] if captured else None,
+                "full_record_provenance": 'answers/records.json',
+                "row_delta": len(delta), "rows": delta,
+            }
 
         output_name = f"names_{entity}.json"
         write_json(
@@ -164,6 +189,8 @@ def main() -> int:
                 "entity": entity,
                 "source": source.relative_to(repo).as_posix(),
                 "source_stamp": stamp,
+                "full_record_provenance": "answers/records.json",
+                "note": "Seed stamp is not observation freshness; full-record overrides carry per-record timestamps in records.json.",
                 "count": len(rows),
                 "hot_delta": len(delta),
                 "hot_hint": (

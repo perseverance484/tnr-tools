@@ -1,5 +1,8 @@
 # PLAN 2026-08-30 - TNR content-stack optimization (Session 3 of 3)
 
+Historical plan: implementation and current routing have since changed. Use
+`docs/00_INDEX.md`; staged workflow installation instructions below are retired.
+
 Consumes: archive/RESEARCH_BRIEF_2026-08-30_stack_optimization.md (W1-W12, HARD GATES)
 and archive/RESEARCH_REPORT_2026-08-30_stack_optimization.md (answers + re-ranked
 shortlist). This plan follows the report's re-ranked order; every deviation is stated

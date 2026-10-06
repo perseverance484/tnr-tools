@@ -33,6 +33,7 @@ references are for deep dives and for editing (packs re-render from them).
 
 | Working on | Read |
 |---|---|
+| Inspect existing missions | `packs/mission-check.md`; `python3 scripts/tnr.py missions check --rank A` |
 | Jutsu build/edit that pushes | `packs/jutsu-build.md` |
 | AI enemy build/edit that pushes | `packs/ai-build.md` |
 | Quest/event build/edit that pushes | `packs/quest-build.md` |

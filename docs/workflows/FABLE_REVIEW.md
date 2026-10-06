@@ -21,7 +21,7 @@ Do not review a moving branch. Do not reuse a finding from an older panel/sessio
 
 Read in this order unless the task gives a stricter order:
 
-1. current `state/active-context.md` / `state/status.json` as operational orientation;
+1. the selected task state; consult one global projection only when repository-wide orientation is needed;
 2. `docs/00_INDEX.md` for precedence and evidence tiers;
 3. the task/build brief/plan/design contract;
 4. task-specific handoff/notes whose claims are reviewable;

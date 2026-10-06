@@ -1,0 +1,33 @@
+name: repository-consistency
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-consistency-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install existing art test dependency
+        run: python3 -m pip install Pillow==12.3.0
+      # Operator capture pushes precede the answers bot's generated commit. Verify the
+      # current derivation on push; PRs must include byte-current generated artifacts.
+      - name: Derive answers for incoming capture pushes
+        if: github.event_name == 'push'
+        run: python3 .github/scripts/build_answers.py --repo . --out answers
+      - name: Verify routing, workstreams, projections and capture views
+        run: python3 scripts/tnr.py verify
+      - name: Content constructor and validator selfcheck
+        working-directory: skills/building-tnr-content/data
+        run: python3 ../scripts/selfcheck.py --generated .

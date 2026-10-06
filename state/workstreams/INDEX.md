@@ -2,7 +2,7 @@
 
 # Content workstreams
 
-Coordination projection for repository-backed content workstreams. This is **not** the global board: `state/active-context.md` and `state/status.json` remain the session state, and `docs/00_INDEX.md` remains the precedence table. The workflow is `docs/workflows/CONTENT_WORKSTREAM.md`.
+Coordination projection for repository-backed content workstreams. This is **not** the global navigation summary: the selected roadmap owns task state, and `docs/00_INDEX.md` remains the precedence table. The workflow is `docs/workflows/CONTENT_WORKSTREAM.md`.
 
 | Workstream | Slug | Type | Status | Progress | Roadmap |
 | --- | --- | --- | --- | --- | --- |

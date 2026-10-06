@@ -16,13 +16,14 @@ where the work happens and loads only when it does.
 
 | Layer | Holds | Changes |
 |---|---|---|
-| Project instructions | credentials, session ritual, non-negotiables | dauntless pastes |
+| Project instructions | short task bootstrap and non-negotiables | dauntless pastes |
 | This repo | everything else: tool canon `/skills/`, laws `/docs/`, `/answers/`, `/harvests/`, staged `/push/`, `/state/`, `/archive/` | every commit; Claude pushes |
 | Builder userscript | the push path; panel fetches `45c`/`45g`/`32b` from repo root; ⇩ Repo lists `push/` | ViolentMonkey refresh |
 | Game source | `studie-tech/TheNinjaRPG`, public, clonable; contracts are extracted, never guessed | upstream commits |
 
-Session state is `state/active-context.md` (the handoff, rewritten at every close) plus
-`state/status.json` (the board). Session bundles are retired: the repo is the bundle.
+Task state is the selected `state/workstreams/<slug>/roadmap.json`. The global
+`state/digest.json` is a navigation summary; `active-context.md` and `status.json`
+are alternative generated views. Historical closeouts are evidence dated at close.
 
 Storage is what IS. Intent is what we MEAN. Live content, captures, catalogs and answer files
 are storage; doctrine, state and rulings are intent. Reading one as the other is the most
@@ -62,14 +63,19 @@ Use these words precisely when recording a finding; they decide whether it can o
 Carried assumption: we write `longitude` as x and `latitude` as y; nothing in any capture
 distinguishes them. Tier: assumed.
 
-## Session start
+## Task start
 
-1. Clone with the PAT from the project instructions. `git pull --rebase` before every push
-   thereafter - the answers/skillpack workflows commit back.
-2. Run `scripts/session_open.py` (prints state, rulings, guards, inbox); `state/active-context.md` and `state/status.json` carry the same digest for human reading.
-3. Report the one-line state and `rulings_open`, propose the next item, wait.
+Verify the requested ref to an exact commit once, then use the task route below.
+With a checkout, commands derive from local evidence; without one, fetch the
+relevant generated view at that commit. Do not mix files fetched from moving refs.
 
-No clone means no state. Say so rather than working from memory.
+An explicit task starts immediately. A read-only lookup does not require a global
+board read, branch, ledger write, code-review lane, or wait for another task choice.
+`python3 scripts/tnr.py session` is an optional read-only global summary;
+`--guards` is for repository maintenance. The two state projections are alternative
+views of the digest, not two sources to hydrate. Workstream roadmaps own task state.
+Use native environment Git authentication; ChatGPT uses the repository connector.
+Never paste a PAT into project instructions or clone URLs.
 
 ## Task routing
 
@@ -78,8 +84,8 @@ No clone means no state. Say so rather than working from memory.
 | Any manifest, before handoff | `validate.py m.json` MANDATORY, zero errors, run from skill `data/`, say it ran |
 | Building any payload | `factory.py` CONSTRUCTS it (cwd = skill `data/`); hand-authoring is the fallback |
 | Field shapes, bounds, enums, constants, tRPC surface | `45c` / `45d` / `45e` / `45f` in skill `data/` |
-| Name collision, id lookup, what exists live | `answers/` in the clone; fresher than the last harvest takes a capture |
-| Law coverage vs code | `scripts/lawmap.py <repo-root>` |
+| Name/id lookup | `answers/INDEX.md`; full-record overrides have timestamps in `answers/records.json`. These are observed snapshots, not proof of current live state |
+| Law coverage vs code | `skills/building-tnr-content/scripts/lawmap.py <repo-root>` |
 | A source drop or regen | `schema_extract.py <src> --ctors` FIRST, then the MECHANICAL gate: `schema_diff.py --invariants NEW_45c --constants 45e` and `schema_diff.py diff OLD NEW` per file; adopt only on exit 0 (fail-closed on enum-member/variant/field removal and type changes) |
 | AI enemies, kits, stats, behaviour rules | skill `references/ai.md`; `enemy.py`, `calc.py ai\|kit` |
 | Quests, events, dialog, flow | skill `references/quest.md`; `mission.py`, `storyboard.py` |
@@ -92,10 +98,11 @@ No clone means no state. Say so rather than working from memory.
 | Existing jutsu art: name → captured record → image URL | `scripts/jutsu_art.py verify`, then `lookup`/`image-url`; `docs/workflows/JUTSU_ART_LOOKUP.md` |
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |
 | Full law text by number | `docs/ENGINE_LAWS.md`; cross-cutting clusters `docs/10_LAWS_core.md` |
-| A mission, any rank | `48_DATA_mission_profiles.json` + `mission.py sheet.json` |
+| Inspect existing missions | `python3 scripts/tnr.py context missions.check --rank A`; then `missions check --rank A`. This checks observations, not construction profiles |
+| Build a mission, any rank | `48_DATA_mission_profiles.json` + `mission.py sheet.json` |
 | A multi-session content project (event/quest/mission arc) | `docs/workflows/CONTENT_WORKSTREAM.md`; `scripts/content_workstream.py`. Coordination state only - it never competes with this file's precedence table |
 | `Initialize session from repo. Workstream: X. Task: Y.` | `content_workstream.py init <slug> --task <id>`, then read exactly what the packet routes |
-| Ending a session | edit `state/digest.json`, run `session_close.py` (projects handoff + board, byte-asserts, re-runs guards) |
+| Ending work | update the owning workstream and evidence. Change the global digest only for cross-workstream navigation; `session_close.py --guards` projects it |
 
 ## Non-negotiables
 
@@ -111,8 +118,8 @@ No clone means no state. Say so rather than working from memory.
   Propose, show one at a time, wait. [[D-reserved-dauntless]]
 - The real first name never appears in any artifact of any kind. The username is dauntless. [[D-no-real-name]]
 
-## Deploy notes
+## Repository writes and releases
 
-Repo: commit, `git pull --rebase`, push; raw CDN caches ~5 min for root fetches (45c/45g/32b). Forge bundle releases are two-stage: feature branches keep the last released loader version and immutable `@require` pin, marking a newer package only with `@x-release-pending`; after merge, `release_pin.yml` atomically raises the loader `@version`, pins `forge_bundle.js` to the merge commit on jsDelivr, and removes the pending marker. The Forge loader carries `@updateURL`/`@downloadURL` pointing at the released loader on `main`, so ViolentMonkey can detect later version rises. **Refreshing required resources does not update the loader itself**: it only re-fetches whatever immutable `@require` URL the installed loader already names. Any install from before the self-update metadata existed needs one manual loader reinstall/update first. The panel title must show the expected Forge version before trusting a smoke result; `partial` means `45c`, `32b` or `45g` is missing from repo root (skillpack syncs root from skill `data/`).
-Skills: change lands in repo `/skills/` first, the packaging workflow rebuilds `/dist/`,
-download and reinstall; the container copy is never patched in place.
+Use `docs/DEVELOPMENT_WORKFLOW.md` when writing code/infrastructure or integrating.
+Release and distribution details: `docs/RELEASE_DISTRIBUTION.md`. Runtime root paths
+are compatibility interfaces; never move them as an incidental cleanup.

@@ -73,8 +73,6 @@ def render_mounted(assertions, sha7):
         key = match.group(1)
         if key == "STAMP":
             return stamp
-        if key == "PAT":
-            return "<<<INSERT tnr-container PAT HERE WHEN PASTING>>>"
         assertion = by_id.get(key)
         if assertion is None:
             raise SystemExit(f"template references undefined {key}")
@@ -82,7 +80,7 @@ def render_mounted(assertions, sha7):
             raise SystemExit(f"template uses {key} but it is not targeted 'mounted'")
         return assertion["short"] or assertion["body"]
 
-    return re.sub(r"\{\{(STAMP|PAT|D-[a-z0-9-]+)\}\}", replace, template)
+    return re.sub(r"\{\{(STAMP|D-[a-z0-9-]+)\}\}", replace, template)
 
 
 def doctrine_block(assertions, target, sha7):
