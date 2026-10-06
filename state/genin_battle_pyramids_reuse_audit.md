@@ -1,168 +1,338 @@
 # Genin Battle Pyramids — Reuse Audit
 
-**Status:** PROPOSAL / reuse analysis  
+**Status:** PROPOSAL / reuse-first redesign  
 **Frozen current main:** `b6f719dc5241f2b4fefc553670a61ea0c4a16d6e`  
-**Fresh quest-state evidence:** `harvests/inbox/tnr_results_1791233210169.json` (2026-10-05, DONE/success)  
-**AI profile evidence:** `harvests/inbox/tnr_results_1788235198666.json` + `tnr_results_1788235395095.json` (2026-09-01 committed mission-AI audit)  
-**Art reference authority:** `skills/producing-tnr-art/data/style_refs.json` + `25x_DATA_art_spec.json`  
+**Fresh quest-state evidence:** `harvests/inbox/tnr_results_1791233210169.json` (DONE/success)  
+**AI profile evidence:** `harvests/inbox/tnr_results_1788235198666.json`, `tnr_results_1789124514980.json`, One Perfect Crop hidden-core/readback records  
+**Art authority:** `skills/producing-tnr-art/data/style_refs.json` + `25x_DATA_art_spec.json`  
 **Live requests/writes for this audit:** 0 / 0
 
 ## Executive finding
 
-The three Genin pyramids can plausibly be redesigned around existing content with:
+The three Genin pyramids can be reoriented around pre-existing TNR content with a realistic target of:
 
-- **0 new combat AI records**
-- **0 new combat jutsu**
 - **0 new scene backgrounds**
-- **0 required scene-character assets**
-- only a visual QA gate on the reused AI avatars before declaring the art scope truly zero-new
+- **0 new combat jutsu**
+- **0 new lv20/lv30 combat AI**
+- **0 new lv20/lv30 enemy avatars**
+- likely **0 new lv15 combat art** if approved wildlife / Road Bandit reuse passes final visual QA
 
-This also creates a stronger lore opportunity: the low-level road incidents can become the player's earliest contact with the **Unmarked** operative layer already used by current C-rank missions, and can foreshadow the higher-rank network currently called **Forsworn** in live mission prose.
+The better lore structure is not three unrelated gangs. It is a gradual reveal of the anonymous criminal/operative ecosystem already present in current missions:
 
-Do **not** silently restore `Unwritten` as the current faction name. The repository's old **Unwritten War** document is archived/stale; current live higher-rank mission prose explicitly uses **Forsworn**, while the C-rank enemy line is named **Unmarked**. If the director wants “Unwritten” restored as operative canon, that needs a new lore ruling. Until then, the safest expansion is: **Unmarked = disposable/low-rank outer layer; Forsworn = broader network revealed later**.
+**ordinary road incident -> Unmarked field layer -> Faceless / Unsigned professional layer**
 
-## Existing low-rank human AI worth reusing
+This adds context to existing missions without requiring the new pyramids as prerequisites.
 
-| AI | Level / Rank | Current low-rank use | Mechanical read | Reuse verdict |
-|---|---|---|---|---|
-| **GENIN 01** | Lv20 GENIN | D20 *Poachers' Due* | Quick Strike, Steady Strike, Rapid Fire; 1.5x pools; Flaming Sword | Usable, but visually/mechanically generic and flaming weapon may constrain theme |
-| **Marauder** | Lv25 CHUNIN | D20 *The Long Road* | Extremely simple; Opening Strike + basic fallback | **Excellent road-criminal grunt** |
-| **Syndicate Thief** | Lv27 CHUNIN | D20 *Night Watch Shadow* | No equipped jutsu in Sep-1 audit; default/basic AI behavior | Usable as intentionally basic criminal, but verify current profile before build |
-| **Unmarked Stray** | Lv25 GENIN | C20 *The Empty Contract* | Quick/Steady/Bruising + Venom Strike + Fighter's Poise | **Excellent entry Unmarked operative** |
-| **Unmarked Blade** | Lv30 GENIN | C20 *Protection*, *The Waystation* | Twin Shot, Enervating, Searing, Heavy Cut, Minor Overflow | **Excellent Lv30 anchor / instructor** |
-| **Unmarked Shadow** | Lv35 CHUNIN | C20 *Chalk and Corner* | Withering, Sundering, Numbing, Lingering, Warrior's Poise | Strong capstone; more complex and above Genin cap, but existing C20 precedent proves the game already uses it against lower players |
+## Canon / naming guardrail
 
-All three Unmarked records have existing avatars and working AI profiles. Their committed audit shows `statsMultiplier: 1`, `poolsMultiplier: 1`; Stray and Blade are GENIN-ranked and therefore naturally fit this workstream.
+Do not silently revive the archived `The Unwritten War` plan. That document is explicitly marked STALE / NON-CANON CANDIDATE.
 
-## Existing wildlife AI worth reusing
+Current live material uses several distinct terms:
 
-Fresh quest census proves these records are currently referenced by live content:
+- **Unmarked Stray / Blade / Shadow** — current C-rank enemy records.
+- **Unsigned** — current `Witness Detail` prose describes the professional chalk-lane operatives this way.
+- **Faceless Stray / Shadow / Blade** — current higher-tier AI usernames.
+- **Forsworn** — current higher-rank mission prose uses this broader name, including `Nothing to Report`.
 
-| AI | Current use | Scaling evidence | Reuse verdict |
+Safest interpretation for these pyramids:
+
+- Unmarked = cheap / deniable outer-layer field assets.
+- Faceless / Unsigned = more professional operatives used for sensitive jobs.
+- The pyramids should **not** declare either layer to be direct Forsworn members unless dauntless approves that lore relationship.
+- If dauntless wants **Unwritten** restored as the umbrella faction name, record a new ruling before final prose.
+
+The new content can establish operational links without prematurely settling the entire organizational chart.
+
+---
+
+## AI reuse inventory
+
+### Low-rank road / generic combat
+
+| AI | Live profile | Current use | Reuse read |
 |---|---|---|---|
-| **Wild Boar** | *The Silent Bloom* | scaled-to-user | **Best Quiet Mile opener** |
-| **Dark Wolf** | *Howling Hills* battlepyramid | scaled-to-user | **Strong wolf reuse candidate** |
-| **White Wolf** | *Howling Hills* battlepyramid | scaled-to-user | Good alternate/capstone wolf |
-| **Grumpy Puppy / Sad Puppies** | old hidden D10 event | fixed | Too comedic / wrong tone |
-| **Rabid Puppy** | starter + hidden story content | mixed | Mechanically reusable but narratively poor fit |
+| **Marauder** `n8EP0t5NN3zhzxXiDdZIY` | Lv25 CHUNIN, 1x/1x, Opening Strike only | D20 `The Long Road`, fixed | Very simple road criminal. Good identity, but too high for fixed Lv15 without scaling. |
+| **Syndicate Thief** `97U7ui81xEMFFVz1Isn-z` | Lv27 CHUNIN, 1x/1x, no equipped jutsu in Sep audit | D20 `Night Watch Shadow` | Intentionally basic; usable but profile should be re-read before build. |
+| **GENIN 01** `fPHbAdToPNequ4j99Cpxp` | Lv20 GENIN, 1x stats / 1.5x pools | D20 `Poachers' Due` | Valid low-rank human opponent, but generic identity. |
+| **Seichi Bandit** `UrAEVY5QvtQqKs-XB92PX` | Lv15 GENIN, no equipped jutsu / no AiProfile | existing generic bandit | Good name/art donor; poor combat reuse as-is. |
+| **Road Bandit** `dKEz_VsgZjrfbtxt4ldo8` | technical Lv100 JONIN, simple three-move kit, designed for user scaling | One Perfect Crop | Excellent modern-art / simple-kit reuse if the pyramid fight is scaled. |
 
-Wild Boar / Dark Wolf / White Wolf should be point-read before implementation if fixed-level encounters are desired. If we reuse them **scaled-to-user**, current live quest usage already demonstrates that pattern.
+One Perfect Crop already has accepted Road Bandit combat art:
+`art/one_perfect_crop/one_perfect_crop_road_bandit_avatar.webp`.
 
-## Scene-background reuse
+### Wildlife
 
-The current approved TNR reference pack already contains almost exactly the locations needed.
+Existing public D-rank hunting creatures include:
 
-### Quiet Mile
-- **Pass Road Dusk** — `nmrMHmz9xWojzyIV2mAR8`
-- **East Road Ambush Site** — `E4VJ-IeIQMwbmGGfKc-sn`
-- Optional current D-mission asset: **DM Long Road Dusk** — `7XdeP3QA1DqHqttxvg2iS`
+- MossWolf — `AkGY27OK7lNmxvGAcGtJr`
+- OwlCat — `HS5pnbz_JDK43lNDBEoig`
+- Badgertle — `gHPiwKQMYdf5-M1kfdom_`
+- Rust Ferret — `R9JRTtK3cZubEWUMbEkfL`
+- Moonprowler — `ld7Cd-yHU15NwRKyjToZs`
 
-These cover road approach, wreck/ambush space, and the grounded rural exterior register.
+Other useful existing battle-pyramid ecology:
 
-### False Toll
-- **Waystation Door** — `kmDsQUEHSub9GIX5ulO6i`
-- **Drying Shed** — `c1e60fERuLUxzt9WY4U37`
-- Optional road transition: Pass Road Dusk / DM Long Road Dusk
+- Wild Boar — `clik9wzuy000109l650ds0x6x`
+- Dark Wolf — current Howling Hills roster
+- White Wolf — current Howling Hills roster
 
-A tollhouse does not need bespoke architecture if the fiction is an improvised checkpoint built around an old road shed/waystation threshold.
+**Confirmed art precedent:** One Perfect Crop deliberately reused the existing Wild Boar avatar for Harvest Boar. No new boar image is needed.
 
-### Burned Crest
-- **Drying Yard** — `TUtC7yPymsp2GyWwZhoTf`
-- **Warehouse Loading Floor** — `bBV9I0DcmYGcxVGaBdWL0`
-- Optional exterior threshold: Waystation Door / Drying Shed
+Wild Boar / Dark Wolf / White Wolf are the best thematic candidates for Quiet Mile. Point-read profiles before deciding fixed vs scaled use.
 
-Drying Yard is already the strongest approved visual precedent for a walled work compound and can convincingly become a disused private training yard through prose alone.
+### C-rank Unmarked layer
 
-## Revised story direction
+Fresh October census confirms all three are currently used in public C20 missions with `opponent_scaled_to_user: true`.
 
-### Lv15 — The Quiet Mile
-Keep the original missing-cart investigation, but make the hidden cause an **Unmarked dead-drop route** rather than a brand-new gang.
+#### Unmarked Stray — `bCTTWqMLn_clRjR21aB2N`
+- Lv25 GENIN
+- stats/pools: 1x / 1x
+- kit: Quick Strike, Steady Strike, Venom Strike, Fighter's Poise, Bruising Blow
+- current use: `The Empty Contract`
+- excellent entry operative
 
-Proposed fights:
-1. Wild Boar
-2. Dark Wolf
-3. White Wolf or second Dark Wolf composition
+#### Unmarked Blade — `JBTjl1mvOWRfTPX0Igj03`
+- Lv30 GENIN
+- stats/pools: 1x / 1x
+- kit: Twin Shot, Enervating Strike, Minor Overflow, Searing Strike, Heavy Cut
+- current use: `The Waystation`, `Protection`
+- ideal stronger Unmarked / lv30 anchor
 
-Story:
-- A cart is found stripped.
-- Animals are scavenging what was deliberately dumped.
-- Human cuts / bootprints prove wildlife was secondary.
-- The player finds a blank contract chit / unmarked courier token / coded route mark, but no faction name.
-- This is a **clue**, not a reveal.
+#### Unmarked Shadow — `I6bph15IwA0--iAwacxIn`
+- Lv35 CHUNIN
+- stats/pools: 1x / 1x
+- kit: Withering Weave, Sundering Blow, Numbing Shot, Warrior's Poise, Lingering Strike
+- current use: `Chalk and Corner`
+- more complex capstone; scaled C20 precedent exists
 
-Reuse: 100% existing AI + existing road backgrounds.
+All have existing avatars and working AiProfiles.
 
-### Lv20 — The False Toll
-Reframe the toll operation as ordinary criminals being used to service the same anonymous network.
+### Higher-tier Faceless / Unsigned layer
 
-Proposed fights:
-1. Marauder
-2. Syndicate Thief
-3. Marauder + Syndicate Thief
-4. **Unmarked Stray** as the collector/handler who arrives when the tollhouse fails
+#### Faceless Stray — `rKWmoT0Ez1q4r8jEqprWP`
+- live username: **Faceless Stray**
+- Lv40 CHUNIN
+- 1.5x stats / 1.5x pools
+- kit: Quick Strike, Veilstep, Minor Overflow, Fighter's Poise, Gale Bolt
+- current B25 use: `Copies, Not Thefts`, `Witness Detail`
+- those missions use it **unscaled**
 
-Story:
-- The toll gang uses forged authority to collect money and observe traffic.
-- Their ledger includes patrol times and scheduled dead drops.
-- The final opponent is not the gang leader but the **unmarked collector** who comes for the ledger.
-- The player learns the road criminals are disposable infrastructure.
+#### Faceless Shadow — `2ZF5jMvECgiNBgrr4icqk`
+- live username: **Faceless Shadow**
+- Lv55 JONIN
+- 1.5x stats / 1.5x pools
+- kit: Lunging Strike, Hushed Hours, Numbing Shot, Marking Volley, Braced Strike
+- current B25 use: `Copies, Not Thefts`, `Witness Detail`, `The Loud Way`
+- both fixed and scaled precedents exist
 
-Reuse: 3 existing human AI, all existing avatars, existing road/waystation backgrounds.
+#### Faceless Blade — `SJs7nn-cUwy-VtLt_vMwC`
+- Lv50 CHUNIN
+- 2x stats / 2x pools
+- kit: Unraveling Strike, Compression Barrier, Mirror Edge, Heavy Strike, Suppressing Roar, Braced Strike
+- current B25 use: `Nothing to Report`
+- current battle is **scaled-to-user**
+- strongest candidate for a scaled lv30 boss if dauntless wants the professional layer revealed here
 
-### Lv30 — The Burned Crest
-Make the training yard explicitly an **Unmarked field school**, where disposable operatives are drilled before being assigned to contracts like the existing C-rank missions.
+Note: the answer catalog still carries old rename-work text for Stray/Shadow, but the committed full captures prove their live usernames are clean: **Faceless Stray** and **Faceless Shadow**.
 
-Preferred no-new-AI ladder:
+---
+
+# Reuse-first pyramid redesign
+
+## Lv15 — The Quiet Mile
+
+Preserve the approved investigation premise: wildlife is scavenging a deliberately wrecked cart.
+
+### Recommended zero-new roster
+
+1. **Wild Boar**
+2. **Dark Wolf** (or MossWolf if its profile fits better)
+3. **Road Bandit** — returning to strip the final cargo / evidence
+
+Why this is stronger than three wildlife fights:
+- battle 1–2 make the obvious explanation look plausible;
+- the third fight proves a human operation caused the wreck;
+- the player still starts with basic threats;
+- it directly hands the narrative into False Toll.
+
+Road Bandit is preferred over Marauder if reuse is allowed because its modern accepted art and deliberately simple kit already meet the quality target. Because it is a technical Lv100/JONIN record, reuse it only with `opponent_scaled_to_user: true`.
+
+### Story clue
+
+The bandit carries no faction mark. What matters is a route chit / chalk notation / blank collection instruction that links the sabotage to a larger anonymous logistics system.
+
+Do not name Unmarked/Forsworn yet.
+
+### Asset reuse
+
+Backgrounds:
+- Pass Road Dusk — `nmrMHmz9xWojzyIV2mAR8`
+- East Road Ambush Site — `E4VJ-IeIQMwbmGGfKc-sn`
+- optional Waystation Door — `kmDsQUEHSub9GIX5ulO6i`
+
+Enemy art:
+- existing Wild Boar
+- existing wolf
+- existing Road Bandit
+
+**New production target: 0** if all three avatars pass visual QA.
+
+---
+
+## Lv20 — The False Toll
+
+Reframe the tollhouse as an **Unmarked collection / route-control node**, not an unrelated gang.
+
+### Recommended roster
+
+1. **Unmarked Stray**
+2. **Unmarked Blade**
+3. **Unmarked Stray + Unmarked Blade**
+4. **Unmarked Shadow**
+
+Use scaling, matching their current C20 mission precedent.
+
+### Lore integration
+
+The operation combines practices already shown separately in existing missions:
+
+- anonymous collection/extortion — `Protection`
+- road caches / staged route control — `The Waystation`
+- blank / deniable contracts — `The Empty Contract`
+- chalk timing codes — `Chalk and Corner`
+
+The pyramid's lore contribution is simple:
+
+> These were not four unrelated incidents. The same low-level field network uses collections, caches, route timing and anonymous contracts to service jobs without its crews needing to know one another.
+
+Do not reveal the client/broader faction yet.
+
+### Asset reuse
+
+Backgrounds:
+- Waystation Door
+- Drying Shed — `c1e60fERuLUxzt9WY4U37`
+- Drying Yard — `TUtC7yPymsp2GyWwZhoTf`
+- Warehouse Loading Floor — `bBV9I0DcmYGcxVGaBdWL0`
+- East Road Ambush Site
+
+Optional recurring civilians, only if they are the same NPCs:
+- Keeper — `AM0saNTIIl1FPgc5pAzxc`
+- Grain Merchant — `8mDurYQYmy3G0vb862mkO`
+- Warehouse Clerk — `1TjPakroW5q8m6nylQRcT`
+
+**New AI/art: 0.**
+
+---
+
+## Lv30 — The Burned Crest
+
+This should now become the **professional-layer reveal**.
+
+The training yard is not a new faction HQ. It is a place where anonymous crews are drilled, briefed or staged by better operators.
+
+### Preferred roster: Faceless / Unsigned escalation
+
+1. **Faceless Stray**
+2. **Faceless Shadow**
+3. **2x Faceless Stray**
+4. **Faceless Stray + Faceless Shadow**
+5. **Faceless Blade**
+
+Why this works:
+- B25 missions already prove Stray/Shadow in exactly these kinds of counts;
+- `Witness Detail` explicitly calls this professional operative ecosystem **the Unsigned**;
+- `Nothing to Report` gives us the Faceless Blade as a stronger scaled confrontation;
+- no new instructor AI is needed.
+
+### Balance handling
+
+This is still a **C-rank quest**, because GENIN can only start D/C quests even at level 30.
+
+Suggested first-pass behavior:
+- Floors 1–4: reuse existing fixed records as B25 missions already do.
+- Floor 5 Faceless Blade: scaled-to-user, matching `Nothing to Report`.
+
+If testing says the fixed Faceless floors are too severe or too easy at lv30, change the encounter scaling before cloning new AI.
+
+### Lore contribution
+
+The yard shows an operational hierarchy without over-explaining it:
+
+- Unmarked crews handle cheap, deniable field work.
+- Faceless/Unsigned operatives are trained professionals used when a contract matters.
+- The burned/scraped crests are removed affiliations, not a new faction insignia.
+- Records at the site reference familiar categories: collection, escort disruption, route timing, evidence removal, archive work.
+- The player learns the tollhouse crew had professional handlers.
+
+Do **not** state in this pyramid that the Unsigned are direct Forsworn members unless separately ruled. Let the current B-rank missions retain room for that deeper reveal.
+
+### Gentler fallback
+
+If Faceless Shadow/Blade feel too advanced for a Genin pyramid after testing:
+
 1. Unmarked Stray
-2. Unmarked Stray
+2. Unmarked Blade
 3. 2x Unmarked Stray
-4. Unmarked Stray + Unmarked Blade
-5. **Unmarked Shadow** capstone
+4. Stray + Blade
+5. Unmarked Shadow (scaled)
 
-Alternative gentler capstone:
-- use **Unmarked Blade** as floor 5 and omit Shadow;
-- this keeps every enemy at or below Lv30 except repeated Strays.
+This keeps the entire pyramid inside the Unmarked layer.
 
-Story:
-- The yard trains nameless cutouts in practical field work: watches, ambushes, escort disruption, evidence removal.
-- Burned/scraped markings are not a new faction crest; they are deliberately **removed affiliations**.
-- Recovered records can name contract types already seen in *Protection*, *The Empty Contract*, *The Waystation*, and *Chalk and Corner* without requiring those missions as prerequisites.
-- The pyramid adds lore by showing **where Unmarked operatives are prepared**, while later higher-rank missions can reveal who pays them.
+### Asset reuse
 
-Reuse: Unmarked Stray / Blade / Shadow + Drying Yard / Warehouse backgrounds. No new combat assets required.
+Backgrounds:
+- Drying Yard
+- Warehouse Loading Floor
+- Drying Shed / Waystation Door for exterior threshold
 
-## Lore consequence / recommended ruling
+Do not repurpose named Winter Crow / Pale Fang / Old Ghost scene portraits as generic operatives. They remain style references / their own characters.
 
-The cleanest canon addition would be:
+**New AI/art: 0.**
 
-> **Unmarked operatives are not a separate faction. They are deniable field assets trained and contracted through the same broader network later encountered as the Forsworn. Their lack of affiliation is functional: if captured, they carry no village mark and no organizational insignia.**
+---
 
-This fits:
-- the existing names Unmarked Stray / Blade / Shadow;
-- existing mission prose built around false contracts, escorts, ledgers and anonymous payments;
-- the current Forsworn visual register of dark layered garb without village insignia;
-- the user's desire to deepen rather than replace existing low-rank content.
+# Production savings
 
-This is still a **proposal**, not operative lore, until approved.
+Compared with the original bespoke concept:
 
-## Art savings
+| Category | Original | Reuse-first |
+|---|---:|---:|
+| New enemy AI records | ~10 | **0 target** |
+| New enemy jutsu | potentially several | **0** |
+| New enemy avatars | ~10 | **0 target** |
+| New scene backgrounds | ~6 | **0** |
+| New scene-character portraits | several possible | **0 required** |
 
-If existing AI avatars pass visual QA:
+The approved Wayward Striker generation can remain a **visual calibration asset**. It no longer needs to become production content unless dauntless specifically prefers a bespoke named instructor over the existing Faceless/Unmarked roster.
 
-| Original plan | Reuse-oriented plan |
-|---|---:|
-| 10 new enemy avatars | **0** |
-| 6 new backgrounds | **0** |
-| new human faction visual language | **0** |
-| new AI kits | **0** |
-| new combat AI records | **0** |
+---
 
-The already-approved Wayward Striker generation can remain a **style calibration asset** rather than becoming required production content, unless the director wants one bespoke named instructor.
+# Required verification before implementation
 
-## Remaining verification before build
+No new live capture was run for this audit. Before Fable composes the manifest:
 
-1. Fresh point-read Wild Boar, Dark Wolf, White Wolf profiles if we want fixed levels.
-2. Fresh point-read Unmarked Stray / Blade / Shadow before manifest construction to confirm Sep-1 profile data has not changed.
-3. Visually inspect the existing AI avatars against the current TNR art bible. Mechanics are reusable now; art reuse is not declared final until this check.
-4. Decide whether Burned Crest uses Shadow as Lv35 capstone or stays at Blade Lv30.
-5. Approve the Unmarked/Forsworn lore relationship before writing it into player-facing prose.
+1. Point-read current Wild Boar + chosen wolf if fixed-level use is desired.
+2. Point-read Road Bandit if cross-content reuse is selected.
+3. Point-read Unmarked Stray / Blade / Shadow.
+4. Point-read Faceless Stray / Shadow / Blade.
+5. Visually inspect each reused avatar against the current TNR art bible; mechanical reuse does not automatically equal visual acceptance.
+6. Confirm final lore terminology: keep Unsigned/Forsworn separation, or make a new ruling if `Unwritten` is to become an umbrella name.
+7. Playtest / review scaled-vs-fixed encounter choices before rewards are finalized.
+
+## Recommendation
+
+Adopt this reuse-first direction.
+
+It improves the pyramids twice:
+
+- **production:** dramatically fewer new assets and combat records;
+- **worldbuilding:** existing D/C/B missions become more connected because the pyramids show the infrastructure behind events players already encounter.
+
+The story ladder becomes:
+
+**The Quiet Mile** — somebody is using the roads.  
+**The False Toll** — the Unmarked maintain the anonymous field network.  
+**The Burned Crest** — professional Faceless/Unsigned operators stand behind that network.
+
+That is more TNR-native than introducing a separate road gang and a separate rogue-school faction.
