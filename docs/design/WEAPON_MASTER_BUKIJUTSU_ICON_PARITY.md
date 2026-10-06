@@ -309,3 +309,45 @@ Visual lock carried by this candidate:
 The rejected v2 sword remains non-canonical. If the director accepts v3, this exact raster becomes the recurring Weapon Master katana layer for Chakra Edge, Parry and later Bukijutsu, with only uniform scale, rotation, translation and pose occlusion permitted.
 
 Phase 3 remains blocked until director acceptance of Phase 2B v3.
+
+
+## Director approval — straight canonical katana
+
+**Date:** 2026-10-06  
+**Status:** APPROVED visual lock; mechanical reusable-layer cleanup pending.
+
+After rejecting the over-curved revisions, the director approved the straight katana candidate as the recurring Weapon Master weapon design.
+
+Approved raw source:
+- runtime filename: `pixel_art_katana_on_transparent_grid.png`
+- dimensions: 2172x724 RGBA
+- SHA-256: `0ac393cc1502afceea24ad218188ce0f38d7bfae3fd6db172e6fb82743a90703`
+- bytes: 281,125
+
+Approved visual traits:
+- essentially straight blade silhouette;
+- single-edged katana profile with clean kissaki;
+- long black tsuka with repeated light diamond wrap;
+- brass/gold kashira, circular tsuba and habaki/fuchi treatment;
+- restrained steel planes and bright cutting edge;
+- no chakra, sparks, opposing weapon, hands or jutsu effect baked into the weapon.
+
+Superseded/rejected weapon candidates:
+- deterministic v2 fantasy-saber reconstruction;
+- preferred-master-sheet v3 as the canonical endpoint;
+- subsequent curved edits that over-emphasized sori.
+
+The approved straight katana is now the **visual authority** for Phase 2B. Before Phase 3 composition work, perform only mechanical cleanup needed to create a clean transparent reusable raster; do not alter the approved silhouette, hilt proportions, fittings, wrap pattern or steel design.
+
+Once that cleanup is complete, Phase 2B closes and Phase 3 may begin.
+
+### Phase 3 entry condition
+
+Phase 3 starts with **Chakra Edge first**:
+1. use the Phase 2A Weapon Master identity lock;
+2. use the cleaned exact raster derived from the approved straight katana above;
+3. reconstruct the current Chakra Edge composition without jutsu effects first;
+4. pass actor/weapon parity QC;
+5. only then add the restrained cyan chakra-edge treatment.
+
+Parry remains second and must reuse the same actor construction and exact katana layer.
