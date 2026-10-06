@@ -152,3 +152,64 @@ Phase 1 is complete when:
 4. reconstruction cannot silently change locked identity or weapon traits.
 
 Next phase: build the reusable Weapon Master production master and canonical katana before reconstructing either finished icon.
+
+
+## Phase 2 - reusable Weapon Master production master
+
+**Status:** production candidate complete; director acceptance pending.
+
+Phase 2 deliberately does not reconstruct Chakra Edge or Parry yet. It creates the shared actor/weapon reference layer that later icon work must inherit.
+
+### Canonical character-production board candidate
+
+Generated reference board:
+- runtime filename: `a_clean_pixel_art_character_asset_sheet_and_color.png`
+- dimensions: 1536x1024
+- mode: RGBA
+- SHA-256: `3adecc472fcd393b66bb9d14b1769118234e7d4f6fe5779cdb780c2b12278d13`
+- bytes: 2,390,506
+
+Use:
+- establishes the pixel/cel reinterpretation of the locked Weapon Master identity;
+- carries front, 3/4 front, side, 3/4 back, back, head, eye, glove, sash, footwear and silhouette references;
+- is a production/reference board only, not player-facing game art;
+- any incidental board text or layout has no authority over the character design.
+
+Locked interpretation from this board:
+- void-black face and narrow white eyes;
+- high black ponytail with red tie and the same dominant bang/ponytail mass across views;
+- torn red scarf;
+- black layered upper garment and loose black trousers;
+- off-white forearm and lower-leg wraps;
+- black gloves and dark footwear;
+- off-white waist sash with red cloth accent;
+- restrained limited-palette pixel/cel treatment readable at icon scale.
+
+The original user-supplied sheet remains the higher authority if this derived board disagrees with it.
+
+### Canonical katana reusable layer
+
+A clean right-facing katana was isolated from the Phase 2 board into a transparent reusable layer:
+- runtime filename: `weapon_master_canonical_katana.png`
+- dimensions: 808x83
+- mode: RGBA with transparent exterior
+- SHA-256: `698be45ca0dd13700a995cb2677f346bc685ee402be99cc865f079f610576c98`
+- bytes: 85,192
+
+Locked weapon grammar:
+- polished curved steel;
+- gold/brass circular tsuba;
+- dark handle with repeated light diamond wrap;
+- gold/brass pommel fitting;
+- no chakra, sparks, glow, hands or opposing weapon baked into the reusable layer.
+
+This exact raster is the reuse target for later icon compositing. Transformations may rotate, translate and uniformly scale it, but later jutsu work must not redraw or redesign the sword unless the director rejects this Phase 2 candidate.
+
+### Phase 2 gate
+
+Before Phase 3 starts:
+1. director accepts or corrects the Phase 2 character board;
+2. director accepts or corrects the canonical katana;
+3. any correction is made here before the jutsu compositions are reconstructed.
+
+If accepted, Phase 3 begins from these shared assets rather than generating a new Weapon Master or a new sword.
