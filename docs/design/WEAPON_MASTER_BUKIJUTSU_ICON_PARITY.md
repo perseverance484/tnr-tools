@@ -351,3 +351,46 @@ Phase 3 starts with **Chakra Edge first**:
 5. only then add the restrained cyan chakra-edge treatment.
 
 Parry remains second and must reuse the same actor construction and exact katana layer.
+
+
+## Phase 2B mechanical closeout — canonical reusable katana
+
+**Date:** 2026-10-06  
+**Status:** COMPLETE.
+
+The director-approved straight katana was mechanically cleaned for reuse without changing its visible artwork.
+
+Canonical reusable raster:
+- filename: `weapon_master_katana_canonical.png`
+- dimensions: 2160x206 RGBA
+- SHA-256: `ebc88cbde521c1b8451d10cb66e27c12a247c8a340dcbdb1c795585dc01bc9bf`
+
+Approved raw source:
+- filename: `pixel_art_katana_on_transparent_grid.png`
+- SHA-256: `0ac393cc1502afceea24ad218188ce0f38d7bfae3fd6db172e6fb82743a90703`
+
+Mechanical cleanup only:
+- removed disconnected low-alpha generation residue outside the main sword component;
+- preserved a 3px neighborhood around the main component so the original anti-aliased edge remains;
+- cropped transparent exterior padding;
+- no RGB redraw, recolor, resampling, geometry change, curvature change, hilt change or blade change;
+- every retained visible RGB pixel is byte-identical to the director-approved raw source;
+- every retained alpha value is byte-identical to the director-approved raw source.
+
+Canonical provenance record:
+- runtime filename: `weapon_master_katana_canonical_provenance.json`
+- records the source hash, crop, alpha-isolation method, and byte-identity checks.
+
+Reuse rule:
+- this exact cleaned raster is the recurring Weapon Master katana;
+- allowed operations in jutsu composition: uniform scale, rotation, translation and occlusion behind the actor's hands/body;
+- do not regenerate or redesign the katana per jutsu;
+- jutsu effects are separate overlays and may not alter the physical weapon silhouette.
+
+### Phase 2 close
+
+Phase 2A identity lock: PASS.  
+Phase 2B straight katana: APPROVED and mechanically frozen.  
+**Phase 2: COMPLETE.**
+
+Phase 3 is now unblocked. Chakra Edge is first and must be reconstructed effect-free before any cyan chakra treatment is added.
