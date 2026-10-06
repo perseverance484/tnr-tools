@@ -1,0 +1,37 @@
+{
+ "_note": "READ-ONLY player-facing jutsu census recovery batch 7/7. This is a self-contained tranche of the 604 exact jutsu.get full-record reads from #67, covering source ordinals 600-603. It exists because Forge 0.5.0 capture-only jobs can strand in RUNNING state and cannot resume when items is empty. Run this manifest independently and wait for its results bundle to commit before starting the next batch. Zero items, zero mutations, zero after-captures. Every read uses persist:'full'. Do not combine this manifest's completion state with #66/#67; census assembly happens from the completed batch result bundles. The earlier #66 partial bundle established jutsu.getAllNames = 1,493 live rows and is not repeated here.",
+ "capture": {
+  "before": [
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "zCmYLVL4JYzfhjPXHi9rH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "zRY2kjWo6hLOrrzeuwuX0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "zs33jnCBhVB0k01z0VOOV"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "zwAsamVDhEaio_XKhT28O"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
