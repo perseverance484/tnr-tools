@@ -9,7 +9,7 @@
 
 ## Executive finding
 
-The three Genin pyramids can be reoriented around pre-existing TNR content with a realistic target of:
+The three Genin pyramids can be reoriented around pre-existing TNR content with a realistic target of the following **if reused combat records are allowed to scale to the player**:
 
 - **0 new scene backgrounds**
 - **0 new combat jutsu**
@@ -115,7 +115,7 @@ All have existing avatars and working AiProfiles.
 - 1.5x stats / 1.5x pools
 - kit: Quick Strike, Veilstep, Minor Overflow, Fighter's Poise, Gale Bolt
 - current B25 use: `Copies, Not Thefts`, `Witness Detail`
-- those missions use it **unscaled**
+- those missions use it **unscaled**, but B-rank is Chunin-accessible; this is role/composition evidence, not a Genin balance precedent, but that is a Chunin/B-rank precedent and does **not** prove fixed safety for a Genin player
 
 #### Faceless Shadow — `2ZF5jMvECgiNBgrr4icqk`
 - live username: **Faceless Shadow**
@@ -249,11 +249,14 @@ Why this works:
 
 This is still a **C-rank quest**, because GENIN can only start D/C quests even at level 30.
 
-Suggested first-pass behavior:
-- Floors 1–4: reuse existing fixed records as B25 missions already do.
-- Floor 5 Faceless Blade: scaled-to-user, matching `Nothing to Report`.
+**Do not copy the fixed B25 settings into a Genin pyramid.** B-rank missions are Chunin-accessible, and the engine's combat-time cap is GENIN 60,000 per stat versus CHUNIN/JONIN 450,000. Faceless Stray/Shadow/Blade are CHUNIN/JONIN records with 1.5x–2x multipliers; fixed reuse risks turning an entry Genin capstone into a rank-cap mismatch.
 
-If testing says the fixed Faceless floors are too severe or too easy at lv30, change the encounter scaling before cloning new AI.
+Recommended first pass:
+- Floors 1–5: `opponent_scaled_to_user: true`.
+- Preserve the existing Faceless kits/roles and vary difficulty through composition, not their stored level/rank.
+- The live game already has scaled Faceless precedents in `The Loud Way` (Shadow) and `Nothing to Report` (Blade).
+
+If fixed encounter tuning is a hard requirement, clone/new purpose-built Genin AI is safer than reusing the Faceless records as-is.
 
 ### Lore contribution
 
@@ -316,9 +319,10 @@ No new live capture was run for this audit. Before Fable composes the manifest:
 2. Point-read Road Bandit if cross-content reuse is selected.
 3. Point-read Unmarked Stray / Blade / Shadow.
 4. Point-read Faceless Stray / Shadow / Blade.
-5. Visually inspect each reused avatar against the current TNR art bible; mechanical reuse does not automatically equal visual acceptance.
-6. Confirm final lore terminology: keep Unsigned/Forsworn separation, or make a new ruling if `Unwritten` is to become an umbrella name.
-7. Playtest / review scaled-vs-fixed encounter choices before rewards are finalized.
+5. Preserve player scaling on reused high-rank technical records unless a separate fixed-level balance pass explicitly proves them safe for GENIN caps.
+6. Visually inspect each reused avatar against the current TNR art bible; mechanical reuse does not automatically equal visual acceptance.
+7. Confirm final lore terminology: keep Unsigned/Forsworn separation, or make a new ruling if `Unwritten` is to become an umbrella name.
+8. Playtest the scaled compositions before rewards are finalized.
 
 ## Recommendation
 
