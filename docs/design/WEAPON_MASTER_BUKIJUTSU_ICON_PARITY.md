@@ -262,3 +262,50 @@ The new katana lock must:
 The generated master sheet is promoted only as a **weapon design reference**. Its independently synthesized character turnarounds remain non-canonical for Weapon Master identity.
 
 Phase 2B is complete only after the director accepts the replacement katana.
+
+
+## Phase 2B v3 — preferred master-sheet katana isolation
+
+**Date:** 2026-10-06  
+**Status:** CANDIDATE / director acceptance pending.
+
+The replacement Phase 2B weapon lock now uses the director-preferred Icon Production Master sheet sword **without redrawing it**.
+
+Source:
+- runtime source: `a_clean_pixel_art_character_asset_sheet_and_color.png`
+- role: preferred master-sheet weapon visual reference
+- source crop: x=30..860, y=690..780
+
+Isolation method:
+- smooth dark panel background estimated from background-only rows/columns;
+- RGB distance threshold used to locate the sword;
+- largest connected component selected;
+- external silhouette filled so the dark tsuka/steel pixels remain included;
+- RGB artwork pixels are copied directly from the preferred master sheet;
+- only the alpha mask is reconstructed;
+- no image generation and no sword redraw are used in v3.
+
+Replacement reusable raster:
+- filename: `weapon_master_katana_lock_v3.png`
+- dimensions: 812x79 RGBA
+- SHA-256: `149cd35b0126b2717c3deacda04b0cec261e3a4039493024338a2bfed8e3a979`
+
+Inspection preview:
+- filename: `weapon_master_katana_lock_v3_preview.png`
+- SHA-256: `034a36db10c50b415779f44cbfa2a0b950a4eabb1a320e2163fa1c18966e05eb`
+
+Provenance record:
+- filename: `weapon_master_katana_lock_v3_provenance.json`
+- SHA-256: `887fb3037bc5fe01b744250727afce93d088dd645030f9c8940273b5ba63cd94`
+
+Visual lock carried by this candidate:
+- traditional katana read;
+- compact wrapped tsuka with repeated light diamond pattern;
+- brass/gold pommel and circular tsuba;
+- slim polished blade with restrained curvature;
+- clearly formed kissaki;
+- no chakra, sparks, glow, hands or opposing weapon baked into the reusable layer.
+
+The rejected v2 sword remains non-canonical. If the director accepts v3, this exact raster becomes the recurring Weapon Master katana layer for Chakra Edge, Parry and later Bukijutsu, with only uniform scale, rotation, translation and pose occlusion permitted.
+
+Phase 3 remains blocked until director acceptance of Phase 2B v3.
