@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-06)
+# DRIFT.md - upstream contract drift (2026-10-07)
 
-Upstream: studie-tech/TheNinjaRPG@485066e50c8d8330402accb924bacf49ebf5c2e4
+Upstream: studie-tech/TheNinjaRPG@338133a0dcd9876ec21bf55546c526ed38322dfe
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,18 +69,18 @@ ADDITIONS
 no breaking changes: 58 addition(s), safe to adopt (exit 0)
 == 45d_DATA_entity_schemas ==
 CHANGES
-  now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
   now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmMinLevel  optional -> required
   now-required  item  isFarmSeed  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmSellValue  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
   now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -174,7 +174,7 @@ ADDITIONS
   const-member  GUIDE_RESERVED_SLUGS  edit
   const-member  GUIDE_RESERVED_SLUGS  new
   const-member  GuideCategories  bloodlines
-  ... 83 more
+  ... 85 more
 
-no breaking changes: 143 addition(s), safe to adopt (exit 0)
+no breaking changes: 145 addition(s), safe to adopt (exit 0)
 ~~~
