@@ -394,3 +394,27 @@ Phase 2B straight katana: APPROVED and mechanically frozen.
 **Phase 2: COMPLETE.**
 
 Phase 3 is now unblocked. Chakra Edge is first and must be reconstructed effect-free before any cyan chakra treatment is added.
+
+
+## Phase 3A first-pass review
+
+**Date:** 2026-10-06  
+**Status:** FAIL for Chakra Edge; useful Parry-direction reference retained.
+
+The first effect-free Chakra Edge generation failed the primary identity requirement:
+- the generated actor is not the locked Weapon Master;
+- the pose also reads more naturally as a defensive/parry action than as Chakra Edge.
+
+Useful salvage:
+- the pixel/cel rendering direction is materially closer to the desired TNR icon style;
+- the katana presentation is strong;
+- the defensive stance is a promising visual direction for the later Parry reconstruction.
+
+Disposition:
+- do **not** use this image as a Chakra Edge base;
+- preserve it only as a Parry pose/style reference;
+- do not promote its character design, face, hair, scarf, costume or proportions into the Weapon Master lock;
+- Phase 3A remains open and must restart from the Phase 2A identity authority with the approved Chakra Edge offensive composition;
+- Phase 3B Parry may borrow the stance/readability language later, but must still use the locked Weapon Master identity and exact canonical katana.
+
+No live-game action is authorized or implied.
