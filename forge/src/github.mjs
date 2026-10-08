@@ -80,6 +80,7 @@ export function manifestNumber(name) { const m = /^(\d+)[a-z]?_/i.exec(name); re
 export function manifestSummary(text) {
   try {
     const m = JSON.parse(text);
+    if (m.bloodright) return { ok: true, title: m._note ?? "Bloodright design (prepare preview)", items: Object.keys(m.bloodright.nodes ?? {}).length, creates: 0, captures: 0 };
     const items = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
     const caps = (m.capture && ((m.capture.before || []).length + (m.capture.after || []).length)) || 0;
     const title = typeof m._note === "string" ? m._note.split(/\.\s|\n/)[0].slice(0, 80) : (items[0] && items[0].name) || "";

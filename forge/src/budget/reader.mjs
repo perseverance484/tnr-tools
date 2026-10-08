@@ -73,6 +73,10 @@ export class CachedReader {
    */
   async getMany(path, ids, { fresh = false } = {}) {
     if (procedure(path).kind !== "query") throw new Error("getMany is for queries: " + path);
+    if (path === "skillTree.getAllFolders") {
+      const r = await this.list(path, { fresh });
+      return ids.map(id => r.ok ? { ok: true, data: r.data.find(row => row.id === id) } : r);
+    }
     const out = new Array(ids.length);
     const misses = [];
     for (let i = 0; i < ids.length; i++) {
@@ -121,6 +125,7 @@ export class CachedReader {
    */
   async list(path, { fresh = false, input } = {}) {
     if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
+    if (path === "skillTree.getAll" || path === "skillTree.getAllFolders") return this.skillInventory(path, { fresh, input });
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
     if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const sent = input === undefined ? listInput(path) : input;
@@ -135,4 +140,49 @@ export class CachedReader {
     this.budget.observe([r], [path]);
     return r;
   }
+  // This is the complete skill inventory, not getAllNames (which omits BLOODRIGHT).
+  // Every page consumes its own budget token. Nothing partial is cached or returned.
+  async skillInventory(path, { fresh, input }) {
+    const cacheable = input === undefined;
+    const hit = fresh || !cacheable ? null : await this.cache.get(path, "");
+    if (hit) { this.stats.hits++; return { ok: true, data: hit.data, cached: true }; }
+    this.stats.misses++;
+    const query = async sent => {
+      await this.budget.acquire(path, 1);
+      this.stats.requests++;
+      const [r] = await this.client.batch([{ path, input: sent }]);
+      this.budget.observe([r], [path]);
+      return r;
+    };
+    let rows = [];
+    if (path === "skillTree.getAllFolders") {
+      const r = await query({ includeHidden: true, ...input });
+      if (!r.ok) return r;
+      if (!Array.isArray(r.data)) throw new Error("folder inventory did not return an array");
+      rows = r.data;
+    } else {
+      if (input?.cursor) throw new Error("complete skill inventory must start at cursor zero");
+      const paths = input?.pathType ? [input.pathType] : ["SKILL", "BLOODRIGHT"];
+      const ids = new Set();
+      for (const pathType of paths) {
+        let cursor = 0;
+        for (;;) {
+          const r = await query({ ...input, pathType, limit: 500, cursor });
+          if (!r.ok) return r;
+          if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
+          for (const row of r.data.data) {
+            if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
+            ids.add(row.id); rows.push(row);
+          }
+          const next = r.data.nextCursor;
+          if (next == null) break;
+          if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
+          cursor = next;
+        }
+      }
+    }
+    if (cacheable) await this.cache.put({ path, id: "", input: input ?? null, data: rows });
+    return { ok: true, data: rows };
+  }
+
 }

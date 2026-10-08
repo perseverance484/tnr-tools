@@ -1,3 +1,4 @@
+import { CONTRACT } from "../bloodright/validate.mjs";
 // Manifest parsing and planning. Accepts the shapes committed under push/: a top-level
 // `items` (legacy `jutsu`) array, optional `capture {before, after}`, `_note`, `skipPreflight`,
 // `dedupNames`, `readBack`, `imgSizes`, `imagePack`. Each item is {entity, slot, name, srcId?, targetId?,
@@ -14,7 +15,7 @@ import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
 
-export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
+export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
 // Same production as lints.mjs IMG_REF_RE; a fresh instance because /g regexes carry lastIndex.
 const IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
@@ -118,6 +119,12 @@ export function parseManifest(source) {
   // already had - including one carrying a non-default policy, whose open jobs therefore still
   // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
   if (packed.pack) policy.imagePack = packed.pack;
+  if (m.bloodrightImport) {
+    const b = m.bloodrightImport;
+    if (b.version !== 1 || b.gamePin !== CONTRACT._meta.pin || typeof b.bloodlineId !== "string" || !b.bloodlineId || !/^[a-f0-9]{40}$/.test(b.source?.ref ?? "") || typeof b.source?.path !== "string") throw new ManifestError("invalid or incompatible Bloodright import provenance");
+    if (items.some(it => !["skillTree", "skillTreeFolder"].includes(it.entity) || !it.srcId?.startsWith(`br:${b.bloodlineId}:`) || it.entity === "skillTree" && it.data.bloodlineId !== b.bloodlineId)) throw new ManifestError("Bloodright import items must belong to their declared bloodline scope");
+    policy.bloodrightImport = b;
+  }
   return {
     items, capture, warnings, poolResolved, policy,
     note: typeof m._note === "string" ? m._note : null,
@@ -221,6 +228,7 @@ function normalizeItem(it, idx) {
     targetId: typeof it.targetId === "string" && it.targetId ? it.targetId : null,
     phase: typeof it.phase === "number" ? it.phase : null,
     data,
+    ...(it.expected !== undefined ? { expected: it.expected } : {}),
   };
 }
 
@@ -238,9 +246,10 @@ export function planOrder(manifest, idmap = {}) {
     const deps = [];
     for (const r of refs) {
       if (r.pfx === "img") continue; // images are uploaded, not created as items
-      if (idmap[r.key]) continue;
+      if (idmap[r.key] && !(r.pfx.startsWith("skillTree") && bySrc.has(r.key))) continue;
       const src = bySrc.get(r.key);
       if (!src) throw new ManifestError(`item ${it.idx} (${it.name}): @${r.pfx}:${r.key} is unknown (no srcId in this manifest, not in idmap)`, { idx: it.idx, ref: r });
+      if (r.pfx.startsWith("skillTree") && src.entity !== r.pfx) throw new ManifestError(`typed reference ${r.pfx}:${r.key} points to ${src.entity}`);
       if (src.idx === it.idx) throw new ManifestError(`item ${it.idx} references itself`);
       deps.push(src.srcId);
     }

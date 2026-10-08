@@ -37,7 +37,7 @@ export const OPS = Object.freeze(["create", "update"]);
 // Legal item transitions. Anything not listed throws. SENT -> PLANNED is deliberately
 // absent; that absence is the write-ahead guarantee made structural.
 export const TRANSITIONS = Object.freeze({
-  PLANNED:   ["SENT", "FAILED", "SKIPPED"],
+  PLANNED:   ["SENT", "FAILED", "SKIPPED", "CONFIRMED"], // guarded read-only Bloodright reuse
   SENT:      ["CONFIRMED", "ORPHANED", "FAILED"],
   CONFIRMED: ["SENT", "VERIFIED", "FAILED"], // SENT again only for a later phase of the same item
   VERIFIED:  [],
@@ -298,6 +298,10 @@ export class Journal {
     const item = job.items[idx];
     if (!item) throw new JournalError("no such item: " + idx, { jobId, idx });
     const from = item.state;
+    if (from === "PLANNED" && to === "CONFIRMED" &&
+        !(patch.reused === true && patch.phase === "verify" && !!item.targetId && patch.entityId === item.targetId && item.op === "update" && ["skillTree", "skillTreeFolder"].includes(item.entity))) {
+      throw new JournalError("PLANNED -> CONFIRMED requires read-only Bloodright reuse", { jobId, idx });
+    }
     if (!TRANSITIONS[from] || !TRANSITIONS[from].includes(to)) {
       throw new JournalError(`illegal transition ${from} -> ${to}`, { jobId, idx, from, to });
     }
