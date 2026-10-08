@@ -178,7 +178,7 @@
     get(jobId) {
       return this._read(jobId);
     }
-    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false }) {
+    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false, bloodrightImport = null }) {
       if (!jobId) throw new JournalError("jobId required");
       if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
@@ -192,6 +192,7 @@
         manifestPath: manifestPath ?? null,
         manifestNumber: manifestNumber2 ?? null,
         manifestHash: manifestHash2 ?? null,
+        ...bloodrightImport ? { bloodrightImport } : {},
         startedAt: nowIso(this.clock),
         updatedAt: null,
         state: "RUNNING",
@@ -2329,6 +2330,26 @@
     }
   };
 
+  function stableStringify(v) {
+    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
+    if (v === void 0) return "null";
+    if (v === null || typeof v !== "object") return JSON.stringify(v);
+    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
+    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
+    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
+  }
+  function fnv1a32(str2) {
+    let h2 = 2166136261;
+    for (let i = 0; i < str2.length; i++) {
+      h2 ^= str2.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
+    }
+    return h2.toString(16).padStart(8, "0");
+  }
+  function payloadHash(payload) {
+    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
+  }
+
   var INPUT_FOR = Object.freeze({
     "profile.getAi": (id2) => ({ userId: id2 })
   });
@@ -2448,24 +2469,33 @@
       } else {
         if (input?.cursor) throw new Error("complete skill inventory must start at cursor zero");
         const paths = input?.pathType ? [input.pathType] : ["SKILL", "BLOODRIGHT"];
-        const ids =  new Set();
-        for (const pathType of paths) {
-          let cursor = 0;
-          for (; ; ) {
-            const r = await query({ ...input, pathType, limit: 500, cursor });
-            if (!r.ok) return r;
-            if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
-            for (const row of r.data.data) {
-              if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
-              ids.add(row.id);
-              rows.push(row);
+        const scan = async () => {
+          const ids =  new Set(), scanned = [];
+          for (const pathType of paths) {
+            let cursor = 0;
+            for (; ; ) {
+              const r = await query({ ...input, pathType, limit: 500, cursor });
+              if (!r.ok) return r;
+              if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
+              for (const row of r.data.data) {
+                if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
+                ids.add(row.id);
+                scanned.push(row);
+              }
+              const next = r.data.nextCursor;
+              if (next == null) break;
+              if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
+              cursor = next;
             }
-            const next = r.data.nextCursor;
-            if (next == null) break;
-            if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
-            cursor = next;
           }
-        }
+          return { ok: true, data: scanned };
+        };
+        const first = await scan();
+        if (!first.ok) return first;
+        const second = await scan();
+        if (!second.ok) return second;
+        if (stableStringify(first.data) !== stableStringify(second.data)) throw new Error("skill inventory changed between scans; coordinate editing and refresh the preview");
+        rows = second.data;
       }
       if (cacheable) await this.cache.put({ path, id: "", input: input ?? null, data: rows });
       return { ok: true, data: rows };
@@ -2494,6 +2524,7 @@
       check(d.order === void 0 || Number.isSafeInteger(d.order), "folder order must be an integer");
       return out;
     }
+    check(str(d.name) && d.name === d.name.trim(), "skill name must not have surrounding whitespace");
     check(d.pathType === "BLOODRIGHT" && str(d.bloodlineId) && !!d.bloodlineId && !d.bloodlineId.startsWith("@"), "requires a literal bloodlineId and pathType BLOODRIGHT");
     check(d.skillType === "DEFAULT", "Bloodright skillType must be DEFAULT");
     check(["SELF", "ENEMIES", "ALLIES"].includes(d.target), "invalid skill target");
@@ -2784,6 +2815,17 @@
       return ka.every((k) => eqLoose(a[k], b[k], entity));
     }
     return false;
+  }
+
+  var UNRESOLVED =  new Set(["SENT", "ORPHANED", "CONFIRMED"]);
+  function unresolvedBloodrightJob(journal, bloodlineId, exceptJobId = null) {
+    if (!bloodlineId) return null;
+    if (!journal || typeof journal.listJobs !== "function") throw new Error("Bloodright import requires the persistent journal");
+    return journal.listJobs().find((job) => job.jobId !== exceptJobId && (job.bloodrightImport?.bloodlineId === bloodlineId || job.items.some((it) => it.entity === "skillTree" && it.srcId?.startsWith(`br:${bloodlineId}:`))) && job.items.some((it) => UNRESOLVED.has(it.state))) ?? null;
+  }
+  function assertBloodrightAvailable(journal, bloodlineId) {
+    const job = unresolvedBloodrightJob(journal, bloodlineId);
+    if (job) throw new Error(`unresolved Bloodright job ${job.jobId}: resume or resolve its pending writes before preparing another import for this bloodline`);
   }
 
   var IDMAP_KEY = "tnr_bk_idmap_v1";
@@ -3113,26 +3155,6 @@
       return v;
     };
     return { value: walk(o, ""), unresolved };
-  }
-
-  function stableStringify(v) {
-    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
-    if (v === void 0) return "null";
-    if (v === null || typeof v !== "object") return JSON.stringify(v);
-    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
-    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
-    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
-  }
-  function fnv1a32(str2) {
-    let h2 = 2166136261;
-    for (let i = 0; i < str2.length; i++) {
-      h2 ^= str2.charCodeAt(i);
-      h2 = Math.imul(h2, 16777619) >>> 0;
-    }
-    return h2.toString(16).padStart(8, "0");
-  }
-  function payloadHash(payload) {
-    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
   var b_DATA_pool_default = {
@@ -4447,10 +4469,14 @@
       imgSizes
     };
     if (packed.pack) policy.imagePack = packed.pack;
+    if (items.some((it) => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
     if (m.bloodrightImport) {
       const b = m.bloodrightImport;
       if (b.version !== 1 || b.gamePin !== contract_default._meta.pin || typeof b.bloodlineId !== "string" || !b.bloodlineId || !/^[a-f0-9]{40}$/.test(b.source?.ref ?? "") || typeof b.source?.path !== "string") throw new ManifestError("invalid or incompatible Bloodright import provenance");
       if (items.some((it) => !["skillTree", "skillTreeFolder"].includes(it.entity) || !it.srcId?.startsWith(`br:${b.bloodlineId}:`) || it.entity === "skillTree" && it.data.bloodlineId !== b.bloodlineId)) throw new ManifestError("Bloodright import items must belong to their declared bloodline scope");
+      if (!policy.dedupNames) throw new ManifestError("Bloodright imports require dedupNames:true");
+      if (typeof b.hiddenProbeId !== "string" || !b.hiddenProbeId || !b.bindings || typeof b.bindings !== "object" || Array.isArray(b.bindings)) throw new ManifestError("Bloodright import requires hidden-probe identity and explicit bindings");
+      for (const it of items) if (it.op === "update" && (!it.expected || typeof it.expected !== "object" || Array.isArray(it.expected) || b.bindings[it.srcId] !== it.targetId)) throw new ManifestError(`Bloodright edit ${it.name} requires a frozen preimage and matching binding`);
       policy.bloodrightImport = b;
     }
     return {
@@ -4673,9 +4699,10 @@
     }
     plan(manifestSource, { jobId, manifestPath = null, manifestNumber: manifestNumber2 = null } = {}) {
       const manifest = parseManifest(manifestSource);
+      assertBloodrightAvailable(this.journal, manifest.policy.bloodrightImport?.bloodlineId);
       const order = planOrder(manifest, readIdmap(this.storage));
       const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
-      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
+      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly, bloodrightImport: manifest.policy.bloodrightImport });
       this.manifests.set(jobId, { manifest, order });
       return job;
     }
@@ -4717,6 +4744,8 @@
         }
       }
       this._lease(jobId);
+      const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+      if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
       const bindingConflict = this._bindingConflict(job);
       if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
       this._syncIdmapFromJob(job);
@@ -4776,6 +4805,8 @@
         }
       }
       this._lease(jobId);
+      const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+      if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
       const bindingConflict = this._bindingConflict(job);
       if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
       this._syncIdmapFromJob(job);
@@ -4944,6 +4975,7 @@
         if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
         throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
       }
+      if (live.data == null && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${id2}; recheck the session, hidden-content access and target before resuming` });
       if (live.data == null) throw new Error(`${rc.get} returned no record for ${id2}`);
       if (isBloodrightEntity(item.entity)) {
         if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || live.data.bloodlineId !== data.bloodlineId || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
@@ -5021,6 +5053,7 @@
         this._requireAuth(rc.get, item.idx);
         const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
         if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
+        if (live.ok && !live.data && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${item.entityId}; recheck the session, hidden-content access and target before resuming` });
         if (!live.ok || !live.data) {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
@@ -6304,6 +6337,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (!id(n.id) || n.id === "folder" || byId.has(n.id)) fail(`invalid or duplicate node ID: ${n.id}`);
       byId.set(n.id, n);
       if (typeof n.name !== "string" || !n.name.trim()) fail(`${n.id}: name required`);
+      else if (n.name !== n.name.trim()) fail(`${n.id}: name must not have leading or trailing whitespace`);
       else {
         const name = n.name.normalize("NFKC").trim().toLowerCase();
         if (names.has(name)) fail(`duplicate design name: ${n.name}`);
@@ -6417,14 +6451,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const provenance = { version: 1, source: config.source, gamePin: contract_default._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter((it) => it.targetId).map((it) => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
     return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items } };
   }
-  async function prepareBloodright({ config, github, reader, storage, auth }) {
+  async function prepareBloodright({ config, github, reader, storage, auth, journal }) {
     if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
     if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
     auth?.assert("skillTree.create");
     if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+    const design = JSON.parse(await github.text(config.source.path, config.source.ref));
+    assertBloodrightAvailable(journal, design?.bloodline?.id);
     const probe = await reader.get("skillTree.get", config.hiddenProbeId, { fresh: true });
     if (!probe.ok || probe.data?.hidden !== true) throw new Error("hidden-content access not established: the known hidden skill is not visible; check the session, role, and probe ID");
-    const design = JSON.parse(await github.text(config.source.path, config.source.ref));
     const all = await reader.list("skillTree.getAll", { fresh: true });
     const folders = await reader.list("skillTree.getAllFolders", { fresh: true });
     if (!all.ok || !folders.ok) throw new Error("Bloodright inventory failed; no preview or writes available");
@@ -6655,7 +6690,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         const packageData = JSON.parse(text);
         let bloodright = null;
         if (packageData.bloodright) {
-          bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth });
+          bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
           if (selection !== this._selection) return;
           if (bloodright.problems.length) {
             this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
@@ -6757,6 +6792,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
       try {
+        assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
         let manifestPath = s.entry.path;
         if (s.bloodright) {
           manifestPath = `bloodright-job:${jobId}`;

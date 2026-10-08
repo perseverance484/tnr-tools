@@ -280,7 +280,7 @@ class Factory:
                                        "formula rather than zeroing it (law 4)")
 
     # -------------------------------------------------------------- manifest
-    def manifest(self, entries, capture=None):
+    def manifest(self, entries, capture=None, bloodright_import=None):
         order = self.checks["build_order"]["values"]
         seen = [e["entity"] for e in entries]
         idx = [order.index(x) for x in seen if x in order]
@@ -289,6 +289,9 @@ class Factory:
                                "Out of order means composing references to records that do not "
                                "exist yet, and unresolved refs are stripped silently (law 17)")
         man = {"items": entries}
+        if bloodright_import is not None:
+            man["bloodrightImport"] = bloodright_import
+            man["dedupNames"] = True
         if any(e.get("entity") in ("skillTree", "skillTreeFolder") for e in entries):
             from bloodright_bridge import problems
             errors = problems(man)

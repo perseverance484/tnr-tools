@@ -1,3 +1,4 @@
+import { stableStringify } from "../storage/hash.mjs";
 // Cache-first reads under the budget (spec section 6, requirement 1). Every read goes:
 // capture cache -> (miss) budget.acquire -> transport -> cache.put -> budget.observe.
 // Ok results are cached BEFORE observe() may throw for a limited index, so a 207 that hides
@@ -163,23 +164,34 @@ export class CachedReader {
     } else {
       if (input?.cursor) throw new Error("complete skill inventory must start at cursor zero");
       const paths = input?.pathType ? [input.pathType] : ["SKILL", "BLOODRIGHT"];
-      const ids = new Set();
-      for (const pathType of paths) {
-        let cursor = 0;
-        for (;;) {
-          const r = await query({ ...input, pathType, limit: 500, cursor });
-          if (!r.ok) return r;
-          if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
-          for (const row of r.data.data) {
-            if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
-            ids.add(row.id); rows.push(row);
+      const scan = async () => {
+        const ids = new Set(), scanned = [];
+        for (const pathType of paths) {
+          let cursor = 0;
+          for (;;) {
+            const r = await query({ ...input, pathType, limit: 500, cursor });
+            if (!r.ok) return r;
+            if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
+            for (const row of r.data.data) {
+              if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
+              ids.add(row.id); scanned.push(row);
+            }
+            const next = r.data.nextCursor;
+            if (next == null) break;
+            if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
+            cursor = next;
           }
-          const next = r.data.nextCursor;
-          if (next == null) break;
-          if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
-          cursor = next;
         }
-      }
+        return { ok: true, data: scanned };
+      };
+      // Offset pages cannot be an atomic snapshot. Require two complete, fresh
+      // observations to agree; a changed count, ordering or row refuses the result.
+      const first = await scan();
+      if (!first.ok) return first;
+      const second = await scan();
+      if (!second.ok) return second;
+      if (stableStringify(first.data) !== stableStringify(second.data)) throw new Error("skill inventory changed between scans; coordinate editing and refresh the preview");
+      rows = second.data;
     }
     if (cacheable) await this.cache.put({ path, id: "", input: input ?? null, data: rows });
     return { ok: true, data: rows };

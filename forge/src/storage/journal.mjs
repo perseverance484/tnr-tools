@@ -236,7 +236,7 @@ export class Journal {
    * Open a new job. items are specs: {entity, op, name, srcId, targetId, payloadHash}.
    * Refuses when a non-terminal job with the same manifestHash already exists: resume it.
    */
-  open({ jobId, manifestPath, manifestNumber, manifestHash, items, allowEmpty = false }) {
+  open({ jobId, manifestPath, manifestNumber, manifestHash, items, allowEmpty = false, bloodrightImport = null }) {
     if (!jobId) throw new JournalError("jobId required");
     if (!Array.isArray(items) || (!items.length && !allowEmpty)) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
     if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
@@ -250,6 +250,7 @@ export class Journal {
       manifestPath: manifestPath ?? null,
       manifestNumber: manifestNumber ?? null,
       manifestHash: manifestHash ?? null,
+      ...(bloodrightImport ? { bloodrightImport } : {}),
       startedAt: nowIso(this.clock),
       updatedAt: null,
       state: "RUNNING",

@@ -1,3 +1,4 @@
+import { assertBloodrightAvailable } from "./jobs.mjs";
 import { CONTRACT, bloodrightProblems, writableSnapshot } from "./validate.mjs";
 import { diffAsserted } from "../runner/validate.mjs";
 import { readIdmap } from "../storage/compat.mjs";
@@ -25,6 +26,7 @@ export function compileBloodright({ design, config, skills, folders, idmap = {} 
     if (!id(n.id) || n.id === "folder" || byId.has(n.id)) fail(`invalid or duplicate node ID: ${n.id}`);
     byId.set(n.id, n);
     if (typeof n.name !== "string" || !n.name.trim()) fail(`${n.id}: name required`);
+    else if (n.name !== n.name.trim()) fail(`${n.id}: name must not have leading or trailing whitespace`);
     else { const name = n.name.normalize("NFKC").trim().toLowerCase(); if (names.has(name)) fail(`duplicate design name: ${n.name}`); names.add(name); }
     if (n.cost !== 1 || n.parent_rule !== "ALL" || !Array.isArray(n.parents)) fail(`${n.id}: one point and ALL parents required`);
     if (!Number.isInteger(n.tier) || n.tier < 1 || n.tier > 10) fail(`${n.id}: tier must be 1..10`);
@@ -106,14 +108,15 @@ export function compileBloodright({ design, config, skills, folders, idmap = {} 
 }
 
 /** Read-only preparation; the caller freezes the returned manifest for Start and reload. */
-export async function prepareBloodright({ config, github, reader, storage, auth }) {
+export async function prepareBloodright({ config, github, reader, storage, auth, journal }) {
   if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
   if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
   auth?.assert("skillTree.create");
   if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+  const design = JSON.parse(await github.text(config.source.path, config.source.ref));
+  assertBloodrightAvailable(journal, design?.bloodline?.id);
   const probe = await reader.get("skillTree.get", config.hiddenProbeId, { fresh: true });
   if (!probe.ok || probe.data?.hidden !== true) throw new Error("hidden-content access not established: the known hidden skill is not visible; check the session, role, and probe ID");
-  const design = JSON.parse(await github.text(config.source.path, config.source.ref));
   const all = await reader.list("skillTree.getAll", { fresh: true });
   const folders = await reader.list("skillTree.getAllFolders", { fresh: true });
   if (!all.ok || !folders.ok) throw new Error("Bloodright inventory failed; no preview or writes available");

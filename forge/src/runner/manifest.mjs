@@ -119,10 +119,14 @@ export function parseManifest(source) {
   // already had - including one carrying a non-default policy, whose open jobs therefore still
   // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
   if (packed.pack) policy.imagePack = packed.pack;
+  if (items.some(it => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
   if (m.bloodrightImport) {
     const b = m.bloodrightImport;
     if (b.version !== 1 || b.gamePin !== CONTRACT._meta.pin || typeof b.bloodlineId !== "string" || !b.bloodlineId || !/^[a-f0-9]{40}$/.test(b.source?.ref ?? "") || typeof b.source?.path !== "string") throw new ManifestError("invalid or incompatible Bloodright import provenance");
     if (items.some(it => !["skillTree", "skillTreeFolder"].includes(it.entity) || !it.srcId?.startsWith(`br:${b.bloodlineId}:`) || it.entity === "skillTree" && it.data.bloodlineId !== b.bloodlineId)) throw new ManifestError("Bloodright import items must belong to their declared bloodline scope");
+    if (!policy.dedupNames) throw new ManifestError("Bloodright imports require dedupNames:true");
+    if (typeof b.hiddenProbeId !== "string" || !b.hiddenProbeId || !b.bindings || typeof b.bindings !== "object" || Array.isArray(b.bindings)) throw new ManifestError("Bloodright import requires hidden-probe identity and explicit bindings");
+    for (const it of items) if (it.op === "update" && (!it.expected || typeof it.expected !== "object" || Array.isArray(it.expected) || b.bindings[it.srcId] !== it.targetId)) throw new ManifestError(`Bloodright edit ${it.name} requires a frozen preimage and matching binding`);
     policy.bloodrightImport = b;
   }
   return {

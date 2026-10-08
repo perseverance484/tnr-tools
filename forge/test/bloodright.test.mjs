@@ -1,3 +1,4 @@
+import { assertBloodrightAvailable } from "../src/bloodright/jobs.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -62,7 +63,7 @@ test("complete discovery follows pages of both path types and proves hidden visi
   for (let i=0;i<1002;i++) d.game.skills.set(`row${i}`, { id: `row${i}`, name: `Name ${i}`, tier: 1, pathType: "SKILL", hidden: false });
   const r = await prepareBloodright({ config: config(), ...d }); assert.deepEqual(r.problems, []);
   const calls = d.game.calls.filter(c => c.path === "skillTree.getAll");
-  assert.deepEqual(calls.map(c => [c.input.pathType,c.input.cursor]), [["SKILL",0],["SKILL",1],["SKILL",2],["BLOODRIGHT",0]]);
+  assert.deepEqual(calls.map(c => [c.input.pathType,c.input.cursor]), [["SKILL",0],["SKILL",1],["SKILL",2],["BLOODRIGHT",0],["SKILL",0],["SKILL",1],["SKILL",2],["BLOODRIGHT",0]]);
   assert.equal(mutations(d).length, 0);
   d.game.hiddenAccess = false;
   await assert.rejects(prepareBloodright({ config: config(), ...d }), /hidden-content access/);
@@ -221,7 +222,7 @@ test("Python factory/validator bridge and harvest understand compiled Bloodright
   const { fileURLToPath }=await import("node:url");
   const root=fileURLToPath(new URL("../../",import.meta.url));
   const d=setup(), manifest=compile(d).manifest;
-  const output=execFileSync("python3",["-c",`import sys,json;sys.path.insert(0,'skills/building-tnr-content/scripts');from bloodright_bridge import problems;from factory import Factory;m=json.load(sys.stdin);assert not problems(m);f=Factory(entities='skills/building-tnr-content/data/45d_DATA_entity_schemas.json',ctors='skills/building-tnr-content/data/45c_DATA_constructors.json',checks='skills/building-tnr-content/data/45g_DATA_checks.json');e=m['items'][1];f.entry(e['entity'],e['slot'],name=e['name'],srcId=e['srcId'],data=e['data']);print('ok')`],{cwd:root,input:JSON.stringify(manifest),encoding:"utf8"});
+  const output=execFileSync("python3",["-c",`import sys,json;sys.path.insert(0,'skills/building-tnr-content/scripts');from bloodright_bridge import problems;from factory import Factory;m=json.load(sys.stdin);assert not problems(m);f=Factory(entities='skills/building-tnr-content/data/45d_DATA_entity_schemas.json',ctors='skills/building-tnr-content/data/45c_DATA_constructors.json',checks='skills/building-tnr-content/data/45g_DATA_checks.json');e=m['items'][1];f.entry(e['entity'],e['slot'],name=e['name'],srcId=e['srcId'],data=e['data']);f.manifest(m['items'],bloodright_import=m['bloodrightImport']);print('ok')`],{cwd:root,input:JSON.stringify(manifest),encoding:"utf8"});
   assert.match(output,/ok/);
   d.runner.plan(manifest,{jobId:"harvest"}); await d.runner.run("harvest");
   const core=new ForgeCore({...d,version:"test",now:()=>0}); let bundle;
@@ -253,4 +254,97 @@ test("resume detects binding conflicts before journal synchronization can overwr
   const before=mutations(d).length;
   const result=await d.runner.resume("resume-binding"); assert.equal(result.pause.reason,"STALE_BINDINGS");
   assert.equal(mutations(d).length,before); assert.equal(readIdmap(d.storage)[scopeKey(BL,"folder")],"changed");
+});
+
+test("review R1: changed settings cannot open another import over an unresolved create", async () => {
+  const d=setup(), c=config(); c.nodes.p4_t3.seichiSilverCost=21;
+  const core=new ForgeCore({...d,version:"test",now:()=>0});
+  await core.selectManifest({path:"push/changed.json",name:"changed",text:JSON.stringify({bloodright:c})});
+  const changed=compile(d,c).manifest;
+  d.runner.plan(compile(d).manifest,{jobId:"unresolved-A"});
+  d.game.crashPath="skillTree.create"; await d.runner.run("unresolved-A"); await d.runner.resume("unresolved-A");
+  assert.ok(d.journal.get("unresolved-A").items.some(i=>i.state==="ORPHANED"));
+  const sent=mutations(d).length;
+  await assert.rejects(prepareBloodright({config:c,...d}),/unresolved.*unresolved-A/i);
+  assert.throws(()=>d.runner.plan(changed,{jobId:"blocked-B"}),/unresolved.*unresolved-A/i);
+  await core.startJob();
+  assert.equal(d.journal.listJobs().length,1); assert.equal(mutations(d).length,sent);
+});
+
+test("review R2: lost hidden visibility after create pauses immediately and resumes that placeholder", async () => {
+  const d=setup(), original=d.game.handle.bind(d.game); let creates=0;
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.create" && ++creates===2)d.game.hiddenAccess=false;return r;};
+  d.runner.plan(compile(d).manifest,{jobId:"visibility"});
+  const paused=await d.runner.run("visibility");
+  assert.equal(paused.pause.reason,"VISIBILITY"); assert.equal(creates,2);
+  assert.ok(!d.journal.get("visibility").items.some(i=>i.state==="FAILED"));
+  assert.ok(d.journal.get("visibility").items.some(i=>i.state==="CONFIRMED" && i.phase==="update"));
+  d.game.hiddenAccess=true;
+  assert.equal((await d.runner.run("visibility")).outcome,"success");
+  assert.equal(creates,11); assert.equal(d.game.skills.size,12);
+});
+
+test("review R2: missing Bloodright readback pauses before any later create", async () => {
+  const d=setup(), original=d.game.handle.bind(d.game);let lost=false;
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.update" && !lost){lost=true;d.game.hiddenAccess=false;}return r;};
+  d.runner.plan(compile(d).manifest,{jobId:"verify-visibility"});
+  const paused=await d.runner.run("verify-visibility");
+  assert.equal(paused.pause.reason,"VISIBILITY");
+  assert.equal(d.game.calls.filter(c=>c.path==="skillTree.create").length,1);
+  assert.ok(d.journal.get("verify-visibility").items.some(i=>i.state==="CONFIRMED" && i.phase==="verify"));
+  d.game.hiddenAccess=true;assert.equal((await d.runner.run("verify-visibility")).outcome,"success");
+});
+
+test("review R3: deletion between offset pages refuses the inventory instead of silently omitting a row", async () => {
+  const d=setup();for(let i=0;i<600;i++){const key=`r${String(i).padStart(4,"0")}`;d.game.skills.set(key,{id:key,name:key,tier:1,pathType:"SKILL",hidden:false});}
+  const original=d.game.handle.bind(d.game);let removed=false;
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.getAll" && input.pathType==="SKILL" && input.cursor===0 && !removed){removed=true;d.game.skills.delete("r0000");}return r;};
+  await assert.rejects(d.reader.list("skillTree.getAll",{fresh:true}),/inventory changed/i);
+  assert.equal(await d.cache.get("skillTree.getAll",""),null);
+});
+
+test("review R4: design names with surrounding whitespace are refused", () => {
+  for(const name of [" Breaking Point","Breaking Point ","\tBreaking Point\n"]){const d=setup(),tree=clone(design);tree.nodes[0].name=name;const r=compile(d,config(),tree);assert.equal(r.manifest,null);assert.ok(r.problems.some(p=>/whitespace|trim/i.test(p)));}
+});
+
+test("review raw-manifest note: Bloodright writes require provenance, preimages and name checks", () => {
+  const m=compile(setup()).manifest;
+  for(const change of [v=>delete v.bloodrightImport,v=>delete v.items[0].expected,v=>delete v.bloodrightImport.bindings[v.items[0].srcId],v=>v.dedupNames=false]){const broken=clone(m);change(broken);assert.throws(()=>parseManifest(broken),/Bloodright/);}
+  assert.doesNotThrow(()=>parseManifest({capture:{before:[{proc:"skillTree.get",input:{id:HP},persist:"full"}]}}));
+});
+
+test("review R1: SENT, ORPHANED and CONFIRMED legacy jobs block only their bloodline", () => {
+  for(const state of ["SENT","ORPHANED","CONFIRMED"]){
+    const d=setup(),m=compile(d).manifest;d.runner.plan(m,{jobId:"legacy-pending"});
+    assert.equal(d.journal.get("legacy-pending").bloodrightImport.bloodlineId,BL);
+    d.journal.annotateJob("legacy-pending",{bloodrightImport:null});
+    d.journal.transition("legacy-pending",1,"SENT",{phase:"create"});
+    if(state!=="SENT")d.journal.transition("legacy-pending",1,state,state==="CONFIRMED"?{entityId:"pending-id",phase:"update"}:{});
+    assert.throws(()=>assertBloodrightAvailable(d.journal,BL),/unresolved.*legacy-pending/i);
+    assert.doesNotThrow(()=>assertBloodrightAvailable(d.journal,"another-bloodline"));
+    d.journal.transition("legacy-pending",1,"FAILED",{error:"operator resolved test obligation"});
+    assert.doesNotThrow(()=>assertBloodrightAvailable(d.journal,BL));
+  }
+});
+
+test("review R1: an already planned second job cannot run or resume over a lost create", async () => {
+  const d=setup(),c=config();c.nodes.p4_t3.seichiSilverCost=21;
+  d.runner.plan(compile(d).manifest,{jobId:"queued-A"});d.runner.plan(compile(d,c).manifest,{jobId:"queued-B"});
+  d.game.crashPath="skillTree.create";await d.runner.run("queued-A");const sent=mutations(d).length;
+  assert.equal((await d.runner.run("queued-B")).pause.reason,"UNRESOLVED_IMPORT");
+  assert.equal((await d.runner.resume("queued-B")).pause.reason,"UNRESOLVED_IMPORT");
+  assert.equal(mutations(d).length,sent);
+  assert.equal((await d.runner.resume("queued-A")).pause.reason,"ORPHANED");
+});
+
+test("review R2: a hidden folder lost after one-phase create pauses before any skill create", async () => {
+  const d=setup(),c=config();d.game.folders.clear();delete c.bindings.folderId;c.folder={name:"BEE staging"};
+  const original=d.game.handle.bind(d.game);
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.createFolder")d.game.hiddenAccess=false;return r;};
+  d.runner.plan(compile(d,c).manifest,{jobId:"folder-visibility"});
+  assert.equal((await d.runner.run("folder-visibility")).pause.reason,"VISIBILITY");
+  assert.equal(d.game.calls.filter(c=>c.path==="skillTree.create").length,0);
+  assert.equal(d.journal.get("folder-visibility").items[0].state,"CONFIRMED");
+  d.game.hiddenAccess=true;assert.equal((await d.runner.run("folder-visibility")).outcome,"success");
+  assert.equal(d.game.calls.filter(c=>c.path==="skillTree.createFolder").length,1);
 });
