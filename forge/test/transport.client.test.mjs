@@ -26,9 +26,9 @@ function scriptedFetch(script) {
 }
 const resOf = (name) => ({ status: fx(name).exchanges[0].response.status, body: fx(name).exchanges[0].response.body });
 
-test("procedure table: 43 audited paths, limited set is exactly the publicProcedure reads", () => {
-  assert.equal(Object.keys(PROCEDURES).length, 43);
-  assert.equal(LIMITED_PATHS.length, 16);
+test("procedure table: 43 legacy plus 7 scoped Bloodright paths, limited set is exactly the publicProcedure reads", () => {
+  assert.equal(Object.keys(PROCEDURES).length, 50);
+  assert.equal(LIMITED_PATHS.length, 19);
   for (const p of LIMITED_PATHS) assert.equal(PROCEDURES[p].kind, "query", p + " limited but not a query");
   for (const p of MUTATION_PATHS) assert.equal(PROCEDURES[p].limited, false, p + " is a mutation and must not be limited");
   // verification F4 corrections applied

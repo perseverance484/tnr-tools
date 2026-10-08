@@ -1,3 +1,4 @@
+import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -109,6 +110,7 @@ export class Validator {
   }
 
   knownFields(entity) {
+    if (isBloodrightEntity(entity)) return bloodrightFields(entity);
     const s = SCHEMA_ENTITY[entity];
     return s ? this.fields[s] ?? null : null;
   }
@@ -121,6 +123,7 @@ export class Validator {
    * @returns {string[]} problems (empty = ok)
    */
   problems(entity, data, live = null, { preCreate = false } = {}) {
+    if (isBloodrightEntity(entity)) return bloodrightProblems(entity, data, live, { preCreate });
     const out = [];
     if (!data || typeof data !== "object") return ["data is not an object"];
     const keys = Object.keys(data);
@@ -324,6 +327,10 @@ export function diffAsserted(entity, asserted, live) {
       continue;
     }
     const s = asserted[k], l = live ? live[k] : undefined;
+    if (entity === "skillTree" && k === "effects") {
+      if (!deepEqualPayload(s, l)) diffs.push({ key: k, sent: s, live: l });
+      continue;
+    }
     if (!eqLoose(s, l, entity)) diffs.push({ key: k, sent: s, live: l });
   }
   return diffs;

@@ -9,6 +9,16 @@
 // server-owned columns).
 
 export const RECIPES = Object.freeze({
+  skillTree: {
+    create: { path: "skillTree.create", input: d => ({ bloodlineId: d.bloodlineId }) },
+    get: "skillTree.get", update: "skillTree.update", names: "skillTree.getAll",
+    idKey: "id", nameKey: "name", placeholder: id => `New Skill - ${id}`, cacheEntity: "skillTree",
+  },
+  skillTreeFolder: {
+    create: { path: "skillTree.createFolder", input: d => d }, oneStep: true,
+    get: "skillTree.getAllFolders", update: "skillTree.updateFolder", names: "skillTree.getAllFolders",
+    idKey: "id", nameKey: "name", cacheEntity: "skillTree",
+  },
   jutsu: {
     create: { path: "jutsu.create", input: () => undefined },      // jutsu.ts:391
     get: "jutsu.get", update: "jutsu.update", names: "jutsu.getAllNames",
@@ -68,6 +78,7 @@ export function mergeForUpdate(entity, live, data, fields) {
   if (!fields) return src;
   const out = {};
   for (const k of fields) if (src[k] !== undefined) out[k] = src[k];
+  if (entity === "skillTreeFolder" && out.description == null) out.description = "";
   return out;
 }
 

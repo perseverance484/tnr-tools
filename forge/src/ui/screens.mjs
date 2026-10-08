@@ -120,9 +120,9 @@ function SelectedManifest(app) {
   const captureCount = captures.length;
   const fullCount = captures.filter((c) => c.persist === "full").length;
   const label = captureLabel(captures);
-  const readOnly = s.plan.length === 0;
-  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · manifest hash ${s.manifest.hash}`));
-  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+  const readOnly = s.plan.length === 0 && !s.bloodright;
+  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · ${s.manifest.hash ? "manifest hash " + s.manifest.hash : "draft preview"}`));
+  if (readOnly && !s.bloodright) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
@@ -139,6 +139,13 @@ function SelectedManifest(app) {
   for (const it of s.plan) {
     card.appendChild(h("div", { class: "f-row" },
       h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));
+  }
+  if (s.bloodright) {
+    card.appendChild(h("div", { class: "f-banner info" }, `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+    for (const row of s.bloodright.preview) card.appendChild(h("details", {},
+      h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " → " + row.targetId : ""} · ${row.changes.length} changed field(s)`),
+      h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))));
+    card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
   }
   const imgs = s.images || [];
   // What the operator has actually selected, judged against the manifest's byte ledger BEFORE the

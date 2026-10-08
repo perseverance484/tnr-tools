@@ -52,7 +52,9 @@ import { fileURLToPath } from "node:url";
 
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
-export const BUDGET = { raw: 354_000, gzip: 78_000 };
+// Bloodright import adds scoped contracts, compilation, discovery, preview and recovery.
+// Candidate measurement ~370 KB raw / 84 KB gzip; ~4% reviewable headroom.
+export const BUDGET = { raw: 386_000, gzip: 88_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

@@ -93,13 +93,13 @@ export class Reconciler {
    */
   async resolveSent(job, item, ctx = {}) {
     const rc = recipe(item.entity);
-    if (item.phase === "create" || !item.entityId) return this._resolveCreate(job, item, rc);
+    if (item.phase === "create" || !item.entityId) return this._resolveCreate(job, item, rc, ctx);
     if (item.phase === "rules-toggle") return this._resolveToggle(item, rc);
     if (item.phase === "rules") return this._resolveRules(item, ctx);
     return this._resolveUpdate(item, rc, ctx);
   }
 
-  async _resolveCreate(job, item, rc) {
+  async _resolveCreate(job, item, rc, ctx) {
     const key = item.snapshotKey || this.snapKey(job.jobId, item.entity);
     const snap = this.readSnapshot(key);
     if (!snap) return { action: "orphan", candidates: [], note: "no pre-create snapshot for this entity type; cannot tell which row is ours" };
@@ -115,6 +115,14 @@ export class Reconciler {
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
     if (candidates.length === 1 && pending.length === 1) {
       const c = candidates[0];
+      if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {
+        const row = rows[0], planned = ctx.planned;
+        if (!planned || (item.entity === "skillTree" && (!c.placeholderName || row.pathType !== "BLOODRIGHT" || row.bloodlineId !== planned.data.bloodlineId || !row.hidden)) ||
+            (rc.oneStep && diffAsserted(item.entity, planned.data, row).length)) return { action: "orphan", candidates, note: "new row does not match the planned Bloodright create" };
+        // A matching concurrent create cannot be distinguished by this API (no idempotency key).
+        // Require the operator to bind it explicitly instead of silently claiming ownership.
+        return { action: "orphan", candidates, note: "matching Bloodright create found; confirm its ownership before adopting" };
+      }
       return { action: "confirm", entityId: c.id, phase: "update", note: `adopted the single new ${item.entity} ${c.id}` + (c.placeholderName === false ? " (name is not the placeholder pattern; check it)" : "") };
     }
     return { action: "orphan", candidates, note: `${candidates.length} new ${item.entity} row(s) since the snapshot, ${pending.length} create(s) pending: ambiguous` };
