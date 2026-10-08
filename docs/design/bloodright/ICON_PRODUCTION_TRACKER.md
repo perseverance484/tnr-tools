@@ -8,7 +8,7 @@
 ## Scope and progress
 
 - **29 bloodlines:** 19 A / 6 S / 4 H. **87 required icons**: one Foundation, one Hidden Art, and one Advanced Art per bloodline, reused within each bloodline's tree.
-- **BEE:** all 3 black-backed visuals user-approved; black-backed Foundation resized to 256×256 WebP in conversation. Hidden and Advanced remain raw. **No set has passed documented full art preflight.** Counts: 3/87 visual designs approved; 1/87 files resized, formal preflight still pending; 0/29 production sets fully cleared.
+- **BEE:** all 3 black-backed symbols user-approved **and processed as 256×256 lossless RGB WebPs**. Foundation 35,206 bytes; Hidden 44,174; Advanced 49,602. Pixel-preservation, byte, format and ZIP integrity checks passed. **The canonical generic ICON preflight remains non-green:** it requires RGBA for keyed icons; user-selected black backgrounds are intentionally opaque RGB (expected `alpha` error per file). Counts: 3/87 visually approved; 3/87 files resized; 0/29 strict-preflight-cleared sets. See `BEE_ICON_OUTPUT_QC_20261008.json` for evidence and SHA-256 hashes.
 - **Exactly 29 public A/S/H names in the queue**. The 35 hidden/deferred and 13 excluded A/S/H census records are intentionally **not** added. The snapshot is 2026-10-01 public / 2026-09-30 hidden, *not a fresh live-game census*. Do not silently expand scope.
 - Keep source identifiers and assets verified: BEE art and Ethereal Monarch icons currently live in the conversation, **not pinned as immutable blobs in this repo**. Ingest/hash approved sources before irreversible delivery. Never invent SHA, URLs or filenames.
 - **Production boundary:** no game requests, uploads, game edits or publication; user owns all live actions.
@@ -42,7 +42,7 @@
 
 | # | Wave | Rank | ID | Bloodline | Kit jutsu | Mechanics classification | Visual anchor | Treatment / note | All three icon art | Upload QC | Immediate next gate |
 |---:|:---:|:---:|:---:|---|---:|---|---|---|---|---|---|
-| 1 | 0 | S | BR-011 | [Blood-Enchanted Eyes](https://github.com/perseverance484/tnr-tools/blob/7c1dfdd5e3ee163b90c22694dbb2de94ede08866/docs/design/bloodright/kits/blood_enchanted_eyes.json) | 8 | Shadow | **CONFIRMED** | Baseline: retain exact approved geometry, no reskin regeneration | 3 ART APPROVED | Foundation resized; QC OPEN | Process Hidden + Advanced; preflight three black-backed WebPs |
+| 1 | 0 | S | BR-011 | [Blood-Enchanted Eyes](https://github.com/perseverance484/tnr-tools/blob/7c1dfdd5e3ee163b90c22694dbb2de94ede08866/docs/design/bloodright/kits/blood_enchanted_eyes.json) | 8 | Shadow | **CONFIRMED** | Baseline: retain exact approved geometry, no reskin regeneration | 3 ART APPROVED; 3 WEBP EXPORTED | Size/format/ZIP/pixel QC PASS; opaque alpha exception OPEN | Formal alpha exception signoff (not a full preflight pass); next BBE reference gate |
 | 2 | 1 | S | BR-015 | [Blue Blade Eyes](https://github.com/perseverance484/tnr-tools/blob/7c1dfdd5e3ee163b90c22694dbb2de94ede08866/docs/design/bloodright/kits/blue_blade_eyes.json) | 8 | Ice | **PARTIAL** | Differentiate from Hyouga Yui / Teno Yuki (Ice) | 0 STARTED | NOT STARTED | Collect exact BBE jutsu artwork, then Foundation |
 | 3 | 1 | S | BR-023 | [Ethereal Monarch](https://github.com/perseverance484/tnr-tools/blob/7c1dfdd5e3ee163b90c22694dbb2de94ede08866/docs/design/bloodright/kits/ethereal_monarch.json) | 6 | Yin-Yang | **CONFIRMED** | Avoid violet/purple; distinct from Heavenly Sonata / Tenohira Musei | 0 STARTED | NOT STARTED | Generate Foundation against supplied jutsu icons |
 | 4 | 1 | A | BR-075 | [Taiyo Kami](https://github.com/perseverance484/tnr-tools/blob/7c1dfdd5e3ee163b90c22694dbb2de94ede08866/docs/design/bloodright/kits/taiyo_kami.json) | 5 | Scorch | **PARTIAL** | Differentiate from Shakunetsu Sakura and Light families | 0 STARTED | NOT STARTED | Inspect actual five jutsu icons, then Foundation |
@@ -76,6 +76,13 @@
 
 Record: `BR-code / bloodline ID / Fable source SHA`; reference evidence: `source file name/path, jutsu IDs, checked pixels, palette and user approval`; production: `Foundation art/status; Hidden art/status; Advanced art/status`; processed outputs: `filename, dimensions, bytes, SHA-256 and command`; QC: `small-size legibility, black background, lossless WebP, artpreflight result`; director: `approved/rework`; live action: **none in this workflow**.
 
+
+## BEE upload processing evidence — 2026-10-08
+
+The approved black-backed raw PNGs were resized using Pillow Lanczos and exported in lossless WebP/VP8L. Outputs checked: 256×256, exact lossless pixel equality to the corresponding resized source, under 460,800 bytes, nearly-black corners, all 3 tiers legible at 125px/64px/32px, ZIP member byte equality/CRC PASS. Source/output SHA-256 values and actual byte sizes: [BEE_ICON_OUTPUT_QC_20261008.json](BEE_ICON_OUTPUT_QC_20261008.json).
+
+**Explicit unresolved contract conflict:** current `skills/producing-tnr-art/scripts/artpreflight.py` checks `targets.ICON.chroma_key != null` and requires image mode RGBA. The user specifically selected opaque black-background BEE icons, which are RGB. Therefore all three would trip an **alpha** error in the canonical preflight. A byte-cap pass is not a zero-error preflight; document the opaque-background art-direction exception rather than adding artificial alpha or rewriting canonical spec. No game upload/readback was performed.
+
 ## Reference collection policy
 
 - Collect **exact imagery**, not just matching names. The kit dossier is a guide to which jutsu belong to the bloodline, not evidence that those images were seen.
@@ -85,4 +92,4 @@ Record: `BR-code / bloodline ID / Fable source SHA`; reference evidence: `source
 
 ## Next production action
 
-**Finish BEE output QC**, then **Blue Blade Eyes reference acquisition and Foundation**, followed by **Ethereal Monarch** (teal/cyan, supplied source icons), then **Taiyo Kami**. Do not begin a new bloodline's generated art until its direct reference gate is cleared.
+**BEE three-icon upload files delivered with a transparent-background preflight exception open**; next **Blue Blade Eyes reference acquisition and Foundation**, followed by **Ethereal Monarch** (teal/cyan) and **Taiyo Kami**. Do not begin art until its direct reference gate is cleared.
