@@ -452,3 +452,23 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 **Ruling:** The accepted white BEE structural SVG is the reusable input-format example. Use neutral layout and blank illustration spaces, omit all path labels, and retain only functional role-marker colors. The user handles image generation. This settles structural SVG presentation, not a global balance budget or a finished-poster art style.
 
 **Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`, with the persistent SVG and BEE-specific mechanical snapshot in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.{svg,json}`.
+
+---
+
+## RUL-2026-10-08-002 — BEE pilot prices and durations
+
+**Date:** 2026-10-08
+
+**Domain:** Bloodright / Blood-Enchanted Eyes pilot
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Set every one of the 12 BEE pilot nodes to **20 Seichi Silver** and every compiled potency effect to **99 rounds**. This fills the eleven previously unresolved settings and retains Hungry Pulse's existing values.
+
+**Evidence:** “Just do 20 silver for all and 99 rounds for all.”
+
+**Rationale:** The user supplied the outstanding pilot pricing and duration decision. This applies to the current BEE package; it does not establish prices for other bloodlines or approve descriptions, folder visibility, release, or live execution.
+
+**Canonical destination:** `forge/bloodright/bee.pilot.json`.

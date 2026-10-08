@@ -13,8 +13,8 @@ artifact: importing creates skill records and prerequisites, not an SVG on the g
 - Folder: `kvxMu9ntHbNcD6FFHKGo3` (existing, remains visible).
 - Hungry Pulse (`p2_t1`): `HWq7986PPhl5emkAM3L4a` (existing image preserved).
 
-Hungry Pulse has 20 Silver / 99 rounds from the supplied screenshots. The other eleven
-nodes have `null` prices and durations. Fill each with approved values. Zero Silver is valid;
+All 12 BEE nodes use **20 Silver / 99 rounds**, approved by the user on 2026-10-08
+(RUL-2026-10-08-002). This completes the pilot price/duration settings. Zero Silver is valid;
 omitted/null Silver is not. Rounds must be 1–100. The compiler creates plain mechanical
 descriptions; optional `description` and `image` per node override them. It does not invent
 balance values or generate art.

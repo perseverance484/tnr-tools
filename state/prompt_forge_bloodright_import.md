@@ -24,3 +24,9 @@ No live writes, publication, automatic deletions/refunds, game-engine changes, b
 invention, or replacement artwork. The user launches the resulting Forge import after
 review and filling any outstanding content decisions. Finish with reproducible build and
 exact-SHA handoff; independent review remains a separate step.
+
+## Subsequent content decision — 2026-10-08
+
+RUL-2026-10-08-002 resolves the previously unspecified pilot prices/durations: all 12
+BEE nodes use 20 Silver and 99 rounds. The operative package is
+`forge/bloodright/bee.pilot.json`. Other content/release decisions remain separate.
