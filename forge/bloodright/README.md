@@ -25,12 +25,14 @@ Opening it prepares the preview with queries only; preparation never rewrites so
 
 1. Sign in to TNR with content-writing and hidden-skill access, then open Forge.
 2. Select the package. Forge proves visibility of the known hidden Hungry Pulse ID,
-   then reads every page of both SKILL and BLOODRIGHT and all accessible folders.
+   then reads every page of both SKILL and BLOODRIGHT twice and requires the complete
+   results to agree. Accessible folders are also read.
 3. Review create/update/reuse, target IDs and field-level before/after changes. BEE reports
    **106 legal allocations** and **one reachable Advanced Art** with five BP. Missing
    decisions disable Start.
 4. Start the reviewed job. Changed preimages pause as `STALE_PREVIEW`; changed bindings
-   pause as `STALE_BINDINGS`.
+   pause as `STALE_BINDINGS`. Missing target visibility pauses immediately as `VISIBILITY`,
+   retaining the current item for resume instead of creating further placeholders.
 5. Save the exported results. Verify all 13 records (folder plus 12 skills), then prepare
    the package again. It should show only reuse and send **zero mutations**.
 
@@ -59,7 +61,8 @@ existing folders are reused unchanged.
 
 Structural designs must use `nodes[].bonuses`, one point per skill, five BP and ALL
 prerequisites. Only audited potency tags with explicit qualifying elements are supported.
-Legacy `modifiers` files and other combat effects are refused. Bindings cannot identify SKILL
+Leading/trailing whitespace in skill names, legacy `modifiers` files and other combat effects
+are refused. Bindings cannot identify SKILL
 rows, another bloodline, or already visible skills. Global name conflicts block preparation.
 
 ## Persistence and recovery
@@ -67,6 +70,11 @@ rows, another bloodline, or already visible skills. Global name conflicts block 
 IDs use `br:<bloodlineId>:<localNodeId>` keys in Forge's existing ID map, exported in every
 result bundle. The reserved local key `folder` identifies the folder. Explicit bindings that
 conflict with saved IDs block preparation. Back up results before clearing browser storage.
+
+An unresolved job for the same bloodline blocks preparation, Start, and execution of a second
+job, even if settings or the manifest hash change. The guard checks SENT, ORPHANED and
+CONFIRMED items in the persistent journal, including older jobs identified by scoped IDs.
+Resume that job or explicitly resolve its pending writes before preparing another import.
 
 The compiled manifest, preimages, source pin and bindings are frozen into job identity.
 The exact text is stored in the separate repository-text IndexedDB database before opening
@@ -87,7 +95,10 @@ Role denials use `PERMISSION` and leave session state intact; expiration uses th
 dependent guards remain authoritative. The importer never refunds, deletes or publishes.
 Same-browser leases serialize imports of a bloodline. The server has no compare-and-swap or
 cross-browser lock: remote edits can race between the last read and update. Readback detects
-drift; coordinate live editing during the pilot.
+drift; coordinate live editing during the pilot. Offset pagination is not a transaction either:
+two matching scans detect the reviewed deletion/omission case and other observed changes, but
+cannot prove an atomic snapshot under continuous or adversarial concurrent edits. Each scan
+uses the normal request budget; no partial or inconsistent result is returned/cached.
 
 ## Contract and repository tools
 
@@ -103,4 +114,9 @@ narrower import policy. Legacy `fields.json` and `nested.json` retain their `345
 Python `Factory.entry` and `validate.py` delegate the two new entities to
 `forge/tools/validate_bloodright.mjs` over JSON stdin. Node 24 and a full checkout are required;
 a standalone skill pack fails explicitly instead of falling back to stale schemas.
+Bloodright write manifests must carry the compiler provenance, dedupNames:true, and an explicit
+binding plus frozen preimage for every edit. Hand-written skill/folder manifests without those
+checks are refused. Python `Factory.manifest` accepts `bloodright_import=` for assembling an
+already prepared envelope; entry construction alone does not authorize a runnable manifest.
+Read-only skill captures remain available without compiler provenance.
 `harvest.py` consumes the existing Forge results dialect without a new ingestion format.

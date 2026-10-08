@@ -1,3 +1,4 @@
+import { assertBloodrightAvailable, unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
 import { isBloodrightEntity, writableSnapshot } from "../bloodright/validate.mjs";
 // The runner (spec sections 4, 5, 8). Executes a job item by item with write-ahead state
 // transitions, two-phase creates, and read-back on asserted keys only. Never retries.
@@ -203,9 +204,10 @@ export class Runner {
   /** Plan a manifest and open a job. Returns the journal job. Does not send anything. */
   plan(manifestSource, { jobId, manifestPath = null, manifestNumber = null } = {}) {
     const manifest = parseManifest(manifestSource);
+    assertBloodrightAvailable(this.journal, manifest.policy.bloodrightImport?.bloodlineId);
     const order = planOrder(manifest, readIdmap(this.storage));
     const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
-    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
+    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly, bloodrightImport: manifest.policy.bloodrightImport });
     this.manifests.set(jobId, { manifest, order });
     return job;
   }
@@ -257,6 +259,8 @@ export class Runner {
       catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
     }
     this._lease(jobId);
+    const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+    if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
     const bindingConflict = this._bindingConflict(job);
     if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
     this._syncIdmapFromJob(job);
@@ -321,6 +325,8 @@ export class Runner {
       catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
     }
     this._lease(jobId);
+    const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+    if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
     const bindingConflict = this._bindingConflict(job);
     if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
     this._syncIdmapFromJob(job);
@@ -547,6 +553,7 @@ export class Runner {
       if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
       throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
     }
+    if (live.data == null && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${id}; recheck the session, hidden-content access and target before resuming` });
     if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
     if (isBloodrightEntity(item.entity)) {
       if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || live.data.bloodlineId !== data.bloodlineId || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
@@ -636,6 +643,7 @@ export class Runner {
       // An expired session must not be recorded as "we read it back and could not see it". The
       // write is real and unverified either way, but the operator is told which problem it is.
       if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
+      if (live.ok && !live.data && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${item.entityId}; recheck the session, hidden-content access and target before resuming` });
       if (!live.ok || !live.data) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
       diffs.push(...diffAsserted(item.entity, data, live.data));
     }

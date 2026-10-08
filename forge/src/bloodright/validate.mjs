@@ -24,6 +24,7 @@ export function bloodrightProblems(entity, data, live = null, { preCreate = fals
     check(d.order === undefined || Number.isSafeInteger(d.order), "folder order must be an integer");
     return out;
   }
+  check(str(d.name) && d.name === d.name.trim(), "skill name must not have surrounding whitespace");
   check(d.pathType === "BLOODRIGHT" && str(d.bloodlineId) && !!d.bloodlineId && !d.bloodlineId.startsWith("@"), "requires a literal bloodlineId and pathType BLOODRIGHT");
   check(d.skillType === "DEFAULT", "Bloodright skillType must be DEFAULT");
   check(["SELF", "ENEMIES", "ALLIES"].includes(d.target), "invalid skill target");

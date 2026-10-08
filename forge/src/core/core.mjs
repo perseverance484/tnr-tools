@@ -1,3 +1,4 @@
+import { assertBloodrightAvailable } from "../bloodright/jobs.mjs";
 import { prepareBloodright } from "../bloodright/compiler.mjs";
 // ForgeCore — the headless orchestration layer.
 //
@@ -167,7 +168,7 @@ export class ForgeCore {
       const packageData = JSON.parse(text);
       let bloodright = null;
       if (packageData.bloodright) {
-        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth });
+        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
         if (selection !== this._selection) return;
         if (bloodright.problems.length) {
           this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
@@ -315,6 +316,7 @@ export class ForgeCore {
     }
     const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
     try {
+      assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
       let manifestPath = s.entry.path;
       if (s.bloodright) {
         manifestPath = `bloodright-job:${jobId}`;
