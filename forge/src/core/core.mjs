@@ -66,7 +66,7 @@ export class ForgeCore {
     return [
       "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
       "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
-      "resolveCaptures", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
+      "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
       "snapshot", "startJob", "subscribe",
     ];
   }
@@ -424,6 +424,10 @@ export class ForgeCore {
   requestPause() { this.runner.requestPause(); this.say("pausing after the current item finishes", "warn"); }
   adopt(jobId, idx, id) { try { this.runner.adopt(jobId, idx, id); this.changed(); } catch (e) { this.fail("adopt", e); } }
   skip(jobId, idx) { try { this.runner.skip(jobId, idx); this.changed(); } catch (e) { this.fail("skip", e); } }
+  resolveConfirmed(jobId, idx, options) {
+    if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+    try { this.runner.resolveConfirmed(jobId, idx, options); this.changed(); } catch (e) { this.fail("resolve write", e); }
+  }
 
   resolveCaptures(jobId) { return resolveCaptures(this, jobId); }
 
