@@ -438,3 +438,17 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 **Rationale:** This gives the bloodline two clearly offensive and two clearly defensive commitments, restores the intended Damage route, keeps Lifesteal as the second offensive identity, and makes the defensive half mirror cleanly: Fortress reaches +10% Decrease Damage Taken with +5% Decrease Damage Given support, while Suppression reaches +10% Decrease Damage Given with +5% Decrease Damage Taken support. It also keeps Damage and Lifesteal at the new +5 ceilings.
 
 **Canonical destination:** `docs/design/bloodright/trees/blood_enchanted_eyes.json` and its generated Markdown/SVG/validation, plus the cross-roster balance outputs on the active Fable branch.
+
+---
+
+## RUL-2026-10-08-001 — White structural SVG standard for Bloodright trees
+
+**Date:** 2026-10-08  
+**Domain:** Bloodright / structural SVG presentation  
+**Status:** ACTIVE
+
+**Evidence:** “No path names at all, no colored theme, let the image gen handle creativity.” The user then confirmed: “Alright nvm im accepting your white one as the standard format. Lets commit that to repo so all sessions can use it as an example.”
+
+**Ruling:** The accepted white BEE structural SVG is the reusable input-format example. Use neutral layout and blank illustration spaces, omit all path labels, and retain only functional role-marker colors. The user handles image generation. This settles structural SVG presentation, not a global balance budget or a finished-poster art style.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`, with the persistent SVG and BEE-specific mechanical snapshot in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.{svg,json}`.
