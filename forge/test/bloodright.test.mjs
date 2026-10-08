@@ -9,6 +9,7 @@ import { readIdmap } from "../src/storage/compat.mjs";
 import { ForgeCore } from "../src/core/core.mjs";
 import { composeForTest } from "./compose.mjs";
 import { BloodrightGame } from "./bloodright.game.mjs";
+import { Runner } from "../src/runner/runner.mjs";
 const design = JSON.parse(readFileSync(new URL("../../docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", import.meta.url)));
 const BL = design.bloodline.id, HP = "HWq7986PPhl5emkAM3L4a", FOLDER = "kvxMu9ntHbNcD6FFHKGo3";
 const clone = v => structuredClone(v);
@@ -347,4 +348,58 @@ test("review R2: a hidden folder lost after one-phase create pauses before any s
   assert.equal(d.journal.get("folder-visibility").items[0].state,"CONFIRMED");
   d.game.hiddenAccess=true;assert.equal((await d.runner.run("folder-visibility")).outcome,"success");
   assert.equal(d.game.calls.filter(c=>c.path==="skillTree.createFolder").length,1);
+});
+
+test("review N1: explicit failure resolves drift without losing evidence or allowing dependent writes", async () => {
+  const d=setup(), original=d.game.handle.bind(d.game);
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.update" && input.id===HP)d.game.skills.get(HP).description="external edit";return r;};
+  d.runner.plan(compile(d).manifest,{jobId:"drift-lock"});
+  assert.equal((await d.runner.run("drift-lock")).pause.reason,"DEPENDENCY");
+  const before=d.journal.get("drift-lock"), item=before.items.find(i=>i.entityId===HP);
+  assert.equal(item.state,"CONFIRMED");assert.equal(item.verify,"drift");
+  assert.throws(()=>d.runner.skip("drift-lock",item.idx),/illegal transition/);
+  await assert.rejects(prepareBloodright({config:config(),...d}),/unresolved/);
+  const calls=d.game.calls.length, map=readIdmap(d.storage);
+  assert.throws(()=>d.runner.resolveConfirmed("drift-lock",item.idx),/confirmation/);
+  d.runner.resolveConfirmed("drift-lock",item.idx,{confirmed:true});
+  const resolved=d.journal.get("drift-lock").items[item.idx];
+  assert.equal(resolved.state,"FAILED");assert.equal(resolved.entityId,HP);
+  assert.deepEqual(resolved.diffs,item.diffs);assert.equal(resolved.verify,"drift");
+  assert.equal(resolved.resolution.action,"operator-failed");assert.equal(resolved.resolution.pauseReason,"DEPENDENCY");
+  assert.deepEqual(readIdmap(d.storage),map);assert.equal(d.game.calls.length,calls);
+  assert.equal((await d.runner.resume("drift-lock")).pause.reason,"DEPENDENCY");
+  assert.equal(mutations(d).length,d.game.calls.slice(0,calls).filter(c=>/skillTree\.(create|update)/.test(c.path)).length);
+  const next=await prepareBloodright({config:config(),...d});assert.deepEqual(next.problems,[]);
+  assert.equal(next.manifest.items.find(i=>i.targetId===HP).expected.description,"external edit");
+});
+
+test("review N1: unreadable CONFIRMED target resolves after reload, preserving its binding", async () => {
+  const d=setup(),original=d.game.handle.bind(d.game);
+  d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.create")d.game.skills.delete(r.data.message);return r;};
+  d.runner.plan(compile(d).manifest,{jobId:"deleted-target"});
+  assert.equal((await d.runner.run("deleted-target")).pause.reason,"VISIBILITY");
+  const item=d.journal.get("deleted-target").items.find(i=>i.state==="CONFIRMED");
+  const restarted=new Runner({...d,tabId:"reloaded"}), calls=d.game.calls.length;
+  restarted.resolveConfirmed("deleted-target",item.idx,{confirmed:true});
+  assert.equal(d.journal.get("deleted-target").items[item.idx].state,"FAILED");
+  assert.equal(readIdmap(d.storage)[item.srcId],item.entityId);assert.equal(d.game.calls.length,calls);
+  assert.doesNotThrow(()=>assertBloodrightAvailable(d.journal,BL));
+  // Deletion is not permission to recreate: the missing explicit binding still needs repair.
+  await assert.rejects(prepareBloodright({config:config(),...d}),/unreadable/);
+});
+
+test("review N1: recovery refuses SENT obligations, running jobs, other tabs and non-CONFIRMED items", () => {
+  const d=setup();d.runner.plan(compile(d).manifest,{jobId:"recovery-guards"});
+  d.journal.transition("recovery-guards",1,"SENT");
+  d.journal.transition("recovery-guards",1,"CONFIRMED",{entityId:"known-id",phase:"verify"});
+  const act=()=>d.runner.resolveConfirmed("recovery-guards",1,{confirmed:true});
+  assert.throws(act,/paused|incomplete/i);
+  d.journal.transition("recovery-guards",2,"SENT");d.journal.setJobState("recovery-guards","PAUSED");
+  const before=JSON.stringify(d.journal.get("recovery-guards"));assert.throws(act,/SENT/);assert.equal(JSON.stringify(d.journal.get("recovery-guards")),before);
+  d.journal.transition("recovery-guards",2,"FAILED");
+  const other=new Runner({...d,tabId:"other-tab"});other._lease("recovery-guards");
+  assert.throws(act,/another tab/);other._releaseLease("recovery-guards");
+  assert.throws(()=>d.runner.resolveConfirmed("recovery-guards",0,{confirmed:true}),/CONFIRMED/);
+  act();assert.equal(d.journal.get("recovery-guards").items[1].state,"FAILED");
+  assert.equal(readIdmap(d.storage)[scopeKey(BL,"p1_t1")],"known-id");
 });

@@ -76,6 +76,19 @@ job, even if settings or the manifest hash change. The guard checks SENT, ORPHAN
 CONFIRMED items in the persistent journal, including older jobs identified by scoped IDs.
 Resume that job or explicitly resolve its pending writes before preparing another import.
 
+If a CONFIRMED item remains drifted or unreadable and you choose to stop recovery, open
+the paused/incomplete job and use **Mark failed (leave as is)** beside that item. Confirm
+the prompt. This records an operator failure, preserves its target ID, saved binding and
+drift evidence, and sends no game request. It does not accept the write as verified or let
+dependent skills in that job run. Reconcile all SENT items first; the action is unavailable
+while a job is running and refuses another tab's active lease. Resume remains the preferred
+option for temporary visibility loss.
+
+Once all unresolved items have been resolved, prepare a fresh preview against current
+records. A target that was deleted still needs its binding repaired explicitly; marking it
+failed does not erase the remembered ID or authorize an automatic replacement. Export the
+old job to retain the resolution and verification evidence.
+
 The compiled manifest, preimages, source pin and bindings are frozen into job identity.
 The exact text is stored in the separate repository-text IndexedDB database before opening
 the job; exports additionally include `compiledManifest`. Reload resumes this text, never a

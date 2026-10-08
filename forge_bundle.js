@@ -4677,7 +4677,7 @@
       return new Paused("SESSION", { detail, authState: "signed_out", ...info });
     }
     _leaseKey(jobId) {
-      const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId;
+      const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId ?? this.journal.get(jobId)?.bloodrightImport?.bloodlineId;
       return LEASE_PREFIX + (bloodline ? `bloodright:${bloodline}` : jobId);
     }
     _readLease(jobId) {
@@ -4852,6 +4852,24 @@
     }
     skip(jobId, idx) {
       this.journal.transition(jobId, idx, "SKIPPED");
+    }
+    resolveConfirmed(jobId, idx, { confirmed = false } = {}) {
+      if (confirmed !== true) throw new Error("operator confirmation required to leave an unverified write as failed");
+      const job = this.journal.get(jobId), item = job?.items[idx];
+      if (job?.items.some((it) => it.state === "SENT")) throw new Error("reconcile all SENT items before resolving a confirmed write");
+      if (!["PAUSED", "INCOMPLETE"].includes(job?.state)) throw new Error("recovery requires a paused or incomplete job");
+      if (!item || item.state !== "CONFIRMED" || !isBloodrightEntity(item.entity)) throw new Error("recovery requires a CONFIRMED Bloodright item");
+      this._lease(jobId);
+      try {
+        if (item.srcId && item.entityId && !readIdmap(this.storage)[item.srcId]) this._remember(item.srcId, item.entityId);
+        this.journal.transition(jobId, idx, "FAILED", {
+          resolution: { action: "operator-failed", at: new Date(this.clock()).toISOString(), pauseReason: job.pause?.reason ?? null },
+          error: item.error || "Operator stopped recovery; this write remains unverified and its server record is left as is"
+        });
+      } finally {
+        this._releaseLease(jobId);
+      }
+      return this.summary(jobId);
     }
     summary(jobId) {
       const job = this.journal.get(jobId);
@@ -6191,9 +6209,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           it.entityId ? h("div", { class: "f-mono" }, it.entityId) : null,
           it.error ? h("div", { class: "f-err" }, it.error) : null,
           it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
-          it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null
+          it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null,
+          it.resolution?.action === "operator-failed" ? h("div", { class: "f-mute" }, "Recovery stopped by operator; record left as is, verification not accepted.") : null
         )
       );
+      if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
+        row.appendChild(h("button", {
+          class: "f-danger",
+          disabled: !!app.state.running || job.items.some((i) => i.state === "SENT") || typeof globalThis.confirm !== "function",
+          onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true }))
+        }, "Mark failed (leave as is)"));
+      }
       root.appendChild(row);
     }
     return root;
@@ -6582,6 +6608,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "recheckAuth",
         "requestPause",
         "resolveCaptures",
+        "resolveConfirmed",
         "resumeBlockedReason",
         "resumeJob",
         "say",
@@ -6907,6 +6934,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.fail("skip", e);
       }
     }
+    resolveConfirmed(jobId, idx, options) {
+      if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+      try {
+        this.runner.resolveConfirmed(jobId, idx, options);
+        this.changed();
+      } catch (e) {
+        this.fail("resolve write", e);
+      }
+    }
     resolveCaptures(jobId) {
       return resolveCaptures(this, jobId);
     }
@@ -7157,6 +7193,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     skip(jobId, idx) {
       return this.core.skip(jobId, idx);
+    }
+    resolveConfirmed(jobId, idx, options) {
+      return this.core.resolveConfirmed(jobId, idx, options);
     }
     resolveCaptures(jobId) {
       return this.core.resolveCaptures(jobId);

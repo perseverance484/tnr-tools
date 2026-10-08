@@ -21,7 +21,7 @@ import { FakeGame } from "./fakegame.mjs";
 const ACTIONS = [
   "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
   "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
-  "resolveCaptures", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
+  "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
   "snapshot", "startJob", "subscribe",
 ];
 const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
