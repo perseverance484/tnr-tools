@@ -88,6 +88,7 @@ No clone means no state. Say so rather than working from memory.
 | Tuning, rewards, tiers, drop math | skill `references/balance.md`; `calc.py` |
 | Operative and raider lines (Unsigned, Verge, Forsworn) | skill `references/lines.md` |
 | Anything that pushes | skill `references/pipeline.md`, alongside the entity reference |
+| Bloodright structural SVG / tree layout | `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`; approved white SVG and mechanics in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.*` |
 | Art, any asset | skill `producing-tnr-art`; `chroma.py`, `artpreflight.py`, `shotlist.py` |
 | Existing jutsu art: name → captured record → image URL | `scripts/jutsu_art.py verify`, then `lookup`/`image-url`; `docs/workflows/JUTSU_ART_LOOKUP.md` |
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |

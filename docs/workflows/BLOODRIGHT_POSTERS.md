@@ -5,6 +5,24 @@
 Bloodright posters are showcase/documentation deliverables, not in-game image assets. The final poster
 may intentionally contain typography, cards, arrows, rules and other infographic structure.
 
+## Standard structural SVG input
+
+**Approved 2026-10-08:** use the [white Blood-Enchanted Eyes example](../design/bloodright/examples/blood_enchanted_eyes_structural.svg) as the default structural SVG format. Its [mechanical snapshot](../design/bloodright/examples/blood_enchanted_eyes_structural.json) makes every displayed value inspectable. The example is a layout standard; its BEE-specific numbers are not a universal balance template.
+
+For structural SVG requests:
+
+- Use a white background, plain neutral typography, grayscale card borders and blank illustration spaces.
+- Do not draw artwork, motifs, decorative frames or a colored theme. The user passes the SVG to image generation and handles creative styling.
+- Do not print path names, role headings such as Burst/Sustain/Guard/Pestilence, path numbers or skill numbers.
+- Keep only the functional legend colors: cyan for self/ally buffs, pink for enemy debuffs and gold for direct damage. Match each effect dot to the shared legend.
+- Put the Bloodright identifier, bloodline name, subtitle and rank near the top; place Rules on the left and the shared Legend and Scope on the right.
+- Arrange tiers top-to-bottom with clear prerequisite arrows. Each card shows its tier, BP cost, blank image region, exact skill name and full effects.
+- State scope once and keep reference notes brief. Omit path totals, Weight/Power Score figures, budget tables and implementation details.
+- Preserve the current approved mechanics. The example uses four independent Foundation → Hidden Art → Advanced Art chains, 5 BP total and 1 BP per node; two Advanced Arts would require 6 BP. Adapt the topology and printed rules when another approved tree differs.
+- Before delivery, inspect the rendered SVG and check all names, costs, values, prerequisites, legend dots and text fit against its mechanical source.
+
+This is the default **SVG input** standard for future sessions. It does not require an image-generation step. The illustrated-poster references below apply when the user separately requests a finished poster.
+
 ## Primary presentation reference
 
 The user-approved **primary ("holy grail") Bloodright presentation reference** is:
@@ -115,8 +133,8 @@ sameness.
 ## QA before delivery
 
 Compare the generated poster against the pinned design and verify every skill name, tier, 1 BP cost,
-effect name, numeric value, role color, prerequisite connection, 4 BP maximum and Advanced-Art
-limit. Confirm the tree reads top-to-bottom at a glance. Correct generation errors before delivery.
+effect name, numeric value, role color, prerequisite connection, the source tree's BP maximum and
+Advanced-Art limit. Confirm the tree reads top-to-bottom at a glance. Correct generation errors before delivery.
 
 The holy-grail poster is an **information-presentation standard**, never a universal art-style
 template and never a mechanical shortcut.

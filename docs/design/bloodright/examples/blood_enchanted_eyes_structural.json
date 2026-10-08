@@ -1,0 +1,256 @@
+{
+  "title": "Blood-Enchanted Eyes \u2014 Crimson Covenant",
+  "bloodline": {
+    "id": "ovZIWu28ANn-Cij5TjT8S",
+    "review_id": "BR-011",
+    "name": "Blood-Enchanted Eyes",
+    "rank": "S",
+    "statClassification": "Highest",
+    "traits": "Burst Healing, Sustained Damage"
+  },
+  "build_rules": {
+    "max_bp": 5,
+    "skill_cost": 1,
+    "max_advanced": 2,
+    "max_advanced_reachable": 1,
+    "prerequisites": "ALL"
+  },
+  "paths": [
+    {
+      "id": "p1",
+      "role": "Burst",
+      "primary_tags": [
+        "increasedamagegiven",
+        "damage"
+      ],
+      "advanced_id": "p1_t3",
+      "source_hidden": "02",
+      "source_advanced": "03",
+      "audience": "Both"
+    },
+    {
+      "id": "p2",
+      "role": "Sustain",
+      "primary_tags": [
+        "lifesteal",
+        "increasedamagetaken"
+      ],
+      "advanced_id": "p2_t3",
+      "source_hidden": "09",
+      "source_advanced": "10",
+      "audience": "Reaper"
+    },
+    {
+      "id": "p3",
+      "role": "Guard",
+      "primary_tags": [
+        "decreasedamagetaken",
+        "decreasedamagegiven",
+        "increasedamagegiven"
+      ],
+      "advanced_id": "p3_t3",
+      "source_hidden": "07",
+      "source_advanced": "08",
+      "audience": "Both"
+    },
+    {
+      "id": "p4",
+      "role": "Pestilence",
+      "primary_tags": [
+        "afterburn",
+        "decreasedamagegiven",
+        "increasedamagegiven"
+      ],
+      "advanced_id": "p4_t3",
+      "source_hidden": "04",
+      "source_advanced": "05",
+      "audience": "Wraith"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p1_t1",
+      "name": "Breaking Point",
+      "category": "Foundation",
+      "tier": 1,
+      "branch": "p1",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "increasedamagegiven": 2
+      }
+    },
+    {
+      "id": "p1_t2",
+      "name": "Opened Veins",
+      "category": "Hidden Art",
+      "tier": 2,
+      "branch": "p1",
+      "cost": 1,
+      "parents": [
+        "p1_t1"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "increasedamagegiven": 3
+      }
+    },
+    {
+      "id": "p1_t3",
+      "name": "Rite of Exsanguination",
+      "category": "Advanced Art",
+      "tier": 3,
+      "branch": "p1",
+      "cost": 1,
+      "parents": [
+        "p1_t2"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "damage": 3
+      }
+    },
+    {
+      "id": "p2_t1",
+      "name": "Hungry Pulse",
+      "category": "Foundation",
+      "tier": 1,
+      "branch": "p2",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "lifesteal": 2
+      }
+    },
+    {
+      "id": "p2_t2",
+      "name": "Crimson Thirst",
+      "category": "Hidden Art",
+      "tier": 2,
+      "branch": "p2",
+      "cost": 1,
+      "parents": [
+        "p2_t1"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "lifesteal": 3
+      }
+    },
+    {
+      "id": "p2_t3",
+      "name": "Feast of the Fallen",
+      "category": "Advanced Art",
+      "tier": 3,
+      "branch": "p2",
+      "cost": 1,
+      "parents": [
+        "p2_t2"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "increasedamagetaken": 5
+      }
+    },
+    {
+      "id": "p3_t1",
+      "name": "Steady Guard",
+      "category": "Foundation",
+      "tier": 1,
+      "branch": "p3",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "decreasedamagetaken": 2
+      }
+    },
+    {
+      "id": "p3_t2",
+      "name": "Closed Wounds",
+      "category": "Hidden Art",
+      "tier": 2,
+      "branch": "p3",
+      "cost": 1,
+      "parents": [
+        "p3_t1"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "decreasedamagetaken": 3
+      }
+    },
+    {
+      "id": "p3_t3",
+      "name": "Deathless Vitality",
+      "category": "Advanced Art",
+      "tier": 3,
+      "branch": "p3",
+      "cost": 1,
+      "parents": [
+        "p3_t2"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "decreasedamagetaken": 5,
+        "decreasedamagegiven": 5,
+        "increasedamagegiven": 5
+      }
+    },
+    {
+      "id": "p4_t1",
+      "name": "Still Pressure",
+      "category": "Foundation",
+      "tier": 1,
+      "branch": "p4",
+      "cost": 1,
+      "parents": [],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "afterburn": 5,
+        "decreasedamagegiven": 2
+      }
+    },
+    {
+      "id": "p4_t2",
+      "name": "Carrion Fever",
+      "category": "Hidden Art",
+      "tier": 2,
+      "branch": "p4",
+      "cost": 1,
+      "parents": [
+        "p4_t1"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "afterburn": 5,
+        "decreasedamagegiven": 3
+      }
+    },
+    {
+      "id": "p4_t3",
+      "name": "Red Pestilence",
+      "category": "Advanced Art",
+      "tier": 3,
+      "branch": "p4",
+      "cost": 1,
+      "parents": [
+        "p4_t2"
+      ],
+      "parent_rule": "ALL",
+      "bonuses": {
+        "afterburn": 5,
+        "increasedamagegiven": 5
+      }
+    }
+  ],
+  "classification": {
+    "qualifying_elements": [
+      "Shadow"
+    ],
+    "applies_to": "matching supported tags on all Shadow jutsu"
+  },
+  "reference_status": "User-approved white structural SVG format; BEE review mechanics captured 2026-10-08. Values are specific to this example, not universal balance rules."
+}
