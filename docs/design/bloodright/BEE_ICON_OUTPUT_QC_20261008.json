@@ -1,0 +1,70 @@
+{
+  "kind": "tnr.bloodright.icon-output-qc/1",
+  "date": "2026-10-08",
+  "roster_code": "BR-011",
+  "bloodline": "Blood-Enchanted Eyes",
+  "user_accepted_direction": "Blood-red approved three tier emblems on opaque black background",
+  "repo_art_spec": "main@5963810895aae4e2deaa61b72424c203752f50c1 skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+  "repo_preflight": "main@5963810895aae4e2deaa61b72424c203752f50c1 skills/producing-tnr-art/scripts/artpreflight.py",
+  "output_target": "ICON",
+  "file_type": "lossless WebP (VP8L)",
+  "dimensions": [
+    256,
+    256
+  ],
+  "working_cap_bytes": 460800,
+  "hard_cap_bytes": 524288,
+  "processing": "Pillow Image.resize((256,256), Image.Resampling.LANCZOS); image.save(format='WEBP',lossless=True,method=6)",
+  "artifacts": [
+    {
+      "tier": "Foundation",
+      "source_name": "crimson_arcane_diamond_emblem.png",
+      "source_sha256": "75b09797abce18734531cd58c5a857e7d0c4c88f1fb107020377fdcd2978be62",
+      "upload_filename": "bee_foundation_black_bg_256.webp",
+      "upload_sha256": "4f234980e2e86a7aa697fc9c59cf770b8a3fa69bd0d064a05c91d55a16e7a585",
+      "bytes": 35206
+    },
+    {
+      "tier": "Hidden Art",
+      "source_name": "blood_red_hidden_art_emblem.png",
+      "source_sha256": "ecfab0355f7bb4ad65b8ba108685a26997a30e7db162c6d89396d3a4ae57c318",
+      "upload_filename": "bee_hidden_art_black_bg_256.webp",
+      "upload_sha256": "7bb0836b631fde4b693df7b17009e67e27f7cb7a06a784bd46dfa9402075d4be",
+      "bytes": 44174
+    },
+    {
+      "tier": "Advanced Art",
+      "source_name": "blood_red_crystal_starburst_emblem.png",
+      "source_sha256": "aeae0f5a2188224163e2730c184202ec3907759d9cd85da101caea7fa0b4667b",
+      "upload_filename": "bee_advanced_art_black_bg_256.webp",
+      "upload_sha256": "15b8a57637a573cac9555e2da4bdaa6caa503c8278370b7b3634cd28271a9a01",
+      "bytes": 49602
+    }
+  ],
+  "checked": {
+    "decode": true,
+    "aspect": true,
+    "min_width": true,
+    "byte_ceiling": true,
+    "webp_vp8l": true,
+    "lossless_pixel_equality": true,
+    "near_black_canvas_corners": true,
+    "zip_crc": true,
+    "zip_member_equality": true,
+    "125_64_32px_visual_review": true
+  },
+  "formal_preflight_invocation": false,
+  "formal_preflight_expected_result": {
+    "errors": 3,
+    "error_per_file": {
+      "check": "alpha",
+      "reason": "User-approved opaque RGB icon, but generic keyed ICON target requires RGBA"
+    },
+    "zero_error_pass": false
+  },
+  "status": "BYTE_AND_FORMAT_UPLOAD_SAFE; FORMAL_ALPHA_EXCEPTION_OPEN",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "repo_binary_art_committed": false,
+  "artifact_location_note": "Raw PNGs and processed WebPs remain conversation deliverables; the SHA values are provided for operator-side verification. No repo binary is asserted."
+}
