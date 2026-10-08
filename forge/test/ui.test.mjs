@@ -136,6 +136,28 @@ test("Run screen renders item pills, error text, drift details and budget", asyn
   assert.match(main.textContent, /nothing spent/);
 });
 
+test("Bloodright recovery UI requires confirmation, blocks SENT and exports failure with drift evidence", async () => {
+  const win=dom(), {app,journal,game}=appWith();
+  journal.open({jobId:"resolve-ui",bloodrightImport:{bloodlineId:"bee"},items:[
+    {entity:"skillTree",op:"update",name:"Hungry Pulse",srcId:"br:bee:hp",targetId:"hp"},
+    {entity:"skillTree",op:"create",name:"Pending",srcId:"br:bee:pending"},
+  ]});
+  journal.transition("resolve-ui",0,"SENT");journal.transition("resolve-ui",0,"CONFIRMED",{phase:"verify",verify:"drift",diffs:[{key:"description",sent:"planned",live:"edited"}]});
+  journal.transition("resolve-ui",1,"SENT");journal.setJobState("resolve-ui","PAUSED");
+  app.mount(win.document.body,win.document);app.go("run",{jobId:"resolve-ui"});
+  const button=()=>[...win.document.querySelectorAll("button")].find(b=>b.textContent==="Mark failed (leave as is)");
+  assert.equal(button().disabled,true);
+  journal.transition("resolve-ui",1,"FAILED");app.refresh();assert.equal(button().disabled,false);
+  let prompt="";globalThis.confirm=message=>{prompt=message;return false;};
+  button().click();await Promise.resolve();assert.equal(journal.get("resolve-ui").items[0].state,"CONFIRMED");assert.match(prompt,/does not verify/);
+  globalThis.confirm=()=>true;button().click();await Promise.resolve();
+  assert.equal(journal.get("resolve-ui").items[0].state,"FAILED");assert.equal(game.calls.length,0);
+  assert.match(win.document.querySelector(".f-main").textContent,/Recovery stopped by operator/);
+  let exported;app.showExport=text=>{exported=JSON.parse(text);};await app.exportJob("resolve-ui");
+  assert.notEqual(exported.outcome,"success");assert.equal(exported.journal.items[0].verify,"drift");
+  assert.equal(exported.journal.items[0].diffs[0].live,"edited");assert.equal(exported.journal.items[0].resolution.action,"operator-failed");
+});
+
 test("Settings saves the PAT under the retained key and the export shows a textarea", () => {
   const win = dom();
   const { app, storage } = appWith();

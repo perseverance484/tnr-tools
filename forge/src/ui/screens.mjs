@@ -301,7 +301,12 @@ export function RunScreen(app) {
         it.error ? h("div", { class: "f-err" }, it.error) : null,
         it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
         it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null,
+        it.resolution?.action === "operator-failed" ? h("div", { class: "f-mute" }, "Recovery stopped by operator; record left as is, verification not accepted.") : null,
       ));
+    if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
+      row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.items.some(i => i.state === "SENT") || typeof globalThis.confirm !== "function",
+        onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
+    }
     root.appendChild(row);
   }
   return root;

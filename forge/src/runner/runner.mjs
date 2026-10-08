@@ -184,7 +184,7 @@ export class Runner {
 
   // ------------------------------------------------------------------ lease
   _leaseKey(jobId) {
-    const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId;
+    const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId ?? this.journal.get(jobId)?.bloodrightImport?.bloodlineId;
     return LEASE_PREFIX + (bloodline ? `bloodright:${bloodline}` : jobId);
   }
   _readLease(jobId) { try { return JSON.parse(this.storage.getItem(this._leaseKey(jobId)) || "null"); } catch { return null; } }
@@ -387,6 +387,25 @@ export class Runner {
     if (item.srcId) this._remember(item.srcId, entityId);
   }
   skip(jobId, idx) { this.journal.transition(jobId, idx, "SKIPPED"); }
+
+  /** Explicitly stop trying to verify/fill a known Bloodright write. Never a retry or success. */
+  resolveConfirmed(jobId, idx, { confirmed = false } = {}) {
+    if (confirmed !== true) throw new Error("operator confirmation required to leave an unverified write as failed");
+    const job = this.journal.get(jobId), item = job?.items[idx];
+    if (job?.items.some(it => it.state === "SENT")) throw new Error("reconcile all SENT items before resolving a confirmed write");
+    if (!["PAUSED", "INCOMPLETE"].includes(job?.state)) throw new Error("recovery requires a paused or incomplete job");
+    if (!item || item.state !== "CONFIRMED" || !isBloodrightEntity(item.entity)) throw new Error("recovery requires a CONFIRMED Bloodright item");
+    this._lease(jobId);
+    try {
+      // Retain known IDs even after a crash before _remember(). Never overwrite a later binding.
+      if (item.srcId && item.entityId && !readIdmap(this.storage)[item.srcId]) this._remember(item.srcId, item.entityId);
+      this.journal.transition(jobId, idx, "FAILED", {
+        resolution: { action: "operator-failed", at: new Date(this.clock()).toISOString(), pauseReason: job.pause?.reason ?? null },
+        error: item.error || "Operator stopped recovery; this write remains unverified and its server record is left as is",
+      });
+    } finally { this._releaseLease(jobId); }
+    return this.summary(jobId);
+  }
 
   summary(jobId) {
     const job = this.journal.get(jobId);
