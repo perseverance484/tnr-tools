@@ -1,0 +1,86 @@
+== ctors: extract@c6c3d33 (reproduces state/schema_sentinel.json) -> extract@2391975
+ADDITIONS
+  enum-member  AllTags.decreasedamagegiven.elements  ...BasicElementName
+  enum-member  AllTags.decreasedamagegiven.elements  Boil
+  enum-member  AllTags.decreasedamagegiven.elements  Crystal
+  enum-member  AllTags.decreasedamagegiven.elements  Dust
+  enum-member  AllTags.decreasedamagegiven.elements  Explosion
+  enum-member  AllTags.decreasedamagegiven.elements  Ice
+  enum-member  AllTags.decreasedamagegiven.elements  Lava
+  enum-member  AllTags.decreasedamagegiven.elements  Light
+  enum-member  AllTags.decreasedamagegiven.elements  Magnet
+  enum-member  AllTags.decreasedamagegiven.elements  Metal
+  enum-member  AllTags.decreasedamagegiven.elements  None
+  enum-member  AllTags.decreasedamagegiven.elements  Sand
+  enum-member  AllTags.decreasedamagegiven.elements  Scorch
+  enum-member  AllTags.decreasedamagegiven.elements  Shadow
+  enum-member  AllTags.decreasedamagegiven.elements  Storm
+  enum-member  AllTags.decreasedamagegiven.elements  Wood
+  enum-member  AllTags.decreasedamagegiven.elements  Yin-Yang
+  enum-member  AllTags.decreasedamagetaken.elements  ...BasicElementName
+  enum-member  AllTags.decreasedamagetaken.elements  Boil
+  enum-member  AllTags.decreasedamagetaken.elements  Crystal
+  enum-member  AllTags.decreasedamagetaken.elements  Dust
+  enum-member  AllTags.decreasedamagetaken.elements  Explosion
+  enum-member  AllTags.decreasedamagetaken.elements  Ice
+  enum-member  AllTags.decreasedamagetaken.elements  Lava
+  enum-member  AllTags.decreasedamagetaken.elements  Light
+  enum-member  AllTags.decreasedamagetaken.elements  Magnet
+  enum-member  AllTags.decreasedamagetaken.elements  Metal
+  enum-member  AllTags.decreasedamagetaken.elements  None
+  enum-member  AllTags.decreasedamagetaken.elements  Sand
+  enum-member  AllTags.decreasedamagetaken.elements  Scorch
+  enum-member  AllTags.decreasedamagetaken.elements  Shadow
+  enum-member  AllTags.decreasedamagetaken.elements  Storm
+  enum-member  AllTags.decreasedamagetaken.elements  Wood
+  enum-member  AllTags.decreasedamagetaken.elements  Yin-Yang
+  enum-member  AllTags.increasedamagegiven.elements  ...BasicElementName
+  enum-member  AllTags.increasedamagegiven.elements  Boil
+  enum-member  AllTags.increasedamagegiven.elements  Crystal
+  enum-member  AllTags.increasedamagegiven.elements  Dust
+  enum-member  AllTags.increasedamagegiven.elements  Explosion
+  enum-member  AllTags.increasedamagegiven.elements  Ice
+  enum-member  AllTags.increasedamagegiven.elements  Lava
+  enum-member  AllTags.increasedamagegiven.elements  Light
+  enum-member  AllTags.increasedamagegiven.elements  Magnet
+  enum-member  AllTags.increasedamagegiven.elements  Metal
+  enum-member  AllTags.increasedamagegiven.elements  None
+  enum-member  AllTags.increasedamagegiven.elements  Sand
+  enum-member  AllTags.increasedamagegiven.elements  Scorch
+  enum-member  AllTags.increasedamagegiven.elements  Shadow
+  enum-member  AllTags.increasedamagegiven.elements  Storm
+  enum-member  AllTags.increasedamagegiven.elements  Wood
+  enum-member  AllTags.increasedamagegiven.elements  Yin-Yang
+  enum-member  AllTags.increasedamagetaken.elements  ...BasicElementName
+  enum-member  AllTags.increasedamagetaken.elements  Boil
+  enum-member  AllTags.increasedamagetaken.elements  Crystal
+  enum-member  AllTags.increasedamagetaken.elements  Dust
+  enum-member  AllTags.increasedamagetaken.elements  Explosion
+  enum-member  AllTags.increasedamagetaken.elements  Ice
+  enum-member  AllTags.increasedamagetaken.elements  Lava
+  enum-member  AllTags.increasedamagetaken.elements  Light
+  enum-member  AllTags.increasedamagetaken.elements  Magnet
+  enum-member  AllTags.increasedamagetaken.elements  Metal
+  enum-member  AllTags.increasedamagetaken.elements  None
+  enum-member  AllTags.increasedamagetaken.elements  Sand
+  enum-member  AllTags.increasedamagetaken.elements  Scorch
+  enum-member  AllTags.increasedamagetaken.elements  Shadow
+  enum-member  AllTags.increasedamagetaken.elements  Storm
+  enum-member  AllTags.increasedamagetaken.elements  Wood
+  enum-member  AllTags.increasedamagetaken.elements  Yin-Yang
+
+no breaking changes: 68 addition(s), safe to adopt (exit 0)
+== entities: extract@c6c3d33 (reproduces state/schema_sentinel.json) -> extract@2391975
+
+no breaking changes: 0 addition(s), safe to adopt (exit 0)
+== constants: extract@c6c3d33 (reproduces state/schema_sentinel.json) -> extract@2391975
+ADDITIONS
+  const-member  PotencyTagTypes  absorb
+  const-member  PotencyTagTypes  consume
+  const-member  PotencyTagTypes  drain
+  const-member  PotencyTagTypes  pierce
+  const-member  PotencyTagTypes  poison
+  const-member  PotencyTagTypes  shield
+  const-member  PotencyTagTypes  vamp
+
+no breaking changes: 7 addition(s), safe to adopt (exit 0)
