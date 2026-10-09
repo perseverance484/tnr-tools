@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-08)
+# DRIFT.md - upstream contract drift (2026-10-09)
 
-Upstream: studie-tech/TheNinjaRPG@c6c3d33312fdcec5e56668e9d75195416928a178
+Upstream: studie-tech/TheNinjaRPG@dfdf3c822d6b17e21521df846f077cdaf5ce929f
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -22,23 +22,6 @@ REMOVALS
   enum-member  AllTags.damage.statTypes  Highest
   enum-member  AllTags.damage.statTypes  Ninjutsu
   enum-member  AllTags.damage.statTypes  Taijutsu
-  enum-member  AllTags.decreasedamagegiven.elements  ...BasicElementName
-  enum-member  AllTags.decreasedamagegiven.elements  Boil
-  enum-member  AllTags.decreasedamagegiven.elements  Crystal
-  enum-member  AllTags.decreasedamagegiven.elements  Dust
-  enum-member  AllTags.decreasedamagegiven.elements  Explosion
-  enum-member  AllTags.decreasedamagegiven.elements  Ice
-  enum-member  AllTags.decreasedamagegiven.elements  Lava
-  enum-member  AllTags.decreasedamagegiven.elements  Light
-  enum-member  AllTags.decreasedamagegiven.elements  Magnet
-  enum-member  AllTags.decreasedamagegiven.elements  Metal
-  enum-member  AllTags.decreasedamagegiven.elements  None
-  enum-member  AllTags.decreasedamagegiven.elements  Sand
-  enum-member  AllTags.decreasedamagegiven.elements  Scorch
-  enum-member  AllTags.decreasedamagegiven.elements  Shadow
-  enum-member  AllTags.decreasedamagegiven.elements  Storm
-  enum-member  AllTags.decreasedamagegiven.elements  Wood
-  enum-member  AllTags.decreasedamagegiven.elements  Yin-Yang
   enum-member  AllTags.decreasedamagegiven.generalTypes  Highest
   enum-member  AllTags.decreasedamagegiven.generalTypes  Intelligence
   enum-member  AllTags.decreasedamagegiven.generalTypes  Speed
@@ -49,25 +32,42 @@ REMOVALS
   enum-member  AllTags.decreasedamagegiven.statTypes  Highest
   enum-member  AllTags.decreasedamagegiven.statTypes  Ninjutsu
   enum-member  AllTags.decreasedamagegiven.statTypes  Taijutsu
-  enum-member  AllTags.decreasedamagetaken.elements  ...BasicElementName
-  enum-member  AllTags.decreasedamagetaken.elements  Boil
-  enum-member  AllTags.decreasedamagetaken.elements  Crystal
-  enum-member  AllTags.decreasedamagetaken.elements  Dust
-  enum-member  AllTags.decreasedamagetaken.elements  Explosion
-  enum-member  AllTags.decreasedamagetaken.elements  Ice
-  enum-member  AllTags.decreasedamagetaken.elements  Lava
-  enum-member  AllTags.decreasedamagetaken.elements  Light
-  enum-member  AllTags.decreasedamagetaken.elements  Magnet
-  enum-member  AllTags.decreasedamagetaken.elements  Metal
-  enum-member  AllTags.decreasedamagetaken.elements  None
-  enum-member  AllTags.decreasedamagetaken.elements  Sand
-  enum-member  AllTags.decreasedamagetaken.elements  Scorch
-  enum-member  AllTags.decreasedamagetaken.elements  Shadow
-  enum-member  AllTags.decreasedamagetaken.elements  Storm
-  enum-member  AllTags.decreasedamagetaken.elements  Wood
-  enum-member  AllTags.decreasedamagetaken.elements  Yin-Yang
   enum-member  AllTags.decreasedamagetaken.generalTypes  Highest
-  ... 129 more
+  enum-member  AllTags.decreasedamagetaken.generalTypes  Intelligence
+  enum-member  AllTags.decreasedamagetaken.generalTypes  Speed
+  enum-member  AllTags.decreasedamagetaken.generalTypes  Strength
+  enum-member  AllTags.decreasedamagetaken.generalTypes  Willpower
+  enum-member  AllTags.decreasedamagetaken.statTypes  Bukijutsu
+  enum-member  AllTags.decreasedamagetaken.statTypes  Genjutsu
+  enum-member  AllTags.decreasedamagetaken.statTypes  Highest
+  enum-member  AllTags.decreasedamagetaken.statTypes  Ninjutsu
+  enum-member  AllTags.decreasedamagetaken.statTypes  Taijutsu
+  enum-member  AllTags.decreasemaxpools.poolsAffected  Chakra
+  enum-member  AllTags.decreasemaxpools.poolsAffected  Health
+  enum-member  AllTags.decreasemaxpools.poolsAffected  Stamina
+  enum-member  AllTags.decreasestat.statTypes  Bukijutsu
+  enum-member  AllTags.decreasestat.statTypes  Genjutsu
+  enum-member  AllTags.decreasestat.statTypes  Highest
+  enum-member  AllTags.decreasestat.statTypes  Ninjutsu
+  enum-member  AllTags.decreasestat.statTypes  Taijutsu
+  enum-member  AllTags.elementalseal.elements  ...BasicElementName
+  enum-member  AllTags.elementalseal.elements  Boil
+  enum-member  AllTags.elementalseal.elements  Crystal
+  enum-member  AllTags.elementalseal.elements  Dust
+  enum-member  AllTags.elementalseal.elements  Explosion
+  enum-member  AllTags.elementalseal.elements  Ice
+  enum-member  AllTags.elementalseal.elements  Lava
+  enum-member  AllTags.elementalseal.elements  Light
+  enum-member  AllTags.elementalseal.elements  Magnet
+  enum-member  AllTags.elementalseal.elements  Metal
+  enum-member  AllTags.elementalseal.elements  None
+  enum-member  AllTags.elementalseal.elements  Sand
+  enum-member  AllTags.elementalseal.elements  Scorch
+  enum-member  AllTags.elementalseal.elements  Shadow
+  enum-member  AllTags.elementalseal.elements  Storm
+  enum-member  AllTags.elementalseal.elements  Wood
+  enum-member  AllTags.elementalseal.elements  Yin-Yang
+  ... 78 more
 ADDITIONS
   enum-member  AllObjectives.tag_usage_win.tagType  decreasemastery
   enum-member  AllObjectives.tag_usage_win.tagType  decreasepotency
@@ -131,7 +131,7 @@ ADDITIONS
   enum-member  AllTags.increasemaxpools.poolsAffected  Energy
   ... 34 more
 
-BREAKING: 189 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 138 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
 REMOVALS
   field  item  requiredBukijutsuDefence
@@ -167,30 +167,30 @@ REMOVALS
   ftype  jutsu  requiredTaijutsuDefence  preprocess
   ftype  jutsu  requiredTaijutsuOffence  preprocess
 CHANGES
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  requiredSageMastery  optional -> required
-  now-required  jutsu  requiredTaijutsuMastery  optional -> required
-  now-required  item  requiredBloodlineMastery  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  requiredGenjutsuMastery  optional -> required
   now-required  item  farmYieldItemId  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  jutsu  requiredSageMastery  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  jutsu  requiredBloodlineMastery  optional -> required
-  now-required  item  requiredBukijutsuMastery  optional -> required
   now-required  item  farmMinLevel  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  jutsu  requiredGenjutsuMastery  optional -> required
-  now-required  item  requiredNinjutsuMastery  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
-  now-required  item  requiredTaijutsuMastery  optional -> required
-  now-required  jutsu  requiredBukijutsuMastery  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
   now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  jutsu  requiredBloodlineMastery  optional -> required
   now-required  jutsu  requiredNinjutsuMastery  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  jutsu  requiredSageMastery  optional -> required
+  now-required  jutsu  requiredGenjutsuMastery  optional -> required
+  now-required  item  requiredGenjutsuMastery  optional -> required
+  now-required  item  farmSellValue  optional -> required
+  now-required  item  requiredSageMastery  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  jutsu  requiredBukijutsuMastery  optional -> required
+  now-required  jutsu  requiredTaijutsuMastery  optional -> required
+  now-required  item  requiredTaijutsuMastery  optional -> required
+  now-required  item  requiredBukijutsuMastery  optional -> required
+  now-required  item  isFarmSeed  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -340,7 +340,7 @@ ADDITIONS
   const-member  FACTION_VILLAGE_TYPES  TOWN
   const-member  GUIDE_HUB_CATEGORY_ORDER  bloodlines
   const-member  GUIDE_HUB_CATEGORY_ORDER  combat
-  ... 135 more
+  ... 142 more
 
 BREAKING: 31 change(s) - DO NOT ADOPT (exit 1)
 ~~~
