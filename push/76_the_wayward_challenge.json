@@ -6,8 +6,8 @@
    "name": "The Wayward Challenge",
    "srcId": "wayward_challenge_quest",
    "data": {
-    "description": "The Wayward Blade has issued a sealed challenge to a single shinobi. Answer it in person and defeat him.",
-    "successDescription": "The Wayward Blade's challenge is answered, and his sealed contract is yours.",
+    "description": "A wandering swordsman calling himself the Wayward Blade waits on the training ground for an opponent worth his time. Face him and win.",
+    "successDescription": "The Wayward Blade concedes the duel and goes on his way.",
     "questType": "event",
     "questRank": "D",
     "requiredLevel": 1,
@@ -29,19 +29,17 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> A sealed contract lies on the briefing table, its wax stamped with a single crossed blade. The handler slides it toward you without breaking it. </i> <br> <br> \"The Wayward Blade sent this himself. He wants one opponent, not a squad, and he named you. Win, and the contract is yours.\"",
+       "description": "<i> A lone swordsman stands at the center of the training ground, blade resting point-down in the dirt. He lifts his eyes as you step onto the field. </i> <br> <br> \"They call me the Wayward Blade. I go wherever a fight is worth having, and I heard you were one. Draw, and show me.\"",
        "successDescription": "",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
-       "sceneCharacters": [
-        "05YyO19CYGTemFLQI3HPt"
-       ],
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
+       "sceneCharacters": [],
        "attackers": [],
        "attackers_scale_gains": 1,
        "attackers_max_per_battle": 1,
        "id": "wc_open",
        "nextObjectiveId": [
         {
-         "text": "Then I will answer him myself.",
+         "text": "Then let's find out.",
          "nextObjectiveId": "wc_fight"
         }
        ]
@@ -59,7 +57,7 @@
        ],
        "description": "",
        "successDescription": "",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
        "completionOutcome": "Win",
        "failDescription": "You failed to defeat the opponent",
@@ -75,19 +73,17 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> You come to on the briefing room floor. The contract is back on the table, still sealed. </i> <br> <br> \"He let you walk away, which means he wants a rematch. Catch your breath first.\"",
+       "description": "<i> You hit the dirt hard. The Wayward Blade sheathes his sword and waits, in no hurry at all. </i> <br> <br> \"Not yet. Get up when you are ready, and we go again.\"",
        "successDescription": "",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
-       "sceneCharacters": [
-        "05YyO19CYGTemFLQI3HPt"
-       ],
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
+       "sceneCharacters": [],
        "attackers": [],
        "attackers_scale_gains": 1,
        "attackers_max_per_battle": 1,
        "id": "wc_lost",
        "nextObjectiveId": [
         {
-         "text": "Put the contract back in front of me.",
+         "text": "Again.",
          "nextObjectiveId": "wc_reset"
         }
        ]
@@ -96,7 +92,7 @@
        "task": "reset_quest",
        "description": "",
        "successDescription": "",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
        "id": "wc_reset",
        "resetObjectiveId": "wc_open"
@@ -104,33 +100,31 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> The handler breaks the seal at last and reads the single line inside. </i> <br> <br> \"He says you fought the way he hoped you would. He does not say that often.\"",
+       "description": "<i> The Wayward Blade steps back and lowers his sword, breathing hard. </i> <br> <br> \"That is the fight I came for. Remember it, because I will.\"",
        "successDescription": "",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
-       "sceneCharacters": [
-        "05YyO19CYGTemFLQI3HPt"
-       ],
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
+       "sceneCharacters": [],
        "attackers": [],
        "attackers_scale_gains": 1,
        "attackers_max_per_battle": 1,
        "id": "wc_won",
        "nextObjectiveId": [
         {
-         "text": "Tell him the challenge is answered.",
+         "text": "Until next time.",
          "nextObjectiveId": "wc_win"
         }
        ]
       },
       {
        "description": "",
-       "successDescription": "The Wayward Blade's challenge is answered, and his sealed contract is yours.",
-       "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
+       "successDescription": "The Wayward Blade concedes the duel and goes on his way.",
+       "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
        "task": "win_quest",
        "id": "wc_win"
       }
      ],
-     "sceneBackground": "4o9I_6ZUaVBhQHa3AxNbT",
+     "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
      "sceneCharacters": [],
      "reward": {
       "reward_hunter_items": false,
