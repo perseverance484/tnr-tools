@@ -1,10 +1,11 @@
-// TNR forge bundle v0.5.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.6.0 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
-// Pinned engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
+// Legacy engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
+// Scoped Bloodright contract: studie-tech/TheNinjaRPG@1ccdaf078a58101872675e459c8e755b495d4c83.
 (() => {
   var JOURNAL_VERSION = 1;
   var KEY_PREFIX = "tnr_forge_job_v1:";
@@ -22,7 +23,7 @@
   var JOB_STATES = Object.freeze(["RUNNING", "PAUSED", "DONE", "INCOMPLETE", "ABORTED"]);
   var OPS = Object.freeze(["create", "update"]);
   var TRANSITIONS = Object.freeze({
-    PLANNED: ["SENT", "FAILED", "SKIPPED"],
+    PLANNED: ["SENT", "FAILED", "SKIPPED", "CONFIRMED"],
     SENT: ["CONFIRMED", "ORPHANED", "FAILED"],
     CONFIRMED: ["SENT", "VERIFIED", "FAILED"],
     VERIFIED: [],
@@ -164,12 +165,12 @@
     listJobs() {
       const jobs = [];
       this.broken = [];
-      for (const id of this.listJobIds()) {
+      for (const id2 of this.listJobIds()) {
         try {
-          const j = this._read(id);
+          const j = this._read(id2);
           if (j) jobs.push(j);
         } catch (e) {
-          this.broken.push({ jobId: id, error: e.message, raw: this.storage.getItem(this._key(id)) });
+          this.broken.push({ jobId: id2, error: e.message, raw: this.storage.getItem(this._key(id2)) });
         }
       }
       return jobs.sort((a, b) => String(b.startedAt).localeCompare(String(a.startedAt)) || a.jobId.localeCompare(b.jobId));
@@ -177,12 +178,12 @@
     get(jobId) {
       return this._read(jobId);
     }
-    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false }) {
+    open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifestHash2, items, allowEmpty = false, bloodrightImport = null }) {
       if (!jobId) throw new JournalError("jobId required");
       if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
       if (manifestHash2) {
-        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2);
+        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2 && !(j.bloodrightImport && Object.keys(j.forgottenBindings ?? {}).length));
         if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
       }
       const job = {
@@ -191,6 +192,7 @@
         manifestPath: manifestPath ?? null,
         manifestNumber: manifestNumber2 ?? null,
         manifestHash: manifestHash2 ?? null,
+        ...bloodrightImport ? { bloodrightImport } : {},
         startedAt: nowIso(this.clock),
         updatedAt: null,
         state: "RUNNING",
@@ -227,6 +229,9 @@
       const item = job.items[idx];
       if (!item) throw new JournalError("no such item: " + idx, { jobId, idx });
       const from = item.state;
+      if (from === "PLANNED" && to === "CONFIRMED" && !(patch.reused === true && patch.phase === "verify" && !!item.targetId && patch.entityId === item.targetId && item.op === "update" && ["skillTree", "skillTreeFolder"].includes(item.entity))) {
+        throw new JournalError("PLANNED -> CONFIRMED requires read-only Bloodright reuse", { jobId, idx });
+      }
       if (!TRANSITIONS[from] || !TRANSITIONS[from].includes(to)) {
         throw new JournalError(`illegal transition ${from} -> ${to}`, { jobId, idx, from, to });
       }
@@ -317,7 +322,143 @@
     return repairHistory(job);
   }
 
+  var contract_default = {
+    _meta: {
+      pin: "1ccdaf078a58101872675e459c8e755b495d4c83",
+      scope: "Bloodright potency import only; other effects intentionally refused",
+      sources: {
+        "app/src/validators/combat.ts": "a5de980c95409ca8d97fda8f6dad0b0bc302c8d1704455e594d2d4f97608723a",
+        "app/src/server/api/routers/skillTree.ts": "cc5808f36f910f8ec3d957dbc18325ddb008db1c4d0a47a3ea0fba09430c6835",
+        "app/drizzle/constants.ts": "f57cec468ccd834f33100d67b57711c7e7ec76f09d6da9b87e98ad87c2637000",
+        "app/src/validators/skillTree.ts": "7cea7b987f5db45a21f72717ebec0300ef865b453a7b448d1c5fa8dcc2b97040"
+      }
+    },
+    skillFields: [
+      "name",
+      "image",
+      "description",
+      "target",
+      "tier",
+      "requiredSkillIds",
+      "costSkillPoints",
+      "pathType",
+      "bloodlineId",
+      "seichiSilverCost",
+      "hidden",
+      "skillType",
+      "folderId",
+      "effects"
+    ],
+    folderFields: [
+      "name",
+      "image",
+      "description",
+      "hidden",
+      "order"
+    ],
+    effectFields: [
+      "staticAssetPath",
+      "staticAnimation",
+      "appearAnimation",
+      "disappearAnimation",
+      "appearSfx",
+      "disappearSfx",
+      "rounds",
+      "timeTracker",
+      "power",
+      "powerPerLevel",
+      "direction",
+      "target",
+      "friendlyFire",
+      "calculation",
+      "affectedTag",
+      "affectedElements",
+      "type",
+      "description"
+    ],
+    tags: [
+      "damage",
+      "increasedamagegiven",
+      "decreasedamagegiven",
+      "increasedamagetaken",
+      "decreasedamagetaken",
+      "afterburn",
+      "lifesteal",
+      "reflect",
+      "increaseheal",
+      "heal"
+    ],
+    elements: [
+      "Fire",
+      "Water",
+      "Wind",
+      "Earth",
+      "Lightning",
+      "Ice",
+      "Crystal",
+      "Dust",
+      "Shadow",
+      "Wood",
+      "Scorch",
+      "Storm",
+      "Magnet",
+      "Yin-Yang",
+      "Lava",
+      "Explosion",
+      "Light",
+      "Boil",
+      "Metal",
+      "Sand",
+      "None"
+    ],
+    procedures: {
+      "skillTree.get": {
+        kind: "query",
+        limited: true,
+        mcp: true,
+        auth: "public"
+      },
+      "skillTree.getAll": {
+        kind: "query",
+        limited: true,
+        mcp: true,
+        auth: "public"
+      },
+      "skillTree.getAllFolders": {
+        kind: "query",
+        limited: true,
+        mcp: true,
+        auth: "public"
+      },
+      "skillTree.create": {
+        kind: "mutation",
+        limited: false,
+        mcp: false,
+        auth: "protected"
+      },
+      "skillTree.update": {
+        kind: "mutation",
+        limited: false,
+        mcp: false,
+        auth: "protected"
+      },
+      "skillTree.createFolder": {
+        kind: "mutation",
+        limited: false,
+        mcp: false,
+        auth: "protected"
+      },
+      "skillTree.updateFolder": {
+        kind: "mutation",
+        limited: false,
+        mcp: false,
+        auth: "protected"
+      }
+    }
+  };
+
   var PROCEDURES = Object.freeze({
+    ...contract_default.procedures,
     "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
     "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
     "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
@@ -378,13 +519,14 @@
   var STORE = "captures";
   var SNAPSHOT_STORE = "capture_snapshots";
   var DB_VERSION = 2;
-  function captureKey(path, id) {
-    return `${path}:${id ?? ""}`;
+  function captureKey(path, id2) {
+    return `${path}:${id2 ?? ""}`;
   }
   function snapshotKey(jobId, phase, ordinal) {
     return `${jobId}::${phase}::${ordinal}`;
   }
   var FULL_PERSIST_PATHS = Object.freeze([
+    "skillTree.get",
     "gameAsset.get",
     "jutsu.get",
     "item.get",
@@ -481,12 +623,12 @@
       });
       return result;
     }
-    async put({ path, id, input, data }) {
-      id = id == null || id === "" ? "" : String(id);
+    async put({ path, id: id2, input, data }) {
+      id2 = id2 == null || id2 === "" ? "" : String(id2);
       const rec = {
-        key: captureKey(path, id),
+        key: captureKey(path, id2),
         path,
-        id: id === "" ? null : id,
+        id: id2 === "" ? null : id2,
         entity: entityOfPath(path),
         input: input ?? null,
         data,
@@ -496,15 +638,15 @@
       await this._tx("readwrite", (s) => reqToPromise(s.put(rec)));
       return rec;
     }
-    async get(path, id) {
-      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id))));
+    async get(path, id2) {
+      const rec = await this._tx("readonly", (s) => reqToPromise(s.get(captureKey(path, id2))));
       return rec ?? null;
     }
-    async has(path, id) {
-      return await this.get(path, id) != null;
+    async has(path, id2) {
+      return await this.get(path, id2) != null;
     }
-    async delete(path, id) {
-      await this._tx("readwrite", (s) => reqToPromise(s.delete(captureKey(path, id))));
+    async delete(path, id2) {
+      await this._tx("readwrite", (s) => reqToPromise(s.delete(captureKey(path, id2))));
     }
     async invalidateEntity(entity) {
       return this._tx("readwrite", async (s) => {
@@ -514,12 +656,12 @@
         return keys.length;
       });
     }
-    async invalidateRecord(entity, id) {
+    async invalidateRecord(entity, id2) {
       return this._tx("readwrite", async (s) => {
         const idx = s.index("entity");
         const recs = await reqToPromise(idx.getAll(entity));
         let n = 0;
-        const want = id == null ? "" : String(id);
+        const want = id2 == null ? "" : String(id2);
         for (const r of recs) {
           if (String(r.id ?? "") === want || r.id === null || r.id === "") {
             await reqToPromise(s.delete(r.key));
@@ -531,7 +673,7 @@
     }
     async list() {
       const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()));
-      return recs.map(({ key, path, id, entity, at, bytes }) => ({ key, path, id, entity, at, bytes }));
+      return recs.map(({ key, path, id: id2, entity, at, bytes }) => ({ key, path, id: id2, entity, at, bytes }));
     }
     async size() {
       const recs = await this.list();
@@ -540,14 +682,14 @@
     async clear() {
       await this._tx("readwrite", (s) => reqToPromise(s.clear()));
     }
-    async putSnapshot({ key, jobId, phase, ordinal, path, id, input, data }) {
+    async putSnapshot({ key, jobId, phase, ordinal, path, id: id2, input, data }) {
       const rec = {
         key,
         jobId,
         phase,
         ordinal,
         path,
-        id: id == null || id === "" ? null : String(id),
+        id: id2 == null || id2 === "" ? null : String(id2),
         entity: entityOfPath(path),
         input: input ?? null,
         data,
@@ -563,7 +705,7 @@
     }
     async listSnapshots() {
       const recs = await this._tx("readonly", (s) => reqToPromise(s.getAll()), SNAPSHOT_STORE);
-      return recs.map(({ key, jobId, phase, ordinal, path, id, entity, at, bytes }) => ({ key, jobId, phase, ordinal, path, id, entity, at, bytes }));
+      return recs.map(({ key, jobId, phase, ordinal, path, id: id2, entity, at, bytes }) => ({ key, jobId, phase, ordinal, path, id: id2, entity, at, bytes }));
     }
     async deleteSnapshot(key) {
       await this._tx("readwrite", (s) => reqToPromise(s.delete(key)), SNAPSHOT_STORE);
@@ -625,13 +767,13 @@
       });
       return out;
     }
-    async put({ path, id, data }) {
-      const key = `${path}\0${id}`;
-      await this._tx("readwrite", (s) => reqToPromise2(s.put({ key, path, id, data, at: this.clock() })));
+    async put({ path, id: id2, data }) {
+      const key = `${path}\0${id2}`;
+      await this._tx("readwrite", (s) => reqToPromise2(s.put({ key, path, id: id2, data, at: this.clock() })));
       return key;
     }
-    async get(path, id) {
-      const rec = await this._tx("readonly", (s) => reqToPromise2(s.get(`${path}\0${id}`)));
+    async get(path, id2) {
+      const rec = await this._tx("readonly", (s) => reqToPromise2(s.get(`${path}\0${id2}`)));
       return rec ?? null;
     }
     async clear() {
@@ -1219,9 +1361,9 @@
     Float32Array,
     Float64Array,
     Uint8ClampedArray
-  ].reduce((obj, ctor) => {
-    obj[ctor.name] = ctor;
-    return obj;
+  ].reduce((obj2, ctor) => {
+    obj2[ctor.name] = ctor;
+    return obj2;
   }, {});
   var typedArrayRule = compositeTransformation(isTypedArray, (v) => ["typed-array", v.constructor.name], (v) => [...v], (v, a) => {
     const ctor = constructorToName[a[1]];
@@ -1338,36 +1480,36 @@
       throw new Error("constructor is not allowed as a property");
     }
   }
-  var getDeep = (object, path) => {
+  var getDeep = (object2, path) => {
     validatePath(path);
     for (let i = 0; i < path.length; i++) {
       const key = path[i];
-      if (isSet(object)) {
-        object = getNthKey(object, +key);
-      } else if (isMap(object)) {
+      if (isSet(object2)) {
+        object2 = getNthKey(object2, +key);
+      } else if (isMap(object2)) {
         const row = +key;
         const type = +path[++i] === 0 ? "key" : "value";
-        const keyOfRow = getNthKey(object, row);
+        const keyOfRow = getNthKey(object2, row);
         switch (type) {
           case "key":
-            object = keyOfRow;
+            object2 = keyOfRow;
             break;
           case "value":
-            object = object.get(keyOfRow);
+            object2 = object2.get(keyOfRow);
             break;
         }
       } else {
-        object = object[key];
+        object2 = object2[key];
       }
     }
-    return object;
+    return object2;
   };
-  var setDeep = (object, path, mapper) => {
+  var setDeep = (object2, path, mapper) => {
     validatePath(path);
     if (path.length === 0) {
-      return mapper(object);
+      return mapper(object2);
     }
-    let parent = object;
+    let parent = object2;
     for (let i = 0; i < path.length - 1; i++) {
       const key = path[i];
       if (isArray(parent)) {
@@ -1429,7 +1571,7 @@
         }
       }
     }
-    return object;
+    return object2;
   };
 
   var enableLegacyPaths = (version) => version < 1;
@@ -1465,9 +1607,9 @@
   function applyReferentialEqualityAnnotations(plain, annotations, version) {
     const legacyPaths = enableLegacyPaths(version);
     function apply(identicalPaths, path) {
-      const object = getDeep(plain, parsePath(path, legacyPaths));
+      const object2 = getDeep(plain, parsePath(path, legacyPaths));
       identicalPaths.map((path2) => parsePath(path2, legacyPaths)).forEach((identicalObjectPath) => {
-        plain = setDeep(plain, identicalObjectPath, () => object);
+        plain = setDeep(plain, identicalObjectPath, () => object2);
       });
     }
     if (isArray(annotations)) {
@@ -1483,13 +1625,13 @@
     }
     return plain;
   }
-  var isDeep = (object, superJson) => isPlainObject(object) || isArray(object) || isMap(object) || isSet(object) || isError(object) || isInstanceOfRegisteredClass(object, superJson);
-  function addIdentity(object, path, identities) {
-    const existingSet = identities.get(object);
+  var isDeep = (object2, superJson) => isPlainObject(object2) || isArray(object2) || isMap(object2) || isSet(object2) || isError(object2) || isInstanceOfRegisteredClass(object2, superJson);
+  function addIdentity(object2, path, identities) {
+    const existingSet = identities.get(object2);
     if (existingSet) {
       existingSet.push(path);
     } else {
-      identities.set(object, [path]);
+      identities.set(object2, [path]);
     }
   }
   function generateReferentialEqualityAnnotations(identitites, dedupe) {
@@ -1519,44 +1661,44 @@
       return isEmptyObject(result) ? void 0 : result;
     }
   }
-  var walker = (object, identities, superJson, dedupe, path = [], objectsInThisPath = [], seenObjects =  new Map()) => {
-    const primitive = isPrimitive(object);
+  var walker = (object2, identities, superJson, dedupe, path = [], objectsInThisPath = [], seenObjects =  new Map()) => {
+    const primitive = isPrimitive(object2);
     if (!primitive) {
-      addIdentity(object, path, identities);
-      const seen = seenObjects.get(object);
+      addIdentity(object2, path, identities);
+      const seen = seenObjects.get(object2);
       if (seen) {
         return dedupe ? {
           transformedValue: null
         } : seen;
       }
     }
-    if (!isDeep(object, superJson)) {
-      const transformed2 = transformValue(object, superJson);
+    if (!isDeep(object2, superJson)) {
+      const transformed2 = transformValue(object2, superJson);
       const result2 = transformed2 ? {
         transformedValue: transformed2.value,
         annotations: [transformed2.type]
       } : {
-        transformedValue: object
+        transformedValue: object2
       };
       if (!primitive) {
-        seenObjects.set(object, result2);
+        seenObjects.set(object2, result2);
       }
       return result2;
     }
-    if (includes(objectsInThisPath, object)) {
+    if (includes(objectsInThisPath, object2)) {
       return {
         transformedValue: null
       };
     }
-    const transformationResult = transformValue(object, superJson);
-    const transformed = transformationResult?.value ?? object;
+    const transformationResult = transformValue(object2, superJson);
+    const transformed = transformationResult?.value ?? object2;
     const transformedValue = isArray(transformed) ? [] : {};
     const innerAnnotations = {};
     forEach(transformed, (value, index) => {
       if (index === "__proto__" || index === "constructor" || index === "prototype") {
         throw new Error(`Detected property ${index}. This is a prototype pollution risk, please remove it from your object.`);
       }
-      const recursiveResult = walker(value, identities, superJson, dedupe, [...path, index], [...objectsInThisPath, object], seenObjects);
+      const recursiveResult = walker(value, identities, superJson, dedupe, [...path, index], [...objectsInThisPath, object2], seenObjects);
       transformedValue[index] = recursiveResult.transformedValue;
       if (isArray(recursiveResult.annotations)) {
         innerAnnotations[escapeKey(index)] = recursiveResult.annotations;
@@ -1574,7 +1716,7 @@
       annotations: !!transformationResult ? [transformationResult.type, innerAnnotations] : innerAnnotations
     };
     if (!primitive) {
-      seenObjects.set(object, result);
+      seenObjects.set(object2, result);
     }
     return result;
   };
@@ -1668,9 +1810,9 @@
       this.allowedErrorProps = [];
       this.dedupe = dedupe;
     }
-    serialize(object) {
+    serialize(object2) {
       const identities =  new Map();
-      const output = walker(object, identities, this, this.dedupe);
+      const output = walker(object2, identities, this, this.dedupe);
       const res = {
         json: output.transformedValue
       };
@@ -1702,8 +1844,8 @@
       }
       return result;
     }
-    stringify(object) {
-      return JSON.stringify(this.serialize(object));
+    stringify(object2) {
+      return JSON.stringify(this.serialize(object2));
     }
     parse(string) {
       return this.deserialize(JSON.parse(string), { inPlace: true });
@@ -2188,12 +2330,32 @@
     }
   };
 
+  function stableStringify(v) {
+    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
+    if (v === void 0) return "null";
+    if (v === null || typeof v !== "object") return JSON.stringify(v);
+    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
+    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
+    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
+  }
+  function fnv1a32(str2) {
+    let h2 = 2166136261;
+    for (let i = 0; i < str2.length; i++) {
+      h2 ^= str2.charCodeAt(i);
+      h2 = Math.imul(h2, 16777619) >>> 0;
+    }
+    return h2.toString(16).padStart(8, "0");
+  }
+  function payloadHash(payload) {
+    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
+  }
+
   var INPUT_FOR = Object.freeze({
-    "profile.getAi": (id) => ({ userId: id })
+    "profile.getAi": (id2) => ({ userId: id2 })
   });
-  function readInput(path, id) {
+  function readInput(path, id2) {
     const f = INPUT_FOR[path];
-    return f ? f(id) : { id };
+    return f ? f(id2) : { id: id2 };
   }
   var LIST_INPUT_FOR = Object.freeze({
     "gameAsset.getAllNames": () => ({})
@@ -2220,12 +2382,16 @@
       this.maxBatch = maxBatch;
       this.stats = { hits: 0, misses: 0, requests: 0 };
     }
-    async get(path, id, { fresh = false } = {}) {
-      const [r] = await this.getMany(path, [id], { fresh });
+    async get(path, id2, { fresh = false } = {}) {
+      const [r] = await this.getMany(path, [id2], { fresh });
       return r;
     }
     async getMany(path, ids, { fresh = false } = {}) {
       if (procedure(path).kind !== "query") throw new Error("getMany is for queries: " + path);
+      if (path === "skillTree.getAllFolders") {
+        const r = await this.list(path, { fresh });
+        return ids.map((id2) => r.ok ? { ok: true, data: r.data.find((row) => row.id === id2) } : r);
+      }
       const out = new Array(ids.length);
       const misses = [];
       for (let i = 0; i < ids.length; i++) {
@@ -2262,6 +2428,7 @@
     }
     async list(path, { fresh = false, input } = {}) {
       if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
+      if (path === "skillTree.getAll" || path === "skillTree.getAllFolders") return this.skillInventory(path, { fresh, input });
       if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
       const sent = input === void 0 ? listInput(path) : input;
       const cacheable = sameInput(sent, listInput(path));
@@ -2278,7 +2445,124 @@
       this.budget.observe([r], [path]);
       return r;
     }
+    async skillInventory(path, { fresh, input }) {
+      const cacheable = input === void 0;
+      const hit = fresh || !cacheable ? null : await this.cache.get(path, "");
+      if (hit) {
+        this.stats.hits++;
+        return { ok: true, data: hit.data, cached: true };
+      }
+      this.stats.misses++;
+      const query = async (sent) => {
+        await this.budget.acquire(path, 1);
+        this.stats.requests++;
+        const [r] = await this.client.batch([{ path, input: sent }]);
+        this.budget.observe([r], [path]);
+        return r;
+      };
+      let rows = [];
+      if (path === "skillTree.getAllFolders") {
+        const r = await query({ includeHidden: true, ...input });
+        if (!r.ok) return r;
+        if (!Array.isArray(r.data)) throw new Error("folder inventory did not return an array");
+        rows = r.data;
+      } else {
+        if (input?.cursor) throw new Error("complete skill inventory must start at cursor zero");
+        const paths = input?.pathType ? [input.pathType] : ["SKILL", "BLOODRIGHT"];
+        const scan = async () => {
+          const ids =  new Set(), scanned = [];
+          for (const pathType of paths) {
+            let cursor = 0;
+            for (; ; ) {
+              const r = await query({ ...input, pathType, limit: 500, cursor });
+              if (!r.ok) return r;
+              if (!Array.isArray(r.data?.data) || !("nextCursor" in r.data)) throw new Error("malformed skill inventory page");
+              for (const row of r.data.data) {
+                if (!row?.id || ids.has(row.id) || row.pathType !== pathType) throw new Error("skill inventory shifted or repeated; refresh the preview");
+                ids.add(row.id);
+                scanned.push(row);
+              }
+              const next = r.data.nextCursor;
+              if (next == null) break;
+              if (!Number.isInteger(next) || next !== cursor + 1 || cursor >= 9999) throw new Error("invalid skill inventory cursor");
+              cursor = next;
+            }
+          }
+          return { ok: true, data: scanned };
+        };
+        const first = await scan();
+        if (!first.ok) return first;
+        const second = await scan();
+        if (!second.ok) return second;
+        if (stableStringify(first.data) !== stableStringify(second.data)) throw new Error("skill inventory changed between scans; coordinate editing and refresh the preview");
+        rows = second.data;
+      }
+      if (cacheable) await this.cache.put({ path, id: "", input: input ?? null, data: rows });
+      return { ok: true, data: rows };
+    }
   };
+
+  var isBloodrightEntity = (e) => e === "skillTree" || e === "skillTreeFolder";
+  var bloodrightFields = (e) => new Set(e === "skillTree" ? contract_default.skillFields : contract_default.folderFields);
+  var obj = (v) => v && typeof v === "object" && !Array.isArray(v);
+  var str = (v) => typeof v === "string";
+  var int = (v, min, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= min && v <= max;
+  function bloodrightProblems(entity, data, live = null, { preCreate = false } = {}) {
+    if (!obj(data)) return ["data must be an object"];
+    const out = [];
+    const fields = bloodrightFields(entity);
+    for (const k of Object.keys(data)) if (!fields.has(k)) out.push(`unknown key ${k} for ${entity}`);
+    const d = { ...live, ...data };
+    const check = (ok, message) => {
+      if (!ok) out.push(message);
+    };
+    check(str(d.name) && !!d.name.trim() && d.name.length <= 191, "name must contain 1..191 characters");
+    check(d.image === void 0 || str(d.image) && d.image.length <= (entity === "skillTree" ? 191 : 512), "invalid image");
+    check(d.description === void 0 || str(d.description) || entity === "skillTreeFolder" && d.description === null, "description must be text");
+    check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
+    if (entity === "skillTreeFolder") {
+      check(d.order === void 0 || Number.isSafeInteger(d.order), "folder order must be an integer");
+      return out;
+    }
+    check(str(d.name) && d.name === d.name.trim(), "skill name must not have surrounding whitespace");
+    check(d.pathType === "BLOODRIGHT" && str(d.bloodlineId) && !!d.bloodlineId && !d.bloodlineId.startsWith("@"), "requires a literal bloodlineId and pathType BLOODRIGHT");
+    check(d.skillType === "DEFAULT", "Bloodright skillType must be DEFAULT");
+    check(["SELF", "ENEMIES", "ALLIES"].includes(d.target), "invalid skill target");
+    check(int(d.tier, 1, 10), "tier must be 1..10");
+    check(int(d.costSkillPoints, 1), "costSkillPoints must be a positive integer");
+    check(int(d.seichiSilverCost, 0, 2147483647), "explicit seichiSilverCost must be 0..2147483647");
+    check(Array.isArray(d.requiredSkillIds) && d.requiredSkillIds.every((v) => str(v) && !!v) && new Set(d.requiredSkillIds).size === d.requiredSkillIds.length, "invalid prerequisite IDs");
+    check(d.folderId == null || str(d.folderId) && !!d.folderId, "invalid folderId");
+    check(Array.isArray(d.effects), "effects must be an array");
+    for (const [i, e] of (Array.isArray(d.effects) ? d.effects : []).entries()) {
+      const where = `effects[${i}]`;
+      if (!obj(e)) {
+        out.push(`${where} must be an object`);
+        continue;
+      }
+      for (const k of Object.keys(e)) if (!contract_default.effectFields.includes(k)) out.push(`${where}: unknown key ${k}`);
+      check(["increasepotency", "decreasepotency"].includes(e.type), `${where}: only audited potency effects supported`);
+      check(Number.isFinite(e.power) && e.power >= 0, `${where}: power must be nonnegative`);
+      check(Number.isFinite(e.powerPerLevel) && e.powerPerLevel >= 0 && e.powerPerLevel <= 1, `${where}: powerPerLevel must be 0..1`);
+      check(int(e.rounds, 1, 100), `${where}: explicit rounds must be 1..100`);
+      check(["static", "percentage"].includes(e.calculation), `${where}: invalid calculation`);
+      check(["SELF", "INHERIT"].includes(e.target), `${where}: invalid target`);
+      check(e.direction === "offence", `${where}: direction must be offence`);
+      check(e.friendlyFire === void 0 || ["ALL", "FRIENDLY", "ENEMIES"].includes(e.friendlyFire), `${where}: invalid friendlyFire`);
+      check(contract_default.tags.includes(e.affectedTag), `${where}: choose one supported affectedTag`);
+      check(Array.isArray(e.affectedElements) && e.affectedElements.length > 0 && e.affectedElements.every((v) => contract_default.elements.includes(v)), `${where}: resolve affectedElements explicitly`);
+      for (const k of ["description", "staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]) check(str(e[k]), `${where}: ${k} must be text`);
+      check(e.timeTracker === void 0, `${where}: runtime timeTracker is not importable`);
+    }
+    if (!preCreate && live) check(str(d.image) && !!d.image, "skill image must be preserved or supplied");
+    return out;
+  }
+  function writableSnapshot(entity, row) {
+    const out = {};
+    for (const key of bloodrightFields(entity)) if (row[key] !== void 0) out[key] = row[key];
+    if (entity === "skillTreeFolder" && out.description == null) out.description = "";
+    return out;
+  }
 
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
   var AI_STRIPPED_OK = Object.freeze(["hidden"]);
@@ -2333,10 +2617,12 @@
       this.schemaMissing = Object.keys(this.fields).length === 0;
     }
     knownFields(entity) {
+      if (isBloodrightEntity(entity)) return bloodrightFields(entity);
       const s = SCHEMA_ENTITY[entity];
       return s ? this.fields[s] ?? null : null;
     }
     problems(entity, data, live = null, { preCreate = false } = {}) {
+      if (isBloodrightEntity(entity)) return bloodrightProblems(entity, data, live, { preCreate });
       const out = [];
       if (!data || typeof data !== "object") return ["data is not an object"];
       const keys = Object.keys(data);
@@ -2376,8 +2662,8 @@
       if ((entity === "ai" || entity === "aiProfile") && Array.isArray(data.rules) && data.rules.length) families.push("ai rules");
       if (!families.length) return out;
       if (!this.nested) return [`no derived nested key set: refusing to send ${families.join(", ")} unchecked`];
-      const check = (obj, allowed, where) => {
-        for (const k of Object.keys(obj)) {
+      const check = (obj2, allowed, where) => {
+        for (const k of Object.keys(obj2)) {
           if (allowed.includes(k)) continue;
           out.push(`${where}: unknown key "${k}" (the server's validator would drop it silently)`);
         }
@@ -2500,16 +2786,20 @@
         const sm =  new Map();
         for (const t of asserted.items ?? []) {
           if (typeof t === "string") sm.set(t, null);
-          else if (t && Array.isArray(t.ids)) for (const id of t.ids) sm.set(id, t.number == null ? null : Number(t.number));
+          else if (t && Array.isArray(t.ids)) for (const id2 of t.ids) sm.set(id2, t.number == null ? null : Number(t.number));
           else if (t) sm.set(t.itemId ?? t.id, t.number == null ? null : Number(t.number));
         }
         const l2 = [...lm.keys()].filter(Boolean), s2 = [...sm.keys()].filter(Boolean);
-        const chanceDrift = s2.some((id) => sm.get(id) != null && lm.has(id) && lm.get(id) != null && Number(lm.get(id)) !== sm.get(id));
+        const chanceDrift = s2.some((id2) => sm.get(id2) != null && lm.has(id2) && lm.get(id2) != null && Number(lm.get(id2)) !== sm.get(id2));
         if (chanceDrift) diffs.push({ key: "items.dropChancePerc", sent: Object.fromEntries(sm), live: Object.fromEntries(lm) });
         if (JSON.stringify([...s2].sort()) !== JSON.stringify([...l2].sort())) diffs.push({ key: k, sent: s2, live: l2 });
         continue;
       }
       const s = asserted[k], l = live ? live[k] : void 0;
+      if (entity === "skillTree" && k === "effects") {
+        if (!deepEqualPayload(s, l)) diffs.push({ key: k, sent: s, live: l });
+        continue;
+      }
       if (!eqLoose(s, l, entity)) diffs.push({ key: k, sent: s, live: l });
     }
     return diffs;
@@ -2525,6 +2815,17 @@
       return ka.every((k) => eqLoose(a[k], b[k], entity));
     }
     return false;
+  }
+
+  var UNRESOLVED =  new Set(["SENT", "ORPHANED", "CONFIRMED"]);
+  function unresolvedBloodrightJob(journal, bloodlineId, exceptJobId = null) {
+    if (!bloodlineId) return null;
+    if (!journal || typeof journal.listJobs !== "function") throw new Error("Bloodright import requires the persistent journal");
+    return journal.listJobs().find((job) => job.jobId !== exceptJobId && (job.bloodrightImport?.bloodlineId === bloodlineId || job.items.some((it) => it.entity === "skillTree" && it.srcId?.startsWith(`br:${bloodlineId}:`))) && job.items.some((it) => UNRESOLVED.has(it.state))) ?? null;
+  }
+  function assertBloodrightAvailable(journal, bloodlineId) {
+    const job = unresolvedBloodrightJob(journal, bloodlineId);
+    if (job) throw new Error(`unresolved Bloodright job ${job.jobId}: resume or resolve its pending writes before preparing another import for this bloodline`);
   }
 
   var IDMAP_KEY = "tnr_bk_idmap_v1";
@@ -2673,6 +2974,26 @@
   }
 
   var RECIPES = Object.freeze({
+    skillTree: {
+      create: { path: "skillTree.create", input: (d) => ({ bloodlineId: d.bloodlineId }) },
+      get: "skillTree.get",
+      update: "skillTree.update",
+      names: "skillTree.getAll",
+      idKey: "id",
+      nameKey: "name",
+      placeholder: (id2) => `New Skill - ${id2}`,
+      cacheEntity: "skillTree"
+    },
+    skillTreeFolder: {
+      create: { path: "skillTree.createFolder", input: (d) => d },
+      oneStep: true,
+      get: "skillTree.getAllFolders",
+      update: "skillTree.updateFolder",
+      names: "skillTree.getAllFolders",
+      idKey: "id",
+      nameKey: "name",
+      cacheEntity: "skillTree"
+    },
     jutsu: {
       create: { path: "jutsu.create", input: () => void 0 },
       get: "jutsu.get",
@@ -2680,7 +3001,7 @@
       names: "jutsu.getAllNames",
       idKey: "id",
       nameKey: "name",
-      placeholder: (id) => `New Jutsu - ${id}`,
+      placeholder: (id2) => `New Jutsu - ${id2}`,
       cacheEntity: "jutsu"
     },
     item: {
@@ -2690,7 +3011,7 @@
       names: "item.getAllNames",
       idKey: "id",
       nameKey: "name",
-      placeholder: (id) => `New Item - ${id}`,
+      placeholder: (id2) => `New Item - ${id2}`,
       cacheEntity: "item"
     },
     bloodline: {
@@ -2700,7 +3021,7 @@
       names: "bloodline.getAllNames",
       idKey: "id",
       nameKey: "name",
-      placeholder: (id) => `New Bloodline - ${id}`,
+      placeholder: (id2) => `New Bloodline - ${id2}`,
       cacheEntity: "bloodline"
     },
     asset: {
@@ -2721,7 +3042,7 @@
       names: "quests.getAllNames",
       idKey: "id",
       nameKey: "name",
-      placeholder: (id) => `New Quest - ${id}`,
+      placeholder: (id2) => `New Quest - ${id2}`,
       cacheEntity: "quest"
     },
     ai: {
@@ -2731,7 +3052,7 @@
       names: "profile.getAllAiNames",
       idKey: "userId",
       nameKey: "username",
-      placeholder: (id) => `New AI - ${id}`,
+      placeholder: (id2) => `New AI - ${id2}`,
       cacheEntity: "ai"
     },
     aiProfile: {
@@ -2756,6 +3077,7 @@
     if (!fields) return src;
     const out = {};
     for (const k of fields) if (src[k] !== void 0) out[k] = src[k];
+    if (entity === "skillTreeFolder" && out.description == null) out.description = "";
     return out;
   }
   var AI_OMIT =  new Set([
@@ -2792,7 +3114,7 @@
     return out;
   }
 
-  var REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img):(.+)$/;
+  var REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img|skillTree|skillTreeFolder):(.+)$/;
   var DOUBLED_RE = /^@\w+:@\w+:/;
   function collectRefs(o, out = [], path = "") {
     if (Array.isArray(o)) o.forEach((x, i) => collectRefs(x, out, `${path}[${i}]`));
@@ -2833,26 +3155,6 @@
       return v;
     };
     return { value: walk(o, ""), unresolved };
-  }
-
-  function stableStringify(v) {
-    if (v && typeof v === "object" && typeof v.toJSON === "function") v = v.toJSON();
-    if (v === void 0) return "null";
-    if (v === null || typeof v !== "object") return JSON.stringify(v);
-    if (Array.isArray(v)) return "[" + v.map(stableStringify).join(",") + "]";
-    const keys = Object.keys(v).filter((k) => v[k] !== void 0).sort();
-    return "{" + keys.map((k) => JSON.stringify(k) + ":" + stableStringify(v[k])).join(",") + "}";
-  }
-  function fnv1a32(str) {
-    let h2 = 2166136261;
-    for (let i = 0; i < str.length; i++) {
-      h2 ^= str.charCodeAt(i);
-      h2 = Math.imul(h2, 16777619) >>> 0;
-    }
-    return h2.toString(16).padStart(8, "0");
-  }
-  function payloadHash(payload) {
-    return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
   var b_DATA_pool_default = {
@@ -3957,7 +4259,7 @@
     if (!data || typeof data !== "object") return { errors, warnings };
     const equipped = (Array.isArray(data.jutsus) ? data.jutsus : []).map(String);
     const eq = new Set(equipped);
-    const ap = equipped.map((id) => POOL_BY_ID[id]?.ap).filter((v) => typeof v === "number");
+    const ap = equipped.map((id2) => POOL_BY_ID[id2]?.ap).filter((v) => typeof v === "number");
     if (ap.length >= 3 && Math.min(...ap) >= 60) {
       warnings.push("kit is all 60 AP actions and no 40 AP stance: the AI will exhaust itself (a round is 100 AP; laws 61 to 63)");
     }
@@ -4091,7 +4393,7 @@
     for (const o of objs) if (o && o.id && !seen[o.id] && o.id !== first.id) W(it, `L12b orphan node ${o.id} (unreachable)`);
   }
 
-  var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile"]);
+  var ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
   var SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
   var IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
   var PERSIST_MODES = Object.freeze(["summary", "full"]);
@@ -4167,6 +4469,16 @@
       imgSizes
     };
     if (packed.pack) policy.imagePack = packed.pack;
+    if (items.some((it) => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
+    if (m.bloodrightImport) {
+      const b = m.bloodrightImport;
+      if (b.version !== 1 || b.gamePin !== contract_default._meta.pin || typeof b.bloodlineId !== "string" || !b.bloodlineId || !/^[a-f0-9]{40}$/.test(b.source?.ref ?? "") || typeof b.source?.path !== "string") throw new ManifestError("invalid or incompatible Bloodright import provenance");
+      if (items.some((it) => !["skillTree", "skillTreeFolder"].includes(it.entity) || !it.srcId?.startsWith(`br:${b.bloodlineId}:`) || it.entity === "skillTree" && it.data.bloodlineId !== b.bloodlineId)) throw new ManifestError("Bloodright import items must belong to their declared bloodline scope");
+      if (!policy.dedupNames) throw new ManifestError("Bloodright imports require dedupNames:true");
+      if (typeof b.hiddenProbeId !== "string" || !b.hiddenProbeId || !b.bindings || typeof b.bindings !== "object" || Array.isArray(b.bindings)) throw new ManifestError("Bloodright import requires hidden-probe identity and explicit bindings");
+      for (const it of items) if (it.op === "update" && (!it.expected || typeof it.expected !== "object" || Array.isArray(it.expected) || b.bindings[it.srcId] !== it.targetId)) throw new ManifestError(`Bloodright edit ${it.name} requires a frozen preimage and matching binding`);
+      policy.bloodrightImport = b;
+    }
     return {
       items,
       capture,
@@ -4202,16 +4514,16 @@
       throw new ManifestError(`${where} (${proc}): persist must be ${PERSIST_MODES.map((p) => JSON.stringify(p)).join(" or ")}, got ${JSON.stringify(c.persist)}`, { phase, idx: i, proc, persist: c.persist });
     }
     const input = c.input && typeof c.input === "object" && !Array.isArray(c.input) ? c.input : null;
-    const id = input ? input.id ?? input.userId : void 0;
+    const id2 = input ? input.id ?? input.userId : void 0;
     if (persist === "full") {
       if (!canPersistFull(proc)) {
         throw new ManifestError(`${where} (${proc}): persist "full" is only allowed for the audited content-record point reads ${FULL_PERSIST_PATHS.join(", ")}`, { phase, idx: i, proc });
       }
-      if (typeof id !== "string" || !id) {
+      if (typeof id2 !== "string" || !id2) {
         throw new ManifestError(`${where} (${proc}): persist "full" needs input.id (or input.userId) naming one record`, { phase, idx: i, proc });
       }
     }
-    return { proc, input, persist, id: typeof id === "string" && id ? id : null };
+    return { proc, input, persist, id: typeof id2 === "string" && id2 ? id2 : null };
   }
   function normalizeItem(it, idx) {
     if (!it || typeof it !== "object") throw new ManifestError(`item ${idx} is not an object`);
@@ -4234,7 +4546,8 @@
       srcId: typeof it.srcId === "string" && it.srcId ? it.srcId : null,
       targetId: typeof it.targetId === "string" && it.targetId ? it.targetId : null,
       phase: typeof it.phase === "number" ? it.phase : null,
-      data
+      data,
+      ...it.expected !== void 0 ? { expected: it.expected } : {}
     };
   }
   function planOrder(manifest, idmap = {}) {
@@ -4244,9 +4557,10 @@
       const deps = [];
       for (const r of refs) {
         if (r.pfx === "img") continue;
-        if (idmap[r.key]) continue;
+        if (idmap[r.key] && !(r.pfx.startsWith("skillTree") && bySrc.has(r.key))) continue;
         const src = bySrc.get(r.key);
         if (!src) throw new ManifestError(`item ${it.idx} (${it.name}): @${r.pfx}:${r.key} is unknown (no srcId in this manifest, not in idmap)`, { idx: it.idx, ref: r });
+        if (r.pfx.startsWith("skillTree") && src.entity !== r.pfx) throw new ManifestError(`typed reference ${r.pfx}:${r.key} points to ${src.entity}`);
         if (src.idx === it.idx) throw new ManifestError(`item ${it.idx} references itself`);
         deps.push(src.srcId);
       }
@@ -4363,7 +4677,8 @@
       return new Paused("SESSION", { detail, authState: "signed_out", ...info });
     }
     _leaseKey(jobId) {
-      return LEASE_PREFIX + jobId;
+      const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId ?? this.journal.get(jobId)?.bloodrightImport?.bloodlineId;
+      return LEASE_PREFIX + (bloodline ? `bloodright:${bloodline}` : jobId);
     }
     _readLease(jobId) {
       try {
@@ -4384,9 +4699,10 @@
     }
     plan(manifestSource, { jobId, manifestPath = null, manifestNumber: manifestNumber2 = null } = {}) {
       const manifest = parseManifest(manifestSource);
+      assertBloodrightAvailable(this.journal, manifest.policy.bloodrightImport?.bloodlineId);
       const order = planOrder(manifest, readIdmap(this.storage));
       const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
-      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
+      const job = this.journal.open({ jobId, manifestPath, manifestNumber: manifestNumber2, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly, bloodrightImport: manifest.policy.bloodrightImport });
       this.manifests.set(jobId, { manifest, order });
       return job;
     }
@@ -4428,6 +4744,10 @@
         }
       }
       this._lease(jobId);
+      const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+      if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
+      const bindingConflict = this._bindingConflict(job);
+      if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
       this._syncIdmapFromJob(job);
       this.pauseRequested = false;
       this._emit("job:start", { jobId, items: job.items.length, mode: "run" });
@@ -4442,6 +4762,12 @@
           if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
           if (this.pauseRequested) throw new Paused("USER", { idx: i });
           this._emit("item:start", { jobId, idx: i, name: item.name ?? null, entity: item.entity ?? null, phase: item.phase ?? null });
+          if (isBloodrightEntity(item.entity)) {
+            for (const dep of order[i].deps ?? []) {
+              const parent = job.items.find((it) => it.srcId === dep);
+              if (!parent || parent.state !== "VERIFIED") throw new Paused("DEPENDENCY", { idx: i, detail: `${dep} must verify before ${item.name}` });
+            }
+          }
           await this._runItem(jobId, item, order[i], manifest);
           this._emit("item:end", { jobId, idx: i, state: this.journal.get(jobId).items[i]?.state ?? null });
         }
@@ -4479,6 +4805,10 @@
         }
       }
       this._lease(jobId);
+      const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+      if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
+      const bindingConflict = this._bindingConflict(job);
+      if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
       this._syncIdmapFromJob(job);
       try {
         for (const item of job.items) {
@@ -4516,12 +4846,51 @@
       if (!entityId) throw new Error("adopt needs an id");
       const holder = this.journal.findHolder(item.entity, entityId, { exceptJobId: jobId, exceptIdx: idx });
       if (holder) throw new Error(`${entityId} is already held by job ${holder.jobId} item ${holder.idx} (${holder.name}) in state ${holder.state}`);
-      const phase = item.phase === "create" || !item.entityId ? "update" : item.phase;
+      const phase = item.phase === "create" || !item.entityId ? recipe(item.entity).oneStep ? "verify" : "update" : item.phase;
       this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase, adopted: true, error: null });
       if (item.srcId) this._remember(item.srcId, entityId);
     }
     skip(jobId, idx) {
       this.journal.transition(jobId, idx, "SKIPPED");
+    }
+    resolveConfirmed(jobId, idx, { confirmed = false } = {}) {
+      if (confirmed !== true) throw new Error("operator confirmation required to leave an unverified write as failed");
+      const job = this.journal.get(jobId), item = job?.items[idx];
+      if (job?.items.some((it) => it.state === "SENT")) throw new Error("reconcile all SENT items before resolving a confirmed write");
+      if (!["PAUSED", "INCOMPLETE"].includes(job?.state)) throw new Error("recovery requires a paused or incomplete job");
+      if (!item || item.state !== "CONFIRMED" || !isBloodrightEntity(item.entity)) throw new Error("recovery requires a CONFIRMED Bloodright item");
+      this._lease(jobId);
+      try {
+        if (item.srcId && item.entityId && !readIdmap(this.storage)[item.srcId]) this._remember(item.srcId, item.entityId);
+        this.journal.transition(jobId, idx, "FAILED", {
+          resolution: { action: "operator-failed", at: new Date(this.clock()).toISOString(), pauseReason: job.pause?.reason ?? null },
+          error: item.error || "Operator stopped recovery; this write remains unverified and its server record is left as is"
+        });
+      } finally {
+        this._releaseLease(jobId);
+      }
+      return this.summary(jobId);
+    }
+    forgetBinding(jobId, idx, { confirmed = false, expectedId } = {}) {
+      if (confirmed !== true) throw new Error("operator confirmation required to forget a saved binding");
+      const job = this.journal.get(jobId), item = job?.items[idx], bl = job?.bloodrightImport?.bloodlineId;
+      if (!bl || !item?.srcId?.startsWith(`br:${bl}:`) || !isBloodrightEntity(item.entity) || !["FAILED", "VERIFIED"].includes(item.state)) throw new Error("forget binding requires a resolved Bloodright item with provenance");
+      if (job.state === "RUNNING") throw new Error("pause the job before forgetting a binding");
+      this._lease(jobId);
+      try {
+        assertBloodrightAvailable(this.journal, bl);
+        const map = readIdmap(this.storage);
+        if (!expectedId || expectedId !== item.entityId || map[item.srcId] !== expectedId) throw new Error("binding changed; refresh and inspect its current ID");
+        const forgotten = { entityId: expectedId, at: new Date(this.clock()).toISOString() };
+        for (const old of this.journal.listJobs()) if (old.items.some((it) => it.srcId === item.srcId)) {
+          this.journal.annotateJob(old.jobId, { forgottenBindings: { ...old.forgottenBindings, [item.srcId]: forgotten } });
+        }
+        delete map[item.srcId];
+        writeIdmap(this.storage, map);
+      } finally {
+        this._releaseLease(jobId);
+      }
+      return this.summary(jobId);
     }
     summary(jobId) {
       const job = this.journal.get(jobId);
@@ -4546,6 +4915,7 @@
           await this._create(jobId, item, planned);
           item = this.journal.get(jobId).items[item.idx];
           if (item.state !== "CONFIRMED") return;
+          if (recipe(ent).oneStep) return await this._verifyOrSkip(jobId, item, planned, manifest);
         }
         if (ent === "aiProfile") {
           await this._rules(jobId, item, planned, item.targetId);
@@ -4614,12 +4984,17 @@
         const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
         if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
       }
-      const input = rc.create.input(planned.data);
+      const createData = rc.oneStep ? await this._resolved(planned.data, jobId) : planned.data;
+      if (rc.oneStep) {
+        const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
+        if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+      }
+      const input = rc.create.input(createData);
       this._requireAuth(rc.create.path, item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
       const o = readCreate(decoded);
       if (o.kind === "ok") {
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: "update" });
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...rc.oneStep ? { asserted: Object.keys(planned.data) } : {} });
         this._remember(item.srcId, o.id);
         await this.cache.invalidateEntity(rc.cacheEntity);
         this.log(`created ${item.entity} ${o.id} (placeholder)`, item);
@@ -4629,27 +5004,41 @@
     }
     async _fill(jobId, item, planned) {
       const rc = recipe(item.entity);
-      const id = item.entityId ?? item.targetId;
-      if (!id) throw new Error("no id to fill");
+      const id2 = item.entityId ?? item.targetId;
+      if (!id2) throw new Error("no id to fill");
       const data = await this._resolved(planned.data, jobId);
       this._requireAuth(rc.get, item.idx);
-      const live = await this.reader.get(rc.get, id, { fresh: true });
+      const live = await this.reader.get(rc.get, id2, { fresh: true });
       if (!live.ok) {
         const cls = classifyError(live.error);
         if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
         throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
       }
-      if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
+      if (live.data == null && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${id2}; recheck the session, hidden-content access and target before resuming` });
+      if (live.data == null) throw new Error(`${rc.get} returned no record for ${id2}`);
+      if (isBloodrightEntity(item.entity)) {
+        if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || live.data.bloodlineId !== data.bloodlineId || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
+        if (item.op === "create" && item.entity === "skillTree" && live.data.name !== rc.placeholder(id2) && diffAsserted(item.entity, data, live.data).length) throw new Error("adopted skill is not the expected placeholder; refusing to overwrite it");
+        if (!diffAsserted(item.entity, data, live.data).length) {
+          const reuse = { entityId: id2, phase: "verify", reused: true, asserted: Object.keys(data) };
+          if (item.state === "CONFIRMED") this.journal.annotate(jobId, item.idx, reuse);
+          else this.journal.transition(jobId, item.idx, "CONFIRMED", reuse);
+          this._remember(item.srcId, id2);
+          return;
+        }
+        if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
+      }
       const problems = this.validator.problems(item.entity, data, live.data);
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
       this._requireAuth(rc.update, item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, { id, data: payload }));
+      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, { id: id2, data: payload }));
       const o = readMutation(decoded);
-      await this.cache.invalidateRecord(rc.cacheEntity, id);
+      await this.cache.invalidateRecord(rc.cacheEntity, id2);
       if (o.kind === "ok") {
         const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data) });
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id2, phase: next, asserted: Object.keys(data) });
+        if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id2);
         return;
       }
       this._failFromOutcome(jobId, item, o, "update");
@@ -4703,6 +5092,7 @@
         this._requireAuth(rc.get, item.idx);
         const live = await this.reader.get(rc.get, item.entityId, { fresh: true });
         if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
+        if (live.ok && !live.data && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${item.entityId}; recheck the session, hidden-content access and target before resuming` });
         if (!live.ok || !live.data) {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
@@ -4768,21 +5158,21 @@
       for (let i = out.length; i < list.length; i++) {
         const c = list[i];
         const path = c.proc || c.procedure;
-        const id = c.id ?? (c.input && (c.input.id ?? c.input.userId));
+        const id2 = c.id ?? (c.input && (c.input.id ?? c.input.userId));
         const capInput = c.input == null ? void 0 : c.input;
         this._requireAuth(path, null);
-        const r = id != null ? await this.reader.get(path, id, { fresh: true }) : await this.reader.list(path, { fresh: true, input: capInput });
+        const r = id2 != null ? await this.reader.get(path, id2, { fresh: true }) : await this.reader.list(path, { fresh: true, input: capInput });
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path, phase, ordinal: i });
-        const sentInput = (id != null ? readInput(path, id) : capInput === void 0 ? listInput(path) : capInput) ?? null;
+        const sentInput = (id2 != null ? readInput(path, id2) : capInput === void 0 ? listInput(path) : capInput) ?? null;
         const entry = { phase, proc: path, input: sentInput, ok: r.ok, rows: Array.isArray(r.data) ? r.data.length : r.data ? 1 : 0, error: r.ok ? null : r.error.code };
-        if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id, sentInput, r));
+        if (c.persist === "full") Object.assign(entry, await this._persistFull(jobId, phase, i, path, id2, sentInput, r));
         out.push(entry);
         this.journal.annotateJob(jobId, { [key + "Partial"]: out });
       }
       this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
       return out;
     }
-    async _persistFull(jobId, phase, ordinal, path, id, input, r) {
+    async _persistFull(jobId, phase, ordinal, path, id2, input, r) {
       const fields = { persist: "full", snapshotKey: snapshotKey(jobId, phase, ordinal), persistOk: false, persistError: null };
       if (!r.ok) {
         fields.persistError = "read failed; there is no body to persist";
@@ -4795,7 +5185,7 @@
         return fields;
       }
       try {
-        await this.cache.putSnapshot({ key: fields.snapshotKey, jobId, phase, ordinal, path, id, input, data: r.data });
+        await this.cache.putSnapshot({ key: fields.snapshotKey, jobId, phase, ordinal, path, id: id2, input, data: r.data });
       } catch (e) {
         fields.persistError = "capture snapshot write failed: " + (e && e.message ? e.message : String(e));
         return fields;
@@ -4820,6 +5210,11 @@
       return this.summary(jobId);
     }
     _failFromOutcome(jobId, item, o, step) {
+      const roleMessages = ["You are not authorized to create skills", "You are not authorized to create hidden skills", "You are not authorized to edit this content", "You are not authorized to hide skills", "You are not authorized to create folders", "You are not authorized to create hidden folders", "You are not authorized to edit folders", "You are not authorized to hide folders"];
+      if (isBloodrightEntity(item.entity) && roleMessages.includes(o.message)) {
+        this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} PERMISSION: ${o.message}` });
+        throw new Paused("PERMISSION", { idx: item.idx, detail: o.message });
+      }
       if (o.kind === "refused") {
         this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} refused: ${o.message}` });
         return;
@@ -4833,10 +5228,20 @@
       const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
       this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });
     }
-    _remember(srcId, id) {
-      if (!srcId || !id) return;
+    _bindingConflict(job) {
+      if (!this.manifests.get(job.jobId)?.manifest.policy.bloodrightImport) return null;
+      if (Object.keys(job.forgottenBindings ?? {}).length) return { detail: "a saved binding was explicitly forgotten; export this job and prepare a fresh preview" };
+      const bindings = readIdmap(this.storage);
+      for (const it of job.items) {
+        const saved = bindings[it.srcId];
+        if (saved && saved !== (it.entityId ?? it.targetId)) return { idx: it.idx, detail: "binding changed since preview; inspect the other job before continuing" };
+      }
+      return null;
+    }
+    _remember(srcId, id2) {
+      if (!srcId || !id2) return;
       const map = readIdmap(this.storage);
-      map[srcId] = id;
+      map[srcId] = id2;
       writeIdmap(this.storage, map);
     }
     _syncIdmapFromJob(job) {
@@ -4849,7 +5254,10 @@
     }
     _lookup(job) {
       const map = readIdmap(this.storage);
-      return (pfx, key) => map[key] ?? (job ? job.items.find((it) => it.srcId === key && it.entityId)?.entityId : void 0);
+      return (pfx, key) => {
+        const owned = job?.items.find((it) => it.srcId === key && it.entityId)?.entityId;
+        return pfx.startsWith("skillTree") ? owned ?? map[key] : map[key] ?? owned;
+      };
     }
     async _resolved(data, jobId) {
       const refs = collectRefs(data).filter((r) => r.pfx === "img");
@@ -4930,12 +5338,12 @@
     }
     async resolveSent(job, item, ctx = {}) {
       const rc = recipe(item.entity);
-      if (item.phase === "create" || !item.entityId) return this._resolveCreate(job, item, rc);
+      if (item.phase === "create" || !item.entityId) return this._resolveCreate(job, item, rc, ctx);
       if (item.phase === "rules-toggle") return this._resolveToggle(item, rc);
       if (item.phase === "rules") return this._resolveRules(item, ctx);
       return this._resolveUpdate(item, rc, ctx);
     }
-    async _resolveCreate(job, item, rc) {
+    async _resolveCreate(job, item, rc, ctx) {
       const key = item.snapshotKey || this.snapKey(job.jobId, item.entity);
       const snap = this.readSnapshot(key);
       if (!snap) return { action: "orphan", candidates: [], note: "no pre-create snapshot for this entity type; cannot tell which row is ours" };
@@ -4943,12 +5351,17 @@
       if (!list.ok || !Array.isArray(list.data)) return { action: "orphan", candidates: [], note: `${rc.names} unavailable: ${list.ok ? "no list" : list.error.code}` };
       const before = new Set(snap.ids);
       const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
-      for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
+      for (const id2 of this.journal.knownEntityIds(item.entity)) owned.add(id2);
       const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
       const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
       const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
       if (candidates.length === 1 && pending.length === 1) {
         const c = candidates[0];
+        if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {
+          const row = rows[0], planned = ctx.planned;
+          if (!planned || item.entity === "skillTree" && (!c.placeholderName || row.pathType !== "BLOODRIGHT" || row.bloodlineId !== planned.data.bloodlineId || !row.hidden) || rc.oneStep && diffAsserted(item.entity, planned.data, row).length) return { action: "orphan", candidates, note: "new row does not match the planned Bloodright create" };
+          return { action: "orphan", candidates, note: "matching Bloodright create found; confirm its ownership before adopting" };
+        }
         return { action: "confirm", entityId: c.id, phase: "update", note: `adopted the single new ${item.entity} ${c.id}` + (c.placeholderName === false ? " (name is not the placeholder pattern; check it)" : "") };
       }
       return { action: "orphan", candidates, note: `${candidates.length} new ${item.entity} row(s) since the snapshot, ${pending.length} create(s) pending: ambiguous` };
@@ -5065,6 +5478,7 @@
   function manifestSummary(text) {
     try {
       const m = JSON.parse(text);
+      if (m.bloodright) return { ok: true, title: m._note ?? "Bloodright design (prepare preview)", items: Object.keys(m.bloodright.nodes ?? {}).length, creates: 0, captures: 0 };
       const items = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
       const caps = m.capture && (m.capture.before || []).length + (m.capture.after || []).length || 0;
       const title = typeof m._note === "string" ? m._note.split(/\.\s|\n/)[0].slice(0, 80) : items[0] && items[0].name || "";
@@ -5524,13 +5938,13 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     if (cands.length) {
       card.appendChild(h("h3", {}, "Candidates on the server"));
       for (const c of cands) {
-        const id = typeof c === "string" ? c : c.id;
+        const id2 = typeof c === "string" ? c : c.id;
         const name = typeof c === "string" ? "" : c.name;
         card.appendChild(h(
           "div",
           { class: "f-row" },
-          h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id), name ? h("div", { class: "f-mute" }, name) : null),
-          h("button", { onClick: () => app.confirm(`Adopt ${id} as "${it.name}"? The job will continue with its update.`, () => app.adopt(job.jobId, it.idx, id)) }, "Adopt")
+          h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id2), name ? h("div", { class: "f-mute" }, name) : null),
+          h("button", { onClick: () => app.confirm(`Adopt ${id2} as "${it.name}"? The job will continue with its update.`, () => app.adopt(job.jobId, it.idx, id2)) }, "Adopt")
         ));
       }
     } else if (it.op === "create" || !it.entityId) {
@@ -5596,9 +6010,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const captureCount = captures.length;
     const fullCount = captures.filter((c) => c.persist === "full").length;
     const label = captureLabel(captures);
-    const readOnly = s.plan.length === 0;
-    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${label}` : ""} \xB7 manifest hash ${s.manifest.hash}`));
-    if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+    const readOnly = s.plan.length === 0 && !s.bloodright;
+    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${label}` : ""} \xB7 ${s.manifest.hash ? "manifest hash " + s.manifest.hash : "draft preview"}`));
+    if (readOnly && !s.bloodright) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
     if (fullCount) card.appendChild(h(
       "div",
       { class: "f-banner warn" },
@@ -5623,6 +6037,16 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         { class: "f-row" },
         h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} \xB7 ${it.op}${it.targetId ? " \u2192 " + it.targetId : ""}${it.deps?.length ? " \xB7 after " + it.deps.join(", ") : ""} \xB7 keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))
       ));
+    }
+    if (s.bloodright) {
+      card.appendChild(h("div", { class: "f-banner info" }, `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      for (const row of s.bloodright.preview) card.appendChild(h(
+        "details",
+        {},
+        h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " \u2192 " + row.targetId : ""} \xB7 ${row.changes.length} changed field(s)`),
+        h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))
+      ));
+      card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
     }
     const imgs = s.images || [];
     const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
@@ -5795,6 +6219,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     root.appendChild(h("h3", {}, "Items"));
+    const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
+    const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
+    if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
     for (const it of job.items) {
       const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` \xB7 phase ${it.phase}` : "";
       const row = h(
@@ -5807,9 +6234,24 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           it.entityId ? h("div", { class: "f-mono" }, it.entityId) : null,
           it.error ? h("div", { class: "f-err" }, it.error) : null,
           it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
-          it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null
+          it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null,
+          it.resolution?.action === "operator-failed" ? h("div", { class: "f-mute" }, "Recovery stopped by operator; record left as is, verification not accepted.") : null
         )
       );
+      if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
+        row.appendChild(h("button", {
+          class: "f-danger",
+          disabled: !!app.state.running || job.items.some((i) => i.state === "SENT") || typeof globalThis.confirm !== "function",
+          onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true }))
+        }, "Mark failed (leave as is)"));
+      }
+      if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
+        row.appendChild(h("button", {
+          class: "f-danger",
+          disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
+          onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId }))
+        }, "Forget saved binding"));
+      }
       root.appendChild(row);
     }
     return root;
@@ -5932,6 +6374,166 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return root;
   }
 
+  var scopeKey = (bloodlineId, nodeId) => `br:${bloodlineId}:${nodeId}`;
+  var object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+  var id = (v) => typeof v === "string" && /^[A-Za-z0-9_-]+$/.test(v);
+  var sameName = (a, b) => a.normalize("NFKC").trim().toLowerCase() === b.normalize("NFKC").trim().toLowerCase();
+  function compileBloodright({ design, config, skills, folders, idmap = {} }) {
+    const problems = [], preview = [], items = [];
+    const fail = (text) => problems.push(text);
+    const bl = design?.bloodline?.id;
+    if (!id(bl)) fail("design requires a literal bloodline ID");
+    if (!/^[a-f0-9]{40}$/.test(config?.source?.ref ?? "") || !config?.source?.path) fail("source must name a repository path at an exact 40-character commit");
+    const nodes = design?.nodes;
+    if (!Array.isArray(nodes) || !nodes.length || nodes.length > 24) return { problems: [...problems, "design needs 1..24 structural nodes"], preview, manifest: null };
+    const rules = design.build_rules;
+    if (rules?.max_bp !== 5 || rules?.skill_cost !== 1 || rules?.prerequisites !== "ALL") fail("this importer requires the approved five-BP, one-point, ALL-prerequisites design format");
+    const elements = design.classification?.qualifying_elements;
+    if (!Array.isArray(elements) || !elements.length || elements.some((v) => !contract_default.elements.includes(v))) fail("design qualifying elements are unresolved or unsupported");
+    const byId =  new Map(), names =  new Set();
+    for (const n of nodes) {
+      if (!id(n.id) || n.id === "folder" || byId.has(n.id)) fail(`invalid or duplicate node ID: ${n.id}`);
+      byId.set(n.id, n);
+      if (typeof n.name !== "string" || !n.name.trim()) fail(`${n.id}: name required`);
+      else if (n.name !== n.name.trim()) fail(`${n.id}: name must not have leading or trailing whitespace`);
+      else {
+        const name = n.name.normalize("NFKC").trim().toLowerCase();
+        if (names.has(name)) fail(`duplicate design name: ${n.name}`);
+        names.add(name);
+      }
+      if (n.cost !== 1 || n.parent_rule !== "ALL" || !Array.isArray(n.parents)) fail(`${n.id}: one point and ALL parents required`);
+      if (!Number.isInteger(n.tier) || n.tier < 1 || n.tier > 10) fail(`${n.id}: tier must be 1..10`);
+      if (!object(n.bonuses) || !Object.keys(n.bonuses).length) fail(`${n.id}: structural bonuses required; legacy modifiers are not implicitly converted`);
+      for (const [tag, power] of Object.entries(n.bonuses ?? {})) if (!contract_default.tags.includes(tag) || !Number.isFinite(power) || power === 0) fail(`${n.id}: unsupported bonus ${tag}=${power}`);
+    }
+    for (const n of nodes) for (const p of n.parents ?? []) {
+      if (!byId.has(p) || byId.get(p).tier >= n.tier) fail(`${n.id}: prerequisite ${p} must exist at a lower tier (cycles refused)`);
+    }
+    if (problems.length) return { problems, preview, manifest: null };
+    const ordered = [...nodes].sort((a, b) => a.tier - b.tier || a.id.localeCompare(b.id));
+    let allocations = 0, advanced = 0;
+    function visit(i, chosen, adv) {
+      if (i === ordered.length) {
+        allocations++;
+        advanced = Math.max(advanced, adv);
+        return;
+      }
+      visit(i + 1, chosen, adv);
+      const n = ordered[i];
+      if (chosen.size < 5 && n.parents.every((p) => chosen.has(p))) {
+        chosen.add(n.id);
+        visit(i + 1, chosen, adv + (n.category === "Advanced Art" ? 1 : 0));
+        chosen.delete(n.id);
+      }
+    }
+    visit(0,  new Set(), 0);
+    if (Number.isInteger(rules.max_advanced_reachable) && advanced !== rules.max_advanced_reachable) fail(`design reachable Advanced Art count is ${advanced}, expected ${rules.max_advanced_reachable}`);
+    if (Number.isInteger(rules.max_advanced) && advanced > rules.max_advanced) fail("design exceeds its Advanced Art limit");
+    const bindings = config.bindings ?? {};
+    for (const key of Object.keys(bindings.nodes ?? {})) if (!byId.has(key)) fail(`binding names unknown node ${key}`);
+    for (const key of Object.keys(config.nodes ?? {})) if (!byId.has(key)) fail(`settings name unknown node ${key}`);
+    const bound = (node, explicit) => {
+      const remembered = idmap[scopeKey(bl, node)];
+      if (explicit && remembered && explicit !== remembered) fail(`${node}: explicit binding conflicts with saved ID ${remembered}`);
+      return explicit || remembered || null;
+    };
+    const folderId = bound("folder", bindings.folderId);
+    const folder = folders.find((f) => f.id === folderId);
+    const folderKey = scopeKey(bl, "folder");
+    if (folderId && !folder) fail(`bound folder ${folderId} is not visible; check hidden-content access and binding`);
+    if (!folderId && !config.folder?.name) fail("bind an existing folder ID or explicitly configure a new folder");
+    const folderData = folder ? writableSnapshot("skillTreeFolder", folder) : { image: "", description: "", order: 0, ...config.folder, hidden: true };
+    if (!folderId && folders.some((f) => sameName(f.name, folderData.name ?? ""))) fail("a folder with this name exists; bind its ID explicitly");
+    if (folder || !folderId) {
+      for (const p of bloodrightProblems("skillTreeFolder", folderData)) fail(`folder: ${p}`);
+      const it = { entity: "skillTreeFolder", slot: folder ? "edit" : "create", srcId: folderKey, name: folderData.name, ...folder ? { targetId: folderId, expected: folderData } : {}, data: folderData };
+      items.push(it);
+      preview.push({ name: folderData.name, operation: folder ? "reuse" : "create", targetId: folderId, changes: [] });
+    }
+    const claimed =  new Set();
+    for (const n of ordered) {
+      const settings = config.nodes?.[n.id] ?? {};
+      for (const key of Object.keys(settings)) if (!["rounds", "seichiSilverCost", "description", "image"].includes(key)) fail(`${n.name}: unsupported setting ${key}`);
+      const targetId = bound(n.id, bindings.nodes?.[n.id]);
+      const live = skills.find((s) => s.id === targetId);
+      if (targetId) {
+        if (claimed.has(targetId)) fail(`${n.name}: ID ${targetId} is bound twice`);
+        claimed.add(targetId);
+        if (!live) fail(`${n.name}: bound record ${targetId} is not visible; check access/binding`);
+        else if (live.pathType !== "BLOODRIGHT" || live.bloodlineId !== bl) fail(`${n.name}: binding belongs to another bloodline or SKILL path`);
+        else if (!live.hidden) fail(`${n.name}: bound skill is already visible; this importer stages hidden content only`);
+      }
+      if (skills.some((s) => s.id !== targetId && sameName(s.name, n.name))) fail(`${n.name}: global name collision; bind the intended record explicitly or rename the design`);
+      const effects = Object.entries(n.bonuses).map(([tag, amount]) => ({
+        type: amount > 0 ? "increasepotency" : "decreasepotency",
+        target: "INHERIT",
+        direction: "offence",
+        rounds: settings.rounds,
+        power: Math.abs(amount),
+        powerPerLevel: 0,
+        calculation: "static",
+        affectedTag: tag,
+        affectedElements: [...elements],
+        staticAssetPath: "",
+        staticAnimation: "",
+        appearAnimation: "",
+        disappearAnimation: "",
+        appearSfx: "",
+        disappearSfx: "",
+        description: `${amount > 0 ? "Increase" : "Decrease"} ${tag} potency on ${elements.join("/")} jutsu by ${Math.abs(amount)} points.`
+      }));
+      const data = {
+        name: n.name,
+        description: settings.description ?? effects.map((e) => e.description).join(" "),
+        target: "SELF",
+        tier: n.tier,
+        requiredSkillIds: n.parents.map((p) => `@skillTree:${scopeKey(bl, p)}`),
+        costSkillPoints: n.cost,
+        pathType: "BLOODRIGHT",
+        bloodlineId: bl,
+        seichiSilverCost: settings.seichiSilverCost,
+        hidden: true,
+        skillType: "DEFAULT",
+        folderId: `@skillTreeFolder:${folderKey}`,
+        effects,
+        ...live?.image ? { image: live.image } : {},
+        ...settings.image !== void 0 ? { image: settings.image } : {}
+      };
+      for (const p of bloodrightProblems("skillTree", data, null, { preCreate: true })) fail(`${n.name}: ${p}`);
+      const resolved = { ...data, folderId: folderId ?? data.folderId, requiredSkillIds: n.parents.map((p) => bound(p, bindings.nodes?.[p]) ?? `@skillTree:${scopeKey(bl, p)}`) };
+      const changes = live ? diffAsserted("skillTree", resolved, live) : Object.entries(data).map(([key, sent]) => ({ key, sent }));
+      const it = { entity: "skillTree", srcId: scopeKey(bl, n.id), name: n.name, slot: targetId ? "edit" : "create", ...targetId ? { targetId, expected: live ? writableSnapshot("skillTree", live) : null } : {}, data };
+      items.push(it);
+      preview.push({ nodeId: n.id, name: n.name, targetId, operation: targetId ? changes.length ? "update" : "reuse" : "create", changes });
+    }
+    const provenance = { version: 1, source: config.source, gamePin: contract_default._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter((it) => it.targetId).map((it) => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
+    return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items } };
+  }
+  async function prepareBloodright({ config, github, reader, storage, auth, journal }) {
+    if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
+    if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
+    auth?.assert("skillTree.create");
+    if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+    const design = JSON.parse(await github.text(config.source.path, config.source.ref));
+    assertBloodrightAvailable(journal, design?.bloodline?.id);
+    const probe = await reader.get("skillTree.get", config.hiddenProbeId, { fresh: true });
+    if (!probe.ok || probe.data?.hidden !== true) throw new Error("hidden-content access not established: the known hidden skill is not visible; check the session, role, and probe ID");
+    const all = await reader.list("skillTree.getAll", { fresh: true });
+    const folders = await reader.list("skillTree.getAllFolders", { fresh: true });
+    if (!all.ok || !folders.ok) throw new Error("Bloodright inventory failed; no preview or writes available");
+    if (!all.data.some((s) => s.id === config.hiddenProbeId)) throw new Error("hidden probe missing from inventory; incomplete access or changed session");
+    const map = readIdmap(storage);
+    const boundIds = [...new Set(design.nodes.map((n) => config.bindings?.nodes?.[n.id] || map[scopeKey(design.bloodline.id, n.id)]).filter(Boolean))];
+    for (const target of boundIds) {
+      const r = await reader.get("skillTree.get", target, { fresh: true });
+      if (!r.ok || !r.data) throw new Error(`bound skill ${target} is unreadable`);
+      const index = all.data.findIndex((s) => s.id === target);
+      if (index < 0) throw new Error(`bound skill ${target} absent from complete inventory`);
+      all.data[index] = r.data;
+    }
+    return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map });
+  }
+
   async function resolveCaptures({ journal, cache }, jobId) {
     const job = journal.get(jobId);
     const patch = {};
@@ -6031,6 +6633,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "establishAuth",
         "exportJob",
         "fail",
+        "forgetBinding",
         "go",
         "loadPicker",
         "notify",
@@ -6038,6 +6641,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "recheckAuth",
         "requestPause",
         "resolveCaptures",
+        "resolveConfirmed",
         "resumeBlockedReason",
         "resumeJob",
         "say",
@@ -6057,6 +6661,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return [...STATE_KEYS];
     }
     clearSelection() {
+      this._selection = {};
       this.state.selected = null;
       this.changed();
     }
@@ -6137,8 +6742,23 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     async selectManifest(entry) {
+      const selection = this._selection = {};
+      this.state.selected = null;
+      this.changed();
       try {
-        const text = entry.text ?? await this.github.text(entry.path);
+        let text = entry.text ?? await this.github.text(entry.path);
+        const packageData = JSON.parse(text);
+        let bloodright = null;
+        if (packageData.bloodright) {
+          bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
+          if (selection !== this._selection) return;
+          if (bloodright.problems.length) {
+            this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
+            this.changed();
+            return;
+          }
+          text = JSON.stringify(bloodright.manifest);
+        }
         const manifest = parseManifest(text);
         const problems = [];
         let plan = [];
@@ -6152,7 +6772,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
         }
         const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-        this.state.selected = { entry, text, manifest, plan, problems, images, pack: manifest.imagePack ?? null, packResult: null };
+        if (selection !== this._selection) return;
+        this.state.selected = { entry, text, manifest, plan, problems, images, ...bloodright ? { bloodright } : {}, pack: manifest.imagePack ?? null, packResult: null };
         this._scopePackProvenance(this.state.selected.pack);
         this.state.selected.blocked = this.blockedPaths(plan, manifest);
         this.changed();
@@ -6212,6 +6833,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     async startJob() {
       const s = this.state.selected;
       if (!s) return;
+      if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
       const blocked = this.blockedPaths(s.plan, s.manifest);
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
@@ -6230,7 +6852,16 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
       try {
-        this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
+        assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
+        let manifestPath = s.entry.path;
+        if (s.bloodright) {
+          manifestPath = `bloodright-job:${jobId}`;
+          await this.repoCache.put({ path: "bloodright.manifest", id: manifestPath, data: s.text });
+          const saved = await this.repoCache.get("bloodright.manifest", manifestPath);
+          if (saved?.data !== s.text) throw new Error("compiled preview was not durably stored");
+        }
+        this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
+        if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview });
       } catch (e) {
         return this.fail("plan", e);
       }
@@ -6247,8 +6878,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       if (!this.runner.manifests.has(jobId)) {
         try {
-          const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;
-          if (!text) throw new Error("no manifest path recorded; cannot resume");
+          const text = job.manifestPath?.startsWith("bloodright-job:") ? (await this.repoCache.get("bloodright.manifest", job.manifestPath))?.data : job.manifestPath ? await this.github.text(job.manifestPath) : null;
+          if (!text) throw new Error("saved manifest unavailable; restore its exact exported text before resuming (never recompile an active job)");
           this.runner.attach(jobId, text);
         } catch (e) {
           return this.fail("resume: fetch manifest", e);
@@ -6320,9 +6951,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.runner.requestPause();
       this.say("pausing after the current item finishes", "warn");
     }
-    adopt(jobId, idx, id) {
+    adopt(jobId, idx, id2) {
       try {
-        this.runner.adopt(jobId, idx, id);
+        this.runner.adopt(jobId, idx, id2);
         this.changed();
       } catch (e) {
         this.fail("adopt", e);
@@ -6334,6 +6965,25 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.changed();
       } catch (e) {
         this.fail("skip", e);
+      }
+    }
+    resolveConfirmed(jobId, idx, options) {
+      if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+      try {
+        this.runner.resolveConfirmed(jobId, idx, options);
+        this.changed();
+      } catch (e) {
+        this.fail("resolve write", e);
+      }
+    }
+    forgetBinding(jobId, idx, options) {
+      if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+      try {
+        this.runner.forgetBinding(jobId, idx, options);
+        this.clearSelection();
+        this.say("Saved binding forgotten. Prepare a fresh preview before creating or rebinding the record.", "warn");
+      } catch (e) {
+        this.fail("forget binding", e);
       }
     }
     resolveCaptures(jobId) {
@@ -6350,6 +7000,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
       const job = this.journal.get(jobId);
       const bundle = buildBundle(this, job, captures);
+      if (job.manifestPath?.startsWith("bloodright-job:")) {
+        try {
+          const frozen = await this.repoCache.get("bloodright.manifest", job.manifestPath);
+          bundle.compiledManifest = frozen?.data ? JSON.parse(frozen.data) : null;
+        } catch (e) {
+          bundle.compiledManifest = null;
+          bundle.compiledManifestError = e.message;
+        }
+      }
       const name = bundleName(this.now);
       const text = JSON.stringify(bundle, null, 1);
       const synced = repoSyncReady(this.storage);
@@ -6572,11 +7231,17 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     requestPause() {
       return this.core.requestPause();
     }
-    adopt(jobId, idx, id) {
-      return this.core.adopt(jobId, idx, id);
+    adopt(jobId, idx, id2) {
+      return this.core.adopt(jobId, idx, id2);
     }
     skip(jobId, idx) {
       return this.core.skip(jobId, idx);
+    }
+    resolveConfirmed(jobId, idx, options) {
+      return this.core.resolveConfirmed(jobId, idx, options);
+    }
+    forgetBinding(jobId, idx, options) {
+      return this.core.forgetBinding(jobId, idx, options);
     }
     resolveCaptures(jobId) {
       return this.core.resolveCaptures(jobId);
@@ -8886,7 +9551,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     questContent: 52
   };
 
-  var VERSION = "forge 0.5.1";
+  var VERSION = "forge 0.6.0";
   function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
     if (!subtle || typeof subtle.digest !== "function") {
       return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));

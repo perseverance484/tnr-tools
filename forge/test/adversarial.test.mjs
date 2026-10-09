@@ -56,7 +56,9 @@ test("L1: full transition matrix is pinned; every off-table pair throws and leav
     let entityId = null;
     for (const st of path) { const patch = st === "CONFIRMED" ? { entityId: "e1", phase: "update" } : {}; j.transition("j", 0, st, patch); if (st === "CONFIRMED") entityId = "e1"; }
     const before = s.getItem(KEY_PREFIX + "j"); const writes = s.log.length;
-    const legal = TRANSITIONS[from].includes(to);
+    // PLANNED -> CONFIRMED is a guarded Bloodright read-only reuse edge; this
+    // matrix exercises a jutsu create and must still refuse that edge.
+    const legal = TRANSITIONS[from].includes(to) && !(from === "PLANNED" && to === "CONFIRMED");
     if (legal) { j.transition("j", 0, to, to === "CONFIRMED" && !entityId ? { entityId: "e2" } : {}); }
     else { assert.throws(() => j.transition("j", 0, to), JournalError, `${from} -> ${to} should throw`); assert.equal(s.getItem(KEY_PREFIX + "j"), before); assert.equal(s.log.length, writes); }
   }

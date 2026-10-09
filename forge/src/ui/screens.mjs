@@ -2,7 +2,8 @@
 // app.refresh(). Errors are surfaced in the UI with context; nothing is only in the console.
 import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
-import { readGh, writeGh } from "../storage/compat.mjs";
+import { readGh, writeGh, readIdmap } from "../storage/compat.mjs";
+import { unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
 import { imagePicks, unusablePicks } from "../core/facts.mjs";
 import { packGateProblems } from "../core/imagepack.mjs";
@@ -120,9 +121,9 @@ function SelectedManifest(app) {
   const captureCount = captures.length;
   const fullCount = captures.filter((c) => c.persist === "full").length;
   const label = captureLabel(captures);
-  const readOnly = s.plan.length === 0;
-  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · manifest hash ${s.manifest.hash}`));
-  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+  const readOnly = s.plan.length === 0 && !s.bloodright;
+  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · ${s.manifest.hash ? "manifest hash " + s.manifest.hash : "draft preview"}`));
+  if (readOnly && !s.bloodright) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
@@ -139,6 +140,13 @@ function SelectedManifest(app) {
   for (const it of s.plan) {
     card.appendChild(h("div", { class: "f-row" },
       h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));
+  }
+  if (s.bloodright) {
+    card.appendChild(h("div", { class: "f-banner info" }, `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+    for (const row of s.bloodright.preview) card.appendChild(h("details", {},
+      h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " → " + row.targetId : ""} · ${row.changes.length} changed field(s)`),
+      h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))));
+    card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
   }
   const imgs = s.images || [];
   // What the operator has actually selected, judged against the manifest's byte ledger BEFORE the
@@ -285,6 +293,9 @@ export function RunScreen(app) {
     }
   }
   root.appendChild(h("h3", {}, "Items"));
+  const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
+  const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
+  if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
   for (const it of job.items) {
     const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` · phase ${it.phase}` : "";
     const row = h("div", { class: "f-row" },
@@ -294,7 +305,16 @@ export function RunScreen(app) {
         it.error ? h("div", { class: "f-err" }, it.error) : null,
         it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
         it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null,
+        it.resolution?.action === "operator-failed" ? h("div", { class: "f-mute" }, "Recovery stopped by operator; record left as is, verification not accepted.") : null,
       ));
+    if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
+      row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.items.some(i => i.state === "SENT") || typeof globalThis.confirm !== "function",
+        onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
+    }
+    if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
+      row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
+        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding"));
+    }
     root.appendChild(row);
   }
   return root;

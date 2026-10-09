@@ -1,3 +1,5 @@
+import { assertBloodrightAvailable } from "../bloodright/jobs.mjs";
+import { prepareBloodright } from "../bloodright/compiler.mjs";
 // ForgeCore — the headless orchestration layer.
 //
 // It owns Forge's machine state and every action that changes it: picker loading, manifest
@@ -63,8 +65,8 @@ export class ForgeCore {
   static get ACTIONS() {
     return [
       "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
-      "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
-      "resolveCaptures", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
+      "fail", "forgetBinding", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
+      "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
       "snapshot", "startJob", "subscribe",
     ];
   }
@@ -84,7 +86,7 @@ export class ForgeCore {
   static get STATE_KEYS() { return [...STATE_KEYS]; }
 
   /** Drop the current manifest selection. A screen must not assign state.selected itself. */
-  clearSelection() { this.state.selected = null; this.changed(); }
+  clearSelection() { this._selection = {}; this.state.selected = null; this.changed(); }
 
   // ------------------------------------------------------------------ notifications
   /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
@@ -159,8 +161,21 @@ export class ForgeCore {
   }
 
   async selectManifest(entry) {
+    const selection = this._selection = {};
+    this.state.selected = null; this.changed();
     try {
-      const text = entry.text ?? await this.github.text(entry.path);
+      let text = entry.text ?? await this.github.text(entry.path);
+      const packageData = JSON.parse(text);
+      let bloodright = null;
+      if (packageData.bloodright) {
+        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
+        if (selection !== this._selection) return;
+        if (bloodright.problems.length) {
+          this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
+          this.changed(); return;
+        }
+        text = JSON.stringify(bloodright.manifest);
+      }
       const manifest = parseManifest(text);
       const problems = [];
       let plan = [];
@@ -170,7 +185,8 @@ export class ForgeCore {
         for (const x of p) problems.push(`item ${it.idx} (${it.name}): ${x}`);
       }
       const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
-      this.state.selected = { entry, text, manifest, plan, problems, images, pack: manifest.imagePack ?? null, packResult: null };
+      if (selection !== this._selection) return;
+      this.state.selected = { entry, text, manifest, plan, problems, images, ...(bloodright ? { bloodright } : {}), pack: manifest.imagePack ?? null, packResult: null };
       this._scopePackProvenance(this.state.selected.pack);
       this.state.selected.blocked = this.blockedPaths(plan, manifest);
       this.changed();
@@ -269,6 +285,7 @@ export class ForgeCore {
   // ------------------------------------------------------------------ jobs
   async startJob() {
     const s = this.state.selected; if (!s) return;
+    if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
     // Re-read the gate at the moment of the tap, not at selection time: the operator may have been
     // sitting on this screen while the session expired.
     const blocked = this.blockedPaths(s.plan, s.manifest);
@@ -299,7 +316,17 @@ export class ForgeCore {
     }
     const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
     try {
-      this.runner.plan(s.text, { jobId, manifestPath: s.entry.path, manifestNumber: s.entry.number });
+      assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
+      let manifestPath = s.entry.path;
+      if (s.bloodright) {
+        manifestPath = `bloodright-job:${jobId}`;
+        // Persist the frozen preview BEFORE opening a journal or sending anything.
+        await this.repoCache.put({ path: "bloodright.manifest", id: manifestPath, data: s.text });
+        const saved = await this.repoCache.get("bloodright.manifest", manifestPath);
+        if (saved?.data !== s.text) throw new Error("compiled preview was not durably stored");
+      }
+      this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
+      if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview });
     } catch (e) { return this.fail("plan", e); }
     this.state.selected = null;
     this.go("run", { jobId });
@@ -313,8 +340,10 @@ export class ForgeCore {
     if (blocked) { this.say(blocked, "bad", 9000); return this.changed(); }
     if (!this.runner.manifests.has(jobId)) {
       try {
-        const text = job.manifestPath ? await this.github.text(job.manifestPath) : null;
-        if (!text) throw new Error("no manifest path recorded; cannot resume");
+        const text = job.manifestPath?.startsWith("bloodright-job:")
+          ? (await this.repoCache.get("bloodright.manifest", job.manifestPath))?.data
+          : job.manifestPath ? await this.github.text(job.manifestPath) : null;
+        if (!text) throw new Error("saved manifest unavailable; restore its exact exported text before resuming (never recompile an active job)");
         this.runner.attach(jobId, text);
       } catch (e) { return this.fail("resume: fetch manifest", e); }
     }
@@ -395,6 +424,14 @@ export class ForgeCore {
   requestPause() { this.runner.requestPause(); this.say("pausing after the current item finishes", "warn"); }
   adopt(jobId, idx, id) { try { this.runner.adopt(jobId, idx, id); this.changed(); } catch (e) { this.fail("adopt", e); } }
   skip(jobId, idx) { try { this.runner.skip(jobId, idx); this.changed(); } catch (e) { this.fail("skip", e); } }
+  resolveConfirmed(jobId, idx, options) {
+    if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+    try { this.runner.resolveConfirmed(jobId, idx, options); this.changed(); } catch (e) { this.fail("resolve write", e); }
+  }
+  forgetBinding(jobId, idx, options) {
+    if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+    try { this.runner.forgetBinding(jobId, idx, options); this.clearSelection(); this.say("Saved binding forgotten. Prepare a fresh preview before creating or rebinding the record.", "warn"); } catch (e) { this.fail("forget binding", e); }
+  }
 
   resolveCaptures(jobId) { return resolveCaptures(this, jobId); }
 
@@ -412,6 +449,15 @@ export class ForgeCore {
     }
     const job = this.journal.get(jobId); // read AFTER resolveCaptures so the embedded journal agrees
     const bundle = buildBundle(this, job, captures);
+    if (job.manifestPath?.startsWith("bloodright-job:")) {
+      try {
+        const frozen = await this.repoCache.get("bloodright.manifest", job.manifestPath);
+        bundle.compiledManifest = frozen?.data ? JSON.parse(frozen.data) : null;
+      } catch (e) {
+        bundle.compiledManifest = null;
+        bundle.compiledManifestError = e.message;
+      }
+    }
     const name = bundleName(this.now);
     const text = JSON.stringify(bundle, null, 1);
     const synced = repoSyncReady(this.storage);

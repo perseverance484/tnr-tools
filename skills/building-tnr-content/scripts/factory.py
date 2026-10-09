@@ -184,6 +184,21 @@ class Factory:
         # schema name "gameAsset". Accept either on input, ALWAYS emit "asset".
         # An unmapped name reached the builder's jutsu fallback once
         # (push/16 misroute, 2026-08-30); this alias is the fix at the source.
+        if entity in ("skillTree", "skillTreeFolder"):
+            from bloodright_bridge import problems
+            payload = dict(data or {})
+            if name:
+                payload.setdefault("name", name)
+            if slot == "create":
+                payload.setdefault("hidden", True)
+            entry = {"entity": entity, "slot": slot, "data": payload}
+            for key, value in (("name", name), ("srcId", srcId), ("targetId", targetId)):
+                if value:
+                    entry[key] = value
+            errors = problems(entry)
+            if errors:
+                raise FactoryError("; ".join(errors))
+            return entry
         entity = {"asset": "gameAsset"}.get(entity, entity)
         fields = self.ents.get(entity)
         if fields is None:
@@ -265,7 +280,7 @@ class Factory:
                                        "formula rather than zeroing it (law 4)")
 
     # -------------------------------------------------------------- manifest
-    def manifest(self, entries, capture=None):
+    def manifest(self, entries, capture=None, bloodright_import=None):
         order = self.checks["build_order"]["values"]
         seen = [e["entity"] for e in entries]
         idx = [order.index(x) for x in seen if x in order]
@@ -274,6 +289,14 @@ class Factory:
                                "Out of order means composing references to records that do not "
                                "exist yet, and unresolved refs are stripped silently (law 17)")
         man = {"items": entries}
+        if bloodright_import is not None:
+            man["bloodrightImport"] = bloodright_import
+            man["dedupNames"] = True
+        if any(e.get("entity") in ("skillTree", "skillTreeFolder") for e in entries):
+            from bloodright_bridge import problems
+            errors = problems(man)
+            if errors:
+                raise FactoryError("; ".join(errors))
         if capture:
             man["capture"] = capture
         return man

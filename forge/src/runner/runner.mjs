@@ -1,3 +1,5 @@
+import { assertBloodrightAvailable, unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
+import { isBloodrightEntity, writableSnapshot } from "../bloodright/validate.mjs";
 // The runner (spec sections 4, 5, 8). Executes a job item by item with write-ahead state
 // transitions, two-phase creates, and read-back on asserted keys only. Never retries.
 //
@@ -181,7 +183,10 @@ export class Runner {
   }
 
   // ------------------------------------------------------------------ lease
-  _leaseKey(jobId) { return LEASE_PREFIX + jobId; }
+  _leaseKey(jobId) {
+    const bloodline = this.manifests.get(jobId)?.manifest.policy.bloodrightImport?.bloodlineId ?? this.journal.get(jobId)?.bloodrightImport?.bloodlineId;
+    return LEASE_PREFIX + (bloodline ? `bloodright:${bloodline}` : jobId);
+  }
   _readLease(jobId) { try { return JSON.parse(this.storage.getItem(this._leaseKey(jobId)) || "null"); } catch { return null; } }
   /** Take or refresh the lease for this tab; throws LeaseHeld if another tab's heartbeat is fresh. */
   _lease(jobId) {
@@ -199,9 +204,10 @@ export class Runner {
   /** Plan a manifest and open a job. Returns the journal job. Does not send anything. */
   plan(manifestSource, { jobId, manifestPath = null, manifestNumber = null } = {}) {
     const manifest = parseManifest(manifestSource);
+    assertBloodrightAvailable(this.journal, manifest.policy.bloodrightImport?.bloodlineId);
     const order = planOrder(manifest, readIdmap(this.storage));
     const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
-    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly });
+    const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly, bloodrightImport: manifest.policy.bloodrightImport });
     this.manifests.set(jobId, { manifest, order });
     return job;
   }
@@ -253,6 +259,10 @@ export class Runner {
       catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
     }
     this._lease(jobId);
+    const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+    if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
+    const bindingConflict = this._bindingConflict(job);
+    if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
     this._syncIdmapFromJob(job);
     this.pauseRequested = false;
     this._emit("job:start", { jobId, items: job.items.length, mode: "run" });
@@ -269,6 +279,12 @@ export class Runner {
         if (item.state === "ORPHANED") throw new Paused("ORPHANED", { idx: i, detail: item.error ?? null });
         if (this.pauseRequested) throw new Paused("USER", { idx: i });
         this._emit("item:start", { jobId, idx: i, name: item.name ?? null, entity: item.entity ?? null, phase: item.phase ?? null });
+        if (isBloodrightEntity(item.entity)) {
+          for (const dep of order[i].deps ?? []) {
+            const parent = job.items.find(it => it.srcId === dep);
+            if (!parent || parent.state !== "VERIFIED") throw new Paused("DEPENDENCY", { idx: i, detail: `${dep} must verify before ${item.name}` });
+          }
+        }
         await this._runItem(jobId, item, order[i], manifest);
         this._emit("item:end", { jobId, idx: i, state: this.journal.get(jobId).items[i]?.state ?? null });
       }
@@ -309,6 +325,10 @@ export class Runner {
       catch (e) { if (e instanceof Paused) return this._pause(jobId, e.reason, e); throw e; }
     }
     this._lease(jobId);
+    const unresolvedJob = unresolvedBloodrightJob(this.journal, manifest.policy.bloodrightImport?.bloodlineId, jobId);
+    if (unresolvedJob) return this._pause(jobId, "UNRESOLVED_IMPORT", { detail: `Resolve Bloodright job ${unresolvedJob.jobId} before this job can continue` });
+    const bindingConflict = this._bindingConflict(job);
+    if (bindingConflict) return this._pause(jobId, "STALE_BINDINGS", bindingConflict);
     this._syncIdmapFromJob(job);
     try {
       for (const item of job.items) {
@@ -362,11 +382,53 @@ export class Runner {
     // orphan UI accepts a pasted id when there are no candidates (adversarial review F2)
     const holder = this.journal.findHolder(item.entity, entityId, { exceptJobId: jobId, exceptIdx: idx });
     if (holder) throw new Error(`${entityId} is already held by job ${holder.jobId} item ${holder.idx} (${holder.name}) in state ${holder.state}`);
-    const phase = item.phase === "create" || !item.entityId ? "update" : item.phase;
+    const phase = item.phase === "create" || !item.entityId ? (recipe(item.entity).oneStep ? "verify" : "update") : item.phase;
     this.journal.transition(jobId, idx, "CONFIRMED", { entityId, phase, adopted: true, error: null });
     if (item.srcId) this._remember(item.srcId, entityId);
   }
   skip(jobId, idx) { this.journal.transition(jobId, idx, "SKIPPED"); }
+
+  /** Explicitly stop trying to verify/fill a known Bloodright write. Never a retry or success. */
+  resolveConfirmed(jobId, idx, { confirmed = false } = {}) {
+    if (confirmed !== true) throw new Error("operator confirmation required to leave an unverified write as failed");
+    const job = this.journal.get(jobId), item = job?.items[idx];
+    if (job?.items.some(it => it.state === "SENT")) throw new Error("reconcile all SENT items before resolving a confirmed write");
+    if (!["PAUSED", "INCOMPLETE"].includes(job?.state)) throw new Error("recovery requires a paused or incomplete job");
+    if (!item || item.state !== "CONFIRMED" || !isBloodrightEntity(item.entity)) throw new Error("recovery requires a CONFIRMED Bloodright item");
+    this._lease(jobId);
+    try {
+      // Retain known IDs even after a crash before _remember(). Never overwrite a later binding.
+      if (item.srcId && item.entityId && !readIdmap(this.storage)[item.srcId]) this._remember(item.srcId, item.entityId);
+      this.journal.transition(jobId, idx, "FAILED", {
+        resolution: { action: "operator-failed", at: new Date(this.clock()).toISOString(), pauseReason: job.pause?.reason ?? null },
+        error: item.error || "Operator stopped recovery; this write remains unverified and its server record is left as is",
+      });
+    } finally { this._releaseLease(jobId); }
+    return this.summary(jobId);
+  }
+
+  /** Forget one operator-selected ID; preserve evidence and invalidate every old job using it. */
+  forgetBinding(jobId, idx, { confirmed = false, expectedId } = {}) {
+    if (confirmed !== true) throw new Error("operator confirmation required to forget a saved binding");
+    const job = this.journal.get(jobId), item = job?.items[idx], bl = job?.bloodrightImport?.bloodlineId;
+    if (!bl || !item?.srcId?.startsWith(`br:${bl}:`) || !isBloodrightEntity(item.entity) || !["FAILED", "VERIFIED"].includes(item.state)) throw new Error("forget binding requires a resolved Bloodright item with provenance");
+    if (job.state === "RUNNING") throw new Error("pause the job before forgetting a binding");
+    this._lease(jobId);
+    try {
+      assertBloodrightAvailable(this.journal, bl);
+      const map = readIdmap(this.storage);
+      if (!expectedId || expectedId !== item.entityId || map[item.srcId] !== expectedId) throw new Error("binding changed; refresh and inspect its current ID");
+      // Write invalidation first: a failed storage write must never leave resumable jobs
+      // able to restore a forgotten ID. A partial invalidation safely leaves the ID intact.
+      const forgotten = { entityId: expectedId, at: new Date(this.clock()).toISOString() };
+      for (const old of this.journal.listJobs()) if (old.items.some(it => it.srcId === item.srcId)) {
+        this.journal.annotateJob(old.jobId, { forgottenBindings: { ...old.forgottenBindings, [item.srcId]: forgotten } });
+      }
+      delete map[item.srcId];
+      writeIdmap(this.storage, map);
+    } finally { this._releaseLease(jobId); }
+    return this.summary(jobId);
+  }
 
   summary(jobId) {
     const job = this.journal.get(jobId);
@@ -397,6 +459,7 @@ export class Runner {
         await this._create(jobId, item, planned);
         item = this.journal.get(jobId).items[item.idx];
         if (item.state !== "CONFIRMED") return; // FAILED
+        if (recipe(ent).oneStep) return await this._verifyOrSkip(jobId, item, planned, manifest);
       }
       if (ent === "aiProfile") {
         await this._rules(jobId, item, planned, item.targetId);
@@ -501,12 +564,17 @@ export class Runner {
       const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
       if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
     }
-    const input = rc.create.input(planned.data);
+    const createData = rc.oneStep ? await this._resolved(planned.data, jobId) : planned.data;
+    if (rc.oneStep) {
+      const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
+      if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+    }
+    const input = rc.create.input(createData);
     this._requireAuth(rc.create.path, item.idx);
     const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
     const o = readCreate(decoded);
     if (o.kind === "ok") {
-      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: "update" });
+      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...(rc.oneStep ? { asserted: Object.keys(planned.data) } : {}) });
       this._remember(item.srcId, o.id);
       await this.cache.invalidateEntity(rc.cacheEntity);
       this.log(`created ${item.entity} ${o.id} (placeholder)`, item);
@@ -527,7 +595,20 @@ export class Runner {
       if (cls === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
       throw new Error(`${rc.get} failed: ${live.error.code} ${live.error.message}`);
     }
+    if (live.data == null && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${id}; recheck the session, hidden-content access and target before resuming` });
     if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
+    if (isBloodrightEntity(item.entity)) {
+      if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || live.data.bloodlineId !== data.bloodlineId || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
+      if (item.op === "create" && item.entity === "skillTree" && live.data.name !== rc.placeholder(id) && diffAsserted(item.entity, data, live.data).length) throw new Error("adopted skill is not the expected placeholder; refusing to overwrite it");
+      if (!diffAsserted(item.entity, data, live.data).length) {
+        const reuse = { entityId: id, phase: "verify", reused: true, asserted: Object.keys(data) };
+        if (item.state === "CONFIRMED") this.journal.annotate(jobId, item.idx, reuse);
+        else this.journal.transition(jobId, item.idx, "CONFIRMED", reuse);
+        this._remember(item.srcId, id);
+        return;
+      }
+      if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
+    }
     const problems = this.validator.problems(item.entity, data, live.data);
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
@@ -538,6 +619,7 @@ export class Runner {
     if (o.kind === "ok") {
       const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
       this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data) });
+      if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id);
       return;
     }
     this._failFromOutcome(jobId, item, o, "update");
@@ -603,6 +685,7 @@ export class Runner {
       // An expired session must not be recorded as "we read it back and could not see it". The
       // write is real and unverified either way, but the operator is told which problem it is.
       if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
+      if (live.ok && !live.data && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${item.entityId}; recheck the session, hidden-content access and target before resuming` });
       if (!live.ok || !live.data) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
       diffs.push(...diffAsserted(item.entity, data, live.data));
     }
@@ -758,6 +841,12 @@ export class Runner {
   }
 
   _failFromOutcome(jobId, item, o, step) {
+    // This router uses UNAUTHORIZED for role denial as well as expired sessions.
+    const roleMessages = ["You are not authorized to create skills", "You are not authorized to create hidden skills", "You are not authorized to edit this content", "You are not authorized to hide skills", "You are not authorized to create folders", "You are not authorized to create hidden folders", "You are not authorized to edit folders", "You are not authorized to hide folders"];
+    if (isBloodrightEntity(item.entity) && roleMessages.includes(o.message)) {
+      this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} PERMISSION: ${o.message}` });
+      throw new Paused("PERMISSION", { idx: item.idx, detail: o.message });
+    }
     if (o.kind === "refused") { this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} refused: ${o.message}` }); return; }
     const cls = classifyError(o.error);
     if (cls === "SESSION") {
@@ -772,6 +861,17 @@ export class Runner {
     }
     const issues = o.error.zodError ? " " + o.error.zodError.map((z) => `${(z.path || []).join(".")}: ${z.message}`).join("; ") : "";
     this.journal.transition(jobId, item.idx, "FAILED", { error: `${step} ${cls}: ${o.error.message}${issues}`, zodError: o.error.zodError ?? null });
+  }
+
+  _bindingConflict(job) {
+    if (!this.manifests.get(job.jobId)?.manifest.policy.bloodrightImport) return null;
+    if (Object.keys(job.forgottenBindings ?? {}).length) return { detail: "a saved binding was explicitly forgotten; export this job and prepare a fresh preview" };
+    const bindings = readIdmap(this.storage);
+    for (const it of job.items) {
+      const saved = bindings[it.srcId];
+      if (saved && saved !== (it.entityId ?? it.targetId)) return { idx: it.idx, detail: "binding changed since preview; inspect the other job before continuing" };
+    }
+    return null;
   }
 
   _remember(srcId, id) {
@@ -789,7 +889,10 @@ export class Runner {
   /** Ref lookup: idmap first, then this job's own items by srcId. */
   _lookup(job) {
     const map = readIdmap(this.storage);
-    return (pfx, key) => map[key] ?? (job ? job.items.find((it) => it.srcId === key && it.entityId)?.entityId : undefined);
+    return (pfx, key) => {
+      const owned = job?.items.find(it => it.srcId === key && it.entityId)?.entityId;
+      return pfx.startsWith("skillTree") ? owned ?? map[key] : map[key] ?? owned;
+    };
   }
 
   async _resolved(data, jobId) {

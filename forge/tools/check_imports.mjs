@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 
-const EXECUTION = ["runner", "storage", "transport", "budget", "reconcile"];
+const EXECUTION = ["runner", "storage", "transport", "budget", "reconcile", "bloodright"];
 const VIEW = ["ui", "hosts"];
 
 function walk(dir) {

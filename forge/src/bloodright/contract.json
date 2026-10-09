@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "pin": "1ccdaf078a58101872675e459c8e755b495d4c83",
+    "scope": "Bloodright potency import only; other effects intentionally refused",
+    "sources": {
+      "app/src/validators/combat.ts": "a5de980c95409ca8d97fda8f6dad0b0bc302c8d1704455e594d2d4f97608723a",
+      "app/src/server/api/routers/skillTree.ts": "cc5808f36f910f8ec3d957dbc18325ddb008db1c4d0a47a3ea0fba09430c6835",
+      "app/drizzle/constants.ts": "f57cec468ccd834f33100d67b57711c7e7ec76f09d6da9b87e98ad87c2637000",
+      "app/src/validators/skillTree.ts": "7cea7b987f5db45a21f72717ebec0300ef865b453a7b448d1c5fa8dcc2b97040"
+    }
+  },
+  "skillFields": [
+    "name",
+    "image",
+    "description",
+    "target",
+    "tier",
+    "requiredSkillIds",
+    "costSkillPoints",
+    "pathType",
+    "bloodlineId",
+    "seichiSilverCost",
+    "hidden",
+    "skillType",
+    "folderId",
+    "effects"
+  ],
+  "folderFields": [
+    "name",
+    "image",
+    "description",
+    "hidden",
+    "order"
+  ],
+  "effectFields": [
+    "staticAssetPath",
+    "staticAnimation",
+    "appearAnimation",
+    "disappearAnimation",
+    "appearSfx",
+    "disappearSfx",
+    "rounds",
+    "timeTracker",
+    "power",
+    "powerPerLevel",
+    "direction",
+    "target",
+    "friendlyFire",
+    "calculation",
+    "affectedTag",
+    "affectedElements",
+    "type",
+    "description"
+  ],
+  "tags": [
+    "damage",
+    "increasedamagegiven",
+    "decreasedamagegiven",
+    "increasedamagetaken",
+    "decreasedamagetaken",
+    "afterburn",
+    "lifesteal",
+    "reflect",
+    "increaseheal",
+    "heal"
+  ],
+  "elements": [
+    "Fire",
+    "Water",
+    "Wind",
+    "Earth",
+    "Lightning",
+    "Ice",
+    "Crystal",
+    "Dust",
+    "Shadow",
+    "Wood",
+    "Scorch",
+    "Storm",
+    "Magnet",
+    "Yin-Yang",
+    "Lava",
+    "Explosion",
+    "Light",
+    "Boil",
+    "Metal",
+    "Sand",
+    "None"
+  ],
+  "procedures": {
+    "skillTree.get": {
+      "kind": "query",
+      "limited": true,
+      "mcp": true,
+      "auth": "public"
+    },
+    "skillTree.getAll": {
+      "kind": "query",
+      "limited": true,
+      "mcp": true,
+      "auth": "public"
+    },
+    "skillTree.getAllFolders": {
+      "kind": "query",
+      "limited": true,
+      "mcp": true,
+      "auth": "public"
+    },
+    "skillTree.create": {
+      "kind": "mutation",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "skillTree.update": {
+      "kind": "mutation",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "skillTree.createFolder": {
+      "kind": "mutation",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "skillTree.updateFolder": {
+      "kind": "mutation",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    }
+  }
+}

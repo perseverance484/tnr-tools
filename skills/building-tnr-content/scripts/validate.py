@@ -816,6 +816,11 @@ def check_entry(entry, ctors, rep, manifest):
     where = f"[{entry.get('entity')}:{name}]"
     data = entry.get("data") or {}
     slot = entry.get("slot")
+    if entry.get("entity") in ("skillTree", "skillTreeFolder"):
+        from bloodright_bridge import problems
+        for problem in problems(entry):
+            rep.err(where, problem)
+        return
 
     if slot != "create" and not entry.get("targetId"):  # law 5
         rep.err(where, "non-create entry without top-level targetId")
@@ -1115,6 +1120,12 @@ def check_manifest(path, ctors_path, strict=False):
     man = json.load(open(path))
     ctors = json.load(open(ctors_path))
     items = man.get("items") or []
+    if man.get("bloodright"):
+        rep.err("manifest", "Bloodright design package is not a compiled manifest; prepare its authenticated inventory preview in Forge")
+    if any(e.get("entity") in ("skillTree", "skillTreeFolder") for e in items):
+        from bloodright_bridge import problems
+        for problem in problems(man):
+            rep.err("Bloodright", problem)
     # Builder dialect: entries carry entity "asset"; schemas are keyed
     # "gameAsset". Normalize for validation only (push/16 misroute fix).
     for _e in items:
