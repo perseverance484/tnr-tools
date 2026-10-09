@@ -6,8 +6,8 @@
    "name": "The Wayward Challenge",
    "srcId": "wayward_challenge_quest",
    "data": {
-    "description": "A wandering swordsman calling himself the Wayward Blade waits on the training ground for an opponent worth his time. Face him and win.",
-    "successDescription": "The Wayward Blade concedes the duel and goes on his way.",
+    "description": "A wandering swordsman calling himself the Umbral Reaver is looking for an opponent worth his time. Face him and win.",
+    "successDescription": "The Umbral Reaver concedes the duel and wanders on.",
     "questType": "event",
     "questRank": "D",
     "requiredLevel": 1,
@@ -29,7 +29,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> A lone swordsman stands at the center of the training ground, blade resting point-down in the dirt. He lifts his eyes as you step onto the field. </i> <br> <br> \"They call me the Wayward Blade. I go wherever a fight is worth having, and I heard you were one. Draw, and show me.\"",
+       "description": "<i> A figure in shadow-dark armor waits at the center of the field, blade resting point-down in the dirt. He lifts his eyes as you approach. </i> <br> <br> \"They call me the Umbral Reaver. I wander wherever a fight is worth having, and I heard you were one. Draw, and show me.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -49,7 +49,7 @@
        "opponentAIs": [
         {
          "ids": [
-          "aWwhu2wloj5nm9SgzeNxi"
+          "9uDe65Qt90xnT-fM5vJZ7"
          ],
          "number": 1,
          "quantity": 1
@@ -73,7 +73,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> You hit the dirt hard. The Wayward Blade sheathes his sword and waits, in no hurry at all. </i> <br> <br> \"Not yet. Get up when you are ready, and we go again.\"",
+       "description": "<i> You hit the dirt hard. The Umbral Reaver sheathes his sword and waits, in no hurry at all. </i> <br> <br> \"Not yet. Get up when you are ready, and we go again.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -100,7 +100,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> The Wayward Blade steps back and lowers his sword, breathing hard. </i> <br> <br> \"That is the fight I came for. Remember it, because I will.\"",
+       "description": "<i> The Umbral Reaver steps back and lowers his sword, breathing hard. </i> <br> <br> \"That is the fight I came for. Remember it, because I will.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -117,7 +117,7 @@
       },
       {
        "description": "",
-       "successDescription": "The Wayward Blade concedes the duel and goes on his way.",
+       "successDescription": "The Umbral Reaver concedes the duel and wanders on.",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
        "task": "win_quest",
