@@ -1,13 +1,194 @@
 {
  "items": [
   {
+   "name": "Wayward Blade",
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "ai_wayward_blade",
+   "data": {
+    "username": "Wayward Blade",
+    "level": 100,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "poolsMultiplier": 2,
+    "statsMultiplier": 3,
+    "isSummon": false,
+    "hidden": true,
+    "primaryElement": "None",
+    "secondaryElement": "",
+    "jutsus": [
+     "taxbZNdm1Q7YL5AxaRssW",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "OyswJoalfNpmz7FsA8Hd8",
+     "Uou0sCjZ1rwiMJZ-JWEI_",
+     "Vo8N1luCT0p48y7JzKe84",
+     "FeYnH7BBw_usnc1K-TM-J"
+    ],
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "FeYnH7BBw_usnc1K-TM-J",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false,
+    "ninjutsuOffence": 100,
+    "ninjutsuDefence": 100,
+    "genjutsuOffence": 100,
+    "genjutsuDefence": 100,
+    "taijutsuOffence": 100,
+    "taijutsuDefence": 100,
+    "bukijutsuOffence": 100,
+    "bukijutsuDefence": 100,
+    "strength": 100,
+    "intelligence": 100,
+    "willpower": 100,
+    "speed": 100,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed",
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "calculation": "percentage",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 40,
+      "target": "INHERIT",
+      "rounds": 99,
+      "statTypes": [
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ]
+     },
+     {
+      "type": "decreasedamagetaken",
+      "calculation": "percentage",
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "power": 15,
+      "target": "INHERIT",
+      "rounds": 99,
+      "statTypes": [
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ]
+     }
+    ]
+   }
+  },
+  {
    "entity": "quest",
    "slot": "create",
    "name": "The Wayward Challenge",
    "srcId": "wayward_challenge_quest",
    "data": {
-    "description": "A wandering swordsman calling himself the Umbral Reaver is looking for an opponent worth his time. Face him and win.",
-    "successDescription": "The Umbral Reaver concedes the duel and wanders on.",
+    "description": "A wandering swordsman calling himself the Wayward Blade is looking for an opponent worth his time. Face him and win.",
+    "successDescription": "The Wayward Blade concedes the duel and wanders on.",
     "questType": "event",
     "questRank": "D",
     "requiredLevel": 1,
@@ -29,7 +210,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> A figure in shadow-dark armor waits at the center of the field, blade resting point-down in the dirt. He lifts his eyes as you approach. </i> <br> <br> \"They call me the Umbral Reaver. I wander wherever a fight is worth having, and I heard you were one. Draw, and show me.\"",
+       "description": "<i> A lone swordsman waits at the center of the field, blade resting point-down in the dirt. He lifts his eyes as you approach. </i> <br> <br> \"They call me the Wayward Blade. I wander wherever a fight is worth having, and I heard you were one. Draw, and show me.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -49,7 +230,7 @@
        "opponentAIs": [
         {
          "ids": [
-          "9uDe65Qt90xnT-fM5vJZ7"
+          "@ai:ai_wayward_blade"
          ],
          "number": 1,
          "quantity": 1
@@ -73,7 +254,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> You hit the dirt hard. The Umbral Reaver sheathes his sword and waits, in no hurry at all. </i> <br> <br> \"Not yet. Get up when you are ready, and we go again.\"",
+       "description": "<i> You hit the dirt hard. The Wayward Blade sheathes his sword and waits, in no hurry at all. </i> <br> <br> \"Not yet. Get up when you are ready, and we go again.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -100,7 +281,7 @@
       {
        "task": "dialog",
        "image": "",
-       "description": "<i> The Umbral Reaver steps back and lowers his sword, breathing hard. </i> <br> <br> \"That is the fight I came for. Remember it, because I will.\"",
+       "description": "<i> The Wayward Blade steps back and lowers his sword, breathing hard. </i> <br> <br> \"That is the fight I came for. Remember it, because I will.\"",
        "successDescription": "",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
@@ -117,7 +298,7 @@
       },
       {
        "description": "",
-       "successDescription": "The Umbral Reaver concedes the duel and wanders on.",
+       "successDescription": "The Wayward Blade concedes the duel and wanders on.",
        "sceneBackground": "Eu4B9CbWQRMkSEeXCQ1Y-",
        "sceneCharacters": [],
        "task": "win_quest",
