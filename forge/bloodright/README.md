@@ -84,10 +84,27 @@ dependent skills in that job run. Reconcile all SENT items first; the action is 
 while a job is running and refuses another tab's active lease. Resume remains the preferred
 option for temporary visibility loss.
 
-Once all unresolved items have been resolved, prepare a fresh preview against current
-records. A target that was deleted still needs its binding repaired explicitly; marking it
-failed does not erase the remembered ID or authorize an automatic replacement. Export the
-old job to retain the resolution and verification evidence.
+For a target you have independently confirmed was deleted, repair its binding without
+editing browser storage:
+
+1. Export the old job. Resolve all SENT/ORPHANED/CONFIRMED items for this bloodline first;
+   a merely invisible target may still exist, so restore access before concluding deletion.
+2. In the old job, find the FAILED or VERIFIED item and choose **Forget saved binding**.
+   Confirm the exact name and ID. The action refuses unresolved same-bloodline jobs, running
+   work, another tab's lease, or a saved ID that changed after the button was displayed.
+3. If the package explicitly names that old ID in `bindings.nodes` or `bindings.folderId`,
+   remove it to propose a new record, or replace it with the intended existing record's ID.
+   A new folder also needs `folder` settings. If the deleted record was `hiddenProbeId`,
+   supply another known existing hidden skill as the access probe.
+4. Select the package again and review its fresh create/update preview. Forgetting sends
+   no game request and does not itself create, delete, or rebind any server record.
+
+Only the selected saved binding is removed. Its old ID and item evidence remain in the
+journal/export. All existing jobs that reference that source key are marked as invalidated;
+they cannot restore the old ID or continue their writes. The current selection is cleared,
+and a fresh job can reuse the same manifest hash when the prior job was explicitly invalidated.
+Other unresolved obligations still block new preparation. Export the old job again to retain
+the forgotten-binding record. **Mark failed** alone continues to preserve every saved binding.
 
 The compiled manifest, preimages, source pin and bindings are frozen into job identity.
 The exact text is stored in the separate repository-text IndexedDB database before opening
