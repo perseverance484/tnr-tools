@@ -403,3 +403,65 @@ test("review N1: recovery refuses SENT obligations, running jobs, other tabs and
   act();assert.equal(d.journal.get("recovery-guards").items[1].state,"FAILED");
   assert.equal(readIdmap(d.storage)[scopeKey(BL,"p1_t1")],"known-id");
 });
+
+test("review L1: forget a deleted target, invalidate old jobs, then preview a replacement or explicit rebind", async () => {
+  for (const rebind of [false,true]) {
+    const d=setup(), c=config(), original=d.game.handle.bind(d.game);
+    const frozen=JSON.stringify(compile(d).manifest), changed=config();changed.nodes.p4_t3.seichiSilverCost=21;
+    d.runner.plan(frozen,{jobId:"deleted"});d.runner.plan(compile(d,changed).manifest,{jobId:"queued"});
+    d.game.handle=(path,input)=>{const r=original(path,input);if(path==="skillTree.create")d.game.skills.delete(r.data.message);return r;};
+    assert.equal((await d.runner.run("deleted")).pause.reason,"VISIBILITY");d.game.handle=original;
+    const item=d.journal.get("deleted").items.find(i=>i.state==="CONFIRMED");
+    d.runner.resolveConfirmed("deleted",item.idx,{confirmed:true});
+    await assert.rejects(prepareBloodright({config:c,...d}),/unreadable/);
+    const before=d.journal.get("deleted"), map=readIdmap(d.storage), calls=d.game.calls.length;
+    for(const options of [undefined,{}, {confirmed:1,expectedId:item.entityId}]) assert.throws(()=>d.runner.forgetBinding("deleted",item.idx,options),/confirmation/);
+    assert.deepEqual(d.journal.get("deleted"),before);assert.deepEqual(readIdmap(d.storage),map);
+    const restarted=new Runner({...d,tabId:"reload"});
+    restarted.forgetBinding("deleted",item.idx,{confirmed:true,expectedId:item.entityId});
+    assert.equal(d.game.calls.length,calls);assert.equal(readIdmap(d.storage)[item.srcId],undefined);
+    const retained=d.journal.get("deleted");assert.deepEqual(retained.items,before.items);
+    assert.equal(retained.forgottenBindings[item.srcId].entityId,item.entityId);
+    for(const jobId of ["deleted","queued"]) assert.equal((await d.runner.resume(jobId)).pause.reason,"STALE_BINDINGS");
+    assert.equal(d.game.calls.length,calls);assert.equal(readIdmap(d.storage)[item.srcId],undefined);
+    if(rebind){c.bindings.nodes.p1_t1="replacement";d.game.skills.set("replacement",{...d.game.skills.get(HP),id:"replacement",name:design.nodes.find(n=>n.id==="p1_t1").name});}
+    const next=await prepareBloodright({config:c,...d});assert.deepEqual(next.problems,[]);
+    const replacement=next.manifest.items.find(i=>i.srcId===item.srcId);
+    assert.equal(replacement.slot,rebind?"edit":"create");
+    d.runner.plan(next.manifest,{jobId:"fresh"});assert.equal((await d.runner.run("fresh")).outcome,"success");
+    const newId=readIdmap(d.storage)[item.srcId];assert.ok(newId && newId!==item.entityId);
+    const mutationsBefore=mutations(d).length;await d.runner.resume("deleted");
+    assert.equal(readIdmap(d.storage)[item.srcId],newId);assert.equal(mutations(d).length,mutationsBefore);
+  }
+});
+
+test("review L1: forgetting refuses every unresolved state, active leases and stale expected IDs", () => {
+  const d=setup();d.runner.plan(compile(d).manifest,{jobId:"owner"});
+  const c=config();c.nodes.p4_t3.seichiSilverCost=21;const pending=compile(d,c).manifest;
+  d.journal.transition("owner",1,"SENT");d.journal.transition("owner",1,"CONFIRMED",{entityId:"deleted-id"});d.journal.setJobState("owner","PAUSED");
+  d.runner.resolveConfirmed("owner",1,{confirmed:true});
+  d.runner.plan(pending,{jobId:"pending"});
+  const act=()=>d.runner.forgetBinding("owner",1,{confirmed:true,expectedId:"deleted-id"});
+  d.journal.transition("pending",2,"SENT");
+  for(const state of ["SENT","ORPHANED","CONFIRMED"]){
+    if(state!=="SENT")d.journal.transition("pending",2,state,{entityId:"other-id"});
+    const before=JSON.stringify(d.journal.listJobs()),map=readIdmap(d.storage);
+    assert.throws(act,/unresolved/);assert.equal(JSON.stringify(d.journal.listJobs()),before);assert.deepEqual(readIdmap(d.storage),map);
+  }
+  d.journal.transition("pending",2,"FAILED");
+  const other=new Runner({...d,tabId:"other"});other._lease("owner");assert.throws(act,/another tab/);other._releaseLease("owner");
+  assert.throws(()=>d.runner.forgetBinding("owner",1,{confirmed:true,expectedId:"wrong"}),/binding changed/);
+  d.storage.setItem("tnr_bk_idmap_v1",JSON.stringify({...readIdmap(d.storage),[scopeKey(BL,"p1_t1")]:"newer-id"}));
+  assert.throws(act,/binding changed/);assert.equal(readIdmap(d.storage)[scopeKey(BL,"p1_t1")],"newer-id");
+  assert.equal(d.game.calls.length,0);
+});
+
+test("review L1: failure to persist invalidation leaves the saved binding intact", () => {
+  const d=setup();d.runner.plan(compile(d).manifest,{jobId:"forget-storage"});
+  d.journal.transition("forget-storage",1,"SENT");d.journal.transition("forget-storage",1,"CONFIRMED",{entityId:"old-id"});d.journal.setJobState("forget-storage","PAUSED");
+  d.runner.resolveConfirmed("forget-storage",1,{confirmed:true});
+  const write=d.storage.setItem.bind(d.storage),before=d.journal.get("forget-storage"),map=readIdmap(d.storage);
+  d.storage.setItem=(key,value)=>{if(key.startsWith("tnr_forge_job_v1:"))throw new Error("storage full");write(key,value);};
+  assert.throws(()=>d.runner.forgetBinding("forget-storage",1,{confirmed:true,expectedId:"old-id"}),/storage full/);
+  assert.deepEqual(readIdmap(d.storage),map);assert.deepEqual(d.journal.get("forget-storage"),before);assert.equal(d.runner._readLease("forget-storage"),null);
+});

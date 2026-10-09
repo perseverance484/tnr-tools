@@ -2,7 +2,8 @@
 // app.refresh(). Errors are surfaced in the UI with context; nothing is only in the console.
 import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
-import { readGh, writeGh } from "../storage/compat.mjs";
+import { readGh, writeGh, readIdmap } from "../storage/compat.mjs";
+import { unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
 import { jobOutcome } from "../storage/journal.mjs";
 import { imagePicks, unusablePicks } from "../core/facts.mjs";
 import { packGateProblems } from "../core/imagepack.mjs";
@@ -292,6 +293,9 @@ export function RunScreen(app) {
     }
   }
   root.appendChild(h("h3", {}, "Items"));
+  const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
+  const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
+  if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
   for (const it of job.items) {
     const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` · phase ${it.phase}` : "";
     const row = h("div", { class: "f-row" },
@@ -306,6 +310,10 @@ export function RunScreen(app) {
     if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
       row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.items.some(i => i.state === "SENT") || typeof globalThis.confirm !== "function",
         onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
+    }
+    if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
+      row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
+        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding"));
     }
     root.appendChild(row);
   }

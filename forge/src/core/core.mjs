@@ -65,7 +65,7 @@ export class ForgeCore {
   static get ACTIONS() {
     return [
       "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
-      "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
+      "fail", "forgetBinding", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
       "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
       "snapshot", "startJob", "subscribe",
     ];
@@ -427,6 +427,10 @@ export class ForgeCore {
   resolveConfirmed(jobId, idx, options) {
     if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
     try { this.runner.resolveConfirmed(jobId, idx, options); this.changed(); } catch (e) { this.fail("resolve write", e); }
+  }
+  forgetBinding(jobId, idx, options) {
+    if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+    try { this.runner.forgetBinding(jobId, idx, options); this.clearSelection(); this.say("Saved binding forgotten. Prepare a fresh preview before creating or rebinding the record.", "warn"); } catch (e) { this.fail("forget binding", e); }
   }
 
   resolveCaptures(jobId) { return resolveCaptures(this, jobId); }
