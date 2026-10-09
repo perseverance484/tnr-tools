@@ -158,6 +158,24 @@ test("Bloodright recovery UI requires confirmation, blocks SENT and exports fail
   assert.equal(exported.journal.items[0].diffs[0].live,"edited");assert.equal(exported.journal.items[0].resolution.action,"operator-failed");
 });
 
+test("forget-binding UI cancels safely, blocks unresolved work, clears preview and exports the old ID", async () => {
+  const win=dom(),{app,journal,game,storage}=appWith();
+  journal.open({jobId:"forget-ui",bloodrightImport:{bloodlineId:"bee"},items:[{entity:"skillTree",op:"update",name:"Deleted",srcId:"br:bee:node",targetId:"old-id"}]});
+  journal.transition("forget-ui",0,"SENT");journal.transition("forget-ui",0,"CONFIRMED");journal.transition("forget-ui",0,"FAILED");journal.setJobState("forget-ui","PAUSED");
+  storage.setItem("tnr_bk_idmap_v1",JSON.stringify({"br:bee:node":"old-id",unrelated:"keep"}));
+  app.mount(win.document.body,win.document);app.go("run",{jobId:"forget-ui"});
+  const button=()=>[...win.document.querySelectorAll("button")].find(b=>b.textContent==="Forget saved binding");
+  assert.equal(button().disabled,false);
+  globalThis.confirm=()=>false;button().click();await Promise.resolve();assert.equal(JSON.parse(storage.getItem("tnr_bk_idmap_v1"))["br:bee:node"],"old-id");
+  journal.open({jobId:"other",bloodrightImport:{bloodlineId:"bee"},items:[{entity:"skillTree",op:"create",srcId:"br:bee:other"}]});journal.transition("other",0,"SENT");app.refresh();assert.equal(button().disabled,true);
+  journal.transition("other",0,"FAILED");app.refresh();assert.equal(button().disabled,false);
+  app.core.state.selected={stale:true};globalThis.confirm=()=>true;button().click();await Promise.resolve();
+  assert.equal(app.core.state.selected,null);assert.deepEqual(JSON.parse(storage.getItem("tnr_bk_idmap_v1")),{unrelated:"keep"});assert.equal(game.calls.length,0);
+  assert.match(win.document.querySelector(".f-main").textContent,/cannot restore the old binding/);
+  let exported;app.showExport=text=>{exported=JSON.parse(text);};await app.exportJob("forget-ui");
+  assert.equal(exported.journal.items[0].entityId,"old-id");assert.equal(exported.journal.forgottenBindings["br:bee:node"].entityId,"old-id");
+});
+
 test("Settings saves the PAT under the retained key and the export shows a textarea", () => {
   const win = dom();
   const { app, storage } = appWith();

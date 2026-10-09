@@ -241,7 +241,8 @@ export class Journal {
     if (!Array.isArray(items) || (!items.length && !allowEmpty)) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
     if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
     if (manifestHash) {
-      const dup = this.resumable().find((j) => j.manifestHash === manifestHash);
+      const dup = this.resumable().find((j) => j.manifestHash === manifestHash &&
+        !(j.bloodrightImport && Object.keys(j.forgottenBindings ?? {}).length)); // explicitly invalidated; cannot resume
       if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
     }
     const job = {

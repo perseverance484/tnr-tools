@@ -183,7 +183,7 @@
       if (!Array.isArray(items) || !items.length && !allowEmpty) throw new JournalError("a job needs at least one item unless it is an explicit capture-only job");
       if (this._read(jobId)) throw new JournalError("job already exists: " + jobId, { jobId });
       if (manifestHash2) {
-        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2);
+        const dup = this.resumable().find((j) => j.manifestHash === manifestHash2 && !(j.bloodrightImport && Object.keys(j.forgottenBindings ?? {}).length));
         if (dup) throw new JournalError(`an open job for this manifest already exists (${dup.jobId}); resume it instead`, { jobId: dup.jobId });
       }
       const job = {
@@ -4871,6 +4871,27 @@
       }
       return this.summary(jobId);
     }
+    forgetBinding(jobId, idx, { confirmed = false, expectedId } = {}) {
+      if (confirmed !== true) throw new Error("operator confirmation required to forget a saved binding");
+      const job = this.journal.get(jobId), item = job?.items[idx], bl = job?.bloodrightImport?.bloodlineId;
+      if (!bl || !item?.srcId?.startsWith(`br:${bl}:`) || !isBloodrightEntity(item.entity) || !["FAILED", "VERIFIED"].includes(item.state)) throw new Error("forget binding requires a resolved Bloodright item with provenance");
+      if (job.state === "RUNNING") throw new Error("pause the job before forgetting a binding");
+      this._lease(jobId);
+      try {
+        assertBloodrightAvailable(this.journal, bl);
+        const map = readIdmap(this.storage);
+        if (!expectedId || expectedId !== item.entityId || map[item.srcId] !== expectedId) throw new Error("binding changed; refresh and inspect its current ID");
+        const forgotten = { entityId: expectedId, at: new Date(this.clock()).toISOString() };
+        for (const old of this.journal.listJobs()) if (old.items.some((it) => it.srcId === item.srcId)) {
+          this.journal.annotateJob(old.jobId, { forgottenBindings: { ...old.forgottenBindings, [item.srcId]: forgotten } });
+        }
+        delete map[item.srcId];
+        writeIdmap(this.storage, map);
+      } finally {
+        this._releaseLease(jobId);
+      }
+      return this.summary(jobId);
+    }
     summary(jobId) {
       const job = this.journal.get(jobId);
       const counts = {};
@@ -5209,6 +5230,7 @@
     }
     _bindingConflict(job) {
       if (!this.manifests.get(job.jobId)?.manifest.policy.bloodrightImport) return null;
+      if (Object.keys(job.forgottenBindings ?? {}).length) return { detail: "a saved binding was explicitly forgotten; export this job and prepare a fresh preview" };
       const bindings = readIdmap(this.storage);
       for (const it of job.items) {
         const saved = bindings[it.srcId];
@@ -6197,6 +6219,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     root.appendChild(h("h3", {}, "Items"));
+    const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
+    const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
+    if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
     for (const it of job.items) {
       const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` \xB7 phase ${it.phase}` : "";
       const row = h(
@@ -6219,6 +6244,13 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           disabled: !!app.state.running || job.items.some((i) => i.state === "SENT") || typeof globalThis.confirm !== "function",
           onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true }))
         }, "Mark failed (leave as is)"));
+      }
+      if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
+        row.appendChild(h("button", {
+          class: "f-danger",
+          disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
+          onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId }))
+        }, "Forget saved binding"));
       }
       root.appendChild(row);
     }
@@ -6601,6 +6633,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "establishAuth",
         "exportJob",
         "fail",
+        "forgetBinding",
         "go",
         "loadPicker",
         "notify",
@@ -6943,6 +6976,16 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.fail("resolve write", e);
       }
     }
+    forgetBinding(jobId, idx, options) {
+      if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+      try {
+        this.runner.forgetBinding(jobId, idx, options);
+        this.clearSelection();
+        this.say("Saved binding forgotten. Prepare a fresh preview before creating or rebinding the record.", "warn");
+      } catch (e) {
+        this.fail("forget binding", e);
+      }
+    }
     resolveCaptures(jobId) {
       return resolveCaptures(this, jobId);
     }
@@ -7196,6 +7239,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     resolveConfirmed(jobId, idx, options) {
       return this.core.resolveConfirmed(jobId, idx, options);
+    }
+    forgetBinding(jobId, idx, options) {
+      return this.core.forgetBinding(jobId, idx, options);
     }
     resolveCaptures(jobId) {
       return this.core.resolveCaptures(jobId);

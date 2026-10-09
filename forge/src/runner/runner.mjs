@@ -407,6 +407,29 @@ export class Runner {
     return this.summary(jobId);
   }
 
+  /** Forget one operator-selected ID; preserve evidence and invalidate every old job using it. */
+  forgetBinding(jobId, idx, { confirmed = false, expectedId } = {}) {
+    if (confirmed !== true) throw new Error("operator confirmation required to forget a saved binding");
+    const job = this.journal.get(jobId), item = job?.items[idx], bl = job?.bloodrightImport?.bloodlineId;
+    if (!bl || !item?.srcId?.startsWith(`br:${bl}:`) || !isBloodrightEntity(item.entity) || !["FAILED", "VERIFIED"].includes(item.state)) throw new Error("forget binding requires a resolved Bloodright item with provenance");
+    if (job.state === "RUNNING") throw new Error("pause the job before forgetting a binding");
+    this._lease(jobId);
+    try {
+      assertBloodrightAvailable(this.journal, bl);
+      const map = readIdmap(this.storage);
+      if (!expectedId || expectedId !== item.entityId || map[item.srcId] !== expectedId) throw new Error("binding changed; refresh and inspect its current ID");
+      // Write invalidation first: a failed storage write must never leave resumable jobs
+      // able to restore a forgotten ID. A partial invalidation safely leaves the ID intact.
+      const forgotten = { entityId: expectedId, at: new Date(this.clock()).toISOString() };
+      for (const old of this.journal.listJobs()) if (old.items.some(it => it.srcId === item.srcId)) {
+        this.journal.annotateJob(old.jobId, { forgottenBindings: { ...old.forgottenBindings, [item.srcId]: forgotten } });
+      }
+      delete map[item.srcId];
+      writeIdmap(this.storage, map);
+    } finally { this._releaseLease(jobId); }
+    return this.summary(jobId);
+  }
+
   summary(jobId) {
     const job = this.journal.get(jobId);
     const counts = {};
@@ -842,6 +865,7 @@ export class Runner {
 
   _bindingConflict(job) {
     if (!this.manifests.get(job.jobId)?.manifest.policy.bloodrightImport) return null;
+    if (Object.keys(job.forgottenBindings ?? {}).length) return { detail: "a saved binding was explicitly forgotten; export this job and prepare a fresh preview" };
     const bindings = readIdmap(this.storage);
     for (const it of job.items) {
       const saved = bindings[it.srcId];

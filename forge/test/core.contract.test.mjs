@@ -20,7 +20,7 @@ import { FakeGame } from "./fakegame.mjs";
 // workflow decision that a headless host must be able to drive (core/imagepack.mjs).
 const ACTIONS = [
   "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
-  "fail", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
+  "fail", "forgetBinding", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
   "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
   "snapshot", "startJob", "subscribe",
 ];

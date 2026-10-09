@@ -189,6 +189,7 @@ export class App {
   adopt(jobId, idx, id) { return this.core.adopt(jobId, idx, id); }
   skip(jobId, idx) { return this.core.skip(jobId, idx); }
   resolveConfirmed(jobId, idx, options) { return this.core.resolveConfirmed(jobId, idx, options); }
+  forgetBinding(jobId, idx, options) { return this.core.forgetBinding(jobId, idx, options); }
   resolveCaptures(jobId) { return this.core.resolveCaptures(jobId); }
   exportJob(jobId, opts) { return this.core.exportJob(jobId, opts); }
 
