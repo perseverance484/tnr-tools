@@ -1,0 +1,86 @@
+{
+ "_note": "READ-ONLY live capture for Wayward Blade (aWwhu2wloj5nm9SgzeNxi), the single opponent in the hidden candidate event The Wayward Challenge. Zero mutations. Captures the full current AI record (stats, level, rank, equipped jutsus/items and its aiProfileId), the nine jutsus the id registry lists under the Wayward daily trio (registry does not say which belong to the Blade; the AI record does), and the Shine training ground backdrop the quest reuses, to confirm it is a SCENE_BACKGROUND. The AI rule chain needs ai.getAiProfile by aiProfileId, which no repository record carries; read it from this capture and follow up with a one-read rules capture. Feeds the difficulty review before the quest is finalised. Zero live writes.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aWwhu2wloj5nm9SgzeNxi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "YnX2vsz6sginMfyWXn57m"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "CX3KxNyJPu6a4lOpkLH7z"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "-E1LOtlYZ5n_2hZwFUN41"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "Dgq0s0ygb7qMPCOHqOrbw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "7coV1TGFUSgoJJw6QBRJu"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "d5eV1txC5T59E2qDS0AGM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "nIeB-vtgjL9qiSvPkWuKJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "7Is5M5QOjQ8jJNnK019iz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "iD7rgIXhXJTxwPrjGhT_U"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "Eu4B9CbWQRMkSEeXCQ1Y-"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
