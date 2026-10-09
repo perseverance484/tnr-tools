@@ -1,0 +1,37 @@
+{
+ "_note": "READ-ONLY verification capture after push/76 (results harvests/inbox/tnr_results_1791510874027.json, state INCOMPLETE: ai entry CONFIRMED with drift, quest VERIFIED). The drift is the upstream stat rework (docs/DRIFT.md @c6c3d33: the eight per-type offence/defence stats and preferredStat removed, single offence/defence added; tag statTypes enum reworked), which the repo's pinned 45c/45d predate. This reads back the new Wayward Blade's full record (to see what offence/defence and the passives actually hold), its AI profile rules (to confirm targeting landed as authored), the created quest, and the TrainingGrounds asset (to confirm its type). Four reads, zero mutations, zero live writes.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "uO4sBfcUGUZ7SYUTEaq4Q"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "ut9tduz-TcEUjFf6qje3z"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "EymfSL5MDPfrCpaT4O4Y5"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "gameAsset.get",
+    "input": {
+     "id": "c6EeucXjJ1_JCSiye8kuy"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
