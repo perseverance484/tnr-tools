@@ -478,7 +478,7 @@ The new **Skyglass Crystal** is a **weapon-only** imbue with **30% Consume**, ob
 
 **Date:** 2026-10-10  
 **Domain:** Ghost Ship / Skyglass Project expansion / Skyglass Katana rewards  
-**Status:** ACTIVE (approved numerical effects; item stat baseline and offline validation pending)  
+**Status:** SUPERSEDED by RUL-2026-10-10-007 (historical 30 EP Damage + Shield version)  
 **Supersedes:** RUL-2026-10-10-001
 
 **Ruling:** **Skyglass Katana** is a **Legendary WEAPON** dropped by the **Crowned Captain at 3%** independently of his **20% Skyglass Crown fragment**. The exact weapon effects are **30 EP Damage**, **300 HP Shield for 2 rounds** on the wielder, and **Immunity to Buff Prevent for 2 rounds** on the wielder. The previous **40% Consume** effect on the Katana is REMOVED; do not include both. These are three effects, at TNR's normal maximum. The shield is an on-use temporary self shield, not shield-potency scaling.
@@ -558,4 +558,25 @@ The working seven-technique roster is **B22 Compression Barrier, B16 Sovereign F
 **Rationale:** Make buff denial the core active Sealwright identity instead of an optional response, while preserving a separately threshold-gated emergency purge when players push IDG exceptionally high. The deliberate double-Clear distinguishes the archive custodian from the regular Captain.
 
 **Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns this design; `state/ghost_ship_skyglass_sealwright_rule_contract.json` owns the source-backed AI-rule proposal and tests; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing.
+
+---
+
+## RUL-2026-10-10-007 — Skyglass Katana Pierce/Consume Sword and Crystal 20% Consume
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project / final intended item identities  
+**Status:** ACTIVE (item effects and category approved; unprovided baseline/engine validation still open)  
+**Supersedes:** RUL-2026-10-10-002 for all prior Katana effects; supersedes the earlier Crystal Consume 30% design in RUL-2026-10-10-001/002. Quest, Sealwright and other reward decisions remain in force.
+
+**Ruling:** The new **Skyglass Katana** is a **LEGENDARY WEAPON of weapon type SWORD** that **cannot be imbued**. Exactly three item effects are authorized: **50 EP Pierce** (one `pierce` effect), **Buff Prevent immunity on SELF for 2 rounds** (one `immunity` tag with `blocks:"buffprevent"`), and **40% Consume** (one `consume` tag). No separate flat Shield, no standard Damage tag, no historical shield-potency modifier, and no additional imbuement slot are authorized. The `canBeImbued:false` field enforces no imbuement; do not try setting the schema's minimum-one `maxImbueNumber` to zero. Cooldown, AP, pool costs, range, equip slot and other Legendary Sword baseline fields have not been numerically selected and remain subject to captured-reference review.
+
+The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTargetTypes:"WEAPON"`, with **exactly one Consume 20% effect** (changed from 30%). The Crystal cannot be applied to the Katana since the Katana forbids imbuing. Crystal rarity/trading and one-tag validation/activation are not settled by this ruling.
+
+**Reward sourcing unchanged:** Skyglass Katana drops independently at **3%** from Crowned Captain, whose Skyglass Crown fragment independently drops at **20%**. The secret route guarantees **one Skyglass Reliquary**. The Reliquary retains a **3% independent Crystal roll** and the **12-Skyglass-Filaments-to-one-Crystal** crafting route and other already approved chest outcomes.
+
+**Technical consequence:** In current TNR source `studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93`, a WEAPON effect array containing **Pierce plus Consume** meets `SuperRefineEffects` companion-tag conditions, and damage calculations for Pierce create outgoing damage eligible for Consume's conversion. This supports, but does not replace, offline validator and combat testing. Conversely, a **Consume-only CRYSTAL** fails item-level validation because the crystal's **own** effects array lacks Damage/Pierce, even when the target weapon provides an attack effect after imbuing. An upstream corrective change, if warranted, needs a separately approved technical implementation and tests. Do not add unrequested filler damage/pierce.
+
+**Rationale:** Give the Crowned Captain's personal Sword a penetrating attack and damage-to-shield defensive loop that is powerful but cannot accept further imbuements, while offering a distinct weaker Consume bonus as a Ghost Ship-exclusive weapon crystal. Historical posters or numeric examples are not authoritative after this ruling.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (operative item design), `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (release gates), and `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` (offline technical study). Schemas/source and fresh readbacks retain independent authority for mechanics/live state.
 
