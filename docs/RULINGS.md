@@ -524,3 +524,21 @@ Wrong quarantine-seal answers **close the secret route for that quest run**, ret
 **Rationale:** The secret Reliquary ending deserves a proper boss encounter of comparable difficulty to the regular Captain while retaining a technically distinct defensive containment identity. Mirroring raw multipliers without analyzing cooldowns, control windows and Captain equipment would overstate parity.
 
 **Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns the current technical combat proposal; `state/ghost_ship_skyglass_expansion_design.md` owns the approved quest narrative/graph; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing. The shared pool and captured AI profiles retain their evidence authority.
+
+---
+
+## RUL-2026-10-10-005 — Sealwright reserves Nullifying Wave against excessive IDG
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright AI behavior  
+**Status:** ACTIVE (specific seventh-jutsu and trigger approved; remaining rotation under review)  
+**Supersedes:** none; refines the provisional six-move kit discussed under RUL-2026-10-10-004
+
+**Ruling:** Equip **Nullifying Wave (B32, shared-pool ID `JWZYiHKPNwYziWEFjw4Fn`)** as the **seventh jutsu** on Sealwright. **Do not cast it during ordinary rotation.** Use it **only when the opponent's summed Increased Damage Given (IDG) exceeds 70**, and only when cooldown, action points, targeting and range permit. It has a **100% Clear** effect, **60 AP cost**, **8-round cooldown** and **range 5**. Place the conditional response first; if unavailable, fall through to the six normal moves.
+
+**Source-backed rule encoding:** `target_has_effect` with `effectType:"increasedamagegiven"`, `target:"CLOSEST_OPPONENT"`, and `threshold:71`, AND `distance_lower_than` with `target:"CLOSEST_OPPONENT"`, `value:6`; action `use_specific_jutsu` with matching target and B32's ID. The game engine tests **sum(effect.power) >= threshold**. Because the threshold is integer, totals between 70 and 71 are not expressible as strict >70 without engine change. `clear 100` removes all removable positive effects, not IDG selectively; `clearprevent` may block it.
+
+**Rationale:** Prevent extreme offensive buff stacking from trivializing a Captain-tier encounter without turning Nullifying Wave into a routine dispel. The six rotating techniques and their effective difficulty remain independently reviewable.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns detailed implementation and source-backed AI rule; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` tracks next work. Current upstream code for the condition is `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6` in `app/src/libs/combat/ai_v2.ts`.
+
