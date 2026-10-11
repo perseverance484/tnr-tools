@@ -33,10 +33,16 @@ python3, and `unshare` (util-linux) for the network namespace.
    environment values (no credentials) and no database (`TEST_MYSQL_URL` unset).
 6. Re-checks every required evidence file with `tools/check_evidence.py`: it
    must exist, record at least one assertion and contain no failed check.
-7. Runs the gate-enforcement self-test `selftest/run_negative.sh`. A synthetic
-   `failed:1` evidence file, a missing gate file, a `bun test` run with a
-   deliberately failed `Evidence.check`, and the evidence that run wrote must
-   each produce a nonzero exit.
+7. Runs the gate-enforcement self-test `selftest/run_negative.sh`. Five probes
+   must each fail as intended: a synthetic `failed:1` evidence file; a missing
+   gate file; a `bun test` run with a deliberately failed `Evidence.check`
+   (its log must show the `requireClean` failure, and its NEG evidence must hold
+   2 checks with the one named failure); that NEG evidence through
+   `check_evidence.py`; and a flush-only failed check (no `requireClean`, no
+   `TNR_OUT`, all bun tests passing). A failure that is not the intended one, such
+   as a missing tool, unavailable `unshare`, a launch error or a missing
+   artifact, is reported as infrastructure (exit 2) and fails `run.sh`; it is
+   never counted as enforcement.
 8. Writes `results/<gate>.json`, `results/bun_test.log` and
    `results/provenance.json` (engine pin, lockfile hash, runtime versions,
    harness file hashes, and the bun, evidence-check and self-test exit statuses).
@@ -59,14 +65,14 @@ independent full runs produced byte-identical `m0/a1/a2/b1/b2/b3/c1/c2/c3.json`.
 | `engine/lib/fixtures.ts` | Committed-record loader (JSON pointers from the accepted packets), 0056 AI stat conversion, kit/rule variants, Sealwright carrier, player fixtures and policies |
 | `engine/lib/sim.ts` | Battle assembly with `initiateBattle`'s battle-start preprocessing (`capUserStats`, then the engine's `processUsersForBattle` with no DB client, `applyPoolAdjustmentsToBase`, `refreshMasteries`) and the `performAction` loop (`alignBattle` → `performAIaction` → `alignBattle`), with whole-step HP deltas, removed-effect diffs and one round-start sample per round |
 | `engine/lib/report.ts` | Evidence JSON writer; `requireClean` fails the file on any failed required check |
-| `engine/lib/items.ts`, `engine/lib/itembattle.ts` | Katana/Crystal records on the captured Flaming Sword carrier; player weapon actions via `availableUserActions` → `performBattleAction` |
+| `engine/lib/items.ts`, `engine/lib/itembattle.ts` | The accepted Night's Testament-derived Katana record (`state/ghost_ship_skyglass_katana_record.json`), and the hypothetical Crystal and imbuable recipient on the captured Flaming Sword carrier; player weapon actions via `availableUserActions` → `performBattleAction` |
 | `engine/a1_kits.test.ts` | A1 |
 | `engine/a2_sealwright.test.ts` | A2 |
 | `engine/b_crystal.test.ts` | B1–B3 (B3 calls the real `occupation.imbueItem`/`craftItem` procedures with a read-only stub client; any write attempt is trapped) |
 | `engine/c_katana.test.ts` | C1–C3 |
 | `tools/check_evidence.py` | Post-run evidence gate (missing file, no assertions, or any failed check → exit 1) |
 | `tools/build_katana_record.py` | Derives / checks `state/ghost_ship_skyglass_katana_record.json` from the push/85 capture |
-| `selftest/` | Negative gate-enforcement self-test (`run_negative.sh`, `negative_gate.test.ts`); not part of the evidence suite |
+| `selftest/` | Negative gate-enforcement self-test (`run_negative.sh`, `negative_gate.test.ts`, `negative_flush_only.test.ts`); not part of the evidence suite |
 | `results/` | Committed evidence from the frozen run |
 
 ## Fixture limits (read before using any number)
@@ -81,8 +87,8 @@ independent full runs produced byte-identical `m0/a1/a2/b1/b2/b3/c1/c2/c3.json`.
 - **Captured AI rows predate upstream migration 0056** (unified combat stats,
   commit `46f62cd9`, 2026-10-08). The harness applies that migration's AI
   branch verbatim: `offence` = max of the four offences, `defence` = max of the
-  four defences, masteries = max(offence, defence) per art. A fresh
-  post-migration operator capture must confirm the live values.
+  four defences, masteries = max(offence, defence) per art. The post-migration
+  operator recapture push/86 confirmed the live values exactly (see below).
 - **Damage settings:** `battle.extraState.dmgConfig` is unset, so the engine
   source defaults apply. Live `gameSetting` overrides were not read. Absolute
   damage can differ from live. Comparisons under identical settings are the

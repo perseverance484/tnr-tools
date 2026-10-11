@@ -2,7 +2,7 @@
 
 Format: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Results: `docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_OFFLINE_RESULTS.md`.
 
-> **Revision status.** The current review target is **r3** (section at the end). The sections from "Repository / refs" to "Explicitly not begun" are the **r1** handoff (`8c19a376…`), kept for traceability. Statements marked **[r1; superseded]** no longer hold. Where r1 and a later revision disagree, the later revision wins.
+> **Revision status.** r3 passed ChatGPT's independent verification; **r4** (section at the end) applies its non-blocking follow-ups only. The sections from "Repository / refs" to "Explicitly not begun" are the **r1** handoff (`8c19a376…`), kept for traceability. Statements marked **[r1; superseded]** no longer hold. Where r1 and a later revision disagree, the later revision wins.
 
 ## Repository / refs
 
@@ -126,4 +126,33 @@ python3 harness/ghost_ship_stage2/tools/build_katana_record.py --check → curre
 **Known limits still in force:** fixed start tiles and no random initial barriers; source-default `dmgConfig`; the turn loop replicates `performAction`'s inner loop; synthetic boundary IDG; single-opponent fights do not exercise RNG; Sealwright's numeric profile uses the Captain as carrier; B3 does not exercise persistence/concurrency guards.
 
 **Not performed:** live-game requests 0, writes 0, asset-CDN requests 0. No credentials. No browser or client checks. No engine, art, manifest, publication or quest change. Nothing landed on `main`.
+
+## Revision r4 (2026-10-11): non-blocking follow-ups from the r3 verification
+
+- **Trigger:** ChatGPT verified r3 `79f435e8b0284ea275bcb89b819ac5f50f673507` as **PASS** for the scoped correction pass and closed F1–F6. Its review commit `0d44d01a…` (`chatgpt/review-ghost-ship-stage2-r3-20261011`) was local-only and not fetched; the follow-ups were applied as relayed. The PASS does not approve balance, Crystal production support, presentation, manifest assembly or publication.
+- **Base:** r3 `79f435e8…`. `main` was verified at `50f980f08dfcc798723c26243b9399cc0a97911a`. The r4 head is the commit that adds this section.
+- **Scope:** prose and the self-test wrapper only. No mechanics, test assertion, fixture or evidence value changed.
+
+| Follow-up | Change |
+| --- | --- |
+| **R3-N1** empty-Clear wording | Results §4: against the damage-only fixture all Clears are S31 (B32 never cast). "The Clear component removes nothing against this damage-only fixture; S31 still deals damage." Routine S31 and conditional B32 are preserved |
+| **R3-N2** negative-test wrapper | `selftest/run_negative.sh` checks preconditions (python3, bun, `unshare -rn`) and requires each failure to be the intended one. The checker probes must name the failure (`1 failed: bad`, `missing`). The bun probe's log must show 1 pass / 1 fail with the `requireClean` test failing on `"deliberate failure"`. The NEG artifact must exist with 2 checks and exactly that one named failure before it is fed to the checker. A new flush-only probe (`negative_flush_only.test.ts`: no `requireClean`, no `TNR_OUT`, log 1 pass / 0 fail) must still exit nonzero. Anything else is reported as INFRASTRUCTURE (exit 2) and fails `run.sh`; it is never counted as enforcement |
+| **R3-N3** stale documentation | README layout row names the accepted Night's Testament-derived Katana record, with Flaming Sword as the Crystal/recipient carrier only. README and results §2 record that push/86 confirmed the 0056 conversion. Reward decisions: the "offline combat playback still remain[s] to be performed" sentence now says C1–C3 ran and passed verification |
+
+**Wrapper proof.** Run outside `run.sh` (no placeholder environment), the bun probes crash at engine env validation. The r4 wrapper reports `INFRASTRUCTURE … did not run as intended` and exits 2; the r3 wrapper would have counted that crash as enforcement. Under `run.sh`, all five probes report `enforced`.
+
+```text
+TNR_OUT=<scratch>/r4a harness/ghost_ship_stage2/run.sh   → exit 0
+  M0 PASS: 482 checks, 0 failed
+  bun test: 73 pass, 0 fail, 174 expect() calls
+  evidence m0/a1/a2/b1/b2/b3/c1/c2/c3: clean
+  negative probes 5/5 enforced; run.sh: bun=0 evidence=0 negativeSelftest=0 -> exit 0
+harness/ghost_ship_stage2/run.sh   (second run → results/)  → exit 0
+  all nine evidence files byte-identical to the first run AND to r3
+python3 harness/ghost_ship_stage2/tools/build_katana_record.py --check → current
+```
+
+Among the committed results only `results/provenance.json` (new self-test file hashes) and `results/bun_test.log` (run timings) changed. The engine pin, lockfile, runtime and isolation are as in r3. Live-game requests 0, writes 0, CDN 0, credentials none. No engine, ruling, reward value or rule change. Nothing landed on `main`.
+
+**Ready for the director:** the remaining decisions are unchanged from r3. Judge them on the r3 measurements, and note that the five seeds repeat deterministic encounters; they are not independent win-rate samples.
 

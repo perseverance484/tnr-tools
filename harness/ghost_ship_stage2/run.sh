@@ -7,7 +7,8 @@
 # Exit status is nonzero when M0 fails, when `bun test` fails, when any
 # required evidence file is missing or records a failed check
 # (tools/check_evidence.py), or when the gate-enforcement self-test
-# (selftest/run_negative.sh) finds a layer that does not fail on a failed check.
+# (selftest/run_negative.sh) finds a layer that does not fail on a failed check
+# or cannot run its probes as intended (infrastructure).
 #
 # Engine source: studie-tech/TheNinjaRPG at the pinned commit, exported with
 # `git archive` into a disposable work directory (never the upstream working
