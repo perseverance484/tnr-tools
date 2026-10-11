@@ -459,7 +459,7 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 
 **Date:** 2026-10-10  
 **Domain:** Ghost Ship / Skyglass Project expansion / rewards and release  
-**Status:** ACTIVE (approved design values; engine representation pending)  
+**Status:** SUPERSEDED (see RUL-2026-10-10-002; historical Katana Consume spec, Crystal and visibility context retained below)  
 **Supersedes:** earlier uncommitted Katana concept based on Night's Testament + shield potency; no prior RUL id
 
 **Ruling:** The new **Skyglass Katana** is a **Legendary** weapon with **30 EP Damage** and **40% Consume**, using an approved *Legendary baseline* for other weapon fields such as cooldown, pool costs and AP (exact baseline numbers still need source identification and director sign-off). It drops independently at **3%** from the **Crowned Captain**. This supersedes the earlier Night's Testament exact-copy / shield-potency +X plan.
@@ -471,4 +471,23 @@ The new **Skyglass Crystal** is a **weapon-only** imbue with **30% Consume**, ob
 **Rationale:** Fix the two new reward identities and rates without allowing the earlier concept placeholder to survive into manifests, and prevent a stale public-visibility capture from driving an unnecessary or dangerous live cutover.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` for operative task-specific values and technical gates; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` for the release workplan. Generated schemas, actual game source, and new operator-readback captures retain their separate authority for contracts and current storage state.
+
+---
+
+## RUL-2026-10-10-002 — Skyglass Katana three-effect final direction
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project expansion / Skyglass Katana rewards  
+**Status:** ACTIVE (approved numerical effects; item stat baseline and offline validation pending)  
+**Supersedes:** RUL-2026-10-10-001
+
+**Ruling:** **Skyglass Katana** is a **Legendary WEAPON** dropped by the **Crowned Captain at 3%** independently of his **20% Skyglass Crown fragment**. The exact weapon effects are **30 EP Damage**, **300 HP Shield for 2 rounds** on the wielder, and **Immunity to Buff Prevent for 2 rounds** on the wielder. The previous **40% Consume** effect on the Katana is REMOVED; do not include both. These are three effects, at TNR's normal maximum. The shield is an on-use temporary self shield, not shield-potency scaling.
+
+The effect intent maps to `damage` (raw power 30), `shield` (`health:300`, `rounds:2`, `target:SELF`, `power:100` to guarantee creation), and `immunity` (`blocks:buffprevent`, `rounds:2`, `target:SELF`). The immunity blocks **new Buff Prevent effects** during its duration; it does not clear already-active Buff Prevent or immunize against every debuff. This mapping is supported by `45c_DATA_constructors.json` and pinned game source `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6`; offline integration behavior and remaining Legendary weapon cooldown/AP/pool baseline values must still be checked before manifest freeze.
+
+**Unchanged:** The **Skyglass Crystal** remains a Ghost Ship-exclusive **weapon-only 30% Consume** imbue, sourced from the approved Reliquary hybrid rewards (including its 3% direct opening roll and 12-Filament recipe). Both Ghost Ship profession quests remain hidden per director report, requiring a fresh read-only capture before edits. No live-game writes or publishing are authorized.
+
+**Rationale:** Give the Crowned Captain's command blade a fixed, predictable defensive identity instead of the prior damage-conversion mechanic, without silently changing the separate Crystal's Consume chase or any protected production-release decisions.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` is the operative design/reward record; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` governs task/release sequencing. Item effect schemas and engine behavior remain owned by generated contracts/pinned source, not this ruling.
 
