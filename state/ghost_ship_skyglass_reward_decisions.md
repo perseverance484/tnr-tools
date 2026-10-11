@@ -30,7 +30,7 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
 
 **Superseded Katana stats:** earlier shield-potency, generic Damage and fixed-Shield variants remain superseded. The r4 Pierce50 + immunity2r + Consume40/rounds0 record is now historical too. Only **Pierce 50 EP + Buff Prevent Immunity SELF/2 rounds + active Consume 15%** is operative for new construction. Earlier values remain in historical rulings and frozen fixtures for traceability.
 
-**Source and validation boundary:** The r4 Stage 2 item evidence at engine `cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93` covers the former 40%/20% contracts. It does not validate the revised items. Reviewed upstream source `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` implements active Consume. Weapon effects activate through weapon actions; this is not a permanent buff granted merely by equipping a weapon. Runtime revalidation is assigned in `state/prompt_ghost_ship_skyglass_consume_revalidation.md`.
+**Source and validation boundary:** The r4 Stage 2 item evidence at engine `cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93` covers the former 40%/20% contracts. It does not validate the revised items. Reviewed upstream source `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` implements active Consume. Weapon effects activate through weapon actions; this is not a permanent buff granted merely by equipping a weapon. The assigned revalidation brief is `state/prompt_ghost_ship_skyglass_consume_revalidation.md`; completed 3/3 candidate evidence is linked below, with final timing still open.
 
 **Timing remains open:** that source defaults active `rounds` to 3 and generated `shieldRounds` separately to 3. The director approved the active-buff behavior and rates, not these durations. Defaults may be labelled offline test carriers, not silently frozen balance. Explicitly select both lifetimes before a final item record or manifest.
 
@@ -44,7 +44,7 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
 - **Reliquary table otherwise unchanged:** 1 Skyglass Filament + 3 Rare Jewels guaranteed; independent 25% bonus Filament, 30% Skyglass Serum, 15% Ornate Chest, and 3% Skyglass Crystal. No Katana/Crown fragment in chest.
 - **Open:** Crystal rarity, Crystal/Filament trading, Crafting-rank/occupation economics and actual item-contract compatibility; do not invent player privileges or rates.
 
-**Old Crystal blocker is historical:** at the newly reviewed source, `SuperRefineEffects` requires same-array Damage/Pierce for Consume only when `rounds === 0`. Positive-duration Consume-only Crystal is source-admissible; the previous validator-exemption proposal is not automatically needed. Exact full-item validation and actual imbued-weapon runtime tests for Consume10 remain pending. Do not add fake Damage/Pierce or modify upstream engine code to bypass validation. Recheck activation, repeated casts and overlap with existing Consume under the changed engine.
+**Old Crystal blocker is historical:** at the newly reviewed source, `SuperRefineEffects` requires same-array Damage/Pierce for Consume only when `rounds === 0`. Positive-duration Consume-only Crystal is source-admissible; the previous validator-exemption proposal is not automatically needed. Exact full-item validation and imbued-weapon runtime tests pass for the explicit 3/3 candidate carrier (see updated evidence below); final timing and production specification remain pending. Do not add fake Damage/Pierce or modify upstream engine code to bypass validation. Recheck activation, repeated casts and overlap with existing Consume under the changed engine.
 
 ## Quest hidden-state evidence conflict
 
@@ -52,6 +52,8 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
 - Historic `harvests/inbox/tnr_results_1790826101573.json` from 2026-10-01 captured both `hidden:false`. That is a historic state, not authoritative current visibility.
 - Before any in-place edit, obtain an **operator-run fresh read-only** `quests.get` capture of `6Ri-W5TtUrEMWpyYlnf_F` and `HckXVOf-qk6ESU9t5rxLh`. Preserve verified `hidden:true`, no agent-run publication/unhide.
 - No live-game requests or writes occurred while updating these decisions.
+
+**Updated candidate evidence:** `docs/reviews/GHOST_SHIP_ACTIVE_CONSUME_OFFLINE_RESULTS.md` and `harness/ghost_ship_consume/results/` now validate and exercise Katana15 / Crystal10 at engine `585534d7eb21d6f0dd678d5c3eb92662f611d39b`, using explicit **3/3 test timing only**. Full carriers are in `state/ghost_ship_skyglass_active_consume_carriers.json`. Positive-duration Crystal validates without a companion effect; active runtime/guard probes pass. Final timing, Crystal economy, presentation and independent frozen-SHA acceptance remain open; the historical r4 record and harness stay unchanged.
 
 ## Build acceptance gates
 
@@ -63,6 +65,6 @@ Settled or historical:
 
 Still open:
 
-1. Separate Consume buff and generated-shield durations; exact 15%/10% full-item validation and runtime revalidation at a pinned updated engine, including stacking, expiry, attribution and existing eligibility guards. Fable owns the next derived records and tests under `state/prompt_ghost_ship_skyglass_consume_revalidation.md`.
+1. Director-selected Consume buff and generated-shield durations, followed by validation of those final values. The 15%/10% full-item, runtime, stacking, expiry, attribution and eligibility tests pass for 3/3 carriers at the new pin; independent review remains open. Fable owns final derived records and any timing-dependent rerun under `state/prompt_ghost_ship_skyglass_consume_revalidation.md`.
 2. Crystal rarity/trading/crafting economy; Sealwright effective Captain parity and final AI decisions; new art QA, final quest prose and fresh operator-run hidden readback.
 3. Katana presentation: description, battle description, image, effect animation/SFX.

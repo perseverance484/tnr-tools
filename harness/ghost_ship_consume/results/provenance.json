@@ -1,0 +1,52 @@
+{
+ "carrierSha256": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
+ "dependencies": "existing user-approved frozen install; dependency manifests unchanged from historical engine",
+ "designCommit": "46df27172556807ab5bf723b0aa8c1251445ba2e",
+ "engine": {
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "commit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+  "export": "git archive <pin> app; every pinned file checked before and after tests",
+  "packageJsonSha256": "ebc24a6fefbb00783c12749cc4bcf90f8463943c0282008acf3d236ad1b05bbd",
+  "repository": "studie-tech/TheNinjaRPG"
+ },
+ "exitStatuses": {
+  "bun": 0,
+  "evidence": 0,
+  "negativeSelftest": 0,
+  "sourceIntegrity": 0
+ },
+ "harnessFileSha256": {
+  "engine/active_consume.test.ts": "d7a88bc990cb325a777209ec626e3bdb375539ca1f6560341d9d34017bbcfba2",
+  "engine/contract_guards.test.ts": "1d18d0d5b91f72aaac6e0be6fa228c6375f9cf402b547a4326f6d7358e7f1876",
+  "engine/lib/consume_probes.ts": "2ecd549747715a50ebffa35a6c8bf8a8769deebdc2ebdab0ecfe7527f56151c7",
+  "engine/lib/fixtures.ts": "2ec479aab5b6f747f6194b15bcd9bcb6860c9efe9dea9cf6e619d958cf21b9ad",
+  "engine/lib/itembattle.ts": "36d39886fbf771892683223df2dc0f6f6e89af848d200c88b79b0dbd82855706",
+  "engine/lib/items.ts": "64c73d85f04964c77ee2d9990cf2eacaefd058f8144dfa4e29d09c3815116c61",
+  "engine/lib/report.ts": "2419cac7ccfa96838ef50a8952f24afa44d6801c690b8d24ec3efd5e13a6e948",
+  "engine/lib/sim.ts": "ae03d00f793879d9154e8fcea26dbb1b4822c8acda1834d9223df305d0a14412",
+  "run.sh": "a1d7fe9b3ff9e39d5a4e900696948e6ceee355551c68012ce0580a7bd33824ab",
+  "selftest/negative_flush_only.test.ts": "133c895cbc2db06d2312ebebfe3e48916eb8f601490d156ace94eafc4c20188c",
+  "selftest/negative_gate.test.ts": "9fbe811ff1c70b62d41a0aa983f2c2892fb835a1d8148d9e6d2c4dd257b921bc",
+  "selftest/run_negative.sh": "f3c0647281d952872a40786a56be6acdf346c0a1e1256656b62e0df1b3047799",
+  "tools/build_item_carriers.py": "765ca78928e30a5f93538e18c68e06065faf69f36785361aafe636ef98b02d8e",
+  "tools/check_evidence.py": "cc296c690aea48d14aa5629fbe625fd484407517742ea73345a9b0fc53ea95c1",
+  "tools/deny_network.py": "c9eca46b9250788bf8501136597d611d7616bc4d3033481c21a2f99a803fd994",
+  "tools/offline_exec.py": "1e0fbf88b348ba10bb4da6e9fcc470a4c283eac209afaf321efb3a0ebce4cbdd",
+  "tools/provenance.py": "d493432d94fcb26b0eed9c153a35de6e085be4ceed74ed1f49b0aa102e280cd7",
+  "tools/test_env.sh": "0d307719f08ca2db7031792a14c20482c9097bb802ecddc1efabd139715d6634",
+  "tools/verify_export.py": "9594e58be33e709b3b4f14365bcb1d885a7a163f6e830846178b30a6d2e28acc"
+ },
+ "historicalM0ScriptSha256": "5d1d1aa5e2af7f358f3727b2c33f323986ac4d7eb0dec75d2f2dcf0d783ef5e5",
+ "historicalR4": "3f825562ea051306a3803f47428b742ae5100011",
+ "isolation": {
+  "database": "none; write-trapping read-only stub",
+  "environment": "env -i allowlist; CI placeholders only; Bun --no-env-file --no-install",
+  "mode": "seccomp",
+  "network": "socket/connect/bind/listen/accept/send/io_uring syscalls denied; inherited by descendants"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v24.19.0",
+  "python": "3.12.14"
+ }
+}
