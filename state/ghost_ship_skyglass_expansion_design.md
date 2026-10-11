@@ -18,7 +18,7 @@ Keep the Ghost Ship a self-contained, replayable airborne shinobi expedition. Ne
 - Original five endings `w_A, w_B1, w_B2, w_C, w_Co` retain their reward identities, except the previously approved removal of the erroneous `w_Co` fragment-completion roll.
 - The secret ending `w_secret` is a mutually exclusive sixth ending. It grants **1 Skyglass Reliquary at 100%**; no boss fragment/Katana drops inside the Reliquary.
 - The Oathkeeper correct answer `Time` proceeds directly to `d_helm_oath`. The optional `d_oath_memory` dialog is bypassable; **no extra mandatory farm fight, key or puzzle**.
-- Existing 11 Ghost Ship AI identities and the shared-pool migration stay in force. Only **Sealwright** is a new AI proposal, using the pool rather than a bespoke jutsu suite.
+- Existing 11 Ghost Ship AI identities and the shared-pool migration stay in force. Only **Sealwright** is a new AI proposal, using the pool rather than a bespoke jutsu suite. **Director combat direction updated:** Sealwright must perform **on par with the regular Captain**, with genuine boss-pool moves; this does not alter the approved route structure. See `state/ghost_ship_skyglass_sealwright_combat_draft.md` for the candidate B14/B16 kit and captured 3.0× stats / 2.5× pools starting baseline.
 - Director reports the two quests currently hidden; October 1 `hidden:false` snapshot is stale for visibility. Require a fresh operator-run capture before any write and preserve hidden state.
 
 ## 2. Proposed route map
@@ -178,8 +178,8 @@ The proposed machine patch was applied in memory to the full captured Gather gra
 
 **NOT yet approved or frozen:**
 - Player-facing descriptions and choice-label wording in the machine patch are **draft prose**. Their IDs, node types, choices/edges and reward endpoint roles are frozen; editorial revision can improve prose without changing routes.
-- Sealwright's exact AI kit, AI profile, stats, difficulty, behavior, role tuning and dialogue presentation beyond its approved custodian premise require a dedicated combat/content pass and director approval.
+- Sealwright's **Captain-tier parity target** and boss-pool inclusion are director-owned direction. Exact six-jutsu selection, equipped gear, AI rule behavior, measured encounter difficulty and dialogue presentation still require combat review and director acceptance; do not treat the current draft kit as approved.
 - The Skyglass Katana's exact Legendary weapon cooldown/pool/AP baseline and source-validatable three-effect implementation, and the Crystal's weapon-only 30% Consume engine blocker, need independent technical verification. Rarity/trade questions remain director-owned.
 - Scene-asset processing, filenames, art acceptance, and a fresh operator-run capture of the two quests' reported hidden state are required before any manifest or operator-side changes.
 
-**Next step:** develop the Sealwright encounter specification and finish the Stage 2 mechanical/reward gates in the separate reward/combat workstream, then finalize and approve **prose only**, preserving this approved structure. Fable may build a hidden combined manifest **after** the necessary specs and art are frozen. No live-game requests or writes, implementation manifest, publication, or art generation occurred in this design phase.
+**Next step:** seek director review of the revised Sealwright Captain-tier combat draft and finish Stage 2 mechanical/reward gates, then finalize and approve **prose only**, preserving this approved structure. Fable may build a hidden combined manifest **after** the necessary specs and art are frozen. No live-game requests or writes, implementation manifest, publication, or art generation occurred in this design phase.
