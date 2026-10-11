@@ -12,6 +12,8 @@
 - `state/ghost_ship_skyglass_expansion_design.md` — **Stage 1 STRUCTURE APPROVED** for the 83-node six-ending quest (RUL-2026-10-10-003); new dialogue and choice prose remain draft.
 - `state/ghost_ship_skyglass_graph_patch.json` — machine-readable **STRUCTURE APPROVED / PROSE DRAFT** patch containing 26 new nodes, 12 original forward-edge rewires, four new scene symbols and one Sealwright AI symbol. Not a Forge manifest.
 - `state/ghost_ship_skyglass_sealwright_rule_contract.json` — source-backed **candidate** 7-jutsu exact AI rule plan with director-locked dual Clear and parity test matrix; no Forge live writes or implementation freeze.
+- `docs/reviews/GHOST_SHIP_SEALWRIGHT_RULE_STATIC_CHECK.md` — 112/112 narrow source-key/priority static checks, 12 selection scenarios; deliberately NOT full game combat or true Captain-parity proof.
+- `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` — offline-only, Fable-owned research/test brief covering Sealwright parity, weapon-only Consume Crystal feasibility and Katana Legendary baseline. Not a game-write authorization.
 - `state/ghost_ship_skyglass_sealwright_combat_draft.md` — **Director-accepted seven-jutsu kit and intentional double-Clear identity** (RUL-2026-10-10-006); S31 Unraveling Strike routinely strips removable buffs, B32 Nullifying Wave remains conditional on IDG above 70. Effective parity and final AI priority/positioning still require offline validation.
 - `state/ghost_ship_retheme_design.md` — Skyglass lore, reveal cadence, named entities, rewards (original preserve-57 scope is now superseded for the expansion only).
 - `state/ghost_ship_retheme_patch.json` — approved base 57-node text/identity/reward patch. Invariant to preserve all edges and count MUST be explicitly superseded by a versioned expansion; do not silently alter this base or treat it as the full release.
@@ -78,6 +80,8 @@ The director rejected the initial mid-tier Sealwright proposal and requested **m
 
 The Stage 2 technical remainder still includes the Katana's source-verified Legendary cooldown/cost/AP baseline, the current three-tag in-process combat test, Crystal weapon-only Consume 30% compatibility, Crystal rarity/trading, and the operator's fresh hidden-state capture.
 
+**Research handoff prepared:** `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` defines three offline-only test packages: (A) Sealwright full AI action behavior and Captain-parity fixtures; (B) weapon-only Crystal Consume 30% validation/runtime feasibility; (C) Katana three-tag engine behavior plus source-verified Legendary baseline. The owner of implementation remains Fable, and code/source changes to the production game remain separately user-authorized. The reviewed *static* rule-check report passed 112 scoped assertions and 12 priority examples, but did not execute the real game combat loop.
+
 ## Roadmap / stage gates
 
 | Stage | Owner | Deliverable | Acceptance gate |
@@ -123,4 +127,4 @@ No direct live-game requests or writes, no publication, no change to any active 
 - Confirm Crystal rarity, tradeability, Filament tradeability, fixed Reliquary rewards, and unlimited-repeat chase policy.
 - **Visibility:** director says both existing quests are currently hidden. Operator confirms with fresh captures; maintain hidden state during edits. Separate publishing decision remains open.
 
-**Immediate next task:** Fable performs offline source-backed Sealwright AI-rule/regular-Captain parity tests against `state/ghost_ship_skyglass_sealwright_rule_contract.json`, without changing game content; then resolve the Katana Legendary baseline and weapon-only 30% Consume Crystal mechanical blocker. ChatGPT independently reviews frozen evidence before a full manifest.
+**Immediate next task:** execute the **offline-only** Stage 2 research brief at `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` on a separate Fable-owned branch. The director-approved seven-jutsu/double-Clear Sealwright design is ready for in-process AI/parity tests, and Crystal Consume/Katana Legendary item mechanics are the adjacent blocking tests. ChatGPT reviews an exact frozen Fable SHA. Only after user-owned decisions and art/capture acceptance should the full manifest be constructed.
