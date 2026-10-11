@@ -1,5 +1,5 @@
 {
- "assertions": 16,
+ "assertions": 18,
  "carriers": {
   "buffPrevent": {
    "file": "harvests/inbox/tnr_results_1789188714166.json",
@@ -67,7 +67,7 @@
     "targetShield": 500,
     "targetShieldAfter": 0
    },
-   "name": "observed Pierce vs target shield recorded",
+   "name": "Pierce ignores the target shield: HP loss equals the unshielded reference and the target shield is consumed",
    "pass": true
   },
   {
@@ -97,49 +97,44 @@
    "detail": [
     {
      "round": 1,
-     "shield": [
-      {
-       "power": 590,
-       "rounds": 3
-      }
+     "rounds": [
+      3
      ]
     },
     {
      "round": 2,
-     "shield": [
-      {
-       "active": true,
-       "power": 222.718,
-       "rounds": 3
-      }
+     "rounds": [
+      3
      ]
     },
     {
      "round": 3,
-     "shield": [
-      {
-       "active": true,
-       "power": 222.718,
-       "rounds": 2
-      }
+     "rounds": [
+      2
      ]
     },
     {
      "round": 4,
-     "shield": [
-      {
-       "active": true,
-       "power": 222.718,
-       "rounds": 1
-      }
+     "rounds": [
+      1
      ]
     },
     {
      "round": 5,
-     "shield": []
+     "rounds": []
     }
    ],
-   "name": "shield rounds counted down to expiry (timeline recorded)",
+   "name": "Consume shield present in the cast round and the next three rounds (rounds 3,3,2,1), gone from round +4",
+   "pass": true
+  },
+  {
+   "detail": {
+    "round": 2,
+    "shieldAfterHit": 222.718,
+    "shieldBefore": 590,
+    "wielderHpLost": 0
+   },
+   "name": "absorption leaves wielder HP unchanged",
    "pass": true
   },
   {
@@ -152,10 +147,6 @@
   },
   {
    "name": "pre-existing Buff Prevent is not removed by the Katana's immunity",
-   "pass": true
-  },
-  {
-   "name": "new Buff Prevent blocked in the Katana cast round",
    "pass": true
   },
   {
@@ -177,11 +168,28 @@
      "offset": 3
     }
    ],
-   "name": "observed immunity window (rounds after cast that block)",
+   "name": "immunity window: new Buff Prevent blocked at offsets 0/1/2, not at 3 ([true,true,true,false])",
    "pass": true
   },
   {
-   "name": "new Buff Prevent applies again after the window",
+   "detail": [
+    [],
+    [],
+    []
+   ],
+   "name": "blocked attempts leave no Buff Prevent on the wielder",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "active": true,
+     "isNew": false,
+     "power": 100,
+     "rounds": 1
+    }
+   ],
+   "name": "after the window (offset 3) the new Buff Prevent is applied and active (power 100)",
    "pass": true
   },
   {
@@ -229,7 +237,55 @@
      "round": 7
     }
    ],
-   "name": "Katana use locks other pierce/consume-tag actions for the shared GCD",
+   "name": "shared GCD: Ion Lance (pierce tag) locked for exactly 3 rounds (cast round and the next two) and released from round +3",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 1
+    },
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 2
+    },
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 3
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 4
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 5
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 6
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": true,
+     "round": 7
+    }
+   ],
+   "name": "Heavy Cut (no shared tag) available in every round",
    "pass": true
   },
   {
@@ -281,7 +337,7 @@
      "round": 7
     }
    ],
-   "name": "Katana available again exactly cooldown (6) rounds after the swing",
+   "name": "Katana unavailable in the cast round and the next five, available again exactly cooldown (6) rounds after the swing",
    "pass": true
   }
  ],

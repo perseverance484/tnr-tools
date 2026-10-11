@@ -1,12 +1,26 @@
 {
- "assertions": 10,
+ "assertions": 14,
  "checks": [
   {
    "detail": {
     "message": "update",
     "outcome": "guards-passed-reached-write"
    },
-   "name": "eligible imbuable WEAPON passes every guard (stops at first trapped write)",
+   "name": "eligible imbuable WEAPON passes every tested pre-write eligibility guard and reaches the first (trapped) write; persistence/concurrency guards not exercised",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You have reached the maximum number of crystals for this item (1)",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "imbuement-slot limit: APPRENTICE (1 slot) on a maxImbueNumber-1 weapon that already holds a crystal is rejected",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "imbueItem rank × rarity matrix: all 12 cells equal the source-derived expectation",
    "pass": true
   },
   {
@@ -125,7 +139,62 @@
    "pass": true
   },
   {
+   "detail": [],
+   "name": "craftItem rank × rarity matrix: all 12 cells equal the source-derived expectation",
+   "pass": true
+  },
+  {
    "name": "Novice has zero imbuement slots",
+   "pass": true
+  },
+  {
+   "detail": {
+    "expectedGate": {
+     "APPRENTICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "FORGEMASTER": {
+      "EPIC": true,
+      "LEGENDARY": true,
+      "RARE": true
+     },
+     "MASTER": {
+      "EPIC": true,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "NOVICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": false
+     }
+    },
+    "imbueGate": {
+     "APPRENTICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "FORGEMASTER": {
+      "EPIC": true,
+      "LEGENDARY": true,
+      "RARE": true
+     },
+     "MASTER": {
+      "EPIC": true,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "NOVICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": false
+     }
+    }
+   },
+   "name": "imbue eligibility derived from the pinned constants equals the expected matrix",
    "pass": true
   },
   {

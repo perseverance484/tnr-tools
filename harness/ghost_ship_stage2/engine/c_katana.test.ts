@@ -18,7 +18,7 @@ import { ItemValidatorRawSchema } from "@/validators/combat";
 import * as F from "./lib/fixtures";
 import * as I from "./lib/items";
 import * as IB from "./lib/itembattle";
-import { Evidence } from "./lib/report";
+import { Evidence, requireClean } from "./lib/report";
 import { mulberry32 } from "./lib/sim";
 
 // Seed Math.random per test (initiative rolls, prevent/stun rolls) for reproducible evidence.
@@ -130,7 +130,7 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     expect(targetShield).toBeGreaterThan(0);
     expect(s.shield[0]!.power).toBe(ref.shield[0]!.power);
     C2.check("Consume shield equals unshielded reference (pre-shield basis)", s.shield[0]?.power === ref.shield[0]?.power, { s: s.shield, ref: ref.shield });
-    C2.check("observed Pierce vs target shield recorded", true, { hpLost: s.lost[T], refHpLost: ref.lost[T], targetShield, targetShieldAfter });
+    C2.check("Pierce ignores the target shield: HP loss equals the unshielded reference and the target shield is consumed", s.lost[T] === ref.lost[T] && targetShieldAfter < targetShield, { hpLost: s.lost[T], refHpLost: ref.lost[T], targetShield, targetShieldAfter });
   });
 
   it("multi-target aggregation into one shield (ALL-method control override)", async () => {
@@ -162,7 +162,13 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     C2.put("expiryAndAbsorption", { absorption, timeline });
     expect(shieldAfterHit).toBeLessThan(shieldBefore);
     C2.check("Consume shield absorbs subsequent incoming damage", shieldAfterHit < shieldBefore, absorption);
-    C2.check("shield rounds counted down to expiry (timeline recorded)", true, timeline);
+    // Exact expiry: cast round r (rounds 3), r+1 (3), r+2 (2), r+3 (1) present; gone from r+4.
+    const shape = timeline.map((t: any) => ({ round: t.round, rounds: t.shield.map((x: any) => x.rounds) }));
+    const r0 = timeline[0].round;
+    const want = [{ round: r0, rounds: [3] }, { round: r0 + 1, rounds: [3] }, { round: r0 + 2, rounds: [2] }, { round: r0 + 3, rounds: [1] }, { round: r0 + 4, rounds: [] }];
+    expect(shape).toEqual(want);
+    C2.check("Consume shield present in the cast round and the next three rounds (rounds 3,3,2,1), gone from round +4", JSON.stringify(shape) === JSON.stringify(want), shape);
+    C2.check("absorption leaves wielder HP unchanged", absorption.wielderHpLost === 0, absorption);
   });
 
   it("player item level does not scale Pierce when powerPerLevel is 0; item level path is live", async () => {
@@ -217,11 +223,13 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
       windows.push({ katanaCastRound: castRound, attemptRound: r.b.round, offset, immunityBeforeAttempt: imm, blocked, buffPreventAfter: r.bp, texts: r.texts });
     }
     C2.put("immunityWindow", windows);
-    expect(windows[0].blocked).toBe(true);
-    expect(windows[3].blocked).toBe(false);
-    C2.check("new Buff Prevent blocked in the Katana cast round", windows[0].blocked);
-    C2.check("observed immunity window (rounds after cast that block)", true, windows.map((w) => ({ offset: w.offset, blocked: w.blocked })));
-    C2.check("new Buff Prevent applies again after the window", !windows[3].blocked);
+    const blockedPattern = windows.map((w) => w.blocked);
+    const landedAfter = windows[3].buffPreventAfter.filter((e: any) => e.active && e.power === 100);
+    expect(blockedPattern).toEqual([true, true, true, false]);
+    expect(landedAfter.length).toBe(1);
+    C2.check("immunity window: new Buff Prevent blocked at offsets 0/1/2, not at 3 ([true,true,true,false])", JSON.stringify(blockedPattern) === JSON.stringify([true, true, true, false]), windows.map((w) => ({ offset: w.offset, blocked: w.blocked })));
+    C2.check("blocked attempts leave no Buff Prevent on the wielder", windows.slice(0, 3).every((w) => w.buffPreventAfter.length === 0), windows.slice(0, 3).map((w) => w.buffPreventAfter));
+    C2.check("after the window (offset 3) the new Buff Prevent is applied and active (power 100)", landedAfter.length === 1, windows[3].buffPreventAfter);
   });
 
   it("cooldown, shared GCD and AP with the accepted fields", async () => {
@@ -242,13 +250,18 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     }
     const K = I.acceptedKatana().record;
     C2.put("cooldowns", { cooldown: K.cooldown, actionCostPerc: K.actionCostPerc, sharedCooldownRounds: SHARED_COOLDOWN_ROUNDS, castRound, apAfterCast: apAfter, availability: rounds });
+    const ionPattern = rounds.map((r) => r.ionLance);
+    const katanaPattern = rounds.map((r) => r.katana);
+    const wantIon = rounds.map((_, k) => k >= SHARED_COOLDOWN_ROUNDS);
+    const wantKatana = rounds.map((_, k) => k >= K.cooldown);
     expect(apAfter).toBe(100 - K.actionCostPerc);
-    expect(rounds.findIndex((r) => r.katana)).toBe(K.cooldown);
-    expect(rounds[0].ionLance).toBe(false);
-    expect(rounds[0].heavyCut).toBe(true);
-    C2.check("Katana use locks other pierce/consume-tag actions for the shared GCD", rounds[0].ionLance === false && rounds[0].heavyCut === true, rounds);
+    expect(katanaPattern).toEqual(wantKatana);
+    expect(ionPattern).toEqual(wantIon);
+    expect(rounds.every((r) => r.heavyCut)).toBe(true);
+    C2.check(`shared GCD: Ion Lance (pierce tag) locked for exactly ${SHARED_COOLDOWN_ROUNDS} rounds (cast round and the next two) and released from round +${SHARED_COOLDOWN_ROUNDS}`, JSON.stringify(ionPattern) === JSON.stringify(wantIon), rounds);
+    C2.check("Heavy Cut (no shared tag) available in every round", rounds.every((r) => r.heavyCut), rounds);
     C2.check("AP after one swing = 100 − actionCostPerc (40)", apAfter === 100 - K.actionCostPerc);
-    C2.check("Katana available again exactly cooldown (6) rounds after the swing", rounds.findIndex((r) => r.katana) === K.cooldown, rounds);
+    C2.check("Katana unavailable in the cast round and the next five, available again exactly cooldown (6) rounds after the swing", JSON.stringify(katanaPattern) === JSON.stringify(wantKatana), rounds);
   });
 });
 
@@ -291,3 +304,5 @@ describe("C3 — complete final Katana record", () => {
     for (const [k, v] of Object.entries(contract)) C3.check(`contract: ${k}`, v as boolean);
   });
 });
+
+requireClean(C1, C2, C3);

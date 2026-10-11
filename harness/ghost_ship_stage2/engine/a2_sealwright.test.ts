@@ -16,12 +16,13 @@ import { availableUserActions, performBattleAction } from "@/libs/combat/actions
 import { performAIaction } from "@/libs/combat/ai_v2";
 import { calcApReduction, calcPoolCost, getBattleGrid } from "@/libs/combat/util";
 import { BarrierTag } from "@/validators/combat";
+import { getUserCaps } from "@/drizzle/constants";
 import type { CompleteBattle, UserEffect } from "@/libs/combat/types";
 import { makeEffect } from "../libs/combat/helpers/battleScenario";
 import * as F from "./lib/fixtures";
 import * as IB from "./lib/itembattle";
 import * as S from "./lib/sim";
-import { Evidence } from "./lib/report";
+import { Evidence, requireClean } from "./lib/report";
 
 const A2 = new Evidence("A2");
 afterAll(() => A2.flush({
@@ -166,7 +167,9 @@ describe("A2 Part 1 — B32/S31 selector matrix (contract rules)", () => {
     expect(out.ap40).not.toBe("B32");
     A2.check("B32 on cooldown → S31", out.cooldown === "S31", out.cooldown);
     A2.check("40 AP left → not B32 (60 AP)", out.ap40 !== "B32", out.ap40);
-    A2.check("pools exhausted → recorded fall-through", true, { action: out.noPools, cost: out.b32PoolCost });
+    A2.check("pools exhausted → still B32: the AI pool cost of B32 is 0/0/0, so pools never gate it", out.noPools === "B32" && out.b32PoolCost.cpCost === 0 && out.b32PoolCost.spCost === 0 && out.b32PoolCost.hpCost === 0, { action: out.noPools, cost: out.b32PoolCost });
+    const avail = out.clearGcdAfterS31.map((g: any) => g.available.includes("B32"));
+    A2.check("Clear GCD after S31: B32 unavailable 2 rounds, back in round +3 ([false,false,true,true] for +1..+4)", JSON.stringify(avail) === JSON.stringify([false, false, true, true]), out.clearGcdAfterS31);
     A2.check("FINDING: S31 and B32 share the 'clear' GCD (3 rounds) — no same-round or back-to-back double Clear", out.clearGcdAfterS31[0].available.includes("B32") === false, out.clearGcdAfterS31);
   });
 
@@ -222,7 +225,7 @@ describe("A2 Part 1 — B32/S31 selector matrix (contract rules)", () => {
     A2.check("expired (rounds 0) IDG still counts toward the threshold → B32 cast with nothing removable", out.expiredRoundsZero.action === "B32", out.expiredRoundsZero);
     A2.check("protected (bloodline-source) IDG triggers B32 but is not removed", out.protectedBloodlineSource.action === "B32" && !removed("protectedBloodlineSource"), out.protectedBloodlineSource);
     A2.check("Clear Prevent: B32 cast, IDG not removed", out.clearPrevent.action === "B32" && !removed("clearPrevent"), out.clearPrevent);
-    A2.check("newly cast IDG: recorded selection and removal outcome", true, out.newlyCastThisRound);
+    A2.check("newly cast IDG (isNew/castThisRound): B32 cast and the IDG removed", out.newlyCastThisRound.action === "B32" && out.newlyCastThisRound.effects.find((e: any) => e.type === "increasedamagegiven")?.roundsAfter === null, out.newlyCastThisRound);
     expect(out.clearPrevent.action).toBe("B32");
   });
 
@@ -241,6 +244,23 @@ describe("A2 Part 1 — B32/S31 selector matrix (contract rules)", () => {
 });
 
 describe("A2 Part 2 — control duration and AP capacity", () => {
+  it("battle-start caps apply to the Captain and the Sealwright carrier (initiateBattle capUserStats)", async () => {
+    const out: Record<string, any> = {};
+    for (const boss of BOSSES.slice(0, 2)) {
+      const raw = boss.build();
+      const b = await S.assembleBattle({ users: [quietPlayer("user_p"), raw], placements: [{ userId: "user_p", x: 2, y: 4 }, { userId: raw.userId, x: 8, y: 4 }] });
+      const u = b.usersState.find((x) => x.controllerId === boss.cid)! as any;
+      const { stats_cap, gens_cap } = getUserCaps(raw.rank);
+      const fields: [string, number][] = [["offence", stats_cap], ["defence", stats_cap], ["strength", gens_cap], ["intelligence", gens_cap], ["willpower", gens_cap], ["speed", gens_cap]];
+      out[boss.label] = { rank: raw.rank, fields: Object.fromEntries(fields.map(([f, c]) => [f, { stored: raw[f], cap: c, battle: u[f] }])) };
+      out[boss.label].ok = fields.every(([f, c]) => u[f] === Math.min(raw[f], c));
+    }
+    A2.put("battleStartCaps", out);
+    A2.check("Captain and Sealwright carrier fight at min(stored, rank cap) for offence/defence/generals", Object.values(out).every((x: any) => x.ok), out);
+    expect(Object.values(out).every((x: any) => x.ok)).toBe(true);
+  });
+
+
   it("B16 stun+seal lockout on a player", async () => {
     const { b, uidOf } = await selectorBattle([{ id: "user_p", x: 3, y: 4 }]);
     const sw = uidOf(SW);
@@ -255,7 +275,8 @@ describe("A2 Part 2 — control duration and AP capacity", () => {
       IB.nextRound(r.newBattle);
     }
     A2.put("b16Control", { texts: r.actionEffects.map((e) => e.txt), timeline });
-    A2.check("B16 applies stun and seal to the target (timeline recorded)", timeline[0].effects.length >= 2, timeline);
+    A2.check("B16 applies stun and seal to the target", timeline[0].effects.length >= 2, timeline);
+    A2.check("B16 stun: AP reduction 0 in the cast round, 20 in rounds +1 and +2, 0 in round +3 (never a full lockout)", JSON.stringify(timeline.map((t) => t.apReduction)) === JSON.stringify([0, 20, 20, 0]), timeline.map((t) => t.apReduction));
     expect(timeline[0].effects.length).toBeGreaterThanOrEqual(2);
   });
 });
@@ -274,25 +295,61 @@ const PLAYERS: [F.PlayerStatBand, keyof typeof F.PLAYER_KITS][] = [
 const SEEDS = [1, 2, 3, 4, 5];
 const PID = "user_p";
 
+/**
+ * Per-fight metrics (r3 definitions).
+ *  - Damage is attributed from whole-step HP deltas (hpDeltaStep), so delayed
+ *    effects that resolve during the player's own turn or at round transitions
+ *    (drain/poison ticks) count. Player kits carry no health cost and no
+ *    self-damage effect (asserted), so every player HP loss is boss-side damage.
+ *    The step deltas plus the residual reconcile to final − initial HP.
+ *  - Spike per action = largest single boss action (direct, hpDelta); spike per
+ *    round = largest per-round total of all boss-side damage.
+ *  - Control: stunnedRounds counts stun presence at round start;
+ *    apReducedRounds counts rounds whose engine AP reduction (calcApReduction)
+ *    is > 0, with the mean AP removed; fullLockoutRounds counts rounds where that
+ *    reduction removes all 100 AP (demonstrated action lockout).
+ *  - clearsThatRemoved counts Clear casts that actually removed at least one
+ *    positive, removable effect from a player-side unit (state diff around the
+ *    action, not combat text).
+ *  - Samples are one round-start sample per distinct round.
+ */
 const fightMetrics = (r: S.FightResult, bossCid: string) => {
   const bossActs = r.log.filter((l) => l.actor === bossCid);
-  const playerActs = r.log.filter((l) => l.actor === PID);
-  const dmgTo = (l: S.ActionRecord, cid: string) => -Math.min(0, l.hpDelta[cid] ?? 0);
+  const loss = (d: Record<string, number>, cid: string) => -Math.min(0, d[cid] ?? 0);
+  const gain = (d: Record<string, number>, cid: string) => Math.max(0, d[cid] ?? 0);
   const perRoundBossDmg: Record<number, number> = {};
-  for (const l of r.log) perRoundBossDmg[l.round] = (perRoundBossDmg[l.round] ?? 0) + (l.actor === bossCid ? dmgTo(l, PID) : 0);
+  for (const l of r.log) perRoundBossDmg[l.round] = (perRoundBossDmg[l.round] ?? 0) + loss(l.hpDeltaStep, PID);
+  const directToPlayer = bossActs.reduce((s, l) => s + loss(l.hpDelta, PID), 0);
+  const allToPlayer = r.log.reduce((s, l) => s + loss(l.hpDeltaStep, PID), 0) + loss(r.residualHpDelta, PID);
+  const reconcile = (cid: string) => {
+    const net = r.log.reduce((s, l) => s + (l.hpDeltaStep[cid] ?? 0), 0) + (r.residualHpDelta[cid] ?? 0);
+    return Math.abs(net - (r.final[cid]!.curHealth - r.initialHp[cid]!)) < 1e-6;
+  };
   const roundsWithBossAction = [...new Set(bossActs.map((l) => l.round))];
   const samples = r.perRound.filter((s) => s.users[PID] && s.users[bossCid]);
   const frac = (f: (s: S.RoundSample) => boolean) => (samples.length ? samples.filter(f).length / samples.length : 0);
   const clearIds = new Set([IDS.S31, IDS.B32]);
+  const clears = bossActs.filter((l) => l.actionId && clearIds.has(l.actionId));
+  const removedFromPlayerSide = (l: S.ActionRecord) => l.removedPositive.filter((x) => x.target !== bossCid);
   const playerMax = r.final[PID]!.maxHealth;
+  const reduced = samples.filter((s) => s.users[PID]!.apReduction > 0);
   return {
     winner: r.winner,
     rounds: r.rounds,
-    bossDamageToPlayer: bossActs.reduce((s, l) => s + dmgTo(l, PID), 0),
-    playerDamageToBoss: playerActs.reduce((s, l) => s + dmgTo(l, bossCid), 0),
-    spikeActionPctOfPlayerMaxHp: bossActs.reduce((m, l) => Math.max(m, dmgTo(l, PID)), 0) / playerMax,
+    sampledRounds: samples.length,
+    distinctSampleRounds: new Set(r.perRound.map((s) => s.round)).size === r.perRound.length,
+    hpReconciles: reconcile(PID) && reconcile(bossCid),
+    bossDamageToPlayer: allToPlayer,
+    bossDirectDamageToPlayer: directToPlayer,
+    bossDelayedDamageToPlayer: allToPlayer - directToPlayer,
+    playerHealing: r.log.reduce((s, l) => s + gain(l.hpDeltaStep, PID), 0),
+    playerDamageToBoss: r.log.reduce((s, l) => s + loss(l.hpDeltaStep, bossCid), 0) + loss(r.residualHpDelta, bossCid),
+    spikeActionPctOfPlayerMaxHp: bossActs.reduce((m, l) => Math.max(m, loss(l.hpDelta, PID)), 0) / playerMax,
     spikeRoundPctOfPlayerMaxHp: Math.max(0, ...Object.values(perRoundBossDmg)) / playerMax,
-    lockoutRounds: samples.filter((s) => s.users[PID]!.stunned).length,
+    stunnedRounds: samples.filter((s) => s.users[PID]!.stunned).length,
+    apReducedRounds: reduced.length,
+    meanApReductionWhenReduced: reduced.length ? reduced.reduce((x, s) => x + s.users[PID]!.apReduction, 0) / reduced.length : 0,
+    fullLockoutRounds: samples.filter((s) => s.users[PID]!.apReduction >= 100).length,
     sealedRounds: samples.filter((s) => s.users[PID]!.sealed).length,
     recoveryWindows: roundsWithBossAction.filter((rd) => (perRoundBossDmg[rd] ?? 0) === 0).length,
     playerMinChakraPct: Math.min(...samples.map((s) => s.users[PID]!.cp)) / r.final[PID]!.maxChakra,
@@ -301,9 +358,11 @@ const fightMetrics = (r: S.FightResult, bossCid: string) => {
     bossMinStaminaPct: Math.min(...samples.map((s) => s.users[bossCid]!.sp)) / r.final[bossCid]!.maxStamina,
     playerBuffUptime: frac((s) => s.users[PID]!.idgRemovable > 0),
     bossDefenceUptime: frac((s) => s.users[bossCid]!.shieldHp > 0 || s.users[bossCid]!.absorb || s.users[bossCid]!.ddt),
-    clearCasts: bossActs.filter((l) => l.actionId && clearIds.has(l.actionId)).length,
+    clearCasts: clears.length,
     b32Casts: bossActs.filter((l) => l.actionId === IDS.B32).length,
-    clearsThatRemoved: bossActs.filter((l) => l.effectTexts.some((t) => t.includes("was cleared of all positive"))).length,
+    clearsThatRemoved: clears.filter((l) => removedFromPlayerSide(l).length > 0).length,
+    emptyClears: clears.filter((l) => removedFromPlayerSide(l).length === 0).length,
+    positiveEffectsRemovedByClears: clears.reduce((s, l) => s + removedFromPlayerSide(l).length, 0),
     bossExhausted: r.bossExhausted,
     bossIdleTimeouts: r.idleTimeouts[bossCid] ?? 0,
     bossActionCounts: bossActs.reduce<Record<string, number>>((m, l) => ((m[l.actionName ?? "(none)"] = (m[l.actionName ?? "(none)"] ?? 0) + 1), m), {}),
@@ -316,7 +375,7 @@ const fightMetrics = (r: S.FightResult, bossCid: string) => {
 
 const aggregate = (rows: ReturnType<typeof fightMetrics>[]) => {
   const num = Object.keys(rows[0]!).filter((k) => typeof (rows[0] as any)[k] === "number");
-  const out: Record<string, any> = { fights: rows.length, bossWins: rows.filter((r) => r.winner === "boss").length, playerWins: rows.filter((r) => r.winner === "player").length, unresolved: rows.filter((r) => r.winner === "none").length, bossExhaustions: rows.filter((r) => r.bossExhausted).length };
+  const out: Record<string, any> = { allHpReconcile: rows.every((r) => r.hpReconciles), allSamplesDistinct: rows.every((r) => r.distinctSampleRounds), fights: rows.length, bossWins: rows.filter((r) => r.winner === "boss").length, playerWins: rows.filter((r) => r.winner === "player").length, unresolved: rows.filter((r) => r.winner === "none").length, bossExhaustions: rows.filter((r) => r.bossExhausted).length };
   for (const k of num) {
     const v = rows.map((r) => (r as any)[k] as number);
     out[k] = { mean: v.reduce((a, b) => a + b, 0) / v.length, min: Math.min(...v), max: Math.max(...v) };
@@ -328,6 +387,7 @@ describe("A2 Part 3 — full combat comparison (same players, placements, seeds)
   it("Captain vs Sealwright variants", async () => {
     const table: Record<string, any> = {};
     const firstLogs: Record<string, any> = {};
+    const stepLogs: Record<string, any> = {};
     for (const [band, kitName] of PLAYERS) {
       for (const boss of BOSSES) {
         const rows = [];
@@ -340,18 +400,31 @@ describe("A2 Part 3 — full combat comparison (same players, placements, seeds)
           });
           rows.push(fightMetrics(r, boss.cid));
           if (seed === 1) firstLogs[`${band}/${kitName}|${boss.label}`] = r.log.filter((l) => l.actor === boss.cid).slice(0, 14).map((l) => `${l.round}:${l.actionName ?? "(none)"}:${Math.round(-(l.hpDelta[PID] ?? 0))}`);
+          if (seed === 1) stepLogs[`${band}/${kitName}|${boss.label}`] = r.log.filter((l) => (l.hpDeltaStep[PID] ?? 0) !== (l.actor === boss.cid ? (l.hpDelta[PID] ?? 0) : 0)).slice(0, 10).map((l) => `${l.round}:${l.actor}:${l.actionName ?? "(none)"}:step ${Math.round(l.hpDeltaStep[PID] ?? 0)} action ${Math.round(l.hpDelta[PID] ?? 0)}`);
         }
         table[`${band}/${kitName}|${boss.label}`] = aggregate(rows);
       }
     }
     A2.put("comparisonMatrix", table);
     A2.put("bossActionSamplesSeed1", firstLogs);
+    A2.put("delayedHpChangeSamplesSeed1", stepLogs);
     const exh = Object.entries(table).filter(([, v]: any) => v.bossExhaustions > 0).map(([k]) => k);
     A2.check("no boss AI-exhaustion give-up in any comparison fight", exh.length === 0, exh);
+    const unreconciled = Object.entries(table).filter(([, v]: any) => !v.allHpReconcile).map(([k]) => k);
+    A2.check("damage attribution: step HP deltas + residual reconcile exactly to final − initial HP (player and boss) in every fight", unreconciled.length === 0, unreconciled);
+    const dupSamples = Object.entries(table).filter(([, v]: any) => !v.allSamplesDistinct).map(([k]) => k);
+    A2.check("one round-start sample per distinct round in every fight", dupSamples.length === 0, dupSamples);
+    const kitIssues = Object.entries(F.PLAYER_KITS).flatMap(([k, v]) => v.ids.map((id) => F.poolJutsuById(id).record).filter((j: any) => j.healthCost !== 0 || j.healthCostReducePerLvl !== 0 || j.effects.some((x: any) => (x.type === "damage" || x.type === "pierce" || x.type === "recoil") && x.target === "SELF")).map((j: any) => `${k}:${j.name}`));
+    A2.check("player kits carry no health cost or self-damage, so all player HP loss is boss-side", kitIssues.length === 0, kitIssues);
     for (const [band, kitName] of PLAYERS) {
       const sw = table[`${band}/${kitName}|Sealwright:contract`];
       A2.check(`${band}/${kitName}: Sealwright casts Clears in combat (S31 routine)`, sw.clearCasts.mean > 0, sw.clearCasts);
+      const removedSum = sw.clearsThatRemoved.mean + sw.emptyClears.mean;
+      A2.check(`${band}/${kitName}: every Sealwright Clear is classified as removing or empty`, Math.abs(removedSum - sw.clearCasts.mean) < 1e-9, { clearCasts: sw.clearCasts, removed: sw.clearsThatRemoved, empty: sw.emptyClears });
+      if (kitName === "striker") A2.check(`${band}/${kitName}: Clears against a player with no positive effects remove nothing`, sw.clearsThatRemoved.max === 0, sw.clearsThatRemoved);
     }
     expect(exh).toEqual([]);
   });
 });
+
+requireClean(A2);

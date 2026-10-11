@@ -1,3 +1,4 @@
+import { expect, it } from "bun:test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -31,10 +32,15 @@ export class Evidence {
     this.assertions.push({ name, pass, detail });
     return pass;
   }
+  failures() {
+    return this.assertions.filter((a) => !a.pass).map((a) => a.name);
+  }
   flush(extra: Record<string, unknown> = {}) {
+    const failed = this.assertions.filter((a) => !a.pass).length;
+    // A failed required check fails the process, whether or not evidence is written.
+    if (failed > 0) process.exitCode = 1;
     if (!OUT) return;
     mkdirSync(OUT, { recursive: true });
-    const failed = this.assertions.filter((a) => !a.pass).length;
     writeFileSync(
       join(OUT, `${this.gate.toLowerCase()}.json`),
       `${JSON.stringify(
@@ -45,3 +51,17 @@ export class Evidence {
     );
   }
 }
+
+/**
+ * Register, as the last test of a file, a test that fails when any required
+ * evidence check recorded in that file failed (or none was recorded), so a
+ * failed Evidence.check fails `bun test`, not only the JSON. run.sh then
+ * re-checks every evidence file (tools/check_evidence.py).
+ */
+export const requireClean = (...gates: Evidence[]) =>
+  it(`evidence: no failed required checks (${gates.map((g) => g.gate).join(", ")})`, () => {
+    for (const g of gates) {
+      expect(g.assertions.length).toBeGreaterThan(0);
+      expect(g.failures()).toEqual([]);
+    }
+  });

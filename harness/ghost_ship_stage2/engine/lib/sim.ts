@@ -1,9 +1,16 @@
 /**
  * Ghost Ship / Skyglass Stage 2 harness — in-process battle assembly and loop.
  *
- * Assembly uses the engine's own `processUsersForBattle` (the exported function
- * `initiateBattle` calls), with no database client: it is only touched for
- * summon templates, and no fixture here carries a summon effect (asserted).
+ * Assembly reproduces `initiateBattle`'s battle-start preprocessing around the
+ * engine's own `processUsersForBattle`: each user is deep-cloned (captured records
+ * stay untouched) and capped with `capUserStats` at its own rank (QUEST is not a
+ * ranked battle; the captured Ghost Ship quest objectives carry no `scaleStats`,
+ * so `scaleTarget` is false and no stat distribution applies); after assembly,
+ * auto-combat flags, `applyPoolAdjustmentsToBase` for pool effects,
+ * `refreshMasteries` and the aggressor flag are applied as initiateBattle does.
+ * There is no database client: it is only touched for summon templates, and no
+ * fixture here carries a summon effect (asserted). Not reproduced: random start
+ * tiles and random initial ground barriers (fixed placements, clear ground).
  * The turn loop mirrors the inner loop of `combat.performAction`: alignBattle →
  * performAIaction for the active actor → alignBattle. Players are driven through
  * the engine's auto-combat path (`isAutoCombat`, as initiateBattle sets it for
@@ -17,13 +24,16 @@ import { performAIaction } from "@/libs/combat/ai_v2";
 import { COMBAT_SECONDS } from "@/libs/combat/constants";
 import {
   alignBattle,
+  applyPoolAdjustmentsToBase,
+  calcApReduction,
   getBattleGrid,
   getDefaultBattleSizes,
   isEffectActive,
+  refreshMasteries,
 } from "@/libs/combat/util";
 import { stillInBattle } from "@/libs/combat/actions";
 import { applySageModeAfterRoundTransition } from "@/libs/combat/process";
-import { calcCP, calcHP, calcSP } from "@/libs/profile";
+import { calcCP, calcHP, calcSP, capUserStats } from "@/libs/profile";
 import { processUsersForBattle } from "@/server/api/routers/combat";
 import { getBackupRules } from "@/validators/ai";
 import type { CompleteBattle, UserEffect } from "@/libs/combat/types";
@@ -90,13 +100,16 @@ export const assembleBattle = async (opts: {
   const size = getDefaultBattleSizes(battleType, 100)!;
   const width = opts.width ?? size.width;
   const height = opts.height ?? size.height;
-  for (const u of opts.users) {
+  // initiateBattle structuredClones each fetched user, then caps it at battle start.
+  const users = opts.users.map((u) => structuredClone(u));
+  for (const u of users) capUserStats(u, u.rank);
+  for (const u of users) {
     const summon = [...(u.jutsus ?? []).flatMap((j: any) => j.jutsu.effects), ...(u.items ?? []).flatMap((i: any) => i.item.effects)]
       .some((e: any) => e.type === "summon");
     if (summon) throw new Error(`HARNESS: ${u.userId} carries a summon effect; needs DB templates`);
   }
   const { userEffects, usersState, extraState } = await processUsersForBattle(noDbClient, {
-    users: opts.users,
+    users,
     settings: [],
     relations: [],
     wars: [],
@@ -106,7 +119,7 @@ export const assembleBattle = async (opts: {
     hide: false,
     // As initiateBattle: the engine sets each side's `direction` (used by
     // friendlyFire ENEMIES/FRIENDLY checks) and assigns random start tiles.
-    leftSideUserIds: opts.leftSideUserIds ?? [opts.users[0].userId],
+    leftSideUserIds: opts.leftSideUserIds ?? [users[0].userId],
     isSummon: false,
     width,
     height,
@@ -121,9 +134,17 @@ export const assembleBattle = async (opts: {
       u.latitude = p.y;
     }
   }
+  // initiateBattle, after processUsersForBattle: pool effects adjust base pools,
+  // mastery tags apply from the first action, the attacker is the aggressor.
+  for (const u of usersState) {
+    const hasPoolEffects = userEffects.some((e) => e.targetId === u.userId && (e.type === "increasemaxpools" || e.type === "decreasemaxpools") && isEffectActive(e));
+    if (hasPoolEffects) applyPoolAdjustmentsToBase(u, userEffects);
+  }
+  refreshMasteries(usersState, userEffects);
+  if (usersState[0]) usersState[0].isAggressor = true;
   // initiateBattle: usersState sorted by initiative; attacker (users[0]) acts first.
   usersState.sort((a, b) => b.initiative - a.initiative);
-  const attacker = usersState.find((u) => u.controllerId === opts.users[0].userId)!;
+  const attacker = usersState.find((u) => u.controllerId === users[0].userId)!;
   const now = new Date();
   return {
     id: "harness-battle",
@@ -154,7 +175,18 @@ export type ActionRecord = {
   actionName: string | null;
   apBefore: number;
   apAfter: number;
+  /** HP change across performAIaction only. */
   hpDelta: Record<string, number>;
+  /**
+   * HP change across the whole step: from the end of the previous step, through
+   * this step's turn/round alignment, the action and the post-action alignment.
+   * Includes delayed effects (drain/poison ticks) that resolve outside the
+   * actor's own action. Summed with FightResult.residualHpDelta it reconciles
+   * exactly to final − initial HP.
+   */
+  hpDeltaStep: Record<string, number>;
+  /** Positive, Clear-removable effects (by target controller) active before the action and gone/inactive after it. */
+  removedPositive: { target: string; type: string }[];
   descriptions: string[];
   effectTexts: string[];
   idleTimeout?: boolean;
@@ -163,7 +195,15 @@ export type ActionRecord = {
 export type FightResult = {
   seed: number;
   winner: "player" | "boss" | "none";
+  /** Round index in which the fight ended (maxRounds + 1 when it ran out). */
   rounds: number;
+  /** Completed measurement interval: maxRounds when the cap was reached, else the round index in which it ended. */
+  measuredRounds: number;
+  initialHp: Record<string, number>;
+  /** HP change not covered by any step record (alignment in the breaking iteration). */
+  residualHpDelta: Record<string, number>;
+  /** State at the end of the fight; perRound holds one round-start sample per distinct round. */
+  terminal: RoundSample;
   steps: number;
   log: ActionRecord[];
   perRound: RoundSample[];
@@ -176,6 +216,8 @@ export type RoundSample = {
   round: number;
   users: Record<string, {
     hp: number; cp: number; sp: number;
+    /** Action points held at the sample (round start) and the engine's stun AP reduction for this round. */
+    ap: number; apReduction: number;
     stunned: boolean; sealed: boolean;
     idg: number; idgRemovable: number;
     shieldHp: number; absorb: boolean; ddt: boolean;
@@ -196,6 +238,7 @@ export const sampleRound = (b: CompleteBattle): RoundSample => {
     const idg = mine.filter((e) => e.type === "increasedamagegiven");
     users[u.controllerId] = {
       hp: u.curHealth, cp: u.curChakra, sp: u.curStamina,
+      ap: u.actionPoints, apReduction: calcApReduction(b as never, u.userId),
       stunned: mine.some((e) => e.type === "stun"),
       sealed: mine.some((e) => e.type === "seal"),
       idg: idg.reduce((s, e) => s + (e.power ?? 0), 0),
@@ -208,6 +251,11 @@ export const sampleRound = (b: CompleteBattle): RoundSample => {
   }
   return { round: b.round, users };
 };
+
+const removablePositive = (b: CompleteBattle) =>
+  b.usersEffects
+    .filter((e) => POSITIVE.has(e.type) && !PROTECTED.has(e.fromType as string) && isEffectActive(e) && (e.rounds === undefined || e.rounds > 0))
+    .map((e) => ({ id: e.id, targetId: e.targetId, type: e.type }));
 
 const nameOf = (b: CompleteBattle, id?: string | null) => {
   if (!id) return null;
@@ -235,6 +283,14 @@ export const runFight = (battle: CompleteBattle, opts: { playerIds: string[]; bo
   const idleTimeouts: Record<string, number> = {};
   let bossExhausted = false;
   let lastSampled = -1;
+  const hpNow = () => Object.fromEntries(b.usersState.map((u) => [u.controllerId, u.curHealth]));
+  const diff = (from: Record<string, number>, to: Record<string, number>) => {
+    const d: Record<string, number> = {};
+    for (const [k, v] of Object.entries(to)) if (v !== (from[k] ?? v)) d[k] = v - (from[k] ?? v);
+    return d;
+  };
+  const initialHp = hpNow();
+  let lastHp = initialHp;
   const sideAlive = (ids: string[]) => b.usersState.some((u) => ids.includes(u.controllerId) && stillInBattle(u, b.usersEffects));
   const maxSteps = opts.maxSteps ?? opts.maxRounds * 12;
   let step = 0;
@@ -242,17 +298,22 @@ export const runFight = (battle: CompleteBattle, opts: { playerIds: string[]; bo
     const pre = alignBattle(b, actionRounds, sessionUser);
     if (pre.progressRound) applySageModeAfterRoundTransition(b);
     if (!actionRounds.includes(pre.actionRound)) actionRounds.push(pre.actionRound);
+    // One round-start sample per distinct round inside the measured interval.
+    if (b.round > opts.maxRounds) break;
+    if (!sideAlive(opts.playerIds) || !sideAlive(opts.bossIds)) break;
     if (b.round !== lastSampled) {
       perRound.push(sampleRound(b));
       lastSampled = b.round;
     }
-    if (b.round > opts.maxRounds) break;
-    if (!sideAlive(opts.playerIds) || !sideAlive(opts.bossIds)) break;
     const actor = pre.actor;
     const before = Object.fromEntries(b.usersState.map((u) => [u.controllerId, u.curHealth]));
     const apBefore = actor.actionPoints;
+    const positiveBefore = removablePositive(b);
     const res = performAIaction(b, grid, actor.userId);
     b = res.nextBattle;
+    const positiveAfter = new Set(removablePositive(b).map((e) => e.id));
+    const cidOf = (uid: string) => b.usersState.find((u) => u.userId === uid)?.controllerId ?? uid;
+    const removedPositive = positiveBefore.filter((e) => !positiveAfter.has(e.id)).map((e) => ({ target: cidOf(e.targetId), type: e.type }));
     const after = b.usersState.find((u) => u.userId === actor.userId);
     const hpDelta: Record<string, number> = {};
     for (const u of b.usersState) {
@@ -262,7 +323,7 @@ export const runFight = (battle: CompleteBattle, opts: { playerIds: string[]; bo
     const rec: ActionRecord = {
       step, round: b.round, actor: actor.controllerId,
       actionId: res.nextActionId ?? null, actionName: nameOf(b, res.nextActionId),
-      apBefore, apAfter: after?.actionPoints ?? 0, hpDelta,
+      apBefore, apAfter: after?.actionPoints ?? 0, hpDelta, hpDeltaStep: {}, removedPositive,
       descriptions: res.aiDescriptions, effectTexts: res.nextActionEffects.map((e) => e.txt),
     };
     if (res.aiDescriptions.some((d) => d.includes("is exhausted and has to give up"))) {
@@ -277,10 +338,10 @@ export const runFight = (battle: CompleteBattle, opts: { playerIds: string[]; bo
     log.push(rec);
     const post = alignBattle(b, actionRounds, sessionUser);
     if (post.progressRound) applySageModeAfterRoundTransition(b);
-    if (!sideAlive(opts.playerIds) || !sideAlive(opts.bossIds)) {
-      perRound.push(sampleRound(b));
-      break;
-    }
+    const hpEnd = hpNow();
+    rec.hpDeltaStep = diff(lastHp, hpEnd);
+    lastHp = hpEnd;
+    if (!sideAlive(opts.playerIds) || !sideAlive(opts.bossIds)) break;
   }
   const pAlive = sideAlive(opts.playerIds);
   const bAlive = sideAlive(opts.bossIds);
@@ -289,7 +350,10 @@ export const runFight = (battle: CompleteBattle, opts: { playerIds: string[]; bo
   return {
     seed: opts.seed,
     winner: pAlive && !bAlive ? "player" : bAlive && !pAlive ? "boss" : "none",
-    rounds: b.round, steps: step, log, perRound, bossExhausted, idleTimeouts, final,
+    rounds: b.round,
+    measuredRounds: b.round > opts.maxRounds ? opts.maxRounds : b.round,
+    initialHp, residualHpDelta: diff(lastHp, hpNow()), terminal: sampleRound(b),
+    steps: step, log, perRound, bossExhausted, idleTimeouts, final,
   };
 };
 

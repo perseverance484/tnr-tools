@@ -51,9 +51,15 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
 - Before any in-place edit, obtain an **operator-run fresh read-only** `quests.get` capture of `6Ri-W5TtUrEMWpyYlnf_F` and `HckXVOf-qk6ESU9t5rxLh`. Preserve verified `hidden:true`, no agent-run publication/unhide.
 - No live-game requests or writes occurred while updating these decisions.
 
-## Build acceptance gates still open
+## Build acceptance gates
 
-1. Source-verified full Legendary **Sword** item baseline (cooldown, AP, costs, method, target, slot, durability etc.) and director acceptance of actual numbers.
-2. TNR source-aware validator + offline runtime tests for Katana `pierce:50`, `immunity:buffprevent SELF/2r`, `consume:40%`, and `canBeImbued:false`; test shield conversion off **Pierce** specifically.
-3. Source-backed engine solution and tests for `CRYSTAL`, `crystalTargetTypes:WEAPON`, Consume 20% **only**, without additive damage/pierce.
-4. Crystal rarity/trading/crafting economy; Sealwright effective Captain parity, new art QA, final quest prose, fresh operator-run hidden readback.
+Closed:
+
+- ~~Source-verified full Legendary **Sword** item baseline and director acceptance of actual numbers.~~ Settled by RUL-2026-10-11-004 (Night's Testament baseline; push/85 capture).
+- ~~TNR source-aware validator + offline runtime tests for the Katana's `pierce:50`, `immunity:buffprevent SELF/2r`, `consume:40%` and `canBeImbued:false`, with shield conversion off **Pierce**.~~ Passed offline as Stage 2 gates C1–C3 (`docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_OFFLINE_RESULTS.md`), pending ChatGPT's independent review.
+
+Still open:
+
+1. Source-backed engine solution and tests for `CRYSTAL`, `crystalTargetTypes:WEAPON`, Consume 20% **only**, without additive damage/pierce.
+2. Crystal rarity/trading/crafting economy; Sealwright effective Captain parity, new art QA, final quest prose, fresh operator-run hidden readback.
+3. Katana presentation: description, battle description, image, effect animation/SFX.

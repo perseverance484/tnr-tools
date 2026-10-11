@@ -18,12 +18,13 @@
 import { afterAll, describe, expect, it } from "bun:test";
 import { availableUserActions } from "@/libs/combat/actions";
 import { calcPoolCost } from "@/libs/combat/util";
+import { getUserCaps, MAX_MASTERY_CAP } from "@/drizzle/constants";
 import * as F from "./lib/fixtures";
 import * as S from "./lib/sim";
-import { Evidence } from "./lib/report";
+import { Evidence, requireClean } from "./lib/report";
 
 const A1 = new Evidence("A1");
-afterAll(() => A1.flush({ dmgConfig: "engine source defaults (battle.extraState.dmgConfig unset; live game settings not read)", migration: F.MIGRATION_0056 }));
+afterAll(() => A1.flush({ dmgConfig: "engine source defaults (battle.extraState.dmgConfig unset; live game settings not read)", migration: F.MIGRATION_0056, battleStart: "initiateBattle preprocessing: capUserStats at own rank (QUEST, scaleTarget false), applyPoolAdjustmentsToBase, refreshMasteries" }));
 
 type Variant = "captured" | "kitOnly" | "candidate";
 const VARIANTS: Variant[] = ["captured", "kitOnly", "candidate"];
@@ -72,7 +73,9 @@ const summariseCadence = (r: S.FightResult, bossCid: string, kitById: Record<str
     idleTimeouts: r.idleTimeouts[bossCid] ?? 0,
     exhausted: r.bossExhausted,
     meanApPerRound: roundsActive.length ? roundsActive.reduce((s, x) => s + x.ap, 0) / roundsActive.length : 0,
-    damageToDummyPerRound: dmgToDummy / Math.max(1, r.rounds),
+    measuredRounds: r.measuredRounds,
+    dummySurvived: (r.final[DUMMY]?.curHealth ?? 0) > 0,
+    damageToDummyPerRound: dmgToDummy / Math.max(1, r.measuredRounds),
     firstRounds: Object.entries(perRound).slice(0, 6).map(([k, v]) => `${k}: ${v.actions.join(" + ")}`),
     bossFinal: r.final[bossCid],
   };
@@ -91,6 +94,13 @@ describe("A1 — assembly, profile preservation and availability", () => {
       const bu = (b: any) => b.usersState.find((u: any) => u.controllerId === e.aiId);
       const c = bu(cap);
       const a = bu(acc);
+      // Battle-start caps (initiateBattle → capUserStats at the AI's own rank).
+      const raw = bossFor(e, "captured");
+      const { stats_cap, gens_cap } = getUserCaps(raw.rank);
+      const capOf = (f: string) => (["offence", "defence"].includes(f) ? stats_cap : f.endsWith("Mastery") ? MAX_MASTERY_CAP : gens_cap);
+      const capFields = ["offence", "defence", "strength", "intelligence", "willpower", "speed", "ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery"];
+      const capped = Object.fromEntries(capFields.map((f) => [f, { stored: raw[f], cap: capOf(f), battle: c[f], expected: Math.min(raw[f], capOf(f)) }]));
+      const capMismatch = capFields.filter((f) => c[f] !== Math.min(raw[f], capOf(f)) || a[f] !== c[f]);
       const fields = ["level", "rank", "statsMultiplier", "poolsMultiplier", "regeneration", "maxHealth", "maxChakra", "maxStamina", "offence", "defence", "strength", "intelligence", "willpower", "speed", "highestGenerals", "primaryElement", "secondaryElement"];
       const diffs = fields.filter((f) => JSON.stringify(c[f]) !== JSON.stringify(a[f]));
       const innate = (b: any) => b.usersEffects.filter((x: any) => x.targetId === bu(b).userId && x.fromType === "bloodline").map((x: any) => `${x.type}:${x.power}/${x.rounds}`);
@@ -103,7 +113,10 @@ describe("A1 — assembly, profile preservation and availability", () => {
         acceptedKit: e.proposedKit, assembledJutsuIds: assembled, numericDiffsCapturedVsAccepted: diffs,
         innateCaptured: innate(cap), innateAccepted: innate(acc), items, round1JutsuActions: affordable,
         migratedStats: { offence: a.offence, defence: a.defence },
+        rank: raw.rank, battleStartCaps: capped, exceedsCaps: capFields.filter((f) => raw[f] > capOf(f)),
       });
+      expect(capMismatch).toEqual([]);
+      A1.check(`${e.name}: battle-start stats = min(stored 0056-converted value, ${raw.rank} cap) for offence/defence/generals/masteries`, capMismatch.length === 0, capped);
       expect(assembled).toEqual(kitIds);
       expect(diffs).toEqual([]);
       expect(innate(acc)).toEqual(innate(cap));
@@ -135,6 +148,7 @@ describe("A1 — cadence vs passive dummy (20 rounds, distance 3 and 7)", () => 
           const s = out[`${v}@d${d}`];
           A1.check(`${e.name} ${v}@d${d}: no AI-exhaustion give-up`, !s.exhausted, s.firstRounds);
           A1.check(`${e.name} ${v}@d${d}: no cooldown violation`, s.cooldownViolations.length === 0, s.cooldownGaps);
+          A1.check(`${e.name} ${v}@d${d}: full ${ROUNDS}-round measurement interval (dummy survived)`, s.measuredRounds === ROUNDS && s.dummySurvived, { measuredRounds: s.measuredRounds, dummySurvived: s.dummySurvived });
         }
       }
       expect(out["candidate@d3"].exhausted).toBe(false);
@@ -167,7 +181,7 @@ describe("A1 — representative fights (player fixtures × seeds)", () => {
       A1.put(`fights:${e.name}`, out);
       const exhausted = Object.entries(out).filter(([k, rows]: any) => !k.startsWith("captured") && rows.some((x: any) => x.exhausted));
       A1.check(`${e.name}: no exhaustion give-up in accepted-kit fights`, exhausted.length === 0, exhausted.map(([k]) => k));
-      expect(true).toBe(true);
+      expect(exhausted).toEqual([]);
     });
   }
 });
@@ -264,3 +278,5 @@ describe("A1 — rule-change ledger (candidate remap)", () => {
     A1.check("regular Captain needs no remap (all captured rule IDs retained)", ledger["The Captain"].length === 0);
   });
 });
+
+requireClean(A1);

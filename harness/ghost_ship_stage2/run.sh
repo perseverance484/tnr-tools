@@ -4,6 +4,11 @@
 #   harness/ghost_ship_stage2/run.sh            # M0 + every engine gate
 #   harness/ghost_ship_stage2/run.sh a2         # M0 + only files matching "a2"
 #
+# Exit status is nonzero when M0 fails, when `bun test` fails, when any
+# required evidence file is missing or records a failed check
+# (tools/check_evidence.py), or when the gate-enforcement self-test
+# (selftest/run_negative.sh) finds a layer that does not fail on a failed check.
+#
 # Engine source: studie-tech/TheNinjaRPG at the pinned commit, exported with
 # `git archive` into a disposable work directory (never the upstream working
 # tree). Dependencies come from the pinned bun.lock with lifecycle scripts
@@ -66,22 +71,43 @@ export OPENAI_API_KEY=test-placeholder-not-a-real-key
 unset TEST_MYSQL_URL TEST_MYSQL_ALLOW_DESTRUCTIVE
 set +e
 (cd "$APP" && unshare -rn bun test "tests/tnr_ghost_ship_stage2${FILTER:+/}${FILTER}" --timeout 600000) 2>&1 | tee "$OUT/bun_test${FILTER:+_$FILTER}.log"
-STATUS=${PIPESTATUS[0]}
+BUN_STATUS=${PIPESTATUS[0]}
+
+# 5b. Every required evidence file must exist and be clean.
+case "$FILTER" in
+  "") GATES="m0 a1 a2 b1 b2 b3 c1 c2 c3" ;;
+  a1*) GATES="m0 a1" ;;
+  a2*) GATES="m0 a2" ;;
+  b*) GATES="m0 b1 b2 b3" ;;
+  c*) GATES="m0 c1 c2 c3" ;;
+  *) GATES="m0" ;;
+esac
+python3 "$HERE/tools/check_evidence.py" "$OUT" $GATES
+EVIDENCE_STATUS=$?
+
+# 5c. Gate-enforcement self-test (negative probes must fail).
+"$HERE/selftest/run_negative.sh" "$APP" "$WORK/selftest"
+NEGATIVE_STATUS=$?
 set -e
+STATUS=0
+for s in "$BUN_STATUS" "$EVIDENCE_STATUS" "$NEGATIVE_STATUS"; do [[ "$s" -ne 0 ]] && STATUS=1; done
+echo "run.sh: bun=$BUN_STATUS evidence=$EVIDENCE_STATUS negativeSelftest=$NEGATIVE_STATUS -> exit $STATUS"
 
 # 6. Provenance.
-python3 - "$OUT/provenance${FILTER:+_$FILTER}.json" "$APP" "$PIN" "$HERE" "$STATUS" <<'PY'
+python3 - "$OUT/provenance${FILTER:+_$FILTER}.json" "$APP" "$PIN" "$HERE" "$BUN_STATUS" "$EVIDENCE_STATUS" "$NEGATIVE_STATUS" <<'PY'
 import hashlib, json, os, subprocess, sys
-out, app, pin, here, status = sys.argv[1:]
+out, app, pin, here, status, evidence_status, negative_status = sys.argv[1:]
 def sha(p):
     with open(p, "rb") as fh: return hashlib.sha256(fh.read()).hexdigest()
 def run(*a):
     try: return subprocess.run(a, capture_output=True, text=True, check=True).stdout.strip()
     except Exception as e: return f"unavailable: {e}"
 harness = {}
-for root, _, files in os.walk(os.path.join(here, "engine")):
-    for f in sorted(files):
-        p = os.path.join(root, f); harness[os.path.relpath(p, here)] = sha(p)
+for sub in ("engine", "selftest", "tools"):
+    for root, dirs, files in os.walk(os.path.join(here, sub)):
+        dirs[:] = sorted(d for d in dirs if d != "__pycache__")
+        for f in sorted(files):
+            p = os.path.join(root, f); harness[os.path.relpath(p, here)] = sha(p)
 harness["m0_verify.py"] = sha(os.path.join(here, "m0_verify.py"))
 harness["run.sh"] = sha(os.path.join(here, "run.sh"))
 json.dump({
@@ -93,6 +119,7 @@ json.dump({
     "isolation": {"network": "unshare -rn (no interfaces)", "database": "none (TEST_MYSQL_URL unset)",
                   "env": "upstream test_build.yml fork-PR placeholders; no credentials"},
     "harnessFileSha256": harness, "bunTestExitStatus": int(status),
+    "evidenceCheckExitStatus": int(evidence_status), "negativeSelftestExitStatus": int(negative_status),
 }, open(out, "w"), indent=1)
 PY
 exit "$STATUS"
