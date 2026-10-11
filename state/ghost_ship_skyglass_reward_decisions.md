@@ -1,40 +1,52 @@
-# Skyglass Project — Director reward/visibility decisions
+# Skyglass Project — director reward and hidden-release decisions
 
-**State:** director-approved values, technical/build freeze pending.  
-**Date:** 2026-10-10  
-**Baseline:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0`  
-**Roadmap:** `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md`
+**State:** DIRECTOR-APPROVED ITEM TYPE AND EFFECT VALUES / ENGINE + REMAINING BASELINE STILL TO FREEZE.  
+**Latest decision date:** 2026-10-10 (director's revised Katana and Crystal specification).  
+**Design baseline:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0` (verify again before any implementation).  
+**Historical rulings:** `RUL-2026-10-10-007` supersedes earlier Katana/Crystal effect values in `RUL-2026-10-10-002`.  
+**Roadmap:** `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md`.
 
-This task-specific design decision record owns approved player-facing intent, not engine mechanics or current live-state evidence. Do not infer undecided values.
+This file owns operative, director-approved Ghost Ship reward **design intent**. It is not a live record, tested game contract, execution manifest, or authorization to change production. Unresolved technical fields and choices stay explicitly open.
 
-## Skyglass Katana — approved
+## Skyglass Katana — current approved specification
 
-- New Legendary WEAPON; **3% independent Crowned Captain AI drop**; not a quest-completion or Reliquary drop.
-- **Damage: 30 EP** (raw Damage effect power under `docs/RULINGS.md` RUL-2026-10-03-005).
-- **Shield: 300 HP for 2 rounds** on the wielder when the Katana is used. Source-backed candidate tag: `shield` with `health:300`, `rounds:2`, `target:SELF`, and `power:100` (the shield tag's creation chance, for a guaranteed shield). The `power` parameter is a chance, **not** another shield-HP magnitude.
-- **Buff Prevent immunity: 2 rounds** on the wielder. Exact source-backed candidate tag: `immunity` with `blocks:buffprevent`, `rounds:2`, `target:SELF`. This protects against **new applications** of the Buff Prevent effect; it does not itself apply Buff Prevent, grant generic debuff immunity, or cleanse an already-active Buff Prevent.
-- **Consume: REMOVED from the Katana**; previous Katana 40% Consume is superseded. Skyglass Crystal's separate weapon-only 30% Consume is unchanged.
-- Other stats — AP, cooldown, chakra/stamina cost, range, etc. — use a **documented Legendary baseline**. No exact numeric defaults were supplied. Capture/identify a suitable comparable Legendary weapon and present resulting values for director acceptance before build freeze.
-- **Three-tag identity:** Damage + Shield + Immunity (three effects, matching TNR's three-tag maximum). The shield and immunity are temporary self-effects granted by using the weapon; they are not permanent passive stat increases. The original Night's Testament exact-copy / imbue-slot → shield-potency +X concept and the later Consume 40% Katana are both **SUPERSEDED**. Night's Testament `osJq3k77YPGoFWgof12FQ` is optional comparison only, not a mandated clone.
-- Existing Crowned Captain fragment rule remains **20% AI drop**, independently rolled. Five fragments craft the Skyglass Crown, never a direct boss drop.
+- **Name:** Skyglass Katana.
+- **Rarity:** LEGENDARY (unchanged).
+- **Type:** `itemType:"WEAPON"`, `weaponType:"SWORD"` (confirmed enum identifiers in the generated TNR item contract).
+- **Cannot be imbued:** `canBeImbued:false`; do **not** set `maxImbueNumber:0` to represent this, because the item schema enforces minimum 1 on that numeric field. The `canBeImbued` flag is the eligibility gate. No Skyglass Crystal or other imbuement should function on this weapon.
+- **Precisely THREE combat effects:**
+  1. **50 EP Pierce**, as one `pierce` tag with `power:50`, normal offensive target/weapon calculation; this **replaces** generic Damage 30 EP and is not a fourth independent Damage effect.
+  2. **Buff Prevent Immunity (self, 2 rounds)**, one `immunity` tag with `blocks:"buffprevent"`, `target:"SELF"`, `rounds:2`. Prevents new Buff Prevent applications; does not itself clear existing Buff Prevent.
+  3. **Consume 40%**, one `consume` tag with `power:40`, `target:"SELF"`, `calculation:"percentage"`, instant tag (`rounds:0`); generated shield duration is not user-specified and engine currently defaults `shieldRounds:3`. Do not add a separate authored flat shield.
+- **Source:** Crowned Captain's **independent 3% AI equipment drop**, not a quest-end prize or Reliquary roll. Crowned Captain independently has **20% Fragment of the Skyglass Crown** AI drop. Five fragments craft The Skyglass Crown; no direct Crown drop.
+- **Other Legendary weapon values:** cooldown, AP/action cost, chakra/stamina/health costs, range/target/method, slot, durability, equip/trade restrictions and related required fields need a source-verified Legendary Sword baseline and director sign-off. Do not substitute arbitrary default numbers.
 
-## Skyglass Crystal — approved
+**Superseded Katana stats:** (a) exact Night's Testament clone with shield-potency swap; (b) 30 Damage EP + 40% Consume; (c) 30 Damage EP + 300 HP Shield / 2 rounds + Buff Prevent Immunity / 2 rounds. Only the current **Pierce 50 EP + Buff Prevent Immunity SELF/2 rounds + Consume 40%** set is operative. Earlier values remain in historical rulings for traceability, not for implementation.
 
-- New equipment imbuement item `itemType:CRYSTAL`; weapon-only target (`crystalTargetTypes:WEAPON` candidate field; verify against the live item contract).
-- **Consume: 30%**, not +X. Three-round shield duration follows the current Consume design, subject to source-backed validation.
-- **Skyglass Reliquary:** independent 3% direct Crystal chance per opening; one Reliquary awarded for completing the mutually exclusive secret route.
-- The approved hybrid reward structure also includes guaranteed 1 Skyglass Filament + 3 Rare Jewels; independent 25% extra Filament, 30% Skyglass Serum, 15% Ornate Chest. **12 Filaments craft 1 Crystal**.
-- Crystal rarity, trading, and exact operational crafting eligibility remain to be locked.
+**Source-backed feasibility:** Current TNR source at `studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93` shows `SuperRefineEffects` accepts a Consume tag if the **same effects array** includes Pierce or Damage. `damageUser` writes a `damage` consequence for a cast-round `pierce` effect; the subsequent `forEachOutgoingDamage` for Consume reads this consequence for same-caster outgoing positive damage. This supports the intended Pierce-to-Consume shield conversion **at source level**, but precise schema validation and offline combat playback still remain to be performed. Normal `consume` shield generation is tied to outgoing damage, not a guaranteed fixed 300 HP shield.
 
-**ENGINE BLOCKER:** The current `SuperRefineEffects` demands `consume` coexist with `damage` or `pierce` on the SAME item's effect array. A standalone Consume-only crystal fails validation, and a crystal imbuement must actually affect weapon actions, not merely validate. Require a proven source-backed solution and, if necessary, separate reviewed upstream engine work. No silent bonus-damage effect, substitute tag, or weakened Consume is authorized.
+## Skyglass Crystal — current approved specification
 
-## Hidden quest state
+- **Name:** Skyglass Crystal.
+- **Type:** `itemType:"CRYSTAL"` (weapon imbuement), with `crystalTargetTypes:"WEAPON"` (source-confirmed `ItemTypes` target equality).
+- **Precisely ONE effect:** **Consume 20%**, one `consume` tag with `power:20`; **supersedes Consume 30%**. Intended to add Consume to the eligible weapon's damaging action; no separately authored Damage/Pierce tag is approved. Engine-default generated shield duration currently 3 rounds, subject to actual feasibility test.
+- **Explicit exclusion:** Skyglass Katana is `canBeImbued:false`, so this weapon-only crystal **cannot** be imbued onto Skyglass Katana despite Katana itself having Consume 40%. Weapon-only describes the item category, not universal eligibility.
+- **Source:** Skyglass Reliquary **independent 3% direct Crystal chance** on opening; separate **12 Skyglass Filaments craft one Crystal** loop remains. The secret sixth ending awards **one Reliquary guaranteed** (both Gathering and Hunting).
+- **Reliquary table otherwise unchanged:** 1 Skyglass Filament + 3 Rare Jewels guaranteed; independent 25% bonus Filament, 30% Skyglass Serum, 15% Ornate Chest, and 3% Skyglass Crystal. No Katana/Crown fragment in chest.
+- **Open:** Crystal rarity, Crystal/Filament trading, Crafting-rank/occupation economics and actual item-contract compatibility; do not invent player privileges or rates.
 
-- Director reports both Ghost Ship profession quests **currently HIDDEN**.
-- Historical capture `harvests/inbox/tnr_results_1790826101573.json` showed `hidden:false` on 2026-10-01. It is outdated on visibility; user report is not a fresh read-back.
-- Before changing either existing quest ID (`6Ri-W5TtUrEMWpyYlnf_F`, `HckXVOf-qk6ESU9t5rxLh`), obtain a new operator-run read-only `quests.get` capture.
-- If confirmed hidden, preserve `hidden:true` throughout the entire implementation and read-back phase. Never unhide or publish without separate operator authorization. No live-game requests or writes were performed while recording these decisions.
+**CRYSTAL ENGINE BLOCKER REMAINS:** `app/src/validators/combat.ts` `SuperRefineEffects` validates **each item's own effects array** and rejects a Consume-only crystal without a `damage` or `pierce` effect on that same **crystal**. The weapon-plus-imbue concatenation during battle is a later phase and does not automatically fix item creation. Source-backed, test-covered targeted validation support for *weapon-targeted Consume-only crystals* may be needed before the 20% crystal can be built. Must not sneak in `damage:0`, `pierce:1` or any unapproved tag to bypass the validation; must not modify the game source without separate explicit authorization. Verify that on a successful weapon imbue the effect actually activates in combat.
 
-**Source-backed implementation checks:** Pinned source `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6` confirms `ShieldTag` (`health`, `rounds`, proc `power`) and `ImmunityTag` (`blocks:buffprevent`, `rounds`) and weapon action routing honors self-targeted tags. No live-game tests were made; Fable must still run offline schema/behavior tests proving all three tags land correctly in sequence, and verify shield application, Immunity behavior and stacking/cooldown interactions.
+## Quest hidden-state evidence conflict
 
-**Still open:** exact Legendary weapon baseline values and final technical 30 EP tag encoding; offline runtime tests of 300 HP shield/2 rounds and 2-round Buff Prevent immunity; functional 30% Crystal Consume representation; Crystal rarity/trade; Sealwright tuning, full quest graph, art readiness, and fresh hidden-state readback.
+- Director reports both Ghost Ship profession quests are **currently HIDDEN**.
+- Historic `harvests/inbox/tnr_results_1790826101573.json` from 2026-10-01 captured both `hidden:false`. That is a historic state, not authoritative current visibility.
+- Before any in-place edit, obtain an **operator-run fresh read-only** `quests.get` capture of `6Ri-W5TtUrEMWpyYlnf_F` and `HckXVOf-qk6ESU9t5rxLh`. Preserve verified `hidden:true`, no agent-run publication/unhide.
+- No live-game requests or writes occurred while updating these decisions.
+
+## Build acceptance gates still open
+
+1. Source-verified full Legendary **Sword** item baseline (cooldown, AP, costs, method, target, slot, durability etc.) and director acceptance of actual numbers.
+2. TNR source-aware validator + offline runtime tests for Katana `pierce:50`, `immunity:buffprevent SELF/2r`, `consume:40%`, and `canBeImbued:false`; test shield conversion off **Pierce** specifically.
+3. Source-backed engine solution and tests for `CRYSTAL`, `crystalTargetTypes:WEAPON`, Consume 20% **only**, without additive damage/pierce.
+4. Crystal rarity/trading/crafting economy; Sealwright effective Captain parity, new art QA, final quest prose, fresh operator-run hidden readback.
