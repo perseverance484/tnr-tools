@@ -507,3 +507,20 @@ Wrong quarantine-seal answers **close the secret route for that quest run**, ret
 **Rationale:** Expands the airborne ship's exploration, investigation and rewards without discarding working quest IDs, making the Crown farm slower, or creating a generic new series of battles. The graph's offline structural checks passed for both October 1 profession captures, but do not establish full manifest validity or current live state.
 
 **Canonical destination:** `state/ghost_ship_skyglass_expansion_design.md` is the expanded content-design owner and `state/ghost_ship_skyglass_graph_patch.json` its machine-readable structural proposal; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` coordinates the next content/combat/art tasks. Original `state/ghost_ship_retheme_patch.json` remains the authority for unchanged base retheme text and identities. Schemas, engine laws, captures, and live state retain independent authority.
+
+---
+
+## RUL-2026-10-10-004 — Sealwright is a regular-Captain-tier boss using boss-pool jutsu
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright combat
+**Status:** ACTIVE (combat-tier direction approved; exact kit and runtime parity still under review)  
+**Supersedes:** the earlier 2.5× stats / 3.0× pools mid-tier Sealwright combat draft (unruled). Refines Sealwright combat tier under RUL-2026-10-10-003 without changing the approved 83-node structural graph.
+
+**Ruling:** Sealwright must be **on par with the regular Captain** in practical battle difficulty, not a lesser elite, and must use meaningful **boss-pool abilities** from the existing shared AI jutsu pool. The current captured regular Captain profile is Level 100 / JONIN, **3.0× stats, 2.5× pools, regeneration 60**; matching those values is the recommended initial numeric parity baseline, subject to real-equipment/effective-combat comparison. Do not silently make Sealwright Crowned-Captain tier or add another phase, separate chest drop, or non-pool jutsu. He remains the solitary Quarantined Archive guardian on the already approved mutually exclusive secret route.
+
+**Candidate, NOT yet frozen by this ruling:** the revised six-move proposal uses boss-grade **B14 Cataclysm Detonation** and **B16 Sovereign Fetters**, supported by **B22 Compression Barrier**, **B33 Piercing Judgment**, **S27 Weakening Strike**, and **S31 Unraveling Strike**. B16's two-round Stun plus Seal requires special comparative balance testing. The director approved the **tier and boss-pool inclusion direction**, not this exact kit, AI rules, or eventual battle results.
+
+**Rationale:** The secret Reliquary ending deserves a proper boss encounter of comparable difficulty to the regular Captain while retaining a technically distinct defensive containment identity. Mirroring raw multipliers without analyzing cooldowns, control windows and Captain equipment would overstate parity.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns the current technical combat proposal; `state/ghost_ship_skyglass_expansion_design.md` owns the approved quest narrative/graph; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing. The shared pool and captured AI profiles retain their evidence authority.
