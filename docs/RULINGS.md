@@ -697,3 +697,25 @@ Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r 
 **Implementation boundary:** preserve frozen r4 old-pin evidence, including the former Katana record, builder and harness. Fable owns the next derived-record and offline test revision; old PASS results do not validate this change. No engine modification, live request/write, art change, full manifest or publication is authorized by this adjustment.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative specification. `state/ghost_ship_skyglass_consume_revision.json` is the machine-readable design delta, not a full record. `state/prompt_ghost_ship_skyglass_consume_revalidation.md` supplies the bounded Fable test brief; the full roadmap points to these current gates.
+
+---
+
+## RUL-2026-10-11-006 — Consume 2/2; Legendary, tradable, non-craftable Crystal
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass item timing and Crystal economy
+
+**Status:** ACTIVE design approval. Final-record offline tests and independent acceptance remain required.
+
+**Supersedes:** unresolved Consume timing and Crystal rarity/trading/crafting in RUL005 and earlier decisions; removes the previously approved12-Filament Crystal recipe. Does not change rates, other effects, Katana baseline/economy, independent drop chances or the Reliquary contents.
+
+**Ruling:** dauntless selected “2/2 for Consume”: **both Skyglass Katana and Skyglass Crystal use active Consume `rounds:2` and generated-shield `shieldRounds:2`**. Katana remains15%; Crystal remains10%. The Crystal is **LEGENDARY**, **tradable** (`canBeTraded:true`) and **not craftable** (`canBeCrafted:false`). Its independent3% Reliquary roll remains; the12-Filament crafting route is removed from future construction. This does not remove Filament drops or invent a replacement use/trading decision for them. Native imbuement access remains engine-governed.
+
+**Explicit deferral:** Consume overlap need not be resolved now. It is not a blocking director decision for this pass. Preserve native behavior and technical evidence; do not implement stacking changes or new restrictions.
+
+**Combat request:** dauntless also requested Sealwright combat behavior design. This authorizes a concrete proposal; it does not constitute acceptance of the newly authored priority/movement/filler plan or numerical parity. The already approved seven jutsu, double-Clear intent and Captain-tier target remain locked.
+
+**Evidence boundary:** the active-Consume package `fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2` tests3/3 carriers at engine `585534d7eb21d6f0dd678d5c3eb92662f611d39b`. Preserve it and r4 as historical evidence. Fable must deliberately produce/test2/2 records and the selected Crystal economy; no old PASS is relabelled. No engine change, live request/write, art, full manifest or publication is authorized.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`; companion `state/ghost_ship_skyglass_final_item_contract.json`; bounded Fable brief `state/prompt_ghost_ship_skyglass_final_item_revalidation.md`. Sealwright's new proposal is linked from its existing combat draft to `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`.
