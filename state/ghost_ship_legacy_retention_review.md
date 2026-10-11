@@ -2,9 +2,9 @@
 
 **Policy and roster:** APPROVED, `RUL-2026-10-11-001/002`. Keep the eleven legacy jutsu below, including Explosion and six of the awakened/Crowned Captain's seven legacy moves. Retained records receive name/description/battle-description changes only; combat mechanics stay as captured and subsequently verified. Replace genuinely redundant roles with existing shared-pool records.
 
-**Conversion complete for review:** `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored text; `state/ghost_ship_legacy_jutsu_conversion.md` is the readable companion. The director approved this exact eleven-record selection and requested its conversion. Final presentation acceptance, hybrid AI kits, rule arrays and technical freeze remain open. Fable remains implementation owner. No live requests/writes or full write manifest.
+**Conversion complete for review:** `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored text; `state/ghost_ship_legacy_jutsu_conversion.md` is the readable companion. The director approved this exact eleven-record selection and requested its conversion. Hybrid kit memberships are accepted under `RUL-2026-10-11-003`; final presentation acceptance, rule arrays and technical freeze remain open. Fable remains implementation owner. No live requests/writes or full write manifest.
 
-**Next design packet:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` propose exact memberships and shared replacements for all eleven existing enemies. They preserve every original retained/shared membership and explicitly propose adding Rigging Snare/Hollow Timber to Sentinel; those new assignments and substitutions are not automatically approved by this retention ruling.
+**Accepted kit packet:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` own accepted memberships/substitutions under `RUL-2026-10-11-003`. All original retained/shared memberships survive, and Sentinel's Rigging Snare/Hollow Timber assignments are explicitly accepted. Fable now tests behavior and parity.
 
 ## Evidence and comparison method
 
@@ -42,7 +42,7 @@ Retain the six approved legacy records Deep Six, Final Fathom, Death's Grasp, Sh
 
 Its other four moves already are shared records: **S31 Unraveling Strike, B14 Cataclysm Detonation, S35 Second Wind, B07 Stolen Form**. They can remain equipped without becoming new legacy exceptions. Do not rename global records as part of event-local retheming.
 
-This retains ten of the current eleven Crowned moves if its current shared actions are retained; that is a proposed kit-preservation outcome, not an approved final rule array. The captured innate IDG60%/99r is separate from the jutsu and is not removed by this proposal.
+The accepted hybrid kit retains ten of the current eleven Crowned moves and replaces Sharpened Focus with EA03; this approves membership, not a final rule array. The captured innate IDG60%/99r is separate from the jutsu and is not removed by this proposal.
 
 ## Earlier alternatives; not part of the approved eleven
 
@@ -74,7 +74,7 @@ Do not describe this as delaying all jutsu or count it as a proven unique attack
 
 1. The former wholesale shared-pool migration and blanket 37-record retirement plan are superseded. Its numeric AI profiles and loot directives remain evidence/constraints except where later decisions already override them.
 2. Retain Explosion's original record; its authored new name is **Core Rupture**, not an instruction to create a duplicate shared jutsu. Renames still need fresh record/dependency checks so other consumers are known.
-3. The retained roster is approved. Review its authored presentation text and select per-enemy hybrid kits. Approval to keep a record does not automatically add it to enemies that never used it.
+3. The retained roster is approved. Review its authored presentation text. Per-enemy hybrid kits, including two explicit Sentinel assignments, are now accepted under RUL-2026-10-11-003; other new memberships are not implied.
 4. Death's Door, Death's Grasp and Battle Trance affect the **regular Captain** too. Fable must freeze that revised comparator before final Sealwright parity. The previous B19/B14/B17/B05/S31/B33 all-shared comparator is now historical, not final authority.
 5. Sealwright's seven shared jutsu and intentional double Clear are unchanged. Item packages B/C can continue; compare Sealwright against the newly accepted Captain kit once settled.
 6. Retained mechanics must survive field-by-field comparison of before/after records, including absent fields. Do not normalize omitted `generalTypes` or silently repair malformed riders. Existing equip-link edit hazards still require the repository's unequip/edit/re-equip workflow at the eventual user-run implementation stage.

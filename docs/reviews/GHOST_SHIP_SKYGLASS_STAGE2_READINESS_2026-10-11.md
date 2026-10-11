@@ -100,16 +100,17 @@ Required cases beyond a one-opponent model:
 
 Source at A: `validators/ai.ts:100–105`, `ai_v2.ts:123–127,334–352,484–490,530–535`, `tags.ts:1162–1234`. No automatic threshold, targeting or jutsu changes are proposed.
 
-### S2-05 — Captain fixture must include the intended migration and innate effect
+### S2-05 — Captain fixture must include the accepted hybrid membership and innate effect
 
-The parity comparator is the **regular Captain**, not Crowned Captain. Keep these two versions distinct:
+**2026-10-11 amendment:** RUL-2026-10-11-003 supersedes the original all-shared comparator recommendation in this review. The parity comparator is the **regular Captain**, not Crowned Captain.
 
 | Comparator | Record/kit/rules |
 | --- | --- |
-| October 1 captured legacy Captain | `QY69h271Nx9uHrBeR6jwW`, then named Pirate King; Death's Door, B17, Battle Trance, B14, Death's Grasp; combo profile and `includeDefaultRules:true` |
-| Approved intended migrated Captain | Same AI ID; B19/B14/B17/B05/S31/B33; rebuilt order and `includeDefaultRules:false` |
+| Historical captured regular Captain | `QY69h271Nx9uHrBeR6jwW`; Death's Door, B17, Battle Trance, B14, Death's Grasp; captured combo profile and `includeDefaultRules:true` |
+| Accepted Stage2 membership | Same five IDs, rethemed as Unbroken Command, B17, Remembered Form, B14 and Keelbind. Rebuilt rule order/default handling require tests; membership approval does not freeze them. |
+| Superseded all-shared migration | B19/B14/B17/B05/S31/B33; not the primary release-parity comparator |
 
-Evidence: `state/ghost_ship_shared_pool_migration.json:445–495`; `harvests/inbox/tnr_results_1790828718767.json:1076–1156`. Use the intended migrated Captain as the primary release-parity comparator; label the captured legacy case separately if included for regression context. This follows the roadmap's Stage 2 comparator direction and does not choose a different balance target.
+Use `state/ghost_ship_hybrid_kit_proposal.json` as the accepted membership source, with its full AI/profile pointers and hashes. Compare captured versus rebuilt behavior explicitly, then use the accepted five-move kit for Sealwright parity. Preserve the legacy mechanics and do not add filler to match Sealwright's move count.
 
 The October 1 full AI also contains **innate 30% Highest offense/general increasestat for 99 rounds** (`harvests/inbox/tnr_results_1790826836406.json:8096–8119`). At A, battle assembly initializes it active with protected bloodline provenance (`routers/combat.ts:3479–3494`). Do not drop it from the Captain fixture or silently copy it to Sealwright. AI Heavy Armor and Cursed Dagger are both `equipped:NONE`, so their ordinary combat effects are excluded; that does **not** exclude innate AI effects. Preserve preferred Bukijutsu/Speed/Strength, null elements and the captured numeric profile explicitly.
 

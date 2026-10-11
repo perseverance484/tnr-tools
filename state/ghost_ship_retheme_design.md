@@ -1,8 +1,8 @@
 # Ghost Ship retheme — design brief
 
-**2026-10-11 update:** `RUL-2026-10-11-001/002` replaces wholesale shared-pool migration with the approved eleven-record roster in `state/ghost_ship_legacy_retention_review.md`. Retained mechanics stay unchanged; names, descriptions and battle text are converted in `state/ghost_ship_legacy_jutsu_conversion.json` (readable `.md` companion). Final presentation acceptance and hybrid kits remain open. The original 57-node scope below was separately superseded by the approved 83-node expansion.
+**2026-10-11 update:** `RUL-2026-10-11-001/002` replaces wholesale shared-pool migration with the approved eleven-record roster in `state/ghost_ship_legacy_retention_review.md`. Retained mechanics stay unchanged; names, descriptions and battle text are converted in `state/ghost_ship_legacy_jutsu_conversion.json` (readable `.md` companion). Hybrid memberships are accepted under `RUL-2026-10-11-003`; final presentation acceptance and rule/parity validation remain open. The original 57-node scope below was separately superseded by the approved 83-node expansion.
 
-**Hybrid kit proposal:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` now supply exact proposed memberships and substitutions for all eleven existing enemies. They remain proposals pending director acceptance and Fable's tests, including two explicit new Sentinel assignments of retained techniques.
+**Accepted hybrid kits:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` supply all eleven accepted memberships, including Sentinel's two new retained-technique assignments. Fable's rule and combat tests remain pending.
 
 **Status:** ACTIVE DESIGN / implementation not yet frozen  
 **Lead:** ChatGPT / Content Designer  
@@ -133,7 +133,7 @@ Captured Skyglass Crown mechanics remain unchanged:
 
 The earlier plans to retheme 29 bespoke jutsu and then replace all 37 legacy-only records are **superseded**. The director accepted the eleven-record roster in `state/ghost_ship_legacy_retention_review.md`; its text conversion is `state/ghost_ship_legacy_jutsu_conversion.json`. Retained mechanics stay unchanged. Genuinely redundant roles move to shared-pool records.
 
-Existing level, rank, stat ratios, stat/pool multipliers, regeneration and preferred-stat/general values remain unchanged unless separately approved. Exact hybrid kits and rebuilt AI rules still require selection and tests. The kit/rule arrays in `state/ghost_ship_shared_pool_migration.json` are historical inputs, not final authority.
+Existing level, rank, stat ratios, stat/pool multipliers, regeneration and preferred-stat/general values remain unchanged unless separately approved. Exact hybrid memberships are accepted under RUL-2026-10-11-003; rebuilt AI rules still require tests and final acceptance. The kit/rule arrays in `state/ghost_ship_shared_pool_migration.json` are historical inputs, not final authority.
 
 Earlier combat-role direction to reconcile with retained moves:
 - Deck Warden: close-pressure shared standard kit.
@@ -143,8 +143,8 @@ Earlier combat-role direction to reconcile with retained moves:
 - Arsenal Keeper: heavy bruiser.
 - Sentinel: earth defense/controller.
 - First Blade: Air-pool skirmisher.
-- The Captain: hybrid boss kit retaining Unbroken Command, Keelbind and Remembered Form; shared replacements and final rules pending.
-- Crowned Captain: command boss retaining six legacy signatures; its four captured shared moves remain eligible and its redundant Sharpened Focus needs a suitable shared replacement.
+- The Captain: hybrid boss kit retaining Unbroken Command, Keelbind and Remembered Form; shared membership accepted; final rules pending.
+- Crowned Captain: command boss retaining six legacy signatures; its four captured shared moves remain eligible and its redundant Sharpened Focus uses the accepted EA03 replacement.
 
 The two hazard props retain the original `Explosion!` ID `nCQETf-HNnbRec1OSY2-R`, rethemed as **Core Rupture**, with all mechanics preserved. Do not create the former proposed clone. Fresh full records and an all-consumer audit remain required before editing an existing record.
 

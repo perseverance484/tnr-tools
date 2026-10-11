@@ -1,12 +1,13 @@
 {
   "schema": "tnr.ghost_ship_hybrid_kit_proposal.design.v1",
   "executable": false,
-  "status": "PROPOSED_MEMBERSHIP_AND_SUBSTITUTIONS_NOT_APPROVED_BALANCE_OR_RULES",
+  "status": "DIRECTOR_ACCEPTED_KIT_BASELINE_FOR_OFFLINE_TESTS_RULES_AND_PARITY_PENDING",
   "date": "2026-10-11",
   "sourcePreparationCommit": "fbc9a4e7c1af1d34d7735060cf8bb6c5469de3fa",
   "approvedFoundation": [
     "RUL-2026-10-11-001",
-    "RUL-2026-10-11-002"
+    "RUL-2026-10-11-002",
+    "RUL-2026-10-11-003"
   ],
   "sourceFiles": {
     "ai": "harvests/inbox/tnr_results_1790826836406.json",
@@ -23,13 +24,6 @@
   },
   "scope": "Existing eleven Ghost Ship AIs only. Kit order is for display, not AI priority. No final AI rules, jutsu edits, stat tuning, loot edits, deletion or write manifest. Sealwright remains separately approved and unchanged.",
   "preserve": "Every approved retained jutsu ID and all its mechanics; all currently captured retained memberships; all already-shared equipped IDs; complete AI raw stats, multipliers, pools, preferences, elements and innate effects including duplicates unless separately approved. Existing loot corrections remain governed by reward decisions.",
-  "directorDecisions": [
-    "Accept proposed shared substitutions/consolidations and their numerical, element and cooldown changes; they are role substitutes, not equal-strength copies.",
-    "Accept reusing Rigging Snare and Hollow Timber on Sentinel, with disclosed element/range/cooldown changes.",
-    "Accept EL04 Lightning Pierce on First Blade in place of its untyped Pierce.",
-    "Accept the five-move regular Captain as the membership baseline for parity; Fable still must validate its rules/cadence.",
-    "Decide Crowned Captain support activation after tests; keeping S35/B07/Rebounding Form equipped does not automatically approve activating them in a new rotation."
-  ],
   "verification": {
     "aiCount": 11,
     "capturedMemberships": 75,
@@ -1256,5 +1250,21 @@
         }
       ]
     }
+  ],
+  "approval": {
+    "ruling": "RUL-2026-10-11-003",
+    "acceptedProposalCommit": "89fa921c839a9830fd66bb64aa267c470e8dd678",
+    "scope": "All eleven kit memberships, substitutions and consolidations accepted as the offline test baseline, including two new Sentinel retained memberships and First Blade EL04. Final rule order, measured balance and dormant Crowned support activation remain open.",
+    "historicalFieldNames": "proposedKit and newRetainedMembershipProposals are retained for stable schema compatibility; their contents are accepted by this ruling."
+  },
+  "acceptedDecisions": [
+    "Accept proposed shared substitutions/consolidations and their numerical, element and cooldown changes; they are role substitutes, not equal-strength copies.",
+    "Accept reusing Rigging Snare and Hollow Timber on Sentinel, with disclosed element/range/cooldown changes.",
+    "Accept EL04 Lightning Pierce on First Blade in place of its untyped Pierce.",
+    "Accept the five-move regular Captain as the membership baseline for parity; Fable still must validate its rules/cadence."
+  ],
+  "openDirectorDecisions": [
+    "Final tested AI rule ordering and measured Sealwright/Captain parity; any requested tuning adjustment.",
+    "Crowned Captain support activation after tests; keeping S35/B07/Rebounding Form equipped does not automatically authorize a new active rotation."
   ]
 }
