@@ -737,3 +737,21 @@ Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r 
 **Unresolved details:** “high IDG” has no director-selected number. The companion proposes threshold71 on CLOSEST_OPPONENT with native distance gate5, ahead of routine Clear; this number/selector/order is not accepted by this ruling. Native `health_below:40` is strictly below40%, not inclusive of exactly40; disclose and obtain acceptance of that boundary rather than silently substituting41. The candidate uses ordinary SELF Reflect without a health/distance condition, subject to existing AP/cooldown rules. Final priority and measured consequences remain test/review work.
 
 **Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md` owns the activation direction and bounded Fable test brief. `state/ghost_ship_hybrid_kit_proposal.md` points to it; unchanged JSON and historical A1 results retain their original membership/test scope. No engine change, live request/write, art, manifest or publication is authorized.
+
+---
+
+## RUL-2026-10-11-008 — Accept Crowned Captain IDG71 and strict-below40 healing
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support triggers
+
+**Status:** ACTIVE design approval; runtime validation and final measured balance remain pending.
+
+**Supersedes:** the unresolved Copy number and native heal-boundary questions in RUL007. Preserves regular Reflect and all approved memberships/mechanics/rewards.
+
+**Ruling:** dauntless approved the explicit clarification: **Copy at summed IDG 71 or higher**, and **heal using the native `health_below:40` condition**, strictly below 40% of effective maximum health. Exactly 40% does not trigger healing. Do not replace the threshold with41 or introduce inclusive-boundary engine changes. The historical Copy30/heal50 experiment remains superseded for new behavior construction.
+
+**Scope:** these two numerical/boundary decisions are closed. The companion's Heal → conditional Copy → Reflect → existing offense order and same-target native selector remain the implementation candidate for Fable's tests; this approval is not a runtime PASS or final balance acceptance. No live requests/writes, engine changes, art, manifest or publication.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md`; the hybrid-kit readable companion and full roadmap track the closed trigger decisions. Preserve historical JSON, harnesses and results unchanged.
