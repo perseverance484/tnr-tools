@@ -542,3 +542,20 @@ Wrong quarantine-seal answers **close the secret route for that quest run**, ret
 
 **Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns detailed implementation and source-backed AI rule; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` tracks next work. Current upstream code for the condition is `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6` in `app/src/libs/combat/ai_v2.ts`.
 
+---
+
+## RUL-2026-10-10-006 — Sealwright dual-Clear overlap is intentional core playstyle
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright combat identity  
+**Status:** ACTIVE (seven-jutsu design accepted; effective parity and final rule order still require offline validation)  
+**Supersedes:** the concern that regular Unraveling Strike could make the B32 reserve redundant; refines RUL-2026-10-10-004/005 without superseding their combat tier or trigger.
+
+**Ruling:** The director explicitly wants the Sealwright to **constantly strip removable positive buffs**. Regular **S31 Unraveling Strike** (Damage 40 plus Clear 100, range 3, cooldown 5) is his routine, high-priority damaging dispel and must remain in the normal rotation; **B32 Nullifying Wave** (Clear 100, range 5, cooldown 8) remains **equipped as the seventh jutsu**, used **only** when the same targeted opponent's total Increased Damage Given (IDG) is strictly above 70 (source-backed integer threshold 71), with normal range/AP/cooldown constraints. **Overlapping Clear effects are intentional, not a flaw to eliminate**. S31 may remove IDG before the emergency threshold is reached; that is desired, not cause to weaken either effect. Both jutsu remove *all removable positive buffs*, not only IDG. `clearprevent` and other existing game rules still apply.
+
+The working seven-technique roster is **B22 Compression Barrier, B16 Sovereign Fetters, B14 Cataclysm Detonation, B33 Piercing Judgment, S27 Weakening Strike, S31 Unraveling Strike, B32 Nullifying Wave**. Captain-tier parity, other pool jutsu and no independent Sealwright loot remain as previously directed. Specific AI priority/positioning and measured difficulty need offline tests before final manifest freeze; no new jutsu, game modifications or publications are authorized.
+
+**Rationale:** Make buff denial the core active Sealwright identity instead of an optional response, while preserving a separately threshold-gated emergency purge when players push IDG exceptionally high. The deliberate double-Clear distinguishes the archive custodian from the regular Captain.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns this design; `state/ghost_ship_skyglass_sealwright_rule_contract.json` owns the source-backed AI-rule proposal and tests; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing.
+
