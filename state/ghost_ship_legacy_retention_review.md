@@ -4,6 +4,8 @@
 
 **Conversion complete for review:** `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored text; `state/ghost_ship_legacy_jutsu_conversion.md` is the readable companion. The director approved this exact eleven-record selection and requested its conversion. Final presentation acceptance, hybrid AI kits, rule arrays and technical freeze remain open. Fable remains implementation owner. No live requests/writes or full write manifest.
 
+**Next design packet:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` propose exact memberships and shared replacements for all eleven existing enemies. They preserve every original retained/shared membership and explicitly propose adding Rigging Snare/Hollow Timber to Sentinel; those new assignments and substitutions are not automatically approved by this retention ruling.
+
 ## Evidence and comparison method
 
 Verified live `main` at `0eb57de20877d266dde666229ae4c68e8fbcf4c0` and design branch at `0dbd54c04f2025a1a652712a9ea6df94e35cf8f5` on 2026-10-11. This proposal follows the local Stage 2 readiness review `407df00a816e77a823ae5c5cad6260ee407c8aae`.

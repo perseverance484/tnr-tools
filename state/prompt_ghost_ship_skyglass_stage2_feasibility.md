@@ -2,6 +2,8 @@
 
 **2026-10-11 combat-scope update — RUL-2026-10-11-001/002:** The eleven-record legacy roster in `state/ghost_ship_legacy_retention_review.md` is approved. Presentation-only conversion is authored in `state/ghost_ship_legacy_jutsu_conversion.json` with a readable `.md` companion; exact final text acceptance remains open. Preserve all mechanics and original IDs. The hybrid regular-Captain kit is not frozen. Any all-shared Captain comparator below is historical until reconciled with the accepted retained moves; preliminary tests may be labeled as such, but final parity must use the accepted hybrid kit. Sealwright's seven jutsu and item packages B/C remain unchanged. No engine modification or full manifest is authorized.
 
+**Hybrid membership proposal prepared:** `state/ghost_ship_hybrid_kit_proposal.md` and `.json` provide all eleven enemy kits and every captured membership disposition. Recommendation: preserve the regular Captain's five captured moves, preserve ten Crowned moves and replace only Sharpened Focus with EA03, and reuse Rigging Snare/Hollow Timber on Sentinel as two explicitly proposed new memberships. These substitutions are **not yet director-approved**. The packet adds source pointers, full-record hashes, unchanged innate-effect requirements and offline test cases. Kit order is not rule priority. Do not silently activate Crowned Captain's equipped but unselected heal/copy/reflect support when rebuilding rules.
+
 **Status:** READY FOR FABLE OFFLINE RESEARCH / TEST WORK ON SEPARATE OWNED BRANCH — **NOT** production-content authorization.  
 **Issued:** 2026-10-10  
 **Repository:** `perseverance484/tnr-tools`; baseline main `0eb57de20877d266dde666229ae4c68e8fbcf4c0` (recheck head).  
