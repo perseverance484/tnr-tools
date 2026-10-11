@@ -62,3 +62,20 @@ Live-game requests 0. Writes 0. Asset-CDN requests 0. No credentials, cookies or
 ## Explicitly not begun
 
 Final rule freeze; Crowned support activation; tuning; the Crystal engine correction; the Sword baseline (operator capture needed); manifest assembly; art; publication.
+
+## Revision r2 (2026-10-11): accepted Katana baseline
+
+- Previous frozen review target: `8c19a376b97c4d5099d43e6c7ea9e6eabf057d59`. The r2 head is the commit that adds this section; its exact SHA is in the delivery message.
+- Intervening commits on this branch: `push/85` and `push/86` capture manifests, already run and archived on `main`.
+- **Trigger:** RUL-2026-10-11-004. dauntless chose Night's Testament as the baseline, a Crystal-element Pierce, drop-only (not craftable) and tradable.
+- **Changes:**
+  - `state/ghost_ship_skyglass_katana_record.json`, derived by `harness/ghost_ship_stage2/tools/build_katana_record.py` (`--check` → current);
+  - the capture bundle `harvests/inbox/tnr_results_1791727479372.json`, byte-identical to `main`;
+  - `docs/RULINGS.md`, with RUL-2026-10-11-004 appended;
+  - the Katana section of `state/ghost_ship_skyglass_reward_decisions.md`;
+  - harness: the Katana now uses the accepted record; C1 validates the full record; C2 asserts cooldown 6; C3 is rewritten as final-record validation; B3 adds the hidden-state case;
+  - results, report and README updated.
+- **Results:** `run.sh` → 68 pass, 0 fail, 141 expect() calls. Evidence assertions: A1 160, A2 25, B1 4, B2 7, B3 10, C1 4, C2 16, C3 12, all with 0 failed. M0 482/482. Two runs produced byte-identical evidence. A1, A2, B1 and B2 evidence is unchanged from r1.
+- **C3:** PASS for mechanics and economy. Presentation (description, battle description, image, effect animation/SFX) remains pending.
+- **New observation:** `fetchUserItems` excludes hidden items, so a still-hidden Katana is invisible to `imbueItem`.
+- Live-game requests 0, writes 0. No engine, art or manifest change.

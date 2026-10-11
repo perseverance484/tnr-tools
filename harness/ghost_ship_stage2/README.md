@@ -71,8 +71,13 @@ independent full runs produced byte-identical `m0/a1/a2/b1/b2/b3/c1/c2/c3.json`.
 - **Placement:** start tiles are fixed (player (2,4), boss (8,4) unless stated)
   rather than the engine's random spawn, so that both bosses face identical
   inputs.
-- **Katana/Crystal non-effect fields** come from the captured EPIC Flaming Sword
-  row as a carrier. They are not a baseline (C3).
+- **Katana** is the accepted record `state/ghost_ship_skyglass_katana_record.json`
+  (RUL-2026-10-11-004, Night's Testament baseline; rebuild/check with
+  `tools/build_katana_record.py [--check]`). Presentation fields are labelled
+  placeholders. **Crystal and imbuable-recipient** non-effect fields still come
+  from the captured EPIC Flaming Sword row as a carrier.
+- **0056 conversion** of the Oct 1 AI rows was confirmed exact against the live
+  push/86 recapture (2026-10-11).
 - **Crystal record is hypothetical:** it cannot pass the validator (B1). B2
   shows post-composition runtime only.
 - **Single-opponent fights do not exercise RNG** in these kits, so the five

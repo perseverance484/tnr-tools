@@ -7,13 +7,13 @@
  *             + consume(power 40, percentage, SELF)
  *   Crystal = CRYSTAL, crystalTargetTypes WEAPON, consume(power 20, percentage) only.
  *
- * Every NON-effect field (AP, costs, cooldown, range, slot, economy, …) is
- * unselected by the director. Records here take those fields from the captured
- * Flaming Sword row (harvests/inbox/tnr_results_1788235198666.json
- * #/captures/8/data/items/0/item, EPIC SWORD, 2026-09-01) as a labelled TEST
- * CARRIER only. Effect stat/general classification on the Katana Pierce is
- * likewise carried from Flaming Sword's own damage effect (statTypes/generalTypes
- * ["Highest"]). These are not recommendations for the final Katana.
+ * Katana: the accepted record in state/ghost_ship_skyglass_katana_record.json
+ * (RUL-2026-10-11-004: Night's Testament baseline from push/85, Pierce element
+ * Crystal, drop-only, tradable), built by tools/build_katana_record.py.
+ * Crystal and imbuable-recipient fixtures still take their non-effect fields
+ * from the captured Flaming Sword row (harvests/inbox/tnr_results_1788235198666.json
+ * #/captures/8/data/items/0/item, EPIC SWORD) as a labelled TEST CARRIER; Crystal
+ * economy fields remain unselected.
  */
 import { ItemValidator, ItemValidatorRawSchema, getTagSchema } from "@/validators/combat";
 import * as F from "./fixtures";
@@ -24,24 +24,8 @@ export const FLAMING_SWORD = {
 };
 export const flamingSword = () => F.captured(FLAMING_SWORD.file, FLAMING_SWORD.pointer);
 
-export const KATANA_EFFECTS_INPUT = () => {
-  const fs = flamingSword().record;
-  const dmg = fs.effects.find((e: any) => e.type === "damage");
-  return [
-    {
-      type: "pierce",
-      power: 50,
-      powerPerLevel: 0,
-      rounds: 0,
-      calculation: "formula",
-      target: "INHERIT",
-      statTypes: dmg.statTypes, // carrier: Flaming Sword damage effect
-      generalTypes: dmg.generalTypes, // carrier: Flaming Sword damage effect
-    },
-    { type: "immunity", blocks: "buffprevent", rounds: 2, target: "SELF" },
-    { type: "consume", power: 40, calculation: "percentage", target: "SELF" },
-  ];
-};
+/** The accepted Katana's three effects exactly as committed (pre-parse input form). */
+export const KATANA_EFFECTS_INPUT = (): any[] => structuredClone(acceptedKatana().record.effects);
 export const CRYSTAL_EFFECTS_INPUT = () => [
   { type: "consume", power: 20, calculation: "percentage", target: "SELF" },
 ];
@@ -61,19 +45,30 @@ export const validateItem = (record: unknown) => ItemValidator.safeParse(record)
 export const issues = (r: { success: boolean; error?: any }) =>
   r.success ? [] : r.error.issues.map((i: any) => ({ path: i.path.join("."), message: i.message }));
 
-/** Katana record on the Flaming Sword carrier. Effects are the validator-parsed form. */
+/** Accepted Katana record (RUL-2026-10-11-004): Night's Testament baseline + ruling overrides. */
+export const ACCEPTED_KATANA_PATH = "state/ghost_ship_skyglass_katana_record.json";
+export const acceptedKatana = () => F.loadJson(ACCEPTED_KATANA_PATH);
+/** Presentation fields are pending acceptance; labelled placeholders fill them for validation/battle only. */
+export const PRESENTATION_PLACEHOLDERS = {
+  description: "harness placeholder (presentation pending)",
+  battleDescription: "%user strikes %target (harness placeholder)",
+  image: "",
+};
+
+/**
+ * Katana record used by C1–C3 and B3: the accepted record (all mechanics and
+ * economy from the committed spec), effects in validator-parsed stored form,
+ * presentation placeholders, and a harness row id. `overrides` exist only for
+ * labelled control experiments (e.g. ALL-method aggregation).
+ */
 export const katanaRecord = (overrides: Record<string, unknown> = {}) => {
-  const fs = flamingSword().record;
-  const parsed = parseItemEffects(KATANA_EFFECTS_INPUT());
-  if (!parsed.success) throw new Error("Katana effects did not parse");
+  const rec = structuredClone(acceptedKatana().record);
+  const parsed = parseItemEffects(rec.effects);
+  if (!parsed.success) throw new Error("Accepted Katana effects did not parse");
   return {
-    ...fs,
+    ...rec,
+    ...PRESENTATION_PLACEHOLDERS,
     id: "harness-skyglass-katana",
-    name: "Skyglass Katana (harness carrier)",
-    rarity: "LEGENDARY",
-    itemType: "WEAPON",
-    weaponType: "SWORD",
-    canBeImbued: false,
     effects: parsed.data,
     ...overrides,
   };

@@ -1,7 +1,7 @@
 # Skyglass Project — director reward and hidden-release decisions
 
 **State:** DIRECTOR-APPROVED ITEM TYPE AND EFFECT VALUES / ENGINE + REMAINING BASELINE STILL TO FREEZE.  
-**Latest decision date:** 2026-10-10 (director's revised Katana and Crystal specification).  
+**Latest decision date:** 2026-10-11 (Katana baseline, RUL-2026-10-11-004); 2026-10-10 (revised Katana and Crystal effects).  
 **Design baseline:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0` (verify again before any implementation).  
 **Historical rulings:** `RUL-2026-10-10-007` supersedes earlier Katana/Crystal effect values in `RUL-2026-10-10-002`.  
 **Roadmap:** `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md`.
@@ -19,7 +19,14 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
   2. **Buff Prevent Immunity (self, 2 rounds)**, one `immunity` tag with `blocks:"buffprevent"`, `target:"SELF"`, `rounds:2`. Prevents new Buff Prevent applications; does not itself clear existing Buff Prevent.
   3. **Consume 40%**, one `consume` tag with `power:40`, `target:"SELF"`, `calculation:"percentage"`, instant tag (`rounds:0`); generated shield duration is not user-specified and engine currently defaults `shieldRounds:3`. Do not add a separate authored flat shield.
 - **Source:** Crowned Captain's **independent 3% AI equipment drop**, not a quest-end prize or Reliquary roll. Crowned Captain independently has **20% Fragment of the Skyglass Crown** AI drop. Five fragments craft The Skyglass Crown; no direct Crown drop.
-- **Other Legendary weapon values:** cooldown, AP/action cost, chakra/stamina/health costs, range/target/method, slot, durability, equip/trade restrictions and related required fields need a source-verified Legendary Sword baseline and director sign-off. Do not substitute arbitrary default numbers.
+- **Pierce element:** **Crystal** (RUL-2026-10-11-004).
+- **Other Legendary weapon values (RUL-2026-10-11-004, Night's Testament baseline):**
+  - action: AP 40, cooldown 6, range 4, OTHER_USER / SINGLE;
+  - costs: chakra 40, stamina 40, health 0, no per-level reducers;
+  - equipment: slot HAND, maxEquips 1, durability 100, required level 1, no stat or mastery requirements, battle usage BOTH;
+  - economy: cost 1 ryo, not in shop, **tradable**, **drop-only (not craftable)**, stack 1, xpToLevel 1000;
+  - created hidden.
+  The field-level record is `state/ghost_ship_skyglass_katana_record.json`, derived from the push/85 capture. Description, battle description, image and effect animation/SFX remain presentation/art items pending acceptance.
 
 **Superseded Katana stats:** (a) exact Night's Testament clone with shield-potency swap; (b) 30 Damage EP + 40% Consume; (c) 30 Damage EP + 300 HP Shield / 2 rounds + Buff Prevent Immunity / 2 rounds. Only the current **Pierce 50 EP + Buff Prevent Immunity SELF/2 rounds + Consume 40%** set is operative. Earlier values remain in historical rulings for traceability, not for implementation.
 

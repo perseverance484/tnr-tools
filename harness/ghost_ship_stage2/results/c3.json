@@ -1,50 +1,140 @@
 {
- "assertions": 1,
+ "assertions": 12,
  "checks": [
   {
    "detail": {
-    "fullWeaponRecords": 3
+    "mismatched": [],
+    "missing": []
    },
-   "name": "no qualifying full Legendary Sword baseline is committed → C3 BLOCKED",
+   "name": "every non-override field equals the captured Night's Testament row",
+   "pass": true
+  },
+  {
+   "detail": [
+    "battleDescription",
+    "canBeCrafted",
+    "canBeImbued",
+    "craftingExperience",
+    "description",
+    "effects",
+    "hidden",
+    "image",
+    "name"
+   ],
+   "name": "overrides are exactly the ruling-cited set",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "complete record passes ItemValidator",
+   "pass": true
+  },
+  {
+   "name": "contract: legendarySword",
+   "pass": true
+  },
+  {
+   "name": "contract: notImbuable",
+   "pass": true
+  },
+  {
+   "name": "contract: exactlyThreeEffects",
+   "pass": true
+  },
+  {
+   "name": "contract: pierce50Crystal",
+   "pass": true
+  },
+  {
+   "name": "contract: selfImmunityBuffPrevent2",
+   "pass": true
+  },
+  {
+   "name": "contract: consume40Self",
+   "pass": true
+  },
+  {
+   "name": "contract: dropOnly",
+   "pass": true
+  },
+  {
+   "name": "contract: tradable",
+   "pass": true
+  },
+  {
+   "name": "contract: createdHidden",
    "pass": true
   }
  ],
  "data": {
-  "scan": {
-   "filesScanned": 81,
-   "fullWeaponRecords": [
-    {
-     "file": "harvests/inbox/tnr_results_1788235198666.json",
-     "id": "1GmiQAGuBZZsjIFqcqPkR",
-     "name": "Flaming Sword",
-     "path": "/captures/8/data/items/0/item",
-     "rarity": "EPIC",
-     "weaponType": "SWORD"
-    },
-    {
-     "file": "harvests/inbox/tnr_results_1789271613950.json",
-     "id": "idCKDhuRO7HjcECKakxhu",
-     "name": "Barrage of 1000 Demons",
-     "path": "/captures/16/data/items/0/item",
-     "rarity": "LEGENDARY",
-     "weaponType": "NONE"
-    },
-    {
-     "file": "harvests/inbox/tnr_results_1790826836406.json",
-     "id": "MskL9ctwDbnkfmSK8j0-X",
-     "name": "Cursed Dagger",
-     "path": "/captures/10/data/items/3/item",
-     "rarity": "COMMON",
-     "weaponType": "DAGGER"
-    }
-   ],
-   "legendarySwords": []
+  "acceptedFields": {
+   "actionCostPerc": 40,
+   "battleUsageType": "BOTH",
+   "canBeCrafted": false,
+   "canBeImbued": false,
+   "canBeTraded": true,
+   "chakraCost": 40,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 6,
+   "cost": 1,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "inShop": false,
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "range": 4,
+   "repsCost": 0,
+   "requiredLevel": 1,
+   "seichiSilverCost": 0,
+   "slot": "HAND",
+   "stackSize": 1,
+   "staminaCost": 40,
+   "staminaCostReducePerLvl": 0,
+   "target": "OTHER_USER",
+   "xpToLevel": 1000
   },
-  "status": "BLOCKED",
-  "unblockRequires": [
-   "operator-run read-only item.get full capture of a LEGENDARY WEAPON/SWORD (first suggestion Night's Testament osJq3k77YPGoFWgof12FQ; its SWORD typing is unverified)",
-   "director acceptance of the exact AP, cooldown, pool/health costs and reducers, range/target/method, slot, durability, requirements and economy fields"
-  ]
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1791727479372.json",
+   "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+   "capturedAt": "2026-10-11T14:04:38.932Z",
+   "id": "osJq3k77YPGoFWgof12FQ",
+   "name": "Night's Testament",
+   "pointer": "/captures/0/data"
+  },
+  "contract": {
+   "consume40Self": true,
+   "createdHidden": true,
+   "dropOnly": true,
+   "exactlyThreeEffects": true,
+   "legendarySword": true,
+   "notImbuable": true,
+   "pierce50Crystal": true,
+   "selfImmunityBuffPrevent2": true,
+   "tradable": true
+  },
+  "fullItemValidator": {
+   "issues": [],
+   "success": true
+  },
+  "overrides": {
+   "battleDescription": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "canBeCrafted": "RUL-2026-10-11-004 drop-only (3% Crowned Captain drop is the sole source)",
+   "canBeImbued": "RUL-2026-10-10-007",
+   "craftingExperience": "RUL-2026-10-11-004 drop-only",
+   "description": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "effects": "RUL-2026-10-10-007 three effects; RUL-2026-10-11-004 Pierce element Crystal (was Shadow); visual asset ids cleared pending art",
+   "hidden": "creation doctrine: new records are created hidden; publication is separate",
+   "image": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "name": "RUL-2026-10-10-007 approved name"
+  },
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "status": "PASS (mechanics/economy); presentation fields pending separate acceptance"
  },
  "failed": 0,
  "gate": "C3"

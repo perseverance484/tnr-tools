@@ -3,16 +3,16 @@
  * Pierce 50 + SELF immunity(buffprevent, 2r) + Consume 40%).
  *
  * C1  Exact effect array through the real item effects schema; maxImbueNumber
- *     minimum; full-item validation of the carrier record (not a final record).
+ *     minimum; full-item validation of the accepted record.
  * C2  Real assembly + weapon action: Pierce→Consume shield (pre-shield basis,
  *     multi-target aggregation, expiry/absorption), item-level scaling, immunity
- *     timing against a sourced Buff Prevent carrier, cooldown/GCD and AP.
- * C3  Complete final Katana record — BLOCKED without a full Legendary Sword
- *     capture and director baseline acceptance (scan of committed captures).
+ *     timing against a sourced Buff Prevent carrier, cooldown/GCD and AP — all on
+ *     the accepted record (RUL-2026-10-11-004, Night's Testament baseline).
+ * C3  Complete final Katana record: every field equals the captured Night's
+ *     Testament row except the ruling-cited overrides; full ItemValidator;
+ *     contract invariants; presentation fields reported as pending.
  */
 import { afterAll, beforeEach, describe, expect, it } from "bun:test";
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
 import { SHARED_COOLDOWN_ROUNDS } from "@/drizzle/constants";
 import { ItemValidatorRawSchema } from "@/validators/combat";
 import * as F from "./lib/fixtures";
@@ -34,8 +34,8 @@ const C1 = new Evidence("C1");
 const C2 = new Evidence("C2");
 const C3 = new Evidence("C3");
 afterAll(() => {
-  C1.flush({ scope: "effect array + maxImbueNumber guard; full-item result is for a carrier record only" });
-  C2.flush({ carriers: { weaponFields: I.FLAMING_SWORD, buffPrevent: SEAL, note: "non-effect Katana fields are Flaming Sword carrier values, not a baseline" } });
+  C1.flush({ scope: "accepted effect array + maxImbueNumber guard + full ItemValidator on the accepted record" });
+  C2.flush({ katanaRecord: I.ACCEPTED_KATANA_PATH, carriers: { buffPrevent: SEAL }, note: "Katana fields are the accepted RUL-2026-10-11-004 record; presentation placeholders only" });
   C3.flush();
 });
 
@@ -44,7 +44,7 @@ const W = "user_katana";
 const T = "user_target";
 
 describe("C1 — exact Katana effect array", () => {
-  it("parses Pierce 50 + SELF immunity(buffprevent, 2r) + Consume 40% through the item effects schema", () => {
+  it("parses the accepted Pierce 50 (Crystal) + SELF immunity(buffprevent, 2r) + Consume 40% through the item effects schema", () => {
     const r = I.parseItemEffects(I.KATANA_EFFECTS_INPUT());
     C1.put("input", I.KATANA_EFFECTS_INPUT());
     C1.put("parsed", r.success ? r.data : null);
@@ -53,6 +53,7 @@ describe("C1 — exact Katana effect array", () => {
     const d = r.data as any[];
     expect(d.map((e) => e.type)).toEqual(["pierce", "immunity", "consume"]);
     expect(d[0].power).toBe(50);
+    expect(d[0].elements).toEqual(["Crystal"]);
     expect(d[1]).toMatchObject({ blocks: "buffprevent", rounds: 2, target: "SELF" });
     expect(d[2]).toMatchObject({ power: 40, calculation: "percentage", target: "SELF", shieldRounds: 3, rounds: 0 });
     C1.check("exact three-effect array accepted (Pierce satisfies Consume's companion rule)", r.success && d.length === 3);
@@ -70,11 +71,12 @@ describe("C1 — exact Katana effect array", () => {
     C1.check("maxImbueNumber 0 rejected, 1 accepted", !zero.success && one.success);
   });
 
-  it("full ItemValidator on the carrier Katana record (effect-array PASS is not full-item PASS)", () => {
+  it("full ItemValidator accepts the accepted Katana record", () => {
     const rec = { ...I.katanaRecord(), effects: I.KATANA_EFFECTS_INPUT() };
     const r = I.validateItem(rec);
-    C1.put("fullItemValidatorOnCarrier", { success: r.success, issues: I.issues(r), note: "Flaming Sword carrier non-effect fields; LEGENDARY/SWORD/canBeImbued:false overrides" });
-    C1.check("carrier record validated (informational; final fields unselected → C3)", true, { success: r.success, issues: I.issues(r) });
+    C1.put("fullItemValidatorOnAccepted", { success: r.success, issues: I.issues(r), note: "presentation fields are labelled placeholders" });
+    expect(r.success).toBe(true);
+    C1.check("accepted record passes ItemValidator (base + item + economy refinements)", r.success, I.issues(r));
   });
 });
 
@@ -131,10 +133,10 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     C2.check("observed Pierce vs target shield recorded", true, { hpLost: s.lost[T], refHpLost: ref.lost[T], targetShield, targetShieldAfter });
   });
 
-  it("multi-target aggregation into one shield (ALL-method carrier override)", async () => {
+  it("multi-target aggregation into one shield (ALL-method control override)", async () => {
     const s = swing(await setup({ overrides: { method: "ALL" }, twoTargets: true }));
     const total = (s.lost[T] ?? 0) + (s.lost["user_target2"] ?? 0);
-    C2.put("multiTarget", { lost: s.lost, shield: s.shield, note: "method ALL is a carrier override to exercise aggregation; Katana method is unselected" });
+    C2.put("multiTarget", { lost: s.lost, shield: s.shield, note: "method ALL is a control override to exercise aggregation; the accepted Katana is SINGLE" });
     expect(s.lost["user_target2"]).toBeGreaterThan(0);
     expect(s.shield).toHaveLength(1);
     expect(Math.abs(s.shield[0]!.power - Math.floor(total * 0.4))).toBeLessThanOrEqual(1);
@@ -222,7 +224,7 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     C2.check("new Buff Prevent applies again after the window", !windows[3].blocked);
   });
 
-  it("cooldown, shared GCD and AP with the carrier weapon fields", async () => {
+  it("cooldown, shared GCD and AP with the accepted fields", async () => {
     // Players need a matching element for elemental jutsu; the wielder is given
     // primaryElement Lightning (labelled fixture input) so Ion Lance is usable.
     const ion = "xGVqWSX93hXZgfmlKZODp"; // Ion Lance: pierce 60, Lightning (shares the pierce GCD tag)
@@ -233,54 +235,59 @@ describe("C2 — Pierce→Consume, immunity timing, cooldowns", () => {
     const wu = s.b.usersState.find((u: any) => u.controllerId === W)!;
     const apAfter = wu.actionPoints;
     const rounds: any[] = [];
-    for (let k = 0; k <= 4; k++) {
+    for (let k = 0; k <= 6; k++) {
       const ids = IB.actionList(s.b, W).map((a) => a.id);
       rounds.push({ round: s.b.round, katana: ids.includes("harness-skyglass-katana"), ionLance: ids.includes(ion), heavyCut: ids.includes(tide) });
       IB.nextRound(s.b);
     }
-    C2.put("cooldowns", { carrierCooldown: I.flamingSword().record.cooldown, carrierActionCostPerc: I.flamingSword().record.actionCostPerc, sharedCooldownRounds: SHARED_COOLDOWN_ROUNDS, castRound, apAfterCast: apAfter, availability: rounds });
-    expect(apAfter).toBe(100 - I.flamingSword().record.actionCostPerc);
+    const K = I.acceptedKatana().record;
+    C2.put("cooldowns", { cooldown: K.cooldown, actionCostPerc: K.actionCostPerc, sharedCooldownRounds: SHARED_COOLDOWN_ROUNDS, castRound, apAfterCast: apAfter, availability: rounds });
+    expect(apAfter).toBe(100 - K.actionCostPerc);
+    expect(rounds.findIndex((r) => r.katana)).toBe(K.cooldown);
     expect(rounds[0].ionLance).toBe(false);
     expect(rounds[0].heavyCut).toBe(true);
     C2.check("Katana use locks other pierce/consume-tag actions for the shared GCD", rounds[0].ionLance === false && rounds[0].heavyCut === true, rounds);
-    C2.check("AP after one swing = 100 − carrier actionCostPerc", apAfter === 100 - I.flamingSword().record.actionCostPerc);
+    C2.check("AP after one swing = 100 − actionCostPerc (40)", apAfter === 100 - K.actionCostPerc);
+    C2.check("Katana available again exactly cooldown (6) rounds after the swing", rounds.findIndex((r) => r.katana) === K.cooldown, rounds);
   });
 });
 
 describe("C3 — complete final Katana record", () => {
-  it("is BLOCKED: no full LEGENDARY WEAPON/SWORD record in committed captures", () => {
-    const found: any[] = [];
-    const walk = (o: any, file: string, path: string) => {
-      if (Array.isArray(o)) o.forEach((v, i) => walk(v, file, `${path}/${i}`));
-      else if (o && typeof o === "object") {
-        if (o.itemType === "WEAPON" && Array.isArray(o.effects) && "maxImbueNumber" in o)
-          found.push({ file, path, id: o.id, name: o.name, rarity: o.rarity, weaponType: o.weaponType });
-        for (const [k, v] of Object.entries(o)) walk(v, file, `${path}/${k}`);
-      }
+  it("equals Night's Testament except ruling-cited overrides, validates, and keeps the contract", () => {
+    const spec = I.acceptedKatana();
+    const cap = F.captured(spec.baseline.capture, spec.baseline.pointer).record;
+    const rec = spec.record;
+    const overrides = Object.entries(spec.provenance).filter(([, p]: any) => p.source === "override").map(([k]) => k).sort();
+    const fromBaseline = Object.keys(rec).filter((k) => !overrides.includes(k));
+    const mismatched = fromBaseline.filter((k) => JSON.stringify(rec[k]) !== JSON.stringify(cap[k]));
+    const missing = Object.keys(cap).filter((k) => !(k in rec) && !spec.droppedFields.includes(k));
+    const full = I.validateItem({ ...rec, ...I.PRESENTATION_PLACEHOLDERS, effects: rec.effects });
+    const e = rec.effects;
+    const contract = {
+      legendarySword: rec.itemType === "WEAPON" && rec.rarity === "LEGENDARY" && rec.weaponType === "SWORD",
+      notImbuable: rec.canBeImbued === false && rec.maxImbueNumber >= 1,
+      exactlyThreeEffects: e.map((x: any) => x.type).join(",") === "pierce,immunity,consume",
+      pierce50Crystal: e[0].power === 50 && e[0].powerPerLevel === 0 && JSON.stringify(e[0].elements) === JSON.stringify(["Crystal"]),
+      selfImmunityBuffPrevent2: e[1].blocks === "buffprevent" && e[1].rounds === 2 && e[1].target === "SELF",
+      consume40Self: e[2].power === 40 && e[2].calculation === "percentage" && e[2].target === "SELF",
+      dropOnly: rec.canBeCrafted === false && rec.craftingExperience === 0 && rec.inShop === false,
+      tradable: rec.canBeTraded === true,
+      createdHidden: rec.hidden === true,
     };
-    const files: string[] = [];
-    const scan = (dir: string) => {
-      for (const f of readdirSync(dir)) {
-        const p = join(dir, f);
-        if (statSync(p).isDirectory()) scan(p);
-        else if (f.endsWith(".json")) files.push(p);
-      }
-    };
-    scan(join(F.REPO, "harvests"));
-    for (const p of files) {
-      try {
-        walk(JSON.parse(readFileSync(p, "utf8")), p.slice(F.REPO.length + 1), "");
-      } catch {}
-    }
-    const uniq = [...new Map(found.map((f) => [f.id, f])).values()];
-    const legendarySwords = uniq.filter((f) => f.rarity === "LEGENDARY" && f.weaponType === "SWORD");
-    C3.put("scan", { filesScanned: files.length, fullWeaponRecords: uniq, legendarySwords });
-    C3.put("status", "BLOCKED");
-    C3.put("unblockRequires", [
-      "operator-run read-only item.get full capture of a LEGENDARY WEAPON/SWORD (first suggestion Night's Testament osJq3k77YPGoFWgof12FQ; its SWORD typing is unverified)",
-      "director acceptance of the exact AP, cooldown, pool/health costs and reducers, range/target/method, slot, durability, requirements and economy fields",
-    ]);
-    expect(legendarySwords).toHaveLength(0);
-    C3.check("no qualifying full Legendary Sword baseline is committed → C3 BLOCKED", legendarySwords.length === 0, { fullWeaponRecords: uniq.length });
+    const accepted = Object.fromEntries(["actionCostPerc", "cooldown", "range", "target", "method", "chakraCost", "staminaCost", "healthCost", "chakraCostReducePerLvl", "staminaCostReducePerLvl", "healthCostReducePerLvl", "slot", "maxDurability", "maxEquips", "requiredLevel", "battleUsageType", "cost", "repsCost", "seichiSilverCost", "inShop", "canBeTraded", "canBeCrafted", "canBeImbued", "maxImbueNumber", "stackSize", "xpToLevel"].map((k) => [k, rec[k]]));
+    C3.put("baseline", spec.baseline);
+    C3.put("overrides", Object.fromEntries(overrides.map((k) => [k, spec.provenance[k].why])));
+    C3.put("acceptedFields", accepted);
+    C3.put("presentationPending", spec.presentationPending);
+    C3.put("fullItemValidator", { success: full.success, issues: I.issues(full) });
+    C3.put("contract", contract);
+    C3.put("status", "PASS (mechanics/economy); presentation fields pending separate acceptance");
+    expect(mismatched).toEqual([]);
+    expect(missing).toEqual([]);
+    expect(full.success).toBe(true);
+    C3.check("every non-override field equals the captured Night's Testament row", mismatched.length === 0 && missing.length === 0, { mismatched, missing });
+    C3.check("overrides are exactly the ruling-cited set", JSON.stringify(overrides) === JSON.stringify(["battleDescription", "canBeCrafted", "canBeImbued", "craftingExperience", "description", "effects", "hidden", "image", "name"]), overrides);
+    C3.check("complete record passes ItemValidator", full.success, I.issues(full));
+    for (const [k, v] of Object.entries(contract)) C3.check(`contract: ${k}`, v as boolean);
   });
 });

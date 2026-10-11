@@ -1,5 +1,5 @@
 {
- "assertions": 9,
+ "assertions": 10,
  "checks": [
   {
    "detail": {
@@ -10,7 +10,16 @@
    "pass": true
   },
   {
-   "name": "Katana carrier (canBeImbued:false) rejected",
+   "name": "accepted Katana (canBeImbued:false, published state) rejected",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "Target item not found",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "while hidden, the Katana is invisible to imbueItem (fetchUserItems excludes hidden items)",
    "pass": true
   },
   {
@@ -259,6 +268,11 @@
    },
    "katanaNonImbuable": {
     "message": "This item cannot be imbued",
+    "outcome": "response",
+    "success": false
+   },
+   "katanaWhileHidden": {
+    "message": "Target item not found",
     "outcome": "response",
     "success": false
    },

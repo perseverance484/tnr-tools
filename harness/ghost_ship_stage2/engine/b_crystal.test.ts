@@ -233,9 +233,12 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     const sRow = rowFor(sword);
     const cases: Record<string, any> = {};
     cases.eligibleWeapon = await call(mkUser(), [sRow, cRow], { userItemId: sRow.id, userCrystalItemId: cRow.id });
-    const katana = I.katanaRecord();
-    const kRow = rowFor(katana);
+    // The accepted record is created hidden; fetchUserItems drops hidden items, so the
+    // canBeImbued guard is exercised on the published state, and the hidden state separately.
+    const kRow = rowFor(I.katanaRecord({ hidden: false }));
     cases.katanaNonImbuable = await call(mkUser(), [kRow, cRow], { userItemId: kRow.id, userCrystalItemId: cRow.id });
+    const kHidden = rowFor(I.katanaRecord());
+    cases.katanaWhileHidden = await call(mkUser(), [kHidden, cRow], { userItemId: kHidden.id, userCrystalItemId: cRow.id });
     const fsRow = rowFor(I.flamingSword().record);
     cases.capturedFlamingSwordNonImbuable = await call(mkUser(), [fsRow, cRow], { userItemId: fsRow.id, userCrystalItemId: cRow.id });
     const armor = { ...I.imbuableWeapon(), id: "harness-armor", itemType: "ARMOR", slot: "CHEST" };
@@ -266,7 +269,8 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     expect(cases.equippedRecipient.message).toBe("You cannot imbue an equipped item");
     expect(cases.occupation_GATHERING.message).toBe("You must have the Crafting occupation to imbue items");
     B3.check("eligible imbuable WEAPON passes every guard (stops at first trapped write)", cases.eligibleWeapon.outcome === "guards-passed-reached-write", cases.eligibleWeapon);
-    B3.check("Katana carrier (canBeImbued:false) rejected", cases.katanaNonImbuable.message === "This item cannot be imbued");
+    B3.check("accepted Katana (canBeImbued:false, published state) rejected", cases.katanaNonImbuable.message === "This item cannot be imbued");
+    B3.check("while hidden, the Katana is invisible to imbueItem (fetchUserItems excludes hidden items)", cases.katanaWhileHidden.message === "Target item not found", cases.katanaWhileHidden);
     B3.check("non-WEAPON recipient rejected by crystalTargetTypes", cases.armorRecipient.message === "This crystal can only be applied to WEAPON items");
     B3.check("duplicate crystal ID rejected", String(cases.duplicateCrystal.message).includes("already has a"));
     B3.check("non-CRAFTING occupations rejected (none/GATHERING/HUNTING)", ["occupation_null", "occupation_GATHERING", "occupation_HUNTING"].every((k) => cases[k].message === "You must have the Crafting occupation to imbue items"));

@@ -641,3 +641,35 @@ The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTarget
 
 **Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.json` / `.md` own the accepted kit baseline under their stable historical filenames. `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` remains the exact test brief; `state/prompt_ghost_ship_skyglass_stage2_start.md` supplies the acceptance and delivery handoff.
 
+
+---
+
+## RUL-2026-10-11-004 — Skyglass Katana baseline: Night's Testament, Crystal Pierce, drop-only, tradable
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass rewards: Skyglass Katana non-effect fields
+
+**Status:** ACTIVE. Settles the "Legendary Sword baseline" gate left open by RUL-2026-10-10-007.
+
+**Supersedes:** nothing in RUL-2026-10-10-007's effects or sourcing. It fills that ruling's unselected baseline fields. The superseded "exact Night's Testament clone with shield-potency swap" variant stays superseded; this ruling uses Night's Testament only for non-effect fields and existing shared effect fields.
+
+**Evidence:** operator read-only capture push/85, `harvests/inbox/tnr_results_1791727479372.json` (job `85-mv3wa2l9`). Night's Testament `osJq3k77YPGoFWgof12FQ` is a full LEGENDARY WEAPON/SWORD record. The comparison is in `docs/reviews/GHOST_SHIP_SKYGLASS_CAPTURES_85_86_2026-10-11.md`.
+
+**Ruling:** dauntless chose **Night's Testament as the Skyglass Katana baseline**. Every non-presentation field copies the captured row, with these exceptions:
+
+1. Effects are exactly RUL-2026-10-10-007's three: Pierce 50 (Night's Testament's own Pierce tag), SELF Buff Prevent immunity for 2 rounds (Night's Testament's own immunity tag), and Consume 40%. The Pierce's element is **Crystal**, replacing Shadow.
+2. `canBeImbued:false` (RUL-2026-10-10-007).
+3. **Drop-only:** `canBeCrafted:false`, `craftingExperience:0`. The 3% independent Crowned Captain drop stays the sole source.
+4. **Tradable:** `canBeTraded:true`, as on Night's Testament.
+5. Created `hidden:true` per creation doctrine; publication is separate.
+
+The resulting values are:
+- AP 40, cooldown 6, range 4, OTHER_USER / SINGLE;
+- chakra 40, stamina 40, health 0, no per-level reducers;
+- slot HAND, maxEquips 1, durability 100, required level 1, no stat or mastery requirements;
+- battle usage BOTH, cost 1 ryo, not in shop, stack 1, xpToLevel 1000.
+
+**Not settled here:** description, battle description, image, and the effect animation/SFX asset IDs. These are presentation and art, are not copied from Night's Testament, and remain pending. No write manifest, art or publication is authorized.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative Katana specification. `state/ghost_ship_skyglass_katana_record.json` holds the derived field-level record, produced by `harness/ghost_ship_stage2/tools/build_katana_record.py` from the capture. Offline gate C3 validates it.
