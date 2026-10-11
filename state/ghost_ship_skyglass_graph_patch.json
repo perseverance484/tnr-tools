@@ -1,0 +1,658 @@
+{
+  "schema": "tnr.ghost_ship_skyglass_graph_proposal",
+  "version": 1,
+  "status": "PROPOSAL_DIRECTOR_REVIEW",
+  "baseRepository": "perseverance484/tnr-tools",
+  "baseMain": "0eb57de20877d266dde666229ae4c68e8fbcf4c0",
+  "sourceCapture": "harvests/inbox/tnr_results_1790826101573.json",
+  "sourceText": "state/ghost_ship_retheme_patch.json",
+  "existingQuests": [
+    {
+      "id": "6Ri-W5TtUrEMWpyYlnf_F",
+      "profession": "gathering",
+      "oldNodeCount": 57
+    },
+    {
+      "id": "HckXVOf-qk6ESU9t5rxLh",
+      "profession": "hunting",
+      "oldNodeCount": 57
+    }
+  ],
+  "scope": {
+    "newNodeCount": 26,
+    "changedExistingNodeCount": 12,
+    "finalNodeCount": 83,
+    "expectedEndings": [
+      "w_A",
+      "w_B1",
+      "w_B2",
+      "w_C",
+      "w_Co",
+      "w_secret"
+    ],
+    "preserveUnmodifiedNodes": true,
+    "professionSpecificOriginalRewardsPreserved": true,
+    "noNewLocationCoordinates": true,
+    "questVisibility": "director reports both hidden; fresh readback pending",
+    "notAForgeManifest": true
+  },
+  "sceneSymbolLegend": {
+    "deck": {
+      "existingId": "U2pjcM1_N-HdVf928Sn5z"
+    },
+    "lower_hull": {
+      "existingId": "dFwyPzyhUZQjDBXpJRUDJ"
+    },
+    "chart_room": {
+      "existingId": "ApkLYWJ3AFe8oyqQwk_8z"
+    },
+    "hold": {
+      "existingId": "yufttCkG-KsefHKuz9Q2a"
+    },
+    "helm": {
+      "existingId": "-eB0frmTJss6Uco6ZoM07"
+    },
+    "shore_cache": {
+      "existingId": "rX78pJPETsUL2JrsSvGHn"
+    },
+    "exterior_keel": {
+      "newAsset": "Ghost Ship Exterior Keel Walk"
+    },
+    "reconstruction": {
+      "newAsset": "Ghost Ship Reconstruction Chamber"
+    },
+    "quarantined_archive": {
+      "newAsset": "Ghost Ship Quarantined Archive"
+    },
+    "command_gallery": {
+      "newAsset": "Ghost Ship Command Observation Gallery"
+    }
+  },
+  "characterSymbolLegend": {
+    "blank": {
+      "existingId": "1YXbXYW2wz3GETVMb6DT6"
+    },
+    "oathkeeper_portrait": {
+      "existingId": "6iwMYC8WTCGJTf2QIYfBz"
+    },
+    "sealwright_portrait": {
+      "newAsset": "Sealwright Scene Portrait"
+    }
+  },
+  "aiSymbolLegend": {
+    "sealwright": {
+      "status": "NEW_AI_UNSPECIFIED",
+      "role": "Seal/containment elite",
+      "note": "Use shared AI pool; enemy stats/kit owned by later combat specification"
+    }
+  },
+  "rewires": [
+    {
+      "id": "b_gang",
+      "nextObjectiveId": "d_security_reconstruction",
+      "reason": "Show immediate security reconstruction after the gangplank guard"
+    },
+    {
+      "id": "c_climb",
+      "nextObjectiveId": "d_keel_cross",
+      "reason": "Make the airborne underkeel traversal visible"
+    },
+    {
+      "id": "b_bilge",
+      "nextObjectiveId": "d_recon_access",
+      "reason": "Give Core Horror victory an optional reconstruction chamber detour"
+    },
+    {
+      "id": "d_oathpass",
+      "nextObjectiveId": [
+        {
+          "text": "Walk straight to the helm",
+          "nextObjectiveId": "d_helm_oath"
+        },
+        {
+          "text": "Ask what the oath still means",
+          "nextObjectiveId": "d_oath_memory"
+        }
+      ],
+      "reason": "Keep the Crown farm direct; optional Oathkeeper characterization"
+    },
+    {
+      "id": "d_map",
+      "nextObjectiveId": [
+        {
+          "text": "Follow the corrected route ashore",
+          "nextObjectiveId": "d_riddle"
+        },
+        {
+          "text": "Compare the old and new charts",
+          "nextObjectiveId": "d_chart_overlay"
+        }
+      ],
+      "reason": "Optional chart history without extra forced battle"
+    },
+    {
+      "id": "d_riddle",
+      "nextObjectiveId": [
+        {
+          "text": "The cove beneath the stone shrine",
+          "nextObjectiveId": "c_dig"
+        },
+        {
+          "text": "The cove with the split cliff",
+          "nextObjectiveId": "d_wrong1_feedback"
+        },
+        {
+          "text": "The open beach past the reef",
+          "nextObjectiveId": "d_wrong2_feedback"
+        }
+      ],
+      "reason": "Put visible feedback dialogs before existing reset nodes"
+    },
+    {
+      "id": "b_qm",
+      "nextObjectiveId": "d_stores_log",
+      "reason": "Show continuous inventory without adding another encounter"
+    },
+    {
+      "id": "d_vault",
+      "nextObjectiveId": [
+        {
+          "text": "Face the First Blade",
+          "nextObjectiveId": "b_fm"
+        },
+        {
+          "text": "Ask how long he has waited",
+          "nextObjectiveId": "d_first_blade_answer"
+        }
+      ],
+      "reason": "Offer personal dialogue before First Blade fight"
+    },
+    {
+      "id": "d_claim_B2",
+      "nextObjectiveId": [
+        {
+          "text": "Take the sealed stores",
+          "nextObjectiveId": "w_B2"
+        },
+        {
+          "text": "Listen to the First Blade's final words",
+          "nextObjectiveId": "d_first_blade_departure"
+        }
+      ],
+      "reason": "Optional post-vault reflection; unchanged ending/rewards"
+    },
+    {
+      "id": "b_helm",
+      "nextObjectiveId": "d_gallery_threshold",
+      "reason": "Offer optional gallery investigation only on normal Captain path"
+    },
+    {
+      "id": "d_claim_C",
+      "nextObjectiveId": [
+        {
+          "text": "Claim the command stores",
+          "nextObjectiveId": "w_C"
+        },
+        {
+          "text": "Inspect the lingering command traces",
+          "nextObjectiveId": "d_c_after"
+        }
+      ],
+      "reason": "Optional Captain aftermath without extra reward"
+    },
+    {
+      "id": "d_claim_Co",
+      "nextObjectiveId": [
+        {
+          "text": "Claim the oathbound reward",
+          "nextObjectiveId": "w_Co"
+        },
+        {
+          "text": "Examine the final command record",
+          "nextObjectiveId": "d_co_after"
+        }
+      ],
+      "reason": "Optional Crowned aftermath without slowing repeat farming"
+    }
+  ],
+  "newNodes": [
+    {
+      "id": "d_security_reconstruction",
+      "task": "dialog",
+      "scene": "deck",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The Deck Warden falls apart in a brief spray of pale script. Before the last seal-light fades, another outline begins forming at the watch post. The ship has not lost its guard. It has restarted him.",
+      "nextObjectiveId": [
+        {
+          "text": "Continue across the deck",
+          "nextObjectiveId": "d_deck"
+        }
+      ]
+    },
+    {
+      "id": "d_keel_cross",
+      "task": "dialog",
+      "scene": "exterior_keel",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Below your boots, cloud banks move through the open night. The hull hangs above the coast on iron bracing and pale lift seals. One channel leaks through a damaged seam leading into the lower hull.",
+      "nextObjectiveId": [
+        {
+          "text": "Cross directly to the breach",
+          "nextObjectiveId": "d_bilgein"
+        },
+        {
+          "text": "Inspect the damaged lift seals",
+          "nextObjectiveId": "d_keel_seals"
+        }
+      ]
+    },
+    {
+      "id": "d_keel_seals",
+      "task": "dialog",
+      "scene": "exterior_keel",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The upward seal channels hold the ship aloft. A thinner line runs against their flow, carrying fragments of handwriting and fractured memories toward a sealed section inside the hull. Someone once tried to isolate a failure from the main network.",
+      "nextObjectiveId": [
+        {
+          "text": "Follow the breach into the hull",
+          "nextObjectiveId": "d_bilgein"
+        }
+      ]
+    },
+    {
+      "id": "d_recon_access",
+      "task": "dialog",
+      "scene": "lower_hull",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "With the Core Horror defeated, the surrounding frame begins sketching its ruined body again. A ladder rises to the deck. Beneath it, a severed impression conduit pulses toward a sealed maintenance chamber.",
+      "nextObjectiveId": [
+        {
+          "text": "Climb to the main deck",
+          "nextObjectiveId": "d_deck"
+        },
+        {
+          "text": "Follow the severed impression conduit",
+          "nextObjectiveId": "d_recon_chamber"
+        }
+      ]
+    },
+    {
+      "id": "d_recon_chamber",
+      "task": "dialog",
+      "scene": "reconstruction",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Rows of framed seal patterns stand without occupants. Each carries a human impression, not a living body: a remembered greeting, the shape of a hand reaching for warm tea, a command repeated until its meaning has faded. A small maintenance plate is locked behind the frames.",
+      "nextObjectiveId": [
+        {
+          "text": "Examine the maintenance plate",
+          "nextObjectiveId": "d_recon_test"
+        },
+        {
+          "text": "Leave the sealed chamber",
+          "nextObjectiveId": "d_deck"
+        }
+      ]
+    },
+    {
+      "id": "d_recon_test",
+      "task": "dialog",
+      "scene": "reconstruction",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Three seal paths remain on the plate. One rises to the lift network, one bears the Captain's command mark, and a third turns back beneath the inactive frames. Beside the return path someone scratched: 'What command cannot repair must first be quarantined.'",
+      "nextObjectiveId": [
+        {
+          "text": "Trace the return seal beneath the frames",
+          "nextObjectiveId": "d_archive_entry"
+        },
+        {
+          "text": "Force the Captain's command seal",
+          "nextObjectiveId": "d_recon_lockout"
+        },
+        {
+          "text": "Override the lift lattice",
+          "nextObjectiveId": "d_recon_lockout"
+        }
+      ]
+    },
+    {
+      "id": "d_recon_lockout",
+      "task": "dialog",
+      "scene": "reconstruction",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The chosen channel rejects the intrusion. Iron shutters seal the maintenance plate, and the impression frames fall quiet. The quarantine passage is no longer reachable on this visit, but the ladder to the deck remains open.",
+      "nextObjectiveId": [
+        {
+          "text": "Withdraw to the main deck",
+          "nextObjectiveId": "d_deck"
+        }
+      ]
+    },
+    {
+      "id": "d_archive_entry",
+      "task": "dialog",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The returning seal opens a narrow chamber not marked on any ship plan. Command records and damaged crew impressions were moved here and filed as containment faults. A black iron Reliquary is chained to the far wall. Its custodian has not yet appeared.",
+      "nextObjectiveId": [
+        {
+          "text": "Read the suppressed incident reports",
+          "nextObjectiveId": "d_archive_records"
+        },
+        {
+          "text": "Approach the Reliquary",
+          "nextObjectiveId": "d_sealwright"
+        }
+      ]
+    },
+    {
+      "id": "d_archive_records",
+      "task": "dialog",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The reports span decades. Each warns that reconstructed patterns are deteriorating while preservation remains mandatory. The same seal-engineer's signature appears on every revision, although no living engineer could have filed them all. The final correction is stamped 'Access refused by command priority.'",
+      "nextObjectiveId": [
+        {
+          "text": "Confront the archive custodian",
+          "nextObjectiveId": "d_sealwright"
+        }
+      ]
+    },
+    {
+      "id": "d_sealwright",
+      "task": "dialog",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "sealwright_portrait"
+      ],
+      "description": "A senior shinobi engineer gathers from the engraved lines, his form steadier than the damaged crew below. 'I sealed the worst of it away,' the Sealwright says. 'Command would not permit me to stop the work. It will not permit you to take these records.' He raises a sealing stance before the Reliquary.",
+      "nextObjectiveId": [
+        {
+          "text": "Challenge the Sealwright",
+          "nextObjectiveId": "b_sealwright"
+        }
+      ]
+    },
+    {
+      "id": "b_sealwright",
+      "task": "start_battle",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Break the Sealwright's containment defense.",
+      "nextObjectiveId": "d_reliquary_claim",
+      "failObjectiveId": "r_sealwright",
+      "opponents": [
+        {
+          "aiSymbol": "sealwright",
+          "number": 1,
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "r_sealwright",
+      "task": "reset_quest",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The seals close around you and force you back before the Reliquary. The Sealwright resumes his watch.",
+      "resetObjectiveId": "d_sealwright"
+    },
+    {
+      "id": "d_reliquary_claim",
+      "task": "dialog",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The Sealwright's reconstructed body unthreads into orderly strands of chakra. The containment case unlatches. Inside sits a preserved Skyglass Reliquary, untouched by the ship's repeating stores inventory. Taking it will end this expedition; the Captain and ordinary rewards lie elsewhere.",
+      "nextObjectiveId": [
+        {
+          "text": "Recover the Reliquary and leave the ship",
+          "nextObjectiveId": "w_secret"
+        }
+      ]
+    },
+    {
+      "id": "w_secret",
+      "task": "win_quest",
+      "scene": "quarantined_archive",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "You escape with the Skyglass Reliquary and the evidence of a hidden containment failure. Above the coast, the warship continues its course. You have taken a piece of its history, not ended its mission.",
+      "reward": {
+        "itemSymbol": "skyglass_reliquary",
+        "quantity": 1,
+        "chance": 100,
+        "professionRewards": "none added"
+      }
+    },
+    {
+      "id": "d_chart_overlay",
+      "task": "dialog",
+      "scene": "chart_room",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Under the first route lies a map of places that did not yet exist when the ship vanished. The Wayfinder corrected the same journey again and again as villages moved, roads changed, and generations passed. The marked shore cache is real, but the final clue must be read against the newest chart.",
+      "nextObjectiveId": [
+        {
+          "text": "Follow the corrected cache route",
+          "nextObjectiveId": "d_riddle"
+        }
+      ]
+    },
+    {
+      "id": "d_wrong1_feedback",
+      "task": "dialog",
+      "scene": "shore_cache",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "You dig where the split cliff breaks the tide. Beneath the sand you find old seal fragments, but the shadow of the stone watcher never reaches this cove.",
+      "nextObjectiveId": [
+        {
+          "text": "Reconsider the chart's clue",
+          "nextObjectiveId": "d_wrong1"
+        }
+      ]
+    },
+    {
+      "id": "d_wrong2_feedback",
+      "task": "dialog",
+      "scene": "shore_cache",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The open beach yields only an abandoned anchor brace and reef stone. This cove has no watching shrine and no shadow to measure.",
+      "nextObjectiveId": [
+        {
+          "text": "Read the route again",
+          "nextObjectiveId": "d_wrong2"
+        }
+      ]
+    },
+    {
+      "id": "d_stores_log",
+      "task": "dialog",
+      "scene": "hold",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "After the Arsenal Keeper falls, the inventory slate keeps counting. Medicine is still sealed, provisions are untouched, and every audit carries a fresh entry in the same officer's hand. The restricted vault remains locked behind the racks.",
+      "nextObjectiveId": [
+        {
+          "text": "Read the last inventory annotations",
+          "nextObjectiveId": "d_stores_memory"
+        },
+        {
+          "text": "Choose which stores to take",
+          "nextObjectiveId": "d_crates"
+        }
+      ]
+    },
+    {
+      "id": "d_stores_memory",
+      "task": "dialog",
+      "scene": "hold",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The Arsenal Keeper recorded the same request for shore leave on successive inventories, each time crossing it out with the words 'crew not relieved.' The ship remembered hunger and rest. Its reconstructed crew could enjoy neither.",
+      "nextObjectiveId": [
+        {
+          "text": "Choose which stores to take",
+          "nextObjectiveId": "d_crates"
+        }
+      ]
+    },
+    {
+      "id": "d_first_blade_answer",
+      "task": "dialog",
+      "scene": "hold",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The First Blade lowers his swords a fraction. 'Every watch begins where the last one ended,' he says. 'I know each strike before it comes. Yours are the first footsteps I have not practiced.' His grin is genuine as he raises his blades again.",
+      "nextObjectiveId": [
+        {
+          "text": "Give him the duel he wants",
+          "nextObjectiveId": "b_fm"
+        }
+      ]
+    },
+    {
+      "id": "d_first_blade_departure",
+      "task": "dialog",
+      "scene": "hold",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The First Blade's fading impression leaves one sentence behind: 'That was new.' The vault begins repairing its broken seals as you depart with the restricted stores.",
+      "nextObjectiveId": [
+        {
+          "text": "Take the sealed stores and depart",
+          "nextObjectiveId": "w_B2"
+        }
+      ]
+    },
+    {
+      "id": "d_gallery_threshold",
+      "task": "dialog",
+      "scene": "helm",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Beyond the defeated helm guard, a viewing gallery overlooks the command seal network. The Captain waits on the dais ahead. The gallery offers a closer look at the systems that kept the Ghost Ship airborne through its destruction.",
+      "nextObjectiveId": [
+        {
+          "text": "Study the command gallery",
+          "nextObjectiveId": "d_gallery_record"
+        },
+        {
+          "text": "Confront the Captain now",
+          "nextObjectiveId": "d_king"
+        }
+      ]
+    },
+    {
+      "id": "d_gallery_record",
+      "task": "dialog",
+      "scene": "command_gallery",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "Seal diagrams show navigation, defensive lines, and crew reconstruction drawing from one command interface. A preserved damage report marks the original hull loss as incomplete, while the final command acknowledgement remains locked behind the Crown's authority.",
+      "nextObjectiveId": [
+        {
+          "text": "Return to the Captain's dais",
+          "nextObjectiveId": "d_king"
+        }
+      ]
+    },
+    {
+      "id": "d_c_after",
+      "task": "dialog",
+      "scene": "command_gallery",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "With the ordinary Captain defeated, the command network still hums. The loss was never accepted as final. A deeper order remains beyond the access of this incomplete command imprint, and the ship is already beginning to correct the damage of battle.",
+      "nextObjectiveId": [
+        {
+          "text": "Leave with the command stores",
+          "nextObjectiveId": "w_C"
+        }
+      ]
+    },
+    {
+      "id": "d_co_after",
+      "task": "dialog",
+      "scene": "helm",
+      "sceneCharacters": [
+        "blank"
+      ],
+      "description": "The Crown's restored command memory leaves a final recorded order: preserve command, preserve crew, maintain flight until the mission ends. There is no termination acknowledgement. Even without its Captain standing, the Core begins reconstructing the helm. The record offers proof, not control.",
+      "nextObjectiveId": [
+        {
+          "text": "Take the oathbound reward and depart",
+          "nextObjectiveId": "w_Co"
+        }
+      ]
+    },
+    {
+      "id": "d_oath_memory",
+      "task": "dialog",
+      "scene": "deck",
+      "sceneCharacters": [
+        "oathkeeper_portrait"
+      ],
+      "description": "The Oathkeeper traces the old access oath across his glove. 'I know that I died,' he says, 'but not how to finish this watch. The Captain's crown remembers what the rest of us cannot.' He opens the command passage without asking for another answer.",
+      "nextObjectiveId": [
+        {
+          "text": "Take the oathbound passage",
+          "nextObjectiveId": "d_helm_oath"
+        }
+      ]
+    }
+  ],
+  "rewardRules": {
+    "existingEndings": "Preserve five existing completion packages except approved Crown fragment removal from w_Co",
+    "secret": {
+      "winningNode": "w_secret",
+      "item": "Skyglass Reliquary",
+      "quantity": 1,
+      "chance": 100
+    },
+    "bossLoot": "Crowned Captain independent AI drops 20% Crown fragment + 3% Katana; do not add either to secret",
+    "reliquary": "Follow approved chest table in state/ghost_ship_skyglass_reward_decisions.md"
+  },
+  "openQuestions": [
+    "Director final graph/secret-puzzle acceptance",
+    "Sealwright exact battle tuning and AI rules",
+    "Original coordinates and scene fields copied from fresh captures at manifest time",
+    "All new node descriptions and choice labels director prose acceptance",
+    "Approved new-art file identities and scene assignments"
+  ]
+}
