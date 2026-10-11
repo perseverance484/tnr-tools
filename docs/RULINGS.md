@@ -452,3 +452,23 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 **Ruling:** The accepted white BEE structural SVG is the reusable input-format example. Use neutral layout and blank illustration spaces, omit all path labels, and retain only functional role-marker colors. The user handles image generation. This settles structural SVG presentation, not a global balance budget or a finished-poster art style.
 
 **Canonical destination:** `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`, with the persistent SVG and BEE-specific mechanical snapshot in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.{svg,json}`.
+
+---
+
+## RUL-2026-10-10-001 — Skyglass Ghost Ship drop stats and hidden-release assumption
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project expansion / rewards and release  
+**Status:** ACTIVE (approved design values; engine representation pending)  
+**Supersedes:** earlier uncommitted Katana concept based on Night's Testament + shield potency; no prior RUL id
+
+**Ruling:** The new **Skyglass Katana** is a **Legendary** weapon with **30 EP Damage** and **40% Consume**, using an approved *Legendary baseline* for other weapon fields such as cooldown, pool costs and AP (exact baseline numbers still need source identification and director sign-off). It drops independently at **3%** from the **Crowned Captain**. This supersedes the earlier Night's Testament exact-copy / shield-potency +X plan.
+
+The new **Skyglass Crystal** is a **weapon-only** imbue with **30% Consume**, obtained via the previously approved Skyglass Reliquary hybrid chest loop (including a 3% direct Crystal roll and the 12-Filament crafting route). These are director-approved effect and source values, **not** proof of engine validity: current Consume validation/imbuement behavior must be resolved without altering the promised mechanic.
+
+**Operational clarification:** The director reports both Ghost Ship profession quests currently **hidden**; the earlier October 1 capture's `hidden:false` state is historical, not current. A fresh read-only capture is required before edits. The implementation must retain hidden state; publication is separately director-owned and not authorized by this ruling.
+
+**Rationale:** Fix the two new reward identities and rates without allowing the earlier concept placeholder to survive into manifests, and prevent a stale public-visibility capture from driving an unnecessary or dangerous live cutover.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` for operative task-specific values and technical gates; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` for the release workplan. Generated schemas, actual game source, and new operator-readback captures retain their separate authority for contracts and current storage state.
+
