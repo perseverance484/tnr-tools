@@ -24,7 +24,7 @@ import { getCraftingRank, getEffectiveMaxImbuements } from "@/libs/crafting";
 import { resetServerModuleStubs, stubProfile } from "../setup/serverModules";
 import * as I from "./lib/items";
 import * as IB from "./lib/itembattle";
-import { Evidence } from "./lib/report";
+import { Evidence, requireClean } from "./lib/report";
 import { mulberry32 } from "./lib/sim";
 
 // Seed Math.random per test (initiative rolls, prevent/stun rolls) for reproducible evidence.
@@ -224,6 +224,32 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     }
   };
   const rowFor = (item: any, extra: Record<string, unknown> = {}) => ({ ...I.userItemRow(USER, item, { equipped: "NONE" }), ...extra });
+  const WRITE_REACHED = { outcome: "guards-passed-reached-write", message: "update" };
+  const reject = (message: string) => ({ outcome: "response", message, success: false });
+  /**
+   * Expected imbueItem outcome per crafting rank × crystal rarity, on an eligible
+   * imbuable WEAPON with maxImbueNumber 1 and no imbuements. Source (pin
+   * cddd7d91, occupation.ts imbueItem): the slot guard runs first
+   * (getEffectiveMaxImbuements: NOVICE 0 slots); then CRAFTING_TIMES_MINS[rank][rarity]
+   * === 0 rejects. The engine's rejection text names the wrong rank
+   * ("Apprentice" for EPIC, "Master" otherwise); recorded verbatim.
+   */
+  const IMBUE_MATRIX: Record<string, Record<string, object>> = {
+    NOVICE: { RARE: reject("You have reached the maximum number of crystals for this item (0)"), EPIC: reject("You have reached the maximum number of crystals for this item (0)"), LEGENDARY: reject("You have reached the maximum number of crystals for this item (0)") },
+    APPRENTICE: { RARE: WRITE_REACHED, EPIC: reject("You need to be at least Apprentice rank to imbue EPIC crystals"), LEGENDARY: reject("You need to be at least Master rank to imbue LEGENDARY crystals") },
+    MASTER: { RARE: WRITE_REACHED, EPIC: WRITE_REACHED, LEGENDARY: reject("You need to be at least Master rank to imbue LEGENDARY crystals") },
+    FORGEMASTER: { RARE: WRITE_REACHED, EPIC: WRITE_REACHED, LEGENDARY: WRITE_REACHED },
+  };
+  /** Expected craftItem outcome per rank × rarity (empty inventory: eligible ranks stop at the 12-Filament material check). */
+  const MATERIAL = reject("You need 12 Unknown item (you have 0)");
+  const CRAFT_MATRIX: Record<string, Record<string, object>> = {
+    NOVICE: { RARE: reject("You need to be at least Apprentice rank to craft RARE items"), EPIC: reject("You need to be at least Master rank to craft EPIC items"), LEGENDARY: reject("You need to be at least Forgemaster rank to craft LEGENDARY items") },
+    APPRENTICE: { RARE: MATERIAL, EPIC: reject("You need to be at least Master rank to craft EPIC items"), LEGENDARY: reject("You need to be at least Forgemaster rank to craft LEGENDARY items") },
+    MASTER: { RARE: MATERIAL, EPIC: MATERIAL, LEGENDARY: reject("You need to be at least Forgemaster rank to craft LEGENDARY items") },
+    FORGEMASTER: { RARE: MATERIAL, EPIC: MATERIAL, LEGENDARY: MATERIAL },
+  };
+  const matrixMismatches = (cases: Record<string, any>, want: Record<string, Record<string, object>>) =>
+    Object.entries(want).flatMap(([rank, row]) => Object.entries(row).filter(([rarity, w]) => JSON.stringify(cases[`rank_${rank}_${rarity}`]) !== JSON.stringify(w)).map(([rarity]) => ({ cell: `${rank}/${rarity}`, got: cases[`rank_${rank}_${rarity}`], want: row[rarity] })));
 
   it("imbueItem guard matrix (real procedure, read-only stub)", async () => {
     const crystal = I.crystalRecord("RARE");
@@ -268,7 +294,12 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     expect(cases.notACrystal.message).toBe("Selected item is not a crystal");
     expect(cases.equippedRecipient.message).toBe("You cannot imbue an equipped item");
     expect(cases.occupation_GATHERING.message).toBe("You must have the Crafting occupation to imbue items");
-    B3.check("eligible imbuable WEAPON passes every guard (stops at first trapped write)", cases.eligibleWeapon.outcome === "guards-passed-reached-write", cases.eligibleWeapon);
+    B3.check("eligible imbuable WEAPON passes every tested pre-write eligibility guard and reaches the first (trapped) write; persistence/concurrency guards not exercised", cases.eligibleWeapon.outcome === "guards-passed-reached-write", cases.eligibleWeapon);
+    expect(cases.maxImbuementsReached).toEqual(reject("You have reached the maximum number of crystals for this item (1)"));
+    B3.check("imbuement-slot limit: APPRENTICE (1 slot) on a maxImbueNumber-1 weapon that already holds a crystal is rejected", JSON.stringify(cases.maxImbuementsReached) === JSON.stringify(reject("You have reached the maximum number of crystals for this item (1)")), cases.maxImbuementsReached);
+    const imbueMismatch = matrixMismatches(cases, IMBUE_MATRIX);
+    expect(imbueMismatch).toEqual([]);
+    B3.check("imbueItem rank × rarity matrix: all 12 cells equal the source-derived expectation", imbueMismatch.length === 0, imbueMismatch);
     B3.check("accepted Katana (canBeImbued:false, published state) rejected", cases.katanaNonImbuable.message === "This item cannot be imbued");
     B3.check("while hidden, the Katana is invisible to imbueItem (fetchUserItems excludes hidden items)", cases.katanaWhileHidden.message === "Target item not found", cases.katanaWhileHidden);
     B3.check("non-WEAPON recipient rejected by crystalTargetTypes", cases.armorRecipient.message === "This crystal can only be applied to WEAPON items");
@@ -287,6 +318,10 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     B3.put("craftItemGuards", { note: "12 Filaments per Crystal used as the requirement carrier; inventory empty so eligible ranks stop at the material check", cases });
     expect(cases.occupation_GATHERING.message).toBe("You must have the Crafting occupation to craft items");
     B3.check("craftItem requires current CRAFTING occupation", ["occupation_GATHERING", "occupation_HUNTING", "occupation_null"].every((k) => cases[k].message === "You must have the Crafting occupation to craft items"), cases);
+    expect(cases.occupation_CRAFTING).toEqual(MATERIAL);
+    const craftMismatch = matrixMismatches(cases, CRAFT_MATRIX);
+    expect(craftMismatch).toEqual([]);
+    B3.check("craftItem rank × rarity matrix: all 12 cells equal the source-derived expectation", craftMismatch.length === 0, craftMismatch);
   });
 
   it("rank/rarity/imbue-slot tables from the pinned constants", () => {
@@ -298,6 +333,9 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     B3.put("rankRarityTable", table);
     expect(getCraftingRank(CRAFTING_REQUIRED_EXP.MASTER)).toBe("MASTER");
     B3.check("Novice has zero imbuement slots", CRAFTING_MAX_IMBUED_ITEMS.NOVICE === 0);
+    const imbueGate = Object.fromEntries(CRAFTING_RANKS.map((rank) => [rank, Object.fromEntries(["RARE", "EPIC", "LEGENDARY"].map((r) => [r, getEffectiveMaxImbuements(rank, 1) > 0 && (CRAFTING_TIMES_MINS as any)[rank][r] > 0]))]));
+    const expectedGate = Object.fromEntries(Object.entries(IMBUE_MATRIX).map(([rank, row]) => [rank, Object.fromEntries(Object.entries(row).map(([r, w]) => [r, (w as any).outcome === "guards-passed-reached-write"]))]));
+    B3.check("imbue eligibility derived from the pinned constants equals the expected matrix", JSON.stringify(imbueGate) === JSON.stringify(expectedGate), { imbueGate, expectedGate });
   });
 
   it("battle assembly suppresses imbuements on canBeImbued:false recipients", async () => {
@@ -317,3 +355,5 @@ describe("B3 — WEAPON restriction, recipient eligibility, duplicates, rank", (
     B3.check("legacy crystal effects dropped for canBeImbued:false items at assembly", JSON.stringify(k) === JSON.stringify(["pierce", "immunity", "consume"]) && !f.includes("consume"), { k, f });
   });
 });
+
+requireClean(B1, B2, B3);

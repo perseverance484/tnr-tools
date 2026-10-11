@@ -31,9 +31,21 @@ python3, and `unshare` (util-linux) for the network namespace.
 5. Runs `bun test tests/tnr_ghost_ship_stage2` inside `unshare -rn` (no network
    interfaces). It uses the upstream `test_build.yml` fork-PR placeholder
    environment values (no credentials) and no database (`TEST_MYSQL_URL` unset).
-6. Writes `results/<gate>.json`, `results/bun_test.log` and
+6. Re-checks every required evidence file with `tools/check_evidence.py`: it
+   must exist, record at least one assertion and contain no failed check.
+7. Runs the gate-enforcement self-test `selftest/run_negative.sh`. A synthetic
+   `failed:1` evidence file, a missing gate file, a `bun test` run with a
+   deliberately failed `Evidence.check`, and the evidence that run wrote must
+   each produce a nonzero exit.
+8. Writes `results/<gate>.json`, `results/bun_test.log` and
    `results/provenance.json` (engine pin, lockfile hash, runtime versions,
-   harness file hashes, exit status).
+   harness file hashes, and the bun, evidence-check and self-test exit statuses).
+
+`run.sh` exits nonzero if M0 fails, `bun test` fails, any evidence file is
+missing or records a failed check, or the self-test finds a layer that does not
+fail. Inside the suite, a failed `Evidence.check` fails `bun test` through
+`requireClean` (the last test of each file) and sets a nonzero process exit
+code in `flush`.
 
 Evidence JSON is deterministic. Every fight seeds `Math.random` (mulberry32).
 Battle objects with wall-clock fields are omitted, and keys are sorted. Two
@@ -45,16 +57,27 @@ independent full runs produced byte-identical `m0/a1/a2/b1/b2/b3/c1/c2/c3.json`.
 | --- | --- |
 | `m0_verify.py` | M0: source hashes, 65 memberships, retained protected-field hashes, AI/profile pointers, innate arrays, missing-vs-null drift |
 | `engine/lib/fixtures.ts` | Committed-record loader (JSON pointers from the accepted packets), 0056 AI stat conversion, kit/rule variants, Sealwright carrier, player fixtures and policies |
-| `engine/lib/sim.ts` | Battle assembly through the engine's `processUsersForBattle` (no DB client) and the `performAction` loop (`alignBattle` → `performAIaction` → `alignBattle`) |
+| `engine/lib/sim.ts` | Battle assembly with `initiateBattle`'s battle-start preprocessing (`capUserStats`, then the engine's `processUsersForBattle` with no DB client, `applyPoolAdjustmentsToBase`, `refreshMasteries`) and the `performAction` loop (`alignBattle` → `performAIaction` → `alignBattle`), with whole-step HP deltas, removed-effect diffs and one round-start sample per round |
+| `engine/lib/report.ts` | Evidence JSON writer; `requireClean` fails the file on any failed required check |
 | `engine/lib/items.ts`, `engine/lib/itembattle.ts` | Katana/Crystal records on the captured Flaming Sword carrier; player weapon actions via `availableUserActions` → `performBattleAction` |
 | `engine/a1_kits.test.ts` | A1 |
 | `engine/a2_sealwright.test.ts` | A2 |
 | `engine/b_crystal.test.ts` | B1–B3 (B3 calls the real `occupation.imbueItem`/`craftItem` procedures with a read-only stub client; any write attempt is trapped) |
 | `engine/c_katana.test.ts` | C1–C3 |
+| `tools/check_evidence.py` | Post-run evidence gate (missing file, no assertions, or any failed check → exit 1) |
+| `tools/build_katana_record.py` | Derives / checks `state/ghost_ship_skyglass_katana_record.json` from the push/85 capture |
+| `selftest/` | Negative gate-enforcement self-test (`run_negative.sh`, `negative_gate.test.ts`); not part of the evidence suite |
 | `results/` | Committed evidence from the frozen run |
 
 ## Fixture limits (read before using any number)
 
+- **Battle-start caps (r3):** as `initiateBattle` does, every user is capped
+  with `capUserStats` at its own rank before assembly. QUEST is not a ranked
+  battle, and the captured Ghost Ship quest objectives carry no `scaleStats`, so
+  there is no target scaling or stat distribution. All eleven Ghost Ship AIs are
+  JONIN; every one has generals above the JONIN generals cap (400,000), and
+  Core Canister also exceeds the offence/defence cap (1,300,000). Captured
+  records stay unchanged; only the battle copy is capped.
 - **Captured AI rows predate upstream migration 0056** (unified combat stats,
   commit `46f62cd9`, 2026-10-08). The harness applies that migration's AI
   branch verbatim: `offence` = max of the four offences, `defence` = max of the
@@ -69,8 +92,14 @@ independent full runs produced byte-identical `m0/a1/a2/b1/b2/b3/c1/c2/c3.json`.
   upstream `battleScenario` defaults. They use non-elemental shared-pool jutsu
   and declared auto-combat policies.
 - **Placement:** start tiles are fixed (player (2,4), boss (8,4) unless stated)
-  rather than the engine's random spawn, so that both bosses face identical
-  inputs.
+  rather than the engine's random spawn, and the engine's random initial ground
+  barriers are not placed, so that both bosses face identical inputs.
+- **Metrics (r3):** damage comes from whole-step HP deltas, so delayed ticks
+  during the other side's turn count. Lockout is the engine's stun AP reduction
+  (`calcApReduction`), reported apart from stun presence. A Clear counts as
+  removing only if a positive, removable effect actually disappeared. Cadence
+  damage is divided by the completed 20-round interval. The definitions are in
+  `engine/a2_sealwright.test.ts` (`fightMetrics`).
 - **Katana** is the accepted record `state/ghost_ship_skyglass_katana_record.json`
   (RUL-2026-10-11-004, Night's Testament baseline; rebuild/check with
   `tools/build_katana_record.py [--check]`). Presentation fields are labelled

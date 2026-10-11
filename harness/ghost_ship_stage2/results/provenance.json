@@ -18,17 +18,23 @@
   "env": "upstream test_build.yml fork-PR placeholders; no credentials"
  },
  "harnessFileSha256": {
-  "engine/a1_kits.test.ts": "4a314b6a43f058e01c99aad3eb0c841681ed42ad86842665adf0f93f48309ae5",
-  "engine/a2_sealwright.test.ts": "f2ed2b9c3532a3c8fb0cfec9157b24cc8f6d3bc919f6eda26cd9bf7ef302684e",
-  "engine/b_crystal.test.ts": "e1135892ea8b5c45e7efd5fdbf63fa94dc4e97872e99bd9e8c56a6cb66912f87",
-  "engine/c_katana.test.ts": "d9b9b8de04c59b460209f8b5dace7de1230d538255e84ea5044f31f227cf3b91",
+  "engine/a1_kits.test.ts": "615b8f4e35c0fa2094683b636ce56559add8342ea961ce6c994f2fd0c34319ff",
+  "engine/a2_sealwright.test.ts": "6d7acadb0647b506617b69d1a74db7b40b2fb53cd40c2fac77ac308e96a6aeae",
+  "engine/b_crystal.test.ts": "c51ff9340dcc508d75d88593cc777756b5df0b1ac54fb38bd305a4a8630526d4",
+  "engine/c_katana.test.ts": "918ad73480222f0eabf4711332a188b3df4aa20b2c2f681b35c9914179459c16",
   "engine/lib/fixtures.ts": "2ec479aab5b6f747f6194b15bcd9bcb6860c9efe9dea9cf6e619d958cf21b9ad",
   "engine/lib/itembattle.ts": "36d39886fbf771892683223df2dc0f6f6e89af848d200c88b79b0dbd82855706",
   "engine/lib/items.ts": "321c1213f5d805c9cbbc6f955fc7b233439c536d9404b41bd372ba35d5234260",
-  "engine/lib/report.ts": "939e95465fb56b21f0b5ff18b3ac8e6cd9a0ef6166ac25d458ce6a3698a686c3",
-  "engine/lib/sim.ts": "97896eadfd5282bc8c925c250e8bcf40ccb6b83523beda9cabd572d659ac150e",
+  "engine/lib/report.ts": "2419cac7ccfa96838ef50a8952f24afa44d6801c690b8d24ec3efd5e13a6e948",
+  "engine/lib/sim.ts": "dd15f296f6e8c44fd7a05113f00722e4d14c7830a9737a4d5c3b14ef57c891c1",
+  "selftest/negative_gate.test.ts": "c5a705cb287e4cfcd8dd1de7c85e7f2d5b5bdad6471152b2e4b5ff8a3c4bbaaa",
+  "selftest/run_negative.sh": "cb918091958bc5749e81a40b3ad9b627f825a99eed81b0c8df3199ce57d67a00",
+  "tools/build_katana_record.py": "0e272844e736074038350889350818330a6a0ac7c0740388639bb387137e0fba",
+  "tools/check_evidence.py": "cc296c690aea48d14aa5629fbe625fd484407517742ea73345a9b0fc53ea95c1",
   "m0_verify.py": "5d1d1aa5e2af7f358f3727b2c33f323986ac4d7eb0dec75d2f2dcf0d783ef5e5",
-  "run.sh": "5130fd597a97ad8894d5b905bb6a2a8670d0e1f871ab711f3c87b7e174ee62ce"
+  "run.sh": "4897a01f0750391a9e16c77431d0b9c4acf72516ea854a0232f0103de4ebfc69"
  },
- "bunTestExitStatus": 0
+ "bunTestExitStatus": 0,
+ "evidenceCheckExitStatus": 0,
+ "negativeSelftestExitStatus": 0
 }

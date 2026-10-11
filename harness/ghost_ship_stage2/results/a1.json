@@ -1,6 +1,73 @@
 {
- "assertions": 160,
+ "assertions": 207,
+ "battleStart": "initiateBattle preprocessing: capUserStats at own rank (QUEST, scaleTarget false), applyPoolAdjustmentsToBase, refreshMasteries",
  "checks": [
+  {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "name": "Deck Warden: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
   {
    "name": "Deck Warden: assembled membership = accepted kit (7)",
    "pass": true
@@ -28,6 +95,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "defence": {
+     "battle": 1035100,
+     "cap": 1300000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "genjutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "ninjutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "offence": {
+     "battle": 1035100,
+     "cap": 1300000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "taijutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    }
+   },
+   "name": "Seal Charge: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "Seal Charge: assembled membership = accepted kit (1)",
    "pass": true
   },
@@ -49,6 +182,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "defence": {
+     "battle": 1300000,
+     "cap": 1300000,
+     "expected": 1300000,
+     "stored": 1329366.6
+    },
+    "genjutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "ninjutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "offence": {
+     "battle": 1300000,
+     "cap": 1300000,
+     "expected": 1300000,
+     "stored": 1329366.6
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "taijutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    }
+   },
+   "name": "Core Canister: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "Core Canister: assembled membership = accepted kit (1)",
    "pass": true
   },
@@ -67,6 +266,72 @@
     "missing": []
    },
    "name": "Core Canister: every kit jutsu is an available action at round 1",
+   "pass": true
+  },
+  {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "name": "Core Horror: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
    "pass": true
   },
   {
@@ -97,6 +362,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "name": "Oathkeeper: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "Oathkeeper: assembled membership = accepted kit (6)",
    "pass": true
   },
@@ -121,6 +452,72 @@
     "missing": []
    },
    "name": "Oathkeeper: every kit jutsu is an available action at round 1",
+   "pass": true
+  },
+  {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "name": "Wayfinder: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
    "pass": true
   },
   {
@@ -150,6 +547,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "name": "Arsenal Keeper: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "Arsenal Keeper: assembled membership = accepted kit (7)",
    "pass": true
   },
@@ -173,6 +636,72 @@
     "missing": []
    },
    "name": "Arsenal Keeper: every kit jutsu is an available action at round 1",
+   "pass": true
+  },
+  {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "name": "Sentinel: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
    "pass": true
   },
   {
@@ -203,6 +732,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "name": "First Blade: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "First Blade: assembled membership = accepted kit (7)",
    "pass": true
   },
@@ -230,6 +825,72 @@
    "pass": true
   },
   {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "name": "The Captain: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
+   "pass": true
+  },
+  {
    "name": "The Captain: assembled membership = accepted kit (5)",
    "pass": true
   },
@@ -250,6 +911,72 @@
     "missing": []
    },
    "name": "The Captain: every kit jutsu is an available action at round 1",
+   "pass": true
+  },
+  {
+   "detail": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "name": "Crowned Captain: battle-start stats = min(stored 0056-converted value, JONIN cap) for offence/defence/generals/masteries",
    "pass": true
   },
   {
@@ -324,6 +1051,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Deck Warden kitOnly@d3: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + move + move + move + move + basicAttack + wait",
     "2: Quick Strike + basicAttack + wait",
@@ -369,6 +1104,14 @@
     }
    },
    "name": "Deck Warden kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Deck Warden kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -422,6 +1165,14 @@
     }
    },
    "name": "Deck Warden candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Deck Warden candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -483,6 +1234,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Deck Warden candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Ghostly Rigging Snare + move + move + basicAttack",
     "2: Ghostly Strangling Weed + basicAttack + wait",
@@ -526,6 +1285,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Core Horror kitOnly@d3: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + move + move + Ghostly Rigging Snare",
     "2: move + move + Ghostly Strangling Weed + basicAttack",
@@ -566,6 +1333,14 @@
     }
    },
    "name": "Core Horror kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Core Horror kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -624,6 +1399,14 @@
     }
    },
    "name": "Core Horror candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Core Horror candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -690,6 +1473,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Core Horror candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + Quick Strike + basicAttack",
     "2: Opening Strike + basicAttack + wait",
@@ -735,6 +1526,14 @@
     }
    },
    "name": "Oathkeeper kitOnly@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Oathkeeper kitOnly@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -791,6 +1590,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Oathkeeper kitOnly@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Rapid Fire + Stoneward",
     "2: move + move + Quick Strike + basicAttack",
@@ -841,6 +1648,14 @@
     }
    },
    "name": "Oathkeeper candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Oathkeeper candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -902,6 +1717,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Oathkeeper candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + Lunging Strike + basicAttack",
     "2: Twin Shot + basicAttack + wait",
@@ -950,6 +1773,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Wayfinder kitOnly@d3: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + move + move + move + move + basicAttack + wait",
     "2: Lunging Strike + basicAttack + wait",
@@ -995,6 +1826,14 @@
     }
    },
    "name": "Wayfinder kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Wayfinder kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1048,6 +1887,14 @@
     }
    },
    "name": "Wayfinder candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Wayfinder candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1109,6 +1956,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Wayfinder candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Ghostly Crossed Out + move + move + basicAttack",
     "2: Heavy Strike + basicAttack + wait",
@@ -1162,6 +2017,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Arsenal Keeper kitOnly@d3: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + move + move + Ghostly Crossed Out",
     "2: move + move + Heavy Strike + basicAttack",
@@ -1212,6 +2075,14 @@
     }
    },
    "name": "Arsenal Keeper kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Arsenal Keeper kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1270,6 +2141,14 @@
     }
    },
    "name": "Arsenal Keeper candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Arsenal Keeper candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1336,6 +2215,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Arsenal Keeper candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Light Barrier + move + move + basicAttack + wait",
     "2: Ghostly Rigging Snare + basicAttack + wait",
@@ -1384,6 +2271,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Sentinel kitOnly@d3: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + move + Light Barrier + move + move + move",
     "2: Ghostly Rigging Snare + basicAttack + wait",
@@ -1429,6 +2324,14 @@
     }
    },
    "name": "Sentinel kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Sentinel kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1482,6 +2385,14 @@
     }
    },
    "name": "Sentinel candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Sentinel candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1543,6 +2454,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Sentinel candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: move + move + Numbing Shot + basicAttack",
     "2: Opening Strike + basicAttack + wait",
@@ -1588,6 +2507,14 @@
     }
    },
    "name": "First Blade kitOnly@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "First Blade kitOnly@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1641,6 +2568,14 @@
     }
    },
    "name": "First Blade kitOnly@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "First Blade kitOnly@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1699,6 +2634,14 @@
     }
    },
    "name": "First Blade candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "First Blade candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1765,6 +2708,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "First Blade candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Worldbreaker Chorus + Battle Trance",
     "2: move + move + Cataclysm Detonation + basicAttack",
@@ -1815,6 +2766,14 @@
     }
    },
    "name": "The Captain kitOnly@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "The Captain kitOnly@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1876,6 +2835,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "The Captain kitOnly@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Worldbreaker Chorus + Battle Trance",
     "2: move + move + Cataclysm Detonation + basicAttack",
@@ -1926,6 +2893,14 @@
     }
    },
    "name": "The Captain candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "The Captain candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -1984,6 +2959,14 @@
     }
    },
    "name": "The Captain candidate@d7: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "The Captain candidate@d7: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -2047,6 +3030,14 @@
     }
    },
    "name": "Crowned Captain kitOnly@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Crowned Captain kitOnly@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -2118,6 +3109,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Crowned Captain kitOnly@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [
     "1: Ghostly Deep Six + Ghostly Final Fathom",
     "2: Windlash Focus + move + move + basicAttack + wait",
@@ -2183,6 +3182,14 @@
     }
    },
    "name": "Crowned Captain candidate@d3: no cooldown violation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Crowned Captain candidate@d3: full 20-round measurement interval (dummy survived)",
    "pass": true
   },
   {
@@ -2259,6 +3266,14 @@
    "pass": true
   },
   {
+   "detail": {
+    "dummySurvived": true,
+    "measuredRounds": 20
+   },
+   "name": "Crowned Captain candidate@d7: full 20-round measurement interval (dummy survived)",
+   "pass": true
+  },
+  {
    "detail": [],
    "name": "Deck Warden: no exhaustion give-up in accepted-kit fights",
    "pass": true
@@ -2330,7 +3345,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -2350,14 +3365,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "explosionRound": 3
    },
    "name": "Seal Charge captured: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7915.371,
+   "detail": 4675.969,
    "name": "Seal Charge captured: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2378,7 +3393,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -2398,14 +3413,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "explosionRound": 3
    },
    "name": "Seal Charge kitOnly: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7915.371,
+   "detail": 4675.969,
    "name": "Seal Charge kitOnly: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2426,7 +3441,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -2446,14 +3461,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "explosionRound": 3
    },
    "name": "Seal Charge candidate: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7915.371,
+   "detail": 4675.969,
    "name": "Seal Charge candidate: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2482,7 +3497,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -2506,14 +3521,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "explosionRound": 7
    },
    "name": "Core Canister captured: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7642.477,
+   "detail": 3926.579,
    "name": "Core Canister captured: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2542,7 +3557,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -2566,14 +3581,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "explosionRound": 7
    },
    "name": "Core Canister kitOnly: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7642.477,
+   "detail": 3926.579,
    "name": "Core Canister kitOnly: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2602,7 +3617,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -2626,14 +3641,14 @@
   },
   {
    "detail": {
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "explosionRound": 7
    },
    "name": "Core Canister candidate: ALL-method blast also fires on trigger at d8 and reaches the opponent (no exhaustion)",
    "pass": true
   },
   {
-   "detail": 7642.477,
+   "detail": 3926.579,
    "name": "Core Canister candidate: blast damages and stuns the opponent at d3",
    "pass": true
   },
@@ -2672,6 +3687,74 @@
     "mOA1hXNf4CcuwOhnnN7ZK",
     "_9k7kSYUgMtB-AEFgRly5"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -2690,6 +3773,7 @@
     "offence": 556519.98
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 60,
@@ -2784,16 +3868,87 @@
    "assembledJutsuIds": [
     "nCQETf-HNnbRec1OSY2-R"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "defence": {
+     "battle": 1300000,
+     "cap": 1300000,
+     "expected": 1300000,
+     "stored": 1329366.6
+    },
+    "genjutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "ninjutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "offence": {
+     "battle": 1300000,
+     "cap": 1300000,
+     "expected": 1300000,
+     "stored": 1329366.6
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    },
+    "taijutsuMastery": {
+     "battle": 1329366.6,
+     "cap": 1500000,
+     "expected": 1329366.6,
+     "stored": 1329366.6
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1329366.6
+    }
+   },
+   "exceedsCaps": [
+    "offence",
+    "defence",
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [],
    "innateCaptured": [],
    "items": [
     "h-V9uiuxbL7lAWkO6nZWt:NONE:0"
    ],
    "migratedStats": {
-    "defence": 1329366.6,
-    "offence": 1329366.6
+    "defence": 1300000,
+    "offence": 1300000
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 100,
@@ -2828,6 +3983,74 @@
     "m-ur3A8TS8r5jGb84L9x7",
     "3v9c1SHlD2GLPF2HW1_Sc"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -2848,6 +4071,7 @@
     "offence": 556519.98
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 60,
@@ -2962,6 +4186,74 @@
     "STu1VHNcfgeC3x-UiQDgt",
     "VuFuBtE7h5B1nnA2J1lFZ"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:60/99"
    ],
@@ -2979,6 +4271,7 @@
     "offence": 834780
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 40,
@@ -3133,6 +4426,74 @@
     "mOA1hXNf4CcuwOhnnN7ZK",
     "_9k7kSYUgMtB-AEFgRly5"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -3151,6 +4512,7 @@
     "offence": 556519.98
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 60,
@@ -3257,6 +4619,74 @@
     "Cw51Wm_Uy0GiIkiEjlQtn",
     "Nrxc8m9utE9qaD_gWpLgf"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -3277,6 +4707,7 @@
     "offence": 834780
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 40,
@@ -3381,6 +4812,74 @@
     "Nrxc8m9utE9qaD_gWpLgf",
     "FeYnH7BBw_usnc1K-TM-J"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -3401,6 +4900,7 @@
     "offence": 556519.98
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 40,
@@ -3483,6 +4983,74 @@
    "assembledJutsuIds": [
     "nCQETf-HNnbRec1OSY2-R"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "defence": {
+     "battle": 1035100,
+     "cap": 1300000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "genjutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "ninjutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "offence": {
+     "battle": 1035100,
+     "cap": 1300000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    },
+    "taijutsuMastery": {
+     "battle": 1035100,
+     "cap": 1500000,
+     "expected": 1035100,
+     "stored": 1035100
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 1035100
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [],
    "innateCaptured": [],
    "items": [
@@ -3493,6 +5061,7 @@
     "offence": 1035100
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 100,
@@ -3527,6 +5096,74 @@
     "mOA1hXNf4CcuwOhnnN7ZK",
     "3v9c1SHlD2GLPF2HW1_Sc"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -3547,6 +5184,7 @@
     "offence": 834780
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 40,
@@ -3649,6 +5287,74 @@
     "o-4SCAhJ4LHdCwcBDgJrV",
     "LisNuMJ2gncEByAxG6QPI"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "defence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "genjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "ninjutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "offence": {
+     "battle": 834780,
+     "cap": 1300000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    },
+    "taijutsuMastery": {
+     "battle": 834780,
+     "cap": 1500000,
+     "expected": 834780,
+     "stored": 834780
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 834780
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasestat:30/99"
    ],
@@ -3664,6 +5370,7 @@
     "offence": 834780
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 40,
@@ -3744,6 +5451,74 @@
     "mOA1hXNf4CcuwOhnnN7ZK",
     "_9k7kSYUgMtB-AEFgRly5"
    ],
+   "battleStartCaps": {
+    "bukijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "defence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "genjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "intelligence": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "ninjutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "offence": {
+     "battle": 556519.98,
+     "cap": 1300000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "speed": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "strength": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    },
+    "taijutsuMastery": {
+     "battle": 556519.98,
+     "cap": 1500000,
+     "expected": 556519.98,
+     "stored": 556519.98
+    },
+    "willpower": {
+     "battle": 400000,
+     "cap": 400000,
+     "expected": 400000,
+     "stored": 556519.98
+    }
+   },
+   "exceedsCaps": [
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed"
+   ],
    "innateAccepted": [
     "increasedamagegiven:100/99",
     "increasedamagegiven:100/99",
@@ -3762,6 +5537,7 @@
     "offence": 556519.98
    },
    "numericDiffsCapturedVsAccepted": [],
+   "rank": "JONIN",
    "round1JutsuActions": [
     {
      "ap": 60,
@@ -3901,7 +5677,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5300.315,
+    "damageToDummyPerRound": 5290.161,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Crossed Out + Windlash Focus",
@@ -3913,6 +5690,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -3985,7 +5763,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 4499.879,
+    "damageToDummyPerRound": 4476.489,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Springguard + move + move + move + move + move + move",
@@ -3997,6 +5776,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -4063,7 +5843,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8316.514,
+    "damageToDummyPerRound": 8436.471,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Crossed Out + Sharpened Focus",
@@ -4075,6 +5856,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -4147,7 +5929,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 7365.646,
+    "damageToDummyPerRound": 7478.24,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Braced Stance + move + move + move + move + move + move",
@@ -4159,6 +5942,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -4219,7 +6003,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5435.331,
+    "damageToDummyPerRound": 5378.355,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Crossed Out + move + move + basicAttack",
@@ -4231,6 +6016,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -4291,7 +6077,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5228.241,
+    "damageToDummyPerRound": 5197.437,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + move + move + Ghostly Crossed Out",
@@ -4303,6 +6090,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 18
    }
@@ -4371,7 +6159,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 12470.759,
+    "damageToDummyPerRound": 12531.781,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Rigging Snare + Springguard",
@@ -4383,6 +6172,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -4455,7 +6245,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 11433.449,
+    "damageToDummyPerRound": 11486.437,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Stoneward + move + move + move + move + move + move",
@@ -4467,6 +6258,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -4533,7 +6325,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 16937.38,
+    "damageToDummyPerRound": 17185.206,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Rigging Snare + Braced Stance",
@@ -4545,6 +6338,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -4611,7 +6405,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 15900.07,
+    "damageToDummyPerRound": 16139.863,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Guarded Stance + move + move + move + move + move + move",
@@ -4623,6 +6418,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -4671,7 +6467,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 17807.159,
+    "damageToDummyPerRound": 17945.06,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Rigging Snare + move + move + basicAttack",
@@ -4683,6 +6480,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -4731,7 +6529,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 17558.651,
+    "damageToDummyPerRound": 17727.959,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + move + move + Ghostly Rigging Snare",
@@ -4743,6 +6542,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 18
    }
@@ -4823,7 +6623,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 2869.054,
+    "damageToDummyPerRound": 2269.22,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Deep Six + Ghostly Final Fathom",
@@ -4835,6 +6636,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 13
    },
@@ -4919,7 +6721,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5322.331,
+    "damageToDummyPerRound": 4235.188,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -4931,6 +6734,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 13
    },
@@ -5009,7 +6813,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 3042.03,
+    "damageToDummyPerRound": 2404.509,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Deep Six + Ghostly Final Fathom",
@@ -5021,6 +6826,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -5105,7 +6911,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5731.13,
+    "damageToDummyPerRound": 4521.113,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -5117,6 +6924,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -5189,7 +6997,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 2599.778,
+    "damageToDummyPerRound": 2019.925,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Deep Six + Ghostly Final Fathom",
@@ -5201,6 +7010,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 16
    },
@@ -5279,7 +7089,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5104.975,
+    "damageToDummyPerRound": 4035.724,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -5291,6 +7102,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 17
    }
@@ -5353,7 +7165,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 4574.399,
+    "damageToDummyPerRound": 4255.214,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Rapid Fire + Springguard",
@@ -5365,6 +7178,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -5431,7 +7245,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 4291.299,
+    "damageToDummyPerRound": 3967.7,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Windlash Focus + move + move + move + move + move + move",
@@ -5443,6 +7258,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -5503,7 +7319,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 6789.363,
+    "damageToDummyPerRound": 6897.493,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Chain Shot + Braced Stance",
@@ -5515,6 +7332,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -5575,7 +7393,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 6295.023,
+    "damageToDummyPerRound": 6407.658,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Sharpened Focus + move + move + move + move + move + move",
@@ -5587,6 +7406,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -5641,7 +7461,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 5090.476,
+    "damageToDummyPerRound": 4711.865,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + Quick Strike + basicAttack",
@@ -5653,6 +7474,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -5707,7 +7529,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 4588.651,
+    "damageToDummyPerRound": 4258.003,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + move + move + move + move + basicAttack + wait",
@@ -5719,6 +7542,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 20
    }
@@ -5787,7 +7611,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8296.586,
+    "damageToDummyPerRound": 7413.125,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Numbing Shot + Springguard",
@@ -5799,6 +7624,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -5871,7 +7697,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 7406.817,
+    "damageToDummyPerRound": 6633.537,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Battle Trance + move + move + move + move + move + move",
@@ -5883,6 +7710,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -5949,7 +7777,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 14559.092,
+    "damageToDummyPerRound": 14085.107,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Undertow Chain + Braced Stance",
@@ -5961,6 +7790,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -6033,7 +7863,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 12413.429,
+    "damageToDummyPerRound": 11986.831,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Battle Trance + move + move + move + move + move + move",
@@ -6045,6 +7876,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -6099,7 +7931,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 9205.123,
+    "damageToDummyPerRound": 8002.913,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + Numbing Shot + basicAttack",
@@ -6111,6 +7944,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -6171,7 +8005,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8542.857,
+    "damageToDummyPerRound": 7479.276,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Battle Trance + move + move + move + move + move + move",
@@ -6183,6 +8018,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 19
    }
@@ -6245,7 +8081,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 6769.8,
+    "damageToDummyPerRound": 6682.142,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Rapid Fire + Stoneward",
@@ -6257,6 +8094,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -6323,7 +8161,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 6205.771,
+    "damageToDummyPerRound": 6133.744,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Counter Stance + move + move + move + move + move + move",
@@ -6335,6 +8174,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -6395,7 +8235,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 12073.176,
+    "damageToDummyPerRound": 12255.557,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Chain Shot + Guarded Stance",
@@ -6407,6 +8248,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -6461,7 +8303,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 11035.866,
+    "damageToDummyPerRound": 11210.213,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Counter Stance + move + move + move + move + move + move",
@@ -6473,6 +8316,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -6527,7 +8371,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 7703.179,
+    "damageToDummyPerRound": 7504.515,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + Quick Strike + basicAttack",
@@ -6539,6 +8384,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -6599,7 +8445,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 7115.649,
+    "damageToDummyPerRound": 6933.267,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Counter Stance + move + move + move + move + move + move",
@@ -6611,6 +8458,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 19
    }
@@ -6673,7 +8521,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8747.376,
+    "damageToDummyPerRound": 8446.597,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Rigging Snare + Light Barrier",
@@ -6685,6 +8534,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -6751,7 +8601,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 7388.901,
+    "damageToDummyPerRound": 7137.779,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Springguard + move + move + move + move + move + move",
@@ -6763,6 +8614,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -6829,7 +8681,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 10406.819,
+    "damageToDummyPerRound": 10189.013,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Grasp of the Buried + Light Barrier",
@@ -6841,6 +8694,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -6913,7 +8767,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 9048.344,
+    "damageToDummyPerRound": 8880.195,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Braced Stance + move + move + move + move + move + move",
@@ -6925,6 +8780,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -6979,7 +8835,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 9715.896,
+    "damageToDummyPerRound": 9345.962,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Light Barrier + move + move + basicAttack + wait",
@@ -6991,6 +8848,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 17
    },
@@ -7045,7 +8903,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 9382.12,
+    "damageToDummyPerRound": 9113.078,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + move + Light Barrier + move + move + move",
@@ -7057,6 +8916,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 16
    }
@@ -7119,7 +8979,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 1550.899,
+    "damageToDummyPerRound": 1077.892,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Worldbreaker Chorus + Battle Trance",
@@ -7131,6 +8992,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 17
    },
@@ -7197,7 +9059,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 2652.582,
+    "damageToDummyPerRound": 1859.834,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -7209,6 +9072,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 17
    },
@@ -7269,7 +9133,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 1550.899,
+    "damageToDummyPerRound": 1077.892,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Worldbreaker Chorus + Battle Trance",
@@ -7281,6 +9146,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 17
    },
@@ -7347,7 +9213,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 2652.582,
+    "damageToDummyPerRound": 1859.834,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -7359,6 +9226,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 17
    },
@@ -7419,7 +9287,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 1550.899,
+    "damageToDummyPerRound": 1077.892,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Worldbreaker Chorus + Battle Trance",
@@ -7431,6 +9300,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 17
    },
@@ -7497,7 +9367,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 2652.582,
+    "damageToDummyPerRound": 1859.834,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Death's Door + move + move + move + move + move + move",
@@ -7509,6 +9380,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 17
    }
@@ -7571,7 +9443,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8693.699,
+    "damageToDummyPerRound": 8580.479,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Lunging Strike + Stoneward",
@@ -7583,6 +9456,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 14
    },
@@ -7649,7 +9523,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8223.675,
+    "damageToDummyPerRound": 8123.481,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Springguard + move + move + move + move + move + move",
@@ -7661,6 +9536,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 14
    },
@@ -7715,7 +9591,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 16460.143,
+    "damageToDummyPerRound": 16698.718,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Ghostly Chain Shot + Guarded Stance",
@@ -7727,6 +9604,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 15
    },
@@ -7787,7 +9665,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 15595.718,
+    "damageToDummyPerRound": 15827.599,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: Braced Stance + move + move + move + move + move + move",
@@ -7799,6 +9678,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 15
    },
@@ -7853,7 +9733,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8414.479,
+    "damageToDummyPerRound": 8104.663,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + Lunging Strike + basicAttack",
@@ -7865,6 +9746,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 2,
     "waits": 19
    },
@@ -7919,7 +9801,8 @@
      }
     },
     "cooldownViolations": [],
-    "damageToDummyPerRound": 8414.479,
+    "damageToDummyPerRound": 8104.663,
+    "dummySurvived": true,
     "exhausted": false,
     "firstRounds": [
      "1: move + move + move + move + move + move + basicAttack + wait",
@@ -7931,6 +9814,7 @@
     ],
     "idleTimeouts": 0,
     "meanApPerRound": 100,
+    "measuredRounds": 20,
     "moves": 6,
     "waits": 20
    }
@@ -7939,72 +9823,72 @@
    "candidate": {
     "results": [
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 5,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 5,
       "winner": "boss"
      }
@@ -8014,72 +9898,72 @@
    "captured": {
     "results": [
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.978,
+      "bossHpLeftPct": 0.969,
       "kit": "buffer",
       "rounds": 3,
       "seed": 5,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.944,
+      "bossHpLeftPct": 0.917,
       "kit": "striker",
-      "rounds": 3,
+      "rounds": 4,
       "seed": 5,
       "winner": "boss"
      }
@@ -8146,70 +10030,70 @@
    "supportProposal_NOT_APPROVED": {
     "results": [
      {
-      "bossHpLeftPct": 0.891,
+      "bossHpLeftPct": 0.847,
       "kit": "buffer",
       "rounds": 4,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.891,
+      "bossHpLeftPct": 0.847,
       "kit": "buffer",
       "rounds": 4,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.891,
+      "bossHpLeftPct": 0.847,
       "kit": "buffer",
       "rounds": 4,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.891,
+      "bossHpLeftPct": 0.847,
       "kit": "buffer",
       "rounds": 4,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.891,
+      "bossHpLeftPct": 0.847,
       "kit": "buffer",
       "rounds": 4,
       "seed": 5,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.925,
+      "bossHpLeftPct": 0.896,
       "kit": "striker",
       "rounds": 4,
       "seed": 1,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.925,
+      "bossHpLeftPct": 0.896,
       "kit": "striker",
       "rounds": 4,
       "seed": 2,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.925,
+      "bossHpLeftPct": 0.896,
       "kit": "striker",
       "rounds": 4,
       "seed": 3,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.925,
+      "bossHpLeftPct": 0.896,
       "kit": "striker",
       "rounds": 4,
       "seed": 4,
       "winner": "boss"
      },
      {
-      "bossHpLeftPct": 0.925,
+      "bossHpLeftPct": 0.896,
       "kit": "striker",
       "rounds": 4,
       "seed": 5,
@@ -8225,7 +10109,7 @@
   "fights:Arsenal Keeper": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.62,
+     "bossHpLeftPct": 0.551,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8233,7 +10117,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.62,
+     "bossHpLeftPct": 0.551,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8241,7 +10125,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.62,
+     "bossHpLeftPct": 0.551,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8251,7 +10135,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.899,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8259,7 +10143,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.899,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8267,7 +10151,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.899,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8277,7 +10161,7 @@
    ],
    "candidate|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8285,7 +10169,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8293,7 +10177,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8329,7 +10213,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8337,7 +10221,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8345,7 +10229,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8407,7 +10291,7 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8415,7 +10299,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8423,7 +10307,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8464,7 +10348,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 1,
      "winner": "player"
     },
@@ -8472,7 +10356,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 2,
      "winner": "player"
     },
@@ -8480,7 +10364,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 3,
      "winner": "player"
     }
@@ -8489,24 +10373,24 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 1,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 2,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 3,
      "winner": "player"
     }
@@ -8515,7 +10399,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 1,
      "winner": "player"
@@ -8523,7 +10407,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 2,
      "winner": "player"
@@ -8531,7 +10415,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 3,
      "winner": "player"
@@ -8542,7 +10426,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 1,
      "winner": "player"
     },
@@ -8550,7 +10434,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 2,
      "winner": "player"
     },
@@ -8558,7 +10442,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 3,
      "winner": "player"
     }
@@ -8567,24 +10451,24 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 1,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 2,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 3,
      "winner": "player"
     }
@@ -8593,7 +10477,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 1,
      "winner": "player"
@@ -8601,7 +10485,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 2,
      "winner": "player"
@@ -8609,7 +10493,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 3,
      "winner": "player"
@@ -8620,7 +10504,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 1,
      "winner": "player"
     },
@@ -8628,7 +10512,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 2,
      "winner": "player"
     },
@@ -8636,7 +10520,7 @@
      "bossHpLeftPct": 0,
      "exhausted": false,
      "playerHpLeftPct": 1,
-     "rounds": 3,
+     "rounds": 2,
      "seed": 3,
      "winner": "player"
     }
@@ -8645,24 +10529,24 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 1,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 2,
      "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.403,
-     "rounds": 7,
+     "playerHpLeftPct": 1,
+     "rounds": 5,
      "seed": 3,
      "winner": "player"
     }
@@ -8671,7 +10555,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 1,
      "winner": "player"
@@ -8679,7 +10563,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 2,
      "winner": "player"
@@ -8687,7 +10571,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.022,
+     "playerHpLeftPct": 0.482,
      "rounds": 7,
      "seed": 3,
      "winner": "player"
@@ -8697,7 +10581,7 @@
   "fights:Core Horror": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.594,
+     "bossHpLeftPct": 0.521,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8705,7 +10589,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.594,
+     "bossHpLeftPct": 0.521,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8713,7 +10597,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.594,
+     "bossHpLeftPct": 0.521,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8723,7 +10607,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8731,7 +10615,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8739,7 +10623,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -8801,7 +10685,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8809,7 +10693,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8817,7 +10701,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8879,7 +10763,7 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8887,7 +10771,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8895,7 +10779,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -8933,7 +10817,7 @@
   "fights:Crowned Captain": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8941,7 +10825,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8949,7 +10833,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8959,33 +10843,33 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "candidate|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -8993,7 +10877,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9001,7 +10885,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9011,7 +10895,7 @@
    ],
    "captured|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9019,7 +10903,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9027,7 +10911,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9037,33 +10921,33 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "captured|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9071,7 +10955,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9079,7 +10963,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9089,7 +10973,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9097,7 +10981,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9105,7 +10989,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.978,
+     "bossHpLeftPct": 0.969,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9115,33 +10999,33 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.917,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 4,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9149,7 +11033,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9157,7 +11041,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.984,
+     "bossHpLeftPct": 0.979,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9169,7 +11053,7 @@
   "fights:Deck Warden": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.492,
+     "bossHpLeftPct": 0.401,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9177,7 +11061,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.492,
+     "bossHpLeftPct": 0.401,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9185,7 +11069,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.492,
+     "bossHpLeftPct": 0.401,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -9195,7 +11079,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9203,7 +11087,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9211,7 +11095,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9221,7 +11105,7 @@
    ],
    "candidate|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9229,7 +11113,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9237,7 +11121,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9273,7 +11157,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9281,7 +11165,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9289,7 +11173,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9325,7 +11209,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9333,7 +11217,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9341,7 +11225,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9351,33 +11235,33 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.857,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.857,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.857,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9385,7 +11269,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9393,7 +11277,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9431,7 +11315,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.939,
+     "bossHpLeftPct": 0.915,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9439,7 +11323,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.939,
+     "bossHpLeftPct": 0.915,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9447,7 +11331,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.939,
+     "bossHpLeftPct": 0.915,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9509,7 +11393,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.923,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9517,7 +11401,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.923,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9525,7 +11409,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.923,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9561,7 +11445,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.856,
+     "bossHpLeftPct": 0.796,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9569,7 +11453,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.856,
+     "bossHpLeftPct": 0.796,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9577,7 +11461,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.856,
+     "bossHpLeftPct": 0.796,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9587,7 +11471,7 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9595,7 +11479,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9603,7 +11487,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9613,26 +11497,26 @@
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 1,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 1,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 1,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 3,
      "winner": "boss"
     }
@@ -9641,7 +11525,7 @@
   "fights:Oathkeeper": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9649,7 +11533,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9657,7 +11541,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9667,7 +11551,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9675,7 +11559,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9683,7 +11567,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.892,
+     "bossHpLeftPct": 0.873,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9745,7 +11629,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9753,7 +11637,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9761,7 +11645,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9797,7 +11681,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9805,7 +11689,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9813,7 +11697,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.742,
+     "bossHpLeftPct": 0.696,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9823,7 +11707,7 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9831,7 +11715,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9839,7 +11723,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.945,
+     "bossHpLeftPct": 0.936,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -9849,7 +11733,7 @@
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9857,7 +11741,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9865,7 +11749,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.941,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -9905,7 +11789,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 1,
      "winner": "player"
@@ -9913,7 +11797,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 2,
      "winner": "player"
@@ -9921,7 +11805,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 3,
      "winner": "player"
@@ -9931,26 +11815,26 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 1,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 2,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 3,
-     "winner": "none"
+     "winner": "player"
     }
    ],
    "captured|jonin-cap/buffer": [
@@ -9983,7 +11867,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 1,
      "winner": "player"
@@ -9991,7 +11875,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 2,
      "winner": "player"
@@ -9999,7 +11883,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 3,
      "winner": "player"
@@ -10009,26 +11893,26 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 1,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 2,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 3,
-     "winner": "none"
+     "winner": "player"
     }
    ],
    "kitOnly|jonin-cap/buffer": [
@@ -10061,7 +11945,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 1,
      "winner": "player"
@@ -10069,7 +11953,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 2,
      "winner": "player"
@@ -10077,7 +11961,7 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0.37,
+     "playerHpLeftPct": 0.601,
      "rounds": 3,
      "seed": 3,
      "winner": "player"
@@ -10087,26 +11971,26 @@
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 1,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 2,
-     "winner": "none"
+     "winner": "player"
     },
     {
      "bossHpLeftPct": 0,
      "exhausted": false,
-     "playerHpLeftPct": 0,
+     "playerHpLeftPct": 0.382,
      "rounds": 3,
      "seed": 3,
-     "winner": "none"
+     "winner": "player"
     }
    ]
   },
@@ -10139,7 +12023,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10147,7 +12031,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10155,7 +12039,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10217,7 +12101,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10225,7 +12109,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10233,7 +12117,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.969,
+     "bossHpLeftPct": 0.957,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10269,7 +12153,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.884,
+     "bossHpLeftPct": 0.825,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10277,7 +12161,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.884,
+     "bossHpLeftPct": 0.825,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10285,7 +12169,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.884,
+     "bossHpLeftPct": 0.825,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10295,7 +12179,7 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.959,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10303,7 +12187,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.959,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10311,7 +12195,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.959,
+     "bossHpLeftPct": 0.933,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10321,7 +12205,7 @@
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.994,
+     "bossHpLeftPct": 0.983,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10329,7 +12213,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.994,
+     "bossHpLeftPct": 0.983,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10337,7 +12221,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.994,
+     "bossHpLeftPct": 0.983,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10349,7 +12233,7 @@
   "fights:The Captain": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10357,7 +12241,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10365,7 +12249,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10375,59 +12259,59 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "candidate|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "captured|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10435,7 +12319,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10443,7 +12327,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10453,59 +12337,59 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "captured|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10513,7 +12397,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10521,7 +12405,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.406,
+     "bossHpLeftPct": 0.162,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 10,
@@ -10531,52 +12415,52 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.836,
+     "bossHpLeftPct": 0.52,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 5,
+     "rounds": 10,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.944,
+     "bossHpLeftPct": 0.88,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 3,
+     "rounds": 5,
      "seed": 3,
      "winner": "boss"
     }
@@ -10585,7 +12469,7 @@
   "fights:Wayfinder": {
    "candidate|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.661,
+     "bossHpLeftPct": 0.601,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10593,7 +12477,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.661,
+     "bossHpLeftPct": 0.601,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10601,7 +12485,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.661,
+     "bossHpLeftPct": 0.601,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10611,7 +12495,7 @@
    ],
    "candidate|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.91,
+     "bossHpLeftPct": 0.894,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10619,7 +12503,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.91,
+     "bossHpLeftPct": 0.894,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10627,7 +12511,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.91,
+     "bossHpLeftPct": 0.894,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10637,7 +12521,7 @@
    ],
    "candidate|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10645,7 +12529,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10653,7 +12537,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.961,
+     "bossHpLeftPct": 0.955,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10689,7 +12573,7 @@
    ],
    "captured|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10697,7 +12581,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10705,7 +12589,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.946,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 1,
@@ -10741,7 +12625,7 @@
    ],
    "kitOnly|jonin-cap/buffer": [
     {
-     "bossHpLeftPct": 0.524,
+     "bossHpLeftPct": 0.439,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10749,7 +12633,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.524,
+     "bossHpLeftPct": 0.439,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10757,7 +12641,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.524,
+     "bossHpLeftPct": 0.439,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 3,
@@ -10767,33 +12651,33 @@
    ],
    "kitOnly|jonin-cap/striker": [
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 1,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 2,
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.954,
+     "bossHpLeftPct": 0.881,
      "exhausted": false,
      "playerHpLeftPct": 0,
-     "rounds": 1,
+     "rounds": 2,
      "seed": 3,
      "winner": "boss"
     }
    ],
    "kitOnly|jonin-half/moderate": [
     {
-     "bossHpLeftPct": 0.951,
+     "bossHpLeftPct": 0.944,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10801,7 +12685,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.951,
+     "bossHpLeftPct": 0.944,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10809,7 +12693,7 @@
      "winner": "boss"
     },
     {
-     "bossHpLeftPct": 0.951,
+     "bossHpLeftPct": 0.944,
      "exhausted": false,
      "playerHpLeftPct": 0,
      "rounds": 2,
@@ -10830,7 +12714,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10847,7 +12731,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10864,7 +12748,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10881,7 +12765,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10898,7 +12782,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10915,7 +12799,7 @@
      "7:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7642.477,
+    "dummyDamage": 3926.579,
     "exhausted": false,
     "explosionRound": 7,
     "idleTimeouts": 0,
@@ -10956,7 +12840,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -10969,7 +12853,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -10982,7 +12866,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -10995,7 +12879,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -11008,7 +12892,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
@@ -11021,7 +12905,7 @@
      "3:Explosion!:100->0"
     ],
     "apSpent": 100,
-    "dummyDamage": 7915.371,
+    "dummyDamage": 4675.969,
     "exhausted": false,
     "explosionRound": 3,
     "idleTimeouts": 0,
