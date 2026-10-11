@@ -619,3 +619,25 @@ The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTarget
 
 **Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the approved selection. `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored before/after text and preservation evidence; its `.md` companion supports review. The full roadmap, retheme design and Stage 2 brief record the resulting scope and comparator gates.
 
+---
+
+## RUL-2026-10-11-003 — Accept hybrid kits as the Stage 2 test baseline
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass combat membership and offline validation
+
+**Status:** ACTIVE; membership and substitution direction accepted for offline tests. Final rule behavior and measured balance remain pending.
+
+**Supersedes:** pending kit-selection approval in RUL-2026-10-11-001/002 and the corresponding proposal status in `state/ghost_ship_hybrid_kit_proposal.json`. The historical wholesale shared-pool migration remains superseded.
+
+**Ruling:** dauntless approved the complete hybrid-kit direction presented at `89fa921c839a9830fd66bb64aa267c470e8dd678` and requested the next task. Accept all eleven existing-enemy memberships, shared substitutions and consolidations in that packet as the baseline for Fable's offline tests: 65 equipped memberships, eleven retained legacy IDs and eighteen shared IDs. Preserve every original retained/shared membership. Sentinel's new Rigging Snare and Hollow Timber assignments are explicitly accepted, including disclosed element/range/cooldown differences. First Blade's EL04 Ion Lance replacement and its disclosed Lightning/power/cadence differences are accepted. Shared ordinary-attack and stance potency/cooldown differences are accepted for testing without an equal-difficulty claim.
+
+**Captain comparator:** Preserve the regular Captain's five captured moves: Unbroken Command, Remembered Form, Keelbind, B14 Cataclysm Detonation and B17 Worldbreaker Chorus. Crowned Captain keeps eleven moves with Sharpened Focus replaced by EA03 Windlash Focus. The six-move all-shared regular-Captain comparator is not operative. Preserve full numeric profiles and innate effects; do not add filler or silently tune retained records.
+
+**Still open:** Fable's exact AI rules and measured parity; any test-driven adjustment; whether Crowned Captain should actively rotate its equipped but unselected heal/copy/reflect support; final presentation acceptance. The approval does not authorize those behavior changes, engine modifications, art changes, live requests/writes, publication or a full implementation manifest. Sealwright's seven moves and deliberate double Clear, item contracts and quest/reward structure remain unchanged.
+
+**Next task and ownership:** Fable performs the already-authorized offline Stage 2 technical work on a separate owned branch and returns a frozen exact-SHA report/tests for independent review. ChatGPT records the acceptance and prepares the concrete handoff; the director retains final balance and release authority.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.json` / `.md` own the accepted kit baseline under their stable historical filenames. `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` remains the exact test brief; `state/prompt_ghost_ship_skyglass_stage2_start.md` supplies the acceptance and delivery handoff.
+

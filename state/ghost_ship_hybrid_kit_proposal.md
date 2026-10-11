@@ -1,14 +1,16 @@
-# Ghost Ship / Skyglass — hybrid jutsu kit proposal
+# Ghost Ship / Skyglass — accepted hybrid jutsu test baseline
 
-**Status:** PROPOSED for director acceptance; not a combat freeze, AI rule array or Forge manifest. The eleven retained legacy records are already approved under `RUL-2026-10-11-002`; the substitutions, consolidations and two new Sentinel memberships below are new recommendations. Their converted names are used for readability; this does not silently accept the separate final wording.
+**Status:** DIRECTOR-ACCEPTED KIT BASELINE FOR OFFLINE TESTS under `RUL-2026-10-11-003`, accepting proposal commit `89fa921c839a9830fd66bb64aa267c470e8dd678`. All eleven memberships, substitutions, consolidations and both Sentinel assignments are accepted. Final rule order, measured balance/parity and activation of dormant Crowned support remain open. This is not a combat freeze or Forge manifest. Converted names are used for readability; final presentation acceptance remains separate.
+
+The historical filenames and JSON keys containing `proposal`/`proposed` are retained for stable references; their kit contents are now accepted by the ruling above.
 
 **Owner:** ChatGPT designs/reviews; Fable implements offline tests and, after freeze, the manifest. Director owns balance and final acceptance. No live-game requests/writes.
 
-## Recommendation
+## Accepted kit direction
 
 Keep all five regular-Captain moves and ten of eleven Crowned-Captain moves. Replace redundant crew moves with existing shared records, keeping separate defensive/offensive stances. Reuse two approved retained techniques on Sentinel where global alternatives would introduce a stun or remove Health drain. Do not introduce new Clear, time-compression or pull mechanics merely because the superseded migration selected them.
 
-| Enemy | Captured → proposed count | Proposed kit (not priority order) |
+| Enemy | Captured → accepted count | Accepted kit (not priority order) |
 | --- | ---: | --- |
 | Deck Warden | 8 → 7 | S02 Quick Strike; EW01 Tide Bolt; S07 Rapid Fire; S08 Numbing Shot; EE03 Stoneward; EW03 Springguard; EA03 Windlash Focus |
 | Seal Charge | 1 → 1 | Core Rupture |
@@ -22,12 +24,12 @@ Keep all five regular-Captain moves and ten of eleven Crowned-Captain moves. Rep
 | The Captain | 5 → 5 | Unbroken Command; Remembered Form; Keelbind; B14 Cataclysm Detonation; B17 Worldbreaker Chorus |
 | Crowned Captain | 11 → 11 | Unbroken Command; Suppression Writ; Final Command; Keelbind; Ruin Refrain; Rebounding Form; EA03 Windlash Focus; S31 Unraveling Strike; B14 Cataclysm Detonation; S35 Second Wind; B07 Stolen Form |
 
-This proposal uses **11 retained legacy IDs and 18 shared IDs**, with **75 → 65 equipped memberships** across the eleven AIs. All original retained and already-shared memberships survive. The other 26 legacy IDs become candidates for removal from these kits, not database deletion.
+The accepted baseline uses **11 retained legacy IDs and 18 shared IDs**, with **75 → 65 equipped memberships** across the eleven AIs. All original retained and already-shared memberships survive. The other 26 legacy IDs become candidates for removal from these kits, not database deletion.
 
-## Material choices for the director
+## Accepted tradeoffs and remaining behavior decision
 
-1. **Sentinel shares Rigging Snare and Hollow Timber.** These are two new equipped memberships, explicitly proposed. Grasp of the Buried → Rigging Snare changes only the attack element from Sand to untyped among combat fields; Damage100, root1r, AP60/CD2/range4 remain. Sand-Choke → Hollow Timber keeps Damage100 and static250 drain from Health/Chakra/Stamina for2r, but changes Sand→Wood, range4→3 and CD3→2. No retained record is edited. This is closer to its original role than EE02 (adds guaranteed20AP stun, lengthens root and cooldown) and B15 (loses Health drain and changes potency/cadence). If reuse is rejected, reopen Sentinel rather than silently choosing those mismatches.
-2. **First Blade uses EL04 Ion Lance for pure Pierce.** Vault-Breaker is untyped Pierce100/CD3/range3; EL04 is Lightning Pierce60/CD6/range5. AP60 remains. No exact untyped pure-Pierce action exists in the reviewed global set; EA04 is Wind, and B33 adds IDT as well as Lightning. Recommend EL04 with the element/power/cadence change made explicit. Its AI primary/secondary elements remain unchanged.
+1. **Sentinel shares Rigging Snare and Hollow Timber.** These are two new equipped memberships, explicitly accepted. Grasp of the Buried → Rigging Snare changes only the attack element from Sand to untyped among combat fields; Damage100, root1r, AP60/CD2/range4 remain. Sand-Choke → Hollow Timber keeps Damage100 and static250 drain from Health/Chakra/Stamina for2r, but changes Sand→Wood, range4→3 and CD3→2. No retained record is edited. This is closer to its original role than EE02 (adds guaranteed20AP stun, lengthens root and cooldown) and B15 (loses Health drain and changes potency/cadence). Do not silently substitute those mismatched alternatives.
+2. **First Blade uses EL04 Ion Lance for pure Pierce.** Vault-Breaker is untyped Pierce100/CD3/range3; EL04 is Lightning Pierce60/CD6/range5. AP60 remains. No exact untyped pure-Pierce action exists in the reviewed global set; EA04 is Wind, and B33 adds IDT as well as Lightning. EL04 is accepted with those element/power/cadence changes. Its AI primary/secondary elements remain unchanged.
 3. **Shared substitutes reduce ordinary power and alter cadence.** Most retired attacks have100EP; selected shared ordinary attacks have40–60EP. Guarded/Braced/Sharpened stances go30/35/30%→20/20/20%, with CD5→4 and2r preserved. First Blade Undertow loses40→10AP reduction; Thunderhead IDT20→15%. Fewer redundant attacks also means less cooldown coverage. These are not promises of equal fight difficulty.
 4. **Crowned support behavior stays unresolved.** S35 Second Wind, B07 Stolen Form and Counter Stance/Rebounding Form are equipped in the capture but not explicitly selected by its authored rules. Keeping them equipped does not authorize silently activating a heal/copy/reflect rotation. Test captured behavior as baseline and separately present any activation proposal with measured consequences.
 5. **Keep Wayfinder as ranged pressure for this migration.** The captured Redrawn Course has incomplete `increasecooldown` fields, with no proven active cooldown rider. Do not call pure Time Compression B08 an equivalent replacement. Adding real temporal control later is a separate design choice.
@@ -38,7 +40,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Deck Warden
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Knotted Lash | Replace / consolidate into EW01 Tide Bolt |
@@ -51,19 +53,19 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Seal Charge
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Explosion! | Retain as Core Rupture |
 
 ### Core Canister
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Explosion! | Retain as Core Rupture |
 
 ### Core Horror
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Rigging Snare | Retain as Rigging Snare |
@@ -76,7 +78,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Oathkeeper
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Grapeshot Volley | Replace / consolidate into S07 Rapid Fire |
@@ -89,7 +91,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Wayfinder
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Grapeshot Volley | Replace / consolidate into S07 Rapid Fire |
@@ -102,7 +104,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Arsenal Keeper
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Powder Flash | Replace / consolidate into S08 Numbing Shot |
@@ -115,7 +117,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Sentinel
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Light Barrier | Keep B39 Light Barrier |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
@@ -129,7 +131,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### First Blade
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Guarded Stance | Replace / consolidate into EE03 Stoneward |
 | Ghostly Undertow Chain | Replace / consolidate into S08 Numbing Shot |
@@ -142,7 +144,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### The Captain
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Death's Door | Retain as Unbroken Command |
 | Worldbreaker Chorus | Keep B17 Worldbreaker Chorus |
@@ -152,7 +154,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ### Crowned Captain
 
-| Captured move | Proposed disposition |
+| Captured move | Accepted disposition |
 | --- | --- |
 | Death's Door | Retain as Unbroken Command |
 | Unraveling Strike | Keep S31 Unraveling Strike |
@@ -169,7 +171,7 @@ Each captured equipped record appears once below. Repeated destinations mean con
 ## Source and numerical interpretation
 
 - Original full AI kits: `harvests/inbox/tnr_results_1790826836406.json`; profiles: `harvests/inbox/tnr_results_1790828718767.json`. Both are historical October1 evidence. Shared references resolve by pool code against all 82 full October9 records in `harvests/inbox/tnr_results_1791583362574.json`, not only the registry shorthand.
-- Each proposal entity carries exact AI/profile pointers and hashes; every original membership has an explicit disposition. Each selected shared record has an ID, full-record pointer/hash and AP/CD/range/method summary. No new jutsu fields or effects arrays are authored.
+- Each entity carries exact AI/profile pointers and hashes; every original membership has an explicit disposition. Each selected shared record has an ID, full-record pointer/hash and AP/CD/range/method summary. No new jutsu fields or effects arrays are authored.
 - Preserve raw stats, pool bases, rank, level, multipliers, regeneration, preferences, AI elements and all innate effect arrays. The crew often carry several large innate IDG entries, including duplicate99r entries and shorter entries. Do not deduplicate them or use an EP ratio as measured final-damage parity.
 - EE03/EW03/EA03 names do not create elemental restrictions: their full stance effects have none. Standard S01/S02/S03/S04/S06/S07/S08 damage records omit `generalTypes`; do not normalize it. Their captured chakra/stamina costs remain0.05 each; selected elemental attacks/stances have their own captured costs, often zero. Read full records for all filters and defaults.
 - S06 and S07 each contain one Damage tag despite their names. S08 is30% Stun application with10AP reduction for1r, not30AP. B39 has a500-health Shield tag for2r; its power100 is not its shield-health amount.
@@ -179,9 +181,9 @@ Each captured equipped record appears once below. Repeated destinations mean con
 
 ## Regular Captain comparator and Fable test handoff
 
-The proposed regular-Captain membership is exactly its captured five: Unbroken Command, Remembered Form, Keelbind, B14 Cataclysm Detonation and B17 Worldbreaker Chorus. Keep Level100/JONIN, stats3×, pools2.5×, regeneration60, Bukijutsu/Speed/Strength preferences, null primary/secondary elements and its complete innate effect array. AI Heavy Armor and Cursed Dagger were equipped:NONE; do not include their combat effects without fresh evidence. The old six-move B19/B14/B17/B05/S31/B33 comparator is superseded.
+The accepted regular-Captain membership is exactly its captured five: Unbroken Command, Remembered Form, Keelbind, B14 Cataclysm Detonation and B17 Worldbreaker Chorus. Keep Level100/JONIN, stats3×, pools2.5×, regeneration60, Bukijutsu/Speed/Strength preferences, null primary/secondary elements and its complete innate effect array. AI Heavy Armor and Cursed Dagger were equipped:NONE; do not include their combat effects without fresh evidence. The old six-move B19/B14/B17/B05/S31/B33 comparator is superseded.
 
-After director kit acceptance, Fable should add these checks to work packageA of `state/prompt_ghost_ship_skyglass_stage2_feasibility.md`:
+With kit acceptance recorded, Fable must apply these checks to work packageA of `state/prompt_ghost_ship_skyglass_stage2_feasibility.md`:
 
 1. Resolve every selected code/ID to the cited full record. Preserve the eleven retained mechanical records, all original retained/shared memberships and the two explicitly accepted Sentinel additions; never substitute by a similar name.
 2. Run both the captured profile baseline and candidate rebuilt rules against the same declared player fixtures. Separate changes caused by membership, corrected range gates, rule priority and newly activated support. Do not call equipped membership a working rotation.
@@ -196,6 +198,6 @@ Fable owns rule construction and in-process tests on a separate branch. This pac
 
 ## Verification boundary
 
-Offline referential checks cover eleven AIs, every historical equipped membership, all eleven retained IDs, all six already-shared IDs, and every selected full pool record. All original retained/shared memberships are preserved; the only new retained memberships are the two proposed Sentinel additions. No duplicate IDs within a proposed kit. This is design/source verification only: no combat execution, runtime validation, live request/write or final rule freeze.
+Offline referential checks cover eleven AIs, every historical equipped membership, all eleven retained IDs, all six already-shared IDs, and every selected full pool record. All original retained/shared memberships are preserved; the only new retained memberships are the two accepted Sentinel additions. No duplicate IDs within an accepted kit. This is design/source verification only: no combat execution, runtime validation, live request/write or final rule freeze.
 
 Independent read-only review repeated the source/hash, membership, baseline and presence-sensitive drift checks and found no blocking mapping or preservation defects. This PASS is limited to the proposal's references and stated preservation; it does not approve balance, AI behavior or combat parity.
