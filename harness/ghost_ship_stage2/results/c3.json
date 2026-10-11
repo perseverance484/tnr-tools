@@ -1,0 +1,51 @@
+{
+ "assertions": 1,
+ "checks": [
+  {
+   "detail": {
+    "fullWeaponRecords": 3
+   },
+   "name": "no qualifying full Legendary Sword baseline is committed → C3 BLOCKED",
+   "pass": true
+  }
+ ],
+ "data": {
+  "scan": {
+   "filesScanned": 81,
+   "fullWeaponRecords": [
+    {
+     "file": "harvests/inbox/tnr_results_1788235198666.json",
+     "id": "1GmiQAGuBZZsjIFqcqPkR",
+     "name": "Flaming Sword",
+     "path": "/captures/8/data/items/0/item",
+     "rarity": "EPIC",
+     "weaponType": "SWORD"
+    },
+    {
+     "file": "harvests/inbox/tnr_results_1789271613950.json",
+     "id": "idCKDhuRO7HjcECKakxhu",
+     "name": "Barrage of 1000 Demons",
+     "path": "/captures/16/data/items/0/item",
+     "rarity": "LEGENDARY",
+     "weaponType": "NONE"
+    },
+    {
+     "file": "harvests/inbox/tnr_results_1790826836406.json",
+     "id": "MskL9ctwDbnkfmSK8j0-X",
+     "name": "Cursed Dagger",
+     "path": "/captures/10/data/items/3/item",
+     "rarity": "COMMON",
+     "weaponType": "DAGGER"
+    }
+   ],
+   "legendarySwords": []
+  },
+  "status": "BLOCKED",
+  "unblockRequires": [
+   "operator-run read-only item.get full capture of a LEGENDARY WEAPON/SWORD (first suggestion Night's Testament osJq3k77YPGoFWgof12FQ; its SWORD typing is unverified)",
+   "director acceptance of the exact AP, cooldown, pool/health costs and reducers, range/target/method, slot, durability, requirements and economy fields"
+  ]
+ },
+ "failed": 0,
+ "gate": "C3"
+}

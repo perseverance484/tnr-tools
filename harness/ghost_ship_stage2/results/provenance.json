@@ -1,0 +1,34 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "packageJsonSha256": "ebc24a6fefbb00783c12749cc4bcf90f8463943c0282008acf3d236ad1b05bbd"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "uname": "Linux 6.18.44-fc-v114"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "database": "none (TEST_MYSQL_URL unset)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials"
+ },
+ "harnessFileSha256": {
+  "engine/a1_kits.test.ts": "4a314b6a43f058e01c99aad3eb0c841681ed42ad86842665adf0f93f48309ae5",
+  "engine/a2_sealwright.test.ts": "f2ed2b9c3532a3c8fb0cfec9157b24cc8f6d3bc919f6eda26cd9bf7ef302684e",
+  "engine/b_crystal.test.ts": "f6f12fb155cb3124b304a33f57de1f462d7c23676a0da97a08ce7002c93b16ec",
+  "engine/c_katana.test.ts": "60310efe9e54fdbad4c9b2715aea254c1d6a5da4e78f23f69571d60e253bc6fa",
+  "engine/lib/fixtures.ts": "2ec479aab5b6f747f6194b15bcd9bcb6860c9efe9dea9cf6e619d958cf21b9ad",
+  "engine/lib/itembattle.ts": "36d39886fbf771892683223df2dc0f6f6e89af848d200c88b79b0dbd82855706",
+  "engine/lib/items.ts": "217676ed978414a0ad7f97170f7465e9ad0dd44c55994e71652f019a51b85352",
+  "engine/lib/report.ts": "939e95465fb56b21f0b5ff18b3ac8e6cd9a0ef6166ac25d458ce6a3698a686c3",
+  "engine/lib/sim.ts": "97896eadfd5282bc8c925c250e8bcf40ccb6b83523beda9cabd572d659ac150e",
+  "m0_verify.py": "5d1d1aa5e2af7f358f3727b2c33f323986ac4d7eb0dec75d2f2dcf0d783ef5e5",
+  "run.sh": "5130fd597a97ad8894d5b905bb6a2a8670d0e1f871ab711f3c87b7e174ee62ce"
+ },
+ "bunTestExitStatus": 0
+}

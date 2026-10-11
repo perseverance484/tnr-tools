@@ -1,0 +1,398 @@
+{
+ "assertions": 9,
+ "checks": [
+  {
+   "detail": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "name": "eligible imbuable WEAPON passes every guard (stops at first trapped write)",
+   "pass": true
+  },
+  {
+   "name": "Katana carrier (canBeImbued:false) rejected",
+   "pass": true
+  },
+  {
+   "name": "non-WEAPON recipient rejected by crystalTargetTypes",
+   "pass": true
+  },
+  {
+   "name": "duplicate crystal ID rejected",
+   "pass": true
+  },
+  {
+   "name": "non-CRAFTING occupations rejected (none/GATHERING/HUNTING)",
+   "pass": true
+  },
+  {
+   "name": "equipped recipient rejected",
+   "pass": true
+  },
+  {
+   "detail": {
+    "occupation_CRAFTING": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_GATHERING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_HUNTING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_null": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_LEGENDARY": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_RARE": {
+     "message": "You need to be at least Apprentice rank to craft RARE items",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "name": "craftItem requires current CRAFTING occupation",
+   "pass": true
+  },
+  {
+   "name": "Novice has zero imbuement slots",
+   "pass": true
+  },
+  {
+   "detail": {
+    "f": [
+     "damage",
+     "afterburn"
+    ],
+    "k": [
+     "pierce",
+     "immunity",
+     "consume"
+    ]
+   },
+   "name": "legacy crystal effects dropped for canBeImbued:false items at assembly",
+   "pass": true
+  }
+ ],
+ "data": {
+  "battleSuppression": {
+   "flamingSwordEffects": [
+    "damage",
+    "afterburn"
+   ],
+   "katanaEffects": [
+    "pierce",
+    "immunity",
+    "consume"
+   ]
+  },
+  "craftItemGuards": {
+   "cases": {
+    "occupation_CRAFTING": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_GATHERING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_HUNTING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_null": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_LEGENDARY": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_RARE": {
+     "message": "You need to be at least Apprentice rank to craft RARE items",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "note": "12 Filaments per Crystal used as the requirement carrier; inventory empty so eligible ranks stop at the material check"
+  },
+  "imbueItemGuards": {
+   "armorRecipient": {
+    "message": "This crystal can only be applied to WEAPON items",
+    "outcome": "response",
+    "success": false
+   },
+   "capturedFlamingSwordNonImbuable": {
+    "message": "This item cannot be imbued",
+    "outcome": "response",
+    "success": false
+   },
+   "duplicateCrystal": {
+    "message": "This item already has a Skyglass Crystal (harness hypothetical) imbuement",
+    "outcome": "response",
+    "success": false
+   },
+   "eligibleWeapon": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "equippedRecipient": {
+    "message": "You cannot imbue an equipped item",
+    "outcome": "response",
+    "success": false
+   },
+   "katanaNonImbuable": {
+    "message": "This item cannot be imbued",
+    "outcome": "response",
+    "success": false
+   },
+   "maxImbuementsReached": {
+    "message": "You have reached the maximum number of crystals for this item (1)",
+    "outcome": "response",
+    "success": false
+   },
+   "notACrystal": {
+    "message": "Selected item is not a crystal",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_GATHERING": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_HUNTING": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_null": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_EPIC": {
+    "message": "You need to be at least Apprentice rank to imbue EPIC crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_LEGENDARY": {
+    "message": "You need to be at least Master rank to imbue LEGENDARY crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_EPIC": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_LEGENDARY": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_MASTER_EPIC": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_MASTER_LEGENDARY": {
+    "message": "You need to be at least Master rank to imbue LEGENDARY crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_MASTER_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_NOVICE_EPIC": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_NOVICE_LEGENDARY": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_NOVICE_RARE": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   }
+  },
+  "rankRarityTable": [
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 0,
+    "maxImbuedPerItemRankLimit": 0,
+    "minExperience": 0,
+    "minutes": {
+     "COMMON": 60,
+     "EPIC": 0,
+     "LEGENDARY": 0,
+     "RARE": 0
+    },
+    "rank": "NOVICE"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 1,
+    "minExperience": 100000,
+    "minutes": {
+     "COMMON": 40,
+     "EPIC": 0,
+     "LEGENDARY": 0,
+     "RARE": 65
+    },
+    "rank": "APPRENTICE"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 2,
+    "minExperience": 300000,
+    "minutes": {
+     "COMMON": 30,
+     "EPIC": 70,
+     "LEGENDARY": 0,
+     "RARE": 50
+    },
+    "rank": "MASTER"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 3,
+    "minExperience": 600000,
+    "minutes": {
+     "COMMON": 15,
+     "EPIC": 60,
+     "LEGENDARY": 160,
+     "RARE": 30
+    },
+    "rank": "FORGEMASTER"
+   }
+  ]
+ },
+ "failed": 0,
+ "gate": "B3"
+}
