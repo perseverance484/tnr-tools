@@ -5,6 +5,8 @@
 **Lead:** Content Designer (ChatGPT); implementation: Fable / Claude Code after freeze; independent review: ChatGPT; all live-game requests/writes and publication: director/operator only.  
 **Outcome:** one complete reproducible Ghost Ship release, with the two existing profession quests, six endings each, Skyglass retheme + expanded exploration, shared AI-pool migration, accepted art, and new reward loops. A combined Forge manifest is technically feasible; execution staging and cutover must be chosen separately.
 
+**2026-10-11 independent readiness checkpoint:** `docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_READINESS_2026-10-11.md`. Stage 2 remains pending. Source review confirms the Crystal validator blocker and Katana source feasibility, identifies the missing full Legendary Sword capture, and specifies B32 ALL-method and migrated-Captain/innate-effect test requirements. This is review evidence, not in-process combat validation or a new ruling. The existing Stage 2 brief remains the governing offline test contract.
+
 ## Source/evidence hierarchy
 
 - `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md`, `docs/RULINGS.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`.
@@ -40,7 +42,7 @@ Two existing quests, as recorded in the older October 1 captures:
 
 - Original fiction: airborne forbidden shinobi warship supported by a Skyglass Core/seal lattice; reconstructed chakra impressions, not undead; crew memory tragedy; original nine-beat reveal; Crowned Captain alone carries deepest terminated-mission failure truth.
 - Preserve 11 captured existing AI IDs and approved shared-pool combat roles; add **Sealwright** as the one new secret-route Captain-tier boss after combat design freeze. New shared `Core Rupture` for Seal Charge/Core Canister as approved if not already present. Unequip but do not delete retiring 37 legacy-only jutsu.
-- Two quest records keep their IDs and profession-specific reward fields/coordinates except expressly approved changes. Expand current graph (rough design estimate ~75–85 nodes per quest; count is not locked). Six endings, with any secret-route choice cutting off other endings.
+- Two quest records keep their IDs and profession-specific reward fields/coordinates except expressly approved changes. The approved graph is exactly **83 objectives per quest** (57 preserved + 26 additions, with 12 original forward-edge rewires). Six endings, with the secret archive route terminating exclusively at its own ending.
 - Model B: exterior keel traversal, reconstruction chamber, quarantined archive/Sealwright secret branch, command observation gallery, deeper Wayfinder/Arsenal Keeper/First Blade interactions, visible failure-feedback dialogs, stronger Captain escalation.
 - `Skyglass Serum` is the director-approved restorative rename; stale `Stillwater Tonic` prose in original patch is superseded.
 - Existing Crown: `Fragment of the Skyglass Crown` = **20% Crowned Captain AI loot only**; remove the 10% `w_Co` quest roll; five fragments craft `The Skyglass Crown`; no direct Crown drop; no change to confirmed Crown mechanics; clear erroneous Captain equipment drops and the Diadem attachment.
