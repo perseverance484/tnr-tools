@@ -491,3 +491,19 @@ The effect intent maps to `damage` (raw power 30), `shield` (`health:300`, `roun
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` is the operative design/reward record; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` governs task/release sequencing. Item effect schemas and engine behavior remain owned by generated contracts/pinned source, not this ruling.
 
+---
+
+## RUL-2026-10-10-003 — Ghost Ship Skyglass Expedition 83-node structure approved
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project / expanded quest structure  
+**Status:** ACTIVE (structural approval; prose, combat, art and build not frozen)  
+**Supersedes:** the preserve-57-nodes / preserve-all-original-edges constraint in the base Ghost Ship retheme patch for expansion planning only; no earlier RUL ID is changed.
+
+**Ruling:** The director APPROVED **Model B: Skyglass Expedition** as represented by the six-ending **83-objective design** in `state/ghost_ship_skyglass_expansion_design.md` and `state/ghost_ship_skyglass_graph_patch.json`, both at the design-branch freeze candidate `7ac886b845b88e76a9fd7206ce0e025d2cfce230`. Both existing Gather/Hunt quests preserve all 57 original objective IDs and five established endings, rewire 12 original forward paths, and introduce 26 nodes including a **mutually exclusive sixth `w_secret` ending** that guarantees one Skyglass Reliquary. The newly added route proceeds via hull infiltration, Core Horror, optional reconstruction/chamber investigation, the fixed quarantine-seal puzzle, the Quarantined Archive, and the new **Sealwright** elite encounter.
+
+Wrong quarantine-seal answers **close the secret route for that quest run**, returning the player to the normal adventure rather than failing the quest; the correct answer reaches the archive. The Oathkeeper `Time` solution retains the short **two-battle Crowned Captain farming route** with optional, bypassable lore. The extra crew-history dialogs, ordinary-Captain gallery/aftermath, visible shore-puzzle feedback, and preserved nine-beat Skyglass reveal are part of the accepted structural shape. No additional battle is mandatory on the oathbound route. New combat balancing, final dialogue wording, item mechanics, art, and user-run execution remain separate approvals.
+
+**Rationale:** Expands the airborne ship's exploration, investigation and rewards without discarding working quest IDs, making the Crown farm slower, or creating a generic new series of battles. The graph's offline structural checks passed for both October 1 profession captures, but do not establish full manifest validity or current live state.
+
+**Canonical destination:** `state/ghost_ship_skyglass_expansion_design.md` is the expanded content-design owner and `state/ghost_ship_skyglass_graph_patch.json` its machine-readable structural proposal; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` coordinates the next content/combat/art tasks. Original `state/ghost_ship_retheme_patch.json` remains the authority for unchanged base retheme text and identities. Schemas, engine laws, captures, and live state retain independent authority.
