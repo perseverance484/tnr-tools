@@ -11,6 +11,7 @@
 - `state/ghost_ship_skyglass_reward_decisions.md` — operative 2026-10-10 director-approved Katana/Crystal numerical design and current hidden-state report; unresolved engine mappings kept explicit.
 - `state/ghost_ship_skyglass_expansion_design.md` — **Stage 1 STRUCTURE APPROVED** for the 83-node six-ending quest (RUL-2026-10-10-003); new dialogue and choice prose remain draft.
 - `state/ghost_ship_skyglass_graph_patch.json` — machine-readable **STRUCTURE APPROVED / PROSE DRAFT** patch containing 26 new nodes, 12 original forward-edge rewires, four new scene symbols and one Sealwright AI symbol. Not a Forge manifest.
+- `state/ghost_ship_skyglass_sealwright_combat_draft.md` — **Stage 2 proposal** for Sealwright as a shared-pool containment elite. Six-code kit and relative multipliers are still director-owned/unapproved; no implementation authority.
 - `state/ghost_ship_retheme_design.md` — Skyglass lore, reveal cadence, named entities, rewards (original preserve-57 scope is now superseded for the expansion only).
 - `state/ghost_ship_retheme_patch.json` — approved base 57-node text/identity/reward patch. Invariant to preserve all edges and count MUST be explicitly superseded by a versioned expansion; do not silently alter this base or treat it as the full release.
 - `state/ghost_ship_shared_pool_migration.json` — approved shared AI kits and Core Rupture concept; no revival of 29 bespoke legacy jutsu.
@@ -65,6 +66,10 @@ Forge `forge/src/runner/refs.mjs` at base already supports `@item:`, `@ai:`, `@s
 Stage 1 structure was **APPROVED by the director**, preserving the machine design proposal for prose refinement: `state/ghost_ship_skyglass_expansion_design.md` plus `state/ghost_ship_skyglass_graph_patch.json`. Both Gather and Hunt have been checked offline against the October 1 captured full objective graphs: **57 preserved nodes + 26 proposed additions = 83 nodes each**, **12 existing edge rewires**, **one root**, **all nodes reachable**, **six reachable endings**, **zero success/fail cycles**, **all 13 battle nodes dialog-gated**, and **no invented new map location tasks**. The secret route requires the hull/Core Horror and ends exclusively at `w_secret`; the direct Oathkeeper → Crowned Captain route still has two battles. The permanent original node IDs, AI opponent blocks, timed location mechanics, and original Gather/Hunt rewards are unchanged except where a later approved reward correction expressly applies.
 
 **Director-approved structure (RUL-2026-10-10-003):** 83-node scope and optional dialog branches; wrong archive seal choice closes the secret route only for the current quest run; Sealwright as quarantine custodian and exclusive secret-route elite; single Reliquary sixth ending; short two-battle oathbound Crown route. **Still open:** final wording of new dialogue/choice text, exact Sealwright shared-pool AI combat profile and tuning, item-engine gates, art intake, and fresh hidden-state capture. These block the full manifest, not the accepted route structure.
+
+## Stage 2 combat kickoff (draft; director approval required)
+
+A first Sealwright combat proposal is in `state/ghost_ship_skyglass_sealwright_combat_draft.md`, targeting a contained defensive/disruption encounter with **B22, S27, S32, S31, B33 and S41** from the existing shared AI pool. Relative multipliers **2.5x stats / 3.0x pools** and Level 100/JONIN are **proposed**, not approved. Do not translate this draft into an AI/quest manifest. The Stage 2 technical remainder still includes the Katana's source-verified Legendary cooldown/cost/AP baseline, the current three-tag in-process combat test, Crystal weapon-only Consume 30% compatibility, Crystal rarity/trading, and the current hidden-state operator capture.
 
 ## Roadmap / stage gates
 
