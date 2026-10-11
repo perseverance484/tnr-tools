@@ -1,5 +1,7 @@
 # Ghost Ship Skyglass Project — Stage 2 source-backed feasibility and parity brief
 
+**2026-10-11 combat-scope update — RUL-2026-10-11-001:** Preserve approximately twelve irreplaceable legacy jutsu, including Explosion and most awakened/Crowned Captain signatures, with presentation-only retheming. Read `state/ghost_ship_legacy_retention_review.md`. The exact retention roster and hybrid regular-Captain kit are not frozen. Any all-shared Captain comparator below is historical until reconciled with that selection; preliminary tests may be labeled as such, but final parity must use the accepted hybrid kit. Sealwright's seven jutsu and item packages B/C remain unchanged. No engine modification or full manifest is authorized.
+
 **Status:** READY FOR FABLE OFFLINE RESEARCH / TEST WORK ON SEPARATE OWNED BRANCH — **NOT** production-content authorization.  
 **Issued:** 2026-10-10  
 **Repository:** `perseverance484/tnr-tools`; baseline main `0eb57de20877d266dde666229ae4c68e8fbcf4c0` (recheck head).  

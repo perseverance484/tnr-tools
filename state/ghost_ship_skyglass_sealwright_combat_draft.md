@@ -1,5 +1,7 @@
 # Skyglass Project — Sealwright Encounter / Stage 2 Combat Draft
 
+**2026-10-11 comparator update:** `RUL-2026-10-11-001` preserves selected Ghost Ship legacy jutsu instead of wholesale shared-pool migration. See `state/ghost_ship_legacy_retention_review.md`. The regular Captain's final hybrid kit must be selected before parity is frozen; its all-shared kit references below are historical. Sealwright's own seven-jutsu identity and double-Clear design remain approved and unchanged.
+
 **Status:** DIRECTOR-ACCEPTED DOUBLE-CLEAR PLAYSTYLE / SEVEN EQUIPPED POOL JUTSU; proposed source-backed rule ordering and combat parity tests remain open. The director expressly wants the Sealwright to strip positive buffs continually with regular S31 Unraveling Strike, plus B32 Nullifying Wave as an above-70 IDG reserve. Treat their overlapping Clear effects as intentional, **never a deduplication defect**. No implementation manifest, no live-game actions.  
 **Baseline:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0`.  
 **Approved structural route:** `state/ghost_ship_skyglass_expansion_design.md` and `state/ghost_ship_skyglass_graph_patch.json` (RUL-2026-10-10-003).  

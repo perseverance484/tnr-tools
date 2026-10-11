@@ -580,3 +580,23 @@ The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTarget
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (operative item design), `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (release gates), and `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` (offline technical study). Schemas/source and fresh readbacks retain independent authority for mechanics/live state.
 
+---
+
+## RUL-2026-10-11-001 — Selectively preserve distinctive Ghost Ship legacy jutsu
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship combat identity and shared-pool migration
+
+**Status:** ACTIVE DIRECTION; exact retained roster and revised hybrid kits still require selection.
+
+**Supersedes:** wholesale replacement/retirement of all legacy-only Ghost Ship jutsu and the automatic new-record clone of Explosion in `state/ghost_ship_shared_pool_migration.json`. It does not change the approved quest graph, rewards/items or Sealwright's seven-jutsu identity.
+
+**Ruling:** Keep approximately twelve legacy jutsu that the shared global pool cannot genuinely replace, explicitly including Explosion and prioritizing most of the awakened/Crowned Captain's distinctive moves. Update retained jutsu names/descriptions for the Skyglass retheme while keeping their existing mechanics. Replace redundant jutsu with genuinely suitable shared-pool techniques. Do not equate matching effect labels with equivalent AP economy, target scope, control duration or behavior.
+
+**Not yet decided:** the exact roster/count, final names/descriptions, per-enemy hybrid kits and rule order, or any mechanical repair. The eleven-record review is a recommendation, not a newly approved roster. Removal from Ghost Ship kits is not proof that a record has no other consumers; database deletion remains dependency-gated.
+
+**Consequence:** the regular-Captain comparison kit used for Sealwright parity must be reconciled with the retained legacy selection before it is frozen. Katana/Crystal feasibility work and Sealwright's approved seven moves remain in scope unchanged.
+
+**Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the new retention policy and candidate comparison; `state/ghost_ship_shared_pool_migration.json` is explicitly marked superseded for final kit selection; the Stage 2 brief and full roadmap point at this gate.
+

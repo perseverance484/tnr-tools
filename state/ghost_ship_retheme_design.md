@@ -1,5 +1,7 @@
 # Ghost Ship retheme — design brief
 
+**2026-10-11 update:** `RUL-2026-10-11-001` replaces the wholesale shared-pool migration below with selective retention of approximately twelve irreplaceable legacy jutsu, prioritizing Explosion and the awakened/Crowned Captain. Retained mechanics stay unchanged; presentation is rethemed. Exact roster/hybrid kits remain pending in `state/ghost_ship_legacy_retention_review.md`. The original 57-node scope below was separately superseded by the approved 83-node expansion.
+
 **Status:** ACTIVE DESIGN / implementation not yet frozen  
 **Lead:** ChatGPT / Content Designer  
 **Implementation owner:** Fable / Claude Code after freeze  
