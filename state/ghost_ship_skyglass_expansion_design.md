@@ -1,6 +1,7 @@
 # Ghost Ship: Skyglass Expedition — Six-Ending Quest Graph
 
-**Status:** STAGE 1 DESIGN PROPOSAL / DIRECTOR REVIEW REQUIRED; *not* an implementation manifest or production approval.  
+**Status:** DIRECTOR-APPROVED STAGE 1 STRUCTURE / dialogue is still draft; not an executable manifest or production approval.  
+**Approval:** `RUL-2026-10-10-003` (2026-10-10), approved structural snapshot `7ac886b845b88e76a9fd7206ce0e025d2cfce230`.  
 **Source revision:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0` (verified 2026-10-10).  
 **Machine proposal:** `state/ghost_ship_skyglass_graph_patch.json` (same design branch).  
 **Predecessor:** `state/ghost_ship_retheme_patch.json` owns all unchanged original objective prose. Its preserve-all-57/keep-edges restriction is explicitly superseded only for this expansion; other operative retheme content stays intact.  
@@ -130,7 +131,7 @@ The new Sealwright battle is immediately dialog-gated by `d_sealwright`, has a l
 5. Challenge **Sealwright**; on loss, retry from the Sealwright confrontation dialog. Victory unlocks the Reliquary.
 6. Take **one Skyglass Reliquary** and **depart immediately** via `w_secret`. No path from the archive to another win node, and no bonus chest before subsequently defeating the Captain.
 
-**Design tradeoff for director approval:** The fixed maintenance puzzle makes the route discoverable and repeatable. Wrong answers block it for that visit (not forever). This adds secret-route risk without a random gate or daily lockout. If repeat farming later feels tedious, the shortest path skips all optional lore and uses only the core puzzle/dialog flow. No persistent discovery flag is claimed.
+**Director-approved behavior:** The fixed maintenance puzzle makes the route discoverable and repeatable. Wrong answers block it for that visit (not forever). This adds secret-route risk without a random gate or daily lockout. If repeat farming later feels tedious, the shortest path skips all optional lore and uses only the core puzzle/dialog flow. No persistent discovery flag is claimed.
 
 ## 6. Narrative reveal discipline
 
@@ -171,12 +172,14 @@ The proposed machine patch was applied in memory to the full captured Gather gra
 - The oathbound helm segment reaches only `w_Co` and retains exactly **two** combat encounters on its direct path.
 - Existing top-level quest schema, source-specific coordinates, reward/equipment records, scene images and updated AI behavior still require a fresh full-record build phase; this is **graph sanity checking**, not Forge `validate.py` or a live-game acceptance test.
 
-## 9. Open director and implementation gates
+## 9. Structural approval and remaining gates
 
-1. **Approve/amend the 83-node footprint** and whether incorrect quarantine-seal choices should lock the secret route until the next quest run.
-2. Approve **Sealwright's identity/motivation** and high-level combat role. Exact shared-pool kit, AI profile, stats and difficulty will be a later user-reviewed spec.
-3. Approve the optional gallery, crew conversations and Captain aftermath as written, or trim branches that feel like filler.
-4. Approve new node dialog wording, scene placement and choice labels before claiming prose freeze.
-5. Separately resolve the Crystal 30% Consume engine blocker, Legendary weapon cooldown/pool/AP baseline, Crystal rarity/trade policy and production art pack per the reward decisions and release roadmap.
+**Approved 2026-10-10:** The director accepted the entire 83-node, six-ending **structural design**, including the 26 additions, 12 original edge rewires, single secret Reliquary ending, wrong-answer quarantine lockout for that run, optional investigation/crew-gallery branches, and direct two-battle Crowned Captain route. The new Sealwright's presence and broad role as quarantine custodian are part of the accepted route. See `RUL-2026-10-10-003`.
 
-**Next authorized step after director structural approval:** freeze canonical quest prose/graph, capture outstanding technical input, then Fable creates a full validated hidden manifest with new items/assets/Sealwright and both existing full-record quest edits. No live-game requests or writes, manifest generation, publication, or art generation occurred in this design step.
+**NOT yet approved or frozen:**
+- Player-facing descriptions and choice-label wording in the machine patch are **draft prose**. Their IDs, node types, choices/edges and reward endpoint roles are frozen; editorial revision can improve prose without changing routes.
+- Sealwright's exact AI kit, AI profile, stats, difficulty, behavior, role tuning and dialogue presentation beyond its approved custodian premise require a dedicated combat/content pass and director approval.
+- The Skyglass Katana's exact Legendary weapon cooldown/pool/AP baseline and source-validatable three-effect implementation, and the Crystal's weapon-only 30% Consume engine blocker, need independent technical verification. Rarity/trade questions remain director-owned.
+- Scene-asset processing, filenames, art acceptance, and a fresh operator-run capture of the two quests' reported hidden state are required before any manifest or operator-side changes.
+
+**Next step:** develop the Sealwright encounter specification and finish the Stage 2 mechanical/reward gates in the separate reward/combat workstream, then finalize and approve **prose only**, preserving this approved structure. Fable may build a hidden combined manifest **after** the necessary specs and art are frozen. No live-game requests or writes, implementation manifest, publication, or art generation occurred in this design phase.
