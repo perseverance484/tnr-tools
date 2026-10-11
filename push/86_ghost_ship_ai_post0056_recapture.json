@@ -1,0 +1,163 @@
+{
+ "_note": "READ-ONLY post-migration-0056 recapture of the eleven Ghost Ship AIs (Ghost Ship / Skyglass Stage 2). Zero mutations. Operator-run only; never an agent request. Why: the October 1 capture harvests/inbox/tnr_results_1790826836406.json predates upstream migration 0056_unified_combat_stats_masteries (studie-tech/TheNinjaRPG commit 46f62cd9, 2026-10-08). Its AI rows carry the removed per-type offence/defence columns and lack offence, defence and the *Mastery columns. The Stage 2 harness (harness/ghost_ship_stage2) converted them with the migration's AI branch (offence/defence = max of the four per-type values, mastery = max(offence, defence)), and every boss damage figure in docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_OFFLINE_RESULTS.md depends on that conversion. This capture replaces the conversion with live rows. Reads: profile.getAi for all eleven AIs used by the two Ghost Ship quest graphs (Deck Warden, Seal Charge, Core Canister, Core Horror, Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel, First Blade, the regular Captain QY69h271Nx9uHrBeR6jwW, Crowned Captain). Also ai.getAiProfile for the eleven profile IDs those rows held on October 1, to confirm the captured rules, includeDefaultRules and profile linkage are unchanged. All reads use persist:\"full\" with no field selection. Keep the complete results bundle and its export metadata (at, ok, persistOk, snapshotKey). If a fresh row reports a different aiProfileId, record it; Fable derives any follow-up read from the captured record and does not infer it. Also confirm the regular Captain's AI Heavy Armor and Cursed Dagger are still equipped:NONE, and that every innate effect, including duplicates, is still present. This capture does not edit, re-equip, retheme or tune anything. Archive it after use.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "texZaFi42S3EvJZBwQ8cd"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "wTgO-Q32caSSd0is1QIS7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "frc9LTxqQlM7mncG4VZGK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "AQi-bHJ-5tHXtxrnc0P9E"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "0PZU_FvlbM3ErYGlD5r56"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "v7T9_XdGMfP46em0dPuBc"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "2OXJEXoktxJcjqMkE851g"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "3V_gdHYaclMB1gTyOPAbV"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d6g0mOM7RBSsYI1hrUVT9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "QY69h271Nx9uHrBeR6jwW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fDU9jCPZtH7YHbdQPO9RF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "o1qPfPsuVXk7KzLaRz0n3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "q1Rp9dPMlRMcD2JQmFiC7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "zPHaNgwr2J4GQnPFHAWe8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "zD6EHeSmnHpcbX4zBOWGn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "RkkKzrFzJCVBggHTA8bNj"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "0LTa3ZM6eDCRkv4X_uwA-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "3y6oASzyyRn5CdkeSlHk6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "AJ8BnFvtpflf57-BsrJRe"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "IUgkMPWyf6jy7xbyTLBqX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "BqRv9qUlDNLNCzi-Q45zT"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "6G3McyVvLGIY1e4_sfTvU"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
