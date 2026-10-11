@@ -1,0 +1,136 @@
+{
+ "assertions": 4,
+ "checks": [
+  {
+   "name": "exact three-effect array accepted (Pierce satisfies Consume's companion rule)",
+   "pass": true
+  },
+  {
+   "name": "consume shieldRounds source default = 3; consume rounds normalised to 0",
+   "pass": true
+  },
+  {
+   "name": "maxImbueNumber 0 rejected, 1 accepted",
+   "pass": true
+  },
+  {
+   "detail": {
+    "issues": [],
+    "success": true
+   },
+   "name": "carrier record validated (informational; final fields unselected → C3)",
+   "pass": true
+  }
+ ],
+ "data": {
+  "fullItemValidatorOnCarrier": {
+   "issues": [],
+   "note": "Flaming Sword carrier non-effect fields; LEGENDARY/SWORD/canBeImbued:false overrides",
+   "success": true
+  },
+  "input": [
+   {
+    "calculation": "formula",
+    "generalTypes": [
+     "Highest"
+    ],
+    "power": 50,
+    "powerPerLevel": 0,
+    "rounds": 0,
+    "statTypes": [
+     "Highest"
+    ],
+    "target": "INHERIT",
+    "type": "pierce"
+   },
+   {
+    "blocks": "buffprevent",
+    "rounds": 2,
+    "target": "SELF",
+    "type": "immunity"
+   },
+   {
+    "calculation": "percentage",
+    "power": 40,
+    "target": "SELF",
+    "type": "consume"
+   }
+  ],
+  "issues": [],
+  "maxImbueNumber": {
+   "canBeImbuedFalseAccepted": true,
+   "oneAccepted": true,
+   "zero": [
+    {
+     "message": "Too small: expected number to be >=1",
+     "path": ""
+    }
+   ]
+  },
+  "parsed": [
+   {
+    "allowBloodlineDamageDecrease": true,
+    "allowBloodlineDamageIncrease": true,
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "formula",
+    "description": "Deals piercing damage to target",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "dmgModifier": 1,
+    "generalTypes": [
+     "Highest"
+    ],
+    "power": 50,
+    "powerPerLevel": 0,
+    "residualModifier": 1,
+    "rounds": 0,
+    "statTypes": [
+     "None"
+    ],
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "pierce"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "blocks": "buffprevent",
+    "calculation": "static",
+    "description": "Grants immunity against the specified prevent-type effect",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 1,
+    "powerPerLevel": 0,
+    "rounds": 2,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "immunity"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "Convert a percentage of damage dealt by this jutsu into a temporary shield on yourself. Not affected by heal modifiers.",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 40,
+    "powerPerLevel": 0,
+    "rounds": 0,
+    "shieldRounds": 3,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "consume"
+   }
+  ]
+ },
+ "failed": 0,
+ "gate": "C1",
+ "scope": "effect array + maxImbueNumber guard; full-item result is for a carrier record only"
+}
