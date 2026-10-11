@@ -1,13 +1,13 @@
 # Crowned Captain — active support behavior
 
-**Status:** DIRECTOR-APPROVED ACTIVATION DIRECTION, RUL-2026-10-11-007. Heal threshold 40 and regular Reflect use are directed; Copy's exact “high IDG” number, native heal-boundary acceptance, final ordering and measured balance remain open. This is a design/test brief, not a manifest.
+**Status:** DIRECTOR-APPROVED ACTIVATION AND TRIGGERS, RUL-2026-10-11-007/008. Heal strictly below 40%, Copy at IDG 71 or higher, and regular Reflect are approved. Exact ordering/target implementation and measured balance remain subject to offline tests and final acceptance. This is a design/test brief, not a manifest.
 
 **Canonical relationship:** `state/ghost_ship_hybrid_kit_proposal.json` remains the unchanged accepted eleven-move membership and historical harness input under RUL003. This companion owns the new support activation direction. Do not alter historical tests or relabel their unapproved heal50/Copy30/Reflect-distance3 experiment.
 
 ## Director direction
 
-- **S35 Second Wind:** heal at 40% health, rather than use as an unconditional rotation action.
-- **B07 Stolen Form:** copy when an enemy has high Increased Damage Given (IDG).
+- **S35 Second Wind:** heal strictly below 40% of effective maximum health, using the native `health_below:40` condition. Exactly 40% does not trigger; this boundary is director-approved under RUL008.
+- **B07 Stolen Form:** copy when the selected enemy's summed Increased Damage Given (IDG) is **71 or higher**, using the approved threshold under RUL008.
 - **Rebounding Form:** use Reflect in the normal rotation, not only as a low-health response.
 - Preserve all eleven jutsu, existing technique mechanics and IDs, Crowned profile/innates, reward drops and the two-battle farming route. No new jutsu, phases, stat adjustments or loot.
 
@@ -18,13 +18,13 @@ Prepend these support rules to the prior candidate-remapped offensive chain. Pre
 | Order | Technique | Candidate native rule | Meaning and limitation |
 | --- | --- | --- | --- |
 | 1 | S35 Second Wind | `health_below:40`; `use_specific_jutsu`, SELF | Emergency heal first when available. Native comparison is strictly **below 40% of effective maximum health**; exactly 40% does not trigger. No distance gate. |
-| 2 | B07 Stolen Form | `target_has_effect`, increasedamagegiven, **proposed threshold 71**, CLOSEST_OPPONENT; `distance_lower_than:5`; action targets the same opponent | Copy before S31 Clear can remove that target's buffs. The director has not selected the exact Copy threshold. |
+| 2 | B07 Stolen Form | `target_has_effect`, increasedamagegiven, **approved threshold 71**, CLOSEST_OPPONENT; `distance_lower_than:5`; action targets the same opponent | Copy before S31 Clear can remove that target's buffs. Threshold is approved; selector/order remains the concrete implementation candidate. |
 | 3 | Rebounding Form | `use_specific_jutsu`, SELF; no health/distance condition | Regular use whenever available, ahead of ordinary attacks. Existing AP/cooldown rules limit use. The historical test's distance3 restriction is not carried forward. |
 | 4 onward | Existing offensive chain | Preserve candidate-remapped rules/defaults/fallback | Isolate support activation from other rule changes. |
 
-All unavailable actions fall through. **71+ IDG is a recommendation**, matching Sealwright's established integer threshold; the old experimental 30 was never approved for Crowned Captain. CLOSEST_OPPONENT is a concrete native candidate, not a highest-IDG selector. Test nearest summons and farther buffed players separately.
+All unavailable actions fall through. **71+ IDG is approved**, matching Sealwright's established integer threshold; the old experimental 30 was never approved for Crowned Captain. CLOSEST_OPPONENT remains the concrete native candidate, not a highest-IDG selector. Test nearest summons and farther buffed players separately.
 
-**Heal boundary:** the user selected 40%; native `health_below` offers a strict integer comparison. Keep 40 in the candidate and disclose the equality difference for acceptance. Do not silently use 41, which would permit healing between 40% and 41%. No engine change is authorized to force inclusive behavior.
+**Heal boundary accepted (RUL008):** use the native strict comparison at value40. No equality exception, value41 approximation or engine change is requested. Boundary tests must prove that below40 triggers and exactly40 does not.
 
 ## Preserved records and effect scope
 
@@ -44,7 +44,7 @@ Reflect returns eligible damage under native activation and prevention rules. It
 
 Fable owns implementation on a new owned branch; preserve frozen r4 and active-Consume targets. Source candidate: `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` (upstream, deployment unverified). Read the source-drift review before adapting A1 assembly/metrics.
 
-1. Compare captured rules, prior kit/remap-only rules with dormant support, and this support candidate. Hold profile, kit, innate effects, settings, player carriers and placements constant. Label threshold71 and strict-below40 as proposals until accepted.
+1. Compare captured rules, prior kit/remap-only rules with dormant support, and this support candidate. Hold profile, kit, innate effects, settings, player carriers and placements constant. Threshold71 and strict-below40 are approved constants; exact ordering/selector implementation and measured balance remain under review.
 2. Force heal opportunities at 39.9%, exactly40%, 40.1% and lower health. Assert effective-max-HP basis, actual heal amount, cooldown/AP fallthrough and Heal Prevent. Short fights with zero heal casts do not validate healing.
 3. Probe Copy at IDG 30/70/70.5/71/90, summed effects, expired/protected sources, Buff Prevent, existing copy budget and no eligible candidates. Separate condition success from actual buffs copied. Test closest low-IDG summon versus farther high-IDG player, path distance4/5/6 and precedence over S31 when both actions are executable.
 4. Exercise Reflect at high/low health and near/far starts, cooldown, expiry, reflected damage and prevention. Confirm no inherited health/range condition keeps it dormant. Measure support AP cost, including heal40 + reflect40 potentially displacing a60AP attack.
