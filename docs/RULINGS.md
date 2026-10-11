@@ -673,3 +673,27 @@ The resulting values are:
 **Not settled here:** description, battle description, image, and the effect animation/SFX asset IDs. These are presentation and art, are not copied from Night's Testament, and remain pending. No write manifest, art or publication is authorized.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative Katana specification. `state/ghost_ship_skyglass_katana_record.json` holds the derived field-level record, produced by `harness/ghost_ship_stage2/tools/build_katana_record.py` from the capture. Offline gate C3 validates it.
+
+---
+
+## RUL-2026-10-11-005 — Active Consume: Katana 15%, Crystal 10%
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass item effects
+
+**Status:** ACTIVE; revised rates and active-buff behavior approved. Timing and updated runtime validation remain pending.
+
+**Supersedes:** the Katana40 / Crystal20 Consume rates and instant-only interpretation in RUL-2026-10-10-007, the derived r4 records and RUL-2026-10-11-004's historical effect reference. All other accepted effect, baseline, economy and acquisition fields remain unchanged.
+
+**Ruling:** dauntless reports the engine's changed Consume behavior: Consume grants an active buff and qualifying hits while active grant shield, rather than conversion being tied directly to a single damage instance. Set Skyglass Katana Consume to **15%** and Skyglass Crystal Consume to **10%** using that behavior.
+
+Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r and Consume15; LEGENDARY WEAPON/SWORD, `canBeImbued:false`, with the accepted Night's Testament non-effect baseline, drop-only/tradable economy and independent 3% Crowned Captain drop. Crystal remains a WEAPON-only CRYSTAL with exactly Consume10 and no added Damage/Pierce. Its 3% Reliquary drop and 12-Filament recipe are unchanged. All other rewards, quest structure, AI/jutsu decisions and art locks remain unchanged.
+
+**Source boundary:** reviewed upstream `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` implements active Consume. Its validator requires a same-array Damage/Pierce companion only for instant Consume (`rounds === 0`); positive-duration standalone Consume is source-admissible. This source check is not exact revised-item runtime validation or verification of deployment. The old Crystal correction proposal is historical, not an automatic implementation requirement.
+
+**Timing not selected:** active Consume duration and generated-shield lifetime are separate fields. Source defaults are 3/3; these may be labelled offline test carriers, not assumed balance approval. Do not carry forward the old explicit `rounds:0`. Weapon actions grant the buff; this ruling does not turn the weapon into permanent on-equip Consume.
+
+**Implementation boundary:** preserve frozen r4 old-pin evidence, including the former Katana record, builder and harness. Fable owns the next derived-record and offline test revision; old PASS results do not validate this change. No engine modification, live request/write, art change, full manifest or publication is authorized by this adjustment.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative specification. `state/ghost_ship_skyglass_consume_revision.json` is the machine-readable design delta, not a full record. `state/prompt_ghost_ship_skyglass_consume_revalidation.md` supplies the bounded Fable test brief; the full roadmap points to these current gates.

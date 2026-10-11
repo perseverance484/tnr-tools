@@ -1,5 +1,7 @@
 # Skyglass Crystal — separate Lane A engine-correction proposal (NOT IMPLEMENTED)
 
+**Historical old-pin proposal — RUL-2026-10-11-005:** Reviewed upstream `585534d7eb21d6f0dd678d5c3eb92662f611d39b` already allows positive-duration Consume without a Damage/Pierce companion. Do not implement this former validator-exemption proposal automatically. Current Crystal is weapon-only Consume10 with active-buff behavior; exact record/runtime revalidation is governed by `state/prompt_ghost_ship_skyglass_consume_revalidation.md`. The original proposal below is retained as historical r4 evidence; no engine correction has been authorized or implemented here.
+
 **Status:** PROPOSAL ONLY. Nothing here has been applied to `studie-tech/TheNinjaRPG`, to a scratch copy of it, or to any TNR manifest. Implementing it needs dauntless's explicit engine-change authorization and an upstream change owner.
 **Date:** 2026-10-11. **Author:** Fable (Claude Code), Lane A.
 **Evidence:** `harness/ghost_ship_stage2/` gates B1–B3 at engine pin `studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93`; results in `harness/ghost_ship_stage2/results/b1.json`, `b2.json`, `b3.json`.

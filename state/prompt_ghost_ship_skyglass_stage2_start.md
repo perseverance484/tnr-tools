@@ -1,5 +1,7 @@
 # Fable start — Ghost Ship / Skyglass Stage 2 offline validation
 
+**Item-package supersession — RUL-2026-10-11-005:** The item inputs below describe historical r4 work. The next item task is `state/prompt_ghost_ship_skyglass_consume_revalidation.md`: Katana15 / Crystal10 with active Consume. Approved combat scope is unchanged; historical item rates and instant timing are not current construction authority.
+
 **Task:** Execute the accepted Ghost Ship technical test work, produce reproducible evidence and return a frozen exact-SHA handoff for ChatGPT's independent review. Do not begin another kit-selection round.
 
 **Owner:** Fable / Claude Code implements the offline harness/tests on a separate owned branch. ChatGPT reviews. dauntless retains balance, art, item economics, engine-change, final content and live-game authority.
