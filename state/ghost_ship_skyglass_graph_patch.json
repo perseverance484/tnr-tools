@@ -1,7 +1,7 @@
 {
   "schema": "tnr.ghost_ship_skyglass_graph_proposal",
   "version": 1,
-  "status": "PROPOSAL_DIRECTOR_REVIEW",
+  "status": "APPROVED_STRUCTURE_PROSE_DRAFT",
   "baseRepository": "perseverance484/tnr-tools",
   "baseMain": "0eb57de20877d266dde666229ae4c68e8fbcf4c0",
   "sourceCapture": "harvests/inbox/tnr_results_1790826101573.json",
@@ -654,5 +654,22 @@
     "Original coordinates and scene fields copied from fresh captures at manifest time",
     "All new node descriptions and choice labels director prose acceptance",
     "Approved new-art file identities and scene assignments"
-  ]
+  ],
+  "structuralApproval": {
+    "ruling": "RUL-2026-10-10-003",
+    "directorApproved": true,
+    "approvedElements": [
+      "83-objective footprint per profession, 57 existing IDs preserved and 26 new",
+      "12 existing forward-edge rewires and six reward endpoints",
+      "hidden quarantine-puzzle wrong-answer lockout for this run, normal deck continuation",
+      "new Sealwright battle and mutually exclusive guaranteed Reliquary secret ending",
+      "Oathkeeper Time correct-answer route remains two battles with optional lore",
+      "optional gallery, crew history, Captain aftermath and visible wrong-answer feedback"
+    ],
+    "initialDesignCommit": "7ac886b845b88e76a9fd7206ce0e025d2cfce230",
+    "scope": "structure only; descriptions and choice wording remain drafts"
+  },
+  "proseStatus": "DRAFT_NOT_APPROVED",
+  "combatStatus": "SEALWRIGHT_UNSPECIFIED",
+  "implementationStatus": "NO_MANIFEST"
 }
