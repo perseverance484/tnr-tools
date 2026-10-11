@@ -1,16 +1,11 @@
 {
- "assertions": 15,
+ "assertions": 16,
  "carriers": {
   "buffPrevent": {
    "file": "harvests/inbox/tnr_results_1789188714166.json",
    "name": "Seal of Nullification",
    "note": "buffprevent power 90 + 0.4/level; cast at jutsu level 25 so power = 100 (deterministic carrier)",
    "pointer": "/captures/13/data"
-  },
-  "note": "non-effect Katana fields are Flaming Sword carrier values, not a baseline",
-  "weaponFields": {
-   "file": "harvests/inbox/tnr_results_1788235198666.json",
-   "pointer": "/captures/8/data/items/0/item"
   }
  },
  "checks": [
@@ -218,20 +213,81 @@
     {
      "heavyCut": true,
      "ionLance": true,
-     "katana": true,
+     "katana": false,
      "round": 5
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 6
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": true,
+     "round": 7
     }
    ],
    "name": "Katana use locks other pierce/consume-tag actions for the shared GCD",
    "pass": true
   },
   {
-   "name": "AP after one swing = 100 − carrier actionCostPerc",
+   "name": "AP after one swing = 100 − actionCostPerc (40)",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 1
+    },
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 2
+    },
+    {
+     "heavyCut": true,
+     "ionLance": false,
+     "katana": false,
+     "round": 3
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 4
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 5
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 6
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": true,
+     "round": 7
+    }
+   ],
+   "name": "Katana available again exactly cooldown (6) rounds after the swing",
    "pass": true
   }
  ],
  "data": {
   "cooldowns": {
+   "actionCostPerc": 40,
    "apAfterCast": 60,
    "availability": [
     {
@@ -261,13 +317,24 @@
     {
      "heavyCut": true,
      "ionLance": true,
-     "katana": true,
+     "katana": false,
      "round": 5
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": false,
+     "round": 6
+    },
+    {
+     "heavyCut": true,
+     "ionLance": true,
+     "katana": true,
+     "round": 7
     }
    ],
-   "carrierActionCostPerc": 40,
-   "carrierCooldown": 4,
    "castRound": 1,
+   "cooldown": 6,
    "sharedCooldownRounds": 3
   },
   "expiryAndAbsorption": {
@@ -430,7 +497,7 @@
     "user_target": 1475.389,
     "user_target2": 1475.389
    },
-   "note": "method ALL is a carrier override to exercise aggregation; Katana method is unselected",
+   "note": "method ALL is a control override to exercise aggregation; the accepted Katana is SINGLE",
    "shield": [
     {
      "power": 1180,
@@ -482,5 +549,7 @@
   }
  },
  "failed": 0,
- "gate": "C2"
+ "gate": "C2",
+ "katanaRecord": "state/ghost_ship_skyglass_katana_record.json",
+ "note": "Katana fields are the accepted RUL-2026-10-11-004 record; presentation placeholders only"
 }

@@ -1,6 +1,6 @@
 # Ghost Ship / Skyglass Stage 2 — offline test results (Fable Lane A)
 
-**Status: OFFLINE TEST PACKAGE COMPLETE. RELEASE STILL BLOCKED.** M0, A1, A2, B1, B2, B3, C1 and C2 were executed against actual pinned engine code and PASS on their stated scope. C3 is BLOCKED (no Legendary Sword baseline). Crystal production validity is BLOCKED by the validator (B1 is an expected-rejection PASS). Sealwright parity is measured, not accepted.
+**Status: OFFLINE TEST PACKAGE COMPLETE. RELEASE STILL BLOCKED.** M0, A1, A2, B1, B2, B3, C1, C2 and C3 were executed against actual pinned engine code and PASS on their stated scope. C3 passed after the Night's Testament baseline was accepted (RUL-2026-10-11-004, revision 2026-10-11 r2); Katana presentation fields remain pending. Crystal production validity is BLOCKED by the validator (B1 is an expected-rejection PASS). Sealwright parity is measured, not accepted.
 
 **Date:** 2026-10-11. **Implementer:** Fable (Claude Code). **Independent reviewer:** ChatGPT, at the frozen SHA. **Decisions:** dauntless.
 **Governing briefs:** `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` (test contract) and `state/prompt_ghost_ship_skyglass_stage2_start.md` (execution packet), at input commit `61373538035d41f7e773ec082b739740cdf0860e` (RUL-2026-10-11-003).
@@ -16,17 +16,17 @@
 | **B1** | **PASS** (expected rejection). Production Crystal **BLOCKED** | The real item `effects` schema and the full `ItemValidator` reject `[consume 20%]` with exactly `ConsumeTag must be used together with a damage or pierce effect on the same action` | `results/b1.json` |
 | **B2** | **PASS** (post-composition runtime only) | Real assembly composes weapon + imbuement. Weapon action produces a 20% pre-shield-basis shield, 3 rounds. Shielded target, multi-target aggregation, no-damage recipient, Consume-on-Consume all tested | `results/b2.json` |
 | **B3** | **PASS** | Real `occupation.imbueItem` and `craftItem` procedures, read-only stub client (writes trapped): WEAPON-only, non-imbuable recipients, duplicates, slot limit, equipped item, occupation, full rank × rarity matrix. Battle-side suppression of old imbuements | `results/b3.json` |
-| **C1** | **PASS** (effect array only) | Exact Pierce 50 + SELF immunity(buffprevent, 2r) + Consume 40% parses. `maxImbueNumber` 0 is rejected and 1 accepted. The carrier full record validates, but this is not a final-record PASS | `results/c1.json` |
-| **C2** | **PASS** | Real weapon action on sourced carriers: 40% shield, pre-shield basis, aggregation, absorption and expiry, item-level scaling, immunity window against a captured Buff Prevent jutsu, cooldown/GCD/AP | `results/c2.json` |
-| **C3** | **BLOCKED** | Scanned committed harvests: 3 distinct full WEAPON records, 0 LEGENDARY/SWORD. Final AP/costs/range/CD/GCD/requirements/economy cannot be validated | `results/c3.json` |
+| **C1** | **PASS** | The accepted Pierce 50 (Crystal) + SELF immunity(buffprevent, 2r) + Consume 40% parses. `maxImbueNumber` 0 is rejected and 1 accepted. The full `ItemValidator` accepts the accepted record (presentation placeholders) | `results/c1.json` |
+| **C2** | **PASS** | Real weapon action using the accepted record: 40% shield, pre-shield basis, aggregation, absorption and expiry, item-level scaling, immunity window against a captured Buff Prevent jutsu, cooldown 6 / GCD / AP 40 | `results/c2.json` |
+| **C3** | **PASS** (mechanics and economy; presentation pending) | `state/ghost_ship_skyglass_katana_record.json` is derived from the push/85 Night's Testament row. Every non-override field equals the capture. The overrides are exactly the ruling-cited set. The full `ItemValidator` passes, and 9 contract invariants hold (LEGENDARY SWORD, not imbuable, exactly three effects, Pierce 50 Crystal, SELF immunity 2r, Consume 40 SELF, drop-only, tradable, created hidden). 12 assertions | `results/c3.json` |
 
-Commands and outcomes (§7) are exact. The engine suite reported `68 pass, 0 fail, 136 expect() calls, Ran 68 tests across 4 files`, exit 0. Two independent full runs produced byte-identical evidence for every gate.
+Commands and outcomes (§7) are exact. The engine suite reported `68 pass, 0 fail, 141 expect() calls, Ran 68 tests across 4 files`, exit 0. Two independent full runs produced byte-identical evidence for every gate.
 
 ## 2. Source, dependency and fixture provenance
 
 - **Engine execution pin:** `studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93` (pin B). It is exported with `git archive` into a disposable directory, and the upstream working tree is unchanged. `bun.lock` sha256 `da6602f2…1906c08`; runtime bun 1.4.2, node v22.22.0, python 3.13. Dependencies were installed with `bun install --frozen-lockfile --ignore-scripts` (approved by the user for this session). Tests ran in `unshare -rn` with upstream CI placeholder environment values and no database.
 - **Drift assessment.** A=`4774560e` (historical AI pin) → B: only `validators/ai.ts`/`ai_v2.ts` change, adding COORDINATE action targets. No Ghost Ship or Sealwright rule uses them. B → C=`1853b6ab` (the readiness review's observed HEAD): `supportsNpcAllies()` makes **QUEST**/OVERWORLD battles choose enemies and allies by battlefield side instead of village/controller (`ai_v2.ts`, `actions.ts getTargetUser`, `participants.ts`). That change also affects `combat.ts` setup/spawn. Every fixture here has opponents that differ in both village and side, so the measured outcomes do not depend on that change. **Re-run the harness at the deployed pin once it is known.** Upstream HEAD moved again during this session (`0b730e9f`). That is not evidence of deployment.
-- **Captures (committed, hashed by M0):** AI `harvests/inbox/tnr_results_1790826836406.json`, profiles `…1790828718767.json`, pool `…1791583362574.json`, registry `skills/building-tnr-content/data/32b_DATA_pool.json`. Carriers: Flaming Sword `…1788235198666.json#/captures/8/data/items/0/item` (weapon non-effect fields, EPIC SWORD), Seal of Nullification `…1789188714166.json#/captures/13/data` (Buff Prevent), Rose Sanctuary `…1791247737840.json#/captures/52/data` (Clear Prevent), plus Light Barrier, Cataclysm Fist, Ion Lance and Heavy Cut from the pool capture.
+- **Captures (committed, hashed by M0):** AI `harvests/inbox/tnr_results_1790826836406.json`, profiles `…1790828718767.json`, pool `…1791583362574.json`, registry `skills/building-tnr-content/data/32b_DATA_pool.json`. Katana: accepted record derived from Night's Testament `…1791727479372.json#/captures/0/data` (push/85). Carriers: Flaming Sword `…1788235198666.json#/captures/8/data/items/0/item` (Crystal and imbuable-recipient non-effect fields, EPIC SWORD), Seal of Nullification `…1789188714166.json#/captures/13/data` (Buff Prevent), Rose Sanctuary `…1791247737840.json#/captures/52/data` (Clear Prevent), plus Light Barrier, Cataclysm Fist, Ion Lance and Heavy Cut from the pool capture.
 - **Schema conversion (important).** The October 1 AI rows predate upstream migration `0056_unified_combat_stats_masteries.sql` (commit `46f62cd9`, 2026-10-08). Pins A, B and C all fight with `offence`/`defence`/`*Mastery`, which those rows lack. Unconverted, the bosses deal near-zero damage. The harness applies the migration's **AI branch verbatim** (`offence`=max of 4 offences, `defence`=max of 4 defences, mastery=max(off,def), bloodline/sage mastery 10). This is a source-defined conversion, not tuning. A fresh post-migration operator capture must confirm the live rows.
 - **Not read:** live `gameSetting` damage overrides (`dmgConfig` uses source defaults), live player populations, deployed version.
 
@@ -122,19 +122,18 @@ The three closing-rule variants were identical in 4 of 6 fixtures and differed b
 - B2 (hypothetical record, imbuable Flaming Sword carrier): the composition order is `[damage, afterburn, consume]`. 472.1 damage gives a **94-HP shield** (floor 20%) for 3 rounds. A 500-HP target shield absorbed the whole hit (HP loss 0), yet the Consume shield was still 94, which proves the pre-shield basis. ALL-method carrier: 2 × 472.1 aggregates to one 188 shield.
 - **B2 finding:** Consume 40 on the weapon + Crystal 20 gives **40%** (188 of 472.1), and two Crystal records give **20%** (94). `insertAction` keeps only the first SELF Consume per stack key, so stacking does not happen within one action.
 - B2: a recipient without cast-round Damage/Pierce gets no shield, silently.
-- B3: an eligible imbuable WEAPON passes every guard (the run stops at the first trapped write). Rejections: the Katana carrier and the captured Flaming Sword (`canBeImbued:false`); an ARMOR recipient ("only WEAPON items"); a duplicate crystal ID; the slot limit; an equipped recipient; a non-CRYSTAL item; no, GATHERING or HUNTING occupation (imbue and craft).
+- B3: an eligible imbuable WEAPON passes every guard (the run stops at the first trapped write). Rejections: the accepted Katana in its published state and the captured Flaming Sword (`canBeImbued:false`). While the Katana is still `hidden:true` it is invisible to `imbueItem`, because `fetchUserItems` excludes hidden items ("Target item not found"); an ARMOR recipient ("only WEAPON items"); a duplicate crystal ID; the slot limit; an equipped recipient; a non-CRYSTAL item; no, GATHERING or HUNTING occupation (imbue and craft).
 - B3 rank × rarity: imbuing needs Novice = 0 slots, RARE ≥ Apprentice, EPIC ≥ Master, LEGENDARY = Forgemaster. Crafting needs RARE ≥ Apprentice, EPIC ≥ Master, LEGENDARY = Forgemaster. With the 12-Filament requirement carrier, eligible ranks stop at the material check. Assembly drops legacy imbuements on `canBeImbued:false` items.
 - Rarity, trading and accessibility remain policy decisions.
 
-**Katana (C1–C2), Flaming Sword carrier fields:**
+**Katana (C1–C3), accepted record (RUL-2026-10-11-004, Night's Testament baseline, Crystal Pierce):**
 
 - The three-effect array parses (`shieldRounds` 3; consume `rounds` normalised to 0). `maxImbueNumber` 0 is rejected, so `canBeImbued:false` is the switch.
-- **Pierce 1475.4** produces a **590-HP self shield for 3 rounds**. The result is identical against a 500-HP target shield, which was consumed while the HP loss stayed unchanged. With an ALL-method carrier, two targets aggregate to 1180.
+- **Pierce 1475.4** produces a **590-HP self shield for 3 rounds**. The result is identical against a 500-HP target shield, which was consumed while the HP loss stayed unchanged. With an ALL-method control override, two targets aggregate to 1180. The Crystal element and Night's Testament's stat/general classes give the same damage as the earlier carrier.
 - The shield absorbed a later 70-power hit (590 → 222.7, wielder HP loss 0). It counted down through rounds 2–4 and was gone in round 5.
 - Approved powerPerLevel 0: identical damage at item level 1 and 50. A 0.5 control scales with the player's item level (1490 → 2213).
 - **Immunity:** a pre-existing Buff Prevent is not removed. A new Buff Prevent (Seal of Nullification at power 100) is **blocked in the cast round and the next two rounds and lands again in round +3**.
-- With the carrier's cooldown 4 and AP 40, the Katana is unavailable rounds 1–4 and returns in round 5. Ion Lance (pierce GCD tag) is locked rounds 1–3. Heavy Cut (no shared tag) stays available. 60 AP remains after a swing.
-- These are carrier values; the final cadence is a C3 question.
+- With the accepted cooldown 6 and AP 40, a swing in round 1 makes the Katana unavailable through round 6; it returns in round 7. Ion Lance (pierce GCD tag) is locked rounds 1–3. Heavy Cut (no shared tag) stays available. 60 AP remains after a swing.
 
 ## 6. Ledger — separate from approved memberships
 
@@ -154,8 +153,10 @@ python3 harness/ghost_ship_stage2/m0_verify.py --out …/m0.json
   → "M0 PASS: 482 checks, 0 failed" (exit 0)
 TNR_ENGINE_WORK=<scratch> harness/ghost_ship_stage2/run.sh
   → M0 PASS: 482 checks, 0 failed
-  → bun test v1.4.2: 68 pass, 0 fail, 136 expect() calls, Ran 68 tests across 4 files (exit 0)
-  → evidence assertions: a1 160/0 failed, a2 25/0, b1 4/0, b2 7/0, b3 9/0, c1 4/0, c2 15/0, c3 1/0
+  → bun test v1.4.2: 68 pass, 0 fail, 141 expect() calls, Ran 68 tests across 4 files (exit 0)
+  → evidence assertions: a1 160/0 failed, a2 25/0, b1 4/0, b2 7/0, b3 10/0, c1 4/0, c2 16/0, c3 12/0
+python3 harness/ghost_ship_stage2/tools/build_katana_record.py --check
+  → current (record reproducible from the push/85 capture)
 TNR_ENGINE_WORK=<scratch> TNR_OUT=<scratch>/rerun harness/ghost_ship_stage2/run.sh   (second run)
   → exit 0; cmp: m0/a1/a2/b1/b2/b3/c1/c2/c3.json byte-identical to results/
 Preflight (pin B, same isolation): bun test tests/libs/combat/consume.test.ts ai_v2_rules.test.ts shared_cooldown.test.ts
@@ -178,7 +179,7 @@ No skill, doctrine, law or generated-contract file changed, so the doctrine, law
 3. **Candidate rule remap** for the other nine AIs, or a different rebuild.
 4. **Minion innate IDG duplicates:** preserve as captured (current instruction) or review separately.
 5. **Crystal:** authorise or decline the Lane A correction, and decide the Consume-on-Consume behaviour. Set rarity, trading and crafting accessibility (see the §5 table).
-6. **Katana:** accept the baseline after the capture below.
-7. **Operator captures (read-only, operator-run, not agent requests):** (a) `item.get` full record of a LEGENDARY WEAPON/SWORD; Night's Testament `osJq3k77YPGoFWgof12FQ` is the first suggestion, and its SWORD typing is unverified. (b) Fresh post-0056 `profile.getAi` for the eleven Ghost Ship AIs and the regular Captain, to replace the migration conversion. (c) The deployed engine version or settings snapshot (`gameSetting` damage values), if obtainable, so the harness can be re-run at that pin.
+6. **Katana:** baseline settled (RUL-2026-10-11-004). Still pending: description, battle description, image, effect animation/SFX.
+7. **Operator captures:** (a) and (b) are done (push/85 and push/86; see `docs/reviews/GHOST_SHIP_SKYGLASS_CAPTURES_85_86_2026-10-11.md`). Live AI stats equal the harness conversion exactly. Still open: (c) The deployed engine version or settings snapshot (`gameSetting` damage values), if obtainable, so the harness can be re-run at that pin.
 
 Minor documentation inconsistency, not altered: the feasibility brief's 2026-10-11 header says the Crowned Captain "keeps ten moves". RUL-2026-10-11-003, the start packet and the kit packet say eleven, and M0 verifies eleven.

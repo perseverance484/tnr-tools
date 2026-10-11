@@ -1,0 +1,404 @@
+{
+ "schema": "tnr.ghost_ship_skyglass_katana_record.v1",
+ "status": "DIRECTOR_ACCEPTED_BASELINE_RUL-2026-10-11-004; NOT A WRITE MANIFEST",
+ "baseline": {
+  "capture": "harvests/inbox/tnr_results_1791727479372.json",
+  "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+  "pointer": "/captures/0/data",
+  "id": "osJq3k77YPGoFWgof12FQ",
+  "name": "Night's Testament",
+  "capturedAt": "2026-10-11T14:04:38.932Z"
+ },
+ "droppedFields": [
+  "id",
+  "createdAt",
+  "updatedAt"
+ ],
+ "presentationPending": [
+  "description",
+  "battleDescription",
+  "image"
+ ],
+ "record": {
+  "actionCostPerc": 40,
+  "auctionMaxPrice": null,
+  "auctionMinPrice": null,
+  "battleDescription": null,
+  "battleUsageType": "BOTH",
+  "bloodlineId": null,
+  "canBeCrafted": false,
+  "canBeGathered": false,
+  "canBeHunted": false,
+  "canBeImbued": false,
+  "canBeTraded": true,
+  "canStack": false,
+  "chakraCost": 40,
+  "chakraCostReducePerLvl": 0,
+  "cooldown": 6,
+  "coordinateTargeting": null,
+  "cost": 1,
+  "craftingExperience": 0,
+  "crystalTargetTypes": null,
+  "description": null,
+  "destroyOnUse": false,
+  "effects": [
+   {
+    "type": "pierce",
+    "power": 50,
+    "rounds": 0,
+    "target": "INHERIT",
+    "elements": [
+     "Crystal"
+    ],
+    "appearSfx": "",
+    "direction": "offence",
+    "statTypes": [
+     "None"
+    ],
+    "calculation": "formula",
+    "description": "placeholder",
+    "dmgModifier": 0,
+    "disappearSfx": "",
+    "generalTypes": [
+     "Highest"
+    ],
+    "powerPerLevel": 0,
+    "appearAnimation": "",
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "residualModifier": 0,
+    "disappearAnimation": "",
+    "allowBloodlineDamageDecrease": true,
+    "allowBloodlineDamageIncrease": true
+   },
+   {
+    "type": "immunity",
+    "power": 100,
+    "blocks": "buffprevent",
+    "rounds": 2,
+    "target": "SELF",
+    "appearSfx": "",
+    "direction": "offence",
+    "calculation": "static",
+    "description": "placeholder",
+    "disappearSfx": "",
+    "powerPerLevel": 0,
+    "appearAnimation": "",
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "disappearAnimation": ""
+   },
+   {
+    "type": "consume",
+    "power": 40,
+    "calculation": "percentage",
+    "target": "SELF",
+    "rounds": 0,
+    "shieldRounds": 3,
+    "powerPerLevel": 0,
+    "direction": "offence",
+    "description": "placeholder",
+    "appearSfx": "",
+    "disappearSfx": "",
+    "appearAnimation": "",
+    "disappearAnimation": "",
+    "staticAnimation": "",
+    "staticAssetPath": ""
+   }
+  ],
+  "expireFromStoreAt": null,
+  "farmExtractSeedCount": 0,
+  "farmExtractSeedItemId": null,
+  "farmFertilizerExperience": 0,
+  "farmGrowTimeSeconds": 0,
+  "farmHarvestExperience": 0,
+  "farmMinLevel": 1,
+  "farmPlantExperience": 0,
+  "farmSellValue": 0,
+  "farmTimeReductionSeconds": 0,
+  "farmYieldItemId": null,
+  "healthCost": 0,
+  "healthCostReducePerLvl": 0,
+  "hidden": true,
+  "image": null,
+  "inShop": false,
+  "isEventItem": false,
+  "isFarmFertilizer": false,
+  "isFarmSeed": false,
+  "itemType": "WEAPON",
+  "maxDurability": 100,
+  "maxEquips": 1,
+  "maxImbueNumber": 1,
+  "method": "SINGLE",
+  "name": "Skyglass Katana",
+  "parentItemId": null,
+  "preventBattleUsage": false,
+  "purchaseLimit": null,
+  "purchaseLimitPeriod": "NONE",
+  "range": 4,
+  "rarity": "LEGENDARY",
+  "repsCost": 0,
+  "requiredBloodlineMastery": null,
+  "requiredBukijutsuMastery": null,
+  "requiredGenjutsuMastery": null,
+  "requiredIntelligence": null,
+  "requiredLevel": 1,
+  "requiredNinjutsuMastery": null,
+  "requiredSageMastery": null,
+  "requiredSkillId": null,
+  "requiredSpeed": null,
+  "requiredStrength": null,
+  "requiredTaijutsuMastery": null,
+  "requiredWillpower": null,
+  "seichiSilverCost": 0,
+  "slot": "HAND",
+  "stackSize": 1,
+  "staminaCost": 40,
+  "staminaCostReducePerLvl": 0,
+  "target": "OTHER_USER",
+  "weaponType": "SWORD",
+  "xpToLevel": 1000
+ },
+ "provenance": {
+  "actionCostPerc": {
+   "source": "Night's Testament"
+  },
+  "auctionMaxPrice": {
+   "source": "Night's Testament"
+  },
+  "auctionMinPrice": {
+   "source": "Night's Testament"
+  },
+  "battleDescription": {
+   "source": "override",
+   "why": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "nightsTestament": "%user holds a blade as dark as night. With one swift movement, too quick for the naked eye, the blade pierces through %target."
+  },
+  "battleUsageType": {
+   "source": "Night's Testament"
+  },
+  "bloodlineId": {
+   "source": "Night's Testament"
+  },
+  "canBeCrafted": {
+   "source": "override",
+   "why": "RUL-2026-10-11-004 drop-only (3% Crowned Captain drop is the sole source)",
+   "nightsTestament": true
+  },
+  "canBeGathered": {
+   "source": "Night's Testament"
+  },
+  "canBeHunted": {
+   "source": "Night's Testament"
+  },
+  "canBeImbued": {
+   "source": "override",
+   "why": "RUL-2026-10-10-007",
+   "nightsTestament": true
+  },
+  "canBeTraded": {
+   "source": "Night's Testament"
+  },
+  "canStack": {
+   "source": "Night's Testament"
+  },
+  "chakraCost": {
+   "source": "Night's Testament"
+  },
+  "chakraCostReducePerLvl": {
+   "source": "Night's Testament"
+  },
+  "cooldown": {
+   "source": "Night's Testament"
+  },
+  "coordinateTargeting": {
+   "source": "Night's Testament"
+  },
+  "cost": {
+   "source": "Night's Testament"
+  },
+  "craftingExperience": {
+   "source": "override",
+   "why": "RUL-2026-10-11-004 drop-only",
+   "nightsTestament": 2000
+  },
+  "crystalTargetTypes": {
+   "source": "Night's Testament"
+  },
+  "description": {
+   "source": "override",
+   "why": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "nightsTestament": "“When the sun bears witness, this blade sleeps. When night falls, it remembers.”  Night’s Testament is not forged for war, but for judgment. Its edge is blackened not by fire, but by vows — each strike binding the wielder to the truth of what they’ve done. The markings along the blade are not decoration; they are testaments, etched as memories of every oath fulfilled and every silence kept.  In Seichi, it is said that:  the blade grows heavier with lies,  lighter with resolve,  and will not draw blood unless the wielder’s intent is absolute.  Those who survive its cut remember nothing. Those who fall become part of it."
+  },
+  "destroyOnUse": {
+   "source": "Night's Testament"
+  },
+  "effects": {
+   "source": "override",
+   "why": "RUL-2026-10-10-007 three effects; RUL-2026-10-11-004 Pierce element Crystal (was Shadow); visual asset ids cleared pending art",
+   "nightsTestament": "see capture"
+  },
+  "expireFromStoreAt": {
+   "source": "Night's Testament"
+  },
+  "farmExtractSeedCount": {
+   "source": "Night's Testament"
+  },
+  "farmExtractSeedItemId": {
+   "source": "Night's Testament"
+  },
+  "farmFertilizerExperience": {
+   "source": "Night's Testament"
+  },
+  "farmGrowTimeSeconds": {
+   "source": "Night's Testament"
+  },
+  "farmHarvestExperience": {
+   "source": "Night's Testament"
+  },
+  "farmMinLevel": {
+   "source": "Night's Testament"
+  },
+  "farmPlantExperience": {
+   "source": "Night's Testament"
+  },
+  "farmSellValue": {
+   "source": "Night's Testament"
+  },
+  "farmTimeReductionSeconds": {
+   "source": "Night's Testament"
+  },
+  "farmYieldItemId": {
+   "source": "Night's Testament"
+  },
+  "healthCost": {
+   "source": "Night's Testament"
+  },
+  "healthCostReducePerLvl": {
+   "source": "Night's Testament"
+  },
+  "hidden": {
+   "source": "override",
+   "why": "creation doctrine: new records are created hidden; publication is separate",
+   "nightsTestament": false
+  },
+  "image": {
+   "source": "override",
+   "why": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "nightsTestament": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJc8m1lO4SnxBpQqGNDcTHbLmYz8uXAl3oa54t"
+  },
+  "inShop": {
+   "source": "Night's Testament"
+  },
+  "isEventItem": {
+   "source": "Night's Testament"
+  },
+  "isFarmFertilizer": {
+   "source": "Night's Testament"
+  },
+  "isFarmSeed": {
+   "source": "Night's Testament"
+  },
+  "itemType": {
+   "source": "Night's Testament"
+  },
+  "maxDurability": {
+   "source": "Night's Testament"
+  },
+  "maxEquips": {
+   "source": "Night's Testament"
+  },
+  "maxImbueNumber": {
+   "source": "Night's Testament"
+  },
+  "method": {
+   "source": "Night's Testament"
+  },
+  "name": {
+   "source": "override",
+   "why": "RUL-2026-10-10-007 approved name",
+   "nightsTestament": "Night's Testament"
+  },
+  "parentItemId": {
+   "source": "Night's Testament"
+  },
+  "preventBattleUsage": {
+   "source": "Night's Testament"
+  },
+  "purchaseLimit": {
+   "source": "Night's Testament"
+  },
+  "purchaseLimitPeriod": {
+   "source": "Night's Testament"
+  },
+  "range": {
+   "source": "Night's Testament"
+  },
+  "rarity": {
+   "source": "Night's Testament"
+  },
+  "repsCost": {
+   "source": "Night's Testament"
+  },
+  "requiredBloodlineMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredBukijutsuMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredGenjutsuMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredIntelligence": {
+   "source": "Night's Testament"
+  },
+  "requiredLevel": {
+   "source": "Night's Testament"
+  },
+  "requiredNinjutsuMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredSageMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredSkillId": {
+   "source": "Night's Testament"
+  },
+  "requiredSpeed": {
+   "source": "Night's Testament"
+  },
+  "requiredStrength": {
+   "source": "Night's Testament"
+  },
+  "requiredTaijutsuMastery": {
+   "source": "Night's Testament"
+  },
+  "requiredWillpower": {
+   "source": "Night's Testament"
+  },
+  "seichiSilverCost": {
+   "source": "Night's Testament"
+  },
+  "slot": {
+   "source": "Night's Testament"
+  },
+  "stackSize": {
+   "source": "Night's Testament"
+  },
+  "staminaCost": {
+   "source": "Night's Testament"
+  },
+  "staminaCostReducePerLvl": {
+   "source": "Night's Testament"
+  },
+  "target": {
+   "source": "Night's Testament"
+  },
+  "weaponType": {
+   "source": "Night's Testament"
+  },
+  "xpToLevel": {
+   "source": "Night's Testament"
+  }
+ }
+}

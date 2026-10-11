@@ -14,44 +14,78 @@
    "pass": true
   },
   {
-   "detail": {
-    "issues": [],
-    "success": true
-   },
-   "name": "carrier record validated (informational; final fields unselected → C3)",
+   "detail": [],
+   "name": "accepted record passes ItemValidator (base + item + economy refinements)",
    "pass": true
   }
  ],
  "data": {
-  "fullItemValidatorOnCarrier": {
+  "fullItemValidatorOnAccepted": {
    "issues": [],
-   "note": "Flaming Sword carrier non-effect fields; LEGENDARY/SWORD/canBeImbued:false overrides",
+   "note": "presentation fields are labelled placeholders",
    "success": true
   },
   "input": [
    {
+    "allowBloodlineDamageDecrease": true,
+    "allowBloodlineDamageIncrease": true,
+    "appearAnimation": "",
+    "appearSfx": "",
     "calculation": "formula",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "dmgModifier": 0,
+    "elements": [
+     "Crystal"
+    ],
     "generalTypes": [
      "Highest"
     ],
     "power": 50,
     "powerPerLevel": 0,
+    "residualModifier": 0,
     "rounds": 0,
     "statTypes": [
-     "Highest"
+     "None"
     ],
+    "staticAnimation": "",
+    "staticAssetPath": "",
     "target": "INHERIT",
     "type": "pierce"
    },
    {
+    "appearAnimation": "",
+    "appearSfx": "",
     "blocks": "buffprevent",
+    "calculation": "static",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 100,
+    "powerPerLevel": 0,
     "rounds": 2,
+    "staticAnimation": "",
+    "staticAssetPath": "",
     "target": "SELF",
     "type": "immunity"
    },
    {
+    "appearAnimation": "",
+    "appearSfx": "",
     "calculation": "percentage",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
     "power": 40,
+    "powerPerLevel": 0,
+    "rounds": 0,
+    "shieldRounds": 3,
+    "staticAnimation": "",
+    "staticAssetPath": "",
     "target": "SELF",
     "type": "consume"
    }
@@ -74,17 +108,20 @@
     "appearAnimation": "",
     "appearSfx": "",
     "calculation": "formula",
-    "description": "Deals piercing damage to target",
+    "description": "placeholder",
     "direction": "offence",
     "disappearAnimation": "",
     "disappearSfx": "",
-    "dmgModifier": 1,
+    "dmgModifier": 0,
+    "elements": [
+     "Crystal"
+    ],
     "generalTypes": [
      "Highest"
     ],
     "power": 50,
     "powerPerLevel": 0,
-    "residualModifier": 1,
+    "residualModifier": 0,
     "rounds": 0,
     "statTypes": [
      "None"
@@ -99,11 +136,11 @@
     "appearSfx": "",
     "blocks": "buffprevent",
     "calculation": "static",
-    "description": "Grants immunity against the specified prevent-type effect",
+    "description": "placeholder",
     "direction": "offence",
     "disappearAnimation": "",
     "disappearSfx": "",
-    "power": 1,
+    "power": 100,
     "powerPerLevel": 0,
     "rounds": 2,
     "staticAnimation": "",
@@ -115,7 +152,7 @@
     "appearAnimation": "",
     "appearSfx": "",
     "calculation": "percentage",
-    "description": "Convert a percentage of damage dealt by this jutsu into a temporary shield on yourself. Not affected by heal modifiers.",
+    "description": "placeholder",
     "direction": "offence",
     "disappearAnimation": "",
     "disappearSfx": "",
@@ -132,5 +169,5 @@
  },
  "failed": 0,
  "gate": "C1",
- "scope": "effect array + maxImbueNumber guard; full-item result is for a carrier record only"
+ "scope": "accepted effect array + maxImbueNumber guard + full ItemValidator on the accepted record"
 }
