@@ -10,10 +10,12 @@ This task-specific design decision record owns approved player-facing intent, no
 ## Skyglass Katana — approved
 
 - New Legendary WEAPON; **3% independent Crowned Captain AI drop**; not a quest-completion or Reliquary drop.
-- **Damage: 30 EP** (raw Damage effect power under `docs/RULINGS.md` RUL-2026-10-03-005). Fable must validate exact item tag encoding.
-- **Consume: 40%** on the same damage-bearing weapon action. Verify actual shield conversion in offline tests.
+- **Damage: 30 EP** (raw Damage effect power under `docs/RULINGS.md` RUL-2026-10-03-005).
+- **Shield: 300 HP for 2 rounds** on the wielder when the Katana is used. Source-backed candidate tag: `shield` with `health:300`, `rounds:2`, `target:SELF`, and `power:100` (the shield tag's creation chance, for a guaranteed shield). The `power` parameter is a chance, **not** another shield-HP magnitude.
+- **Buff Prevent immunity: 2 rounds** on the wielder. Exact source-backed candidate tag: `immunity` with `blocks:buffprevent`, `rounds:2`, `target:SELF`. This protects against **new applications** of the Buff Prevent effect; it does not itself apply Buff Prevent, grant generic debuff immunity, or cleanse an already-active Buff Prevent.
+- **Consume: REMOVED from the Katana**; previous Katana 40% Consume is superseded. Skyglass Crystal's separate weapon-only 30% Consume is unchanged.
 - Other stats — AP, cooldown, chakra/stamina cost, range, etc. — use a **documented Legendary baseline**. No exact numeric defaults were supplied. Capture/identify a suitable comparable Legendary weapon and present resulting values for director acceptance before build freeze.
-- **Supersedes** the earlier “exact copy of Night's Testament except remove imbue slot for shield potency +X” specification. The new Katana has no separate shield-potency affix. Night's Testament `osJq3k77YPGoFWgof12FQ` is now only a possible comparison, not the mandated clone.
+- **Three-tag identity:** Damage + Shield + Immunity (three effects, matching TNR's three-tag maximum). The shield and immunity are temporary self-effects granted by using the weapon; they are not permanent passive stat increases. The original Night's Testament exact-copy / imbue-slot → shield-potency +X concept and the later Consume 40% Katana are both **SUPERSEDED**. Night's Testament `osJq3k77YPGoFWgof12FQ` is optional comparison only, not a mandated clone.
 - Existing Crowned Captain fragment rule remains **20% AI drop**, independently rolled. Five fragments craft the Skyglass Crown, never a direct boss drop.
 
 ## Skyglass Crystal — approved
@@ -33,4 +35,6 @@ This task-specific design decision record owns approved player-facing intent, no
 - Before changing either existing quest ID (`6Ri-W5TtUrEMWpyYlnf_F`, `HckXVOf-qk6ESU9t5rxLh`), obtain a new operator-run read-only `quests.get` capture.
 - If confirmed hidden, preserve `hidden:true` throughout the entire implementation and read-back phase. Never unhide or publish without separate operator authorization. No live-game requests or writes were performed while recording these decisions.
 
-**Still open:** exact Legendary baseline numbers/technical 30 EP mapping; functional 30% Crystal Consume representation; Crystal rarity/trade; Sealwright tuning, full quest graph, art readiness, and fresh hidden-state readback.
+**Source-backed implementation checks:** Pinned source `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6` confirms `ShieldTag` (`health`, `rounds`, proc `power`) and `ImmunityTag` (`blocks:buffprevent`, `rounds`) and weapon action routing honors self-targeted tags. No live-game tests were made; Fable must still run offline schema/behavior tests proving all three tags land correctly in sequence, and verify shield application, Immunity behavior and stacking/cooldown interactions.
+
+**Still open:** exact Legendary weapon baseline values and final technical 30 EP tag encoding; offline runtime tests of 300 HP shield/2 rounds and 2-round Buff Prevent immunity; functional 30% Crystal Consume representation; Crystal rarity/trade; Sealwright tuning, full quest graph, art readiness, and fresh hidden-state readback.
