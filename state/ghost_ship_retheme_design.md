@@ -1,6 +1,6 @@
 # Ghost Ship retheme — design brief
 
-**2026-10-11 update:** `RUL-2026-10-11-001` replaces the wholesale shared-pool migration below with selective retention of approximately twelve irreplaceable legacy jutsu, prioritizing Explosion and the awakened/Crowned Captain. Retained mechanics stay unchanged; presentation is rethemed. Exact roster/hybrid kits remain pending in `state/ghost_ship_legacy_retention_review.md`. The original 57-node scope below was separately superseded by the approved 83-node expansion.
+**2026-10-11 update:** `RUL-2026-10-11-001/002` replaces wholesale shared-pool migration with the approved eleven-record roster in `state/ghost_ship_legacy_retention_review.md`. Retained mechanics stay unchanged; names, descriptions and battle text are converted in `state/ghost_ship_legacy_jutsu_conversion.json` (readable `.md` companion). Final presentation acceptance and hybrid kits remain open. The original 57-node scope below was separately superseded by the approved 83-node expansion.
 
 **Status:** ACTIVE DESIGN / implementation not yet frozen  
 **Lead:** ChatGPT / Content Designer  
@@ -62,7 +62,7 @@ The three interior routes continue that pattern:
 In scope:
 - quest names, descriptions, success text and all 57 objective descriptions/choice labels for both Gather and Hunt;
 - 11 direct Ghost Ship AI display names;
-- 29 Ghost Ship-specific AI jutsu names/descriptions/battle text;
+- the eleven approved retained jutsu names/descriptions/battle text, with original mechanics and IDs preserved;
 - Ghost Ship scene-asset display names and replacement-art direction;
 - themed reward lore;
 - Skyglass Crown reward-loop correction;
@@ -127,13 +127,13 @@ Captured Skyglass Crown mechanics remain unchanged:
 - two imbue slots;
 - craftable, tradable, PVE.
 
-## Shared AI-pool migration
+## Selective legacy retention and shared AI-pool migration
 
-The earlier plan to retheme 29 bespoke Ghost Ship jutsu is **superseded**.
+The earlier plans to retheme 29 bespoke jutsu and then replace all 37 legacy-only records are **superseded**. The director accepted the eleven-record roster in `state/ghost_ship_legacy_retention_review.md`; its text conversion is `state/ghost_ship_legacy_jutsu_conversion.json`. Retained mechanics stay unchanged. Genuinely redundant roles move to shared-pool records.
 
-Ghost Ship combatants move onto the current shared AI jutsu pool according to `state/ghost_ship_shared_pool_migration.json`. Existing level, rank, stat ratios, stat/pool multipliers, regeneration and preferred-stat/general values remain unchanged for the initial migration. Combat identity comes from new shared-pool kits and rebuilt AI profiles.
+Existing level, rank, stat ratios, stat/pool multipliers, regeneration and preferred-stat/general values remain unchanged unless separately approved. Exact hybrid kits and rebuilt AI rules still require selection and tests. The kit/rule arrays in `state/ghost_ship_shared_pool_migration.json` are historical inputs, not final authority.
 
-Approved kit direction:
+Earlier combat-role direction to reconcile with retained moves:
 - Deck Warden: close-pressure shared standard kit.
 - Core Horror: drain/control bruiser.
 - Oathkeeper: technical duelist.
@@ -141,14 +141,14 @@ Approved kit direction:
 - Arsenal Keeper: heavy bruiser.
 - Sentinel: earth defense/controller.
 - First Blade: Air-pool skirmisher.
-- The Captain: six-jutsu shared boss kit.
-- Crowned Captain: six-jutsu Sovereign/command boss kit.
+- The Captain: hybrid boss kit retaining Unbroken Command, Keelbind and Remembered Form; shared replacements and final rules pending.
+- Crowned Captain: command boss retaining six legacy signatures; its four captured shared moves remain eligible and its redundant Sharpened Focus needs a suitable shared replacement.
 
-The two hazard props keep their delayed self-destruct behavior through one new **shared-pool** signature, **Core Rupture**, cloned mechanically from the captured legacy `Explosion!` record but created as a new shared record so unknown external consumers of the legacy jutsu are not silently renamed.
+The two hazard props retain the original `Explosion!` ID `nCQETf-HNnbRec1OSY2-R`, rethemed as **Core Rupture**, with all mechanics preserved. Do not create the former proposed clone. Fresh full records and an all-consumer audit remain required before editing an existing record.
 
-All 37 legacy-only jutsu found on the captured Ghost Ship roster become **retirement candidates**, not deletion targets. The retheme only unequips them. A later dependency audit must prove a record has no remaining consumers before deletion.
+Of the 37 captured legacy-only IDs, eleven are retained and the other 26 remain candidates for retirement from Ghost Ship kits. None are deletion targets. A dependency audit must prove a record has no remaining consumers before any separately authorized deletion.
 
-AI behavior profiles are rebuilt against the new kits with current range-gating doctrine. The operative exact kit/rule map is `state/ghost_ship_shared_pool_migration.json`.
+Fable must rebuild AI behavior profiles against accepted hybrid kits and current range-gating doctrine. Freeze the revised regular Captain before final Sealwright parity testing. No final kit/rule map or full write manifest has been produced.
 
 
 ## Prose policy

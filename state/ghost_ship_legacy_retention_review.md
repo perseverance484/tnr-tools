@@ -1,8 +1,8 @@
 # Ghost Ship — selective legacy jutsu retention
 
-**Policy:** APPROVED DIRECTION, `RUL-2026-10-11-001`. Keep approximately twelve irreplaceable legacy jutsu, prioritizing Explosion and most of the awakened/Crowned Captain's distinctive kit. Retained records receive name/description/battle-description changes only; combat mechanics stay as captured and subsequently verified. Replace genuinely redundant roles with existing shared-pool records.
+**Policy and roster:** APPROVED, `RUL-2026-10-11-001/002`. Keep the eleven legacy jutsu below, including Explosion and six of the awakened/Crowned Captain's seven legacy moves. Retained records receive name/description/battle-description changes only; combat mechanics stay as captured and subsequently verified. Replace genuinely redundant roles with existing shared-pool records.
 
-**Roster below:** PROPOSED, NOT YET ACCEPTED. Eleven recommended legacy records; no final AI kits, names, rule arrays or write manifest are produced. Fable remains implementation owner after selection and technical freeze. No live requests/writes.
+**Conversion complete for review:** `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored text; `state/ghost_ship_legacy_jutsu_conversion.md` is the readable companion. The director approved this exact eleven-record selection and requested its conversion. Final presentation acceptance, hybrid AI kits, rule arrays and technical freeze remain open. Fable remains implementation owner. No live requests/writes or full write manifest.
 
 ## Evidence and comparison method
 
@@ -14,7 +14,7 @@ Verified live `main` at `0eb57de20877d266dde666229ae4c68e8fbcf4c0` and design br
 - Comparison distinguishes unique mechanics, unique action-economy combinations, and signature tuning/cadence. A different name or higher plain damage alone does not establish uniqueness. A shared substitute can fill a role without being numerically equivalent; disclose that balance change.
 - These are historical captures, not fresh live-state certification. Fresh operator full captures and usage checks remain required before edits.
 
-## Recommended eleven
+## Approved eleven
 
 AP/CD/range are captured values, not new tuning. `stun` values below explicitly distinguish its power from AP reduction. Retain the complete original mechanical record, including omitted fields; this summary is not a construction template.
 
@@ -36,17 +36,19 @@ Except Explosion and Shipwreck, these actions are SINGLE method; the self stance
 
 ### Crowned Captain coverage
 
-Retain the six proposed legacy records Deep Six, Final Fathom, Death's Grasp, Shipwreck Delusion, Counter Stance and Death's Door. Its seventh legacy record, **Sharpened Focus**, is an ordinary offensive stance suitable for a disclosed shared-pool replacement.
+Retain the six approved legacy records Deep Six, Final Fathom, Death's Grasp, Shipwreck Delusion, Counter Stance and Death's Door. Its seventh legacy record, **Sharpened Focus**, is an ordinary offensive stance suitable for a disclosed shared-pool replacement.
 
 Its other four moves already are shared records: **S31 Unraveling Strike, B14 Cataclysm Detonation, S35 Second Wind, B07 Stolen Form**. They can remain equipped without becoming new legacy exceptions. Do not rename global records as part of event-local retheming.
 
 This retains ten of the current eleven Crowned moves if its current shared actions are retained; that is a proposed kit-preservation outcome, not an approved final rule array. The captured innate IDG60%/99r is separate from the jutsu and is not removed by this proposal.
 
-## Optional alternatives; no quota padding
+## Earlier alternatives; not part of the approved eleven
+
+The director accepted the eleven above. These alternatives record the earlier comparison only; substituting them now requires a new decision.
 
 - **Ghostly Sand-Choke** can replace Strangling Weed in the shortlist if Sentinel's Sand identity is the stronger priority: same three-pool250 drain/2r, Sand damage, CD3/range4 instead of Wood/CD2/range3. Keeping both is an elemental/encounter-identity choice, not two independent mechanical discoveries.
 - **Ghostly Grasp of the Buried** can replace Rigging Snare if the Sand variant is preferred. It has the same damage/root/cadence with Sand added. Again, do not call both mechanically irreplaceable solely to reach twelve.
-- Eleven meets the approximate target. The final count may change with selection; no assumption that every enemy needs one retained custom technique.
+- Eleven meets the approximate target. There is no requirement to pad to twelve or give every enemy a retained custom technique.
 
 ## Replaceable families and necessary caveats
 
@@ -69,13 +71,13 @@ Do not describe this as delaying all jutsu or count it as a proven unique attack
 ## Effect on Stage 2 and implementation ownership
 
 1. The former wholesale shared-pool migration and blanket 37-record retirement plan are superseded. Its numeric AI profiles and loot directives remain evidence/constraints except where later decisions already override them.
-2. Retain Explosion's original record; **Core Rupture** remains a possible presentation name from earlier design, not an instruction to create a duplicate shared jutsu. Renames still need fresh record/dependency checks so other consumers are known.
-3. Select the retained roster, presentation text and per-enemy hybrid kits. A proposal to keep a record does not automatically add it to enemies that never used it.
+2. Retain Explosion's original record; its authored new name is **Core Rupture**, not an instruction to create a duplicate shared jutsu. Renames still need fresh record/dependency checks so other consumers are known.
+3. The retained roster is approved. Review its authored presentation text and select per-enemy hybrid kits. Approval to keep a record does not automatically add it to enemies that never used it.
 4. Death's Door, Death's Grasp and Battle Trance affect the **regular Captain** too. Fable must freeze that revised comparator before final Sealwright parity. The previous B19/B14/B17/B05/S31/B33 all-shared comparator is now historical, not final authority.
 5. Sealwright's seven shared jutsu and intentional double Clear are unchanged. Item packages B/C can continue; compare Sealwright against the newly accepted Captain kit once settled.
 6. Retained mechanics must survive field-by-field comparison of before/after records, including absent fields. Do not normalize omitted `generalTypes` or silently repair malformed riders. Existing equip-link edit hazards still require the repository's unequip/edit/re-equip workflow at the eventual user-run implementation stage.
 7. “Replace/remove” here means retirement from the Ghost Ship kits. Database deletion remains gated on proof of no external consumers; no deletion manifest is authorized or built by this review.
 
-Names and descriptions remain draft until acceptance. The prior `supersededJutsuRetheme` text may be reused as reference only after checking it accurately describes the unchanged effect. In particular, describe Seal according to verified engine semantics, not generic “all techniques disabled” prose.
+Names, descriptions and battle text have been converted in `state/ghost_ship_legacy_jutsu_conversion.json` and await final presentation acceptance. That file supersedes `supersededJutsuRetheme` for these eleven IDs. Seal is described according to verified engine semantics, not generic “all techniques disabled” prose.
 
-**Current outcome:** approved selective-retention policy recorded; eleven-record recommendation ready for discussion; roster, presentation and revised hybrid AI rules not frozen. No live requests/writes, engine changes, art work, remote publication or implementation manifest.
+**Current outcome:** eleven-record roster approved and text conversion authored. Offline replay preserves all non-presentation fields across all eleven records. Final presentation acceptance and revised hybrid AI rules remain open. No live requests/writes, engine changes, art work, remote publication or implementation manifest.

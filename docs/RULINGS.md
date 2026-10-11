@@ -600,3 +600,22 @@ The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTarget
 
 **Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the new retention policy and candidate comparison; `state/ghost_ship_shared_pool_migration.json` is explicitly marked superseded for final kit selection; the Stage 2 brief and full roadmap point at this gate.
 
+---
+
+## RUL-2026-10-11-002 — Approve the eleven retained jutsu and perform Skyglass conversion
+
+**Date:** 2026-10-11
+**Domain:** Ghost Ship / Skyglass jutsu identity
+**Status:** ACTIVE; retained roster approved and presentation conversion authorized. Final authored copy and hybrid AI kits remain subject to acceptance.
+**Supersedes:** the pending exact-roster selection in RUL-2026-10-11-001; its mechanical-preservation, shared-replacement and dependency requirements remain active.
+
+**Ruling:** dauntless approved the recommended eleven legacy records and requested their conversion to fit the new quest theme. Retain their existing IDs and all mechanics; author new top-level `name`, `description` and `battleDescription` only. The approved roster is Explosion! (`nCQETf-HNnbRec1OSY2-R`), Ghostly Deep Six (`ddbIyVtoxdPQwLRXxSBq8`), Ghostly Final Fathom (`X2P22h8ApDmTZHjWpNO87`), Death's Grasp (`PdD44PGaNv4MN5fOALhAF`), Ghostly Shipwreck Delusion (`EQ93LX8wvuIAd5u75q_i1`), Counter Stance (`T3glZGcSd-jS8G-NB43GR`), Death's Door (`0Y10JpChssDwFUxNRk6p3`), Ghostly Crossed Out (`wMcoazoyXaEXViSCn5weF`), Ghostly Rigging Snare (`1jXfTgrtGUaSfqTPSSa83`), Ghostly Strangling Weed (`Jz4Lb55NcpwZn3nUK5PrJ`) and Battle Trance (`MG9ZujAV8lK7--YxThVbQ`). Eleven satisfies the approximate twelve target; no quota padding is requested.
+
+**Conversion scope:** Use Skyglass command seals, preserved combat patterns and damaged ship reconstruction. This does not authorize mechanical repairs, changes to nested effect fields, new records, shared-global jutsu renames, art replacement, live-game actions or a full implementation manifest. Explosion is retained on its original ID; the former clone plan remains superseded. Fresh operator captures and dependency review precede eventual edits, including checks for external consumers. Fable remains the implementation owner.
+
+**Remaining gates:** The newly authored names/descriptions/battle text have not yet received separate final presentation acceptance. Per-enemy hybrid kits and AI rules remain open; final Sealwright parity must use the revised regular Captain. The quest graph, rewards/items, locked art and Sealwright's seven shared jutsu, including intentional double Clear, are unchanged.
+
+**Rationale:** Preserve the distinctive actions already selected while making their presentation native to the approved Skyglass setting, without turning a thematic conversion into a balance change.
+
+**Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the approved selection. `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored before/after text and preservation evidence; its `.md` companion supports review. The full roadmap, retheme design and Stage 2 brief record the resulting scope and comparator gates.
+
