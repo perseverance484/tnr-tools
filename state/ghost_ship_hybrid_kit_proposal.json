@@ -1,0 +1,1260 @@
+{
+  "schema": "tnr.ghost_ship_hybrid_kit_proposal.design.v1",
+  "executable": false,
+  "status": "PROPOSED_MEMBERSHIP_AND_SUBSTITUTIONS_NOT_APPROVED_BALANCE_OR_RULES",
+  "date": "2026-10-11",
+  "sourcePreparationCommit": "fbc9a4e7c1af1d34d7735060cf8bb6c5469de3fa",
+  "approvedFoundation": [
+    "RUL-2026-10-11-001",
+    "RUL-2026-10-11-002"
+  ],
+  "sourceFiles": {
+    "ai": "harvests/inbox/tnr_results_1790826836406.json",
+    "profiles": "harvests/inbox/tnr_results_1790828718767.json",
+    "poolRecords": "harvests/inbox/tnr_results_1791583362574.json",
+    "poolRegistry": "skills/building-tnr-content/data/32b_DATA_pool.json",
+    "legacyConversion": "state/ghost_ship_legacy_jutsu_conversion.json"
+  },
+  "sourceFileSha256": {
+    "harvests/inbox/tnr_results_1790826836406.json": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed",
+    "harvests/inbox/tnr_results_1790828718767.json": "509d583766d4a1494299e64b35d27af25b9cc61db319fb99b9352f843edc1c2f",
+    "harvests/inbox/tnr_results_1791583362574.json": "d5babab3c7dea23299d6af8bec8c3d496252b6459d383fae64273fb6c03b9067",
+    "skills/building-tnr-content/data/32b_DATA_pool.json": "bc813eec92976ab6406337aa97839e035af078f3908eec2f49a34fa185abd204"
+  },
+  "scope": "Existing eleven Ghost Ship AIs only. Kit order is for display, not AI priority. No final AI rules, jutsu edits, stat tuning, loot edits, deletion or write manifest. Sealwright remains separately approved and unchanged.",
+  "preserve": "Every approved retained jutsu ID and all its mechanics; all currently captured retained memberships; all already-shared equipped IDs; complete AI raw stats, multipliers, pools, preferences, elements and innate effects including duplicates unless separately approved. Existing loot corrections remain governed by reward decisions.",
+  "directorDecisions": [
+    "Accept proposed shared substitutions/consolidations and their numerical, element and cooldown changes; they are role substitutes, not equal-strength copies.",
+    "Accept reusing Rigging Snare and Hollow Timber on Sentinel, with disclosed element/range/cooldown changes.",
+    "Accept EL04 Lightning Pierce on First Blade in place of its untyped Pierce.",
+    "Accept the five-move regular Captain as the membership baseline for parity; Fable still must validate its rules/cadence.",
+    "Decide Crowned Captain support activation after tests; keeping S35/B07/Rebounding Form equipped does not automatically approve activating them in a new rotation."
+  ],
+  "verification": {
+    "aiCount": 11,
+    "capturedMemberships": 75,
+    "proposedMemberships": 65,
+    "retainedUniqueIds": 11,
+    "sharedUniqueIds": 18,
+    "retirementCandidateUniqueIds": 26,
+    "originalRetainedMembershipsPreserved": true,
+    "originalSharedMembershipsPreserved": true,
+    "newRetainedMembershipProposals": 2,
+    "existingSharedRecordDriftFields": {
+      "S31": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ],
+      "B17": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ],
+      "S35": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ],
+      "B07": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ],
+      "B14": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ],
+      "B39": [
+        "elementClassification",
+        "requiredBloodlineMastery",
+        "requiredBukijutsuDefence",
+        "requiredBukijutsuMastery",
+        "requiredBukijutsuOffence",
+        "requiredGenjutsuDefence",
+        "requiredGenjutsuMastery",
+        "requiredGenjutsuOffence",
+        "requiredNinjutsuDefence",
+        "requiredNinjutsuMastery",
+        "requiredNinjutsuOffence",
+        "requiredSageMastery",
+        "requiredTaijutsuDefence",
+        "requiredTaijutsuMastery",
+        "requiredTaijutsuOffence",
+        "statClassification"
+      ]
+    },
+    "runtimeTestsPerformed": false,
+    "liveRequests": 0,
+    "liveWrites": 0
+  },
+  "sharedReferences": {
+    "B07": {
+      "id": "VuFuBtE7h5B1nnA2J1lFZ",
+      "name": "Stolen Form",
+      "sourcePointer": "/captures/10/data",
+      "fullRecordSha256": "e8785d8c47269d3f79d5910e31cad42ed79c09c3372efa97dddca673e733be3e",
+      "ap": 60,
+      "cooldown": 6,
+      "range": 4,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "B14": {
+      "id": "o-4SCAhJ4LHdCwcBDgJrV",
+      "name": "Cataclysm Detonation",
+      "sourcePointer": "/captures/17/data",
+      "fullRecordSha256": "a2606921c0523e230180ecc259fcaf52bf57275b3b4e4bed0403304c73a518cb",
+      "ap": 60,
+      "cooldown": 8,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "B17": {
+      "id": "LisNuMJ2gncEByAxG6QPI",
+      "name": "Worldbreaker Chorus",
+      "sourcePointer": "/captures/20/data",
+      "fullRecordSha256": "d6b2fd3bf019ae273e149b2365ed0d7982a269a6255eda9e51a091e2dc19cad6",
+      "ap": 60,
+      "cooldown": 10,
+      "range": 5,
+      "method": "ALL",
+      "target": "OTHER_USER"
+    },
+    "B39": {
+      "id": "05rH3kZNXbtFq9a9iRl-W",
+      "name": "Light Barrier",
+      "sourcePointer": "/captures/41/data",
+      "fullRecordSha256": "62b68e5623b9e761f6c9a322118eb8671dad08aa9896adafe9371d8dd3214c97",
+      "ap": 40,
+      "cooldown": 5,
+      "range": 0,
+      "method": "SINGLE",
+      "target": "SELF"
+    },
+    "EA03": {
+      "id": "_9k7kSYUgMtB-AEFgRly5",
+      "name": "Windlash Focus",
+      "sourcePointer": "/captures/44/data",
+      "fullRecordSha256": "d42904bbb4837e1e1e814fa5656355f482b7c014bf99eba87dd2b2ccacb2b040",
+      "ap": 40,
+      "cooldown": 4,
+      "range": 0,
+      "method": "SINGLE",
+      "target": "SELF"
+    },
+    "EE03": {
+      "id": "V3WrfQ3pB-eCq2hojsxWe",
+      "name": "Stoneward",
+      "sourcePointer": "/captures/48/data",
+      "fullRecordSha256": "634fb7fb148048129d211171aef898726cb713edb076d4bb69e1e2befa158db7",
+      "ap": 40,
+      "cooldown": 4,
+      "range": 0,
+      "method": "SINGLE",
+      "target": "SELF"
+    },
+    "EL04": {
+      "id": "xGVqWSX93hXZgfmlKZODp",
+      "name": "Ion Lance",
+      "sourcePointer": "/captures/55/data",
+      "fullRecordSha256": "d2410e0c54455f8a270ba0a2d7e8a89f9a7b27dd8bbf36ed45178517e802d134",
+      "ap": 60,
+      "cooldown": 6,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "EW01": {
+      "id": "UnQKfwq_JoRVu10aTX6Uv",
+      "name": "Tide Bolt",
+      "sourcePointer": "/captures/56/data",
+      "fullRecordSha256": "473eb132f7b18ade33b757336f2229f3ecb68e232929b429b0b8630defcfafab",
+      "ap": 60,
+      "cooldown": 3,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "EW03": {
+      "id": "mOA1hXNf4CcuwOhnnN7ZK",
+      "name": "Springguard",
+      "sourcePointer": "/captures/58/data",
+      "fullRecordSha256": "b2594dc7cc9e8397e99c4061001e2384221c0ba246765aa52d0a7e3755e3209e",
+      "ap": 40,
+      "cooldown": 4,
+      "range": 0,
+      "method": "SINGLE",
+      "target": "SELF"
+    },
+    "S01": {
+      "id": "pUrUJX8Jml7fUIBXKsPwv",
+      "name": "Heavy Strike",
+      "sourcePointer": "/captures/59/data",
+      "fullRecordSha256": "ebc3167ef0ce920bf33110f80590a58e01613f0f9ae234f4de155ff8125c65b0",
+      "ap": 60,
+      "cooldown": 5,
+      "range": 3,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S02": {
+      "id": "FeYnH7BBw_usnc1K-TM-J",
+      "name": "Quick Strike",
+      "sourcePointer": "/captures/60/data",
+      "fullRecordSha256": "ea53403dc43a2ee95fa0009646995ff7eecf62b00efb9813133c5800c0668405",
+      "ap": 60,
+      "cooldown": 3,
+      "range": 3,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S03": {
+      "id": "_nUaGHlWhn3-U0xbxJHFw",
+      "name": "Lunging Strike",
+      "sourcePointer": "/captures/61/data",
+      "fullRecordSha256": "15f5f1bd7f2535a8efe0c8883811e3c4f0d7b48a848935e99b03fc6062f6179f",
+      "ap": 60,
+      "cooldown": 4,
+      "range": 4,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S04": {
+      "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+      "name": "Opening Strike",
+      "sourcePointer": "/captures/62/data",
+      "fullRecordSha256": "24968596b2a765bc2ce399061ac2b944128936d9a71ba06b26492e5205a953de",
+      "ap": 60,
+      "cooldown": 3,
+      "range": 4,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S06": {
+      "id": "3v9c1SHlD2GLPF2HW1_Sc",
+      "name": "Twin Shot",
+      "sourcePointer": "/captures/63/data",
+      "fullRecordSha256": "710ee5d9d24ee7828cd84156a84eeb9e717b315176905f35a8b518debad74da7",
+      "ap": 60,
+      "cooldown": 3,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S07": {
+      "id": "Nrxc8m9utE9qaD_gWpLgf",
+      "name": "Rapid Fire",
+      "sourcePointer": "/captures/64/data",
+      "fullRecordSha256": "33721331e63f6c0f66965cf2af8254395fd3b68e17d66f645d9c4afa3d03cf9f",
+      "ap": 60,
+      "cooldown": 2,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S08": {
+      "id": "m-ur3A8TS8r5jGb84L9x7",
+      "name": "Numbing Shot",
+      "sourcePointer": "/captures/65/data",
+      "fullRecordSha256": "6f027a8c00c37ac486fff327216759afadc6bcddbb668d200bfae6bb56bb726f",
+      "ap": 60,
+      "cooldown": 4,
+      "range": 5,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S31": {
+      "id": "1OhP0StX4VTsosWtCxhsG",
+      "name": "Unraveling Strike",
+      "sourcePointer": "/captures/70/data",
+      "fullRecordSha256": "9b0b47732c99d37848ee349481cdcca4b7de78c997c0c1cd21980ce60a7a2171",
+      "ap": 60,
+      "cooldown": 5,
+      "range": 3,
+      "method": "SINGLE",
+      "target": "OTHER_USER"
+    },
+    "S35": {
+      "id": "STu1VHNcfgeC3x-UiQDgt",
+      "name": "Second Wind",
+      "sourcePointer": "/captures/74/data",
+      "fullRecordSha256": "f3bfd67efec7588fdc6cba8080d40c3ef2bc3749694427d82fcbbfac58616d55",
+      "ap": 40,
+      "cooldown": 6,
+      "range": 0,
+      "method": "SINGLE",
+      "target": "SELF"
+    }
+  },
+  "entities": [
+    {
+      "aiId": "texZaFi42S3EvJZBwQ8cd",
+      "name": "Deck Warden",
+      "roleProposal": "Close guard with a ranged Water attack and light disruption.",
+      "aiSourcePointer": "/captures/0/data",
+      "profileSourcePointer": "/captures/0/data",
+      "capturedAiSha256": "75493dcf8fc5f3756a6c5988ccfbada4fe49e18581c3ec1fe1afde8f4f899206",
+      "capturedProfileSha256": "85804dc0f2284138794dba9def44da2d8a21442d51e8e171787af44f4dd96d0f",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 2,
+        "poolsMultiplier": 2.5,
+        "regeneration": 60,
+        "preferredStat": "Bukijutsu",
+        "preferredGeneral1": "Strength",
+        "preferredGeneral2": "Speed",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "cb0da66b98dfb17bf7fb11563e9e3b13df7dba5f0a5ac8e1a5ddc706fd5a5cd1",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "S02",
+        "EW01",
+        "S07",
+        "S08",
+        "EE03",
+        "EW03",
+        "EA03"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/0/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "5c9EgF3dOsx9kelnQMfw5",
+          "fromName": "Ghostly Knotted Lash",
+          "sourcePointer": "/captures/0/data/jutsus/1/jutsu",
+          "to": "EW01",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "65D6rTaW7ZlUmZIL4ZMZ_",
+          "fromName": "Ghostly Grapeshot Volley",
+          "sourcePointer": "/captures/0/data/jutsus/2/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/0/data/jutsus/3/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "kb6zaZKbkv3U3Lgl0p1Dr",
+          "fromName": "Ghostly Boarding Hook",
+          "sourcePointer": "/captures/0/data/jutsus/4/jutsu",
+          "to": "S08",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/0/data/jutsus/5/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "lDRZckm05jQEUTyZ0qmGU",
+          "fromName": "Ghostly Cutlass Slash",
+          "sourcePointer": "/captures/0/data/jutsus/6/jutsu",
+          "to": "S02",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "wZ20uyFl9jXs31Yrp9t7T",
+          "fromName": "Ghostly Chain Shot",
+          "sourcePointer": "/captures/0/data/jutsus/7/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "wTgO-Q32caSSd0is1QIS7",
+      "name": "Seal Charge",
+      "roleProposal": "Delayed self-destruct hazard; preserve captured round-greater-than2 trigger for testing.",
+      "aiSourcePointer": "/captures/1/data",
+      "profileSourcePointer": "/captures/1/data",
+      "capturedAiSha256": "2f7f8f10c0f17ed88839c147d96a8a3983a95c2fffea2d069bb11dfce5dc7e40",
+      "capturedProfileSha256": "83dceec09049e6fa336503a073baa171f000c765806623f1ce02d2b7c41ab6be",
+      "baselineProfileSummary": {
+        "level": 70,
+        "rank": "JONIN",
+        "statsMultiplier": 10,
+        "poolsMultiplier": 1,
+        "regeneration": 60,
+        "preferredStat": "Ninjutsu",
+        "preferredGeneral1": "Willpower",
+        "preferredGeneral2": "Intelligence",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "capturedKitCount": 1,
+      "proposedKit": [
+        "legacy:nCQETf-HNnbRec1OSY2-R"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "nCQETf-HNnbRec1OSY2-R",
+          "fromName": "Explosion!",
+          "sourcePointer": "/captures/1/data/jutsus/0/jutsu",
+          "to": "legacy:nCQETf-HNnbRec1OSY2-R",
+          "disposition": "retain_legacy"
+        }
+      ]
+    },
+    {
+      "aiId": "frc9LTxqQlM7mncG4VZGK",
+      "name": "Core Canister",
+      "roleProposal": "Delayed self-destruct hazard; preserve captured round-greater-than6 trigger for testing.",
+      "aiSourcePointer": "/captures/2/data",
+      "profileSourcePointer": "/captures/2/data",
+      "capturedAiSha256": "a0f603056364023aabbe4929983226edaa23cfa53744c9fa2c851ab33992077e",
+      "capturedProfileSha256": "ac125c15161acfc47060aa459033eae0b1941de10def2a5a58eca9087a60af71",
+      "baselineProfileSummary": {
+        "level": 56,
+        "rank": "JONIN",
+        "statsMultiplier": 20,
+        "poolsMultiplier": 1,
+        "regeneration": 60,
+        "preferredStat": "Ninjutsu",
+        "preferredGeneral1": "Willpower",
+        "preferredGeneral2": "Intelligence",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "capturedKitCount": 1,
+      "proposedKit": [
+        "legacy:nCQETf-HNnbRec1OSY2-R"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "nCQETf-HNnbRec1OSY2-R",
+          "fromName": "Explosion!",
+          "sourcePointer": "/captures/2/data/jutsus/0/jutsu",
+          "to": "legacy:nCQETf-HNnbRec1OSY2-R",
+          "disposition": "retain_legacy"
+        }
+      ]
+    },
+    {
+      "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+      "name": "Core Horror",
+      "roleProposal": "Damaging restraint and three-pool attrition, supported by separate stances.",
+      "aiSourcePointer": "/captures/3/data",
+      "profileSourcePointer": "/captures/3/data",
+      "capturedAiSha256": "d07154c43467b541f151a886d741bac0b476a84e7b5e0be97b76b13a018908a6",
+      "capturedProfileSha256": "2e9025ac21d10eeea7273569c3e0add22daa4c5d7088c76917f94b08418f991b",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 2,
+        "poolsMultiplier": 2.5,
+        "regeneration": 60,
+        "preferredStat": "Taijutsu",
+        "preferredGeneral1": "Strength",
+        "preferredGeneral2": "Willpower",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "244f92c3606e7f5c7438e9ae705666ea497717f0e8c716b04604e20c85bd9196",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "legacy:1jXfTgrtGUaSfqTPSSa83",
+        "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+        "EE03",
+        "EW03",
+        "EA03",
+        "S08",
+        "S06"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/3/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "1jXfTgrtGUaSfqTPSSa83",
+          "fromName": "Ghostly Rigging Snare",
+          "sourcePointer": "/captures/3/data/jutsus/1/jutsu",
+          "to": "legacy:1jXfTgrtGUaSfqTPSSa83",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "69KaUuqwYMxBtP8cnpSyt",
+          "fromName": "Ghostly Powder Flash",
+          "sourcePointer": "/captures/3/data/jutsus/2/jutsu",
+          "to": "S08",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/3/data/jutsus/3/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "Jz4Lb55NcpwZn3nUK5PrJ",
+          "fromName": "Ghostly Strangling Weed",
+          "sourcePointer": "/captures/3/data/jutsus/4/jutsu",
+          "to": "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/3/data/jutsus/5/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "M17d487aZDuWfS5C_hgeN",
+          "fromName": "Ghostly Hull-Crush Coil",
+          "sourcePointer": "/captures/3/data/jutsus/6/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "mL39bQRcyFtdPUlsJRNsA",
+          "fromName": "Ghostly Tarred Harpoon",
+          "sourcePointer": "/captures/3/data/jutsus/7/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "0PZU_FvlbM3ErYGlD5r56",
+      "name": "Oathkeeper",
+      "roleProposal": "Reflecting duelist with a vulnerability attack; no new Clear or stun.",
+      "aiSourcePointer": "/captures/4/data",
+      "profileSourcePointer": "/captures/4/data",
+      "capturedAiSha256": "ba65055e7c761a7052932a203e1afc82be07679dfc3e389655c7b69ed38dfb8d",
+      "capturedProfileSha256": "385aabd7b7be40addd75b30bef9c9876d25461104353afbb88ab44c625fd4e44",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 2,
+        "poolsMultiplier": 2.5,
+        "regeneration": 60,
+        "preferredStat": "Genjutsu",
+        "preferredGeneral1": "Speed",
+        "preferredGeneral2": "Intelligence",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "051d9ca4a04d64a913ae3a8d24493feaf8f5380a1da6797ea24404dd9f6bde5c",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "legacy:T3glZGcSd-jS8G-NB43GR",
+        "EE03",
+        "EA03",
+        "S04",
+        "S07",
+        "S02"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/4/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "65D6rTaW7ZlUmZIL4ZMZ_",
+          "fromName": "Ghostly Grapeshot Volley",
+          "sourcePointer": "/captures/4/data/jutsus/1/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/4/data/jutsus/2/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "lDRZckm05jQEUTyZ0qmGU",
+          "fromName": "Ghostly Cutlass Slash",
+          "sourcePointer": "/captures/4/data/jutsus/3/jutsu",
+          "to": "S02",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "LIGN4c83NNmv4ea655HGx",
+          "fromName": "Ghostly Measured Verdict",
+          "sourcePointer": "/captures/4/data/jutsus/4/jutsu",
+          "to": "S04",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "T3glZGcSd-jS8G-NB43GR",
+          "fromName": "Counter Stance",
+          "sourcePointer": "/captures/4/data/jutsus/5/jutsu",
+          "to": "legacy:T3glZGcSd-jS8G-NB43GR",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "wZ20uyFl9jXs31Yrp9t7T",
+          "fromName": "Ghostly Chain Shot",
+          "sourcePointer": "/captures/4/data/jutsus/6/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "ZZk2cSkwhzUSdtq6XB72_",
+          "fromName": "Ghostly White-Fire Riposte",
+          "sourcePointer": "/captures/4/data/jutsus/7/jutsu",
+          "to": "S02",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "v7T9_XdGMfP46em0dPuBc",
+      "name": "Wayfinder",
+      "roleProposal": "Ranged pressure; no newly invented temporal control, Clear or ALL attack.",
+      "aiSourcePointer": "/captures/5/data",
+      "profileSourcePointer": "/captures/5/data",
+      "capturedAiSha256": "c88a7d25553e0cf0efb703fc37c25e3ee5e4b784bc6f388ea3ed8b251020dd77",
+      "capturedProfileSha256": "32122e309d55c73c592fa9b69e7d762c0c43ec17352862013b035744de80d864",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 2,
+        "poolsMultiplier": 3,
+        "regeneration": 60,
+        "preferredStat": "Ninjutsu",
+        "preferredGeneral1": "Intelligence",
+        "preferredGeneral2": "Speed",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "91a88125d291e8db01e2696210ca3b83ef9d69d02d0a23e26509204d7612ed04",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "S03",
+        "S06",
+        "S07",
+        "EE03",
+        "EW03",
+        "EA03"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/5/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "65D6rTaW7ZlUmZIL4ZMZ_",
+          "fromName": "Ghostly Grapeshot Volley",
+          "sourcePointer": "/captures/5/data/jutsus/1/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "eMNSr1NWubD_IwVYppbkZ",
+          "fromName": "Ghostly Chart-Pin Barrage",
+          "sourcePointer": "/captures/5/data/jutsus/2/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/5/data/jutsus/3/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/5/data/jutsus/4/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "mL39bQRcyFtdPUlsJRNsA",
+          "fromName": "Ghostly Tarred Harpoon",
+          "sourcePointer": "/captures/5/data/jutsus/5/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "wZ20uyFl9jXs31Yrp9t7T",
+          "fromName": "Ghostly Chain Shot",
+          "sourcePointer": "/captures/5/data/jutsus/6/jutsu",
+          "to": "S03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "yjsfRGaY1rUwG3FUWeHUW",
+          "fromName": "Ghostly Redrawn Course",
+          "sourcePointer": "/captures/5/data/jutsus/7/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "2OXJEXoktxJcjqMkE851g",
+      "name": "Arsenal Keeper",
+      "roleProposal": "Heavy Metal seal strike supported by ordinary attacks and light disruption.",
+      "aiSourcePointer": "/captures/6/data",
+      "profileSourcePointer": "/captures/6/data",
+      "capturedAiSha256": "0ff1c6c46a3cd36e8e316b736af03821e9f60d96c1c8bde91e48a71b10aa1b63",
+      "capturedProfileSha256": "5c0466eae394a824ba815d518a28abb6842edcb302ffdc35851517a90724bb98",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 2,
+        "poolsMultiplier": 3,
+        "regeneration": 60,
+        "preferredStat": "Bukijutsu",
+        "preferredGeneral1": "Strength",
+        "preferredGeneral2": "Willpower",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "83181b84144afff84540dba819dfb512704af0716b4efc110544da6eee09f1bc",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "legacy:wMcoazoyXaEXViSCn5weF",
+        "S01",
+        "S06",
+        "S08",
+        "EE03",
+        "EW03",
+        "EA03"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/6/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "69KaUuqwYMxBtP8cnpSyt",
+          "fromName": "Ghostly Powder Flash",
+          "sourcePointer": "/captures/6/data/jutsus/1/jutsu",
+          "to": "S08",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "bt-LJ22cM2gs_-iVtPsbW",
+          "fromName": "Ghostly Coin-Weight Maul",
+          "sourcePointer": "/captures/6/data/jutsus/2/jutsu",
+          "to": "S01",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/6/data/jutsus/3/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/6/data/jutsus/4/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "lDRZckm05jQEUTyZ0qmGU",
+          "fromName": "Ghostly Cutlass Slash",
+          "sourcePointer": "/captures/6/data/jutsus/5/jutsu",
+          "to": "S01",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "mL39bQRcyFtdPUlsJRNsA",
+          "fromName": "Ghostly Tarred Harpoon",
+          "sourcePointer": "/captures/6/data/jutsus/6/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "wMcoazoyXaEXViSCn5weF",
+          "fromName": "Ghostly Crossed Out",
+          "sourcePointer": "/captures/6/data/jutsus/7/jutsu",
+          "to": "legacy:wMcoazoyXaEXViSCn5weF",
+          "disposition": "retain_legacy"
+        }
+      ]
+    },
+    {
+      "aiId": "3V_gdHYaclMB1gTyOPAbV",
+      "name": "Sentinel",
+      "roleProposal": "Defensive guardian retaining root-only control and three-pool attrition through two proposed reused event techniques.",
+      "aiSourcePointer": "/captures/7/data",
+      "profileSourcePointer": "/captures/7/data",
+      "capturedAiSha256": "f0dda83d691d398fbfef2421d2f7ab8710d948126007121d4f03117ae6021cfd",
+      "capturedProfileSha256": "f3ad9123c2b638bcb779276a3e3eca83c8a9490f1b635f5fcca4c4213ffc32e3",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 3,
+        "poolsMultiplier": 3.5,
+        "regeneration": 60,
+        "preferredStat": "Taijutsu",
+        "preferredGeneral1": "Strength",
+        "preferredGeneral2": "Willpower",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "4615a277fbc1262170fcce4fa8a23cc3444b348255476896bb552932858acb2c",
+      "capturedKitCount": 9,
+      "proposedKit": [
+        "legacy:T3glZGcSd-jS8G-NB43GR",
+        "legacy:1jXfTgrtGUaSfqTPSSa83",
+        "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+        "B39",
+        "EE03",
+        "EW03",
+        "S06"
+      ],
+      "newRetainedMembershipProposals": [
+        "legacy:1jXfTgrtGUaSfqTPSSa83",
+        "legacy:Jz4Lb55NcpwZn3nUK5PrJ"
+      ],
+      "mapping": [
+        {
+          "fromId": "05rH3kZNXbtFq9a9iRl-W",
+          "fromName": "Light Barrier",
+          "sourcePointer": "/captures/7/data/jutsus/0/jutsu",
+          "to": "B39",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/7/data/jutsus/1/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "1ymzIUup_ErD_ruUkOmJV",
+          "fromName": "Ghostly Grasp of the Buried",
+          "sourcePointer": "/captures/7/data/jutsus/2/jutsu",
+          "to": "legacy:1jXfTgrtGUaSfqTPSSa83",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "84Ew66RUgE_yzTeb2X4d4",
+          "fromName": "Ghostly Sand-Choke",
+          "sourcePointer": "/captures/7/data/jutsus/3/jutsu",
+          "to": "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "cRs0e3bzbw1zAQ8Z0ZPgA",
+          "fromName": "Ghostly Burial Tide",
+          "sourcePointer": "/captures/7/data/jutsus/4/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/7/data/jutsus/5/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "JtMuRYsk965ZZD1sSQlrL",
+          "fromName": "Ghostly Shore-Break",
+          "sourcePointer": "/captures/7/data/jutsus/6/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "T3glZGcSd-jS8G-NB43GR",
+          "fromName": "Counter Stance",
+          "sourcePointer": "/captures/7/data/jutsus/7/jutsu",
+          "to": "legacy:T3glZGcSd-jS8G-NB43GR",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "UrQra0Xfn18ZFEgL38yl1",
+          "fromName": "Ghostly Tidal Grave",
+          "sourcePointer": "/captures/7/data/jutsus/8/jutsu",
+          "to": "S06",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+      "name": "First Blade",
+      "roleProposal": "Offensive combat form, pure Pierce, vulnerability and light disruption; no forced Wind or pull role.",
+      "aiSourcePointer": "/captures/8/data",
+      "profileSourcePointer": "/captures/8/data",
+      "capturedAiSha256": "ff5bd0291bcb08994580d699962379b35601dfc6e68290e764de623328685d7a",
+      "capturedProfileSha256": "81790f8718e13e83368e7b2e1eb51a5513f95358419c79e75028a9b495bb531e",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 3,
+        "poolsMultiplier": 3.5,
+        "regeneration": 60,
+        "preferredStat": "Bukijutsu",
+        "preferredGeneral1": "Strength",
+        "preferredGeneral2": "Speed",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "5458c806c244517aeca2882456bbb15dca7d9f12b19fa0968b843e42e93357f7",
+      "capturedKitCount": 8,
+      "proposedKit": [
+        "legacy:MG9ZujAV8lK7--YxThVbQ",
+        "EE03",
+        "EW03",
+        "S08",
+        "EL04",
+        "S04",
+        "S07"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "1Iy2Vy5ZvCY9dQsc193NB",
+          "fromName": "Guarded Stance",
+          "sourcePointer": "/captures/8/data/jutsus/0/jutsu",
+          "to": "EE03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "HsHQylAuohwyOcMcCOtPA",
+          "fromName": "Ghostly Undertow Chain",
+          "sourcePointer": "/captures/8/data/jutsus/1/jutsu",
+          "to": "S08",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "i1KbE0NbN1SWIwHuJgdoT",
+          "fromName": "Braced Stance",
+          "sourcePointer": "/captures/8/data/jutsus/2/jutsu",
+          "to": "EW03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "jbdOPmLPLvGZjltPvFiAu",
+          "fromName": "Ghostly Vault-Breaker",
+          "sourcePointer": "/captures/8/data/jutsus/3/jutsu",
+          "to": "EL04",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "MG9ZujAV8lK7--YxThVbQ",
+          "fromName": "Battle Trance",
+          "sourcePointer": "/captures/8/data/jutsus/4/jutsu",
+          "to": "legacy:MG9ZujAV8lK7--YxThVbQ",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "PqKTMl9XyNXLoJHIsQEas",
+          "fromName": "Ghostly Dead Reckoning",
+          "sourcePointer": "/captures/8/data/jutsus/5/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "VTw2FVjsJXOZNr1NyPkoh",
+          "fromName": "Ghostly Gale Cleaver",
+          "sourcePointer": "/captures/8/data/jutsus/6/jutsu",
+          "to": "S07",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "YCDM4ZWOWY1d4nqwXpX0j",
+          "fromName": "Ghostly Thunderhead Brand",
+          "sourcePointer": "/captures/8/data/jutsus/7/jutsu",
+          "to": "S04",
+          "disposition": "replace_or_consolidate"
+        }
+      ]
+    },
+    {
+      "aiId": "QY69h271Nx9uHrBeR6jwW",
+      "name": "The Captain",
+      "roleProposal": "Preserve all five captured moves as the regular-Captain comparator.",
+      "aiSourcePointer": "/captures/9/data",
+      "profileSourcePointer": "/captures/9/data",
+      "capturedAiSha256": "78a1043418da021407777bb040e18d1335d33ae9972d18212d6c3240313407c0",
+      "capturedProfileSha256": "d616305f8e8d631fa28a4bcdc341f67f7138f314145db364265e97bcf5a151b6",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 3,
+        "poolsMultiplier": 2.5,
+        "regeneration": 60,
+        "preferredStat": "Bukijutsu",
+        "preferredGeneral1": "Speed",
+        "preferredGeneral2": "Strength",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "7e10edce0760faccf20cc86e617cdba1db1e20fa49178c9d235f013fdc9ba8c0",
+      "capturedKitCount": 5,
+      "proposedKit": [
+        "legacy:0Y10JpChssDwFUxNRk6p3",
+        "legacy:MG9ZujAV8lK7--YxThVbQ",
+        "legacy:PdD44PGaNv4MN5fOALhAF",
+        "B14",
+        "B17"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "0Y10JpChssDwFUxNRk6p3",
+          "fromName": "Death's Door",
+          "sourcePointer": "/captures/9/data/jutsus/0/jutsu",
+          "to": "legacy:0Y10JpChssDwFUxNRk6p3",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "LisNuMJ2gncEByAxG6QPI",
+          "fromName": "Worldbreaker Chorus",
+          "sourcePointer": "/captures/9/data/jutsus/1/jutsu",
+          "to": "B17",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "MG9ZujAV8lK7--YxThVbQ",
+          "fromName": "Battle Trance",
+          "sourcePointer": "/captures/9/data/jutsus/2/jutsu",
+          "to": "legacy:MG9ZujAV8lK7--YxThVbQ",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "o-4SCAhJ4LHdCwcBDgJrV",
+          "fromName": "Cataclysm Detonation",
+          "sourcePointer": "/captures/9/data/jutsus/3/jutsu",
+          "to": "B14",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "PdD44PGaNv4MN5fOALhAF",
+          "fromName": "Death's Grasp",
+          "sourcePointer": "/captures/9/data/jutsus/4/jutsu",
+          "to": "legacy:PdD44PGaNv4MN5fOALhAF",
+          "disposition": "retain_legacy"
+        }
+      ]
+    },
+    {
+      "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+      "name": "Crowned Captain",
+      "roleProposal": "Six retained command signatures plus four existing shared moves; only Sharpened Focus is replaced.",
+      "aiSourcePointer": "/captures/10/data",
+      "profileSourcePointer": "/captures/10/data",
+      "capturedAiSha256": "d3ec062cf7723abed05da022310f38c0ca654a3b507b83c0b997c44a8b3c5112",
+      "capturedProfileSha256": "fd5f4c55d998453c49dfd55e222d0227abafb4e01e5542f0534c639ef6c04d91",
+      "baselineProfileSummary": {
+        "level": 100,
+        "rank": "JONIN",
+        "statsMultiplier": 3,
+        "poolsMultiplier": 3.6,
+        "regeneration": 60,
+        "preferredStat": "Bukijutsu",
+        "preferredGeneral1": "Speed",
+        "preferredGeneral2": "Strength",
+        "primaryElement": null,
+        "secondaryElement": null
+      },
+      "innateEffectsSha256": "f619774e5845b16bbb4d4f84b83d83b53456faf4de016a224c6c007a4d6b4d6e",
+      "capturedKitCount": 11,
+      "proposedKit": [
+        "legacy:0Y10JpChssDwFUxNRk6p3",
+        "legacy:ddbIyVtoxdPQwLRXxSBq8",
+        "legacy:X2P22h8ApDmTZHjWpNO87",
+        "legacy:PdD44PGaNv4MN5fOALhAF",
+        "legacy:EQ93LX8wvuIAd5u75q_i1",
+        "legacy:T3glZGcSd-jS8G-NB43GR",
+        "EA03",
+        "S31",
+        "B14",
+        "S35",
+        "B07"
+      ],
+      "newRetainedMembershipProposals": [],
+      "mapping": [
+        {
+          "fromId": "0Y10JpChssDwFUxNRk6p3",
+          "fromName": "Death's Door",
+          "sourcePointer": "/captures/10/data/jutsus/0/jutsu",
+          "to": "legacy:0Y10JpChssDwFUxNRk6p3",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "1OhP0StX4VTsosWtCxhsG",
+          "fromName": "Unraveling Strike",
+          "sourcePointer": "/captures/10/data/jutsus/1/jutsu",
+          "to": "S31",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "ddbIyVtoxdPQwLRXxSBq8",
+          "fromName": "Ghostly Deep Six",
+          "sourcePointer": "/captures/10/data/jutsus/2/jutsu",
+          "to": "legacy:ddbIyVtoxdPQwLRXxSBq8",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "EQ93LX8wvuIAd5u75q_i1",
+          "fromName": "Ghostly Shipwreck Delusion",
+          "sourcePointer": "/captures/10/data/jutsus/3/jutsu",
+          "to": "legacy:EQ93LX8wvuIAd5u75q_i1",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "KIMeKemnXttwOv1Cf-IPS",
+          "fromName": "Sharpened Focus",
+          "sourcePointer": "/captures/10/data/jutsus/4/jutsu",
+          "to": "EA03",
+          "disposition": "replace_or_consolidate"
+        },
+        {
+          "fromId": "o-4SCAhJ4LHdCwcBDgJrV",
+          "fromName": "Cataclysm Detonation",
+          "sourcePointer": "/captures/10/data/jutsus/5/jutsu",
+          "to": "B14",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "PdD44PGaNv4MN5fOALhAF",
+          "fromName": "Death's Grasp",
+          "sourcePointer": "/captures/10/data/jutsus/6/jutsu",
+          "to": "legacy:PdD44PGaNv4MN5fOALhAF",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "STu1VHNcfgeC3x-UiQDgt",
+          "fromName": "Second Wind",
+          "sourcePointer": "/captures/10/data/jutsus/7/jutsu",
+          "to": "S35",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "T3glZGcSd-jS8G-NB43GR",
+          "fromName": "Counter Stance",
+          "sourcePointer": "/captures/10/data/jutsus/8/jutsu",
+          "to": "legacy:T3glZGcSd-jS8G-NB43GR",
+          "disposition": "retain_legacy"
+        },
+        {
+          "fromId": "VuFuBtE7h5B1nnA2J1lFZ",
+          "fromName": "Stolen Form",
+          "sourcePointer": "/captures/10/data/jutsus/9/jutsu",
+          "to": "B07",
+          "disposition": "keep_shared"
+        },
+        {
+          "fromId": "X2P22h8ApDmTZHjWpNO87",
+          "fromName": "Ghostly Final Fathom",
+          "sourcePointer": "/captures/10/data/jutsus/10/jutsu",
+          "to": "legacy:X2P22h8ApDmTZHjWpNO87",
+          "disposition": "retain_legacy"
+        }
+      ]
+    }
+  ]
+}

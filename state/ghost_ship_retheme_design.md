@@ -2,6 +2,8 @@
 
 **2026-10-11 update:** `RUL-2026-10-11-001/002` replaces wholesale shared-pool migration with the approved eleven-record roster in `state/ghost_ship_legacy_retention_review.md`. Retained mechanics stay unchanged; names, descriptions and battle text are converted in `state/ghost_ship_legacy_jutsu_conversion.json` (readable `.md` companion). Final presentation acceptance and hybrid kits remain open. The original 57-node scope below was separately superseded by the approved 83-node expansion.
 
+**Hybrid kit proposal:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` now supply exact proposed memberships and substitutions for all eleven existing enemies. They remain proposals pending director acceptance and Fable's tests, including two explicit new Sentinel assignments of retained techniques.
+
 **Status:** ACTIVE DESIGN / implementation not yet frozen  
 **Lead:** ChatGPT / Content Designer  
 **Implementation owner:** Fable / Claude Code after freeze  

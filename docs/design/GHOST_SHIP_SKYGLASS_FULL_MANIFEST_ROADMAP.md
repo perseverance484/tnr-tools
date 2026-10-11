@@ -9,6 +9,8 @@
 
 **2026-10-11 independent readiness checkpoint:** `docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_READINESS_2026-10-11.md`. Stage 2 remains pending. Source review confirms the Crystal validator blocker and Katana source feasibility, identifies the missing full Legendary Sword capture, and specifies B32 ALL-method and migrated-Captain/innate-effect test requirements. This is review evidence, not in-process combat validation or a new ruling. The existing Stage 2 brief remains the governing offline test contract.
 
+**Hybrid kits prepared for acceptance:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` propose all eleven existing enemy kits with complete original-to-proposed membership mapping. All eleven retained legacy IDs and all already-shared memberships survive; Sentinel reuse and shared substitution tradeoffs remain explicit director decisions. The regular Captain proposal preserves its captured five moves. This is a design/source review packet, not approved kit balance or final AI rules.
+
 ## Source/evidence hierarchy
 
 - `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md`, `docs/RULINGS.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`.
@@ -23,6 +25,7 @@
 - `state/ghost_ship_retheme_patch.json` — approved base 57-node text/identity/reward patch. Invariant to preserve all edges and count MUST be explicitly superseded by a versioned expansion; do not silently alter this base or treat it as the full release.
 - `state/ghost_ship_legacy_retention_review.md` — approved eleven-record retention roster and pool-comparison rationale.
 - `state/ghost_ship_legacy_jutsu_conversion.json` / `.md` — authored three-field text conversion on the eleven existing IDs; all other captured fields preserved; presentation acceptance pending.
+- `state/ghost_ship_hybrid_kit_proposal.json` / `.md` — proposed eleven-enemy hybrid membership, exact source references and Fable test handoff; substitutions, Sentinel reuse and final behavior require acceptance/tests.
 - `state/ghost_ship_shared_pool_migration.json` — superseded all-shared kit/clone proposal, retained as historical evidence with an explicit policy override. Final hybrid kits remain open.
 - `harvests/inbox/tnr_results_1790826101573.json` — two full live quest records + out-of-scope Drowned Fleet.
 - `harvests/inbox/tnr_results_1790826836406.json` — 11 directly wired AI records, 10 scene assets, item captures.
@@ -128,9 +131,10 @@ No direct live-game requests or writes, no publication, no change to any active 
 
 ## Director-facing decision queue (do not fill in by convenience)
 
+- **Hybrid kits:** review `state/ghost_ship_hybrid_kit_proposal.md`. Recommended Sentinel reuse preserves root-only control and Health/Chakra/Stamina drain but changes elements and drain timing/range; First Blade's proposed EL04 changes untyped Pierce to Lightning and lowers power/recurrence. Shared replacements also lower ordinary power and consolidate attacks. Crowned support activation is a separate behavior decision. No final parity or equal-difficulty claim is made.
 - The quest graph and **seven Sealwright techniques** are approved as design intent, including S31's routine Clear plus B32's IDG-threshold Clear. Do not treat them as redundant. **Still open:** source-checked rule positioning, comparative Captain parity and any director-signed test adjustments.
 - **Resolved (RUL-2026-10-10-007):** Katana LEGENDARY WEAPON/SWORD, non-imbuable, **50 EP Pierce**, **self Buff Prevent immunity for 2 rounds**, **Consume 40%**. Crystal weapon-only **Consume 20%** as a single effect. Former Katana 30 EP Damage, 300 HP Shield and old Crystal Consume 30% are superseded. **Open:** Legendary Sword base values, source-backed in-process Katana proof, working one-tag Crystal validation/runtime path, Crystal rarity/trade and launch gates.
 - Confirm Crystal rarity, tradeability, Filament tradeability, fixed Reliquary rewards, and unlimited-repeat chase policy.
 - **Visibility:** director says both existing quests are currently hidden. Operator confirms with fresh captures; maintain hidden state during edits. Separate publishing decision remains open.
 
-**Immediate next task:** Run Fable's revised offline-only Stage 2 test brief: Katana 50 EP Pierce + self Buff Prevent immunity/2 rounds + Consume 40% with no imbue slot; Crystal weapon-only single-tag Consume 20%; Sealwright Captain parity. Resolve source-verified Legendary Sword base fields and Crystal engine blocker, then independent exact-SHA review. No write manifest before director-owned balance, art and current-capture gates are satisfied.
+**Immediate next gate:** Director reviews the concrete hybrid-kit proposal, including the five-move regular-Captain comparator; Fable then tests accepted membership and candidate rules under the revised offline-only Stage 2 brief. Katana 50 EP Pierce + self Buff Prevent immunity/2 rounds + Consume40%, weapon-only single-tag Crystal Consume20%, and baseline-source research can proceed independently. Resolve source-verified Legendary Sword base fields and the Crystal engine blocker, then independent exact-SHA review. No write manifest before director-owned balance, art and current-capture gates are satisfied.
