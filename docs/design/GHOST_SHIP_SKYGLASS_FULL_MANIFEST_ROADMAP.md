@@ -9,6 +9,8 @@
 
 **2026-10-11 Consume revision checkpoint (RUL-2026-10-11-005):** Katana **15%** and Crystal **10%**, using active Consume. R4 evidence at engine `cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93` remains historical. Reviewed upstream `585534d7eb21d6f0dd678d5c3eb92662f611d39b` allows positive-duration Consume without a Damage/Pierce companion; it is not a verified deployment pin. Fable revalidates the revised items under `state/prompt_ghost_ship_skyglass_consume_revalidation.md`. Buff duration and generated-shield lifetime remain open. Night's Testament baseline is already accepted under RUL-2026-10-11-004.
 
+**Active Consume candidate execution:** `docs/reviews/GHOST_SHIP_ACTIVE_CONSUME_OFFLINE_RESULTS.md` records passing Katana15 / Crystal10 schema, runtime and eligibility tests at the updated engine using **unapproved 3/3 timing carriers**. Exact source drift and provenance are included. Independent frozen-SHA review, final timing/economy/presentation and director combat acceptance remain open; no manifest or release freeze follows from this PASS.
+
 **Hybrid kit baseline accepted:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` are accepted under RUL-2026-10-11-003, including Sentinel reuse and disclosed shared-substitution tradeoffs. They preserve all original retained/shared memberships. The regular Captain keeps its captured five moves. Exact rule order, dormant Crowned support activation and measured parity remain open.
 
 ## Source/evidence hierarchy

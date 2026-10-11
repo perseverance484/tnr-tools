@@ -1,0 +1,348 @@
+{
+ "assertions": 16,
+ "carriers": "state/ghost_ship_skyglass_active_consume_carriers.json",
+ "checks": [
+  {
+   "detail": {
+    "extra": [],
+    "fields": 74,
+    "mismatch": [],
+    "missing": []
+   },
+   "name": "all 65 non-override Katana fields equal Night's Testament; no missing or extra fields",
+   "pass": true
+  },
+  {
+   "detail": [
+    "battleDescription",
+    "canBeCrafted",
+    "canBeImbued",
+    "craftingExperience",
+    "description",
+    "effects",
+    "hidden",
+    "image",
+    "name"
+   ],
+   "name": "the nine ruling/presentation overrides remain the exact accepted set",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "after": 15,
+     "before": 40,
+     "path": "/effects/2/power"
+    },
+    {
+     "after": 3,
+     "before": 0,
+     "path": "/effects/2/rounds"
+    }
+   ],
+   "name": "r4 Katana difference is only Consume power40->15 and TEST rounds0->3",
+   "pass": true
+  },
+  {
+   "detail": {
+    "crystalCapture": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+    "designDelta": "3b3ed363c81fa99bc26fd39aa75c88faf8215a6050099a29cc1b81892067eb48",
+    "historicalKatana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469",
+    "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746"
+   },
+   "name": "both capture, historical record and design delta SHA256 values match carrier provenance",
+   "pass": true
+  },
+  {
+   "name": "timing is explicitly unapproved and the candidate keeps both test durations at 3",
+   "pass": true
+  },
+  {
+   "name": "exact three-effect Katana contract validates",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "full ItemValidator accepts the Katana with explicit test timing and labelled presentation placeholders",
+   "pass": true
+  },
+  {
+   "name": "Katana remains LEGENDARY WEAPON/SWORD, non-imbuable, hidden, drop-only and tradable",
+   "pass": true
+  },
+  {
+   "name": "single active Consume10 SELF percentage effect accepts with test duration3 and shield duration3",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "issues": [],
+     "rarity": "RARE",
+     "success": true
+    },
+    {
+     "issues": [],
+     "rarity": "EPIC",
+     "success": true
+    },
+    {
+     "issues": [],
+     "rarity": "LEGENDARY",
+     "success": true
+    }
+   ],
+   "name": "full ItemValidator accepts all three labelled Crystal rarity carriers without Damage/Pierce",
+   "pass": true
+  },
+  {
+   "name": "Crystal remains CRYSTAL/WEAPON-only",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "name": "instant standalone Consume array rejected with exactly companion-tag issue",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": "effects"
+    }
+   ],
+   "name": "full instant Crystal rejects at effects for the same companion rule",
+   "pass": true
+  },
+  {
+   "name": "source defaults active Consume to rounds3/shieldRounds3; recorded only as a schema control",
+   "pass": true
+  },
+  {
+   "name": "synthetic instant controls accept either companion; neither control is the Crystal candidate",
+   "pass": true
+  },
+  {
+   "name": "maxImbueNumber0 rejects,1 accepts and canBeImbued:false accepts",
+   "pass": true
+  }
+ ],
+ "data": {
+  "carrierStatus": {
+   "crystalNonEffectWarning": "Carried shop/cost/trade/craft/level fields are test data only, not proposals or implementation defaults. The 12-Filament recipe is supplied separately to the craft guard test; no live recipe ID is invented.",
+   "crystalOpenPolicy": [
+    "rarity",
+    "trading",
+    "crafting rank/occupation economics",
+    "all remaining non-effect Crystal fields"
+   ],
+   "presentationPending": [
+    "description",
+    "battleDescription",
+    "image"
+   ],
+   "status": "OFFLINE_TEST_CARRIERS_ONLY; TIMING_ECONOMY_PRESENTATION_NOT_FROZEN; NOT_A_WRITE_MANIFEST",
+   "testTiming": {
+    "approved": false,
+    "consumeRounds": 3,
+    "generatedShieldRounds": 3,
+    "note": "Explicit source-default test inputs; separate director timing decisions remain open."
+   }
+  },
+  "crystalValidation": {
+   "candidates": [
+    {
+     "issues": [],
+     "rarity": "RARE",
+     "success": true
+    },
+    {
+     "issues": [],
+     "rarity": "EPIC",
+     "success": true
+    },
+    {
+     "issues": [],
+     "rarity": "LEGENDARY",
+     "success": true
+    }
+   ],
+   "effectsAccepted": true,
+   "note": "rarities and all other Crystal non-effect fields are test inputs, not policy recommendations",
+   "parsedEffects": [
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "percentage",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 10,
+     "powerPerLevel": 0,
+     "rounds": 3,
+     "shieldRounds": 3,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "consume"
+    }
+   ]
+  },
+  "historicalKatanaDiff": [
+   {
+    "after": 15,
+    "before": 40,
+    "path": "/effects/2/power"
+   },
+   {
+    "after": 3,
+    "before": 0,
+    "path": "/effects/2/rounds"
+   }
+  ],
+  "instantNegativeControl": {
+   "damageControlAccepted": true,
+   "instantEffects": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "instantFullItem": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": "effects"
+    }
+   ],
+   "omittedTimingDefaults": [
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "percentage",
+     "description": "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Not affected by heal modifiers.",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 10,
+     "powerPerLevel": 0,
+     "rounds": 3,
+     "shieldRounds": 3,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "consume"
+    }
+   ],
+   "pierceControlAccepted": true
+  },
+  "katanaValidation": {
+   "effects": [
+    {
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true,
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "formula",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "dmgModifier": 0,
+     "elements": [
+      "Crystal"
+     ],
+     "generalTypes": [
+      "Highest"
+     ],
+     "power": 50,
+     "powerPerLevel": 0,
+     "residualModifier": 0,
+     "rounds": 0,
+     "statTypes": [
+      "None"
+     ],
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "INHERIT",
+     "type": "pierce"
+    },
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "blocks": "buffprevent",
+     "calculation": "static",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 100,
+     "powerPerLevel": 0,
+     "rounds": 2,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "immunity"
+    },
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "percentage",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 15,
+     "powerPerLevel": 0,
+     "rounds": 3,
+     "shieldRounds": 3,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "consume"
+    }
+   ],
+   "effectsAccepted": true,
+   "fullAccepted": true,
+   "issues": [],
+   "presentationPlaceholders": {
+    "battleDescription": "%user strikes %target (harness placeholder)",
+    "description": "harness placeholder (presentation pending)",
+    "image": ""
+   }
+  },
+  "sourceProvenance": {
+   "crystalShapeDonor": {
+    "capture": "harvests/inbox/tnr_results_1788235198666.json",
+    "captureSha256": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+    "capturedAt": "2026-09-01T03:59:42.777Z",
+    "id": "1GmiQAGuBZZsjIFqcqPkR",
+    "name": "Flaming Sword",
+    "pointer": "/captures/8/data/items/0/item"
+   },
+   "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+   "hashes": {
+    "crystalCapture": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+    "designDelta": "3b3ed363c81fa99bc26fd39aa75c88faf8215a6050099a29cc1b81892067eb48",
+    "historicalKatana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469",
+    "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746"
+   },
+   "katanaBaseline": {
+    "capture": "harvests/inbox/tnr_results_1791727479372.json",
+    "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+    "capturedAt": "2026-10-11T14:04:38.932Z",
+    "id": "osJq3k77YPGoFWgof12FQ",
+    "name": "Night's Testament",
+    "pointer": "/captures/0/data"
+   }
+  }
+ },
+ "failed": 0,
+ "gate": "CONTRACT",
+ "scope": "schema-valid TEST carriers; timing, Crystal economy and presentation not approved"
+}
