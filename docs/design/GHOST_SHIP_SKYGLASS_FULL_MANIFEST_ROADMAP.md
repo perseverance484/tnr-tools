@@ -11,7 +11,7 @@
 - `state/ghost_ship_skyglass_reward_decisions.md` — operative 2026-10-10 director-approved Katana/Crystal numerical design and current hidden-state report; unresolved engine mappings kept explicit.
 - `state/ghost_ship_skyglass_expansion_design.md` — **Stage 1 STRUCTURE APPROVED** for the 83-node six-ending quest (RUL-2026-10-10-003); new dialogue and choice prose remain draft.
 - `state/ghost_ship_skyglass_graph_patch.json` — machine-readable **STRUCTURE APPROVED / PROSE DRAFT** patch containing 26 new nodes, 12 original forward-edge rewires, four new scene symbols and one Sealwright AI symbol. Not a Forge manifest.
-- `state/ghost_ship_skyglass_sealwright_combat_draft.md` — **Stage 2 revised proposal:** director wants Sealwright **on par with regular Captain**, with genuine **B14 and B16 boss-pool moves**. Source-backed parity starting profile: Level 100/JONIN, stats 3.0×, pools 2.5×, regeneration 60. Exact six-move kit, gear effects, AI rules, and measured difficulty still require approval and offline validation; no implementation authority.
+- `state/ghost_ship_skyglass_sealwright_combat_draft.md` — Stage 2 Sealwright captain-parity draft: six proposed rotation techniques plus the director-approved seventh reserve, B32 Nullifying Wave. Trigger only when opponent total IDG exceeds 70, with exact native rule and gating detailed in the combat draft. Remaining kit and balance pending.
 - `state/ghost_ship_retheme_design.md` — Skyglass lore, reveal cadence, named entities, rewards (original preserve-57 scope is now superseded for the expansion only).
 - `state/ghost_ship_retheme_patch.json` — approved base 57-node text/identity/reward patch. Invariant to preserve all edges and count MUST be explicitly superseded by a versioned expansion; do not silently alter this base or treat it as the full release.
 - `state/ghost_ship_shared_pool_migration.json` — approved shared AI kits and Core Rupture concept; no revival of 29 bespoke legacy jutsu.
@@ -69,6 +69,10 @@ Stage 1 structure was **APPROVED by the director**, preserving the machine desig
 
 ## Stage 2 Captain-tier Sealwright direction (director requested; exact kit pending)
 
+**Director-approved seventh jutsu:** B32 Nullifying Wave is held outside the six-move rotation. It triggers only when the opponent's summed Increased Damage Given effect power is at least 71 (the current integer threshold mapping for >70). Its 100% Clear is broader than IDG-only, removing removable positive effects. Place the matching target effect and range conditions ahead of all normal rules, and fall through if unavailable. See the combat draft for the exact source-backed AI rule.
+
+
+
 The director rejected the initial mid-tier Sealwright proposal and requested **meaningful boss-pool jutsu and practical parity with the regular Captain**. The October 1 full AI capture gives the regular Captain **Level 100/JONIN; 3.0× stats; 2.5× pools; 60 regeneration**. The revised candidate is at `state/ghost_ship_skyglass_sealwright_combat_draft.md` and uses that same starting profile, with **B14 Cataclysm Detonation** and **B16 Sovereign Fetters** as two genuine high-impact boss-pool signatures alongside **B22, B33, S27 and S31** for defense, piercing and suppression. The two boss signatures and exact relative battle difficulty have **not yet been director-approved**; Fable must compare this against the Captain's migrated kit **B19/B14/B17/B05/S31/B33** and account for Captain equipment before claiming parity. In particular, B16's combined 2-round Stun/Seal could make the fight too oppressive if AI priorities are careless. No custom jutsu, extra battle phases, or boss loot are implied. Do not translate this draft into an AI/quest manifest.
 
 The Stage 2 technical remainder still includes the Katana's source-verified Legendary cooldown/cost/AP baseline, the current three-tag in-process combat test, Crystal weapon-only Consume 30% compatibility, Crystal rarity/trading, and the operator's fresh hidden-state capture.
@@ -113,9 +117,9 @@ No direct live-game requests or writes, no publication, no change to any active 
 
 ## Director-facing decision queue (do not fill in by convenience)
 
-- Quest structure and sixth ending are **approved**. Now obtain director acceptance of the revised Captain-tier Sealwright's **B14/B16 boss moves**, remaining shared-pool kit and effective combat difficulty, then decide optional First Blade/Wayfinder/Arsenal Keeper portraits.
+- The quest graph is approved; the Sealwright B32 emergency anti-IDG reserve is approved as his seventh jutsu. Six other rotation techniques and effective Captain parity remain under director review.
 - **Resolved:** Katana **30 EP Damage**, **300 HP Shield for 2 rounds**, and **Buff Prevent immunity for 2 rounds**; no Katana Consume. Crystal remains weapon-only **30% Consume**. **Open:** Legendary weapon baseline numbers, verified implementation of Katana self-effect mechanics, functional Crystal Consume path, other reward/trade and quest decisions.
 - Confirm Crystal rarity, tradeability, Filament tradeability, fixed Reliquary rewards, and unlimited-repeat chase policy.
 - **Visibility:** director says both existing quests are currently hidden. Operator confirms with fresh captures; maintain hidden state during edits. Separate publishing decision remains open.
 
-**Immediate next task:** Director reviews revised Captain-tier Sealwright boss-pool kit (B14/B16) and parity safeguards; then Stage 2 exact reward/mechanical verification (Legendary Katana baseline, three-effect runtime test, weapon-only Crystal Consume implementation, Crystal rarity/trade). Finalize editorial quest prose separately without reopening the approved graph. No full quest implementation manifest until these gates, accepted art and updated captures are complete.
+**Immediate next task:** Review the six-move Sealwright rotation alongside his locked B32 anti-IDG reserve, then complete Stage 2 balance and reward feasibility.
