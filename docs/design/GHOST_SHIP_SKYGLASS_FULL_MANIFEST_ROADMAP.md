@@ -9,6 +9,8 @@
 
 - `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md`, `docs/RULINGS.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`.
 - `state/ghost_ship_skyglass_reward_decisions.md` — operative 2026-10-10 director-approved Katana/Crystal numerical design and current hidden-state report; unresolved engine mappings kept explicit.
+- `state/ghost_ship_skyglass_expansion_design.md` — **Stage 1 draft** 83-node six-ending structural/narrative proposal, pending director review (not frozen).
+- `state/ghost_ship_skyglass_graph_patch.json` — machine-readable **design-only** patch containing 26 new nodes, 12 original forward-edge rewires, four new scene symbols, and one new Sealwright AI symbol. Not a Forge manifest.
 - `state/ghost_ship_retheme_design.md` — Skyglass lore, reveal cadence, named entities, rewards (original preserve-57 scope is now superseded for the expansion only).
 - `state/ghost_ship_retheme_patch.json` — approved base 57-node text/identity/reward patch. Invariant to preserve all edges and count MUST be explicitly superseded by a versioned expansion; do not silently alter this base or treat it as the full release.
 - `state/ghost_ship_shared_pool_migration.json` — approved shared AI kits and Core Rupture concept; no revival of 29 bespoke legacy jutsu.
@@ -58,6 +60,12 @@ Two existing quests, as recorded in the older October 1 captures:
 
 Forge `forge/src/runner/refs.mjs` at base already supports `@item:`, `@ai:`, `@scene:`, `@jutsu:`, `@img:` with stable topological create ordering. A single combined full manifest can therefore reference a newly created Crystal/Filament inside the Reliquary table and a newly created Reliquary inside the quest. Fable must check release/current Forge behavior rather than assume old pipeline prose lists every ref.
 
+## Stage 1 design draft checkpoint (2026-10-10)
+
+Stage 1 has produced a director-reviewable proposal, **not an accepted freeze**: `state/ghost_ship_skyglass_expansion_design.md` plus `state/ghost_ship_skyglass_graph_patch.json`. Both Gather and Hunt have been checked offline against the October 1 captured full objective graphs: **57 preserved nodes + 26 proposed additions = 83 nodes each**, **12 existing edge rewires**, **one root**, **all nodes reachable**, **six reachable endings**, **zero success/fail cycles**, **all 13 battle nodes dialog-gated**, and **no invented new map location tasks**. The secret route requires the hull/Core Horror and ends exclusively at `w_secret`; the direct Oathkeeper → Crowned Captain route still has two battles. The permanent original node IDs, AI opponent blocks, timed location mechanics, and original Gather/Hunt rewards are unchanged except where a later approved reward correction expressly applies.
+
+**Director review pending:** (1) 83-node scope and extra optional dialogs, (2) wrong archive seal choice closes the secret route for that run but does not end the quest, (3) Sealwright characterization and archive motivation, and (4) exact new dialog/choice prose. The accepted design must be frozen before Fable builds any quest edit manifest.
+
 ## Roadmap / stage gates
 
 | Stage | Owner | Deliverable | Acceptance gate |
@@ -103,4 +111,4 @@ No direct live-game requests or writes, no publication, no change to any active 
 - Confirm Crystal rarity, tradeability, Filament tradeability, fixed Reliquary rewards, and unlimited-repeat chase policy.
 - **Visibility:** director says both existing quests are currently hidden. Operator confirms with fresh captures; maintain hidden state during edits. Separate publishing decision remains open.
 
-**Immediate next task:** prepare the expansion graph and exact reward/mechanical decision sheet (not the manifest), then seek director approval before downstream implementation.
+**Immediate next task:** obtain director review on the committed 83-node six-ending graph draft and new prose. On structural approval, freeze the Stage 1 design and proceed to Stage 2 Legendary weapon baseline / Sealwright combat / Crystal Consume feasibility and reward acceptance. No quest implementation manifest before these gates.
