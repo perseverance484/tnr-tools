@@ -719,3 +719,21 @@ Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r 
 **Evidence boundary:** the active-Consume package `fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2` tests3/3 carriers at engine `585534d7eb21d6f0dd678d5c3eb92662f611d39b`. Preserve it and r4 as historical evidence. Fable must deliberately produce/test2/2 records and the selected Crystal economy; no old PASS is relabelled. No engine change, live request/write, art, full manifest or publication is authorized.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`; companion `state/ghost_ship_skyglass_final_item_contract.json`; bounded Fable brief `state/prompt_ghost_ship_skyglass_final_item_revalidation.md`. Sealwright's new proposal is linked from its existing combat draft to `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`.
+
+---
+
+## RUL-2026-10-11-007 — Activate Crowned Captain healing, conditional Copy and regular Reflect
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support behavior
+
+**Status:** ACTIVE design direction. Exact Copy threshold, native heal boundary, final order and balance acceptance remain pending.
+
+**Supersedes:** the unresolved choice of whether to activate Crowned Captain's equipped Second Wind, Stolen Form and Rebounding Form in RUL003 and the hybrid-kit review. Does not approve the old experiment's heal50/Copy30/Reflect-distance3 values.
+
+**Ruling:** dauntless directed that Crowned Captain **heal at 40% health**, **copy when enemies have high IDG**, and **use Reflect as part of his regular rotation**. Activate the already equipped S35 Second Wind, B07 Stolen Form and retained Rebounding Form accordingly. Preserve their original mechanics and IDs, all eleven accepted memberships, profile/innates and approved rewards/farming route. No extra technique or stat tuning is implied.
+
+**Unresolved details:** “high IDG” has no director-selected number. The companion proposes threshold71 on CLOSEST_OPPONENT with native distance gate5, ahead of routine Clear; this number/selector/order is not accepted by this ruling. Native `health_below:40` is strictly below40%, not inclusive of exactly40; disclose and obtain acceptance of that boundary rather than silently substituting41. The candidate uses ordinary SELF Reflect without a health/distance condition, subject to existing AP/cooldown rules. Final priority and measured consequences remain test/review work.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md` owns the activation direction and bounded Fable test brief. `state/ghost_ship_hybrid_kit_proposal.md` points to it; unchanged JSON and historical A1 results retain their original membership/test scope. No engine change, live request/write, art, manifest or publication is authorized.
