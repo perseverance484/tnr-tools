@@ -1,5 +1,7 @@
 # Ghost Ship / Skyglass Project — full-manifest release roadmap
 
+**Latest Crowned Captain decision (RUL-2026-10-11-007):** activate healing at40% health, Copy against high IDG and regular Reflect. See `state/ghost_ship_skyglass_crowned_support_behavior.md`. Exact Copy threshold, native strict-below40 boundary, ordering and measured difficulty remain open; the prior dormant-support activation question is resolved in favor of activation. Historical support tests do not validate the new conditions.
+
 **Current decision checkpoint (2026-10-11, RUL-2026-10-11-006):** both active Consume buffs and generated shields are **2/2 rounds**. Katana15/Crystal10 rates stay fixed. Crystal is **LEGENDARY, tradable, not craftable**; the12-Filament recipe is removed. Other Reliquary rewards remain. Consume overlap is expressly deferred and does not block this pass. Final item revalidation: `state/prompt_ghost_ship_skyglass_final_item_revalidation.md`. The new Sealwright attack-first/late-movement/basic-strike design is `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`, pending director acceptance and tests. Historical records/evidence remain unchanged.
 
 **Latest combat decision (2026-10-11, RUL-2026-10-11-001/002):** The eleven-record roster in `state/ghost_ship_legacy_retention_review.md` is approved, including Explosion and six Crowned Captain legacy signatures. Names, descriptions and battle text are converted in `state/ghost_ship_legacy_jutsu_conversion.json` with a readable `.md` companion; final presentation acceptance remains open. All mechanics and original IDs are preserved. Wholesale shared-pool replacement, blanket legacy retirement and the automatic Explosion clone are superseded. Hybrid kit membership and the five-move regular-Captain comparator are accepted under RUL-2026-10-11-003; exact rules and parity require tests before combat freeze; Sealwright's seven moves, quests, rewards/items and art locks are unchanged.
@@ -13,7 +15,7 @@
 
 **Active Consume candidate execution:** `docs/reviews/GHOST_SHIP_ACTIVE_CONSUME_OFFLINE_RESULTS.md` records passing Katana15/Crystal10 schema, runtime and eligibility tests using **historical3/3 carriers**. Exact source drift and provenance are included. Final2/2/economy revalidation, independent review, presentation and director combat acceptance remain open; no manifest freeze follows from that PASS.
 
-**Hybrid kit baseline accepted:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` are accepted under RUL-2026-10-11-003, including Sentinel reuse and disclosed shared-substitution tradeoffs. They preserve all original retained/shared memberships. The regular Captain keeps its captured five moves. Exact rule order, dormant Crowned support activation and measured parity remain open.
+**Hybrid kit baseline accepted:** `state/ghost_ship_hybrid_kit_proposal.md` / `.json` are accepted under RUL-2026-10-11-003, including Sentinel reuse and disclosed shared-substitution tradeoffs. They preserve all original retained/shared memberships. The regular Captain keeps its captured five moves. Crowned support activation is directed by RUL007; exact behavior details, final ordering and measured parity remain open.
 
 ## Source/evidence hierarchy
 
@@ -135,7 +137,7 @@ No direct live-game requests or writes, no publication, no change to any active 
 
 ## Director-facing decision queue (do not fill in by convenience)
 
-- **Hybrid memberships accepted (RUL-2026-10-11-003):** Sentinel reuse, First Blade EL04 and all disclosed shared substitutions are accepted for testing. Remaining decisions concern test-driven tuning, final AI rule behavior and Crowned support activation, not repeating membership selection.
+- **Hybrid memberships accepted (RUL-2026-10-11-003):** Sentinel reuse, First Blade EL04 and all disclosed shared substitutions are accepted for testing. Crowned support activation is directed by RUL007; its precise trigger/boundary/order and measured balance remain open alongside other final AI behavior. Membership selection is not reopened.
 - The quest graph and **seven Sealwright techniques** are approved as design intent, including S31's routine Clear plus B32's IDG-threshold Clear. Do not treat them as redundant. **Still open:** source-checked rule positioning, comparative Captain parity and any director-signed test adjustments.
 - **Resolved (RUL006 and prior approvals):** Katana identity/baseline/economy, Pierce50 (Crystal), immunity2r and Consume15; weapon-only Crystal with one Consume10, Legendary/tradable/not craftable. Both Consume timers2/2. **Open:** final2/2/economy validation, independent review, presentation and release gates. Consume overlap is deferred and not blocking this pass.
 - Filament tradeability/use remains open after removal of the Crystal recipe. The fixed Reliquary table remains approved.
