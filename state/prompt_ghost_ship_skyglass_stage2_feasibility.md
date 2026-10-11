@@ -1,0 +1,53 @@
+# Ghost Ship Skyglass Project — Stage 2 source-backed feasibility and parity brief
+
+**Status:** READY FOR FABLE OFFLINE RESEARCH / TEST WORK ON SEPARATE OWNED BRANCH — **NOT** production-content authorization.  
+**Issued:** 2026-10-10  
+**Repository:** `perseverance484/tnr-tools`; baseline main `0eb57de20877d266dde666229ae4c68e8fbcf4c0` (recheck head).  
+**Authoritative design:** exact frozen `chatgpt/ghost-ship-skyglass-manifest-roadmap` head supplied in the handoff; read only. **No writes to ChatGPT's active branch**.  
+**Roles:** Fable = technical implementation/architecture owner for offline tests and tools; ChatGPT = independent frozen-SHA reviewer; director = all combat/balance/rewards/engine-change/live-game/publishing decisions.  
+**Live-game requests/writes:** ZERO. No operator credentials. No actual site interactions, asset-CDN fetches, game updates or publishes.
+
+## Inputs to read before work
+
+- `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/ENGINE_LAWS.md`, `docs/RULINGS.md`, `CHATGPT.md`, `docs/DEVELOPMENT_WORKFLOW.md`, `docs/agents/README.md`, `docs/agents/ENGINEERING_AUDITOR.md`, `docs/workflows/CONTENT_WORKSTREAM.md`.
+- `state/ghost_ship_skyglass_expansion_design.md` and `state/ghost_ship_skyglass_graph_patch.json`: **approved 83-node structure**, not a request to edit quests.
+- `state/ghost_ship_skyglass_sealwright_combat_draft.md`, `state/ghost_ship_skyglass_sealwright_rule_contract.json`, and `docs/reviews/GHOST_SHIP_SEALWRIGHT_RULE_STATIC_CHECK.md`.
+- `state/ghost_ship_skyglass_reward_decisions.md`, `state/ghost_ship_shared_pool_migration.json`, `skills/building-tnr-content/data/32b_DATA_pool.json`, `harvests/inbox/tnr_results_1790826836406.json`, `harvests/inbox/tnr_results_1790828718767.json`.
+- Current/pinned `studie-tech/TheNinjaRPG` source, especially `app/src/libs/combat/ai_v2.ts`, `app/src/validators/ai.ts`, `app/src/validators/combat.ts`, `app/src/libs/combat/actions.ts`, `app/src/libs/combat/tags.ts`, `app/src/libs/combat/process.ts`, `app/src/server/api/routers/combat.ts`, `app/src/server/api/routers/occupation.ts`.
+
+## Work package A — Sealwright AI behavior and regular-Captain parity
+
+**Director-locked:** Seven shared-pool jutsu: B22 Compression Barrier, B16 Sovereign Fetters, B14 Cataclysm Detonation, B33 Piercing Judgment, S27 Weakening Strike, **S31 Unraveling Strike** (routine high-priority 40 Damage + 100% Clear) and **B32 Nullifying Wave** (seventh jutsu, conditional-only 100% Clear when targeted opponent **IDG >70**). Overlapping Clears are **intentional and desired**. Do not deduplicate S31/B32, nor convert B32 to unconditional filler. B32 current-schema rule uses `target_has_effect(increasedamagegiven, CLOSEST_OPPONENT, threshold:71)` AND `distance_lower_than(CLOSEST_OPPONENT, value:6)`; `use_specific_jutsu` ID `JWZYiHKPNwYziWEFjw4Fn`. Use only existing shared IDs, no new custom jutsu.
+
+**Parity target:** regular Captain Level 100/JONIN, 3× stats, 2.5× pools, regeneration 60. This is a **starting candidate**, not a measured equality. October 1 capture shows Captain inventory AI Heavy Armor and Cursed Dagger **both equipped:NONE**, so engine passive armor and item action filters don't apply them to ordinary fights. Refresh via operator-provided capture if current state may differ, no agent live query.
+
+**Required offline proofs:** validate complete AiProfile field grammar, jutsu ID refs, gates/ranges, 40+60 AP cadence, and no exhaustion; execute actual in-process AI selection/combat tests (not only the small static priority model) for IDG 69/70/70.5/71/90; B32 unavailable, in/out of range, multi-opponent/summon targeting; S31 firing routinely when ready; Clear/clearprevent interactions; mixed control from B16 2r stun+seal. Compare a representative player-fixture matrix against the regular Captain: turns to victory/loss, control lockout rounds, damage spikes, shield uptime, buff uptime/clear frequency, pool pressure and counterplay. Show source/pin/test command/results. Do not silently weaken a director-chosen move; present tuning conflicts for the director.
+
+**Candidate movement:** Design contract includes a proactive closing rule for S31's shorter range 3. That exact positioning order is not yet approved; test alternatives with/without it and quantify effects before freezing the rule array. Preserve the director's core mechanic either way.
+
+## Work package B — Crystal weapon-only 30% Consume feasibility
+
+**Director-locked:** Skyglass Crystal is a weapon-targeted `CRYSTAL` imbuement with **30% Consume**, shield duration intended 3 rounds, no unauthorized extra damage/pierce effect. The Reliquary source/Filament progression is a separate accepted reward contract.
+
+**Known source blocker:** `app/src/validators/combat.ts` item effects are validated with `SuperRefineEffects`, which rejects a Consume tag unless Damage/Pierce is present on the **same item effects array**. A Consume-only Crystal currently cannot pass that check. On the other hand, `app/src/server/api/routers/combat.ts` composes `ui.item.effects + imbuement.item.effects` for a weapon's action, and `app/src/libs/combat/tags.ts` computes Consume only when an effect is both `isNew` and `castThisRound` on positive outgoing damage. This suggests a potential **validator-only special case for CRYSTAL target WEAPON**, but runtime validity is **UNPROVEN**. Research whether schema plumbing can safely allow weapon-only Consume-only crystals without relaxing general Consume+Damage law for jutsus/items/bloodlines, and whether resulting weapon attacks actually generate the intended self-shield across normal damage, shielded damage, and multi-target cases. If upstream game-code changes are necessary, write a minimal test-backed separate-Lane-A proposal; DO NOT modify game source or weaken validator without explicit authorization.
+
+**Occupation/rank:** check Crafting-only imbuement, crystal rarity Master/other thresholds, tradability and inability of Gather/Hunt players to imbue unless craft-occupation constraints allow; present director-owned options, don't decide.
+
+## Work package C — Katana item contract and Legendary baseline
+
+**Director-locked:** Skyglass Katana is Legendary, AI drop from Crowned Captain **3% independent** of **20% Crown Fragment**. Weapon use delivers exactly **30 EP Damage, 300 HP Shield/2 rounds on wielder, Buff Prevent immunity/2 rounds on wielder**. Former 40% Consume and shield potency are both superseded.
+
+**Proofs:** validate `damage(power:30)` raw EP item encoding; `shield(health:300, rounds:2, power:100, target:SELF)` (power = creation probability, not HP); `immunity(blocks:buffprevent, rounds:2, target:SELF)`; test 3-tag legality, target selection, turn timing, shield-refresh stacking and prevention blocking new Buff Prevent (not retroactive cure). Exact AP/cooldown/pool costs/range and item rarity/occupation requirements must be resolved from one or more **existing Legendary weapon full item records**; do not invent figures. `Night's Testament` catalog id `osJq3k77YPGoFWgof12FQ` is an available comparator but no longer mandatory clone. If full records absent in committed captures, specify the minimal **read-only user-run capture**, don't make live queries.
+
+## Art, rewards, quest safety
+
+No art generation, uploads or processing in this packet. No quest/AI/item edits; no manifest assembly or production test run. Preserve the approved 83-node graph and six endings; preserve the Crowned Captain's short two-battle route, 20% fragment + 3% Katana independent AI drops, and secret-route guaranteed Reliquary. Do not publish/unhide either profession quest. Existing quests are reported hidden by the director; old `hidden:false` capture is stale for visibility.
+
+## Expected Fable deliverable and review gate
+
+- One durable, exact-SHA **offline feasibility report** with source code/test evidence, PASS/BLOCKED per package and list of unresolved user-owned choices.
+- Actual automated/in-process tests for AI rules where feasible and reproducer for item effect/crystal validator behavior; output commands and results, not only narrative.
+- Explicit engine-change requirement **if and only if** confirmed by tests. Keep proposed patches segregated for prior authorization, never sneak changes into a content manifest.
+- Pin implementation/review SHA and provide compact fielded handoff to ChatGPT for independent review. No source/tool/engine changes in the game, no live requests/writes or credentials.
+
+**Next project gate:** director reviews any balance/rarity/engine-dependency decisions; then author the full frozen content implementation brief and move to Fable's normal Forge manifest build with accepted art and fresh operator captures.
