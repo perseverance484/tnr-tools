@@ -1,5 +1,7 @@
 # Ghost Ship / Skyglass Project — full-manifest release roadmap
 
+**Latest combat direction (2026-10-11, RUL-2026-10-11-001):** Selectively retain approximately twelve irreplaceable legacy jutsu, including Explosion and most awakened/Crowned Captain signatures, with names/descriptions updated and mechanics preserved. `state/ghost_ship_legacy_retention_review.md` contains the proposed eleven-record shortlist. Wholesale shared-pool replacement, blanket legacy retirement and the automatic Explosion clone below are superseded. Final hybrid kits and the regular-Captain parity comparator require selection before combat freeze; Sealwright's seven moves, quests, rewards/items and art locks are unchanged.
+
 **Status:** ROADMAP ACTIVE; **83-node / six-ending Stage 1 structure director-approved** under RUL-2026-10-10-003 (2026-10-10). Stage 2 mechanics, final prose, art and full manifest remain pending. No live execution or publication authorization.  
 **Repository baseline:** `perseverance484/tnr-tools@0eb57de20877d266dde666229ae4c68e8fbcf4c0` (verified 2026-10-10).  
 **Lead:** Content Designer (ChatGPT); implementation: Fable / Claude Code after freeze; independent review: ChatGPT; all live-game requests/writes and publication: director/operator only.  
