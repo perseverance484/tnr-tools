@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-11)
+# DRIFT.md - upstream contract drift (2026-10-12)
 
-Upstream: studie-tech/TheNinjaRPG@21b8f0eb0569fa16e6af2b1f1ed95e7b5a879f55
+Upstream: studie-tech/TheNinjaRPG@6e4429d65f466b0df9fca3f9917b6dd427df7573
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -70,9 +70,11 @@ REMOVALS
   ... 159 more
 ADDITIONS
   enum-member  AllObjectives.bloodline_collection.bloodlineRank  ALL
+  enum-member  AllObjectives.tag_usage_win.tagType  decreaseaggro
   enum-member  AllObjectives.tag_usage_win.tagType  decreasemastery
   enum-member  AllObjectives.tag_usage_win.tagType  decreasepotency
   enum-member  AllObjectives.tag_usage_win.tagType  diffuse
+  enum-member  AllObjectives.tag_usage_win.tagType  increaseaggro
   enum-member  AllObjectives.tag_usage_win.tagType  increasemastery
   enum-member  AllObjectives.tag_usage_win.tagType  increasepotency
   enum-member  AllObjectives.train_specific_jutsu.masteryType  None
@@ -94,6 +96,16 @@ ADDITIONS
   enum-member  AllTags.copy.target  COORDINATES
   enum-member  AllTags.damage.target  COORDINATES
   enum-member  AllTags.debuffprevent.target  COORDINATES
+  enum-member  AllTags.decreaseaggro.aggroMode  ENMITY
+  enum-member  AllTags.decreaseaggro.aggroMode  GENERATION
+  enum-member  AllTags.decreaseaggro.calculation  percentage
+  enum-member  AllTags.decreaseaggro.calculation  static
+  enum-member  AllTags.decreaseaggro.friendlyFire  ALL
+  enum-member  AllTags.decreaseaggro.friendlyFire  ENEMIES
+  enum-member  AllTags.decreaseaggro.friendlyFire  FRIENDLY
+  enum-member  AllTags.decreaseaggro.target  COORDINATES
+  enum-member  AllTags.decreaseaggro.target  INHERIT
+  enum-member  AllTags.decreaseaggro.target  SELF
   enum-member  AllTags.decreasecooldown.target  COORDINATES
   enum-member  AllTags.decreasedamagegiven.target  COORDINATES
   enum-member  AllTags.decreasedamagetaken.target  COORDINATES
@@ -117,19 +129,7 @@ ADDITIONS
   enum-member  AllTags.decreasemaxpools.target  COORDINATES
   enum-member  AllTags.decreasepoolcost.target  COORDINATES
   enum-member  AllTags.decreasepotency.affectedElements  ...BasicElementName
-  enum-member  AllTags.decreasepotency.affectedElements  Boil
-  enum-member  AllTags.decreasepotency.affectedElements  Crystal
-  enum-member  AllTags.decreasepotency.affectedElements  Dust
-  enum-member  AllTags.decreasepotency.affectedElements  Explosion
-  enum-member  AllTags.decreasepotency.affectedElements  Ice
-  enum-member  AllTags.decreasepotency.affectedElements  Lava
-  enum-member  AllTags.decreasepotency.affectedElements  Light
-  enum-member  AllTags.decreasepotency.affectedElements  Magnet
-  enum-member  AllTags.decreasepotency.affectedElements  Metal
-  enum-member  AllTags.decreasepotency.affectedElements  None
-  enum-member  AllTags.decreasepotency.affectedElements  Sand
-  enum-member  AllTags.decreasepotency.affectedElements  Scorch
-  ... 170 more
+  ... 202 more
 
 BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -179,30 +179,30 @@ REMOVALS
   ftype  jutsu  requiredTaijutsuOffence  preprocess
   ftype  jutsu  requiredWillpower  preprocess
 CHANGES
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  jutsu  requiredNinjutsuMastery  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  requiredBloodlineMastery  optional -> required
-  now-required  item  requiredBukijutsuMastery  optional -> required
-  now-required  item  farmFertilizerExperience  optional -> required
-  now-required  jutsu  requiredBloodlineMastery  optional -> required
-  now-required  jutsu  requiredBukijutsuMastery  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  requiredSageMastery  optional -> required
-  now-required  item  farmMinLevel  optional -> required
   now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  requiredGenjutsuMastery  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  requiredTaijutsuMastery  optional -> required
-  now-required  jutsu  requiredSageMastery  optional -> required
   now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  requiredNinjutsuMastery  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  jutsu  requiredGenjutsuMastery  optional -> required
   now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmMinLevel  optional -> required
+  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
+  now-required  item  requiredGenjutsuMastery  optional -> required
+  now-required  jutsu  requiredBloodlineMastery  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  jutsu  requiredGenjutsuMastery  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  requiredTaijutsuMastery  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  farmSellValue  optional -> required
   now-required  jutsu  requiredTaijutsuMastery  optional -> required
+  now-required  item  requiredSageMastery  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  requiredBukijutsuMastery  optional -> required
+  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  jutsu  requiredSageMastery  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  jutsu  requiredBukijutsuMastery  optional -> required
+  now-required  jutsu  requiredNinjutsuMastery  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -256,6 +256,8 @@ ADDITIONS
 BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 REMOVALS
+  const-member  ALLIANCE_VILLAGE_TYPES  TOWN
+  const-member  SECTOR_TYPES  TOWN
   const-member  StatNames  bukijutsuDefence
   const-member  StatNames  bukijutsuOffence
   const-member  StatNames  genjutsuDefence
@@ -302,17 +304,22 @@ REMOVALS
   const-member  publicState  sector
   const-member  publicState  warIds
 ADDITIONS
+  const-member  ALLIANCE_VILLAGE_TYPES  STRONGHOLD
   const-member  AUCTION_OFFER_TYPES  REQUEST
   const-member  AUCTION_OFFER_TYPES  TRADE
   const-member  AttackMethods  COORDINATES
   const-member  AvailableActionTargets  COORDINATE
+  const-member  AvailableEffectTypes  decreaseaggro
   const-member  AvailableEffectTypes  decreasemastery
   const-member  AvailableEffectTypes  decreasepotency
   const-member  AvailableEffectTypes  diffuse
+  const-member  AvailableEffectTypes  increaseaggro
   const-member  AvailableEffectTypes  increasemastery
   const-member  AvailableEffectTypes  increasepotency
+  const-member  AvailableTargets  HIGHEST_ENMITY_OPPONENT
   const-member  AvailableTargets  HIGHEST_MAX_HEALTH_ALLY
   const-member  AvailableTargets  HIGHEST_MAX_HEALTH_OPPONENT
+  const-member  AvailableTargets  LOWEST_ENMITY_OPPONENT
   const-member  AvailableTargets  LOWEST_HEALTH_OPPONENT
   const-member  AvailableTargets  LOWEST_MAX_HEALTH_ALLY
   const-member  BaseTagTargets  COORDINATES
@@ -357,12 +364,7 @@ ADDITIONS
   const-member  ContentProposalOperations  UPDATE
   const-member  ContentProposalRejectReasons  FACTUALLY_WRONG
   const-member  ContentProposalRejectReasons  NOT_AN_IMPROVEMENT
-  const-member  ContentProposalRejectReasons  OTHER
-  const-member  ContentProposalRejectReasons  STYLE_MISMATCH
-  const-member  ContentProposalRejectReasons  WRONG_CHANGE
-  const-member  ContentProposalSources  AGENT
-  const-member  ContentProposalSources  STAFF
-  ... 190 more
+  ... 225 more
 
-BREAKING: 45 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 47 change(s) - DO NOT ADOPT (exit 1)
 ~~~
