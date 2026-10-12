@@ -35,7 +35,7 @@ Execution order (Forge sorts by `phase`, then manifest order; refs add a partial
   3 asset renames, item edits       4 AI unequip of the eleven retained legacy jutsu (law 18/60)
   5 legacy jutsu text edits         6 AI final edits + Sealwright create
   8 quest edits
-After the run: push/93 (generated from this run's results) sets Sealwright's post-0056 stats.
+Requires Forge 0.5.2 (post-0056 AI create columns). Sealwright is one full create; no follow-up manifest.
 """
 from __future__ import annotations
 
@@ -123,18 +123,36 @@ ITEM_SERVER_DEFAULTS = {
 }
 ITEM_DROP = {"id", "createdAt", "updatedAt", "expireFromStoreAt"}
 
-# Sealwright = the regular Captain's profile (RUL-2026-10-12-008 item 5). Keys Forge knows at its
-# pin go on the create; the post-0056 columns it refuses before a create go on a follow-up edit,
-# where the live row makes them known keys.
-SEALWRIGHT_CREATE_KEYS = [
-    "level", "rank", "statsMultiplier", "poolsMultiplier", "regeneration", "gender",
-    "preferredGeneral1", "preferredGeneral2", "primaryElement", "secondaryElement",
-    "strength", "intelligence", "willpower", "speed", "isSummon", "avatarFacing",
+# Sealwright = the regular Captain's profile (RUL-2026-10-12-008 item 5), created in ONE full create
+# (review correction 4 / RUL-2026-10-12-012). Forge 0.5.2 accepts the post-0056 combat columns on a
+# create (forge/src/runner/validate.mjs AI_POST_0056_KEYS), so the six combat stats ride the create
+# together with statsMultiplier 5; no follow-up edit and no push/93. preferredStat is not sent: 0056
+# dropped the column (review correction 3).
+SEALWRIGHT_PROFILE_KEYS = [
+    "level", "rank", "poolsMultiplier", "regeneration", "gender",
+    "preferredGeneral1", "preferredGeneral2", "primaryElement", "secondaryElement", "isSummon", "avatarFacing",
+    "ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery", "bloodlineMastery", "sageMastery",
 ]
-SEALWRIGHT_POST0056_KEYS = [
-    "offence", "defence", "ninjutsuMastery", "genjutsuMastery", "taijutsuMastery",
-    "bukijutsuMastery", "bloodlineMastery", "sageMastery",
-]
+COMBAT_STATS = ["offence", "defence", "strength", "intelligence", "willpower", "speed"]
+
+# RUL-2026-10-12-012: these ten level-100 AIs must enter combat against capped opponents at the JONIN
+# caps (offence/defence 1,300,000; generals 400,000). statsMultiplier 5 with their equal-stat
+# distributions stores ~1,391,300 per combat stat, which capUserStats clamps to exactly the caps.
+# Verified by executing the pinned engine: harness/ghost_ship_final/engine/release_stats.test.ts.
+STATS_MULTIPLIER = 5
+SEALWRIGHT_COMBAT_STAT = 1391300
+CAPPED_AIS = {
+    "texZaFi42S3EvJZBwQ8cd", "AQi-bHJ-5tHXtxrnc0P9E", "0PZU_FvlbM3ErYGlD5r56", "v7T9_XdGMfP46em0dPuBc",
+    "2OXJEXoktxJcjqMkE851g", "3V_gdHYaclMB1gTyOPAbV", "d6g0mOM7RBSsYI1hrUVT9", CAPTAIN, CROWNED,
+}  # + Sealwright (created at the same values)
+HAZARDS = {"wTgO-Q32caSSd0is1QIS7": 10, "frc9LTxqQlM7mncG4VZGK": 20}  # Seal Charge, Core Canister: unchanged
+
+# Item columns removed by migration 0056. Live post-0056 item rows (push/87 Heal Crystal III) have
+# none of them; the pre-0056 donor rows (October 1 Fragment, September chest) still do. Sending them
+# makes the server strip them and Forge's read-back report drift (review correction 1).
+HEAL_CRYSTAL_CAPTURE = "harvests/inbox/tnr_results_1791766317760.json"
+HEAL_CRYSTAL_ID = "iJM0kb1i6iNXjADJlZGV_"
+OBSOLETE_ITEM_COLUMNS = sorted(f"required{a}{s}" for a in ("Ninjutsu", "Genjutsu", "Taijutsu", "Bukijutsu") for s in ("Offence", "Defence"))
 
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 PENDING_TEXT = "Pending director text."
@@ -292,10 +310,15 @@ def forge_item_fields() -> set[str]:
     return set(f if isinstance(f, list) else f.get("fields", f))
 
 
-def to_item_data(record: dict, fields: set[str], label: str) -> dict:
+def to_item_data(record: dict, fields: set[str], label: str, live_columns: set[str]) -> dict:
     data = {}
+    # craftingRequirements is an ItemValidator field written to its own relation table, so the item
+    # row itself never carries it; every other key must be a live post-0056 column or a 0056 removal.
+    dropped = sorted(k for k in record if k not in live_columns and k not in ITEM_DROP and k != "craftingRequirements")
+    if dropped and dropped != OBSOLETE_ITEM_COLUMNS:
+        fail(f"{label}: columns absent from live post-0056 item rows are not exactly the 0056 removals: {dropped}")
     for k, v in record.items():
-        if k in ITEM_DROP:
+        if k in ITEM_DROP or k in OBSOLETE_ITEM_COLUMNS:
             continue
         if k in ITEM_SERVER_DEFAULTS:
             if v != ITEM_SERVER_DEFAULTS[k]:
@@ -315,6 +338,9 @@ def apply_effect_presentation(effects: list[dict], fx: dict | None) -> None:
 
 def build_items(pres: dict, art: Art, report: dict) -> tuple[list[dict], list[dict]]:
     fields = forge_item_fields()
+    live_columns = set(item_row(HEAL_CRYSTAL_CAPTURE, HEAL_CRYSTAL_ID))
+    if set(OBSOLETE_ITEM_COLUMNS) & live_columns:
+        fail("the live post-0056 reference row still has a 0056-removed column")
     packet = load(RECORDS)
     creates, edits = [], []
 
@@ -369,7 +395,7 @@ def build_items(pres: dict, art: Art, report: dict) -> tuple[list[dict], list[di
              ("katana", katana, "Skyglass Katana"), ("reliquary", reliquary, "Skyglass Reliquary")]
     for key, rec, name in order:
         creates.append({"entity": "item", "slot": "create", "phase": 2, "name": name, "srcId": SRC[key],
-                        "data": to_item_data(rec, fields, name)})
+                        "data": to_item_data(rec, fields, name, live_columns)})
 
     report["itemChassis"] = {
         "Skyglass Filament": {"donor": f"{OCT1_ITEMS} item {FRAGMENT} (Fragment of the White Crown)",
@@ -492,10 +518,26 @@ def sealwright_rules() -> tuple[list[dict], list[str]]:
     return rules, jutsus
 
 
+def canonical_effect(e: dict) -> dict:
+    """The fixed point of the server's parse at the pin (insertAiSchema.effects = z.array(AllTags)),
+    review correction 2. Two differences exist for the entries push/90 asserts:
+      - increasedamagegiven has no statTypes/generalTypes at 585534d7 (zod strips them);
+      - IncludeStats.statTypes maps the legacy "Highest" to "None" (validators/combat.ts:140).
+    harness/ghost_ship_final/engine/release_stats.test.ts proves parse(entry) == entry for every
+    asserted effect, so this function cannot silently drift from the engine."""
+    out = copy.deepcopy(e)
+    if out["type"] == "increasedamagegiven":
+        out.pop("statTypes", None)
+        out.pop("generalTypes", None)
+    if isinstance(out.get("statTypes"), list):
+        out["statTypes"] = ["None" if s == "Highest" else s for s in out["statTypes"]]
+    return out
+
+
 def idg_entry(template: dict, power: int) -> dict:
     e = copy.deepcopy(template)
     e["power"] = power
-    return e
+    return canonical_effect(e)
 
 
 def build_ais(art: Art, report: dict, gate_policy: str) -> tuple[list[dict], list[dict], list[dict], set[str]]:
@@ -580,8 +622,24 @@ def build_ais(art: Art, report: dict, gate_policy: str) -> tuple[list[dict], lis
                 if any(e["type"] == "increasedamagegiven" for e in eff):
                     fail("regular Captain already carries an innate IDG")
                 eff.append(idg_entry(idg_template, BOSS_IDG[uid]))
+            eff = [canonical_effect(e) for e in eff]
             data["effects"] = eff
             entry["effects"] = [(e["type"], e["power"], e["rounds"]) for e in eff]
+
+        # RUL-2026-10-12-012: statsMultiplier 5 on the included level-100 AIs; hazards untouched.
+        if uid in CAPPED_AIS:
+            if row["level"] != 100 or row["rank"] != "JONIN":
+                fail(f"{name}: expected a level-100 JONIN profile, found {row['level']} {row['rank']}")
+            if len({row[k] for k in COMBAT_STATS}) != 1:
+                fail(f"{name}: combat stats are not an equal distribution")
+            data["statsMultiplier"] = STATS_MULTIPLIER
+            entry["statsMultiplier"] = [row["statsMultiplier"], STATS_MULTIPLIER]
+        elif uid in HAZARDS:
+            if row["statsMultiplier"] != HAZARDS[uid] or "statsMultiplier" in data:
+                fail(f"{name}: hazard multiplier must stay {HAZARDS[uid]}")
+            entry["statsMultiplier"] = [row["statsMultiplier"], "unchanged"]
+        else:
+            fail(f"{name}: not classified as capped or hazard")
 
         img = art.replacement("ai:" + uid)
         if img:
@@ -594,23 +652,19 @@ def build_ais(art: Art, report: dict, gate_policy: str) -> tuple[list[dict], lis
     cap = live[CAPTAIN]
     rules, jutsus = sealwright_rules()
     data = {"username": "Sealwright", "hidden": True}
-    for k in SEALWRIGHT_CREATE_KEYS:
+    for k in SEALWRIGHT_PROFILE_KEYS:
         data[k] = cap[k]
-    # Forge lint L05 requires preferredStat on an AI create. The column predates migration 0056
-    # and the live row no longer has it (the server strips it); the Captain's last value is used.
-    oct1_cap = next(d for d in captures(OCT1_ITEMS, "profile.getAi") if d["userId"] == CAPTAIN)
-    data["preferredStat"] = oct1_cap["preferredStat"]
+    data["statsMultiplier"] = STATS_MULTIPLIER
+    for k in COMBAT_STATS:
+        data[k] = SEALWRIGHT_COMBAT_STAT
     data.update({"avatar": art.image("ai:sealwright"), "jutsus": jutsus, "items": [],
                  "effects": [idg_entry(idg_template, BOSS_IDG["sealwright"])],
                  "rules": rules, "includeDefaultRules": False})
     sealwright.append({"entity": "ai", "slot": "create", "phase": 6, "name": "Sealwright", "srcId": SRC["sealwright"], "data": data})
-    # The post-0056 columns cannot ride the create (Forge's pre-create check refuses them) and an
-    # edit cannot target @ai:sealwright in the same job: the runner resolves refs in `data` but
-    # reads `targetId` literally (forge/src/runner/runner.mjs _fill; found by the headless dry run).
-    # They are set by push/93, generated from this manifest's results bundle with a literal id.
-    ledger["sealwright"] = {"profileFrom": CAPTAIN, "createKeys": SEALWRIGHT_CREATE_KEYS,
-                            "followUpKeys": SEALWRIGHT_POST0056_KEYS, "followUpManifest": "push/93_ghost_ship_sealwright_stats.gen.py",
-                            "kit": jutsus, "rules": len(rules)}
+    ledger["sealwright"] = {"profileFrom": CAPTAIN, "profileKeys": SEALWRIGHT_PROFILE_KEYS,
+                            "combatStats": {k: SEALWRIGHT_COMBAT_STAT for k in COMBAT_STATS},
+                            "statsMultiplier": STATS_MULTIPLIER, "kit": jutsus, "rules": len(rules),
+                            "requiresForge": "0.5.2 (AI_POST_0056_KEYS)"}
     report["ais"] = ledger
     return unequip, final, sealwright, legacy_ids
 
@@ -912,10 +966,10 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
     # because validate.py renames "asset" to "gameAsset" before its build-order lookup, which ranks
     # it after every other entity; law 60 still puts the AI unequip before the jutsu edits.
     items = item_creates + item_edits + unequip + jutsu_edits + ai_final + sealwright + quests + asset_creates + asset_edits
-    note = ("Ghost Ship / Skyglass combined release (RUL-2026-10-12-001..011). Generated by "
+    note = ("Ghost Ship / Skyglass combined release (RUL-2026-10-12-001..012). Generated by "
             "push/90_ghost_ship_skyglass_release.gen.py; do not hand-edit. Phases: 1 scene creates, 2 item creates, "
             "3 renames/item edits, 4 AI unequip of retained legacy jutsu, 5 legacy jutsu text, 6 AI final edits + "
-            "Sealwright create, 8 quest edits; Sealwright's post-0056 stats follow in push/93 (generated from this run's results). Everything new is created hidden; both "
+            "Sealwright full create, 8 quest edits. Requires Forge 0.5.2. Everything new is created hidden; both "
             "quests stay hidden:true. Run by the operator only.")
     if not final:
         note = "DRAFT, NOT RUNNABLE: director text and art pending. " + note

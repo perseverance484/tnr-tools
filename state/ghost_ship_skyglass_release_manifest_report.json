@@ -23,6 +23,10 @@
     "rule 0: distance_lower_than 2 -> 4 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    2,
+    5
+   ],
    "unequipped": []
   },
   "2OXJEXoktxJcjqMkE851g": {
@@ -52,6 +56,10 @@
     "rule 3: distance_lower_than 5 -> 6 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    2,
+    5
+   ],
    "unequipped": [
     "wMcoazoyXaEXViSCn5weF"
    ]
@@ -85,6 +93,10 @@
     "rule 3: distance_lower_than 5 -> 6 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    3,
+    5
+   ],
    "unequipped": []
   },
   "AQi-bHJ-5tHXtxrnc0P9E": {
@@ -114,6 +126,10 @@
     "rule 3: distance_lower_than 5 -> 6 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    2,
+    5
+   ],
    "unequipped": [
     "1jXfTgrtGUaSfqTPSSa83",
     "Jz4Lb55NcpwZn3nUK5PrJ"
@@ -159,6 +175,10 @@
    "name": "The Captain",
    "ruleChanges": [],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    3,
+    5
+   ],
    "unequipped": [
     "0Y10JpChssDwFUxNRk6p3",
     "PdD44PGaNv4MN5fOALhAF"
@@ -193,6 +213,10 @@
     "rule 2: distance_lower_than 4 -> 6 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    3,
+    5
+   ],
    "unequipped": []
   },
   "fDU9jCPZtH7YHbdQPO9RF": {
@@ -254,6 +278,10 @@
     "rule 3: distance_lower_than 3 -> 4 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    3,
+    5
+   ],
    "unequipped": [
     "0Y10JpChssDwFUxNRk6p3",
     "ddbIyVtoxdPQwLRXxSBq8",
@@ -272,40 +300,23 @@
    "name": "Core Canister",
    "ruleChanges": [],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    20,
+    "unchanged"
+   ],
    "unequipped": [
     "nCQETf-HNnbRec1OSY2-R"
    ]
   },
   "sealwright": {
-   "createKeys": [
-    "level",
-    "rank",
-    "statsMultiplier",
-    "poolsMultiplier",
-    "regeneration",
-    "gender",
-    "preferredGeneral1",
-    "preferredGeneral2",
-    "primaryElement",
-    "secondaryElement",
-    "strength",
-    "intelligence",
-    "willpower",
-    "speed",
-    "isSummon",
-    "avatarFacing"
-   ],
-   "followUpKeys": [
-    "offence",
-    "defence",
-    "ninjutsuMastery",
-    "genjutsuMastery",
-    "taijutsuMastery",
-    "bukijutsuMastery",
-    "bloodlineMastery",
-    "sageMastery"
-   ],
-   "followUpManifest": "push/93_ghost_ship_sealwright_stats.gen.py",
+   "combatStats": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
    "kit": [
     "JWZYiHKPNwYziWEFjw4Fn",
     "1OhP0StX4VTsosWtCxhsG",
@@ -316,7 +327,28 @@
     "YiRdVytsdxFzZtqkEDs5Q"
    ],
    "profileFrom": "QY69h271Nx9uHrBeR6jwW",
-   "rules": 10
+   "profileKeys": [
+    "level",
+    "rank",
+    "poolsMultiplier",
+    "regeneration",
+    "gender",
+    "preferredGeneral1",
+    "preferredGeneral2",
+    "primaryElement",
+    "secondaryElement",
+    "isSummon",
+    "avatarFacing",
+    "ninjutsuMastery",
+    "genjutsuMastery",
+    "taijutsuMastery",
+    "bukijutsuMastery",
+    "bloodlineMastery",
+    "sageMastery"
+   ],
+   "requiresForge": "0.5.2 (AI_POST_0056_KEYS)",
+   "rules": 10,
+   "statsMultiplier": 5
   },
   "texZaFi42S3EvJZBwQ8cd": {
    "gateChanges": [
@@ -343,6 +375,10 @@
     "rule 1: distance_lower_than 4 -> 6 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    2,
+    5
+   ],
    "unequipped": []
   },
   "v7T9_XdGMfP46em0dPuBc": {
@@ -368,6 +404,10 @@
     "rule 0: distance_lower_than 4 -> 5 (law 40)"
    ],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    2,
+    5
+   ],
    "unequipped": []
   },
   "wTgO-Q32caSSd0is1QIS7": {
@@ -380,6 +420,10 @@
    "name": "Seal Charge",
    "ruleChanges": [],
    "rulesReferencingUnequipped": [],
+   "statsMultiplier": [
+    10,
+    "unchanged"
+   ],
    "unequipped": [
     "nCQETf-HNnbRec1OSY2-R"
    ]

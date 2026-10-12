@@ -59,7 +59,7 @@ set +e
 (cd "$APP" && "$HERE/tools/test_env.sh" bun test ./tests/tnr_ghost_ship_final/ --timeout 600000) >"$OUT/bun_test.log" 2>&1
 BUN_STATUS=$?
 cat "$OUT/bun_test.log"
-python3 "$HERE/tools/check_evidence.py" "$OUT" M0 CONTRACT GUARDS ACTIVE CROWNED
+python3 "$HERE/tools/check_evidence.py" "$OUT" M0 CONTRACT GUARDS ACTIVE CROWNED STATS
 EVIDENCE_STATUS=$?
 "$HERE/tools/test_env.sh" bash "$HERE/selftest/run_negative.sh" "$APP" "$WORK/selftest" >"$OUT/negative_selftest.log" 2>&1
 NEGATIVE_STATUS=$?

@@ -1,4 +1,4 @@
-// Headless Forge dry run of push/90 (offline; no socket, no game, no upload).
+// Headless Forge dry run of push/90 (offline; no socket, no game, no upload). Requires Forge 0.5.2+.
 //
 //   (cd forge && npm ci --ignore-scripts)            # once; lockfile-pinned test dependencies
 //   node harness/ghost_ship_release_dryrun/dryrun.mjs [--out <dir>]
@@ -24,8 +24,7 @@
 // rows, merges, kit re-send, rules step, image-pack verification and binding, read-back and the
 // results bundle. It does not prove server-side effects.
 
-import { readFileSync, writeFileSync, mkdirSync, mkdtempSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
@@ -146,23 +145,19 @@ const sealwright = ais.find((a) => a.username === "Sealwright");
 const captain = game.tables.ai.get("QY69h271Nx9uHrBeR6jwW");
 const keys = Object.keys(POST0056);
 
-// ---- push/93: generated from THIS run's results bundle, then run in the same core and game
-const tmp = mkdtempSync(join(tmpdir(), "gs-dryrun-"));
-let job93 = null, text93 = null;
-if (bundle) {
-  writeFileSync(join(tmp, "push90_results.json"), JSON.stringify(bundle));
-  execFileSync("python3", [join(ROOT, "push/93_ghost_ship_sealwright_stats.gen.py"), "--results", join(tmp, "push90_results.json"), "--out", join(tmp, "93.json")]);
-  text93 = readFileSync(join(tmp, "93.json"), "utf8");
-  check("push/93 targets the created Sealwright by literal id", JSON.parse(text93).items[0].targetId === sealwright?.userId, JSON.parse(text93).items[0].targetId);
-  notes.length = 0;
-  await core.selectManifest({ name: "93_ghost_ship_sealwright_stats.json", path: "push/93_ghost_ship_sealwright_stats.json", number: 93, text: text93 });
-  check("push/93 selection: no problems or blocks", core.state.selected && core.state.selected.problems.length === 0 && core.state.selected.blocked.length === 0, core.state.selected?.problems);
-  await core.startJob();
-  job93 = core.journal.get(core.state.jobId);
-}
-check("push/93 job DONE, item VERIFIED", job93 && job93.state === "DONE" && job93.items.every((i) => i.state === "VERIFIED"), job93 && job93.items);
-check("Sealwright post-0056 stats equal the regular Captain's after push/93",
-  sealwright && keys.every((k) => sealwright[k] === captain[k]), sealwright && Object.fromEntries(keys.map((k) => [k, [sealwright[k], captain[k]]])));
+// ---- RUL-2026-10-12-012 stats as Forge writes them (server-side scaling is proven by the STATS gate)
+const COMBAT = ["offence", "defence", "strength", "intelligence", "willpower", "speed"];
+check("Sealwright: one create carried all six combat fields at 1,391,300 and statsMultiplier 5 (no follow-up edit)",
+  sealwright && COMBAT.every((k) => sealwright[k] === 1391300) && sealwright.statsMultiplier === 5 && !("preferredStat" in sealwright),
+  sealwright && Object.fromEntries([...COMBAT, "statsMultiplier"].map((k) => [k, sealwright[k]])));
+check("Sealwright masteries equal the regular Captain's", sealwright && keys.filter((k) => /Mastery$/.test(k)).every((k) => sealwright[k] === captain[k]));
+const capped = ["texZaFi42S3EvJZBwQ8cd", "AQi-bHJ-5tHXtxrnc0P9E", "0PZU_FvlbM3ErYGlD5r56", "v7T9_XdGMfP46em0dPuBc", "2OXJEXoktxJcjqMkE851g",
+  "3V_gdHYaclMB1gTyOPAbV", "d6g0mOM7RBSsYI1hrUVT9", "QY69h271Nx9uHrBeR6jwW", "fDU9jCPZtH7YHbdQPO9RF"];
+check("9 included existing AIs written with statsMultiplier 5", capped.every((u) => game.tables.ai.get(u).statsMultiplier === 5), capped.map((u) => game.tables.ai.get(u).statsMultiplier));
+check("hazards keep statsMultiplier 10 / 20", game.tables.ai.get("wTgO-Q32caSSd0is1QIS7").statsMultiplier === 10 && game.tables.ai.get("frc9LTxqQlM7mncG4VZGK").statsMultiplier === 20);
+const aiSaves = game.calls.filter((c) => c.path === "profile.updateAi");
+check("no AI save sent the 0056-dropped preferredStat", aiSaves.length > 0 && aiSaves.every((c) => !("preferredStat" in (c.input?.data ?? {}))), aiSaves.filter((c) => "preferredStat" in (c.input?.data ?? {})).map((c) => c.input.id));
+check("new items carry no 0056-removed requirement column", [...game.tables.item.values()].filter((i) => /^Skyglass (Katana|Crystal|Filament|Reliquary)$/.test(i.name)).every((i) => !Object.keys(i).some((k) => /^required(Ninjutsu|Genjutsu|Taijutsu|Bukijutsu)(Offence|Defence)$/.test(k))));
 const swProfile = sealwright && game.tables.aiProfile.get(sealwright.aiProfileId);
 check("Sealwright rules written: 10 rules, includeDefaultRules false", swProfile && swProfile.rules.length === 10 && swProfile.includeDefaultRules === false, swProfile);
 check("Sealwright kit 7, avatar uploaded", sealwright && sealwright.jutsus.length === 7 && /dryrun-/.test(sealwright.avatar), sealwright && { kit: sealwright.jutsus.length, avatar: sealwright.avatar });

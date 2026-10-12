@@ -974,3 +974,33 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 A known outside holder still yields CONSUMERS. push/90 `--final` accepts `ACCEPTED_RESIDUAL` only under this ruling id.
 
 **Canonical destination:** `state/ghost_ship_legacy_jutsu_consumer_audit.json`.
+
+---
+
+## RUL-2026-10-12-012 — Ten Ghost Ship AIs enter combat at the JONIN caps
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI combat stats
+
+**Status:** ACTIVE. This is the director's stat-requirement amendment, issued alongside the four independent-review corrections of `5eb75123`.
+
+**Ruling:** against capped opponents, these must enter combat fully capped, with effective offence and defence 1,300,000 and strength, intelligence, willpower and speed 400,000 (they must reach the caps, not merely stay below them):
+- Deck Warden, Core Horror, Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel and First Blade;
+- The Captain, Crowned Captain and Sealwright.
+
+All ten are level-100 JONIN profiles with equal-stat distributions; `statsMultiplier: 5` reaches the caps. Stored stats may exceed the caps.
+
+Sealwright is one full create: all six combat fields at 1,391,300 with `statsMultiplier: 5`. Its masteries, pools and regeneration equal the regular Captain's. Levels, ranks, pools, regeneration, masteries, kits, innate effects, rules, equipment, rewards and quest scaling are preserved.
+
+**Excluded hazards:** Seal Charge keeps `statsMultiplier: 10` and Core Canister keeps 20. The earlier suggestion to raise Seal Charge to 13 is withdrawn. Their other release changes stay in scope.
+
+**Review corrections applied with it** (independent review of `5eb75123`):
+1. The obsolete item requirement columns are not sent.
+2. Boss effects are canonical, equal to the server's parse.
+3. `preferredStat` is not sent on the Sealwright create.
+4. The incorrect two-stage Sealwright scaling is replaced by the single full create (push/93 retired). This depends on Forge 0.5.2 accepting post-0056 AI columns on a create.
+
+**Verification:** `harness/ghost_ship_final` r3, gate STATS, executes the pinned server save path and battle scaling and clamping for every AI push/90 writes.
+
+**Canonical destination:** `push/90_ghost_ship_skyglass_release.gen.py` (`CAPPED_AIS`, `STATS_MULTIPLIER`, `HAZARDS`) and `state/ghost_ship_hybrid_kit_proposal.md`.

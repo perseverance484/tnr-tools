@@ -141,3 +141,17 @@ bytes at `d61c990d`. Result: **27/27**.
 It found one real defect and it is fixed: the same-job `@ai:sealwright` `targetId` would have failed live. After the fix, Forge's own `tools/check_manifest.mjs` passes push/90 with **0 problems** (Forge manifest hash `e6c24afd`).
 
 **Operator sequence:** run push/90, commit its results, then run `python3 push/93_ghost_ship_sealwright_stats.gen.py --results <push/90 results>`, then run push/93.
+
+## 10. r2 after independent review of `5eb75123` (RUL-2026-10-12-012)
+
+The four review corrections and the stat requirement are applied; see the handoff §0. In summary:
+- **Item creates:** no item create sends the 0056-removed requirement columns.
+- **Boss effects:** they are the server-parse fixed point (IDG has no `statTypes`; `increasestat` `"Highest"` becomes `"None"`).
+- **Sealwright:** one full create without `preferredStat`, at 1,391,300 ×6 with `statsMultiplier: 5`. push/93 is retired; Forge 0.5.2 is required, and is a pending release.
+- **Multipliers:** the 9 included existing AIs move to `statsMultiplier: 5`. Seal Charge and Core Canister are unchanged.
+
+Gate STATS (`harness/ghost_ship_final` r3) executes the pinned save path and battle scaling. Every included AI enters unscaled fights, and quest fights scaled to a level-100 opponent, at exactly 1,300,000 / 400,000. Repeated saves are fixed points.
+
+Gates: Forge `check_manifest` 0 problems (hash `628d60e4`), runtime check 0, rules 72/0, dry run 29/29, harness r3 clean ×2, Forge suite 526/526.
+
+§§2, 8 and 9 above describe the earlier `5eb75123` state where they mention push/93 or the 51/50-entry follow-up. This section supersedes them.

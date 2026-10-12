@@ -26,7 +26,8 @@
   "engine/lib/items.ts": "55a4485c2d7784a31ed27dabb460668c1bc36858d28cfbb6e191455394967abb",
   "engine/lib/report.ts": "2419cac7ccfa96838ef50a8952f24afa44d6801c690b8d24ec3efd5e13a6e948",
   "engine/lib/sim.ts": "ae03d00f793879d9154e8fcea26dbb1b4822c8acda1834d9223df305d0a14412",
-  "run.sh": "cad31dedcb27e9d0a6d7ae224fcb1ad349b35c2ee12d2cd5c308be81c079f8fe",
+  "engine/release_stats.test.ts": "b054882d725abf2c22abdd908339c797c59af6a7f7088cd3582d1da9403f0ad8",
+  "run.sh": "ad7cfd29a902c676df2627a3a4a0a18426a31408c7c9ad6115771a87bae6b696",
   "selftest/negative_flush_only.test.ts": "97637f1a3baf5f38100dc2a439969bb0b4dde023cb32e13b3246e675783a3d85",
   "selftest/negative_gate.test.ts": "94b6dac41095278cdea2f508fab2d46805615442a199d90406fe3d35ffd0c369",
   "selftest/run_negative.sh": "328595bc640eac7e6d1d0c0a3e1d565979c3a741cab9afb903280bdf69d4b6dc",
@@ -34,7 +35,7 @@
   "tools/check_evidence.py": "cc296c690aea48d14aa5629fbe625fd484407517742ea73345a9b0fc53ea95c1",
   "tools/deny_network.py": "c9eca46b9250788bf8501136597d611d7616bc4d3033481c21a2f99a803fd994",
   "tools/offline_exec.py": "1e0fbf88b348ba10bb4da6e9fcc470a4c283eac209afaf321efb3a0ebce4cbdd",
-  "tools/provenance.py": "61e3a9db033c4d4470411edad4674b8f80a6456176dbbcd56406168401e0a294",
+  "tools/provenance.py": "edc4d3f8a17b23d31b44ad0b17ab050b0c6f83461f7a1ad452a5f1f4265e7ceb",
   "tools/test_env.sh": "0d307719f08ca2db7031792a14c20482c9097bb802ecddc1efabd139715d6634",
   "tools/verify_export.py": "9594e58be33e709b3b4f14365bcb1d885a7a163f6e830846178b30a6d2e28acc"
  },
@@ -51,5 +52,10 @@
   "bun": "1.4.2",
   "node": "v22.22.0",
   "python": "3.13.16"
+ },
+ "statsInputsSha256": {
+  "forge/src/runner/recipes.mjs": "795355ada10c736bc1bc4fead8bb8ae59273486a5c5cd1582ddadbaea9380495",
+  "harvests/inbox/tnr_results_1791727613862.json": "3ff78acf148798b1e56e8d7c98d6fed46c09090d8f088786c4d766d3ccde0508",
+  "push/90_ghost_ship_skyglass_release.json": "6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7"
  }
 }
