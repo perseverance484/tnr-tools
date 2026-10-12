@@ -1,0 +1,10 @@
+{
+ "schema": "tnr.ghost_ship_legacy_jutsu_edit_scope",
+ "version": 1,
+ "ruling": "RUL-2026-10-12-010",
+ "note": "Which of the eleven retained legacy jutsu push/90 edits. The conversion packet (state/ghost_ship_legacy_jutsu_conversion.json) is unchanged because the frozen harnesses pin it; this file narrows the edit set. Excluded jutsu keep their current live name, description and battleDescription, stay in the Ghost Ship kits and rules unchanged, and are not unequipped.",
+ "excluded": {
+  "T3glZGcSd-jS8G-NB43GR": {"liveName": "Counter Stance", "wouldHaveBeen": "Rebounding Form", "reason": "equipped by 18 AIs outside Ghost Ship (push/81-84 census)"},
+  "MG9ZujAV8lK7--YxThVbQ": {"liveName": "Battle Trance", "wouldHaveBeen": "Remembered Form", "reason": "equipped by 4 AIs outside Ghost Ship (push/81-84 census)"}
+ }
+}

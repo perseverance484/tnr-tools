@@ -1,0 +1,333 @@
+{
+  "schema": "tnr.ghost_ship_legacy_jutsu_conversion.design.v1",
+  "executable": false,
+  "status": "ROSTER_APPROVED_PRESENTATION_AUTHORED_PENDING_DIRECTOR_ACCEPTANCE",
+  "ruling": "RUL-2026-10-11-002",
+  "date": "2026-10-11",
+  "scope": "Text conversion of eleven retained existing jutsu. Not a Forge manifest, final AI kit, clone request, mechanical patch or live-write authorization.",
+  "source": {
+    "repository": "perseverance484/tnr-tools",
+    "designBaseline": "0dbd54c04f2025a1a652712a9ea6df94e35cf8f5",
+    "selectionReviewCommit": "c314cf089671978aacbf0bf2f9db411fb5ec014a",
+    "capture": "harvests/inbox/tnr_results_1790826836406.json",
+    "captureAt": "2026-10-01T03:53:56.405Z",
+    "captureFileSha256": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed",
+    "semanticEnginePin": "studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93"
+  },
+  "allowedChangedFields": [
+    "name",
+    "description",
+    "battleDescription"
+  ],
+  "preservation": "All other fields, including the complete ordered effects array and nested descriptions, images/animation, costs, omitted fields and null/empty distinctions, remain exactly as captured. Existing IDs are retained. Do not normalize or repair mechanics.",
+  "implementationGates": [
+    "Director acceptance of the authored presentation text.",
+    "Fresh operator full records and all-consumer audit before editing; historical owners here are not an exhaustive dependency list.",
+    "Fable freezes hybrid kits, equipped-link handling, AI rules and the revised regular-Captain parity comparator.",
+    "Eventual operator workflow: unequip affected links, edit only approved presentation fields, re-equip and verify full records/links under the repository workflow. No game requests are part of this artifact."
+  ],
+  "offlineVerification": {
+    "records": 11,
+    "changedTopLevelFields": 33,
+    "nonPresentationFieldChanges": 0,
+    "sameIdRepeatedCaptureAgreement": true,
+    "unknownPlaceholders": 0,
+    "internalDuplicateNames": 0,
+    "capturedNamesCompared": 1491,
+    "caseInsensitiveExactNameCollisions": 0,
+    "nameEvidence": [
+      "answers/names_jutsu.json",
+      "answers/hot.json",
+      "harvests/inbox/tnr_results_1790826836406.json",
+      "harvests/inbox/tnr_results_1791583362574.json"
+    ],
+    "freshLiveNameCheck": false,
+    "runtimeValidationPerformed": false,
+    "hashMethod": "SHA-256 of UTF-8 JSON after removing only name, description, battleDescription; sorted object keys; separators comma/colon; ensure_ascii=False; array order and omitted fields preserved."
+  },
+  "conversions": [
+    {
+      "targetId": "nCQETf-HNnbRec1OSY2-R",
+      "sourcePointers": [
+        "/captures/1/data/jutsus/0/jutsu",
+        "/captures/2/data/jutsus/0/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "wTgO-Q32caSSd0is1QIS7",
+          "skyglassName": "Seal Charge"
+        },
+        {
+          "aiId": "frc9LTxqQlM7mncG4VZGK",
+          "skyglassName": "Core Canister"
+        }
+      ],
+      "before": {
+        "name": "Explosion!",
+        "description": "New jutsu description",
+        "battleDescription": "%user ignites into a massive fireball"
+      },
+      "after": {
+        "name": "Core Rupture",
+        "description": "A containment seal ruptures, destroying the casting device in a piercing chakra blast that staggers nearby enemies.",
+        "battleDescription": "%user's containment seal splits, consuming the device in a piercing chakra blast that tears through the surrounding battlefield."
+      },
+      "protectedRecordSha256": "a9f08a0be5a187f411e4d33a6ae0f660953c55ef36692b6f1b4ece9d9ac5cd47"
+    },
+    {
+      "targetId": "ddbIyVtoxdPQwLRXxSBq8",
+      "sourcePointers": [
+        "/captures/10/data/jutsus/2/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Deep Six",
+        "description": "Six fathoms down, where strength, wounds and prayers all fail.",
+        "battleDescription": "%user sends %target six fathoms down where strength fails, wounds stay open and prayers go unanswered."
+      },
+      "after": {
+        "name": "Suppression Writ",
+        "description": "A command seal weakens the target's attacks, leaves them more vulnerable, and impairs their healing ability.",
+        "battleDescription": "%user casts a suppression writ upon %target, its tightening script dulling their strikes, opening their guard, and disrupting their healing chakra."
+      },
+      "protectedRecordSha256": "782f3a689afb87af0f148a1f7f427eafea94b778749125c9ae57c5acb8b59cbd"
+    },
+    {
+      "targetId": "X2P22h8ApDmTZHjWpNO87",
+      "sourcePointers": [
+        "/captures/10/data/jutsus/10/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Final Fathom",
+        "description": "The last fathom takes your strength, your gifts, and your time.",
+        "battleDescription": "%user sends the anchor down with %target lashed to the chain, the last fathom taking strength, gifts and time together."
+      },
+      "after": {
+        "name": "Final Command",
+        "description": "A crushing command strike disrupts the target's actions and attempts to suppress their bloodline effects.",
+        "battleDescription": "%user drives a command seal toward %target with a crushing blow, its flaring script threatening to scatter their rhythm and suppress their bloodline power."
+      },
+      "protectedRecordSha256": "541b6bc122405596d12b22045c10a6c39b20d5bf9079703ba46e2bc9cc11427b"
+    },
+    {
+      "targetId": "PdD44PGaNv4MN5fOALhAF",
+      "sourcePointers": [
+        "/captures/9/data/jutsus/4/jutsu",
+        "/captures/10/data/jutsus/6/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "QY69h271Nx9uHrBeR6jwW",
+          "skyglassName": "The Captain"
+        },
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Death's Grasp",
+        "description": "New jutsu description",
+        "battleDescription": "%user eyes flare menacingly as they cackle at %target. With a sudden gesture they summon a series of pale ghostly hands which latch onto %target, sapping their life force and rendering them immobile "
+      },
+      "after": {
+        "name": "Keelbind",
+        "description": "Chakra moorings strike and anchor the target while draining health, chakra, and stamina over time.",
+        "battleDescription": "%user lashes chakra moorings at %target, the lines closing around their footing as a draining pulse runs through each strand."
+      },
+      "protectedRecordSha256": "8d1e89153d45cfaee284027ba8f4028adcdbdd16d4412c01accfb62eeec19db8"
+    },
+    {
+      "targetId": "EQ93LX8wvuIAd5u75q_i1",
+      "sourcePointers": [
+        "/captures/10/data/jutsus/3/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Shipwreck Delusion",
+        "description": "The whole sea breaks at once.",
+        "battleDescription": "%user breaks the whole sea at once, a phantom fleet shattering over %target from every direction there is."
+      },
+      "after": {
+        "name": "Ruin Refrain",
+        "description": "The ship's remembered destruction erupts across the battlefield as a chakra projection of shattering timbers and staggering impacts.",
+        "battleDescription": "%user releases the ship's memory of ruin, sending a storm of fractured timbers and concussive chakra across the battlefield."
+      },
+      "protectedRecordSha256": "0d789816c9fed7bc96f7960dcb340cbaa661e819ed287795b41cbc2e66394947"
+    },
+    {
+      "targetId": "T3glZGcSd-jS8G-NB43GR",
+      "sourcePointers": [
+        "/captures/4/data/jutsus/5/jutsu",
+        "/captures/7/data/jutsus/7/jutsu",
+        "/captures/10/data/jutsus/8/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "0PZU_FvlbM3ErYGlD5r56",
+          "skyglassName": "Oathkeeper"
+        },
+        {
+          "aiId": "3V_gdHYaclMB1gTyOPAbV",
+          "skyglassName": "Sentinel"
+        },
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Counter Stance",
+        "description": "A posture that returns what it receives.",
+        "battleDescription": "%user takes a counter stance; what strikes them answers for it."
+      },
+      "after": {
+        "name": "Rebounding Form",
+        "description": "A practiced chakra posture returns a portion of incoming direct damage to its source.",
+        "battleDescription": "%user settles into a measured form, shaping a retaliatory chakra field that answers incoming blows with returning force."
+      },
+      "protectedRecordSha256": "67243ecbb1ab57ba3874f93ea50780f09a0ff410beddb15911b2f5ceaf240609"
+    },
+    {
+      "targetId": "0Y10JpChssDwFUxNRk6p3",
+      "sourcePointers": [
+        "/captures/9/data/jutsus/0/jutsu",
+        "/captures/10/data/jutsus/0/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "QY69h271Nx9uHrBeR6jwW",
+          "skyglassName": "The Captain"
+        },
+        {
+          "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+          "skyglassName": "Crowned Captain"
+        }
+      ],
+      "before": {
+        "name": "Death's Door",
+        "description": "New jutsu description",
+        "battleDescription": "%user calls upon the power of Death itself to grow ever stronger "
+      },
+      "after": {
+        "name": "Unbroken Command",
+        "description": "An enduring command imprint sharpens offensive technique and lends greater force to attacks.",
+        "battleDescription": "%user draws upon an unbroken command imprint, old orders burning through their reconstructed form as their offensive power rises."
+      },
+      "protectedRecordSha256": "0465d793a49366ddaac2e37be725ae3199bb7b12f2a9b55aad71b35defb817ec"
+    },
+    {
+      "targetId": "wMcoazoyXaEXViSCn5weF",
+      "sourcePointers": [
+        "/captures/6/data/jutsus/7/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "2OXJEXoktxJcjqMkE851g",
+          "skyglassName": "Arsenal Keeper"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Crossed Out",
+        "description": "Your name is struck through; what you carry is forfeit.",
+        "battleDescription": "%user strikes %target's name from the ledger with one heavy line, and what %target carries is declared forfeit."
+      },
+      "after": {
+        "name": "Revocation Strike",
+        "description": "A strike of seal-marked metal attempts to suppress the target's bloodline effects.",
+        "battleDescription": "%user strikes at %target with seal-marked metal, its flaring script seeking to suppress their bloodline power."
+      },
+      "protectedRecordSha256": "8e878f36b7b10f46165d992a51184cec83bdc9fc0ae96036a12ba3ce95ecc684"
+    },
+    {
+      "targetId": "1jXfTgrtGUaSfqTPSSa83",
+      "sourcePointers": [
+        "/captures/3/data/jutsus/1/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+          "skyglassName": "Core Horror"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Rigging Snare",
+        "description": "Living rigging lashes out and pins the target in place.",
+        "battleDescription": "%user hurls living rigging at %target, ropes coiling around their legs and cinching them to the deck."
+      },
+      "after": {
+        "name": "Rigging Snare",
+        "description": "Seal-threaded rigging lashes the target and briefly pins them in place.",
+        "battleDescription": "%user lashes seal-threaded rigging at %target, the lines snapping shut around their footing."
+      },
+      "protectedRecordSha256": "9d0c49b2862d79073e10c3afebafa6fe770c5dbd68075ad9bec4ef4b7773b3f2"
+    },
+    {
+      "targetId": "Jz4Lb55NcpwZn3nUK5PrJ",
+      "sourcePointers": [
+        "/captures/3/data/jutsus/4/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+          "skyglassName": "Core Horror"
+        }
+      ],
+      "before": {
+        "name": "Ghostly Strangling Weed",
+        "description": "Wet weed winds around the throat and drinks.",
+        "battleDescription": "%user winds wet strangling weed around %target's throat and chest, drinking their strength as it tightens."
+      },
+      "after": {
+        "name": "Hollow Timber",
+        "description": "Corrupted wooden growth strikes the target and drains health, chakra, and stamina over time.",
+        "battleDescription": "%user drives a surge of hollow timber toward %target, its splintered grain carrying a pulse that drains life, chakra, and stamina."
+      },
+      "protectedRecordSha256": "25406b3122c18eebd85ebaa1b5543e923561d38015e5ad914716b50fece7b2f7"
+    },
+    {
+      "targetId": "MG9ZujAV8lK7--YxThVbQ",
+      "sourcePointers": [
+        "/captures/8/data/jutsus/4/jutsu",
+        "/captures/9/data/jutsus/2/jutsu"
+      ],
+      "capturedGhostShipUsers": [
+        {
+          "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+          "skyglassName": "First Blade"
+        },
+        {
+          "aiId": "QY69h271Nx9uHrBeR6jwW",
+          "skyglassName": "The Captain"
+        }
+      ],
+      "before": {
+        "name": "Battle Trance",
+        "description": "Heightened strength of body and mind.",
+        "battleDescription": "%user enters a battle trance, strength rising."
+      },
+      "after": {
+        "name": "Remembered Form",
+        "description": "A preserved combat pattern sharpens the user's strongest offensive discipline.",
+        "battleDescription": "%user settles into a remembered combat form, each practiced movement sharpening their offensive technique."
+      },
+      "protectedRecordSha256": "015d4453934d33785a2524212cb48ec415c2947ac1596f5350bbee5d001a9afc"
+    }
+  ]
+}

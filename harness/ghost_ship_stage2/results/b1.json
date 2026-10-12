@@ -1,0 +1,108 @@
+{
+ "assertions": 4,
+ "checks": [
+  {
+   "detail": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "name": "Consume-only array rejected with exactly the companion issue",
+   "pass": true
+  },
+  {
+   "name": "consume tag parses alone; shieldRounds defaults to 3",
+   "pass": true
+  },
+  {
+   "detail": {
+    "vampOnly": [
+     {
+      "message": "VampTag must be used together with a damage or pierce effect on the same action",
+      "path": ""
+     }
+    ],
+    "withDamage": true,
+    "withPierce": true,
+    "woundOnly": [
+     {
+      "message": "WoundTag must be used together with a damage or pierce effect on the same action",
+      "path": ""
+     }
+    ]
+   },
+   "name": "companion rule is generic across Consume/Vamp/Wound (any correction must stay context-scoped)",
+   "pass": true
+  },
+  {
+   "name": "full validator also rejects at path effects",
+   "pass": true
+  }
+ ],
+ "data": {
+  "consumeTagParsedAlone": {
+   "appearAnimation": "",
+   "appearSfx": "",
+   "calculation": "percentage",
+   "description": "Convert a percentage of damage dealt by this jutsu into a temporary shield on yourself. Not affected by heal modifiers.",
+   "direction": "offence",
+   "disappearAnimation": "",
+   "disappearSfx": "",
+   "power": 20,
+   "powerPerLevel": 0,
+   "rounds": 0,
+   "shieldRounds": 3,
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "target": "SELF",
+   "type": "consume"
+  },
+  "controls": {
+   "vampOnly": [
+    {
+     "message": "VampTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "withDamage": true,
+   "withPierce": true,
+   "woundOnly": [
+    {
+     "message": "WoundTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ]
+  },
+  "crystalEffectsInput": [
+   {
+    "calculation": "percentage",
+    "power": 20,
+    "target": "SELF",
+    "type": "consume"
+   }
+  ],
+  "effectsSchemaResult": {
+   "issues": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "success": false
+  },
+  "fullItemValidatorOnCarrierCrystal": {
+   "carrierNote": "non-effect fields from Flaming Sword carrier; unselected",
+   "issues": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": "effects"
+    }
+   ],
+   "success": false
+  }
+ },
+ "failed": 0,
+ "gate": "B1",
+ "productionStatus": "BLOCKED: Consume-only Crystal cannot pass the item validator at the pin"
+}

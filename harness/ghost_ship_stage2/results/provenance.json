@@ -1,0 +1,41 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "packageJsonSha256": "ebc24a6fefbb00783c12749cc4bcf90f8463943c0282008acf3d236ad1b05bbd"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "uname": "Linux 6.18.44-fc-v114"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "database": "none (TEST_MYSQL_URL unset)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials"
+ },
+ "harnessFileSha256": {
+  "engine/a1_kits.test.ts": "615b8f4e35c0fa2094683b636ce56559add8342ea961ce6c994f2fd0c34319ff",
+  "engine/a2_sealwright.test.ts": "6d7acadb0647b506617b69d1a74db7b40b2fb53cd40c2fac77ac308e96a6aeae",
+  "engine/b_crystal.test.ts": "c51ff9340dcc508d75d88593cc777756b5df0b1ac54fb38bd305a4a8630526d4",
+  "engine/c_katana.test.ts": "918ad73480222f0eabf4711332a188b3df4aa20b2c2f681b35c9914179459c16",
+  "engine/lib/fixtures.ts": "2ec479aab5b6f747f6194b15bcd9bcb6860c9efe9dea9cf6e619d958cf21b9ad",
+  "engine/lib/itembattle.ts": "36d39886fbf771892683223df2dc0f6f6e89af848d200c88b79b0dbd82855706",
+  "engine/lib/items.ts": "321c1213f5d805c9cbbc6f955fc7b233439c536d9404b41bd372ba35d5234260",
+  "engine/lib/report.ts": "2419cac7ccfa96838ef50a8952f24afa44d6801c690b8d24ec3efd5e13a6e948",
+  "engine/lib/sim.ts": "dd15f296f6e8c44fd7a05113f00722e4d14c7830a9737a4d5c3b14ef57c891c1",
+  "selftest/negative_flush_only.test.ts": "870bcdae29b84e38a1cbd3f13e33b9e6fd6f6448091bd765b7569a8038f5e6cd",
+  "selftest/negative_gate.test.ts": "c5a705cb287e4cfcd8dd1de7c85e7f2d5b5bdad6471152b2e4b5ff8a3c4bbaaa",
+  "selftest/run_negative.sh": "b44ad68e044c37f8b14e5027a5638ef2a3407a96f027dbb2bb21c9c1d8d32ec3",
+  "tools/build_katana_record.py": "0e272844e736074038350889350818330a6a0ac7c0740388639bb387137e0fba",
+  "tools/check_evidence.py": "cc296c690aea48d14aa5629fbe625fd484407517742ea73345a9b0fc53ea95c1",
+  "m0_verify.py": "5d1d1aa5e2af7f358f3727b2c33f323986ac4d7eb0dec75d2f2dcf0d783ef5e5",
+  "run.sh": "501f979771ce2a0e9612cf912c0427e2005c3acb722423463277a1073e412313"
+ },
+ "bunTestExitStatus": 0,
+ "evidenceCheckExitStatus": 0,
+ "negativeSelftestExitStatus": 0
+}

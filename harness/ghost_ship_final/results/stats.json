@@ -1,0 +1,1557 @@
+{
+ "assertions": 68,
+ "checks": [
+  {
+   "detail": {
+    "gens_cap": 400000,
+    "lvl_cap": 100,
+    "stats_cap": 1300000
+   },
+   "name": "JONIN stats_cap 1,300,000 and gens_cap 400,000 at 585534d7",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Deck Warden: statsMultiplier 2 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391299.95,
+    "intelligence": 1391299.95,
+    "offence": 1391299.95,
+    "speed": 1391299.95,
+    "strength": 1391299.95,
+    "willpower": 1391299.95
+   },
+   "name": "Deck Warden: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Deck Warden: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Deck Warden: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "resaved": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    }
+   },
+   "name": "Deck Warden: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    }
+   },
+   "name": "Deck Warden: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Core Horror: statsMultiplier 2 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391299.95,
+    "intelligence": 1391299.95,
+    "offence": 1391299.95,
+    "speed": 1391299.95,
+    "strength": 1391299.95,
+    "willpower": 1391299.95
+   },
+   "name": "Core Horror: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Core Horror: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Core Horror: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "resaved": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    }
+   },
+   "name": "Core Horror: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    }
+   },
+   "name": "Core Horror: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Oathkeeper: statsMultiplier 2 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391299.95,
+    "intelligence": 1391299.95,
+    "offence": 1391299.95,
+    "speed": 1391299.95,
+    "strength": 1391299.95,
+    "willpower": 1391299.95
+   },
+   "name": "Oathkeeper: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Oathkeeper: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Oathkeeper: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "resaved": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    }
+   },
+   "name": "Oathkeeper: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    }
+   },
+   "name": "Oathkeeper: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Wayfinder: statsMultiplier 2 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391299.95,
+    "intelligence": 1391299.95,
+    "offence": 1391299.95,
+    "speed": 1391299.95,
+    "strength": 1391299.95,
+    "willpower": 1391299.95
+   },
+   "name": "Wayfinder: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Wayfinder: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Wayfinder: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "resaved": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    }
+   },
+   "name": "Wayfinder: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 15150,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 15150,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    }
+   },
+   "name": "Wayfinder: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Arsenal Keeper: statsMultiplier 2 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391299.95,
+    "intelligence": 1391299.95,
+    "offence": 1391299.95,
+    "speed": 1391299.95,
+    "strength": 1391299.95,
+    "willpower": 1391299.95
+   },
+   "name": "Arsenal Keeper: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Arsenal Keeper: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Arsenal Keeper: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "resaved": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    }
+   },
+   "name": "Arsenal Keeper: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 15150,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 556519.98,
+     "genjutsuMastery": 556519.98,
+     "maxHealth": 15150,
+     "ninjutsuMastery": 556519.98,
+     "sageMastery": 10,
+     "taijutsuMastery": 556519.98
+    }
+   },
+   "name": "Arsenal Keeper: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Sentinel: statsMultiplier 3 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "Sentinel: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Sentinel: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Sentinel: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "resaved": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    }
+   },
+   "name": "Sentinel: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 17675,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 17675,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    }
+   },
+   "name": "Sentinel: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "First Blade: statsMultiplier 3 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "First Blade: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "First Blade: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "First Blade: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "resaved": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    }
+   },
+   "name": "First Blade: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 17675,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 17675,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    }
+   },
+   "name": "First Blade: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "The Captain: statsMultiplier 3 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "The Captain: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "The Captain: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "The Captain: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "resaved": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    }
+   },
+   "name": "The Captain: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    }
+   },
+   "name": "The Captain: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": 5,
+   "name": "Crowned Captain: statsMultiplier 3 -> 5 stored",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "Crowned Captain: stored combat stats reach or exceed the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Crowned Captain: unscaled fight enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "name": "Crowned Captain: quest fight scaled to a level-100 opponent enters at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "afterRelease": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "resaved": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    }
+   },
+   "name": "Crowned Captain: a repeated save is a fixed point (stats, masteries, pools, experience)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "after": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 18180,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    },
+    "before": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 18180,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    }
+   },
+   "name": "Crowned Captain: level, rank, pools, regeneration and masteries preserved",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "statsMultiplier": 5,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "Sealwright: create sends all six combat fields together at 1,391,300 with statsMultiplier 5 and no preferredStat",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "Sealwright: stored read-back equals the sent 1,391,300 in every combat stat",
+   "pass": true
+  },
+  {
+   "detail": {
+    "quest100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "unscaled": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "name": "Sealwright: unscaled and level-100 quest fights enter at exactly the caps",
+   "pass": true
+  },
+  {
+   "detail": {
+    "captain": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    },
+    "stored": {
+     "bloodlineMastery": 10,
+     "bukijutsuMastery": 834780,
+     "genjutsuMastery": 834780,
+     "maxHealth": 12625,
+     "ninjutsuMastery": 834780,
+     "sageMastery": 10,
+     "taijutsuMastery": 834780
+    }
+   },
+   "name": "Sealwright: masteries, pools and regeneration equal the regular Captain's",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "name": "Sealwright: a repeated save is a fixed point",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 30,
+    "intelligence": 1252170,
+    "offence": 30,
+    "speed": 1252170,
+    "strength": 1252170,
+    "willpower": 1252170
+   },
+   "name": "control: an incomplete-stat create leaves offence/defence far below the caps (why the full create is required)",
+   "pass": true
+  },
+  {
+   "name": "Seal Charge: no save asserts statsMultiplier or a combat stat",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1035100,
+    "intelligence": 1035100,
+    "offence": 1035100,
+    "speed": 1035100,
+    "strength": 1035100,
+    "willpower": 1035100
+   },
+   "name": "Seal Charge: statsMultiplier stays 10 and stored combat stats are unchanged",
+   "pass": true
+  },
+  {
+   "name": "Core Canister: no save asserts statsMultiplier or a combat stat",
+   "pass": true
+  },
+  {
+   "detail": {
+    "defence": 1329366.6,
+    "intelligence": 1329366.6,
+    "offence": 1329366.6,
+    "speed": 1329366.6,
+    "strength": 1329366.6,
+    "willpower": 1329366.6
+   },
+   "name": "Core Canister: statsMultiplier stays 20 and stored combat stats are unchanged",
+   "pass": true
+  },
+  {
+   "detail": {
+    "parsed": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Extra raw damage from specific things",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "power": 30,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "statTypes": [
+       "None"
+      ],
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasestat"
+     },
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 375,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "sent": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Extra raw damage from specific things",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "power": 30,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "statTypes": [
+       "None"
+      ],
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasestat"
+     },
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 375,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ]
+   },
+   "name": "The Captain: asserted effects survive insertAiSchema.effects unchanged",
+   "pass": true
+  },
+  {
+   "detail": {
+    "parsed": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 450,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "sent": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 450,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ]
+   },
+   "name": "Crowned Captain: asserted effects survive insertAiSchema.effects unchanged",
+   "pass": true
+  },
+  {
+   "detail": {
+    "parsed": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 375,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "sent": [
+     {
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 375,
+      "powerPerLevel": 0,
+      "rounds": 99,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ]
+   },
+   "name": "Sealwright: asserted effects survive insertAiSchema.effects unchanged",
+   "pass": true
+  }
+ ],
+ "data": {
+  "effects": {
+   "Crowned Captain": [
+    [
+     "increasedamagegiven",
+     450,
+     99
+    ]
+   ],
+   "Sealwright": [
+    [
+     "increasedamagegiven",
+     375,
+     99
+    ]
+   ],
+   "The Captain": [
+    [
+     "increasestat",
+     30,
+     99
+    ],
+    [
+     "increasedamagegiven",
+     375,
+     99
+    ]
+   ]
+  },
+  "hazard Core Canister": {
+   "multiplier": 20,
+   "saves": 2,
+   "stored": {
+    "defence": 1329366.6,
+    "intelligence": 1329366.6,
+    "offence": 1329366.6,
+    "speed": 1329366.6,
+    "strength": 1329366.6,
+    "willpower": 1329366.6
+   }
+  },
+  "hazard Seal Charge": {
+   "multiplier": 10,
+   "saves": 2,
+   "stored": {
+    "defence": 1035100,
+    "intelligence": 1035100,
+    "offence": 1035100,
+    "speed": 1035100,
+    "strength": 1035100,
+    "willpower": 1035100
+   }
+  },
+  "includedExisting": {
+   "Arsenal Keeper": {
+    "multiplier": [
+     2,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 2,
+    "storedAfter": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "storedBefore": {
+     "defence": 556519.98,
+     "intelligence": 556519.98,
+     "offence": 556519.98,
+     "speed": 556519.98,
+     "strength": 556519.98,
+     "willpower": 556519.98
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Core Horror": {
+    "multiplier": [
+     2,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 2,
+    "storedAfter": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "storedBefore": {
+     "defence": 556519.98,
+     "intelligence": 556519.98,
+     "offence": 556519.98,
+     "speed": 556519.98,
+     "strength": 556519.98,
+     "willpower": 556519.98
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Crowned Captain": {
+    "multiplier": [
+     3,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 2,
+    "storedAfter": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "storedBefore": {
+     "defence": 834780,
+     "intelligence": 834780,
+     "offence": 834780,
+     "speed": 834780,
+     "strength": 834780,
+     "willpower": 834780
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Deck Warden": {
+    "multiplier": [
+     2,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 1,
+    "storedAfter": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "storedBefore": {
+     "defence": 556519.98,
+     "intelligence": 556519.98,
+     "offence": 556519.98,
+     "speed": 556519.98,
+     "strength": 556519.98,
+     "willpower": 556519.98
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "First Blade": {
+    "multiplier": [
+     3,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 1,
+    "storedAfter": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "storedBefore": {
+     "defence": 834780,
+     "intelligence": 834780,
+     "offence": 834780,
+     "speed": 834780,
+     "strength": 834780,
+     "willpower": 834780
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Oathkeeper": {
+    "multiplier": [
+     2,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 1,
+    "storedAfter": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "storedBefore": {
+     "defence": 556519.98,
+     "intelligence": 556519.98,
+     "offence": 556519.98,
+     "speed": 556519.98,
+     "strength": 556519.98,
+     "willpower": 556519.98
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Sentinel": {
+    "multiplier": [
+     3,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 1,
+    "storedAfter": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "storedBefore": {
+     "defence": 834780,
+     "intelligence": 834780,
+     "offence": 834780,
+     "speed": 834780,
+     "strength": 834780,
+     "willpower": 834780
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "The Captain": {
+    "multiplier": [
+     3,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 2,
+    "storedAfter": {
+     "defence": 1391300,
+     "intelligence": 1391300,
+     "offence": 1391300,
+     "speed": 1391300,
+     "strength": 1391300,
+     "willpower": 1391300
+    },
+    "storedBefore": {
+     "defence": 834780,
+     "intelligence": 834780,
+     "offence": 834780,
+     "speed": 834780,
+     "strength": 834780,
+     "willpower": 834780
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   },
+   "Wayfinder": {
+    "multiplier": [
+     2,
+     5
+    ],
+    "questFightLevel100": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    },
+    "saves": 1,
+    "storedAfter": {
+     "defence": 1391299.95,
+     "intelligence": 1391299.95,
+     "offence": 1391299.95,
+     "speed": 1391299.95,
+     "strength": 1391299.95,
+     "willpower": 1391299.95
+    },
+    "storedBefore": {
+     "defence": 556519.98,
+     "intelligence": 556519.98,
+     "offence": 556519.98,
+     "speed": 556519.98,
+     "strength": 556519.98,
+     "willpower": 556519.98
+    },
+    "unscaledFight": {
+     "defence": 1300000,
+     "intelligence": 400000,
+     "offence": 1300000,
+     "speed": 400000,
+     "strength": 400000,
+     "willpower": 400000
+    }
+   }
+  },
+  "sealwright": {
+   "questFightLevel100": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   },
+   "sent": {
+    "defence": 1391300,
+    "intelligence": 1391300,
+    "offence": 1391300,
+    "speed": 1391300,
+    "statsMultiplier": 5,
+    "strength": 1391300,
+    "willpower": 1391300
+   },
+   "stored": {
+    "bloodlineMastery": 10,
+    "bukijutsuMastery": 834780,
+    "defence": 1391300,
+    "experience": 3339000,
+    "genjutsuMastery": 834780,
+    "intelligence": 1391300,
+    "maxHealth": 12625,
+    "ninjutsuMastery": 834780,
+    "offence": 1391300,
+    "sageMastery": 10,
+    "speed": 1391300,
+    "strength": 1391300,
+    "taijutsuMastery": 834780,
+    "willpower": 1391300
+   },
+   "unscaledFight": {
+    "defence": 1300000,
+    "intelligence": 400000,
+    "offence": 1300000,
+    "speed": 400000,
+    "strength": 400000,
+    "willpower": 400000
+   }
+  },
+  "twoStageControl": {
+   "afterIncompleteCreate": {
+    "defence": 30,
+    "intelligence": 1252170,
+    "offence": 30,
+    "speed": 1252170,
+    "strength": 1252170,
+    "willpower": 1252170
+   }
+  }
+ },
+ "failed": 0,
+ "gate": "STATS",
+ "scope": "pinned-server save path and battle scaling/clamping for every AI push/90 writes; FakeGame-free, DB-free"
+}

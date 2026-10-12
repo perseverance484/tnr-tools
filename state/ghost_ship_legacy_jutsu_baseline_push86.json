@@ -1,0 +1,169 @@
+{
+ "schema": "tnr.ghost_ship_legacy_jutsu_baseline",
+ "version": 1,
+ "status": "CURRENT_LIVE_BASELINE (post-migration 0056)",
+ "supersedesForLiveComparison": "state/ghost_ship_legacy_jutsu_conversion.json protectedRecordSha256 (October 1 rows; kept unchanged for the frozen harnesses)",
+ "generator": "harness/ghost_ship_legacy_baseline/build_baseline.py",
+ "source": {
+  "capture": "harvests/inbox/tnr_results_1791727613862.json",
+  "captureFileSha256": "3ff78acf148798b1e56e8d7c98d6fed46c09090d8f088786c4d766d3ccde0508",
+  "proc": "profile.getAi (embedded kit rows)",
+  "conversionPacket": "state/ghost_ship_legacy_jutsu_conversion.json",
+  "conversionPacketSha256": "de4d6378a72ef34411dea4db119628dfb7e345fa2d80cab043a3c21ed6fe5d68",
+  "october1Capture": "harvests/inbox/tnr_results_1790826836406.json",
+  "october1CaptureSha256": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed"
+ },
+ "hashMethod": "SHA-256 of UTF-8 JSON after removing only name, description, battleDescription; sorted object keys; separators comma/colon; ensure_ascii=False; array order and omitted fields preserved.",
+ "schemaDelta": {
+  "upstream": "app/drizzle/migrations/0056_unified_combat_stats_masteries.sql",
+  "removedAllNull": [
+   "requiredBukijutsuDefence",
+   "requiredBukijutsuOffence",
+   "requiredGenjutsuDefence",
+   "requiredGenjutsuOffence",
+   "requiredNinjutsuDefence",
+   "requiredNinjutsuOffence",
+   "requiredTaijutsuDefence",
+   "requiredTaijutsuOffence"
+  ],
+  "addedValues": {
+   "requiredNinjutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredTaijutsuMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredBloodlineMastery": null,
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
+   "bloodlineReskinId": null,
+   "reskinParentJutsuId": null,
+   "coordinateTargeting": null,
+   "elementClassification": "None"
+  },
+  "changed": {
+   "statClassification": {
+    "from": "Highest",
+    "to": "None"
+   }
+  },
+  "otherFieldsIdentical": true,
+  "presentationUnchanged": true
+ },
+ "records": [
+  {
+   "targetId": "nCQETf-HNnbRec1OSY2-R",
+   "name": "Explosion!",
+   "push86Pointers": [
+    "/captures/1/data/jutsus/0/jutsu",
+    "/captures/2/data/jutsus/0/jutsu"
+   ],
+   "protectedRecordSha256": "ef77264288c26b150c02738e82c0b7cd78237ef6025f0c51e9c6042f02985f71",
+   "fullRecordSha256": "8601cedce1d67a98ffbdcbbe66242ed523e3a3d676da5d063ec590b6cc092e68",
+   "october1ProtectedRecordSha256": "a9f08a0be5a187f411e4d33a6ae0f660953c55ef36692b6f1b4ece9d9ac5cd47"
+  },
+  {
+   "targetId": "ddbIyVtoxdPQwLRXxSBq8",
+   "name": "Ghostly Deep Six",
+   "push86Pointers": [
+    "/captures/10/data/jutsus/2/jutsu"
+   ],
+   "protectedRecordSha256": "2d340e93340c5fe7793b5e61fe3f1db2215faa8719e8b3e83caa67f017c4550c",
+   "fullRecordSha256": "c492cfde2b4e898e26a66e60526a9373ad4639d91b50a0d9cc51fe03cf42ee6b",
+   "october1ProtectedRecordSha256": "782f3a689afb87af0f148a1f7f427eafea94b778749125c9ae57c5acb8b59cbd"
+  },
+  {
+   "targetId": "X2P22h8ApDmTZHjWpNO87",
+   "name": "Ghostly Final Fathom",
+   "push86Pointers": [
+    "/captures/10/data/jutsus/10/jutsu"
+   ],
+   "protectedRecordSha256": "dfc41368c3bdef22f8a1e34c99e194fcfd66e08b530769197f86fc4a1815922a",
+   "fullRecordSha256": "17d022747da7aad736db676d83986ce2e1e8a782ca481bfb2b5b7a3aae86aaf4",
+   "october1ProtectedRecordSha256": "541b6bc122405596d12b22045c10a6c39b20d5bf9079703ba46e2bc9cc11427b"
+  },
+  {
+   "targetId": "PdD44PGaNv4MN5fOALhAF",
+   "name": "Death's Grasp",
+   "push86Pointers": [
+    "/captures/9/data/jutsus/4/jutsu",
+    "/captures/10/data/jutsus/6/jutsu"
+   ],
+   "protectedRecordSha256": "1df34aa816a22ddb9dd18a7c8d8fc16071c60dc72fe995a12af5fc921cec4fbd",
+   "fullRecordSha256": "6aeb3958fa33733a4758d370606106827d6a5fef2e9daeca3db57006f3bea23c",
+   "october1ProtectedRecordSha256": "8d1e89153d45cfaee284027ba8f4028adcdbdd16d4412c01accfb62eeec19db8"
+  },
+  {
+   "targetId": "EQ93LX8wvuIAd5u75q_i1",
+   "name": "Ghostly Shipwreck Delusion",
+   "push86Pointers": [
+    "/captures/10/data/jutsus/3/jutsu"
+   ],
+   "protectedRecordSha256": "d3afda4866415d16e37e2206d0144ca9ccfcdaf87a5b1350379cd1aad66184af",
+   "fullRecordSha256": "d78609c4a4566524e80377dd634e0d402f833eb0c9756cca63423b0bae1b3f4c",
+   "october1ProtectedRecordSha256": "0d789816c9fed7bc96f7960dcb340cbaa661e819ed287795b41cbc2e66394947"
+  },
+  {
+   "targetId": "T3glZGcSd-jS8G-NB43GR",
+   "name": "Counter Stance",
+   "push86Pointers": [
+    "/captures/4/data/jutsus/5/jutsu",
+    "/captures/7/data/jutsus/7/jutsu",
+    "/captures/10/data/jutsus/8/jutsu"
+   ],
+   "protectedRecordSha256": "ed627ce3cc07d9b40e18b9c309a2f40ac11b3bfef300f7ad5da9b9bd3dbdd7b1",
+   "fullRecordSha256": "a6ae23dd8dcb9d22a4c2bd991d6c5a63c4c86c468057c336407a88bb4f8e6bf7",
+   "october1ProtectedRecordSha256": "67243ecbb1ab57ba3874f93ea50780f09a0ff410beddb15911b2f5ceaf240609"
+  },
+  {
+   "targetId": "0Y10JpChssDwFUxNRk6p3",
+   "name": "Death's Door",
+   "push86Pointers": [
+    "/captures/9/data/jutsus/0/jutsu",
+    "/captures/10/data/jutsus/0/jutsu"
+   ],
+   "protectedRecordSha256": "ce8c2eccdfafda0d59ef49ca515729da72038e01e4e15af86f3a4194ed36d090",
+   "fullRecordSha256": "143831769c4048eb0fc5a2f092eadf0f8599a24f63c4905fca83afe0dfd49cc8",
+   "october1ProtectedRecordSha256": "0465d793a49366ddaac2e37be725ae3199bb7b12f2a9b55aad71b35defb817ec"
+  },
+  {
+   "targetId": "wMcoazoyXaEXViSCn5weF",
+   "name": "Ghostly Crossed Out",
+   "push86Pointers": [
+    "/captures/6/data/jutsus/7/jutsu"
+   ],
+   "protectedRecordSha256": "0adf972f0d447a47c600169c1051e5ef0cd75cfd3bd73a6f7be342bf5295a9c4",
+   "fullRecordSha256": "4972641555043718cca75482f8e7324205abb70f680d967a28a45b1ba1fa5e2c",
+   "october1ProtectedRecordSha256": "8e878f36b7b10f46165d992a51184cec83bdc9fc0ae96036a12ba3ce95ecc684"
+  },
+  {
+   "targetId": "1jXfTgrtGUaSfqTPSSa83",
+   "name": "Ghostly Rigging Snare",
+   "push86Pointers": [
+    "/captures/3/data/jutsus/1/jutsu"
+   ],
+   "protectedRecordSha256": "59ed3ebbcf8d52279d10e015a22737609d11d4b45cf06fb81b6ce73d2eaa99d2",
+   "fullRecordSha256": "08e507b4c407d4a1814f7b86d93173b8bf261f47907bf753ddb5703e14588f1f",
+   "october1ProtectedRecordSha256": "9d0c49b2862d79073e10c3afebafa6fe770c5dbd68075ad9bec4ef4b7773b3f2"
+  },
+  {
+   "targetId": "Jz4Lb55NcpwZn3nUK5PrJ",
+   "name": "Ghostly Strangling Weed",
+   "push86Pointers": [
+    "/captures/3/data/jutsus/4/jutsu"
+   ],
+   "protectedRecordSha256": "bbf076ae8c6b99561133e6c5d8c63954548cca53ad88180b35b57ce5806db9ad",
+   "fullRecordSha256": "5e2cd8af14ba18a98acf6ad74434d4e649154ee038d9ea61aff5e1316f6a62c7",
+   "october1ProtectedRecordSha256": "25406b3122c18eebd85ebaa1b5543e923561d38015e5ad914716b50fece7b2f7"
+  },
+  {
+   "targetId": "MG9ZujAV8lK7--YxThVbQ",
+   "name": "Battle Trance",
+   "push86Pointers": [
+    "/captures/8/data/jutsus/4/jutsu",
+    "/captures/9/data/jutsus/2/jutsu"
+   ],
+   "protectedRecordSha256": "dae8c7fc0af8b4a6a85a9a509fc455c347484cff36053be1df70612febbb9bd5",
+   "fullRecordSha256": "7755cb8d70ba3ab8788e49d3c1d3103e68894eaceb86a39d1bbeb4ae8c64bb28",
+   "october1ProtectedRecordSha256": "015d4453934d33785a2524212cb48ec415c2947ac1596f5350bbee5d001a9afc"
+  }
+ ]
+}

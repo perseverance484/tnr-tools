@@ -1,0 +1,5397 @@
+{
+ "gate": "M0",
+ "status": "PASS",
+ "checks": 482,
+ "failed": 0,
+ "repoFiles": {
+  "state/ghost_ship_hybrid_kit_proposal.json": "2b3f6a0f88506ee9dd02d3d9f548c7f60b735248479395407417141a65880203",
+  "state/ghost_ship_legacy_jutsu_conversion.json": "de4d6378a72ef34411dea4db119628dfb7e345fa2d80cab043a3c21ed6fe5d68",
+  "state/ghost_ship_skyglass_sealwright_rule_contract.json": "7288a3f27f968c1ea8398aafd78541407094cbb0b891e6586c6b29b08c7eca34"
+ },
+ "hashMethod": "SHA-256 of json.dumps(sort_keys=True, separators=(',',':'), ensure_ascii=False)",
+ "entities": [
+  {
+   "aiId": "texZaFi42S3EvJZBwQ8cd",
+   "name": "Deck Warden",
+   "aiProfileId": "o1qPfPsuVXk7KzLaRz0n3",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 7,
+   "acceptedKit": [
+    {
+     "member": "S02",
+     "id": "FeYnH7BBw_usnc1K-TM-J",
+     "name": "Quick Strike",
+     "resolved": true
+    },
+    {
+     "member": "EW01",
+     "id": "UnQKfwq_JoRVu10aTX6Uv",
+     "name": "Tide Bolt",
+     "resolved": true
+    },
+    {
+     "member": "S07",
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Rapid Fire",
+     "resolved": true
+    },
+    {
+     "member": "S08",
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Shot",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "5c9EgF3dOsx9kelnQMfw5",
+    "65D6rTaW7ZlUmZIL4ZMZ_",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "kb6zaZKbkv3U3Lgl0p1Dr",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "lDRZckm05jQEUTyZ0qmGU",
+    "wZ20uyFl9jXs31Yrp9t7T"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 4,
+    "typeCounts": {
+     "increasedamagegiven": 4
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 556519.98,
+    "ninjutsuOffence": 556519.98
+   }
+  },
+  {
+   "aiId": "wTgO-Q32caSSd0is1QIS7",
+   "name": "Seal Charge",
+   "aiProfileId": "q1Rp9dPMlRMcD2JQmFiC7",
+   "includeDefaultRules": false,
+   "capturedRuleCount": 1,
+   "acceptedKit": [
+    {
+     "member": "legacy:nCQETf-HNnbRec1OSY2-R",
+     "id": "nCQETf-HNnbRec1OSY2-R",
+     "name": "Explosion!",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "nCQETf-HNnbRec1OSY2-R"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 0,
+    "typeCounts": {}
+   },
+   "items": [
+    {
+     "itemId": "h-V9uiuxbL7lAWkO6nZWt",
+     "name": "AI Heavy Armor",
+     "itemType": "ARMOR",
+     "equipped": "NONE",
+     "dropChancePerc": 0
+    }
+   ],
+   "numericProfile": {
+    "level": 70,
+    "rank": "JONIN",
+    "statsMultiplier": 10,
+    "poolsMultiplier": 1,
+    "regeneration": 60,
+    "maxHealth": 3550,
+    "maxChakra": 3550,
+    "maxStamina": 3550,
+    "preferredStat": "Ninjutsu",
+    "preferredGeneral1": "Willpower",
+    "preferredGeneral2": "Intelligence",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 1035100,
+    "ninjutsuOffence": 1035100
+   }
+  },
+  {
+   "aiId": "frc9LTxqQlM7mncG4VZGK",
+   "name": "Core Canister",
+   "aiProfileId": "zPHaNgwr2J4GQnPFHAWe8",
+   "includeDefaultRules": false,
+   "capturedRuleCount": 1,
+   "acceptedKit": [
+    {
+     "member": "legacy:nCQETf-HNnbRec1OSY2-R",
+     "id": "nCQETf-HNnbRec1OSY2-R",
+     "name": "Explosion!",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "nCQETf-HNnbRec1OSY2-R"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 0,
+    "typeCounts": {}
+   },
+   "items": [
+    {
+     "itemId": "h-V9uiuxbL7lAWkO6nZWt",
+     "name": "AI Heavy Armor",
+     "itemType": "ARMOR",
+     "equipped": "NONE",
+     "dropChancePerc": 0
+    }
+   ],
+   "numericProfile": {
+    "level": 56,
+    "rank": "JONIN",
+    "statsMultiplier": 20,
+    "poolsMultiplier": 1,
+    "regeneration": 60,
+    "maxHealth": 2850,
+    "maxChakra": 2850,
+    "maxStamina": 2850,
+    "preferredStat": "Ninjutsu",
+    "preferredGeneral1": "Willpower",
+    "preferredGeneral2": "Intelligence",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 1329366.6,
+    "ninjutsuOffence": 1329366.6
+   }
+  },
+  {
+   "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+   "name": "Core Horror",
+   "aiProfileId": "zD6EHeSmnHpcbX4zBOWGn",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 8,
+   "acceptedKit": [
+    {
+     "member": "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Ghostly Rigging Snare",
+     "resolved": true
+    },
+    {
+     "member": "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+     "id": "Jz4Lb55NcpwZn3nUK5PrJ",
+     "name": "Ghostly Strangling Weed",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    },
+    {
+     "member": "S08",
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Shot",
+     "resolved": true
+    },
+    {
+     "member": "S06",
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Shot",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "1jXfTgrtGUaSfqTPSSa83",
+    "69KaUuqwYMxBtP8cnpSyt",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "Jz4Lb55NcpwZn3nUK5PrJ",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "M17d487aZDuWfS5C_hgeN",
+    "mL39bQRcyFtdPUlsJRNsA"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 5,
+    "typeCounts": {
+     "increasedamagegiven": 5
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625,
+    "preferredStat": "Taijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Willpower",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 556519.98,
+    "ninjutsuOffence": 556519.98
+   }
+  },
+  {
+   "aiId": "0PZU_FvlbM3ErYGlD5r56",
+   "name": "Oathkeeper",
+   "aiProfileId": "RkkKzrFzJCVBggHTA8bNj",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 7,
+   "acceptedKit": [
+    {
+     "member": "legacy:T3glZGcSd-jS8G-NB43GR",
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    },
+    {
+     "member": "S04",
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike",
+     "resolved": true
+    },
+    {
+     "member": "S07",
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Rapid Fire",
+     "resolved": true
+    },
+    {
+     "member": "S02",
+     "id": "FeYnH7BBw_usnc1K-TM-J",
+     "name": "Quick Strike",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "65D6rTaW7ZlUmZIL4ZMZ_",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "lDRZckm05jQEUTyZ0qmGU",
+    "LIGN4c83NNmv4ea655HGx",
+    "T3glZGcSd-jS8G-NB43GR",
+    "wZ20uyFl9jXs31Yrp9t7T",
+    "ZZk2cSkwhzUSdtq6XB72_"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 5,
+    "typeCounts": {
+     "increasedamagegiven": 5
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625,
+    "preferredStat": "Genjutsu",
+    "preferredGeneral1": "Speed",
+    "preferredGeneral2": "Intelligence",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 556519.98,
+    "ninjutsuOffence": 556519.98
+   }
+  },
+  {
+   "aiId": "v7T9_XdGMfP46em0dPuBc",
+   "name": "Wayfinder",
+   "aiProfileId": "0LTa3ZM6eDCRkv4X_uwA-",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 6,
+   "acceptedKit": [
+    {
+     "member": "S03",
+     "id": "_nUaGHlWhn3-U0xbxJHFw",
+     "name": "Lunging Strike",
+     "resolved": true
+    },
+    {
+     "member": "S06",
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Shot",
+     "resolved": true
+    },
+    {
+     "member": "S07",
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Rapid Fire",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "65D6rTaW7ZlUmZIL4ZMZ_",
+    "eMNSr1NWubD_IwVYppbkZ",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "mL39bQRcyFtdPUlsJRNsA",
+    "wZ20uyFl9jXs31Yrp9t7T",
+    "yjsfRGaY1rUwG3FUWeHUW"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 4,
+    "typeCounts": {
+     "increasedamagegiven": 4
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2,
+    "poolsMultiplier": 3,
+    "regeneration": 60,
+    "maxHealth": 15150,
+    "maxChakra": 15150,
+    "maxStamina": 15150,
+    "preferredStat": "Ninjutsu",
+    "preferredGeneral1": "Intelligence",
+    "preferredGeneral2": "Speed",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 556519.98,
+    "ninjutsuOffence": 556519.98
+   }
+  },
+  {
+   "aiId": "2OXJEXoktxJcjqMkE851g",
+   "name": "Arsenal Keeper",
+   "aiProfileId": "3y6oASzyyRn5CdkeSlHk6",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 8,
+   "acceptedKit": [
+    {
+     "member": "legacy:wMcoazoyXaEXViSCn5weF",
+     "id": "wMcoazoyXaEXViSCn5weF",
+     "name": "Ghostly Crossed Out",
+     "resolved": true
+    },
+    {
+     "member": "S01",
+     "id": "pUrUJX8Jml7fUIBXKsPwv",
+     "name": "Heavy Strike",
+     "resolved": true
+    },
+    {
+     "member": "S06",
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Shot",
+     "resolved": true
+    },
+    {
+     "member": "S08",
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Shot",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "69KaUuqwYMxBtP8cnpSyt",
+    "bt-LJ22cM2gs_-iVtPsbW",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "lDRZckm05jQEUTyZ0qmGU",
+    "mL39bQRcyFtdPUlsJRNsA",
+    "wMcoazoyXaEXViSCn5weF"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 4,
+    "typeCounts": {
+     "increasedamagegiven": 4
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2,
+    "poolsMultiplier": 3,
+    "regeneration": 60,
+    "maxHealth": 15150,
+    "maxChakra": 15150,
+    "maxStamina": 15150,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Willpower",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 556519.98,
+    "ninjutsuOffence": 556519.98
+   }
+  },
+  {
+   "aiId": "3V_gdHYaclMB1gTyOPAbV",
+   "name": "Sentinel",
+   "aiProfileId": "AJ8BnFvtpflf57-BsrJRe",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 8,
+   "acceptedKit": [
+    {
+     "member": "legacy:T3glZGcSd-jS8G-NB43GR",
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance",
+     "resolved": true
+    },
+    {
+     "member": "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "id": "1jXfTgrtGUaSfqTPSSa83",
+     "name": "Ghostly Rigging Snare",
+     "resolved": true
+    },
+    {
+     "member": "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+     "id": "Jz4Lb55NcpwZn3nUK5PrJ",
+     "name": "Ghostly Strangling Weed",
+     "resolved": true
+    },
+    {
+     "member": "B39",
+     "id": "05rH3kZNXbtFq9a9iRl-W",
+     "name": "Light Barrier",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "S06",
+     "id": "3v9c1SHlD2GLPF2HW1_Sc",
+     "name": "Twin Shot",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "05rH3kZNXbtFq9a9iRl-W",
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "1ymzIUup_ErD_ruUkOmJV",
+    "84Ew66RUgE_yzTeb2X4d4",
+    "cRs0e3bzbw1zAQ8Z0ZPgA",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "JtMuRYsk965ZZD1sSQlrL",
+    "T3glZGcSd-jS8G-NB43GR",
+    "UrQra0Xfn18ZFEgL38yl1"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 5,
+    "typeCounts": {
+     "increasedamagegiven": 5
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3,
+    "poolsMultiplier": 3.5,
+    "regeneration": 60,
+    "maxHealth": 17675,
+    "maxChakra": 17675,
+    "maxStamina": 17675,
+    "preferredStat": "Taijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Willpower",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 834780,
+    "ninjutsuOffence": 834780
+   }
+  },
+  {
+   "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+   "name": "First Blade",
+   "aiProfileId": "IUgkMPWyf6jy7xbyTLBqX",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 8,
+   "acceptedKit": [
+    {
+     "member": "legacy:MG9ZujAV8lK7--YxThVbQ",
+     "id": "MG9ZujAV8lK7--YxThVbQ",
+     "name": "Battle Trance",
+     "resolved": true
+    },
+    {
+     "member": "EE03",
+     "id": "V3WrfQ3pB-eCq2hojsxWe",
+     "name": "Stoneward",
+     "resolved": true
+    },
+    {
+     "member": "EW03",
+     "id": "mOA1hXNf4CcuwOhnnN7ZK",
+     "name": "Springguard",
+     "resolved": true
+    },
+    {
+     "member": "S08",
+     "id": "m-ur3A8TS8r5jGb84L9x7",
+     "name": "Numbing Shot",
+     "resolved": true
+    },
+    {
+     "member": "EL04",
+     "id": "xGVqWSX93hXZgfmlKZODp",
+     "name": "Ion Lance",
+     "resolved": true
+    },
+    {
+     "member": "S04",
+     "id": "Cw51Wm_Uy0GiIkiEjlQtn",
+     "name": "Opening Strike",
+     "resolved": true
+    },
+    {
+     "member": "S07",
+     "id": "Nrxc8m9utE9qaD_gWpLgf",
+     "name": "Rapid Fire",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "1Iy2Vy5ZvCY9dQsc193NB",
+    "HsHQylAuohwyOcMcCOtPA",
+    "i1KbE0NbN1SWIwHuJgdoT",
+    "jbdOPmLPLvGZjltPvFiAu",
+    "MG9ZujAV8lK7--YxThVbQ",
+    "PqKTMl9XyNXLoJHIsQEas",
+    "VTw2FVjsJXOZNr1NyPkoh",
+    "YCDM4ZWOWY1d4nqwXpX0j"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 5,
+    "typeCounts": {
+     "increasedamagegiven": 5
+    }
+   },
+   "items": [],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3,
+    "poolsMultiplier": 3.5,
+    "regeneration": 60,
+    "maxHealth": 17675,
+    "maxChakra": 17675,
+    "maxStamina": 17675,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Speed",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 834780,
+    "ninjutsuOffence": 834780
+   }
+  },
+  {
+   "aiId": "QY69h271Nx9uHrBeR6jwW",
+   "name": "The Captain",
+   "aiProfileId": "BqRv9qUlDNLNCzi-Q45zT",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 5,
+   "acceptedKit": [
+    {
+     "member": "legacy:0Y10JpChssDwFUxNRk6p3",
+     "id": "0Y10JpChssDwFUxNRk6p3",
+     "name": "Death's Door",
+     "resolved": true
+    },
+    {
+     "member": "legacy:MG9ZujAV8lK7--YxThVbQ",
+     "id": "MG9ZujAV8lK7--YxThVbQ",
+     "name": "Battle Trance",
+     "resolved": true
+    },
+    {
+     "member": "legacy:PdD44PGaNv4MN5fOALhAF",
+     "id": "PdD44PGaNv4MN5fOALhAF",
+     "name": "Death's Grasp",
+     "resolved": true
+    },
+    {
+     "member": "B14",
+     "id": "o-4SCAhJ4LHdCwcBDgJrV",
+     "name": "Cataclysm Detonation",
+     "resolved": true
+    },
+    {
+     "member": "B17",
+     "id": "LisNuMJ2gncEByAxG6QPI",
+     "name": "Worldbreaker Chorus",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "0Y10JpChssDwFUxNRk6p3",
+    "LisNuMJ2gncEByAxG6QPI",
+    "MG9ZujAV8lK7--YxThVbQ",
+    "o-4SCAhJ4LHdCwcBDgJrV",
+    "PdD44PGaNv4MN5fOALhAF"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 1,
+    "typeCounts": {
+     "increasestat": 1
+    }
+   },
+   "items": [
+    {
+     "itemId": "h-V9uiuxbL7lAWkO6nZWt",
+     "name": "AI Heavy Armor",
+     "itemType": "ARMOR",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    },
+    {
+     "itemId": "MskL9ctwDbnkfmSK8j0-X",
+     "name": "Cursed Dagger",
+     "itemType": "WEAPON",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    }
+   ],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "maxHealth": 12625,
+    "maxChakra": 12625,
+    "maxStamina": 12625,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Speed",
+    "preferredGeneral2": "Strength",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 834780,
+    "ninjutsuOffence": 834780
+   }
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "name": "Crowned Captain",
+   "aiProfileId": "6G3McyVvLGIY1e4_sfTvU",
+   "includeDefaultRules": true,
+   "capturedRuleCount": 7,
+   "acceptedKit": [
+    {
+     "member": "legacy:0Y10JpChssDwFUxNRk6p3",
+     "id": "0Y10JpChssDwFUxNRk6p3",
+     "name": "Death's Door",
+     "resolved": true
+    },
+    {
+     "member": "legacy:ddbIyVtoxdPQwLRXxSBq8",
+     "id": "ddbIyVtoxdPQwLRXxSBq8",
+     "name": "Ghostly Deep Six",
+     "resolved": true
+    },
+    {
+     "member": "legacy:X2P22h8ApDmTZHjWpNO87",
+     "id": "X2P22h8ApDmTZHjWpNO87",
+     "name": "Ghostly Final Fathom",
+     "resolved": true
+    },
+    {
+     "member": "legacy:PdD44PGaNv4MN5fOALhAF",
+     "id": "PdD44PGaNv4MN5fOALhAF",
+     "name": "Death's Grasp",
+     "resolved": true
+    },
+    {
+     "member": "legacy:EQ93LX8wvuIAd5u75q_i1",
+     "id": "EQ93LX8wvuIAd5u75q_i1",
+     "name": "Ghostly Shipwreck Delusion",
+     "resolved": true
+    },
+    {
+     "member": "legacy:T3glZGcSd-jS8G-NB43GR",
+     "id": "T3glZGcSd-jS8G-NB43GR",
+     "name": "Counter Stance",
+     "resolved": true
+    },
+    {
+     "member": "EA03",
+     "id": "_9k7kSYUgMtB-AEFgRly5",
+     "name": "Windlash Focus",
+     "resolved": true
+    },
+    {
+     "member": "S31",
+     "id": "1OhP0StX4VTsosWtCxhsG",
+     "name": "Unraveling Strike",
+     "resolved": true
+    },
+    {
+     "member": "B14",
+     "id": "o-4SCAhJ4LHdCwcBDgJrV",
+     "name": "Cataclysm Detonation",
+     "resolved": true
+    },
+    {
+     "member": "S35",
+     "id": "STu1VHNcfgeC3x-UiQDgt",
+     "name": "Second Wind",
+     "resolved": true
+    },
+    {
+     "member": "B07",
+     "id": "VuFuBtE7h5B1nnA2J1lFZ",
+     "name": "Stolen Form",
+     "resolved": true
+    }
+   ],
+   "capturedKitIds": [
+    "0Y10JpChssDwFUxNRk6p3",
+    "1OhP0StX4VTsosWtCxhsG",
+    "ddbIyVtoxdPQwLRXxSBq8",
+    "EQ93LX8wvuIAd5u75q_i1",
+    "KIMeKemnXttwOv1Cf-IPS",
+    "o-4SCAhJ4LHdCwcBDgJrV",
+    "PdD44PGaNv4MN5fOALhAF",
+    "STu1VHNcfgeC3x-UiQDgt",
+    "T3glZGcSd-jS8G-NB43GR",
+    "VuFuBtE7h5B1nnA2J1lFZ",
+    "X2P22h8ApDmTZHjWpNO87"
+   ],
+   "innateEffects": {
+    "isNull": false,
+    "count": 1,
+    "typeCounts": {
+     "increasedamagegiven": 1
+    }
+   },
+   "items": [
+    {
+     "itemId": "ayiRmSjWs05lMPyL3G-1d",
+     "name": "Fragment of the White Crown",
+     "itemType": "MATERIAL",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    },
+    {
+     "itemId": "LnRVMzyVmVwgaKvTH52Zy",
+     "name": "Ghostly Sovereign's Diadem",
+     "itemType": "ARMOR",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    },
+    {
+     "itemId": "h-V9uiuxbL7lAWkO6nZWt",
+     "name": "AI Heavy Armor",
+     "itemType": "ARMOR",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    },
+    {
+     "itemId": "MskL9ctwDbnkfmSK8j0-X",
+     "name": "Cursed Dagger",
+     "itemType": "WEAPON",
+     "equipped": "NONE",
+     "dropChancePerc": 1
+    }
+   ],
+   "numericProfile": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 3,
+    "poolsMultiplier": 3.6,
+    "regeneration": 60,
+    "maxHealth": 18180,
+    "maxChakra": 18180,
+    "maxStamina": 18180,
+    "preferredStat": "Bukijutsu",
+    "preferredGeneral1": "Speed",
+    "preferredGeneral2": "Strength",
+    "primaryElement": null,
+    "secondaryElement": null,
+    "strength": 834780,
+    "ninjutsuOffence": 834780
+   }
+  }
+ ],
+ "sealwright": [
+  {
+   "code": "B32",
+   "id": "JWZYiHKPNwYziWEFjw4Fn",
+   "name": "Nullifying Wave",
+   "method": "ALL",
+   "target": "OTHER_USER",
+   "range": 5,
+   "ap": 60,
+   "cooldown": 8,
+   "effects": [
+    [
+     "clear",
+     100,
+     0
+    ]
+   ]
+  },
+  {
+   "code": "S31",
+   "id": "1OhP0StX4VTsosWtCxhsG",
+   "name": "Unraveling Strike",
+   "method": "SINGLE",
+   "target": "OTHER_USER",
+   "range": 3,
+   "ap": 60,
+   "cooldown": 5,
+   "effects": [
+    [
+     "damage",
+     40,
+     0
+    ],
+    [
+     "clear",
+     100,
+     0
+    ]
+   ]
+  },
+  {
+   "code": "B22",
+   "id": "6UE5jC71Y6nRjobkJ-UTV",
+   "name": "Compression Barrier",
+   "method": "SINGLE",
+   "target": "SELF",
+   "range": 0,
+   "ap": 40,
+   "cooldown": 5,
+   "effects": [
+    [
+     "absorb",
+     20,
+     3
+    ],
+    [
+     "decreasedamagetaken",
+     25,
+     3
+    ]
+   ]
+  },
+  {
+   "code": "B16",
+   "id": "RPdeeWhFI5AIUUpJXwUlf",
+   "name": "Sovereign Fetters",
+   "method": "SINGLE",
+   "target": "OTHER_USER",
+   "range": 5,
+   "ap": 60,
+   "cooldown": 10,
+   "effects": [
+    [
+     "damage",
+     60,
+     0
+    ],
+    [
+     "stun",
+     100,
+     2
+    ],
+    [
+     "seal",
+     100,
+     2
+    ]
+   ]
+  },
+  {
+   "code": "B14",
+   "id": "o-4SCAhJ4LHdCwcBDgJrV",
+   "name": "Cataclysm Detonation",
+   "method": "SINGLE",
+   "target": "OTHER_USER",
+   "range": 5,
+   "ap": 60,
+   "cooldown": 8,
+   "effects": [
+    [
+     "damage",
+     85,
+     0
+    ]
+   ]
+  },
+  {
+   "code": "B33",
+   "id": "OyswJoalfNpmz7FsA8Hd8",
+   "name": "Piercing Judgment",
+   "method": "SINGLE",
+   "target": "OTHER_USER",
+   "range": 5,
+   "ap": 60,
+   "cooldown": 7,
+   "effects": [
+    [
+     "pierce",
+     55,
+     0
+    ],
+    [
+     "increasedamagetaken",
+     25,
+     2
+    ]
+   ]
+  },
+  {
+   "code": "S27",
+   "id": "YiRdVytsdxFzZtqkEDs5Q",
+   "name": "Weakening Strike",
+   "method": "SINGLE",
+   "target": "OTHER_USER",
+   "range": 5,
+   "ap": 60,
+   "cooldown": 4,
+   "effects": [
+    [
+     "damage",
+     40,
+     0
+    ],
+    [
+     "decreasedamagegiven",
+     20,
+     2
+    ]
+   ]
+  }
+ ],
+ "missingVersusNull": {
+  "B07": {
+   "embeddedCopies": 1,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "B14": {
+   "embeddedCopies": 2,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "B17": {
+   "embeddedCopies": 1,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "B39": {
+   "embeddedCopies": 1,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "EA03": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "EE03": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "EL04": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "EW01": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "EW03": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "S01": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S02": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S03": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S04": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S06": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S07": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S08": {
+   "embeddedCopies": 0,
+   "differingFields": {},
+   "nullFieldsInPoolRecord": [
+    "bloodlineId",
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower",
+    "villageId"
+   ]
+  },
+  "S31": {
+   "embeddedCopies": 1,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  },
+  "S35": {
+   "embeddedCopies": 1,
+   "differingFields": {
+    "elementClassification": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": "None"
+    },
+    "requiredBloodlineMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredBukijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredBukijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredGenjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredGenjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredNinjutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredNinjutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredSageMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuDefence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "requiredTaijutsuMastery": {
+     "oct01AiEmbedded": "<ABSENT>",
+     "oct09Pool": null
+    },
+    "requiredTaijutsuOffence": {
+     "oct01AiEmbedded": null,
+     "oct09Pool": "<ABSENT>"
+    },
+    "statClassification": {
+     "oct01AiEmbedded": "Highest",
+     "oct09Pool": "None"
+    }
+   },
+   "nullFieldsInPoolRecord": [
+    "parentJutsuId",
+    "requiredBloodlineItemId",
+    "requiredBloodlineMastery",
+    "requiredBukijutsuMastery",
+    "requiredGenjutsuMastery",
+    "requiredIntelligence",
+    "requiredNinjutsuMastery",
+    "requiredSageMastery",
+    "requiredSpeed",
+    "requiredStrength",
+    "requiredTaijutsuMastery",
+    "requiredWillpower"
+   ]
+  }
+ },
+ "failures": [],
+ "allChecks": [
+  {
+   "check": "sourceFileSha256 harvests/inbox/tnr_results_1790826836406.json",
+   "pass": true,
+   "detail": {
+    "want": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed",
+    "got": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed"
+   }
+  },
+  {
+   "check": "sourceFileSha256 harvests/inbox/tnr_results_1790828718767.json",
+   "pass": true,
+   "detail": {
+    "want": "509d583766d4a1494299e64b35d27af25b9cc61db319fb99b9352f843edc1c2f",
+    "got": "509d583766d4a1494299e64b35d27af25b9cc61db319fb99b9352f843edc1c2f"
+   }
+  },
+  {
+   "check": "sourceFileSha256 harvests/inbox/tnr_results_1791583362574.json",
+   "pass": true,
+   "detail": {
+    "want": "d5babab3c7dea23299d6af8bec8c3d496252b6459d383fae64273fb6c03b9067",
+    "got": "d5babab3c7dea23299d6af8bec8c3d496252b6459d383fae64273fb6c03b9067"
+   }
+  },
+  {
+   "check": "sourceFileSha256 skills/building-tnr-content/data/32b_DATA_pool.json",
+   "pass": true,
+   "detail": {
+    "want": "bc813eec92976ab6406337aa97839e035af078f3908eec2f49a34fa185abd204",
+    "got": "bc813eec92976ab6406337aa97839e035af078f3908eec2f49a34fa185abd204"
+   }
+  },
+  {
+   "check": "legacy captureFileSha256 equals kit AI capture pin",
+   "pass": true,
+   "detail": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed"
+  },
+  {
+   "check": "legacy conversion record count",
+   "pass": true,
+   "detail": 11
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R pointer /captures/1/data/jutsus/0/jutsu id",
+   "pass": true,
+   "detail": "nCQETf-HNnbRec1OSY2-R"
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Explosion!",
+    "description": "New jutsu description",
+    "battleDescription": "%user ignites into a massive fireball"
+   }
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R pointer /captures/2/data/jutsus/0/jutsu id",
+   "pass": true,
+   "detail": "nCQETf-HNnbRec1OSY2-R"
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Explosion!",
+    "description": "New jutsu description",
+    "battleDescription": "%user ignites into a massive fireball"
+   }
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R protected hash",
+   "pass": true,
+   "detail": {
+    "want": "a9f08a0be5a187f411e4d33a6ae0f660953c55ef36692b6f1b4ece9d9ac5cd47",
+    "got": [
+     "a9f08a0be5a187f411e4d33a6ae0f660953c55ef36692b6f1b4ece9d9ac5cd47"
+    ]
+   }
+  },
+  {
+   "check": "legacy nCQETf-HNnbRec1OSY2-R repeated captures identical",
+   "pass": true,
+   "detail": 2
+  },
+  {
+   "check": "legacy ddbIyVtoxdPQwLRXxSBq8 pointer /captures/10/data/jutsus/2/jutsu id",
+   "pass": true,
+   "detail": "ddbIyVtoxdPQwLRXxSBq8"
+  },
+  {
+   "check": "legacy ddbIyVtoxdPQwLRXxSBq8 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Deep Six",
+    "description": "Six fathoms down, where strength, wounds and prayers all fail.",
+    "battleDescription": "%user sends %target six fathoms down where strength fails, wounds stay open and prayers go unanswered."
+   }
+  },
+  {
+   "check": "legacy ddbIyVtoxdPQwLRXxSBq8 protected hash",
+   "pass": true,
+   "detail": {
+    "want": "782f3a689afb87af0f148a1f7f427eafea94b778749125c9ae57c5acb8b59cbd",
+    "got": [
+     "782f3a689afb87af0f148a1f7f427eafea94b778749125c9ae57c5acb8b59cbd"
+    ]
+   }
+  },
+  {
+   "check": "legacy ddbIyVtoxdPQwLRXxSBq8 repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy X2P22h8ApDmTZHjWpNO87 pointer /captures/10/data/jutsus/10/jutsu id",
+   "pass": true,
+   "detail": "X2P22h8ApDmTZHjWpNO87"
+  },
+  {
+   "check": "legacy X2P22h8ApDmTZHjWpNO87 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Final Fathom",
+    "description": "The last fathom takes your strength, your gifts, and your time.",
+    "battleDescription": "%user sends the anchor down with %target lashed to the chain, the last fathom taking strength, gifts and time together."
+   }
+  },
+  {
+   "check": "legacy X2P22h8ApDmTZHjWpNO87 protected hash",
+   "pass": true,
+   "detail": {
+    "want": "541b6bc122405596d12b22045c10a6c39b20d5bf9079703ba46e2bc9cc11427b",
+    "got": [
+     "541b6bc122405596d12b22045c10a6c39b20d5bf9079703ba46e2bc9cc11427b"
+    ]
+   }
+  },
+  {
+   "check": "legacy X2P22h8ApDmTZHjWpNO87 repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF pointer /captures/9/data/jutsus/4/jutsu id",
+   "pass": true,
+   "detail": "PdD44PGaNv4MN5fOALhAF"
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Death's Grasp",
+    "description": "New jutsu description",
+    "battleDescription": "%user eyes flare menacingly as they cackle at %target. With a sudden gesture they summon a series of pale ghostly hands which latch onto %target, sapping their life force and rendering them immobile "
+   }
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF pointer /captures/10/data/jutsus/6/jutsu id",
+   "pass": true,
+   "detail": "PdD44PGaNv4MN5fOALhAF"
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Death's Grasp",
+    "description": "New jutsu description",
+    "battleDescription": "%user eyes flare menacingly as they cackle at %target. With a sudden gesture they summon a series of pale ghostly hands which latch onto %target, sapping their life force and rendering them immobile "
+   }
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF protected hash",
+   "pass": true,
+   "detail": {
+    "want": "8d1e89153d45cfaee284027ba8f4028adcdbdd16d4412c01accfb62eeec19db8",
+    "got": [
+     "8d1e89153d45cfaee284027ba8f4028adcdbdd16d4412c01accfb62eeec19db8"
+    ]
+   }
+  },
+  {
+   "check": "legacy PdD44PGaNv4MN5fOALhAF repeated captures identical",
+   "pass": true,
+   "detail": 2
+  },
+  {
+   "check": "legacy EQ93LX8wvuIAd5u75q_i1 pointer /captures/10/data/jutsus/3/jutsu id",
+   "pass": true,
+   "detail": "EQ93LX8wvuIAd5u75q_i1"
+  },
+  {
+   "check": "legacy EQ93LX8wvuIAd5u75q_i1 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Shipwreck Delusion",
+    "description": "The whole sea breaks at once.",
+    "battleDescription": "%user breaks the whole sea at once, a phantom fleet shattering over %target from every direction there is."
+   }
+  },
+  {
+   "check": "legacy EQ93LX8wvuIAd5u75q_i1 protected hash",
+   "pass": true,
+   "detail": {
+    "want": "0d789816c9fed7bc96f7960dcb340cbaa661e819ed287795b41cbc2e66394947",
+    "got": [
+     "0d789816c9fed7bc96f7960dcb340cbaa661e819ed287795b41cbc2e66394947"
+    ]
+   }
+  },
+  {
+   "check": "legacy EQ93LX8wvuIAd5u75q_i1 repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR pointer /captures/4/data/jutsus/5/jutsu id",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Counter Stance",
+    "description": "A posture that returns what it receives.",
+    "battleDescription": "%user takes a counter stance; what strikes them answers for it."
+   }
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR pointer /captures/7/data/jutsus/7/jutsu id",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Counter Stance",
+    "description": "A posture that returns what it receives.",
+    "battleDescription": "%user takes a counter stance; what strikes them answers for it."
+   }
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR pointer /captures/10/data/jutsus/8/jutsu id",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Counter Stance",
+    "description": "A posture that returns what it receives.",
+    "battleDescription": "%user takes a counter stance; what strikes them answers for it."
+   }
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR protected hash",
+   "pass": true,
+   "detail": {
+    "want": "67243ecbb1ab57ba3874f93ea50780f09a0ff410beddb15911b2f5ceaf240609",
+    "got": [
+     "67243ecbb1ab57ba3874f93ea50780f09a0ff410beddb15911b2f5ceaf240609"
+    ]
+   }
+  },
+  {
+   "check": "legacy T3glZGcSd-jS8G-NB43GR repeated captures identical",
+   "pass": true,
+   "detail": 3
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 pointer /captures/9/data/jutsus/0/jutsu id",
+   "pass": true,
+   "detail": "0Y10JpChssDwFUxNRk6p3"
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Death's Door",
+    "description": "New jutsu description",
+    "battleDescription": "%user calls upon the power of Death itself to grow ever stronger "
+   }
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 pointer /captures/10/data/jutsus/0/jutsu id",
+   "pass": true,
+   "detail": "0Y10JpChssDwFUxNRk6p3"
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Death's Door",
+    "description": "New jutsu description",
+    "battleDescription": "%user calls upon the power of Death itself to grow ever stronger "
+   }
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 protected hash",
+   "pass": true,
+   "detail": {
+    "want": "0465d793a49366ddaac2e37be725ae3199bb7b12f2a9b55aad71b35defb817ec",
+    "got": [
+     "0465d793a49366ddaac2e37be725ae3199bb7b12f2a9b55aad71b35defb817ec"
+    ]
+   }
+  },
+  {
+   "check": "legacy 0Y10JpChssDwFUxNRk6p3 repeated captures identical",
+   "pass": true,
+   "detail": 2
+  },
+  {
+   "check": "legacy wMcoazoyXaEXViSCn5weF pointer /captures/6/data/jutsus/7/jutsu id",
+   "pass": true,
+   "detail": "wMcoazoyXaEXViSCn5weF"
+  },
+  {
+   "check": "legacy wMcoazoyXaEXViSCn5weF captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Crossed Out",
+    "description": "Your name is struck through; what you carry is forfeit.",
+    "battleDescription": "%user strikes %target's name from the ledger with one heavy line, and what %target carries is declared forfeit."
+   }
+  },
+  {
+   "check": "legacy wMcoazoyXaEXViSCn5weF protected hash",
+   "pass": true,
+   "detail": {
+    "want": "8e878f36b7b10f46165d992a51184cec83bdc9fc0ae96036a12ba3ce95ecc684",
+    "got": [
+     "8e878f36b7b10f46165d992a51184cec83bdc9fc0ae96036a12ba3ce95ecc684"
+    ]
+   }
+  },
+  {
+   "check": "legacy wMcoazoyXaEXViSCn5weF repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy 1jXfTgrtGUaSfqTPSSa83 pointer /captures/3/data/jutsus/1/jutsu id",
+   "pass": true,
+   "detail": "1jXfTgrtGUaSfqTPSSa83"
+  },
+  {
+   "check": "legacy 1jXfTgrtGUaSfqTPSSa83 captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Rigging Snare",
+    "description": "Living rigging lashes out and pins the target in place.",
+    "battleDescription": "%user hurls living rigging at %target, ropes coiling around their legs and cinching them to the deck."
+   }
+  },
+  {
+   "check": "legacy 1jXfTgrtGUaSfqTPSSa83 protected hash",
+   "pass": true,
+   "detail": {
+    "want": "9d0c49b2862d79073e10c3afebafa6fe770c5dbd68075ad9bec4ef4b7773b3f2",
+    "got": [
+     "9d0c49b2862d79073e10c3afebafa6fe770c5dbd68075ad9bec4ef4b7773b3f2"
+    ]
+   }
+  },
+  {
+   "check": "legacy 1jXfTgrtGUaSfqTPSSa83 repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy Jz4Lb55NcpwZn3nUK5PrJ pointer /captures/3/data/jutsus/4/jutsu id",
+   "pass": true,
+   "detail": "Jz4Lb55NcpwZn3nUK5PrJ"
+  },
+  {
+   "check": "legacy Jz4Lb55NcpwZn3nUK5PrJ captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Ghostly Strangling Weed",
+    "description": "Wet weed winds around the throat and drinks.",
+    "battleDescription": "%user winds wet strangling weed around %target's throat and chest, drinking their strength as it tightens."
+   }
+  },
+  {
+   "check": "legacy Jz4Lb55NcpwZn3nUK5PrJ protected hash",
+   "pass": true,
+   "detail": {
+    "want": "25406b3122c18eebd85ebaa1b5543e923561d38015e5ad914716b50fece7b2f7",
+    "got": [
+     "25406b3122c18eebd85ebaa1b5543e923561d38015e5ad914716b50fece7b2f7"
+    ]
+   }
+  },
+  {
+   "check": "legacy Jz4Lb55NcpwZn3nUK5PrJ repeated captures identical",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ pointer /captures/8/data/jutsus/4/jutsu id",
+   "pass": true,
+   "detail": "MG9ZujAV8lK7--YxThVbQ"
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Battle Trance",
+    "description": "Heightened strength of body and mind.",
+    "battleDescription": "%user enters a battle trance, strength rising."
+   }
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ pointer /captures/9/data/jutsus/2/jutsu id",
+   "pass": true,
+   "detail": "MG9ZujAV8lK7--YxThVbQ"
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ captured name matches 'before'",
+   "pass": true,
+   "detail": {
+    "name": "Battle Trance",
+    "description": "Heightened strength of body and mind.",
+    "battleDescription": "%user enters a battle trance, strength rising."
+   }
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ protected hash",
+   "pass": true,
+   "detail": {
+    "want": "015d4453934d33785a2524212cb48ec415c2947ac1596f5350bbee5d001a9afc",
+    "got": [
+     "015d4453934d33785a2524212cb48ec415c2947ac1596f5350bbee5d001a9afc"
+    ]
+   }
+  },
+  {
+   "check": "legacy MG9ZujAV8lK7--YxThVbQ repeated captures identical",
+   "pass": true,
+   "detail": 2
+  },
+  {
+   "check": "shared B07 id",
+   "pass": true,
+   "detail": {
+    "want": "VuFuBtE7h5B1nnA2J1lFZ",
+    "got": "VuFuBtE7h5B1nnA2J1lFZ"
+   }
+  },
+  {
+   "check": "shared B07 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared B07 name",
+   "pass": true,
+   "detail": "Stolen Form"
+  },
+  {
+   "check": "shared B07 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared B07 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 6,
+    "got": 6
+   }
+  },
+  {
+   "check": "shared B07 range",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared B07 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared B07 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared B14 id",
+   "pass": true,
+   "detail": {
+    "want": "o-4SCAhJ4LHdCwcBDgJrV",
+    "got": "o-4SCAhJ4LHdCwcBDgJrV"
+   }
+  },
+  {
+   "check": "shared B14 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared B14 name",
+   "pass": true,
+   "detail": "Cataclysm Detonation"
+  },
+  {
+   "check": "shared B14 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared B14 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 8,
+    "got": 8
+   }
+  },
+  {
+   "check": "shared B14 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared B14 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared B14 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared B17 id",
+   "pass": true,
+   "detail": {
+    "want": "LisNuMJ2gncEByAxG6QPI",
+    "got": "LisNuMJ2gncEByAxG6QPI"
+   }
+  },
+  {
+   "check": "shared B17 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared B17 name",
+   "pass": true,
+   "detail": "Worldbreaker Chorus"
+  },
+  {
+   "check": "shared B17 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared B17 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 10,
+    "got": 10
+   }
+  },
+  {
+   "check": "shared B17 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared B17 method",
+   "pass": true,
+   "detail": {
+    "want": "ALL",
+    "got": "ALL"
+   }
+  },
+  {
+   "check": "shared B17 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared B39 id",
+   "pass": true,
+   "detail": {
+    "want": "05rH3kZNXbtFq9a9iRl-W",
+    "got": "05rH3kZNXbtFq9a9iRl-W"
+   }
+  },
+  {
+   "check": "shared B39 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared B39 name",
+   "pass": true,
+   "detail": "Light Barrier"
+  },
+  {
+   "check": "shared B39 ap",
+   "pass": true,
+   "detail": {
+    "want": 40,
+    "got": 40
+   }
+  },
+  {
+   "check": "shared B39 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared B39 range",
+   "pass": true,
+   "detail": {
+    "want": 0,
+    "got": 0
+   }
+  },
+  {
+   "check": "shared B39 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared B39 target",
+   "pass": true,
+   "detail": {
+    "want": "SELF",
+    "got": "SELF"
+   }
+  },
+  {
+   "check": "shared EA03 id",
+   "pass": true,
+   "detail": {
+    "want": "_9k7kSYUgMtB-AEFgRly5",
+    "got": "_9k7kSYUgMtB-AEFgRly5"
+   }
+  },
+  {
+   "check": "shared EA03 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared EA03 name",
+   "pass": true,
+   "detail": "Windlash Focus"
+  },
+  {
+   "check": "shared EA03 ap",
+   "pass": true,
+   "detail": {
+    "want": 40,
+    "got": 40
+   }
+  },
+  {
+   "check": "shared EA03 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared EA03 range",
+   "pass": true,
+   "detail": {
+    "want": 0,
+    "got": 0
+   }
+  },
+  {
+   "check": "shared EA03 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared EA03 target",
+   "pass": true,
+   "detail": {
+    "want": "SELF",
+    "got": "SELF"
+   }
+  },
+  {
+   "check": "shared EE03 id",
+   "pass": true,
+   "detail": {
+    "want": "V3WrfQ3pB-eCq2hojsxWe",
+    "got": "V3WrfQ3pB-eCq2hojsxWe"
+   }
+  },
+  {
+   "check": "shared EE03 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared EE03 name",
+   "pass": true,
+   "detail": "Stoneward"
+  },
+  {
+   "check": "shared EE03 ap",
+   "pass": true,
+   "detail": {
+    "want": 40,
+    "got": 40
+   }
+  },
+  {
+   "check": "shared EE03 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared EE03 range",
+   "pass": true,
+   "detail": {
+    "want": 0,
+    "got": 0
+   }
+  },
+  {
+   "check": "shared EE03 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared EE03 target",
+   "pass": true,
+   "detail": {
+    "want": "SELF",
+    "got": "SELF"
+   }
+  },
+  {
+   "check": "shared EL04 id",
+   "pass": true,
+   "detail": {
+    "want": "xGVqWSX93hXZgfmlKZODp",
+    "got": "xGVqWSX93hXZgfmlKZODp"
+   }
+  },
+  {
+   "check": "shared EL04 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared EL04 name",
+   "pass": true,
+   "detail": "Ion Lance"
+  },
+  {
+   "check": "shared EL04 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared EL04 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 6,
+    "got": 6
+   }
+  },
+  {
+   "check": "shared EL04 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared EL04 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared EL04 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared EW01 id",
+   "pass": true,
+   "detail": {
+    "want": "UnQKfwq_JoRVu10aTX6Uv",
+    "got": "UnQKfwq_JoRVu10aTX6Uv"
+   }
+  },
+  {
+   "check": "shared EW01 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared EW01 name",
+   "pass": true,
+   "detail": "Tide Bolt"
+  },
+  {
+   "check": "shared EW01 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared EW01 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared EW01 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared EW01 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared EW01 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared EW03 id",
+   "pass": true,
+   "detail": {
+    "want": "mOA1hXNf4CcuwOhnnN7ZK",
+    "got": "mOA1hXNf4CcuwOhnnN7ZK"
+   }
+  },
+  {
+   "check": "shared EW03 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared EW03 name",
+   "pass": true,
+   "detail": "Springguard"
+  },
+  {
+   "check": "shared EW03 ap",
+   "pass": true,
+   "detail": {
+    "want": 40,
+    "got": 40
+   }
+  },
+  {
+   "check": "shared EW03 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared EW03 range",
+   "pass": true,
+   "detail": {
+    "want": 0,
+    "got": 0
+   }
+  },
+  {
+   "check": "shared EW03 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared EW03 target",
+   "pass": true,
+   "detail": {
+    "want": "SELF",
+    "got": "SELF"
+   }
+  },
+  {
+   "check": "shared S01 id",
+   "pass": true,
+   "detail": {
+    "want": "pUrUJX8Jml7fUIBXKsPwv",
+    "got": "pUrUJX8Jml7fUIBXKsPwv"
+   }
+  },
+  {
+   "check": "shared S01 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S01 name",
+   "pass": true,
+   "detail": "Heavy Strike"
+  },
+  {
+   "check": "shared S01 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S01 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared S01 range",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S01 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S01 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S02 id",
+   "pass": true,
+   "detail": {
+    "want": "FeYnH7BBw_usnc1K-TM-J",
+    "got": "FeYnH7BBw_usnc1K-TM-J"
+   }
+  },
+  {
+   "check": "shared S02 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S02 name",
+   "pass": true,
+   "detail": "Quick Strike"
+  },
+  {
+   "check": "shared S02 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S02 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S02 range",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S02 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S02 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S03 id",
+   "pass": true,
+   "detail": {
+    "want": "_nUaGHlWhn3-U0xbxJHFw",
+    "got": "_nUaGHlWhn3-U0xbxJHFw"
+   }
+  },
+  {
+   "check": "shared S03 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S03 name",
+   "pass": true,
+   "detail": "Lunging Strike"
+  },
+  {
+   "check": "shared S03 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S03 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared S03 range",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared S03 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S03 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S04 id",
+   "pass": true,
+   "detail": {
+    "want": "Cw51Wm_Uy0GiIkiEjlQtn",
+    "got": "Cw51Wm_Uy0GiIkiEjlQtn"
+   }
+  },
+  {
+   "check": "shared S04 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S04 name",
+   "pass": true,
+   "detail": "Opening Strike"
+  },
+  {
+   "check": "shared S04 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S04 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S04 range",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared S04 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S04 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S06 id",
+   "pass": true,
+   "detail": {
+    "want": "3v9c1SHlD2GLPF2HW1_Sc",
+    "got": "3v9c1SHlD2GLPF2HW1_Sc"
+   }
+  },
+  {
+   "check": "shared S06 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S06 name",
+   "pass": true,
+   "detail": "Twin Shot"
+  },
+  {
+   "check": "shared S06 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S06 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S06 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared S06 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S06 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S07 id",
+   "pass": true,
+   "detail": {
+    "want": "Nrxc8m9utE9qaD_gWpLgf",
+    "got": "Nrxc8m9utE9qaD_gWpLgf"
+   }
+  },
+  {
+   "check": "shared S07 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S07 name",
+   "pass": true,
+   "detail": "Rapid Fire"
+  },
+  {
+   "check": "shared S07 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S07 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 2,
+    "got": 2
+   }
+  },
+  {
+   "check": "shared S07 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared S07 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S07 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S08 id",
+   "pass": true,
+   "detail": {
+    "want": "m-ur3A8TS8r5jGb84L9x7",
+    "got": "m-ur3A8TS8r5jGb84L9x7"
+   }
+  },
+  {
+   "check": "shared S08 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S08 name",
+   "pass": true,
+   "detail": "Numbing Shot"
+  },
+  {
+   "check": "shared S08 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S08 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 4,
+    "got": 4
+   }
+  },
+  {
+   "check": "shared S08 range",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared S08 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S08 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S31 id",
+   "pass": true,
+   "detail": {
+    "want": "1OhP0StX4VTsosWtCxhsG",
+    "got": "1OhP0StX4VTsosWtCxhsG"
+   }
+  },
+  {
+   "check": "shared S31 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S31 name",
+   "pass": true,
+   "detail": "Unraveling Strike"
+  },
+  {
+   "check": "shared S31 ap",
+   "pass": true,
+   "detail": {
+    "want": 60,
+    "got": 60
+   }
+  },
+  {
+   "check": "shared S31 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 5,
+    "got": 5
+   }
+  },
+  {
+   "check": "shared S31 range",
+   "pass": true,
+   "detail": {
+    "want": 3,
+    "got": 3
+   }
+  },
+  {
+   "check": "shared S31 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S31 target",
+   "pass": true,
+   "detail": {
+    "want": "OTHER_USER",
+    "got": "OTHER_USER"
+   }
+  },
+  {
+   "check": "shared S35 id",
+   "pass": true,
+   "detail": {
+    "want": "STu1VHNcfgeC3x-UiQDgt",
+    "got": "STu1VHNcfgeC3x-UiQDgt"
+   }
+  },
+  {
+   "check": "shared S35 fullRecordSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared S35 name",
+   "pass": true,
+   "detail": "Second Wind"
+  },
+  {
+   "check": "shared S35 ap",
+   "pass": true,
+   "detail": {
+    "want": 40,
+    "got": 40
+   }
+  },
+  {
+   "check": "shared S35 cooldown",
+   "pass": true,
+   "detail": {
+    "want": 6,
+    "got": 6
+   }
+  },
+  {
+   "check": "shared S35 range",
+   "pass": true,
+   "detail": {
+    "want": 0,
+    "got": 0
+   }
+  },
+  {
+   "check": "shared S35 method",
+   "pass": true,
+   "detail": {
+    "want": "SINGLE",
+    "got": "SINGLE"
+   }
+  },
+  {
+   "check": "shared S35 target",
+   "pass": true,
+   "detail": {
+    "want": "SELF",
+    "got": "SELF"
+   }
+  },
+  {
+   "check": "shared unique id count",
+   "pass": true,
+   "detail": 18
+  },
+  {
+   "check": "AI count",
+   "pass": true,
+   "detail": 11
+  },
+  {
+   "check": "Deck Warden ai id",
+   "pass": true,
+   "detail": "texZaFi42S3EvJZBwQ8cd"
+  },
+  {
+   "check": "Deck Warden capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "o1qPfPsuVXk7KzLaRz0n3",
+    "profileId": "o1qPfPsuVXk7KzLaRz0n3"
+   }
+  },
+  {
+   "check": "Deck Warden innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Deck Warden capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "Deck Warden mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "5c9EgF3dOsx9kelnQMfw5",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "kb6zaZKbkv3U3Lgl0p1Dr",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "wZ20uyFl9jXs31Yrp9t7T"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "5c9EgF3dOsx9kelnQMfw5",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "kb6zaZKbkv3U3Lgl0p1Dr",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "wZ20uyFl9jXs31Yrp9t7T"
+    ]
+   }
+  },
+  {
+   "check": "Deck Warden mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Deck Warden mapping pointer 5c9EgF3dOsx9kelnQMfw5",
+   "pass": true,
+   "detail": "5c9EgF3dOsx9kelnQMfw5"
+  },
+  {
+   "check": "Deck Warden mapping pointer 65D6rTaW7ZlUmZIL4ZMZ_",
+   "pass": true,
+   "detail": "65D6rTaW7ZlUmZIL4ZMZ_"
+  },
+  {
+   "check": "Deck Warden mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "Deck Warden mapping pointer kb6zaZKbkv3U3Lgl0p1Dr",
+   "pass": true,
+   "detail": "kb6zaZKbkv3U3Lgl0p1Dr"
+  },
+  {
+   "check": "Deck Warden mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Deck Warden mapping pointer lDRZckm05jQEUTyZ0qmGU",
+   "pass": true,
+   "detail": "lDRZckm05jQEUTyZ0qmGU"
+  },
+  {
+   "check": "Deck Warden mapping pointer wZ20uyFl9jXs31Yrp9t7T",
+   "pass": true,
+   "detail": "wZ20uyFl9jXs31Yrp9t7T"
+  },
+  {
+   "check": "Deck Warden accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "S02",
+     "EW01",
+     "S07",
+     "S08",
+     "EE03",
+     "EW03",
+     "EA03"
+    ],
+    "mappedTo": [
+     "EA03",
+     "EE03",
+     "EW01",
+     "EW03",
+     "S02",
+     "S07",
+     "S08"
+    ]
+   }
+  },
+  {
+   "check": "Deck Warden member S02 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member EW01 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member S07 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member S08 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Deck Warden member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Seal Charge ai id",
+   "pass": true,
+   "detail": "wTgO-Q32caSSd0is1QIS7"
+  },
+  {
+   "check": "Seal Charge capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Seal Charge capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Seal Charge profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "q1Rp9dPMlRMcD2JQmFiC7",
+    "profileId": "q1Rp9dPMlRMcD2JQmFiC7"
+   }
+  },
+  {
+   "check": "Seal Charge innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Seal Charge baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Seal Charge capturedKitCount",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "Seal Charge mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "nCQETf-HNnbRec1OSY2-R"
+    ],
+    "mapped": [
+     "nCQETf-HNnbRec1OSY2-R"
+    ]
+   }
+  },
+  {
+   "check": "Seal Charge mapping pointer nCQETf-HNnbRec1OSY2-R",
+   "pass": true,
+   "detail": "nCQETf-HNnbRec1OSY2-R"
+  },
+  {
+   "check": "Seal Charge accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:nCQETf-HNnbRec1OSY2-R"
+    ],
+    "mappedTo": [
+     "legacy:nCQETf-HNnbRec1OSY2-R"
+    ]
+   }
+  },
+  {
+   "check": "Seal Charge member legacy:nCQETf-HNnbRec1OSY2-R resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Canister ai id",
+   "pass": true,
+   "detail": "frc9LTxqQlM7mncG4VZGK"
+  },
+  {
+   "check": "Core Canister capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Canister capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Canister profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "zPHaNgwr2J4GQnPFHAWe8",
+    "profileId": "zPHaNgwr2J4GQnPFHAWe8"
+   }
+  },
+  {
+   "check": "Core Canister innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Canister baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Core Canister capturedKitCount",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "check": "Core Canister mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "nCQETf-HNnbRec1OSY2-R"
+    ],
+    "mapped": [
+     "nCQETf-HNnbRec1OSY2-R"
+    ]
+   }
+  },
+  {
+   "check": "Core Canister mapping pointer nCQETf-HNnbRec1OSY2-R",
+   "pass": true,
+   "detail": "nCQETf-HNnbRec1OSY2-R"
+  },
+  {
+   "check": "Core Canister accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:nCQETf-HNnbRec1OSY2-R"
+    ],
+    "mappedTo": [
+     "legacy:nCQETf-HNnbRec1OSY2-R"
+    ]
+   }
+  },
+  {
+   "check": "Core Canister member legacy:nCQETf-HNnbRec1OSY2-R resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror ai id",
+   "pass": true,
+   "detail": "AQi-bHJ-5tHXtxrnc0P9E"
+  },
+  {
+   "check": "Core Horror capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "zD6EHeSmnHpcbX4zBOWGn",
+    "profileId": "zD6EHeSmnHpcbX4zBOWGn"
+   }
+  },
+  {
+   "check": "Core Horror innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Core Horror capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "Core Horror mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "1jXfTgrtGUaSfqTPSSa83",
+     "69KaUuqwYMxBtP8cnpSyt",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "Jz4Lb55NcpwZn3nUK5PrJ",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "M17d487aZDuWfS5C_hgeN",
+     "mL39bQRcyFtdPUlsJRNsA"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "1jXfTgrtGUaSfqTPSSa83",
+     "69KaUuqwYMxBtP8cnpSyt",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "Jz4Lb55NcpwZn3nUK5PrJ",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "M17d487aZDuWfS5C_hgeN",
+     "mL39bQRcyFtdPUlsJRNsA"
+    ]
+   }
+  },
+  {
+   "check": "Core Horror mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Core Horror mapping pointer 1jXfTgrtGUaSfqTPSSa83",
+   "pass": true,
+   "detail": "1jXfTgrtGUaSfqTPSSa83"
+  },
+  {
+   "check": "Core Horror mapping pointer 69KaUuqwYMxBtP8cnpSyt",
+   "pass": true,
+   "detail": "69KaUuqwYMxBtP8cnpSyt"
+  },
+  {
+   "check": "Core Horror mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "Core Horror mapping pointer Jz4Lb55NcpwZn3nUK5PrJ",
+   "pass": true,
+   "detail": "Jz4Lb55NcpwZn3nUK5PrJ"
+  },
+  {
+   "check": "Core Horror mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Core Horror mapping pointer M17d487aZDuWfS5C_hgeN",
+   "pass": true,
+   "detail": "M17d487aZDuWfS5C_hgeN"
+  },
+  {
+   "check": "Core Horror mapping pointer mL39bQRcyFtdPUlsJRNsA",
+   "pass": true,
+   "detail": "mL39bQRcyFtdPUlsJRNsA"
+  },
+  {
+   "check": "Core Horror accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+     "EE03",
+     "EW03",
+     "EA03",
+     "S08",
+     "S06"
+    ],
+    "mappedTo": [
+     "EA03",
+     "EE03",
+     "EW03",
+     "S06",
+     "S08",
+     "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "legacy:Jz4Lb55NcpwZn3nUK5PrJ"
+    ]
+   }
+  },
+  {
+   "check": "Core Horror member legacy:1jXfTgrtGUaSfqTPSSa83 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member legacy:Jz4Lb55NcpwZn3nUK5PrJ resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member S08 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Core Horror member S06 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper ai id",
+   "pass": true,
+   "detail": "0PZU_FvlbM3ErYGlD5r56"
+  },
+  {
+   "check": "Oathkeeper capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "RkkKzrFzJCVBggHTA8bNj",
+    "profileId": "RkkKzrFzJCVBggHTA8bNj"
+   }
+  },
+  {
+   "check": "Oathkeeper innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Oathkeeper capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "Oathkeeper mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "LIGN4c83NNmv4ea655HGx",
+     "T3glZGcSd-jS8G-NB43GR",
+     "wZ20uyFl9jXs31Yrp9t7T",
+     "ZZk2cSkwhzUSdtq6XB72_"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "LIGN4c83NNmv4ea655HGx",
+     "T3glZGcSd-jS8G-NB43GR",
+     "wZ20uyFl9jXs31Yrp9t7T",
+     "ZZk2cSkwhzUSdtq6XB72_"
+    ]
+   }
+  },
+  {
+   "check": "Oathkeeper mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Oathkeeper mapping pointer 65D6rTaW7ZlUmZIL4ZMZ_",
+   "pass": true,
+   "detail": "65D6rTaW7ZlUmZIL4ZMZ_"
+  },
+  {
+   "check": "Oathkeeper mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Oathkeeper mapping pointer lDRZckm05jQEUTyZ0qmGU",
+   "pass": true,
+   "detail": "lDRZckm05jQEUTyZ0qmGU"
+  },
+  {
+   "check": "Oathkeeper mapping pointer LIGN4c83NNmv4ea655HGx",
+   "pass": true,
+   "detail": "LIGN4c83NNmv4ea655HGx"
+  },
+  {
+   "check": "Oathkeeper mapping pointer T3glZGcSd-jS8G-NB43GR",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "Oathkeeper mapping pointer wZ20uyFl9jXs31Yrp9t7T",
+   "pass": true,
+   "detail": "wZ20uyFl9jXs31Yrp9t7T"
+  },
+  {
+   "check": "Oathkeeper mapping pointer ZZk2cSkwhzUSdtq6XB72_",
+   "pass": true,
+   "detail": "ZZk2cSkwhzUSdtq6XB72_"
+  },
+  {
+   "check": "Oathkeeper accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:T3glZGcSd-jS8G-NB43GR",
+     "EE03",
+     "EA03",
+     "S04",
+     "S07",
+     "S02"
+    ],
+    "mappedTo": [
+     "EA03",
+     "EE03",
+     "S02",
+     "S04",
+     "S07",
+     "legacy:T3glZGcSd-jS8G-NB43GR"
+    ]
+   }
+  },
+  {
+   "check": "Oathkeeper member legacy:T3glZGcSd-jS8G-NB43GR resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper member S04 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper member S07 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Oathkeeper member S02 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder ai id",
+   "pass": true,
+   "detail": "v7T9_XdGMfP46em0dPuBc"
+  },
+  {
+   "check": "Wayfinder capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "0LTa3ZM6eDCRkv4X_uwA-",
+    "profileId": "0LTa3ZM6eDCRkv4X_uwA-"
+   }
+  },
+  {
+   "check": "Wayfinder innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Wayfinder capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "Wayfinder mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "eMNSr1NWubD_IwVYppbkZ",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "mL39bQRcyFtdPUlsJRNsA",
+     "wZ20uyFl9jXs31Yrp9t7T",
+     "yjsfRGaY1rUwG3FUWeHUW"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "65D6rTaW7ZlUmZIL4ZMZ_",
+     "eMNSr1NWubD_IwVYppbkZ",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "mL39bQRcyFtdPUlsJRNsA",
+     "wZ20uyFl9jXs31Yrp9t7T",
+     "yjsfRGaY1rUwG3FUWeHUW"
+    ]
+   }
+  },
+  {
+   "check": "Wayfinder mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Wayfinder mapping pointer 65D6rTaW7ZlUmZIL4ZMZ_",
+   "pass": true,
+   "detail": "65D6rTaW7ZlUmZIL4ZMZ_"
+  },
+  {
+   "check": "Wayfinder mapping pointer eMNSr1NWubD_IwVYppbkZ",
+   "pass": true,
+   "detail": "eMNSr1NWubD_IwVYppbkZ"
+  },
+  {
+   "check": "Wayfinder mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "Wayfinder mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Wayfinder mapping pointer mL39bQRcyFtdPUlsJRNsA",
+   "pass": true,
+   "detail": "mL39bQRcyFtdPUlsJRNsA"
+  },
+  {
+   "check": "Wayfinder mapping pointer wZ20uyFl9jXs31Yrp9t7T",
+   "pass": true,
+   "detail": "wZ20uyFl9jXs31Yrp9t7T"
+  },
+  {
+   "check": "Wayfinder mapping pointer yjsfRGaY1rUwG3FUWeHUW",
+   "pass": true,
+   "detail": "yjsfRGaY1rUwG3FUWeHUW"
+  },
+  {
+   "check": "Wayfinder accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "S03",
+     "S06",
+     "S07",
+     "EE03",
+     "EW03",
+     "EA03"
+    ],
+    "mappedTo": [
+     "EA03",
+     "EE03",
+     "EW03",
+     "S03",
+     "S06",
+     "S07"
+    ]
+   }
+  },
+  {
+   "check": "Wayfinder member S03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder member S06 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder member S07 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Wayfinder member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper ai id",
+   "pass": true,
+   "detail": "2OXJEXoktxJcjqMkE851g"
+  },
+  {
+   "check": "Arsenal Keeper capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "3y6oASzyyRn5CdkeSlHk6",
+    "profileId": "3y6oASzyyRn5CdkeSlHk6"
+   }
+  },
+  {
+   "check": "Arsenal Keeper innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Arsenal Keeper capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "Arsenal Keeper mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "69KaUuqwYMxBtP8cnpSyt",
+     "bt-LJ22cM2gs_-iVtPsbW",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "mL39bQRcyFtdPUlsJRNsA",
+     "wMcoazoyXaEXViSCn5weF"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "69KaUuqwYMxBtP8cnpSyt",
+     "bt-LJ22cM2gs_-iVtPsbW",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "lDRZckm05jQEUTyZ0qmGU",
+     "mL39bQRcyFtdPUlsJRNsA",
+     "wMcoazoyXaEXViSCn5weF"
+    ]
+   }
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer 69KaUuqwYMxBtP8cnpSyt",
+   "pass": true,
+   "detail": "69KaUuqwYMxBtP8cnpSyt"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer bt-LJ22cM2gs_-iVtPsbW",
+   "pass": true,
+   "detail": "bt-LJ22cM2gs_-iVtPsbW"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer lDRZckm05jQEUTyZ0qmGU",
+   "pass": true,
+   "detail": "lDRZckm05jQEUTyZ0qmGU"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer mL39bQRcyFtdPUlsJRNsA",
+   "pass": true,
+   "detail": "mL39bQRcyFtdPUlsJRNsA"
+  },
+  {
+   "check": "Arsenal Keeper mapping pointer wMcoazoyXaEXViSCn5weF",
+   "pass": true,
+   "detail": "wMcoazoyXaEXViSCn5weF"
+  },
+  {
+   "check": "Arsenal Keeper accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:wMcoazoyXaEXViSCn5weF",
+     "S01",
+     "S06",
+     "S08",
+     "EE03",
+     "EW03",
+     "EA03"
+    ],
+    "mappedTo": [
+     "EA03",
+     "EE03",
+     "EW03",
+     "S01",
+     "S06",
+     "S08",
+     "legacy:wMcoazoyXaEXViSCn5weF"
+    ]
+   }
+  },
+  {
+   "check": "Arsenal Keeper member legacy:wMcoazoyXaEXViSCn5weF resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member S01 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member S06 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member S08 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Arsenal Keeper member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel ai id",
+   "pass": true,
+   "detail": "3V_gdHYaclMB1gTyOPAbV"
+  },
+  {
+   "check": "Sentinel capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "AJ8BnFvtpflf57-BsrJRe",
+    "profileId": "AJ8BnFvtpflf57-BsrJRe"
+   }
+  },
+  {
+   "check": "Sentinel innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Sentinel capturedKitCount",
+   "pass": true,
+   "detail": 9
+  },
+  {
+   "check": "Sentinel mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "05rH3kZNXbtFq9a9iRl-W",
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "1ymzIUup_ErD_ruUkOmJV",
+     "84Ew66RUgE_yzTeb2X4d4",
+     "cRs0e3bzbw1zAQ8Z0ZPgA",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "JtMuRYsk965ZZD1sSQlrL",
+     "T3glZGcSd-jS8G-NB43GR",
+     "UrQra0Xfn18ZFEgL38yl1"
+    ],
+    "mapped": [
+     "05rH3kZNXbtFq9a9iRl-W",
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "1ymzIUup_ErD_ruUkOmJV",
+     "84Ew66RUgE_yzTeb2X4d4",
+     "cRs0e3bzbw1zAQ8Z0ZPgA",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "JtMuRYsk965ZZD1sSQlrL",
+     "T3glZGcSd-jS8G-NB43GR",
+     "UrQra0Xfn18ZFEgL38yl1"
+    ]
+   }
+  },
+  {
+   "check": "Sentinel mapping pointer 05rH3kZNXbtFq9a9iRl-W",
+   "pass": true,
+   "detail": "05rH3kZNXbtFq9a9iRl-W"
+  },
+  {
+   "check": "Sentinel mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "Sentinel mapping pointer 1ymzIUup_ErD_ruUkOmJV",
+   "pass": true,
+   "detail": "1ymzIUup_ErD_ruUkOmJV"
+  },
+  {
+   "check": "Sentinel mapping pointer 84Ew66RUgE_yzTeb2X4d4",
+   "pass": true,
+   "detail": "84Ew66RUgE_yzTeb2X4d4"
+  },
+  {
+   "check": "Sentinel mapping pointer cRs0e3bzbw1zAQ8Z0ZPgA",
+   "pass": true,
+   "detail": "cRs0e3bzbw1zAQ8Z0ZPgA"
+  },
+  {
+   "check": "Sentinel mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "Sentinel mapping pointer JtMuRYsk965ZZD1sSQlrL",
+   "pass": true,
+   "detail": "JtMuRYsk965ZZD1sSQlrL"
+  },
+  {
+   "check": "Sentinel mapping pointer T3glZGcSd-jS8G-NB43GR",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "Sentinel mapping pointer UrQra0Xfn18ZFEgL38yl1",
+   "pass": true,
+   "detail": "UrQra0Xfn18ZFEgL38yl1"
+  },
+  {
+   "check": "Sentinel accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:T3glZGcSd-jS8G-NB43GR",
+     "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+     "B39",
+     "EE03",
+     "EW03",
+     "S06"
+    ],
+    "mappedTo": [
+     "B39",
+     "EE03",
+     "EW03",
+     "S06",
+     "legacy:1jXfTgrtGUaSfqTPSSa83",
+     "legacy:Jz4Lb55NcpwZn3nUK5PrJ",
+     "legacy:T3glZGcSd-jS8G-NB43GR"
+    ]
+   }
+  },
+  {
+   "check": "Sentinel member legacy:T3glZGcSd-jS8G-NB43GR resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member legacy:1jXfTgrtGUaSfqTPSSa83 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member legacy:Jz4Lb55NcpwZn3nUK5PrJ resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member B39 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sentinel member S06 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade ai id",
+   "pass": true,
+   "detail": "d6g0mOM7RBSsYI1hrUVT9"
+  },
+  {
+   "check": "First Blade capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "IUgkMPWyf6jy7xbyTLBqX",
+    "profileId": "IUgkMPWyf6jy7xbyTLBqX"
+   }
+  },
+  {
+   "check": "First Blade innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "First Blade capturedKitCount",
+   "pass": true,
+   "detail": 8
+  },
+  {
+   "check": "First Blade mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "HsHQylAuohwyOcMcCOtPA",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "jbdOPmLPLvGZjltPvFiAu",
+     "MG9ZujAV8lK7--YxThVbQ",
+     "PqKTMl9XyNXLoJHIsQEas",
+     "VTw2FVjsJXOZNr1NyPkoh",
+     "YCDM4ZWOWY1d4nqwXpX0j"
+    ],
+    "mapped": [
+     "1Iy2Vy5ZvCY9dQsc193NB",
+     "HsHQylAuohwyOcMcCOtPA",
+     "i1KbE0NbN1SWIwHuJgdoT",
+     "jbdOPmLPLvGZjltPvFiAu",
+     "MG9ZujAV8lK7--YxThVbQ",
+     "PqKTMl9XyNXLoJHIsQEas",
+     "VTw2FVjsJXOZNr1NyPkoh",
+     "YCDM4ZWOWY1d4nqwXpX0j"
+    ]
+   }
+  },
+  {
+   "check": "First Blade mapping pointer 1Iy2Vy5ZvCY9dQsc193NB",
+   "pass": true,
+   "detail": "1Iy2Vy5ZvCY9dQsc193NB"
+  },
+  {
+   "check": "First Blade mapping pointer HsHQylAuohwyOcMcCOtPA",
+   "pass": true,
+   "detail": "HsHQylAuohwyOcMcCOtPA"
+  },
+  {
+   "check": "First Blade mapping pointer i1KbE0NbN1SWIwHuJgdoT",
+   "pass": true,
+   "detail": "i1KbE0NbN1SWIwHuJgdoT"
+  },
+  {
+   "check": "First Blade mapping pointer jbdOPmLPLvGZjltPvFiAu",
+   "pass": true,
+   "detail": "jbdOPmLPLvGZjltPvFiAu"
+  },
+  {
+   "check": "First Blade mapping pointer MG9ZujAV8lK7--YxThVbQ",
+   "pass": true,
+   "detail": "MG9ZujAV8lK7--YxThVbQ"
+  },
+  {
+   "check": "First Blade mapping pointer PqKTMl9XyNXLoJHIsQEas",
+   "pass": true,
+   "detail": "PqKTMl9XyNXLoJHIsQEas"
+  },
+  {
+   "check": "First Blade mapping pointer VTw2FVjsJXOZNr1NyPkoh",
+   "pass": true,
+   "detail": "VTw2FVjsJXOZNr1NyPkoh"
+  },
+  {
+   "check": "First Blade mapping pointer YCDM4ZWOWY1d4nqwXpX0j",
+   "pass": true,
+   "detail": "YCDM4ZWOWY1d4nqwXpX0j"
+  },
+  {
+   "check": "First Blade accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:MG9ZujAV8lK7--YxThVbQ",
+     "EE03",
+     "EW03",
+     "S08",
+     "EL04",
+     "S04",
+     "S07"
+    ],
+    "mappedTo": [
+     "EE03",
+     "EL04",
+     "EW03",
+     "S04",
+     "S07",
+     "S08",
+     "legacy:MG9ZujAV8lK7--YxThVbQ"
+    ]
+   }
+  },
+  {
+   "check": "First Blade member legacy:MG9ZujAV8lK7--YxThVbQ resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member EE03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member EW03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member S08 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member EL04 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member S04 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade member S07 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain ai id",
+   "pass": true,
+   "detail": "QY69h271Nx9uHrBeR6jwW"
+  },
+  {
+   "check": "The Captain capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "BqRv9qUlDNLNCzi-Q45zT",
+    "profileId": "BqRv9qUlDNLNCzi-Q45zT"
+   }
+  },
+  {
+   "check": "The Captain innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "The Captain capturedKitCount",
+   "pass": true,
+   "detail": 5
+  },
+  {
+   "check": "The Captain mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "0Y10JpChssDwFUxNRk6p3",
+     "LisNuMJ2gncEByAxG6QPI",
+     "MG9ZujAV8lK7--YxThVbQ",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "PdD44PGaNv4MN5fOALhAF"
+    ],
+    "mapped": [
+     "0Y10JpChssDwFUxNRk6p3",
+     "LisNuMJ2gncEByAxG6QPI",
+     "MG9ZujAV8lK7--YxThVbQ",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "PdD44PGaNv4MN5fOALhAF"
+    ]
+   }
+  },
+  {
+   "check": "The Captain mapping pointer 0Y10JpChssDwFUxNRk6p3",
+   "pass": true,
+   "detail": "0Y10JpChssDwFUxNRk6p3"
+  },
+  {
+   "check": "The Captain mapping pointer LisNuMJ2gncEByAxG6QPI",
+   "pass": true,
+   "detail": "LisNuMJ2gncEByAxG6QPI"
+  },
+  {
+   "check": "The Captain mapping pointer MG9ZujAV8lK7--YxThVbQ",
+   "pass": true,
+   "detail": "MG9ZujAV8lK7--YxThVbQ"
+  },
+  {
+   "check": "The Captain mapping pointer o-4SCAhJ4LHdCwcBDgJrV",
+   "pass": true,
+   "detail": "o-4SCAhJ4LHdCwcBDgJrV"
+  },
+  {
+   "check": "The Captain mapping pointer PdD44PGaNv4MN5fOALhAF",
+   "pass": true,
+   "detail": "PdD44PGaNv4MN5fOALhAF"
+  },
+  {
+   "check": "The Captain accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:0Y10JpChssDwFUxNRk6p3",
+     "legacy:MG9ZujAV8lK7--YxThVbQ",
+     "legacy:PdD44PGaNv4MN5fOALhAF",
+     "B14",
+     "B17"
+    ],
+    "mappedTo": [
+     "B14",
+     "B17",
+     "legacy:0Y10JpChssDwFUxNRk6p3",
+     "legacy:MG9ZujAV8lK7--YxThVbQ",
+     "legacy:PdD44PGaNv4MN5fOALhAF"
+    ]
+   }
+  },
+  {
+   "check": "The Captain member legacy:0Y10JpChssDwFUxNRk6p3 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain member legacy:MG9ZujAV8lK7--YxThVbQ resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain member legacy:PdD44PGaNv4MN5fOALhAF resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain member B14 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "The Captain member B17 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain ai id",
+   "pass": true,
+   "detail": "fDU9jCPZtH7YHbdQPO9RF"
+  },
+  {
+   "check": "Crowned Captain capturedAiSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain capturedProfileSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain profile linkage",
+   "pass": true,
+   "detail": {
+    "aiProfileId": "6G3McyVvLGIY1e4_sfTvU",
+    "profileId": "6G3McyVvLGIY1e4_sfTvU"
+   }
+  },
+  {
+   "check": "Crowned Captain innateEffectsSha256",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain baseline numeric profile",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "check": "Crowned Captain capturedKitCount",
+   "pass": true,
+   "detail": 11
+  },
+  {
+   "check": "Crowned Captain mapping covers captured memberships",
+   "pass": true,
+   "detail": {
+    "captured": [
+     "0Y10JpChssDwFUxNRk6p3",
+     "1OhP0StX4VTsosWtCxhsG",
+     "ddbIyVtoxdPQwLRXxSBq8",
+     "EQ93LX8wvuIAd5u75q_i1",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "PdD44PGaNv4MN5fOALhAF",
+     "STu1VHNcfgeC3x-UiQDgt",
+     "T3glZGcSd-jS8G-NB43GR",
+     "VuFuBtE7h5B1nnA2J1lFZ",
+     "X2P22h8ApDmTZHjWpNO87"
+    ],
+    "mapped": [
+     "0Y10JpChssDwFUxNRk6p3",
+     "1OhP0StX4VTsosWtCxhsG",
+     "ddbIyVtoxdPQwLRXxSBq8",
+     "EQ93LX8wvuIAd5u75q_i1",
+     "KIMeKemnXttwOv1Cf-IPS",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "PdD44PGaNv4MN5fOALhAF",
+     "STu1VHNcfgeC3x-UiQDgt",
+     "T3glZGcSd-jS8G-NB43GR",
+     "VuFuBtE7h5B1nnA2J1lFZ",
+     "X2P22h8ApDmTZHjWpNO87"
+    ]
+   }
+  },
+  {
+   "check": "Crowned Captain mapping pointer 0Y10JpChssDwFUxNRk6p3",
+   "pass": true,
+   "detail": "0Y10JpChssDwFUxNRk6p3"
+  },
+  {
+   "check": "Crowned Captain mapping pointer 1OhP0StX4VTsosWtCxhsG",
+   "pass": true,
+   "detail": "1OhP0StX4VTsosWtCxhsG"
+  },
+  {
+   "check": "Crowned Captain mapping pointer ddbIyVtoxdPQwLRXxSBq8",
+   "pass": true,
+   "detail": "ddbIyVtoxdPQwLRXxSBq8"
+  },
+  {
+   "check": "Crowned Captain mapping pointer EQ93LX8wvuIAd5u75q_i1",
+   "pass": true,
+   "detail": "EQ93LX8wvuIAd5u75q_i1"
+  },
+  {
+   "check": "Crowned Captain mapping pointer KIMeKemnXttwOv1Cf-IPS",
+   "pass": true,
+   "detail": "KIMeKemnXttwOv1Cf-IPS"
+  },
+  {
+   "check": "Crowned Captain mapping pointer o-4SCAhJ4LHdCwcBDgJrV",
+   "pass": true,
+   "detail": "o-4SCAhJ4LHdCwcBDgJrV"
+  },
+  {
+   "check": "Crowned Captain mapping pointer PdD44PGaNv4MN5fOALhAF",
+   "pass": true,
+   "detail": "PdD44PGaNv4MN5fOALhAF"
+  },
+  {
+   "check": "Crowned Captain mapping pointer STu1VHNcfgeC3x-UiQDgt",
+   "pass": true,
+   "detail": "STu1VHNcfgeC3x-UiQDgt"
+  },
+  {
+   "check": "Crowned Captain mapping pointer T3glZGcSd-jS8G-NB43GR",
+   "pass": true,
+   "detail": "T3glZGcSd-jS8G-NB43GR"
+  },
+  {
+   "check": "Crowned Captain mapping pointer VuFuBtE7h5B1nnA2J1lFZ",
+   "pass": true,
+   "detail": "VuFuBtE7h5B1nnA2J1lFZ"
+  },
+  {
+   "check": "Crowned Captain mapping pointer X2P22h8ApDmTZHjWpNO87",
+   "pass": true,
+   "detail": "X2P22h8ApDmTZHjWpNO87"
+  },
+  {
+   "check": "Crowned Captain accepted kit = mapping targets",
+   "pass": true,
+   "detail": {
+    "kit": [
+     "legacy:0Y10JpChssDwFUxNRk6p3",
+     "legacy:ddbIyVtoxdPQwLRXxSBq8",
+     "legacy:X2P22h8ApDmTZHjWpNO87",
+     "legacy:PdD44PGaNv4MN5fOALhAF",
+     "legacy:EQ93LX8wvuIAd5u75q_i1",
+     "legacy:T3glZGcSd-jS8G-NB43GR",
+     "EA03",
+     "S31",
+     "B14",
+     "S35",
+     "B07"
+    ],
+    "mappedTo": [
+     "B07",
+     "B14",
+     "EA03",
+     "S31",
+     "S35",
+     "legacy:0Y10JpChssDwFUxNRk6p3",
+     "legacy:EQ93LX8wvuIAd5u75q_i1",
+     "legacy:PdD44PGaNv4MN5fOALhAF",
+     "legacy:T3glZGcSd-jS8G-NB43GR",
+     "legacy:X2P22h8ApDmTZHjWpNO87",
+     "legacy:ddbIyVtoxdPQwLRXxSBq8"
+    ]
+   }
+  },
+  {
+   "check": "Crowned Captain member legacy:0Y10JpChssDwFUxNRk6p3 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member legacy:ddbIyVtoxdPQwLRXxSBq8 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member legacy:X2P22h8ApDmTZHjWpNO87 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member legacy:PdD44PGaNv4MN5fOALhAF resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member legacy:EQ93LX8wvuIAd5u75q_i1 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member legacy:T3glZGcSd-jS8G-NB43GR resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member EA03 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member S31 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member B14 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member S35 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Crowned Captain member B07 resolves to full record",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "accepted membership count",
+   "pass": true,
+   "detail": 65
+  },
+  {
+   "check": "retained IDs all used",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "check": "shared IDs all used",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "check": "regular Captain five-move comparator",
+   "pass": true,
+   "detail": [
+    "legacy:0Y10JpChssDwFUxNRk6p3",
+    "legacy:MG9ZujAV8lK7--YxThVbQ",
+    "legacy:PdD44PGaNv4MN5fOALhAF",
+    "B14",
+    "B17"
+   ]
+  },
+  {
+   "check": "Crowned Captain eleven moves with EA03 replacing Sharpened Focus",
+   "pass": true,
+   "detail": 11
+  },
+  {
+   "check": "Sentinel new retained memberships Rigging Snare/Hollow Timber",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "First Blade uses EL04",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Captain AI Heavy Armor / Cursed Dagger equipped:NONE",
+   "pass": true,
+   "detail": {
+    "AI Heavy Armor": "NONE",
+    "Cursed Dagger": "NONE"
+   }
+  },
+  {
+   "check": "Captain innate Highest offence increasestat 30%/99r",
+   "pass": true,
+   "detail": [
+    {
+     "type": "increasestat",
+     "power": 30,
+     "rounds": 99,
+     "target": "INHERIT",
+     "appearSfx": "",
+     "direction": "offence",
+     "statTypes": [
+      "Highest"
+     ],
+     "calculation": "percentage",
+     "description": "Extra raw damage from specific things",
+     "disappearSfx": "",
+     "generalTypes": [
+      "Highest"
+     ],
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    }
+   ]
+  },
+  {
+   "check": "Sealwright B32 Nullifying Wave resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright S31 Unraveling Strike resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright B22 Compression Barrier resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright B16 Sovereign Fetters resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright B14 Cataclysm Detonation resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright B33 Piercing Judgment resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "Sealwright S27 Weakening Strike resolves",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "B32 captured as ALL method / OTHER_USER / range 5",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "check": "shared B07 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  },
+  {
+   "check": "shared B14 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  },
+  {
+   "check": "shared B17 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  },
+  {
+   "check": "shared B39 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  },
+  {
+   "check": "shared EA03 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared EE03 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared EL04 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared EW01 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared EW03 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S01 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S02 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S03 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S04 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S06 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S07 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S08 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [],
+    "got": []
+   }
+  },
+  {
+   "check": "shared S31 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  },
+  {
+   "check": "shared S35 embedded-vs-pool drift fields match packet",
+   "pass": true,
+   "detail": {
+    "declared": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ],
+    "got": [
+     "elementClassification",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuDefence",
+     "requiredBukijutsuMastery",
+     "requiredBukijutsuOffence",
+     "requiredGenjutsuDefence",
+     "requiredGenjutsuMastery",
+     "requiredGenjutsuOffence",
+     "requiredNinjutsuDefence",
+     "requiredNinjutsuMastery",
+     "requiredNinjutsuOffence",
+     "requiredSageMastery",
+     "requiredTaijutsuDefence",
+     "requiredTaijutsuMastery",
+     "requiredTaijutsuOffence",
+     "statClassification"
+    ]
+   }
+  }
+ ]
+}
