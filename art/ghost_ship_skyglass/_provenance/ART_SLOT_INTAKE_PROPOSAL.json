@@ -1,0 +1,79 @@
+{
+  "schema": "tnr.skyglass.art.intake_proposal.v1",
+  "status": "PROPOSAL_FOR_FABLE_ART_INTAKE_NOT_COMMITTED",
+  "source_branch": "fable/ghost-ship-release-manifest-20261012",
+  "source_head": "1f96a5b2b47a24ecf3929a6aafed0bb9e96a78f0",
+  "source_file": "state/ghost_ship_skyglass_release_art.json",
+  "requires_operator_or_Fable_confirmation_before_repo_write": true,
+  "image_ref_commit": null,
+  "required": {
+    "item:skyglass_katana": {
+      "filename": "icon_ghost_ship_skyglass_katana.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp",
+      "sha256": "f7a336ca9fc0067a57ec2a69a0d3120a8790531ad83c5236306cdd8be92af8cc",
+      "bytes": 56510
+    },
+    "item:skyglass_crystal": {
+      "filename": "icon_ghost_ship_skyglass_crystal.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+      "sha256": "896543c69115e830b1016b966fbfbcdab3ebf676d10e05ac24cb3b9e7d604dfc",
+      "bytes": 103342
+    },
+    "item:skyglass_reliquary": {
+      "filename": "icon_ghost_ship_skyglass_reliquary.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp",
+      "sha256": "b0056440191b10b1bf307d9fdf23900f980b1d731c24f0a15e213953909a8c1f",
+      "bytes": 129408
+    },
+    "item:skyglass_filament": {
+      "filename": "icon_ghost_ship_skyglass_filament.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
+      "sha256": "b165dba7e5849bcd25ca40bb90532b7787bc125973589b52864669e69ee6328d",
+      "bytes": 129168
+    },
+    "scene:gs_scene_exterior_keel": {
+      "filename": "scene_bg_ghost_ship_exterior_keel_walk.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp",
+      "sha256": "f665ca4bb8bc4da031241d4b7275359409e6a6a7a711dce0874bd1d1cebfd70a",
+      "bytes": 224364
+    },
+    "scene:gs_scene_reconstruction": {
+      "filename": "scene_bg_ghost_ship_reconstruction_chamber.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp",
+      "sha256": "d0b0c3297409638c2c02b6314dbd817d7c71875e455d70a966238471d6d4552e",
+      "bytes": 446336
+    },
+    "scene:gs_scene_quarantined_archive": {
+      "filename": "scene_bg_ghost_ship_quarantined_archive.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp",
+      "sha256": "25682147baa0fd69bf8790db174eb64665c11bd51c2a42400b945c9ba66c3f8f",
+      "bytes": 344950
+    },
+    "scene:gs_scene_command_gallery": {
+      "filename": "scene_bg_ghost_ship_command_observation_gallery.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
+      "sha256": "babd22ccf728fb67c8208f1f68af8c5eb3286c3a76bdcbe0e1b2b0bdf227026c",
+      "bytes": 250006
+    },
+    "scene:gs_char_sealwright": {
+      "filename": "scene_char_ghost_ship_sealwright_portrait.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/scene_char_ghost_ship_sealwright_portrait.webp",
+      "sha256": "a60fc306003c0b3efadc9923ca1d4428825e8e922c8406a5c8f2a89413c6dd43",
+      "bytes": 111628
+    },
+    "ai:sealwright": {
+      "filename": "avatar_ghost_ship_sealwright.webp",
+      "proposed_repo_path": "art/ghost_ship_skyglass/avatar_ghost_ship_sealwright.webp",
+      "sha256": "9a8c74a64b47d97319d1b09817d1613543bc1389a890e36d06ea8920ae00dc3d",
+      "bytes": 143506
+    }
+  },
+  "required_coverage": {
+    "total": 10,
+    "mapped": 10,
+    "missing": 0,
+    "collision": 0
+  },
+  "nonrequired_processed_art_count": 24,
+  "note": "The other 24 approved assets are not automatically bound to existing live records by the release draft. They are preserved for deliberate optional image updates."
+}
