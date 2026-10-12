@@ -1,6 +1,6 @@
 # Crowned Captain — active support behavior
 
-**Status:** DIRECTOR-APPROVED ACTIVATION AND TRIGGERS, RUL-2026-10-11-007/008. Heal strictly below 40%, Copy at IDG 71 or higher, and regular Reflect are approved. Exact ordering/target implementation and measured balance remain subject to offline tests and final acceptance. This is a design/test brief, not a manifest.
+**Status:** ACCEPTED AS TESTED (RUL-2026-10-12-001): Heal → Copy (CLOSEST_OPPONENT, path ≤ 5) → Reflect → prior remapped chain, with the measured slower, more attritional fights. Boss innate IDG is raised separately (RUL-2026-10-12-004: Crowned 450% total). Earlier status: DIRECTOR-APPROVED ACTIVATION AND TRIGGERS, RUL-2026-10-11-007/008. Heal strictly below 40%, Copy at IDG 71 or higher, and regular Reflect are approved. Exact ordering/target implementation and measured balance remain subject to offline tests and final acceptance. This is a design/test brief, not a manifest.
 
 **Offline test status:** the bounded tests below were run by Fable in `harness/ghost_ship_final/engine/crowned_support.test.ts` (results: `docs/reviews/GHOST_SHIP_FINAL_ITEMS_CROWNED_OFFLINE_RESULTS.md`). They report measurements; ordering and balance acceptance remain the director's.
 

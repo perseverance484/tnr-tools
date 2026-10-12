@@ -1,6 +1,6 @@
 # Sealwright — combat behavior proposal
 
-**Status:** REQUESTED DESIGN COMPLETE; DIRECTOR ACCEPTANCE AND NEW-PIN OFFLINE TESTS PENDING. This is a behavior proposal, not a manifest, new balance ruling or parity claim.
+**Status:** ACCEPTED AS FINAL BEHAVIOR (RUL-2026-10-12-002). The director declined the new-pin comparison below, so no new parity claim exists. Sealwright also gains +375% innate IDG (RUL-2026-10-12-004). The comparison plan below is retained for the record only. This is still not a manifest.
 
 **Owner:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` retains the accepted encounter identity. This companion supplies the proposed next behavior for Fable. The original `state/ghost_ship_skyglass_sealwright_rule_contract.json` and Stage 2 harness remain unchanged historical test inputs.
 

@@ -26,7 +26,7 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
   - equipment: slot HAND, maxEquips 1, durability 100, required level 1, no stat or mastery requirements, battle usage BOTH;
   - economy: cost 1 ryo, not in shop, **tradable**, **drop-only (not craftable)**, stack 1, xpToLevel 1000;
   - created hidden.
-  The frozen r4 field-level record `state/ghost_ship_skyglass_katana_record.json`, derived from push/85, remains historical test evidence with Consume40/rounds0. It is not the current Consume specification. Apply `state/ghost_ship_skyglass_final_item_contract.json` when preparing the next version; Fable owns the derived-record and harness update. Description, battle description, image and effect animation/SFX remain presentation/art items pending acceptance.
+  The frozen r4 field-level record `state/ghost_ship_skyglass_katana_record.json`, derived from push/85, remains historical test evidence with Consume40/rounds0. It is not the current Consume specification. Apply `state/ghost_ship_skyglass_final_item_contract.json` when preparing the next version; Fable owns the derived-record and harness update. Description, battle description, image and effect animation/SFX are supplied by the director (RUL-2026-10-12-006).
 
 **Superseded Katana stats:** earlier shield-potency, generic Damage and fixed-Shield variants remain superseded. The r4 Pierce50 + immunity2r + Consume40/rounds0 record is now historical too. Only **Pierce 50 EP + Buff Prevent Immunity SELF/2 rounds + active Consume 15%** is operative for new construction. Earlier values remain in historical rulings and frozen fixtures for traceability.
 
@@ -37,14 +37,15 @@ This file owns operative, director-approved Ghost Ship reward **design intent**.
 ## Skyglass Crystal — current approved specification
 
 - **Name:** Skyglass Crystal.
-- **Economy (RUL006):** `rarity:"LEGENDARY"`, `canBeTraded:true`, `canBeCrafted:false`. Drop-only through the existing Reliquary roll; no 12-Filament recipe. Trading does not waive native imbuement occupation/rank requirements.
+- **Economy (RUL006, recipe restored by RUL-2026-10-12-005):** `rarity:"LEGENDARY"`, `canBeTraded:true`, **`canBeCrafted:true` with the 12-Skyglass-Filament recipe** (referencing the new Filament item by manifest ref). Native rank rules make both crafting and imbuing a LEGENDARY Crystal Forgemaster-only. Trading does not waive native imbuement occupation/rank requirements.
+- **Undecided fields (RUL-2026-10-12-005):** cost, requiredLevel, action/pool costs, cooldown, durability, equips, imbue/stack/level fields, battle usage and craftingExperience mirror an existing live LEGENDARY (or nearest) weapon crystal. They are taken from an operator-run read-only capture; the shape-donor values in the current record packet are placeholders until then.
 - **Type:** `itemType:"CRYSTAL"` (weapon imbuement), with `crystalTargetTypes:"WEAPON"` (source-confirmed `ItemTypes` target equality).
 - **Precisely ONE effect:** **Consume 10%**, one `consume` tag with `power:10`, `target:"SELF"`, `calculation:"percentage"`, **`rounds:2`, `shieldRounds:2`**; supersedes 20% and older 30%. The imbued weapon action grants active Consume for qualifying damage while the buff lasts. No separately authored Damage/Pierce tag is approved. Final 2/2 runtime validation remains required.
 - **Explicit exclusion:** Skyglass Katana is `canBeImbued:false`, so this weapon-only crystal **cannot** be imbued onto Skyglass Katana despite Katana itself having Consume 15%. Weapon-only describes the item category, not universal eligibility.
-- **Source:** Skyglass Reliquary **independent 3% direct Crystal chance** on opening. The former **12 Skyglass Filaments craft one Crystal** route is superseded by RUL006's not-craftable decision. The secret sixth ending awards **one Reliquary guaranteed** (both Gathering and Hunting).
+- **Source:** Skyglass Reliquary **independent 3% direct Crystal chance** on opening, **plus the restored 12 Skyglass Filaments → one Crystal recipe** (RUL-2026-10-12-005). The secret sixth ending awards **one Reliquary guaranteed** (both Gathering and Hunting).
 - **Reliquary table otherwise unchanged:** 1 Skyglass Filament + 3 Rare Jewels guaranteed; independent 25% bonus Filament, 30% Skyglass Serum, 15% Ornate Chest, and 3% Skyglass Crystal. No Katana/Crown fragment in chest.
-- **Open:** final complete-record compatibility, presentation and Filament trading/use. Filament rewards remain approved, but no replacement use is invented after removal of their Crystal recipe. Native Legendary imbuement access must be verified, not bypassed.
-- **Consume overlap:** explicitly deferred by the director; not a blocking design decision for this pass. Preserve observed native behavior and existing evidence. No stacking correction, deduplication change or new compatibility restriction is requested.
+- **Open:** the live-crystal mirror values (pending capture) and Filament tradability. Filaments are again used by the Crystal recipe. Presentation is supplied by the director (RUL-2026-10-12-006).
+- **Consume overlap:** **closed as native behavior** (RUL-2026-10-12-006). There is no restriction or correction. At 2/2 the 3-round shared Consume cooldown outlasts the 2-round buff, so two Crystal weapons cannot overlap through separate casts.
 
 **Old Crystal blocker is historical:** at the newly reviewed source, `SuperRefineEffects` requires same-array Damage/Pierce for Consume only when `rounds === 0`. Positive-duration Consume-only Crystal is source-admissible; the previous validator-exemption proposal is not automatically needed. Exact full-item validation and imbued-weapon runtime tests pass for the explicit3/3 carrier; final2/2/economy records still require validation. Do not add fake Damage/Pierce or modify upstream engine code. Preserve overlap evidence without imposing a new policy gate.
 
@@ -69,6 +70,6 @@ Settled or historical:
 Still open:
 
 1. Independent review of Fable's final 2/2 package. Records: `state/ghost_ship_skyglass_final_item_records.json` (derived by `harness/ghost_ship_final/tools/build_final_items.py`); offline evidence: `harness/ghost_ship_final/` and `docs/reviews/GHOST_SHIP_FINAL_ITEMS_CROWNED_OFFLINE_RESULTS.md`. The 3/3 and r4 evidence is preserved unchanged.
-4. Crystal non-effect values no ruling sets (cost, requiredLevel, action cost/cooldown/pool costs, durability, stack and level fields): carried from the shape donor and listed as unapproved in the record packet.
+4. Crystal non-effect values no ruling sets: mirror a live crystal (RUL-2026-10-12-005) once the operator-run capture exists. Records and tests must also add the restored recipe.
 2. Sealwright effective Captain parity and final AI decisions; new art QA, final quest prose, Filament disposition and fresh operator-run hidden readback.
-3. Katana presentation: description, battle description, image, effect animation/SFX.
+3. Katana and Crystal presentation: description, battle description, image, effect animation/SFX. Supplied by the director (RUL-2026-10-12-006); Fable slots them in and validates.
