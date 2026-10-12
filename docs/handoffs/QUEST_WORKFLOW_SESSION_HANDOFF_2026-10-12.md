@@ -2,88 +2,91 @@
 
 ## Current checkpoint
 
-**Director-approved roadmap; QW-0A investigation independently reviewed; source adoption still blocked.** No implementation alignment, integration, QW-1 start or gameplay change is claimed.
+**QW-0A report/review integrated; source adoption remains blocked. QW-1 implemented and independently reviewed: CHANGES_REQUESTED.** Return QW-1 to Fable for the narrow correction below, then review a new frozen SHA before integration.
 
 | Item | Exact reference |
 | --- | --- |
 | Repository | `perseverance484/tnr-tools` |
-| Main verified during review | `4de2668bb947368113683b5cb97e197abc87df27` |
+| Main verified before and after QW-1 testing | `fe4e69cbf88b49665c9ddcd6189e9ab4c833f123` |
 | Approved plan and briefs | `chatgpt/quest-workflow-skyglass-retrospective-20261012@c34f7de572337b0d2cfe397b9331502aa6548e27` |
 | Approval | RUL-2026-10-12-016, at the planning SHA |
-| Fable report reviewed | `fable/qw0a-contract-alignment-20261012@5fefb70b88f140c3212d0b9d94209e70be44f2bb` |
-| Review/record owner | `chatgpt/review-qw0a-contract-alignment-20261012` |
-| Independent review | `docs/reviews/QW0A_CONTRACT_ALIGNMENT_INDEPENDENT_REVIEW_2026-10-12.md` |
-| Verification record | `docs/reviews/qw0a_review_evidence/verification_2026-10-12.json` |
+| QW-1 implementation reviewed | `fable/qw1-workstream-starter-20261012@c79c6afadeb3388d7d2823cd084405661e398f97` |
+| QW-1 base / merge-base | `fe4e69cbf88b49665c9ddcd6189e9ab4c833f123` |
+| Review/record owner | `chatgpt/review-qw1-workstream-starter-20261012` |
+| Independent review | `docs/reviews/QW1_WORKSTREAM_STARTER_INDEPENDENT_REVIEW_2026-10-12.md` |
+| Verification record | `docs/reviews/qw1_review_evidence/verification_2026-10-12.json` |
 
-The review branch is anchored on the exact Fable snapshot. Obtain this handoff's containing commit with `git log -1 --format=%H -- docs/handoffs/QUEST_WORKFLOW_SESSION_HANDOFF_2026-10-12.md`; never substitute its moving branch name for a future review target.
+The review branch is anchored on the exact implementation snapshot. Obtain this record's containing commit with `git log -1 --format=%H -- docs/handoffs/QUEST_WORKFLOW_SESSION_HANDOFF_2026-10-12.md`. Review a future implementation by its frozen SHA, never just its branch name.
 
-The approved plan and briefs have **not been integrated into main or the Fable snapshot**. Read them at their exact planning SHA. Preserve the planning branch as evidence.
+The planning branch remains separate by director instruction. Read the approved plan, brief and ruling at `c34f7de572337b0d2cfe397b9331502aa6548e27`; they are not present on the reviewed main/implementation tree.
 
-## What was completed
+## QW-1 findings and verified progress
 
-- Verified main, planning and Fable refs against the remote repository.
-- Reconstructed the approved plan and both implementation briefs, roles, authority and safety boundaries.
-- Found Fable's five-file report-only QW-0A delivery. No initial implementation handoff needed to be recreated.
-- Independently reproduced the four-pin adoption matrix, all 939 committed atom additions/removals, the 56/25 versus 143/17 validation result, historical exception gates and 526/526 Forge tests.
-- Accepted the `BLOCKED_BY_SOURCE_ADOPTION` stop outcome, with explicit follow-up refinements. Nothing was merged or adopted.
+**R1 — integration blocker, medium severity:** `production.hidden_run` depends only on optional `review.independent`. Marking review `SKIPPED` permits hidden-run `READY`, targeted validation and init while `build.manifest` is still `PLANNED`. Both commands returned 0 in an isolated exact-tree reproduction. A direct build dependency made both refuse with exit 1. Fable should add that edge, regenerate the golden, and cover skipped/pending/completed review with unfinished/completed builds in regression checks. Keep existing validator/status semantics.
 
-## Follow-up constraints from independent review
+**R2 — verification wording, low severity:** the new tests label missing/existing files “uncommitted/committed.” Actual untracked files pass the unchanged baseline and target validators. Correct the labels and handoff; do not add implicit Git operations or redesign validation. The 131 checks pass, but their split is 66 existing + 65 new, not 51 + 80.
 
-**R1:** correcting the extractor changes more than basic elements at the old pin. `allState`, `damageModifierTypes`, helper-backed fields and reward spreads also need faithful representation. Replace the proposed “only element correction / only G1-G4” acceptance limits with a complete source-cited correction inventory.
+Other verified behavior: dry-run writes nothing; JSON output matches the golden; creation changes only the new roadmap/projection and shared index; existing workstreams and global state remain byte-identical; selected refusal cases make no file changes; render check and byte compilation pass. Existing implementation helpers are unchanged. Missing-resource blocking, title-collision refusal, the golden's location and the optional default are acceptable within the brief.
 
-**R2:** the current diff gate misses non-enum union field removals, union type changes and entity nullability tightening. A future gate brief must address or explicitly retain these blockers; correcting `now-required` labels must preserve rejection of genuinely required new inputs.
+`validate --all` remains exit 1 because One Perfect Crop's `launch.finalization` evidence[5] names removed `push/54_one_perfect_crop_launch_final.json`. Output and exit are byte-identical to baseline. Keep its archive/repoint decision separate; do not claim the whole repository validates or edit that workstream during QW-1 corrections.
 
-Two small report wording corrections: damage-given/taken tags retain `elements`; mastery-field omission works through preprocessing, not `.prefault` on every field. Full evidence is in the review.
+The review does not integrate QW-1, modify Fable's branch or create a real quest workstream.
 
-## Next permitted actions
+## Earlier QW-0A checkpoint retained
 
-1. Fetch and reverify all refs. If Fable's branch moved, inspect the new delta and any new handoff before carrying this result forward. The reviewed branch was stable, but no separate explicit freeze attestation or PR was found; confirm the author freeze before integration.
-2. Preserve/integrate the report and review through the normal authorized Lane A process. Do not silently merge either Fable or the planning branch merely because this review exists.
-3. Prepare any QW-0A continuation as a separate bounded Fable brief using R1/R2. Extractor repair and gate repair do not themselves authorize adopting regenerated contracts. A removal-adoption policy is a distinct unresolved decision owned by D-adopt-gate.
-4. QW-1 is still queued behind QW-0A's reviewed handoff/integration. At that checkpoint, record the blocked-alignment outcome and use `state/prompt_quest_workflow_qw1_workstream_starter.md` from the approved plan. Do not start it automatically or invent a new dependency requiring every QW-0 follow-up first.
-5. QW-2 through QW-5 remain planned. Other QW-0 follow-ups remain separate and unstarted.
+Main `fe4e69c` merged the QW-0A report `5fefb70b88f140c3212d0b9d94209e70be44f2bb` and independent review `e2c10ee1717d1311951bc8a7f6e621229ebf4b5f`. See `docs/reviews/QW0A_CONTRACT_ALIGNMENT_INDEPENDENT_REVIEW_2026-10-12.md` and its verification record. The former session checkpoint remains available in that review commit's version of this handoff.
 
-## Copy/paste next-session prompt
+The accepted outcome is `BLOCKED_BY_SOURCE_ADOPTION`, not alignment. Its continuation must address the complete extractor correction inventory and diff-gate blind spots recorded as QW-0A R1/R2. Extractor/gate repair does not authorize contract adoption. Integration of the report/review satisfied QW-1's sequence prerequisite; no new requirement to finish every QW-0 follow-up is introduced.
+
+## Next permitted sequence
+
+1. Fable corrects QW-1 R1/R2 within its own branch and returns a new frozen exact-SHA handoff with refreshed base/merge-base, tests and hashes.
+2. ChatGPT rechecks the correction surface and generated output. Broaden review only for changed base/architecture/scope.
+3. After a clean review and required director acceptance, reverify main immediately before authorized integration. Account for any advance; do not silently merge or carry approval onto an unreviewed rebase.
+4. QW-0A continuation/QW-0B remain separately scoped; QW-2 through QW-5 and Quest Studio remain unstarted. Mandatory-at-scale policy and One Perfect Crop evidence disposition remain separate decisions.
+
+## Copy/paste Fable correction handoff
 
 ```text
-Resume Quest Creation Workflow Optimization in perseverance484/tnr-tools.
-Lead: Release Auditor; supporting lens: Engineering Auditor.
+Repository: perseverance484/tnr-tools
+Task: QW-1 narrow correction and new frozen review handoff
+Owner: Fable / Claude Code; reviewer: ChatGPT
 
-Read docs/00_INDEX.md, CHATGPT.md, CLAUDE.md,
-docs/DEVELOPMENT_WORKFLOW.md, docs/agents/README.md,
-the applicable role/review/handoff workflows and docs/RULINGS.md.
+Verify remote main and your branch before editing.
+Reviewed main/base: fe4e69cbf88b49665c9ddcd6189e9ab4c833f123
+Reviewed branch: fable/qw1-workstream-starter-20261012
+Reviewed frozen SHA: c79c6afadeb3388d7d2823cd084405661e398f97
+Review branch: chatgpt/review-qw1-workstream-starter-20261012
+Read docs/reviews/QW1_WORKSTREAM_STARTER_INDEPENDENT_REVIEW_2026-10-12.md
+from that review branch; use its exact fetched commit as the review record.
 
-Verify fresh remote refs before using these recorded values:
-  main: 4de2668bb947368113683b5cb97e197abc87df27
-  planning: chatgpt/quest-workflow-skyglass-retrospective-20261012
-    c34f7de572337b0d2cfe397b9331502aa6548e27
-  Fable: fable/qw0a-contract-alignment-20261012
-    5fefb70b88f140c3212d0b9d94209e70be44f2bb
-  review: chatgpt/review-qw0a-contract-alignment-20261012
+Approved brief: state/prompt_quest_workflow_qw1_workstream_starter.md
+at c34f7de572337b0d2cfe397b9331502aa6548e27.
+Keep the planning branch separate. RUL-2026-10-12-016 applies.
 
-Read this review branch's:
-  docs/handoffs/QUEST_WORKFLOW_SESSION_HANDOFF_2026-10-12.md
-  docs/reviews/QW0A_CONTRACT_ALIGNMENT_INDEPENDENT_REVIEW_2026-10-12.md
+R1: production.hidden_run must depend directly on build.manifest as
+well as review.independent. Optional SKIPPED review must not bypass
+an unfinished build. Regenerate the golden through the CLI. Add
+regressions for unfinished/completed build and skipped/pending/
+completed review; verify targeted validate and init outcomes.
 
-Read the approved plan, QW-0A/QW-1 briefs and RUL-2026-10-12-016
-at planning SHA c34f7de; they were not on main at this checkpoint.
+R2: correct new test labels and handoff claims about committed input.
+The unchanged validator checks existence, not Git commitment.
+The current 131 checks comprise 66 existing + 65 new. Report fresh
+counts after correction. Do not add implicit Git operations.
 
-QW-0A delivered a report-only BLOCKED_BY_SOURCE_ADOPTION result.
-Its stop verdict and main evidence are independently confirmed.
-The follow-up acceptance criteria need review refinements R1/R2.
-No contracts were adopted, no code fixed and no merge performed.
+Run selftest, deterministic preview/golden and write rehearsal,
+targeted validation, render --check and relevant regressions.
+Compare validate --all with the base and report its existing One
+Perfect Crop missing-evidence failure honestly; do not repair that
+workstream within this task. Keep global session state untouched.
 
-Check for a newer frozen Fable handoff or integration evidence.
-Review any new target at its exact SHA. Otherwise prepare only the
-next explicitly scoped step; do not start QW-1 or later packages
-automatically. Preserve QW-0A review/integration -> QW-1 sequence.
+Return a new frozen SHA, base/merge-base, changed paths, regenerated
+hashes, unmasked test exit codes and R1/R2 disposition. Stop for
+independent exact-SHA review; do not integrate or start later work.
 
-Fable owns implementation on fable/*; ChatGPT owns independent
-review records on chatgpt/*. Never modify an active Fable branch.
-Do not run session_open.py/session_close.py against the global
-September Forge digest/projections for this workstream.
-Zero live-game requests/writes/credentials, no publication or
-gameplay changes. Rare Jewels is a separate unresolved canonical/
-live discrepancy; do not change rewards within this project.
-Maintain progress in the existing repository evidence/handoff.
+No gameplay/reward changes, publication, live-game requests/writes
+or credentials. Rare Jewels reconciliation stays separate.
 ```
+
+Do not run `session_open.py` or `session_close.py` to update the global September Forge projections for this workflow. Preserve one-writer ownership and the existing TNR authority system.
