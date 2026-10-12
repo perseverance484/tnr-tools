@@ -947,3 +947,30 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 - Re-equipping the 22 outside AIs (Option A) was declined, and so was cloning the two jutsu for Ghost Ship (Option C).
 
 **Canonical destination:** `state/ghost_ship_legacy_jutsu_edit_scope.json`, read by `push/90_ghost_ship_skyglass_release.gen.py` and `harness/ghost_ship_legacy_baseline/consumer_audit.py`. The conversion packet JSON is unchanged because the frozen harnesses pin it.
+
+---
+
+## RUL-2026-10-12-011 — Accept the residual consumer risk from unknown live AIs
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / retained legacy jutsu edits (law 18/60)
+
+**Status:** ACTIVE.
+
+**Evidence:**
+- The census push/81–84 read all 535 repository-known AI ids (535/535 ok, persisted): 506 live non-ELDER and 29 deleted.
+- push/91 (`tnr_results_1791772372237.json`, after the census) counted **522** live non-ELDER AIs.
+- So **16 live AIs** have ids the repository does not know and were not read. Forge keeps only the count of `profile.getAllAiNames`.
+- Among the 506 read, no AI outside Ghost Ship holds any of the nine jutsu push/90 edits. Counter Stance and Battle Trance are not edited (RUL-2026-10-12-010).
+
+**Ruling:** dauntless accepts the residual risk for all 16 unread AIs. If any of them equips one of the nine edited jutsu, push/90's edit severs that AI's combat link to it (law 18/60) and shows the Skyglass text in its fights. push/92 (7 candidate reads) is no longer required.
+
+**Implementation:** `harness/ghost_ship_legacy_baseline/consumer_audit.py --accept-residual RUL-2026-10-12-011` gives verdict `ACCEPTED_RESIDUAL` only when:
+- every census id was read without error;
+- the count shortfall is the only gap;
+- no known outside AI holds an edited jutsu.
+
+A known outside holder still yields CONSUMERS. push/90 `--final` accepts `ACCEPTED_RESIDUAL` only under this ruling id.
+
+**Canonical destination:** `state/ghost_ship_legacy_jutsu_consumer_audit.json`.

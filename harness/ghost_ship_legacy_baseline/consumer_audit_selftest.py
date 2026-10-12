@@ -28,6 +28,7 @@ def main():
     ghost = sorted(e["aiId"] for e in json.load(open(os.path.join(REPO, ca.KIT)))["entities"])
     legacy = json.load(open(os.path.join(REPO, ca.BASELINE)))["records"][0]["targetId"]
     other = next(i for i in ids if i not in ghost)
+    ghost_free = [i for i in ids if i not in ghost and i != other][0]
     excl = sorted(json.load(open(os.path.join(REPO, ca.EDIT_SCOPE)))["excluded"])[0]
     ok = True
     with tempfile.TemporaryDirectory() as root:
@@ -58,9 +59,12 @@ def main():
             ("excluded jutsu held outside", lambda u: {**base(u), "jutsus": [{"jutsuId": excl, "equipped": True}]} if u == other else base(u), "CLEAR"),
             ("missing", lambda u: "SKIP" if u == other else base(u), "INCOMPLETE"),
             ("short", lambda u: None if u == other else base(u), "INCOMPLETE"),
+            ("short, residual accepted", lambda u: None if u == other else base(u), "ACCEPTED_RESIDUAL", "RUL-TEST"),
+            ("short with outside holder, residual accepted", lambda u: None if u == ghost_free else ({**base(u), "jutsus": [{"jutsuId": legacy, "equipped": True}]} if u == other else base(u)), "CONSUMERS", "RUL-TEST"),
+            ("missing read, residual accepted", lambda u: "SKIP" if u == other else base(u), "INCOMPLETE", "RUL-TEST"),
         ]
-        for name, fn, want in cases:
-            got = ca.audit([bundle(name, fn)])["verdict"]
+        for name, fn, want, *acc in cases:
+            got = ca.audit([bundle(name, fn)], None, acc[0] if acc else None)["verdict"]
             good = got == want
             ok &= good
             print(f"{'PASS' if good else 'FAIL'} {name}: {got} (want {want})")
