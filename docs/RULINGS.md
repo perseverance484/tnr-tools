@@ -1042,3 +1042,33 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 **Follow-up (separate Lane A task):** bring `validate.py` and the generated contracts to 585534d7 through `schema_extract.py` and its adoption gate, with tests for the post-0056 create and the current item/effect contracts.
 
 **Canonical destination:** `state/ghost_ship_skyglass_release_validate_exception.json` (ledger) and this ruling.
+
+---
+
+## RUL-2026-10-12-014 — Sentinel renamed Guardian; push/93 repair and its validate.py exception
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; AI `3V_gdHYaclMB1gTyOPAbV`; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE. The exception is manifest-specific.
+
+**Context:** the operator ran push/90 (results `harvests/inbox/tnr_results_1791779642866.json`). 49 of 50 records completed. Item 29 failed with `Duplicate entry 'Sentinel' for key 'UserData.UserData_username_key'`: another live AI owns that name, probably one of the 16 unread AIs under RUL-2026-10-12-011. `updateAi` syncs the kit before the userData update, so the new kit landed. The name ("Ghostly Guardian"), statsMultiplier 3, avatar and behaviour rules did not change.
+
+**Ruling:** dauntless decided:
+- The AI's name is **Guardian**.
+- The quest text follows it: the four objective lines per quest that name the boss (`d_guardian`, `b_guardian`, `r_dig`, `d_claim_A`) say "Guardian" instead of "Sentinel".
+- push/93 (`push/93_ghost_ship_guardian_repair.gen.py`) re-sends:
+  - push/90 item 29 with only the name changed and the uploaded avatar URL resolved;
+  - both live quests with only those 8 lines changed.
+- push/90 and its design state (`state/ghost_ship_retheme_patch.json` aiRenames/objectiveText) stay as spent release history. This ruling and the push/93 generator own the rename.
+
+**Validator exception:** dauntless extended the RUL-2026-10-12-013 mechanism to push/93 at SHA-256 `840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753`, and only to the exact 7 diagnostics in `state/ghost_ship_guardian_repair_validate_exception.json`:
+
+| Class | Errors | Warnings |
+| --- | ---: | ---: |
+| Approved shared menu targets (already live) | 4 | |
+| Captured self-target gate | | 1 |
+| Stale-snapshot scene character (`b_K8qdNI651fTsRn9tfkk`, created by push/90) | | 2 |
+
+**Enforcement:** `python3 push/93_ghost_ship_guardian_repair.validate_exception.py`, as for push/90. Any change voids the exception. The doctrine is unchanged and this is not a precedent.
