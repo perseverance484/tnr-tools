@@ -1,0 +1,32 @@
+{
+  "schema": "tnr.ghost_ship_skyglass_release_presentation",
+  "version": 1,
+  "status": "PENDING_DIRECTOR_TEXT",
+  "ruling": "RUL-2026-10-12-006 (Katana, Crystal) and RUL-2026-10-12-008 (Reliquary, Filament, Skyglass Serum): the director supplies every value below; Fable slots it in and validates. Nothing here is drafted on the director's behalf.",
+  "consumer": "push/90_ghost_ship_skyglass_release.gen.py. A null value keeps the manifest in DRAFT mode with a labelled placeholder; --final refuses while any value is null.",
+  "items": {
+    "skyglass_katana": {
+      "description": null,
+      "battleDescription": null,
+      "effectPresentation": null
+    },
+    "skyglass_crystal": {
+      "description": null,
+      "battleDescription": null,
+      "effectPresentation": null
+    },
+    "skyglass_reliquary": {
+      "description": null,
+      "battleDescription": null
+    },
+    "skyglass_filament": {
+      "description": null,
+      "battleDescription": null
+    },
+    "skyglass_serum": {
+      "description": null,
+      "battleDescription": null
+    }
+  },
+  "effectPresentationShape": "Optional. Either null (keep the record's empty animation/SFX fields) or an object with any of appearAnimation, staticAnimation, disappearAnimation, appearSfx, disappearSfx, staticAssetPath, applied to every effect tag of that item."
+}
