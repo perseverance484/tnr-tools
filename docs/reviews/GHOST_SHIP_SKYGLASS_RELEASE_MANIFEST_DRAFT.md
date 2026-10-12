@@ -1,6 +1,6 @@
 # Ghost Ship / Skyglass — combined release manifest (push/90): draft status
 
-**Status:** DRAFT, NOT RUNNABLE. Generator complete; Forge refuses the draft by design until the director's art is bound. The distance-gate decision (§4) is settled by RUL-2026-10-12-009 (Option A). No live request, write or publication.
+**Status:** DRAFT, NOT RUNNABLE. Generator complete; director item text approved and slotted (commit `224ab918`); Forge refuses the draft by design until the director's art is bound, which is now the only pending input. The distance-gate decision (§4) is settled by RUL-2026-10-12-009 (Option A). No live request, write or publication.
 
 **Date:** 2026-10-12. **Implementer:** Fable. **Decisions:** RUL-2026-10-12-001…008.
 
@@ -13,7 +13,7 @@
 | `state/ghost_ship_skyglass_release_manifest_report.json` | Generated ledger: per-AI kit/rule/loot/innate changes, gate audit, item chassis provenance, quest graph stats, input SHA-256s, pending slots |
 | `push/90_ghost_ship_skyglass_release.check.mjs` | Forge gate with live rows: Forge's own parse/plan/Validator, each edit validated against its committed capture, AI merge replay |
 | `push/90_ghost_ship_skyglass_release.rules.ts` | Parses every AI rule with the pinned engine `updateAiProfileSchema` |
-| `state/ghost_ship_skyglass_release_presentation.json` | Director text slots (10, all pending) |
+| `state/ghost_ship_skyglass_release_presentation.json` | Director text (10 strings, approved at `224ab918`; effectPresentation null) |
 | `state/ghost_ship_skyglass_release_art.json` | Art slots (10 required, pending the zip) |
 
 ## 2. What the manifest does (56 entries, executed by `phase`)
@@ -89,7 +89,7 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 ## 6. Still required before `--final`
 
 1. ~~Fresh push/89 quest capture~~: done (`harvests/inbox/tnr_results_1791768613624.json`, Forge 0.5.0, 2026-10-12T01:30Z, DONE/success, 2/2 full reads). Both quests are identical to the October 1 capture except for nothing: every top-level field and all 57 objectives match. Both read **`hidden:false`** with an expired window (2026-09-18 to 2026-09-21), contradicting the earlier hidden report. The generator now uses this capture as its default base and records the observed state; the quest edits assert `hidden:true`, so running push/90 hides both quests.
-2. The director's text for 5 items and the art zip. At intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in the art file. Then run `--final --image-ref <commit>`.
+2. ~~Director text for 5 items~~: approved and slotted (`224ab918`). The art zip is still pending: at intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in `state/ghost_ship_skyglass_release_art.json`. Then run `--final --image-ref <commit>`.
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. Pre-run dependency check (disclosed): captures show no non-Ghost-Ship AI equipping the 11 retained jutsu. Absence of evidence is not a full consumer audit.
 5. Independent review of the frozen SHA; integration into `main` only afterwards.
