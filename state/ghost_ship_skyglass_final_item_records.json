@@ -1,12 +1,12 @@
 {
  "schema": "tnr.ghost_ship_skyglass_final_item_records.v1",
- "status": "FINAL_2X2_CANDIDATE_RECORDS; RUNTIME_VALIDATION_IN_THIS_PACKAGE; PRESENTATION_AND_CRYSTAL_CARRIER_FIELDS_PENDING; NOT_A_WRITE_MANIFEST",
+ "status": "FINAL_2X2_RECORDS (RUL006 as amended by RUL-2026-10-12-005); PRESENTATION_PENDING_FROM_DIRECTOR; NOT_A_WRITE_MANIFEST",
  "ruling": "RUL-2026-10-11-006",
- "designCommit": "fd7f021762940f11c3896c70b2af3bc53f7711dc",
+ "designCommit": "8a78115367feda143e9591f524b739a7d56330af",
  "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
  "contract": {
   "file": "state/ghost_ship_skyglass_final_item_contract.json",
-  "sha256": "0c4ad7f077d63453610e43650788281bfa69087b53c0d395c6e6e3c3ce0442f2"
+  "sha256": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282"
  },
  "timing": {
   "consumeRounds": 2,
@@ -14,7 +14,7 @@
   "approved": true,
   "ruling": "RUL-2026-10-11-006"
  },
- "consumeOverlap": "DIRECTOR_DEFERRED; native behaviour preserved; no restriction or correction",
+ "consumeOverlap": "CLOSED_NATIVE (RUL-2026-10-12-006)",
  "historical": {
   "r4Katana": {
    "file": "state/ghost_ship_skyglass_katana_record.json",
@@ -56,9 +56,19 @@
    ],
    "crystalDiff": [
     {
+     "path": "/actionCostPerc",
+     "before": 40,
+     "after": 60
+    },
+    {
      "path": "/battleDescription",
      "before": "harness placeholder (presentation pending)",
      "after": null
+    },
+    {
+     "path": "/canBeCrafted",
+     "before": false,
+     "after": true
     },
     {
      "path": "/canBeTraded",
@@ -66,9 +76,36 @@
      "after": true
     },
     {
+     "path": "/chakraCost",
+     "before": 40,
+     "after": 0
+    },
+    {
+     "path": "/cooldown",
+     "before": 4,
+     "after": 5
+    },
+    {
+     "path": "/cost",
+     "before": 150000,
+     "after": 1
+    },
+    {
+     "path": "/craftingExperience",
+     "before": 0,
+     "after": 800
+    },
+    {
      "path": "/craftingRequirements",
      "before": null,
-     "after": []
+     "after": [
+      {
+       "ids": [
+        "@item:skyglass_filament"
+       ],
+       "number": 12
+      }
+     ]
     },
     {
      "path": "/description",
@@ -106,9 +143,29 @@
      "after": "Skyglass Crystal"
     },
     {
+     "path": "/purchaseLimitPeriod",
+     "before": null,
+     "after": "NONE"
+    },
+    {
      "path": "/rarity",
      "before": "RARE",
      "after": "LEGENDARY"
+    },
+    {
+     "path": "/requiredLevel",
+     "before": 20,
+     "after": 1
+    },
+    {
+     "path": "/staminaCost",
+     "before": 40,
+     "after": 0
+    },
+    {
+     "path": "/target",
+     "before": "SELF",
+     "after": "CHARACTER"
     }
    ]
   }
@@ -508,14 +565,15 @@
   }
  },
  "crystal": {
-  "status": "RUL005/006 DECIDED FIELDS + UNAPPROVED SHAPE-DONOR CARRIER FIELDS; PRESENTATION_PENDING",
+  "status": "RUL005/006/RUL-2026-10-12-005 DECIDED FIELDS + HEAL CRYSTAL III MIRROR; PRESENTATION_PENDING",
   "baseline": {
-   "capture": "harvests/inbox/tnr_results_1788235198666.json",
-   "captureSha256": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
-   "pointer": "/captures/8/data/items/0/item",
-   "id": "1GmiQAGuBZZsjIFqcqPkR",
-   "name": "Flaming Sword",
-   "capturedAt": "2026-09-01T03:59:42.777Z"
+   "capture": "harvests/inbox/tnr_results_1791766317760.json",
+   "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+   "proc": "item.get",
+   "snapshotKey": "87-mv4jehc4::before::1",
+   "id": "iJM0kb1i6iNXjADJlZGV_",
+   "name": "Heal Crystal III",
+   "capturedAt": "2026-10-12T00:51:56.877Z"
   },
   "droppedFields": [
    "id",
@@ -527,46 +585,61 @@
    "battleDescription",
    "image"
   ],
-  "unapprovedCarrierFields": {
-   "actionCostPerc": 40,
+  "mirroredFields": {
+   "actionCostPerc": 60,
    "battleUsageType": "BOTH",
    "canStack": false,
-   "chakraCost": 40,
-   "cooldown": 4,
-   "cost": 150000,
+   "chakraCost": 0,
+   "cooldown": 5,
+   "cost": 1,
+   "craftingExperience": 800,
    "destroyOnUse": false,
    "maxDurability": 100,
    "maxEquips": 1,
    "maxImbueNumber": 1,
-   "requiredLevel": 20,
+   "method": "SINGLE",
+   "range": 0,
+   "requiredLevel": 1,
+   "slot": "ITEM",
    "stackSize": 1,
-   "staminaCost": 40,
+   "staminaCost": 0,
+   "target": "CHARACTER",
+   "weaponType": "NONE",
    "xpToLevel": 1000
   },
-  "absentEconomyFields": [
-   "auctionMinPrice",
-   "auctionMaxPrice",
-   "purchaseLimit",
-   "purchaseLimitPeriod"
-  ],
-  "note": "Unapproved carrier values validate but are not proposals. Absent economy fields take validator defaults (null/NONE). No live ID, cost or Filament policy is invented.",
+  "recipe": {
+   "requirement": "@item:skyglass_filament",
+   "quantity": 12,
+   "ruling": "RUL-2026-10-12-005"
+  },
+  "note": "Undecided fields mirror the live Heal Crystal III row. The Filament ref resolves to the item created in the same release manifest; offline tests substitute a harness id.",
   "record": {
-   "actionCostPerc": 40,
+   "actionCostPerc": 60,
+   "auctionMaxPrice": null,
+   "auctionMinPrice": null,
    "battleDescription": null,
    "battleUsageType": "BOTH",
    "bloodlineId": null,
-   "canBeCrafted": false,
+   "canBeCrafted": true,
    "canBeGathered": false,
    "canBeHunted": false,
    "canBeImbued": false,
    "canBeTraded": true,
    "canStack": false,
-   "chakraCost": 40,
+   "chakraCost": 0,
    "chakraCostReducePerLvl": 0,
-   "cooldown": 4,
-   "cost": 150000,
-   "craftingExperience": 0,
-   "craftingRequirements": [],
+   "cooldown": 5,
+   "coordinateTargeting": null,
+   "cost": 1,
+   "craftingExperience": 800,
+   "craftingRequirements": [
+    {
+     "ids": [
+      "@item:skyglass_filament"
+     ],
+     "number": 12
+    }
+   ],
    "crystalTargetTypes": "WEAPON",
    "description": null,
    "destroyOnUse": false,
@@ -616,54 +689,61 @@
    "name": "Skyglass Crystal",
    "parentItemId": null,
    "preventBattleUsage": false,
+   "purchaseLimit": null,
+   "purchaseLimitPeriod": "NONE",
    "range": 0,
    "rarity": "LEGENDARY",
    "repsCost": 0,
-   "requiredBukijutsuDefence": null,
-   "requiredBukijutsuOffence": null,
-   "requiredGenjutsuDefence": null,
-   "requiredGenjutsuOffence": null,
+   "requiredBloodlineMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredGenjutsuMastery": null,
    "requiredIntelligence": null,
-   "requiredLevel": 20,
-   "requiredNinjutsuDefence": null,
-   "requiredNinjutsuOffence": null,
+   "requiredLevel": 1,
+   "requiredNinjutsuMastery": null,
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
    "requiredSpeed": null,
    "requiredStrength": null,
-   "requiredTaijutsuDefence": null,
-   "requiredTaijutsuOffence": null,
+   "requiredTaijutsuMastery": null,
    "requiredWillpower": null,
    "seichiSilverCost": 0,
    "slot": "ITEM",
    "stackSize": 1,
-   "staminaCost": 40,
+   "staminaCost": 0,
    "staminaCostReducePerLvl": 0,
-   "target": "SELF",
+   "target": "CHARACTER",
    "weaponType": "NONE",
    "xpToLevel": 1000
   },
   "provenance": {
    "actionCostPerc": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "auctionMaxPrice": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "auctionMinPrice": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "battleDescription": {
     "source": "override",
-    "why": "presentation pending; validation helper uses labelled placeholders"
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
    },
    "battleUsageType": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "bloodlineId": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "canBeCrafted": {
     "source": "override",
-    "why": "RUL-2026-10-11-006; 12-Filament recipe removed"
+    "why": "RUL-2026-10-12-005: 12-Filament recipe restored"
    },
    "canBeGathered": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "canBeHunted": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "canBeImbued": {
     "source": "override",
@@ -674,27 +754,29 @@
     "why": "RUL-2026-10-11-006"
    },
    "canStack": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "chakraCost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "chakraCostReducePerLvl": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "cooldown": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "coordinateTargeting": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "cost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "craftingExperience": {
-    "source": "override",
-    "why": "inert with canBeCrafted:false; RUL006 removes the recipe"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "craftingRequirements": {
     "source": "override",
-    "why": "RUL-2026-10-11-006: no recipe in new construction"
+    "why": "RUL-2026-10-12-005: 12 Skyglass Filaments craft one Crystal (Filament created in the release manifest)"
    },
    "crystalTargetTypes": {
     "source": "override",
@@ -702,53 +784,53 @@
    },
    "description": {
     "source": "override",
-    "why": "presentation pending; validation helper uses labelled placeholders"
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
    },
    "destroyOnUse": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "effects": {
     "source": "override",
     "why": "RUL005 sole Consume10; RUL006 rounds2/shieldRounds2"
    },
    "expireFromStoreAt": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmExtractSeedCount": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmExtractSeedItemId": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmFertilizerExperience": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmGrowTimeSeconds": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmHarvestExperience": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmMinLevel": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmPlantExperience": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmSellValue": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmTimeReductionSeconds": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "farmYieldItemId": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "healthCost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "healthCostReducePerLvl": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "hidden": {
     "source": "override",
@@ -756,124 +838,122 @@
    },
    "image": {
     "source": "override",
-    "why": "presentation pending; validation helper uses labelled placeholders"
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
    },
    "inShop": {
     "source": "override",
-    "why": "RUL006 acquisition is the independent 3% Reliquary drop only"
+    "why": "acquisition is the 3% Reliquary drop and the Filament recipe"
    },
    "isEventItem": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "isFarmFertilizer": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "isFarmSeed": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "itemType": {
     "source": "override",
     "why": "RUL005/006 category"
    },
    "maxDurability": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "maxEquips": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "maxImbueNumber": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "method": {
-    "source": "override",
-    "why": "crystal shape"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "name": {
     "source": "override",
     "why": "approved item name (reward decisions)"
    },
    "parentItemId": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "preventBattleUsage": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "purchaseLimit": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "purchaseLimitPeriod": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "range": {
-    "source": "override",
-    "why": "crystal shape"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "rarity": {
     "source": "override",
     "why": "RUL-2026-10-11-006"
    },
    "repsCost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredBukijutsuDefence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredBloodlineMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredBukijutsuOffence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredBukijutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredGenjutsuDefence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
-   },
-   "requiredGenjutsuOffence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredGenjutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "requiredIntelligence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "requiredLevel": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredNinjutsuDefence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredNinjutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredNinjutsuOffence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredSageMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredSkillId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "requiredSpeed": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "requiredStrength": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
-   "requiredTaijutsuDefence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
-   },
-   "requiredTaijutsuOffence": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+   "requiredTaijutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "requiredWillpower": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "seichiSilverCost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "slot": {
-    "source": "override",
-    "why": "crystal shape"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "stackSize": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "staminaCost": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "staminaCostReducePerLvl": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "target": {
-    "source": "override",
-    "why": "crystal shape; Consume target is SELF"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "weaponType": {
-    "source": "override",
-    "why": "crystal shape"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    },
    "xpToLevel": {
-    "source": "Flaming Sword shape donor; UNAPPROVED carrier value"
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
    }
   }
  }

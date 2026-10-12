@@ -19,7 +19,7 @@ data = {
  'engine': {'repository': 'studie-tech/TheNinjaRPG', 'commit': '585534d7eb21d6f0dd678d5c3eb92662f611d39b',
             'export': 'git archive <pin> app; every pinned file checked before and after tests',
             'bunLockSha256': sha(Path(app)/'bun.lock'), 'packageJsonSha256': sha(Path(app)/'package.json')},
- 'designCommit': 'fd7f021762940f11c3896c70b2af3bc53f7711dc',
+ 'designCommit': '8a78115367feda143e9591f524b739a7d56330af',
  'historicalActiveConsume3x3': 'fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2',
  'historicalR4': '3f825562ea051306a3803f47428b742ae5100011',
  'runtime': {'bun': run('bun','--version'), 'node': run('node','--version'), 'python': sys.version.split()[0]},

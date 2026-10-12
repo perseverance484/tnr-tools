@@ -99,21 +99,17 @@
    "pass": true
   },
   {
-   "detail": {
-    "message": "This item is not craftable",
-    "outcome": "response",
-    "success": false
-   },
-   "name": "final Crystal (published, no recipe) is rejected: \"This item is not craftable\"",
-   "pass": true
-  },
-  {
-   "detail": {
-    "message": "This item is not craftable",
-    "outcome": "response",
-    "success": false
-   },
-   "name": "even with the old recipe restored and 12 Filaments held, a FORGEMASTER cannot craft the final Crystal",
+   "detail": [
+    {
+     "quantity": 12,
+     "requirementItem": {
+      "id": "harness-filament",
+      "name": "Skyglass Filament (harness carrier)"
+     },
+     "requirementItemId": "harness-filament"
+    }
+   ],
+   "name": "recipe is exactly 12 Skyglass Filaments",
    "pass": true
   },
   {
@@ -121,7 +117,25 @@
     "message": "transaction",
     "outcome": "guards-passed-reached-write"
    },
-   "name": "control: the same inputs with canBeCrafted:true pass every pre-write guard and reach the trapped write, so the flag alone blocks crafting",
+   "name": "FORGEMASTER holding 12 Filaments passes every pre-write craft guard and reaches the trapped first write",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "11 Filaments are rejected at the material check",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "native rank: a MASTER cannot craft the LEGENDARY Crystal (Forgemaster-only)",
    "pass": true
   },
   {
@@ -130,41 +144,27 @@
     "outcome": "response",
     "success": false
    },
-   "name": "as created (hidden:true) the final Crystal is rejected as hidden before the craftable check",
+   "name": "as created (hidden:true) the Crystal cannot be crafted",
    "pass": true
   },
   {
    "detail": {
-    "message": "This item cannot be crafted (no requirements defined)",
-    "outcome": "response",
-    "success": false
-   },
-   "name": "control: a craftable record with no requirements is rejected for missing requirements",
-   "pass": true
-  },
-  {
-   "detail": {
-    "controlCraftableNoRecipe": {
-     "message": "This item cannot be crafted (no requirements defined)",
-     "outcome": "response",
-     "success": false
-    },
-    "controlCraftableWithRecipeAndMaterials": {
-     "message": "transaction",
-     "outcome": "guards-passed-reached-write"
-    },
-    "finalAsCreatedHidden": {
+    "asCreatedHidden": {
      "message": "This item is hidden and cannot be crafted",
      "outcome": "response",
      "success": false
     },
-    "finalPublishedNoRecipe": {
-     "message": "This item is not craftable",
+    "forgemaster11": {
+     "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
      "outcome": "response",
      "success": false
     },
-    "finalPublishedWithRestoredRecipeAndMaterials": {
-     "message": "This item is not craftable",
+    "forgemaster12": {
+     "message": "transaction",
+     "outcome": "guards-passed-reached-write"
+    },
+    "master12": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
      "outcome": "response",
      "success": false
     },
@@ -276,27 +276,22 @@
   },
   "craftItemGuards": {
    "cases": {
-    "controlCraftableNoRecipe": {
-     "message": "This item cannot be crafted (no requirements defined)",
-     "outcome": "response",
-     "success": false
-    },
-    "controlCraftableWithRecipeAndMaterials": {
-     "message": "transaction",
-     "outcome": "guards-passed-reached-write"
-    },
-    "finalAsCreatedHidden": {
+    "asCreatedHidden": {
      "message": "This item is hidden and cannot be crafted",
      "outcome": "response",
      "success": false
     },
-    "finalPublishedNoRecipe": {
-     "message": "This item is not craftable",
+    "forgemaster11": {
+     "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
      "outcome": "response",
      "success": false
     },
-    "finalPublishedWithRestoredRecipeAndMaterials": {
-     "message": "This item is not craftable",
+    "forgemaster12": {
+     "message": "transaction",
+     "outcome": "guards-passed-reached-write"
+    },
+    "master12": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
      "outcome": "response",
      "success": false
     },
@@ -316,7 +311,17 @@
      "success": false
     }
    },
-   "note": "harness Filament carrier and restored-recipe controls; neither is part of the final record"
+   "note": "Filament carrier substitutes the @item:skyglass_filament ref; recipe quantity is the record's",
+   "recipe": [
+    {
+     "quantity": 12,
+     "requirementItem": {
+      "id": "harness-filament",
+      "name": "Skyglass Filament (harness carrier)"
+     },
+     "requirementItemId": "harness-filament"
+    }
+   ]
   },
   "craftRankMatrixControl": {
    "cases": {
@@ -381,7 +386,7 @@
      "success": false
     }
    },
-   "note": "native engine behaviour with a craftable carrier; the final Crystal is not craftable"
+   "note": "native engine behaviour with a craftable carrier; the final LEGENDARY Crystal (12-Filament recipe) is Forgemaster-only"
   },
   "imbueItemGuards": {
    "armorRecipient": {
