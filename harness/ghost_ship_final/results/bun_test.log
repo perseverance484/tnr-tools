@@ -1,0 +1,69 @@
+bun test v1.4.2 (744846f84)
+
+tests/tnr_ghost_ship_final/crowned_support.test.ts:
+[Upstash Redis] Unable to find environment variable: `UPSTASH_REDIS_REST_URL`. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] Unable to find environment variable: `UPSTASH_REDIS_REST_TOKEN`. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] The 'url' property is missing or undefined in your Redis config. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] The 'token' property is missing or undefined in your Redis config. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+(pass) CROWNED — rule candidate and records > support rules parse with the engine AiRule schema; techniques are the preserved captured records [13.66ms]
+(pass) CROWNED — Second Wind at the strict 40% boundary > 39.9% and 20% heal; exactly 40% and 40.1% do not; heal is 15% of base max HP [92.33ms]
+(pass) CROWNED — Second Wind at the strict 40% boundary > cooldown, AP and Heal Prevent fall-through [60.05ms]
+(pass) CROWNED — Stolen Form trigger, copied effects and selector > IDG 30/70/70.5 do not trigger; 71/90 trigger (inclusive integer threshold) [51.14ms]
+(pass) CROWNED — Stolen Form trigger, copied effects and selector > separates the trigger from what is actually copied [94.32ms]
+(pass) CROWNED — Stolen Form trigger, copied effects and selector > closest-opponent selector, summons, path distance and precedence over S31 [123.71ms]
+(pass) CROWNED — regular Reflect > activates at full HP near and far, returns damage without reducing it, expires, and respects cooldown and Buff Prevent [75.52ms]
+(pass) CROWNED — fight comparison (captured / dormant / support) > measures support activation against the same players, placements and seeds [13115.67ms]
+(pass) evidence: no failed required checks (CROWNED) [0.28ms]
+
+tests/tnr_ghost_ship_final/active_consume.test.ts:
+(pass) active Consume through real weapon assembly and actions > is absent on equip, applies to the granting Pierce hit, then converts different actions in this and a later round [59.40ms]
+(pass) active Consume through real weapon assembly and actions > Crystal10 composes through battle assembly and can grant an active buff on a weapon without a damage tag [12.58ms]
+(pass) active Consume through real weapon assembly and actions > uses pre-shield damage for Crystal and Pierce and aggregates an ALL-method control [50.48ms]
+(pass) active Consume through real weapon assembly and actions > distinguishes same-action SELF dedupe from overlapping active item buffs [24.30ms]
+(pass) active Consume through real weapon assembly and actions > 2/2: buff covers the cast round and two more; final eligible hit at +2, first ineligible at +3; each shield expires independently [30.28ms]
+(pass) active Consume through real weapon assembly and actions > 2/2 Crystal on an imbued weapon follows the same buff and shield lifetimes [6.51ms]
+(pass) removal, prevention and unchanged weapon action fields > Clear removes active item Consume and stops subsequent conversion [15.73ms]
+(pass) removal, prevention and unchanged weapon action fields > preserves existing Buff Prevent and measures Consume under it; Katana immunity blocks only new applications inside its exact window [74.95ms]
+(pass) removal, prevention and unchanged weapon action fields > keeps accepted AP40, costs40/40/0, range4 OTHER_USER and cooldown6/shared-GCD3 [87.09ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts later residual and poison damage at 15%% [8.54ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts later residual and poison damage at 10%% [2.19ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts only the Health component of delayed drain at 15%% [2.14ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts only the Health component of delayed drain at 10%% [1.14ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > attributes simultaneous delayed drain and wound ticks to each original caster [4.01ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > keeps another caster's direct damage out of the owner's conversion [2.29ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > credits capped reflection to the defender while direct damage belongs to its attacker [2.32ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes direct self-damage and reflected self-casts at 15%% [7.91ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes direct self-damage and reflected self-casts at 10%% [2.94ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes both immediate recoil and its deferred repayment [3.00ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates active sources, caps their ratio at 100 percent and chooses the longest shield duration [1.61ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > caps each generated shield at 100000 HP while allowing multiple stacks at 15%% [1.06ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > caps each generated shield at 100000 HP while allowing multiple stacks at 10%% [0.61ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates multiple hits and targets into one per-caster shield at 15%% [0.82ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates multiple hits and targets into one per-caster shield at 10%% [0.56ms]
+(pass) evidence: no failed required checks (ACTIVE) [0.08ms]
+
+tests/tnr_ghost_ship_final/contract_guards.test.ts:
+(pass) CONTRACT — final 2/2 candidate records and source schema > derives the Katana from Night's Testament with only the disclosed r4 and 3/3 deltas [3.12ms]
+(pass) CONTRACT — final 2/2 candidate records and source schema > validates exactly Pierce50 Crystal + SELF immunity2r + Consume15 2/2, and the complete Katana record [22.23ms]
+(pass) CONTRACT — final 2/2 candidate records and source schema > validates the complete final Crystal: LEGENDARY, tradable, 12-Filament recipe, Heal Crystal III mirror, exactly one Consume10 2/2 [2.49ms]
+(pass) CONTRACT — final 2/2 candidate records and source schema > instant-only negative control still requires a Damage/Pierce companion [2.56ms]
+(pass) CONTRACT — final 2/2 candidate records and source schema > canBeImbued:false remains the disabling field, not maxImbueNumber0 [0.35ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > imbueItem guard matrix (real procedure, read-only stub) [34.63ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > final Crystal recipe: FORGEMASTER with 12 Filaments reaches the write; 11 Filaments, MASTER rank or hidden state are rejected (real procedure) [8.98ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > native craft rank × rarity control (restored-recipe carrier, empty inventory) [4.15ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > rank/rarity/imbue-slot tables from the pinned constants [0.50ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > battle assembly suppresses imbuements on canBeImbued:false recipients [8.28ms]
+(pass) evidence: no failed required checks (CONTRACT, GUARDS) [0.04ms]
+
+tests/tnr_ghost_ship_final/release_stats.test.ts:
+(pass) STATS — pinned-server save path, repeated saves, battle scaling and clamping > required caps are the pinned JONIN caps [6.25ms]
+(pass) STATS — pinned-server save path, repeated saves, battle scaling and clamping > nine included existing AIs reach the caps in every fight, across all push/90 saves and a repeated save [146.95ms]
+(pass) STATS — pinned-server save path, repeated saves, battle scaling and clamping > Sealwright: one full create reaches the caps; a repeated save is stable [10.98ms]
+(pass) STATS — pinned-server save path, repeated saves, battle scaling and clamping > hazards: no stat or multiplier change from any push/90 save [7.55ms]
+(pass) STATS — pinned-server save path, repeated saves, battle scaling and clamping > boss and Sealwright effects are canonical: the server's effects parse is a fixed point [5.84ms]
+(pass) evidence: no failed required checks (STATS) [0.03ms]
+
+ 51 pass
+ 0 fail
+ 220 expect() calls
+Ran 51 tests across 4 files. [17.69s]

@@ -1,0 +1,388 @@
+{
+ "schema": "tnr.ghost_ship_legacy_jutsu_consumer_audit",
+ "version": 1,
+ "verdict": "ACCEPTED_RESIDUAL",
+ "acceptedResidual": {
+  "ruling": "RUL-2026-10-12-011",
+  "unreadLiveAis": 16
+ },
+ "generator": "harness/ghost_ship_legacy_baseline/consumer_audit.py",
+ "baseline": {
+  "path": "state/ghost_ship_legacy_jutsu_baseline_push86.json",
+  "sha256": "66a89297ccb2258e84f0253c87e8353390f14d0416acadbec3f8612f2e9f6209"
+ },
+ "editScope": {
+  "path": "state/ghost_ship_legacy_jutsu_edit_scope.json",
+  "sha256": "568ca207979fabfce10c8046b05bf284574e67ee027a95bc7eb4f54e1666a470",
+  "excluded": [
+   "MG9ZujAV8lK7--YxThVbQ",
+   "T3glZGcSd-jS8G-NB43GR"
+  ]
+ },
+ "censusManifests": {
+  "push/81_ai_pool_reequip_census_stage2_batch1.json": "aa4148236c7b11e632a8f62c12ac9121a3d833bcc0239b92210f4b185ef256b4",
+  "push/82_ai_pool_reequip_census_stage2_batch2.json": "be161799b5c81ec78031e05ad7325328242df03928553f4f4fb0c4504edcd9ae",
+  "push/83_ai_pool_reequip_census_stage2_batch3.json": "32226aa6bf219a5289c6b1950c2bbae8572ba472dccbe5971f8bf17db152315b",
+  "push/84_ai_pool_reequip_census_stage2_batch4.json": "28acb71aaf016067d3bbd654542cdfa8c0c7a3b3621996fba3d9de87358e3d83"
+ },
+ "inputs": {
+  "harvests/inbox/tnr_results_1791771716198.json": {
+   "sha256": "4be4cd9fd4a4e579e7e237c729d66de462a33e5fa400b72b9c7a0dac18653237",
+   "at": "2026-10-12T02:21:56.198Z",
+   "state": "DONE",
+   "outcome": "success"
+  },
+  "harvests/inbox/tnr_results_1791771811766.json": {
+   "sha256": "f30c732b0cd1c2272811ffcd74790fc38157cfcfa3d54b0956db0116963cfecd",
+   "at": "2026-10-12T02:23:31.765Z",
+   "state": "DONE",
+   "outcome": "success"
+  },
+  "harvests/inbox/tnr_results_1791771915726.json": {
+   "sha256": "f360c74b10d6d2c28dc5d0e462e6d7163ad2a8d67539bcbaa0d8ac9aa2851b00",
+   "at": "2026-10-12T02:25:15.725Z",
+   "state": "DONE",
+   "outcome": "success"
+  },
+  "harvests/inbox/tnr_results_1791771966137.json": {
+   "sha256": "ac17a5d4c04fb834b891ca19cb21c9033cb59eb80d1417d1ea3edf39e6f49c44",
+   "at": "2026-10-12T02:26:06.136Z",
+   "state": "DONE",
+   "outcome": "success"
+  }
+ },
+ "coverage": {
+  "censusIds": 535,
+  "read": 535,
+  "missing": [],
+  "extraIdsRead": [],
+  "deletedNull": 29,
+  "elder": 0,
+  "liveNonElder": 506,
+  "expectedLiveNonElder": 522,
+  "liveCountSource": {
+   "path": "harvests/inbox/tnr_results_1791772372237.json",
+   "sha256": "f2e44f10d4bcab3c7efe8c0e1e05fef99f8a0e649b9b62f7266946f5476b76cb",
+   "at": "2026-10-12T02:32:52.237Z",
+   "rows": 522
+  },
+  "readErrors": []
+ },
+ "ghostShipHolders": [
+  {
+   "aiId": "0PZU_FvlbM3ErYGlD5r56",
+   "username": "Ghostly Herald",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "2OXJEXoktxJcjqMkE851g",
+   "username": "Ghostly Quartermaster",
+   "jutsuId": "wMcoazoyXaEXViSCn5weF",
+   "jutsuName": "Ghostly Crossed Out",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "3V_gdHYaclMB1gTyOPAbV",
+   "username": "Ghostly Guardian",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+   "username": "Ghostly Bilge Horror",
+   "jutsuId": "1jXfTgrtGUaSfqTPSSa83",
+   "jutsuName": "Ghostly Rigging Snare",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "AQi-bHJ-5tHXtxrnc0P9E",
+   "username": "Ghostly Bilge Horror",
+   "jutsuId": "Jz4Lb55NcpwZn3nUK5PrJ",
+   "jutsuName": "Ghostly Strangling Weed",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "QY69h271Nx9uHrBeR6jwW",
+   "username": "Pirate King",
+   "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+   "jutsuName": "Death's Door",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "QY69h271Nx9uHrBeR6jwW",
+   "username": "Pirate King",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "QY69h271Nx9uHrBeR6jwW",
+   "username": "Pirate King",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "jutsuName": "Death's Grasp",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "d6g0mOM7RBSsYI1hrUVT9",
+   "username": "Ghostly First Mate",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+   "jutsuName": "Death's Door",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+   "jutsuName": "Ghostly Deep Six",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "EQ93LX8wvuIAd5u75q_i1",
+   "jutsuName": "Ghostly Shipwreck Delusion",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+   "jutsuName": "Death's Grasp",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "fDU9jCPZtH7YHbdQPO9RF",
+   "username": "Ghostly Pirate King",
+   "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+   "jutsuName": "Ghostly Final Fathom",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "frc9LTxqQlM7mncG4VZGK",
+   "username": "Barrel of Explosives",
+   "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+   "jutsuName": "Explosion!",
+   "equipped": true,
+   "ghostShip": true
+  },
+  {
+   "aiId": "wTgO-Q32caSSd0is1QIS7",
+   "username": "Crate of Explosives",
+   "jutsuId": "nCQETf-HNnbRec1OSY2-R",
+   "jutsuName": "Explosion!",
+   "equipped": true,
+   "ghostShip": true
+  }
+ ],
+ "otherHolders": [],
+ "otherHoldersOfUneditedJutsu": [
+  {
+   "aiId": "3GgiBgw-ysNtvTqvMJYqL",
+   "username": "The Countess",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "5FvtzaEb78NZewjG4eWyy",
+   "username": "Waddle Jr.",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "5JPRcnlZ80nbaL5wWWm80",
+   "username": "Ironbrood Pit Champion",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "7LMSPoGX6OMdjtpBu0mRs",
+   "username": "Daigo Muren",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "BuyM_4fl_NPR0BgF8oKAw",
+   "username": "Toto The Baby Dragon ",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "DzhOZMl_FOPwO8XzqsGhP",
+   "username": "The Count Unmasked",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "Eu67fptoGJR96GmV4ciG8",
+   "username": "Azael",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "LLy5QUFtasGU_Elp8RpEz",
+   "username": "Colossus",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "Lvtngyubn-FIPj2hPNxOC",
+   "username": "Lost Wind Stillness Wraith",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "Q4GyhaQHa24hx623r9c9J",
+   "username": "FeonEcho",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "Q7iyQmtGEPk4g3Cai7Bn3",
+   "username": "Colossus*",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "TOatobUxk7Flq7HWe4EfO",
+   "username": "Sorin Vey",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "Z6OlEe7nfAGhoLdXIPHgG",
+   "username": "Rogue Warden Commander Renzu",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "dpp9mShY4DbLT5Ae58SCf",
+   "username": "Aery - The Crystal Dragon",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "fHo_dn7STwHkDe4_4geXp",
+   "username": "The Cellarer",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "np_EJBegir7_6B55S8wpm",
+   "username": "Aery - The Dragon",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "o5bvA2fo9QHDDw-t6hIXv",
+   "username": "Vaelith - Shadow of the Maw",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "ppHB1llqQfAI9IhKE06S2",
+   "username": "UltChair",
+   "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+   "jutsuName": "Battle Trance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "rd192n7iA32QKYWJD6o93",
+   "username": "Herald of the House",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "s1wwyd11ljbxi9ny3qubtdhi",
+   "username": "Haruto",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "vod382vs003fpvgeujddzcas",
+   "username": "Ryouichi",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  },
+  {
+   "aiId": "xAQQD-n0YFTC2Dgpv8-Fh",
+   "username": "Lost Wind Overloaded Turbine Drone",
+   "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+   "jutsuName": "Counter Stance",
+   "equipped": true,
+   "ghostShip": false
+  }
+ ]
+}

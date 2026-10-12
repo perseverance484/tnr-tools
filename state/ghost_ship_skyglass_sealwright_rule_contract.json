@@ -1,0 +1,301 @@
+{
+  "schema": "tnr.ghost_ship_sealwright_ai_rule_design",
+  "version": 1,
+  "status": "DIRECTOR_APPROVED_SEVEN_JUTSU_AND_DUAL_CLEAR_INTENT; PROPOSED_ORDER_AND_NUMERIC_PARITY_OFFLINE_REVIEW_PENDING",
+  "releaseSafety": "Not an executable Forge manifest or live action authorization",
+  "references": {
+    "repoMain": "0eb57de20877d266dde666229ae4c68e8fbcf4c0",
+    "gameSource": "studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6",
+    "sourceAI": "app/src/libs/combat/ai_v2.ts",
+    "sourceValidator": "app/src/validators/ai.ts",
+    "pool": "skills/building-tnr-content/data/32b_DATA_pool.json",
+    "capturedCaptain": "harvests/inbox/tnr_results_1790826836406.json",
+    "narrative": "state/ghost_ship_skyglass_expansion_design.md",
+    "combat": "state/ghost_ship_skyglass_sealwright_combat_draft.md"
+  },
+  "intent": {
+    "identity": "Captain-tier shinobi archive containment guardian",
+    "primary": "Deliberate ongoing removal of removable positive effects; overlap between S31 and B32 is approved, not redundancy to simplify",
+    "ordinaryClear": "S31 Unraveling Strike is an ordinary high-priority damaging attack with Clear. Cast whenever available at effective range, even when no matching buffs are present.",
+    "reserveClear": "B32 Nullifying Wave is a seventh equipped jutsu ONLY if the same targeted opponent has summed IDG effect power STRICTLY above 70 and the ability is in range/available. Use threshold 71 as integer-API approximation.",
+    "clearScope": "Both Clear tags affect all removable positive effects, not IDG only; clearprevent can block. No changes to game effects are authorized."
+  },
+  "ai": {
+    "name": "Sealwright",
+    "rank": "JONIN",
+    "level": 100,
+    "statsMultiplier": 3,
+    "poolsMultiplier": 2.5,
+    "regeneration": 60,
+    "numericalState": "source-supported parity candidate; actual comparative difficulty not yet proven",
+    "equipment": [],
+    "equipmentNotes": "Captured regular Captain's AI Heavy Armor and Cursed Dagger have equipped:NONE. Under current combat setup non-equipped gear does not add passive armor effects and is not an available weapon action; preserve no-loot rule. Reverify on fresh capture."
+  },
+  "jutsus": [
+    {
+      "code": "B32",
+      "name": "Nullifying Wave",
+      "liveJutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+      "ap": 60,
+      "cooldown": 8,
+      "range": 5,
+      "rangeGate": 6,
+      "effects": [
+        "clear 100"
+      ]
+    },
+    {
+      "code": "S31",
+      "name": "Unraveling Strike",
+      "liveJutsuId": "1OhP0StX4VTsosWtCxhsG",
+      "ap": 60,
+      "cooldown": 5,
+      "range": 3,
+      "rangeGate": 4,
+      "effects": [
+        "damage 40",
+        "clear 100"
+      ]
+    },
+    {
+      "code": "B22",
+      "name": "Compression Barrier",
+      "liveJutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+      "ap": 40,
+      "cooldown": 5,
+      "range": null,
+      "rangeGate": null,
+      "effects": [
+        "absorb 20/3r",
+        "decreasedamagetaken 25/3r"
+      ]
+    },
+    {
+      "code": "B16",
+      "name": "Sovereign Fetters",
+      "liveJutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+      "ap": 60,
+      "cooldown": 10,
+      "range": 5,
+      "rangeGate": 6,
+      "effects": [
+        "damage 60",
+        "stun 100/2r",
+        "seal 100/2r"
+      ]
+    },
+    {
+      "code": "B14",
+      "name": "Cataclysm Detonation",
+      "liveJutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+      "ap": 60,
+      "cooldown": 8,
+      "range": 5,
+      "rangeGate": 6,
+      "effects": [
+        "damage 85"
+      ]
+    },
+    {
+      "code": "B33",
+      "name": "Piercing Judgment",
+      "liveJutsuId": "OyswJoalfNpmz7FsA8Hd8",
+      "ap": 60,
+      "cooldown": 7,
+      "range": 5,
+      "rangeGate": 6,
+      "effects": [
+        "pierce 55",
+        "increasedamagetaken 25/2r"
+      ]
+    },
+    {
+      "code": "S27",
+      "name": "Weakening Strike",
+      "liveJutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+      "ap": 60,
+      "cooldown": 4,
+      "range": 5,
+      "rangeGate": 6,
+      "effects": [
+        "damage 40",
+        "decreasedamagegiven 20/2r"
+      ]
+    }
+  ],
+  "aiProfile": {
+    "includeDefaultRules": false,
+    "priorityOrderedRulePlan": [
+      {
+        "role": "threshold-only emergency anti-IDG reserve",
+        "jutsuCode": "B32",
+        "conditions": [
+          {
+            "type": "target_has_effect",
+            "description": "Target is affected by a specific effect",
+            "effectType": "increasedamagegiven",
+            "target": "CLOSEST_OPPONENT",
+            "threshold": 71
+          },
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 6,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "JWZYiHKPNwYziWEFjw4Fn",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "regular high-priority damage + unconditional buff strip when in range",
+        "jutsuCode": "S31",
+        "conditions": [
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 4,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "defensive stance",
+        "jutsuCode": "B22",
+        "conditions": [],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+          "target": "SELF"
+        }
+      },
+      {
+        "role": "position for S31 shorter r3 Clear",
+        "conditions": [
+          {
+            "type": "distance_higher_than",
+            "description": "Distance higher than or equal given value",
+            "value": 5,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "move_towards_opponent",
+          "description": "Move towards opponent",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "boss-grade command lockdown",
+        "jutsuCode": "B16",
+        "conditions": [
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 6,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "RPdeeWhFI5AIUUpJXwUlf",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "boss-grade damage",
+        "jutsuCode": "B14",
+        "conditions": [
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 6,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "piercing pressure",
+        "jutsuCode": "B33",
+        "conditions": [
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 6,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "sustained weakening",
+        "jutsuCode": "S27",
+        "conditions": [
+          {
+            "type": "distance_lower_than",
+            "description": "Distance lower than or equal given value",
+            "value": 6,
+            "target": "CLOSEST_OPPONENT"
+          }
+        ],
+        "action": {
+          "type": "use_specific_jutsu",
+          "description": "Select specific jutsu",
+          "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+          "target": "CLOSEST_OPPONENT"
+        }
+      },
+      {
+        "role": "pathfinding fallback",
+        "conditions": [],
+        "action": {
+          "type": "move_towards_opponent",
+          "description": "Move towards opponent",
+          "target": "CLOSEST_OPPONENT"
+        }
+      }
+    ],
+    "notes": "Source-backed, but build-ready AI Profile must be schema checked and tested offline. Candidate positioning rule is deliberately unapproved; preserve director-approved S31/B32 behavior if rule priorities change.",
+    "fallback": "Current engine appends an end_turn action after this custom rule list when a content action exists. For movement failures near target, verify safe fallback and no AI-exhaustion death."
+  },
+  "testsRequired": [
+    "IDG total powers 69, 70, 70.5, 71 and 90; 70.5 does not satisfy integer threshold 71 (schema limitation)",
+    "B32 unusable (cooldown, AP, pool, out-of-range), continue to S31 or the remaining normal rules",
+    "S31 fires at distance<=4 path length whenever ready regardless of other buffs, B32 still never routine",
+    "Movement closes to range of S31 without preventing B16/B14 on otherwise appropriate turns",
+    "Active clearprevent can block both Clears; never claim absolute or selective dispel",
+    "Multiple target/summon case: CLOSEST_OPPONENT may differ from buffed player; test before final",
+    "Case with no available move or jutsu falls through to end_turn rather than fatal AI exhaustion",
+    "Equal fixtures versus regular Captain: time-to-defeat, action lockouts, shield uptime, clear frequency, damage spike, control chain, player counterplay, AI equipment activation and drops"
+  ],
+  "openImplementationGates": [
+    "Director review of final AI rule order and optional proactive closing movement after offline behavior comparison",
+    "Valid exact AI manifest create fields and chosen stat/general/element profile",
+    "Relative fight difficulty versus regular Captain, B16 stun+seal stacking check",
+    "Current Capture / duplicate AI name preflight",
+    "No creation or editing of shared jutsu records"
+  ]
+}

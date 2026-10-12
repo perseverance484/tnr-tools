@@ -1,0 +1,40 @@
+{
+ "schema": "tnr.ghost_ship_skyglass_consume_revision.v1",
+ "status": "DIRECTOR_APPROVED_DESIGN_DELTA; TIMING_AND_RUNTIME_VALIDATION_PENDING; NOT_A_WRITE_MANIFEST",
+ "ruling": "RUL-2026-10-11-005",
+ "canonicalOwner": "state/ghost_ship_skyglass_reward_decisions.md",
+ "sourceReviewed": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+  "deploymentVerified": false
+ },
+ "behavior": "Grants an active Consume buff; qualifying damage while active produces shields under the changed engine, rather than being limited to the granting action's damage instance.",
+ "katana": {
+  "consume": {"type": "consume", "power": 15, "calculation": "percentage", "target": "SELF"},
+  "effectCount": 3,
+  "preserve": ["Pierce 50 EP, Crystal element", "SELF Buff Prevent immunity, 2 rounds", "canBeImbued:false", "RUL-2026-10-11-004 baseline and economy", "3% independent Crowned Captain drop"]
+ },
+ "crystal": {
+  "consume": {"type": "consume", "power": 10, "calculation": "percentage", "target": "SELF"},
+  "effectCount": 1,
+  "itemType": "CRYSTAL",
+  "crystalTargetTypes": "WEAPON",
+  "preserve": ["Cannot imbue Skyglass Katana", "3% independent Reliquary drop", "12 Filaments craft one Crystal"]
+ },
+ "timing": {
+  "status": "DIRECTOR_SELECTION_PENDING",
+  "katanaBuffRounds": null,
+  "crystalBuffRounds": null,
+  "generatedShieldRounds": null,
+  "sourceDefaultsOnly": {"rounds": 3, "shieldRounds": 3},
+  "note": "Defaults are not new balance approval. Do not carry forward historical instant rounds:0. Consume fragments above are not complete final effect records."
+ },
+ "historicalEvidence": {
+  "tnrCommit": "3f825562ea051306a3803f47428b742ae5100011",
+  "engineCommit": "cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93",
+  "katanaRecord": "state/ghost_ship_skyglass_katana_record.json",
+  "note": "The existing Consume40/rounds0 Katana record, builder and Consume20 Crystal fixture remain unchanged historical r4 evidence. They are superseded for new item construction by this delta and the canonical owner."
+ },
+ "implementationOwner": "Fable",
+ "revalidationBrief": "state/prompt_ghost_ship_skyglass_consume_revalidation.md"
+}

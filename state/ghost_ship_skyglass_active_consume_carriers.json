@@ -1,0 +1,771 @@
+{
+ "schema": "tnr.ghost_ship_skyglass_active_consume_carriers.v1",
+ "status": "OFFLINE_TEST_CARRIERS_ONLY; TIMING_ECONOMY_PRESENTATION_NOT_FROZEN; NOT_A_WRITE_MANIFEST",
+ "ruling": "RUL-2026-10-11-005",
+ "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+ "designDelta": {
+  "file": "state/ghost_ship_skyglass_consume_revision.json",
+  "sha256": "3b3ed363c81fa99bc26fd39aa75c88faf8215a6050099a29cc1b81892067eb48"
+ },
+ "testTiming": {
+  "consumeRounds": 3,
+  "generatedShieldRounds": 3,
+  "approved": false,
+  "note": "Explicit source-default test inputs; separate director timing decisions remain open."
+ },
+ "historicalKatana": {
+  "file": "state/ghost_ship_skyglass_katana_record.json",
+  "sha256": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469",
+  "tnrCommit": "3f825562ea051306a3803f47428b742ae5100011",
+  "recordDiff": [
+   {
+    "path": "/effects/2/power",
+    "before": 40,
+    "after": 15
+   },
+   {
+    "path": "/effects/2/rounds",
+    "before": 0,
+    "after": 3
+   }
+  ]
+ },
+ "katana": {
+  "status": "RUL004_BASELINE_PLUS_RUL005_RATE_WITH_TEST_TIMING; PRESENTATION_PENDING",
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1791727479372.json",
+   "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+   "pointer": "/captures/0/data",
+   "id": "osJq3k77YPGoFWgof12FQ",
+   "name": "Night's Testament",
+   "capturedAt": "2026-10-11T14:04:38.932Z"
+  },
+  "droppedFields": [
+   "id",
+   "createdAt",
+   "updatedAt"
+  ],
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "record": {
+   "actionCostPerc": 40,
+   "auctionMaxPrice": null,
+   "auctionMinPrice": null,
+   "battleDescription": null,
+   "battleUsageType": "BOTH",
+   "bloodlineId": null,
+   "canBeCrafted": false,
+   "canBeGathered": false,
+   "canBeHunted": false,
+   "canBeImbued": false,
+   "canBeTraded": true,
+   "canStack": false,
+   "chakraCost": 40,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 6,
+   "coordinateTargeting": null,
+   "cost": 1,
+   "craftingExperience": 0,
+   "crystalTargetTypes": null,
+   "description": null,
+   "destroyOnUse": false,
+   "effects": [
+    {
+     "type": "pierce",
+     "power": 50,
+     "rounds": 0,
+     "target": "INHERIT",
+     "elements": [
+      "Crystal"
+     ],
+     "appearSfx": "",
+     "direction": "offence",
+     "statTypes": [
+      "None"
+     ],
+     "calculation": "formula",
+     "description": "placeholder",
+     "dmgModifier": 0,
+     "disappearSfx": "",
+     "generalTypes": [
+      "Highest"
+     ],
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "residualModifier": 0,
+     "disappearAnimation": "",
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true
+    },
+    {
+     "type": "immunity",
+     "power": 100,
+     "blocks": "buffprevent",
+     "rounds": 2,
+     "target": "SELF",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "static",
+     "description": "placeholder",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "consume",
+     "power": 15,
+     "calculation": "percentage",
+     "target": "SELF",
+     "rounds": 3,
+     "shieldRounds": 3,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "description": "placeholder",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": ""
+    }
+   ],
+   "expireFromStoreAt": null,
+   "farmExtractSeedCount": 0,
+   "farmExtractSeedItemId": null,
+   "farmFertilizerExperience": 0,
+   "farmGrowTimeSeconds": 0,
+   "farmHarvestExperience": 0,
+   "farmMinLevel": 1,
+   "farmPlantExperience": 0,
+   "farmSellValue": 0,
+   "farmTimeReductionSeconds": 0,
+   "farmYieldItemId": null,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "hidden": true,
+   "image": null,
+   "inShop": false,
+   "isEventItem": false,
+   "isFarmFertilizer": false,
+   "isFarmSeed": false,
+   "itemType": "WEAPON",
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "name": "Skyglass Katana",
+   "parentItemId": null,
+   "preventBattleUsage": false,
+   "purchaseLimit": null,
+   "purchaseLimitPeriod": "NONE",
+   "range": 4,
+   "rarity": "LEGENDARY",
+   "repsCost": 0,
+   "requiredBloodlineMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredIntelligence": null,
+   "requiredLevel": 1,
+   "requiredNinjutsuMastery": null,
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
+   "requiredSpeed": null,
+   "requiredStrength": null,
+   "requiredTaijutsuMastery": null,
+   "requiredWillpower": null,
+   "seichiSilverCost": 0,
+   "slot": "HAND",
+   "stackSize": 1,
+   "staminaCost": 40,
+   "staminaCostReducePerLvl": 0,
+   "target": "OTHER_USER",
+   "weaponType": "SWORD",
+   "xpToLevel": 1000
+  },
+  "provenance": {
+   "actionCostPerc": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "auctionMaxPrice": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "auctionMinPrice": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "battleDescription": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "battleUsageType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "bloodlineId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeCrafted": {
+    "source": "override",
+    "why": "RUL-2026-10-11-004 drop-only"
+   },
+   "canBeGathered": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeHunted": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeImbued": {
+    "source": "override",
+    "why": "RUL-2026-10-10-007"
+   },
+   "canBeTraded": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canStack": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "chakraCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "chakraCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "cooldown": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "coordinateTargeting": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "cost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "craftingExperience": {
+    "source": "override",
+    "why": "RUL-2026-10-11-004 drop-only"
+   },
+   "crystalTargetTypes": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "description": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "destroyOnUse": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "effects": {
+    "source": "override",
+    "why": "RUL004 retained Pierce/Immunity; RUL005 Consume15; Consume rounds3/shieldRounds3 TEST CARRIER ONLY; pending visual IDs cleared"
+   },
+   "expireFromStoreAt": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmExtractSeedCount": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmExtractSeedItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmFertilizerExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmGrowTimeSeconds": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmHarvestExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmMinLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmPlantExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmSellValue": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmTimeReductionSeconds": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmYieldItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "healthCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "healthCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "hidden": {
+    "source": "override",
+    "why": "creation doctrine; no publication"
+   },
+   "image": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "inShop": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isEventItem": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isFarmFertilizer": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isFarmSeed": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "itemType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxDurability": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxEquips": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxImbueNumber": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "method": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "name": {
+    "source": "override",
+    "why": "RUL-2026-10-10-007"
+   },
+   "parentItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "preventBattleUsage": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "purchaseLimit": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "purchaseLimitPeriod": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "range": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "rarity": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "repsCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredBloodlineMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredBukijutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredGenjutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredIntelligence": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredNinjutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSageMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSkillId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSpeed": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredStrength": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredTaijutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredWillpower": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "seichiSilverCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "slot": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "stackSize": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "staminaCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "staminaCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "target": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "weaponType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "xpToLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   }
+  }
+ },
+ "crystal": {
+  "status": "FULL_SCHEMA_TEST_CARRIER; NON_EFFECT_FIELDS_NOT_DIRECTOR_APPROVED",
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1788235198666.json",
+   "captureSha256": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+   "pointer": "/captures/8/data/items/0/item",
+   "id": "1GmiQAGuBZZsjIFqcqPkR",
+   "name": "Flaming Sword",
+   "capturedAt": "2026-09-01T03:59:42.777Z"
+  },
+  "droppedFields": [
+   "id",
+   "createdAt",
+   "updatedAt"
+  ],
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "openPolicy": [
+   "rarity",
+   "trading",
+   "crafting rank/occupation economics",
+   "all remaining non-effect Crystal fields"
+  ],
+  "note": "Carried shop/cost/trade/craft/level fields are test data only, not proposals or implementation defaults. The 12-Filament recipe is supplied separately to the craft guard test; no live recipe ID is invented.",
+  "record": {
+   "actionCostPerc": 40,
+   "battleDescription": "harness placeholder (presentation pending)",
+   "battleUsageType": "BOTH",
+   "bloodlineId": null,
+   "canBeCrafted": false,
+   "canBeGathered": false,
+   "canBeHunted": false,
+   "canBeImbued": false,
+   "canBeTraded": false,
+   "canStack": false,
+   "chakraCost": 40,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 4,
+   "cost": 150000,
+   "craftingExperience": 0,
+   "crystalTargetTypes": "WEAPON",
+   "description": "harness placeholder (presentation pending)",
+   "destroyOnUse": false,
+   "effects": [
+    {
+     "type": "consume",
+     "power": 10,
+     "calculation": "percentage",
+     "target": "SELF",
+     "rounds": 3,
+     "shieldRounds": 3,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "description": "placeholder",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": ""
+    }
+   ],
+   "expireFromStoreAt": null,
+   "farmExtractSeedCount": 0,
+   "farmExtractSeedItemId": null,
+   "farmFertilizerExperience": 0,
+   "farmGrowTimeSeconds": 0,
+   "farmHarvestExperience": 0,
+   "farmMinLevel": 1,
+   "farmPlantExperience": 0,
+   "farmSellValue": 0,
+   "farmTimeReductionSeconds": 0,
+   "farmYieldItemId": null,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "hidden": false,
+   "image": "",
+   "inShop": true,
+   "isEventItem": false,
+   "isFarmFertilizer": false,
+   "isFarmSeed": false,
+   "itemType": "CRYSTAL",
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "name": "Skyglass Crystal (offline carrier)",
+   "parentItemId": null,
+   "preventBattleUsage": false,
+   "range": 0,
+   "rarity": "RARE",
+   "repsCost": 0,
+   "requiredBukijutsuDefence": null,
+   "requiredBukijutsuOffence": null,
+   "requiredGenjutsuDefence": null,
+   "requiredGenjutsuOffence": null,
+   "requiredIntelligence": null,
+   "requiredLevel": 20,
+   "requiredNinjutsuDefence": null,
+   "requiredNinjutsuOffence": null,
+   "requiredSpeed": null,
+   "requiredStrength": null,
+   "requiredTaijutsuDefence": null,
+   "requiredTaijutsuOffence": null,
+   "requiredWillpower": null,
+   "seichiSilverCost": 0,
+   "slot": "ITEM",
+   "stackSize": 1,
+   "staminaCost": 40,
+   "staminaCostReducePerLvl": 0,
+   "target": "SELF",
+   "weaponType": "NONE",
+   "xpToLevel": 1000
+  },
+  "provenance": {
+   "actionCostPerc": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "battleDescription": {
+    "source": "override",
+    "why": "test presentation"
+   },
+   "battleUsageType": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "bloodlineId": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "canBeCrafted": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "canBeGathered": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "canBeHunted": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "canBeImbued": {
+    "source": "override",
+    "why": "crystal carrier is not an imbue recipient"
+   },
+   "canBeTraded": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "canStack": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "chakraCost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "chakraCostReducePerLvl": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "cooldown": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "cost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "craftingExperience": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "crystalTargetTypes": {
+    "source": "override",
+    "why": "RUL005 retained weapon-only restriction"
+   },
+   "description": {
+    "source": "override",
+    "why": "test presentation"
+   },
+   "destroyOnUse": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "effects": {
+    "source": "override",
+    "why": "RUL005 sole Consume10; rounds3/shieldRounds3 TEST CARRIER ONLY"
+   },
+   "expireFromStoreAt": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmExtractSeedCount": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmExtractSeedItemId": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmFertilizerExperience": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmGrowTimeSeconds": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmHarvestExperience": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmMinLevel": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmPlantExperience": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmSellValue": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmTimeReductionSeconds": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "farmYieldItemId": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "healthCost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "healthCostReducePerLvl": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "hidden": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "image": {
+    "source": "override",
+    "why": "test presentation; no art or CDN fetch"
+   },
+   "inShop": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "isEventItem": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "isFarmFertilizer": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "isFarmSeed": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "itemType": {
+    "source": "override",
+    "why": "RUL005 retained category"
+   },
+   "maxDurability": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "maxEquips": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "maxImbueNumber": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "method": {
+    "source": "override",
+    "why": "crystal carrier shape"
+   },
+   "name": {
+    "source": "override",
+    "why": "test identity; name Skyglass Crystal approved"
+   },
+   "parentItemId": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "preventBattleUsage": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "range": {
+    "source": "override",
+    "why": "crystal carrier shape"
+   },
+   "rarity": {
+    "source": "override",
+    "why": "TEST CARRIER ONLY; rarity unapproved; guards also test EPIC/LEGENDARY"
+   },
+   "repsCost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredBukijutsuDefence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredBukijutsuOffence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredGenjutsuDefence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredGenjutsuOffence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredIntelligence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredLevel": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredNinjutsuDefence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredNinjutsuOffence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredSpeed": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredStrength": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredTaijutsuDefence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredTaijutsuOffence": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "requiredWillpower": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "seichiSilverCost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "slot": {
+    "source": "override",
+    "why": "crystal carrier shape"
+   },
+   "stackSize": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "staminaCost": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "staminaCostReducePerLvl": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   },
+   "target": {
+    "source": "override",
+    "why": "crystal carrier shape; Consume target is SELF"
+   },
+   "weaponType": {
+    "source": "override",
+    "why": "crystal carrier shape"
+   },
+   "xpToLevel": {
+    "source": "Flaming Sword TEST CARRIER ONLY; not a Crystal policy decision"
+   }
+  }
+ }
+}

@@ -1,0 +1,529 @@
+{
+ "assertions": 19,
+ "checks": [
+  {
+   "detail": {
+    "extra": [],
+    "fields": 74,
+    "mismatch": [],
+    "missing": []
+   },
+   "name": "all 65 non-override Katana fields equal Night's Testament; no missing or extra fields",
+   "pass": true
+  },
+  {
+   "detail": [
+    "battleDescription",
+    "canBeCrafted",
+    "canBeImbued",
+    "craftingExperience",
+    "description",
+    "effects",
+    "hidden",
+    "image",
+    "name"
+   ],
+   "name": "the nine ruling/presentation overrides remain the exact accepted set",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "after": 15,
+     "before": 40,
+     "path": "/effects/2/power"
+    },
+    {
+     "after": 2,
+     "before": 0,
+     "path": "/effects/2/rounds"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/shieldRounds"
+    }
+   ],
+   "name": "r4 Katana → final differs only in Consume power 40→15, rounds 0→2, shieldRounds 3→2",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/rounds"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/shieldRounds"
+    }
+   ],
+   "name": "3/3 carrier → final Katana differs only in Consume rounds 3→2 and shieldRounds 3→2",
+   "pass": true
+  },
+  {
+   "detail": {
+    "carriers3x3": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
+    "contract": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282",
+    "crystalCapture": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+    "r4Katana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469"
+   },
+   "name": "capture, historical record, 3/3 packet and contract SHA256 values match record provenance",
+   "pass": true
+  },
+  {
+   "name": "timing is the approved RUL006 2/2 and the historical diffs recorded in the packet match",
+   "pass": true
+  },
+  {
+   "name": "exact three-effect Katana contract validates with Consume15 rounds2/shieldRounds2",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "full ItemValidator accepts the complete Katana with labelled presentation placeholders",
+   "pass": true
+  },
+  {
+   "name": "Katana remains LEGENDARY WEAPON/SWORD, non-imbuable, hidden, drop-only and tradable; AP40 CD6 range4 40/40/0",
+   "pass": true
+  },
+  {
+   "name": "Crystal effects are exactly one Consume10 rounds2/shieldRounds2 (no Damage/Pierce filler)",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "full ItemValidator accepts the complete LEGENDARY Crystal with labelled presentation placeholders",
+   "pass": true
+  },
+  {
+   "name": "decided Crystal fields equal the amended contract (CRYSTAL, WEAPON-only, LEGENDARY, canBeTraded true, canBeCrafted true)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "canBeCrafted": true,
+    "craftingRequirements": [
+     {
+      "ids": [
+       "@item:skyglass_filament"
+      ],
+      "number": 12
+     }
+    ]
+   },
+   "name": "recipe restored: craftingRequirements = 12 x @item:skyglass_filament, canBeCrafted true, preserved by the validator",
+   "pass": true
+  },
+  {
+   "name": "trade flag is record/schema evidence only: stored and validator output canBeTraded true; no auction price bounds set",
+   "pass": true
+  },
+  {
+   "name": "Crystal is created hidden and not sold in shops (acquisition is the 3% Reliquary drop)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "actionCostPerc": 60,
+    "battleUsageType": "BOTH",
+    "canStack": false,
+    "chakraCost": 0,
+    "cooldown": 5,
+    "cost": 1,
+    "craftingExperience": 800,
+    "destroyOnUse": false,
+    "maxDurability": 100,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "method": "SINGLE",
+    "range": 0,
+    "requiredLevel": 1,
+    "slot": "ITEM",
+    "stackSize": 1,
+    "staminaCost": 0,
+    "target": "CHARACTER",
+    "weaponType": "NONE",
+    "xpToLevel": 1000
+   },
+   "name": "all 20 undecided fields equal the live Heal Crystal III row (LEGENDARY WEAPON crystal, push/87)",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "name": "instant standalone Consume array rejected with exactly the companion-tag issue",
+   "pass": true
+  },
+  {
+   "name": "full instant Crystal rejects at effects for the same rule; a damage control is accepted",
+   "pass": true
+  },
+  {
+   "name": "maxImbueNumber0 rejects, 1 accepts and canBeImbued:false accepts",
+   "pass": true
+  }
+ ],
+ "data": {
+  "crystalValidation": {
+   "diffFrom3x3": [
+    {
+     "after": 60,
+     "before": 40,
+     "path": "/actionCostPerc"
+    },
+    {
+     "after": null,
+     "before": "harness placeholder (presentation pending)",
+     "path": "/battleDescription"
+    },
+    {
+     "after": true,
+     "before": false,
+     "path": "/canBeCrafted"
+    },
+    {
+     "after": true,
+     "before": false,
+     "path": "/canBeTraded"
+    },
+    {
+     "after": 0,
+     "before": 40,
+     "path": "/chakraCost"
+    },
+    {
+     "after": 5,
+     "before": 4,
+     "path": "/cooldown"
+    },
+    {
+     "after": 1,
+     "before": 150000,
+     "path": "/cost"
+    },
+    {
+     "after": 800,
+     "before": 0,
+     "path": "/craftingExperience"
+    },
+    {
+     "after": [
+      {
+       "ids": [
+        "@item:skyglass_filament"
+       ],
+       "number": 12
+      }
+     ],
+     "before": null,
+     "path": "/craftingRequirements"
+    },
+    {
+     "after": null,
+     "before": "harness placeholder (presentation pending)",
+     "path": "/description"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/0/rounds"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/0/shieldRounds"
+    },
+    {
+     "after": true,
+     "before": false,
+     "path": "/hidden"
+    },
+    {
+     "after": null,
+     "before": "",
+     "path": "/image"
+    },
+    {
+     "after": false,
+     "before": true,
+     "path": "/inShop"
+    },
+    {
+     "after": "Skyglass Crystal",
+     "before": "Skyglass Crystal (offline carrier)",
+     "path": "/name"
+    },
+    {
+     "after": "NONE",
+     "before": null,
+     "path": "/purchaseLimitPeriod"
+    },
+    {
+     "after": "LEGENDARY",
+     "before": "RARE",
+     "path": "/rarity"
+    },
+    {
+     "after": 1,
+     "before": 20,
+     "path": "/requiredLevel"
+    },
+    {
+     "after": 0,
+     "before": 40,
+     "path": "/staminaCost"
+    },
+    {
+     "after": "CHARACTER",
+     "before": "SELF",
+     "path": "/target"
+    }
+   ],
+   "effectsAccepted": true,
+   "fullAccepted": true,
+   "issues": [],
+   "mirrorSource": {
+    "capture": "harvests/inbox/tnr_results_1791766317760.json",
+    "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "capturedAt": "2026-10-12T00:51:56.877Z",
+    "id": "iJM0kb1i6iNXjADJlZGV_",
+    "name": "Heal Crystal III",
+    "proc": "item.get",
+    "snapshotKey": "87-mv4jehc4::before::1"
+   },
+   "mirroredFields": {
+    "actionCostPerc": 60,
+    "battleUsageType": "BOTH",
+    "canStack": false,
+    "chakraCost": 0,
+    "cooldown": 5,
+    "cost": 1,
+    "craftingExperience": 800,
+    "destroyOnUse": false,
+    "maxDurability": 100,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "method": "SINGLE",
+    "range": 0,
+    "requiredLevel": 1,
+    "slot": "ITEM",
+    "stackSize": 1,
+    "staminaCost": 0,
+    "target": "CHARACTER",
+    "weaponType": "NONE",
+    "xpToLevel": 1000
+   },
+   "parsedEffects": [
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "percentage",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 10,
+     "powerPerLevel": 0,
+     "rounds": 2,
+     "shieldRounds": 2,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "consume"
+    }
+   ],
+   "validatorOutputEconomy": {
+    "auctionMaxPrice": null,
+    "auctionMinPrice": null,
+    "canBeCrafted": true,
+    "canBeTraded": true,
+    "craftingExperience": 800,
+    "craftingRequirements": [
+     {
+      "ids": [
+       "@item:skyglass_filament"
+      ],
+      "number": 12
+     }
+    ]
+   }
+  },
+  "instantNegativeControl": {
+   "damageControlAccepted": true,
+   "instantEffects": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": ""
+    }
+   ],
+   "instantFullItem": [
+    {
+     "message": "ConsumeTag must be used together with a damage or pierce effect on the same action",
+     "path": "effects"
+    }
+   ]
+  },
+  "katanaDiffs": {
+   "from3x3": [
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/rounds"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/shieldRounds"
+    }
+   ],
+   "fromR4": [
+    {
+     "after": 15,
+     "before": 40,
+     "path": "/effects/2/power"
+    },
+    {
+     "after": 2,
+     "before": 0,
+     "path": "/effects/2/rounds"
+    },
+    {
+     "after": 2,
+     "before": 3,
+     "path": "/effects/2/shieldRounds"
+    }
+   ]
+  },
+  "katanaValidation": {
+   "effects": [
+    {
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true,
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "formula",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "dmgModifier": 0,
+     "elements": [
+      "Crystal"
+     ],
+     "generalTypes": [
+      "Highest"
+     ],
+     "power": 50,
+     "powerPerLevel": 0,
+     "residualModifier": 0,
+     "rounds": 0,
+     "statTypes": [
+      "None"
+     ],
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "INHERIT",
+     "type": "pierce"
+    },
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "blocks": "buffprevent",
+     "calculation": "static",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 100,
+     "powerPerLevel": 0,
+     "rounds": 2,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "immunity"
+    },
+    {
+     "appearAnimation": "",
+     "appearSfx": "",
+     "calculation": "percentage",
+     "description": "placeholder",
+     "direction": "offence",
+     "disappearAnimation": "",
+     "disappearSfx": "",
+     "power": 15,
+     "powerPerLevel": 0,
+     "rounds": 2,
+     "shieldRounds": 2,
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "target": "SELF",
+     "type": "consume"
+    }
+   ],
+   "effectsAccepted": true,
+   "fullAccepted": true,
+   "issues": [],
+   "presentationPlaceholders": {
+    "battleDescription": "%user strikes %target (harness placeholder)",
+    "description": "harness placeholder (presentation pending)",
+    "image": ""
+   }
+  },
+  "recordStatus": {
+   "consumeOverlap": "CLOSED_NATIVE (RUL-2026-10-12-006)",
+   "presentationPending": [
+    "description",
+    "battleDescription",
+    "image"
+   ],
+   "status": "FINAL_2X2_RECORDS (RUL006 as amended by RUL-2026-10-12-005); PRESENTATION_PENDING_FROM_DIRECTOR; NOT_A_WRITE_MANIFEST",
+   "timing": {
+    "approved": true,
+    "consumeRounds": 2,
+    "generatedShieldRounds": 2,
+    "ruling": "RUL-2026-10-11-006"
+   }
+  },
+  "sourceProvenance": {
+   "crystalShapeDonor": {
+    "capture": "harvests/inbox/tnr_results_1791766317760.json",
+    "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "capturedAt": "2026-10-12T00:51:56.877Z",
+    "id": "iJM0kb1i6iNXjADJlZGV_",
+    "name": "Heal Crystal III",
+    "proc": "item.get",
+    "snapshotKey": "87-mv4jehc4::before::1"
+   },
+   "designCommit": "8a78115367feda143e9591f524b739a7d56330af",
+   "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+   "hashes": {
+    "carriers3x3": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
+    "contract": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282",
+    "crystalCapture": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+    "r4Katana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469"
+   },
+   "katanaBaseline": {
+    "capture": "harvests/inbox/tnr_results_1791727479372.json",
+    "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+    "capturedAt": "2026-10-11T14:04:38.932Z",
+    "id": "osJq3k77YPGoFWgof12FQ",
+    "name": "Night's Testament",
+    "pointer": "/captures/0/data"
+   }
+  }
+ },
+ "failed": 0,
+ "gate": "CONTRACT",
+ "records": "state/ghost_ship_skyglass_final_item_records.json",
+ "scope": "final 2/2 records (RUL006 + RUL-2026-10-12-005); presentation pending from the director"
+}
