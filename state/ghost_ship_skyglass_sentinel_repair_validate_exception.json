@@ -1,0 +1,77 @@
+{
+ "schema": "tnr.release_validate_exception",
+ "ruling": "RUL-2026-10-12-015",
+ "scope": "push/94 only, at exactly this manifest SHA-256; not a doctrine change and not a precedent",
+ "command": "cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/94_ghost_ship_skyglass_sentinel_repair.json",
+ "manifest": {
+  "path": "push/94_ghost_ship_skyglass_sentinel_repair.json",
+  "sha256": "a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988"
+ },
+ "validator": {
+  "validate.py": "f7eb8815701c299588a025975348541bc79f58116a2abb9edbd0952847bcad85",
+  "45c_DATA_constructors.json": "d3c398f01580a2fa866992a85bca843e20bd179775f76108c5468a055dbd6062",
+  "45d_DATA_entity_schemas.json": "96580ed19256b38e980cf21c4b2e081aa428a0448bf3cb007073daeb24372221",
+  "45g_DATA_checks.json": "cb8473d25f5d223aa2ae5c64774b83082d82f475428b8dbf9f1fb32cdf048a1e",
+  "45h_DATA_lints.json": "cce0a0bbc279fc06e2548c4de1d1082afc517f6e416a29dac13bc2195bced086",
+  "32b_DATA_pool.json": "bc813eec92976ab6406337aa97839e035af078f3908eec2f49a34fa185abd204"
+ },
+ "exitCode": 1,
+ "summary": "4 errors, 3 warnings",
+ "classes": [
+  {
+   "class": "approved_shared_menu_target",
+   "evidence": "d_parley is the live riddle (two wrong answers lead to the duel; retheme invariant: preserve edges). d_recon_test's two wrong seals lead to the approved lockout (RUL-2026-10-10-003).",
+   "errors": 4,
+   "warnings": 0
+  },
+  {
+   "class": "captured_selftarget_gate",
+   "evidence": "These are captured rule conditions kept under RUL-2026-10-12-003. They are harmless: the gate never restricts a SELF action.",
+   "errors": 0,
+   "warnings": 1
+  },
+  {
+   "class": "stale_snapshot_scene_character",
+   "evidence": "b_K8qdNI651fTsRn9tfkk is gs_char_sealwright, the SCENE_CHARACTER gameAsset push/90 created (run idmap). The answers snapshot predates that run. The live push/90 after-capture of both quests already carries this id.",
+   "errors": 0,
+   "warnings": 2
+  }
+ ],
+ "diagnostics": [
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Gather): boss text Guardian -> Sentinel (push/90 text restored)].d_parley: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Gather): boss text Guardian -> Sentinel (push/90 text restored)].d_recon_test: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Hunt): boss text Guardian -> Sentinel (push/90 text restored)].d_parley: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Hunt): boss text Guardian -> Sentinel (push/90 text restored)].d_recon_test: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Skyglass Sentinel (was Ghostly Guardian; Sentinel and Guardian both taken): rename, rules, avatar, multiplier 5, kit re-sent].rules[5]: Light Barrier is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "stale_snapshot_scene_character",
+   "text": "lint Ghost Ship (Gather): boss text Guardian -> Sentinel (push/90 text restored): T1 law 49: objective d_sealwright sceneCharacters 'b_K8qdNI651fTsRn9tfkk' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"
+  },
+  {
+   "level": "warning",
+   "class": "stale_snapshot_scene_character",
+   "text": "lint Ghost Ship (Hunt): boss text Guardian -> Sentinel (push/90 text restored): T1 law 49: objective d_sealwright sceneCharacters 'b_K8qdNI651fTsRn9tfkk' - sceneCharacters id does not resolve in answers names_asset or the hot shard - it must be a SCENE_CHARACTER gameAsset id; an AI userId there renders nothing, silently. Snapshot check only: a record created since the last harvest resolves live but not here"
+  }
+ ]
+}
