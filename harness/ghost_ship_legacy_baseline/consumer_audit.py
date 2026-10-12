@@ -99,8 +99,8 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
             if c.get("proc") != "profile.getAi":
                 continue
             uid = (c.get("input") or {}).get("userId")
-            if uid not in want:
-                continue
+            if not uid:
+                continue  # supplementary reads (e.g. push/92) of ids outside the census also count
             if c.get("ok") is not True:
                 errors.append(f"{uid}: read not ok ({c.get('error')})")
                 continue
@@ -141,6 +141,7 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
         "censusManifests": manifests,
         "inputs": inputs,
         "coverage": {"censusIds": len(want), "read": len(bodies), "missing": missing,
+                     "extraIdsRead": sorted(set(bodies) - want),
                      "deletedNull": sum(1 for b in bodies.values() if b is None),
                      "elder": sum(1 for b in bodies.values() if b is not None and b.get("rank") == "ELDER"),
                      "liveNonElder": len(live), "expectedLiveNonElder": expected, "liveCountSource": count_src,
