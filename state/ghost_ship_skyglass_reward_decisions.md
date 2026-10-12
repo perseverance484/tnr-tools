@@ -68,6 +68,7 @@ Settled or historical:
 
 Still open:
 
-1. Fable validates final 2/2 records and the approved Crystal economy under `state/prompt_ghost_ship_skyglass_final_item_revalidation.md`, preserving the 3/3 evidence. Independent review remains open.
+1. Independent review of Fable's final 2/2 package. Records: `state/ghost_ship_skyglass_final_item_records.json` (derived by `harness/ghost_ship_final/tools/build_final_items.py`); offline evidence: `harness/ghost_ship_final/` and `docs/reviews/GHOST_SHIP_FINAL_ITEMS_CROWNED_OFFLINE_RESULTS.md`. The 3/3 and r4 evidence is preserved unchanged.
+4. Crystal non-effect values no ruling sets (cost, requiredLevel, action cost/cooldown/pool costs, durability, stack and level fields): carried from the shape donor and listed as unapproved in the record packet.
 2. Sealwright effective Captain parity and final AI decisions; new art QA, final quest prose, Filament disposition and fresh operator-run hidden readback.
 3. Katana presentation: description, battle description, image, effect animation/SFX.
