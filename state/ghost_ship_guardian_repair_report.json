@@ -1,0 +1,42 @@
+{
+ "schema": "tnr.repair_manifest_report",
+ "ruling": "RUL-2026-10-12-014",
+ "manifest": "push/93_ghost_ship_guardian_repair.json",
+ "push90": {
+  "path": "push/90_ghost_ship_skyglass_release.json",
+  "sha256": "6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7"
+ },
+ "results": {
+  "path": "harvests/inbox/tnr_results_1791779642866.json",
+  "sha256": "0fe3018ae914424505502dcb5c6f104e882b18fd4e324620a466d04405314727"
+ },
+ "failure": "update SERVER: {\"message\":\"target: tnr.-.primary: vttablet: rpc error: code = AlreadyExists desc = Duplicate entry 'Sentinel' for key 'UserData.UserData_username_key' (errno 1062)",
+ "resolvedRefs": {
+  "@ai:sealwright": "RBW5KsIXmTGR710D2y2Y7",
+  "@img:avatar_ghost_ship_sentinel.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8m10qgkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+  "@img:quest_icon_ghost_ship_skyglass.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcrXit1SnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "@item:skyglass_reliquary": "FVYuxw5E5b2lPOn3cbFfF",
+  "@scene:gs_char_sealwright": "b_K8qdNI651fTsRn9tfkk",
+  "@scene:gs_scene_command_gallery": "X7ABmzu8vPl9rL8OV9GLB",
+  "@scene:gs_scene_exterior_keel": "ujMH_Rcu9muS1z4KgqPla",
+  "@scene:gs_scene_quarantined_archive": "aOsaP9cilezNV8DqtTh4y",
+  "@scene:gs_scene_reconstruction": "81DATu13hATfbkPuLT54E"
+ },
+ "renamedObjectives": [
+  "6Ri-W5TtUrEMWpyYlnf_F/d_guardian",
+  "6Ri-W5TtUrEMWpyYlnf_F/b_guardian",
+  "6Ri-W5TtUrEMWpyYlnf_F/r_dig",
+  "6Ri-W5TtUrEMWpyYlnf_F/d_claim_A",
+  "HckXVOf-qk6ESU9t5rxLh/d_guardian",
+  "HckXVOf-qk6ESU9t5rxLh/b_guardian",
+  "HckXVOf-qk6ESU9t5rxLh/r_dig",
+  "HckXVOf-qk6ESU9t5rxLh/d_claim_A"
+ ],
+ "questsEqualLiveBeforeRename": true,
+ "liveKitEqualsSentKit": true,
+ "aiKeysChangedFromPush90": [
+  "avatar (resolved @img)",
+  "username"
+ ],
+ "manifestSha256": "840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753"
+}

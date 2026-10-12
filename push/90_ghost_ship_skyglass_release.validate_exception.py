@@ -130,10 +130,10 @@ def main() -> int:
         b = collections.Counter(json.dumps(d, sort_keys=True) for d in doc["diagnostics"])
         problems.append(f"diagnostics differ: {len(list((b - a).elements()))} new, {len(list((a - b).elements()))} gone")
     if problems:
-        print("EXCEPTION VOID (RUL-2026-10-12-013 does not cover this state):\n  " + "\n  ".join(problems), file=sys.stderr)
+        print(f"EXCEPTION VOID ({doc['ruling']} does not cover this state):\n  " + "\n  ".join(problems), file=sys.stderr)
         return 1
     print(f"EXCEPTION HOLDS: validate.py '{doc['summary']}' (exit {doc['exitCode']}) is exactly the ledger approved by "
-          f"RUL-2026-10-12-013 for push/90 sha256 {doc['manifest']['sha256']}")
+          f"{doc['ruling']} for {MANIFEST} sha256 {doc['manifest']['sha256']}")
     return 0
 
 
