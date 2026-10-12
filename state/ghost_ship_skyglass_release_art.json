@@ -1,7 +1,7 @@
 {
   "schema": "tnr.ghost_ship_skyglass_release_art",
   "version": 1,
-  "status": "REQUIRED_SLOTS_BOUND (intake commit d61c990d2935df9c4acc1d4c57f412cbd77c4303)",
+  "status": "ALL_34_BOUND (intake commit d61c990d2935df9c4acc1d4c57f412cbd77c4303): 10 required + 24 replacements",
   "ruling": "RUL-2026-10-12-008: the director's zip of finalized art is the last input. At intake each file is processed/QC'd, committed under art/ghost_ship_skyglass/, and its repository path is entered here; the generator binds it with --image-ref <commit> (sha256 and bytes are computed from the blob at that commit, never typed).",
   "consumer": "push/90_ghost_ship_skyglass_release.gen.py",
   "required": {
@@ -17,6 +17,31 @@
     "ai:sealwright": "art/ghost_ship_skyglass/avatar_ghost_ship_sealwright.webp"
   },
   "optional": {
-    "_note": "Replacement art for existing records. Add entries as item:<itemId>, asset:<assetId> or ai:<aiUserId> with the repository path; an absent entry keeps the live image untouched."
+    "_note": "Replacement art for existing Ghost Ship records (director instruction 2026-10-12: wire every approved asset; leave no old Ghost Ship art behind). item:<itemId>, asset:<assetId>, ai:<aiUserId> or quest:<questId> -> repository path. --final requires every WebP in art/ghost_ship_skyglass/ to be bound at least once.",
+    "ai:2OXJEXoktxJcjqMkE851g": "art/ghost_ship_skyglass/avatar_ghost_ship_arsenal_keeper.webp",
+    "ai:QY69h271Nx9uHrBeR6jwW": "art/ghost_ship_skyglass/avatar_ghost_ship_captain_b.webp",
+    "ai:frc9LTxqQlM7mncG4VZGK": "art/ghost_ship_skyglass/avatar_ghost_ship_core_canister.webp",
+    "ai:AQi-bHJ-5tHXtxrnc0P9E": "art/ghost_ship_skyglass/avatar_ghost_ship_core_horror.webp",
+    "ai:fDU9jCPZtH7YHbdQPO9RF": "art/ghost_ship_skyglass/avatar_ghost_ship_crowned_captain_b.webp",
+    "ai:texZaFi42S3EvJZBwQ8cd": "art/ghost_ship_skyglass/avatar_ghost_ship_deck_warden.webp",
+    "ai:d6g0mOM7RBSsYI1hrUVT9": "art/ghost_ship_skyglass/avatar_ghost_ship_first_blade.webp",
+    "ai:0PZU_FvlbM3ErYGlD5r56": "art/ghost_ship_skyglass/avatar_ghost_ship_oathkeeper.webp",
+    "ai:wTgO-Q32caSSd0is1QIS7": "art/ghost_ship_skyglass/avatar_ghost_ship_seal_charge.webp",
+    "ai:3V_gdHYaclMB1gTyOPAbV": "art/ghost_ship_skyglass/avatar_ghost_ship_sentinel.webp",
+    "ai:v7T9_XdGMfP46em0dPuBc": "art/ghost_ship_skyglass/avatar_ghost_ship_wayfinder.webp",
+    "item:yTS9TSpr_QLnh_3zmEpGg": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp",
+    "item:ayiRmSjWs05lMPyL3G-1d": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp",
+    "item:XhilCv1Hq4eNt-Wddok-m": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_serum.webp",
+    "quest:6Ri-W5TtUrEMWpyYlnf_F": "art/ghost_ship_skyglass/quest_icon_ghost_ship_skyglass.webp",
+    "quest:HckXVOf-qk6ESU9t5rxLh": "art/ghost_ship_skyglass/quest_icon_ghost_ship_skyglass.webp",
+    "asset:rX78pJPETsUL2JrsSvGHn": "art/ghost_ship_skyglass/scene_bg_ghost_ship_cache_site.webp",
+    "asset:ApkLYWJ3AFe8oyqQwk_8z": "art/ghost_ship_skyglass/scene_bg_ghost_ship_chart_room.webp",
+    "asset:U2pjcM1_N-HdVf928Sn5z": "art/ghost_ship_skyglass/scene_bg_ghost_ship_deck_b.webp",
+    "asset:-eB0frmTJss6Uco6ZoM07": "art/ghost_ship_skyglass/scene_bg_ghost_ship_helm.webp",
+    "asset:yufttCkG-KsefHKuz9Q2a": "art/ghost_ship_skyglass/scene_bg_ghost_ship_hold.webp",
+    "asset:dFwyPzyhUZQjDBXpJRUDJ": "art/ghost_ship_skyglass/scene_bg_ghost_ship_lower_hull.webp",
+    "asset:xm3F2YXkNPeLWHRAUnbmF": "art/ghost_ship_skyglass/scene_char_ghost_ship_captain_portrait_b.webp",
+    "asset:4Cu4EBaWRsGm5J_Ld1hTt": "art/ghost_ship_skyglass/scene_char_ghost_ship_crowned_captain_portrait_b.webp",
+    "asset:6iwMYC8WTCGJTf2QIYfBz": "art/ghost_ship_skyglass/scene_char_ghost_ship_oathkeeper_portrait.webp"
   }
 }

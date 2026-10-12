@@ -759,7 +759,7 @@ def check_graph(objs: list[dict], label: str) -> dict:
     return {"nodes": len(objs), "root": root, "endings": endings, "tasks": dict(Counter(o["task"] for o in objs))}
 
 
-def build_quests(base_rel: str, final: bool, report: dict) -> list[dict]:
+def build_quests(base_rel: str, final: bool, report: dict, art: "Art") -> list[dict]:
     retheme = load(RETHEME)
     graph = load(GRAPH)
     legends = {**graph["sceneSymbolLegend"], **graph["characterSymbolLegend"]}
@@ -840,6 +840,9 @@ def build_quests(base_rel: str, final: bool, report: dict) -> list[dict]:
         qtext = retheme["quests"][qid]
         data = {"name": qtext["name"], "description": qtext["description"],
                 "successDescription": qtext["successDescription"], "hidden": True, "content": content}
+        img = art.replacement("quest:" + qid)
+        if img:
+            data["image"] = img
         out.append({"entity": "quest", "slot": "edit", "phase": 8, "targetId": qid,
                     "name": f"{qtext['name']}: Skyglass retheme + 83-node expansion", "data": data})
         qrep[qid] = stats
@@ -893,7 +896,14 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
     item_creates, item_edits = build_items(pres, art, report)
     unequip, ai_final, sealwright, _ = build_ais(art, report, gate_policy)
     jutsu_edits = build_jutsu_edits(report)
-    quests = build_quests(base, final, report)
+    quests = build_quests(base, final, report, art)
+    # Director instruction (2026-10-12): no approved Ghost Ship art may be left unbound.
+    art_dir = os.path.join(ROOT, "art", "ghost_ship_skyglass")
+    on_disk = sorted(f for f in os.listdir(art_dir) if f.endswith(".webp")) if os.path.isdir(art_dir) else []
+    unbound = sorted(set(on_disk) - set(art.files)) if art.ref else []
+    if final and unbound:
+        fail("approved art not bound to any record: " + ", ".join(unbound))
+    report["artCoverage"] = {"filesInArtDir": len(on_disk), "bound": len(art.files), "unbound": unbound}
 
     # Forge executes by `phase` (then refs), so array order is presentation only. Assets sit last
     # because validate.py renames "asset" to "gameAsset" before its build-order lookup, which ranks
