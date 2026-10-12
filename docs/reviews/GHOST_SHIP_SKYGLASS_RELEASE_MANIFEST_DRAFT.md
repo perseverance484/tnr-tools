@@ -155,3 +155,7 @@ Gate STATS (`harness/ghost_ship_final` r3) executes the pinned save path and bat
 Gates: Forge `check_manifest` 0 problems (hash `628d60e4`), runtime check 0, rules 72/0, dry run 29/29, harness r3 clean ×2, Forge suite 526/526.
 
 §§2, 8 and 9 above describe the earlier `5eb75123` state where they mention push/93 or the 51/50-entry follow-up. This section supersedes them.
+
+## 11. GS-R5 disposition (RUL-2026-10-12-013)
+
+The re-review of `be15d7f4` passed GS-R1–R4 and the stat requirement. It held release on validate.py (exit 1, 56 errors / 25 warnings). The director approved a release-specific exception for push/90 sha256 `6b720542…` and exactly those 81 diagnostics, in nine evidence-backed classes. `push/90_ghost_ship_skyglass_release.validate_exception.py` enforces it against `state/ghost_ship_skyglass_release_validate_exception.json`. Contract regeneration is a separate Lane A follow-up.

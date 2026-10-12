@@ -2,6 +2,12 @@
 
 **Implementer:** Fable (Claude Code). **Reviewer:** ChatGPT, at the exact SHA. **Decisions:** dauntless (RUL-2026-10-12-001…012).
 
+## 0a. Changes since the re-reviewed head `be15d7f4dac60cbb864085142b135a75d6de9bc4` (GS-R5)
+
+- **GS-R5:** disposed by the director's release-specific exception, RUL-2026-10-12-013. It adds `push/90_ghost_ship_skyglass_release.validate_exception.py` and the ledger `state/ghost_ship_skyglass_release_validate_exception.json`.
+- **push/90 manifest, generator, Forge code and harnesses are unchanged**: same sha256 `6b720542…`, Forge hash `628d60e4`. Only the ledger, the check tool, the ruling and documentation were added, so a narrow recheck suffices.
+- **Non-blocking handoff corrections applied:** the dry-run count is 29/29, the Forge provenance is 0.5.2 pending, and risk 7 is the current suite state.
+
 ## 0. Changes since the reviewed head `5eb75123a3ef18012735ae7fcebab2f928734661`
 
 | Review item | Fix | Evidence |
@@ -38,7 +44,7 @@
 | `forge/src/runner/{validate,lints}.mjs`, `forge/test/post0056.test.mjs`, `forge/package.json`, `forge_bundle.js`, `forge_loader_user.js` | Forge 0.5.2: post-0056 AI create columns, L05 without preferredStat (pending release) |
 | `harness/ghost_ship_final/engine/release_stats.test.ts` | Gate STATS (r3): pinned-server save path and battle scaling/clamping |
 | `push/90_ghost_ship_skyglass_release.check.mjs`, `.rules.ts` | Forge pre-send check against live rows; engine `AiRule` parse |
-| `harness/ghost_ship_release_dryrun/` | Headless ForgeCore dry run over FakeGame (27/27) |
+| `harness/ghost_ship_release_dryrun/` | Headless ForgeCore dry run over FakeGame (29/29) |
 | `harness/ghost_ship_legacy_baseline/` | Post-0056 legacy jutsu re-baseline and the consumer audit (with self-tests) |
 | `art/ghost_ship_skyglass/` | 34 director-approved WebPs plus `_provenance/` |
 | `state/ghost_ship_skyglass_release_{presentation,art}.json`, `state/ghost_ship_legacy_jutsu_{baseline_push86,edit_scope,consumer_audit}.json`, `state/ghost_ship_skyglass_release_manifest_report.json` | Inputs and generated ledgers |
@@ -85,12 +91,13 @@ Before and after: full captures.
 | `python3 harness/ghost_ship_legacy_baseline/consumer_audit.py <push/81–84 results> --live-count harvests/inbox/tnr_results_1791772372237.json --accept-residual RUL-2026-10-12-011` | `ACCEPTED_RESIDUAL`: 535/535 read, live 506/522, 0 outside holders of edited jutsu |
 | `TNR_REPO=$PWD python3 harness/ghost_ship_stage2/m0_verify.py --out x.json` | 482/0, byte-identical to all three committed frozen `m0.json` (the conversion packet is unchanged) |
 | `harness/ghost_ship_final/run.sh` (r3) | M0 482/0, CONTRACT 19/0, GUARDS 24/0, ACTIVE 81/0, CROWNED 36/0, **STATS 68/0**; bun 51 pass/0 fail/220 expects; two runs byte-identical; network-denied |
-| `python3 skills/building-tnr-content/scripts/validate.py push/90_… --strict` | **Not clean, by known classes** (draft doc §3): stale 45c/45d at `bdec2883` rejects live chest reward fields, effect `direction`/`description` and `farm*` nulls; build-order (law 60 sequence; `asset`→`gameAsset` ranks last); menu-shared-target on `d_parley` (live) and `d_recon_test` (approved lockout); captured self-target gates; law 6 / 45g `tag_power_max` on IDG 375 and 450 (Forge deliberately does not wire this check: there is no maximum at source, and the STATS engine parse accepts both values). L01 cleared |
+| `cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/90_ghost_ship_skyglass_release.json` (with or without `--strict`) | Exit 1, **56 errors / 25 warnings**, all in the 9 approved classes of RUL-2026-10-12-013 |
+| `python3 push/90_ghost_ship_skyglass_release.validate_exception.py` | **EXCEPTION HOLDS**: manifest sha256 `6b720542…`, validator and contract hashes, and the exact 81-line diagnostic multiset equal `state/ghost_ship_skyglass_release_validate_exception.json`. Negative probes (manifest byte change, a new unknown effect field, a ledger missing one diagnostic) each exit 1 |
 
 ## 4. Source / provenance
 
 - **Engine:** `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b`. This is upstream source; the deployed version is unverified (RUL-007).
-- **Forge** under test: 0.5.0 behaviour (package 0.5.1), pinned field set `345d18ac`.
+- **Forge** under test: package and bundle **0.5.2** (pending release; the loader keeps released 0.5.1 with `@x-release-pending 0.5.2`). Pinned field set `345d18ac` plus the additive post-0056 AI create keys and L05 without `preferredStat`.
 - **Captures:**
 
   | Capture | Contents |
@@ -121,8 +128,8 @@ Before and after: full captures.
    - Filament stackSize 5 and Reliquary `isEventItem:true` are mirrored, not ruled.
    - Scene folder `GhostShip`.
    - Quests are hidden by this run (they currently read hidden:false).
-6. **validate.py classes not cleared** (§3). They need a separate contract regeneration with `schema_extract.py` and its adoption gate.
-7. **The pre-existing Forge test failure** on push/79 shares the "no live row offline" class.
+6. **validate.py is not clean. It is under a release-specific exception (RUL-2026-10-12-013, GS-R5).** `push/90_ghost_ship_skyglass_release.validate_exception.py` must report `EXCEPTION HOLDS`. The contract regeneration (`schema_extract.py` plus its adoption gate) is a separate Lane A follow-up.
+7. **Forge suite:** 526/526 at this target. The push/79 compatibility case that failed on `main` now passes under 0.5.2.
 
 ## 6. Live-game statement
 
@@ -136,7 +143,7 @@ Before and after: full captures.
 ## 7. Operator sequence after review approval
 
 1. Integrate into `main`.
-2. Let `release_pin.yml` promote Forge 0.5.2, and confirm the operator's Forge shows v0.5.2.
+2. Let `release_pin.yml` promote Forge 0.5.2, and confirm the operator's Forge shows v0.5.2. Confirm `python3 push/90_ghost_ship_skyglass_release.validate_exception.py` reports EXCEPTION HOLDS on the merged tree.
 3. Run push/90 in Forge and commit its results.
 4. Tester calibration while the quests are hidden (RUL-007).
 5. Publication is a separate director decision.
