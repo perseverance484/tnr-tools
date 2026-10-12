@@ -72,6 +72,8 @@ Observations for the decision:
 
 Any eventual presentation edit must be built from these fresh rows, not from the Oct 1 records. Updating the packet itself, and re-pointing the kit packet and M0 at the fresh bundle, is a separate change for the packet owner. It is not done here, so the frozen review target stays as reviewed.
 
+**Done 2026-10-12:** re-baselined as the companion `state/ghost_ship_legacy_jutsu_baseline_push86.json` (`harness/ghost_ship_legacy_baseline/`). All 11 hashes above are reproduced. The packet and M0 are deliberately unchanged, because three frozen harnesses record the packet's SHA-256.
+
 ## 3. Safety record
 
 Agent live-game requests 0, writes 0. Both captures were operator-run, read-only Forge 0.5.0 point reads. No credentials were used or seen. No manifest, engine, art or record changes.
