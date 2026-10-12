@@ -1,4 +1,4 @@
-// TNR forge bundle v0.5.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.5.2 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
@@ -2282,6 +2282,16 @@
 
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
   var AI_STRIPPED_OK = Object.freeze(["hidden"]);
+  var AI_POST_0056_KEYS = Object.freeze([
+    "offence",
+    "defence",
+    "ninjutsuMastery",
+    "genjutsuMastery",
+    "taijutsuMastery",
+    "bukijutsuMastery",
+    "bloodlineMastery",
+    "sageMastery"
+  ]);
   var SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
   var AI_OMITTED = Object.freeze([
     "trainingStartedAt",
@@ -2346,6 +2356,7 @@
           const pinned = this.knownFields("ai");
           if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
           else for (const k of pinned) allowed.add(k);
+          for (const k of AI_POST_0056_KEYS) allowed.add(k);
         }
         if (live) for (const k of Object.keys(live)) allowed.add(k);
         for (const k of AI_OMITTED) allowed.delete(k);
@@ -3987,7 +3998,7 @@
   var DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
   var DASH_RE = /[–—]/;
   var IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
-  var AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredStat", "preferredGeneral1", "preferredGeneral2"];
+  var AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredGeneral1", "preferredGeneral2"];
   var FORMULA_TAGS =  new Set(["damage", "pierce", "wound"]);
   var PCT_TAGS =  new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]);
   var DIRECTIONS = { redirection: ["push", "pull"], increasestat: ["offence", "defence", "both"], decreasestat: ["offence", "defence", "both"] };

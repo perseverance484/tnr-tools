@@ -36,6 +36,21 @@ export const AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement",
 // dropped by the pinned-field merge before the send, and excluded from the read-back diff.
 export const AI_STRIPPED_OK = Object.freeze(["hidden"]);
 
+// POST-MIGRATION-0056 COMBAT COLUMNS. The field set above is pinned to 345d18ac, which predates
+// upstream migration app/drizzle/migrations/0056_unified_combat_stats_masteries.sql: there the AI
+// row had per-type ninjutsuOffence..bukijutsuDefence, and offence/defence/masteries did not exist.
+// The live game runs past 0056 (push/86 rows carry these columns; push/78 and push/86 reads, and
+// studie-tech/TheNinjaRPG@585534d7 drizzle/schema.ts userData), and an edit already learns them from
+// the live row. A CREATE has no live row, so without this list it could not set them at all: the
+// placeholder would keep offence/defence 10 and scaleEditedAi would distribute nothing to them.
+// Additive and backward compatible: no key the pinned set accepts is refused. A full re-pin of
+// fields.json/nested.json is a separate change, because it would newly refuse staged manifests
+// that still carry the pre-0056 keys.
+export const AI_POST_0056_KEYS = Object.freeze([
+  "offence", "defence", "ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery",
+  "bloodlineMastery", "sageMastery",
+]);
+
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
 
@@ -130,6 +145,7 @@ export class Validator {
         const pinned = this.knownFields("ai"); // insertAiSchema at the pin: known without a live row
         if (!pinned) out.push("no pinned insertAiSchema field set: cannot validate ai keys");
         else for (const k of pinned) allowed.add(k);
+        for (const k of AI_POST_0056_KEYS) allowed.add(k);
       }
       if (live) for (const k of Object.keys(live)) allowed.add(k);
       for (const k of AI_OMITTED) allowed.delete(k);
