@@ -1,6 +1,18 @@
-# Handoff — Ghost Ship / Skyglass release manifest (push/90 + push/93) for independent review
+# Handoff — Ghost Ship / Skyglass release manifest (push/90) for independent re-review (r2)
 
-**Implementer:** Fable (Claude Code). **Reviewer:** ChatGPT, at the exact SHA. **Decisions:** dauntless (RUL-2026-10-12-001…011).
+**Implementer:** Fable (Claude Code). **Reviewer:** ChatGPT, at the exact SHA. **Decisions:** dauntless (RUL-2026-10-12-001…012).
+
+## 0. Changes since the reviewed head `5eb75123a3ef18012735ae7fcebab2f928734661`
+
+| Review item | Fix | Evidence |
+| --- | --- | --- |
+| 1. Obsolete item requirement columns | The item creates no longer send the 8 `required*Offence/Defence` columns migration 0056 removed. The generator refuses any donor column absent from the live post-0056 item row (push/87 Heal Crystal III), except those 8 and the `craftingRequirements` relation | The push/90 item creates carry none. Dry-run check "new items carry no 0056-removed requirement column" |
+| 2. Noncanonical boss effects | Every asserted AI `effects` array is the fixed point of the server's `insertAiSchema.effects` parse. IDG has no `statTypes`/`generalTypes` at 585534d7; `increasestat` `"Highest"` becomes `"None"` (`validators/combat.ts:140`) | STATS: parse(entry) == entry for the Captain, Crowned and Sealwright |
+| 3. Obsolete `preferredStat` create/read-back conflict | Sealwright's create sends no `preferredStat`. **Forge 0.5.2:** lint L05 no longer requires it (0056 dropped the column) | `forge/test/post0056.test.mjs`; dry-run check "no AI save sent preferredStat" |
+| 4. Incorrect two-stage Sealwright scaling | One full create with all six combat fields at 1,391,300 and `statsMultiplier: 5`, plus the Captain's masteries. push/93 is retired. **Forge 0.5.2** accepts `offence`/`defence`/masteries on a create (`AI_POST_0056_KEYS`) | STATS: stored 1,391,300 ×6, fights at the caps, repeated save stable. A control reproduces the defect: incomplete create gives offence/defence 30 |
+| Stat requirement (RUL-2026-10-12-012) | `statsMultiplier: 5` on the 9 included existing AIs and Sealwright. Hazards untouched (10 / 20) | STATS: every included AI is stored at or above the caps; unscaled and level-100 quest fights enter at exactly 1,300,000 / 400,000; the hazards' stats and multipliers are unchanged |
+
+**Forge 0.5.2 is a pending release** (`@x-release-pending 0.5.2`). After the merge, `release_pin.yml` must promote it, and the operator's loader must be on 0.5.2, **before** push/90 runs. Forge 0.5.1 refuses push/90's Sealwright create.
 
 ## 1. Repository / refs
 
@@ -9,7 +21,7 @@
 | Repository | `perseverance484/tnr-tools` |
 | Branch | `fable/ghost-ship-release-manifest-20261012` |
 | Base (merge-base with `main`) | `afce6caa19393791b07ddd8d404f2fadb91cbb6e` |
-| Head (review target) | **the commit that adds this file**: the branch head when this handoff was pushed. The handoff message quotes the exact SHA |
+| Head (review target) | **the commit that adds this revision of this file**: the branch head when it was pushed. The handoff message quotes the exact SHA. Previous review target: `5eb75123…` |
 | Main when frozen | `7e3a80101942565cad6964053f31cf83153f5d16` (adds only push/92; no conflict) |
 | Art commit (`imagePack.ref`) | `d61c990d2935df9c4acc1d4c57f412cbd77c4303` |
 | Integration target | `main`, **after** review. The director chose to wait for review before push/90 reaches Forge |
@@ -22,8 +34,9 @@
 
 | Path | Role |
 | --- | --- |
-| `push/90_ghost_ship_skyglass_release.gen.py` → `push/90_ghost_ship_skyglass_release.json` | Deterministic generator and its 50-entry final manifest (`--final --image-ref d61c990d…`) |
-| `push/93_ghost_ship_sealwright_stats.gen.py` | Generates the post-run Sealwright stat edit from push/90's results bundle, with a literal id |
+| `push/90_ghost_ship_skyglass_release.gen.py` → `push/90_ghost_ship_skyglass_release.json` | Deterministic generator and its 50-entry final manifest (`--final --image-ref d61c990d…`); Forge hash `628d60e4` |
+| `forge/src/runner/{validate,lints}.mjs`, `forge/test/post0056.test.mjs`, `forge/package.json`, `forge_bundle.js`, `forge_loader_user.js` | Forge 0.5.2: post-0056 AI create columns, L05 without preferredStat (pending release) |
+| `harness/ghost_ship_final/engine/release_stats.test.ts` | Gate STATS (r3): pinned-server save path and battle scaling/clamping |
 | `push/90_ghost_ship_skyglass_release.check.mjs`, `.rules.ts` | Forge pre-send check against live rows; engine `AiRule` parse |
 | `harness/ghost_ship_release_dryrun/` | Headless ForgeCore dry run over FakeGame (27/27) |
 | `harness/ghost_ship_legacy_baseline/` | Post-0056 legacy jutsu re-baseline and the consumer audit (with self-tests) |
@@ -43,8 +56,8 @@
 3. 9 scene renames with new art; Serum, Fragment and Crown edits with text and art.
 4. 6 law-60 unequips.
 5. 9 legacy jutsu text edits.
-6. 11 AI final edits (rename, kit, RUL-003 remap with RUL-009 gates, Crowned support, loot, boss IDG, new avatar) plus the Sealwright create.
-7. Empty: Sealwright's post-0056 stats moved to push/93.
+6. 11 AI final edits (rename, kit, RUL-003 remap with RUL-009 gates, Crowned support, loot, canonical boss IDG, new avatar, and `statsMultiplier: 5` on the 9 included AIs) plus the Sealwright full create (six combat fields at 1,391,300, multiplier 5).
+7. Empty (the follow-up is retired; Sealwright is one full create).
 8. 2 quest edits: 83 nodes each, hidden:true, new icon.
 
 Before and after: full captures.
@@ -53,7 +66,7 @@ Before and after: full captures.
 - No run and no publication.
 - Counter Stance and Battle Trance are left unedited (RUL-010).
 - No replacement icon was supplied for Death's Door or Death's Grasp.
-- Forge itself is unchanged: the `targetId` ref defect is worked around, not fixed.
+- Forge's `targetId` ref defect is not fixed (no longer exercised: push/90 has no ref-targeted edit). A full re-pin of Forge's field sets to 585534d7 was deliberately not done, because it would newly refuse staged pre-0056 manifests from other workstreams (push/47, 56, 61, 62).
 - Spent manifests 65–92 are not archived on `main`.
 
 ## 3. Verification (exact commands, all from the repository root at the head SHA)
@@ -61,18 +74,18 @@ Before and after: full captures.
 | Command | Result |
 | --- | --- |
 | `python3 push/90_ghost_ship_skyglass_release.gen.py --final --image-ref d61c990d2935df9c4acc1d4c57f412cbd77c4303 --check` | `OK: manifest and report are generator-exact` (50 entries; pending text 0, art 0; art coverage 34/34) |
-| `node forge/tools/check_manifest.mjs push/90_ghost_ship_skyglass_release.json` | **0 pre-send problems, exit 0**, Forge manifest hash `e6c24afd`. The 8 warnings are captured gates on self-target stances |
+| `node forge/tools/check_manifest.mjs push/90_ghost_ship_skyglass_release.json` (Forge 0.5.2 source) | **0 pre-send problems, exit 0**, Forge manifest hash `628d60e4`. The 8 warnings are captured gates on self-target stances |
 | `node push/90_ghost_ship_skyglass_release.check.mjs` | 0 runtime-equivalent problems (edits validated against the captured live rows) |
 | `(cd <engine export @585534d7>/app && bun --no-install run …/push/90_ghost_ship_skyglass_release.rules.ts "$PWD" …/push/90_ghost_ship_skyglass_release.json)` | 72 rules in 9 profiles, 0 failed; no change on round trip; every last rule is unconditional |
-| `(cd forge && npm ci --ignore-scripts) && node harness/ghost_ship_release_dryrun/dryrun.mjs --out <dir>` | **27/27**; push/90 DONE, 50/50 VERIFIED, postflight 0 diff and 0 unresolved; push/93 generated from that run's bundle and VERIFIED. Two runs give byte-identical reports (`harness/ghost_ship_release_dryrun/results/dryrun_report.json`) |
-| `(cd forge && npm test)` | 522/523. The one failure is pre-existing on `main`: push/79 sets `offence`/`defence` (no live row offline) |
+| `(cd forge && npm ci --ignore-scripts) && node harness/ghost_ship_release_dryrun/dryrun.mjs --out <dir>` | **29/29**; push/90 DONE, 50/50 VERIFIED; Sealwright created at 1,391,300 ×6 with multiplier 5; 9 included AIs written at 5; hazards 10/20; no `preferredStat`; no obsolete item column. Two runs give byte-identical reports |
+| `(cd forge && npm test)` | **526/526** (3 new post-0056 tests; the push/79 compatibility failure that was pre-existing on `main` now passes) · `node build.mjs` bundle reproducible · `check_release_pin`, `check_bundle_budget`, `check_imports`, `check_boundaries` clean |
 | `python3 skills/producing-tnr-art/scripts/artpreflight.py <34 webps> --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json` | 0 errors, 2 warnings (Serum 768px and quest icon 1202px oversize, non-blocking), 34 files. The 34 files match the director's SHA256SUMS, and `imagePack` sha256/bytes equal it |
 | `python3 harness/ghost_ship_legacy_baseline/build_baseline.py --check` · `selftest.py` | OK · 6/6 |
 | `python3 harness/ghost_ship_legacy_baseline/consumer_audit_selftest.py` | 8/8 |
 | `python3 harness/ghost_ship_legacy_baseline/consumer_audit.py <push/81–84 results> --live-count harvests/inbox/tnr_results_1791772372237.json --accept-residual RUL-2026-10-12-011` | `ACCEPTED_RESIDUAL`: 535/535 read, live 506/522, 0 outside holders of edited jutsu |
 | `TNR_REPO=$PWD python3 harness/ghost_ship_stage2/m0_verify.py --out x.json` | 482/0, byte-identical to all three committed frozen `m0.json` (the conversion packet is unchanged) |
-| `harness/ghost_ship_final/run.sh` (r2, at `5e11d44c`) | M0 482/0, CONTRACT 19/0, GUARDS 24/0, ACTIVE 81/0, CROWNED 36/0; bun 45/0/218; two runs byte-identical |
-| `python3 skills/building-tnr-content/scripts/validate.py push/90_… --strict` | **Not clean, by known classes** (draft doc §3): stale 45c/45d at `bdec2883` rejects live chest reward fields, effect `direction`/`description` and `farm*` nulls; build-order (law 60 sequence; `asset`→`gameAsset` ranks last); menu-shared-target on `d_parley` (live) and `d_recon_test` (approved lockout). L01 cleared |
+| `harness/ghost_ship_final/run.sh` (r3) | M0 482/0, CONTRACT 19/0, GUARDS 24/0, ACTIVE 81/0, CROWNED 36/0, **STATS 68/0**; bun 51 pass/0 fail/220 expects; two runs byte-identical; network-denied |
+| `python3 skills/building-tnr-content/scripts/validate.py push/90_… --strict` | **Not clean, by known classes** (draft doc §3): stale 45c/45d at `bdec2883` rejects live chest reward fields, effect `direction`/`description` and `farm*` nulls; build-order (law 60 sequence; `asset`→`gameAsset` ranks last); menu-shared-target on `d_parley` (live) and `d_recon_test` (approved lockout); captured self-target gates; law 6 / 45g `tag_power_max` on IDG 375 and 450 (Forge deliberately does not wire this check: there is no maximum at source, and the STATS engine parse accepts both values). L01 cleared |
 
 ## 4. Source / provenance
 
@@ -94,9 +107,10 @@ Before and after: full captures.
 
 ## 5. Risk / debt (attack these)
 
-1. **Forge `targetId` refs are not resolved** (`forge/src/runner/runner.mjs:520`). The dry run found it, and it is worked around by push/93. Review that push/93 refuses every bundle except a DONE/success push/90 at hash `e6c24afd`. Between push/90 and push/93, Sealwright exists with placeholder offence and defence; the quests are hidden.
-2. **The dry run is FakeGame, not the server.** It proves Forge's side only. Server-side `scaleEditedAi` (re-run on every AI edit) and `updateUserContent` are argued from source (draft doc §2) and are not executed. Synthetic seed rows: the Crown item, the 9 scene-asset shells and the post-0056 placeholder columns.
+1. **Forge 0.5.2 is required to run push/90.** It is a pending release. Run push/90 only after `release_pin.yml` promotes it, and the operator's Forge reports v0.5.2.
+2. **The dry run is FakeGame, not the server.** Server-side `scaleEditedAi` and the battle scaling are now *executed* from pinned source by STATS. `updateUserContent` (the kit sync) is still argued from source, not executed. Synthetic seed rows: the Crown item, the 9 scene-asset shells and the post-0056 placeholder columns.
 3. **Behaviour not measured offline:**
+   - RUL-012 multiplier 5: the stats are proven, the fight difficulty is not;
    - RUL-004 boss IDG 375/375/450;
    - RUL-009 gate normalisation, which collapses multi-band rules;
    - Sealwright, which RUL-002 accepted without new-pin testing.
@@ -122,7 +136,7 @@ Before and after: full captures.
 ## 7. Operator sequence after review approval
 
 1. Integrate into `main`.
-2. Run push/90 in Forge and commit its results.
-3. Run `python3 push/93_ghost_ship_sealwright_stats.gen.py --results harvests/inbox/<push/90 results>.json`, commit the output, then run push/93.
+2. Let `release_pin.yml` promote Forge 0.5.2, and confirm the operator's Forge shows v0.5.2.
+3. Run push/90 in Forge and commit its results.
 4. Tester calibration while the quests are hidden (RUL-007).
 5. Publication is a separate director decision.

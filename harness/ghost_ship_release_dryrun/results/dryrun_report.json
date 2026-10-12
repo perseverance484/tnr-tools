@@ -1,17 +1,17 @@
 {
  "schema": "tnr.ghost_ship_release_dryrun",
  "manifest": "push/90_ghost_ship_skyglass_release.json",
- "manifestSha256": "c4b385b77ff80ea617c73df125697c2efc2e9b45c63c09a25c9e559e546bbd69",
+ "manifestSha256": "6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7",
  "imageRef": "d61c990d2935df9c4acc1d4c57f412cbd77c4303",
- "forgeVersionUnderTest": "0.5.1",
+ "forgeVersionUnderTest": "0.5.2",
  "job": {
   "state": "DONE",
   "items": 50
  },
- "gameCalls": 293,
+ "gameCalls": 289,
  "callsByPath": {
   "quests.get": 8,
-  "profile.getAi": 71,
+  "profile.getAi": 68,
   "ai.getAiProfile": 31,
   "jutsu.get": 40,
   "item.get": 20,
@@ -23,7 +23,7 @@
   "gameAsset.update": 14,
   "item.create": 4,
   "item.update": 7,
-  "profile.updateAi": 19,
+  "profile.updateAi": 18,
   "jutsu.update": 9,
   "ai.updateAiProfile": 9,
   "profile.create": 1,
@@ -43,7 +43,7 @@
   "asset xm3F2YXkNPeLWHRAUnbmF shell",
   "asset 4Cu4EBaWRsGm5J_Ld1hTt shell"
  ],
- "checks": 27,
+ "checks": 29,
  "failed": 0,
  "results": [
   {
@@ -83,19 +83,27 @@
    "pass": true
   },
   {
-   "name": "push/93 targets the created Sealwright by literal id",
+   "name": "Sealwright: one create carried all six combat fields at 1,391,300 and statsMultiplier 5 (no follow-up edit)",
    "pass": true
   },
   {
-   "name": "push/93 selection: no problems or blocks",
+   "name": "Sealwright masteries equal the regular Captain's",
    "pass": true
   },
   {
-   "name": "push/93 job DONE, item VERIFIED",
+   "name": "9 included existing AIs written with statsMultiplier 5",
    "pass": true
   },
   {
-   "name": "Sealwright post-0056 stats equal the regular Captain's after push/93",
+   "name": "hazards keep statsMultiplier 10 / 20",
+   "pass": true
+  },
+  {
+   "name": "no AI save sent the 0056-dropped preferredStat",
+   "pass": true
+  },
+  {
+   "name": "new items carry no 0056-removed requirement column",
    "pass": true
   },
   {

@@ -13,6 +13,15 @@ This is a versioned successor. `harness/ghost_ship_stage2/` (r4) and `harness/gh
 (3/3 carriers, `fcd79e5a…`) and their records/results are unchanged and still reproduce; `run.sh`
 re-checks the 3/3 carrier builder and refuses to write into either historical harness.
 
+## r3 (2026-10-12): STATS gate
+
+`engine/release_stats.test.ts` (gate **STATS**) replays every AI save push/90 performs through the pinned server path:
+- Forge `mergeAi`, then `insertAiSchema.parse`, `setEmptyStringsToNulls`, `{...stored, ...data}` and `scaleEditedAi`;
+- then a repeated identical save;
+- then the battle paths at `combat.ts:2469-2487`: an unscaled fight, and a quest fight scaled to a level-100 opponent, both through `capUserStats`.
+
+It covers the 9 included existing AIs, Sealwright's single full create from the `profile.create` placeholder, and the two hazards. It also proves every asserted AI `effects` array is a fixed point of the server's `insertAiSchema.effects` parse (RUL-2026-10-12-012 and review corrections 2 and 4). A control reproduces the superseded two-stage Sealwright path: an incomplete-stat create stores offence and defence at 30.
+
 ## Run
 
 Requirements: git, Python 3, Bun 1.4.x, Linux `libseccomp.so.2`, a local engine clone, and the
@@ -30,7 +39,7 @@ The runner exports `585534d7eb21d6f0dd678d5c3eb92662f611d39b` with `git archive`
 pinned app file before and after the tests, checks the dependency manifests, proves socket
 denial before importing engine code, rebuilds nothing but checks both record builders
 (`--check`), runs M0 (the unchanged r4 verifier), the engine suites, `tools/check_evidence.py`
-for M0/CONTRACT/GUARDS/ACTIVE/CROWNED, and the five-probe negative self-test. Any failing layer
+for M0/CONTRACT/GUARDS/ACTIVE/CROWNED/STATS, and the five-probe negative self-test. Any failing layer
 makes it exit nonzero.
 
 ## Files

@@ -29,6 +29,9 @@ data = {
  'dependencies': 'existing user-approved frozen install; dependency manifests unchanged from historical engine',
  'finalRecordsSha256': sha(record),
  'crownedBehaviorSha256': sha(repo/'state/ghost_ship_skyglass_crowned_support_behavior.md'),
+ # STATS (r3): the release manifest and the live rows its saves are replayed over.
+ 'statsInputsSha256': {rel: sha(repo/rel) for rel in ('push/90_ghost_ship_skyglass_release.json',
+                       'harvests/inbox/tnr_results_1791727613862.json', 'forge/src/runner/recipes.mjs')},
  'harnessFileSha256': {str(p.relative_to(here)): sha(p) for p in files},
  'historicalM0ScriptSha256': sha(repo/'harness/ghost_ship_stage2/m0_verify.py'),
  'exitStatuses': {'bun':int(bun_status),'evidence':int(evidence_status),'negativeSelftest':int(negative_status),'sourceIntegrity':int(source_status)},
