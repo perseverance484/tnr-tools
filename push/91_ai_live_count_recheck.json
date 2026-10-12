@@ -1,0 +1,8 @@
+{
+ "_note": "READ-ONLY, one read, zero mutations. Re-counts the live non-ELDER AI universe with profile.getAllAiNames (Forge keeps only the row count). The push/81-84 census (2026-10-12 02:21-02:26Z) read all 535 known AI ids: 506 live non-ELDER bodies and 29 deleted (null), against push/80's count of 522 on 2026-10-09. A fresh count of 506 closes the census as complete (16 AIs were deleted since push/80); a larger count means live AIs exist whose ids the repository does not know, and the Ghost Ship legacy-jutsu consumer audit stays INCOMPLETE. Consumer: harness/ghost_ship_legacy_baseline/consumer_audit.py --live-count <results>. Run after the census results are committed; archive after use.",
+ "capture": {
+  "before": [
+   {"proc": "profile.getAllAiNames", "input": {}}
+  ]
+ }
+}
