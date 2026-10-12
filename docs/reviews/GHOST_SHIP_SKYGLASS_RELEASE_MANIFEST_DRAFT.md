@@ -88,7 +88,7 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 
 ## 6. Still required before `--final`
 
-1. The fresh push/89 quest capture (operator), read back as `hidden:true`. The draft uses the stale October 1 base.
+1. ~~Fresh push/89 quest capture~~: done (`harvests/inbox/tnr_results_1791768613624.json`, Forge 0.5.0, 2026-10-12T01:30Z, DONE/success, 2/2 full reads). Both quests are identical to the October 1 capture except for nothing: every top-level field and all 57 objectives match. Both read **`hidden:false`** with an expired window (2026-09-18 to 2026-09-21), contradicting the earlier hidden report. The generator now uses this capture as its default base and records the observed state; the quest edits assert `hidden:true`, so running push/90 hides both quests.
 2. The director's text for 5 items and the art zip. At intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in the art file. Then run `--final --image-ref <commit>`.
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. Pre-run dependency check (disclosed): captures show no non-Ghost-Ship AI equipping the 11 retained jutsu. Absence of evidence is not a full consumer audit.

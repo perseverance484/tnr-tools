@@ -405,9 +405,9 @@
  "gatePolicy": "law40",
  "inputs": {
   "harvests/inbox/tnr_results_1789402842027.json": "25224da3fde7acdc30284a5f750ddd84dce29bb43466d131af8742117d3fa4a7",
-  "harvests/inbox/tnr_results_1790826101573.json": "d9e98a16de91b57f4184738a8bfb224e5828140f8ed45313f3433ea69d759481",
   "harvests/inbox/tnr_results_1790826836406.json": "b69336ebaa6f5e968319b005bcbe242729647aad303d2a2ace83b49ec7a349ed",
   "harvests/inbox/tnr_results_1791727613862.json": "3ff78acf148798b1e56e8d7c98d6fed46c09090d8f088786c4d766d3ccde0508",
+  "harvests/inbox/tnr_results_1791768613624.json": "29ad13b530115014f0239fcc6424d5086aa4221112b4a30f77044b8778e2b789",
   "state/ghost_ship_hybrid_kit_proposal.json": "2b3f6a0f88506ee9dd02d3d9f548c7f60b735248479395407417141a65880203",
   "state/ghost_ship_legacy_jutsu_conversion.json": "de4d6378a72ef34411dea4db119628dfb7e345fa2d80cab043a3c21ed6fe5d68",
   "state/ghost_ship_retheme_patch.json": "f5542440360e53f209d1b4b49b3c72c25f677dd329e2ee87a4e78d88a38bb6b6",
@@ -489,8 +489,23 @@
   ]
  },
  "quests": {
-  "base": "harvests/inbox/tnr_results_1790826101573.json",
-  "baseSha256": "d9e98a16de91b57f4184738a8bfb224e5828140f8ed45313f3433ea69d759481",
+  "base": "harvests/inbox/tnr_results_1791768613624.json",
+  "baseSha256": "29ad13b530115014f0239fcc6424d5086aa4221112b4a30f77044b8778e2b789",
+  "baseVisibility": {
+   "6Ri-W5TtUrEMWpyYlnf_F": {
+    "endsAt": "2026-09-21",
+    "hidden": false,
+    "startsAt": "2026-09-18"
+   },
+   "HckXVOf-qk6ESU9t5rxLh": {
+    "endsAt": "2026-09-21",
+    "hidden": false,
+    "startsAt": "2026-09-18"
+   }
+  },
+  "editAsserts": {
+   "hidden": true
+  },
   "graphs": {
    "6Ri-W5TtUrEMWpyYlnf_F": {
     "endings": [
