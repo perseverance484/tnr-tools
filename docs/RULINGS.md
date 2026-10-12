@@ -864,3 +864,19 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 2. **Presentation and art:** dauntless will supply the final description, battle description, image and effect animation/SFX for both Skyglass Katana and Skyglass Crystal. Fable slots them in and validates. No text or art is drafted on the director's behalf.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`.
+
+---
+
+## RUL-2026-10-12-007 — Accept source-default damage settings for offline evidence; live calibration by tester
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / test fidelity
+
+**Status:** ACTIVE.
+
+**Context:** the live damage-formula config cannot be captured through Forge 0.5.0. `persist:"full"` is limited to audited content-record reads, and summary mode stores no body (push/88 withdrawn; `archive/spent-manifests/push-2026-10-12/README.md`). No public procedure exposes the deployed engine version.
+
+**Ruling:** dauntless accepted the limitation. Offline harnesses keep using engine source-default damage settings at the pinned upstream engine, with that boundary disclosed. Final calibration happens in-game: a tester plays the Ghost Ship quests while they are still hidden, after the manifest is applied and before any publication. No Forge allowlist change is requested.
+
+**Canonical destination:** this ruling; the full-manifest roadmap's production gates.
