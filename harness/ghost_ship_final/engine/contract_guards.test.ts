@@ -1,8 +1,8 @@
-/** FINAL 2/2 Skyglass item records (RUL-2026-10-11-006): complete-record schema
- * validation and actual read-only occupation guards. Katana15 / Crystal10, both
- * Consume rounds2 / shieldRounds2; Crystal LEGENDARY, tradable, not craftable,
- * no recipe. Unapproved Crystal carrier fields and presentation placeholders are
- * labelled. No persistence is attempted: the database proxy traps every write.
+/** FINAL 2/2 Skyglass item records (RUL-2026-10-11-006, amended by RUL-2026-10-12-005):
+ * complete-record schema validation and actual read-only occupation guards. Katana15 /
+ * Crystal10, both Consume rounds2 / shieldRounds2; Crystal LEGENDARY, tradable, craftable
+ * from 12 Skyglass Filaments, undecided fields mirrored from the live Heal Crystal III.
+ * Presentation placeholders are labelled. No persistence: the DB proxy traps every write.
  */
 import { afterAll, beforeEach, describe, expect, it } from "bun:test";
 import { ItemValidatorRawSchema } from "@/validators/combat";
@@ -22,7 +22,7 @@ const realRandom = Math.random;
 beforeEach(() => { Math.random = mulberry32(1510); });
 afterAll(() => {
   Math.random = realRandom;
-  CONTRACT.flush({ scope: "final 2/2 candidate records (RUL006); Crystal unapproved carrier fields and presentation pending", records: I.RECORDS_PATH });
+  CONTRACT.flush({ scope: "final 2/2 records (RUL006 + RUL-2026-10-12-005); presentation pending from the director", records: I.RECORDS_PATH });
   GUARDS.flush({ scope: "actual pre-write eligibility paths with read-only stubs; no persistence, CAS/concurrency, committed craft/imbue or executed trade" });
 });
 const CONSUME_MSG = "ConsumeTag must be used together with a damage or pierce effect on the same action";
@@ -82,7 +82,7 @@ describe("CONTRACT — final 2/2 candidate records and source schema", () => {
     CONTRACT.check("Katana remains LEGENDARY WEAPON/SWORD, non-imbuable, hidden, drop-only and tradable; AP40 CD6 range4 40/40/0", k.itemType === "WEAPON" && k.weaponType === "SWORD" && k.rarity === "LEGENDARY" && !k.canBeImbued && k.hidden && !k.canBeCrafted && k.craftingExperience === 0 && !k.inShop && k.canBeTraded && k.actionCostPerc === 40 && k.cooldown === 6 && k.range === 4 && k.chakraCost === 40 && k.staminaCost === 40 && k.healthCost === 0);
   });
 
-  it("validates the complete final Crystal: LEGENDARY, tradable, not craftable, no recipe, exactly one Consume10 2/2", () => {
+  it("validates the complete final Crystal: LEGENDARY, tradable, 12-Filament recipe, Heal Crystal III mirror, exactly one Consume10 2/2", () => {
     const packet = I.finalRecords();
     const contract = F.loadJson(I.CONTRACT_PATH).crystal;
     const e = I.parseItemEffects(I.CRYSTAL_EFFECTS_INPUT());
@@ -90,17 +90,19 @@ describe("CONTRACT — final 2/2 candidate records and source schema", () => {
     const full = I.validateItem(rec);
     const out: any = full.success ? full.data : null;
     const stored = packet.crystal.record;
-    const unapproved = packet.crystal.unapprovedCarrierFields;
-    CONTRACT.put("crystalValidation", { effectsAccepted: e.success, parsedEffects: e.success ? e.data : null, fullAccepted: full.success, issues: I.issues(full), validatorOutputEconomy: out ? { canBeTraded: out.canBeTraded, canBeCrafted: out.canBeCrafted, craftingRequirements: out.craftingRequirements, craftingExperience: out.craftingExperience, auctionMinPrice: out.auctionMinPrice ?? null, auctionMaxPrice: out.auctionMaxPrice ?? null } : null, unapprovedCarrierFields: unapproved, diffFrom3x3: packet.historical.activeConsume3x3.crystalDiff });
+    const mirrored = packet.crystal.mirroredFields;
+    const mirror = F.loadJson(packet.crystal.baseline.capture).captures.find((c: any) => c?.data?.id === packet.crystal.baseline.id).data;
+    CONTRACT.put("crystalValidation", { effectsAccepted: e.success, parsedEffects: e.success ? e.data : null, fullAccepted: full.success, issues: I.issues(full), validatorOutputEconomy: out ? { canBeTraded: out.canBeTraded, canBeCrafted: out.canBeCrafted, craftingRequirements: out.craftingRequirements, craftingExperience: out.craftingExperience, auctionMinPrice: out.auctionMinPrice ?? null, auctionMaxPrice: out.auctionMaxPrice ?? null } : null, mirroredFields: mirrored, mirrorSource: packet.crystal.baseline, diffFrom3x3: packet.historical.activeConsume3x3.crystalDiff });
     expect(e.success).toBe(true);
     expect(full.success).toBe(true);
     CONTRACT.check("Crystal effects are exactly one Consume10 rounds2/shieldRounds2 (no Damage/Pierce filler)", e.success && e.data.length === 1 && consumeOk(e.data[0], 10));
     CONTRACT.check("full ItemValidator accepts the complete LEGENDARY Crystal with labelled presentation placeholders", full.success, I.issues(full));
-    CONTRACT.check("decided Crystal fields equal the RUL006 contract (CRYSTAL, WEAPON-only, LEGENDARY, canBeTraded true, canBeCrafted false)", stored.itemType === contract.itemType && stored.crystalTargetTypes === contract.crystalTargetTypes && stored.rarity === contract.rarity && stored.canBeTraded === contract.canBeTraded && stored.canBeCrafted === contract.canBeCrafted && consumeOk(stored.effects[0], contract.consume.power) && stored.effects.length === contract.effectCount);
-    CONTRACT.check("no recipe remains operative: craftingRequirements [] and craftingExperience 0, preserved by the validator", JSON.stringify(stored.craftingRequirements) === "[]" && stored.craftingExperience === 0 && out && JSON.stringify(out.craftingRequirements) === "[]" && out.canBeCrafted === false && out.craftingExperience === 0, out && { craftingRequirements: out.craftingRequirements, craftingExperience: out.craftingExperience });
+    CONTRACT.check("decided Crystal fields equal the amended contract (CRYSTAL, WEAPON-only, LEGENDARY, canBeTraded true, canBeCrafted true)", stored.itemType === contract.itemType && stored.crystalTargetTypes === contract.crystalTargetTypes && stored.rarity === contract.rarity && stored.canBeTraded === contract.canBeTraded && stored.canBeCrafted === contract.canBeCrafted && consumeOk(stored.effects[0], contract.consume.power) && stored.effects.length === contract.effectCount);
+    const wantRecipe = [{ ids: ["@item:skyglass_filament"], number: 12 }];
+    CONTRACT.check("recipe restored: craftingRequirements = 12 x @item:skyglass_filament, canBeCrafted true, preserved by the validator", JSON.stringify(stored.craftingRequirements) === JSON.stringify(wantRecipe) && out && JSON.stringify(out.craftingRequirements) === JSON.stringify(wantRecipe) && out.canBeCrafted === true, out && { craftingRequirements: out.craftingRequirements, canBeCrafted: out.canBeCrafted });
     CONTRACT.check("trade flag is record/schema evidence only: stored and validator output canBeTraded true; no auction price bounds set", stored.canBeTraded === true && out?.canBeTraded === true && (out?.auctionMinPrice ?? null) === null && (out?.auctionMaxPrice ?? null) === null);
     CONTRACT.check("Crystal is created hidden and not sold in shops (acquisition is the 3% Reliquary drop)", stored.hidden === true && stored.inShop === false);
-    CONTRACT.check("every undecided carrier field is disclosed in the packet with its recorded value", Object.entries(unapproved).every(([k, v]) => JSON.stringify(stored[k]) === JSON.stringify(v)) && Object.keys(unapproved).length === 14, Object.keys(unapproved));
+    CONTRACT.check("all 20 undecided fields equal the live Heal Crystal III row (LEGENDARY WEAPON crystal, push/87)", Object.keys(mirrored).length === 20 && Object.entries(mirrored).every(([k, v]) => JSON.stringify(stored[k]) === JSON.stringify(v) && JSON.stringify(mirror[k]) === JSON.stringify(v)) && mirror.itemType === "CRYSTAL" && mirror.crystalTargetTypes === "WEAPON" && mirror.rarity === "LEGENDARY", mirrored);
   });
 
   it("instant-only negative control still requires a Damage/Pierce companion", () => {
@@ -254,33 +256,29 @@ describe("GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank
     GUARDS.check("new source required-skill guard permits the active skill and reaches trapped first write (control only)", JSON.stringify(cases.requiredSkillActive) === JSON.stringify(WRITE_REACHED), cases.requiredSkillActive);
   });
 
-  it("final Crystal canBeCrafted:false rejects crafting even for FORGEMASTER with a full 12-Filament stack (real procedure)", async () => {
-    // Controls supply the superseded 12-Filament recipe and enough materials, so the
-    // only difference between the rejected final record and the write-reaching control
-    // is the canBeCrafted flag. The recipe is NOT part of the final record.
-    const filament = { id: "harness-filament", name: "Skyglass Filament (harness carrier)", itemType: "MATERIAL", rarity: "COMMON", hidden: false, stackSize: 100 };
-    const filamentRow = rowFor(filament, { quantity: 12 });
-    const recipe = [{ requirementItemId: filament.id, quantity: 12, requirementItem: { id: filament.id, name: filament.name } }];
-    const finalPublished = { ...I.crystalRecord("LEGENDARY", { hidden: false }), parentItemId: null };
+  it("final Crystal recipe: FORGEMASTER with 12 Filaments reaches the write; 11 Filaments, MASTER rank or hidden state are rejected (real procedure)", async () => {
+    // The record's recipe references the Filament created in the release manifest; the
+    // harness substitutes a Filament carrier id for that ref. No final record field is changed.
+    const filament = { id: "harness-filament", name: "Skyglass Filament (harness carrier)", itemType: "MATERIAL", rarity: "RARE", hidden: false, stackSize: 100 };
+    const stored = I.finalRecords().crystal.record;
+    const recipe = stored.craftingRequirements.map((r: any) => ({ requirementItemId: r.ids[0] === "@item:skyglass_filament" ? filament.id : r.ids[0], quantity: r.number, requirementItem: { id: filament.id, name: filament.name } }));
+    const published = { ...I.crystalRecord("LEGENDARY", { hidden: false }), parentItemId: null, craftingRequirements: recipe };
+    const rows = (n: number) => [rowFor(filament, { quantity: n })];
     const cases: Record<string, any> = {};
-    cases.finalAsCreatedHidden = await call(mkUser(), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...I.crystalRecord(), parentItemId: null, craftingRequirements: [] });
-    cases.finalPublishedNoRecipe = await call(mkUser(), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...finalPublished, craftingRequirements: [] });
-    cases.finalPublishedWithRestoredRecipeAndMaterials = await call(mkUser(), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...finalPublished, craftingRequirements: recipe });
-    cases.controlCraftableWithRecipeAndMaterials = await call(mkUser(), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...finalPublished, canBeCrafted: true, craftingRequirements: recipe });
-    cases.controlCraftableNoRecipe = await call(mkUser(), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...finalPublished, canBeCrafted: true, craftingRequirements: [] });
-    for (const occ of ["GATHERING", "HUNTING", null]) cases[`occupation_${occ}`] = await call(mkUser({ occupation: occ }), [filamentRow], { itemId: finalPublished.id, quantity: 1 }, "craftItem", { ...finalPublished, canBeCrafted: true, craftingRequirements: recipe });
-    GUARDS.put("craftItemGuards", { note: "harness Filament carrier and restored-recipe controls; neither is part of the final record", cases });
-    const notCraftable = reject("This item is not craftable");
+    cases.forgemaster12 = await call(mkUser(), rows(12), { itemId: published.id, quantity: 1 }, "craftItem", published);
+    cases.forgemaster11 = await call(mkUser(), rows(11), { itemId: published.id, quantity: 1 }, "craftItem", published);
+    cases.master12 = await call(mkUser({ craftingExperience: CRAFTING_REQUIRED_EXP.MASTER }), rows(12), { itemId: published.id, quantity: 1 }, "craftItem", published);
+    cases.asCreatedHidden = await call(mkUser(), rows(12), { itemId: published.id, quantity: 1 }, "craftItem", { ...published, hidden: true });
+    for (const occ of ["GATHERING", "HUNTING", null]) cases[`occupation_${occ}`] = await call(mkUser({ occupation: occ }), rows(12), { itemId: published.id, quantity: 1 }, "craftItem", published);
+    GUARDS.put("craftItemGuards", { note: "Filament carrier substitutes the @item:skyglass_filament ref; recipe quantity is the record's", recipe, cases });
     // craftItem's first write is a DB transaction (imbueItem's is an update).
     const CRAFT_WRITE_REACHED = { outcome: "guards-passed-reached-write", message: "transaction" };
-    expect(cases.finalPublishedNoRecipe).toEqual(notCraftable);
-    expect(cases.finalPublishedWithRestoredRecipeAndMaterials).toEqual(notCraftable);
-    expect(cases.controlCraftableWithRecipeAndMaterials).toEqual(CRAFT_WRITE_REACHED);
-    GUARDS.check("final Crystal (published, no recipe) is rejected: \"This item is not craftable\"", JSON.stringify(cases.finalPublishedNoRecipe) === JSON.stringify(notCraftable), cases.finalPublishedNoRecipe);
-    GUARDS.check("even with the old recipe restored and 12 Filaments held, a FORGEMASTER cannot craft the final Crystal", JSON.stringify(cases.finalPublishedWithRestoredRecipeAndMaterials) === JSON.stringify(notCraftable), cases.finalPublishedWithRestoredRecipeAndMaterials);
-    GUARDS.check("control: the same inputs with canBeCrafted:true pass every pre-write guard and reach the trapped write, so the flag alone blocks crafting", JSON.stringify(cases.controlCraftableWithRecipeAndMaterials) === JSON.stringify(CRAFT_WRITE_REACHED), cases.controlCraftableWithRecipeAndMaterials);
-    GUARDS.check("as created (hidden:true) the final Crystal is rejected as hidden before the craftable check", JSON.stringify(cases.finalAsCreatedHidden) === JSON.stringify(reject("This item is hidden and cannot be crafted")), cases.finalAsCreatedHidden);
-    GUARDS.check("control: a craftable record with no requirements is rejected for missing requirements", JSON.stringify(cases.controlCraftableNoRecipe) === JSON.stringify(reject("This item cannot be crafted (no requirements defined)")), cases.controlCraftableNoRecipe);
+    expect(cases.forgemaster12).toEqual(CRAFT_WRITE_REACHED);
+    GUARDS.check("recipe is exactly 12 Skyglass Filaments", recipe.length === 1 && recipe[0].quantity === 12, recipe);
+    GUARDS.check("FORGEMASTER holding 12 Filaments passes every pre-write craft guard and reaches the trapped first write", JSON.stringify(cases.forgemaster12) === JSON.stringify(CRAFT_WRITE_REACHED), cases.forgemaster12);
+    GUARDS.check("11 Filaments are rejected at the material check", JSON.stringify(cases.forgemaster11) === JSON.stringify(reject("You need 12 Skyglass Filament (harness carrier) (you have 11)")), cases.forgemaster11);
+    GUARDS.check("native rank: a MASTER cannot craft the LEGENDARY Crystal (Forgemaster-only)", JSON.stringify(cases.master12) === JSON.stringify(reject("You need to be at least Forgemaster rank to craft LEGENDARY items")), cases.master12);
+    GUARDS.check("as created (hidden:true) the Crystal cannot be crafted", JSON.stringify(cases.asCreatedHidden) === JSON.stringify(reject("This item is hidden and cannot be crafted")), cases.asCreatedHidden);
     GUARDS.check("craftItem requires the CRAFTING occupation (GATHERING/HUNTING/none)", ["occupation_GATHERING", "occupation_HUNTING", "occupation_null"].every((k) => cases[k].message === "You must have the Crafting occupation to craft items"), cases);
   });
 
@@ -290,7 +288,7 @@ describe("GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank
     for (const rank of CRAFTING_RANKS) for (const rarity of ["RARE", "EPIC", "LEGENDARY"]) {
       cases[`rank_${rank}_${rarity}`] = await call(mkUser({ craftingExperience: CRAFTING_REQUIRED_EXP[rank] }), [], { itemId: carrier.id, quantity: 1 }, "craftItem", { ...carrier, rarity });
     }
-    GUARDS.put("craftRankMatrixControl", { note: "native engine behaviour with a craftable carrier; the final Crystal is not craftable", cases });
+    GUARDS.put("craftRankMatrixControl", { note: "native engine behaviour with a craftable carrier; the final LEGENDARY Crystal (12-Filament recipe) is Forgemaster-only", cases });
     const craftMismatch = matrixMismatches(cases, CRAFT_MATRIX);
     expect(craftMismatch).toEqual([]);
     GUARDS.check("native craftItem rank × rarity control: all 12 cells equal the source-derived expectation", craftMismatch.length === 0, craftMismatch);

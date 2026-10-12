@@ -1,9 +1,9 @@
 # Ghost Ship / Skyglass — final 2/2 items and Crowned Captain support: offline results
 
-**Status:** OFFLINE PACKAGE COMPLETE; INDEPENDENT REVIEW PENDING. Every gate (M0, CONTRACT, GUARDS, ACTIVE, CROWNED) passes on its stated scope. This report gives measurements. It does not accept balance, presentation, Crystal carrier values, publication or a manifest.
+**Status:** r2 (director decisions 2026-10-12 applied); INDEPENDENT REVIEW PENDING. r1 was frozen at `4369f404dbfd83563d11508c2bcc2e0e17f9a786`. r2 changes only the Crystal record (RUL-2026-10-12-005: 12-Filament recipe restored, `canBeCrafted:true`, 20 undecided fields mirrored from the live Heal Crystal III row captured by push/87) and the CONTRACT/GUARDS tests for it. Katana, ACTIVE and CROWNED are unchanged in behaviour. Every gate (M0, CONTRACT, GUARDS, ACTIVE, CROWNED) passes on its stated scope. This report gives measurements. It does not accept balance, presentation, Crystal carrier values, publication or a manifest.
 
 **Date:** 2026-10-12. **Implementer:** Fable (Claude Code). **Reviewer:** ChatGPT, at the frozen SHA. **Decisions:** dauntless.
-**Governing briefs** (design commit `fd7f021762940f11c3896c70b2af3bc53f7711dc`): `state/prompt_ghost_ship_skyglass_final_item_revalidation.md` (RUL-2026-10-11-006) and `state/ghost_ship_skyglass_crowned_support_behavior.md` (RUL-2026-10-11-007/008).
+**Governing briefs** (design commit `8a78115367feda143e9591f524b739a7d56330af`, which carries RUL-2026-10-12-001…007 on top of `fd7f0217…`): `state/prompt_ghost_ship_skyglass_final_item_revalidation.md` (RUL-2026-10-11-006) and `state/ghost_ship_skyglass_crowned_support_behavior.md` (RUL-2026-10-11-007/008).
 **Harness:** `harness/ghost_ship_final/`. **Records:** `state/ghost_ship_skyglass_final_item_records.json`.
 
 ## 1. Gate summary
@@ -12,20 +12,20 @@
 | --- | --- | --- | --- |
 | **M0** | PASS, 482/0 | Unchanged r4 repository verifier; approved packets still resolve | `results/m0.json` |
 | **CONTRACT** | PASS, 19/0 | Both complete final records through the pinned `ItemValidator`; exact r4 and 3/3 deltas; capture/packet hashes; instant-Consume negative control | `results/contract.json` |
-| **GUARDS** | PASS, 24/0 | Real `imbueItem` / `craftItem` pre-write paths with a write-trapping stub: final LEGENDARY Crystal eligibility, Katana exclusion, hidden states, non-craftable proof with controls, native rank matrices | `results/guards.json` |
+| **GUARDS** | PASS, 24/0 | Real `imbueItem` / `craftItem` pre-write paths with a write-trapping stub: final LEGENDARY Crystal eligibility, Katana exclusion, hidden states, 12-Filament recipe (Forgemaster reaches the write; 11 Filaments, Master rank, hidden and wrong occupation rejected), native rank matrices | `results/guards.json` |
 | **ACTIVE** | PASS, 81/0 | Real assembly and actions at 2/2: activation, granting/later hits, final eligible and first ineligible hit, independent shield expiry, overlap observation, Clear, Buff Prevent/immunity, costs/cooldown/range; upstream processor probes at 2/2 | `results/active.json` |
 | **CROWNED** | PASS, 36/0 | Rule schema; heal boundary and fall-through; Copy trigger vs copied effects; selector, summons, path distance, precedence over S31; Reflect; captured/dormant/support fight comparison | `results/crowned.json` |
 
-`bun test`: **45 pass, 0 fail, 220 expect() calls, 3 files.** The evidence checker passes all five gates, and the negative self-test enforces 5/5 probes. All 1,780 pinned engine files were verified unchanged before and after the run. Two full runs produced byte-identical `m0/contract/guards/active/crowned.json`.
+`bun test`: **45 pass, 0 fail, 218 expect() calls, 3 files.** The evidence checker passes all five gates, and the negative self-test enforces 5/5 probes. All 1,780 pinned engine files were verified unchanged before and after the run. Two full runs produced byte-identical `m0/contract/guards/active/crowned.json`.
 
 ## 2. Final item records (RUL006)
 
 **Katana** = Night's Testament baseline + RUL004/005/006 overrides. Compared with the r4 record, the only changes are Consume power 40→15, `rounds` 0→2 and `shieldRounds` 3→2. Compared with the 3/3 carrier, only `rounds` and `shieldRounds` change (3→2). All 65 non-override fields equal the capture. The full validator accepts it.
 
-**Crystal** = Flaming Sword shape donor + ruling overrides:
-- **Decided fields:** CRYSTAL, WEAPON-only, exactly one Consume10 (2/2), LEGENDARY, `canBeTraded:true`, `canBeCrafted:false`, `craftingRequirements: []`, `craftingExperience: 0`.
-- **Set from the rulings:** `inShop:false` (the RUL006 acquisition is the 3% Reliquary drop) and `hidden:true` (creation doctrine).
-- **Not decided by any ruling:** 14 carrier fields are listed in the packet as unapproved: cost 150,000, requiredLevel 20, AP 40, chakra 40, stamina 40, cooldown 4, maxDurability 100, maxEquips 1, maxImbueNumber 1, stackSize 1, canStack false, destroyOnUse false, battleUsageType BOTH, xpToLevel 1000.
+**Crystal** = live Heal Crystal III mirror (`iJM0kb1i6iNXjADJlZGV_`, push/87 capture `harvests/inbox/tnr_results_1791766317760.json`) + ruling overrides:
+- **Decided fields:** CRYSTAL, WEAPON-only, exactly one Consume10 (2/2), LEGENDARY, `canBeTraded:true`, **`canBeCrafted:true` with `craftingRequirements: [{ids:["@item:skyglass_filament"], number:12}]`** (RUL-2026-10-12-005).
+- **Set from the rulings:** `inShop:false` (acquisition is the 3% Reliquary drop or the recipe) and `hidden:true` (creation doctrine).
+- **Mirrored (RUL-2026-10-12-005):** the 20 fields no ruling sets equal the Heal Crystal III row, for example actionCostPerc 60, chakra/stamina 0, cooldown 5, cost 1, craftingExperience 800, target CHARACTER, requiredLevel 1, xpToLevel 1000. The packet lists them under `crystal.mirroredFields`; CONTRACT asserts each one. r1's 14 Flaming Sword shape-donor values are superseded.
 - **Absent fields:** the auction price bounds and purchase limits are absent and take validator defaults.
 - **Presentation:** pending; validation uses labelled placeholders.
 
@@ -57,10 +57,10 @@
   - Native rank gate: only Forgemaster can imbue a LEGENDARY Crystal.
   - As created (`hidden:true`), the Crystal is invisible to `imbueItem` ("Crystal not found").
   - The non-imbuable Katana rejects it. Non-WEAPON, duplicate, slot-limit, equipped, occupation, auction-reserved and required-skill guards are unchanged.
-- **Craft (proof that it can't be crafted):**
-  - The final Crystal (published, no recipe) returns **"This item is not craftable"**. It returns the same with the old 12-Filament recipe restored and 12 Filaments held, at Forgemaster.
-  - **Control:** the same inputs with `canBeCrafted:true` pass every pre-write guard and reach the trapped first write (a DB transaction). The flag alone blocks crafting.
-  - As created, the Crystal is rejected as hidden first. A craftable record without requirements is rejected for missing requirements.
+- **Craft (r2, recipe restored):**
+  - The final Crystal (published state) with 12 Filaments held at Forgemaster passes every pre-write craft guard and reaches the trapped first write (a DB transaction).
+  - 11 Filaments: "You need 12 Skyglass Filament (harness carrier) (you have 11)". Master rank: "You need to be at least Forgemaster rank to craft LEGENDARY items". As created (`hidden:true`): "This item is hidden and cannot be crafted". GATHERING/HUNTING/no occupation are rejected.
+  - The native rank × rarity control matrix is unchanged.
 - **Trade:** `canBeTraded:true` is stored and survives validation, with no auction price bounds. This is **record/schema evidence only**. The source auction guard (`routers/auction.ts`, "Item is not tradable") was not executed, and no committed trade is claimed.
 - **Boundary:** GUARDS stops at the first write. Persistence, CAS/concurrency, a completed craft or imbue, and an executed trade are not exercised.
 
@@ -148,7 +148,7 @@ TNR_OUT=<scratch>/fr1 harness/ghost_ship_final/run.sh               → exit 0
   engine export: 1780 pinned files unchanged; offline socket-denial preflight: PASS
   build_final_items.py --check: current; ghost_ship_consume build_item_carriers.py --check: current
   M0 PASS: 482 checks, 0 failed
-  bun test: 45 pass, 0 fail, 220 expect() calls, Ran 45 tests across 3 files
+  bun test: 45 pass, 0 fail, 218 expect() calls, Ran 45 tests across 3 files
   evidence M0/CONTRACT/GUARDS/ACTIVE/CROWNED: clean (482/0, 19/0, 24/0, 81/0, 36/0)
   negative probes: 5/5 enforced; run.sh: bun=0 evidence=0 negativeSelftest=0 source=0 -> exit 0
 harness/ghost_ship_final/run.sh   (second run → results/)          → exit 0
@@ -159,12 +159,12 @@ Historical reproduction first: harness/ghost_ship_consume/run.sh → 34 pass/0 f
 ## 8. Remaining decisions and gaps (director)
 
 - **Crowned support:** accept or adjust the rule order (Heal → Copy → Reflect → offense), the CLOSEST_OPPONENT selector and the measured tempo/survivability change. The approved triggers (strict < 40, IDG ≥ 71) are closed.
-- **Crystal:** set the 14 unapproved carrier values (or confirm them), and presentation/art.
-- **Katana:** presentation and art.
-- **Filament:** trading and any replacement use remain undecided. The drops are unchanged.
-- **Consume overlap:** stays deferred. At 2/2 the separate-weapon overlap no longer arises (§3).
-- **Unchanged open gates:** Sealwright behaviour proposal (`state/ghost_ship_skyglass_sealwright_behavior_proposal.md`; not accepted and not tested here), the nine-AI remap, minion duplicate IDG, the legacy packet hash re-baseline, deployed version and settings capture, and a fresh operator quest capture before any edit.
+Settled 2026-10-12 (RUL-2026-10-12-001…008): Crowned support accepted as tested; Sealwright accepted as final (not tested here); nine-AI remap approved; minion IDG kept with boss IDG 375/375/450; recipe restored and Crystal mirrored (this r2); overlap closed as native; Filament MATERIAL/RARE/tradable; source-default damage settings accepted with live tester calibration.
+
+Still open:
+- **Presentation and art** for Katana, Crystal, Reliquary, Filament and Serum: supplied by the director (art zip last).
+- **Fresh operator quest capture** (push/89) before any quest edit; the legacy packet hash re-baseline.
 
 ## 9. Not done
 
-Live-game requests 0, writes 0, CDN requests 0, credentials none. No engine edit (including in scratch), tuning, art, manifest, publication, unhiding or quest edit. Frozen r4 and 3/3 harnesses, records and results are unchanged. The global September Forge state was not touched. Nothing is on `main`.
+Live-game requests 0, writes 0, CDN requests 0, credentials none. No engine edit (including in scratch), tuning, art, manifest, publication, unhiding or quest edit. Frozen r4 and 3/3 harnesses, records and results are unchanged. The r1 SHA `4369f404…` is untouched. The global September Forge state was not touched. Nothing is on `main`.

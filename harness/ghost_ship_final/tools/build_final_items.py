@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Build the deterministic FINAL 2/2 Skyglass item candidate records (RUL-2026-10-11-006).
+"""Build the deterministic FINAL 2/2 Skyglass item records (RUL-2026-10-11-006, amended by
+RUL-2026-10-12-005: Crystal recipe restored; undecided Crystal fields mirror a live crystal).
 
 Katana: full captured Night's Testament row + RUL004/005/006 overrides. Its only
 mechanical differences from the 3/3 test carrier are Consume rounds 3 -> 2 and
 shieldRounds 3 -> 2. Crystal: captured Flaming Sword shape donor + RUL005/006
-overrides (LEGENDARY, tradable, not craftable, no recipe, one Consume10 2/2).
-Every Crystal field the director has not decided is listed as an unapproved
-carrier value; presentation stays pending. This is a candidate record packet,
+overrides. Its non-ruling fields mirror the live LEGENDARY WEAPON crystal Heal
+Crystal III (push/87 capture); decided fields (CRYSTAL, WEAPON-only, LEGENDARY,
+tradable, craftable from 12 Skyglass Filaments, one Consume10 2/2) are overrides.
+Presentation is supplied by the director and stays pending here. This is a candidate record packet,
 not a write manifest. No engine imports, network, credentials or other writes.
 """
 import copy
@@ -21,17 +23,19 @@ CONTRACT = "state/ghost_ship_skyglass_final_item_contract.json"
 R4_KATANA = "state/ghost_ship_skyglass_katana_record.json"
 CARRIERS_3X3 = "state/ghost_ship_skyglass_active_consume_carriers.json"
 NT_CAPTURE = "harvests/inbox/tnr_results_1791727479372.json"
-FS_CAPTURE = "harvests/inbox/tnr_results_1788235198666.json"
+MIRROR_CAPTURE = "harvests/inbox/tnr_results_1791766317760.json"  # push/87, Heal Crystal III
+MIRROR_ID = "iJM0kb1i6iNXjADJlZGV_"
+FILAMENT_REF = "@item:skyglass_filament"  # new item created in the release manifest
 ENGINE = "585534d7eb21d6f0dd678d5c3eb92662f611d39b"
-DESIGN = "fd7f021762940f11c3896c70b2af3bc53f7711dc"
+DESIGN = "8a78115367feda143e9591f524b739a7d56330af"
 DROPPED = ["id", "createdAt", "updatedAt"]
 PRESENTATION = ["description", "battleDescription", "image"]
 VISUALS = ["appearSfx", "disappearSfx", "appearAnimation", "disappearAnimation", "staticAnimation", "staticAssetPath"]
-# Crystal fields carried from the Flaming Sword shape donor that no ruling decides.
-# They validate, but they are NOT proposals: the director has not set them.
-CRYSTAL_UNAPPROVED = ["actionCostPerc", "battleUsageType", "canStack", "chakraCost", "cooldown", "cost",
-                      "destroyOnUse", "maxDurability", "maxEquips", "maxImbueNumber", "requiredLevel",
-                      "stackSize", "staminaCost", "xpToLevel"]
+# Crystal fields no ruling sets: mirrored from the live Heal Crystal III row (RUL-2026-10-12-005).
+CRYSTAL_MIRRORED = ["actionCostPerc", "battleUsageType", "canStack", "chakraCost", "cooldown", "cost",
+                    "craftingExperience", "destroyOnUse", "maxDurability", "maxEquips", "maxImbueNumber",
+                    "method", "range", "requiredLevel", "slot", "stackSize", "staminaCost", "target",
+                    "weaponType", "xpToLevel"]
 
 
 def load(path):
@@ -79,7 +83,8 @@ def build():
     assert (c_spec["power"], c_spec["rounds"], c_spec["shieldRounds"]) == (10, 2, 2)
     cc = contract["crystal"]
     assert (cc["itemType"], cc["crystalTargetTypes"], cc["rarity"], cc["canBeTraded"], cc["canBeCrafted"]) == \
-        ("CRYSTAL", "WEAPON", "LEGENDARY", True, False)
+        ("CRYSTAL", "WEAPON", "LEGENDARY", True, True)
+    assert cc["recipe"]["quantity"] == 12 and "RUL-2026-10-12-005" in cc["recipe"]["ruling"]
 
     nt_cap = load(NT_CAPTURE)["captures"][0]
     nt = nt_cap["data"]
@@ -113,9 +118,10 @@ def build():
     assert k33_diff == [{"path": "/effects/2/rounds", "before": 3, "after": 2},
                         {"path": "/effects/2/shieldRounds", "before": 3, "after": 2}], k33_diff
 
-    fs_cap = load(FS_CAPTURE)["captures"][8]
-    fs = fs_cap["data"]["items"][0]["item"]
-    assert fs["id"] == "1GmiQAGuBZZsjIFqcqPkR" and fs["weaponType"] == "SWORD"
+    m_cap = next(c for c in load(MIRROR_CAPTURE)["captures"] if (c.get("data") or {}).get("id") == MIRROR_ID)
+    mirror = m_cap["data"]
+    assert m_cap["proc"] == "item.get" and m_cap.get("persistOk") is True
+    assert (mirror["itemType"], mirror["crystalTargetTypes"], mirror["rarity"], mirror["hidden"]) == ("CRYSTAL", "WEAPON", "LEGENDARY", False)
     c_over = {
         "name": ("Skyglass Crystal", "approved item name (reward decisions)"),
         "itemType": ("CRYSTAL", "RUL005/006 category"),
@@ -123,30 +129,24 @@ def build():
         "effects": ([consume(c_spec)], "RUL005 sole Consume10; RUL006 rounds2/shieldRounds2"),
         "rarity": ("LEGENDARY", "RUL-2026-10-11-006"),
         "canBeTraded": (True, "RUL-2026-10-11-006"),
-        "canBeCrafted": (False, "RUL-2026-10-11-006; 12-Filament recipe removed"),
-        "craftingExperience": (0, "inert with canBeCrafted:false; RUL006 removes the recipe"),
-        "craftingRequirements": ([], "RUL-2026-10-11-006: no recipe in new construction"),
-        "inShop": (False, "RUL006 acquisition is the independent 3% Reliquary drop only"),
+        "canBeCrafted": (True, "RUL-2026-10-12-005: 12-Filament recipe restored"),
+        "craftingRequirements": ([{"ids": [FILAMENT_REF], "number": 12}], "RUL-2026-10-12-005: 12 Skyglass Filaments craft one Crystal (Filament created in the release manifest)"),
+        "inShop": (False, "acquisition is the 3% Reliquary drop and the Filament recipe"),
         "hidden": (True, "creation doctrine; no publication"),
         "canBeImbued": (False, "a Crystal is not an imbue recipient"),
-        "weaponType": ("NONE", "crystal shape"),
-        "slot": ("ITEM", "crystal shape"),
-        "target": ("SELF", "crystal shape; Consume target is SELF"),
-        "method": ("SINGLE", "crystal shape"),
-        "range": (0, "crystal shape"),
-        **{f: (None, "presentation pending; validation helper uses labelled placeholders") for f in PRESENTATION},
+        **{f: (None, "presentation supplied by the director (RUL-2026-10-12-006)") for f in PRESENTATION},
     }
-    crystal, crystal_prov = derived(fs, c_over, "Flaming Sword shape donor; UNAPPROVED carrier value")
-    unapproved = sorted(k for k, p in crystal_prov.items() if p["source"] != "override" and k in CRYSTAL_UNAPPROVED)
-    assert unapproved == CRYSTAL_UNAPPROVED, unapproved
+    crystal, crystal_prov = derived(mirror, c_over, "Heal Crystal III live mirror (RUL-2026-10-12-005)")
+    mirrored = sorted(k for k, p in crystal_prov.items() if p["source"] != "override" and k in CRYSTAL_MIRRORED)
+    assert mirrored == sorted(CRYSTAL_MIRRORED), mirrored
     c33_diff = diff(old["crystal"]["record"], crystal)
     return {
         "schema": "tnr.ghost_ship_skyglass_final_item_records.v1",
-        "status": "FINAL_2X2_CANDIDATE_RECORDS; RUNTIME_VALIDATION_IN_THIS_PACKAGE; PRESENTATION_AND_CRYSTAL_CARRIER_FIELDS_PENDING; NOT_A_WRITE_MANIFEST",
+        "status": "FINAL_2X2_RECORDS (RUL006 as amended by RUL-2026-10-12-005); PRESENTATION_PENDING_FROM_DIRECTOR; NOT_A_WRITE_MANIFEST",
         "ruling": contract["ruling"], "designCommit": DESIGN, "engineCommit": ENGINE,
         "contract": {"file": CONTRACT, "sha256": digest(CONTRACT)},
         "timing": {"consumeRounds": 2, "generatedShieldRounds": 2, "approved": True, "ruling": "RUL-2026-10-11-006"},
-        "consumeOverlap": "DIRECTOR_DEFERRED; native behaviour preserved; no restriction or correction",
+        "consumeOverlap": "CLOSED_NATIVE (RUL-2026-10-12-006)",
         "historical": {
             "r4Katana": {"file": R4_KATANA, "sha256": digest(R4_KATANA), "tnrCommit": "3f825562ea051306a3803f47428b742ae5100011", "katanaDiff": r4_diff},
             "activeConsume3x3": {"file": CARRIERS_3X3, "sha256": digest(CARRIERS_3X3), "tnrCommit": "fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2",
@@ -160,13 +160,13 @@ def build():
             "record": katana, "provenance": katana_prov,
         },
         "crystal": {
-            "status": "RUL005/006 DECIDED FIELDS + UNAPPROVED SHAPE-DONOR CARRIER FIELDS; PRESENTATION_PENDING",
-            "baseline": {"capture": FS_CAPTURE, "captureSha256": digest(FS_CAPTURE), "pointer": "/captures/8/data/items/0/item",
-                         "id": fs["id"], "name": fs["name"], "capturedAt": fs_cap.get("at")},
+            "status": "RUL005/006/RUL-2026-10-12-005 DECIDED FIELDS + HEAL CRYSTAL III MIRROR; PRESENTATION_PENDING",
+            "baseline": {"capture": MIRROR_CAPTURE, "captureSha256": digest(MIRROR_CAPTURE), "proc": "item.get", "snapshotKey": m_cap.get("snapshotKey"),
+                         "id": mirror["id"], "name": mirror["name"], "capturedAt": m_cap.get("at")},
             "droppedFields": DROPPED, "presentationPending": PRESENTATION,
-            "unapprovedCarrierFields": {k: crystal[k] for k in CRYSTAL_UNAPPROVED},
-            "absentEconomyFields": ["auctionMinPrice", "auctionMaxPrice", "purchaseLimit", "purchaseLimitPeriod"],
-            "note": "Unapproved carrier values validate but are not proposals. Absent economy fields take validator defaults (null/NONE). No live ID, cost or Filament policy is invented.",
+            "mirroredFields": {k: crystal[k] for k in CRYSTAL_MIRRORED},
+            "recipe": {"requirement": FILAMENT_REF, "quantity": 12, "ruling": "RUL-2026-10-12-005"},
+            "note": "Undecided fields mirror the live Heal Crystal III row. The Filament ref resolves to the item created in the same release manifest; offline tests substitute a harness id.",
             "record": crystal, "provenance": crystal_prov,
         },
     }

@@ -66,8 +66,8 @@
   {
    "detail": {
     "carriers3x3": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
-    "contract": "0c4ad7f077d63453610e43650788281bfa69087b53c0d395c6e6e3c3ce0442f2",
-    "crystalCapture": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+    "contract": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282",
+    "crystalCapture": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
     "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
     "r4Katana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469"
    },
@@ -101,15 +101,22 @@
    "pass": true
   },
   {
-   "name": "decided Crystal fields equal the RUL006 contract (CRYSTAL, WEAPON-only, LEGENDARY, canBeTraded true, canBeCrafted false)",
+   "name": "decided Crystal fields equal the amended contract (CRYSTAL, WEAPON-only, LEGENDARY, canBeTraded true, canBeCrafted true)",
    "pass": true
   },
   {
    "detail": {
-    "craftingExperience": 0,
-    "craftingRequirements": []
+    "canBeCrafted": true,
+    "craftingRequirements": [
+     {
+      "ids": [
+       "@item:skyglass_filament"
+      ],
+      "number": 12
+     }
+    ]
    },
-   "name": "no recipe remains operative: craftingRequirements [] and craftingExperience 0, preserved by the validator",
+   "name": "recipe restored: craftingRequirements = 12 x @item:skyglass_filament, canBeCrafted true, preserved by the validator",
    "pass": true
   },
   {
@@ -121,23 +128,29 @@
    "pass": true
   },
   {
-   "detail": [
-    "actionCostPerc",
-    "battleUsageType",
-    "canStack",
-    "chakraCost",
-    "cooldown",
-    "cost",
-    "destroyOnUse",
-    "maxDurability",
-    "maxEquips",
-    "maxImbueNumber",
-    "requiredLevel",
-    "stackSize",
-    "staminaCost",
-    "xpToLevel"
-   ],
-   "name": "every undecided carrier field is disclosed in the packet with its recorded value",
+   "detail": {
+    "actionCostPerc": 60,
+    "battleUsageType": "BOTH",
+    "canStack": false,
+    "chakraCost": 0,
+    "cooldown": 5,
+    "cost": 1,
+    "craftingExperience": 800,
+    "destroyOnUse": false,
+    "maxDurability": 100,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "method": "SINGLE",
+    "range": 0,
+    "requiredLevel": 1,
+    "slot": "ITEM",
+    "stackSize": 1,
+    "staminaCost": 0,
+    "target": "CHARACTER",
+    "weaponType": "NONE",
+    "xpToLevel": 1000
+   },
+   "name": "all 20 undecided fields equal the live Heal Crystal III row (LEGENDARY WEAPON crystal, push/87)",
    "pass": true
   },
   {
@@ -163,6 +176,11 @@
   "crystalValidation": {
    "diffFrom3x3": [
     {
+     "after": 60,
+     "before": 40,
+     "path": "/actionCostPerc"
+    },
+    {
      "after": null,
      "before": "harness placeholder (presentation pending)",
      "path": "/battleDescription"
@@ -170,10 +188,42 @@
     {
      "after": true,
      "before": false,
+     "path": "/canBeCrafted"
+    },
+    {
+     "after": true,
+     "before": false,
      "path": "/canBeTraded"
     },
     {
-     "after": [],
+     "after": 0,
+     "before": 40,
+     "path": "/chakraCost"
+    },
+    {
+     "after": 5,
+     "before": 4,
+     "path": "/cooldown"
+    },
+    {
+     "after": 1,
+     "before": 150000,
+     "path": "/cost"
+    },
+    {
+     "after": 800,
+     "before": 0,
+     "path": "/craftingExperience"
+    },
+    {
+     "after": [
+      {
+       "ids": [
+        "@item:skyglass_filament"
+       ],
+       "number": 12
+      }
+     ],
      "before": null,
      "path": "/craftingRequirements"
     },
@@ -213,14 +263,65 @@
      "path": "/name"
     },
     {
+     "after": "NONE",
+     "before": null,
+     "path": "/purchaseLimitPeriod"
+    },
+    {
      "after": "LEGENDARY",
      "before": "RARE",
      "path": "/rarity"
+    },
+    {
+     "after": 1,
+     "before": 20,
+     "path": "/requiredLevel"
+    },
+    {
+     "after": 0,
+     "before": 40,
+     "path": "/staminaCost"
+    },
+    {
+     "after": "CHARACTER",
+     "before": "SELF",
+     "path": "/target"
     }
    ],
    "effectsAccepted": true,
    "fullAccepted": true,
    "issues": [],
+   "mirrorSource": {
+    "capture": "harvests/inbox/tnr_results_1791766317760.json",
+    "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "capturedAt": "2026-10-12T00:51:56.877Z",
+    "id": "iJM0kb1i6iNXjADJlZGV_",
+    "name": "Heal Crystal III",
+    "proc": "item.get",
+    "snapshotKey": "87-mv4jehc4::before::1"
+   },
+   "mirroredFields": {
+    "actionCostPerc": 60,
+    "battleUsageType": "BOTH",
+    "canStack": false,
+    "chakraCost": 0,
+    "cooldown": 5,
+    "cost": 1,
+    "craftingExperience": 800,
+    "destroyOnUse": false,
+    "maxDurability": 100,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "method": "SINGLE",
+    "range": 0,
+    "requiredLevel": 1,
+    "slot": "ITEM",
+    "stackSize": 1,
+    "staminaCost": 0,
+    "target": "CHARACTER",
+    "weaponType": "NONE",
+    "xpToLevel": 1000
+   },
    "parsedEffects": [
     {
      "appearAnimation": "",
@@ -240,29 +341,20 @@
      "type": "consume"
     }
    ],
-   "unapprovedCarrierFields": {
-    "actionCostPerc": 40,
-    "battleUsageType": "BOTH",
-    "canStack": false,
-    "chakraCost": 40,
-    "cooldown": 4,
-    "cost": 150000,
-    "destroyOnUse": false,
-    "maxDurability": 100,
-    "maxEquips": 1,
-    "maxImbueNumber": 1,
-    "requiredLevel": 20,
-    "stackSize": 1,
-    "staminaCost": 40,
-    "xpToLevel": 1000
-   },
    "validatorOutputEconomy": {
     "auctionMaxPrice": null,
     "auctionMinPrice": null,
-    "canBeCrafted": false,
+    "canBeCrafted": true,
     "canBeTraded": true,
-    "craftingExperience": 0,
-    "craftingRequirements": []
+    "craftingExperience": 800,
+    "craftingRequirements": [
+     {
+      "ids": [
+       "@item:skyglass_filament"
+      ],
+      "number": 12
+     }
+    ]
    }
   },
   "instantNegativeControl": {
@@ -387,13 +479,13 @@
    }
   },
   "recordStatus": {
-   "consumeOverlap": "DIRECTOR_DEFERRED; native behaviour preserved; no restriction or correction",
+   "consumeOverlap": "CLOSED_NATIVE (RUL-2026-10-12-006)",
    "presentationPending": [
     "description",
     "battleDescription",
     "image"
    ],
-   "status": "FINAL_2X2_CANDIDATE_RECORDS; RUNTIME_VALIDATION_IN_THIS_PACKAGE; PRESENTATION_AND_CRYSTAL_CARRIER_FIELDS_PENDING; NOT_A_WRITE_MANIFEST",
+   "status": "FINAL_2X2_RECORDS (RUL006 as amended by RUL-2026-10-12-005); PRESENTATION_PENDING_FROM_DIRECTOR; NOT_A_WRITE_MANIFEST",
    "timing": {
     "approved": true,
     "consumeRounds": 2,
@@ -403,19 +495,20 @@
   },
   "sourceProvenance": {
    "crystalShapeDonor": {
-    "capture": "harvests/inbox/tnr_results_1788235198666.json",
-    "captureSha256": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
-    "capturedAt": "2026-09-01T03:59:42.777Z",
-    "id": "1GmiQAGuBZZsjIFqcqPkR",
-    "name": "Flaming Sword",
-    "pointer": "/captures/8/data/items/0/item"
+    "capture": "harvests/inbox/tnr_results_1791766317760.json",
+    "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+    "capturedAt": "2026-10-12T00:51:56.877Z",
+    "id": "iJM0kb1i6iNXjADJlZGV_",
+    "name": "Heal Crystal III",
+    "proc": "item.get",
+    "snapshotKey": "87-mv4jehc4::before::1"
    },
-   "designCommit": "fd7f021762940f11c3896c70b2af3bc53f7711dc",
+   "designCommit": "8a78115367feda143e9591f524b739a7d56330af",
    "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
    "hashes": {
     "carriers3x3": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
-    "contract": "0c4ad7f077d63453610e43650788281bfa69087b53c0d395c6e6e3c3ce0442f2",
-    "crystalCapture": "364e9159edfaf3d06b658624b17c9db4f983577c9d32439989f3e6167e9b083b",
+    "contract": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282",
+    "crystalCapture": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
     "katanaCapture": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
     "r4Katana": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469"
    },
@@ -432,5 +525,5 @@
  "failed": 0,
  "gate": "CONTRACT",
  "records": "state/ghost_ship_skyglass_final_item_records.json",
- "scope": "final 2/2 candidate records (RUL006); Crystal unapproved carrier fields and presentation pending"
+ "scope": "final 2/2 records (RUL006 + RUL-2026-10-12-005); presentation pending from the director"
 }

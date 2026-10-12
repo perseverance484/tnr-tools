@@ -880,3 +880,23 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 **Ruling:** dauntless accepted the limitation. Offline harnesses keep using engine source-default damage settings at the pinned upstream engine, with that boundary disclosed. Final calibration happens in-game: a tester plays the Ghost Ship quests while they are still hidden, after the manifest is applied and before any publication. No Forge allowlist change is requested.
 
 **Canonical destination:** this ruling; the full-manifest roadmap's production gates.
+
+---
+
+## RUL-2026-10-12-008 — Release-manifest record and packaging decisions
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release manifest
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Skyglass Filament:** `itemType:"MATERIAL"`, `rarity:"RARE"`, tradable. It feeds the 12-Filament Crystal recipe (RUL-2026-10-12-005).
+2. **Skyglass Reliquary:** LEGENDARY consumable loot chest, **not tradable**. Its loot table is unchanged from the reward decisions.
+3. **Presentation text:** the director supplies description and battle description for all five items, Katana, Crystal, Reliquary, Filament and Skyglass Serum. Fable slots them in and validates; no item text is drafted on the director's behalf.
+4. **Prose:** the drafted quest retheme, objective, dialogue/choice and jutsu conversion text is accepted as final.
+5. **Sealwright record:** a new AI that copies the regular Captain's profile fields (level, rank, stat/pool multipliers, regeneration and similar), with the accepted Sealwright kit/rules and +375% innate IDG (RUL-2026-10-12-004).
+6. **Packaging:** one combined Forge manifest for the whole release. Art is the last input: the director provides a zip of all finalized art assets, and the manifest is finished around it.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (items 1–3); `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (items 4–6).

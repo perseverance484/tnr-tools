@@ -1,10 +1,11 @@
 # Ghost Ship / Skyglass — final 2/2 items + Crowned Captain support (offline)
 
-Implements, at design commit `fd7f021762940f11c3896c70b2af3bc53f7711dc`:
+Implements, at design commit `8a78115367feda143e9591f524b739a7d56330af` (r2):
 
 - `state/prompt_ghost_ship_skyglass_final_item_revalidation.md` (RUL-2026-10-11-006): final
   Katana15 / Crystal10 records with Consume `rounds:2` / `shieldRounds:2`, and a LEGENDARY,
-  tradable, non-craftable Crystal with no recipe;
+  tradable Crystal; r2 applies RUL-2026-10-12-005 (12-Filament recipe restored, `canBeCrafted:true`,
+  non-ruling fields mirrored from the live Heal Crystal III row captured by push/87);
 - `state/ghost_ship_skyglass_crowned_support_behavior.md` (RUL-2026-10-11-007/008): Crowned
   Captain heal strictly below 40%, Copy at summed IDG ≥ 71, and regular Reflect.
 
@@ -37,7 +38,7 @@ makes it exit nonzero.
 | Path | Role |
 | --- | --- |
 | `tools/build_final_items.py` | Derives `state/ghost_ship_skyglass_final_item_records.json`; `--check` verifies it. Asserts the exact deltas from the r4 Katana and the 3/3 carriers |
-| `engine/contract_guards.test.ts` | CONTRACT: complete-record validation of both items. GUARDS: real `imbueItem`/`craftItem` pre-write paths with a write-trapping read-only DB stub, including the non-craftable Crystal proof |
+| `engine/contract_guards.test.ts` | CONTRACT: complete-record validation of both items. GUARDS: real `imbueItem`/`craftItem` pre-write paths with a write-trapping read-only DB stub, including the 12-Filament recipe craft path |
 | `engine/active_consume.test.ts` | ACTIVE: real assembly/actions at 2/2 — activation, granting/later hits, final eligible and first ineligible hit, independent shield expiry, overlap observation, Clear, Buff Prevent/immunity, costs/cooldown/range; plus the upstream processor probes |
 | `engine/crowned_support.test.ts` | CROWNED: rule schema, heal boundary and fall-through, Copy trigger vs copied effects, selector/summons/path distance, Reflect, and the captured/dormant/support fight comparison |
 | `selftest/`, `tools/check_evidence.py` | Fail-closed evidence enforcement (unchanged design from the 3/3 package) |
@@ -45,8 +46,8 @@ makes it exit nonzero.
 
 ## Limits
 
-- Crystal fields no ruling sets are carried from the Flaming Sword shape donor and listed as
-  unapproved in the record packet; presentation fields are pending (labelled placeholders).
+- Crystal fields no ruling sets mirror Heal Crystal III (`crystal.mirroredFields`); presentation
+  fields are pending director text (labelled placeholders).
 - GUARDS stops at the first write: no persistence, CAS/concurrency, committed craft/imbue or
   executed trade is claimed. `canBeTraded` is record/schema evidence only.
 - Crowned selector inputs (HP fractions, IDG/prevent/copy-budget effects, summons) are injected
