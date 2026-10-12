@@ -6,26 +6,26 @@
   "consumer": "push/90_ghost_ship_skyglass_release.gen.py. A null value keeps the manifest in DRAFT mode with a labelled placeholder; --final refuses while any value is null.",
   "items": {
     "skyglass_katana": {
-      "description": null,
-      "battleDescription": null,
+      "description": "A Crystal-edged sword borne by the Captain's most faithful reconstruction. Its command seals resist interference, turning a measure of the wielder's damage into a brief protective lattice.",
+      "battleDescription": "%user cuts with the Skyglass Katana as pale command seals awaken along its Crystal edge.",
       "effectPresentation": null
     },
     "skyglass_crystal": {
-      "description": null,
-      "battleDescription": null,
+      "description": "A shard of Skyglass worked to carry the ship's protective lattice into another weapon. When its seals awaken, part of the wielder's damage returns as a brief shield.",
+      "battleDescription": "Pale seal-light traces %user's weapon as the Skyglass Crystal's dormant pattern awakens.",
       "effectPresentation": null
     },
     "skyglass_reliquary": {
-      "description": null,
-      "battleDescription": null
+      "description": "A black-iron coffer recovered from the Ghost Ship's quarantined archive. Its heavy clasps preserve what the Sealwright kept apart from the vessel's ceaseless work of reconstruction.",
+      "battleDescription": "The Skyglass Reliquary opens beneath %user's hand, its pale lock going dark at last."
     },
     "skyglass_filament": {
-      "description": null,
-      "battleDescription": null
+      "description": "A hair-thin strand from the seal lattice that keeps the Ghost Ship aloft. Even separated from the hull, it retains enough structure to be woven into a weapon-bound Skyglass Crystal.",
+      "battleDescription": "The Skyglass Filament trembles with a pale pulse of seal-light."
     },
     "skyglass_serum": {
-      "description": null,
-      "battleDescription": null
+      "description": "A concentrated restorative sealed for the Ghost Ship's longest chakra operations. The medicine remains potent, though the living crew it was prepared to sustain has long since vanished.",
+      "battleDescription": "%user drinks the Skyglass Serum as pale seal-light closes their wounds."
     }
   },
   "effectPresentationShape": "Optional. Either null (keep the record's empty animation/SFX fields) or an object with any of appearAnimation, staticAnimation, disappearAnimation, appearSfx, disappearSfx, staticAssetPath, applied to every effect tag of that item."
