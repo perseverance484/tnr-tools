@@ -89,7 +89,14 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 ## 6. Still required before `--final`
 
 1. ~~Fresh push/89 quest capture~~: done (`harvests/inbox/tnr_results_1791768613624.json`, Forge 0.5.0, 2026-10-12T01:30Z, DONE/success, 2/2 full reads). Both quests are identical to the October 1 capture: every top-level field and all 57 objectives match. Both read **`hidden:false`** with an expired window (2026-09-18 to 2026-09-21), contradicting the earlier hidden report. The generator now uses this capture as its default base and records the observed state; the quest edits assert `hidden:true`, so running push/90 hides both quests.
-2. ~~Director text and art~~: done. Text at `224ab918`. Art: 34 director-approved WebPs committed at `d61c990d` (`art/ghost_ship_skyglass/`). All 34 match the handoff SHA256SUMS. Canonical `artpreflight.py` gives 0 errors and 2 non-blocking oversize warnings. The 10 required slots are bound, and the `imagePack` sha256/bytes equal the director's ledger. The 24 other approved files are committed but unbound (optional replacements need a separate decision).
+2. ~~Director text and art~~: done. Text at `224ab918`. Art: 34 director-approved WebPs committed at `d61c990d` (`art/ghost_ship_skyglass/`); all 34 match the handoff SHA256SUMS; canonical `artpreflight.py` gives 0 errors and 2 non-blocking oversize warnings. **All 34 are bound** (director, 2026-10-12: leave no old Ghost Ship art behind):
+   - 10 required slots;
+   - 11 renamed-AI avatars;
+   - Crown, Fragment and Serum icons;
+   - the quest icon on both quests;
+   - 6 existing scene backgrounds and 3 existing portraits.
+
+   `--final` now refuses if any WebP in `art/ghost_ship_skyglass/` is unbound. The imagePack (34 files, 6,833,826 bytes) equals the director's ledger. Still old, with no replacement art supplied: the custom icons of the Death's Door and Death's Grasp jutsu. Not Ghost Ship assets, so left as-is: the shared dialog-node and collect-item badges used by about 50 quests, and the default `avatarLight`.
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. ~~Legacy jutsu hash re-baseline~~: done. `state/ghost_ship_legacy_jutsu_baseline_push86.json`; the generator refuses unless every jutsu-edit source row matches it.
 5. ~~Consumer audit~~: resolved. RUL-2026-10-12-010 leaves Counter Stance and Battle Trance unedited (22 outside holders). For the nine edited jutsu, the census (535/535) found 0 outside holders. 16 live AIs remain unread (push/91 counted 522 vs 506 read); the director accepted that residual (RUL-2026-10-12-011). Verdict `ACCEPTED_RESIDUAL`. push/92 is no longer required.
