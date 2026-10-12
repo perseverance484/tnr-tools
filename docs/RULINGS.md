@@ -1092,3 +1092,23 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
 
 **Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
+
+---
+
+## RUL-2026-10-12-016 — Approve Ghost Ship quest-workflow roadmap; QW-0 and QW-1 first
+
+**Date:** 2026-10-12
+
+**Domain:** TNR quest-creation tooling and multi-session workflow; Ghost Ship / Skyglass retrospective
+
+**Status:** ACTIVE (planning priority and workflow direction).
+
+**Supersedes:** none.
+
+**Ruling:** The director approved the quest-creation workflow improvement roadmap distilled from seven unique Ghost Ship / Skyglass closeouts. **QW-0** (source-contract and validation correctness) and **QW-1** (deterministic quest workstream starter) are the first approved **implementation-planning passes**. Fable / Claude Code remains the Lane A implementation owner, with separate bounded briefs/branches, frozen exact-SHA handoffs and independent ChatGPT review. QW-2 through QW-5 remain queued roadmap items rather than automatic next implementations.
+
+**Boundary:** Approval does not itself adopt generated contracts from the newest upstream sentinel, authorize bypassing mechanical source-diff gates, merge the unintegrated Quest Studio foundation, change rewards or gameplay, decide unresolved policy defaults, or grant any live-game request, write, publication or unhide authority. The older Ghost Ship manifests and SHA-specific validation-exception ledgers remain historical evidence. QW-0 follow-ups other than the first contract-alignment slice require their own narrow implementation boundaries.
+
+**Rationale:** Preserve the working TNR authority and production system while addressing the highest-cost observed failure modes: stale source contracts, repeated session reconstruction, partial release failures, source/approval drift and duplicated quest-creation work. Keep ordinary small quests lightweight rather than forcing every Lane B task through a new branch/review cycle.
+
+**Canonical destination:** `docs/design/QUEST_CREATION_WORKFLOW_IMPROVEMENT_PLAN_2026-10-12.md` is the approved workflow roadmap; `state/prompt_quest_workflow_qw0_contract_alignment.md` and `state/prompt_quest_workflow_qw1_workstream_starter.md` own the selected first task boundaries. Applicable operative rules remain with `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/DEVELOPMENT_WORKFLOW.md`, `docs/workflows/CONTENT_WORKSTREAM.md` and the existing tool/contract sources; this ruling does not replace them.
