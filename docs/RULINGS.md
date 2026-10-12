@@ -900,3 +900,29 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 6. **Packaging:** one combined Forge manifest for the whole release. Art is the last input: the director provides a zip of all finalized art assets, and the manifest is finished around it.
 
 **Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (items 1–3); `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (items 4–6).
+
+---
+
+## RUL-2026-10-12-009 — Normalize remapped AI distance gates to range+1
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI rules
+
+**Status:** ACTIVE.
+
+**Amends:** RUL-2026-10-12-003 ("conditions unchanged") for distance gates only.
+
+**Context:** after the remap, 14 captured `distance_lower_than` gates on pool-jutsu rules sit below the new jutsu's range+1. Law 40's text calls such gates safe, but Forge 0.5.0 enforces exact range+1 and refuses the manifest. Affected rules:
+- Oathkeeper Quick Strike 2→4.
+- Arsenal Keeper Numbing Shot 3→6 and Twin Shot 5→6.
+- Sentinel Twin Shot 2/3/5→6.
+- Core Horror Twin Shot 2/5→6.
+- First Blade Rapid Fire 2→6, Ion Lance 3→6 and Numbing Shot 4→6.
+- Crowned Captain Unraveling Strike 3→4.
+- Deck Warden Rapid Fire 4→6.
+- Wayfinder Lunging Strike 4→5.
+
+**Ruling:** dauntless chose Option A. Each of these gates is set to range+1. Those attacks fire from farther away. Where one jutsu had several range-banded rules, the bands collapse and the first matching rule wins. These gate values were not measured offline (RUL-007 tester calibration applies). Option B, loosening Forge's check, was declined.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md`; implemented by `push/90_ghost_ship_skyglass_release.gen.py --gate-policy law40` (default; `--final` requires it).
