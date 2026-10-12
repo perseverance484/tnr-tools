@@ -92,7 +92,7 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 2. ~~Director text for 5 items~~: approved and slotted (`224ab918`). The art zip is still pending: at intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in `state/ghost_ship_skyglass_release_art.json`. Then run `--final --image-ref <commit>`.
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. ~~Legacy jutsu hash re-baseline~~: done. `state/ghost_ship_legacy_jutsu_baseline_push86.json`; the generator refuses unless every jutsu-edit source row matches it.
-5. Pre-run dependency check (disclosed): captures show no non-Ghost-Ship AI equipping the 11 retained jutsu. Absence of evidence is not a full consumer audit.
+5. **Consumer audit of the 11 retained jutsu** (law 18/60): run the queued read-only AI census `push/81`–`push/84` (535 point reads, completeness 522), then `harness/ghost_ship_legacy_baseline/consumer_audit.py <results…>`. `--final` refuses unless the verdict is CLEAR. Until then the only evidence is that the captures show no non-Ghost-Ship holder, which is not a full audit.
 6. Independent review of the frozen SHA; integration into `main` only afterwards.
 
 ## 7. Commands

@@ -63,6 +63,8 @@ CHEST_DONOR_CAPTURE = "harvests/inbox/tnr_results_1789402842027.json"
 KIT = "state/ghost_ship_hybrid_kit_proposal.json"
 LEGACY = "state/ghost_ship_legacy_jutsu_conversion.json"
 LEGACY_BASELINE = "state/ghost_ship_legacy_jutsu_baseline_push86.json"  # post-0056 re-baseline
+# Written by harness/ghost_ship_legacy_baseline/consumer_audit.py from the push/81-84 AI census results.
+CONSUMER_AUDIT = "state/ghost_ship_legacy_jutsu_consumer_audit.json"
 CONTRACT = "state/ghost_ship_skyglass_sealwright_rule_contract.json"
 RECORDS = "state/ghost_ship_skyglass_final_item_records.json"
 RETHEME = "state/ghost_ship_retheme_patch.json"
@@ -863,6 +865,15 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
         if gate_policy != "law40":
             fail("--final requires --gate-policy law40 (RUL-2026-10-12-009); Forge refuses the captured gates")
     base = quest_base or FRESH_QUESTS
+    audit = load(CONSUMER_AUDIT) if os.path.exists(os.path.join(ROOT, CONSUMER_AUDIT)) else None
+    if audit and audit["baseline"]["sha256"] != sha256_file(LEGACY_BASELINE):
+        fail(f"{CONSUMER_AUDIT} was produced against a different legacy baseline")
+    if final and (not audit or audit["verdict"] != "CLEAR"):
+        fail("legacy jutsu consumer audit is not CLEAR (run the push/81-84 census, then "
+             "harness/ghost_ship_legacy_baseline/consumer_audit.py): "
+             + (audit["verdict"] if audit else "no audit file"))
+    report["consumerAudit"] = ({"path": CONSUMER_AUDIT, "verdict": audit["verdict"], "otherHolders": audit["otherHolders"]}
+                               if audit else {"path": CONSUMER_AUDIT, "verdict": "NOT_RUN"})
     pres, pending_text = presentation(final)
     art = Art(final, image_ref)
 
