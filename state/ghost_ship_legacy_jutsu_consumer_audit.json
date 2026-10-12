@@ -7,6 +7,14 @@
   "path": "state/ghost_ship_legacy_jutsu_baseline_push86.json",
   "sha256": "66a89297ccb2258e84f0253c87e8353390f14d0416acadbec3f8612f2e9f6209"
  },
+ "editScope": {
+  "path": "state/ghost_ship_legacy_jutsu_edit_scope.json",
+  "sha256": "568ca207979fabfce10c8046b05bf284574e67ee027a95bc7eb4f54e1666a470",
+  "excluded": [
+   "MG9ZujAV8lK7--YxThVbQ",
+   "T3glZGcSd-jS8G-NB43GR"
+  ]
+ },
  "censusManifests": {
   "push/81_ai_pool_reequip_census_stage2_batch1.json": "aa4148236c7b11e632a8f62c12ac9121a3d833bcc0239b92210f4b185ef256b4",
   "push/82_ai_pool_reequip_census_stage2_batch2.json": "be161799b5c81ec78031e05ad7325328242df03928553f4f4fb0c4504edcd9ae",
@@ -191,7 +199,8 @@
    "ghostShip": true
   }
  ],
- "otherHolders": [
+ "otherHolders": [],
+ "otherHoldersOfUneditedJutsu": [
   {
    "aiId": "3GgiBgw-ysNtvTqvMJYqL",
    "username": "The Countess",

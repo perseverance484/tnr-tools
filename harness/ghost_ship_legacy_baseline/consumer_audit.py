@@ -38,6 +38,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 BASELINE = "state/ghost_ship_legacy_jutsu_baseline_push86.json"
 KIT = "state/ghost_ship_hybrid_kit_proposal.json"
 OUT = "state/ghost_ship_legacy_jutsu_consumer_audit.json"
+EDIT_SCOPE = "state/ghost_ship_legacy_jutsu_edit_scope.json"  # RUL-2026-10-12-010
 CENSUS_GLOB = "push/8[1-4]_ai_pool_reequip_census_stage2_batch*.json"
 LIVE_NON_ELDER = 522  # push/80 profile.getAllAiNames row count (tnr_results_1791583362574.json)
 
@@ -79,7 +80,10 @@ def live_count(rel: str, after: str) -> tuple[int, dict]:
 
 def audit(result_paths: list[str], count_path: str | None = None) -> dict:
     baseline, baseline_sha = read(BASELINE)
+    scope, scope_sha = read(EDIT_SCOPE)
+    # Only jutsu push/90 edits can sever an outside link; excluded ones are reported, not counted.
     targets = {r["targetId"]: r["name"] for r in baseline["records"]}
+    excluded = set(scope["excluded"])
     ghost = {e["aiId"] for e in read(KIT)[0]["entities"]}
     want, manifests = census_ids()
     if len(want) != 535:
@@ -119,7 +123,8 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
                 holders.append({"aiId": uid, "username": body.get("username"), "jutsuId": jid,
                                 "jutsuName": targets[jid], "equipped": uj.get("equipped"),
                                 "ghostShip": uid in ghost})
-    others = [h for h in holders if not h["ghostShip"]]
+    others = [h for h in holders if not h["ghostShip"] and h["jutsuId"] not in excluded]
+    unedited = [h for h in holders if not h["ghostShip"] and h["jutsuId"] in excluded]
     if missing or errors or len(live) != expected:
         verdict = "INCOMPLETE"
     elif others:
@@ -132,6 +137,7 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
         "verdict": verdict,
         "generator": "harness/ghost_ship_legacy_baseline/consumer_audit.py",
         "baseline": {"path": BASELINE, "sha256": baseline_sha},
+        "editScope": {"path": EDIT_SCOPE, "sha256": scope_sha, "excluded": sorted(excluded)},
         "censusManifests": manifests,
         "inputs": inputs,
         "coverage": {"censusIds": len(want), "read": len(bodies), "missing": missing,
@@ -141,6 +147,7 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
                      "readErrors": errors},
         "ghostShipHolders": [h for h in holders if h["ghostShip"]],
         "otherHolders": others,
+        "otherHoldersOfUneditedJutsu": unedited,
     }
 
 

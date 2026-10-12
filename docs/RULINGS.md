@@ -926,3 +926,24 @@ Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it
 **Ruling:** dauntless chose Option A. Each of these gates is set to range+1. Those attacks fire from farther away. Where one jutsu had several range-banded rules, the bands collapse and the first matching rule wins. These gate values were not measured offline (RUL-007 tester calibration applies). Option B, loosening Forge's check, was declined.
 
 **Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md`; implemented by `push/90_ghost_ship_skyglass_release.gen.py --gate-policy law40` (default; `--final` requires it).
+
+---
+
+## RUL-2026-10-12-010 — Leave Counter Stance and Battle Trance unedited
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / retained legacy jutsu
+
+**Status:** ACTIVE.
+
+**Amends:** RUL-2026-10-11-002 and the conversion packet's text for two of the eleven retained jutsu. The text of the other nine is accepted as final (RUL-2026-10-12-008) and unchanged.
+
+**Evidence:** the AI census push/81–84 (2026-10-12, 535/535 reads; `state/ghost_ship_legacy_jutsu_consumer_audit.json`). 22 AIs outside Ghost Ship equip these two jutsu: 18 hold Counter Stance `T3glZGcSd-jS8G-NB43GR` and 4 hold Battle Trance `MG9ZujAV8lK7--YxThVbQ`. No outside AI holds any of the other nine. Editing an equipped jutsu severs its combat link (law 18/60), and the Skyglass text would also show in those AIs' fights.
+
+**Ruling:** dauntless chose Option B.
+- Counter Stance and Battle Trance keep their current live names, descriptions and battle descriptions. They are not renamed to "Rebounding Form" and "Remembered Form", and push/90 neither edits nor unequips them.
+- They stay in the Ghost Ship kits and rules unchanged, including Crowned's support Reflect rule (same id).
+- Re-equipping the 22 outside AIs (Option A) was declined, and so was cloning the two jutsu for Ghost Ship (Option C).
+
+**Canonical destination:** `state/ghost_ship_legacy_jutsu_edit_scope.json`, read by `push/90_ghost_ship_skyglass_release.gen.py` and `harness/ghost_ship_legacy_baseline/consumer_audit.py`. The conversion packet JSON is unchanged because the frozen harnesses pin it.

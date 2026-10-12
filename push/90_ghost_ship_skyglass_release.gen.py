@@ -65,6 +65,7 @@ LEGACY = "state/ghost_ship_legacy_jutsu_conversion.json"
 LEGACY_BASELINE = "state/ghost_ship_legacy_jutsu_baseline_push86.json"  # post-0056 re-baseline
 # Written by harness/ghost_ship_legacy_baseline/consumer_audit.py from the push/81-84 AI census results.
 CONSUMER_AUDIT = "state/ghost_ship_legacy_jutsu_consumer_audit.json"
+EDIT_SCOPE = "state/ghost_ship_legacy_jutsu_edit_scope.json"  # RUL-2026-10-12-010: jutsu left unedited
 CONTRACT = "state/ghost_ship_skyglass_sealwright_rule_contract.json"
 RECORDS = "state/ghost_ship_skyglass_final_item_records.json"
 RETHEME = "state/ghost_ship_retheme_patch.json"
@@ -499,7 +500,8 @@ def idg_entry(template: dict, power: int) -> dict:
 def build_ais(art: Art, report: dict, gate_policy: str) -> tuple[list[dict], list[dict], list[dict], set[str]]:
     kit = load(KIT)
     legacy = load(LEGACY)
-    legacy_ids = {c["targetId"] for c in legacy["conversions"]}
+    # Only edited legacy jutsu need the law-60 unequip; excluded ones (RUL-010) stay equipped.
+    legacy_ids = {c["targetId"] for c in legacy["conversions"]} - set(load(EDIT_SCOPE)["excluded"])
     renames = load(RETHEME)["aiRenames"]
     loot = load(RETHEME)["lootCorrections"]
     live = p86_ais()
@@ -634,8 +636,14 @@ def build_jutsu_edits(report: dict) -> list[dict]:
             live_rows.setdefault(uj["jutsuId"], uj["jutsu"])
     out = []
     drift = {}
+    excluded = load(EDIT_SCOPE)["excluded"]
     for c in legacy["conversions"]:
         jid = c["targetId"]
+        if jid in excluded:
+            row = live_rows.get(jid)
+            if row is None or protected_hash(row) != pinned.get(jid) or row["name"] != excluded[jid]["liveName"]:
+                fail(f"excluded legacy jutsu {jid} no longer matches its baseline / live name")
+            continue
         row = live_rows.get(jid)
         if row is None:
             fail(f"legacy jutsu {jid} not equipped by any push/86 Ghost Ship AI")
@@ -651,6 +659,7 @@ def build_jutsu_edits(report: dict) -> list[dict]:
     if drift:
         fail("legacy jutsu presentation drifted since the conversion packet: " + stable(drift))
     report["legacyJutsu"] = {"count": len(out), "beforeTextMatchesPush86": True,
+                             "excludedUnedited": {k: v["liveName"] for k, v in excluded.items()},
                              "protectedHashesMatch": LEGACY_BASELINE}
     return out
 
@@ -902,7 +911,7 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
     manifest["capture"] = capture_block()
     report["pending"] = {"presentationText": pending_text, "artSlots": art.pending}
     report["counts"] = dict(Counter(f"{i['entity']}.{i['slot']}" for i in items))
-    report["inputs"] = {rel: sha256_file(rel) for rel in (P86, OCT1_ITEMS, CHEST_DONOR_CAPTURE, KIT, LEGACY, LEGACY_BASELINE, CONTRACT, RECORDS,
+    report["inputs"] = {rel: sha256_file(rel) for rel in (P86, OCT1_ITEMS, CHEST_DONOR_CAPTURE, KIT, LEGACY, LEGACY_BASELINE, EDIT_SCOPE, CONTRACT, RECORDS,
                                                           RETHEME, GRAPH, PRESENTATION, ART, base)}
     return manifest, report
 
