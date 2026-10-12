@@ -1,0 +1,366 @@
+{
+  "schema": "tnr.qw0a.independent_review_evidence.v1",
+  "observed_at_utc": "2026-10-12T17:02:02.108620+00:00",
+  "repository": "perseverance484/tnr-tools",
+  "main_base_merge_base": "4de2668bb947368113683b5cb97e197abc87df27",
+  "approved_planning_sha": "c34f7de572337b0d2cfe397b9331502aa6548e27",
+  "reviewed_sha": "5fefb70b88f140c3212d0b9d94209e70be44f2bb",
+  "upstream_head_observed": "f8c04d029ea58007bf2947dbddb94c446e15dbb5",
+  "reviewed_changed_files": [
+    "docs/reviews/QW0A_CONTRACT_ALIGNMENT_REPORT.md",
+    "docs/reviews/qw0a_evidence/atoms_bdec2883_to_585534d.txt",
+    "docs/reviews/qw0a_evidence/gate_585534d_45c.txt",
+    "docs/reviews/qw0a_evidence/gate_585534d_45d.txt",
+    "docs/reviews/qw0a_evidence/gate_585534d_45e.txt"
+  ],
+  "disposition": "ACCEPTED_REPORT_ONLY_BLOCKED_BY_SOURCE_ADOPTION",
+  "alignment": "BLOCKED",
+  "freeze_attestation": "No separate explicit author freeze attestation found; exact immutable snapshot reviewed; branch stable across remote checks.",
+  "extraction_matrix": [
+    {
+      "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+      "invariants": {
+        "exit": 0,
+        "output": "invariants: 5 union(s), 128 variant(s) audited; 0 error(s)"
+      },
+      "diffs": [
+        {
+          "file": "45c",
+          "exit": 0,
+          "tail": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "removed_atoms": 0,
+          "added_atoms": 0,
+          "sha256": "3aae6ec2bb7b9508868f69e360510d308552a6fb37a9cd27e75ca429cf42964e"
+        },
+        {
+          "file": "45d",
+          "exit": 0,
+          "tail": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "removed_atoms": 0,
+          "added_atoms": 0,
+          "sha256": "d8a5883021979b26bbe1eab01d1bfcaaa95ff7247cde0d89104ae1757f922781"
+        },
+        {
+          "file": "45e",
+          "exit": 0,
+          "tail": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "removed_atoms": 0,
+          "added_atoms": 0,
+          "sha256": "37d20769fab3de0ed1f3b46bf775623bb0bff7869042053e80b109ff43d1e96f"
+        }
+      ]
+    },
+    {
+      "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+      "invariants": {
+        "exit": 0,
+        "output": "invariants: 5 union(s), 139 variant(s) audited; 0 error(s)"
+      },
+      "diffs": [
+        {
+          "file": "45c",
+          "exit": 1,
+          "tail": "BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 219,
+          "added_atoms": 262,
+          "sha256": "afa6468da32cd77921114a2f49541cf74c553ce2e38a82897671391351a3d415"
+        },
+        {
+          "file": "45d",
+          "exit": 1,
+          "tail": "BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 61,
+          "added_atoms": 72,
+          "sha256": "3af191781750e8ade6c5534eb7113ccdae46feddd40c5c2b2c1c7aed3e7918b1"
+        },
+        {
+          "file": "45e",
+          "exit": 1,
+          "tail": "BREAKING: 45 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 45,
+          "added_atoms": 280,
+          "sha256": "d40dcfaa34d78b74195defd47252257e5928e07631a705d92fc7d3f0bb2655f0"
+        }
+      ]
+    },
+    {
+      "pin": "6e4429d65f466b0df9fca3f9917b6dd427df7573",
+      "invariants": {
+        "exit": 0,
+        "output": "invariants: 5 union(s), 139 variant(s) audited; 0 error(s)"
+      },
+      "diffs": [
+        {
+          "file": "45c",
+          "exit": 1,
+          "tail": "BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 219,
+          "added_atoms": 262,
+          "sha256": "afa6468da32cd77921114a2f49541cf74c553ce2e38a82897671391351a3d415"
+        },
+        {
+          "file": "45d",
+          "exit": 1,
+          "tail": "BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 61,
+          "added_atoms": 72,
+          "sha256": "9daee94c31bef73b41e386966033d3a0e44c7ed28dc659b2e05dfdc23bc10b1f"
+        },
+        {
+          "file": "45e",
+          "exit": 1,
+          "tail": "BREAKING: 47 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 47,
+          "added_atoms": 285,
+          "sha256": "9a84a4a8cae8ad3da12eff118f6316675bec45557a7669e2a912af7d8c534940"
+        }
+      ]
+    },
+    {
+      "pin": "f8c04d029ea58007bf2947dbddb94c446e15dbb5",
+      "invariants": {
+        "exit": 0,
+        "output": "invariants: 5 union(s), 139 variant(s) audited; 0 error(s)"
+      },
+      "diffs": [
+        {
+          "file": "45c",
+          "exit": 1,
+          "tail": "BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 219,
+          "added_atoms": 262,
+          "sha256": "afa6468da32cd77921114a2f49541cf74c553ce2e38a82897671391351a3d415"
+        },
+        {
+          "file": "45d",
+          "exit": 1,
+          "tail": "BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 61,
+          "added_atoms": 72,
+          "sha256": "c2250033ac9a2261d0b9ade4968cd3a031278cc6e2ae1852a05d04fba5598e35"
+        },
+        {
+          "file": "45e",
+          "exit": 1,
+          "tail": "BREAKING: 47 change(s) - DO NOT ADOPT (exit 1)",
+          "removed_atoms": 47,
+          "added_atoms": 285,
+          "sha256": "40fc0386f6da61d0c8b56e21b23990822991fbeb7fe6f29933ed0f4356fc1070"
+        }
+      ]
+    }
+  ],
+  "atom_evidence": {
+    "all_committed_release_pin_rows_reproduced": true,
+    "row_count": 939,
+    "normalization": "Whitespace normalization preserving multiline atom values."
+  },
+  "release_pin_repeat_extraction_byte_identical": [
+    "ctors",
+    "entities",
+    "constants"
+  ],
+  "canonical_contract_hashes": {
+    "45c_DATA_constructors.json": "d3c398f01580a2fa866992a85bca843e20bd179775f76108c5468a055dbd6062",
+    "45d_DATA_entity_schemas.json": "96580ed19256b38e980cf21c4b2e081aa428a0448bf3cb007073daeb24372221",
+    "45g_DATA_checks.json": "cb8473d25f5d223aa2ae5c64774b83082d82f475428b8dbf9f1fb32cdf048a1e",
+    "45h_DATA_lints.json": "cce0a0bbc279fc06e2548c4de1d1082afc517f6e416a29dac13bc2195bced086"
+  },
+  "checks": [
+    {
+      "name": "push90_exception",
+      "exit_code": 0,
+      "output": "EXCEPTION HOLDS: validate.py '56 errors, 25 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-013 for push/90_ghost_ship_skyglass_release.json sha256 6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7"
+    },
+    {
+      "name": "push93_exception",
+      "exit_code": 0,
+      "output": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-014 for push/93_ghost_ship_guardian_repair.json sha256 840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753"
+    },
+    {
+      "name": "push94_exception",
+      "exit_code": 0,
+      "output": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-015 for push/94_ghost_ship_skyglass_sentinel_repair.json sha256 a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988"
+    },
+    {
+      "name": "push90_forge_preflight",
+      "exit_code": 0,
+      "summary": "0 pre-send problem(s)"
+    },
+    {
+      "name": "push93_forge_preflight",
+      "exit_code": 0,
+      "summary": "0 pre-send problem(s)"
+    },
+    {
+      "name": "push94_forge_preflight",
+      "exit_code": 0,
+      "summary": "0 pre-send problem(s)"
+    },
+    {
+      "name": "forge-suite",
+      "exit_code": 0,
+      "tail": [
+        "✔ no test can open a socket, and no source reaches a host it should not (4.337428ms)",
+        "✔ a screen that throws is shown as an error banner, never a blank page (8.9ms)",
+        "ℹ tests 526",
+        "ℹ suites 0",
+        "ℹ pass 526",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 14332.81631"
+      ]
+    },
+    {
+      "name": "build_packs",
+      "exit_code": 0,
+      "tail": [
+        "",
+        "all packs and TOCs current (exit 0)"
+      ]
+    },
+    {
+      "name": "lawmap",
+      "exit_code": 0,
+      "tail": [
+        "",
+        "93 laws, 93 matrix rows, 77 citations across 35 files; 0 errors, 5 warnings"
+      ]
+    },
+    {
+      "name": "doctrinemap",
+      "exit_code": 0,
+      "tail": [
+        "21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)"
+      ]
+    },
+    {
+      "name": "render_doctrine",
+      "exit_code": 0,
+      "tail": [
+        "",
+        "all projections current (exit 0)"
+      ]
+    },
+    {
+      "name": "sector-removal",
+      "exit_code": 1,
+      "tail": [
+        "",
+        "BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)"
+      ]
+    },
+    {
+      "name": "additive",
+      "exit_code": 0,
+      "tail": [
+        "",
+        "no breaking changes: 3 addition(s), safe to adopt (exit 0)"
+      ]
+    },
+    {
+      "name": "bad-invariants",
+      "exit_code": 1,
+      "tail": [
+        "I2 AllTags.scorch.pool: enum_ref 'GhostPool' unresolved",
+        "invariants: 1 union(s), 2 variant(s) audited; 3 error(s)"
+      ]
+    },
+    {
+      "name": "validate-stamped",
+      "exit_code": 1,
+      "tail": [
+        "",
+        "56 errors, 25 warnings"
+      ]
+    },
+    {
+      "name": "validate-fresh",
+      "exit_code": 1,
+      "tail": [
+        "",
+        "143 errors, 17 warnings"
+      ]
+    },
+    {
+      "name": "factory-selftest",
+      "exit_code": 0,
+      "tail": [
+        "",
+        "20/20 passed"
+      ]
+    },
+    {
+      "name": "validator-laws",
+      "exit_code": 0,
+      "tail": [
+        "PASS   law 12 ramp compounds",
+        "laws: 4 asserted, 0 failed"
+      ]
+    }
+  ],
+  "probes": [
+    {
+      "name": "probe-removed-union-power",
+      "expected_safe_gate_exit": 1,
+      "actual_exit": 0,
+      "output": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+      "classification": "preexisting_gate_blind_spot"
+    },
+    {
+      "name": "union-power-type",
+      "expected_safe_gate_exit": 1,
+      "actual_exit": 0,
+      "output": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+      "classification": "preexisting_gate_blind_spot"
+    },
+    {
+      "name": "entity-nullability",
+      "expected_safe_gate_exit": 1,
+      "actual_exit": 0,
+      "output": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+      "classification": "preexisting_gate_blind_spot"
+    },
+    {
+      "name": "probe-new-required",
+      "expected_safe_gate_exit": 1,
+      "actual_exit": 1,
+      "output": "CHANGES\n  now-required  probe  needed  optional -> required\nADDITIONS\n  field  probe  needed\n  ftype  probe  needed  string\n\nBREAKING: 1 change(s) - DO NOT ADOPT (exit 1)",
+      "classification": "negative_control"
+    },
+    {
+      "name": "element-Fire",
+      "actual_validator_exit": 1,
+      "element_diagnostics": [
+        "ERROR  [item:Skyglass Filament].effects[0]: damage.elements='Fire' not in enum (...BasicElementName, Boil, Crystal, Dust, Explosion, Ice, Lava, Light...)"
+      ]
+    },
+    {
+      "name": "element-Ice",
+      "actual_validator_exit": 1,
+      "element_diagnostics": []
+    }
+  ],
+  "environment_notes": [
+    "Initial focused Forge run failed because fake-indexeddb was not installed; no product assertion ran.",
+    "Offline npm ci refused missing cached package; no network install was performed.",
+    "Existing local node_modules reused after exact package-lock byte equality and version checks for all installed package entries; full suite then passed.",
+    "Initial coherence commands used root scripts paths and exited 2; corrected to skills/building-tnr-content/scripts and all passed."
+  ],
+  "boundaries": {
+    "source_read_not_executed": true,
+    "live_game_requests": 0,
+    "live_game_writes": 0,
+    "cdn_requests": 0,
+    "live_credentials_used": false,
+    "adoption": false,
+    "integration": false,
+    "implementation_files_changed": false,
+    "fable_branch_modified": false,
+    "global_session_projection_modified": false,
+    "qw1_started": false,
+    "qw2_through_qw5_started": false
+  }
+}
