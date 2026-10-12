@@ -5,7 +5,10 @@
 // (harvests/inbox/tnr_results_1791779642866.json): the half-applied Sentinel row and both quests
 // as push/90 left them. It also replays mergeForUpdate for the AI edit (law 70 kit re-send, law 69 items).
 //
-//   node push/93_ghost_ship_guardian_repair.check.mjs [manifest]
+//   node push/93_ghost_ship_guardian_repair.check.mjs [manifest] [results-with-after-captures] [expected-username]
+//
+// push/94 reuses it: node push/93_ghost_ship_guardian_repair.check.mjs push/94_ghost_ship_skyglass_sentinel_repair.json
+//   harvests/inbox/tnr_results_1791780626532.json "Skyglass Sentinel"
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -17,7 +20,9 @@ import { mergeForUpdate } from "../forge/src/runner/recipes.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const rd = (rel) => JSON.parse(readFileSync(join(ROOT, rel), "utf8"));
 const manifestPath = process.argv[2] ?? "push/93_ghost_ship_guardian_repair.json";
-const after = (rd("harvests/inbox/tnr_results_1791779642866.json").captures ?? []).filter((c) => c.phase === "after" && c.data);
+const resultsPath = process.argv[3] ?? "harvests/inbox/tnr_results_1791779642866.json";
+const wantName = process.argv[4] ?? "Guardian";
+const after = (rd(resultsPath).captures ?? []).filter((c) => c.phase === "after" && c.data);
 const ais = new Map(after.filter((c) => c.proc === "profile.getAi").map((c) => [c.data.userId, c.data]));
 const quests = new Map(after.filter((c) => c.proc === "quests.get").map((c) => [c.data.id, c.data]));
 
@@ -39,7 +44,7 @@ for (const it of order) {
     const payload = mergeForUpdate("ai", live, it.data, null);
     if (!Array.isArray(payload.jutsus)) problems.push(`item ${it.idx}: merged AI payload has no jutsus (law 70)`);
     if (!Array.isArray(payload.items) || payload.items.some((t) => !Array.isArray(t.ids) || typeof t.number !== "number")) problems.push(`item ${it.idx}: merged AI items are not {ids, number} (law 69)`);
-    if (payload.username !== "Guardian") problems.push(`item ${it.idx}: merged username ${payload.username}`);
+    if (payload.username !== wantName) problems.push(`item ${it.idx}: merged username ${payload.username}`);
   }
 }
 if (/"@(ai|item|scene|img):/.test(JSON.stringify(manifest.items))) problems.push("unresolved @ref left in a manifest with no creates or uploads");

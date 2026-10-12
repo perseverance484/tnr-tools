@@ -1072,3 +1072,23 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 | Stale-snapshot scene character (`b_K8qdNI651fTsRn9tfkk`, created by push/90) | | 2 |
 
 **Enforcement:** `python3 push/93_ghost_ship_guardian_repair.validate_exception.py`, as for push/90. Any change voids the exception. The doctrine is unchanged and this is not a precedent.
+
+---
+
+## RUL-2026-10-12-015 — "Guardian" also taken; name is Skyglass Sentinel; push/94 repair
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; AI `3V_gdHYaclMB1gTyOPAbV`; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE; supersedes the name in RUL-2026-10-12-014. The exception is manifest-specific.
+
+**Context:** the operator ran push/93 (results `harvests/inbox/tnr_results_1791780626532.json`). The AI rename failed with `Duplicate entry 'Guardian' for key 'UserData.UserData_username_key'`, so the AI is still "Ghostly Guardian" at multiplier 3, with the new kit. Both quest edits landed, so the 8 boss lines said "Guardian".
+
+**Ruling:** dauntless named the AI **Skyglass Sentinel**. push/94 (`push/94_ghost_ship_skyglass_sentinel_repair.gen.py`) re-sends:
+- push/90 item 29 with only that name and the resolved avatar URL;
+- both quests exactly as push/90 shipped them. This restores the original "the Sentinel" lines, which fit the new name. The generator proves the live quests differ from push/90 only at those 8 lines.
+
+The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
+
+**Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
