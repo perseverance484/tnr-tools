@@ -1004,3 +1004,41 @@ Sealwright is one full create: all six combat fields at 1,391,300 with `statsMul
 **Verification:** `harness/ghost_ship_final` r3, gate STATS, executes the pinned server save path and battle scaling and clamping for every AI push/90 writes.
 
 **Canonical destination:** `push/90_ghost_ship_skyglass_release.gen.py` (`CAPPED_AIS`, `STATS_MULTIPLIER`, `HAZARDS`) and `state/ghost_ship_hybrid_kit_proposal.md`.
+
+---
+
+## RUL-2026-10-12-013 — Release-specific validate.py exception for push/90
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE, release-specific.
+
+**Context:** the independent re-review of `be15d7f4` (GS-R5) closed GS-R1–R4 and passed the stat requirement. It held release on the canonical gate:
+- `cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/90_ghost_ship_skyglass_release.json` exits 1, with 56 errors and 25 warnings.
+- Every diagnostic is either a generated contract lagging the pinned engine (45c/45d at `bdec2883`), a validator rule the pinned server no longer enforces, or director-approved content.
+
+The source gates prove the flagged payloads are what the server accepts: ItemValidator CONTRACT, the STATS effects fixed point, Forge `check_manifest` 0, and the reviewer's source-normalised replay.
+
+**Ruling:** dauntless approved a release-specific exception in place of contract adoption first. It applies **only** to push/90 at SHA-256 `6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7`, and only to the exact 81 diagnostics enumerated in `state/ghost_ship_skyglass_release_validate_exception.json`, in nine evidence-backed classes:
+
+| Class | Errors | Warnings |
+| --- | ---: | ---: |
+| Stale effect fields | 42 | |
+| `statTypes` `None` enum | 2 | |
+| Consume companion rule | 1 | |
+| IDG power cap | 6 | |
+| `preferredStat` L05 | 1 | |
+| Approved shared menu targets | 4 | |
+| Law-60 build order | | 9 |
+| Stale farm nullability | | 8 |
+| Captured self-target gates | | 8 |
+
+**Enforcement:** `python3 push/90_ghost_ship_skyglass_release.validate_exception.py` runs validate.py exactly as the doctrine prescribes. It refuses any unclassified line and passes only when the manifest hash, the validator and contract hashes, and the exact diagnostic multiset all equal the ledger. Any change voids the exception and needs a new ruling.
+
+The doctrine is unchanged and this is not a precedent. The correct payloads stay: stat values, canonical effects, and no `preferredStat`.
+
+**Follow-up (separate Lane A task):** bring `validate.py` and the generated contracts to 585534d7 through `schema_extract.py` and its adoption gate, with tests for the post-0056 create and the current item/effect contracts.
+
+**Canonical destination:** `state/ghost_ship_skyglass_release_validate_exception.json` (ledger) and this ruling.
