@@ -755,3 +755,112 @@ Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r 
 **Scope:** these two numerical/boundary decisions are closed. The companion's Heal → conditional Copy → Reflect → existing offense order and same-target native selector remain the implementation candidate for Fable's tests; this approval is not a runtime PASS or final balance acceptance. No live requests/writes, engine changes, art, manifest or publication.
 
 **Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md`; the hybrid-kit readable companion and full roadmap track the closed trigger decisions. Preserve historical JSON, harnesses and results unchanged.
+
+---
+
+## RUL-2026-10-12-001 — Accept Crowned Captain support behavior as tested
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support behavior
+
+**Status:** ACTIVE.
+
+**Supersedes:** the open order/selector and measured-balance questions left by RUL-2026-10-11-007/008.
+
+**Evidence:** Fable offline package `perseverance484/tnr-tools@4369f404dbfd83563d11508c2bcc2e0e17f9a786` (`harness/ghost_ship_final/`, CROWNED 36/0; `docs/reviews/GHOST_SHIP_FINAL_ITEMS_CROWNED_OFFLINE_RESULTS.md` §5). On engine `585534d7…`, the Captain won 66/66 test fights. Support lowers offensive AP from about 92 to 70 per round and raises survivability when hurt (forced 45% start: 52.0% left vs 37.4%).
+
+**Ruling:** dauntless accepted the tested behavior: S35 Second Wind (`health_below:40`, SELF) → B07 Stolen Form (`target_has_effect` IDG ≥ 71, CLOSEST_OPPONENT, `distance_lower_than:5`, same target) → Rebounding Form (SELF, no condition) → the prior candidate-remapped chain with `includeDefaultRules` unchanged. The slower, more attritional fights are accepted. The regular Captain is not given these rules.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md`. Boss innate IDG is changed separately by RUL-2026-10-12-004.
+
+---
+
+## RUL-2026-10-12-002 — Accept the Sealwright behavior proposal as final, without new-pin testing
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Sealwright combat behavior
+
+**Status:** ACTIVE.
+
+**Supersedes:** the pending acceptance and the requested four-variant new-pin comparison in `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`.
+
+**Ruling:** dauntless accepted the proposal's exact priority list as final Sealwright behavior: B32 (IDG ≥ 71, CLOSEST_OPPONENT, `distance_lower_than:6`) → S31 (`distance_lower_than:4`) → B22 SELF → B16 / B14 / B33 / S27 (`distance_lower_than:6`) → singleton basic attack when adjacent → late `move_towards_opponent` (`distance_higher_than:3`) → `end_turn`, with `includeDefaultRules:false`. The seven jutsu and double-Clear identity stay unchanged.
+
+**Explicitly declined:** a new-pin verification run. dauntless chose to skip it. The last measured evidence is old-pin (`cddd7d91…`): Sealwright lost the durable-striker fixture 0/5. No new parity claim is made. Sealwright's innate IDG is changed by RUL-2026-10-12-004, which postdates that evidence.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_behavior_proposal.md` (now the accepted behavior) and `state/ghost_ship_skyglass_sealwright_combat_draft.md`.
+
+---
+
+## RUL-2026-10-12-003 — Approve the candidate rule remap for the nine other Ghost Ship AIs
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI rules
+
+**Status:** ACTIVE.
+
+**Ruling:** dauntless approved the mechanical candidate remap: each captured rule's jutsu IDs and combo IDs are remapped through the accepted RUL-2026-10-11-003 kit mapping, with consecutive duplicates collapsed in combos. Nothing else changes: conditions, targets, ordering and `includeDefaultRules` stay as captured. The regular Captain needs no remap. Crowned uses RUL-2026-10-12-001 on top of its remap. Sealwright has its own rules (RUL-2026-10-12-002). The ledger is `harness/ghost_ship_stage2/results/a1.json` `ruleChangeLedger` (produced by `F.remappedRules`).
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md`.
+
+---
+
+## RUL-2026-10-12-004 — Keep minion innate IDG; bosses get proportionally higher innate IDG
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI innate effects (tuning)
+
+**Status:** ACTIVE design decision. Fresh new-pin measurement is recommended before manifest construction.
+
+**Supersedes:** the open "minion duplicate innate IDG" decision. Narrows the RUL-2026-10-11-003/007 instruction "no stat adjustments / preserve innate arrays", for the three bosses only.
+
+**Ruling:** dauntless kept the seven minions' captured duplicate innate IDG unchanged (sustained 99-round totals 200–350%, opening peaks up to 420%). The bosses must sit slightly above the minions, so their sustained innate IDG becomes:
+
+- **Regular Captain: +375%** (new; keeps its captured increasestat 30% innate);
+- **Sealwright: +375%** (new; Captain-tier pair);
+- **Crowned Captain: +450% total** (his captured 60% 99-round entry is replaced by 450%).
+
+Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it stacks and resists Clear like the minions' entries). Hazards (Seal Charge, Core Canister) are unchanged.
+
+**Consequence disclosed before the decision:** minion-level IDG makes fixture players die in 1–3 rounds. All three bosses become far deadlier than measured at r3/r4 or in the 4369f404 package, and none of those measurements carries forward.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md` (boss innate rows); the Sealwright combat draft for its profile.
+
+---
+
+## RUL-2026-10-12-005 — Restore the 12-Filament Crystal recipe; Crystal mirrors a live crystal for undecided fields
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Skyglass Crystal economy and record
+
+**Status:** ACTIVE.
+
+**Supersedes:** RUL-2026-10-11-006's `canBeCrafted:false` / recipe removal only. dauntless stated that removing the recipe was a mistake. Rarity LEGENDARY, `canBeTraded:true`, exactly one Consume10 with 2/2 timing, WEAPON-only, Katana exclusion and the 3% Reliquary drop are unchanged.
+
+**Ruling:**
+1. **Recipe restored:** `canBeCrafted:true`, with 12 Skyglass Filaments crafting one Crystal (`craftingRequirements` referencing the new Filament item by manifest ref). Filament drops are unchanged. Filament tradability stays undecided.
+2. **Native consequence:** LEGENDARY items require Forgemaster crafting rank at the pinned engine, so the recipe is Forgemaster-only. Imbuing a LEGENDARY Crystal also requires Forgemaster. Rarity was not changed to widen access.
+3. **Undecided fields mirror a live crystal:** the 14 non-ruling fields carried from the Flaming Sword template (cost, requiredLevel, action/pool costs, cooldown, durability, equips, imbue/stack/level fields, battle usage), plus craftingExperience, take the values of an existing live LEGENDARY (or nearest) weapon crystal. The values come from an operator-run read-only capture, keeping every RUL005/006/this-ruling decision.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`; companion `state/ghost_ship_skyglass_final_item_contract.json`.
+
+---
+
+## RUL-2026-10-12-006 — Close Consume overlap as native; presentation supplied by the director
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass items
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Consume overlap closed:** native engine behavior is accepted with no restriction or correction. Recorded fact (4369f404, ACTIVE): at 2/2 the 3-round shared Consume cooldown outlasts the 2-round buff, so two Crystal-imbued weapons cannot overlap through separate casts. Same-action SELF dedupe is unchanged.
+2. **Presentation and art:** dauntless will supply the final description, battle description, image and effect animation/SFX for both Skyglass Katana and Skyglass Crystal. Fable slots them in and validates. No text or art is drafted on the director's behalf.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`.

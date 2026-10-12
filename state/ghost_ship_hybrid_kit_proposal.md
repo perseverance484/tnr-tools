@@ -1,5 +1,7 @@
 # Ghost Ship / Skyglass — accepted hybrid jutsu test baseline
 
+**2026-10-12 decisions:** RUL-2026-10-12-001 accepts the tested Crowned support behavior. RUL-2026-10-12-003 approves the candidate rule remap for the other nine AIs. RUL-2026-10-12-004 keeps the minions' duplicate innate IDG unchanged and adds boss innate IDG: regular Captain +375%, Sealwright +375%, Crowned 450% total (replacing its 60%). This supersedes, for those three bosses only, the "preserve innate arrays / no stat adjustments" instruction below.
+
 **2026-10-11 support decisions (RUL007/008):** Crowned Captain heals strictly below40%, Copies at IDG71 or higher and uses Reflect regularly. `state/ghost_ship_skyglass_crowned_support_behavior.md` owns this behavior and its test brief. Trigger values/boundaries are settled; exact ordering/selector implementation and measured balance remain open. The unchanged JSON remains the historical accepted membership/test input; its older support-activation question is superseded.
 
 **Status:** DIRECTOR-ACCEPTED KIT BASELINE FOR OFFLINE TESTS under `RUL-2026-10-11-003`, accepting proposal commit `89fa921c839a9830fd66bb64aa267c470e8dd678`. All eleven memberships, substitutions, consolidations and both Sentinel assignments are accepted. Crowned support activation is directed by RUL007; final details and measured balance/parity remain open. This is not a combat freeze or Forge manifest. Converted names are used for readability; final presentation acceptance remains separate.
