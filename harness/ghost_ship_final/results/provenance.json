@@ -1,0 +1,55 @@
+{
+ "crownedBehaviorSha256": "8ad10e3e15b4f92313254cad6187789713323545a6c915201597e26b7cbb70ea",
+ "dependencies": "existing user-approved frozen install; dependency manifests unchanged from historical engine",
+ "designCommit": "fd7f021762940f11c3896c70b2af3bc53f7711dc",
+ "engine": {
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "commit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+  "export": "git archive <pin> app; every pinned file checked before and after tests",
+  "packageJsonSha256": "ebc24a6fefbb00783c12749cc4bcf90f8463943c0282008acf3d236ad1b05bbd",
+  "repository": "studie-tech/TheNinjaRPG"
+ },
+ "exitStatuses": {
+  "bun": 0,
+  "evidence": 0,
+  "negativeSelftest": 0,
+  "sourceIntegrity": 0
+ },
+ "finalRecordsSha256": "4a0837d7ea2c4a88ba62cabcf98392a46423e378730397cc6951c0a2de02704d",
+ "harnessFileSha256": {
+  "engine/active_consume.test.ts": "e2c1c925ba149a07cafc21dbdf039d8e3a58dbc87f74d15f5a60ac257a8bd497",
+  "engine/contract_guards.test.ts": "f200255b3e88d5c6b9e337e288766f23b2aff6c97b0ee0ccc3aae50b701d4f6c",
+  "engine/crowned_support.test.ts": "2b40b8cc311a50fd41ae310f51652ac16c1e31e7bfa74379344804f405b25398",
+  "engine/lib/consume_probes.ts": "59da56f549ba551df71119d1c53e3b9301bf01432447afc030b1212fb074fa5b",
+  "engine/lib/fixtures.ts": "2ec479aab5b6f747f6194b15bcd9bcb6860c9efe9dea9cf6e619d958cf21b9ad",
+  "engine/lib/itembattle.ts": "36d39886fbf771892683223df2dc0f6f6e89af848d200c88b79b0dbd82855706",
+  "engine/lib/items.ts": "55a4485c2d7784a31ed27dabb460668c1bc36858d28cfbb6e191455394967abb",
+  "engine/lib/report.ts": "2419cac7ccfa96838ef50a8952f24afa44d6801c690b8d24ec3efd5e13a6e948",
+  "engine/lib/sim.ts": "ae03d00f793879d9154e8fcea26dbb1b4822c8acda1834d9223df305d0a14412",
+  "run.sh": "cad31dedcb27e9d0a6d7ae224fcb1ad349b35c2ee12d2cd5c308be81c079f8fe",
+  "selftest/negative_flush_only.test.ts": "97637f1a3baf5f38100dc2a439969bb0b4dde023cb32e13b3246e675783a3d85",
+  "selftest/negative_gate.test.ts": "94b6dac41095278cdea2f508fab2d46805615442a199d90406fe3d35ffd0c369",
+  "selftest/run_negative.sh": "328595bc640eac7e6d1d0c0a3e1d565979c3a741cab9afb903280bdf69d4b6dc",
+  "tools/build_final_items.py": "8acae891f0c81791299794cd5acbbdc7214f2efe1b12fc8870c650f404ed9dfb",
+  "tools/check_evidence.py": "cc296c690aea48d14aa5629fbe625fd484407517742ea73345a9b0fc53ea95c1",
+  "tools/deny_network.py": "c9eca46b9250788bf8501136597d611d7616bc4d3033481c21a2f99a803fd994",
+  "tools/offline_exec.py": "1e0fbf88b348ba10bb4da6e9fcc470a4c283eac209afaf321efb3a0ebce4cbdd",
+  "tools/provenance.py": "a756bf26b662fff7f14e3cf36f61d5c23375357e8de9329ca694b4ea8b47f7a2",
+  "tools/test_env.sh": "0d307719f08ca2db7031792a14c20482c9097bb802ecddc1efabd139715d6634",
+  "tools/verify_export.py": "9594e58be33e709b3b4f14365bcb1d885a7a163f6e830846178b30a6d2e28acc"
+ },
+ "historicalActiveConsume3x3": "fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2",
+ "historicalM0ScriptSha256": "5d1d1aa5e2af7f358f3727b2c33f323986ac4d7eb0dec75d2f2dcf0d783ef5e5",
+ "historicalR4": "3f825562ea051306a3803f47428b742ae5100011",
+ "isolation": {
+  "database": "none; write-trapping read-only stub",
+  "environment": "env -i allowlist; CI placeholders only; Bun --no-env-file --no-install",
+  "mode": "unshare",
+  "network": "socket/connect/bind/listen/accept/send/io_uring syscalls denied; inherited by descendants"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16"
+ }
+}
