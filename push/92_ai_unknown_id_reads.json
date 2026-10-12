@@ -1,0 +1,56 @@
+{
+ "_note": "READ-ONLY, 7 reads, zero mutations. push/91 re-counted 522 live non-ELDER AIs (2026-10-12T02:32Z) but the push/81-84 census of the 535 repository-known ids found only 506 live, so 16 live AIs have ids the repository did not know. These 7 ids are referenced elsewhere in committed captures (quest opponents in tnr_results_1791233210169.json; AI creates Current Sentinel, Royal Jellyfish, Shallows Jellyfish) but were not in the census seed. profile.getAi persist:full gives each kit for the Ghost Ship legacy-jutsu consumer audit (harness/ghost_ship_legacy_baseline/consumer_audit.py). A null body means not an AI or deleted. Archive after use.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "E7zjSGym1Bct60eQVnhCK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Ggt66lVPZsHTZ0DCnC_kn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "8rAZCcMpCELXP7Fw_qZA_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Z3vzT_0GsIgvRUfg9aNhQ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fviJBCJMx8YAnT91TjK7B"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Bxyqw_A-xt_C2QWXnBB0t"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "user_2SBp5J5epcr9DwIiRJX5lg7Scgp"
+    },
+    "persist": "full"
+   }
+  ]
+ }
+}
