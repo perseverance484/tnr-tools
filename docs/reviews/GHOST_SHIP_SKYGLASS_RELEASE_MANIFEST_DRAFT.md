@@ -1,6 +1,6 @@
 # Ghost Ship / Skyglass — combined release manifest (push/90): draft status
 
-**Status:** DRAFT, NOT RUNNABLE. Generator complete; Forge refuses the draft by design until the director's art is bound. One director decision (distance gates, §4) blocks a runnable manifest independently of art. No live request, write or publication.
+**Status:** DRAFT, NOT RUNNABLE. Generator complete; Forge refuses the draft by design until the director's art is bound. The distance-gate decision (§4) is settled by RUL-2026-10-12-009 (Option A). No live request, write or publication.
 
 **Date:** 2026-10-12. **Implementer:** Fable. **Decisions:** RUL-2026-10-12-001…008.
 
@@ -35,15 +35,15 @@ Before/after captures: full reads of both quests, the 11 AIs and their profiles,
 
 **Sealwright profile:** Forge 0.5.0 pins its AI key set to engine `345d18ac`, which predates migration 0056. It refuses `offence`/`defence`/masteries on a create. They are therefore sent in a follow-up edit, which validates against the live row. Source arithmetic (`scaleUserStats`, level 100, experience 3,339,000) reproduces the Captain's 834,780 in every combat stat and mastery. Forge's lint L05 requires `preferredStat` on a create: the Captain's last value (Bukijutsu, October 1) is sent and the live server strips the obsolete column.
 
-## 3. Gates (draft, captured gates)
+## 3. Gates (draft, `--gate-policy law40`, RUL-2026-10-12-009)
 
 | Gate | Result |
 | --- | --- |
 | Generator self-checks | PASS. RUL-003 remap equals the reviewed harness ledger (`harness/ghost_ship_stage2/results/a1.json`, 11/11 AIs). Legacy jutsu before-text equals push/86 for all 11. Diadem absent. Crowned innate was the single 60/99r IDG. Quest graphs: 83 nodes, one root, all reachable, no forward cycles, battles dialog-gated, endings `w_A w_B1 w_B2 w_C w_Co w_secret` |
 | `--check` | PASS: manifest and report are generator-exact |
 | Engine rule schema (`rules.ts`) | PASS: 72 rules across 9 profiles; no change on a key-order-insensitive round trip; every last rule is unconditional |
-| Forge `tools/check_manifest.mjs` | REFUSED. (a) 10 × L17: unbound art (expected until the zip). (b) 14 × law 40 gate equality (§4) |
-| Forge check with live rows, `--art-probe` (dummy sizes in memory only) | `--gate-policy law40`: **0 problems**, 8 warnings (captured gates on self-target stances). Captured gates: the same 14 refusals |
+| Forge `tools/check_manifest.mjs` | REFUSED only on 10 × L17: unbound art (expected until the zip). The 14 law-40 refusals are gone |
+| Forge check with live rows, `--art-probe` (dummy sizes in memory only) | **0 problems**; 8 warnings (captured gates on self-target stances, kept under RUL-003) |
 | `validate.py --strict` | Not clean. Every finding is classified below; none is a defect in the manifest's intended writes |
 
 `validate.py --strict` findings:
@@ -57,7 +57,7 @@ Before/after captures: full reads of both quests, the 11 AIs and their profiles,
   - `d_recon_test`'s two wrong seals lead to the approved lockout (RUL-2026-10-10-003).
 - **Unbound art:** 10 slots.
 
-## 4. Decision needed: distance gates (blocks a runnable manifest)
+## 4. Distance gates: settled by RUL-2026-10-12-009 (Option A)
 
 RUL-003 keeps every captured rule condition. The captured gates were tuned for the old legacy jutsu ranges. After the remap, 14 `distance_lower_than` gates on pool jutsu sit **below** range+1:
 
@@ -77,8 +77,8 @@ RUL-003 keeps every captured rule condition. The captured gates were tuned for t
 
 Law 40's text calls a gate at or below range safe; it only forfeits the outer band. Forge enforces exact equality and refuses the manifest.
 
-- **Option A, `--gate-policy law40`:** set all 14 to range+1. Forge then accepts. Behaviour changes: these attacks fire from farther. Where one jutsu had several gated rules (for example Sentinel's Twin Shot at 2/3/5), the bands collapse, so the first rule always wins.
-- **Option B, keep captured gates:** change Forge's law 40 check to accept gate ≤ range+1. That is Lane A Forge code, needing a release build and independent review before the operator can run push/90.
+- **Option A (CHOSEN), `--gate-policy law40`, now the default and required by `--final`:** set all 14 to range+1. Forge then accepts. Behaviour changes: these attacks fire from farther. Where one jutsu had several gated rules (for example Sentinel's Twin Shot at 2/3/5), the bands collapse, so the first rule always wins.
+- **Option B (declined), keep captured gates:** change Forge's law 40 check to accept gate ≤ range+1. That is Lane A Forge code, needing a release build and independent review before the operator can run push/90.
 
 ## 5. Other placeholders (reversible; not ruled)
 
@@ -90,7 +90,7 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 
 1. The fresh push/89 quest capture (operator), read back as `hidden:true`. The draft uses the stale October 1 base.
 2. The director's text for 5 items and the art zip. At intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in the art file. Then run `--final --image-ref <commit>`.
-3. The §4 decision.
+3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. Pre-run dependency check (disclosed): captures show no non-Ghost-Ship AI equipping the 11 retained jutsu. Absence of evidence is not a full consumer audit.
 5. Independent review of the frozen SHA; integration into `main` only afterwards.
 
@@ -99,8 +99,8 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 ```text
 python3 push/90_ghost_ship_skyglass_release.gen.py --draft            # writes manifest + report
 python3 push/90_ghost_ship_skyglass_release.gen.py --draft --check    # OK: generator-exact
-node push/90_ghost_ship_skyglass_release.check.mjs --art-probe        # captured: 14 law-40 refusals; law40: 0 problems
-node forge/tools/check_manifest.mjs push/90_ghost_ship_skyglass_release.json   # REFUSED (art + gates), exit 1
+node push/90_ghost_ship_skyglass_release.check.mjs --art-probe        # 0 problems (law40 default)
+node forge/tools/check_manifest.mjs push/90_ghost_ship_skyglass_release.json   # REFUSED: 10 x L17 unbound art only, exit 1
 (cd <engine export at 585534d7>/app && bun --no-install run <repo>/push/90_ghost_ship_skyglass_release.rules.ts "$PWD" <repo>/push/90_ghost_ship_skyglass_release.json)  # 72 rules, 0 failed
 python3 skills/building-tnr-content/scripts/validate.py push/90_ghost_ship_skyglass_release.json --strict --ctors … --entities … --checks … --pool … --lints …   # findings per §3
 ```

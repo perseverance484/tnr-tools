@@ -841,6 +841,8 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
             fail("--final needs --quest-base <fresh push/89 results>")
         if quest_base == OCT1_QUESTS:
             fail("--final cannot use the stale October 1 quest capture")
+        if gate_policy != "law40":
+            fail("--final requires --gate-policy law40 (RUL-2026-10-12-009); Forge refuses the captured gates")
     base = quest_base or OCT1_QUESTS
     pres, pending_text = presentation(final)
     art = Art(final, image_ref)
@@ -882,8 +884,8 @@ def main() -> int:
     mode.add_argument("--final", action="store_true")
     ap.add_argument("--quest-base", help="committed quests.get results file (fresh push/89 for --final)")
     ap.add_argument("--image-ref", help="40-hex commit holding the art (--final)")
-    ap.add_argument("--gate-policy", choices=["captured", "law40"], default="captured",
-                    help="captured: RUL-003 as approved (Forge refuses sub-range+1 gates); law40: normalize to range+1")
+    ap.add_argument("--gate-policy", choices=["captured", "law40"], default="law40",
+                    help="law40 (RUL-2026-10-12-009, default): normalize remapped gates to range+1; captured: historical RUL-003 conditions, which Forge refuses")
     ap.add_argument("--check", action="store_true", help="do not write; fail unless the committed files are generator-exact")
     args = ap.parse_args()
     manifest, report = build(args.final, args.quest_base, args.image_ref, args.gate_policy)
