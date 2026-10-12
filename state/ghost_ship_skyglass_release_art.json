@@ -1,20 +1,20 @@
 {
   "schema": "tnr.ghost_ship_skyglass_release_art",
   "version": 1,
-  "status": "PENDING_DIRECTOR_ART_ZIP",
+  "status": "REQUIRED_SLOTS_BOUND (intake commit d61c990d2935df9c4acc1d4c57f412cbd77c4303)",
   "ruling": "RUL-2026-10-12-008: the director's zip of finalized art is the last input. At intake each file is processed/QC'd, committed under art/ghost_ship_skyglass/, and its repository path is entered here; the generator binds it with --image-ref <commit> (sha256 and bytes are computed from the blob at that commit, never typed).",
   "consumer": "push/90_ghost_ship_skyglass_release.gen.py",
   "required": {
-    "item:skyglass_katana": null,
-    "item:skyglass_crystal": null,
-    "item:skyglass_reliquary": null,
-    "item:skyglass_filament": null,
-    "scene:gs_scene_exterior_keel": null,
-    "scene:gs_scene_reconstruction": null,
-    "scene:gs_scene_quarantined_archive": null,
-    "scene:gs_scene_command_gallery": null,
-    "scene:gs_char_sealwright": null,
-    "ai:sealwright": null
+    "item:skyglass_katana": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_katana.webp",
+    "item:skyglass_crystal": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
+    "item:skyglass_reliquary": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp",
+    "item:skyglass_filament": "art/ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
+    "scene:gs_scene_exterior_keel": "art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp",
+    "scene:gs_scene_reconstruction": "art/ghost_ship_skyglass/scene_bg_ghost_ship_reconstruction_chamber.webp",
+    "scene:gs_scene_quarantined_archive": "art/ghost_ship_skyglass/scene_bg_ghost_ship_quarantined_archive.webp",
+    "scene:gs_scene_command_gallery": "art/ghost_ship_skyglass/scene_bg_ghost_ship_command_observation_gallery.webp",
+    "scene:gs_char_sealwright": "art/ghost_ship_skyglass/scene_char_ghost_ship_sealwright_portrait.webp",
+    "ai:sealwright": "art/ghost_ship_skyglass/avatar_ghost_ship_sealwright.webp"
   },
   "optional": {
     "_note": "Replacement art for existing records. Add entries as item:<itemId>, asset:<assetId> or ai:<aiUserId> with the repository path; an absent entry keeps the live image untouched."

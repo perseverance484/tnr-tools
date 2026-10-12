@@ -24,6 +24,9 @@ VERDICT (fail-closed):
               eleven Ghost Ship AIs holds any of the eleven jutsu.
   CONSUMERS   at least one other AI holds one; the list is written and push/90 --final refuses.
   INCOMPLETE  a census id is missing from the inputs, or the live count is not 522.
+  ACCEPTED_RESIDUAL  (only with --accept-residual <ruling>) every census id was read without error
+              and no known outside AI holds an edited jutsu, but live AIs whose ids the
+              repository does not know remain unread; the director accepted that residual.
 Writes state/ghost_ship_legacy_jutsu_consumer_audit.json; exit 0 only for CLEAR.
 """
 from __future__ import annotations
@@ -78,7 +81,7 @@ def live_count(rel: str, after: str) -> tuple[int, dict]:
     return reads[0]["rows"], {"path": rel, "sha256": sha, "at": at, "rows": reads[0]["rows"]}
 
 
-def audit(result_paths: list[str], count_path: str | None = None) -> dict:
+def audit(result_paths: list[str], count_path: str | None = None, accept: str | None = None) -> dict:
     baseline, baseline_sha = read(BASELINE)
     scope, scope_sha = read(EDIT_SCOPE)
     # Only jutsu push/90 edits can sever an outside link; excluded ones are reported, not counted.
@@ -125,16 +128,20 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
                                 "ghostShip": uid in ghost})
     others = [h for h in holders if not h["ghostShip"] and h["jutsuId"] not in excluded]
     unedited = [h for h in holders if not h["ghostShip"] and h["jutsuId"] in excluded]
-    if missing or errors or len(live) != expected:
-        verdict = "INCOMPLETE"
-    elif others:
+    if others:  # a known outside holder is a definite blocker, whatever the coverage
         verdict = "CONSUMERS"
+    elif missing or errors or len(live) != expected:
+        verdict = "INCOMPLETE"
     else:
         verdict = "CLEAR"
+    residual = expected - len(live)
+    if verdict == "INCOMPLETE" and accept and not missing and not errors and not others and residual > 0:
+        verdict = "ACCEPTED_RESIDUAL"
     return {
         "schema": "tnr.ghost_ship_legacy_jutsu_consumer_audit",
         "version": 1,
         "verdict": verdict,
+        "acceptedResidual": {"ruling": accept, "unreadLiveAis": residual} if verdict == "ACCEPTED_RESIDUAL" else None,
         "generator": "harness/ghost_ship_legacy_baseline/consumer_audit.py",
         "baseline": {"path": BASELINE, "sha256": baseline_sha},
         "editScope": {"path": EDIT_SCOPE, "sha256": scope_sha, "excluded": sorted(excluded)},
@@ -155,7 +162,11 @@ def audit(result_paths: list[str], count_path: str | None = None) -> dict:
 def main() -> int:
     args = sys.argv[1:]
     check = "--check" in args
-    count_path = None
+    count_path = accept = None
+    if "--accept-residual" in args:
+        i = args.index("--accept-residual")
+        accept = args[i + 1]
+        args = args[:i] + args[i + 2:]
     if "--live-count" in args:
         i = args.index("--live-count")
         count_path = args[i + 1]
@@ -164,7 +175,7 @@ def main() -> int:
     if not paths:
         print(__doc__.strip(), file=sys.stderr)
         return 2
-    doc = audit(paths, count_path)
+    doc = audit(paths, count_path, accept)
     text = json.dumps(doc, indent=1, ensure_ascii=False) + "\n"
     out = os.path.join(ROOT, OUT)
     if check:
@@ -180,7 +191,7 @@ def main() -> int:
           f"Ghost Ship holders {len(doc['ghostShipHolders'])}, other holders {len(doc['otherHolders'])}")
     for h in doc["otherHolders"]:
         print(f"  CONSUMER {h['username']} ({h['aiId']}) holds {h['jutsuName']} ({h['jutsuId']}) equipped={h['equipped']}")
-    return 0 if doc["verdict"] == "CLEAR" else 1
+    return 0 if doc["verdict"] in ("CLEAR", "ACCEPTED_RESIDUAL") else 1
 
 
 if __name__ == "__main__":

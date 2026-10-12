@@ -1,7 +1,11 @@
 {
  "schema": "tnr.ghost_ship_legacy_jutsu_consumer_audit",
  "version": 1,
- "verdict": "INCOMPLETE",
+ "verdict": "ACCEPTED_RESIDUAL",
+ "acceptedResidual": {
+  "ruling": "RUL-2026-10-12-011",
+  "unreadLiveAis": 16
+ },
  "generator": "harness/ghost_ship_legacy_baseline/consumer_audit.py",
  "baseline": {
   "path": "state/ghost_ship_legacy_jutsu_baseline_push86.json",

@@ -1,6 +1,6 @@
-# Ghost Ship / Skyglass — combined release manifest (push/90): draft status
+# Ghost Ship / Skyglass — combined release manifest (push/90): final build
 
-**Status:** DRAFT, NOT RUNNABLE. Generator complete; director item text approved and slotted (commit `224ab918`); Forge refuses the draft by design until the director's art is bound, which is now the only pending input. The distance-gate decision (§4) is settled by RUL-2026-10-12-009 (Option A). No live request, write or publication.
+**Status:** FINAL BUILD COMPLETE (`--final --image-ref d61c990d2935df9c4acc1d4c57f412cbd77c4303`); INDEPENDENT REVIEW PENDING. Every input is supplied: director text (`224ab918`), 34 approved WebPs (intake `d61c990d`; 10 bound), fresh quest base (push/89), RUL-2026-10-12-001…011. Not run; no live request, write or publication.
 
 **Date:** 2026-10-12. **Implementer:** Fable. **Decisions:** RUL-2026-10-12-001…008.
 
@@ -89,10 +89,10 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 ## 6. Still required before `--final`
 
 1. ~~Fresh push/89 quest capture~~: done (`harvests/inbox/tnr_results_1791768613624.json`, Forge 0.5.0, 2026-10-12T01:30Z, DONE/success, 2/2 full reads). Both quests are identical to the October 1 capture: every top-level field and all 57 objectives match. Both read **`hidden:false`** with an expired window (2026-09-18 to 2026-09-21), contradicting the earlier hidden report. The generator now uses this capture as its default base and records the observed state; the quest edits assert `hidden:true`, so running push/90 hides both quests.
-2. ~~Director text for 5 items~~: approved and slotted (`224ab918`). The art zip is still pending: at intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in `state/ghost_ship_skyglass_release_art.json`. Then run `--final --image-ref <commit>`.
+2. ~~Director text and art~~: done. Text at `224ab918`. Art: 34 director-approved WebPs committed at `d61c990d` (`art/ghost_ship_skyglass/`). All 34 match the handoff SHA256SUMS. Canonical `artpreflight.py` gives 0 errors and 2 non-blocking oversize warnings. The 10 required slots are bound, and the `imagePack` sha256/bytes equal the director's ledger. The 24 other approved files are committed but unbound (optional replacements need a separate decision).
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. ~~Legacy jutsu hash re-baseline~~: done. `state/ghost_ship_legacy_jutsu_baseline_push86.json`; the generator refuses unless every jutsu-edit source row matches it.
-5. **Consumer audit** (law 18/60). The census push/81–84 (535/535) found 22 outside AIs equipping Counter Stance or Battle Trance. RUL-2026-10-12-010 leaves those two unedited, so push/90 now has 9 jutsu edits and 6 unequip steps (51 entries), and the edited nine have **0** outside holders among the known AIs. push/91 (2026-10-12T02:32Z) re-counted **522** live non-ELDER AIs against 506 read, so 16 live AIs have ids the repository does not know. `push/92_ai_unknown_id_reads.json` reads the 7 candidate ids found in other committed captures; at most 7 of the 16 can close that way. The rest need their ids: Forge stores only the row count of `profile.getAllAiNames`. The verdict stays **INCOMPLETE** until the gap closes or the director accepts the residual.
+5. ~~Consumer audit~~: resolved. RUL-2026-10-12-010 leaves Counter Stance and Battle Trance unedited (22 outside holders). For the nine edited jutsu, the census (535/535) found 0 outside holders. 16 live AIs remain unread (push/91 counted 522 vs 506 read); the director accepted that residual (RUL-2026-10-12-011). Verdict `ACCEPTED_RESIDUAL`. push/92 is no longer required.
 6. Independent review of the frozen SHA; integration into `main` only afterwards.
 
 ## 7. Commands
@@ -105,3 +105,17 @@ node forge/tools/check_manifest.mjs push/90_ghost_ship_skyglass_release.json   #
 (cd <engine export at 585534d7>/app && bun --no-install run <repo>/push/90_ghost_ship_skyglass_release.rules.ts "$PWD" <repo>/push/90_ghost_ship_skyglass_release.json)  # 72 rules, 0 failed
 python3 skills/building-tnr-content/scripts/validate.py push/90_ghost_ship_skyglass_release.json --strict --ctors … --entities … --checks … --pool … --lints …   # findings per §3
 ```
+
+## 8. Final gates (head after this commit)
+
+| Gate | Result |
+| --- | --- |
+| `gen.py --final --image-ref d61c990d… --check` | OK, generator-exact; 51 entries; pending text 0, art 0 |
+| imagePack vs director ledger | 10/10 sha256 + bytes equal; `imgSizes` equal to bytes |
+| Forge runtime-equivalent check (`check.mjs`, no probe) | **0 problems**; 8 warnings (captured gates on self-target stances) |
+| Forge `tools/check_manifest.mjs` | Parse and plan OK (no L17). Its 8 pre-send findings are all on the Sealwright follow-up edit (item 34: `offence`/`defence`/6 masteries). The tool validates edits with no live row. At run time `_fill` validates against the freshly created Sealwright row, which has these columns, and the runtime-equivalent check shows that path is clean |
+| Engine rule parse | 72 rules, 0 failed |
+| Consumer audit | `ACCEPTED_RESIDUAL` (RUL-2026-10-12-011); self-test 8/8 |
+| Legacy baseline | `--check` OK; self-test 6/6; frozen M0 byte-identical ×3 |
+
+Optional, not run: a headless ForgeCore dry run of push/90 against Forge's FakeGame, seeded from the committed captures. It needs `npm ci` in `forge/`, which waits on director approval.
