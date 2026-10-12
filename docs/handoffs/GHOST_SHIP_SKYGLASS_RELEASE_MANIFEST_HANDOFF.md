@@ -147,3 +147,34 @@ Before and after: full captures.
 3. Run push/90 in Forge and commit its results.
 4. Tester calibration while the quests are hidden (RUL-007).
 5. Publication is a separate director decision.
+
+## 8. Release outcome and session closeout (2026-10-12)
+
+The release is applied live. All Ghost Ship / Skyglass content is in place, and both quests remain **hidden**. The director merged each step to `main` without the independent recheck.
+
+| Step | Main commit | Results | Outcome |
+| --- | --- | --- | --- |
+| Merge push/90 + Forge 0.5.2 | `b62704c` (pin `ae77aa1`) | — | Forge loader promoted to 0.5.2 |
+| Run push/90 | `760585b` | `tnr_results_1791779642866.json` | 48 match, 1 drift, 1 error (below) |
+| push/93 "Guardian" repair | `52471a5` | `tnr_results_1791780626532.json` | quests ok; AI rename refused (`Guardian` taken) |
+| push/94 "Skyglass Sentinel" repair | `11a7c1e` | `tnr_results_1791780861916.json` | DONE/success, 3/3 match |
+
+- **The push/90 error.** The rename of AI `3V_gdHYaclMB1gTyOPAbV` to "Sentinel" was refused because another live AI owns that username. `updateAi` syncs the kit before the userData update, so the kit landed and nothing else did.
+  - push/93 also failed: "Guardian" is taken too.
+  - push/94 applied the full push/90 edit under the name **Skyglass Sentinel**. All 6 asserted keys match (username, jutsus, rules, includeDefaultRules, statsMultiplier 5, avatar), and the stored combat stats are 1,391,300.
+  - The quests carry push/90's original "the Sentinel" text again. Rulings: RUL-2026-10-12-014 and RUL-2026-10-12-015.
+- **The push/90 drift.** Skyglass Crystal `Cmo3JU-D9Nl_-xUxrvEJN` `craftingRequirements` reads back `undefined` because `item.get` does not return the relation.
+  - The server stores the recipe after the guarded update (`item.ts:646-662` at 585534d7).
+  - The director confirmed in the in-game editor that the recipe is 12 × Skyglass Filament `CTZ1mwhHrICLtiCaZATY6`. Resolved.
+- Sealwright was created as `RBW5KsIXmTGR710D2y2Y7`.
+- The design state names the AI "Sentinel" in `state/ghost_ship_retheme_patch.json` aiRenames, but the live username is "Skyglass Sentinel". The rename is owned by RUL-2026-10-12-015 and push/94. push/90 and its design state stay as spent release history.
+
+**Open items (none blocking; not started):**
+1. Offline audit of the other push/90 after-captures, beyond Forge's VERIFIED verdicts: the 8 other AIs at multiplier 5, the hazards at 10/20, and the items.
+2. Forge `VERSION` label: `forge/src/main.mjs` still says `forge 0.5.1` while the package and bundle are 0.5.2 (Lane A).
+3. Lane A refresh of `validate.py` and 45c/45d/45g to 585534d7. That retires the per-manifest exceptions (RUL-013/014/015).
+4. A Forge capture path for `item.getItemWithCraftingRequirements`, so recipe edits can be verified.
+5. Archive the spent manifests push/65–94. push/92 was never run.
+6. Hidden tester calibration (RUL-007). Publication is a separate director decision and is **not authorized**.
+
+**Live-game statement:** agent live requests 0, agent game writes 0, no credentials. Every write was an operator-run Forge job. The global `state/active-context.md` / `state/status.json` (September Forge work) were not touched, and `session_close.py` was not run, per the workstream brief.
