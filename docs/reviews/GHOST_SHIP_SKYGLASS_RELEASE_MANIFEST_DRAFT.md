@@ -117,15 +117,15 @@ python3 skills/building-tnr-content/scripts/validate.py push/90_ghost_ship_skygl
 
 | Gate | Result |
 | --- | --- |
-| `gen.py --final --image-ref d61c990d… --check` | OK, generator-exact; 51 entries; pending text 0, art 0 |
+| `gen.py --final --image-ref d61c990d… --check` | OK, generator-exact; 50 entries; pending text 0, art 0 |
 | imagePack vs director ledger | 10/10 sha256 + bytes equal; `imgSizes` equal to bytes |
 | Forge runtime-equivalent check (`check.mjs`, no probe) | **0 problems**; 8 warnings (captured gates on self-target stances) |
-| Forge `tools/check_manifest.mjs` | Parse and plan OK (no L17). Its 8 pre-send findings are all on the Sealwright follow-up edit (item 34: `offence`/`defence`/6 masteries). The tool validates edits with no live row. At run time `_fill` validates against the freshly created Sealwright row, which has these columns, and the runtime-equivalent check shows that path is clean |
+| Forge `tools/check_manifest.mjs` | **0 problems**, exit 0, Forge manifest hash `e6c24afd` (50 entries; the Sealwright follow-up moved to push/93) |
 | Engine rule parse | 72 rules, 0 failed |
 | Consumer audit | `ACCEPTED_RESIDUAL` (RUL-2026-10-12-011); self-test 8/8 |
 | Legacy baseline | `--check` OK; self-test 6/6; frozen M0 byte-identical ×3 |
 
-Optional, not run: a headless ForgeCore dry run of push/90 against Forge's FakeGame, seeded from the committed captures. It needs `npm ci` in `forge/`, which waits on director approval.
+Headless ForgeCore dry run: done, 27/27 (§9).
 
 ## 9. Headless Forge dry run (`harness/ghost_ship_release_dryrun/`)
 
