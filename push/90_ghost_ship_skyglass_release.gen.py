@@ -62,6 +62,7 @@ OCT1_ITEMS = "harvests/inbox/tnr_results_1790826836406.json"
 CHEST_DONOR_CAPTURE = "harvests/inbox/tnr_results_1789402842027.json"
 KIT = "state/ghost_ship_hybrid_kit_proposal.json"
 LEGACY = "state/ghost_ship_legacy_jutsu_conversion.json"
+LEGACY_BASELINE = "state/ghost_ship_legacy_jutsu_baseline_push86.json"  # post-0056 re-baseline
 CONTRACT = "state/ghost_ship_skyglass_sealwright_rule_contract.json"
 RECORDS = "state/ghost_ship_skyglass_final_item_records.json"
 RETHEME = "state/ghost_ship_retheme_patch.json"
@@ -611,8 +612,20 @@ def build_ais(art: Art, report: dict, gate_policy: str) -> tuple[list[dict], lis
 # legacy jutsu
 
 
+def protected_hash(rec: dict) -> str:
+    """The conversion packet's hash method: drop name/description/battleDescription, canonical JSON."""
+    keep = {k: v for k, v in rec.items() if k not in ("name", "description", "battleDescription")}
+    return hashlib.sha256(json.dumps(keep, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
 def build_jutsu_edits(report: dict) -> list[dict]:
     legacy = load(LEGACY)
+    baseline = load(LEGACY_BASELINE)
+    if baseline["source"]["captureFileSha256"] != sha256_file(P86):
+        fail(f"{LEGACY_BASELINE} was built from a different push/86 file")
+    if baseline["source"]["conversionPacketSha256"] != sha256_file(LEGACY):
+        fail(f"{LEGACY_BASELINE} was built from a different conversion packet")
+    pinned = {r["targetId"]: r["protectedRecordSha256"] for r in baseline["records"]}
     live_rows: dict[str, dict] = {}
     for row in p86_ais().values():
         for uj in row["jutsus"]:
@@ -624,6 +637,8 @@ def build_jutsu_edits(report: dict) -> list[dict]:
         row = live_rows.get(jid)
         if row is None:
             fail(f"legacy jutsu {jid} not equipped by any push/86 Ghost Ship AI")
+        if protected_hash(row) != pinned.get(jid):
+            fail(f"legacy jutsu {jid}: push/86 row does not match the re-baselined protected hash")
         before = {k: row[k] for k in ("name", "description", "battleDescription")}
         if before != c["before"]:
             drift[jid] = {"packet": c["before"], "push86": before}
@@ -633,7 +648,8 @@ def build_jutsu_edits(report: dict) -> list[dict]:
                     "name": f"{c['after']['name']} (was {before['name']})", "data": data})
     if drift:
         fail("legacy jutsu presentation drifted since the conversion packet: " + stable(drift))
-    report["legacyJutsu"] = {"count": len(out), "beforeTextMatchesPush86": True}
+    report["legacyJutsu"] = {"count": len(out), "beforeTextMatchesPush86": True,
+                             "protectedHashesMatch": LEGACY_BASELINE}
     return out
 
 
@@ -875,7 +891,7 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
     manifest["capture"] = capture_block()
     report["pending"] = {"presentationText": pending_text, "artSlots": art.pending}
     report["counts"] = dict(Counter(f"{i['entity']}.{i['slot']}" for i in items))
-    report["inputs"] = {rel: sha256_file(rel) for rel in (P86, OCT1_ITEMS, CHEST_DONOR_CAPTURE, KIT, LEGACY, CONTRACT, RECORDS,
+    report["inputs"] = {rel: sha256_file(rel) for rel in (P86, OCT1_ITEMS, CHEST_DONOR_CAPTURE, KIT, LEGACY, LEGACY_BASELINE, CONTRACT, RECORDS,
                                                           RETHEME, GRAPH, PRESENTATION, ART, base)}
     return manifest, report
 
