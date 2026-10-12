@@ -1,6 +1,8 @@
 # Ghost Ship / Skyglass — retained jutsu conversion
 
 > **Live baseline (2026-10-12):** the `protectedRecordSha256` values in the JSON packet are the October 1 rows and stay unchanged for the frozen harnesses. The current post-migration-0056 hashes (same method; schema-only delta, no mechanic change) are in `state/ghost_ship_legacy_jutsu_baseline_push86.json`, produced and verified by `harness/ghost_ship_legacy_baseline/`.
+>
+> **RUL-2026-10-12-010:** Counter Stance (`T3glZGcSd-jS8G-NB43GR`) and Battle Trance (`MG9ZujAV8lK7--YxThVbQ`) are NOT renamed. They keep their live text because 22 AIs outside Ghost Ship equip them. The "Rebounding Form" / "Remembered Form" text below is superseded; the scope is `state/ghost_ship_legacy_jutsu_edit_scope.json`.
 
 **Roster:** eleven existing jutsu approved by dauntless under `RUL-2026-10-11-002`. **Conversion:** names, descriptions and battle text authored; final presentation acceptance remains with the director. Mechanics and IDs are preserved. Fable remains implementation owner; this is a design deliverable, not a Forge manifest.
 

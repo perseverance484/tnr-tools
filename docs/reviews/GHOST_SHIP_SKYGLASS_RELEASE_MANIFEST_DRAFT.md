@@ -16,15 +16,15 @@
 | `state/ghost_ship_skyglass_release_presentation.json` | Director text (10 strings, approved at `224ab918`; effectPresentation null) |
 | `state/ghost_ship_skyglass_release_art.json` | Art slots (10 required, pending the zip) |
 
-## 2. What the manifest does (56 entries, executed by `phase`)
+## 2. What the manifest does (51 entries, executed by `phase`)
 
 | Phase | Entries |
 | --- | --- |
 | 1 | 5 asset creates: Exterior Keel Walk, Reconstruction Chamber, Quarantined Archive, Command Observation Gallery (SCENE_BACKGROUND), Sealwright Scene Portrait (SCENE_CHARACTER), all hidden |
 | 2 | 4 item creates, all hidden: Skyglass Filament; Skyglass Crystal (12 × `@item:skyglass_filament`); Skyglass Katana; Skyglass Reliquary (Filament 1 @100, Rare Jewels 3 @100, Filament 1 @25, Serum @30, Ornate Chest @15, `@item:skyglass_crystal` @3) |
 | 3 | 9 scene-asset renames; item edits: Skyglass Serum (director text), Fragment of the Skyglass Crown, The Skyglass Crown |
-| 4 | 9 AI edits removing the eleven retained legacy jutsu from every Ghost Ship AI that holds one (law 18/60 unequip) |
-| 5 | 11 legacy jutsu edits: name / description / battleDescription (+ the live `injectableInBattle`, law 20) |
+| 4 | 6 AI edits removing the nine edited legacy jutsu from every Ghost Ship AI that holds one (law 18/60 unequip) |
+| 5 | 9 legacy jutsu edits: name / description / battleDescription (+ the live `injectableInBattle`, law 20). Counter Stance and Battle Trance are not edited (RUL-2026-10-12-010) |
 | 6 | 11 AI edits (rename, accepted kit, RUL-003 remapped rules, Crowned support prefix, loot, boss innate IDG) and the Sealwright create (regular Captain's profile, accepted 10-rule priority, `includeDefaultRules:false`, IDG 375, no loot) |
 | 7 | Sealwright follow-up edit: `offence`, `defence` and six masteries equal to the Captain's |
 | 8 | 2 quest edits: retheme text, Fragment removed from `w_Co`, 12 rewires, 26 new nodes (83 per quest, six endings), `@ai:sealwright` battle, `w_secret` → `@item:skyglass_reliquary` ×1 @100, `hidden:true` |
@@ -92,7 +92,7 @@ Law 40's text calls a gate at or below range safe; it only forfeits the outer ba
 2. ~~Director text for 5 items~~: approved and slotted (`224ab918`). The art zip is still pending: at intake, each file is committed under `art/ghost_ship_skyglass/` and its path entered in `state/ghost_ship_skyglass_release_art.json`. Then run `--final --image-ref <commit>`.
 3. ~~The §4 decision~~: settled (RUL-2026-10-12-009).
 4. ~~Legacy jutsu hash re-baseline~~: done. `state/ghost_ship_legacy_jutsu_baseline_push86.json`; the generator refuses unless every jutsu-edit source row matches it.
-5. **Consumer audit of the 11 retained jutsu** (law 18/60). The census push/81–84 ran 2026-10-12 02:21–02:26Z: 535/535 reads ok and persisted, 506 live non-ELDER, 29 deleted. Verdict (`state/ghost_ship_legacy_jutsu_consumer_audit.json`): **INCOMPLETE**, because 506 ≠ push/80's 522. `push/91_ai_live_count_recheck.json` re-counts it. Independent of the count, **22 AIs outside Ghost Ship equip retained jutsu**: 18 hold Counter Stance (`T3glZGcSd-jS8G-NB43GR`) and 4 hold Battle Trance (`MG9ZujAV8lK7--YxThVbQ`), all equipped. The other 9 jutsu have no outside holder among the known AIs. A director decision is required before `--final`.
+5. **Consumer audit** (law 18/60). The census push/81–84 (535/535) found 22 outside AIs equipping Counter Stance or Battle Trance. RUL-2026-10-12-010 leaves those two unedited, so push/90 now has 9 jutsu edits and 6 unequip steps (51 entries), and the edited nine have **0** outside holders. The verdict is still **INCOMPLETE**, only on the live count (506 vs push/80's 522): run `push/91_ai_live_count_recheck.json`, then `consumer_audit.py <81–84 results> --live-count <91 results>`. `--final` needs CLEAR.
 6. Independent review of the frozen SHA; integration into `main` only afterwards.
 
 ## 7. Commands

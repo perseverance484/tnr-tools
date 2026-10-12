@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Synthetic self-test for consumer_audit.py: CLEAR, CONSUMERS and INCOMPLETE must each be reached.
+"""Synthetic self-test for consumer_audit.py: CLEAR, CONSUMERS and INCOMPLETE must each be reached,
+and an outside holder of an RUL-010 excluded (unedited) jutsu must not block CLEAR.
 
     python3 harness/ghost_ship_legacy_baseline/consumer_audit_selftest.py
 
@@ -27,9 +28,10 @@ def main():
     ghost = sorted(e["aiId"] for e in json.load(open(os.path.join(REPO, ca.KIT)))["entities"])
     legacy = json.load(open(os.path.join(REPO, ca.BASELINE)))["records"][0]["targetId"]
     other = next(i for i in ids if i not in ghost)
+    excl = sorted(json.load(open(os.path.join(REPO, ca.EDIT_SCOPE)))["excluded"])[0]
     ok = True
     with tempfile.TemporaryDirectory() as root:
-        for rel in [ca.BASELINE, ca.KIT] + [os.path.relpath(p, REPO) for p in glob.glob(os.path.join(REPO, ca.CENSUS_GLOB))]:
+        for rel in [ca.BASELINE, ca.KIT, ca.EDIT_SCOPE] + [os.path.relpath(p, REPO) for p in glob.glob(os.path.join(REPO, ca.CENSUS_GLOB))]:
             os.makedirs(os.path.dirname(os.path.join(root, rel)), exist_ok=True)
             shutil.copy(os.path.join(REPO, rel), os.path.join(root, rel))
         ca.ROOT = root
@@ -53,6 +55,7 @@ def main():
         cases = [
             ("clear", base, "CLEAR"),
             ("consumer", lambda u: {**base(u), "jutsus": [{"jutsuId": legacy, "equipped": True}]} if u == other else base(u), "CONSUMERS"),
+            ("excluded jutsu held outside", lambda u: {**base(u), "jutsus": [{"jutsuId": excl, "equipped": True}]} if u == other else base(u), "CLEAR"),
             ("missing", lambda u: "SKIP" if u == other else base(u), "INCOMPLETE"),
             ("short", lambda u: None if u == other else base(u), "INCOMPLETE"),
         ]
