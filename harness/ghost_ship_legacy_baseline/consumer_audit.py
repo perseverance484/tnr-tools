@@ -3,6 +3,10 @@
 
     python3 harness/ghost_ship_legacy_baseline/consumer_audit.py <census results.json> [...]
     python3 harness/ghost_ship_legacy_baseline/consumer_audit.py --check <census results.json> [...]
+    ... --live-count <push/91 results.json>   use a fresh profile.getAllAiNames count instead of 522
+
+A --live-count bundle must hold exactly one ok profile.getAllAiNames read taken AFTER every census
+read; its row count replaces push/80's 522 (2026-10-09) as the expected live non-ELDER total.
 
 INPUT: the Forge results of the queued, operator-run AI census push/81-84
 (`push/8[1-4]_ai_pool_reequip_census_stage2_batch*.json`). Together they point-read every AI id the
@@ -62,7 +66,18 @@ def census_ids() -> tuple[set[str], dict[str, str]]:
     return ids, manifests
 
 
-def audit(result_paths: list[str]) -> dict:
+def live_count(rel: str, after: str) -> tuple[int, dict]:
+    doc, sha = read(rel)
+    reads = [c for c in doc.get("captures", []) if c.get("proc") == "profile.getAllAiNames"]
+    if len(reads) != 1 or reads[0].get("ok") is not True or not isinstance(reads[0].get("rows"), int):
+        raise SystemExit(f"{rel}: expected exactly one ok profile.getAllAiNames read with a row count")
+    at = reads[0].get("at") or doc.get("at")
+    if not at or at <= after:
+        raise SystemExit(f"{rel}: count taken at {at}, not after the last census read {after}")
+    return reads[0]["rows"], {"path": rel, "sha256": sha, "at": at, "rows": reads[0]["rows"]}
+
+
+def audit(result_paths: list[str], count_path: str | None = None) -> dict:
     baseline, baseline_sha = read(BASELINE)
     targets = {r["targetId"]: r["name"] for r in baseline["records"]}
     ghost = {e["aiId"] for e in read(KIT)[0]["entities"]}
@@ -90,6 +105,10 @@ def audit(result_paths: list[str]) -> dict:
                 continue
             bodies[uid] = c["data"]
 
+    expected, count_src = LIVE_NON_ELDER, {"path": "harvests/inbox/tnr_results_1791583362574.json (push/80)", "rows": LIVE_NON_ELDER}
+    if count_path:
+        last = max(c.get("at") or "" for rel in result_paths for c in read(rel)[0].get("captures", []))
+        expected, count_src = live_count(count_path, last)
     missing = sorted(want - set(bodies))
     live = {u: b for u, b in bodies.items() if b is not None and b.get("rank") != "ELDER"}
     holders = []
@@ -101,7 +120,7 @@ def audit(result_paths: list[str]) -> dict:
                                 "jutsuName": targets[jid], "equipped": uj.get("equipped"),
                                 "ghostShip": uid in ghost})
     others = [h for h in holders if not h["ghostShip"]]
-    if missing or errors or len(live) != LIVE_NON_ELDER:
+    if missing or errors or len(live) != expected:
         verdict = "INCOMPLETE"
     elif others:
         verdict = "CONSUMERS"
@@ -118,7 +137,8 @@ def audit(result_paths: list[str]) -> dict:
         "coverage": {"censusIds": len(want), "read": len(bodies), "missing": missing,
                      "deletedNull": sum(1 for b in bodies.values() if b is None),
                      "elder": sum(1 for b in bodies.values() if b is not None and b.get("rank") == "ELDER"),
-                     "liveNonElder": len(live), "expectedLiveNonElder": LIVE_NON_ELDER, "readErrors": errors},
+                     "liveNonElder": len(live), "expectedLiveNonElder": expected, "liveCountSource": count_src,
+                     "readErrors": errors},
         "ghostShipHolders": [h for h in holders if h["ghostShip"]],
         "otherHolders": others,
     }
@@ -127,11 +147,16 @@ def audit(result_paths: list[str]) -> dict:
 def main() -> int:
     args = sys.argv[1:]
     check = "--check" in args
+    count_path = None
+    if "--live-count" in args:
+        i = args.index("--live-count")
+        count_path = args[i + 1]
+        args = args[:i] + args[i + 2:]
     paths = [a for a in args if not a.startswith("--")]
     if not paths:
         print(__doc__.strip(), file=sys.stderr)
         return 2
-    doc = audit(paths)
+    doc = audit(paths, count_path)
     text = json.dumps(doc, indent=1, ensure_ascii=False) + "\n"
     out = os.path.join(ROOT, OUT)
     if check:
@@ -143,7 +168,7 @@ def main() -> int:
         with open(out, "w", encoding="utf-8") as fh:
             fh.write(text)
     cov = doc["coverage"]
-    print(f"{doc['verdict']}: read {cov['read']}/{cov['censusIds']}, live non-ELDER {cov['liveNonElder']}/{LIVE_NON_ELDER}, "
+    print(f"{doc['verdict']}: read {cov['read']}/{cov['censusIds']}, live non-ELDER {cov['liveNonElder']}/{cov['expectedLiveNonElder']}, "
           f"Ghost Ship holders {len(doc['ghostShipHolders'])}, other holders {len(doc['otherHolders'])}")
     for h in doc["otherHolders"]:
         print(f"  CONSUMER {h['username']} ({h['aiId']}) holds {h['jutsuName']} ({h['jutsuId']}) equipped={h['equipped']}")
