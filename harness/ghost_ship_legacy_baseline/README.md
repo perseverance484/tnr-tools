@@ -29,3 +29,24 @@ The 11 new protected hashes equal those published in
 `push/90_ghost_ship_skyglass_release.gen.py` refuses to build unless every legacy jutsu edit's
 source row hashes to this baseline and the baseline was built from the same push/86 file and
 conversion packet.
+
+## Consumer audit (who else holds the eleven jutsu)
+
+push/90 unequips and re-equips the eleven jutsu only on the eleven Ghost Ship AIs (law 18/60). Any
+other AI holding one would be left with a severed combat link. All eleven are `jutsuType: AI` and
+hidden, so only AI kits can hold them. The audit manifest is therefore the queued, read-only AI census
+`push/81`–`push/84`. It point-reads all 535 known AI ids with `profile.getAi` `persist:"full"`, and its
+completeness rule is 522 live non-ELDER AIs, the push/80 `profile.getAllAiNames` count. A separate
+Ghost Ship manifest would repeat the same reads.
+
+| Command | Result |
+| --- | --- |
+| `python3 harness/ghost_ship_legacy_baseline/consumer_audit.py <81–84 results…>` | writes `state/ghost_ship_legacy_jutsu_consumer_audit.json`; exit 0 only for CLEAR |
+| `python3 harness/ghost_ship_legacy_baseline/consumer_audit_selftest.py` | synthetic CLEAR / CONSUMERS / missing-read / short-count cases |
+
+Verdicts:
+- **CLEAR:** all 535 ids read, 522 live non-ELDER, and no non-Ghost-Ship holder.
+- **CONSUMERS:** the holders are listed, and push/90 `--final` refuses.
+- **INCOMPLETE:** a census id is missing, or the live count differs.
+
+`push/90 --final` requires CLEAR.
