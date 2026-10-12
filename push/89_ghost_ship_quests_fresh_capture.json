@@ -1,0 +1,23 @@
+{
+ "_note": "READ-ONLY fresh capture of both Ghost Ship profession quests (Ghost Ship / Skyglass). Zero mutations. Operator-run only; never an agent request. Two quests.get point reads with persist:\"full\": 6Ri-W5TtUrEMWpyYlnf_F and HckXVOf-qk6ESU9t5rxLh, the quests named in state/ghost_ship_skyglass_reward_decisions.md (Quest hidden-state evidence conflict). The 2026-10-01 capture showed hidden:false while the director reports both are currently HIDDEN; this capture is the mandatory fresh read-only readback before any in-place quest edit. Preserve a verified hidden:true; no publication or unhide follows from this capture. Keep the full results bundle and its export metadata.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "6Ri-W5TtUrEMWpyYlnf_F"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "HckXVOf-qk6ESU9t5rxLh"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
