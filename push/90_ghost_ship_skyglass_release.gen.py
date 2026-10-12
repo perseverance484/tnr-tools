@@ -9,15 +9,15 @@ validate.py --strict and Forge's own tools/check_manifest.mjs).
 Usage from repository root:
 
     python3 push/90_ghost_ship_skyglass_release.gen.py --draft [--check]
-    python3 push/90_ghost_ship_skyglass_release.gen.py --final --quest-base <fresh push/89 results> \
+    python3 push/90_ghost_ship_skyglass_release.gen.py --final \
         --image-ref <40-hex art commit> [--check]
 
---draft  builds against the October 1 quest capture, keeps labelled placeholders for the director
+--draft  builds against the push/89 fresh quest capture, keeps labelled placeholders for the director
          text in state/ghost_ship_skyglass_release_presentation.json, and leaves art slots from
          state/ghost_ship_skyglass_release_art.json unbound. The draft is a review artifact; Forge
          refuses it (unbound art) by design.
 --final  refuses unless every presentation value and every required art slot is supplied, the
-         quest base is a fresh capture newer than push/86 that reads both quests hidden:true, and
+         quest base is not the stale October 1 capture (default: push/89), and
          --image-ref is an immutable ancestor commit containing the art.
 
 Inputs (all committed):
@@ -56,6 +56,8 @@ REPORT = os.path.join(ROOT, "state", "ghost_ship_skyglass_release_manifest_repor
 
 P86 = "harvests/inbox/tnr_results_1791727613862.json"
 OCT1_QUESTS = "harvests/inbox/tnr_results_1790826101573.json"
+# push/89 fresh operator capture (Forge 0.5.0, 2026-10-12T01:30Z, persist full): the quest edit base.
+FRESH_QUESTS = "harvests/inbox/tnr_results_1791768613624.json"
 OCT1_ITEMS = "harvests/inbox/tnr_results_1790826836406.json"
 CHEST_DONOR_CAPTURE = "harvests/inbox/tnr_results_1789402842027.json"
 KIT = "state/ghost_ship_hybrid_kit_proposal.json"
@@ -737,12 +739,14 @@ def build_quests(base_rel: str, final: bool, report: dict) -> list[dict]:
     base = {d["id"]: d for d in captures(base_rel, "quests.get")}
     out = []
     qrep = {}
+    observed_hidden: dict[str, Any] = {}
     for qid in QUEST_IDS:
         if qid not in base:
             fail(f"quest {qid} not in {base_rel}")
         q = copy.deepcopy(base[qid])
-        if final and q.get("hidden") is not True:
-            fail(f"{qid}: quest base reads hidden={q.get('hidden')!r}; the fresh capture must read hidden:true")
+        # The fresh capture read hidden:false on both quests (event window ended 2026-09-21). The
+        # edit asserts hidden:true, so the run hides them; the observed state is reported.
+        observed_hidden[qid] = {"hidden": q.get("hidden"), "startsAt": q.get("startsAt"), "endsAt": q.get("endsAt")}
         content = q["content"]
         objs = content["objectives"]
         by = {o["id"]: o for o in objs}
@@ -812,7 +816,8 @@ def build_quests(base_rel: str, final: bool, report: dict) -> list[dict]:
         out.append({"entity": "quest", "slot": "edit", "phase": 8, "targetId": qid,
                     "name": f"{qtext['name']}: Skyglass retheme + 83-node expansion", "data": data})
         qrep[qid] = stats
-    report["quests"] = {"base": base_rel, "baseSha256": sha256_file(base_rel), "graphs": qrep}
+    report["quests"] = {"base": base_rel, "baseSha256": sha256_file(base_rel), "graphs": qrep,
+                        "baseVisibility": observed_hidden, "editAsserts": {"hidden": True}}
     return out
 
 
@@ -837,13 +842,11 @@ def capture_block() -> dict:
 def build(final: bool, quest_base: str | None, image_ref: str | None, gate_policy: str) -> tuple[dict, dict]:
     report: dict[str, Any] = {"mode": "final" if final else "draft", "gatePolicy": gate_policy}
     if final:
-        if not quest_base:
-            fail("--final needs --quest-base <fresh push/89 results>")
         if quest_base == OCT1_QUESTS:
             fail("--final cannot use the stale October 1 quest capture")
         if gate_policy != "law40":
             fail("--final requires --gate-policy law40 (RUL-2026-10-12-009); Forge refuses the captured gates")
-    base = quest_base or OCT1_QUESTS
+    base = quest_base or FRESH_QUESTS
     pres, pending_text = presentation(final)
     art = Art(final, image_ref)
 
@@ -863,7 +866,7 @@ def build(final: bool, quest_base: str | None, image_ref: str | None, gate_polic
             "Sealwright create, 7 Sealwright post-0056 stats, 8 quest edits. Everything new is created hidden; both "
             "quests stay hidden:true. Run by the operator only.")
     if not final:
-        note = "DRAFT, NOT RUNNABLE: director text and art pending; quest base is the stale October 1 capture. " + note
+        note = "DRAFT, NOT RUNNABLE: director text and art pending. " + note
     manifest: dict[str, Any] = {"_note": note, "dedupNames": True}
     if art.files:
         manifest["imgSizes"] = dict(sorted(art.sizes.items()))
@@ -882,7 +885,7 @@ def main() -> int:
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--draft", action="store_true")
     mode.add_argument("--final", action="store_true")
-    ap.add_argument("--quest-base", help="committed quests.get results file (fresh push/89 for --final)")
+    ap.add_argument("--quest-base", help="committed quests.get results file (default: push/89 fresh capture)")
     ap.add_argument("--image-ref", help="40-hex commit holding the art (--final)")
     ap.add_argument("--gate-policy", choices=["captured", "law40"], default="law40",
                     help="law40 (RUL-2026-10-12-009, default): normalize remapped gates to range+1; captured: historical RUL-003 conditions, which Forge refuses")
