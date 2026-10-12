@@ -1,10 +1,19 @@
 # Quest creation workflow improvement plan — Ghost Ship / Skyglass retrospective
 
-**Status:** PROPOSED for director review. This is an advisory design/workflow plan, not implementation authority or new gameplay canon.  
+**Status:** DIRECTOR-APPROVED ROADMAP (2026-10-12). QW-0 and QW-1 approved as first implementation-planning passes; QW-2 through QW-5 remain queued. This is not blanket implementation, integration, gameplay or publication authority.  
 **Repository:** perseverance484/tnr-tools  
 **Reviewed baseline:** main@4de2668bb947368113683b5cb97e197abc87df27 (2026-10-12).  
 **Roles:** ChatGPT — independent workflow audit / Content Designer; Fable — normal Lane A tooling implementation; director — final scope, content, rewards, art and live-game decisions.  
 **Safety:** Repository evidence and supplied offline closeout archives only; zero agent live-game requests/writes, zero publication; no credentials.
+
+## Director approval checkpoint — 2026-10-12
+
+The director approved the roadmap and the recommendation to prepare **QW-0** (contract correctness) and **QW-1** (quest project starter) first. The precise first implementation slices are documented separately:
+
+- `state/prompt_quest_workflow_qw0_contract_alignment.md` — pinned-contract/validator reconciliation, mechanical adoption gates and source-drift boundaries. Forge version, crafting relation capture and spent-manifest hygiene are separate QW-0 follow-ups, not bundled into this first slice.
+- `state/prompt_quest_workflow_qw1_workstream_starter.md` — deterministic, opt-in multi-session project creation using the existing roadmap schema.
+
+Ruling index: `RUL-2026-10-12-016`. **Fable remains the implementation owner**, with fresh-main, own-branch, exact-SHA review. This approval settles *which workflow work to plan first*, not the pending questions about upstream-contract adoption, policy on mandatory workstreams, strictness of incomplete name censuses, Rare Jewels reward semantics, or any live-game action. No implementation code or tests are claimed by this checkpoint.
 
 ## Goal
 
@@ -21,7 +30,7 @@ Make it easier to create a new TNR quest or multi-session quest expansion withou
 | Thirty-four exact approved art WebPs were processed and bound; earlier art handoffs still described some assets as raw/pending. GS-B06 raw and processed hashes lack an explicit raw-to-derivative linkage in the final ledger | `art/ghost_ship_skyglass/_provenance/`; `state/ghost_ship_skyglass_release_art.json`; supplied GS-B06 raw closeout | Make lifecycle and source-to-derived identity legible; do not regenerate art already shipped |
 | Historical combat Stage 2 r2 passed but produced wrong conclusions: missing battle-start caps, incomplete cadence/delayed-damage accounting and inadequate failure enforcement. r3/r4 fixed the evidence system | `docs/handoffs/GHOST_SHIP_SKYGLASS_STAGE2_OFFLINE_HANDOFF.md`; `docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_OFFLINE_RESULTS.md`; `harness/ghost_ship_stage2/` | Offline battle tests must be engine-faithful and fail closed; a green gate is bounded to what it actually proves |
 | Release required an exact SHA-bound exception because generated 45c/45d and `validate.py` lagged the newer engine; the latest upstream sentinel is only a drift signal | RUL-2026-10-12-013; `state/ghost_ship_skyglass_release_validate_exception.json`; `docs/DRIFT.md`; `state/schema_sentinel.json` | Reconcile source-derived contracts through the existing mechanical adoption gate before broadening tooling; do not generalize temporary exceptions |
-| push/90 had 48 matches, one unverifiable crafting-relation drift, and a name collision *after* kit synchronization. A second rename collided; push/94 fixed it with 3/3 verified readback. Both quests remained hidden | `docs/handoffs/GHOST_SHIP_SKYGLASS_RELEASE_MANIFEST_HANDOFF.md` `8; `harvests/inbox/tnr_results_1791780626532.json`; `harvests/inbox/tnr_results_1791780861916.json`; RUL-2026-10-12-014/015 | Treat composite update failure as potentially partial; improve name-coverage preflight, relation-aware readback and surgical operator-controlled recovery |
+| push/90 had 48 matches, one unverifiable crafting-relation drift, and a name collision *after* kit synchronization. A second rename collided; push/94 fixed it with 3/3 verified readback. Both quests remained hidden | `docs/handoffs/GHOST_SHIP_SKYGLASS_RELEASE_MANIFEST_HANDOFF.md` §8; `harvests/inbox/tnr_results_1791780626532.json`; `harvests/inbox/tnr_results_1791780861916.json`; RUL-2026-10-12-014/015 | Treat composite update failure as potentially partial; improve name-coverage preflight, relation-aware readback and surgical operator-controlled recovery |
 | Player showcase closeout reports a newer director change: Rare Jewels are chance-based, up to three, whereas historical push/90 and reward decisions encode three guaranteed. Graphic QC and Discord publication were not approved | Supplied `ghost_ship_skyglass_player_showcase_closeout.zip`; `state/ghost_ship_skyglass_reward_decisions.md`; `push/90_ghost_ship_skyglass_release.json` | Mark canonical/live discrepancy explicitly. Do not render disputed guarantees or publish before user-supplied confirmation |
 
 **Evidence tiers:** release and harness outcomes above come from committed results/reports; the new Rare Jewels change is director-reported, *not* proved by a later committed full live read. Source pin `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` governs the Ghost Ship release checks; deployed source version is not independently established. Main advanced after release with an upstream drift sentinel at `6e4429d65f466b0df9fca3f9917b6dd427df7573`. Do not equate either sentinel or stamped contract with deployed live behavior.
@@ -109,7 +118,7 @@ QW-1 can be designed alongside QW-0; QW-2 blueprint design can precede code but 
 
 ## Director decisions and current publication boundary
 
-1. **Approval sought:** adopt the ordered QW plan as a *proposal*, then freeze each implementation pass separately in a `state/prompt_<task>.md` brief. None is approved merely by inclusion here.
+1. **Decision recorded:** the ordered roadmap and QW-0/QW-1 implementation-planning priority were approved on 2026-10-12 (RUL-2026-10-12-016). Each scoped Fable implementation still requires its own exact-SHA review and safe integration; future packages remain queued, not automatically authorized.
 2. **Recommended default:** workstream starter is optional for routine single-session quests; strongly recommended for multi-session quests/expansions. Decide if compulsory at scale.
 3. **Recommended default:** incomplete name/consumer census is displayed as *unknown with explicit operator acknowledgement*, not automatically treated as absent or as a claim of uniqueness. Decide whether to make the preflight stricter for named critical edits.
 4. **Separate existing content discrepancy:** director-reported Rare Jewels chance-based/up-to-3 conflicts with historical guaranteed-3 repository source. Preserve the director's correction as a reported fact; obtain an authorized fresh, relation-complete operator readback and reconcile the owning current reward record. Until then, don't issue public guaranteed-drop claims. This does not authorize a reward change.
