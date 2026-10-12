@@ -16,7 +16,7 @@
 | `state/ghost_ship_skyglass_release_presentation.json` | Director text (10 strings, approved at `224ab918`; effectPresentation null) |
 | `state/ghost_ship_skyglass_release_art.json` | Art slots (10 required, pending the zip) |
 
-## 2. What the manifest does (51 entries, executed by `phase`)
+## 2. What the manifest does (50 entries, executed by `phase`)
 
 | Phase | Entries |
 | --- | --- |
@@ -26,7 +26,7 @@
 | 4 | 6 AI edits removing the nine edited legacy jutsu from every Ghost Ship AI that holds one (law 18/60 unequip) |
 | 5 | 9 legacy jutsu edits: name / description / battleDescription (+ the live `injectableInBattle`, law 20). Counter Stance and Battle Trance are not edited (RUL-2026-10-12-010) |
 | 6 | 11 AI edits (rename, accepted kit, RUL-003 remapped rules, Crowned support prefix, loot, boss innate IDG) and the Sealwright create (regular Captain's profile, accepted 10-rule priority, `includeDefaultRules:false`, IDG 375, no loot) |
-| 7 | Sealwright follow-up edit: `offence`, `defence` and six masteries equal to the Captain's |
+| 7 | (removed) Sealwright's post-0056 stats now come from **push/93**, generated from push/90's results with the literal created id. Forge does not resolve `@ai:` in `targetId`, a defect found by the dry run |
 | 8 | 2 quest edits: retheme text, Fragment removed from `w_Co`, 12 rewires, 26 new nodes (83 per quest, six endings), `@ai:sealwright` battle, `w_secret` → `@item:skyglass_reliquary` ×1 @100, `hidden:true` |
 
 Before/after captures: full reads of both quests, the 11 AIs and their profiles, the 11 jutsu, the 3 edited items and the 9 renamed assets.
@@ -126,3 +126,18 @@ python3 skills/building-tnr-content/scripts/validate.py push/90_ghost_ship_skygl
 | Legacy baseline | `--check` OK; self-test 6/6; frozen M0 byte-identical ×3 |
 
 Optional, not run: a headless ForgeCore dry run of push/90 against Forge's FakeGame, seeded from the committed captures. It needs `npm ci` in `forge/`, which waits on director approval.
+
+## 9. Headless Forge dry run (`harness/ghost_ship_release_dryrun/`)
+
+The shipped ForgeCore ran against FakeGame, seeded from the committed captures, using the real art
+bytes at `d61c990d`. Result: **27/27**.
+- push/90: DONE, 50/50 items VERIFIED, postflight 0 diff and 0 unresolved.
+- Image pack: 34/34 verified and 34 uploads recorded, with bytes equal to the pack.
+- No `@ref` is left unresolved anywhere.
+- Law-60 order holds: 6 unequips land before the first jutsu edit.
+- Quests: 83 nodes each, hidden, new icon; the Sealwright battle and the Reliquary reward resolve to the created ids.
+- push/93, generated from the run's own bundle, sets Sealwright's stats equal to the Captain's.
+
+It found one real defect and it is fixed: the same-job `@ai:sealwright` `targetId` would have failed live. After the fix, Forge's own `tools/check_manifest.mjs` passes push/90 with **0 problems** (Forge manifest hash `e6c24afd`).
+
+**Operator sequence:** run push/90, commit its results, then run `python3 push/93_ghost_ship_sealwright_stats.gen.py --results <push/90 results>`, then run push/93.

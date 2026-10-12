@@ -1,0 +1,158 @@
+{
+ "schema": "tnr.ghost_ship_release_dryrun",
+ "manifest": "push/90_ghost_ship_skyglass_release.json",
+ "manifestSha256": "c4b385b77ff80ea617c73df125697c2efc2e9b45c63c09a25c9e559e546bbd69",
+ "imageRef": "d61c990d2935df9c4acc1d4c57f412cbd77c4303",
+ "forgeVersionUnderTest": "0.5.1",
+ "job": {
+  "state": "DONE",
+  "items": 50
+ },
+ "gameCalls": 293,
+ "callsByPath": {
+  "quests.get": 8,
+  "profile.getAi": 71,
+  "ai.getAiProfile": 31,
+  "jutsu.get": 40,
+  "item.get": 20,
+  "gameAsset.get": 46,
+  "gameAsset.getAllNames": 2,
+  "item.getAllNames": 2,
+  "profile.getAllAiNames": 2,
+  "gameAsset.create": 5,
+  "gameAsset.update": 14,
+  "item.create": 4,
+  "item.update": 7,
+  "profile.updateAi": 19,
+  "jutsu.update": 9,
+  "ai.updateAiProfile": 9,
+  "profile.create": 1,
+  "ai.toggleAiProfile": 1,
+  "quests.update": 2
+ },
+ "uploads": 34,
+ "synthetic": [
+  "item yTS9TSpr_QLnh_3zmEpGg (The White Crown) shell",
+  "asset U2pjcM1_N-HdVf928Sn5z shell",
+  "asset dFwyPzyhUZQjDBXpJRUDJ shell",
+  "asset 6iwMYC8WTCGJTf2QIYfBz shell",
+  "asset ApkLYWJ3AFe8oyqQwk_8z shell",
+  "asset yufttCkG-KsefHKuz9Q2a shell",
+  "asset -eB0frmTJss6Uco6ZoM07 shell",
+  "asset rX78pJPETsUL2JrsSvGHn shell",
+  "asset xm3F2YXkNPeLWHRAUnbmF shell",
+  "asset 4Cu4EBaWRsGm5J_Ld1hTt shell"
+ ],
+ "checks": 27,
+ "failed": 0,
+ "results": [
+  {
+   "name": "selection: no parse/plan/pre-send problems",
+   "pass": true
+  },
+  {
+   "name": "selection: no protected-procedure block",
+   "pass": true
+  },
+  {
+   "name": "image pack: every bound file fetched at the ref and verified (sha256 + bytes)",
+   "pass": true
+  },
+  {
+   "name": "job opened and finished DONE",
+   "pass": true
+  },
+  {
+   "name": "all 50 items VERIFIED by read-back",
+   "pass": true
+  },
+  {
+   "name": "results bundle exported with outcome success",
+   "pass": true
+  },
+  {
+   "name": "postflight: every entry matches, none unresolved",
+   "pass": true
+  },
+  {
+   "name": "no unresolved @ref left in any table",
+   "pass": true
+  },
+  {
+   "name": "uploads: one per bound file, bytes equal the pack",
+   "pass": true
+  },
+  {
+   "name": "push/93 targets the created Sealwright by literal id",
+   "pass": true
+  },
+  {
+   "name": "push/93 selection: no problems or blocks",
+   "pass": true
+  },
+  {
+   "name": "push/93 job DONE, item VERIFIED",
+   "pass": true
+  },
+  {
+   "name": "Sealwright post-0056 stats equal the regular Captain's after push/93",
+   "pass": true
+  },
+  {
+   "name": "Sealwright rules written: 10 rules, includeDefaultRules false",
+   "pass": true
+  },
+  {
+   "name": "Sealwright kit 7, avatar uploaded",
+   "pass": true
+  },
+  {
+   "name": "11 AIs renamed with new avatars",
+   "pass": true
+  },
+  {
+   "name": "Crowned loot: Fragment 20, Katana 3 (ref resolved to the created Katana)",
+   "pass": true
+  },
+  {
+   "name": "Crystal recipe resolves to the created Filament x12",
+   "pass": true
+  },
+  {
+   "name": "Reliquary loot table resolves Filament and Crystal ids",
+   "pass": true
+  },
+  {
+   "name": "all new items created hidden",
+   "pass": true
+  },
+  {
+   "name": "quest 6Ri-W5TtUrEMWpyYlnf_F: 83 objectives, hidden, new icon, Sealwright battle and Reliquary reward resolved",
+   "pass": true
+  },
+  {
+   "name": "quest HckXVOf-qk6ESU9t5rxLh: 83 objectives, hidden, new icon, Sealwright battle and Reliquary reward resolved",
+   "pass": true
+  },
+  {
+   "name": "9 existing scene assets renamed with new art",
+   "pass": true
+  },
+  {
+   "name": "9 legacy jutsu renamed; Counter Stance / Battle Trance untouched",
+   "pass": true
+  },
+  {
+   "name": "law 60 order: 6 unequips before the first jutsu edit; no AI re-equips an edited jutsu mid-edit",
+   "pass": true
+  },
+  {
+   "name": "before/after captures all ok and persisted",
+   "pass": true
+  },
+  {
+   "name": "no live-game socket: every call went to the in-memory FakeGame",
+   "pass": true
+  }
+ ]
+}
