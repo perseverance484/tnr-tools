@@ -1,0 +1,22 @@
+{
+  "schema": "tnr.ghost_ship_skyglass_release_art",
+  "version": 1,
+  "status": "PENDING_DIRECTOR_ART_ZIP",
+  "ruling": "RUL-2026-10-12-008: the director's zip of finalized art is the last input. At intake each file is processed/QC'd, committed under art/ghost_ship_skyglass/, and its repository path is entered here; the generator binds it with --image-ref <commit> (sha256 and bytes are computed from the blob at that commit, never typed).",
+  "consumer": "push/90_ghost_ship_skyglass_release.gen.py",
+  "required": {
+    "item:skyglass_katana": null,
+    "item:skyglass_crystal": null,
+    "item:skyglass_reliquary": null,
+    "item:skyglass_filament": null,
+    "scene:gs_scene_exterior_keel": null,
+    "scene:gs_scene_reconstruction": null,
+    "scene:gs_scene_quarantined_archive": null,
+    "scene:gs_scene_command_gallery": null,
+    "scene:gs_char_sealwright": null,
+    "ai:sealwright": null
+  },
+  "optional": {
+    "_note": "Replacement art for existing records. Add entries as item:<itemId>, asset:<assetId> or ai:<aiUserId> with the repository path; an absent entry keeps the live image untouched."
+  }
+}
