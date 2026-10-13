@@ -8,8 +8,10 @@ Offline only. Exit 0 when every hard check passes; 1 otherwise. Hard checks:
   * every line names a census item by id, and the name matches;
   * no line references a hidden item, an event item, or a listed exclusion;
   * 0 < chance <= 100, 1 <= quantity <= the item's stackSize;
-  * drop doctrine (engine law 22): a line's quantity shares no common factor with any recipe
-    quantity of that item across player-craftable recipes;
+  * quantities: when the draft carries `quantity_policy.allowed` (RUL-2026-10-13-002: chest loot
+    lines use 5, 10 and 20, as the live chests do), every quantity must be one of those. Without a
+    policy, engine law 22's drop doctrine applies: a quantity shares no common factor with any
+    recipe quantity of that item;
   * each cache's targets are player-craftable recipes, every target ingredient is carried by the
     cache or is itself a target of that cache (Pill Pack is assembled from pills), and the cache
     carries nothing that none of its targets uses.
@@ -64,6 +66,7 @@ def check(draft, census):
     rows = index(census)
     rq = recipe_quantities(census)
     excluded = draft.get("exclusions", {}).get("ids", {})
+    allowed = (draft.get("quantity_policy") or {}).get("allowed")
     for c in draft["caches"]:
         for n, ln in enumerate(c["lines"]):
             tag = f"{c['key']}[{n}] {ln.get('name')}"
@@ -83,6 +86,10 @@ def check(draft, census):
                 errors.append(f"{tag}: chance {ln['chance']}")
             if not (isinstance(ln["quantity"], int) and 1 <= ln["quantity"] <= (r["stackSize"] or 1)):
                 errors.append(f"{tag}: quantity {ln['quantity']} vs stackSize {r['stackSize']}")
+            if allowed is not None:
+                if ln["quantity"] not in allowed:
+                    errors.append(f"{tag}: quantity {ln['quantity']} not in the ruled set {allowed}")
+                continue
             shared = sorted(q for q in rq.get(ln["id"], ()) if math.gcd(q, ln["quantity"]) > 1)
             if shared:
                 errors.append(f"{tag}: quantity {ln['quantity']} shares a factor with recipe quantities {shared}")

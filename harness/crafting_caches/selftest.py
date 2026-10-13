@@ -42,8 +42,14 @@ class Draft(unittest.TestCase):
     def test_report_is_current(self):
         self.assertEqual(C.main(["--check"]), 0)
 
-    def test_common_factor_with_recipe(self):
-        self.expect(lambda d: line(d, "Cracked Auditory Core").update(quantity=5), "shares a factor")
+    def test_quantity_outside_ruled_set(self):
+        self.expect(lambda d: line(d, "Cracked Auditory Core").update(quantity=7), "not in the ruled set")
+
+    def test_common_factor_without_policy(self):
+        def m(d):
+            d.pop("quantity_policy")
+            line(d, "Cracked Auditory Core").update(quantity=5)
+        self.expect(m, "shares a factor")
 
     def test_unknown_id(self):
         self.expect(lambda d: line(d, "Iron Ore").update(id="nope"), "not in census")
