@@ -1124,3 +1124,19 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 - how players obtain each cache;
 - cache rarity and tradability;
 - icon accent colours.
+
+## RUL-2026-10-13-002 — Chest loot lines use 5s, 10s and 20s
+
+**Date:** 2026-10-13
+
+**Domain:** item loot chests (item reference §4); crafting caches (`docs/design/crafting_caches/`)
+
+**Status:** ACTIVE
+
+**Context:** the push/95 capture (`harvests/inbox/tnr_results_1791863274945.json`) showed every live chest family paying out in ×5, ×10 and ×20. The crafting-cache draft had instead avoided common factors with recipe quantities, following the drop-doctrine clause of engine law 22.
+
+**Ruling (dauntless):** "We can and should use 5s, 10s and 20s." Chest and cache loot lines use quantities of 5, 10 or 20.
+
+**Scope:** chest loot tables, including the three crafting caches. Engine law 22's text (`docs/ENGINE_LAWS.md`), which covers per-encounter drops, is **not** amended by this ruling. Whether to amend it is open as decision D8 in the cache draft and would go through law reconciliation.
+
+**Operative owner:** `quantity_policy` in `docs/design/crafting_caches/caches_draft.json`, enforced by `harness/crafting_caches/check_draft.py`.

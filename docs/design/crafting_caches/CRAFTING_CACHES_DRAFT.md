@@ -21,8 +21,8 @@ craft family and was too broad, so it is superseded.
    uses.
 2. **Reagents only.** Caches hand out no finished consumables. Pill Pack is crafted from the three
    pills, so the pill cache feeds it through their reagents.
-3. **Engine law 22 (the drop doctrine) holds.** Every cache quantity is 3, which shares no factor
-   with any recipe quantity of that item (1, 2, 5, 10, 20, 30, 40).
+3. **Quantities are 5, 10 or 20** (RUL-2026-10-13-002), matching the live chests. The checker
+   enforces this set from `quantity_policy` in `caches_draft.json`.
 4. **No event items.** Godstorm Eclipse Inheritance and the other event-chain materials stay out.
    So do hidden items and trade-only unique items.
 5. **One loot-chest mechanic.** Each cache is one item with a single `noncombatconsumereward` and
@@ -82,6 +82,8 @@ This is cloned from the item reference §5 chest chassis:
 | D4 | **Optional targets.** | Out. | High-tier candidates: Saki and the EPIC Bashōsen, Infernum and Senbon Needles. Pill-cache candidates: Dr. Kim's Poison Potion and Venom Cask, which are poisons rather than pills. |
 | D5 | **How players get each cache.** | Not decided. | The source sets the economy. |
 | D6 | **All chances and quantities, cache rarity, art and tradability.** | Placeholders: COMMON, no art, not tradable. | Balance and art direction are yours. |
+| D7 | ~~Should Mystery Chest gain lines for the new caches?~~ | **Settled: no** (RUL-2026-10-13-001). | The new caches are not added to Mystery Chest. |
+| D8 | **Should engine law 22's drop-quantity clause be amended?** RUL-2026-10-13-002 scopes 5/10/20 to chest loot lines. | Law text unchanged. | Law 22 still tells encounter drops to use quantity 1 and avoid common factors. Changing it is a law change through the reconciliation process, not something a design draft can do. |
 
 The leakage tables in the report list every other recipe that uses each cache's contents. Common
 reagents always leak a little into crystals and RARE weapons. That's unavoidable, because the
@@ -125,22 +127,23 @@ not a new source of anything.
 | Option | Inro / Pouch, units per open | Strongbox, Legendary units per open | Opens per craft | Reads as |
 | --- | --- | --- | --- | --- |
 | A (v2, conservative) | about 10–12 | about 4.4 | Pill II 1.3, kunai 2.7, Legendary 17–22 | Below the Rusted chests. A trickle. |
-| **B (v3, current draft)** | about 31–32 | about 14 | Pill II 0.4, Small Health Pill 0.8, Pill Pack 1.6, kunai 1.0, every Legendary consumable 7.1 | About a Rusted chest, but focused. Strongbox is about 2× Ornate's Legendary yield and about ⅐ of a Legendary tier chest. |
+| **B (current draft, v4)** | about 28–29 | about 12.5 | Pill II 0.5, Small Health Pill 0.8, Pill Pack 1.5, kunai 1.1, every Legendary consumable 6.7 | About a Rusted chest, but focused. Strongbox is about 2× Ornate's Legendary yield and about ⅐ of a Legendary tier chest. |
 | C (tier parity) | about 100+ | about 60+ | Below 0.5 for everything | Matches the tier chests per reagent. Only sensible if a cache is as hard to get as a tier chest. |
 
 Pick the option according to how the caches are obtained (decision D5). A cache handed out as a
 routine quest reward fits A or B. One gated like a tier chest fits C.
 
-### v3 lines (Option B)
+### v4 lines (Option B, in 5s, 10s and 20s)
 
-| Cache | Lines (quantity@chance) |
-| --- | --- |
-| Medicine Inro | Galecrest Sage 7@100 + 7@25; Glimmer Dust and Mosswolf Tuft 7@70; Moonlight Antlers and Sunroot 7@70 + 7@20 |
-| Shinobi Tool Pouch | Iron Ore 7@100 + 7@30; each of the 11 kunai reagents 7@30 |
-| Sage's Strongbox | Cracked Auditory Core 7@70 + 7@30; Tempest Thorn, Lunaris Bloom, Heart of Kuraokami, Fujin's Breath, Voidshade Petal and Parchment Core 7@20 |
+| Cache | Lines (quantity@chance) | Per open |
+| --- | --- | --- |
+| Medicine Inro | Galecrest Sage 5@100 + 5@50; Glimmer Dust and Mosswolf Tuft 5@80; Moonlight Antlers and Sunroot 5@100 + 5@30 | About 28.5 units. Pill II needs about 0.5 opens, Small Health Pill 0.8 (one guaranteed per open), Pill Pack 1.5. |
+| Shinobi Tool Pouch | Iron Ore 10@100; each of the 11 kunai reagents 5@35 | About 29 units. About 1.1 opens per kunai. |
+| Sage's Strongbox | Cracked Auditory Core 10@50; Tempest Thorn, Lunaris Bloom, Heart of Kuraokami, Fujin's Breath, Voidshade Petal and Parchment Core 10@15 | About 14 units, 12.5 of them Legendary. About 6.7 opens per Legendary consumable. |
 
-Every quantity is 7, and 7 shares no factor with any recipe quantity (engine law 22). The live
-chests use ×5, ×10 and ×20, so they don't follow that law. The new caches do.
+**Quantity rule.** RUL-2026-10-13-002 sets chest quantities at 5, 10 and 20, as the live chests
+use. Engine law 22's encounter-drop doctrine ("quantity 1 per encounter... never share a common
+factor") is not amended. Whether to amend it is in decision D8.
 
 ### Live findings (reported, not fixed; no writes are authorized)
 
@@ -156,5 +159,5 @@ chests use ×5, ×10 and ×20, so they don't follow that law. The new caches do.
    the report.
 3. Run `python3 harness/crafting_caches/selftest.py`.
 
-Once D1–D6 are settled, the next step is a hidden-create builder manifest for dauntless to push.
+Once D3–D6 and D8 are settled, the next step is a hidden-create builder manifest for dauntless to push.
 No manifest exists yet.
