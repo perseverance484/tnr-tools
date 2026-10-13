@@ -41,7 +41,8 @@ class El {
   get isConnected() { let n = this; while (n.parent) n = n.parent; return n === this.doc.body; }
 }
 
-function harness({ hash = "", armed = false } = {}) {
+function harness(opts = {}) {
+  const { hash = "", armed = false } = opts;
   const store = new Map(armed ? [["tnr_crafting_census_armed", "1"]] : []);
   const doc = { created: 0 };
   doc.body = new El("body", doc);
@@ -49,9 +50,11 @@ function harness({ hash = "", armed = false } = {}) {
   const calls = [];
   const timers = [];
   const census = {
-    run: async () => { calls.push("run"); return { status: "complete" }; },
+    run: async () => { calls.push("run"); if (opts.runError) throw new Error(opts.runError); return { status: "complete" }; },
     stop: () => calls.push("stop"),
     status: async () => ({ status: "not_started" }),
+    logs: () => ["[census] hello"],
+    RUNTIME: "1.0.1",
     download: async () => { calls.push("download"); return "f.json"; },
     reset: async () => calls.push("reset"),
   };
@@ -59,16 +62,16 @@ function harness({ hash = "", armed = false } = {}) {
     location: { hash },
     sessionStorage: { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) },
     document: doc,
-    TNRCraftCensus: census,
+    TNRCraftCensus: opts.noWindowCensus ? undefined : census,
     confirm: () => true,
   };
-  const ctx = vm.createContext({ window, setInterval: (f) => { timers.push(f); return timers.length; }, clearInterval: () => { timers.length = 0; } });
+  const ctx = vm.createContext({ window, ...(opts.noWindowCensus ? { TNRCraftCensus: census } : {}), setInterval: (f) => { timers.push(f); return timers.length; }, clearInterval: () => { timers.length = 0; } });
   vm.runInContext(SRC, ctx);
   const panel = () => doc.body.children.find((c) => c.attrs && c.tag === "div");
   const click = async (label) => {
     const b = panel().children[1].children.find((x) => x.textContent === label);
     for (const f of b.listeners.click) await f();
-    await new Promise((r) => setImmediate(r));
+    for (let i = 0; i < 5; i++) await new Promise((r) => setImmediate(r));
   };
   return { doc, store, calls, timers, panel, click };
 }
@@ -104,4 +107,18 @@ test("armed tab re-attaches the panel after hydration clears body; Close disarms
   await h.click("Close");
   assert.equal(h.store.has("tnr_crafting_census_armed"), false);
   assert.equal(p.isConnected, false);
+});
+
+test("a failing run() is shown on the panel, with the census log", async () => {
+  const h = harness({ armed: true, runError: "indexedDB open blocked" });
+  await h.click("Run");
+  const [, , out, logView] = h.panel().children;
+  assert.match(out.textContent, /Run error: indexedDB open blocked/);
+  assert.match(logView.textContent, /\[census\] hello/);
+});
+
+test("a census published only on the sandbox global is still found", async () => {
+  const h = harness({ armed: true, noWindowCensus: true });
+  await h.click("Run");
+  assert.deepEqual(h.calls, ["run"]);
 });
