@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         TNR Crafting Recipe Census (read-only)
 // @namespace    tnr-tools-crafting-census
-// @version      1.0.0
+// @version      1.0.1
 // @description  On-page Run / Stop / Download panel for the read-only crafting recipe census. Inactive unless the tab is armed by opening a game page with #craft-census.
 // @match        *://www.theninja-rpg.com/*
 // @match        *://theninja-rpg.com/*
 // @grant        none
 // @run-at       document-idle
-// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@d6e458991109adaeed352cadce91f150edee858e/harness/crafting_recipe_census/crafting_recipe_census.console.js
+// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@42a1db0fbf22c61ced73eab6047436d637fc7940/harness/crafting_recipe_census/crafting_recipe_census.console.js
 // ==/UserScript==
 // Phone-friendly wrapper around crafting_recipe_census.console.js. The census itself is the
 // @require above, pinned to an immutable commit: GET-only to item.getAll and
@@ -31,7 +31,13 @@
   } catch (_e) {
     return;
   }
-  const census = w.TNRCraftCensus;
+  // The @require may land on the sandbox global or on the page window, depending on the manager.
+  const findCensus = () => {
+    try {
+      if (typeof TNRCraftCensus !== "undefined" && TNRCraftCensus) return TNRCraftCensus;
+    } catch (_e) { /* not declared in this scope */ }
+    return w.TNRCraftCensus || (typeof globalThis !== "undefined" && globalThis.TNRCraftCensus) || null;
+  };
   const doc = w.document;
 
   const panel = doc.createElement("div");
@@ -49,9 +55,17 @@
   bar.setAttribute("style", "display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px");
   const out = doc.createElement("pre");
   out.setAttribute("style", "margin:0;white-space:pre-wrap;word-break:break-word;font:12px/1.3 monospace");
-  panel.append(title, bar, out);
+  const logView = doc.createElement("pre");
+  logView.setAttribute(
+    "style",
+    "margin:6px 0 0;white-space:pre-wrap;word-break:break-word;font:11px/1.3 monospace;color:#9c9",
+  );
+  panel.append(title, bar, out, logView);
 
+  // A message (error, saved file) stays on screen until the next button press.
+  let message = "";
   const show = (text) => {
+    message = text;
     out.textContent = text;
   };
   const fmt = (s) => {
@@ -67,12 +81,19 @@
     );
   };
   const refresh = async () => {
-    if (!census) return show("Census script failed to load (@require). Reinstall the userscript.");
-    try {
-      show(fmt(await census.status()));
-    } catch (e) {
-      show(`status error: ${e && e.message ? e.message : e}`);
+    const census = findCensus();
+    if (!census) {
+      out.textContent = "Census script failed to load (@require). Reinstall the userscript.";
+      return;
     }
+    title.textContent = `Crafting Recipe Census (read-only) ${census.RUNTIME || census.VERSION || ""}`;
+    try {
+      const status = fmt(await census.status());
+      out.textContent = message ? `${message}\n\n${status}` : status;
+    } catch (e) {
+      out.textContent = `status error: ${e && e.message ? e.message : e}`;
+    }
+    if (census.logs) logView.textContent = census.logs().slice(-12).join("\n");
   };
 
   const button = (label, fn) => {
@@ -85,33 +106,40 @@
         "background:#2b2b2b;color:#fff;border:1px solid #666;border-radius:6px",
     );
     b.addEventListener("click", async () => {
-      let keep;
+      message = "";
       try {
-        keep = await fn();
+        const census = findCensus();
+        if (!census && label !== "Close") throw new Error("census script not loaded");
+        await fn(census);
       } catch (e) {
         show(`${label} error: ${e && e.message ? e.message : e}`);
-        return;
       }
-      if (keep !== "keep") await refresh();
+      await refresh();
     });
     bar.append(b);
   };
 
   let runPromise = null;
-  button("Run", async () => {
-    if (runPromise) return;
-    runPromise = census.run().finally(() => {
-      runPromise = null;
-      refresh();
-    });
+  button("Run", async (census) => {
+    if (runPromise) return show("Already running.");
+    show("Starting...");
+    runPromise = Promise.resolve()
+      .then(() => census.run())
+      .then(
+        () => show(""),
+        (e) => show(`Run error: ${e && e.message ? e.message : e}`),
+      )
+      .finally(() => {
+        runPromise = null;
+        refresh();
+      });
   });
-  button("Stop", async () => census.stop());
-  button("Download", async () => {
+  button("Stop", async (census) => census.stop());
+  button("Download", async (census) => {
     const name = await census.download();
     show(`Saved ${name}\nMove it to harvests/inbox/ in the repo.`);
-    return "keep";
   });
-  button("Reset", async () => {
+  button("Reset", async (census) => {
     if (runPromise) throw new Error("tap Stop and wait for the run to halt first");
     if (!w.confirm("Discard the saved census state and start over?")) return;
     await census.reset();
@@ -125,10 +153,9 @@
   const attach = () => {
     if (!panel.isConnected && doc.body) doc.body.append(panel);
   };
-  // Status only refreshes while a run is in flight, so a Download message stays readable.
   const timer = setInterval(() => {
     attach();
-    if (runPromise) refresh();
+    refresh();
   }, 1000);
   attach();
   refresh();

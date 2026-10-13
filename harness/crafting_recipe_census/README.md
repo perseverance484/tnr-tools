@@ -26,6 +26,12 @@ census needs both steps, so the operator runs a small console script instead.
 4. When the status says `complete`, tap **Download** and move the saved file into
    `harvests/inbox/`.
 
+The panel shows the status and, in green, the census log: run start, which storage it is using,
+each page and detail read, and any error. If **Run** fails, the panel shows `Run error: ...`
+instead of staying silent. If the browser's IndexedDB is missing, refuses or never answers, the
+census falls back to localStorage and then to memory, and says so in the log. In memory mode a
+reload loses progress.
+
 **Stop** pauses the run. **Reset** discards the saved state. **Close** removes the panel and
 disarms the tab.
 
