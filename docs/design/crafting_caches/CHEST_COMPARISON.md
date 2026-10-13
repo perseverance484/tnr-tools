@@ -44,7 +44,7 @@ expected units by reward rarity (C/R/E/L); chance range %; quantities used (qty�
 | Chest | Rarity | Lines | 100% | Hit/open | Units/open | By rarity | Chance % | Quantities | Other |
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
 | Medicine Inro | COMMON (proposed) | 11 | 5 | 8.00 | 80.00 | C60.0, R20.0 | 50–100 | 10×11 | - |
-| Shinobi Tool Pouch | COMMON (proposed) | 23 | 12 | 14.75 | 88.75 | C57.5, R31.2 | 25–100 | 5×22, 20×1 | - |
+| Shinobi Tool Pouch | COMMON (proposed) | 12 | 1 | 6.50 | 75.00 | C50.0, R25.0 | 50–100 | 10×11, 20×1 | - |
 | Sage's Strongbox | COMMON (proposed) | 8 | 1 | 4.50 | 45.00 | E5.0, L40.0 | 50–100 | 10×8 | - |
 
 ## Same reagent, existing chests vs draft
@@ -58,18 +58,18 @@ Expected units per open of each draft reagent in every existing chest that also 
 | Medicine Inro | Moonlight Antlers | 15.00 | Common Hunter's Chest 20.0; Rusted Hunter's Chest 4.5 |
 | Medicine Inro | Mosswolf Tuft | 15.00 | Common Hunter's Chest 20.0; Rusted Gatherer's Chest 4.5; Rusted Hunter's Chest 4.5 |
 | Medicine Inro | Sunroot | 15.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Ashrend Wing | 6.25 | Rare Hunter's Chest 20.0 |
-| Shinobi Tool Pouch | Brasel Spine | 6.25 | Rare Hunter's Chest 20.0 |
-| Shinobi Tool Pouch | Frostbite Leaf | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Frostscale | 6.25 | Rare Hunter's Chest 20.0 |
+| Shinobi Tool Pouch | Ashrend Wing | 5.00 | Rare Hunter's Chest 20.0 |
+| Shinobi Tool Pouch | Brasel Spine | 5.00 | Rare Hunter's Chest 20.0 |
+| Shinobi Tool Pouch | Frostbite Leaf | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Frostscale | 5.00 | Rare Hunter's Chest 20.0 |
 | Shinobi Tool Pouch | Iron Ore | 20.00 | Common Gatherer's Chest 20.0; Rusted Gatherer's Chest 4.5 |
-| Shinobi Tool Pouch | Lurethorne | 6.25 | Rare Hunter's Chest 20.0 |
-| Shinobi Tool Pouch | Moonveil Moss | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Muskshade | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Nightshade Thorn | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Sunroot | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
-| Shinobi Tool Pouch | Voltleaf Plume | 6.25 | Rare Hunter's Chest 20.0 |
-| Shinobi Tool Pouch | Whistlegrass | 6.25 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Lurethorne | 5.00 | Rare Hunter's Chest 20.0 |
+| Shinobi Tool Pouch | Moonveil Moss | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Muskshade | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Nightshade Thorn | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Sunroot | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
+| Shinobi Tool Pouch | Voltleaf Plume | 5.00 | Rare Hunter's Chest 20.0 |
+| Shinobi Tool Pouch | Whistlegrass | 5.00 | Common Gatherer's Chest 10.0; Rusted Gatherer's Chest 2.0 |
 | Sage's Strongbox | Cracked Auditory Core | 15.00 | Legendary Hunter's Chest 16.0 |
 | Sage's Strongbox | Fujin's Breath | 5.00 | Legendary Gatherer's Chest 10.0 |
 | Sage's Strongbox | Heart of Kuraokami | 5.00 | Legendary Gatherer's Chest 10.0 |
