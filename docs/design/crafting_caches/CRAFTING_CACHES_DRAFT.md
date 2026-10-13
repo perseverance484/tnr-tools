@@ -80,7 +80,7 @@ This is cloned from the item reference §5 chest chassis:
 | D2 | ~~Should Bloodthorn Kunai be in the kunai cache?~~ | **Settled: no** (RUL-2026-10-13-001). | It was removed, along with Bloodcore Ore, Bloodflower and Mithril Ore. |
 | D3 | **High-tier leakage.** | Accepted. | Parchment Core also feeds 4 Kaeruun armor pieces and Warden's Bracers. Fujin's Breath, Lunaris Bloom, Voidshade Petal, Heart of Kuraokami and Tempest Thorn feed Aetherion, Stormrender, Thornsilver and Yasei's Bolt. The alternatives are to drop the two scrolls, which removes Parchment Core, or to accept the leak. |
 | D4 | **Optional targets.** | Out. | High-tier candidates: Saki and the EPIC Bashōsen, Infernum and Senbon Needles. Pill-cache candidates: Dr. Kim's Poison Potion and Venom Cask, which are poisons rather than pills. |
-| D5 | **How players get each cache.** | Not decided. | The source sets the economy. |
+| D5 | ~~How players get each cache~~ | **Settled** (RUL-2026-10-13-003): restricted vault `w_B2` in both Ghost Ship quests. Medicine Inro 15%, Shinobi Tool Pouch 15%, Sage's Strongbox 7.5%. | See §5b for what this means for per-open sizing. |
 | D6 | **All chances and quantities, cache rarity, art and tradability.** | Placeholders: COMMON, no art, not tradable. | Balance and art direction are yours. |
 | D7 | ~~Should Mystery Chest gain lines for the new caches?~~ | **Settled: no** (RUL-2026-10-13-001). | The new caches are not added to Mystery Chest. |
 | D8 | **Should engine law 22's drop-quantity clause be amended?** RUL-2026-10-13-002 scopes 5/10/20 to chest loot lines. | Law text unchanged. | Law 22 still tells encounter drops to use quantity 1 and avoid common factors. Changing it is a law change through the reconciliation process, not something a design draft can do. |
@@ -144,6 +144,30 @@ routine quest reward fits A or B. One gated like a tier chest fits C.
 **Quantity rule.** RUL-2026-10-13-002 sets chest quantities at 5, 10 and 20, as the live chests
 use. Engine law 22's encounter-drop doctrine ("quantity 1 per encounter... never share a common
 factor") is not amended. Whether to amend it is in decision D8.
+
+## 5b. Sizing against the restricted vault
+
+The source sets how often a cache is opened, so it decides which anchor fits. Expected value per
+vault clear, from push/95:
+
+| Vault line | Chance | Units per open | Expected units per clear | Clears per drop |
+| --- | ---: | ---: | ---: | ---: |
+| Common Gatherer's / Hunter's Chest | 55% | 140 / 120 | 77 / 66 | 1.8 |
+| Rare Gatherer's / Hunter's Chest | 25% | 120 | 30 | 4 |
+| Mystery Chest (×2 lines) | 25% each | 0.85 chests | - | - |
+| **Medicine Inro** (v4) | 15% | 28.5 | 4.3 | 6.7 |
+| **Shinobi Tool Pouch** (v4) | 15% | 29 | 4.4 | 6.7 |
+| **Sage's Strongbox** (v4) | 7.5% | 14 (12.5 Legendary) | 1.05 (0.94 Legendary) | 13.3 |
+
+Under Option B, a cache arrives about once every 7 clears, or 13 for the Strongbox. It then pays
+about a fifth of what the 55% Common chest beside it pays. That makes it a small bonus, not a
+prize. If a cache drop should feel like a find (decision D9), the per-open yield needs to move
+toward Option C. Option C is still below the tier chests per unit but focused on one family.
+The quantities stay in 5/10/20.
+
+| # | Decision | Draft assumption | Why it matters |
+| --- | --- | --- | --- |
+| D9 | **Per-open size now that the source is the vault:** keep B, or move toward C. | B (v4). | At 15% / 7.5%, B makes each cache a minor bonus beside the tier chests. |
 
 ### Live findings (reported, not fixed; no writes are authorized)
 
