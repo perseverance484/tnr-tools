@@ -217,13 +217,15 @@ No manifest exists yet.
 
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
-| D10 | **How to publish the caches with the live quests.** (a) One push: create the caches visible and edit both quests. (b) Two pushes: create hidden and read back, then unhide the caches and edit both quests together. | (b) | (b) lets the loot tables be verified live before any player can receive them, and keeps the one visible-to-players step small. |
+| D10 | ~~How to publish the caches with the live quests~~ **Settled: (b), two pushes** (dauntless, 2026-10-13). (a) One push: create the caches visible and edit both quests. (b) Two pushes: create hidden and read back, then unhide the caches and edit both quests together. | (b) | (b) lets the loot tables be verified live before any player can receive them, and keeps the one visible-to-players step small. |
+| D11 | **Item text** for push/97: descriptions in `push/97_crafting_caches_create.gen.py` `ITEM_TEXT`. `battleDescription` is "Treasure chest", as on the tier chests. | Fable's draft. | Player-facing text is yours to accept. |
+| D12 | **A release-specific `validate.py` exception for push/97,** as RUL-2026-10-12-013 granted push/90. | Needed. | `validate.py`'s generated contract predates `reward_items` on `noncombatconsumereward`, so every chest create reports 27 "unknown field" errors per item (81 total), plus 6 farm-nullability warnings. These are the same two stale classes as push/90. Forge's own parser accepts the manifest. The proper fix, contract adoption, is the open Lane A follow-up from RUL-2026-10-12-013. |
 
 ### Steps (assuming D10 (b))
 
 1. **push/96** (read-only) is done. Its findings are above.
 2. **Icons** come from the image-generation agent (`docs/handoffs/CRAFTING_CACHES_IMAGE_GEN_HANDOFF.md`).
-3. **Push A** creates the three caches, hidden, with `dedupNames: true` and the icons as `@img`. The
+3. **Push A = push/97** (`push/97_crafting_caches_create.gen.py`; draft on the branch, not on main) creates the three caches, hidden, with `dedupNames: true` and the icons as `@img`. The
    chassis is cloned from a live chest. The `noncombatconsumereward` effect uses the full editor key
    set, as in push/90's Skyglass Reliquary. A `capture.after` reads all three back.
 4. **Push B** sets the three caches `hidden: false` and edits both live quests in one manifest. It
