@@ -1140,3 +1140,24 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Scope:** chest loot tables, including the three crafting caches. Engine law 22's text (`docs/ENGINE_LAWS.md`), which covers per-encounter drops, is **not** amended by this ruling. Whether to amend it is open as decision D8 in the cache draft and would go through law reconciliation.
 
 **Operative owner:** `quantity_policy` in `docs/design/crafting_caches/caches_draft.json`, enforced by `harness/crafting_caches/check_draft.py`.
+
+## RUL-2026-10-13-003 — Crafting caches drop from the Ghost Ship restricted vault
+
+**Date:** 2026-10-13
+
+**Domain:** crafting caches; Ghost Ship quests (Gather, Hunt), objective `w_B2` ("First Blade's restricted vault")
+
+**Status:** ACTIVE. This is a design ruling. No quest write is made or authorized by recording it.
+
+**Ruling (dauntless):** players get the caches from the restricted vault. Each cache is a reward line of quantity 1:
+
+| Cache | Chance |
+| --- | --- |
+| Medicine Inro | 15% |
+| Shinobi Tool Pouch | 15% |
+| Sage's Strongbox | 7.5% |
+
+**Implementation notes:**
+- The vault reward exists in both Ghost Ship quests: `w_B2` in Ghost Ship (Gather) and in Ghost Ship (Hunt). As shipped in push/90/94, it pays a Common tier chest at 55%, a Rare tier chest at 25%, and Mystery Chest on two 25% lines. The new lines are added to both quests unless dauntless rules otherwise.
+- Quest edits do not fetch-merge top-level fields (`pipeline.md`). The edit must reproduce each full quest record from a fresh read-only capture, with only the three reward lines added. The cache items are created first, and the quests reference them with `@item:` refs in the same manifest.
+- The caches are created hidden. Both Ghost Ship quests are currently hidden. Publishing either one is a separate dauntless action.
