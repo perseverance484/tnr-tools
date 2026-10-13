@@ -32,7 +32,7 @@ craft family and was too broad, so it is superseded.
 
 The numbers below are the draft's placeholders; the report has every line.
 
-### Pill cache (proposed name: Field Supply Cache)
+### Pill cache (proposed name: Medicine Inro)
 - **Targets:** Chakra Pill II, Stamina Pill II, Small Health Pill, and Pill Pack.
 - **Lines:** 8, for about 10.5 reagent units per open.
   - Core: Galecrest Sage 3@100%, plus a 3@30% bonus.
@@ -41,16 +41,17 @@ The numbers below are the draft's placeholders; the report has every line.
 - **Opens per craft:** about 1.3 for each Pill II, 2.8 for a Small Health Pill, and 5.6 for a Pill
   Pack.
 
-### Kunai cache (proposed name: Armorer's Cache)
-- **Targets:** the seven THROWN consumables. These are the Katon, Wave, Ikazuchi, Stonefall,
-  Zephyrfang and Bloodthorn Kunai, and Robber's Friend.
-- **Lines:** 16, for about 12.6 units per open.
+### Kunai cache (proposed name: Shinobi Tool Pouch)
+- **Targets:** the six COMMON THROWN consumables. These are the Katon, Wave, Ikazuchi, Stonefall
+  and Zephyrfang Kunai, and Robber's Friend.
+- **Bloodthorn Kunai is out** (dauntless, 2026-10-13). Its Mithril Ore would have leaked into 11
+  Legendary weapons and armor pieces, and the cache now carries only COMMON/RARE materials.
+- **Lines:** 13, for about 12.2 units per open.
   - Core: Iron Ore 3@100%, plus a 3@30% bonus.
   - Each kunai's reagent pair at 3@25%.
-  - Bloodthorn's Legendary trio (Bloodcore Ore, Bloodflower, Mithril Ore) at 3@5%.
-- **Opens per craft:** about 2.7 for each COMMON kunai, and about 13 for Bloodthorn.
+- **Opens per craft:** about 2.7 for each kunai.
 
-### High-tier cache (proposed name: Reagent Cache)
+### High-tier cache (proposed name: Sage's Reliquary)
 - **Targets:** Mona's Mermaid Song, Solider Pill, Enemy Pill, and Forbidden Jutsu Scroll: Nexus
   and Rebirth.
 - **Lines:** 7, for about 5 units per open.
@@ -75,8 +76,8 @@ This is cloned from the item reference §5 chest chassis:
 
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
-| D1 | **Name mapping.** | Field Supply → pills, Armorer's → kunai, Reagent → high-tier. | Your call. Swapping names only edits `caches_draft.json`. |
-| D2 | **Should Bloodthorn Kunai be in the kunai cache?** | Yes, as a 5% tail. | Mithril Ore leaks into 11 Legendary weapons and armor. Dropping Bloodthorn makes the kunai cache all COMMON/RARE materials and removes that leak. |
+| D1 | **Names.** | Medicine Inro, Shinobi Tool Pouch, Sage's Reliquary. Options are in §5. | Naming is your call. Final names need a fresh `item.getAllNames` uniqueness check before create. |
+| D2 | ~~Should Bloodthorn Kunai be in the kunai cache?~~ | **Settled: no** (dauntless, 2026-10-13). | It was removed, along with Bloodcore Ore, Bloodflower and Mithril Ore. |
 | D3 | **High-tier leakage.** | Accepted. | Parchment Core also feeds 4 Kaeruun armor pieces and Warden's Bracers. Fujin's Breath, Lunaris Bloom, Voidshade Petal, Heart of Kuraokami and Tempest Thorn feed Aetherion, Stormrender, Thornsilver and Yasei's Bolt. The alternatives are to drop the two scrolls, which removes Parchment Core, or to accept the leak. |
 | D4 | **Optional targets.** | Out. | High-tier candidates: Saki and the EPIC Bashōsen, Infernum and Senbon Needles. Pill-cache candidates: Dr. Kim's Poison Potion and Venom Cask, which are poisons rather than pills. |
 | D5 | **How players get each cache.** | Not decided. | The source sets the economy. |
@@ -86,7 +87,26 @@ The leakage tables in the report list every other recipe that uses each cache's 
 reagents always leak a little into crystals and RARE weapons. That's unavoidable, because the
 census shows those reagents are shared.
 
-## 5. Iterating
+## 5. Name options
+
+Existing chests are named things like "Genin Supply Cache", "Common Gatherer's Chest" and
+"Storm War Cache". None of the names below appear in the repository's seed item catalog
+(`answers/names_item.json`). That catalog is old, so recheck the final picks live.
+
+| Cache | Recommended | Alternatives |
+| --- | --- | --- |
+| Pills | **Medicine Inro**. An inrō is the lacquered case Edo-period travellers carried pills in. | Apothecary's Satchel, Herbalist's Satchel, Field Medic's Kit |
+| Kunai | **Shinobi Tool Pouch**. It is the hip pouch kunai are carried in. | Kunai Smith's Bundle, Armorer's Cache, Ninja Tool Pouch |
+| High-tier | **Sage's Reliquary**. Rare relic reagents and Forbidden scrolls, kept sealed. | Forbidden Reliquary, Hermit's Strongbox, Sealed Lacquer Box |
+
+The two coherent alternatives are:
+- **Craft-trade:** Apothecary's Satchel, Armorer's Cache, Forbidden Reliquary.
+- **The original working names:** Field Supply Cache, Armorer's Cache, Reagent Cache.
+
+"Reliquary" is already used by the Skyglass Reliquary, the Ghost Ship chest. If that overlap would
+confuse players, pick Hermit's Strongbox instead.
+
+## 6. Iterating
 
 1. Edit `caches_draft.json`.
 2. Run `python3 harness/crafting_caches/check_draft.py`. It validates the draft and regenerates
