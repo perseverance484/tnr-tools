@@ -48,23 +48,23 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 Feeds the six COMMON THROWN consumables: Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Kunai, and Robber's Friend. Iron Ore is the shared base; each has its own reagent pair. Bloodthorn Kunai is excluded (dauntless, 2026-10-13) so no Legendary metal leaks from this cache.
 
-- Lines: 23; expected lines hit per open: 14.75
-- Expected total units per open: 88.75
+- Lines: 12; expected lines hit per open: 6.50
+- Expected total units per open: 75.00
 
 | Item | Rarity | Lines (qty@%) | Expected units / open |
 | --- | --- | --- | ---: |
 | Iron Ore | COMMON | 20@100 | 20.00 |
-| Ashrend Wing | RARE | 5@100, 5@25 | 6.25 |
-| Brasel Spine | RARE | 5@100, 5@25 | 6.25 |
-| Frostbite Leaf | COMMON | 5@100, 5@25 | 6.25 |
-| Frostscale | RARE | 5@100, 5@25 | 6.25 |
-| Lurethorne | RARE | 5@100, 5@25 | 6.25 |
-| Moonveil Moss | COMMON | 5@100, 5@25 | 6.25 |
-| Muskshade | COMMON | 5@100, 5@25 | 6.25 |
-| Nightshade Thorn | COMMON | 5@100, 5@25 | 6.25 |
-| Sunroot | COMMON | 5@100, 5@25 | 6.25 |
-| Voltleaf Plume | RARE | 5@100, 5@25 | 6.25 |
-| Whistlegrass | COMMON | 5@100, 5@25 | 6.25 |
+| Ashrend Wing | RARE | 10@50 | 5.00 |
+| Brasel Spine | RARE | 10@50 | 5.00 |
+| Frostbite Leaf | COMMON | 10@50 | 5.00 |
+| Frostscale | RARE | 10@50 | 5.00 |
+| Lurethorne | RARE | 10@50 | 5.00 |
+| Moonveil Moss | COMMON | 10@50 | 5.00 |
+| Muskshade | COMMON | 10@50 | 5.00 |
+| Nightshade Thorn | COMMON | 10@50 | 5.00 |
+| Sunroot | COMMON | 10@50 | 5.00 |
+| Voltleaf Plume | RARE | 10@50 | 5.00 |
+| Whistlegrass | COMMON | 10@50 | 5.00 |
 
 ### Targets
 
@@ -72,12 +72,12 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 | Recipe | Rarity | Reagents per craft | Bottleneck | Expected opens per craft |
 | --- | --- | --- | --- | ---: |
-| Katon Kunai | COMMON | Ashrend Wing ×2, Iron Ore ×2, Sunroot ×2 | Ashrend Wing | 0.3 |
-| Wave Kunai | COMMON | Frostbite Leaf ×2, Frostscale ×2, Iron Ore ×2 | Frostbite Leaf | 0.3 |
-| Ikazuchi Kunai | COMMON | Iron Ore ×2, Muskshade ×2, Voltleaf Plume ×2 | Muskshade | 0.3 |
-| Stonefall Kunai | COMMON | Brasel Spine ×2, Iron Ore ×2, Moonveil Moss ×2 | Brasel Spine | 0.3 |
-| Zephyrfang Kunai | COMMON | Iron Ore ×2, Lurethorne ×2, Whistlegrass ×2 | Lurethorne | 0.3 |
-| Robber's Friend | COMMON | Brasel Spine ×2, Iron Ore ×2, Nightshade Thorn ×2 | Brasel Spine | 0.3 |
+| Katon Kunai | COMMON | Ashrend Wing ×2, Iron Ore ×2, Sunroot ×2 | Ashrend Wing | 0.4 |
+| Wave Kunai | COMMON | Frostbite Leaf ×2, Frostscale ×2, Iron Ore ×2 | Frostbite Leaf | 0.4 |
+| Ikazuchi Kunai | COMMON | Iron Ore ×2, Muskshade ×2, Voltleaf Plume ×2 | Muskshade | 0.4 |
+| Stonefall Kunai | COMMON | Brasel Spine ×2, Iron Ore ×2, Moonveil Moss ×2 | Brasel Spine | 0.4 |
+| Zephyrfang Kunai | COMMON | Iron Ore ×2, Lurethorne ×2, Whistlegrass ×2 | Lurethorne | 0.4 |
+| Robber's Friend | COMMON | Brasel Spine ×2, Iron Ore ×2, Nightshade Thorn ×2 | Brasel Spine | 0.4 |
 
 ### Leakage: other recipes that use this cache's contents
 

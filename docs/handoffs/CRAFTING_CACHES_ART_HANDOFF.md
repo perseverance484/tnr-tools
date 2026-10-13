@@ -1,5 +1,7 @@
 # Crafting caches — icon handoff for the visual design agent
 
+> **SUPERSEDED (2026-10-13)** by `docs/handoffs/CRAFTING_CACHES_IMAGE_GEN_HANDOFF.md`, which has the final name (Sage's Strongbox), ready-to-run prompts and the spec values. It is kept for history.
+
 - **From:** Fable / Claude Code
 - **To:** the visual design agent (ChatGPT, visual-asset partner)
 - **Date:** 2026-10-13
