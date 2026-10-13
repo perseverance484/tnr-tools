@@ -1161,3 +1161,27 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 - The vault reward exists in both Ghost Ship quests: `w_B2` in Ghost Ship (Gather) and in Ghost Ship (Hunt). As shipped in push/90/94, it pays a Common tier chest at 55%, a Rare tier chest at 25%, and Mystery Chest on two 25% lines. The new lines are added to both quests unless dauntless rules otherwise.
 - Quest edits do not fetch-merge top-level fields (`pipeline.md`). The edit must reproduce each full quest record from a fresh read-only capture, with only the three reward lines added. The cache items are created first, and the quests reference them with `@item:` refs in the same manifest.
 - The caches are created hidden. Both Ghost Ship quests are currently hidden. Publishing either one is a separate dauntless action.
+
+## RUL-2026-10-13-004 — Crafting caches: two-step release, item text, push/97 validate.py exception
+
+**Date:** 2026-10-13
+
+**Domain:** crafting caches release (push/97 step A, then step B); D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE. The exception is manifest-specific.
+
+**Ruling (dauntless):**
+1. **Release in two pushes** (D10 (b)):
+   - push/97 creates the three caches hidden;
+   - a later push unhides them and adds the restricted-vault lines to both live Ghost Ship quests.
+2. **The item descriptions are approved** as drafted in `push/97_crafting_caches_create.gen.py` `ITEM_TEXT`, with `battleDescription` "Treasure chest" (D11).
+3. **A release-specific `validate.py` exception is approved for push/97** (D12). It covers exactly two classes, which are the same stale-contract classes RUL-2026-10-12-013 covered for push/90:
+
+   | Class | Diagnostics |
+   | --- | --- |
+   | `stale_effect_field`: `noncombatconsumereward` `reward_*`/`description`/`direction` keys unknown to the generated contract | 81 errors |
+   | `stale_farm_nullability`: `farmYieldItemId`/`farmExtractSeedItemId` | 6 warnings |
+
+**Enforcement:** the generator classifies every `validate.py` line and refuses anything else. Forge `check_manifest.mjs` must pass in `--final`. The exception applies only to the final push/97 built by that generator from committed icons. Any other diagnostic, or a change of class, voids it.
+
+**Not a precedent.** The proper fix is still the open Lane A follow-up from RUL-2026-10-12-013: adopt the generated contracts so `validate.py` knows `reward_items`.
