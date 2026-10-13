@@ -194,12 +194,40 @@ No manifest exists yet.
 
 ## 7. Release path
 
-1. **push/96** (read-only, on main) captures both Ghost Ship quests and `item.getAllNames`.
+### push/96 findings (`harvests/inbox/tnr_results_1791864463120.json`, 2026-10-13)
+
+- **Both Ghost Ship quests are now live** (`hidden: false`). The rulings and push/94 record them as hidden.
+  Compared with push/94's own post-push read (`tnr_results_1791780861916.json`), the quests differ only in:
+  - `hidden`: true → false;
+  - `startsAt` (Gather 2026-09-18 → 2026-10-01) and `endsAt` (both 2026-09-21 → 2026-10-19);
+  - objective `w_Co`, which gained two reward lines: `ZSUdrzzgorepP4CQrBfEk` at 3% ×1 and
+    `ayiRmSjWs05lMPyL3G-1d` at 20% ×1.
+
+  The restricted vault `w_B2` is unchanged. The release must reproduce these live records,
+  including `hidden: false`, the new dates and the new `w_Co` lines. It must not reproduce the
+  push/94 shape.
+- **Hidden items are invisible in inventory.** At the source pin, `fetchUserItems` drops `item.hidden`
+  rows unless `includeHidden` is set (`app/src/server/api/routers/item.ts`). A hidden cache awarded by
+  a live quest would vanish from the player's view. So **the caches must be published by the time the
+  vault can award them.** Publishing is dauntless's call (D10).
+- **Names.** `item.getAllNames` returned 808 rows, but Forge persists full data only for point reads,
+  so the names are not in the bundle. Name uniqueness is instead enforced at push time by the
+  manifest flag `dedupNames: true`. Forge fetches the live name list fresh and fails any colliding
+  create before it writes.
+
+| # | Decision | Draft assumption | Why it matters |
+| --- | --- | --- | --- |
+| D10 | **How to publish the caches with the live quests.** (a) One push: create the caches visible and edit both quests. (b) Two pushes: create hidden and read back, then unhide the caches and edit both quests together. | (b) | (b) lets the loot tables be verified live before any player can receive them, and keeps the one visible-to-players step small. |
+
+### Steps (assuming D10 (b))
+
+1. **push/96** (read-only) is done. Its findings are above.
 2. **Icons** come from the image-generation agent (`docs/handoffs/CRAFTING_CACHES_IMAGE_GEN_HANDOFF.md`).
-3. **The release manifest generator** (not yet written) will:
-   - refuse unless the push/96 quest rows equal what push/90/94 shipped, apart from known live drift;
-   - refuse unless the three names are unused;
-   - create the three caches hidden;
-   - convert both quests, reproducing each whole record with three lines added to `w_B2`:
-     `@item:` refs at 15/15/7.5, quantity 1.
-4. **dauntless pushes it** through the builder. Publishing stays separate.
+3. **Push A** creates the three caches, hidden, with `dedupNames: true` and the icons as `@img`. The
+   chassis is cloned from a live chest. The `noncombatconsumereward` effect uses the full editor key
+   set, as in push/90's Skyglass Reliquary. A `capture.after` reads all three back.
+4. **Push B** sets the three caches `hidden: false` and edits both live quests in one manifest. It
+   reproduces each whole record from a fresh capture taken just before, with only three lines added
+   to `w_B2` (15% / 15% / 7.5%, quantity 1). It refuses if the live quests differ from push/96 in
+   anything other than what has been explained.
+5. **dauntless runs both pushes** through the builder.
