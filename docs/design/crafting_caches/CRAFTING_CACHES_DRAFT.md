@@ -218,8 +218,8 @@ No manifest exists yet.
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
 | D10 | ~~How to publish the caches with the live quests~~ **Settled: (b), two pushes** (dauntless, 2026-10-13). (a) One push: create the caches visible and edit both quests. (b) Two pushes: create hidden and read back, then unhide the caches and edit both quests together. | (b) | (b) lets the loot tables be verified live before any player can receive them, and keeps the one visible-to-players step small. |
-| D11 | **Item text** for push/97: descriptions in `push/97_crafting_caches_create.gen.py` `ITEM_TEXT`. `battleDescription` is "Treasure chest", as on the tier chests. | Fable's draft. | Player-facing text is yours to accept. |
-| D12 | **A release-specific `validate.py` exception for push/97,** as RUL-2026-10-12-013 granted push/90. | Needed. | `validate.py`'s generated contract predates `reward_items` on `noncombatconsumereward`, so every chest create reports 27 "unknown field" errors per item (81 total), plus 6 farm-nullability warnings. These are the same two stale classes as push/90. Forge's own parser accepts the manifest. The proper fix, contract adoption, is the open Lane A follow-up from RUL-2026-10-12-013. |
+| D11 | ~~Item text~~ **Approved** (RUL-2026-10-13-004). Text for push/97: descriptions in `push/97_crafting_caches_create.gen.py` `ITEM_TEXT`. `battleDescription` is "Treasure chest", as on the tier chests. | Fable's draft. | Player-facing text is yours to accept. |
+| D12 | ~~validate.py exception~~ **Approved** (RUL-2026-10-13-004). A release-specific `validate.py` exception for push/97, as RUL-2026-10-12-013 granted push/90. | Needed. | `validate.py`'s generated contract predates `reward_items` on `noncombatconsumereward`, so every chest create reports 27 "unknown field" errors per item (81 total), plus 6 farm-nullability warnings. These are the same two stale classes as push/90. Forge's own parser accepts the manifest. The proper fix, contract adoption, is the open Lane A follow-up from RUL-2026-10-12-013. |
 
 ### Steps (assuming D10 (b))
 
