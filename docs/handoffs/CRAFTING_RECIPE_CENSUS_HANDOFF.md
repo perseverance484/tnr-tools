@@ -26,6 +26,8 @@ Everything is new, under `harness/crafting_recipe_census/`:
 | `census_script.test.mjs` | Node tests for the console script. |
 | `make_fixture.mjs`, `fixtures/raw_complete.json` | A deterministic fixture written by running the real script against the fake world. |
 | `selftest.py` | Socket-blocked builder tests. |
+| `crafting_recipe_census.user.js` | Phone-friendly userscript (added after the first handoff at `d6e4589`). It `@require`s the console script pinned to `d6e458991109adaeed352cadce91f150edee858e` and adds a Run / Stop / Download / Reset / Close panel. It is inert unless the tab is armed with `#craft-census`, and issues no request of its own. |
+| `userscript.test.mjs` | Tests for the userscript: header, pin fidelity, inert when unarmed, buttons, re-attach after hydration, and disarm. |
 | `README.md` | Operator steps, safety properties, output contract and tests. |
 
 Also new: `docs/handoffs/CRAFTING_RECIPE_CENSUS_HANDOFF.md` (this file). No existing file was
@@ -63,6 +65,7 @@ These are in `app/src/server/api/routers/item.ts`, `occupation.ts`,
 | Command | Result |
 | --- | --- |
 | `node --test harness/crafting_recipe_census/census_script.test.mjs` | 11 tests, 11 pass, 0 fail |
+| `node --test harness/crafting_recipe_census/userscript.test.mjs` | 5 tests, 5 pass, 0 fail |
 | `node harness/crafting_recipe_census/make_fixture.mjs --check` | `fixture current` |
 | `python3 harness/crafting_recipe_census/selftest.py` | 20 tests OK (sockets disabled in-process) |
 | `python3 skills/building-tnr-content/scripts/doctrinemap.py` | exit 0 |
@@ -93,7 +96,10 @@ touch `skills/` or the doctrine documents.
 6. **`DUPLICATE_INGREDIENT` is advisory only.** `craftItem` validates each row on its own against
    the same inventory snapshot, so the real cost of a duplicated ingredient is ambiguous. The
    census reports each row; it does not sum them.
-7. **The fake server is a model of the pinned source, not a live recording.** The first real raw
+7. **Userscript on Android is untested in a real manager.** The panel was tested in a fake DOM
+   only. The blob download in `download()` is the most likely thing to differ between mobile
+   browsers.
+8. **The fake server is a model of the pinned source, not a live recording.** The first real raw
    capture is the first live evidence of the response shapes.
 
 ## Live-game statement

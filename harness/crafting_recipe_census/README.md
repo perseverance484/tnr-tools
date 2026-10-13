@@ -14,7 +14,27 @@ Forge 0.5.x `capture` runs a fixed list of reads. It cannot follow `nextCursor` 
 ids it has only just learned (see the `_note` in `push/66_player_facing_jutsu_census.json`). This
 census needs both steps, so the operator runs a small console script instead.
 
-## Operator steps (the only live step)
+## Operator steps on a phone (userscript)
+
+1. In the browser where the Forge loader userscript is already installed, open this URL. The
+   userscript manager offers to install it:
+   `https://raw.githubusercontent.com/perseverance484/tnr-tools/claude/crafting-recipe-census-pln5za/harness/crafting_recipe_census/crafting_recipe_census.user.js`
+2. Open `https://www.theninja-rpg.com/#craft-census`. The `#craft-census` arms that tab only, and
+   a panel appears at the bottom of the page. On every other page and tab the script does nothing.
+3. Tap **Run**. The panel updates every second. Keep the tab open and the screen on; if the phone
+   kills the tab, reopen the armed URL and tap **Run** to resume.
+4. When the status says `complete`, tap **Download** and move the saved file into
+   `harvests/inbox/`.
+
+**Stop** pauses the run. **Reset** discards the saved state. **Close** removes the panel and
+disarms the tab.
+
+The userscript adds only the panel. The census code is the console script below, loaded with
+`@require` from an immutable commit; `userscript.test.mjs` checks that the pin matches the
+committed `crafting_recipe_census.console.js`. If that file changes, the `@require` SHA must be
+moved to the new commit.
+
+## Operator steps on a computer (console)
 
 1. Open any `https://www.theninja-rpg.com/` page. Logged in or not makes no difference, because the
    script sends no cookies.
@@ -127,6 +147,7 @@ recipe is unknown. A COMPLETE census never carries it.
 | Command | What it covers |
 | --- | --- |
 | `node --test harness/crafting_recipe_census/census_script.test.mjs` | The console script against an in-process fake server and a virtual clock: pagination to null in both hidden states, anonymous GET-only to allowed procedures, throttle gaps, 429, 401, 403 and 400 halts, transient retry and exhaustion, resume byte-identity, stop and resume, and the guards. |
+| `node --test harness/crafting_recipe_census/userscript.test.mjs` | The userscript wrapper: game-origin match only, `@grant none`, `@require` pinned to a commit whose console script equals the committed one, no requests of its own, inert in an unarmed tab, panel buttons drive the census, the panel re-attaches after body is cleared, and Close disarms the tab. |
 | `node harness/crafting_recipe_census/make_fixture.mjs --check` | `fixtures/raw_complete.json` is the real script's output on the fake world. |
 | `python3 harness/crafting_recipe_census/selftest.py` | The builder with sockets disabled: the clean fixture is COMPLETE with the expected counts, flags and restrictions; 12 mutations each fail closed; the CLI refuses INCOMPLETE; `--check` works; the fixture reproduces. |
 
