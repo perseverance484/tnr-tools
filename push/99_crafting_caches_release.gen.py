@@ -257,7 +257,8 @@ def main() -> int:
     try:
         counts = gates(tmp)
     except SystemExit:
-        os.replace(tmp, OUT + ".rejected.json")
+        # Never leave a rejected manifest in push/: the builder picker lists every .json there.
+        os.remove(tmp)
         raise
     os.replace(tmp, OUT)
     print(f"wrote push/99: 3 item unhides + 2 live quest edits; gates: {counts}")
