@@ -188,3 +188,49 @@ test("classify reads superjson batch success and error envelopes", () => {
   assert.ok(C.classify(200, JSON.stringify([{}])).retry);
   assert.throws(() => C.classify(429, "slow down"), /RATE_LIMIT/);
 });
+
+test("storage: a hung IndexedDB falls back to localStorage, a full localStorage to memory", async () => {
+  const hungIdb = { open: () => ({}) }; // never calls onsuccess / onerror
+  const ls = new Map();
+  const localStorage = {
+    getItem: (k) => (ls.has(k) ? ls.get(k) : null),
+    setItem: (k, v) => { if (v.length > 200) throw new Error("QuotaExceededError"); ls.set(k, v); },
+    removeItem: (k) => ls.delete(k),
+  };
+  const sink = [];
+  const store = C.resilientStore({ indexedDB: hungIdb, localStorage }, 20, (m) => sink.push(m));
+  await store.set("small", { a: 1 });
+  assert.equal(store.kind, "localStorage");
+  assert.deepEqual(await store.get("small"), { a: 1 });
+  await store.set("big", { blob: "x".repeat(500) });
+  assert.match(store.kind, /^memory/);
+  assert.deepEqual(await store.get("big"), { blob: "x".repeat(500) });
+  assert.ok(sink.some((m) => /indexedDB probe timed out/.test(m)));
+  assert.ok(sink.some((m) => /localStorage set failed/.test(m)));
+});
+
+test("a census over a hung IndexedDB still completes and reports where it stored state", async () => {
+  const world = seedWorld();
+  const ff = fakeFetch(world);
+  const fe = fakeEnv(ff.fetch);
+  const ls = new Map();
+  fe.env.store = C.resilientStore(
+    { indexedDB: { open: () => ({}) }, localStorage: { getItem: (k) => ls.get(k) ?? null, setItem: (k, v) => ls.set(k, v), removeItem: (k) => ls.delete(k) } },
+    20,
+    () => {},
+  );
+  const census = C.create(fe.env);
+  const s = await census.run(OPTS);
+  assert.equal(s.status, "complete");
+  const logs = census.logs();
+  assert.ok(logs.some((l) => /storage: .*indexedDB probe timed out/.test(l)), logs.join("\n"));
+  assert.ok(logs.some((l) => /requests so far, storage localStorage/.test(l)), logs.join("\n"));
+});
+
+test("non-halt errors are logged before they propagate", async () => {
+  const fe = fakeEnv(fakeFetch(seedWorld()).fetch);
+  fe.env.store = { get: async () => { throw new Error("disk on fire"); }, set: async () => {}, del: async () => {} };
+  const census = C.create(fe.env);
+  await assert.rejects(census.run(), /disk on fire/);
+  assert.ok(census.logs().some((l) => /ERROR disk on fire/.test(l)));
+});

@@ -34,11 +34,20 @@
   "use strict";
   const api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
-  else root.TNRCraftCensus = api.install(api.browserEnv(root));
+  else {
+    const census = api.install(api.browserEnv(root));
+    root.TNRCraftCensus = census;
+    // Userscript managers may run this in a sandbox whose global is not the page window.
+    try {
+      if (root.window && root.window !== root) root.window.TNRCraftCensus = census;
+    } catch (_e) { /* cross-realm access can throw */ }
+  }
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
 
+  // VERSION is the capture-format version build_census.py accepts; RUNTIME is this file's build.
   const VERSION = "1.0.0";
+  const RUNTIME = "1.0.1";
   const SCHEMA = "tnr.crafting_census.raw.v1";
   const SOURCE_PIN = "studie-tech/TheNinjaRPG@641040531176f91a3076fe5f32592ba18197a8c0";
   const LIST_PROC = "item.getAll";
@@ -151,6 +160,16 @@
     let state = null;
     let running = false;
     let stopRequested = false;
+    const recent = [];
+    const log = (m) => {
+      recent.push(`${new Date(env.now()).toISOString().slice(11, 19)} ${m}`);
+      if (recent.length > 40) recent.shift();
+      try {
+        env.log(m);
+      } catch (_e) {
+        /* logging must never break a run */
+      }
+    };
 
     const save = async () => {
       state.updatedAt = env.now();
@@ -163,7 +182,7 @@
       if (state.notBefore !== null) gates.push(state.notBefore);
       const until = Math.max(env.now(), ...gates);
       if (state.notBefore !== null && state.notBefore > env.now()) {
-        env.log(`[census] rate-limit cooldown: waiting ${Math.ceil((state.notBefore - env.now()) / 1000)} s`);
+        log(`[census] rate-limit cooldown: waiting ${Math.ceil((state.notBefore - env.now()) / 1000)} s`);
       }
       if (until > env.now()) await env.sleep(until - env.now());
     }
@@ -234,7 +253,7 @@
           if (nc === null) pass.done = true;
           else pass.nextCursor = nc;
           await save();
-          env.log(`[census] ${which} ${p.key} cursor ${cursor}: ${d.data.length} rows, next ${nc}`);
+          log(`[census] ${which} ${p.key} cursor ${cursor}: ${d.data.length} rows, next ${nc}`);
         }
       }
     }
@@ -249,7 +268,7 @@
           : { status: "ok", fetchedAt: env.now(), data: out.data };
         await save();
         const done = Object.keys(state.details).length;
-        env.log(`[census] detail ${done}/${state.detailIds.length} ${id}`);
+        log(`[census] detail ${done}/${state.detailIds.length} ${id}`);
       }
     }
 
@@ -276,10 +295,12 @@
       }
       running = true;
       stopRequested = false;
+      log(`[census] run() started (runtime ${RUNTIME})`);
       try {
         await load(opts);
+        log(`[census] state ${state.status}/${state.phase}, ${state.seq} requests so far, storage ${env.store.kind || "custom"}`);
         if (state.status === "complete") {
-          env.log("[census] already complete; download() it or reset() to start over");
+          log("[census] already complete; download() it or reset() to start over");
           return summary();
         }
         state.status = "in_progress";
@@ -305,14 +326,17 @@
         state.status = "complete";
         state.finishedAt = env.now();
         await save();
-        env.log("[census] complete - run TNRCraftCensus.download()");
+        log("[census] complete - run TNRCraftCensus.download()");
       } catch (e) {
-        if (!(e instanceof Halt)) throw e;
+        if (!(e instanceof Halt)) {
+          log(`[census] ERROR ${e && e.message ? e.message : e}`);
+          throw e;
+        }
         state.status = "halted";
         state.halts.push({ at: env.now(), reason: e.reason, detail: e.detail, phase: state.phase });
         if (e.reason === "RATE_LIMIT") state.notBefore = env.now() + RATE_LIMIT_COOLDOWN_MS;
         await save();
-        env.log(`[census] HALTED ${e.reason}: ${e.detail}. State saved; run() again to resume.`);
+        log(`[census] HALTED ${e.reason}: ${e.detail}. State saved; run() again to resume.`);
       } finally {
         running = false;
       }
@@ -341,7 +365,9 @@
 
     return {
       VERSION,
+      RUNTIME,
       run,
+      logs: () => [...(env.store.notes || []).map((n) => `storage: ${n}`), ...recent],
       stop() {
         stopRequested = true;
         return "stop requested";
@@ -370,6 +396,88 @@
     };
   }
 
+  const withTimeout = (p, ms, what) =>
+    Promise.race([
+      p,
+      new Promise((_r, reject) => setTimeout(() => reject(new Error(`${what} timed out after ${ms} ms`)), ms)),
+    ]);
+
+  function localStore(ls) {
+    return {
+      kind: "localStorage",
+      get: async (k) => {
+        const v = ls.getItem(k);
+        return v === null ? undefined : JSON.parse(v);
+      },
+      set: async (k, v) => ls.setItem(k, JSON.stringify(v)),
+      del: async (k) => ls.removeItem(k),
+    };
+  }
+
+  function memoryStore() {
+    const m = new Map();
+    return {
+      kind: "memory (no resume after reload)",
+      get: async (k) => (m.has(k) ? JSON.parse(m.get(k)) : undefined),
+      set: async (k, v) => void m.set(k, JSON.stringify(v)),
+      del: async (k) => void m.delete(k),
+    };
+  }
+
+  /**
+   * IndexedDB first; if it is missing, errors or never answers (seen in some mobile WebViews),
+   * fall back to localStorage, then to memory. Each operation is bounded by timeoutMs so a stuck
+   * backend surfaces as an error instead of a silent hang. A later failing write demotes too.
+   */
+  function resilientStore(w, timeoutMs, sink) {
+    const notes = [];
+    const log = (m) => {
+      notes.push(m);
+      if (notes.length > 20) notes.shift();
+      sink(m);
+    };
+    const candidates = [];
+    try {
+      if (w.indexedDB) candidates.push(() => idbStore(w.indexedDB));
+    } catch (_e) { /* access can throw */ }
+    try {
+      if (w.localStorage) candidates.push(() => localStore(w.localStorage));
+    } catch (_e) { /* access can throw */ }
+    candidates.push(memoryStore);
+    let active = null;
+    let idx = 0;
+    const pick = async () => {
+      while (!active) {
+        const s = candidates[idx]();
+        try {
+          await withTimeout(s.get("__probe__"), timeoutMs, `${s.kind} probe`);
+          active = s;
+        } catch (e) {
+          log(`[census] storage ${s.kind} unavailable: ${e && e.message ? e.message : e}`);
+          idx++;
+        }
+      }
+      return active;
+    };
+    const op = (name) => async (...a) => {
+      for (;;) {
+        const s = await pick();
+        try {
+          return await withTimeout(s[name](...a), timeoutMs, `${s.kind} ${name}`);
+        } catch (e) {
+          if (idx >= candidates.length - 1) throw e;
+          log(`[census] storage ${s.kind} ${name} failed (${e && e.message ? e.message : e}); falling back`);
+          active = null;
+          idx++;
+          // carry the value being written; a get/del on the new backend just starts fresh
+        }
+      }
+    };
+    const store = { get: op("get"), set: op("set"), del: op("del"), notes };
+    Object.defineProperty(store, "kind", { get: () => (active ? active.kind : "probing") });
+    return store;
+  }
+
   function idbStore(indexedDB) {
     const open = () =>
       new Promise((resolve, reject) => {
@@ -377,6 +485,7 @@
         req.onupgradeneeded = () => req.result.createObjectStore("kv");
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
+        req.onblocked = () => reject(new Error("indexedDB open blocked"));
       });
     const tx = async (mode, fn) => {
       const db = await open();
@@ -391,6 +500,7 @@
       });
     };
     return {
+      kind: "indexedDB",
       get: (k) => tx("readonly", (s) => s.get(k)),
       set: (k, v) => tx("readwrite", (s) => s.put(v, k)),
       del: (k) => tx("readwrite", (s) => s.delete(k)),
@@ -404,7 +514,7 @@
       fetch: w.fetch.bind(w),
       now: () => Date.now(),
       sleep: (ms) => new Promise((r) => setTimeout(r, ms)),
-      store: idbStore(w.indexedDB),
+      store: resilientStore(w, 5000, (m) => w.console.log(m)),
       log: (m) => w.console.log(m),
       download(name, text) {
         const url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
@@ -421,12 +531,12 @@
 
   function install(env) {
     const census = create(env);
-    env.log(`[census] TNRCraftCensus ${VERSION} loaded (read-only). await TNRCraftCensus.run()`);
+    env.log(`[census] TNRCraftCensus ${RUNTIME} loaded (read-only). await TNRCraftCensus.run()`);
     return census;
   }
 
   return {
-    VERSION, SCHEMA, SOURCE_PIN, ALLOWED_PROCS, DEFAULTS, MIN_THROTTLE_MS, INT32_MIN, STATE_KEY,
-    create, classify, listInput, browserEnv, install,
+    VERSION, RUNTIME, SCHEMA, SOURCE_PIN, ALLOWED_PROCS, DEFAULTS, MIN_THROTTLE_MS, INT32_MIN, STATE_KEY,
+    create, classify, listInput, browserEnv, install, resilientStore,
   };
 });
