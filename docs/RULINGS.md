@@ -1115,6 +1115,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
    - **Sage's Strongbox** (high tier). It replaces the proposed "Sage's Reliquary", which clashed with the existing Skyglass Reliquary.
 
    Uniqueness must still be confirmed against a fresh `item.getAllNames` before create.
+4. **No Mystery Chest drops.** The new caches are not added to Mystery Chest's loot table.
 
 **Operative owner:** `docs/design/crafting_caches/caches_draft.json`, checked by `harness/crafting_caches/check_draft.py`.
 

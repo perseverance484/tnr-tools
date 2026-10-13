@@ -140,7 +140,7 @@ therefore do not follow engine law 22. The new caches do, by design.
 
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
-| D7 | **Should Mystery Chest gain lines for the new caches?** | No. | Mystery Chest is the existing chest-of-chests. Adding the caches would give them a source with no new content. |
+| D7 | ~~Should Mystery Chest gain lines for the new caches?~~ | **Settled: no** (dauntless, 2026-10-13; RUL-2026-10-13-001). | The new caches are not added to Mystery Chest. |
 
 ## 6. Iterating
 
