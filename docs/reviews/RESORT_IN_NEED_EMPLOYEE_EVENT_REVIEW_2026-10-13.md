@@ -34,11 +34,15 @@ The pinned engine resolves `specific` location from stored fields (`app/src/libs
 
 **Required correction:** bind these battles to the intended quest sectors/tiles, aligned with the story and prior movement objective, then source-check and playtest the progression. Do not try to “fix” the engine or replace `specific` with `random` as a shortcut.
 
-### RIN-02 — HIGH: four optional choices and all battle losses permanently exhaust one attempt
+### RIN-02 — DIRECTOR-RULED: preserve fail branches; raise maxAttempts to 100
 
-Quest settings: `maxAttempts: 1`, `maxCompletes: 1`, `retryDelay: none`, `attemptDelay: none`. The four multi-option dialogs (`89nzR`, `l5Miv`, `8YT8K`, `TLuVn`) each offer a refusal branch to `jF6G_` (`fail_quest`). All four battles also send a loss to this same terminal. The pinned quest availability code counts attempts for event quests (`app/src/libs/quest.ts` lines 2030–2042). Thus a joke/refusal click or a battle loss can consume the one-time opportunity.
+**Captured live state:** `maxAttempts: 1`, `maxCompletes: 1`, `retryDelay: "none"`, `attemptDelay: "none"`. The four multi-option dialogs (`89nzR`, `l5Miv`, `8YT8K`, `TLuVn`) each include a voluntary `fail_quest` branch to `jF6G_`; every battle loss also routes there. The pinned source enforces attempt and completion caps on event quests (`app/src/libs/quest.ts` lines 2030–2042).
 
-**Required director decision:** keep single completion if appropriate, but set a fair retry policy and avoid making the seemingly casual refusal choices irreversible traps. Recommended story approach: omit meaningless refusal options, explain real stakes, and retry lost fights through an intentional reset dialog or allow reacceptance under an approved attempt cap. Exact caps belong to the director.
+**Director decision, 2026-10-13:** Keep **every existing `fail_quest` node and all existing player-choice and battle-failure routes**. Change only `maxAttempts: 1 → 100`, preserve `maxCompletes: 1`, and leave `retryDelay` and `attemptDelay` unchanged. Do **not** remove refusal choices, add `reset_quest` retry routes, or change the intended failure consequences.
+
+**Player consequence:** Up to 100 lifetime quest attempts, with at most one successful completion. Each failed or deliberately abandoned run can be started again, subject to the 100-attempt ceiling. This is not an unlimited retry policy.
+
+**Implementation boundary:** Design decision only; Fable prepares/validates any in-place edit from a fresh full capture, and the director alone initiates the live-game update. The captured quest still holds `maxAttempts: 1` until the operator applies the change.
 
 ### RIN-03 — DIRECTOR DECISION: zero configured quest rewards
 
@@ -86,7 +90,7 @@ A level-1 eligible D-rank event with 2/3 opponents may be disproportionately pun
 
 ## Final review disposition and operator gates
 
-**Not approved for publication.** Fix the two coordinates first and verify quest progression. Settle attempt/retry and reward policy with the director. The employee can then shorten the event, repair the sealing story, rewrite objectives/dialogue and improve the visible conclusion. Following any full-record quest edit, recapture the current live record before additional changes because editor saves and quest updates can overwrite unrelated fields (ENGINE_LAWS 58).
+**Not approved for publication.** Correct the two battle coordinates and verify quest progression; apply the director-ruled `maxAttempts: 100` while preserving `maxCompletes: 1`, the four optional `fail_quest` choices, and existing battle-loss routes. Staff-facing requested changes focus on battle coordinates and proofreading; the separate pacing/sealing/presentation observations are optional design feedback, not mandatory redesign requirements. Reward policy remains a separate director decision. Following any full-record quest edit, recapture the current live record before additional changes because editor saves and quest updates can overwrite unrelated fields (ENGINE_LAWS 58).
 
 The event currently remains hidden. This review does not authorize unhide, quest update, item/AI edits, schema adoption or gameplay changes. Fable retains ordinary content-manifest implementation ownership; the director retains reward, rarity, balance, acceptance and live-operation authority.
 
