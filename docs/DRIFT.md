@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-12)
+# DRIFT.md - upstream contract drift (2026-10-13)
 
-Upstream: studie-tech/TheNinjaRPG@6e4429d65f466b0df9fca3f9917b6dd427df7573
+Upstream: studie-tech/TheNinjaRPG@922d61bbf4897014555463c4084f7ded40be2db7
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -179,30 +179,30 @@ REMOVALS
   ftype  jutsu  requiredTaijutsuOffence  preprocess
   ftype  jutsu  requiredWillpower  preprocess
 CHANGES
-  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  jutsu  requiredNinjutsuMastery  optional -> required
   now-required  item  isFarmSeed  optional -> required
   now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  item  requiredSageMastery  optional -> required
   now-required  item  farmYieldItemId  optional -> required
+  now-required  item  requiredTaijutsuMastery  optional -> required
   now-required  item  requiredGenjutsuMastery  optional -> required
   now-required  jutsu  requiredBloodlineMastery  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  jutsu  requiredGenjutsuMastery  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  requiredTaijutsuMastery  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  jutsu  requiredTaijutsuMastery  optional -> required
-  now-required  item  requiredSageMastery  optional -> required
   now-required  item  farmGrowTimeSeconds  optional -> required
   now-required  item  requiredBukijutsuMastery  optional -> required
-  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  item  farmMinLevel  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
   now-required  jutsu  requiredSageMastery  optional -> required
-  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  jutsu  requiredTaijutsuMastery  optional -> required
+  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  jutsu  requiredGenjutsuMastery  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
   now-required  jutsu  requiredBukijutsuMastery  optional -> required
-  now-required  jutsu  requiredNinjutsuMastery  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  item  farmSellValue  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -364,7 +364,7 @@ ADDITIONS
   const-member  ContentProposalOperations  UPDATE
   const-member  ContentProposalRejectReasons  FACTUALLY_WRONG
   const-member  ContentProposalRejectReasons  NOT_AN_IMPROVEMENT
-  ... 225 more
+  ... 279 more
 
 BREAKING: 47 change(s) - DO NOT ADOPT (exit 1)
 ~~~
