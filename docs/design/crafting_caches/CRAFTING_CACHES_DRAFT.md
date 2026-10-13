@@ -32,7 +32,7 @@ craft family and was too broad, so it is superseded.
 
 The numbers below are the draft's placeholders; the report has every line.
 
-### Pill cache (proposed name: Medicine Inro)
+### Medicine Inro (pills)
 - **Targets:** Chakra Pill II, Stamina Pill II, Small Health Pill, and Pill Pack.
 - **Lines:** 8, for about 10.5 reagent units per open.
   - Core: Galecrest Sage 3@100%, plus a 3@30% bonus.
@@ -41,7 +41,7 @@ The numbers below are the draft's placeholders; the report has every line.
 - **Opens per craft:** about 1.3 for each Pill II, 2.8 for a Small Health Pill, and 5.6 for a Pill
   Pack.
 
-### Kunai cache (proposed name: Shinobi Tool Pouch)
+### Shinobi Tool Pouch (kunai)
 - **Targets:** the six COMMON THROWN consumables. These are the Katon, Wave, Ikazuchi, Stonefall
   and Zephyrfang Kunai, and Robber's Friend.
 - **Bloodthorn Kunai is out** (dauntless, 2026-10-13). Its Mithril Ore would have leaked into 11
@@ -51,7 +51,7 @@ The numbers below are the draft's placeholders; the report has every line.
   - Each kunai's reagent pair at 3@25%.
 - **Opens per craft:** about 2.7 for each kunai.
 
-### High-tier cache (proposed name: Sage's Reliquary)
+### Sage's Strongbox (high-tier consumables)
 - **Targets:** Mona's Mermaid Song, Solider Pill, Enemy Pill, and Forbidden Jutsu Scroll: Nexus
   and Rebirth.
 - **Lines:** 7, for about 5 units per open.
@@ -76,8 +76,8 @@ This is cloned from the item reference §5 chest chassis:
 
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
-| D1 | **Names.** | Medicine Inro, Shinobi Tool Pouch, Sage's Reliquary. Options are in §5. | Naming is your call. Final names need a fresh `item.getAllNames` uniqueness check before create. |
-| D2 | ~~Should Bloodthorn Kunai be in the kunai cache?~~ | **Settled: no** (dauntless, 2026-10-13). | It was removed, along with Bloodcore Ore, Bloodflower and Mithril Ore. |
+| D1 | ~~Names~~ | **Settled** (RUL-2026-10-13-001): Medicine Inro, Shinobi Tool Pouch, Sage's Strongbox. | A fresh `item.getAllNames` uniqueness check is still needed before create. |
+| D2 | ~~Should Bloodthorn Kunai be in the kunai cache?~~ | **Settled: no** (RUL-2026-10-13-001). | It was removed, along with Bloodcore Ore, Bloodflower and Mithril Ore. |
 | D3 | **High-tier leakage.** | Accepted. | Parchment Core also feeds 4 Kaeruun armor pieces and Warden's Bracers. Fujin's Breath, Lunaris Bloom, Voidshade Petal, Heart of Kuraokami and Tempest Thorn feed Aetherion, Stormrender, Thornsilver and Yasei's Bolt. The alternatives are to drop the two scrolls, which removes Parchment Core, or to accept the leak. |
 | D4 | **Optional targets.** | Out. | High-tier candidates: Saki and the EPIC Bashōsen, Infernum and Senbon Needles. Pill-cache candidates: Dr. Kim's Poison Potion and Venom Cask, which are poisons rather than pills. |
 | D5 | **How players get each cache.** | Not decided. | The source sets the economy. |
@@ -87,24 +87,60 @@ The leakage tables in the report list every other recipe that uses each cache's 
 reagents always leak a little into crystals and RARE weapons. That's unavoidable, because the
 census shows those reagents are shared.
 
-## 5. Name options
+## 5. Names
 
-Existing chests are named things like "Genin Supply Cache", "Common Gatherer's Chest" and
-"Storm War Cache". None of the names below appear in the repository's seed item catalog
-(`answers/names_item.json`). That catalog is old, so recheck the final picks live.
+The names are approved: **Medicine Inro**, **Shinobi Tool Pouch** and **Sage's Strongbox**
+(RUL-2026-10-13-001). The icon brief is in `docs/handoffs/CRAFTING_CACHES_ART_HANDOFF.md`.
 
-| Cache | Recommended | Alternatives |
+## 5a. Drop-rate calibration against existing chests (in progress)
+
+**Method.** `harness/crafting_caches/compare_chests.py` puts every existing chest's live loot table
+beside the draft and computes the same metrics for both:
+- lines;
+- guaranteed (100%) lines;
+- expected lines hit per open;
+- expected item units per open, split by reward rarity;
+- chance range;
+- quantities used;
+- money and other rewards.
+
+The output is `CHEST_COMPARISON.md`.
+
+**Data.** Only Mystery Chest and Ornate Chest have loot tables in the repository today.
+`push/95_chest_loot_baseline_capture.json` is a read-only Forge capture: 22 `item.get` point
+reads covering every live visible chest in the seed index. That is the Gatherer's and Hunter's
+chests (Rusted → Legendary), Genin Supply Cache, the five War Caches, Bloodthorn Cache, Larry's
+Tackle Box, Mystery, Ornate and Wooden Treasure Chest, and Bag of Prestige. dauntless runs it;
+the comparison then fills in.
+
+**What the two known chests already show:**
+
+| Chest | Expected units / open | Notes |
 | --- | --- | --- |
-| Pills | **Medicine Inro**. An inrō is the lacquered case Edo-period travellers carried pills in. | Apothecary's Satchel, Herbalist's Satchel, Field Medic's Kit |
-| Kunai | **Shinobi Tool Pouch**. It is the hip pouch kunai are carried in. | Kunai Smith's Bundle, Armorer's Cache, Ninja Tool Pouch |
-| High-tier | **Sage's Reliquary**. Rare relic reagents and Forbidden scrolls, kept sealed. | Forbidden Reliquary, Hermit's Strongbox, Sealed Lacquer Box |
+| Ornate Chest | about 14 | About 7 of those are Legendary (Imperial Gold, Unobtanium), plus 100,000 ryo. |
+| Mystery Chest | about 0.75 | Pays out other chests only. It already contains the Gatherer's and Hunter's tiers, so new caches could be added to it (decision D7). |
+| Sage's Strongbox (draft) | about 5 | About 4.4 of those are Legendary. |
 
-The two coherent alternatives are:
-- **Craft-trade:** Apothecary's Satchel, Armorer's Cache, Forbidden Reliquary.
-- **The original working names:** Field Supply Cache, Armorer's Cache, Reagent Cache.
+Ornate Chest's quantities (5 and 10) share factors with recipe quantities. Existing chests
+therefore do not follow engine law 22. The new caches do, by design.
 
-"Reliquary" is already used by the Skyglass Reliquary, the Ghost Ship chest. If that overlap would
-confuse players, pick Hermit's Strongbox instead.
+**Calibration plan.** This runs once push/95 is in.
+1. **Anchor each cache to its closest existing tier:**
+   - Medicine Inro and Shinobi Tool Pouch, which carry COMMON/RARE reagents, against the
+     Common/Rare Gatherer's and Hunter's Chests;
+   - Sage's Strongbox, which carries Legendary reagents, against the Legendary Gatherer's or
+     Hunter's Chest and Ornate Chest.
+2. **Match expected Legendary units per open** within the anchor's range. The draft is not
+   allowed to exceed the anchor without an explicit ruling.
+3. **Keep each target's "opens per craft"** in a band dauntless sets, for example about 1–2 opens
+   for a COMMON pill or kunai, and an explicit number for each Legendary consumable.
+4. **Re-derive the quantities so they still pass the factor check,** then regenerate both reports.
+
+**Added decision:**
+
+| # | Decision | Draft assumption | Why it matters |
+| --- | --- | --- | --- |
+| D7 | **Should Mystery Chest gain lines for the new caches?** | No. | Mystery Chest is the existing chest-of-chests. Adding the caches would give them a source with no new content. |
 
 ## 6. Iterating
 

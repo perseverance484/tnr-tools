@@ -109,5 +109,25 @@ class Draft(unittest.TestCase):
             self.assertEqual(C.main(["--check", "--report", p]), 1)
 
 
+class Compare(unittest.TestCase):
+    def test_known_chests_and_metrics(self):
+        import compare_chests as K
+        bundle = os.path.join(C.REPO, "harvests", "inbox", "tnr_results_1790826836406.json")
+        found, problems, missing = K.chests_from_bundles([bundle])
+        self.assertEqual(sorted(v["row"]["name"] for v in found.values()), ["Mystery Chest", "Ornate Chest"])
+        self.assertEqual(problems, [])
+        self.assertEqual(len(missing), 20)
+        ornate = next(v for v in found.values() if v["row"]["name"] == "Ornate Chest")
+        m = K.metrics(ornate["effect"]["reward_items"], K.catalog())
+        self.assertAlmostEqual(m["expected_units"], 14.01, places=2)
+        self.assertAlmostEqual(m["expected_lines_hit"], 2.51, places=2)
+        self.assertEqual(m["guaranteed_lines"], 0)
+
+    def test_draft_metrics_use_chance_and_quantity(self):
+        import compare_chests as K
+        inro = next(c for c in DRAFT["caches"] if c["name"] == "Medicine Inro")
+        self.assertAlmostEqual(K.metrics(inro["lines"], K.catalog())["expected_units"], 10.5)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
