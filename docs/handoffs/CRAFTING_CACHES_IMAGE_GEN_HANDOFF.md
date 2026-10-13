@@ -57,7 +57,7 @@ here:**
   written for characters and has been removed. Objects have no arms, and the clause invites the
   generator to draw some.
 - The scaffold says "dark background", but the icon target needs a keyable or transparent result.
-  It is replaced with the background clause in §4.
+  Each prompt below replaces it with a chroma-key background clause.
 
 **Shared style** (house style, in the spec's order, without the silhouette clause):
 `crisp pixel lineart, flat cel shading, limited palette, soft even lighting, camera at eye level,
