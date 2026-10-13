@@ -1,0 +1,16 @@
+{
+  "_note": "READ-ONLY TNR review capture for Resort in Need (quest xG0_Jq-amzhFgcLy8BVjw). One quests.get point read with full persistence; no writes, no after-capture, no publication. Operator-run only.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "xG0_Jq-amzhFgcLy8BVjw"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
