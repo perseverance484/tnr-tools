@@ -1,0 +1,51 @@
+{
+  "_note": "READ-ONLY Resort in Need full AI behavior and boss seal-dependency review. The 2026-10-13 Forge capture (harvests/inbox/tnr_results_1791906435820.json) confirmed both quest AIs share aiProfileId ePqWnmBprBeubGI3AZg7r. Read that exact AiProfile with persist:full, plus all item/jutsu IDs named by the boss's weakness effect to verify sealing dependencies. Zero mutations, no publication, no live agent actions. Operator-run only.",
+  "capture": {
+    "before": [
+      {
+        "proc": "ai.getAiProfile",
+        "input": {
+          "id": "ePqWnmBprBeubGI3AZg7r"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "mqCCZGSfXUNL02B4H6C9R"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "An9G-YkaAonclWsmcpx4E"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "cvLrFEzeNcRogHqyLv0Ig"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "q7QKL0ETYGDEawoF_yzkS"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "jutsu.get",
+        "input": {
+          "id": "S5Yn5g5CMZE3OnTVFG_3-"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
