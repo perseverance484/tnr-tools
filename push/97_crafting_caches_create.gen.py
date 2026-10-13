@@ -21,7 +21,7 @@ Usage, from the repository root:
 
 --draft  writes the manifest without an imagePack. Forge would fall back to the manual picker for the
          three @img files. This is a review artifact.
---final  requires all three icons at --image-ref (an ancestor of HEAD). It binds them by path, sha256
+--final  requires all three icons at --image-ref (an ancestor of HEAD or of origin/main). It binds them by path, sha256
          and bytes, and writes imgSizes.
 --check  rebuilds in memory and fails if the committed push/97 JSON differs.
 
@@ -136,8 +136,11 @@ def build_items(draft: dict, donor: dict) -> list[dict]:
 def image_pack(image_ref: str) -> tuple[dict, dict]:
     if not re.fullmatch(r"[0-9a-f]{40}", image_ref or ""):
         sys.exit("refusing: --image-ref must be a 40-hex commit")
-    if git("merge-base", "--is-ancestor", image_ref, "HEAD").returncode != 0:
-        sys.exit(f"refusing: {image_ref} is not an ancestor of HEAD")
+    # The pinned art commit must be durable: on this branch's history or on origin/main (where the
+    # operator's builder reads), so branch cleanup can never strand the pack's ref.
+    if (git("merge-base", "--is-ancestor", image_ref, "HEAD").returncode != 0
+            and git("merge-base", "--is-ancestor", image_ref, "origin/main").returncode != 0):
+        sys.exit(f"refusing: {image_ref} is on neither HEAD's history nor origin/main")
     files, sizes = {}, {}
     for t in ITEM_TEXT.values():
         path = f"{ART_DIR}/{t['image']}"

@@ -1184,4 +1184,6 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Enforcement:** the generator classifies every `validate.py` line and refuses anything else. Forge `check_manifest.mjs` must pass in `--final`. The exception applies only to the final push/97 built by that generator from committed icons. Any other diagnostic, or a change of class, voids it.
 
+**Bound manifest (2026-10-13):** push/97 final, SHA-256 `239770b4b16ff0be452f3634eabaed56987eb5df6d6f9112742d6fbd89ae3aad`. Its icons are pinned to art commit `6d2d4f8de0f448d6b6e43386f81267a5d8dbf9fe` on main. Gates: `stale_effect_field` 81, `stale_farm_nullability` 6, Forge `check_manifest` 0 problems.
+
 **Not a precedent.** The proper fix is still the open Lane A follow-up from RUL-2026-10-12-013: adopt the generated contracts so `validate.py` knows `reward_items`.
