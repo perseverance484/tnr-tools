@@ -113,7 +113,7 @@ class Compare(unittest.TestCase):
     def test_known_chests_and_metrics(self):
         import compare_chests as K
         bundle = os.path.join(C.REPO, "harvests", "inbox", "tnr_results_1790826836406.json")
-        found, problems, missing = K.chests_from_bundles([bundle])
+        found, problems, missing, _ = K.chests_from_bundles([bundle])
         self.assertEqual(sorted(v["row"]["name"] for v in found.values()), ["Mystery Chest", "Ornate Chest"])
         self.assertEqual(problems, [])
         self.assertEqual(len(missing), 20)
@@ -126,7 +126,18 @@ class Compare(unittest.TestCase):
     def test_draft_metrics_use_chance_and_quantity(self):
         import compare_chests as K
         inro = next(c for c in DRAFT["caches"] if c["name"] == "Medicine Inro")
-        self.assertAlmostEqual(K.metrics(inro["lines"], K.catalog())["expected_units"], 10.5)
+        expect = sum(ln["quantity"] * ln["chance"] / 100 for ln in inro["lines"])
+        self.assertAlmostEqual(K.metrics(inro["lines"], K.catalog())["expected_units"], expect)
+
+    def test_push95_baseline(self):
+        import compare_chests as K
+        bundle = os.path.join(C.REPO, "harvests", "inbox", "tnr_results_1791863274945.json")
+        if not os.path.exists(bundle):
+            self.skipTest("push/95 results not present")
+        found, problems, missing, not_chests = K.chests_from_bundles([bundle])
+        self.assertEqual((len(found), problems, missing, len(not_chests)), (20, [], [], 2))
+        text = K.render(found, [], K.catalog(), problems, missing, {"x"}, not_chests)
+        self.assertIn("`[PILL_PACK_ID]` — malformed placeholder", text)
 
 
 if __name__ == "__main__":
