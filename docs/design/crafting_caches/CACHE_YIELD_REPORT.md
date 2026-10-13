@@ -7,16 +7,16 @@ and the census capture `81c76fef97e9`. Every chance and quantity is a **proposal
 
 Feeds the four pills: Chakra Pill II, Stamina Pill II, Small Health Pill, and Pill Pack (assembled from the other three).
 
-- Lines: 8; expected lines hit per open: 5.70
-- Expected total units per open: 28.50
+- Lines: 11; expected lines hit per open: 8.00
+- Expected total units per open: 80.00
 
 | Item | Rarity | Lines (qty@%) | Expected units / open |
 | --- | --- | --- | ---: |
-| Galecrest Sage | RARE | 5@100, 5@50 | 7.50 |
-| Moonlight Antlers | COMMON | 5@100, 5@30 | 6.50 |
-| Sunroot | COMMON | 5@100, 5@30 | 6.50 |
-| Glimmer Dust | COMMON | 5@80 | 4.00 |
-| Mosswolf Tuft | COMMON | 5@80 | 4.00 |
+| Galecrest Sage | RARE | 10@100, 10@50, 10@50 | 20.00 |
+| Glimmer Dust | COMMON | 10@100, 10@50 | 15.00 |
+| Moonlight Antlers | COMMON | 10@100, 10@50 | 15.00 |
+| Mosswolf Tuft | COMMON | 10@100, 10@50 | 15.00 |
+| Sunroot | COMMON | 10@100, 10@50 | 15.00 |
 
 ### Targets
 
@@ -24,10 +24,10 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 | Recipe | Rarity | Reagents per craft | Bottleneck | Expected opens per craft |
 | --- | --- | --- | --- | ---: |
-| Chakra Pill II | COMMON | Galecrest Sage ×2, Glimmer Dust ×2 | Glimmer Dust | 0.5 |
-| Stamina Pill II | COMMON | Galecrest Sage ×2, Mosswolf Tuft ×2 | Mosswolf Tuft | 0.5 |
-| Small Health Pill | RARE | Moonlight Antlers ×5, Sunroot ×5 | Moonlight Antlers | 0.8 |
-| Pill Pack | EPIC | Galecrest Sage ×9, Glimmer Dust ×4, Moonlight Antlers ×10, Mosswolf Tuft ×4, Sunroot ×10 | Moonlight Antlers | 1.5 |
+| Chakra Pill II | COMMON | Galecrest Sage ×2, Glimmer Dust ×2 | Glimmer Dust | 0.1 |
+| Stamina Pill II | COMMON | Galecrest Sage ×2, Mosswolf Tuft ×2 | Mosswolf Tuft | 0.1 |
+| Small Health Pill | RARE | Moonlight Antlers ×5, Sunroot ×5 | Moonlight Antlers | 0.3 |
+| Pill Pack | EPIC | Galecrest Sage ×9, Glimmer Dust ×4, Moonlight Antlers ×10, Mosswolf Tuft ×4, Sunroot ×10 | Moonlight Antlers | 0.7 |
 
 ### Leakage: other recipes that use this cache's contents
 
@@ -48,23 +48,23 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 Feeds the six COMMON THROWN consumables: Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Kunai, and Robber's Friend. Iron Ore is the shared base; each has its own reagent pair. Bloodthorn Kunai is excluded (dauntless, 2026-10-13) so no Legendary metal leaks from this cache.
 
-- Lines: 12; expected lines hit per open: 4.85
-- Expected total units per open: 29.25
+- Lines: 23; expected lines hit per open: 14.75
+- Expected total units per open: 88.75
 
 | Item | Rarity | Lines (qty@%) | Expected units / open |
 | --- | --- | --- | ---: |
-| Iron Ore | COMMON | 10@100 | 10.00 |
-| Ashrend Wing | RARE | 5@35 | 1.75 |
-| Brasel Spine | RARE | 5@35 | 1.75 |
-| Frostbite Leaf | COMMON | 5@35 | 1.75 |
-| Frostscale | RARE | 5@35 | 1.75 |
-| Lurethorne | RARE | 5@35 | 1.75 |
-| Moonveil Moss | COMMON | 5@35 | 1.75 |
-| Muskshade | COMMON | 5@35 | 1.75 |
-| Nightshade Thorn | COMMON | 5@35 | 1.75 |
-| Sunroot | COMMON | 5@35 | 1.75 |
-| Voltleaf Plume | RARE | 5@35 | 1.75 |
-| Whistlegrass | COMMON | 5@35 | 1.75 |
+| Iron Ore | COMMON | 20@100 | 20.00 |
+| Ashrend Wing | RARE | 5@100, 5@25 | 6.25 |
+| Brasel Spine | RARE | 5@100, 5@25 | 6.25 |
+| Frostbite Leaf | COMMON | 5@100, 5@25 | 6.25 |
+| Frostscale | RARE | 5@100, 5@25 | 6.25 |
+| Lurethorne | RARE | 5@100, 5@25 | 6.25 |
+| Moonveil Moss | COMMON | 5@100, 5@25 | 6.25 |
+| Muskshade | COMMON | 5@100, 5@25 | 6.25 |
+| Nightshade Thorn | COMMON | 5@100, 5@25 | 6.25 |
+| Sunroot | COMMON | 5@100, 5@25 | 6.25 |
+| Voltleaf Plume | RARE | 5@100, 5@25 | 6.25 |
+| Whistlegrass | COMMON | 5@100, 5@25 | 6.25 |
 
 ### Targets
 
@@ -72,12 +72,12 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 | Recipe | Rarity | Reagents per craft | Bottleneck | Expected opens per craft |
 | --- | --- | --- | --- | ---: |
-| Katon Kunai | COMMON | Ashrend Wing ×2, Iron Ore ×2, Sunroot ×2 | Ashrend Wing | 1.1 |
-| Wave Kunai | COMMON | Frostbite Leaf ×2, Frostscale ×2, Iron Ore ×2 | Frostbite Leaf | 1.1 |
-| Ikazuchi Kunai | COMMON | Iron Ore ×2, Muskshade ×2, Voltleaf Plume ×2 | Muskshade | 1.1 |
-| Stonefall Kunai | COMMON | Brasel Spine ×2, Iron Ore ×2, Moonveil Moss ×2 | Brasel Spine | 1.1 |
-| Zephyrfang Kunai | COMMON | Iron Ore ×2, Lurethorne ×2, Whistlegrass ×2 | Lurethorne | 1.1 |
-| Robber's Friend | COMMON | Brasel Spine ×2, Iron Ore ×2, Nightshade Thorn ×2 | Brasel Spine | 1.1 |
+| Katon Kunai | COMMON | Ashrend Wing ×2, Iron Ore ×2, Sunroot ×2 | Ashrend Wing | 0.3 |
+| Wave Kunai | COMMON | Frostbite Leaf ×2, Frostscale ×2, Iron Ore ×2 | Frostbite Leaf | 0.3 |
+| Ikazuchi Kunai | COMMON | Iron Ore ×2, Muskshade ×2, Voltleaf Plume ×2 | Muskshade | 0.3 |
+| Stonefall Kunai | COMMON | Brasel Spine ×2, Iron Ore ×2, Moonveil Moss ×2 | Brasel Spine | 0.3 |
+| Zephyrfang Kunai | COMMON | Iron Ore ×2, Lurethorne ×2, Whistlegrass ×2 | Lurethorne | 0.3 |
+| Robber's Friend | COMMON | Brasel Spine ×2, Iron Ore ×2, Nightshade Thorn ×2 | Brasel Spine | 0.3 |
 
 ### Leakage: other recipes that use this cache's contents
 
@@ -105,18 +105,18 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 Feeds the five Legendary consumables: Mona's Mermaid Song, Solider Pill, Enemy Pill, and Forbidden Jutsu Scroll: Nexus and Rebirth. Godstorm Eclipse Inheritance is excluded (event chain).
 
-- Lines: 7; expected lines hit per open: 1.40
-- Expected total units per open: 14.00
+- Lines: 8; expected lines hit per open: 4.50
+- Expected total units per open: 45.00
 
 | Item | Rarity | Lines (qty@%) | Expected units / open |
 | --- | --- | --- | ---: |
-| Cracked Auditory Core | LEGENDARY | 10@50 | 5.00 |
-| Fujin's Breath | LEGENDARY | 10@15 | 1.50 |
-| Heart of Kuraokami | LEGENDARY | 10@15 | 1.50 |
-| Lunaris Bloom | LEGENDARY | 10@15 | 1.50 |
-| Parchment Core | LEGENDARY | 10@15 | 1.50 |
-| Tempest Thorn | EPIC | 10@15 | 1.50 |
-| Voidshade Petal | LEGENDARY | 10@15 | 1.50 |
+| Cracked Auditory Core | LEGENDARY | 10@100, 10@50 | 15.00 |
+| Fujin's Breath | LEGENDARY | 10@50 | 5.00 |
+| Heart of Kuraokami | LEGENDARY | 10@50 | 5.00 |
+| Lunaris Bloom | LEGENDARY | 10@50 | 5.00 |
+| Parchment Core | LEGENDARY | 10@50 | 5.00 |
+| Tempest Thorn | EPIC | 10@50 | 5.00 |
+| Voidshade Petal | LEGENDARY | 10@50 | 5.00 |
 
 ### Targets
 
@@ -124,11 +124,11 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 
 | Recipe | Rarity | Reagents per craft | Bottleneck | Expected opens per craft |
 | --- | --- | --- | --- | ---: |
-| Mona's Mermaid Song | LEGENDARY | Cracked Auditory Core ×10, Tempest Thorn ×10 | Tempest Thorn | 6.7 |
-| Solider Pill | LEGENDARY | Cracked Auditory Core ×10, Lunaris Bloom ×10 | Lunaris Bloom | 6.7 |
-| Enemy Pill | LEGENDARY | Cracked Auditory Core ×10, Heart of Kuraokami ×10 | Heart of Kuraokami | 6.7 |
-| Forbidden Jutsu Scroll: Nexus | LEGENDARY | Fujin's Breath ×10, Parchment Core ×10, Voidshade Petal ×10 | Fujin's Breath | 6.7 |
-| Forbidden Jutsu Scroll: Rebirth | LEGENDARY | Fujin's Breath ×10, Parchment Core ×10, Voidshade Petal ×10 | Fujin's Breath | 6.7 |
+| Mona's Mermaid Song | LEGENDARY | Cracked Auditory Core ×10, Tempest Thorn ×10 | Tempest Thorn | 2.0 |
+| Solider Pill | LEGENDARY | Cracked Auditory Core ×10, Lunaris Bloom ×10 | Lunaris Bloom | 2.0 |
+| Enemy Pill | LEGENDARY | Cracked Auditory Core ×10, Heart of Kuraokami ×10 | Heart of Kuraokami | 2.0 |
+| Forbidden Jutsu Scroll: Nexus | LEGENDARY | Fujin's Breath ×10, Parchment Core ×10, Voidshade Petal ×10 | Fujin's Breath | 2.0 |
+| Forbidden Jutsu Scroll: Rebirth | LEGENDARY | Fujin's Breath ×10, Parchment Core ×10, Voidshade Petal ×10 | Fujin's Breath | 2.0 |
 
 ### Leakage: other recipes that use this cache's contents
 

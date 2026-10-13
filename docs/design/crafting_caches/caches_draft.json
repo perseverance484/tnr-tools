@@ -1,5 +1,5 @@
 {
- "_note": "DRAFT v4 for review (5/10/20 quantities per RUL-2026-10-13-002), calibrated against push/95 live chest tables (consumable families: pills, kunai, high-tier). Every quantity, chance, rarity, chassis value and source is a PROPOSAL awaiting dauntless (docs/DOCTRINE.md: balance and rewards are proposals only). Not a manifest; nothing here is pushed. Line semantics follow skills/building-tnr-content/references/item.md section 4: each line rolls independently; a 100% line is a floor; extra sub-100% lines on the same id add a bonus range.",
+ "_note": "DRAFT v5 for review (5/10/20 quantities per RUL-2026-10-13-002), calibrated against push/95 live chest tables (consumable families: pills, kunai, high-tier). Every quantity, chance, rarity, chassis value and source is a PROPOSAL awaiting dauntless (docs/DOCTRINE.md: balance and rewards are proposals only). Not a manifest; nothing here is pushed. Line semantics follow skills/building-tnr-content/references/item.md section 4: each line rolls independently; a 100% line is a floor; extra sub-100% lines on the same id add a bonus range.",
  "census": {
   "file": "reports/crafting_recipe_census/craftable_recipes.json",
   "capture_sha256": "81c76fef97e94c83d5c97bc7ce647edaea14a483577feac5b3928d5f0bc3d629",
@@ -72,57 +72,78 @@
     {
      "id": "I6BenC2f5ETLp6BgDF_4v",
      "name": "Galecrest Sage",
-     "quantity": 5,
+     "quantity": 10,
      "chance": 100,
      "band": "core"
     },
     {
      "id": "I6BenC2f5ETLp6BgDF_4v",
      "name": "Galecrest Sage",
-     "quantity": 5,
+     "quantity": 10,
+     "chance": 50,
+     "band": "bonus"
+    },
+    {
+     "id": "I6BenC2f5ETLp6BgDF_4v",
+     "name": "Galecrest Sage",
+     "quantity": 10,
      "chance": 50,
      "band": "bonus"
     },
     {
      "id": "ekFpo7eJvvrk54V1fNxn7",
      "name": "Glimmer Dust",
-     "quantity": 5,
-     "chance": 80,
-     "band": "common"
+     "quantity": 10,
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "ekFpo7eJvvrk54V1fNxn7",
+     "name": "Glimmer Dust",
+     "quantity": 10,
+     "chance": 50,
+     "band": "bonus"
     },
     {
      "id": "_8z8xD2GPZK6WGrlCqV0B",
      "name": "Mosswolf Tuft",
-     "quantity": 5,
-     "chance": 80,
-     "band": "common"
+     "quantity": 10,
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "_8z8xD2GPZK6WGrlCqV0B",
+     "name": "Mosswolf Tuft",
+     "quantity": 10,
+     "chance": 50,
+     "band": "bonus"
     },
     {
      "id": "Qtwn25mKs09Hyq6TB7u9F",
      "name": "Moonlight Antlers",
-     "quantity": 5,
+     "quantity": 10,
      "chance": 100,
      "band": "core"
     },
     {
      "id": "Qtwn25mKs09Hyq6TB7u9F",
      "name": "Moonlight Antlers",
-     "quantity": 5,
-     "chance": 30,
+     "quantity": 10,
+     "chance": 50,
      "band": "bonus"
     },
     {
      "id": "W3WoY8u-b_b2m5XVTZ-hL",
      "name": "Sunroot",
-     "quantity": 5,
+     "quantity": 10,
      "chance": 100,
      "band": "core"
     },
     {
      "id": "W3WoY8u-b_b2m5XVTZ-hL",
      "name": "Sunroot",
-     "quantity": 5,
-     "chance": 30,
+     "quantity": 10,
+     "chance": 50,
      "band": "bonus"
     }
    ]
@@ -162,7 +183,7 @@
     {
      "id": "Re5nm3c6JjZgC9IalLreH",
      "name": "Iron Ore",
-     "quantity": 10,
+     "quantity": 20,
      "chance": 100,
      "band": "core"
     },
@@ -170,78 +191,155 @@
      "id": "GHe_D2wR5vpM2r7LSnApe",
      "name": "Ashrend Wing",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "GHe_D2wR5vpM2r7LSnApe",
+     "name": "Ashrend Wing",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "W3WoY8u-b_b2m5XVTZ-hL",
      "name": "Sunroot",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "W3WoY8u-b_b2m5XVTZ-hL",
+     "name": "Sunroot",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "BhGK-UWNk_QnORODB1qAb",
      "name": "Frostbite Leaf",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "BhGK-UWNk_QnORODB1qAb",
+     "name": "Frostbite Leaf",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "kOOkLHJ0U07lpsWRLlF7g",
      "name": "Frostscale",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "kOOkLHJ0U07lpsWRLlF7g",
+     "name": "Frostscale",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "A5rgavBvGPrN16N4XoDY8",
      "name": "Muskshade",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "A5rgavBvGPrN16N4XoDY8",
+     "name": "Muskshade",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "Kd_R5KdEpe7TrN7ZRU94v",
      "name": "Voltleaf Plume",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "Kd_R5KdEpe7TrN7ZRU94v",
+     "name": "Voltleaf Plume",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "Fr4XnfPPnxSrM-AegBm9t",
      "name": "Brasel Spine",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "Fr4XnfPPnxSrM-AegBm9t",
+     "name": "Brasel Spine",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "2nXVUwlS4MPfauXrhsLYA",
      "name": "Moonveil Moss",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "2nXVUwlS4MPfauXrhsLYA",
+     "name": "Moonveil Moss",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "ogNA9m48l6fLBaVIIoA6a",
      "name": "Lurethorne",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "ogNA9m48l6fLBaVIIoA6a",
+     "name": "Lurethorne",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "dYY7TAC0Fm5jGWrFBa0Pw",
      "name": "Whistlegrass",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "dYY7TAC0Fm5jGWrFBa0Pw",
+     "name": "Whistlegrass",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     },
     {
      "id": "2EoxvVMtQjD73FKnHcMMX",
      "name": "Nightshade Thorn",
      "quantity": 5,
-     "chance": 35,
-     "band": "common"
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "2EoxvVMtQjD73FKnHcMMX",
+     "name": "Nightshade Thorn",
+     "quantity": 5,
+     "chance": 25,
+     "band": "bonus"
     }
    ]
   },
@@ -277,50 +375,57 @@
      "id": "1PpHMQYQ2EAzL0vueQb9E",
      "name": "Cracked Auditory Core",
      "quantity": 10,
-     "chance": 50,
+     "chance": 100,
      "band": "core"
+    },
+    {
+     "id": "1PpHMQYQ2EAzL0vueQb9E",
+     "name": "Cracked Auditory Core",
+     "quantity": 10,
+     "chance": 50,
+     "band": "bonus"
     },
     {
      "id": "wNnZ3uXHbYRzwRAqO-6EM",
      "name": "Tempest Thorn",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     },
     {
      "id": "dRTqiMxkL5mYmIokiWyJP",
      "name": "Lunaris Bloom",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     },
     {
      "id": "jfkGS8dgO5C0x-WBYcML9",
      "name": "Heart of Kuraokami",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     },
     {
      "id": "GI7O1Ze9DnuOw0-WcazsN",
      "name": "Fujin's Breath",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     },
     {
      "id": "SqFyiWVXmokGIm7FO2114",
      "name": "Voidshade Petal",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     },
     {
      "id": "yWVnPn1NVG9fq_a2UrRXp",
      "name": "Parchment Core",
      "quantity": 10,
-     "chance": 15,
-     "band": "uncommon"
+     "chance": 50,
+     "band": "common"
     }
    ]
   }
@@ -356,7 +461,7 @@
   ]
  },
  "calibration": {
-  "anchor": "Option B: between the Rusted and Common/Rare Gatherer's/Hunter's tiers for Medicine Inro and Shinobi Tool Pouch; Sage's Strongbox between Ornate/War Cache Legendary yield and the Legendary tier chests.",
+  "anchor": "Option C-focused (D9, dauntless 2026-10-13: 'make them bigger'): per reagent at or below the tier chests' ~20 units, each cache focused on one family; source is the restricted vault at 15%/15%/7.5% (RUL-2026-10-13-003).",
   "baseline_capture": "harvests/inbox/tnr_results_1791863274945.json (push/95)",
   "status": "PROPOSAL; dauntless chooses the anchor"
  },

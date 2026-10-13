@@ -127,19 +127,22 @@ not a new source of anything.
 | Option | Inro / Pouch, units per open | Strongbox, Legendary units per open | Opens per craft | Reads as |
 | --- | --- | --- | --- | --- |
 | A (v2, conservative) | about 10–12 | about 4.4 | Pill II 1.3, kunai 2.7, Legendary 17–22 | Below the Rusted chests. A trickle. |
-| **B (current draft, v4)** | about 28–29 | about 12.5 | Pill II 0.5, Small Health Pill 0.8, Pill Pack 1.5, kunai 1.1, every Legendary consumable 6.7 | About a Rusted chest, but focused. Strongbox is about 2× Ornate's Legendary yield and about ⅐ of a Legendary tier chest. |
+| B (v4, superseded by D9) | about 28–29 | about 12.5 | Pill II 0.5, Small Health Pill 0.8, Pill Pack 1.5, kunai 1.1, every Legendary consumable 6.7 | About a Rusted chest, but focused. Strongbox is about 2× Ornate's Legendary yield and about ⅐ of a Legendary tier chest. |
 | C (tier parity) | about 100+ | about 60+ | Below 0.5 for everything | Matches the tier chests per reagent. Only sensible if a cache is as hard to get as a tier chest. |
 
 Pick the option according to how the caches are obtained (decision D5). A cache handed out as a
 routine quest reward fits A or B. One gated like a tier chest fits C.
 
-### v4 lines (Option B, in 5s, 10s and 20s)
+### v5 lines (bigger, per D9; in 5s, 10s and 20s)
 
 | Cache | Lines (quantity@chance) | Per open |
 | --- | --- | --- |
-| Medicine Inro | Galecrest Sage 5@100 + 5@50; Glimmer Dust and Mosswolf Tuft 5@80; Moonlight Antlers and Sunroot 5@100 + 5@30 | About 28.5 units. Pill II needs about 0.5 opens, Small Health Pill 0.8 (one guaranteed per open), Pill Pack 1.5. |
-| Shinobi Tool Pouch | Iron Ore 10@100; each of the 11 kunai reagents 5@35 | About 29 units. About 1.1 opens per kunai. |
-| Sage's Strongbox | Cracked Auditory Core 10@50; Tempest Thorn, Lunaris Bloom, Heart of Kuraokami, Fujin's Breath, Voidshade Petal and Parchment Core 10@15 | About 14 units, 12.5 of them Legendary. About 6.7 opens per Legendary consumable. |
+| Medicine Inro | Galecrest Sage 10@100 + 10@50 + 10@50; Glimmer Dust, Mosswolf Tuft, Moonlight Antlers and Sunroot each 10@100 + 10@50 | About 80 units. Pill II needs about 0.1 opens, Small Health Pill 0.3, Pill Pack 0.7. |
+| Shinobi Tool Pouch | Iron Ore 20@100; each of the 11 kunai reagents 5@100 + 5@25 | About 89 units. Every kunai is craftable from one open, at about 0.3 opens per kunai. |
+| Sage's Strongbox | Cracked Auditory Core 10@100 + 10@50; Tempest Thorn, Lunaris Bloom, Heart of Kuraokami, Fujin's Breath, Voidshade Petal and Parchment Core each 10@50 | About 45 units, 40 of them Legendary. About 2 opens per Legendary consumable. |
+
+No cache pays more of any one reagent per open than the tier chest that already carries it
+(about 20). The caches are focused, not larger.
 
 **Quantity rule.** RUL-2026-10-13-002 sets chest quantities at 5, 10 and 20, as the live chests
 use. Engine law 22's encounter-drop doctrine ("quantity 1 per encounter... never share a common
@@ -155,9 +158,12 @@ vault clear, from push/95:
 | Common Gatherer's / Hunter's Chest | 55% | 140 / 120 | 77 / 66 | 1.8 |
 | Rare Gatherer's / Hunter's Chest | 25% | 120 | 30 | 4 |
 | Mystery Chest (×2 lines) | 25% each | 0.85 chests | - | - |
-| **Medicine Inro** (v4) | 15% | 28.5 | 4.3 | 6.7 |
-| **Shinobi Tool Pouch** (v4) | 15% | 29 | 4.4 | 6.7 |
-| **Sage's Strongbox** (v4) | 7.5% | 14 (12.5 Legendary) | 1.05 (0.94 Legendary) | 13.3 |
+| Medicine Inro (v4, superseded) | 15% | 28.5 | 4.3 | 6.7 |
+| Shinobi Tool Pouch (v4, superseded) | 15% | 29 | 4.4 | 6.7 |
+| Sage's Strongbox (v4, superseded) | 7.5% | 14 (12.5 Legendary) | 1.05 (0.94 Legendary) | 13.3 |
+| **Medicine Inro (v5)** | 15% | 80 | 12.0 | 6.7 |
+| **Shinobi Tool Pouch (v5)** | 15% | 89 | 13.3 | 6.7 |
+| **Sage's Strongbox (v5)** | 7.5% | 45 (40 Legendary) | 3.4 (3.0 Legendary) | 13.3 |
 
 Under Option B, a cache arrives about once every 7 clears, or 13 for the Strongbox. It then pays
 about a fifth of what the 55% Common chest beside it pays. That makes it a small bonus, not a
@@ -167,7 +173,7 @@ The quantities stay in 5/10/20.
 
 | # | Decision | Draft assumption | Why it matters |
 | --- | --- | --- | --- |
-| D9 | **Per-open size now that the source is the vault:** keep B, or move toward C. | B (v4). | At 15% / 7.5%, B makes each cache a minor bonus beside the tier chests. |
+| D9 | ~~Per-open size now that the source is the vault~~ | **Settled: bigger** (dauntless, 2026-10-13). v5 lines above. | Per clear: Inro 12, Pouch 13.3, Strongbox 3.4 units (3.0 Legendary). The 55% Common tier chest beside them pays 66–77. |
 
 ### Live findings (reported, not fixed; no writes are authorized)
 
@@ -185,3 +191,15 @@ The quantities stay in 5/10/20.
 
 Once D3–D6 and D8 are settled, the next step is a hidden-create builder manifest for dauntless to push.
 No manifest exists yet.
+
+## 7. Release path
+
+1. **push/96** (read-only, on main) captures both Ghost Ship quests and `item.getAllNames`.
+2. **Icons** come from the art agent (`docs/handoffs/CRAFTING_CACHES_ART_HANDOFF.md`).
+3. **The release manifest generator** (not yet written) will:
+   - refuse unless the push/96 quest rows equal what push/90/94 shipped, apart from known live drift;
+   - refuse unless the three names are unused;
+   - create the three caches hidden;
+   - convert both quests, reproducing each whole record with three lines added to `w_B2`:
+     `@item:` refs at 15/15/7.5, quantity 1.
+4. **dauntless pushes it** through the builder. Publishing stays separate.
