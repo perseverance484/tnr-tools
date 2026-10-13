@@ -101,7 +101,7 @@ Expected opens to fund one craft: the bottleneck reagent's demand divided by its
 | Voltic Shard | WEAPON | RARE | Iron Ore, Voltleaf Plume |
 | Yuki's Frostbite | WEAPON | RARE | Frostbite Leaf, Frostscale, Iron Ore |
 
-## Sage's Reliquary (high_tier)
+## Sage's Strongbox (high_tier)
 
 Feeds the five Legendary consumables: Mona's Mermaid Song, Solider Pill, Enemy Pill, and Forbidden Jutsu Scroll: Nexus and Rebirth. Godstorm Eclipse Inheritance is excluded (event chain).
 

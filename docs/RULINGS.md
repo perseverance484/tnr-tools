@@ -1092,3 +1092,34 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
 
 **Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
+
+## RUL-2026-10-13-001 — Crafting caches: consumable-family scope, Bloodthorn out, names
+
+**Date:** 2026-10-13
+
+**Domain:** crafting caches (`docs/design/crafting_caches/`); item loot chests (item reference §4–5)
+
+**Status:** ACTIVE. Loot-table values, chassis, source and tradability stay proposals.
+
+**Context:** the read-only crafting recipe census was COMPLETE (`reports/crafting_recipe_census/craftable_recipes.json`, capture `81c76fef…`). The first cache draft covered every craft family and dauntless ruled it too broad.
+
+**Ruling (dauntless):**
+1. **Scope:** there are three caches, each feeding one consumable family:
+   - pills: Chakra Pill II, Stamina Pill II, Small Health Pill, Pill Pack;
+   - kunai: the COMMON THROWN consumables;
+   - high-tier consumables: Mona's Mermaid Song, Solider Pill, Enemy Pill, Forbidden Jutsu Scroll: Nexus and Rebirth.
+2. **Bloodthorn Kunai is removed from the kunai cache,** together with its Bloodcore Ore, Bloodflower and Mithril Ore lines.
+3. **Names:**
+   - **Medicine Inro** (pills);
+   - **Shinobi Tool Pouch** (kunai);
+   - **Sage's Strongbox** (high tier). It replaces the proposed "Sage's Reliquary", which clashed with the existing Skyglass Reliquary.
+
+   Uniqueness must still be confirmed against a fresh `item.getAllNames` before create.
+
+**Operative owner:** `docs/design/crafting_caches/caches_draft.json`, checked by `harness/crafting_caches/check_draft.py`.
+
+**Still open:**
+- drop chances and quantities, calibrated against existing chests (push/95 capture);
+- how players obtain each cache;
+- cache rarity and tradability;
+- icon accent colours.
