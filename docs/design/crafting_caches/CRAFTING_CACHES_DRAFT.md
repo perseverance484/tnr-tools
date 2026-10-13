@@ -233,3 +233,20 @@ No manifest exists yet.
    to `w_B2` (15% / 15% / 7.5%, quantity 1). It refuses if the live quests differ from push/96 in
    anything other than what has been explained.
 5. **dauntless runs both pushes** through the builder.
+
+### push/97 outcome (2026-10-13, `harvests/inbox/tnr_results_1791902993422.json`)
+
+The job is DONE. Its manifest hash is `c420d766`, matching Forge `check_manifest`. Postflight: 3 match,
+0 diff, 0 failed. Every asserted field verified, including `effects` and `hidden: true`.
+
+| Cache | Live id |
+| --- | --- |
+| Medicine Inro | `ixEKlJ0MmDrX7JoMNJVhi` |
+| Shinobi Tool Pouch | `6PguSHDJikU8y35qGcBWa` |
+| Sage's Strongbox | `h-d58UCSuHN8EZKbLjT5R` |
+
+The Forge idmap also resolves two earlier unknowns:
+- `FVYuxw5E5b2lPOn3cbFfF`, the 10% Mystery Chest line, is the **Skyglass Reliquary**.
+- `ZSUdrzzgorepP4CQrBfEk`, the new 3% `w_Co` line, is the **Skyglass Katana**.
+
+**Next:** push/98, a read-only fresh base for step B covering both live quests and the three caches.
