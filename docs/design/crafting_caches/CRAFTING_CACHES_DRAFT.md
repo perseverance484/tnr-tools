@@ -92,55 +92,62 @@ census shows those reagents are shared.
 The names are approved: **Medicine Inro**, **Shinobi Tool Pouch** and **Sage's Strongbox**
 (RUL-2026-10-13-001). The icon brief is in `docs/handoffs/CRAFTING_CACHES_ART_HANDOFF.md`.
 
-## 5a. Drop-rate calibration against existing chests (in progress)
+## 5a. Drop-rate calibration against existing chests
 
-**Method.** `harness/crafting_caches/compare_chests.py` puts every existing chest's live loot table
-beside the draft and computes the same metrics for both:
-- lines;
-- guaranteed (100%) lines;
-- expected lines hit per open;
-- expected item units per open, split by reward rarity;
-- chance range;
-- quantities used;
-- money and other rewards.
+**Data.** dauntless ran push/95 on 2026-10-13 (`harvests/inbox/tnr_results_1791863274945.json`).
+All 22 reads succeeded. 20 rows are loot chests; Bag of Prestige and Wooden Treasure Chest are
+not. The generated side-by-side table is `CHEST_COMPARISON.md`.
 
-The output is `CHEST_COMPARISON.md`.
+### What the live chests look like
 
-**Data.** Only Mystery Chest and Ornate Chest have loot tables in the repository today.
-`push/95_chest_loot_baseline_capture.json` is a read-only Forge capture: 22 `item.get` point
-reads covering every live visible chest in the seed index. That is the Gatherer's and Hunter's
-chests (Rusted → Legendary), Genin Supply Cache, the five War Caches, Bloodthorn Cache, Larry's
-Tackle Box, Mystery, Ornate and Wooden Treasure Chest, and Bag of Prestige. dauntless runs it;
-the comparison then fills in.
-
-**What the two known chests already show:**
-
-| Chest | Expected units / open | Notes |
+| Family | Expected units / open | Shape |
 | --- | --- | --- |
-| Ornate Chest | about 14 | About 7 of those are Legendary (Imperial Gold, Unobtanium), plus 100,000 ryo. |
-| Mystery Chest | about 0.75 | Pays out other chests only. It already contains the Gatherer's and Hunter's tiers, so new caches could be added to it (decision D7). |
-| Sage's Strongbox (draft) | about 5 | About 4.4 of those are Legendary. |
+| Rusted Gatherer's / Hunter's | 27–30 | COMMON materials, ×5, chances 40–90% |
+| Common, Rare and Epic Gatherer's / Hunter's | 120–140 | One rarity tier each. ×10 lines: a 100% floor plus two 50% bonus lines per material, so about 20 of each material per open. |
+| Legendary Gatherer's / Hunter's | 96–100 | All Legendary. About 10 of each Gatherer's material and 16 of each Hunter's core. |
+| The five War Caches and Bloodthorn Cache | 20–34 | Finished consumables in ×10/×20 (Venom Cask, Pill IIs, one kunai type), plus Bloodcore Ore and a 1% Lion Token. About 2–4 Legendary units. |
+| Ornate Chest | 14 + 100,000 ryo | About 7 Legendary units (Imperial Gold, Unobtanium). |
+| Larry's Tackle Box | 7 + 25,000 ryo | Contains one Rare Gatherer's and one Rare Hunter's Chest. |
+| Genin Supply Cache | 2 | Starter consumables and 3% KGK scrolls. |
 
-Ornate Chest's quantities (5 and 10) share factors with recipe quantities. Existing chests
-therefore do not follow engine law 22. The new caches do, by design.
+The new caches' reagents already come out of the tier chests in bulk:
+- Common Hunter's Chest pays 20 each of Glimmer Dust, Mosswolf Tuft and Moonlight Antlers.
+- Rare Gatherer's Chest pays 20 Galecrest Sage.
+- Rare Hunter's Chest pays 20 of each kunai reagent.
+- Legendary Hunter's Chest pays 16 Cracked Auditory Core and 16 Parchment Core.
+- Legendary Gatherer's Chest pays 10 each of Lunaris Bloom, Fujin's Breath, Heart of Kuraokami and Voidshade Petal.
 
-**Calibration plan.** This runs once push/95 is in.
-1. **Anchor each cache to its closest existing tier:**
-   - Medicine Inro and Shinobi Tool Pouch, which carry COMMON/RARE reagents, against the
-     Common/Rare Gatherer's and Hunter's Chests;
-   - Sage's Strongbox, which carries Legendary reagents, against the Legendary Gatherer's or
-     Hunter's Chest and Ornate Chest.
-2. **Match expected Legendary units per open** within the anchor's range. The draft is not
-   allowed to exceed the anchor without an explicit ruling.
-3. **Keep each target's "opens per craft"** in a band dauntless sets, for example about 1–2 opens
-   for a COMMON pill or kunai, and an explicit number for each Legendary consumable.
-4. **Re-derive the quantities so they still pass the factor check,** then regenerate both reports.
+So a cache is **narrower** than a tier chest: every unit in it is useful for one family. It is
+not a new source of anything.
 
-**Added decision:**
+### Anchor options (dauntless chooses)
 
-| # | Decision | Draft assumption | Why it matters |
-| --- | --- | --- | --- |
-| D7 | ~~Should Mystery Chest gain lines for the new caches?~~ | **Settled: no** (dauntless, 2026-10-13; RUL-2026-10-13-001). | The new caches are not added to Mystery Chest. |
+| Option | Inro / Pouch, units per open | Strongbox, Legendary units per open | Opens per craft | Reads as |
+| --- | --- | --- | --- | --- |
+| A (v2, conservative) | about 10–12 | about 4.4 | Pill II 1.3, kunai 2.7, Legendary 17–22 | Below the Rusted chests. A trickle. |
+| **B (v3, current draft)** | about 31–32 | about 14 | Pill II 0.4, Small Health Pill 0.8, Pill Pack 1.6, kunai 1.0, every Legendary consumable 7.1 | About a Rusted chest, but focused. Strongbox is about 2× Ornate's Legendary yield and about ⅐ of a Legendary tier chest. |
+| C (tier parity) | about 100+ | about 60+ | Below 0.5 for everything | Matches the tier chests per reagent. Only sensible if a cache is as hard to get as a tier chest. |
+
+Pick the option according to how the caches are obtained (decision D5). A cache handed out as a
+routine quest reward fits A or B. One gated like a tier chest fits C.
+
+### v3 lines (Option B)
+
+| Cache | Lines (quantity@chance) |
+| --- | --- |
+| Medicine Inro | Galecrest Sage 7@100 + 7@25; Glimmer Dust and Mosswolf Tuft 7@70; Moonlight Antlers and Sunroot 7@70 + 7@20 |
+| Shinobi Tool Pouch | Iron Ore 7@100 + 7@30; each of the 11 kunai reagents 7@30 |
+| Sage's Strongbox | Cracked Auditory Core 7@70 + 7@30; Tempest Thorn, Lunaris Bloom, Heart of Kuraokami, Fujin's Breath, Voidshade Petal and Parchment Core 7@20 |
+
+Every quantity is 7, and 7 shares no factor with any recipe quantity (engine law 22). The live
+chests use ×5, ×10 and ×20, so they don't follow that law. The new caches do.
+
+### Live findings (reported, not fixed; no writes are authorized)
+
+- **Bloodthorn Cache** (`OIw9FjNd-PXnSVzMtbclP`) has the line `{ids:["[PILL_PACK_ID]"], number:20, quantity:2}`.
+  It is an unfilled template placeholder and matches no item. The repair is dauntless's call.
+- **Mystery Chest** has a 10% line for `FVYuxw5E5b2lPOn3cbFfF`. That id is in neither the census
+  nor the seed index. It is probably a newer item; a point read would confirm it.
 
 ## 6. Iterating
 
