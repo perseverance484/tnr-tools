@@ -250,3 +250,31 @@ The Forge idmap also resolves two earlier unknowns:
 - `ZSUdrzzgorepP4CQrBfEk`, the new 3% `w_Co` line, is the **Skyglass Katana**.
 
 **Next:** push/98, a read-only fresh base for step B covering both live quests and the three caches.
+
+### push/98 outcome and push/99 (step B) build
+
+push/98 (`harvests/inbox/tnr_results_1791903144042.json`) completed (DONE) with every read OK.
+- **Both quests are unchanged since push/96.** They are still live.
+- **The three caches are still hidden.** Their loot tables are identical to push/97's. The server
+  only filled two defaults (`reward_sage_modes: []`, `reward_sage_mastery_experience: 0`).
+
+**push/99** (`push/99_crafting_caches_release.gen.py`; on the branch, not on main) contains:
+- **Phase 1:** three item edits, `hidden: false`.
+- **Phase 8:** both quest edits, in push/94's field shape. Values come from the push/98 live rows,
+  `hidden` stays **false**, and `w_B2` gains the three lines (15 / 15 / 7.5, quantity 1).
+
+The generator proves the content differs from live only at `w_B2.reward_items`.
+- **Omitted keys.** `content.rewardMode` ("all"), `content.rewardPickCount` (1) and every
+  objective's `allyAIs` ([]) are left out. Forge's pinned contract refuses them, but each holds the
+  server default at both source pins. push/94 sent content without them, and its read-back matched.
+  The generator refuses if any of them ever holds a non-default value.
+- **Decimal chance.** 7.5 is valid: `idsWithNumberField.number` is `z.number()`.
+- **Gates.** Forge `check_manifest`: 0 problems. `validate.py`: only the two classes RUL-2026-10-12-015
+  approved for push/94 on these same quests. Both are inherited from the live records:
+  - `approved_shared_menu_target`: 4 errors;
+  - `stale_snapshot_scene_character`: 2 warnings.
+- **SHA-256:** `7298671b956d29148d103e0779d46e6b0c1acfcbf91e99a6ff33f7e5fdf13965`.
+
+| # | Decision | Draft assumption | Why it matters |
+| --- | --- | --- | --- |
+| D13 | **A release-specific `validate.py` exception for push/99,** covering those two inherited classes. | Needed before push/99 lands on main. | push/99 publishes the caches and edits two live quests. |
