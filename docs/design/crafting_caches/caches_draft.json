@@ -1,5 +1,5 @@
 {
- "_note": "DRAFT for review. Every quantity, chance, rarity, chassis value and source is a PROPOSAL awaiting dauntless (docs/DOCTRINE.md: balance and rewards are proposals only). Not a manifest; nothing here is pushed. Line semantics follow skills/building-tnr-content/references/item.md section 4: each line rolls independently; a 100% line is a floor; extra sub-100% lines on the same id add a bonus range.",
+ "_note": "DRAFT v2 for review (consumable families: pills, kunai, high-tier). Every quantity, chance, rarity, chassis value and source is a PROPOSAL awaiting dauntless (docs/DOCTRINE.md: balance and rewards are proposals only). Not a manifest; nothing here is pushed. Line semantics follow skills/building-tnr-content/references/item.md section 4: each line rolls independently; a 100% line is a floor; extra sub-100% lines on the same id add a bonus range.",
  "census": {
   "file": "reports/crafting_recipe_census/craftable_recipes.json",
   "capture_sha256": "81c76fef97e94c83d5c97bc7ce647edaea14a483577feac5b3928d5f0bc3d629",
@@ -23,7 +23,7 @@
   "battleDescription": "Supply cache"
  },
  "exclusions": {
-  "policy": "No finished gear, no crafted-only or event intermediates, no event/quest-exclusive or trade-only unique materials, no hidden items.",
+  "policy": "Each cache carries only the ingredients of its target recipes. No finished goods, no crafted or event intermediates, no event/quest-exclusive or trade-only unique materials, no hidden items.",
   "ids": {
    "kIMZ4G6oLjytXXj0tBD7f": "Unobtanium",
    "tikHLti1CoDpFmJlGHK9A": "Heart of Kaeruun",
@@ -40,69 +40,61 @@
    "ADWB3p-CY5RFusXI_t70a": "Marrow Blueprint",
    "Vjiu90WZ01UFm-PYXzWAC": "Aegis Blueprint",
    "BHc06mkf9TNiel0W2klsv": "Unbroken Blueprint",
-   "0kg56hRM_kAAasFvtFvIe": "Inheritance Blueprint"
+   "0kg56hRM_kAAasFvtFvIe": "Inheritance Blueprint",
+   "UcY0iTcV-VaXZs4q9VTtX": "Godstorm Eclipse Inheritance"
   }
  },
  "caches": [
   {
-   "key": "reagent",
-   "name": "Reagent Cache",
-   "theme": "Botanical and beast reagents for consumables and crystals; Rainbow Cabochon is the crystal backbone.",
-   "lines": [
+   "key": "pills",
+   "name": "Field Supply Cache",
+   "name_status": "PROPOSED mapping; see decision D1",
+   "theme": "Feeds the four pills: Chakra Pill II, Stamina Pill II, Small Health Pill, and Pill Pack (assembled from the other three).",
+   "targets": [
     {
-     "id": "l1A2aWDyaI_QeSzaNr8ZO",
-     "name": "Rainbow Cabochon",
-     "quantity": 7,
-     "chance": 100,
-     "band": "core"
+     "id": "nThwqBAKNrl1_4UTL-D_m",
+     "name": "Chakra Pill II"
     },
     {
-     "id": "l1A2aWDyaI_QeSzaNr8ZO",
-     "name": "Rainbow Cabochon",
-     "quantity": 7,
-     "chance": 25,
-     "band": "bonus"
+     "id": "CbUq--UpWnawD_7Xk_GCV",
+     "name": "Stamina Pill II"
+    },
+    {
+     "id": "XmFscRje4vUzUorOI5plt",
+     "name": "Small Health Pill"
+    },
+    {
+     "id": "XX8TLmUNJtqeiGM1T99tD",
+     "name": "Pill Pack"
+    }
+   ],
+   "lines": [
+    {
+     "id": "I6BenC2f5ETLp6BgDF_4v",
+     "name": "Galecrest Sage",
+     "quantity": 3,
+     "chance": 100,
+     "band": "core"
     },
     {
      "id": "I6BenC2f5ETLp6BgDF_4v",
      "name": "Galecrest Sage",
      "quantity": 3,
-     "chance": 60,
+     "chance": 30,
+     "band": "bonus"
+    },
+    {
+     "id": "ekFpo7eJvvrk54V1fNxn7",
+     "name": "Glimmer Dust",
+     "quantity": 3,
+     "chance": 50,
      "band": "common"
     },
     {
-     "id": "BhGK-UWNk_QnORODB1qAb",
-     "name": "Frostbite Leaf",
+     "id": "_8z8xD2GPZK6WGrlCqV0B",
+     "name": "Mosswolf Tuft",
      "quantity": 3,
-     "chance": 40,
-     "band": "common"
-    },
-    {
-     "id": "_TwmwcFlwZmmbClEF8cjR",
-     "name": "Murkshade",
-     "quantity": 3,
-     "chance": 40,
-     "band": "common"
-    },
-    {
-     "id": "2EoxvVMtQjD73FKnHcMMX",
-     "name": "Nightshade Thorn",
-     "quantity": 3,
-     "chance": 40,
-     "band": "common"
-    },
-    {
-     "id": "2nXVUwlS4MPfauXrhsLYA",
-     "name": "Moonveil Moss",
-     "quantity": 3,
-     "chance": 40,
-     "band": "common"
-    },
-    {
-     "id": "W3WoY8u-b_b2m5XVTZ-hL",
-     "name": "Sunroot",
-     "quantity": 3,
-     "chance": 40,
+     "chance": 50,
      "band": "common"
     },
     {
@@ -113,17 +105,118 @@
      "band": "common"
     },
     {
-     "id": "_8z8xD2GPZK6WGrlCqV0B",
-     "name": "Mosswolf Tuft",
+     "id": "Qtwn25mKs09Hyq6TB7u9F",
+     "name": "Moonlight Antlers",
+     "quantity": 3,
+     "chance": 20,
+     "band": "bonus"
+    },
+    {
+     "id": "W3WoY8u-b_b2m5XVTZ-hL",
+     "name": "Sunroot",
      "quantity": 3,
      "chance": 40,
      "band": "common"
     },
     {
-     "id": "txnuMS-Ku3oKRlVb2FL1x",
-     "name": "Badger Shell",
+     "id": "W3WoY8u-b_b2m5XVTZ-hL",
+     "name": "Sunroot",
      "quantity": 3,
-     "chance": 40,
+     "chance": 20,
+     "band": "bonus"
+    }
+   ]
+  },
+  {
+   "key": "kunai",
+   "name": "Armorer's Cache",
+   "name_status": "PROPOSED mapping; see decision D1",
+   "theme": "Feeds the seven THROWN consumables: Katon, Wave, Ikazuchi, Stonefall, Zephyrfang and Bloodthorn Kunai, and Robber's Friend. Iron Ore is the shared base; each kunai has its own reagent pair.",
+   "targets": [
+    {
+     "id": "sXaqXBYXGHvK75D7Bpo1h",
+     "name": "Katon Kunai"
+    },
+    {
+     "id": "tFH-9RLeCUcVByQbqd2ic",
+     "name": "Wave Kunai"
+    },
+    {
+     "id": "GMF1JZ0MChUHc7AtnKABw",
+     "name": "Ikazuchi Kunai"
+    },
+    {
+     "id": "4ILs8HFIRQG56ygG-uGrW",
+     "name": "Stonefall Kunai"
+    },
+    {
+     "id": "RIK6tVrKHPEJHz8B_y9dK",
+     "name": "Zephyrfang Kunai"
+    },
+    {
+     "id": "_D8hWBKaDzUEwTnLOTvCP",
+     "name": "Robber's Friend"
+    },
+    {
+     "id": "yVNeLzxHSFkNpTPnlm7yQ",
+     "name": "Bloodthorn Kunai"
+    }
+   ],
+   "lines": [
+    {
+     "id": "Re5nm3c6JjZgC9IalLreH",
+     "name": "Iron Ore",
+     "quantity": 3,
+     "chance": 100,
+     "band": "core"
+    },
+    {
+     "id": "Re5nm3c6JjZgC9IalLreH",
+     "name": "Iron Ore",
+     "quantity": 3,
+     "chance": 30,
+     "band": "bonus"
+    },
+    {
+     "id": "GHe_D2wR5vpM2r7LSnApe",
+     "name": "Ashrend Wing",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
+    },
+    {
+     "id": "W3WoY8u-b_b2m5XVTZ-hL",
+     "name": "Sunroot",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
+    },
+    {
+     "id": "BhGK-UWNk_QnORODB1qAb",
+     "name": "Frostbite Leaf",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
+    },
+    {
+     "id": "kOOkLHJ0U07lpsWRLlF7g",
+     "name": "Frostscale",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
+    },
+    {
+     "id": "A5rgavBvGPrN16N4XoDY8",
+     "name": "Muskshade",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
+    },
+    {
+     "id": "Kd_R5KdEpe7TrN7ZRU94v",
+     "name": "Voltleaf Plume",
+     "quantity": 3,
+     "chance": 25,
      "band": "common"
     },
     {
@@ -131,282 +224,167 @@
      "name": "Brasel Spine",
      "quantity": 3,
      "chance": 25,
-     "band": "uncommon"
+     "band": "common"
     },
     {
-     "id": "kOOkLHJ0U07lpsWRLlF7g",
-     "name": "Frostscale",
+     "id": "2nXVUwlS4MPfauXrhsLYA",
+     "name": "Moonveil Moss",
      "quantity": 3,
      "chance": 25,
-     "band": "uncommon"
+     "band": "common"
+    },
+    {
+     "id": "ogNA9m48l6fLBaVIIoA6a",
+     "name": "Lurethorne",
+     "quantity": 3,
+     "chance": 25,
+     "band": "common"
     },
     {
      "id": "dYY7TAC0Fm5jGWrFBa0Pw",
      "name": "Whistlegrass",
      "quantity": 3,
      "chance": 25,
-     "band": "uncommon"
+     "band": "common"
     },
     {
-     "id": "ekFpo7eJvvrk54V1fNxn7",
-     "name": "Glimmer Dust",
+     "id": "2EoxvVMtQjD73FKnHcMMX",
+     "name": "Nightshade Thorn",
      "quantity": 3,
      "chance": 25,
-     "band": "uncommon"
+     "band": "common"
     },
     {
-     "id": "A5rgavBvGPrN16N4XoDY8",
-     "name": "Muskshade",
-     "quantity": 3,
-     "chance": 25,
-     "band": "uncommon"
-    },
-    {
-     "id": "UEZu0xWy40AuYQrBLTa22",
-     "name": "Owlcat's Fur",
-     "quantity": 3,
-     "chance": 25,
-     "band": "uncommon"
-    },
-    {
-     "id": "GHe_D2wR5vpM2r7LSnApe",
-     "name": "Ashrend Wing",
-     "quantity": 3,
-     "chance": 15,
-     "band": "uncommon"
-    },
-    {
-     "id": "ogNA9m48l6fLBaVIIoA6a",
-     "name": "Lurethorne",
-     "quantity": 3,
-     "chance": 15,
-     "band": "uncommon"
-    },
-    {
-     "id": "Kd_R5KdEpe7TrN7ZRU94v",
-     "name": "Voltleaf Plume",
-     "quantity": 3,
-     "chance": 15,
-     "band": "uncommon"
-    },
-    {
-     "id": "Sh0dEnqn8tsUw9TWpguRP",
-     "name": "Widow's Kiss",
-     "quantity": 3,
-     "chance": 10,
-     "band": "rare"
-    },
-    {
-     "id": "AKAgc5uBfs2uMrATdmnov",
-     "name": "Starfire Petal",
-     "quantity": 3,
-     "chance": 10,
-     "band": "rare"
-    },
-    {
-     "id": "1DWceGdXyfQe93Xunxu4q",
-     "name": "Zephyr Seed",
-     "quantity": 3,
-     "chance": 10,
-     "band": "rare"
-    },
-    {
-     "id": "LOm3u4TYAgPQQ16DPfT3_",
-     "name": "Solar Petal",
-     "quantity": 3,
-     "chance": 10,
-     "band": "rare"
-    },
-    {
-     "id": "l_BuHGeUWos1Pi0dX_Jgg",
-     "name": "Ofuda Moss",
+     "id": "WgXIvANXaffar1zCYcEKf",
+     "name": "Bloodcore Ore",
      "quantity": 3,
      "chance": 5,
      "band": "rare"
-    }
-   ]
-  },
-  {
-   "key": "armorer",
-   "name": "Armorer's Cache",
-   "theme": "Ores and hunted cores for weapons and armor; base ores reliable, Legendary metals and cores rare.",
-   "lines": [
-    {
-     "id": "Re5nm3c6JjZgC9IalLreH",
-     "name": "Iron Ore",
-     "quantity": 7,
-     "chance": 100,
-     "band": "core"
     },
     {
-     "id": "Re5nm3c6JjZgC9IalLreH",
-     "name": "Iron Ore",
-     "quantity": 7,
-     "chance": 50,
-     "band": "bonus"
-    },
-    {
-     "id": "Yo1xlMce3pXJLchha9hJw",
-     "name": "Silver Ore",
-     "quantity": 7,
-     "chance": 60,
-     "band": "common"
-    },
-    {
-     "id": "zGeruNBE_SLeOt42LGg5a",
-     "name": "Adamantine Ore",
+     "id": "vLDpr5763sdRfokpBFHMf",
+     "name": "Bloodflower",
      "quantity": 3,
-     "chance": 40,
-     "band": "common"
-    },
-    {
-     "id": "GpvRMgpvBMP3Sq7Bid1gO",
-     "name": "Diamond Ore",
-     "quantity": 3,
-     "chance": 30,
-     "band": "uncommon"
+     "chance": 5,
+     "band": "rare"
     },
     {
      "id": "NpOHJoLl2ZdfoGGl530C2",
      "name": "Mithril Ore",
      "quantity": 3,
-     "chance": 20,
-     "band": "uncommon"
-    },
-    {
-     "id": "FEaV0h7on2ZHy_ST5fSOs",
-     "name": "Imperial Gold",
-     "quantity": 3,
-     "chance": 15,
-     "band": "uncommon"
-    },
-    {
-     "id": "ThsuhY54LknDlcNKLTEQA",
-     "name": "Mask Core",
-     "quantity": 1,
-     "chance": 5,
-     "band": "rare"
-    },
-    {
-     "id": "2u-e6gb1E8NoKEVOmHeAs",
-     "name": "Thread Core",
-     "quantity": 1,
-     "chance": 5,
-     "band": "rare"
-    },
-    {
-     "id": "yWVnPn1NVG9fq_a2UrRXp",
-     "name": "Parchment Core",
-     "quantity": 1,
-     "chance": 5,
-     "band": "rare"
-    },
-    {
-     "id": "ZCMizjlADoeT1WuGcckeZ",
-     "name": "Shard of Willful Steel",
-     "quantity": 1,
      "chance": 5,
      "band": "rare"
     }
    ]
   },
   {
-   "key": "field_supply",
-   "name": "Field Supply Cache",
-   "theme": "Ready-to-use COMMON/RARE consumables (pills, kunai, repair kits) plus a little pill reagent.",
+   "key": "high_tier",
+   "name": "Reagent Cache",
+   "name_status": "PROPOSED mapping; see decision D1",
+   "theme": "Feeds the five Legendary consumables: Mona's Mermaid Song, Solider Pill, Enemy Pill, and Forbidden Jutsu Scroll: Nexus and Rebirth. Godstorm Eclipse Inheritance is excluded (event chain).",
+   "targets": [
+    {
+     "id": "ZHHFba1VW9JrDXdWrbtrv",
+     "name": "Mona's Mermaid Song"
+    },
+    {
+     "id": "iBKQ2z2sDPZ-7DIe8NX_N",
+     "name": "Solider Pill"
+    },
+    {
+     "id": "D9pEvpmoVE-uW8czNpZ2f",
+     "name": "Enemy Pill"
+    },
+    {
+     "id": "XZfVErGEkHpPiPtPa7_VC",
+     "name": "Forbidden Jutsu Scroll: Nexus"
+    },
+    {
+     "id": "X5q3Ww-yfCeJ3m6ZqPmmz",
+     "name": "Forbidden Jutsu Scroll: Rebirth"
+    }
+   ],
    "lines": [
     {
-     "id": "nThwqBAKNrl1_4UTL-D_m",
-     "name": "Chakra Pill II",
+     "id": "1PpHMQYQ2EAzL0vueQb9E",
+     "name": "Cracked Auditory Core",
      "quantity": 3,
-     "chance": 100,
+     "chance": 50,
      "band": "core"
     },
     {
-     "id": "CbUq--UpWnawD_7Xk_GCV",
-     "name": "Stamina Pill II",
-     "quantity": 3,
-     "chance": 100,
-     "band": "core"
-    },
-    {
-     "id": "XmFscRje4vUzUorOI5plt",
-     "name": "Small Health Pill",
-     "quantity": 3,
-     "chance": 50,
-     "band": "common"
-    },
-    {
-     "id": "1ovHq7jsGdut2fSNKs5q_",
-     "name": "Repair Kit",
-     "quantity": 3,
-     "chance": 50,
-     "band": "common"
-    },
-    {
-     "id": "I6BenC2f5ETLp6BgDF_4v",
-     "name": "Galecrest Sage",
-     "quantity": 3,
-     "chance": 25,
-     "band": "common"
-    },
-    {
-     "id": "sXaqXBYXGHvK75D7Bpo1h",
-     "name": "Katon Kunai",
+     "id": "wNnZ3uXHbYRzwRAqO-6EM",
+     "name": "Tempest Thorn",
      "quantity": 3,
      "chance": 20,
      "band": "uncommon"
     },
     {
-     "id": "tFH-9RLeCUcVByQbqd2ic",
-     "name": "Wave Kunai",
+     "id": "dRTqiMxkL5mYmIokiWyJP",
+     "name": "Lunaris Bloom",
      "quantity": 3,
      "chance": 20,
      "band": "uncommon"
     },
     {
-     "id": "GMF1JZ0MChUHc7AtnKABw",
-     "name": "Ikazuchi Kunai",
+     "id": "jfkGS8dgO5C0x-WBYcML9",
+     "name": "Heart of Kuraokami",
      "quantity": 3,
      "chance": 20,
      "band": "uncommon"
     },
     {
-     "id": "4ILs8HFIRQG56ygG-uGrW",
-     "name": "Stonefall Kunai",
+     "id": "GI7O1Ze9DnuOw0-WcazsN",
+     "name": "Fujin's Breath",
      "quantity": 3,
      "chance": 20,
      "band": "uncommon"
     },
     {
-     "id": "RIK6tVrKHPEJHz8B_y9dK",
-     "name": "Zephyrfang Kunai",
+     "id": "SqFyiWVXmokGIm7FO2114",
+     "name": "Voidshade Petal",
      "quantity": 3,
      "chance": 20,
      "band": "uncommon"
     },
     {
-     "id": "_D8hWBKaDzUEwTnLOTvCP",
-     "name": "Robber's Friend",
+     "id": "yWVnPn1NVG9fq_a2UrRXp",
+     "name": "Parchment Core",
      "quantity": 3,
-     "chance": 20,
+     "chance": 15,
      "band": "uncommon"
-    },
-    {
-     "id": "_5152PR1inHUEZUBjiaHJ",
-     "name": "Venom Cask",
-     "quantity": 3,
-     "chance": 20,
-     "band": "uncommon"
-    },
-    {
-     "id": "yVNeLzxHSFkNpTPnlm7yQ",
-     "name": "Bloodthorn Kunai",
-     "quantity": 3,
-     "chance": 10,
-     "band": "rare"
     }
    ]
   }
- ]
+ ],
+ "optional_targets": {
+  "high_tier": [
+   {
+    "id": "Tok8MLoFVcLmJ1ITw4mZ0",
+    "name": "Saki"
+   },
+   {
+    "id": "Ll0tEiDfhbAveShhmdKjl",
+    "name": "Bashōsen"
+   },
+   {
+    "id": "0BeRbkWe4fkBJcUfvTlbk",
+    "name": "Infernum"
+   },
+   {
+    "id": "R_xTf5Fy8EDcrJrRCwAcf",
+    "name": "Senbon Needles"
+   }
+  ],
+  "pills": [
+   {
+    "id": "FCqGTz3jEFEJoGCeagx1P",
+    "name": "Dr. Kim's Poison Potion"
+   },
+   {
+    "id": "_5152PR1inHUEZUBjiaHJ",
+    "name": "Venom Cask"
+   }
+  ]
+ }
 }
