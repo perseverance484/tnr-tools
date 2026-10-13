@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import check_draft as C  # noqa: E402
 
 DRAFT, CENSUS = C.load(C.DRAFT, C.CENSUS)
+CENSUS_NAMES = {k: v["name"] for k, v in C.index(CENSUS).items()}
 
 
 def line(d, name):
@@ -42,7 +43,7 @@ class Draft(unittest.TestCase):
         self.assertEqual(C.main(["--check"]), 0)
 
     def test_common_factor_with_recipe(self):
-        self.expect(lambda d: line(d, "Rainbow Cabochon").update(quantity=6), "shares a factor")
+        self.expect(lambda d: line(d, "Cracked Auditory Core").update(quantity=5), "shares a factor")
 
     def test_unknown_id(self):
         self.expect(lambda d: line(d, "Iron Ore").update(id="nope"), "not in census")
@@ -71,7 +72,32 @@ class Draft(unittest.TestCase):
 
     def test_bad_chance_and_quantity(self):
         self.expect(lambda d: line(d, "Iron Ore").update(chance=0), "chance 0")
-        self.expect(lambda d: line(d, "Silver Ore").update(quantity=100000), "stackSize")
+        self.expect(lambda d: line(d, "Glimmer Dust").update(quantity=100000), "stackSize")
+
+    def test_target_ingredient_not_supplied(self):
+        def m(d):
+            d["caches"][0]["lines"] = [ln for ln in d["caches"][0]["lines"] if ln["name"] != "Glimmer Dust"]
+        self.expect(m, "Glimmer Dust is not supplied")
+
+    def test_cache_carries_off_target_item(self):
+        def m(d):
+            ore = next(g for g in CENSUS["ingredients"] if g["name"] == "Silver Ore")
+            d["caches"][0]["lines"].append({"id": ore["id"], "name": "Silver Ore", "quantity": 3, "chance": 5, "band": "rare"})
+        self.expect(m, "carries Silver Ore, which no target uses")
+
+    def test_target_must_be_player_craftable(self):
+        def m(d):
+            h = next(i for i in CENSUS["items"] if not i["craftable_by_players_at_pin"])
+            d["caches"][2]["targets"].append({"id": h["id"], "name": h["name"]})
+        self.expect(m, "not a player-craftable census recipe")
+
+    def test_pill_pack_expands_to_reagents(self):
+        recipes = {i["id"]: i for i in CENSUS["items"] if i["craftable_by_players_at_pin"]}
+        pack = next(i for i in recipes.values() if i["name"] == "Pill Pack")
+        carried = {ln["id"] for ln in DRAFT["caches"][0]["lines"]}
+        need = {CENSUS_NAMES[k]: v for k, v in C.raw_demand(pack["id"], recipes, carried).items()}
+        self.assertEqual(need, {"Galecrest Sage": 9, "Glimmer Dust": 4, "Mosswolf Tuft": 4,
+                                "Moonlight Antlers": 10, "Sunroot": 10})
 
     def test_wrong_census(self):
         self.expect(lambda d: d["census"].update(capture_sha256="0" * 64), "different census")
