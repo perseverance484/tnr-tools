@@ -51,7 +51,7 @@ Use the engine's exact `AiRule.conditions` AND semantics. Each line represents o
 | 05 | FS + `distance_lower_than:6` | **B27 Scorching Rend** / opponent | Force pressure through Wound/Afterburn. |
 | 06 | FS + `distance_lower_than:6` | **B05 Devouring Grasp** / opponent | Damage and drain while protection remains. |
 | 07 | FS + `distance_lower_than:6` | **B26 Braced Strike** / opponent | Keeps attacking with a defensive rider. |
-| 08 | FS + `distance_lower_than:6` | **S07 Rapid Fire** / opponent | Prevents an idle offensive phase. |
+| 08 | FS + `distance_higher_than:7` | `move_towards_opponent` / opponent | **Final Stand prioritizes closing on ranged players**, not wasting its 5-round window re-stealthing or buffing. Normal S07 at rule 28 remains its reliable damage fallback. |
 | 09 | `round_lower_than:3` | **B18 Apex Hunger** / SELF | Opens prepared, with one cast max on its CD. |
 | 10 | `round_lower_than:5` + `distance_higher_than:7` | **B09 Veilstep** / SELF | One early anti-kite stealth window; never deliberately re-enter stealth near the final phase. |
 | 11 | Stealth + `distance_lower_than:6` | **Countermand** / opponent | **Guaranteed attempt at next-turn Clear** while stealthed, even if limited native buff detection misses the player's setup. |
@@ -77,7 +77,7 @@ Use the engine's exact `AiRule.conditions` AND semantics. Each line represents o
 | 31 | `distance_lower_than:2` | `use_combo_action(comboIds:['basicAttack'])` / opponent | Select ONLY the actual 20AP Basic Attack when close. **Never use a generic highest-damage fallback here:** it could select Extermination Order outside Final Stand. |
 | 32 | No conditions | `end_turn` | Always safe; never surrender due to exhausted rule matches. |
 
-**Preliminary sequence:** opening long range = Apex Hunger (40AP) → Veilstep (40AP) → move with remaining AP; while stealthed on the following turn = approach until within 5-range then **Countermand (40AP)**, which can work while hidden; ordinary close combat = Hexweave setup → Worldbreaker/other damage, Copy (60AP) → Countermand (40AP) against eligible buffs. Under Final Stand = The Last Directive → Extermination Order and other aggressive attacks; no deliberate control staggering.
+**Preliminary sequence:** opening long range = Apex Hunger (40AP) → Veilstep (40AP) → move with remaining AP; **once Final Stand is active, Arakane chases if out of attack range before considering another setup action**; while stealthed on the following turn = approach until within 5-range then **Countermand (40AP)**, which can work while hidden; ordinary close combat = Hexweave setup → Worldbreaker/other damage, Copy (60AP) → Countermand (40AP) against eligible buffs. Under Final Stand = The Last Directive → Extermination Order and other aggressive attacks; no deliberate control staggering.
 
 ## Mechanical limitations that must not be hidden
 
