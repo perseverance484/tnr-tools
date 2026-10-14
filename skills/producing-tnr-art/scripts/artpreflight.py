@@ -8,6 +8,7 @@ byte and filename faults were caught by eye or by a player. This closes that.
     python3 artpreflight.py <dir-or-file>... [--spec 25x_DATA_art_spec.json]
                                              [--manifest manifest.json]
                                              [--type SCENE_CHARACTER]
+                                             [--max-bytes 80000]
                                              [--json]
 
 Type is inferred from the filename when not given (see TYPE_HINTS). Every file must resolve
@@ -52,10 +53,28 @@ TYPE_HINTS = [
     # and the ambiguity guard would then refuse every correctly-named scene character.
     (re.compile(r"(scene[_-]?bg|background|_bg\b|_bg_|^bg_)", re.I), "SCENE_BACKGROUND"),
     (re.compile(r"(avatar|_ai_|sprite)", re.I), "AI_AVATAR"),
-    (re.compile(r"(icon|_item_|_jutsu_|^img_)", re.I), "ICON"),
+    (re.compile(r"jutsu", re.I), "JUTSU_ICON"),
+    (re.compile(r"(icon|_item_|^img_)", re.I), "ICON"),
     (re.compile(r"(pin|_static_|marker)", re.I), "STATIC"),
     (re.compile(r"(anim|_frames?\d|sheet)", re.I), "ANIMATION"),
 ]
+
+# Specialised target -> the general target its filenames also match.
+SPECIALISES = {"JUTSU_ICON": "ICON"}
+
+
+def alpha_policy(t: dict) -> str:
+    """
+    'required', 'optional' or 'flatten' for a spec target.
+
+    An explicit `alpha` block wins. Without one the policy follows the key, which is how
+    every target behaved before JUTSU_ICON: keyed art must carry alpha, unkeyed art should
+    be flattened.
+    """
+    explicit = (t.get("alpha") or {}).get("value")
+    if explicit:
+        return explicit
+    return "required" if t.get("chroma_key") is not None else "flatten"
 
 
 def infer_type(filename: str) -> str | None:
@@ -68,6 +87,11 @@ def infer_type(filename: str) -> str | None:
     """
     base = os.path.basename(filename)
     hits = {target for pattern, target in TYPE_HINTS if pattern.search(base)}
+    # `ice_shackles_jutsu_icon.webp` hits both: the specialised target is the answer, not
+    # an ambiguity. Only declared pairs collapse; anything else still refuses to guess.
+    for special, general in SPECIALISES.items():
+        if hits == {special, general}:
+            hits = {special}
     if len(hits) == 1:
         return hits.pop()
     return None
@@ -160,7 +184,14 @@ def soft_edge_share(img: Image.Image) -> float | None:
     return partial / visible
 
 
-def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set[str] | None) -> None:
+def check_file(
+    path: str,
+    target: str,
+    spec: dict,
+    report: Report,
+    img_refs: set[str] | None,
+    max_bytes: int | None = None,
+) -> None:
     t = spec["targets"].get(target)
     if t is None:
         report.error(path, "type", f"no spec target named {target}")
@@ -250,6 +281,11 @@ def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set
             "bytes",
             f"{size_bytes / 1024:.1f}KB exceeds the {ceiling / 1024:.0f}KB working ceiling",
         )
+    # A workstream cap is stricter than the spec and is stated as "under N bytes".
+    if max_bytes is not None and size_bytes >= max_bytes:
+        report.error(
+            path, "bytes", f"{size_bytes} bytes; the workstream cap requires under {max_bytes}"
+        )
 
     # ---- format
     want_fmt = t.get("format")
@@ -267,10 +303,18 @@ def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set
             )
 
     # ---- alpha
-    if t.get("chroma_key") is not None and img.mode != "RGBA":
+    policy = alpha_policy(t)
+    # An opaque export of an alpha-optional target was never keyed, so the key checks
+    # below have nothing to measure and would only flag designed colour as spill.
+    opaque_by_design = policy == "optional" and img.mode != "RGBA"
+    if policy == "required" and img.mode != "RGBA":
         report.error(path, "alpha", f"mode {img.mode}; a keyed asset must carry an alpha channel")
-    if t.get("chroma_key") is None and img.mode == "RGBA":
+    if policy == "flatten" and img.mode == "RGBA":
         report.warn(path, "alpha", "carries alpha; backgrounds should be flattened")
+    if opaque_by_design:
+        report.note(
+            path, "alpha", f"mode {img.mode}; opaque designed background accepted for {target}"
+        )
 
     # ---- soft edges
     share = soft_edge_share(img)
@@ -287,7 +331,7 @@ def check_file(path: str, target: str, spec: dict, report: Report, img_refs: set
             report.note(path, "soft_edges", f"{share:.1%}")
 
     # ---- residual key colour
-    if t.get("chroma_key"):
+    if t.get("chroma_key") and not opaque_by_design:
         residual = residual_key(img, spec["chroma"]["keys"])
         if residual:
             name, count = residual
@@ -450,6 +494,12 @@ def main() -> int:
     ap.add_argument("--spec", default=DEFAULT_SPEC)
     ap.add_argument("--manifest", default=None)
     ap.add_argument("--type", default=None, help="force a target for every file")
+    ap.add_argument(
+        "--max-bytes",
+        type=int,
+        default=None,
+        help="workstream cap stricter than the spec: every file must be UNDER this many bytes",
+    )
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
@@ -480,7 +530,7 @@ def main() -> int:
                 "cannot infer a target from the filename; pass --type or rename to the convention",
             )
             continue
-        check_file(path, target, spec, report, refs)
+        check_file(path, target, spec, report, refs, args.max_bytes)
 
     if args.json:
         print(json.dumps({"rows": report.rows, "errors": report.errors}, indent=1))

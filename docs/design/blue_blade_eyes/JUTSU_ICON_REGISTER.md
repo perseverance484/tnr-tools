@@ -12,7 +12,7 @@
 - **Material:** semi-translucent faceted ice, white-fracture highlights, selective pixel-detailed edges, luminous sapphire interiors, restrained frost haze.
 - **Composition:** one dominant technique-specific silhouette, one supporting effect, clear direction/negative space, high contrast at small sizes; the family shares **rendering and palette, not layouts**.
 - **Ninja/chakra:** express the actual technique (speed afterimages, precision cutting, binding, resonance, protection, aimed volleys); no obligatory circular seal or eye emblem.
-- **Background:** full-bleed designed icy/sapphire atmosphere for jutsu icons; **opaque presentation approved, transparency not required**. Do not fake transparency. Existing shared ICON preflight mismatch is unresolved (see protocol).
+- **Background:** full-bleed designed icy/sapphire atmosphere for jutsu icons; **opaque presentation approved, transparency not required**. Do not fake transparency. Preflight against the spec's JUTSU_ICON target, which accepts opaque RGB (see protocol §5).
 - **Avoid:** actors/portraits, mandatory symmetrical mandalas, portal-summoned weapons, duplicate subject motifs, overlapping main silhouettes, extra unrelated ornaments, text, frames/grids, franchise insignia.
 - **Production:** square lossless WebP, current spec's output dimensions, **<80,000 bytes** for BBE exports, visual comparison at 125/64/32px; exact @img filename and honest mechanical preflight verdict.
 - The accepted source art is **visually locked**. An assistant may not replace/reinterpret it during processing without renewed director authorization.
@@ -43,7 +43,7 @@ Never attach all eight icons, a montage, the failed Icebound snowflake/three-sla
 - **RAW VISUAL APPROVED:** user accepted the raw composition; preserve original bytes/hash.
 - **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the four approved jutsu image sources meet this gate.
 - **PROCESSING QC PASSED:** output, visual scale, size/format and source integrity actually checked.
-- **PREFLIGHT CLEAR:** the correct current repository tool exits with zero errors; **not claimed** for opaque BBE jutsu icons.
+- **PREFLIGHT CLEAR:** `artpreflight.py --type JUTSU_ICON --max-bytes 80000` exits with zero errors on the actual export; **not yet claimed** for any BBE jutsu icon, because no export has been run through it.
 - **UPLOAD / LIVE VERIFIED:** must be supported by the operator's upload and fresh live read-back; **none** claimed.
 
 Do not erase this history when replacing an output; use a new filename/version, document replacement approval and preserve predecessor evidence.
@@ -52,6 +52,6 @@ Do not erase this history when replacing an output; use a new filename/version, 
 
 1. Import/store all four accepted original sources with their hashes. Their present state is **conversation-origin images; repo binary intake pending**. The user can return original files to the studio as attachments. This documentation commit does not add binary art.
 2. Design the remaining four icons **one new generation session per target**, with independent silhouette briefs and minimal style references.
-3. Run BBE export under the user limit with 125/64/32px side-by-side QC; log results and formal preflight, never mask the opaque-background alpha issue.
-4. Request separate Fable Lane A implementation of **jutsu-specific opaque-background contract/preflight handling** before claiming mechanically clean upload packages.
+3. Run BBE export under the user limit with 125/64/32px side-by-side QC; log results and formal JUTSU_ICON preflight with `--max-bytes 80000`.
+4. Jutsu-specific opaque-background handling is the spec's JUTSU_ICON target (Lane A). A mechanically clean package still needs the export, preflight record and @img binding for that file.
 5. Keep any actual game upload, content changes, and publication under dauntless's separate authority.

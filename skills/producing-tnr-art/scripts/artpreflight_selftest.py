@@ -42,6 +42,16 @@ def figure(w: int, h: int, alpha: bool = True, soft: bool = False, key_spill: bo
     return img
 
 
+def designed_icon(w: int, h: int):
+    """An opaque full-bleed jutsu icon, with a near-lime patch a key check would misread."""
+    img = Image.new("RGB", (w, h), (18, 40, 92))
+    d = ImageDraw.Draw(img)
+    d.polygon([(w * 0.5, h * 0.1), (w * 0.9, h * 0.5), (w * 0.5, h * 0.9), (w * 0.1, h * 0.5)],
+              fill=(196, 232, 250))
+    d.rectangle([0, 0, w // 8, h // 8], fill=(10, 245, 20))
+    return img
+
+
 def save(img, path, lossless=True):
     ext = os.path.splitext(path)[1].lower()
     if ext == ".webp":
@@ -71,6 +81,11 @@ case("icon 1:1", "ICON", "stormglass_icon.webp",
      lambda p: save(figure(256, 256), p), [])
 case("pin 1:1", "STATIC", "shrine_pin.webp",
      lambda p: save(figure(256, 256), p), [])
+# RUL-2026-10-14-001: jutsu icons may carry a designed opaque background.
+case("jutsu icon, opaque designed background", "JUTSU_ICON", "ice_shackles_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 256), p), [])
+case("jutsu icon, keyed transparent", "JUTSU_ICON", "glacial_volley_jutsu.webp",
+     lambda p: save(figure(256, 256), p), [])
 
 # ---------------------------------------------------------------- wrong exports
 case("scene character re-exported to 4:3", "SCENE_CHARACTER", "bad_wide_scene_char.webp",
@@ -97,6 +112,18 @@ case("icon at 4:3", "ICON", "bad_wide_icon.webp",
      lambda p: save(figure(256, 192), p), ["aspect"])
 case("pin under minimum", "STATIC", "bad_tiny_pin.webp",
      lambda p: save(figure(64, 64), p), ["min_width"])
+case("item icon left opaque", "ICON", "bad_flat_item_icon.webp",
+     lambda p: save(figure(256, 256, alpha=False), p), ["alpha"])
+case("jutsu icon, keyed with residual spill", "JUTSU_ICON", "bad_spill_jutsu_icon.webp",
+     lambda p: save(figure(256, 256, key_spill=True), p), ["spill"])
+case("jutsu icon, keyed with chewed soft edges", "JUTSU_ICON", "bad_soft_jutsu_icon.webp",
+     lambda p: save(figure(256, 256, soft=True), p), ["soft_edges"])
+case("jutsu icon, opaque at 4:3", "JUTSU_ICON", "bad_wide_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 192), p), ["aspect"])
+case("jutsu icon, opaque saved lossy", "JUTSU_ICON", "bad_lossy_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 256), p, lossless=False), ["format_mode"])
+case("jutsu icon, opaque under minimum", "JUTSU_ICON", "bad_tiny_jutsu_icon.webp",
+     lambda p: save(designed_icon(128, 128), p), ["min_width"])
 case("unclassifiable filename", "SCENE_CHARACTER", "untitled_final_v2.webp",
      lambda p: save(figure(682, 1023), p), [])
 
@@ -132,6 +159,20 @@ def run() -> int:
                 ok = inferred == target
                 label = f"{inferred}"
             print(f"  {'pass' if ok else 'FAIL'}  {filename:34} -> {label}")
+            passed += ok
+            failed += not ok
+
+        # a workstream cap is "under N": a file of exactly N bytes fails, N - 1 headroom passes
+        print("\n  workstream byte cap:")
+        path = save(designed_icon(256, 256), os.path.join(tmp, "cap_jutsu_icon.webp"))
+        size = os.path.getsize(path)
+        for cap, want in ((size, {"bytes"}), (size + 1, set())):
+            report = ap.Report()
+            ap.check_file(path, "JUTSU_ICON", spec, report, None, max_bytes=cap)
+            got = {r["check"] for r in report.rows if r["level"] == "error"}
+            ok = got == want
+            print(f"  {'pass' if ok else 'FAIL'}  {size} bytes against --max-bytes {cap:<10} "
+                  f"-> {sorted(got) or 'clean'}")
             passed += ok
             failed += not ok
     finally:
