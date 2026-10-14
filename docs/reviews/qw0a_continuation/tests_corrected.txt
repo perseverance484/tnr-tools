@@ -29,10 +29,16 @@ test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion
 test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction) ... ok
 test_negated_predicate (__main__.OmissionInference.test_negated_predicate) ... ok
 test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable) ... ok
+test_pass_through_to_inner_default (__main__.OmissionInference.test_pass_through_to_inner_default) ... ok
+test_pass_through_to_inner_prefault (__main__.OmissionInference.test_pass_through_to_inner_prefault) ... ok
 test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible) ... ok
 test_positive_loose_null_pinned_form (__main__.OmissionInference.test_positive_loose_null_pinned_form) ... ok
 test_positive_pass_through_pinned_form (__main__.OmissionInference.test_positive_pass_through_pinned_form) ... ok
 test_positive_strict_undefined (__main__.OmissionInference.test_positive_strict_undefined) ... ok
+test_rejected_inner_default (__main__.OmissionInference.test_rejected_inner_default) ... ok
+test_rejected_inner_optional (__main__.OmissionInference.test_rejected_inner_optional) ... ok
+test_rejected_inner_prefault (__main__.OmissionInference.test_rejected_inner_prefault) ... ok
+test_unclassified_callback_is_conservatively_required (__main__.OmissionInference.test_unclassified_callback_is_conservatively_required) ... ok
 test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... ok
 test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... ok
 test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... ok
@@ -43,7 +49,7 @@ test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... ok
 test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... ok
 
 ----------------------------------------------------------------------
-Ran 43 tests in 1.147s
+Ran 49 tests in 1.625s
 
 OK
 exit=0

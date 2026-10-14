@@ -208,6 +208,43 @@ class OmissionInference(unittest.TestCase):
     def test_pinned_capped_helper_still_omissible(self):
         self.assertNotIn("requiredStrength", self.required())
 
+    # re-review: undefined -> null reaches a non-nullable inner schema, so an
+    # inner optional/default never applies; omission is rejected, not unknown
+    def assert_rejected(self, name, inner_default=None):
+        f = item()[name]
+        self.assertFalse(f["optional"], name)
+        self.assertNotIn("default", f)
+        self.assertNotIn("_omission", f)
+        self.assertEqual(f.get("_inner_default"), inner_default)
+        self.assertIn(name, self.required())
+        self.assertNotIn(name, self.gaps(), "a proven rejection is classified, not a gap")
+
+    def test_rejected_inner_optional(self):
+        self.assert_rejected("rejectedOptionalInput")
+
+    def test_rejected_inner_default(self):
+        self.assert_rejected("rejectedDefaultInput", inner_default=7)
+
+    def test_rejected_inner_prefault(self):
+        self.assert_rejected("rejectedPrefaultInput", inner_default=7)
+
+    def assert_default_fallback(self, name):
+        f = item()[name]
+        self.assertEqual(f["default"], 7)
+        self.assertIn("inner schema's default", f["_omission"])
+        self.assertNotIn(name, self.required())
+
+    def test_pass_through_to_inner_default(self):
+        self.assert_default_fallback("acceptedDefaultInput")
+
+    def test_pass_through_to_inner_prefault(self):
+        self.assert_default_fallback("acceptedPrefaultInput")
+
+    def test_unclassified_callback_is_conservatively_required(self):
+        # the inner .optional() must not leak through an unrecognised callback
+        self.assert_not_omissible("negatedOptionalInput")
+        self.assertEqual(self.gaps()["negatedOptionalInput"]["code"], "G_PREPROCESS_UNCLASSIFIED")
+
 
 class NestedFacts(unittest.TestCase):
     """QW0A-A-R2: a nested schema's bounds and coercion are not the field's."""

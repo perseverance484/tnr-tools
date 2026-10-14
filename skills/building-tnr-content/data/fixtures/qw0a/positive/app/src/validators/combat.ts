@@ -93,6 +93,16 @@ export const ItemValidatorRawSchema = z
     validInput: z.preprocess((v) => (v === undefined ? null : v), z.number().nullable()),
     looseInput: z.preprocess((value) => (value === "" || value == null ? null : value), z.number().nullable()),
     passThroughInput: z.preprocess((v) => (v === "" ? null : v), z.enum(StatTypes).nullish()),
+    // QW0A-A-R1 re-review: undefined -> null reaches a non-nullable inner schema,
+    // so the inner optional/default never applies and omission is rejected
+    rejectedOptionalInput: z.preprocess((v) => (v === undefined ? null : v), z.number().optional()),
+    rejectedDefaultInput: z.preprocess((v) => (v === undefined ? null : v), z.number().default(7)),
+    rejectedPrefaultInput: z.preprocess((v) => (v === undefined ? null : v), z.number().prefault(7)),
+    // ...while a pass-through callback lets undefined reach the inner default
+    acceptedDefaultInput: z.preprocess((v) => (v === "" ? null : v), z.number().default(7)),
+    acceptedPrefaultInput: z.preprocess((v) => (v === "" ? null : v), z.number().prefault(7)),
+    // unclassified callback over an inner optional: conservatively required
+    negatedOptionalInput: z.preprocess((v) => (v !== undefined ? null : v), z.number().optional()),
     // QW0A-A-R2 probes: bounds/coercion of a nested schema are not the field's
     nestedBoundInput: z.array(z.number().max(MAX_CAP)).optional(),
     outerBoundInput: z.array(z.number()).max(MAX_CAP),
