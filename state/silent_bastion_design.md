@@ -30,7 +30,7 @@ The Bastion reveals that the Ghost Ship is receiving **newly generated orders** 
 
 | Division | Encounters | Commander | Status / encounter identity |
 | --- | --- | --- | --- |
-| Outer Garrison | 1–5 | **Garrison Marshal** | Accepted introductory boss: defense, reflect, counterattacks, limited sustained control, no heal. |
+| Outer Garrison | 1–5 | **The Gatewarden** | **Director-approved rename (2026-10-14)** of Garrison Marshal. Introductory defensive counter-boss: absorb, reflection, anti-shield Pierce, heavy counterattack, no healing or hard control. |
 | Experimental Armory | 6–10 | **Master of Arms** | **Name and enhanced ten-jutsu combat identity approved**: dangerous AP/control combos, vulnerability setup, overdrive. |
 | Skyglass Research Division | 11–15 | **Replicant Zero** | **Name, origin lore and eleven-jutsu reconstruction encounter approved**; see below. |
 | High Command | 16–20 | **The Grand Marshal** (*The Second*) | Name and role approved; full combat kit remains proposed. |
@@ -135,3 +135,7 @@ The name **Supreme Commander Arakane**, his established humanity and Skyglass co
 **Source-verified:** The pinned game `app/drizzle/constants.ts` defines `AI_PROFILE_MAX_RULES=20`, enforced by `app/src/server/api/routers/ai.ts`. The earlier 32-rule Arakane design cannot be saved and is superseded by the exact **20-rule candidate** in `state/silent_bastion_arakane_ai_profile.md`. `includeDefaultRules:false` and a guaranteed unconditional end-turn fallback are required.
 
 **New proposed equipped fallback:** In addition to the approved, nonconsumable **Countermand** item, equip **Solar Bow** (40AP/r5/CD3) and **Crossbow** (40AP/r3/CD0), in distinct hand slots. Their stats came from pinned **historical SQL seed**, not a fresh current record, and need readback/fixture validation. During Veilstep, Arakane can use equipped items and weapons even though all jutsu/basic attacks are disabled. Crossbow's zero cooldown provides repeated close-range actions, and end-turn protects against forfeiting when no legal attack remains. **Chakra Pill II** is optional only and not needed for the dependable fallback; current pill effects/cooldowns are unverified. The director requested the fallback but has not yet accepted these exact two equipment selections.
+
+### 2026-10-14 — Gatewarden naming ruling
+
+The Outer Garrison boss's final display name is **The Gatewarden**. This **replaces Garrison Marshal everywhere in prospective content and presentation**. His approved six-move combat identity and introductory difficulty are otherwise unchanged. Previously generated posters still showing Garrison Marshal are outdated presentations and must be corrected if reused; this naming decision does not authorize image editing or any live-game change.
