@@ -1,0 +1,1112 @@
+{
+  "schema": "tnr.qw0a.extractor_correction_independent_review",
+  "date_utc": "2026-10-14",
+  "verdict": "CHANGES_REQUESTED",
+  "reviewer": "ChatGPT, Release Auditor with Engineering Auditor lens",
+  "refs": {
+    "target": "091dc95a6a8533f53b26bf46af15c6f6cd77f448",
+    "direct_parent": "1bbc833f093c0b747e9abef741b21067ae1ed3df",
+    "base_merge_base": "1da18301e8e4660cedf3daa3e80893a2ac918f2b",
+    "fresh_main": "f083ddecfd400431ae2160d814546dab30f54f15",
+    "previous_review": "3f64e065e5f79ab0ce1daad42d9fcbadc2e75d0a",
+    "brief": "2d2390e769587bc307b83971923ba4700a63e80d",
+    "planning": "c34f7de572337b0d2cfe397b9331502aa6548e27"
+  },
+  "disposition": {
+    "QW0A-A-R1": "PARTIALLY_FIXED_OPEN",
+    "QW0A-A-R2": "CLOSED",
+    "QW0A-A-R3": "CLOSED"
+  },
+  "remaining_finding": {
+    "id": "QW0A-A-R1",
+    "severity": "medium",
+    "summary": "The recognized rejected-omission result is ignored by extract_entity; inner optional/default facts still exclude required inputs. Pass-through defaults also receive a false rejection classification.",
+    "locations": [
+      "schema_extract.py:1109-1118",
+      "schema_extract.py:1256-1268",
+      "schema_extract.py:1537-1538"
+    ],
+    "pins_affected_note": "Synthetic bounded-form probes; no new pinned-payload discrepancy established.",
+    "probes": {
+      "ctors": {
+        "exit": 0,
+        "stderr": ""
+      },
+      "entities": {
+        "exit": 0,
+        "stderr": ""
+      },
+      "checks": {
+        "exit": 0,
+        "stderr": ""
+      },
+      "gaps": {
+        "exit": 0,
+        "stderr": ""
+      },
+      "probes": {
+        "rejectedOptionalInput": {
+          "expression": "z.preprocess((v) => (v === undefined ? null : v), z.number().optional())",
+          "classified": [
+            false,
+            "preprocess maps undefined to null but the inner schema is not nullable"
+          ],
+          "emitted": {
+            "raw": "z.number().optional()",
+            "type": "number",
+            "coerce": false,
+            "optional": true,
+            "nullable": false,
+            "_preprocess": true
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "rejectedDefaultInput": {
+          "expression": "z.preprocess((v) => (v === undefined ? null : v), z.number().default(7))",
+          "classified": [
+            false,
+            "preprocess maps undefined to null but the inner schema is not nullable"
+          ],
+          "emitted": {
+            "raw": "z.number().default(7)",
+            "type": "number",
+            "coerce": false,
+            "optional": false,
+            "nullable": false,
+            "default": 7,
+            "_preprocess": true
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "rejectedPrefaultInput": {
+          "expression": "z.preprocess((v) => (v === undefined ? null : v), z.number().prefault(7))",
+          "classified": [
+            false,
+            "preprocess maps undefined to null but the inner schema is not nullable"
+          ],
+          "emitted": {
+            "raw": "z.number().prefault(7)",
+            "type": "number",
+            "coerce": false,
+            "optional": false,
+            "nullable": false,
+            "default": 7,
+            "_preprocess": true
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "acceptedOptionalInput": {
+          "expression": "z.preprocess((v) => (v === \"\" ? null : v), z.number().optional())",
+          "classified": [
+            true,
+            "preprocess passes undefined through and the inner schema is optional/nullish"
+          ],
+          "emitted": {
+            "raw": "z.number().optional()",
+            "type": "number",
+            "coerce": false,
+            "optional": true,
+            "nullable": false,
+            "_preprocess": true,
+            "_omission": "preprocess passes undefined through and the inner schema is optional/nullish"
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "acceptedNullableInput": {
+          "expression": "z.preprocess((v) => (v === undefined ? null : v), z.number().nullable())",
+          "classified": [
+            true,
+            "preprocess maps undefined to null and the inner schema is nullable"
+          ],
+          "emitted": {
+            "raw": "z.number().nullable()",
+            "type": "number",
+            "coerce": false,
+            "optional": true,
+            "nullable": true,
+            "_preprocess": true,
+            "_omission": "preprocess maps undefined to null and the inner schema is nullable"
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "acceptedDefaultInput": {
+          "expression": "z.preprocess((v) => (v === \"\" ? null : v), z.number().default(7))",
+          "classified": [
+            false,
+            "preprocess passes undefined through and the inner schema is not optional"
+          ],
+          "emitted": {
+            "raw": "z.number().default(7)",
+            "type": "number",
+            "coerce": false,
+            "optional": false,
+            "nullable": false,
+            "default": 7,
+            "_preprocess": true
+          },
+          "required_on_create": false,
+          "gaps": []
+        },
+        "acceptedPrefaultInput": {
+          "expression": "z.preprocess((v) => (v === \"\" ? null : v), z.number().prefault(7))",
+          "classified": [
+            false,
+            "preprocess passes undefined through and the inner schema is not optional"
+          ],
+          "emitted": {
+            "raw": "z.number().prefault(7)",
+            "type": "number",
+            "coerce": false,
+            "optional": false,
+            "nullable": false,
+            "default": 7,
+            "_preprocess": true
+          },
+          "required_on_create": false,
+          "gaps": []
+        }
+      }
+    }
+  },
+  "tests": [
+    {
+      "label": "corrected",
+      "exit": 0,
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 43 tests in 1.212s",
+        "",
+        "OK"
+      ]
+    },
+    {
+      "label": "previous",
+      "exit": 1,
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 43 tests in 1.007s",
+        "",
+        "FAILED (failures=6)"
+      ]
+    },
+    {
+      "label": "baseline",
+      "exit": 1,
+      "tail": [
+        "----------------------------------------------------------------------",
+        "Ran 43 tests in 0.606s",
+        "",
+        "FAILED (failures=20, errors=20)"
+      ]
+    }
+  ],
+  "inventory_producer": {
+    "exit": 0,
+    "counts": {
+      "A": 1923,
+      "B": 2417,
+      "C": 1903
+    },
+    "unclassified": 0,
+    "provenance_problems": 0,
+    "verification": {
+      "comparisons_equal": true,
+      "source_file_sha256_equal": true,
+      "source_read_coverage_equal": true,
+      "gaps_equal": true,
+      "runs": [
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "mode": "--ctors",
+          "exit": 0,
+          "sha256_structural": "69926b4bc29568b5ff387d137fe37e8e92d914f4a20aff0e437c776f77297454",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 10
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "mode": "--entities",
+          "exit": 0,
+          "sha256_structural": "559db15dfb52355bc3cac140d0b83f95037d0ce065fdea68096c7384d0a049be",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 5
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "mode": "--constants",
+          "exit": 0,
+          "sha256_structural": "011e7cdcb83d5c5fae7add77a9c67d5ce68b8d3761ef3106872833bf0b860ca1",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 11
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "mode": "--checks",
+          "exit": 0,
+          "sha256_structural": "464fa47e135c0e0e6383085f57ffe3c0d4de21c44fff259d66b2a64e6fb1e2b5",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 10
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "mode": "--ctors",
+          "exit": 0,
+          "sha256_structural": "831211ba1f5862f4b7cb7fe4a9f4a541fae004a558403a60cf9f55cf58f4843f",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 12
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "mode": "--entities",
+          "exit": 0,
+          "sha256_structural": "262586aa87dd38b60ab7831bc40ad73a4ab7995c7796790e77896e3399f53570",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 5
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "mode": "--constants",
+          "exit": 0,
+          "sha256_structural": "33382fb866f2cfeb0c8434253b8a409e8aed63e222bf692435d5509360c9d2c1",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 13
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "mode": "--checks",
+          "exit": 0,
+          "sha256_structural": "217f29c3409630171cf43b181e852732e2288e8af38bf7bf67873417b4ffdf1f",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 12
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "mode": "--ctors",
+          "exit": 0,
+          "sha256_structural": "bd84d9d28e5a3715b823bf6c2c0a9c520cbe33c052ede34427db3c9dd6fe2632",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 10
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "mode": "--entities",
+          "exit": 0,
+          "sha256_structural": "36bfd06a5ce52cbfedae08a1696109b0b64b9f0f348345b3e439dd96ca325d36",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 5
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "mode": "--constants",
+          "exit": 0,
+          "sha256_structural": "bbe688d76daa9e9c57bc90256034369850eb8b066c232ad107f46b6a88fa40b5",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 11
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "mode": "--checks",
+          "exit": 0,
+          "sha256_structural": "69752eb811f1a9f0a224b8119bb4781da65fc12370e87ab46a186754c6a1165b",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 10
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "mode": "--ctors",
+          "exit": 0,
+          "sha256_structural": "8e9b23884b35edfb18d080263bf9493a68416344cb67cec77b0801391404b106",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 14
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "mode": "--entities",
+          "exit": 0,
+          "sha256_structural": "75f3e5e28ac8338e9f85e1dafe6a99f13d69e773b6ac1f73730707b12aa4e607",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 8
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "mode": "--constants",
+          "exit": 0,
+          "sha256_structural": "4be17246a66de0e74ab64d2db3b3b3cbf80da412d964d3f034f820ca72667c13",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 15
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "mode": "--checks",
+          "exit": 0,
+          "sha256_structural": "ce33c5dafef2723fd750729676695087df1c2b6f105c2fe7a55d747423e905c0",
+          "matches_author_structural": true,
+          "matches_author_read_set": true,
+          "source_read_count": 14
+        }
+      ],
+      "repeats_identical": true,
+      "gates": [
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "check": "invariants",
+          "exit": 0,
+          "result": "invariants: 5 union(s), 128 variant(s) audited; 0 error(s)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "check": "diff stamped 45c_DATA_constructors",
+          "exit": 0,
+          "result": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "check": "diff stamped 45d_DATA_entity_schemas",
+          "exit": 0,
+          "result": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "baseline",
+          "check": "diff stamped 45e_DATA_constants",
+          "exit": 0,
+          "result": "no breaking changes: 0 addition(s), safe to adopt (exit 0)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "check": "invariants",
+          "exit": 0,
+          "result": "invariants: 5 union(s), 128 variant(s) audited; 0 error(s)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "check": "diff stamped 45c_DATA_constructors",
+          "exit": 1,
+          "result": "BREAKING: 20 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "check": "diff stamped 45d_DATA_entity_schemas",
+          "exit": 1,
+          "result": "BREAKING: 25 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "extractor": "corrected",
+          "check": "diff stamped 45e_DATA_constants",
+          "exit": 1,
+          "result": "BREAKING: 5 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "check": "invariants",
+          "exit": 0,
+          "result": "invariants: 5 union(s), 139 variant(s) audited; 0 error(s)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "check": "diff stamped 45c_DATA_constructors",
+          "exit": 1,
+          "result": "BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "check": "diff stamped 45d_DATA_entity_schemas",
+          "exit": 1,
+          "result": "BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "baseline",
+          "check": "diff stamped 45e_DATA_constants",
+          "exit": 1,
+          "result": "BREAKING: 45 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "check": "invariants",
+          "exit": 0,
+          "result": "invariants: 5 union(s), 139 variant(s) audited; 0 error(s)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "check": "diff stamped 45c_DATA_constructors",
+          "exit": 1,
+          "result": "BREAKING: 76 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "check": "diff stamped 45d_DATA_entity_schemas",
+          "exit": 1,
+          "result": "BREAKING: 38 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        },
+        {
+          "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "extractor": "corrected",
+          "check": "diff stamped 45e_DATA_constants",
+          "exit": 1,
+          "result": "BREAKING: 46 change(s) - DO NOT ADOPT (exit 1)",
+          "matches_exit_and_output_lines": true
+        }
+      ],
+      "pinned_crafting_requirements": {
+        "corrected_585534d_45d_DATA_entity_schemas.json": {
+          "raw": "z.array( z.object({ ids: z.array(z.string()), number: z.coerce.number().int().min(1).max(MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY), }), ).prefault([]).optional().nullish()",
+          "type": "array",
+          "coerce": false,
+          "optional": true,
+          "nullable": true,
+          "default": []
+        },
+        "corrected_bdec288_45d_DATA_entity_schemas.json": {
+          "raw": "z.array( z.object({ ids: z.array(z.string()), number: z.coerce.number().int().min(1).max(MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY), }), ).prefault([]).optional().nullish()",
+          "type": "array",
+          "coerce": false,
+          "optional": true,
+          "nullable": true,
+          "default": []
+        }
+      },
+      "full_hash_note": "Full hashes vary with provenance path/date; structural hashes exclude only _provenance. Gate output order is non-deterministic; line multisets compared."
+    }
+  },
+  "provenance_review": {
+    "pins": {
+      "bdec2883748f029a0ecb93505adfdcbae6851fe9": {
+        "files": 13,
+        "hash_mismatches": []
+      },
+      "585534d7eb21d6f0dd678d5c3eb92662f611d39b": {
+        "files": 15,
+        "hash_mismatches": []
+      }
+    },
+    "comparisons": {
+      "A": {
+        "rows": 1923,
+        "anchor_kinds": {
+          "source": 1834,
+          "nested_occurrence": 1,
+          "derived": 88
+        },
+        "derived_without_source_reachability": [],
+        "crafting_corrections": [
+          {
+            "id": "A1626",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "coerce",
+            "before": true,
+            "after": false,
+            "classes": [
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1493,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "A1627",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "int",
+            "before": true,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1493,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "A1628",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "max",
+            "before": 9999,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1493,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "A1629",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "max_ref",
+            "before": "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY",
+            "after": "<absent>",
+            "classes": [
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1493,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "A1630",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "min",
+            "before": 1,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1493,
+              "kind": "source"
+            }
+          }
+        ]
+      },
+      "B": {
+        "rows": 2417,
+        "anchor_kinds": {
+          "source": 2332,
+          "nested_occurrence": 1,
+          "derived": 84
+        },
+        "derived_without_source_reachability": [],
+        "crafting_corrections": [
+          {
+            "id": "B2064",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "coerce",
+            "before": true,
+            "after": false,
+            "classes": [
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1755,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "B2065",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "int",
+            "before": true,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1755,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "B2066",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "max",
+            "before": 9999,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1755,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "B2067",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "max_ref",
+            "before": "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY",
+            "after": "<absent>",
+            "classes": [
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1755,
+              "kind": "source"
+            }
+          },
+          {
+            "id": "B2068",
+            "path": [
+              "entities",
+              "item",
+              "fields",
+              "craftingRequirements"
+            ],
+            "key": "min",
+            "before": 1,
+            "after": "<absent>",
+            "classes": [
+              "X2_MULTILINE",
+              "X7_OUTER_CHAIN"
+            ],
+            "anchor": {
+              "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+              "file": "app/src/validators/combat.ts",
+              "declaration": "ItemValidatorRawSchema",
+              "line": 1755,
+              "kind": "source"
+            }
+          }
+        ]
+      },
+      "C": {
+        "rows": 1903,
+        "anchor_kinds": {
+          "source": 1878,
+          "derived": 24,
+          "aggregate": 1
+        },
+        "derived_without_source_reachability": [],
+        "crafting_corrections": []
+      }
+    },
+    "provenance_fault_probes": {
+      "no_source_line": [
+        "A0 unions/AllObjectives/InstantWinLoseObjective/fields/reward_anbupoints: source anchor lacks file/line"
+      ],
+      "no_derived_inputs": [
+        "A1835 enums/fields/item: derived row has no linked inputs"
+      ],
+      "no_read_hash": [
+        "bdec288: a file read is not hashed"
+      ],
+      "read_mismatch": [
+        "bdec288: extractor --reads disagrees with the traced read-set"
+      ],
+      "dangling_derived_input": [
+        "A1835: input id outside its comparison"
+      ]
+    }
+  },
+  "gates": [
+    {
+      "name": "90_ghost_ship_skyglass_release",
+      "command": [
+        "python3",
+        "push/90_ghost_ship_skyglass_release.validate_exception.py"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '56 errors, 25 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-013 for push/90_ghost_ship_skyglass_release.json sha256 6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7\n",
+      "stderr": ""
+    },
+    {
+      "name": "93_ghost_ship_guardian_repair",
+      "command": [
+        "python3",
+        "push/93_ghost_ship_guardian_repair.validate_exception.py"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-014 for push/93_ghost_ship_guardian_repair.json sha256 840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753\n",
+      "stderr": ""
+    },
+    {
+      "name": "94_ghost_ship_skyglass_sentinel_repair",
+      "command": [
+        "python3",
+        "push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-015 for push/94_ghost_ship_skyglass_sentinel_repair.json sha256 a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988\n",
+      "stderr": ""
+    },
+    {
+      "name": "factory",
+      "command": [
+        "python3",
+        "../scripts/factory.py",
+        "--selftest"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "  PASS  jutsu: runtime-only tag                    'activatesagemode' is a runtime-only tag (law 77): the engine injects it in battle and eve\n  PASS  jutsu: power over cap                      AllTags.damage.power=400 above max 100\n  PASS  jutsu: unknown tag field                   AllTags.damage: unknown field(s) ['nonsense']. Valid: allowBloodlineDamageDecrease, allowB\n  PASS  jutsu: formula without generals            formula effect 'damage' needs BOTH statTypes and generalTypes; an empty one detonates the \n  PASS  jutsu: consume without damage              'consume' requires one of ['damage', 'pierce'] on the same action (law 78)\n  PASS  item: rollsagemode on a jutsu              'rollsagemode' is item-only, not legal on jutsu (law 78)\n  PASS  jutsu: create missing required fields      jutsu create missing required field(s) with no schema default: ['actionCostPerc', 'battleD\n  PASS  ai: flat rule triple                       action must be a constructed object from .action(), not a string. The flat {action, condit\n  PASS  ai: unknown condition                      'distance' is not a member of ZodAllAiConditions. Valid: distance_higher_than, distance_lo\n  PASS  ai: chain ends conditional                 the last rule must be unconditional and one of ['move_towards_opponent', 'end_turn', 'use_\n  PASS  ai: dead rule below a terminal             rule 0 is unconditional and terminal; every rule below it is dead (law 41)\n  PASS  ai: wrong distance gate                    rule 0: jutsu range is 2, so the gate must be 3, got 5 (law 40)\n  PASS  quest: unknown task                        'go_somewhere' is not a member of AllObjectives. Valid: InstantWinLoseObjective, RaidObjec\n  PASS  quest: cap over 100                        quest.maxCompletes=500 above max 100\n  PASS  quest: bad date                            quest.startsAt must be plain YYYY-MM-DD, got '2026-08-26T00:00Z' (law 7)\n  PASS  quest: null on a non-nullable field        quest.consecutiveObjectives is null but the validator is not nullable. Omit the key; null \n  PASS  any: edit without targetId                 item edit needs a top-level targetId: srcId and the id map do not self-resolve on edits (l\n  PASS  any: empty-string image                    image sent as an empty string is nulled at the write path and 500s. Omit the key (law 46)\n  PASS  manifest: out of build order               entries are out of build order. Required: jutsu -> asset -> item -> ai -> aiProfile -> que\n  PASS  legal shapes construct cleanly             \n\n20/20 passed\n",
+      "stderr": ""
+    },
+    {
+      "name": "laws",
+      "command": [
+        "python3",
+        "../scripts/validate.py",
+        "--laws"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "PASS   law 9 IDG product\nPASS   law 10 DDT product\nPASS   law 11 pierce bypass\nPASS   law 12 ramp compounds\nlaws: 4 asserted, 0 failed\n",
+      "stderr": ""
+    },
+    {
+      "name": "packs",
+      "command": [
+        "python3",
+        "build_packs.py",
+        "--check"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "same   skills/building-tnr-content/references/_toc/jutsu.json\nsame   skills/building-tnr-content/references/_toc/ai.json\nsame   skills/building-tnr-content/references/_toc/quest.json\nsame   skills/building-tnr-content/references/_toc/pipeline.json\nsame   skills/building-tnr-content/references/_toc/item.json\nsame   skills/building-tnr-content/packs/jutsu-build.md\nsame   skills/building-tnr-content/packs/ai-build.md\nsame   skills/building-tnr-content/packs/quest-build.md\n\nall packs and TOCs current (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "name": "lawmap",
+      "command": [
+        "python3",
+        "lawmap.py",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "warn   law 16d: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\nwarn   law 18: matrix says knowledge, but cited by ['validate.py'] - reclass candidate\nwarn   law 37: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\nwarn   law 61: matrix says knowledge, but cited by ['validate.py'] - reclass candidate\nwarn   law 69: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\n\n93 laws, 93 matrix rows, 77 citations across 36 files; 0 errors, 5 warnings\n",
+      "stderr": ""
+    },
+    {
+      "name": "doctrinemap",
+      "command": [
+        "python3",
+        "doctrinemap.py",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)\n",
+      "stderr": ""
+    },
+    {
+      "name": "render_doctrine",
+      "command": [
+        "python3",
+        "render_doctrine.py",
+        "--check"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "same   state/mounted_instructions.txt\nsame   skills/building-tnr-content/SKILL.md\nsame   skills/producing-tnr-art/SKILL.md\nsame   skills/building-tnr-content/references/pipeline.md\n\nall projections current (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "name": "catalog",
+      "command": [
+        "python3",
+        "catalog_sync.py",
+        "--selftest"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "catalog_sync selftest OK\n",
+      "stderr": ""
+    },
+    {
+      "name": "fixture_sector",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts/schema_diff.py",
+        "diff",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/fixtures/schema_old_sector.json",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/fixtures/schema_new_sector.json"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 1,
+      "expected_exit": 1,
+      "stdout": "REMOVALS\n  enum-member  AllZones.strike.sector  specific\nADDITIONS\n  enum-member  AllZones.strike.sector  wilds\n\nBREAKING: 1 change(s) - DO NOT ADOPT (exit 1)\n",
+      "stderr": ""
+    },
+    {
+      "name": "fixture_add",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts/schema_diff.py",
+        "diff",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/fixtures/schema_old_add.json",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/fixtures/schema_new_add.json"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "ADDITIONS\n  const-member  LetterRanks  A\n  field  jutsu  note\n  ftype  jutsu  note  string\n\nno breaking changes: 3 addition(s), safe to adopt (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "name": "bad_invariants",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts/schema_diff.py",
+        "--invariants",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/fixtures/schema_bad_invariants.json"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 1,
+      "expected_exit": 1,
+      "stdout": "I1 AllTags.scorch: discriminator literal 'burn' != variant key\nI1 AllTags: duplicate discriminator 'burn' (burn, scorch)\nI2 AllTags.scorch.pool: enum_ref 'GhostPool' unresolved\ninvariants: 1 union(s), 2 variant(s) audited; 3 error(s)\n",
+      "stderr": ""
+    },
+    {
+      "name": "stamped_invariants",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/scripts/schema_diff.py",
+        "--invariants",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/45c_DATA_constructors.json",
+        "--constants",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview/skills/building-tnr-content/data/45e_DATA_constants.json"
+      ],
+      "cwd": "/workspace/scratch/29e06893b6c8/qw0a-extractor-rereview",
+      "exit": 0,
+      "expected_exit": 0,
+      "stdout": "invariants: 5 union(s), 128 variant(s) audited; 0 error(s)\n",
+      "stderr": ""
+    }
+  ],
+  "package_and_protection": {
+    "builds": [
+      {
+        "exit": 0,
+        "sha256": {
+          "producing-tnr-art.zip": "325a2b1c206570da64ab7715f22cb4b04751053024d38a147134586c016993a0",
+          "building-tnr-content.zip": "70c341b4d9a78bf107ba82e54abe5e04e6f15459ea226ab466c33582da147cf4"
+        }
+      },
+      {
+        "exit": 0,
+        "sha256": {
+          "producing-tnr-art.zip": "325a2b1c206570da64ab7715f22cb4b04751053024d38a147134586c016993a0",
+          "building-tnr-content.zip": "70c341b4d9a78bf107ba82e54abe5e04e6f15459ea226ab466c33582da147cf4"
+        }
+      }
+    ],
+    "setup_note": "Initial attempt to redirect DIST outside ROOT failed at relative_to(ROOT) logging after writing one scratch ZIP. Reran unchanged producer at its standard paths in the isolated ChatGPT worktree; no product defect.",
+    "zip": {
+      "bytes": 401513,
+      "members": 91,
+      "mismatches": []
+    },
+    "changed_paths": [
+      "dist/building-tnr-content.zip",
+      "docs/reviews/qw0a_continuation/QW0A_EXTRACTOR_FIDELITY_REPORT.md",
+      "docs/reviews/qw0a_continuation/QW0A_EXTRACTOR_INVENTORY.json",
+      "docs/reviews/qw0a_continuation/gates_2026-10-14.txt",
+      "docs/reviews/qw0a_continuation/tests_baseline_main_1da1830.txt",
+      "docs/reviews/qw0a_continuation/tests_corrected.txt",
+      "docs/reviews/qw0a_continuation/tests_previous_1bbc833.txt",
+      "docs/reviews/qw0a_continuation/tools/build_inventory.py",
+      "skills/building-tnr-content/data/fixtures/qw0a/cycle_array/app/drizzle/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/cycle_array/app/src/libs/combat/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/cycle_object/app/drizzle/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/cycle_object/app/src/libs/combat/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/cycle_object/app/src/validators/combat.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/drizzle/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/libs/combat/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/ai.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/asset.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/base.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/combat.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/objectives.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/positive/app/src/validators/rewards.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/unresolved_array/app/drizzle/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/unresolved_array/app/src/libs/combat/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/unresolved_object/app/drizzle/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/unresolved_object/app/src/libs/combat/constants.ts",
+      "skills/building-tnr-content/data/fixtures/qw0a/unresolved_object/app/src/validators/combat.ts",
+      "skills/building-tnr-content/scripts/schema_extract.py",
+      "skills/building-tnr-content/scripts/test_schema_extract.py"
+    ],
+    "outside_allowlist": [],
+    "hashes": {
+      "dist/building-tnr-content.zip": "70c341b4d9a78bf107ba82e54abe5e04e6f15459ea226ab466c33582da147cf4",
+      "skills/building-tnr-content/scripts/schema_extract.py": "07a82f51db285e7938bf5299723e1c61dc90399cf93a2d06dc23979b3e153d5a",
+      "skills/building-tnr-content/scripts/test_schema_extract.py": "061fa1207a817b094c8aec3ddf94d239492aba7eeff0a058e17b5c85049b49c4",
+      "docs/reviews/qw0a_continuation/tools/build_inventory.py": "6a173f3ca79594849ad699b52a7302cf51be92e03e4597178f24db44cd58ad10",
+      "docs/reviews/qw0a_continuation/QW0A_EXTRACTOR_INVENTORY.json": "7b88f699b745fe6f4e9388911f2e44ffa31a787e96d150513c1bf924788f599b"
+    }
+  },
+  "compile": {
+    "exit": 0,
+    "files": [
+      "skills/building-tnr-content/scripts/schema_extract.py",
+      "skills/building-tnr-content/scripts/test_schema_extract.py",
+      "docs/reviews/qw0a_continuation/tools/build_inventory.py"
+    ],
+    "bytecode_destination": "scratch outside repository"
+  },
+  "main_drift": {
+    "paths": [
+      "docs/00_INDEX.md",
+      "docs/DRIFT.md",
+      "docs/RULINGS.md",
+      "docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md",
+      "docs/design/blue_blade_eyes/SOURCE_EVIDENCE.json",
+      "docs/workflows/ART_PRODUCTION.md",
+      "docs/workflows/ISOLATED_ART_GENERATION.md",
+      "state/schema_sentinel.json"
+    ],
+    "overlap_with_slice_a": false,
+    "relevant_authority_change": false,
+    "note": "Sentinel signal plus independent isolated-art/BBE protocol ruling; not adoption or audit-pin replacement."
+  },
+  "limitations": [
+    "No TypeScript, Zod or game runtime executed.",
+    "Actions run IDs were author-reported, not independently queried.",
+    "Full-file hashes vary with provenance; structural hashes and exact inventory comparisons checked.",
+    "Gate output line order not asserted; exits and line multisets compared.",
+    "No integration, slice B, source adoption or real workstream created."
+  ],
+  "live_game": {
+    "requests": 0,
+    "writes": 0,
+    "credentials": "none"
+  }
+}
