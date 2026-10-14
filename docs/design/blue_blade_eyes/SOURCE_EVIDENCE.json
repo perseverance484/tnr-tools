@@ -62,6 +62,105 @@
       "approval": "RAW_VISUAL_APPROVED",
       "repo_blob_pinned": false,
       "notes": "User-attached copy with .png filename but JPEG bytes; preserve provenance and use actual decoder."
+    },
+    {
+      "jutsu": "Glacial Volley",
+      "source_filename": "1000018412.png",
+      "detected_format": "JPEG",
+      "mode": "RGB",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "bytes": 720286,
+      "sha256": "d6e43e13b048336481c452e8d1232d8ded9937b356a7fe06c6a6dca5a9dfde50",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Director said 'Looks good' and moved to next jutsu. The supplied 1000018412.png file decodes as JPEG, despite extension. This is the received attachment, not proven to be the original PNG from the isolated generation session. Obtain original before irreversible packaging."
+    },
+    {
+      "jutsu": "Blade Resonance",
+      "source_filename": "resonant_blue_ice_katana.png",
+      "detected_format": "PNG",
+      "mode": "RGB",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 3201860,
+      "sha256": "dee239465efa10351ce37ea403bd97694dc8f7ed52a65b8a53738e175117aaaf",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Fresh generated Blade Resonance replacement directly director-approved after older variant was rejected. Original 1254x1254 RGB PNG on conversation surface; processing and final export QC pending.",
+      "prior_recorded_approval": "RAW_VISUAL_APPROVED",
+      "historical_candidates": [
+        {
+          "file": "1000018418.png",
+          "status": "REWORK_REQUIRED_NOT_APPROVED",
+          "sha256": "7f3af52a2f6a315e6540a575a17fd2e46b1c0f5121f3230d1fbbacda57b6b4aa",
+          "bytes": 807230,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "detected_format": "JPEG"
+        }
+      ]
+    },
+    {
+      "jutsu": "Arctic Frost",
+      "source_filename": "crescent_iceblade_arc.png",
+      "detected_format": "PNG",
+      "mode": "RGB",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 2970818,
+      "sha256": "02545af2fdfa8ed5fe9300a0fd93c5ec2886d1b75643e6c30f4c07a5a2a8d9db",
+      "approval": "PENDING_DIRECTOR_VISUAL_REVIEW",
+      "repo_blob_pinned": false,
+      "notes": "Latest high-contrast Arctic Frost candidate was generated after the director noted earlier slash vanished into background; no subsequent explicit approval. Studio closed with this still pending.",
+      "prior_recorded_approval": "RAW_VISUAL_APPROVED",
+      "historical_candidates": [
+        {
+          "file": "1000018419.png",
+          "status": "REWORK_REQUIRED_NOT_APPROVED",
+          "sha256": "7d908c0716b67cf7a4599cb188e5492a4cb52fca36d69092144a71402dc7989c",
+          "bytes": 842114,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "detected_format": "JPEG"
+        },
+        {
+          "file": "blue_blade_frozen_crescent_slash.png",
+          "status": "REJECTED_NEAR_DUPLICATE_LOW_CONTRAST",
+          "sha256": "4406bd23c7730955d735fe60d7e4defa9077ab93a585b1b4dd4dee03898e0e75",
+          "bytes": 3060469,
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "detected_format": "PNG"
+        }
+      ]
+    },
+    {
+      "jutsu": "Quintessential Flake",
+      "source_filename": "1000018420.png",
+      "detected_format": "JPEG",
+      "mode": "RGB",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "bytes": 879628,
+      "sha256": "ae2be20b05f96c05edab8a7a98b0f36651d98b9285764fdec45af6c57cbdde2c",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "User-approved eight-icon finale. Original attachment has JPEG bytes despite the PNG filename; true native generation export unverified."
     }
   ]
 }

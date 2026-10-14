@@ -1,6 +1,6 @@
 # Blue Blade Eyes — Jutsu Icon Identity Register
 
-**Status:** Visual direction LOCKED for four individual jutsu; remaining four require separate generation/review; **none of this eight-icon set is currently recorded as mechanically upload-ready**.  
+**Status:** ART STUDIO CLOSED FOR HANDOFF, 2026-10-14. **7/8 RAW VISUAL APPROVED.** Revised **Blade Resonance** is newly approved; **Arctic Frost** has a newer high-contrast candidate awaiting explicit director acceptance (NOT APPROVED). The older 8-icon export ZIP remains a **rejected historical draft**, not a final pack; replacement art has not been processed, shared ICON alpha preflight remains blocked, and no live upload occurred.  
 **Art Studio:** docs/workflows/ISOLATED_ART_GENERATION.md; director ruling RUL-2026-10-14-001.  
 **Source basis:** director-provided jutsu database screenshots and approved image-generation outputs in the 2026-10-13/14 conversation. The screenshots document the names/visual meaning; they are **not** a current live capture.  
 **Source bytes:** individual source identifiers, image formats, exact sizes and locally verified SHA-256 are in SOURCE_EVIDENCE.json. Those files are **not committed** in this documentation change.  
@@ -12,7 +12,7 @@
 - **Material:** semi-translucent faceted ice, white-fracture highlights, selective pixel-detailed edges, luminous sapphire interiors, restrained frost haze.
 - **Composition:** one dominant technique-specific silhouette, one supporting effect, clear direction/negative space, high contrast at small sizes; the family shares **rendering and palette, not layouts**.
 - **Ninja/chakra:** express the actual technique (speed afterimages, precision cutting, binding, resonance, protection, aimed volleys); no obligatory circular seal or eye emblem.
-- **Background:** full-bleed designed icy/sapphire atmosphere for jutsu icons; **opaque presentation approved, transparency not required**. Do not fake transparency. Existing shared ICON preflight mismatch is unresolved (see protocol).
+- **Background:** jutsu images **fill their entire square**, with **no rarity backdrop behind them** and **no transparency requirement**. Use a full-bleed, opaque, deliberately painted icy/sapphire atmosphere; no reserved margin for a rarity plate, no alpha-keying and no artificial transparent corners. This is the director's visual/client requirement; the shared ICON preflight's alpha mismatch remains unresolved (see protocol).
 - **Avoid:** actors/portraits, mandatory symmetrical mandalas, portal-summoned weapons, duplicate subject motifs, overlapping main silhouettes, extra unrelated ornaments, text, frames/grids, franchise insignia.
 - **Production:** square lossless WebP, current spec's output dimensions, **<80,000 bytes** for BBE exports, visual comparison at 125/64/32px; exact @img filename and honest mechanical preflight verdict.
 - The accepted source art is **visually locked**. An assistant may not replace/reinterpret it during processing without renewed director authorization.
@@ -25,12 +25,24 @@
 | **Sapphire Command** | **///** three well-separated, forceful diagonal crystalline cuts; deliberate precision, not Blue Crimson's motion blur. | **RAW VISUAL APPROVED** | glacial_crystal_claw_slashes.png |
 | **Ice Shackles** | **X** massive frozen chains closing around a small central binding seal; unmistakable restraint, not a snowflake. | **RAW VISUAL APPROVED** | a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png |
 | **Icebound Might** | **Broad guardian armor**: towering crystalline shoulder plates, heavy protective gauntlets and intense chakra chest core; **no actor inside**. | **RAW VISUAL APPROVED** | 1000018410.png (actual bytes JPEG) |
-| **Quintessential Flake** | Distinct **six-point crystalline flake** with inward-converging chakra; no guardian armor or extra starburst competing for focus. | **NEW-METHOD REVIEW PENDING** | Existing earlier candidate(s), not locked here |
-| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidates; no current raw lock |
-| **Blade Resonance** | Single **vertical Blue Blade** with three clean concentric chakra resonance waves; calm central axis; no large slash explosion. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidate; no current raw lock |
-| **Glacial Volley** | Strong horizontal/diagonal **fan of crystalline lances** fired in formation; discrete, directional projectiles rather than parallel slashes. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidate; no current raw lock |
+| **Quintessential Flake** | Distinct **six-point crystalline flake** with inward-converging chakra; no guardian armor or extra starburst competing for focus. | **RAW VISUAL APPROVED** (2026-10-14) | 1000018420.png (attachment decodes as JPEG; generation-original source pending) |
+| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **NEW CANDIDATE — DIRECTOR REVIEW PENDING** (not approved) | crescent_iceblade_arc.png (new deep-sapphire contrast revision; earlier rejected candidate retained in evidence) |
+| **Blade Resonance** | One recognizable **vertical Blue Blade** with three clear resonance rings and chakra coursing through the correctly curved weapon; distinct from slash effects. | **NEW REPLACEMENT RAW VISUAL APPROVED** (director, 2026-10-14; export pending) | resonant_blue_ice_katana.png (native 1254px RGB PNG) |
+| **Glacial Volley** | Strong horizontal/diagonal **fan of crystalline lances** fired in formation; discrete, directional projectiles rather than parallel slashes. | **RAW VISUAL APPROVED** (2026-10-14) | 1000018412.png (user attachment; JPEG content; original isolated-session export pending) |
 
-**Approval distinction:** The four marked RAW VISUAL APPROVED are director-accepted *visual subjects*, not approved compressed uploads. Do not call the other four rejected or complete without a new explicit art review. The user retains final acceptance.
+**Approval distinction:** **Seven** entries are director RAW VISUAL APPROVED: the six previously accepted icons plus the **new** Blade Resonance replacement. **Arctic Frost is NOT APPROVED**; the latest candidate has not been reviewed by the director. Old Blade Resonance / Arctic Frost exports remain rejected. The prior eight-icon ZIP is not an approved final pack. The director retains final acceptance.
+
+## Director rework correction — 2026-10-14
+
+Director clarified that the **older versions** of **Arctic Frost** and **Blade Resonance** **were not approved**: both insufficiently communicated their individual jutsu and felt out of place in the family. Do not reinterpret "looks good" / "took some doing" in older conversation turns as operative approval after this explicit correction. Previous processed drafts are retained only for traceability; **no regeneration or image replacement is authorized in the Art Studio**. Use new isolated generation sessions after deciding clearer concepts, then seek explicit individual approvals.
+
+This correction does **not** withdraw raw visual approval from Blue Crimson, Sapphire Command, Ice Shackles, Icebound Might, Glacial Volley or Quintessential Flake. Subsequently the director explicitly accepted a new **Blade Resonance** source, `resonant_blue_ice_katana.png`; it supersedes only the rejected Blade Resonance visual and has NOT yet been compressed. The new **Arctic Frost** attempt, `crescent_iceblade_arc.png`, improves contrast but is still awaiting explicit acceptance.
+
+## Eight-icon processing pass — 2026-10-14
+
+All eight previous candidate source attachments were processed to **256x256 RGB opaque full-bleed lossless WebP**, using Pillow LANCZOS resizing and 256-color MEDIANCUT without dithering. Full RGB at 256px exceeded 80,000 bytes; this color reduction keeps all eight under the director's stricter cap while retaining dimensions. Source and export hashes, precise bytes, codec checks, verified ZIP metadata and source flags: [PROCESSING_QC_20261014.json](PROCESSING_QC_20261014.json).
+
+The studio visually inspected the eight-icon family at **256/125/64/32px**, but the director has since **rejected Arctic Frost and Blade Resonance on visual/jutsu-fit grounds**. Their previous exports are historical drafts **excluded from any final delivery**. The other six remain visually approved and processed-export acceptance remains pending. The generic ICON artpreflight alpha contract remains incompatible with this director-approved opaque-background presentation and was **not invoked** in this pass. Do not represent mechanical preflight as passed. This repository change commits only documentation and evidence, not binary images.
 
 ## Reference selection per new icon
 
@@ -41,7 +53,7 @@ Never attach all eight icons, a montage, the failed Icebound snowflake/three-sla
 ## Durable evidence/status rules
 
 - **RAW VISUAL APPROVED:** user accepted the raw composition; preserve original bytes/hash.
-- **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the four approved jutsu image sources meet this gate.
+- **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the six approved (or two rejected historical) images meet this gate.
 - **PROCESSING QC PASSED:** output, visual scale, size/format and source integrity actually checked.
 - **PREFLIGHT CLEAR:** the correct current repository tool exits with zero errors; **not claimed** for opaque BBE jutsu icons.
 - **UPLOAD / LIVE VERIFIED:** must be supported by the operator's upload and fresh live read-back; **none** claimed.
@@ -50,8 +62,8 @@ Do not erase this history when replacing an output; use a new filename/version, 
 
 ## Next studio actions
 
-1. Import/store all four accepted original sources with their hashes. Their present state is **conversation-origin images; repo binary intake pending**. The user can return original files to the studio as attachments. This documentation commit does not add binary art.
-2. Design the remaining four icons **one new generation session per target**, with independent silhouette briefs and minimal style references.
-3. Run BBE export under the user limit with 125/64/32px side-by-side QC; log results and formal preflight, never mask the opaque-background alpha issue.
+1. Preserve the six stable approved sources and the newly accepted Blade Resonance source; the latest Arctic Frost candidate is unapproved. Binaries remain conversation files, not Git-pinned.
+2. **BBE is parked, not production-closed:** on reopening, request explicit director acceptance/rework for `crescent_iceblade_arc.png` (Arctic Frost). Do NOT infer approval from switching to the next bloodline. Further image generation should occur only in an isolated target-specific session, not an Art Studio.
+3. After Arctic Frost acceptance, process the NEW Blade Resonance and Arctic Frost sources at 256x256 lossless WebP, under BBE's <80,000-byte requirement; redo family 125/64/32px QC, source/output SHA and final bundle verification. **Never deliver the old eight-icon ZIP as final.** The generic shared-ICON preflight alpha conflict remains open.
 4. Request separate Fable Lane A implementation of **jutsu-specific opaque-background contract/preflight handling** before claiming mechanically clean upload packages.
 5. Keep any actual game upload, content changes, and publication under dauntless's separate authority.
