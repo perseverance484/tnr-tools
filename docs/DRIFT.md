@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-13)
+# DRIFT.md - upstream contract drift (2026-10-14)
 
-Upstream: studie-tech/TheNinjaRPG@922d61bbf4897014555463c4084f7ded40be2db7
+Upstream: studie-tech/TheNinjaRPG@56e45fab2c87fe9d50c9beba519b616955e5c329
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -69,7 +69,6 @@ REMOVALS
   enum-member  AllTags.elementalseal.elements  Yin-Yang
   ... 159 more
 ADDITIONS
-  enum-member  AllObjectives.bloodline_collection.bloodlineRank  ALL
   enum-member  AllObjectives.tag_usage_win.tagType  decreaseaggro
   enum-member  AllObjectives.tag_usage_win.tagType  decreasemastery
   enum-member  AllObjectives.tag_usage_win.tagType  decreasepotency
@@ -129,7 +128,8 @@ ADDITIONS
   enum-member  AllTags.decreasemaxpools.target  COORDINATES
   enum-member  AllTags.decreasepoolcost.target  COORDINATES
   enum-member  AllTags.decreasepotency.affectedElements  ...BasicElementName
-  ... 202 more
+  enum-member  AllTags.decreasepotency.affectedElements  Boil
+  ... 198 more
 
 BREAKING: 219 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -179,30 +179,31 @@ REMOVALS
   ftype  jutsu  requiredTaijutsuOffence  preprocess
   ftype  jutsu  requiredWillpower  preprocess
 CHANGES
-  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  requiredSageMastery  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  isFarmSeed  optional -> required
+  now-required  jutsu  requiredBloodlineMastery  optional -> required
+  now-required  item  requiredGenjutsuMastery  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  farmMinLevel  optional -> required
+  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
   now-required  item  farmExtractSeedCount  optional -> required
   now-required  jutsu  requiredNinjutsuMastery  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
-  now-required  item  requiredSageMastery  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  requiredTaijutsuMastery  optional -> required
-  now-required  item  requiredGenjutsuMastery  optional -> required
-  now-required  jutsu  requiredBloodlineMastery  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  item  requiredBukijutsuMastery  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  jutsu  requiredSageMastery  optional -> required
-  now-required  jutsu  requiredTaijutsuMastery  optional -> required
-  now-required  item  requiredNinjutsuMastery  optional -> required
-  now-required  jutsu  requiredGenjutsuMastery  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  jutsu  requiredBukijutsuMastery  optional -> required
   now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  quest  teamEnabled  optional -> required
   now-required  item  farmSellValue  optional -> required
+  now-required  item  farmFertilizerExperience  optional -> required
+  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  jutsu  requiredBukijutsuMastery  optional -> required
+  now-required  jutsu  requiredTaijutsuMastery  optional -> required
+  now-required  item  requiredBukijutsuMastery  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  jutsu  requiredSageMastery  optional -> required
+  now-required  item  requiredTaijutsuMastery  optional -> required
+  now-required  jutsu  requiredGenjutsuMastery  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
 ADDITIONS
   field  item  farmExtractSeedCount
   field  item  farmExtractSeedItemId
@@ -234,6 +235,7 @@ ADDITIONS
   field  jutsu  requiredTaijutsuMastery
   field  jutsu  reskinParentJutsuId
   field  quest  requiredFarmingLevel
+  field  quest  teamEnabled
   ftype  item  farmExtractSeedCount  number
   ftype  item  farmExtractSeedItemId  string
   ftype  item  farmFertilizerExperience  number
@@ -252,8 +254,9 @@ ADDITIONS
   ftype  jutsu  requiredSkillId  string
   ftype  jutsu  reskinParentJutsuId  string
   ftype  quest  requiredFarmingLevel  number
+  ftype  quest  teamEnabled  boolean
 
-BREAKING: 42 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 43 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 REMOVALS
   const-member  ALLIANCE_VILLAGE_TYPES  TOWN
@@ -364,7 +367,7 @@ ADDITIONS
   const-member  ContentProposalOperations  UPDATE
   const-member  ContentProposalRejectReasons  FACTUALLY_WRONG
   const-member  ContentProposalRejectReasons  NOT_AN_IMPROVEMENT
-  ... 279 more
+  ... 293 more
 
 BREAKING: 47 change(s) - DO NOT ADOPT (exit 1)
 ~~~
