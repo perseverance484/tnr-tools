@@ -80,35 +80,72 @@
     },
     {
       "jutsu": "Blade Resonance",
-      "source_filename": "1000018418.png",
-      "detected_format": "JPEG",
+      "source_filename": "resonant_blue_ice_katana.png",
+      "detected_format": "PNG",
       "mode": "RGB",
       "dimensions": [
-        1536,
-        1536
+        1254,
+        1254
       ],
-      "bytes": 807230,
-      "sha256": "7f3af52a2f6a315e6540a575a17fd2e46b1c0f5121f3230d1fbbacda57b6b4aa",
-      "approval": "REWORK_REQUIRED_NOT_APPROVED",
+      "bytes": 3201860,
+      "sha256": "dee239465efa10351ce37ea403bd97694dc8f7ed52a65b8a53738e175117aaaf",
+      "approval": "RAW_VISUAL_APPROVED",
       "repo_blob_pinned": false,
-      "notes": "Director confirmed 'Took some doing but we got there.' Attachment decodes as JPEG despite .png filename. The original isolated-session image export has not been verified; acquire it before final upload-source locking. Director correction 2026-10-14: visually NOT approved; prior acceptance/status entry superseded. Preserve as rejected draft evidence only.",
-      "prior_recorded_approval": "RAW_VISUAL_APPROVED"
+      "notes": "Fresh generated Blade Resonance replacement directly director-approved after older variant was rejected. Original 1254x1254 RGB PNG on conversation surface; processing and final export QC pending.",
+      "prior_recorded_approval": "RAW_VISUAL_APPROVED",
+      "historical_candidates": [
+        {
+          "file": "1000018418.png",
+          "status": "REWORK_REQUIRED_NOT_APPROVED",
+          "sha256": "7f3af52a2f6a315e6540a575a17fd2e46b1c0f5121f3230d1fbbacda57b6b4aa",
+          "bytes": 807230,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "detected_format": "JPEG"
+        }
+      ]
     },
     {
       "jutsu": "Arctic Frost",
-      "source_filename": "1000018419.png",
-      "detected_format": "JPEG",
+      "source_filename": "crescent_iceblade_arc.png",
+      "detected_format": "PNG",
       "mode": "RGB",
       "dimensions": [
-        1536,
-        1536
+        1254,
+        1254
       ],
-      "bytes": 842114,
-      "sha256": "7d908c0716b67cf7a4599cb188e5492a4cb52fca36d69092144a71402dc7989c",
-      "approval": "REWORK_REQUIRED_NOT_APPROVED",
+      "bytes": 2970818,
+      "sha256": "02545af2fdfa8ed5fe9300a0fd93c5ec2886d1b75643e6c30f4c07a5a2a8d9db",
+      "approval": "PENDING_DIRECTOR_VISUAL_REVIEW",
       "repo_blob_pinned": false,
-      "notes": "User approved this single crescent attack in the studio ('Looks good, approved. Next'). Received attachment decodes as JPEG despite .png filename. Original isolated-session source not verified; secure original before final packaging. Director correction 2026-10-14: visually NOT approved; prior acceptance/status entry superseded. Preserve as rejected draft evidence only.",
-      "prior_recorded_approval": "RAW_VISUAL_APPROVED"
+      "notes": "Latest high-contrast Arctic Frost candidate was generated after the director noted earlier slash vanished into background; no subsequent explicit approval. Studio closed with this still pending.",
+      "prior_recorded_approval": "RAW_VISUAL_APPROVED",
+      "historical_candidates": [
+        {
+          "file": "1000018419.png",
+          "status": "REWORK_REQUIRED_NOT_APPROVED",
+          "sha256": "7d908c0716b67cf7a4599cb188e5492a4cb52fca36d69092144a71402dc7989c",
+          "bytes": 842114,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "detected_format": "JPEG"
+        },
+        {
+          "file": "blue_blade_frozen_crescent_slash.png",
+          "status": "REJECTED_NEAR_DUPLICATE_LOW_CONTRAST",
+          "sha256": "4406bd23c7730955d735fe60d7e4defa9077ab93a585b1b4dd4dee03898e0e75",
+          "bytes": 3060469,
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "detected_format": "PNG"
+        }
+      ]
     },
     {
       "jutsu": "Quintessential Flake",
