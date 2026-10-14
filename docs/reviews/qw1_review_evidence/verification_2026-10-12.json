@@ -1,0 +1,277 @@
+{
+  "review_date": "2026-10-12",
+  "repository": "perseverance484/tnr-tools",
+  "reviewer": "ChatGPT — Release Auditor with Engineering Auditor lens",
+  "verdict": "CHANGES_REQUESTED",
+  "target": {
+    "branch": "fable/qw1-workstream-starter-20261012",
+    "sha": "c79c6afadeb3388d7d2823cd084405661e398f97",
+    "base": "fe4e69cbf88b49665c9ddcd6189e9ab4c833f123",
+    "merge_base": "fe4e69cbf88b49665c9ddcd6189e9ab4c833f123",
+    "main_verified": "fe4e69cbf88b49665c9ddcd6189e9ab4c833f123",
+    "planning_sha": "c34f7de572337b0d2cfe397b9331502aa6548e27"
+  },
+  "remote_refs": "Matched at initialization and after testing",
+  "changed_implementation": {
+    "files": 4,
+    "insertions": 1074,
+    "deletions": 1
+  },
+  "hashes": {
+    "scripts/content_workstream.py": "b1b40c15cd9802a752713c32edb6afcb52d768086c4eca32a1913d9d9d63ee27",
+    "scripts/workstream_templates/multisession_v1.json": "fdba9d396e87271c546b5a89b4127dad95fc9851a21032de208b4f74c6fe2883",
+    "scripts/workstream_templates/multisession_v1.example_quest.roadmap.json": "0ea550d613a1b723ee48cb5e4782c1f5373045504cafd5d933aeaa4d2c0442d0"
+  },
+  "selftest": {
+    "command": "python3 scripts/content_workstream.py --selftest",
+    "exit": 0,
+    "ok": 131,
+    "fail": 0,
+    "baseline_exit": 0,
+    "baseline_ok": 66,
+    "new_ok": 65,
+    "author_breakdown_51_plus_80_incorrect": true
+  },
+  "render_check": {
+    "command": "python3 scripts/content_workstream.py render --check",
+    "exit": 0,
+    "output": "same   state/workstreams/one_perfect_crop/ROADMAP.md\nsame   state/workstreams/INDEX.md\n\nall projections current (exit 0)\n"
+  },
+  "validate_all": {
+    "baseline": {
+      "command": [
+        "python3",
+        "<scratch>/baseline_content_workstream.py",
+        "--repo-root",
+        "<frozen-tree>",
+        "validate",
+        "--all"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL  state/workstreams/one_perfect_crop/roadmap.json  1 error(s)\n  - task 'launch.finalization' evidence[5]: push/54_one_perfect_crop_launch_final.json does not exist in the repository\n\n1 roadmap(s) failed validation\n"
+    },
+    "target": {
+      "command": [
+        "python3",
+        "<frozen-tree>/scripts/content_workstream.py",
+        "--repo-root",
+        "<frozen-tree>",
+        "validate",
+        "--all"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "FAIL  state/workstreams/one_perfect_crop/roadmap.json  1 error(s)\n  - task 'launch.finalization' evidence[5]: push/54_one_perfect_crop_launch_final.json does not exist in the repository\n\n1 roadmap(s) failed validation\n"
+    },
+    "identical_exit_stdout_stderr": true,
+    "debt": "One Perfect Crop launch.finalization evidence[5] points to missing push/54_one_perfect_crop_launch_final.json"
+  },
+  "unchanged_existing_definitions": {
+    "repo_root_default": true,
+    "load_roadmap": true,
+    "roadmap_paths": true,
+    "resolve_workstream": true,
+    "_bad_path": true,
+    "_bad_sha": true,
+    "_anchor_reason": true,
+    "_cycles": true,
+    "validate": true,
+    "progress": true,
+    "progress_line": true,
+    "tasks_by_status": true,
+    "unmet_deps": true,
+    "find_task": true,
+    "render_roadmap_md": true,
+    "render_index_md": true,
+    "render_all": true,
+    "init_packet": true,
+    "_valid_fixture": true
+  },
+  "disposable_archive_probe": {
+    "source_sha": "c79c6afadeb3388d7d2823cd084405661e398f97",
+    "preview": {
+      "exit": 0,
+      "writes_nothing": true,
+      "stdout_equals_golden": true,
+      "report_on_stderr": true
+    },
+    "creation": {
+      "exit": 0,
+      "stdout_equals_written_json": true,
+      "created": [
+        "state/workstreams/review_fixture/ROADMAP.md",
+        "state/workstreams/review_fixture/roadmap.json"
+      ],
+      "changed": [
+        "state/workstreams/INDEX.md"
+      ],
+      "target_validate_exit": 0,
+      "render_check_exit": 0,
+      "initial_design_init_exit": 1
+    },
+    "refusals": [
+      {
+        "input": [
+          "review_fixture",
+          "Review Fixture",
+          "quest"
+        ],
+        "exit": 1,
+        "unchanged": true
+      },
+      {
+        "input": [
+          "../escape",
+          "Fine Title",
+          "quest"
+        ],
+        "exit": 2,
+        "unchanged": true
+      },
+      {
+        "input": [
+          "safe_slug",
+          "A|B",
+          "quest"
+        ],
+        "exit": 2,
+        "unchanged": true
+      },
+      {
+        "input": [
+          "safe_slug",
+          "Fine Title",
+          "mission"
+        ],
+        "exit": 2,
+        "unchanged": true
+      },
+      {
+        "input": [
+          "another_slug",
+          "REVIEW FIXTURE",
+          "quest"
+        ],
+        "exit": 1,
+        "unchanged": true
+      }
+    ]
+  },
+  "finding_R1": {
+    "classification": "Confirmed defect; medium; integration blocker",
+    "location": "scripts/workstream_templates/multisession_v1.json:179",
+    "inputs": {
+      "review_independent": "SKIPPED with recorded reason",
+      "build_manifest": "PLANNED",
+      "production_hidden_run": "READY",
+      "all_other_tasks": "initial scaffold state"
+    },
+    "actual": {
+      "build_status": "PLANNED",
+      "run_dependencies": [
+        "build.manifest",
+        "review.independent"
+      ],
+      "validate": {
+        "command": [
+          "python3",
+          "<frozen-tree>/scripts/content_workstream.py",
+          "--repo-root",
+          "<disposable-tree>",
+          "validate",
+          "state/workstreams/review_fixture/roadmap.json"
+        ],
+        "exit": 0,
+        "stdout": "ok    state/workstreams/review_fixture/roadmap.json  10 tasks, 1/10 settled - planned 7, ready 1, blocked 1, skipped 1\n\n1 roadmap(s) valid (exit 0)\n",
+        "stderr": ""
+      },
+      "init_exit": 0,
+      "init_excerpt": "SESSION INIT - Review Fixture / production.hidden_run\n=====================================================\n\nWorkstream : Review Fixture (`review_fixture`), quest, PLANNED\nTask       : Hidden operator run and readback\nStatus     : READY\nArea/owner : production / dauntless\nProgress   : 1/10 settled - planned 7, ready 1, blocked 1, skipped 1\n\nOBJECTIVE\n\n  The operator runs the hidden manifest; the committed results and a fresh readback show what actually landed.\n\nSCOPE - this session, and only this\n"
+    },
+    "control": {
+      "change": "Add build.manifest to hidden_run.depends_on in disposable fixture only",
+      "validate": {
+        "command": [
+          "python3",
+          "<frozen-tree>/scripts/content_workstream.py",
+          "--repo-root",
+          "<disposable-tree>",
+          "validate",
+          "state/workstreams/review_fixture/roadmap.json"
+        ],
+        "exit": 1,
+        "stdout": "",
+        "stderr": "FAIL  state/workstreams/review_fixture/roadmap.json  1 error(s)\n  - task 'production.hidden_run' is READY but depends on unfinished build.manifest (PLANNED)\n\n1 roadmap(s) failed validation\n"
+      },
+      "init_exit": 1,
+      "init_stderr": "content_workstream: <disposable-tree>/state/workstreams/review_fixture/roadmap.json does not validate; fix it before initializing\n  - task 'production.hidden_run' is READY but depends on unfinished build.manifest (PLANNED)\n"
+    }
+  },
+  "finding_R2": {
+    "classification": "Stale verification wording; low; not a new validator regression",
+    "location": "scripts/content_workstream.py:1366-1381",
+    "git_ls_files": {
+      "command": [
+        "git",
+        "ls-files",
+        "--",
+        "state/review_untracked_source.md"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "validate": {
+      "command": [
+        "python3",
+        "<frozen-tree>/scripts/content_workstream.py",
+        "--repo-root",
+        "<disposable-tree>",
+        "validate",
+        "state/workstreams/review_fixture/roadmap.json"
+      ],
+      "exit": 0,
+      "stdout": "ok    state/workstreams/review_fixture/roadmap.json  10 tasks, 0/10 settled - planned 9, ready 1\n\n1 roadmap(s) valid (exit 0)\n",
+      "stderr": ""
+    },
+    "init_exit": 0,
+    "baseline_validate": {
+      "command": [
+        "python3",
+        "<scratch>/baseline_content_workstream.py",
+        "--repo-root",
+        "<disposable-tree>",
+        "validate",
+        "state/workstreams/review_fixture/roadmap.json"
+      ],
+      "exit": 0,
+      "stdout": "ok    state/workstreams/review_fixture/roadmap.json  10 tasks, 0/10 settled - planned 9, ready 1\n\n1 roadmap(s) valid (exit 0)\n",
+      "stderr": ""
+    },
+    "conclusion": "File existence is verified; tracked/committed status is not. Preserve validator behavior and correct new test/handoff labels."
+  },
+  "py_compile": {
+    "exit": 0,
+    "bytecode_location": "Outside reviewed tree"
+  },
+  "not_independently_repeated": [
+    "Author's seven mutation checks",
+    "Unchanged art/coherence gates",
+    "Pre-existing next pipe behavior"
+  ],
+  "boundaries": {
+    "implementation_fixed": false,
+    "integrated": false,
+    "fable_branch_modified": false,
+    "planning_branch_merged": false,
+    "global_session_projections_modified": false,
+    "existing_workstreams_modified": false,
+    "real_workstream_added": false,
+    "game_requests": 0,
+    "game_writes": 0,
+    "credentials": "none",
+    "publication": false,
+    "reward_changes": false
+  }
+}
