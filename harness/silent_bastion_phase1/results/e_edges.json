@@ -1,5 +1,5 @@
 {
- "assertions": 561,
+ "assertions": 563,
  "checks": [
   {
    "name": "E1: startQuest succeeds",
@@ -315,6 +315,14 @@
   },
   {
    "name": "E4b r2: in the missing-Beacon window the fourth fight still precedes the commander",
+   "pass": true
+  },
+  {
+   "name": "E4c no battle ran, no Beacon charged",
+   "pass": true
+  },
+  {
+   "name": "E4c no quest reward and attempt not completed",
    "pass": true
   },
   {
@@ -2247,6 +2255,16 @@
   }
  ],
  "data": {
+  "E10.aftermathTextReadable": {
+   "viaGetUserAtRunStart": true,
+   "viaQuestsGetLoggedInNotStarted": true,
+   "viaQuestsGetLoggedOut": true
+  },
+  "E10.hiddenQuestReadableLoggedOut": {
+   "idListedByGetAllNames": true,
+   "viaGetAllHiddenFilter": true,
+   "viaGetById": true
+  },
   "E4.afterLateBeacon": {
    "battleObjective": "b1.n.f1",
    "d1n2Done": true
@@ -2329,6 +2347,15 @@
     "d2.n.f3"
    ]
   },
+  "E4c.apiClickThrough": {
+   "accepted": 31,
+   "attempted": 31,
+   "engineActiveObjective": "b1.n.f1",
+   "firstRejected": null,
+   "reachedAftermathDialog": true,
+   "winObjectiveDone": true
+  },
+  "E4c.logbookWouldShowDialogButtons": false,
   "E7.savedContentBytes": 204313,
   "E7.visibleSaveWithoutSceneCharacters": {
    "message": "Quest must have either main sceneCharacters set or all objectives must have sceneCharacters defined",
@@ -2375,6 +2402,35 @@
    "id": "F1",
    "reproduced": true,
    "summary": "Missing-Beacon window: dialogs after an unstarted battle can be completed and battles later chain by page refresh without dialog gates"
+  },
+  {
+   "detail": {
+    "accepted": 31,
+    "reachedAftermath": true,
+    "uiActiveWasDialog": false
+   },
+   "id": "F1a",
+   "reproduced": true,
+   "summary": "Without a Beacon, crafted checkRewards calls walk the dialog chain to the aftermath reveal; the Logbook UI never offers these choices (its active objective stays the refused battle)"
+  },
+  {
+   "detail": {
+    "hiddenViaGet": true,
+    "hiddenViaList": true
+   },
+   "id": "F5",
+   "reproduced": true,
+   "summary": "A hidden (staged) battlepyramid's full content, including dialog text, is listed and returned to logged-out callers by quests.getAll({hidden:true}) and quests.get; hidden:true does not keep story text private"
+  },
+  {
+   "detail": {
+    "viaGet": true,
+    "viaGetLoggedIn": true,
+    "viaUser": true
+   },
+   "id": "F4",
+   "reproduced": true,
+   "summary": "All dialog text, including the final reveal, is returned by quests.get (also logged out) and by profile.getUser once a run starts; the click-through is not needed to read it"
   },
   {
    "detail": {

@@ -48,6 +48,21 @@ Cause at the pin:
 In normal play, the guard at `quests.ts:1268` ("Must be awake…") rejects continuation while a battle is live. That guard is why the gap only opens when a battle fails to start. The Beacon is the reachable trigger (F2). Other `initiateBattle` failures (races) could open the same window; those were not exercised.
 Remaining options, all needing a decision: (a) an upstream engine change, e.g. do not preset `selectedNextObjectiveId` on an unfinished `start_battle`, or require the predecessor to be done; (b) an engine-side Beacon check at `startQuest` for entry-item Pyramids, which closes the reachable trigger only; (c) accept the residual risk. The r2 node order already applies the content-side order mitigation.
 
+**F1 reassessment (r3, 2026-10-14): real at the server, not reachable from the game UI, and no secret is gained.**
+- *How far it goes (E4c):* without a Beacon, 31 of 31 crafted `checkRewards` calls were accepted. They covered the shortest dialog path through all five divisions, including `d.aftermath` (the reveal) and the `w.complete` objective. No battle ran, nothing was charged, nothing was paid, and the attempt did not complete (every battle on the path is still unfought).
+- *UI reachability:* the Logbook renders dialog buttons only when `getActiveObjective()` is a dialog (`app/src/layout/Logbook.tsx:501`, `:779–781`). Throughout E4c the engine's active objective stayed the refused battle `b1.n.f1`, so the Logbook never offered any of these choices. Reaching them requires hand-made API requests. A UI player who starts without a Beacon sees the refused first battle and the toast, stays locked in the isolated run, and has to abandon.
+- *Chain-firing (E4b)* required inserting a Beacon directly into the database. An isolated player probably cannot obtain one; this is unproven.
+- *Spoiler impact: none (F4/F5).* The reveal text is already public through other routes (E10).
+
+**F4 — Dialog text is not secret (engine; content-design consequence).** The same aftermath text is returned by `quests.get`, including to a **logged-out** caller (it is a `publicProcedure` with only location masking). It is also returned by `profile.getUser` as soon as a run starts. No click-through is needed to read the ending.
+
+**F5 — `hidden:true` does not hide content (engine).** With the quest saved hidden, a logged-out caller still received:
+- the full content, including dialog text, from `quests.get`;
+- the quest, listed with full content, from `quests.getAll({ hidden: true })`;
+- its id and name from `quests.getAllNames`.
+
+Only `overworld` (NPC-only) quests are filtered. Staging hidden protects play, not the text. The Bastion's "do not reveal before the end" rule therefore cannot be enforced by quest data. That is a director decision: accept data-mined spoilers, or ask the game developer to redact non-active objective text for non-editors.
+
 **F2 — `startQuest` admits the run without the entry item (engine behaviour).** Isolation begins, and the first battle is refused with the notification "You do not have the required entry items in your inventory". `checkRewards` still returns `success:true`. This is the reachable trigger for F1 and a UX gap.
 
 **F3 — Retry loops repeat ordinary battle income (economy; user-owned).** Deliberately losing a Division I–IV commander resets the division. The already-won regular fights are then re-won, and each win pays normal battle settlement ryo/XP. In E9 every loop (3 regular wins + 1 commander loss) paid ryo and 96 XP, all on one Beacon. The quest reward is unaffected. Whether this is acceptable, capped, or offset (e.g. `scaleGains` on retry-lane battles) is a balance decision.

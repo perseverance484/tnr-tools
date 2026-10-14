@@ -91,3 +91,16 @@ Production manifest; Phase 2+ (puzzles/protocol values, regular opponents, comma
   - **F1** is narrowed but **still open**. The commander-before-fourth-fight order is gone; the dialog-gate bypass in the missing-Beacon window remains.
   - **F2** and **F3** are unchanged.
 - **Branch note:** the design documents on this branch now diverge from `chatgpt/silent-bastion-design-20261013` on the Medical value and structure. Reconcile at integration in favour of RUL-2026-10-14-001.
+
+## Revision r3 (2026-10-14): F1 reach check and dialog-text exposure
+
+- Previous frozen review target: `66a2208b9cb2e17447762f2d58144793872ee323` (r2). The r3 head is the commit that adds this section; its SHA is in the delivery message. The graph is unchanged from r2.
+- **Trigger:** dauntless asked whether the no-Beacon click-through reaches the aftermath reveal, and whether it is a real issue.
+- **Changes:** two tests added to `engine/p1_edges.test.ts`, with the results report §3 and the regenerated evidence.
+  - **E4c** walks the shortest dialog path to the ending without a Beacon, and records whether the engine's active objective, which drives the Logbook's dialog buttons, is ever a dialog.
+  - **E10** checks whether the aftermath text is readable through `quests.get` (logged out and logged in), `profile.getUser`, and, for the hidden quest, `quests.getAll({hidden:true})` and `getAllNames`. Logged-out calls stub only the Redis transport of the rate limiter, as upstream `travel.pvpRewards.test.ts` does; the middleware stays active.
+- **Results:** `run.sh` → exit 0. Upstream preflight: 73 pass. Gates: 45 tests pass. Evidence: `s_static` 33, `r_runtime` 7,105, `e_edges` 563; 0 failed. An independent second run produced byte-identical evidence.
+- **Conclusions:**
+  - F1 is real at the server: all 31 crafted steps were accepted, the reveal included. It is not reachable from the Logbook UI, because the active objective stays the refused battle.
+  - The reveal text is already public: F4, and F5 for hidden content.
+  - The practical UI-level problem is F2. A player can start without a Beacon, gets locked in, and must abandon.
