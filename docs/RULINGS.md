@@ -1114,3 +1114,18 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
 
+---
+
+## RUL-2026-10-14-002 — Jutsu icons use full-bleed imagery without a rarity plate
+
+**Date:** 2026-10-14  
+**Domain:** TNR jutsu icon presentation / Blue Blade Eyes studio  
+**Status:** ACTIVE; clarifies RUL-2026-10-14-001, no code or client changes.
+
+**Ruling:** dauntless clarified that jutsu icons have **no separate rarity background**. Their own designed images cover the **entire square**. **Transparency is not required**, and the studio must not reserve a rarity-frame gutter, remove the frozen atmosphere, or manufacture alpha. This applies to jutsu icons, not to item/weapon rarity presentation or other shared ICON clients.
+
+**Rationale:** Reusing the item-style rarity background assumption for jutsu icons would cause unused transparent padding, under-filled compositions or unnecessary black voids, and would make the pale BBE art less effective at thumbnail size. A full-bleed opaque jutsu image is the desired presentation. The user's clarification is a visual/UX ruling, not a claim of independent code-level verification.
+
+**Contract discrepancy retained:** The current 25x_DATA_art_spec.json describes a shared ICON class and artpreflight.py still expects RGBA when chroma_key is present. That validation result has not been waived or corrected by this ruling. The Art Studio must report it truthfully and route a scoped jutsu-image contract change through the normal Fable review process.
+
+**Canonical destination:** docs/workflows/ISOLATED_ART_GENERATION.md and docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md. Existing TNR tool/spec ownership and operator-controlled live action are unchanged.
