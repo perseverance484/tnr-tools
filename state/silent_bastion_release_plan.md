@@ -19,6 +19,8 @@
 
 ## 2. Intended quest graph; implementation NOT yet proved
 
+**Phase 1 update (2026-10-14):** The director approved starting the offline progression-graph phase. The current *candidate* is the fully expanded, two-lane symbolic graph at `state/silent_bastion_phase1_graph.json`, static-check passed (208 nodes; 3,125 successful choices; 20–25 fights per run), with native engine proof still outstanding. See `docs/handoffs/SILENT_BASTION_PHASE1_OFFLINE_PROOF_2026-10-14.md`. The one-lane schematic immediately below is the earlier conceptual sketch **only**, not the current implementation design. No reward or combat buff is frozen by this update.
+
 ```text
 D_i entry -> D_i fight1 -> B_i1 -> D_i fight2 -> B_i2 -> D_i fight3 -> B_i3
   -> D_i terminal
@@ -43,7 +45,7 @@ Every `start_battle` must be immediately dialog-gated. Branch-specific boss batt
 
 | Packet | Minimum artifact and acceptance gate | Present status |
 | --- | --- | --- |
-| **A. Engine feasibility + quest graph** | Deterministic 5-division branch graph; precise checkpoint-loss and terminal semantics; fail/abandon/Beacon-once tests; exactly one root and one successful ending; no premature fight or reward. | **NEXT / unproven** |
+| **A. Engine feasibility + quest graph** | Deterministic 5-division branch graph; precise checkpoint-loss and terminal semantics; fail/abandon/Beacon-once tests; exactly one root and one successful ending; no premature fight or reward. | **IN PROGRESS — 208-node symbolic graph static-check passed; native proof required** |
 | **B. Terminal puzzles and protocols** | Five authored three-choice puzzles, correct/wrong feedback, route-specific boss start effects and Security Alert; sign-off on each buff. | Design direction accepted; exact values conflicting/unapproved. |
 | **C. Regular opponents** | Four encounter slots per division = 20 regular fights; choose unique-versus-reused AI templates, role/kit/difficulty escalation, no excessive lockout or accidental AI loot. | Not authored. Proposal: 2 complementary regular templates per division, reused intentionally if approved. |
 | **D. Commander data** | Five complete kits, caps-compliant ordered AI rules, native range gates, fallbacks, stats/multipliers/pools, gear and deterministic offline combat fixtures. | Gatewarden 6, Master of Arms 10, Replicant Zero 11, Arakane 14 memberships accepted; Grand Marshal 12-move roster still a candidate. Most executable rules untested. |
@@ -64,6 +66,6 @@ The newly integrated workstream orchestration at `docs/workflows/CONTENT_WORKSTR
 
 ## 5. Next director-facing decision
 
-**First:** agree to run a narrow **A: offline quest-feasibility spike** before writing rewards or commissioning the full AI/art roster. This spike must prove (or explicitly fail) the 50%-only-on-retry checkpoint and four boss-route variants using the pinned runtime; the output becomes the structural contract for Fable. In parallel, request a director decision on the Arakane Combat Protocol alternative and whether the Discord list is a working buff proposal or is intended as a numeric freeze.
+**Approved start:** the director authorized Phase 1's offline progression-graph work. The 208-node two-lane symbolic graph is constructed and statically checked, but **Fable must now run the native quest-feasibility spike** on a separate implementation/test branch. Prove (or explicitly fail) the 50%-only-on-retry checkpoint and all four boss-route variants with the pinned runtime before any production manifest. Separately, request director choices on Arakane's unsupported starting Clear Prevent and whether the Discord Combat Protocol numbers are intended as a balance freeze.
 
 **No live requests, credentials, game writes, manifest generation, art production, publication, or production readiness are implied by this plan.**
