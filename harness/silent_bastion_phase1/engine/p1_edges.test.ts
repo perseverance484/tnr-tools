@@ -8,6 +8,8 @@ import { quest, userData, userItem } from "@/drizzle/schema";
 import { getNewTrackers } from "@/libs/quest";
 import { Pusher } from "@/libs/pusher";
 import { questsRouter } from "@/server/api/routers/quests";
+import { profileRouter } from "@/server/api/routers/profile";
+import { getActiveObjective } from "@/libs/objectives";
 import { QuestValidator } from "@/validators/objectives";
 import { callerFor, describeWithDatabase } from "../setup/testDatabase";
 import {
@@ -143,6 +145,76 @@ describeWithDatabase("E: edges", () => {
     ev.finding("F1", "Missing-Beacon window: dialogs after an unstarted battle can be completed and battles later chain by page refresh without dialog gates",
       accepted.length > 1 && chain.filter(Boolean).length > 1, { dialogStepsAccepted: accepted.length, autoChained: chain.filter(Boolean), bossBeforeF4 });
   }, 300_000);
+
+  it("E4c missing Beacon: API click-through toward the aftermath reveal, and what the Logbook would show", async () => {
+    await resetWorld({ beaconCount: 0 });
+    await start();
+    // Shortest dialog path (Maintenance, correct answer) through all five divisions to the ending.
+    const targets: string[] = [];
+    for (let d = 1; d <= 5; d++)
+      targets.push(`b${d}.n.f1`, `b${d}.n.f2`, `b${d}.n.f3`, `d${d}.n.puzzle`, `d${d}.n.boss.clean`, `b${d}.n.boss.clean`);
+    targets.push("w.complete");
+    const accepted: string[] = [];
+    let firstRejected: string | null = null;
+    let uiActiveWasDialog = false;
+    const q = await questRow();
+    for (const t of targets) {
+      const before = (await tracker())?.goals.filter((g) => g.done).length ?? 0;
+      await choose(t);
+      const after = (await tracker())?.goals.filter((g) => g.done).length ?? 0;
+      const trk = await tracker();
+      // The Logbook renders dialog buttons only when getActiveObjective() is a dialog.
+      if (trk && getActiveObjective(q, trk)?.task === "dialog") uiActiveWasDialog = true;
+      if (after > before) accepted.push(t);
+      else { firstRejected = t; break; }
+    }
+    const done = new Set((await tracker())?.goals.filter((g) => g.done).map((g) => g.id));
+    const reachedAftermath = done.has("d.aftermath");
+    ev.put("E4c.apiClickThrough", { attempted: targets.length, accepted: accepted.length, firstRejected, reachedAftermathDialog: reachedAftermath,
+      winObjectiveDone: done.has("w.complete"), engineActiveObjective: (await engineView()).active });
+    ev.put("E4c.logbookWouldShowDialogButtons", uiActiveWasDialog);
+    c("E4c no battle ran, no Beacon charged", (await currentBattle()) === null && (await beacons()) === 0);
+    c("E4c no quest reward and attempt not completed", (await payouts()) === 0 && (await history())[0]!.completed === 0);
+    ev.finding("F1a", "Without a Beacon, crafted checkRewards calls walk the dialog chain to the aftermath reveal; the Logbook UI never offers these choices (its active objective stays the refused battle)",
+      reachedAftermath && !uiActiveWasDialog, { accepted: accepted.length, reachedAftermath, uiActiveWasDialog });
+  }, 300_000);
+
+  it("E10 dialog text exposure independent of progress", async () => {
+    await resetWorld();
+    const aftermathText = (await questRow()).content.objectives.find((o) => o.id === "d.aftermath")!.description;
+    const has = (r: { content: { objectives: { id: string; description: string }[] } } | null | undefined) =>
+      !!r?.content.objectives.find((o) => o.id === "d.aftermath" && o.description === aftermathText);
+    // Rate-limit middleware stays active; only its Redis transport is stubbed, exactly as
+    // upstream tests/server/api/travel.pvpRewards.test.ts does. No request leaves the process.
+    const realFetch = globalThis.fetch;
+    vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      if (typeof init?.body !== "string" || !init.body.includes("trpc-ratelimit")) return realFetch(input, init);
+      const cmds = JSON.parse(init.body) as unknown[];
+      const one = (cmd: unknown[]) => ({ result: cmd[0] === "evalsha" || cmd[0] === "eval" ? [59, 60] : 1 });
+      return Response.json(Array.isArray(cmds[0]) ? cmds.map((x) => one(x as unknown[])) : one(cmds));
+    });
+    // Logged-out visitor: no user id, only an IP (the middleware's anonymous identity).
+    const anon = questsRouter.createCaller({ drizzle: await db(), userId: undefined, userIp: "127.0.0.1" } as never);
+    const viaGet = has(await anon.get({ id: QUEST_ID }));
+    // Logged-in player who has not started (or paid for) the run.
+    const viaGetLoggedIn = has(await (await callerFor(questsRouter, "sb-hero")).get({ id: QUEST_ID }));
+    await start();
+    const me = await (await callerFor(profileRouter, "sb-hero")).getUser();
+    const u = (me as { userData?: { userQuests?: { quest?: { content?: { objectives?: { id: string; description: string }[] } } }[] } }).userData;
+    const viaUser = !!u?.userQuests?.some((uq) => uq.quest?.content?.objectives?.some((o) => o.id === "d.aftermath" && o.description === aftermathText));
+    // Staged content: the same record saved hidden, as doctrine requires before publication.
+    await (await db()).update(quest).set({ hidden: true }).where(eq(quest.id, QUEST_ID));
+    const hiddenViaGet = has(await anon.get({ id: QUEST_ID }));
+    const listed = await anon.getAll({ limit: 500, hidden: true });
+    const hiddenViaList = (listed.data as { id: string }[]).some((r) => r.id === QUEST_ID && has(r as never));
+    const names = (await anon.getAllNames()) as { id: string }[];
+    ev.put("E10.hiddenQuestReadableLoggedOut", { viaGetById: hiddenViaGet, viaGetAllHiddenFilter: hiddenViaList, idListedByGetAllNames: names.some((n) => n.id === QUEST_ID) });
+    ev.finding("F5", "A hidden (staged) battlepyramid's full content, including dialog text, is listed and returned to logged-out callers by quests.getAll({hidden:true}) and quests.get; hidden:true does not keep story text private",
+      hiddenViaGet || hiddenViaList, { hiddenViaGet, hiddenViaList });
+    ev.put("E10.aftermathTextReadable", { viaQuestsGetLoggedOut: viaGet, viaQuestsGetLoggedInNotStarted: viaGetLoggedIn, viaGetUserAtRunStart: viaUser });
+    ev.finding("F4", "All dialog text, including the final reveal, is returned by quests.get (also logged out) and by profile.getUser once a run starts; the click-through is not needed to read it",
+      viaGet || viaGetLoggedIn || viaUser, { viaGet, viaGetLoggedIn, viaUser });
+  }, 120_000);
 
   it("E5 no automatic resource recovery between floors or while paused", async () => {
     await resetWorld();
