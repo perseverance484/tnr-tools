@@ -75,3 +75,11 @@ Intended AI: barrier/Hexweave opening; **Split Image on round 2** (initially one
 ## Current next step
 
 Design the **High Command / War General** as the fourth boss, markedly tougher than Replicant Zero, emphasizing command-grade suppression and intelligent tactical decisions without simply cloning the Sealwright's seven-move dual-Clear rotation. Present candidate jutsu and priorities to the director **one boss at a time**. Do not edit manifests, user-owned balance, or the live game without separate approval.
+
+## Design approvals — 2026-10-13
+
+**Division IV name:** The Grand Marshal. **Epithet:** The Second. The Supreme Commander's trusted right hand, highest authority below the Commander, and the officer whose advice and independent tactical judgment the Commander trusted enough to permit him to question orders. Other generals answered to him. The earlier name *War General* is superseded. His proposed suppression kit remains pending final review.
+
+**Command Terminal shortcuts:** A successful one-question puzzle grants a clean shortcut past the fourth regular encounter with no downside. A wrong answer still grants the shortcut, but applies the short-lived Security Alert disadvantage against the boss. Every division gets a unique, logically solvable three-choice puzzle. This supersedes the earlier always-penalized shortcut. Medical and Combat Protocol options continue to require defeating the fourth enemy.
+
+**Next:** Design the Supreme Commander, the final boss.
