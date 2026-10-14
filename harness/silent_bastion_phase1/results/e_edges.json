@@ -1,0 +1,2386 @@
+{
+ "assertions": 560,
+ "checks": [
+  {
+   "name": "E1: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "E1: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "E1: starting the run does not consume the Beacon",
+   "pass": true
+  },
+  {
+   "name": "E1: engine active objective is the single root d1.n.f1",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f1 -> b1.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f2 -> b1.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: opponent is slot D1.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.f3 -> b1.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: opponent is slot D1.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.terminal -> d1.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.puzzle -> d1.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E1: d1.n.boss.clean -> b1.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: opponent is slot D1.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E1: b1.n.boss.clean: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E1 abandon succeeds between floors",
+   "pass": true
+  },
+  {
+   "name": "E1 abandon releases isolation (AWAKE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "E1 attempt closed uncompleted",
+   "pass": true
+  },
+  {
+   "name": "E1 Beacon not refunded",
+   "pass": true
+  },
+  {
+   "name": "E1 no quest reward",
+   "pass": true
+  },
+  {
+   "name": "E1 pools not restored by abandonment",
+   "pass": true
+  },
+  {
+   "name": "E1 abandoned run cannot progress",
+   "pass": true
+  },
+  {
+   "name": "E2 abandon refused mid-battle",
+   "pass": true
+  },
+  {
+   "name": "E2 battle and run intact",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'b1.n.f2' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'b1.n.boss.clean' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'd1.n.boss.medical' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'b5.n.f1' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'b1.r.f1' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'w.complete' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 choosing 'd2.n.f1' at the root starts nothing and moves nothing",
+   "pass": true
+  },
+  {
+   "name": "E3 Beacon untouched before the first battle",
+   "pass": true
+  },
+  {
+   "name": "E3 continuing past a live battle is rejected",
+   "pass": true
+  },
+  {
+   "name": "E3 after an initial loss, 'b1.n.f2' does not resume the abandoned initial lane",
+   "pass": true
+  },
+  {
+   "name": "E3 after an initial loss, 'b1.n.boss.combat' does not resume the abandoned initial lane",
+   "pass": true
+  },
+  {
+   "name": "E3 after an initial loss, 'b2.n.f1' does not resume the abandoned initial lane",
+   "pass": true
+  },
+  {
+   "name": "E4 first battle refused without a Beacon",
+   "pass": true
+  },
+  {
+   "name": "E4 no battle can start without a Beacon even via the skip probe",
+   "pass": true
+  },
+  {
+   "name": "E4b no battle ran and no Beacon was charged",
+   "pass": true
+  },
+  {
+   "name": "E5 six hours between floors: HP/CP/SP unchanged",
+   "pass": true
+  },
+  {
+   "name": "E5 next floor starts with the carried pools",
+   "pass": true
+  },
+  {
+   "name": "E6 hidden quest pauses the run (continuation rejected)",
+   "pass": true
+  },
+  {
+   "name": "E6 paused run keeps its checkpoint tracker",
+   "pass": true
+  },
+  {
+   "name": "E6 unhiding resumes at the same objective",
+   "pass": true
+  },
+  {
+   "name": "E6 edited content blocks the old run",
+   "pass": true
+  },
+  {
+   "name": "E6 edited run can be abandoned",
+   "pass": true
+  },
+  {
+   "name": "E7 quests.update succeeds",
+   "pass": true
+  },
+  {
+   "name": "E7 saved record keeps 208 objectives in order",
+   "pass": true
+  },
+  {
+   "name": "E7 saved record stays hidden",
+   "pass": true
+  },
+  {
+   "name": "E8: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "E8: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "E8: starting the run does not consume the Beacon",
+   "pass": true
+  },
+  {
+   "name": "E8: engine active objective is the single root d1.n.f1",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f1 -> b1.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f2 -> b1.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: opponent is slot D1.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f3 -> b1.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: opponent is slot D1.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.terminal -> d1.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f4.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.f4.medical -> b1.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: opponent is slot D1.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.f4.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.boss.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d1.n.boss.medical -> b1.n.boss.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: opponent is slot D1.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: start pools set to 75%",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b1.n.boss.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f1 -> b2.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: opponent is slot D2.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f2 -> b2.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: opponent is slot D2.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f3 -> b2.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: opponent is slot D2.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.terminal -> d2.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f4.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.f4.medical -> b2.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: opponent is slot D2.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.f4.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.boss.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d2.n.boss.medical -> b2.n.boss.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: opponent is slot D2.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: start pools set to 75%",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b2.n.boss.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f1 -> b3.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: opponent is slot D3.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f2 -> b3.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: opponent is slot D3.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f3 -> b3.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: opponent is slot D3.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.terminal -> d3.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f4.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.f4.medical -> b3.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: opponent is slot D3.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.f4.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.boss.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d3.n.boss.medical -> b3.n.boss.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: opponent is slot D3.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: start pools set to 75%",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b3.n.boss.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f1 -> b4.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: opponent is slot D4.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f2 -> b4.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: opponent is slot D4.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f3 -> b4.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: opponent is slot D4.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.terminal -> d4.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f4.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.f4.medical -> b4.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: opponent is slot D4.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.f4.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.boss.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d4.n.boss.medical -> b4.n.boss.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: opponent is slot D4.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: start pools set to 75%",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b4.n.boss.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f1 -> b5.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: opponent is slot D5.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f2 -> b5.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: opponent is slot D5.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f3 -> b5.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: opponent is slot D5.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.terminal -> d5.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f4.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.f4.medical -> b5.n.f4.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: opponent is slot D5.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.f4.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.boss.medical is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E8: d5.n.boss.medical -> b5.n.boss.medical accepted",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: opponent is slot D5.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: start pools set to 75%",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E8: b5.n.boss.medical: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E8 deepest state reached (aftermath active)",
+   "pass": true
+  },
+  {
+   "name": "E8 25 battles on the full Medical route",
+   "pass": true
+  },
+  {
+   "name": "E8 getNewTrackers on 208 objectives under 50 ms/call",
+   "pass": true
+  },
+  {
+   "name": "E9: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "E9: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "E9: starting the run does not consume the Beacon",
+   "pass": true
+  },
+  {
+   "name": "E9: engine active objective is the single root d1.n.f1",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.n.f1 -> b1.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: loss routes to d1.r.f1 (same division retry entry)",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.n.f1: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 -> b1.r.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: start pools set to 50%",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 -> b1.r.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: opponent is slot D1.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 -> b1.r.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: opponent is slot D1.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal -> d1.r.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle -> d1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean -> b1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: opponent is slot D1.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: loss routes to d1.r.f1 (same division retry entry)",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 -> b1.r.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: start pools set to 50%",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 -> b1.r.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: opponent is slot D1.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 -> b1.r.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: opponent is slot D1.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal -> d1.r.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle -> d1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean -> b1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: opponent is slot D1.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: loss routes to d1.r.f1 (same division retry entry)",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f1 -> b1.r.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: opponent is slot D1.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: start pools set to 50%",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f1: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f2 -> b1.r.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: opponent is slot D1.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f2: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.f3 -> b1.r.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: opponent is slot D1.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: win keeps the run between floors with settled pools",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.f3: no adjacent battle auto-fires after a win",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal -> d1.r.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle -> d1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "E9: d1.r.boss.clean -> b1.r.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: opponent is slot D1.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: Beacon charged exactly once per attempt",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: loss routes to d1.r.f1 (same division retry entry)",
+   "pass": true
+  },
+  {
+   "name": "E9: b1.r.boss.clean: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "E9 still one Beacon charged after 3 deliberate loops",
+   "pass": true
+  },
+  {
+   "name": "E9 no quest reward from loops",
+   "pass": true
+  }
+ ],
+ "data": {
+  "E4.afterLateBeacon": {
+   "battleObjective": "b1.n.f1",
+   "d1n2Done": true
+  },
+  "E4.afterWinningThatBattle": {
+   "autoStartedBattle": "b1.n.f2",
+   "view": {
+    "active": "b1.n.f2",
+    "open": [
+     "b1.n.f2",
+     "d1.n.f3"
+    ]
+   }
+  },
+  "E4.firstChoice": {
+   "notifications": [
+    "Attacking 1 target for Ghost Ship: The Last Directive [offline fixture].",
+    "You do not have the required entry items in your inventory."
+   ],
+   "success": true
+  },
+  "E4.skipProbe": {
+   "battle": false,
+   "d1n2Done": true,
+   "message": "Quest progress updated",
+   "success": true,
+   "view": {
+    "active": "b1.n.f1",
+    "open": [
+     "b1.n.f1",
+     "b1.n.f2",
+     "d1.n.f3"
+    ]
+   }
+  },
+  "E4.startQuestWithoutBeacon": {
+   "message": "Quest started: Ghost Ship: The Last Directive [offline fixture]",
+   "success": true
+  },
+  "E4.viewAfterRefusedBattle": {
+   "active": "b1.n.f1",
+   "open": [
+    "b1.n.f1",
+    "d1.n.f2"
+   ]
+  },
+  "E4b.battlesStartedByPageRefreshAloneAfterBeacon": [
+   "b1.n.f1",
+   "b1.n.f2",
+   "b1.n.f3",
+   "b1.n.boss.combat",
+   "b1.n.f4.combat",
+   "b2.n.f1",
+   "b2.n.f2",
+   null
+  ],
+  "E4b.dialogStepsAcceptedWithoutAnyBattle": [
+   "b1.n.f1",
+   "b1.n.f2",
+   "b1.n.f3",
+   "d1.n.f4.combat",
+   "b1.n.f4.combat",
+   "b1.n.boss.combat",
+   "b2.n.f1",
+   "b2.n.f2"
+  ],
+  "E4b.doneObjectivesWithoutAnyBattle": [
+   "d1.n.f1",
+   "d1.n.f2",
+   "d1.n.f3",
+   "d1.n.terminal",
+   "d1.n.boss.combat",
+   "d1.n.f4.combat",
+   "d2.n.f1",
+   "d2.n.f2"
+  ],
+  "E4b.finalView": {
+   "active": "d2.n.f3",
+   "open": [
+    "d2.n.f3"
+   ]
+  },
+  "E7.savedContentBytes": 237078,
+  "E7.visibleSaveWithoutSceneCharacters": {
+   "message": "Quest must have either main sceneCharacters set or all objectives must have sceneCharacters defined",
+   "success": false
+  },
+  "E8.trackerGoalsAtDeepestPoint": 208,
+  "E9.perLoop(3 regular wins + 1 commander loss)": [
+   {
+    "experienceGained": 96,
+    "ryoGained": true
+   },
+   {
+    "experienceGained": 96,
+    "ryoGained": true
+   },
+   {
+    "experienceGained": 96,
+    "ryoGained": true
+   }
+  ]
+ },
+ "failed": 0,
+ "findings": [
+  {
+   "detail": "Quest started: Ghost Ship: The Last Directive [offline fixture]",
+   "id": "F2",
+   "reproduced": true,
+   "summary": "startQuest admits an isolated entry-item Pyramid without the entry item; the Beacon is first checked at the first battle"
+  },
+  {
+   "detail": {
+    "autoChained": [
+     "b1.n.f1",
+     "b1.n.f2",
+     "b1.n.f3",
+     "b1.n.boss.combat",
+     "b1.n.f4.combat",
+     "b2.n.f1",
+     "b2.n.f2"
+    ],
+    "bossBeforeF4": true,
+    "dialogStepsAccepted": 8
+   },
+   "id": "F1",
+   "reproduced": true,
+   "summary": "Missing-Beacon window: dialogs after an unstarted battle can be completed; battles later chain by page refresh without dialog gates, and a commander can precede regular fight 4"
+  },
+  {
+   "detail": {
+    "everyLoopPaidIncome": true,
+    "loops": 3
+   },
+   "id": "F3",
+   "reproduced": true,
+   "summary": "Deliberate Division I–IV commander losses re-run already-won regular fights; each win pays ordinary battle settlement income on one Beacon (economy decision, user-owned)"
+  }
+ ],
+ "gate": "e_edges"
+}

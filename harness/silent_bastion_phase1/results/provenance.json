@@ -1,0 +1,45 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "c82dc7f8ee76cb9ac498c0689f71b6f13bfe69dd",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "packageJsonSha256": "46e67aee7e26d8d78b1d6c2005a2b85651d0510899d1e43b3b50feaf673c0305"
+ },
+ "designGraph": {
+  "path": "state/silent_bastion_phase1_graph.json",
+  "sha256": "bbb85ddab5b53ef361ce776f570b95441d71d954ffe26442b97f244e1686aee9"
+ },
+ "database": {
+  "image": "mysql:26.7.0@sha256:893418c8a7a34c60d2d961cc30ef136095da141478562ed2101ae3f5faba9c3f",
+  "network": "--network none; unix socket only",
+  "data": "throwaway, truncated per suite"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "uname": "Linux 6.18.44-fc-v114"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials",
+  "liveGameRequests": 0
+ },
+ "harnessFileSha256": {
+  "engine/p1_edges.test.ts": "ac2a1f0ddfab6a019c62075e6f4a398186f1938fdc70ee274d8b47c24fff1166",
+  "engine/p1_runtime.test.ts": "9054ee0ef1ece1a0dde068a01d0e06e300d784ae2821e0b51901884f2d0ac30d",
+  "engine/p1_static.test.ts": "2114d8bd9e82293aef4979eefcca1619b34ff3a31f6b3448133847eb09e745c6",
+  "engine/lib/driver.ts": "bc0fe30e1d31bb1971fd7aeb657b9155c5e0250f6e7d938b30145731625aac30",
+  "engine/lib/graph.ts": "3a0c2085f6e754c3060b7f689191fd36f24002b8fb24e383143a046511568ff3",
+  "engine/lib/report.ts": "1797ad07d38c6e07a3215f4f9d2902d707f2a1ab8b70219b85f73fb58f0d995e",
+  "engine/lib/scenario.ts": "c38aca6fd63934670d082cca30186adcffa7a49ea6958bc8bbbda261d6133067",
+  "tools/check_evidence.py": "d1717a59756e5a5221535f12a1a42593826b28a025b32f7e3ec0f1c73ed33768",
+  "run.sh": "8ef51f3340fa0618250efa0617a37b39b8b9922aa1e790bf8b764f5937e190d2"
+ },
+ "exitStatus": {
+  "upstreamPreflight": 0,
+  "bunTest": 0,
+  "evidenceCheck": 0
+ }
+}
