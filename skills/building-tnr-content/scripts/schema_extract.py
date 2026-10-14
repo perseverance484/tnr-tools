@@ -79,7 +79,7 @@ def parse_expr(expr: str) -> dict:
     m = re.search(r"z\.(?:coerce\.)?(\w+)", e)
     if m:
         out["type"] = KIND.get(m.group(1), m.group(1))
-    out["coerce"] = ".coerce." in e
+    out["coerce"] = bool(re.match(r"z\s*\.\s*coerce\s*\.", e))
     # modifiers, defaults and bounds belong to the OUTER chain only; a nested
     # item schema's .optional()/.max()/.prefault() says nothing about the field
     calls = _outer_chain(e)
@@ -159,8 +159,7 @@ def _num(text):
 def parse_objects(path: str) -> dict:
     """Every `export const X = z.object({...})` in a file."""
     blocks, cur, depth = {}, None, 0
-    with open(path) as fh:
-        lines = fh.readlines()
+    lines = _read(path).splitlines(True)
     for line in lines:
         if cur is None:
             m = BLOCK_RE.match(line) or SCHEMA_RE.match(line)
@@ -205,8 +204,7 @@ def parse_objects(path: str) -> dict:
 def parse_unions(path: str) -> dict:
     """Every `export const X = z.union([A, B, ...])` -> member names."""
     out, cur, buf, depth = {}, None, "", 0
-    with open(path) as fh:
-        src = fh.read()
+    src = _read(path)
     for m in UNION_RE.finditer(src):
         name = m.group(1)
         i = src.index("[", m.end() - 1)   # first [ after the call opens
@@ -244,7 +242,7 @@ def parse_ref_schemas(repo: str) -> dict:
         p = os.path.join(repo, rel)
         if not os.path.exists(p):
             continue
-        src = open(p).read()
+        src = _read(p)
         for m in re.finditer(r"export const (\w+)\s*=\s*z([\s\S]*?)(?=\nexport const |\Z)", src):
             name, body = m.group(1), m.group(2)
             if ".array(" not in body or "z.object({" not in body:
@@ -644,14 +642,16 @@ def parse_expr2(expr, helpers=None, consts=None):
             expr = args[1].strip()
     out = parse_expr(expr)
     out.update(note)
+    outer = _outer_chain(" ".join(expr.split()))
     for name in ("min", "max"):
         if name not in out:
-            b = re.search(rf"\.{name}\(\s*([A-Z][A-Z0-9_]*)\s*\)", expr)
-            if b:
-                ref = b.group(1)
-                out[name + "_ref"] = ref
-                if isinstance(consts.get(ref), (int, float)):
-                    out[name] = consts[ref]
+            for call, arg in outer:
+                b = re.fullmatch(r"\s*([A-Z][A-Z0-9_]*)\s*", arg) if call == name else None
+                if b:
+                    ref = b.group(1)
+                    out[name + "_ref"] = ref
+                    if isinstance(consts.get(ref), (int, float)):
+                        out[name] = consts[ref]
     if "nullish" in [n for n, _ in _outer_chain(" ".join(expr.split()))]:
         out["optional"] = out["nullable"] = True
     if ".transform(" in expr:
@@ -725,6 +725,16 @@ def _find_assign(src, i):
 # field is recorded as a `gap` so the loss is visible instead of silent.
 
 DIAGNOSTICS = []
+
+# Every source file this process reads, by absolute path; `--reads` reports them
+# repository-relative so evidence can hash the complete read-set.
+SOURCE_READS = set()
+
+
+def _read(path, binary=False):
+    SOURCE_READS.add(os.path.abspath(path))
+    with open(path, "rb" if binary else "r") as fh:
+        return fh.read()
 
 # tsconfig "paths" aliases used by the validator modules (identical at
 # bdec2883 and 585534d7: app/tsconfig.json).
@@ -845,7 +855,7 @@ class SourceIndex:
     def module(self, rel):
         if rel not in self._mods:
             p = os.path.join(self.repo, rel) if rel else None
-            self._mods[rel] = Module(self, rel, open(p).read()) if p and os.path.exists(p) else None
+            self._mods[rel] = Module(self, rel, _read(p)) if p and os.path.exists(p) else None
         return self._mods[rel]
 
     # ---- arrays: [...A, "x", ...B]
@@ -900,17 +910,19 @@ class SourceIndex:
     def resolve_numbers(self, mod, rule, expr):
         """Constant-name bounds/defaults (`.max(MAX_X)`, `.prefault(DEFAULT_X)`) as
         numbers, keeping the name in <key>_ref."""
+        outer = _outer_chain(" ".join(expr.split()))
         for key in ("min", "max"):
             if rule.get(key) is None:
-                b = re.search(r"\.%s\(\s*([A-Za-z_]\w*)\s*\)" % key, expr)
-                if b:
-                    v = self.number_value(mod, b.group(1))
-                    if v is not None:
-                        rule[key] = v
-                        rule[key + "_ref"] = b.group(1)
+                for call, arg in outer:
+                    b = re.fullmatch(r"\s*([A-Za-z_]\w*)\s*", arg) if call == key else None
+                    if b:
+                        v = self.number_value(mod, b.group(1))
+                        if v is not None:
+                            rule[key] = v
+                            rule[key + "_ref"] = b.group(1)
         d = rule.get("default")
         if isinstance(d, str) and re.fullmatch(r"[A-Za-z_]\w*", d) and \
-                re.search(r"\.(?:prefault|default)\(\s*%s\s*\)" % re.escape(d), expr):
+                any(call in ("prefault", "default") and arg.strip() == d for call, arg in outer):
             v = self.number_value(mod, d)
             if v is not None:
                 rule["default"] = v
@@ -1043,30 +1055,67 @@ def enum_ref_label(index, mod, ref):
     return None
 
 
+_EQ_ATOM = re.compile(r"^(?:(?P<a>\w+)\s*(?P<op>===|==)\s*(?P<lit>undefined|null|\"\"|'')"
+                      r"|(?P<lit2>undefined|null|\"\"|'')\s*(?P<op2>===|==)\s*(?P<a2>\w+))$")
+
+
+def _strip_wrapping_parens(text):
+    text = text.strip()
+    while text.startswith("(") and balanced(text, 0, "(", ")")[1] == len(text) - 1:
+        text = text[1:-1].strip()
+    return text
+
+
 def preprocess_omission(expr):
-    """Omission semantics of a top-level z.preprocess(fn, inner). Returns
-    (optional, mechanism) or (None, reason) when it cannot be classified."""
+    """Omission semantics of a top-level z.preprocess(fn, inner).
+
+    Returns (True, mechanism) when an omitted key is proven accepted,
+    (False, mechanism) when it is proven rejected, and (None, reason) when the
+    callback is outside the bounded forms below, which is reported as a gap and
+    leaves optionality as declared.
+
+    Recognised callback: `(v) => (A1 || A2 ... ? null : v)` where every atom is
+    an exact equality of the parameter with undefined, null or "" (`===` or
+    loose `==`, either operand order). No negation, `&&`, nesting or other
+    operands. `v == null` and `v == undefined` are true for undefined; strict
+    `v === null` and `v === ""` are not. The inner schema's acceptance is read
+    from its OUTER chain, never from a nested schema."""
     pp = re.match(r"^z\.preprocess\((.*)\)$", expr)
     if not pp:
         return None, None
     args = [a for a in split_top_args(pp.group(1)) if a.strip()]
     if len(args) != 2:
         return None, "preprocess with %d arguments" % len(args)
-    fn, inner = " ".join(args[0].split()), args[1]
-    # (v) => (COND ? null : v): COND names undefined explicitly, or uses loose
-    # `== null` (true for undefined too). Strict `=== null` alone does not.
-    ternary = re.fullmatch(r"\(?\s*\(?(\w+)\)?\s*=>\s*\(?(.*?)\?\s*null\s*:\s*\1\s*\)?\s*\)?", fn)
-    if not ternary:
-        return None, "preprocess callback not classified; optionality left as declared"
-    cond = ternary.group(2)
-    maps_undefined = re.search(r"===?\s*undefined\b", cond) or re.search(r"(?<![=!])==\s*null\b", cond)
-    inner_nullable = re.search(r"\.(?:nullable|nullish)\(\)", inner)
-    inner_optional = re.search(r"\.(?:optional|nullish)\(\)", inner)
-    if maps_undefined and inner_nullable:
-        return True, "preprocess maps undefined to null and the inner schema is nullable"
-    if not maps_undefined and inner_optional:
+    fn, inner = " ".join(args[0].split()), " ".join(args[1].split())
+    head = re.match(r"^\(?\s*(\w+)\s*(?::[^)]*)?\)?\s*=>\s*", fn)
+    if not head:
+        return None, "preprocess callback is not a one-parameter arrow function"
+    param = head.group(1)
+    body = _strip_wrapping_parens(fn[head.end():])
+    tern = re.fullmatch(r"([^?]*)\?\s*null\s*:\s*%s" % re.escape(param), body)
+    if not tern:
+        return None, "preprocess callback is not `COND ? null : %s`" % param
+    cond = tern.group(1).strip()
+    if re.search(r"&&|!|\(|\)", cond):
+        return None, "preprocess condition uses an operator outside the bounded || of equalities"
+    maps_undefined = False
+    for atom in cond.split("||"):
+        m = _EQ_ATOM.fullmatch(atom.strip())
+        if not m or (m.group("a") or m.group("a2")) != param:
+            return None, "preprocess condition atom %r is not an equality of %s" % (atom.strip(), param)
+        op, lit = (m.group("op") or m.group("op2")), (m.group("lit") or m.group("lit2"))
+        if lit == "undefined" or (lit == "null" and op == "=="):
+            maps_undefined = True
+    names = [n for n, _ in _outer_chain(inner)]
+    inner_nullable = "nullable" in names or "nullish" in names
+    inner_optional = "optional" in names or "nullish" in names
+    if maps_undefined:
+        if inner_nullable:
+            return True, "preprocess maps undefined to null and the inner schema is nullable"
+        return False, "preprocess maps undefined to null but the inner schema is not nullable"
+    if inner_optional:
         return True, "preprocess passes undefined through and the inner schema is optional/nullish"
-    return None, "preprocess callback not classified; optionality left as declared"
+    return False, "preprocess passes undefined through and the inner schema is not optional"
 
 
 # ------------------------------------------------------------- constants
@@ -1074,7 +1123,7 @@ def preprocess_omission(expr):
 def extract_constants(repo, rel=None):
     rel = rel or CONST_FILE
     path = os.path.join(repo, rel)
-    src = open(path).read()
+    src = _read(path)
     out, order = {}, 0
     for m in re.finditer(r"^export const (\w+)\b", src, re.M):
         name = m.group(1)
@@ -1210,10 +1259,12 @@ def extract_entity(repo, rel, name, consts):
                 diag("gap", "G_INLINE_REFINE", where,
                      "%s.%s carries an inline superRefine; its rule is not represented" % (name, f))
             omit, why = preprocess_omission(expanded)
-            if omit:
+            if omit is True:
                 spec["optional"] = True
                 spec["_omission"] = why
-            elif why:
+            elif omit is None and why:
+                # unsupported callback: optionality stays as declared, and the
+                # loss of certainty is reported rather than guessed
                 diag("gap", "G_PREPROCESS_UNCLASSIFIED", where, why)
             members, lead = index.enum_members(emod, expanded, where)
             if lead and "enum_ref" in spec:
@@ -1255,7 +1306,7 @@ def extract_procedures(repo):
     for fn in sorted(os.listdir(rdir)):
         if not fn.endswith(".ts"):
             continue
-        src = open(os.path.join(rdir, fn)).read()
+        src = _read(os.path.join(rdir, fn))
         router = fn[:-3]
         procs = {}
         for m in PROC_RE.finditer(src):
@@ -1297,10 +1348,10 @@ def provenance(repo, files, zipname=None):
             acc = hashlib.sha256()
             names = sorted(n for n in os.listdir(p) if n.endswith(".ts"))
             for n in names:
-                acc.update(open(os.path.join(p, n), "rb").read())
+                acc.update(_read(os.path.join(p, n), binary=True))
             h[rel + "/ (%d files)" % len(names)] = acc.hexdigest()[:16]
         elif os.path.exists(p):
-            h[rel] = hashlib.sha256(open(p, "rb").read()).hexdigest()[:16]
+            h[rel] = hashlib.sha256(_read(p, binary=True)).hexdigest()[:16]
     return {
         "generator": "schema_extract.py v%s" % VERSION,
         "extracted": datetime.date.today().isoformat(),
@@ -1327,7 +1378,10 @@ def emit_entities(repo, zipname=None):
             "purpose": "Server write validators per entity: every field, type, bound, "
                        "default, nullability. Replaces hand-authored 45_DATA_field_schemas.json.",
             "reading": "optional=key may be omitted. nullable=explicit null is accepted. "
-                       "Both true means the field was declared .nullish(). "
+                       "Both true means omission and null are both accepted: declared .nullish(), "
+                       "or a z.preprocess whose omission mechanism is named in `_omission`. "
+                       "Facts describe the field's outer schema; a nested item schema's bounds "
+                       "and modifiers are not the field's. "
                        "min_ref/max_ref name the constant a bound came from; see 45e.",
             "superRefine": "Cross-field checks run after field validation; their rules are "
                            "NOT in this file. They live in the named function in source.",
@@ -1354,7 +1408,7 @@ def extract_local_enums(repo):
         p = os.path.join(repo, rel)
         if not os.path.exists(p):
             continue
-        src = open(p).read()
+        src = _read(p)
         for m in re.finditer(r"^(?:export )?const (\w+)\s*(?::[^=]*)?=\s*\[", src, re.M):
             name = m.group(1)
             i, j = balanced(src, m.end() - 1, "[", "]")
@@ -1600,6 +1654,13 @@ def main(argv):
         "--checks": lambda: emit_checks(repo, zipname),
         "--procedures": lambda: emit_procedures(repo, zipname),
     }
+    if mode == "--reads":
+        # the complete read-set of the contract modes, repository-relative
+        for name in ("--ctors", "--entities", "--constants", "--checks"):
+            emitters[name]()
+        root = os.path.abspath(repo)
+        print(json.dumps({"reads": sorted(os.path.relpath(p, root) for p in SOURCE_READS)}, indent=1))
+        return 1 if diagnostics_errors() else 0
     if mode == "--gaps":
         for name in ("--ctors", "--entities", "--constants", "--checks"):
             emitters[name]()
