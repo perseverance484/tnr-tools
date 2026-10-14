@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bbe.jutsu-output-qc/1",
   "date": "2026-10-14",
-  "approved_raw_count": 8,
+  "approved_raw_count": 6,
   "constraints": {
     "target": "jutsu.image",
     "full_bleed_opaque": true,
@@ -20,68 +20,88 @@
       "source": "icy_teleportation_slash_emblem.png",
       "file": "icon_bbe_blue_crimson_v1.webp",
       "bytes": 59574,
-      "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9"
+      "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Sapphire Command",
       "source": "glacial_crystal_claw_slashes.png",
       "file": "icon_bbe_sapphire_command_v1.webp",
       "bytes": 61270,
-      "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5"
+      "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Ice Shackles",
       "source": "a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png",
       "file": "icon_bbe_ice_shackles_v1.webp",
       "bytes": 60172,
-      "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb"
+      "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Icebound Might",
       "source": "1000018410.png",
       "file": "icon_bbe_icebound_might_v1.webp",
       "bytes": 61438,
-      "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40"
+      "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Glacial Volley",
       "source": "1000018412.png",
       "file": "icon_bbe_glacial_volley_v1.webp",
       "bytes": 60062,
-      "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f"
+      "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Blade Resonance",
       "source": "1000018418.png",
       "file": "icon_bbe_blade_resonance_v1.webp",
       "bytes": 63066,
-      "sha256": "589ed98b2d7c31943bee68da23b581fb2e5cce8872094fcc2a0cc8f6869b44af"
+      "sha256": "589ed98b2d7c31943bee68da23b581fb2e5cce8872094fcc2a0cc8f6869b44af",
+      "art_status": "REWORK_REQUIRED_NOT_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Arctic Frost",
       "source": "1000018419.png",
       "file": "icon_bbe_arctic_frost_v1.webp",
       "bytes": 61896,
-      "sha256": "0df14a6e2d97390502d462ff5d663619d67417184e507d263e5d983c750e7594"
+      "sha256": "0df14a6e2d97390502d462ff5d663619d67417184e507d263e5d983c750e7594",
+      "art_status": "REWORK_REQUIRED_NOT_APPROVED",
+      "delivery_eligible": false
     },
     {
       "jutsu": "Quintessential Flake",
       "source": "1000018420.png",
       "file": "icon_bbe_quintessential_flake_v1.webp",
       "bytes": 62838,
-      "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8"
+      "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8",
+      "art_status": "RAW_VISUAL_APPROVED",
+      "delivery_eligible": false
     }
   ],
   "bundles": [
     {
       "name": "bbe_jutsu_8_icons_lossless_webp_under80kb.zip",
       "bytes": 493898,
-      "sha256": "e57349407dd14abaa26bae1edcf99afa8942ce45565b95e77518027a69436e80"
+      "sha256": "e57349407dd14abaa26bae1edcf99afa8942ce45565b95e77518027a69436e80",
+      "final_delivery_eligible": false,
+      "notes": "Contains two rejected art candidates; evidence-only draft archive"
     },
     {
       "name": "bbe_jutsu_8_approved_original_sources.zip",
       "bytes": 13410228,
-      "sha256": "b133bb5d071373671d01872f4f4b02d9899c897d8eef2a85c4bba3ea6ffb81d3"
+      "sha256": "b133bb5d071373671d01872f4f4b02d9899c897d8eef2a85c4bba3ea6ffb81d3",
+      "final_delivery_eligible": false,
+      "notes": "Historical source collection includes two rejected candidate source images; approved naming is outdated."
     }
   ],
   "checks": {
@@ -98,13 +118,28 @@
     ],
     "zip_CRC_and_member_equality": true,
     "repo_binary_committed": false,
-    "official_artpreflight_invoked": false
+    "official_artpreflight_invoked": false,
+    "director_full_set_approved": false,
+    "technical_compression_pass_all_eight": true
   },
   "blockers": [
+    "Director correction: Arctic Frost and Blade Resonance are NOT approved visually; existing eight-icon ZIP contains their superseded drafts and MUST NOT be treated as a final upload set.",
     "Canonical shared ICON artpreflight treats all ICONs as keyed/transparent; opaque RGB jutsu icons would produce alpha errors.",
     "Director acceptance of processed WebP exports still pending.",
     "Five user attachments use JPEG bytes despite .png filenames; true original generation export bytes not verified."
   ],
   "live_requests": 0,
-  "live_writes": 0
+  "live_writes": 0,
+  "rework_required_count": 2,
+  "status": "DRAFT_EXPORTS_ALL_EIGHT_PASS_FORMAT_SIZE; ONLY_SIX_RAW_VISUALLY_APPROVED; ARCTIC_FROST_AND_BLADE_RESONANCE_REWORK_REQUIRED; OLD_EIGHT_PACK_NOT_FINAL; SHARED_ICON_ALPHA_PREFLIGHT_BLOCKED",
+  "deliverable_status": "NOT_FINAL — existing eight-file zip includes rejected Arctic Frost and Blade Resonance",
+  "correction": {
+    "date": "2026-10-14",
+    "source": "User director explicit correction in BBE Art Studio conversation",
+    "reworked_jutsu": [
+      "Arctic Frost",
+      "Blade Resonance"
+    ],
+    "effect": "Withdraw old claims of complete visual approval; preserve measured file properties and provenance as historical facts. Require new candidate generation and explicit user approval. No live changes."
+  }
 }
