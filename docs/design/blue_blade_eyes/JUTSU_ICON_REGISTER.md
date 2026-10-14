@@ -1,6 +1,6 @@
 # Blue Blade Eyes — Jutsu Icon Identity Register
 
-**Status:** Visual direction LOCKED for six individual jutsu; remaining two require separate generation/review; **none of this eight-icon set is currently recorded as mechanically upload-ready**.  
+**Status:** Visual direction LOCKED for seven individual jutsu; remaining one requires separate generation/review; **none of this eight-icon set is currently recorded as mechanically upload-ready**.  
 **Art Studio:** docs/workflows/ISOLATED_ART_GENERATION.md; director ruling RUL-2026-10-14-001.  
 **Source basis:** director-provided jutsu database screenshots and approved image-generation outputs in the 2026-10-13/14 conversation. The screenshots document the names/visual meaning; they are **not** a current live capture.  
 **Source bytes:** individual source identifiers, image formats, exact sizes and locally verified SHA-256 are in SOURCE_EVIDENCE.json. Those files are **not committed** in this documentation change.  
@@ -26,11 +26,11 @@
 | **Ice Shackles** | **X** massive frozen chains closing around a small central binding seal; unmistakable restraint, not a snowflake. | **RAW VISUAL APPROVED** | a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png |
 | **Icebound Might** | **Broad guardian armor**: towering crystalline shoulder plates, heavy protective gauntlets and intense chakra chest core; **no actor inside**. | **RAW VISUAL APPROVED** | 1000018410.png (actual bytes JPEG) |
 | **Quintessential Flake** | Distinct **six-point crystalline flake** with inward-converging chakra; no guardian armor or extra starburst competing for focus. | **NEW-METHOD REVIEW PENDING** | Existing earlier candidate(s), not locked here |
-| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidates; no current raw lock |
+| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **RAW VISUAL APPROVED** (2026-10-14) | 1000018419.png (user attachment; JPEG content; original isolated-session export pending) |
 | **Blade Resonance** | Single **vertical Blue Blade** with three clean concentric chakra resonance waves; calm central axis; no large slash explosion. | **RAW VISUAL APPROVED** (2026-10-14) | 1000018418.png (user attachment; JPEG content; original isolated-session export pending) |
 | **Glacial Volley** | Strong horizontal/diagonal **fan of crystalline lances** fired in formation; discrete, directional projectiles rather than parallel slashes. | **RAW VISUAL APPROVED** (2026-10-14) | 1000018412.png (user attachment; JPEG content; original isolated-session export pending) |
 
-**Approval distinction:** The six marked RAW VISUAL APPROVED are director-accepted *visual subjects*, not approved compressed uploads. Do not call the other four rejected or complete without a new explicit art review. The user retains final acceptance.
+**Approval distinction:** The seven marked RAW VISUAL APPROVED are director-accepted *visual subjects*, not approved compressed uploads. Do not call the other four rejected or complete without a new explicit art review. The user retains final acceptance.
 
 ## Reference selection per new icon
 
@@ -41,7 +41,7 @@ Never attach all eight icons, a montage, the failed Icebound snowflake/three-sla
 ## Durable evidence/status rules
 
 - **RAW VISUAL APPROVED:** user accepted the raw composition; preserve original bytes/hash.
-- **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the six approved jutsu image sources meet this gate.
+- **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the seven approved jutsu image sources meet this gate.
 - **PROCESSING QC PASSED:** output, visual scale, size/format and source integrity actually checked.
 - **PREFLIGHT CLEAR:** the correct current repository tool exits with zero errors; **not claimed** for opaque BBE jutsu icons.
 - **UPLOAD / LIVE VERIFIED:** must be supported by the operator's upload and fresh live read-back; **none** claimed.
@@ -50,8 +50,8 @@ Do not erase this history when replacing an output; use a new filename/version, 
 
 ## Next studio actions
 
-1. Import/store all six accepted art sources with their hashes, and obtain original generation exports for Glacial Volley and Blade Resonance. Their present state is **conversation-origin images; repo binary intake pending**. The user can return original files to the studio as attachments. This documentation commit does not add binary art.
-2. Design the remaining two icons **one new generation session per target**, with independent silhouette briefs and minimal style references.
+1. Import/store all seven accepted art sources with their hashes, and obtain original generation exports for Glacial Volley, Blade Resonance and Arctic Frost. Their present state is **conversation-origin images; repo binary intake pending**. The user can return original files to the studio as attachments. This documentation commit does not add binary art.
+2. Design the remaining one icon (Quintessential Flake) **one new generation session per target**, with independent silhouette briefs and minimal style references.
 3. Run BBE export under the user limit with 125/64/32px side-by-side QC; log results and formal preflight, never mask the opaque-background alpha issue.
 4. Request separate Fable Lane A implementation of **jutsu-specific opaque-background contract/preflight handling** before claiming mechanically clean upload packages.
 5. Keep any actual game upload, content changes, and publication under dauntless's separate authority.
