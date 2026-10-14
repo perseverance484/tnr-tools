@@ -83,3 +83,28 @@ Design the **Supreme Commander** as the fifth and final boss, preserving the mys
 **Command Terminal shortcuts:** A successful one-question puzzle grants a clean shortcut past the fourth regular encounter with no downside. A wrong answer still grants the shortcut, but applies the short-lived Security Alert disadvantage against the boss. Every division gets a unique, logically solvable three-choice puzzle. This supersedes the earlier always-penalized shortcut. Medical and Combat Protocol options continue to require defeating the fourth enemy.
 
 **Next:** Design the Supreme Commander, the final boss.
+
+## Supreme Commander — approved core and signature revision (2026-10-13)
+
+**Boss status:** The director approved the Supreme Commander's foundational identity and prior proposed fourteen-jutsu concept, with a specific revision to his exclusive signature. **Name, final refined roster, rule priorities, stats and balance remain open.**
+
+- The title **Supreme Commander** is intentionally misleading. The player should believe that reaching and defeating the highest-ranking commander will end the new orders. In the **final scene**, a freshly issued directive proves that command issuance continues without him. Preserve the mystery of the actual origin; do not spoil this before the ending.
+- Distinguish him from The Grand Marshal's total suppression, Master of Arms' offensive combos, and Replicant Zero's reconstruction and sustain. The Commander is a highly adaptable counter-strategist, with a desperate endgame.
+- Approved signature name: **The Last Directive**.
+- **Approved signature effects:** **Final Stand for 5 rounds**, **Increased Damage Given for 5 rounds**, and **Clear Prevent for 5 rounds**. Activates based on his HP reaching **about 30%**, through priority native health-conditional AI. This **supersedes** the earlier 1-round Final Stand / 2-round damage buff + increased-damage-taken draft. **No increased-damage-taken tag belongs in the approved signature.** Exact IDG power, jutsu AP/cooldown, and chance values beyond the approved duration remain balance/design decisions.
+- The director explicitly requires enough boss durability, uptime and usable AP/pools to cast this near-death ability rather than getting burst down before the trigger. Use test fixtures around the threshold, not unapproved automatic immunity/recovery.
+- The director requests an anti-kiting response: when the player refuses to approach, use the opportunity for self-buffing and **Veilstep**, exploiting their opportunity to buff, then **Clear** to punish that setup. This intent is approved but the specific timing needs adjustment to match the engine.
+
+**Original approved candidate roster (14):** B18 Apex Hunger, B07 Stolen Form, S34 Purging Stance, B09 Veilstep, EA04 Zephyr Lance, B13 Hexweave, B17 Worldbreaker Chorus, B28 Recoil Slam, B27 Scorching Rend, B05 Devouring Grasp, B26 Braced Strike, B20 Surging Overflow, S07 Rapid Fire, exclusive The Last Directive.
+
+**Source-verified caveats at** `studie-tech/TheNinjaRPG@67341a1fa1567b9b33827b802e48120e5d797a15`:
+
+- `app/src/libs/combat/actions.ts` `availableUserActions` **disables all jutsu and basic Clear while the caster is stealthed**, even defensive/support jutsu. With native **B09 Veilstep (Stealth 2 rounds)** the Commander cannot reliably cast a Clear **on the very next round** as originally imagined. Preserve the kite-punishment idea with **Clear as soon as stealth expires**, or do not cast Veilstep on the route requiring next-round Clear. Allow movement during stealth; limit inappropriate repeated stealth cycles.
+- `app/src/libs/combat/tags.ts` `applyFinalStandDamage` prevents lethal incoming damage below 1 HP while a positive-round jutsu-sourced Final Stand is in effect; `clearPrevent` prevents native Clear when active. A 5-round signature is structurally expressible (`app/src/validators/combat.ts`, FinalStand/ClearPrevent/IDG tags); verify actual lifetime with combat fixtures.
+- Native `health_below` is **strictly less** than the configured integer threshold (`app/src/libs/combat/ai_v2.ts`), so an exact trigger **at 30%** versus **below 30%** needs explicit acceptance of the available boundary semantics.
+- With the health-trigger rule alone, the signature may re-cast after cooldown while the boss stays low HP. A long (e.g. 99-round) cooldown is a **proposal**, not an approved value, to avoid unintentional repeated Final Stand.
+- B18 Apex Hunger provides 99-round IDG and stat increases and must **not be cast repeatedly** without deliberate balance acceptance: offensive modifiers compound.
+
+**Proposed refinements to review, not yet approved:** swap **B28 Recoil Slam → B34 Mirror Edge** (eliminate self-damage and add tactical Reflect), and **B27 Scorching Rend → B32 Nullifying Wave** (needed native ranged Clear; r5, 60 AP), keeping the roster at 14. Use conditional Copy-then-Clear versus heavy buff users, Pierce versus shields, Cleanse versus disabling effects, Hexweave into Worldbreaker as punishment, an opening self-buff plus selective Veilstep against kiting, and The Last Directive at the director-approved near-death threshold. Continue movement while stealthed. Balance and title/name details remain for director review. A proposed personal name may accompany the player-facing title, but **Supreme Commander** must remain prominent to preserve the final reveal.
+
+**Next:** Present refined names, lore, twelve-to-fourteen-move tactical priorities, 5-round Final Stand timing, and corrective anti-kite implementation for director acceptance. No live requests, commits to main, or production changes are authorized.
