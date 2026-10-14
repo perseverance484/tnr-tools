@@ -1,0 +1,36 @@
+test_combat_constants_module (__main__.ArraySpreads.test_combat_constants_module) ... ok
+test_constant_spread_resolves_in_source_order (__main__.ArraySpreads.test_constant_spread_resolves_in_source_order) ... ok
+test_enum_by_reference_has_real_members (__main__.ArraySpreads.test_enum_by_reference_has_real_members) ... ok
+test_non_leading_inline_spread (__main__.ArraySpreads.test_non_leading_inline_spread) ... ok
+test_transitive_spread (__main__.ArraySpreads.test_transitive_spread) ... ok
+test_two_spreads_in_one_list (__main__.ArraySpreads.test_two_spreads_in_one_list) ... ok
+test_validator_local_spread_list (__main__.ArraySpreads.test_validator_local_spread_list) ... ok
+test_repeat_runs_are_identical (__main__.Determinism.test_repeat_runs_are_identical) ... ok
+test_false_default_is_kept (__main__.FalsyMetadata.test_false_default_is_kept) ... ok
+test_null_default_is_kept (__main__.FalsyMetadata.test_null_default_is_kept) ... ok
+test_zero_default_and_bound_are_kept (__main__.FalsyMetadata.test_zero_default_and_bound_are_kept) ... ok
+test_constant_default (__main__.Helpers.test_constant_default) ... ok
+test_cross_file_helper_bounds_and_omission (__main__.Helpers.test_cross_file_helper_bounds_and_omission) ... ok
+test_cross_file_helper_on_single_line_head (__main__.Helpers.test_cross_file_helper_on_single_line_head) ... ok
+test_discriminant_is_type_not_inherited_literal (__main__.Helpers.test_discriminant_is_type_not_inherited_literal) ... ok
+test_nullable_is_not_omissible (__main__.Helpers.test_nullable_is_not_omissible) ... ok
+test_type_helper (__main__.Helpers.test_type_helper) ... ok
+test_multiline_chain_keeps_type_and_bounds (__main__.MultilineAndDelimiters.test_multiline_chain_keeps_type_and_bounds) ... ok
+test_multiline_field_is_not_dropped (__main__.MultilineAndDelimiters.test_multiline_field_is_not_dropped) ... ok
+test_multiline_schema_head (__main__.MultilineAndDelimiters.test_multiline_schema_head) ... ok
+test_nested_item_fields_do_not_leak (__main__.MultilineAndDelimiters.test_nested_item_fields_do_not_leak) ... ok
+test_string_with_braces_and_commas (__main__.MultilineAndDelimiters.test_string_with_braces_and_commas) ... ok
+test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... ok
+test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... ok
+test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... ok
+test_unresolved_array_spread (__main__.Refusals.test_unresolved_array_spread) ... ok
+test_unresolved_object_spread (__main__.Refusals.test_unresolved_object_spread) ... ok
+test_cross_module_object_spread (__main__.SpreadPrecedence.test_cross_module_object_spread) ... ok
+test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... ok
+test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.860s
+
+OK
+exit=0

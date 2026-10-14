@@ -22,6 +22,17 @@ Usage:
   python3 schema_extract.py /path/to/TheNinjaRPG-main --shapes  > 45b_DATA_write_shapes.json
   python3 schema_extract.py /path/to/TheNinjaRPG-main --ctors   > 45c_DATA_constructors.json
   python3 schema_extract.py /path/to/TheNinjaRPG-main --report          # human summary
+  python3 schema_extract.py /path/to/TheNinjaRPG-main --gaps            # every diagnostic, as JSON
+
+Source fidelity (QW-0A slice A): array spreads ([...A, "x"]) in constants and
+z.enum, object spreads ({...A, ...B.shape}) across modules with JS precedence
+(the later entry wins), multi-line fields and `z\n.object(` heads, imported
+helpers (tsconfig `@/` aliases) and block-bodied helpers such as msg()/type(),
+outer-chain modifiers only, explicit 0/false/null facts, and preprocess
+omission semantics. An unresolved or cyclic spread is an `error`: the run exits
+1 and writes nothing to stdout, so a `>` redirect cannot capture a partial
+contract. Forms outside these constructs that lose a field are `gap`
+diagnostics, reported by --gaps. Tests: test_schema_extract.py.
 """
 import json, re, sys, os
 
@@ -69,11 +80,15 @@ def parse_expr(expr: str) -> dict:
     if m:
         out["type"] = KIND.get(m.group(1), m.group(1))
     out["coerce"] = ".coerce." in e
-    out["optional"] = ".optional()" in e or ".nullish()" in e
-    out["nullable"] = ".nullable()" in e or ".nullish()" in e
-    d = re.search(r"\.(?:prefault|default)\(\s*(.*?)\s*\)(?:\.|$|,)", e)
-    if d:
-        raw = d.group(1)
+    # modifiers, defaults and bounds belong to the OUTER chain only; a nested
+    # item schema's .optional()/.max()/.prefault() says nothing about the field
+    calls = _outer_chain(e)
+    names = [n for n, _ in calls]
+    out["optional"] = "optional" in names or "nullish" in names
+    out["nullable"] = "nullable" in names or "nullish" in names
+    defaults = [a for n, a in calls if n in ("prefault", "default")]
+    if defaults:
+        raw = defaults[-1].strip()
         try:
             out["default"] = json.loads(raw.replace("'", '"'))
         except Exception:
@@ -97,15 +112,48 @@ def parse_expr(expr: str) -> dict:
         inner = re.search(r"z\.array\(\s*(\w+)", e)
         if inner and inner.group(1) not in ("z",):
             out["items_ref"] = inner.group(1)
-    if ".int()" in e:
+    if "int" in names:
         out["int"] = True
-    if ".positive()" in e:
+    if "positive" in names:
         out["min"] = 1
-    for name in ("min", "max"):
-        b = re.search(rf"\.{name}\((-?\d+)\)", e)
-        if b:
-            out[name] = int(b.group(1))
+    if "nonnegative" in names:
+        out["min"] = 0
+    for name, arg in calls:
+        if name in ("min", "max") and re.fullmatch(r"\s*-?\d[\d_]*(?:\.\d+)?\s*", arg):
+            out[name] = _num(arg.strip())
     return out
+
+
+def _outer_chain(e):
+    """[(method, args)] for the calls on the expression's outermost chain:
+    `z.coerce.number().int().min(0).prefault(1)` -> number, int, min, prefault.
+    Calls inside arguments (a nested item schema) are not part of the chain."""
+    calls, depth, i = [], 0, 0
+    while i < len(e):
+        sk = _skip(e, i)
+        if sk is not None:
+            i = sk
+            continue
+        c = e[i]
+        if c in "{[(":
+            depth += 1
+        elif c in "}])":
+            depth -= 1
+        elif c == "." and depth == 0:
+            m = re.match(r"\.\s*([A-Za-z_]\w*)\s*(<[^()]*>)?\s*\(", e[i:])
+            if m:
+                start = i + m.end() - 1
+                _o, close = balanced(e, start, "(", ")")
+                calls.append((m.group(1), e[start + 1:close]))
+                i = close + 1
+                continue
+        i += 1
+    return calls
+
+
+def _num(text):
+    text = text.replace("_", "")
+    return float(text) if "." in text else int(text)
 
 
 def parse_objects(path: str) -> dict:
@@ -180,32 +228,6 @@ def parse_unions(path: str) -> dict:
     return out
 
 
-def parse_const_arrays(path: str) -> dict:
-    """`export const NAMES = ["a","b"] as const` -> value lists."""
-    out = {}
-    with open(path) as fh:
-        src = fh.read()
-    for m in ARRCONST_RE.finditer(src):
-        name = m.group(1)
-        i = src.index("[", m.end() - 1)
-        depth, j = 0, i
-        while j < len(src):
-            if src[j] == "[":
-                depth += 1
-            elif src[j] == "]":
-                depth -= 1
-                if depth == 0:
-                    break
-            j += 1
-        body = src[i + 1:j]
-        if "{" in body:          # array of objects, not an enum list
-            continue
-        vals = [x.strip().strip("\"'") for x in body.split(",") if x.strip()]
-        if vals and all(re.match(r"^[\w \-'/.]+$", v) for v in vals):
-            out[name] = vals
-    return out
-
-
 REF_FILES = ["app/src/validators/base.ts"]
 POST_DOCS = {  # hand-won semantics that ride the generated shape; law-cited, survives regen
     ("idsWithNumberField", "number"):
@@ -253,27 +275,65 @@ def parse_ref_schemas(repo: str) -> dict:
     return out
 
 
+_INDEXES = {}
+
+
+def get_index(repo):
+    if repo not in _INDEXES:
+        _INDEXES[repo] = SourceIndex(repo)
+    return _INDEXES[repo]
+
+
+def ctor_field_rule(index, owner, expr, where):
+    """One union-member field as a parse_expr rule, after helper expansion and
+    enum-spread resolution in the module that defines the field."""
+    expanded, mod, notes = index.expand(owner, expr)
+    if "z." not in expanded:
+        cm = re.match(r"([A-Za-z_]\w*)([.(].*)?$", expanded)
+        if cm:
+            return {"raw": expanded, "_bare": True, "_base": cm.group(1),
+                    "_chain": cm.group(2) or "", "_where": where}
+        return None
+    r = index.resolve_numbers(mod, parse_expr(expanded), expanded)
+    r.update(notes)
+    members, lead = index.enum_members(mod, expanded, where)
+    r["_members"] = members
+    r["_enum_ref"] = lead
+    r["_label"] = enum_ref_label(index, mod, lead) if lead else None
+    return r
+
+
+def index_objects(index, rel):
+    """Every top-level object literal / z.object in `rel`, spreads resolved."""
+    mod = index.module(rel)
+    out = {}
+    if mod is None:
+        return out
+    for name, d in mod.decls.items():
+        if not re.match(r"^(?:z\s*\.\s*object\s*\(\s*)?\{", d["text"]):
+            continue
+        fields = index.object_fields(mod, name)
+        rules = {}
+        for f, (expr, owner, own, _doc, fwhere) in (fields or {}).items():
+            r = ctor_field_rule(index, owner, expr, "%s field %s" % (fwhere, f))
+            if r is not None:
+                rules[f] = r
+        out[name] = rules
+    return out
+
+
 def build_constructors(repo: str) -> dict:
+    index = get_index(repo)
     objects, unions, obj_src = {}, {}, {}
     for rel in CTOR_FILES:
         p = os.path.join(repo, rel)
         if not os.path.exists(p):
             continue
-        for k, v in parse_objects(p).items():
+        for k, v in index_objects(index, rel).items():
             if v:
                 objects.setdefault(k, {}).update(v)
                 obj_src.setdefault(k, rel)
         unions.update(parse_unions(p))
-
-    enums = parse_const_arrays(os.path.join(repo, CONST_FILE))
-    file_enums = {}
-    for rel in CTOR_FILES:
-        p = os.path.join(repo, rel)
-        if os.path.exists(p):
-            local = parse_const_arrays(p)
-            file_enums[rel] = local
-            for k, v in local.items():
-                enums[k + "@" + rel.replace("app/src/", "")] = v
     derived = parse_ref_schemas(repo)
 
     ctors = {}
@@ -284,15 +344,15 @@ def build_constructors(repo: str) -> dict:
             if not fields:
                 continue
             disc = None
+            if (fields.get("type") or {}).get("literal"):
+                disc = {"field": "type", "value": fields["type"]["literal"]}
             for f, r in fields.items():
-                if r.get("literal"):
+                if disc is None and r.get("literal"):
                     disc = {"field": f, "value": r["literal"]}
                     break
             spec = {"schema": mem, "fields": {}}
             if disc:
                 spec["discriminant"] = disc
-            local = file_enums.get(obj_src.get(mem, ""), {})
-            lqual = "@" + obj_src.get(mem, "").replace("app/src/", "")
             for f, r in fields.items():
                 base = r.get("_base") or (r.get("raw", "") if re.fullmatch(r"[A-Za-z_]\w*", r.get("raw", "")) else "")
                 if base and base in derived:
@@ -310,22 +370,30 @@ def build_constructors(repo: str) -> dict:
                     spec["fields"][f] = shape
                     continue
                 if r.get("_bare"):
-                    continue  # unresolved cross-module ref: omit rather than emit junk
+                    # a schema reference this extractor does not inline: omitted,
+                    # but recorded so the loss is visible
+                    diag("gap", "G_FIELD_SCHEMA_REF", r.get("_where", mem),
+                         "%s.%s = %s is not inlined; the field is absent from 45c"
+                         % (uname, f, r.get("raw", "")[:80]))
+                    continue
                 fs = {"type": r.get("type", "unknown")}
-                for k in ("default", "literal", "min", "max", "int", "optional", "nullable"):
-                    if r.get(k) not in (None, False):
+                # absent metadata stays absent; an explicit 0, false or null is a fact
+                if "default" in r:
+                    fs["default"] = r["default"]
+                for k in ("literal", "min", "max"):
+                    if r.get(k) is not None:
                         fs[k] = r[k]
-                ref = r.get("enum_ref")
-                if r.get("enum"):
-                    fs["enum"] = r["enum"]
+                for k in ("int", "optional", "nullable"):
+                    if r.get(k) is True:
+                        fs[k] = True
+                members, ref = r.get("_members"), r.get("_enum_ref")
                 if ref:
-                    if ref in local:
-                        fs["enum_ref"] = ref + lqual
-                        fs["enum"] = sorted(set(fs.get("enum", []) + local[ref]))
-                    else:
-                        fs["enum_ref"] = ref
-                        if ref in enums:
-                            fs["enum"] = sorted(set(fs.get("enum", []) + enums[ref]))
+                    if r.get("_label"):
+                        fs["enum_ref"] = r["_label"]
+                    if members is not None:
+                        fs["enum"] = sorted(set(members))
+                elif members is not None:
+                    fs["enum"] = list(dict.fromkeys(members))
                 spec["fields"][f] = fs
             key = disc["value"] if disc else mem
             entries[key] = spec
@@ -334,8 +402,7 @@ def build_constructors(repo: str) -> dict:
 
     return {"unions": ctors,
             "objects": {k: {f: r for f, r in v.items() if not r.get("_bare")}
-                        for k, v in objects.items()},
-            "enums": enums}
+                        for k, v in objects.items()}}
 
 
 def emit_shapes(repo: str) -> dict:
@@ -554,18 +621,6 @@ def split_field(text):
     return None, None
 
 
-def collect_helpers(src):
-    """`const f = (a) => z...` arrow helpers that return a zod expression."""
-    out = {}
-    for m in re.finditer(r"const (\w+)\s*=\s*\(([^)]*)\)\s*=>\s*", src):
-        tail = src[m.end():m.end() + 600]
-        if not tail.lstrip().startswith("z."):
-            continue
-        params = [p.split(":")[0].strip() for p in m.group(2).split(",") if p.strip()]
-        out[m.group(1)] = (params, " ".join(tail.split()))
-    return out
-
-
 def parse_expr2(expr, helpers=None, consts=None):
     """parse_expr plus helper-call resolution, preprocess unwrapping, and
     constant-name bound resolution."""
@@ -581,8 +636,10 @@ def parse_expr2(expr, helpers=None, consts=None):
         expr = body
     pp = re.match(r"^z\.preprocess\((.*)\)$", expr)
     if pp:
-        args = split_top_args(pp.group(1))
+        args = [a for a in split_top_args(pp.group(1)) if a.strip()]
         if len(args) == 2:
+            # the inner schema states what the field accepts; the preprocess step
+            # is recorded as the mechanism, not as the type
             note["_preprocess"] = True
             expr = args[1].strip()
     out = parse_expr(expr)
@@ -595,7 +652,7 @@ def parse_expr2(expr, helpers=None, consts=None):
                 out[name + "_ref"] = ref
                 if isinstance(consts.get(ref), (int, float)):
                     out[name] = consts[ref]
-    if ".nullish()" in expr:
+    if "nullish" in [n for n, _ in _outer_chain(" ".join(expr.split()))]:
         out["optional"] = out["nullable"] = True
     if ".transform(" in expr:
         out["_transform"] = True
@@ -656,6 +713,360 @@ def _find_assign(src, i):
             return None
         i += 1
     return None
+
+
+# ------------------------------------------------------- source index
+# QW-0A slice A. One static, local view of the validator modules: imports,
+# top-level declarations with their exact extent, arrow helpers, and
+# transitive resolution of array spreads ([...A, "x"]) and object spreads
+# ({...A, ...B.shape, f: ...}). Nothing is executed. An unresolved or cyclic
+# reference inside these supported constructs is an `error` diagnostic and
+# makes the extraction exit nonzero; a source form outside them that loses a
+# field is recorded as a `gap` so the loss is visible instead of silent.
+
+DIAGNOSTICS = []
+
+# tsconfig "paths" aliases used by the validator modules (identical at
+# bdec2883 and 585534d7: app/tsconfig.json).
+ALIASES = [("@/drizzle/", "app/drizzle/"), ("@/validators/", "app/src/validators/"),
+           ("@/libs/", "app/src/libs/"), ("@/utils/", "app/src/utils/"),
+           ("@/server/", "app/src/server/"), ("@/data/", "app/src/data/")]
+
+
+def diag(severity, code, where, detail):
+    entry = {"severity": severity, "code": code, "where": where, "detail": detail}
+    if entry not in DIAGNOSTICS:
+        DIAGNOSTICS.append(entry)
+
+
+def diagnostics_errors():
+    return [d for d in DIAGNOSTICS if d["severity"] == "error"]
+
+
+def _strip_comments(text):
+    out, i = [], 0
+    while i < len(text):
+        if text.startswith("//", i):
+            j = text.find("\n", i)
+            i = len(text) if j < 0 else j
+            continue
+        if text.startswith("/*", i):
+            j = text.find("*/", i)
+            i = len(text) if j < 0 else j + 2
+            out.append(" ")
+            continue
+        sk = _skip(text, i)
+        if sk is not None:
+            out.append(text[i:sk])
+            i = sk
+            continue
+        out.append(text[i])
+        i += 1
+    return "".join(out)
+
+
+def _statement_end(src, i):
+    """End index (exclusive) of the expression that starts at i: the first
+    top-level `;`, or a top-level newline followed by a new declaration."""
+    depth, j = 0, i
+    while j < len(src):
+        sk = _skip(src, j)
+        if sk is not None:
+            j = sk
+            continue
+        c = src[j]
+        if c in "{[(":
+            depth += 1
+        elif c in "}])":
+            depth -= 1
+        elif depth <= 0 and c == ";":
+            return j
+        elif depth <= 0 and c == "\n" and re.match(
+                r"\n(?:export\s|const\s|let\s|function\s|type\s|interface\s|import\s)", src[j:j + 12]):
+            return j
+        j += 1
+    return len(src)
+
+
+class Module:
+    def __init__(self, index, rel, src):
+        self.index, self.rel, self.src = index, rel, src
+        self.imports = {}
+        for m in re.finditer(r"import\s+(type\s+)?\{([^}]*)\}\s*from\s*[\"']([^\"']+)[\"']", src):
+            if m.group(1):
+                continue
+            target = index.resolve_path(m.group(3))
+            for item in m.group(2).split(","):
+                item = item.strip()
+                if not item or item.startswith("type "):
+                    continue
+                parts = re.split(r"\s+as\s+", item)
+                self.imports[parts[-1].strip()] = (target, parts[0].strip())
+        self.decls = {}
+        for m in re.finditer(r"^(?:export\s+)?const\s+(\w+)\b", src, re.M):
+            eq = _find_assign(src, m.end())
+            if eq is None:
+                continue
+            start = eq + 1
+            while start < len(src) and src[start].isspace():
+                start += 1
+            end = _statement_end(src, start)
+            text = src[start:end].strip()
+            text = re.sub(r"\s+as\s+const\s*$", "", text)
+            line = src.count("\n", 0, m.start()) + 1
+            self.decls.setdefault(m.group(1), {"text": text, "line": line})
+
+    def where(self, name):
+        d = self.decls.get(name)
+        return "%s:%s" % (self.rel, d["line"] if d else "?")
+
+    def lookup(self, name):
+        """(module, name) that defines `name` as seen from this module, or None."""
+        if name in self.decls:
+            return self, name
+        if name in self.imports:
+            target, orig = self.imports[name]
+            mod = self.index.module(target) if target else None
+            if mod is not None:
+                return mod.lookup(orig)
+        return None
+
+
+class SourceIndex:
+    def __init__(self, repo):
+        self.repo, self._mods = repo, {}
+
+    def resolve_path(self, spec):
+        for alias, real in ALIASES:
+            if spec.startswith(alias):
+                return real + spec[len(alias):] + ".ts"
+        return None
+
+    def module(self, rel):
+        if rel not in self._mods:
+            p = os.path.join(self.repo, rel) if rel else None
+            self._mods[rel] = Module(self, rel, open(p).read()) if p and os.path.exists(p) else None
+        return self._mods[rel]
+
+    # ---- arrays: [...A, "x", ...B]
+    def list_values(self, mod, name, stack=()):
+        """Resolved member list for const `name` seen from `mod`, or None when the
+        declaration is not a static string list. Order is source order."""
+        hit = mod.lookup(name)
+        if hit is None:
+            return None
+        owner, real = hit
+        key = (owner.rel, real)
+        if key in stack:
+            diag("error", "E_CYCLE", owner.where(real),
+                 "cyclic array spread: " + " -> ".join("%s:%s" % k for k in stack + (key,)))
+            return []
+        text = _strip_comments(owner.decls[real]["text"]).strip()
+        if not text.startswith("["):
+            return None
+        i, j = balanced(text, 0, "[", "]")
+        return self.list_items(owner, text[i + 1:j], owner.where(real), stack + (key,))
+
+    def list_items(self, mod, body, where, stack=()):
+        vals = []
+        for item in split_top_args(_strip_comments(body)):
+            item = item.strip()
+            if not item:
+                continue
+            if item.startswith("..."):
+                ref = item[3:].strip()
+                got = self.list_values(mod, ref, stack) if re.fullmatch(r"\w+", ref) else None
+                if got is None:
+                    diag("error", "E_UNRESOLVED_SPREAD", where,
+                         "array spread ...%s does not resolve to a static string list" % ref)
+                    continue
+                vals.extend(got)
+            elif re.fullmatch(r"\"[^\"]*\"|'[^']*'", item):
+                vals.append(item[1:-1])
+            else:
+                return None
+        return vals
+
+    def number_value(self, mod, name):
+        hit = mod.lookup(name)
+        if hit is None:
+            return None
+        owner, real = hit
+        text = _strip_comments(owner.decls[real]["text"]).strip()
+        if re.fullmatch(r"-?\d[\d_]*(?:\.\d+)?", text):
+            return _num(text)
+        return None
+
+    def resolve_numbers(self, mod, rule, expr):
+        """Constant-name bounds/defaults (`.max(MAX_X)`, `.prefault(DEFAULT_X)`) as
+        numbers, keeping the name in <key>_ref."""
+        for key in ("min", "max"):
+            if rule.get(key) is None:
+                b = re.search(r"\.%s\(\s*([A-Za-z_]\w*)\s*\)" % key, expr)
+                if b:
+                    v = self.number_value(mod, b.group(1))
+                    if v is not None:
+                        rule[key] = v
+                        rule[key + "_ref"] = b.group(1)
+        d = rule.get("default")
+        if isinstance(d, str) and re.fullmatch(r"[A-Za-z_]\w*", d) and \
+                re.search(r"\.(?:prefault|default)\(\s*%s\s*\)" % re.escape(d), expr):
+            v = self.number_value(mod, d)
+            if v is not None:
+                rule["default"] = v
+                rule["default_ref"] = d
+        return rule
+
+    # ---- objects: {...A, ...B.shape, f: expr}
+    def object_fields(self, mod, name, stack=()):
+        """Ordered {field: (expr, defining_module, own, doc, "file:line Decl")} for an object literal or
+        z.object({...}) declaration, with JS spread precedence (later wins)."""
+        hit = mod.lookup(name)
+        if hit is None:
+            return None
+        owner, real = hit
+        key = (owner.rel, real)
+        if key in stack:
+            diag("error", "E_CYCLE", owner.where(real),
+                 "cyclic object spread: " + " -> ".join("%s:%s" % k for k in stack + (key,)))
+            return {}
+        text = owner.decls[real]["text"]
+        head = re.match(r"^(?:z\s*\.\s*object\s*\(\s*)?\{", text)
+        if not head:
+            return None
+        i, j = balanced(text, head.end() - 1, "{", "}")
+        return self.object_body(owner, text[i + 1:j], "%s %s" % (owner.where(real), real), stack + (key,))
+
+    def object_body(self, mod, body, where, stack=()):
+        result = {}
+        for _doc, entry in split_entries(body):
+            if entry.startswith("..."):
+                ref = re.fullmatch(r"\.\.\.(\w+)(?:\.shape)?", entry)
+                got = self.object_fields(mod, ref.group(1), stack) if ref else None
+                if got is None:
+                    diag("error", "E_UNRESOLVED_SPREAD", where,
+                         "object spread %s does not resolve to an object literal or z.object" % entry)
+                    continue
+                for f, (expr, owner, _own, doc, fwhere) in got.items():
+                    result.pop(f, None)
+                    result[f] = (expr, owner, False, doc, fwhere)
+                continue
+            f, expr = split_field(entry)
+            if not f or not expr:
+                continue
+            f = f.strip("\"'")
+            result.pop(f, None)
+            result[f] = (expr, mod, True, _doc, where)
+        own = [f for f, v in result.items() if v[2]]
+        return {f: result[f] for f in own + [f for f in result if f not in own]}
+
+    # ---- helpers: const f = (a) => z...   |   const f = (a) => { return z...; }
+    def helper(self, mod, name):
+        hit = mod.lookup(name)
+        if hit is None:
+            return None
+        owner, real = hit
+        text = owner.decls[real]["text"]
+        m = re.match(r"^\(([^)]*)\)\s*(?::[^=]*)?=>\s*", text)
+        if not m:
+            return None
+        body = text[m.end():].strip()
+        if body.startswith("{"):
+            r = re.match(r"^\{\s*return\s+([\s\S]*?);?\s*\}$", body)
+            if not r:
+                return None
+            body = r.group(1)
+        body = normalize_expr(" ".join(_strip_comments(body).split()))
+        if not body.startswith("z."):
+            return None
+        params = [p.split(":")[0].strip() for p in m.group(1).split(",") if p.strip()]
+        return owner, params, body
+
+    def expand(self, mod, expr, depth=0):
+        """Inline a top-level helper call (`msg("x")`, `makeCapped(N).nullish()`)
+        and resolve enum spreads, in the defining module's context. Returns
+        (expr, module, notes)."""
+        notes = {}
+        m = re.match(r"^(\w+)\(", expr)
+        if m and depth < 4:
+            i, j = balanced(expr, m.end() - 1, "(", ")")
+            got = self.helper(mod, m.group(1))
+            if got is not None:
+                owner, params, body = got
+                args = [a.strip() for a in split_top_args(expr[i + 1:j])]
+                for p, a in zip(params, args):
+                    # identifiers only: `max` the parameter, never `.max(` the method
+                    body = re.sub(r"(?<![.\w$])%s(?![\w$])" % re.escape(p), lambda _m, a=a: a, body)
+                notes["_helper"] = m.group(1)
+                inner, mod2, more = self.expand(owner, body + expr[j + 1:], depth + 1)
+                more.update(notes)
+                return inner, mod2, more
+        return expr, mod, notes
+
+    def enum_members(self, mod, expr, where):
+        """Resolved members of the first z.enum(...) in expr: (members, lead_ref)
+        or (None, None) when there is no z.enum or it is not static."""
+        m = re.search(r"z\.enum\(\s*", expr)
+        if not m:
+            return None, None
+        rest = expr[m.end():]
+        if rest.startswith("["):
+            i, j = balanced(rest, 0, "[", "]")
+            body = rest[i + 1:j]
+            lead = re.match(r"\s*\.\.\.(\w+)", body)
+            vals = self.list_items(mod, body, where)
+            return vals, lead.group(1) if lead else None
+        ref = re.match(r"(\w+)\s*\)", rest)
+        if ref:
+            vals = self.list_values(mod, ref.group(1))
+            if vals is None and mod.lookup(ref.group(1)) is None:
+                diag("gap", "G_ENUM_REF_UNRESOLVED", where,
+                     "z.enum(%s): no static declaration found" % ref.group(1))
+            return vals, ref.group(1)
+        return None, None
+
+
+def enum_ref_label(index, mod, ref):
+    """45c/45d enum_ref spelling: bare for a constants-module or non-static
+    name (as v1 emitted it), 'Name@validators/x.ts' for a static list local to
+    a validator file 45e folds in, None for a static list 45e does not carry."""
+    hit = mod.lookup(ref)
+    if hit is None:
+        return ref
+    owner, real = hit
+    if owner.rel in (CONST_FILE, CONST_FILE_COMBAT):
+        return real
+    if index.list_values(owner, real) is None:
+        return real
+    if owner.rel in LOCAL_ENUM_FILES:
+        return real + "@" + owner.rel.replace("app/src/", "")
+    return None
+
+
+def preprocess_omission(expr):
+    """Omission semantics of a top-level z.preprocess(fn, inner). Returns
+    (optional, mechanism) or (None, reason) when it cannot be classified."""
+    pp = re.match(r"^z\.preprocess\((.*)\)$", expr)
+    if not pp:
+        return None, None
+    args = [a for a in split_top_args(pp.group(1)) if a.strip()]
+    if len(args) != 2:
+        return None, "preprocess with %d arguments" % len(args)
+    fn, inner = " ".join(args[0].split()), args[1]
+    # (v) => (COND ? null : v): COND names undefined explicitly, or uses loose
+    # `== null` (true for undefined too). Strict `=== null` alone does not.
+    ternary = re.fullmatch(r"\(?\s*\(?(\w+)\)?\s*=>\s*\(?(.*?)\?\s*null\s*:\s*\1\s*\)?\s*\)?", fn)
+    if not ternary:
+        return None, "preprocess callback not classified; optionality left as declared"
+    cond = ternary.group(2)
+    maps_undefined = re.search(r"===?\s*undefined\b", cond) or re.search(r"(?<![=!])==\s*null\b", cond)
+    inner_nullable = re.search(r"\.(?:nullable|nullish)\(\)", inner)
+    inner_optional = re.search(r"\.(?:optional|nullish)\(\)", inner)
+    if maps_undefined and inner_nullable:
+        return True, "preprocess maps undefined to null and the inner schema is nullable"
+    if not maps_undefined and inner_optional:
+        return True, "preprocess passes undefined through and the inner schema is optional/nullish"
+    return None, "preprocess callback not classified; optionality left as declared"
 
 
 # ------------------------------------------------------------- constants
@@ -721,6 +1132,17 @@ def extract_constants(repo, rel=None):
         elif raw in ("true", "false"):
             entry["value"] = raw == "true"
             entry["kind"] = "boolean"
+        elif raw.startswith("[") and "..." in _strip_comments(raw):
+            index = get_index(repo)
+            mod = index.module(rel)
+            vals = index.list_values(mod, name) if mod is not None else None
+            if vals is None:
+                diag("error", "E_UNRESOLVED_SPREAD", "%s:%s" % (rel, name),
+                     "list constant with spreads is not a static string list")
+                entry["kind"] = "array_expr"
+            else:
+                entry["value"] = vals
+                entry["kind"] = "list"
         elif raw.startswith("["):
             inner = raw[1:-1]
             if "{" not in inner and "(" not in inner:
@@ -763,27 +1185,55 @@ def const_values(consts):
 # ---------------------------------------------------------- entity schemas
 
 def extract_entity(repo, rel, name, consts):
-    src = open(os.path.join(repo, rel)).read()
-    helpers = collect_helpers(src)
-    m = re.search(r"export const %s\s*=\s*z\.object\(" % re.escape(name), src)
-    if not m:
+    index = get_index(repo)
+    mod = index.module(rel)
+    if mod is None:
         return None
-    i, j = balanced(src, m.end(), "{", "}")
+    src = mod.src
+    if name not in mod.decls or not re.match(r"^z\s*\.\s*object\s*\(", mod.decls[name]["text"]):
+        return None
+    cvals = const_values(consts)
     fields = {}
-    for doc, text in split_entries(src[i + 1:j]):
-        f, expr = split_field(text)
-        if not f or not expr:
-            continue
+    for f, (expr, owner, _own, doc, fwhere) in (index.object_fields(mod, name) or {}).items():
+        where = "%s field %s" % (fwhere, f)
         bare = re.match(r"^([A-Z]\w+)$", expr)
         if bare:
             spec = {"type": "object", "schema_ref": bare.group(1), "raw": expr}
         elif "z." in expr or re.match(r"^\w+\(", expr):
-            spec = parse_expr2(expr, helpers, const_values(consts))
+            expanded, emod, notes = index.expand(owner, expr)
+            if "z." not in expanded:
+                diag("gap", "G_FIELD_UNRESOLVED_CALL", where,
+                     "%s.%s = %s is not a resolvable helper; recorded raw" % (name, f, expr[:80]))
+            spec = index.resolve_numbers(emod, parse_expr2(expanded, {}, cvals), expanded)
+            spec.update(notes)
+            if re.search(r"\.superRefine\(\s*\(", expanded):
+                diag("gap", "G_INLINE_REFINE", where,
+                     "%s.%s carries an inline superRefine; its rule is not represented" % (name, f))
+            omit, why = preprocess_omission(expanded)
+            if omit:
+                spec["optional"] = True
+                spec["_omission"] = why
+            elif why:
+                diag("gap", "G_PREPROCESS_UNCLASSIFIED", where, why)
+            members, lead = index.enum_members(emod, expanded, where)
+            if lead and "enum_ref" in spec:
+                label = enum_ref_label(index, emod, lead)
+                if label:
+                    spec["enum_ref"] = label
+                else:
+                    spec.pop("enum_ref")
+            if members is not None and "enum" in spec:
+                spec["enum"] = list(dict.fromkeys(members))
         else:
+            diag("gap", "G_FIELD_SCHEMA_REF", where,
+                 "%s.%s = %s is not inlined; the field is absent from 45d" % (name, f, expr[:80]))
             continue
         if doc:
             spec["doc"] = doc[:300]
         fields[f] = spec
+    if re.search(r"\)\s*\.superRefine\(\s*\(", mod.decls[name]["text"]):
+        diag("gap", "G_INLINE_REFINE", mod.where(name),
+             "%s has an inline superRefine callback; superRefine lists named functions only" % name)
     refines = re.findall(
         r"export const %s\s*=\s*%s((?:\.superRefine\(\w+\))+)"
         % (re.escape(name.replace("RawSchema", "")), re.escape(name)), src)
@@ -910,6 +1360,17 @@ def extract_local_enums(repo):
             i, j = balanced(src, m.end() - 1, "[", "]")
             body = src[i + 1:j]
             if "{" in body:
+                continue
+            if "..." in _strip_comments(body):
+                index = get_index(repo)
+                mod = index.module(rel)
+                vals = index.list_values(mod, name) if mod is not None else None
+                if vals is None:
+                    diag("error", "E_UNRESOLVED_SPREAD", "%s:%s" % (rel, name),
+                         "local list with spreads is not a static string list")
+                elif vals:
+                    out.setdefault(name, {"value": vals, "kind": "list", "source": rel,
+                                          "exported": m.group(0).startswith("export")})
                 continue
             vals = []
             for v in split_top_args(body):
@@ -1127,22 +1588,38 @@ def emit_checks(repo, zipname=None):
     }
 
 
-if __name__ == "__main__":
-    repo = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/src_repo/TheNinjaRPG-main"
-    mode = sys.argv[2] if len(sys.argv) > 2 else "--report"
-    zipname = sys.argv[3] if len(sys.argv) > 3 else None
-    if mode == "--shapes":
-        print(json.dumps(emit_shapes(repo), indent=1))
-    elif mode == "--ctors":
-        print(json.dumps(emit_ctors(repo), indent=1))
-    elif mode == "--entities":
-        print(json.dumps(emit_entities(repo, zipname), indent=1))
-    elif mode == "--constants":
-        print(json.dumps(emit_constants(repo, zipname), indent=1))
-    elif mode == "--checks":
-        print(json.dumps(emit_checks(repo, zipname), indent=1))
-    elif mode == "--procedures":
-        print(json.dumps(emit_procedures(repo, zipname), indent=1))
-    else:
+def main(argv):
+    repo = argv[1] if len(argv) > 1 else "/home/claude/src_repo/TheNinjaRPG-main"
+    mode = argv[2] if len(argv) > 2 else "--report"
+    zipname = argv[3] if len(argv) > 3 else None
+    emitters = {
+        "--shapes": lambda: emit_shapes(repo),
+        "--ctors": lambda: emit_ctors(repo),
+        "--entities": lambda: emit_entities(repo, zipname),
+        "--constants": lambda: emit_constants(repo, zipname),
+        "--checks": lambda: emit_checks(repo, zipname),
+        "--procedures": lambda: emit_procedures(repo, zipname),
+    }
+    if mode == "--gaps":
+        for name in ("--ctors", "--entities", "--constants", "--checks"):
+            emitters[name]()
+        print(json.dumps({"diagnostics": DIAGNOSTICS}, indent=1))
+        return 1 if diagnostics_errors() else 0
+    if mode not in emitters:
         report(repo)
+        return 1 if diagnostics_errors() else 0
+    doc = emitters[mode]()
+    errors = diagnostics_errors()
+    if errors:
+        # fail closed: no partial contract on stdout for a `>` redirect to adopt
+        for d in errors:
+            print("schema_extract: %s %s: %s" % (d["code"], d["where"], d["detail"]), file=sys.stderr)
+        print("schema_extract: %d unresolved construct(s); no output written" % len(errors), file=sys.stderr)
+        return 1
+    print(json.dumps(doc, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
 
