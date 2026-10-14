@@ -1,101 +1,92 @@
-# Supreme Commander Arakane — AI Profile Design
+# Supreme Commander Arakane — 20-Rule AI Profile
 
-**Status:** Detailed source-routed AI candidate for director review; NOT an executable profile, test PASS, final numeric balance freeze, or authorization to change the game.  
-**Director-approved:** Boss identity **Supreme Commander Arakane**, story/final-reveal premise, baseline 14-jutsu roster with Recoil Slam replaced by the elemental-seal nuke, **The Last Directive** (5r Final Stand + 5r IDG + 5r Clear Prevent) below 30% HP, **Countermand** command-seal item, anti-kiting Veilstep→Clear behavior, and innate 100%/99r Seal Prevent.  
-**Owner:** This companion details Arakane's behavioral candidate; `state/silent_bastion_design.md` owns the ongoing Pyramid concept and accepted history.  
-**Repo:** `perseverance484/tnr-tools@057acddb986b50e486ccf550fac00b68fff51490`. **Game engine pinned:** `studie-tech/TheNinjaRPG@67341a1fa1567b9b33827b802e48120e5d797a15`.  
-**Authority:** `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `skills/building-tnr-content/references/ai.md`, `skills/building-tnr-content/data/32b_DATA_pool.json`. No live requests/writes.
+**Status:** Source-verified *candidate* for director review; no executable AI build or balance acceptance. Replaces the previous invalid **32-rule proposal** at this same path. The superseded rules are retained in Git history, not treated as deployable content.
+**Repository:** `perseverance484/tnr-tools@057acddb986b50e486ccf550fac00b68fff51490`; design branch `chatgpt/silent-bastion-design-20261013`.
+**Game source:** `studie-tech/TheNinjaRPG@67341a1fa1567b9b33827b802e48120e5d797a15`.
+**Owner documents:** `state/silent_bastion_design.md`; `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `skills/building-tnr-content/references/ai.md`, `skills/building-tnr-content/data/32b_DATA_pool.json`.
 
-## Character / experience (accepted)
+## Critical correction: hard maximum is 20, not 25
 
-**Display name:** **Supreme Commander Arakane**; the title "Supreme Commander" must remain visible so defeating him appears to end the Bastion's chain of command. The Supreme Commander directed the Skyglass Project's military deployment. Replicant Zero established human chakra reconstruction, and The Grand Marshal (epithet **The Second**) made the operation militarily viable, with independent judgment trusted by Arakane. Arakane is composed, dignified, strategic, and bound by his duty, not a boastful madman.
+**Source-verified:** `app/drizzle/constants.ts:1723` defines `AI_PROFILE_MAX_RULES = 20`. `app/src/server/api/routers/ai.ts:79–81` returns an error when `input.rules.length > 20`. The `AiRule` validator's unconstrained `z.array` does not override this server cap. **No engine patch is proposed.**
 
-**Reveal only after defeating him:** Another **newly issued** directive reaches the Ghost Ship under Supreme Command authority, proving that the reconstructed Supreme Commander himself was not the ultimate originator. The origin remains unidentified; do not spoil the twist during the fight or earlier Bastion dialogue.
+**Exact authored profile:** 20 rules, `includeDefaultRules:false`. The final `end_turn` is mandatory so Arakane never suicides via the native AI give-up behavior when Stealth/cooldowns/ranges exhaust available actions. Do not append the engine's default catchalls: they can select the ultimate outside Final Stand and/or push over the rule limit.
 
-**Distinction:** Grand Marshal systematically suppresses; Arakane **adapts** through suppression, theft, self-preparation, positional pressure, shield destruction, healing denial and an uncompromising five-round Final Stand.
+## Director-approved identity and effects (unchanged)
 
-## Locked move membership, item and parameters
+**Display:** Supreme Commander Arakane, dignified and tactically adaptive. Preserve the final twist: freshly generated directives continue arriving after the Supreme Commander falls, and their source is unidentified.
 
-**14 equipped jutsu (no extra roster substitutions):**
-- B18 Apex Hunger (40AP self, IDG60/99r + stats25/99r); **once in the opening** to avoid stacking permanent boosts.
-- B07 Stolen Form (60AP, range4/CD6, Copy); preferentially use on visibly enhanced targets.
-- S34 Purging Stance (40AP, CD5, Cleanse); cast in response to eligible hostile effects.
-- B09 Veilstep (40AP, CD6, Stealth 2r); use **early** against long-range kiting only, not the late Final Stand.
-- EA04 Zephyr Lance (60AP, range5/CD6, Pierce); destroy shields rather than pretending Pierce scales with IDG.
-- B13 Hexweave (60AP, range4/CD8, damage40+IDT40+reduced-healing60+stats reduction15); setup/punish healing.
-- B17 Worldbreaker Chorus (60AP, range5/CD10, damage70+Stun2r); high-value follow-up.
-- **Exclusive offensive nuke** (working name *Extermination Order*, not yet director-accepted): **80 EP Damage + Elemental Seal 2r + Cleanse Prevent 2r**. Cast **only with active Final Stand**.
-- B27 Scorching Rend (60AP, range5/CD6, damage55+wound+afterburn); secondary aggressive pressure.
-- B05 Devouring Grasp (60AP, range5/CD6, damage60+drain25/2r); resource punishment.
-- B26 Braced Strike (60AP, range5/CD5, damage55+DDT30/2r); attack+defense.
-- B20 Surging Overflow (40AP, CD5, IDG30/3r+stats25/3r); preparation while chasing, not constant combat-idling.
-- S07 Rapid Fire (60AP, range5/CD2, damage40); reliable attack fallback.
-- **Exclusive The Last Directive**: Final Stand **5r**, Increased Damage Given **5r**, Clear Prevent **5r**; **cast at self HP <30%**, with enough pools/AP to execute. **IDG power unspecified**; 40AP/CD99 are proposals, not accepted exact numbers.
+**Approved innate:** 100% `sealprevent`, 99 rounds.
 
-**Approved extra active item:** **Countermand**, an AI-only military command-seal item, **not a 15th jutsu**. Initial proposed mechanics: Clear100, **40AP**, range5, cooldown6, single enemy target; must be equipped, usable, non-consumed in a quest battle. In engine source, availableUserActions permits item actions during Stealth and `use_specific_item` selects them. Actual item fields/slot and successful stealth use must be validated from the generated contract + in-process tests. No reward/drop or external usability is implied by the approval.
+**Fourteen equipped jutsu:**
+- B18 Apex Hunger (40AP self; IDG60%/99r + Stats25%/99r; use once early).
+- B07 Stolen Form (60AP, range4/CD6; Copy enemy enhancements).
+- S34 Purging Stance (40AP/CD5; Cleanse).
+- B09 Veilstep (40AP/CD6; Stealth2r).
+- EA04 Zephyr Lance (60AP, range5/CD6; flat Pierce against shields).
+- B13 Hexweave (60AP, range4/CD8; Damage40, IDT40%, reduced healing, reduced stats).
+- B17 Worldbreaker Chorus (60AP, range5/CD10; Damage70 + Stun2r).
+- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand).
+- B27 Scorching Rend (60AP, range5/CD6; damage + wound + afterburn).
+- B05 Devouring Grasp (60AP, range5/CD6; damage + drain).
+- B26 Braced Strike (60AP, range5/CD5; damage + defensive buff).
+- B20 Surging Overflow (40AP/CD5; offensive buff + stat buff).
+- S07 Rapid Fire (60AP, range5/CD2; fallback).
+- **Exclusive The Last Directive:** Final Stand5r + IDG5r + Clear Prevent5r, activate once at HP<30%; IDG power unapproved, 40AP/99-round cooldown proposed.
 
-**Boss innate:** `sealprevent` 100%, 99 rounds. **Profile:** `includeDefaultRules:false`; order the rules explicitly; keep an `end_turn` fallback so missed ranges/cooldowns never cause AI self-forfeit.
+**Approved item identity:** Countermand, an equipped AI-only reusable military command seal. **Proposed** native item parameters: `itemType:'OTHER'`, `slot:'ITEM'`, `target:'OTHER_USER'`, 100% Clear, 40AP, range5, CD6, `destroyOnUse:false`, positive quantity, `equipped:'ITEM_1'`. No player-facing drop or reward. Confirm compatibility with the current item schema before implementation.
 
-**Targets:** `CLOSEST_OPPONENT` consistently for offensive rules and target-conditioned checks; `SELF` for self-buffs, cleansing and Veilstep. Check multi-target/summon behavior; an original human opponent cannot be guaranteed as the target by `CLOSEST_OPPONENT` alone. For pool-jutsu attacks with range5 use native `distance_lower_than:6`; range4 uses `distance_lower_than:5`. The AI distance is path-length based, so Fable must verify actual target reach.
+## Equipped items — dedicated Stealth continuity
 
-## Native ordered-rule candidate (proposed, not yet accepted as profile)
+**Goal:** Veilstep leaves Arakane with no jutsu or basic attack; once close enough, he must have reusable **item** attacks. `app/src/libs/combat/actions.ts` permits equipped weapon/item actions during Stealth and filters out all jutsu and basic attacks. `app/src/libs/combat/ai_v2.ts` supports `use_specific_item` with native distance gates and reevaluates the priority chain after actions.
 
-Use the engine's exact `AiRule.conditions` AND semantics. Each line represents one actual rule, including separate rules when a different status condition triggers the same action. "FS" means `has_effect(effectType:'finalstand',threshold:1)`, never threshold 0. "Stealth" means `has_effect(effectType:'stealth',threshold:1)`. "Target X" means `target_has_effect(effectType:X,threshold:Y,target:'CLOSEST_OPPONENT')`. Every offensive action and distance condition uses `CLOSEST_OPPONENT`; self actions target `SELF`. The AI engine tries later rules when a prior action is unavailable/unaffordable/out of range. Rules are reevaluated after each successful action in a turn.
+| Slot | Candidate | Historic seeded stats | Purpose |
+| --- | --- | --- | --- |
+| ITEM_1 | **Countermand** (approved identity; new item) | Proposed 40AP/range5/CD6; Clear100, reusable | Strip opponent buffs while concealed, can pair with Copy60 in normal combat. |
+| HAND_1 | **Solar Bow** (existing item) | **40AP, range5, CD3, not consumed** | Long-range weapon response while concealed or after a 60AP jutsu. |
+| HAND_2 | **Crossbow** (existing item) | **40AP, range3, CD0, not consumed** | **Repeatable close-range weapon action** after Arakane has approached; no need to wait for a jutsu or cooldown. |
 
-| # | Conditions (all required) | Action / target | Why |
-|---:|---|---|---|
-| 01 | `health_below:30` | **The Last Directive** / SELF | Highest priority; one activation via long CD; native boundary strictly <30. |
-| 02 | FS + `distance_lower_than:6` | **Extermination Order** / opponent | Signature ultimate first whenever castable; 80EP + elemental seal/cleanse prevention. |
-| 03 | FS + `distance_lower_than:6` | **B17 Worldbreaker Chorus** / opponent | 70EP + Stun if ultimate unavailable. |
-| 04 | FS + `distance_lower_than:5` | **B13 Hexweave** / opponent | Reapply IDT and heal suppression when the nukes are cooling down. |
-| 05 | FS + `distance_lower_than:6` | **B27 Scorching Rend** / opponent | Force pressure through Wound/Afterburn. |
-| 06 | FS + `distance_lower_than:6` | **B05 Devouring Grasp** / opponent | Damage and drain while protection remains. |
-| 07 | FS + `distance_lower_than:6` | **B26 Braced Strike** / opponent | Keeps attacking with a defensive rider. |
-| 08 | FS + `distance_higher_than:7` | `move_towards_opponent` / opponent | **Final Stand prioritizes closing on ranged players**, not wasting its 5-round window re-stealthing or buffing. Normal S07 at rule 28 remains its reliable damage fallback. |
-| 09 | `round_lower_than:3` | **B18 Apex Hunger** / SELF | Opens prepared, with one cast max on its CD. |
-| 10 | `round_lower_than:5` + `distance_higher_than:7` | **B09 Veilstep** / SELF | One early anti-kite stealth window; never deliberately re-enter stealth near the final phase. |
-| 11 | Stealth + `distance_lower_than:6` | **Countermand** / opponent | **Guaranteed attempt at next-turn Clear** while stealthed, even if limited native buff detection misses the player's setup. |
-| 12 | `has_effect(afterburn,threshold:1)` | **S34 Purging Stance** / SELF | Cleanse a relevant ongoing hostile effect. |
-| 13 | `has_effect(poison,threshold:1)` | **S34 Purging Stance** / SELF | Secondary cleanse check. |
-| 14 | `has_effect(increasedamagetaken,threshold:1)` | **S34 Purging Stance** / SELF | Respond to exposure debuffs; avoid using Purging on nothing. |
-| 15 | Target `shield>=1` + `distance_lower_than:6` | **EA04 Zephyr Lance** / opponent | Pierce breaks shields rather than being treated as an IDG-scaling nuke. |
-| 16 | Target `increasedamagegiven>=71` + `distance_lower_than:5` | **B07 Stolen Form** / opponent | Copy first; cooldown/fallthrough handle conflicts. |
-| 17 | Target `increasedamagegiven>=71` + `distance_lower_than:6` | **Countermand** / opponent | Follow Copy with Clear if 40AP remains, or counter alone. |
-| 18 | Target `reflect>=1` + `distance_lower_than:6` | **Countermand** / opponent | Additional buff response. |
-| 19 | Target `absorb>=1` + `distance_lower_than:6` | **Countermand** / opponent | Additional buff response. |
-| 20 | Target `increasestat>=1` + `distance_lower_than:6` | **Countermand** / opponent | Additional buff response. |
-| 21 | Target `increaseheal>=1` + `distance_lower_than:5` | **B13 Hexweave** / opponent | Heal-dependent builds face suppression. |
-| 22 | Target `increasedamagetaken>=1` + `distance_lower_than:6` | **B17 Worldbreaker Chorus** / opponent | Exploit already established exposure. |
-| 23 | `distance_lower_than:5` | **B13 Hexweave** / opponent | Ordinary setup. |
-| 24 | `distance_lower_than:6` | **B17 Worldbreaker Chorus** / opponent | Strong control/damage when setup unavailable. |
-| 25 | `distance_lower_than:6` | **B27 Scorching Rend** / opponent | Wound and afterburn. |
-| 26 | `distance_lower_than:6` | **B05 Devouring Grasp** / opponent | Drain and damage. |
-| 27 | `distance_lower_than:6` | **B26 Braced Strike** / opponent | Consistent offensive/defensive fallback. |
-| 28 | `distance_lower_than:6` | **S07 Rapid Fire** / opponent | Offensive filler before chasing. |
-| 29 | `round_greater_than:2` + `distance_higher_than:7` | **B20 Surging Overflow** / SELF | Buff while genuinely out of attacking range; movement comes next. |
-| 30 | `distance_higher_than:3` | `move_towards_opponent` / opponent | Pursue kiters and close toward melee; works during Stealth. |
-| 31 | `distance_lower_than:2` | `use_combo_action(comboIds:['basicAttack'])` / opponent | Select ONLY the actual 20AP Basic Attack when close. **Never use a generic highest-damage fallback here:** it could select Extermination Order outside Final Stand. |
-| 32 | No conditions | `end_turn` | Always safe; never surrender due to exhausted rule matches. |
+**Provenance limitation:** Solar Bow and Crossbow stats above are from the pinned game's **historical `app/data/item.sql` seed**, not a fresh live readback. The seed holds Solar Bow id `ALqXVSL58QMfJ4DgoJ5Il` and Crossbow id `LbccOnzfsADLgTBPSHjKK`. Verify the *current* full item records, weapon equip limits, AI equipment quantities, cooldown and availability from a fresh approved capture before constructing the manifest. The game has HAND_1 and HAND_2 slots and permits multiple hand weapons absent a specific restriction, but this combination still requires an actual loadout test.
 
-**Preliminary sequence:** opening long range = Apex Hunger (40AP) → Veilstep (40AP) → move with remaining AP; **once Final Stand is active, Arakane chases if out of attack range before considering another setup action**; while stealthed on the following turn = approach until within 5-range then **Countermand (40AP)**, which can work while hidden; ordinary close combat = Hexweave setup → Worldbreaker/other damage, Copy (60AP) → Countermand (40AP) against eligible buffs. Under Final Stand = The Last Directive → Extermination Order and other aggressive attacks; no deliberate control staggering.
+**Chakra Pill II:** Exists in the historic item-name index (`nThwqBAKNrl1_4UTL-D_m`, CONSUMABLE). Its **current effects, cost, cooldown and `destroyOnUse` are not verified** here. Do **not** treat it as guaranteed CP recovery, or use finite consumables as the only Stealth fallback. It may be added later as optional AI utility if a rule slot is intentionally reassigned and fresh capture proves it helps. The two repeatable weapons above are the current safety proposal.
 
-## Mechanical limitations that must not be hidden
+## Ordered 20-rule candidate
 
-1. **Stealth:** All jutsu and basic Clear are disabled while concealed; equipped items/weapons remain available. This is why **Countermand is an item**. Without the equipped item, the anticipated next-round buff-stripping trap does not work. At long range, item range still applies: move first, then Clear when reachable. Sources: `app/src/libs/combat/actions.ts` and `app/tests/libs/combat/seal_stealth.test.ts`.
-2. **Native condition expressiveness:** `has_effect` and `target_has_effect` SUM matching raw power, **do not filter persistent/passive sources**, and **do not explicitly filter inactive/expired effects**. A target with bloodline-sourced IDG≥71 may trigger Stolen Form/Countermand despite having no transferable/removable enhancement. Purging may trigger on a stale effect until the next normal effect-processing prune. Target-side remaining HP, gear composition and intention to kite are **not directly selectable**. Don't sell this profile as a cognitive opponent with actual memory or learning. Test failed casts and ineffective Copy/Clear. If the false-positive rate is unacceptable, propose a source-compatible rule change or revised behavior for director approval rather than silently claim accurate detection.
-3. **Final Stand check:** Native `has_effect:finalstand` requires **threshold≥1** (0 always passes), and the raw-sum limitation must be tested around the exact expiry action/turn. `FinalStand` protections should not persist after its 5 rounds. `health_below:30` is strictly less than 30; the director's threshold is conceptually 30%. A burst crossing 30→0 before the boss acts may bypass signature activation; calibrate enough practical survival without adding unapproved pre-trigger invulnerability.
-4. **Priority interactions:** Native turns carry **100 AP** and will reassess rules after successful actions. Cooldowns, pool costs, movement and range must permit meaningful **40+60** turns. `Countermand`'s Clear participates in shared-Clear cooldowns (3-round global lock against other Clear-tag actions), while **Stolen Form's Copy** does not have the shared-Clear tag, so the Copy60→Countermand40 sequence is plausible but **not yet behavior-proven**.
-5. **Weapon/items and loot:** Ensure Countermand's action has active item type (not MATERIAL/CRYSTAL/ARMOR etc.), `equipped` not NONE, positive quantity, `destroyOnUse:false`, cooldown and 40AP. Do not inadvertently grant Countermand to the player or introduce an independent drop. It must also be tested against equipment and action consumption rules.
-6. **Behavioral survivability and ultimate guard:** With custom `includeDefaultRules:false`, an unsafe profile can **forfeit** if no rule yields a valid action. The ordered move, explicit `use_combo_action(comboIds:['basicAttack'])` melee fallback, and unconditional `end_turn` prevent that. **DO NOT add generic `use_highest_power_action(effect:'damage')` or `use_highest_power_jutsu(effect:'damage')` as a fallback:** these can select Extermination Order while Final Stand is inactive, violating the user's hard phase gate. The source implementation of `use_combo_action` selects actions by ID from the available-action array, including `basicAttack`; confirm with an in-process test. Verify out-of-range, obstacles, AP10/20/40, zero CP/SP, high-CD, invisibility and disabled items.
-7. **Ultimate:** Damage80+Elemental Seal2r+Cleanse Prevent2r is the director-approved three-tag attack. Native Elemental Seal blocks eligible **60AP elemental jutsu**, not all elemental actions. Confirm actual effects, status duration, damage multiplication, CD and Final Stand gating in offline fixtures.
-8. **Story boundary:** The name and characterization are approved. **Do not reveal the directive's unidentified origin until after Arakane's defeat.** Actual game/jutsu/item writes remain reserved for a later Fable-owned implementation contract and user-run live push.
+Targets: `CLOSEST_OPPONENT` for enemies, `SELF` for all self-actions. Every enemy-targeting single-target rule uses the **exact path-distance gate** (`range+1`), from the shared pool/source rule: range5 → `distance_lower_than:6`, range4 → `distance_lower_than:5`, range3 → `distance_lower_than:4`. Special move distances remain intentional. Opponent buff checks use `target_has_effect` with the same target selector as the action.
 
-## Acceptance gates before build
+| # | Native conditions | Action (target) | Intent |
+| ---: | --- | --- | --- |
+| 01 | `health_below:30` | **The Last Directive** (SELF) | Top priority; native strictly <30%. CD protects once-only activation. |
+| 02 | `has_effect(finalstand,threshold:1)` AND `distance_lower_than:6` | **Extermination Order** (CLOSEST_OPPONENT) | Ultimate only in active Final Stand (requires expiry validation). |
+| 03 | `round_lower_than:2` | **B18 Apex Hunger** (SELF) | Opening preparation only; prevents permanent stacking loop. |
+| 04 | `round_lower_than:5` AND `distance_higher_than:7` | **B09 Veilstep** (SELF) | Early anti-kiter concealment when target is beyond attack reach. |
+| 05 | `has_effect(stealth,threshold:1)` AND `distance_lower_than:6` | **Countermand item** (CLOSEST_OPPONENT) | Priority Clear while Stealthed, even if player uses non-IDG buffs. |
+| 06 | `has_effect(afterburn,threshold:1)` | **S34 Purging Stance** (SELF) | Clear damaging debuff if present and no Stealth lock. |
+| 07 | `target_has_effect(shield,threshold:1)` AND `distance_lower_than:6` | **EA04 Zephyr Lance** (CLOSEST_OPPONENT) | Destroy an active target shield. |
+| 08 | `target_has_effect(increasedamagegiven,threshold:71)` AND `distance_lower_than:5` | **B07 Stolen Form** (CLOSEST_OPPONENT) | Copy strong buffs before stripping. |
+| 09 | `target_has_effect(increasedamagegiven,threshold:71)` AND `distance_lower_than:6` | **Countermand item** (CLOSEST_OPPONENT) | Clear target after Copy, if AP and CD permit. |
+| 10 | `distance_lower_than:5` | **B13 Hexweave** (CLOSEST_OPPONENT) | Setup vulnerability/heal suppression. |
+| 11 | `distance_lower_than:6` | **B17 Worldbreaker Chorus** (CLOSEST_OPPONENT) | Damage + Stun; prioritize over less powerful attacks. |
+| 12 | `distance_lower_than:6` | **B27 Scorching Rend** (CLOSEST_OPPONENT) | Wound/Afterburn pressure. |
+| 13 | `distance_lower_than:6` | **B05 Devouring Grasp** (CLOSEST_OPPONENT) | Damage + drain. |
+| 14 | `distance_lower_than:6` | **B26 Braced Strike** (CLOSEST_OPPONENT) | Damage + defense. |
+| 15 | `distance_lower_than:6` | **S07 Rapid Fire** (CLOSEST_OPPONENT) | Attacking fallback, including Final Stand cooldown gaps. |
+| 16 | `distance_higher_than:7` | **B20 Surging Overflow** (SELF) | Refresh offensive preparations only while truly at range. |
+| 17 | `distance_lower_than:6` | **Solar Bow item** (CLOSEST_OPPONENT) | 40AP ranged weapon to spend AP during Stealth or after 60AP jutsu. |
+| 18 | `distance_lower_than:4` | **Crossbow item** (CLOSEST_OPPONENT) | 40AP **zero-CD** repeatable fallback after closing distance. |
+| 19 | `distance_higher_than:3` | `move_towards_opponent` (CLOSEST_OPPONENT) | Pursue while hidden or at range; reevaluate items when near. |
+| 20 | *(none)* | `end_turn` | Guaranteed safe fallback; no AI forfeit when no legal action remains. |
 
-- Test 1: opening-distance 3 / 5 / 7 / 9, initiative both ways, Apex Hunger exactly once, Veilstep only during opening long range; no loop.
-- Test 2: kiting with ordinary temporary IDG/Reflect/Absorb, inactive buffs and permanent bloodline buffs; measure valid Countermand from Stealth, range after chasing, and Copy60→Countermand40. Confirm players can counter and the boss isn't repeatedly wasting turns on nonremovable buffs.
-- Test 3: Shield counter through EA04 and whether it destroys vs merely bypasses the shield.
-- Test 4: Turn-by-turn below30 signature at 30.1 / 30.0 / 29.9 / 1 HP and sudden burst across threshold; exact 5-round Final Stand, Clear Prevent and IDG uptime, no second cast, Extermination only with **active** protection, fallback while its attack is cooling.
-- Test 5: Heal-dependent, defensive, striker, buffer, kiter, control-build fixtures against Grand Marshal and Ghost Ship benchmarks; damage peaks, time-to-kill, offense cadence, Copy success, Clear effectiveness, AP usage, boss stalling. No new balance number becomes accepted without director decision.
+**Notes on ordering:** When stealthed, almost all jutsu rules fail action availability; rule 05 attempts Countermand, rule 17 uses Solar Bow, rule 18 uses the zero-CD Crossbow when in range, then rule 19 moves closer, and rule 20 ends safely. At close range, Crossbow can spend 40AP repeatedly if the engine allows repeat item use that round; this is a required test, not assumed as measured fact. In normal combat, 60AP jutsu plus 40AP weapon/Countermand supports full-turn spending. There is no `use_highest_power_jutsu`/generic damage fallback, which could accidentally select Extermination Order before Final Stand.
 
-**Next director review:** Approve/adjust the ordered behavior, especially deliberately unconditional Countermand when emerging from Veilstep; settle Countermand item fields and ultimate AP/range/CD/name only after behavioral testing and user balance review.
+**True 20-rule count:** exactly 20 rows; `includeDefaultRules:false`. The old 32-rule table must NOT be built; it exceeds the live server maximum by 12.
+
+## Source caveats and tests before acceptance
+
+- **Native condition blind spots:** `has_effect` and `target_has_effect` sum raw matching effect power without explicit active/source filtering. If an expired Final Stand tag remains visible before pruning, rule02 could erroneously fire the ultimate. Test phase boundary precisely; if this cannot be reliably gated under the native AI selector, **flag the blocker and propose a safe alternative instead of weakening the user's only-while-active requirement**. IDG≥71 may be passive/non-copyable; count wasted Copy/Clear casts.
+- **Weapon action safety:** Confirm the specific weapon records are nonconsuming, equipped and positive-quantity, have correct battle-usage flags, viable durability, target methods, cooldowns, and current AP/ranges. Verify two HAND slots are populated and are not unequipped by loader. Damage weapons should not share a blocking cooldown for pure damage; `damage` is absent from `SHARED_COOLDOWN_TAGS` (`app/drizzle/constants.ts`).
+- **Stealth path:** Against far-range kiter, test round0–4, movement until range5 for Countermand/Solar Bow, then range3 for Crossbow. Exercise both Stealth rounds, weapon attacks, AP left at 40/20/10, crowded tiles and chase failure. End-turn must never self-forfeit. Verify item use and the 3-durability-per-weapon-use rule in quest battles.
+- **Final phase:** Test HP ratios 30.1/30.0/29.9/1, CP/SP shortages, exact Final Stand five-round activation/expiry, Clear Prevent strength, ultimate cast cadence under ongoing Final Stand, and clean disable on expiry. The desired signature 40AP / 99-CD and ultimate 60AP / range5 / CD are **proposed**, not director-approved numeric decisions.
+- **Opponent fixtures:** Healers, shields, buff-heavy, high-IDG bloodlines with uncopyable effects, durable melee, ranged kiting, stun/seal strategies. Compare difficulty to Crowned Captain and the other Bastion commanders; do not invent acceptance thresholds.
+- **Safety:** Design only. Do not create a game manifest, change source, request credentials, call live game, or publish without a separate director-approved workflow.
+
+**Next decision:** Approve the two-weapon Stealth fallback and the condensed 20-rule profile direction. Then Fable can construct and offline-test an exact schema-correct candidate using current records; all balance and player-facing content stay with the director.
