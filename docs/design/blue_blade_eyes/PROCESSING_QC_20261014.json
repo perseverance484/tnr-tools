@@ -1,0 +1,110 @@
+{
+  "schema": "tnr.bbe.jutsu-output-qc/1",
+  "date": "2026-10-14",
+  "approved_raw_count": 8,
+  "constraints": {
+    "target": "jutsu.image",
+    "full_bleed_opaque": true,
+    "resolution": [
+      256,
+      256
+    ],
+    "format": "WebP VP8L lossless",
+    "max_bytes_exclusive": 80000
+  },
+  "transform": "Pillow: load RGB from actual decoded source format; LANCZOS resize to 256; MEDIANCUT quantize 256 colors without dither; convert RGB; WebP lossless method=6.",
+  "reason": "Full truecolor 256px lossless WebPs exceeded the stricter user limit; quantization keeps resolution and source composition.",
+  "outputs": [
+    {
+      "jutsu": "Blue Crimson",
+      "source": "icy_teleportation_slash_emblem.png",
+      "file": "icon_bbe_blue_crimson_v1.webp",
+      "bytes": 59574,
+      "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9"
+    },
+    {
+      "jutsu": "Sapphire Command",
+      "source": "glacial_crystal_claw_slashes.png",
+      "file": "icon_bbe_sapphire_command_v1.webp",
+      "bytes": 61270,
+      "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5"
+    },
+    {
+      "jutsu": "Ice Shackles",
+      "source": "a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png",
+      "file": "icon_bbe_ice_shackles_v1.webp",
+      "bytes": 60172,
+      "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb"
+    },
+    {
+      "jutsu": "Icebound Might",
+      "source": "1000018410.png",
+      "file": "icon_bbe_icebound_might_v1.webp",
+      "bytes": 61438,
+      "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40"
+    },
+    {
+      "jutsu": "Glacial Volley",
+      "source": "1000018412.png",
+      "file": "icon_bbe_glacial_volley_v1.webp",
+      "bytes": 60062,
+      "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f"
+    },
+    {
+      "jutsu": "Blade Resonance",
+      "source": "1000018418.png",
+      "file": "icon_bbe_blade_resonance_v1.webp",
+      "bytes": 63066,
+      "sha256": "589ed98b2d7c31943bee68da23b581fb2e5cce8872094fcc2a0cc8f6869b44af"
+    },
+    {
+      "jutsu": "Arctic Frost",
+      "source": "1000018419.png",
+      "file": "icon_bbe_arctic_frost_v1.webp",
+      "bytes": 61896,
+      "sha256": "0df14a6e2d97390502d462ff5d663619d67417184e507d263e5d983c750e7594"
+    },
+    {
+      "jutsu": "Quintessential Flake",
+      "source": "1000018420.png",
+      "file": "icon_bbe_quintessential_flake_v1.webp",
+      "bytes": 62838,
+      "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8"
+    }
+  ],
+  "bundles": [
+    {
+      "name": "bbe_jutsu_8_icons_lossless_webp_under80kb.zip",
+      "bytes": 493898,
+      "sha256": "e57349407dd14abaa26bae1edcf99afa8942ce45565b95e77518027a69436e80"
+    },
+    {
+      "name": "bbe_jutsu_8_approved_original_sources.zip",
+      "bytes": 13410228,
+      "sha256": "b133bb5d071373671d01872f4f4b02d9899c897d8eef2a85c4bba3ea6ffb81d3"
+    }
+  ],
+  "checks": {
+    "eight_sources_hash_verified": true,
+    "square_full_bleed_opaque": true,
+    "webp_VP8L_checked": true,
+    "strict_under_80000": true,
+    "decoded_pixels_equal_processed_input": true,
+    "small_previews_checked_at": [
+      256,
+      125,
+      64,
+      32
+    ],
+    "zip_CRC_and_member_equality": true,
+    "repo_binary_committed": false,
+    "official_artpreflight_invoked": false
+  },
+  "blockers": [
+    "Canonical shared ICON artpreflight treats all ICONs as keyed/transparent; opaque RGB jutsu icons would produce alpha errors.",
+    "Director acceptance of processed WebP exports still pending.",
+    "Five user attachments use JPEG bytes despite .png filenames; true original generation export bytes not verified."
+  ],
+  "live_requests": 0,
+  "live_writes": 0
+}
