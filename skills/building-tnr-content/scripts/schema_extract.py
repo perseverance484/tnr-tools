@@ -1069,53 +1069,87 @@ def _strip_wrapping_parens(text):
 def preprocess_omission(expr):
     """Omission semantics of a top-level z.preprocess(fn, inner).
 
-    Returns (True, mechanism) when an omitted key is proven accepted,
-    (False, mechanism) when it is proven rejected, and (None, reason) when the
-    callback is outside the bounded forms below, which is reported as a gap and
-    leaves optionality as declared.
+    Returns (omit, mechanism, via):
+      (True, why, "null")            undefined becomes null and the inner schema
+                                     accepts null: omission yields null
+      (True, why, "inner_optional")  undefined passes through to an inner
+                                     .optional()/.nullish()
+      (True, why, "inner_default")   undefined passes through to an inner
+                                     .default()/.prefault(), which supplies the value
+      (False, why, None)             omission is proven rejected
+      (None, reason, None)           callback outside the bounded forms below
+      (None, None, None)             not a top-level preprocess
 
     Recognised callback: `(v) => (A1 || A2 ... ? null : v)` where every atom is
     an exact equality of the parameter with undefined, null or "" (`===` or
     loose `==`, either operand order). No negation, `&&`, nesting or other
     operands. `v == null` and `v == undefined` are true for undefined; strict
     `v === null` and `v === ""` are not. The inner schema's acceptance is read
-    from its OUTER chain, never from a nested schema."""
+    from its OUTER chain, never from a nested schema. An inner optional/default
+    only ever sees undefined, so it cannot rescue a callback that turns
+    undefined into null."""
     pp = re.match(r"^z\.preprocess\((.*)\)$", expr)
     if not pp:
-        return None, None
+        return None, None, None
     args = [a for a in split_top_args(pp.group(1)) if a.strip()]
     if len(args) != 2:
-        return None, "preprocess with %d arguments" % len(args)
+        return None, "preprocess with %d arguments" % len(args), None
     fn, inner = " ".join(args[0].split()), " ".join(args[1].split())
     head = re.match(r"^\(?\s*(\w+)\s*(?::[^)]*)?\)?\s*=>\s*", fn)
     if not head:
-        return None, "preprocess callback is not a one-parameter arrow function"
+        return None, "preprocess callback is not a one-parameter arrow function", None
     param = head.group(1)
     body = _strip_wrapping_parens(fn[head.end():])
     tern = re.fullmatch(r"([^?]*)\?\s*null\s*:\s*%s" % re.escape(param), body)
     if not tern:
-        return None, "preprocess callback is not `COND ? null : %s`" % param
+        return None, "preprocess callback is not `COND ? null : %s`" % param, None
     cond = tern.group(1).strip()
     if re.search(r"&&|!|\(|\)", cond):
-        return None, "preprocess condition uses an operator outside the bounded || of equalities"
+        return None, "preprocess condition uses an operator outside the bounded || of equalities", None
     maps_undefined = False
     for atom in cond.split("||"):
         m = _EQ_ATOM.fullmatch(atom.strip())
         if not m or (m.group("a") or m.group("a2")) != param:
-            return None, "preprocess condition atom %r is not an equality of %s" % (atom.strip(), param)
+            return None, "preprocess condition atom %r is not an equality of %s" % (atom.strip(), param), None
         op, lit = (m.group("op") or m.group("op2")), (m.group("lit") or m.group("lit2"))
         if lit == "undefined" or (lit == "null" and op == "=="):
             maps_undefined = True
     names = [n for n, _ in _outer_chain(inner)]
-    inner_nullable = "nullable" in names or "nullish" in names
-    inner_optional = "optional" in names or "nullish" in names
     if maps_undefined:
-        if inner_nullable:
-            return True, "preprocess maps undefined to null and the inner schema is nullable"
-        return False, "preprocess maps undefined to null but the inner schema is not nullable"
-    if inner_optional:
-        return True, "preprocess passes undefined through and the inner schema is optional/nullish"
-    return False, "preprocess passes undefined through and the inner schema is not optional"
+        if "nullable" in names or "nullish" in names:
+            return True, "preprocess maps undefined to null and the inner schema is nullable", "null"
+        return False, ("preprocess maps undefined to null but the inner schema is not nullable "
+                       "(an inner optional/default applies to undefined only)"), None
+    if "optional" in names or "nullish" in names:
+        return True, "preprocess passes undefined through and the inner schema is optional/nullish", "inner_optional"
+    if "default" in names or "prefault" in names:
+        return True, "preprocess passes undefined through to the inner schema's default", "inner_default"
+    return False, "preprocess passes undefined through and the inner schema neither accepts nor defaults it", None
+
+
+def apply_preprocess_omission(spec, omit, why, via):
+    """Make the outer field's emitted facts agree with the omission result.
+
+    parse_expr2 copied the inner schema's facts; an inner optional/default is
+    only true of the outer field when undefined actually reaches it. A default
+    that omission cannot reach moves to `_inner_default` (fact kept, claim dropped)."""
+    def demote_default():
+        if "default" in spec:
+            spec["_inner_default"] = spec.pop("default")
+        if "default_ref" in spec:
+            spec["_inner_default_ref"] = spec.pop("default_ref")
+    if omit is True:
+        spec["_omission"] = why
+        if via == "null":
+            spec["optional"] = True
+            demote_default()          # omission yields null, never the inner default
+        elif via == "inner_optional":
+            spec["optional"] = True
+        # via == "inner_default": the default is the omission fallback; keep it
+    else:
+        # proven rejected, or unclassified (conservative): never advertise omission
+        spec["optional"] = False
+        demote_default()
 
 
 # ------------------------------------------------------------- constants
@@ -1258,13 +1292,12 @@ def extract_entity(repo, rel, name, consts):
             if re.search(r"\.superRefine\(\s*\(", expanded):
                 diag("gap", "G_INLINE_REFINE", where,
                      "%s.%s carries an inline superRefine; its rule is not represented" % (name, f))
-            omit, why = preprocess_omission(expanded)
-            if omit is True:
-                spec["optional"] = True
-                spec["_omission"] = why
-            elif omit is None and why:
-                # unsupported callback: optionality stays as declared, and the
-                # loss of certainty is reported rather than guessed
+            omit, why, via = preprocess_omission(expanded)
+            if why is not None:
+                apply_preprocess_omission(spec, omit, why, via)
+            if omit is None and why:
+                # unsupported callback: treated as required (conservative), and
+                # the loss of certainty is reported rather than guessed
                 diag("gap", "G_PREPROCESS_UNCLASSIFIED", where, why)
             members, lead = index.enum_members(emod, expanded, where)
             if lead and "enum_ref" in spec:

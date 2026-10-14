@@ -157,8 +157,12 @@ Omission is inferred only from one bounded callback form: `(v) => (A1 || A2 … 
 | maps `undefined` to `null`; inner outer-chain `.nullable()`/`.nullish()` | `makeCappedNullableNumber` (`base.ts:10-14` at 585534d; `combat.ts:1276` at bdec); `nullableInteger` (`itemEconomy.ts:4-8`, loose `== null`) | `optional: true`, `nullable: true`, `_omission` names the mechanism |
 | rewrites only `""`, passes `undefined` through; inner `.nullish()` | `requiredSageRank` (`objectives.ts`) | `optional: true` |
 | maps `undefined` to `null`, but only a nested element is nullable | review probe `nestedNullableInput` | `optional: false`, stays in `required_on_create` |
+| maps `undefined` to `null`; inner non-nullable `.optional()`, `.default(7)` or `.prefault(7)` | re-review probes `rejectedOptionalInput`, `rejectedDefaultInput`, `rejectedPrefaultInput` | omission proven rejected: `optional: false`, no `default` (inner value kept as `_inner_default`), stays in `required_on_create`, no gap |
+| passes `undefined` through; inner `.default(7)` / `.prefault(7)` | re-review controls `acceptedDefaultInput`, `acceptedPrefaultInput` | omissible via the inner default: `default: 7`, `_omission` names it, not in `required_on_create` |
 | passes `undefined` through; inner not optional | fixture `strictCapped` (strict `=== null` only) | `optional: false` |
-| `!==`, `&&`, or any form outside the above | review probes `negatedInput`, `constrainedInput` | `optional` as declared (`false`), stays in `required_on_create`, `G_PREPROCESS_UNCLASSIFIED` gap |
+| `!==`, `&&`, or any form outside the above | review probes `negatedInput`, `constrainedInput`; `negatedOptionalInput` (inner `.optional()`) | conservatively required: `optional: false`, any inner default moved to `_inner_default`, stays in `required_on_create`, `G_PREPROCESS_UNCLASSIFIED` gap |
+
+The classifier's result is authoritative for the outer field's emitted facts (`apply_preprocess_omission`). An inner `.optional()` or `.default()` only sees `undefined`, so it is reported as the outer field's fact only when `undefined` actually reaches it.
 
 At both pins, every preprocess field matches a recognized positive form, so the pinned payloads are unchanged by this tightening.
 
@@ -228,25 +232,30 @@ The baseline output at `bdec2883` is structurally identical to the stamped 45c, 
 
 ## 7. Tests
 
-`python3 skills/building-tnr-content/scripts/test_schema_extract.py` exits 0, with 43/43 passing. The tests cover:
+`python3 skills/building-tnr-content/scripts/test_schema_extract.py` exits 0, with 49/49 passing. The tests cover:
 
 - spreads: constant, transitive, two-spread, combat module, enum-by-ref, validator-local, non-leading inline;
 - multi-line field, chain and schema head; nested-item leak; strings containing braces and commas;
 - spread precedence: later spread wins, spread over an own field, cross-module spread;
 - helpers: `type()`/`msg()`, discriminant, cross-file helper on multi-line and single-line heads, nullable-not-omissible, constant default;
-- omission inference (correction pass): negated predicate, constrained conjunction and nested-only nullability stay required and in `required_on_create`; the strict-undefined, loose-null and pass-through pinned forms stay omissible;
+- omission inference (correction passes): negated predicate, constrained conjunction and nested-only nullability stay required and in `required_on_create`; the strict-undefined, loose-null and pass-through pinned forms stay omissible; undefined-to-null over an inner optional/default/prefault is a classified rejection (required, no `default`, no gap); pass-through to an inner default/prefault stays omissible; an unclassified callback over an inner optional is conservatively required with a gap;
 - nested facts (correction pass): nested bound and coercion not attached to the container in both paths; real outer bounds and coercion kept; the `craftingRequirements` shape;
 - falsy metadata: 0, false, null;
 - refusals: unresolved and cyclic array and object spreads exit 1 with empty stdout; gaps are reported but not fatal;
 - determinism.
 
-The same tests against the `main@1da1830` extractor (`SCHEMA_EXTRACT=<baseline>`) exit 1 with 20 failures and 20 errors (`tests_baseline_main_1da1830.txt`). Each failure shows the intended defect: literal `...X` members, missing fields, `type: coerce`, leaked `text`, `min -100 / max 100` precedence, dropped `false`/`0`/`null`, `item` absent because of the multi-line head, the unresolved cross-file helper, and exit 0 on unresolved or cyclic spreads.
+The same tests against the `main@1da1830` extractor (`SCHEMA_EXTRACT=<baseline>`) exit 1 with 20 failures and 26 errors, 46 of 49 (`tests_baseline_main_1da1830.txt`). Each failure shows the intended defect: literal `...X` members, missing fields, `type: coerce`, leaked `text`, `min -100 / max 100` precedence, dropped `false`/`0`/`null`, `item` absent because of the multi-line head, the unresolved cross-file helper, and exit 0 on unresolved or cyclic spreads.
 
 The three baseline passes are:
 - the two guards (discriminant selection, determinism);
 - `test_constructor_nested_bound_not_outer`. The old 45c path never resolved constant-named bounds, so that particular leak was introduced in `1bbc833`, not inherited.
 
-Against the previously reviewed `1bbc833` extractor, the tests exit 1 with exactly the 6 new negative tests failing (`tests_previous_1bbc833.txt`): the three omission probes, the entity and constructor nested-bound probes, and `craftingRequirements`.
+Against the previously reviewed `1bbc833` extractor, the tests exit 1 with 12 failing (`tests_previous_1bbc833.txt`). Those are the first correction pass's 6 negatives (the three omission probes, the entity and constructor nested-bound probes, `craftingRequirements`) plus the 6 re-review tests.
+
+Against `091dc95`, the tests exit 1 with exactly the 6 re-review tests failing (`tests_previous_091dc95.txt`), each for the intended reason:
+- the rejected optional and the unclassified-optional cases still emit `optional: true`;
+- the rejected default and prefault cases still emit `default: 7`;
+- the two pass-through default controls lack `_omission`, because they were misclassified as rejected.
 
 ## 8. Residual gaps and consumer notes
 
@@ -305,5 +314,22 @@ Against the previously reviewed `1bbc833` extractor, the tests exit 1 with exact
 - The producer asserts provenance coverage and exits nonzero on any gap (`provenance problems: 0` for this run).
 
 **Evidence.** Inventory keys `source_read_coverage` and `comparisons.*.rows[].anchor`. Producer output: `unclassified: 0`, `provenance problems: 0`, exit 0.
+
+### Re-review `f517edd4` (R1 still open on `091dc95`) — FIXED
+
+**Change.**
+- `preprocess_omission` returns how omission is accepted (`null`, `inner_optional`, `inner_default`), or a proven rejection, or unclassified.
+- An inner `.default()`/`.prefault()` counts only when `undefined` passes through to it.
+- `apply_preprocess_omission` makes the outer field's emitted facts follow that result:
+  - via `null`: `optional: true`, and an inner default is demoted (omission yields null);
+  - via `inner_optional`: `optional: true`;
+  - via `inner_default`: the default is kept as the omission fallback;
+  - rejected or unclassified: `optional: false`, and any inner default is moved to `_inner_default`.
+- 45g `required_on_create` now agrees with 45d by construction.
+
+**Evidence.**
+- Positive fixture: `rejectedOptionalInput`, `rejectedDefaultInput`, `rejectedPrefaultInput`, `acceptedDefaultInput`, `acceptedPrefaultInput`, `negatedOptionalInput`.
+- 6 new CLI tests; all earlier R1/R2 tests retained (49/49).
+- Regenerated inventory: all 16 extraction runs are structurally identical to `091dc95` at both pins. A/B/C row counts and class summaries are unchanged. No pinned preprocess field has an inner default or an unrecognized callback.
 
 **Live requests / writes / credentials: 0 / 0 / none.**

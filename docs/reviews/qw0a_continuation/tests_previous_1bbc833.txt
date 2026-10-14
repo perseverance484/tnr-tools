@@ -29,10 +29,16 @@ test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion
 test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction) ... FAIL
 test_negated_predicate (__main__.OmissionInference.test_negated_predicate) ... FAIL
 test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable) ... FAIL
+test_pass_through_to_inner_default (__main__.OmissionInference.test_pass_through_to_inner_default) ... ERROR
+test_pass_through_to_inner_prefault (__main__.OmissionInference.test_pass_through_to_inner_prefault) ... ERROR
 test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible) ... ok
 test_positive_loose_null_pinned_form (__main__.OmissionInference.test_positive_loose_null_pinned_form) ... ok
 test_positive_pass_through_pinned_form (__main__.OmissionInference.test_positive_pass_through_pinned_form) ... ok
 test_positive_strict_undefined (__main__.OmissionInference.test_positive_strict_undefined) ... ok
+test_rejected_inner_default (__main__.OmissionInference.test_rejected_inner_default) ... FAIL
+test_rejected_inner_optional (__main__.OmissionInference.test_rejected_inner_optional) ... FAIL
+test_rejected_inner_prefault (__main__.OmissionInference.test_rejected_inner_prefault) ... FAIL
+test_unclassified_callback_is_conservatively_required (__main__.OmissionInference.test_unclassified_callback_is_conservatively_required) ... FAIL
 test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... ok
 test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... ok
 test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... ok
@@ -43,10 +49,34 @@ test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... ok
 test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... ok
 
 ======================================================================
+ERROR: test_pass_through_to_inner_default (__main__.OmissionInference.test_pass_through_to_inner_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 238, in test_pass_through_to_inner_default
+    self.assert_default_fallback("acceptedDefaultInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 234, in assert_default_fallback
+    self.assertIn("inner schema's default", f["_omission"])
+                                            ~^^^^^^^^^^^^^
+KeyError: '_omission'
+
+======================================================================
+ERROR: test_pass_through_to_inner_prefault (__main__.OmissionInference.test_pass_through_to_inner_prefault)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 241, in test_pass_through_to_inner_prefault
+    self.assert_default_fallback("acceptedPrefaultInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 234, in assert_default_fallback
+    self.assertIn("inner schema's default", f["_omission"])
+                                            ~^^^^^^^^^^^^^
+KeyError: '_omission'
+
+======================================================================
 FAIL: test_constructor_nested_bound_not_outer (__main__.NestedFacts.test_constructor_nested_bound_not_outer)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 237, in test_constructor_nested_bound_not_outer
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 274, in test_constructor_nested_bound_not_outer
     self.assertEqual(tag("damage")["boundProbe"], {"type": "array", "optional": True})
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: {'type': 'array', 'max': 400000, 'optional': True} != {'type': 'array', 'optional': True}
@@ -59,7 +89,7 @@ AssertionError: {'type': 'array', 'max': 400000, 'optional': True} != {'type': '
 FAIL: test_entity_crafting_requirements_shape (__main__.NestedFacts.test_entity_crafting_requirements_shape)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 228, in test_entity_crafting_requirements_shape
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 265, in test_entity_crafting_requirements_shape
     self.assertEqual((f["type"], f["default"], f["optional"], f["nullable"], f["coerce"]),
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                      ("array", [], True, True, False))
@@ -81,7 +111,7 @@ False
 FAIL: test_entity_nested_bound_not_outer (__main__.NestedFacts.test_entity_nested_bound_not_outer)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 217, in test_entity_nested_bound_not_outer
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 254, in test_entity_nested_bound_not_outer
     self.assertNotIn("max", f)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^
 AssertionError: 'max' unexpectedly found in {'raw': 'z.array(z.number().max(MAX_CAP)).optional()', 'type': 'array', 'coerce': False, 'optional': True, 'nullable': False, 'max_ref': 'MAX_CAP', 'max': 400000, 'doc': "QW0A-A-R2 probes: bounds/coercion of a nested schema are not the field's\n    nestedBoundInput: z.array(z.number().max(MAX_CAP)).optional()"}
@@ -122,8 +152,56 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
 AssertionError: True is not false : nestedNullableInput
 
+======================================================================
+FAIL: test_rejected_inner_default (__main__.OmissionInference.test_rejected_inner_default)
 ----------------------------------------------------------------------
-Ran 43 tests in 0.840s
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 226, in test_rejected_inner_default
+    self.assert_rejected("rejectedDefaultInput", inner_default=7)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 216, in assert_rejected
+    self.assertNotIn("default", f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 'default' unexpectedly found in {'raw': 'z.number().default(7)', 'type': 'number', 'coerce': False, 'optional': False, 'nullable': False, 'default': 7, '_preprocess': True}
 
-FAILED (failures=6)
+======================================================================
+FAIL: test_rejected_inner_optional (__main__.OmissionInference.test_rejected_inner_optional)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 223, in test_rejected_inner_optional
+    self.assert_rejected("rejectedOptionalInput")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 215, in assert_rejected
+    self.assertFalse(f["optional"], name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : rejectedOptionalInput
+
+======================================================================
+FAIL: test_rejected_inner_prefault (__main__.OmissionInference.test_rejected_inner_prefault)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 229, in test_rejected_inner_prefault
+    self.assert_rejected("rejectedPrefaultInput", inner_default=7)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 216, in assert_rejected
+    self.assertNotIn("default", f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 'default' unexpectedly found in {'raw': 'z.number().prefault(7)', 'type': 'number', 'coerce': False, 'optional': False, 'nullable': False, 'default': 7, '_preprocess': True}
+
+======================================================================
+FAIL: test_unclassified_callback_is_conservatively_required (__main__.OmissionInference.test_unclassified_callback_is_conservatively_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 245, in test_unclassified_callback_is_conservatively_required
+    self.assert_not_omissible("negatedOptionalInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 172, in assert_not_omissible
+    self.assertFalse(f["optional"], name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : negatedOptionalInput
+
+----------------------------------------------------------------------
+Ran 49 tests in 1.026s
+
+FAILED (failures=10, errors=2)
 exit=1

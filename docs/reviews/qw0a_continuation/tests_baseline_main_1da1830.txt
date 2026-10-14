@@ -29,10 +29,16 @@ test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion
 test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction) ... ERROR
 test_negated_predicate (__main__.OmissionInference.test_negated_predicate) ... ERROR
 test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable) ... ERROR
+test_pass_through_to_inner_default (__main__.OmissionInference.test_pass_through_to_inner_default) ... ERROR
+test_pass_through_to_inner_prefault (__main__.OmissionInference.test_pass_through_to_inner_prefault) ... ERROR
 test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible) ... ERROR
 test_positive_loose_null_pinned_form (__main__.OmissionInference.test_positive_loose_null_pinned_form) ... ERROR
 test_positive_pass_through_pinned_form (__main__.OmissionInference.test_positive_pass_through_pinned_form) ... ERROR
 test_positive_strict_undefined (__main__.OmissionInference.test_positive_strict_undefined) ... ERROR
+test_rejected_inner_default (__main__.OmissionInference.test_rejected_inner_default) ... ERROR
+test_rejected_inner_optional (__main__.OmissionInference.test_rejected_inner_optional) ... ERROR
+test_rejected_inner_prefault (__main__.OmissionInference.test_rejected_inner_prefault) ... ERROR
+test_unclassified_callback_is_conservatively_required (__main__.OmissionInference.test_unclassified_callback_is_conservatively_required) ... ERROR
 test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... FAIL
 test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... FAIL
 test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... FAIL
@@ -127,7 +133,7 @@ KeyError: 'description'
 ERROR: test_entity_crafting_requirements_shape (__main__.NestedFacts.test_entity_crafting_requirements_shape)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 227, in test_entity_crafting_requirements_shape
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 264, in test_entity_crafting_requirements_shape
     f = item()["craftingRequirements"]
         ~~~~^^
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
@@ -139,7 +145,7 @@ KeyError: 'item'
 ERROR: test_entity_nested_bound_not_outer (__main__.NestedFacts.test_entity_nested_bound_not_outer)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 216, in test_entity_nested_bound_not_outer
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 253, in test_entity_nested_bound_not_outer
     f = item()["nestedBoundInput"]
         ~~~~^^
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
@@ -151,7 +157,7 @@ KeyError: 'item'
 ERROR: test_entity_outer_bound_kept (__main__.NestedFacts.test_entity_outer_bound_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 222, in test_entity_outer_bound_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 259, in test_entity_outer_bound_kept
     f = item()["outerBoundInput"]
         ~~~~^^
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
@@ -163,7 +169,7 @@ KeyError: 'item'
 ERROR: test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 234, in test_entity_outer_coercion_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 271, in test_entity_outer_coercion_kept
     self.assertTrue(item()["maxDelay"]["coerce"])
                     ~~~~^^
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
@@ -217,6 +223,36 @@ Traceback (most recent call last):
 KeyError: 'item'
 
 ======================================================================
+ERROR: test_pass_through_to_inner_default (__main__.OmissionInference.test_pass_through_to_inner_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 238, in test_pass_through_to_inner_default
+    self.assert_default_fallback("acceptedDefaultInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 232, in assert_default_fallback
+    f = item()[name]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_pass_through_to_inner_prefault (__main__.OmissionInference.test_pass_through_to_inner_prefault)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 241, in test_pass_through_to_inner_prefault
+    self.assert_default_fallback("acceptedPrefaultInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 232, in assert_default_fallback
+    f = item()[name]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
 ERROR: test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
@@ -258,6 +294,66 @@ ERROR: test_positive_strict_undefined (__main__.OmissionInference.test_positive_
 Traceback (most recent call last):
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 192, in test_positive_strict_undefined
     f = item()["validInput"]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_rejected_inner_default (__main__.OmissionInference.test_rejected_inner_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 226, in test_rejected_inner_default
+    self.assert_rejected("rejectedDefaultInput", inner_default=7)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 214, in assert_rejected
+    f = item()[name]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_rejected_inner_optional (__main__.OmissionInference.test_rejected_inner_optional)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 223, in test_rejected_inner_optional
+    self.assert_rejected("rejectedOptionalInput")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 214, in assert_rejected
+    f = item()[name]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_rejected_inner_prefault (__main__.OmissionInference.test_rejected_inner_prefault)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 229, in test_rejected_inner_prefault
+    self.assert_rejected("rejectedPrefaultInput", inner_default=7)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 214, in assert_rejected
+    f = item()[name]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_unclassified_callback_is_conservatively_required (__main__.OmissionInference.test_unclassified_callback_is_conservatively_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 245, in test_unclassified_callback_is_conservatively_required
+    self.assert_not_omissible("negatedOptionalInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 171, in assert_not_omissible
+    f = item()[name]
         ~~~~^^
   File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
     return emit("--entities")["entities"]["item"]["fields"]
@@ -390,7 +486,7 @@ First extra element 2:
 FAIL: test_false_default_is_kept (__main__.FalsyMetadata.test_false_default_is_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 249, in test_false_default_is_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 286, in test_false_default_is_kept
     self.assertEqual(tag("override")["allowFlag"], {"type": "boolean", "default": False})
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: {'type': 'boolean'} != {'type': 'boolean', 'default': False}
@@ -401,7 +497,7 @@ AssertionError: {'type': 'boolean'} != {'type': 'boolean', 'default': False}
 FAIL: test_null_default_is_kept (__main__.FalsyMetadata.test_null_default_is_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 252, in test_null_default_is_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 289, in test_null_default_is_kept
     self.assertEqual(tag("override")["nullDefault"], {"type": "string", "default": None, "nullable": True})
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: {'type': 'string', 'nullable': True} != {'type': 'string', 'default': None, 'nullable': True}
@@ -414,7 +510,7 @@ AssertionError: {'type': 'string', 'nullable': True} != {'type': 'string', 'defa
 FAIL: test_zero_default_and_bound_are_kept (__main__.FalsyMetadata.test_zero_default_and_bound_are_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 245, in test_zero_default_and_bound_are_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 282, in test_zero_default_and_bound_are_kept
     self.assertEqual(tag("damage")["powerPerLevel"],
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                      {"type": "number", "default": 0, "min": -1, "max": 1})
@@ -460,7 +556,7 @@ AssertionError: 'text' unexpectedly found in {'type': {'type': 'literal', 'defau
 FAIL: test_constructor_outer_bound_kept (__main__.NestedFacts.test_constructor_outer_bound_kept)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 240, in test_constructor_outer_bound_kept
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 277, in test_constructor_outer_bound_kept
     self.assertEqual(tag("damage")["outerBound"], {"type": "array", "max": 400000, "optional": True})
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: {'type': 'array', 'optional': True} != {'type': 'array', 'max': 400000, 'optional': True}
@@ -473,10 +569,10 @@ AssertionError: {'type': 'array', 'optional': True} != {'type': 'array', 'max': 
 FAIL: test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 266, in test_cyclic_array_spread
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 303, in test_cyclic_array_spread
     self.assert_refused("cycle_array", "--constants", "E_CYCLE")
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 258, in assert_refused
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 295, in assert_refused
     self.assertEqual(code, 1, err)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
 AssertionError: 0 != 1 : 
@@ -485,10 +581,10 @@ AssertionError: 0 != 1 :
 FAIL: test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 272, in test_cyclic_object_spread
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 309, in test_cyclic_object_spread
     self.assert_refused("cycle_object", "--ctors", "E_CYCLE")
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 258, in assert_refused
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 295, in assert_refused
     self.assertEqual(code, 1, err)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
 AssertionError: 0 != 1 : 
@@ -497,7 +593,7 @@ AssertionError: 0 != 1 :
 FAIL: test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 276, in test_gaps_are_reported_not_fatal
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 313, in test_gaps_are_reported_not_fatal
     self.assertEqual(code, 0, err)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
 AssertionError: 1 != 0 : Traceback (most recent call last):
@@ -518,10 +614,10 @@ FileNotFoundError: [Errno 2] No such file or directory: 'skills/building-tnr-con
 FAIL: test_unresolved_array_spread (__main__.Refusals.test_unresolved_array_spread)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 263, in test_unresolved_array_spread
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 300, in test_unresolved_array_spread
     self.assert_refused("unresolved_array", "--constants", "E_UNRESOLVED_SPREAD")
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 258, in assert_refused
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 295, in assert_refused
     self.assertEqual(code, 1, err)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
 AssertionError: 0 != 1 : 
@@ -530,10 +626,10 @@ AssertionError: 0 != 1 :
 FAIL: test_unresolved_object_spread (__main__.Refusals.test_unresolved_object_spread)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 269, in test_unresolved_object_spread
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 306, in test_unresolved_object_spread
     self.assert_refused("unresolved_object", "--ctors", "E_UNRESOLVED_SPREAD")
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 258, in assert_refused
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 295, in assert_refused
     self.assertEqual(code, 1, err)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
 AssertionError: 0 != 1 : 
@@ -568,7 +664,7 @@ First differing element 0:
 + ['static']
 
 ----------------------------------------------------------------------
-Ran 43 tests in 0.707s
+Ran 49 tests in 0.751s
 
-FAILED (failures=20, errors=20)
+FAILED (failures=20, errors=26)
 exit=1
