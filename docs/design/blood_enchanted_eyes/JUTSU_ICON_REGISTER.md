@@ -1,6 +1,6 @@
 # Blood-Enchanted Eyes — Jutsu Icon Visual Identity Register
 
-**Status:** NEW ART STUDIO INITIALIZED; **0/8 jutsu-icon artworks approved in this workstream**, no image-generation work started here.  
+**Status:** ART STUDIO ACTIVE; **0/8 jutsu-icon artworks approved in this workstream**. One unapproved Reaper's Embrace candidate generated; director requests technique-focused icons, not character scenes.  
 **Art director:** dauntless. **Art Studio role:** direction, per-icon silhouette briefs, approval tracking, processing/QC.  
 **Operating contract:** docs/workflows/ISOLATED_ART_GENERATION.md and docs/workflows/ART_PRODUCTION.md; actual specs belong to skills/producing-tnr-art/.  
 **Bloodline identity:** Blood-Enchanted Eyes (BEE; bloodline ID `ovZIWu28ANn-Cij5TjT8S`). Do not confuse with **Blue Blade Eyes (BBE)**.  
@@ -16,6 +16,7 @@ This is a new visual family, *not a recolor of BBE ice assets*. Initial identity
 - **Rendering:** one large readable focal shape with controlled crimson highlights and sharply separated black negative space; restrained fine particles/mist and carefully chosen highlights. Dark does **not** mean an unreadable black silhouette against black.
 - **Ninja/bloodline identity:** the icon depicts the **actual jutsu action**, not a generic blood droplet/eye/circle pasted onto every image. Bind/corrupt, drain/absorb, defend, restore, pierce, spiral or suppress according to actual evidenced skill.
 - **Variation:** each jutsu gets its own uniquely identifiable dominant **silhouette + composition + chakra behavior**; avoid eight different red circular sigils, repeating an eye on every icon, or silhouettes indistinguishable at thumbnail size.
+- **Director clarification after Reaper's Embrace draft:** jutsu artworks are **technique-first icons, not portraits or people scenes**. No hooded caster, victim crowd or face as the focal subject without a new explicit director exception. The supplied existing art is jutsu-specific; its exact subject belongs to its named technique, not every other technique sharing the palette.
 - **Background:** user-approved TNR jutsu rule: **full-bleed painted background fills all four edges**, **no jutsu rarity plate**, **no required transparency**; distinguish opaque visual requirement from unresolved shared ICON alpha check.
 - **Avoid:** BBE's icy blue/snowflake/crystal family palette and sword shapes; unrelated characters/actors, franchise insignia, text, border, equipment UI, excessive gore, stock fantasy-red-fire look or non-technique ornaments.
 
@@ -28,13 +29,20 @@ This visual treatment is **director-provided palette/theme direction**, not appr
 | Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target damage, stun and time disruption | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability, afterburn and protective debuff prevention | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
-| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
+| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **GENERATED — UNAPPROVED**; initial hooded-figure draft resembles Thousand Strike; icon-first redesign proposed, director disposition pending |
 | Unholy Enhancement | `Nn75Lmvaep6oBQYH2BvVT` | Increases own damage, decreases opponent damage | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Crimson Impact | `fKEHVLvvj6q_b4l_X_k4k` | AOE impact, lifesteal, shield, vulnerability | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Hemocure | `9VRW6hqSoQuz5PA203jFE` | Absorption and defensive/offensive modulation | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
-| Thousand Strike | `znPva-HIAz4EkyuKm2oh0` | Pierce attack and increased vulnerability | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
+| Thousand Strike | `znPva-HIAz4EkyuKm2oh0` | Pierce attack and increased vulnerability | **REFERENCE IDENTIFIED**: user supplied hooded figure `1000018431.jpg` (reference #6); no new icon generated/approved |
 
 **Evidence limitation:** the captured Bloodright kit is a mechanical projection of earlier captures, not current live text or current artwork. Before locking an image concept, inspect the original visual references and preferably the jutsu's actual descriptive text. These cues provide **possibilities, not an artistic rulebook or permission to change mechanics**. Do not invent jutsu effects based on names.
+
+## Reaper's Embrace first-pass review — 2026-10-14
+
+- First candidate: conversation upload `1000018432.png` (actual decoder format **JPEG**, 1536×1536 RGB; see `SOURCE_EVIDENCE.json` for exact byte hash). **NOT APPROVED; user expressed concern, no final rejection or acceptance yet.**
+- The failed conditioning used reference #6 as the primary subject; the director has identified it as **Thousand Strike's** existing image. This was inappropriate for Reaper's Embrace and caused mistaken subject transfer.
+- Proposed replacement direction **not yet approved**: a large, bodyless black-crimson shadow shroud folding inward with two sweeping mantle-like sides around a concentrated scarlet blood-chakra center; drawn-in crimson strands imply vampiric recovery, enclosing dark shape implies temporary protection. Do not use a person, hood, eye, skeletal hand, victim crowd, scythe portrait, spiral ring or symmetrical occult sigil. Avoid Crimson Tithe's angular horizontal vise silhouette.
+- Thumbnail review: complex tiny humanoids and many competing red ribbons lose subject/action clarity at 125/64/32. Production processing and preflight have not started.
 
 ## Scope separation: jutsu icons versus Bloodright art
 
