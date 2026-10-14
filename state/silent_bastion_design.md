@@ -15,7 +15,7 @@ The Bastion reveals that the Ghost Ship is receiving **newly generated orders** 
 ## Pyramid structure — approved direction; implementation pending
 
 - Five divisions, each with four ordinary encounters followed by one commander. Baseline: 25 battles. At the end of each division's third regular encounter, a **Military Command Terminal** allows:
-  - **Maintenance Passage:** skip the fourth regular battle; no recovery/buff; fight the commander under **Security Alert** (temporary disadvantage).
+  - **Maintenance Passage:** solve one short puzzle. Correct: clean skip of the fourth regular battle. Incorrect: skip it with temporary **Security Alert**. No recovery or combat buff either way.
   - **Medical Protocol:** defeat the fourth regular enemy; enter the commander fight with **75% HP/CP/SP starting pools**.
   - **Combat Protocol:** defeat the fourth regular enemy; enter the commander fight with its division-specific temporary combat buff; no recovery.
 - The 75% value is a **set-to percentage** through the reviewed battle-start `givePools` mechanism, not a floor/true heal. This can reduce a higher existing pool; user-facing descriptions and graph implementation must not pretend otherwise. Exact numbers for buffs and Security Alert remain subject to balance review. Earlier illustrative Security Alert: 10% increased damage taken for 2 rounds.
@@ -33,7 +33,7 @@ The Bastion reveals that the Ghost Ship is receiving **newly generated orders** 
 | Outer Garrison | 1–5 | **Garrison Marshal** | Accepted introductory boss: defense, reflect, counterattacks, limited sustained control, no heal. |
 | Experimental Armory | 6–10 | **Master of Arms** | **Name and enhanced ten-jutsu combat identity approved**: dangerous AP/control combos, vulnerability setup, overdrive. |
 | Skyglass Research Division | 11–15 | **Replicant Zero** | **Name, origin lore and eleven-jutsu reconstruction encounter approved**; see below. |
-| High Command | 16–20 | **War General** (working title) | Next commander to design; not yet approved. |
+| High Command | 16–20 | **The Grand Marshal** (*The Second*) | Name and role approved; full combat kit remains proposed. |
 | Command Sanctum | 21–25 | **Supreme Commander** | Intended climax; details not yet designed. Only boss whose defeat of the player fails the whole Pyramid. |
 
 ## Master of Arms — accepted design notes
@@ -74,7 +74,7 @@ Intended AI: barrier/Hexweave opening; **Split Image on round 2** (initially one
 
 ## Current next step
 
-Design the **High Command / War General** as the fourth boss, markedly tougher than Replicant Zero, emphasizing command-grade suppression and intelligent tactical decisions without simply cloning the Sealwright's seven-move dual-Clear rotation. Present candidate jutsu and priorities to the director **one boss at a time**. Do not edit manifests, user-owned balance, or the live game without separate approval.
+Design the **Supreme Commander** as the fifth and final boss, preserving the mystery of newly generated military orders. Present candidate abilities and AI behavior for the director's review. Do not edit manifests or operate the live game without separate approval.
 
 ## Design approvals — 2026-10-13
 
