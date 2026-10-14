@@ -1362,12 +1362,13 @@ def _selftest_new(want, has) -> None:
         design["status"] = "READY"
         design["blockers"] = []
         design["required_resources"].append({"path": "/mnt/data/ghost_ship_handoff.zip", "why": "old bundle"})
-        want(has(validate(plan, rehearsal, path), "ephemeral"), "a chat/sandbox handoff bundle cannot make a task READY")
+        want(has(validate(plan, rehearsal, path), "ephemeral"), "a sandbox-path handoff bundle cannot make a task READY")
         design["required_resources"][-1] = {"path": "state/rehearsal_design.md", "why": "design source"}
-        want(has(validate(plan, rehearsal, path), "cannot be READY"), "an uncommitted design source cannot make a task READY")
+        want(has(validate(plan, rehearsal, path), "cannot be READY"), "a missing design source file cannot make a task READY")
         (rehearsal / "state" / "rehearsal_design.md").parent.mkdir(parents=True, exist_ok=True)
         (rehearsal / "state" / "rehearsal_design.md").write_text("two variants, six endings\n", encoding="utf-8")
-        want(validate(plan, rehearsal, path) == [], "with the design source committed the READY task validates")
+        want(validate(plan, rehearsal, path) == [],
+             "with the design source file present the READY task validates (existence, not Git commitment)")
 
         packet, ok = init_packet(plan, design, rehearsal)
         want(ok and "state/rehearsal_design.md" in "\n".join(packet), "init executes the READY task and routes its source")
@@ -1378,7 +1379,7 @@ def _selftest_new(want, has) -> None:
         design["evidence"] = [{"kind": "note", "ref": "finished in chat"}]
         want(has(validate(plan, rehearsal, path), "no evidence item is a verifiable anchor"), "a chat claim cannot close the task")
         design["evidence"] = [{"kind": "path", "ref": "state/rehearsal_design.md"}]
-        want(validate(plan, rehearsal, path) == [], "committed path evidence closes the task")
+        want(validate(plan, rehearsal, path) == [], "existing repository-path evidence closes the task")
 
         # Ghost Ship scale: split art by asset class and build two quest variants.
         art = find_task(plan, "art.production")
@@ -1393,6 +1394,7 @@ def _selftest_new(want, has) -> None:
         variant = copy.deepcopy(build)
         variant.update(id="build.manifest_variant_b", title="Manifest build: variant B")
         plan["tasks"].append(variant)
+        find_task(plan, "production.hidden_run")["depends_on"].append(variant["id"])
         want(validate(plan, rehearsal, path) == [], "the refined multi-variant roadmap validates")
         path.write_text(serialize_roadmap(plan), encoding="utf-8")
         want(quiet_render(rehearsal, check=True) == 1, "render --check catches the stale projection after an edit")
@@ -1406,6 +1408,59 @@ def _selftest_new(want, has) -> None:
         (rehearsal / "state" / "rehearsal_design.md").unlink()
         want(has(validate(load_roadmap(path), rehearsal, path), "rehearsal_design.md does not exist"),
              "a removed or stale input is surfaced by validate, not silently trusted")
+
+        print("\nnew: the hidden run needs a finished build, whatever happens to review")
+        gate = seed(tmp / "gate")
+        (gate / "state").mkdir(parents=True, exist_ok=True)
+        (gate / "state" / "gate_build.md").write_text("build evidence stand-in\n", encoding="utf-8")
+        run(gate, "gate_quest", "Gate Quest", write=True)
+        gate_path = gate / WORKSTREAMS_DIR / "gate_quest" / "roadmap.json"
+        scaffolded = load_roadmap(gate_path)
+        want(set(find_task(scaffolded, "production.hidden_run")["depends_on"]) == {"build.manifest", "review.independent"},
+             "the template makes the hidden run depend directly on the build and the review")
+
+        def cli(*argv: str) -> int:
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                return main(["--repo-root", str(gate), *argv])
+
+        def stage(build: str, review: str) -> dict:
+            plan = copy.deepcopy(scaffolded)
+            for tid in ("design.graph", "research.sources", "admin.decisions", "prose.production", "art.production"):
+                task = find_task(plan, tid)
+                task.update(status="SKIPPED", blockers=[])
+            built = find_task(plan, "build.manifest")
+            built["status"] = build
+            if build == "COMPLETE":
+                built["evidence"] = [{"kind": "path", "ref": "state/gate_build.md"}]
+            reviewed = find_task(plan, "review.independent")
+            reviewed["status"] = review
+            if review == "COMPLETE":
+                reviewed["evidence"] = [{"kind": "path", "ref": "state/gate_build.md"}]
+            find_task(plan, "production.hidden_run")["status"] = "READY"
+            gate_path.write_text(serialize_roadmap(plan), encoding="utf-8")
+            return plan
+
+        plan = stage(build="PLANNED", review="SKIPPED")
+        want(has(validate(plan, gate, gate_path), "depends on unfinished build.manifest (PLANNED)"),
+             "a skipped review cannot bypass an unfinished build (validate)")
+        want(cli("init", "gate_quest", "--task", "production.hidden_run") == 1,
+             "a skipped review cannot bypass an unfinished build (init refuses)")
+
+        plan = stage(build="COMPLETE", review="PLANNED")
+        want(has(validate(plan, gate, gate_path), "depends on unfinished review.independent (PLANNED)"),
+             "a pending review still blocks the hidden run after the build completes (validate)")
+        want(cli("init", "gate_quest", "--task", "production.hidden_run") == 1,
+             "a pending review still blocks the hidden run after the build completes (init refuses)")
+
+        for review in ("SKIPPED", "COMPLETE"):
+            plan = stage(build="COMPLETE", review=review)
+            want(validate(plan, gate, gate_path) == [] and cli("validate", "--all") == 0,
+                 f"a completed build with a {review.lower()} review validates")
+            want(cli("init", "gate_quest", "--task", "production.hidden_run") == 0,
+                 f"a completed build with a {review.lower()} review lets the hidden run initialize")
+            packet, ok = init_packet(plan, find_task(plan, "production.hidden_run"), gate)
+            want(ok and "build.manifest (COMPLETE):" in "\n".join(packet),
+                 f"the hidden-run packet lists the build output as upstream evidence ({review.lower()} review)")
 
     print("\nnew: a single-session quest needs no workstream")
     with tempfile.TemporaryDirectory() as raw_tmp:

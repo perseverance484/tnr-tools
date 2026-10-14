@@ -176,7 +176,7 @@
       "area": "production",
       "owner": "dauntless",
       "status": "PLANNED",
-      "depends_on": ["review.independent"],
+      "depends_on": ["build.manifest", "review.independent"],
       "objective": "The operator runs the hidden manifest; the committed results and a fresh readback show what actually landed.",
       "scope": [
         "The operator alone runs the manifest; no agent touches the game.",
