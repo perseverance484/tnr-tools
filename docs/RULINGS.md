@@ -1092,3 +1092,25 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
 
 **Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
+
+---
+
+## RUL-2026-10-14-001 — Silent Bastion protocol chosen after the fourth fight; Medical is a full heal
+
+**Date:** 2026-10-14
+
+**Domain:** Silent Bastion / Ghost Ship: The Last Directive, Phase 1 progression graph
+
+**Status:** ACTIVE.
+
+**Ruling:** dauntless directed two changes.
+- The Medical/Combat protocol is no longer encoded in a duplicated fourth-enemy node. Each lane has one fourth fight. A dialog after it routes to separate commander fight nodes for the same commander, one per protocol, and each node carries that protocol's battle-start values. The fourth enemy carries no protocol value.
+- Medical Protocol is a **full heal**: the Medical commander battle sets HP/CP/SP to 100% (`givePools: 100`). This replaces the earlier 75% set-to.
+
+Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint, the requirement to beat the fourth enemy before a protocol, and Combat Protocol values (still placeholders) are unchanged.
+
+**Rationale:** the commander node the player chooses is where the battle-start values live, so the choice belongs in the dialog that gates that node. Medical as a full heal is the director's balance call.
+
+**Canonical destination:** `state/silent_bastion_phase1_graph.json` revision r2, produced by `harness/silent_bastion_phase1/tools/restructure_protocol_choice.py`; Medical text in `state/silent_bastion_design.md`, `state/silent_bastion_release_plan.md` and `state/silent_bastion_commander_roster.md`.
+
+**Supersedes:** the 75% Medical value and the protocol-before-fourth-fight structure in those design documents (no prior ruling ID).

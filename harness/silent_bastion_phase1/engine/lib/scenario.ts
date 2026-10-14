@@ -22,7 +22,8 @@ export const lanePath = (d: number, lane: "n" | "r", seg: Seg) => {
   const b = (s: string) => `b${d}.${lane}.${s}`;
   const ids = [p("f1"), b("f1"), p("f2"), b("f2"), p("f3"), b("f3"), p("terminal")];
   if (seg.route === "clean" || seg.route === "alert") ids.push(p("puzzle"), p(`boss.${seg.route}`), b(`boss.${seg.route}`));
-  else ids.push(p(`f4.${seg.route}`), b(`f4.${seg.route}`), p(`boss.${seg.route}`), b(`boss.${seg.route}`));
+  // r2: one fourth fight; the protocol dialog after it routes straight to the commander battle.
+  else ids.push(p("f4"), b("f4"), p("protocol"), b(`boss.${seg.route}`));
   return ids;
 };
 const pointOf = (battleId: string): Point => {
@@ -53,7 +54,7 @@ export class Runner {
     return this.ev.check(`${this.plan.name}: ${name}`, pass, detail);
   }
   nextWinPools(): Pools {
-    // Deterministic attrition (3% per win) so carry is distinguishable from 50%/75% set-to values.
+    // Deterministic attrition (3% per win) so carry is distinguishable from the 50%/100% set-to values.
     return { health: Math.round(this.carry.health * 0.97), chakra: Math.round(this.carry.chakra * 0.97), stamina: Math.round(this.carry.stamina * 0.97) };
   }
 

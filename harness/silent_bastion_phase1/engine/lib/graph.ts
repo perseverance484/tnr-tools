@@ -40,7 +40,7 @@ export type SymNode = {
   route?: string;
   regular?: number;
 };
-export type SymGraph = { entry: string; nodes: SymNode[]; [k: string]: unknown };
+export type SymGraph = { entry: string; revision?: string; nodes: SymNode[]; [k: string]: unknown };
 
 export const loadGraph = (): SymGraph => JSON.parse(readFileSync(GRAPH_PATH, "utf8"));
 

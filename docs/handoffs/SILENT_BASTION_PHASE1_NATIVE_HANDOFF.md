@@ -65,3 +65,29 @@ Live-game requests 0. Writes 0. No credentials, cookies or session material. No 
 ## Explicitly not begun
 
 Production manifest; Phase 2+ (puzzles/protocol values, regular opponents, commander data, rewards/economy, art); any engine patch for F1/F2; content-workstream roadmap initialisation; integration into `main`.
+
+## Revision r2 (2026-10-14): director restructure, RUL-2026-10-14-001
+
+- Previous frozen review target: `edc53025b9bb9a10bc5886f1fb60a9126d457067` (r1). The r2 head is the commit that adds this section; its exact SHA is in the delivery message. Sections above describe r1 except where this section differs.
+- **Trigger:** dauntless ruled that the protocol is decided by the dialog that leads into the commander fight, not attached to the fourth enemy. Medical is now a full heal (`givePools: 100`).
+- **Changes:**
+  - `state/silent_bastion_phase1_graph.json` is now r2, produced by the new `harness/silent_bastion_phase1/tools/restructure_protocol_choice.py` (`--check` → current). Changes:
+    - one fourth fight per lane (`d/b{i}.{lane}.f4`);
+    - a protocol dialog `d{i}.{lane}.protocol` that routes directly to `b{i}.{lane}.boss.medical` (100) or `b{i}.{lane}.boss.combat`;
+    - the per-protocol commander gate dialogs are removed;
+    - the fourth fight is listed before the commanders;
+    - 178 nodes (91 dialogs, 80 battles); formatting is unchanged (2-space JSON).
+  - `docs/RULINGS.md`: RUL-2026-10-14-001 appended.
+  - Medical text updated to the ruling in `state/silent_bastion_design.md`, `state/silent_bastion_release_plan.md` (prose and schematic) and `state/silent_bastion_commander_roster.md`. The roster's Combat-target wording was **not** changed: it remains the open contradiction in release plan §4.3.
+  - Harness gates updated for the r2 shape. The Medical check now asserts 100% on every Medical start. E4b now asserts that the fourth fight precedes the commander.
+  - Results report and README updated to r2.
+- **Results:** `run.sh` → `preflight=0 bun=0 evidence=0 -> exit 0`.
+  - Upstream preflight: 73 pass.
+  - Gates: 43 tests pass.
+  - Evidence: `s_static` 33, `r_runtime` 7,105, `e_edges` 561; 0 failed.
+  - R covered 15 attempts, 557 battles, 78 losses and 72 retry entries. 3,125 success paths remain, at 20–25 battles each.
+  - An independent second run produced byte-identical evidence. Provenance hashes match. The graph sha256 is `922b128e…ff5e`.
+- **Findings after r2:**
+  - **F1** is narrowed but **still open**. The commander-before-fourth-fight order is gone; the dialog-gate bypass in the missing-Beacon window remains.
+  - **F2** and **F3** are unchanged.
+- **Branch note:** the design documents on this branch now diverge from `chatgpt/silent-bastion-design-20261013` on the Medical value and structure. Reconcile at integration in favour of RUL-2026-10-14-001.

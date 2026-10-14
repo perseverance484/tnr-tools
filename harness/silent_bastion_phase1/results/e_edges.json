@@ -1,5 +1,5 @@
 {
- "assertions": 560,
+ "assertions": 561,
  "checks": [
   {
    "name": "E1: startQuest succeeds",
@@ -314,6 +314,10 @@
    "pass": true
   },
   {
+   "name": "E4b r2: in the missing-Beacon window the fourth fight still precedes the commander",
+   "pass": true
+  },
+  {
    "name": "E5 six hours between floors: HP/CP/SP unchanged",
    "pass": true
   },
@@ -346,7 +350,7 @@
    "pass": true
   },
   {
-   "name": "E7 saved record keeps 208 objectives in order",
+   "name": "E7 saved record keeps 178 objectives in order",
    "pass": true
   },
   {
@@ -506,7 +510,7 @@
    "pass": true
   },
   {
-   "name": "E8: d1.n.terminal -> d1.n.f4.medical accepted",
+   "name": "E8: d1.n.terminal -> d1.n.f4 accepted",
    "pass": true
   },
   {
@@ -514,55 +518,55 @@
    "pass": true
   },
   {
-   "name": "E8: d1.n.f4.medical is the engine's active objective before choosing",
+   "name": "E8: d1.n.f4 is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d1.n.f4.medical -> b1.n.f4.medical accepted",
+   "name": "E8: d1.n.f4 -> b1.n.f4 accepted",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: exactly this battle started",
+   "name": "E8: b1.n.f4: exactly this battle started",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: one live battle",
+   "name": "E8: b1.n.f4: one live battle",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: opponent is slot D1.REG4 only",
+   "name": "E8: b1.n.f4: opponent is slot D1.REG4 only",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: start pools carried unchanged",
+   "name": "E8: b1.n.f4: start pools carried unchanged",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: quest starting effects none on the player only",
+   "name": "E8: b1.n.f4: quest starting effects none on the player only",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: Beacon charged exactly once per attempt",
+   "name": "E8: b1.n.f4: Beacon charged exactly once per attempt",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: no quest reward before completion",
+   "name": "E8: b1.n.f4: no quest reward before completion",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: win keeps the run between floors with settled pools",
+   "name": "E8: b1.n.f4: win keeps the run between floors with settled pools",
    "pass": true
   },
   {
-   "name": "E8: b1.n.f4.medical: no adjacent battle auto-fires after a win",
+   "name": "E8: b1.n.f4: no adjacent battle auto-fires after a win",
    "pass": true
   },
   {
-   "name": "E8: d1.n.boss.medical is the engine's active objective before choosing",
+   "name": "E8: d1.n.protocol is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d1.n.boss.medical -> b1.n.boss.medical accepted",
+   "name": "E8: d1.n.protocol -> b1.n.boss.medical accepted",
    "pass": true
   },
   {
@@ -578,7 +582,7 @@
    "pass": true
   },
   {
-   "name": "E8: b1.n.boss.medical: start pools set to 75%",
+   "name": "E8: b1.n.boss.medical: start pools set to 100%",
    "pass": true
   },
   {
@@ -738,7 +742,7 @@
    "pass": true
   },
   {
-   "name": "E8: d2.n.terminal -> d2.n.f4.medical accepted",
+   "name": "E8: d2.n.terminal -> d2.n.f4 accepted",
    "pass": true
   },
   {
@@ -746,55 +750,55 @@
    "pass": true
   },
   {
-   "name": "E8: d2.n.f4.medical is the engine's active objective before choosing",
+   "name": "E8: d2.n.f4 is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d2.n.f4.medical -> b2.n.f4.medical accepted",
+   "name": "E8: d2.n.f4 -> b2.n.f4 accepted",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: exactly this battle started",
+   "name": "E8: b2.n.f4: exactly this battle started",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: one live battle",
+   "name": "E8: b2.n.f4: one live battle",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: opponent is slot D2.REG4 only",
+   "name": "E8: b2.n.f4: opponent is slot D2.REG4 only",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: start pools carried unchanged",
+   "name": "E8: b2.n.f4: start pools carried unchanged",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: quest starting effects none on the player only",
+   "name": "E8: b2.n.f4: quest starting effects none on the player only",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: Beacon charged exactly once per attempt",
+   "name": "E8: b2.n.f4: Beacon charged exactly once per attempt",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: no quest reward before completion",
+   "name": "E8: b2.n.f4: no quest reward before completion",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: win keeps the run between floors with settled pools",
+   "name": "E8: b2.n.f4: win keeps the run between floors with settled pools",
    "pass": true
   },
   {
-   "name": "E8: b2.n.f4.medical: no adjacent battle auto-fires after a win",
+   "name": "E8: b2.n.f4: no adjacent battle auto-fires after a win",
    "pass": true
   },
   {
-   "name": "E8: d2.n.boss.medical is the engine's active objective before choosing",
+   "name": "E8: d2.n.protocol is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d2.n.boss.medical -> b2.n.boss.medical accepted",
+   "name": "E8: d2.n.protocol -> b2.n.boss.medical accepted",
    "pass": true
   },
   {
@@ -810,7 +814,7 @@
    "pass": true
   },
   {
-   "name": "E8: b2.n.boss.medical: start pools set to 75%",
+   "name": "E8: b2.n.boss.medical: start pools set to 100%",
    "pass": true
   },
   {
@@ -970,7 +974,7 @@
    "pass": true
   },
   {
-   "name": "E8: d3.n.terminal -> d3.n.f4.medical accepted",
+   "name": "E8: d3.n.terminal -> d3.n.f4 accepted",
    "pass": true
   },
   {
@@ -978,55 +982,55 @@
    "pass": true
   },
   {
-   "name": "E8: d3.n.f4.medical is the engine's active objective before choosing",
+   "name": "E8: d3.n.f4 is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d3.n.f4.medical -> b3.n.f4.medical accepted",
+   "name": "E8: d3.n.f4 -> b3.n.f4 accepted",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: exactly this battle started",
+   "name": "E8: b3.n.f4: exactly this battle started",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: one live battle",
+   "name": "E8: b3.n.f4: one live battle",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: opponent is slot D3.REG4 only",
+   "name": "E8: b3.n.f4: opponent is slot D3.REG4 only",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: start pools carried unchanged",
+   "name": "E8: b3.n.f4: start pools carried unchanged",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: quest starting effects none on the player only",
+   "name": "E8: b3.n.f4: quest starting effects none on the player only",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: Beacon charged exactly once per attempt",
+   "name": "E8: b3.n.f4: Beacon charged exactly once per attempt",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: no quest reward before completion",
+   "name": "E8: b3.n.f4: no quest reward before completion",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: win keeps the run between floors with settled pools",
+   "name": "E8: b3.n.f4: win keeps the run between floors with settled pools",
    "pass": true
   },
   {
-   "name": "E8: b3.n.f4.medical: no adjacent battle auto-fires after a win",
+   "name": "E8: b3.n.f4: no adjacent battle auto-fires after a win",
    "pass": true
   },
   {
-   "name": "E8: d3.n.boss.medical is the engine's active objective before choosing",
+   "name": "E8: d3.n.protocol is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d3.n.boss.medical -> b3.n.boss.medical accepted",
+   "name": "E8: d3.n.protocol -> b3.n.boss.medical accepted",
    "pass": true
   },
   {
@@ -1042,7 +1046,7 @@
    "pass": true
   },
   {
-   "name": "E8: b3.n.boss.medical: start pools set to 75%",
+   "name": "E8: b3.n.boss.medical: start pools set to 100%",
    "pass": true
   },
   {
@@ -1202,7 +1206,7 @@
    "pass": true
   },
   {
-   "name": "E8: d4.n.terminal -> d4.n.f4.medical accepted",
+   "name": "E8: d4.n.terminal -> d4.n.f4 accepted",
    "pass": true
   },
   {
@@ -1210,55 +1214,55 @@
    "pass": true
   },
   {
-   "name": "E8: d4.n.f4.medical is the engine's active objective before choosing",
+   "name": "E8: d4.n.f4 is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d4.n.f4.medical -> b4.n.f4.medical accepted",
+   "name": "E8: d4.n.f4 -> b4.n.f4 accepted",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: exactly this battle started",
+   "name": "E8: b4.n.f4: exactly this battle started",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: one live battle",
+   "name": "E8: b4.n.f4: one live battle",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: opponent is slot D4.REG4 only",
+   "name": "E8: b4.n.f4: opponent is slot D4.REG4 only",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: start pools carried unchanged",
+   "name": "E8: b4.n.f4: start pools carried unchanged",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: quest starting effects none on the player only",
+   "name": "E8: b4.n.f4: quest starting effects none on the player only",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: Beacon charged exactly once per attempt",
+   "name": "E8: b4.n.f4: Beacon charged exactly once per attempt",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: no quest reward before completion",
+   "name": "E8: b4.n.f4: no quest reward before completion",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: win keeps the run between floors with settled pools",
+   "name": "E8: b4.n.f4: win keeps the run between floors with settled pools",
    "pass": true
   },
   {
-   "name": "E8: b4.n.f4.medical: no adjacent battle auto-fires after a win",
+   "name": "E8: b4.n.f4: no adjacent battle auto-fires after a win",
    "pass": true
   },
   {
-   "name": "E8: d4.n.boss.medical is the engine's active objective before choosing",
+   "name": "E8: d4.n.protocol is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d4.n.boss.medical -> b4.n.boss.medical accepted",
+   "name": "E8: d4.n.protocol -> b4.n.boss.medical accepted",
    "pass": true
   },
   {
@@ -1274,7 +1278,7 @@
    "pass": true
   },
   {
-   "name": "E8: b4.n.boss.medical: start pools set to 75%",
+   "name": "E8: b4.n.boss.medical: start pools set to 100%",
    "pass": true
   },
   {
@@ -1434,7 +1438,7 @@
    "pass": true
   },
   {
-   "name": "E8: d5.n.terminal -> d5.n.f4.medical accepted",
+   "name": "E8: d5.n.terminal -> d5.n.f4 accepted",
    "pass": true
   },
   {
@@ -1442,55 +1446,55 @@
    "pass": true
   },
   {
-   "name": "E8: d5.n.f4.medical is the engine's active objective before choosing",
+   "name": "E8: d5.n.f4 is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d5.n.f4.medical -> b5.n.f4.medical accepted",
+   "name": "E8: d5.n.f4 -> b5.n.f4 accepted",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: exactly this battle started",
+   "name": "E8: b5.n.f4: exactly this battle started",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: one live battle",
+   "name": "E8: b5.n.f4: one live battle",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: opponent is slot D5.REG4 only",
+   "name": "E8: b5.n.f4: opponent is slot D5.REG4 only",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: start pools carried unchanged",
+   "name": "E8: b5.n.f4: start pools carried unchanged",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: quest starting effects none on the player only",
+   "name": "E8: b5.n.f4: quest starting effects none on the player only",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: Beacon charged exactly once per attempt",
+   "name": "E8: b5.n.f4: Beacon charged exactly once per attempt",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: no quest reward before completion",
+   "name": "E8: b5.n.f4: no quest reward before completion",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: win keeps the run between floors with settled pools",
+   "name": "E8: b5.n.f4: win keeps the run between floors with settled pools",
    "pass": true
   },
   {
-   "name": "E8: b5.n.f4.medical: no adjacent battle auto-fires after a win",
+   "name": "E8: b5.n.f4: no adjacent battle auto-fires after a win",
    "pass": true
   },
   {
-   "name": "E8: d5.n.boss.medical is the engine's active objective before choosing",
+   "name": "E8: d5.n.protocol is the engine's active objective before choosing",
    "pass": true
   },
   {
-   "name": "E8: d5.n.boss.medical -> b5.n.boss.medical accepted",
+   "name": "E8: d5.n.protocol -> b5.n.boss.medical accepted",
    "pass": true
   },
   {
@@ -1506,7 +1510,7 @@
    "pass": true
   },
   {
-   "name": "E8: b5.n.boss.medical: start pools set to 75%",
+   "name": "E8: b5.n.boss.medical: start pools set to 100%",
    "pass": true
   },
   {
@@ -1538,7 +1542,7 @@
    "pass": true
   },
   {
-   "name": "E8 getNewTrackers on 208 objectives under 50 ms/call",
+   "name": "E8 getNewTrackers on 178 objectives under 50 ms/call",
    "pass": true
   },
   {
@@ -2293,8 +2297,8 @@
    "b1.n.f1",
    "b1.n.f2",
    "b1.n.f3",
+   "b1.n.f4",
    "b1.n.boss.combat",
-   "b1.n.f4.combat",
    "b2.n.f1",
    "b2.n.f2",
    null
@@ -2303,8 +2307,8 @@
    "b1.n.f1",
    "b1.n.f2",
    "b1.n.f3",
-   "d1.n.f4.combat",
-   "b1.n.f4.combat",
+   "d1.n.f4",
+   "b1.n.f4",
    "b1.n.boss.combat",
    "b2.n.f1",
    "b2.n.f2"
@@ -2314,8 +2318,8 @@
    "d1.n.f2",
    "d1.n.f3",
    "d1.n.terminal",
-   "d1.n.boss.combat",
-   "d1.n.f4.combat",
+   "d1.n.f4",
+   "d1.n.protocol",
    "d2.n.f1",
    "d2.n.f2"
   ],
@@ -2325,12 +2329,12 @@
     "d2.n.f3"
    ]
   },
-  "E7.savedContentBytes": 237078,
+  "E7.savedContentBytes": 204313,
   "E7.visibleSaveWithoutSceneCharacters": {
    "message": "Quest must have either main sceneCharacters set or all objectives must have sceneCharacters defined",
    "success": false
   },
-  "E8.trackerGoalsAtDeepestPoint": 208,
+  "E8.trackerGoalsAtDeepestPoint": 178,
   "E9.perLoop(3 regular wins + 1 commander loss)": [
    {
     "experienceGained": 96,
@@ -2360,17 +2364,17 @@
      "b1.n.f1",
      "b1.n.f2",
      "b1.n.f3",
+     "b1.n.f4",
      "b1.n.boss.combat",
-     "b1.n.f4.combat",
      "b2.n.f1",
      "b2.n.f2"
     ],
-    "bossBeforeF4": true,
+    "bossBeforeF4": false,
     "dialogStepsAccepted": 8
    },
    "id": "F1",
    "reproduced": true,
-   "summary": "Missing-Beacon window: dialogs after an unstarted battle can be completed; battles later chain by page refresh without dialog gates, and a commander can precede regular fight 4"
+   "summary": "Missing-Beacon window: dialogs after an unstarted battle can be completed and battles later chain by page refresh without dialog gates"
   },
   {
    "detail": {

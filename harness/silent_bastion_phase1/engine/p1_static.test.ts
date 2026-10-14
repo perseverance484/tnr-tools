@@ -40,7 +40,7 @@ describe("S: schema and flow validators", () => {
     ev.check("QuestValidator.safeParse success", parsed.success, parsed.success ? undefined : parsed.error.issues.slice(0, 5));
     expect(parsed.success).toBe(true);
   });
-  it("engine flow validators accept the 208-objective consecutive graph", () => {
+  it("engine flow validators accept the 178-objective consecutive graph", () => {
     const t0 = performance.now();
     const flow = verifyQuestObjectiveFlow(objectives);
     ev.timing("verifyQuestObjectiveFlowMs", performance.now() - t0);
@@ -54,9 +54,10 @@ describe("S: schema and flow validators", () => {
     for (const o of objectives) tasks[o.task] = (tasks[o.task] ?? 0) + 1;
     ev.put("objectiveTaskCounts", tasks);
     ev.put("graphSource", GRAPH_PATH.split("/").slice(-2).join("/"));
-    ev.check("208 objectives", objectives.length === 208, objectives.length);
-    ev.check("111 dialog / 90 start_battle / 5 reset_quest / 1 win / 1 fail",
-      tasks.dialog === 111 && tasks.start_battle === 90 && tasks.reset_quest === 5 && tasks.win_quest === 1 && tasks.fail_quest === 1, tasks);
+    ev.check("graph revision r2 (RUL-2026-10-14-001)", g.revision === "r2", g.revision);
+    ev.check("178 objectives", objectives.length === 178, objectives.length);
+    ev.check("91 dialog / 80 start_battle / 5 reset_quest / 1 win / 1 fail",
+      tasks.dialog === 91 && tasks.start_battle === 80 && tasks.reset_quest === 5 && tasks.win_quest === 1 && tasks.fail_quest === 1, tasks);
     ev.check("unique ids", byId.size === objectives.length);
     let topologyMismatch: string[] = [];
     for (const n of g.nodes) {
@@ -64,7 +65,7 @@ describe("S: schema and flow validators", () => {
       if (a !== b) topologyMismatch.push(n.id);
       if (n.kind === "reset" && (byId.get(n.id) as O).resetObjectiveId !== n.resetTo) topologyMismatch.push(`${n.id}:reset`);
     }
-    ev.check("compiled edges equal symbolic edges for all 208 nodes", topologyMismatch.length === 0, topologyMismatch);
+    ev.check("compiled edges equal symbolic edges for all 178 nodes", topologyMismatch.length === 0, topologyMismatch);
   });
 });
 
@@ -77,6 +78,7 @@ describe("S: progression structure via engine helpers", () => {
     ev.put("logbookGraphEdges", { total: edges.length, fail: edges.filter((e) => e.classes === "fail-edge").length, reset: edges.filter((e) => e.classes === "reset-edge").length });
   });
   it("every battle is gated by exactly one dialog and nothing else", () => {
+    // r2: the protocol dialog has two options, each routing to its own commander battle.
     const inEdges = new Map<string, string[]>();
     for (const o of objectives) for (const t of outEdges(o as O)) inEdges.set(t, [...(inEdges.get(t) ?? []), o.id]);
     const bad: unknown[] = [];
@@ -85,21 +87,22 @@ describe("S: progression structure via engine helpers", () => {
       const preds = inEdges.get(b.id) ?? [];
       if (preds.length !== 1 || byId.get(preds[0]!)?.task !== "dialog") bad.push({ battle: b.id, preds });
       const pred = byId.get(preds[0]!) as O;
-      if (pred && (pred.nextObjectiveId as unknown[]).length !== 1) bad.push({ battle: b.id, gate: pred.id, note: "gate dialog has >1 option" });
+      const multi = pred && (pred.nextObjectiveId as unknown[]).length !== 1;
+      if (multi && !(pred.id.endsWith(".protocol") && /\.boss\.(medical|combat)$/.test(b.id))) bad.push({ battle: b.id, gate: pred.id, note: "unexpected multi-option gate" });
     }
-    ev.check("90/90 battles: single predecessor, a single-option dialog", bad.length === 0 && battles.length === 90, bad);
+    ev.check("80/80 battles: single predecessor, a dialog (single-option, or the protocol choice for Medical/Combat)", bad.length === 0 && battles.length === 80, bad);
     const battleToBattle = battles.flatMap((b) => outEdges(b as O).filter((t) => byId.get(t)?.task === "start_battle").map((t) => `${b.id}->${t}`));
     ev.check("no battle routes directly into another battle (win or loss)", battleToBattle.length === 0, battleToBattle);
     const reset = objectives.filter((o) => o.task === "reset_quest");
     const resetInto = reset.flatMap((r) => (inEdges.get(r.id) ?? []).filter((p) => !p.includes(".r.")));
     ev.check("reset_quest reachable only from retry-lane battles", resetInto.length === 0, resetInto);
   });
-  it("three terminal routes per division (+2 wrong-answer puzzle options) on both lanes", () => {
+  it("Maintenance or the fourth fight, then Medical/Combat chosen after it, on both lanes", () => {
     const bad: string[] = [];
     for (let d = 1; d <= 5; d++) for (const lane of ["n", "r"]) {
       const term = byId.get(`d${d}.${lane}.terminal`) as O;
       const opts = (term?.nextObjectiveId as { text: string; nextObjectiveId: string }[]) ?? [];
-      const want = [`d${d}.${lane}.puzzle`, `d${d}.${lane}.f4.medical`, `d${d}.${lane}.f4.combat`];
+      const want = [`d${d}.${lane}.puzzle`, `d${d}.${lane}.f4`];
       if (opts.map((o) => o.nextObjectiveId).join() !== want.join()) bad.push(`${term?.id}`);
       const puzzle = byId.get(`d${d}.${lane}.puzzle`) as O;
       const p = (puzzle?.nextObjectiveId as { nextObjectiveId: string }[]).map((o) => o.nextObjectiveId);
@@ -107,15 +110,23 @@ describe("S: progression structure via engine helpers", () => {
       // terminal is entered only after regular fight 3
       const preds = objectives.filter((o) => outEdges(o as O).includes(term.id)).map((o) => o.id);
       if (preds.join() !== `b${d}.${lane}.f3`) bad.push(`${term.id}<-${preds}`);
+      const prot = byId.get(`d${d}.${lane}.protocol`) as O;
+      const pt = ((prot?.nextObjectiveId as { nextObjectiveId: string }[]) ?? []).map((o) => o.nextObjectiveId);
+      if (pt.join() !== `b${d}.${lane}.boss.medical,b${d}.${lane}.boss.combat`) bad.push(`${prot?.id}`);
+      const protPreds = objectives.filter((o) => outEdges(o as O).includes(`d${d}.${lane}.protocol`)).map((o) => o.id);
+      if (protPreds.join() !== `b${d}.${lane}.f4`) bad.push(`protocol<-${protPreds}`);
+      if (byId.get(`b${d}.${lane}.f4`)?.nextObjectiveId !== `d${d}.${lane}.protocol`) bad.push(`b${d}.${lane}.f4 win`);
+      const order = objectives.map((o) => o.id);
+      if (order.indexOf(`b${d}.${lane}.f4`) > order.indexOf(`b${d}.${lane}.boss.medical`)) bad.push(`b${d}.${lane}.f4 listed after its commander`);
     }
-    ev.check("10 terminals × (Maintenance, Medical, Combat); puzzles 1 correct + 2 wrong; terminal after fight 3", bad.length === 0, bad);
+    ev.check("10 terminals: Maintenance or fourth fight; puzzle 1 correct + 2 wrong; terminal after fight 3; one fourth fight whose win opens the Medical/Combat dialog; fourth fight listed before commanders", bad.length === 0, bad);
   });
-  it("battle-start pools: 50 only on retry first fights, 75 only on Medical commanders, absent elsewhere", () => {
+  it("battle-start pools: 50 only on retry first fights, 100 (full heal) only on Medical commanders, absent elsewhere", () => {
     const withPools = objectives.filter((o) => o.task === "start_battle" && (o as O).givePools !== undefined)
       .map((o) => `${o.id}=${(o as O).givePools}`).sort();
-    const want = [1, 2, 3, 4, 5].flatMap((d) => [`b${d}.r.f1=50`, `b${d}.n.boss.medical=75`, `b${d}.r.boss.medical=75`]).sort();
+    const want = [1, 2, 3, 4, 5].flatMap((d) => [`b${d}.r.f1=50`, `b${d}.n.boss.medical=100`, `b${d}.r.boss.medical=100`]).sort();
     ev.put("givePoolsObjectives", withPools);
-    ev.check("exactly 15 givePools objectives (5×50 retry entry, 10×75 Medical)", withPools.join() === want.join(), withPools);
+    ev.check("exactly 15 givePools objectives (5×50 retry entry, 10×100 Medical)", withPools.join() === want.join(), withPools);
   });
   it("starting effects only on Security Alert and Combat Protocol commander battles", () => {
     const fx = objectives.filter((o) => o.task === "start_battle" && (((o as O).applyBuffs as unknown[]).length || ((o as O).applyDebuffs as unknown[]).length));
@@ -133,7 +144,7 @@ describe("S: progression structure via engine helpers", () => {
       return ids.length !== 1 || ids[0]!.ids.length !== 1 || ids[0]!.number !== 1 || ids[0]!.ids[0] !== aiIdForSlot(sym.get(o.id)!.encounterSlot!);
     }).map((o) => o.id);
     ev.check("25 encounter slots", slots.length === 25, slots);
-    ev.check("90 battles each fight exactly one copy of their slot AI", bad.length === 0, bad);
+    ev.check("80 battles each fight exactly one copy of their slot AI", bad.length === 0, bad);
   });
 });
 
@@ -177,7 +188,7 @@ describe("S: path enumeration over the engine-parsed objectives", () => {
     }
     for (const o of objectives.filter((x) => x.task === "reset_quest") as O[])
       if (o.resetObjectiveId !== `d${o.id[1]}.r.f1`) bad.push(`${o.id} reset→${o.resetObjectiveId}`);
-    ev.check("all 90 fail edges, 25 commander win edges and 5 reset targets as designed", bad.length === 0, bad);
+    ev.check("all 80 fail edges, 20 commander win edges and 5 reset targets as designed", bad.length === 0, bad);
   });
 });
 
