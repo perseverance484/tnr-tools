@@ -1,0 +1,618 @@
+{
+  "schema": "tnr.qw0a.extractor_independent_review",
+  "date": "2026-10-14",
+  "verdict": "CHANGES_REQUESTED",
+  "target": "1bbc833f093c0b747e9abef741b21067ae1ed3df",
+  "branch": "fable/qw0a-extractor-fidelity-20261014",
+  "base_main": "1da18301e8e4660cedf3daa3e80893a2ac918f2b",
+  "brief_sha": "2d2390e769587bc307b83971923ba4700a63e80d",
+  "planning_sha": "c34f7de572337b0d2cfe397b9331502aa6548e27",
+  "review_method": {
+    "source": "Pinned Git objects and static source files; no game or TypeScript execution",
+    "source_archive_command": "git -C <engine> archive <pin> app",
+    "provided_source_hashes_checked": 25,
+    "hash_mismatches": 0,
+    "game_requests": 0,
+    "game_writes": 0,
+    "game_credentials_used": false
+  },
+  "author_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 skills/building-tnr-content/scripts/test_schema_extract.py",
+    "exit": 0,
+    "tests": 30,
+    "failures": 0,
+    "errors": 0
+  },
+  "baseline_tests": {
+    "command": "SCHEMA_EXTRACT=<main@1da1830 schema_extract.py> python3 skills/building-tnr-content/scripts/test_schema_extract.py",
+    "exit": 1,
+    "tests": 30,
+    "failures": 19,
+    "errors": 9
+  },
+  "inventory_reproduction": {
+    "command": "python3 docs/reviews/qw0a_continuation/tools/build_inventory.py --old-src <bdec source> --old-sha bdec2883748f029a0ecb93505adfdcbae6851fe9 --new-src <585 source> --new-sha 585534d7eb21d6f0dd678d5c3eb92662f611d39b --baseline <baseline.py> --corrected skills/building-tnr-content/scripts/schema_extract.py --stamped skills/building-tnr-content/data --scratch <scratch> --out <inventory.json>",
+    "exit": 0,
+    "comparison_objects_identical": true,
+    "counts": {
+      "A": 1920,
+      "B": 2414,
+      "C": 1903
+    },
+    "unclassified": 0,
+    "runs": [
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "baseline",
+        "mode": "--ctors",
+        "exit": 0,
+        "structural_hash": "69926b4bc29568b5ff387d137fe37e8e92d914f4a20aff0e437c776f77297454",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "baseline",
+        "mode": "--entities",
+        "exit": 0,
+        "structural_hash": "559db15dfb52355bc3cac140d0b83f95037d0ce065fdea68096c7384d0a049be",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "baseline",
+        "mode": "--constants",
+        "exit": 0,
+        "structural_hash": "011e7cdcb83d5c5fae7add77a9c67d5ce68b8d3761ef3106872833bf0b860ca1",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "baseline",
+        "mode": "--checks",
+        "exit": 0,
+        "structural_hash": "464fa47e135c0e0e6383085f57ffe3c0d4de21c44fff259d66b2a64e6fb1e2b5",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "corrected",
+        "mode": "--ctors",
+        "exit": 0,
+        "structural_hash": "831211ba1f5862f4b7cb7fe4a9f4a541fae004a558403a60cf9f55cf58f4843f",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "corrected",
+        "mode": "--entities",
+        "exit": 0,
+        "structural_hash": "fbca3301bc57b7bce0facafc41e429b5db0388b35c55abc45f0d6b25bd781e19",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "corrected",
+        "mode": "--constants",
+        "exit": 0,
+        "structural_hash": "33382fb866f2cfeb0c8434253b8a409e8aed63e222bf692435d5509360c9d2c1",
+        "matches_committed": true
+      },
+      {
+        "pin": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+        "extractor": "corrected",
+        "mode": "--checks",
+        "exit": 0,
+        "structural_hash": "217f29c3409630171cf43b181e852732e2288e8af38bf7bf67873417b4ffdf1f",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "baseline",
+        "mode": "--ctors",
+        "exit": 0,
+        "structural_hash": "bd84d9d28e5a3715b823bf6c2c0a9c520cbe33c052ede34427db3c9dd6fe2632",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "baseline",
+        "mode": "--entities",
+        "exit": 0,
+        "structural_hash": "36bfd06a5ce52cbfedae08a1696109b0b64b9f0f348345b3e439dd96ca325d36",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "baseline",
+        "mode": "--constants",
+        "exit": 0,
+        "structural_hash": "bbe688d76daa9e9c57bc90256034369850eb8b066c232ad107f46b6a88fa40b5",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "baseline",
+        "mode": "--checks",
+        "exit": 0,
+        "structural_hash": "69752eb811f1a9f0a224b8119bb4781da65fc12370e87ab46a186754c6a1165b",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "corrected",
+        "mode": "--ctors",
+        "exit": 0,
+        "structural_hash": "8e9b23884b35edfb18d080263bf9493a68416344cb67cec77b0801391404b106",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "corrected",
+        "mode": "--entities",
+        "exit": 0,
+        "structural_hash": "26eb720a8380d4a708dd350a89d9b0da0e7fa5d751b4a90c1e70dd70f769063e",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "corrected",
+        "mode": "--constants",
+        "exit": 0,
+        "structural_hash": "4be17246a66de0e74ab64d2db3b3b3cbf80da412d964d3f034f820ca72667c13",
+        "matches_committed": true
+      },
+      {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "extractor": "corrected",
+        "mode": "--checks",
+        "exit": 0,
+        "structural_hash": "ce33c5dafef2723fd750729676695087df1c2b6f105c2fe7a55d747423e905c0",
+        "matches_committed": true
+      }
+    ],
+    "all_repeat_bytes_identical": true,
+    "adoption_gates_match_as_line_multisets": true,
+    "adoption_gate_note": "Unchanged schema_diff CHANGES order depends on set iteration; compare line multisets and exits, not output byte order.",
+    "full_source_confirmation": {
+      "bdec2883748f029a0ecb93505adfdcbae6851fe9": {
+        "structural_checks": [
+          {
+            "mode": "ctors",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "entities",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "constants",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "checks",
+            "structural_hash_matches": true
+          }
+        ],
+        "index_modules_read": [
+          "app/drizzle/constants.ts",
+          "app/src/libs/combat/constants.ts",
+          "app/src/libs/train.ts",
+          "app/src/validators/ai.ts",
+          "app/src/validators/asset.ts",
+          "app/src/validators/bloodline.ts",
+          "app/src/validators/combat.ts",
+          "app/src/validators/item.ts",
+          "app/src/validators/jutsu.ts",
+          "app/src/validators/objectives.ts",
+          "app/src/validators/quest.ts",
+          "app/src/validators/rewards.ts"
+        ],
+        "missing_source_hashes": [
+          "app/src/libs/train.ts"
+        ],
+        "legacy_read_hashes_missing": [
+          "app/src/validators/base.ts"
+        ],
+        "gaps_exit": 0,
+        "gaps_match_author": true
+      },
+      "585534d7eb21d6f0dd678d5c3eb92662f611d39b": {
+        "structural_checks": [
+          {
+            "mode": "ctors",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "entities",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "constants",
+            "structural_hash_matches": true
+          },
+          {
+            "mode": "checks",
+            "structural_hash_matches": true
+          }
+        ],
+        "index_modules_read": [
+          "app/drizzle/constants.ts",
+          "app/src/libs/combat/constants.ts",
+          "app/src/libs/train.ts",
+          "app/src/validators/ai.ts",
+          "app/src/validators/asset.ts",
+          "app/src/validators/base.ts",
+          "app/src/validators/bloodline.ts",
+          "app/src/validators/combat.ts",
+          "app/src/validators/item.ts",
+          "app/src/validators/itemEconomy.ts",
+          "app/src/validators/jutsu.ts",
+          "app/src/validators/mastery.ts",
+          "app/src/validators/objectives.ts",
+          "app/src/validators/quest.ts",
+          "app/src/validators/rewards.ts"
+        ],
+        "missing_source_hashes": [
+          "app/src/libs/train.ts"
+        ],
+        "legacy_read_hashes_missing": [],
+        "gaps_exit": 0,
+        "gaps_match_author": true
+      }
+    }
+  },
+  "findings": {
+    "QW0A-A-R1": {
+      "severity": "medium",
+      "summary": "Unsafe preprocess patterns become optional and disappear from required_on_create",
+      "cli_probes": {
+        "--ctors": {
+          "exit": 0,
+          "stderr": ""
+        },
+        "--entities": {
+          "exit": 0,
+          "stderr": "",
+          "fields": {
+            "negatedInput": {
+              "raw": "z.number().nullable()",
+              "type": "number",
+              "coerce": false,
+              "optional": true,
+              "nullable": true,
+              "_preprocess": true,
+              "_omission": "preprocess maps undefined to null and the inner schema is nullable"
+            },
+            "constrainedInput": {
+              "raw": "z.number().nullable()",
+              "type": "number",
+              "coerce": false,
+              "optional": true,
+              "nullable": true,
+              "_preprocess": true,
+              "_omission": "preprocess maps undefined to null and the inner schema is nullable"
+            },
+            "nestedNullableInput": {
+              "raw": "z.array(z.number().nullable())",
+              "type": "array",
+              "coerce": false,
+              "optional": true,
+              "nullable": false,
+              "_preprocess": true,
+              "_omission": "preprocess maps undefined to null and the inner schema is nullable"
+            },
+            "validInput": {
+              "raw": "z.number().nullable()",
+              "type": "number",
+              "coerce": false,
+              "optional": true,
+              "nullable": true,
+              "_preprocess": true,
+              "_omission": "preprocess maps undefined to null and the inner schema is nullable"
+            },
+            "nestedBoundInput": {
+              "raw": "z.array(z.number().max(MAX_CAP)).optional()",
+              "type": "array",
+              "coerce": false,
+              "optional": true,
+              "nullable": false,
+              "max_ref": "MAX_CAP",
+              "max": 400000
+            }
+          }
+        },
+        "--checks": {
+          "exit": 0,
+          "stderr": "",
+          "required_on_create": [
+            "name",
+            "strictCapped"
+          ]
+        },
+        "--gaps": {
+          "exit": 0,
+          "stderr": "",
+          "diagnostics": [
+            {
+              "severity": "gap",
+              "code": "G_PREPROCESS_UNCLASSIFIED",
+              "where": "app/src/validators/combat.ts:80 ItemValidatorRawSchema field strictCapped",
+              "detail": "preprocess callback not classified; optionality left as declared"
+            },
+            {
+              "severity": "gap",
+              "code": "G_INLINE_REFINE",
+              "where": "app/src/validators/combat.ts:80",
+              "detail": "ItemValidatorRawSchema has an inline superRefine callback; superRefine lists named functions only"
+            }
+          ]
+        }
+      }
+    },
+    "QW0A-A-R2": {
+      "severity": "medium",
+      "summary": "Nested named bounds and coercion leak onto the enclosing field",
+      "constructor_probe": {
+        "exit": 0,
+        "field": {
+          "type": "array",
+          "max": 400000,
+          "optional": true
+        },
+        "expected": "type array, optional true; no outer max"
+      },
+      "pinned_case": {
+        "pin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+        "source": "app/src/validators/combat.ts:1754-1769",
+        "field": "entities.item.fields.craftingRequirements",
+        "observed": {
+          "raw": "z.array( z.object({ ids: z.array(z.string()), number: z.coerce.number().int().min(1).max(MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY), }), ).prefault([]).optional().nullish()",
+          "type": "array",
+          "coerce": true,
+          "optional": true,
+          "nullable": true,
+          "default": [],
+          "max_ref": "MAX_ITEM_CRAFTING_REQUIREMENT_QUANTITY",
+          "max": 9999
+        },
+        "expected": "Outer type array, default [], optional/nullable true; no outer max/max_ref and no outer coercion."
+      }
+    },
+    "QW0A-A-R3": {
+      "severity": "medium",
+      "summary": "Evidence manifest omits read source files; derived corrections lack traceable anchors",
+      "missing_source_hashes": [
+        {
+          "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "path": "app/src/libs/train.ts",
+          "sha256": "dbb087c8b4f5c1f2bcfb58736b9b270ef26995d156aaa044b94e348dba50a50e"
+        },
+        {
+          "sha": "bdec2883748f029a0ecb93505adfdcbae6851fe9",
+          "path": "app/src/validators/base.ts",
+          "sha256": "c697122c3144637575f1f77b148652fa043aedbd252836bb0160366c9b1eacb7"
+        },
+        {
+          "sha": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+          "path": "app/src/libs/train.ts",
+          "sha256": "93e586755f8680bbfbb5803600abfbff44e2a6d05103a493f2fa80162e12c530"
+        }
+      ],
+      "anchor_counts": {
+        "A": {
+          "rows": 1920,
+          "missing_any_file_declaration_line": 89,
+          "derived_45g_without_file": 88
+        },
+        "B": {
+          "rows": 2414,
+          "missing_any_file_declaration_line": 85,
+          "derived_45g_without_file": 84
+        },
+        "C": {
+          "rows": 1903,
+          "missing_any_file_declaration_line": 19,
+          "derived_45g_without_file": 18
+        }
+      }
+    }
+  },
+  "gates": [
+    {
+      "label": "push90",
+      "command": [
+        "python3",
+        "push/90_ghost_ship_skyglass_release.validate_exception.py"
+      ],
+      "exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '56 errors, 25 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-013 for push/90_ghost_ship_skyglass_release.json sha256 6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7\n",
+      "stderr": ""
+    },
+    {
+      "label": "push93",
+      "command": [
+        "python3",
+        "push/93_ghost_ship_guardian_repair.validate_exception.py"
+      ],
+      "exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-014 for push/93_ghost_ship_guardian_repair.json sha256 840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753\n",
+      "stderr": ""
+    },
+    {
+      "label": "push94",
+      "command": [
+        "python3",
+        "push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py"
+      ],
+      "exit": 0,
+      "stdout": "EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-015 for push/94_ghost_ship_skyglass_sentinel_repair.json sha256 a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988\n",
+      "stderr": ""
+    },
+    {
+      "label": "factory",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/factory.py",
+        "--selftest"
+      ],
+      "exit": 0,
+      "stdout": "  PASS  jutsu: runtime-only tag                    'activatesagemode' is a runtime-only tag (law 77): the engine injects it in battle and eve\n  PASS  jutsu: power over cap                      AllTags.damage.power=400 above max 100\n  PASS  jutsu: unknown tag field                   AllTags.damage: unknown field(s) ['nonsense']. Valid: allowBloodlineDamageDecrease, allowB\n  PASS  jutsu: formula without generals            formula effect 'damage' needs BOTH statTypes and generalTypes; an empty one detonates the \n  PASS  jutsu: consume without damage              'consume' requires one of ['damage', 'pierce'] on the same action (law 78)\n  PASS  item: rollsagemode on a jutsu              'rollsagemode' is item-only, not legal on jutsu (law 78)\n  PASS  jutsu: create missing required fields      jutsu create missing required field(s) with no schema default: ['actionCostPerc', 'battleD\n  PASS  ai: flat rule triple                       action must be a constructed object from .action(), not a string. The flat {action, condit\n  PASS  ai: unknown condition                      'distance' is not a member of ZodAllAiConditions. Valid: distance_higher_than, distance_lo\n  PASS  ai: chain ends conditional                 the last rule must be unconditional and one of ['move_towards_opponent', 'end_turn', 'use_\n  PASS  ai: dead rule below a terminal             rule 0 is unconditional and terminal; every rule below it is dead (law 41)\n  PASS  ai: wrong distance gate                    rule 0: jutsu range is 2, so the gate must be 3, got 5 (law 40)\n  PASS  quest: unknown task                        'go_somewhere' is not a member of AllObjectives. Valid: InstantWinLoseObjective, RaidObjec\n  PASS  quest: cap over 100                        quest.maxCompletes=500 above max 100\n  PASS  quest: bad date                            quest.startsAt must be plain YYYY-MM-DD, got '2026-08-26T00:00Z' (law 7)\n  PASS  quest: null on a non-nullable field        quest.consecutiveObjectives is null but the validator is not nullable. Omit the key; null \n  PASS  any: edit without targetId                 item edit needs a top-level targetId: srcId and the id map do not self-resolve on edits (l\n  PASS  any: empty-string image                    image sent as an empty string is nulled at the write path and 500s. Omit the key (law 46)\n  PASS  manifest: out of build order               entries are out of build order. Required: jutsu -> asset -> item -> ai -> aiProfile -> que\n  PASS  legal shapes construct cleanly             \n\n20/20 passed\n",
+      "stderr": ""
+    },
+    {
+      "label": "laws",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/validate.py",
+        "--laws"
+      ],
+      "exit": 0,
+      "stdout": "PASS   law 9 IDG product\nPASS   law 10 DDT product\nPASS   law 11 pierce bypass\nPASS   law 12 ramp compounds\nlaws: 4 asserted, 0 failed\n",
+      "stderr": ""
+    },
+    {
+      "label": "packs",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/build_packs.py",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "same   skills/building-tnr-content/references/_toc/jutsu.json\nsame   skills/building-tnr-content/references/_toc/ai.json\nsame   skills/building-tnr-content/references/_toc/quest.json\nsame   skills/building-tnr-content/references/_toc/pipeline.json\nsame   skills/building-tnr-content/references/_toc/item.json\nsame   skills/building-tnr-content/packs/jutsu-build.md\nsame   skills/building-tnr-content/packs/ai-build.md\nsame   skills/building-tnr-content/packs/quest-build.md\n\nall packs and TOCs current (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "label": "lawmap",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/lawmap.py",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review"
+      ],
+      "exit": 0,
+      "stdout": "warn   law 16d: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\nwarn   law 18: matrix says knowledge, but cited by ['validate.py'] - reclass candidate\nwarn   law 37: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\nwarn   law 61: matrix says knowledge, but cited by ['validate.py'] - reclass candidate\nwarn   law 69: matrix says validate, no citation in ['artpreflight.py', 'validate.py']\n\n93 laws, 93 matrix rows, 77 citations across 36 files; 0 errors, 5 warnings\n",
+      "stderr": ""
+    },
+    {
+      "label": "doctrinemap",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/doctrinemap.py",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review"
+      ],
+      "exit": 0,
+      "stdout": "21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)\n",
+      "stderr": ""
+    },
+    {
+      "label": "doctrine_render",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/render_doctrine.py",
+        "--check"
+      ],
+      "exit": 0,
+      "stdout": "same   state/mounted_instructions.txt\nsame   skills/building-tnr-content/SKILL.md\nsame   skills/producing-tnr-art/SKILL.md\nsame   skills/building-tnr-content/references/pipeline.md\n\nall projections current (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "label": "catalog_selftest",
+      "command": [
+        "python3",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/scripts/catalog_sync.py",
+        "--selftest"
+      ],
+      "exit": 0,
+      "stdout": "catalog_sync selftest OK\n",
+      "stderr": ""
+    }
+  ],
+  "legacy_fixtures": [
+    {
+      "args": [
+        "diff",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/data/fixtures/schema_old_sector.json",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/data/fixtures/schema_new_sector.json"
+      ],
+      "expected": 1,
+      "exit": 1,
+      "stdout": "REMOVALS\n  enum-member  AllZones.strike.sector  specific\nADDITIONS\n  enum-member  AllZones.strike.sector  wilds\n\nBREAKING: 1 change(s) - DO NOT ADOPT (exit 1)\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "diff",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/data/fixtures/schema_old_add.json",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/data/fixtures/schema_new_add.json"
+      ],
+      "expected": 0,
+      "exit": 0,
+      "stdout": "ADDITIONS\n  const-member  LetterRanks  A\n  field  jutsu  note\n  ftype  jutsu  note  string\n\nno breaking changes: 3 addition(s), safe to adopt (exit 0)\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--invariants",
+        "/workspace/scratch/29e06893b6c8/qw0a-extractor-review/skills/building-tnr-content/data/fixtures/schema_bad_invariants.json"
+      ],
+      "expected": 1,
+      "exit": 1,
+      "stdout": "I1 AllTags.scorch: discriminator literal 'burn' != variant key\nI1 AllTags: duplicate discriminator 'burn' (burn, scorch)\nI2 AllTags.scorch.pool: enum_ref 'GhostPool' unresolved\ninvariants: 1 union(s), 2 variant(s) audited; 3 error(s)\n",
+      "stderr": ""
+    }
+  ],
+  "packaging_and_protection": {
+    "builds": [
+      {
+        "exit": 0,
+        "stdout": "dist/building-tnr-content.zip  399228 bytes  sha256:5f8898ab8586\ndist/producing-tnr-art.zip  102801 bytes  sha256:325a2b1c2065\n",
+        "stderr": "",
+        "hashes": {
+          "dist/building-tnr-content.zip": "5f8898ab85860a1a10485a59224f7ce76c5f9995f947bf25b755a68ffa64fe59",
+          "dist/producing-tnr-art.zip": "325a2b1c206570da64ab7715f22cb4b04751053024d38a147134586c016993a0"
+        }
+      },
+      {
+        "exit": 0,
+        "stdout": "dist/building-tnr-content.zip  399228 bytes  sha256:5f8898ab8586\ndist/producing-tnr-art.zip  102801 bytes  sha256:325a2b1c2065\n",
+        "stderr": "",
+        "hashes": {
+          "dist/building-tnr-content.zip": "5f8898ab85860a1a10485a59224f7ce76c5f9995f947bf25b755a68ffa64fe59",
+          "dist/producing-tnr-art.zip": "325a2b1c206570da64ab7715f22cb4b04751053024d38a147134586c016993a0"
+        }
+      }
+    ],
+    "committed_hashes": {
+      "dist/building-tnr-content.zip": "5f8898ab85860a1a10485a59224f7ce76c5f9995f947bf25b755a68ffa64fe59",
+      "dist/producing-tnr-art.zip": "325a2b1c206570da64ab7715f22cb4b04751053024d38a147134586c016993a0"
+    },
+    "zip_members_checked": 91,
+    "zip_member_mismatches": [],
+    "compile": "pass",
+    "protected_paths_exit": 0,
+    "worktree_clean": true
+  },
+  "reviewer_setup_notes": [
+    "Initial minimal source exports lacked libs/train.ts and caused extra nonfatal filter-schema gaps. Full pinned app archives removed those extra gaps and matched the author diagnostics; all audited structural hashes were unchanged.",
+    "First ZIP member comparator used repository-relative paths instead of skill-relative paths; the corrected comparator checked all 91 members. Producer builds themselves matched committed ZIPs."
+  ],
+  "not_claimed": [
+    "Code integration",
+    "Contract adoption",
+    "Deployed-game version or runtime/browser behavior",
+    "Independent verification of GitHub Actions run IDs",
+    "Full arbitrary TypeScript/Zod support"
+  ],
+  "next": "Fable correction on its owned branch; new frozen SHA; independent re-review before integration or slice B.",
+  "fresh_main_before_publication": "83690aa7394e3253e1a3860b81bba0a0641577fe",
+  "main_advance": {
+    "commits": 1,
+    "paths": [
+      "docs/DRIFT.md",
+      "state/schema_sentinel.json"
+    ],
+    "overlap_with_implementation": false,
+    "kind": "signal-only sentinel",
+    "upstream_signal": "56e45fab2c87fe9d50c9beba519b616955e5c329",
+    "changes_audit_pins": false
+  }
+}
