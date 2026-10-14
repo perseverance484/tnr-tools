@@ -1,0 +1,1953 @@
+{
+  "format": "TNR-SILENT-BASTION-SYMBOLIC-GRAPH-V1",
+  "nonExecutable": true,
+  "status": "PHASE_1_STATIC_CANDIDATE_NOT_NATIVE_TESTED",
+  "evidence": {
+    "repoBaseline": "perseverance484/tnr-tools@1da18301e8e4660cedf3daa3e80893a2ac918f2b",
+    "designBaseline": "chatgpt/silent-bastion-design-20261013@876b58cc9046b6c2528869d97c7038335f299f4e",
+    "gameSource": "studie-tech/TheNinjaRPG@c82dc7f8ee76cb9ac498c0689f71b6f13bfe69dd",
+    "authority": "state/silent_bastion_release_plan.md"
+  },
+  "intent": "Source-aware route specification only; no jutsu/stats/rewards/images, no game API payloads. Dialogue nodes with next must compile into one-option dialog choices. Native runtime and validator tests still required.",
+  "entry": "d1.n.f1",
+  "retryPolicy": "Any non-final-boss loss on the initial lane enters distinct retry lane with 50% pools on its first battle; any later retry-lane loss resets retry-lane entry via reset_quest. Final Arakane loss hard-fails.",
+  "specialFields": {
+    "startPoolsPercent": "Symbolic stand-in for start_battle.givePools; only retry first fight=50 and Medical boss=75",
+    "startEffect": "Symbolic stand-in for battle-start applyBuffs/applyDebuffs, magnitude unresolved"
+  },
+  "divisions": [
+    {
+      "index": 1,
+      "name": "Outer Garrison",
+      "boss": "The Gatewarden",
+      "puzzle": "patrol routing"
+    },
+    {
+      "index": 2,
+      "name": "Experimental Armory",
+      "boss": "Master of Arms",
+      "puzzle": "armory safety"
+    },
+    {
+      "index": 3,
+      "name": "Skyglass Research Division",
+      "boss": "Replicant Zero",
+      "puzzle": "original versus replica"
+    },
+    {
+      "index": 4,
+      "name": "High Command",
+      "boss": "The Grand Marshal",
+      "puzzle": "command authorization"
+    },
+    {
+      "index": 5,
+      "name": "Command Sanctum",
+      "boss": "Supreme Commander Arakane",
+      "puzzle": "contradictory orders"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "d1.n.f1",
+      "kind": "dialog",
+      "next": "b1.n.f1",
+      "division": 1,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b1.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D1.REG1",
+      "onWin": "d1.n.f2",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.f2",
+      "kind": "dialog",
+      "next": "b1.n.f2",
+      "division": 1,
+      "lane": "n",
+      "regular": 2
+    },
+    {
+      "id": "b1.n.f2",
+      "kind": "battle",
+      "encounterSlot": "D1.REG2",
+      "onWin": "d1.n.f3",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.f3",
+      "kind": "dialog",
+      "next": "b1.n.f3",
+      "division": 1,
+      "lane": "n",
+      "regular": 3
+    },
+    {
+      "id": "b1.n.f3",
+      "kind": "battle",
+      "encounterSlot": "D1.REG3",
+      "onWin": "d1.n.terminal",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d1.n.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d1.n.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d1.n.f4.combat"
+        }
+      ],
+      "division": 1,
+      "lane": "n"
+    },
+    {
+      "id": "d1.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d1.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d1.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d1.n.boss.alert"
+        }
+      ],
+      "division": 1,
+      "lane": "n",
+      "puzzleTheme": "patrol routing"
+    },
+    {
+      "id": "d1.n.boss.clean",
+      "kind": "dialog",
+      "next": "b1.n.boss.clean",
+      "division": 1,
+      "lane": "n",
+      "route": "clean",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.boss.alert",
+      "kind": "dialog",
+      "next": "b1.n.boss.alert",
+      "division": 1,
+      "lane": "n",
+      "route": "alert",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.r.f1",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d1.n.boss.medical",
+      "kind": "dialog",
+      "next": "b1.n.boss.medical",
+      "division": 1,
+      "lane": "n",
+      "route": "medical",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.r.f1",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d1.n.boss.combat",
+      "kind": "dialog",
+      "next": "b1.n.boss.combat",
+      "division": 1,
+      "lane": "n",
+      "route": "combat",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.r.f1",
+      "startEffect": "COMBAT_PROTOCOL_D1_TBD"
+    },
+    {
+      "id": "d1.n.f4.medical",
+      "kind": "dialog",
+      "next": "b1.n.f4.medical",
+      "division": 1,
+      "lane": "n",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b1.n.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.n.boss.medical",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.f4.combat",
+      "kind": "dialog",
+      "next": "b1.n.f4.combat",
+      "division": 1,
+      "lane": "n",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b1.n.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.n.boss.combat",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.r.f1",
+      "kind": "dialog",
+      "next": "b1.r.f1",
+      "division": 1,
+      "lane": "r",
+      "regular": 1
+    },
+    {
+      "id": "b1.r.f1",
+      "kind": "battle",
+      "encounterSlot": "D1.REG1",
+      "onWin": "d1.r.f2",
+      "onLoss": "r1.retry",
+      "startPoolsPercent": 50
+    },
+    {
+      "id": "d1.r.f2",
+      "kind": "dialog",
+      "next": "b1.r.f2",
+      "division": 1,
+      "lane": "r",
+      "regular": 2
+    },
+    {
+      "id": "b1.r.f2",
+      "kind": "battle",
+      "encounterSlot": "D1.REG2",
+      "onWin": "d1.r.f3",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "d1.r.f3",
+      "kind": "dialog",
+      "next": "b1.r.f3",
+      "division": 1,
+      "lane": "r",
+      "regular": 3
+    },
+    {
+      "id": "b1.r.f3",
+      "kind": "battle",
+      "encounterSlot": "D1.REG3",
+      "onWin": "d1.r.terminal",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "d1.r.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d1.r.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d1.r.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d1.r.f4.combat"
+        }
+      ],
+      "division": 1,
+      "lane": "r"
+    },
+    {
+      "id": "d1.r.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d1.r.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d1.r.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d1.r.boss.alert"
+        }
+      ],
+      "division": 1,
+      "lane": "r",
+      "puzzleTheme": "patrol routing"
+    },
+    {
+      "id": "d1.r.boss.clean",
+      "kind": "dialog",
+      "next": "b1.r.boss.clean",
+      "division": 1,
+      "lane": "r",
+      "route": "clean",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.r.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "d1.r.boss.alert",
+      "kind": "dialog",
+      "next": "b1.r.boss.alert",
+      "division": 1,
+      "lane": "r",
+      "route": "alert",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.r.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "r1.retry",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d1.r.boss.medical",
+      "kind": "dialog",
+      "next": "b1.r.boss.medical",
+      "division": 1,
+      "lane": "r",
+      "route": "medical",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.r.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "r1.retry",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d1.r.boss.combat",
+      "kind": "dialog",
+      "next": "b1.r.boss.combat",
+      "division": 1,
+      "lane": "r",
+      "route": "combat",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.r.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "r1.retry",
+      "startEffect": "COMBAT_PROTOCOL_D1_TBD"
+    },
+    {
+      "id": "d1.r.f4.medical",
+      "kind": "dialog",
+      "next": "b1.r.f4.medical",
+      "division": 1,
+      "lane": "r",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b1.r.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.r.boss.medical",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "d1.r.f4.combat",
+      "kind": "dialog",
+      "next": "b1.r.f4.combat",
+      "division": 1,
+      "lane": "r",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b1.r.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.r.boss.combat",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "r1.retry",
+      "kind": "reset",
+      "resetTo": "d1.r.f1",
+      "division": 1
+    },
+    {
+      "id": "d2.n.f1",
+      "kind": "dialog",
+      "next": "b2.n.f1",
+      "division": 2,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b2.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D2.REG1",
+      "onWin": "d2.n.f2",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.f2",
+      "kind": "dialog",
+      "next": "b2.n.f2",
+      "division": 2,
+      "lane": "n",
+      "regular": 2
+    },
+    {
+      "id": "b2.n.f2",
+      "kind": "battle",
+      "encounterSlot": "D2.REG2",
+      "onWin": "d2.n.f3",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.f3",
+      "kind": "dialog",
+      "next": "b2.n.f3",
+      "division": 2,
+      "lane": "n",
+      "regular": 3
+    },
+    {
+      "id": "b2.n.f3",
+      "kind": "battle",
+      "encounterSlot": "D2.REG3",
+      "onWin": "d2.n.terminal",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d2.n.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d2.n.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d2.n.f4.combat"
+        }
+      ],
+      "division": 2,
+      "lane": "n"
+    },
+    {
+      "id": "d2.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d2.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d2.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d2.n.boss.alert"
+        }
+      ],
+      "division": 2,
+      "lane": "n",
+      "puzzleTheme": "armory safety"
+    },
+    {
+      "id": "d2.n.boss.clean",
+      "kind": "dialog",
+      "next": "b2.n.boss.clean",
+      "division": 2,
+      "lane": "n",
+      "route": "clean",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.boss.alert",
+      "kind": "dialog",
+      "next": "b2.n.boss.alert",
+      "division": 2,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.r.f1",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d2.n.boss.medical",
+      "kind": "dialog",
+      "next": "b2.n.boss.medical",
+      "division": 2,
+      "lane": "n",
+      "route": "medical",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.r.f1",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d2.n.boss.combat",
+      "kind": "dialog",
+      "next": "b2.n.boss.combat",
+      "division": 2,
+      "lane": "n",
+      "route": "combat",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.r.f1",
+      "startEffect": "COMBAT_PROTOCOL_D2_TBD"
+    },
+    {
+      "id": "d2.n.f4.medical",
+      "kind": "dialog",
+      "next": "b2.n.f4.medical",
+      "division": 2,
+      "lane": "n",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b2.n.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.n.boss.medical",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.f4.combat",
+      "kind": "dialog",
+      "next": "b2.n.f4.combat",
+      "division": 2,
+      "lane": "n",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b2.n.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.n.boss.combat",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.r.f1",
+      "kind": "dialog",
+      "next": "b2.r.f1",
+      "division": 2,
+      "lane": "r",
+      "regular": 1
+    },
+    {
+      "id": "b2.r.f1",
+      "kind": "battle",
+      "encounterSlot": "D2.REG1",
+      "onWin": "d2.r.f2",
+      "onLoss": "r2.retry",
+      "startPoolsPercent": 50
+    },
+    {
+      "id": "d2.r.f2",
+      "kind": "dialog",
+      "next": "b2.r.f2",
+      "division": 2,
+      "lane": "r",
+      "regular": 2
+    },
+    {
+      "id": "b2.r.f2",
+      "kind": "battle",
+      "encounterSlot": "D2.REG2",
+      "onWin": "d2.r.f3",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "d2.r.f3",
+      "kind": "dialog",
+      "next": "b2.r.f3",
+      "division": 2,
+      "lane": "r",
+      "regular": 3
+    },
+    {
+      "id": "b2.r.f3",
+      "kind": "battle",
+      "encounterSlot": "D2.REG3",
+      "onWin": "d2.r.terminal",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "d2.r.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d2.r.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d2.r.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d2.r.f4.combat"
+        }
+      ],
+      "division": 2,
+      "lane": "r"
+    },
+    {
+      "id": "d2.r.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d2.r.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d2.r.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d2.r.boss.alert"
+        }
+      ],
+      "division": 2,
+      "lane": "r",
+      "puzzleTheme": "armory safety"
+    },
+    {
+      "id": "d2.r.boss.clean",
+      "kind": "dialog",
+      "next": "b2.r.boss.clean",
+      "division": 2,
+      "lane": "r",
+      "route": "clean",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.r.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "d2.r.boss.alert",
+      "kind": "dialog",
+      "next": "b2.r.boss.alert",
+      "division": 2,
+      "lane": "r",
+      "route": "alert",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.r.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "r2.retry",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d2.r.boss.medical",
+      "kind": "dialog",
+      "next": "b2.r.boss.medical",
+      "division": 2,
+      "lane": "r",
+      "route": "medical",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.r.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "r2.retry",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d2.r.boss.combat",
+      "kind": "dialog",
+      "next": "b2.r.boss.combat",
+      "division": 2,
+      "lane": "r",
+      "route": "combat",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.r.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "r2.retry",
+      "startEffect": "COMBAT_PROTOCOL_D2_TBD"
+    },
+    {
+      "id": "d2.r.f4.medical",
+      "kind": "dialog",
+      "next": "b2.r.f4.medical",
+      "division": 2,
+      "lane": "r",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b2.r.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.r.boss.medical",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "d2.r.f4.combat",
+      "kind": "dialog",
+      "next": "b2.r.f4.combat",
+      "division": 2,
+      "lane": "r",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b2.r.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.r.boss.combat",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "r2.retry",
+      "kind": "reset",
+      "resetTo": "d2.r.f1",
+      "division": 2
+    },
+    {
+      "id": "d3.n.f1",
+      "kind": "dialog",
+      "next": "b3.n.f1",
+      "division": 3,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b3.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D3.REG1",
+      "onWin": "d3.n.f2",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.f2",
+      "kind": "dialog",
+      "next": "b3.n.f2",
+      "division": 3,
+      "lane": "n",
+      "regular": 2
+    },
+    {
+      "id": "b3.n.f2",
+      "kind": "battle",
+      "encounterSlot": "D3.REG2",
+      "onWin": "d3.n.f3",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.f3",
+      "kind": "dialog",
+      "next": "b3.n.f3",
+      "division": 3,
+      "lane": "n",
+      "regular": 3
+    },
+    {
+      "id": "b3.n.f3",
+      "kind": "battle",
+      "encounterSlot": "D3.REG3",
+      "onWin": "d3.n.terminal",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d3.n.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d3.n.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d3.n.f4.combat"
+        }
+      ],
+      "division": 3,
+      "lane": "n"
+    },
+    {
+      "id": "d3.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d3.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d3.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d3.n.boss.alert"
+        }
+      ],
+      "division": 3,
+      "lane": "n",
+      "puzzleTheme": "original versus replica"
+    },
+    {
+      "id": "d3.n.boss.clean",
+      "kind": "dialog",
+      "next": "b3.n.boss.clean",
+      "division": 3,
+      "lane": "n",
+      "route": "clean",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.boss.alert",
+      "kind": "dialog",
+      "next": "b3.n.boss.alert",
+      "division": 3,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.r.f1",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d3.n.boss.medical",
+      "kind": "dialog",
+      "next": "b3.n.boss.medical",
+      "division": 3,
+      "lane": "n",
+      "route": "medical",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.r.f1",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d3.n.boss.combat",
+      "kind": "dialog",
+      "next": "b3.n.boss.combat",
+      "division": 3,
+      "lane": "n",
+      "route": "combat",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.r.f1",
+      "startEffect": "COMBAT_PROTOCOL_D3_TBD"
+    },
+    {
+      "id": "d3.n.f4.medical",
+      "kind": "dialog",
+      "next": "b3.n.f4.medical",
+      "division": 3,
+      "lane": "n",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b3.n.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.n.boss.medical",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.f4.combat",
+      "kind": "dialog",
+      "next": "b3.n.f4.combat",
+      "division": 3,
+      "lane": "n",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b3.n.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.n.boss.combat",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.r.f1",
+      "kind": "dialog",
+      "next": "b3.r.f1",
+      "division": 3,
+      "lane": "r",
+      "regular": 1
+    },
+    {
+      "id": "b3.r.f1",
+      "kind": "battle",
+      "encounterSlot": "D3.REG1",
+      "onWin": "d3.r.f2",
+      "onLoss": "r3.retry",
+      "startPoolsPercent": 50
+    },
+    {
+      "id": "d3.r.f2",
+      "kind": "dialog",
+      "next": "b3.r.f2",
+      "division": 3,
+      "lane": "r",
+      "regular": 2
+    },
+    {
+      "id": "b3.r.f2",
+      "kind": "battle",
+      "encounterSlot": "D3.REG2",
+      "onWin": "d3.r.f3",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "d3.r.f3",
+      "kind": "dialog",
+      "next": "b3.r.f3",
+      "division": 3,
+      "lane": "r",
+      "regular": 3
+    },
+    {
+      "id": "b3.r.f3",
+      "kind": "battle",
+      "encounterSlot": "D3.REG3",
+      "onWin": "d3.r.terminal",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "d3.r.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d3.r.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d3.r.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d3.r.f4.combat"
+        }
+      ],
+      "division": 3,
+      "lane": "r"
+    },
+    {
+      "id": "d3.r.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d3.r.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d3.r.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d3.r.boss.alert"
+        }
+      ],
+      "division": 3,
+      "lane": "r",
+      "puzzleTheme": "original versus replica"
+    },
+    {
+      "id": "d3.r.boss.clean",
+      "kind": "dialog",
+      "next": "b3.r.boss.clean",
+      "division": 3,
+      "lane": "r",
+      "route": "clean",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.r.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "d3.r.boss.alert",
+      "kind": "dialog",
+      "next": "b3.r.boss.alert",
+      "division": 3,
+      "lane": "r",
+      "route": "alert",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.r.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "r3.retry",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d3.r.boss.medical",
+      "kind": "dialog",
+      "next": "b3.r.boss.medical",
+      "division": 3,
+      "lane": "r",
+      "route": "medical",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.r.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "r3.retry",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d3.r.boss.combat",
+      "kind": "dialog",
+      "next": "b3.r.boss.combat",
+      "division": 3,
+      "lane": "r",
+      "route": "combat",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.r.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "r3.retry",
+      "startEffect": "COMBAT_PROTOCOL_D3_TBD"
+    },
+    {
+      "id": "d3.r.f4.medical",
+      "kind": "dialog",
+      "next": "b3.r.f4.medical",
+      "division": 3,
+      "lane": "r",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b3.r.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.r.boss.medical",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "d3.r.f4.combat",
+      "kind": "dialog",
+      "next": "b3.r.f4.combat",
+      "division": 3,
+      "lane": "r",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b3.r.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.r.boss.combat",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "r3.retry",
+      "kind": "reset",
+      "resetTo": "d3.r.f1",
+      "division": 3
+    },
+    {
+      "id": "d4.n.f1",
+      "kind": "dialog",
+      "next": "b4.n.f1",
+      "division": 4,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b4.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D4.REG1",
+      "onWin": "d4.n.f2",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.f2",
+      "kind": "dialog",
+      "next": "b4.n.f2",
+      "division": 4,
+      "lane": "n",
+      "regular": 2
+    },
+    {
+      "id": "b4.n.f2",
+      "kind": "battle",
+      "encounterSlot": "D4.REG2",
+      "onWin": "d4.n.f3",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.f3",
+      "kind": "dialog",
+      "next": "b4.n.f3",
+      "division": 4,
+      "lane": "n",
+      "regular": 3
+    },
+    {
+      "id": "b4.n.f3",
+      "kind": "battle",
+      "encounterSlot": "D4.REG3",
+      "onWin": "d4.n.terminal",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d4.n.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d4.n.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d4.n.f4.combat"
+        }
+      ],
+      "division": 4,
+      "lane": "n"
+    },
+    {
+      "id": "d4.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d4.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d4.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d4.n.boss.alert"
+        }
+      ],
+      "division": 4,
+      "lane": "n",
+      "puzzleTheme": "command authorization"
+    },
+    {
+      "id": "d4.n.boss.clean",
+      "kind": "dialog",
+      "next": "b4.n.boss.clean",
+      "division": 4,
+      "lane": "n",
+      "route": "clean",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.boss.alert",
+      "kind": "dialog",
+      "next": "b4.n.boss.alert",
+      "division": 4,
+      "lane": "n",
+      "route": "alert",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.r.f1",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d4.n.boss.medical",
+      "kind": "dialog",
+      "next": "b4.n.boss.medical",
+      "division": 4,
+      "lane": "n",
+      "route": "medical",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.r.f1",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d4.n.boss.combat",
+      "kind": "dialog",
+      "next": "b4.n.boss.combat",
+      "division": 4,
+      "lane": "n",
+      "route": "combat",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.r.f1",
+      "startEffect": "COMBAT_PROTOCOL_D4_TBD"
+    },
+    {
+      "id": "d4.n.f4.medical",
+      "kind": "dialog",
+      "next": "b4.n.f4.medical",
+      "division": 4,
+      "lane": "n",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b4.n.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.n.boss.medical",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.f4.combat",
+      "kind": "dialog",
+      "next": "b4.n.f4.combat",
+      "division": 4,
+      "lane": "n",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b4.n.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.n.boss.combat",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.r.f1",
+      "kind": "dialog",
+      "next": "b4.r.f1",
+      "division": 4,
+      "lane": "r",
+      "regular": 1
+    },
+    {
+      "id": "b4.r.f1",
+      "kind": "battle",
+      "encounterSlot": "D4.REG1",
+      "onWin": "d4.r.f2",
+      "onLoss": "r4.retry",
+      "startPoolsPercent": 50
+    },
+    {
+      "id": "d4.r.f2",
+      "kind": "dialog",
+      "next": "b4.r.f2",
+      "division": 4,
+      "lane": "r",
+      "regular": 2
+    },
+    {
+      "id": "b4.r.f2",
+      "kind": "battle",
+      "encounterSlot": "D4.REG2",
+      "onWin": "d4.r.f3",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "d4.r.f3",
+      "kind": "dialog",
+      "next": "b4.r.f3",
+      "division": 4,
+      "lane": "r",
+      "regular": 3
+    },
+    {
+      "id": "b4.r.f3",
+      "kind": "battle",
+      "encounterSlot": "D4.REG3",
+      "onWin": "d4.r.terminal",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "d4.r.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d4.r.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d4.r.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d4.r.f4.combat"
+        }
+      ],
+      "division": 4,
+      "lane": "r"
+    },
+    {
+      "id": "d4.r.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d4.r.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d4.r.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d4.r.boss.alert"
+        }
+      ],
+      "division": 4,
+      "lane": "r",
+      "puzzleTheme": "command authorization"
+    },
+    {
+      "id": "d4.r.boss.clean",
+      "kind": "dialog",
+      "next": "b4.r.boss.clean",
+      "division": 4,
+      "lane": "r",
+      "route": "clean",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.r.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "d4.r.boss.alert",
+      "kind": "dialog",
+      "next": "b4.r.boss.alert",
+      "division": 4,
+      "lane": "r",
+      "route": "alert",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.r.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "r4.retry",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d4.r.boss.medical",
+      "kind": "dialog",
+      "next": "b4.r.boss.medical",
+      "division": 4,
+      "lane": "r",
+      "route": "medical",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.r.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "r4.retry",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d4.r.boss.combat",
+      "kind": "dialog",
+      "next": "b4.r.boss.combat",
+      "division": 4,
+      "lane": "r",
+      "route": "combat",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.r.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "r4.retry",
+      "startEffect": "COMBAT_PROTOCOL_D4_TBD"
+    },
+    {
+      "id": "d4.r.f4.medical",
+      "kind": "dialog",
+      "next": "b4.r.f4.medical",
+      "division": 4,
+      "lane": "r",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b4.r.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.r.boss.medical",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "d4.r.f4.combat",
+      "kind": "dialog",
+      "next": "b4.r.f4.combat",
+      "division": 4,
+      "lane": "r",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b4.r.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.r.boss.combat",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "r4.retry",
+      "kind": "reset",
+      "resetTo": "d4.r.f1",
+      "division": 4
+    },
+    {
+      "id": "d5.n.f1",
+      "kind": "dialog",
+      "next": "b5.n.f1",
+      "division": 5,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b5.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D5.REG1",
+      "onWin": "d5.n.f2",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.n.f2",
+      "kind": "dialog",
+      "next": "b5.n.f2",
+      "division": 5,
+      "lane": "n",
+      "regular": 2
+    },
+    {
+      "id": "b5.n.f2",
+      "kind": "battle",
+      "encounterSlot": "D5.REG2",
+      "onWin": "d5.n.f3",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.n.f3",
+      "kind": "dialog",
+      "next": "b5.n.f3",
+      "division": 5,
+      "lane": "n",
+      "regular": 3
+    },
+    {
+      "id": "b5.n.f3",
+      "kind": "battle",
+      "encounterSlot": "D5.REG3",
+      "onWin": "d5.n.terminal",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d5.n.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d5.n.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d5.n.f4.combat"
+        }
+      ],
+      "division": 5,
+      "lane": "n"
+    },
+    {
+      "id": "d5.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d5.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d5.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d5.n.boss.alert"
+        }
+      ],
+      "division": 5,
+      "lane": "n",
+      "puzzleTheme": "contradictory orders"
+    },
+    {
+      "id": "d5.n.boss.clean",
+      "kind": "dialog",
+      "next": "b5.n.boss.clean",
+      "division": 5,
+      "lane": "n",
+      "route": "clean",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane"
+    },
+    {
+      "id": "d5.n.boss.alert",
+      "kind": "dialog",
+      "next": "b5.n.boss.alert",
+      "division": 5,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d5.n.boss.medical",
+      "kind": "dialog",
+      "next": "b5.n.boss.medical",
+      "division": 5,
+      "lane": "n",
+      "route": "medical",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d5.n.boss.combat",
+      "kind": "dialog",
+      "next": "b5.n.boss.combat",
+      "division": 5,
+      "lane": "n",
+      "route": "combat",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "COMBAT_PROTOCOL_D5_TBD"
+    },
+    {
+      "id": "d5.n.f4.medical",
+      "kind": "dialog",
+      "next": "b5.n.f4.medical",
+      "division": 5,
+      "lane": "n",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b5.n.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.n.boss.medical",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.n.f4.combat",
+      "kind": "dialog",
+      "next": "b5.n.f4.combat",
+      "division": 5,
+      "lane": "n",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b5.n.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.n.boss.combat",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.r.f1",
+      "kind": "dialog",
+      "next": "b5.r.f1",
+      "division": 5,
+      "lane": "r",
+      "regular": 1
+    },
+    {
+      "id": "b5.r.f1",
+      "kind": "battle",
+      "encounterSlot": "D5.REG1",
+      "onWin": "d5.r.f2",
+      "onLoss": "r5.retry",
+      "startPoolsPercent": 50
+    },
+    {
+      "id": "d5.r.f2",
+      "kind": "dialog",
+      "next": "b5.r.f2",
+      "division": 5,
+      "lane": "r",
+      "regular": 2
+    },
+    {
+      "id": "b5.r.f2",
+      "kind": "battle",
+      "encounterSlot": "D5.REG2",
+      "onWin": "d5.r.f3",
+      "onLoss": "r5.retry"
+    },
+    {
+      "id": "d5.r.f3",
+      "kind": "dialog",
+      "next": "b5.r.f3",
+      "division": 5,
+      "lane": "r",
+      "regular": 3
+    },
+    {
+      "id": "b5.r.f3",
+      "kind": "battle",
+      "encounterSlot": "D5.REG3",
+      "onWin": "d5.r.terminal",
+      "onLoss": "r5.retry"
+    },
+    {
+      "id": "d5.r.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d5.r.puzzle"
+        },
+        {
+          "label": "Medical Protocol",
+          "to": "d5.r.f4.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "d5.r.f4.combat"
+        }
+      ],
+      "division": 5,
+      "lane": "r"
+    },
+    {
+      "id": "d5.r.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "d5.r.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d5.r.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d5.r.boss.alert"
+        }
+      ],
+      "division": 5,
+      "lane": "r",
+      "puzzleTheme": "contradictory orders"
+    },
+    {
+      "id": "d5.r.boss.clean",
+      "kind": "dialog",
+      "next": "b5.r.boss.clean",
+      "division": 5,
+      "lane": "r",
+      "route": "clean",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.r.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane"
+    },
+    {
+      "id": "d5.r.boss.alert",
+      "kind": "dialog",
+      "next": "b5.r.boss.alert",
+      "division": 5,
+      "lane": "r",
+      "route": "alert",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.r.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d5.r.boss.medical",
+      "kind": "dialog",
+      "next": "b5.r.boss.medical",
+      "division": 5,
+      "lane": "r",
+      "route": "medical",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.r.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startPoolsPercent": 75
+    },
+    {
+      "id": "d5.r.boss.combat",
+      "kind": "dialog",
+      "next": "b5.r.boss.combat",
+      "division": 5,
+      "lane": "r",
+      "route": "combat",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.r.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "COMBAT_PROTOCOL_D5_TBD"
+    },
+    {
+      "id": "d5.r.f4.medical",
+      "kind": "dialog",
+      "next": "b5.r.f4.medical",
+      "division": 5,
+      "lane": "r",
+      "regular": 4,
+      "route": "medical"
+    },
+    {
+      "id": "b5.r.f4.medical",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.r.boss.medical",
+      "onLoss": "r5.retry"
+    },
+    {
+      "id": "d5.r.f4.combat",
+      "kind": "dialog",
+      "next": "b5.r.f4.combat",
+      "division": 5,
+      "lane": "r",
+      "regular": 4,
+      "route": "combat"
+    },
+    {
+      "id": "b5.r.f4.combat",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.r.boss.combat",
+      "onLoss": "r5.retry"
+    },
+    {
+      "id": "r5.retry",
+      "kind": "reset",
+      "resetTo": "d5.r.f1",
+      "division": 5
+    },
+    {
+      "id": "d.aftermath",
+      "kind": "dialog",
+      "next": "w.complete",
+      "purpose": "post-Arakane autonomous-order reveal"
+    },
+    {
+      "id": "w.complete",
+      "kind": "win",
+      "onlyRewardNode": true
+    },
+    {
+      "id": "f.arakane",
+      "kind": "fail",
+      "reason": "Defeat against the Supreme Commander ends attempt"
+    }
+  ]
+}
