@@ -1092,3 +1092,25 @@ The doctrine is unchanged and this is not a precedent. The correct payloads stay
 The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
 
 **Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
+
+---
+
+## RUL-2026-10-14-001 — Isolated art-generation sessions and opaque jutsu-icon backgrounds
+
+**Date:** 2026-10-14  
+**Domain:** TNR art production / Blue Blade Eyes (BBE) jutsu icons  
+**Status:** ACTIVE — approved operating method and visual presentation decision; separate tool-contract correction pending.  
+**Supersedes:** no prior visual acceptance; narrows the generic transparent-ICON presumption **for jutsu icon presentation only**, without editing or superseding the validator's actual contract.
+
+**Ruling:** dauntless approved the **Art Studio + Isolated Generation** production model. Keep one persistent workspace for art direction, silhouette registry, image-reference selection, prompt handoffs, cross-icon comparison, processing, QC and packaging. Use a **fresh generation conversation for each individual image/jutsu**, pass only one or two selected individual art references, generate one candidate at a time, and close after acceptance or a clear failure. Reference images establish *rendering and material*, not the new target's subject or composition. Accepted raw art is locked; processing must not replace or reimagine it.
+
+**Visual presentation:** newly produced **jutsu icons have designed backgrounds**; transparency is **not required**. This choice does not affect other asset types and does not authorize retroactive changes to existing game content. BBE's approved jutsu family uses pale translucent sapphire ice, sharp crystalline facets, frosted chakra, strong technique-specific silhouettes, and no mandatory circular sigils. Blue Crimson, Sapphire Command, Ice Shackles and Icebound Might have **director-approved raw visual candidates** only; see the exact source-evidence register.
+
+**BBE-specific delivery cap:** all BBE jutsu-icon exports must be **under 80,000 bytes**, in addition to the currently applicable square/format/size rules.
+
+**Unresolved mechanical conflict:** the current shared **ICON** target in skills/producing-tnr-art/data/25x_DATA_art_spec.json has chroma_key=lime, and the current artpreflight.py rejects opaque RGB icons for missing alpha. The user-approved opaque-background look does **not** automatically make that preflight green. Until an independently reviewed jutsu-specific spec/preflight path (normally Fable's implementation) or an approved evidence-backed exception exists, record this mismatch explicitly and do not claim mechanical upload readiness or zero-error preflight. Do not fabricate alpha or weaken other asset-class checks.
+
+**Canonical destinations:** docs/workflows/ISOLATED_ART_GENERATION.md (operating protocol); docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md (collection identity/approval state); docs/design/blue_blade_eyes/SOURCE_EVIDENCE.json (hashes of conversation source files). Existing skills/producing-tnr-art/ and 25x_DATA_art_spec.json retain technical authority; docs/00_INDEX.md retains routing and precedence.
+
+**Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
+
