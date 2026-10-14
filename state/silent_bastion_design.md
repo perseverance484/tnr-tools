@@ -26,6 +26,8 @@ The Bastion reveals that the Ghost Ship is receiving **newly generated orders** 
 - All five bosses: **innate `sealprevent` 100% for 99 rounds** to stop standard Seal from disabling their passive AI effects. This does not mean immunity to all control or all kinds of sealing.
 - Ordinary enemies: resource chip/attrition for appropriately equipped endgame players, not frequent immediate deaths or excessive crowd control. Division commanders are Ghost Ship Captain-class-or-harder signature fights with increasingly sophisticated AI. Actual multipliers and results require balance fixtures.
 
+**Consolidated all-five-boss move and AI-profile dossier:** [`state/silent_bastion_commander_roster.md`](silent_bastion_commander_roster.md). The dossier distinguishes approved roster decisions from remaining unapproved AI/level/balance proposals.
+
 ## Division roster — current status
 
 | Division | Encounters | Commander | Status / encounter identity |
