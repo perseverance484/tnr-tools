@@ -92,11 +92,11 @@ Do not promote 'visually approved' or 'file < byte cap' to 'upload-ready'. Recor
 
 **Director decision (2026-10-14): newly authored TNR jutsu icons have designed backgrounds; transparency is NOT a required presentation property for jutsu icons.** Do not remove the frosted background or create fake alpha just to satisfy a generic checker. This is a **jutsu-field decision**; do not generalize it to item, bloodline, avatar or character art, and do not retroactively rewrite existing live icons.
 
-**Current mechanical conflict:** skills/producing-tnr-art/data/25x_DATA_art_spec.json assigns jutsu.image to shared **ICON**, whose chroma_key is lime. The existing scripts/artpreflight.py consequently requires RGBA for all shared ICONs. A deliberate opaque RGB jutsu icon will receive an **alpha** error. This visual ruling does **not** make that error disappear, override the validator, or verify the live upload. Record the precise mismatch as **PRE-FLIGHT-BLOCKED: shared ICON alpha rule** until Fable updates the owner spec and validator with tested jutsu-specific handling or a separately approved, evidence-backed exception. Do not report zero errors when the actual gate is red.
+**Mechanical contract:** jutsu.image has its own spec target, **JUTSU_ICON**, in skills/producing-tnr-art/data/25x_DATA_art_spec.json. Its `alpha` policy is `optional`: scripts/artpreflight.py accepts an opaque RGB export and skips the alpha, soft-edge and residual-key checks that only apply to keyed art; a transparent jutsu icon is still held to every keyed check. Item and bloodline icons remain on shared **ICON** and still require alpha. Before that split, an opaque jutsu icon drew an **alpha** error and, on any near-lime colour in the design, a false **spill** error; treat any preflight record made before the split accordingly. The validator's verdict is still not a live-upload verification.
 
-For **BBE**, the additional director-imposed export ceiling is **strictly less than 80,000 bytes** (more conservative than either 80,000 or 80 KiB at the boundary). This is a workstream limit, not an unapproved replacement for the generic repo upload caps. Derive all other export numbers from the current spec; the current ICON target recommends 256×256 and requires square lossless WebP with at least 160px width.
+For **BBE**, the additional director-imposed export ceiling is **strictly less than 80,000 bytes** (more conservative than either 80,000 or 80 KiB at the boundary). This is a workstream limit, not an unapproved replacement for the generic repo upload caps; check it with `artpreflight.py --max-bytes 80000`, which fails a file of 80,000 bytes or more. Derive all other export numbers from the current spec; JUTSU_ICON recommends 256×256 and requires square lossless WebP with at least 160px width.
 
-Use repository processing tools where their contract applies. **Do not run lime chroma key over an opaque designed background.** Until the ICON target is split/updated, the BBE opaque-export precedent is Pillow RGB resizing to 256×256 and lossless WebP export, followed by full-file format/byte/pixel checks and an honest artpreflight report. If the export needs lossy encoding or destructive palette loss to meet 80,000 bytes, present the visible quality tradeoff rather than silently changing the approved look.
+Use repository processing tools where their contract applies. **Do not run lime chroma key over an opaque designed background.** The opaque export is Pillow RGB resizing to 256×256 and lossless WebP export, followed by `artpreflight.py --type JUTSU_ICON --max-bytes 80000` (the type is inferred when the filename contains `jutsu`). If the export needs lossy encoding or destructive palette loss to meet 80,000 bytes, present the visible quality tradeoff rather than silently changing the approved look.
 
 ### Production QC record
 
@@ -105,11 +105,11 @@ Use repository processing tools where their contract applies. **Do not run lime 
 - Background appearance and focal contrast visually checked at 125/64/32.
 - Strict BBE 80,000-byte ceiling checked.
 - Source and final SHA-256, dimensions, byte count and versioned filenames captured.
-- artpreflight invoked and full results recorded, including known alpha mismatch.
+- artpreflight invoked against JUTSU_ICON (with the workstream `--max-bytes`) and full results recorded.
 - Output @img filename identical to eventual manifest reference; ZIP entries and checksums checked when packaged.
 - No upload, publication or game-state claim without the user-controlled game workflow.
 
-A mechanical acceptance path for opaque jutsu icons needs a **separate Lane A tool/spec implementation and review**, normally by Fable; the studio does not silently patch the shared validator.
+The JUTSU_ICON acceptance path is Lane A tooling owned by Fable; further changes to it go through Lane A review. The studio does not silently patch the shared validator.
 
 ## 6. Repository evidence and handoffs
 
