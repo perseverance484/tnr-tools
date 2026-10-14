@@ -3,13 +3,14 @@
   "date": "2026-10-14",
   "bloodline": "Blood-Enchanted Eyes",
   "baseline": "main@f083ddecfd400431ae2160d814546dab30f54f15",
-  "source_kind": "conversation_reference_intake_unmapped",
+  "source_kind": "conversation_jutsu_specific_references_partially_mapped",
   "notes": [
-    "Six user-supplied BEE visual references were inspected on 2026-10-14 and byte-hashed as received. They establish observed style/motifs, not evidence of a particular jutsu mapping, original artist source, or director approval of a new icon.",
-    "Reference uploads are JPEG conversation attachments, not original uncompressed source evidence or Git-pinned binary blobs. Reattach the exact files when a later isolated generation session needs them.",
-    "The previously approved BEE Bloodright three-tier emblem set is separate and unchanged; no redrawing or reinterpretation is authorized.",
-    "No individual BEE jutsu image has been generated/approved in this workstream and none of the six supplied references has a verified match to a historical jutsu ID.",
-    "The working opaque jutsu-background vs shared ICON alpha-preflight mismatch remains unresolved."
+    "All six supplied BEE artworks represent specific existing jutsu (director clarification, 2026-10-14), so their subject/composition must not be freely transferred between different jutsu.",
+    "Director identifies reference #6 (hooded figure, conversation filename 1000018431.jpg) as Thousand Strike. Do not use its character silhouette as Reaper's Embrace conditioning. Remaining five references have not been mapped to exact names/IDs.",
+    "Reference images are JPEG conversation attachments, not pinned original artist/source binaries. Hashes are of exact received attachments; reattach the pixels in future isolated sessions where needed.",
+    "The previously approved BEE Bloodright three-tier emblems belong to an unrelated set and remain unchanged.",
+    "One Reaper's Embrace initial candidate was generated; director noted it was too similar to Thousand Strike and wanted technique-centric icons instead of people. No visual approval or rejection has yet been recorded.",
+    "The opaque jutsu-background versus shared ICON alpha-preflight mismatch remains unresolved."
   ],
   "raw_images": [],
   "processed_outputs": [],
@@ -32,7 +33,7 @@
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Jutsu-specific artwork: subject/jutsu attribution unverified; palette/material calibration only until director maps this exact reference"
     },
     {
       "reference_number": 2,
@@ -50,7 +51,7 @@
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Jutsu-specific artwork: subject/jutsu attribution unverified; palette/material calibration only until director maps this exact reference"
     },
     {
       "reference_number": 3,
@@ -68,7 +69,7 @@
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Jutsu-specific artwork: subject/jutsu attribution unverified; palette/material calibration only until director maps this exact reference"
     },
     {
       "reference_number": 4,
@@ -86,7 +87,7 @@
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Jutsu-specific artwork: subject/jutsu attribution unverified; palette/material calibration only until director maps this exact reference"
     },
     {
       "reference_number": 5,
@@ -104,7 +105,7 @@
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Jutsu-specific artwork: subject/jutsu attribution unverified; palette/material calibration only until director maps this exact reference"
     },
     {
       "reference_number": 6,
@@ -118,11 +119,40 @@
       "byte_size": 301139,
       "sha256": "ea0264a86d7fab5132b26367220a9a570f9cc6d6ac82504ed56885edba97ada5",
       "visual_observation": "Hooded reaper-like caster with swirling blood chakra, sharp warm highlights and ornate framing",
-      "jutsu_id": null,
+      "jutsu_id": "znPva-HIAz4EkyuKm2oh0",
       "claimed_canonical_art": false,
       "claimed_approval": false,
       "git_binary_pinned": false,
-      "permitted_current_use": "provisional visual calibration only; actual jutsu/source attribution pending director"
+      "permitted_current_use": "Thousand Strike identity only; do not use hooded figure as subject reference for Reaper's Embrace",
+      "jutsu_name": "Thousand Strike",
+      "attribution_source": "explicit director identification on 2026-10-14; historic jutsu ID from pinned dossier"
+    }
+  ],
+  "generation_candidates": [
+    {
+      "jutsu_name": "Reaper's Embrace",
+      "jutsu_id": "7RtWUduLzfIPOlWdo-NIu",
+      "uploaded_filename": "1000018432.png",
+      "detected_format": "JPEG",
+      "file_extension_mismatch": true,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1536,
+        1536
+      ],
+      "byte_size": 666826,
+      "sha256": "e750f48daebdf0605b7a009886c90b9d3a04f02ec512a480210373feed7577d6",
+      "source_kind": "conversation_raw_generation_not_git_pinned",
+      "visual_status": "GENERATED — director feedback: overly figure-led and too similar to Thousand Strike; awaiting final approval/rework decision",
+      "review_findings": [
+        "The hooded figure reused Thousand Strike's specific silhouette; primary subject conditioning was inappropriate.",
+        "Multiple tiny humanoid victims and tendrils create thumbnail clutter; technique action is not a clear standalone icon.",
+        "A replacement should show a uniquely shaped black-crimson enclosing shadow mantle or other technique-first action without people or portraits."
+      ],
+      "approved": false,
+      "processed": false,
+      "preflight_clear": false,
+      "live_verified": false
     }
   ]
 }
