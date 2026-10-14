@@ -20,6 +20,19 @@ test_multiline_field_is_not_dropped (__main__.MultilineAndDelimiters.test_multil
 test_multiline_schema_head (__main__.MultilineAndDelimiters.test_multiline_schema_head) ... ok
 test_nested_item_fields_do_not_leak (__main__.MultilineAndDelimiters.test_nested_item_fields_do_not_leak) ... ok
 test_string_with_braces_and_commas (__main__.MultilineAndDelimiters.test_string_with_braces_and_commas) ... ok
+test_constructor_nested_bound_not_outer (__main__.NestedFacts.test_constructor_nested_bound_not_outer) ... ok
+test_constructor_outer_bound_kept (__main__.NestedFacts.test_constructor_outer_bound_kept) ... ok
+test_entity_crafting_requirements_shape (__main__.NestedFacts.test_entity_crafting_requirements_shape) ... ok
+test_entity_nested_bound_not_outer (__main__.NestedFacts.test_entity_nested_bound_not_outer) ... ok
+test_entity_outer_bound_kept (__main__.NestedFacts.test_entity_outer_bound_kept) ... ok
+test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion_kept) ... ok
+test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction) ... ok
+test_negated_predicate (__main__.OmissionInference.test_negated_predicate) ... ok
+test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable) ... ok
+test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible) ... ok
+test_positive_loose_null_pinned_form (__main__.OmissionInference.test_positive_loose_null_pinned_form) ... ok
+test_positive_pass_through_pinned_form (__main__.OmissionInference.test_positive_pass_through_pinned_form) ... ok
+test_positive_strict_undefined (__main__.OmissionInference.test_positive_strict_undefined) ... ok
 test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... ok
 test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... ok
 test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... ok
@@ -30,7 +43,7 @@ test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... ok
 test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 0.860s
+Ran 43 tests in 1.147s
 
 OK
 exit=0

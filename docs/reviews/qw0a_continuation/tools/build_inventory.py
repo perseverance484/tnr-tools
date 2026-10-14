@@ -61,6 +61,34 @@ def run(cmd):
     return p.returncode, p.stdout, p.stderr.decode(errors="replace")
 
 
+# Runs an extractor under a Python `open` audit hook and records every file it
+# opens beneath the source tree. Independent of the extractor's own bookkeeping,
+# so it covers the baseline extractor and any legacy reader too.
+TRACE = r"""
+import atexit, json, os, runpy, sys
+out, script, src = sys.argv[1], sys.argv[2], os.path.abspath(sys.argv[3])
+seen = set()
+def hook(event, args):
+    if event == "open" and args and isinstance(args[0], (str, bytes, os.PathLike)):
+        p = os.path.abspath(os.fsdecode(args[0]))
+        if p.startswith(src + os.sep):
+            seen.add(os.path.relpath(p, src))
+sys.addaudithook(hook)
+def dump():
+    with open(out, "w") as fh:
+        json.dump(sorted(seen), fh)
+atexit.register(dump)
+sys.argv = [script] + sys.argv[3:]
+runpy.run_path(script, run_name="__main__")
+"""
+
+
+def run_traced(script, src, mode, reads_file):
+    code, out, err = run([sys.executable, "-c", TRACE, reads_file, script, src, mode])
+    with open(reads_file) as fh:
+        return code, out, err, json.load(fh)
+
+
 def load_module(path):
     spec = importlib.util.spec_from_file_location("qw0a_corrected_extract", path)
     mod = importlib.util.module_from_spec(spec)
@@ -273,7 +301,7 @@ def classify(kind, row, ctx, pin_ctx):
     if key in ("max", "min") and f.get("helper") and before == "<absent>":
         reasons.append("X3_HELPER")
     calls = {"max": r"max", "min": r"min", "default": r"(?:prefault|default)"}
-    if key in ("default_ref", "max_ref", "min_ref") or (
+    if (key in ("default_ref", "max_ref", "min_ref") and after != "<absent>") or (
             key in calls and isinstance(after, (int, float)) and not isinstance(after, bool)
             and re.search(r"\.%s\(\s*(?:[A-Z_]\w*|\d[\d_]*_[\d_]*\d|\d+\.\d+)\s*\)" % calls[key], expanded)):
         reasons.append("X8_NUMERIC")
@@ -281,7 +309,7 @@ def classify(kind, row, ctx, pin_ctx):
         reasons.append("X6_FALSY_METADATA")
     if f.get("multiline") and key in ("type", "default", "min", "max", "int", "optional", "enum", "enum_ref", "nullable"):
         reasons.append("X2_MULTILINE")
-    if nested and key in ("optional", "nullable", "default", "type", "int", "min", "max"):
+    if nested and key in ("optional", "nullable", "default", "type", "int", "min", "max", "coerce", "max_ref", "min_ref"):
         reasons.append("X7_OUTER_CHAIN")
     return list(dict.fromkeys(reasons))
 
@@ -300,26 +328,167 @@ def field_ctx(kind, row, ctx, after_doc, before_doc):
     return None
 
 
+def nested_occurrence(ctx, rel, schema, field):
+    """A field the old extractor attributed to `schema` that actually belongs to a
+    nested schema inside it: anchor its real line within the declaration."""
+    mod = ctx.index.module(rel) if rel else None
+    if mod is None or schema not in mod.decls:
+        return None
+    start = mod.decls[schema]["line"]
+    lines = mod.src.splitlines()
+    span = mod.decls[schema]["text"].count("\n") + 1
+    pat = re.compile(r"^\s*%s\s*:" % re.escape(field))
+    for i in range(start - 1, min(len(lines), start - 1 + span)):
+        if pat.match(lines[i]):
+            return {"kind": "nested_occurrence", "sha": ctx.sha, "file": rel, "declaration": schema,
+                    "line": i + 1, "note": "field of a nested schema inside %s, not of %s itself" % (schema, schema)}
+    return None
+
+
 def anchor_for(kind, row, ctx, fctx, doc):
-    if fctx:
-        return ctx.anchor(fctx)
     path = row["path"]
+    if fctx:
+        a = ctx.anchor(fctx)
+        if a.get("line") is None and fctx.get("schema"):
+            field = path[-1]
+            nested = nested_occurrence(ctx, fctx.get("rel"), fctx["schema"], field)
+            if nested:
+                return nested
+        return dict(a, kind="source")
+    if kind == "checks":
+        return {"kind": "derived", "producer": "schema_extract.py emit_checks: 45g block %r" % path[0],
+                "sha": ctx.sha, "inputs": []}
+    if kind == "constants" and path == ["count"]:
+        return {"kind": "aggregate", "producer": "schema_extract.py emit_constants: count of constants",
+                "sha": ctx.sha, "inputs": []}
     if kind == "constants" and path[0] == "constants":
         spec = doc.get("constants", {}).get(path[1], {})
-        return ctx.const_anchor(path[1], spec)
+        if isinstance(spec, dict) and spec.get("derived_from"):
+            return {"kind": "derived", "producer": "schema_extract.py emit_constants: %s derived from %s"
+                    % (path[1], spec["derived_from"]), "sha": ctx.sha, "inputs": []}
+        return dict(ctx.const_anchor(path[1], spec), kind="source")
     if kind == "entities":
         rel, schema = ctx.entities.get(path[1], (None, None))
         mod = ctx.index.module(rel) if rel else None
         line = mod.decls.get(schema, {}).get("line") if mod else None
-        return {"sha": ctx.sha, "file": rel, "declaration": schema, "line": line}
+        return {"kind": "source", "sha": ctx.sha, "file": rel, "declaration": schema, "line": line}
     if kind == "ctors":
         spec = doc.get("unions", {}).get(path[1], {}).get(path[2], {})
         schema = spec.get("schema")
         rel = ctx.member_rel.get(schema)
         mod = ctx.index.module(rel) if rel else None
         line = mod.decls.get(schema, {}).get("line") if mod else None
-        return {"sha": ctx.sha, "file": rel, "declaration": schema, "line": line}
-    return {"sha": ctx.sha, "file": None, "declaration": "/".join(map(str, path)), "line": None}
+        return {"kind": "source", "sha": ctx.sha, "file": rel, "declaration": schema, "line": line}
+    return {"kind": "unanchored", "sha": ctx.sha, "file": None, "declaration": "/".join(map(str, path)), "line": None}
+
+
+# 45g blocks keyed by entity -> the 45d facts each one is computed from
+CHECK_FROM_45D = ("nullable", "cap_100", "required_on_create", "enums", "booleans", "date_fields")
+
+
+def _names(v):
+    if isinstance(v, dict):
+        return set(v)
+    if isinstance(v, list):
+        return {x for x in v if isinstance(x, str)}
+    return set()
+
+
+def link_derived(rows, ents_before, ents_after):
+    """Fill `inputs` for derived/aggregate rows with the ids of the rows (in the
+    same comparison) whose source-cited facts produced them."""
+    by_entity_field, by_field, by_tag, const_rows, allTags_variants = {}, {}, {}, [], []
+    for r in rows:
+        p = r["path"]
+        if r["file"].startswith("45d") and len(p) == 4:
+            by_entity_field.setdefault((p[1], p[3]), []).append(r["id"])
+            by_field.setdefault(p[3], []).append(r["id"])
+        elif r["file"].startswith("45d") and len(p) == 3:
+            by_entity_field.setdefault((p[1], "*"), []).append(r["id"])
+        elif r["file"].startswith("45c") and p[1] == "AllTags":
+            by_tag.setdefault(p[2], []).append(r["id"])
+            if len(p) == 4:
+                allTags_variants.append(r["id"])
+        elif r["file"].startswith("45e") and p[0] == "constants":
+            const_rows.append(r["id"])
+
+    def enum_refs(entity, fields):
+        out = set()
+        for doc in (ents_before, ents_after):
+            for f in fields:
+                ref = ((doc.get("entities", {}).get(entity, {}).get("fields", {}).get(f) or {}).get("enum_ref") or "")
+                if ref:
+                    out.add(ref.split("@")[0])
+        return out
+
+    const_ids = {r["path"][1]: r["id"] for r in rows if r["file"].startswith("45e") and r["path"][0] == "constants"}
+    for r in rows:
+        a = r["anchor"]
+        if a.get("kind") not in ("derived", "aggregate"):
+            continue
+        p, inputs = r["path"], []
+        if r["file"].startswith("45g"):
+            block = p[0]
+            if r["key"] is not None and len(p) == 3:
+                # an entity-keyed block compared per field: the row's key IS the field
+                changed = {r["key"]}
+            else:
+                changed = _names(r["before"]) ^ _names(r["after"])
+                if isinstance(r["before"], dict) and isinstance(r["after"], dict):
+                    changed |= {k for k in set(r["before"]) & set(r["after"]) if r["before"][k] != r["after"][k]}
+            if block in CHECK_FROM_45D and len(p) == 3:
+                entity = p[2]
+                names = changed or (_names(r["before"]) | _names(r["after"]))
+                for f in sorted(names):
+                    inputs += by_entity_field.get((entity, f), [])
+                inputs += by_entity_field.get((entity, "*"), [])
+                if block == "enums":
+                    inputs += [const_ids[c] for c in sorted(enum_refs(entity, names)) if c in const_ids]
+            elif block == "tag_power_max" and len(p) == 3:
+                inputs += by_tag.get(p[2], [])
+            elif block == "null_strip_exempt":
+                for f in sorted(changed):
+                    inputs += by_field.get(f, [])
+            a["inputs"] = list(dict.fromkeys(inputs))
+            a["derivation"] = {"nullable": "45d field.nullable", "cap_100": "45d number fields with max 100",
+                               "required_on_create": "45d fields neither optional nor defaulted",
+                               "enums": "45d enum / enum_ref (resolved via 45e)", "booleans": "45d boolean fields",
+                               "date_fields": "45d YYYY-MM-DD fields",
+                               "null_strip_exempt": "45d nullability across entities",
+                               "tag_power_max": "45c AllTags.<tag>.power.max"}.get(block, block)
+        elif r["file"].startswith("45e") and p == ["count"]:
+            a["inputs"] = [i for i in const_rows]
+        elif r["file"].startswith("45e"):
+            a["inputs"] = list(allTags_variants) or list(by_tag.get("*", []))
+            if not a["inputs"]:
+                a["inputs_note"] = "derived from AllTags discriminants; no AllTags variant changed in this comparison"
+
+
+def coverage_problems(inventory):
+    """Every row needs a source anchor (sha, file, line) or, for derived and
+    aggregate rows, at least one linked input row; every file read is hashed."""
+    problems = []
+    for sha, cov in inventory["source_read_coverage"].items():
+        if not cov["all_hashed"]:
+            problems.append("%s: a file read is not hashed" % sha[:7])
+        if not cov["matches_traced_corrected_runs"]:
+            problems.append("%s: extractor --reads disagrees with the traced read-set" % sha[:7])
+    for cid, c in inventory["comparisons"].items():
+        ids = {r["id"] for r in c["rows"]}
+        for r in c["rows"]:
+            a = r["anchor"]
+            kind = a.get("kind")
+            if kind in ("source", "nested_occurrence"):
+                if not (a.get("sha") and a.get("file") and a.get("line")):
+                    problems.append("%s %s: source anchor lacks file/line" % (r["id"], "/".join(map(str, r["path"]))))
+            elif kind in ("derived", "aggregate"):
+                if not a.get("inputs") and not a.get("inputs_note"):
+                    problems.append("%s %s: %s row has no linked inputs" % (r["id"], "/".join(map(str, r["path"])), kind))
+                if any(i not in ids for i in a.get("inputs", [])):
+                    problems.append("%s: input id outside its comparison" % r["id"])
+            else:
+                problems.append("%s %s: unanchored" % (r["id"], "/".join(map(str, r["path"]))))
+    return problems
 
 
 # ------------------------------------------------------------- main
@@ -337,12 +506,13 @@ def main():
     pins = {"old": (a.old_src, a.old_sha), "new": (a.new_src, a.new_sha)}
     tools = {"baseline": a.baseline, "corrected": a.corrected}
 
-    runs, docs = [], {}
+    runs, docs, reads = [], {}, {}
     for pin, (src, sha) in pins.items():
         for tool, path in tools.items():
             for mode, label in MODES:
-                cmd = [sys.executable, path, src, "--" + mode]
-                code, out, err = run(cmd)
+                code, out, err, read = run_traced(path, src, "--" + mode,
+                                                  os.path.join(a.scratch, "reads_%s_%s_%s.json" % (tool, sha[:7], mode)))
+                reads.setdefault(sha, set()).update(read)
                 dest = os.path.join(a.scratch, "%s_%s_%s.json" % (tool, sha[:7], label))
                 with open(dest, "wb") as fh:
                     fh.write(out)
@@ -351,7 +521,7 @@ def main():
                 runs.append({"pin": sha, "extractor": tool, "mode": "--" + mode, "exit": code,
                              "command": "python3 <%s> <TheNinjaRPG@%s> --%s > <scratch>/%s_%s_%s.json"
                                         % (tool, sha, mode, tool, sha[:7], label),
-                             "stderr": err.strip()[:400], "bytes": len(out),
+                             "stderr": err.strip()[:400], "bytes": len(out), "source_reads": read,
                              "sha256_full": sha256(out), "sha256_structural": sha256(structural(doc)) if doc else None,
                              "structural_excludes": ["_provenance"]})
 
@@ -401,26 +571,30 @@ def main():
                     reasons = ["U_UPSTREAM"]
                 else:
                     reasons = classify(mode, row, fctx, ctx) or ["UNCLASSIFIED"]
-                row = dict(row, file=flabel, classes=reasons, anchor=anchor_for(mode, row, ctx, fctx, doc))
+                row = dict(row, id="%s%d" % (cid, len(rows_all)), file=flabel, classes=reasons,
+                           anchor=anchor_for(mode, row, ctx, fctx, doc))
                 rows_all.append(row)
                 for r in reasons:
                     summary.setdefault(flabel, {}).setdefault(r, 0)
                     summary[flabel][r] += 1
+        link_derived(rows_all, docs[(p1, t1, "entities")], docs[(p2, t2, "entities")])
         comparisons[cid] = {"label": label, "before": {"pin": pins[p1][1], "extractor": t1},
                             "after": {"pin": pins[p2][1], "extractor": t2},
                             "changes": len(rows_all), "summary": summary, "rows": rows_all}
 
-    src_hashes = {}
-    for pin, ctx in contexts.items():
-        files = {}
-        for rel, mod in sorted(ctx.index._mods.items()):
-            if mod is not None:
-                files[rel] = sha256(open(os.path.join(ctx.src, rel), "rb").read())
-        for rel in [ext.CONST_FILE, ext.CONST_FILE_COMBAT] + ext.LOCAL_ENUM_FILES + ext.CTOR_FILES:
-            p = os.path.join(ctx.src, rel)
-            if os.path.exists(p):
-                files[rel] = sha256(open(p, "rb").read())
-        src_hashes[ctx.sha] = dict(sorted(files.items()))
+    # every file any extraction run opened (audit hook), hashed; the corrected
+    # extractor's own --reads must agree with what the hook saw it open
+    src_hashes, readset_check = {}, {}
+    for pin, (src, sha) in pins.items():
+        src_hashes[sha] = {rel: sha256(open(os.path.join(src, rel), "rb").read()) for rel in sorted(reads[sha])}
+        code, out, _ = run([sys.executable, a.corrected, src, "--reads"])
+        own = set(json.loads(out)["reads"]) if code == 0 else None
+        traced = set()
+        for r in runs:
+            if r["pin"] == sha and r["extractor"] == "corrected":
+                traced.update(r["source_reads"])
+        readset_check[sha] = {"extractor_reads_exit": code, "extractor_reads": sorted(own or []),
+                              "matches_traced_corrected_runs": own == traced}
 
     inventory = {
         "schema": "tnr.qw0a.extractor_inventory", "version": 1,
@@ -431,6 +605,9 @@ def main():
                                        "sha256": sha256(open(diff_tool, "rb").read())}},
         "pins": {pin: sha for pin, (_src, sha) in pins.items()},
         "source_file_sha256": src_hashes,
+        "source_read_coverage": {sha: {"files_read": sorted(reads[sha]),
+                                       "all_hashed": set(reads[sha]) <= set(src_hashes[sha]),
+                                       **readset_check[sha]} for _p, (_s, sha) in pins.items()},
         "runs": runs, "repeat_runs": repeat, "gaps": gaps, "gates": gates,
         "metadata_note": ("Full-file hashes include `_provenance` (extraction date, source_drop label and "
                           "16-hex source hashes), which varies with run date and the source path label; "
@@ -442,10 +619,14 @@ def main():
         fh.write("\n")
     unclassified = sum(c["summary"].get(f, {}).get("UNCLASSIFIED", 0)
                        for c in comparisons.values() for f in c["summary"])
+    problems = coverage_problems(inventory)
     for cid, c in comparisons.items():
         print("%s %-60s %5d change(s)" % (cid, c["label"], c["changes"]))
     print("unclassified:", unclassified)
-    return 1 if unclassified else 0
+    print("provenance problems:", len(problems))
+    for p_ in problems[:20]:
+        print("  -", p_)
+    return 1 if unclassified or problems else 0
 
 
 if __name__ == "__main__":

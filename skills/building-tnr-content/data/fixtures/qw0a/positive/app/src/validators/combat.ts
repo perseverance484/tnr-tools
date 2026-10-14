@@ -56,6 +56,8 @@ export const DamageTag = z.object({
     .min(0)
     .max(DEFAULT_DELAY)
     .prefault(DEFAULT_DELAY),
+  boundProbe: z.array(z.number().max(MAX_CAP)).optional(),
+  outerBound: z.array(z.number()).max(MAX_CAP).optional(),
   options: z
     .array(
       z.object({
@@ -83,6 +85,31 @@ export const ItemValidatorRawSchema = z
     requiredStrength: makeCappedNullableNumber(MAX_CAP),
     strictCapped: strictNullOnly(MAX_CAP),
     maxDelay: z.coerce.number().int().max(MAX_CAP).prefault(DEFAULT_DELAY),
+    // QW0A-A-R1 probes: omission is NOT established by these callbacks
+    negatedInput: z.preprocess((v) => (v !== undefined ? null : v), z.number().nullable()),
+    constrainedInput: z.preprocess((v) => (v === undefined && false ? null : v), z.number().nullable()),
+    nestedNullableInput: z.preprocess((v) => (v === undefined ? null : v), z.array(z.number().nullable())),
+    // ...and these establish it (pinned-source forms)
+    validInput: z.preprocess((v) => (v === undefined ? null : v), z.number().nullable()),
+    looseInput: z.preprocess((value) => (value === "" || value == null ? null : value), z.number().nullable()),
+    passThroughInput: z.preprocess((v) => (v === "" ? null : v), z.enum(StatTypes).nullish()),
+    // QW0A-A-R2 probes: bounds/coercion of a nested schema are not the field's
+    nestedBoundInput: z.array(z.number().max(MAX_CAP)).optional(),
+    outerBoundInput: z.array(z.number()).max(MAX_CAP),
+    craftingRequirements: z
+      .array(
+        z.object({
+          ids: z.array(z.string()),
+          number: z.coerce
+            .number()
+            .int()
+            .min(1)
+            .max(MAX_CAP),
+        }),
+      )
+      .prefault([])
+      .optional()
+      .nullish(),
   })
   .superRefine((value, ctx) => {
     if (value.name === "x") ctx.addIssue({ code: "custom", message: "no" });

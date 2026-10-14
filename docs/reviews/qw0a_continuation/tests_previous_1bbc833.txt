@@ -1,0 +1,129 @@
+test_combat_constants_module (__main__.ArraySpreads.test_combat_constants_module) ... ok
+test_constant_spread_resolves_in_source_order (__main__.ArraySpreads.test_constant_spread_resolves_in_source_order) ... ok
+test_enum_by_reference_has_real_members (__main__.ArraySpreads.test_enum_by_reference_has_real_members) ... ok
+test_non_leading_inline_spread (__main__.ArraySpreads.test_non_leading_inline_spread) ... ok
+test_transitive_spread (__main__.ArraySpreads.test_transitive_spread) ... ok
+test_two_spreads_in_one_list (__main__.ArraySpreads.test_two_spreads_in_one_list) ... ok
+test_validator_local_spread_list (__main__.ArraySpreads.test_validator_local_spread_list) ... ok
+test_repeat_runs_are_identical (__main__.Determinism.test_repeat_runs_are_identical) ... ok
+test_false_default_is_kept (__main__.FalsyMetadata.test_false_default_is_kept) ... ok
+test_null_default_is_kept (__main__.FalsyMetadata.test_null_default_is_kept) ... ok
+test_zero_default_and_bound_are_kept (__main__.FalsyMetadata.test_zero_default_and_bound_are_kept) ... ok
+test_constant_default (__main__.Helpers.test_constant_default) ... ok
+test_cross_file_helper_bounds_and_omission (__main__.Helpers.test_cross_file_helper_bounds_and_omission) ... ok
+test_cross_file_helper_on_single_line_head (__main__.Helpers.test_cross_file_helper_on_single_line_head) ... ok
+test_discriminant_is_type_not_inherited_literal (__main__.Helpers.test_discriminant_is_type_not_inherited_literal) ... ok
+test_nullable_is_not_omissible (__main__.Helpers.test_nullable_is_not_omissible) ... ok
+test_type_helper (__main__.Helpers.test_type_helper) ... ok
+test_multiline_chain_keeps_type_and_bounds (__main__.MultilineAndDelimiters.test_multiline_chain_keeps_type_and_bounds) ... ok
+test_multiline_field_is_not_dropped (__main__.MultilineAndDelimiters.test_multiline_field_is_not_dropped) ... ok
+test_multiline_schema_head (__main__.MultilineAndDelimiters.test_multiline_schema_head) ... ok
+test_nested_item_fields_do_not_leak (__main__.MultilineAndDelimiters.test_nested_item_fields_do_not_leak) ... ok
+test_string_with_braces_and_commas (__main__.MultilineAndDelimiters.test_string_with_braces_and_commas) ... ok
+test_constructor_nested_bound_not_outer (__main__.NestedFacts.test_constructor_nested_bound_not_outer) ... FAIL
+test_constructor_outer_bound_kept (__main__.NestedFacts.test_constructor_outer_bound_kept) ... ok
+test_entity_crafting_requirements_shape (__main__.NestedFacts.test_entity_crafting_requirements_shape) ... FAIL
+test_entity_nested_bound_not_outer (__main__.NestedFacts.test_entity_nested_bound_not_outer) ... FAIL
+test_entity_outer_bound_kept (__main__.NestedFacts.test_entity_outer_bound_kept) ... ok
+test_entity_outer_coercion_kept (__main__.NestedFacts.test_entity_outer_coercion_kept) ... ok
+test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction) ... FAIL
+test_negated_predicate (__main__.OmissionInference.test_negated_predicate) ... FAIL
+test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable) ... FAIL
+test_pinned_capped_helper_still_omissible (__main__.OmissionInference.test_pinned_capped_helper_still_omissible) ... ok
+test_positive_loose_null_pinned_form (__main__.OmissionInference.test_positive_loose_null_pinned_form) ... ok
+test_positive_pass_through_pinned_form (__main__.OmissionInference.test_positive_pass_through_pinned_form) ... ok
+test_positive_strict_undefined (__main__.OmissionInference.test_positive_strict_undefined) ... ok
+test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... ok
+test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... ok
+test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... ok
+test_unresolved_array_spread (__main__.Refusals.test_unresolved_array_spread) ... ok
+test_unresolved_object_spread (__main__.Refusals.test_unresolved_object_spread) ... ok
+test_cross_module_object_spread (__main__.SpreadPrecedence.test_cross_module_object_spread) ... ok
+test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... ok
+test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... ok
+
+======================================================================
+FAIL: test_constructor_nested_bound_not_outer (__main__.NestedFacts.test_constructor_nested_bound_not_outer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 237, in test_constructor_nested_bound_not_outer
+    self.assertEqual(tag("damage")["boundProbe"], {"type": "array", "optional": True})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'array', 'max': 400000, 'optional': True} != {'type': 'array', 'optional': True}
+- {'max': 400000, 'optional': True, 'type': 'array'}
+?  ---------------
+
++ {'optional': True, 'type': 'array'}
+
+======================================================================
+FAIL: test_entity_crafting_requirements_shape (__main__.NestedFacts.test_entity_crafting_requirements_shape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 228, in test_entity_crafting_requirements_shape
+    self.assertEqual((f["type"], f["default"], f["optional"], f["nullable"], f["coerce"]),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     ("array", [], True, True, False))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('array', [], True, True, True) != ('array', [], True, True, False)
+
+First differing element 4:
+True
+False
+
+- ('array', [], True, True, True)
+?                           ^^^
+
++ ('array', [], True, True, False)
+?                           ^^^^
+
+
+======================================================================
+FAIL: test_entity_nested_bound_not_outer (__main__.NestedFacts.test_entity_nested_bound_not_outer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 217, in test_entity_nested_bound_not_outer
+    self.assertNotIn("max", f)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: 'max' unexpectedly found in {'raw': 'z.array(z.number().max(MAX_CAP)).optional()', 'type': 'array', 'coerce': False, 'optional': True, 'nullable': False, 'max_ref': 'MAX_CAP', 'max': 400000, 'doc': "QW0A-A-R2 probes: bounds/coercion of a nested schema are not the field's\n    nestedBoundInput: z.array(z.number().max(MAX_CAP)).optional()"}
+
+======================================================================
+FAIL: test_constrained_conjunction (__main__.OmissionInference.test_constrained_conjunction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 183, in test_constrained_conjunction
+    self.assert_not_omissible("constrainedInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 172, in assert_not_omissible
+    self.assertFalse(f["optional"], name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : constrainedInput
+
+======================================================================
+FAIL: test_negated_predicate (__main__.OmissionInference.test_negated_predicate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 178, in test_negated_predicate
+    self.assert_not_omissible("negatedInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 172, in assert_not_omissible
+    self.assertFalse(f["optional"], name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : negatedInput
+
+======================================================================
+FAIL: test_nested_nullable_is_not_outer_nullable (__main__.OmissionInference.test_nested_nullable_is_not_outer_nullable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 188, in test_nested_nullable_is_not_outer_nullable
+    self.assert_not_omissible("nestedNullableInput")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 172, in assert_not_omissible
+    self.assertFalse(f["optional"], name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : nestedNullableInput
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.840s
+
+FAILED (failures=6)
+exit=1

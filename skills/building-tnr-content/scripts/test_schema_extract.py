@@ -155,6 +155,91 @@ class Helpers(unittest.TestCase):
         self.assertEqual((f["default"], f["default_ref"], f["optional"]), (3, "DEFAULT_DELAY", False))
 
 
+class OmissionInference(unittest.TestCase):
+    """QW0A-A-R1: optional:true only from a proven callback form and an outer
+    nullable/optional inner schema; never from a substring."""
+
+    def required(self):
+        return emit("--checks")["required_on_create"]["fields"]["item"]
+
+    def gaps(self):
+        code, out, err = run("positive", "--gaps")
+        self.assertEqual(code, 0, err)
+        return {d["where"].rsplit(" field ", 1)[-1]: d for d in json.loads(out)["diagnostics"]}
+
+    def assert_not_omissible(self, name):
+        f = item()[name]
+        self.assertFalse(f["optional"], name)
+        self.assertNotIn("_omission", f)
+        self.assertIn(name, self.required())
+
+    def test_negated_predicate(self):
+        # (v !== undefined ? null : v) returns undefined for undefined
+        self.assert_not_omissible("negatedInput")
+        self.assertEqual(self.gaps()["negatedInput"]["code"], "G_PREPROCESS_UNCLASSIFIED")
+
+    def test_constrained_conjunction(self):
+        # (v === undefined && false ? null : v) is false for undefined
+        self.assert_not_omissible("constrainedInput")
+        self.assertEqual(self.gaps()["constrainedInput"]["code"], "G_PREPROCESS_UNCLASSIFIED")
+
+    def test_nested_nullable_is_not_outer_nullable(self):
+        # null is produced, but only the array's elements accept it
+        self.assert_not_omissible("nestedNullableInput")
+        self.assertFalse(item()["nestedNullableInput"]["nullable"])
+
+    def test_positive_strict_undefined(self):
+        f = item()["validInput"]
+        self.assertTrue(f["optional"] and f["nullable"])
+        self.assertNotIn("validInput", self.required())
+
+    def test_positive_loose_null_pinned_form(self):
+        # nullableInteger at 585534d7: value === "" || value == null ? null : value
+        f = item()["looseInput"]
+        self.assertTrue(f["optional"] and f["nullable"])
+        self.assertIn("undefined to null", f["_omission"])
+
+    def test_positive_pass_through_pinned_form(self):
+        # requiredSageRank at both pins: v === "" ? null : v, inner .nullish()
+        f = item()["passThroughInput"]
+        self.assertTrue(f["optional"])
+        self.assertIn("passes undefined through", f["_omission"])
+
+    def test_pinned_capped_helper_still_omissible(self):
+        self.assertNotIn("requiredStrength", self.required())
+
+
+class NestedFacts(unittest.TestCase):
+    """QW0A-A-R2: a nested schema's bounds and coercion are not the field's."""
+
+    def test_entity_nested_bound_not_outer(self):
+        f = item()["nestedBoundInput"]
+        self.assertNotIn("max", f)
+        self.assertNotIn("max_ref", f)
+        self.assertFalse(f["coerce"])
+
+    def test_entity_outer_bound_kept(self):
+        f = item()["outerBoundInput"]
+        self.assertEqual((f["max"], f["max_ref"]), (400000, "MAX_CAP"))
+
+    def test_entity_crafting_requirements_shape(self):
+        # mirrors 585534d7 ItemValidatorRawSchema.craftingRequirements
+        f = item()["craftingRequirements"]
+        self.assertEqual((f["type"], f["default"], f["optional"], f["nullable"], f["coerce"]),
+                         ("array", [], True, True, False))
+        for key in ("max", "max_ref", "min", "int"):
+            self.assertNotIn(key, f)
+
+    def test_entity_outer_coercion_kept(self):
+        self.assertTrue(item()["maxDelay"]["coerce"])
+
+    def test_constructor_nested_bound_not_outer(self):
+        self.assertEqual(tag("damage")["boundProbe"], {"type": "array", "optional": True})
+
+    def test_constructor_outer_bound_kept(self):
+        self.assertEqual(tag("damage")["outerBound"], {"type": "array", "max": 400000, "optional": True})
+
+
 class FalsyMetadata(unittest.TestCase):
     def test_zero_default_and_bound_are_kept(self):
         self.assertEqual(tag("damage")["powerPerLevel"],
