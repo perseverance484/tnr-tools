@@ -11,13 +11,15 @@
 - **Title:** Ghost Ship: The Last Directive. **Location:** Silent Bastion, mountain headquarters of the Skyglass Project, accessed by **one Skyglass Signal Beacon** obtained through Ghost Ship.
 - **One new isolated `battlepyramid` quest**, not five quests; five divisions × (four regular encounters + one division commander) = **25 fights on a full route** or **20 fights using five shortcuts**. Four mandatory dialogs/gates per five-fight sequence must be structurally protected.
 - **Player pools carry** after all ordinary wins and all successful division transitions. No free full recovery.
-- After the third regular fight, **Maintenance Passage** skips the fourth on success; on a wrong answer it still skips the fourth but adds temporary **Security Alert** for the boss. **Medical Protocol** requires fighting the fourth, then sets all HP/CP/SP to 75% of maximum at the boss start (can lower a higher pool). **Combat Protocol** requires fighting the fourth, then applies its temporary combat buff **to the player** at the commander battle start; no recovery. All numbers/effects await director balance freeze.
+- After the third regular fight, **Maintenance Passage** skips the fourth on success; on a wrong answer it still skips the fourth but adds temporary **Security Alert** for the boss. **Medical Protocol** requires fighting the fourth, then fully heals HP/CP/SP at the boss start (`givePools: 100`, RUL-2026-10-14-001; was 75%). **Combat Protocol** requires fighting the fourth, then applies its temporary combat buff **to the player** at the commander battle start; no recovery. All numbers/effects await director balance freeze.
 - Loss during fights 1–24 should restart **the same division from its first regular encounter**, with **50% HP/CP/SP** and no additional Beacon. Loss to final Arakane or abandonment ends the full run. The event must not silently change any of these rules to fit tooling.
 - The final reveal is that new military orders arrive **after Arakane is defeated**; do not reveal the unknown issuer earlier. Preserved chakra impressions are reconstruction, not undead.
 - All five commanders have approved innate **Seal Prevent 100 / 99 rounds** against standard bloodline Seal (not generic control immunity). Gatewarden is the accepted name; Garrison Marshal is superseded.
 - Every created/updated live entity is staged `hidden:true`, then requires separate dauntless-controlled verified game write and operator/content-admin publication decision.
 
 ## 2. Intended quest graph; implementation NOT yet proved
+
+**Phase 1 r2 (2026-10-14, RUL-2026-10-14-001):** the graph is now revision r2 (178 nodes): one fourth fight per lane, then a protocol dialog routing to the Medical (`givePools: 100`) or Combat commander battle. Native offline results: `docs/reviews/SILENT_BASTION_PHASE1_NATIVE_RESULTS.md`. The r1 figures below are historical.
 
 **Phase 1 update (2026-10-14):** The director approved starting the offline progression-graph phase. The current *candidate* is the fully expanded, two-lane symbolic graph at `state/silent_bastion_phase1_graph.json`, static-check passed (208 nodes; 3,125 successful choices; 20–25 fights per run), with native engine proof still outstanding. See `docs/handoffs/SILENT_BASTION_PHASE1_OFFLINE_PROOF_2026-10-14.md`. The one-lane schematic immediately below is the earlier conceptual sketch **only**, not the current implementation design. No reward or combat buff is frozen by this update.
 
@@ -27,10 +29,9 @@ D_i entry -> D_i fight1 -> B_i1 -> D_i fight2 -> B_i2 -> D_i fight3 -> B_i3
      ├─ Maintenance puzzle
      │    ├─ correct -> D_i boss_clean -> B_i boss_clean
      │    └─ wrong   -> D_i boss_alert -> B_i boss_alert [applyDebuffs]
-     ├─ Medical -> D_i fight4_med -> B_i4_med -> D_i boss_med
-     │             -> B_i boss_med [givePools=75]
-     └─ Combat  -> D_i fight4_combat -> B_i4_combat -> D_i boss_combat
-                   -> B_i boss_combat [applyBuffs]
+     └─ Protocol -> D_i fight4 -> B_i4 -> D_i protocol (r2)
+                    ├─ Medical -> B_i boss_med [givePools=100]
+                    └─ Combat  -> B_i boss_combat [applyBuffs]
   -> (after winning exactly one boss variant) -> next division D_(i+1) entry,
      or final aftermath and one win_quest at division V.
 ```

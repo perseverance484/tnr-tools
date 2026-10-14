@@ -8,7 +8,7 @@
  },
  "designGraph": {
   "path": "state/silent_bastion_phase1_graph.json",
-  "sha256": "bbb85ddab5b53ef361ce776f570b95441d71d954ffe26442b97f244e1686aee9"
+  "sha256": "922b128ec826362e18da978f967d3d1a2e66545fb07244bae3183f4b0ae9ff5e"
  },
  "database": {
   "image": "mysql:26.7.0@sha256:893418c8a7a34c60d2d961cc30ef136095da141478562ed2101ae3f5faba9c3f",
@@ -27,14 +27,15 @@
   "liveGameRequests": 0
  },
  "harnessFileSha256": {
-  "engine/p1_edges.test.ts": "ac2a1f0ddfab6a019c62075e6f4a398186f1938fdc70ee274d8b47c24fff1166",
-  "engine/p1_runtime.test.ts": "9054ee0ef1ece1a0dde068a01d0e06e300d784ae2821e0b51901884f2d0ac30d",
-  "engine/p1_static.test.ts": "2114d8bd9e82293aef4979eefcca1619b34ff3a31f6b3448133847eb09e745c6",
+  "engine/p1_edges.test.ts": "495aafc67d89b9a662fee7fb758efe6e94c8edefbe390a2e6dfe0d1334055076",
+  "engine/p1_runtime.test.ts": "7199eedbea22b94672a8776dcb533f5066858b486b8116f2807b99c8966572c5",
+  "engine/p1_static.test.ts": "b443b94c9c76c954cc01f176852109a0b7be0319abd9c133cba6120f4232c43e",
   "engine/lib/driver.ts": "bc0fe30e1d31bb1971fd7aeb657b9155c5e0250f6e7d938b30145731625aac30",
-  "engine/lib/graph.ts": "3a0c2085f6e754c3060b7f689191fd36f24002b8fb24e383143a046511568ff3",
+  "engine/lib/graph.ts": "db1e600be181cb03bccabdff86f53fc1c23f77827eb5e77ca124d9e07340d04e",
   "engine/lib/report.ts": "1797ad07d38c6e07a3215f4f9d2902d707f2a1ab8b70219b85f73fb58f0d995e",
-  "engine/lib/scenario.ts": "c38aca6fd63934670d082cca30186adcffa7a49ea6958bc8bbbda261d6133067",
+  "engine/lib/scenario.ts": "f854a4e7097d903b8ad1befa0aa2242fcf7da7b11a07d6ca7f3182d21273699d",
   "tools/check_evidence.py": "d1717a59756e5a5221535f12a1a42593826b28a025b32f7e3ec0f1c73ed33768",
+  "tools/restructure_protocol_choice.py": "18a0b5a7fd0585d771456117c84ae1cf3f9593e96c2abbe09577f03589a96c8e",
   "run.sh": "8ef51f3340fa0618250efa0617a37b39b8b9922aa1e790bf8b764f5937e190d2"
  },
  "exitStatus": {

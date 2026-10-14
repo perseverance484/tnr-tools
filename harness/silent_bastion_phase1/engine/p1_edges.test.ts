@@ -1,6 +1,6 @@
 /**
  * Gate E — abandonment, premature/out-of-order input, entry-item edge cases, recovery freeze,
- * pause/version changes, the real content save procedure, and 208-objective performance.
+ * pause/version changes, the real content save procedure, and 178-objective (r2) performance.
  */
 import { beforeEach, expect, it, vi } from "bun:test";
 import { eq } from "drizzle-orm";
@@ -115,7 +115,7 @@ describeWithDatabase("E: edges", () => {
     await resetWorld({ beaconCount: 0 });
     await start();
     // Walk the whole Division I initial lane by dialog choices only (Combat route), then Division II.
-    const walk = ["b1.n.f1", "b1.n.f2", "b1.n.f3", "d1.n.f4.combat", "b1.n.f4.combat", "b1.n.boss.combat", "b2.n.f1", "b2.n.f2"];
+    const walk = ["b1.n.f1", "b1.n.f2", "b1.n.f3", "d1.n.f4", "b1.n.f4", "b1.n.boss.combat", "b2.n.f1", "b2.n.f2"];
     const accepted: string[] = [];
     for (const step of walk) {
       const before = (await tracker())?.goals.filter((g) => g.done).length ?? 0;
@@ -138,8 +138,9 @@ describeWithDatabase("E: edges", () => {
     }
     ev.put("E4b.battlesStartedByPageRefreshAloneAfterBeacon", chain);
     ev.put("E4b.finalView", await engineView());
-    const bossBeforeF4 = chain.indexOf("b1.n.boss.combat") >= 0 && chain.indexOf("b1.n.boss.combat") < chain.indexOf("b1.n.f4.combat");
-    ev.finding("F1", "Missing-Beacon window: dialogs after an unstarted battle can be completed; battles later chain by page refresh without dialog gates, and a commander can precede regular fight 4",
+    const bossBeforeF4 = chain.indexOf("b1.n.boss.combat") >= 0 && chain.indexOf("b1.n.boss.combat") < chain.indexOf("b1.n.f4");
+    c("E4b r2: in the missing-Beacon window the fourth fight still precedes the commander", !bossBeforeF4, chain);
+    ev.finding("F1", "Missing-Beacon window: dialogs after an unstarted battle can be completed and battles later chain by page refresh without dialog gates",
       accepted.length > 1 && chain.filter(Boolean).length > 1, { dialogStepsAccepted: accepted.length, autoChained: chain.filter(Boolean), bossBeforeF4 });
   }, 300_000);
 
@@ -180,7 +181,7 @@ describeWithDatabase("E: edges", () => {
     c("E6 edited run can be abandoned", ab.success && (await hero())?.status === "AWAKE", ab.message);
   }, 120_000);
 
-  it("E7 the real content-editor save procedure accepts the 208-objective record (hidden)", async () => {
+  it("E7 the real content-editor save procedure accepts the 178-objective record (hidden)", async () => {
     await resetWorld();
     const rec = questRecord();
     const data = QuestValidator.parse({ ...rec, hidden: true });
@@ -190,7 +191,7 @@ describeWithDatabase("E: edges", () => {
     ev.timing("E7.updateMs", performance.now() - t0);
     c("E7 quests.update succeeds", res.success, res.message);
     const saved = await questRow();
-    c("E7 saved record keeps 208 objectives in order", saved.content.objectives.length === 208 && saved.content.objectives.map((o) => o.id).join() === rec.content.objectives.map((o) => o.id).join());
+    c("E7 saved record keeps 178 objectives in order", saved.content.objectives.length === 178 && saved.content.objectives.map((o) => o.id).join() === rec.content.objectives.map((o) => o.id).join());
     c("E7 saved record stays hidden", saved.hidden === true);
     ev.put("E7.savedContentBytes", JSON.stringify(saved.content).length);
     const visible = await editor.update({ id: QUEST_ID, data: QuestValidator.parse({ ...rec, hidden: false }) });
@@ -204,6 +205,7 @@ describeWithDatabase("E: edges", () => {
     await r.start();
     for (let d = 1; d <= 5; d++) await r.lane(d, "n", { route: "medical" });
     ev.timing("E8.fullMedicalRunMs", performance.now() - t0);
+    // Timing below is at 178 objectives (r2).
     const { user } = await refresh();
     const N = 200;
     const t1 = performance.now();
@@ -218,7 +220,7 @@ describeWithDatabase("E: edges", () => {
     c("E8 deepest state reached (aftermath active)", (await engineView()).active === "d.aftermath");
     c("E8 25 battles on the full Medical route", r.battles === 25, r.battles);
     // Timing values live only in e_edges.timings.json so the evidence file stays deterministic.
-    c("E8 getNewTrackers on 208 objectives under 50 ms/call", (ev.volatile["E8.getNewTrackersMsPerCall"] as number) < 50);
+    c("E8 getNewTrackers on 178 objectives under 50 ms/call", (ev.volatile["E8.getNewTrackersMsPerCall"] as number) < 50);
   }, 600_000);
 
   it("E9 retry loop: ordinary battle settlement income on repeated regular wins (economy observation)", async () => {

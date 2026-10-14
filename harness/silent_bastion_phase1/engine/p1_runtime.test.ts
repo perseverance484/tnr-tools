@@ -22,7 +22,7 @@ for (let j = 0; j < 4; j++)
 // L1–L9: an initial-lane loss at the same point in every division, then the retry lane.
 const lossPoints: { at: Point; route: Route | "rot" }[] = [
   { at: "f1", route: "rot" }, { at: "f2", route: "rot" }, { at: "f3", route: "rot" },
-  { at: "f4", route: "medical" }, { at: "f4", route: "combat" },
+  { at: "f4", route: "medical" },
   { at: "boss", route: "clean" }, { at: "boss", route: "alert" }, { at: "boss", route: "medical" }, { at: "boss", route: "combat" },
 ];
 const retryPatterns: Seg[][] = [
@@ -30,7 +30,7 @@ const retryPatterns: Seg[][] = [
   [{ route: "medical", lossAt: "boss" }],                                               // Medical boss lost, then a different route
   [{ route: "combat", lossAt: "f4" }, { route: "alert", lossAt: "boss" }],              // two different later retry losses
   [{ route: "alert", lossAt: "f3" }],
-  [], [], [], [], [],
+  [], [], [], [],
 ];
 lossPoints.forEach((lp, k) => {
   plans.push({ name: `L${k + 1} initial loss at ${lp.at}${lp.route === "rot" ? "" : `/${lp.route}`}`,
@@ -73,17 +73,16 @@ describeWithDatabase("R: native runtime progression", () => {
     type T = { battle: string; carriedHpPct: number; startPct: { h: number }; outcome?: string };
     const all = (summary as { trace: T[] }[]).flatMap((r) => r.trace);
     const med = all.filter((t) => /boss\.medical$/.test(t.battle));
-    const lowered = med.filter((t) => t.carriedHpPct > 75 && !/\.r\./.test(t.battle)).length;
-    const raised = med.filter((t) => t.carriedHpPct < 75).length;
-    ev.check("Medical 75% observed lowering a higher carried pool and raising a lower one", lowered > 0 && raised > 0, { lowered, raised, total: med.length });
+    const healed = med.filter((t) => t.carriedHpPct < 100).length;
+    ev.check("Medical full heal: every Medical commander starts at 100% (healing a depleted carry observed)", med.length > 0 && healed > 0 && med.every((t) => t.startPct.h === 100), { healed, total: med.length });
     const cov: Record<string, number> = {};
     for (const t of all) { const k = t.battle.replace(/^b\d/, "b*"); cov[k] = (cov[k] ?? 0) + 1; }
-    const kinds = ["f1", "f2", "f3", "f4.medical", "f4.combat", "boss.clean", "boss.alert", "boss.medical", "boss.combat"];
+    const kinds = ["f1", "f2", "f3", "f4", "boss.clean", "boss.alert", "boss.medical", "boss.combat"];
     const missing = ["n", "r"].flatMap((l) => kinds.map((k) => `b*.${l}.${k}`)).filter((k) => !cov[k]);
     ev.check("every battle kind fought on both lanes", missing.length === 0, missing);
     const lostAt = new Set(all.filter((t) => t.outcome === "Lost").map((t) => t.battle));
     const notLost = [1, 2, 3, 4, 5].flatMap((d) => kinds.map((k) => `b${d}.n.${k}`)).filter((b) => !lostAt.has(b));
-    ev.check("an initial-lane loss exercised at all 45 initial-lane battles", notLost.length === 0, notLost);
+    ev.check("an initial-lane loss exercised at all 40 initial-lane battles", notLost.length === 0, notLost);
     ev.put("battleKindCoverage", cov);
     ev.put("totals", { attempts: summary.length, battles: all.length, losses: all.filter((t) => t.outcome === "Lost").length,
       retryEntries50: all.filter((t) => /\.r\.f1$/.test(t.battle)).length });

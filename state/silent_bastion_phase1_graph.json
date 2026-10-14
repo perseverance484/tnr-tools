@@ -1,7 +1,7 @@
 {
   "format": "TNR-SILENT-BASTION-SYMBOLIC-GRAPH-V1",
   "nonExecutable": true,
-  "status": "PHASE_1_STATIC_CANDIDATE_NOT_NATIVE_TESTED",
+  "status": "PHASE_1_R2_DIRECTOR_RESTRUCTURE_NATIVE_TESTED_OFFLINE",
   "evidence": {
     "repoBaseline": "perseverance484/tnr-tools@1da18301e8e4660cedf3daa3e80893a2ac918f2b",
     "designBaseline": "chatgpt/silent-bastion-design-20261013@876b58cc9046b6c2528869d97c7038335f299f4e",
@@ -12,7 +12,7 @@
   "entry": "d1.n.f1",
   "retryPolicy": "Any non-final-boss loss on the initial lane enters distinct retry lane with 50% pools on its first battle; any later retry-lane loss resets retry-lane entry via reset_quest. Final Arakane loss hard-fails.",
   "specialFields": {
-    "startPoolsPercent": "Symbolic stand-in for start_battle.givePools; only retry first fight=50 and Medical boss=75",
+    "startPoolsPercent": "Symbolic stand-in for start_battle.givePools; only retry first fight=50 and Medical commander=100 (full heal)",
     "startEffect": "Symbolic stand-in for battle-start applyBuffs/applyDebuffs, magnitude unresolved"
   },
   "divisions": [
@@ -102,12 +102,8 @@
           "to": "d1.n.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d1.n.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d1.n.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d1.n.f4"
         }
       ],
       "division": 1,
@@ -168,13 +164,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d1.n.boss.medical",
+      "id": "d1.n.f4",
       "kind": "dialog",
-      "next": "b1.n.boss.medical",
+      "next": "b1.n.f4",
       "division": 1,
       "lane": "n",
-      "route": "medical",
-      "commander": "The Gatewarden"
+      "regular": 4
+    },
+    {
+      "id": "b1.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.n.protocol",
+      "onLoss": "d1.r.f1"
+    },
+    {
+      "id": "d1.n.protocol",
+      "kind": "dialog",
+      "division": 1,
+      "lane": "n",
+      "commander": "The Gatewarden",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b1.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b1.n.boss.combat"
+        }
+      ]
     },
     {
       "id": "b1.n.boss.medical",
@@ -182,16 +201,7 @@
       "encounterSlot": "D1.BOSS",
       "onWin": "d2.n.f1",
       "onLoss": "d1.r.f1",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d1.n.boss.combat",
-      "kind": "dialog",
-      "next": "b1.n.boss.combat",
-      "division": 1,
-      "lane": "n",
-      "route": "combat",
-      "commander": "The Gatewarden"
+      "startPoolsPercent": 100
     },
     {
       "id": "b1.n.boss.combat",
@@ -200,38 +210,6 @@
       "onWin": "d2.n.f1",
       "onLoss": "d1.r.f1",
       "startEffect": "COMBAT_PROTOCOL_D1_TBD"
-    },
-    {
-      "id": "d1.n.f4.medical",
-      "kind": "dialog",
-      "next": "b1.n.f4.medical",
-      "division": 1,
-      "lane": "n",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b1.n.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D1.REG4",
-      "onWin": "d1.n.boss.medical",
-      "onLoss": "d1.r.f1"
-    },
-    {
-      "id": "d1.n.f4.combat",
-      "kind": "dialog",
-      "next": "b1.n.f4.combat",
-      "division": 1,
-      "lane": "n",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b1.n.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D1.REG4",
-      "onWin": "d1.n.boss.combat",
-      "onLoss": "d1.r.f1"
     },
     {
       "id": "d1.r.f1",
@@ -288,12 +266,8 @@
           "to": "d1.r.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d1.r.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d1.r.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d1.r.f4"
         }
       ],
       "division": 1,
@@ -354,13 +328,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d1.r.boss.medical",
+      "id": "d1.r.f4",
       "kind": "dialog",
-      "next": "b1.r.boss.medical",
+      "next": "b1.r.f4",
       "division": 1,
       "lane": "r",
-      "route": "medical",
-      "commander": "The Gatewarden"
+      "regular": 4
+    },
+    {
+      "id": "b1.r.f4",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.r.protocol",
+      "onLoss": "r1.retry"
+    },
+    {
+      "id": "d1.r.protocol",
+      "kind": "dialog",
+      "division": 1,
+      "lane": "r",
+      "commander": "The Gatewarden",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b1.r.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b1.r.boss.combat"
+        }
+      ]
     },
     {
       "id": "b1.r.boss.medical",
@@ -368,16 +365,7 @@
       "encounterSlot": "D1.BOSS",
       "onWin": "d2.n.f1",
       "onLoss": "r1.retry",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d1.r.boss.combat",
-      "kind": "dialog",
-      "next": "b1.r.boss.combat",
-      "division": 1,
-      "lane": "r",
-      "route": "combat",
-      "commander": "The Gatewarden"
+      "startPoolsPercent": 100
     },
     {
       "id": "b1.r.boss.combat",
@@ -386,38 +374,6 @@
       "onWin": "d2.n.f1",
       "onLoss": "r1.retry",
       "startEffect": "COMBAT_PROTOCOL_D1_TBD"
-    },
-    {
-      "id": "d1.r.f4.medical",
-      "kind": "dialog",
-      "next": "b1.r.f4.medical",
-      "division": 1,
-      "lane": "r",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b1.r.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D1.REG4",
-      "onWin": "d1.r.boss.medical",
-      "onLoss": "r1.retry"
-    },
-    {
-      "id": "d1.r.f4.combat",
-      "kind": "dialog",
-      "next": "b1.r.f4.combat",
-      "division": 1,
-      "lane": "r",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b1.r.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D1.REG4",
-      "onWin": "d1.r.boss.combat",
-      "onLoss": "r1.retry"
     },
     {
       "id": "r1.retry",
@@ -479,12 +435,8 @@
           "to": "d2.n.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d2.n.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d2.n.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d2.n.f4"
         }
       ],
       "division": 2,
@@ -545,13 +497,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d2.n.boss.medical",
+      "id": "d2.n.f4",
       "kind": "dialog",
-      "next": "b2.n.boss.medical",
+      "next": "b2.n.f4",
       "division": 2,
       "lane": "n",
-      "route": "medical",
-      "commander": "Master of Arms"
+      "regular": 4
+    },
+    {
+      "id": "b2.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.n.protocol",
+      "onLoss": "d2.r.f1"
+    },
+    {
+      "id": "d2.n.protocol",
+      "kind": "dialog",
+      "division": 2,
+      "lane": "n",
+      "commander": "Master of Arms",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b2.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b2.n.boss.combat"
+        }
+      ]
     },
     {
       "id": "b2.n.boss.medical",
@@ -559,16 +534,7 @@
       "encounterSlot": "D2.BOSS",
       "onWin": "d3.n.f1",
       "onLoss": "d2.r.f1",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d2.n.boss.combat",
-      "kind": "dialog",
-      "next": "b2.n.boss.combat",
-      "division": 2,
-      "lane": "n",
-      "route": "combat",
-      "commander": "Master of Arms"
+      "startPoolsPercent": 100
     },
     {
       "id": "b2.n.boss.combat",
@@ -577,38 +543,6 @@
       "onWin": "d3.n.f1",
       "onLoss": "d2.r.f1",
       "startEffect": "COMBAT_PROTOCOL_D2_TBD"
-    },
-    {
-      "id": "d2.n.f4.medical",
-      "kind": "dialog",
-      "next": "b2.n.f4.medical",
-      "division": 2,
-      "lane": "n",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b2.n.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D2.REG4",
-      "onWin": "d2.n.boss.medical",
-      "onLoss": "d2.r.f1"
-    },
-    {
-      "id": "d2.n.f4.combat",
-      "kind": "dialog",
-      "next": "b2.n.f4.combat",
-      "division": 2,
-      "lane": "n",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b2.n.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D2.REG4",
-      "onWin": "d2.n.boss.combat",
-      "onLoss": "d2.r.f1"
     },
     {
       "id": "d2.r.f1",
@@ -665,12 +599,8 @@
           "to": "d2.r.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d2.r.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d2.r.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d2.r.f4"
         }
       ],
       "division": 2,
@@ -731,13 +661,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d2.r.boss.medical",
+      "id": "d2.r.f4",
       "kind": "dialog",
-      "next": "b2.r.boss.medical",
+      "next": "b2.r.f4",
       "division": 2,
       "lane": "r",
-      "route": "medical",
-      "commander": "Master of Arms"
+      "regular": 4
+    },
+    {
+      "id": "b2.r.f4",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.r.protocol",
+      "onLoss": "r2.retry"
+    },
+    {
+      "id": "d2.r.protocol",
+      "kind": "dialog",
+      "division": 2,
+      "lane": "r",
+      "commander": "Master of Arms",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b2.r.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b2.r.boss.combat"
+        }
+      ]
     },
     {
       "id": "b2.r.boss.medical",
@@ -745,16 +698,7 @@
       "encounterSlot": "D2.BOSS",
       "onWin": "d3.n.f1",
       "onLoss": "r2.retry",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d2.r.boss.combat",
-      "kind": "dialog",
-      "next": "b2.r.boss.combat",
-      "division": 2,
-      "lane": "r",
-      "route": "combat",
-      "commander": "Master of Arms"
+      "startPoolsPercent": 100
     },
     {
       "id": "b2.r.boss.combat",
@@ -763,38 +707,6 @@
       "onWin": "d3.n.f1",
       "onLoss": "r2.retry",
       "startEffect": "COMBAT_PROTOCOL_D2_TBD"
-    },
-    {
-      "id": "d2.r.f4.medical",
-      "kind": "dialog",
-      "next": "b2.r.f4.medical",
-      "division": 2,
-      "lane": "r",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b2.r.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D2.REG4",
-      "onWin": "d2.r.boss.medical",
-      "onLoss": "r2.retry"
-    },
-    {
-      "id": "d2.r.f4.combat",
-      "kind": "dialog",
-      "next": "b2.r.f4.combat",
-      "division": 2,
-      "lane": "r",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b2.r.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D2.REG4",
-      "onWin": "d2.r.boss.combat",
-      "onLoss": "r2.retry"
     },
     {
       "id": "r2.retry",
@@ -856,12 +768,8 @@
           "to": "d3.n.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d3.n.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d3.n.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d3.n.f4"
         }
       ],
       "division": 3,
@@ -922,13 +830,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d3.n.boss.medical",
+      "id": "d3.n.f4",
       "kind": "dialog",
-      "next": "b3.n.boss.medical",
+      "next": "b3.n.f4",
       "division": 3,
       "lane": "n",
-      "route": "medical",
-      "commander": "Replicant Zero"
+      "regular": 4
+    },
+    {
+      "id": "b3.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.n.protocol",
+      "onLoss": "d3.r.f1"
+    },
+    {
+      "id": "d3.n.protocol",
+      "kind": "dialog",
+      "division": 3,
+      "lane": "n",
+      "commander": "Replicant Zero",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b3.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b3.n.boss.combat"
+        }
+      ]
     },
     {
       "id": "b3.n.boss.medical",
@@ -936,16 +867,7 @@
       "encounterSlot": "D3.BOSS",
       "onWin": "d4.n.f1",
       "onLoss": "d3.r.f1",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d3.n.boss.combat",
-      "kind": "dialog",
-      "next": "b3.n.boss.combat",
-      "division": 3,
-      "lane": "n",
-      "route": "combat",
-      "commander": "Replicant Zero"
+      "startPoolsPercent": 100
     },
     {
       "id": "b3.n.boss.combat",
@@ -954,38 +876,6 @@
       "onWin": "d4.n.f1",
       "onLoss": "d3.r.f1",
       "startEffect": "COMBAT_PROTOCOL_D3_TBD"
-    },
-    {
-      "id": "d3.n.f4.medical",
-      "kind": "dialog",
-      "next": "b3.n.f4.medical",
-      "division": 3,
-      "lane": "n",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b3.n.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D3.REG4",
-      "onWin": "d3.n.boss.medical",
-      "onLoss": "d3.r.f1"
-    },
-    {
-      "id": "d3.n.f4.combat",
-      "kind": "dialog",
-      "next": "b3.n.f4.combat",
-      "division": 3,
-      "lane": "n",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b3.n.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D3.REG4",
-      "onWin": "d3.n.boss.combat",
-      "onLoss": "d3.r.f1"
     },
     {
       "id": "d3.r.f1",
@@ -1042,12 +932,8 @@
           "to": "d3.r.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d3.r.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d3.r.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d3.r.f4"
         }
       ],
       "division": 3,
@@ -1108,13 +994,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d3.r.boss.medical",
+      "id": "d3.r.f4",
       "kind": "dialog",
-      "next": "b3.r.boss.medical",
+      "next": "b3.r.f4",
       "division": 3,
       "lane": "r",
-      "route": "medical",
-      "commander": "Replicant Zero"
+      "regular": 4
+    },
+    {
+      "id": "b3.r.f4",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.r.protocol",
+      "onLoss": "r3.retry"
+    },
+    {
+      "id": "d3.r.protocol",
+      "kind": "dialog",
+      "division": 3,
+      "lane": "r",
+      "commander": "Replicant Zero",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b3.r.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b3.r.boss.combat"
+        }
+      ]
     },
     {
       "id": "b3.r.boss.medical",
@@ -1122,16 +1031,7 @@
       "encounterSlot": "D3.BOSS",
       "onWin": "d4.n.f1",
       "onLoss": "r3.retry",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d3.r.boss.combat",
-      "kind": "dialog",
-      "next": "b3.r.boss.combat",
-      "division": 3,
-      "lane": "r",
-      "route": "combat",
-      "commander": "Replicant Zero"
+      "startPoolsPercent": 100
     },
     {
       "id": "b3.r.boss.combat",
@@ -1140,38 +1040,6 @@
       "onWin": "d4.n.f1",
       "onLoss": "r3.retry",
       "startEffect": "COMBAT_PROTOCOL_D3_TBD"
-    },
-    {
-      "id": "d3.r.f4.medical",
-      "kind": "dialog",
-      "next": "b3.r.f4.medical",
-      "division": 3,
-      "lane": "r",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b3.r.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D3.REG4",
-      "onWin": "d3.r.boss.medical",
-      "onLoss": "r3.retry"
-    },
-    {
-      "id": "d3.r.f4.combat",
-      "kind": "dialog",
-      "next": "b3.r.f4.combat",
-      "division": 3,
-      "lane": "r",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b3.r.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D3.REG4",
-      "onWin": "d3.r.boss.combat",
-      "onLoss": "r3.retry"
     },
     {
       "id": "r3.retry",
@@ -1233,12 +1101,8 @@
           "to": "d4.n.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d4.n.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d4.n.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d4.n.f4"
         }
       ],
       "division": 4,
@@ -1299,13 +1163,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d4.n.boss.medical",
+      "id": "d4.n.f4",
       "kind": "dialog",
-      "next": "b4.n.boss.medical",
+      "next": "b4.n.f4",
       "division": 4,
       "lane": "n",
-      "route": "medical",
-      "commander": "The Grand Marshal"
+      "regular": 4
+    },
+    {
+      "id": "b4.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.n.protocol",
+      "onLoss": "d4.r.f1"
+    },
+    {
+      "id": "d4.n.protocol",
+      "kind": "dialog",
+      "division": 4,
+      "lane": "n",
+      "commander": "The Grand Marshal",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b4.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b4.n.boss.combat"
+        }
+      ]
     },
     {
       "id": "b4.n.boss.medical",
@@ -1313,16 +1200,7 @@
       "encounterSlot": "D4.BOSS",
       "onWin": "d5.n.f1",
       "onLoss": "d4.r.f1",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d4.n.boss.combat",
-      "kind": "dialog",
-      "next": "b4.n.boss.combat",
-      "division": 4,
-      "lane": "n",
-      "route": "combat",
-      "commander": "The Grand Marshal"
+      "startPoolsPercent": 100
     },
     {
       "id": "b4.n.boss.combat",
@@ -1331,38 +1209,6 @@
       "onWin": "d5.n.f1",
       "onLoss": "d4.r.f1",
       "startEffect": "COMBAT_PROTOCOL_D4_TBD"
-    },
-    {
-      "id": "d4.n.f4.medical",
-      "kind": "dialog",
-      "next": "b4.n.f4.medical",
-      "division": 4,
-      "lane": "n",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b4.n.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D4.REG4",
-      "onWin": "d4.n.boss.medical",
-      "onLoss": "d4.r.f1"
-    },
-    {
-      "id": "d4.n.f4.combat",
-      "kind": "dialog",
-      "next": "b4.n.f4.combat",
-      "division": 4,
-      "lane": "n",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b4.n.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D4.REG4",
-      "onWin": "d4.n.boss.combat",
-      "onLoss": "d4.r.f1"
     },
     {
       "id": "d4.r.f1",
@@ -1419,12 +1265,8 @@
           "to": "d4.r.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d4.r.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d4.r.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d4.r.f4"
         }
       ],
       "division": 4,
@@ -1485,13 +1327,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d4.r.boss.medical",
+      "id": "d4.r.f4",
       "kind": "dialog",
-      "next": "b4.r.boss.medical",
+      "next": "b4.r.f4",
       "division": 4,
       "lane": "r",
-      "route": "medical",
-      "commander": "The Grand Marshal"
+      "regular": 4
+    },
+    {
+      "id": "b4.r.f4",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.r.protocol",
+      "onLoss": "r4.retry"
+    },
+    {
+      "id": "d4.r.protocol",
+      "kind": "dialog",
+      "division": 4,
+      "lane": "r",
+      "commander": "The Grand Marshal",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b4.r.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b4.r.boss.combat"
+        }
+      ]
     },
     {
       "id": "b4.r.boss.medical",
@@ -1499,16 +1364,7 @@
       "encounterSlot": "D4.BOSS",
       "onWin": "d5.n.f1",
       "onLoss": "r4.retry",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d4.r.boss.combat",
-      "kind": "dialog",
-      "next": "b4.r.boss.combat",
-      "division": 4,
-      "lane": "r",
-      "route": "combat",
-      "commander": "The Grand Marshal"
+      "startPoolsPercent": 100
     },
     {
       "id": "b4.r.boss.combat",
@@ -1517,38 +1373,6 @@
       "onWin": "d5.n.f1",
       "onLoss": "r4.retry",
       "startEffect": "COMBAT_PROTOCOL_D4_TBD"
-    },
-    {
-      "id": "d4.r.f4.medical",
-      "kind": "dialog",
-      "next": "b4.r.f4.medical",
-      "division": 4,
-      "lane": "r",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b4.r.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D4.REG4",
-      "onWin": "d4.r.boss.medical",
-      "onLoss": "r4.retry"
-    },
-    {
-      "id": "d4.r.f4.combat",
-      "kind": "dialog",
-      "next": "b4.r.f4.combat",
-      "division": 4,
-      "lane": "r",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b4.r.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D4.REG4",
-      "onWin": "d4.r.boss.combat",
-      "onLoss": "r4.retry"
     },
     {
       "id": "r4.retry",
@@ -1610,12 +1434,8 @@
           "to": "d5.n.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d5.n.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d5.n.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d5.n.f4"
         }
       ],
       "division": 5,
@@ -1676,13 +1496,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d5.n.boss.medical",
+      "id": "d5.n.f4",
       "kind": "dialog",
-      "next": "b5.n.boss.medical",
+      "next": "b5.n.f4",
       "division": 5,
       "lane": "n",
-      "route": "medical",
-      "commander": "Supreme Commander Arakane"
+      "regular": 4
+    },
+    {
+      "id": "b5.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.n.protocol",
+      "onLoss": "d5.r.f1"
+    },
+    {
+      "id": "d5.n.protocol",
+      "kind": "dialog",
+      "division": 5,
+      "lane": "n",
+      "commander": "Supreme Commander Arakane",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b5.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b5.n.boss.combat"
+        }
+      ]
     },
     {
       "id": "b5.n.boss.medical",
@@ -1690,16 +1533,7 @@
       "encounterSlot": "D5.BOSS",
       "onWin": "d.aftermath",
       "onLoss": "f.arakane",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d5.n.boss.combat",
-      "kind": "dialog",
-      "next": "b5.n.boss.combat",
-      "division": 5,
-      "lane": "n",
-      "route": "combat",
-      "commander": "Supreme Commander Arakane"
+      "startPoolsPercent": 100
     },
     {
       "id": "b5.n.boss.combat",
@@ -1708,38 +1542,6 @@
       "onWin": "d.aftermath",
       "onLoss": "f.arakane",
       "startEffect": "COMBAT_PROTOCOL_D5_TBD"
-    },
-    {
-      "id": "d5.n.f4.medical",
-      "kind": "dialog",
-      "next": "b5.n.f4.medical",
-      "division": 5,
-      "lane": "n",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b5.n.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D5.REG4",
-      "onWin": "d5.n.boss.medical",
-      "onLoss": "d5.r.f1"
-    },
-    {
-      "id": "d5.n.f4.combat",
-      "kind": "dialog",
-      "next": "b5.n.f4.combat",
-      "division": 5,
-      "lane": "n",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b5.n.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D5.REG4",
-      "onWin": "d5.n.boss.combat",
-      "onLoss": "d5.r.f1"
     },
     {
       "id": "d5.r.f1",
@@ -1796,12 +1598,8 @@
           "to": "d5.r.puzzle"
         },
         {
-          "label": "Medical Protocol",
-          "to": "d5.r.f4.medical"
-        },
-        {
-          "label": "Combat Protocol",
-          "to": "d5.r.f4.combat"
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d5.r.f4"
         }
       ],
       "division": 5,
@@ -1862,13 +1660,36 @@
       "startEffect": "SECURITY_ALERT_TBD"
     },
     {
-      "id": "d5.r.boss.medical",
+      "id": "d5.r.f4",
       "kind": "dialog",
-      "next": "b5.r.boss.medical",
+      "next": "b5.r.f4",
       "division": 5,
       "lane": "r",
-      "route": "medical",
-      "commander": "Supreme Commander Arakane"
+      "regular": 4
+    },
+    {
+      "id": "b5.r.f4",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.r.protocol",
+      "onLoss": "r5.retry"
+    },
+    {
+      "id": "d5.r.protocol",
+      "kind": "dialog",
+      "division": 5,
+      "lane": "r",
+      "commander": "Supreme Commander Arakane",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b5.r.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b5.r.boss.combat"
+        }
+      ]
     },
     {
       "id": "b5.r.boss.medical",
@@ -1876,16 +1697,7 @@
       "encounterSlot": "D5.BOSS",
       "onWin": "d.aftermath",
       "onLoss": "f.arakane",
-      "startPoolsPercent": 75
-    },
-    {
-      "id": "d5.r.boss.combat",
-      "kind": "dialog",
-      "next": "b5.r.boss.combat",
-      "division": 5,
-      "lane": "r",
-      "route": "combat",
-      "commander": "Supreme Commander Arakane"
+      "startPoolsPercent": 100
     },
     {
       "id": "b5.r.boss.combat",
@@ -1894,38 +1706,6 @@
       "onWin": "d.aftermath",
       "onLoss": "f.arakane",
       "startEffect": "COMBAT_PROTOCOL_D5_TBD"
-    },
-    {
-      "id": "d5.r.f4.medical",
-      "kind": "dialog",
-      "next": "b5.r.f4.medical",
-      "division": 5,
-      "lane": "r",
-      "regular": 4,
-      "route": "medical"
-    },
-    {
-      "id": "b5.r.f4.medical",
-      "kind": "battle",
-      "encounterSlot": "D5.REG4",
-      "onWin": "d5.r.boss.medical",
-      "onLoss": "r5.retry"
-    },
-    {
-      "id": "d5.r.f4.combat",
-      "kind": "dialog",
-      "next": "b5.r.f4.combat",
-      "division": 5,
-      "lane": "r",
-      "regular": 4,
-      "route": "combat"
-    },
-    {
-      "id": "b5.r.f4.combat",
-      "kind": "battle",
-      "encounterSlot": "D5.REG4",
-      "onWin": "d5.r.boss.combat",
-      "onLoss": "r5.retry"
     },
     {
       "id": "r5.retry",
@@ -1949,5 +1729,7 @@
       "kind": "fail",
       "reason": "Defeat against the Supreme Commander ends attempt"
     }
-  ]
+  ],
+  "revision": "r2",
+  "revisionNote": "r2 per RUL-2026-10-14-001: one fourth fight per lane; the protocol is chosen by the dialog after it, which routes directly to the Medical (givePools 100) or Combat commander battle node."
 }

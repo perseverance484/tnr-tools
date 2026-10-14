@@ -5,6 +5,10 @@ Offline, engine-native evidence for the Phase 1 progression graph
 `docs/handoffs/SILENT_BASTION_PHASE1_OFFLINE_PROOF_2026-10-14.md`). Results report:
 `docs/reviews/SILENT_BASTION_PHASE1_NATIVE_RESULTS.md`.
 
+**Graph revision:** r2 per RUL-2026-10-14-001 (one fourth fight per lane; the protocol dialog after
+it routes to the Medical `givePools: 100` or Combat commander battle). `tools/restructure_protocol_choice.py`
+produces r2 from the r1 design graph; `--check` confirms the committed graph is r2.
+
 **Not a manifest.** The fixture is compiled from the symbolic graph for local tests only: fixture AI
 users, a sentinel completion item, and placeholder starting effects. Nothing here is a build input.
 
@@ -42,7 +46,7 @@ Environment (optional): `TNR_ENGINE_SRC`, `TNR_ENGINE_WORK` (default `.work/`, g
 | File | Gate | What runs |
 | --- | --- | --- |
 | `engine/p1_static.test.ts` | **S** | `QuestValidator`, `verifyQuestContentForSave`, `verifyQuestObjectiveFlow`, `findPredecessor`, `buildObjectiveEdges` on the compiled fixture; 3,125-path enumeration; fail/win/reset edges; allowlist checks |
-| `engine/p1_runtime.test.ts` | **R** | 16 complete attempts through the real routers: 4 all-success, 9 initial-loss matrices (a loss at every one of the 45 initial-lane battles), 2 retry-lane Arakane defeats, 1 five-consecutive-retry run |
+| `engine/p1_runtime.test.ts` | **R** | 15 complete attempts through the real routers: 4 all-success, 8 initial-loss matrices (a loss at every one of the 40 initial-lane battles), 2 retry-lane Arakane defeats, 1 five-consecutive-retry run |
 | `engine/p1_edges.test.ts` | **E** | abandonment, premature/out-of-order input, missing Beacon (findings F1/F2), recovery freeze, hidden pause/version change, the real `quests.update` save, performance, retry-loop income (finding F3) |
 
 Driver (`engine/lib/driver.ts`): `startQuest` → `checkRewards(choice)` (starts the battle through

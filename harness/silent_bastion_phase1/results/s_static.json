@@ -1,5 +1,5 @@
 {
- "assertions": 32,
+ "assertions": 33,
  "checks": [
   {
    "name": "QuestValidator.safeParse success",
@@ -14,11 +14,15 @@
    "pass": true
   },
   {
-   "name": "208 objectives",
+   "name": "graph revision r2 (RUL-2026-10-14-001)",
    "pass": true
   },
   {
-   "name": "111 dialog / 90 start_battle / 5 reset_quest / 1 win / 1 fail",
+   "name": "178 objectives",
+   "pass": true
+  },
+  {
+   "name": "91 dialog / 80 start_battle / 5 reset_quest / 1 win / 1 fail",
    "pass": true
   },
   {
@@ -26,7 +30,7 @@
    "pass": true
   },
   {
-   "name": "compiled edges equal symbolic edges for all 208 nodes",
+   "name": "compiled edges equal symbolic edges for all 178 nodes",
    "pass": true
   },
   {
@@ -38,7 +42,7 @@
    "pass": true
   },
   {
-   "name": "90/90 battles: single predecessor, a single-option dialog",
+   "name": "80/80 battles: single predecessor, a dialog (single-option, or the protocol choice for Medical/Combat)",
    "pass": true
   },
   {
@@ -50,11 +54,11 @@
    "pass": true
   },
   {
-   "name": "10 terminals × (Maintenance, Medical, Combat); puzzles 1 correct + 2 wrong; terminal after fight 3",
+   "name": "10 terminals: Maintenance or fourth fight; puzzle 1 correct + 2 wrong; terminal after fight 3; one fourth fight whose win opens the Medical/Combat dialog; fourth fight listed before commanders",
    "pass": true
   },
   {
-   "name": "exactly 15 givePools objectives (5×50 retry entry, 10×75 Medical)",
+   "name": "exactly 15 givePools objectives (5×50 retry entry, 10×100 Medical)",
    "pass": true
   },
   {
@@ -70,7 +74,7 @@
    "pass": true
   },
   {
-   "name": "90 battles each fight exactly one copy of their slot AI",
+   "name": "80 battles each fight exactly one copy of their slot AI",
    "pass": true
   },
   {
@@ -82,7 +86,7 @@
    "pass": true
   },
   {
-   "name": "all 90 fail edges, 25 commander win edges and 5 reset targets as designed",
+   "name": "all 80 fail edges, 20 commander win edges and 5 reset targets as designed",
    "pass": true
   },
   {
@@ -132,33 +136,33 @@
  ],
  "data": {
   "givePoolsObjectives": [
-   "b1.n.boss.medical=75",
-   "b1.r.boss.medical=75",
+   "b1.n.boss.medical=100",
+   "b1.r.boss.medical=100",
    "b1.r.f1=50",
-   "b2.n.boss.medical=75",
-   "b2.r.boss.medical=75",
+   "b2.n.boss.medical=100",
+   "b2.r.boss.medical=100",
    "b2.r.f1=50",
-   "b3.n.boss.medical=75",
-   "b3.r.boss.medical=75",
+   "b3.n.boss.medical=100",
+   "b3.r.boss.medical=100",
    "b3.r.f1=50",
-   "b4.n.boss.medical=75",
-   "b4.r.boss.medical=75",
+   "b4.n.boss.medical=100",
+   "b4.r.boss.medical=100",
    "b4.r.f1=50",
-   "b5.n.boss.medical=75",
-   "b5.r.boss.medical=75",
+   "b5.n.boss.medical=100",
+   "b5.r.boss.medical=100",
    "b5.r.f1=50"
   ],
   "graphSource": "state/silent_bastion_phase1_graph.json",
   "logbookGraphEdges": {
-   "fail": 90,
+   "fail": 80,
    "reset": 5,
-   "total": 326
+   "total": 286
   },
   "objectiveTaskCounts": {
-   "dialog": 111,
+   "dialog": 91,
    "fail_quest": 1,
    "reset_quest": 5,
-   "start_battle": 90,
+   "start_battle": 80,
    "win_quest": 1
   },
   "placeholderEffects": {
