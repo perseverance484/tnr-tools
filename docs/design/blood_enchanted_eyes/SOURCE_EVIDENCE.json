@@ -12,7 +12,8 @@
     "One Reaper's Embrace initial candidate was generated; director noted it was too similar to Thousand Strike and wanted technique-centric icons instead of people. No visual approval or rejection has yet been recorded.",
     "The opaque jutsu-background versus shared ICON alpha-preflight mismatch remains unresolved.",
     "Director approved exact Reaper's Embrace 1000018452.png 2026-10-14; three shadow hands and scarlet heart. Optional two-hand variant explicitly deferred; do not override this visual approval.",
-    "Director reports Reaper's Embrace was processed in the Blue Blade Eyes (BBE) workstation conversation in error; it belongs to Blood-Enchanted Eyes (BEE). The BEE studio has NOT received that particular exported WebP or verifiable per-file QC/provenance, so processed_outputs stays empty until the actual output bytes are inspected. No need to regenerate or repeat processing solely because the workstation label was wrong."
+    "Director reports Reaper's Embrace was processed in the Blue Blade Eyes (BBE) workstation conversation in error; it belongs to Blood-Enchanted Eyes (BEE). The BEE studio has NOT received that particular exported WebP or verifiable per-file QC/provenance, so processed_outputs stays empty until the actual output bytes are inspected. No need to regenerate or repeat processing solely because the workstation label was wrong.",
+    "Director approved Ring of Spilled Blood received image 1000018453.png on 2026-10-14; actual bytes JPEG despite .png extension. One standalone 256×256 lossless WebP was exported from the received bytes for BEE on the studio side with actual size/codec/pixel/thumbnail checks. The initial prompt was mistakenly copied from the BBE workstation, which does not change this BEE jutsu's identity or ownership. The processed file is a conversation deliverable, not a Git binary."
   ],
   "raw_images": [
     {
@@ -56,9 +57,70 @@
         "live_verified": false,
         "next_step": "Import the specific already-processed WebP (or package and its production QC record) to verify it and register under BEE; do not regenerate or reprocess unnecessarily."
       }
+    },
+    {
+      "jutsu_name": "Ring of Spilled Blood",
+      "jutsu_id": "OeFCfJ--gEL_FioGfQvTY",
+      "uploaded_filename": "1000018453.png",
+      "detected_format": "JPEG",
+      "file_extension_mismatch": true,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1536,
+        1536
+      ],
+      "byte_size": 717049,
+      "sha256": "c4f703b891882f22abe28b6db713bf231c4e61ccadaf7e55059c332a3607d969",
+      "source_kind": "director_supplied_conversation_image_exact_received_file_not_git_pinned",
+      "visual_status": "RAW_VISUAL_APPROVED",
+      "approved": true,
+      "approval_note": "Director explicitly approved Ring of Spilled Blood on 2026-10-14. Isolated generation prompt was mistakenly taken from BBE workstation, but final art is explicitly approved as BEE Ring of Spilled Blood; does not belong to Blue Blade Eyes.",
+      "composition": "One enormous tilted, open crimson blood-shadow spiral ring forming a swirling vortex around a near-black hollow center; jagged scarlet highlights, liquid droplets, full-bleed dark burgundy atmosphere; no figures, hands or hearts.",
+      "source_original_generation_export_verified": false,
+      "git_binary_pinned": false,
+      "processed": true,
+      "preflight_clear": false,
+      "live_verified": false,
+      "permitted_reference_use": "Approved BEE palette, texture, and technique-first rendering STYLE ONLY for other BEE jutsu; the unique tilted blood spiral/ring shape belongs to Ring of Spilled Blood."
     }
   ],
-  "processed_outputs": [],
+  "processed_outputs": [
+    {
+      "jutsu_name": "Ring of Spilled Blood",
+      "jutsu_id": "OeFCfJ--gEL_FioGfQvTY",
+      "file": "icon_bee_ring_of_spilled_blood_v1.webp",
+      "processed_from_received_sha256": "c4f703b891882f22abe28b6db713bf231c4e61ccadaf7e55059c332a3607d969",
+      "source_filename": "1000018453.png",
+      "source_format": "JPEG",
+      "transform": "Pillow 256×256 LANCZOS RGB resize; WEBP lossless=True, method=6; no chroma-key processing",
+      "format": "WebP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB",
+      "dimensions": [
+        256,
+        256
+      ],
+      "byte_size": 126396,
+      "sha256": "3878d542bd9a95269bab080595f76bfdab51a203058fc27da8faf32f68c04a64",
+      "decoded_pixel_equality_to_resized_input": true,
+      "tested_square": true,
+      "tested_minimum_source_width": true,
+      "tested_below_460800_working_ceiling": true,
+      "tested_thumbnail_sizes": [
+        125,
+        64,
+        32
+      ],
+      "thumbnail_visual_review": "PASS for dominant spiral silhouette at 125/64px; 32px remains clearly ring/vortex-shaped, fine droplets/detail necessarily merge.",
+      "filename_contract": "future @img file must be exactly icon_bee_ring_of_spilled_blood_v1.webp if this version is used",
+      "approval": "APPROVED RAW; processed standalone output is mechanically checked but director approval of exact processed export is not independently claimed",
+      "location": "conversation_generated_download_not_git_pinned",
+      "git_binary_pinned": false,
+      "official_artpreflight_invoked": false,
+      "official_artpreflight_verdict": "NOT RUN: known jutsu opaque-background shared ICON alpha conflict; cannot claim preflight clear",
+      "upload_readback_verified": false
+    }
+  ],
   "live_game_requests": 0,
   "live_game_writes": 0,
   "reference_images": [
