@@ -1,6 +1,6 @@
 # Blood-Enchanted Eyes — Jutsu Icon Visual Identity Register
 
-**Status:** **DIRECTOR-RESET SIMPLIFIED BEE ICON FAMILY (2026-10-15)** — **1/8 CURRENT RAW VISUAL APPROVED**: new Ring of Spilled Blood `1000018474.png`. All previous BEE jutsu artworks and their formerly approved candidates are REJECTED as current art due to excess detail, muddy silhouette/thumbnail readability, and literal blood/violence coding. Old sources, approvals, and exports remain historical evidence only. Redo next: **Crimson Tithe**. No production preflight or game upload claimed.  
+**Status:** **DIRECTOR-RESET SIMPLIFIED BEE ICON FAMILY (2026-10-15)** — **2/8 CURRENT RAW VISUAL APPROVED**: Ring of Spilled Blood `1000018474.png` and Crimson Tithe `1000018475.png`. All previous BEE jutsu artworks and their formerly approved candidates are REJECTED as current art due to excess detail, muddy silhouette/thumbnail readability, and literal blood/violence coding. Old sources, approvals, and exports remain historical evidence only. Redo next: **Reaper's Embrace**. No production preflight or game upload claimed.  
 **Art director:** dauntless. **Art Studio role:** direction, per-icon silhouette briefs, approval tracking, processing/QC.  
 **Operating contract:** docs/workflows/ISOLATED_ART_GENERATION.md and docs/workflows/ART_PRODUCTION.md; actual specs belong to skills/producing-tnr-art/.  
 **Bloodline identity:** Blood-Enchanted Eyes (BEE; bloodline ID `ovZIWu28ANn-Cij5TjT8S`). Do not confuse with **Blue Blade Eyes (BBE)**.  
@@ -16,9 +16,11 @@
 
 **NEW APPROVED FAMILY CALIBRATION — Ring of Spilled Blood (2026-10-15):** exact director-supplied `1000018474.png`, decoded JPEG RGB 1536×1536, 301,716 bytes, SHA-256 `a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43`. Visually approved **raw source only**. One massive continuous crimson-black shadow-chakra spiral with bold jagged curved contours and a black hollow center; no particles needed to recognize action. Informal thumbnail look at 125, 64 and 32px retains the ring silhouette. Image remains a conversation asset, not a Git-pinned original or processed WebP. No official preflight or live upload. For other BEE jutsus use it **STYLE / CONTRAST / SIMPLIFICATION ONLY**; **never reuse its vortex/spiral composition**.
 
-**Next redo — Crimson Tithe (proposal, not approved):** one **enormous stylized ritual chalice** as the single dominant shape; broad simple bowl and stable wide stem, a brilliant flat/smooth scarlet shadow-chakra glow or simple surface inside, and at most one vertical **energy ray** suggesting an offering. No liquid, no drips, no levitating bound mass or chains, no gory reference, no filigree, no intricate web of red trails, no rings/spirals in the cup (Ring already owns vortex). At 32px it should still look like a sinister chalice rather than a red smudge. Use existing Crimson Tithe jutsu icon for **subject identity ONLY**, and the *new* approved Ring for **style/material ONLY**. Do not use the rejected ornate Crimson Tithe remake as a rendering exemplar.
+**Current approval — Crimson Tithe (2026-10-15):** `1000018475.png` is the approved broad black chalice with one scarlet energy stream. Source JPEG RGB 1536×1536, 311821 bytes, SHA-256 `eeae4826ca7daa480fba50d4e7b721714a0dc833ec1afb14e14d0bc6ea2079b7`. The shape reads in informal 125/64/32 previews. No production processing or preflight.
 
-**Active approval count:** 1/8. Processing/export/official preflight are separate gates. No jutsu image generation takes place in this Art Studio; the next image comes from a fresh Crimson Tithe-only generation chat.
+**Next redo — Reaper's Embrace (proposal only):** two broad black shadow shrouds closing around a single abstract crimson chakra core. Bold angular outline, ample negative space, quiet backdrop. No portrait or human anatomy; distinct from Ring's vortex and Crimson Tithe's chalice.
+
+**Active approval count:** 2/8. Processing/export/official preflight are separate gates. No jutsu image generation takes place in this Art Studio; the next image comes from a fresh Reaper's Embrace-only generation chat.
 
 ## HISTORICAL 2026-10-14 visual direction (SUPERSEDED — do not use for generation)
 
@@ -41,9 +43,9 @@ HISTORICAL NOTE: three earlier jutsu candidates were once approved under this no
 | Jutsu | Historical ID (not a live-refresh assertion) | Observed captured mechanical cues (for context, NOT a final visual interpretation) | Visual / generation status |
 | --- | --- | --- | --- |
 | Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **CURRENT RAW VISUAL APPROVED (REDO)** — `1000018474.png` (JPEG bytes); earlier `1000018453.png` REJECTED, earlier WebP historical only. Current candidate processing pending |
-| Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target Shadow damage (supported historical evaluator row); Stun and Time Compression present in capture but tagged unsupported by evaluator | **NEXT REDO — CONCEPT PROPOSED**: single bold crimson-shadow chalice; old `1000018460.png` approval withdrawn |
+| Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target Shadow damage (supported historical evaluator row); Stun and Time Compression present in capture but tagged unsupported by evaluator | **RAW VISUAL APPROVED (SIMPLIFIED REDO)** — `1000018475.png`; earlier version rejected; processing pending |
 | Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability and lingering afterburn (supported captured rows); protective debuff prevention tagged unsupported | **REDO PENDING**; current historic identity ref `1000018427.jpg` confirmed; densely branched exploratory attempts rejected for thumbnail clutter |
-| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **REDO PENDING**; earlier `1000018452.png` and reported BBE-workstation export are rejected as current art, retained as history only |
+| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **NEXT REDO — NEW SHROUD CONCEPT**; older hand-and-heart version rejected |
 | Unholy Enhancement | `Nn75Lmvaep6oBQYH2BvVT` | Increases own damage, decreases opponent damage | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Crimson Impact | `fKEHVLvvj6q_b4l_X_k4k` | AOE impact, lifesteal, shield, vulnerability | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Hemocure | `9VRW6hqSoQuz5PA203jFE` | Absorption and defensive/offensive modulation | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
@@ -130,4 +132,4 @@ Original sources and output SHA records live in `SOURCE_EVIDENCE.json`; empty un
 5. **Do not generate in this studio.** Open a new generation conversation per icon; return the approved original to studio for processing/QC.
 6. Preserve every approval separately from processing, validation and publishing. No live-game requests/writes without explicit operator authorization.
 
-**Current visual approval:** **1/8** — **new simplified Ring of Spilled Blood only**. Earlier Reaper's Embrace, Crimson Tithe, Sanguine Plague drafts and pre-reset Ring are rejected as current art, despite historical approvals/QC. **Next: fresh simplified Crimson Tithe isolated generation**. Current Ring has not been processed or preflight-cleared. No live requests/writes or uploads. **Credentials:** none.
+**Current visual approval:** **2/8** — simplified Ring and Crimson Tithe. Previous BEE jutsu artwork remains rejected. Next simplified Reaper's Embrace; source image approvals only, no processed exports for this redo or live writes.
