@@ -28,7 +28,7 @@ The bloodline-wide color/material treatment is director-provided. **Reaper's Emb
 | --- | --- | --- | --- |
 | Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **RAW VISUAL APPROVED** — `1000018453.png` (actually JPEG); **processed WebP format/size/thumbnail QC passed**, export acceptance/preflight separately pending |
 | Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target Shadow damage (supported historical evaluator row); Stun and Time Compression present in capture but tagged unsupported by evaluator | **RAW VISUAL APPROVED** — `1000018460.png` (actual JPEG); cup-only version locked; processing/QC pending |
-| Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability and lingering afterburn (supported captured rows); protective debuff prevention tagged unsupported | **NEXT SELECTED — SOURCE IMAGE / SILHOUETTE INTAKE PENDING** |
+| Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability and lingering afterburn (supported captured rows); protective debuff prevention tagged unsupported | **EXISTING ICON REFERENCE CONFIRMED** — `1000018427.jpg`; branching plague-bloom concept PROPOSED, no replacement generated/approved |
 | Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **RAW VISUAL APPROVED; PROCESSED IN BBE WORKSTATION (DIRECTOR REPORT, EXPORT VERIFICATION PENDING BEE INTAKE)** — `1000018452.png` (three shadow hands enclosing crimson heart; JPEG bytes despite .png extension) |
 | Unholy Enhancement | `Nn75Lmvaep6oBQYH2BvVT` | Increases own damage, decreases opponent damage | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Crimson Impact | `fKEHVLvvj6q_b4l_X_k4k` | AOE impact, lifesteal, shield, vulnerability | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
@@ -72,6 +72,14 @@ The bloodline-wide color/material treatment is director-provided. **Reaper's Emb
 - Abandoned exploratory replacement proposal: a bodyless shadow mantle with no hands; **superseded** by the director-approved three-hand/heart icon. This failed draft direction is not an active constraint.
 - Thumbnail review: complex tiny humanoids and many competing red ribbons lose subject/action clarity at 125/64/32. Production processing and preflight have not started.
 
+## Sanguine Plague — current icon verified, concept exploratory (2026-10-14)
+
+- **Existing icon source:** director identifies conversation reference #2 `1000018427.jpg` as **Sanguine Plague**. Byte identity matched prior received JPEG: 1536×1536 RGB, 126,956 bytes, SHA-256 `5396af9acf3434338bde50a4480d106fcf4d2fa882aabfb608d7dde9bd28b39e`. Conversation attachment, not a pinned original game image or replacement approval.
+- **Existing identity motifs:** compact red ritual/teardrop-shaped center with pointed lattice and an outer halo of evenly spaced crimson beads on black. These are identity cues, not instructions to recreate a static circular sigil.
+- **Mechanics caveat:** historical BEE kit shows supported single-target vulnerability and afterburn rows; the self-protection debuff-prevention row is unsupported by that evaluator. This is historical evidence, not live refresh.
+- **Exploration PROPOSED, not director approved:** transform the central blood-red ritual seed into an **asymmetrical three-branch black-crimson plague bloom**, visually spreading sharp scarlet infected veins outward; detach the source's bead motifs into a sparse scatter of luminous plague droplets. A central spread/branch shape should dominate before detail. Avoid the complete bead circle or ring; preserve the theme without copying Reaper's hands/heart, Ring's vortex, or Crimson Tithe's chalice.
+- **Next:** fresh Sanguine Plague-only generation session, attaching exact current jutsu image as IDENTITY and one individual approved BEE artwork as STYLE ONLY; no character, victim or caster. Director accepts/rejects raw result independently.
+
 ## Scope separation: jutsu icons versus Bloodright art
 
 The **already approved BEE Foundation, Hidden Art and Advanced Art tier emblems** belong to a different Bloodright three-symbol workstream (context/evidence in `chatgpt/bloodright-icon-production-tracker-20261008@c85c1ea834e24315b5688f73a65c35479b8963e6`, `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md`). They are **not** among these eight jutsu icons and are **not authorized for redesign** here. Their reported black-backed identity may help palette calibration **only when exact approved reference images are supplied**; never copy their tier-symbol geometry into jutsu compositions by default.
@@ -108,4 +116,4 @@ Original sources and output SHA records live in `SOURCE_EVIDENCE.json`; empty un
 5. **Do not generate in this studio.** Open a new generation conversation per icon; return the approved original to studio for processing/QC.
 6. Preserve every approval separately from processing, validation and publishing. No live-game requests/writes without explicit operator authorization.
 
-**Current visual approval:** 3/8 (Reaper's Embrace, Ring of Spilled Blood, Crimson Tithe). Crimson Tithe processing pending; Ring local WebP checked but not preflight clear; Reaper's separate BBE-workstation export needs exact intake. Next Sanguine Plague source needed. No game requests, writes or upload. **Live-game requests/writes:** 0. **Credentials:** none.
+**Current visual approval:** 3/8 (Reaper's Embrace, Ring of Spilled Blood, Crimson Tithe). Crimson Tithe processing pending; Ring local WebP checked but not preflight clear; Reaper's separate BBE-workstation export needs exact intake. Sanguine Plague current icon supplied and matched reference #2; isolated artwork exploration next. No game requests, writes or upload. **Live-game requests/writes:** 0. **Credentials:** none.
