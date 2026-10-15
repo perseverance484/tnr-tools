@@ -1,6 +1,6 @@
 # Blood-Enchanted Eyes — Jutsu Icon Visual Identity Register
 
-**Status:** ART STUDIO ACTIVE; **0/8 jutsu-icon artworks approved in this workstream**. One unapproved Reaper's Embrace candidate generated; director requests technique-focused icons, not character scenes.  
+**Status:** ART STUDIO ACTIVE; **1/8 RAW VISUAL APPROVED**: Reaper's Embrace (2026-10-14). Seven other jutsu icons remain unapproved. Earlier figure-led Reaper draft is superseded; the approved current icon has three recognizable shadow hands closing on a luminous crimson heart. Processing and upload acceptance remain pending.  
 **Art director:** dauntless. **Art Studio role:** direction, per-icon silhouette briefs, approval tracking, processing/QC.  
 **Operating contract:** docs/workflows/ISOLATED_ART_GENERATION.md and docs/workflows/ART_PRODUCTION.md; actual specs belong to skills/producing-tnr-art/.  
 **Bloodline identity:** Blood-Enchanted Eyes (BEE; bloodline ID `ovZIWu28ANn-Cij5TjT8S`). Do not confuse with **Blue Blade Eyes (BBE)**.  
@@ -16,20 +16,20 @@ This is a new visual family, *not a recolor of BBE ice assets*. Initial identity
 - **Rendering:** one large readable focal shape with controlled crimson highlights and sharply separated black negative space; restrained fine particles/mist and carefully chosen highlights. Dark does **not** mean an unreadable black silhouette against black.
 - **Ninja/bloodline identity:** the icon depicts the **actual jutsu action**, not a generic blood droplet/eye/circle pasted onto every image. Bind/corrupt, drain/absorb, defend, restore, pierce, spiral or suppress according to actual evidenced skill.
 - **Variation:** each jutsu gets its own uniquely identifiable dominant **silhouette + composition + chakra behavior**; avoid eight different red circular sigils, repeating an eye on every icon, or silhouettes indistinguishable at thumbnail size.
-- **Director clarification after Reaper's Embrace draft:** jutsu artworks are **technique-first icons, not portraits or people scenes**. No hooded caster, victim crowd or face as the focal subject without a new explicit director exception. The supplied existing art is jutsu-specific; its exact subject belongs to its named technique, not every other technique sharing the palette.
+- **Director clarification after Reaper's Embrace draft:** jutsu artworks are **technique-first icons, not portraits or people scenes**. No hooded caster, victim crowd or face as the focal subject without a new explicit director exception. Reaper's Embrace is approved as **three isolated supernatural shadow hands**, not a full character/portrait. The approved heart/hands composition belongs to **Reaper's Embrace alone**; it is not generic BEE symbolism and must not be copied into other jutsu.
 - **Background:** user-approved TNR jutsu rule: **full-bleed painted background fills all four edges**, **no jutsu rarity plate**, **no required transparency**; distinguish opaque visual requirement from unresolved shared ICON alpha check.
 - **Avoid:** BBE's icy blue/snowflake/crystal family palette and sword shapes; unrelated characters/actors, franchise insignia, text, border, equipment UI, excessive gore, stock fantasy-red-fire look or non-technique ornaments.
 
-This visual treatment is **director-provided palette/theme direction**, not approval of any individual silhouette, source reference or generated image. Do not start generation in the Art Studio.
+The bloodline-wide color/material treatment is director-provided. **Reaper's Embrace is the first visually approved individual jutsu source** and may be used as a *style-only* reference for future icons; it does not lock other jutsu's silhouettes. Do not generate in the Art Studio.
 
 ## Eight historical BEE jutsu records — visual design NOT YET ASSIGNED
 
 | Jutsu | Historical ID (not a live-refresh assertion) | Observed captured mechanical cues (for context, NOT a final visual interpretation) | Visual / generation status |
 | --- | --- | --- | --- |
-| Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
+| Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **NEXT PROPOSED — ring/vortex concept not yet visually approved** |
 | Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target damage, stun and time disruption | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability, afterburn and protective debuff prevention | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
-| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **GENERATED — UNAPPROVED**; initial hooded-figure draft resembles Thousand Strike; icon-first redesign proposed, director disposition pending |
+| Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **RAW VISUAL APPROVED** — `1000018452.png` (three shadow hands enclosing crimson heart; JPEG bytes despite .png extension), processing pending |
 | Unholy Enhancement | `Nn75Lmvaep6oBQYH2BvVT` | Increases own damage, decreases opponent damage | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Crimson Impact | `fKEHVLvvj6q_b4l_X_k4k` | AOE impact, lifesteal, shield, vulnerability | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Hemocure | `9VRW6hqSoQuz5PA203jFE` | Absorption and defensive/offensive modulation | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
@@ -37,11 +37,20 @@ This visual treatment is **director-provided palette/theme direction**, not appr
 
 **Evidence limitation:** the captured Bloodright kit is a mechanical projection of earlier captures, not current live text or current artwork. Before locking an image concept, inspect the original visual references and preferably the jutsu's actual descriptive text. These cues provide **possibilities, not an artistic rulebook or permission to change mechanics**. Do not invent jutsu effects based on names.
 
+## Reaper's Embrace — approved visual (director, 2026-10-14)
+
+- **Approved exact received source:** `1000018452.png` — **JPEG** data, 1536×1536 RGB, 680,058 bytes, SHA-256 `d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0`. The file is conversation-only; NOT pinned in Git. Filename suffix is not decoded MIME.
+- **Dominant silhouette:** three **recognizable black-shadow humanoid hands** (one descending from top, left and right grasping inward) forming a triangular enclosure around a brilliant scarlet anatomical heart. Black/dark-burgundy vortex and energized blood-chakra ribbons provide depth, but the hands and heart must remain readable at thumbnail sizes.
+- **Approval nuance:** director: "2 hands might look better but lets leave it for now. Approved. Next." Therefore this exact **three-hand image is approved**. The possible two-hand version is a non-blocking future art-direction idea, not a revision request and not permission to change the locked source.
+- **Reference use:** for future BEE jutsu, this asset is **style, palette and material ONLY**; **never copy** the three hands, central heart, anatomy, grasping action, or circular energy ribbons into another technique without its own explicit direction.
+- **Production:** raw visually approved only. No 256px WebP, no BEE size ceiling approval, no actual family 125/64/32px QC, no valid canonical preflight, no game upload/read-back. Existing shared ICON alpha-contract mismatch remains unresolved. Preserve all old drafts as historical, NOT accepted.
+- **Next proposed jutsu:** **Ring of Spilled Blood**, based on its historically captured `AOE_SPIRAL_SHOOT`, damage and opponent damage-suppression rows. Visual concept: **one massive tilted, broken, blood-chakra spiral ring** surging outward, hollow black center, distinctly asymmetric trajectory and red-dark material, with **no hands or heart**. Proposal only until director visually approves a candidate; do not claim a new effect/description from mechanics.
+
 ## Reaper's Embrace first-pass review — 2026-10-14
 
-- First candidate: conversation upload `1000018432.png` (actual decoder format **JPEG**, 1536×1536 RGB; see `SOURCE_EVIDENCE.json` for exact byte hash). **NOT APPROVED; user expressed concern, no final rejection or acceptance yet.**
+- First candidate: conversation upload `1000018432.png` (actual decoder format **JPEG**, 1536×1536 RGB; see `SOURCE_EVIDENCE.json` for exact byte hash). **SUPERSEDED — NOT APPROVED**; later director approval applies only to the new three-hand/heart candidate.
 - The failed conditioning used reference #6 as the primary subject; the director has identified it as **Thousand Strike's** existing image. This was inappropriate for Reaper's Embrace and caused mistaken subject transfer.
-- Proposed replacement direction **not yet approved**: a large, bodyless black-crimson shadow shroud folding inward with two sweeping mantle-like sides around a concentrated scarlet blood-chakra center; drawn-in crimson strands imply vampiric recovery, enclosing dark shape implies temporary protection. Do not use a person, hood, eye, skeletal hand, victim crowd, scythe portrait, spiral ring or symmetrical occult sigil. Avoid Crimson Tithe's angular horizontal vise silhouette.
+- Abandoned exploratory replacement proposal: a bodyless shadow mantle with no hands; **superseded** by the director-approved three-hand/heart icon. This failed draft direction is not an active constraint.
 - Thumbnail review: complex tiny humanoids and many competing red ribbons lose subject/action clarity at 125/64/32. Production processing and preflight have not started.
 
 ## Scope separation: jutsu icons versus Bloodright art
@@ -80,4 +89,4 @@ Original sources and output SHA records live in `SOURCE_EVIDENCE.json`; empty un
 5. **Do not generate in this studio.** Open a new generation conversation per icon; return the approved original to studio for processing/QC.
 6. Preserve every approval separately from processing, validation and publishing. No live-game requests/writes without explicit operator authorization.
 
-**Current visual approval:** 0/8 in this workstream. **Live-game requests/writes:** 0. **Credentials:** none.
+**Current visual approval:** 1/8 (Reaper's Embrace); no current processing/preflight/upload. **Live-game requests/writes:** 0. **Credentials:** none.

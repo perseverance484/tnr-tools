@@ -10,9 +10,36 @@
     "Reference images are JPEG conversation attachments, not pinned original artist/source binaries. Hashes are of exact received attachments; reattach the pixels in future isolated sessions where needed.",
     "The previously approved BEE Bloodright three-tier emblems belong to an unrelated set and remain unchanged.",
     "One Reaper's Embrace initial candidate was generated; director noted it was too similar to Thousand Strike and wanted technique-centric icons instead of people. No visual approval or rejection has yet been recorded.",
-    "The opaque jutsu-background versus shared ICON alpha-preflight mismatch remains unresolved."
+    "The opaque jutsu-background versus shared ICON alpha-preflight mismatch remains unresolved.",
+    "Director approved exact Reaper's Embrace 1000018452.png 2026-10-14; three shadow hands and scarlet heart. Optional two-hand variant explicitly deferred; do not override this visual approval."
   ],
-  "raw_images": [],
+  "raw_images": [
+    {
+      "jutsu_name": "Reaper's Embrace",
+      "jutsu_id": "7RtWUduLzfIPOlWdo-NIu",
+      "uploaded_filename": "1000018452.png",
+      "detected_format": "JPEG",
+      "file_extension_mismatch": true,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1536,
+        1536
+      ],
+      "byte_size": 680058,
+      "sha256": "d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0",
+      "source_kind": "director_supplied_conversation_image_exact_source_unpinned",
+      "visual_status": "RAW_VISUAL_APPROVED",
+      "approved": true,
+      "composition": "Three recognizable dark shadow hands converge around luminous scarlet anatomical heart; crimson swirling blood-chakra backdrop.",
+      "approval_note": "Director accepted as-is, noted two hands might look better but explicitly deferred that optional revision.",
+      "source_original_generation_export_verified": false,
+      "git_binary_pinned": false,
+      "processed": false,
+      "preflight_clear": false,
+      "live_verified": false,
+      "permitted_reference_use": "Style, palette and shadow/blood material only; NO heart or grasping hand subject transfer to other BEE jutsu."
+    }
+  ],
   "processed_outputs": [],
   "live_game_requests": 0,
   "live_game_writes": 0,
@@ -143,13 +170,26 @@
       "byte_size": 666826,
       "sha256": "e750f48daebdf0605b7a009886c90b9d3a04f02ec512a480210373feed7577d6",
       "source_kind": "conversation_raw_generation_not_git_pinned",
-      "visual_status": "GENERATED — director feedback: overly figure-led and too similar to Thousand Strike; awaiting final approval/rework decision",
+      "visual_status": "SUPERSEDED_NOT_APPROVED — earlier hooded-figure draft; director approved separate three-hand/heart icon",
       "review_findings": [
         "The hooded figure reused Thousand Strike's specific silhouette; primary subject conditioning was inappropriate.",
         "Multiple tiny humanoid victims and tendrils create thumbnail clutter; technique action is not a clear standalone icon.",
-        "A replacement should show a uniquely shaped black-crimson enclosing shadow mantle or other technique-first action without people or portraits."
+        "A replacement should show a uniquely shaped black-crimson enclosing shadow mantle or other technique-first action without people or portraits.",
+        "Superseded by exact new approved received candidate 1000018452.png; do not reuse this old file for upload."
       ],
       "approved": false,
+      "processed": false,
+      "preflight_clear": false,
+      "live_verified": false
+    },
+    {
+      "jutsu_name": "Reaper's Embrace",
+      "jutsu_id": "7RtWUduLzfIPOlWdo-NIu",
+      "uploaded_filename": "1000018452.png",
+      "sha256": "d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0",
+      "source_kind": "director_supplied_conversation_image_exact_source_unpinned",
+      "visual_status": "RAW_VISUAL_APPROVED",
+      "approved": true,
       "processed": false,
       "preflight_clear": false,
       "live_verified": false
