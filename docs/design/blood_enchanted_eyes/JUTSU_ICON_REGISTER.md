@@ -1,6 +1,6 @@
 # Blood-Enchanted Eyes — Jutsu Icon Visual Identity Register
 
-**Status:** ART STUDIO ACTIVE; **1/8 RAW VISUAL APPROVED**: Reaper's Embrace (2026-10-14). Seven other jutsu icons remain unapproved. Earlier figure-led Reaper draft is superseded; the approved current icon has three recognizable shadow hands closing on a luminous crimson heart. Director confirms this image was also processed in the BBE workstation by mistake; BEE has not yet verified/registered that exact exported WebP or its QC. No live upload accepted.  
+**Status:** ART STUDIO ACTIVE; **2/8 RAW VISUAL APPROVED**: Reaper's Embrace and Ring of Spilled Blood (2026-10-14). Ring also has a BEE-workstation-produced 256px lossless WebP whose format, byte size, decoded pixel identity and thumbnail readability were checked; processed-export director acceptance and canonical preflight remain separate. Reaper's separately reported BBE-workstation WebP remains unavailable for BEE QC intake. Six other jutsu icons remain unapproved. No live upload accepted.  
 **Art director:** dauntless. **Art Studio role:** direction, per-icon silhouette briefs, approval tracking, processing/QC.  
 **Operating contract:** docs/workflows/ISOLATED_ART_GENERATION.md and docs/workflows/ART_PRODUCTION.md; actual specs belong to skills/producing-tnr-art/.  
 **Bloodline identity:** Blood-Enchanted Eyes (BEE; bloodline ID `ovZIWu28ANn-Cij5TjT8S`). Do not confuse with **Blue Blade Eyes (BBE)**.  
@@ -20,13 +20,13 @@ This is a new visual family, *not a recolor of BBE ice assets*. Initial identity
 - **Background:** user-approved TNR jutsu rule: **full-bleed painted background fills all four edges**, **no jutsu rarity plate**, **no required transparency**; distinguish opaque visual requirement from unresolved shared ICON alpha check.
 - **Avoid:** BBE's icy blue/snowflake/crystal family palette and sword shapes; unrelated characters/actors, franchise insignia, text, border, equipment UI, excessive gore, stock fantasy-red-fire look or non-technique ornaments.
 
-The bloodline-wide color/material treatment is director-provided. **Reaper's Embrace is the first visually approved individual jutsu source** and may be used as a *style-only* reference for future icons; it does not lock other jutsu's silhouettes. Do not generate in the Art Studio.
+The bloodline-wide color/material treatment is director-provided. **Reaper's Embrace and Ring of Spilled Blood are visually approved individual jutsu sources** and may be used as *style-only* references for future icons; neither locks other jutsu's silhouettes. Ring's large tilted spiral is exclusive to Ring, while Reaper's three hands and heart belong exclusively to Reaper. Do not generate in the Art Studio.
 
-## Eight historical BEE jutsu records — visual design NOT YET ASSIGNED
+## Eight historical BEE jutsu records — art status register
 
 | Jutsu | Historical ID (not a live-refresh assertion) | Observed captured mechanical cues (for context, NOT a final visual interpretation) | Visual / generation status |
 | --- | --- | --- | --- |
-| Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **NEXT PROPOSED — ring/vortex concept not yet visually approved** |
+| Ring of Spilled Blood | `OeFCfJ--gEL_FioGfQvTY` | Spiral AOE; damage; opponent attack suppression | **RAW VISUAL APPROVED** — `1000018453.png` (actually JPEG); **processed WebP format/size/thumbnail QC passed**, export acceptance/preflight separately pending |
 | Crimson Tithe | `zor6cX3qn2eTObW0fveBk` | Single-target damage, stun and time disruption | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Sanguine Plague | `XIcRftgH-UOJCdl91wbRD` | Vulnerability, afterburn and protective debuff prevention | **PENDING SOURCE IMAGE + SILHOUETTE BRIEF** |
 | Reaper's Embrace | `7RtWUduLzfIPOlWdo-NIu` | AOE shadow damage, movement, vampiric recovery, protection | **RAW VISUAL APPROVED; PROCESSED IN BBE WORKSTATION (DIRECTOR REPORT, EXPORT VERIFICATION PENDING BEE INTAKE)** — `1000018452.png` (three shadow hands enclosing crimson heart; JPEG bytes despite .png extension) |
@@ -37,6 +37,16 @@ The bloodline-wide color/material treatment is director-provided. **Reaper's Emb
 
 **Evidence limitation:** the captured Bloodright kit is a mechanical projection of earlier captures, not current live text or current artwork. Before locking an image concept, inspect the original visual references and preferably the jutsu's actual descriptive text. These cues provide **possibilities, not an artistic rulebook or permission to change mechanics**. Do not invent jutsu effects based on names.
 
+## Ring of Spilled Blood — approved visual and standalone export (director, 2026-10-14)
+
+- **Approved exact received source:** `1000018453.png`, actual decoder format **JPEG** despite suffix, RGB 1536×1536, 717,049 bytes; SHA-256 `c4f703b891882f22abe28b6db713bf231c4e61ccadaf7e55059c332a3607d969`. Source bytes are a user-supplied conversation attachment, **not Git-pinned**.
+- **Director acceptance:** explicitly approved this image for **Blood-Enchanted Eyes — Ring of Spilled Blood**, despite the isolated prompt mistakenly being taken from the **Blue Blade Eyes** session. This is **not** a BBE icon or a change to BBE's eight-jutsu roster.
+- **Dominant silhouette:** one huge tilted, irregular blood-infused shadow chakra spiral/ring, with a clearly defined deep-black central void and brilliant scarlet outer wake. No hands, hearts, characters or portrait. Material and lighting match approved BEE Reaper's Embrace without copying its composition.
+- **Visual stress check:** actual standalone output was viewed at 125px, 64px and 32px. Strong readable ring/spiral hierarchy at 125/64, broad ring/vortex recognizable at 32; fine particles and tiny trailing blood droplets simplify as expected. No source modification authorized.
+- **Standalone processed export:** `icon_bee_ring_of_spilled_blood_v1.webp`, 256×256 RGB **lossless WebP (VP8L)**, 126,396 bytes, SHA-256 `3878d542bd9a95269bab080595f76bfdab51a203058fc27da8faf32f68c04a64`. Pillow LANCZOS downscale to 256; lossless WebP method=6, no keying. Decoder, 256×256 square, >=160px, <460,800 bytes, VP8L and exact decoded pixel equality to resized RGB source checked. No BBE-only <80,000-byte cap applies here.
+- **Limits:** the processed export is available as a conversation deliverable, not a Git-pinned repository binary. Director accepted the **raw visual**; specific processed-file acceptance was not separately requested. Official artpreflight was **not run**, and the known shared ICON alpha conflict remains unresolved: **NOT PREFLIGHT CLEAR**. No live upload/read-back.
+- **Reference use:** STYLE/MATERIAL only for other BEE jutsu; do not transfer this distinctive spiral ring/vortex as generic blood-chakra ornament.
+
 ## Reaper's Embrace — approved visual (director, 2026-10-14)
 
 - **Approved exact received source:** `1000018452.png` — **JPEG** data, 1536×1536 RGB, 680,058 bytes, SHA-256 `d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0`. The file is conversation-only; NOT pinned in Git. Filename suffix is not decoded MIME.
@@ -44,7 +54,7 @@ The bloodline-wide color/material treatment is director-provided. **Reaper's Emb
 - **Approval nuance:** director: "2 hands might look better but lets leave it for now. Approved. Next." Therefore this exact **three-hand image is approved**. The possible two-hand version is a non-blocking future art-direction idea, not a revision request and not permission to change the locked source.
 - **Reference use:** for future BEE jutsu, this asset is **style, palette and material ONLY**; **never copy** the three hands, central heart, anatomy, grasping action, or circular energy ribbons into another technique without its own explicit direction.
 - **Production:** raw visually approved, and the director reports a processed export from the **wrong BBE workstation**. The exported WebP, exact filename, bytes, source-to-export binding, decoder/VP8L checks and full 125/64/32px QC are not currently available to verify in BEE. Do not infer official zero-error canonical preflight or live upload/read-back from this report. When the existing export is supplied, verify and register it under **BEE**, without reprocessing unnecessarily. Existing shared ICON alpha-contract mismatch remains unresolved. Preserve all old drafts as historical, NOT accepted.
-- **Next proposed jutsu:** **Ring of Spilled Blood**, based on its historically captured `AOE_SPIRAL_SHOOT`, damage and opponent damage-suppression rows. Visual concept: **one massive tilted, broken, blood-chakra spiral ring** surging outward, hollow black center, distinctly asymmetric trajectory and red-dark material, with **no hands or heart**. Proposal only until director visually approves a candidate; do not claim a new effect/description from mechanics.
+- **Next proposed jutsu:** **Crimson Tithe** (single-target shadow damage with historically captured stun/time-disruption cues). Explore a compact, clearly directional compression/binding silhouette distinct from Reaper's heart/hands and Ring's swirling vortex; director direction pending.
 
 **Workstation attribution correction (director, 2026-10-14):** This approved image was mistakenly processed in the **Blue Blade Eyes workstation**. Ownership is **Blood-Enchanted Eyes — Reaper's Embrace**. No BBE eight-jutsu roster membership or Blue Blade Eyes art direction is implied. The BBE repository processing ledger presently does not identify a verified Reaper's Embrace output; request the actual processed file/manifest and preserve its exact source/provenance. No new generation is needed.
 
@@ -91,4 +101,4 @@ Original sources and output SHA records live in `SOURCE_EVIDENCE.json`; empty un
 5. **Do not generate in this studio.** Open a new generation conversation per icon; return the approved original to studio for processing/QC.
 6. Preserve every approval separately from processing, validation and publishing. No live-game requests/writes without explicit operator authorization.
 
-**Current visual approval:** 1/8 (Reaper's Embrace); director reports external processing in BBE session, exact export/QC verification pending BEE intake; no canonical preflight or upload claim. **Live-game requests/writes:** 0. **Credentials:** none.
+**Current visual approval:** 2/8 (Reaper's Embrace; Ring of Spilled Blood). Ring processed WebP locally checked for format/size/codec/scale but not canonically preflight-cleared; Reaper external BBE processing report still needs exact export BEE intake. No live upload, game request, or write. **Live-game requests/writes:** 0. **Credentials:** none.
