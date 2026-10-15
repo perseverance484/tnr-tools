@@ -11,7 +11,8 @@
     "The previously approved BEE Bloodright three-tier emblems belong to an unrelated set and remain unchanged.",
     "One Reaper's Embrace initial candidate was generated; director noted it was too similar to Thousand Strike and wanted technique-centric icons instead of people. No visual approval or rejection has yet been recorded.",
     "The opaque jutsu-background versus shared ICON alpha-preflight mismatch remains unresolved.",
-    "Director approved exact Reaper's Embrace 1000018452.png 2026-10-14; three shadow hands and scarlet heart. Optional two-hand variant explicitly deferred; do not override this visual approval."
+    "Director approved exact Reaper's Embrace 1000018452.png 2026-10-14; three shadow hands and scarlet heart. Optional two-hand variant explicitly deferred; do not override this visual approval.",
+    "Director reports Reaper's Embrace was processed in the Blue Blade Eyes (BBE) workstation conversation in error; it belongs to Blood-Enchanted Eyes (BEE). The BEE studio has NOT received that particular exported WebP or verifiable per-file QC/provenance, so processed_outputs stays empty until the actual output bytes are inspected. No need to regenerate or repeat processing solely because the workstation label was wrong."
   ],
   "raw_images": [
     {
@@ -37,7 +38,24 @@
       "processed": false,
       "preflight_clear": false,
       "live_verified": false,
-      "permitted_reference_use": "Style, palette and shadow/blood material only; NO heart or grasping hand subject transfer to other BEE jutsu."
+      "permitted_reference_use": "Style, palette and shadow/blood material only; NO heart or grasping hand subject transfer to other BEE jutsu.",
+      "external_processing_report": {
+        "reported_by": "director",
+        "reported_date": "2026-10-14",
+        "external_workstation": "Blue Blade Eyes (BBE) workstation conversation",
+        "report": "The director states that Reaper's Embrace was approved and processed in the BBE workstation by mistake. This is a Blood-Enchanted Eyes (BEE) jutsu only, not an addition to the Blue Blade Eyes eight-icon roster.",
+        "export_evidence_status": "NOT_YET_AVAILABLE_IN_BEE_STUDIO",
+        "output_filename": null,
+        "export_sha256": null,
+        "verified_dimensions": null,
+        "verified_webp_codec": null,
+        "verified_byte_size": null,
+        "verified_source_to_export_binding": false,
+        "verified_125_64_32_review": false,
+        "canonical_preflight_clear": false,
+        "live_verified": false,
+        "next_step": "Import the specific already-processed WebP (or package and its production QC record) to verify it and register under BEE; do not regenerate or reprocess unnecessarily."
+      }
     }
   ],
   "processed_outputs": [],
