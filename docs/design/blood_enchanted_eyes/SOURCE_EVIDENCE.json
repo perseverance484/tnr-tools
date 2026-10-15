@@ -14,7 +14,9 @@
     "Director approved exact Reaper's Embrace 1000018452.png 2026-10-14; three shadow hands and scarlet heart. Optional two-hand variant explicitly deferred; do not override this visual approval.",
     "Director reports Reaper's Embrace was processed in the Blue Blade Eyes (BBE) workstation conversation in error; it belongs to Blood-Enchanted Eyes (BEE). The BEE studio has NOT received that particular exported WebP or verifiable per-file QC/provenance, so processed_outputs stays empty until the actual output bytes are inspected. No need to regenerate or repeat processing solely because the workstation label was wrong.",
     "Director approved Ring of Spilled Blood received image 1000018453.png on 2026-10-14; actual bytes JPEG despite .png extension. One standalone 256×256 lossless WebP was exported from the received bytes for BEE on the studio side with actual size/codec/pixel/thumbnail checks. The initial prompt was mistakenly copied from the BBE workstation, which does not change this BEE jutsu's identity or ownership. The processed file is a conversation deliverable, not a Git binary.",
-    "Reference #2, 1000018427.jpg, was explicitly mapped by the director to the current Sanguine Plague jutsu icon. Exact received JPEG matches original logged 2026-10-14 SHA-256 and byte size. Existing-image identity is now verified by user attribution; a replacement visual has NOT been generated or approved."
+    "Reference #2, 1000018427.jpg, was explicitly mapped by the director to the current Sanguine Plague jutsu icon. Exact received JPEG matches original logged 2026-10-14 SHA-256 and byte size. Existing-image identity is now verified by user attribution; a replacement visual has NOT been generated or approved.",
+    "2026-10-15 DIRECTOR RESET: All prior eight-jutsu BEE artwork approvals have been explicitly withdrawn; preserve historical received bytes and historical production measurements but none of the earlier images/exports are current acceptable artwork or style-generation references. Active family rules: one large bold silhouette, minimal fine detail, readable at 125/64/32px, opaque full-bleed dark background, abstract crimson shadow-chakra rather than literal blood or implied violence, no people/portraits. Existing approved Bloodright three-tier emblems are separate and unaffected.",
+    "2026-10-15 NEW APPROVAL: Ring of Spilled Blood 1000018474.png, 1536x1536 RGB JPEG (despite .png filename), sha256 a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43, 301716 bytes. This is the only currently accepted BEE jutsu icon. No WebP export or canonical preflight yet."
   ],
   "raw_images": [
     {
@@ -31,8 +33,8 @@
       "byte_size": 680058,
       "sha256": "d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0",
       "source_kind": "director_supplied_conversation_image_exact_source_unpinned",
-      "visual_status": "RAW_VISUAL_APPROVED",
-      "approved": true,
+      "visual_status": "REJECTED_SUPERSEDED_BY_2026_10_15_RESET",
+      "approved": false,
       "composition": "Three recognizable dark shadow hands converge around luminous scarlet anatomical heart; crimson swirling blood-chakra backdrop.",
       "approval_note": "Director accepted as-is, noted two hands might look better but explicitly deferred that optional revision.",
       "source_original_generation_export_verified": false,
@@ -40,7 +42,7 @@
       "processed": false,
       "preflight_clear": false,
       "live_verified": false,
-      "permitted_reference_use": "Style, palette and shadow/blood material only; NO heart or grasping hand subject transfer to other BEE jutsu.",
+      "permitted_reference_use": "Historical rejected example ONLY; do not condition future icon generation on this image's rendering or composition.",
       "external_processing_report": {
         "reported_by": "director",
         "reported_date": "2026-10-14",
@@ -57,7 +59,10 @@
         "canonical_preflight_clear": false,
         "live_verified": false,
         "next_step": "Import the specific already-processed WebP (or package and its production QC record) to verify it and register under BEE; do not regenerate or reprocess unnecessarily."
-      }
+      },
+      "historical_director_approval": true,
+      "rejection_reason": "Director rejected all earlier BEE jutsu artwork as too finely detailed and weakly framed at thumbnail size; literal blood imagery and implied violence are unacceptable. Prior acceptance and processing preserved as historical evidence only.",
+      "rejected_on": "2026-10-15"
     },
     {
       "jutsu_name": "Ring of Spilled Blood",
@@ -73,8 +78,8 @@
       "byte_size": 717049,
       "sha256": "c4f703b891882f22abe28b6db713bf231c4e61ccadaf7e55059c332a3607d969",
       "source_kind": "director_supplied_conversation_image_exact_received_file_not_git_pinned",
-      "visual_status": "RAW_VISUAL_APPROVED",
-      "approved": true,
+      "visual_status": "REJECTED_SUPERSEDED_BY_2026_10_15_RESET",
+      "approved": false,
       "approval_note": "Director explicitly approved Ring of Spilled Blood on 2026-10-14. Isolated generation prompt was mistakenly taken from BBE workstation, but final art is explicitly approved as BEE Ring of Spilled Blood; does not belong to Blue Blade Eyes.",
       "composition": "One enormous tilted, open crimson blood-shadow spiral ring forming a swirling vortex around a near-black hollow center; jagged scarlet highlights, liquid droplets, full-bleed dark burgundy atmosphere; no figures, hands or hearts.",
       "source_original_generation_export_verified": false,
@@ -82,7 +87,10 @@
       "processed": true,
       "preflight_clear": false,
       "live_verified": false,
-      "permitted_reference_use": "Approved BEE palette, texture, and technique-first rendering STYLE ONLY for other BEE jutsu; the unique tilted blood spiral/ring shape belongs to Ring of Spilled Blood."
+      "permitted_reference_use": "Historical rejected example ONLY; do not condition future icon generation on this image's rendering or composition.",
+      "historical_director_approval": true,
+      "rejection_reason": "Director rejected all earlier BEE jutsu artwork as too finely detailed and weakly framed at thumbnail size; literal blood imagery and implied violence are unacceptable. Prior acceptance and processing preserved as historical evidence only.",
+      "rejected_on": "2026-10-15"
     },
     {
       "jutsu_name": "Crimson Tithe",
@@ -98,14 +106,44 @@
       "byte_size": 670978,
       "sha256": "f6e63d780ae20a8d13f0dcb266a1df99a58b373280cacf38217d5de787a5bfc6",
       "source_kind": "director_supplied_conversation_image_unpinned",
-      "visual_status": "RAW_VISUAL_APPROVED",
-      "approved": true,
+      "visual_status": "REJECTED_SUPERSEDED_BY_2026_10_15_RESET",
+      "approved": false,
       "composition": "Single ornate crimson ritual chalice receiving an off-frame vertical energy stream; previous suspended bound object eliminated.",
       "git_binary_pinned": false,
       "processed": false,
       "preflight_clear": false,
       "live_verified": false,
-      "permitted_reference_use": "STYLE ONLY; no chalice or vertical stream transfer to other techniques."
+      "permitted_reference_use": "Historical rejected example ONLY; do not condition future icon generation on this image's rendering or composition.",
+      "historical_director_approval": true,
+      "rejection_reason": "Director rejected all earlier BEE jutsu artwork as too finely detailed and weakly framed at thumbnail size; literal blood imagery and implied violence are unacceptable. Prior acceptance and processing preserved as historical evidence only.",
+      "rejected_on": "2026-10-15"
+    },
+    {
+      "jutsu_name": "Ring of Spilled Blood",
+      "jutsu_id": "OeFCfJ--gEL_FioGfQvTY",
+      "uploaded_filename": "1000018474.png",
+      "detected_format": "JPEG",
+      "file_extension_mismatch": true,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1536,
+        1536
+      ],
+      "byte_size": 301716,
+      "sha256": "a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43",
+      "source_kind": "director_supplied_conversation_attachment_not_git_pinned",
+      "visual_status": "RAW_VISUAL_APPROVED_NEW_SIMPLIFIED_BEE_DIRECTION",
+      "approved": true,
+      "approved_on": "2026-10-15",
+      "approval_note": "Director said 'Perfect. Approved, next.' after resetting the entire BEE jutsu-icon family. This is the first current approval under the new simplified, non-literal-chakra direction.",
+      "composition": "One thick high-contrast crimson-and-black shadow-chakra vortex/ring with a substantial dark central hollow. Few bold curling forms, restrained background, no liquid gore, no actors or micro-detail dependency.",
+      "small_size_visual_review": "Informal direct visual review of nearest-neighbor-visible 125/64/32 previews indicates the dark central hole and spiral retain their silhouette; production QC remains pending.",
+      "source_original_generation_export_verified": false,
+      "git_binary_pinned": false,
+      "processed": false,
+      "preflight_clear": false,
+      "live_verified": false,
+      "permitted_reference_use": "CURRENT APPROVED STYLE + PALETTE + SIMPLIFIED SILHOUETTE CLARITY ONLY; do not copy Ring's swirl, circular vortex layout, or turbulent blades into other BEE jutsus."
     }
   ],
   "processed_outputs": [
@@ -142,7 +180,11 @@
       "git_binary_pinned": false,
       "official_artpreflight_invoked": false,
       "official_artpreflight_verdict": "NOT RUN: known jutsu opaque-background shared ICON alpha conflict; cannot claim preflight clear",
-      "upload_readback_verified": false
+      "upload_readback_verified": false,
+      "historical_qc_only": true,
+      "delivery_eligible": false,
+      "underlying_art_rejected_on": "2026-10-15",
+      "current_visual_approval": false
     }
   ],
   "live_game_requests": 0,
@@ -294,11 +336,12 @@
       "uploaded_filename": "1000018452.png",
       "sha256": "d7e770f0b7e8758e591d1317305597d429d90f1358a9e30a118629a9d633c1c0",
       "source_kind": "director_supplied_conversation_image_exact_source_unpinned",
-      "visual_status": "RAW_VISUAL_APPROVED",
-      "approved": true,
+      "visual_status": "REJECTED_SUPERSEDED_BY_2026_10_15_RESET",
+      "approved": false,
       "processed": false,
       "preflight_clear": false,
-      "live_verified": false
+      "live_verified": false,
+      "historical_director_approval": true
     }
   ]
 }
