@@ -18,7 +18,8 @@
     "2026-10-15 DIRECTOR RESET: All prior eight-jutsu BEE artwork approvals have been explicitly withdrawn; preserve historical received bytes and historical production measurements but none of the earlier images/exports are current acceptable artwork or style-generation references. Active family rules: one large bold silhouette, minimal fine detail, readable at 125/64/32px, opaque full-bleed dark background, abstract crimson shadow-chakra rather than literal blood or implied violence, no people/portraits. Existing approved Bloodright three-tier emblems are separate and unaffected.",
     "2026-10-15 NEW APPROVAL: Ring of Spilled Blood 1000018474.png, 1536x1536 RGB JPEG (despite .png filename), sha256 a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43, 301716 bytes. This is the only currently accepted BEE jutsu icon. No WebP export or canonical preflight yet.",
     "2026-10-15 DIRECTOR APPROVAL (SIMPLIFIED REDO): Crimson Tithe source 1000018475.png, 1536x1536 RGB JPEG bytes despite .png filename, SHA-256 eeae4826ca7daa480fba50d4e7b721714a0dc833ec1afb14e14d0bc6ea2079b7, 311821 bytes. Only the current broad chalice and single vertical crimson energy stream are accepted; original old ornate design remains rejected. Raw art approval only: processing/size/codec/artpreflight/live upload not established.",
-    "2026-10-15 Reaper's Embrace simplified draft `1000018476.png` reviewed: NOT APPROVED, revision requested. Director prefers wispy grasping shadow-tendrils actively wrapping around the vitality globe rather than paired wing-like shrouds. Review preserves a two-formation silhouette with controlled tapered fingers and a strong abstract energy core. No image generation or processing in studio."
+    "2026-10-15 Reaper's Embrace simplified draft `1000018476.png` reviewed: NOT APPROVED, revision requested. Director prefers wispy grasping shadow-tendrils actively wrapping around the vitality globe rather than paired wing-like shrouds. Review preserves a two-formation silhouette with controlled tapered fingers and a strong abstract energy core. No image generation or processing in studio.",
+    "2026-10-15: Reaper's Embrace 1000018477.png approved under new simplified BEE direction. Exact received bytes are JPEG, 1536x1536 RGB, 392606 bytes, SHA-256 c5a8245406458039c53b9dc1ef30ba7acbfe43b63c3e9546248db3833c81d133. Earlier winglike version 1000018476.png superseded; other pre-reset artwork still rejected. Director approval is raw visual only, not processing/preflight/upload."
   ],
   "raw_images": [
     {
@@ -173,6 +174,32 @@
       "preflight_clear": false,
       "live_verified": false,
       "permitted_reference_use": "CURRENT APPROVED STYLE, PALETTE, MATERIAL AND BOLD SILHOUETTE SIMPLIFICATION ONLY; chalice and vertical energy column are Crimson Tithe-specific and must not be copied into other BEE jutsu."
+    },
+    {
+      "jutsu_name": "Reaper's Embrace",
+      "jutsu_id": "7RtWUduLzfIPOlWdo-NIu",
+      "uploaded_filename": "1000018477.png",
+      "detected_format": "JPEG",
+      "file_extension_mismatch": true,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1536,
+        1536
+      ],
+      "byte_size": 392606,
+      "sha256": "c5a8245406458039c53b9dc1ef30ba7acbfe43b63c3e9546248db3833c81d133",
+      "source_kind": "director_supplied_conversation_image_not_git_pinned",
+      "visual_status": "RAW_VISUAL_APPROVED_NEW_SIMPLIFIED_BEE_DIRECTION",
+      "approved": true,
+      "approved_on": "2026-10-15",
+      "approval_note": "Director explicitly said 'Approved, next' for the revision with two large opposing shadow formations extending grasping tendrils around an abstract crimson vitality globe.",
+      "composition": "Two enormous opposing dark shroud masses curl inward into bold wispy black-crimson tendrils wrapping around one bright scarlet vitality globe, overlapping the globe's edges; no people, hands, anatomical heart, visible blood or gore.",
+      "source_original_generation_export_verified": false,
+      "git_binary_pinned": false,
+      "processed": false,
+      "preflight_clear": false,
+      "live_verified": false,
+      "permitted_reference_use": "Use as palette/contrast/simplified shadow material only; grasping tendrils and central vitality globe are unique to Reaper's Embrace."
     }
   ],
   "processed_outputs": [
@@ -386,7 +413,7 @@
       "byte_size": 383461,
       "sha256": "20c45e2bbb146c35a46ee9c174be5dd88178220ce1d41c67ae05d8a53480794d",
       "source_kind": "director_supplied_conversation_image_exact_received_bytes_not_git_pinned",
-      "visual_status": "GENERATED_REWORK_REQUESTED_NOT_APPROVED",
+      "visual_status": "SUPERSEDED_BY_DIRECTOR_APPROVED_2026_10_15_REAPER_TENDRILS",
       "approved": false,
       "processed": false,
       "preflight_clear": false,
