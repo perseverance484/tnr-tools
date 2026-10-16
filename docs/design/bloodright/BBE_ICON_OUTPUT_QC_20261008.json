@@ -1,0 +1,72 @@
+{
+  "kind": "tnr.bloodright.icon-output-qc/1",
+  "date": "2026-10-08",
+  "roster_code": "BR-015",
+  "bloodline": "Blue Blade Eyes",
+  "rank": "S",
+  "user_accepted_direction": "Three tier emblems in sapphire/cyan crystalline ice, exact universal silhouettes, opaque black background; Foundation, Hidden and Advanced approved in conversation",
+  "references": "Six bloodline jutsu images supplied in conversation; exact referenced PNGs are conversation assets, not Git-tracked binaries",
+  "repo_art_spec": "main@5963810895aae4e2deaa61b72424c203752f50c1 skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+  "repo_preflight": "main@5963810895aae4e2deaa61b72424c203752f50c1 skills/producing-tnr-art/scripts/artpreflight.py",
+  "output_target": "ICON",
+  "file_type": "lossless WebP (VP8L)",
+  "dimensions": [
+    256,
+    256
+  ],
+  "working_cap_bytes": 460800,
+  "hard_cap_bytes": 524288,
+  "processing": "Pillow RGB resize((256,256), Image.Resampling.LANCZOS); save(format='WEBP', lossless=True, method=6)",
+  "artifacts": [
+    {
+      "tier": "Foundation",
+      "source_name": "icy_blue_crystal_diamond_emblem.png",
+      "source_sha256": "04f16b3cf090177490a346c6dc0868bdf6c250b59bea1cd0bd1a0b7d4a9fedf6",
+      "upload_filename": "bbe_foundation_black_bg_256.webp",
+      "upload_sha256": "fbe06c4ee75afe9903bed443ed46c68421e1a59ce28bdc6d7ff3d0ee0c26a829",
+      "bytes": 42650
+    },
+    {
+      "tier": "Hidden Art",
+      "source_name": "crystalline_hidden_art_emblem.png",
+      "source_sha256": "dc8e848491c9946810d8d665019ebfcd4d351cce1b6fe677c127da64296f869b",
+      "upload_filename": "bbe_hidden_art_black_bg_256.webp",
+      "upload_sha256": "744165f83e6d2286df79419d6e8fa0bc6d6355720c9ceee960d931ea5bf2d1f8",
+      "bytes": 56894
+    },
+    {
+      "tier": "Advanced Art",
+      "source_name": "icy_sapphire_crystal_starburst_emblem.png",
+      "source_sha256": "6797670fa622ae81e241031c68efcb021df0168189b6481f581f10e7549da06f",
+      "upload_filename": "bbe_advanced_art_black_bg_256.webp",
+      "upload_sha256": "8d6ae0b0f5f6f3adeeabb554b944bb5f29ec3b5fac05ccee670c661a402e121d",
+      "bytes": 49996
+    }
+  ],
+  "checked": {
+    "decode": true,
+    "aspect": true,
+    "min_width": true,
+    "byte_ceiling": true,
+    "webp_vp8l": true,
+    "lossless_pixel_equality": true,
+    "near_black_canvas_corners": true,
+    "zip_crc": true,
+    "zip_member_equality": true,
+    "125_64_32px_visual_review": true
+  },
+  "formal_preflight_invocation": false,
+  "formal_preflight_expected_result": {
+    "errors": 3,
+    "error_per_file": {
+      "check": "alpha",
+      "reason": "User-approved opaque RGB icon, while generic keyed ICON target requires RGBA"
+    },
+    "zero_error_pass": false
+  },
+  "status": "BYTE_AND_FORMAT_UPLOAD_SAFE; FORMAL_ALPHA_EXCEPTION_OPEN",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "repo_binary_art_committed": false,
+  "artifact_location_note": "Raw PNGs and processed WebPs remain conversation deliverables; hashes are provided for operator-side verification, not a claim of committed binary art."
+}
