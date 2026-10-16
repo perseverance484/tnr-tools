@@ -6,7 +6,7 @@
   "sourceRevision": "r2",
   "fixtureReference": "claude/silent-bastion-phase1-validation-9628h6@33be3cd2fe504d508ade2ab04d15e45f4c752ed3",
   "goal": "<100 nodes without game-source modifications, dropping optional first division; retain 4 later complete divisions and their full fight/terminal/puzzle/protocol identity",
-  "directorApproval": "NOT_APPROVED",
+  "directorApproval": "APPROVED_SCOPE_PENDING_NATIVE_PROOF",
   "runtimeProof": "NOT_TESTED; requires separate Fable engine-native regression",
   "root": "d2.n.f1",
   "counts": {
@@ -29,7 +29,8 @@
     "All failure paths except Arakane divide into first-regular or later loss, each uses a 50%-pool recovery first encounter.",
     "The back-edge is carried ONLY through reset_quest.resetObjectiveId, not through nextObjectiveId or failObjectiveId.",
     "The static validator allows this shape in principle. Test real tracker clearing and reactivation after WIN->RESET and repeated recovery losses.",
-    "Art, economic balancing, gameplay and publishing decisions remain operator-owned."
+    "Art, economic balancing, gameplay and publishing decisions remain operator-owned.",
+    "Director selected four full interior divisions under 100 node cap, accepted design scope only. Do not describe static checks as native proof."
   ],
   "divisions": [
     {
@@ -962,5 +963,35 @@
       "kind": "fail",
       "reason": "Defeat against the Supreme Commander ends attempt"
     }
-  ]
+  ],
+  "narrativeDirection": {
+    "decisionRef": "RUL-2026-10-15-001",
+    "appearance": "Exterior appears abandoned and undefended. No visible perimeter guards, active outward garrison or gatekeeper fight. Resistance is encountered inside after entry.",
+    "openingDivision": "Experimental Armory; first interior resistance only, not an exterior sentry.",
+    "removedDivision": "Outer Garrison and The Gatewarden are not part of this Pyramid.",
+    "playerFacingDivisionNumbers": [
+      {
+        "ordinal": "I",
+        "legacyNodePrefix": "d2/b2",
+        "name": "Experimental Armory"
+      },
+      {
+        "ordinal": "II",
+        "legacyNodePrefix": "d3/b3",
+        "name": "Skyglass Research"
+      },
+      {
+        "ordinal": "III",
+        "legacyNodePrefix": "d4/b4",
+        "name": "High Command"
+      },
+      {
+        "ordinal": "IV",
+        "legacyNodePrefix": "d5/b5",
+        "name": "Command Sanctum"
+      }
+    ],
+    "preservedStory": "Preserved chakra reconstructions are not undead; after Arakane falls a new directive arrives from an unknown issuer."
+  },
+  "nativeValidation": "REQUIRED_BEFORE_BUILD_FROZEN"
 }
