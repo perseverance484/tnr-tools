@@ -1,6 +1,6 @@
 # Houkyuken / Hokyuken — Five Jutsu Icon Identity Register
 
-**Status:** FIVE ORIGINAL REFERENCES INSPECTED · **POLAR FLUX FAMILY STYLE + ALL FIVE SILHOUETTES APPROVED (2026-10-16)** · **2/5 exact replacement raw artworks visually approved, 0/5 processed WebPs, showcase NOT READY.** The attached originals are identity references, **not** accepted replacements. Their exact binary files are not Git-pinned; see `SOURCE_EVIDENCE.json` for hashes and fields.
+**Status (updated 2026-10-16):** Director **REOPENED FAMILY SILHOUETTES** after the Morning Star candidate. Both Star-named jutsu now require **recognizable star-shaped primary forms**, with contrasting magnetic-polarity treatment. Earlier concepts were historically approved but insufficient at 125/64/32px. **2/5 exact raws retain their historical director approval** (Rising Star family-fit under review), 0/5 processed WebPs, showcase NOT READY. Morning Star candidate NOT APPROVED. See STAR_SILHOUETTE_REASSESSMENT_20261016.md. The attached originals are identity references, **not** accepted replacements. Their exact binary files are not Git-pinned; see `SOURCE_EVIDENCE.json` for hashes and fields.
 
 **Director alias:** Hokyuken · **Captured name:** Houkyuken · **Bloodline ID:** `ALoGrHuBY5Ml9bJG_DILe` · **Rank:** A · **Bloodright:** BR-033 · **Capture:** public 2026-10-01 14:58:45Z / hidden 2026-09-30.
 **Operating roles:** Art Director lead, Image Production support · **Art Studio does not generate images** · **No live-game requests or writes**.
@@ -40,7 +40,7 @@ Five director-uploaded individual attachments arrived in the **same sequence as 
 
 The shared ICON spec recommends square 256px lossless WebP, minimum 160px, generic 460,800-byte ceiling. A director-owned BBE-specific <80,000-byte cap does **not** automatically carry to Houkyuken. Deliberately opaque jutsu backgrounds remain visually permitted by ruling, but their **generic ICON alpha preflight remains blocked** pending separate validator/spec review.
 
-## Five distinct technique-first silhouettes — ALL DIRECTOR APPROVED (2026-10-16)
+## Previous five silhouette concepts — HISTORICALLY APPROVED, STAR PAIR NOW UNDER REASSESSMENT
 
 | Jutsu | Proposed working direction / dominating read | One supporting accent | Reserved exclusion to distinguish the family |
 | --- | --- | --- | --- |
@@ -50,7 +50,15 @@ The shared ICON spec recommends square 256px lossless WebP, minimum 160px, gener
 | **Houkyuken: Magnetic Assignment** | **Polarity Reassignment:** an **asymmetric pair of giant opposed field jaws** reorienting across a brilliant central seam; an almost hourglass-like magnetic lock. | A few orderly ferrous particles visibly snapping into a new direction. | No gauntlet/fist, standard shield, circular target reticle or pulse projectile. |
 | **Houkyu Dance** | **Orbital Dance Field:** a **wide, ground-anchored pair of interwoven opposite-pole ribbon paths** making one clear figure-eight sweep across the frame. | Subtle ground-pressure/radiating field lines to communicate area effect. | No airborne character, outdoor hills, central upward pillar or spherical bubble. |
 
-**Distinction test at 32px:** left-right wedge / bottom-top spear / falling diagonal heavy head / split hourglass clamp / wide interwoven orbit. Energy treatment is shared, primary geometry is not. The first target should establish a quality bar without causing later jutsu to repeat its composition.
+**Previous distinction proposal, now inadequate at 32px:** left-right wedge / bottom-top spear / falling diagonal heavy head / split hourglass clamp / wide interwoven orbit. Energy treatment is shared, primary geometry is not. The first target should establish a quality bar without causing later jutsu to repeat its composition.
+
+## Current shape-first star reset — director feedback, specific proposals not yet approved
+
+The director's new **star silhouette** expectation supersedes the former **no literal star** exclusions for Rising Star and Morning Star as attack effects. Do not turn the stars into labels, generic emblems or game franchise marks. Star *formations made of chakra* should dominate the icon, with ferromagnetic details subordinate rather than resembling random rubble.
+
+**Proposed, not approved yet:** **Rising Star / Polar Ascendance** becomes one brilliant **cyan five-point star** with an elongated upward point and a small scarlet reflection current; **Morning Star / Crimson Starfall** becomes one broad **scarlet eight-ray spiked star** striking diagonally downward through one compact cyan opposing field. They remain distinct even without color by their asymmetric shapes and trajectories.
+
+**Mandatory restart gate:** do not generate another candidate from the older Rising Star or Morning Star no-star briefs. Record Morning Star candidate as not approved; preserve both earlier exact raw approval hashes as historical evidence while the director decides whether Rising Star's approved art should be superseded. Resume only after star-geometry approval. Full art assessment: STAR_SILHOUETTE_REASSESSMENT_20261016.md.
 
 ## First isolated generation: Magnetic Pulse Strike — APPROVED
 
@@ -64,11 +72,11 @@ The shared ICON spec recommends square 256px lossless WebP, minimum 160px, gener
 
 **Visual approval is not export acceptance:** Rising Star has no current final lossless WebP, size validation, 125/64/32 export QC, preflight pass or showcase signoff. Magnetic Pulse Strike and Rising Star are both visually approved **raw**, not game assets.
 
-## Next isolated target: Morning Star — Ferrostar Crush
+## Next isolated target: Morning Star — PAUSED FOR STAR-SHAPE REDIRECTION
 
-**Next:** **Morning Star** (`G2vuPJTsyGHctsLU_g59x`, B-rank). The **Ferrostar Crush** direction is already **director approved** with the five-icon family style. Its historical supported effects are Magnet damage plus increased enemy damage taken. The approved treatment is **one broad descending diagonal magnetite compression head impacting and fracturing a small subordinate magnetic pressure plane**, not a literal astronomical star or meteor. See the full **`docs/design/houkyuken/MORNING_STAR_ISOLATED_BRIEF_20261016.md`**.
+**Next:** **Morning Star** (`G2vuPJTsyGHctsLU_g59x`, B-rank). The former **Ferrostar Crush** direction was historically approved but now needs replacement by a **star-form direction**; its 1000018547.png candidate is **not approved**. Its historical supported effects are Magnet damage plus increased enemy damage taken. The approved treatment is **one broad descending diagonal magnetite compression head impacting and fracturing a small subordinate magnetic pressure plane**, not a literal astronomical star or meteor. See the full **`docs/design/houkyuken/MORNING_STAR_ISOLATED_BRIEF_20261016.md`**.
 
-**Reference contract — exactly two separate, actual images:**
+**Previous reference contract (archival; not an authorized new generation prompt):**
 1. `1000018533.png`: **Morning Star original — IDENTITY ONLY**. Actual JPEG RGB 1536×1536, 232,909 bytes; SHA-256 `d6be16cc1fd8a6d6cd942c8c37ec741e28e54077f94c30832717c9496ef101bf`. It preserves two magnetic polarities converging on a grounded strike, **not** the crouching actor, surrounding hoops or environment.
 2. `1000018546.png`: **approved Rising Star raw — STYLE / MATERIAL ONLY**. Actual JPEG RGB 1536×1536, 599,262 bytes; SHA-256 `69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b`. Controls ferromagnetic shards, material weight, cyan and scarlet pressure seams, concentrated white light, dark atmosphere. **Do not inherit** the tall vertical spear, bright lower-center eruption, or rising trajectory.
 
@@ -78,9 +86,9 @@ The shared ICON spec recommends square 256px lossless WebP, minimum 160px, gener
 
 1. **Original intake:** 5/5 director-provided mapping, actual JPEG decode and source SHA/bytes recorded. Attachments **NOT Git-pinned**.
 2. **Director style gate:** Polar Flux materials/palette and five distinct silhouettes **APPROVED** (user: “All approved, proceed with prompt and reference images”).
-3. **Raw art:** Magnetic Pulse Strike — Rail Pulse **APPROVED** and Rising Star — Ascending Reversal **APPROVED** by exact file SHA-256 (individual director messages). Remaining **3/5** targets, next Morning Star. One jutsu per fresh isolated conversation, one candidate at a time.
+3. **Raw art:** Magnetic Pulse Strike and Rising Star retain exact historical visual approvals; **Rising Star reopens for family-fit review**, Morning Star current candidate not approved, and subsequent generation pauses for director decision on revised star silhouettes.
 4. **Processing:** no exports yet. Inspect actual processed WebPs at 125/64/32; record source-to-export mapping, true lossless codec/dimensions/bytes/hash, and truthful preflight. Do not create fake alpha.
 5. **Showcase:** after all 5 raw approvals and 5 verified exports, deterministically compose 3 top + 2 centered below; add actual verified WebP-size captions, and request separate family acceptance.
 6. **Delivery:** no upload, live-game request, live edit or publication in this Art Studio; user owns all live actions.
 
-**Current:** Originals 5/5 · Directions **5/5 approved** · Exact current replacement raw **2/5 approved** · Processed WebPs **0/5** · Showcase **NOT READY** · Live requests/writes **0/0** · Credentials **none**.
+**Current:** Originals 5/5 · Prior direction 5/5 historically approved, **star-pair revision pending** · Historical exact raw **2/5 approved** (Rising Star under family-fit review) · Processed WebPs **0/5** · Showcase **NOT READY** · Live requests/writes **0/0** · Credentials **none**.
