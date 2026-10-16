@@ -1114,3 +1114,23 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
 
+---
+
+## RUL-2026-10-16-001 — Bloodright tier-icon art studio, universal silhouettes and approved opaque black background
+
+**Date:** 2026-10-16  
+**Domain:** Bloodright / three-tier icon production  
+**Status:** ACTIVE  
+**Supersedes:** none; separate from RUL-2026-10-14-001's *jutsu*-icon background decision.
+
+**Ruling:** The director approved formalizing the dedicated **Bloodright Icon Art Studio** using the existing 2026-10-08 production plan and the later isolated-generation/art-QC protocol. In the initial approved public A/S/H set, produce **29 bloodline families × three tier emblems = 87 tier icons** (Foundation, Hidden Art, Advanced Art). The same bloodline's tree reuses its one artwork per tier; an unrelated tree or bloodline does not.
+
+**Visual lock:** Universal, unchanged silhouette across bloodlines: **Foundation = elongated nested diamond; Hidden Art = nested diamond, inward-curving side crescents and mid-height crosspieces; Advanced Art = sharp multi-point starburst enclosing the nested diamond**. Each bloodline may change **palette, material, internal detail and restrained glow**, subject to original jutsu-art evidence and individual director approval. Every Bloodright tier icon has a **solid opaque black/near-black background**. Black is an affirmative art-direction decision, not a request to preserve transparency or remove the background.
+
+**Production rhythm:** one persistent collection studio and one fresh isolated image-generation conversation per tier asset. Verify genuine bloodline jutsu references; approve a treatment card; generate and approve **Foundation first**, followed individually by Hidden and Advanced; review at 125/64/32 px and against neighboring sets; preserve original accepted raw bytes; process and QC with explicit provenance. Existing BEE and Blue Blade Eyes sets remain historically approved, not subject to silent re-creation or reinterpretation. The 29-member source-pinned roster stays bounded unless the director expands it.
+
+**Mechanical/authority limit:** This does **not** authorize a generic ICON alpha/validator waiver, tool/spec change, client-field assumption, or upload. The existing lime-key/RGBA **alpha preflight conflict for opaque RGB** is still a reported blocker until resolved under the actual owner spec with the required Fable implementation/independent review or another separately documented, evidence-backed acceptance path. A user-approved appearance is **not** upload-ready evidence. No game requests/writes/publishing are authorized.
+
+**Rationale:** Preserve an immediately recognizable tier vocabulary while allowing each bloodline to retain a specific visual identity; avoid uncontrolled geometry drift and mistaken reuse of one bloodline's colors. Keep visual acceptance independent from reproducibility, codec/preflight and live-game safety.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` (operative art workflow), `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` (bounded queue and per-set state), `docs/design/bloodright/ICON_REFERENCE_INTAKE_20261016.md` (current-chat visual reference evidence). `docs/workflows/ART_PRODUCTION.md` and `docs/00_INDEX.md` route to the workflow. `skills/producing-tnr-art/data/25x_DATA_art_spec.json` and `scripts/artpreflight.py` keep technical ownership; no spec change is made here.
