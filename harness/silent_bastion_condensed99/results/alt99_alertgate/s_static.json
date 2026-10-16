@@ -1,0 +1,241 @@
+{
+ "assertions": 30,
+ "checks": [
+  {
+   "name": "QuestValidator.safeParse success",
+   "pass": true
+  },
+  {
+   "name": "verifyQuestObjectiveFlow check (single root, no cycles, resolved references)",
+   "pass": true
+  },
+  {
+   "name": "verifyQuestContentForSave(consecutive) check",
+   "pass": true
+  },
+  {
+   "name": "99 objectives (<= 100 budget)",
+   "pass": true
+  },
+  {
+   "name": "task counts equal declared dialog/battle/reset/win/fail counts",
+   "pass": true
+  },
+  {
+   "name": "unique ids",
+   "pass": true
+  },
+  {
+   "name": "compiled edges and reset targets equal the symbolic graph",
+   "pass": true
+  },
+  {
+   "name": "exactly one root, the declared d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "40/40 battles have only dialog predecessors",
+   "pass": true
+  },
+  {
+   "name": "no battle win/loss edge targets a battle",
+   "pass": true
+  },
+  {
+   "name": "4 divisions × (recovery_first, recovery_later): 50% REG1, gated by lost_first/lost_later, resets to lost_first / d.n.f2 / lost_later",
+   "pass": true
+  },
+  {
+   "name": "every reset target can reach its reset node (rewind only)",
+   "pass": true
+  },
+  {
+   "name": "reset_quest entered only from recovery battles (or their confirmation dialog)",
+   "pass": true
+  },
+  {
+   "name": "REG1 loss -> lost_first; REG2-4 and D2-D4 commander loss -> lost_later; Arakane loss -> f.arakane; commander wins -> next division / aftermath",
+   "pass": true
+  },
+  {
+   "name": "4 terminals (after REG3): Maintenance puzzle or the fourth fight; puzzle 1 correct -> clean + 2 wrong -> alert; post-fourth-fight protocol -> Medical/Combat",
+   "pass": true
+  },
+  {
+   "name": "12 givePools objectives: 8×50 recovery REG1, 4×100 Medical",
+   "pass": true
+  },
+  {
+   "name": "8 effect battles (4 alert debuff, 4 combat buff), none elsewhere",
+   "pass": true
+  },
+  {
+   "name": "20 encounter slots (16 regular + 4 commanders), no Gatewarden/D1",
+   "pass": true
+  },
+  {
+   "name": "every battle fights exactly one copy of its slot AI",
+   "pass": true
+  },
+  {
+   "name": "625 successful selection paths (5 per division: clean, alert×2 wrong answers, medical, combat), each with 4 commanders, ending at w.complete",
+   "pass": true
+  },
+  {
+   "name": "successful path length 16-20 battles",
+   "pass": true
+  },
+  {
+   "name": "extra root rejected",
+   "pass": true
+  },
+  {
+   "name": "recovery WIN edge straight back to d2.n.f2 (no reset_quest) rejected as a cycle",
+   "pass": true
+  },
+  {
+   "name": "clearprevent not in questBuffTypes at the pin",
+   "pass": true
+  },
+  {
+   "name": "start_battle with applyBuffs clearprevent fails schema",
+   "pass": true
+  },
+  {
+   "name": "placeholder SECURITY_ALERT_TBD (increasedamagetaken) authorable",
+   "pass": true
+  },
+  {
+   "name": "placeholder COMBAT_PROTOCOL_D2_TBD (stunprevent) authorable",
+   "pass": true
+  },
+  {
+   "name": "placeholder COMBAT_PROTOCOL_D3_TBD (increasedamagegiven) authorable",
+   "pass": true
+  },
+  {
+   "name": "placeholder COMBAT_PROTOCOL_D4_TBD (sealprevent) authorable",
+   "pass": true
+  },
+  {
+   "name": "placeholder COMBAT_PROTOCOL_D5_TBD (debuffprevent) authorable",
+   "pass": true
+  }
+ ],
+ "data": {
+  "battleWinEdgesIntoReset": [],
+  "givePoolsObjectives": [
+   "b2.n.boss.medical=100",
+   "b2.recovery_first=50",
+   "b2.recovery_later=50",
+   "b3.n.boss.medical=100",
+   "b3.recovery_first=50",
+   "b3.recovery_later=50",
+   "b4.n.boss.medical=100",
+   "b4.recovery_first=50",
+   "b4.recovery_later=50",
+   "b5.n.boss.medical=100",
+   "b5.recovery_first=50",
+   "b5.recovery_later=50"
+  ],
+  "graph": {
+   "declaredCounts": {
+    "battles": 40,
+    "dialogs": 45,
+    "fail": 1,
+    "resets": 12,
+    "total": 99,
+    "uniqueEncounterSlots": 20,
+    "win": 1
+   },
+   "path": "silent_bastion_condensed99/graphs/alt99_alertgate.json",
+   "variant": "alt99_alertgate"
+  },
+  "logbookGraphEdges": {
+   "fail": 40,
+   "reset": 12,
+   "total": 149
+  },
+  "objectiveTaskCounts": {
+   "dialog": 45,
+   "fail_quest": 1,
+   "reset_quest": 12,
+   "start_battle": 40,
+   "win_quest": 1
+  },
+  "placeholderEffects": {
+   "COMBAT_PROTOCOL_D1_TBD": {
+    "kind": "buff",
+    "tag": {
+     "calculation": "percentage",
+     "power": 20,
+     "rounds": 3,
+     "type": "decreasedamagetaken"
+    }
+   },
+   "COMBAT_PROTOCOL_D2_TBD": {
+    "kind": "buff",
+    "tag": {
+     "calculation": "percentage",
+     "power": 100,
+     "rounds": 2,
+     "type": "stunprevent"
+    }
+   },
+   "COMBAT_PROTOCOL_D3_TBD": {
+    "kind": "buff",
+    "tag": {
+     "calculation": "percentage",
+     "power": 25,
+     "rounds": 3,
+     "type": "increasedamagegiven"
+    }
+   },
+   "COMBAT_PROTOCOL_D4_TBD": {
+    "kind": "buff",
+    "tag": {
+     "power": 100,
+     "rounds": 2,
+     "type": "sealprevent"
+    }
+   },
+   "COMBAT_PROTOCOL_D5_TBD": {
+    "kind": "buff",
+    "tag": {
+     "power": 100,
+     "rounds": 3,
+     "type": "debuffprevent"
+    }
+   },
+   "SECURITY_ALERT_TBD": {
+    "kind": "debuff",
+    "tag": {
+     "calculation": "percentage",
+     "power": 10,
+     "rounds": 2,
+     "type": "increasedamagetaken"
+    }
+   }
+  },
+  "successPaths": {
+   "battleCounts": [
+    16,
+    17,
+    18,
+    19,
+    20
+   ],
+   "count": 625
+  }
+ },
+ "failed": 0,
+ "findings": [
+  {
+   "detail": [],
+   "id": "C1-static",
+   "reproduced": false,
+   "summary": "start_battle nextObjectiveId (WIN edge) targets a reset_quest; the engine pre-selects that edge while the fight is pending (quest.ts selectedNextObjectiveId preset), so the reset becomes available at battle start — runtime effect proven in gate D"
+  }
+ ],
+ "gate": "s_static"
+}
