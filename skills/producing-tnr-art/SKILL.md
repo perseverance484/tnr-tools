@@ -170,8 +170,10 @@ python3 scripts/artpreflight.py out_scene_char.webp --manifest manifest.json
 opaque background: never run the key over it and never fabricate alpha. Export square lossless WebP
 with Pillow; `artpreflight.py` accepts the RGB file and skips the key checks it would only misread.
 A transparent jutsu icon takes the normal keyed route and every key check still applies. Item and
-bloodline icons stay on `ICON` and still require alpha. Filenames containing `jutsu` infer
-`JUTSU_ICON`; a workstream byte cap stricter than the spec goes on `--max-bytes` (BBE: `80000`).
+bloodline icons stay on `ICON` and still require alpha. A filename with `jutsu` as a whole token
+(`ice_shackles_jutsu_icon.webp`) infers `JUTSU_ICON`; `ninjutsu`/`genjutsu` inside a word do not,
+and a name that also carries item evidence (`item` token, `img_` prefix) refuses to guess and
+needs `--type`. A workstream byte cap stricter than the spec goes on `--max-bytes` (BBE: `80000`).
 
 Nothing is handed over unchecked. `artpreflight.py` is to art what `validate.py` is to a manifest:
 zero errors before handover, and you say what you ran.

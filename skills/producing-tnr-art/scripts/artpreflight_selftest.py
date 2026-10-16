@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -128,6 +129,53 @@ case("unclassifiable filename", "SCENE_CHARACTER", "untitled_final_v2.webp",
      lambda p: save(figure(682, 1023), p), [])
 
 
+# Item/jutsu class boundary, run the way an operator runs it: type INFERRED from the name,
+# then the full check. `type` in the expected set means inference refused and the file is
+# an error until someone passes --type. An item name must never come out alpha-optional.
+OPAQUE = lambda p: save(designed_icon(256, 256), p)  # noqa: E731
+BOUNDARY = [
+    # item evidence beside a jutsu token -> refuse
+    ("item_jutsu_scroll_icon.webp", OPAQUE, None, {"type"}),
+    ("item_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("img_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("scroll_item_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    # jutsu inside a word is not a jutsu token -> stays ICON and keeps the alpha rule
+    ("icon_ninjutsu_manual.webp", OPAQUE, "ICON", {"alpha", "spill"}),
+    ("genjutsu_mirror_item_icon.webp", OPAQUE, "ICON", {"alpha", "spill"}),
+    ("ninjutsu.webp", OPAQUE, None, {"type"}),
+    # unrelated targets still refuse
+    ("jutsu_avatar.webp", OPAQUE, None, {"type"}),
+    ("blue_jutsu_marker.webp", OPAQUE, None, {"type"}),
+    # genuine jutsu names -> JUTSU_ICON; opaque passes, keyed keeps every key check
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("glacial_volley_jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("jutsu_blade_resonance.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("arctic-frost-jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("keyed_spill_jutsu_icon.webp", lambda p: save(figure(256, 256, key_spill=True), p),
+     "JUTSU_ICON", {"spill"}),
+    ("keyed_soft_jutsu_icon.webp", lambda p: save(figure(256, 256, soft=True), p),
+     "JUTSU_ICON", {"soft_edges"}),
+]
+
+# CLI runs: (filename, builder, extra args, expected error checks). Exit code = error count.
+CLI = [
+    ("item_jutsu_scroll_icon.webp", OPAQUE, [], {"type"}),
+    ("item_jutsu_scroll_icon.webp", OPAQUE, ["--type", "ICON"], {"alpha", "spill"}),
+    ("icon_ninjutsu_manual.webp", OPAQUE, [], {"alpha", "spill"}),
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, ["--max-bytes", "80000"], set()),
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, ["--type", "ICON"], {"alpha", "spill"}),
+]
+
+
+def inferred_errors(path: str, spec: dict) -> tuple[str | None, set[str]]:
+    target = ap.infer_type(path)
+    if target is None:
+        return None, {"type"}
+    report = ap.Report()
+    ap.check_file(path, target, spec, report, None)
+    return target, {r["check"] for r in report.rows if r["level"] == "error"}
+
+
 def run() -> int:
     spec = ap.load_spec("25x_DATA_art_spec.json")
     tmp = tempfile.mkdtemp()
@@ -172,6 +220,37 @@ def run() -> int:
             got = {r["check"] for r in report.rows if r["level"] == "error"}
             ok = got == want
             print(f"  {'pass' if ok else 'FAIL'}  {size} bytes against --max-bytes {cap:<10} "
+                  f"-> {sorted(got) or 'clean'}")
+            passed += ok
+            failed += not ok
+
+        print("\n  item/jutsu class boundary (inferred type, full check):")
+        for filename, builder, want_target, want in BOUNDARY:
+            path = os.path.join(tmp, filename)
+            builder(path)
+            target, got = inferred_errors(path, spec)
+            ok = target == want_target and got == want
+            print(f"  {'pass' if ok else 'FAIL'}  {filename:34} -> {target or 'refused'}, "
+                  f"{sorted(got) or 'clean'}"
+                  + ("" if ok else f"  (expected {want_target or 'refused'}, {sorted(want) or 'clean'})"))
+            passed += ok
+            failed += not ok
+
+        print("\n  item/jutsu class boundary (CLI):")
+        script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artpreflight.py")
+        spec_path = os.path.abspath("25x_DATA_art_spec.json")
+        for filename, builder, extra, want in CLI:
+            path = os.path.join(tmp, "cli_" + filename)
+            builder(path)
+            proc = subprocess.run(
+                [sys.executable, script, path, "--spec", spec_path, "--json", *extra],
+                capture_output=True, text=True,
+            )
+            rows = json.loads(proc.stdout)["rows"]
+            got = {r["check"] for r in rows if r["level"] == "error"}
+            ok = got == want and proc.returncode == len([r for r in rows if r["level"] == "error"])
+            label = " ".join(extra) or "inferred"
+            print(f"  {'pass' if ok else 'FAIL'}  {filename:34} [{label}] exit {proc.returncode} "
                   f"-> {sorted(got) or 'clean'}")
             passed += ok
             failed += not ok
