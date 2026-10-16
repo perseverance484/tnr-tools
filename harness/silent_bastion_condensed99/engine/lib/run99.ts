@@ -69,6 +69,9 @@ export class Runner {
   }
 
   async start() {
+    // A later attempt carries whatever the previous one left (no refill on a new attempt).
+    const h0 = await hero();
+    if (h0) this.carry = { health: h0.curHealth, chakra: h0.curChakra, stamina: h0.curStamina };
     this.beaconsBefore = await beacons();
     const r = await (await api()).quests.startQuest({ questId: QUEST_ID, userSector: 0 });
     this.c("startQuest succeeds", r.success, r.message);

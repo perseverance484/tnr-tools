@@ -1,0 +1,65 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "0651b039a466516a8fe24fc13b56f60dea11b7eb",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "sourceSha256": {
+   "src/libs/quest.ts": "d8eeaf8b6fe0c6dbc06ba292b1c40f33bb7cd126b6e2a150e291a4c49380a498",
+   "src/libs/rewardChoice.ts": "b8520613e8e101d143be5549ceeba7ebf10feceee924265bf9064f1013495625",
+   "src/libs/weightedCache.ts": "b337b3533638b551b4d1d6281e6d04bfe38b188f2965c9ce0f59986c17f8205a",
+   "src/validators/weightedCache.ts": "9df05f4229a8e01fb9f194168916dc8b460521100c6351497ba379c1d78ffff5",
+   "src/validators/rewards.ts": "c30482859194333de613dc0624ec4ac5505b6a1d5b062d428287febd5c12be72",
+   "src/validators/combat.ts": "9f494291915e69df711dd246b4a4d031bbbadf5cd75914114f816196282b3cc7",
+   "src/validators/objectives.ts": "c828f87de452a5deca242b9e906f352da53151c2e865c443c11ceed1b3ebb3bd",
+   "src/server/api/routers/quests.ts": "30d7ee413a62f73580214e4850c97d0de781f7d1b7740fe5f6f366750c291f48",
+   "src/server/api/routers/item.ts": "f497da76771c1fa67015d56da3e62b729083856355016d6e1dbb0bc9587b1b67",
+   "src/server/utils/questEntry.ts": "26ff2bc7e49cc4c173cc3a1e29864eab4bc407e64e4f49564649336922ede26c",
+   "src/layout/RewardChoice.tsx": "aaffbfc58121b33324ac0f0bcc996751c57bccc07b468f62e1c3cefa5d7407b0"
+  }
+ },
+ "graph": {
+  "path": "harness/silent_bastion_condensed99/graphs/alt99_f4gate.json",
+  "sha256": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20"
+ },
+ "brief": {
+  "path": "docs/handoffs/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_PROOF_BRIEF_20261016.md",
+  "sha256": "ca60e3de12eee80ae2a44bc05f2b24460649ce4526c40ab56c87d6ba93e291df"
+ },
+ "database": {
+  "image": "mysql:26.7.0@sha256:893418c8a7a34c60d2d961cc30ef136095da141478562ed2101ae3f5faba9c3f",
+  "network": "--network none; unix socket only"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "uname": "Linux 6.18.44-fc-v139"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials",
+  "liveGameRequests": 0
+ },
+ "harnessFileSha256": {
+  "harness/recipe_cache_native_proof/engine/rc_flow.test.ts": "2f4ff6194b4464663c2b0c471345e4b1f3c6afecbdf2a926676dbe7f4e59865b",
+  "harness/recipe_cache_native_proof/engine/rc_static.test.ts": "e792b43c8bae8162e46119d47e2c5ac149caf643fa8d79a31573986e8c2ed5db",
+  "harness/recipe_cache_native_proof/engine/lib/cachefix.ts": "0ff9ce04257c362bd12d558204c7df44da210b53e14634348343cbb1f59ba2de",
+  "harness/silent_bastion_condensed99/engine/c99_defect.test.ts": "5ec25d5d0a88b84fc55be1cfe75dde8b7dce64fe690dab2dacd7eac733c9b056",
+  "harness/silent_bastion_condensed99/engine/c99_edges.test.ts": "134a67d2bd92a7465c295d7c581c89d38edbcd9c176c4a96f392a20e82fb28af",
+  "harness/silent_bastion_condensed99/engine/c99_runtime.test.ts": "da4c06a9911fce86a9d4af0e963c7719dc9edd2ec4a681d73f227a457dcb7abf",
+  "harness/silent_bastion_condensed99/engine/c99_static.test.ts": "09cdc82c3efe532b773301b8aa2c2f220a002affb508115720f9f4cbf3abb08e",
+  "harness/silent_bastion_condensed99/engine/lib/run99.ts": "44a7150e241f4ed1cdd892f6b17f25bf5c15971d938c99007e6036b01972f94a",
+  "harness/silent_bastion_phase1/engine/lib/driver.ts": "bc0fe30e1d31bb1971fd7aeb657b9155c5e0250f6e7d938b30145731625aac30",
+  "harness/silent_bastion_phase1/engine/lib/graph.ts": "e42a7c897ad01599d5ff09e653c71024789a6f5c6420b22a42e2248c0abe9fbb",
+  "harness/silent_bastion_phase1/engine/lib/report.ts": "1797ad07d38c6e07a3215f4f9d2902d707f2a1ab8b70219b85f73fb58f0d995e",
+  "harness/silent_bastion_phase1/engine/lib/scenario.ts": "f854a4e7097d903b8ad1befa0aa2242fcf7da7b11a07d6ca7f3182d21273699d",
+  "harness/recipe_cache_native_proof/run.sh": "e52883a6c75b4778f0b287d0406122b69f5e79ab508bdefb401a399bdf2bffe4",
+  "harness/silent_bastion_phase1/tools/check_evidence.py": "d1717a59756e5a5221535f12a1a42593826b28a025b32f7e3ec0f1c73ed33768"
+ },
+ "exitStatus": {
+  "upstreamPreflight": 0,
+  "bunTest": 0,
+  "evidenceCheck": 0,
+  "c99Regression": 0
+ }
+}

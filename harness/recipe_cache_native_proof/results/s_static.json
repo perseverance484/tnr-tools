@@ -1,0 +1,141 @@
+{
+ "assertions": 25,
+ "checks": [
+  {
+   "name": "QuestValidator accepts battlepyramid + rewardMode choose + pick 1",
+   "pass": true
+  },
+  {
+   "name": "objective graph unchanged: 99 objectives, flow + save checks pass",
+   "pass": true
+  },
+  {
+   "name": "graph source is alt99_f4gate",
+   "pass": true
+  },
+  {
+   "name": "w.complete carries no reward_items",
+   "pass": true
+  },
+  {
+   "name": "no objective carries reward_items",
+   "pass": true
+  },
+  {
+   "name": "verifyRewardChoiceForSave accepts 2 cards for 1 pick",
+   "pass": true
+  },
+  {
+   "name": "isRewardChoiceQuest + pick count 1",
+   "pass": true
+  },
+  {
+   "name": "exactly two item cards, one per cache, quantity 1",
+   "pass": true
+  },
+  {
+   "name": "negative: a single cache card for one pick is rejected at save",
+   "pass": true
+  },
+  {
+   "name": "valid synthetic config passes",
+   "pass": true
+  },
+  {
+   "name": "rejected: roll probabilities 9,999",
+   "pass": true
+  },
+  {
+   "name": "rejected: tier probabilities 10,001",
+   "pass": true
+  },
+  {
+   "name": "rejected: positive tier with zero entries",
+   "pass": true
+  },
+  {
+   "name": "rejected: entry with no items",
+   "pass": true
+  },
+  {
+   "name": "rejected: 11 items in one bundle",
+   "pass": true
+  },
+  {
+   "name": "rejected: quantity 101",
+   "pass": true
+  },
+  {
+   "name": "rejected: worst case > 2,000 items",
+   "pass": true
+  },
+  {
+   "name": "rejected: empty displayName",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-arsenal-cache: 20000 seeded draws, each exactly one coherent bundle (no mixing)",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-arsenal-cache: Epic share within ±2% of 75%",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-arsenal-cache: every configured entry selected",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-research-cache: 20000 seeded draws, each exactly one coherent bundle (no mixing)",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-research-cache: Epic share within ±2% of 75%",
+   "pass": true
+  },
+  {
+   "name": "rc-synthetic-research-cache: every configured entry selected",
+   "pass": true
+  },
+  {
+   "name": "two-roll config: two selections, each a whole bundle, quantities summed",
+   "pass": true
+  }
+ ],
+ "data": {
+  "cards": [
+   {
+    "amount": 1,
+    "contentId": "rc-synthetic-arsenal-cache",
+    "field": "reward_items",
+    "id": "reward_items:0:rc-synthetic-arsenal-cache"
+   },
+   {
+    "amount": 1,
+    "contentId": "rc-synthetic-research-cache",
+    "field": "reward_items",
+    "id": "reward_items:1:rc-synthetic-research-cache"
+   }
+  ],
+  "rc-synthetic-arsenal-cache.draws": {
+   "N": 20000,
+   "entries": [
+    "Epic#0",
+    "Legendary#0"
+   ],
+   "epicShare": 0.753
+  },
+  "rc-synthetic-research-cache.draws": {
+   "N": 20000,
+   "entries": [
+    "Epic#0",
+    "Epic#1",
+    "Legendary#0"
+   ],
+   "epicShare": 0.753
+  }
+ },
+ "failed": 0,
+ "findings": [],
+ "gate": "s_static"
+}
