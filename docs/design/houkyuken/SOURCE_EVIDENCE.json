@@ -1,6 +1,6 @@
 {
   "schema": "tnr.houkyuken.jutsu-icon-art-studio-evidence/1",
-  "status": "DIRECTOR_SILHOUETTE_REASSESSMENT_PENDING_2_PREVIOUS_RAW_APPROVALS",
+  "status": "DIRECTOR_APPROVED_STAR_POLARITY_RESET_RISING_V2_PENDING",
   "created_on": "2026-10-16",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/houkyuken-jutsu-art-studio-20261016",
@@ -35,7 +35,7 @@
   "director_originals_received_in_this_bootstrap": 0,
   "original_icon_order_mapping": "DIRECTOR_EXPLICIT_ORDER_IN_USER_MESSAGE_MATCHES_PINNED_ROSTER",
   "family_palette_status": "APPROVED_2026_10_16",
-  "silhouettes_status": "INITIAL_DIRECTIONS_APPROVED_THEN_STAR_PAIR_REVISION_REQUESTED",
+  "silhouettes_status": "REVISED_STAR_PAIR_DIRECTOR_APPROVED_2026_10_16",
   "records": [
     {
       "index": 1,
@@ -131,7 +131,7 @@
         "reflect"
       ],
       "historical_unsupported_tags": [],
-      "direction": "Ascending Reversal",
+      "direction": "Polar Ascendance",
       "original": {
         "source_filename": "1000018532.png",
         "actual_decoded_mime": "image/jpeg",
@@ -166,28 +166,19 @@
           "visual_state": "APPROVED_DIRECTOR_2026_10_16",
           "approved_quote": "Approved, next",
           "material_reference_role": "STYLE_MATERIAL_ONLY_FOR_FUTURE_HOUKYUKEN",
-          "source_file_access": "Conversation upload; not committed to Git; reattach exact individual image."
+          "source_file_access": "Conversation upload; not committed to Git; reattach exact individual image.",
+          "active_family_selection": false,
+          "active_family_retirement": "2026-10-16 director-approved five-point star redesign; historical visual approval preserved"
         }
       ],
       "current_raw_director_approval": {
-        "approved": true,
-        "source_filename": "1000018546.png",
-        "source_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b",
-        "quote": "Approved, next",
-        "verified": true,
-        "verified_on": "2026-10-16",
-        "actual_decoded_mime": "image/jpeg",
-        "decoded_format": "JPEG",
-        "decoded_mode": "RGB",
-        "dimensions": [
-          1536,
-          1536
-        ],
-        "bytes": 599262,
-        "git_binary_pinned": false,
-        "source_provenance": "Director-uploaded conversation attachment — generated Rising Star candidate. Exact bytes decoded and SHA-256 verified.",
-        "verdict": "VISUAL_APPROVED_ONLY_NO_WEBP_OR_PREFLIGHT",
-        "family_fit_review": "REOPENED_FOR_STAR_SHAPE_CRITIQUE; historic exact raw acceptance remains preserved until director chooses supersession"
+        "approved": false,
+        "source_filename": null,
+        "source_sha256": null,
+        "quote": null,
+        "verified": false,
+        "status": "REWORK_APPROVED_V2_GENERATION_PENDING",
+        "last_prior_raw_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b"
       },
       "current_processed_export": {
         "filename": null,
@@ -200,10 +191,50 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "HISTORICALLY_APPROVED_FAMILY_FIT_REASSESSMENT_PENDING",
-        "title": "Ascending Reversal",
-        "dominant_silhouette": "Single immense rising polar spear tapering skyward; short redirected return stream at its base hints at reflection. Not an exploding star."
-      }
+        "status": "APPROVED_DIRECTOR_2026_10_16",
+        "title": "Polar Ascendance",
+        "dominant_silhouette": "One enormous coherent cyan five-point magnetic-chakra star, with an elongated upward apex and four other clearly separated points; short upward wake only.",
+        "secondary_effect": "Small scarlet returning current beneath the star for historically supported reflect.",
+        "is_rework": true,
+        "brief": "docs/design/houkyuken/RISING_STAR_POLAR_ASCENDANCE_V2_ISOLATED_BRIEF_20261016.md"
+      },
+      "direction_history": [
+        {
+          "direction": "Ascending Reversal",
+          "prior_proposed_direction": {
+            "status": "HISTORICALLY_APPROVED_FAMILY_FIT_REASSESSMENT_PENDING",
+            "title": "Ascending Reversal",
+            "dominant_silhouette": "Single immense rising polar spear tapering skyward; short redirected return stream at its base hints at reflection. Not an exploding star."
+          },
+          "status": "APPROVED_ORIGINALLY_SUPERSEDED_FOR_ACTIVE_GENERATION",
+          "superseded_on": "2026-10-16",
+          "reason": "Director approved star-shaped five-point Rising Star redesign after thumbnail-family critique."
+        }
+      ],
+      "previous_raw_director_approvals": [
+        {
+          "approved": true,
+          "source_filename": "1000018546.png",
+          "source_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b",
+          "quote": "Approved, next",
+          "verified": true,
+          "verified_on": "2026-10-16",
+          "actual_decoded_mime": "image/jpeg",
+          "decoded_format": "JPEG",
+          "decoded_mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 599262,
+          "git_binary_pinned": false,
+          "source_provenance": "Director-uploaded conversation attachment — generated Rising Star candidate. Exact bytes decoded and SHA-256 verified.",
+          "verdict": "VISUAL_APPROVED_ONLY_NO_WEBP_OR_PREFLIGHT",
+          "family_fit_review": "REOPENED_FOR_STAR_SHAPE_CRITIQUE; historic exact raw acceptance remains preserved until director chooses supersession",
+          "historical_status": "VISUALLY_APPROVED_AT_TIME_RETIRED_FROM_CURRENT_FAMILY_SELECTION_2026_10_16",
+          "reason": "Director explicitly authorized reopening Rising Star for five-point cyan star redesign. Previous exact raw approval retained as provenance, not a current accepted V2 source."
+        }
+      ]
     },
     {
       "index": 3,
@@ -215,7 +246,7 @@
         "increasedamagetaken"
       ],
       "historical_unsupported_tags": [],
-      "direction": "Ferrostar Crush",
+      "direction": "Crimson Starfall",
       "original": {
         "source_filename": "1000018533.png",
         "actual_decoded_mime": "image/jpeg",
@@ -270,10 +301,26 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "HISTORICALLY_APPROVED_SUPERSEDED_FOR_CURRENT_GENERATION_PENDING_NEW_DIRECTION",
-        "title": "Ferrostar Crush",
-        "dominant_silhouette": "Heavy off-axis magnetized star-core plunging diagonally into a fractured field plane, dual-pole compression at its contact. No rising beam or literal star badge."
-      }
+        "status": "APPROVED_DIRECTOR_2026_10_16",
+        "title": "Crimson Starfall",
+        "dominant_silhouette": "One heavy coherent scarlet eight-ray magnetic-chakra star, four long and four shorter thick angular rays, descending diagonally.",
+        "secondary_effect": "Small subordinate cracked cyan magnetic plane indicates historically supported increased damage taken.",
+        "is_rework": true,
+        "new_brief_status": "AFTER_APPROVED_RISING_STAR_V2_RAW"
+      },
+      "direction_history": [
+        {
+          "direction": "Ferrostar Crush",
+          "prior_proposed_direction": {
+            "status": "HISTORICALLY_APPROVED_SUPERSEDED_FOR_CURRENT_GENERATION_PENDING_NEW_DIRECTION",
+            "title": "Ferrostar Crush",
+            "dominant_silhouette": "Heavy off-axis magnetized star-core plunging diagonally into a fractured field plane, dual-pole compression at its contact. No rising beam or literal star badge."
+          },
+          "status": "HISTORICALLY_APPROVED_DIRECTION_FAILED_RAW_CANDIDATE",
+          "superseded_on": "2026-10-16",
+          "reason": "Unaccepted 1000018547.png reads as rubble/impact rather than star silhouette."
+        }
+      ]
     },
     {
       "index": 4,
@@ -383,7 +430,7 @@
       }
     }
   ],
-  "accepted_raw_count": 2,
+  "accepted_raw_count": 1,
   "accepted_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -424,7 +471,8 @@
     "2026-10-16: Director approved the Polar Flux family style and all five proposed silhouette directions; exact current Magnetic Pulse Strike image 1000018545.png received and visually accepted (JPEG RGB, 1536×1536, 543,073 bytes). This image may be a STYLE/MATERIAL reference only, never a Rising Star composition reference.",
     "Pending: retained Git copy of original raw art binaries is not present, current processed WebPs remain 0/5, ICON generic opaque-alpha preflight mismatch remains blocked, and no whole-family acceptance. This approval applies to exact current raw only.",
     "2026-10-16: Rising Star exact raw source 1000018546.png visually approved by director, independently inspected as JPEG RGB 1536×1536 599,262 bytes SHA-256 69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b. Use for Houkyuken style/material only when generating Morning Star; do not reuse upward lance, bright centerline or base explosion.",
-    "2026-10-16: Before any further isolated generation, art direction re-opened for the pair of Star-named jutsu. Earlier approved raw hashes remain immutable historical approvals but Rising Star's family fit requires re-review; candidate Morning Star 1000018547.png not approved. Do not reuse old no-literal-star briefs."
+    "2026-10-16: Before any further isolated generation, art direction re-opened for the pair of Star-named jutsu. Earlier approved raw hashes remain immutable historical approvals but Rising Star's family fit requires re-review; candidate Morning Star 1000018547.png not approved. Do not reuse old no-literal-star briefs.",
+    "2026-10-16: Director approved star-pair polarity and clear star-shaped silhouettes and reopening Rising Star. Active raw acceptance now 1/5 (Pulse Strike); prior Rising Star exact visual approval remains historically recorded with original hash. Old Rising spear and Morning rubble briefs are historical and not to be used for new generation. Next: original-only Rising Star V2 isolated generation."
   ],
   "director_originals_received_current_session": 5,
   "originals_inspected_on": "2026-10-16",
@@ -440,7 +488,7 @@
       "Crystalline BBE ice or BEE black-crimson style",
       "Mandatory rings/halo on every icon",
       "Figures, fists, masks or existing game/franchise insignia by default",
-      "Generic star emblems or reused centerpoint explosions"
+      "Flat badge-like star logos and generic explosions excluded; actual sculpted star-shaped magnetic-chakra forms now REQUIRED for Rising Star and Morning Star"
     ],
     "first_isolated_target": "Magnetic Pulse Strike",
     "first_target_status": "RAW_APPROVED_EXACT_SOURCE"
@@ -462,20 +510,23 @@
       "date": "2026-10-16",
       "quote": "Approved, next",
       "scope": "Exact source visual acceptance: Rising Star — Ascending Reversal, director-attached 1000018546.png. SHA-256 69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b. No processed/export, preflight, showcase or gameplay action approved."
+    },
+    {
+      "date": "2026-10-16",
+      "quote": "Yup, approved",
+      "scope": "Approve cyan five-point Polar Ascendance Rising Star and scarlet eight-ray Crimson Starfall Morning Star as opposed-polarity, unmistakable technique silhouettes; explicitly reopen Rising Star for redesign. Existing 1000018546.png accepted raw is preserved as historical but retired from active delivery selection. Other family work pending."
     }
   ],
   "next_isolated_target": {
-    "name": "Morning Star",
-    "id": "G2vuPJTsyGHctsLU_g59x",
-    "direction": "Ferrostar Crush",
-    "status": "HOLD_UNTIL_STAR_POLARITY_REDIRECTION_APPROVED",
-    "original_reference": "1000018533.png",
-    "original_ref_sha256": "d6be16cc1fd8a6d6cd942c8c37ec741e28e54077f94c30832717c9496ef101bf",
-    "approved_family_style_reference": "1000018546.png",
-    "style_ref_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b",
-    "former_approved_direction": "Ferrostar Crush",
-    "proposed_new_direction": "Crimson Starfall — a scarlet spiked star magnetic crushing strike",
-    "proposal_authority": "STAR_SILHOUETTE_REASSESSMENT_20261016.md"
+    "name": "Rising Star",
+    "id": "NB5sGddr-RgH9eEp2L8jL",
+    "direction": "Polar Ascendance (V2)",
+    "status": "DIRECTOR_APPROVED_ISOLATED_GENERATION_READY",
+    "brief": "docs/design/houkyuken/RISING_STAR_POLAR_ASCENDANCE_V2_ISOLATED_BRIEF_20261016.md",
+    "reference_policy": "ONE ORIGINAL IDENTITY REFERENCE ONLY; PREVIOUS ROCK/IMPACT STYLE EXAMPLES EXCLUDED",
+    "original_reference": "1000018532.png",
+    "original_ref_sha256": "e29a273fe881d149bb6f8bd3b8fdabf5a58d9d958271f3d72480b581e6783603",
+    "old_raw_excluded_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b"
   },
   "director_feedback": [
     {
@@ -486,5 +537,40 @@
       "decision_status": "STAR_REQUIREMENT_STATED; exact geometry and color dominance only proposed, not yet accepted",
       "document": "docs/design/houkyuken/STAR_SILHOUETTE_REASSESSMENT_20261016.md"
     }
-  ]
+  ],
+  "historical_raw_director_approval_count": 2,
+  "raw_count_semantics": "accepted_raw_count counts CURRENT eligible raw sources only. Historical exact approvals are retained in previous_raw_director_approvals and original candidate records.",
+  "current_shape_first_rule": {
+    "status": "APPROVED_DIRECTOR_2026_10_16",
+    "priority": [
+      "one unmistakable primary silhouette at 125/64/32px",
+      "technique motion and action",
+      "color-polarity identity",
+      "restrained chakra material detail"
+    ],
+    "forbidden_drift": "No rubble piles, extensive magnetite fragment swarms, generic impact flashes or energy showers substituted for an identifiable silhouette.",
+    "approved_pair": [
+      {
+        "jutsu": "Rising Star",
+        "direction": "Polar Ascendance",
+        "silhouette": "one five-point cyan chakra star with elongated upward apex and separated lateral/lower points",
+        "dominant_polarity": "cyan-blue",
+        "secondary_polarity": "small scarlet returning lower current",
+        "movement": "ascending",
+        "special_effect_context": "historically supported self-reflect"
+      },
+      {
+        "jutsu": "Morning Star",
+        "direction": "Crimson Starfall",
+        "silhouette": "one broad eight-ray scarlet spiked magnetic star with four long and four shorter rays",
+        "dominant_polarity": "scarlet-red",
+        "secondary_polarity": "compact fractured opposing cyan field",
+        "movement": "descending diagonal crush",
+        "special_effect_context": "historically supported enemy increased damage taken"
+      }
+    ],
+    "direction_source": "docs/design/houkyuken/STAR_SILHOUETTE_REASSESSMENT_20261016.md",
+    "approved_quote": "Yup, approved",
+    "star_form_is_not_a_logo": true
+  }
 }
