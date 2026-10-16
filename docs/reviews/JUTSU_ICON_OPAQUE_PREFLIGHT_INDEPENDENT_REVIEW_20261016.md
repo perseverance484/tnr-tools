@@ -8,7 +8,7 @@
 **Frozen review target:** `382dbf39871c18db5b1beb9addc7faa679004b98`  
 **Authored implementation:** `eccf04618b4ce1722f3e1786cbb7e1a69d09f365`; frozen head adds only bot-rebuilt `dist/producing-tnr-art.zip`.  
 **Target main at review:** `99e86dc549b86f1f4a5846c0e509fa6bc15b3463`  
-**Merge-base:** `f083ddecfd400431ae2160d814546dab30f54f15` with main and frozen branch; main added two nonoverlapping files (`docs/DRIFT.md`, `state/schema_sentinel.json`) since base.  
+**Merge-base:** `f083ddecfd400431ae2160d814546dab30f54f15` with main and frozen branch; main changed two nonoverlapping files (`docs/DRIFT.md`, `state/schema_sentinel.json`) since base.  
 **Verdict:** **CHANGES REQUESTED** — one confirmed, bounded, asset-class inference defect. Correct on the Fable-owned branch and return a new frozen SHA before integration. The spec split and size/alpha core are otherwise sound from inspected source; no claim of complete independent runtime-test parity.
 
 ## F1 — Opaque item icons with jutsu-related names silently pass as JUTSU_ICON
@@ -38,7 +38,7 @@ Independent local scratch test used the exact frozen `TYPE_HINTS`, `SPECIALISES`
 
 ## Verified/supported aspects
 
-1. **Scope of spec changes is narrow.** Exact structured diff from base to head: only `targets.ICON.client_field` removes `jutsu.image` and a new `targets.JUTSU_ICON` block is added; the other six existing target objects and existing top-level spec blocks are unchanged. The new JUTSU_ICON numerical limits match ICON, with an explicitly asserted optional-alpha policy. `render.same_as` is a pointer to the existing derived render block, not newly source-derived evidence.
+1. **Scope of spec changes is narrow.** Exact structured diff from base to head: only `targets.ICON.client_field` removes `jutsu.image` and a new `targets.JUTSU_ICON` block is added; the other five existing target objects and existing top-level spec blocks are unchanged. The new JUTSU_ICON numerical limits match ICON, with an explicitly asserted optional-alpha policy. `render.same_as` is a pointer to the existing derived render block, not newly source-derived evidence.
 2. **Explicit type behavior is correctly separated.** `check_file` reads the target-specific alpha policy. Opaque RGB `JUTSU_ICON` accepts designed backgrounds and skips residual-key checks; RGB `ICON` still reports missing alpha; RGBA `JUTSU_ICON` still receives the keyed residual/soft-edge checks. This was inspected in code and reproduced for the simplified boundary; original full validator was **not executed** by this reviewer.
 3. **Workstream strict cap uses the correct boundary.** `if max_bytes is not None and size_bytes >= max_bytes` enforces **under 80,000 bytes** (79,999 passes the added cap; 80,000 fails), while existing hard/working caps continue to apply.
 4. **Other inference ambiguities remain fail-closed.** A `JUTSU_ICON` filename also matching `AI_AVATAR` or `STATIC` returns `None` as before for multiple unrelated targets.
