@@ -22,7 +22,8 @@ import {
 import { ObjectiveReward } from "@/validators/rewards";
 
 export const REPO = process.env.TNR_REPO ?? join(import.meta.dir, "../../../../../../..");
-export const GRAPH_PATH = join(REPO, "state/silent_bastion_phase1_graph.json");
+/** TNR_GRAPH (repo-relative) selects another symbolic graph, e.g. the condensed 99-node candidate. */
+export const GRAPH_PATH = join(REPO, process.env.TNR_GRAPH ?? "state/silent_bastion_phase1_graph.json");
 
 export type SymNode = {
   id: string;
@@ -35,12 +36,14 @@ export type SymNode = {
   startPoolsPercent?: number;
   startEffect?: string;
   resetTo?: string;
+  /** Condensed-99 spelling of resetTo. */
+  resetTarget?: string;
   division?: number;
   lane?: "n" | "r";
   route?: string;
   regular?: number;
 };
-export type SymGraph = { entry: string; revision?: string; nodes: SymNode[]; [k: string]: unknown };
+export type SymGraph = { entry?: string; root?: string; revision?: string; nodes: SymNode[]; [k: string]: unknown };
 
 export const loadGraph = (): SymGraph => JSON.parse(readFileSync(GRAPH_PATH, "utf8"));
 
@@ -101,7 +104,7 @@ export const compileNode = (n: SymNode): AllObjectivesType => {
       });
     }
     case "reset":
-      return ResetQuestObjective.parse({ id: n.id, task: "reset_quest", resetObjectiveId: n.resetTo });
+      return ResetQuestObjective.parse({ id: n.id, task: "reset_quest", resetObjectiveId: n.resetTo ?? n.resetTarget });
     case "win":
       return InstantWinLoseObjective.parse({ id: n.id, task: "win_quest", description: "[fixture] win" });
     case "fail":
