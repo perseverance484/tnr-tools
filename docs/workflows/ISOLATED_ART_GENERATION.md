@@ -121,3 +121,13 @@ Keep collection-specific identity/approval/source-evidence in its register (for 
 **End of isolated session:** close after one accepted/rejected target. Do not reuse the thread for the next jutsu.
 
 This workflow changes neither the normal branch-ownership rules nor the user-only live-game upload boundary.
+
+## 7. Final jutsu family showcase — mandatory Art Studio closeout stage
+
+**Director decision (2026-10-15):** each finished bloodline **jutsu-icon family** receives a single labeled, side-by-side **family showcase as the final Art Studio presentation artifact**, using the director-supplied BBE 4 x 2 contact-sheet format as its layout precedent. See the canonical procedure in [JUTSU_ICON_SHOWCASE.md](JUTSU_ICON_SHOWCASE.md).
+
+When all N individual icons have **explicit current raw visual acceptance**, process and verify their exact final WebPs, perform complete 125/64/32 family-wide pairwise silhouette/confusion QC, then compose the neutral contact sheet **deterministically from those processed files**. For a normal eight-icon bloodline: four equal square tiles across two rows, each with the *exact jutsu name and verified processed-file decimal kB size* below. No icon regeneration, decorative overlays, original/withdrawn draft pictures, false file-size claims or title poster art.
+
+Show the single complete showcase to the director for **separate whole-family acceptance**, then record the image SHA-256, exact input filenames/hashes, sizing/caption provenance, QA, and any package/closeout status. When a source or export is revised, the old showcase becomes **stale** and must be rebuilt/reaccepted.
+
+The showcase is **documentation/QC, not an in-game icon or an upload-ready proof**. The current opaque jutsu-background vs shared ICON alpha preflight conflict remains independent; report blocked/failed checks truthfully. Director controls artwork acceptance and all live-game actions. Generation sessions never build a family sheet or perform game writes.
