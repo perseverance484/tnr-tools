@@ -1147,3 +1147,21 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Authority and safety:** all per-source approvals, processing-QC, whole-family 125/64/32 comparison, truthful preflight verdicts and user-only live game actions remain unchanged. The showcase is still an external presentation/QC artifact, never a game icon. Reusable builder code remains separate Lane A implementation.
 
 **Operative owner:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` adaptive-layout section. `docs/workflows/ART_PRODUCTION.md` and `docs/workflows/ISOLATED_ART_GENERATION.md` route to it. `docs/design/blood_enchanted_eyes/SHOWCASE_READINESS_20261015.md` retains an **eight-icon-specific** BEE preparation ledger.
+
+---
+
+## RUL-2026-10-16-001 — Houkyuken star-polarity shape-first icon correction
+
+**Date:** 2026-10-16  
+**Domain:** Houkyuken/Hokyuken jutsu icon direction; art-family silhouette readability  
+**Status:** ACTIVE — director-approved task-specific art direction, **not** a new global mechanical ICON rule.
+
+**Context and correction:** After approving Magnetic Pulse Strike and the earlier Rising Star raw, the director found the three initial Houkyuken images overly similar at thumbnail size: scattered magnetite rocks, red/blue impacts and diffuse force effects rather than unmistakable technique silhouettes. The earlier Rising Star and Morning Star briefs expressly barred star imagery despite the two names; that exclusion is **reversed for these two jutsu**.
+
+**Ruling:** The director approved the proposed **five-point cyan `Rising Star — Polar Ascendance`** with a dramatically elongated rising apex and small subordinate scarlet returning current, and **eight-ray scarlet `Morning Star — Crimson Starfall`** with a heavy downward diagonal strike and restrained opposing cyan fractured field. The star forms must be **coherent three-dimensional magnetic-chakra shapes**, not badges, star logos, ordinary suns, rubble showers or generic explosions. The entire five-icon family follows **recognizable silhouette first, technique action second, polarity third, restrained texture fourth**; test at 125/64/32px. These are **director-owned visual design choices**: they do not assert that game-engine magnetic effects are tied to specific color polarities.
+
+**Previously approved art:** User explicitly approved **reopening Rising Star for redesign** (“Yup, approved”). The prior `1000018546.png` exact raw visual approval and SHA-256 are preserved as **historical evidence** but the file is **retired from the current family candidate**. Magnetic Pulse Strike retains its exact raw approval pending final family review. The debris-heavy Morning Star `1000018547.png` was never approved. Revised star forms still require individual exact-image acceptance and normal WebP QC before a final showcase; there is no implicit approval of newly generated art.
+
+**Operative owner:** `docs/design/houkyuken/JUTSU_ICON_REGISTER.md` (current art direction), `SOURCE_EVIDENCE.json` (historical/current source approvals), and `STAR_SILHOUETTE_REASSESSMENT_20261016.md` (rationale). Next production brief: `RISING_STAR_POLAR_ASCENDANCE_V2_ISOLATED_BRIEF_20261016.md`. The previous no-star Rising Star and Morning Star generation briefs are archived/historical.
+
+**Boundary:** no new live-game requests/writes, no uploads or publication, no change to generic ICON art spec/alpha preflight. User continues to own individual art and whole-family acceptance and all live-game actions.
