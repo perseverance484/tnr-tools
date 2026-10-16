@@ -1137,3 +1137,25 @@ Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint,
 
 **Safety boundary:** No engine-code modification is approved or requested. Fable must validate existing `reset_quest` + 50%-pool recovery-fight behavior offline at an exact game-source SHA before this layout can be treated as executable. No game requests, writes, credentials, publication or reward/balance freeze authorized.
 
+
+---
+
+## RUL-2026-10-16-002 — Silent Bastion selects native-tested alt99_f4gate
+
+**Date:** 2026-10-16
+
+**Domain:** Silent Bastion / Ghost Ship: The Last Directive / objective topology
+
+**Status:** ACTIVE DESIGN APPROVAL; native proof applies to its pinned engine, not current release acceptance.
+
+**Supersedes:** director selection of the original `state/silent_bastion_condensed99_candidate.json` only as a provisional graph for native proof under RUL-2026-10-15-001. The original candidate demonstrably fails recovery-loop correctness (C1), so it is **not** the source for authoring. All other four-division design decisions under RUL-2026-10-15-001 remain.
+
+**Ruling:** The director explicitly approves **`alt99_f4gate`** as Silent Bastion's 99-objective symbolic graph. The recovery_later battle WIN routes through a required confirmation dialog before the existing `reset_quest`, fixing the native auto-reset-on-battle-start defect. To remain at 99 objectives, the separate fourth-regular-fight introductory dialog in each of four divisions is folded into its Military Command Terminal's Protocol access option. Both clean and Security Alert Maintenance routes preserve their separate commander-introduction dialogs; the puzzle Security Alert feedback remains distinct. The four interior divisions, all 20 encounter slots, one commander per division, all four puzzles, three terminal paths, 50% recovery, post-fourth Medical100 / player Combat protocol, 16–20 successful-path fights and no exterior defense remain.
+
+**Evidence:** Fable native result `claude/silent-bastion-budget-validation-69za5u@74eeb328f05d4258056b0a1c531619ffcf852ce3`, `harness/silent_bastion_condensed99/graphs/alt99_f4gate.json`, `docs/reviews/SILENT_BASTION_CONDENSED99_NATIVE_RESULTS.md`. All S/D/R/E gates passed under `studie-tech/TheNinjaRPG@13d40c4c1509ecf44262aba1b5120266011ea786`. The original candidate failed C1. This approval does **not** certify a generated manifest, current upstream, economy, game combat balance, hidden readback or publication.
+
+**Companion reward direction:** RUL-2026-10-16-001 on `chatgpt/recipe-aligned-reward-caches-20261016@a5e92bae5ceeba3d3212ca66f157ad0f54dca335` approves selecting exactly one Arsenal or Research weighted recipe cache after final Pyramid completion. That ruling is kept on a distinct ChatGPT design branch; do not duplicate it or assume it settled recipe yields. Quest-level native reward choice needs offline source tests and is not an extra `win_quest` objective.
+
+**Still open:** Beacon entry timing (latest native pin charged at *start*, contradicting older first-battle wording), Arakane Combat Protocol stand-in, all cache item outputs/economics and the usual manifest/source/readback/publishing gates.
+
+**Canonical destinations:** `state/silent_bastion_design.md`, `state/silent_bastion_release_plan.md`, `state/prompt_silent_bastion_complete_authoring.md` (updated on `chatgpt/silent-bastion-alt99-approval-20261016`). Tested topology remains the exact Fable graph file at the frozen proof SHA; no modifications to that test fixture are authorized by this record.
