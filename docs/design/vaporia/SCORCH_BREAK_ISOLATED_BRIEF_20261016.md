@@ -1,52 +1,55 @@
-# Scorch Break — Proposed Isolated Art Brief (Furnace Knuckle)
+# Scorch Break — Revised Art Direction Proposal: Flash-Boil Rupture
 
-**Status:** **PROPOSED / DIRECTOR CONFIRMATION REQUIRED.** The director has NOT yet approved the fist/hand exception, this precise composition, or any current Scorch replacement raw image.
-**Workstream:** Vaporia (A-rank; 5 public native jutsu in historical 2026-10-01 roster). **Target:** Scorch Break, native B-rank · ID `6v7dfraXRVo5K3NbgixzT` · field `jutsu.image`.
-**Lead:** Art Director · **support:** Image Production after director approves. **Session:** NEW isolated generation conversation after direction confirmation only.
-**Canonical studio:** `docs/design/vaporia/JUTSU_ICON_REGISTER.md` and `SOURCE_EVIDENCE.json`.
+**Status: PROPOSED — DIRECTOR CONFIRMATION REQUIRED. Do not generate yet.**
+**Updated:** 2026-10-16 · **Workstream:** Vaporia jutsu icons · **Lead:** Art Director; **support:** Image Production only after approval.
+**Target:** Scorch Break · native B-rank · ID `6v7dfraXRVo5K3NbgixzT` · game field `jutsu.image`.
+**Studio source:** `docs/design/vaporia/JUTSU_ICON_REGISTER.md` and `SOURCE_EVIDENCE.json`.
 
-## Meaning / prior director feedback
+## Explicit director reversal and previous art
 
-Pinned historical kit supports **Boil Damage** and **self Reflect**, not an explicit barrier, healing or teleport effect. This is a tremendous hydrothermal **breaking strike**, and the art should communicate that force rather than portray a fighter or an entire combat scene.
+The director previously approved the **Furnace Knuckle** direction and its exceptional supernatural fist, but then explicitly withdrew that concept: **"I dont like the fist direction anymore, propose new direction"**. This later correction makes the former hand exception **non-operative**. The older original Scorch art, exploratory fist candidate, and any newer fist attempts are not approved source art and **must NOT be used as generator conditioning**. Preserve their historical ledger entries, not their composition.
 
-An earlier exploratory composition featured an orange-hot fist and azure water. The director liked that direction but wanted the **depicted hand improved**. The recovered candidate `candidate_scorch_fist_unverified.jpg` SHA-256 `ed626ce34e81810558f1c42f44be63b618630fe6e9cb46cd0a11f3bb65e5aac7` is **not approved**; never feed it to a generator for conditioning. The prior hand discussion motivates this proposed correction, not source approval.
+The historical pinned jutsu evidence supports **Boil damage and a self Reflect effect**. The new icon should depict a devastating pressure/thermal breaking action, not invent a defensive shield or literal Reflect mechanic.
 
-## Proposed one-shape concept — Furnace Knuckle
+## Strongly recommended new concept — Flash-Boil Rupture
 
-**ONE immense, anatomically coherent clenched FIST of incandescent molten-orange chakra**, making a powerful **upper-right to lower-left** breaking strike. The fist should occupy the majority of the icon, sharply silhouetted from the midnight-blue background. Four individually legible knuckle volumes, a properly **tucked thumb**, and one continuous wrist transition—**no extra fingers, interlaced blobs or uncertain digits**. Treat it as condensed molten chakra with defined hand anatomy, not a human portrait or disembodied skin-tone arm.
+**Dominant silhouette: ONE colossal incandescent, near-vertical FLASH-BOIL RIFT splitting a heavy sheet of azure chakra-water.**
 
-The hand is the **only actor/anatomy fragment**, and requires explicit director approval under the studio's technique-first rule. **No face, figure, full forearm, glove, clothing or victim**.
+A compressed orange-white core of heat suddenly flashes the surrounding water into violent pressure. One **broad, irregular, jagged molten-orange fracture** tears approximately from the upper center toward the lower center, with **one or two major lateral kinks**. Its **width is substantial** — not a hairline crack, sigil, weapon blade or lightning bolt. The hottest white/ember-gold center is framed by molten-orange pressure shoulders.
 
-**ONE supporting cue:** a short, substantial **electric-azure liquid-pressure shear** sweeps around the wrist and strike edge, with a tight white-hot steam spark where hot chakra breaks water. Keep blue water subordinate to the fiery fist, not another broad wave, V-funnel or enclosing sheet. Concentrate the orange bright point at the front knuckle line; do not default to a radial central explosion.
+**Water response:** one coherent heavy cobalt/electric-azure water mass is being torn into **TWO large asymmetrical banks that recoil left and right AWAY from the incandescent rupture**. Broken liquid lips curl and peel back from the seam under tremendous pressure. This is **separation, not convergence**. Keep the torn blue water dimensional, thick, visibly fluid, with rounded turbulent folds rather than glass/ice shards or rigid fractured stone.
 
-**At 125/64/32px:** the read should be **one dominant molten-orange fist**, clearly different from all four accepted mostly-blue Vaporia techniques. If it reads as a generic fireball, melted glove, rock fist or flying orange orb, the hand anatomy has failed. Prioritize large knuckle masses rather than fine crack details.
+**One supporting cue:** a concentrated narrow white-hot steam pressure seam hugging the rupture. No huge billowing steam cloud, ring, radial explosion, distributed sparks or object debris.
 
-## Vaporia rendering materials
+**Focal hierarchy:** the orange/white **thermal fault** is the unmistakable bright primary, occupying a meaningful central vertical run; the two blue banks only frame and demonstrate its tearing force. Dark navy negative gaps keep the shapes readable. A slight asymmetry avoids a static decorative emblem.
 
-- Midnight navy `#080E1C` background.
-- Molten orange `#FF6821` fist body, ember gold `#FFBA54` hot knuckles.
-- Cobalt `#1255CC` liquid pressure body and electric azure `#27A8FF` edge.
-- Near-white steam `#D8F5FF` at the short hot-water shear.
-- Strong material depth, controlled illumination, large designed silhouettes, no decorative ring/halo, unrelated sparks, UI/borders, watermarks or franchise motifs.
-- Intentionally opaque designed jutsu background acceptable visually; shared ICON alpha-preflight mismatch is still independently BLOCKED.
+**Thumbnail reading at 125 / 64 / 32px:** `ONE BRIGHT ORANGE BREAK SPLITTING BLUE WATER APART`. It should never read as a pair of fists, a weapon, an orange sphere, a lightning rune or another generic water wave.
 
-## Exactly two attached *individual* references after direction acceptance
+## Distinguish from approved peers
 
-1. **Scorch Break original — IDENTITY ONLY.** `scorch_break_original_IDENTITY_ONLY.jpg`, original recovered **JPEG RGB 1536×1536**, SHA-256 `8d3653c3ac3e79473116330d00f3c747e5924c2e610910d90f90299b01b3d296`. Preserve only idea of a decisive burning fist breaking through blue pressure; **do not copy original character, costume, face, figure or literal glowing ring**.
-2. **Approved Liquid Ember Shell — STYLE/MATERIAL ONLY.** `liquid_ember_shell_approved_STYLE_MATERIAL_ONLY.jpg`, director-approved **JPEG RGB 1536×1536**, 759,105 bytes, SHA-256 `c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4`. Borrow luminous blue-water volume, molten-orange energy, edge contrast and deep navy field. **Do not borrow sphere, wrapping swirl, central orange orb or upward vent composition**.
+- **Azure Dragon Palm:** owns the coherent serpentine dragon; no animal/head/coil.
+- **Surfing Strike:** owns the left-to-right wave barrel and diagonal orange under-trail; do not make an orange horizontal surf slash.
+- **Drowning Strike:** owns **INWARD/DOWNWARD compression** into a small orange bottom throat; Scorch must do the opposite: **OUTWARD left/right displacement** along a broad orange near-vertical rupture.
+- **Liquid Ember Shell:** owns the fully enclosed sphere with suspended orange reservoir; Scorch has **NO closed orb, orange center ball or encircling water layers**.
 
-Actual exact individual files must be attached in the new isolated conversation, not URLs/hashes alone. **Never attach the earlier exploratory/unapproved Scorch candidate**, a rejected version or family montage.
+No actors, hands, fists, bodies, victims, skin, gloves, arm/trailing limb, targets, shields, swords/blades, arrows, icicle/crystal shards, explosion starbursts, water dragons, magic rings, sigils, borders, logos, lettering, watermarks, UI or franchise imagery.
 
-## Peer exclusions
+## Vaporia material and palette — already director-locked at family level
 
-Azure owns **serpentine dragon anatomy**; Surfing owns **forward-moving horizontal crest**; Drowning owns **downward opposing walls/compression funnel**; Liquid Ember owns **enclosing spherical molten reservoir**. Scorch alone is the **compact localized molten fist strike** with a short blue pressure shear. No dragon, sphere, wrapping aura, huge blue traveling wave, downward water funnel, exploding sunburst, enormous pressure ring, readable human face, unrelated weapon, text/logo/UI.
+- Background: midnight navy `#080E1C`.
+- Thick boiling water: ocean cobalt `#1255CC` and electric azure `#27A8FF`.
+- Rupture: molten orange `#FF6821`, ember gold `#FFBA54`, near-white `#D8F5FF` at the compressed core and steam seam.
+- Render water as bold, luminous liquid sheets with material depth, substantial silhouette and controlled fine detail; no glassy crystals or realistic scene props.
+- Full-bleed opaque designed jutsu background is visually approved generally. The independent shared ICON-alpha preflight mismatch remains unresolved; do not claim mechanical PASS.
 
-## Director gate and boundary
+## If direction is approved: EXACTLY ONE reference image
 
-**Director must approve or revise:** (a) this exceptional single supernatural fist / hand, (b) compact diagonal striking composition, and (c) dominant orange molten chakra with secondary azure shear.
+Use **only the already approved Liquid Ember Shell raw** as **STYLE/MATERIAL ONLY**: `liquid_ember_shell_approved_STYLE_MATERIAL_ONLY.jpg` (actual JPEG RGB 1536×1536, SHA-256 `c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4`). Learn luminous blue-water thickness, bright molten heat, dark navy field, not its circular shell/central orb/steam vent composition.
 
-Only after confirmation: open ONE clean isolated generation conversation, attach the two verified reference images individually, generate exactly **ONE** square Scorch candidate and stop for director feedback. No images are generated in this persistent studio.
+**Do NOT attach the original Scorch image** even as identity-only; it depicts the withdrawn fist and can contaminate the new subject. Do not attach the prior exploratory fist or contact sheets. A written pinned jutsu identity and this director-confirmed concept (if approved) are sufficient subject evidence.
 
-After an exact Scorch raw image is approved and byte-verified (5/5), process **all five** 256px lossless WebPs from the exact source bytes, inspect 125/64/32 processed family consistency, record SHA/file sizes and real preflight, then compose the deterministic centered **3+2** gallery with true decimal kB WebP captions for **separate director whole-family signoff**. No live requests/writes or publication.
+## Boundary and next step
 
-**Current:** 4/5 raw visual approvals; Scorch direction and hand exception pending; 0/5 processed WebPs; final showcase NOT READY.
+Ask director whether to adopt **Flash-Boil Rupture**. If yes, mark the direction approved and open a NEW isolated generation conversation with the one verified individual reference attached. Generate exactly ONE square candidate of Scorch Break and wait for director raw-image review. Approval is per exact candidate bytes/SHA, never by direction alone.
+
+**Still 4/5 raw visual approvals, 0/5 processed WebPs, final 3+2 showcase NOT READY. No live-game requests/writes.**
