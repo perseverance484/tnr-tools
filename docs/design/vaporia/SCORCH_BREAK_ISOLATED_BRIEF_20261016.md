@@ -1,6 +1,6 @@
 # Scorch Break — Revised Art Direction Proposal: Flash-Boil Rupture
 
-**Status: PROPOSED — DIRECTOR CONFIRMATION REQUIRED. Do not generate yet.**
+**Status: COMPLETED FOR RAW VISUAL — director approved Flash-Boil Rupture direction ("Yes, approved") and the exact resulting Scorch raw candidate ("Approved") on 2026-10-16. Former direction-proposal and generation instructions below are preserved as historic; all production/export/family gates remain pending.**
 **Updated:** 2026-10-16 · **Workstream:** Vaporia jutsu icons · **Lead:** Art Director; **support:** Image Production only after approval.
 **Target:** Scorch Break · native B-rank · ID `6v7dfraXRVo5K3NbgixzT` · game field `jutsu.image`.
 **Studio source:** `docs/design/vaporia/JUTSU_ICON_REGISTER.md` and `SOURCE_EVIDENCE.json`.
@@ -52,4 +52,4 @@ Use **only the already approved Liquid Ember Shell raw** as **STYLE/MATERIAL ONL
 
 Ask director whether to adopt **Flash-Boil Rupture**. If yes, mark the direction approved and open a NEW isolated generation conversation with the one verified individual reference attached. Generate exactly ONE square candidate of Scorch Break and wait for director raw-image review. Approval is per exact candidate bytes/SHA, never by direction alone.
 
-**Still 4/5 raw visual approvals, 0/5 processed WebPs, final 3+2 showcase NOT READY. No live-game requests/writes.**
+**Completion checkpoint (2026-10-16):** exact director-approved raw `1000018510.png` actually JPEG RGB 1536×1536, **797,370 bytes**, SHA-256 `34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120`. Byte-identical corrected-extension copy `scorch_break_approved_raw_20261016_sha34c2b35d.jpg`. Director quote: **"Approved"**. The prior Furnace Knuckle direction is superseded, and the resulting fissure image contains no fist/hand. **Raw 5/5, WebP exports 0/5, preflight pending, showcase NOT READY; no live-game requests/writes.**
