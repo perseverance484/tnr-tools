@@ -1,29 +1,29 @@
 # Houkyuken (Hokyuken) — Adaptive Five-Icon Showcase Readiness
 
-**State:** **NOT READY**. This is a newly initialized art workstation with **0/5 current-original images supplied, 0/5 raw visual approvals, 0/5 processed WebPs, no gallery**. The original five images will be attached by the director in the next conversation.
-**Pinned historical roster:** A-rank, Houkyuken, 5 public/0 hidden as of 2026-10-01/09-30. This is not a live refresh.
-**Workflow:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` · **Director-owned** individual and whole-family approvals.
+**State:** **NOT READY.** Updated after director's five original images arrived on 2026-10-16: **5/5 original identities mapped and source bytes inspected, 0/5 directions approved, 0/5 current replacement raw approvals, 0/5 processed WebPs, no final gallery.** No original pixels are committed as Git binaries. See `SOURCE_EVIDENCE.json` for exact JPEG decoding and SHA-256.
+**Pinned historical roster:** A-rank, Houkyuken, 5 public/0 hidden native jutsu as captured 2026-10-01/09-30. This is not a live refresh.
+**Workflow:** `docs/workflows/JUTSU_ICON_SHOWCASE.md`; individual visual and whole-family acceptance remain director-owned.
 
-## Exact roster order and intended gallery positions
+## Exact roster order and future gallery slots
 
-| Grid slot | Captured jutsu name | Original received | Raw approved | Verified export |
+| Grid slot | Captured exact jutsu name | Director original received | Raw replacement approved | Verified current WebP |
 | --- | --- | --- | --- | --- |
-| Row 1 left | Magnetic Pulse Strike | NO | NO | NONE |
-| Row 1 center | Rising Star | NO | NO | NONE |
-| Row 1 right | Morning Star | NO | NO | NONE |
-| Row 2 centered left | Houkyuken: Magnetic Assignment | NO | NO | NONE |
-| Row 2 centered right | Houkyu Dance | NO | NO | NONE |
+| Row 1 left | Magnetic Pulse Strike | YES — `1000018531.png` (actual JPEG) | NO | NONE |
+| Row 1 center | Rising Star | YES — `1000018532.png` (actual JPEG) | NO | NONE |
+| Row 1 right | Morning Star | YES — `1000018533.png` (actual JPEG) | NO | NONE |
+| Row 2 centered left | Houkyuken: Magnetic Assignment | YES — `1000018534.png` (actual JPEG) | NO | NONE |
+| Row 2 centered right | Houkyu Dance | YES — `1000018535.png` (actual JPEG) | NO | NONE |
 
-**Recommended layout:** exactly 3 equally sized squares across top, two centered beneath, neutral dark background, original approved art untouched by showcase compositor. Use exact recorded names and **actual currently verified 256px lossless WebP file sizes in decimal kB to one decimal**, not guessed size captions. Presentation geometry adapts to roster; the 1156×854 Vaporia example is a starting point, not a mandatory canvas.
+**Proposed layout:** exactly 3 equal square icons across top, 2 centered below, quiet dark background, no themed title art or card decoration. Preserve exact final approved art unchanged. Use exact jutsu names and **actual final 256px lossless WebP file byte sizes in decimal kB to one decimal** (never the uploaded JPEG original sizes or guessed sizes). Size the canvas appropriately for five icons; 1156×854 is only an example.
 
-## Gates (all initially open)
+## Current gates
 
-- Director supplies five original-icon files in next session; verify image identity/name mapping, decoded MIME/mode/dimensions/bytes/SHA-256.
-- Director confirms Houkyuken-specific rendering palette, materials and five distinct technique-first silhouettes based on *those* images; no color/design decision pre-approved here.
-- Each target receives individual director approval of **one exact recoverable generated raw image** in a separate isolated conversation.
-- Process all 5 current accepted raw sources to spec, record actual lossless codec, size, dimensions, SHA/source mapping. Review 125/64/32 family confusion.
-- Report real artpreflight; shared `ICON` alpha rule conflicts with user-approved opaque jutsu backgrounds until reviewed correction/exception. Do not report PASS by fiat.
-- Compose only from exact current WebPs, never ImageGen; require separate director whole-gallery acceptance.
-- Delivery and game publication remain user-only, separate; no live calls during studio.
+- **DONE:** director supplied five individual original references and their name order; exact decoded format (JPEG RGB despite .png extension), dimensions 1536×1536, byte counts and SHA-256 recorded. **Binary preservation in Git: NO**. Reattach the relevant individual original in each clean isolated-generation chat.
+- **PENDING:** director approval of Houkyuken-specific Polar Flux family rendering/palette and five individually distinctive silhouette directions; first proposal is Magnetic Pulse Strike — Rail Pulse. All are currently **proposed, not approved**.
+- **PENDING:** five separately approved exact raw replacement sources, stored/recoverable with source hashes.
+- **PENDING:** five spec-derived square lossless WebP exports, actual codec/dimensions/bytes/hash, and thumbnail/pairwise review at 125/64/32.
+- **BLOCKED mechanical preflight:** known shared ICON alpha rule conflicts with director-allowed opaque jutsu backgrounds until reviewed owner fix or evidence-backed exception. Never call preflight PASS merely because visual approval or byte size succeeds.
+- **PENDING:** deterministic **3 + 2 centered** gallery assembled from the *actual five approved processed WebPs*, inspected on desktop/phone, and **separately accepted** by the director.
+- **NOT AUTHORIZED:** live-game requests/writes, asset uploads, publication, credential use.
 
-**Open decisions:** original attachment/name map, canonical spelling vs operator alias where relevant, family palette, five individual silhouettes, raw approval of each icon, adaptive gallery aesthetics, separate family acceptance. **Live requests/writes 0/0; credentials none.**
+**Names:** “Hokyuken” remains the operator alias; “Houkyuken” and the exact jutsu spellings/IDs remain the captured historical names until a director-requested content naming decision. **Live-game requests/writes: 0/0 · Credentials: none.**
