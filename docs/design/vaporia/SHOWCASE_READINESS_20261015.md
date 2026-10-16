@@ -1,6 +1,6 @@
 # Vaporia — Five-Jutsu Showcase Readiness
 
-**State:** **NOT READY** (studio initialization; 2026-10-15). **0/5 exact raw artwork files approved/verified in this branch.** Prior art discussions do not establish actual bytes or finished production files.  
+**State:** **NOT READY** (updated direction checkpoint 2026-10-15). **1/5 exact current raw artwork visual approvals** (Azure Dragon Palm, director-confirmed SHA-256, not Git-pinned); **0/5 processed exports**. Five game-original references and two prior candidates recovered/hashed from Library, but original references are not automatically replacement approvals.  
 **Bloodline:** Vaporia, A-rank, ID `f7IgtcsLqomqmmBgAYS1O`. **Verified historical native public jutsu count:** 5.  
 **Showcase authority:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` — adaptive roster count; never an eight-jutsu assumption.  
 **User-owned gates:** five individual raw acceptances AND separate full-family gallery acceptance; live uploads are a third, wholly separate operator action.
@@ -13,11 +13,11 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 
 | Grid position | Exact jutsu name | Current raw source | Current approved export/size |
 | --- | --- | --- | --- |
-| Row 1, left | Azure Dragon Palm | prior-chat original, bytes reintake pending | NONE |
-| Row 1, center | Scorch Break | prior-chat original, bytes reintake pending | NONE |
-| Row 1, right | Surfing Strike | prior-chat original, bytes reintake pending | NONE |
-| Row 2, centered left | Drowning Strike | prior-chat original, bytes reintake pending | NONE |
-| Row 2, centered right | Liquid Ember Shell | prior-chat original, bytes reintake pending | NONE |
+| Row 1, left | Azure Dragon Palm | legacy original recovered; separate exact Azure candidate **visually approved** | NONE — 0 processed WebPs |
+| Row 1, center | Scorch Break | original and unapproved hand candidate recovered | NONE |
+| Row 1, right | Surfing Strike | original recovered; new Scalding Crest generation pending | NONE |
+| Row 2, centered left | Drowning Strike | original recovered, replacement not started | NONE |
+| Row 2, centered right | Liquid Ember Shell | original recovered, replacement not started | NONE |
 
 **Do not publish or label any gallery "final" while N/N exact source approvals, output/codec/size checks, 125/64/32 family QC, and director's separate whole-set approval are absent.**
 
@@ -26,10 +26,10 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 | Gate | State | Needed |
 | --- | --- | --- |
 | N=5 verified | **YES — pinned 2026-10-01 roster** | If new captured source changes the kit, reconcile before rendering |
-| Original current icon bytes | **0/5 current-reference bytes attached/hashed here** | Recover five earlier project-chat icon images individually and establish exact SHA-256 |
-| Raw visual approvals | **0/5 bound to verified exact source files** | Director confirms actual files; earlier directional feedback alone is not a file approval |
-| Family art-style lock | **PROPOSED ONLY** | Inspect exact originals; agree on azure-water / hot-vapor / ember palette and technique-first rendering |
-| Family silhouette ledger | **FIVE PROPOSALS, NONE LOCKED AS RAW ART** | Distinguish dragon, scorch, traveling wave, collapsing pressure and hot shell at 125/64/32 |
+| Original current icon bytes | **5/5 recovered/hashed from Library (NOT Git-pinned)** | Attach exact individual JPEG bytes in relevant isolated sessions; provenance in SOURCE_EVIDENCE.json |
+| Raw visual approvals | **1/5 — Azure director confirmation bound to exact recovered JPEG SHA** | Remaining four still need separate explicit source-file approval; no mass approval inferred |
+| Family art-style lock | **LOCKED 2026-10-15** | Azure water / hot vapor / molten ember confirmed; source colors are reference, not mechanical pixel constraints |
+| Family silhouette ledger | **FIVE TARGET DIRECTIONS SET; Surfing NEXT** | Distinguish dragon, scorch, traveling crest, collapsing pressure and hot shell; remaining icon art unapproved |
 | Final 256px lossless WebPs | **0/5** | Process currently accepted originals with current art spec; record true MIME/codec/dimensions/bytes/hashes |
 | Mechanical preflight | **NOT RUN; known generic ICON alpha mismatch for opaque jutsu artwork** | Report real gate; separate reviewed jutsu-specific contract correction when available |
 | Final labeled contact sheet | **NOT GENERATED** | Deterministic 3+2 from 5/5 current WebPs, exact names and current decimal WebP file-size labels |
@@ -43,5 +43,5 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 - The only transferable family constants are process discipline, thumbnail readability, actual source provenance and correct names/sizes. **Vaporia's artistic palette and subjects must come from Vaporia**, not imported BBE/BEE appearances.
 - BBE's director cap **<80,000 bytes** was family-specific. Vaporia uses current general jutsu-ICON target unless the director sets a new tighter limit.
 
-**Prepared, not produced.** No gallery image, WebPs, ZIP, or gameplay mutations were made in studio initialization.  
+**Direction confirmed, images not produced.** Seven recovered historical source references and one exact Azure visual acceptance do not imply processed icons, a final gallery, or upload readiness. No gallery or WebPs generated; no gameplay mutations.  
 **Live-game requests/writes:** 0.
