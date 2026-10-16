@@ -1,0 +1,167 @@
+{
+  "schema": "tnr.bee.jutsu-showcase-qc/1",
+  "date": "2026-10-15",
+  "repo": "perseverance484/tnr-tools",
+  "studio_branch": "chatgpt/bee-jutsu-art-studio-20261014",
+  "raw_approved_count": 8,
+  "showcase_status": "READY_FOR_DIRECTOR_WHOLE_FAMILY_REVIEW",
+  "director_showcase_accepted": null,
+  "method": "Deterministic PIL composition from the eight actual newly created 256x256 RGB lossless WebP VP8L exports, not image generation",
+  "old_ai_gallery_status": "INVALID; reimagined icons, shelved Sanguine and raw JPEG-derived KiB captions",
+  "old_ai_gallery_name": "crimson_infernal_skill_gallery.png",
+  "rendered_png": {
+    "file": "bee_jutsu_icon_showcase_v1.png",
+    "sha256": "53dddafead9992a78a967ac8899c6c332ab8fdfa0d4bd7de8e90ce1a9c375a11",
+    "size": [
+      1536,
+      854
+    ],
+    "raw_binary_git_pinned": false
+  },
+  "manifest": {
+    "file": "bee_jutsu_icon_showcase_v1.manifest.json",
+    "binary_git_pinned": false
+  },
+  "qc_visual": {
+    "file": "bee_jutsu_icon_qc_125_64_32.png",
+    "sha256": "c257339b8f4bad1e6fbb8f9a718fc4e5a95c0674e7db1da8cbdd77802265820a",
+    "sizes": [
+      125,
+      64,
+      32
+    ],
+    "inspected": true,
+    "notes": "Individual large silhouettes and differences visibly present; formal director acceptance pending."
+  },
+  "zip": {
+    "file": "bee_current_eight_webps_candidate.zip",
+    "sha256": "d2e28a2bf9b7d343ce7fb7de81869e06e82d6a932db0a99640c144c68db0a64d",
+    "entries": 9,
+    "crc_test": true,
+    "member_sha_verified": true,
+    "delivery_eligible": false
+  },
+  "rules": {
+    "actual_game_jutsu_icon_format": "256x256 full-bleed square WebP lossless VP8L",
+    "max_bytes": 460800,
+    "extra_BBE_80000_limit_applied": false,
+    "caption_units": "actual current WebP byte_size/1000 decimal kB, one decimal",
+    "PNG_layout": "4 columns x 2 rows, no icon redrawing",
+    "style": "dark field, Inter Medium 18px labels"
+  },
+  "records": [
+    {
+      "position": "R1C1",
+      "jutsu": "Ring of Spilled Blood",
+      "source": "1000018474.png",
+      "source_sha256": "a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43",
+      "webp": "icon_bee_ring_of_spilled_blood_v2.webp",
+      "bytes": 80484,
+      "webp_sha256": "c791b05124052c901bf1cd8fbf5044c3fb778d6bb436d2492cde19d915b10853",
+      "caption": "Ring of Spilled Blood  80.5kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R1C2",
+      "jutsu": "Crimson Tithe",
+      "source": "1000018475.png",
+      "source_sha256": "eeae4826ca7daa480fba50d4e7b721714a0dc833ec1afb14e14d0bc6ea2079b7",
+      "webp": "icon_bee_crimson_tithe_v1.webp",
+      "bytes": 76088,
+      "webp_sha256": "5f56d5594440dae025daa028913e7ff44ac626f1d9f4610635d7e56ea2295a0a",
+      "caption": "Crimson Tithe  76.1kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R1C3",
+      "jutsu": "Sanguine Plague",
+      "source": "1000018488.png",
+      "source_sha256": "4a48079a9abeab6601c3f813fbf3b438e1c26fa56f2bcfb0ad12c5aad8a85269",
+      "webp": "icon_bee_sanguine_plague_v1.webp",
+      "bytes": 86448,
+      "webp_sha256": "32be50310bc53c63b840706a679cb6398e38ba2b0e66dbba228e52f9824a903b",
+      "caption": "Sanguine Plague  86.4kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R1C4",
+      "jutsu": "Reaper's Embrace",
+      "source": "1000018481.png",
+      "source_sha256": "0b972708b716b987f94999e2c3975201af3d826200500ab678491d59e862e7d3",
+      "webp": "icon_bee_reapers_embrace_v1.webp",
+      "bytes": 88318,
+      "webp_sha256": "0a59b653a2ca6efb04a0e8ea29c4e0eb0021cc53ac977c151c3f2ec83f765fd7",
+      "caption": "Reaper's Embrace  88.3kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R2C1",
+      "jutsu": "Unholy Enhancement",
+      "source": "1000018491.png",
+      "source_sha256": "22ff11964de0e97e8a1665a95f63b0501fb877df4ab1f0102df318bf08cf00bf",
+      "webp": "icon_bee_unholy_enhancement_v1.webp",
+      "bytes": 89790,
+      "webp_sha256": "68f43f67c9dda39f1aa47bfe2ede0c425a8bce49a3281275e94468adfacd2df6",
+      "caption": "Unholy Enhancement  89.8kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R2C2",
+      "jutsu": "Crimson Impact",
+      "source": "1000018482.png",
+      "source_sha256": "85617e355ab663c3fd522e2ddfab9d66226493f3b39cdbcf90e7db81e9a51b87",
+      "webp": "icon_bee_crimson_impact_v1.webp",
+      "bytes": 100902,
+      "webp_sha256": "bc228a385a6b58c0f5924596ea8992808d42d7719ae8aecdc520c92b96915222",
+      "caption": "Crimson Impact  100.9kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R2C3",
+      "jutsu": "Hemocure",
+      "source": "1000018489.png",
+      "source_sha256": "bdb157eb00bdd4d2eef8b8f74dece02757a8e7bc645ac9f6c90462540ede9373",
+      "webp": "icon_bee_hemocure_v1.webp",
+      "bytes": 88642,
+      "webp_sha256": "234c0c4fa325c49cedcd4eee0703d6c35f373c93c8ad276045ac27f2149f2839",
+      "caption": "Hemocure  88.6kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    },
+    {
+      "position": "R2C4",
+      "jutsu": "Thousand Strike",
+      "source": "1000018487.png",
+      "source_sha256": "6a6fead5df08107ae4e01739b2ef59d051be05c7fa4e08af90e75db9314bbfbd",
+      "webp": "icon_bee_thousand_strike_v1.webp",
+      "bytes": 121642,
+      "webp_sha256": "558ad8a9792db009e487f593f657624e1ae9f1085ea7c3b6a6f2a0f59d0afc21",
+      "caption": "Thousand Strike  121.6kB",
+      "decode_PVP8L_RGB_256": true,
+      "resized_source_pixel_equality_checked": true,
+      "current_visual_approval": true
+    }
+  ],
+  "source_git_pinned": false,
+  "webp_git_pinned": false,
+  "official_preflight": {
+    "status": "NOT_RUN_KNOWN_ALPHA_RULE_CONFLICT",
+    "details": "Approved opaque jutsu icon background conflicts with generic shared ICON alpha requirement; no zero-error preflight claim."
+  },
+  "live_requests": 0,
+  "live_writes": 0,
+  "live_uploads": 0
+}
