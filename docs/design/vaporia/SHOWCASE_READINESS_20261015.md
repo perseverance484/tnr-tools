@@ -1,6 +1,6 @@
 # Vaporia — Five-Jutsu Showcase Readiness
 
-**State:** **NOT READY FOR FAMILY SIGNOFF** (director checkpoint 2026-10-16). **5/5 exact current raw artwork visual approvals**, hash-bound to their original files (source binaries not Git-pinned). **0/5 processed lossless WebPs at this checkpoint**. The next steps are actual export QC, honest preflight and the deterministic 3+2 showcase for separate director acceptance.  
+**State:** **SHOWCASE READY FOR DIRECTOR REVIEW — FORMAL PREFLIGHT BLOCKED** (2026-10-16). **5/5 exact raw director approvals**, **5/5 locally exported 256px VP8L lossless WebPs**, source/format/bytes verified, and **3+2** centered image composed with real WebP byte-size labels. **Director whole-family signoff PENDING**; intentional opaque RGB jutsu images still conflict with generic ICON alpha preflight, official script NOT RUN. All art binaries remain local/uncommitted; no live-game action.  
 **Bloodline:** Vaporia, A-rank, ID `f7IgtcsLqomqmmBgAYS1O`. **Verified historical native public jutsu count:** 5.  
 **Showcase authority:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` — adaptive roster count; never an eight-jutsu assumption.  
 **User-owned gates:** five individual raw acceptances AND separate full-family gallery acceptance; live uploads are a third, wholly separate operator action.
@@ -13,11 +13,11 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 
 | Grid position | Exact jutsu name | Current raw source | Current approved export/size |
 | --- | --- | --- | --- |
-| Row 1, left | Azure Dragon Palm | legacy original recovered; separate exact Azure candidate **visually approved** | NONE — 0 processed WebPs |
-| Row 1, center | Scorch Break | **Flash-Boil Rupture raw JPEG approved**, 797,370 bytes, SHA-256 34c2b35d…; withdrawn fist drafts excluded | NONE — raw source bytes are not WebP bytes |
-| Row 1, right | Surfing Strike | **new Scalding Crest raw JPEG visually approved**, 714,708 bytes; SHA-256 321d7c69… | NONE — raw source size is NOT export size |
-| Row 2, centered left | Drowning Strike | **Crushing Undertow raw JPEG approved**, 683,098 bytes, SHA-256 fb25dc2f… | NONE — raw source size is NOT a WebP export size |
-| Row 2, centered right | Liquid Ember Shell | **Living Crucible raw JPEG approved**, 759,105 bytes; SHA-256 c26365d1… | NONE — raw JPEG bytes are NOT WebP size |
+| Row 1, left | Azure Dragon Palm | approved raw hash verified | `vaporia_azure_dragon_palm_jutsu_icon_v1.webp` — 147.6kB |
+| Row 1, center | Scorch Break | approved Flash-Boil Rupture raw verified; no fist | `vaporia_scorch_break_jutsu_icon_v1.webp` — 141.7kB |
+| Row 1, right | Surfing Strike | approved raw hash verified | `vaporia_surfing_strike_jutsu_icon_v1.webp` — 130.9kB |
+| Row 2, centered left | Drowning Strike | approved raw hash verified | `vaporia_drowning_strike_jutsu_icon_v1.webp` — 124.4kB |
+| Row 2, centered right | Liquid Ember Shell | approved raw hash verified | `vaporia_liquid_ember_shell_jutsu_icon_v1.webp` — 133.6kB |
 
 **Do not publish or label any gallery "final" while N/N exact source approvals, output/codec/size checks, 125/64/32 family QC, and director's separate whole-set approval are absent.**
 
@@ -30,10 +30,10 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 | Raw visual approvals | **5/5 — all five director approvals hash-bound** | Current exact sources available locally; source binaries not Git-pinned |
 | Family art-style lock | **LOCKED 2026-10-15** | Azure water / hot vapor / molten ember confirmed; source colors are reference, not mechanical pixel constraints |
 | Family silhouette ledger | **Five accepted distinct silhouettes: dragon / central thermal rift / traveling wave / inward collapse / enclosed sphere** | Final processed-icon peer QC still required at 125/64/32 |
-| Final 256px lossless WebPs | **0/5** | Process currently accepted originals with current art spec; record true MIME/codec/dimensions/bytes/hashes |
-| Mechanical preflight | **NOT RUN; known generic ICON alpha mismatch for opaque jutsu artwork** | Report real gate; separate reviewed jutsu-specific contract correction when available |
-| Final labeled contact sheet | **NOT GENERATED** | Deterministic 3+2 from 5/5 current WebPs, exact names and current decimal WebP file-size labels |
-| Whole-family director signoff | **NOT REQUESTED** | Present complete sheet and full 125/64/32 family QC |
+| Final 256px lossless WebPs | **5/5 LOCAL verified** — RGB WebP RIFF/VP8L lossless, source hash, dims, bytes/codec PASS | Actual output/source binaries not Git-pinned; preserve review ZIP |
+| Mechanical preflight | **BLOCKED / NOT RUN** — shared generic ICON rule requires alpha/RGBA, conflicts with intentional opaque RGB jutsu backgrounds | Reviewed spec/validator correction or evidence-backed exception needed before delivery-eligible |
+| Final labeled contact sheet | **COMPOSED / READY FOR DIRECTOR REVIEW:** 1156×854 PNG, centered 3+2, SHA 65f1fa9a… | Needs separate director whole-set acceptance, not an upload asset |
+| Whole-family director signoff | **PENDING** | Show exact gallery, mobile preview and 125/64/32 processed QC |
 | Final game upload/readback | **NO** | User-only publication boundary; no live game writes in studio |
 
 ## Lessons imported from BBE/BEE
@@ -43,5 +43,5 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 - The only transferable family constants are process discipline, thumbnail readability, actual source provenance and correct names/sizes. **Vaporia's artistic palette and subjects must come from Vaporia**, not imported BBE/BEE appearances.
 - BBE's director cap **<80,000 bytes** was family-specific. Vaporia uses current general jutsu-ICON target unless the director sets a new tighter limit.
 
-**All five raw images accepted.** WebP export/QC, preflight and final deterministic gallery remain separate gates; no gameplay mutation.
+**All five approved raws processed locally and exact export metadata verified. The 3+2 gallery is READY FOR DIRECTOR REVIEW, not yet accepted.** Official preflight remains blocked/not run because of opaque-background ICON alpha contract; no live writes.
 **Live-game requests/writes:** 0.

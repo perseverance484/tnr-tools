@@ -1,0 +1,145 @@
+{
+  "schema": "tnr.vaporia.local-export-showcase-evidence/1",
+  "status": "SHOWCASE_READY_FOR_DIRECTOR_REVIEW_PREFLIGHT_BLOCKED",
+  "bloodline": {
+    "name": "Vaporia",
+    "id": "f7IgtcsLqomqmmBgAYS1O",
+    "rank": "A",
+    "roster_count": 5
+  },
+  "raw_approval_head": "4cf919e151cd0a076a70fcb226c89d667d6f2fcd",
+  "raw_approved_count": 5,
+  "processed_count": 5,
+  "source_provenance": "exact five SHA-approved JPEG RGB 1536×1536; original binaries not in Git",
+  "processing": {
+    "resampling": "Pillow 12.3.0 LANCZOS 1536→256",
+    "output": "256×256 RGB RIFF/WEBP/VP8L lossless",
+    "libwebp": "1.6.0",
+    "options": {
+      "lossless": true,
+      "method": 6,
+      "exact": true
+    },
+    "chroma_applied": false,
+    "max_bytes": 460800
+  },
+  "exports": [
+    {
+      "jutsu": "Azure Dragon Palm",
+      "filename": "vaporia_azure_dragon_palm_jutsu_icon_v1.webp",
+      "sha256": "4daf650a071c78f30f0b3243bb2c5e3711d0875be0af775b8b3b91ed08e056f4",
+      "bytes": 147640,
+      "decimal_kB": 147.6,
+      "codec": "VP8L",
+      "dimensions": [
+        256,
+        256
+      ],
+      "git_binary_pinned": false
+    },
+    {
+      "jutsu": "Scorch Break",
+      "filename": "vaporia_scorch_break_jutsu_icon_v1.webp",
+      "sha256": "c8465b3acd29620d7ccc7c6359ad5570fb26bf0c0513c20d02b9a80e85e52ec3",
+      "bytes": 141702,
+      "decimal_kB": 141.7,
+      "codec": "VP8L",
+      "dimensions": [
+        256,
+        256
+      ],
+      "git_binary_pinned": false
+    },
+    {
+      "jutsu": "Surfing Strike",
+      "filename": "vaporia_surfing_strike_jutsu_icon_v1.webp",
+      "sha256": "73174c139beac7a745f6c6b01d201a6747e9f752cb1d497c68f1ea3f59060a78",
+      "bytes": 130946,
+      "decimal_kB": 130.9,
+      "codec": "VP8L",
+      "dimensions": [
+        256,
+        256
+      ],
+      "git_binary_pinned": false
+    },
+    {
+      "jutsu": "Drowning Strike",
+      "filename": "vaporia_drowning_strike_jutsu_icon_v1.webp",
+      "sha256": "785de3519f45a8ece7aaccdc2296c3eb36f4ff62a86261f78a463651da111aab",
+      "bytes": 124446,
+      "decimal_kB": 124.4,
+      "codec": "VP8L",
+      "dimensions": [
+        256,
+        256
+      ],
+      "git_binary_pinned": false
+    },
+    {
+      "jutsu": "Liquid Ember Shell",
+      "filename": "vaporia_liquid_ember_shell_jutsu_icon_v1.webp",
+      "sha256": "c89716c4a15388443b6e180d2ee794fa8b9a70b291d53e1edc1ccbe99e7ff3a3",
+      "bytes": 133630,
+      "decimal_kB": 133.6,
+      "codec": "VP8L",
+      "dimensions": [
+        256,
+        256
+      ],
+      "git_binary_pinned": false
+    }
+  ],
+  "showcase": {
+    "filename": "vaporia_jutsu_icon_showcase_v1.png",
+    "sha256": "65f1fa9a26b9f6be4acd87e8507b4cd96f724febf0d9bab970777502081fc5e6",
+    "dimensions": [
+      1156,
+      854
+    ],
+    "row_lengths": [
+      3,
+      2
+    ],
+    "second_row_centered": true,
+    "tile_px": 350,
+    "gutter_px": 30,
+    "caption_px": 44,
+    "caption_rule": "exact jutsu name + actual processed bytes / 1000 to 1 decimal + kB",
+    "presentation_resampling": "LANCZOS 256→350",
+    "background_rgb": [
+      14,
+      19,
+      31
+    ],
+    "director_family_signoff": null
+  },
+  "qc": {
+    "sizes_px": [
+      125,
+      64,
+      32
+    ],
+    "result": "Distinct silhouette readability by visual review; small water spray detail fades at 32",
+    "thumbnail_sha256": "556f048f209ab2c2a69e1e14521e894bc967655e212246d40f3850f72b66a2e2",
+    "phone_preview_sha256": "1b1acd140b269794b32dff014e20f118b62bb60bd3cf4d6cd441d8fe20b13e5f"
+  },
+  "export_zip": {
+    "filename": "vaporia_jutsu_icon_webps_v1.zip",
+    "sha256": "0f7c12c138ef982a6e3fe9d3117240ea2317ffc75776431d720fa82f95d65edc",
+    "contains_exact_5_webps": true,
+    "zip_integrity": "PASS"
+  },
+  "preflight": {
+    "status": "BLOCKED_OFFICIAL_SCRIPT_NOT_RUN",
+    "cause": "Generic ICON lime-chroma target demands RGBA/alpha but director-approved jutsu icons are opaque RGB; no contract/validator change approved",
+    "independent_dimensions_bytes_codec_sha": "PASS"
+  },
+  "live": {
+    "requests": 0,
+    "writes": 0,
+    "uploads": 0,
+    "readback": false
+  },
+  "git_binary_pinned": false
+}
