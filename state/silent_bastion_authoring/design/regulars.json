@@ -1,0 +1,2279 @@
+{
+ "schema": "tnr.silent_bastion_authoring.units.v1",
+ "status": "NEW CANDIDATE REGULARS — 16 identities, kits (shared pool), rules and numbers for director review; recovery fights reuse each division's REG1 at 50% pools",
+ "generator": "state/silent_bastion_authoring/tools/gen_regulars.py",
+ "tiers": {
+  "2": {
+   "statsMultiplier": 1.5,
+   "poolsMultiplier": 1.0
+  },
+  "3": {
+   "statsMultiplier": 1.75,
+   "poolsMultiplier": 1.25
+  },
+  "4": {
+   "statsMultiplier": 2.0,
+   "poolsMultiplier": 1.5
+  },
+  "5": {
+   "statsMultiplier": 2.25,
+   "poolsMultiplier": 1.75
+  }
+ },
+ "eliteBonus": 0.25,
+ "units": [
+  {
+   "key": "proving_proctor",
+   "slot": "D2.REG1",
+   "name": "Bastion Proving Proctor",
+   "title": "the Silent Examiner",
+   "division": 2,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S04",
+    "S06",
+    "A1",
+    "B38",
+    "S40"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "None",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B38",
+      "SELF"
+     ],
+     "src": "Minor Overflow before engaging"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Opening Strike (range 4, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "A1",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Cleaving Line (range 4, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S06",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Twin Shot (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S40",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Measured Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Opening skirmisher. Marks the target with Opening Strike, then trades evenly; teaches that the Armory still runs drills.",
+   "tacticalRead": "A fair first test: steady damage, no control. Heal through the 15% vulnerability window and keep pressure on.",
+   "look": "Reconstructed armory proctor in faded Skyglass grey drill uniform, chakra-glow seams, clipboard of stamped weapon trials, dual practice blades",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "ordnance_quartermaster",
+   "slot": "D2.REG2",
+   "name": "Ordnance Quartermaster",
+   "title": "Keeper of the Live Rounds",
+   "division": 2,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "EF03",
+    "S30",
+    "EF01",
+    "S27",
+    "EW03"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "Fire",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW03",
+      "SELF"
+     ],
+     "src": "Springguard brace before trading"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EF03",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Emberwake (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S30",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Searing Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S27",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Weakening Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EF01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Cinder Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Attrition caster: stacks Afterburn and trims outgoing damage.",
+   "tacticalRead": "Afterburn adds up across the run; Cleanse or burst the Quartermaster before the burns stack.",
+   "look": "Quartermaster in scorched apron over Skyglass officer coat, ammunition satchels of glowing sealed tags, soot-darkened gloves",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "prototype_lancer",
+   "slot": "D2.REG3",
+   "name": "Prototype Lancer Unit",
+   "title": "Serial Zero-Three",
+   "division": 2,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "EL04",
+    "EL01",
+    "S08",
+    "B39",
+    "S43"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.5,
+    "poolsMultiplier": 1.0,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       50
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B39",
+      "SELF"
+     ],
+     "src": "Light Barrier shield once hurt"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Ion Lance pierces player shields"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S08",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Numbing Shot (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Arc Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S43",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Heavy Cut (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Ion Lance (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Anti-defence test unit: pierces shields and slips in a light stun chance.",
+   "tacticalRead": "Shields buy little here. Drop it before its own Light Barrier comes up under half health.",
+   "look": "Half-built lightning-lance automaton fused with a reconstructed test pilot, exposed capacitor coils, armory serial plate 03",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "calibration_duelist",
+   "slot": "D2.REG4",
+   "name": "Calibration Duelist",
+   "title": "Master's Last Apprentice",
+   "division": 2,
+   "role": "Elite PvE Enemy",
+   "kit": [
+    "EA02",
+    "A2",
+    "S33",
+    "B19",
+    "S35"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       40
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S35",
+      "SELF"
+     ],
+     "src": "Second Wind emergency"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B19",
+      "SELF"
+     ],
+     "src": "Warrior's Poise when engaged"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Tempest Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Marking Volley (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "A2",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Shattering Ring (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Optional elite (Protocol access): a close-quarters duelist who calibrates Master of Arms' technique.",
+   "tacticalRead": "Beating the Duelist unlocks Medical or Combat Protocol. Bring burst for its Warrior's Poise window.",
+   "look": "Duelist in calibration harness with chakra-measuring rings on both arms, wind-swept practice sword, apprentice insignia of the Armory",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "archive_keeper",
+   "slot": "D3.REG1",
+   "name": "Skyglass Archive Keeper",
+   "title": "Custodian of Impressions",
+   "division": 3,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S28",
+    "S32",
+    "EW01",
+    "S36",
+    "S41"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "round<",
+       2
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S36",
+      "SELF"
+     ],
+     "src": "Warding Stance opening ward"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S32",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Lingering Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S28",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Enervating Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Tide Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S41",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Steady Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Debuff archivist: Cleanse Prevent and stat reduction, warded against counter-debuffs.",
+   "tacticalRead": "Its Lingering Strike stops you cleansing for two rounds; time your Cleanse after it lands, not before.",
+   "look": "Archivist impression rendered in pale blue chakra light, holding a Skyglass core ledger, translucent where the reconstruction is incomplete",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "containment_warden",
+   "slot": "D3.REG2",
+   "name": "Impression Containment Warden",
+   "title": "Seal of the Vat Halls",
+   "division": 3,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "EW02",
+    "B36",
+    "EW03",
+    "S29",
+    "EW01"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW03",
+      "SELF"
+     ],
+     "src": "Springguard brace"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Deluge Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B36",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Withering Weave (range 4, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S29",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Venom Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Tide Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Shielded jailer: shields itself on its breaker strike and poisons over time.",
+   "tacticalRead": "Pierce or Clear its shields; Withering Weave cuts your healing, so do not rely on it mid-fight.",
+   "look": "Warden in sealed containment suit with water-filled observation visor, chain of reconstruction vat keys, Skyglass research crest",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "unstable_echo",
+   "slot": "D3.REG3",
+   "name": "Unstable Echo Subject",
+   "title": "Failed Iteration Nine",
+   "division": 3,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S29",
+    "B36",
+    "S33",
+    "B21",
+    "S35"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 1.75,
+    "poolsMultiplier": 1.25,
+    "regeneration": 40,
+    "element": "Shadow",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       40
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S35",
+      "SELF"
+     ],
+     "src": "Second Wind self-repair"
+    },
+    {
+     "if": [
+      [
+       "round<",
+       3
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B21",
+      "SELF"
+     ],
+     "src": "Hushed Hours early absorb shell"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B36",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Withering Weave (range 4, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S29",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Venom Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Marking Volley (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "A flawed reconstruction: absorbs early damage and repairs itself when broken.",
+   "tacticalRead": "Hit hard after its Hushed Hours shell expires; heal-prevent shuts down its self-repair.",
+   "look": "Flickering failed reconstruction, body glitching between two silhouettes, shadow chakra leaking from seams, research tag 'IX'",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "failed_prototype",
+   "slot": "D3.REG4",
+   "name": "Failed Reconstruction Prototype",
+   "title": "The One They Kept",
+   "division": 3,
+   "role": "Elite PvE Enemy",
+   "kit": [
+    "A3",
+    "S29",
+    "B36",
+    "B24",
+    "S44"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Earth",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       35
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B24",
+      "SELF"
+     ],
+     "src": "Veilstrike escape stealth on a health trigger (law 62)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "A3",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Erupting Ground (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       5
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B36",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Withering Weave (range 4, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S29",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Venom Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S44",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Sundering Blow (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Optional elite: a heavy hitter that vanishes once to recover and come back stronger.",
+   "tacticalRead": "When it drops below about a third it slips into stealth and heals; save a finisher for when it reappears.",
+   "look": "Hulking earth-bound prototype, crystal growths over a half-formed body, reconstruction rig still bolted to its back",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "signal_adjutant",
+   "slot": "D4.REG1",
+   "name": "Command Signal Adjutant",
+   "title": "Voice of the Relay",
+   "division": 4,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S27",
+    "S08",
+    "EA01",
+    "EA03",
+    "S42"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA03",
+      "SELF"
+     ],
+     "src": "Windlash Focus focus"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S27",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Weakening Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S08",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Numbing Shot (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Gale Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S42",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Forceful Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Relay officer: weakens outgoing damage and fires fast wind bolts.",
+   "tacticalRead": "Low durability for a Division III foe; close quickly and burst.",
+   "look": "Signal officer with relay headset and wind-banner semaphore flags, Skyglass High Command rank stripes",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "staff_tactician",
+   "slot": "D4.REG2",
+   "name": "High Command Staff Tactician",
+   "title": "Planner of the Second",
+   "division": 4,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S32",
+    "S28",
+    "S27",
+    "S36",
+    "EA01"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "None",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "round<",
+       2
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S36",
+      "SELF"
+     ],
+     "src": "Warding Stance ward"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S32",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Lingering Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S28",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Enervating Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S27",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Weakening Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Gale Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Staff planner: layers Cleanse Prevent, stat and damage reductions under a debuff ward.",
+   "tacticalRead": "Its ward blocks your debuffs early; spend those turns on damage instead.",
+   "look": "Staff tactician with campaign maps pinned to a field desk, quill of chakra ink, aide's cord of the Grand Marshal",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "honor_guard_commandant",
+   "slot": "D4.REG3",
+   "name": "Honor Guard Commandant",
+   "title": "Shield of the Second",
+   "division": 4,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "EE02",
+    "EE01",
+    "B19",
+    "EE03",
+    "S44"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.0,
+    "poolsMultiplier": 1.5,
+    "regeneration": 40,
+    "element": "Earth",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B19",
+      "SELF"
+     ],
+     "src": "Warrior's Poise when engaged"
+    },
+    {
+     "if": [
+      [
+       "hp<",
+       60
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EE03",
+      "SELF"
+     ],
+     "src": "Stoneward stonewall"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EE02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Bedrock Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S44",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Sundering Blow (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EE01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Shale Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Bulwark officer: pins the target in place with Bedrock Breaker and hits hard.",
+   "tacticalRead": "Bedrock Breaker roots and briefly stuns; do not stand in melee if you rely on repositioning.",
+   "look": "Heavy honor-guard commandant in ceremonial stone-plated armour, tower shield bearing the High Command seal",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "aide_de_camp",
+   "slot": "D4.REG4",
+   "name": "Strategist's Aide-de-Camp",
+   "title": "Last Courier of the Second",
+   "division": 4,
+   "role": "Elite PvE Enemy",
+   "kit": [
+    "S33",
+    "EL02",
+    "EL04",
+    "B21",
+    "S43"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "round<",
+       3
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B21",
+      "SELF"
+     ],
+     "src": "Hushed Hours early absorb"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Ion Lance vs shields"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Marking Volley (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Storm Breaker Volt (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S43",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Heavy Cut (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Optional elite: reflective lightning courier carrying the Grand Marshal's orders.",
+   "tacticalRead": "Storm Breaker Volt reflects damage for two rounds; switch to sustain while it is up.",
+   "look": "Courier officer with sealed dispatch tubes crackling with lightning, reflective lacquered armour, aide's sash",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "sanctum_vanguard",
+   "slot": "D5.REG1",
+   "name": "Sanctum Vanguard",
+   "title": "First Line of the Sanctum",
+   "division": 5,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "EF02",
+    "B01",
+    "EF01",
+    "B19",
+    "S35"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Fire",
+    "preferredStat": "Taijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "taijutsuOffence": 6,
+     "bukijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "taijutsuDefence": 3,
+     "bukijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 4,
+     "speed": 3,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       40
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S35",
+      "SELF"
+     ],
+     "src": "Second Wind steady"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B19",
+      "SELF"
+     ],
+     "src": "Warrior's Poise when engaged"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Cataclysm Fist (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EF02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Pyre Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EF01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Cinder Bolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Heavy vanguard: Cataclysm Fist bursts and wounding blows.",
+   "tacticalRead": "The hardest opening fight of the run; arrive with pools ready or expect to use the recovery checkpoint.",
+   "look": "Vanguard in obsidian-and-ember Sanctum armour, gauntlets glowing with fire chakra, banner of the Supreme Command",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "directive_herald",
+   "slot": "D5.REG2",
+   "name": "Directive Herald",
+   "title": "Mouth of the Orders",
+   "division": 5,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "S32",
+    "S28",
+    "EL03",
+    "B38",
+    "S44"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Lightning",
+    "preferredStat": "Genjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "genjutsuOffence": 6,
+     "ninjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "genjutsuDefence": 3,
+     "ninjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 3,
+     "willpower": 4
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B38",
+      "SELF"
+     ],
+     "src": "Minor Overflow before engaging"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S32",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Lingering Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL03",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Static Jolt (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S28",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Enervating Strike (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S44",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Sundering Blow (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Herald who reads out each new directive: stuns and locks Cleanse.",
+   "tacticalRead": "Static Jolt stuns for a round; Stun Prevent pays off here.",
+   "look": "Herald in long ceremonial robes reading from a glowing directive scroll that rewrites itself, lightning-lit eyes",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "last_watch_executor",
+   "slot": "D5.REG3",
+   "name": "Last Watch Executor",
+   "title": "Enforcer of Final Orders",
+   "division": 5,
+   "role": "Standard PvE Enemy",
+   "kit": [
+    "B02",
+    "EA02",
+    "S33",
+    "B21",
+    "S43"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.25,
+    "poolsMultiplier": 1.75,
+    "regeneration": 40,
+    "element": "Wind",
+    "preferredStat": "Bukijutsu",
+    "generals": [
+     "Strength",
+     "Speed"
+    ],
+    "ratio": {
+     "bukijutsuOffence": 6,
+     "taijutsuOffence": 2,
+     "ninjutsuOffence": 1,
+     "genjutsuOffence": 1,
+     "bukijutsuDefence": 3,
+     "taijutsuDefence": 3,
+     "ninjutsuDefence": 2,
+     "genjutsuDefence": 2,
+     "strength": 3,
+     "speed": 4,
+     "intelligence": 1,
+     "willpower": 2
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "round<",
+       3
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B21",
+      "SELF"
+     ],
+     "src": "Hushed Hours early absorb"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Annihilating Wave (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EA02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Tempest Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S33",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Marking Volley (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S43",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Heavy Cut (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Executor with a heavy wave strike and redirection to pull fleeing targets back.",
+   "tacticalRead": "Its Annihilating Wave is a big swing on an 8-round cooldown; defend that turn, punish the next.",
+   "look": "Executor in tattered Sanctum night-watch cloak, twin wind glaives, mask stamped with an unreadable new order",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  },
+  {
+   "key": "order_bearer",
+   "slot": "D5.REG4",
+   "name": "Order-Bearer of the Sanctum",
+   "title": "Keeper of the Unsigned Seal",
+   "division": 5,
+   "role": "Elite PvE Enemy",
+   "kit": [
+    "EL04",
+    "B01",
+    "EW02",
+    "B19",
+    "S35"
+   ],
+   "items": [],
+   "innate": [],
+   "candidate": {
+    "level": 100,
+    "rank": "JONIN",
+    "statsMultiplier": 2.5,
+    "poolsMultiplier": 2.0,
+    "regeneration": 40,
+    "element": "Water",
+    "preferredStat": "Ninjutsu",
+    "generals": [
+     "Intelligence",
+     "Willpower"
+    ],
+    "ratio": {
+     "ninjutsuOffence": 6,
+     "genjutsuOffence": 2,
+     "taijutsuOffence": 1,
+     "bukijutsuOffence": 1,
+     "ninjutsuDefence": 3,
+     "genjutsuDefence": 3,
+     "taijutsuDefence": 2,
+     "bukijutsuDefence": 2,
+     "strength": 1,
+     "speed": 2,
+     "intelligence": 4,
+     "willpower": 3
+    }
+   },
+   "rules": [
+    {
+     "if": [
+      [
+       "hp<",
+       40
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "S35",
+      "SELF"
+     ],
+     "src": "Second Wind steady"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B19",
+      "SELF"
+     ],
+     "src": "Warrior's Poise when engaged"
+    },
+    {
+     "if": [
+      [
+       "target",
+       "shield",
+       1
+      ],
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EL04",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Ion Lance vs shields"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       6
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "B01",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Cataclysm Fist (range 5, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist<=",
+       4
+      ]
+     ],
+     "do": [
+      "jutsu",
+      "EW02",
+      "CLOSEST_OPPONENT"
+     ],
+     "src": "Deluge Breaker (range 3, gate +1)"
+    },
+    {
+     "if": [
+      [
+       "dist>=",
+       3
+      ]
+     ],
+     "do": [
+      "move"
+     ],
+     "src": "close distance (gated so end_turn stays reachable)"
+    },
+    {
+     "if": [],
+     "do": [
+      "end"
+     ],
+     "src": "safe end-turn (includeDefaultRules:false)"
+    }
+   ],
+   "combatRole": "Optional elite guarding Arakane's door; carries a sealed order that bears no signature.",
+   "tacticalRead": "Pierces shields and shields itself; earn your Medical or Combat Protocol before the Supreme Commander.",
+   "look": "Order-bearer in deep-water Sanctum regalia carrying a sealed scroll case with a blank, unsigned command seal",
+   "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"
+  }
+ ]
+}

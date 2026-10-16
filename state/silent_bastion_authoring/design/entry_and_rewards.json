@@ -1,0 +1,41 @@
+{
+ "schema": "tnr.silent_bastion_authoring.entry_rewards.v1",
+ "quest": {
+  "status": "LOCKED structure (RUL-2026-10-16-001/002/003); field values marked CANDIDATE",
+  "questType": "battlepyramid",
+  "consecutiveObjectives": true,
+  "isolated": true,
+  "hidden": true,
+  "rewardMode": "choose",
+  "rewardPickCount": 1,
+  "rewardItemsAt": "content.reward.reward_items (quest level only; never on w.complete)",
+  "entryItems": [{"ids": ["@item:skyglass_signal_beacon"], "number": 1}],
+  "maxAttempts": {"value": 100, "status": "CANDIDATE — validator max; lifetime repeatability is a director decision (release plan §4.5)"},
+  "maxCompletes": {"value": 100, "status": "CANDIDATE — validator max"},
+  "sceneBackground": {"value": "@asset:bastion_bg_armory", "status": "BLOCKED on art (see art_shotlist.md); a visible save needs scene characters (C99 E7 note)"}
+ },
+ "beacon": {
+  "status": "Charge timing LOCKED (RUL-2026-10-16-003, re-proven at 0651b039 by the reward proof); everything else CANDIDATE",
+  "ref": "@item:skyglass_signal_beacon",
+  "name": "Skyglass Signal Beacon",
+  "itemType": {"value": "CONSUMABLE", "status": "CANDIDATE"},
+  "rarity": {"value": "LEGENDARY", "status": "CANDIDATE"},
+  "tradeable": {"value": false, "status": "CANDIDATE — director decision (economy)"},
+  "source": {"value": "Ghost Ship (existing quest line)", "status": "CANDIDATE source and drop rate; Ghost Ship rewards are NOT edited by this package"},
+  "battleUsage": "preventBattleUsage:true (entry item only)",
+  "description": "A Skyglass signal lamp, still warm, that hums toward a mountain the maps call empty. Starting the Silent Bastion expedition consumes one Beacon. Failure or abandonment will not refund it. Retrying a division costs no additional Beacon.",
+  "disclosure": "Approved factual intent (RUL-2026-10-16-003): shown in the quest description before run-start confirmation; final wording user-owned"
+ },
+ "caches": {
+  "status": "Category + one-of-two pick LOCKED (RUL-2026-10-16-001). Item names, art, rarity, tradability, recipe shortlist, quantities, roll/tier weights are NOT approved; the native mechanics are proven separately on the reward-proof branch with synthetic data.",
+  "arsenal": {"ref": "@item:bastion_arsenal_cache", "name": "Bastion Arsenal Cache [provisional]", "itemType": "CONSUMABLE", "destroyOnUse": true, "preventBattleUsage": true,
+   "effect": "noncombatconsumereward rewardMode weightedCache — BLOCKED on director recipe/weight approval (candidate pools: docs/design/RECIPE_ALIGNED_CACHE_CANDIDATE_POOLS_20261016.json)"},
+  "research": {"ref": "@item:bastion_research_cache", "name": "Bastion Research Cache [provisional]", "itemType": "CONSUMABLE", "destroyOnUse": true, "preventBattleUsage": true,
+   "effect": "noncombatconsumereward rewardMode weightedCache — BLOCKED on director recipe/weight approval"},
+  "questReward": {"reward_items": [{"ids": ["@item:bastion_arsenal_cache"], "number": 100, "quantity": 1}, {"ids": ["@item:bastion_research_cache"], "number": 100, "quantity": 1}]}
+ },
+ "battleIncome": {
+  "status": "OPEN — finding F3; see economy_and_f3.md",
+  "scaleGains": {"value": null, "note": "Not set in the compiled candidate. Options and math in economy_and_f3.md; director decides"}
+ }
+}

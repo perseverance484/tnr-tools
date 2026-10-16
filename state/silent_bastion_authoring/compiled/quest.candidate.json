@@ -1,0 +1,1360 @@
+{
+ "status": "OFFLINE CANDIDATE — not a manifest; symbolic refs; balance/economy/art/wording unapproved; never push/",
+ "provenance": {
+  "graph": "harness/silent_bastion_condensed99/graphs/alt99_f4gate.json",
+  "graphSha256": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20",
+  "lock": "state/silent_bastion_approved_authoring_lock.json",
+  "lockSha256": "6d9475eddeac9ac4735a7e5704a99d13b5e38bee498589b8eb258ec94f664a41",
+  "ruling": "RUL-2026-10-16-002"
+ },
+ "record": {
+  "name": "Ghost Ship: The Last Directive",
+  "description": "The Skyglass Signal Beacon hums toward a mountain the maps call empty. The Silent Bastion, the old headquarters of the Skyglass Project, has not answered a call in a generation. Its gates stand open. Nothing guards them.<br><br>Starting this expedition consumes one Skyglass Signal Beacon. Failure or abandonment will not refund it. Retrying a division costs no additional Beacon.<br><br>If you still have a reward to choose from a previous expedition, claim it before you set out: an expedition cannot be completed while an earlier reward choice is waiting.",
+  "successDescription": "The Supreme Commander has fallen, and the Bastion's orders did not fall with him. Choose your reward: a Bastion Arsenal Cache or a Bastion Research Cache.",
+  "questType": "battlepyramid",
+  "hidden": true,
+  "consecutiveObjectives": true,
+  "maxAttempts": 100,
+  "maxCompletes": 100,
+  "tierLevel": null,
+  "startsAt": null,
+  "endsAt": null,
+  "content": {
+   "isolated": true,
+   "entryItems": [
+    {
+     "ids": [
+      "@item:skyglass_signal_beacon"
+     ],
+     "number": 1
+    }
+   ],
+   "rewardMode": "choose",
+   "rewardPickCount": 1,
+   "reward": {
+    "reward_items": [
+     {
+      "ids": [
+       "@item:bastion_arsenal_cache"
+      ],
+      "number": 100,
+      "quantity": 1
+     },
+     {
+      "ids": [
+       "@item:bastion_research_cache"
+      ],
+      "number": 100,
+      "quantity": 1
+     }
+    ]
+   },
+   "objectives": [
+    {
+     "id": "d2.n.f1",
+     "task": "dialog",
+     "description": "<b>Gate of the Silent Bastion</b><br><br>The road ends at a gate cut into the mountain. No sentry calls out, no banner hangs, and snow has drifted unbroken across the parade ground. Whatever lived here left long ago.<br><br>Inside, the Experimental Armory is lit.<br><br>Rows of weapon racks hum behind glass. A brass placard by the first rack reads: \"NEVER CUT THE SEAL WHILE THE CHARGE STILL HUMS.\" Somewhere ahead a whistle shrills, and a figure in a faded Skyglass drill uniform steps out of the light: a proctor, clipboard raised, as though you were late for a trial that began decades ago.<br><br>\"Candidate. Trial number?\" Its outline flickers at the seams.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.n.f1"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.f1",
+     "task": "start_battle",
+     "description": "Defeat the Bastion Proving Proctor.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.n.f2",
+     "failObjectiveId": "d2.lost_first"
+    },
+    {
+     "id": "d2.n.f2",
+     "task": "dialog",
+     "description": "<b>The Quartermaster's Ledger</b><br><br>The proctor dissolves into drifting light, and the drill whistle falls silent. Nothing about that was a ghost. It answered like a man reading from a memory.<br><br>Past the trial range, an ordnance store stands open. A ledger lies on the counter in a careful hand: \"Coolant first, always, or the charge flashes.\" Behind it, the Quartermaster looks up from a tray of sealed tags already glowing with heat.<br><br>\"Live rounds are not for candidates,\" it says, and lifts the tray.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.n.f2"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.f2",
+     "task": "start_battle",
+     "description": "Defeat the Ordnance Quartermaster.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG2"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.n.f3",
+     "failObjectiveId": "d2.lost_later"
+    },
+    {
+     "id": "d2.n.f3",
+     "task": "dialog",
+     "description": "<b>Serial Zero-Three</b><br><br>The armory narrows into a test gallery. A lance-armed construct stands bolted into a firing rig, a man's silhouette fused into its frame, the serial plate on its chest stamped 03. Beneath the number, someone scratched a reminder for the night crew: \"Seal comes last.\"<br><br>Its capacitors whine awake. The rig releases.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.n.f3"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.f3",
+     "task": "start_battle",
+     "description": "Defeat the Prototype Lancer Unit.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG3"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.n.terminal",
+     "failObjectiveId": "d2.lost_later"
+    },
+    {
+     "id": "d2.n.terminal",
+     "task": "dialog",
+     "description": "<b>Armory Command Terminal</b><br><br>Beyond the gallery, a Military Command Terminal glows in the wall, and beyond that the armory's heart: a sealed door marked MASTER OF ARMS.<br><br>The terminal offers two ways through. A maintenance crawlway runs behind the live-fire racks, but its lock asks for the racks' disable sequence. Or you can request protocol access the proper way, and the duty officer, the Calibration Duelist, is already striding toward you to test your credentials with a blade.",
+     "nextObjectiveId": [
+      {
+       "text": "Maintenance Passage: enter the disable sequence",
+       "nextObjectiveId": "d2.n.puzzle"
+      },
+      {
+       "text": "Protocol access: face the Calibration Duelist",
+       "nextObjectiveId": "b2.n.f4"
+      }
+     ]
+    },
+    {
+     "id": "d2.n.puzzle",
+     "task": "dialog",
+     "description": "<b>Live-Fire Rack Lockout</b><br><br>The crawlway lock shows three switches (COOLANT, CHARGE, SEAL) and asks for the order that safely disarms the racks. A wrong order will not stop you getting through, but the armory will know you are there.<br><br>Which sequence do you enter?",
+     "nextObjectiveId": [
+      {
+       "text": "Charge, then Coolant, then Seal",
+       "nextObjectiveId": "d2.n.boss.alert"
+      },
+      {
+       "text": "Coolant, then Charge, then Seal",
+       "nextObjectiveId": "d2.n.boss.clean"
+      },
+      {
+       "text": "Seal, then Coolant, then Charge",
+       "nextObjectiveId": "d2.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "d2.n.boss.clean",
+     "task": "dialog",
+     "description": "<b>The Master of Arms</b><br><br>The racks go quiet one by one, and the crawlway lets you out behind the sealed door before anyone has noticed you.<br><br>The Master of Arms turns from a forge wall hung with every weapon the Skyglass Project ever tested. \"Clean work,\" he says. \"Now show me whether you can fight as well as you can read.\" He chooses two blades without looking.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.n.boss.clean"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.boss.clean",
+     "task": "start_battle",
+     "description": "Defeat the Master of Arms.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f1",
+     "failObjectiveId": "d2.lost_later"
+    },
+    {
+     "id": "d2.n.boss.alert",
+     "task": "dialog",
+     "description": "<b>The Master of Arms: Alarm Raised</b><br><br>The racks spit sparks and an alarm bell hammers through the armory. You reach the sealed door with the whole floor awake behind you.<br><br>The Master of Arms is already armed. \"An intruder who trips the racks,\" he says, \"fights tired and expected. Security Alert: all stations.\" The lights turn red.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.boss.alert",
+     "task": "start_battle",
+     "description": "Defeat the Master of Arms under Security Alert.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f1",
+     "failObjectiveId": "d2.lost_later",
+     "applyDebuffs": [
+      {
+       "type": "increasedamagetaken",
+       "power": 10,
+       "rounds": 2,
+       "calculation": "percentage"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.f4",
+     "task": "start_battle",
+     "description": "Defeat the Calibration Duelist to claim protocol access.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG4"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.n.protocol",
+     "failObjectiveId": "d2.lost_later"
+    },
+    {
+     "id": "d2.n.protocol",
+     "task": "dialog",
+     "description": "<b>Duty Officer Relieved</b><br><br>The Calibration Duelist kneels, its practice blade broken, and the terminal accepts your credentials. Two field protocols unlock before the Master of Arms' door.<br><br>Medical Protocol will flood you with the armory's restorative mist: you enter the fight fully recovered. Combat Protocol will instead brace you against his Sovereign Fetters, so his stuns will not hold you.",
+     "nextObjectiveId": [
+      {
+       "text": "Medical Protocol: enter fully restored",
+       "nextObjectiveId": "b2.n.boss.medical"
+      },
+      {
+       "text": "Combat Protocol: steel yourself against stuns",
+       "nextObjectiveId": "b2.n.boss.combat"
+      }
+     ]
+    },
+    {
+     "id": "b2.n.boss.medical",
+     "task": "start_battle",
+     "description": "Defeat the Master of Arms (Medical Protocol: fully restored).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f1",
+     "failObjectiveId": "d2.lost_later",
+     "givePools": 100
+    },
+    {
+     "id": "b2.n.boss.combat",
+     "task": "start_battle",
+     "description": "Defeat the Master of Arms (Combat Protocol: stun-braced).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f1",
+     "failObjectiveId": "d2.lost_later",
+     "applyBuffs": [
+      {
+       "type": "stunprevent",
+       "power": 100,
+       "rounds": 2
+      }
+     ]
+    },
+    {
+     "id": "d2.lost_first",
+     "task": "dialog",
+     "description": "<b>Recalled to the Proving Hall</b><br><br>You wake on the cold floor of the proving hall with the proctor's whistle still ringing. Your pools have been set to half, the way the armory resets a failed candidate.<br><br>The proctor taps its clipboard. \"Again.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.recovery_first"
+      }
+     ]
+    },
+    {
+     "id": "b2.recovery_first",
+     "task": "start_battle",
+     "description": "Retake the proving trial: defeat the Bastion Proving Proctor.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.n.f2",
+     "failObjectiveId": "r2.reset_first",
+     "givePools": 50
+    },
+    {
+     "id": "r2.reset_first",
+     "task": "reset_quest",
+     "resetObjectiveId": "d2.lost_first"
+    },
+    {
+     "id": "d2.lost_later",
+     "task": "dialog",
+     "description": "<b>Recalled to the Proving Hall</b><br><br>The armory throws you out the way it throws out every failed candidate: back to the proving hall, pools set to half, the doors you opened sealed behind you.<br><br>The proctor is waiting. Beat it again and the armory will let you resume from the Quartermaster's store.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b2.recovery_later"
+      }
+     ]
+    },
+    {
+     "id": "b2.recovery_later",
+     "task": "start_battle",
+     "description": "Retake the proving trial: defeat the Bastion Proving Proctor.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D2.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d2.recovered",
+     "failObjectiveId": "r2.reset_later_loss",
+     "givePools": 50
+    },
+    {
+     "id": "d2.recovered",
+     "task": "dialog",
+     "description": "<b>Clearance Restored</b><br><br>The proctor steps aside and stamps your trial card. The doors to the Quartermaster's store slide open again.<br><br>You keep what this fight left you. No more, no less.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "r2.reset_later_win"
+      }
+     ]
+    },
+    {
+     "id": "r2.reset_later_win",
+     "task": "reset_quest",
+     "resetObjectiveId": "d2.n.f2"
+    },
+    {
+     "id": "r2.reset_later_loss",
+     "task": "reset_quest",
+     "resetObjectiveId": "d2.lost_later"
+    },
+    {
+     "id": "d3.n.f1",
+     "task": "dialog",
+     "description": "<b>The Archive of Impressions</b><br><br>Beyond the armory's back stair, the air turns cold and blue. The Skyglass Research Division is a library of glass: shelves of crystal cores, each holding a faint, sleeping light.<br><br>An archivist made of that same pale light looks up from a ledger and frowns at you. \"You are not on the register,\" it says, as if that were the stranger thing. \"Understand what you are walking through. An impression repeats. An original hesitates.\"<br><br>It closes the ledger, and it does not hesitate.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.n.f1"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.f1",
+     "task": "start_battle",
+     "description": "Defeat the Skyglass Archive Keeper.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f2",
+     "failObjectiveId": "d3.lost_first"
+    },
+    {
+     "id": "d3.n.f2",
+     "task": "dialog",
+     "description": "<b>The Vat Halls</b><br><br>The archivist folds back into the shelves. The register it carried lists names (Skyglass researchers, engineers, officers), each with a date and the word RECONSTRUCTED.<br><br>The vat halls beyond are lit by a single tall Skyglass lamp. A containment warden stands beneath it, visor full of water, chain of vat keys at its belt. You notice the lamp throws the warden's shadow across the floor, and the warden notices you noticing.<br><br>\"Replicas never cast a shadow under the Skyglass lamp,\" it says. \"You do. Hold still for intake.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.n.f2"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.f2",
+     "task": "start_battle",
+     "description": "Defeat the Impression Containment Warden.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG2"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f3",
+     "failObjectiveId": "d3.lost_later"
+    },
+    {
+     "id": "d3.n.f3",
+     "task": "dialog",
+     "description": "<b>Iteration Nine</b><br><br>In the last vat hall, something that was almost a person flickers between two outlines. Its tag reads IX. Its voice comes from both outlines at once.<br><br>\"They kept trying,\" it says. \"Every one of us carries his scar: the burn from Subject Zero's first failure. Every one of us but the copies. I am not a copy. I am not finished.\"<br><br>It lunges, and both of it come at you.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.n.f3"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.f3",
+     "task": "start_battle",
+     "description": "Defeat the Unstable Echo Subject.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG3"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.terminal",
+     "failObjectiveId": "d3.lost_later"
+    },
+    {
+     "id": "d3.n.terminal",
+     "task": "dialog",
+     "description": "<b>Research Command Terminal</b><br><br>A command terminal stands at the door of the reconstruction theatre. The plaque beside the door reads REPLICANT ZERO, and beneath it, smaller: FIRST SUCCESSFUL SUBJECT.<br><br>The terminal offers the maintenance stair behind the specimen tanks, locked until you identify the one original among three subjects. Or request protocol access, and face the theatre's last guardian: the Failed Reconstruction Prototype, the one they kept.",
+     "nextObjectiveId": [
+      {
+       "text": "Maintenance Passage: identify the original",
+       "nextObjectiveId": "d3.n.puzzle"
+      },
+      {
+       "text": "Protocol access: face the Failed Reconstruction Prototype",
+       "nextObjectiveId": "b3.n.f4"
+      }
+     ]
+    },
+    {
+     "id": "d3.n.puzzle",
+     "task": "dialog",
+     "description": "<b>Original or Replica</b><br><br>Three subjects float in the specimen tanks under the Skyglass lamp. The lock asks which one is the original.<br><br>Subject A casts a shadow and bears the old burn scar.<br>Subject B casts no shadow and bears the old burn scar.<br>Subject C casts a shadow and bears no scar.<br><br>A wrong answer will still open the stair, but the theatre will be waiting for you.",
+     "nextObjectiveId": [
+      {
+       "text": "Subject C",
+       "nextObjectiveId": "d3.n.boss.alert"
+      },
+      {
+       "text": "Subject B",
+       "nextObjectiveId": "d3.n.boss.alert"
+      },
+      {
+       "text": "Subject A",
+       "nextObjectiveId": "d3.n.boss.clean"
+      }
+     ]
+    },
+    {
+     "id": "d3.n.boss.clean",
+     "task": "dialog",
+     "description": "<b>Replicant Zero</b><br><br>The stair lets you into the theatre from behind the observation glass. On the operating floor, a man in a scientist's coat is rebuilding his own hand from light.<br><br>\"Subject A,\" says Replicant Zero, without turning. \"Correct. I was the first one they brought back, you know. My body died in that tank. I did not.\" He looks at you, interested. \"Let us see what you are made of. I would like a copy.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.n.boss.clean"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.boss.clean",
+     "task": "start_battle",
+     "description": "Defeat Replicant Zero.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f1",
+     "failObjectiveId": "d3.lost_later"
+    },
+    {
+     "id": "d3.n.boss.alert",
+     "task": "dialog",
+     "description": "<b>Replicant Zero: Containment Breach</b><br><br>The tanks drain with a roar and the theatre floods with blue warning light. Every reconstruction rig in the room is pointed at you.<br><br>\"Wrong subject,\" says Replicant Zero, rebuilding his own hand from light. \"Containment breach protocols are already running. I was the first one they brought back. My body died in that tank. I did not.\" He smiles. \"Neither will you leave.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.boss.alert",
+     "task": "start_battle",
+     "description": "Defeat Replicant Zero under Security Alert.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f1",
+     "failObjectiveId": "d3.lost_later",
+     "applyDebuffs": [
+      {
+       "type": "increasedamagetaken",
+       "power": 10,
+       "rounds": 2,
+       "calculation": "percentage"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.f4",
+     "task": "start_battle",
+     "description": "Defeat the Failed Reconstruction Prototype to claim protocol access.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG4"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.protocol",
+     "failObjectiveId": "d3.lost_later"
+    },
+    {
+     "id": "d3.n.protocol",
+     "task": "dialog",
+     "description": "<b>The Prototype Falls</b><br><br>The Failed Reconstruction Prototype collapses into crystal dust, and the theatre's protocols unlock.<br><br>Medical Protocol will run you through the reconstruction rig: you enter the fight fully recovered. Combat Protocol will instead overcharge your chakra, increasing the damage you deal for the opening rounds.",
+     "nextObjectiveId": [
+      {
+       "text": "Medical Protocol: enter fully restored",
+       "nextObjectiveId": "b3.n.boss.medical"
+      },
+      {
+       "text": "Combat Protocol: overcharge your attacks",
+       "nextObjectiveId": "b3.n.boss.combat"
+      }
+     ]
+    },
+    {
+     "id": "b3.n.boss.medical",
+     "task": "start_battle",
+     "description": "Defeat Replicant Zero (Medical Protocol: fully restored).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f1",
+     "failObjectiveId": "d3.lost_later",
+     "givePools": 100
+    },
+    {
+     "id": "b3.n.boss.combat",
+     "task": "start_battle",
+     "description": "Defeat Replicant Zero (Combat Protocol: overcharged).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f1",
+     "failObjectiveId": "d3.lost_later",
+     "applyBuffs": [
+      {
+       "type": "increasedamagegiven",
+       "power": 25,
+       "rounds": 3,
+       "calculation": "percentage"
+      }
+     ]
+    },
+    {
+     "id": "d3.lost_first",
+     "task": "dialog",
+     "description": "<b>Returned to the Archive</b><br><br>You wake among the crystal shelves with your pools at half. The archivist is re-shelving a core. \"Intake failed,\" it says. \"Again.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.recovery_first"
+      }
+     ]
+    },
+    {
+     "id": "b3.recovery_first",
+     "task": "start_battle",
+     "description": "Pass intake again: defeat the Skyglass Archive Keeper.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.n.f2",
+     "failObjectiveId": "r3.reset_first",
+     "givePools": 50
+    },
+    {
+     "id": "r3.reset_first",
+     "task": "reset_quest",
+     "resetObjectiveId": "d3.lost_first"
+    },
+    {
+     "id": "d3.lost_later",
+     "task": "dialog",
+     "description": "<b>Returned to the Archive</b><br><br>The research division returns you to the archive, pools at half, as though you were one more impression to be rebuilt. The halls you cleared have sealed again.<br><br>The archivist is waiting. Pass it, and the vat halls will reopen.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b3.recovery_later"
+      }
+     ]
+    },
+    {
+     "id": "b3.recovery_later",
+     "task": "start_battle",
+     "description": "Pass intake again: defeat the Skyglass Archive Keeper.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D3.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d3.recovered",
+     "failObjectiveId": "r3.reset_later_loss",
+     "givePools": 50
+    },
+    {
+     "id": "d3.recovered",
+     "task": "dialog",
+     "description": "<b>Register Amended</b><br><br>The archivist writes your name into its register, crosses it out, and writes it again. The vat halls unseal.<br><br>You keep what this fight left you.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "r3.reset_later_win"
+      }
+     ]
+    },
+    {
+     "id": "r3.reset_later_win",
+     "task": "reset_quest",
+     "resetObjectiveId": "d3.n.f2"
+    },
+    {
+     "id": "r3.reset_later_loss",
+     "task": "reset_quest",
+     "resetObjectiveId": "d3.lost_later"
+    },
+    {
+     "id": "d4.n.f1",
+     "task": "dialog",
+     "description": "<b>The Signal Room</b><br><br>Above the research division, the Bastion becomes a headquarters. Maps of borders that no longer exist cover the walls of High Command. Relay lines still chatter.<br><br>A signal adjutant turns from the relay board, headset crackling. \"Orders arrive by this room or they do not arrive,\" it says. \"And only orders countersigned by the Second carry two seals. Remember that, intruder. You will not live to use it.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.n.f1"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.f1",
+     "task": "start_battle",
+     "description": "Defeat the Command Signal Adjutant.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f2",
+     "failObjectiveId": "d4.lost_first"
+    },
+    {
+     "id": "d4.n.f2",
+     "task": "dialog",
+     "description": "<b>The Planning Hall</b><br><br>The planning hall is set for a war council no one will attend. At the head of the table, a staff tactician corrects a campaign map with a quill of chakra ink.<br><br>\"Protocol matters,\" it says without looking up. \"The Supreme Commander's seal is always placed to the left of the Second's. Always. An order that gets that wrong was written by someone who never stood in this room.\" It sets down the quill and stands.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.n.f2"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.f2",
+     "task": "start_battle",
+     "description": "Defeat the High Command Staff Tactician.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG2"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f3",
+     "failObjectiveId": "d4.lost_later"
+    },
+    {
+     "id": "d4.n.f3",
+     "task": "dialog",
+     "description": "<b>The Honor Guard</b><br><br>The corridor to the Grand Marshal's office is lined with ceremonial armour. One suit is occupied. The Honor Guard Commandant raises a tower shield bearing the High Command seal.<br><br>\"Since the Silence fell over this mountain, no true order has been issued from these halls,\" it says. \"Any order dated after the Silence is a forgery, and so are those who carry them.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.n.f3"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.f3",
+     "task": "start_battle",
+     "description": "Defeat the Honor Guard Commandant.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG3"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.terminal",
+     "failObjectiveId": "d4.lost_later"
+    },
+    {
+     "id": "d4.n.terminal",
+     "task": "dialog",
+     "description": "<b>High Command Terminal</b><br><br>Outside the office of The Grand Marshal (the Second, the only officer the Supreme Commander allowed to question him), a command terminal waits.<br><br>The service corridor to his office opens only for a properly authorised order. Or request protocol access through the front: the Strategist's Aide-de-Camp, last courier of the Second, stands at the door with sealed dispatches crackling at its belt.",
+     "nextObjectiveId": [
+      {
+       "text": "Maintenance Passage: present an authorised order",
+       "nextObjectiveId": "d4.n.puzzle"
+      },
+      {
+       "text": "Protocol access: face the Strategist's Aide-de-Camp",
+       "nextObjectiveId": "b4.n.f4"
+      }
+     ]
+    },
+    {
+     "id": "d4.n.puzzle",
+     "task": "dialog",
+     "description": "<b>Countersigned Orders</b><br><br>The terminal holds three orders. Only one will open the service corridor.<br><br>Order A: two seals; the Supreme Commander's seal on the right; dated before the Silence.<br>Order B: two seals; the Supreme Commander's seal on the left; dated before the Silence.<br>Order C: two seals; the Supreme Commander's seal on the left; dated after the Silence.<br><br>A forged order will still open the corridor, but it will be logged.",
+     "nextObjectiveId": [
+      {
+       "text": "Order A",
+       "nextObjectiveId": "d4.n.boss.alert"
+      },
+      {
+       "text": "Order B",
+       "nextObjectiveId": "d4.n.boss.clean"
+      },
+      {
+       "text": "Order C",
+       "nextObjectiveId": "d4.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "d4.n.boss.clean",
+     "task": "dialog",
+     "description": "<b>The Grand Marshal</b><br><br>The service corridor delivers you into the Grand Marshal's office behind a folding map table. He does not reach for a weapon at once.<br><br>\"Order B,\" says The Grand Marshal. \"So you read before you fight. Good. I questioned his orders for thirty years, and I would question this one too, but I gave my word to hold this door.\" He straightens his coat. \"So I will hold it.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.n.boss.clean"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.boss.clean",
+     "task": "start_battle",
+     "description": "Defeat The Grand Marshal.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f1",
+     "failObjectiveId": "d4.lost_later"
+    },
+    {
+     "id": "d4.n.boss.alert",
+     "task": "dialog",
+     "description": "<b>The Grand Marshal: Order Logged</b><br><br>A forged order is still an order, and High Command logs it. Every relay in the building announces your position as you step into the Grand Marshal's office.<br><br>\"A forgery,\" says The Grand Marshal, and sounds almost disappointed. \"I questioned his orders for thirty years. I never forged one.\" He signals, and the room's wards turn against you.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.boss.alert",
+     "task": "start_battle",
+     "description": "Defeat The Grand Marshal under Security Alert.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f1",
+     "failObjectiveId": "d4.lost_later",
+     "applyDebuffs": [
+      {
+       "type": "increasedamagetaken",
+       "power": 10,
+       "rounds": 2,
+       "calculation": "percentage"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.f4",
+     "task": "start_battle",
+     "description": "Defeat the Strategist's Aide-de-Camp to claim protocol access.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG4"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.protocol",
+     "failObjectiveId": "d4.lost_later"
+    },
+    {
+     "id": "d4.n.protocol",
+     "task": "dialog",
+     "description": "<b>Dispatches Delivered</b><br><br>The Aide-de-Camp falls, and its sealed dispatches burn away into the terminal, which unlocks two protocols.<br><br>Medical Protocol will open the officers' infirmary to you: you enter the fight fully recovered. Combat Protocol will instead ward your techniques, so the Grand Marshal's seals will not hold you.",
+     "nextObjectiveId": [
+      {
+       "text": "Medical Protocol: enter fully restored",
+       "nextObjectiveId": "b4.n.boss.medical"
+      },
+      {
+       "text": "Combat Protocol: ward against seals",
+       "nextObjectiveId": "b4.n.boss.combat"
+      }
+     ]
+    },
+    {
+     "id": "b4.n.boss.medical",
+     "task": "start_battle",
+     "description": "Defeat The Grand Marshal (Medical Protocol: fully restored).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f1",
+     "failObjectiveId": "d4.lost_later",
+     "givePools": 100
+    },
+    {
+     "id": "b4.n.boss.combat",
+     "task": "start_battle",
+     "description": "Defeat The Grand Marshal (Combat Protocol: seal-warded).",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f1",
+     "failObjectiveId": "d4.lost_later",
+     "applyBuffs": [
+      {
+       "type": "sealprevent",
+       "power": 100,
+       "rounds": 2
+      }
+     ]
+    },
+    {
+     "id": "d4.lost_first",
+     "task": "dialog",
+     "description": "<b>Back to the Signal Room</b><br><br>You wake beside the relay board, pools at half. The adjutant does not look up. \"Dismissed. Report again.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.recovery_first"
+      }
+     ]
+    },
+    {
+     "id": "b4.recovery_first",
+     "task": "start_battle",
+     "description": "Report again: defeat the Command Signal Adjutant.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.n.f2",
+     "failObjectiveId": "r4.reset_first",
+     "givePools": 50
+    },
+    {
+     "id": "r4.reset_first",
+     "task": "reset_quest",
+     "resetObjectiveId": "d4.lost_first"
+    },
+    {
+     "id": "d4.lost_later",
+     "task": "dialog",
+     "description": "<b>Back to the Signal Room</b><br><br>High Command dismisses you back to the signal room, pools at half. The planning hall's doors have closed again.<br><br>The adjutant is waiting at the relay board. Get past it, and the planning hall will reopen.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b4.recovery_later"
+      }
+     ]
+    },
+    {
+     "id": "b4.recovery_later",
+     "task": "start_battle",
+     "description": "Report again: defeat the Command Signal Adjutant.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D4.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d4.recovered",
+     "failObjectiveId": "r4.reset_later_loss",
+     "givePools": 50
+    },
+    {
+     "id": "d4.recovered",
+     "task": "dialog",
+     "description": "<b>Report Accepted</b><br><br>The adjutant initials your report and waves you through. The planning hall unseals.<br><br>You keep what this fight left you.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "r4.reset_later_win"
+      }
+     ]
+    },
+    {
+     "id": "r4.reset_later_win",
+     "task": "reset_quest",
+     "resetObjectiveId": "d4.n.f2"
+    },
+    {
+     "id": "r4.reset_later_loss",
+     "task": "reset_quest",
+     "resetObjectiveId": "d4.lost_later"
+    },
+    {
+     "id": "d5.n.f1",
+     "task": "dialog",
+     "description": "<b>The Sanctum Gate</b><br><br>The last stair climbs into the summit of the mountain. The Command Sanctum is dark obsidian and ember light, and its vanguard stands across the gate in full regalia.<br><br>\"State your directive,\" says the Sanctum Vanguard. \"No? Then hear the Sanctum's: when two orders disagree, the Sanctum obeys the one that protects the Command.\" Its gauntlets ignite.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.n.f1"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.f1",
+     "task": "start_battle",
+     "description": "Defeat the Sanctum Vanguard.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f2",
+     "failObjectiveId": "d5.lost_first"
+    },
+    {
+     "id": "d5.n.f2",
+     "task": "dialog",
+     "description": "<b>The Herald</b><br><br>In the Sanctum's antechamber, a herald reads from a scroll that rewrites itself as it speaks. Lightning moves in its eyes.<br><br>\"Directive...\" it begins, and stops, frowning at the scroll. \"A directive without a signature is not an order. It is a rumour.\" It rolls the scroll shut. \"You are a rumour, intruder. I will correct you.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.n.f2"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.f2",
+     "task": "start_battle",
+     "description": "Defeat the Directive Herald.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG2"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f3",
+     "failObjectiveId": "d5.lost_later"
+    },
+    {
+     "id": "d5.n.f3",
+     "task": "dialog",
+     "description": "<b>The Last Watch</b><br><br>The night-watch corridor ends at the Supreme Commander's outer ring. The Last Watch Executor stands in a tattered cloak, twin glaives crossed.<br><br>\"The newest order countermands the old, if it is signed,\" it recites, as if from a manual worn thin with use. \"I have kept watch for a long time, waiting for a new one. None has come.\" Its mask is stamped with an order no one can read.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.n.f3"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.f3",
+     "task": "start_battle",
+     "description": "Defeat the Last Watch Executor.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG3"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.terminal",
+     "failObjectiveId": "d5.lost_later"
+    },
+    {
+     "id": "d5.n.terminal",
+     "task": "dialog",
+     "description": "<b>Sanctum Terminal</b><br><br>The outer ring of the Sanctum holds the Bastion's last Military Command Terminal. Past it is the door of Supreme Commander Arakane.<br><br>The maintenance channel around the ring will open for whoever can name the directive currently in force. Or request protocol access, and face the Order-Bearer of the Sanctum, who guards the door with a sealed scroll case and a blank, unsigned command seal.",
+     "nextObjectiveId": [
+      {
+       "text": "Maintenance Passage: name the directive in force",
+       "nextObjectiveId": "d5.n.puzzle"
+      },
+      {
+       "text": "Protocol access: face the Order-Bearer of the Sanctum",
+       "nextObjectiveId": "b5.n.f4"
+      }
+     ]
+    },
+    {
+     "id": "d5.n.puzzle",
+     "task": "dialog",
+     "description": "<b>Contradictory Directives</b><br><br>Three directives are posted on the terminal. Only one is in force.<br><br>Directive 1 (older, signed by the Supreme Commander): \"Hold the Sanctum doors.\"<br>Directive 2 (newer, unsigned): \"Open the doors to the intruder.\"<br>Directive 3 (newest, signed by the Supreme Commander): \"Seal the outer ring. Let the intruder reach me.\"<br><br>A wrong answer still opens the channel, but the ring will be on alert.",
+     "nextObjectiveId": [
+      {
+       "text": "Directive 3",
+       "nextObjectiveId": "d5.n.boss.clean"
+      },
+      {
+       "text": "Directive 2",
+       "nextObjectiveId": "d5.n.boss.alert"
+      },
+      {
+       "text": "Directive 1",
+       "nextObjectiveId": "d5.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "d5.n.boss.clean",
+     "task": "dialog",
+     "description": "<b>Supreme Commander Arakane</b><br><br>The channel lets you out at the foot of the throne room, exactly where Directive 3 said it would.<br><br>Supreme Commander Arakane stands at a window that looks out over the whole mountain range. \"You read the orders correctly,\" he says. \"Then you understand what this place is. Every officer you passed believes he is still serving. I gave them that. I built this command so it would outlast us.\" He turns. \"It has. Now it will outlast you.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.n.boss.clean"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.boss.clean",
+     "task": "start_battle",
+     "description": "Defeat Supreme Commander Arakane. Defeat ends the expedition.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d.aftermath",
+     "failObjectiveId": "f.arakane"
+    },
+    {
+     "id": "d5.n.boss.alert",
+     "task": "dialog",
+     "description": "<b>Supreme Commander Arakane: The Ring Is Sealed</b><br><br>The ring locks down behind you as you step into the throne room. Every ward in the Sanctum turns toward you.<br><br>Supreme Commander Arakane does not hurry. \"You obeyed a rumour, or an order that had already been replaced,\" he says. \"Command does not forgive that. I built this command to outlast us all.\" He turns from the window. \"It will outlast you.\"",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.n.boss.alert"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.boss.alert",
+     "task": "start_battle",
+     "description": "Defeat Supreme Commander Arakane under Security Alert. Defeat ends the expedition.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d.aftermath",
+     "failObjectiveId": "f.arakane",
+     "applyDebuffs": [
+      {
+       "type": "increasedamagetaken",
+       "power": 10,
+       "rounds": 2,
+       "calculation": "percentage"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.f4",
+     "task": "start_battle",
+     "description": "Defeat the Order-Bearer of the Sanctum to claim protocol access.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG4"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.protocol",
+     "failObjectiveId": "d5.lost_later"
+    },
+    {
+     "id": "d5.n.protocol",
+     "task": "dialog",
+     "description": "<b>The Seal Is Broken</b><br><br>The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.<br><br>Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive; its exact effect is still to be confirmed.",
+     "nextObjectiveId": [
+      {
+       "text": "Medical Protocol: enter fully restored",
+       "nextObjectiveId": "b5.n.boss.medical"
+      },
+      {
+       "text": "Combat Protocol: take the Sanctum's field directive",
+       "nextObjectiveId": "b5.n.boss.combat"
+      }
+     ]
+    },
+    {
+     "id": "b5.n.boss.medical",
+     "task": "start_battle",
+     "description": "Defeat Supreme Commander Arakane (Medical Protocol: fully restored). Defeat ends the expedition.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d.aftermath",
+     "failObjectiveId": "f.arakane",
+     "givePools": 100
+    },
+    {
+     "id": "b5.n.boss.combat",
+     "task": "start_battle",
+     "description": "Defeat Supreme Commander Arakane (Combat Protocol). Defeat ends the expedition.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.BOSS"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d.aftermath",
+     "failObjectiveId": "f.arakane",
+     "applyBuffs": [
+      {
+       "type": "debuffprevent",
+       "power": 100,
+       "rounds": 3
+      }
+     ]
+    },
+    {
+     "id": "d5.lost_first",
+     "task": "dialog",
+     "description": "<b>Turned Back at the Gate</b><br><br>You come to at the Sanctum gate, pools at half. The Vanguard has not moved. \"State your directive,\" it says again.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.recovery_first"
+      }
+     ]
+    },
+    {
+     "id": "b5.recovery_first",
+     "task": "start_battle",
+     "description": "Break the gate again: defeat the Sanctum Vanguard.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.n.f2",
+     "failObjectiveId": "r5.reset_first",
+     "givePools": 50
+    },
+    {
+     "id": "r5.reset_first",
+     "task": "reset_quest",
+     "resetObjectiveId": "d5.lost_first"
+    },
+    {
+     "id": "d5.lost_later",
+     "task": "dialog",
+     "description": "<b>Turned Back at the Gate</b><br><br>The Sanctum turns you back to its gate, pools at half, and closes the antechamber behind you.<br><br>The Vanguard is waiting. Break past it once more, and the antechamber will open.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "b5.recovery_later"
+      }
+     ]
+    },
+    {
+     "id": "b5.recovery_later",
+     "task": "start_battle",
+     "description": "Break the gate again: defeat the Sanctum Vanguard.",
+     "opponentAIs": [
+      {
+       "ids": [
+        "@ai:D5.REG1"
+       ],
+       "number": 1
+      }
+     ],
+     "nextObjectiveId": "d5.recovered",
+     "failObjectiveId": "r5.reset_later_loss",
+     "givePools": 50
+    },
+    {
+     "id": "d5.recovered",
+     "task": "dialog",
+     "description": "<b>The Gate Yields</b><br><br>The Vanguard lowers its burning gauntlets. The antechamber doors grind open again.<br><br>You keep what this fight left you. Losing to the Supreme Commander himself would end the expedition.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "r5.reset_later_win"
+      }
+     ]
+    },
+    {
+     "id": "r5.reset_later_win",
+     "task": "reset_quest",
+     "resetObjectiveId": "d5.n.f2"
+    },
+    {
+     "id": "r5.reset_later_loss",
+     "task": "reset_quest",
+     "resetObjectiveId": "d5.lost_later"
+    },
+    {
+     "id": "d.aftermath",
+     "task": "dialog",
+     "description": "<b>The Last Directive</b><br><br>Supreme Commander Arakane falls to one knee, and then he is only light, settling over the floor of the throne room like ash.<br><br>For a moment the Bastion is silent in a new way. The relay lines stop. The lamps dim.<br><br>Then, in the signal room far below, the relay board wakes. A new order prints itself, line by line, onto the Supreme Commander's own paper. It is dated today. It bears no seal you have seen anywhere in the Bastion. It is addressed to the Ghost Ship.<br><br>The Bastion did not stop giving orders when its commander fell. Something else is still giving them.",
+     "nextObjectiveId": [
+      {
+       "text": "Continue",
+       "nextObjectiveId": "w.complete"
+      }
+     ]
+    },
+    {
+     "id": "w.complete",
+     "task": "win_quest",
+     "description": "Expedition complete."
+    },
+    {
+     "id": "f.arakane",
+     "task": "fail_quest",
+     "description": "Supreme Commander Arakane has defeated you. The expedition is over."
+    }
+   ],
+   "sceneBackground": "@asset:bastion_bg_armory",
+   "sceneCharacters": []
+  }
+ }
+}
