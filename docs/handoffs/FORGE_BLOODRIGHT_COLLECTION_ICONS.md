@@ -7,8 +7,15 @@ Repository: `perseverance484/tnr-tools`.
 Branch: `chatgpt/bloodright-collection-icons-20261016`.
 Exact base: `484d554b65954c18d04b62b00b31ad2b9057bfec` (PR #30).
 Integration: stacked on `chatgpt/bee-pilot-values`; #29, then #30, then this change.
-The exact frozen head is recorded in the PR handoff. Main observed at
-`99e86dc549b86f1f4a5846c0e509fa6bc15b3463`; integration with it was not performed.
+The exact frozen head is recorded in the PR handoff. Implementation commit:
+`0c88787954e3f21accc6e5642b9e5c44617a3b90`; subsequent documentation only clarifies integration.
+Main observed at `99e86dc549b86f1f4a5846c0e509fa6bc15b3463`.
+An attempted synchronization onto main was aborted on package/bundle/loader conflicts;
+the tested branch and original PRs are unchanged by that attempt. This remains stacked
+on #30, not integrated with main. Main now ships **0.5.2**, loader pin
+`b62704c08e6c8de23f2b1d76aab0ebebf704c9df`, including AI migration-0056 acceptance
+(`052b218d`). Preserve those changes and the newer released loader at integration;
+do not restore this branch's historical 0.5.1 loader over main.
 Brief: `state/prompt_bloodright_collection_icons.md`.
 
 ## Behavior
@@ -55,7 +62,8 @@ Node 24.19.0, full Git history, socket-free simulated game transport:
 - `node tools/check_boundaries.mjs`: 44 source + 13 presentation modules, zero violations.
 - `node tools/derive_bloodright.mjs /workspace/TheNinjaRPG --check`: byte-identical.
 - `npm audit --omit=dev --audit-level=high`: zero vulnerabilities.
-- `checkReleasePin()`: `[]`; loader remains 0.5.1, 0.6.0 pending.
+- `checkReleasePin()`: `[]` on the stacked branch; its loader is 0.5.1, 0.6.0 pending.
+  This is not the current main release, which is 0.5.2 as noted above.
 - `skills/building-tnr-content/scripts/{doctrinemap.py,render_doctrine.py --check,build_packs.py --check}`:
   pass; `lawmap.py .`: zero errors, five existing warnings.
 - `git diff --check`: clean.
