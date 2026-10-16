@@ -112,7 +112,26 @@ export const compileNode = (n: SymNode): AllObjectivesType => {
   }
 };
 
-export const compileObjectives = (g: SymGraph = loadGraph()) => g.nodes.map(compileNode);
+/**
+ * TNR_COMPILED_QUEST (repo-relative) swaps the generated fixture objectives for an authored compiled
+ * quest (e.g. state/silent_bastion_authoring/compiled/quest.candidate.json): its symbolic `@ai:<slot>`
+ * opponents become the fixture AI ids, then every objective is parsed by the engine's own schemas.
+ */
+const compiledObjectives = (path: string) => {
+  const rec = JSON.parse(readFileSync(join(REPO, path), "utf8")).record;
+  return (rec.content.objectives as Record<string, unknown>[]).map((o) => {
+    const x = structuredClone(o) as Record<string, unknown> & { opponentAIs?: { ids: string[]; number: number }[] };
+    if (x.opponentAIs) x.opponentAIs = x.opponentAIs.map((a) => ({ ...a, ids: a.ids.map((id) => (id.startsWith("@ai:") ? aiIdForSlot(id.slice(4)) : id)) }));
+    switch (x.task) {
+      case "dialog": return DialogObjective.parse(x);
+      case "start_battle": return InstantStartBattleObjective.parse(x);
+      case "reset_quest": return ResetQuestObjective.parse(x);
+      default: return InstantWinLoseObjective.parse(x);
+    }
+  });
+};
+export const compileObjectives = (g: SymGraph = loadGraph()) =>
+  process.env.TNR_COMPILED_QUEST ? compiledObjectives(process.env.TNR_COMPILED_QUEST) : g.nodes.map(compileNode);
 
 /** Raw quest record accepted by QuestValidator and insertable into the local test DB. */
 export const questRecord = (objectives = compileObjectives()) => ({
