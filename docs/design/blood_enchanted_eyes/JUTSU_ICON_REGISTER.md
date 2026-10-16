@@ -11,6 +11,14 @@
 - **RAW VISUAL APPROVED:** `1000018489.png`, received as RGB JPEG despite its .png extension, 1536×1536, 381,704 bytes, SHA-256 `bdb157eb00bdd4d2eef8b8f74dece02757a8e7bc645ac9f6c90462540ede9373`. Director: "Perfect hemocure. Approved." Full-bleed scarlet transparent membrane enclosing one small luminous chakra essence, with dark supporting energy; no figurative violence. Conversation file only, not Git-pinned.
 - Supersedes previous faceted armored-ward `1000018483.png`, whose earlier approval remains historical and withdrawn. Protected circular membrane is exclusive to Hemocure, not a style cue for Unholy's broken radiating waves. No final 256px WebP processing, 125/64/32 family-wide QC or official preflight claimed. **7/8 active raw approvals.**
 
+## FINAL STUDIO PRESENTATION — 2 x 4 icon showcase (director instruction, 2026-10-15)
+
+The bloodline workstation's **last art/presentation deliverable** is a labeled 4 x 2 family contact sheet, following the director's Blue Blade Eyes example for **layout only**. Canonical procedure: [JUTSU_ICON_SHOWCASE.md](../../workflows/JUTSU_ICON_SHOWCASE.md). Blood-Enchanted Eyes readiness roster/slots and endgame checklist: [SHOWCASE_READINESS_20261015.md](SHOWCASE_READINESS_20261015.md).
+
+**Current gate is NOT READY:** only **7/8 current raw visuals** are approved. Unholy Enhancement remains open; the latest `1000018490.png` attempt has black shadow masses that look lumpy/debris-like and center too explosion-like, per director feedback. Its exact received JPEG RGB 1536×1536, 426,476 bytes, SHA-256 `27069f2d73dfaa76332dae0f953d2e6c113b6c3f492324f231559b0337e422bf`, is recorded as a failed exploratory candidate in `SOURCE_EVIDENCE.json`, **not as an approved icon**. The replacement needs intentional broken crescent wavefronts with broad black shadow backbones and major gaps. The completed vitality-bubble Hemocure and existing Crimson Impact stay locked.
+
+**Do not generate the final labeled montage until all eight CURRENT images are approved and all eight matching final processed WebPs have been inspected and hash-verified.** The BBE screenshot demonstrates 2 x 4 tiles with each jutsu name and actual decimal-kB WebP byte count, not invented sizes. The showcase is a documentation/QC artifact separate from any game upload, preflight or compressed-icon pack. No final BEE showcase/pack has yet been generated or accepted; the obsolete processed old Ring output does not fill a current slot.
+
 ## LATEST DIRECTOR DIRECTION — Unholy Enhancement broken radiating awakening (2026-10-15)
 
 - **Approval WITHDRAWN** for old Unholy Enhancement `1000018480.png` (confirmed exact received JPEG RGB 1536×1536, 427,414 bytes, SHA-256 `6e8ad42f083cfd386b1b09987af7ec99f9a64eb0a4d091da81f117b191a8011b`). Director says this flowing ascending-crimson blast reads too similarly to Crimson Impact. Keep source/earlier approval as history; **not an active approved asset or style/identity image reference**.
