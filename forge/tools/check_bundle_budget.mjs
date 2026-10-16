@@ -52,9 +52,10 @@ import { fileURLToPath } from "node:url";
 
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
-// Bloodright import adds scoped contracts, compilation, discovery, preview and recovery.
-// Candidate measurement ~370 KB raw / 84 KB gzip; ~4% reviewable headroom.
-export const BUDGET = { raw: 386_000, gzip: 88_000 };
+// Collection/icon candidate adds whole-collection preview and sequential scoped jobs.
+// PROPOSED budget, pending director/reviewer acceptance before release (including the
+// earlier 354000/78000 -> 386000/88000 increase). No released-loader change here.
+export const BUDGET = { raw: 400_000, gzip: 91_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

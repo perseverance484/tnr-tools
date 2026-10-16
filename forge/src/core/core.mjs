@@ -1,5 +1,6 @@
 import { assertBloodrightAvailable } from "../bloodright/jobs.mjs";
 import { prepareBloodright } from "../bloodright/compiler.mjs";
+import { prepareCollection } from "../bloodright/collection.mjs";
 // ForgeCore — the headless orchestration layer.
 //
 // It owns Forge's machine state and every action that changes it: picker loading, manifest
@@ -161,14 +162,24 @@ export class ForgeCore {
   }
 
   async selectManifest(entry) {
+    if (this._starting || this.state.running) return this.say("Pause the running import before selecting another manifest", "warn");
     const selection = this._selection = {};
     this.state.selected = null; this.changed();
     try {
       let text = entry.text ?? await this.github.text(entry.path);
       const packageData = JSON.parse(text);
+      if (packageData.bloodrightCollection) {
+        const result = await prepareCollection(this, packageData);
+        if (selection !== this._selection) return;
+        this.state.selected = { ...result, entry, text: null, collection: result.trees, pack: result.manifest.imagePack, packResult: null };
+        this._scopePackProvenance(this.state.selected.pack);
+        this.changed();
+        if (!result.problems.length && this.state.selected.pack) await this.prepareImages();
+        return;
+      }
       let bloodright = null;
       if (packageData.bloodright) {
-        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
+        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal, imagePack: packageData.imagePack, imgSizes: packageData.imgSizes });
         if (selection !== this._selection) return;
         if (bloodright.problems.length) {
           this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
@@ -203,6 +214,7 @@ export class ForgeCore {
    * @param {boolean} [force]  ignore the content cache and go to the repository
    */
   async prepareImages(force = false) {
+    if (this._starting || this.state.running) return null;
     const s = this.state.selected;
     if (!s || !s.pack) return null;
     return this._queuePack(() => this._prepareImages(s, force));
@@ -284,14 +296,21 @@ export class ForgeCore {
 
   // ------------------------------------------------------------------ jobs
   async startJob() {
+    if (this._starting || this.state.running) return this.say("a job is already running", "warn");
     const s = this.state.selected; if (!s) return;
+    this._starting = true; this._collectionStop = false;
+    try { await this._startSelected(s); }
+    finally { this._starting = false; this.changed(); }
+  }
+
+  async _startSelected(s, collection = null) {
     if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
     // Re-read the gate at the moment of the tap, not at selection time: the operator may have been
     // sitting on this screen while the session expired.
     const blocked = this.blockedPaths(s.plan, s.manifest);
     if (blocked.length) {
       this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9000);
-      this.state.selected.blocked = blocked;
+      s.blocked = blocked;
       return this.changed();
     }
     // The image ledger, re-read at the moment of the tap for the same reason the auth gate is:
@@ -314,7 +333,24 @@ export class ForgeCore {
       this.say(`${packProblems.length} repo-backed image(s) are not verified: ${packProblems.join("; ")}. Nothing was sent.`, "bad", 12000);
       return this.changed();
     }
-    const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
+    if (s.collection) {
+      // Check every scope again before the first write, then each child checks it at Start.
+      try { for (const t of s.collection) assertBloodrightAvailable(this.journal, t.manifest.policy.bloodrightImport.bloodlineId); }
+      catch (e) { return this.fail("start collection", e); }
+      const group = `collection-${Date.now().toString(36)}`;
+      for (const [index, tree] of s.collection.entries()) {
+        if (this._collectionStop) break;
+        const jobId = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path });
+        const job = jobId && this.journal.get(jobId);
+        if (!job || job.state !== "DONE" || !job.items.every(it => it.state === "VERIFIED" && it.verify === "match")) {
+          this.say(`Collection stopped at tree ${index + 1}/${s.collection.length}. Resolve this job, then reopen the collection for a fresh preview.`, "warn", 12000);
+          return;
+        }
+      }
+      this.say(this._collectionStop ? "Collection paused. Reopen it for a fresh preview after resolving the current job." : `${s.collection.length} Bloodright trees verified. Results were exported per tree.`, this._collectionStop ? "warn" : "ok", 12000);
+      return;
+    }
+    const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}${collection ? `-${collection.index}` : ""}`;
     try {
       assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
       let manifestPath = s.entry.path;
@@ -325,15 +361,18 @@ export class ForgeCore {
         const saved = await this.repoCache.get("bloodright.manifest", manifestPath);
         if (saved?.data !== s.text) throw new Error("compiled preview was not durably stored");
       }
+      if (this._collectionStop) return;
       this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
-      if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview });
+      if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, ...(collection ? { collection } : {}) });
     } catch (e) { return this.fail("plan", e); }
     this.state.selected = null;
     this.go("run", { jobId });
     await this.drive(jobId, () => this.runner.run(jobId));
+    return jobId;
   }
 
   async resumeJob(jobId) {
+    if (this._starting || this.state.running) return this.say("a job is already running", "warn");
     const job = this.journal.get(jobId);
     // Re-read at the moment of the tap: the state may have changed since the screen rendered.
     const blocked = this.resumeBlockedReason(job);
@@ -421,15 +460,15 @@ export class ForgeCore {
     }
   }
 
-  requestPause() { this.runner.requestPause(); this.say("pausing after the current item finishes", "warn"); }
+  requestPause() { this._collectionStop = true; this.runner.requestPause(); this.say("pausing after the current item finishes", "warn"); }
   adopt(jobId, idx, id) { try { this.runner.adopt(jobId, idx, id); this.changed(); } catch (e) { this.fail("adopt", e); } }
   skip(jobId, idx) { try { this.runner.skip(jobId, idx); this.changed(); } catch (e) { this.fail("skip", e); } }
   resolveConfirmed(jobId, idx, options) {
-    if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+    if (this._starting || this.state.running) return this.say("Pause the running job before resolving a write", "warn");
     try { this.runner.resolveConfirmed(jobId, idx, options); this.changed(); } catch (e) { this.fail("resolve write", e); }
   }
   forgetBinding(jobId, idx, options) {
-    if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+    if (this._starting || this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
     try { this.runner.forgetBinding(jobId, idx, options); this.clearSelection(); this.say("Saved binding forgotten. Prepare a fresh preview before creating or rebinding the record.", "warn"); } catch (e) { this.fail("forget binding", e); }
   }
 
@@ -458,7 +497,7 @@ export class ForgeCore {
         bundle.compiledManifestError = e.message;
       }
     }
-    const name = bundleName(this.now);
+    const name = job.collection ? bundleName(this.now).replace(".json", `_${job.collection.index + 1}.json`) : bundleName(this.now);
     const text = JSON.stringify(bundle, null, 1);
     const synced = repoSyncReady(this.storage);
     if (synced) {

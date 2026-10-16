@@ -65,6 +65,107 @@ Leading/trailing whitespace in skill names, legacy `modifiers` files and other c
 are refused. Bindings cannot identify SKILL
 rows, another bloodline, or already visible skills. Global name conflicts block preparation.
 
+## Multiple trees and icons
+
+The collection candidate adds a `bloodrightCollection` envelope to the same picker.
+Start imports its trees in order, as separate scoped jobs. All trees must compile and
+all referenced icon bytes must verify before the first job opens. A bad final tree or
+icon therefore blocks the entire initial run. Each child still checks its scope, session,
+bindings and preimages when it starts. This is sequential execution, **not a transaction**:
+completed trees remain saved if a later tree stops.
+
+```json
+{
+ "_note": "My Bloodright trees with icons",
+ "bloodrightCollection": {
+  "version": 1,
+  "trees": ["REPLACE with complete bloodright configuration objects, one per bloodline"]
+ },
+ "imgSizes": {},
+ "imagePack": {"ref": "REPLACE with the exact art commit", "files": {}}
+}
+```
+
+This shape illustration is intentionally not executable. Each `trees` entry is the
+same configuration object used under the single-tree `bloodright` key, with optional
+category defaults:
+
+```json
+"icons": {
+ "Foundation": "@img:bee_foundation_black_bg_256.webp",
+ "Hidden Art": "@img:bee_hidden_art_black_bg_256.webp",
+ "Advanced Art": "@img:bee_advanced_art_black_bg_256.webp"
+}
+```
+
+`nodes.<id>.image` overrides the category icon. Icons may instead be exact HTTPS URLs
+already supplied by the operator; URL-only icons are assigned without uploads (their
+remote bytes are not hash-verified). Collections require an explicit icon for every
+node. Single-tree packages without icons keep the old image-preservation behavior.
+Category icons explicitly replace existing images, including Hungry Pulse's when selected.
+New folders may also use an image reference; bound existing folders remain unchanged.
+
+For automatic image upload, put `imgSizes` and `imagePack` at the **package top level**,
+outside `bloodright` or `bloodrightCollection`. Every collection `@img` must be bound
+to an immutable pack; the collection never falls back to the device picker. One shared
+file can serve many skills. Upload reuse uses the content digest, not just its filename.
+Preview also uses the content upload ledger, so repeat imports show reuse rather than
+claiming that an unchanged uploaded icon needs replacement. Back up results and browser
+storage: losing the upload ledger can require uploading the same bytes again.
+
+After committing the actual approved WebPs and recording their byte sizes, use the existing
+authoring tool (now aware of category and node icons):
+
+```sh
+node forge/tools/make_image_pack.mjs my-trees.json --root art/bloodright --ref ART_COMMIT --write
+```
+
+Use repeatable `--map filename.webp=art/path/filename.webp` arguments for files in different
+folders. It hashes **committed blobs**, rejects missing files and ledger mismatches, and
+pins the resolved commit. It does not approve artwork or replace art preflight. Forge
+validates the compiled per-tree manifests against the same scoped contract as the pilot.
+
+Operation:
+
+1. Select the collection; inspect all tree previews and the verified image ledger.
+2. **Start all trees** writes one tree at a time. A pause, failed item, visibility loss,
+   drift, or explicit Pause stops the collection before any later tree starts.
+3. Export/retain each tree's results. Exports carry collection ID/index/count as well as
+   the exact frozen compiled manifest and icon pack.
+4. After interruption or page reload, resume the current job using Jobs. This resumes its
+   exact saved manifest only; it does not automatically start the rest of the collection.
+5. Reopen the collection for a fresh preview. Finished trees should show reuse; Start
+   verifies them without mutations and proceeds to the remaining trees. Any unresolved
+   child blocks the new collection. Missing frozen text still refuses resume safely.
+
+Preparation currently performs the existing complete double inventory scan **per tree**;
+the normal budget throttles reads. Large rosters can take substantial time to preview.
+There is no collection-wide rollback or cross-browser lock. Avoid concurrent edits.
+Duplicate bloodline entries and cross-tree skill/folder name collisions are refused;
+different trees may explicitly reuse the same existing folder unchanged.
+
+### Production inputs located on 2026-10-16
+
+`collection.template.json` contains the real BEE settings and the three icon filenames/
+byte counts from the recorded BEE QC report. It intentionally lacks an imagePack because
+the repository has no corresponding image blobs. **It is blocked, not a staged manifest.**
+Do not invent a commit or URL to fill it. `collection.readiness.json` records the exact
+44-tree roster scanned and source pins:
+
+- Fable `7c1dfdd5` contains 44 legacy four-BP trees using `modifiers` (6–10 nodes each).
+  These are not silently converted into five-BP designs.
+- The updated structural BEE tree is available at `59638108`; no other updated
+  structural tree was found on the inspected Bloodright branches.
+- Icon tracker `c85c1ea8` plans 29 A/S/H bloodlines / 87 icons and records six approved
+  BEE/BBE images. It explicitly says those binaries remain conversation deliverables.
+  No immutable image blobs or uploaded URLs are supplied there.
+
+The complete package needs the latest intended trees, actual icons (or exact uploaded
+URLs), and explicit node settings for those trees. The approved 20 Silver / 99 rounds
+settings in this branch remain BEE-only. Description acceptance, folder visibility,
+release and live execution remain the earlier separate decisions. Nothing is newly
+staged under `push/`, merged, released, uploaded or sent to the game by this change.
+
 ## Persistence and recovery
 
 IDs use `br:<bloodlineId>:<localNodeId>` keys in Forge's existing ID map, exported in every

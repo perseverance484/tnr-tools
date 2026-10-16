@@ -5478,6 +5478,7 @@
   function manifestSummary(text) {
     try {
       const m = JSON.parse(text);
+      if (m.bloodrightCollection) return { ok: true, title: m._note ?? "Bloodright collection (prepare all trees)", items: (m.bloodrightCollection.trees ?? []).reduce((n, t) => n + Object.keys(t.nodes ?? {}).length, 0), creates: 0, captures: 0 };
       if (m.bloodright) return { ok: true, title: m._note ?? "Bloodright design (prepare preview)", items: Object.keys(m.bloodright.nodes ?? {}).length, creates: 0, captures: 0 };
       const items = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
       const caps = m.capture && (m.capture.before || []).length + (m.capture.after || []).length || 0;
@@ -6039,7 +6040,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
     }
     if (s.bloodright) {
-      card.appendChild(h("div", { class: "f-banner info" }, `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      card.appendChild(h("div", { class: "f-banner info" }, s.collection ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.` : `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations \xB7 ${tree.maxAdvanced} reachable Advanced Art(s)`));
       for (const row of s.bloodright.preview) card.appendChild(h(
         "details",
         {},
@@ -6127,7 +6129,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
         )
-      }, readOnly ? "Run captures" : "Start job"),
+      }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
       h("button", { onClick: () => app.clearSelection() }, "Clear")
     ));
     return card;
@@ -6140,6 +6142,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       root.appendChild(h("div", { class: "f-mute" }, "No job selected. Pick one on Jobs."));
       return root;
     }
+    if (job.collection) root.appendChild(h("div", { class: "f-banner info" }, `Bloodright collection \xB7 tree ${job.collection.index + 1}/${job.collection.total} \xB7 ${job.collection.path}. Pause stops later trees too. After reload, resume this job, then reopen the collection.`));
     const done = job.items.filter((i) => ["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length;
     root.append(
       h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` \xB7 started ${fmtAgo(job.startedAt, app.now())}`)),
@@ -6378,13 +6381,14 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   var object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
   var id = (v) => typeof v === "string" && /^[A-Za-z0-9_-]+$/.test(v);
   var sameName = (a, b) => a.normalize("NFKC").trim().toLowerCase() === b.normalize("NFKC").trim().toLowerCase();
-  function compileBloodright({ design, config, skills, folders, idmap = {} }) {
+  function compileBloodright({ design, config, skills, folders, idmap = {}, imagePack, imgSizes = {}, uploads = {}, requireIcons = false }) {
     const problems = [], preview = [], items = [];
     const fail = (text) => problems.push(text);
     const bl = design?.bloodline?.id;
     if (!id(bl)) fail("design requires a literal bloodline ID");
     if (!/^[a-f0-9]{40}$/.test(config?.source?.ref ?? "") || !config?.source?.path) fail("source must name a repository path at an exact 40-character commit");
     const nodes = design?.nodes;
+    for (const category of Object.keys(config.icons ?? {})) if (!["Foundation", "Hidden Art", "Advanced Art"].includes(category)) fail(`unknown icon category ${category}`);
     if (!Array.isArray(nodes) || !nodes.length || nodes.length > 24) return { problems: [...problems, "design needs 1..24 structural nodes"], preview, manifest: null };
     const rules = design.build_rules;
     if (rules?.max_bp !== 5 || rules?.skill_cost !== 1 || rules?.prerequisites !== "ALL") fail("this importer requires the approved five-BP, one-point, ALL-prerequisites design format");
@@ -6453,6 +6457,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const claimed =  new Set();
     for (const n of ordered) {
       const settings = config.nodes?.[n.id] ?? {};
+      const icon = settings.image ?? config.icons?.[n.category];
+      if (requireIcons && icon === void 0) fail(`${n.name}: collection imports require an explicit node or category icon`);
+      if (icon !== void 0 && (typeof icon !== "string" || !/^(@img:[A-Za-z0-9_.-]+|https:\/\/\S+)$/.test(icon))) fail(`${n.name}: icon must be an HTTPS URL or @img filename`);
       for (const key of Object.keys(settings)) if (!["rounds", "seichiSilverCost", "description", "image"].includes(key)) fail(`${n.name}: unsupported setting ${key}`);
       const targetId = bound(n.id, bindings.nodes?.[n.id]);
       const live = skills.find((s) => s.id === targetId);
@@ -6497,19 +6504,24 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         folderId: `@skillTreeFolder:${folderKey}`,
         effects,
         ...live?.image ? { image: live.image } : {},
-        ...settings.image !== void 0 ? { image: settings.image } : {}
+        ...icon !== void 0 ? { image: icon } : {}
       };
       for (const p of bloodrightProblems("skillTree", data, null, { preCreate: true })) fail(`${n.name}: ${p}`);
       const resolved = { ...data, folderId: folderId ?? data.folderId, requiredSkillIds: n.parents.map((p) => bound(p, bindings.nodes?.[p]) ?? `@skillTree:${scopeKey(bl, p)}`) };
+      const imageName = typeof data.image === "string" && data.image.startsWith("@img:") ? data.image.slice(5) : null;
+      const asset = imagePack?.files?.[imageName];
+      if (imageName && asset && uploads[asset.sha256]?.url) resolved.image = uploads[asset.sha256].url;
       const changes = live ? diffAsserted("skillTree", resolved, live) : Object.entries(data).map(([key, sent]) => ({ key, sent }));
       const it = { entity: "skillTree", srcId: scopeKey(bl, n.id), name: n.name, slot: targetId ? "edit" : "create", ...targetId ? { targetId, expected: live ? writableSnapshot("skillTree", live) : null } : {}, data };
       items.push(it);
       preview.push({ nodeId: n.id, name: n.name, targetId, operation: targetId ? changes.length ? "update" : "reuse" : "create", changes });
     }
     const provenance = { version: 1, source: config.source, gamePin: contract_default._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter((it) => it.targetId).map((it) => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
-    return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items } };
+    const packed = normalizeImagePack(imagePack, { imgSizes, names: items.map((it) => it.data.image).filter((v) => typeof v === "string" && v.startsWith("@img:")).map((v) => v.slice(5)) });
+    problems.push(...packed.errors);
+    return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...packed.pack ? { imagePack: packed.pack } : {}, ...Object.keys(imgSizes).length ? { imgSizes } : {} } };
   }
-  async function prepareBloodright({ config, github, reader, storage, auth, journal }) {
+  async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons }) {
     if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
     if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
     auth?.assert("skillTree.create");
@@ -6531,7 +6543,47 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (index < 0) throw new Error(`bound skill ${target} absent from complete inventory`);
       all.data[index] = r.data;
     }
-    return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map });
+    return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads: readAssetUploads(storage) });
+  }
+
+  async function prepareCollection(ctx, pkg) {
+    const c = pkg.bloodrightCollection;
+    if (pkg.bloodright || pkg.items || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
+    const trees = [], problems = [], names =  new Map(), bloodlines =  new Set();
+    for (const [index, config] of c.trees.entries()) {
+      try {
+        const bloodright = await prepareBloodright({ ...ctx, config, imagePack: pkg.imagePack, imgSizes: pkg.imgSizes, requireIcons: true });
+        if (bloodright.problems.length) {
+          problems.push(...bloodright.problems.map((p) => `tree ${index + 1}: ${p}`));
+          continue;
+        }
+        const text = JSON.stringify(bloodright.manifest), manifest = parseManifest(text);
+        const bl = manifest.policy.bloodrightImport.bloodlineId;
+        if (bloodlines.has(bl)) problems.push(`duplicate bloodline ${bl} in collection`);
+        bloodlines.add(bl);
+        const plan = planOrder(manifest, readIdmap(ctx.storage));
+        for (const it of plan) {
+          const name = `${it.entity}:${it.name.normalize("NFKC").trim().toLowerCase()}`;
+          const prior = names.get(name);
+          if (prior && !(it.entity === "skillTreeFolder" && it.targetId && prior.targetId === it.targetId)) problems.push(`cross-tree name collision: ${it.name}`);
+          names.set(name, it);
+          problems.push(...ctx.validator.problems(it.entity, it.data, null).map((p) => `${it.name}: ${p}`));
+        }
+        const images = [...new Set(plan.flatMap((it) => collectRefs(it.data).filter((r) => r.pfx === "img").map((r) => r.key)))];
+        for (const name of images) if (!manifest.imagePack?.files[name]) problems.push(`collection icon ${name} needs an immutable imagePack binding`);
+        trees.push({ text, manifest, plan, images, bloodright, pack: manifest.imagePack, problems: [] });
+      } catch (e) {
+        problems.push(`tree ${index + 1}: ${e.message}`);
+      }
+    }
+    return {
+      trees,
+      problems,
+      plan: trees.flatMap((t) => t.plan),
+      images: [...new Set(trees.flatMap((t) => t.images))],
+      manifest: { capture: { before: [], after: [] }, imgSizes: pkg.imgSizes ?? {}, warnings: [], imagePack: trees[0]?.pack ?? null },
+      bloodright: { preview: trees.flatMap((t) => t.bloodright.preview), trees: trees.map((t) => ({ bloodlineId: t.manifest.policy.bloodrightImport.bloodlineId, allocations: t.bloodright.allocations, maxAdvanced: t.bloodright.maxAdvanced })) }
+    };
   }
 
   async function resolveCaptures({ journal, cache }, jobId) {
@@ -6742,15 +6794,25 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     async selectManifest(entry) {
+      if (this._starting || this.state.running) return this.say("Pause the running import before selecting another manifest", "warn");
       const selection = this._selection = {};
       this.state.selected = null;
       this.changed();
       try {
         let text = entry.text ?? await this.github.text(entry.path);
         const packageData = JSON.parse(text);
+        if (packageData.bloodrightCollection) {
+          const result = await prepareCollection(this, packageData);
+          if (selection !== this._selection) return;
+          this.state.selected = { ...result, entry, text: null, collection: result.trees, pack: result.manifest.imagePack, packResult: null };
+          this._scopePackProvenance(this.state.selected.pack);
+          this.changed();
+          if (!result.problems.length && this.state.selected.pack) await this.prepareImages();
+          return;
+        }
         let bloodright = null;
         if (packageData.bloodright) {
-          bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal });
+          bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal, imagePack: packageData.imagePack, imgSizes: packageData.imgSizes });
           if (selection !== this._selection) return;
           if (bloodright.problems.length) {
             this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
@@ -6783,6 +6845,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     async prepareImages(force = false) {
+      if (this._starting || this.state.running) return null;
       const s = this.state.selected;
       if (!s || !s.pack) return null;
       return this._queuePack(() => this._prepareImages(s, force));
@@ -6831,13 +6894,24 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     async startJob() {
+      if (this._starting || this.state.running) return this.say("a job is already running", "warn");
       const s = this.state.selected;
       if (!s) return;
+      this._starting = true;
+      this._collectionStop = false;
+      try {
+        await this._startSelected(s);
+      } finally {
+        this._starting = false;
+        this.changed();
+      }
+    }
+    async _startSelected(s, collection = null) {
       if (s.problems.length) return this.say("Resolve the preview problems before starting", "bad");
       const blocked = this.blockedPaths(s.plan, s.manifest);
       if (blocked.length) {
         this.say(`TNR authentication is unavailable; ${blocked.join(", ")} ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and nothing was sent`, "bad", 9e3);
-        this.state.selected.blocked = blocked;
+        s.blocked = blocked;
         return this.changed();
       }
       const badImgs = unusablePicks(imagePicks(s.images, this.runner.files, s.manifest.imgSizes, "imageUploader"));
@@ -6850,7 +6924,26 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.say(`${packProblems.length} repo-backed image(s) are not verified: ${packProblems.join("; ")}. Nothing was sent.`, "bad", 12e3);
         return this.changed();
       }
-      const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}`;
+      if (s.collection) {
+        try {
+          for (const t of s.collection) assertBloodrightAvailable(this.journal, t.manifest.policy.bloodrightImport.bloodlineId);
+        } catch (e) {
+          return this.fail("start collection", e);
+        }
+        const group = `collection-${Date.now().toString(36)}`;
+        for (const [index, tree] of s.collection.entries()) {
+          if (this._collectionStop) break;
+          const jobId2 = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path });
+          const job = jobId2 && this.journal.get(jobId2);
+          if (!job || job.state !== "DONE" || !job.items.every((it) => it.state === "VERIFIED" && it.verify === "match")) {
+            this.say(`Collection stopped at tree ${index + 1}/${s.collection.length}. Resolve this job, then reopen the collection for a fresh preview.`, "warn", 12e3);
+            return;
+          }
+        }
+        this.say(this._collectionStop ? "Collection paused. Reopen it for a fresh preview after resolving the current job." : `${s.collection.length} Bloodright trees verified. Results were exported per tree.`, this._collectionStop ? "warn" : "ok", 12e3);
+        return;
+      }
+      const jobId = `${s.entry.number ?? "m"}-${Date.now().toString(36)}${collection ? `-${collection.index}` : ""}`;
       try {
         assertBloodrightAvailable(this.journal, s.manifest.policy?.bloodrightImport?.bloodlineId);
         let manifestPath = s.entry.path;
@@ -6860,16 +6953,19 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           const saved = await this.repoCache.get("bloodright.manifest", manifestPath);
           if (saved?.data !== s.text) throw new Error("compiled preview was not durably stored");
         }
+        if (this._collectionStop) return;
         this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
-        if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview });
+        if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, ...collection ? { collection } : {} });
       } catch (e) {
         return this.fail("plan", e);
       }
       this.state.selected = null;
       this.go("run", { jobId });
       await this.drive(jobId, () => this.runner.run(jobId));
+      return jobId;
     }
     async resumeJob(jobId) {
+      if (this._starting || this.state.running) return this.say("a job is already running", "warn");
       const job = this.journal.get(jobId);
       const blocked = this.resumeBlockedReason(job);
       if (blocked) {
@@ -6948,6 +7044,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     requestPause() {
+      this._collectionStop = true;
       this.runner.requestPause();
       this.say("pausing after the current item finishes", "warn");
     }
@@ -6968,7 +7065,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     resolveConfirmed(jobId, idx, options) {
-      if (this.state.running) return this.say("Pause the running job before resolving a write", "warn");
+      if (this._starting || this.state.running) return this.say("Pause the running job before resolving a write", "warn");
       try {
         this.runner.resolveConfirmed(jobId, idx, options);
         this.changed();
@@ -6977,7 +7074,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       }
     }
     forgetBinding(jobId, idx, options) {
-      if (this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
+      if (this._starting || this.state.running) return this.say("Pause the running job before forgetting a binding", "warn");
       try {
         this.runner.forgetBinding(jobId, idx, options);
         this.clearSelection();
@@ -7009,7 +7106,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           bundle.compiledManifestError = e.message;
         }
       }
-      const name = bundleName(this.now);
+      const name = job.collection ? bundleName(this.now).replace(".json", `_${job.collection.index + 1}.json`) : bundleName(this.now);
       const text = JSON.stringify(bundle, null, 1);
       const synced = repoSyncReady(this.storage);
       if (synced) {
