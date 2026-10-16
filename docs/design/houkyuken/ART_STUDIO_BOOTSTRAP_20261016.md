@@ -1,5 +1,7 @@
 # Houkyuken (operator: Hokyuken) — Art Studio Bootstrap
 
+> **Historical bootstrap checkpoint (pre-intake).** The director supplied all five originals in a later 2026-10-16 message; the files were inspected and mapped. **Current state** is in `JUTSU_ICON_REGISTER.md`, `SOURCE_EVIDENCE.json` and `SHOWCASE_READINESS_20261016.md`: 5/5 original references inspected, all direction proposals unapproved, 0/5 replacement raw accepted, 0/5 WebP exports. The pre-intake wording below is preserved as an accurate snapshot of the earlier handoff.
+
 **Initialized:** 2026-10-16 · **Repository:** `perseverance484/tnr-tools`
 **Studio branch:** `chatgpt/houkyuken-jutsu-art-studio-20261016` · **Frozen base:** `main@43ce6b2d22736cd90e3de52e66f620570e67888f`
 **Lead:** Art Director · **Support:** Image Production · **Current phase:** ORIGINAL-ICON INTAKE PENDING
