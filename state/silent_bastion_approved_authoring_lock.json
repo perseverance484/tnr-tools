@@ -1,0 +1,74 @@
+{
+  "schema": "tnr.silent_bastion_approved_authoring_lock.v1",
+  "purpose": "Coordination/provenance lock only. Does not replace canonical design, ruling history or generated game contracts.",
+  "status": "DIRECTOR_APPROVED_SCOPE_OFFLINE_AUTHORING_ONLY",
+  "sourceRefs": {
+    "mainAtCoordination": "99e86dc549b86f1f4a5846c0e509fa6bc15b3463",
+    "bastionDesignApproved": "c54a96883113979223d7989c1080ae25a480337e",
+    "recipeCacheDesignApproved": "fb744e713873a99812b7c6e9ec8631769ef9ff9a",
+    "fableNativeGraphProof": "74eeb328f05d4258056b0a1c531619ffcf852ce3",
+    "engineGraphNativeProof": "13d40c4c1509ecf44262aba1b5120266011ea786",
+    "gameMainAtCoordination": "0651b039a466516a8fe24fc13b56f60dea11b7eb"
+  },
+  "selectedGraph": {
+    "variant": "alt99_f4gate",
+    "path": "harness/silent_bastion_condensed99/graphs/alt99_f4gate.json",
+    "sourceCommit": "74eeb328f05d4258056b0a1c531619ffcf852ce3",
+    "gitBlob": "b660f3b22347be76872ffd073560be1a170778c6",
+    "rawSha256": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20",
+    "directorSelectionRuling": "RUL-2026-10-16-002",
+    "legacyEmbeddedSelectionValue": "NOT_SELECTED; option for director acceptance",
+    "embeddedValueNote": "Historical fixture metadata predates director approval. Keep tested file immutable for provenance; director ruling + this coordination lock designate the authoring source.",
+    "counts": {
+      "objectives": 99,
+      "dialogs": 45,
+      "battleNodes": 40,
+      "resetNodes": 12,
+      "win": 1,
+      "fail": 1,
+      "uniqueEncounters": 20,
+      "divisions": 4,
+      "puzzles": 4,
+      "regularOpponents": 16,
+      "commanders": 4,
+      "successfulFightMin": 16,
+      "successfulFightMax": 20
+    },
+    "rejectedOriginal": "state/silent_bastion_condensed99_candidate.json — C1 FAIL; do not build from it"
+  },
+  "completionCachePolicy": {
+    "ruling": "RUL-2026-10-16-001",
+    "playerPicks": 1,
+    "offeredFamilies": [
+      "Bastion Arsenal Cache",
+      "Bastion Research Cache"
+    ],
+    "questRewardMode": "choose",
+    "questRewardPickCount": 1,
+    "cacheRefsLocation": "content.reward.reward_items (quest level only)",
+    "noAdditionalObjective": true,
+    "nativeChoicePlusWeightedConsume": "REQUIRES_SEPARATE_FABLE_OFFLINE_PROOF",
+    "sourceCandidatePools": "docs/design/RECIPE_ALIGNED_CACHE_CANDIDATE_POOLS_20261016.json",
+    "recipeValuesRarityWeightsAmounts": "UNAPPROVED"
+  },
+  "beacon": {
+    "ruling": "RUL-2026-10-16-003",
+    "chargeAt": "startQuest",
+    "chargeExactlyOncePerNewAttempt": true,
+    "refundOnFailOrAbandon": false,
+    "secondChargeOnDivisionRetry": false,
+    "playerEntryDisclosureRequired": true,
+    "formerFirstBattleRule": "SUPERSEDED"
+  },
+  "integrationGates": [
+    "Native recipe-choice + weighted-cache opening receipt proof on Fable-owned isolated branch",
+    "Current game-source drift check and target-specific native validation",
+    "F3 retry XP/ryo economy director decision",
+    "D5 Arakane Combat Protocol supported-tag director decision",
+    "Proposed recipe outcomes, quantities, weights, rarities, tradability, cache art and final reward economy director acceptance",
+    "RUL-2026-10-14-001 collision between Bastion Medical100 and later main jutsu-art ruling must be reconciled without losing either",
+    "No live-game requests/writes and no publication without operator authorization"
+  ],
+  "authoringPrompt": "state/prompt_silent_bastion_complete_authoring.md",
+  "rewardNativeProofBrief": "docs/handoffs/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_PROOF_BRIEF_20261016.md"
+}
