@@ -1,0 +1,949 @@
+{
+  "schema": "TNR-SILENT-BASTION-SYMBOLIC-GRAPH-V1",
+  "kind": "NON_EXECUTABLE_SPECULATIVE_NATIVE_PROOF",
+  "directorApproval": "NOT_APPROVED",
+  "runtimeProof": "NOT_TESTED",
+  "baseGraphBlob": "d3c17cbd3c7f136c325aaf72ab4d6c3e20452a93",
+  "description": "Retain five commanders and five terminal puzzles but remove two regular encounters per division, move the puzzle after the first mandatory regular, leave one optional fourth regular, and use two recovery-fight patterns plus reset_quest to preserve 50%-pool retries. This reduces normal fights from 25/20 to 15/10, pending user consent.",
+  "counts": {
+    "total": 98,
+    "dialogs": 41,
+    "battles": 40,
+    "resets": 15,
+    "win": 1,
+    "fail": 1,
+    "uniqueEncounterSlots": 15
+  },
+  "staticGraph": {
+    "root": "d1.n.f1",
+    "acyclic": true,
+    "reachable": true,
+    "allReferencesResolve": true
+  },
+  "observations": [
+    "Direct puzzle correct→commander removes one redundant approach dialog per division; puzzle remains an immediate dialog gate for the battle.",
+    "Two regular fights per division: REG1 mandatory; REG4 optional after Maintenance terminal; REG2/REG3 deleted.",
+    "First-recovery versus later-recovery reset targets must be proved through native objective tracker after all route variants and repeat losses.",
+    "No new engine or extra game fields claimed. Stats/rewards/AI/effects still require approval and tests."
+  ],
+  "divisions": [
+    {
+      "index": 1,
+      "name": "Outer Garrison",
+      "boss": "The Gatewarden",
+      "puzzle": "patrol routing"
+    },
+    {
+      "index": 2,
+      "name": "Experimental Armory",
+      "boss": "Master of Arms",
+      "puzzle": "armory safety"
+    },
+    {
+      "index": 3,
+      "name": "Skyglass Research Division",
+      "boss": "Replicant Zero",
+      "puzzle": "original versus replica"
+    },
+    {
+      "index": 4,
+      "name": "High Command",
+      "boss": "The Grand Marshal",
+      "puzzle": "command authorization"
+    },
+    {
+      "index": 5,
+      "name": "Command Sanctum",
+      "boss": "Supreme Commander Arakane",
+      "puzzle": "contradictory orders"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "d1.n.f1",
+      "kind": "dialog",
+      "next": "b1.n.f1",
+      "division": 1,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b1.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D1.REG1",
+      "onWin": "d1.n.terminal",
+      "onLoss": "d1.lost_first"
+    },
+    {
+      "id": "d1.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d1.n.puzzle"
+        },
+        {
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d1.n.f4"
+        }
+      ],
+      "division": 1,
+      "lane": "n"
+    },
+    {
+      "id": "d1.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "b1.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d1.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d1.n.boss.alert"
+        }
+      ],
+      "division": 1,
+      "lane": "n",
+      "puzzleTheme": "patrol routing"
+    },
+    {
+      "id": "b1.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.lost_later"
+    },
+    {
+      "id": "d1.n.boss.alert",
+      "kind": "dialog",
+      "next": "b1.n.boss.alert",
+      "division": 1,
+      "lane": "n",
+      "route": "alert",
+      "commander": "The Gatewarden"
+    },
+    {
+      "id": "b1.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.lost_later",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d1.n.f4",
+      "kind": "dialog",
+      "next": "b1.n.f4",
+      "division": 1,
+      "lane": "n",
+      "regular": 4
+    },
+    {
+      "id": "b1.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D1.REG4",
+      "onWin": "d1.n.protocol",
+      "onLoss": "d1.lost_later"
+    },
+    {
+      "id": "d1.n.protocol",
+      "kind": "dialog",
+      "division": 1,
+      "lane": "n",
+      "commander": "The Gatewarden",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b1.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b1.n.boss.combat"
+        }
+      ]
+    },
+    {
+      "id": "b1.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.lost_later",
+      "startPoolsPercent": 100
+    },
+    {
+      "id": "b1.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D1.BOSS",
+      "onWin": "d2.n.f1",
+      "onLoss": "d1.lost_later",
+      "startEffect": "COMBAT_PROTOCOL_D1_TBD"
+    },
+    {
+      "id": "d1.lost_first",
+      "kind": "dialog",
+      "next": "b1.recovery_first",
+      "division": 1,
+      "purpose": "Initial first regular lost"
+    },
+    {
+      "id": "b1.recovery_first",
+      "kind": "battle",
+      "encounterSlot": "D1.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "d1.n.terminal",
+      "onLoss": "r1.reset_first",
+      "division": 1
+    },
+    {
+      "id": "r1.reset_first",
+      "kind": "reset",
+      "resetTarget": "d1.lost_first",
+      "division": 1
+    },
+    {
+      "id": "d1.lost_later",
+      "kind": "dialog",
+      "next": "b1.recovery_later",
+      "division": 1,
+      "purpose": "Optional second regular or commander lost"
+    },
+    {
+      "id": "b1.recovery_later",
+      "kind": "battle",
+      "encounterSlot": "D1.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "r1.reset_later_win",
+      "onLoss": "r1.reset_later_loss",
+      "division": 1
+    },
+    {
+      "id": "r1.reset_later_win",
+      "kind": "reset",
+      "resetTarget": "d1.n.terminal",
+      "division": 1
+    },
+    {
+      "id": "r1.reset_later_loss",
+      "kind": "reset",
+      "resetTarget": "d1.lost_later",
+      "division": 1
+    },
+    {
+      "id": "d2.n.f1",
+      "kind": "dialog",
+      "next": "b2.n.f1",
+      "division": 2,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b2.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D2.REG1",
+      "onWin": "d2.n.terminal",
+      "onLoss": "d2.lost_first"
+    },
+    {
+      "id": "d2.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d2.n.puzzle"
+        },
+        {
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d2.n.f4"
+        }
+      ],
+      "division": 2,
+      "lane": "n"
+    },
+    {
+      "id": "d2.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "b2.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d2.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d2.n.boss.alert"
+        }
+      ],
+      "division": 2,
+      "lane": "n",
+      "puzzleTheme": "armory safety"
+    },
+    {
+      "id": "b2.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.lost_later"
+    },
+    {
+      "id": "d2.n.boss.alert",
+      "kind": "dialog",
+      "next": "b2.n.boss.alert",
+      "division": 2,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Master of Arms"
+    },
+    {
+      "id": "b2.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.lost_later",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d2.n.f4",
+      "kind": "dialog",
+      "next": "b2.n.f4",
+      "division": 2,
+      "lane": "n",
+      "regular": 4
+    },
+    {
+      "id": "b2.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D2.REG4",
+      "onWin": "d2.n.protocol",
+      "onLoss": "d2.lost_later"
+    },
+    {
+      "id": "d2.n.protocol",
+      "kind": "dialog",
+      "division": 2,
+      "lane": "n",
+      "commander": "Master of Arms",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b2.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b2.n.boss.combat"
+        }
+      ]
+    },
+    {
+      "id": "b2.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.lost_later",
+      "startPoolsPercent": 100
+    },
+    {
+      "id": "b2.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D2.BOSS",
+      "onWin": "d3.n.f1",
+      "onLoss": "d2.lost_later",
+      "startEffect": "COMBAT_PROTOCOL_D2_TBD"
+    },
+    {
+      "id": "d2.lost_first",
+      "kind": "dialog",
+      "next": "b2.recovery_first",
+      "division": 2,
+      "purpose": "Initial first regular lost"
+    },
+    {
+      "id": "b2.recovery_first",
+      "kind": "battle",
+      "encounterSlot": "D2.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "d2.n.terminal",
+      "onLoss": "r2.reset_first",
+      "division": 2
+    },
+    {
+      "id": "r2.reset_first",
+      "kind": "reset",
+      "resetTarget": "d2.lost_first",
+      "division": 2
+    },
+    {
+      "id": "d2.lost_later",
+      "kind": "dialog",
+      "next": "b2.recovery_later",
+      "division": 2,
+      "purpose": "Optional second regular or commander lost"
+    },
+    {
+      "id": "b2.recovery_later",
+      "kind": "battle",
+      "encounterSlot": "D2.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "r2.reset_later_win",
+      "onLoss": "r2.reset_later_loss",
+      "division": 2
+    },
+    {
+      "id": "r2.reset_later_win",
+      "kind": "reset",
+      "resetTarget": "d2.n.terminal",
+      "division": 2
+    },
+    {
+      "id": "r2.reset_later_loss",
+      "kind": "reset",
+      "resetTarget": "d2.lost_later",
+      "division": 2
+    },
+    {
+      "id": "d3.n.f1",
+      "kind": "dialog",
+      "next": "b3.n.f1",
+      "division": 3,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b3.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D3.REG1",
+      "onWin": "d3.n.terminal",
+      "onLoss": "d3.lost_first"
+    },
+    {
+      "id": "d3.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d3.n.puzzle"
+        },
+        {
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d3.n.f4"
+        }
+      ],
+      "division": 3,
+      "lane": "n"
+    },
+    {
+      "id": "d3.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "b3.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d3.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d3.n.boss.alert"
+        }
+      ],
+      "division": 3,
+      "lane": "n",
+      "puzzleTheme": "original versus replica"
+    },
+    {
+      "id": "b3.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.lost_later"
+    },
+    {
+      "id": "d3.n.boss.alert",
+      "kind": "dialog",
+      "next": "b3.n.boss.alert",
+      "division": 3,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Replicant Zero"
+    },
+    {
+      "id": "b3.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.lost_later",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d3.n.f4",
+      "kind": "dialog",
+      "next": "b3.n.f4",
+      "division": 3,
+      "lane": "n",
+      "regular": 4
+    },
+    {
+      "id": "b3.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D3.REG4",
+      "onWin": "d3.n.protocol",
+      "onLoss": "d3.lost_later"
+    },
+    {
+      "id": "d3.n.protocol",
+      "kind": "dialog",
+      "division": 3,
+      "lane": "n",
+      "commander": "Replicant Zero",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b3.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b3.n.boss.combat"
+        }
+      ]
+    },
+    {
+      "id": "b3.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.lost_later",
+      "startPoolsPercent": 100
+    },
+    {
+      "id": "b3.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D3.BOSS",
+      "onWin": "d4.n.f1",
+      "onLoss": "d3.lost_later",
+      "startEffect": "COMBAT_PROTOCOL_D3_TBD"
+    },
+    {
+      "id": "d3.lost_first",
+      "kind": "dialog",
+      "next": "b3.recovery_first",
+      "division": 3,
+      "purpose": "Initial first regular lost"
+    },
+    {
+      "id": "b3.recovery_first",
+      "kind": "battle",
+      "encounterSlot": "D3.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "d3.n.terminal",
+      "onLoss": "r3.reset_first",
+      "division": 3
+    },
+    {
+      "id": "r3.reset_first",
+      "kind": "reset",
+      "resetTarget": "d3.lost_first",
+      "division": 3
+    },
+    {
+      "id": "d3.lost_later",
+      "kind": "dialog",
+      "next": "b3.recovery_later",
+      "division": 3,
+      "purpose": "Optional second regular or commander lost"
+    },
+    {
+      "id": "b3.recovery_later",
+      "kind": "battle",
+      "encounterSlot": "D3.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "r3.reset_later_win",
+      "onLoss": "r3.reset_later_loss",
+      "division": 3
+    },
+    {
+      "id": "r3.reset_later_win",
+      "kind": "reset",
+      "resetTarget": "d3.n.terminal",
+      "division": 3
+    },
+    {
+      "id": "r3.reset_later_loss",
+      "kind": "reset",
+      "resetTarget": "d3.lost_later",
+      "division": 3
+    },
+    {
+      "id": "d4.n.f1",
+      "kind": "dialog",
+      "next": "b4.n.f1",
+      "division": 4,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b4.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D4.REG1",
+      "onWin": "d4.n.terminal",
+      "onLoss": "d4.lost_first"
+    },
+    {
+      "id": "d4.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d4.n.puzzle"
+        },
+        {
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d4.n.f4"
+        }
+      ],
+      "division": 4,
+      "lane": "n"
+    },
+    {
+      "id": "d4.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "b4.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d4.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d4.n.boss.alert"
+        }
+      ],
+      "division": 4,
+      "lane": "n",
+      "puzzleTheme": "command authorization"
+    },
+    {
+      "id": "b4.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.lost_later"
+    },
+    {
+      "id": "d4.n.boss.alert",
+      "kind": "dialog",
+      "next": "b4.n.boss.alert",
+      "division": 4,
+      "lane": "n",
+      "route": "alert",
+      "commander": "The Grand Marshal"
+    },
+    {
+      "id": "b4.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.lost_later",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d4.n.f4",
+      "kind": "dialog",
+      "next": "b4.n.f4",
+      "division": 4,
+      "lane": "n",
+      "regular": 4
+    },
+    {
+      "id": "b4.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D4.REG4",
+      "onWin": "d4.n.protocol",
+      "onLoss": "d4.lost_later"
+    },
+    {
+      "id": "d4.n.protocol",
+      "kind": "dialog",
+      "division": 4,
+      "lane": "n",
+      "commander": "The Grand Marshal",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b4.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b4.n.boss.combat"
+        }
+      ]
+    },
+    {
+      "id": "b4.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.lost_later",
+      "startPoolsPercent": 100
+    },
+    {
+      "id": "b4.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D4.BOSS",
+      "onWin": "d5.n.f1",
+      "onLoss": "d4.lost_later",
+      "startEffect": "COMBAT_PROTOCOL_D4_TBD"
+    },
+    {
+      "id": "d4.lost_first",
+      "kind": "dialog",
+      "next": "b4.recovery_first",
+      "division": 4,
+      "purpose": "Initial first regular lost"
+    },
+    {
+      "id": "b4.recovery_first",
+      "kind": "battle",
+      "encounterSlot": "D4.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "d4.n.terminal",
+      "onLoss": "r4.reset_first",
+      "division": 4
+    },
+    {
+      "id": "r4.reset_first",
+      "kind": "reset",
+      "resetTarget": "d4.lost_first",
+      "division": 4
+    },
+    {
+      "id": "d4.lost_later",
+      "kind": "dialog",
+      "next": "b4.recovery_later",
+      "division": 4,
+      "purpose": "Optional second regular or commander lost"
+    },
+    {
+      "id": "b4.recovery_later",
+      "kind": "battle",
+      "encounterSlot": "D4.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "r4.reset_later_win",
+      "onLoss": "r4.reset_later_loss",
+      "division": 4
+    },
+    {
+      "id": "r4.reset_later_win",
+      "kind": "reset",
+      "resetTarget": "d4.n.terminal",
+      "division": 4
+    },
+    {
+      "id": "r4.reset_later_loss",
+      "kind": "reset",
+      "resetTarget": "d4.lost_later",
+      "division": 4
+    },
+    {
+      "id": "d5.n.f1",
+      "kind": "dialog",
+      "next": "b5.n.f1",
+      "division": 5,
+      "lane": "n",
+      "regular": 1
+    },
+    {
+      "id": "b5.n.f1",
+      "kind": "battle",
+      "encounterSlot": "D5.REG1",
+      "onWin": "d5.n.terminal",
+      "onLoss": "d5.lost_first"
+    },
+    {
+      "id": "d5.n.terminal",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "Maintenance Passage",
+          "to": "d5.n.puzzle"
+        },
+        {
+          "label": "Protocol access (fight the fourth enemy)",
+          "to": "d5.n.f4"
+        }
+      ],
+      "division": 5,
+      "lane": "n"
+    },
+    {
+      "id": "d5.n.puzzle",
+      "kind": "dialog",
+      "choices": [
+        {
+          "label": "correct",
+          "to": "b5.n.boss.clean"
+        },
+        {
+          "label": "wrong_a",
+          "to": "d5.n.boss.alert"
+        },
+        {
+          "label": "wrong_b",
+          "to": "d5.n.boss.alert"
+        }
+      ],
+      "division": 5,
+      "lane": "n",
+      "puzzleTheme": "contradictory orders"
+    },
+    {
+      "id": "b5.n.boss.clean",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane"
+    },
+    {
+      "id": "d5.n.boss.alert",
+      "kind": "dialog",
+      "next": "b5.n.boss.alert",
+      "division": 5,
+      "lane": "n",
+      "route": "alert",
+      "commander": "Supreme Commander Arakane"
+    },
+    {
+      "id": "b5.n.boss.alert",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "SECURITY_ALERT_TBD"
+    },
+    {
+      "id": "d5.n.f4",
+      "kind": "dialog",
+      "next": "b5.n.f4",
+      "division": 5,
+      "lane": "n",
+      "regular": 4
+    },
+    {
+      "id": "b5.n.f4",
+      "kind": "battle",
+      "encounterSlot": "D5.REG4",
+      "onWin": "d5.n.protocol",
+      "onLoss": "d5.lost_later"
+    },
+    {
+      "id": "d5.n.protocol",
+      "kind": "dialog",
+      "division": 5,
+      "lane": "n",
+      "commander": "Supreme Commander Arakane",
+      "choices": [
+        {
+          "label": "Medical Protocol",
+          "to": "b5.n.boss.medical"
+        },
+        {
+          "label": "Combat Protocol",
+          "to": "b5.n.boss.combat"
+        }
+      ]
+    },
+    {
+      "id": "b5.n.boss.medical",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startPoolsPercent": 100
+    },
+    {
+      "id": "b5.n.boss.combat",
+      "kind": "battle",
+      "encounterSlot": "D5.BOSS",
+      "onWin": "d.aftermath",
+      "onLoss": "f.arakane",
+      "startEffect": "COMBAT_PROTOCOL_D5_TBD"
+    },
+    {
+      "id": "d5.lost_first",
+      "kind": "dialog",
+      "next": "b5.recovery_first",
+      "division": 5,
+      "purpose": "Initial first regular lost"
+    },
+    {
+      "id": "b5.recovery_first",
+      "kind": "battle",
+      "encounterSlot": "D5.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "d5.n.terminal",
+      "onLoss": "r5.reset_first",
+      "division": 5
+    },
+    {
+      "id": "r5.reset_first",
+      "kind": "reset",
+      "resetTarget": "d5.lost_first",
+      "division": 5
+    },
+    {
+      "id": "d5.lost_later",
+      "kind": "dialog",
+      "next": "b5.recovery_later",
+      "division": 5,
+      "purpose": "Optional second regular or commander lost"
+    },
+    {
+      "id": "b5.recovery_later",
+      "kind": "battle",
+      "encounterSlot": "D5.REG1",
+      "startPoolsPercent": 50,
+      "onWin": "r5.reset_later_win",
+      "onLoss": "r5.reset_later_loss",
+      "division": 5
+    },
+    {
+      "id": "r5.reset_later_win",
+      "kind": "reset",
+      "resetTarget": "d5.n.terminal",
+      "division": 5
+    },
+    {
+      "id": "r5.reset_later_loss",
+      "kind": "reset",
+      "resetTarget": "d5.lost_later",
+      "division": 5
+    },
+    {
+      "id": "d.aftermath",
+      "kind": "dialog",
+      "next": "w.complete",
+      "purpose": "post-Arakane autonomous-order reveal"
+    },
+    {
+      "id": "w.complete",
+      "kind": "win",
+      "onlyRewardNode": true
+    },
+    {
+      "id": "f.arakane",
+      "kind": "fail",
+      "reason": "Defeat against the Supreme Commander ends attempt"
+    }
+  ]
+}
