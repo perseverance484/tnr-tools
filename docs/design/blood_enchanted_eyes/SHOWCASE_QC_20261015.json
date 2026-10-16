@@ -4,8 +4,8 @@
   "repo": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/bee-jutsu-art-studio-20261014",
   "raw_approved_count": 8,
-  "showcase_status": "READY_FOR_DIRECTOR_WHOLE_FAMILY_REVIEW",
-  "director_showcase_accepted": null,
+  "showcase_status": "STALE_SUPERSEDED_BY_LATER_DIRECTOR_SOURCE_REVISIONS",
+  "director_showcase_accepted": false,
   "method": "Deterministic PIL composition from the eight actual newly created 256x256 RGB lossless WebP VP8L exports, not image generation",
   "old_ai_gallery_status": "INVALID; reimagined icons, shelved Sanguine and raw JPEG-derived KiB captions",
   "old_ai_gallery_name": "crimson_infernal_skill_gallery.png",
@@ -159,9 +159,26 @@
   "webp_git_pinned": false,
   "official_preflight": {
     "status": "NOT_RUN_KNOWN_ALPHA_RULE_CONFLICT",
-    "details": "Approved opaque jutsu icon background conflicts with generic shared ICON alpha requirement; no zero-error preflight claim."
+    "details": "Approved opaque jutsu icon background conflicts with generic shared ICON alpha requirement; no zero-error preflight claim. Previous showcase superseded; cannot be used as current package."
   },
   "live_requests": 0,
   "live_writes": 0,
-  "live_uploads": 0
+  "live_uploads": 0,
+  "prior_snapshot_validity": "Exact input/export/source bytes were verified at time of composition. The eight inputs are no longer all current; Sanguine source changed and Unholy is undergoing redesign. Keep hashes as historical evidence only.",
+  "retired_replacements": [
+    {
+      "jutsu": "Sanguine Plague",
+      "old_source": "1000018488.png",
+      "new_current_source": "crimson_shadow_skull_vortex.png",
+      "new_source_sha256": "8f115286d8cd7fdaecfd018a4cf6f5349307a5bf90d9036001d0c8db33f97b7f",
+      "export_status": "pending"
+    },
+    {
+      "jutsu": "Unholy Enhancement",
+      "old_source": "1000018491.png",
+      "new_current_source": null,
+      "concept": "thick pulsing shadow-chakra vein network under director discussion",
+      "export_status": "pending"
+    }
+  ]
 }
