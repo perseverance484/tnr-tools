@@ -14,7 +14,7 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 | Grid position | Exact jutsu name | Current raw source | Current approved export/size |
 | --- | --- | --- | --- |
 | Row 1, left | Azure Dragon Palm | legacy original recovered; separate exact Azure candidate **visually approved** | NONE — 0 processed WebPs |
-| Row 1, center | Scorch Break | original recovered; old exploratory fist still unapproved; refined Furnace Knuckle direction proposed | NONE |
+| Row 1, center | Scorch Break | Furnace Knuckle fist direction WITHDRAWN; Flash-Boil Rupture non-anatomical direction proposed | NONE |
 | Row 1, right | Surfing Strike | **new Scalding Crest raw JPEG visually approved**, 714,708 bytes; SHA-256 321d7c69… | NONE — raw source size is NOT export size |
 | Row 2, centered left | Drowning Strike | **Crushing Undertow raw JPEG approved**, 683,098 bytes, SHA-256 fb25dc2f… | NONE — raw source size is NOT a WebP export size |
 | Row 2, centered right | Liquid Ember Shell | **Living Crucible raw JPEG approved**, 759,105 bytes; SHA-256 c26365d1… | NONE — raw JPEG bytes are NOT WebP size |
@@ -29,7 +29,7 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 | Original current icon bytes | **5/5 recovered/hashed from Library (NOT Git-pinned)** | Attach exact individual JPEG bytes in relevant isolated sessions; provenance in SOURCE_EVIDENCE.json |
 | Raw visual approvals | **4/5 — Azure, Surfing, Drowning, Liquid exact JPEG bytes and director decisions verified** | Final Scorch Break visual approval pending |
 | Family art-style lock | **LOCKED 2026-10-15** | Azure water / hot vapor / molten ember confirmed; source colors are reference, not mechanical pixel constraints |
-| Family silhouette ledger | **Four approved distinct silhouettes: dragon / lateral wave / collapsing V / enclosed sphere** | Scorch molten fist anatomy exception pending director confirmation |
+| Family silhouette ledger | **Four approved: dragon / horizontal crest / inward compression / closed sphere** | Scorch **orange near-vertical rupture splitting blue water outward** PROPOSED, fist direction WITHDRAWN; director confirmation pending |
 | Final 256px lossless WebPs | **0/5** | Process currently accepted originals with current art spec; record true MIME/codec/dimensions/bytes/hashes |
 | Mechanical preflight | **NOT RUN; known generic ICON alpha mismatch for opaque jutsu artwork** | Report real gate; separate reviewed jutsu-specific contract correction when available |
 | Final labeled contact sheet | **NOT GENERATED** | Deterministic 3+2 from 5/5 current WebPs, exact names and current decimal WebP file-size labels |
