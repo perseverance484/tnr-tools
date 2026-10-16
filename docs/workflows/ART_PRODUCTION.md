@@ -6,6 +6,8 @@ This workflow coordinates ChatGPT's Art Director / Image Production roles with t
 
 **Isolated art sessions:** For long-running Art Studio coordination with one clean generation conversation per image, use `docs/workflows/ISOLATED_ART_GENERATION.md` in addition to this workflow. The director's jutsu-icon opaque-background decision is recorded there; the shared ICON target's existing RGBA preflight conflict remains unresolved and must not be reported as a pass.
 
+**Bloodright three-tier skill emblems are a specialized in-game icon workstream.** Follow `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` and its `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` before directing or producing Foundation / Hidden Art / Advanced Art symbols. The director expressly approved **solid opaque black backgrounds** for these emblems. Their silhouettes are universal across bloodlines; palette/material are source-verified and bloodline-specific. The shared generic `ICON` preflight's lime-key/RGBA mismatch remains open; black-background approval is **not** a validator waiver or upload-ready claim. These tier icons are **not** Bloodright showcase posters.
+
 **Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary **information-presentation** reference, not a universal visual-style template; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
 
 ## 1. Establish the target
