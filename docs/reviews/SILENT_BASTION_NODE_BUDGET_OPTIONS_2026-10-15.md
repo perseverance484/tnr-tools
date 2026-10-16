@@ -1,6 +1,6 @@
 # Silent Bastion — objective budget options (design review)
 
-**Status:** OPTIONS / INDEPENDENT DESIGN ANALYSIS — no new gameplay ruling, quest manifest, engine change, or publication authorization. Goal: evaluate a director-stated **90–100 objective budget** without flattening the five-division, protocol/puzzle, and checkpoint identity of Ghost Ship: The Last Directive. The director suggested possibly cutting the first division (**The Gatewarden / Outer Garrison**) because it is underpowered and dull; that was a **possibility, not an approved cut**.
+**UPDATE — native reset-bridge candidates identified and stored (director follow-up):** The categorical conclusion in §4 that a game-source enhancement is the only way to preserve full division encounters below 100 is **SUPERSEDED**. A **four-division, 99-node** graph and a **five-division, 98-node** shorter graph have passed a source-mirrored **static DAG/reachability** check using existing `reset_quest` and `givePools:50` semantics. They still require **native tracker/runtime proof** before acceptance. See the new addendum at the end. No game-source changes are proposed.\n\n**Status:** OPTIONS / INDEPENDENT DESIGN ANALYSIS — no new gameplay ruling, quest manifest, engine change, or publication authorization. Goal: evaluate a director-stated **90–100 objective budget** without flattening the five-division, protocol/puzzle, and checkpoint identity of Ghost Ship: The Last Directive. The director suggested possibly cutting the first division (**The Gatewarden / Outer Garrison**) because it is underpowered and dull; that was a **possibility, not an approved cut**.
 
 **Repository locks inspected 2026-10-15:** `perseverance484/tnr-tools main@43ce6b2d22736cd90e3de52e66f620570e67888f`, authoring plan `chatgpt/silent-bastion-content-execution-plan-20261014@c9f30ee7c6dfb444ac28851d1fd4c8dd8f46f4d1`, Phase 1 native proof `claude/silent-bastion-phase1-validation-9628h6@33be3cd2fe504d508ade2ab04d15e45f4c752ed3`, game `studie-tech/TheNinjaRPG@13d40c4c1509ecf44262aba1b5120266011ea786`. Phase 1 tested the graph at upstream `c82dc7f8ee76cb9ac498c0689f71b6f13bfe69dd` and is **not automatically certified against newer source**.
 
@@ -63,3 +63,66 @@ Prove source/contract and 93-node fixture against the *actual* engine build SHA;
 Is a small **game-source reset-pool enhancement** acceptable to preserve the **93-node / five-division / 25-encounter** experience? If not, the director may choose a shorter four-division Pyramid, understanding that simply removing floor one alone is insufficient.
 
 **Live game requests/writes:** 0. **No code, manifests, or live data changed.** This analysis has no authority to alter director-approved lore, combat balance, protocols, rewards, or the branch assigned to Fable.
+
+---
+
+## 5. Director follow-up — recovery fight + reset bridge (supersedes §4 recommendation)
+
+**Director's insight:** Direct every division loss to a short defeat dialog and a copy of the first regular fight that sets all three pools to 50%. The recovery win should then feed the ordinary division instead of maintaining two complete lanes. The core observation is valuable: **only the first recovery battle needs `givePools:50`, not every subsequent node**.
+
+### Why the direct 98-node proposal fails as literally drawn
+
+The direct sketch of one normal lane (17 nodes) + defeat dialog (1) + recovery first battle (1) per division mathematically gives **`5 × 19 + 3 = 98`** and preserves all 25 unique encounter slots. However, wiring `later_battle.failObjectiveId → defeat_dialog → recovery_first_battle.nextObjectiveId → regular2` creates a **forward directed cycle** (`regular2 → fail → defeat → recovery_first → regular2`). The actual engine's `verifyQuestObjectiveFlow` in `app/src/libs/quest.ts` **includes failObjectiveId as an adjacency edge and rejects cycles** with `Cycle detected in objective chain`. An equivalent static graph check against the r2 nodes found this cycle. Plain reconnection is not a valid released quest graph.
+
+**Crucial workaround within existing game mechanics:** Let `recovery_first_battle.nextObjectiveId` point at a **terminal `reset_quest`** that internally resets the already-visited normal path to its regular-2 dialog. The validator does **not** treat `resetObjectiveId` as a forward adjacency edge, so this is a legal graph shape *in principle*. `applyQuestResets` in `app/src/libs/quest.ts` clears the target objective and the selected forward tracker path. The normal first-fight success pointer into regular2 is preserved, so regular2 should reopen with the pools resulting from the just-won 50%-starting recovery fight.
+
+**Two cases must not be conflated:** If the **first normal regular** loses, regular2 has never been visited; resetting to regular2 would not work. The candidate therefore creates **separate first-loss and later-loss recovery transitions**:
+
+```text
+FIRST REGULAR LOSS:
+  initial REG1 loss → first-loss dialog
+                    → REG1 recovery battle [givePools:50]
+       recovery WIN → normal REG2 dialog directly
+       recovery LOSS → reset_quest(target: first-loss dialog)
+                     → recovery fight again at 50%
+
+ANY LATER REGULAR / NONFINAL COMMANDER LOSS:
+  normal REG2/3/4/boss loss → later-loss dialog
+                            → REG1 recovery battle [givePools:50]
+       recovery WIN → reset_quest(target: normal REG2 dialog)
+                    → replay normal REG2/3/4, terminal, commander
+       recovery LOSS → reset_quest(target: later-loss dialog)
+                     → recovery fight again at 50%
+
+ARAKANE LOSS: fail_quest; no checkpoint.
+```
+
+**Source-compatible graph trick:** There is no forward `nextObjectiveId` back edge at all. The only logical rewind uses `reset_quest.resetObjectiveId`, an existing native operation. No new field, game-engine patch, or impossible dynamic per-battle setting is assumed. All `start_battle` nodes have a preceding dialog, and the pre-existing Medical/Combat post-fourth-fight choice and four commander route variants remain intact.
+
+### Two complete static candidates committed
+
+| Candidate | Objectives | Unique fights | Actual successful fights | Preserves |
+| --- | ---: | ---: | ---: | --- |
+| **Four full divisions** | **99** | **20** (16 regular + 4 commanders) | 16–20 | All four remaining full division sequences, four puzzles, three terminal routes, all Medical100/Combat/Alert choices, original retry-50 intent, Arakane end-fail |
+| **Five shorter divisions** | **98** | **15** (10 regular + 5 commanders) | 10–15 | All five commander identities/puzzles/protocols, but only **REG1 mandatory + REG4 optional** per division, terminal after REG1 |
+
+- `state/silent_bastion_condensed99_candidate.json`: Four divisions **Experimental Armory through Command Sanctum**, with the user-suggested optional cut of The Gatewarden / Outer Garrison; per division **17 original single-lane + 7 additional recovery/reset nodes = 24**; four divisions `4×24+3=99`. **Breakdown:** 45 dialogs, 40 battles, 12 resets, 1 win, 1 fail. Full four-regular fight pacing preserved in every remaining division.
+- `state/silent_bastion_condensed98_fivediv_candidate.json`: Five divisions each shortened from four regulars to **two** (REG1 mandatory, REG4 optional), one clean boss-approach dialog removed per division (puzzle directly gates the clean boss), with the same **7 recovery/reset nodes** per division: `5×(17−4−1+7)+3=98`. **Breakdown:** 41 dialogs, 40 battles, 15 resets, 1 win, 1 fail. Five commanders retained.
+
+**Checked now (not native-tested):** Both structural files have exactly one root, all references resolve, every node is reachable, no direct forward cycles including fail edges, correct intended per-division and overall counts. A source-equivalent local tracker reset walk also reached the expected active dialog after (a) first recovery loss, (b) later recovery win, (c) later recovery loss, and (d) first recovery win followed by later recovery win. This proves the *design is not disqualified* by the old cycle objection, not that game UI/router traversal is safe. These symbols are **not executable game records**.
+
+### Native proof gate before deciding
+
+Ask Fable to **compile these exact symbolic candidates** using `harness/silent_bastion_phase1/engine/lib/graph.ts` (adjust the compiler only as needed to support `resetTarget` and `startPoolsPercent`, not production game source) and run `QuestValidator`, `verifyQuestObjectiveFlow`, real `startQuest/checkRewards`, battle settlement, `applyQuestResets` and tracker recomputation. Required cases:
+
+1. Initial REG1 loss → recovery at 50%; recovery loss repeated twice → recovery again at50%; recovery win → REG2 (or terminal in five-division variant), without wrong previous quest completion.
+2. Loss at every later regular and each clean/alert/Medical/Combat boss route → re-fight REG1 at50 → **win→reset** clears only current division's selected REG2+ chain → valid re-entry; repeated losses do not strand tracker.
+3. Medical boss restores full pools (RUL-2026-10-14-001), Combat effects are **player-side**, wrong Maintenance debuff is player-side, and no extra buff on fourth regular.
+4. Ordinary division transitions **carry pools**, 50% pool set only on recovery battle after defeat, and no auto-refill on a normal win.
+5. Beacon consumed once on first initiated battle, never on checkpoint recovery. Arakane loss ends whole run. No duplicated final reward, no skipped normal battles through browser/UI, no reward from reset transitions. Assess retry XP/ryo farming (F3).
+6. Refresh/reconnect, missing Beacon F1/F2, old saved tracker/edited quest behavior, duplicate incoming predecessor, objective ordering, and visible Logbook/mobile navigation under the current pinned engine.
+7. Rerun reproducible tests on **current source** and independent second run, record exact SHA and source drift.
+
+**Decision is not made:** Whether to cut Gatewarden, shorten regular waves, or preserve all five bosses via some other authored compromise remains entirely the director's choice. **Recommendation updated:** Prototype the **99-node / four-full-division** candidate first because it preserves the four remaining divisions' combat depth and uses no game-code change, then separately compare it with the **98-node / five-shorter-division** choice. Both are **CANDIDATE, NOT APPROVED, NOT ENGINE-NATIVE-VERIFIED.**
+
+**Live requests/writes:** 0; no credentials or game source modification. All changes are to this ChatGPT-owned review branch.
