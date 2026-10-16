@@ -1,5 +1,8 @@
 # Silent Bastion — Consolidated Commander Roster, Skills and AI Profiles
 
+> **CURRENT FOUR-COMMANDER PYRAMID — 2026-10-15, RUL-2026-10-15-001.** This dossier retains all **five historical commander designs** as reference, but **The Gatewarden / Outer Garrison is not part of the selected Silent Bastion Pyramid**. Active roster (player-facing Divisions I–IV): **Master of Arms**, **Replicant Zero**, **The Grand Marshal**, **Supreme Commander Arakane**. Their kits, lore and existing approval/candidate distinctions remain unchanged. Total currently listed active kit memberships: **47** (10+11+12+14), not 53. The four full divisions have **16** regular encounter slots, 16–20 fights per winning run, and no outward garrison defenses. The selected `99`-node graph still requires native offline proof; original node counts and numbering in the historic tables below are **not current**. No deleted boss should be silently reassigned to an interior encounter.
+>
+
 **Status:** Current design snapshot, **not a live-game implementation, validated rule manifest, or full balance freeze**. Operator owns final balance, prose, rewards, publishing and game actions. This compiles director-approved decisions and explicitly marked candidates; it does not promote unapproved values.
 **Repository:** `perseverance484/tnr-tools`; main reference `1da18301e8e4660cedf3daa3e80893a2ac918f2b`; design branch `chatgpt/silent-bastion-design-20261013`; pinned current game source `studie-tech/TheNinjaRPG@c82dc7f8ee76cb9ac498c0689f71b6f13bfe69dd` (rule-limit verification).
 **Sources:** `state/silent_bastion_design.md`, `state/silent_bastion_arakane_ai_profile.md`, `skills/building-tnr-content/data/32b_DATA_pool.json` (shared jutsu effects/costs/cooldowns), prior director conversation.
