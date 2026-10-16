@@ -127,7 +127,7 @@ Run 1 (committed evidence): `run.sh: preflight=0 derive=0 bun=0 evidence=0 -> ex
 
 (checks / failed). R on each option: 18 attempts, 504 battle starts, 81 losses, 77 recovery starts at exactly 50%, both recovery fights won **and** lost in every division.
 
-DETERMINISM_PLACEHOLDER
+Run 2 (deterministic re-run, `TNR_OUT=<scratch> run.sh`, fresh database): exit 0, preflight 79/79. All 16 evidence files (4 variants × S, D, R, E) were **byte-identical** to run 1 (`cmp`).
 
 Input SHA-256 values (graphs, brief, harness files, engine sources `quest.ts`, `objectives.ts`, `validators/objectives.ts`, `routers/quests.ts`, `utils/questEntry.ts`, `bun.lock`) are in `results/provenance.json`. Evidence JSON is deterministic: sorted keys, and passing checks keep names only. Timings and raw ryo are only in `*.timings.json`.
 
