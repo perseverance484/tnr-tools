@@ -1114,3 +1114,26 @@ Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint,
 **Canonical destination:** `state/silent_bastion_phase1_graph.json` revision r2, produced by `harness/silent_bastion_phase1/tools/restructure_protocol_choice.py`; Medical text in `state/silent_bastion_design.md`, `state/silent_bastion_release_plan.md` and `state/silent_bastion_commander_roster.md`.
 
 **Supersedes:** the 75% Medical value and the protocol-before-fourth-fight structure in those design documents (no prior ruling ID).
+
+---
+
+## RUL-2026-10-15-001 — Silent Bastion starts inside the deserted facility; four full divisions selected
+
+**Date:** 2026-10-15
+
+**Domain:** Ghost Ship: The Last Directive / Silent Bastion / story and Pyramid scope
+
+**Status:** ACTIVE — director-approved design direction; native feasibility and release acceptance remain open.
+
+**Ruling:** The director selected **Option A** of the reviewed node-budget redesign: remove the entire **Outer Garrison** first division, including **The Gatewarden** encounter and its patrol-route puzzle, rather than reduce the depth of the remaining divisions. The active Pyramid consists of **four full divisions**: Experimental Armory, Skyglass Research, High Command, and Command Sanctum, each retaining four regular enemy encounter slots, a commander, a security puzzle, Maintenance passage, Medical Protocol and Combat Protocol. Successful attempts have **16–20 actual fights** depending on shortcuts. The **99-objective symbolic graph** in `state/silent_bastion_condensed99_candidate.json` is the selected **candidate for native offline proof**; the objective count, rewinds and all effects are **not yet engine-native certified**.
+
+**Narrative ruling:** The Silent Bastion is an **apparently abandoned mountain installation**. There are **no visible exterior/perimeter defenses**, no functioning outward garrison patrols or gatekeeper encounter. Players should initially believe the installation is deserted. Meaningful resistance begins **inside**, revealing that the hidden Skyglass and military command machinery still operate. This is not a public fortress actively guarded from the outside. Preserve the slow reveal that the staff are reconstructed chakra impressions rather than undead, and the post-Arakane message from an unidentified issuer.
+
+**Preserved rulings:** A single Beacon is consumed on the first initiated battle; no extra Beacon on division retries. Victories carry pools; a loss against a non-final foe restarts the **current division** with HP/CP/SP set to 50%; Medical is a **full 100% pool set** at the chosen commander, Combat buffs affect the **player**, and failing the Security puzzle still skips the optional fourth fight but adds a temporary player penalty. Arakane loss fails the attempt. The approved four surviving commander kits, names, lore, rules under review, and rewards discussion remain otherwise unaffected. `The Gatewarden` remains a historically approved design but is **not part of this Pyramid**.
+
+**IDs and provenance:** The candidate deliberately retains internal `d2`–`d5` IDs from the Phase 1 r2 graph for traceability; **player-facing division labels become I–IV**. Do not silently renumber objective IDs or present Phase 1's five-division 178-node graph as the current selected target. Keep its prior evidence as historical validation, not proof of this new candidate.
+
+**Canonical destination:** `state/silent_bastion_design.md` (operative story/scope), `state/silent_bastion_condensed99_candidate.json` (symbolic graph candidate) and a dedicated native proof task/brief. `docs/reviews/SILENT_BASTION_NODE_BUDGET_OPTIONS_2026-10-15.md` retains comparative analysis.
+
+**Safety boundary:** No engine-code modification is approved or requested. Fable must validate existing `reset_quest` + 50%-pool recovery-fight behavior offline at an exact game-source SHA before this layout can be treated as executable. No game requests, writes, credentials, publication or reward/balance freeze authorized.
+
