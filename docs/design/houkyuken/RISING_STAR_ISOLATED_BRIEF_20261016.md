@@ -1,6 +1,6 @@
 # Rising Star — Isolated Jutsu Icon Generation Brief
 
-> **HISTORICAL / FAMILY-FIT REASSESSMENT (2026-10-16).** The exact raw `1000018546.png` was genuinely approved by the director at the time, and its hash/approval remain preserved. However, the director subsequently questioned the **lack of clear star silhouettes** across the current set. This original generation brief uses a rising spear/lance and excludes literal stars. **Do not reuse it unmodified** for a star-form revision. The proposed `Polar Ascendance` redesign is recorded as **not yet approved** in `STAR_SILHOUETTE_REASSESSMENT_20261016.md`; director must settle whether to supersede the existing approved Rising Star raw before new generation or family closeout.
+> **HISTORICAL / SUPERSEDED FOR CURRENT SELECTION (2026-10-16).** The director genuinely approved the exact V1 raw `1000018546.png` at the time (SHA-256 in `SOURCE_EVIDENCE.json`), then expressly approved reopening Rising Star for a clear **five-point cyan chakra-star redesign**. That historical exact acceptance remains recorded but **is no longer an active family raw choice**. The rising spear/lance and no-literal-star exclusion in this V1 brief are **not current authority and must not be reused**. The approved replacement direction is `RISING_STAR_POLAR_ASCENDANCE_V2_ISOLATED_BRIEF_20261016.md` (RUL-2026-10-16-001); V2 raw image generation/acceptance remains pending.
 
 
 **Workstream:** Houkyuken / Hokyuken A-rank bloodline (five-jutsu family)  
