@@ -1,6 +1,6 @@
 # Vaporia — Jutsu Icon Art Studio / Visual Identity Register
 
-**State:** **5/5 EXACT CURRENT RAW VISUAL APPROVALS VERIFIED** (Azure Dragon Palm, Scorch Break, Surfing Strike, Drowning Strike, Liquid Ember Shell). The director approved Scorch Break's *Flash-Boil Rupture* direction and the exact provided new image on 2026-10-16 (JPEG SHA-256 `34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120`). All current raw originals have been hash-bound to director decisions, but **image binaries are conversation/local backed, NOT Git-pinned**. The five 256px processed lossless WebPs, 125/64/32 export-family QC, preflight and final deterministic 3+2 showcase remain separate pending gates.  
+**State:** **5/5 EXACT RAW VISUAL APPROVALS AND 5/5 LOCAL LOSSLESS WEBP EXPORTS SOURCE-VERIFIED.** The deterministic centered 3+2 showcase is **READY FOR DIRECTOR REVIEW, NOT YET ACCEPTED**. Current raw/art/export/showcase binaries are local artifacts, not Git-pinned; preflight is BLOCKED/NOT RUN by generic ICON alpha mismatch. No live-game requests/writes.  
 **Rank / roster:** A-rank bloodline with **five public native jutsu in the pinned 2026-10-01 kit capture**, no hidden jutsu in that snapshot. N=5 is **verified from roster**, not assumed because A-rank.  
 **Bloodline ID:** `f7IgtcsLqomqmmBgAYS1O` · **review:** BR-090 · **status in historical Bloodright planning roster:** INCLUDE.  
 **Art authority:** director owns theme, imagery, any human/hand exception, individual raw approval, whole-family acceptance and game publication. No gameplay changes or live requests/writes.
@@ -112,6 +112,16 @@ The director's **"Confirmed. Approved."** responded to the three explicit decisi
 
 **Next stage:** **5/5 exact raw visual approvals**, *zero* processed exports at this checkpoint. Process the exact five approved source files to 256×256 lossless WebPs with non-destructive RGB opaque-background preservation; inspect each generated file and the family at **125/64/32px**. Record real WebP codec, dimensions, bytes, hashes and preflight status. Compose the neutral deterministic 3+2 labeled showcase from exact exports (not ImageGen), with actual decimal WebP kB captions; request a **separate family acceptance**. No live-game action or publishing.
 
+## Export and showcase preparation checkpoint (2026-10-16)
+
+**Exact five-source pipeline:** independently checked 5/5 approved JPEG RGB 1536×1536 raw SHA-256 against director approvals. Each resized `LANCZOS` to 256×256 RGB, then WebP `VP8L lossless` with Pillow 12.3.0/libwebp 1.6.0 (`lossless=True, method=6, exact=True`). No chroma key, alpha fabrication, reimagining, recolor or composition changes to icon files. Verified exported pixel-by-pixel equality to the resampled RGB input, complete RIFF/VP8L containers and <=460,800 bytes. **Binaries are local, not Git-pinned.**
+
+**Five true WebP sizes (decimal):** Azure Dragon Palm **147.6kB**, Scorch Break **141.7kB**, Surfing Strike **130.9kB**, Drowning Strike **124.4kB**, Liquid Ember Shell **133.6kB**. Exact file names/hashes/bytes in `SHOWCASE_EXPORT_EVIDENCE_20261016.json`.
+
+**Showcase:** `vaporia_jutsu_icon_showcase_v1.png` 1156×854, hash `65f1fa9a26b9f6be4acd87e8507b4cd96f724febf0d9bab970777502081fc5e6`, neutral 3 top + 2 centered below, 350×350 equally sized tiles with caption band and no added art; only actual 256px processed images are used. Inspected source-faithfulness and 125/64/32 peer QC: dragon / vertical orange thermal split / traveling wave / inward compression / enclosed sphere retain distinct silhouettes. Also checked half-scale mobile preview. `vaporia_jutsu_icon_webps_v1.zip` contains exactly five WebPs, hash `0f7c12c138ef982a6e3fe9d3117240ea2317ffc75776431d720fa82f95d65edc`.
+
+**Current verdict:** **SHOWCASE READY FOR DIRECTOR REVIEW**; separate family signoff is **PENDING**. Shared generic ICON preflight alpha mismatch is **BLOCKED, OFFICIAL SCRIPT NOT RUN**, no overall PASS or upload-ready claim. All image binaries local/uncommitted; no live-game action.
+
 ## Studio operating gates
 
 **Session separation:** this persistent studio owns research, peer comparison, identity locks, prompts, approval ledger, source intake and final processing. **No images are generated in the Art Studio.** Open a fresh isolated thread per jutsu, with one or two individually attached image references (each labeled IDENTITY vs STYLE). Never condition image generation on a family contact sheet, previously rejected draft or an unavailable filename/URL.
@@ -122,7 +132,7 @@ The director's **"Confirmed. Approved."** responded to the three explicit decisi
 
 **Final adaptive showcase:** after **5/5 current exact raw approvals** AND matching export/QC evidence, compose one **3 top + 2 centered bottom** labeled family gallery. All equal square source tiles, neutral background, exact names and **actual decimal kB WebP sizes**; deterministic copy/composition ONLY (no ImageGen reinterpretation). Provide manifest/hash and 125/64/32 family QC. This is a **separate director set-level approval** and not game publication.
 
-**Current studio gate:** all **5/5 exact raw images are visually approved**, including Scorch's non-anatomical Flash-Boil Rupture replacing withdrawn fist candidates. Preserve the five source images unchanged. Proceed to source-verified 256px lossless WebP exports and final 125/64/32 pairwise QC, record actual preflight truth (shared ICON alpha mismatch remains), and compose the deterministic centered 3+2 family showcase from those exports. Request explicit director approval of the assembled family; do not treat individual approval as family acceptance. No image generation or live-game requests/writes in this studio.
+**Current studio gate:** present exact five-icon processed-source 3+2 showcase for separate director whole-family signoff. Exports all source-hash verified, 256px RGB VP8L lossless and below 460800 bytes; processed 125/64/32 pairwise QC inspected. Documented exact output filenames/bytes/SHA in `SOURCE_EVIDENCE.json` and `SHOWCASE_EXPORT_EVIDENCE_20261016.json`. Intentional opaque jutsu background conflicts with generic ICON-alpha validator; official artpreflight NOT RUN and delivery remains BLOCKED. No binaries Git-pinned. No image generation or live-game activity.
 
 **No image generation or processing has been performed in this approval-recording checkpoint; production/showcase are the next separate gates.**
 **Live-game requests/writes:** 0. **Credentials:** none.
