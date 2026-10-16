@@ -1,0 +1,1068 @@
+{
+  "schema": "tnr.recipe_aligned_reward_cache_candidates.v1",
+  "status": "DESIGN PROPOSAL ONLY — candidate recipe inclusion, chances and quantities NOT director-approved",
+  "ownership": {
+    "userApproval": "Two-cache pilot (Arsenal, Research), one-of-two selection on successful Pyramid completion only",
+    "pilot": "RUL-2026-10-16-001",
+    "bastionGraph": "RUL-2026-10-16-002 alt99_f4gate (separate branch)",
+    "author": "ChatGPT, advisory"
+  },
+  "provenance": {
+    "censusRef": "claude/crafting-recipe-census-pln5za@eb625ca192fa440b76b204d48d13dbd89576ff7f",
+    "censusFile": "reports/crafting_recipe_census/craftable_recipes.json",
+    "captureSha256": "81c76fef97e94c83d5c97bc7ce647edaea14a483577feac5b3928d5f0bc3d629",
+    "captureAt": "2026-10-13T03:27:14.940000Z",
+    "sourcePin": "studie-tech/TheNinjaRPG@641040531176f91a3076fe5f32592ba18197a8c0",
+    "baseline": "main@99e86dc549b86f1f4a5846c0e509fa6bc15b3463"
+  },
+  "policy": {
+    "filters": [
+      "Target player-craftable, visible, not event, at census pin",
+      "Ingredients exist, visible, not event, directly hunted or gathered, not nested crafted items",
+      "Only exact integer recipe fractions (no zero-quantity ingredients)",
+      "De-duplicate identical ingredient+quantity recipes",
+      "No candidate becomes an accepted cache entry until current capture and director reward approval"
+    ],
+    "observations": [
+      "None of the 14 craftable visible armor records passes all non-event direct-acquisition filters: most require crafted event Unobtanium/Heart of Kaeruun, Monarch's Crown is event flagged, Skyglass Crown is exclusive, and Sash of Crimson Court has unknown special ingredients",
+      "Therefore Arsenal pilot shortlist is WEAPONS ONLY until director authorizes an armor path; the Arsenal category's broader equipment scope is not silently rejected."
+    ],
+    "quantityModels": {
+      "Controlled20": "Exactly 20% of each ingredient in source recipe; values are scenario only",
+      "Pyramid": "Exactly 100% of each Epic recipe OR 40% of each Legendary recipe; values are scenario only"
+    },
+    "weightedCacheSourceRef": "studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb app/src/validators/weightedCache.ts / app/src/libs/weightedCache.ts",
+    "questChoiceSourceRef": "studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb app/src/libs/rewardChoice.ts / app/src/libs/quest.ts",
+    "restrictions": [
+      "Existing legacy, crafting, Skyglass chests unchanged",
+      "No rank-gated profession-exclusive ingredient injected into generic caches without ruling",
+      "Bastion one terminal completion choice; no retry or mid-floor rewards",
+      "No Skyglass Crystal/Crown/reliquary resources",
+      "Roll weight/entry/sample sizes are illustrative only"
+    ]
+  },
+  "pools": {
+    "arsenal": {
+      "displayLabel": "Bastion Arsenal Cache",
+      "status": "OUTCOME_POOL_PROPOSAL_NOT_APPROVED",
+      "chosen": [
+        {
+          "output": {
+            "id": "MbPhG5El3UYjS5Bk2K3Bl",
+            "name": "Eclipsed Dawnblade",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "5I0R-9ji569-zMqbTNdH8",
+              "name": "Moonpetal Weave",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            }
+          ],
+          "canonicalRecipeKey": "5I0R-9ji569-zMqbTNdH8:10|GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "-LzgdTM1yTjlezOyjd-6H",
+            "name": "Gaea's Embrace",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "wCFCjGhIUmPFvIAA_8-7J",
+              "name": "Seika Seal Petal",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            }
+          ],
+          "canonicalRecipeKey": "GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|wCFCjGhIUmPFvIAA_8-7J:10|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "PhP5ZEF5iVa97jcumJ15c",
+            "name": "Aetherion",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "LEGENDARY",
+            "minCraftRank": "FORGEMASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "GI7O1Ze9DnuOw0-WcazsN",
+              "name": "Fujin's Breath",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            },
+            {
+              "id": "ThsuhY54LknDlcNKLTEQA",
+              "name": "Mask Core",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            },
+            {
+              "id": "NpOHJoLl2ZdfoGGl530C2",
+              "name": "Mithril Ore",
+              "quantityFull": 20,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 8
+            },
+            {
+              "id": "cR-xWQX8EatrB18C9PaiQ",
+              "name": "Phoenix Ash Bloom",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            },
+            {
+              "id": "ZCMizjlADoeT1WuGcckeZ",
+              "name": "Shard of Willful Steel",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            }
+          ],
+          "canonicalRecipeKey": "GI7O1Ze9DnuOw0-WcazsN:5|NpOHJoLl2ZdfoGGl530C2:20|ThsuhY54LknDlcNKLTEQA:10|ZCMizjlADoeT1WuGcckeZ:10|cR-xWQX8EatrB18C9PaiQ:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 20
+        },
+        {
+          "output": {
+            "id": "cLXXf8RJv5l9B_gGsYN2a",
+            "name": "Stormrender",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "LEGENDARY",
+            "minCraftRank": "FORGEMASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "dRTqiMxkL5mYmIokiWyJP",
+              "name": "Lunaris Bloom",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            },
+            {
+              "id": "ThsuhY54LknDlcNKLTEQA",
+              "name": "Mask Core",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            },
+            {
+              "id": "NpOHJoLl2ZdfoGGl530C2",
+              "name": "Mithril Ore",
+              "quantityFull": 20,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 8
+            },
+            {
+              "id": "ZCMizjlADoeT1WuGcckeZ",
+              "name": "Shard of Willful Steel",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            },
+            {
+              "id": "SqFyiWVXmokGIm7FO2114",
+              "name": "Voidshade Petal",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            }
+          ],
+          "canonicalRecipeKey": "NpOHJoLl2ZdfoGGl530C2:20|SqFyiWVXmokGIm7FO2114:5|ThsuhY54LknDlcNKLTEQA:10|ZCMizjlADoeT1WuGcckeZ:10|dRTqiMxkL5mYmIokiWyJP:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 20
+        }
+      ],
+      "backlog": [
+        {
+          "output": {
+            "id": "idDi-ys-0meoPqsVahv5E",
+            "name": "Sunfire Edge",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            },
+            {
+              "id": "fJsqyIEWvxiEAnD1wpYh0",
+              "name": "Tsukinari Bell",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|fJsqyIEWvxiEAnD1wpYh0:10|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "mQRuQ4GVVa0RhCrwZuS82",
+            "name": "Thunderstrike Fang",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            },
+            {
+              "id": "m2gzWPa1X4p-ue0ftyMCC",
+              "name": "Urami Drop",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|m2gzWPa1X4p-ue0ftyMCC:10|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "eomyjQgU2vtZBwgN74q5V",
+            "name": "Yasei's Bolt",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            },
+            {
+              "id": "wNnZ3uXHbYRzwRAqO-6EM",
+              "name": "Tempest Thorn",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|wNnZ3uXHbYRzwRAqO-6EM:10|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "CBp4scJi9XzMKRqxpshwT",
+            "name": "Zephyr's Whisper",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "zGeruNBE_SLeOt42LGg5a",
+              "name": "Adamantine Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "GpvRMgpvBMP3Sq7Bid1gO",
+              "name": "Diamond Ore",
+              "quantityFull": 5,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "Yo1xlMce3pXJLchha9hJw",
+              "name": "Silver Ore",
+              "quantityFull": 30,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 6,
+              "quantityPyramid": 30
+            },
+            {
+              "id": "j4LgVM90JZ8xddJat09OV",
+              "name": "Yamidangan",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "GpvRMgpvBMP3Sq7Bid1gO:5|Yo1xlMce3pXJLchha9hJw:30|j4LgVM90JZ8xddJat09OV:10|zGeruNBE_SLeOt42LGg5a:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "MQ5mJqH-5MkQdtLGSZ5nb",
+            "name": "Thornsilver",
+            "itemType": "WEAPON",
+            "slot": "HAND",
+            "rarity": "LEGENDARY",
+            "minCraftRank": "FORGEMASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "jfkGS8dgO5C0x-WBYcML9",
+              "name": "Heart of Kuraokami",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            },
+            {
+              "id": "ThsuhY54LknDlcNKLTEQA",
+              "name": "Mask Core",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            },
+            {
+              "id": "NpOHJoLl2ZdfoGGl530C2",
+              "name": "Mithril Ore",
+              "quantityFull": 20,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 8
+            },
+            {
+              "id": "ZCMizjlADoeT1WuGcckeZ",
+              "name": "Shard of Willful Steel",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 4
+            },
+            {
+              "id": "40XfVLwXWNof8i55IuDu1",
+              "name": "Tempest Heart",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 2
+            }
+          ],
+          "canonicalRecipeKey": "40XfVLwXWNof8i55IuDu1:5|NpOHJoLl2ZdfoGGl530C2:20|ThsuhY54LknDlcNKLTEQA:10|ZCMizjlADoeT1WuGcckeZ:10|jfkGS8dgO5C0x-WBYcML9:5",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 20
+        }
+      ],
+      "illustrativeOneRollWeightedScenario": {
+        "rolls": [
+          {
+            "count": 1,
+            "probabilityBasisPoints": 10000
+          }
+        ],
+        "tiers": [
+          {
+            "name": "Epic",
+            "rarity": "EPIC",
+            "probabilityBasisPoints": 7500,
+            "entries": [
+              {
+                "recipeOutputId": "MbPhG5El3UYjS5Bk2K3Bl",
+                "recipeOutputName": "Eclipsed Dawnblade",
+                "probabilityPerOpeningIllustrative": 0.375
+              },
+              {
+                "recipeOutputId": "-LzgdTM1yTjlezOyjd-6H",
+                "recipeOutputName": "Gaea's Embrace",
+                "probabilityPerOpeningIllustrative": 0.375
+              }
+            ]
+          },
+          {
+            "name": "Legendary",
+            "rarity": "LEGENDARY",
+            "probabilityBasisPoints": 2500,
+            "entries": [
+              {
+                "recipeOutputId": "PhP5ZEF5iVa97jcumJ15c",
+                "recipeOutputName": "Aetherion",
+                "probabilityPerOpeningIllustrative": 0.125
+              },
+              {
+                "recipeOutputId": "cLXXf8RJv5l9B_gGsYN2a",
+                "recipeOutputName": "Stormrender",
+                "probabilityPerOpeningIllustrative": 0.125
+              }
+            ]
+          }
+        ],
+        "unitsExpectedPerOpen": {
+          "Controlled20": 10,
+          "Pyramid": 42.5
+        }
+      }
+    },
+    "research": {
+      "displayLabel": "Bastion Research Cache",
+      "status": "OUTCOME_POOL_PROPOSAL_NOT_APPROVED",
+      "chosen": [
+        {
+          "output": {
+            "id": "WrysFacmHs7ip9KvDUQGq",
+            "name": "Absorb Gem II",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "2u-e6gb1E8NoKEVOmHeAs",
+              "name": "Thread Core",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "2u-e6gb1E8NoKEVOmHeAs:10|l1A2aWDyaI_QeSzaNr8ZO:10",
+          "totalFull": 20,
+          "totalControlled20": 4,
+          "totalPyramid": 20
+        },
+        {
+          "output": {
+            "id": "XMsOqatPbFXEEJPtOJ6os",
+            "name": "Damage Crystal II",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "FVlGFU3AeqfshrmwZg-jw",
+              "name": "Ember Frond",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 20,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 20
+            },
+            {
+              "id": "yTzp5MQ6qb7IUdCf26I53",
+              "name": "Seed of False Vitality",
+              "quantityFull": 10,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "FVlGFU3AeqfshrmwZg-jw:10|l1A2aWDyaI_QeSzaNr8ZO:20|yTzp5MQ6qb7IUdCf26I53:10",
+          "totalFull": 40,
+          "totalControlled20": 8,
+          "totalPyramid": 40
+        },
+        {
+          "output": {
+            "id": "QcC8M2NZAUdhYZZegNE4J",
+            "name": "Fortify Crystal II",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "Eudi3vPDCDeRc75xmhXA_",
+              "name": "Gold Ore",
+              "quantityFull": 10,
+              "rarity": "RARE",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 20,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 20
+            },
+            {
+              "id": "wCFCjGhIUmPFvIAA_8-7J",
+              "name": "Seika Seal Petal",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "Eudi3vPDCDeRc75xmhXA_:10|l1A2aWDyaI_QeSzaNr8ZO:20|wCFCjGhIUmPFvIAA_8-7J:10",
+          "totalFull": 40,
+          "totalControlled20": 8,
+          "totalPyramid": 40
+        },
+        {
+          "output": {
+            "id": "iJM0kb1i6iNXjADJlZGV_",
+            "name": "Heal Crystal III",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "LEGENDARY",
+            "minCraftRank": "FORGEMASTER",
+            "tradeable": true
+          },
+          "status": "PROPOSED_PILOT",
+          "ingredients": [
+            {
+              "id": "WgXIvANXaffar1zCYcEKf",
+              "name": "Bloodcore Ore",
+              "quantityFull": 20,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 8
+            },
+            {
+              "id": "-6C6OtiodwTNgFq_XqwR-",
+              "name": "Orichalcum Ore",
+              "quantityFull": 20,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 8
+            }
+          ],
+          "canonicalRecipeKey": "-6C6OtiodwTNgFq_XqwR-:20|WgXIvANXaffar1zCYcEKf:20",
+          "totalFull": 40,
+          "totalControlled20": 8,
+          "totalPyramid": 16
+        }
+      ],
+      "backlog": [
+        {
+          "output": {
+            "id": "q6g5vKOr3MMYHly0TZKgJ",
+            "name": "Afterburn Crystal",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "5I0R-9ji569-zMqbTNdH8",
+              "name": "Moonpetal Weave",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "W3WoY8u-b_b2m5XVTZ-hL",
+              "name": "Sunroot",
+              "quantityFull": 10,
+              "rarity": "COMMON",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "5I0R-9ji569-zMqbTNdH8:10|W3WoY8u-b_b2m5XVTZ-hL:10|l1A2aWDyaI_QeSzaNr8ZO:10",
+          "totalFull": 30,
+          "totalControlled20": 6,
+          "totalPyramid": 30
+        },
+        {
+          "output": {
+            "id": "ipczu2knFPA103pYhzZh3",
+            "name": "Drain Crystal",
+            "itemType": "CRYSTAL",
+            "slot": "ITEM",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "_TwmwcFlwZmmbClEF8cjR",
+              "name": "Murkshade",
+              "quantityFull": 10,
+              "rarity": "COMMON",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            },
+            {
+              "id": "2EoxvVMtQjD73FKnHcMMX",
+              "name": "Nightshade Thorn",
+              "quantityFull": 20,
+              "rarity": "COMMON",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 20
+            },
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 20,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 4,
+              "quantityPyramid": 20
+            }
+          ],
+          "canonicalRecipeKey": "2EoxvVMtQjD73FKnHcMMX:20|_TwmwcFlwZmmbClEF8cjR:10|l1A2aWDyaI_QeSzaNr8ZO:20",
+          "totalFull": 50,
+          "totalControlled20": 10,
+          "totalPyramid": 50
+        },
+        {
+          "output": {
+            "id": "JorDFhVI4GlhXUtyxxChp",
+            "name": "Lotus Seal Crystal",
+            "itemType": "CRYSTAL",
+            "slot": "NONE",
+            "rarity": "EPIC",
+            "minCraftRank": "MASTER",
+            "tradeable": true
+          },
+          "status": "BACKLOG_CANDIDATE",
+          "ingredients": [
+            {
+              "id": "ThsuhY54LknDlcNKLTEQA",
+              "name": "Mask Core",
+              "quantityFull": 5,
+              "rarity": "LEGENDARY",
+              "tradeable": true,
+              "acquisition": "HUNTING",
+              "quantityControlled20": 1,
+              "quantityPyramid": 5
+            },
+            {
+              "id": "l1A2aWDyaI_QeSzaNr8ZO",
+              "name": "Rainbow Cabochon",
+              "quantityFull": 10,
+              "rarity": "EPIC",
+              "tradeable": true,
+              "acquisition": "GATHERING",
+              "quantityControlled20": 2,
+              "quantityPyramid": 10
+            }
+          ],
+          "canonicalRecipeKey": "ThsuhY54LknDlcNKLTEQA:5|l1A2aWDyaI_QeSzaNr8ZO:10",
+          "totalFull": 15,
+          "totalControlled20": 3,
+          "totalPyramid": 15
+        }
+      ],
+      "illustrativeOneRollWeightedScenario": {
+        "rolls": [
+          {
+            "count": 1,
+            "probabilityBasisPoints": 10000
+          }
+        ],
+        "tiers": [
+          {
+            "name": "Epic",
+            "rarity": "EPIC",
+            "probabilityBasisPoints": 8500,
+            "entries": [
+              {
+                "recipeOutputId": "WrysFacmHs7ip9KvDUQGq",
+                "recipeOutputName": "Absorb Gem II",
+                "probabilityPerOpeningIllustrative": 0.2833333333333333
+              },
+              {
+                "recipeOutputId": "XMsOqatPbFXEEJPtOJ6os",
+                "recipeOutputName": "Damage Crystal II",
+                "probabilityPerOpeningIllustrative": 0.2833333333333333
+              },
+              {
+                "recipeOutputId": "QcC8M2NZAUdhYZZegNE4J",
+                "recipeOutputName": "Fortify Crystal II",
+                "probabilityPerOpeningIllustrative": 0.2833333333333333
+              }
+            ]
+          },
+          {
+            "name": "Legendary",
+            "rarity": "LEGENDARY",
+            "probabilityBasisPoints": 1500,
+            "entries": [
+              {
+                "recipeOutputId": "iJM0kb1i6iNXjADJlZGV_",
+                "recipeOutputName": "Heal Crystal III",
+                "probabilityPerOpeningIllustrative": 0.15
+              }
+            ]
+          }
+        ],
+        "unitsExpectedPerOpen": {
+          "Controlled20": 6.866666666666666,
+          "Pyramid": 30.73333333333333
+        }
+      }
+    }
+  },
+  "exclusionsForReview": [
+    {
+      "name": "Night's Testament",
+      "id": "osJq3k77YPGoFWgof12FQ",
+      "reason": "Unobtanium: event input, nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Oathbinder",
+      "id": "ttwbJ6ZA5Id-OuBludM27",
+      "reason": "Unobtanium: event input, nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "The Unwritten",
+      "id": "m0RZDUDnwQu_0BtOJgHi9",
+      "reason": "Unobtanium: event input, nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Whispering Dawnblade",
+      "id": "mqCCZGSfXUNL02B4H6C9R",
+      "reason": "Unobtanium: event input, nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Fortify Crystal III",
+      "id": "McKQIkyiuX1qIN54qI7UR",
+      "reason": "Fortify Crystal II: nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Skyglass Crystal",
+      "id": "Cmo3JU-D9Nl_-xUxrvEJN",
+      "reason": "Ghost Ship exclusive resource/economy; Skyglass Filament: no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "The Skyglass Crown",
+      "id": "yTS9TSpr_QLnh_3zmEpGg",
+      "reason": "Ghost Ship exclusive resource/economy; Fragment of the Skyglass Crown: no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Kaeruun’s Ashen Battle Skirt",
+      "id": "Ui-fEmxr-9Dqi-NGuEmk7",
+      "reason": "Heart of Kaeruun: no direct hunting/gathering acquisition; Unobtanium: event input, nested craft input, no direct hunting/gathering acquisition"
+    },
+    {
+      "name": "Monarch's Crown",
+      "id": "MlupjXuO7OhAhr6k7JMoY",
+      "reason": "event output"
+    },
+    {
+      "name": "Sash of the Crimson Court",
+      "id": "T2suAUBwdOOCp3Yr6AaSV",
+      "reason": "Countess's Silk Ribbon: no direct hunting/gathering acquisition; Gilded Clasp: no direct hunting/gathering acquisition; Silver Thread: no direct hunting/gathering acquisition"
+    }
+  ]
+}
