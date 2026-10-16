@@ -1,10 +1,10 @@
 # Liquid Ember Shell — Director-Approved Art Direction & Isolated Generation Brief
 
-**Status:** DIRECTION APPROVED (2026-10-16) — raw candidate NOT YET GENERATED or accepted. Director approved *Living Crucible* with the supernatural pressure-furnace refinement, replying **"Yes, approved"** to the explicit direction-review question. This is composition/direction approval ONLY; no image is approved by this decision.
+**Status:** RAW VISUAL APPROVED (2026-10-16) — director first approved Living Crucible pressure-furnace direction ("Yes, approved") then explicitly accepted the exact generated image with **"Approved, next"**. Raw JPEG RGB 1536×1536, 759,105 bytes, SHA-256 `c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4`. No production WebP, preflight PASS or showcase acceptance.
 **Initialized:** 2026-10-16 · **Lead:** Art Director; **support:** Image Production once director confirms.
 **Workstream:** Vaporia — historic five public native jutsu (A-rank bloodline).
 **Target:** Liquid Ember Shell · native B-rank · jutsu ID `fWb24FYrbTqYvE9GIEA49` · game field `jutsu.image`.
-**Current approvals:** Azure Dragon Palm / Surfing Strike / Drowning Strike raw accepted; no processed 256px WebP exports, preflight or final showcase.
+**Current approvals:** Azure Dragon Palm / Surfing Strike / Drowning Strike / Liquid Ember Shell raw accepted; no processed 256px lossless WebPs, preflight or final showcase.
 **Current studio:** `docs/design/vaporia/JUTSU_ICON_REGISTER.md` and `SOURCE_EVIDENCE.json`. Director art approval belongs in that register.
 
 ## Source/technique identity
@@ -52,4 +52,6 @@ Do not provide any collage, multiple-icon gallery, other jutsu images, source UR
 4. Studio then moves to Scorch Break, whose unresolved hand anatomy has not been accepted.
 5. No image generation in this Art Studio, no automatic WebP packaging, no final showcase until all five current source approvals, no live-game requests or writes.
 
-**Status: DIRECTOR-APPROVED DIRECTION; GENERATION PENDING; NO LIQUID EMBER RAW ART YET APPROVED.**
+**Completion checkpoint — 2026-10-16:** director reviewed generated Liquid Ember Shell as uploaded `1000018509.png` (actual decoded JPEG RGB, 1536×1536, 759,105 bytes), responded **"Approved, next"**, and therefore accepted this specific raw image. SHA-256 `c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4`. Source saved byte-identical as `liquid_ember_shell_approved_raw_20261016_shac26365d1.jpg` outside Git. The earlier generate-one-raw instructions above are now historical. This remains RAW VISUAL only: WebP processing, preflight, 3+2 showcase and game actions are separate.
+
+**Status: RAW VISUAL APPROVED; NO PROCESSED EXPORTS OR FINAL SHOWCASE YET.**
