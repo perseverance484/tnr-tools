@@ -70,5 +70,46 @@
     "No live-game requests/writes and no publication without operator authorization"
   ],
   "authoringPrompt": "state/prompt_silent_bastion_complete_authoring.md",
-  "rewardNativeProofBrief": "docs/handoffs/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_PROOF_BRIEF_20261016.md"
+  "rewardNativeProofBrief": "docs/handoffs/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_PROOF_BRIEF_20261016.md",
+  "bossDesign": {
+    "directive": "EXISTING_DESIGN_TO_IMPLEMENT_NOT_NEW_AUTHORING",
+    "source": "state/silent_bastion_commander_roster.md",
+    "arakaneOrderedRules": "state/silent_bastion_arakane_ai_profile.md",
+    "activeJutsuPositions": 47,
+    "gatewarden": "REMOVED_FROM_CURRENT_PYRAMID_HISTORICAL_ONLY",
+    "activeBosses": [
+      {
+        "name": "Master of Arms",
+        "jutsus": 10,
+        "kit": "ACCEPTED",
+        "ai": "DETAILED_PRIORITY_PLAN_NEEDS_NATIVE_RULES"
+      },
+      {
+        "name": "Replicant Zero",
+        "jutsus": 11,
+        "kit": "ACCEPTED",
+        "ai": "DETAILED_PRIORITY_PLAN_NEEDS_NATIVE_RULES"
+      },
+      {
+        "name": "The Grand Marshal",
+        "jutsus": 12,
+        "kit": "AUTHORED_CANDIDATE_AWAITING_DIRECTOR_APPROVAL",
+        "ai": "DETAILED_PRIORITY_PLAN_NEEDS_NATIVE_RULES"
+      },
+      {
+        "name": "Supreme Commander Arakane",
+        "jutsus": 14,
+        "kit": "ACCEPTED_MEMBERSHIP_AND_SIGNATURE_EFFECTS",
+        "ai": "ORDERED_20_RULE_CANDIDATE_REQUIRES_NATIVE_VALIDATION",
+        "approvedEquipmentIdentity": "Countermand (reusable Clear seal); quantitative fields/candidate weapons pending"
+      }
+    ],
+    "implementationRules": [
+      "No new boss roster or tactical redesign; translate existing combat plan into native fields and test",
+      "Do not silently change chosen jutsu or behavior; source invalidity gets typed blocker and director escalation",
+      "AI records and final numerical balance not already approved by design prose",
+      "Existing jutsu names must be verified against current records; never invent an ID",
+      "All 20 native Arakane rules must be audited, not replaced by a generic damage picker"
+    ]
+  }
 }
