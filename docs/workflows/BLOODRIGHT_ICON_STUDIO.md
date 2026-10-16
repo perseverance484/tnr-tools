@@ -3,7 +3,7 @@
 **Status:** DIRECTOR-APPROVED, 2026-10-16; art-production workflow, not live-game authorization.
 **Lead:** Art Director; **support:** Image Production.
 **Source lineage:** 2026-10-08 tracker `chatgpt/bloodright-icon-production-tracker-20261008@c85c1ea834e24315b5688f73a65c35479b8963e6`; operational baseline `main@99e86dc549b86f1f4a5846c0e509fa6bc15b3463`.
-**Decision history:** `docs/RULINGS.md`, RUL-2026-10-16-001.
+**Decision history:** `docs/RULINGS.md`, RUL-2026-10-16-004.
 
 Use with `docs/00_INDEX.md`, `docs/workflows/ART_PRODUCTION.md`, `docs/workflows/ISOLATED_ART_GENERATION.md`, and `skills/producing-tnr-art/SKILL.md`. The skill's live art spec and validator own *mechanical* target rules. This workflow owns the approved **Bloodright three-tier emblem visual language and production sequence**, not Bloodright tree mechanics or renderer contracts.
 
