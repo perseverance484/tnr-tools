@@ -1,6 +1,6 @@
 {
   "schema": "tnr.vaporia.jutsu-icon-studio-evidence/1",
-  "status": "INITIALIZED_REFERENCE_BYTES_AND_EXACT_RAW_APPROVALS_PENDING",
+  "status": "DIRECTOR_PALETTE_CONFIRMED_AZURE_EXACT_RAW_VISUAL_ACCEPTED_SURFING_NEXT_EXPORTS_PENDING",
   "created_on": "2026-10-15",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/vaporia-jutsu-art-studio-20261015",
@@ -28,11 +28,11 @@
     "date": "2026-10-14",
     "title": "Initialize Vaporia Workstation",
     "individual_existing_icon_images_supplied_by_director": 5,
-    "source_kind": "prior_project_conversation_attachments_not_currently_resolved_in_this_studio",
-    "raw_hashes_verified": false,
-    "prior_claims": "Director prefers technique-first; Azure excludes palm; Scorch hand needs polish; Surfing draft too dragonlike. No exact raw file approvals carried without source bytes."
+    "source_kind": "prior_project_conversation_attachment_recovery_verified_from_Library_not_Git_pinned",
+    "raw_hashes_verified": true,
+    "prior_claims": "Technique first; no palm Azure; Scorch hand refinement open; dragon-like Surfing draft rejected. On 2026-10-15 director confirmed recovered Azure exact candidate as previously accepted; no other generated raw approval inferred."
   },
-  "global_direction_status": "technique_first_applies; palette_and_distinctive_silhouettes_proposed_pending_director",
+  "global_direction_status": "DIRECTOR_LOCKED_2026-10-15_ELECTRIC_AZURE_MOLTEN_ORANGE_THERMAL_WATER_TECHNIQUE_FIRST",
   "processing_policy": {
     "client_field": "jutsu.image",
     "art_spec_ref": "main@43ce6b2d22736cd90e3de52e66f620570e67888f",
@@ -62,23 +62,51 @@
         "pierce"
       ],
       "direction": "TECHNIQUE_FIRST_NO_LITERAL_PALM",
-      "prior_studio_feedback": "Director removed palm; an earlier revision received 'Approved. Next' but the exact approved bytes have not been recovered, so RAW approval is not verified.",
+      "prior_studio_feedback": "No literal palm; recovered dragon-chakra source candidate confirmed as previously approved exact version by director on 2026-10-15. Not yet processed.",
       "original_icon_source": {
-        "filename": null,
-        "decoded_format": null,
-        "bytes": null,
-        "sha256": null,
-        "dimensions": null,
+        "filename": "01_azure_dragon_palm_original.jpg",
+        "decoded_format": "JPEG",
+        "bytes": 245637,
+        "sha256": "ee74d9e280bcc279bda124b567e59e7258c04e60ce77f1b40cd9f3cef2e22e9a",
+        "dimensions": [
+          1536,
+          1536
+        ],
         "presented_in_prior_conversation": true,
-        "git_binary_pinned": false
+        "git_binary_pinned": false,
+        "original_library_filename": "1000018462.webp",
+        "mode": "RGB",
+        "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "candidate_azure_dragon_chakra_unverified.jpg",
+          "original_library_filename": "1000018468.png",
+          "decoded_format": "JPEG",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 832183,
+          "sha256": "0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e",
+          "source_kind": "Library-backed original JPEG bytes; recovered historic filename contains 'unverified' but director subsequently confirmed this exact candidate",
+          "git_binary_pinned": false,
+          "visually_approved": true,
+          "style_material_reference_approved": true,
+          "approval_date": "2026-10-15"
+        }
+      ],
       "current_director_raw_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "candidate_azure_dragon_chakra_unverified.jpg",
+        "source_sha256": "0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e",
+        "quote": "Confirmed. Approved.",
+        "approval_context": "Director explicitly asked whether recovered Azure candidate was the version earlier accepted and confirmed it; the candidate is now source-identified and raw visually approved; reference bytes remain outside Git.",
+        "verified": true,
+        "confirmed_date": "2026-10-15",
+        "production_export_approved": false,
+        "git_binary_pinned": false
       },
       "current_processed_export": {
         "filename": null,
@@ -104,15 +132,37 @@
       "direction": "SCORCH_PRESSURE_WITH_OPTIONAL_REFINED_HAND",
       "prior_studio_feedback": "Director liked one explored direction; hand-quality improvement requested; no exact image acceptance verified.",
       "original_icon_source": {
-        "filename": null,
-        "decoded_format": null,
-        "bytes": null,
-        "sha256": null,
-        "dimensions": null,
+        "filename": "02_scorch_break_original.jpg",
+        "decoded_format": "JPEG",
+        "bytes": 263571,
+        "sha256": "8d3653c3ac3e79473116330d00f3c747e5924c2e610910d90f90299b01b3d296",
+        "dimensions": [
+          1536,
+          1536
+        ],
         "presented_in_prior_conversation": true,
-        "git_binary_pinned": false
+        "git_binary_pinned": false,
+        "original_library_filename": "1000018463.webp",
+        "mode": "RGB",
+        "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "candidate_scorch_fist_unverified.jpg",
+          "original_library_filename": "1000018469.png",
+          "decoded_format": "JPEG",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 866531,
+          "sha256": "ed626ce34e81810558f1c42f44be63b618630fe6e9cb46cd0a11f3bb65e5aac7",
+          "source_kind": "Library-backed exploratory candidate; still requires hand refinement and raw approval",
+          "git_binary_pinned": false,
+          "visually_approved": false
+        }
+      ],
       "current_director_raw_approval": {
         "approved": false,
         "source_filename": null,
@@ -146,13 +196,19 @@
       "direction": "TRAVELING_WAVE_NO_DRAGON",
       "prior_studio_feedback": "Prior generated image was too similar to the dragon motif; direction rejected/rework required.",
       "original_icon_source": {
-        "filename": null,
-        "decoded_format": null,
-        "bytes": null,
-        "sha256": null,
-        "dimensions": null,
+        "filename": "03_surfing_strike_original.jpg",
+        "decoded_format": "JPEG",
+        "bytes": 201177,
+        "sha256": "99538e85d8ddf0bb8b821b0c8c8d71df3f88926e8439bac8c040fd1a349f4dce",
+        "dimensions": [
+          1536,
+          1536
+        ],
         "presented_in_prior_conversation": true,
-        "git_binary_pinned": false
+        "git_binary_pinned": false,
+        "original_library_filename": "1000018464.webp",
+        "mode": "RGB",
+        "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
       "generated_candidates": [],
       "current_director_raw_approval": {
@@ -186,13 +242,19 @@
       "direction": "COLLAPSING_PRESSURE_SUBMERSION_NOT_WAVE_SURF",
       "prior_studio_feedback": "Existing original supplied in earlier conversation; no revised icon approval confirmed.",
       "original_icon_source": {
-        "filename": null,
-        "decoded_format": null,
-        "bytes": null,
-        "sha256": null,
-        "dimensions": null,
+        "filename": "04_drowning_strike_original.jpg",
+        "decoded_format": "JPEG",
+        "bytes": 238572,
+        "sha256": "b949e2b8e43c86ecfc46ea507322122625294bd6e25e7de63fcbf62b50ba56df",
+        "dimensions": [
+          1536,
+          1536
+        ],
         "presented_in_prior_conversation": true,
-        "git_binary_pinned": false
+        "git_binary_pinned": false,
+        "original_library_filename": "1000018465.webp",
+        "mode": "RGB",
+        "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
       "generated_candidates": [],
       "current_director_raw_approval": {
@@ -227,13 +289,19 @@
       "direction": "CONTAINED_HOT_LIQUID_SHELL_NOT_AN_ARMOR_PORTRAIT",
       "prior_studio_feedback": "Existing original supplied in earlier conversation; no revised icon approval confirmed.",
       "original_icon_source": {
-        "filename": null,
-        "decoded_format": null,
-        "bytes": null,
-        "sha256": null,
-        "dimensions": null,
+        "filename": "05_liquid_ember_shell_original.jpg",
+        "decoded_format": "JPEG",
+        "bytes": 231396,
+        "sha256": "995b489342d97896dcacc4126cf5fde275340063d1e0b0fe7334247f0ae87a52",
+        "dimensions": [
+          1536,
+          1536
+        ],
         "presented_in_prior_conversation": true,
-        "git_binary_pinned": false
+        "git_binary_pinned": false,
+        "original_library_filename": "1000018466.webp",
+        "mode": "RGB",
+        "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
       "generated_candidates": [],
       "current_director_raw_approval": {
@@ -255,7 +323,7 @@
       "showcase_status": "NOT_READY"
     }
   ],
-  "accepted_raw_count": 0,
+  "accepted_raw_count": 1,
   "accepted_current_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -273,9 +341,49 @@
   "live_game_writes": 0,
   "production_uploads": 0,
   "notes": [
-    "Earlier Vaporia conversation is evidence of directional feedback, NOT recoverable raw bytes. Do not treat the phrase 'Approved. Next' as a hash-pinned approval without the exact image and director mapping.",
-    "This is a new ChatGPT-owned studio branch from live main with the latest verified Art Studio showcase workflows copied from exact BEE precedent. It is not a new Fable implementation branch.",
-    "N=5 was read from the 2026-10-01 public roster; A-rank does not imply a fixed count. No current live game reads or writes were performed.",
-    "No fabricated source URLs, image hashes, processed WebP sizes, or production preflight statuses."
-  ]
+    "Director's exact response 'Confirmed. Approved.' (2026-10-15) confirms recovered Azure candidate as earlier accepted current raw visual, locks palette and approves next isolated Surfing Strike target. This is 1/5 raw visual approvals, not a processed or live-game approval.",
+    "All 5 historical game-original JPEG images and 2 exploratory candidate JPEGs were recovered byte-for-byte from user Library and hashed. Their previous source filenames had .webp/.png extensions despite JPEG decoder; bundle copies use .jpg. User Library identifiers and source binaries were NOT committed to Git.",
+    "Scorch candidate is still exploratory; previous dragon-like Surfing revision remains rejected and its bytes were not recovered; Drowning and Liquid Ember not begun.",
+    "A new isolated Surfing Strike generation session must receive exactly two individual images: recovered Surfing original as identity-only and confirmed Azure as style/material-only. Studio itself generates no images.",
+    "General ICON alpha conflict remains PRE-FLIGHT-BLOCKED for full-bleed opaque jutsu icons until independently reviewed validator/spec correction. No generated icons, processed exports, showcase, game reads, or writes.",
+    "N=5 is pinned historical 2026-10-01 roster, not an automatic A-rank count or an assertion of current live records."
+  ],
+  "director_checkpoint": {
+    "date": "2026-10-15",
+    "decision_quote": "Confirmed. Approved.",
+    "elicited_choices": [
+      "electric azure / molten-orange Vaporia palette",
+      "recovered Azure candidate is previously accepted exact version and family rendering reference",
+      "Surfing Strike Scalding Crest is next isolated-generation subject"
+    ],
+    "palette_status": "LOCKED",
+    "design_colors": {
+      "midnight_navy": "#080E1C",
+      "ocean_cobalt": "#1255CC",
+      "electric_azure": "#27A8FF",
+      "steam_white": "#D8F5FF",
+      "molten_orange": "#FF6821",
+      "ember_gold": "#FFBA54"
+    },
+    "next_isolated_target": "Surfing Strike",
+    "next_direction": "one huge left-to-right forward-moving crest of azure pressure-water with localized molten heat on its underside, clean silhouette, no dragon/actor/central explosion",
+    "scope": "Visual direction and Azure exact raw visual acceptance only; not processed export approval, mechanical preflight pass, or live publication."
+  },
+  "reference_recovery": {
+    "recovery_date": "2026-10-15",
+    "source": "user Library",
+    "expected_originals": 5,
+    "verified_originals": 5,
+    "verified_exploratory_candidates": 2,
+    "original_decoder_truth": "all seven source files JPEG RGB 1536x1536 despite misleading .webp/.png Library filenames",
+    "bit_exact_hashes_verified": true,
+    "local_only_bundle": "vaporia_recovered_reference_bundle_20261015 / vaporia_reference_recovery_20261015.zip",
+    "git_binary_pinned": false,
+    "no_approval_from_recovery_alone": true,
+    "isolated_references": {
+      "surfing_identity_only": "03_surfing_strike_original.jpg",
+      "surfing_style_material_only": "candidate_azure_dragon_chakra_unverified.jpg"
+    },
+    "note": "Local paths do not persist across chats. Attach the two verified individual source image bytes in a new isolated-generation conversation; hashes in this JSON alone do not pass images to a generator."
+  }
 }
