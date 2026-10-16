@@ -524,11 +524,11 @@
   "d5.n.protocol": {
    "kind": "dialog",
    "title": "The Seal Is Broken",
-   "text": "The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.\n\nMedical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive; its exact effect is still to be confirmed.",
+   "text": "The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.\n\nMedical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you.",
    "division": "Division IV — Command Sanctum",
    "options": {
     "b5.n.boss.medical": "Medical Protocol: enter fully restored",
-    "b5.n.boss.combat": "Combat Protocol: take the Sanctum's field directive"
+    "b5.n.boss.combat": "Combat Protocol: ward yourself against debilitation"
    }
   },
   "d5.lost_first": {
@@ -586,7 +586,7 @@
   },
   "b5.n.boss.combat": {
    "kind": "battle",
-   "text": "Defeat Supreme Commander Arakane (Combat Protocol). Defeat ends the expedition.",
+   "text": "Defeat Supreme Commander Arakane (Combat Protocol: debuff-warded). Defeat ends the expedition.",
    "division": "Division IV — Command Sanctum"
   },
   "b5.recovery_first": {

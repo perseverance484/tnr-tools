@@ -76,7 +76,7 @@
   },
   "D5": {
    "division": "IV Command Sanctum",
-   "status": "BLOCKED — advertised Clear Prevent is not in questBuffTypes at 0651b039 (re-verified); director must choose a supported option. The compiled candidate carries option A as a LABELLED STAND-IN only.",
+   "status": "APPROVED — RUL-2026-10-16-008: director delegated the pick; Fable selected option A (Debuff Prevent 100 / 3r) replacing the unsupported Clear Prevent",
    "target": "player",
    "effect": {
     "kind": "buff",
@@ -114,7 +114,8 @@
      },
      "tradeoff": "Generic mitigation (the orphaned Outer Garrison value); always useful, least thematic"
     }
-   ]
+   ],
+   "rationale": "Closest supported intent to 'protect what you bring into the fight': for the opening three rounds Arakane's Hexweave (IDT/heal-/stat-), Scorching Rend afterburn/wound and similar debilitation cannot land; it does not stop Countermand's Clear (no supported quest buff does). Native-proven since the C99 stand-in."
   }
  }
 }

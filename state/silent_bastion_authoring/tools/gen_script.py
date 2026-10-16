@@ -238,8 +238,8 @@ Supreme Commander Arakane stands at a window that looks out over the whole mount
 Supreme Commander Arakane does not hurry. "You obeyed a rumour, or an order that had already been replaced," he says. "Command does not forgive that. I built this command to outlast us all." He turns from the window. "It will outlast you." """),
   "protocol": ("The Seal Is Broken", """The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.
 
-Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive; its exact effect is still to be confirmed."""),
-  "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: take the Sanctum's field directive"},
+Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you."""),
+  "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: ward yourself against debilitation"},
   "lost_first": ("Turned Back at the Gate", """You come to at the Sanctum gate, pools at half. The Vanguard has not moved. "State your directive," it says again."""),
   "lost_later": ("Turned Back at the Gate", """The Sanctum turns you back to its gate, pools at half, and closes the antechamber behind you.
 
@@ -255,7 +255,7 @@ You keep what this fight left you. Losing to the Supreme Commander himself would
    "n.boss.clean": "Defeat Supreme Commander Arakane. Defeat ends the expedition.",
    "n.boss.alert": "Defeat Supreme Commander Arakane under Security Alert. Defeat ends the expedition.",
    "n.boss.medical": "Defeat Supreme Commander Arakane (Medical Protocol: fully restored). Defeat ends the expedition.",
-   "n.boss.combat": "Defeat Supreme Commander Arakane (Combat Protocol). Defeat ends the expedition.",
+   "n.boss.combat": "Defeat Supreme Commander Arakane (Combat Protocol: debuff-warded). Defeat ends the expedition.",
    "recovery_first": "Break the gate again: defeat the Sanctum Vanguard.",
    "recovery_later": "Break the gate again: defeat the Sanctum Vanguard.",
   },

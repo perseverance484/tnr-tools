@@ -315,7 +315,8 @@
      ],
      "nextObjectiveId": "d2.n.f2",
      "failObjectiveId": "r2.reset_first",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "r2.reset_first",
@@ -347,7 +348,8 @@
      ],
      "nextObjectiveId": "d2.recovered",
      "failObjectiveId": "r2.reset_later_loss",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "d2.recovered",
@@ -636,7 +638,8 @@
      ],
      "nextObjectiveId": "d3.n.f2",
      "failObjectiveId": "r3.reset_first",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "r3.reset_first",
@@ -668,7 +671,8 @@
      ],
      "nextObjectiveId": "d3.recovered",
      "failObjectiveId": "r3.reset_later_loss",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "d3.recovered",
@@ -956,7 +960,8 @@
      ],
      "nextObjectiveId": "d4.n.f2",
      "failObjectiveId": "r4.reset_first",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "r4.reset_first",
@@ -988,7 +993,8 @@
      ],
      "nextObjectiveId": "d4.recovered",
      "failObjectiveId": "r4.reset_later_loss",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "d4.recovered",
@@ -1201,14 +1207,14 @@
     {
      "id": "d5.n.protocol",
      "task": "dialog",
-     "description": "<b>The Seal Is Broken</b><br><br>The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.<br><br>Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive; its exact effect is still to be confirmed.",
+     "description": "<b>The Seal Is Broken</b><br><br>The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.<br><br>Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you.",
      "nextObjectiveId": [
       {
        "text": "Medical Protocol: enter fully restored",
        "nextObjectiveId": "b5.n.boss.medical"
       },
       {
-       "text": "Combat Protocol: take the Sanctum's field directive",
+       "text": "Combat Protocol: ward yourself against debilitation",
        "nextObjectiveId": "b5.n.boss.combat"
       }
      ]
@@ -1232,7 +1238,7 @@
     {
      "id": "b5.n.boss.combat",
      "task": "start_battle",
-     "description": "Defeat Supreme Commander Arakane (Combat Protocol). Defeat ends the expedition.",
+     "description": "Defeat Supreme Commander Arakane (Combat Protocol: debuff-warded). Defeat ends the expedition.",
      "opponentAIs": [
       {
        "ids": [
@@ -1276,7 +1282,8 @@
      ],
      "nextObjectiveId": "d5.n.f2",
      "failObjectiveId": "r5.reset_first",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "r5.reset_first",
@@ -1308,7 +1315,8 @@
      ],
      "nextObjectiveId": "d5.recovered",
      "failObjectiveId": "r5.reset_later_loss",
-     "givePools": 50
+     "givePools": 50,
+     "scaleGains": 0
     },
     {
      "id": "d5.recovered",

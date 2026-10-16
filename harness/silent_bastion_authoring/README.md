@@ -3,7 +3,7 @@
 Validates the package in `state/silent_bastion_authoring/` against `studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb`. Results: `docs/reviews/SILENT_BASTION_AUTHORING_OFFLINE_RESULTS.md`.
 
 ```bash
-harness/silent_bastion_authoring/run.sh          # generators --check, preflight, gates A + C, C99 D/R/E on the compiled quest
+harness/silent_bastion_authoring/run.sh          # generators --check, validate, preflight, gates A + C, C99 D/R/E + gate I on the compiled quest
 harness/silent_bastion_authoring/run.sh ai       # one gate (ai|content)
 ```
 
@@ -15,6 +15,7 @@ The isolation is the same as `harness/silent_bastion_condensed99/`: git, bun 1.4
 | `engine/c_content.test.ts` | **C** | Compiled quest: `QuestValidator`, flow/save/reward-choice validators, node-by-node equality with the locked `alt99_f4gate`, dialog gating, text presence, puzzle wiring and planted clues, starting-effect allowlists and targets, 625 routes / 16–20 fights. **DB:** real `quests.update` save of the compiled quest; real `ai.updateAiProfile` save of all 20 profiles plus a 21-rule negative control; Countermand stored-row `ItemValidator` |
 | `tools/check_validate.py` | **V** | Runs `skills/building-tnr-content/scripts/validate.py` on the composer's validation-only manifest. Passes only when the error set equals the documented one; any new error, or any documented error that disappears, fails the gate (`results/validate_py.txt`) |
 | C99 `d_defect` / `r_runtime` / `e_edges` | **D, R, E** on the compiled quest | The frozen C99 runtime gates, with `TNR_COMPILED_QUEST` pointing the fixture at `compiled/quest.candidate.json`. They cover recovery and C1, 18 full attempts with carryover / Medical 100 / player-side effects / Beacon / Arakane hard-fail, and the edge cases |
+| `engine/runtime/i_income.test.ts` | **I** on the compiled quest | Recovery income (RUL-2026-10-16-005). Per division, through the real routers: a `scaleGains: 0` recovery win (first and later) has battle `rewardScaling` 0, pays no money or experience and still advances the graph; a first-pass win in the same run has `rewardScaling` 1 (the engine default) and pays experience. Runs in the compiled-runtime suite |
 
 `engine/lib/units.ts` loads the design, compiles the rule DSL with the engine's own constructors, and builds battles on the router's own grid (`getBattleGrid`). User-jutsu cooldowns come from `originalCooldown`, as in real battle state.
 

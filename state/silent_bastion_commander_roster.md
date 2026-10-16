@@ -124,7 +124,7 @@
 
 ## 4. The Grand Marshal — High Command · fight 20
 
-**Status:** Name, epithet and role approved. 12-move combat kit is a reviewed DESIGN CANDIDATE, not separately frozen.
+**Status:** Name, epithet and role approved. 12-move combat kit and the priority order below are **RATIFIED** (RUL-2026-10-16-006, as natively translated on `claude/silent-bastion-authoring-69za5u`). Stats and balance remain subject to calibration.
 **Identity:** Military suppression / control, candidate.
 
 | Pool | Jutsu | Recorded effect / action parameters |
@@ -232,7 +232,7 @@
 
 ## Remaining approval/test work
 
-1. Grand Marshal: ratify twelve moves and exact priority order; repair redundant Combat Protocol.
+1. Grand Marshal: ~~ratify twelve moves and exact priority order~~ ratified by RUL-2026-10-16-006; repair redundant Combat Protocol.
 2. The Gatewarden/Master/Replicant: author schema-correct ≤20-rule AI profiles and test against verified records; the priorities above are design-level, not actual rule objects.
 3. Arakane: verify 20-rule profile against engine and active effects, full Stealth and item loadout behavior, Final Stand/ultimate strict gate, Copy/Clear transfer behavior, and any future director corrections.
 4. Freeze **all bosses'** numeric stats, multipliers, protocol effects, AI item records, full jutsu IDs (including director-supplied Tempest Cleave), exclusives' names/range/cooldown/AP/proc chances, and reward/entry economy only with the director.

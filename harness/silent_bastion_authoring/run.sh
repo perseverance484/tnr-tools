@@ -69,6 +69,7 @@ cp "$P1/engine/lib/graph.ts" "$P1/engine/lib/driver.ts" "$P1/engine/lib/report.t
 cp "$HERE/engine/"*.test.ts "$APP/$SUITE/"
 cp "$P1/engine/lib/graph.ts" "$P1/engine/lib/driver.ts" "$P1/engine/lib/report.ts" "$C99/engine/lib/run99.ts" "$APP/$RUNTIME/lib/"
 cp "$C99/engine/c99_defect.test.ts" "$C99/engine/c99_runtime.test.ts" "$C99/engine/c99_edges.test.ts" "$APP/$RUNTIME/"
+cp "$HERE/engine/runtime/"*.test.ts "$APP/$RUNTIME/"
 
 # 4. Throwaway MySQL, socket only.
 if ! docker info >/dev/null 2>&1; then echo "docker daemon not reachable; start it (e.g. 'dockerd &') and rerun" >&2; exit 2; fi
@@ -120,7 +121,7 @@ if [[ -z "$FILTER" ]]; then
     unshare -rn bun test "$RUNTIME" --timeout 900000) 2>&1 | grep -v '^\[Upstash Redis\]' > "$OUT/compiled_runtime/bun_test.log"
   RT_STATUS=${PIPESTATUS[0]}
   grep -E '^ *[0-9]+ (pass|fail)|^Ran ' "$OUT/compiled_runtime/bun_test.log"
-  python3 "$P1/tools/check_evidence.py" "$OUT/compiled_runtime" d_defect r_runtime e_edges || RT_STATUS=1
+  python3 "$P1/tools/check_evidence.py" "$OUT/compiled_runtime" d_defect r_runtime e_edges i_income || RT_STATUS=1
 fi
 set -e
 STATUS=0

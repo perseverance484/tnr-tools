@@ -374,13 +374,13 @@ Supreme Commander Arakane does not hurry. "You obeyed a rumour, or an order that
 
 The Order-Bearer falls, and its blank command seal shatters on the floor. The terminal unlocks the Sanctum's last two protocols.
 
-Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive; its exact effect is still to be confirmed.
+Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you.
 
 - *Medical Protocol: enter fully restored* → `b5.n.boss.medical`
-- *Combat Protocol: take the Sanctum's field directive* → `b5.n.boss.combat`
+- *Combat Protocol: ward yourself against debilitation* → `b5.n.boss.combat`
 
 - `b5.n.boss.medical` vs `@ai:D5.BOSS` — Defeat Supreme Commander Arakane (Medical Protocol: fully restored). Defeat ends the expedition. *(pools set to 100%)*
-- `b5.n.boss.combat` vs `@ai:D5.BOSS` — Defeat Supreme Commander Arakane (Combat Protocol). Defeat ends the expedition. *(player debuffprevent 100/3r)*
+- `b5.n.boss.combat` vs `@ai:D5.BOSS` — Defeat Supreme Commander Arakane (Combat Protocol: debuff-warded). Defeat ends the expedition. *(player debuffprevent 100/3r)*
 ### `d5.lost_first` — Turned Back at the Gate
 
 You come to at the Sanctum gate, pools at half. The Vanguard has not moved. "State your directive," it says again.

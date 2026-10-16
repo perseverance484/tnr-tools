@@ -3,7 +3,7 @@
 **Verdict:**
 
 - **The authoring package is complete and passes every native gate.** All 99 objectives have content. The four existing commander designs are translated into native rules. The 16 regulars are new, and all content-only blockers are documented.
-- **One director-level blocker remains: AR1.** It has a tested content-only mitigation in the candidate values.
+- **No director-level blocker remains.** The director ruled on AR1, RC1, F3, SRC1, D5 and the Grand Marshal kit on 2026-10-16 (RUL-2026-10-16-004 to -009). This revision applies those rulings and adds gate I for the F3 choice.
 - **Nothing here is approved for release.** Balance, rewards, art, final wording and publication stay with the director. See `state/silent_bastion_authoring/decision_docket.md`.
 
 - **Contract:** `state/prompt_silent_bastion_complete_authoring.md` at `chatgpt/silent-bastion-caches-claude-handoff-20261016@25d2b2e159d9fb9b0769db5483571e0db87991f6`.
@@ -35,9 +35,10 @@
 | **V** — `validate.py` on the validation-only manifest | **7 errors, all documented (7/7), and 11 warnings.** See §3. |
 | Upstream preflight: 9 engine suites (AI v2 rules/targeting/unreachable/summon, seal/stealth, quest reset, Pyramid consequences, entry charge, run state) | **117 / 117** |
 | **A** — AI (pure; real decision engine, real captured jutsu records) | **218 checks, 0 failed** (50 tests) |
-| **C** — compiled content + real saves | **28 checks, 0 failed** (8 tests) |
-| **D/R/E** — frozen C99 runtime gates with **the compiled candidate quest** as the fixture | **36/36 tests; D 543, R 7,033, E 592 checks, 0 failed** |
-| Deterministic re-run (second full `run.sh`, scratch output) | **exit 0; all 6 evidence files byte-identical** |
+| **C** — compiled content + real saves | **29 checks, 0 failed** (8 tests), including `scaleGains` 0 on exactly the 8 recovery battles and the approved D5 buff |
+| **D/R/E** — frozen C99 runtime gates with **the compiled candidate quest** as the fixture | **D 543, R 7,033, E 592 checks, 0 failed** |
+| **I** — recovery income on the compiled quest (new, RUL-2026-10-16-005) | **456 checks, 0 failed** (4 divisions). Compiled-runtime suite total: 41/41 tests |
+| Deterministic re-run (second full `run.sh`, scratch output) | **exit 0; all 7 evidence JSON files byte-identical.** `validate_py.txt` has the same lines; only the order of two warnings changes between runs (from `validate.py` itself) |
 
 ### Contract §5 item 8 matrix → evidence
 
@@ -46,10 +47,11 @@
 | Graph: 99 nodes, 625 routes, 16–20 combats, single root, dialog-gated battles | PASS. Node by node, the compiled quest matches the locked graph, including opponents, `givePools` and reset targets | C |
 | Recovery: REG1 losses and wins, recovery_later loss replays at 50% (no C1) | PASS. C1 is absent in all four divisions | D, R |
 | Single terminal reward | PASS. The compiled quest has quest-level `choose`, pick 1, and two cache cards; nothing on objectives. The runtime pays the completion reward once; the cache choice itself is proven on the reward-proof branch | C, R, reward proof |
+| Recovery wins pay nothing (O2) | PASS. In every division a recovery win (first and later) has battle `rewardScaling` 0, pays 0 money and 0 XP, and still advances the graph; a first-pass win has `rewardScaling` 1 and pays XP. The C99 gate E8 agrees: per farm loop XP fell from 64 to 32 because only the regular win pays now | I, E |
 | Carryover, Medical 100, player-side Combat and Security Alert | PASS. Every battle start is checked; effects land on the player only and are allowlisted | R, C |
 | Beacon charged at start | PASS. One Beacon at `startQuest`, none on retries, never refunded | R, E |
 | Arakane hard fail | PASS on all four routes | R |
-| Real editor save of the compiled 99-objective quest (hidden) | PASS (128,027 bytes of content) | C |
+| Real editor save of the compiled 99-objective quest (hidden) | PASS (128,074 bytes of content) | C |
 | Commander rules save natively | PASS. All 20 profiles save through `ai.updateAiProfile` (`includeDefaultRules:false`, every rule kept). A 21-rule control is refused by the server cap | C |
 | Commander behaviour follows the authored priorities | PASS. Every roster priority for Master of Arms, Replicant Zero and the Grand Marshal, and each tested Arakane rule (1–11, 17–20), fires as authored. Highlights below | A |
 
@@ -66,7 +68,7 @@ Commander behaviour highlights (gate A, real `performAIaction`):
 
 ## 3. Findings
 
-**AR1 — Arakane's ultimate can fire on an expired Final Stand (engine behaviour; content mitigation is a candidate).**
+**AR1 — Arakane's ultimate can fire on an expired Final Stand (engine behaviour). Resolved: cooldown 4 approved, RUL-2026-10-16-004.**
 
 - **Mechanism.** `routers/combat.ts` calls `alignBattle`, which lowers effect rounds to 0 without pruning them, and then `performAIaction`. `has_effect` sums raw power without `isEffectActive`. Authored rule 2 therefore passes at the first decision after Final Stand reaches 0 rounds.
 - **Reproduction.** At the first-drafted cooldown 2, rule 2 fires in round 12 with Final Stand at 0 rounds (`AR.finalPhaseDecisions`).
@@ -74,10 +76,9 @@ Commander behaviour highlights (gate A, real `performAIaction`):
   - cooldowns 2, 3, 5 and 6 can each cast on the expired round;
   - **cooldown 4** kept every cast inside an active Final Stand, with two casts per window;
   - cooldown 7 also stayed clean, but with one cast.
-- **Candidate.** The compiled candidate uses cooldown **4**. The residual risk is sequences the probe didn't cover.
-- **Options for the director:** keep cooldown 4, use cooldown 7, accept the risk, or request a Lane A engine change. The engine change is not proposed here. (Docket item 1.)
+- **Decision.** Cooldown **4** is approved and compiled. The director accepts the residual risk for sequences the probe didn't cover; no engine change is requested.
 
-**SRC1 — Veilstep's captured record (stealth 1r, cooldown 5) differs from the pool registry and the design prose (2r, cooldown 6).** The Arakane stealth branch works natively with the 1-round record. Which value is live needs confirming (docket item 5).
+**SRC1 — Veilstep's captured record (stealth 1r, cooldown 5) differs from the pool registry and the design prose (2r, cooldown 6).** The Arakane stealth branch works natively with the 1-round record. Resolved: the record is used as-is (RUL-2026-10-16-007); a fresh capture before the manifest still applies if it differs.
 
 **TC1 not reproduced:** Tempest Cleave (`AOE_CIRCLE_SPAWN`, `friendlyFire: ALL`) never hit Master of Arms at path distance 2–5, so no extra gate was added.
 
@@ -89,11 +90,17 @@ Commander behaviour highlights (gate A, real `performAIaction`):
 - 4 are the locked puzzle topology: both wrong answers share the Security Alert node, which the "options share a target" rule rejects. A future push needs an explicit validator-exception ruling.
 - 1 is VAL1.
 
-**Earlier findings unchanged at this pin:** F3 retry income (options O1–O4 in `economy_and_f3.md`; O2 is suggested), F4/F5 text exposure, and B1 (Beacon at start, now approved). C1 is absent from the selected graph.
+**F3 — resolved with O2 (RUL-2026-10-16-005).** The 8 recovery battles carry `scaleGains: 0`. Gate C checks the value survives `QuestValidator` on exactly those battles. Gate I (§2) shows natively that a recovery win still settles and advances, with `rewardScaling` 0 and no money or experience, while a first-pass win pays.
+
+**RC1 — accepted with copy (RUL-2026-10-16-009).** The quest description tells the player to claim an earlier reward before setting out. The reward-proof branch is unchanged.
+
+**D5 — Debuff Prevent 100 / 3r (RUL-2026-10-16-008).** The director delegated the pick. Option A was chosen because it is native-proven and fits the Sanctum's fiction, while leaving the endgame threat intact. The D5 dialog and battle text now describe it.
+
+**Earlier findings unchanged at this pin:** F4/F5 text exposure, and B1 (Beacon at start, approved). C1 is absent from the selected graph.
 
 **Notes on the brief's assumptions:**
 
-- The Grand Marshal's stacked DDG had fully expired by round 8 in the passive-player loop (`GM.playerDDGStackAfter8` is empty). Whether the double DDG belongs in the kit is still the director's call.
+- The Grand Marshal's stacked DDG had fully expired by round 8 in the passive-player loop (`GM.playerDDGStackAfter8` is empty). The kit, double DDG included, is now ratified (RUL-2026-10-16-006).
 - The Division IV puzzle and the Order-Bearer's blank seal foreshadow the unknown issuer without naming it (docket item 12).
 
 ## 4. Fixture limits and what was not tested
@@ -118,6 +125,6 @@ Provenance is in `results/provenance.json`: the engine pin, `bun.lock`, the SHA-
 - **Repository:** `perseverance484/tnr-tools`
 - **Branch:** `claude/silent-bastion-authoring-69za5u` (Fable-owned, sole writer)
 - **Base:** `25d2b2e159d9fb9b0769db5483571e0db87991f6`. The merge-base with `main@99e86dc` is reported at handoff.
-- **Frozen head:** the commit that adds this report. The SHA is in the handoff message.
+- **Frozen head:** the commit that adds this revision. The SHA is in the handoff message. It supersedes the first frozen head `d648c62ab39e77045507e0409dd7f6470599f93c`; the only changes since are the 2026-10-16 director rulings (RUL-2026-10-16-004 to -009), gate I and the gate C checks for them.
 - **Companion proof:** `claude/recipe-cache-native-proof-69za5u@b133d73286df9e48ba1015b21dd694c69c9ea090`. It is independent, not merged here, and pending its own review.
 - **Next:** ChatGPT independent audit of the frozen SHA. After that, the director works through `decision_docket.md`.

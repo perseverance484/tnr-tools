@@ -105,6 +105,8 @@ def compose():
                  "opponentAIs": [{"ids": [f"@ai:{n['encounterSlot']}"], "number": 1}],
                  "nextObjectiveId": n["onWin"], "failObjectiveId": n["onLoss"]}
             if "startPoolsPercent" in n: o["givePools"] = n["startPoolsPercent"]
+            if n["id"] in entry["battleIncome"]["scaleGains"]["appliesTo"]:
+                o["scaleGains"] = entry["battleIncome"]["scaleGains"]["recoveryBattles"]
             if n.get("startEffect"):
                 e = eff[n["startEffect"]]
                 o["applyBuffs" if e["kind"] == "buff" else "applyDebuffs"] = [dict(e["tag"])]
