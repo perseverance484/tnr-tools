@@ -1114,3 +1114,20 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
 
+
+---
+
+## RUL-2026-10-16-001 — Silent Bastion launches the recipe-aligned cache pilot with a one-of-two completion choice
+
+**Date:** 2026-10-16  
+**Domain:** Recipe-aligned reward cache design / Silent Bastion  
+**Status:** ACTIVE DESIGN DIRECTION; reward economy and graph selection still open  
+**Supersedes:** none; existing hunting/gathering chests, three newer crafting caches, and Ghost Ship Skyglass rewards remain unchanged.
+
+**Ruling:** The director approved introducing **two new native weighted reward cache families** initially in the Silent Bastion: an **Arsenal** cache oriented toward meaningful equipment recipes, and a **Research** cache oriented toward crystal/imbuement recipes. These are design-category names, not locked final item names/art. Unlike the old independent-material chest lines, one selected weighted entry should deliver a coherent group of ingredients linked to a verified craft recipe rather than a loose assortment of unrelated materials. The director also approved **player reward selection**: on successful Pyramid completion, the player chooses **exactly one** of the two cache categories. Opening that selected cache then rolls recipe-aligned contents. No mid-division or retry-loop cache payouts are approved.
+
+**Technical interpretation, not a new ruling:** At upstream `studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb`, the quest choice feature reads `content.reward` at quest completion when `content.rewardMode:"choose"`; direct `win_quest` objective reward lines do not enter that choice and would be granted unconditionally. Implementing the approved experience therefore requires two cache item cards in quest-level `content.reward.reward_items` and `content.rewardPickCount:1` (subject to full Fable offline engine-native save/claim/Pyramid tests). Native weighted-cache contents are a separate item effect contract, `noncombatconsumereward` with `rewardMode:"weightedCache"` and a weighted bundle table.
+
+**Not ruled:** exact craft outputs and mix, complete recipes versus fractional progress, probabilities/roll counts, quantities, rarities, item tradability, pacing/economy, Beacon cost or timing, cache art and final wording, publication, and any replacement of existing chests. The selected 99-node Silent Bastion recovery graph still requires a director choice between Fable's three native-tested remediation options; `alt99_f4gate` is the design recommendation but **has not been approved by this ruling**. No game writes, source alterations, or manifest/publish authorization follows from this decision.
+
+**Canonical destination:** `docs/design/RECIPE_ALIGNED_REWARD_CACHES_DISCOVERY_20261016.md` owns the bounded pilot design on the ChatGPT reward-cache design branch. Existing `state/silent_bastion_design.md` and the native proof report remain owners of their respective quest design/evidence; generated game contracts remain contract evidence.
