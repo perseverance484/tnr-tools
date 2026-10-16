@@ -1128,4 +1128,22 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Boundary:** screenshot/showcase is a **presentation and QC artifact**, not a game-upload image, game contract, approved live asset or validator bypass. Raw visual acceptance, processed export QC, canonical preflight verdict and live-game action remain separate. The approved opaque jutsu background and known shared ICON alpha-validator conflict from RUL-2026-10-14-001 are unchanged. The director alone controls art acceptance, delivery decisions and live-game actions.
 
+**Roster-size correction:** RUL-2026-10-15-002 confirms the 4 x 2 BBE example is **eight-icon-specific**, not a universal count or layout. The count-adaptive procedure lives in the showcase workflow.
+
 **Operative owner:** `docs/workflows/JUTSU_ICON_SHOWCASE.md`, routed by `docs/workflows/ISOLATED_ART_GENERATION.md` and `docs/workflows/ART_PRODUCTION.md`. BEE preparation/evidence: `docs/design/blood_enchanted_eyes/SHOWCASE_READINESS_20261015.md` and its jutsu register. This ruling records the director's decision but does not replace the workflow's detailed implementation/acceptance gates.
+
+---
+
+## RUL-2026-10-15-002 — Showcase grid must adapt to each bloodline's actual jutsu roster
+
+**Date:** 2026-10-15  
+**Domain:** Bloodline jutsu-icon Art Studio final showcase  
+**Status:** ACTIVE director clarification to RUL-2026-10-15-001; the eight-icon BBE example remains valid for **eight-icon** families only. This ruling does not retract the requirement for a final showcase.
+
+**Director clarification:** not all bloodlines have eight jutsu. Many **A-rank** bloodlines have **five**, while **S-rank** counts vary. Rank is contextual, **not a fixed roster-length formula**. Each bloodline's current verified jutsu roster determines the exact number of icons in its showcase.
+
+**Ruling:** use precisely **N/N currently approved icons**; balance the visual grid and size the canvas to N. Do not invent empty cards, duplicate icons, omit jutsu, or stretch/shrink the icons to fit BBE's 1536 x 854 reference canvas. Keep a quiet dark background, equally sized square icon tiles and exact name / actual processed-WebP-size captions. A five-icon family can start with a **3 + 2 centered** composition; eight uses the original **4 + 4**. Other counts use balanced rows suited to legibility, as specified by the operative workflow. These row choices are suggested layouts for director acceptance, **not newly mandated fixed rank templates**. The director approves the final family composition.
+
+**Authority and safety:** all per-source approvals, processing-QC, whole-family 125/64/32 comparison, truthful preflight verdicts and user-only live game actions remain unchanged. The showcase is still an external presentation/QC artifact, never a game icon. Reusable builder code remains separate Lane A implementation.
+
+**Operative owner:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` adaptive-layout section. `docs/workflows/ART_PRODUCTION.md` and `docs/workflows/ISOLATED_ART_GENERATION.md` route to it. `docs/design/blood_enchanted_eyes/SHOWCASE_READINESS_20261015.md` retains an **eight-icon-specific** BEE preparation ledger.
