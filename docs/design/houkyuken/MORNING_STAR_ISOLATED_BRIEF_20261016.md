@@ -1,5 +1,8 @@
 # Morning Star — Isolated Jutsu Icon Generation Brief
 
+> **HISTORICAL / PAUSED for a director silhouette reset (2026-10-16).** The original approved Ferrostar Crush brief is **NOT authorized for another generation** as written. It prohibits literal star silhouettes, contradicting the director's subsequent request that **Rising Star and Morning Star have recognizable star-shaped primary forms representing contrasting polarities**. The candidate generated from this brief (`1000018547.png`, actual JPEG) is **not approved**. Review `STAR_SILHOUETTE_REASSESSMENT_20261016.md` and obtain a new approved form-first star direction before drafting a replacement isolated brief. Preserve this document only as the historical input to the rejected direction; do **not** treat its older `DIRECTOR-APPROVED` wording as current generation authority.
+
+
 **Workstream:** Houkyuken / Hokyuken — A-rank, five-jutsu bloodline  
 **Target:** **Morning Star** · Jutsu ID `G2vuPJTsyGHctsLU_g59x` · **B-rank**  
 **Direction:** **DIRECTOR-APPROVED 2026-10-16** · **Concept:** Ferrostar Crush  
