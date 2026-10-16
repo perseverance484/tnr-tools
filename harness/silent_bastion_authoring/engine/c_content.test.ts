@@ -81,6 +81,12 @@ describe("C1 compiled quest: schemas, flow, counts, provenance", () => {
     c("every node, edge, reset target, opponent slot and givePools matches the locked graph", bad.length === 0, bad);
     c("no separate fourth-fight intro: terminal gates bN.n.f4 directly", [2, 3, 4, 5].every((d) => !by.has(`d${d}.n.f4`) && outs(by.get(`d${d}.n.terminal`)!).includes(`b${d}.n.f4`)));
     c("recovery confirmation dialogs dN.recovered present (C1 fix)", [2, 3, 4, 5].every((d) => by.get(`d${d}.recovered`)?.task === "dialog" && (by.get(`b${d}.recovery_later`)!.nextObjectiveId === `d${d}.recovered`)));
+    const recovery = graph.nodes.filter((n) => n.kind === "battle" && /\.recovery_(first|later)$/.test(n.id)).map((n) => n.id).sort();
+    const parsedObjs = (QuestValidator.parse(record()).content.objectives as unknown as O[]);
+    const zero = parsedObjs.filter((o) => o.task === "start_battle" && o.scaleGains === 0).map((o) => o.id).sort();
+    const rawSet = objectives().filter((o) => "scaleGains" in o).map((o) => o.id).sort();
+    c("scaleGains 0 on exactly the 8 recovery battles after QuestValidator parsing, unset on every other battle (RUL-2026-10-16-005)",
+      recovery.length === 8 && zero.join() === recovery.join() && rawSet.join() === recovery.join(), { recovery, zero, rawSet });
     const preds = new Map<string, string[]>();
     for (const o of objectives()) for (const t of outs(o)) preds.set(t, [...(preds.get(t) ?? []), o.id]);
     const ungated = objectives().filter((o) => o.task === "start_battle").filter((o) => (preds.get(o.id) ?? []).some((p) => by.get(p)!.task !== "dialog") || !(preds.get(o.id) ?? []).length).map((o) => o.id);
@@ -120,7 +126,9 @@ describe("C1 compiled quest: schemas, flow, counts, provenance", () => {
     ev.put("startingEffects", fx);
     const want = [2, 3, 4, 5].flatMap((d) => [`b${d}.n.boss.alert:applyDebuffs:${protocols.securityAlert.effect.tag.type}`, `b${d}.n.boss.combat:applyBuffs:${protocols.combat[`D${d}`].effect.tag.type}`]).sort();
     c("starting effects: Security Alert debuff on 4 alert commanders, Combat buff on 4 combat commanders, nothing else, all allowlisted", fx.slice().sort().join() === want.join(), fx);
-    c("D5 Combat Protocol is flagged BLOCKED (stand-in only)", String(protocols.combat.D5.status).startsWith("BLOCKED"));
+    const d5 = by.get("b5.n.boss.combat")!.applyBuffs as { type: string; power: number; rounds: number; target?: string }[];
+    c("D5 Combat Protocol is the approved Debuff Prevent 100 / 3r on the player (RUL-2026-10-16-008)",
+      String(protocols.combat.D5.status).startsWith("APPROVED — RUL-2026-10-16-008") && d5.length === 1 && d5[0]!.type === "debuffprevent" && d5[0]!.power === 100 && d5[0]!.rounds === 3, d5);
     c("no objective carries reward_items; quest-level choose of two caches", objs.every((o) => !((o.reward_items as unknown[]) ?? []).length) &&
       record().content.rewardMode === "choose" && record().content.rewardPickCount === 1 && record().content.reward.reward_items.length === 2);
     c("entry item is the Beacon ref", record().content.entryItems[0].ids[0] === fixtureId("@item:skyglass_signal_beacon"));

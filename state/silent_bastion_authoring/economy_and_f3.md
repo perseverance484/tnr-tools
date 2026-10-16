@@ -69,7 +69,7 @@ Because loops are unbounded per Beacon, the Beacon is an entry fee, not an incom
 | **O3** | O2 + `scaleGains: 0.5` on REG2–REG4 | removed | roughly −2/3 | regulars pay half on the first pass too |
 | **O4** | `scaleGains: 0` on every Bastion battle | removed | removed | no battle income at all; only the cache reward |
 
-**Recommendation for consideration:** O2. It closes the cheapest loop without touching the intended first-pass income. Loop B stays, but it requires repeatedly beating three regulars and losing to a commander, which is slower than normal play. The compiled candidate leaves `scaleGains` unset (default 1) until the director rules. Before shipping O2–O4, the chosen value needs one native test confirming that a `scaleGains: 0` win still settles, counts as a win and pays nothing.
+**Selected: O2** (RUL-2026-10-16-005). The compiled quest sets `scaleGains: 0` on the 8 recovery battles and leaves every other battle unset. Loop B stays, but it requires repeatedly beating three regulars and losing to a commander, which is slower than normal play. Native check (gate I, compiled runtime): in every division a recovery win has `rewardScaling` 0, pays no money or experience, and still advances the graph; a first-pass win in the same run has `rewardScaling` 1 (the engine default) and pays experience. Gate C checks that the value survives `QuestValidator` parsing on exactly those 8 battles.
 
 ## 4. Other economy decisions still open
 

@@ -514,8 +514,8 @@
    "slot": "D4.BOSS",
    "name": "The Grand Marshal",
    "division": "III High Command",
-   "kitStatus": "AUTHORED CANDIDATE (12 jutsu) — name/epithet/lore approved; roster §4 kit not frozen",
-   "aiStatus": "TRANSLATED from roster §4 'Intended rule priority'; CANDIDATE — stacked DDG/IDT, control loops and roster ratification are director decisions",
+   "kitStatus": "RATIFIED (12 jutsu) — RUL-2026-10-16-006",
+   "aiStatus": "RATIFIED — RUL-2026-10-16-006: roster §4 priorities as translated here (stacked suppression accepted as authored)",
    "kit": [
     "B03",
     "B12",
@@ -1155,7 +1155,8 @@
    "protocol": {
     "combat": "D5 player buff — BLOCKED (clearprevent not in questBuffTypes); see protocols.json",
     "rosterLabel": "unspecified"
-   }
+   },
+   "veilstep": "RUL-2026-10-16-007: use the live B09 Veilstep record as-is (captured: Stealth 1 round, cooldown 5); the profile's 2-round premise is superseded, rules unchanged"
   }
  ],
  "exclusives": {
@@ -1230,7 +1231,7 @@
      }
     ]
    },
-   "cooldownNote": "CANDIDATE 4 (not 2): with the authored rule 2, cooldowns 2/3/5/6 let the ultimate fire at a decision where Final Stand already reached 0 rounds (finding AR1, harness gate A6 probe); 4 kept every probed cast inside active Final Stand. Residual risk remains for unprobed sequences; the real fix (has_effect ignoring expired effects) is an engine change NOT proposed here."
+   "cooldownNote": "APPROVED cooldown 4 — RUL-2026-10-16-004 (AR1 mitigation: with authored rule 2, cooldowns 2/3/5/6 can fire on an expired Final Stand; 4 kept every probed cast inside it). Residual risk only for unprobed sequences; no engine change requested."
   },
   "X:COUNTERMAND": {
    "status": "APPROVED identity (boss-only reusable command seal, Clear); fields CANDIDATE per Arakane profile",

@@ -1195,3 +1195,89 @@ Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint,
 **Canonical destination:** `state/silent_bastion_design.md`, `state/prompt_silent_bastion_complete_authoring.md` and the integrated Fable production notes; recipe-cache design should cite this timing without implying it settles drop sources/probabilities.
 
 **Boundary:** No game-engine edit, no live-game requests/writes, no credentials, and no publishing authorization. Item drop rate, Beacon rarity, exact wording and player-entry UX remain separate acceptance gates.
+
+---
+
+## RUL-2026-10-16-004 — Arakane's Extermination Order cooldown is 4 (AR1 content mitigation)
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / Supreme Commander Arakane / exclusive ultimate values
+**Status:** ACTIVE — director approval of a Fable candidate value ("AR1: 4").
+**Supersedes:** the unapproved working cooldown in the Arakane profile draft. Membership, effects and the "only during active Final Stand" intent are unchanged.
+
+**Ruling:** Extermination Order uses **cooldown 4**. At `studie-tech/TheNinjaRPG@0651b039`, `alignBattle` lowers effect rounds to 0 without pruning them before `performAIaction`, and `has_effect` sums raw power without checking `isEffectActive`. Authored rule 2 can therefore pass for one decision after Final Stand expires (finding AR1). In Fable's native probe, cooldowns 2, 3, 5 and 6 could cast on that expired decision; cooldown 4 kept every probed cast inside an active Final Stand (start distances 4/7/9, two casts per window). The director accepts the residual risk for sequences the probe did not cover. No engine change is requested.
+
+**Evidence:** `claude/silent-bastion-authoring-69za5u`, gate A6 (`harness/silent_bastion_authoring/results/`), `docs/reviews/SILENT_BASTION_AUTHORING_OFFLINE_RESULTS.md` §3.
+
+**Canonical destination:** `state/silent_bastion_arakane_ai_profile.md`; `state/silent_bastion_authoring/design/commanders.json` carries the value. Name "Extermination Order" remains a working name; AP, range and effect powers remain candidates.
+
+---
+
+## RUL-2026-10-16-005 — Silent Bastion recovery battles pay no battle settlement (F3 option O2)
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / battle income / recovery loops
+**Status:** ACTIVE — director approval ("set it to 0").
+
+**Ruling:** The eight recovery battles (`b2`–`b5` `recovery_first` and `recovery_later` in `alt99_f4gate`) set **`scaleGains: 0`**. A recovery win still counts as a win and advances the graph, but pays no battle money or experience. All first-pass battles leave `scaleGains` unset (engine default). This closes the cheapest repeat-income loop (F3) without changing first-pass income. Other economy values remain unapproved.
+
+**Evidence:** `state/silent_bastion_authoring/economy_and_f3.md` §3; compiled-runtime gate I in `harness/silent_bastion_authoring/`.
+
+**Canonical destination:** `state/silent_bastion_design.md`; `state/silent_bastion_authoring/design/entry_and_rewards.json` carries the value.
+
+---
+
+## RUL-2026-10-16-006 — The Grand Marshal's 12-move kit and AI priorities are ratified
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / The Grand Marshal
+**Status:** ACTIVE — director ratification ("Grand Marshal, ratify it").
+**Supersedes:** the roster's "12-move combat kit is a reviewed DESIGN CANDIDATE, not separately frozen" status.
+
+**Ruling:** The Grand Marshal's 12-jutsu kit and roster §4 priority order are ratified as translated natively on `claude/silent-bastion-authoring-69za5u`, including the stacked suppression (two DDG 60 / 3r from Ruin, Malediction's IDT 60 + Seal). Stats, AP/cooldown overrides beyond the records, and balance stay subject to calibration.
+
+**Evidence:** gate A5 of the authoring harness (behaviour sequence and `GM.playerDDGStackAfter8`).
+
+**Canonical destination:** `state/silent_bastion_commander_roster.md` §4.
+
+---
+
+## RUL-2026-10-16-007 — Veilstep is used with its captured record (Stealth 1 round, cooldown 5)
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / Supreme Commander Arakane / shared jutsu B09
+**Status:** ACTIVE — director decision ("use Veilstep's duration, whatever it is").
+**Supersedes:** the Arakane profile's "B09 Veilstep (40AP/CD6; Stealth2r)" premise (finding SRC1).
+
+**Ruling:** Arakane uses the shared B09 Veilstep record as it is. The committed capture has **Stealth 1 round, cooldown 5**. The shared jutsu is not edited for this boss. Gate A6 shows Arakane's stealth branch (rules 4, 5, 17, 18) working natively with the 1-round record. If a fresh capture before the manifest shows different values, those values apply and the gates re-run.
+
+**Canonical destination:** `state/silent_bastion_arakane_ai_profile.md`.
+
+---
+
+## RUL-2026-10-16-008 — Division IV Combat Protocol is Debuff Prevent 100 / 3 rounds
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / Command Sanctum / player Combat Protocol
+**Status:** ACTIVE — the director delegated the pick ("pick a new combat protocol"); Fable selected option A.
+**Supersedes:** the advertised Clear Prevent protocol, which `questBuffTypes` does not support at `0651b039`.
+
+**Ruling:** Taking the Combat Protocol before Arakane gives the player **Debuff Prevent, power 100, 3 rounds**. It blocks Arakane's early debuffs (Hexweave, Scorching Rend, Worldbreaker follow-ups) for the opening rounds. It does not protect player buffs from Countermand's Clear, and it will normally have expired before The Last Directive and Extermination Order. Player-facing copy is a candidate; final wording is user-owned.
+
+**Rationale for the pick:** it is native-proven as a quest buff, matches the Sanctum's "nothing the Supreme Commander does can weaken you" fiction, and keeps the endgame threat intact. Option B (Immunity to Cleanse Prevent) usually expires before Final Stand, so it rarely matters; option C (Decreased Damage Taken 20) is generic mitigation and the least thematic.
+
+**Canonical destination:** `state/silent_bastion_design.md`; `state/silent_bastion_authoring/design/protocols.json` carries the value.
+
+---
+
+## RUL-2026-10-16-009 — RC1 accepted with warning copy
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / completion cache choice / repeat attempts
+**Status:** ACTIVE — director acceptance ("RC1: that's fine").
+
+**Ruling:** At `0651b039`, a player who leaves the completion cache choice unclaimed cannot complete a new expedition (`REWARD_CHOICE_PENDING_MESSAGE`); they must abandon it, losing its Beacon (finding RC1 on the reward proof). This is accepted as native behaviour. Mitigation is copy only: the completion and entry text tell the player to claim their cache before setting out again. No engine change is requested.
+
+**Evidence:** `claude/recipe-cache-native-proof-69za5u@b133d73286df9e48ba1015b21dd694c69c9ea090`, `docs/reviews/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_RESULTS.md`.
+
+**Canonical destination:** `state/silent_bastion_design.md`.

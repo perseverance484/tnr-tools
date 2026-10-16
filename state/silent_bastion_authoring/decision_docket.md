@@ -2,24 +2,9 @@
 
 Everything below needs the director. Items marked **LOCKED** are already ruled and are listed only so nothing gets re-opened by accident. Evidence paths are relative to the repository root. "Gate A/C/R…" means the authoring harness `harness/silent_bastion_authoring/` (results in its `results/`) or the reward proof on its own branch.
 
-## A. Blockers found by native tests (need a choice)
+## A. Native-test results still open
 
-1. **AR1 — Extermination Order can fire after Final Stand has expired.**
-   - **Cause.** At the pinned engine, `routers/combat.ts` runs `alignBattle`, which lowers effect rounds to 0 without pruning them, and then runs `performAIaction`. `has_effect` sums raw effect power and never checks `isEffectActive`. The authored rule 2 (`has_effect finalstand ≥1`) therefore passes at the first decision after Final Stand reaches 0 rounds.
-   - **Evidence.** Reproduced at the first-drafted cooldown 2 (gate A6, `AR.finalPhaseDecisions`).
-   - **Probe.** Cooldowns 2, 3, 5 and 6 can each hit the expired decision. **Cooldown 4** kept every probed cast inside an active Final Stand at start distances 4, 7 and 9, with 2 casts per window. Cooldown 7 gives 1 cast.
-   - **Options:**
-     - (a) **Accept candidate cooldown 4.** This is the current compiled value. The residual risk is sequences the probe did not cover.
-     - (b) Cooldown 7 or more: one ultimate per Final Stand.
-     - (c) Request an engine change so `has_effect` ignores expired effects. That is Lane A and not proposed here.
-     - (d) Accept the occasional post-expiry cast.
-2. **D5 Combat Protocol.** The advertised Clear Prevent is still not in `questBuffTypes` at `0651b039`. The compiled candidate carries a **labelled stand-in**, Debuff Prevent 100 / 3r. Options in `design/protocols.json`:
-   - A — Debuff Prevent 100 / 3r
-   - B — Immunity, blocking Cleanse Prevent, 3r
-   - C — Decreased Damage Taken 20 / 3r
-3. **RC1 — re-run with an unclaimed cache choice.** The new expedition cannot be completed and must be abandoned, losing its Beacon. This comes from the reward proof (F6). The candidate copy already warns "claim before you set out". Options: accept the warning copy, or take it to an engine ruling.
-4. **F3 — repeat battle income through recovery loops** (`economy_and_f3.md` §3). Options O1–O4. **O2** (`scaleGains: 0` on the 8 recovery battles) closes the cheapest loop without touching first-pass income. The compiled candidate leaves `scaleGains` unset.
-5. **SRC1 — Veilstep record vs the design.** The captured B09 record has Stealth **1 round** with cooldown 5. The roster and Arakane profile assume Stealth 2 rounds with cooldown 6. Arakane's stealth branch (rules 4, 5, 17, 18) works natively with the 1-round record (gate A6), but the "two stealth rounds" premise is wrong. Confirm whether the live record is 1 round, or whether the pool registry (stealth 2r) is current. Do not edit the shared jutsu.
+All five native-test blockers from the first run were ruled on 2026-10-16; see **F. Resolved**. Only the validator results below remain in this section.
 
 6a. **validate.py results** (`harness/silent_bastion_authoring/tools/check_validate.py`). These run on the validation-only manifest that `tools/compose.py` produces; it is **not** a push manifest. Seven errors remain, each documented:
    - **(i) Two-phase build requirement (law 17).** Arakane cannot equip the two exclusive jutsu by symbolic ref. They must be created first and then referenced by literal ID.
@@ -37,14 +22,10 @@ Everything below needs the director. Items marked **LOCKED** are already ruled a
    - Split Image fires once, on round 2 (`specific_round 2`). One clone appears and takes its own turns.
    - The roster's priority order (Bulwark below 65% ahead of Second Wind below 40%) is kept. When both are ready below 40%, Bulwark wins.
    - Confirm that order, or allow moving Second Wind first.
-8. **The Grand Marshal (12-move kit is a CANDIDATE).**
-   - Roster ratification is still pending.
-   - Stacked suppression: Ruin applies two DDG 60 / 3r effects, which stack multiplicatively under law 9, and Malediction adds IDT 60 + Seal. The DDG stack the player carried after 8 rounds is recorded in gate A5 (`GM.playerDDGStackAfter8`).
-   - Decide whether the double DDG stays.
-   - Combat Protocol for Division III is candidate **Seal Prevent 100 / 2r on the player**. The roster's "redundant" label is wrong (release plan §4.3).
+8. **The Grand Marshal.** Kit and priorities **RATIFIED** (RUL-2026-10-16-006), including the stacked suppression; see F. Combat Protocol for Division III is candidate **Seal Prevent 100 / 2r on the player**. The roster's "redundant" label is wrong (release plan §4.3).
 9. **Arakane (membership accepted).** These values are candidates:
    - The Last Directive: 40 AP, cooldown 99, IDG **30** / 5r.
-   - Extermination Order: **name not approved**; 60 AP, range 5, cooldown 4 (see AR1), Elemental Seal 100 / 2r, Cleanse Prevent 100 / 2r.
+   - Extermination Order: **name not approved**; 60 AP, range 5, Elemental Seal 100 / 2r, Cleanse Prevent 100 / 2r. Cooldown 4 is **approved** (RUL-2026-10-16-004).
    - Countermand: OTHER item, 40 AP, range 5, cooldown 6, Clear 100, PVE, reusable, drop chance 0.
    - Solar Bow (`ALqXVSL58QMfJ4DgoJ5Il`, 40 AP, range 5, cooldown 3) and Crossbow (`LbccOnzfsADLgTBPSHjKK`, 40 AP, range 3, cooldown 0). Both are **historic upstream seed rows**; a fresh read is needed.
    - Natively the full 20-rule order holds, including stealth → Countermand → weapons → move → end, and Copy → Countermand at 60 + 40 AP.
@@ -87,4 +68,15 @@ Everything below needs the director. Items marked **LOCKED** are already ruled a
 - Arakane defeat hard-fails the attempt.
 - Beacon charged at `startQuest`, once per attempt, never refunded.
 - Exactly one of two caches at quest level after completion.
-- Commander kit memberships (Grand Marshal's kit is a candidate) and The Last Directive's effects.
+- Commander kit memberships (Grand Marshal's kit ratified, RUL-2026-10-16-006) and The Last Directive's effects.
+
+## F. Resolved 2026-10-16 (rulings in `docs/RULINGS.md`)
+
+| Item | Decision | Ruling | Where it lands |
+| --- | --- | --- | --- |
+| AR1: Extermination Order on an expired Final Stand | Cooldown **4** (residual risk accepted; no engine change) | RUL-2026-10-16-004 | `design/commanders.json`; gate A6 probe |
+| F3: recovery-loop battle income | **O2**: `scaleGains: 0` on the 8 recovery battles | RUL-2026-10-16-005 | `design/entry_and_rewards.json`; gates C and I |
+| Grand Marshal kit and priorities | **Ratified** as translated | RUL-2026-10-16-006 | `design/commanders.json`; roster §4 |
+| SRC1: Veilstep record vs design | Use the captured record (**Stealth 1r, cooldown 5**); shared jutsu not edited | RUL-2026-10-16-007 | Arakane profile; gate A6 |
+| D5: Division IV Combat Protocol | Pick delegated; **Debuff Prevent 100 / 3r** (option A) | RUL-2026-10-16-008 | `design/protocols.json`, D5 text in `design/script.json` |
+| RC1: unclaimed cache blocks the next completion | **Accepted** with the "claim before you set out" entry copy | RUL-2026-10-16-009 | quest description in `design/script.json` |

@@ -21,11 +21,11 @@
 - B18 Apex Hunger (40AP self; IDG60%/99r + Stats25%/99r; use once early).
 - B07 Stolen Form (60AP, range4/CD6; Copy enemy enhancements).
 - S34 Purging Stance (40AP/CD5; Cleanse).
-- B09 Veilstep (40AP/CD6; Stealth2r).
+- B09 Veilstep (40AP/CD6; Stealth2r). **Superseded by RUL-2026-10-16-007:** use the captured record as-is (Stealth 1 round, cooldown 5); the stealth branch is natively validated with it.
 - EA04 Zephyr Lance (60AP, range5/CD6; flat Pierce against shields).
 - B13 Hexweave (60AP, range4/CD8; Damage40, IDT40%, reduced healing, reduced stats).
 - B17 Worldbreaker Chorus (60AP, range5/CD10; Damage70 + Stun2r).
-- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand).
+- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand). **Cooldown 4 approved** (RUL-2026-10-16-004, AR1 mitigation).
 - B27 Scorching Rend (60AP, range5/CD6; damage + wound + afterburn).
 - B05 Devouring Grasp (60AP, range5/CD6; damage + drain).
 - B26 Braced Strike (60AP, range5/CD5; damage + defensive buff).

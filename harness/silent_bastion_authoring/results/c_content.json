@@ -1,5 +1,5 @@
 {
- "assertions": 28,
+ "assertions": 29,
  "checks": [
   {
    "name": "QuestValidator accepts the compiled candidate (battlepyramid, choose, pick 1, Beacon entry)",
@@ -42,6 +42,10 @@
    "pass": true
   },
   {
+   "name": "scaleGains 0 on exactly the 8 recovery battles after QuestValidator parsing, unset on every other battle (RUL-2026-10-16-005)",
+   "pass": true
+  },
+  {
    "name": "all 40 battles are dialog-gated",
    "pass": true
   },
@@ -70,7 +74,7 @@
    "pass": true
   },
   {
-   "name": "D5 Combat Protocol is flagged BLOCKED (stand-in only)",
+   "name": "D5 Combat Protocol is the approved Debuff Prevent 100 / 3r on the player (RUL-2026-10-16-008)",
    "pass": true
   },
   {
@@ -149,7 +153,7 @@
     ]
    }
   },
-  "savedContentBytes": 128027,
+  "savedContentBytes": 128074,
   "startingEffects": [
    "b2.n.boss.alert:applyDebuffs:increasedamagetaken",
    "b2.n.boss.combat:applyBuffs:stunprevent",
