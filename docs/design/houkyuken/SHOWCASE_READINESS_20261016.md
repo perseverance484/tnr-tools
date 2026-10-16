@@ -1,6 +1,6 @@
 # Houkyuken (Hokyuken) — Adaptive Five-Icon Showcase Readiness
 
-**State:** **NOT READY.** Updated after director's five original images arrived on 2026-10-16: **5/5 original identities mapped and source bytes inspected, 5/5 directions approved, 2/5 exact replacement raw artworks approved, 0/5 processed WebPs, no final gallery.** No original pixels are committed as Git binaries. See `SOURCE_EVIDENCE.json` for exact JPEG decoding and SHA-256.
+**State:** **NOT READY / STAR-SILHOUETTE REASSESSMENT OPEN.** 5/5 original images inspected; earlier five directions historically approved but now under director silhouette review; **2/5 historical exact raw visual approvals** (Rising Star family-fit reopened), 0/5 processed WebPs, no gallery. **Morning Star candidate 1000018547.png NOT APPROVED.** No original pixels are committed as Git binaries. See `SOURCE_EVIDENCE.json` for exact JPEG decoding and SHA-256.
 **Pinned historical roster:** A-rank, Houkyuken, 5 public/0 hidden native jutsu as captured 2026-10-01/09-30. This is not a live refresh.
 **Workflow:** `docs/workflows/JUTSU_ICON_SHOWCASE.md`; individual visual and whole-family acceptance remain director-owned.
 
@@ -9,8 +9,8 @@
 | Grid slot | Captured exact jutsu name | Director original received | Raw replacement approved | Verified current WebP |
 | --- | --- | --- | --- | --- |
 | Row 1 left | Magnetic Pulse Strike | YES — `1000018531.png` (actual JPEG) | YES — exact raw `1000018545.png` (JPEG, SHA256 `2eb821b7…8114acde`) | NONE |
-| Row 1 center | Rising Star | YES — `1000018532.png` (actual JPEG) | YES — exact raw `1000018546.png` (JPEG, SHA256 `69170c3c…8a154b`) | NONE |
-| Row 1 right | Morning Star | YES — `1000018533.png` (actual JPEG) | NO | NONE |
+| Row 1 center | Rising Star | YES — `1000018532.png` (actual JPEG) | HISTORICAL YES — exact raw `1000018546.png` (SHA256 `69170c3c…8a154b`), family-fit reopened | NONE |
+| Row 1 right | Morning Star | YES — `1000018533.png` (actual JPEG) | NO — `1000018547.png` candidate held for new star silhouette | NONE |
 | Row 2 centered left | Houkyuken: Magnetic Assignment | YES — `1000018534.png` (actual JPEG) | NO | NONE |
 | Row 2 centered right | Houkyu Dance | YES — `1000018535.png` (actual JPEG) | NO | NONE |
 
@@ -20,7 +20,7 @@
 
 - **DONE:** director supplied five individual original references and their name order; exact decoded format (JPEG RGB despite .png extension), dimensions 1536×1536, byte counts and SHA-256 recorded. **Binary preservation in Git: NO**. Reattach the relevant individual original in each clean isolated-generation chat.
 - **DONE:** director approved Polar Flux family rendering and all five silhouette concepts. Magnetic Pulse Strike — Rail Pulse **and Rising Star — Ascending Reversal** individually approved as exact visually accepted raw JPEG sources on 2026-10-16; hashes and sizes verified in the evidence ledger. These approvals are NOT processed-art or gallery acceptance.
-- **PENDING:** three more exact raw replacement approvals. Next: **Morning Star — Ferrostar Crush**, see `MORNING_STAR_ISOLATED_BRIEF_20261016.md` for approved isolated composition and exactly two individual reference images.
+- **PAUSED:** the director requested clear **star-shaped chakra** for Rising Star and Morning Star, not further rubble-and-impact visuals. The old `MORNING_STAR_ISOLATED_BRIEF_20261016.md` is suspended. See `STAR_SILHOUETTE_REASSESSMENT_20261016.md` for unapproved proposal: cyan five-point rising star versus scarlet eight-ray falling star. Await director confirmation before a revised isolated generation or superseding the previously approved Rising Star raw.
 - **PENDING:** five spec-derived square lossless WebP exports, actual codec/dimensions/bytes/hash, and thumbnail/pairwise review at 125/64/32.
 - **BLOCKED mechanical preflight:** known shared ICON alpha rule conflicts with director-allowed opaque jutsu backgrounds until reviewed owner fix or evidence-backed exception. Never call preflight PASS merely because visual approval or byte size succeeds.
 - **PENDING:** deterministic **3 + 2 centered** gallery assembled from the *actual five approved processed WebPs*, inspected on desktop/phone, and **separately accepted** by the director.
