@@ -1,6 +1,6 @@
 {
   "schema": "tnr.vaporia.jutsu-icon-studio-evidence/1",
-  "status": "DIRECTOR_PALETTE_CONFIRMED_AZURE_EXACT_RAW_VISUAL_ACCEPTED_SURFING_NEXT_EXPORTS_PENDING",
+  "status": "AZURE_AND_SURFING_DIRECTOR_APPROVED_EXACT_RAW_DROWNING_NEXT_EXPORTS_PENDING",
   "created_on": "2026-10-15",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/vaporia-jutsu-art-studio-20261015",
@@ -193,8 +193,8 @@
       "historical_unsupported_tags": [
         "move"
       ],
-      "direction": "TRAVELING_WAVE_NO_DRAGON",
-      "prior_studio_feedback": "Prior generated image was too similar to the dragon motif; direction rejected/rework required.",
+      "direction": "SCALDING_CREST_TRAVELING_WAVE_RAW_VISUAL_ACCEPTED",
+      "prior_studio_feedback": "Original draft was too dragon-like and rejected. New Scalding Crest raw source approved by director on 2026-10-15. Processed export and preflight pending.",
       "original_icon_source": {
         "filename": "03_surfing_strike_original.jpg",
         "decoded_format": "JPEG",
@@ -210,13 +210,39 @@
         "mode": "RGB",
         "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "surfing_strike_approved_raw_20261015_sha321d7c69.jpg",
+          "original_attachment_filename": "1000018503.png",
+          "source_kind": "exact user-uploaded raw image after isolated Surfing Strike generation; conversation-source attachment; corrected-extension local exact-byte copy",
+          "decoded_format": "JPEG",
+          "mime": "image/jpeg",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 714708,
+          "sha256": "321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c",
+          "git_binary_pinned": false,
+          "source_bytes_preserved": true,
+          "visually_approved": true,
+          "approval_date": "2026-10-15",
+          "approval_quote": "Approved. Next",
+          "preliminary_thumbnail_comparison": "125px / 64px / 32px raw JPEG: broad crest distinguishable from Azure dragon; small spray detail is expendable; export-stage QC still pending"
+        }
+      ],
       "current_director_raw_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "surfing_strike_approved_raw_20261015_sha321d7c69.jpg",
+        "source_sha256": "321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c",
+        "quote": "Approved. Next",
+        "verified": true,
+        "confirmed_date": "2026-10-15",
+        "original_attachment_filename": "1000018503.png",
+        "approval_context": "Director uploaded the newly generated Scalding Crest image in the persistent Art Studio and expressly approved it, then requested the next subject. Approval is bound to the exact JPEG bytes, not filename extension or a future export.",
+        "production_export_approved": false,
+        "git_binary_pinned": false
       },
       "current_processed_export": {
         "filename": null,
@@ -239,7 +265,7 @@
         "increasedamagetaken"
       ],
       "historical_unsupported_tags": [],
-      "direction": "COLLAPSING_PRESSURE_SUBMERSION_NOT_WAVE_SURF",
+      "direction": "CRUSHING_UNDERTOW_VERTICAL_COLLAPSE_NEXT_ISOLATED",
       "prior_studio_feedback": "Existing original supplied in earlier conversation; no revised icon approval confirmed.",
       "original_icon_source": {
         "filename": "04_drowning_strike_original.jpg",
@@ -323,7 +349,7 @@
       "showcase_status": "NOT_READY"
     }
   ],
-  "accepted_raw_count": 1,
+  "accepted_raw_count": 2,
   "accepted_current_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -341,12 +367,12 @@
   "live_game_writes": 0,
   "production_uploads": 0,
   "notes": [
-    "Director's exact response 'Confirmed. Approved.' (2026-10-15) confirms recovered Azure candidate as earlier accepted current raw visual, locks palette and approves next isolated Surfing Strike target. This is 1/5 raw visual approvals, not a processed or live-game approval.",
-    "All 5 historical game-original JPEG images and 2 exploratory candidate JPEGs were recovered byte-for-byte from user Library and hashed. Their previous source filenames had .webp/.png extensions despite JPEG decoder; bundle copies use .jpg. User Library identifiers and source binaries were NOT committed to Git.",
-    "Scorch candidate is still exploratory; previous dragon-like Surfing revision remains rejected and its bytes were not recovered; Drowning and Liquid Ember not begun.",
-    "A new isolated Surfing Strike generation session must receive exactly two individual images: recovered Surfing original as identity-only and confirmed Azure as style/material-only. Studio itself generates no images.",
-    "General ICON alpha conflict remains PRE-FLIGHT-BLOCKED for full-bleed opaque jutsu icons until independently reviewed validator/spec correction. No generated icons, processed exports, showcase, game reads, or writes.",
-    "N=5 is pinned historical 2026-10-01 roster, not an automatic A-rank count or an assertion of current live records."
+    "2/5 current raw visual approvals are exact-source-bound: Azure Dragon Palm JPEG SHA 0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e and Surfing Strike JPEG SHA 321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c. Director approval dates 2026-10-15.",
+    "Surfing Strike exact approved upload was named 1000018503.png but decodes JPEG RGB 1536×1536, 714708 bytes. Preserved a bit-exact .jpg-named local copy, no transcode. Binaries not Git-pinned.",
+    "Raw side-by-side 125/64/32 of Azure and Surfing was reviewed; traveling crest and dragon remain distinct; final processed-file comparison pending.",
+    "Historical originals of all five jutsu and prior Azure/Scorch candidates were recovered/hashes recorded. Scorch exploratory candidate remains unapproved, Drowning and Liquid Ember have no raw replacement approved.",
+    "Drowning Strike is the next roster-order isolated generation: original Drowning is identity-only; accepted Surfing is material/style-only. Avoid its wave crest, Azure's dragon and Liquid Ember's shell.",
+    "Export and alpha mechanical preflight still NOT RUN; opaque jutsu designs remain under known shared ICON alpha conflict. No final gallery, production WebPs, or game reads/writes."
   ],
   "director_checkpoint": {
     "date": "2026-10-15",
@@ -385,5 +411,26 @@
       "surfing_style_material_only": "candidate_azure_dragon_chakra_unverified.jpg"
     },
     "note": "Local paths do not persist across chats. Attach the two verified individual source image bytes in a new isolated-generation conversation; hashes in this JSON alone do not pass images to a generator."
+  },
+  "next_isolated_target": "Drowning Strike",
+  "surfing_approval_checkpoint": {
+    "date": "2026-10-15",
+    "director_quote": "Approved. Next",
+    "jutsu": "Surfing Strike",
+    "jutsu_id": "M-iPxOupEp35-KptpG4DV",
+    "source_attachment_filename": "1000018503.png",
+    "actual_encoding": "JPEG",
+    "decoder_mode": "RGB",
+    "width_px": 1536,
+    "height_px": 1536,
+    "bytes": 714708,
+    "sha256": "321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c",
+    "preserved_exact_source_filename": "surfing_strike_approved_raw_20261015_sha321d7c69.jpg",
+    "binary_storage": "user conversation upload and exact local copy; not committed in Git",
+    "approval_scope": "exact raw visual artwork only",
+    "thumbnail_comparison_status": "PROVISIONAL_ACCEPTABLE_RAW_125_64_32_NOT_EXPORT_QC",
+    "processed_export": null,
+    "production_preflight": "NOT_RUN",
+    "next_jutsu": "Drowning Strike"
   }
 }
