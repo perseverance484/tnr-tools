@@ -1,6 +1,6 @@
 {
   "schema": "tnr.houkyuken.jutsu-icon-art-studio-evidence/1",
-  "status": "FAMILY_DIRECTION_APPROVED_RAW_1_OF_5",
+  "status": "FAMILY_DIRECTION_APPROVED_RAW_2_OF_5",
   "created_on": "2026-10-16",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/houkyuken-jutsu-art-studio-20261016",
@@ -149,13 +149,44 @@
         "reference_role": "IDENTITY_ONLY",
         "origin": "Director-uploaded conversation attachment, 2026-10-16"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "1000018546.png",
+          "origin": "Director-uploaded generated candidate in art studio conversation, 2026-10-16",
+          "actual_decoded_mime": "image/jpeg",
+          "format": "JPEG",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 599262,
+          "sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b",
+          "git_binary_pinned": false,
+          "visual_state": "APPROVED_DIRECTOR_2026_10_16",
+          "approved_quote": "Approved, next",
+          "material_reference_role": "STYLE_MATERIAL_ONLY_FOR_FUTURE_HOUKYUKEN",
+          "source_file_access": "Conversation upload; not committed to Git; reattach exact individual image."
+        }
+      ],
       "current_raw_director_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "1000018546.png",
+        "source_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b",
+        "quote": "Approved, next",
+        "verified": true,
+        "verified_on": "2026-10-16",
+        "actual_decoded_mime": "image/jpeg",
+        "decoded_format": "JPEG",
+        "decoded_mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 599262,
+        "git_binary_pinned": false,
+        "source_provenance": "Director-uploaded conversation attachment — generated Rising Star candidate. Exact bytes decoded and SHA-256 verified.",
+        "verdict": "VISUAL_APPROVED_ONLY_NO_WEBP_OR_PREFLIGHT"
       },
       "current_processed_export": {
         "filename": null,
@@ -333,7 +364,7 @@
       }
     }
   ],
-  "accepted_raw_count": 1,
+  "accepted_raw_count": 2,
   "accepted_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -372,7 +403,8 @@
     "Studio never generates images itself; use one isolated fresh generation thread per jutsu once director approves direction and attached exact references.",
     "Opaque jutsu background shared ICON preflight conflict is known and remains independently blocked; no upload-ready, preflight-PASS, live-art or publishing claim.",
     "2026-10-16: Director approved the Polar Flux family style and all five proposed silhouette directions; exact current Magnetic Pulse Strike image 1000018545.png received and visually accepted (JPEG RGB, 1536×1536, 543,073 bytes). This image may be a STYLE/MATERIAL reference only, never a Rising Star composition reference.",
-    "Pending: retained Git copy of original raw art binaries is not present, current processed WebPs remain 0/5, ICON generic opaque-alpha preflight mismatch remains blocked, and no whole-family acceptance. This approval applies to exact current raw only."
+    "Pending: retained Git copy of original raw art binaries is not present, current processed WebPs remain 0/5, ICON generic opaque-alpha preflight mismatch remains blocked, and no whole-family acceptance. This approval applies to exact current raw only.",
+    "2026-10-16: Rising Star exact raw source 1000018546.png visually approved by director, independently inspected as JPEG RGB 1536×1536 599,262 bytes SHA-256 69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b. Use for Houkyuken style/material only when generating Morning Star; do not reuse upward lance, bright centerline or base explosion."
   ],
   "director_originals_received_current_session": 5,
   "originals_inspected_on": "2026-10-16",
@@ -405,16 +437,21 @@
       "date": "2026-10-16",
       "quote": "Approved. Next",
       "scope": "Exact source visual acceptance: Magnetic Pulse Strike — Rail Pulse, director-attached 1000018545.png, SHA-256 2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde. Does not imply export/preflight/gallery acceptance."
+    },
+    {
+      "date": "2026-10-16",
+      "quote": "Approved, next",
+      "scope": "Exact source visual acceptance: Rising Star — Ascending Reversal, director-attached 1000018546.png. SHA-256 69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b. No processed/export, preflight, showcase or gameplay action approved."
     }
   ],
   "next_isolated_target": {
-    "name": "Rising Star",
-    "id": "NB5sGddr-RgH9eEp2L8jL",
-    "direction": "Ascending Reversal",
+    "name": "Morning Star",
+    "id": "G2vuPJTsyGHctsLU_g59x",
+    "direction": "Ferrostar Crush",
     "status": "DIRECTION_APPROVED_GENERATION_PENDING",
-    "original_reference": "1000018532.png",
-    "original_ref_sha256": "e29a273fe881d149bb6f8bd3b8fdabf5a58d9d958271f3d72480b581e6783603",
-    "approved_family_style_reference": "1000018545.png",
-    "style_ref_sha256": "2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde"
+    "original_reference": "1000018533.png",
+    "original_ref_sha256": "d6be16cc1fd8a6d6cd942c8c37ec741e28e54077f94c30832717c9496ef101bf",
+    "approved_family_style_reference": "1000018546.png",
+    "style_ref_sha256": "69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b"
   }
 }
