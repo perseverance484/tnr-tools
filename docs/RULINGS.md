@@ -1159,3 +1159,39 @@ Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint,
 **Still open:** Beacon entry timing (latest native pin charged at *start*, contradicting older first-battle wording), Arakane Combat Protocol stand-in, all cache item outputs/economics and the usual manifest/source/readback/publishing gates.
 
 **Canonical destinations:** `state/silent_bastion_design.md`, `state/silent_bastion_release_plan.md`, `state/prompt_silent_bastion_complete_authoring.md` (updated on `chatgpt/silent-bastion-alt99-approval-20261016`). Tested topology remains the exact Fable graph file at the frozen proof SHA; no modifications to that test fixture are authorized by this record.
+
+---
+
+## RUL-2026-10-16-001 — Silent Bastion launches the recipe-aligned cache pilot with a one-of-two completion choice
+
+**Date:** 2026-10-16  
+**Domain:** Recipe-aligned reward cache design / Silent Bastion  
+**Status:** ACTIVE DESIGN DIRECTION; reward economy and graph selection still open  
+**Supersedes:** none; existing hunting/gathering chests, three newer crafting caches, and Ghost Ship Skyglass rewards remain unchanged.
+
+**Ruling:** The director approved introducing **two new native weighted reward cache families** initially in the Silent Bastion: an **Arsenal** cache oriented toward meaningful equipment recipes, and a **Research** cache oriented toward crystal/imbuement recipes. These are design-category names, not locked final item names/art. Unlike the old independent-material chest lines, one selected weighted entry should deliver a coherent group of ingredients linked to a verified craft recipe rather than a loose assortment of unrelated materials. The director also approved **player reward selection**: on successful Pyramid completion, the player chooses **exactly one** of the two cache categories. Opening that selected cache then rolls recipe-aligned contents. No mid-division or retry-loop cache payouts are approved.
+
+**Technical interpretation, not a new ruling:** At upstream `studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb`, the quest choice feature reads `content.reward` at quest completion when `content.rewardMode:"choose"`; direct `win_quest` objective reward lines do not enter that choice and would be granted unconditionally. Implementing the approved experience therefore requires two cache item cards in quest-level `content.reward.reward_items` and `content.rewardPickCount:1` (subject to full Fable offline engine-native save/claim/Pyramid tests). Native weighted-cache contents are a separate item effect contract, `noncombatconsumereward` with `rewardMode:"weightedCache"` and a weighted bundle table.
+
+**Not ruled:** exact craft outputs and mix, complete recipes versus fractional progress, probabilities/roll counts, quantities, rarities, item tradability, pacing/economy, Beacon cost or timing, cache art and final wording, publication, and any replacement of existing chests. The selected 99-node Silent Bastion recovery graph still requires a director choice between Fable's three native-tested remediation options; `alt99_f4gate` is the design recommendation but **has not been approved by this ruling**. No game writes, source alterations, or manifest/publish authorization follows from this decision.
+
+**Canonical destination:** `docs/design/RECIPE_ALIGNED_REWARD_CACHES_DISCOVERY_20261016.md` owns the bounded pilot design on the ChatGPT reward-cache design branch. Existing `state/silent_bastion_design.md` and the native proof report remain owners of their respective quest design/evidence; generated game contracts remain contract evidence.
+
+---
+
+## RUL-2026-10-16-003 — Silent Bastion Beacon consumed at expedition start
+
+**Date:** 2026-10-16
+**Domain:** Ghost Ship: The Last Directive / Silent Bastion / entry-item charge timing
+**Status:** ACTIVE — explicit director approval of current native engine behavior.
+**Supersedes:** only the timing statements in RUL-2026-10-15-001 and the earlier Bastion design/authoring drafts which said the Beacon is consumed on the first initiated battle. All other Beacon-once/retry/failure rules remain.
+
+**Ruling:** When the player **starts** the Battle Pyramid expedition, consume **one Skyglass Signal Beacon**, even if the player abandons before initiating their first battle. The Beacon is consumed **exactly once per new attempt**, with **no refund** on failure or abandonment and **no additional charge** when retrying a division. A player without the required Beacon must be refused entry before isolation. The director approved this in the same confirmation as `alt99_f4gate`, after Fable's B1 finding and independent review.
+
+**Player-facing consequence:** Entry copy must clearly disclose the cost *before* run-start confirmation. Approved factual intent (final narrative prose separately user-owned): "Starting this expedition consumes one Skyglass Signal Beacon. Failure or abandonment will not refund it. Retrying a division costs no additional Beacon."
+
+**Source evidence:** `studie-tech/TheNinjaRPG@13d40c4c1509ecf44262aba1b5120266011ea786`, `app/src/server/api/routers/quests.ts` (`startQuest` transactional entry charge) and `app/src/server/utils/questEntry.ts` (`payQuestEntryAtStart`). Fable proof `claude/silent-bastion-budget-validation-69za5u@74eeb328f05d4258056b0a1c531619ffcf852ce3`, finding B1 in `docs/reviews/SILENT_BASTION_CONDENSED99_NATIVE_RESULTS.md`. Offline proof was conducted on the pinned upstream version, not fresh live state; re-test compatibility if the implementation pins a later engine commit.
+
+**Canonical destination:** `state/silent_bastion_design.md`, `state/prompt_silent_bastion_complete_authoring.md` and the integrated Fable production notes; recipe-cache design should cite this timing without implying it settles drop sources/probabilities.
+
+**Boundary:** No game-engine edit, no live-game requests/writes, no credentials, and no publishing authorization. Item drop rate, Beacon rarity, exact wording and player-entry UX remain separate acceptance gates.
