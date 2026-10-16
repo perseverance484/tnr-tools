@@ -1,6 +1,6 @@
-# Liquid Ember Shell — Art Direction & Isolated Generation Draft
+# Liquid Ember Shell — Director-Approved Art Direction & Isolated Generation Brief
 
-**Status:** PROPOSED FOR DIRECTOR REVIEW (not yet a director-approved raw composition or image).
+**Status:** DIRECTION APPROVED (2026-10-16) — raw candidate NOT YET GENERATED or accepted. Director approved *Living Crucible* with the supernatural pressure-furnace refinement, replying **"Yes, approved"** to the explicit direction-review question. This is composition/direction approval ONLY; no image is approved by this decision.
 **Initialized:** 2026-10-16 · **Lead:** Art Director; **support:** Image Production once director confirms.
 **Workstream:** Vaporia — historic five public native jutsu (A-rank bloodline).
 **Target:** Liquid Ember Shell · native B-rank · jutsu ID `fWb24FYrbTqYvE9GIEA49` · game field `jutsu.image`.
@@ -13,13 +13,13 @@ Historical pinned kit (2026-10-01): supported **Lifesteal**, **self Increase Dam
 
 The original current-game icon places a fighter inside an orange and blue chakra ring. Treat the **enchanted heat-water enclosure** as the sole identity to retain, not the person or the flat circular border.
 
-## Proposed concept — Living Crucible
+## Director-approved concept — Living Crucible (pressure furnace)
 
 **Dominant silhouette: ONE monumental, self-contained globe of superheated azure water**, with an incandescent molten-orange **core visibly suspended inside**. The external membrane is a thick, dimensional, irregularly layered **liquid shell**, not a thin outline circle, bubble icon, painted emblem, glass marble, faceted crystal, fixed metal shield or sky-blue ornament.
 
-Make the form read as an actual volume, not a ring: broad overlapping cobalt and luminous azure sheets sweep around the interior; the water has visible thickness and pressure. A few curved translucent gaps expose the brilliant molten-orange interior. The membrane may have one larger vertical fold or seam showing heat escaping, but **the sphere remains coherent and intact**. Restrict off-sphere splashes, spikes and small droplets.
+Make the form read as an actual volume, not a ring: **two or three enormous, overlapping cobalt and luminous-azure water sheets** sweep around the interior, creating a slightly asymmetric, turbulent enclosure; the water has visible thickness and pressure. A few curved translucent gaps expose the brilliant molten-orange interior. The membrane may have one larger vertical fold or seam showing heat escaping, but **the sphere remains coherent and intact**. Restrict off-sphere splashes, spikes and small droplets. **The water membrane contains extraordinary offensive power like a living supernatural pressure furnace; it is not a protective ward or defensive shield.**
 
-**Single supporting cue:** inside the thick water shell, molten-gold fire-chakra forms a dense living reservoir. Its light spills through narrow pressure seams; some white-hot vapor breathes from the upper shell edge. Orange should occupy a clearly readable internal mass, unlike Drowning's **small bottom-center pressure ember**.
+**Single supporting cue:** inside the thick water shell, molten-gold fire-chakra forms a dense living reservoir. Its light spills through narrow pressure seams; **one concentrated white-hot steam vent** breathes from the upper shell edge. Orange should occupy a clearly readable internal mass, unlike Drowning's **small bottom-center pressure ember**.
 
 **Thumbnail criterion:** at 125/64/32px this is **one full, contained blue-and-orange spherical volume**, instantly distinct from a dragon, traveling crest, downward funnel or punching impact. A simple readable central silhouette matters more than microscopic surface detail.
 
@@ -32,7 +32,7 @@ Make the form read as an actual volume, not a ring: broad overlapping cobalt and
 - Coherent supernatural **liquid water**, not ice crystals, reflective glass, armor segments or watery dragon anatomy.
 - Controlled edges/glow, high-volume water texture, dark/light hierarchy consistent with the approved Vaporia family. Designed opaque square background is visually allowed; separate shared ICON-alpha preflight issue remains unresolved.
 
-## References — attach exactly two individual verified files after direction acceptance
+## References — attach exactly two individual verified files in the new isolated generation session
 
 1. **Original Liquid Ember Shell — IDENTITY ONLY.** Actual JPEG RGB, 1536×1536, SHA-256 `995b489342d97896dcacc4126cf5fde275340063d1e0b0fe7334247f0ae87a52`. Working local filename `liquid_ember_shell_original_IDENTITY_ONLY.jpg`. Preserve the blue surrounding chakra / bright ember interior identity. **Never reproduce the character/fists/legs, flat aura ring, old scene or clothing.**
 2. **Approved Drowning Strike — STYLE/MATERIAL ONLY.** Actual JPEG RGB, 1536×1536, 683,098 bytes, SHA-256 `fb25dc2f37bd15eb48960c5ace6847ebb1aa6dfecec37495d2f616cefb35262c`. Working local filename `drowning_strike_approved_STYLE_MATERIAL_ONLY.jpg`. Borrow the cobalt/electric-azure boiling-water material, molten energy and dark field. **Never borrow its downward V/funnel, angular converging walls, bottom ember impact or inward plunge**.
@@ -46,10 +46,10 @@ Do not provide any collage, multiple-icon gallery, other jutsu images, source UR
 
 ## Production boundary and decision gate
 
-1. Director confirms or adjusts the **Living Crucible** concept and silhouette first.
-2. If accepted, open one fresh **isolated generation conversation** with the two attached individual image bytes and the final brief. Generate exactly **ONE square raw candidate**.
+1. **DIRECTION APPROVED 2026-10-16.** The monumental, slightly asymmetric, enclosed water crucible and substantial orange molten interior are locked as the next visual-generation target. This direction approval does NOT approve any generated raw art.
+2. Open one fresh **isolated generation conversation** with the two individual original image bytes attached and this brief. Generate exactly **ONE square raw candidate**.
 3. Director accepts/rejects the single candidate. Only the exact approved raw bytes may be imported to the persistent studio, SHA-bound.
 4. Studio then moves to Scorch Break, whose unresolved hand anatomy has not been accepted.
 5. No image generation in this Art Studio, no automatic WebP packaging, no final showcase until all five current source approvals, no live-game requests or writes.
 
-**Status: DIRECTION DRAFT; NO LIQUID EMBER RAW ART YET APPROVED.**
+**Status: DIRECTOR-APPROVED DIRECTION; GENERATION PENDING; NO LIQUID EMBER RAW ART YET APPROVED.**
