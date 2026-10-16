@@ -1,6 +1,6 @@
 {
   "schema": "tnr.vaporia.jutsu-icon-studio-evidence/1",
-  "status": "AZURE_SURFING_DROWNING_EXACT_RAW_ACCEPTED_LIQUID_EMBER_DIRECTION_REVIEW_EXPORTS_PENDING",
+  "status": "FOUR_OF_FIVE_EXACT_RAW_APPROVALS_SCORCH_ONLY_PENDING_EXPORTS_ZERO_SHOWCASE_NOT_READY",
   "created_on": "2026-10-15",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/vaporia-jutsu-art-studio-20261015",
@@ -129,7 +129,7 @@
         "reflect"
       ],
       "historical_unsupported_tags": [],
-      "direction": "SCORCH_PRESSURE_WITH_OPTIONAL_REFINED_HAND",
+      "direction": "FURNACE_KNUCKLE_MOLTEN_CHKARA_FIST_PROPOSED_NOT_DIRECTOR_LOCKED",
       "prior_studio_feedback": "Director liked one explored direction; hand-quality improvement requested; no exact image acceptance verified.",
       "original_icon_source": {
         "filename": "02_scorch_break_original.jpg",
@@ -346,8 +346,8 @@
         "afterburn"
       ],
       "historical_unsupported_tags": [],
-      "direction": "LIVING_CRUCIBLE_ENCLOSED_MOLTEN_CORE_DIRECTION_DRAFT_PENDING_DIRECTOR",
-      "prior_studio_feedback": "Existing original supplied in earlier conversation; no revised icon approval confirmed.",
+      "direction": "LIVING_CRUCIBLE_ENCLOSED_MOLTEN_CORE_EXACT_RAW_VISUAL_ACCEPTED",
+      "prior_studio_feedback": "Director approved Living Crucible direction on 2026-10-16 and then exact newly generated raw image with 'Approved, next'. No actor, strong blue layered sphere around orange molten reservoir.",
       "original_icon_source": {
         "filename": "05_liquid_ember_shell_original.jpg",
         "decoded_format": "JPEG",
@@ -363,13 +363,47 @@
         "mode": "RGB",
         "source_kind": "Library-backed historical image reference copied byte-identically to session-local recovery bundle; exact jutsu identity inferred from source image/order"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "liquid_ember_shell_approved_raw_20261016_shac26365d1.jpg",
+          "original_attachment_filename": "1000018509.png",
+          "decoded_format": "JPEG",
+          "mime": "image/jpeg",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 759105,
+          "sha256": "c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4",
+          "source_kind": "conversation upload of isolated Liquid Ember Shell generation result; corrected-extension local byte-identical copy",
+          "git_binary_pinned": false,
+          "source_bytes_preserved": true,
+          "visually_approved": true,
+          "approval_date": "2026-10-16",
+          "approval_quote": "Approved, next",
+          "preliminary_thumbnail_comparison": "Raw 125/64/32: enclosed spherical water mass/orange molten center clearly different from Azure dragon, Surfing crest and Drowning compression; processed-file QC still pending."
+        }
+      ],
       "current_director_raw_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "liquid_ember_shell_approved_raw_20261016_shac26365d1.jpg",
+        "source_sha256": "c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4",
+        "quote": "Approved, next",
+        "verified": true,
+        "confirmed_date": "2026-10-16",
+        "original_attachment_filename": "1000018509.png",
+        "decoded_actual_mime": "image/jpeg",
+        "decoded_format": "JPEG",
+        "decoded_mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 759105,
+        "approval_context": "After approved Living Crucible direction, the director uploaded one exact isolated-generated Liquid Ember Shell candidate and explicitly accepted that version. File extension .png mismatches JPEG bytes.",
+        "production_export_approved": false,
+        "git_binary_pinned": false
       },
       "current_processed_export": {
         "filename": null,
@@ -383,7 +417,7 @@
       "showcase_status": "NOT_READY"
     }
   ],
-  "accepted_raw_count": 3,
+  "accepted_raw_count": 4,
   "accepted_current_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -401,13 +435,12 @@
   "live_game_writes": 0,
   "production_uploads": 0,
   "notes": [
-    "Current exact raw visual approvals: Azure (SHA 0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e), Surfing (SHA 321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c), and Drowning (SHA fb25dc2f37bd15eb48960c5ace6847ebb1aa6dfecec37495d2f616cefb35262c). Approval is raw image only; sources not pinned as Git binaries.",
-    "Drowning uploaded source 1000018508.png actually contains JPEG RGB 1536x1536; 683098 bytes. Bit-identical local corrected-extension copy saved as drowning_strike_approved_raw_20261016_shafb25dc2f.jpg. No image recompression in the accepted copy.",
-    "Several earlier Drowning attempts were revised; none is approved, and their original bytes/hashes were not ingested. Only the hash-bound final image holds director approval.",
-    "Raw side-by-side 125/64/32 compared approved Azure dragon, Surfing lateral wave and Drowning vertical compression; strong large-scale distinction; processed WebP/family QC still pending.",
-    "Liquid Ember Shell (roster #5) is the next proposed isolated subject, with direction draft Living Crucible subject to director approval. Scorch Break (#2) also remains unapproved and requires hand-quality rework/decision.",
-    "Liquid Ember original file is recovered historical current-game reference only, not new-art approval. Drowning is style/material reference only for the proposed next isolated generation.",
-    "Art skill generic ICON preflight remains unresolved for opaque jutsu backgrounds, no processed exports / approved showcase / live-game read or write."
+    "4/5 exact approved raw images: Azure 0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e; Surfing 321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c; Drowning fb25dc2f37bd15eb48960c5ace6847ebb1aa6dfecec37495d2f616cefb35262c; Liquid Ember c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4.",
+    "Liquid Ember exact user upload 1000018509.png actually JPEG RGB 1536x1536 759105 bytes, SHA-256 confirmed and byte-identical local corrected-extension copy saved. Director quote: 'Approved, next' (2026-10-16); approved RAW VISUAL only. None of the approved image binaries are Git-pinned.",
+    "Preliminary raw family 125/64/32 review of approved four shows distinct dragon, traveling wave, downward funnel and enclosed sphere; final QC from processed WebPs remains unperformed.",
+    "Scorch Break alone remains without exact raw acceptance. Earlier unapproved fist image is exploratory only; user preferred punch concept but wanted hand anatomy improved. Proposed Furnace Knuckle close-up molten-chakra fist requires director confirmation for hand exception.",
+    "Use Scorch original as identity-only and approved Liquid Ember as style/material-only in next isolated generation; do not condition on unapproved exploratory Scorch image or a showcase.",
+    "No processed WebPs (0/5), preflight NOT RUN with shared ICON opaque-alpha conflict unresolved, no deterministic family showcase; live game requests/writes 0/0."
   ],
   "director_checkpoint": {
     "date": "2026-10-15",
@@ -447,7 +480,7 @@
     },
     "note": "Local paths do not persist across chats. Attach the two verified individual source image bytes in a new isolated-generation conversation; hashes in this JSON alone do not pass images to a generator."
   },
-  "next_isolated_target": "Liquid Ember Shell",
+  "next_isolated_target": "Scorch Break",
   "surfing_approval_checkpoint": {
     "date": "2026-10-15",
     "director_quote": "Approved. Next",
@@ -468,7 +501,7 @@
     "production_preflight": "NOT_RUN",
     "next_jutsu": "Drowning Strike"
   },
-  "next_direction_status": "DRAFT_AWAITING_DIRECTOR_ART_DIRECTION_CONFIRMATION",
+  "next_direction_status": "PROPOSED_HAND_ANATOMY_EXCEPTION_DIRECTOR_CONFIRMATION_PENDING",
   "drowning_approval_checkpoint": {
     "date": "2026-10-16",
     "raw_director_quote": "Took a few tries but this one is approved.",
@@ -488,5 +521,26 @@
     "git_binary_pinned": false,
     "prior_attempts": "earlier candidates superseded and unapproved; exact hashes/count unavailable",
     "preliminary_family_qc": "At raw 125/64/32, Drowning vertical collapse distinguishes from accepted Surfing horizontal crest and Azure dragon; exported WebP inspection still required."
+  },
+  "liquid_ember_approval_checkpoint": {
+    "date": "2026-10-16",
+    "director_quote": "Approved, next",
+    "source_attachment": "1000018509.png",
+    "actual_mime": "image/jpeg",
+    "mode": "RGB",
+    "dimensions": [
+      1536,
+      1536
+    ],
+    "bytes": 759105,
+    "sha256": "c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4",
+    "approved_raw_copy_filename": "liquid_ember_shell_approved_raw_20261016_shac26365d1.jpg",
+    "source_binary_git_pinned": false,
+    "raw_family_thumb_qc": "preliminary side by side raw at 125/64/32 with 3 previously approved jutsu, clear distinct globe; processed WebP family QA not run",
+    "next_subject": "Scorch Break",
+    "next_direction": "Furnace Knuckle / molten-chakra fist hand anatomy PROPOSED pending director approval",
+    "processed_export_count": 0,
+    "preflight_status": "NOT_RUN",
+    "showcase": "NOT_READY"
   }
 }
