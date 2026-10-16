@@ -1,6 +1,6 @@
 {
   "schema": "tnr.vaporia.jutsu-icon-studio-evidence/1",
-  "status": "FOUR_OF_FIVE_EXACT_RAW_APPROVALS_SCORCH_ONLY_PENDING_EXPORTS_ZERO_SHOWCASE_NOT_READY",
+  "status": "ALL_FIVE_EXACT_RAW_VISUAL_APPROVALS_WEBP_EXPORTS_PENDING_SHOWCASE_NOT_READY",
   "created_on": "2026-10-15",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/vaporia-jutsu-art-studio-20261015",
@@ -129,8 +129,8 @@
         "reflect"
       ],
       "historical_unsupported_tags": [],
-      "direction": "FLASH_BOIL_RUPTURE_PROPOSED_FURNACE_KNUCKLE_WITHDRAWN",
-      "prior_studio_feedback": "Fist concept explored; director initially requested hand improvement and subsequently approved Furnace Knuckle direction, but then explicitly withdrew it: 'I dont like the fist direction anymore, propose new direction'. Earlier fist art remains unapproved. New thermal water rupture proposal pending director approval; NO HANDS.",
+      "direction": "FLASH_BOIL_RUPTURE_APPROVED_NO_ANATOMY",
+      "prior_studio_feedback": "Earlier fist/Furnace Knuckle concept explicitly withdrawn. Director approved non-anatomical Flash-Boil Rupture direction and, on 2026-10-16, this exact raw image. No earlier Scorch hand art promoted.",
       "original_icon_source": {
         "filename": "02_scorch_break_original.jpg",
         "decoded_format": "JPEG",
@@ -161,14 +161,46 @@
           "source_kind": "Library-backed exploratory candidate; still requires hand refinement and raw approval",
           "git_binary_pinned": false,
           "visually_approved": false
+        },
+        {
+          "filename": "scorch_break_approved_raw_20261016_sha34c2b35d.jpg",
+          "original_attachment_filename": "1000018510.png",
+          "decoded_format": "JPEG",
+          "mime": "image/jpeg",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 797370,
+          "sha256": "34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120",
+          "source_kind": "conversation user upload of isolated Scorch Break Flash-Boil Rupture result; preserve raw bytes unchanged; .png nominal extension contains JPEG bytes",
+          "source_bytes_preserved": true,
+          "git_binary_pinned": false,
+          "visually_approved": true,
+          "approval_date": "2026-10-16",
+          "approval_quote": "Approved",
+          "style_material_identity": "single near-vertical molten-orange rupture splitting two outward recoiling cobalt water banks, without fist"
         }
       ],
       "current_director_raw_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "scorch_break_approved_raw_20261016_sha34c2b35d.jpg",
+        "source_sha256": "34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120",
+        "quote": "Approved",
+        "verified": true,
+        "confirmed_date": "2026-10-16",
+        "original_attachment_filename": "1000018510.png",
+        "decoded_actual_mime": "image/jpeg",
+        "decoded_mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 797370,
+        "approval_context": "Director first approved Flash-Boil Rupture after retracting fist/Furnace Knuckle, then explicitly approved single generated non-anatomical Scorch art. Approval bound to exact supplied bytes only.",
+        "production_export_approved": false,
+        "git_binary_pinned": false
       },
       "current_processed_export": {
         "filename": null,
@@ -417,7 +449,7 @@
       "showcase_status": "NOT_READY"
     }
   ],
-  "accepted_raw_count": 4,
+  "accepted_raw_count": 5,
   "accepted_current_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -435,12 +467,13 @@
   "live_game_writes": 0,
   "production_uploads": 0,
   "notes": [
-    "4/5 exact approved raw images: Azure 0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e; Surfing 321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c; Drowning fb25dc2f37bd15eb48960c5ace6847ebb1aa6dfecec37495d2f616cefb35262c; Liquid Ember c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4.",
+    "Previous approvals (4/5, preserved): Azure 0acd857f25ba3adddbf56041acb8c86e51c2c302d19425317467a959c707001e; Surfing 321d7c69d09c4b4a1220e4e43e1f9153433bba543110907afd660d6c0737182c; Drowning fb25dc2f37bd15eb48960c5ace6847ebb1aa6dfecec37495d2f616cefb35262c; Liquid Ember c26365d19e1f9039af7fc064ca8bc46317e53c14a622eee56514144a5af445a4.",
     "Liquid Ember exact user upload 1000018509.png actually JPEG RGB 1536x1536 759105 bytes, SHA-256 confirmed and byte-identical local corrected-extension copy saved. Director quote: 'Approved, next' (2026-10-16); approved RAW VISUAL only. None of the approved image binaries are Git-pinned.",
     "Preliminary raw family 125/64/32 review of approved four shows distinct dragon, traveling wave, downward funnel and enclosed sphere; final QC from processed WebPs remains unperformed.",
-    "Scorch Break is the sole unapproved raw artwork. Director withdrew the previously approved Furnace Knuckle fist direction on 2026-10-16 ('I dont like the fist direction anymore, propose new direction'). New Flash-Boil Rupture, a dominant orange fracture cleaving cobalt water apart, is PROPOSED, not director-approved.",
-    "If director accepts the new non-anatomical Flash-Boil Rupture direction, condition on ONE exact current approved Liquid Ember Shell image (STYLE/MATERIAL ONLY). Do not use the now-rejected fist-bearing Scorch original or the unapproved exploratory fist candidate, nor a contact sheet.",
-    "No processed WebPs (0/5), preflight NOT RUN with shared ICON opaque-alpha conflict unresolved, no deterministic family showcase; live game requests/writes 0/0."
+    "Scorch Break now exact-raw visually approved as Flash-Boil Rupture; prior fist direction withdrawn, source export/preflight pending.",
+    "Flash-Boil Rupture direction and exact raw art accepted. Do not condition future generation on rejected fist drafts; further generation not needed.",
+    "No processed WebPs (0/5), preflight NOT RUN with shared ICON opaque-alpha conflict unresolved, no deterministic family showcase; live game requests/writes 0/0.",
+    "Director accepted Flash-Boil Rupture and Scorch exact uploaded source on 2026-10-16. Source 1000018510.png is JPEG RGB 1536x1536 797370 bytes SHA-256 34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120. Earlier fist/Furnace Knuckle remains withdrawn."
   ],
   "director_checkpoint": {
     "date": "2026-10-15",
@@ -480,7 +513,7 @@
     },
     "note": "Local paths do not persist across chats. Attach the two verified individual source image bytes in a new isolated-generation conversation; hashes in this JSON alone do not pass images to a generator."
   },
-  "next_isolated_target": "Scorch Break",
+  "next_isolated_target": null,
   "surfing_approval_checkpoint": {
     "date": "2026-10-15",
     "director_quote": "Approved. Next",
@@ -501,7 +534,7 @@
     "production_preflight": "NOT_RUN",
     "next_jutsu": "Drowning Strike"
   },
-  "next_direction_status": "FLASH_BOIL_RUPTURE_PROPOSED_AWAITING_DIRECTOR_CONFIRMATION_NO_FIST",
+  "next_direction_status": "COMPLETE_ALL_FIVE_SOURCE_APPROVALS",
   "drowning_approval_checkpoint": {
     "date": "2026-10-16",
     "raw_director_quote": "Took a few tries but this one is approved.",
@@ -550,10 +583,32 @@
     "withdrawn": "Furnace Knuckle, entire fist/hand anatomy exception",
     "proposed_replacement": "Flash-Boil Rupture",
     "proposed_core_silhouette": "One near-vertical broad white-hot/molten-orange thermal split tearing a heavy cobalt water mass into two laterally recoiling sheets",
-    "proposal_status": "UNAPPROVED_DIRECTION_ONLY",
-    "current_raw_approval": false,
+    "proposal_status": "DIRECTOR_APPROVED_DIRECTION_AND_EXACT_RAW_VISUAL",
+    "current_raw_approval": true,
     "conditioning_if_approved": "One individual approved Liquid Ember Shell image for STYLE/MATERIAL ONLY; no Scorch original or fist drafts",
     "existing_approved_raw_count_unchanged": 4,
-    "processed_webps": 0
+    "processed_webps": 0,
+    "direction_approval_quote": "Yes, approved",
+    "raw_approval_quote": "Approved",
+    "raw_approval_sha256": "34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120"
+  },
+  "scorch_raw_approval_checkpoint": {
+    "date": "2026-10-16",
+    "name": "Scorch Break",
+    "jutsu_id": "6v7dfraXRVo5K3NbgixzT",
+    "director_quote": "Approved",
+    "original_attachment_filename": "1000018510.png",
+    "decoded_format": "JPEG",
+    "mime": "image/jpeg",
+    "mode": "RGB",
+    "dimensions": [
+      1536,
+      1536
+    ],
+    "bytes": 797370,
+    "sha256": "34c2b35d14470a341723fbb7bfadfad439ace05d89149de39a40de3a3bf17120",
+    "exact_raw_copy": "scorch_break_approved_raw_20261016_sha34c2b35d.jpg",
+    "source_binary_git_pinned": false,
+    "approval_scope": "RAW VISUAL ONLY; NOT PROCESSING, PREFLIGHT OR FAMILY ACCEPTANCE"
   }
 }
