@@ -6,6 +6,8 @@ This workflow coordinates ChatGPT's Art Director / Image Production roles with t
 
 **Isolated art sessions:** For long-running Art Studio coordination with one clean generation conversation per image, use `docs/workflows/ISOLATED_ART_GENERATION.md` in addition to this workflow. The director's jutsu-icon opaque-background decision is recorded there; the shared ICON target's existing RGBA preflight conflict remains unresolved and must not be reported as a pass.
 
+**Bloodline jutsu-icon Art Studios close with a final labeled family showcase.** Follow [JUTSU_ICON_SHOWCASE.md](JUTSU_ICON_SHOWCASE.md) after all current raw icons are individually approved and their actual final WebP exports have passed source/format/size/family QC. The neutral **roster-sized** showcase (e.g. 3 + 2 for five jutsu, 4 + 4 for eight) is a presentation/QC artifact, not a game image or a workaround for blocked preflight.
+
 **Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary **information-presentation** reference, not a universal visual-style template; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
 
 ## 1. Establish the target
@@ -138,3 +140,7 @@ Do not have ChatGPT and Fable concurrently edit the same active implementation b
 Art production does not upload/write the live game.
 
 The user remains the live-game actor under doctrine. A generated/processed asset is a production input, not authorization to publish it.
+
+## 10. Collection/family showcase acceptance
+
+For a bloodline jutsu-icon workstation, **after** individual processed art is accepted, compile the final side-by-side **N-icon adaptive showcase** and its provenance manifest (choose layout from the actual verified bloodline roster, never assume eight) under [JUTSU_ICON_SHOWCASE.md](JUTSU_ICON_SHOWCASE.md). Ask the director for whole-family signoff before calling the Art Studio visually closed. Labels on this documentation artifact may include jutsu names and actual WebP byte-derived kB values; the underlying game icon files remain uncaptioned. Regenerate and re-review the showcase after any approved art source/export changes. Mechanical preflight, package readiness and the user-only live upload boundary remain separate.

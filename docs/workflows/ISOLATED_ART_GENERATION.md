@@ -7,6 +7,20 @@
 
 This is an **art-session coordination protocol**, not a replacement for skills/producing-tnr-art/SKILL.md, the current 25x_DATA_art_spec.json, docs/DOCTRINE.md, generated game contracts, or the user-controlled live upload path.
 
+## 0. New bloodline Art Studio initialization gate
+
+Before selecting a new bloodline or restarting one whose art was started in earlier conversations:
+
+1. **Reconstruct from live refs.** Verify `main` and the intended ChatGPT-owned studio branch at exact SHAs; read the TNR bootstrap, role/workflow files, current art specification, director rulings and the **bloodline's actual native jutsu roster** (names, IDs, count, capture stamp). A-rank often has five; S-rank varies. Never infer the exact count from rank alone.
+2. **Detect prior work, do not duplicate it.** Search other studio branches and available project-history evidence. Preserve user-accepted *visual direction* separately from accepted *exact raw image bytes*. No image is currently approved merely because its name appears in an old conversation; an approval must bind the director's decision to a particular recoverable file/version.
+3. **Technique-first visual gate.** Make the depicted chakra effect/action the primary read. Human actors and hands appear only when the technique's identity genuinely benefits, and the director explicitly accepts them. The default is no caster portrait, victim, decorative emblem, multi-object lore tableau or text. Each jutsu owns a distinctive silhouette and motion, with strong negative space at 125/64/32px. Compare every candidate against its peers, not just in isolation.
+4. **Bloodline-specific rendering.** Determine palette, materials and atmosphere from the bloodline's own identity/current images and director input. The black/crimson BEE palette and pale-blue BBE ice treatment are **not universal art defaults**. An approved example icon controls rendering only; never clone its subject/layout. Original game art is identity-only unless separately approved for style.
+5. **Fidelity/provenance.** One or two individual attached exact references per isolated generation; no prior family showcase or rejected drafts as generation conditioning. The persistent Art Studio itself does NOT generate images. Record actual decoder/MIME, size, hash, visual approval, export QC and preflight as separate states, without inventing source hashes when old conversation attachments are unavailable.
+6. **Final adaptive showcase.** After **N/N current exact sources** are accepted, process and QC exports, then use the deterministic roster-sized final contact sheet (e.g. centered 3+2 for N=5). Images must be composited from actual accepted bytes, **never redrawn by an image generator**. Caption byte sizes come from actual current WebPs, not raw sources or guessed labels. Request separate director whole-set signoff.
+7. **Production boundary.** Jutsu icons may use director-approved full-bleed opaque backgrounds, but the generic ICON alpha validator remains a known independent conflict until source/validator owners resolve it. Do not fake a preflight PASS, upload or game-state verification. Live-game actions remain user-owned.
+
+Record the resulting identity register, evidence ledger, director-owned open art decisions, and next isolated subject in the studio's own `docs/design/<bloodline>/` directory.
+
 ## 1. Session separation
 
 | Session | Responsibility | Deliberately excluded |
@@ -121,3 +135,13 @@ Keep collection-specific identity/approval/source-evidence in its register (for 
 **End of isolated session:** close after one accepted/rejected target. Do not reuse the thread for the next jutsu.
 
 This workflow changes neither the normal branch-ownership rules nor the user-only live-game upload boundary.
+
+## 7. Final jutsu family showcase — mandatory Art Studio closeout stage
+
+**Director decision (2026-10-15):** each finished bloodline **jutsu-icon family** receives a single labeled, side-by-side **family showcase as the final Art Studio presentation artifact**, using the director-supplied **eight-icon BBE 4 x 2 contact sheet as an example of presentation style, not a fixed family size or universal grid**. The number of tiles and canvas dimensions adapt to the verified jutsu roster N (often five for A-rank bloodlines; variable for S-rank). See the canonical procedure in [JUTSU_ICON_SHOWCASE.md](JUTSU_ICON_SHOWCASE.md).
+
+When all N individual icons have **explicit current raw visual acceptance**, process and verify their exact final WebPs, perform complete 125/64/32 family-wide pairwise silhouette/confusion QC, then compose the neutral contact sheet **deterministically from those processed files**. Showcase **exactly N current jutsu**, each with the *exact name and verified processed-file decimal kB size* below. For N=5, start with a balanced **3 + 2 centered** layout; for N=8 use 4 + 4 as in the BBE reference. Other counts use the adaptive roster-sized layout in the showcase workflow, with no invented icons or empty filler cells. No icon regeneration, decorative overlays, original/withdrawn draft pictures, false file-size claims or title poster art.
+
+Show the single complete showcase to the director for **separate whole-family acceptance**, then record the image SHA-256, exact input filenames/hashes, sizing/caption provenance, QA, and any package/closeout status. When a source or export is revised, the old showcase becomes **stale** and must be rebuilt/reaccepted.
+
+The showcase is **documentation/QC, not an in-game icon or an upload-ready proof**. The current opaque jutsu-background vs shared ICON alpha preflight conflict remains independent; report blocked/failed checks truthfully. Director controls artwork acceptance and all live-game actions. Generation sessions never build a family sheet or perform game writes.
