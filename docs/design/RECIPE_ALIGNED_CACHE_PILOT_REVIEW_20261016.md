@@ -38,6 +38,10 @@ The provisional filter excludes hidden/event output, hidden/event input, nested 
 - Reserves: Afterburn Crystal, Drain Crystal and Lotus Seal Crystal. Fortify Crystal III is **not** simply a fraction of raw materials: it requires one crafted Fortify Crystal II as an intermediate, making a 20% or 40% recipe packet misleading unless the nested-recipe policy is explicitly redesigned.
 - The protected Skyglass Crystal is excluded; it should remain on the established Ghost Ship-exclusive acquisition path.
 
+## Craft demand is a second gate, not just recipe correctness
+
+The source census establishes **that a recipe can be crafted**, not whether its output is still desirable to today's endgame players. Two proposed EPIC Arsenal weapons (Eclipsed Dawnblade and Gaea's Embrace) and EPIC Research crystals might already have low demand among Silent Bastion's intended audience. If so, even exact full-recipe bundles would perpetuate the user's **unwanted inventory** problem. Before selecting outcomes, validate current item effects, progression relevance, trading value and genuine player demand against fresh non-live evidence and director judgment. The safe shortlist is a **mechanically sourced candidate pool**, not a claim of endgame utility. Favor fewer, distinctly useful options over trying to represent every craftable recipe.
+
 ## Two quantity scenarios for director comparison (not approval)
 
 | Model | EPIC outcomes | LEGENDARY outcomes | Arsenal average units/open* | Research average units/open* | Consequence |
