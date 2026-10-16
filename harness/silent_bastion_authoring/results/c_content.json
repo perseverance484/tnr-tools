@@ -1,0 +1,174 @@
+{
+ "assertions": 28,
+ "checks": [
+  {
+   "name": "QuestValidator accepts the compiled candidate (battlepyramid, choose, pick 1, Beacon entry)",
+   "pass": true
+  },
+  {
+   "name": "verifyQuestObjectiveFlow",
+   "pass": true
+  },
+  {
+   "name": "verifyQuestContentForSave(consecutive)",
+   "pass": true
+  },
+  {
+   "name": "verifyRewardChoiceForSave: 2 cache cards for 1 pick",
+   "pass": true
+  },
+  {
+   "name": "single root d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "99 = 45 dialog + 40 start_battle + 12 reset + 1 win + 1 fail (lock counts)",
+   "pass": true
+  },
+  {
+   "name": "compiled provenance = locked graph sha256",
+   "pass": true
+  },
+  {
+   "name": "every node, edge, reset target, opponent slot and givePools matches the locked graph",
+   "pass": true
+  },
+  {
+   "name": "no separate fourth-fight intro: terminal gates bN.n.f4 directly",
+   "pass": true
+  },
+  {
+   "name": "recovery confirmation dialogs dN.recovered present (C1 fix)",
+   "pass": true
+  },
+  {
+   "name": "all 40 battles are dialog-gated",
+   "pass": true
+  },
+  {
+   "name": "45 dialogs: non-empty scene text and option labels",
+   "pass": true
+  },
+  {
+   "name": "40 battles: non-empty objective text",
+   "pass": true
+  },
+  {
+   "name": "12 resets are silent",
+   "pass": true
+  },
+  {
+   "name": "4 puzzles: 3 options, 1 correct→clean, 2 wrong→alert; correct text on the clean edge; every clue planted in that division's f1–f3",
+   "pass": true
+  },
+  {
+   "name": "puzzle answers are not always first",
+   "pass": true
+  },
+  {
+   "name": "starting effects: Security Alert debuff on 4 alert commanders, Combat buff on 4 combat commanders, nothing else, all allowlisted",
+   "pass": true
+  },
+  {
+   "name": "D5 Combat Protocol is flagged BLOCKED (stand-in only)",
+   "pass": true
+  },
+  {
+   "name": "no objective carries reward_items; quest-level choose of two caches",
+   "pass": true
+  },
+  {
+   "name": "entry item is the Beacon ref",
+   "pass": true
+  },
+  {
+   "name": "625 successful routes, 16–20 fights each, four commanders, one ending",
+   "pass": true
+  },
+  {
+   "name": "20 encounter slots (16 regular + 4 commanders), each used by ≥1 battle",
+   "pass": true
+  },
+  {
+   "name": "20 compiled AI profiles, ≤20 rules each, unconditional end_turn last",
+   "pass": true
+  },
+  {
+   "name": "quests.update saves the compiled candidate",
+   "pass": true
+  },
+  {
+   "name": "saved: 99 objectives in order, hidden, choose/pick 1",
+   "pass": true
+  },
+  {
+   "name": "20/20 compiled profiles saved with includeDefaultRules:false and every rule kept",
+   "pass": true
+  },
+  {
+   "name": "negative control: 21 rules refused by the server cap",
+   "pass": true
+  },
+  {
+   "name": "Countermand (OTHER, reusable Clear 100, 40AP r5 CD6, PVE) validates as a stored item",
+   "pass": true
+  }
+ ],
+ "data": {
+  "puzzles": {
+   "2": {
+    "correctPosition": 2,
+    "order": [
+     "wrong",
+     "correct",
+     "wrong"
+    ]
+   },
+   "3": {
+    "correctPosition": 3,
+    "order": [
+     "wrong",
+     "wrong",
+     "correct"
+    ]
+   },
+   "4": {
+    "correctPosition": 2,
+    "order": [
+     "wrong",
+     "correct",
+     "wrong"
+    ]
+   },
+   "5": {
+    "correctPosition": 1,
+    "order": [
+     "correct",
+     "wrong",
+     "wrong"
+    ]
+   }
+  },
+  "savedContentBytes": 128027,
+  "startingEffects": [
+   "b2.n.boss.alert:applyDebuffs:increasedamagetaken",
+   "b2.n.boss.combat:applyBuffs:stunprevent",
+   "b3.n.boss.alert:applyDebuffs:increasedamagetaken",
+   "b3.n.boss.combat:applyBuffs:increasedamagegiven",
+   "b4.n.boss.alert:applyDebuffs:increasedamagetaken",
+   "b4.n.boss.combat:applyBuffs:sealprevent",
+   "b5.n.boss.alert:applyDebuffs:increasedamagetaken",
+   "b5.n.boss.combat:applyBuffs:debuffprevent"
+  ],
+  "taskCounts": {
+   "dialog": 45,
+   "fail_quest": 1,
+   "reset_quest": 12,
+   "start_battle": 40,
+   "win_quest": 1
+  }
+ },
+ "failed": 0,
+ "findings": [],
+ "gate": "c_content"
+}

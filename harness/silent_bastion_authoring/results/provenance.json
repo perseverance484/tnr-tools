@@ -1,0 +1,87 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "0651b039a466516a8fe24fc13b56f60dea11b7eb",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "sourceSha256": {
+   "src/libs/quest.ts": "d8eeaf8b6fe0c6dbc06ba292b1c40f33bb7cd126b6e2a150e291a4c49380a498",
+   "src/libs/objectives.ts": "2b495f7b72c6d312790e84616ea97da17290d7b40ac4cdca64965b39cad1c607",
+   "src/libs/combat/ai_v2.ts": "d7007dfe378b62cff3d6cc097f5db9f3e16dc55bc7fdc060f0ca256ac322e2a1",
+   "src/libs/combat/actions.ts": "3ea548951e3c30d3daaf571016f4045c2b77c3325476370ea3367eaf982b2024",
+   "src/libs/combat/util.ts": "9f13a7a7d2cfeb845dce740954180418201dcb9750e56db4ce7f9282ac999e3c",
+   "src/validators/ai.ts": "266ebdaa4b4eb8c5475f955dfea2e2925723bd9346fb5ac949a07d9c4812af0b",
+   "src/validators/combat.ts": "9f494291915e69df711dd246b4a4d031bbbadf5cd75914114f816196282b3cc7",
+   "src/validators/objectives.ts": "c828f87de452a5deca242b9e906f352da53151c2e865c443c11ceed1b3ebb3bd",
+   "src/server/api/routers/ai.ts": "bc881edc8d8f7ac951f711f07a860d6add8d767fa6b92874a9922a0f9cb3e4dc",
+   "src/server/api/routers/combat.ts": "fa3788d3e05f47d02ebb5ad5677bbb68b3fd642bbfad34e36606b2b822287232",
+   "src/server/api/routers/quests.ts": "30d7ee413a62f73580214e4850c97d0de781f7d1b7740fe5f6f366750c291f48",
+   "drizzle/constants.ts": "0799655dd8e699b44ea36ad994c4aa2549eb0bcc2de0cc7f25193018bd6998a2"
+  }
+ },
+ "database": {
+  "image": "mysql:26.7.0@sha256:893418c8a7a34c60d2d961cc30ef136095da141478562ed2101ae3f5faba9c3f",
+  "network": "--network none; unix socket only"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "uname": "Linux 6.18.44-fc-v139"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials",
+  "liveGameRequests": 0
+ },
+ "fileSha256": {
+  "state/silent_bastion_authoring/README.md": "80ae7a7a9c03666fb3a69cb5b291ad7f6ecf7f9a3ae15056fbf86d629c80408c",
+  "state/silent_bastion_authoring/art_shotlist.md": "7d8c552238ff7b31df3e3b729a7e2cbd3cd26f3631a43388ba7f25a3428a54cf",
+  "state/silent_bastion_authoring/decision_docket.md": "e07d888f64df3426855b8e7a765d0ce44689ef0f7ae10ed65b553c0ead7b065c",
+  "state/silent_bastion_authoring/economy_and_f3.md": "e0f24b871d35c3ae2a906ab3ac43b307541891f753414717fb30b2bc743d1a38",
+  "state/silent_bastion_authoring/compiled/ai_profiles.candidate.json": "08a12f9733cecd796da5334f1b7dc6bc13917a73a5281b49047a444127229a27",
+  "state/silent_bastion_authoring/compiled/encounter_ledger.json": "9c18fc14ba93481a3b6f4386cc95a511f5cc70b9f66f73eb85cae43aa24f490d",
+  "state/silent_bastion_authoring/compiled/quest.candidate.json": "31bd4a28027d1ad11aab953154980f31b6204177abbb1824668957953491f056",
+  "state/silent_bastion_authoring/compiled/story_script.md": "825e1895c4ffc62be606126173e29ddd556ca12295412bbb6586c8d91ba356c8",
+  "state/silent_bastion_authoring/compiled/validation_manifest.candidate.json": "2eee62aa049f6cb92016ef58e60a389f91ef43c7d0f0a5e59485450e1f741768",
+  "state/silent_bastion_authoring/design/commanders.json": "313d5f069803ed9dfc3c7fcda062b6ae282f48909f404b67c523e16e150d42a1",
+  "state/silent_bastion_authoring/design/entry_and_rewards.json": "7e8e7b176225207571922a8983e1f154bea4a9c08198bf80357536ebc4435827",
+  "state/silent_bastion_authoring/design/protocols.json": "e138a476111eac47eb99326f14d23d97d5c588b682f3e20f808c9c87272088ee",
+  "state/silent_bastion_authoring/design/regulars.json": "9eaf5290a0a838a7d4af7d7b20f303ac5ab1f7e15a796f44a430d6e530ccc035",
+  "state/silent_bastion_authoring/design/script.json": "f2b6518ddcc53d42876bf97c8449e409c7e713197b3325bf64c8b1a6eae56e94",
+  "state/silent_bastion_authoring/sources/source_records.json": "8f79cb9598dbe4f16ed93543972c2b68c9f70eb36b1a41e0b3b98df597dcf0d1",
+  "state/silent_bastion_authoring/tools/compose.py": "aec6912864ddebaf06e8f0e7ba57bfb210cf191e1882683bdf7931e611b763ce",
+  "state/silent_bastion_authoring/tools/extract_sources.py": "b5d5a2769c2e2882993871671ce9a0b636f67b7601b296202a5de126b04e2c88",
+  "state/silent_bastion_authoring/tools/gen_regulars.py": "61c4018ee215adc7fe9f3fd111dab985d142cbda1ce43e42f4b779f4f4e438f1",
+  "state/silent_bastion_authoring/tools/gen_script.py": "c8f352082134dd123108863a7927a33b1a7da52e1bb60b58ba925584f19c2cc7",
+  "harness/silent_bastion_authoring/engine/a_ai.test.ts": "afa5690bbf42c0f613d0d13e55aa6da170b0a1c2d66118a4410a7bc110f125f4",
+  "harness/silent_bastion_authoring/engine/c_content.test.ts": "a3af9c31756e7672fd2c8c8d1efe8c57382cad597a3e1f70839b85d807378568",
+  "harness/silent_bastion_authoring/engine/lib/units.ts": "23d4ccd0dcb93ff9bc447a6081f9b5db8f14cbf338e887e18a156e4af3dfdfbd",
+  "harness/silent_bastion_authoring/tools/check_validate.py": "81066525541f4adfdc1a244b0f4be71ead668a4c2ae502d8185f4b4dc582bc9c",
+  "harness/silent_bastion_condensed99/engine/c99_defect.test.ts": "5ec25d5d0a88b84fc55be1cfe75dde8b7dce64fe690dab2dacd7eac733c9b056",
+  "harness/silent_bastion_condensed99/engine/c99_edges.test.ts": "134a67d2bd92a7465c295d7c581c89d38edbcd9c176c4a96f392a20e82fb28af",
+  "harness/silent_bastion_condensed99/engine/c99_runtime.test.ts": "da4c06a9911fce86a9d4af0e963c7719dc9edd2ec4a681d73f227a457dcb7abf",
+  "harness/silent_bastion_condensed99/engine/c99_static.test.ts": "09cdc82c3efe532b773301b8aa2c2f220a002affb508115720f9f4cbf3abb08e",
+  "harness/silent_bastion_condensed99/engine/lib/run99.ts": "a09e36a30c2295d29eae387fa1f9286d9e843ea1c3ac5bf7aa709a7778a086d7",
+  "harness/silent_bastion_phase1/engine/lib/driver.ts": "bc0fe30e1d31bb1971fd7aeb657b9155c5e0250f6e7d938b30145731625aac30",
+  "harness/silent_bastion_phase1/engine/lib/graph.ts": "ef11190843f603a294942e44d072afbf5844bd7e5576a4a3406d73f80088a9a5",
+  "harness/silent_bastion_phase1/engine/lib/report.ts": "1797ad07d38c6e07a3215f4f9d2902d707f2a1ab8b70219b85f73fb58f0d995e",
+  "harness/silent_bastion_phase1/engine/lib/scenario.ts": "f854a4e7097d903b8ad1befa0aa2242fcf7da7b11a07d6ca7f3182d21273699d",
+  "harness/silent_bastion_authoring/run.sh": "3281819797ea589bc9c19d6c78d0de93a6cf61b6502053581fa88000a2ed58a5",
+  "harness/silent_bastion_phase1/tools/check_evidence.py": "d1717a59756e5a5221535f12a1a42593826b28a025b32f7e3ec0f1c73ed33768",
+  "state/silent_bastion_approved_authoring_lock.json": "6d9475eddeac9ac4735a7e5704a99d13b5e38bee498589b8eb258ec94f664a41",
+  "harness/silent_bastion_condensed99/graphs/alt99_f4gate.json": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20",
+  "skills/building-tnr-content/scripts/validate.py": "f7eb8815701c299588a025975348541bc79f58116a2abb9edbd0952847bcad85",
+  "state/prompt_silent_bastion_complete_authoring.md": "c2281297ac47430e959a611252dc186669b322beb790bdcca9bdd6407290a271",
+  "state/silent_bastion_commander_roster.md": "cda41986624d5178261b7e93cb44249318c457ef4ed33bfcbbff794ac8826462",
+  "state/silent_bastion_arakane_ai_profile.md": "75a9e48c15ecb701e1761c11e223940d2cbd9c68535cd228f0dbb6e09bb61c4d"
+ },
+ "exitStatus": {
+  "generators": 0,
+  "validatePy": 0,
+  "upstreamPreflight": 0,
+  "bunTest": 0,
+  "evidenceCheck": 0,
+  "compiledRuntime": 0
+ }
+}

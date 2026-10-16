@@ -1,0 +1,21 @@
+/home/user/tnr-tools/state/silent_bastion_authoring/compiled/validation_manifest.candidate.json: 25 entries
+ERROR  [ai:Supreme Commander Arakane]: unresolved ref @jutsu:extermination_order in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids
+ERROR  [ai:Supreme Commander Arakane]: unresolved ref @jutsu:last_directive in AI jutsus array: refs are silently STRIPPED server-side and the AI stands naked (law 17). Substitute literal ids
+ERROR  [quest:Ghost Ship: The Last Directive].d2.n.puzzle: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node
+ERROR  [quest:Ghost Ship: The Last Directive].d3.n.puzzle: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node
+ERROR  [quest:Ghost Ship: The Last Directive].d4.n.puzzle: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node
+ERROR  [quest:Ghost Ship: The Last Directive].d5.n.puzzle: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node
+ERROR  lint Countermand: L18 item effect "clear" excluded from item union
+warn   manifest: @ref 'bastion_arsenal_cache' has no srcId in this manifest; it must already be in the idmap
+warn   manifest: @ref 'bastion_research_cache' has no srcId in this manifest; it must already be in the idmap
+warn   [ai:Bastion Proving Proctor].rules[0]: Minor Overflow is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Ordnance Quartermaster].rules[0]: Springguard is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Calibration Duelist].rules[1]: Warrior's Poise is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Impression Containment Warden].rules[0]: Springguard is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Command Signal Adjutant].rules[0]: Windlash Focus is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Honor Guard Commandant].rules[0]: Warrior's Poise is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Sanctum Vanguard].rules[1]: Warrior's Poise is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Directive Herald].rules[0]: Minor Overflow is self/ground targeted; a distance gate is meaningless on it
+warn   [ai:Order-Bearer of the Sanctum].rules[1]: Warrior's Poise is self/ground targeted; a distance gate is meaningless on it
+
+7 errors, 11 warnings

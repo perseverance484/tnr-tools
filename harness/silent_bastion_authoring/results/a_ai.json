@@ -1,0 +1,1503 @@
+{
+ "assertions": 218,
+ "checks": [
+  {
+   "name": "master_of_arms: 13 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "master_of_arms: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "master_of_arms: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "master_of_arms: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "master_of_arms: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "master_of_arms: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: 14 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "replicant_zero: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: 15 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "grand_marshal: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "arakane: 20 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "arakane: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "arakane: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "arakane: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "arakane: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "arakane: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: 8 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: 7 rules ≤ server cap 20",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: last rule is an unconditional end_turn (includeDefaultRules:false)",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: every has_effect/target_has_effect threshold ≥ 1 (law R50)",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: every jutsu rule targets an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: no ranged action can fire out of range (gate ≤ range+1, law 40)",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: candidate AI record passes insertAiSchema (incl. innate passive effects)",
+   "pass": true
+  },
+  {
+   "name": "X:LAST_DIRECTIVE passes JutsuValidator",
+   "pass": true
+  },
+  {
+   "name": "X:EXTERMINATION_ORDER passes JutsuValidator",
+   "pass": true
+  },
+  {
+   "name": "drift report produced",
+   "pass": true
+  },
+  {
+   "name": "MoA: at 59% HP Sovereign Ascendance comes first",
+   "pass": true
+  },
+  {
+   "name": "MoA: at 60% HP it does not",
+   "pass": true
+  },
+  {
+   "name": "MoA: player IDG 71 → Nullifying Wave",
+   "pass": true
+  },
+  {
+   "name": "MoA: player IDG 70 → no Clear",
+   "pass": true
+  },
+  {
+   "name": "MoA: player shield → Piercing Judgment",
+   "pass": true
+  },
+  {
+   "name": "MoA: open → Tempo Fracture then Fighter's Poise (full 100 AP)",
+   "pass": true
+  },
+  {
+   "name": "MoA: Tempo Fracture on cooldown → Sovereign Fetters",
+   "pass": true
+  },
+  {
+   "name": "MoA: target with IDT ≥35 (Tempest Cleave applied) → Cataclysm Detonation follow-up",
+   "pass": true
+  },
+  {
+   "name": "Tempest Cleave cast at path distances 3–5",
+   "pass": true
+  },
+  {
+   "name": "MoA dist 3: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "MoA dist 8: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "RZ round 1: Compression Barrier then Hexweave",
+   "pass": true
+  },
+  {
+   "name": "RZ round 2: Split Image cast and a clone is on the field",
+   "pass": true
+  },
+  {
+   "name": "RZ round 8 (clone off cooldown): no second Split Image",
+   "pass": true
+  },
+  {
+   "name": "RZ: player IDG ≥71 → Stolen Form",
+   "pass": true
+  },
+  {
+   "name": "RZ: below 65% → Bulwark Charge",
+   "pass": true
+  },
+  {
+   "name": "RZ: below 40% with Bulwark on cooldown → Second Wind",
+   "pass": true
+  },
+  {
+   "name": "RZ: Hexweave on cooldown → Feast of Marrow",
+   "pass": true
+  },
+  {
+   "name": "RZ: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "RZ: exactly one Split Image over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "GM: opening Sovereign Ruin",
+   "pass": true
+  },
+  {
+   "name": "GM: Ruin on cooldown → Malediction",
+   "pass": true
+  },
+  {
+   "name": "GM: close high-IDG target → Unraveling Strike",
+   "pass": true
+  },
+  {
+   "name": "GM: far high-IDG target → Nullifying Wave",
+   "pass": true
+  },
+  {
+   "name": "GM: kiting at 5 → Sovereign Undertow",
+   "pass": true
+  },
+  {
+   "name": "GM: stunned target → Cataclysm Detonation",
+   "pass": true
+  },
+  {
+   "name": "GM below 55%: Martial Law Bulwark Charge in the rotation",
+   "pass": true
+  },
+  {
+   "name": "GM: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "AR rule 3: round 1 opens with Apex Hunger",
+   "pass": true
+  },
+  {
+   "name": "AR rule 4: kiting target ≥7 early → Veilstep",
+   "pass": true
+  },
+  {
+   "name": "AR rule 5: stealthed in range → Countermand item, then weapons only (no jutsu while stealthed)",
+   "pass": true
+  },
+  {
+   "name": "AR rule 6: own Afterburn → Purging Stance",
+   "pass": true
+  },
+  {
+   "name": "AR rule 7: target shield → Zephyr Lance",
+   "pass": true
+  },
+  {
+   "name": "AR rules 8–9: high IDG → Stolen Form then Countermand (60+40 AP)",
+   "pass": true
+  },
+  {
+   "name": "Countermand (item) Clear strips the player's positive effects in combat (resolves validate.py L18 against the engine)",
+   "pass": true
+  },
+  {
+   "name": "AR rules 10+17: Hexweave then a 40 AP weapon",
+   "pass": true
+  },
+  {
+   "name": "AR rule 18: stealthed at 3 with Countermand/Solar Bow on cooldown → Crossbow",
+   "pass": true
+  },
+  {
+   "name": "AR rule 1: HP 29% → The Last Directive",
+   "pass": true
+  },
+  {
+   "name": "AR rule 1 boundary: HP exactly 30% does NOT trigger (health_below strict)",
+   "pass": true
+  },
+  {
+   "name": "AR rule 2: active Final Stand in range → Extermination Order",
+   "pass": true
+  },
+  {
+   "name": "AR rule 2: no Final Stand → never Extermination Order",
+   "pass": true
+  },
+  {
+   "name": "AR: The Last Directive cast once in the final phase",
+   "pass": true
+  },
+  {
+   "name": "AR: Extermination Order cast while Final Stand is active",
+   "pass": true
+  },
+  {
+   "name": "AR1 mitigation: candidate Extermination Order cooldown 4 never casts on an expired Final Stand and still casts while active in every probe",
+   "pass": true
+  },
+  {
+   "name": "AR1 probe ran for cooldowns 2–7 at start distances 4/7/9",
+   "pass": true
+  },
+  {
+   "name": "AR dist 3: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "AR dist 9: no exhaustion give-up over 8 rounds",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "proving_proctor: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "ordnance_quartermaster: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "prototype_lancer: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "calibration_duelist: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "archive_keeper: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "containment_warden: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "unstable_echo: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "failed_prototype: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "signal_adjutant: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "staff_tactician: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "honor_guard_commandant: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "aide_de_camp: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "sanctum_vanguard: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "directive_herald: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "last_watch_executor: no exhaustion give-up over 6 rounds",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: at range 4 the first action is an equipped kit jutsu",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: at range 9 it closes in (move) or self-buffs, never gives up",
+   "pass": true
+  },
+  {
+   "name": "order_bearer: no exhaustion give-up over 6 rounds",
+   "pass": true
+  }
+ ],
+ "data": {
+  "AR.countermandClearResult": {
+   "acts": [
+    "X:COUNTERMAND",
+    "SEED:Solar Bow",
+    "move",
+    "move"
+   ],
+   "playerBuffsLeft": []
+  },
+  "AR.finalPhaseDecisions": [
+   {
+    "act": "X:LAST_DIRECTIVE",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 6
+   },
+   {
+    "act": "X:EXTERMINATION_ORDER",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 5
+    },
+    "round": 6
+   },
+   {
+    "act": "B13",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 5
+    },
+    "round": 7
+   },
+   {
+    "act": "SEED:Solar Bow",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 5
+    },
+    "round": 7
+   },
+   {
+    "act": "X:EXTERMINATION_ORDER",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 4
+    },
+    "round": 8
+   },
+   {
+    "act": "SEED:Crossbow",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 4
+    },
+    "round": 8
+   },
+   {
+    "act": "B17",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 3
+    },
+    "round": 9
+   },
+   {
+    "act": "SEED:Crossbow",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 3
+    },
+    "round": 9
+   },
+   {
+    "act": "X:EXTERMINATION_ORDER",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 2
+    },
+    "round": 10
+   },
+   {
+    "act": "SEED:Solar Bow",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 2
+    },
+    "round": 10
+   },
+   {
+    "act": "B27",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 1
+    },
+    "round": 11
+   },
+   {
+    "act": "SEED:Crossbow",
+    "finalStand": {
+     "active": true,
+     "present": true,
+     "rounds": 1
+    },
+    "round": 11
+   },
+   {
+    "act": "X:EXTERMINATION_ORDER",
+    "finalStand": {
+     "active": false,
+     "present": true,
+     "rounds": 0
+    },
+    "round": 12
+   },
+   {
+    "act": "SEED:Crossbow",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 12
+   },
+   {
+    "act": "B05",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 13
+   },
+   {
+    "act": "SEED:Solar Bow",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 13
+   },
+   {
+    "act": "B26",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 14
+   },
+   {
+    "act": "SEED:Crossbow",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 14
+   },
+   {
+    "act": "B13",
+    "finalStand": {
+     "active": false,
+     "present": false
+    },
+    "round": 15
+   }
+  ],
+  "AR.rounds.dist3": [
+   "1:B18+B13",
+   "2:B17+SEED:Solar Bow",
+   "3:B27+SEED:Crossbow",
+   "4:B05+SEED:Crossbow",
+   "5:B26+SEED:Solar Bow",
+   "6:S07+SEED:Crossbow",
+   "7:SEED:Crossbow+SEED:Crossbow+move+wait",
+   "8:S07+SEED:Solar Bow",
+   "9:B13"
+  ],
+  "AR.rounds.dist9": [
+   "1:B18+B09+move+move",
+   "2:move+X:COUNTERMAND+SEED:Solar Bow+move",
+   "3:B13+move+move+move+wait",
+   "4:B17+SEED:Crossbow",
+   "5:B27+SEED:Solar Bow",
+   "6:B05+SEED:Crossbow",
+   "7:B26+SEED:Crossbow",
+   "8:S07+SEED:Solar Bow",
+   "9:SEED:Crossbow"
+  ],
+  "AR.staleZeroRoundFinalStandChoice": [
+   "X:EXTERMINATION_ORDER",
+   "SEED:Solar Bow"
+  ],
+  "AR1.cooldownProbe": {
+   "cd2.dist4": {
+    "activeCasts": 3,
+    "casts": 4,
+    "staleCasts": 1
+   },
+   "cd2.dist7": {
+    "activeCasts": 3,
+    "casts": 3,
+    "staleCasts": 0
+   },
+   "cd2.dist9": {
+    "activeCasts": 3,
+    "casts": 3,
+    "staleCasts": 0
+   },
+   "cd3.dist4": {
+    "activeCasts": 2,
+    "casts": 3,
+    "staleCasts": 1
+   },
+   "cd3.dist7": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd3.dist9": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd4.dist4": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd4.dist7": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd4.dist9": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd5.dist4": {
+    "activeCasts": 2,
+    "casts": 2,
+    "staleCasts": 0
+   },
+   "cd5.dist7": {
+    "activeCasts": 1,
+    "casts": 2,
+    "staleCasts": 1
+   },
+   "cd5.dist9": {
+    "activeCasts": 1,
+    "casts": 2,
+    "staleCasts": 1
+   },
+   "cd6.dist4": {
+    "activeCasts": 1,
+    "casts": 2,
+    "staleCasts": 1
+   },
+   "cd6.dist7": {
+    "activeCasts": 1,
+    "casts": 1,
+    "staleCasts": 0
+   },
+   "cd6.dist9": {
+    "activeCasts": 1,
+    "casts": 1,
+    "staleCasts": 0
+   },
+   "cd7.dist4": {
+    "activeCasts": 1,
+    "casts": 1,
+    "staleCasts": 0
+   },
+   "cd7.dist7": {
+    "activeCasts": 1,
+    "casts": 1,
+    "staleCasts": 0
+   },
+   "cd7.dist9": {
+    "activeCasts": 1,
+    "casts": 1,
+    "staleCasts": 0
+   }
+  },
+  "AR1.cooldownsWithNoStaleCastInProbe": [
+   4,
+   7
+  ],
+  "GM.playerDDGStackAfter8": [],
+  "GM.rounds": [
+   "1:B12+move+move+wait",
+   "2:B11+wait",
+   "3:B30+wait",
+   "4:B14+wait",
+   "5:S07+wait",
+   "6:B17+wait",
+   "7:S07+wait",
+   "8:wait",
+   "9:S07"
+  ],
+  "MoA.rounds.dist3": [
+   "1:B08+B37",
+   "2:B16+move+wait",
+   "3:TC+wait",
+   "4:B14+wait",
+   "5:B28+B37",
+   "6:S07+wait",
+   "7:wait",
+   "8:S07+wait",
+   "9:B08"
+  ],
+  "MoA.rounds.dist8": [
+   "1:B37+move+move+move+move+move+move",
+   "2:B08+wait",
+   "3:B16+wait",
+   "4:TC+wait",
+   "5:B14+B37",
+   "6:B28+wait",
+   "7:S07+wait",
+   "8:wait",
+   "9:B37"
+  ],
+  "RZ.cloneTurns": [
+   "2:sb-ai clone:move",
+   "2:sb-ai clone:move",
+   "2:sb-ai clone:wait",
+   "3:sb-ai clone:B15",
+   "3:sb-ai clone:wait",
+   "4:sb-ai clone:B29",
+   "4:sb-ai clone:wait",
+   "5:sb-ai clone:B35",
+   "5:sb-ai clone:wait"
+  ],
+  "RZ.rounds": [
+   "1:B22+B13",
+   "2:B06+move+move+wait",
+   "3:B15+wait",
+   "4:B29+wait",
+   "5:B35+wait",
+   "6:B34+wait",
+   "7:S07+wait",
+   "8:wait",
+   "9:B13"
+  ],
+  "aide_de_camp.gateNotes": [
+   "#3 S33 ALL-method carries a ≤6 gate (safe, narrows use)"
+  ],
+  "aide_de_camp.kitWithoutRule": [],
+  "aide_de_camp.rounds": [
+   "1:B21+S33",
+   "2:S43+move+move+move+move",
+   "3:EL02+wait",
+   "4:wait",
+   "5:wait",
+   "6:S33+wait",
+   "7:S43"
+  ],
+  "arakane.gateNotes": [
+   "#11 B17 ALL-method carries a ≤6 gate (safe, narrows use)"
+  ],
+  "arakane.kitWithoutRule": [],
+  "archive_keeper.gateNotes": [],
+  "archive_keeper.kitWithoutRule": [],
+  "archive_keeper.rounds": [
+   "1:S36+S32",
+   "2:S28+move+move+move+move",
+   "3:EW01+wait",
+   "4:S41+wait",
+   "5:S32+wait",
+   "6:S28+wait",
+   "7:EW01"
+  ],
+  "calibration_duelist.gateNotes": [
+   "#4 S33 ALL-method carries a ≤6 gate (safe, narrows use)"
+  ],
+  "calibration_duelist.kitWithoutRule": [],
+  "calibration_duelist.rounds": [
+   "1:S33+move+move+move+move",
+   "2:B19+EA02",
+   "3:move+move+move+A2+move",
+   "4:move+wait",
+   "5:wait",
+   "6:S33+wait",
+   "7:B19"
+  ],
+  "containment_warden.gateNotes": [],
+  "containment_warden.kitWithoutRule": [],
+  "containment_warden.rounds": [
+   "1:EW03+S29",
+   "2:EW01+move+move+move+move",
+   "3:EW02+wait",
+   "4:B36+wait",
+   "5:EW03+EW01",
+   "6:S29+wait",
+   "7:wait"
+  ],
+  "directive_herald.gateNotes": [],
+  "directive_herald.kitWithoutRule": [],
+  "directive_herald.rounds": [
+   "1:B38+S32",
+   "2:EL03+move+move+move+move",
+   "3:S28+wait",
+   "4:S44+wait",
+   "5:B38+S32",
+   "6:EL03+wait",
+   "7:S28"
+  ],
+  "failed_prototype.gateNotes": [],
+  "failed_prototype.kitWithoutRule": [],
+  "failed_prototype.rounds": [
+   "1:S29+move+move+move+move",
+   "2:A3+wait",
+   "3:B36+wait",
+   "4:S44+wait",
+   "5:wait",
+   "6:S29+wait",
+   "7:A3"
+  ],
+  "grand_marshal.gateNotes": [],
+  "grand_marshal.kitWithoutRule": [],
+  "honor_guard_commandant.gateNotes": [],
+  "honor_guard_commandant.kitWithoutRule": [],
+  "honor_guard_commandant.rounds": [
+   "1:S44+move+move+move+move",
+   "2:B19+EE02",
+   "3:EE01+wait",
+   "4:wait",
+   "5:S44+wait",
+   "6:EE01+wait",
+   "7:B19"
+  ],
+  "last_watch_executor.gateNotes": [
+   "#2 B02 ALL-method carries a ≤6 gate (safe, narrows use)",
+   "#4 S33 ALL-method carries a ≤6 gate (safe, narrows use)"
+  ],
+  "last_watch_executor.kitWithoutRule": [],
+  "last_watch_executor.rounds": [
+   "1:B21+B02",
+   "2:S33+move+move+move+move",
+   "3:EA02+move+move+move+move",
+   "4:S43+move+wait",
+   "5:wait",
+   "6:wait",
+   "7:S33"
+  ],
+  "master_of_arms.gateNotes": [],
+  "master_of_arms.kitWithoutRule": [],
+  "order_bearer.gateNotes": [],
+  "order_bearer.kitWithoutRule": [],
+  "order_bearer.rounds": [
+   "1:B01+move+move+move+move",
+   "2:B19+EW02",
+   "3:wait",
+   "4:wait",
+   "5:wait",
+   "6:wait",
+   "7:B19"
+  ],
+  "ordnance_quartermaster.gateNotes": [],
+  "ordnance_quartermaster.kitWithoutRule": [],
+  "ordnance_quartermaster.rounds": [
+   "1:EW03+EF03",
+   "2:S30+move+move+move+move",
+   "3:S27+wait",
+   "4:EF01+wait",
+   "5:EW03+EF03",
+   "6:S30+wait",
+   "7:S27"
+  ],
+  "poolVsCaptureDrift": {
+   "B09": [
+    "cooldown pool 6 vs record 5",
+    "effects pool [stealth 100/2r] vs record [stealth 100/1r]"
+   ]
+  },
+  "prototype_lancer.gateNotes": [],
+  "prototype_lancer.kitWithoutRule": [],
+  "prototype_lancer.rounds": [
+   "1:S08+move+move+move+move",
+   "2:EL01+wait",
+   "3:S43+wait",
+   "4:EL04+wait",
+   "5:S08+wait",
+   "6:EL01+wait",
+   "7:S43"
+  ],
+  "proving_proctor.gateNotes": [],
+  "proving_proctor.kitWithoutRule": [],
+  "proving_proctor.rounds": [
+   "1:B38+S06",
+   "2:S40+move+move+move+move",
+   "3:S04+wait",
+   "4:A1+wait",
+   "5:B38+S06",
+   "6:S04+wait",
+   "7:S40"
+  ],
+  "replicant_zero.gateNotes": [],
+  "replicant_zero.kitWithoutRule": [],
+  "sanctum_vanguard.gateNotes": [],
+  "sanctum_vanguard.kitWithoutRule": [],
+  "sanctum_vanguard.rounds": [
+   "1:B01+move+move+move+move",
+   "2:B19+EF02",
+   "3:EF01+wait",
+   "4:wait",
+   "5:wait",
+   "6:EF01+wait",
+   "7:B19"
+  ],
+  "signal_adjutant.gateNotes": [],
+  "signal_adjutant.kitWithoutRule": [],
+  "signal_adjutant.rounds": [
+   "1:EA03+S27",
+   "2:S08+move+move+move+move",
+   "3:EA01+wait",
+   "4:S42+wait",
+   "5:EA03+S27",
+   "6:S08+wait",
+   "7:EA01"
+  ],
+  "staff_tactician.gateNotes": [],
+  "staff_tactician.kitWithoutRule": [],
+  "staff_tactician.rounds": [
+   "1:S36+S32",
+   "2:S28+move+move+move+move",
+   "3:S27+wait",
+   "4:EA01+wait",
+   "5:S32+wait",
+   "6:S28+wait",
+   "7:S27"
+  ],
+  "tempestCleaveSafeMinDistance": 2,
+  "tempestCleaveSelfHit": {
+   "2": {
+    "cast": true,
+    "selfHit": []
+   },
+   "3": {
+    "cast": true,
+    "selfHit": []
+   },
+   "4": {
+    "cast": true,
+    "selfHit": []
+   },
+   "5": {
+    "cast": true,
+    "selfHit": []
+   }
+  },
+  "unstable_echo.gateNotes": [
+   "#5 S33 ALL-method carries a ≤6 gate (safe, narrows use)"
+  ],
+  "unstable_echo.kitWithoutRule": [],
+  "unstable_echo.rounds": [
+   "1:B21+S29",
+   "2:S33+move+move+move+move",
+   "3:B36+wait",
+   "4:wait",
+   "5:wait",
+   "6:S29+wait",
+   "7:S33"
+  ]
+ },
+ "failed": 0,
+ "findings": [
+  {
+   "detail": [
+    "B09"
+   ],
+   "id": "SRC1",
+   "reproduced": true,
+   "summary": "Captured jutsu records differ from the 32b pool registry summary (record wins for implementation; pool doc needs a refresh)"
+  },
+  {
+   "detail": {
+    "2": {
+     "cast": true,
+     "selfHit": []
+    },
+    "3": {
+     "cast": true,
+     "selfHit": []
+    },
+    "4": {
+     "cast": true,
+     "selfHit": []
+    },
+    "5": {
+     "cast": true,
+     "selfHit": []
+    }
+   },
+   "id": "TC1",
+   "reproduced": false,
+   "summary": "Tempest Cleave (existing EVENT jutsu, AOE_CIRCLE_SPAWN, friendlyFire ALL) hits Master of Arms himself at short range"
+  },
+  {
+   "detail": [
+    {
+     "act": "X:EXTERMINATION_ORDER",
+     "finalStand": {
+      "active": false,
+      "present": true,
+      "rounds": 0
+     },
+     "round": 12
+    }
+   ],
+   "id": "AR1",
+   "reproduced": true,
+   "summary": "Extermination Order is chosen at a decision where Final Stand has already reached 0 rounds: routers/combat.ts runs alignBattle (lowers rounds to 0, no pruning) then performAIaction, and has_effect sums raw power without isEffectActive — 'only while Final Stand is active' is not guaranteed by the authored rule 2"
+  }
+ ],
+ "gate": "a_ai"
+}
