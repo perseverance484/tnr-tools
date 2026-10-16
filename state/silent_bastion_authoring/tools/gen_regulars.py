@@ -3,7 +3,7 @@
 
 Kept as code so rule gates come from the pool's own ranges (range+1, law 40) instead of hand
 arithmetic. Kits are shared-pool picks only (references/ai.md: per-event jutsu minting retired);
-commanders' signature B-codes are avoided. Every stat/multiplier is CANDIDATE.
+commanders' signature B-codes are avoided. Accepted with the stat ladder by RUL-2026-10-16-011.
     python3 tools/gen_regulars.py [--check]
 """
 import json, os, sys
@@ -43,7 +43,7 @@ def unit(slot, key, name, title, element, stat, kit, rules, role, tactical, look
       "candidate": {"level": 100, "rank": "JONIN", "statsMultiplier": round(s + (ELITE if reg4 else 0), 2), "poolsMultiplier": round(p + (ELITE if reg4 else 0), 2),
                     "regeneration": 40, "element": element, "preferredStat": stat, "generals": GEN[stat], "ratio": RATIOS[stat]},
       "rules": rules + [{"if": [["dist>=", 3]], "do": ["move"], "src": "close distance (gated so end_turn stays reachable)"}, {"if": [], "do": ["end"], "src": "safe end-turn (includeDefaultRules:false)"}],
-      "combatRole": role, "tacticalRead": tactical, "look": look, "status": "NEW CANDIDATE — identity, kit, rules and numbers await director review"})
+      "combatRole": role, "tacticalRead": tactical, "look": look, "status": "ACCEPTED — RUL-2026-10-16-011 (identity, kit, rules, stat tier); username live-collision check pending"})
 
 # ---------- Division I — Experimental Armory (D2): weapon trials, the first sign the base is not empty
 unit("D2.REG1", "proving_proctor", "Bastion Proving Proctor", "the Silent Examiner", "None", "Bukijutsu",
@@ -151,7 +151,7 @@ unit("D5.REG4", "order_bearer", "Order-Bearer of the Sanctum", "Keeper of the Un
  "Order-bearer in deep-water Sanctum regalia carrying a sealed scroll case with a blank, unsigned command seal")
 
 doc = {"schema": "tnr.silent_bastion_authoring.units.v1",
-       "status": "NEW CANDIDATE REGULARS — 16 identities, kits (shared pool), rules and numbers for director review; recovery fights reuse each division's REG1 at 50% pools",
+       "status": "ACCEPTED REGULARS — RUL-2026-10-16-011: 16 identities, kits (shared pool), rules and the stat ladder accepted as launch values (calibration may tune later); recovery fights reuse each division's REG1 at 50% pools",
        "generator": "state/silent_bastion_authoring/tools/gen_regulars.py",
        "tiers": {str(k): {"statsMultiplier": v[0], "poolsMultiplier": v[1]} for k, v in TIER.items()}, "eliteBonus": ELITE,
        "units": U}

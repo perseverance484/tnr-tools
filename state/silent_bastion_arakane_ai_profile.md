@@ -25,15 +25,15 @@
 - EA04 Zephyr Lance (60AP, range5/CD6; flat Pierce against shields).
 - B13 Hexweave (60AP, range4/CD8; Damage40, IDT40%, reduced healing, reduced stats).
 - B17 Worldbreaker Chorus (60AP, range5/CD10; Damage70 + Stun2r).
-- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand). **Cooldown 4 approved** (RUL-2026-10-16-004, AR1 mitigation).
+- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand). **Cooldown 4 approved** (RUL-2026-10-16-004, AR1 mitigation). **Name approved** (RUL-2026-10-16-011).
 - B27 Scorching Rend (60AP, range5/CD6; damage + wound + afterburn).
 - B05 Devouring Grasp (60AP, range5/CD6; damage + drain).
 - B26 Braced Strike (60AP, range5/CD5; damage + defensive buff).
 - B20 Surging Overflow (40AP/CD5; offensive buff + stat buff).
 - S07 Rapid Fire (60AP, range5/CD2; fallback).
-- **Exclusive The Last Directive:** Final Stand5r + IDG5r + Clear Prevent5r, activate once at HP<30%; IDG power unapproved, 40AP/99-round cooldown proposed.
+- **Exclusive The Last Directive:** Final Stand5r + IDG5r + Clear Prevent5r, activate once at HP<30%. **IDG 30, 40 AP, cooldown 99 approved** (RUL-2026-10-16-011).
 
-**Approved item identity:** Countermand, an equipped AI-only reusable military command seal. **Proposed** native item parameters: `itemType:'OTHER'`, `slot:'ITEM'`, `target:'OTHER_USER'`, 100% Clear, 40AP, range5, CD6, `destroyOnUse:false`, positive quantity, `equipped:'ITEM_1'`. No player-facing drop or reward. Confirm compatibility with the current item schema before implementation.
+**Approved item identity:** Countermand, an equipped AI-only reusable military command seal. **Approved** (RUL-2026-10-16-011) native item parameters: `itemType:'OTHER'`, `slot:'ITEM'`, `target:'OTHER_USER'`, 100% Clear, 40AP, range5, CD6, `destroyOnUse:false`, positive quantity, `equipped:'ITEM_1'`. No player-facing drop or reward. Confirm compatibility with the current item schema before implementation.
 
 ## Equipped items — dedicated Stealth continuity
 

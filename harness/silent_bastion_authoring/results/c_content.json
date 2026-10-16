@@ -1,5 +1,5 @@
 {
- "assertions": 29,
+ "assertions": 44,
  "checks": [
   {
    "name": "QuestValidator accepts the compiled candidate (battlepyramid, choose, pick 1, Beacon entry)",
@@ -98,6 +98,50 @@
    "pass": true
   },
   {
+   "name": "two caches, matching the quest-level reward refs",
+   "pass": true
+  },
+  {
+   "name": "arsenal: NonCombatConsumeRewardTag accepts the active weightedCache effect",
+   "pass": true
+  },
+  {
+   "name": "arsenal: one roll at 10000; tiers Epic 5000 / Legendary 5000",
+   "pass": true
+  },
+  {
+   "name": "arsenal: every Epic entry is one whole recipe (100%), exact ratios",
+   "pass": true
+  },
+  {
+   "name": "arsenal: every Legendary entry is exactly 40% of one recipe",
+   "pass": true
+  },
+  {
+   "name": "arsenal: untradeable, consumable, destroyed on use, no battle use, target SELF",
+   "pass": true
+  },
+  {
+   "name": "research: NonCombatConsumeRewardTag accepts the active weightedCache effect",
+   "pass": true
+  },
+  {
+   "name": "research: one roll at 10000; tiers Epic 5000 / Legendary 5000",
+   "pass": true
+  },
+  {
+   "name": "research: every Epic entry is one whole recipe (100%), exact ratios",
+   "pass": true
+  },
+  {
+   "name": "research: every Legendary entry is exactly 40% of one recipe",
+   "pass": true
+  },
+  {
+   "name": "research: untradeable, consumable, destroyed on use, no battle use, target SELF",
+   "pass": true
+  },
+  {
    "name": "quests.update saves the compiled candidate",
    "pass": true
   },
@@ -115,6 +159,22 @@
   },
   {
    "name": "Countermand (OTHER, reusable Clear 100, 40AP r5 CD6, PVE) validates as a stored item",
+   "pass": true
+  },
+  {
+   "name": "arsenal: stored cache row passes ItemValidator",
+   "pass": true
+  },
+  {
+   "name": "arsenal: 12/12 openings succeed, each grants exactly one whole compiled bundle, and every cache is destroyed",
+   "pass": true
+  },
+  {
+   "name": "research: stored cache row passes ItemValidator",
+   "pass": true
+  },
+  {
+   "name": "research: 12/12 openings succeed, each grants exactly one whole compiled bundle, and every cache is destroyed",
    "pass": true
   }
  ],

@@ -1,6 +1,6 @@
 # Silent Bastion — complete offline authoring package (`alt99_f4gate`)
 
-**Status: OFFLINE CANDIDATE PACKAGE.** This is not a manifest, not under `push/`, and has no live-game action. Balance, rewards, art, final wording and publication are director-owned (see `decision_docket.md`). The mechanics locked by RUL-2026-10-15-001 and RUL-2026-10-16-001 to -009 are implemented as locked. Every other number is marked CANDIDATE or BLOCKED where it appears.
+**Status: OFFLINE PACKAGE, director-accepted values.** This is not a manifest, not under `push/`, and has no live-game action. RUL-2026-10-15-001 and RUL-2026-10-16-001 to -012 are implemented. Cache names, cache and Beacon rarity, and art are still open; fresh reads, username checks and calibration come before any manifest (`decision_docket.md`). Publication is not authorized.
 
 - **Build contract:** `state/prompt_silent_bastion_complete_authoring.md`.
 - **Coordination lock:** `state/silent_bastion_approved_authoring_lock.json`.
@@ -11,18 +11,19 @@
 | Path | What | How it is made |
 | --- | --- | --- |
 | `design/commanders.json` | The 4 **existing** commander designs translated into the rule DSL. Each rule cites its roster or profile line. Kits, innate effects, exclusives and Countermand are recorded with APPROVED or CANDIDATE status | Hand-translated from `state/silent_bastion_commander_roster.md` and `state/silent_bastion_arakane_ai_profile.md`. Membership and priority order are not redesigned |
-| `design/regulars.json` | 16 **new** regular enemies: identity, shared-pool kit, rules (gates computed as range+1), candidate stats | `tools/gen_regulars.py` |
+| `design/regulars.json` | 16 **new** regular enemies: identity, shared-pool kit, rules (gates computed as range+1), accepted stats | `tools/gen_regulars.py` |
 | `design/script.json` | Player-facing text for all 99 objectives, plus the four puzzles with their planted clues and solution logic | `tools/gen_script.py` |
 | `design/protocols.json` | Exact-target ledger: Medical, recovery, Security Alert, Combat Protocols (D5 Debuff Prevent 100 / 3r, RUL-2026-10-16-008) | hand-written |
-| `design/entry_and_rewards.json` | Quest fields, Beacon candidate, quest-level one-of-two cache choice (caches' contents BLOCKED) | hand-written |
+| `design/entry_and_rewards.json` | Quest fields, Beacon, quest-level one-of-two cache choice, and the approved cache contents spec (RUL-2026-10-16-010) | hand-written |
 | `sources/source_records.json` | Captured records for every equipped jutsu (76) and the two seed weapons, with capture provenance | `tools/extract_sources.py --engine <pinned export>` |
 | `compiled/quest.candidate.json` | The 99-objective quest record. Refs stay symbolic (`@ai:<slot>`, `@item:`, `@jutsu:`) | `tools/compose.py` |
 | `compiled/ai_profiles.candidate.json` | 20 AI records + rule sets (≤20 rules, `includeDefaultRules:false`, unconditional `end_turn` last) | `tools/compose.py` |
 | `compiled/encounter_ledger.json` | 20 encounter identities, the battle objectives that use them, and their source-mapped kits | `tools/compose.py` |
+| `compiled/cache_items.candidate.json` | The two completion caches as item records with their Weighted Cache tables | `tools/compose.py` from `design/entry_and_rewards.json` + the candidate pools file |
 | `compiled/story_script.md` | Readable story script keyed to every objective ID | `tools/compose.py` |
-| `economy_and_f3.md` | Candidate stat ladder, reward economy, F3 farm math and `scaleGains` options | hand-written |
+| `economy_and_f3.md` | Stat ladder, reward economy, F3 farm math and `scaleGains` options | hand-written |
 | `art_shotlist.md` | 20 avatars, scenes and icons. Brief only; no binaries | hand-written |
-| `decision_docket.md` | The single list of director decisions | hand-written |
+| `decision_docket.md` | Remaining director items, pre-manifest work, and every resolved ruling | hand-written |
 
 Every generator has `--check`. `harness/silent_bastion_authoring/run.sh` runs them all, then validates natively. Results: `docs/reviews/SILENT_BASTION_AUTHORING_OFFLINE_RESULTS.md`.
 

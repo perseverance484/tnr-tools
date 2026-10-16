@@ -14,12 +14,17 @@ EXPECTED = {
     "[ai:Supreme Commander Arakane]: unresolved ref @jutsu:extermination_order in AI jutsus array": "two-phase build: create exclusives first, then substitute literal ids",
     "[ai:Supreme Commander Arakane]: unresolved ref @jutsu:last_directive in AI jutsus array": "two-phase build: create exclusives first, then substitute literal ids",
     # Locked topology (alt99_f4gate, RUL-2026-10-16-002): both wrong answers lead to the Security Alert approach.
+    # Validator exception granted by RUL-2026-10-16-012.
     "[quest:Ghost Ship: The Last Directive].d2.n.puzzle: two or more options in this menu share a target": "locked graph: 1 correct + 2 wrong -> alert",
     "[quest:Ghost Ship: The Last Directive].d3.n.puzzle: two or more options in this menu share a target": "locked graph",
     "[quest:Ghost Ship: The Last Directive].d4.n.puzzle: two or more options in this menu share a target": "locked graph",
     "[quest:Ghost Ship: The Last Directive].d5.n.puzzle: two or more options in this menu share a target": "locked graph",
     # Tooling finding VAL1: gate A shows Countermand's item Clear strips player buffs at 0651b039; the lint is stale.
     'lint Countermand: L18 item effect "clear" excluded from item union': "stale lint vs engine (gate A6 countermandClearResult)",
+    # Tooling finding VAL2: data/46_DATA_tag_schemas.json was extracted 2026-07-10, before NonCombatConsumeRewardTag gained
+    # rewardMode/weightedCache. At 0651b039 the engine accepts both (gate C: NonCombatConsumeRewardTag, ItemValidator, real openings).
+    **{f"[item:Bastion {fam} Cache [provisional]].effects[0]: noncombatconsumereward: unknown field '{fld}'": "VAL2 stale tag schema (gate C1b/C2 caches)"
+       for fam in ("Arsenal", "Research") for fld in ("rewardMode", "weightedCache")},
 }
 
 def main():
@@ -28,7 +33,7 @@ def main():
                        capture_output=True, text=True, cwd=REPO)
     text = r.stdout + r.stderr
     open(os.path.join(out, "validate_py.txt"), "w").write(text)
-    errors = [re.sub(r"^ERROR\s+", "", l).split(": refs are silently")[0].split(", so the menu")[0] for l in text.splitlines() if l.startswith("ERROR")]
+    errors = [re.sub(r"^ERROR\s+", "", l).split(": refs are silently")[0].split(", so the menu")[0].split(". Valid: ")[0] for l in text.splitlines() if l.startswith("ERROR")]
     got, want = set(errors), set(EXPECTED)
     unexpected, vanished = sorted(got - want), sorted(want - got)
     summary = re.findall(r"(\d+) errors, (\d+) warnings", text)

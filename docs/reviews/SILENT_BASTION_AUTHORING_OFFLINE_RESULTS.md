@@ -3,8 +3,12 @@
 **Verdict:**
 
 - **The authoring package is complete and passes every native gate.** All 99 objectives have content. The four existing commander designs are translated into native rules. The 16 regulars are new, and all content-only blockers are documented.
-- **No director-level blocker remains.** The director ruled on AR1, RC1, F3, SRC1, D5 and the Grand Marshal kit on 2026-10-16 (RUL-2026-10-16-004 to -009). This revision applies those rulings and adds gate I for the F3 choice.
-- **Nothing here is approved for release.** Balance, rewards, art, final wording and publication stay with the director. See `state/silent_bastion_authoring/decision_docket.md`.
+- **Every design and balance decision the package raised is now ruled** (RUL-2026-10-16-004 to -012). This revision applies them:
+  - compiles and natively tests the approved completion caches;
+  - marks the accepted values and copy;
+  - records the puzzle validator exception.
+- **Still open for the director:** cache names, cache and Beacon rarity, cache description wording and art.
+- **Before any manifest:** fresh reads, username checks, the calibration fight and the two-phase build. Publication is not authorized. See `state/silent_bastion_authoring/decision_docket.md`.
 
 - **Contract:** `state/prompt_silent_bastion_complete_authoring.md` at `chatgpt/silent-bastion-caches-claude-handoff-20261016@25d2b2e159d9fb9b0769db5483571e0db87991f6`.
 - **Lock:** `state/silent_bastion_approved_authoring_lock.json`.
@@ -32,10 +36,10 @@
 | Gate | Result |
 | --- | --- |
 | Generators `--check` (sources, regulars, script, composer, C99 derived graphs) | **all current** |
-| **V** — `validate.py` on the validation-only manifest | **7 errors, all documented (7/7), and 11 warnings.** See §3. |
+| **V** — `validate.py` on the validation-only manifest (now including both cache items) | **11 errors, all documented (11/11), and 9 warnings.** See §3. |
 | Upstream preflight: 9 engine suites (AI v2 rules/targeting/unreachable/summon, seal/stealth, quest reset, Pyramid consequences, entry charge, run state) | **117 / 117** |
 | **A** — AI (pure; real decision engine, real captured jutsu records) | **218 checks, 0 failed** (50 tests) |
-| **C** — compiled content + real saves | **29 checks, 0 failed** (8 tests), including `scaleGains` 0 on exactly the 8 recovery battles and the approved D5 buff |
+| **C** — compiled content + real saves | **44 checks, 0 failed** (10 tests). Includes `scaleGains` 0 on exactly the 8 recovery battles, the approved D5 buff, and the completion caches (C1b static, C2 native) |
 | **D/R/E** — frozen C99 runtime gates with **the compiled candidate quest** as the fixture | **D 543, R 7,033, E 592 checks, 0 failed** |
 | **I** — recovery income on the compiled quest (new, RUL-2026-10-16-005) | **456 checks, 0 failed** (4 divisions). Compiled-runtime suite total: 41/41 tests |
 | Deterministic re-run (second full `run.sh`, scratch output) | **exit 0; all 7 evidence JSON files byte-identical.** `validate_py.txt` has the same lines; only the order of two warnings changes between runs (from `validate.py` itself) |
@@ -46,6 +50,7 @@
 | --- | --- | --- |
 | Graph: 99 nodes, 625 routes, 16–20 combats, single root, dialog-gated battles | PASS. Node by node, the compiled quest matches the locked graph, including opponents, `givePools` and reset targets | C |
 | Recovery: REG1 losses and wins, recovery_later loss replays at 50% (no C1) | PASS. C1 is absent in all four divisions | D, R |
+| Completion caches as ruled (RUL-2026-10-16-010) | PASS. Both cache effects pass `NonCombatConsumeRewardTag`, and both stored rows pass `ItemValidator`. Weights are 1 roll, Epic 5000 / Legendary 5000. Every Epic entry equals one whole pool recipe and every Legendary entry exactly 40% of one. The caches are untradeable and target SELF. **24 native openings** (12 per cache) through `item.consume` each granted exactly one whole compiled bundle and destroyed the cache. Which bundles were drawn is random, so it goes to `c_content.timings.json` | C1b, C2 |
 | Single terminal reward | PASS. The compiled quest has quest-level `choose`, pick 1, and two cache cards; nothing on objectives. The runtime pays the completion reward once; the cache choice itself is proven on the reward-proof branch | C, R, reward proof |
 | Recovery wins pay nothing (O2) | PASS. In every division a recovery win (first and later) has battle `rewardScaling` 0, pays 0 money and 0 XP, and still advances the graph; a first-pass win has `rewardScaling` 1 and pays XP. The C99 gate E8 agrees: per farm loop XP fell from 64 to 32 because only the regular win pays now | I, E |
 | Carryover, Medical 100, player-side Combat and Security Alert | PASS. Every battle start is checked; effects land on the player only and are allowlisted | R, C |
@@ -84,11 +89,17 @@ Commander behaviour highlights (gate A, real `performAIaction`):
 
 **VAL1 — `validate.py` lint L18 is stale against `0651b039`.** It forbids `clear` on items, but `ItemValidator` accepts it and gate A shows the item Clear working in combat. This is tooling, Lane A, and is not changed here.
 
-**`validate.py`'s 7 remaining errors, all documented in `tools/check_validate.py`:**
+**VAL2 — `validate.py`'s tag schemas predate Weighted Cache.** `skills/building-tnr-content/data/46_DATA_tag_schemas.json` was extracted 2026-07-10. It reports `rewardMode` and `weightedCache` as unknown fields on `noncombatconsumereward`. At `0651b039` the engine's own schema accepts both, and gate C opens the caches natively. Lane A tooling; not changed here.
+
+**Caught and fixed by validate.py this round:** both cache items now carry item `target: "SELF"` (lint L18); the factory default was `CHARACTER`. Tradability uses the engine column `canBeTraded`.
+
+**`validate.py`'s 11 remaining errors, all documented in `tools/check_validate.py`:**
 
 - 2 are the two-phase build requirement: Arakane's exclusive jutsu need literal IDs.
-- 4 are the locked puzzle topology: both wrong answers share the Security Alert node, which the "options share a target" rule rejects. A future push needs an explicit validator-exception ruling.
+- 4 are the locked puzzle topology: both wrong answers share the Security Alert node. The validator exception is granted (RUL-2026-10-16-012).
 - 1 is VAL1.
+- 4 are VAL2.
+- The 2 unresolved-cache-ref warnings are gone now that the caches are compiled.
 
 **F3 — resolved with O2 (RUL-2026-10-16-005).** The 8 recovery battles carry `scaleGains: 0`. Gate C checks the value survives `QuestValidator` on exactly those battles. Gate I (§2) shows natively that a recovery win still settles and advances, with `rewardScaling` 0 and no money or experience, while a first-pass win pays.
 
@@ -96,7 +107,7 @@ Commander behaviour highlights (gate A, real `performAIaction`):
 
 **D5 — Debuff Prevent 100 / 3r (RUL-2026-10-16-008).** The director delegated the pick. Option A was chosen because it is native-proven and fits the Sanctum's fiction, while leaving the endgame threat intact. The D5 dialog and battle text now describe it.
 
-**Earlier findings unchanged at this pin:** F4/F5 text exposure, and B1 (Beacon at start, approved). C1 is absent from the selected graph.
+**Earlier findings at this pin:** F4/F5 text exposure is accepted (RUL-2026-10-16-012); B1 (Beacon at start) was approved earlier. C1 is absent from the selected graph.
 
 **Notes on the brief's assumptions:**
 
@@ -109,7 +120,7 @@ Commander behaviour highlights (gate A, real `performAIaction`):
 - On this grid an adjacent target reads below path length 2, so behaviour scenarios use distance ≥3. Gate A3 also covers distance 2 for Tempest Cleave.
 - Runtime gates impose battle outcomes with the upstream settlement pattern. The completion reward in D/R/E is the harness sentinel; the cache choice is proven on the reward-proof branch.
 - Jutsu records come from committed operator captures (2026-08 to 2026-10); the weapons come from the upstream seed. **None of these is a fresh live readback.**
-- Not done: a live manifest, art, browser or Android checks, hidden write or readback, username-collision checks, cache tables (BLOCKED), and the coherence gates for `skills/` or doctrine (no such files changed).
+- Not done: a live manifest, art, browser or Android checks, hidden write or readback, username-collision checks, fresh reads of the cache ingredients (2026-10-13 census capture), and the coherence gates for `skills/` or doctrine (no such files changed).
 
 ## 5. Reproduce
 
@@ -125,6 +136,6 @@ Provenance is in `results/provenance.json`: the engine pin, `bun.lock`, the SHA-
 - **Repository:** `perseverance484/tnr-tools`
 - **Branch:** `claude/silent-bastion-authoring-69za5u` (Fable-owned, sole writer)
 - **Base:** `25d2b2e159d9fb9b0769db5483571e0db87991f6`. The merge-base with `main@99e86dc` is reported at handoff.
-- **Frozen head:** the commit that adds this revision. The SHA is in the handoff message. It supersedes the first frozen head `d648c62ab39e77045507e0409dd7f6470599f93c`; the only changes since are the 2026-10-16 director rulings (RUL-2026-10-16-004 to -009), gate I and the gate C checks for them.
+- **Frozen head:** the commit that adds this revision. The SHA is in the handoff message. It supersedes `01643c802f1571e42cb51c0e50174c6eaa53fc43` (which superseded `d648c62a`). Since `01643c80`, the changes are rulings RUL-2026-10-16-010 to -012, the compiled caches with their gate C checks, VAL2, and the accepted-status updates.
 - **Companion proof:** `claude/recipe-cache-native-proof-69za5u@b133d73286df9e48ba1015b21dd694c69c9ea090`. It is independent, not merged here, and pending its own review.
 - **Next:** ChatGPT independent audit of the frozen SHA. After that, the director works through `decision_docket.md`.
