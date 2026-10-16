@@ -1,6 +1,6 @@
 # Houkyuken / Hokyuken — Five Jutsu Icon Identity Register
 
-**Status:** FIVE ORIGINAL REFERENCES INSPECTED · **POLAR FLUX FAMILY STYLE + ALL FIVE SILHOUETTES APPROVED (2026-10-16)** · **1/5 exact replacement raw artworks visually approved, 0/5 processed WebPs, showcase NOT READY.** The attached originals are identity references, **not** accepted replacements. Their exact binary files are not Git-pinned; see `SOURCE_EVIDENCE.json` for hashes and fields.
+**Status:** FIVE ORIGINAL REFERENCES INSPECTED · **POLAR FLUX FAMILY STYLE + ALL FIVE SILHOUETTES APPROVED (2026-10-16)** · **2/5 exact replacement raw artworks visually approved, 0/5 processed WebPs, showcase NOT READY.** The attached originals are identity references, **not** accepted replacements. Their exact binary files are not Git-pinned; see `SOURCE_EVIDENCE.json` for hashes and fields.
 
 **Director alias:** Hokyuken · **Captured name:** Houkyuken · **Bloodline ID:** `ALoGrHuBY5Ml9bJG_DILe` · **Rank:** A · **Bloodright:** BR-033 · **Capture:** public 2026-10-01 14:58:45Z / hidden 2026-09-30.
 **Operating roles:** Art Director lead, Image Production support · **Art Studio does not generate images** · **No live-game requests or writes**.
@@ -12,7 +12,7 @@ Five director-uploaded individual attachments arrived in the **same sequence as 
 | # | Captured exact name / rank | Jutsu ID | Historical supported effects | Unsupported evaluator tag | Director original / actual decoded content | New approved raw |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | **Magnetic Pulse Strike** · A | `DEF2BLauG-nis5B0K7ULi` | damage | wound | `1000018531.png` · **JPEG RGB**, 1536×1536 | **APPROVED** `1000018545.png` (actual JPEG RGB 1536×1536, SHA-256 `2eb821b7…8114acde`) |
-| 2 | **Rising Star** · B | `NB5sGddr-RgH9eEp2L8jL` | damage, reflect | — | `1000018532.png` · **JPEG RGB**, 1536×1536 | NONE |
+| 2 | **Rising Star** · B | `NB5sGddr-RgH9eEp2L8jL` | damage, reflect | — | `1000018532.png` · **JPEG RGB**, 1536×1536 | **APPROVED** `1000018546.png` (actual JPEG RGB 1536×1536, SHA-256 `69170c3c…8a154b`) |
 | 3 | **Morning Star** · B | `G2vuPJTsyGHctsLU_g59x` | damage, increasedamagetaken | — | `1000018533.png` · **JPEG RGB**, 1536×1536 | NONE |
 | 4 | **Houkyuken: Magnetic Assignment** · D | `8Xoc-IdRz5pX4zT9LWOSc` | decreasedamagetaken (self), increasedamagegiven (self), increasedamagetaken (enemy) | — | `1000018534.png` · **JPEG RGB**, 1536×1536 | NONE |
 | 5 | **Houkyu Dance** · A | `qVO2qvGMSDpP_XFqiLDWy` | area damage, increasedamagegiven (self) | move | `1000018535.png` · **JPEG RGB**, 1536×1536 | NONE |
@@ -58,23 +58,29 @@ The shared ICON spec recommends square 256px lossless WebP, minimum 160px, gener
 
 **Visual signoff is not export signoff:** no 256px WebP, lossless codec/size QC, approved alpha-rule exception, preflight PASS or live-game write has occurred. The approved image becomes the **STYLE/MATERIAL-ONLY** reference for later Houkyuken isolated generation. It does **not** grant permission to reuse its horizontal impact, right-edge red collision, field arcs or composition.
 
-## Next isolated target: Rising Star — Ascending Reversal
+## Second isolated generation: Rising Star — APPROVED
 
-**Next:** **Rising Star** (`NB5sGddr-RgH9eEp2L8jL`, B-rank), **Ascending Reversal direction approved**. Its historical captured supported effects are Magnet damage and a self reflect effect. The original shows vertical ascent accompanied by opposed fields, not a mandatory depicted actor. Isolated brief: `docs/design/houkyuken/RISING_STAR_ISOLATED_BRIEF_20261016.md`.
+**Ascending Reversal** (`NB5sGddr-RgH9eEp2L8jL`) is **visually approved as exact raw artwork** by the director on 2026-10-16 (“Approved, next”). Exact source: director-uploaded `1000018546.png`, actual **JPEG RGB 1536×1536, 599,262 bytes**, SHA-256 **`69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b`**. This confirms one towering upward cyan polar lance with magnetite plates and subordinate scarlet return field as the Rising Star-specific silhouette. Do not repeat this vertical composition for Morning Star. The image is **not Git-pinned**; reattach the individual exact source file when needed.
 
-**Reference contract (exact individual files only):**
-1. `1000018532.png` — Rising Star original, **IDENTITY ONLY**, actual JPEG RGB 1536×1536; SHA-256 `e29a273fe881d149bb6f8bd3b8fdabf5a58d9d958271f3d72480b581e6783603`.
-2. `1000018545.png` — approved Magnetic Pulse Strike raw, **STYLE/MATERIAL ONLY**, actual JPEG RGB 1536×1536; SHA-256 `2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde`.
+**Visual approval is not export acceptance:** Rising Star has no current final lossless WebP, size validation, 125/64/32 export QC, preflight pass or showcase signoff. Magnetic Pulse Strike and Rising Star are both visually approved **raw**, not game assets.
 
-Show **one premium, upward-dominant magnetic spear / tightly tapered polar rise**, with **one subsidiary returning/reversed current at its base** hinting at reflect. **No** horizontal rail pulse, red impact explosion, compacted sideways wedge, Falling Morning Star, opposing Assignment jaws, or Houkyu Dance figure-eight orbit.
+## Next isolated target: Morning Star — Ferrostar Crush
+
+**Next:** **Morning Star** (`G2vuPJTsyGHctsLU_g59x`, B-rank). The **Ferrostar Crush** direction is already **director approved** with the five-icon family style. Its historical supported effects are Magnet damage plus increased enemy damage taken. The approved treatment is **one broad descending diagonal magnetite compression head impacting and fracturing a small subordinate magnetic pressure plane**, not a literal astronomical star or meteor. See the full **`docs/design/houkyuken/MORNING_STAR_ISOLATED_BRIEF_20261016.md`**.
+
+**Reference contract — exactly two separate, actual images:**
+1. `1000018533.png`: **Morning Star original — IDENTITY ONLY**. Actual JPEG RGB 1536×1536, 232,909 bytes; SHA-256 `d6be16cc1fd8a6d6cd942c8c37ec741e28e54077f94c30832717c9496ef101bf`. It preserves two magnetic polarities converging on a grounded strike, **not** the crouching actor, surrounding hoops or environment.
+2. `1000018546.png`: **approved Rising Star raw — STYLE / MATERIAL ONLY**. Actual JPEG RGB 1536×1536, 599,262 bytes; SHA-256 `69170c3c6e37f5987030f466b2eb9b15a7efdc06d143373b741a7d775e8a154b`. Controls ferromagnetic shards, material weight, cyan and scarlet pressure seams, concentrated white light, dark atmosphere. **Do not inherit** the tall vertical spear, bright lower-center eruption, or rising trajectory.
+
+**Silhouette contrast test:** existing Rail Pulse = **horizontal**; approved Rising Star = **upward vertical**; Morning Star = **descending diagonal weighted head**. Magnetic Assignment keeps the **split opposing jaws**; Houkyu Dance keeps the **interwoven orbital ribbons**.
 
 ## Status and gates
 
 1. **Original intake:** 5/5 director-provided mapping, actual JPEG decode and source SHA/bytes recorded. Attachments **NOT Git-pinned**.
 2. **Director style gate:** Polar Flux materials/palette and five distinct silhouettes **APPROVED** (user: “All approved, proceed with prompt and reference images”).
-3. **Raw art:** Magnetic Pulse Strike — Rail Pulse **APPROVED** by exact file SHA-256 (user: “Approved. Next”). Remaining targets 4/5, next Rising Star. One jutsu per fresh isolated conversation, one candidate at a time.
+3. **Raw art:** Magnetic Pulse Strike — Rail Pulse **APPROVED** and Rising Star — Ascending Reversal **APPROVED** by exact file SHA-256 (individual director messages). Remaining **3/5** targets, next Morning Star. One jutsu per fresh isolated conversation, one candidate at a time.
 4. **Processing:** no exports yet. Inspect actual processed WebPs at 125/64/32; record source-to-export mapping, true lossless codec/dimensions/bytes/hash, and truthful preflight. Do not create fake alpha.
 5. **Showcase:** after all 5 raw approvals and 5 verified exports, deterministically compose 3 top + 2 centered below; add actual verified WebP-size captions, and request separate family acceptance.
 6. **Delivery:** no upload, live-game request, live edit or publication in this Art Studio; user owns all live actions.
 
-**Current:** Originals 5/5 · Directions **5/5 approved** · Exact current replacement raw **1/5 approved** · Processed WebPs **0/5** · Showcase **NOT READY** · Live requests/writes **0/0** · Credentials **none**.
+**Current:** Originals 5/5 · Directions **5/5 approved** · Exact current replacement raw **2/5 approved** · Processed WebPs **0/5** · Showcase **NOT READY** · Live requests/writes **0/0** · Credentials **none**.
