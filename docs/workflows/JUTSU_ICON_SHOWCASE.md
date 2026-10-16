@@ -33,7 +33,7 @@ The BBE-specific **eight-icon reference layout** is four columns x two rows on a
 
 ## 2a. Variable-size bloodline families — adaptive layout rule
 
-**Director correction (2026-10-15): bloodline jutsu count is NOT universally eight.** Many A-rank bloodlines have five jutsu; S-rank rosters vary, and all ranks must use the actual authoritative bloodline roster. **Never derive N from rank, assume a fixed template count, invent extra icons, silently omit a jutsu, or pad with fake empty showcase slots.** Resolve the exact current approved roster N before selecting the showcase grid.
+**Director correction (2026-10-15): bloodline jutsu count is NOT universally eight.** Many A-rank bloodlines have five jutsu; S-rank rosters vary, and all ranks must use the actual authoritative bloodline roster. **Never derive N from rank, assume a fixed template count, invent extra icons, silently omit a jutsu, or pad with fake empty showcase slots.** Resolve **N from the current verified jutsu roster**, then verify that exactly N current raw icons are individually approved before selecting the showcase grid. If available roster sources disagree, surface the conflict under `docs/00_INDEX.md` precedence rather than guessing a count.
 
 The **number of icons determines the grid and canvas**, not the other way around. A balanced layout should give every icon the same square size and a readable caption, using centered incomplete rows. The following are **recommended starting arrangements**, subject to director approval for each bloodline:
 
