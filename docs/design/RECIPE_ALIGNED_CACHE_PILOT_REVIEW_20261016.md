@@ -64,3 +64,10 @@ The native source contract is `noncombatconsumereward` with `rewardMode:"weighte
 **Unresolved Bastion prerequisite:** Fable's original 99-node graph failed native reset behavior; the director now approved `alt99_f4gate` with Fable proof at `74eeb328f05d4258056b0a1c531619ffcf852ce3`. The new implementation must reconcile current upstream, the Beacon charging timing B1 and Arakane Combat Protocol stand-in; content may be drafted without silently treating these as settled. No live requests or writes.
 
 **Recommended next bounded activity:** Fable performs an isolated **offline** `battlepyramid` reward-choice fixture and Weighted Cache bundle/receipt compatibility proof (without creating a live-clickable push manifest); ChatGPT and the director compare these candidate recipe profiles and choose the economic model before content freeze.
+
+
+## Read-only source-data consistency check (2026-10-16)
+
+Following document creation, each of the **8 proposed pilot** and **8 reserve** entries was compared again to the exact source census by item ID, name, type, rarity and ingredient ID/quantity. All 16 matched, and no two entries duplicate an identical full ingredient set. The two quantity scenarios preserve exact integer recipe ratios for every ingredient. Both illustrative tier distributions and both one-roll distributions sum to 10,000 basis points. The source's 14 visible player-craftable armor records were filtered independently; **0/14** passed the non-event, directly sourced, non-nested test. The frozen `alt99_f4gate` graph has 99 nodes, with all four recovery-win dialog bridges and four folded fourth-fight introductions present. Current upstream `main` still resolved to `0651b039a466516a8fe24fc13b56f60dea11b7eb` during this check.
+
+**Scope of this check:** repository connector comparisons and arithmetic only. It did **not** execute `validate.py`, the game engine, a database, live browser, Forge, weighted-cache item update or item consume. These findings are **source-data QA**, not release validation, independent Fable review or proof of desirable balance. A future native builder/engine proof and user reward approval remain gates.
