@@ -24,6 +24,19 @@ const manifestFor = (name, bytes) => ({
   items: [{ entity: "asset", slot: "create", name: "X", srcId: "x", data: { name: "X", hidden: true, type: "STATIC", url: `@img:${name}` } }],
 });
 
+test("Bloodright category and node icons use the same committed-blob pack authoring path", () => {
+  const ref = resolveCommit("HEAD"), blob = blobAt(ref, `${ART_DIR}/${ART_NAME}`);
+  for (const body of [
+    { bloodright: { icons: { Foundation: `@img:${ART_NAME}` } } },
+    { bloodrightCollection: { version: 1, trees: [{ icons: { Foundation: `@img:${ART_NAME}` } }, { nodes: { n: { image: `@img:${ART_NAME}` } } }] } },
+  ]) {
+    const result = buildPack({ ...body, imgSizes: { [ART_NAME]: blob.length } }, { ref, root: ART_DIR });
+    assert.deepEqual(result.problems, []);
+    assert.deepEqual(Object.keys(result.pack.files), [ART_NAME]);
+    assert.equal(result.pack.files[ART_NAME].sha256, sha256Hex(blob));
+  }
+});
+
 test("the tool binds to a resolved 40-hex commit, never to the revision it was given", () => {
   const sha = resolveCommit("HEAD");
   assert.match(sha, /^[0-9a-f]{40}$/);

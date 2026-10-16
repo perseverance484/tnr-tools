@@ -142,7 +142,10 @@ function SelectedManifest(app) {
       h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));
   }
   if (s.bloodright) {
-    card.appendChild(h("div", { class: "f-banner info" }, `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+    card.appendChild(h("div", { class: "f-banner info" }, s.collection
+      ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.`
+      : `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+    for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations · ${tree.maxAdvanced} reachable Advanced Art(s)`));
     for (const row of s.bloodright.preview) card.appendChild(h("details", {},
       h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " → " + row.targetId : ""} · ${row.changes.length} changed field(s)`),
       h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))));
@@ -205,7 +208,7 @@ function SelectedManifest(app) {
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
-    }, readOnly ? "Run captures" : "Start job"),
+    }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
     h("button", { onClick: () => app.clearSelection() }, "Clear"),
   ));
   return card;
@@ -217,6 +220,7 @@ export function RunScreen(app) {
   const job = jobId ? app.journal.get(jobId) : null;
   const root = h("section", {});
   if (!job) { root.appendChild(h("div", { class: "f-mute" }, "No job selected. Pick one on Jobs.")); return root; }
+  if (job.collection) root.appendChild(h("div", { class: "f-banner info" }, `Bloodright collection · tree ${job.collection.index + 1}/${job.collection.total} · ${job.collection.path}. Pause stops later trees too. After reload, resume this job, then reopen the collection.`));
   const done = job.items.filter((i) => ["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length;
   root.append(
     h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` · started ${fmtAgo(job.startedAt, app.now())}`)),

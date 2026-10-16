@@ -2,6 +2,8 @@ import { assertBloodrightAvailable } from "./jobs.mjs";
 import { CONTRACT, bloodrightProblems, writableSnapshot } from "./validate.mjs";
 import { diffAsserted } from "../runner/validate.mjs";
 import { readIdmap } from "../storage/compat.mjs";
+import { readAssetUploads } from "../storage/assets.mjs";
+import { normalizeImagePack } from "../runner/imgpack.mjs";
 
 export const scopeKey = (bloodlineId, nodeId) => `br:${bloodlineId}:${nodeId}`;
 const object = v => !!v && typeof v === "object" && !Array.isArray(v);
@@ -9,13 +11,14 @@ const id = v => typeof v === "string" && /^[A-Za-z0-9_-]+$/.test(v);
 const sameName = (a, b) => a.normalize("NFKC").trim().toLowerCase() === b.normalize("NFKC").trim().toLowerCase();
 
 /** Pure, deterministic compiler. Inventory must be freshly collected by prepareBloodright. */
-export function compileBloodright({ design, config, skills, folders, idmap = {} }) {
+export function compileBloodright({ design, config, skills, folders, idmap = {}, imagePack, imgSizes = {}, uploads = {}, requireIcons = false }) {
   const problems = [], preview = [], items = [];
   const fail = text => problems.push(text);
   const bl = design?.bloodline?.id;
   if (!id(bl)) fail("design requires a literal bloodline ID");
   if (!/^[a-f0-9]{40}$/.test(config?.source?.ref ?? "") || !config?.source?.path) fail("source must name a repository path at an exact 40-character commit");
   const nodes = design?.nodes;
+  for (const category of Object.keys(config.icons ?? {})) if (!["Foundation", "Hidden Art", "Advanced Art"].includes(category)) fail(`unknown icon category ${category}`);
   if (!Array.isArray(nodes) || !nodes.length || nodes.length > 24) return { problems: [...problems, "design needs 1..24 structural nodes"], preview, manifest: null };
   const rules = design.build_rules;
   if (rules?.max_bp !== 5 || rules?.skill_cost !== 1 || rules?.prerequisites !== "ALL") fail("this importer requires the approved five-BP, one-point, ALL-prerequisites design format");
@@ -72,6 +75,9 @@ export function compileBloodright({ design, config, skills, folders, idmap = {} 
   const claimed = new Set();
   for (const n of ordered) {
     const settings = config.nodes?.[n.id] ?? {};
+    const icon = settings.image ?? config.icons?.[n.category];
+    if (requireIcons && icon === undefined) fail(`${n.name}: collection imports require an explicit node or category icon`);
+    if (icon !== undefined && (typeof icon !== "string" || !/^(@img:[A-Za-z0-9_.-]+|https:\/\/\S+)$/.test(icon))) fail(`${n.name}: icon must be an HTTPS URL or @img filename`);
     for (const key of Object.keys(settings)) if (!["rounds", "seichiSilverCost", "description", "image"].includes(key)) fail(`${n.name}: unsupported setting ${key}`);
     const targetId = bound(n.id, bindings.nodes?.[n.id]);
     const live = skills.find(s => s.id === targetId);
@@ -94,21 +100,28 @@ export function compileBloodright({ design, config, skills, folders, idmap = {} 
       target: "SELF", tier: n.tier, requiredSkillIds: n.parents.map(p => `@skillTree:${scopeKey(bl, p)}`),
       costSkillPoints: n.cost, pathType: "BLOODRIGHT", bloodlineId: bl, seichiSilverCost: settings.seichiSilverCost,
       hidden: true, skillType: "DEFAULT", folderId: `@skillTreeFolder:${folderKey}`, effects,
-      ...(live?.image ? { image: live.image } : {}), ...(settings.image !== undefined ? { image: settings.image } : {}),
+      ...(live?.image ? { image: live.image } : {}), ...(icon !== undefined ? { image: icon } : {}),
     };
     for (const p of bloodrightProblems("skillTree", data, null, { preCreate: true })) fail(`${n.name}: ${p}`);
     const resolved = { ...data, folderId: folderId ?? data.folderId, requiredSkillIds: n.parents.map(p => bound(p, bindings.nodes?.[p]) ?? `@skillTree:${scopeKey(bl, p)}`) };
+    // Preview reuse by content, never by the old filename -> URL map. Keep @img in the
+    // actual payload so Start/resume still verify the immutable bytes and the runner owns upload.
+    const imageName = typeof data.image === "string" && data.image.startsWith("@img:") ? data.image.slice(5) : null;
+    const asset = imagePack?.files?.[imageName];
+    if (imageName && asset && uploads[asset.sha256]?.url) resolved.image = uploads[asset.sha256].url;
     const changes = live ? diffAsserted("skillTree", resolved, live) : Object.entries(data).map(([key, sent]) => ({ key, sent }));
     const it = { entity: "skillTree", srcId: scopeKey(bl, n.id), name: n.name, slot: targetId ? "edit" : "create", ...(targetId ? { targetId, expected: live ? writableSnapshot("skillTree", live) : null } : {}), data };
     items.push(it);
     preview.push({ nodeId: n.id, name: n.name, targetId, operation: targetId ? changes.length ? "update" : "reuse" : "create", changes });
   }
   const provenance = { version: 1, source: config.source, gamePin: CONTRACT._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter(it => it.targetId).map(it => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
-  return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items } };
+  const packed = normalizeImagePack(imagePack, { imgSizes, names: items.map(it => it.data.image).filter(v => typeof v === "string" && v.startsWith("@img:")).map(v => v.slice(5)) });
+  problems.push(...packed.errors);
+  return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...(packed.pack ? { imagePack: packed.pack } : {}), ...(Object.keys(imgSizes).length ? { imgSizes } : {}) } };
 }
 
 /** Read-only preparation; the caller freezes the returned manifest for Start and reload. */
-export async function prepareBloodright({ config, github, reader, storage, auth, journal }) {
+export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons }) {
   if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
   if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
   auth?.assert("skillTree.create");
@@ -131,5 +144,5 @@ export async function prepareBloodright({ config, github, reader, storage, auth,
     if (index < 0) throw new Error(`bound skill ${target} absent from complete inventory`);
     all.data[index] = r.data;
   }
-  return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map });
+  return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads: readAssetUploads(storage) });
 }
