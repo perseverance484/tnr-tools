@@ -168,7 +168,7 @@ describe("S: path enumeration over the engine-parsed objectives", () => {
       }
       for (const n of succ(o)) walk(n, nb, nboss, trail.length < 400 ? [...trail, id] : trail);
     };
-    walk(g.entry, 0, 0, []);
+    walk(g.entry!, 0, 0, []);
     ev.put("successPaths", { count: paths, battleCounts: [...lengths].sort() });
     ev.check("3,125 successful selection paths, each ending at w.complete via d.aftermath", paths === 3125 && bad.length === 0, bad.slice(0, 5));
     ev.check("successful path length 20–25 battles", [...lengths].sort().join() === "20,21,22,23,24,25", [...lengths]);
