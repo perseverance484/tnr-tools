@@ -1,6 +1,6 @@
 {
   "schema": "tnr.houkyuken.jutsu-icon-art-studio-evidence/1",
-  "status": "ORIGINALS_INSPECTED_DIRECTION_APPROVAL_PENDING",
+  "status": "FAMILY_DIRECTION_APPROVED_RAW_1_OF_5",
   "created_on": "2026-10-16",
   "repository": "perseverance484/tnr-tools",
   "studio_branch": "chatgpt/houkyuken-jutsu-art-studio-20261016",
@@ -34,8 +34,8 @@
   "director_originals_expected_in_next_session": 5,
   "director_originals_received_in_this_bootstrap": 0,
   "original_icon_order_mapping": "DIRECTOR_EXPLICIT_ORDER_IN_USER_MESSAGE_MATCHES_PINNED_ROSTER",
-  "family_palette_status": "PROPOSED_NOT_APPROVED",
-  "silhouettes_status": "FIVE_PROPOSED_NOT_APPROVED",
+  "family_palette_status": "APPROVED_2026_10_16",
+  "silhouettes_status": "ALL_FIVE_APPROVED_2026_10_16",
   "records": [
     {
       "index": 1,
@@ -48,7 +48,7 @@
       "historical_unsupported_tags": [
         "wound"
       ],
-      "direction": null,
+      "direction": "Rail Pulse",
       "original": {
         "source_filename": "1000018531.png",
         "actual_decoded_mime": "image/jpeg",
@@ -66,13 +66,44 @@
         "reference_role": "IDENTITY_ONLY",
         "origin": "Director-uploaded conversation attachment, 2026-10-16"
       },
-      "generated_candidates": [],
+      "generated_candidates": [
+        {
+          "filename": "1000018545.png",
+          "origin": "Director-uploaded generated candidate in art studio conversation (2026-10-16)",
+          "actual_decoded_mime": "image/jpeg",
+          "format": "JPEG",
+          "mode": "RGB",
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "bytes": 543073,
+          "sha256": "2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde",
+          "git_binary_pinned": false,
+          "visual_state": "APPROVED_DIRECTOR_2026_10_16",
+          "approved_quote": "Approved. Next",
+          "material_reference_role": "STYLE_MATERIAL_ONLY_FOR_FUTURE_HOUKYUKEN",
+          "source_file_access": "Conversation upload; not committed to Git; reattach actual file to isolated generation."
+        }
+      ],
       "current_raw_director_approval": {
-        "approved": false,
-        "source_filename": null,
-        "source_sha256": null,
-        "quote": null,
-        "verified": false
+        "approved": true,
+        "source_filename": "1000018545.png",
+        "source_sha256": "2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde",
+        "quote": "Approved. Next",
+        "verified": true,
+        "verified_on": "2026-10-16",
+        "actual_decoded_mime": "image/jpeg",
+        "decoded_format": "JPEG",
+        "decoded_mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 543073,
+        "git_binary_pinned": false,
+        "source_provenance": "Director-uploaded conversation attachment — generated Magnetic Pulse Strike candidate. Exact bytes inspected and SHA-256 verified.",
+        "verdict": "VISUAL_APPROVED_ONLY_NO_WEBP_OR_PREFLIGHT"
       },
       "current_processed_export": {
         "filename": null,
@@ -85,7 +116,7 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "PROPOSED_AWAITING_DIRECTOR",
+        "status": "APPROVED_DIRECTOR_2026_10_16",
         "title": "Rail Pulse",
         "dominant_silhouette": "Broad horizontal compacted magnetic force wedge with a blunt leading pressure edge. One sparse trailing field wake; no fist or actor."
       }
@@ -100,7 +131,7 @@
         "reflect"
       ],
       "historical_unsupported_tags": [],
-      "direction": null,
+      "direction": "Ascending Reversal",
       "original": {
         "source_filename": "1000018532.png",
         "actual_decoded_mime": "image/jpeg",
@@ -137,7 +168,7 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "PROPOSED_AWAITING_DIRECTOR",
+        "status": "APPROVED_DIRECTOR_2026_10_16",
         "title": "Ascending Reversal",
         "dominant_silhouette": "Single immense rising polar spear tapering skyward; short redirected return stream at its base hints at reflection. Not an exploding star."
       }
@@ -152,7 +183,7 @@
         "increasedamagetaken"
       ],
       "historical_unsupported_tags": [],
-      "direction": null,
+      "direction": "Ferrostar Crush",
       "original": {
         "source_filename": "1000018533.png",
         "actual_decoded_mime": "image/jpeg",
@@ -189,7 +220,7 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "PROPOSED_AWAITING_DIRECTOR",
+        "status": "APPROVED_DIRECTOR_2026_10_16",
         "title": "Ferrostar Crush",
         "dominant_silhouette": "Heavy off-axis magnetized star-core plunging diagonally into a fractured field plane, dual-pole compression at its contact. No rising beam or literal star badge."
       }
@@ -205,7 +236,7 @@
         "increasedamagetaken"
       ],
       "historical_unsupported_tags": [],
-      "direction": null,
+      "direction": "Polarity Reassignment",
       "original": {
         "source_filename": "1000018534.png",
         "actual_decoded_mime": "image/jpeg",
@@ -242,7 +273,7 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "PROPOSED_AWAITING_DIRECTOR",
+        "status": "APPROVED_DIRECTOR_2026_10_16",
         "title": "Polarity Reassignment",
         "dominant_silhouette": "Two giant opposing angular magnetic field jaws connected by a concentrated seam, ordered ferrous grains snapping into new alignment. Not a fist, shield icon, or circular aura."
       }
@@ -259,7 +290,7 @@
       "historical_unsupported_tags": [
         "move"
       ],
-      "direction": null,
+      "direction": "Orbital Dance Field",
       "original": {
         "source_filename": "1000018535.png",
         "actual_decoded_mime": "image/jpeg",
@@ -296,13 +327,13 @@
       },
       "showcase_status": "NOT_READY",
       "proposed_direction": {
-        "status": "PROPOSED_AWAITING_DIRECTOR",
+        "status": "APPROVED_DIRECTOR_2026_10_16",
         "title": "Orbital Dance Field",
         "dominant_silhouette": "One wide, ground-anchored figure-eight of thick interweaving opposite-pole chakra ribbons sweeping around the center. No levitating actor or outdoor landscape."
       }
     }
   ],
-  "accepted_raw_count": 0,
+  "accepted_raw_count": 1,
   "accepted_processed_count": 0,
   "showcase": {
     "expected_icon_count": 5,
@@ -340,13 +371,14 @@
     "Historical Magnet-focused tags: Magnetic Pulse Strike wound UNSUPPORTED; Houkyu Dance move UNSUPPORTED in pinned evaluator. No live-game request was performed.",
     "Studio never generates images itself; use one isolated fresh generation thread per jutsu once director approves direction and attached exact references.",
     "Opaque jutsu background shared ICON preflight conflict is known and remains independently blocked; no upload-ready, preflight-PASS, live-art or publishing claim.",
-    "Family style and all five silhouette proposals are art-direction recommendations only. No director acceptance or current raw/export approval has been inferred."
+    "2026-10-16: Director approved the Polar Flux family style and all five proposed silhouette directions; exact current Magnetic Pulse Strike image 1000018545.png received and visually accepted (JPEG RGB, 1536×1536, 543,073 bytes). This image may be a STYLE/MATERIAL reference only, never a Rising Star composition reference.",
+    "Pending: retained Git copy of original raw art binaries is not present, current processed WebPs remain 0/5, ICON generic opaque-alpha preflight mismatch remains blocked, and no whole-family acceptance. This approval applies to exact current raw only."
   ],
   "director_originals_received_current_session": 5,
   "originals_inspected_on": "2026-10-16",
   "original_icon_mapping_confidence": "HIGH_DIRECTOR_ORDER_PLUS_VISUAL_CORRESPONDENCE",
   "visual_direction_proposal": {
-    "status": "AWAITING_DIRECTOR_APPROVAL",
+    "status": "APPROVED_DIRECTOR_2026_10_16",
     "name": "Polar Flux — ferromagnetic chakra",
     "chromatic_poles": "Luminous icy cyan/blue-white versus hot scarlet/coral-red on deep indigo-gunmetal; contrast calibrated to originals, NOT Vaporia azure/molten-orange",
     "materials": "Dimensional ferromagnetic chakra pressure forms, magnetite-black internal spines, fine iron filings and taut polarized conductor-like field edges",
@@ -359,8 +391,30 @@
       "Generic star emblems or reused centerpoint explosions"
     ],
     "first_isolated_target": "Magnetic Pulse Strike",
-    "first_target_status": "PROPOSED_DIRECTOR_APPROVAL_REQUIRED"
+    "first_target_status": "RAW_APPROVED_EXACT_SOURCE"
   },
   "original_reference_contract": "IDENTITY_ONLY_NOT_ACCEPTED_REPLACEMENT_RAW",
-  "original_binary_storage": "Conversation attachments only; not in Git and not guaranteed retrievable in other sessions. Exact originals must be reattached to isolated generation."
+  "original_binary_storage": "Conversation attachments only; not in Git and not guaranteed retrievable in other sessions. Exact originals must be reattached to isolated generation.",
+  "director_decisions": [
+    {
+      "date": "2026-10-16",
+      "quote": "All approved, proceed with prompt and reference images",
+      "scope": "Approval of Polar Flux family rendering treatment and five proposed technique-first silhouette directions, including Magnetic Pulse Strike — Rail Pulse."
+    },
+    {
+      "date": "2026-10-16",
+      "quote": "Approved. Next",
+      "scope": "Exact source visual acceptance: Magnetic Pulse Strike — Rail Pulse, director-attached 1000018545.png, SHA-256 2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde. Does not imply export/preflight/gallery acceptance."
+    }
+  ],
+  "next_isolated_target": {
+    "name": "Rising Star",
+    "id": "NB5sGddr-RgH9eEp2L8jL",
+    "direction": "Ascending Reversal",
+    "status": "DIRECTION_APPROVED_GENERATION_PENDING",
+    "original_reference": "1000018532.png",
+    "original_ref_sha256": "e29a273fe881d149bb6f8bd3b8fdabf5a58d9d958271f3d72480b581e6783603",
+    "approved_family_style_reference": "1000018545.png",
+    "style_ref_sha256": "2eb821b7e89bef26f6acfa366981ffdbf32fd4f682970403fb2b64dd8114acde"
+  }
 }
