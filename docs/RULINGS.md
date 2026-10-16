@@ -1116,7 +1116,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 ---
 
-## RUL-2026-10-16-001 — Bloodright tier-icon art studio, universal silhouettes and approved opaque black background
+## RUL-2026-10-16-004 — Bloodright tier-icon art studio, universal silhouettes and approved opaque black background
 
 **Date:** 2026-10-16  
 **Domain:** Bloodright / three-tier icon production  
