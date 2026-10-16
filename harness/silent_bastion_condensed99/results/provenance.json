@@ -1,0 +1,76 @@
+{
+ "engine": {
+  "repository": "studie-tech/TheNinjaRPG",
+  "commit": "13d40c4c1509ecf44262aba1b5120266011ea786",
+  "export": "git archive <pin> app",
+  "bunLockSha256": "da6602f2550bea9f1baf8508fa82b03d320bfcee269257f36cf25b47f1906c08",
+  "packageJsonSha256": "46e67aee7e26d8d78b1d6c2005a2b85651d0510899d1e43b3b50feaf673c0305",
+  "sourceSha256": {
+   "src/libs/quest.ts": "d8eeaf8b6fe0c6dbc06ba292b1c40f33bb7cd126b6e2a150e291a4c49380a498",
+   "src/libs/objectives.ts": "2b495f7b72c6d312790e84616ea97da17290d7b40ac4cdca64965b39cad1c607",
+   "src/validators/objectives.ts": "c828f87de452a5deca242b9e906f352da53151c2e865c443c11ceed1b3ebb3bd",
+   "src/server/api/routers/quests.ts": "5c3eef9fda4d0b0a4042671f92a573b954e86a3bb7fcc3dd94eca99fd52629a7",
+   "src/server/utils/questEntry.ts": "26ff2bc7e49cc4c173cc3a1e29864eab4bc407e64e4f49564649336922ede26c"
+  }
+ },
+ "graphs": {
+  "candidate": {
+   "path": "state/silent_bastion_condensed99_candidate.json",
+   "sha256": "52dac9af3ec96906b04f5b9932f4cc2428945beb8d6651d3ffcaf0ebd432b2a6"
+  },
+  "alt99_f4gate": {
+   "path": "harness/silent_bastion_condensed99/graphs/alt99_f4gate.json",
+   "sha256": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20"
+  },
+  "alt99_alertgate": {
+   "path": "harness/silent_bastion_condensed99/graphs/alt99_alertgate.json",
+   "sha256": "81216f93fcdb3dd9fa83352e6106c07e52724abace97ca1eb5df6f1a5861acea"
+  },
+  "alt95_bossgates": {
+   "path": "harness/silent_bastion_condensed99/graphs/alt95_bossgates.json",
+   "sha256": "8204cddb77e03a061646bebc9ecacb929b6c992a170aa697a9eb4cf12b8c57fd"
+  }
+ },
+ "brief": {
+  "path": "docs/handoffs/SILENT_BASTION_CONDENSED99_NATIVE_PROOF_BRIEF.md",
+  "sha256": "6d476303a4a46ade2e08cdf2985681f4ad786a42792cce8a2fd73b2751de6f26"
+ },
+ "database": {
+  "image": "mysql:26.7.0@sha256:893418c8a7a34c60d2d961cc30ef136095da141478562ed2101ae3f5faba9c3f",
+  "network": "--network none; unix socket only",
+  "data": "throwaway, truncated per suite"
+ },
+ "runtime": {
+  "bun": "1.4.2",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "uname": "Linux 6.18.44-fc-v139"
+ },
+ "isolation": {
+  "network": "unshare -rn (no interfaces)",
+  "env": "upstream test_build.yml fork-PR placeholders; no credentials",
+  "liveGameRequests": 0
+ },
+ "harnessFileSha256": {
+  "engine/c99_defect.test.ts": "5ec25d5d0a88b84fc55be1cfe75dde8b7dce64fe690dab2dacd7eac733c9b056",
+  "engine/c99_edges.test.ts": "134a67d2bd92a7465c295d7c581c89d38edbcd9c176c4a96f392a20e82fb28af",
+  "engine/c99_runtime.test.ts": "da4c06a9911fce86a9d4af0e963c7719dc9edd2ec4a681d73f227a457dcb7abf",
+  "engine/c99_static.test.ts": "09cdc82c3efe532b773301b8aa2c2f220a002affb508115720f9f4cbf3abb08e",
+  "engine/lib/run99.ts": "a09e36a30c2295d29eae387fa1f9286d9e843ea1c3ac5bf7aa709a7778a086d7",
+  "tools/derive_alternatives.py": "6de52d22e79cf90cb74a0a46ca572c845f5d4a479fd6f501d44c0b11fc2a2164",
+  "graphs/alt95_bossgates.json": "8204cddb77e03a061646bebc9ecacb929b6c992a170aa697a9eb4cf12b8c57fd",
+  "graphs/alt99_alertgate.json": "81216f93fcdb3dd9fa83352e6106c07e52724abace97ca1eb5df6f1a5861acea",
+  "graphs/alt99_f4gate.json": "c70fad7a57cc4a34a0c00a6f6f324d5709fb2699121642b4e4f0f57e80d7ee20",
+  "run.sh": "4da32584046debedf53fb021bb136b20c846c0af8c0783c93bc8b7f76932b444",
+  "../silent_bastion_phase1/engine/lib/graph.ts": "e42a7c897ad01599d5ff09e653c71024789a6f5c6420b22a42e2248c0abe9fbb",
+  "../silent_bastion_phase1/engine/lib/driver.ts": "bc0fe30e1d31bb1971fd7aeb657b9155c5e0250f6e7d938b30145731625aac30",
+  "../silent_bastion_phase1/engine/lib/report.ts": "1797ad07d38c6e07a3215f4f9d2902d707f2a1ab8b70219b85f73fb58f0d995e",
+  "../silent_bastion_phase1/tools/check_evidence.py": "d1717a59756e5a5221535f12a1a42593826b28a025b32f7e3ec0f1c73ed33768"
+ },
+ "exitStatus": {
+  "upstreamPreflight": 0,
+  "deriveCheck": 0,
+  "bunTest": 0,
+  "evidenceCheck": 0
+ }
+}

@@ -1,0 +1,2291 @@
+{
+ "assertions": 543,
+ "checks": [
+  {
+   "name": "D2: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "D2: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "D2: exactly one Beacon charged by the start (pin behaviour, dc07be41)",
+   "pass": true
+  },
+  {
+   "name": "D2: engine active objective is the single root d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "D2: d2.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D2: d2.n.f1 -> b2.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: opponent is slot D2.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: after the win the active objective is d2.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D2: d2.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D2: d2.n.f2 -> b2.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: opponent is slot D2.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: loss leads to d2.lost_later (same division checkpoint)",
+   "pass": true
+  },
+  {
+   "name": "D2: b2.n.f2: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "D2: the later loss reached d2.lost_later",
+   "pass": true
+  },
+  {
+   "name": "D2: the recovery fight started at 50%",
+   "pass": true
+  },
+  {
+   "name": "D2: recovery fight is the active objective while it runs",
+   "pass": true
+  },
+  {
+   "name": "D2: recovery loss rewinds to d2.lost_later (reset_later_loss)",
+   "pass": true
+  },
+  {
+   "name": "D2: next fight is the recovery fight again at 50%",
+   "pass": true
+  },
+  {
+   "name": "D2: no in-place Retry Battle",
+   "pass": true
+  },
+  {
+   "name": "D3: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "D3: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "D3: exactly one Beacon charged by the start (pin behaviour, dc07be41)",
+   "pass": true
+  },
+  {
+   "name": "D3: engine active objective is the single root d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f1 -> b2.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: opponent is slot D2.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: after the win the active objective is d2.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f2 -> b2.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: opponent is slot D2.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: after the win the active objective is d2.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.f3 -> b2.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: opponent is slot D2.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: after the win the active objective is d2.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.terminal -> d2.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.puzzle -> d2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d2.n.boss.clean -> b2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: opponent is slot D2.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: after the win the active objective is d3.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b2.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: D2 seg 1: earlier divisions untouched (0 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D3: D2: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f1 -> b3.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: opponent is slot D3.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: after the win the active objective is d3.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f2 -> b3.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: opponent is slot D3.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: after the win the active objective is d3.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f3 -> b3.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: opponent is slot D3.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: after the win the active objective is d3.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.terminal -> d3.n.f4 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f4 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D3: d3.n.f4 -> b3.n.f4 accepted",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: opponent is slot D3.REG4 only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: loss leads to d3.lost_later (same division checkpoint)",
+   "pass": true
+  },
+  {
+   "name": "D3: b3.n.f4: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "D3: the later loss reached d3.lost_later",
+   "pass": true
+  },
+  {
+   "name": "D3: the recovery fight started at 50%",
+   "pass": true
+  },
+  {
+   "name": "D3: recovery fight is the active objective while it runs",
+   "pass": true
+  },
+  {
+   "name": "D3: recovery loss rewinds to d3.lost_later (reset_later_loss)",
+   "pass": true
+  },
+  {
+   "name": "D3: next fight is the recovery fight again at 50%",
+   "pass": true
+  },
+  {
+   "name": "D3: no in-place Retry Battle",
+   "pass": true
+  },
+  {
+   "name": "D4: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "D4: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "D4: exactly one Beacon charged by the start (pin behaviour, dc07be41)",
+   "pass": true
+  },
+  {
+   "name": "D4: engine active objective is the single root d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f1 -> b2.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: opponent is slot D2.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: after the win the active objective is d2.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f2 -> b2.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: opponent is slot D2.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: after the win the active objective is d2.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.f3 -> b2.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: opponent is slot D2.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: after the win the active objective is d2.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.terminal -> d2.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.puzzle -> d2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d2.n.boss.clean -> b2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: opponent is slot D2.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: after the win the active objective is d3.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b2.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: D2 seg 1: earlier divisions untouched (0 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D4: D2: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f1 -> b3.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: opponent is slot D3.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: after the win the active objective is d3.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f2 -> b3.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: opponent is slot D3.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: after the win the active objective is d3.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.f3 -> b3.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: opponent is slot D3.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: after the win the active objective is d3.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.terminal -> d3.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.puzzle -> d3.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d3.n.boss.clean -> b3.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: opponent is slot D3.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: after the win the active objective is d4.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b3.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: D3 seg 1: earlier divisions untouched (10 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D4: D3: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f1 -> b4.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: opponent is slot D4.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: after the win the active objective is d4.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f2 -> b4.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: opponent is slot D4.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: after the win the active objective is d4.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.f3 -> b4.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: opponent is slot D4.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: after the win the active objective is d4.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.terminal -> d4.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D4: d4.n.puzzle -> b4.n.boss.alert accepted",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: opponent is slot D4.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: quest starting effects increasedamagetaken on the player only",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: loss leads to d4.lost_later (same division checkpoint)",
+   "pass": true
+  },
+  {
+   "name": "D4: b4.n.boss.alert: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "D4: the later loss reached d4.lost_later",
+   "pass": true
+  },
+  {
+   "name": "D4: the recovery fight started at 50%",
+   "pass": true
+  },
+  {
+   "name": "D4: recovery fight is the active objective while it runs",
+   "pass": true
+  },
+  {
+   "name": "D4: recovery loss rewinds to d4.lost_later (reset_later_loss)",
+   "pass": true
+  },
+  {
+   "name": "D4: next fight is the recovery fight again at 50%",
+   "pass": true
+  },
+  {
+   "name": "D4: no in-place Retry Battle",
+   "pass": true
+  },
+  {
+   "name": "D5: startQuest succeeds",
+   "pass": true
+  },
+  {
+   "name": "D5: run starts isolated between floors (BATTLE, no battle)",
+   "pass": true
+  },
+  {
+   "name": "D5: exactly one Beacon charged by the start (pin behaviour, dc07be41)",
+   "pass": true
+  },
+  {
+   "name": "D5: engine active objective is the single root d2.n.f1",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f1 -> b2.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: opponent is slot D2.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: after the win the active objective is d2.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f2 -> b2.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: opponent is slot D2.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: after the win the active objective is d2.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.f3 -> b2.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: opponent is slot D2.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: after the win the active objective is d2.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.terminal -> d2.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.puzzle -> d2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d2.n.boss.clean -> b2.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: opponent is slot D2.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: after the win the active objective is d3.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b2.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: D2 seg 1: earlier divisions untouched (0 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D5: D2: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f1 -> b3.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: opponent is slot D3.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: after the win the active objective is d3.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f2 -> b3.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: opponent is slot D3.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: after the win the active objective is d3.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.f3 -> b3.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: opponent is slot D3.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: after the win the active objective is d3.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.terminal -> d3.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.puzzle -> d3.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d3.n.boss.clean -> b3.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: opponent is slot D3.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: after the win the active objective is d4.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b3.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: D3 seg 1: earlier divisions untouched (10 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D5: D3: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f1 -> b4.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: opponent is slot D4.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: after the win the active objective is d4.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f2 -> b4.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: opponent is slot D4.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: after the win the active objective is d4.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.f3 -> b4.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: opponent is slot D4.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: after the win the active objective is d4.n.terminal, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.f3: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.terminal is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.terminal -> d4.n.puzzle accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.terminal: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.puzzle is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.puzzle -> d4.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.puzzle: no battle starts on a dialog-to-dialog step",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.boss.clean is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d4.n.boss.clean -> b4.n.boss.clean accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: opponent is slot D4.BOSS only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: after the win the active objective is d5.n.f1, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b4.n.boss.clean: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: D4 seg 1: earlier divisions untouched (20 done objectives kept)",
+   "pass": true
+  },
+  {
+   "name": "D5: D4: commander beaten on the last planned segment",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f1 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f1 -> b5.n.f1 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: opponent is slot D5.REG1 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: after the win the active objective is d5.n.f2, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f1: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f2 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f2 -> b5.n.f2 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: opponent is slot D5.REG2 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: win keeps the run between floors with the fight's end pools",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: after the win the active objective is d5.n.f3, nothing auto-fires",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f2: end pools still carried after the transition",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f3 is the engine's active objective before choosing",
+   "pass": true
+  },
+  {
+   "name": "D5: d5.n.f3 -> b5.n.f3 accepted",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: exactly this battle started",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: one live battle",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: opponent is slot D5.REG3 only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: start pools carried unchanged",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: quest starting effects none on the player only",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: still exactly one Beacon charged this attempt",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: no quest reward before completion",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: defeat keeps the player in the run at 1 HP",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: no in-place Retry Battle is offered",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: loss leads to d5.lost_later (same division checkpoint)",
+   "pass": true
+  },
+  {
+   "name": "D5: b5.n.f3: no battle auto-fires after a loss",
+   "pass": true
+  },
+  {
+   "name": "D5: the later loss reached d5.lost_later",
+   "pass": true
+  },
+  {
+   "name": "D5: the recovery fight started at 50%",
+   "pass": true
+  },
+  {
+   "name": "D5: recovery fight is the active objective while it runs",
+   "pass": true
+  },
+  {
+   "name": "D5: recovery loss rewinds to d5.lost_later (reset_later_loss)",
+   "pass": true
+  },
+  {
+   "name": "D5: next fight is the recovery fight again at 50%",
+   "pass": true
+  },
+  {
+   "name": "D5: no in-place Retry Battle",
+   "pass": true
+  },
+  {
+   "name": "option: C1 absent in all four divisions",
+   "pass": true
+  }
+ ],
+ "data": {
+  "observed": {
+   "D2": {
+    "afterLoss": {
+     "hp": 1,
+     "logbookActiveObjective": "d2.lost_later",
+     "open": [
+      "d2.lost_later"
+     ]
+    },
+    "during": {
+     "battle": "b2.recovery_later",
+     "logbookActiveObjective": "b2.recovery_later",
+     "lostLaterGoalInTracker": true,
+     "recoveryGoalInTracker": true,
+     "startHpPct": 50
+    },
+    "nextFight": {
+     "accepted": true,
+     "battle": "b2.recovery_later",
+     "startHp": 500,
+     "startHpPct": 50
+    },
+    "retryOffered": false,
+    "started": true
+   },
+   "D3": {
+    "afterLoss": {
+     "hp": 1,
+     "logbookActiveObjective": "d3.lost_later",
+     "open": [
+      "d3.lost_later"
+     ]
+    },
+    "during": {
+     "battle": "b3.recovery_later",
+     "logbookActiveObjective": "b3.recovery_later",
+     "lostLaterGoalInTracker": true,
+     "recoveryGoalInTracker": true,
+     "startHpPct": 50
+    },
+    "nextFight": {
+     "accepted": true,
+     "battle": "b3.recovery_later",
+     "startHp": 500,
+     "startHpPct": 50
+    },
+    "retryOffered": false,
+    "started": true
+   },
+   "D4": {
+    "afterLoss": {
+     "hp": 1,
+     "logbookActiveObjective": "d4.lost_later",
+     "open": [
+      "d4.lost_later"
+     ]
+    },
+    "during": {
+     "battle": "b4.recovery_later",
+     "logbookActiveObjective": "b4.recovery_later",
+     "lostLaterGoalInTracker": true,
+     "recoveryGoalInTracker": true,
+     "startHpPct": 50
+    },
+    "nextFight": {
+     "accepted": true,
+     "battle": "b4.recovery_later",
+     "startHp": 500,
+     "startHpPct": 50
+    },
+    "retryOffered": false,
+    "started": true
+   },
+   "D5": {
+    "afterLoss": {
+     "hp": 1,
+     "logbookActiveObjective": "d5.lost_later",
+     "open": [
+      "d5.lost_later"
+     ]
+    },
+    "during": {
+     "battle": "b5.recovery_later",
+     "logbookActiveObjective": "b5.recovery_later",
+     "lostLaterGoalInTracker": true,
+     "recoveryGoalInTracker": true,
+     "startHpPct": 50
+    },
+    "nextFight": {
+     "accepted": true,
+     "battle": "b5.recovery_later",
+     "startHp": 500,
+     "startHpPct": 50
+    },
+    "retryOffered": false,
+    "started": true
+   }
+  }
+ },
+ "failed": 0,
+ "findings": [
+  {
+   "detail": {
+    "divisionsReproduced": 0,
+    "of": 4,
+    "variant": "alt99_alertgate"
+   },
+   "id": "C1",
+   "reproduced": false,
+   "summary": "recovery_later WIN edge -> reset_quest is pre-selected when the recovery fight starts: the reset to dN.n.f2 fires at battle start, the recovery outcome no longer matters, a recovery LOSS continues to REG2 at 1 HP, and reset_later_loss is unreachable"
+  }
+ ],
+ "gate": "d_defect"
+}
