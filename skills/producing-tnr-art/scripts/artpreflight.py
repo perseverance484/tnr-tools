@@ -53,14 +53,19 @@ TYPE_HINTS = [
     # and the ambiguity guard would then refuse every correctly-named scene character.
     (re.compile(r"(scene[_-]?bg|background|_bg\b|_bg_|^bg_)", re.I), "SCENE_BACKGROUND"),
     (re.compile(r"(avatar|_ai_|sprite)", re.I), "AI_AVATAR"),
-    (re.compile(r"jutsu", re.I), "JUTSU_ICON"),
+    # `jutsu` as a whole name token only: `ninjutsu_manual_icon` is an item, not a jutsu.
+    (re.compile(r"(^|[_\-.])jutsu([_\-.]|$)", re.I), "JUTSU_ICON"),
     (re.compile(r"(icon|_item_|^img_)", re.I), "ICON"),
     (re.compile(r"(pin|_static_|marker)", re.I), "STATIC"),
     (re.compile(r"(anim|_frames?\d|sheet)", re.I), "ANIMATION"),
 ]
 
-# Specialised target -> the general target its filenames also match.
-SPECIALISES = {"JUTSU_ICON": "ICON"}
+# Specialised target -> (the general target its filenames also match, evidence that the
+# file belongs to the general target after all). A name carrying that evidence stays
+# ambiguous: `item_jutsu_scroll_icon` is an item icon and must not inherit optional alpha.
+SPECIALISES = {
+    "JUTSU_ICON": ("ICON", re.compile(r"((^|[_\-.])item([_\-.]|$)|^img_)", re.I)),
+}
 
 
 def alpha_policy(t: dict) -> str:
@@ -88,9 +93,15 @@ def infer_type(filename: str) -> str | None:
     base = os.path.basename(filename)
     hits = {target for pattern, target in TYPE_HINTS if pattern.search(base)}
     # `ice_shackles_jutsu_icon.webp` hits both: the specialised target is the answer, not
-    # an ambiguity. Only declared pairs collapse; anything else still refuses to guess.
-    for special, general in SPECIALISES.items():
-        if hits == {special, general}:
+    # an ambiguity. Only declared pairs collapse. A name that also carries evidence for the
+    # general target is ambiguous even when the general pattern itself missed
+    # (`item_jutsu_scroll.webp`), so it refuses to guess rather than relaxing the check.
+    for special, (general, general_evidence) in SPECIALISES.items():
+        if special not in hits:
+            continue
+        if general_evidence.search(base):
+            hits.add(general)
+        elif hits == {special, general}:
             hits = {special}
     if len(hits) == 1:
         return hits.pop()
