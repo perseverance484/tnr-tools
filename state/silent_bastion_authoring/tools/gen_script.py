@@ -2,7 +2,7 @@
 """Author-side source for design/script.json — player-facing text for all 99 objectives.
 
 Prose lives here (readable triple-quoted strings); the composer consumes design/script.json.
-Every string is CANDIDATE copy for director acceptance (final player wording is user-owned).
+All strings accepted as launch copy by RUL-2026-10-16-011.
 Reset objectives are silent by design. Each division's puzzle is solvable from clues placed in
 that division's first three dialogs (marked CLUE in comments).
     python3 tools/gen_script.py [--check]
@@ -295,7 +295,7 @@ def build():
     obj["w.complete"] = {"kind": "win", "text": WIN}
     obj["f.arakane"] = {"kind": "fail", "text": FAIL}
     return {"schema": "tnr.silent_bastion_authoring.script.v1",
-            "status": "CANDIDATE COPY — all player-facing wording awaits director acceptance",
+            "status": "ACCEPTED COPY — RUL-2026-10-16-011 (all 99 objective texts, 4 puzzles, Division IV foreshadowing)",
             "generator": "state/silent_bastion_authoring/tools/gen_script.py",
             "quest": QUEST, "divisions": {str(d): D["label"] for d, D in DIVISIONS.items()}, "objectives": obj}
 

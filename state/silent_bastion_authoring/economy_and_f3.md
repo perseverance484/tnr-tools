@@ -1,6 +1,6 @@
 # Silent Bastion — candidate balance scenarios, reward economy and F3 farm impact
 
-**Status: CANDIDATE ANALYSIS.** Nothing here is a balance freeze. The director owns stats, multipliers, reward values, rarity, tradability and economy.
+**Status:** the stat ladder (§1) is accepted as launch values (RUL-2026-10-16-011; calibration may tune). Cache contents, tradability, Beacon source and limits are ruled (RUL-2026-10-16-010). Rarity and names remain open.
 
 The mechanics are LOCKED, and the native proofs pass on `studie-tech/TheNinjaRPG@0651b039`:
 
@@ -10,7 +10,7 @@ The mechanics are LOCKED, and the native proofs pass on `studie-tech/TheNinjaRPG
 - Medical sets 100%.
 - Arakane defeat hard-fails the attempt.
 
-## 1. Candidate stat ladder (all units level 100, rank JONIN)
+## 1. Stat ladder (all units level 100, rank JONIN) — accepted, RUL-2026-10-16-011
 
 Pools are not authored. The engine rewrites them as `(100 + 50·(level−1)) · poolsMultiplier` = **5,050 × poolsMultiplier** at level 100 (references/ai.md law 15). Stats are ratio weights scaled to the level-100 budget, multiplied by `statsMultiplier`, and capped in battle by rank.
 
@@ -42,7 +42,17 @@ Pools are not authored. The engine rewrites them as `(100 + 50·(level−1)) · 
   - exactly one claim, under replay and concurrency;
   - coherent single-recipe bundles with receipt idempotency;
   - no offer on failure, abandonment or recovery loops.
-- **Unapproved:** the recipe shortlist (`docs/design/RECIPE_ALIGNED_CACHE_CANDIDATE_POOLS_20261016.json`), the Controlled20 vs Strong Pyramid quantity model, tier/roll weights, cache rarity, tradability and art. The compiled candidate references the caches symbolically (`@item:bastion_arsenal_cache`, `@item:bastion_research_cache`); their weighted tables stay **BLOCKED** until the director chooses.
+- **Approved (RUL-2026-10-16-010):**
+  - the 4 + 4 shortlist from `docs/design/RECIPE_ALIGNED_CACHE_CANDIDATE_POOLS_20261016.json`;
+  - the **Strong Pyramid** quantity model (a whole EPIC recipe, or exactly 40% of a LEGENDARY one);
+  - one roll per opening, **EPIC 50% / LEGENDARY 50%**, uniform within a tier;
+  - both caches untradeable.
+- **Compiled.** The tables are in `compiled/cache_items.candidate.json`. Gate C checks them against the pools file and opens each cache natively 12 times; every opening grants exactly one whole bundle.
+- **Expected value per opening:**
+  - Arsenal: 25 + 10 = **35 units**, with a 25% chance of each Legendary packet.
+  - Research: (20+40+40)/3 × 0.5 + 16 × 0.5 = **24.7 units**, with a 50% chance of the Heal Crystal III packet.
+  - Three 40% packets for one specific Legendary average about 12 Arsenal openings, or 6 Research openings.
+- **Still open:** cache names, rarity, art and final description wording.
 - **RC1 (from the reward proof):** a new expedition started with an unclaimed choice cannot be completed and must be abandoned, losing its Beacon. The candidate quest description already carries a "claim before you set out" line, which is the content-only mitigation.
 
 ## 3. F3 — repeat-farm battle income through recovery loops
@@ -71,8 +81,8 @@ Because loops are unbounded per Beacon, the Beacon is an entry fee, not an incom
 
 **Selected: O2** (RUL-2026-10-16-005). The compiled quest sets `scaleGains: 0` on the 8 recovery battles and leaves every other battle unset. Loop B stays, but it requires repeatedly beating three regulars and losing to a commander, which is slower than normal play. Native check (gate I, compiled runtime): in every division a recovery win has `rewardScaling` 0, pays no money or experience, and still advances the graph; a first-pass win in the same run has `rewardScaling` 1 (the engine default) and pays experience. Gate C checks that the value survives `QuestValidator` parsing on exactly those 8 battles.
 
-## 4. Other economy decisions still open
+## 4. Other economy decisions
 
-- Beacon: source (Ghost Ship), drop rate, rarity, tradability. Charge timing is locked.
-- `maxAttempts` / `maxCompletes`: the validator maximum is 100. The candidate uses 100/100 so nothing blocks; lifetime repeatability is the director's call.
-- Cache contents (§2) and whether non-crafters get value. See the targeting-problem analysis in `docs/design/RECIPE_ALIGNED_CACHE_PILOT_REVIEW_20261016.md`.
+- Beacon: **10% per Ghost Ship clear, tradeable** (RUL-2026-10-16-010). Rarity is still open. Being tradeable, the Beacon's market price becomes the effective entry cost; one Bastion run takes about 10 Ghost Ship clears on average.
+- `maxAttempts` / `maxCompletes`: **100 / 100** (RUL-2026-10-16-010).
+- Whether non-crafters get value from the caches is unmeasured (`docs/design/RECIPE_ALIGNED_CACHE_PILOT_REVIEW_20261016.md`). Contents stay tradeable even though the caches are not.

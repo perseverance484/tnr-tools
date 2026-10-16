@@ -1281,3 +1281,71 @@ Maintenance Passage (puzzle, clean or Security Alert), the 50% retry checkpoint,
 **Evidence:** `claude/recipe-cache-native-proof-69za5u@b133d73286df9e48ba1015b21dd694c69c9ea090`, `docs/reviews/RECIPE_ALIGNED_CACHE_NATIVE_OFFLINE_RESULTS.md`.
 
 **Canonical destination:** `state/silent_bastion_design.md`.
+
+---
+
+## RUL-2026-10-16-010 — Silent Bastion completion caches, Beacon economy and run limits
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / completion reward caches / Skyglass Signal Beacon / quest limits
+**Status:** ACTIVE — director selections from Fable's option sets.
+**Builds on:** RUL-2026-10-16-001 (two-cache, choose-one pilot) and RUL-2026-10-16-003 (Beacon at start). It settles values those rulings left open.
+
+**Ruling:**
+- **Cache contents:** the 4 + 4 candidate shortlist in `docs/design/RECIPE_ALIGNED_CACHE_CANDIDATE_POOLS_20261016.json`.
+  - Arsenal: Eclipsed Dawnblade and Gaea's Embrace (EPIC), Aetherion and Stormrender (LEGENDARY).
+  - Research: Absorb Gem II, Damage Crystal II and Fortify Crystal II (EPIC), Heal Crystal III (LEGENDARY).
+- **Quantity model: Strong Pyramid.** An EPIC entry is one whole recipe's ingredients. A LEGENDARY entry is exactly 40% of the recipe. Ratios are exact.
+- **Odds:** one roll per opening, EPIC 50% / LEGENDARY 50% in both caches, uniform within a tier (native Weighted Cache behaviour).
+- **Tradability:** both caches are **untradeable** (their contents stay tradeable). The Beacon is **tradeable**.
+- **Beacon source:** a **10% chance per Ghost Ship clear**. This is applied in the Ghost Ship content when the Beacon ships; this package does not edit Ghost Ship.
+- **Limits:** `maxAttempts` 100 / `maxCompletes` 100 (validator maximum). The Beacon is the real gate.
+
+**Not ruled:** cache names (still `[provisional]`), cache and Beacon rarity, art, cache description wording. Ingredient IDs come from the 2026-10-13 census capture, so a fresh read is required before any manifest. Crafting demand and market impact are unmeasured.
+
+**Evidence:** compiled `state/silent_bastion_authoring/compiled/cache_items.candidate.json`. In gate C1b/C2 of the authoring harness, both caches pass `NonCombatConsumeRewardTag` and stored-row `ItemValidator` at `0651b039`, and every native opening grants exactly one whole compiled bundle. The mechanics proof is on `claude/recipe-cache-native-proof-69za5u@b133d732`.
+
+**Canonical destination:** `state/silent_bastion_authoring/design/entry_and_rewards.json`; `state/silent_bastion_design.md`.
+
+---
+
+## RUL-2026-10-16-011 — Silent Bastion combat values and written content accepted for launch
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / enemies / protocols / commander values / player-facing copy
+**Status:** ACTIVE — director acceptance of Fable's candidates.
+
+**Ruling:**
+- **Stat ladder** (`state/silent_bastion_authoring/economy_and_f3.md` §1) accepted as launch values. Division I regulars start at 1.5× stats / 1.0× pools; Arakane is 3.5× / 3.5×. Tester calibration may still tune them under the balance doctrine.
+- **Security Alert:** player Increased Damage Taken 10 for 2 rounds.
+- **Combat Protocols, Divisions I–III:** Stun Prevent 100 / 2r, Increased Damage Given 25 / 3r, Seal Prevent 100 / 2r. Division IV is set by RUL-2026-10-16-008.
+- **Arakane:**
+  - The Last Directive: 40 AP, cooldown 99, IDG 30 for 5 rounds.
+  - Countermand: OTHER item, 40 AP, range 5, cooldown 6, Clear 100, PVE, reusable, drop chance 0.
+  - Ultimate name: **Extermination Order**.
+  - Extermination Order's AP, range and effect powers remain candidates.
+- **Replicant Zero:** Bulwark (below 65%) stays ahead of Second Wind (below 40%), as authored.
+- **Content:** the 16 regular enemies (names, identities, shared-pool kits, rules), the four puzzles, all 99 objective texts and the Division IV foreshadowing are accepted as launch copy.
+
+**Still required before a manifest:**
+- A live username-collision check (law 66).
+- Fresh reads of Tempest Cleave, Solar Bow and Crossbow.
+- The calibration anchor fight.
+
+**Canonical destination:** `state/silent_bastion_authoring/design/` (`regulars.json`, `commanders.json`, `protocols.json`, `script.json`); `state/silent_bastion_design.md`.
+
+---
+
+## RUL-2026-10-16-012 — Silent Bastion puzzle validator exception and accepted text exposure
+
+**Date:** 2026-10-16
+**Domain:** Silent Bastion / validate.py hygiene / quest text visibility
+**Status:** ACTIVE — director acceptance.
+
+**Ruling:**
+1. **Validator exception.** Each division's puzzle sends both wrong answers to the same Security Alert approach (the locked `alt99_f4gate` shape, RUL-2026-10-16-002). `validate.py`'s "options share a target" rule flags `d2`–`d5.n.puzzle`. Those four errors are excepted for the Silent Bastion quest, as with RUL-2026-10-12-014. Any other shared-target menu is still an error.
+2. **Text exposure accepted (F4/F5).** At `0651b039`, quest dialog text, including the ending, is readable through `quests.get` and `profile.getUser` even while the quest is hidden. The director accepts that the narrative order holds only in the normal UI. No content mitigation is required.
+
+**Evidence:** `harness/silent_bastion_authoring/tools/check_validate.py`; C99 gate E (F4/F5).
+
+**Canonical destination:** this record, cited by `harness/silent_bastion_authoring/tools/check_validate.py`.

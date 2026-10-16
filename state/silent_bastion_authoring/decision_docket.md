@@ -1,74 +1,51 @@
 # Silent Bastion — director decision docket (one list)
 
-Everything below needs the director. Items marked **LOCKED** are already ruled and are listed only so nothing gets re-opened by accident. Evidence paths are relative to the repository root. "Gate A/C/R…" means the authoring harness `harness/silent_bastion_authoring/` (results in its `results/`) or the reward proof on its own branch.
+As of 2026-10-16 the director has ruled on every design and balance decision this package raised (RUL-2026-10-16-004 to -012, table F). What remains is listed below. Section A is still the director's to decide. B–D are not design decisions: they are fresh reads, live checks and tooling that must happen before a manifest. Evidence paths are relative to the repository root. "Gate A/C/I…" means the authoring harness `harness/silent_bastion_authoring/` (results in its `results/`).
 
-## A. Native-test results still open
+## A. Still open for the director
 
-All five native-test blockers from the first run were ruled on 2026-10-16; see **F. Resolved**. Only the validator results below remain in this section.
+1. **Cache names.** "Bastion Arsenal Cache" and "Bastion Research Cache" are still `[provisional]`. RUL-2026-10-16-001 made them category names, not final names.
+2. **Rarity.** Cache rarity is CANDIDATE LEGENDARY for both caches; Beacon rarity is CANDIDATE LEGENDARY. Item type CONSUMABLE is a candidate for all three.
+3. **Cache description wording.** The factual candidate copy is in `design/entry_and_rewards.json`.
+4. **Art.** 20 avatars, 6 scenes and 5 icons (`art_shotlist.md`). No binaries exist. A visible quest scene needs a scene background and scene characters.
 
-6a. **validate.py results** (`harness/silent_bastion_authoring/tools/check_validate.py`). These run on the validation-only manifest that `tools/compose.py` produces; it is **not** a push manifest. Seven errors remain, each documented:
-   - **(i) Two-phase build requirement (law 17).** Arakane cannot equip the two exclusive jutsu by symbolic ref. They must be created first and then referenced by literal ID.
-   - **(ii) Locked-topology conflict.** The four puzzles send both wrong answers to the same Security Alert approach. That is the approved `alt99_f4gate` shape, and the validator's "options share a target" hygiene rule rejects it. A future push will need an explicit validator exception ruling, as with RUL-2026-10-12-014.
-   - **(iii) VAL1, stale lint.** L18 says `clear` is excluded from item effects. Gate A6 shows Countermand's item Clear strips player buffs at `0651b039`, so the lint should be source-reverified. That is Lane A tooling and is not changed here.
-   - Of the 11 warnings, 2 are the unresolved cache refs (BLOCKED by design) and 9 are engagement-trigger gates on regulars' self-buffs (intentional: buff only when the enemy is near).
+## B. Required before a manifest (operator / fresh capture; not design decisions)
 
-## B. Commander implementation decisions (design already authored; values open)
+5. **Fresh reads of the referenced records.** All current values come from committed captures (2026-08 to 2026-10) or the upstream seed. None is a live readback.
+   - Tempest Cleave `Ul83iTziN__Z0i_UOzZTK` (Master of Arms): confirm it is live and equippable on an AI.
+   - Solar Bow `ALqXVSL58QMfJ4DgoJ5Il` and Crossbow `LbccOnzfsADLgTBPSHjKK` (Arakane): historic seed rows.
+   - B09 Veilstep: RUL-2026-10-16-007 uses whatever the live record is; re-run gate A6 if it differs from 1r / CD 5.
+   - The 19 cache ingredient IDs and the 8 recipes (2026-10-13 census capture).
+6. **Username collisions** for the 16 regulars and 4 commanders (law 66).
+7. **Calibration anchor fight** (balance doctrine law 13) before the stat ladder (RUL-2026-10-16-011) is final in game.
+8. **Two-phase build (law 17).** The Last Directive and Extermination Order must be created first. Arakane then equips them by literal ID; the validator errors for this are expected until then.
+9. **Ghost Ship Beacon drop** (10% per clear, RUL-2026-10-16-010) goes into the Ghost Ship content when the Beacon ships. This package does not edit Ghost Ship.
 
-6. **Master of Arms (kit accepted).** The rules are translated 1:1 from roster §2.
-   - **Tempest Cleave** resolves to `Ul83iTziN__Z0i_UOzZTK`: an existing EVENT jutsu, 60 AP, range 4, cooldown 7, `AOE_CIRCLE_SPAWN`, 45 EP + IDT 35/2r + Afterburn 30/2r, all `friendlyFire: ALL`. The ID comes from the committed operator capture of 2026-10-06, not from a fresh live read.
-   - Native self-hit test (TC1): **no self-hit at path distance 2–5**, so no extra distance floor was added.
-   - Confirm the ID is still live and still equippable on an AI.
-7. **Replicant Zero (kit accepted).**
-   - Split Image fires once, on round 2 (`specific_round 2`). One clone appears and takes its own turns.
-   - The roster's priority order (Bulwark below 65% ahead of Second Wind below 40%) is kept. When both are ready below 40%, Bulwark wins.
-   - Confirm that order, or allow moving Second Wind first.
-8. **The Grand Marshal.** Kit and priorities **RATIFIED** (RUL-2026-10-16-006), including the stacked suppression; see F. Combat Protocol for Division III is candidate **Seal Prevent 100 / 2r on the player**. The roster's "redundant" label is wrong (release plan §4.3).
-9. **Arakane (membership accepted).** These values are candidates:
-   - The Last Directive: 40 AP, cooldown 99, IDG **30** / 5r.
-   - Extermination Order: **name not approved**; 60 AP, range 5, Elemental Seal 100 / 2r, Cleanse Prevent 100 / 2r. Cooldown 4 is **approved** (RUL-2026-10-16-004).
-   - Countermand: OTHER item, 40 AP, range 5, cooldown 6, Clear 100, PVE, reusable, drop chance 0.
-   - Solar Bow (`ALqXVSL58QMfJ4DgoJ5Il`, 40 AP, range 5, cooldown 3) and Crossbow (`LbccOnzfsADLgTBPSHjKK`, 40 AP, range 3, cooldown 0). Both are **historic upstream seed rows**; a fresh read is needed.
-   - Natively the full 20-rule order holds, including stealth → Countermand → weapons → move → end, and Copy → Countermand at 60 + 40 AP.
-   - **One source-forced note:** Worldbreaker Chorus is ALL-method. The authored ≤6 gate is kept (it is safe and only narrows use).
-10. **All four commanders:**
-    - Innate Seal Prevent 100 / 99r is **LOCKED**. Gate A1 shows it passes the AI write schema as a passive effect.
-    - Each rule set ends `move` (gated at distance ≥3), then an unconditional `end_turn`. This follows the pattern of Arakane's rule 19 and keeps the end rule reachable for the validator. The engine also appends its own `end_turn`, and gate A found no exhaustion give-ups.
+## C. Tooling (Lane A, not changed here)
 
-## C. New content needing acceptance
+10. **VAL1.** `validate.py` lint L18 forbids `clear` on items. At `0651b039` the engine accepts it, and gate A6 shows Countermand's Clear working.
+11. **VAL2.** `validate.py`'s tag schemas (`skills/building-tnr-content/data/46_DATA_tag_schemas.json`, extracted 2026-07-10) predate `rewardMode` / `weightedCache` on `noncombatconsumereward`. Gate C shows both caches pass the engine's own schemas and open natively.
+12. `harness/silent_bastion_authoring/tools/check_validate.py` passes only on the exact documented error set:
+    - 2 errors for the two-phase build;
+    - 4 for the puzzle exception (RUL-2026-10-16-012);
+    - 1 for VAL1;
+    - 4 for VAL2.
+    - The 9 warnings are the regulars' engagement-gated self-buffs, which are intentional.
 
-11. **16 regular enemies** (`design/regulars.json`). Names, identities, shared-pool kits (no commander signature jutsu reused), rules and the stat ladder in `economy_and_f3.md` §1 are all CANDIDATE. Usernames must be unique game-wide (law 66); live collisions are unchecked.
-12. **Four puzzles** (`design/script.json`, rendered in `compiled/story_script.md`):
-    - Each puzzle is logically solvable from three clues planted in the same division's first three dialogs; gate C verifies the clue text.
-    - Answers are displayed in a different order per division, so the correct answer is not always first.
-    - **Division IV foreshadows:** the "unsigned directive" option and the Order-Bearer's blank seal hint at the unknown issuer without exposing it. Confirm this stays within "no premature exposition".
-13. **Story script, all 99 objective texts.** Key beats:
-    - The exterior is deserted.
-    - The personnel are revealed as reconstructions in Division I (hint) and Division II (explicit, via Replicant Zero), and are never undead.
-    - The Grand Marshal is shown as "the Second".
-    - Arakane's dignity is kept.
-    - The final order arrives after his defeat, from an unshown issuer.
-14. **Beacon item** (new): rarity, tradability, source and drop rate. The disclosure copy follows RUL-2026-10-16-003 and the timing is **LOCKED**.
-15. **Security Alert magnitude:** candidate IDT 10% / 2r on the player.
-16. **Combat Protocol magnitudes, Divisions I–III:** Stun Prevent 100 / 2r · IDG 25 / 3r · Seal Prevent 100 / 2r.
-17. **Cache identities and contents.** Names, art, rarity, tradability, recipe shortlist, quantity model and weights. The mechanics are proven; the values are **BLOCKED**.
-18. **`maxAttempts` / `maxCompletes`:** candidate 100 / 100 (the validator maximum).
-19. **Art shotlist** (`art_shotlist.md`): 20 avatars, 6 scenes and 5 icons. No binaries produced.
+## D. Integration
 
-## D. Integration (not blocking offline authoring)
-
-20. **Rulings ID collision.** `RUL-2026-10-14-001` is the Bastion Medical100 ruling on this branch and an unrelated art ruling on main. Both decisions survive; reconcile the IDs deliberately at integration.
-21. **Source drift.** All authoring and native gates ran at upstream `0651b039`, the current main when the run started. The C99 topology gates were re-run there in the reward proof and pass.
-22. **Spoilers (F4/F5).** Quest text, including the aftermath, is readable through the public API even while hidden. The narrative order holds only in the intended UI.
+13. **Rulings ID collision.** `RUL-2026-10-14-001` is the Bastion Medical100 ruling on this branch and an unrelated art ruling on main. Reconcile the IDs deliberately at integration.
+14. **Source drift.** All gates ran at upstream `0651b039`. Re-run `harness/silent_bastion_authoring/run.sh` at the build pin.
 
 ## E. LOCKED — do not reopen
 
-- `alt99_f4gate`: 99 objectives.
-- Four interior divisions, deserted exterior, no Gatewarden.
+- `alt99_f4gate`: 99 objectives. Four interior divisions, deserted exterior, no Gatewarden.
 - 50% recovery; Medical sets 100%; player-side Combat buffs; Security Alert on a wrong puzzle answer.
 - Arakane defeat hard-fails the attempt.
 - Beacon charged at `startQuest`, once per attempt, never refunded.
 - Exactly one of two caches at quest level after completion.
-- Commander kit memberships (Grand Marshal's kit ratified, RUL-2026-10-16-006) and The Last Directive's effects.
+- Commander kit memberships and signature effects.
+- Everything in F.
 
 ## F. Resolved 2026-10-16 (rulings in `docs/RULINGS.md`)
 
@@ -80,3 +57,14 @@ All five native-test blockers from the first run were ruled on 2026-10-16; see *
 | SRC1: Veilstep record vs design | Use the captured record (**Stealth 1r, cooldown 5**); shared jutsu not edited | RUL-2026-10-16-007 | Arakane profile; gate A6 |
 | D5: Division IV Combat Protocol | Pick delegated; **Debuff Prevent 100 / 3r** (option A) | RUL-2026-10-16-008 | `design/protocols.json`, D5 text in `design/script.json` |
 | RC1: unclaimed cache blocks the next completion | **Accepted** with the "claim before you set out" entry copy | RUL-2026-10-16-009 | quest description in `design/script.json` |
+| Cache contents | 4 + 4 shortlist, **Strong Pyramid** (whole EPIC recipe / 40% LEGENDARY), one roll, **EPIC 50 / LEGENDARY 50** | RUL-2026-10-16-010 | `design/entry_and_rewards.json` → `compiled/cache_items.candidate.json`; gates C1b, C2 |
+| Tradability | Caches **untradeable**; Beacon **tradeable** | RUL-2026-10-16-010 | `design/entry_and_rewards.json` |
+| Beacon source | **10% per Ghost Ship clear** | RUL-2026-10-16-010 | Ghost Ship content (later) |
+| `maxAttempts` / `maxCompletes` | **100 / 100** | RUL-2026-10-16-010 | `design/entry_and_rewards.json` |
+| Stat ladder | Accepted as launch values (calibration may tune) | RUL-2026-10-16-011 | `economy_and_f3.md` §1, `design/` |
+| Security Alert; Protocols I–III | IDT 10 / 2r; Stun Prevent 100 / 2r, IDG 25 / 3r, Seal Prevent 100 / 2r | RUL-2026-10-16-011 | `design/protocols.json` |
+| Arakane values | The Last Directive 40 AP / CD 99 / IDG 30; Countermand as compiled; name **Extermination Order** | RUL-2026-10-16-011 | `design/commanders.json` |
+| Replicant Zero heals | **Bulwark first** (as authored) | RUL-2026-10-16-011 | `design/commanders.json` |
+| Written content | 16 regulars, 4 puzzles, 99 texts and the Division IV foreshadowing accepted | RUL-2026-10-16-011 | `design/regulars.json`, `design/script.json` |
+| Puzzle validator exception | Granted for `d2`–`d5.n.puzzle` | RUL-2026-10-16-012 | `check_validate.py` |
+| F4/F5 API text exposure | Accepted | RUL-2026-10-16-012 | this docket |

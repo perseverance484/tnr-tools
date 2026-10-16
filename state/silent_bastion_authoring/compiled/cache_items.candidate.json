@@ -1,0 +1,263 @@
+{
+ "status": "Category + one-of-two pick LOCKED (RUL-2026-10-16-001). Contents APPROVED (RUL-2026-10-16-010): the 4+4 candidate shortlist, Strong Pyramid quantities (whole EPIC recipe or 40% of a LEGENDARY recipe, exact ratios), one roll, EPIC 50% / LEGENDARY 50%, uniform within a tier; caches untradeable. Names (still [provisional]), art and cache rarity are NOT approved. Ingredient ids come from the 2026-10-13 census capture, not a fresh read.",
+ "caches": [
+  {
+   "ref": "@item:bastion_arsenal_cache",
+   "srcId": "bastion_arsenal_cache",
+   "entries": {
+    "Epic": [
+     "Eclipsed Dawnblade",
+     "Gaea's Embrace"
+    ],
+    "Legendary": [
+     "Aetherion",
+     "Stormrender"
+    ]
+   },
+   "record": {
+    "name": "Bastion Arsenal Cache [provisional]",
+    "description": "Sealed stores from the Bastion's armory. Open it outside battle for the ingredients of one weapon recipe: a whole Epic recipe, or 40% of a Legendary one.",
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "canBeTraded": false,
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "target": "SELF",
+    "canStack": true,
+    "stackSize": 10,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Bastion Arsenal Cache [provisional]",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Epic",
+         "probability": 5000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "zGeruNBE_SLeOt42LGg5a",
+             "quantity": 5
+            },
+            {
+             "itemId": "GpvRMgpvBMP3Sq7Bid1gO",
+             "quantity": 5
+            },
+            {
+             "itemId": "5I0R-9ji569-zMqbTNdH8",
+             "quantity": 10
+            },
+            {
+             "itemId": "Yo1xlMce3pXJLchha9hJw",
+             "quantity": 30
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "zGeruNBE_SLeOt42LGg5a",
+             "quantity": 5
+            },
+            {
+             "itemId": "GpvRMgpvBMP3Sq7Bid1gO",
+             "quantity": 5
+            },
+            {
+             "itemId": "wCFCjGhIUmPFvIAA_8-7J",
+             "quantity": 10
+            },
+            {
+             "itemId": "Yo1xlMce3pXJLchha9hJw",
+             "quantity": 30
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 5000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "GI7O1Ze9DnuOw0-WcazsN",
+             "quantity": 2
+            },
+            {
+             "itemId": "ThsuhY54LknDlcNKLTEQA",
+             "quantity": 4
+            },
+            {
+             "itemId": "NpOHJoLl2ZdfoGGl530C2",
+             "quantity": 8
+            },
+            {
+             "itemId": "cR-xWQX8EatrB18C9PaiQ",
+             "quantity": 2
+            },
+            {
+             "itemId": "ZCMizjlADoeT1WuGcckeZ",
+             "quantity": 4
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "dRTqiMxkL5mYmIokiWyJP",
+             "quantity": 2
+            },
+            {
+             "itemId": "ThsuhY54LknDlcNKLTEQA",
+             "quantity": 4
+            },
+            {
+             "itemId": "NpOHJoLl2ZdfoGGl530C2",
+             "quantity": 8
+            },
+            {
+             "itemId": "ZCMizjlADoeT1WuGcckeZ",
+             "quantity": 4
+            },
+            {
+             "itemId": "SqFyiWVXmokGIm7FO2114",
+             "quantity": 2
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "ref": "@item:bastion_research_cache",
+   "srcId": "bastion_research_cache",
+   "entries": {
+    "Epic": [
+     "Absorb Gem II",
+     "Damage Crystal II",
+     "Fortify Crystal II"
+    ],
+    "Legendary": [
+     "Heal Crystal III"
+    ]
+   },
+   "record": {
+    "name": "Bastion Research Cache [provisional]",
+    "description": "Sealed stores from the Skyglass laboratories. Open it outside battle for the ingredients of one crystal recipe: a whole Epic recipe, or 40% of a Legendary one.",
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "canBeTraded": false,
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "target": "SELF",
+    "canStack": true,
+    "stackSize": 10,
+    "hidden": true,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Bastion Research Cache [provisional]",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Epic",
+         "probability": 5000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "l1A2aWDyaI_QeSzaNr8ZO",
+             "quantity": 10
+            },
+            {
+             "itemId": "2u-e6gb1E8NoKEVOmHeAs",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "FVlGFU3AeqfshrmwZg-jw",
+             "quantity": 10
+            },
+            {
+             "itemId": "l1A2aWDyaI_QeSzaNr8ZO",
+             "quantity": 20
+            },
+            {
+             "itemId": "yTzp5MQ6qb7IUdCf26I53",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Eudi3vPDCDeRc75xmhXA_",
+             "quantity": 10
+            },
+            {
+             "itemId": "l1A2aWDyaI_QeSzaNr8ZO",
+             "quantity": 20
+            },
+            {
+             "itemId": "wCFCjGhIUmPFvIAA_8-7J",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 5000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 8
+            },
+            {
+             "itemId": "-6C6OtiodwTNgFq_XqwR-",
+             "quantity": 8
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

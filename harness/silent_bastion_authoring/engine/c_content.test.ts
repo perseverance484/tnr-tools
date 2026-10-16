@@ -9,19 +9,19 @@ import { beforeEach, describe, expect, it, vi } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { eq } from "drizzle-orm";
-import { aiProfile, item, quest } from "@/drizzle/schema";
+import { aiProfile, item, quest, userData, userItem } from "@/drizzle/schema";
 import { verifyQuestContentForSave, verifyQuestObjectiveFlow } from "@/libs/quest";
 import { findPredecessor } from "@/libs/objectives";
 import { Pusher } from "@/libs/pusher";
 import { verifyRewardChoiceForSave } from "@/libs/rewardChoice";
 import { aiRouter } from "@/server/api/routers/ai";
-import { fetchItemWithCraftingRequirements } from "@/server/api/routers/item";
+import { fetchItemWithCraftingRequirements, itemRouter } from "@/server/api/routers/item";
 import { questsRouter } from "@/server/api/routers/quests";
-import { ItemValidator, questBuffTypes, questDebuffTypes } from "@/validators/combat";
+import { ItemValidator, NonCombatConsumeRewardTag, questBuffTypes, questDebuffTypes } from "@/validators/combat";
 import { AiRule } from "@/validators/ai";
 import { QuestValidator } from "@/validators/objectives";
-import { insertItems, insertUsers } from "../setup/factories";
-import { callerFor, describeWithDatabase, getTestDatabase, resetTables } from "../setup/testDatabase";
+import { insertItems, insertUserItems, insertUsers } from "../setup/factories";
+import { callerFor, callerForDatabase, describeWithDatabase, getTestDatabase, resetTables } from "../setup/testDatabase";
 import { Evidence, requireClean } from "./lib/report";
 import { exclusiveId, itemRecord, REPO } from "./lib/units";
 
@@ -35,6 +35,12 @@ const compiled = read(`${A}/compiled/quest.candidate.json`);
 const profiles = read(`${A}/compiled/ai_profiles.candidate.json`).profiles as { slot: string; key: string; name: string; aiProfile: { rules: Record<string, unknown>[] } }[];
 const script = read(`${A}/design/script.json`);
 const protocols = read(`${A}/design/protocols.json`);
+const entry = read(`${A}/design/entry_and_rewards.json`);
+type Bundle = { itemId: string; quantity: number }[];
+type CacheOut = { ref: string; srcId: string; entries: Record<string, string[]>; record: Record<string, unknown> & { effects: { weightedCache: { rolls: { probability: number }[]; tiers: { name: string; probability: number; entries: { items: Bundle }[] }[] } }[] } };
+const cacheOut = read(`${A}/compiled/cache_items.candidate.json`).caches as CacheOut[];
+const pools = read(entry.caches.weightedCache.poolsSource).pools as Record<string, { chosen: { status: string; output: { name: string; rarity: string }; ingredients: { id: string; quantityFull: number; quantityPyramid: number }[] }[] }>;
+const bundleKey = (b: Bundle) => JSON.stringify(b.map((x) => [x.itemId, x.quantity]).sort());
 
 /** Symbolic refs → local fixture ids (never live ids). */
 const fixtureId = (ref: string) => ref.startsWith("@ai:") ? `sb-ai-${ref.slice(4).toLowerCase().replace(".", "-")}`
@@ -154,6 +160,29 @@ describe("C1 compiled quest: schemas, flow, counts, provenance", () => {
   });
 });
 
+describe("C1b completion caches (RUL-2026-10-16-010)", () => {
+  it("cache records: engine schemas, approved weights, Strong Pyramid recipe bundles", () => {
+    c("two caches, matching the quest-level reward refs", cacheOut.length === 2 &&
+      cacheOut.map((x) => x.ref).sort().join() === compiled.record.content.reward.reward_items.map((r: { ids: string[] }) => r.ids[0]).sort().join());
+    for (const ch of cacheOut) {
+      const fam = ch.srcId.includes("arsenal") ? "arsenal" : "research";
+      const eff = ch.record.effects[0]!;
+      const tag = NonCombatConsumeRewardTag.safeParse(eff);
+      c(`${fam}: NonCombatConsumeRewardTag accepts the active weightedCache effect`, tag.success, tag.success ? undefined : tag.error.issues.slice(0, 5));
+      const wc = eff.weightedCache;
+      c(`${fam}: one roll at 10000; tiers Epic 5000 / Legendary 5000`, wc.rolls.length === 1 && wc.rolls[0]!.probability === 10_000 &&
+        wc.tiers.map((t) => `${t.name}:${t.probability}`).join() === "Epic:5000,Legendary:5000", wc.tiers.map((t) => [t.name, t.probability]));
+      const want = (rarity: string, legendary: boolean) => pools[fam]!.chosen.filter((r) => r.status === "PROPOSED_PILOT" && r.output.rarity === rarity)
+        .map((r) => bundleKey(r.ingredients.map((i) => ({ itemId: i.id, quantity: legendary ? (i.quantityFull * 2) / 5 : i.quantityFull }))));
+      const got = (n: string) => wc.tiers.find((t) => t.name === n)!.entries.map((e) => bundleKey(e.items));
+      c(`${fam}: every Epic entry is one whole recipe (100%), exact ratios`, got("Epic").sort().join("|") === want("EPIC", false).sort().join("|"), ch.entries);
+      c(`${fam}: every Legendary entry is exactly 40% of one recipe`, got("Legendary").sort().join("|") === want("LEGENDARY", true).sort().join("|"), ch.entries);
+      c(`${fam}: untradeable, consumable, destroyed on use, no battle use, target SELF`, ch.record.canBeTraded === false && ch.record.itemType === "CONSUMABLE" &&
+        ch.record.destroyOnUse === true && ch.record.preventBattleUsage === true && ch.record.target === "SELF");
+    }
+  });
+});
+
 describeWithDatabase("C2 real saves", () => {
   beforeEach(() => { vi.spyOn(Pusher.prototype, "trigger").mockResolvedValue(undefined); });
   it("editor save of the compiled 99-objective quest (hidden)", async () => {
@@ -201,5 +230,41 @@ describeWithDatabase("C2 real saves", () => {
     const parsed = ItemValidator.safeParse({ ...row, cost: 1 });
     c("Countermand (OTHER, reusable Clear 100, 40AP r5 CD6, PVE) validates as a stored item", parsed.success, parsed.success ? undefined : parsed.error.issues.slice(0, 5));
   }, 120_000);
+  it("both caches validate as stored items and every opening grants exactly one whole compiled bundle", async () => {
+    const db = await getTestDatabase();
+    await resetTables(userItem, item, userData);
+    const hero = "sb-cache-opener";
+    await insertUsers([{ userId: hero, username: hero, status: "AWAKE", rank: "JONIN", level: 100, money: 0, sector: 0 }]);
+    const ings = [...new Set(cacheOut.flatMap((ch) => ch.record.effects[0]!.weightedCache.tiers.flatMap((t) => t.entries.flatMap((e) => e.items.map((x) => x.itemId)))))];
+    await insertItems([
+      ...cacheOut.map((ch) => ({ ...ch.record, id: fixtureId(ch.ref) })),
+      ...ings.map((id) => ({ id, name: `Ingredient ${id} [fixture]`, itemType: "MATERIAL", canStack: true, stackSize: 1000 })),
+    ] as never);
+    const OPENS = 12;
+    for (const ch of cacheOut) {
+      const fam = ch.srcId.includes("arsenal") ? "arsenal" : "research";
+      const id = fixtureId(ch.ref);
+      const row = await fetchItemWithCraftingRequirements(db, id);
+      const parsed = ItemValidator.safeParse({ ...row, cost: 1 });
+      c(`${fam}: stored cache row passes ItemValidator`, parsed.success, parsed.success ? undefined : parsed.error.issues.slice(0, 5));
+      await insertUserItems([{ id: `stack-${fam}`, userId: hero, itemId: id, quantity: OPENS }]);
+      const allowed = new Set(ch.record.effects[0]!.weightedCache.tiers.flatMap((t) => t.entries.map((e) => bundleKey(e.items))));
+      const held = async () => Object.fromEntries((await db.query.userItem.findMany({ where: eq(userItem.userId, hero) }))
+        .filter((r) => ings.includes(r.itemId)).reduce((m, r) => m.set(r.itemId, (m.get(r.itemId) ?? 0) + r.quantity), new Map<string, number>()));
+      const bad: unknown[] = []; const seen: Record<string, number> = {};
+      for (let i = 0; i < OPENS; i++) {
+        const before = await held();
+        const res = await callerForDatabase(itemRouter, hero, db).consume({ userItemId: `stack-${fam}`, requestId: `open-${fam}-${String(i).padStart(4, "0")}` });
+        const after = await held();
+        const g = Object.keys(after).filter((k) => after[k]! !== (before[k] ?? 0)).map((k) => ({ itemId: k, quantity: after[k]! - (before[k] ?? 0) }));
+        const key = bundleKey(g);
+        if (!res.success || !allowed.has(key)) bad.push({ i, msg: res.message, g });
+        seen[key] = (seen[key] ?? 0) + 1;
+      }
+      const left = (await db.query.userItem.findMany({ where: eq(userItem.userId, hero) })).filter((r) => r.itemId === id).reduce((s, r) => s + r.quantity, 0);
+      c(`${fam}: ${OPENS}/${OPENS} openings succeed, each grants exactly one whole compiled bundle, and every cache is destroyed`, bad.length === 0 && left === 0, { bad, left });
+      ev.timing(`${fam}.bundlesSeen`, seen);
+    }
+  }, 300_000);
   requireClean(ev);
 });
