@@ -1,6 +1,6 @@
 # Vaporia — Five-Jutsu Showcase Readiness
 
-**State:** **SHOWCASE READY FOR DIRECTOR REVIEW — FORMAL PREFLIGHT BLOCKED** (2026-10-16). **5/5 exact raw director approvals**, **5/5 locally exported 256px VP8L lossless WebPs**, source/format/bytes verified, and **3+2** centered image composed with real WebP byte-size labels. **Director whole-family signoff PENDING**; intentional opaque RGB jutsu images still conflict with generic ICON alpha preflight, official script NOT RUN. All art binaries remain local/uncommitted; no live-game action.  
+**State:** **SESSION CLOSED; SHOWCASE READY FOR DIRECTOR REVIEW — NOT YET FAMILY-ACCEPTED; FORMAL PREFLIGHT BLOCKED** (2026-10-16). **5/5 exact raw director approvals**, **5/5 locally exported 256px VP8L lossless WebPs**, source/format/bytes verified, and **3+2** centered image composed with real WebP byte-size labels. **Director whole-family signoff PENDING**; intentional opaque RGB jutsu images still conflict with generic ICON alpha preflight, official script NOT RUN. All art binaries remain local/uncommitted; no live-game action.  
 **Bloodline:** Vaporia, A-rank, ID `f7IgtcsLqomqmmBgAYS1O`. **Verified historical native public jutsu count:** 5.  
 **Showcase authority:** `docs/workflows/JUTSU_ICON_SHOWCASE.md` — adaptive roster count; never an eight-jutsu assumption.  
 **User-owned gates:** five individual raw acceptances AND separate full-family gallery acceptance; live uploads are a third, wholly separate operator action.
@@ -45,3 +45,7 @@ All icons are equal square sizes, no incomplete fake slot, no cropping/repaintin
 
 **All five approved raws processed locally and exact export metadata verified. The 3+2 gallery is READY FOR DIRECTOR REVIEW, not yet accepted.** Official preflight remains blocked/not run because of opaque-background ICON alpha contract; no live writes.
 **Live-game requests/writes:** 0.
+
+## Session closure note (2026-10-16)
+
+User requested closing this Art Studio conversation and moving to Hokyuken. **This does not itself resolve the separate director whole-family showcase signoff.** The full gallery remains review-ready, NOT accepted; source/processed evidence remains intact, generic ICON alpha gate remains BLOCKED/NOT RUN, and no live game action is authorized. See `ART_STUDIO_SESSION_CLOSEOUT_20261016.md`.

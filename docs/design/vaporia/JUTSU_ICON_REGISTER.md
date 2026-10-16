@@ -136,3 +136,7 @@ The director's **"Confirmed. Approved."** responded to the three explicit decisi
 
 **No image generation or processing has been performed in this approval-recording checkpoint; production/showcase are the next separate gates.**
 **Live-game requests/writes:** 0. **Credentials:** none.
+
+## Session closeout — 2026-10-16
+
+The director requested **session closeout and transition to Hokyuken**. The five raw approvals, five local WebPs and deterministic 3+2 showcase are preserved as **REVIEW-READY**, not as a whole-family-approved or upload-ready set. The director did **not** explicitly accept the final gallery; the set acceptance gate stays open. Shared ICON alpha-preflight blocker, non-Git-pinned binaries and user-only live boundary unchanged. Full details: `ART_STUDIO_SESSION_CLOSEOUT_20261016.md`.
