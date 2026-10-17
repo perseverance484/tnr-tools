@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave04.original-art-intake-qc/1",
   "date": "2026-10-17",
-  "status": "FIVE_SOURCE_PACKS_VERIFIED_THEMES_APPROVED; BR066_BR008_BR053_VISUALLY_APPROVED; BR063_PROPOSED",
+  "status": "ORIGINAL_ART_VERIFIED; BR066_BR008_BR053_BR063_VISUALLY_APPROVED; BR032_PROPOSED_DIRECTOR_IMAGE_DECISION_PENDING",
   "roster": {
     "ref": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "reviewed_in_tracker": "docs/design/bloodright/ICON_PRODUCTION_TRACKER.md"
@@ -122,8 +122,11 @@
       ],
       "do_not_use": "Keep strong bright silhouette on black; no spiderwebs, ghost figures, portals or Oblivion-like saturated purple.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "3_OF_3_INDEPENDENTLY_QC_VERIFIED_PROPOSED; AWAITING_DIRECTOR_IMAGE_ACCEPTANCE",
-      "family_qc_record": "BLOODRIGHT_WAVE04_BR063_PROPOSAL_QC_20261017.json"
+      "icon_artwork_status": "3_OF_3_DIRECTOR_VISUALLY_APPROVED_EBONY_SILK_V03; MACHINE_MASTER_GEOMETRY_NONEXACT",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR063_EBONY_SILK_APPROVED_QC_20261017.json",
+      "previously_proposed_treatment": "Moonless Filament silver-pewter: rejected too bright; violet imagegen alternative rejected too purple",
+      "final_accepted_treatment": "Ebony Silk",
+      "approved_art_package_sha256": "b8d0c3b7db825c84a398b6c96e629179bbf5491d20051b4c3bd234cb26af2d16"
     },
     {
       "code": "BR-032",
@@ -151,7 +154,8 @@
       ],
       "do_not_use": "No literal music-note glyphs, full sound-wave rings, treble clefs or geometry changes.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "NOT_GENERATED"
+      "icon_artwork_status": "3_INDIVIDUAL_IMAGES_PROPOSED_PASSED_EXACT_MASTER_MASK_QC; DIRECTOR_FINAL_VISUAL_ACCEPTANCE_PENDING",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR032_PROPOSAL_QC_20261017.json"
     }
   ],
   "checks": {
@@ -196,16 +200,16 @@
     "total_icons": 87,
     "remaining_bloodlines": 14,
     "remaining_icons": 42,
-    "wave04_approved_bloodlines": 3,
-    "wave04_approved_icons": 9,
-    "current_visually_approved_bloodlines": 18,
-    "current_visually_approved_icons": 54,
-    "current_remaining_bloodlines": 11,
-    "current_remaining_icons": 33,
+    "wave04_approved_bloodlines": 4,
+    "wave04_approved_icons": 12,
+    "current_visually_approved_bloodlines": 19,
+    "current_visually_approved_icons": 57,
+    "current_remaining_bloodlines": 10,
+    "current_remaining_icons": 30,
     "wave04_fixed_geometry_machine_pass_icon_count": 3,
     "wave04_fixed_geometry_proposal_pass_icons": 3
   },
-  "decision_gate": "Director visual approval of BR-063 Shadow Weaver specific saved Foundation / Hidden Art / Advanced Art trio; then proceed Heavenly Sonata.",
+  "decision_gate": "Review exact three Heavenly Sonata (BR-032) Celestial Harmonics proposed icons; approve or request revision. If approved package five-family Wave 04 accepted originals.",
   "technical_boundaries": [
     "Current main JUTSU_ICON optional alpha applies ONLY to jutsu.image; not field-verified for Bloodright skillTree.image",
     "Exact accepted art source binaries/masters still not committed/pinned by immutable Git SHA",
@@ -216,5 +220,5 @@
   "live_game_writes": 0,
   "credentials": false,
   "treatment_director_approval": "ALL_FIVE_CARDS_APPROVED_BY_DIRECTOR_ON_2026-10-17",
-  "geometry_exception_notice": "Director-approved BR-066 Shinseina Ki and revised BR-008 Bakuhatsu (6 icons) still fail pixel-exact master geometry; keep bytes immutable. BR-053 Oblivion Seal passes exact, BR-063 Shadow Weaver proposed exact masks pending visual approval."
+  "geometry_exception_notice": "Nine director-visually-approved Wave04 icon originals from BR-066, BR-008 V02, and BR-063 Ebony Silk are NOT pixelwise exact universal tier master geometry. Preserve original approved bytes and keep strict geometry gate OPEN; BR-053 approved and BR-032 proposed have 3/3 master-exact geometry."
 }
