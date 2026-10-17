@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave04.original-art-intake-qc/1",
   "date": "2026-10-17",
-  "status": "FIVE_ORIGINAL_SOURCE_ZIPS_VERIFIED; ALL_FIVE_THEMES_DIRECTOR_APPROVED; BR-066_VISUAL_APPROVED_WITH_GEOMETRY_GATE_OPEN; BR-008_PROPOSED",
+  "status": "FIVE_KITS_VERIFIED_AND_THEMES_APPROVED; BR066_BR008_VISUALLY_APPROVED; BR053_PROPOSED",
   "roster": {
     "ref": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "reviewed_in_tracker": "docs/design/bloodright/ICON_PRODUCTION_TRACKER.md"
@@ -62,8 +62,8 @@
       ],
       "do_not_use": "No generic sunburst substitution; no cloud or new spike geometry; separate from Suragu's basalt magma.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "3_PROPOSED_NOT_VISUALLY_APPROVED",
-      "family_qc_record": "BLOODRIGHT_WAVE04_BR008_PROPOSAL_QC_20261017.json"
+      "icon_artwork_status": "3_OF_3_DIRECTOR_VISUALLY_APPROVED_RED_CORE_V02; EXACT_MASTER_GEOMETRY_FAIL",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR008_REVISED_APPROVED_QC_20261017.json"
     },
     {
       "code": "BR-053",
@@ -91,7 +91,8 @@
       ],
       "do_not_use": "No Godstorm lightning bolts, Cosmic stardust, extra runes, claws or external rings.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "NOT_GENERATED"
+      "icon_artwork_status": "3_OF_3_PROPOSED_DIRECTOR_ART_APPROVAL_PENDING",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR053_PROPOSAL_QC_20261017.json"
     },
     {
       "code": "BR-063",
@@ -192,15 +193,16 @@
     "total_icons": 87,
     "remaining_bloodlines": 14,
     "remaining_icons": 42,
-    "wave04_approved_bloodlines": 1,
-    "wave04_approved_icons": 3,
-    "current_visually_approved_bloodlines": 16,
-    "current_visually_approved_icons": 48,
-    "current_remaining_bloodlines": 13,
-    "current_remaining_icons": 39,
-    "wave04_fixed_geometry_machine_pass_icon_count": 0
+    "wave04_approved_bloodlines": 2,
+    "wave04_approved_icons": 6,
+    "current_visually_approved_bloodlines": 17,
+    "current_visually_approved_icons": 51,
+    "current_remaining_bloodlines": 12,
+    "current_remaining_icons": 36,
+    "wave04_fixed_geometry_machine_pass_icon_count": 0,
+    "wave04_fixed_geometry_proposal_pass_icons": 3
   },
-  "decision_gate": "Director acceptance/revision of Bakuhatsu three specific output images next. All five material cards already accepted.",
+  "decision_gate": "Director acceptance/revision of Oblivion Seal Voidscar Amethyst specific proposed three-tier artwork next; five family themes already approved.",
   "technical_boundaries": [
     "Current main JUTSU_ICON optional alpha applies ONLY to jutsu.image; not field-verified for Bloodright skillTree.image",
     "Exact accepted art source binaries/masters still not committed/pinned by immutable Git SHA",
@@ -211,5 +213,5 @@
   "live_game_writes": 0,
   "credentials": false,
   "treatment_director_approval": "ALL_FIVE_CARDS_APPROVED_BY_DIRECTOR_ON_2026-10-17",
-  "geometry_exception_notice": "BR-066 Shinseina Ki visually approved original imagegen raws fail exact Ethereal master geometry check; preserve accepted bytes, record mismatch, do not claim technical upload readiness."
+  "geometry_exception_notice": "BR-066 Shinseina and BR-008 revised Bakuhatsu image-generated approved trios visually accepted but fail pixel-exact master geometry; preserve exact raw bytes; do not claim technically ready or silently regenerate. BR-053 proposed trio passes exact master geometry."
 }
