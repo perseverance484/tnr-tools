@@ -1,0 +1,181 @@
+{
+  "schema": "tnr.bbe.jutsu-icon-final-export-qc/1",
+  "date": "2026-10-17",
+  "main_reference": "8c434dfeb3233dd3b3f68410c8361bc9e39ba061",
+  "final_zip": {
+    "filename": "BBE_Jutsu_Icons_Final_20261017.zip",
+    "bytes": 497338,
+    "sha256": "595ff010ef7b7e147ee88f36840d72fda17f216cc1c333667bd843de00d8e960",
+    "root_flat": true,
+    "icons": 8,
+    "manifest": "BBE_FINAL_MANIFEST.json",
+    "git_pinned": false
+  },
+  "original_source_zip": {
+    "filename": "BBE_Jutsu_Approved_Originals_20261017.zip",
+    "bytes": 17898759,
+    "sha256": "e06ff9d9d9f9dd6110f4926e574c1165fb5169774d081add5c1ffc92ba1b2b65",
+    "git_pinned": false
+  },
+  "target": "JUTSU_ICON (jutsu.image)",
+  "dimensions": [
+    256,
+    256
+  ],
+  "format": "WEBP",
+  "codec": "VP8L lossless",
+  "mode": "RGB opaque full-bleed",
+  "limit_bytes_exclusive": 80000,
+  "processing": "Pillow RGB decode from accepted exact source; LANCZOS to 256x256; adaptive MEDIANCUT quantize <=256 colors with no dithering; convert back to RGB; save WEBP lossless=True method=6.",
+  "checks": {
+    "exact_source_hashes_matched": true,
+    "direct_regeneration_exact_output_bytes_matched_all_eight": true,
+    "zip_integrity_crc_pass": true,
+    "all_eight_256_square": true,
+    "vp8l_lossless_all_eight": true,
+    "opaque_rgb_all_eight": true,
+    "all_under_80000": true,
+    "contact_sheets_125_64_32_checked": true,
+    "main_JUTSU_ICON_allows_opaque": true,
+    "official_repo_artpreflight_executed": false,
+    "official_artpreflight_verdict": "NOT_RUN",
+    "note": "The canonical preflight.py is not present in this container and was not executed. The equivalent file-level gates were verified from the exact current code/spec read on main; no claim of formal zero-error preflight or live upload/read-back."
+  },
+  "files": [
+    {
+      "jutsu": "Blue Crimson",
+      "filename": "icon_bbe_blue_crimson_v2.webp",
+      "bytes": 59574,
+      "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9",
+      "source_filename": "icy_teleportation_slash_emblem.png",
+      "source_sha256": "75c30e701fd347a33334efde439d535f4ea99c00b5730262b091b662b9ae3b9b",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Sapphire Command",
+      "filename": "icon_bbe_sapphire_command_v2.webp",
+      "bytes": 61270,
+      "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5",
+      "source_filename": "glacial_crystal_claw_slashes.png",
+      "source_sha256": "34ab07b9e62094fe104f35cf7964de50d5fbd8c5e8aba9df12faeb489e7ba511",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Ice Shackles",
+      "filename": "icon_bbe_ice_shackles_v2.webp",
+      "bytes": 60172,
+      "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb",
+      "source_filename": "a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png",
+      "source_sha256": "5da0026ea674c3b665e2d9332b1bf0077b940cc9300774981fbf6b5564b82b4b",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Icebound Might",
+      "filename": "icon_bbe_icebound_might_v2.webp",
+      "bytes": 61438,
+      "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40",
+      "source_filename": "1000018410.png",
+      "source_sha256": "4e7dacf5e62a5c9d79ca1ee0a49d43c8edb3336076a71608f88dc377f4b0b0c2",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Glacial Volley",
+      "filename": "icon_bbe_glacial_volley_v2.webp",
+      "bytes": 60062,
+      "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f",
+      "source_filename": "1000018412.png",
+      "source_sha256": "d6e43e13b048336481c452e8d1232d8ded9937b356a7fe06c6a6dca5a9dfde50",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Blade Resonance",
+      "filename": "icon_bbe_blade_resonance_v2.webp",
+      "bytes": 63010,
+      "sha256": "fe82f265e7b1ccd9432b26c1d9068b7afaffd4f9cc20024c1f1f311714a716c0",
+      "source_filename": "resonant_blue_ice_katana.png",
+      "source_sha256": "dee239465efa10351ce37ea403bd97694dc8f7ed52a65b8a53738e175117aaaf",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Arctic Frost",
+      "filename": "icon_bbe_arctic_frost_v2.webp",
+      "bytes": 59408,
+      "sha256": "e40498f61e8cb770dc9cfd3e38e7f984a514e6b53d9c683ae51f6014808762f2",
+      "source_filename": "crescent_iceblade_arc.png",
+      "source_sha256": "02545af2fdfa8ed5fe9300a0fd93c5ec2886d1b75643e6c30f4c07a5a2a8d9db",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    },
+    {
+      "jutsu": "Quintessential Flake",
+      "filename": "icon_bbe_quintessential_flake_v2.webp",
+      "bytes": 62838,
+      "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8",
+      "source_filename": "1000018420.png",
+      "source_sha256": "ae2be20b05f96c05edab8a7a98b0f36651d98b9285764fdec45af6c57cbdde2c",
+      "format": "WEBP",
+      "lossless": true,
+      "alpha": false,
+      "dimensions": [
+        256,
+        256
+      ],
+      "visual_status": "DIRECTOR_APPROVED"
+    }
+  ],
+  "provenance": {
+    "binary_images_committed": false,
+    "final_source_files_download": "conversation ZIP",
+    "live_requests": 0,
+    "live_writes": 0,
+    "user_upload_status": "UNVERIFIED"
+  }
+}
