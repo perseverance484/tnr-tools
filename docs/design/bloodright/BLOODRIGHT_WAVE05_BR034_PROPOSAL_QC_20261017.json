@@ -6,7 +6,7 @@
   "rank": "A",
   "theme": "Cerulean Shatter",
   "theme_approval": "DIRECTOR_APPROVED",
-  "artwork_specific_director_approval": "PENDING",
+  "artwork_specific_director_approval": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_zip": "BR-034_Hyouga_Yui.zip",
   "source_zip_sha256": "7da05a184fc2c4b6adb3d06ee8348411aed84bab744d356e79d5a665574b7dc8",
   "source_images": "5 original jutsu + one bloodline identity verified by manifest hashes, bytes, MIME/dimensions and exact roster jutsu IDs",
@@ -57,11 +57,33 @@
     "black_corners": "PASS_3",
     "programmatic_125_64_32": "PASS",
     "neighbor_contrast": "Compared approved Shinrai Ou and Heavenly Sonata; Teno Yuki source reference inspected, no Teno tier icons yet",
-    "approved_Shinrai_original_png_and_webp_unchanged": "PASS_SIX"
+    "approved_Shinrai_original_png_and_webp_unchanged": "PASS_SIX",
+    "specific_director_visual_acceptance": "PASS_ALL_THREE",
+    "approved_original_image_source_hashes_unchanged": "PASS_3_PNG_3_WEBP"
   },
-  "open_gates": "specific three-icon director acceptance pending, skillTree.image field preflight not run, immutable binary Git pins and Forge imagePack not done; 12 prior director-approved but geometry-nonexact icons remain separate",
-  "visual_progress": "23/29 families, 69/87 icons approved excluding proposed Hyouga",
+  "open_gates": "Artwork visually accepted, but skillTree.image field-specific preflight not run; immutable source binary Git pins and Forge imagePack not done. Twelve earlier approved yet geometry-nonexact icons remain separate.",
+  "visual_progress": "24/29 families, 72/87 visually approved icons after accepting Hyouga; Teno Yuki proposal not yet approved",
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "approval_evidence": "Operator replied 'Approved' to Hyouga Yui Cerulean Shatter exact submitted full Foundation / Hidden Art / Advanced Art artwork preview.",
+  "approved_package": {
+    "file": "BR-034_Hyouga_Yui_Bloodright_Approved_3_Icons.zip",
+    "sha256": "ca9ef13e7d4aca12a4d3d097429d9a7435ab90e6437377caa72019444c8003fa",
+    "bytes": 10772740,
+    "prior_proposed_sha256": "ccb8fe5ce06126bd89f4c7aa083add3ab48822fe0371bfc8209629ff3a8d1b88",
+    "all_3_raw_PNG_and_3_lossless_webp_members": "UNCHANGED_BYTE_IDENTICAL",
+    "zip_crc": "PASS",
+    "approved_comparison_from_exact_saved_png_sha256": "09c7a4fc9ab617c293442280674d3e63a44c58b9157e40ed4bf693ff8feefc34"
+  },
+  "second_independent_offline_qc": {
+    "scope": "Hyouga approved + Teno Yuki proposed",
+    "passes": 186,
+    "failed": 0,
+    "file": "WAVE05_BR034_APPROVED_BR077_PROPOSED_INDEPENDENT_QC.json",
+    "sha256": "aebd2e9b920193b6cba7d1afc261e0fb6b4b187e6bd07d47a1f54e644d6c8665",
+    "source_sha_and_exact_geometry": "PASS_BOTH_FAMILIES",
+    "hyouga_proposal_to_approval_binary_equivalence": "PASS_SIX"
+  },
+  "next": "Present Teno Yuki Winterglass Sanctum exact three-tier artwork for director visual acceptance before closing Wave05."
 }
