@@ -21,6 +21,10 @@ Bootstrap:
   hash/decoder check and exact jutsu ID/name mapping.
 - Inspect actual extracted reference images; never
   assume the generator can see pixels inside a ZIP.
+- Use one actual director-approved BBE/BEE/Vaporia jutsu
+  artwork exemplar as STYLE/MATERIAL ONLY if its bytes are
+  available/pinned; otherwise label style-exemplar pixels
+  PENDING rather than claiming unseen images were ingested.
 
 Direction:
 - Establish bloodline-specific palette/material.
