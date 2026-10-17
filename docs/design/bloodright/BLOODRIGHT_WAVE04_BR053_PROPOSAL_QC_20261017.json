@@ -1,0 +1,97 @@
+{
+  "schema": "tnr.bloodright.wave04.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-053",
+  "name": "Oblivion Seal",
+  "rank": "A",
+  "treatment": "Voidscar Amethyst",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "specific_three_icon_art_approval": "PROPOSED_AWAITING_DIRECTOR",
+  "source_zip": {
+    "name": "BR-053_Oblivion_Seal.zip",
+    "sha256": "f876734f53527d0b11aa0ffddcc084924d1d000f55bffe12682a727d16bc3760",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "CRC_SHA_decoder_ID_dimensions": "PASS"
+  },
+  "art_recipe": "Fixed high-resolution approved Ethereal master maximum-channel-preserving color/material transform: obsidian-UV purple crystal and intense fracture-vein highlights on original nested diamond/crescents/starburst; opaque black.",
+  "revision_note": "v01 provisional pale-lilac direction independently contrasted too similarly against Cosmic Ascendant, so v02 uses richer saturated ultraviolet and near-black amethyst while preserving identical source master geometry. v01 never submitted for director acceptance.",
+  "master_source": {
+    "foundation": {
+      "name": "Ethereal_Monarch_Foundation_TEAL_1254.png",
+      "sha256": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2"
+    },
+    "hidden_art": {
+      "name": "Ethereal_Monarch_Hidden_Art_TEAL_1254.png",
+      "sha256": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc"
+    },
+    "advanced_art": {
+      "name": "Ethereal_Monarch_Advanced_Art_TEAL_1254.png",
+      "sha256": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+    }
+  },
+  "raw_and_export": "Three individually saved RGB 1254x1254 PNG raw original artworks; three Pillow Lanczos 256x256 lossless RGB WebP VP8L exports; no generated collage; QC comparison programmatically composed from exactly saved image pixels.",
+  "icons": [
+    {
+      "tier": "Foundation",
+      "raw_sha256": "651280af3e484f34e732a82392c6dce8a6781c88fcd734416ff622c343b6c5f6",
+      "webp_name": "br053_oblivion_seal_foundation_v02.webp",
+      "webp_sha256": "8aac9f6f690ac7cd853f4ff9d745e6acdb8e9c2d9697286678b2ea27bd4bac1c",
+      "webp_bytes": 41112
+    },
+    {
+      "tier": "Hidden Art",
+      "raw_sha256": "2fa442e0e927f2feb501c3a0a918b7abdb42b7805daaa1dfc2a7ee50ad54055a",
+      "webp_name": "br053_oblivion_seal_hidden_art_v02.webp",
+      "webp_sha256": "2a520857e74081ddec34a0461a18b49b0f1541363e161930210cac98ae12a477",
+      "webp_bytes": 66562
+    },
+    {
+      "tier": "Advanced Art",
+      "raw_sha256": "b1a94466addb61ec401118312dd73a0ad84cb23953197615ac557e696a046fe9",
+      "webp_name": "br053_oblivion_seal_advanced_art_v02.webp",
+      "webp_sha256": "e771d8244da60c2da587755a1a22c610959dac2f2e4383f47c7ea85a9e58d0ab",
+      "webp_bytes": 57184
+    }
+  ],
+  "proposed_package": {
+    "name": "BR-053_Oblivion_Seal_Bloodright_Proposed_3_Icons_v02.zip",
+    "sha256": "ad24e66e6e58388ccb5d75e53b7da200b6607a9c3012891869c3055a8dc47810",
+    "bytes": 5080818,
+    "CRC_and_source_member_integrity": "PASS"
+  },
+  "qc": {
+    "source_zip_crc_original_jutsu_ids_manifest_SHA": "PASS_5_PLUS_IDENTITY",
+    "source_raw_rgb_png_1254": "PASS_3",
+    "pixelwise_maxRGB_equal_to_master": "PASS_3_OF_3",
+    "six_threshold_geometry_IoU": "EXACT_1_0_ALL_TIERS",
+    "webp_256_rgb_lossless_vp8l": "PASS_3",
+    "webp_decoded_pixel_eq_Lanczos_raw_resize": "PASS_3",
+    "black_corners": "PASS_3",
+    "webp_each_under_460800": "PASS_3",
+    "small_125_64_32_visual_inspection": "PASS",
+    "neighbor_family_Cosmic_comparison": "COMPARED_V02_RICHER_ULTRAVIOLET_DISTINCT_FROM_MAGENTA_COSMIC",
+    "preview": "PROGRAMMATIC_ONLY_FROM_SAVED_PIXEL_FILES",
+    "independent_offline_audit": "134_PASS_0_FAIL_SHARED_WITH_BR008",
+    "director_visual_approval": "PENDING",
+    "skillTree_image_field_preflight": "NOT_DONE",
+    "git_binary_pin": "NOT_DONE",
+    "forge_imagePack": "NOT_DONE",
+    "game_operator_readback": "NOT_DONE"
+  },
+  "progress": {
+    "already_visually_approved_bloodlines": 17,
+    "already_visually_approved_icons": 51,
+    "pending_proposed_three_icons": 3,
+    "do_not_count_pending": true
+  },
+  "scope": {
+    "bloodright_skill_icons_only": true,
+    "jutsu_redesign": false,
+    "art_background": "OPAQUE_BLACK_DIRECTOR_APPROVED",
+    "technical_opaque_alpha_conflict": "STILL_OPEN_FIELD_skillTree.image; JUTSU_ICON_ALPHA_OPTIONAL_ONLY_APPLIES_TO_jutsu.image"
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
