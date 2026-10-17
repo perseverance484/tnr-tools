@@ -6,6 +6,11 @@ Inputs (both pinned, so output is deterministic):
   - legacy tree JSON at LEGACY_REF                   (bloodline ID, rank, elements)
 
 Output: docs/design/bloodright/structural/<slug>.json, one per CSV bloodline.
+The CSV's "Previous name" column holds template names, not each tree's legacy names, so it is
+not copied into the designs.
+
+LEGACY_REF lives on origin/fable/bloodright-planning-20261003, not on main. Keep that branch
+(or merge it) for as long as the designs need regenerating; the generator fails loudly without it.
 
   python3 scripts/bloodright_from_naming.py          # write
   python3 scripts/bloodright_from_naming.py --check  # exit 1 if any output differs
@@ -66,7 +71,6 @@ def build():
                 "branch": f"p{path}", "cost": 1,
                 "parents": [] if tier == 1 else [f"p{path}_t{tier - 1}"], "parent_rule": "ALL",
                 "bonuses": bonuses,
-                **({"previous_name": r["Previous name"]} if r["Previous name"] != r["Name"] else {}),
             })
         cls = old.get("classification", {})
         designs[name] = {
