@@ -1,6 +1,6 @@
 # Blue Blade Eyes — Jutsu Icon Identity Register
 
-**Status:** Visual direction LOCKED for four individual jutsu; remaining four require separate generation/review; **none of this eight-icon set is currently recorded as mechanically upload-ready**.  
+**Status:** **COLLECTION CLOSED, 2026-10-17.** dauntless reports the BBE jutsu-icon set finished. The final exports, preflight records and uploads were done outside repository tracking and are **not held here**. The rows below are the last repository-recorded state, kept as history and as the protocol's worked example; do not read them as current per-icon status.  
 **Art Studio:** docs/workflows/ISOLATED_ART_GENERATION.md; director ruling RUL-2026-10-14-001.  
 **Source basis:** director-provided jutsu database screenshots and approved image-generation outputs in the 2026-10-13/14 conversation. The screenshots document the names/visual meaning; they are **not** a current live capture.  
 **Source bytes:** individual source identifiers, image formats, exact sizes and locally verified SHA-256 are in SOURCE_EVIDENCE.json. Those files are **not committed** in this documentation change.  
@@ -48,10 +48,6 @@ Never attach all eight icons, a montage, the failed Icebound snowflake/three-sla
 
 Do not erase this history when replacing an output; use a new filename/version, document replacement approval and preserve predecessor evidence.
 
-## Next studio actions
+## Closure
 
-1. Import/store all four accepted original sources with their hashes. Their present state is **conversation-origin images; repo binary intake pending**. The user can return original files to the studio as attachments. This documentation commit does not add binary art.
-2. Design the remaining four icons **one new generation session per target**, with independent silhouette briefs and minimal style references.
-3. Run BBE export under the user limit with 125/64/32px side-by-side QC; log results and formal JUTSU_ICON preflight with `--max-bytes 80000`.
-4. Jutsu-specific opaque-background handling is the spec's JUTSU_ICON target (Lane A). A mechanically clean package still needs the export, preflight record and @img binding for that file.
-5. Keep any actual game upload, content changes, and publication under dauntless's separate authority.
+Closed 2026-10-17 on dauntless's report. The repository holds the identity register, the four source hashes in SOURCE_EVIDENCE.json and the JUTSU_ICON tooling; it holds no BBE export, preflight record or upload read-back. The four remaining icons were completed by dauntless outside this register. The earlier "next studio actions" list is retired.
