@@ -1,9 +1,9 @@
 # Blue Blade Eyes — Jutsu Icon Identity Register
 
-**Status:** **COLLECTION CLOSED, 2026-10-17.** dauntless reports the BBE jutsu-icon set finished. The final exports, preflight records and uploads were done outside repository tracking and are **not held here**. The rows below are the last repository-recorded state, kept as history and as the protocol's worked example; do not read them as current per-icon status.  
+**Status:** **COLLECTION CLOSED — 8/8 DIRECTOR VISUALLY APPROVED, 2026-10-17.** Exact final source files and opaque 256×256 lossless WebP exports have been verified and delivered as a conversation ZIP; eight encoded outputs and corresponding SHA-256/byte/codec evidence are recorded in FINAL_EXPORT_QC_20261017.json. This Git branch records the evidence only, **not the image binaries**. Canonical artpreflight.py was not executed in this container, and no live-game upload or read-back was performed by this workstream.  
 **Art Studio:** docs/workflows/ISOLATED_ART_GENERATION.md; director ruling RUL-2026-10-14-001.  
 **Source basis:** director-provided jutsu database screenshots and approved image-generation outputs in the 2026-10-13/14 conversation. The screenshots document the names/visual meaning; they are **not** a current live capture.  
-**Source bytes:** individual source identifiers, image formats, exact sizes and locally verified SHA-256 are in SOURCE_EVIDENCE.json. Those files are **not committed** in this documentation change.  
+**Source bytes:** eight director-approved source identities, decoded formats, exact dimensions and SHA-256 values are in SOURCE_EVIDENCE.json. The source backup and processed ZIPs are conversation deliverables, **not committed Git binaries**.  
 **Separate workstream:** the older BBE Foundation/Hidden Art/Advanced Art *Bloodright emblem* work at chatgpt/bloodright-icon-production-tracker-20261008 is **not part of this eight-jutsu icon set**. Do not edit or re-approve the existing BBE bloodline artwork here.
 
 ## Collection-wide visual lock
@@ -25,12 +25,12 @@
 | **Sapphire Command** | **///** three well-separated, forceful diagonal crystalline cuts; deliberate precision, not Blue Crimson's motion blur. | **RAW VISUAL APPROVED** | glacial_crystal_claw_slashes.png |
 | **Ice Shackles** | **X** massive frozen chains closing around a small central binding seal; unmistakable restraint, not a snowflake. | **RAW VISUAL APPROVED** | a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png |
 | **Icebound Might** | **Broad guardian armor**: towering crystalline shoulder plates, heavy protective gauntlets and intense chakra chest core; **no actor inside**. | **RAW VISUAL APPROVED** | 1000018410.png (actual bytes JPEG) |
-| **Quintessential Flake** | Distinct **six-point crystalline flake** with inward-converging chakra; no guardian armor or extra starburst competing for focus. | **NEW-METHOD REVIEW PENDING** | Existing earlier candidate(s), not locked here |
-| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidates; no current raw lock |
-| **Blade Resonance** | Single **vertical Blue Blade** with three clean concentric chakra resonance waves; calm central axis; no large slash explosion. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidate; no current raw lock |
-| **Glacial Volley** | Strong horizontal/diagonal **fan of crystalline lances** fired in formation; discrete, directional projectiles rather than parallel slashes. | **NEW-METHOD REVIEW PENDING** | Earlier exploratory candidate; no current raw lock |
+| **Quintessential Flake** | Distinct **six-point crystalline flake** with inward-converging chakra; no guardian armor or extra starburst competing for focus. | **RAW VISUAL APPROVED** | 1000018420.png (decoded JPEG; exact SHA in SOURCE_EVIDENCE.json) |
+| **Arctic Frost** | One sweeping **crescent** from ice-coated Blue Blade, a single decisive cut; not three gashes or speed afterimages. | **RAW VISUAL APPROVED — replacement** (director explicit) | crescent_iceblade_arc.png (final higher-contrast revision, not the old washed-out image) |
+| **Blade Resonance** | Single **vertical Blue Blade** with three clean concentric chakra resonance waves; calm central axis; no large slash explosion. | **RAW VISUAL APPROVED — replacement** | resonant_blue_ice_katana.png (final approved replacement, not earlier rejected sword) |
+| **Glacial Volley** | Strong horizontal/diagonal **fan of crystalline lances** fired in formation; discrete, directional projectiles rather than parallel slashes. | **RAW VISUAL APPROVED** | 1000018412.png (decoded JPEG; exact SHA in SOURCE_EVIDENCE.json) |
 
-**Approval distinction:** The four marked RAW VISUAL APPROVED are director-accepted *visual subjects*, not approved compressed uploads. Do not call the other four rejected or complete without a new explicit art review. The user retains final acceptance.
+**Approval distinction:** All eight specific visual sources are director-approved, including revised Blade Resonance and Arctic Frost. The eight processed outputs were checked for size, codec, reproduction, and 125/64/32px distinguishability, but **formal artpreflight and external live-game upload/read-back are separate gates**. Do not confuse source, export, preflight, and live publication states.
 
 ## Reference selection per new icon
 
@@ -41,13 +41,13 @@ Never attach all eight icons, a montage, the failed Icebound snowflake/three-sla
 ## Durable evidence/status rules
 
 - **RAW VISUAL APPROVED:** user accepted the raw composition; preserve original bytes/hash.
-- **GIT SOURCE PINNED:** source file is committed and hash-matched at an immutable repo SHA; currently **none** of the four approved jutsu image sources meet this gate.
+- **GIT SOURCE PINNED:** a source file is committed and hash-matched at an immutable repo SHA; **none of these eight originals are committed**. Exact source hashes and conversation archives are recorded for portable verification.
 - **PROCESSING QC PASSED:** output, visual scale, size/format and source integrity actually checked.
-- **PREFLIGHT CLEAR:** `artpreflight.py --type JUTSU_ICON --max-bytes 80000` exits with zero errors on the actual export; **not yet claimed** for any BBE jutsu icon, because no export has been run through it.
+- **PREFLIGHT CLEAR:** `artpreflight.py --type JUTSU_ICON --max-bytes 80000` exits with zero errors on the actual export; **not claimed here**, because the official script was not run in this runtime. Main's JUTSU_ICON spec accepts opaque RGB, and equivalent file-level constraints were independently checked.
 - **UPLOAD / LIVE VERIFIED:** must be supported by the operator's upload and fresh live read-back; **none** claimed.
 
 Do not erase this history when replacing an output; use a new filename/version, document replacement approval and preserve predecessor evidence.
 
 ## Closure
 
-Closed 2026-10-17 on dauntless's report. The repository holds the identity register, the four source hashes in SOURCE_EVIDENCE.json and the JUTSU_ICON tooling; it holds no BBE export, preflight record or upload read-back. The four remaining icons were completed by dauntless outside this register. The earlier "next studio actions" list is retired.
+Closed 2026-10-17 with **eight visual approvals and a complete portable 8-file export**. The final binary ZIP is `BBE_Jutsu_Icons_Final_20261017.zip` (SHA-256 `595ff010ef7b7e147ee88f36840d72fda17f216cc1c333667bd843de00d8e960`) and the approved source backup is `BBE_Jutsu_Approved_Originals_20261017.zip` (SHA-256 `e06ff9d9d9f9dd6110f4926e574c1165fb5169774d081add5c1ffc92ba1b2b65`). Both are **conversation artifacts, not Git blobs**. Exact byte and source/output verification: FINAL_EXPORT_QC_20261017.json; durable closeout: FINAL_ART_CLOSEOUT_20261017.md. Official `artpreflight.py` execution and any live upload/read-back are **not represented as completed** by this session.
