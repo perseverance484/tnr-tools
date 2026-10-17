@@ -236,3 +236,23 @@ test("collection screen labels the scope and compiled icon manifests pass Python
     }
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test("D1: an explicit node image of null is refused, not replaced by the category icon", async () => {
+  const d = setup();
+  d.pkg.bloodrightCollection.trees[1].nodes.p1_t1.image = null;
+  await d.core.selectManifest(d.entry());
+  const problems = d.core.state.selected.problems;
+  assert.ok(problems.some(p => /icon must be an HTTPS URL or @img filename/.test(p)), JSON.stringify(problems));
+  await d.core.startJob();
+  assert.equal(d.journal.listJobs().length, 0); assert.equal(mutations(d).length, 0); assert.equal(d.uploadCount(), 0);
+});
+
+test("D2: a collection beside top-level jutsu is refused before Start", async () => {
+  const d = setup();
+  d.pkg.jutsu = [{ name: "x" }];
+  await d.core.selectManifest(d.entry());
+  assert.equal(d.core.state.selected, null, "nothing selectable means nothing startable");
+  assert.ok(d.events.some(e => e.type === "error" && /without other manifest operations/.test(e.text)), JSON.stringify(d.events));
+  await d.core.startJob();
+  assert.equal(d.journal.listJobs().length, 0); assert.equal(mutations(d).length, 0); assert.equal(d.uploadCount(), 0);
+});

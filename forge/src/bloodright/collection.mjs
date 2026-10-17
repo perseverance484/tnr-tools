@@ -7,7 +7,7 @@ import { readIdmap } from "../storage/compat.mjs";
 // Every child retains its own provenance, lease, preimages, frozen text and recovery.
 export async function prepareCollection(ctx, pkg) {
   const c = pkg.bloodrightCollection;
-  if (pkg.bloodright || pkg.items || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
+  if (pkg.bloodright || pkg.items || pkg.jutsu || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
   const trees = [], problems = [], names = new Map(), bloodlines = new Set();
   for (const [index, config] of c.trees.entries()) {
     try {

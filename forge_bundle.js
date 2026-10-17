@@ -6457,7 +6457,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const claimed =  new Set();
     for (const n of ordered) {
       const settings = config.nodes?.[n.id] ?? {};
-      const icon = settings.image ?? config.icons?.[n.category];
+      const icon = Object.hasOwn(settings, "image") ? settings.image : config.icons?.[n.category];
       if (requireIcons && icon === void 0) fail(`${n.name}: collection imports require an explicit node or category icon`);
       if (icon !== void 0 && (typeof icon !== "string" || !/^(@img:[A-Za-z0-9_.-]+|https:\/\/\S+)$/.test(icon))) fail(`${n.name}: icon must be an HTTPS URL or @img filename`);
       for (const key of Object.keys(settings)) if (!["rounds", "seichiSilverCost", "description", "image"].includes(key)) fail(`${n.name}: unsupported setting ${key}`);
@@ -6548,7 +6548,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 
   async function prepareCollection(ctx, pkg) {
     const c = pkg.bloodrightCollection;
-    if (pkg.bloodright || pkg.items || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
+    if (pkg.bloodright || pkg.items || pkg.jutsu || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
     const trees = [], problems = [], names =  new Map(), bloodlines =  new Set();
     for (const [index, config] of c.trees.entries()) {
       try {
