@@ -1,0 +1,136 @@
+{
+  "schema": "tnr.bloodright.wave03.approved-art-closeout/1",
+  "date": "2026-10-17",
+  "status": "WAVE_03_COMPLETE_DIRECTOR_VISUALLY_APPROVED; OFFLINE_FILE_QC_PASS",
+  "owner": "ChatGPT Art Director + Image Production; user is final acceptance authority",
+  "source_workflow": "docs/workflows/BLOODRIGHT_ICON_STUDIO.md",
+  "exact_wave3_roster": [
+    {
+      "code": "BR-083",
+      "name": "Tetsugan",
+      "theme": "Ward-Forged Steel",
+      "source_zip_sha256": "ee51014dc769de0e39ce5ff479c1ca673ff8dd85d566f7d818338ea284254fb8",
+      "individual_approved_zip_sha256": "e9c209e4eb9dad187256b83d740463bf0414684fb628686dc6d7b651cd0351e3",
+      "tier_hash_evidence": "BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "code": "BR-064",
+      "name": "Shakunetsu Sakura",
+      "theme": "Midnight Blossomfire",
+      "source_zip_sha256": "08ae88c6b8b2cf6d20bcae02402059385b182551e39ac34c4834c68142355f2b",
+      "individual_approved_zip_sha256": "ec1723a199b104737fcbb278de5f785898cfb280e1bb94377de4f413f0395463",
+      "tier_hash_evidence": "BLOODRIGHT_WAVE03_BR064_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "code": "BR-020",
+      "name": "Crystal Essence",
+      "theme": "Prismatic Jadeglass",
+      "source_zip_sha256": "0a6acc8fb678b1030f1ada358b7fd522cf531b0dfb2f49f2bf0a0a969f5329af",
+      "individual_approved_zip_sha256": "d849e456f4731c17fa285154c8a68a4f3d2fb3b680ea89116f10477c2337aa08",
+      "tier_hash_evidence": "BLOODRIGHT_WAVE03_BR020_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "code": "BR-074",
+      "name": "Suragu",
+      "theme": "Obsidian Magma",
+      "source_zip_sha256": "687729d4857943f991d2d34253386259af20ec104daa0fc9c462da92e4a45916",
+      "individual_approved_zip_sha256": "0d2ec1a37b53fa1235cde54b7fafcfd7e37d6d94a990b10db66496e3bcf4200d",
+      "tier_hash_evidence": "BLOODRIGHT_WAVE03_BR074_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "code": "BR-090",
+      "name": "Vaporia",
+      "theme": "Hydrothermal Crucible",
+      "source_zip_sha256": "41b0a1338a6f5ec2d776a2e1334d198d815100462c9a27758654ba3c97991a9a",
+      "individual_approved_zip_sha256": "e50c1207d54c84a9d44aa73f580e2e3677af0179569e3fb205056e88a5290db2",
+      "proposal_zip_sha256": "9a7ef14b3de866ea943a188ea861c1d2553b26b84f34e2b98ee76a4c47636a2e",
+      "tier_hash_evidence": "BLOODRIGHT_WAVE03_BR090_PROPOSAL_QC_20261017.json"
+    }
+  ],
+  "geometry": {
+    "foundation": "nested diamond",
+    "hidden_art": "paired crescents and nested diamond",
+    "advanced_art": "multipoint starburst with nested diamond",
+    "source_reference": "three director-approved Ethereal Monarch individual geometry masters (verified 1254×1254)",
+    "original_art_preserved": true,
+    "deterministic_RGB_maximum_intensity_match_to_corresponding_master": "PASS_15_OF_15",
+    "six_absolute_threshold_mask_comparisons": "PASS_EXACT_15_OF_15_AT_1_16_64_128_192_240"
+  },
+  "package_artifacts": {
+    "all_approved": {
+      "filename": "Bloodright_Wave03_Approved_All_5_Bloodlines_15_Icons_20261017.zip",
+      "sha256": "735b94f572749bc9ec82d53000f957fa545821b7f604cc7fc934abdf9b60b9cf",
+      "bytes": 23723287,
+      "contents": "15 individually saved accepted original 1254px PNGs, 15 lossless RGB 256px WebPs, five original source art ZIPs, per-family approval manifests, programmatic QC/showcase and full per-file hash ledger"
+    },
+    "webps_only": {
+      "filename": "Bloodright_Wave03_Approved_15_WebPs_256px_20261017.zip",
+      "sha256": "d31ffd49acdfac9702210b9cac321f91569697649be90962155297435f82d1fd",
+      "bytes": 810182,
+      "contents": "15 unmodified accepted lossless WebPs, portable manifest, instructions"
+    },
+    "final_showcase": {
+      "filename": "Bloodright_Wave03_Approved_Showcase_20261017.png",
+      "sha256": "296a7e2c26f682dcbfe22e2705cbfcc5889279f9c6812f02295da939516fccba",
+      "bytes": 1759317,
+      "composition": "PROGRAMMATIC_ONLY_FROM_EXACT_SAVED_ACCEPTED_RAW_PNGS"
+    },
+    "small_size_qc": {
+      "filename": "Bloodright_Wave03_Approved_125_64_32_QC_20261017.png",
+      "sha256": "7ff5e2faad0ef7b712478fea3401cb74bd80e923235964d517e4651e047f7aa3",
+      "bytes": 537663,
+      "composition": "PROGRAMMATIC_ONLY_FROM_EXACT_ACCEPTED_WEBP_BYTES"
+    }
+  },
+  "tests": {
+    "execution": "Offline Python/Pillow/NumPy verification independent of family production recipes",
+    "assertions_passed": 365,
+    "assertions_failed": 0,
+    "source_archive_sha_and_crc": "PASS_5",
+    "accepted_raw_PNG_sha256": "PASS_15",
+    "accepted_webp_sha256": "PASS_15",
+    "master_geometry_maxRGB_per_pixel": "PASS_15",
+    "mask_threshold_1_16_64_128_192_240": "PASS_15",
+    "webp_256_rgb_lossless_VP8L": "PASS_15",
+    "decoded_webp_pixels_identical_to_resized_approved_raw": "PASS_15",
+    "black_corner_and_under_460800_bytes": "PASS_15",
+    "zip_membership_crc_and_package_file_byte_equality": "PASS_BOTH_CONSOLIDATED_ZIPS",
+    "director_visual_approval": "PASS_ALL_FIVE"
+  },
+  "progress": {
+    "initial_cohort_families": 29,
+    "total_icons": 87,
+    "previous_approved_families": 10,
+    "previous_approved_icons": 30,
+    "wave03_added_families": 5,
+    "wave03_added_icons": 15,
+    "approved_families": 15,
+    "approved_icons": 45,
+    "remaining_families": 14,
+    "remaining_icons": 42
+  },
+  "immutable_binary_provenance": "ART_ORIGINALS_ARE_IN_USER_CONVERSATION_DELIVERABLES; NOT_GIT_PINNED_SOURCE_BLOBS",
+  "mechanical_technical_gates": {
+    "skillTree_image_field_specific_preflight": "OPEN_NOT_RUN",
+    "generic_ICON_opaque_alpha_rule": "DO_NOT_SILENTLY_WAIVE",
+    "jutsu_icon_optional_alpha_contract": "jutsu.image_ONLY_NOT_skillTree.image",
+    "reusable_machine_geometry_master_processor": "NOT_FORMALLY_IMPLEMENTED_REVIEWED",
+    "git_pinned_binary_master_and_outputs": "NOT_DONE",
+    "Forge_immutable_imagePack_binding": "NOT_DONE",
+    "structural_import_validation": "SEPARATE_FABLE_LANE",
+    "game_import_readback": "NOT_PERFORMED",
+    "publication": "NOT_AUTHORIZED"
+  },
+  "repository_integration_conflict": "The art branch's RUL-2026-10-17-004 reskin-factory entry collides with main's separate RUL-2026-10-17-004 Bloodright placeholder-element import ruling. Reconcile numbering/authority before main merge. Wave3 closeout commit is art-only, not integration approval.",
+  "note": "At least one earlier director-approved individual family ZIP carries a stale field marking icon_visual_approval awaiting decision. Per-family current QC ledgers plus Wave03 consolidated approved manifest supersede stale proposal status without changing historical approved art binaries.",
+  "next_wave_suggested": [
+    "BR-066 Shinseina Ki",
+    "BR-008 Bakuhatsu",
+    "BR-053 Oblivion Seal",
+    "BR-063 Shadow Weaver",
+    "BR-032 Heavenly Sonata"
+  ],
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false
+}
