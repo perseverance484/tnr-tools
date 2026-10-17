@@ -103,7 +103,8 @@ category defaults:
 already supplied by the operator; URL-only icons are assigned without uploads (their
 remote bytes are not hash-verified). Collections require an explicit icon for every
 node. Single-tree packages without icons keep the old image-preservation behavior.
-Category icons explicitly replace existing images, including Hungry Pulse's when selected.
+Category icons explicitly replace existing images, including Hungry Pulse's when selected
+(approved, RUL-2026-10-17-002).
 New folders may also use an image reference; bound existing folders remain unchanged.
 
 For automatic image upload, put `imgSizes` and `imagePack` at the **package top level**,
