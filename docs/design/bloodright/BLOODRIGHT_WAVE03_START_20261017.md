@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** ALL FIVE SOURCE REFERENCE PACKS VERIFIED AND VISUAL TREATMENT CARDS DIRECTOR APPROVED. BR-083 three-icon proposed family produced/QC'ed; artwork-specific director approval PENDING.
+**Status:** FIVE REFERENCE PACKS VERIFIED AND FIVE THEMES APPROVED. BR-083 Tetsugan trio DIRECTOR VISUALLY APPROVED (11/29 families, 33/87 icons total). BR-064 Shakunetsu Sakura trio PROPOSED / artwork-specific director approval PENDING.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -29,6 +29,12 @@
 **Expected input:** five original bloodline source-art ZIPs with **31 jutsu images** and, if supplied, five identity images. None of these five ZIPs has been attached/inspected in this wave yet. Filenames are suggested intake labels, not proof of file existence.
 
 **Distinguishability questions to assess only after inspecting actual pixels:** Tetsugan vs magnet bloodlines (Houkyuken/Itojinsei); Shakunetsu Sakura vs previously approved solar Taiyo Kami and lava Suragu; Crystal Essence vs icy Blue Blade Eyes; Suragu vs other orange/thermal themes; Vaporia vs ice/water/steam themes. Do not choose palettes, symbols or textures from classification/name alone.
+
+## 2026-10-17 — Tetsugan approval / Shakunetsu production checkpoint
+
+- **BR-083 Tetsugan:** Director accepted all three Ward-Forged Steel tier images in the last review. Source PNG and WebP hashes remain exactly those independently reported at proposal; no approved artwork regenerated. Approved portable package `BR-083_Tetsugan_Bloodright_Approved_3_Icons.zip` SHA-256 `e9c209e4eb9dad187256b83d740463bf0414684fb628686dc6d7b651cd0351e3`; source hashes in `BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json`. Original binaries in conversation portable archive, not immutable Git content.
+- **BR-064 Shakunetsu Sakura:** Director-approved Midnight Blossomfire recipe applied in one coordinated local appearance pass to three verified Ethereal geometry masters. Three individual source PNGs, three lossless RGB 256px WebPs, programmatically composed 3-icon family preview, 125/64/32px QC and neighbor comparison. Each new tier exactly matches its master's maxRGB at every source pixel with threshold IoU=1.0; output hashes and QA status in `BLOODRIGHT_WAVE03_BR064_PROPOSAL_QC_20261017.json`. Portable family ZIP SHA-256 `e8a384182a4d927c42ac590ac7c91a7cbecc5bd7811dc2bce6340a1907d828b6`. **No BR-064 artwork accepted until director reviews the specific completed trio.**
+- **Art acceptance:** 11/29 complete, 33/87 tier artworks; 18 families / 54 icons remain, inclusive of BR-064 pending. Strict `skillTree.image` field preflight, git-binary binding, immutable Forge imagePack, hidden import/readback and live publication are separate and remain open. Zero live requests/writes.
 
 ## 2026-10-17 — Reference intake completed
 
@@ -60,11 +66,11 @@
 - **SHA-256:** `baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30` (**6,395,153 bytes**)
 - Contains **three separate 1254px verified geometry-reference masters** plus **21 previously accepted 256px lossless WebP comparisons** (six pilot, 15 Wave 02 including corrected Shiroi v02 role assignment).
 - Manifest SHA-256s verified against preserved original source-package bytes; ZIP CRC and decoder/format checks pass. The package is intentionally light and contains **no Wave 03 jutsu source images** and **no newly generated icons**.
-- Wave 03 source reference ZIPs must still be supplied by the operator before any treatment or new art can be proposed. The previous-approved family colors are comparison evidence, not a palette prescription for an unseen target.
+- All five Wave 03 source reference ZIPs have since been supplied, safely inspected and SHA/manifest-verified; see the intake checkpoint above. The previous-approved family colors are comparison evidence, not a palette prescription for an unseen target.
 - The portable starter is not an immutable Git `imagePack` or technical sign-off for `skillTree.image`.
 
 ## Immediate next action
 
-Five source art ZIPs received and validated; all five treatment cards director approved. **Review BR-083 Tetsugan's three individually saved proposed emblems** against the programmatically composed comparison. Await director final family acceptance before moving to BR-064 Shakunetsu Sakura. No Wave 03 tier set is marked accepted yet.
+The director accepted BR-083 Tetsugan, and its exact accepted artwork has been preserved. **Present BR-064 Shakunetsu Sakura's proposed Foundation / Hidden Art / Advanced Art trio for director visual acceptance.** If approved, preserve its exact raw/WebP bytes and move on to BR-020 Crystal Essence using the already verified source ZIP.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
