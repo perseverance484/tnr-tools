@@ -24,12 +24,12 @@ The 15 source PNGs are 1254×1254 RGB; their 15 game-sized WebPs are 256×256 lo
 | Artifact | SHA-256 |
 |---|---|
 | `BR-090_Vaporia_Bloodright_Approved_3_Icons.zip` | `e50c1207d54c84a9d44aa73f580e2e3677af0179569e3fb205056e88a5290db2` |
-| `Bloodright_Wave03_Approved_All_5_Bloodlines_15_Icons_20261017.zip` | `735b94f572749bc9ec82d53000f957fa545821b7f604cc7fc934abdf9b60b9cf` |
+| `Bloodright_Wave03_Approved_All_5_Bloodlines_15_Icons_20261017.zip` | `009254f237c510c8a1fdc67e7bf41976395971ff2632107332c1db7280a0f92c` |
 | `Bloodright_Wave03_Approved_15_WebPs_256px_20261017.zip` | `d31ffd49acdfac9702210b9cac321f91569697649be90962155297435f82d1fd` |
 | `Bloodright_Wave03_Approved_Showcase_20261017.png` | `296a7e2c26f682dcbfe22e2705cbfcc5889279f9c6812f02295da939516fccba` |
 | `Bloodright_Wave03_Approved_125_64_32_QC_20261017.png` | `7ff5e2faad0ef7b712478fea3401cb74bd80e923235964d517e4651e047f7aa3` |
 
-**Tests performed:** 365 offline file/hash/geometry/decoded-pixel/archive assertions PASS; 0 failures. Another source-level pass verified all 31 original jutsu image and 5 identity image bytes/dimensions/MIME types against the five operator-supplied ZIP manifests. All 15 emblems reproduce the exact master per-pixel max(R,G,B) and six intensity-threshold masks. Programmatic full-wave showcase uses the actual accepted raw pixels; thumbnail QC uses accepted WebP bytes. No image-generation sheet was used.
+**Tests performed:** 373 offline file/hash/geometry/decoded-pixel/archive assertions PASS; 0 failures. Another source-level pass verified all 31 original jutsu image and 5 identity image bytes/dimensions/MIME types against the five operator-supplied ZIP manifests. All 15 emblems reproduce the exact master per-pixel max(R,G,B) and six intensity-threshold masks. Programmatic full-wave showcase uses the actual accepted raw pixels; thumbnail QC uses accepted WebP bytes. No image-generation sheet was used.
 
 ## Technical and integration boundaries
 
