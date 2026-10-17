@@ -82,19 +82,22 @@ Next: <new bloodline Studio ZIP intake or exact missing gate>
 
 ## D. Expected final single family archive
 
+Built by `jutsu_studio.py finalize` (docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md §8); deterministic, CRC- and hash-verified:
+
 ~~~text
-<Bloodline>_Jutsu_Studio_Approved.zip
-  manifest.json              # exact jutsu_id -> source/export paths
-  approved_raw/              # exact original bytes, never rewritten
-  webp256/                   # only currently accepted outputs
-  qc/
-    family_125_64_32.png
-    family_showcase.png
-    family_showcase_mobile.png
-    preflight.json
-  SHA256SUMS.txt
+<family>_jutsu_icons_closeout_<label>.zip
+  manifest/studio_ledger.json   # exact jutsu_id -> raw/export hashes and every gate
+  manifest/approved.json        # the Studio's approval record, exact bytes
+  raws/                         # exact approved original bytes, never rewritten
+  exports/                      # only the current accepted 256px VP8L WebPs
+  qc/export_qc_<label>.json
+  qc/preflight_<label>.json     # real artpreflight command, exit code, output
+  showcase/<family>_jutsu_showcase_<label>.png (+ _phone.png)
+  showcase/<family>_jutsu_thumbs_125_64_32_<label>.png
+  showcase/showcase_manifest.json   # tnr.jutsu-showcase/1
+  SHA256SUMS
 ~~~
 
-**Optional companion:** `<Bloodline>_Jutsu_WebPs_256.zip` containing only N flat game-size image files for mobile asset selection. Neither ZIP implies any in-game upload, publication or live read-back. Preserve any previous accepted or withdrawn version separately outside the active ZIP.
+**Companion:** `<family>_jutsu_icons_upload_<N>webp_<label>.zip` containing only the N flat game-size WebPs for mobile asset selection. Neither ZIP implies any in-game upload, publication or live read-back. Preserve any previous accepted or withdrawn version separately outside the active ZIP.
 
 **Acceptance gating:** record current source/effect identity, individual raw approval, exact processed output, canonical preflight, family showcase and actual game record status separately. Do not call a family “finished in game” from an art closeout.

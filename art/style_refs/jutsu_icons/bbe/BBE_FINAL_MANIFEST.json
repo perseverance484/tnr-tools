@@ -1,0 +1,250 @@
+{
+  "schema": "tnr.bbe.jutsu-final-exports/1",
+  "generated_date": "2026-10-17",
+  "project": "perseverance484/tnr-tools",
+  "target": "jutsu.image (JUTSU_ICON)",
+  "status": "EIGHT_DIRECTOR_VISUALLY_APPROVED_ICONS; COMPLETE_FORMAT_SIZE_INTEGRITY_QC; OFFICIAL_ARTPREFLIGHT_NOT_RUN; NO_LIVE_WRITE",
+  "director_approvals": {
+    "all_eight": true,
+    "arctic_frost": "approved explicitly following revision",
+    "blade_resonance": "replacement approved"
+  },
+  "processing": {
+    "resolution": [
+      256,
+      256
+    ],
+    "resampling": "Pillow LANCZOS",
+    "quantization": "Pillow adaptive MEDIANCUT palette <=256 colors / dither NONE, then convert RGB",
+    "encoding": "Pillow lossless WebP method=6; output RGB opaque, full bleed",
+    "strict_workstream_ceiling": "file bytes < 80000"
+  },
+  "validation": {
+    "source_sha256_checked": true,
+    "all_8_source_and_output_hashes_checked": true,
+    "all_8_exact_byte_reproductions_match": true,
+    "zip_crc_test_passed": true,
+    "all_files_256_square_RGB_opaque": true,
+    "webp_lossless_vp8l_signatures_verified": true,
+    "all_files_strictly_less_than_80000_bytes": true,
+    "thumbnail_previews_125_64_32_rendered_and_visually_inspected": true,
+    "official_repository_artpreflight_invoked": false,
+    "note": "Canonical artpreflight not executed in this runtime. Main@8c434d has JUTSU_ICON alpha=optional for opaque RGB and --max-bytes 80000; the distinct required gates were independently verified on the actual ZIP. Formal script run can be recorded when executed."
+  },
+  "repository_evidence": {
+    "main_checked": "8c434dfeb3233dd3b3f68410c8361bc9e39ba061",
+    "user_visual_approval": "conversation",
+    "upload": "not performed here",
+    "live_read_back": "not performed here"
+  },
+  "icons": [
+    {
+      "jutsu": "Blue Crimson",
+      "upload_filename": "icon_bbe_blue_crimson_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 59574,
+      "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "icy_teleportation_slash_emblem.png",
+        "archive_filename": "blue_crimson_source.png",
+        "decoded_format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 3060836,
+        "sha256": "75c30e701fd347a33334efde439d535f4ea99c00b5730262b091b662b9ae3b9b"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Sapphire Command",
+      "upload_filename": "icon_bbe_sapphire_command_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 61270,
+      "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "glacial_crystal_claw_slashes.png",
+        "archive_filename": "sapphire_command_source.png",
+        "decoded_format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 3369223,
+        "sha256": "34ab07b9e62094fe104f35cf7964de50d5fbd8c5e8aba9df12faeb489e7ba511"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Ice Shackles",
+      "upload_filename": "icon_bbe_ice_shackles_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 60172,
+      "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "a_high_detail_fantasy_sci_fi_icy_magic_emblem_scen.png",
+        "archive_filename": "ice_shackles_source.png",
+        "decoded_format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 2981797,
+        "sha256": "5da0026ea674c3b665e2d9332b1bf0077b940cc9300774981fbf6b5564b82b4b"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Icebound Might",
+      "upload_filename": "icon_bbe_icebound_might_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 61438,
+      "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "1000018410.png",
+        "archive_filename": "icebound_might_source.jpg",
+        "decoded_format": "JPEG",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 811088,
+        "sha256": "4e7dacf5e62a5c9d79ca1ee0a49d43c8edb3336076a71608f88dc377f4b0b0c2"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Glacial Volley",
+      "upload_filename": "icon_bbe_glacial_volley_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 60062,
+      "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "1000018412.png",
+        "archive_filename": "glacial_volley_source.jpg",
+        "decoded_format": "JPEG",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 720286,
+        "sha256": "d6e43e13b048336481c452e8d1232d8ded9937b356a7fe06c6a6dca5a9dfde50"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Blade Resonance",
+      "upload_filename": "icon_bbe_blade_resonance_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 63010,
+      "sha256": "fe82f265e7b1ccd9432b26c1d9068b7afaffd4f9cc20024c1f1f311714a716c0",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "resonant_blue_ice_katana.png",
+        "archive_filename": "blade_resonance_source.png",
+        "decoded_format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 3201860,
+        "sha256": "dee239465efa10351ce37ea403bd97694dc8f7ed52a65b8a53738e175117aaaf"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Arctic Frost",
+      "upload_filename": "icon_bbe_arctic_frost_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 59408,
+      "sha256": "e40498f61e8cb770dc9cfd3e38e7f984a514e6b53d9c683ae51f6014808762f2",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "crescent_iceblade_arc.png",
+        "archive_filename": "arctic_frost_source.png",
+        "decoded_format": "PNG",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 2970818,
+        "sha256": "02545af2fdfa8ed5fe9300a0fd93c5ec2886d1b75643e6c30f4c07a5a2a8d9db"
+      },
+      "exact_byte_reproduction_from_source": true
+    },
+    {
+      "jutsu": "Quintessential Flake",
+      "upload_filename": "icon_bbe_quintessential_flake_v2.webp",
+      "format": "WEBP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB opaque",
+      "dimensions": [
+        256,
+        256
+      ],
+      "bytes": 62838,
+      "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8",
+      "director_visual_status": "APPROVED",
+      "approved_source": {
+        "original_filename": "1000018420.png",
+        "archive_filename": "quintessential_flake_source.jpg",
+        "decoded_format": "JPEG",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 879628,
+        "sha256": "ae2be20b05f96c05edab8a7a98b0f36651d98b9285764fdec45af6c57cbdde2c"
+      },
+      "exact_byte_reproduction_from_source": true
+    }
+  ]
+}

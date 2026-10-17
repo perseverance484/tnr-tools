@@ -16,13 +16,16 @@ Layout, deliberately split so the skill ZIP stays small:
 
     art/style_refs/scene_characters/*      binary references, repo-only
     art/style_refs/scene_backgrounds/*     binary references, repo-only
+    art/style_refs/jutsu_icons/<family>/*  JUTSU_ICON style exemplars, repo-only
+    art/style_refs/jutsu_icons/INTAKE_*.json  their delivery-intake records
     skills/producing-tnr-art/data/style_refs.json    packaged index
     skills/producing-tnr-art/scripts/style_refs.py   this file, packaged
 
 Commands
   verify       exact-byte/dimension/format/provenance audit of the checked-in
                pack. Needs a repo checkout. Socket-free.
-  list         every reference and its metadata, filtered by target/register.
+  list         every reference and its metadata, filtered by target/register/
+               family/tag.
   select       the deterministic small reference set for one production target.
                Works from the packaged JSON alone by emitting raw URLs, so an
                installed skill with no checkout is still useful.
@@ -31,6 +34,15 @@ Commands
                index. This is the only command that touches the network, and it
                fetches CDN image URLs only - never the TNR API.
   --selftest   socket-free unit tests over synthesized fixtures.
+
+Two provenance routes, both fail-closed in verify:
+  * SCENE_CHARACTER / SCENE_BACKGROUND come from one approved read-only live
+    capture (gameAsset.get), proven against the committed result.
+  * JUTSU_ICON exemplars are director-approved art-studio deliverables, never
+    live captures. Each one names a `deliveries` entry whose committed intake
+    record pins the delivery ZIP hash and every member's hash; verify proves
+    the checked-in file is that exact member and that every icon member of
+    the delivery is indexed.
 
 Image headers are decoded with stdlib struct/zlib like rawqc.py, so verify and
 the selftest carry no Pillow dependency. `materialize` cross-checks with Pillow
@@ -54,12 +66,18 @@ VERSION = 1
 TARGET_DIRS = {
     "SCENE_CHARACTER": "art/style_refs/scene_characters",
     "SCENE_BACKGROUND": "art/style_refs/scene_backgrounds",
+    "JUTSU_ICON": "art/style_refs/jutsu_icons",
 }
+CAPTURE_TARGETS = ("SCENE_CHARACTER", "SCENE_BACKGROUND")
+DELIVERY_TARGETS = ("JUTSU_ICON",)
+INTAKE_SCHEMA = "tnr.style_refs.delivery-intake/1"
 TARGETS = tuple(TARGET_DIRS)
 REGISTERS = ("NINJA", "CIVILIAN")
 PRIORITIES = ("PRIMARY", "SUPPORTING")
 PRIORITY_RANK = {name: i for i, name in enumerate(PRIORITIES)}
-DEFAULT_LIMIT = {"SCENE_CHARACTER": 4, "SCENE_BACKGROUND": 3}
+# JUTSU_ICON defaults to 1: a jutsu generation takes at most two images, normally one
+# legacy identity icon from the target bloodline plus one style exemplar from here.
+DEFAULT_LIMIT = {"SCENE_CHARACTER": 4, "SCENE_BACKGROUND": 3, "JUTSU_ICON": 1}
 
 EXT_FOR_FORMAT = {"PNG": ".png", "WEBP": ".webp", "JPEG": ".jpg", "GIF": ".gif"}
 
@@ -409,6 +427,137 @@ def check_reference_provenance(index: dict, by_id: dict, rel: str) -> list[str]:
 
 
 # --------------------------------------------------------------------------
+# delivery provenance - JUTSU_ICON exemplars (art-studio deliverables)
+# --------------------------------------------------------------------------
+
+DELIVERY_FIELDS = ("family", "zip_filename", "zip_sha256", "intake_record", "approval")
+
+
+def _safe_rel(rel) -> bool:
+    return (
+        isinstance(rel, str)
+        and bool(rel)
+        and not rel.startswith("/")
+        and not (len(rel) > 1 and rel[1] == ":")
+        and "\\" not in rel
+        and ".." not in Path(rel).parts
+    )
+
+
+def check_deliveries(index: dict, repo_root: Path) -> list[str]:
+    """Prove every JUTSU_ICON reference is an exact member of a recorded delivery.
+
+    The chain is index -> deliveries[key] -> committed intake record -> member
+    hash -> checked-in bytes (the bytes themselves are hashed by verify). A
+    delivery whose icon members are not all indexed is incomplete and fails.
+    """
+    errors: list[str] = []
+    refs = [r for r in index.get("references", []) if isinstance(r, dict) and r.get("target") in DELIVERY_TARGETS]
+    deliveries = index.get("deliveries")
+    if not refs and not deliveries:
+        return errors
+    if not isinstance(deliveries, dict) or not deliveries:
+        return ["deliveries block is missing: JUTSU_ICON references cannot be proven"]
+
+    members: dict[str, dict[str, dict]] = {}
+    crosscheck: dict[str, dict[str, str]] = {}
+    records: dict[str, dict] = {}
+    for key, entry in sorted(deliveries.items()):
+        label = f"delivery {key}"
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: is not an object")
+            continue
+        missing = [f for f in DELIVERY_FIELDS if entry.get(f) in (None, "")]
+        for field in missing:
+            errors.append(f"{label}: required field {field!r} is missing")
+        if missing:
+            continue
+        if entry.get("zip_matches_closeout") is True:
+            closeout = entry.get("closeout_record") or {}
+            if closeout.get("zip_sha256") != entry["zip_sha256"]:
+                errors.append(f"{label}: zip_matches_closeout is true but closeout_record.zip_sha256 differs")
+        rel = entry["intake_record"]
+        if not _safe_rel(rel) or not rel.startswith(TARGET_DIRS["JUTSU_ICON"] + "/"):
+            errors.append(f"{label}: intake_record must be a repository path under {TARGET_DIRS['JUTSU_ICON']}/: {rel!r}")
+            continue
+        if rel not in records:
+            try:
+                with (repo_root / rel).open(encoding="utf-8") as handle:
+                    records[rel] = json.load(handle)
+            except FileNotFoundError:
+                errors.append(f"{label}: intake record not found: {rel}")
+                continue
+            except json.JSONDecodeError as exc:
+                errors.append(f"{label}: intake record is not valid JSON: {rel}: {exc}")
+                continue
+        record = records[rel]
+        if record.get("schema") != INTAKE_SCHEMA:
+            errors.append(f"{label}: intake record schema must be {INTAKE_SCHEMA!r}")
+            continue
+        found = [d for d in record.get("deliveries", []) if isinstance(d, dict) and d.get("key") == key]
+        if len(found) != 1:
+            errors.append(f"{label}: intake record {rel} must carry exactly one delivery keyed {key!r}, found {len(found)}")
+            continue
+        recorded = found[0]
+        for field in ("zip_sha256", "family"):
+            if recorded.get(field) != entry.get(field):
+                errors.append(f"{label}: {field} {entry.get(field)!r} disagrees with intake record {recorded.get(field)!r}")
+        if recorded.get("zip_crc_ok") is not True:
+            errors.append(f"{label}: intake record does not show a passing ZIP CRC test")
+        members[key] = {
+            m["name"]: m for m in recorded.get("members", []) if isinstance(m, dict) and m.get("role") == "icon"
+        }
+        crosscheck[key] = {
+            c.get("member"): c.get("status") for c in recorded.get("closeout_cross_check", []) if isinstance(c, dict)
+        }
+
+    referenced: dict[str, set] = {key: set() for key in members}
+    for ref in refs:
+        label = ref.get("key") or "?"
+        key = ref.get("source_delivery")
+        entry = deliveries.get(key) if isinstance(key, str) else None
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: source_delivery {key!r} is not in the deliveries block")
+            continue
+        family = ref.get("family")
+        if family != entry.get("family"):
+            errors.append(f"{label}: family {family!r} != delivery family {entry.get('family')!r}")
+        rel = ref.get("path")
+        member = ref.get("source_member")
+        if isinstance(family, str) and isinstance(rel, str):
+            want_dir = f"{TARGET_DIRS['JUTSU_ICON']}/{family.lower()}/"
+            if not rel.startswith(want_dir):
+                errors.append(f"{label}: JUTSU_ICON reference of family {family} must live under {want_dir}, found {rel}")
+        if isinstance(rel, str) and Path(rel).name != member:
+            errors.append(f"{label}: file name {Path(rel).name!r} must equal its delivery member name {member!r}")
+        if key not in members:
+            continue  # the delivery itself already failed
+        recorded = members[key].get(member)
+        if recorded is None:
+            errors.append(f"{label}: {member!r} is not an icon member of delivery {key} in its intake record")
+            continue
+        if member in referenced[key]:
+            errors.append(f"{label}: delivery member {member!r} is indexed twice")
+        referenced[key].add(member)
+        if recorded.get("sha256") != ref.get("sha256"):
+            errors.append(f"{label}: sha256 disagrees with the intake record for {member}")
+        if recorded.get("bytes") != ref.get("bytes"):
+            errors.append(f"{label}: bytes disagree with the intake record for {member}")
+        if recorded.get("pinned_path") not in (None, rel):
+            errors.append(f"{label}: intake record pins {member} at {recorded.get('pinned_path')}, index says {rel}")
+        if ref.get("closeout_match") is not (crosscheck[key].get(member) == "MATCH"):
+            errors.append(
+                f"{label}: closeout_match {ref.get('closeout_match')!r} disagrees with the intake "
+                f"cross-check status {crosscheck[key].get(member)!r}"
+            )
+
+    for key, names in sorted(members.items()):
+        for name in sorted(set(names) - referenced.get(key, set())):
+            errors.append(f"delivery {key}: icon member {name} is not indexed; a partial delivery is ambiguous")
+    return errors
+
+
+# --------------------------------------------------------------------------
 # index loading / path resolution
 # --------------------------------------------------------------------------
 
@@ -512,22 +661,24 @@ def verify(
         key = ref.get("key")
         label = key or f"references[{position}]"
 
-        for field in (
-            "key",
-            "name",
-            "asset_id",
-            "target",
-            "priority",
-            "order",
-            "path",
-            "source_image_url",
-            "source_capture",
-            "sha256",
-            "width",
-            "height",
-            "format",
-            "use_for",
-        ):
+        if ref.get("target") in DELIVERY_TARGETS:
+            required_fields = (
+                "key", "name", "target", "family", "priority", "order", "path",
+                "source_delivery", "source_member", "sha256", "width", "height",
+                "format", "silhouette", "use_for",
+            )
+            for field in ("asset_id", "source_image_url", "source_capture"):
+                if ref.get(field) not in (None, ""):
+                    bad(f"{label}: {field} belongs to captured live art; a JUTSU_ICON exemplar is a studio delivery")
+        else:
+            required_fields = (
+                "key", "name", "asset_id", "target", "priority", "order", "path",
+                "source_image_url", "source_capture", "sha256", "width", "height",
+                "format", "use_for",
+            )
+            if ref.get("source_delivery") not in (None, ""):
+                bad(f"{label}: source_delivery is only meaningful for JUTSU_ICON exemplars")
+        for field in required_fields:
             if ref.get(field) in (None, ""):
                 bad(f"{label}: required field {field!r} is missing")
 
@@ -545,7 +696,7 @@ def verify(
 
         target = ref.get("target")
         if target not in TARGETS:
-            bad(f"{label}: unsupported target {target!r}; v1 supports {', '.join(TARGETS)}")
+            bad(f"{label}: unsupported target {target!r}; supported: {', '.join(TARGETS)}")
             target = None
 
         if ref.get("priority") not in PRIORITIES:
@@ -623,6 +774,8 @@ def verify(
             if not capture_errors:
                 for err in check_reference_provenance(index, by_id, rel):
                     bad(f"provenance: {err}")
+        for err in check_deliveries(index, repo_root):
+            bad(f"provenance: {err}")
 
     required = index.get("required")
     if not isinstance(required, dict) or not required:
@@ -648,7 +801,7 @@ def sort_key(ref: dict):
     return (PRIORITY_RANK.get(ref.get("priority"), len(PRIORITIES)), ref.get("order", 0), ref.get("key", ""))
 
 
-def filter_refs(index: dict, target=None, register=None, tags=None, keys=None) -> list[dict]:
+def filter_refs(index: dict, target=None, register=None, tags=None, keys=None, family=None) -> list[dict]:
     out = []
     wanted_tags = {t.strip().lower() for t in (tags or []) if t.strip()}
     wanted_keys = {k.strip() for k in (keys or []) if k.strip()}
@@ -656,6 +809,8 @@ def filter_refs(index: dict, target=None, register=None, tags=None, keys=None) -
         if target and ref.get("target") != target:
             continue
         if register and ref.get("register") != register:
+            continue
+        if family and str(ref.get("family", "")).upper() != family.upper():
             continue
         if wanted_keys and ref.get("key") not in wanted_keys:
             continue
@@ -668,8 +823,8 @@ def filter_refs(index: dict, target=None, register=None, tags=None, keys=None) -
     return out
 
 
-def select(index: dict, target: str, register=None, tags=None, keys=None, limit=None) -> list[dict]:
-    chosen = filter_refs(index, target=target, register=register, tags=tags, keys=keys)
+def select(index: dict, target: str, register=None, tags=None, keys=None, limit=None, family=None) -> list[dict]:
+    chosen = filter_refs(index, target=target, register=register, tags=tags, keys=keys, family=family)
     if limit is None:
         limit = DEFAULT_LIMIT.get(target, 4)
     if limit > 0:
@@ -679,6 +834,8 @@ def select(index: dict, target: str, register=None, tags=None, keys=None, limit=
 
 def describe(ref: dict) -> str:
     bits = [ref.get("priority", "")]
+    if ref.get("family"):
+        bits.append(ref["family"])
     if ref.get("register"):
         bits.append(ref["register"])
     tags = ", ".join(str(t) for t in ref.get("tags", []))
@@ -696,7 +853,12 @@ def print_list(index: dict, refs: list[dict]) -> None:
         print(f"    {ref['target']}  {describe(ref)}")
         print(f"    {ref['width']}x{ref['height']} {ref['format']}  {ref.get('bytes', '?')} bytes")
         print(f"    path   {ref['path']}")
-        print(f"    asset  {ref['asset_id']}")
+        if ref.get("asset_id"):
+            print(f"    asset  {ref['asset_id']}")
+        if ref.get("silhouette"):
+            print(f"    shape  {ref['silhouette']}  (reserved by {ref.get('family')})")
+        if ref.get("source_delivery"):
+            print(f"    from   {ref['source_delivery']} / {ref.get('source_member')}")
         print(f"    use    {ref['use_for']}")
         if ref.get("do_not_use_for"):
             print(f"    LIMIT  {ref['do_not_use_for']}")
@@ -714,6 +876,12 @@ def print_select(index: dict, refs: list[dict], target: str, register, git_ref) 
     print("Read the spec target + house_style FIRST, then open each image below and look at it.")
     print("Use the individual images as references, never a collage. Start a clean generation")
     print("context for a new asset class so a previous asset cannot contaminate this one.")
+    if target in DELIVERY_TARGETS:
+        print()
+        print("JUTSU_ICON exemplars are STYLE/MATERIAL ONLY. Never copy a composition, palette or")
+        print("silhouette: each listed shape is reserved by its family. Attach at most two images")
+        print("to a generation - normally the target's legacy identity icon plus ONE exemplar -")
+        print("and label each one's role in the brief (docs/workflows/ISOLATED_ART_GENERATION.md).")
     print()
     if not refs:
         print("NO REFERENCES MATCHED - do not invent a substitute; widen the filter or")
@@ -724,6 +892,8 @@ def print_select(index: dict, refs: list[dict], target: str, register, git_ref) 
         print(f"   path : {ref['path']}")
         print(f"   raw  : {raw_url(index, ref, git_ref)}")
         print(f"   size : {ref['width']}x{ref['height']} {ref['format']}")
+        if ref.get("silhouette"):
+            print(f"   shape: {ref['silhouette']} (reserved by {ref.get('family')}; do not reuse)")
         print(f"   note : {ref['use_for']}")
         if ref.get("do_not_use_for"):
             print(f"   LIMIT: {ref['do_not_use_for']}")
@@ -765,6 +935,8 @@ def materialize(index_path: Path, repo_root: Path, result_path: Path | None) -> 
 
     changed = 0
     for ref in index["references"]:
+        if ref.get("target") in DELIVERY_TARGETS:
+            continue  # studio deliveries are never re-downloaded; their bytes are the record
         asset_id = ref["asset_id"]
         cap, data = by_id[asset_id]
         url = data["image"]
@@ -829,7 +1001,7 @@ FIXTURE_APPROVED = {"manifest": APPROVED_CAPTURE["manifest"], "reads": 3}
 def _fixture_result(index: dict, rel: str) -> dict:
     """A well-formed read-only capture result matching the fixture index."""
     captures = []
-    for position, ref in enumerate(index["references"]):
+    for position, ref in enumerate(r for r in index["references"] if r.get("target") in CAPTURE_TARGETS):
         captures.append(
             {
                 "phase": "after",
@@ -885,6 +1057,29 @@ def _fixture(tmp: Path):
     rel_a, blob_a = write("SCENE_CHARACTER", "anchor", 8, 8)
     rel_b, blob_b = write("SCENE_CHARACTER", "second", 6, 9)
     rel_c, blob_c = write("SCENE_BACKGROUND", "yard", 12, 8)
+    (repo / TARGET_DIRS["JUTSU_ICON"] / "fam").mkdir(parents=True, exist_ok=True)
+    rel_j = f"{TARGET_DIRS['JUTSU_ICON']}/fam/icon_fam_orb_v1.png"
+    blob_j = png_bytes(10, 10)
+    (repo / rel_j).write_bytes(blob_j)
+    intake_rel = f"{TARGET_DIRS['JUTSU_ICON']}/INTAKE_fixture.json"
+    intake = {
+        "schema": INTAKE_SCHEMA,
+        "deliveries": [
+            {
+                "key": "fam_final",
+                "family": "FAM",
+                "zip_sha256": "a" * 64,
+                "zip_crc_ok": True,
+                "members": [
+                    {"name": "icon_fam_orb_v1.png", "role": "icon", "bytes": len(blob_j),
+                     "sha256": hashlib.sha256(blob_j).hexdigest(), "pinned_path": rel_j},
+                    {"name": "MANIFEST.json", "role": "manifest", "bytes": 2, "sha256": "b" * 64},
+                ],
+                "closeout_cross_check": [{"member": "icon_fam_orb_v1.png", "status": "MATCH"}],
+            }
+        ],
+    }
+    (repo / intake_rel).write_text(json.dumps(intake), encoding="utf-8")
 
     def entry(key, name, asset, target, register, priority, order, rel, blob, tags):
         return {
@@ -920,11 +1115,29 @@ def _fixture(tmp: Path):
             "mutations": 0,
         },
         "excluded": [{"name": "Nameless Ninja", "reason": "deprecated"}],
-        "required": {"SCENE_CHARACTER": ["anchor", "second"], "SCENE_BACKGROUND": ["yard"]},
+        "required": {"SCENE_CHARACTER": ["anchor", "second"], "SCENE_BACKGROUND": ["yard"], "JUTSU_ICON": ["fam_orb"]},
+        "deliveries": {
+            "fam_final": {
+                "family": "FAM",
+                "zip_filename": "fam.zip",
+                "zip_sha256": "a" * 64,
+                "intake_record": intake_rel,
+                "approval": "fixture",
+                "zip_matches_closeout": True,
+                "closeout_record": {"zip_sha256": "a" * 64},
+            }
+        },
         "references": [
             entry("anchor", "Anchor", "id-a", "SCENE_CHARACTER", "NINJA", "PRIMARY", 10, rel_a, blob_a, ["bust"]),
             entry("second", "Second", "id-b", "SCENE_CHARACTER", "NINJA", "SUPPORTING", 20, rel_b, blob_b, ["full-body"]),
             entry("yard", "Yard", "id-c", "SCENE_BACKGROUND", None, "PRIMARY", 10, rel_c, blob_c, ["yard"]),
+            {
+                "key": "fam_orb", "name": "Orb", "target": "JUTSU_ICON", "family": "FAM", "jutsu_id": None,
+                "register": None, "tags": ["dark-ground"], "priority": "PRIMARY", "order": 10, "path": rel_j,
+                "source_delivery": "fam_final", "source_member": "icon_fam_orb_v1.png", "closeout_match": True,
+                "sha256": hashlib.sha256(blob_j).hexdigest(), "bytes": len(blob_j), "width": 10, "height": 10,
+                "format": "PNG", "silhouette": "orb", "use_for": "fixture",
+            },
         ],
     }
     _write_result(repo, index["source_capture"]["result"], _fixture_result(index, index["source_capture"]["result"]))
@@ -1161,6 +1374,71 @@ def selftest() -> int:
              "no matching committed result fails closed")
         missing.write_bytes(moved)
 
+        print("\nJUTSU_ICON delivery provenance")
+        J = 3  # index of the JUTSU_ICON fixture reference
+        intake_path = repo / base["deliveries"]["fam_final"]["intake_record"]
+        intake_good = intake_path.read_text(encoding="utf-8")
+
+        def with_intake(mutate):
+            data = json.loads(intake_good)
+            mutate(data)
+            intake_path.write_text(json.dumps(data), encoding="utf-8")
+            try:
+                return check(base)
+            finally:
+                intake_path.write_text(intake_good, encoding="utf-8")
+
+        want(not [e for e in check(base) if "fam_orb" in e or "delivery" in e],
+             "a JUTSU_ICON exemplar proven against its intake record verifies")
+        want(any("disagrees with the intake record" in e for e in
+                 with_intake(lambda d: d["deliveries"][0]["members"][0].__setitem__("sha256", "c" * 64))),
+             "an intake member hash that differs from the indexed file is rejected")
+        want(any("is not indexed" in e for e in
+                 with_intake(lambda d: d["deliveries"][0]["members"].append(
+                     {"name": "icon_fam_extra_v1.png", "role": "icon", "bytes": 1, "sha256": "d" * 64}))),
+             "a delivery icon member missing from the index is rejected as partial")
+        want(any("zip_sha256" in e for e in
+                 with_intake(lambda d: d["deliveries"][0].__setitem__("zip_sha256", "e" * 64))),
+             "an intake ZIP hash disagreeing with the deliveries block is rejected")
+        want(any("ZIP CRC" in e for e in
+                 with_intake(lambda d: d["deliveries"][0].__setitem__("zip_crc_ok", False))),
+             "an intake record without a passing CRC test is rejected")
+        want(any("closeout_match" in e for e in
+                 with_intake(lambda d: d["deliveries"][0]["closeout_cross_check"][0].__setitem__("status", "NOT_IN_CLOSEOUT"))),
+             "a closeout_match claim the intake cross-check does not support is rejected")
+        want(any("schema" in e for e in with_intake(lambda d: d.__setitem__("schema", "other/1"))),
+             "an intake record with the wrong schema is rejected")
+        intake_path.unlink()
+        want(any("intake record not found" in e for e in check(base)), "a missing intake record is rejected")
+        intake_path.write_text(intake_good, encoding="utf-8")
+
+        bad = copy.deepcopy(base)
+        bad["references"][J]["source_member"] = "icon_fam_other_v1.png"
+        errs = check(bad)
+        want(any("must equal its delivery member name" in e for e in errs) and any("not an icon member" in e for e in errs),
+             "a reference naming a member that is not in the delivery is rejected")
+        bad = copy.deepcopy(base)
+        bad["references"][J]["family"] = "OTHER"
+        want(any("delivery family" in e for e in check(bad)), "a family that disagrees with the delivery is rejected")
+        bad = copy.deepcopy(base)
+        bad["references"][J]["asset_id"] = "id-j"
+        want(any("studio delivery" in e for e in check(bad)), "a JUTSU_ICON exemplar posing as captured live art is rejected")
+        bad = copy.deepcopy(base)
+        bad["references"][0]["source_delivery"] = "fam_final"
+        want(any("only meaningful for JUTSU_ICON" in e for e in check(bad)), "a captured reference claiming a delivery is rejected")
+        bad = copy.deepcopy(base)
+        del bad["deliveries"]
+        want(any("deliveries block is missing" in e for e in check(bad)), "JUTSU_ICON references without a deliveries block fail closed")
+        bad = copy.deepcopy(base)
+        bad["references"][J]["silhouette"] = ""
+        want(any("'silhouette' is missing" in e for e in check(bad)), "a JUTSU_ICON exemplar without its reserved silhouette is rejected")
+        bad = copy.deepcopy(base)
+        bad["deliveries"]["fam_final"]["intake_record"] = "../outside.json"
+        want(any("intake_record must be" in e for e in check(bad)), "an intake record path outside the jutsu library is refused")
+        want([r["key"] for r in select(base, "JUTSU_ICON")] == ["fam_orb"], "JUTSU_ICON selection returns the exemplar")
+        want(select(base, "JUTSU_ICON", family="NOPE") == [], "an unknown family selects nothing rather than substituting")
+        want(DEFAULT_LIMIT["JUTSU_ICON"] == 1, "JUTSU_ICON defaults to one style exemplar")
+
         print("\nselection")
         chars = select(base, "SCENE_CHARACTER")
         want([r["key"] for r in chars] == ["anchor", "second"], "PRIMARY sorts ahead of SUPPORTING")
@@ -1214,12 +1492,14 @@ def main(argv=None) -> int:
     p_list = sub.add_parser("list", help="list references and metadata")
     p_list.add_argument("--target", choices=TARGETS)
     p_list.add_argument("--register", choices=REGISTERS)
+    p_list.add_argument("--family", help="JUTSU_ICON family code, e.g. BBE or BEE")
     p_list.add_argument("--tag", action="append", default=[])
     p_list.add_argument("--json", action="store_true")
 
     p_select = sub.add_parser("select", help="pick the deterministic reference set for one target")
     p_select.add_argument("--target", choices=TARGETS, required=True)
     p_select.add_argument("--register", choices=REGISTERS)
+    p_select.add_argument("--family", help="JUTSU_ICON family code, e.g. BBE or BEE")
     p_select.add_argument("--tag", action="append", default=[])
     p_select.add_argument("--key", action="append", default=[])
     p_select.add_argument("--limit", type=int, default=None)
@@ -1268,10 +1548,13 @@ def main(argv=None) -> int:
         print(f"  manifest:   {APPROVED_CAPTURE_MANIFEST}")
         print(f"  capture:    {index['source_capture']['result']}")
         print(f"  provenance: {EXPECTED_CAPTURE_COUNT}/{EXPECTED_CAPTURE_COUNT} approved captures proven, 0 mutations")
+        for key, entry in sorted((index.get("deliveries") or {}).items()):
+            n = sum(1 for r in index["references"] if r.get("source_delivery") == key)
+            print(f"  delivery:   {key} ({entry['family']}) {n} exemplar(s) proven against {entry['intake_record']}")
         return 0
 
     if args.command == "list":
-        refs = filter_refs(index, target=args.target, register=args.register, tags=args.tag)
+        refs = filter_refs(index, target=args.target, register=args.register, tags=args.tag, family=args.family)
         if args.json:
             json.dump(refs, sys.stdout, indent=2, ensure_ascii=False)
             print()
@@ -1287,6 +1570,7 @@ def main(argv=None) -> int:
             tags=args.tag,
             keys=args.key,
             limit=args.limit,
+            family=args.family,
         )
         if args.json:
             payload = {
@@ -1304,6 +1588,9 @@ def main(argv=None) -> int:
                         "format": r["format"],
                         "priority": r["priority"],
                         "register": r.get("register"),
+                        "family": r.get("family"),
+                        "silhouette": r.get("silhouette"),
+                        "sha256": r["sha256"],
                         "tags": r.get("tags", []),
                         "use_for": r["use_for"],
                         "do_not_use_for": r.get("do_not_use_for"),
