@@ -53,19 +53,43 @@ TYPE_HINTS = [
     # and the ambiguity guard would then refuse every correctly-named scene character.
     (re.compile(r"(scene[_-]?bg|background|_bg\b|_bg_|^bg_)", re.I), "SCENE_BACKGROUND"),
     (re.compile(r"(avatar|_ai_|sprite)", re.I), "AI_AVATAR"),
-    # `jutsu` as a whole name token only: `ninjutsu_manual_icon` is an item, not a jutsu.
-    (re.compile(r"(^|[_\-.])jutsu([_\-.]|$)", re.I), "JUTSU_ICON"),
     (re.compile(r"(icon|_item_|^img_)", re.I), "ICON"),
     (re.compile(r"(pin|_static_|marker)", re.I), "STATIC"),
     (re.compile(r"(anim|_frames?\d|sheet)", re.I), "ANIMATION"),
 ]
 
-# Specialised target -> (the general target its filenames also match, evidence that the
-# file belongs to the general target after all). A name carrying that evidence stays
-# ambiguous: `item_jutsu_scroll_icon` is an item icon and must not inherit optional alpha.
-SPECIALISES = {
-    "JUTSU_ICON": ("ICON", re.compile(r"((^|[_\-.])item([_\-.]|$)|^img_)", re.I)),
-}
+# JUTSU_ICON is the one target whose inference RELAXES a check (alpha optional), so it is
+# allow-listed rather than pattern-matched: a name qualifies only when it carries exactly
+# one `jutsu` token and nothing else in it is evidence for any other target. Listing item
+# markers instead was tried and leaked (`icon_jutsu_scroll`, `items_jutsu_icon`, `item01_`).
+# Anything doubtful refuses, and --type JUTSU_ICON is the deliberate path.
+NAME_SEPARATORS = re.compile(r"[_\-. ]+")
+IMAGE_EXTS = (".webp", ".png", ".jpg", ".jpeg")
+# Substrings that make a jutsu name ambiguous, on top of every TYPE_HINTS pattern.
+NOT_JUTSU_EVIDENCE = re.compile(r"(item|img|icon|bloodline)", re.I)
+
+
+def jutsu_icon_verdict(base: str) -> str | None:
+    """None: no `jutsu` token. 'jutsu': infer JUTSU_ICON. 'ambiguous': refuse to guess."""
+    stem = base
+    while stem.lower().endswith(IMAGE_EXTS):
+        stem = stem[: stem.rfind(".")]
+    tokens = [t.lower() for t in NAME_SEPARATORS.split(stem) if t]
+    if "jutsu" not in tokens:
+        return None
+    if tokens.count("jutsu") != 1:
+        return "ambiguous"
+    rest = list(tokens)
+    # the house shape `<name>_jutsu_icon`: only that trailing `icon` is part of the jutsu suffix
+    if rest[-2:] == ["jutsu", "icon"]:
+        rest.pop()
+    rest.remove("jutsu")
+    joined = "_".join(rest)
+    if NOT_JUTSU_EVIDENCE.search(joined):
+        return "ambiguous"
+    if any(pattern.search(joined) or pattern.search(f"_{joined}_") for pattern, _ in TYPE_HINTS):
+        return "ambiguous"
+    return "jutsu"
 
 
 def alpha_policy(t: dict) -> str:
@@ -91,18 +115,12 @@ def infer_type(filename: str) -> str | None:
     the case where a silent wrong answer is worse than an error.
     """
     base = os.path.basename(filename)
+    jutsu = jutsu_icon_verdict(base)
+    if jutsu == "jutsu":
+        return "JUTSU_ICON"
+    if jutsu == "ambiguous":
+        return None
     hits = {target for pattern, target in TYPE_HINTS if pattern.search(base)}
-    # `ice_shackles_jutsu_icon.webp` hits both: the specialised target is the answer, not
-    # an ambiguity. Only declared pairs collapse. A name that also carries evidence for the
-    # general target is ambiguous even when the general pattern itself missed
-    # (`item_jutsu_scroll.webp`), so it refuses to guess rather than relaxing the check.
-    for special, (general, general_evidence) in SPECIALISES.items():
-        if special not in hits:
-            continue
-        if general_evidence.search(base):
-            hits.add(general)
-        elif hits == {special, general}:
-            hits = {special}
     if len(hits) == 1:
         return hits.pop()
     return None
