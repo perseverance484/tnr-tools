@@ -1,0 +1,89 @@
+{
+  "schema": "tnr.bloodright.wave05.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-005",
+  "family": "Arashima",
+  "rank": "A",
+  "treatment": "Midnight Tempest",
+  "treatment_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "specific_three_icon_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_original_zip": {
+    "name": "BR-005_Arashima.zip",
+    "sha256": "75cb6c9d01f77164819a19e5cfae8c6409a4bf89e3461393cc9d48f3accc922d",
+    "public_jutsu": 5,
+    "identity_images": 1,
+    "original_manifest_hashes_verified": "PASS"
+  },
+  "production": {
+    "method": "one deterministic rain-woven stormglass appearance recipe across three immutable individually saved universal Ethereal tier geometry masters",
+    "selected_variant": "marine_gale",
+    "artist_description": "Deep rain-dark cobalt with irregular cyan-teal inner gale streams and thin silvery-blue pressure rainlight; more marine/cyan than Shinrai Ou's upcoming needle-white cobalt lightning treatment",
+    "no_new_symbol_geometry": true,
+    "source_render": "three independent 1254x1254 RGB PNG originals",
+    "exports": "Pillow Lanczos 256x256 RGB WebP VP8L lossless; each decodes to exact resized original pixels",
+    "previews": "PROGRAMMATIC_ONLY_FROM_ACTUAL_SAVED_ORIGINAL_RAW_AND_WEBP, never image-generated montage"
+  },
+  "geometry_masters": {
+    "foundation": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+    "hidden_art": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+    "advanced_art": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "original_png_sha256": "fe219f22e6258cb88460377364c6eb85412753903a43b7485f2c84fa9bda15c6",
+      "webp_sha256": "eded8784dc85bc22ab0c1a406789830d36169ba596174d81f2d6d1cbaaa19e00",
+      "webp_bytes": 44348
+    },
+    {
+      "tier": "hidden_art",
+      "original_png_sha256": "d61c90248b844998395b275b64a6bda2aaff05e41ab1ed9b7bad9ed8139bc8ce",
+      "webp_sha256": "d9463ecfe159ab761256bcd26b950dd872ccb18682b05322b0c60610c24ec450",
+      "webp_bytes": 72418
+    },
+    {
+      "tier": "advanced_art",
+      "original_png_sha256": "72aa674386b4daec004e1289cefdda34fd24f77a5834acd7928ad5deff915bf4",
+      "webp_sha256": "af5ab612e4a87f1946717639a5815bdc7dd65533bd658bd4208357a92933ac40",
+      "webp_bytes": 60978
+    }
+  ],
+  "portable_package": {
+    "filename": "BR-005_Arashima_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "3c7be6392908fa7f74a28e8a5cbb34f6d4acb8f09dbc5af3367b112bc95a99bc",
+    "bytes": 10182651,
+    "contents": "3 original PNGs, 3 lossless RGB WebPs, all 3 verified masters, verified original Arashima art ZIP, three non-generated QC previews, manifest, full production script, separate independent file/QC verifier and report"
+  },
+  "programmatic_previews": [
+    "BR-005_Arashima_Proposed_Family_Comparison.png",
+    "BR-005_Arashima_Proposed_125_64_32.png",
+    "BR-005_Arashima_Neighbor_Foundation_Contrast.png"
+  ],
+  "independent_offline_qc": {
+    "checks_passed": 115,
+    "checks_failed": 0,
+    "report_sha256": "aea5de5b1655c7019ecec44a57839489af7aa4624cf969f5fc33e9467fd136ce",
+    "source_ZIP_CRC_ID_member_sha_decoder_size": "PASS_6_IMAGES",
+    "source_raw_RGB_PNG_1254": "PASS_3",
+    "pixelwise_source_master_maxRGB_equal_every_pixel": "PASS_3",
+    "threshold_masks_1_16_64_128_192_240": "EXACT_IOU_1_0_ALL_18",
+    "WebP_RGBA_or_lossy": "NOT_PRESENT",
+    "WebP_256_RGB_lossless_VP8L": "PASS_3",
+    "decoded_WebP_equals_Lanczos_resized_original": "PASS_3",
+    "black_corners": "PASS_3",
+    "under_460800_byte_working_cap": "PASS_3",
+    "zip_member_byte_equality": "PASS",
+    "previously_director_approved_Tenohira_trio_original_png_WebP_unchanged": "PASS_ALL_SIX"
+  },
+  "boundaries": {
+    "final_Arashima_visual_approval": "PENDING",
+    "current_approved_progress": "21/29_families_63/87_icons",
+    "paired_storm_comparison": "Shinrai Ou (BR-065) not yet produced; compare storm pair after it is rendered",
+    "field_specific_skillTree_image_preflight": "NOT_RUN",
+    "Git_binary_asset_pin": "NOT_DONE",
+    "Forge_imagePack": "NOT_DONE",
+    "live_game_requests": 0,
+    "live_game_writes": 0,
+    "credential_use": false
+  }
+}
