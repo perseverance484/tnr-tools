@@ -1,0 +1,117 @@
+{
+  "schema": "tnr.bloodright.wave03.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-074",
+  "family": "Suragu",
+  "rank": "A",
+  "theme": "Obsidian Magma",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "name": "BR-074_Suragu.zip",
+    "sha256": "687729d4857943f991d2d34253386259af20ec104daa0fc9c462da92e4a45916",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "manifest_sha256_verification": "PASS_6",
+    "ids_verified_against_pinned_roster": true
+  },
+  "geometry_masters": {
+    "archive": "Bloodright_Wave03_Production_Starter_20261017.zip",
+    "sha256": "baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30",
+    "master_sha256s": {
+      "foundation": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+      "hidden_art": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+      "advanced_art": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+    }
+  },
+  "production": {
+    "method": "One coordinated deterministic original-Ethereal-master maxRGB-preserving appearance recipe; three separately saved tier assets",
+    "raw": "3 independent 1254x1254 RGB PNGs",
+    "webp": "Pillow Lanczos 256x256 lossless RGB WebP/VP8L",
+    "material": "Soot-dark iron-red volcanic glass inside existing glyph structure with incandescent orange magma seams and restrained amber-hot center",
+    "background": "opaque solid black as director approved",
+    "ref_images": [
+      "Lava Wave",
+      "Eruption Strike",
+      "Magma Slayer",
+      "Infernal Stream",
+      "Suragu bloodline identity"
+    ],
+    "palette": [
+      "#1A161A",
+      "#50302B",
+      "#C83B18",
+      "#FD831E",
+      "#FFEF98"
+    ],
+    "imagegen_montage_used": false
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_png_sha256": "379e5618817caa389f572e2dffb4b5f52509ccdd9a3a721ccb22e0205423eea6",
+      "webp_sha256": "76a7b5e967e481dca4ae6b053b6636a4d8a84cc5279fdc3246924543425c0681",
+      "webp_bytes": 40122
+    },
+    {
+      "tier": "hidden_art",
+      "raw_png_sha256": "efbfbd1ce5b7d8cd166926c772fefe1f31b0df78c75e30b4b8ad9e2d3bdeab47",
+      "webp_sha256": "fa09ee9aaa466115dbe5664c0e398f43b3e0a6bdedb7d2f7a5aef91920f19bf4",
+      "webp_bytes": 65160
+    },
+    {
+      "tier": "advanced_art",
+      "raw_png_sha256": "667726360a6a8404faf7d2965c57679d5e8993aa0ea85045c0a7dc0467825379",
+      "webp_sha256": "9f7319338f7ea0db36ca7ecc3dc07807f58f8b70f54ac077faf59e63852d1a5f",
+      "webp_bytes": 55952
+    }
+  ],
+  "proposed_package": {
+    "name": "BR-074_Suragu_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "255f8013aa8b62773360acd5c9508a6a81d6961918bfe37b179b632664d4ebed",
+    "bytes": 5005151,
+    "archive_crc_and_members": "PASS"
+  },
+  "programmatic_previews": [
+    {
+      "file": "qc/BR-074_Suragu_Proposed_Family_Comparison.png",
+      "sha256": "ef6506fd4b6de449e815b85dac39d7c35878565eaeb6fc6a3bbe4e6848693590"
+    },
+    {
+      "file": "qc/BR-074_Suragu_Proposed_125_64_32.png",
+      "sha256": "7833321d13d020a72e72675d504998254f84456df24aed14c71c5621c1abff32"
+    },
+    {
+      "file": "qc/BR-074_Suragu_Neighbor_Foundation_Contrast.png",
+      "sha256": "3ff4f06709041d0110f62f31f916bc0dd5a9f50842405b170755cdfa623c16b8"
+    }
+  ],
+  "qc": {
+    "source_zip_crc_path_sha_jutsu_ids_mime_dimensions": "PASS_5_PLUS_IDENTITY",
+    "raw_png_1254_rgb": "PASS_3",
+    "master_maxRGB_exact_all_pixels": "PASS_3",
+    "geometry_foreground_IoU_at_thresholds_1_16_64_128_192_240": "EXACT_1.0_ALL_18",
+    "webp_square_256_vp8l_lossless_rgb": "PASS_3",
+    "webp_decoded_pixel_match_to_intended_Lanczos_sources": "PASS_3",
+    "webp_each_under_460800_bytes": "PASS_3",
+    "opaque_black_corners": "PASS_3",
+    "visual_inspection_125_64_32": "PASS",
+    "cross_family_contrast": "PASS_SHAKUNETSU_TETSU_CRYSTAL",
+    "director_specific_trio_acceptance": "PENDING",
+    "actual_skillTree_image_preflight": "NOT_DONE",
+    "binary_git_pin": "NOT_DONE",
+    "forge_immutable_imagePack": "NOT_DONE",
+    "operator_live_readback": "NOT_DONE"
+  },
+  "boundaries": {
+    "approved_progress": "13_OF_29_FAMILIES_39_OF_87_ICONS",
+    "suragu_art": "PROPOSED_NOT_INCLUDED_IN_APPROVED_COUNTS",
+    "jutsu_icon_redesign": "OUT_OF_SCOPE",
+    "JUTSU_ICON_alpha_optional": "jutsu.image_ONLY_not_skillTree.image",
+    "source_binaries": "CONVERSATION_PACKAGE_NOT_GIT_PINNED",
+    "next": "Director approve/rework this exact three-tier Suragu set, then BR-090 Vaporia",
+    "live_game_requests": 0,
+    "live_game_writes": 0,
+    "credentials": false
+  }
+}
