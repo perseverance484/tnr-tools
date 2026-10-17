@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** WAVE 3 ORIGINAL REFERENCES VERIFIED AND FIVE PALETTE TREATMENTS DIRECTOR-APPROVED. BR-083 and BR-064 completed families visually approved (**12/29 families; 36/87 icons**). BR-020 Crystal Essence trio PROPOSED / final per-icon director acceptance PENDING.
+**Status:** WAVE 3 ORIGINAL SOURCES VERIFIED AND ALL FIVE VISUAL TREATMENT CARDS APPROVED. BR-083, BR-064, and BR-020 full tier trios individually DIRECTOR VISUALLY APPROVED (**13/29 families; 39/87 icons**). BR-074 Suragu trio PRODUCED / artwork-specific director acceptance PENDING.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -29,6 +29,12 @@
 **Expected input:** five original bloodline source-art ZIPs with **31 jutsu images** and, if supplied, five identity images. None of these five ZIPs has been attached/inspected in this wave yet. Filenames are suggested intake labels, not proof of file existence.
 
 **Distinguishability questions to assess only after inspecting actual pixels:** Tetsugan vs magnet bloodlines (Houkyuken/Itojinsei); Shakunetsu Sakura vs previously approved solar Taiyo Kami and lava Suragu; Crystal Essence vs icy Blue Blade Eyes; Suragu vs other orange/thermal themes; Vaporia vs ice/water/steam themes. Do not choose palettes, symbols or textures from classification/name alone.
+
+## 2026-10-17 — Crystal Essence accepted / Suragu proposed
+
+- **BR-020 Crystal Essence:** director visually accepted the full Prismatic Jadeglass trio. The exact three raw PNG and three 256px lossless RGB WebP binaries remain byte identical to those shown in its proposal. `BR-020_Crystal_Essence_Bloodright_Approved_3_Icons.zip` SHA-256 `d849e456f4731c17fa285154c8a68a4f3d2fb3b680ea89116f10477c2337aa08`; per-tier source/export hashes and acceptance in `BLOODRIGHT_WAVE03_BR020_PROPOSAL_QC_20261017.json`.
+- **BR-074 Suragu:** director-approved Obsidian Magma material applied through a single reproducible, deterministic color/material recipe using the verified high-resolution geometry masters; source pack 5 jutsu + 1 identity hash-verified. Three separate 1254px PNGs and 256px lossless WebPs passed exact source maxRGB, threshold IoU, decoded pixel equality, black corner, byte budget, source/ZIP integrity, 125/64/32px and neighbor-family visual review. Individual output hashes and status: `BLOODRIGHT_WAVE03_BR074_PROPOSAL_QC_20261017.json`. Proposed portable ZIP `BR-074_Suragu_Bloodright_Proposed_3_Icons.zip` SHA-256 `255f8013aa8b62773360acd5c9508a6a81d6961918bfe37b179b632664d4ebed`. **The three specific Suragu images are NOT yet director approved.**
+- **Updated progress:** 13/29 accepted families / 39/87 icons; 16 families / 48 icons remain, including this unaccepted Suragu trio. All original binaries remain portable conversation artifacts (Git pins pending), and strict field-specific `skillTree.image` preflight, Forge imagePack and game readback are outside this art approval. No live game reads/writes.
 
 ## 2026-10-17 — Shakunetsu visual acceptance; Crystal Essence production checkpoint
 
@@ -78,6 +84,6 @@
 
 ## Immediate next action
 
-The director approved BR-083 Tetsugan and BR-064 Shakunetsu Sakura. **Present BR-020 Crystal Essence's three separately saved proposed Foundation / Hidden Art / Advanced Art images for director acceptance.** If approved, preserve their exact raw PNG and WebP hashes, package as accepted and continue with BR-074 Suragu using the verified source ZIP. No additional user palette ruling is necessary.
+Three Wave 3 families (BR-083, BR-064, BR-020) are now visually approved with exact accepted source bytes preserved. **Present BR-074 Suragu's independently saved Obsidian Magma Foundation / Hidden Art / Advanced Art trio for director visual acceptance.** If accepted, lock those specific hashes and advance to the final wave member BR-090 Vaporia (Hydrothermal Crucible), whose source ZIP was already verified.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
