@@ -3,14 +3,15 @@
 
 Inputs (both pinned, so output is deterministic):
   - docs/design/bloodright/naming_pass/review.csv  (names and placeholder bonuses)
-  - legacy tree JSON at LEGACY_REF                   (bloodline ID, rank, elements)
+  - legacy tree JSON in docs/design/bloodright/trees (bloodline ID, rank, elements)
 
 Output: docs/design/bloodright/structural/<slug>.json, one per CSV bloodline.
 The CSV's "Previous name" column holds template names, not each tree's legacy names, so it is
 not copied into the designs.
 
-LEGACY_REF lives on origin/fable/bloodright-planning-20261003, not on main. Keep that branch
-(or merge it) for as long as the designs need regenerating; the generator fails loudly without it.
+The legacy trees are byte-identical copies of fable/bloodright-planning-20261003 @ LEGACY_REF,
+listed with their git blob ids in docs/design/bloodright/trees/SOURCE.json. The generator refuses
+any copy whose blob id differs, so the branch itself is no longer needed.
 
   python3 scripts/bloodright_from_naming.py          # write
   python3 scripts/bloodright_from_naming.py --check  # exit 1 if any output differs
@@ -39,10 +40,17 @@ def number(v):
     return int(v) if float(v).is_integer() else v
 
 
+SOURCE = json.loads((ROOT / "docs/design/bloodright/trees/SOURCE.json").read_text())
+
+
 def legacy(path):
-    out = subprocess.run(["git", "-C", str(ROOT), "show", f"{LEGACY_REF}:{path}"],
-                         check=True, capture_output=True, text=True).stdout
-    return json.loads(out)
+    file = ROOT / path
+    expected = SOURCE["files"].get(file.name) if SOURCE["source_ref"] == LEGACY_REF else None
+    blob = subprocess.run(["git", "hash-object", str(file)], check=True, capture_output=True,
+                          text=True).stdout.strip() if file.is_file() else None
+    if not expected or blob != expected:
+        raise SystemExit(f"{path}: missing or differs from its {LEGACY_REF[:7]} copy")
+    return json.loads(file.read_text())
 
 
 def build():
