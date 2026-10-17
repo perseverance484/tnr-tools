@@ -600,6 +600,25 @@ class PackVerify(Base):
         self.assertEqual(br.slug("天照"), "untitled")
 
 
+class Build(Base):
+    def test_build_is_acquire_then_verified_pack(self):
+        _, inv = self.world()
+        f = Fetcher(default=distinct_png)
+        r = br.build(inv, ["BR-002"], self.cache, self.out, fetch=f)
+        self.assertEqual(r["acquire"]["game_requests"], 0)
+        self.assertEqual(r["acquire"]["cdn_gets"], 4)
+        self.assertTrue(r["pack"]["verified"])
+        self.assertTrue(Path(r["pack"]["path"]).name.endswith("_PILOT_BR-002.zip"))
+
+    def test_build_fetches_nothing_and_writes_nothing_when_blocked(self):
+        _, inv = self.world(images={"sA1": None})
+        f = Fetcher(default=distinct_png)
+        with self.assertRaises(PE):
+            br.build(inv, ["BR-002"], self.cache, self.out, fetch=f)
+        self.assertEqual(f.calls, [])
+        self.assertFalse(self.out.exists())
+
+
 class VerifyTamper(Base):
     def setUp(self):
         super().setUp()
