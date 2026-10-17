@@ -1,0 +1,93 @@
+{
+  "schema": "tnr.bloodright.wave03.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-083",
+  "family": "Tetsugan",
+  "theme": "Ward-Forged Steel",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "name": "BR-083_Tetsugan.zip",
+    "sha256": "ee51014dc769de0e39ce5ff479c1ca673ff8dd85d566f7d818338ea284254fb8",
+    "jutsu_count": 11,
+    "identity_count": 1,
+    "manifest_sha256_verification": "PASS_12"
+  },
+  "reference_master_zip": {
+    "name": "Bloodright_Wave03_Production_Starter_20261017.zip",
+    "sha256": "baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30"
+  },
+  "production": {
+    "method": "deterministic original-master RGB appearance remap, one coherent Ward-Forged Steel recipe for all three tiers",
+    "raw": "1254×1254 PNG RGB square originals, separate files",
+    "exports": "Pillow Lanczos 256×256 lossless WebP VP8L RGB",
+    "material": "cold satin steel/platinum facets, cyan defensive ward channels, warm bronze edge fittings",
+    "maxrgb_preservation": "for each corresponding approved Ethereal master, max(R,G,B) at every one of 1254² pixels is equal in source and treated target",
+    "generated_contact_sheet": "NO; composed programmatically from separate saved originals"
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_sha256": "c2a989a183c2befd1364b3bffaac8cf84028f85cd2d68fe6034642fcf0eed098",
+      "webp_sha256": "de9544cd512dbfcddadfaa23b7ba36077658369aba045fc93f8fae2b3c2ff0ad",
+      "webp_bytes": 38316
+    },
+    {
+      "tier": "hidden_art",
+      "raw_sha256": "9f5e7e3512acfe6418642ef4f98eba03d12ccc7b6239290d38af0c10fdcbd9cb",
+      "webp_sha256": "933d897328a6ef4d285916a28e203ec0d9424bf22dc80937ba907750bd111cf6",
+      "webp_bytes": 61650
+    },
+    {
+      "tier": "advanced_art",
+      "raw_sha256": "3afc3cc3a2ac356437babb8e573aabe6afeda3aca9e9f38d7b9ad83bd3e3c1bb",
+      "webp_sha256": "0a9fd92b95de2d8c4566fb7819e403e3e41140b53537b4613778268952ac044b",
+      "webp_bytes": 52702
+    }
+  ],
+  "package": {
+    "name": "BR-083_Tetsugan_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "1d839cd52b309729de179574dc3b017e667cc0b2c105dd92b7c7ff4928eab0aa",
+    "bytes": 5847742
+  },
+  "previews": [
+    {
+      "file": "qc/BR-083_Tetsugan_Proposed_Family_Comparison.png",
+      "sha256": "cf79861b4829c3b207f787fc30125d6226f12a43275fb4afc169e4323f2203fe"
+    },
+    {
+      "file": "qc/BR-083_Tetsugan_Proposed_125_64_32.png",
+      "sha256": "5ed19af1c84755ef538d7806d924f9ea5bfd8ce83d81ce5c2bb760f5d84e053b"
+    },
+    {
+      "file": "qc/BR-083_Tetsugan_Neighbor_Foundation_Contrast.png",
+      "sha256": "a3c404220e6819bf71933c2bf024f79cfe78ae821f58f0a1d92cd799b15682a1"
+    }
+  ],
+  "qc": {
+    "source_zip_crc_and_manifest_sha": "PASS",
+    "three_png_rgb_1254": "PASS",
+    "machine_master_maxrgb_pixel_equality": "PASS_3_OF_3",
+    "threshold_geometry_iou_1_16_64_128_192_240": "EXACT_1_000_ALL",
+    "three_webp_256_square_lossless_vp8l": "PASS",
+    "three_exports_decoded_equal_Lanczos_resize": "PASS",
+    "three_webps_below_460800_bytes": "PASS",
+    "corners_near_black": "PASS",
+    "visual_125_64_32": "PASS",
+    "compared_to_approved_neighbor_families": "PASS",
+    "formal_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_NOT_VERIFIED",
+    "immutable_git_art_binary_pin": "NOT_DONE",
+    "forge_imagePack_binding": "NOT_DONE",
+    "operator_live_import_and_readback": "NOT_DONE"
+  },
+  "boundaries": {
+    "opaque_rgb_background": "DIRECTOR_APPROVED_VISUAL_DIRECTION_NOT_FORMAL_UPLOAD_PREFLIGHT",
+    "jutsu_image_JUTSU_ICON_exception": "DOES_NOT_APPLY_TO_skillTree.image",
+    "underlying_tier_png_and_webp": "EXTERNAL_CONVERSATION_DELIVERABLE_NOT_GIT_BINARIES",
+    "current_approved_count_unchanged": "10_29_FAMILIES__30_87_ICONS",
+    "next": "Director approves/rejects Tetsugan trio; only if accepted lock source bytes and move to Shakunetsu Sakura"
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false
+}
