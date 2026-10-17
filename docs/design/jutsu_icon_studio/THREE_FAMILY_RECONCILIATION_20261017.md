@@ -31,3 +31,13 @@
 6. **Approved visual reference library not yet pinned:** current main's producing-tnr-art `style_refs.json` indexes scene characters/backgrounds only; it has no `JUTSU_ICON` entries. Once the operator supplies the consolidated final BBE/BEE/Vaporia art ZIP(s), verify exact files against these closeouts and pin/select **individual approved jutsu originals** for future generators (style-only). The new per-bloodline ZIP alone does not supply a pixel-perfect V2-style reference when it contains only old original jutsu art.
 
 This evidence record authorizes no changes to BBE/BEE/Vaporia art, no re-approval, no jutsu mechanics edits and no game requests/writes.
+
+## Update — 2026-10-17 exact-byte intake of BBE and BEE (RUL-2026-10-17-021)
+
+The director supplied the BBE and BEE final export ZIPs. Recorded in `art/style_refs/jutsu_icons/INTAKE_20261017.json`; the members are pinned under `art/style_refs/jutsu_icons/{bbe,bee}/`. Against the gaps above:
+
+- **Gap 1, BBE:** the ZIP is byte-identical to the closeout's final ZIP (`595ff010…`); all 8 WebPs match the closeout's per-file hashes. Raw originals were not supplied, so source→export pixel equality was not re-verified here.
+- **Gap 1, BEE:** the supplied ZIP (`3287299f…`) is **not** the closeout's ZIP (`767449b9…`). 7 of 8 WebPs match the closeout exports. `icon_bee_sanguine_plague_v3.webp` (96,622 B) is not in the closeout, which approved `v2` (84,216 B, the one shown in the closeout showcase `f7050731…`). v3 is pinned on the director's instruction; no repository record shows its individual raw approval or its raw original. Re-encoding the 8 supplied WebPs with the studio's documented processor reproduced them byte-for-byte.
+- **Gap 2:** `artpreflight.py --type JUTSU_ICON` was **run** on the exact files: BBE with `--max-bytes 80000` → 0 errors, 0 warnings, 8 files, exit 0; BEE → 0 errors, 0 warnings, 8 files, exit 0 (commands, spec and script hashes in the intake record). File acceptance only; no upload or read-back is implied.
+- **Gap 4:** BBE rows still carry no jutsu IDs; BEE IDs come from its closeout.
+- **Gap 6:** resolved for BBE and BEE — 16 JUTSU_ICON style exemplars are indexed in `style_refs.json` and proven by `style_refs.py verify`. **Vaporia remains unpinned** (gaps 1–3 and 6 stay open for it).

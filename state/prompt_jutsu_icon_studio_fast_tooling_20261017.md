@@ -1,6 +1,6 @@
 # Fable Implementation Brief — Fast ZIP-first Jutsu Icon Studio Tooling
 
-**Status:** FABLE IMPLEMENTATION QUEUED; director requested faster jutsu Art Studio startup and processing. This is a tooling **brief**, not implemented code. Art-workflow owner: docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md. Batch-showcase owner: docs/workflows/JUTSU_ICON_SHOWCASE.md.
+**Status:** IMPLEMENTED on `claude/bloodline-jutsu-icon-studio-3nmvc2`, awaiting independent review (2026-10-17): `skills/producing-tnr-art/scripts/jutsu_studio.py` (+ `jutsu_studio_selftest.py`) and JUTSU_ICON support in `style_refs.py`, with the BBE/BEE exemplar intake (RUL-2026-10-17-021). Commands: docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md §8. The brief below is kept as the build contract it was. Original status: FABLE IMPLEMENTATION QUEUED; director requested faster jutsu Art Studio startup and processing. Art-workflow owner: docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md. Batch-showcase owner: docs/workflows/JUTSU_ICON_SHOWCASE.md.
 **Repository verified base:** main@9a0970002a80531078ac5e4b0f72578d3f7855f5 (2026-10-17; refresh before implementation). **Review:** independent ChatGPT at frozen exact Fable SHA.
 **Lane A owner:** Fable/Claude Code on dedicated implementation branch only; preserve one-writer rules.
 **No game source/network or credential access authorized.** Browser/game uploads remain operator-only.

@@ -1,24 +1,27 @@
 # Copy-ready — Start a Bloodline Jutsu Icon Art Studio
 
-**Attach one original bloodline jutsu-art ZIP** to a new TNR Tools project conversation. The short mobile prompt is sufficient; the expanded version below is available when a new thread needs more explicit guardrails. No extra reference screenshots or separate manifest are needed if the ZIP already includes exact names, IDs and images.
+**Attach one original bloodline jutsu-art ZIP** to a new TNR Tools project conversation. The short mobile prompt is sufficient; the expanded version below is available when a new thread needs more explicit guardrails. No extra reference screenshots, style ZIP or separate manifest are needed: the approved BBE/BEE style exemplars are pinned in the repository, and a ZIP without its own `manifest.json` only needs the roster (jutsu_id, name) pasted under the prompt.
+
+**Ref:** the tooling and pinned exemplars live on `claude/bloodline-jutsu-icon-studio-3nmvc2` until it is integrated; afterwards use `main`. Replace the ref line below accordingly.
 
 ## Preferred short mobile prompt
 
 ~~~text
 Repository: perseverance484/tnr-tools
-Workflow branch (not yet main):
-chatgpt/bloodline-jutsu-studio-zip-first-20261017
+Ref (main once integrated):
+claude/bloodline-jutsu-icon-studio-3nmvc2
 Task: BLOODLINE JUTSU ICON ART STUDIO, ZIP-FIRST.
 Input: attached original bloodline jutsu-art ZIP.
 
 Verify live refs; read required TNR bootstrap plus
-docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md,
+docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md (§8),
 ISOLATED_ART_GENERATION.md and JUTSU_ICON_SHOWCASE.md
 from their verified exact refs. Batch repo reads.
-Safely inspect/hash/decode the ZIP; map exact jutsu
-names/IDs/count; inspect the actual individual art.
-Use any actually accessible approved BBE/BEE/Vaporia
-icon as STYLE ONLY, otherwise mark style pixels pending.
+Run jutsu_studio.py intake on the ZIP (one call);
+report exact names/IDs/N; open the actual originals.
+Style: pinned exemplars via style_refs.py select
+--target JUTSU_ICON, STYLE ONLY; attach real bytes or
+say they were not attached.
 Return one compact inventory, family treatment card,
 one UNIQUE technique-first silhouette for every jutsu,
 and the first proposed isolated-generation brief.
@@ -44,14 +47,16 @@ Bootstrap:
   docs/workflows/ISOLATED_ART_GENERATION.md
   docs/workflows/JUTSU_ICON_SHOWCASE.md
   and current art skill/JUTSU_ICON spec.
-- Batch repository reads. Do one safe ZIP inventory,
-  hash/decoder check and exact jutsu ID/name mapping.
+- Batch repository reads. Run ONE
+  `jutsu_studio.py intake <ZIP> --out work/intake`
+  (add --roster if the ZIP has no manifest.json): safe
+  inventory, hash/decoder check, exact ID/name mapping.
 - Inspect actual extracted reference images; never
   assume the generator can see pixels inside a ZIP.
-- Use one actual director-approved BBE/BEE/Vaporia jutsu
-  artwork exemplar as STYLE/MATERIAL ONLY if its bytes are
-  available/pinned; otherwise label style-exemplar pixels
-  PENDING rather than claiming unseen images were ingested.
+- Style: `style_refs.py select --target JUTSU_ICON`
+  picks a pinned director-approved BBE/BEE exemplar,
+  STYLE/MATERIAL ONLY. Attach its actual bytes; a URL
+  is not an attached image. Its silhouette is reserved.
 
 Direction:
 - Establish bloodline-specific palette/material.
@@ -73,10 +78,11 @@ Production:
   generation session per unique jutsu, using 1–2
   individually attached, role-labeled references.
 - On visual approval preserve exact raw bytes.
-- Once N/N accepted, batch-process 256px lossless WebPs,
-  run real JUTSU_ICON preflight, create source-faithful
-  adaptive family showcase, get final family acceptance,
-  and deliver versioned originals/exports/QC ZIPs.
+- Once N/N accepted, fill approved.json from
+  approved_template.json and run ONE
+  `jutsu_studio.py finalize approved.json --out work/final`
+  (exports, real JUTSU_ICON preflight, adaptive showcase,
+  closeout + upload ZIPs); then get family acceptance.
 - Do not apply BBE's under-80000 cap to other families
   unless separately approved.
 - Do not upload, edit or publish in the live game.

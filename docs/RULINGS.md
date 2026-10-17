@@ -1246,3 +1246,19 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Canonical destination:** `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md`, `docs/workflows/JUTSU_ICON_SHOWCASE.md`, `docs/design/jutsu_icon_studio/START_PROMPT.md`, and `GENERATION_AND_CLOSEOUT_TEMPLATES.md`, all under the existing `docs/workflows/ISOLATED_ART_GENERATION.md` and current art-skill/spec authority. `state/prompt_jutsu_icon_studio_fast_tooling_20261017.md` describes potential Fable-owned offline batch tooling; no unimplemented script may be presented as operational.
 
 **Priority and production boundary:** Bloodright structural import remains a **separate higher-priority workstream** under user direction; this standardization does not cause jutsu icon uploads. Any Fable tooling/code follows Lane A independent review. No agent live-game requests/writes/uploads, credentials or publication authorized by this ruling.
+
+## RUL-2026-10-17-021 — BBE and BEE jutsu-icon finals are the approved JUTSU_ICON style library
+
+**Date:** 2026-10-17  
+**Domain:** bloodline jutsu-icon art / style references / Art Studio tooling  
+**Status:** ACTIVE
+
+**Ruling:** dauntless supplied the final BBE and BEE jutsu-icon export ZIPs and directed: "Save them as the approved style library. And optimize the workflow so I *can* begin a session with a prompt and an art pack zip." The 16 WebPs are pinned byte-for-byte as the `JUTSU_ICON` style/material exemplar library, and the Fable-owned ZIP-first tooling is implemented so a ChatGPT Art Studio session starts from one prompt plus one bloodline art ZIP.
+
+**Rationale:** RUL-2026-10-17-020 and the studio workflow required actual approved exemplar bytes before claiming style-conditioned generation, and wanted new sessions to stop asking for a style upload per bloodline. Pinning the delivered finals with exact provenance meets both; one intake call and one finalize call remove the repeated manual steps.
+
+**Scope and limits:** exemplars are STYLE/MATERIAL ONLY; each one's silhouette stays reserved by its family. The PRIMARY/SUPPORTING order in `style_refs.json` is a reversible selection default set at intake (based on a 32px readability check), not an art-direction ruling. BEE's `icon_bee_sanguine_plague_v3.webp` is not the version in the BEE closeout (which approved v2); it is pinned on this instruction, and the repository holds no individual raw approval or raw original for it. Vaporia's finals are not pinned. Nothing here uploads art, changes a jutsu record or touches the live game.
+
+**Canonical destination:** `art/style_refs/jutsu_icons/` + `art/style_refs/jutsu_icons/INTAKE_20261017.json` (bytes and provenance); `skills/producing-tnr-art/data/style_refs.json` and `scripts/style_refs.py` (index and selection); `skills/producing-tnr-art/scripts/jutsu_studio.py` (tooling); `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md` §3 and §8 and `docs/design/jutsu_icon_studio/START_PROMPT.md` (workflow).
+
+**Supersedes:** none (completes the exemplar-intake gate left open by RUL-2026-10-17-020).
