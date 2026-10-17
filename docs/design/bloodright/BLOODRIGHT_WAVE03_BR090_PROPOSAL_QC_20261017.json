@@ -1,0 +1,122 @@
+{
+  "schema": "tnr.bloodright.wave03.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-090",
+  "family": "Vaporia",
+  "rank": "A",
+  "theme": "Hydrothermal Crucible",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "name": "BR-090_Vaporia.zip",
+    "sha256": "41b0a1338a6f5ec2d776a2e1334d198d815100462c9a27758654ba3c97991a9a",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "manifest_sha256_verification": "PASS_6",
+    "ids_verified_against_pinned_roster": true
+  },
+  "geometry_masters": {
+    "archive": "Bloodright_Wave03_Production_Starter_20261017.zip",
+    "sha256": "baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30",
+    "master_sha256s": {
+      "foundation": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+      "hidden_art": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+      "advanced_art": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+    }
+  },
+  "production": {
+    "method": "One coordinated deterministic per-pixel maxRGB-preserving recolor of three approved Ethereal geometry masters; separately saved tier images",
+    "raw": "3 individual 1254x1254 RGB PNGs",
+    "webp": "Pillow Lanczos 256x256 lossless RGB WebP VP8L",
+    "material": "Electric azure/cobalt high-pressure waterglass, cyan flow facets, concentrated orange molten reservoir and subtle white-blue steam highlights within unchanged diamond/crescent/starburst geometry",
+    "background": "opaque black, director approved",
+    "selected_palette": "H_crucible_pressure from internal family-only palette samples (not a generated contact sheet)",
+    "original_art_references": [
+      "Liquid Ember Shell",
+      "Scorch Break",
+      "Surfing Strike",
+      "Azure Dragon Palm",
+      "Vaporia identity"
+    ],
+    "external_shapes_added": false
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_png_sha256": "386819beb0d5534d89f2f6635f762142b01dc8455ba9c43eda7f0703e89c248b",
+      "webp_sha256": "96ca7df52af8dd0b10586e947878c8f64e9d4f7828a922f3082b370827743343",
+      "webp_bytes": 39988
+    },
+    {
+      "tier": "hidden_art",
+      "raw_png_sha256": "086e48fc347be6cff8d22f713fb0fd5fa4d8eb32528e2d9cfb27677d087d7e46",
+      "webp_sha256": "4d6d4a2970146692c3a443f75bcbcbcd62191004eaa2f009249bbb394c1a98d7",
+      "webp_bytes": 63016
+    },
+    {
+      "tier": "advanced_art",
+      "raw_png_sha256": "a7ce0bc5ce27bf0bfd94931184c5506385ea7374c6b52f51afabd34840ac89a6",
+      "webp_sha256": "11b55ca63fe8219fcb29bcb4ebaca96e4ebe65c6261e4ecebb5a19c912fe6da1",
+      "webp_bytes": 55250
+    }
+  ],
+  "proposed_package": {
+    "name": "BR-090_Vaporia_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "9a7ef14b3de866ea943a188ea861c1d2553b26b84f34e2b98ee76a4c47636a2e",
+    "bytes": 5240504,
+    "zip_crc_and_member_byte_equality": "PASS"
+  },
+  "programmatic_previews": [
+    {
+      "file": "qc/BR-090_Vaporia_Proposed_Family_Comparison.png",
+      "sha256": "4c6a966565e534c71eb883481192c64e356ba3c342ab24495e9226f8dad7c89a"
+    },
+    {
+      "file": "qc/BR-090_Vaporia_Proposed_125_64_32.png",
+      "sha256": "b42ccb310d19bd2fa1c2ad1ead8276810aa4ce49e39db23079accb0d08642e76"
+    },
+    {
+      "file": "qc/BR-090_Vaporia_Neighbor_Foundation_Contrast.png",
+      "sha256": "2ffdee18f7b0709b95fe58350e53c310a820038c5e3f4a42e2eb74be104a2b1b"
+    }
+  ],
+  "independent_offline_QC": {
+    "name": "INDEPENDENT_OFFLINE_QC.json",
+    "sha256": "ee7a00d84f965a7a072a2c1e71f82ca559682136598a991a490ce1124f4547a9",
+    "checks_passed": 67,
+    "checks_failed": 0,
+    "raw_and_webp_sha_verified": true,
+    "source_manifest_sha_verified": true,
+    "webp_pixel_equality": true,
+    "geometry_exact_all_3": true,
+    "threshold_IoU_1": "1.0 for six thresholds at each of three tiers"
+  },
+  "qc": {
+    "original_source_zip_crc_path_ids_sha_mime_dimensions": "PASS_5_JUTSU_PLUS_IDENTITY",
+    "raw_png_1254_rgb": "PASS_3",
+    "master_maxRGB_exact_every_pixel": "PASS_3",
+    "threshold_geometry_iou_1_16_64_128_192_240": "EXACT_1_0_ALL",
+    "webp_256_square_vp8l_lossless_rgb": "PASS_3",
+    "webp_decoded_pixel_match_to_Lanczos_resized_raw": "PASS_3",
+    "webp_each_under_460800_bytes": "PASS_3",
+    "opaque_black_corners": "PASS_3",
+    "programmatic_125_64_32_visual_review": "PASS",
+    "neighbor_family_distinction": "PASS_VS_SURAGU_CRYSTAL_TETSU_SHAKUNETSU",
+    "director_art_acceptance": "PENDING",
+    "actual_skillTree_image_field_preflight": "NOT_RUN_NOT_FIELD_VERIFIED",
+    "binary_git_pin": "NOT_DONE",
+    "Forge_immutable_imagePack_binding": "NOT_DONE",
+    "operator_live_import_and_readback": "NOT_DONE"
+  },
+  "boundaries": {
+    "approved_progress": "14_OF_29_FAMILIES_42_OF_87_ICONS",
+    "proposed_Vaporia": "NOT_INCLUDED_IN_ACCEPTED_COUNTS",
+    "jutsu_icon_redesign": "OUT_OF_SCOPE",
+    "main_JUTSU_ICON_alpha_optional": "ONLY_jutsu.image_NOT_skillTree.image",
+    "art_binaries": "CONVERSATION_ARCHIVE_NOT_GIT_PINNED",
+    "next": "Director reviews exact finished Vaporia three-tier icons; if accepted, preserve source bytes, then finalize the complete Wave 03 comparison and consolidated delivery",
+    "live_game_reads": 0,
+    "live_game_writes": 0,
+    "credentials": false
+  }
+}
