@@ -1153,3 +1153,20 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Rationale:** The user explicitly accepted both pending budget increases. This settles the bundle ceiling only; it does not approve Bloodright content, icons, folder visibility or live execution.
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+---
+
+## RUL-2026-10-17-003 — Prioritize Bloodright tier-emblem production and hidden structural skill-tree imports
+
+**Date:** 2026-10-17  
+**Domain:** Bloodright / icon workflow identity / rollout priority  
+**Status:** ACTIVE — director decision; no approval of unselected economics, mechanics, live operations or publishing.  
+**Supersedes:** any shorthand that treats the 29-bloodline Bloodright emblem workflow as a program to remake all linked jutsu icons. Does not supersede the separately approved jutsu-icon Art Studio protocol (RUL-2026-10-14-001).
+
+**Ruling:** There are **two separate art workstreams**. The **Bloodright tier-emblem workflow** reuses the same three universal silhouettes—Foundation, Hidden Art, Advanced Art—reskinned in each bloodline's palette/material and shared across the relevant tier's skills. The **bloodline jutsu-icon rework workflow** creates distinct individual jutsu images, as previously done for Blue Blade Eyes, Blood-Enchanted Eyes and Vaporia. The latter is deprioritized. **Bloodright emblem creation and structurally complete hidden skill-tree imports have first priority**, so the game can receive full tiered node sets, approved skill names and connections, category visuals, Seichi Silver costs and effect durations before unrelated jutsu-art redesign work. User-supplied per-bloodline jutsu-art ZIPs are **source/style references for three Bloodright emblems**, not a request to redraw their contents.
+
+**Scope and operative limitations:** The initial approved icon queue is 29 public A/S/H bloodlines (87 tier-emblem artworks). Prior Forge Bloodright compiler/release rules still apply: five-BP structural sources, explicit settings, validated effects, hidden creates, separate operator-controlled live actions and read-back. Historical BEE pricing/duration approval of **20 Seichi Silver / 99 rounds** remains **BEE only** (RUL-2026-10-08-002); do not propagate it to other bloodlines without director approval. Reworking jutsu icons, the 166-jutsu reference-library archive automation, and Bloodright posters do **not** gate the tier-emblem structural rollout. No existing four-BP draft becomes an approved five-BP tree by reinterpretation. Mechanical potency/engine-gap and art-preflight issues must be surfaced rather than disguised as structurally complete.
+
+**Canonical destination:** `docs/design/bloodright/BLOODRIGHT_STRUCTURAL_ROLLOUT_PRIORITY_20261017.md` (cross-workstream priority/readiness), routed to the approved `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` on `chatgpt/bloodright-icon-studio-20261016@792742c264c70c29733306f22962d7b4aad48fad` (emblem visual process) and `forge/bloodright/README.md` (technical import). The distinct `docs/workflows/ISOLATED_ART_GENERATION.md` and per-collection jutsu-icon registers retain ownership of individual jutsu art.
+
+**Production boundary:** zero game reads/writes/uploads and no game publishing authorized by this ruling. The user remains the actor for all live operations.
