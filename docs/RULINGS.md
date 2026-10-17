@@ -1154,3 +1154,23 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Canonical destination:** `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` (operative specialized reskin and approval workflow), `docs/design/bloodright/BLOODRIGHT_RESKIN_FACTORY_PROPOSAL_20261017.md` (approved factory method and pilots), and `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` (29-family queue). The distinct jutsu-icon generation and Bloodright Forge structural-import authorities remain in their own owners.
 
 **Boundary:** no live-game requests/writes, uploads, skill/effect changes or publication are authorized by this approval.
+
+---
+
+## RUL-2026-10-17-005 — Accept the first two Bloodright reskin-factory pilot trios
+
+**Date:** 2026-10-17  
+**Domain:** Bloodright three-tier emblem art / pilot acceptance and future production rhythm  
+**Status:** ACTIVE — director visual acceptance and process approval only; game/Forge technical gates remain distinct.
+
+**Ruling:** dauntless expressly approved the **complete two-bloodline Bloodright reskin-factory pilot** and the method used. The **three Taiyo Kami (BR-075) tier emblems** (Foundation, Hidden Art, Advanced Art) are accepted in golden/amber solar energy; the **three Godstorm Eclipse (BR-029) tier emblems** are accepted in electric violet/purple lightning. The six **individually rendered icon originals** are accepted, not a generative icon sheet. The **geometry-locked three-emblem style system**, **opaque black/near-black backgrounds**, **one coordinated production session per bloodline**, and **comparative reviews of 4–6 bloodlines** remain accepted under RUL-2026-10-17-004. These decisions do **not** turn original bloodline jutsu icons into redraw targets, and do not require rarity-frame clearance as a visual design feature.
+
+**Scope:** Previously director-approved BEE / BBE / Ethereal Monarch trios remain locked. **Five complete families / 15 of the 87 initially planned tier emblems are now visually approved.** **24 families / 72 emblems remain.** The earlier provisional exclusion of H ranks from the pilot was overtaken by dauntless's “Nvm just do it,” submission of the **H-rank** Godstorm art ZIP and subsequent full visual acceptance. BR-029 therefore belongs to the accepted pilot. No other change to the pinned 29-member A/S/H roster is authorized by this clarification.
+
+**Evidence:** `docs/design/bloodright/BLOODRIGHT_FACTORY_PILOT_QC_20261017.json` (source reference ZIP and accepted original 1254×1254 PNG hashes, independently processed 256×256 lossless RGB WebP hashes/bytes, ZIP CRC, visual thumbnail QC, offline-only results). `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` owns production status and queue. Downloadable starter ZIP `Bloodright_Art_Studio_Next_Session_Starter_20261017.zip` carries the approved raw/source/processed art in conversation artifacts (SHA-256 `b8abb17aa7e907c6d660b1fbced90471910d7c5fa229e192da0739095de6da32`), **not Git blobs**.
+
+**Technical distinction:** Visual approval + lossless-file/byte/ZIP QC do not prove a pixel-exact master-mask processor, formal alpha/preflight handling for `skillTree.image`, immutable art binding, complete five-BP design, explicit per-node economy/durations, a live hidden import or read-back. The strict generic `ICON` preflight still expects RGBA; the `JUTSU_ICON` exception is for `jutsu.image`. Opaque art direction is settled; Fable independently verifies the actual `skillTree.image` technical path. The BEE-only 20 Silver / 99 rounds ruling does not become global.
+
+**Next:** start a new Bloodright Art Studio continuation, with the provided starter ZIP and then new source reference ZIPs in batches of 4–6 as supplied by the user. Accepted art remains immutable. Fable retains the distinct implementation, validator and Forge structural-import lanes.
+
+**Boundary:** no agent live-game reads/writes, credentials, uploads or publication are authorized or performed by this ruling.
