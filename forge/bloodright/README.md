@@ -169,6 +169,11 @@ staged under `push/`, merged, released, uploaded or sent to the game by this cha
 
 ## Persistence and recovery
 
+Compiled Bloodright manifests record the game-contract pin. After a Forge update that
+changes the pin, a job compiled by the previous bundle can no longer be resumed: it is
+refused, not misapplied, and it still blocks new imports for its bloodline. Finish or close
+every open Bloodright job before switching to a bundle with a new pin.
+
 IDs use `br:<bloodlineId>:<localNodeId>` keys in Forge's existing ID map, exported in every
 result bundle. The reserved local key `folder` identifies the folder. Explicit bindings that
 conflict with saved IDs block preparation. Back up results before clearing browser storage.
