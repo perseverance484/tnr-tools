@@ -46,11 +46,11 @@ step 4; the operator runs it on a machine with normal internet access (steps 3-6
 ```sh
 pkg update && pkg install -y python git python-pillow   # first time only
 termux-setup-storage                                    # first time only: lets Termux write to Downloads
-git clone https://github.com/perseverance484/tnr-tools && cd tnr-tools
+git clone -b fable/bloodright-reference-library-20261016 https://github.com/perseverance484/tnr-tools && cd tnr-tools
 git fetch origin fable/bloodright-planning-20261003     # pinned roster objects (inventory needs them)
 python scripts/bloodright_reference.py build --pilot BR-023 \
   --cache ~/br-cache --out ~/storage/downloads --allow-network
 ```
 
-The ZIP lands in the phone's Downloads. Later runs: `git pull`, then the same `build` line (use
+The ZIP lands in the phone's Downloads. (Clone `main` instead once this branch is integrated.) Later runs: `git pull`, then the same `build` line (use
 `--all` for the full library once inventory shows 29/29). Cached images are not downloaded twice.
