@@ -1,0 +1,67 @@
+{
+  "schema": "tnr.bloodright.wave05.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "id": "BR-034",
+  "family": "Hyouga Yui",
+  "rank": "A",
+  "theme": "Cerulean Shatter",
+  "theme_approval": "DIRECTOR_APPROVED",
+  "artwork_specific_director_approval": "PENDING",
+  "source_zip": "BR-034_Hyouga_Yui.zip",
+  "source_zip_sha256": "7da05a184fc2c4b6adb3d06ee8348411aed84bab744d356e79d5a665574b7dc8",
+  "source_images": "5 original jutsu + one bloodline identity verified by manifest hashes, bytes, MIME/dimensions and exact roster jutsu IDs",
+  "production": "Single coordinated deterministic cobalt_purgatory palette treatment applied to three exact Ethereal 1254px geometry masters; all 3 individual PNG and lossless RGB VP8L 256px WebPs separately saved. Programmatic QC sheet only.",
+  "master_sha256": [
+    "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+    "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+    "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+  ],
+  "tiers": [
+    {
+      "tier": "foundation",
+      "raw_sha": "2e92a673c54e7eef9fad4ea75884cf5bc0327a3ddc996c971f3f5ab151ac5258",
+      "webp_sha": "deb57381defb30556f4026d5ff6ab0b4a94058bea6310b464291444d05e12b8e",
+      "webp_bytes": 44032
+    },
+    {
+      "tier": "hidden_art",
+      "raw_sha": "8f0d3781ed912d71deb59702ffe52a29a60a9d63bfdfd9aa23a9d2f73402b57b",
+      "webp_sha": "1e4bd0113daf37746c31746057ad9ca3f7191ad2c46fd9426b4dde180dd6e4f1",
+      "webp_bytes": 72300
+    },
+    {
+      "tier": "advanced_art",
+      "raw_sha": "2f0183e97f95e4765dd45cec27e82ed614a2453fe63ce651e13bca27e57c922c",
+      "webp_sha": "74f96007afe64ab6312a8a1ee9887bdc22e3e92f360d2d8a887f00c8ec5b502d",
+      "webp_bytes": 61184
+    }
+  ],
+  "package": "BR-034_Hyouga_Yui_Bloodright_Proposed_3_Icons_QC_v02.zip",
+  "package_sha256": "ccb8fe5ce06126bd89f4c7aa083add3ab48822fe0371bfc8209629ff3a8d1b88",
+  "package_bytes": 10205410,
+  "package_history": "Initial proposed ZIP 24df84a137382246a77d615d6735875538a2cd41c935dc2c9ed95a0961aec0d6; QC v02 adds offline verifier and report, preserves all original PNG/WebP bytes.",
+  "independent_audit": {
+    "checks_passed": 110,
+    "failures": 0,
+    "report_sha256": "f9aaefcd29720212e503a9b30ee946fe85dd8c414781a75fe1df6f7ea9443264",
+    "report_in_zip": "qc/WAVE05_BR065_APPROVED_BR034_PROPOSED_INDEPENDENT_QC.json"
+  },
+  "qc": {
+    "source_zip_sha_ID_CRC_MIME_dimensions": "PASS",
+    "raw_RGB_1254": "PASS_3",
+    "exact_universal_maxRGB_master": "PASS_3",
+    "threshold_masks_1_16_64_128_192_240": "PASS_ALL_18_IOU_1",
+    "lossless_RGB_WebP_VP8L_256": "PASS_3",
+    "decoded_webp_eq_resized_raw": "PASS_3",
+    "byte_cap_460800": "PASS_3",
+    "black_corners": "PASS_3",
+    "programmatic_125_64_32": "PASS",
+    "neighbor_contrast": "Compared approved Shinrai Ou and Heavenly Sonata; Teno Yuki source reference inspected, no Teno tier icons yet",
+    "approved_Shinrai_original_png_and_webp_unchanged": "PASS_SIX"
+  },
+  "open_gates": "specific three-icon director acceptance pending, skillTree.image field preflight not run, immutable binary Git pins and Forge imagePack not done; 12 prior director-approved but geometry-nonexact icons remain separate",
+  "visual_progress": "23/29 families, 69/87 icons approved excluding proposed Hyouga",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
