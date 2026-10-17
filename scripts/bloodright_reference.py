@@ -706,13 +706,17 @@ def verify_bytes(archive: bytes, inv: dict, review_ids: list[str] | None, cache:
             "bytes": len(archive), "verified": True}
 
 
-MAX_READS_PER_MANIFEST = 100  # the #68-#74 census ran 100 full jutsu.get reads per Forge job cleanly
+# jutsu.get reads per manifest. Forge paces jutsu.get at 30/min, so 40 is ~1.5 min of foreground
+# time on a phone; a 97-read batch stalled when the mobile tab was backgrounded (push/102, job
+# 102-mvbym560), and a stalled capture-only job cannot be resumed in Forge 0.6.0.
+MAX_JUTSU_PER_MANIFEST = 40
 
 
-def capture_manifests(inv: dict, start: int, *, identity=True, limit=MAX_READS_PER_MANIFEST) -> list[tuple[str, dict]]:
+def capture_manifests(inv: dict, start: int, *, identity=True, limit=MAX_JUTSU_PER_MANIFEST) -> list[tuple[str, dict]]:
     """Capture-only Forge manifests for every SOURCE_BLOCKED bloodline whose gap is a missing
     capture: one jutsu.get persist:"full" per approved member (+ one optional bloodline.get),
-    whole bloodlines per manifest, at most `limit` reads each. Returns [(push path, manifest)].
+    whole bloodlines per manifest, at most `limit` jutsu.get reads each (identity reads ride along
+    on their own budget path). Returns [(push path, manifest)].
     Any other gap (mismatch, bad URL, ambiguity) needs a human decision and is refused here."""
     todo = [b for b in inv["bloodlines"] if b["status"] != "READY"]
     for b in todo:
@@ -723,8 +727,9 @@ def capture_manifests(inv: dict, start: int, *, identity=True, limit=MAX_READS_P
         reads = [{"proc": "jutsu.get", "input": {"id": j["id"]}, "persist": "full"} for j in b["jutsu"]]
         if identity:
             reads.append({"proc": "bloodline.get", "input": {"id": b["bloodline_id"]}, "persist": "full"})
-        _need(len(reads) <= limit, f"{b['review_id']}: {len(reads)} reads exceed the per-manifest limit")
-        if cur and sum(len(r) for _, r in cur) + len(reads) > limit:
+        nj = len(b["jutsu"])
+        _need(nj <= limit, f"{b['review_id']}: {nj} jutsu reads exceed the per-manifest limit")
+        if cur and sum(len(x["jutsu"]) for x, _ in cur) + nj > limit:
             groups.append(cur)
             cur = []
         cur.append((b, reads))

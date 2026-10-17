@@ -630,13 +630,13 @@ class CaptureManifests(Base):
 
     def test_whole_bloodlines_capped_reads_capture_only(self):
         inv = self.blocked_world()
-        out = br.capture_manifests(inv, 200, limit=4)
+        out = br.capture_manifests(inv, 200, limit=3)
         self.assertEqual([p for p, _ in out], ["push/200_bloodright_reference_capture_batch_1.json",
                                                "push/201_bloodright_reference_capture_batch_2.json"])
         seen = []
         for _, m in out:
             self.assertEqual((m["items"], m["capture"]["after"]), ([], []))
-            self.assertLessEqual(len(m["capture"]["before"]), 4)
+            self.assertLessEqual(sum(c["proc"] == "jutsu.get" for c in m["capture"]["before"]), 3)
             for c in m["capture"]["before"]:
                 self.assertEqual(c["persist"], "full")
                 self.assertIn(c["proc"], ("jutsu.get", "bloodline.get"))
