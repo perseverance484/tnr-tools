@@ -6,6 +6,10 @@ artifact: importing creates skill records and prerequisites, not an SVG on the g
 
 ## BEE pilot
 
+> Superseded for import by the naming-pass collections below (RUL-2026-10-17-003): BEE now
+> uses the CSV names and bonuses. Do not run `bee.pilot.json` or `collection.template.json`
+> alongside them; they target the older pilot design and would rename BEE nodes.
+
 `bee.pilot.json` names the approved 12-node BEE design at tools commit
 `5963810895aae4e2deaa61b72424c203752f50c1`. It explicitly binds:
 
@@ -103,7 +107,8 @@ category defaults:
 already supplied by the operator; URL-only icons are assigned without uploads (their
 remote bytes are not hash-verified). Collections require an explicit icon for every
 node. Single-tree packages without icons keep the old image-preservation behavior.
-Category icons explicitly replace existing images, including Hungry Pulse's when selected.
+Category icons explicitly replace existing images, including Hungry Pulse's when selected
+(approved, RUL-2026-10-17-002).
 New folders may also use an image reference; bound existing folders remain unchanged.
 
 For automatic image upload, put `imgSizes` and `imagePack` at the **package top level**,
@@ -163,9 +168,40 @@ Do not invent a commit or URL to fill it. `collection.readiness.json` records th
 
 The complete package needs the latest intended trees, actual icons (or exact uploaded
 URLs), and explicit node settings for those trees. The approved 20 Silver / 99 rounds
-settings in this branch remain BEE-only. Description acceptance, folder visibility,
+settings were BEE-only when written; RUL-2026-10-17-003 now applies them as placeholders to the naming-pass trees. Description acceptance, folder visibility,
 release and live execution remain the earlier separate decisions. Nothing is newly
 staged under `push/`, merged, released, uploaded or sent to the game by this change.
+
+## Naming-pass collections (RUL-2026-10-17-003)
+
+The naming pass (`docs/design/bloodright/naming_pass/review.csv`) covers 25 bloodlines. Their
+five-point designs are generated, never hand-edited:
+
+```sh
+python3 scripts/bloodright_from_naming.py [--check]          # docs/design/bloodright/structural/
+python3 scripts/bloodright_collection_package.py [--icons-ref SHA] [--check]
+```
+
+The second script writes two collections. All values are placeholders: CSV bonuses, 20 Silver
+and 99 rounds.
+
+- `naming_pass_collection_a.json`: 14 trees using only the original ten potency tags. This
+  works with the current Forge contract.
+- `naming_pass_collection_b.json`: 11 trees (BEE included) using pierce, absorb, poison,
+  drain, consume or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
+  live game running upstream `133e2c7` or later. Import A first, then B.
+
+Cosmic Ascendant and Shiroi Youso use the element `None` as a placeholder until their
+classification is resolved (RUL-2026-10-17-004); their bonuses then only reach jutsu without
+an element. The package script pins `DESIGN_REF`; after
+changing designs, commit them, update `DESIGN_REF` and rerun. Merge with a merge commit. New trees create a hidden
+folder named after the bloodline. If a folder with that name already exists, preview refuses
+and the folder must be bound by ID. BEE binds its existing folder and Hungry Pulse.
+
+Icons go in `art/bloodright/<slug>/{foundation,hidden_art,advanced_art}.webp`, where `<slug>`
+is the design's file name. Commit them, then rerun the package script with
+`--icons-ref <that commit>` to bind every icon to an immutable image pack. Until then both
+files are BLOCKED templates and must not be staged in `push/`.
 
 ## Persistence and recovery
 
