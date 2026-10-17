@@ -50,6 +50,7 @@ export function bloodrightProblems(entity, data, live = null, { preCreate = fals
     check(Array.isArray(e.affectedElements) && e.affectedElements.length > 0 && e.affectedElements.every(v => CONTRACT.elements.includes(v)), `${where}: resolve affectedElements explicitly`);
     for (const k of ["description", "staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]) check(str(e[k]), `${where}: ${k} must be text`);
     check(e.timeTracker === undefined, `${where}: runtime timeTracker is not importable`);
+    check(e.coordinateTargeting == null, `${where}: coordinateTargeting is not importable`);
   }
   if (!preCreate && live) check(str(d.image) && !!d.image, "skill image must be preserved or supplied");
   return out;

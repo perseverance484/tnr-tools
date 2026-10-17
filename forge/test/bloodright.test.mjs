@@ -27,7 +27,7 @@ const compile = (d, cfg = config(), tree = design) => compileBloodright({ design
 const mutations = d => d.game.calls.filter(c => /skillTree\.(create|update)/.test(c.path));
 
 test("scoped contract keeps spread elements, exact pin and procedure kinds", () => {
-  assert.equal(CONTRACT._meta.pin, "1ccdaf078a58101872675e459c8e755b495d4c83");
+  assert.equal(CONTRACT._meta.pin, "94f9d84c770004172ba423ada3d6710849acc451");
   for (const e of ["Fire", "Shadow", "Yin-Yang", "None"]) assert.ok(CONTRACT.elements.includes(e));
   assert.equal(CONTRACT.procedures["skillTree.create"].kind, "mutation");
   assert.equal(CONTRACT.procedures["skillTree.getAll"].mcp, true);
@@ -200,7 +200,7 @@ test("binding changes after preview block new creates", async () => {
 
 test("pre-send validator refuses unsupported tags and strips no accidental keys", () => {
   const d=setup(), row=compile(d).manifest.items.find(it=>it.entity==="skillTree").data;
-  for (const mutate of [r=>r.effects[0].affectedElement=["Shadow"],r=>r.effects[0].powerPerLevel=2,r=>r.effects[0].rounds=101,r=>r.effects[0].type="lifesteal",r=>r.effects[0].affectedElements=[],r=>r.pathType="SKILL"]) {
+  for (const mutate of [r=>r.effects[0].affectedElement=["Shadow"],r=>r.effects[0].powerPerLevel=2,r=>r.effects[0].rounds=101,r=>r.effects[0].type="lifesteal",r=>r.effects[0].affectedElements=[],r=>r.pathType="SKILL",r=>r.effects[0].coordinateTargeting={}]) {
     const data=clone(row); mutate(data); assert.ok(bloodrightProblems("skillTree",data).length);
   }
 });
@@ -464,4 +464,31 @@ test("review L1: failure to persist invalidation leaves the saved binding intact
   d.storage.setItem=(key,value)=>{if(key.startsWith("tnr_forge_job_v1:"))throw new Error("storage full");write(key,value);};
   assert.throws(()=>d.runner.forgetBinding("forget-storage",1,{confirmed:true,expectedId:"old-id"}),/storage full/);
   assert.deepEqual(readIdmap(d.storage),map);assert.deepEqual(d.journal.get("forget-storage"),before);assert.equal(d.runner._readLease("forget-storage"),null);
+});
+
+test("re-pinned contract: the seven newer potency tags compile with fractional power; others stay refused", () => {
+  const added = ["vamp", "absorb", "consume", "shield", "pierce", "drain", "poison"];
+  assert.deepEqual(CONTRACT.tags.slice(-7), added);
+  assert.ok(CONTRACT.effectFields.includes("coordinateTargeting"));
+  const d = setup(), t = clone(design);
+  t.nodes[0].bonuses = { pierce: 0.4, damage: 0.2 };
+  added.forEach((tag, i) => { t.nodes[i + 1].bonuses = { [tag]: 2 }; });
+  const r = compile(d, config(), t);
+  assert.deepEqual(r.problems, []);
+  const rows = r.manifest.items.filter(it => it.entity === "skillTree").map(it => it.data);
+  assert.deepEqual(rows.flatMap(row => row.effects.map(e => e.affectedTag)).filter(tag => added.includes(tag)).sort(), [...added, "pierce"].sort());
+  assert.ok(rows.flatMap(row => row.effects).some(e => e.affectedTag === "damage" && e.power === 0.2));
+  for (const row of rows) assert.deepEqual(bloodrightProblems("skillTree", row), []);
+  t.nodes[0].bonuses = { stun: 2 };
+  assert.ok(compile(d, config(), t).problems.some(p => /unsupported bonus stun/.test(p)));
+});
+
+test("review L1: a manifest compiled under the previous contract pin is refused; null coordinateTargeting is accepted", () => {
+  const d = setup(), m = compile(d).manifest;
+  assert.doesNotThrow(() => parseManifest(m));
+  const old = clone(m); old.bloodrightImport.gamePin = "1ccdaf078a58101872675e459c8e755b495d4c83";
+  assert.throws(() => parseManifest(old), /incompatible Bloodright import provenance/);
+  const row = clone(m.items.find(it => it.entity === "skillTree").data);
+  row.effects[0].coordinateTargeting = null;
+  assert.deepEqual(bloodrightProblems("skillTree", row), []);
 });

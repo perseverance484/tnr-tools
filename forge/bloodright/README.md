@@ -169,6 +169,11 @@ staged under `push/`, merged, released, uploaded or sent to the game by this cha
 
 ## Persistence and recovery
 
+Compiled Bloodright manifests record the game-contract pin. After a Forge update that
+changes the pin, a job compiled by the previous bundle can no longer be resumed: it is
+refused, not misapplied, and it still blocks new imports for its bloodline. Finish or close
+every open Bloodright job before switching to a bundle with a new pin.
+
 IDs use `br:<bloodlineId>:<localNodeId>` keys in Forge's existing ID map, exported in every
 result bundle. The reserved local key `folder` identifies the folder. Explicit bindings that
 conflict with saved IDs block preparation. Back up results before clearing browser storage.
@@ -238,7 +243,7 @@ uses the normal request budget; no partial or inconsistent result is returned/ca
 node forge/tools/derive_bloodright.mjs /path/to/TheNinjaRPG --check
 ```
 
-The checkout must be at `1ccdaf078a58101872675e459c8e755b495d4c83` with unchanged source
+The checkout must be at `94f9d84c770004172ba423ada3d6710849acc451` with unchanged source
 files. The generator extracts fields, potency targets, spread-expanded elements, procedure
 metadata and source hashes. `src/bloodright/validate.mjs` applies audited bounds and the
 narrower import policy. Legacy `fields.json` and `nested.json` retain their `345d18ac` pin.
