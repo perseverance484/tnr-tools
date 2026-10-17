@@ -1,0 +1,89 @@
+{
+  "schema": "tnr.bloodright.wave04.br066-approved-art-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-066",
+  "family": "Shinseina Ki",
+  "rank": "A",
+  "treatment": "Verdant Heartwood",
+  "director_treatment": "APPROVED",
+  "director_visual_trio": "APPROVED_ALL_THREE_2026-10-17",
+  "source_zip": {
+    "name": "BR-066_Shinseina_Ki.zip",
+    "sha256": "7b5260dd7f2e389763d3339edb967c08485b29426a143f02df255da0fbba0e39",
+    "jutsu_images": 5,
+    "identity_images": 1,
+    "CRC_manifest_sha": "PASS"
+  },
+  "imagegen_raw_originals": [
+    {
+      "tier": "foundation",
+      "source_file": "emerald_heartwood_diamond_crest.png",
+      "gen_id": "30ebd1a3-1b14-40a5-bac3-87beffe779d8",
+      "sha256": "d7b15eb9adcf6bd4592327422f7d4db6f9ddd319075112a4351df54cf55d3f0b",
+      "webp_sha256": "2e7aa3ee3a7e5ce672b13a07fcc97c1eff5a7200af8e49a7d44c363f0b48ed7b",
+      "webp_bytes": 53884
+    },
+    {
+      "tier": "hidden_art",
+      "source_file": "verdant_heartwood_sigil.png",
+      "gen_id": "e999f5e3-28c5-46f6-984b-7ed44dbadc41",
+      "sha256": "e75cbd994fd3f01c2b424c8fe92f89a08ec97e751aeb1d24fa6fc1e2951098fe",
+      "webp_sha256": "8068ac8ef48be8e02187fb3800fd380951329266fdac2ff77b358d85ce8a7fe1",
+      "webp_bytes": 83310
+    },
+    {
+      "tier": "advanced_art",
+      "source_file": "verdant_heartwood_star_sigil.png",
+      "gen_id": "311db9bd-caf0-4bc2-a1e1-7466526bff49",
+      "sha256": "42493fa7fdcbbbf9c00a4d5e64089446a7e8bb8c3fb998705b33f2342225247d",
+      "webp_sha256": "7cfe42f88825062c1d1e1e58d554e1cf1f5cd2ad60ae0ae7ef8cf86bd6303bac",
+      "webp_bytes": 80474
+    }
+  ],
+  "raw_format": "three separate 1254x1254 RGB PNGs; exact accepted imagegen bytes copied unchanged",
+  "processing": "Pillow Lanczos resize to 256x256 RGB, WebP VP8L lossless, exact decoded pixel equality to chosen resize",
+  "qc": {
+    "source_zip_jutsu_id_sha_CRC": "PASS",
+    "raw_png_format": "PASS_3",
+    "raw_binary_preservation": "PASS_3",
+    "webp_lossless_256_rgb": "PASS_3",
+    "webp_under_working_byte_cap": "PASS_3",
+    "black_corners": "PASS_3",
+    "thumbnail_QC_125_64_32": "PASS_VISUAL",
+    "geometry_master_maxrgb_exact": "FAIL_3_OF_3",
+    "geometry_iou_threshold_128": {
+      "foundation": 0.43954,
+      "hidden_art": 0.46899,
+      "advanced_art": 0.56466
+    },
+    "geometry_equal_fraction": {
+      "foundation": 0.584769,
+      "hidden_art": 0.323756,
+      "advanced_art": 0.406781
+    },
+    "technical_verdict": "VISUAL_DIRECTOR_APPROVED_BUT_FIXED_GEOMETRY_MACHINE_GATE_NOT_MET; DO_NOT_REPORT_AS_MECHANICALLY_READY",
+    "skillTree_image_field_preflight": "NOT_RUN",
+    "git_binary_pin": "NOT_DONE",
+    "forge_immutable_imagePack": "NOT_DONE",
+    "operator_live_readback": "NOT_DONE"
+  },
+  "package": {
+    "name": "BR-066_Shinseina_Ki_Bloodright_Approved_3_Icons.zip",
+    "sha256": "70df07a09b2e06d17705ea08871bf6b2b8e081fee1a5364e0baa0702c0397085",
+    "bytes": 6443073,
+    "contents": "3 unmodified accepted PNGs + 3 lossless RGB WebPs + source ZIP + preview/QC + SHA manifest + processing script",
+    "user_conversation_binary_not_Git_pinned": true
+  },
+  "boundary": "Do not automatically remask or regenerate director-approved originals to silence geometry finding. Any revised pixels require reapproval; it remains a separate unresolved pre-import condition.",
+  "progress": {
+    "director_visually_approved_families": 16,
+    "visually_approved_icons": 48,
+    "total_families": 29,
+    "total_icons": 87,
+    "prior_mask_exact_icons": 45,
+    "shinseina_mask_exact_icons": 0
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
