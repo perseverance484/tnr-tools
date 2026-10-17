@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 05
 
-**Status:** FIVE ORIGINAL SOURCE ZIPS RECEIVED AND HASH-VERIFIED; FIVE ART TREATMENT CARDS PROPOSED FOR DIRECTOR APPROVAL. NO WAVE05 ICONS PRODUCED.
+**Status:** FIVE SOURCE REFERENCE ZIPS VERIFIED; FIVE ART TREATMENTS DIRECTOR APPROVED; BR-078 TENOHIRA MUSEI COMPLETE THREE-ICON EQUINOX RIFT FAMILY PRODUCED AND OFFLINE GEOMETRY/FORMAT QC PASSED, director final image acceptance PENDING. No Wave05 icons counted as approved yet.
 **Date:** 2026-10-17.
 **Role:** Art Director (lead), Image Production (support). **Tooling/Forge:** Fable technical ownership.
 **Repository:** `perseverance484/tnr-tools`.
@@ -43,6 +43,14 @@
 
 `Bloodright_Wave05_Production_Starter_20261017.zip`, **SHA-256 `5054109d3142154f668ba60d8b0d201971d4b2a2e03fcf6f408dbf5568605a4b`**, **8,001,320 bytes**. Contains the **three exact individually approved 1254px geometry masters** (SHA pinned in Wave04 QC) + the **15 exact accepted Wave04 RGB lossless 256px WebP icons** for cross-family contrast, plus source hashes, Wave04 visual acceptance ledger, and programmatic showcase / thumbnail QC. **Does not contain any Wave05 original jutsu art, new emblems or game requests.** Files are conversation portable assets, NOT immutable Git image binaries.
 
+## 2026-10-17 — Five theme cards approved / Tenohira Musei produced
+
+- The director **approved all five source-grounded material treatments**: Equinox Rift, Midnight Tempest, Raijin Whitebolt, Cerulean Shatter, Winterglass Sanctum. This is palette/material approval only, not specific finished image acceptance.
+- **BR-078 Tenohira Musei:** its actual source-art ZIP was re-opened, verified against SHA-256 `24d390da8c756f2707b09249fbffe637083b42f389eaebac1d4e980d07d64f92`, CRC, five expected jutsu IDs, source image bytes/MIME and six declared dimensions. A single deterministic fixed-mask appearance recipe produced separate **Foundation, Hidden Art and Advanced Art original 1254px PNG files**, each with electric blue LEFT and solar-orange RIGHT chakra currents and moon-white original crossing glow. Geometry matches the three approved Ethereal masters at **every per-pixel maximum RGB channel and all six exact intensity threshold masks**, all tiers.
+- Each raw original has a **256px lossless RGB VP8L WebP**, original PNG raw bytes untouched. QC sheets at 125/64/32px and cross-family **Vaporia / Heavenly Sonata** comparison are programmatically composed, never newly drawn. Independent offline checker completed **109 assertions PASS / 0 FAIL** for source ZIP, raw SHA/bytes, exact master geometry, lossless decoded equality, black corners, 460800-byte working cap and portable package original-member integrity.
+- Proposed family package `BR-078_Tenohira_Musei_Bloodright_Proposed_3_Icons.zip` SHA-256 `10e7a5262b8b5dc708086915b5f0f1e4313a51fac68fbb4fa9b1dbbabb068573` (10,078,736 bytes), includes all raw/WebP assets, source and geometry references, manifest, reproducing Python script, independent auditor and QC. Detailed immutable raw/export hash evidence: `BLOODRIGHT_WAVE05_BR078_PROPOSAL_QC_20261017.json`. **Director final trio artwork acceptance is still PENDING**, so overall visually approved totals remain 20/29 families, 60/87 icons.
+- **Separate technical gates:** actual `skillTree.image` field validator/preflight remains unknown and unrun; approved opaque-black art does not waive alpha rule; Git art binary/source pin, immutable Forge imagePack, structural import and live-game readback remain Fable/operator tasks and uncompleted. Previously approved nine Wave04 nonexact-master geometry icons unchanged. No game requests/writes.
+
 ## 2026-10-17 — Verified intake and treatment proposals
 
 - All five original Wave05 bloodline art ZIPs are now received and safely inspected offline. **305 checks passed, zero failures** across archive CRC/path integrity, actual image SHA-256 and bytes, decoded format/dimensions, pinned bloodline and jutsu IDs. **25 original jutsu images + five identity images** inspected. The historic game-capture metadata in archive manifests remains a provenance claim, not a new live request.
@@ -69,4 +77,4 @@ Remaining last four if Wave05 is completed: **BR-033 Houkyuken**, **BR-036 Itoji
 
 ## Immediate next action
 
-Five original source ZIPs are now verified, and their five material treatment cards are proposed. **Obtain director approval or revisions before beginning production** with BR-078 Tenohira Musei's separate Foundation/Hidden Art/Advanced Art emblem originals. All previous artwork and technical/live-game authority gates remain unchanged.
+All five Wave05 material treatments were approved by the director. **Present BR-078 Tenohira Musei's three saved original Equinox Rift tier images for the director's specific visual approval or revision.** This complete proposal is exact-source master geometry QC PASS (3/3) and independently file/codec/ZIP QC PASS (109 checks). If approved, freeze accepted raw/WebP file hashes then proceed to Arashima Midnight Tempest. No new Wave05 images count toward accepted totals until the director approves the actual artwork; technical and live operations remain separate.
