@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -39,6 +40,16 @@ def figure(w: int, h: int, alpha: bool = True, soft: bool = False, key_spill: bo
                     px[x, y] = (40, 44, 58, 128)
     if key_spill:
         d.rectangle([0, 0, max(2, w // 20), max(2, h // 20)], fill=(0, 255, 0, 255))
+    return img
+
+
+def designed_icon(w: int, h: int):
+    """An opaque full-bleed jutsu icon, with a near-lime patch a key check would misread."""
+    img = Image.new("RGB", (w, h), (18, 40, 92))
+    d = ImageDraw.Draw(img)
+    d.polygon([(w * 0.5, h * 0.1), (w * 0.9, h * 0.5), (w * 0.5, h * 0.9), (w * 0.1, h * 0.5)],
+              fill=(196, 232, 250))
+    d.rectangle([0, 0, w // 8, h // 8], fill=(10, 245, 20))
     return img
 
 
@@ -71,6 +82,11 @@ case("icon 1:1", "ICON", "stormglass_icon.webp",
      lambda p: save(figure(256, 256), p), [])
 case("pin 1:1", "STATIC", "shrine_pin.webp",
      lambda p: save(figure(256, 256), p), [])
+# RUL-2026-10-14-001: jutsu icons may carry a designed opaque background.
+case("jutsu icon, opaque designed background", "JUTSU_ICON", "ice_shackles_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 256), p), [])
+case("jutsu icon, keyed transparent", "JUTSU_ICON", "glacial_volley_jutsu.webp",
+     lambda p: save(figure(256, 256), p), [])
 
 # ---------------------------------------------------------------- wrong exports
 case("scene character re-exported to 4:3", "SCENE_CHARACTER", "bad_wide_scene_char.webp",
@@ -97,8 +113,91 @@ case("icon at 4:3", "ICON", "bad_wide_icon.webp",
      lambda p: save(figure(256, 192), p), ["aspect"])
 case("pin under minimum", "STATIC", "bad_tiny_pin.webp",
      lambda p: save(figure(64, 64), p), ["min_width"])
+case("item icon left opaque", "ICON", "bad_flat_item_icon.webp",
+     lambda p: save(figure(256, 256, alpha=False), p), ["alpha"])
+case("jutsu icon, keyed with residual spill", "JUTSU_ICON", "bad_spill_jutsu_icon.webp",
+     lambda p: save(figure(256, 256, key_spill=True), p), ["spill"])
+case("jutsu icon, keyed with chewed soft edges", "JUTSU_ICON", "bad_soft_jutsu_icon.webp",
+     lambda p: save(figure(256, 256, soft=True), p), ["soft_edges"])
+case("jutsu icon, opaque at 4:3", "JUTSU_ICON", "bad_wide_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 192), p), ["aspect"])
+case("jutsu icon, opaque saved lossy", "JUTSU_ICON", "bad_lossy_jutsu_icon.webp",
+     lambda p: save(designed_icon(256, 256), p, lossless=False), ["format_mode"])
+case("jutsu icon, opaque under minimum", "JUTSU_ICON", "bad_tiny_jutsu_icon.webp",
+     lambda p: save(designed_icon(128, 128), p), ["min_width"])
 case("unclassifiable filename", "SCENE_CHARACTER", "untitled_final_v2.webp",
      lambda p: save(figure(682, 1023), p), [])
+
+
+# Item/jutsu class boundary, run the way an operator runs it: type INFERRED from the name,
+# then the full check. `type` in the expected set means inference refused and the file is
+# an error until someone passes --type. An item name must never come out alpha-optional.
+OPAQUE = lambda p: save(designed_icon(256, 256), p)  # noqa: E731
+BOUNDARY = [
+    # item evidence beside a jutsu token -> refuse
+    ("item_jutsu_scroll_icon.webp", OPAQUE, None, {"type"}),
+    ("item_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("img_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("scroll_item_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    # jutsu inside a word is not a jutsu token -> stays ICON and keeps the alpha rule
+    ("icon_ninjutsu_manual.webp", OPAQUE, "ICON", {"alpha", "spill"}),
+    ("genjutsu_mirror_item_icon.webp", OPAQUE, "ICON", {"alpha", "spill"}),
+    ("ninjutsu.webp", OPAQUE, None, {"type"}),
+    # re-review F1-R1: the house item convention is `icon_<name>`, with no `item` token
+    ("icon_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("icon-jutsu-scroll.webp", OPAQUE, None, {"type"}),
+    ("icon_forbidden_jutsu_tome.webp", OPAQUE, None, {"type"}),
+    ("quest_icon_jutsu_seal.webp", OPAQUE, None, {"type"}),
+    # re-review F1-R2: plural, numbered, mid-name and space-separated item markers
+    ("items_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    ("scroll_items_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    ("item01_jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("item2_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    ("x_img_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    ("jutsu_item2.webp", OPAQUE, None, {"type"}),
+    ("img-jutsu_scroll.webp", OPAQUE, None, {"type"}),
+    ("jutsu_scroll item.webp", OPAQUE, None, {"type"}),
+    ("bloodline_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    ("jutsu_jutsu_icon.webp", OPAQUE, None, {"type"}),
+    # unrelated targets still refuse
+    ("jutsu_avatar.webp", OPAQUE, None, {"type"}),
+    ("blue_jutsu_marker.webp", OPAQUE, None, {"type"}),
+    # genuine jutsu names -> JUTSU_ICON; opaque passes, keyed keeps every key check
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("glacial_volley_jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("jutsu_blade_resonance.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("arctic-frost-jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("Ice.Shackles.Jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("fire_jutsu_v2.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("ice shackles jutsu.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("ice_shackles_jutsu_icon.png.webp", OPAQUE, "JUTSU_ICON", set()),
+    ("keyed_spill_jutsu_icon.webp", lambda p: save(figure(256, 256, key_spill=True), p),
+     "JUTSU_ICON", {"spill"}),
+    ("keyed_soft_jutsu_icon.webp", lambda p: save(figure(256, 256, soft=True), p),
+     "JUTSU_ICON", {"soft_edges"}),
+]
+
+# CLI runs: (filename, builder, extra args, expected error checks). Exit code = error count.
+CLI = [
+    ("item_jutsu_scroll_icon.webp", OPAQUE, [], {"type"}),
+    ("item_jutsu_scroll_icon.webp", OPAQUE, ["--type", "ICON"], {"alpha", "spill"}),
+    ("icon_ninjutsu_manual.webp", OPAQUE, [], {"alpha", "spill"}),
+    ("icon_jutsu_scroll.webp", OPAQUE, [], {"type"}),
+    ("icon_jutsu_scroll.webp", OPAQUE, ["--type", "ICON"], {"alpha", "spill"}),
+    ("items_jutsu_icon.webp", OPAQUE, ["--max-bytes", "80000"], {"type"}),
+    ("item01_jutsu_scroll.webp", OPAQUE, [], {"type"}),
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, ["--max-bytes", "80000"], set()),
+    ("ice_shackles_jutsu_icon.webp", OPAQUE, ["--type", "ICON"], {"alpha", "spill"}),
+]
+
+
+def inferred_errors(path: str, spec: dict) -> tuple[str | None, set[str]]:
+    target = ap.infer_type(path)
+    if target is None:
+        return None, {"type"}
+    report = ap.Report()
+    ap.check_file(path, target, spec, report, None)
+    return target, {r["check"] for r in report.rows if r["level"] == "error"}
 
 
 def run() -> int:
@@ -132,6 +231,51 @@ def run() -> int:
                 ok = inferred == target
                 label = f"{inferred}"
             print(f"  {'pass' if ok else 'FAIL'}  {filename:34} -> {label}")
+            passed += ok
+            failed += not ok
+
+        # a workstream cap is "under N": a file of exactly N bytes fails, N - 1 headroom passes
+        print("\n  workstream byte cap:")
+        path = save(designed_icon(256, 256), os.path.join(tmp, "cap_jutsu_icon.webp"))
+        size = os.path.getsize(path)
+        for cap, want in ((size, {"bytes"}), (size + 1, set())):
+            report = ap.Report()
+            ap.check_file(path, "JUTSU_ICON", spec, report, None, max_bytes=cap)
+            got = {r["check"] for r in report.rows if r["level"] == "error"}
+            ok = got == want
+            print(f"  {'pass' if ok else 'FAIL'}  {size} bytes against --max-bytes {cap:<10} "
+                  f"-> {sorted(got) or 'clean'}")
+            passed += ok
+            failed += not ok
+
+        print("\n  item/jutsu class boundary (inferred type, full check):")
+        for filename, builder, want_target, want in BOUNDARY:
+            path = os.path.join(tmp, filename)
+            builder(path)
+            target, got = inferred_errors(path, spec)
+            ok = target == want_target and got == want
+            print(f"  {'pass' if ok else 'FAIL'}  {filename:34} -> {target or 'refused'}, "
+                  f"{sorted(got) or 'clean'}"
+                  + ("" if ok else f"  (expected {want_target or 'refused'}, {sorted(want) or 'clean'})"))
+            passed += ok
+            failed += not ok
+
+        print("\n  item/jutsu class boundary (CLI):")
+        script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artpreflight.py")
+        spec_path = os.path.abspath("25x_DATA_art_spec.json")
+        for filename, builder, extra, want in CLI:
+            path = os.path.join(tmp, "cli_" + filename)
+            builder(path)
+            proc = subprocess.run(
+                [sys.executable, script, path, "--spec", spec_path, "--json", *extra],
+                capture_output=True, text=True,
+            )
+            rows = json.loads(proc.stdout)["rows"]
+            got = {r["check"] for r in rows if r["level"] == "error"}
+            ok = got == want and proc.returncode == len([r for r in rows if r["level"] == "error"])
+            label = " ".join(extra) or "inferred"
+            print(f"  {'pass' if ok else 'FAIL'}  {filename:34} [{label}] exit {proc.returncode} "
+                  f"-> {sorted(got) or 'clean'}")
             passed += ok
             failed += not ok
     finally:

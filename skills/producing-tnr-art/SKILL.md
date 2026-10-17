@@ -166,6 +166,17 @@ python3 scripts/artpreflight.py out_scene_char.webp --manifest manifest.json
   green cloth. GPT native transparency is preferred over either when available.
 - Always pass `--qc` and actually look at the composite.
 
+**Jutsu icons have their own target, `JUTSU_ICON`** (RUL-2026-10-14-001). They may carry a designed
+opaque background: never run the key over it and never fabricate alpha. Export square lossless WebP
+with Pillow; `artpreflight.py` accepts the RGB file and skips the key checks it would only misread.
+A transparent jutsu icon takes the normal keyed route and every key check still applies. Item and
+bloodline icons stay on `ICON` and still require alpha. Inference to `JUTSU_ICON` is
+allow-listed because it relaxes a check: the name needs exactly one `jutsu` token
+(`ice_shackles_jutsu_icon.webp`, `glacial_volley_jutsu.webp`), and nothing else in it may hint at
+another target or contain `item`, `img`, `icon` or `bloodline` (only the trailing `_jutsu_icon`
+suffix may say `icon`). `ninjutsu`/`genjutsu` inside a word are not a token. Anything doubtful
+(`icon_jutsu_scroll`, `items_jutsu_icon`) refuses and needs `--type`. A workstream byte cap stricter than the spec goes on `--max-bytes` (BBE: `80000`).
+
 Nothing is handed over unchecked. `artpreflight.py` is to art what `validate.py` is to a manifest:
 zero errors before handover, and you say what you ran.
 
@@ -178,7 +189,7 @@ upload paths.
 |---|---|
 | `scripts/chroma.py` | Key, crop, pad, export. Spec-driven via `--target`. |
 | `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
-| `scripts/artpreflight.py` | Acceptance check before handover. `--index <art_index.json>` audits the whole live library instead of files. |
+| `scripts/artpreflight.py` | Acceptance check before handover. `--max-bytes N` adds a stricter workstream cap (file must be under N). `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
 | `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
