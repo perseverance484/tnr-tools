@@ -1,0 +1,1710 @@
+{
+  "title": "Tenohira Musei — The Voiceless Hand",
+  "revision": "Fable proposal — 2026-10-04 batch rebalance / Yin-Yang classification / forked tree",
+  "bloodline": {
+    "id": "18Byy1tMXkQETmB88JLl5",
+    "review_id": "BR-078",
+    "name": "Tenohira Musei",
+    "rank": "A",
+    "statClassification": "Highest",
+    "traits": "Defensive and Control"
+  },
+  "classification": {
+    "potency_classification": "Yin-Yang",
+    "label_kind": "element",
+    "classification_status": "element",
+    "qualifying_elements": [
+      "Yin-Yang"
+    ],
+    "display_element": "Yin-Yang",
+    "selector": "jutsu classification: the qualifying element(s), whatever the jutsu's source",
+    "applies_to": "matching supported tags on all Yin-Yang jutsu",
+    "not_selectors": [
+      "bloodline id or bloodline ownership",
+      "equipment / required bloodline item (castability gate only)",
+      "injected-child provenance",
+      "jutsu names (examples only)"
+    ],
+    "kit_jutsu_by_authored_classification": [
+      "Eternal Stillness",
+      "Moonlit Inferno"
+    ],
+    "shared_element_bloodlines": [
+      "Celestial Mage",
+      "DvEM",
+      "Ethereal Monarch",
+      "Ethereal Regent",
+      "Heavenly Sonata",
+      "Manhattan Project",
+      "Tenryūseigan",
+      "Tenshin Shoden Yami-Ryu"
+    ],
+    "off_kit_coverage": "unverified (no non-bloodline jutsu catalog with effect rows in the repository)",
+    "changes_combat_elements": false,
+    "preserves_row_filters": true,
+    "engine_status": "proposal_requires_jutsu_classification_resolver"
+  },
+  "emphasis": {
+    "primary": "Damage multipliers: self Increase Damage Given (Silent Rift, Yin-Yang Cascade) and enemy Increase Damage Taken (Moonlit Inferno, Yin-Yang Cascade)",
+    "secondary": "Suppression (Decrease Damage Given on Moonlit Inferno)",
+    "tertiary": "A burst: Unspoken Blow sets up +2% exposure on Moonlit Inferno and Yin-Yang Cascade, Deafening Silence pays it off with +2 Damage on the three 40 EP Yin-Yang strikes, 40 → 42, every cast",
+    "rationale": "Eight supported rows sit on four casts: three 40 EP Yin-Yang Damage rows, two 35% self Increase Damage Given rows (Silent Rift, Yin-Yang Cascade), two 35% enemy Increase Damage Taken rows (Moonlit Inferno, Cascade) and one 35% Decrease Damage Given row (Moonlit Inferno). Waxing Crescent answers \"How do I make my own strikes count for more?\": Deafening Silence's route opens the target, then hits harder on every cast, Tipping the Balance charges both self buffs for their windows. Waning Crescent answers \"How do I weaken them?\": Eclipse in Hand blunts their hits, Stillness Breaks bares them to every hit. The Defensive and Control rows (seal, buff and debuff prevention, move) are unsupported. Potency reaches matching supported tags on all Yin-Yang jutsu (RUL-2026-10-03-005)."
+  },
+  "nodes": [
+    {
+      "id": "01",
+      "name": "Waxing Crescent",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "The hand opens as the moon fills; what it gathers, it does not yet spend.",
+      "coverage_note": "Both self damage buffs 35 → 37% for 2 rounds: Silent Rift (Highest or element-less hits) and Yin-Yang Cascade (Fire/Lightning/Yin-Yang or element-less hits).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Silent Rift",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "02",
+      "name": "Unspoken Blow",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "No cry, no warning. The palm has already landed, and the guard behind it is gone.",
+      "coverage_note": "Burst setup for Deafening Silence: Moonlit Inferno and Yin-Yang Cascade exposure 35 → 37% (39% with Waning Crescent) on one target for the two rounds after each cast, so the strikes that follow land into it.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "03",
+      "name": "Deafening Silence",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "02"
+      ],
+      "modifiers": [
+        {
+          "tag": "damage",
+          "flat": 2,
+          "display_role": "DAMAGE"
+        }
+      ],
+      "flavor": "The quietest strike leaves the loudest ruin.",
+      "coverage_note": "Burst payoff: Silent Rift (per enemy in its circle), Yin-Yang Cascade and Silent Palm Strike 40 → 42 EP on every cast, no tier crossed; a strike with both of Unspoken Blow's 37% exposure rows live lands ×1.05 × (1.37/1.35)² ≈ ×1.081 over the base kit.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Silent Palm Strike",
+          "Silent Rift",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 3
+      }
+    },
+    {
+      "id": "04",
+      "name": "Held Breath",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "01"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 2,
+          "display_role": "SELF BUFF"
+        }
+      ],
+      "flavor": "Between one breath and the next, the rift widens.",
+      "coverage_note": "Both self damage buffs 39% with Waxing Crescent; 2 rounds per 60 AP cast. Rift and Cascade cost 120 AP together, so they need two turns and are live together for one round.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Silent Rift",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 2
+      }
+    },
+    {
+      "id": "05",
+      "name": "Tipping the Balance",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "04"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagegiven",
+          "flat": 4,
+          "display_role": "SELF BUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Yin drains from the enemy; yang pools in the open hand.",
+      "coverage_note": "Amplifier route total +8%: both self damage buffs 35 → 43%; rider: Moonlit Inferno suppression 35 → 37% (39% with Waning Crescent).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno",
+          "Silent Rift",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 3,
+        "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "06",
+      "name": "Waning Crescent",
+      "category": "Foundation",
+      "cost": 1,
+      "parents": [],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        },
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Under the thinning moon the enemy's fire gutters and their guard slips.",
+      "coverage_note": "Moonlit Inferno exposure and suppression 35 → 37% (all four stat types, 40 AP); Yin-Yang Cascade exposure 35 → 37% (Highest or element-less hits).",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 1,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 3,
+        "rows_via_authored_classification": 2
+      }
+    },
+    {
+      "id": "07",
+      "name": "Hushed Inferno",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 3,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "A blaze can be silenced like any other voice.",
+      "coverage_note": "Moonlit Inferno Decrease Damage Given only: 40% with Waning Crescent; one row, 2 rounds per 40 AP cast, cooldown 7.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno"
+        ],
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "08",
+      "name": "Eclipse in Hand",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "07"
+      ],
+      "modifiers": [
+        {
+          "tag": "decreasedamagegiven",
+          "flat": 5,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Close the fingers and the enemy's light goes out.",
+      "coverage_note": "Suppression route total +10%: Moonlit Inferno Decrease Damage Given 35 → 45% on one target for 2 rounds per 40 AP cast (its hits ×0.55/0.65 ≈ ×0.846); single-tag capstone.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno"
+        ],
+        "effect_rows": 1,
+        "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "09",
+      "name": "Bared to the Moon",
+      "category": "Hidden Art",
+      "cost": 1,
+      "parents": [
+        "06"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 2,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Stillness strips the guard away and leaves them bare under the moon.",
+      "coverage_note": "Both enemy exposure rows 39% with Waning Crescent: Moonlit Inferno (all four stat types) and Yin-Yang Cascade (Highest or element-less); both can sit on one target.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 2,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
+      }
+    },
+    {
+      "id": "10",
+      "name": "Stillness Breaks",
+      "category": "Advanced Art",
+      "cost": 1,
+      "parents": [
+        "09"
+      ],
+      "modifiers": [
+        {
+          "tag": "increasedamagetaken",
+          "flat": 4,
+          "display_role": "ENEMY DEBUFF"
+        }
+      ],
+      "flavor": "Their stillness breaks, and every hand that follows finds them open.",
+      "coverage_note": "Exposure route total +8%: Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken 35 → 43% on one target; with both live the caster's hits land ×(1.43/1.35)² ≈ ×1.122 against the unmodified kit (anchors: Shakunetsu ×1.075, Blood-Enchanted Eyes ×1.115). An ally's non-pierce hit gets Moonlit's ×1.059, and Cascade's only if it is element-less or uses the caster's highest offence stat.",
+      "parent_rule": "ALL",
+      "potency_classification": "Yin-Yang",
+      "scope": "all Yin-Yang jutsu",
+      "minimum_path_bp": 3,
+      "coverage": {
+        "jutsu": [
+          "Moonlit Inferno",
+          "Yin-Yang Cascade"
+        ],
+        "effect_rows": 2,
+        "rows_via_authored_classification": 1
+      }
+    }
+  ],
+  "examples": [
+    {
+      "name": "Deafening Silence",
+      "archetype": "Burst",
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "rationale": "Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 42 EP on every cast, the opener included, with both exposure rows at 39% and both self buffs at 37%. Open with Moonlit Inferno and Cascade in one turn (100 AP); Rift and Palm Strike in the next two rounds land ×1.39 × 1.39 ≈ ×1.93 from exposure and ×1.37 more from Cascade's buff (Palm Strike also gets Rift's), and every extra enemy in Rift's circle takes the +2. Waning Crescent is the fourth purchase (exposure 39%, Moonlit suppression 37%); Held Breath (self buffs 39%) is the solo alternative.",
+      "cost": 4,
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 4
+      },
+      "finals": [
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Yin-Yang"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 2,
+          "final": 42.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 1,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 1,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Deafening Silence"
+      ]
+    },
+    {
+      "name": "Tipping the Balance",
+      "archetype": "Amplifier",
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "rationale": "Both self Increase Damage Given rows at 43% (+8%), each live the two rounds after its 60 AP cast. Rift and Cascade cost 120 AP together, so their windows overlap one round; in that round a hit lands ×1.43 × 1.43 ≈ ×2.04 from the caster's side alone, on any target. Rift's own buff never touches Rift's hit, so its circle gets ×1.43 from Cascade's buff when Cascade opens. Waning Crescent is the fourth purchase (exposure 37%, Moonlit suppression 39%); Unspoken Blow gives the same 37% exposure without Waning Crescent's extra +2% suppression (37% instead of 39%).",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 4,
+        "increasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 4,
+          "final": 39.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Yin-Yang"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 1,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 1,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Tipping the Balance"
+      ]
+    },
+    {
+      "name": "Eclipse in Hand",
+      "archetype": "Suppression",
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "01"
+      ],
+      "rationale": "Moonlit Inferno's Decrease Damage Given at 45% for the two rounds after one 40 AP cast: the target's non-pierce hits on anyone land ×0.55 instead of ×0.65, with exposure 37% on the same cast. Waxing Crescent is the fourth purchase (self buffs 37%); Bared to the Moon (exposure 39%) is the alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2
+      },
+      "finals": [
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 10,
+          "final": 45.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Yin-Yang"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 1,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 1,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Eclipse in Hand"
+      ]
+    },
+    {
+      "name": "Stillness Breaks",
+      "archetype": "Exposure",
+      "ids": [
+        "06",
+        "09",
+        "10",
+        "01"
+      ],
+      "rationale": "Moonlit Inferno and Yin-Yang Cascade Increase Damage Taken at 43%; cast together in one turn (100 AP), they make the caster's hits on the target in the next two rounds land ×1.43 × 1.43 ≈ ×2.04, ×1.122 over the unmodified kit's ×1.82. Every non-pierce ally hit on the target gets Moonlit's 43%; Cascade's applies only to an ally's element-less hits or hits of the caster's highest offence stat. Moonlit suppression 37%. Waxing Crescent is the fourth purchase (self buffs 37%); Hushed Inferno (suppression 40%) is the control alternative.",
+      "cost": 4,
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 8
+      },
+      "finals": [
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 0,
+          "tag": "decreasedamagegiven",
+          "label": "Decrease Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Moonlit Inferno",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 1,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Rift",
+          "row": 2,
+          "tag": "move",
+          "label": "move",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 1.0,
+          "gain": 0,
+          "final": 1.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 1,
+          "tag": "increasedamagetaken",
+          "label": "Increase Damage Taken",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 8,
+          "final": 43.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Yin-Yang Cascade",
+          "row": 2,
+          "tag": "increasedamagegiven",
+          "label": "Increase Damage Given",
+          "combat_elements": [
+            "Fire",
+            "Lightning",
+            "None",
+            "Yin-Yang"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 35.0,
+          "gain": 2,
+          "final": 37.0,
+          "calculation": "percentage",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 0,
+          "tag": "damage",
+          "label": "Damage",
+          "combat_elements": [
+            "Yin-Yang"
+          ],
+          "recipient": "enemy",
+          "role": "DAMAGE",
+          "adverse": false,
+          "base": 40.0,
+          "gain": 0,
+          "final": 40.0,
+          "calculation": "formula",
+          "supported": true,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Silent Palm Strike",
+          "row": 1,
+          "tag": "seal",
+          "label": "seal",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 0,
+          "tag": "debuffprevent",
+          "label": "debuffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "self",
+          "role": "SELF BUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        },
+        {
+          "jutsu": "Eternal Stillness",
+          "row": 1,
+          "tag": "buffprevent",
+          "label": "buffprevent",
+          "combat_elements": [
+            "None"
+          ],
+          "recipient": "enemy",
+          "role": "ENEMY DEBUFF",
+          "adverse": false,
+          "base": 100.0,
+          "gain": 0,
+          "final": 100.0,
+          "calculation": "static",
+          "supported": false,
+          "capped_at_100": false
+        }
+      ],
+      "advanced_arts": [
+        "Stillness Breaks"
+      ]
+    }
+  ],
+  "narrow_kit_exception": null,
+  "design_notes": [
+    "2026-10-04 rebalance (BALANCE_REVIEW_METHOD.md). First pass: the old +5 Damage route lifted Silent Rift, Yin-Yang Cascade and Silent Palm Strike 40 → 45, a full tier on all three, and Stillness Breaks lost its Damage. Roster pass: Quiet Opening (+3% Increase Damage Taken) returned to its pre-batch name and job as Unspoken Blow (+1 Damage) and Deafening Silence went +2 → +1 (route +2); Waxing Crescent +3 → +2% and Tipping the Balance +5 → +4% (Amplifier +10 → +8%); Bared to the Moon +3 → +2% and Stillness Breaks +4 → +3% (Exposure +9 → +7%). The final review raised Deafening Silence back to +2 (route +3); the final cleanup returns it to +1 (edge route +2, 40 → 42) under the batch's +2 flat-Damage limit, and Eclipse in Hand drops its +2% Increase Damage Given rider (no offensive rider on a suppression capstone). Consistency pass: Stillness Breaks +3 → +4% (Exposure +7 → +8%, R19), which clears the near-tie that had kept the edge commit, so Unspoken Blow became a +2% Increase Damage Taken setup and Deafening Silence +2 Damage (burst, 40 → 42). Graph and names unchanged.",
+    "Burst setup (R9′, checked with near_tie.py): Unspoken Blow carries +2% Increase Damage Taken on Moonlit Inferno and Cascade. The capstone-free 01+02+06+09 reaches +6% against Stillness Breaks' +8%, two points clear (at +7% it was a near-tie); Bared to the Moon sits in the other branch and is never a legal fourth for the burst route, nor Unspoken Blow for Stillness Breaks, so they are not twins. Increase Damage Given would be a stacking twin of Held Breath (01+02+04+05 at +10%). Deafening Silence pays off with +2 Damage on all three strikes; the kit has no 50 EP row, so 40 → 42 crosses no tier.",
+    "Magnitudes: the two self buffs and the two exposure debuffs each compound on one hit, so Amplifier and Exposure are both +8% on two rows (×(1.43/1.35)² ≈ ×1.122; anchors Shakunetsu ×1.075, Blood-Enchanted Eyes ×1.115). R19 lets exposure match the amplifier: Moonlit Inferno and Cascade (100 AP) put both exposure rows live for the same two rounds from one turn and also lift allies' hits, while Rift and Cascade (120 AP) need two turns and overlap one round but reach every own hit on any target. Suppression is one single-target row, so it keeps +10% (×0.846) with no rider. Tipping the Balance's +2% Decrease Damage Given is the yin-yang 'balance' (yang pools in the hand as yin drains from the target), a small defensive secondary on the Moonlit cast the route already wants. Maxima over every legal allocation: Damage +2 (40 → 42), Increase Damage Given +8%, Decrease Damage Given +10%, Increase Damage Taken +8%; the top offensive package is ×1.156 (01+04+05+06, 01+02+04+05 or 01+06+09+10), and the burst package 01+02+03+06 is ×1.146 with its +2 Damage (R14′, under ×1.234).",
+    "Resolver and delivery (§3, §3b, §4b): stat filters on an element-less row bind only on elemental hits. Such a row matches every element-less hit of any stat type, and an elemental hit only when the row lists that hit's stat type; 'Highest' is the caster's highest offence, also on an enemy debuff. Moonlit Inferno's two debuffs list all four stat types, so they match every non-pierce hit. Cascade's exposure row (Highest) matches the caster's own strikes, but an ally's elemental hit only if it uses the Tenohira caster's highest offence stat. All five casts have cooldown 7; attacks cost 60 AP and Moonlit Inferno 40 AP. Each row is live the two rounds after its cast, never on its own hit; Rift's self buff is realized on the caster at cast (actions.ts 980–1004). IDG and IDT rows compound: four 35% rows on one hit are ×1.35⁴ ≈ ×3.32 before potency.",
+    "Fourth purchases: Burst → Waning Crescent or Held Breath; Amplifier → Waning Crescent (Unspoken Blow adds the same exposure without Waning Crescent's extra +2% suppression (37% instead of 39%)); Suppression → Waxing Crescent or Bared to the Moon; Exposure → Waxing Crescent or Hushed Inferno. In the in-kit solo rotation (R1 Moonlit Inferno + Cascade at 100 AP, R2 Rift, R3 Palm Strike; compounding IDG/IDT on the strikes) the three offense packages total 305.5 (Burst + Waning Crescent; 303.9 with Held Breath), 300.9 (Amplifier + Waning Crescent) and 305.6 (Exposure + Waxing Crescent) strike power against a 271.3 baseline; the best capstone-less build (01+02+06+09) gives 298.2. No fourth makes one route automatic. The burst adds +2 EP to every Yin-Yang cast in or out of a window, the opener included, and Rift's circle (57.5 per extra enemy against 57.2 for Amplifier + Waning Crescent); the Amplifier's 43% buffs lift every other own hit while live (basic attacks, weapons, element-less hits, any target) ×1.43/1.37 ≈ ×1.044 over the burst and exposure builds; Exposure's edge is a party."
+  ],
+  "risks": [
+    "Classification: Yin-Yang is shared with other bloodlines (expected under RUL-2026-10-03-005). 4 of 8 supported rows carry Yin-Yang; Moonlit Inferno has no Yin-Yang row, so in-kit it qualifies only through an authored jutsu classification (ENGINE_GAP_REGISTER G1), and it carries all of Suppression and half of Exposure. Off-kit Yin-Yang coverage is unverified; the burst route's +2 reaches any such Yin-Yang Damage row (an off-kit 50 EP one would read 52).",
+    "Exposure downstream: at 43% (×1.059 over the kit's 35%) Moonlit Inferno's debuff multiplies every non-pierce hit on the target from the caster, allies and weapons, so its value grows with party size. Cascade's (Highest, element-less) adds a second factor for the caster's strikes and for allies' element-less hits or hits of the caster's highest offence stat only. It is single-target, two rounds per cooldown 7.",
+    "Self-buff reach: Rift's buff (Highest, no element) and Cascade's (Fire/Lightning/Yin-Yang/None) raise every matching hit the caster lands while live, on any target, basic attacks included. Neither touches its own cast's hit, so Rift's circle gets only Cascade's buff, when Cascade was cast in an earlier round. The 25% + 0.15/level Increase Damage Given passive multiplies last.",
+    "Suppression rests on one Decrease Damage Given row (Moonlit Inferno, single target, two rounds per cooldown 7) and does not reduce pierce. It is the tree's only defensive route.",
+    "Off-trait: seal (Silent Palm Strike), buff and debuff prevention (Eternal Stillness) and move (Silent Rift) are unsupported, so no route strengthens the bloodline's Defensive and Control traits and Eternal Stillness is untouched. Skill-tree and bloodline effects are skipped in ranked modes. No combat simulation was performed beyond the in-kit rotation arithmetic in the design notes."
+  ],
+  "progression": {
+    "currency": "Bloodright Point",
+    "abbreviation": "BP",
+    "acquired_with": "silver",
+    "acquisition_cap": 4,
+    "node_cost": 1,
+    "silver_price": null,
+    "ownership_gate": "current bloodline",
+    "separate_from_normal_skill_points": true
+  },
+  "evaluation_level": 25,
+  "game_source_pin": "16498fd776fad9c91e4b84efed4380fe3a487050",
+  "snapshot": {
+    "public_kit_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "hidden_kit_snapshot": "2026-09-30"
+  },
+  "audit": {
+    "available_skills": 10,
+    "foundation_count": 2,
+    "hidden_art_count": 4,
+    "advanced_art_count": 4,
+    "bloodright_point_cap": 4,
+    "cost_per_skill": 1,
+    "maximum_advanced_arts": 1,
+    "minimum_two_advanced_cost": 5,
+    "maximum_parents_per_node": 1,
+    "maximum_depth": 3,
+    "legal_allocations_by_size": {
+      "0": 1,
+      "1": 2,
+      "2": 5,
+      "3": 10,
+      "4": 14
+    },
+    "full_budget_allocations": 14,
+    "non_dominated_full_allocations": 12,
+    "all_nodes_in_non_dominated_builds": true,
+    "nodes_absent_from_non_dominated_builds": [],
+    "maximum_tag_bonuses": {
+      "damage": 2,
+      "increasedamagegiven": 8,
+      "decreasedamagegiven": 10,
+      "increasedamagetaken": 8
+    },
+    "supported_rows_in_kit": 8,
+    "supported_rows_by_tag": {
+      "damage": 3,
+      "decreasedamagegiven": 1,
+      "increasedamagegiven": 2,
+      "increasedamagetaken": 2
+    },
+    "tags_targeted_by_tree": [
+      "damage",
+      "decreasedamagegiven",
+      "increasedamagegiven",
+      "increasedamagetaken"
+    ],
+    "supported_tags_in_kit_not_targeted": [],
+    "revision": "Fable proposal — 2026-10-04 batch rebalance / Yin-Yang classification / forked tree",
+    "source_snapshot": "2026-10-01T14:58:45.422376+00:00",
+    "limits": [
+      "Proposed element-wide potency classification; not implemented or verified in the live engine (needs a jutsu-classification resolver).",
+      "Bonuses apply to matching supported tags on all Yin-Yang jutsu. Off-kit jutsu of the element are in scope by rule; their count is unverified. Original combat elements, recipients and stat/general/element filters stay intact.",
+      "Bloodline id, equipment, injected-child provenance and jutsu names are not selectors; equipment only gates castability.",
+      "Coverage counts below are this kit's rows only. Every matching row on a jutsu receives each matching modifier; repeated rows are counted separately.",
+      "Damage values are raw power (EP), not final-damage percentages; every other modifier is shown with %. Percentage-valued tags are capped at 100.",
+      "Afterburn is an enemy debuff: for its existing duration, damage the target takes causes extra Afterburn damage at its percentage (60% cap per hit). It is not itself a damage instance; downstream instances were not simulated.",
+      "Unsupported tags (e.g. wound, shield, stun, pierce, absorb, poison, drain, summon) receive no bonuses.",
+      "No combat simulation. Budget and numerical non-dominance checks do not establish equal combat strength.",
+      "Main-tree effects, bloodline passives, equipment, AP, uptime and modifier delivery are outside this audit."
+    ],
+    "ceilings": {
+      "maximum_over_all_legal_allocations": {
+        "damage": 2,
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 8
+      },
+      "ceilings": {
+        "damage": 5,
+        "increasedamagegiven": 10,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 10
+      },
+      "hard_ceilings": {
+        "damage": 5,
+        "lifesteal": 5,
+        "afterburn": 15
+      },
+      "default_ceiling": 10,
+      "route_bands": [
+        5,
+        10,
+        15
+      ],
+      "routes": [
+        {
+          "advanced_art": "03",
+          "name": "Deafening Silence",
+          "primary_tag": "damage",
+          "path": [
+            "01",
+            "02",
+            "03"
+          ],
+          "steps": [
+            0,
+            0,
+            2
+          ],
+          "total": 2,
+          "on_band": false
+        },
+        {
+          "advanced_art": "05",
+          "name": "Tipping the Balance",
+          "primary_tag": "increasedamagegiven",
+          "path": [
+            "01",
+            "04",
+            "05"
+          ],
+          "steps": [
+            2,
+            2,
+            4
+          ],
+          "total": 8,
+          "on_band": false
+        },
+        {
+          "advanced_art": "08",
+          "name": "Eclipse in Hand",
+          "primary_tag": "decreasedamagegiven",
+          "path": [
+            "06",
+            "07",
+            "08"
+          ],
+          "steps": [
+            2,
+            3,
+            5
+          ],
+          "total": 10,
+          "on_band": true
+        },
+        {
+          "advanced_art": "10",
+          "name": "Stillness Breaks",
+          "primary_tag": "increasedamagetaken",
+          "path": [
+            "06",
+            "09",
+            "10"
+          ],
+          "steps": [
+            2,
+            2,
+            4
+          ],
+          "total": 8,
+          "on_band": false
+        }
+      ],
+      "director_exceptions": []
+    }
+  },
+  "legal_full_budget_builds": [
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 4,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "03",
+        "06"
+      ],
+      "bonuses": {
+        "damage": 2,
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "04",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "02",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 6
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "05",
+        "06"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 8,
+        "decreasedamagegiven": 4,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "07"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "04",
+        "06",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 4,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "08"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 2
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "07",
+        "09"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "01",
+        "06",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "increasedamagegiven": 2,
+        "decreasedamagegiven": 2,
+        "increasedamagetaken": 8
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 10,
+        "increasedamagetaken": 4
+      }
+    },
+    {
+      "ids": [
+        "06",
+        "07",
+        "09",
+        "10"
+      ],
+      "bonuses": {
+        "decreasedamagegiven": 5,
+        "increasedamagetaken": 8
+      }
+    }
+  ],
+  "design_review": {
+    "status": "Fable proposal (2026-10-04 batch rebalance); not director-approved",
+    "foundation_sentences": {
+      "01": "How do I make my own strikes count for more: open the target for a heavier blow, or charge my hand for the window?",
+      "06": "How do I weaken them: blunt their strikes or bare them to every hit?"
+    },
+    "route_identities": {
+      "03": "burst: Unspoken Blow's +2% exposure set up on Moonlit Inferno and Cascade, controlled +2 Damage payoff on all three Yin-Yang strikes (40 → 42, no tier crossed)",
+      "05": "sustained amplification: both self buffs lift every own hit in their windows; +2% suppression rider as the yin-yang balance",
+      "08": "suppression: the target hits softer on everyone; single-tag capstone",
+      "10": "exposure: every matching hit on the marked target lands harder, allies' included (×1.122 for the caster with both rows live; Moonlit Inferno's ×1.059 on allies' non-pierce hits)"
+    },
+    "director_review": "Roster questions: DQ-B (Stillness Breaks +8% Increase Damage Taken on 2 rows: Moonlit Inferno 35 → 43%; Yin-Yang Cascade 35 → 43%; ≈ ×1.122, against Shakunetsu Sakura ×1.075 and Blood-Enchanted Eyes ×1.115); trim option 2/2/3 (≈ ×1.106), which would put the capstone-free 01+02+06+09 (+6%) within 1 point again, so Unspoken Blow's setup would drop to +1% (R9′ setup size).",
+    "concerns": [
+      "In the solo rotation Burst + Waning Crescent (305.5) and Exposure + Waxing Crescent (305.6) lead Amplifier + Waning Crescent (300.9) by about 1.5%; the Amplifier's lead is reach: its 43% buffs lift every own hit on any target while live (×1.044 over the other builds' 37%).",
+      "Unspoken Blow and Bared to the Moon carry the same +2% exposure on the same two rows in different branches; they meet only in the capstone-free 01+02+06+09 (+6%), and outside the burst route Unspoken Blow is outbid or only ties (01+02+04+05 loses to Waning Crescent and 01+02+06+09 to Stillness Breaks; elsewhere it ties Bared to the Moon), so the setup is bought for its payoff.",
+      "Only Suppression is defensive, now single-tag; the kit's Defensive and Control rows cannot be reached by potency."
+    ]
+  }
+}
