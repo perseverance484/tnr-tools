@@ -1,5 +1,17 @@
 # Blood-Enchanted Eyes — Eight-Jutsu Showcase Readiness
 
+## CURRENT 2026-10-17 SUPERSESSION — ART STUDIO CLOSED
+
+**This document records an older in-progress and subsequently-stale 2026-10-15 snapshot. It is NOT the operative readiness status.** The director subsequently approved the Sanguine shadow-chakra SKULL and Unholy pulsing VEINS, approved the updated eight-icon collection and requested closeout. Eight current exact WebP exports, source originals, deterministic full-family showcase and internal thumbnail QC have now been packaged. All 74 local mechanical/source/ZIP/showcase checks passed.
+
+**Current owner:** [ART_STUDIO_CLOSEOUT_20261017.md](ART_STUDIO_CLOSEOUT_20261017.md) and [SHOWCASE_QC_20261017.json](SHOWCASE_QC_20261017.json). The current eight-icon archive is `bee_blood_enchanted_eyes_8_approved_jutsu_icons_20261017.zip` (SHA-256 `767449b94477056b240d9d8f08c59750bea51594c52a5c304a82437f14ab7172`). The latest source files/exports are in the 2026-10-17 record; prior `v1` Sanguine/Unholy and 2026-10-15 montage are historical.
+
+**Technical update:** the separate `JUTSU_ICON` alpha-optional target is now integrated on live `main@8c434dfeb3233dd3b3f68410c8361bc9e39ba061`, superseding old unresolved generic ICON alpha-conflict assumptions. Canonical `artpreflight.py --type JUTSU_ICON` still needs execution on the final outputs before publishing; local 74-check PASS is not an official preflight run. Zero game requests, writes, uploads or publication.
+
+---
+
+
+
 **Status:** **SHOWCASE STALE — NEW ART REVIEW OPEN (7/8 CURRENT RAW APPROVALS)** (2026-10-15). No final showcase approval or current eight-icon export pack. The earlier verified deterministic showcase is a historical snapshot only.  
 **Workstation:** `chatgpt/bee-jutsu-art-studio-20261014`.  
 **Workflow owner:** `docs/workflows/JUTSU_ICON_SHOWCASE.md`.  
