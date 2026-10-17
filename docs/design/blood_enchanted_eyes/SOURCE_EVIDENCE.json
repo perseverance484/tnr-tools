@@ -39,7 +39,9 @@
     "2026-10-15 corrected showcase: first attempt generated a reinterpreted montage with wrong Sanguine source (shelved 1000018478 instead of approved 1000018488), altered Unholy and misleading raw/JPEG KiB sizes. INVALIDATED. Replacement deterministic contact sheet composed only from eight exact current approved originals, after new 256px RGB lossless WebP VP8L exports. All source hashes, WebP bitstreams, byte limit and decoded pixel equality checked. No generated/reimagined tiles. One complete contact sheet created for director whole-family review; final acceptance pending.",
     "2026-10-15 approved Unholy Enhancement raw 1000018491.png (JPEG RGB 1536x1536, 417433 bytes, SHA256 22ff11964de0e97e8a1665a95f63b0501fb877df4ab1f0102df318bf08cf00bf). Earlier 1000018490 rework unsuccessful, old 1000018480 withdrawn. Eight current raw approvals reached. Individual new WebP exports are mechanically checked; shared ICON alpha preflight remains blocked/not run; no live requests or game writes.",
     "2026-10-15: director approved Sanguine Plague shadow-chakra skull in studio image-generation turn (not a separately isolated session). Exact generated RGB PNG `crimson_shadow_skull_vortex.png`, 1254x1254, 1893042 bytes, SHA-256 8f115286d8cd7fdaecfd018a4cf6f5349307a5bf90d9036001d0c8db33f97b7f, generation id a39d2da5-3ae3-469e-a778-bc772278896a. Supersedes previous approved `1000018488.png` corruption-front image and its `icon_bee_sanguine_plague_v1.webp` historical export. No processing/preflight/publishing claimed for skull.",
-    "2026-10-15: full-family review reopens Unholy Enhancement: `1000018491.png` ring-like broken crescents read too similarly to Ring of Spilled Blood and fail to convey empowerment. Director forbids Crimon Impact's upward energy-from-lower-center visual register. New exploratory idea: a limited network of substantially thick, interconnected shadow-chakra veins/channels carrying staggered pulses of scarlet power, with no literal blood or anatomy, no central impact, no ring, no vertical eruption and no fine-line clutter. New raw Unholy not yet generated or accepted. Prior deterministic eight-icon showcase and ZIP now STALE, cannot be final-approved."
+    "2026-10-15: full-family review reopens Unholy Enhancement: `1000018491.png` ring-like broken crescents read too similarly to Ring of Spilled Blood and fail to convey empowerment. Director forbids Crimon Impact's upward energy-from-lower-center visual register. New exploratory idea: a limited network of substantially thick, interconnected shadow-chakra veins/channels carrying staggered pulses of scarlet power, with no literal blood or anatomy, no central impact, no ring, no vertical eruption and no fine-line clutter. New raw Unholy not yet generated or accepted. Prior deterministic eight-icon showcase and ZIP now STALE, cannot be final-approved.",
+    "2026-10-17 BEE exact Unholy vein source `crimson_veins_of_dark_energy.png` SHA-256 6a3800f616c2761b10bdfb524841eaf45a521b79f3f9beed7e40a4420d68c119 (PNG RGB 1254x1254, 1909437 bytes) individually approved. Skull remains exact director-approved. All EIGHT raw versions now approved; prior corruption-front, old wave Unholy, previous imagegen galleries and old WebPs excluded. No game actions.",
+    "2026-10-17 FINAL LOCAL CLOSEOUT: restored and sha-checked six existing 256px lossless WebPs unchanged and generated two current new lossless WebPs: skull `icon_bee_sanguine_plague_v2.webp` 84216 bytes SHA a60eb0cf... and veins `icon_bee_unholy_enhancement_v2.webp` 84818 bytes SHA 6bd058a1...; each decoded pixel-identical to 256px LANCZOS source resize. ZIP with exactly eight WebPs `bee_blood_enchanted_eyes_8_approved_jutsu_icons_20261017.zip` SHA256 767449b94477056b240d9d8f08c59750bea51594c52a5c304a82437f14ab7172. Separate exact-originals ZIP SHA256 51195abb1b29d0a45d005a920acd1b07bfc8d60e9b32192b30a6192e57e9b18b. 74 independent local checks passed. New deterministic gallery SHA256 f7050731bf8512585aa8c8bde83ceb315950f0688069cbb83069aca1c1ad86ba. New main spec JUTSU_ICON alpha optional, superseding historical alpha blocking warning; official artpreflight NOT RUN. No live game requests/writes."
   ],
   "raw_images": [
     {
@@ -464,10 +466,36 @@
       "approval_note": "Director accepted exactly the generated black-crimson skull: 'Yeah that's perfect.' Supersedes previously approved amorphous corruption-front 1000018488.png.",
       "composition": "One enormous recognizable menacing skull formed from intertwined deep-charcoal shadow-chakra masses with crimson glowing skull features. Hollow eye sockets, nasal aperture and tapered tooth/jaw shapes define tangible skull at thumbnail size; surrounding black-crimson atmospheric wisps are secondary.",
       "git_binary_pinned": false,
-      "processed": false,
+      "processed": true,
       "preflight_clear": false,
       "live_verified": false,
       "permitted_reference_use": "Current approved BEE style/material and plague-skull subject exclusive to Sanguine. Do not copy skull/face into other jutsu."
+    },
+    {
+      "jutsu_name": "Unholy Enhancement",
+      "jutsu_id": "Nn75Lmvaep6oBQYH2BvVT",
+      "uploaded_filename": "crimson_veins_of_dark_energy.png",
+      "detected_format": "PNG",
+      "file_extension_mismatch": false,
+      "decoded_mode": "RGB",
+      "pixel_dimensions": [
+        1254,
+        1254
+      ],
+      "byte_size": 1909437,
+      "sha256": "6a3800f616c2761b10bdfb524841eaf45a521b79f3f9beed7e40a4420d68c119",
+      "source_kind": "director_approved_assistant_generated_image_in_studio_conversation_exact_file_available_in_closeout_source_zip",
+      "generation_id": "a06170a1-127a-4453-adb5-ff0b951ae318",
+      "visual_status": "RAW_VISUAL_APPROVED_CRIMSON_VEIN_EMPOWERMENT_2026_10_15",
+      "approved": true,
+      "approved_on": "2026-10-15",
+      "approval_note": "Director: 'Approved. Update icon sheet with the 2 new icons'. Exact approved Unholy image is this PNG of large connected crimson shadow-chakra veins, replacing the previous three-crescent radial wave version.",
+      "composition": "Interconnected black/charcoal shadow-chakra conduits with bright scarlet pulses coursing unevenly through several thick irregular branches; no central collision, vertical eruption, concentric circle, realistic blood or anatomy.",
+      "git_binary_pinned": false,
+      "processed": true,
+      "preflight_clear": false,
+      "live_verified": false,
+      "permitted_reference_use": "Approved BEE style/material only; distinct thick pulsing vein network is Unholy Enhancement-specific."
     }
   ],
   "processed_outputs": [
@@ -849,6 +877,92 @@
       "official_artpreflight_invoked": false,
       "official_artpreflight_verdict": "NOT_RUN: opaque jutsu background conflicts with existing shared ICON alpha validator; no false PASS claim",
       "upload_readback_verified": false
+    },
+    {
+      "jutsu_name": "Sanguine Plague",
+      "jutsu_id": "XIcRftgH-UOJCdl91wbRD",
+      "file": "icon_bee_sanguine_plague_v2.webp",
+      "source_filename": "crimson_shadow_skull_vortex.png",
+      "processed_from_received_sha256": "8f115286d8cd7fdaecfd018a4cf6f5349307a5bf90d9036001d0c8db33f97b7f",
+      "source_format": "PNG",
+      "source_actual_dimensions": [
+        1254,
+        1254
+      ],
+      "source_mode": "RGB",
+      "transform": "Pillow 12.3.0; PNG RGB decode, LANCZOS to 256×256, WEBP lossless=True method=6 exact=True; NO alpha fabrication, NO chroma key",
+      "format": "WebP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB",
+      "dimensions": [
+        256,
+        256
+      ],
+      "byte_size": 84216,
+      "sha256": "a60eb0cf2b2f79e900953f19453e8b194010cd312a94352ffd8c22d3ace2e449",
+      "decoded_pixel_equality_to_resized_input": true,
+      "tested_square": true,
+      "tested_minimum_source_width": true,
+      "tested_below_460800_working_ceiling": true,
+      "tested_thumbnail_sizes": [
+        125,
+        64,
+        32
+      ],
+      "thumbnail_visual_review": "PASS for assistant 125/64/32 family preview; image remains distinguishable at icon scale.",
+      "filename_contract": "exact @img filename must be icon_bee_sanguine_plague_v2.webp",
+      "approval": "DIRECTOR RAW VISUAL APPROVED; faithful lossless processed export; no live-game upload or readback claim",
+      "location": "conversation_generated_approved_pack_not_git_binary_pinned",
+      "git_binary_pinned": false,
+      "current_visual_approval": true,
+      "historical_qc_only": false,
+      "official_artpreflight_invoked": false,
+      "official_artpreflight_verdict": "NOT RUN IN THIS RUNTIME: current main JUTSU_ICON validator accepts opaque RGB; independent 74-check validation passed; invoke official artpreflight.py --type JUTSU_ICON before game upload",
+      "upload_readback_verified": false,
+      "delivery_eligible": false
+    },
+    {
+      "jutsu_name": "Unholy Enhancement",
+      "jutsu_id": "Nn75Lmvaep6oBQYH2BvVT",
+      "file": "icon_bee_unholy_enhancement_v2.webp",
+      "source_filename": "crimson_veins_of_dark_energy.png",
+      "processed_from_received_sha256": "6a3800f616c2761b10bdfb524841eaf45a521b79f3f9beed7e40a4420d68c119",
+      "source_format": "PNG",
+      "source_actual_dimensions": [
+        1254,
+        1254
+      ],
+      "source_mode": "RGB",
+      "transform": "Pillow 12.3.0; PNG RGB decode, LANCZOS to 256×256, WEBP lossless=True method=6 exact=True; NO alpha fabrication, NO chroma key",
+      "format": "WebP",
+      "codec": "VP8L lossless",
+      "color_mode": "RGB",
+      "dimensions": [
+        256,
+        256
+      ],
+      "byte_size": 84818,
+      "sha256": "6bd058a1c8ecf7a9fe9201424a4d97fb387a5e0cc26a198fc5a989cf3ba78368",
+      "decoded_pixel_equality_to_resized_input": true,
+      "tested_square": true,
+      "tested_minimum_source_width": true,
+      "tested_below_460800_working_ceiling": true,
+      "tested_thumbnail_sizes": [
+        125,
+        64,
+        32
+      ],
+      "thumbnail_visual_review": "PASS for assistant 125/64/32 family preview; image remains distinguishable at icon scale.",
+      "filename_contract": "exact @img filename must be icon_bee_unholy_enhancement_v2.webp",
+      "approval": "DIRECTOR RAW VISUAL APPROVED; faithful lossless processed export; no live-game upload or readback claim",
+      "location": "conversation_generated_approved_pack_not_git_binary_pinned",
+      "git_binary_pinned": false,
+      "current_visual_approval": true,
+      "historical_qc_only": false,
+      "official_artpreflight_invoked": false,
+      "official_artpreflight_verdict": "NOT RUN IN THIS RUNTIME: current main JUTSU_ICON validator accepts opaque RGB; independent 74-check validation passed; invoke official artpreflight.py --type JUTSU_ICON before game upload",
+      "upload_readback_verified": false,
+      "delivery_eligible": false
     }
   ],
   "live_game_requests": 0,
