@@ -6,7 +6,7 @@
   "rank": "A",
   "treatment": "Voidscar Amethyst",
   "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "specific_three_icon_art_approval": "PROPOSED_AWAITING_DIRECTOR",
+  "specific_three_icon_art_approval": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_zip": {
     "name": "BR-053_Oblivion_Seal.zip",
     "sha256": "f876734f53527d0b11aa0ffddcc084924d1d000f55bffe12682a727d16bc3760",
@@ -72,18 +72,19 @@
     "small_125_64_32_visual_inspection": "PASS",
     "neighbor_family_Cosmic_comparison": "COMPARED_V02_RICHER_ULTRAVIOLET_DISTINCT_FROM_MAGENTA_COSMIC",
     "preview": "PROGRAMMATIC_ONLY_FROM_SAVED_PIXEL_FILES",
-    "independent_offline_audit": "134_PASS_0_FAIL_SHARED_WITH_BR008",
-    "director_visual_approval": "PENDING",
+    "independent_offline_audit": "175_PASS_0_FAIL_SHARED_WITH_BR063",
+    "director_visual_approval": "APPROVED_ALL_THREE",
     "skillTree_image_field_preflight": "NOT_DONE",
     "git_binary_pin": "NOT_DONE",
     "forge_imagePack": "NOT_DONE",
-    "game_operator_readback": "NOT_DONE"
+    "game_operator_readback": "NOT_DONE",
+    "raw_and_webp_preserved_byte_identical": true
   },
   "progress": {
-    "already_visually_approved_bloodlines": 17,
-    "already_visually_approved_icons": 51,
-    "pending_proposed_three_icons": 3,
-    "do_not_count_pending": true
+    "already_visually_approved_bloodlines": 18,
+    "already_visually_approved_icons": 54,
+    "pending_proposed_three_icons": 0,
+    "do_not_count_pending": false
   },
   "scope": {
     "bloodright_skill_icons_only": true,
@@ -93,5 +94,14 @@
   },
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "approval_evidence": "Director replied 'Approved, next' after receiving the three BR-053 Voidscar Amethyst V02 tier original images and their exact programmatic comparison.",
+  "approved_package": {
+    "name": "BR-053_Oblivion_Seal_Bloodright_Approved_3_Icons_v02.zip",
+    "sha256": "9968ced5593b28914a694568f87a91ffdd7ddfe4654e1864d53f67a7a4339217",
+    "bytes": 5077446,
+    "raw_3_PNG_plus_3_WebP_bytes_identical_to_original_proposal": true,
+    "original_proposal_manifest_sha256_preserved_in_updated_approved_manifest": true
+  },
+  "next": "Await director review of BR-063 Shadow Weaver Moonless Filament individually saved three-tier proposal"
 }
