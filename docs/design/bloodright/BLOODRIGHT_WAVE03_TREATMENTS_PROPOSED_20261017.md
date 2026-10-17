@@ -1,6 +1,6 @@
 # Bloodright Wave 03 — Original-Art-Grounded Visual Treatments
 
-**Status:** FIVE SOURCE-GROUNDED WAVE 03 TREATMENTS DIRECTOR-APPROVED (2026-10-17). Finished tier trios Tetsugan, Shakunetsu Sakura and Crystal Essence VISUALLY APPROVED; Suragu completed tier trio QC PASS, final director art acceptance PENDING.
+**Status:** FIVE SOURCE-GROUNDED WAVE 03 TREATMENTS DIRECTOR-APPROVED (2026-10-17). Full Tetsugan, Shakunetsu Sakura, Crystal Essence and Suragu trios VISUALLY APPROVED. Vaporia complete three-icon family PRODUCED / independent QC PASS / final director artwork acceptance PENDING.
 **Scope:** Shared tier emblems only; never redesign captured jutsu art.
 **Evidence:** `BLOODRIGHT_WAVE03_SOURCE_INTAKE_20261017.json` plus portable ZIP (SHA-256 `27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844`); 31 original jutsu files and five identity images verified by exact archive SHA-256, internal manifest hashes, MIME and dimensions, with four jutsu + identity examined per family.
 **Geometry:** Foundation = nested elongated diamond; Hidden Art = nested diamond and paired crescents with crosspieces; Advanced Art = fixed multipoint starburst around diamond. These silhouettes, spacing and surrounding black negative space remain locked. All family treatment proposals modify interior palette/material, subtle edge glow and existing permitted texture only.
@@ -51,6 +51,12 @@ The director responded **“Approved”** to all five Wave 03 proposed material 
 
 **BR-083 Tetsugan:** three individually saved PNG masters plus 256px lossless WebPs produced under the approved Ward-Forged Steel treatment. Exact master-intensity (max RGB for every pixel) and geometry-threshold IoU verified for all three. Manual thumbnail review and comparison against neighboring family palette examples performed; source and export hashes and status documented in `BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json`. Portable Tetsugan proposed package SHA-256 `1d839cd52b309729de179574dc3b017e667cc0b2c105dd92b7c7ff4928eab0aa`, **not Git-pinned binaries**. **Art acceptance awaiting director review; no Wave 03 icons promoted to visually approved counts.**
 
+## 2026-10-17 — Suragu accepted; Vaporia Hydrothermal Crucible ready for review
+
+- **Suragu (BR-074):** director accepted complete three-emblem Obsidian Magma set as originally proposed. Exact PNG and lossless WebP source bytes preserved unchanged. Approved portable ZIP SHA-256 `0d2ec1a37b53fa1235cde54b7fafcfd7e37d6d94a990b10db66496e3bcf4200d`, ledger `BLOODRIGHT_WAVE03_BR074_PROPOSAL_QC_20261017.json`.
+- **Vaporia (BR-090):** separate Foundation, Hidden Art and Advanced Art designs with locked original geometry and the pre-approved electric azure waterglass plus orange molten reservoir treatment. Exact per-pixel source master maxRGB and threshold IoU: pass all 3 tiers; source manifest image hashes (5 jutsu + identity), RGB 256px VP8L WebP decoded equality, packaging and 125/64/32/neighbor checks: pass. Independently verified **67/67** offline checks. Proposed ZIP `BR-090_Vaporia_Bloodright_Proposed_3_Icons.zip` SHA-256 `9a7ef14b3de866ea943a188ea861c1d2553b26b84f34e2b98ee76a4c47636a2e`; per-tier hashes `BLOODRIGHT_WAVE03_BR090_PROPOSAL_QC_20261017.json`. **Final three visual assets are not yet director-accepted**, despite treatment approval.
+- **Boundary:** all 15 icons in a wave-wide sheet must be assembled programmatically from preserved image binaries *after* director acceptance; do not generate a new illustrative montage or alter existing accepted art. Field-specific skillTree.image preflight, immutable Git pins/imagePack and game actions are Fable/operator tasks, not art approval.
+
 ## 2026-10-17 — Crystal Essence approved, Suragu complete and awaiting director
 
 - **Crystal Essence (BR-020):** complete 3-icon Prismatic Jadeglass family visually accepted, original PNG and WebP binaries preserved, approved ZIP `BR-020_Crystal_Essence_Bloodright_Approved_3_Icons.zip` SHA-256 `d849e456f4731c17fa285154c8a68a4f3d2fb3b680ea89116f10477c2337aa08`. See `BLOODRIGHT_WAVE03_BR020_PROPOSAL_QC_20261017.json`.
@@ -75,4 +81,4 @@ The director approved all five treatment cards. Now, one bloodline at a time in 
 
 **Mechanical boundary:** current `main`'s `JUTSU_ICON` alpha-optional target is **only for `jutsu.image`**, not proof of opaque RGB acceptance for Bloodright `skillTree.image`. The art and main branch copies differ; validate the proper field against its real contract. Separate Fable implementation and user-controlled Forge/live operations remain pending.
 
-**Current completion:** 13/29 bloodlines / 39/87 icons visually approved; Wave 3 3/5 families accepted (Tetsugan, Shakunetsu Sakura, Crystal Essence), one additional three-icon family produced but NOT YET DIRECTOR ACCEPTED (Suragu), Vaporia pending. **Live requests/writes:** 0/0. **Credentials:** none.
+**Current completion:** 14/29 bloodlines / 42/87 icons visually approved. Wave 3 4/5 trios accepted (Tetsugan, Shakunetsu Sakura, Crystal Essence, Suragu) and final trio BR-090 Vaporia proposed with file/QC gates passed but DIRECTOR VISUAL ACCEPTANCE PENDING. **Live requests/writes:** 0/0. **Credentials:** none.
