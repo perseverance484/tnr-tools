@@ -5,7 +5,7 @@
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Legacy engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
-// Scoped Bloodright contract: studie-tech/TheNinjaRPG@1ccdaf078a58101872675e459c8e755b495d4c83.
+// Scoped Bloodright contract: studie-tech/TheNinjaRPG@94f9d84c770004172ba423ada3d6710849acc451.
 (() => {
   var JOURNAL_VERSION = 1;
   var KEY_PREFIX = "tnr_forge_job_v1:";
@@ -324,12 +324,12 @@
 
   var contract_default = {
     _meta: {
-      pin: "1ccdaf078a58101872675e459c8e755b495d4c83",
+      pin: "94f9d84c770004172ba423ada3d6710849acc451",
       scope: "Bloodright potency import only; other effects intentionally refused",
       sources: {
-        "app/src/validators/combat.ts": "a5de980c95409ca8d97fda8f6dad0b0bc302c8d1704455e594d2d4f97608723a",
-        "app/src/server/api/routers/skillTree.ts": "cc5808f36f910f8ec3d957dbc18325ddb008db1c4d0a47a3ea0fba09430c6835",
-        "app/drizzle/constants.ts": "f57cec468ccd834f33100d67b57711c7e7ec76f09d6da9b87e98ad87c2637000",
+        "app/src/validators/combat.ts": "a7530df9e0537d19aaa2ae3ad06ebe0da6c3f12a636c79b93932f57b4a02ff0a",
+        "app/src/server/api/routers/skillTree.ts": "9c8a498cf847639b8638fd296284fc428b82cbf0f0826d0bc3d8de98dc52f374",
+        "app/drizzle/constants.ts": "40590ebb64d483677b5fc5cc2629169f6b7f4b6a5ed950d49ae3dae03200603b",
         "app/src/validators/skillTree.ts": "7cea7b987f5db45a21f72717ebec0300ef865b453a7b448d1c5fa8dcc2b97040"
       }
     },
@@ -369,6 +369,7 @@
       "powerPerLevel",
       "direction",
       "target",
+      "coordinateTargeting",
       "friendlyFire",
       "calculation",
       "affectedTag",
@@ -386,7 +387,14 @@
       "lifesteal",
       "reflect",
       "increaseheal",
-      "heal"
+      "heal",
+      "vamp",
+      "absorb",
+      "consume",
+      "shield",
+      "pierce",
+      "drain",
+      "poison"
     ],
     elements: [
       "Fire",
@@ -2553,6 +2561,7 @@
       check(Array.isArray(e.affectedElements) && e.affectedElements.length > 0 && e.affectedElements.every((v) => contract_default.elements.includes(v)), `${where}: resolve affectedElements explicitly`);
       for (const k of ["description", "staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]) check(str(e[k]), `${where}: ${k} must be text`);
       check(e.timeTracker === void 0, `${where}: runtime timeTracker is not importable`);
+      check(e.coordinateTargeting == null, `${where}: coordinateTargeting is not importable`);
     }
     if (!preCreate && live) check(str(d.image) && !!d.image, "skill image must be preserved or supplied");
     return out;

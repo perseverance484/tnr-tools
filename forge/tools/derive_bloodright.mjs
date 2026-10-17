@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-const pin = "1ccdaf078a58101872675e459c8e755b495d4c83";
+const pin = "94f9d84c770004172ba423ada3d6710849acc451";
 const root = process.argv[2];
 if (!root) throw new Error("usage: node tools/derive_bloodright.mjs GAME_CHECKOUT [--check]");
 const actual = execFileSync("git", ["-C", root, "rev-parse", "HEAD"], { encoding: "utf8" }).trim();
@@ -38,7 +38,7 @@ for (const p of files) {
   if (!pinned.equals(readFileSync(`${root}/${p}`))) throw new Error(`dirty source file: ${p}`);
 }
 const contract = { _meta: { pin, scope: "Bloodright potency import only; other effects intentionally refused", sources: Object.fromEntries(files.map(p => [p, createHash("sha256").update(readFileSync(`${root}/${p}`)).digest("hex")])) }, skillFields, folderFields, effectFields, tags, elements, procedures };
-if (skillFields.length !== 14 || folderFields.length !== 5 || tags.length !== 10 || !elements.includes("Shadow")) throw new Error("audited extraction shape changed");
+if (skillFields.length !== 14 || folderFields.length !== 5 || tags.length !== 17 || !elements.includes("Shadow")) throw new Error("audited extraction shape changed");
 const out = fileURLToPath(new URL("../src/bloodright/contract.json", import.meta.url));
 const text = JSON.stringify(contract, null, 2) + "\n";
 if (process.argv.includes("--check")) { if (readFileSync(out, "utf8") !== text) throw new Error("Bloodright projection drift"); }
