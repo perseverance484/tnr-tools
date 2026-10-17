@@ -1,0 +1,95 @@
+{
+  "schema": "tnr.bloodright.wave03.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-064",
+  "family": "Shakunetsu Sakura",
+  "rank": "A",
+  "theme": "Midnight Blossomfire",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "name": "BR-064_Shakunetsu_Sakura.zip",
+    "sha256": "08ae88c6b8b2cf6d20bcae02402059385b182551e39ac34c4834c68142355f2b",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "manifest_sha256_verification": "PASS_6"
+  },
+  "reference_master_zip": {
+    "name": "Bloodright_Wave03_Production_Starter_20261017.zip",
+    "sha256": "baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30"
+  },
+  "production": {
+    "method": "One coherent deterministic appearance recipe for Foundation/Hidden/Advanced, retaining the exact per-pixel max(R,G,B) master geometry",
+    "raw": "Three separately saved 1254x1254 RGB PNG originals",
+    "exports": "Pillow LANCZOS 256x256 lossless RGB WebP VP8L",
+    "material": "Sakura-pink fuchsia and violet-crimson heat-treated enamel, vivid orange/coral ignition near lower surfaces, small champagne-pearl flecks within extant facets",
+    "image_gen_sheet_used": false,
+    "palette_from": "source-inspected Dragon Pearl / Dancing Embers / Dragon Tree / Sakura-ame and identity artwork, director treatment approved",
+    "rejected_forms": "No external cherry tree, blossom ring, separate flames, characters, weapons, or new icon geometry"
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_sha256": "e343cbcdb2a7b06d7815809a720ccdfa1461494c0a42465d6d2eeccbec4b51f1",
+      "webp_sha256": "d2993f53702064c325a70cce3ee62f2b363ce2ac8dfd58d8d2ff7ee3ebc1e967",
+      "webp_bytes": 40372
+    },
+    {
+      "tier": "hidden_art",
+      "raw_sha256": "d7cf6c0a7d4a270ac5761aa51c2bdd8c2f9dfdf7f6b848f13c8d9181c3ba7373",
+      "webp_sha256": "48f43ea1a157ef032ce6507bb21b592cb0c58ed382e020dbfeb0c7acd2fdf6f0",
+      "webp_bytes": 64930
+    },
+    {
+      "tier": "advanced_art",
+      "raw_sha256": "f1eb6823918ee5b6a36b4bca6629a7fd2a1e157ab6a858dc4a75441e99d1ab42",
+      "webp_sha256": "433906e2f3f1a36c3cac9981019d6044196f495e2fa4e7f40e0cd73b54f93198",
+      "webp_bytes": 56020
+    }
+  ],
+  "package": {
+    "name": "BR-064_Shakunetsu_Sakura_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "e8a384182a4d927c42ac590ac7c91a7cbecc5bd7811dc2bce6340a1907d828b6",
+    "bytes": 5211666
+  },
+  "previews": [
+    {
+      "file": "qc/BR-064_Shakunetsu_Sakura_Proposed_Family_Comparison.png",
+      "status": "PROGRAMMATIC_FROM_THREE_SAVED_PNGS"
+    },
+    {
+      "file": "qc/BR-064_Shakunetsu_Sakura_Proposed_125_64_32.png",
+      "status": "PROGRAMMATIC_DISPLAY_QC"
+    },
+    {
+      "file": "qc/BR-064_Shakunetsu_Sakura_Neighbor_Foundation_Contrast.png",
+      "status": "PROGRAMMATIC_WITH_TETSU_TAIYO_NIGHT_PARADE_GODSTORM"
+    }
+  ],
+  "qc": {
+    "source_zip_crc_and_manifest_sha": "PASS_6",
+    "three_png_rgb_1254": "PASS",
+    "machine_master_maxRGB_pixel_equality": "PASS_3_OF_3",
+    "threshold_geometry_iou_1_16_64_128_192_240": "EXACT_1.000_ALL",
+    "three_webp_256_square_lossless_vp8l": "PASS",
+    "three_exports_decoded_equal_Lanczos_resize": "PASS",
+    "three_webps_below_460800_bytes": "PASS",
+    "corners_black": "PASS",
+    "visual_125_64_32": "PASS_INTERNAL_DISPLAY_CHECK; DIRECTOR_ACCEPTANCE_PENDING",
+    "compared_to_neighbor_families": "PASS_DISTINCT_FUCHSIA_AND_CORAL",
+    "formal_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_NOT_VERIFIED",
+    "immutable_git_art_binary_pin": "NOT_DONE",
+    "forge_imagePack_binding": "NOT_DONE",
+    "operator_live_import_and_readback": "NOT_DONE"
+  },
+  "boundaries": {
+    "opaque_rgb_background": "DIRECTOR_APPROVED_VISUAL_DIRECTION_NOT_FORMAL_UPLOAD_PREFLIGHT",
+    "jutsu_image_JUTSU_ICON_exception": "DOES_NOT_APPLY_TO_skillTree.image",
+    "underlying_tier_png_and_webp": "EXTERNAL_CONVERSATION_DELIVERABLE_NOT_GIT_BINARIES",
+    "current_approved_count": "11_29_FAMILIES__33_87_ICONS",
+    "next": "Director accepts/rejects Shakunetsu Sakura complete trio; then BR-020 Crystal Essence"
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false
+}
