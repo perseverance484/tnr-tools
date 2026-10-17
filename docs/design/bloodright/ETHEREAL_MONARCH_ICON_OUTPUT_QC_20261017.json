@@ -1,0 +1,165 @@
+{
+  "kind": "tnr.bloodright.icon-output-qc/1",
+  "date": "2026-10-17",
+  "scope": "Bloodright TIER EMBLEMS (NOT six separate Ethereal Monarch jutsu icons)",
+  "roster_code": "BR-023",
+  "bloodline_id": "IxhIoLEmznqdcnc_6MCN9",
+  "bloodline": "Ethereal Monarch",
+  "rank": "S",
+  "director_approved": {
+    "raw_visual": "VISUAL APPROVED; approved exact teal recolor of previously accepted three individual Ethereal Monarch tier-emblem renders",
+    "style": "luminous teal/turquoise with selective cyan and white highlights; opaque black backgrounds",
+    "silhouettes": "Foundation nested diamond; Hidden Art nested diamond with two curved crescent-side motifs/crosspieces; Advanced Art nested diamond with sharp multipoint starburst",
+    "approved_in": "2026-10-17 Bloodright Art Workstation conversation; user: 'Approved, perfect.'",
+    "image_creation_scope": "single three-icon family reskin; no changes to original six-jutsu source pack"
+  },
+  "reference_source": {
+    "zip": "BR-023_Ethereal_Monarch.zip",
+    "zip_sha256": "46ec1e69f1c3668cf14688033ba61e2199cb63be53ae29c6037c21955f67e30d",
+    "contents": "six original bloodline jutsu reference PNGs and one bloodline identity JPG; Forge capture metadata included",
+    "repo_binary_pinned": false
+  },
+  "repo_sources": {
+    "art_studio": "chatgpt/bloodright-icon-studio-20261016@792742c264c70c29733306f22962d7b4aad48fad",
+    "live_main_at_processing": "ef184ae5c66f76baca65ae9926e0c4271e5111fa",
+    "icon_spec_path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json"
+  },
+  "output_target": "ICON (provisional visual/export dimensions only; skillTree.image contract pending independent verification)",
+  "file_type": "lossless WebP (VP8L), opaque RGB",
+  "dimensions": [
+    256,
+    256
+  ],
+  "working_cap_bytes": 460800,
+  "hard_cap_bytes": 524288,
+  "method": "Pillow Image.Resampling.LANCZOS 1254x1254 -> 256x256, image.save(format='WEBP', lossless=True, method=6, exact=True); no hue change to accepted teal raw PNGs during export",
+  "exact_color_only_recolor_evidence": {
+    "metric": "For each tier, per-pixel maximum of (R,G,B) channels in approved teal PNG equals earlier accepted cyan raw PNG at each of 1254x1254 pixels; original silhouette/lightness/texture positioning is unchanged.",
+    "max_rgb_channel_equal_per_pixel": true,
+    "thresholded_silhouette_mask_iou_at_20_64_128": 1
+  },
+  "artifacts": [
+    {
+      "tier": "Foundation",
+      "approved_raw": {
+        "source_name": "Ethereal_Monarch_Foundation_TEAL_1254.png",
+        "sha256": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+        "bytes": 1360869,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "format": "PNG RGB"
+      },
+      "prior_accepted_cyan_render": {
+        "source_name": "mystical_crystalline_celestial_sigil.png",
+        "sha256": "005596bfcbe67740881f858740f9e7397c0aaf20ee9a051b30715573cb8518ff",
+        "role": "geometry/lightness verification only"
+      },
+      "processed": {
+        "upload_filename": "br023_ethereal_monarch_foundation_teal_v01.webp",
+        "sha256": "cf84d626429bdb439470231631457e47e21a4d207797d58d4373159860a5d219",
+        "bytes": 50572,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGB",
+        "format": "WebP",
+        "codec": "VP8L lossless"
+      }
+    },
+    {
+      "tier": "Hidden Art",
+      "approved_raw": {
+        "source_name": "Ethereal_Monarch_Hidden_Art_TEAL_1254.png",
+        "sha256": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+        "bytes": 1906057,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "format": "PNG RGB"
+      },
+      "prior_accepted_cyan_render": {
+        "source_name": "ethereal_crystalline_monarch_sigil.png",
+        "sha256": "63bfbdcf08d7b3a95924b068d33f97c6dd5d8088f0118622a6c2fdbeb6234461",
+        "role": "geometry/lightness verification only"
+      },
+      "processed": {
+        "upload_filename": "br023_ethereal_monarch_hidden_art_teal_v01.webp",
+        "sha256": "c50328595ae5ec603768ef5e2fcf463d043d844d3ae2032fa503890bfd0d7159",
+        "bytes": 83378,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGB",
+        "format": "WebP",
+        "codec": "VP8L lossless"
+      }
+    },
+    {
+      "tier": "Advanced Art",
+      "approved_raw": {
+        "source_name": "Ethereal_Monarch_Advanced_Art_TEAL_1254.png",
+        "sha256": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014",
+        "bytes": 1662354,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "format": "PNG RGB"
+      },
+      "prior_accepted_cyan_render": {
+        "source_name": "crystalline_cyan_starburst_sigil.png",
+        "sha256": "052aaf7bdcbd20590c3579ad3bf67d1daadc975d74119bdda11cdda55d0483fd",
+        "role": "geometry/lightness verification only"
+      },
+      "processed": {
+        "upload_filename": "br023_ethereal_monarch_advanced_art_teal_v01.webp",
+        "sha256": "99be189fe720856ac32a2df449b5449fe11577cd173712d4eb8da69893cad4ca",
+        "bytes": 70524,
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGB",
+        "format": "WebP",
+        "codec": "VP8L lossless"
+      }
+    }
+  ],
+  "checked": {
+    "raw_decode_and_dimensions": true,
+    "source_color_only_geometry_invariance": true,
+    "lossless_webp_decoded_pixel_equality_to_resized_source": true,
+    "aspect_and_min_width": true,
+    "byte_caps": true,
+    "black_near_black_corners_max_channel_lte_3": true,
+    "thumbnail_visual_inspection_125_64_32": true,
+    "zip_crc": true,
+    "zip_member_sha_equality": true
+  },
+  "artifacts_delivery": {
+    "small_export_zip": "BR-023_Ethereal_Monarch_Bloodright_3_WebP_256px.zip",
+    "small_export_zip_bytes": 205085,
+    "small_export_zip_sha256": "2a8e162867bdb4001c8fe956791aafa43a6a60d2192670ac6522a7bcdf3eba82",
+    "full_with_raw_qc_zip": "BR-023_Ethereal_Monarch_Bloodright_Approved_3_Icons.zip",
+    "full_zip_bytes": 5244132,
+    "full_zip_sha256": "950e524d740752583812e26c81c4e3926568b2a3a53291406eb339a704f4a03d",
+    "binary_location": "Conversation deliverables only; not Git pinned; operator/Fable must ingest verified actual bytes before generating an immutable Forge imagePack."
+  },
+  "formal_preflight": {
+    "invoked": false,
+    "canonical_pass": false,
+    "expected_blocker": "Shared targets.ICON has chroma_key lime and requires RGBA; approved Bloodright skill emblems intentionally use opaque RGB black. JUTSU_ICON optional-alpha rule applies to jutsu.image only, and is not evidence for skillTree.image. Verify field consumer and resolve dedicated target/preflight through Fable review, or independently approved evidence-backed exception.",
+    "mechanical_status": "BLOCKED_PENDING_SKILLTREE_IMAGE_CONTRACT"
+  },
+  "forge_import_status": "NOT_READY: five-BP source, costs/durations, potency mechanics, icon imagePack and live preview need separate gates; no structural manifest staged",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false,
+  "repo_binary_art_committed": false,
+  "record_status": "THREE_VISUAL_APPROVED_THREE_LOSSLESS_WEBP_QC_PASSED; FORMAL_PREFLIGHT_UNCLEARED; NO_GAME_ACTION"
+}
