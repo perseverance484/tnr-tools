@@ -1,0 +1,38 @@
+{
+  "schema": "tnr.bloodright.wave04.proposed-art-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-032",
+  "family": "Heavenly Sonata",
+  "theme": "Celestial Harmonics",
+  "palette": "indigo opal, cyan resonance, rose and golden accents",
+  "material_approved": "YES",
+  "three_generated_emblems": "PROPOSED_AWAITING_DIRECTOR",
+  "source_zip_sha256": "ad14c869441a2671a01498011e7490e6b8e548cc01c54135c40b01f81a958fb3",
+  "raw_png_sha256": [
+    "74d90189f4691bb011e62041d91700f20a5e9587838934f1bbcd3255ab597082",
+    "e86d22e67c0b4d402022940fd136217445504ae0e30ad7ef349f721236a8127a",
+    "500e0391f4292d782c76f06d973309b82899dcd937b6afa882004c3c9a84d639"
+  ],
+  "webp_sha256": [
+    "3a567c4877a92a1de09d27967c2d4d59ad2349826c3276432edbe17f0fd5e06d",
+    "37a26bd272f30af4b6c2696d6b3825ac7cbfa170e52dc741a33313aade61a5e4",
+    "c3ae917fa7d845c50bca6ca40e6308ac2d817158312efc7c3b7c1294bd0e644c"
+  ],
+  "webp_bytes": [
+    43620,
+    71014,
+    60568
+  ],
+  "geometry": "PASS_3_exact_pixel_maxRGB; six_threshold_mask_IoU_1.0_all_three",
+  "offline_QC": "3 separate 1254 RGB PNG, 3 lossless VP8L RGB WebP 256, decoded pixel equality, bytes under cap, black corners and ZIP CRC all PASS",
+  "package": "BR-032_Heavenly_Sonata_Bloodright_Proposed_3_Icons.zip",
+  "package_sha256": "7aa80dc811e53ac88586dda7b28075a131a96cedf94a1af6361a8e695d9f2e21",
+  "independent_audit": "97 PASS, zero failures combined with approved Shadow Weaver Ebony Silk",
+  "technical_gates": {
+    "skillTree_image_preflight": "NOT_RUN",
+    "binary_pin": "NOT_DONE",
+    "Forge_imagePack": "NOT_DONE",
+    "live_requests": 0,
+    "live_writes": 0
+  }
+}
