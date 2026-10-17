@@ -1,6 +1,33 @@
 # Copy-ready — Start a Bloodline Jutsu Icon Art Studio
 
-**Attach one original bloodline jutsu-art ZIP** to a new TNR Tools project conversation and paste only the text below. No extra reference screenshots or separate manifest are needed if the ZIP already includes exact names, IDs and images.
+**Attach one original bloodline jutsu-art ZIP** to a new TNR Tools project conversation. The short mobile prompt is sufficient; the expanded version below is available when a new thread needs more explicit guardrails. No extra reference screenshots or separate manifest are needed if the ZIP already includes exact names, IDs and images.
+
+## Preferred short mobile prompt
+
+~~~text
+Repository: perseverance484/tnr-tools
+Workflow branch (not yet main):
+chatgpt/bloodline-jutsu-studio-zip-first-20261017
+Task: BLOODLINE JUTSU ICON ART STUDIO, ZIP-FIRST.
+Input: attached original bloodline jutsu-art ZIP.
+
+Verify live refs; read required TNR bootstrap plus
+docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md,
+ISOLATED_ART_GENERATION.md and JUTSU_ICON_SHOWCASE.md
+from their verified exact refs. Batch repo reads.
+Safely inspect/hash/decode the ZIP; map exact jutsu
+names/IDs/count; inspect the actual individual art.
+Use any actually accessible approved BBE/BEE/Vaporia
+icon as STYLE ONLY, otherwise mark style pixels pending.
+Return one compact inventory, family treatment card,
+one UNIQUE technique-first silhouette for every jutsu,
+and the first proposed isolated-generation brief.
+Actors only when necessary; full-bleed opaque is fine.
+This is NOT Bloodright. NO generation in this initial
+studio turn, no live game requests/writes.
+~~~
+
+## Expanded initialization prompt
 
 ~~~text
 Repository: perseverance484/tnr-tools
