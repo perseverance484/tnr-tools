@@ -20,6 +20,13 @@
 - **Current queue: 9/87 visually approved tier emblems and 9/87 format/byte-QC exported** across BEE, BBE, Ethereal Monarch. **0/29 formally preflight-cleared sets**: the opaque shared `ICON` alpha contract (and the unverified `skillTree.image` target) remains unresolved. The separately introduced `JUTSU_ICON` alpha exception applies to `jutsu.image`, **not Bloodright skill icons**. Visual acceptance does not equal Forge imagePack provenance, validated mechanical readiness, or a game upload.
 - **Next tier-emblem target:** Taiyo Kami, once its actual bloodline jutsu reference ZIP is supplied and inspected. **Separate structural-release gate:** Fable must prepare Ethereal Monarch's current intended five-BP source and approved Silver/duration values plus exact source hashes/imagePack before any hidden import; no agent game request/write was performed.
   
+## 2026-10-17 — Factory/batch production METHOD APPROVED (RUL-2026-10-17-004)
+
+- **Director approved both** the [geometry-locked three-emblem reskin factory](BLOODRIGHT_RESKIN_FACTORY_PROPOSAL_20261017.md) and **4–6-bloodline comparative approval waves**. This supersedes the earlier three separate fresh generation conversations **for Bloodright tier emblems only**. The distinct per-jutsu rework process is unaffected.
+- **Priority:** produce complete, consistent Foundation / Hidden Art / Advanced Art groups, with one **dedicated clean production session per bloodline** or one exact-geometry masked processor applying the same theme recipe to three individual masters. Generative contact sheets and redesigned tier silhouettes are not accepted. Each trio requires its own director acceptance within a wave.
+- **Approved contrasting pilot:** `BR-075 Taiyo Kami` and `BR-029 Godstorm Eclipse`, requiring the **actual director-supplied source-art ZIPs** and inspected jutsu pixels before theme proposals. **Pilot art is not produced yet.** Grouped pilot review covers **two bloodlines / six source images**; after method calibration, review remaining **24 bloodlines in waves of ~4–6**.
+- **No new art approvals by adopting the method:** the previously accepted 9/87 remain preserved, leaving **26 sets / 78 symbols**. Opaque solid black tier backgrounds remain approved; no rarity-frame-driven creative revisions or artificial alpha. Actual `skillTree.image` preflight/Forge wiring still needs a field-verified technical acceptance path and independently accepted file hashes; do not report that gate passed based on this approval.
+
 ## Scope and progress
 
 - **29 bloodlines:** 19 A / 6 S / 4 H. **87 required icons**: one Foundation, one Hidden Art, and one Advanced Art per bloodline, reused within each bloodline's tree.
@@ -108,4 +115,4 @@ The approved black-backed raw PNGs were resized using Pillow Lanczos and exporte
 
 ## Next production action
 
-**BEE / BBE / Ethereal Monarch three-icon sets visually approved and exported**; all three meet lossless byte/format and raw-source pixel/QC checks, but the skillTree icon alpha/preflight contract remains OPEN. **Next Bloodright tier art: Taiyo Kami** (obtain and inspect its actual jutsu-art ZIP). Structural rollout of the approved sets requires separate provenance, five-BP source, economics and operator-controlled import validation.
+**BEE / BBE / Ethereal Monarch three-icon sets visually approved and exported (9/87)**; all three meet lossless byte/format and raw-source pixel/QC checks, but the skillTree icon alpha/preflight contract remains OPEN. **Next Bloodright tier-art factory pilot: Taiyo Kami + Godstorm Eclipse** (obtain and inspect both original reference ZIPs). User approval of the method is not approval of either new image set. After pilot acceptance, process the remaining 24 bloodlines in ~4–6-family comparative batches. Structural rollout requires separate provenance, five-BP sources, per-tree economics and operator-controlled import validation.
