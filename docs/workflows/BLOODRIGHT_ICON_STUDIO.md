@@ -1,6 +1,6 @@
 # Workflow — Bloodright Tier-Icon Art Studio
 
-**Status:** DIRECTOR-APPROVED, 2026-10-16; art-production workflow, not live-game authorization.
+**Status:** DIRECTOR-APPROVED, 2026-10-16; **geometry-locked reskin factory and grouped review approved 2026-10-17** (RUL-2026-10-17-004 on this branch); art-production workflow, not live-game authorization.
 **Lead:** Art Director; **support:** Image Production.
 **Source lineage:** 2026-10-08 tracker `chatgpt/bloodright-icon-production-tracker-20261008@c85c1ea834e24315b5688f73a65c35479b8963e6`; operational baseline `main@99e86dc549b86f1f4a5846c0e509fa6bc15b3463`.
 **Decision history:** `docs/RULINGS.md`, RUL-2026-10-16-004.
@@ -27,29 +27,35 @@ This is a **shape system**, not an invitation to invent a different symbol for e
 
 **Allowed per-bloodline variation:** verified palette, intrinsic material/faceting, internal texture, small controlled chakra glow and edge treatment. Derived from that bloodline's *actual existing jutsu art* and user-approved treatment card; never infer from the name or classification alone. Preserve contrast against solid black.
 
-**Director-approved background:** **solid black / near-black, opaque**, on every Bloodright tier icon. No chroma-key lime, transparency simulation, frame/UI, text, watermark, vignette scene or decorative background. This specific Bloodright art ruling is distinct from the separately approved designed-background policy for *jutsu* icons.
+**Director-approved background:** **solid black / near-black, opaque**, on every Bloodright tier icon. No chroma-key lime, transparency simulation, frame/UI, text, watermark, vignette scene or decorative background. **Do not redesign these emblems around rarity frames or fabricate alpha:** visual use of full-bleed opaque black is an explicit director decision. The separate jutsu-icon background approval remains in its own workflow; it is not the source of the Bloodright `skillTree.image` preflight contract.
 
 ## 3. Start a bloodline (Art Studio / persistent workspace)
 
 1. Verify live repository baseline and exact tracker SHA; read current art authority, bloodline ID/rank, kit source and prior approval/QC evidence.
-2. Open **2–4 exact original bloodline jutsu icons** and, when present, its identity image. Capture exact source names/IDs, provenance and visible material/palette. A screenshot, poster or kit JSON is not evidence that an unseen jutsu image was visually inspected.
+2. **Open the director-supplied bloodline reference ZIP** (or the matching inner ZIP from an outer multi-bloodline bundle), inspect/archive safely and verify names, IDs and manifest-image byte hashes where available. Then open **2–4 exact original bloodline jutsu images** and, when present, its identity image. Capture exact source names/IDs, provenance and visible material/palette. A screenshot, poster or kit JSON is not evidence that an unseen jutsu image was visually inspected. **These are thematic references, never instructions to remake the jutsu artwork.**
 3. Inspect against approved BEE and Blue Blade Eyes tier-emblem *individual* examples. Their geometry is the family reference; **their color is not** the next bloodline's prescribed color. Compare adjacent/confusable bloodlines.
 4. Propose a short **treatment card**: verified imagery, palette, material, glow constraints, distinguishability, forbidden borrowed colors/forms, and reference provenance. Obtain director approval before starting Foundation.
 5. Record `VISUAL DIRECTION APPROVED` separately from the state of any generated file.
 
 For generation, only pass **one or two individual images** selected for that one target, each explicitly labeled `silhouette-only`, `material/style-only` or `target identity`. Do not send a contact sheet or the full image collection to an isolated generator. The original image bytes must actually be attached/accessible; a link, image hash or prose-only recollection is insufficient. Current-chat re-encoded copies are usable for *visual orientation*, **not** assumed equivalent to the previously approved raw originals.
 
-## 4. One-icon production loop
+## 4. Approved geometry-locked reskin factory — three icons, one bloodline session
 
-The persistent **Art Studio** coordinates; a **fresh isolated generation conversation** owns each single tier image.
+**Director approved 2026-10-17:** For Bloodright tier emblems **only**, replace the former *fresh image-generation conversation for each tier* requirement with **one clean reskin production session for each bloodline's matched three-icon set**. The separate bloodline **jutsu-icon rework** workflow still uses its own per-technique isolated-generation rules. Do not treat an existing-jutsu source ZIP as a request to redraw each jutsu.
 
-1. **Foundation first:** strict universal diamond geometry, approved material/palette, opaque black. Generate **one** square candidate; director accepts or rejects. On acceptance preserve exact raw bytes and checksum; lock palette/material treatment.
-2. **Hidden Art second:** fresh conversation, Foundation supplies **material/style only**; the universal Hidden Art geometry is fixed. Generate one candidate, obtain director acceptance, preserve raw bytes.
-3. **Advanced Art third:** fresh conversation, Foundation/Hidden Art supplies **style/material only**; universal sharp starburst is fixed. One candidate, director acceptance, preserve raw bytes.
-4. On repeated wrong-form outputs, stop and restart the isolated conversation instead of layering more old images. No image sheet is a substitute for three independent individually approved originals.
-5. Inspect a *studio-made comparison sheet* only **after** the three originals exist, for director/QC review. Do not regenerate the sheet as a replacement for individual images.
+**Preferred path: fixed-geometry masters and masked appearance treatments.** The Art Studio selects the three exact, approved, high-resolution **Foundation / Hidden Art / Advanced Art** originals as source/mask masters, verifies real bytes and hashes, and locks their geometry. The approved Ethereal Monarch individual raw PNGs are currently available as candidate family/template material, with hash evidence in `docs/design/bloodright/ETHEREAL_MONARCH_ICON_OUTPUT_QC_20261017.json`. They are **not Git-pinned binaries** and are not yet evidence of a reproducible processor. A separate tool/code pass must pin the approved actual master bytes before declaring deterministic regeneration possible.
 
-Every generation brief states: the tier and exact bloodline ID; approved reference roles; one dominant immutable silhouette; material treatment; solid black opaque background; centered square composition; negative-space/edge contrast; exclusions and prior confusion risks; **one image only**; no processing, repository guessing or game writes. Design at actual thumbnail legibility, not full-resolution ornamentation.
+For each bloodline:
+
+1. **Treatment card:** Use its inspected jutsu references to choose actual palette, edge glow, interior material, and distinctions from nearby bloodlines. Approval can cover a *wave of 4–6* treatment cards; absent reference pixels require intake, not guessed materials.
+2. **Single theme recipe:** Apply the **same approved appearance recipe** to all three geometry masters. Retain each tier's outer bounds, centroid, pointed diamond/crescents/starburst, crossing positions and black negative space. Color and material variation can be substantial **inside the fixed geometry** (crystal, heat fissures, shadow, polished metal, etc.); a color-only recolor is not universally sufficient.
+3. **One dedicated session, three separate images:** Prefer a deterministic/shape-masked image processing pass when it yields premium results. For themes needing generative detailing, use **one new isolated production conversation for that bloodline** with the actual tier silhouette reference(s) and one or two relevant *individual* thematic images at a time. Produce/return **three individually saved, square tier images**; no generated sheet or contact montage as the artwork itself. If any output alters its fixed geometry, reject/restencil it rather than accepting a creative new sigil.
+4. **QC sheet and batch review:** After the three source files exist, compose a **non-generative contact sheet from the exact saved pixels**. Group roughly **4–6 bloodlines per review wave** (rows = bloodlines, columns = the three tier images). Director accepts/rejects **each bloodline's trio**; keep already approved rows immutable and revise only rejected sets.
+5. **Delivery:** Preserve accepted raw bytes, make three separate versioned lossless WebPs, compare at 125/64/32, verify hashes and ZIP contents and update the tracker. Fable can ingest the verified three-icon package in parallel with separate hidden structural Forge import preparation. The art studio performs **zero game reads/writes**.
+
+**Initial approved factory pilot:** `BR-075 Taiyo Kami` and `BR-029 Godstorm Eclipse`, **after** the operator supplies and the studio inspects both source-art ZIPs. Review these contrasting material treatments and six independent icon outputs before automating 24 additional bloodlines. Without the ZIP bytes in the current session, their palettes/materials and actual pilot results remain **unverified/unproduced**.
+
+**The canonical geometric lock is not a sheet:** source masks/individual reference files are authoritative; a batch preview is only a QC aid. This factory protocol is a *specific Bloodright three-tier exception* to the broader one-image-per-isolated-generation default.
 
 ## 5. Production and evidence gates
 
@@ -68,6 +74,6 @@ Do not assume `item.image`, `jutsu.image`, and `bloodline.image` faithfully desc
 
 2026-10-08 tracker evidence: **BEE 3/3 and Blue Blade Eyes 3/3** director-approved and historically processed to WebP (**6/87**). Their accepted output hashes appear in the two `*_ICON_OUTPUT_QC_20261008.json` records. Neither accepted raw binaries nor final WebPs were pinned in the tracker branch; do not mistake screenshots or user re-uploads for byte-identical production originals.
 
-**Next: Ethereal Monarch.** Its jutsu art was historically visually confirmed **teal/cyan**, but the six original images are not pinned in this production branch. Reacquire **2–4 exact individual jutsu originals** and verify material before proposing/confirming its treatment card, then generate Foundation in a fresh single-image conversation. **Taiyo Kami** follows after inspecting its actual jutsu icons.
+**Current production register (2026-10-17):** BEE 3/3 and Blue Blade Eyes 3/3 remain historically approved and exported; **Ethereal Monarch 3/3 teal visuals and lossless exports are now director-approved and QC-recorded**, bringing the total to **9/87 visually approved / byte-format-QC exported**. See the tracker and `ETHEREAL_MONARCH_ICON_OUTPUT_QC_20261017.json`; the approved PNGs/WebPs remain conversation-origin binaries until pinned. This document's method adoption creates **no new art assets**.
 
-**No raw art generated, no processing run, no game requests or game writes by adopting this workflow.**
+**Next:** pilot the approved factory on **Taiyo Kami and Godstorm Eclipse** after receipt/verification of their source ZIPs, then batch-review **4–6 bloodlines per wave**. **26 remaining sets / 78 images**; existing approvals are not regenerated. Mechanical preflight and Forge's field-contract validation are separate from art approval. No live-game requests or writes are authorized.
