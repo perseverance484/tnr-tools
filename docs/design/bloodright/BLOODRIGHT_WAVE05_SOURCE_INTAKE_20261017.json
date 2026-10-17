@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave05.source-intake-qc/1",
   "date": "2026-10-17",
-  "state": "FIVE_SOURCE_PACKS_VERIFIED; ALL_FIVE_VISUAL_TREATMENTS_DIRECTOR_APPROVED; BR078_TRIAD_PROPOSED_FOR_FINAL_ART_ACCEPTANCE",
+  "state": "FIVE_SOURCE_PACKS_VERIFIED; FIVE_TREATMENTS_DIRECTOR_APPROVED; BR078_ART_ACCEPTED; BR005_ART_PROPOSED",
   "lineage": {
     "pinned_roster": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "pinned_roster_blob": "64f6097cb65daccd636f98c8f35517941b67aebb",
@@ -191,12 +191,12 @@
     "game_writes": 0,
     "credentials_used": false
   },
-  "director_gate": "Obtain separate visual acceptance for the three specific BR-078 Tenohira Musei tier icons. Next BR-005 Arashima production only after director decision.",
+  "director_gate": "Obtain director approval/revision of the actual Arashima three-tier icon images (not merely the previously approved Midnight Tempest treatment); then proceed to Shinrai Ou. Check storm-pair differentiation when Shinrai appears.",
   "director_material_approval": {
     "status": "APPROVED_ALL_FIVE_2026-10-17",
     "source": "Director replied 'Approved, proceed' to five cards Equinox Rift, Midnight Tempest, Raijin Whitebolt, Cerulean Shatter, Winterglass Sanctum."
   },
-  "generated_tier_art": "3_BR078_PROPOSED;_0_WAVE05_APPROVED",
+  "generated_tier_art": "6_TOTAL_WAVE05_IMAGES_PRODUCED; 3_APPROVED_BR078; 3_PROPOSED_BR005",
   "BR078_proposal": {
     "QC_path": "BLOODRIGHT_WAVE05_BR078_PROPOSAL_QC_20261017.json",
     "zip_file": "BR-078_Tenohira_Musei_Bloodright_Proposed_3_Icons.zip",
@@ -206,6 +206,33 @@
     "geometry": "EXACT_MASTER_MAXRGB_3_OF_3",
     "offline_independent_checks_passed": 109,
     "offline_independent_checks_failed": 0,
-    "specific_artwork_director_approval": "PENDING"
+    "specific_artwork_director_approval": "APPROVED_2026-10-17",
+    "approved_zip_sha256": "e6694ecad239bb6a61ef89a79992b5b71ea0e26560f49cd7230384b9a9a95180",
+    "approved_zip_filename": "BR-078_Tenohira_Musei_Bloodright_Approved_3_Icons.zip",
+    "accepted_original_PNG_and_export_WebP_binary_bytes_unchanged": "PASS_6"
+  },
+  "BR005_proposal": {
+    "theme": "Midnight Tempest",
+    "source_art_sha256": "75cb6c9d01f77164819a19e5cfae8c6409a4bf89e3461393cc9d48f3accc922d",
+    "QC_path": "BLOODRIGHT_WAVE05_BR005_PROPOSAL_QC_20261017.json",
+    "package": "BR-005_Arashima_Bloodright_Proposed_3_Icons.zip",
+    "package_sha256": "3c7be6392908fa7f74a28e8a5cbb34f6d4acb8f09dbc5af3367b112bc95a99bc",
+    "tier_original_png": 3,
+    "lossless_webp": 3,
+    "geometry_master_max_RGB": "EXACT_3_OF_3",
+    "independent_offline_checks": {
+      "passed": 115,
+      "failed": 0
+    },
+    "specific_artwork_director_acceptance": "PENDING"
+  },
+  "visual_progress": {
+    "accepted_bloodlines": 21,
+    "accepted_icons": 63,
+    "total_bloodlines": 29,
+    "total_icons": 87,
+    "remaining_bloodlines": 8,
+    "remaining_icons": 24,
+    "pending_icons_excluded": 3
   }
 }
