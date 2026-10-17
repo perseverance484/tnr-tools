@@ -1,0 +1,195 @@
+{
+  "schema": "tnr.bloodright.wave05.source-intake-qc/1",
+  "date": "2026-10-17",
+  "state": "FIVE_ORIGINAL_ART_PACKS_VERIFIED; FIVE_SOURCE_GROUNDED_TREATMENTS_PROPOSED_AWAITING_DIRECTOR; ICON_PRODUCTION_NOT_STARTED",
+  "lineage": {
+    "pinned_roster": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
+    "pinned_roster_blob": "64f6097cb65daccd636f98c8f35517941b67aebb",
+    "prior_art_studio_base": "chatgpt/bloodright-wave04-art-studio-20261017@374589b77410a42384e9fe15ca625aa5913f5b0a"
+  },
+  "source_package": {
+    "filename": "Bloodright_Wave05_Source_Intake_And_Treatment_Proposals_20261017.zip",
+    "sha256": "378f26713655c449084750d35265a9390b394b1bfee66eb590bb8057adefcc29",
+    "bytes": 21902584,
+    "members": 18,
+    "CRC": "PASS",
+    "member_sha256": "PASS",
+    "exact_original_source_zip_members": "PASS_FIVE",
+    "prior_starter_archive": "Bloodright_Wave05_Production_Starter_20261017.zip",
+    "prior_starter_sha256": "5054109d3142154f668ba60d8b0d201971d4b2a2e03fcf6f408dbf5568605a4b",
+    "manifest": "PACKAGE_MANIFEST.json",
+    "detailed_verification": "wave05_intake/SOURCE_INTAKE_QC.json",
+    "treatment_cards": "wave05_intake/TREATMENT_CARDS_PROPOSED.md",
+    "original_source_board": "wave05_intake/WAVE05_ORIGINAL_ART_REFERENCE_BOARD.png",
+    "original_source_board_sha256": "d3380d71157e8f4e1a6958551e8c65275add08ad57c58bc73c1020902b0766ab",
+    "source_and_palette_board": "wave05_intake/WAVE05_SOURCE_AND_TREATMENTS_OVERVIEW.png",
+    "source_and_palette_board_sha256": "1c550fea63101f6cd1fc25da9c516af5db701728fc15d8bdecb531299893221a"
+  },
+  "original_intake_verification": {
+    "checks_passed": 305,
+    "checks_failed": 0,
+    "original_jutsu_images": 25,
+    "bloodline_identity_images": 5,
+    "verified_per_pack": "safe paths, CRC, no duplicate member names, rank/name/bloodline ID, exact roster public jutsu ID set, 6 exact declared SHA256/bytes per package, decoder MIME and native dimensions, image contents legible in original-art boards",
+    "no_game_requests": true,
+    "provenance_boundary": "ZIP metadata claims capture bundle lineage and original URLs. Offline QA verified file bytes and inner manifest, not the underlying capture source or current live game/CDN state."
+  },
+  "batches": [
+    {
+      "code": "BR-078",
+      "name": "Tenohira Musei",
+      "source_zip_sha256": "24d390da8c756f2707b09249fbffe637083b42f389eaebac1d4e980d07d64f92",
+      "source_manifest_sha256": "365342c8da204da0643b2267363e0fc935061e6de9793d9802f1c1e72fcf3400",
+      "theme": "Equinox Rift",
+      "palette": [
+        "#0E1931",
+        "#258CD2",
+        "#C5F3FE",
+        "#F1661B",
+        "#FFD08C"
+      ],
+      "identity": "angular opposed blue/cyan lightning vs ember-orange flame, moon-white pivot, without adding circular yin-yang glyph"
+    },
+    {
+      "code": "BR-005",
+      "name": "Arashima",
+      "source_zip_sha256": "75cb6c9d01f77164819a19e5cfae8c6409a4bf89e3461393cc9d48f3accc922d",
+      "source_manifest_sha256": "8326b0ce6046b062bef0a11498d51cd5ac07c2ed89aa8b7a4b8abeb6805bdf69",
+      "theme": "Midnight Tempest",
+      "palette": [
+        "#081426",
+        "#173B60",
+        "#2675A3",
+        "#52C8EE",
+        "#C7EDFD"
+      ],
+      "identity": "navy storm-glass, cool cyan rain-woven low-key gale"
+    },
+    {
+      "code": "BR-065",
+      "name": "Shinrai Ou",
+      "source_zip_sha256": "11304693f71981967c3e9a03a10a1731dc0f4a4aa4f22a69c9d43d90e09e7281",
+      "source_manifest_sha256": "28107c1ce9e4e3a058a603d452219f35dc72686ab15b04f81002bfd6d0d88206",
+      "theme": "Raijin Whitebolt",
+      "palette": [
+        "#111C33",
+        "#344B77",
+        "#7698C6",
+        "#D0E8FF",
+        "#FCFDFB"
+      ],
+      "identity": "blue-cobalt thundersteel with pin-sharp concentrated white electrical seams, rather than Arashima rain spiral"
+    },
+    {
+      "code": "BR-034",
+      "name": "Hyouga Yui",
+      "source_zip_sha256": "7da05a184fc2c4b6adb3d06ee8348411aed84bab744d356e79d5a665574b7dc8",
+      "source_manifest_sha256": "c13cc6ff055f157caf5908567705d88a012db70f9b70b45959c684ae3a3d68be",
+      "theme": "Cerulean Shatter",
+      "palette": [
+        "#0C2143",
+        "#15559B",
+        "#328DD0",
+        "#88DAF5",
+        "#E5FBFF"
+      ],
+      "identity": "dense vibrant cerulean ice shards and cyan pressure cracks contained in locked geometry"
+    },
+    {
+      "code": "BR-077",
+      "name": "Teno Yuki",
+      "source_zip_sha256": "5a41a65a4f1c268a6a7ec5c7bf02edd878cde87d36b3967636cfc6fb280b9554",
+      "source_manifest_sha256": "478e620e4db19add73c69d924133f9ff6c655b2037ab6fb5eddc03e09adedcf3",
+      "theme": "Winterglass Sanctum",
+      "palette": [
+        "#172541",
+        "#5C789F",
+        "#9EB9D7",
+        "#D9E9FB",
+        "#F8FCFF"
+      ],
+      "identity": "pale translucent architectural frost quartz, serene pearl-silver stillness unlike Hyouga energetic cobalt"
+    }
+  ],
+  "exact_membership": [
+    {
+      "review_id": "BR-078",
+      "bloodline_id": "18Byy1tMXkQETmB88JLl5",
+      "public_jutsu_ids": [
+        "1CCWSHlcGv8l0reCXHOnR",
+        "vo_McUgKOINMwUv3CbCie",
+        "QlnUiRjaDDLbHv9Yw9PEK",
+        "S5Yn5g5CMZE3OnTVFG_3-",
+        "Y7xLmI39li5ZOIL76ZZp-"
+      ],
+      "rank": "A",
+      "public_jutsu_count": 5
+    },
+    {
+      "review_id": "BR-005",
+      "bloodline_id": "9F6Ruhuf82gSzpZcsUaPW",
+      "public_jutsu_ids": [
+        "0n6H8m8NNCGgVp9aEVIXq",
+        "4dhZXLwIpOg-Too_f4ErG",
+        "XsFfE_DaNchPuXRcCWa7T",
+        "A0ukvl7zTXHCLUhTTIeL4",
+        "KBxDNqaJs_aiMB0kluRC_"
+      ],
+      "rank": "A",
+      "public_jutsu_count": 5
+    },
+    {
+      "review_id": "BR-065",
+      "bloodline_id": "xO4Dycx7FFEqxwvAEXBxY",
+      "public_jutsu_ids": [
+        "YiGS5Lgj5Y7zlj0HHcNy_",
+        "8ca2KGTY6bCwhQf9eeI1v",
+        "XdkrW_LKgOUm98dw73IZf",
+        "d2BiYyD9O_6Qh33lbMsaI",
+        "Iiqy8-WriogHl1aMGLpgz"
+      ],
+      "rank": "A",
+      "public_jutsu_count": 5
+    },
+    {
+      "review_id": "BR-034",
+      "bloodline_id": "lPcN4q0dtX2muWT2KlXGg",
+      "public_jutsu_ids": [
+        "WidT6sY0bVZSzmTyvWf8e",
+        "EQcq7PU7D1ycYIEymUBuy",
+        "wAR9tz3n9dmq_vyQkzLaA",
+        "i-dNeCHi0REjY-5N8JwX1",
+        "zzi8FmIN6Ycp06V_k6B_y"
+      ],
+      "rank": "A",
+      "public_jutsu_count": 5
+    },
+    {
+      "review_id": "BR-077",
+      "bloodline_id": "clh4d6qjs000gtb0hr357gjvv",
+      "public_jutsu_ids": [
+        "eRMCN2cherQ_lRUUKe96t",
+        "b3jNShFpBYHh-4n8G0HVA",
+        "RibLgKvjyQrdnGgszuv_n",
+        "SAxgVk0HyWuAYPqcJ6al1",
+        "1Ds-JuqAFyZ0UivUev2Xe"
+      ],
+      "rank": "A",
+      "public_jutsu_count": 5
+    }
+  ],
+  "studio_constraints": {
+    "Foundation": "approved nested-diamond master unmodified shape",
+    "Hidden_Art": "approved paired crescent geometry unmodified",
+    "Advanced_Art": "approved multipoint starburst master unmodified",
+    "background": "solid opaque black visually director-approved",
+    "game_technology": "strict skillTree.image field-specific alpha/preflight remains open; JUTSU_ICON exemption only jutsu.image",
+    "wave04_geometry_exceptions": "Nine visually approved Wave04 files are not exact original master geometry; do not silently restencil/claim technical PASS",
+    "source_binary_git_pin": "NOT_DONE",
+    "Forge_imagePack": "NOT_DONE",
+    "game_requests": 0,
+    "game_writes": 0,
+    "credentials_used": false
+  },
+  "director_gate": "Obtain separate approval/revision of all five Wave05 palette/material cards before creating tier icon candidates, then per-bloodline exact-raw visual acceptance."
+}
