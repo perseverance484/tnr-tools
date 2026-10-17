@@ -1134,3 +1134,23 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Rationale:** Preserve an immediately recognizable tier vocabulary while allowing each bloodline to retain a specific visual identity; avoid uncontrolled geometry drift and mistaken reuse of one bloodline's colors. Keep visual acceptance independent from reproducibility, codec/preflight and live-game safety.
 
 **Canonical destination:** `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` (operative art workflow), `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` (bounded queue and per-set state), `docs/design/bloodright/ICON_REFERENCE_INTAKE_20261016.md` (current-chat visual reference evidence). `docs/workflows/ART_PRODUCTION.md` and `docs/00_INDEX.md` route to the workflow. `skills/producing-tnr-art/data/25x_DATA_art_spec.json` and `skills/producing-tnr-art/scripts/artpreflight.py` keep technical ownership; no spec change is made here.
+
+---
+
+## RUL-2026-10-17-004 — Approve geometry-locked Bloodright reskin factory, 4–6-family batch reviews, and contrasting pilot
+
+**Date:** 2026-10-17  
+**Domain:** Bloodright tier-emblem art production / reviewer workflow / structural rollout  
+**Status:** ACTIVE — the factory method, batch-review approach, and pilot subjects are director-approved. Individual bloodline treatments and the resulting artworks still require director acceptance.
+
+**Ruling:** After visually accepting the three Ethereal Monarch teal tier emblems, dauntless approved **both** the proposed **fixed-geometry / masked-appearance Bloodright emblem reskin factory** and the **4–6-bloodline batch-review approach** for the remaining **26 public A/S/H bloodlines (78 tier emblems)**. Preserve the prior approved **nine** BEE/BBE/Ethereal emblems, without regeneration. Every Bloodright family contains exactly **three shared tier images** — Foundation, Hidden Art and Advanced Art — with the **same locked shape across bloodlines** and thematically varied color, material, internal texture and controlled glow derived from that bloodline's actual original jutsu imagery. Accept three independent original image files, never a generatively reinvented sheet.
+
+**Session/rhythm exception:** For **Bloodright tier-emblem reskins only**, the art workstation may run **one dedicated clean generation/processing session per bloodline** to produce all three individually saved icons with the same approved theme recipe, instead of three unrelated isolated conversations. A deterministic mask/recolor path is preferred where quality suffices; material customization stays within the frozen geometry. Review several **complete bloodline trios together** on a **programmatically composed** contact sheet; director retains **per-bloodline final acceptance**. This does **not** change the separate per-jutsu icon-rework protocol or make its content part of Bloodright art.
+
+**Pilot approved:** **Taiyo Kami (BR-075)** and **Godstorm Eclipse (BR-029)**, selected for contrasting solar/scorch and storm/shadow treatment. The operator has their art packs, but these two specific ZIPs were **not attached to this decision conversation**; their pixels/manifest contents are not inspected or invented here. Intake, verify and inspect each ZIP before proposing its theme card or generating the corresponding three-icon set.
+
+**Opaque/rareness visual decision:** **Opaque black / near-black Bloodright tier backgrounds remain approved.** Do not fabricate alpha or design Bloodright tier emblems around an assumed rarity background. For separately produced jutsu artwork, rarity-frame accommodation is **not a director-required visual constraint**; this is an art-direction decision, not a claim about the site's renderer. Item/bloodline image rules remain unrelated. Approval of opaque visuals is **not** a technical validator pass for `skillTree.image`; the current generic `ICON` / `JUTSU_ICON` contracts are not silently rewritten. Fable owns any field-verified preflight/tool changes, independently reviewed before packaging is called mechanically ready.
+
+**Canonical destination:** `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` (operative specialized reskin and approval workflow), `docs/design/bloodright/BLOODRIGHT_RESKIN_FACTORY_PROPOSAL_20261017.md` (approved factory method and pilots), and `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md` (29-family queue). The distinct jutsu-icon generation and Bloodright Forge structural-import authorities remain in their own owners.
+
+**Boundary:** no live-game requests/writes, uploads, skill/effect changes or publication are authorized by this approval.
