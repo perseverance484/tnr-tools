@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** ALL FIVE WAVE 3 ORIGINAL REFERENCE PACKS VERIFIED AND VISUAL TREATMENTS DIRECTOR APPROVED. Tetsugan, Shakunetsu Sakura, Crystal Essence and Suragu trios DIRECTOR VISUALLY APPROVED (**14/29 families; 42/87 icons**). Final family BR-090 Vaporia trio PRODUCED / specific artwork acceptance PENDING.
+**Status:** WAVE 03 ART COMPLETE: FIVE source reference ZIPs inspected, FIVE director-approved treatment cards, FIVE individually director-approved three-tier icon families. **15/29 families = 45/87 tier emblems (51.72%) visually approved overall**, 14 families / 42 icons remain. Exact accepted art preserved; immutable Git/Fable/Forge/game delivery still separately gated.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -29,6 +29,15 @@
 **Expected input:** five original bloodline source-art ZIPs with **31 jutsu images** and, if supplied, five identity images. None of these five ZIPs has been attached/inspected in this wave yet. Filenames are suggested intake labels, not proof of file existence.
 
 **Distinguishability questions to assess only after inspecting actual pixels:** Tetsugan vs magnet bloodlines (Houkyuken/Itojinsei); Shakunetsu Sakura vs previously approved solar Taiyo Kami and lava Suragu; Crystal Essence vs icy Blue Blade Eyes; Suragu vs other orange/thermal themes; Vaporia vs ice/water/steam themes. Do not choose palettes, symbols or textures from classification/name alone.
+
+## 2026-10-17 — Wave 03 director approval and final offline delivery CLOSEOUT
+
+- **Vaporia visually approved:** director approved all three original Hydrothermal Crucible tier emblems. Exact three PNG/three WebP binaries remain unchanged; accepted family ZIP `BR-090_Vaporia_Bloodright_Approved_3_Icons.zip` SHA-256 `e50c1207d54c84a9d44aa73f580e2e3677af0179569e3fb205056e88a5290db2`. Exact per-tier hashes and source/proposal linkage in `BLOODRIGHT_WAVE03_BR090_PROPOSAL_QC_20261017.json`.
+- **All five Wave 03 trios accepted:** Tetsugan, Shakunetsu Sakura, Crystal Essence, Suragu, Vaporia. Full batch includes 15 separate accepted raw 1254px RGB PNGs and 15 individual 256px lossless RGB WebPs; five original source reference ZIPs. No accepted original images or existing bloodline jutsu art were regenerated.
+- **Batch QC:** separately scripted offline verifier produced **365 passing assertions, zero failures**, covering accepted raw/WebP SHA-256 matching, actual source ZIP CRC/hashes, pixelwise master geometry maxRGB, six absolute intensity thresholds, 256px VP8L lossless WebP decoded equality to approved raw resizes, working byte ceilings, black corner/backgrounds, and complete ZIP member identities. See `BLOODRIGHT_WAVE03_APPROVED_QC_20261017.json`.
+- **Final user artifacts:** complete ZIP `Bloodright_Wave03_Approved_All_5_Bloodlines_15_Icons_20261017.zip` SHA-256 `735b94f572749bc9ec82d53000f957fa545821b7f604cc7fc934abdf9b60b9cf`; WebP-only ZIP `Bloodright_Wave03_Approved_15_WebPs_256px_20261017.zip` SHA-256 `d31ffd49acdfac9702210b9cac321f91569697649be90962155297435f82d1fd`. Exact accepted-art contact sheet and 125/64/32 QC are **programmatically composed** from those accepted individual art bytes, never generatively redrawn.
+- **Art-only completion:** Do not treat opaque RGB backgrounds as a technical preflight waiver for `skillTree.image`. Actual field preflight/validator path, immutable Git source binaries and Forge imagePack, complete structural trees and operator-run hidden import/read-back remain open. This art branch's `RUL-2026-10-17-004` conflicts with `main`'s unrelated same ID; resolve before integration. **Live requests/writes 0/0.**
+- **Next art intake:** propose first five unstarted in queue: BR-066 Shinseina Ki, BR-008 Bakuhatsu, BR-053 Oblivion Seal, BR-063 Shadow Weaver, BR-032 Heavenly Sonata; require operator original source ZIPs before theme proposals.
 
 ## 2026-10-17 — Suragu accepted, Vaporia final trio proposed
 
@@ -90,6 +99,6 @@
 
 ## Immediate next action
 
-Four Wave 3 families (BR-083 Tetsugan, BR-064 Shakunetsu Sakura, BR-020 Crystal Essence, BR-074 Suragu) are visually approved and original source binaries preserved. **Present BR-090 Vaporia's three distinct proposed Hydrothermal Crucible tier icons for director image acceptance.** If accepted, freeze those specific PNG/WebP SHA-256s and compose the five-family Wave 3 final comparison from exactly saved images, then create the consolidated delivery package.
+**Wave 03 complete and closeout recorded.** All five families and 15 icons are visually approved, preserved and offline QC-verified, with exact portable package/source SHA-256s in the linked closeout record. Begin Wave 04 original-art intake once the operator supplies the next five source ZIPs. Keep the separate skillTree field preflight, source-binary Git pinning, Forge binding and hidden import/readback outside the art acceptance claim.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
