@@ -1,4 +1,4 @@
-// Socket-free model of the scoped source contract at 1ccdaf07. Independent of recipes/compiler.
+// Socket-free model of the scoped source contract at 94f9d84c. Independent of recipes/compiler.
 import { FakeGame, nanoidLike, CrashSignal } from "./fakegame.mjs";
 export class BloodrightGame extends FakeGame {
   constructor() { super(); this.skills = new Map(); this.folders = new Map(); this.hiddenAccess = true; this.roleAllowed = true; this.crashPath = null; }
@@ -13,7 +13,7 @@ export class BloodrightGame extends FakeGame {
     if (!this.roleAllowed && /\.(create|update)/.test(path)) return err("UNAUTHORIZED", "You are not authorized to create skills");
     let result;
     switch (path) {
-      case "skillTree.get": result = ok(visible(this.skills.get(input.id) ?? {}) ? this.skills.get(input.id) : undefined); break;
+      case "skillTree.get": result = ok(visible(this.skills.get(input.id) ?? {}) ? this.skills.get(input.id) : null); break;
       case "skillTree.getAll": {
         const rows = [...this.skills.values()].filter(r => r.pathType === (input?.pathType ?? "SKILL") && visible(r)).sort((a,b) => a.tier-b.tier || a.name.localeCompare(b.name));
         const cursor = input?.cursor ?? 0, limit = input?.limit ?? 50;

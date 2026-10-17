@@ -22,7 +22,7 @@ const banner = `// TNR forge bundle v${pkg.version} - full-page content builder,
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
 // Legacy engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
-// Scoped Bloodright contract: studie-tech/TheNinjaRPG@1ccdaf078a58101872675e459c8e755b495d4c83.`;
+// Scoped Bloodright contract: studie-tech/TheNinjaRPG@94f9d84c770004172ba423ada3d6710849acc451.`;
 
 // Built WITHOUT the banner: the banner is itself a comment and must survive the strip, so it is
 // prepended afterwards rather than fed through it.
