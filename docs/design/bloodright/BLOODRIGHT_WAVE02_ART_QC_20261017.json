@@ -1,0 +1,177 @@
+{
+  "schema": "tnr.bloodright.wave02.approved-art-hash-ledger/1",
+  "date": "2026-10-17",
+  "status": "ALL_FIVE_TRIOS_VISUALLY_APPROVED;_BR067_HIDDEN_ADVANCED_ROLE_REVIEW_OPEN",
+  "source_branch_head": "2df5957f6dfd63f43be85766fd87eebb99d71243",
+  "scope": "Bloodright tier-emblem artwork only, not jutsu replacement or Forge import",
+  "progress": {
+    "approved_families": 10,
+    "total_families": 29,
+    "approved_icons": 30,
+    "total_icons": 87,
+    "remaining_families": 19,
+    "remaining_icons": 57
+  },
+  "packages": {
+    "full": {
+      "file": "Bloodright_Wave02_Approved_All_5_Bloodlines_15_Icons_20261017.zip",
+      "sha256": "929d1cf0fa83e81f9248fb3765cf8ac89473f0ea5f381059f1ae8e12effa0aba"
+    },
+    "lite": {
+      "file": "Bloodright_Wave02_Approved_15_WebPs_256px_20261017.zip",
+      "sha256": "90c45c7937ac300f86864eeae396b9c69eb0c963a2e64c606bd8d064f2d63e21"
+    },
+    "preview": {
+      "file": "Bloodright_Wave02_Approved_Showcase_20261017.png",
+      "sha256": "bf8b6711920695aa7f06e2757a32c537fad2d91ebad398dbe104e308a1ab5ccb"
+    },
+    "qc": {
+      "file": "Bloodright_Wave02_Approved_QC_20261017.json",
+      "sha256": "413198e46395296144616d1df424a969d5a2d85afe4ab15f77809f27f81ba37d"
+    }
+  },
+  "families": [
+    {
+      "code": "BR-067",
+      "name": "Shiroi Youso",
+      "rank": "S",
+      "theme": "Elemental Confluence",
+      "visual_approval": "DIRECTOR_APPROVED_2026-10-17",
+      "source_reference_zip_sha256": "dc4185158ec983c2c1ee0de249ae3faca35948412a54eeaf62b1181682ec94b3",
+      "approved_family_zip_sha256": "49361f94c061b9fe4a75e9db2b51638ad64b9af62403f3248c3a3929cefb3bce",
+      "geometry_gate": "OPEN_ROLE_MISMATCH_GENERATED_OUTPUTS",
+      "tiers": {
+        "foundation": {
+          "raw_png_sha256": "7464dac8b89c41760ea64652416ad6677f054fcd651698c57aee2617e323a896",
+          "webp256_sha256": "4624f78cc3e30684a7d1c706be1db2860101bf1496e245f607bda7d90df790b3"
+        },
+        "hidden_art": {
+          "raw_png_sha256": "c55445163988d9b1f4703d3889f58336f40fe5746f520aaec8e72281d222bbd7",
+          "webp256_sha256": "818d20bc16742bb96e693aac274f82c411243b1804ed294abbc4fe16ff8509f9"
+        },
+        "advanced_art": {
+          "raw_png_sha256": "deb0759b28425f47b66af65ac04a454a034a3c1a98ba1f7b99e7f05cd7fd238c",
+          "webp256_sha256": "b527687ebfae373ce4d45040a01056ba09c4d78ab124dcf028729205375cbc2"
+        }
+      }
+    },
+    {
+      "code": "BR-018",
+      "name": "Cosmic Ascendant",
+      "rank": "S",
+      "theme": "Nebular Amethyst",
+      "visual_approval": "DIRECTOR_APPROVED_2026-10-17",
+      "source_reference_zip_sha256": "0c2e7ace268d79e77dbf6342ffaa32cade56c0237f14724193e2b07432392318",
+      "approved_family_zip_sha256": "e6f10c68cfa0468e985d85007668225c24c70103ab8fa35f1e6317bbcf04ea5d",
+      "geometry_gate": "PASS_EXACT_PER_PIXEL_MAXRGB_VS_ETHEREAL_MASTERS",
+      "tiers": {
+        "foundation": {
+          "raw_png_sha256": "c7cc10d419a3918bc500c419fd755511e84f4cef8d28f7da833c4c8a12978c68",
+          "webp256_sha256": "185584aa21ffcdafdb7b4bc73032816cc6b0a0e5f35b089a771dcf507c67f519"
+        },
+        "hidden_art": {
+          "raw_png_sha256": "752ae0426752f7f501eb3bb6976d8eb900e19fc2e091cbd56bc821cc197fac79",
+          "webp256_sha256": "423f16b1b157891e3952d9d2999314dd1eaeaa59e3d3111c2300a99bf8c18ebf"
+        },
+        "advanced_art": {
+          "raw_png_sha256": "f501dc43aeb84d3dd6e252dcaa6c68115da48ac7987a07d5d3c88a4854e5a4e6",
+          "webp256_sha256": "e6edb316c36320756026955752bbf862dc7cc19fe73e88a3d7c83ba13c2c9045"
+        }
+      }
+    },
+    {
+      "code": "BR-027",
+      "name": "Eyes of the Forsaken King",
+      "rank": "S",
+      "theme": "Sovereign Radiance",
+      "visual_approval": "DIRECTOR_APPROVED_2026-10-17",
+      "source_reference_zip_sha256": "3f757711a58a81bf96491025609284a8a5f2614c7dd74e088900ef1b4a155c37",
+      "approved_family_zip_sha256": "78591c4edec1cd7ab6e445f95c81e0a85faf07fb3578ada1afe6c3b6d110d83a",
+      "geometry_gate": "PASS_EXACT_PER_PIXEL_MAXRGB_VS_ETHEREAL_MASTERS",
+      "tiers": {
+        "foundation": {
+          "raw_png_sha256": "45f103d8901a0688c1790a5951a6f9a5e01598a57617f6347ee9e6725035bf18",
+          "webp256_sha256": "3743a8fe6f2b433b6aad43483b1a71b37f924b6775b5c9619813f781b21d3216"
+        },
+        "hidden_art": {
+          "raw_png_sha256": "9c043702f87d30e7dd49af46724f02c6683f1a301a3f1d17c9438c237221cd12",
+          "webp256_sha256": "802b27cb50df67cf48c99a1bd2cd4f0bf4c14b5ed03d01ff5f72f8a600f10abe"
+        },
+        "advanced_art": {
+          "raw_png_sha256": "14c764f9cc3b2f7c9e6d4d9d296818825ff6a6749e43ed6da45c41662002cf04",
+          "webp256_sha256": "b493fb508f01adf8531fdc46c56cc0114c5a695c27488b0c45771bc0cc511b9d"
+        }
+      }
+    },
+    {
+      "code": "BR-051",
+      "name": "Night Parade of A Thousand Demons",
+      "rank": "H",
+      "theme": "Oni Ember",
+      "visual_approval": "DIRECTOR_APPROVED_2026-10-17",
+      "source_reference_zip_sha256": "aaab49b97c35ab33567ca18d999ef26a8ec0cbe0b7ab86140d528792f6c60cb1",
+      "approved_family_zip_sha256": "7fb35ffdb2bcfd842d0083bbe5d98e01194352eee8ac5823cbcb26d04e713b8f",
+      "geometry_gate": "PASS_EXACT_PER_PIXEL_MAXRGB_VS_ETHEREAL_MASTERS",
+      "tiers": {
+        "foundation": {
+          "raw_png_sha256": "6cf0f4e4b0c003f78a81f50a41053d94e89d48f240b2d2c43ae3c0aabd9102a6",
+          "webp256_sha256": "7878d19bab5930e0a5b952568358fc26a898abb78a726c2ae2a25c38b868e4e5"
+        },
+        "hidden_art": {
+          "raw_png_sha256": "90e315ceedd0fb44dfd3623184f94e103a35d85918eb8c0d70d7a8d8b38b45e5",
+          "webp256_sha256": "2ab156feb22fec8188d78966fb7c14fcc573c07bcba62a32fa3f9489fd0d6cec"
+        },
+        "advanced_art": {
+          "raw_png_sha256": "f051d613ffe86536c10c7bca50de69e4e00ec754b5f507e713e4e07f50d7f731",
+          "webp256_sha256": "abc826158a99ebcd1a763a500dbac4bdb239330f8d8897cfe9a64f3f8ae70586"
+        }
+      }
+    },
+    {
+      "code": "BR-059",
+      "name": "Sands of Time",
+      "rank": "H",
+      "theme": "Chronal Sandstone",
+      "visual_approval": "DIRECTOR_APPROVED_2026-10-17",
+      "source_reference_zip_sha256": "3d21e65539adebc86746d59d4225bd61007202dd8f2c0d8adaf1e1b815d877ca",
+      "approved_family_zip_sha256": "9a00de9ba1358fa9cf435dd32c27dff74dc28a4686a4b6a1c4f23eebe2aa9b4c",
+      "geometry_gate": "PASS_EXACT_PER_PIXEL_MAXRGB_VS_ETHEREAL_MASTERS",
+      "tiers": {
+        "foundation": {
+          "raw_png_sha256": "25465a9951f57e4090055d973499acdc9ce175e34921769984fa263138793f27",
+          "webp256_sha256": "385473db15b17475145008189262748e4a8a40397e37f730cb904c869a64a9ca"
+        },
+        "hidden_art": {
+          "raw_png_sha256": "c0a0d3f6c2d2147500783c506da6fa4cc37a536cd69959376f58102065bc994e",
+          "webp256_sha256": "def4f68998b1f100cbf93b2387b1e56844d6fc4f9d1715f44399d574b2620c38"
+        },
+        "advanced_art": {
+          "raw_png_sha256": "181a802c03443954fc4a41ce430e9e3d659f37471f8f9f7e28b38ae896b92597",
+          "webp256_sha256": "0652d0d6e0de96701202a7cea3f7160ed6435ead70af1a5e3a203c778bb71bd0"
+        }
+      }
+    }
+  ],
+  "qc": {
+    "source_zip_sha_and_crc": "PASS_5",
+    "raw_and_webp_sha256": "PASS_30",
+    "webp_vp8l_lossless_format": "PASS_15",
+    "webp_pixels_equal_Lanczos_resized_raw": "PASS_15",
+    "working_byte_cap": "PASS_15",
+    "master_maxRGB_exact": "PASS_12_ONLY_FOR_4_MASK_RESKIN_FAMILIES",
+    "generic_icon_alpha_preflight": "BLOCKED",
+    "skillTree_image_field_preflight": "NOT_DONE",
+    "immutable_git_art_pins": "NOT_DONE",
+    "forge_imagePack": "NOT_DONE"
+  },
+  "exception": {
+    "code": "BR-067",
+    "issue": "Hidden Art source visibly has starburst silhouette, Advanced Art source has paired crescents, reverse of universal tier lock",
+    "disposition": "DO_NOT_WIRE_UNTIL_DIRECTOR_APPROVES_REASSIGNMENT_OR_CORRECTED_LOCKED_GEOMETRY",
+    "raw_art_unmodified": true
+  },
+  "ruling_collision": "Studio art RUL-2026-10-17-004/005 conflicts with main import RUL-2026-10-17-004. Resolve before integration.",
+  "live_requests": 0,
+  "live_writes": 0,
+  "credentials": false
+}
