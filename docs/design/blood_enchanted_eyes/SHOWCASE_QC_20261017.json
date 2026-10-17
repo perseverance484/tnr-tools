@@ -1,0 +1,351 @@
+{
+  "schema": "tnr.bee.jutsu-showcase-final-qc/2",
+  "date": "2026-10-17",
+  "collection": "Blood-Enchanted Eyes",
+  "bloodline_id": "ovZIWu28ANn-Cij5TjT8S",
+  "studio_branch": "chatgpt/bee-jutsu-art-studio-20261014",
+  "base_source_state_before_closeout": "87fed105ca5fb68a802ac0f590ad52a5b63baecd",
+  "roster_count": 8,
+  "raw_approved_count": 8,
+  "current_lossless_webp_export_count": 8,
+  "main_contract": {
+    "ref": "main@8c434dfeb3233dd3b3f68410c8361bc9e39ba061",
+    "path": "skills/producing-tnr-art/data/25x_DATA_art_spec.json",
+    "target": "JUTSU_ICON",
+    "dimensions": [
+      256,
+      256
+    ],
+    "format": "WebP",
+    "codec": "VP8L lossless",
+    "alpha": "optional for full-bleed opaque jutsu image",
+    "general_byte_ceiling": 460800,
+    "BBE_under_80000_cap_applies": false
+  },
+  "process": "Pillow 12.3.0, RGB decode, LANCZOS exactly 256x256, WebP lossless=True, method=6, exact=True; no chroma-key or art reimagination",
+  "zip": {
+    "filename": "bee_blood_enchanted_eyes_8_approved_jutsu_icons_20261017.zip",
+    "bytes": 726250,
+    "sha256": "767449b94477056b240d9d8f08c59750bea51594c52a5c304a82437f14ab7172",
+    "entries": 8,
+    "only_webps": true,
+    "testzip_pass": true,
+    "member_digests_verified": true,
+    "old_superseded_exports_excluded": true
+  },
+  "source_master_zip": {
+    "filename": "bee_blood_enchanted_eyes_8_approved_originals_20261017.zip",
+    "bytes": 6179472,
+    "sha256": "51195abb1b29d0a45d005a920acd1b07bfc8d60e9b32192b30a6192e57e9b18b",
+    "entries": 8,
+    "byte_verified": true
+  },
+  "showcase": {
+    "filename": "bee_jutsu_icons_final_showcase_20261017.png",
+    "bytes": 1531799,
+    "sha256": "f7050731bf8512585aa8c8bde83ceb315950f0688069cbb83069aca1c1ad86ba",
+    "size": [
+      1536,
+      854
+    ],
+    "layout": [
+      4,
+      4
+    ],
+    "compositor": "Pillow: input eight exact final 256px WebPs; 350px square tiles and true decimal kB captions",
+    "every_tile_pixel_equals_resized_input": true
+  },
+  "preview": {
+    "filename": "bee_jutsu_icons_thumb_qc_20261017.png",
+    "bytes": 367844,
+    "sha256": "022af294fb51eb77fecff2e88b114645829cb70c0e866e2d69988013bec6f278",
+    "sizes": [
+      125,
+      64,
+      32
+    ],
+    "assistant_reviewed": true
+  },
+  "local_validation": {
+    "filename": "bee_jutsu_icons_local_validation_20261017.json",
+    "sha256": "cb21f8a089a5921ebfd9d88a7f070b947da305c633865c5c2e57c5d4a3268b37",
+    "passed_checks": 74,
+    "errors": 0,
+    "warnings": 0
+  },
+  "companion_manifest": {
+    "filename": "bee_jutsu_icons_final_manifest_20261017.json",
+    "sha256": "9c20dc818d35fed81af68f82ca6cc7d64ee3829b9c4668a64b1073c483fae4dd"
+  },
+  "icons": [
+    {
+      "grid_position": "R1C1",
+      "jutsu": "Ring of Spilled Blood",
+      "jutsu_id": "OeFCfJ--gEL_FioGfQvTY",
+      "original": {
+        "filename": "1000018474.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 301716,
+        "sha256": "a686b372475f84cd61ac50f3629eb6ac6ace0b36292655f5bfd7f091033fee43"
+      },
+      "processed": {
+        "filename": "icon_bee_ring_of_spilled_blood_v2.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 80484,
+        "sha256": "c791b05124052c901bf1cd8fbf5044c3fb778d6bb436d2492cde19d915b10853"
+      },
+      "caption": "Ring of Spilled Blood 80.5kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R1C2",
+      "jutsu": "Crimson Tithe",
+      "jutsu_id": "zor6cX3qn2eTObW0fveBk",
+      "original": {
+        "filename": "1000018475.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 311821,
+        "sha256": "eeae4826ca7daa480fba50d4e7b721714a0dc833ec1afb14e14d0bc6ea2079b7"
+      },
+      "processed": {
+        "filename": "icon_bee_crimson_tithe_v1.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 76088,
+        "sha256": "5f56d5594440dae025daa028913e7ff44ac626f1d9f4610635d7e56ea2295a0a"
+      },
+      "caption": "Crimson Tithe 76.1kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R1C3",
+      "jutsu": "Sanguine Plague",
+      "jutsu_id": "XIcRftgH-UOJCdl91wbRD",
+      "original": {
+        "filename": "crimson_shadow_skull_vortex.png",
+        "decoded_format": "PNG",
+        "mode": "RGB",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 1893042,
+        "sha256": "8f115286d8cd7fdaecfd018a4cf6f5349307a5bf90d9036001d0c8db33f97b7f"
+      },
+      "processed": {
+        "filename": "icon_bee_sanguine_plague_v2.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 84216,
+        "sha256": "a60eb0cf2b2f79e900953f19453e8b194010cd312a94352ffd8c22d3ace2e449"
+      },
+      "caption": "Sanguine Plague 84.2kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R1C4",
+      "jutsu": "Reaper's Embrace",
+      "jutsu_id": "7RtWUduLzfIPOlWdo-NIu",
+      "original": {
+        "filename": "1000018481.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 386130,
+        "sha256": "0b972708b716b987f94999e2c3975201af3d826200500ab678491d59e862e7d3"
+      },
+      "processed": {
+        "filename": "icon_bee_reapers_embrace_v1.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 88318,
+        "sha256": "0a59b653a2ca6efb04a0e8ea29c4e0eb0021cc53ac977c151c3f2ec83f765fd7"
+      },
+      "caption": "Reaper's Embrace 88.3kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R2C1",
+      "jutsu": "Unholy Enhancement",
+      "jutsu_id": "Nn75Lmvaep6oBQYH2BvVT",
+      "original": {
+        "filename": "crimson_veins_of_dark_energy.png",
+        "decoded_format": "PNG",
+        "mode": "RGB",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "bytes": 1909437,
+        "sha256": "6a3800f616c2761b10bdfb524841eaf45a521b79f3f9beed7e40a4420d68c119"
+      },
+      "processed": {
+        "filename": "icon_bee_unholy_enhancement_v2.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 84818,
+        "sha256": "6bd058a1c8ecf7a9fe9201424a4d97fb387a5e0cc26a198fc5a989cf3ba78368"
+      },
+      "caption": "Unholy Enhancement 84.8kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R2C2",
+      "jutsu": "Crimson Impact",
+      "jutsu_id": "fKEHVLvvj6q_b4l_X_k4k",
+      "original": {
+        "filename": "1000018482.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 516227,
+        "sha256": "85617e355ab663c3fd522e2ddfab9d66226493f3b39cdbcf90e7db81e9a51b87"
+      },
+      "processed": {
+        "filename": "icon_bee_crimson_impact_v1.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 100902,
+        "sha256": "bc228a385a6b58c0f5924596ea8992808d42d7719ae8aecdc520c92b96915222"
+      },
+      "caption": "Crimson Impact 100.9kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R2C3",
+      "jutsu": "Hemocure",
+      "jutsu_id": "9VRW6hqSoQuz5PA203jFE",
+      "original": {
+        "filename": "1000018489.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 381704,
+        "sha256": "bdb157eb00bdd4d2eef8b8f74dece02757a8e7bc645ac9f6c90462540ede9373"
+      },
+      "processed": {
+        "filename": "icon_bee_hemocure_v1.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 88642,
+        "sha256": "234c0c4fa325c49cedcd4eee0703d6c35f373c93c8ad276045ac27f2149f2839"
+      },
+      "caption": "Hemocure 88.6kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    },
+    {
+      "grid_position": "R2C4",
+      "jutsu": "Thousand Strike",
+      "jutsu_id": "znPva-HIAz4EkyuKm2oh0",
+      "original": {
+        "filename": "1000018487.png",
+        "decoded_format": "JPEG",
+        "mode": "RGB",
+        "dimensions": [
+          1536,
+          1536
+        ],
+        "bytes": 478471,
+        "sha256": "6a6fead5df08107ae4e01739b2ef59d051be05c7fa4e08af90e75db9314bbfbd"
+      },
+      "processed": {
+        "filename": "icon_bee_thousand_strike_v1.webp",
+        "codec": "VP8L lossless",
+        "mode": "RGB",
+        "dimensions": [
+          256,
+          256
+        ],
+        "bytes": 121642,
+        "sha256": "558ad8a9792db009e487f593f657624e1ae9f1085ea7c3b6a6f2a0f59d0afc21"
+      },
+      "caption": "Thousand Strike 121.6kB",
+      "source_pixel_equality_checked": true,
+      "official_artpreflight_executed": false,
+      "director_raw_approved": true
+    }
+  ],
+  "sum_export_bytes": 725110,
+  "director": {
+    "individual_raw_approvals": "8/8",
+    "updated_family_gallery_visual_feedback": "Approved (gallery presentation of latest skull and vein versions, 2026-10-15)",
+    "requested_studio_closeout": true,
+    "current_exact_derivative_separately_reviewed_after_composition": false
+  },
+  "official_artpreflight": {
+    "executed": false,
+    "verdict": "NOT_RUN; current integrated JUTSU_ICON alpha optional, local 74 tests green. Run official artpreflight.py --type JUTSU_ICON before uploading.",
+    "legacy_blocker_superseded": true
+  },
+  "source_binaries_git_pinned": false,
+  "final_webps_git_pinned": false,
+  "live": {
+    "game_requests": 0,
+    "game_writes": 0,
+    "game_uploads": 0,
+    "published": false
+  },
+  "verdict": "ART STUDIO CLOSED BY DIRECTOR — EXACT 8-ICON EXPORT PACK COMPLETE; USER-ONLY UPLOAD/READBACK NOT DONE; canonical preflight execution pending"
+}
