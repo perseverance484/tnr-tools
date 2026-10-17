@@ -56,6 +56,7 @@ export function snapshotKey(jobId, phase, ordinal) { return `${jobId}::${phase}:
 // content-record point read, and nothing else is" in test/storage.captures.test.mjs holds both
 // halves of that relationship against the registry.
 export const FULL_PERSIST_PATHS = Object.freeze([
+  "skillTree.get",
   "gameAsset.get",
   "jutsu.get",
   "item.get",

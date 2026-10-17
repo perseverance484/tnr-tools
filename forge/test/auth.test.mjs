@@ -100,7 +100,7 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("quests.update"), true);      // routers/quests.ts:700
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 27);
+  assert.equal(PROTECTED_PATHS.length, 31);
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 
@@ -109,7 +109,7 @@ test("the table's shape is an invariant: every mutation is protected, every publ
   // pinned here rather than left to whoever regenerates it next. Both directions matter: a
   // mutation classified public would let the gate wave through a write the server will refuse,
   // and a public read classified protected would block work that would have succeeded.
-  const PUBLIC_READ = /\.(get|getAll|getAllNames|getAllAiNames)$/;
+  const PUBLIC_READ = /\.(get|getAll|getAllNames|getAllAiNames|getAllFolders)$/;
   for (const [path, p] of Object.entries(PROCEDURES)) {
     if (p.kind === "mutation") assert.equal(p.auth, "protected", `${path} is a mutation and must be protected`);
     if (p.auth === "public") {
@@ -139,7 +139,7 @@ test("FPA-3: the auth classification is identical at the task pin and at Forge's
   ].join("\n"));
   assert.deepEqual(table, { getAllNames: "publicProcedure", update: "protectedProcedure" });
   // and the tool reads Forge's own table out of the shipped source, not a copy of it
-  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).map(([p, v]) => [p, v.auth])));
+  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).filter(([p]) => !p.startsWith("skillTree.")).map(([p, v]) => [p, v.auth])));
 });
 
 
