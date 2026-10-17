@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** INITIALIZED / SOURCE ART PACKS NOT YET SUPPLIED — no visual treatment or generated icon approved for this wave.
+**Status:** ALL FIVE ORIGINAL REFERENCE PACKS VERIFIED; FIVE VISUAL TREATMENT CARDS PROPOSED / DIRECTOR DECISION PENDING. No Wave 03 tier-emblem artwork generated.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -30,6 +30,16 @@
 
 **Distinguishability questions to assess only after inspecting actual pixels:** Tetsugan vs magnet bloodlines (Houkyuken/Itojinsei); Shakunetsu Sakura vs previously approved solar Taiyo Kami and lava Suragu; Crystal Essence vs icy Blue Blade Eyes; Suragu vs other orange/thermal themes; Vaporia vs ice/water/steam themes. Do not choose palettes, symbols or textures from classification/name alone.
 
+## 2026-10-17 — Reference intake completed
+
+**Received directly from the operator:** all five expected ZIPs. Verified 5/5 ZIP archive CRC/path checks, 5/5 bloodline ID/rank and current tracked member identities, 31/31 jutsu source images and 5/5 identity image SHA-256/declared decoder format/dimensions; **36 individual source originals preserved without re-encoding**. Reviewed four individual jutsu sources and identity image for each family; inspected palette/material evidence rather than guessing from element names.
+
+**Five themes proposed (not approved):** Tetsugan Ward-Forged Steel; Shakunetsu Sakura Midnight Blossomfire; Crystal Essence Prismatic Jadeglass; Suragu Obsidian Magma; Vaporia Hydrothermal Crucible. See `BLOODRIGHT_WAVE03_SOURCE_INTAKE_20261017.json` and `BLOODRIGHT_WAVE03_TREATMENTS_PROPOSED_20261017.md` for source hashes and full cards.
+
+**Source-kit portable archive:** `Bloodright_Wave03_Source_Intake_And_Treatment_Proposals_20261017.zip` SHA-256 `27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844` (11,798,447 bytes), containing all five exact source-art ZIPs, previously verified geometry/reference starter, original-art comparison board, offline manifest/hash QC and treatment cards. Conversation binary, **not a Git-pinned source-art object**. ZIP CRC/member byte equality PASS.
+
+**Next gate:** director's explicit approval/revision of all five visual treatments. No output image has been made for Wave 03.
+
 ## Input and production gates
 
 1. **Source intake:** operator supplies original ZIPs; safe ZIP path/size inspection; validate source names, bloodline IDs, jutsu record IDs, manifests/individual image SHA-256 and ZIP CRC; open **2–4 actual jutsu images and bloodline identity art (if present)** for each family. No game/CDN request.
@@ -55,6 +65,6 @@
 
 ## Immediate next action
 
-Request the five original bloodline art ZIPs, or a single outer ZIP containing them, then begin verification and issue the five **source-grounded** treatment cards. No generated Wave 3 artwork exists yet.
+Original source ZIPs received and validated. **Obtain director acceptance of the five proposed palette/material cards**, then begin production of the Tetsugan trio (one coordinated generation session with three separately saved icons). No Wave 3 tier-emblem artwork exists yet.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
