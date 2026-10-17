@@ -1,0 +1,104 @@
+{
+  "schema": "tnr.bloodright.wave05.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "bloodline": "Tenohira Musei",
+  "review_id": "BR-078",
+  "rank": "A",
+  "material": "Equinox Rift",
+  "material_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "individual_icons_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_original_zip": {
+    "file": "BR-078_Tenohira_Musei.zip",
+    "sha256": "24d390da8c756f2707b09249fbffe637083b42f389eaebac1d4e980d07d64f92",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "sha_crc_format_dimensions_id_joins": "VERIFIED"
+  },
+  "production": "One coordinated deterministic appearance remap of three individually verified Ethereal geometry masters, no generated contact-sheet/redrawn jutsu images. Blue electrical LEFT, orange fiery RIGHT, moon-white pressure convergence at existing central diamond crossing; opaque black.",
+  "geometry_masters_sha256": {
+    "foundation": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+    "hidden_art": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+    "advanced_art": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+  },
+  "source_and_export_icons": [
+    {
+      "tier": "foundation",
+      "raw_png_sha256": "ed023a680147334f8ac049e4f1ca293ed3a79ae94695dcaf75214a542254745f",
+      "webp256_sha256": "ddeff5a121c9cadce19738f3cf58dfaf0da9c68dc51f3e074f81337eda09c243",
+      "webp_bytes": 44536
+    },
+    {
+      "tier": "hidden_art",
+      "raw_png_sha256": "802e2a17da52b3968231afccc2b403e0c355b1b9d32cd63245633ad5efdc3462",
+      "webp256_sha256": "60a1d9b39fb89925b39f3a4232df21f3f1e6646e838b52426787a6549d31b0c5",
+      "webp_bytes": 71990
+    },
+    {
+      "tier": "advanced_art",
+      "raw_png_sha256": "e9b06283e2ca219cb80e6159e6f36cfa9c1cf93ab37857d2d2eabb81ef3e209f",
+      "webp256_sha256": "f8ac66c93327578a7a7214fc0ba3d58360d605da69cd5bdb8e07336c3d70030a",
+      "webp_bytes": 61606
+    }
+  ],
+  "deliverable": {
+    "file": "BR-078_Tenohira_Musei_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "10e7a5262b8b5dc708086915b5f0f1e4313a51fac68fbb4fa9b1dbbabb068573",
+    "bytes": 10078736,
+    "contents": "3 independent 1254x1254 PNG originals, 3 256x256 RGB VP8L lossless WebPs, 5+1 original art source pack, all 3 immutable master reference files, programmatic comparison, 125/64/32 QC, adjacent family comparisons, per-file hashes, processing and independent verifier code"
+  },
+  "previews": [
+    {
+      "file": "BR-078_Tenohira_Musei_Proposed_Family_Comparison.png",
+      "sha256": "516c1c82353e5f39fa9bb38a95cc9c6701ca7b3166c48d9d3af02934b8b3ac80"
+    },
+    {
+      "file": "BR-078_Tenohira_Musei_Proposed_125_64_32.png",
+      "sha256": "e5806af1b23096f561e91ec77eda3fac0cc1ef4330b5a060607d44252c7da105"
+    },
+    {
+      "file": "BR-078_Tenohira_Musei_Neighbor_Foundation_Contrast.png",
+      "sha256": "964fda07636124849022284612e81bc4e869135ecf688d32e0fcbe48cc76daa7"
+    }
+  ],
+  "independent_offline_qc": {
+    "checks_passed": 109,
+    "checks_failed": 0,
+    "report_sha256": "e2a90cdd40bbc9ce33d122656b221b8b0022b3e0781dbea02163ce2d76468b5a",
+    "raw_source_hashes": "PASS_3",
+    "pixelwise_max_RGB_geometry": "EXACT_ALL_THREE",
+    "absolute_silhouette_thresholds": [
+      1,
+      16,
+      64,
+      128,
+      192,
+      240
+    ],
+    "threshold_iou": "1.0_EACH_TIER",
+    "lossless_webp_decoded_equal_to_Lanczos_resized_originals": "PASS_3",
+    "black_corners": "PASS",
+    "webps_under_460800_bytes": "PASS",
+    "original_source_zip_manifest_crc": "PASS",
+    "portable_archive_crc_and_binary_byte_identity": "PASS",
+    "visual_125_64_32": "INSPECTED",
+    "neighbor_distinction": "INSPECTED_VAPORIA_HEAVENLY"
+  },
+  "gates": {
+    "visual_family_approval": "PENDING_USER_DECISION",
+    "strict_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_UNRESOLVED",
+    "Git_pinned_source_binaries": "NOT_DONE",
+    "Forge_immutable_imagePack": "NOT_DONE",
+    "game_readback": "NOT_DONE",
+    "Wave04_nine_approved_nonexact_geometry_icons": "UNCHANGED_AND_SEPARATE"
+  },
+  "progress": {
+    "previous_visually_approved_bloodlines": 20,
+    "previous_visually_approved_icons": 60,
+    "Wave05_proposed_bloodlines": 1,
+    "Wave05_proposed_icons": 3,
+    "approved_count_does_not_advance": true
+  },
+  "live_requests": 0,
+  "live_writes": 0,
+  "credentials": false
+}
