@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave04.original-art-intake-qc/1",
   "date": "2026-10-17",
-  "status": "ORIGINAL_ART_VERIFIED; BR066_BR008_BR053_BR063_VISUALLY_APPROVED; BR032_PROPOSED_DIRECTOR_IMAGE_DECISION_PENDING",
+  "status": "WAVE04_FIVE_FAMILIES_DIRECTOR_VISUALLY_APPROVED; NINE_OF_FIFTEEN_RAW_ICONS_NONEXACT_MASTER_GEOMETRY",
   "roster": {
     "ref": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "reviewed_in_tracker": "docs/design/bloodright/ICON_PRODUCTION_TRACKER.md"
@@ -154,8 +154,10 @@
       ],
       "do_not_use": "No literal music-note glyphs, full sound-wave rings, treble clefs or geometry changes.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "3_INDIVIDUAL_IMAGES_PROPOSED_PASSED_EXACT_MASTER_MASK_QC; DIRECTOR_FINAL_VISUAL_ACCEPTANCE_PENDING",
-      "family_qc_record": "BLOODRIGHT_WAVE04_BR032_PROPOSAL_QC_20261017.json"
+      "icon_artwork_status": "3_OF_3_DIRECTOR_VISUALLY_APPROVED; EXACT_MASTER_GEOMETRY_PASS",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR032_PROPOSAL_QC_20261017.json",
+      "approved_art_package": "BR-032_Heavenly_Sonata_Bloodright_Approved_3_Icons.zip",
+      "approved_art_package_sha256": "91ea1253be0762f17c45f622a4b323ceefda2c9bcdf91aa1a16a817742e637ef"
     }
   ],
   "checks": {
@@ -200,16 +202,16 @@
     "total_icons": 87,
     "remaining_bloodlines": 14,
     "remaining_icons": 42,
-    "wave04_approved_bloodlines": 4,
-    "wave04_approved_icons": 12,
-    "current_visually_approved_bloodlines": 19,
-    "current_visually_approved_icons": 57,
-    "current_remaining_bloodlines": 10,
-    "current_remaining_icons": 30,
-    "wave04_fixed_geometry_machine_pass_icon_count": 3,
-    "wave04_fixed_geometry_proposal_pass_icons": 3
+    "wave04_approved_bloodlines": 5,
+    "wave04_approved_icons": 15,
+    "current_visually_approved_bloodlines": 20,
+    "current_visually_approved_icons": 60,
+    "current_remaining_bloodlines": 9,
+    "current_remaining_icons": 27,
+    "wave04_fixed_geometry_machine_pass_icon_count": 6,
+    "wave04_fixed_geometry_proposal_pass_icons": 0
   },
-  "decision_gate": "Review exact three Heavenly Sonata (BR-032) Celestial Harmonics proposed icons; approve or request revision. If approved package five-family Wave 04 accepted originals.",
+  "decision_gate": "Wave 04 visuals complete; no further family art approval pending. Next: five new Wave05 source art ZIPs, inspect before new material treatment direction.",
   "technical_boundaries": [
     "Current main JUTSU_ICON optional alpha applies ONLY to jutsu.image; not field-verified for Bloodright skillTree.image",
     "Exact accepted art source binaries/masters still not committed/pinned by immutable Git SHA",
@@ -220,5 +222,6 @@
   "live_game_writes": 0,
   "credentials": false,
   "treatment_director_approval": "ALL_FIVE_CARDS_APPROVED_BY_DIRECTOR_ON_2026-10-17",
-  "geometry_exception_notice": "Nine director-visually-approved Wave04 icon originals from BR-066, BR-008 V02, and BR-063 Ebony Silk are NOT pixelwise exact universal tier master geometry. Preserve original approved bytes and keep strict geometry gate OPEN; BR-053 approved and BR-032 proposed have 3/3 master-exact geometry."
+  "geometry_exception_notice": "Wave04 exact-master nonconforming, but director visually accepted: BR-066 Shinseina Ki, BR-008 Bakuhatsu red-core v02, BR-063 Shadow Weaver Ebony Silk v03 (nine icons). Exact 3/3: BR-053 Oblivion Seal, BR-032 Heavenly Sonata. No pixel-altering corrections without renewed visual acceptance.",
+  "art_approved_closeout": "BLOODRIGHT_WAVE04_APPROVED_QC_20261017.json"
 }
