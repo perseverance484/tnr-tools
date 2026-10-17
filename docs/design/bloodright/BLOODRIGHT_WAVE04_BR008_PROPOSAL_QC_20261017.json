@@ -1,0 +1,93 @@
+{
+  "schema": "tnr.bloodright.wave04.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-008",
+  "family": "Bakuhatsu",
+  "rank": "A",
+  "treatment": "Detonation Core",
+  "director_treatment_approval": "APPROVED",
+  "director_specific_trio_visual_acceptance": "PROPOSED_PENDING",
+  "source_zip": {
+    "filename": "BR-008_Bakuhatsu.zip",
+    "sha256": "7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24",
+    "original_jutsu_images": 5,
+    "identity": 1,
+    "CRC_manifest_SHA_ID_MIME_dimensions": "PASS_6"
+  },
+  "geometry_masters": {
+    "origin": "Wave04 portable source starter / verified exact Ethereal Monarch geometry-reference original PNG files",
+    "foundation_sha256": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+    "hidden_art_sha256": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+    "advanced_art_sha256": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+  },
+  "production": {
+    "method": "One deterministic exact-maxRGB master-preserving appearance recipe used across the complete three-tier family; approved geometry, black void, landmarks and scale unchanged",
+    "art_palette": "Impact-forged copper with compressed incandescent orange kinetic energy, near-white compressed inner core, occasional source-backed blue static but no blue halo",
+    "raw": "three individually saved 1254x1254 RGB PNG files",
+    "exports": "three Pillow Lanczos 256x256 RGB WebP VP8L lossless",
+    "preview": "programmatically composed ONLY from exact saved raw PNGs",
+    "source_jutsu_references": [
+      "Inferno Cataclysm",
+      "Kinetic Nova",
+      "Charge 4 Explosion"
+    ],
+    "nearby_palette_compared": [
+      "BR-074 Suragu",
+      "BR-064 Shakunetsu Sakura",
+      "BR-066 Shinseina Ki"
+    ]
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_png_sha256": "f4496d22ce6b2c8ec2a046ba03fe4e07215ef1e6d83cf55e4a1f9c76d908ffa7",
+      "webp_sha256": "482c332a767b3473557bda4a81110b8e864691b44b2bce6e74b1968175671f95",
+      "webp_bytes": 39800
+    },
+    {
+      "tier": "hidden_art",
+      "raw_png_sha256": "b195f7f0c1f0f3ec2f2b73d1aefd90bfb3c0cf2a03c6e1f8ba5cf99ee03920c4",
+      "webp_sha256": "3ae3c8c475ce24f9f9dbc4f44f66c46723190508f5dfe997d0837720f46bb554",
+      "webp_bytes": 62710
+    },
+    {
+      "tier": "advanced_art",
+      "raw_png_sha256": "2b9535a253e748988b42ed9b834e4936c46b50378376f66f3f3a087edd288c36",
+      "webp_sha256": "ae9c6dc34ff614a426265a5b3e9836ca1771a7be735db0e281a2b58d347dfafe",
+      "webp_bytes": 53958
+    }
+  ],
+  "qc": {
+    "raw_png_1254_rgb": "PASS_3",
+    "all_master_maxRGB_exact": "PASS_3",
+    "six_thresholds_1_16_64_128_192_240_IoU": "EXACT_1.000_ALL_3",
+    "webp_vp8l_256_rgb": "PASS_3",
+    "lossless_decoded_equals_Lanczos_resized_raw": "PASS_3",
+    "all_under_460800_bytes": "PASS_3",
+    "black_background_corners": "PASS_3",
+    "small_display_125_64_32": "PASS_PREVIEW",
+    "programmatic_family_and_neighbor_comparison": "PASS",
+    "zip_CRC_sha_and_unmodified_files": "PASS",
+    "strict_skillTree_image_field_preflight": "NOT_RUN",
+    "git_binary_source_pins": "NOT_DONE",
+    "Forge_immutable_imagePack": "NOT_DONE",
+    "operator_live_readback": "NOT_DONE"
+  },
+  "package": {
+    "name": "BR-008_Bakuhatsu_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "4b1e32cea6e2100aedd80fdafadbd0e35a16077c14918bf6ecd0c30299863c99",
+    "bytes": 5029840,
+    "contents": "3 independent original-tier PNGs + 3 lossless WebPs + original jutsu art ZIP + QC previews + processing script + manifest"
+  },
+  "color_distinction_caution": "Bakuhatsu and Suragu both genuinely use orange elemental palette in original artwork. Bakuhatsu emphasizes pale kinetic compression inside copper seams rather than Suragu's igneous rock, and director may request greater contrast after seeing neighbor preview.",
+  "counts": {
+    "prior_approved_families": 16,
+    "prior_approved_icons": 48,
+    "pending_proposal_families": 1,
+    "pending_proposal_icons": 3
+  },
+  "next": "Director approve/reject/revise this Bakuhatsu trio before proceeding to BR-053 Oblivion Seal.",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
