@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave05.source-intake-qc/1",
   "date": "2026-10-17",
-  "state": "FIVE_ORIGINAL_ART_PACKS_VERIFIED; FIVE_SOURCE_GROUNDED_TREATMENTS_PROPOSED_AWAITING_DIRECTOR; ICON_PRODUCTION_NOT_STARTED",
+  "state": "FIVE_SOURCE_PACKS_VERIFIED; ALL_FIVE_VISUAL_TREATMENTS_DIRECTOR_APPROVED; BR078_TRIAD_PROPOSED_FOR_FINAL_ART_ACCEPTANCE",
   "lineage": {
     "pinned_roster": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "pinned_roster_blob": "64f6097cb65daccd636f98c8f35517941b67aebb",
@@ -191,5 +191,21 @@
     "game_writes": 0,
     "credentials_used": false
   },
-  "director_gate": "Obtain separate approval/revision of all five Wave05 palette/material cards before creating tier icon candidates, then per-bloodline exact-raw visual acceptance."
+  "director_gate": "Obtain separate visual acceptance for the three specific BR-078 Tenohira Musei tier icons. Next BR-005 Arashima production only after director decision.",
+  "director_material_approval": {
+    "status": "APPROVED_ALL_FIVE_2026-10-17",
+    "source": "Director replied 'Approved, proceed' to five cards Equinox Rift, Midnight Tempest, Raijin Whitebolt, Cerulean Shatter, Winterglass Sanctum."
+  },
+  "generated_tier_art": "3_BR078_PROPOSED;_0_WAVE05_APPROVED",
+  "BR078_proposal": {
+    "QC_path": "BLOODRIGHT_WAVE05_BR078_PROPOSAL_QC_20261017.json",
+    "zip_file": "BR-078_Tenohira_Musei_Bloodright_Proposed_3_Icons.zip",
+    "zip_sha256": "10e7a5262b8b5dc708086915b5f0f1e4313a51fac68fbb4fa9b1dbbabb068573",
+    "source_png_count": 3,
+    "lossless_webps": 3,
+    "geometry": "EXACT_MASTER_MAXRGB_3_OF_3",
+    "offline_independent_checks_passed": 109,
+    "offline_independent_checks_failed": 0,
+    "specific_artwork_director_approval": "PENDING"
+  }
 }
