@@ -67,12 +67,12 @@ The Master of Arms is already armed. "An intruder who trips the racks," he says,
 
 Medical Protocol will flood you with the armory's restorative mist: you enter the fight fully recovered. Combat Protocol will instead brace you against his Sovereign Fetters, so his stuns will not hold you."""),
   "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: steel yourself against stuns"},
-  "lost_first": ("Recalled to the Proving Hall", """You wake on the cold floor of the proving hall with the proctor's whistle still ringing. Your pools have been set to half, the way the armory resets a failed candidate.
+  "lost_first": ("Recalled to the Proving Hall", """You wake on the cold floor of the proving hall with the proctor's whistle still ringing. The armory resets a failed candidate: your next trial begins with your pools at half.
 
 The proctor taps its clipboard. "Again." """),
-  "lost_later": ("Recalled to the Proving Hall", """The armory throws you out the way it throws out every failed candidate: back to the proving hall, pools set to half, the doors you opened sealed behind you.
+  "lost_later": ("Recalled to the Proving Hall", """The armory throws you out the way it throws out every failed candidate: back to the proving hall, the doors you opened sealed behind you.
 
-The proctor is waiting. Beat it again and the armory will let you resume from the Quartermaster's store."""),
+The proctor is waiting, and your next trial begins with your pools at half. Beat it again and the armory will let you resume from the Quartermaster's store."""),
   "recovered": ("Clearance Restored", """The proctor steps aside and stamps your trial card. The doors to the Quartermaster's store slide open again.
 
 You keep what this fight left you. No more, no less."""),
@@ -125,15 +125,15 @@ A wrong answer will still open the stair, but the theatre will be waiting for yo
 "Subject A," says Replicant Zero, without turning. "Correct. I was the first one they brought back, you know. My body died in that tank. I did not." He looks at you, interested. "Let us see what you are made of. I would like a copy." """),
   "boss_alert": ("Replicant Zero: Containment Breach", """The tanks drain with a roar and the theatre floods with blue warning light. Every reconstruction rig in the room is pointed at you.
 
-"Wrong subject," says Replicant Zero, rebuilding his own hand from light. "Containment breach protocols are already running. I was the first one they brought back. My body died in that tank. I did not." He smiles. "Neither will you leave."""),
+"Wrong subject," says Replicant Zero, rebuilding his own hand from light. "Containment breach protocols are already running. I was the first one they brought back. My body died in that tank. I did not." He smiles. "Neither will you leave.\""""),
   "protocol": ("The Prototype Falls", """The Failed Reconstruction Prototype collapses into crystal dust, and the theatre's protocols unlock.
 
 Medical Protocol will run you through the reconstruction rig: you enter the fight fully recovered. Combat Protocol will instead overcharge your chakra, increasing the damage you deal for the opening rounds."""),
   "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: overcharge your attacks"},
-  "lost_first": ("Returned to the Archive", """You wake among the crystal shelves with your pools at half. The archivist is re-shelving a core. "Intake failed," it says. "Again." """),
-  "lost_later": ("Returned to the Archive", """The research division returns you to the archive, pools at half, as though you were one more impression to be rebuilt. The halls you cleared have sealed again.
+  "lost_first": ("Returned to the Archive", """You wake among the crystal shelves. Your next trial begins with your pools at half. The archivist is re-shelving a core. "Intake failed," it says. "Again." """),
+  "lost_later": ("Returned to the Archive", """The research division returns you to the archive as though you were one more impression to be rebuilt. The halls you cleared have sealed again.
 
-The archivist is waiting. Pass it, and the vat halls will reopen."""),
+The archivist is waiting, and your next trial begins with your pools at half. Pass it, and the vat halls will reopen."""),
   "recovered": ("Register Amended", """The archivist writes your name into its register, crosses it out, and writes it again. The vat halls unseal.
 
 You keep what this fight left you."""),
@@ -185,10 +185,10 @@ A forged order will still open the corridor, but it will be logged."""),
 
 Medical Protocol will open the officers' infirmary to you: you enter the fight fully recovered. Combat Protocol will instead ward your techniques, so the Grand Marshal's seals will not hold you."""),
   "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: ward against seals"},
-  "lost_first": ("Back to the Signal Room", """You wake beside the relay board, pools at half. The adjutant does not look up. "Dismissed. Report again." """),
-  "lost_later": ("Back to the Signal Room", """High Command dismisses you back to the signal room, pools at half. The planning hall's doors have closed again.
+  "lost_first": ("Back to the Signal Room", """You wake beside the relay board. Your next trial begins with your pools at half. The adjutant does not look up. "Dismissed. Report again." """),
+  "lost_later": ("Back to the Signal Room", """High Command dismisses you back to the signal room. The planning hall's doors have closed again.
 
-The adjutant is waiting at the relay board. Get past it, and the planning hall will reopen."""),
+The adjutant is waiting at the relay board, and your next trial begins with your pools at half. Get past it, and the planning hall will reopen."""),
   "recovered": ("Report Accepted", """The adjutant initials your report and waves you through. The planning hall unseals.
 
 You keep what this fight left you."""),
@@ -240,10 +240,10 @@ Supreme Commander Arakane does not hurry. "You obeyed a rumour, or an order that
 
 Medical Protocol will restore you in the Sanctum's reliquary: you enter the final fight fully recovered. Combat Protocol is the Sanctum's last field directive: for the opening rounds, nothing the Supreme Commander does can weaken you."""),
   "protocol_options": {"medical": "Medical Protocol: enter fully restored", "combat": "Combat Protocol: ward yourself against debilitation"},
-  "lost_first": ("Turned Back at the Gate", """You come to at the Sanctum gate, pools at half. The Vanguard has not moved. "State your directive," it says again."""),
-  "lost_later": ("Turned Back at the Gate", """The Sanctum turns you back to its gate, pools at half, and closes the antechamber behind you.
+  "lost_first": ("Turned Back at the Gate", """You come to at the Sanctum gate. Your next trial begins with your pools at half. The Vanguard has not moved. "State your directive," it says again."""),
+  "lost_later": ("Turned Back at the Gate", """The Sanctum turns you back to its gate and closes the antechamber behind you.
 
-The Vanguard is waiting. Break past it once more, and the antechamber will open."""),
+The Vanguard is waiting, and your next trial begins with your pools at half. Break past it once more, and the antechamber will open."""),
   "recovered": ("The Gate Yields", """The Vanguard lowers its burning gauntlets. The antechamber doors grind open again.
 
 You keep what this fight left you. Losing to the Supreme Commander himself would end the expedition."""),

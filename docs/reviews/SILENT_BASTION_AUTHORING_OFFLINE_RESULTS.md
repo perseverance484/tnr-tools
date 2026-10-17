@@ -3,7 +3,11 @@
 **Verdict:**
 
 - **The authoring package is complete and passes every native gate.** All 99 objectives have content. The four existing commander designs are translated into native rules. The 16 regulars are new, and all content-only blockers are documented.
-- **Every design and balance decision the package raised is now ruled** (RUL-2026-10-16-004 to -012). This revision applies them:
+- **Review correction round.** ChatGPT reviewed `16dbc5a2`; see `docs/reviews/SILENT_BASTION_AUTHORING_INDEPENDENT_REVIEW_20261016.md` on `chatgpt/review-silent-bastion-authoring-20261016@ba4fbaf5`. This revision:
+  - applies RUL-2026-10-16-013, which closed F1;
+  - fixes F2 (generator fail-open), F3 (validator diagnostic matching) and F4 (proofreading).
+  - F5 stays a pre-manifest gate. See §7.
+- **Every design and balance decision the package raised is now ruled** (RUL-2026-10-16-004 to -013). Earlier revisions applied them:
   - compiles and natively tests the approved completion caches;
   - marks the accepted values and copy;
   - records the puzzle validator exception.
@@ -35,11 +39,11 @@
 
 | Gate | Result |
 | --- | --- |
-| Generators `--check` (sources, regulars, script, composer, C99 derived graphs) | **all current** |
-| **V** — `validate.py` on the validation-only manifest (now including both cache items) | **11 errors, all documented (11/11), and 9 warnings.** See §3. |
+| **G** — generators `--check` (sources, regulars, script, composer, C99 derived graphs), each with its own exit status | **all current**. Runner self-test `test_gencheck.sh`: 0 failed |
+| **V** — `validate.py` on the validation-only manifest (now including both cache items) | **exit 1; 11 errors, 9 warnings; the exact lines and counts are documented (11/11).** Self-test `test_check_validate.py`: 0 failed. **Not a validate-clean result.** See §3 |
 | Upstream preflight: 9 engine suites (AI v2 rules/targeting/unreachable/summon, seal/stealth, quest reset, Pyramid consequences, entry charge, run state) | **117 / 117** |
 | **A** — AI (pure; real decision engine, real captured jutsu records) | **218 checks, 0 failed** (50 tests) |
-| **C** — compiled content + real saves | **44 checks, 0 failed** (10 tests). Includes `scaleGains` 0 on exactly the 8 recovery battles, the approved D5 buff, and the completion caches (C1b static, C2 native) |
+| **C** — compiled content + real saves | **45 checks, 0 failed** (10 tests), including the new unbalanced-quote check (F4). Includes `scaleGains` 0 on exactly the 8 recovery battles, the approved D5 buff, and the completion caches (C1b static, C2 native) |
 | **D/R/E** — frozen C99 runtime gates with **the compiled candidate quest** as the fixture | **D 543, R 7,033, E 592 checks, 0 failed** |
 | **I** — recovery income on the compiled quest (new, RUL-2026-10-16-005) | **456 checks, 0 failed** (4 divisions). Compiled-runtime suite total: 41/41 tests |
 | Deterministic re-run (second full `run.sh`, scratch output) | **exit 0; all 7 evidence JSON files byte-identical.** `validate_py.txt` has the same lines; only the order of two warnings changes between runs (from `validate.py` itself) |
@@ -136,6 +140,17 @@ Provenance is in `results/provenance.json`: the engine pin, `bun.lock`, the SHA-
 - **Repository:** `perseverance484/tnr-tools`
 - **Branch:** `claude/silent-bastion-authoring-69za5u` (Fable-owned, sole writer)
 - **Base:** `25d2b2e159d9fb9b0769db5483571e0db87991f6`. The merge-base with `main@99e86dc` is reported at handoff.
-- **Frozen head:** the commit that adds this revision. The SHA is in the handoff message. It supersedes `01643c802f1571e42cb51c0e50174c6eaa53fc43` (which superseded `d648c62a`). Since `01643c80`, the changes are rulings RUL-2026-10-16-010 to -012, the compiled caches with their gate C checks, VAL2, and the accepted-status updates.
+- **Frozen head:** the commit that adds this revision. The SHA is in the handoff message. It supersedes the reviewed head `16dbc5a2976a463be1f9506e007f10bd0814e85d` (and before it `01643c80` and `d648c62a`). Since `16dbc5a2`, the only changes are the review corrections in §7.
 - **Companion proof:** `claude/recipe-cache-native-proof-69za5u@b133d73286df9e48ba1015b21dd694c69c9ea090`. It is independent, not merged here, and pending its own review.
 - **Next:** ChatGPT independent audit of the frozen SHA. After that, the director works through `decision_docket.md`.
+
+## 7. Independent review corrections (`16dbc5a2` → this head)
+
+| Finding | Disposition | Change | Evidence |
+| --- | --- | --- | --- |
+| **F1** Extermination Order fields and the two weapons were still candidates | **Closed by RUL-2026-10-16-013**; metadata applied. Combat values unchanged. | Entry copied verbatim from the review branch into `docs/RULINGS.md`. In `design/commanders.json`: Extermination Order status APPROVED (60 AP, r5, single, 80 dmg, Elemental Seal 100/2r, Cleanse Prevent 100/2r, CD 4, active Final Stand only); effect notes `approval` instead of `candidate`, including The Last Directive's IDG 30 (already RUL-011); Arakane `itemsStatus` (Countermand, Solar Bow HAND_1, Crossbow HAND_2 approved, fresh captures required). Arakane profile and docket updated. | `compiled/ai_profiles.candidate.json` and `compiled/cache_items.candidate.json` are byte-identical to `16dbc5a2`. The quest and validation manifest differ only in the 9 F4 texts (plus the quest status string). Gate A 218/0 |
+| **F2** generator runner fail-open | **Fixed.** | `tools/gencheck.sh`: every check runs, and each check's own nonzero exit or `STALE` fails the gate. `run.sh` uses it after running `tools/test_gencheck.sh` (first/middle/last failure and STALE cases, plus later checks still running). | Self-test 0 failed. Real-command reproduction: first generator pointed at a missing engine. Old grouping `GEN_STATUS=0`; new runner status 1, with the failing command named |
+| **F3** validator matching used a set | **Fixed.** | `tools/check_validate.py` compares a `Counter` of verbatim ERROR lines (no truncation), the summary error count (11) and warning count (9), and exit status 1. Logic is in a pure `judge()`; `tools/test_check_validate.py` runs first in `run.sh`. | Self-test 0 failed (duplicate, missing, reworded, new, summary mismatch, warning change, exit 0, killed, crash all fail). Real run 11/11 |
+| **F4** missing quote; defeat text said pools were already at half | **Fixed in `tools/gen_script.py`.** | `d3.n.boss.alert` now ends `"Neither will you leave."`: the closing quote had been swallowed by Python's triple-quote parsing. In all 8 `dN.lost_first/later` dialogs the pool clause now reads "your next trial begins with your pools at half"; story, choices and graph are unchanged. | Gate C: no objective text or option label has an unbalanced double quote |
+| **F5** full AI loadout and combat integration | **Open pre-manifest gate** (docket item 9a) | Not built here, by the review's scoping. The release stays BLOCKED. | — |
+

@@ -90,7 +90,7 @@ Medical Protocol will flood you with the armory's restorative mist: you enter th
 - `b2.n.boss.combat` vs `@ai:D2.BOSS` — Defeat the Master of Arms (Combat Protocol: stun-braced). *(player stunprevent 100/2r)*
 ### `d2.lost_first` — Recalled to the Proving Hall
 
-You wake on the cold floor of the proving hall with the proctor's whistle still ringing. Your pools have been set to half, the way the armory resets a failed candidate.
+You wake on the cold floor of the proving hall with the proctor's whistle still ringing. The armory resets a failed candidate: your next trial begins with your pools at half.
 
 The proctor taps its clipboard. "Again."
 
@@ -98,9 +98,9 @@ The proctor taps its clipboard. "Again."
 - `r2.reset_first` → reset to `d2.lost_first` (silent)
 ### `d2.lost_later` — Recalled to the Proving Hall
 
-The armory throws you out the way it throws out every failed candidate: back to the proving hall, pools set to half, the doors you opened sealed behind you.
+The armory throws you out the way it throws out every failed candidate: back to the proving hall, the doors you opened sealed behind you.
 
-The proctor is waiting. Beat it again and the armory will let you resume from the Quartermaster's store.
+The proctor is waiting, and your next trial begins with your pools at half. Beat it again and the armory will let you resume from the Quartermaster's store.
 
 - `b2.recovery_later` vs `@ai:D2.REG1` — Retake the proving trial: defeat the Bastion Proving Proctor. *(pools set to 50%)*
 ### `d2.recovered` — Clearance Restored
@@ -176,7 +176,7 @@ The stair lets you into the theatre from behind the observation glass. On the op
 
 The tanks drain with a roar and the theatre floods with blue warning light. Every reconstruction rig in the room is pointed at you.
 
-"Wrong subject," says Replicant Zero, rebuilding his own hand from light. "Containment breach protocols are already running. I was the first one they brought back. My body died in that tank. I did not." He smiles. "Neither will you leave.
+"Wrong subject," says Replicant Zero, rebuilding his own hand from light. "Containment breach protocols are already running. I was the first one they brought back. My body died in that tank. I did not." He smiles. "Neither will you leave."
 
 - `b3.n.boss.alert` vs `@ai:D3.BOSS` — Defeat Replicant Zero under Security Alert. *(player increasedamagetaken 10/2r)*
 - `b3.n.f4` vs `@ai:D3.REG4` — Defeat the Failed Reconstruction Prototype to claim protocol access.
@@ -193,15 +193,15 @@ Medical Protocol will run you through the reconstruction rig: you enter the figh
 - `b3.n.boss.combat` vs `@ai:D3.BOSS` — Defeat Replicant Zero (Combat Protocol: overcharged). *(player increasedamagegiven 25/3r)*
 ### `d3.lost_first` — Returned to the Archive
 
-You wake among the crystal shelves with your pools at half. The archivist is re-shelving a core. "Intake failed," it says. "Again."
+You wake among the crystal shelves. Your next trial begins with your pools at half. The archivist is re-shelving a core. "Intake failed," it says. "Again."
 
 - `b3.recovery_first` vs `@ai:D3.REG1` — Pass intake again: defeat the Skyglass Archive Keeper. *(pools set to 50%)*
 - `r3.reset_first` → reset to `d3.lost_first` (silent)
 ### `d3.lost_later` — Returned to the Archive
 
-The research division returns you to the archive, pools at half, as though you were one more impression to be rebuilt. The halls you cleared have sealed again.
+The research division returns you to the archive as though you were one more impression to be rebuilt. The halls you cleared have sealed again.
 
-The archivist is waiting. Pass it, and the vat halls will reopen.
+The archivist is waiting, and your next trial begins with your pools at half. Pass it, and the vat halls will reopen.
 
 - `b3.recovery_later` vs `@ai:D3.REG1` — Pass intake again: defeat the Skyglass Archive Keeper. *(pools set to 50%)*
 ### `d3.recovered` — Register Amended
@@ -288,15 +288,15 @@ Medical Protocol will open the officers' infirmary to you: you enter the fight f
 - `b4.n.boss.combat` vs `@ai:D4.BOSS` — Defeat The Grand Marshal (Combat Protocol: seal-warded). *(player sealprevent 100/2r)*
 ### `d4.lost_first` — Back to the Signal Room
 
-You wake beside the relay board, pools at half. The adjutant does not look up. "Dismissed. Report again."
+You wake beside the relay board. Your next trial begins with your pools at half. The adjutant does not look up. "Dismissed. Report again."
 
 - `b4.recovery_first` vs `@ai:D4.REG1` — Report again: defeat the Command Signal Adjutant. *(pools set to 50%)*
 - `r4.reset_first` → reset to `d4.lost_first` (silent)
 ### `d4.lost_later` — Back to the Signal Room
 
-High Command dismisses you back to the signal room, pools at half. The planning hall's doors have closed again.
+High Command dismisses you back to the signal room. The planning hall's doors have closed again.
 
-The adjutant is waiting at the relay board. Get past it, and the planning hall will reopen.
+The adjutant is waiting at the relay board, and your next trial begins with your pools at half. Get past it, and the planning hall will reopen.
 
 - `b4.recovery_later` vs `@ai:D4.REG1` — Report again: defeat the Command Signal Adjutant. *(pools set to 50%)*
 ### `d4.recovered` — Report Accepted
@@ -383,15 +383,15 @@ Medical Protocol will restore you in the Sanctum's reliquary: you enter the fina
 - `b5.n.boss.combat` vs `@ai:D5.BOSS` — Defeat Supreme Commander Arakane (Combat Protocol: debuff-warded). Defeat ends the expedition. *(player debuffprevent 100/3r)*
 ### `d5.lost_first` — Turned Back at the Gate
 
-You come to at the Sanctum gate, pools at half. The Vanguard has not moved. "State your directive," it says again.
+You come to at the Sanctum gate. Your next trial begins with your pools at half. The Vanguard has not moved. "State your directive," it says again.
 
 - `b5.recovery_first` vs `@ai:D5.REG1` — Break the gate again: defeat the Sanctum Vanguard. *(pools set to 50%)*
 - `r5.reset_first` → reset to `d5.lost_first` (silent)
 ### `d5.lost_later` — Turned Back at the Gate
 
-The Sanctum turns you back to its gate, pools at half, and closes the antechamber behind you.
+The Sanctum turns you back to its gate and closes the antechamber behind you.
 
-The Vanguard is waiting. Break past it once more, and the antechamber will open.
+The Vanguard is waiting, and your next trial begins with your pools at half. Break past it once more, and the antechamber will open.
 
 - `b5.recovery_later` vs `@ai:D5.REG1` — Break the gate again: defeat the Sanctum Vanguard. *(pools set to 50%)*
 ### `d5.recovered` — The Gate Yields

@@ -1,0 +1,11 @@
+ok   documented output, exit 1 -> pass
+ok   one documented error duplicated (summary updated) -> fail
+ok   one documented error missing -> fail
+ok   one documented error reworded -> fail
+ok   one new error -> fail
+ok   summary count disagrees with lines -> fail
+ok   warning count changed -> fail
+ok   validate.py exit 0 -> fail
+ok   validate.py killed (-9) -> fail
+ok   validate.py crashed (exit 2, no summary) -> fail
+test_check_validate: 0 failed

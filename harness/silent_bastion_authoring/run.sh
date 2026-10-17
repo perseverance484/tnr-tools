@@ -47,20 +47,27 @@ fi
 [[ -d "$APP/node_modules" ]] || (cd "$APP" && bun install --frozen-lockfile --ignore-scripts)
 
 # 2. Generators must be current (deterministic package).
+#    Each check's own exit status counts (review F2); the runner's negative test runs first.
 set +e
 GEN_STATUS=0
-{
-  python3 "$PKG/tools/extract_sources.py" --engine "$APP" --check
-  python3 "$PKG/tools/gen_regulars.py" --check
-  python3 "$PKG/tools/gen_script.py" --check
-  python3 "$PKG/tools/compose.py" --check
-  python3 "$C99/tools/derive_alternatives.py" --check
-} > "$OUT/generators_check.log" 2>&1 || GEN_STATUS=1
-grep -q "STALE" "$OUT/generators_check.log" && GEN_STATUS=1
+# shellcheck source=tools/gencheck.sh
+source "$HERE/tools/gencheck.sh"
+"$HERE/tools/test_gencheck.sh" > "$OUT/gencheck_selftest.log" 2>&1 || GEN_STATUS=1
+tail -1 "$OUT/gencheck_selftest.log"
+q() { printf '%q ' "$@"; }
+run_generator_checks \
+  "$(q python3 "$PKG/tools/extract_sources.py" --engine "$APP" --check)" \
+  "$(q python3 "$PKG/tools/gen_regulars.py" --check)" \
+  "$(q python3 "$PKG/tools/gen_script.py" --check)" \
+  "$(q python3 "$PKG/tools/compose.py" --check)" \
+  "$(q python3 "$C99/tools/derive_alternatives.py" --check)" > "$OUT/generators_check.log" 2>&1 || GEN_STATUS=1
 cat "$OUT/generators_check.log"
 # 2b. Repository validator on the composer's validation-only manifest: errors must be exactly the documented set.
-python3 "$HERE/tools/check_validate.py" "$OUT"
-VALIDATE_STATUS=$?
+#     The checker's own negative tests (review F3) run first.
+VALIDATE_STATUS=0
+python3 "$HERE/tools/test_check_validate.py" > "$OUT/check_validate_selftest.log" 2>&1 || VALIDATE_STATUS=1
+tail -1 "$OUT/check_validate_selftest.log"
+python3 "$HERE/tools/check_validate.py" "$OUT" || VALIDATE_STATUS=1
 set -e
 
 # 3. Install suites.

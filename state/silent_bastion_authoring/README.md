@@ -1,6 +1,6 @@
 # Silent Bastion — complete offline authoring package (`alt99_f4gate`)
 
-**Status: OFFLINE PACKAGE, director-accepted values.** This is not a manifest, not under `push/`, and has no live-game action. RUL-2026-10-15-001 and RUL-2026-10-16-001 to -012 are implemented. Cache names, cache and Beacon rarity, and art are still open; fresh reads, username checks and calibration come before any manifest (`decision_docket.md`). Publication is not authorized.
+**Status: OFFLINE PACKAGE, director-accepted values.** This is not a manifest, not under `push/`, and has no live-game action. RUL-2026-10-15-001 and RUL-2026-10-16-001 to -013 are implemented. Cache names, cache and Beacon rarity, and art are still open; fresh reads, username checks and calibration come before any manifest (`decision_docket.md`). Publication is not authorized.
 
 - **Build contract:** `state/prompt_silent_bastion_complete_authoring.md`.
 - **Coordination lock:** `state/silent_bastion_approved_authoring_lock.json`.
