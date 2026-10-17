@@ -16,7 +16,11 @@
   "cohort_rule": "public (hidden=false) records with owner_decision INCLUDE and rank A/S/H, plus the single REFERENCE record; members are each record's public_jutsu_ids (all linked jutsu types, including SPECIAL with a bloodlineId)",
   "expected": {
     "bloodlines": 29,
-    "ranks": {"A": 19, "S": 6, "H": 4},
+    "ranks": {
+      "A": 19,
+      "S": 6,
+      "H": 4
+    },
     "jutsu": 166
   },
   "captures": [
@@ -27,6 +31,46 @@
       "bundle": "harvests/inbox/tnr_results_1792212938515.json",
       "bundle_sha256": "df2ecce81b49c8de195f1bfce3f5bddd9f0fe924ecf94e8b891139f8d434caec",
       "job_id": "101-mvbxb3q6"
+    },
+    {
+      "manifest": "push/104_bloodright_reference_capture_batch_1.json",
+      "manifest_number": 104,
+      "manifest_hash": "2648231e",
+      "bundle": "harvests/inbox/tnr_results_1792216348638.json",
+      "bundle_sha256": "39f840256265ebd4f05326eec0b2e03d976487cd21869d509d10e4801010f15d",
+      "job_id": "104-mvbzax0q"
+    },
+    {
+      "manifest": "push/105_bloodright_reference_capture_batch_2.json",
+      "manifest_number": 105,
+      "manifest_hash": "22b4e80d",
+      "bundle": "harvests/inbox/tnr_results_1792216502874.json",
+      "bundle_sha256": "b0b042b3b835b7e3333986455e9d89ecdc72d137893c6a47a9f50a2f05554870",
+      "job_id": "105-mvbze64o"
+    },
+    {
+      "manifest": "push/106_bloodright_reference_capture_batch_3.json",
+      "manifest_number": 106,
+      "manifest_hash": "102bc46d",
+      "bundle": "harvests/inbox/tnr_results_1792216767404.json",
+      "bundle_sha256": "41534a21de9f0893ea2d8ca1bdd5e1c7fad5e624b4eac330bc0e483c111b421e",
+      "job_id": "106-mvbzjvpf"
+    },
+    {
+      "manifest": "push/107_bloodright_reference_capture_batch_4.json",
+      "manifest_number": 107,
+      "manifest_hash": "27c8ffcb",
+      "bundle": "harvests/inbox/tnr_results_1792216630441.json",
+      "bundle_sha256": "16bc1cc1c9638c4e175a8bd9c4890d352c313ade04f11daa0f76d2a3e966d5b8",
+      "job_id": "107-mvbzgznh"
+    },
+    {
+      "manifest": "push/108_bloodright_reference_capture_batch_5.json",
+      "manifest_number": 108,
+      "manifest_hash": "0966e35d",
+      "bundle": "harvests/inbox/tnr_results_1792216368026.json",
+      "bundle_sha256": "39e41678fe0255100d15d9b38977f18319cb1bf6c2ca47954b094cd1bda2caa7",
+      "job_id": "108-mvbzcktx"
     }
   ]
 }
