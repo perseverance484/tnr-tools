@@ -482,3 +482,13 @@ test("re-pinned contract: the seven newer potency tags compile with fractional p
   t.nodes[0].bonuses = { stun: 2 };
   assert.ok(compile(d, config(), t).problems.some(p => /unsupported bonus stun/.test(p)));
 });
+
+test("review L1: a manifest compiled under the previous contract pin is refused; null coordinateTargeting is accepted", () => {
+  const d = setup(), m = compile(d).manifest;
+  assert.doesNotThrow(() => parseManifest(m));
+  const old = clone(m); old.bloodrightImport.gamePin = "1ccdaf078a58101872675e459c8e755b495d4c83";
+  assert.throws(() => parseManifest(old), /incompatible Bloodright import provenance/);
+  const row = clone(m.items.find(it => it.entity === "skillTree").data);
+  row.effects[0].coordinateTargeting = null;
+  assert.deepEqual(bloodrightProblems("skillTree", row), []);
+});
