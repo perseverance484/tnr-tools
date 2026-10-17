@@ -6,7 +6,7 @@
   "rank": "A",
   "theme": "Midnight Blossomfire",
   "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "tier_art_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_reference_zip": {
     "name": "BR-064_Shakunetsu_Sakura.zip",
     "sha256": "08ae88c6b8b2cf6d20bcae02402059385b182551e39ac34c4834c68142355f2b",
@@ -75,21 +75,31 @@
     "three_exports_decoded_equal_Lanczos_resize": "PASS",
     "three_webps_below_460800_bytes": "PASS",
     "corners_black": "PASS",
-    "visual_125_64_32": "PASS_INTERNAL_DISPLAY_CHECK; DIRECTOR_ACCEPTANCE_PENDING",
+    "visual_125_64_32": "PASS_DIRECTOR_VISUALLY_ACCEPTED",
     "compared_to_neighbor_families": "PASS_DISTINCT_FUCHSIA_AND_CORAL",
     "formal_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_NOT_VERIFIED",
     "immutable_git_art_binary_pin": "NOT_DONE",
     "forge_imagePack_binding": "NOT_DONE",
-    "operator_live_import_and_readback": "NOT_DONE"
+    "operator_live_import_and_readback": "NOT_DONE",
+    "approved_files_byte_identical_to_proposal": "PASS_ALL_SIX"
   },
   "boundaries": {
     "opaque_rgb_background": "DIRECTOR_APPROVED_VISUAL_DIRECTION_NOT_FORMAL_UPLOAD_PREFLIGHT",
     "jutsu_image_JUTSU_ICON_exception": "DOES_NOT_APPLY_TO_skillTree.image",
     "underlying_tier_png_and_webp": "EXTERNAL_CONVERSATION_DELIVERABLE_NOT_GIT_BINARIES",
-    "current_approved_count": "11_29_FAMILIES__33_87_ICONS",
-    "next": "Director accepts/rejects Shakunetsu Sakura complete trio; then BR-020 Crystal Essence"
+    "current_approved_count": "12_29_FAMILIES__36_87_ICONS",
+    "next": "Review BR-020 Crystal Essence proposed complete trio; advance to Suragu if approved"
   },
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials_used": false
+  "credentials_used": false,
+  "approval_evidence": "Director replied 'Approved' after preview of BR-064 Shakunetsu Sakura's three separate Foundation / Hidden Art / Advanced Art icons and proposed package.",
+  "approved_package": {
+    "name": "BR-064_Shakunetsu_Sakura_Bloodright_Approved_3_Icons.zip",
+    "sha256": "ec1723a199b104737fcbb278de5f785898cfb280e1bb94377de4f413f0395463",
+    "bytes": 5213344,
+    "raw_png_and_webp_sha256": "SAME_AS_PROPOSAL_ALL_SIX",
+    "lossless_pixel_equality": "PASS",
+    "zip_crc_and_member_equality": "PASS"
+  }
 }
