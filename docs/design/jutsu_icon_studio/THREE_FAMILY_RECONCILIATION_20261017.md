@@ -28,5 +28,6 @@
 3. Resolve Vaporia **final family showcase director acceptance** specifically, unless a later user ruling/closeout explicitly supplies it; never infer from individual raw approvals or session close.
 4. The BBE final QC ledger matches eight historical pinned jutsu *names* but lacks exact jutsu IDs in the final export rows. A later production binding must join to source-backed current exact IDs, not names alone.
 5. Preserve accepted original bytes and their hashes in durable storage with operator consent; no reviewed docs-only PR is proof of Git-pinned image binary files, CDN delivery, successful uploads or read-back.
+6. **Approved visual reference library not yet pinned:** current main's producing-tnr-art `style_refs.json` indexes scene characters/backgrounds only; it has no `JUTSU_ICON` entries. Once the operator supplies the consolidated final BBE/BEE/Vaporia art ZIP(s), verify exact files against these closeouts and pin/select **individual approved jutsu originals** for future generators (style-only). The new per-bloodline ZIP alone does not supply a pixel-perfect V2-style reference when it contains only old original jutsu art.
 
 This evidence record authorizes no changes to BBE/BEE/Vaporia art, no re-approval, no jutsu mechanics edits and no game requests/writes.
