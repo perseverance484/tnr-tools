@@ -1,0 +1,80 @@
+{
+  "schema": "tnr.bloodright.wave05.family-proposed-art-qc/1",
+  "date": "2026-10-17",
+  "review_id": "BR-065",
+  "family": "Shinrai Ou",
+  "rank": "A",
+  "material": "Raijin Whitebolt",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "specific_artwork_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "file": "BR-065_Shinrai_Ou.zip",
+    "sha256": "11304693f71981967c3e9a03a10a1731dc0f4a4aa4f22a69c9d43d90e09e7281",
+    "jutsu": 5,
+    "identity": 1,
+    "sha_crc_decoder_dimensions": "PASS"
+  },
+  "recipe": "One coordinated deterministic RGB max-brightness-preserving recolor of three approved 1254px Ethereal tier geometry originals. Lapis-blue thundersteel, cold silver-white concentrated electric seam lines (selected white_arc material recipe), no cloud formation or external lightning symbols; distinct from Arashima stormcloud.",
+  "master_sha256": {
+    "foundation": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+    "hidden_art": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+    "advanced_art": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+  },
+  "tiers": [
+    {
+      "tier": "foundation",
+      "raw_sha256": "c06f7a5f0b9508ae2cd057bef4d501f0637be4c184bb3bee593d4769cd5540b2",
+      "webp_sha256": "ee5f591bc8600a240361364064d3d5060ed3365c7e5127caf1c498bcc438d3f5",
+      "webp_bytes": 44654
+    },
+    {
+      "tier": "hidden_art",
+      "raw_sha256": "bb02ef59e6071d3d4caf2a8ddb6a3a9fd15ec7803e9f4496ade47580b1a832fb",
+      "webp_sha256": "a7d01678f1ec4e7af2c1cbad67829124dc818658c56642679f48d8906fea107e",
+      "webp_bytes": 73112
+    },
+    {
+      "tier": "advanced_art",
+      "raw_sha256": "3680188067a871bc0c7afccdc13758abd9c28af98c27e7214e46521918e9e7e9",
+      "webp_sha256": "f901dbefdaa2d94c0a7b824231e6e0035181c60898271598dcfac0823dd6035e",
+      "webp_bytes": 62176
+    }
+  ],
+  "package": {
+    "file": "BR-065_Shinrai_Ou_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "1122bf2caf0a3a6262e9f189eb1bb9c31403978e505447c59fe402efe19bbfae",
+    "bytes": 10701772,
+    "members": 19
+  },
+  "qc": {
+    "independent_joint_source_and_format_checks": 188,
+    "failed": 0,
+    "source_art_sha_and_roster_identity": "PASS",
+    "raw_independent_RGB_1254": "PASS_ALL_3",
+    "machine_geometry_maxRGB_pixel_exact": "PASS_ALL_3",
+    "six_intensity_threshold_silhouette_IoU": "1.0_ALL_18",
+    "webp_lossless_rgb_256_vp8l": "PASS_ALL_3",
+    "webp_decoded_pixel_match_Lanczos_resize": "PASS_ALL_3",
+    "working_byte_cap_460800": "PASS_ALL_3",
+    "black_corners": "PASS_ALL_3",
+    "original_zip_crc_and_package_member_sha": "PASS",
+    "small_125_64_32": "RENDERED_FOR_VISUAL_REVIEW",
+    "neighbor_Arashima_stormcloud_and_Tenohira_comparison": "RENDERED_PROGRAMMATICALLY_FROM_ACTUAL_SAVED_ART",
+    "strict_skillTree_image_field_preflight": "NOT_RUN_FIELD_RULE_UNVERIFIED",
+    "Git_binary_pin": "NOT_DONE",
+    "Forge_imagePack": "NOT_DONE"
+  },
+  "progress": {
+    "approved_bloodlines": 22,
+    "approved_icons": 66,
+    "pending_specific_3_Shinrai_icons": 3,
+    "pending_not_counted": true,
+    "total_bloodlines": 29,
+    "total_icons": 87,
+    "nonexact_other_director_approved_icons": 12
+  },
+  "follow_up": "Director specifically approves/reworks the Shinrai Ou 3 tier-emblem images; if approved lock exact originals and produce Hyouga Yui Cerulean Shatter next.",
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
