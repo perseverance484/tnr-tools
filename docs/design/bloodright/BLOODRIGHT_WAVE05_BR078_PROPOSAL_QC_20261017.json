@@ -6,7 +6,7 @@
   "rank": "A",
   "material": "Equinox Rift",
   "material_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "individual_icons_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "individual_icons_visual_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_original_zip": {
     "file": "BR-078_Tenohira_Musei.zip",
     "sha256": "24d390da8c756f2707b09249fbffe637083b42f389eaebac1d4e980d07d64f92",
@@ -81,10 +81,11 @@
     "original_source_zip_manifest_crc": "PASS",
     "portable_archive_crc_and_binary_byte_identity": "PASS",
     "visual_125_64_32": "INSPECTED",
-    "neighbor_distinction": "INSPECTED_VAPORIA_HEAVENLY"
+    "neighbor_distinction": "INSPECTED_VAPORIA_HEAVENLY",
+    "approval_repackage_preservation": "PASS_6_RAW_AND_WEBP_BYTES_IDENTICAL_TO_APPROVED_SOURCE_PROPOSAL"
   },
   "gates": {
-    "visual_family_approval": "PENDING_USER_DECISION",
+    "visual_family_approval": "DIRECTOR_APPROVED_2026-10-17",
     "strict_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_UNRESOLVED",
     "Git_pinned_source_binaries": "NOT_DONE",
     "Forge_immutable_imagePack": "NOT_DONE",
@@ -92,13 +93,30 @@
     "Wave04_nine_approved_nonexact_geometry_icons": "UNCHANGED_AND_SEPARATE"
   },
   "progress": {
-    "previous_visually_approved_bloodlines": 20,
-    "previous_visually_approved_icons": 60,
-    "Wave05_proposed_bloodlines": 1,
-    "Wave05_proposed_icons": 3,
-    "approved_count_does_not_advance": true
+    "previous_visually_approved_bloodlines": 21,
+    "previous_visually_approved_icons": 63,
+    "Wave05_proposed_bloodlines": 0,
+    "Wave05_proposed_icons": 0,
+    "approved_count_does_not_advance": false,
+    "approved_current": {
+      "bloodlines": 21,
+      "icons": 63,
+      "total_bloodlines": 29,
+      "total_icons": 87
+    }
   },
   "live_requests": 0,
   "live_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "approval_evidence": "Director explicitly replied 'Approved, next' to complete BR-078 Tenohira Musei Equinox Rift Foundation / Hidden Art / Advanced Art trio.",
+  "approved_deliverable": {
+    "file": "BR-078_Tenohira_Musei_Bloodright_Approved_3_Icons.zip",
+    "sha256": "e6694ecad239bb6a61ef89a79992b5b71ea0e26560f49cd7230384b9a9a95180",
+    "bytes": 10664066,
+    "original_proposal_zip_sha256": "10e7a5262b8b5dc708086915b5f0f1e4313a51fac68fbb4fa9b1dbbabb068573",
+    "raw_png_binary_identity": "PASS_3_OF_3",
+    "webp_binary_identity": "PASS_3_OF_3",
+    "lossless_pixel_preservation": "PASS_3_OF_3",
+    "zip_crc": "PASS"
+  }
 }
