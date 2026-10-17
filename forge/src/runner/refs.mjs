@@ -6,7 +6,7 @@
 // server-side with a green row): resolution is checked, and an unresolved ref at send time is
 // a hard failure, never a payload.
 
-export const REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img):(.+)$/;
+export const REF_RE = /^@(jutsu|ai|scene|item|quest|bloodline|img|skillTree|skillTreeFolder):(.+)$/;
 export const DOUBLED_RE = /^@\w+:@\w+:/; // law 45: a doubled prefix survives a naive sweep
 
 /** Walk any value and collect refs as {pfx, key, path}. */

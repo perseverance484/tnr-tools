@@ -105,7 +105,8 @@ export function isShallow() {
 export function buildPack(manifest, { ref, root = null, map = {} }) {
   const problems = [], notes = [];
   const imgSizes = (manifest.imgSizes && typeof manifest.imgSizes === "object") ? manifest.imgSizes : {};
-  const names = [...new Set([...JSON.stringify(manifest.items ?? manifest.jutsu ?? []).matchAll(IMG_REF)].map((m) => m[1]))].sort();
+  const body = manifest.bloodrightCollection?.trees ?? manifest.bloodright ?? manifest.items ?? manifest.jutsu ?? [];
+  const names = [...new Set([...JSON.stringify(body).matchAll(IMG_REF)].map((m) => m[1]))].sort();
   if (!names.length) return { pack: null, problems: ["this manifest has no @img references"], notes };
 
   const files = {};

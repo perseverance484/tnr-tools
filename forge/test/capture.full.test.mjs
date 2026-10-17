@@ -188,7 +188,7 @@ test('a full capture with no record id is refused: "full" is a point read or not
 
 test("the allowlist is exactly the audited content-record point reads and nothing else", () => {
   assert.deepEqual([...FULL_PERSIST_PATHS].sort(), [
-    "ai.getAiProfile", "bloodline.get", "gameAsset.get", "item.get", "jutsu.get", "profile.getAi", "quests.get",
+    "ai.getAiProfile", "bloodline.get", "gameAsset.get", "item.get", "jutsu.get", "profile.getAi", "quests.get", "skillTree.get",
   ]);
 });
 

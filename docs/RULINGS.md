@@ -455,6 +455,26 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 
 ---
 
+## RUL-2026-10-08-002 — BEE pilot prices and durations
+
+**Date:** 2026-10-08
+
+**Domain:** Bloodright / Blood-Enchanted Eyes pilot
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Set every one of the 12 BEE pilot nodes to **20 Seichi Silver** and every compiled potency effect to **99 rounds**. This fills the eleven previously unresolved settings and retains Hungry Pulse's existing values.
+
+**Evidence:** “Just do 20 silver for all and 99 rounds for all.”
+
+**Rationale:** The user supplied the outstanding pilot pricing and duration decision. This applies to the current BEE package; it does not establish prices for other bloodlines or approve descriptions, folder visibility, release, or live execution.
+
+**Canonical destination:** `forge/bloodright/bee.pilot.json`.
+
+---
+
 ## RUL-2026-10-10-001 — Skyglass Ghost Ship drop stats and hidden-release assumption
 
 **Date:** 2026-10-10  
@@ -1114,3 +1134,22 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
 
+---
+
+## RUL-2026-10-17-001 — Accept the Forge Bloodright bundle budgets
+
+**Date:** 2026-10-17
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Accept the Forge bundle ceiling of **400,000 raw / 91,000 gzip bytes** for the Bloodright collection/icon importer (PR #33), together with the earlier Bloodright importer increase from 354,000/78,000 to 386,000/88,000 (PRs #29/#30).
+
+**Evidence:** "Merge it. Budgets are accepted. Go ahead and integrate." (after independent review of PR #33 measured 389,034 raw / 87,864 gzip and the D1/D2 follow-up measured 389,081 / 87,883).
+
+**Rationale:** The user explicitly accepted both pending budget increases. This settles the bundle ceiling only; it does not approve Bloodright content, icons, folder visibility or live execution.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

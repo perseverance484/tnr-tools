@@ -21,7 +21,10 @@
 //          proves a limiter can be composed onto a protected procedure. Deriving one from the
 //          other would make a future limiter change silently move the auth gate.
 
+import BLOODRIGHT from "../bloodright/contract.json" with { type: "json" };
+
 export const PROCEDURES = Object.freeze({
+  ...BLOODRIGHT.procedures,
   "ai.createAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
   "ai.getAiProfile": { kind: "query", limited: false, mcp: true, auth: "protected" },
   "ai.toggleAiProfile": { kind: "mutation", limited: false, mcp: false, auth: "protected" },
