@@ -182,6 +182,10 @@ python3 scripts/bloodright_from_naming.py [--check]          # docs/design/blood
 python3 scripts/bloodright_collection_package.py [--icons-ref SHA] [--check]
 ```
 
+The first script reads the legacy tree metadata from `docs/design/bloodright/trees/*.json`,
+byte-identical copies of `fable/bloodright-planning-20261003` checked against the blob ids in
+`trees/SOURCE.json`.
+
 The second script writes two collections. All values are placeholders: CSV bonuses, 20 Silver
 and 99 rounds.
 
