@@ -185,14 +185,15 @@ python3 scripts/bloodright_collection_package.py [--icons-ref SHA] [--check]
 The second script writes two collections. All values are placeholders: CSV bonuses, 20 Silver
 and 99 rounds.
 
-- `naming_pass_collection_a.json`: 13 trees using only the original ten potency tags. This
+- `naming_pass_collection_a.json`: 14 trees using only the original ten potency tags. This
   works with the current Forge contract.
-- `naming_pass_collection_b.json`: 10 trees (BEE included) using pierce, absorb, poison,
+- `naming_pass_collection_b.json`: 11 trees (BEE included) using pierce, absorb, poison,
   drain, consume or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
   live game running upstream `133e2c7` or later. Import A first, then B.
 
-Cosmic Ascendant is left out until it has a qualifying element, and Shiroi Youso until its
-Fire + Lightning classification is confirmed. The package script pins `DESIGN_REF`; after
+Cosmic Ascendant and Shiroi Youso use the element `None` as a placeholder until their
+classification is resolved (RUL-2026-10-17-004); their bonuses then only reach jutsu without
+an element. The package script pins `DESIGN_REF`; after
 changing designs, commit them, update `DESIGN_REF` and rerun. Merge with a merge commit. New trees create a hidden
 folder named after the bloodline. If a folder with that name already exists, preview refuses
 and the folder must be bound by ID. BEE binds its existing folder and Hungry Pulse.
