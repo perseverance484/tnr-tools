@@ -6,7 +6,7 @@
   "rank": "A",
   "material": "Raijin Whitebolt",
   "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "specific_artwork_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "specific_artwork_visual_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_reference_zip": {
     "file": "BR-065_Shinrai_Ou.zip",
     "sha256": "11304693f71981967c3e9a03a10a1731dc0f4a4aa4f22a69c9d43d90e09e7281",
@@ -62,19 +62,31 @@
     "neighbor_Arashima_stormcloud_and_Tenohira_comparison": "RENDERED_PROGRAMMATICALLY_FROM_ACTUAL_SAVED_ART",
     "strict_skillTree_image_field_preflight": "NOT_RUN_FIELD_RULE_UNVERIFIED",
     "Git_binary_pin": "NOT_DONE",
-    "Forge_imagePack": "NOT_DONE"
+    "Forge_imagePack": "NOT_DONE",
+    "director_visual_approval": "APPROVED_ALL_THREE",
+    "approved_raw_and_export_bytes_preserved": "PASS_ALL_SIX"
   },
   "progress": {
-    "approved_bloodlines": 22,
-    "approved_icons": 66,
-    "pending_specific_3_Shinrai_icons": 3,
-    "pending_not_counted": true,
+    "approved_bloodlines": 23,
+    "approved_icons": 69,
+    "pending_specific_3_Shinrai_icons": 0,
+    "pending_not_counted": false,
     "total_bloodlines": 29,
     "total_icons": 87,
     "nonexact_other_director_approved_icons": 12
   },
-  "follow_up": "Director specifically approves/reworks the Shinrai Ou 3 tier-emblem images; if approved lock exact originals and produce Hyouga Yui Cerulean Shatter next.",
+  "follow_up": "Director reviews BR-034 Hyouga Yui's Cerulean Shatter three-tier proposal before producing Teno Yuki.",
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "approval_evidence": "Director responded 'Approved, next' after viewing BR-065 Shinrai Ou's complete Raijin Whitebolt three-tier family preview, including Foundation, Hidden Art and Advanced Art.",
+  "approved_package": {
+    "file": "BR-065_Shinrai_Ou_Bloodright_Approved_3_Icons.zip",
+    "sha256": "74134d8ca746edbf7e1326c8bd88a28c841767b55b4610fb87a5b31e547fb324",
+    "bytes": 11309965,
+    "proposed_package_sha256": "1122bf2caf0a3a6262e9f189eb1bb9c31403978e505447c59fe402efe19bbfae",
+    "raw_png_and_webp_member_bytes_identical_to_proposal": "PASS_ALL_SIX",
+    "crc": "PASS",
+    "accepted_preview_sha256": "b7a64228700b09619d14e49d3bf5c019c039b4ecc8fc0f296344d203523ccebb"
+  }
 }
