@@ -6,7 +6,7 @@
   "rank": "A",
   "theme": "Hydrothermal Crucible",
   "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "tier_art_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_reference_zip": {
     "name": "BR-090_Vaporia.zip",
     "sha256": "41b0a1338a6f5ec2d776a2e1334d198d815100462c9a27758654ba3c97991a9a",
@@ -102,21 +102,42 @@
     "opaque_black_corners": "PASS_3",
     "programmatic_125_64_32_visual_review": "PASS",
     "neighbor_family_distinction": "PASS_VS_SURAGU_CRYSTAL_TETSU_SHAKUNETSU",
-    "director_art_acceptance": "PENDING",
+    "director_art_acceptance": "PASS_VISUAL_ALL_THREE",
     "actual_skillTree_image_field_preflight": "NOT_RUN_NOT_FIELD_VERIFIED",
     "binary_git_pin": "NOT_DONE",
     "Forge_immutable_imagePack_binding": "NOT_DONE",
-    "operator_live_import_and_readback": "NOT_DONE"
+    "operator_live_import_and_readback": "NOT_DONE",
+    "approved_raw_and_webp_bytes_unchanged": "PASS_6_OF_6"
   },
   "boundaries": {
-    "approved_progress": "14_OF_29_FAMILIES_42_OF_87_ICONS",
-    "proposed_Vaporia": "NOT_INCLUDED_IN_ACCEPTED_COUNTS",
+    "approved_progress": "15_OF_29_FAMILIES_45_OF_87_ICONS",
+    "proposed_Vaporia": "SUPERSEDED_BY_APPROVAL; ART_BYTES_UNCHANGED",
     "jutsu_icon_redesign": "OUT_OF_SCOPE",
     "main_JUTSU_ICON_alpha_optional": "ONLY_jutsu.image_NOT_skillTree.image",
     "art_binaries": "CONVERSATION_ARCHIVE_NOT_GIT_PINNED",
-    "next": "Director reviews exact finished Vaporia three-tier icons; if accepted, preserve source bytes, then finalize the complete Wave 03 comparison and consolidated delivery",
+    "next": "Wave 03 5/5 families approved. Programmatically compose final 5x3 showcase, preserve 15 raw and 15 WebPs, package delivery. Wave 04 intake next.",
     "live_game_reads": 0,
     "live_game_writes": 0,
     "credentials": false
+  },
+  "approval_evidence": "Director replied 'Approved' to the BR-090 Vaporia complete three-tier Hydrothermal Crucible proposed family preview on 2026-10-17.",
+  "approved_package": {
+    "name": "BR-090_Vaporia_Bloodright_Approved_3_Icons.zip",
+    "sha256": "e50c1207d54c84a9d44aa73f580e2e3677af0179569e3fb205056e88a5290db2",
+    "bytes": 5255539,
+    "source_png_and_webp_bytes": "BYTE_IDENTICAL_TO_PROPOSED_SIX_OF_SIX",
+    "zip_crc": "PASS"
+  },
+  "offline_wave03_closeout": {
+    "families": 5,
+    "icons": 15,
+    "geometry_exact_against_three_masters": "15/15",
+    "lossless_rgb_256px": "15/15",
+    "independent_assembly_checks_passed": 365,
+    "independent_assembly_checks_failed": 0,
+    "strict_skillTree_image_preflight": "NOT_DONE",
+    "git_binary_art_pin": "NOT_DONE",
+    "forge_imagePack": "NOT_DONE",
+    "operator_live_readback": "NOT_DONE"
   }
 }
