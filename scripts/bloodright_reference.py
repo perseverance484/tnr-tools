@@ -19,6 +19,8 @@ the allowlisted asset CDNs from scripts/jutsu_art.py. Nothing here ever contacts
     python3 scripts/bloodright_reference.py acquire --pilot BR-023 --cache DIR --allow-network
     python3 scripts/bloodright_reference.py pack    --pilot BR-023 --cache DIR --out DIR
     python3 scripts/bloodright_reference.py verify  ZIP --pilot BR-023 [--cache DIR]
+    python3 scripts/bloodright_reference.py build   --pilot BR-023 --cache DIR --out DIR --allow-network
+                                                    (acquire + pack + verify in one step)
     (use --all instead of --pilot for the full 29-bloodline library)
 
 Fail-closed: the full `Bloodright_Jutsu_Reference_Library.zip` is only written when 29/29
@@ -704,6 +706,13 @@ def verify_bytes(archive: bytes, inv: dict, review_ids: list[str] | None, cache:
             "bytes": len(archive), "verified": True}
 
 
+def build(inv: dict, review_ids: list[str] | None, cache: Path, out_dir: Path, *, fetch=_fetch, recheck=False,
+          identity=True) -> dict:
+    """acquire then pack (pack verifies before placing the file). One command for the operator."""
+    got = acquire(inv, review_ids, cache, fetch=fetch, recheck=recheck, identity=identity)
+    return {"acquire": got, "pack": pack(inv, review_ids, cache, out_dir)}
+
+
 # ---------------------------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------------------------
@@ -718,7 +727,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     pi = sub.add_parser("inventory")
     pi.add_argument("--write", action="store_true", help=f"write {INVENTORY_PATH}")
-    for name in ("acquire", "pack", "verify"):
+    for name in ("acquire", "pack", "verify", "build"):
         p = sub.add_parser(name)
         if name == "verify":
             p.add_argument("zip", type=Path)
@@ -726,11 +735,11 @@ def main(argv: list[str] | None = None) -> int:
         g.add_argument("--pilot", nargs="+", metavar="BR-NNN")
         g.add_argument("--all", action="store_true")
         p.add_argument("--cache", type=Path, required=name != "verify")
-        if name == "acquire":
+        if name in ("acquire", "build"):
             p.add_argument("--allow-network", action="store_true", required=True)
             p.add_argument("--recheck", action="store_true", help="re-fetch cached URLs and fail on byte drift")
             p.add_argument("--no-identity", action="store_true")
-        if name == "pack":
+        if name in ("pack", "build"):
             p.add_argument("--out", type=Path, required=True)
     a = ap.parse_args(argv)
     try:
@@ -746,6 +755,11 @@ def main(argv: list[str] | None = None) -> int:
         elif a.cmd == "acquire":
             r = acquire(inv, _scope(a), a.cache, recheck=a.recheck, identity=not a.no_identity)
             print(json.dumps(r, indent=1))
+        elif a.cmd == "build":
+            r = build(inv, _scope(a), a.cache, a.out, recheck=a.recheck, identity=not a.no_identity)
+            print(json.dumps(r, indent=1))
+            print(f"\nOK: {r['pack']['path']}  ({r['pack']['bloodlines']} bloodline pack(s), {r['pack']['jutsu']} images, "
+                  f"{r['acquire']['cdn_gets']} CDN GETs, 0 game requests)")
         elif a.cmd == "pack":
             print(json.dumps(pack(inv, _scope(a), a.cache, a.out), indent=1))
         else:

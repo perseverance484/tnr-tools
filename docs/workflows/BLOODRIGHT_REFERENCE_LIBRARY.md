@@ -38,3 +38,19 @@ Requirements: Python 3.12+, Pillow, and a clone that has the pinned roster commi
 Only `acquire` opens connections, only with `--allow-network`, only to asset CDNs. Nothing in the
 tool contacts `theninja-rpg.com`. Agent sandboxes whose egress proxy blocks the asset CDNs cannot run
 step 4; the operator runs it on a machine with normal internet access (steps 3-6 need only Python).
+
+## On an Android phone (Termux)
+
+`build` runs acquire, pack and verify in one step. In Termux:
+
+```sh
+pkg update && pkg install -y python git python-pillow   # first time only
+termux-setup-storage                                    # first time only: lets Termux write to Downloads
+git clone https://github.com/perseverance484/tnr-tools && cd tnr-tools
+git fetch origin fable/bloodright-planning-20261003     # pinned roster objects (inventory needs them)
+python scripts/bloodright_reference.py build --pilot BR-023 \
+  --cache ~/br-cache --out ~/storage/downloads --allow-network
+```
+
+The ZIP lands in the phone's Downloads. Later runs: `git pull`, then the same `build` line (use
+`--all` for the full library once inventory shows 29/29). Cached images are not downloaded twice.
