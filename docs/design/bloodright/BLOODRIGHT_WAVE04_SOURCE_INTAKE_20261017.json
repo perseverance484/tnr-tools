@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave04.original-art-intake-qc/1",
   "date": "2026-10-17",
-  "status": "FIVE_SOURCE_ARCHIVES_HASH_VERIFIED; TREATMENT_CARDS_PROPOSED_NOT_YET_APPROVED",
+  "status": "FIVE_ORIGINAL_SOURCE_ZIPS_VERIFIED; ALL_FIVE_THEMES_DIRECTOR_APPROVED; BR-066_VISUAL_APPROVED_WITH_GEOMETRY_GATE_OPEN; BR-008_PROPOSED",
   "roster": {
     "ref": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "reviewed_in_tracker": "docs/design/bloodright/ICON_PRODUCTION_TRACKER.md"
@@ -32,8 +32,9 @@
         "#E5F7A0"
       ],
       "do_not_use": "No extra branches/leaves/tree silhouette; woodgrain and sap texture stay INSIDE fixed emblems.",
-      "visual_treatment_approval": "PENDING",
-      "icon_artwork_status": "NOT_GENERATED"
+      "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
+      "icon_artwork_status": "3_OF_3_DIRECTOR_VISUALLY_APPROVED; MACHINE_GEOMETRY_NOT_EXACT",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR066_APPROVED_QC_20261017.json"
     },
     {
       "code": "BR-008",
@@ -60,8 +61,9 @@
         "#FFF3BD"
       ],
       "do_not_use": "No generic sunburst substitution; no cloud or new spike geometry; separate from Suragu's basalt magma.",
-      "visual_treatment_approval": "PENDING",
-      "icon_artwork_status": "NOT_GENERATED"
+      "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
+      "icon_artwork_status": "3_PROPOSED_NOT_VISUALLY_APPROVED",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR008_PROPOSAL_QC_20261017.json"
     },
     {
       "code": "BR-053",
@@ -88,7 +90,7 @@
         "#E9C8FF"
       ],
       "do_not_use": "No Godstorm lightning bolts, Cosmic stardust, extra runes, claws or external rings.",
-      "visual_treatment_approval": "PENDING",
+      "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
       "icon_artwork_status": "NOT_GENERATED"
     },
     {
@@ -116,7 +118,7 @@
         "#D2D1E5"
       ],
       "do_not_use": "Keep strong bright silhouette on black; no spiderwebs, ghost figures, portals or Oblivion-like saturated purple.",
-      "visual_treatment_approval": "PENDING",
+      "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
       "icon_artwork_status": "NOT_GENERATED"
     },
     {
@@ -144,7 +146,7 @@
         "#F0AE54"
       ],
       "do_not_use": "No literal music-note glyphs, full sound-wave rings, treble clefs or geometry changes.",
-      "visual_treatment_approval": "PENDING",
+      "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
       "icon_artwork_status": "NOT_GENERATED"
     }
   ],
@@ -190,10 +192,15 @@
     "total_icons": 87,
     "remaining_bloodlines": 14,
     "remaining_icons": 42,
-    "wave04_approved_bloodlines": 0,
-    "wave04_approved_icons": 0
+    "wave04_approved_bloodlines": 1,
+    "wave04_approved_icons": 3,
+    "current_visually_approved_bloodlines": 16,
+    "current_visually_approved_icons": 48,
+    "current_remaining_bloodlines": 13,
+    "current_remaining_icons": 39,
+    "wave04_fixed_geometry_machine_pass_icon_count": 0
   },
-  "decision_gate": "Director approval/revision of all five source-image-grounded treatment cards before tier icon generation",
+  "decision_gate": "Director acceptance/revision of Bakuhatsu three specific output images next. All five material cards already accepted.",
   "technical_boundaries": [
     "Current main JUTSU_ICON optional alpha applies ONLY to jutsu.image; not field-verified for Bloodright skillTree.image",
     "Exact accepted art source binaries/masters still not committed/pinned by immutable Git SHA",
@@ -202,5 +209,7 @@
   ],
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "treatment_director_approval": "ALL_FIVE_CARDS_APPROVED_BY_DIRECTOR_ON_2026-10-17",
+  "geometry_exception_notice": "BR-066 Shinseina Ki visually approved original imagegen raws fail exact Ethereal master geometry check; preserve accepted bytes, record mismatch, do not claim technical upload readiness."
 }
