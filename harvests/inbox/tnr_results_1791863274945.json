@@ -1,0 +1,5770 @@
+{
+ "builder": "forge 0.5.1",
+ "at": "2026-10-13T03:47:54.945Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "toBESPaPaHI5vEFRjWi20"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::0",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3304,
+   "at": "2026-10-13T03:47:48.844Z",
+   "data": {
+    "id": "toBESPaPaHI5vEFRjWi20",
+    "name": "Rusted Gatherer's Chest",
+    "description": "New item description",
+    "createdAt": "2026-04-30T11:11:15.955Z",
+    "updatedAt": "2026-04-30T11:11:15.955Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_8z8xD2GPZK6WGrlCqV0B",
+         "_LBl_abDuOY3jVwq9eHKn"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "_TwmwcFlwZmmbClEF8cjR"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "2EoxvVMtQjD73FKnHcMMX"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "2nXVUwlS4MPfauXrhsLYA"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "A5rgavBvGPrN16N4XoDY8"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "BhGK-UWNk_QnORODB1qAb"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "dYY7TAC0Fm5jGWrFBa0Pw"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "Re5nm3c6JjZgC9IalLreH"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "W3WoY8u-b_b2m5XVTZ-hL"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "05hx4hI0I4L2vAME8CcZu"
+        ],
+        "number": 5,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCmEpqkr26OYrIJuNP1pvSyz29edFtKbngjRc",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "gb6vxdzWTYZR--7s-4kTX"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::1",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 4051,
+   "at": "2026-10-13T03:47:49.102Z",
+   "data": {
+    "id": "gb6vxdzWTYZR--7s-4kTX",
+    "name": "Common Gatherer's Chest",
+    "description": "Contains stacks of Common Gatherer materials.",
+    "createdAt": "2026-04-26T21:13:12.066Z",
+    "updatedAt": "2026-04-26T21:13:12.066Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM",
+         "_LBl_abDuOY3jVwq9eHKn"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM",
+         "_LBl_abDuOY3jVwq9eHKn"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM",
+         "_LBl_abDuOY3jVwq9eHKn"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_TwmwcFlwZmmbClEF8cjR"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_TwmwcFlwZmmbClEF8cjR"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_TwmwcFlwZmmbClEF8cjR"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2EoxvVMtQjD73FKnHcMMX"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2EoxvVMtQjD73FKnHcMMX"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2nXVUwlS4MPfauXrhsLYA"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2nXVUwlS4MPfauXrhsLYA"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "BhGK-UWNk_QnORODB1qAb"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "BhGK-UWNk_QnORODB1qAb"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "W3WoY8u-b_b2m5XVTZ-hL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "W3WoY8u-b_b2m5XVTZ-hL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "dYY7TAC0Fm5jGWrFBa0Pw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "dYY7TAC0Fm5jGWrFBa0Pw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "A5rgavBvGPrN16N4XoDY8"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "A5rgavBvGPrN16N4XoDY8"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Re5nm3c6JjZgC9IalLreH"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Re5nm3c6JjZgC9IalLreH"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Re5nm3c6JjZgC9IalLreH"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlU3sZjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "SWQpaXB8csJWL3zZMTz4r"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::2",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3975,
+   "at": "2026-10-13T03:47:49.328Z",
+   "data": {
+    "id": "SWQpaXB8csJWL3zZMTz4r",
+    "name": "Rare Gatherer's Chest",
+    "description": "Contains stacks of Rare Gatherer materials.",
+    "createdAt": "2026-04-26T21:31:55.446Z",
+    "updatedAt": "2026-04-26T21:31:55.446Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "Eudi3vPDCDeRc75xmhXA_"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Eudi3vPDCDeRc75xmhXA_"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Eudi3vPDCDeRc75xmhXA_"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "I6BenC2f5ETLp6BgDF_4v"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "I6BenC2f5ETLp6BgDF_4v"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "I6BenC2f5ETLp6BgDF_4v"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Yo1xlMce3pXJLchha9hJw"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Yo1xlMce3pXJLchha9hJw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Yo1xlMce3pXJLchha9hJw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CoPTfp2Lw_3x01RHdoKH0"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CoPTfp2Lw_3x01RHdoKH0"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "AKAgc5uBfs2uMrATdmnov"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "AKAgc5uBfs2uMrATdmnov"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "LOm3u4TYAgPQQ16DPfT3_"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "LOm3u4TYAgPQQ16DPfT3_"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "1DWceGdXyfQe93Xunxu4q"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "1DWceGdXyfQe93Xunxu4q"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Sh0dEnqn8tsUw9TWpguRP"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Sh0dEnqn8tsUw9TWpguRP"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "BIulsJR3ojGRqsvzpF9UE"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "BIulsJR3ojGRqsvzpF9UE"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJggYyJacU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "hikAzfsQPCvNUaFw_P8vs"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::3",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3975,
+   "at": "2026-10-13T03:47:49.785Z",
+   "data": {
+    "id": "hikAzfsQPCvNUaFw_P8vs",
+    "name": "Epic Gatherer's Chest",
+    "description": "Contains stacks of Epic Gatherer materials.",
+    "createdAt": "2026-04-26T21:37:19.891Z",
+    "updatedAt": "2026-04-26T21:37:19.891Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "l1A2aWDyaI_QeSzaNr8ZO"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "l1A2aWDyaI_QeSzaNr8ZO"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "l1A2aWDyaI_QeSzaNr8ZO"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GpvRMgpvBMP3Sq7Bid1gO"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GpvRMgpvBMP3Sq7Bid1gO"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GpvRMgpvBMP3Sq7Bid1gO"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "zGeruNBE_SLeOt42LGg5a"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "zGeruNBE_SLeOt42LGg5a"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "zGeruNBE_SLeOt42LGg5a"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "cpY0Hg14jSVnLA4iTuyfw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "cpY0Hg14jSVnLA4iTuyfw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "sagslOnL1UtUSaK6agsiL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "sagslOnL1UtUSaK6agsiL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6CHUDyxrAzZxc4Btmfs2h"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6CHUDyxrAzZxc4Btmfs2h"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FVlGFU3AeqfshrmwZg-jw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FVlGFU3AeqfshrmwZg-jw"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "O3WBjMGJ-s5qrI3SepSIL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "O3WBjMGJ-s5qrI3SepSIL"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "wNnZ3uXHbYRzwRAqO-6EM"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "wNnZ3uXHbYRzwRAqO-6EM"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJVmlMZ0F2veAXohUuE59nTQHRJIYjtiG18aF4",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "Fh3xch8ox_JMaHj0-ntTF"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::4",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3804,
+   "at": "2026-10-13T03:47:50.027Z",
+   "data": {
+    "id": "Fh3xch8ox_JMaHj0-ntTF",
+    "name": "Legendary Gatherer's Chest",
+    "description": "Contains stacks of Legendary Gatherer materials.",
+    "createdAt": "2026-04-26T21:43:13.819Z",
+    "updatedAt": "2026-04-26T21:43:13.819Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "-6C6OtiodwTNgFq_XqwR-"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "-6C6OtiodwTNgFq_XqwR-"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "-6C6OtiodwTNgFq_XqwR-"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "NpOHJoLl2ZdfoGGl530C2"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "NpOHJoLl2ZdfoGGl530C2"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "NpOHJoLl2ZdfoGGl530C2"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "40XfVLwXWNof8i55IuDu1"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "40XfVLwXWNof8i55IuDu1"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "cR-xWQX8EatrB18C9PaiQ"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "cR-xWQX8EatrB18C9PaiQ"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "dRTqiMxkL5mYmIokiWyJP"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "dRTqiMxkL5mYmIokiWyJP"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GI7O1Ze9DnuOw0-WcazsN"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GI7O1Ze9DnuOw0-WcazsN"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "jfkGS8dgO5C0x-WBYcML9"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "jfkGS8dgO5C0x-WBYcML9"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "SqFyiWVXmokGIm7FO2114"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "SqFyiWVXmokGIm7FO2114"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJm1PnCpHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "-v1OQ5QSsWbV-DcZadM0h"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::5",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3101,
+   "at": "2026-10-13T03:47:50.591Z",
+   "data": {
+    "id": "-v1OQ5QSsWbV-DcZadM0h",
+    "name": "Rusted Hunter's Chest",
+    "description": "New item description",
+    "createdAt": "2026-04-30T10:49:36.930Z",
+    "updatedAt": "2026-04-30T10:49:36.930Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_8z8xD2GPZK6WGrlCqV0B"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "ekFpo7eJvvrk54V1fNxn7"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "UEZu0xWy40AuYQrBLTa22"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "Qtwn25mKs09Hyq6TB7u9F"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "txnuMS-Ku3oKRlVb2FL1x"
+        ],
+        "number": 90,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "05hx4hI0I4L2vAME8CcZu"
+        ],
+        "number": 5,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCmEpqkr26OYrIJuNP1pvSyz29edFtKbngjRc",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "KwgjMOya2XT6uYsgXbsh6"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::6",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3798,
+   "at": "2026-10-13T03:47:50.827Z",
+   "data": {
+    "id": "KwgjMOya2XT6uYsgXbsh6",
+    "name": "Common Hunter's Chest",
+    "description": "Contains stacks of Common Hunter materials.",
+    "createdAt": "2026-04-24T18:50:27.396Z",
+    "updatedAt": "2026-04-24T18:50:27.396Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5b4dSggNUW_rYeScvQUMM"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ekFpo7eJvvrk54V1fNxn7"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ekFpo7eJvvrk54V1fNxn7"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ekFpo7eJvvrk54V1fNxn7"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_8z8xD2GPZK6WGrlCqV0B"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_8z8xD2GPZK6WGrlCqV0B"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_8z8xD2GPZK6WGrlCqV0B"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "UEZu0xWy40AuYQrBLTa22"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "UEZu0xWy40AuYQrBLTa22"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "UEZu0xWy40AuYQrBLTa22"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Qtwn25mKs09Hyq6TB7u9F"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Qtwn25mKs09Hyq6TB7u9F"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Qtwn25mKs09Hyq6TB7u9F"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "txnuMS-Ku3oKRlVb2FL1x"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "txnuMS-Ku3oKRlVb2FL1x"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "txnuMS-Ku3oKRlVb2FL1x"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlU3sZjhzBPya1rwfCIqOTU0cV5xgsMeo3u2",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "M-0CPw9yBmmreLvJU6gav"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::7",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3794,
+   "at": "2026-10-13T03:47:51.030Z",
+   "data": {
+    "id": "M-0CPw9yBmmreLvJU6gav",
+    "name": "Rare Hunter's Chest",
+    "description": "Contains stacks of Rare Hunter materials.",
+    "createdAt": "2026-04-24T19:18:46.025Z",
+    "updatedAt": "2026-04-24T19:18:46.025Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "GHe_D2wR5vpM2r7LSnApe"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GHe_D2wR5vpM2r7LSnApe"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GHe_D2wR5vpM2r7LSnApe"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Fr4XnfPPnxSrM-AegBm9t"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Fr4XnfPPnxSrM-AegBm9t"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Fr4XnfPPnxSrM-AegBm9t"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Kd_R5KdEpe7TrN7ZRU94v"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Kd_R5KdEpe7TrN7ZRU94v"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "Kd_R5KdEpe7TrN7ZRU94v"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "kOOkLHJ0U07lpsWRLlF7g"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "kOOkLHJ0U07lpsWRLlF7g"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "kOOkLHJ0U07lpsWRLlF7g"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "r_tnCjJD3SgV1jZ1P5w2M"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "r_tnCjJD3SgV1jZ1P5w2M"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "r_tnCjJD3SgV1jZ1P5w2M"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ogNA9m48l6fLBaVIIoA6a"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ogNA9m48l6fLBaVIIoA6a"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ogNA9m48l6fLBaVIIoA6a"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJggYyJacU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "32k2rXF6W-7gn_Fubp4kU"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::8",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3794,
+   "at": "2026-10-13T03:47:51.262Z",
+   "data": {
+    "id": "32k2rXF6W-7gn_Fubp4kU",
+    "name": "Epic Hunter's Chest",
+    "description": "Contains stacks of Epic Hunter materials.",
+    "createdAt": "2026-04-24T19:22:46.316Z",
+    "updatedAt": "2026-04-24T19:22:46.316Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "fJsqyIEWvxiEAnD1wpYh0"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "fJsqyIEWvxiEAnD1wpYh0"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "fJsqyIEWvxiEAnD1wpYh0"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "l_BuHGeUWos1Pi0dX_Jgg"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "l_BuHGeUWos1Pi0dX_Jgg"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "l_BuHGeUWos1Pi0dX_Jgg"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "wCFCjGhIUmPFvIAA_8-7J"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "wCFCjGhIUmPFvIAA_8-7J"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "wCFCjGhIUmPFvIAA_8-7J"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5I0R-9ji569-zMqbTNdH8"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5I0R-9ji569-zMqbTNdH8"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "5I0R-9ji569-zMqbTNdH8"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "j4LgVM90JZ8xddJat09OV"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "j4LgVM90JZ8xddJat09OV"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "j4LgVM90JZ8xddJat09OV"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "m2gzWPa1X4p-ue0ftyMCC"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "m2gzWPa1X4p-ue0ftyMCC"
+        ],
+        "number": 50,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "m2gzWPa1X4p-ue0ftyMCC"
+        ],
+        "number": 50,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJVmlMZ0F2veAXohUuE59nTQHRJIYjtiG18aF4",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "nAAfu3ya-dkVaZeH7LycZ"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::9",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3804,
+   "at": "2026-10-13T03:47:51.464Z",
+   "data": {
+    "id": "nAAfu3ya-dkVaZeH7LycZ",
+    "name": "Legendary Hunter's Chest",
+    "description": "Contains stacks of Legendary Hunter materials.",
+    "createdAt": "2026-04-24T19:31:33.386Z",
+    "updatedAt": "2026-04-24T19:31:33.386Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "yWVnPn1NVG9fq_a2UrRXp"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yWVnPn1NVG9fq_a2UrRXp"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yWVnPn1NVG9fq_a2UrRXp"
+        ],
+        "number": 20,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2u-e6gb1E8NoKEVOmHeAs"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2u-e6gb1E8NoKEVOmHeAs"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "2u-e6gb1E8NoKEVOmHeAs"
+        ],
+        "number": 20,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ThsuhY54LknDlcNKLTEQA"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ThsuhY54LknDlcNKLTEQA"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ThsuhY54LknDlcNKLTEQA"
+        ],
+        "number": 20,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "1PpHMQYQ2EAzL0vueQb9E"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "1PpHMQYQ2EAzL0vueQb9E"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "1PpHMQYQ2EAzL0vueQb9E"
+        ],
+        "number": 20,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yTzp5MQ6qb7IUdCf26I53"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yTzp5MQ6qb7IUdCf26I53"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yTzp5MQ6qb7IUdCf26I53"
+        ],
+        "number": 20,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ZCMizjlADoeT1WuGcckeZ"
+        ],
+        "number": 100,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ZCMizjlADoeT1WuGcckeZ"
+        ],
+        "number": 40,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ZCMizjlADoeT1WuGcckeZ"
+        ],
+        "number": 20,
+        "quantity": 10
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJm1PnCpHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "0j4znEj9HCl0lKIW_9BP7"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::10",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3338,
+   "at": "2026-10-13T03:47:51.673Z",
+   "data": {
+    "id": "0j4znEj9HCl0lKIW_9BP7",
+    "name": "Genin Supply Cache",
+    "description": "A banded field crate stamped by the case desk. Standard issue for contract runners: crack it open and take what the quartermaster packed.",
+    "createdAt": "2026-08-21T02:27:51.314Z",
+    "updatedAt": "2026-08-21T02:30:57.729Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Unpacks field supplies.",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "MnJjf3TDSNI5FaEqkQEmi"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "jyOXmqLJniYjpA2xx6dBq"
+        ],
+        "number": 40,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "yGCFQ5-w8DbLANl5gYMeB"
+        ],
+        "number": 40,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "DoDrH6CM7o0euz9UQXBS8"
+        ],
+        "number": 3,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "eDtb6vAHFShsb8ZGlD_V0"
+        ],
+        "number": 3,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "hxQjy9yMVBgjvpNoheh7B"
+        ],
+        "number": 3,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "Izs2ylsFzJ7fZtdvwDwcH"
+        ],
+        "number": 3,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWG71g2vszvj71yaSYC0MDOmbko5q9JAGuLHf",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Hefts the supply cache. Not here, not mid-fight.",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 10,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": true,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "74RxQoqSNYcfRnLxVDTfB"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::11",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3938,
+   "at": "2026-10-13T03:47:51.865Z",
+   "data": {
+    "id": "74RxQoqSNYcfRnLxVDTfB",
+    "name": "Earthen War Cache",
+    "description": "Spoils from the front, bearing the earth emblem. Open to claim battlefield consumables and stonefall kunai.",
+    "createdAt": "2026-06-29T08:06:00.885Z",
+    "updatedAt": "2026-06-29T08:06:00.885Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 23,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 11.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 7.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 3.75,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 3,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 1.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 17.5,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 8.75,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "4ILs8HFIRQG56ygG-uGrW"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "4ILs8HFIRQG56ygG-uGrW"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/ilcPKLTlqTit2r59GKPo-.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "TLjdSkY5kiaoD1n49y_3j"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::12",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3931,
+   "at": "2026-10-13T03:47:52.066Z",
+   "data": {
+    "id": "TLjdSkY5kiaoD1n49y_3j",
+    "name": "Ember War Cache",
+    "description": "Spoils from the front, bearing the fire emblem. Open to claim battlefield consumables and katon kunai.",
+    "createdAt": "2026-06-29T08:06:08.956Z",
+    "updatedAt": "2026-06-29T08:06:08.956Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 23,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 11.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 7.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 3.75,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 3,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 1.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 17.5,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 8.75,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "sXaqXBYXGHvK75D7Bpo1h"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "sXaqXBYXGHvK75D7Bpo1h"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/a1qW_u5cVzZP3jb33DGWq.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "U6LFNfcweghWuqU-c4P-O"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::13",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3935,
+   "at": "2026-10-13T03:47:52.516Z",
+   "data": {
+    "id": "U6LFNfcweghWuqU-c4P-O",
+    "name": "Gale War Cache",
+    "description": "Spoils from the front, bearing the wind emblem. Open to claim battlefield consumables and zephyrfang kunai.",
+    "createdAt": "2026-06-29T08:06:06.247Z",
+    "updatedAt": "2026-06-29T08:06:06.247Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 23,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 11.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 7.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 3.75,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 3,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 1.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 17.5,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 8.75,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "RIK6tVrKHPEJHz8B_y9dK"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "RIK6tVrKHPEJHz8B_y9dK"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/r9LBSDY22SoiLSNUx_iKW.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "sfv8S6kuwZkPpALYAH7qh"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::14",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3939,
+   "at": "2026-10-13T03:47:52.723Z",
+   "data": {
+    "id": "sfv8S6kuwZkPpALYAH7qh",
+    "name": "Storm War Cache",
+    "description": "Spoils from the front, bearing the lightning emblem. Open to claim battlefield consumables and ikazuchi kunai.",
+    "createdAt": "2026-06-29T08:06:03.593Z",
+    "updatedAt": "2026-06-29T08:06:03.593Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 23,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 11.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 7.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 3.75,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 3,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 1.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 17.5,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 8.75,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "GMF1JZ0MChUHc7AtnKABw"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "GMF1JZ0MChUHc7AtnKABw"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/uJA3vENeKCPkbXV2Z9H0n.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "BGbJPJGhjZxN8XzvfXf1b"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::15",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3930,
+   "at": "2026-10-13T03:47:52.914Z",
+   "data": {
+    "id": "BGbJPJGhjZxN8XzvfXf1b",
+    "name": "Tide War Cache",
+    "description": "Spoils from the front, bearing the water emblem. Open to claim battlefield consumables and wave kunai.",
+    "createdAt": "2026-06-29T08:06:11.588Z",
+    "updatedAt": "2026-06-29T08:06:11.588Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 23,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 11.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 6,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 3,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 7.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 3.75,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 3,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 1.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 17.5,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 8.75,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "tFH-9RLeCUcVByQbqd2ic"
+        ],
+        "number": 15,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "tFH-9RLeCUcVByQbqd2ic"
+        ],
+        "number": 7.5,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/ZHMkijjlziK3ax9g2pe-G.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "OIw9FjNd-PXnSVzMtbclP"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::16",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3987,
+   "at": "2026-10-13T03:47:53.326Z",
+   "data": {
+    "id": "OIw9FjNd-PXnSVzMtbclP",
+    "name": "Bloodthorn Cache",
+    "description": "New item description",
+    "createdAt": "2026-08-03T04:23:38.758Z",
+    "updatedAt": "2026-08-03T04:23:38.758Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 34.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "_5152PR1inHUEZUBjiaHJ"
+        ],
+        "number": 17.25,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 22.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "nThwqBAKNrl1_4UTL-D_m"
+        ],
+        "number": 11.25,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 22.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "CbUq--UpWnawD_7Xk_GCV"
+        ],
+        "number": 11.25,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 9,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 4.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 9,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 4.5,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 11.25,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FCqGTz3jEFEJoGCeagx1P"
+        ],
+        "number": 5.62,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 4.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 2.25,
+        "quantity": 20
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 26.25,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "WgXIvANXaffar1zCYcEKf"
+        ],
+        "number": 13.12,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "ZHHFba1VW9JrDXdWrbtrv"
+        ],
+        "number": 30,
+        "quantity": 3
+       },
+       {
+        "ids": [
+         "[PILL_PACK_ID]"
+        ],
+        "number": 20,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1.5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "yVNeLzxHSFkNpTPnlm7yQ"
+        ],
+        "number": 37.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "yVNeLzxHSFkNpTPnlm7yQ"
+        ],
+        "number": 18.75,
+        "quantity": 20
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/z20LkrAZGtnf2KgSs9ZKw.png",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "Wc68sUMJqcjttr2lLtMc-"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::17",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3385,
+   "at": "2026-10-13T03:47:53.712Z",
+   "data": {
+    "id": "Wc68sUMJqcjttr2lLtMc-",
+    "name": "Larry's Tackle Box",
+    "description": "Larry's spare tackle box. He says the hooks are for friends he hasn't met yet.",
+    "createdAt": "2026-08-19T04:26:38.447Z",
+    "updatedAt": "2026-08-21T20:29:58.115Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Gain various rewards from consumption outside of combat",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "M-0CPw9yBmmreLvJU6gav"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "SWQpaXB8csJWL3zZMTz4r"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 25,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "R_xTf5Fy8EDcrJrRCwAcf"
+        ],
+        "number": 12.5,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 25,
+        "quantity": 3
+       },
+       {
+        "ids": [
+         "TtYPd-LcXKeK3sMuhq1TP"
+        ],
+        "number": 12.5,
+        "quantity": 6
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 20,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "6DnJn4x6LWWXtBu7UZybb"
+        ],
+        "number": 10,
+        "quantity": 4
+       },
+       {
+        "ids": [
+         "HSvTtRH06xgCW5XRIcFX2"
+        ],
+        "number": 10,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 25000,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeJIo78yV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": true,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "c5dUPtXmCedfKssqiwbpt"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::18",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3439,
+   "at": "2026-10-13T03:47:54.099Z",
+   "data": {
+    "id": "c5dUPtXmCedfKssqiwbpt",
+    "name": "Mystery Chest",
+    "description": "Chance to receive any other Chest. Increased chance of receiving Ornate Chests.",
+    "createdAt": "2026-04-30T07:09:55.146Z",
+    "updatedAt": "2026-10-13T02:01:55.652Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "M-0CPw9yBmmreLvJU6gav"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "KwgjMOya2XT6uYsgXbsh6"
+        ],
+        "number": 10,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "32k2rXF6W-7gn_Fubp4kU"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "nAAfu3ya-dkVaZeH7LycZ"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "gb6vxdzWTYZR--7s-4kTX"
+        ],
+        "number": 10,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "SWQpaXB8csJWL3zZMTz4r"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "hikAzfsQPCvNUaFw_P8vs"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "Fh3xch8ox_JMaHj0-ntTF"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "ONMLl57L7o0MivjhySHMA"
+        ],
+        "number": 5,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "c5dUPtXmCedfKssqiwbpt"
+        ],
+        "number": 20,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "FVYuxw5E5b2lPOn3cbFfF"
+        ],
+        "number": 10,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "NONE",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ7NUgkCXKPBOUWGyFuM4DlL1v5HNTZhkte0z6",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Mystery chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "ONMLl57L7o0MivjhySHMA"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::19",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3209,
+   "at": "2026-10-13T03:47:54.334Z",
+   "data": {
+    "id": "ONMLl57L7o0MivjhySHMA",
+    "name": "Ornate Chest",
+    "description": "Chance to receive stacks of Imperial Gold, Unobtanium and Rare Jewels.",
+    "createdAt": "2026-04-26T21:49:51.754Z",
+    "updatedAt": "2026-04-26T21:49:51.754Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "FEaV0h7on2ZHy_ST5fSOs"
+        ],
+        "number": 50,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "FEaV0h7on2ZHy_ST5fSOs"
+        ],
+        "number": 10,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "kIMZ4G6oLjytXXj0tBD7f"
+        ],
+        "number": 50,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "kIMZ4G6oLjytXXj0tBD7f"
+        ],
+        "number": 10,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "05hx4hI0I4L2vAME8CcZu"
+        ],
+        "number": 80,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "05hx4hI0I4L2vAME8CcZu"
+        ],
+        "number": 40,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "05hx4hI0I4L2vAME8CcZu"
+        ],
+        "number": 10,
+        "quantity": 10
+       },
+       {
+        "ids": [
+         "FG4xYkI8UmRrJCdD3yPxI"
+        ],
+        "number": 1,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 100000,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 999,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJWLNYJ7Svszvj71yaSYC0MDOmbko5q9JAGuLH",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "Treasure chest",
+    "canStack": true,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": false,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "sJpzHsubsYmOh1zzsKAVo"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::20",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 1810,
+   "at": "2026-10-13T03:47:54.628Z",
+   "data": {
+    "id": "sJpzHsubsYmOh1zzsKAVo",
+    "name": "Wooden Treasure Chest",
+    "description": "A large wooden treasure chest",
+    "createdAt": "2026-07-08T17:42:39.081Z",
+    "updatedAt": "2026-08-20T16:47:59.091Z",
+    "expireFromStoreAt": null,
+    "effects": [],
+    "itemType": "OTHER",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "CHARACTER",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "stackSize": 1,
+    "image": "https://ui0arpl8sm.ufs.sh/f/zrueYqR_uJsLchF7-sDMA.png",
+    "destroyOnUse": false,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "A large wooden treasure chest",
+    "canStack": false,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": true,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "item.get",
+   "input": {
+    "id": "llCOxrK200QbY2ON7uQ1m"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "95-mv654in6::before::21",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 2738,
+   "at": "2026-10-13T03:47:54.815Z",
+   "data": {
+    "id": "llCOxrK200QbY2ON7uQ1m",
+    "name": "Bag of Prestige",
+    "description": "Item ",
+    "createdAt": "2026-01-30T02:37:49.974Z",
+    "updatedAt": "2026-01-30T02:37:49.974Z",
+    "expireFromStoreAt": null,
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "placeholder",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 5,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 700000,
+      "reward_medical_experience": 700000,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 700000
+     }
+    ],
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "ITEM",
+    "cooldown": 0,
+    "weaponType": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 1,
+    "stackSize": 1,
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJrtMUgvphuJPmdY8zI2ptZXAoEj1c6BMKvrQO",
+    "destroyOnUse": true,
+    "range": 0,
+    "chakraCost": 0,
+    "staminaCost": 0,
+    "healthCost": 0,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "actionCostPerc": 60,
+    "battleDescription": "%user consumes the contract to gain power but at what terrible cost...",
+    "canStack": false,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "inShop": false,
+    "isEventItem": true,
+    "hidden": false,
+    "maxEquips": 1,
+    "preventBattleUsage": true,
+    "requiredLevel": 1,
+    "xpToLevel": 1000,
+    "parentItemId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredSkillId": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "canBeTraded": false,
+    "auctionMinPrice": null,
+    "auctionMaxPrice": null,
+    "purchaseLimit": null,
+    "purchaseLimitPeriod": "NONE",
+    "isFarmSeed": false,
+    "farmGrowTimeSeconds": 0,
+    "farmYieldItemId": null,
+    "farmMinLevel": 1,
+    "farmPlantExperience": 0,
+    "farmHarvestExperience": 0,
+    "farmSellValue": 0,
+    "farmExtractSeedItemId": null,
+    "farmExtractSeedCount": 0,
+    "isFarmFertilizer": false,
+    "farmTimeReductionSeconds": 0,
+    "farmFertilizerExperience": 0,
+    "craftingExperience": 0,
+    "crystalTargetTypes": null,
+    "bloodlineId": null,
+    "battleUsageType": "BOTH"
+   }
+  }
+ ],
+ "idmap": {
+  "undefined": "0QixZN9jD_bqAKTimDafB",
+  "pin_listen.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy22plzIukVH2MI5Lo4ehEfAXvZdcmtWqPg7r",
+  "pin_watch.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0HNWcSgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "pin_chase.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOG8ukw7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "fsw_q_thinice": "ATV6Fs3XFqOf7wch99qDW",
+  "fsw_q_protection": "otFtGNvBFn8ZVGlda7UOH",
+  "fsw_q_loud": "ilYoJqbk--np9OSqT9lGx",
+  "probe_c": "gJ05vhdN0C1mzuRde8fjZ",
+  "probe_b": "Kaywv59qnRM-wPULzVDNp",
+  "probe_a": "EONHpe2JhRDYzrYnJLXlk",
+  "probe_d": "A_Pk45u-3vUC4MAFkUEID",
+  "probe_e": "Cch0E9oze3-X60vt6fJkL",
+  "wn00": "nX1LNp8OnYNwWbgLmyeLG",
+  "wn01": "twsXAgh8CZJMSntUWNctj",
+  "wn02": "6mufJi_eXwAruEGck7DdS",
+  "wn03": "cpTgne86wqYbfhwU6HS_q",
+  "wn04": "TkyR2RJFUQDv3olz96Mro",
+  "wn05": "X5T3vmotm8W5je6sQIiz7",
+  "wn06": "qDorq7Ew_wZSktdAOirK1",
+  "wn07": "cTgptnfFK1YFz09-wy4zJ",
+  "wn08": "nUs1_tNyHYbrWa42_KCG7",
+  "wn09": "AiyL4Yf-YdvKFLsIPFVfq",
+  "wn10": "Qi5tqhWVY--J48sucZZM-",
+  "wn11": "IwAiJ8_X5_X7gkFY8KThA",
+  "wn12": "ov-sjt5hYzBPXFPXF1xZm",
+  "wn13": "6d8VPEGCRC-ySqrcLFwwO",
+  "wn14": "LpYxQPJ3mfBaDpkVqrlI9",
+  "wn15": "jnGvAPy8pISPWYwzkpMoB",
+  "wn16": "fbfbDvD-m-LFeA2AhHncu",
+  "wn17": "KD0vcWSnbq4Cb6Weza5Ny",
+  "wn18": "lN8EHcrklmJ5AQStjeMn1",
+  "wn19": "miwf25XFMiHUKI0NSsAfU",
+  "wn20": "ZdGo_lFPLUH9P1XGzVJ6v",
+  "scene_fsw_report_clerk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGuzJ8eRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_keeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPVYNR2qIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+  "scene_fsw_grain_merchant.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2i6csznMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "scene_fsw_squad_survivor.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAY1UXMpKeUGyX2kj6u45AOQiSa1zYH0mqZo",
+  "scene_fsw_lw_principal.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJp2BkJQbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D",
+  "scene_fsw_lw_deputy.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGmh92kRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "scene_fsw_pale_fang.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyL48KcukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "scene_fsw_winter_crow.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJM7pG84tsO4cexqW2RDgkE3zZbNXSFGitmnar",
+  "scene_fsw_old_ghost.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6ojyqKDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "fsw_scn_clerk": "ElB--mNvncY7x_9VDf9O6",
+  "fsw_scn_keeper": "Kf2D27FAnL_XkbAJruN1y",
+  "fsw_scn_merchant": "RTGdKuVcvDxBIY4Ft25Oe",
+  "fsw_scn_survivor": "RkfgpZX7rqERIiHcALLU-",
+  "fsw_scn_principal": "Mur92ghAmUzQLQlUJlVXy",
+  "fsw_scn_deputy": "wB3RoOJJoQkGlLoNnPjHi",
+  "fsw_scn_pale_fang": "hymq1_ZsBGJ8qsS_Bztco",
+  "fsw_scn_winter_crow": "aU7DBNyBel5q7gyA-Ug9O",
+  "fsw_scn_old_ghost": "Lcsj6Tc1hdaVUEEa74PwH",
+  "fsw2_scn_clerk": "1TjPakroW5q8m6nylQRcT",
+  "fsw2_scn_keeper": "AM0saNTIIl1FPgc5pAzxc",
+  "fsw2_scn_merchant": "8mDurYQYmy3G0vb862mkO",
+  "fsw2_scn_survivor": "asvKeN5HIBRJ2-fzg9Und",
+  "fsw2_scn_principal": "gIU6lE4RWWwV8FbP3Fkvs",
+  "fsw2_scn_deputy": "rkdd7b_84F_NYq1YUMEl_",
+  "fsw2_scn_pale_fang": "CbU3BRjOLX-Ad5PnbUfxM",
+  "fsw2_scn_winter_crow": "cSZBQ23AVVuLmKDaA2jh2",
+  "fsw2_scn_old_ghost": "5QsG6MvGvGlzelOx_g0JN",
+  "bg_fsw_loud_way_floor_c.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJbPoVBYAtYUndMi56GkX19q0A4PzyeIloBrEa",
+  "bg_fsw_pass_road_dusk_d.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTUB2345IU29dZYJPoOKSh5vmlqatMub3EigH",
+  "bg_fsw_waystation_door_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJoidFEoZ9MPZpHJ7VliuEWDfATdxhv62SXnm4",
+  "bg_fsw_ambush_site.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOGD7OHOVHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "bg_fsw_drying_shed_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJl5JG25rWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+  "bg_fsw_drying_yard_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeRbH5WyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+  "bg_fsw_ghost_rooftop.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJH4hvqDOQvYURJhgs76VZtf9wxpMa13Cq0iOn",
+  "bg_fsw_canal_frontage_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHCDFP9QvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+  "fsw3_bg_loudway": "bBV9I0DcmYGcxVGaBdWL0",
+  "fsw3_bg_passroad": "nmrMHmz9xWojzyIV2mAR8",
+  "fsw3_bg_wsdoor": "kmDsQUEHSub9GIX5ulO6i",
+  "fsw3_bg_ambush": "E4VJ-IeIQMwbmGGfKc-sn",
+  "fsw3_bg_dryshed": "c1e60fERuLUxzt9WY4U37",
+  "fsw3_bg_dryyard": "TUtC7yPymsp2GyWwZhoTf",
+  "fsw3_bg_rooftop": "eXoh3W7Q_KaWec02TB17n",
+  "fsw3_bg_canal": "JUb5wIdMC0o7VwVVOx1zm",
+  "icon_rank_A.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgkm8F7cU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+  "icon_rank_B.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3K6O328pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "icon_rank_C.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcz70uPSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "icon_rank_D.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPzlH3ApKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
+  "opc_ai_road_bandit": "dKEz_VsgZjrfbtxt4ldo8",
+  "opc_ai_harvest_boar": "2-gJmijAA8lGns_thDRjz",
+  "opc_quest": "CZIZoHDAOWjxDtVaQwr6V",
+  "godstorm_sc_upper": "7xVJ55rsqarfRmPqLdv98",
+  "bg_godstorm_stormcourt_upper_court.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmjUVLGHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
+  "godstorm_sc_dais_active": "L_ziMXaLeT9FSdyQ9hkDi",
+  "bg_godstorm_stormcourt_binding_dais_active.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8jKmYdkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+  "godstorm_sc_dais_released": "_vK9jDEE0zyop_t23Ijgy",
+  "bg_godstorm_stormcourt_binding_dais_released.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJywJdK0ukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "ai_godstorm_marrow_starless_monk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYrjpaWOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+  "ai_godstorm_marrow_hollow_lantern.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJObX54vVHevxIThUauQkGJEBY3D2cPqy8f5sp",
+  "ai_godstorm_marrow_umbral_reaver.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOQmdwbVHevxIThUauQkGJEBY3D2cPqy8f5sp",
+  "ai_godstorm_marrow_nightveil_sentinel.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6NdYG2DfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "ai_godstorm_marrow_warden_of_the_first_dark.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJuv8jdYCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b",
+  "one_perfect_crop_road_bandit_avatar.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJOGcKql7VHevxIThUauQkGJEBY3D2cPqy8f5s",
+  "opc_sc_ittetsu": "qFJk06nwwy0B9o2qZ1oZE",
+  "one_perfect_crop_ittetsu_scene.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpGORkWdkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+  "opc_sc_waystation_keeper": "qiFtWf9G91kt4spFRA1VF",
+  "one_perfect_crop_waystation_keeper_scene.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHM8ObaQvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+  "wbr_ai_current_sentinel": "Z3vzT_0GsIgvRUfg9aNhQ",
+  "wbr_quest": "_53c9Ms81QquXXAi8I_dj",
+  "jelly_scene_bg_tidewatch": "Pz52vtn130CkDPjUjhPvN",
+  "scene_bg_tidewatch_beach_v1.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ47TKoAlYIif5CL8BKvMsOh2ZnmS7yHt0jTD3",
+  "jelly_ai_royal": "fviJBCJMx8YAnT91TjK7B",
+  "avatar_royal_jellyfish_v1.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJe8GWnxyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+  "jelly_ai_basic": "Bxyqw_A-xt_C2QWXnBB0t",
+  "avatar_basic_jellyfish_v1.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6S2tvhDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "jelly_quest_crown_in_surf": "ljyxLKuU2yR2RRkVnSeEo",
+  "ai_wayward_blade": "uO4sBfcUGUZ7SYUTEaq4Q",
+  "wayward_challenge_quest": "EymfSL5MDPfrCpaT4O4Y5",
+  "gs_scene_exterior_keel": "ujMH_Rcu9muS1z4KgqPla",
+  "scene_bg_ghost_ship_exterior_keel_walk.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJXdDSqLfKL5D7TAFe29bymSaPCIQ846MdzG",
+  "gs_scene_reconstruction": "81DATu13hATfbkPuLT54E",
+  "scene_bg_ghost_ship_reconstruction_chamber.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+  "gs_scene_quarantined_archive": "aOsaP9cilezNV8DqtTh4y",
+  "scene_bg_ghost_ship_quarantined_archive.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJpo8lFZubKBAOsGCHyl3Sk0mZFrgWPUdjMJ75",
+  "gs_scene_command_gallery": "X7ABmzu8vPl9rL8OV9GLB",
+  "scene_bg_ghost_ship_command_observation_gallery.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+  "gs_char_sealwright": "b_K8qdNI651fTsRn9tfkk",
+  "scene_char_ghost_ship_sealwright_portrait.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJG5U9eTRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+  "skyglass_filament": "CTZ1mwhHrICLtiCaZATY6",
+  "icon_ghost_ship_skyglass_filament.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyl4N0gukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "skyglass_crystal": "Cmo3JU-D9Nl_-xUxrvEJN",
+  "icon_ghost_ship_skyglass_crystal.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQjwwDumojJ0EqeDCvBrNmZaXVdY97gSpOWi",
+  "skyglass_katana": "ZSUdrzzgorepP4CQrBfEk",
+  "icon_ghost_ship_skyglass_katana.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeCMeCnKyV3OvUJQExAi0bGoIZDF74LqSnHRd",
+  "skyglass_reliquary": "FVYuxw5E5b2lPOn3cbFfF",
+  "icon_ghost_ship_skyglass_reliquary.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJw666iMT2j854CWbaITZyegfXimvd7s16cO0h",
+  "icon_ghost_ship_skyglass_serum.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJx78HQWZsq9k0Von5rUfP6OgQ2TyptCKHS4um",
+  "icon_ghost_ship_skyglass_crown_fragment.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2HiWgAnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "icon_ghost_ship_skyglass_crown.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJzlwR2oemvaQu94EYJs8HpxVzofny6iPtbgCZ",
+  "scene_bg_ghost_ship_deck_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+  "scene_bg_ghost_ship_lower_hull.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+  "scene_char_ghost_ship_oathkeeper_portrait.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJrLQHVfhuJPmdY8zI2ptZXAoEj1c6BMKvrQOx",
+  "scene_bg_ghost_ship_chart_room.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpbYjW5dkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+  "scene_bg_ghost_ship_hold.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+  "scene_bg_ghost_ship_helm.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
+  "scene_bg_ghost_ship_cache_site.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJyX6gwPukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "scene_char_ghost_ship_captain_portrait_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ1OK79X6bo95WClq4K0wxZUmJcvThgdVenO3P",
+  "scene_char_ghost_ship_crowned_captain_portrait_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmD4DcyHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
+  "avatar_ghost_ship_deck_warden.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3EMd7F8pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "avatar_ghost_ship_seal_charge.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ6hRTthDfT5pyNCaUruzhPtAJqb8Kj9mc1nlH",
+  "avatar_ghost_ship_core_canister.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIvLTTiWxfOewksxBoS1HQCihpL7c42Ky9uUF",
+  "avatar_ghost_ship_core_horror.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGg1b4g9RfoVrha0LP4mAS5KM7wtiZbUNXJxd",
+  "avatar_ghost_ship_oathkeeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8Bm1nz6kkp45TvAnoIBa0rtCf1lbyXYjVKQ2",
+  "avatar_ghost_ship_wayfinder.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2OzekznMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+  "avatar_ghost_ship_arsenal_keeper.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJC0I6tJ26OYrIJuNP1pvSyz29edFtKbngjRcA",
+  "avatar_ghost_ship_sentinel.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8m10qgkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+  "avatar_ghost_ship_first_blade.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCtfLkt26OYrIJuNP1pvSyz29edFtKbngjRcA",
+  "avatar_ghost_ship_captain_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3tKhsR8pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+  "avatar_ghost_ship_crowned_captain_b.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ85XgqDkkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+  "sealwright": "RBW5KsIXmTGR710D2y2Y7",
+  "avatar_ghost_ship_sealwright.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJA3pntBoZUC4muiGcQNzjfEndY5y1w20B8hTW",
+  "quest_icon_ghost_ship_skyglass.webp": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcrXit1SnxBpQqGNDcTHbLmYz8uXAl3oa54ti"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "95-mv654in6",
+  "manifestPath": "push/95_chest_loot_baseline_capture.json",
+  "manifestNumber": 95,
+  "manifestHash": "564247ff",
+  "startedAt": "2026-10-13T03:47:48.467Z",
+  "updatedAt": "2026-10-13T03:47:54.944Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [],
+  "capturesBeforePartial": null,
+  "capturesBefore": [
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "toBESPaPaHI5vEFRjWi20"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::0",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3304,
+    "at": "2026-10-13T03:47:48.844Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "gb6vxdzWTYZR--7s-4kTX"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::1",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 4051,
+    "at": "2026-10-13T03:47:49.102Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "SWQpaXB8csJWL3zZMTz4r"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::2",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3975,
+    "at": "2026-10-13T03:47:49.328Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "hikAzfsQPCvNUaFw_P8vs"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::3",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3975,
+    "at": "2026-10-13T03:47:49.785Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "Fh3xch8ox_JMaHj0-ntTF"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::4",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3804,
+    "at": "2026-10-13T03:47:50.027Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "-v1OQ5QSsWbV-DcZadM0h"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::5",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3101,
+    "at": "2026-10-13T03:47:50.591Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "KwgjMOya2XT6uYsgXbsh6"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::6",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3798,
+    "at": "2026-10-13T03:47:50.827Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "M-0CPw9yBmmreLvJU6gav"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::7",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3794,
+    "at": "2026-10-13T03:47:51.030Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "32k2rXF6W-7gn_Fubp4kU"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::8",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3794,
+    "at": "2026-10-13T03:47:51.262Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "nAAfu3ya-dkVaZeH7LycZ"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::9",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3804,
+    "at": "2026-10-13T03:47:51.464Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "0j4znEj9HCl0lKIW_9BP7"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::10",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3338,
+    "at": "2026-10-13T03:47:51.673Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "74RxQoqSNYcfRnLxVDTfB"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::11",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3938,
+    "at": "2026-10-13T03:47:51.865Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "TLjdSkY5kiaoD1n49y_3j"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::12",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3931,
+    "at": "2026-10-13T03:47:52.066Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "U6LFNfcweghWuqU-c4P-O"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::13",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3935,
+    "at": "2026-10-13T03:47:52.516Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "sfv8S6kuwZkPpALYAH7qh"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::14",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3939,
+    "at": "2026-10-13T03:47:52.723Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "BGbJPJGhjZxN8XzvfXf1b"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::15",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3930,
+    "at": "2026-10-13T03:47:52.914Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "OIw9FjNd-PXnSVzMtbclP"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::16",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3987,
+    "at": "2026-10-13T03:47:53.326Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "Wc68sUMJqcjttr2lLtMc-"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::17",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3385,
+    "at": "2026-10-13T03:47:53.712Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "c5dUPtXmCedfKssqiwbpt"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::18",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3439,
+    "at": "2026-10-13T03:47:54.099Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "ONMLl57L7o0MivjhySHMA"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::19",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3209,
+    "at": "2026-10-13T03:47:54.334Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "sJpzHsubsYmOh1zzsKAVo"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::20",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 1810,
+    "at": "2026-10-13T03:47:54.628Z"
+   },
+   {
+    "phase": "before",
+    "proc": "item.get",
+    "input": {
+     "id": "llCOxrK200QbY2ON7uQ1m"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "95-mv654in6::before::21",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 2738,
+    "at": "2026-10-13T03:47:54.815Z"
+   }
+  ]
+ }
+}

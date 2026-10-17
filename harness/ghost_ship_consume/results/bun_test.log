@@ -1,0 +1,48 @@
+bun test v1.4.2 (744846f84)
+
+tests/tnr_ghost_ship_consume/active_consume.test.ts:
+[Upstash Redis] Unable to find environment variable: `UPSTASH_REDIS_REST_URL`. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] Unable to find environment variable: `UPSTASH_REDIS_REST_TOKEN`. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] The 'url' property is missing or undefined in your Redis config. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+[Upstash Redis] The 'token' property is missing or undefined in your Redis config. To create a database instantly (no signup needed), run: curl -X POST https://upstash.com/start-redis
+(pass) active Consume through real weapon assembly and actions > is absent on equip, applies to the granting Pierce hit, then converts different actions in this and a later round [47.38ms]
+(pass) active Consume through real weapon assembly and actions > Crystal10 composes through battle assembly and can grant an active buff on a weapon without a damage tag [9.16ms]
+(pass) active Consume through real weapon assembly and actions > uses pre-shield damage for Crystal and Pierce and aggregates an ALL-method control [25.99ms]
+(pass) active Consume through real weapon assembly and actions > distinguishes same-action SELF dedupe from overlapping active item buffs [12.48ms]
+(pass) active Consume through real weapon assembly and actions > expires conversion independently of each earned shield; late shields survive the buff [15.14ms]
+(pass) removal, prevention and unchanged weapon action fields > Clear removes active item Consume and stops subsequent conversion [21.01ms]
+(pass) removal, prevention and unchanged weapon action fields > preserves existing Buff Prevent and measures Consume under it; Katana immunity blocks only new applications inside its exact window [35.70ms]
+(pass) removal, prevention and unchanged weapon action fields > keeps accepted AP40, costs40/40/0, range4 OTHER_USER and cooldown6/shared-GCD3 [47.17ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts later residual and poison damage at 15%% [4.75ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts later residual and poison damage at 10%% [0.68ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts only the Health component of delayed drain at 15%% [1.34ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > converts only the Health component of delayed drain at 10%% [0.76ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > attributes simultaneous delayed drain and wound ticks to each original caster [1.82ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > keeps another caster's direct damage out of the owner's conversion [1.00ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > credits capped reflection to the defender while direct damage belongs to its attacker [1.13ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes direct self-damage and reflected self-casts at 15%% [4.05ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes direct self-damage and reflected self-casts at 10%% [1.20ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > excludes both immediate recoil and its deferred repayment [1.50ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates active sources, caps their ratio at 100 percent and chooses the longest shield duration [1.06ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > caps each generated shield at 100000 HP while allowing multiple stacks at 15%% [0.67ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > caps each generated shield at 100000 HP while allowing multiple stacks at 10%% [0.40ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates multiple hits and targets into one per-caster shield at 15%% [0.50ms]
+(pass) Consume processor adversarial probes (upstream fixtures) > aggregates multiple hits and targets into one per-caster shield at 10%% [0.40ms]
+(pass) evidence: no failed required checks (ACTIVE) [0.12ms]
+
+tests/tnr_ghost_ship_consume/contract_guards.test.ts:
+(pass) CONTRACT — revised candidate records and source schema > preserves the accepted Katana baseline with only the disclosed Consume delta [1.29ms]
+(pass) CONTRACT — revised candidate records and source schema > validates exactly Pierce50 Crystal + SELF immunity2r + active Consume15, and the complete Katana carrier [10.65ms]
+(pass) CONTRACT — revised candidate records and source schema > validates a Consume10-only weapon Crystal full carrier at each labelled rarity [1.57ms]
+(pass) CONTRACT — revised candidate records and source schema > instant-only negative control still requires a Damage/Pierce companion; defaults are not approval [3.40ms]
+(pass) CONTRACT — revised candidate records and source schema > canBeImbued:false remains the disabling field, not maxImbueNumber0 [0.23ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > imbueItem guard matrix (real procedure, read-only stub) [18.37ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > craftItem occupation and rarity/rank guards (real procedure, read-only stub) [5.20ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > rank/rarity/imbue-slot tables from the pinned constants [0.24ms]
+(pass) GUARDS — WEAPON restriction, recipient eligibility, duplicates, rank > battle assembly suppresses imbuements on canBeImbued:false recipients [4.12ms]
+(pass) evidence: no failed required checks (CONTRACT, GUARDS) [0.04ms]
+
+ 34 pass
+ 0 fail
+ 195 expect() calls
+Ran 34 tests across 2 files. [2.13s]

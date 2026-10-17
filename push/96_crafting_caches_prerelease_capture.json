@@ -1,0 +1,27 @@
+{
+ "_note": "READ-ONLY pre-release capture for the crafting caches (RUL-2026-10-13-001..003). Zero mutations. Operator-run only; never an agent request. Two quests.get point reads with persist:\"full\" of Ghost Ship (Gather) 6Ri-W5TtUrEMWpyYlnf_F and Ghost Ship (Hunt) HckXVOf-qk6ESU9t5rxLh: quest edits do not fetch-merge, so the release manifest must reproduce each full live record with only three reward lines added to the restricted vault objective w_B2 (Medicine Inro 15%, Shinobi Tool Pouch 15%, Sage's Strongbox 7.5%, quantity 1). The generator will diff these rows against push/90/94 and refuse to build if anything else changed. One item.getAllNames read proves the three cache names (Medicine Inro, Shinobi Tool Pouch, Sage's Strongbox) are unused before create. No quest or item writes. Separate from push/89 and does not modify it.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "6Ri-W5TtUrEMWpyYlnf_F"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "HckXVOf-qk6ESU9t5rxLh"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.getAllNames",
+    "input": {}
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

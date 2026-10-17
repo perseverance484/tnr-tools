@@ -1,0 +1,44 @@
+{
+ "_note": "READ-ONLY pre-step-B capture for the crafting caches (RUL-2026-10-13-001..004). Zero mutations. Operator-run only; never an agent request. quests.get persist:\"full\" of the two LIVE Ghost Ship quests, Gather 6Ri-W5TtUrEMWpyYlnf_F and Hunt HckXVOf-qk6ESU9t5rxLh: step B reproduces each whole record from these rows, adding only three restricted-vault (w_B2) reward lines, so the base must be fresh. item.get persist:\"full\" of the three caches push/97 created hidden (results tnr_results_1791902993422.json, all VERIFIED): Medicine Inro ixEKlJ0MmDrX7JoMNJVhi, Shinobi Tool Pouch 6PguSHDJikU8y35qGcBWa, Sage's Strongbox h-d58UCSuHN8EZKbLjT5R. Step B unhides exactly these rows and must prove nothing else about them moved. No writes.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "6Ri-W5TtUrEMWpyYlnf_F"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "HckXVOf-qk6ESU9t5rxLh"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "ixEKlJ0MmDrX7JoMNJVhi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "6PguSHDJikU8y35qGcBWa"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "h-d58UCSuHN8EZKbLjT5R"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

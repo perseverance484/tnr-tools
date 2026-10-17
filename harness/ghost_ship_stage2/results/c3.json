@@ -1,0 +1,141 @@
+{
+ "assertions": 12,
+ "checks": [
+  {
+   "detail": {
+    "mismatched": [],
+    "missing": []
+   },
+   "name": "every non-override field equals the captured Night's Testament row",
+   "pass": true
+  },
+  {
+   "detail": [
+    "battleDescription",
+    "canBeCrafted",
+    "canBeImbued",
+    "craftingExperience",
+    "description",
+    "effects",
+    "hidden",
+    "image",
+    "name"
+   ],
+   "name": "overrides are exactly the ruling-cited set",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "complete record passes ItemValidator",
+   "pass": true
+  },
+  {
+   "name": "contract: legendarySword",
+   "pass": true
+  },
+  {
+   "name": "contract: notImbuable",
+   "pass": true
+  },
+  {
+   "name": "contract: exactlyThreeEffects",
+   "pass": true
+  },
+  {
+   "name": "contract: pierce50Crystal",
+   "pass": true
+  },
+  {
+   "name": "contract: selfImmunityBuffPrevent2",
+   "pass": true
+  },
+  {
+   "name": "contract: consume40Self",
+   "pass": true
+  },
+  {
+   "name": "contract: dropOnly",
+   "pass": true
+  },
+  {
+   "name": "contract: tradable",
+   "pass": true
+  },
+  {
+   "name": "contract: createdHidden",
+   "pass": true
+  }
+ ],
+ "data": {
+  "acceptedFields": {
+   "actionCostPerc": 40,
+   "battleUsageType": "BOTH",
+   "canBeCrafted": false,
+   "canBeImbued": false,
+   "canBeTraded": true,
+   "chakraCost": 40,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 6,
+   "cost": 1,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "inShop": false,
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "range": 4,
+   "repsCost": 0,
+   "requiredLevel": 1,
+   "seichiSilverCost": 0,
+   "slot": "HAND",
+   "stackSize": 1,
+   "staminaCost": 40,
+   "staminaCostReducePerLvl": 0,
+   "target": "OTHER_USER",
+   "xpToLevel": 1000
+  },
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1791727479372.json",
+   "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+   "capturedAt": "2026-10-11T14:04:38.932Z",
+   "id": "osJq3k77YPGoFWgof12FQ",
+   "name": "Night's Testament",
+   "pointer": "/captures/0/data"
+  },
+  "contract": {
+   "consume40Self": true,
+   "createdHidden": true,
+   "dropOnly": true,
+   "exactlyThreeEffects": true,
+   "legendarySword": true,
+   "notImbuable": true,
+   "pierce50Crystal": true,
+   "selfImmunityBuffPrevent2": true,
+   "tradable": true
+  },
+  "fullItemValidator": {
+   "issues": [],
+   "success": true
+  },
+  "overrides": {
+   "battleDescription": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "canBeCrafted": "RUL-2026-10-11-004 drop-only (3% Crowned Captain drop is the sole source)",
+   "canBeImbued": "RUL-2026-10-10-007",
+   "craftingExperience": "RUL-2026-10-11-004 drop-only",
+   "description": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "effects": "RUL-2026-10-10-007 three effects; RUL-2026-10-11-004 Pierce element Crystal (was Shadow); visual asset ids cleared pending art",
+   "hidden": "creation doctrine: new records are created hidden; publication is separate",
+   "image": "presentation pending (prose/art acceptance); not copied from Night's Testament",
+   "name": "RUL-2026-10-10-007 approved name"
+  },
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "status": "PASS (mechanics/economy); presentation fields pending separate acceptance"
+ },
+ "failed": 0,
+ "gate": "C3"
+}

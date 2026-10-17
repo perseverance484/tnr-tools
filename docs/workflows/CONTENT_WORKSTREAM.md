@@ -12,7 +12,8 @@ The roadmap is **coordination state, not canon.** `docs/00_INDEX.md` remains the
 state/workstreams/INDEX.md               generated projection of all workstreams
 state/workstreams/<slug>/roadmap.json    canonical coordination source — edit this
 state/workstreams/<slug>/ROADMAP.md      generated projection
-scripts/content_workstream.py            validate / render / list / next / init
+scripts/content_workstream.py            validate / render / list / next / init / new
+scripts/workstream_templates/            versioned starter templates for `new`
 ```
 
 `roadmap.json` is the editable source. Both Markdown files are generated and say so at the top; never hand-edit them.
@@ -120,6 +121,25 @@ Once enough requirements are known, the planning conversation should:
 
 The planning conversation remains useful as a coordinator, but after the roadmap exists it is no longer a required memory source.
 
+### 6a. Starting a quest or event workstream with `new` (optional)
+
+A workstream is **opt-in**. A routine one-session quest goes straight through the content skill (`factory.py`, `validate.py`, a manifest in `push/`) with no roadmap at all. Use the starter only for a multi-session quest, event or expansion:
+
+```bash
+python3 scripts/content_workstream.py new <slug> --title "<Title>" --type quest   # preview, writes nothing
+python3 scripts/content_workstream.py new <slug> --title "<Title>" --type quest --write
+```
+
+- The preview prints the paths it would create, every task, and the missing inputs and user-owned decision gates. `--write` creates `state/workstreams/<slug>/roadmap.json` and renders `ROADMAP.md` and the shared `INDEX.md` through the normal renderer. `--json` prints exactly the `roadmap.json` bytes.
+- It refuses, and changes nothing, when the slug directory already exists, the slug or title collides with another workstream, the slug is not lowercase `a-z0-9_-`, the title is empty, padded, overlong or contains Markdown-breaking characters, or the type is not `quest`/`event`.
+- The roadmap comes from `scripts/workstream_templates/multisession_v1.json`: one task per stage (design graph, source/capture inventory, AI/item/reward decisions, prose, art, manifest build, independent review, hidden operator run and readback, calibration, publication decision). It is coordination only; it holds no gameplay values, art or quest blueprint.
+- Every task starts `PLANNED` or `BLOCKED`, with no evidence. `design.graph` is blocked until a design source is committed. A template pointer to a file the repository lacks is dropped and becomes a named blocker on its task.
+- `production.hidden_run` depends on both `build.manifest` and `review.independent`, so marking an optional review `SKIPPED` never lets the hidden run start before the build is `COMPLETE`. Keep that edge when you split the build into variants: the hidden run depends on every build task.
+- Then refine it like any roadmap: commit sources, add them to `required_resources`, split `art.production` per asset class (section 3) before generating, mark `review.independent` `SKIPPED` with the reason when the scope does not need it, and set a task `READY` only when `validate` accepts it.
+- `validate` checks that a path is safe, repository-relative and **exists**. It does not check that the file is committed to Git: an untracked file passes. Committing every durable source remains the workflow obligation, checked at handoff and review.
+- The output is deterministic: the same slug, title and type give the same bytes. `scripts/workstream_templates/multisession_v1.example_quest.roadmap.json` is the committed golden example, checked by `--selftest`.
+- `new` never touches `state/digest.json`, `state/active-context.md` or `state/status.json`, never runs `session_close.py`, and never commits, pushes or contacts anything.
+
 ## 7. Commands
 
 ```bash
@@ -129,6 +149,7 @@ python3 scripts/content_workstream.py render --check     # fails if a projection
 python3 scripts/content_workstream.py list
 python3 scripts/content_workstream.py next <slug>
 python3 scripts/content_workstream.py init <slug> --task <task-id>
+python3 scripts/content_workstream.py new <slug> --title "<Title>" --type quest|event [--write] [--json]
 python3 scripts/content_workstream.py --selftest
 ```
 

@@ -36,10 +36,9 @@ Opening it prepares the preview with queries only; preparation never rewrites so
 5. Save the exported results. Verify all 13 records (folder plus 12 skills), then prepare
    the package again. It should show only reuse and send **zero mutations**.
 
-This stacked branch retains the historical 0.5.1 loader while 0.6.0 is pending review/release.
-As checked on 2026-10-16, main has released 0.5.2 at `b62704c0`; integration must preserve
-that newer release and its AI validation changes, then use the normal 0.6.0 release process.
-Do not install this branch's old loader over main. No pilot game write was performed.
+Integrated into main on 2026-10-17 on top of the released 0.5.2 loader (`b62704c0`) and its AI
+validation changes. The loader carries `@x-release-pending 0.6.0`; the release-pin workflow
+promotes it after the merge. No pilot game write was performed.
 
 ## Package contract
 

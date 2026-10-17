@@ -1,0 +1,947 @@
+{
+ "_note": "READ-ONLY stage 2 (batch 3 of 4) of the 82 shared-AI-pool jutsu re-equip census. Zero mutations. push/80 (results tnr_results_1791583362574.json) captured all 82 pool jutsu in full but kept only the ROW COUNT of profile.getAllAiNames (522 live non-ELDER AIs): Forge persists list procedures as counts only. So this stage point-reads every AI id the repository knows (answers/names_ai.json seed 532 + 3 from committed captures/manifests = 535 ids, sorted, split in 4 batches) with profile.getAi persist:full. Each body carries the kit (jutsus), items with dropChancePerc, stats and aiProfileId: it is the BEFORE IMAGE for unequip/re-equip. Completeness rule after all batches: reads with a non-null body and rank != ELDER must equal 522; a shortfall means live AIs exist whose ids the repository does not know. A deleted AI returns ok:true with data:null (archive/spent-manifests/push-2026-10-08/README.md, push/77); that is expected for stale seed ids and is not a failure. Batches are independent; re-run only an interrupted one.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TcYSulOJ3qUgG893bOb96"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Tg-d1WNjvrPUQ0iN3gBk6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Tnkm2Xk9EthSa2z_0LfFM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Tpmvt0DPZnIoGM7LFNruG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TusExXW6jzGCbClfde7zF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "TwJzdHAu3-7OWfepU_uA7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "UB_KzUHB9AAYZge8W1AKD"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "UKpqftX9eSAyRPmgPk_9B"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "UTo52RChnsRZDOnIpSTom"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "UrAEVY5QvtQqKs-XB92PX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "V2qtmcqQ7encMGIbay1TS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "V8QVNzhZv2V2WXY4npulZ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "VPsLUbApjbOIMb_EyXGA8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Vg5Tqp6mBvOJsm5zPMpdv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "VidPR8ZOB0NFHfVkAqNKn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "VvStGchROaGF7RBpdhIKP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "W6ofbyqJ8sh2gwNh2BcEJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "WHNDqO7Au2dhmUvLV5duf"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "WJGCYdxjHrS3n0Xd_FHEJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "WMHV_3jN8BFtJmjdk5zuv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "W_8Om9rVIdCegbltmXvHQ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "WsxviOuT_lkmv2TErd8L3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "WxsmoaAoV0y8vqcWYw96y"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XAYJlIk6txuhXDYoZebmH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XEF1l9ZgsrFqKiPWnanS9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XMlYJ6wB8XCd-iW2J9Mui"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XtlMPnlkDit5NBZPAgBf7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Y3P_iJ-9AyD-p77V0WxBv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Y5YBOViBSWkiF_ZCormfy"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YCgkJxiGrTcaoakjQ9Y83"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YGWuZN__c1OD0Y1p2CtI9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YHCBvSzVi9wR3G1EtaCFe"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YdjazDbs0kpcZfP8wEO1p"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YjFWldMKZ3HrNYLJRYOBH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YnT9BoXiZwqwVvhG5zlMt"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "YvinZCoMWiz0RY8ZBP5EW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Z662HS2Uvc1RoiYI3ZYIw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Z6OlEe7nfAGhoLdXIPHgG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "ZBIkFSPX25psvyIS2Is_y"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "ZE25uspi1e9WCfLH-igeP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Zap3M6sNddUf3G5YXAzqA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "ZcqVwWI1hudtPmDb6ovUZ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "ZhpzON3NSg4ySyMdmDo2Z"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "ZokDoe5lurxifxdivMmPE"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "Zp0PnhIagkMf-2jyi5NbB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_-LABA3r7vwogsQ4O3ALq"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_L5Jrnn_3MsA3zwI2oz5R"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_OluNOjftyWpMim3pKLrn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_Qrz-6O0TYzFM5qXaDUmG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_YNqmh1xbL43c_aXS2ehP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_a1f7UI4xsreYltt4GEJ0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_m-X2hsSTRRqwmUZXI2mj"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_sWndzhX_CS0MP2_b2i07"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "_vxg9rWY3XliLgT-_eBDx"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "a0FYTNLNsLO50Ltl9X-A5"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aCZRjRc1Iemx41nkjwA94"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aGjGaQWDIivgCLPxaDL6u"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aKwT8nmNEu1htydNRlUOv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aL1Gf1JmVaP8iWi2zHJoO"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aWwhu2wloj5nm9SgzeNxi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aYqqS2pD0H1hPGS97DO06"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aaPEcvVH2uAOqE_ckEhHz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "adfgg3B6xMCtw5mf2FTxA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "agS6PmFfgqNKF0h9p6BSt"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "aniNtcy6g3tjrhTKneEVW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "atIFv8S9nDAt8QiHIqwJa"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "axTRSadaZbUepfT40-7cM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "b8PGgZl8zNNr6UdWH9dBv"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "bCTTWqMLn_clRjR21aB2N"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "bK524DZpr62sl3pSSUMud"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "b_WgOpRe0Gia1ihYs7wUs"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "bkncKN-sTAXeXbcdbaqG_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "cR_GDxFwU24HDem77k9NV"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "clik9wpb0000009l606opg0zj"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "clik9wzuy000109l650ds0x6x"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "cljwj43ij000008ml4c2xho09"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "cmDVrDjtqNZx0-5drdUFg"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "czs_soa4-j2Qq42Y_E0d9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d-t1xbnAoIZWEE2F8U8iS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d2pm8ZOqkoIbuFHtctUkM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d6g0mOM7RBSsYI1hrUVT9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dKEz_VsgZjrfbtxt4ldo8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dKjjSnUSu_aEAFFb-sFaH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dUy1Rx1J0vztRbsgUoata"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d_rZiKu5QtovK1qQJKZEK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dgfwWWqrCuv7zbTkpMX4a"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dpp9mShY4DbLT5Ae58SCf"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dyfMWA6XKYYW4hVkXVKIj"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "e02hsRkt4zE-RsxhPrSJ8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eD19dr9Iloz8xlGWvWSEf"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eMj3G_LfPd4RdFJl6QyAI"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eP1Ry_HG_N46DbpCAKCd_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eX52HpaIbog31YowKk0d0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eag7ofEvBUiO9nDfhuY1x"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eh6pJQJiV0onkJe0qNl1u"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "erDLuK6pzuU691_Kdl74d"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "esmTLgB2igb3ylE9QKz7S"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "f8F9ZRiwifvb5qkFVXW0W"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fDU9jCPZtH7YHbdQPO9RF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fHo_dn7STwHkDe4_4geXp"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fOOwL00SnLUTuUQ4IK8-H"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fPHbAdToPNequ4j99Cpxp"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fUlYeOzHb8AJVD4pV5hxd"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fWxIoIf0M7EKffl-1BkVa"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "frc9LTxqQlM7mncG4VZGK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fwPUl3pFsc2eEe5qOcUk8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "g3H-6AdPLopNL92v6ig66"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "g8l7lt-ua1ptrWvhqjrnl"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gDLQYe_MZpKMLhtGNhXr3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gHPiwKQMYdf5-M1kfdom_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gTGZvqrKmImOlBFDV5BXu"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gY2ltbuVMyBgt3In4b6pP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gfYxL5ZbAOQkuPIApmZhJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gocAYWKP6NwO3YXFHfPV_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gqOxWqXElRszsLksj83zx"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "gtku8xki8WJ3K1xob5oG_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "h0tkhn358lux6kr4xztqed3s"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "h41rnPPTe80DZ4FtIaTuR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "h51B5byN5pAWS3BOososr"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "h8P71ZFiCsUxbGC6K30GI"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "hFeC_kD5VxyqNEPb9WDrT"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "hRc3_dFlIpQ6S87WylvLh"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "i3rNym7JgAeB482Oczviy"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "i8oFdDcneF7YE-8VpQsu3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "iv9EJDlqM0Y-ec3jRBh4r"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "j1Rs1XmAe2xQHSkAcMIsB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "j4ai1imhFoPI2sEnLTr_p"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jGHpkz2pgLu8loti6pZZi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jP-G9ZBJJGPhA0oDieDfC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jQQD9CqybpYq_XKRGblGe"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jTB6PFXFDNF2RsIoFhZoz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jXgvKSBhhLCqhE9t4VzCX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jl0lSpkKsqBYl0xjONEKd"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "jpgZP-yXSlApXmzDjwLGH"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

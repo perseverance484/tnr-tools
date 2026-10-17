@@ -1,0 +1,226 @@
+{
+ "assertions": 7,
+ "checks": [
+  {
+   "detail": [
+    [
+     "damage",
+     20,
+     null
+    ],
+    [
+     "afterburn",
+     20,
+     null
+    ],
+    [
+     "consume",
+     20,
+     3
+    ]
+   ],
+   "name": "assembly composes [...weapon effects, consume20]",
+   "pass": true
+  },
+  {
+   "detail": {
+    "damage": 472.124,
+    "shield": [
+     {
+      "isNew": false,
+      "power": 94,
+      "rounds": 3
+     }
+    ]
+   },
+   "name": "shield = floor(20% × damage) for 3 rounds",
+   "pass": true
+  },
+  {
+   "detail": {
+    "refHpLost": 472.124,
+    "shieldedHpLost": 0
+   },
+   "name": "target shield absorbed damage but Consume shield unchanged (pre-shield basis)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "shield": [
+     {
+      "isNew": false,
+      "power": 188,
+      "rounds": 3
+     }
+    ],
+    "total": 944.249
+   },
+   "name": "one aggregated shield ≈ floor(20% × summed damage)",
+   "pass": true
+  },
+  {
+   "name": "FINDING: weapon Consume40 + Crystal Consume20 on one action → 40% (Crystal Consume silently dropped)",
+   "pass": true
+  },
+  {
+   "name": "FINDING: two Crystal Consume records on one weapon → 20% (no runtime stacking)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "b": "[battle state omitted]",
+    "composed": [
+     [
+      "afterburn",
+      20,
+      null
+     ],
+     [
+      "consume",
+      20,
+      3
+     ]
+    ],
+    "lost": {
+     "t1": 0,
+     "t2": 0
+    },
+    "shield": [],
+    "shield0": 0,
+    "texts": [
+     "user_target1 will take 20% of damage received as afterburn for the next 2 rounds"
+    ]
+   },
+   "name": "no positive cast-round outgoing damage → no Consume shield",
+   "pass": true
+  }
+ ],
+ "data": {
+  "multiTarget": {
+   "carrierNote": "method ALL override on carrier; Katana/Crystal recipients are not assumed ALL",
+   "lost": {
+    "t1": 472.124,
+    "t2": 472.124
+   },
+   "shield": [
+    {
+     "isNew": false,
+     "power": 188,
+     "rounds": 3
+    }
+   ]
+  },
+  "noDamageRecipient": {
+   "composed": [
+    [
+     "afterburn",
+     20,
+     null
+    ],
+    [
+     "consume",
+     20,
+     3
+    ]
+   ],
+   "lost": {
+    "t1": 0,
+    "t2": 0
+   },
+   "shield": [],
+   "texts": [
+    "user_target1 will take 20% of damage received as afterburn for the next 2 rounds"
+   ]
+  },
+  "shieldedTarget": {
+   "consumeShield": [
+    {
+     "isNew": false,
+     "power": 94,
+     "rounds": 3
+    }
+   ],
+   "hpLost": 0,
+   "referenceHpLost": 472.124,
+   "referenceShield": [
+    {
+     "isNew": false,
+     "power": 94,
+     "rounds": 3
+    }
+   ],
+   "targetShieldBefore": 500
+  },
+  "singleTarget": {
+   "composed": [
+    [
+     "damage",
+     20,
+     null
+    ],
+    [
+     "afterburn",
+     20,
+     null
+    ],
+    [
+     "consume",
+     20,
+     3
+    ]
+   ],
+   "lost": {
+    "t1": 472.124,
+    "t2": 0
+   },
+   "shield": [
+    {
+     "isNew": false,
+     "power": 94,
+     "rounds": 3
+    }
+   ],
+   "texts": [
+    "user_target1 will take 20% of damage received as afterburn for the next 2 rounds",
+    "user_target1 takes 472.12 damage",
+    "user_wielder consumes 94 damage as a shield for 3 rounds"
+   ]
+  },
+  "stacking": {
+   "source": "app/src/libs/combat/actions.ts insertAction SELF branch (getEffectStackKey dedupe); tags.ts consume() additive ratio is only reachable across distinct stack keys",
+   "twoCrystalRecordsAtRuntime": {
+    "finding": "second Consume dropped; 20% only",
+    "lost": {
+     "t1": 472.124,
+     "t2": 0
+    },
+    "observedRatio": 0.199,
+    "shield": [
+     {
+      "isNew": false,
+      "power": 94,
+      "rounds": 3
+     }
+    ]
+   },
+   "weaponConsume40PlusCrystal20": {
+    "finding": "Crystal Consume dropped; weapon's own Consume 40 applies alone",
+    "lost": {
+     "t1": 472.124,
+     "t2": 0
+    },
+    "observedRatio": 0.398,
+    "shield": [
+     {
+      "isNew": false,
+      "power": 188,
+      "rounds": 3
+     }
+    ]
+   }
+  }
+ },
+ "failed": 0,
+ "gate": "B2",
+ "scope": "post-composition runtime with a hypothetical (validator-rejected) Crystal record"
+}

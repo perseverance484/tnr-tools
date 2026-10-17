@@ -1,0 +1,483 @@
+{
+ "schema": "tnr.release_validate_exception",
+ "ruling": "RUL-2026-10-12-013",
+ "scope": "push/90 only, at exactly this manifest SHA-256; not a doctrine change and not a precedent",
+ "command": "cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/90_ghost_ship_skyglass_release.json",
+ "manifest": {
+  "path": "push/90_ghost_ship_skyglass_release.json",
+  "sha256": "6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7"
+ },
+ "validator": {
+  "validate.py": "f7eb8815701c299588a025975348541bc79f58116a2abb9edbd0952847bcad85",
+  "45c_DATA_constructors.json": "d3c398f01580a2fa866992a85bca843e20bd179775f76108c5468a055dbd6062",
+  "45d_DATA_entity_schemas.json": "96580ed19256b38e980cf21c4b2e081aa428a0448bf3cb007073daeb24372221",
+  "45g_DATA_checks.json": "cb8473d25f5d223aa2ae5c64774b83082d82f475428b8dbf9f1fb32cdf048a1e",
+  "45h_DATA_lints.json": "cce0a0bbc279fc06e2548c4de1d1082afc517f6e416a29dac13bc2195bced086",
+  "32b_DATA_pool.json": "bc813eec92976ab6406337aa97839e035af078f3908eec2f49a34fa185abd204"
+ },
+ "exitCode": 1,
+ "summary": "56 errors, 25 warnings",
+ "classes": [
+  {
+   "class": "stale_effect_fields",
+   "evidence": "45c (bdec2883) predates the pinned tag schemas. At 585534d7 these keys (direction, description and the noncombatconsumereward reward_* fields) are canonical. Evidence: Forge nested.json and the derive_nested key sets at 585534d7; ItemValidator parse in CONTRACT and the reviewer's source replay; insertAiSchema.effects fixed point in STATS.",
+   "errors": 42,
+   "warnings": 0
+  },
+  {
+   "class": "stattypes_none_enum",
+   "evidence": "IncludeStats.statTypes maps the legacy \"Highest\" to \"None\" at 585534d7 (validators/combat.ts:140), so \"None\" is the stored canonical value. Evidence: STATS effects fixed point; the Katana record is a live push/85 row.",
+   "errors": 2,
+   "warnings": 0
+  },
+  {
+   "class": "consume_companion_rule",
+   "evidence": "At 585534d7 SuperRefineEffects requires the companion only when rounds === 0. The Crystal's Consume is rounds 2 (RUL-2026-10-11-005/006). Evidence: CONTRACT full ItemValidator accepts the Crystal; the instant negative control still rejects.",
+   "errors": 1,
+   "warnings": 0
+  },
+  {
+   "class": "idg_power_cap",
+   "evidence": "45g tag_power_max is not a server bound: PowerAttributes.power is z.coerce.number().min(0) with no maximum, and Forge deliberately does not wire this check (forge/src/runner/validate.mjs). The 375 and 450 values are RUL-2026-10-12-004; STATS parses them unchanged.",
+   "errors": 6,
+   "warnings": 0
+  },
+  {
+   "class": "preferredstat_l05",
+   "evidence": "Migration 0056 dropped the preferredStat column. Forge 0.5.2 L05 no longer requires it (review correction GS-R3); restoring it would reintroduce the create/read-back conflict.",
+   "errors": 1,
+   "warnings": 0
+  },
+  {
+   "class": "approved_shared_menu_target",
+   "evidence": "d_parley is the live riddle (two wrong answers lead to the duel; retheme invariant: preserve edges). d_recon_test's two wrong seals lead to the approved lockout (RUL-2026-10-10-003).",
+   "errors": 4,
+   "warnings": 0
+  },
+  {
+   "class": "law60_build_order",
+   "evidence": "Law 18/60 requires the AI unequip before the jutsu edits. Forge executes by phase; the dry run verifies the order.",
+   "errors": 0,
+   "warnings": 9
+  },
+  {
+   "class": "stale_farm_nullability",
+   "evidence": "45d (bdec2883) lacks the farm* keys; Forge's pinned ItemValidator field set includes them and requires farmYieldItemId (forge/src/runner/validate.mjs).",
+   "errors": 0,
+   "warnings": 8
+  },
+  {
+   "class": "captured_selftarget_gate",
+   "evidence": "These are captured rule conditions kept under RUL-2026-10-12-003. They are harmless: the gate never restricts a SELF action.",
+   "errors": 0,
+   "warnings": 8
+  }
+ ],
+ "diagnostics": [
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Gather): Skyglass retheme + 83-node expansion].d_parley: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Gather): Skyglass retheme + 83-node expansion].d_recon_test: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Hunt): Skyglass retheme + 83-node expansion].d_parley: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "error",
+   "class": "approved_shared_menu_target",
+   "text": "[quest:Ghost Ship (Hunt): Skyglass retheme + 83-node expansion].d_recon_test: two or more options in this menu share a target, so the menu is narrower than it looks. Give each option its own node"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Arsenal Keeper: rename, kit, rules, loot, innate].rules[5]: Windlash Focus is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Core Horror: rename, kit, rules, loot, innate].rules[5]: Springguard is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Crowned Captain: rename, kit, rules, loot, innate].rules[7]: Windlash Focus is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Deck Warden: rename, kit, rules, loot, innate].rules[4]: Springguard is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:First Blade: rename, kit, rules, loot, innate].rules[5]: Springguard is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Oathkeeper: rename, kit, rules, loot, innate].rules[4]: Stoneward is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Sentinel: rename, kit, rules, loot, innate].rules[5]: Light Barrier is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "warning",
+   "class": "captured_selftarget_gate",
+   "text": "[ai:Wayfinder: rename, kit, rules, loot, innate].rules[3]: Stoneward is self/ground targeted; a distance gate is meaningless on it"
+  },
+  {
+   "level": "error",
+   "class": "consume_companion_rule",
+   "text": "[item:Skyglass Crystal]: law 78: 'consume' requires a damage or pierce effect on the SAME action"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:Crowned Captain: rename, kit, rules, loot, innate].effects[0]: increasedamagegiven.power=450 above max 100"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:Crowned Captain: rename, kit, rules, loot, innate]: law 6: effect 'increasedamagegiven' power 450 exceeds the cap of 100 (rows are rounded down)"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:Sealwright].effects[0]: increasedamagegiven.power=375 above max 100"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:Sealwright]: law 6: effect 'increasedamagegiven' power 375 exceeds the cap of 100 (rows are rounded down)"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate].effects[1]: increasedamagegiven.power=375 above max 100"
+  },
+  {
+   "level": "error",
+   "class": "idg_power_cap",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate]: law 6: effect 'increasedamagegiven' power 375 exceeds the cap of 100 (rows are rounded down)"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "warning",
+   "class": "law60_build_order",
+   "text": "manifest: build order: jutsu appears after a later phase"
+  },
+  {
+   "level": "error",
+   "class": "preferredstat_l05",
+   "text": "[ai:Sealwright]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:Crowned Captain: rename, kit, rules, loot, innate].effects[0]: increasedamagegiven: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:Crowned Captain: rename, kit, rules, loot, innate].effects[0]: increasedamagegiven: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:Sealwright].effects[0]: increasedamagegiven: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:Sealwright].effects[0]: increasedamagegiven: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate].effects[0]: increasestat: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, direction, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate].effects[1]: increasedamagegiven: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate].effects[1]: increasedamagegiven: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, elements, friendlyFire, generalTypes, power, powerPerLevel, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Crystal].effects[0]: consume: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, shieldRounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Crystal].effects[0]: consume: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, shieldRounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[0]: pierce: unknown field 'description'. Valid: allowBloodlineDamageDecrease, allowBloodlineDamageIncrease, appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, dmgModifier, elements, friendlyFire, generalTypes, power, powerPerLevel, residualModifier, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[0]: pierce: unknown field 'direction'. Valid: allowBloodlineDamageDecrease, allowBloodlineDamageIncrease, appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, dmgModifier, elements, friendlyFire, generalTypes, power, powerPerLevel, residualModifier, rounds, statTypes, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[1]: immunity: unknown field 'description'. Valid: appearAnimation, appearSfx, blocks, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[1]: immunity: unknown field 'direction'. Valid: appearAnimation, appearSfx, blocks, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[2]: consume: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, shieldRounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Katana].effects[2]: consume: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, shieldRounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'description'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'direction'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_anbupoints'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_badges'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_bloodlines'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_clanpoints'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_crafting_experience'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_exp'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_gathering_experience'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_gathering_items'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_gathering_items_ids'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_hunter_items'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_hunter_items_ids'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_hunting_experience'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_items'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_jutsus'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_medical_experience'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_money'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_prestige'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_rank'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_reputation'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_seichi_silver'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_skillpoints'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_tokens'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_village_membership'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_war_damage'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "error",
+   "class": "stale_effect_fields",
+   "text": "[item:Skyglass Reliquary].effects[0]: noncombatconsumereward: unknown field 'reward_war_healing'. Valid: appearAnimation, appearSfx, calculation, disappearAnimation, disappearSfx, friendlyFire, power, powerPerLevel, rounds, staticAnimation, staticAssetPath, target, timeTracker, type"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Crystal]: law 72: 'farmExtractSeedItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Crystal]: law 72: 'farmYieldItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Filament]: law 72: 'farmExtractSeedItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Filament]: law 72: 'farmYieldItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Katana]: law 72: 'farmExtractSeedItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Katana]: law 72: 'farmYieldItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Reliquary]: law 72: 'farmExtractSeedItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "warning",
+   "class": "stale_farm_nullability",
+   "text": "[item:Skyglass Reliquary]: law 72: 'farmYieldItemId' is null but is not a field of the item write validator; it will be dropped or rejected"
+  },
+  {
+   "level": "error",
+   "class": "stattypes_none_enum",
+   "text": "[ai:The Captain: rename, kit, rules, loot, innate].effects[0]: increasestat.statTypes='None' not in enum (Bukijutsu, Genjutsu, Highest, Ninjutsu, Taijutsu...)"
+  },
+  {
+   "level": "error",
+   "class": "stattypes_none_enum",
+   "text": "[item:Skyglass Katana].effects[0]: pierce.statTypes='None' not in enum (Bukijutsu, Genjutsu, Highest, Ninjutsu, Taijutsu...)"
+  }
+ ]
+}

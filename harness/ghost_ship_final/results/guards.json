@@ -1,0 +1,584 @@
+{
+ "assertions": 24,
+ "checks": [
+  {
+   "detail": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "name": "final LEGENDARY Crystal (published state) on an eligible imbuable WEAPON at FORGEMASTER passes every tested pre-write guard and reaches the first (trapped) write; persistence/concurrency not exercised",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "Crystal not found",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "final Crystal as created (hidden:true) is invisible to imbueItem (fetchUserItems excludes hidden items)",
+   "pass": true
+  },
+  {
+   "name": "native rank gate for the final LEGENDARY Crystal: only FORGEMASTER reaches the write",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You have reached the maximum number of crystals for this item (1)",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "imbuement-slot limit: APPRENTICE (1 slot) on a maxImbueNumber-1 weapon that already holds a crystal is rejected",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "imbueItem rank × rarity matrix: all 12 cells equal the source-derived expectation",
+   "pass": true
+  },
+  {
+   "name": "final Katana (canBeImbued:false, published state) rejects the final Crystal",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "Target item not found",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "while hidden, the Katana is invisible to imbueItem (fetchUserItems excludes hidden items)",
+   "pass": true
+  },
+  {
+   "name": "non-WEAPON recipient rejected by crystalTargetTypes",
+   "pass": true
+  },
+  {
+   "name": "duplicate crystal ID rejected",
+   "pass": true
+  },
+  {
+   "name": "non-CRAFTING occupations rejected (none/GATHERING/HUNTING)",
+   "pass": true
+  },
+  {
+   "name": "equipped recipient rejected",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "Cannot use a crystal reserved for auction or trade",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "new source pre-write guard rejects a Crystal reserved for auction/trade",
+   "pass": true
+  },
+  {
+   "detail": {
+    "absent": {
+     "message": "Activate the required skill to use this crystal",
+     "outcome": "response",
+     "success": false
+    },
+    "inactive": {
+     "message": "Activate the required skill to use this crystal",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "name": "new source required-skill guard rejects absent or inactive skill (synthetic skill control)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "name": "new source required-skill guard permits the active skill and reaches trapped first write (control only)",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "quantity": 12,
+     "requirementItem": {
+      "id": "harness-filament",
+      "name": "Skyglass Filament (harness carrier)"
+     },
+     "requirementItemId": "harness-filament"
+    }
+   ],
+   "name": "recipe is exactly 12 Skyglass Filaments",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "transaction",
+    "outcome": "guards-passed-reached-write"
+   },
+   "name": "FORGEMASTER holding 12 Filaments passes every pre-write craft guard and reaches the trapped first write",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "11 Filaments are rejected at the material check",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "native rank: a MASTER cannot craft the LEGENDARY Crystal (Forgemaster-only)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "message": "This item is hidden and cannot be crafted",
+    "outcome": "response",
+    "success": false
+   },
+   "name": "as created (hidden:true) the Crystal cannot be crafted",
+   "pass": true
+  },
+  {
+   "detail": {
+    "asCreatedHidden": {
+     "message": "This item is hidden and cannot be crafted",
+     "outcome": "response",
+     "success": false
+    },
+    "forgemaster11": {
+     "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
+     "outcome": "response",
+     "success": false
+    },
+    "forgemaster12": {
+     "message": "transaction",
+     "outcome": "guards-passed-reached-write"
+    },
+    "master12": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_GATHERING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_HUNTING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_null": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "name": "craftItem requires the CRAFTING occupation (GATHERING/HUNTING/none)",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "native craftItem rank × rarity control: all 12 cells equal the source-derived expectation",
+   "pass": true
+  },
+  {
+   "name": "Novice has zero imbuement slots",
+   "pass": true
+  },
+  {
+   "detail": {
+    "expectedGate": {
+     "APPRENTICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "FORGEMASTER": {
+      "EPIC": true,
+      "LEGENDARY": true,
+      "RARE": true
+     },
+     "MASTER": {
+      "EPIC": true,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "NOVICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": false
+     }
+    },
+    "imbueGate": {
+     "APPRENTICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "FORGEMASTER": {
+      "EPIC": true,
+      "LEGENDARY": true,
+      "RARE": true
+     },
+     "MASTER": {
+      "EPIC": true,
+      "LEGENDARY": false,
+      "RARE": true
+     },
+     "NOVICE": {
+      "EPIC": false,
+      "LEGENDARY": false,
+      "RARE": false
+     }
+    }
+   },
+   "name": "imbue eligibility derived from the pinned constants equals the expected matrix",
+   "pass": true
+  },
+  {
+   "detail": {
+    "f": [
+     "damage",
+     "afterburn"
+    ],
+    "k": [
+     "pierce",
+     "immunity",
+     "consume"
+    ]
+   },
+   "name": "legacy crystal effects dropped for canBeImbued:false items at assembly",
+   "pass": true
+  }
+ ],
+ "data": {
+  "battleSuppression": {
+   "flamingSwordEffects": [
+    "damage",
+    "afterburn"
+   ],
+   "katanaEffects": [
+    "pierce",
+    "immunity",
+    "consume"
+   ]
+  },
+  "craftItemGuards": {
+   "cases": {
+    "asCreatedHidden": {
+     "message": "This item is hidden and cannot be crafted",
+     "outcome": "response",
+     "success": false
+    },
+    "forgemaster11": {
+     "message": "You need 12 Skyglass Filament (harness carrier) (you have 11)",
+     "outcome": "response",
+     "success": false
+    },
+    "forgemaster12": {
+     "message": "transaction",
+     "outcome": "guards-passed-reached-write"
+    },
+    "master12": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_GATHERING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_HUNTING": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    },
+    "occupation_null": {
+     "message": "You must have the Crafting occupation to craft items",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "note": "Filament carrier substitutes the @item:skyglass_filament ref; recipe quantity is the record's",
+   "recipe": [
+    {
+     "quantity": 12,
+     "requirementItem": {
+      "id": "harness-filament",
+      "name": "Skyglass Filament (harness carrier)"
+     },
+     "requirementItemId": "harness-filament"
+    }
+   ]
+  },
+  "craftRankMatrixControl": {
+   "cases": {
+    "rank_APPRENTICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_APPRENTICE_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_LEGENDARY": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_FORGEMASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_EPIC": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_MASTER_RARE": {
+     "message": "You need 12 Unknown item (you have 0)",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_EPIC": {
+     "message": "You need to be at least Master rank to craft EPIC items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_LEGENDARY": {
+     "message": "You need to be at least Forgemaster rank to craft LEGENDARY items",
+     "outcome": "response",
+     "success": false
+    },
+    "rank_NOVICE_RARE": {
+     "message": "You need to be at least Apprentice rank to craft RARE items",
+     "outcome": "response",
+     "success": false
+    }
+   },
+   "note": "native engine behaviour with a craftable carrier; the final LEGENDARY Crystal (12-Filament recipe) is Forgemaster-only"
+  },
+  "imbueItemGuards": {
+   "armorRecipient": {
+    "message": "This crystal can only be applied to WEAPON items",
+    "outcome": "response",
+    "success": false
+   },
+   "capturedFlamingSwordNonImbuable": {
+    "message": "This item cannot be imbued",
+    "outcome": "response",
+    "success": false
+   },
+   "crystalReservedForAuction": {
+    "message": "Cannot use a crystal reserved for auction or trade",
+    "outcome": "response",
+    "success": false
+   },
+   "duplicateCrystal": {
+    "message": "This item already has a Skyglass Crystal imbuement",
+    "outcome": "response",
+    "success": false
+   },
+   "eligibleWeapon": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "equippedRecipient": {
+    "message": "You cannot imbue an equipped item",
+    "outcome": "response",
+    "success": false
+   },
+   "finalCrystalAsCreatedHidden": {
+    "message": "Crystal not found",
+    "outcome": "response",
+    "success": false
+   },
+   "katanaNonImbuable": {
+    "message": "This item cannot be imbued",
+    "outcome": "response",
+    "success": false
+   },
+   "katanaWhileHidden": {
+    "message": "Target item not found",
+    "outcome": "response",
+    "success": false
+   },
+   "maxImbuementsReached": {
+    "message": "You have reached the maximum number of crystals for this item (1)",
+    "outcome": "response",
+    "success": false
+   },
+   "notACrystal": {
+    "message": "Selected item is not a crystal",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_GATHERING": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_HUNTING": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "occupation_null": {
+    "message": "You must have the Crafting occupation to imbue items",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_EPIC": {
+    "message": "You need to be at least Apprentice rank to imbue EPIC crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_LEGENDARY": {
+    "message": "You need to be at least Master rank to imbue LEGENDARY crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_APPRENTICE_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_EPIC": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_LEGENDARY": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_FORGEMASTER_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_MASTER_EPIC": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_MASTER_LEGENDARY": {
+    "message": "You need to be at least Master rank to imbue LEGENDARY crystals",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_MASTER_RARE": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "rank_NOVICE_EPIC": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_NOVICE_LEGENDARY": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   },
+   "rank_NOVICE_RARE": {
+    "message": "You have reached the maximum number of crystals for this item (0)",
+    "outcome": "response",
+    "success": false
+   },
+   "requiredSkillAbsent": {
+    "message": "Activate the required skill to use this crystal",
+    "outcome": "response",
+    "success": false
+   },
+   "requiredSkillActive": {
+    "message": "update",
+    "outcome": "guards-passed-reached-write"
+   },
+   "requiredSkillInactive": {
+    "message": "Activate the required skill to use this crystal",
+    "outcome": "response",
+    "success": false
+   }
+  },
+  "rankRarityTable": [
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 0,
+    "maxImbuedPerItemRankLimit": 0,
+    "minExperience": 0,
+    "minutes": {
+     "COMMON": 60,
+     "EPIC": 0,
+     "LEGENDARY": 0,
+     "RARE": 0
+    },
+    "rank": "NOVICE"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 1,
+    "minExperience": 100000,
+    "minutes": {
+     "COMMON": 40,
+     "EPIC": 0,
+     "LEGENDARY": 0,
+     "RARE": 65
+    },
+    "rank": "APPRENTICE"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 2,
+    "minExperience": 300000,
+    "minutes": {
+     "COMMON": 30,
+     "EPIC": 70,
+     "LEGENDARY": 0,
+     "RARE": 50
+    },
+    "rank": "MASTER"
+   },
+   {
+    "effectiveMaxImbuementsForMaxImbueNumber1": 1,
+    "maxImbuedPerItemRankLimit": 3,
+    "minExperience": 600000,
+    "minutes": {
+     "COMMON": 15,
+     "EPIC": 60,
+     "LEGENDARY": 160,
+     "RARE": 30
+    },
+    "rank": "FORGEMASTER"
+   }
+  ]
+ },
+ "failed": 0,
+ "gate": "GUARDS",
+ "scope": "actual pre-write eligibility paths with read-only stubs; no persistence, CAS/concurrency, committed craft/imbue or executed trade"
+}

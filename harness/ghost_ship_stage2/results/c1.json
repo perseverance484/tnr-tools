@@ -1,0 +1,173 @@
+{
+ "assertions": 4,
+ "checks": [
+  {
+   "name": "exact three-effect array accepted (Pierce satisfies Consume's companion rule)",
+   "pass": true
+  },
+  {
+   "name": "consume shieldRounds source default = 3; consume rounds normalised to 0",
+   "pass": true
+  },
+  {
+   "name": "maxImbueNumber 0 rejected, 1 accepted",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "accepted record passes ItemValidator (base + item + economy refinements)",
+   "pass": true
+  }
+ ],
+ "data": {
+  "fullItemValidatorOnAccepted": {
+   "issues": [],
+   "note": "presentation fields are labelled placeholders",
+   "success": true
+  },
+  "input": [
+   {
+    "allowBloodlineDamageDecrease": true,
+    "allowBloodlineDamageIncrease": true,
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "formula",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "dmgModifier": 0,
+    "elements": [
+     "Crystal"
+    ],
+    "generalTypes": [
+     "Highest"
+    ],
+    "power": 50,
+    "powerPerLevel": 0,
+    "residualModifier": 0,
+    "rounds": 0,
+    "statTypes": [
+     "None"
+    ],
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "pierce"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "blocks": "buffprevent",
+    "calculation": "static",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 100,
+    "powerPerLevel": 0,
+    "rounds": 2,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "immunity"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 40,
+    "powerPerLevel": 0,
+    "rounds": 0,
+    "shieldRounds": 3,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "consume"
+   }
+  ],
+  "issues": [],
+  "maxImbueNumber": {
+   "canBeImbuedFalseAccepted": true,
+   "oneAccepted": true,
+   "zero": [
+    {
+     "message": "Too small: expected number to be >=1",
+     "path": ""
+    }
+   ]
+  },
+  "parsed": [
+   {
+    "allowBloodlineDamageDecrease": true,
+    "allowBloodlineDamageIncrease": true,
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "formula",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "dmgModifier": 0,
+    "elements": [
+     "Crystal"
+    ],
+    "generalTypes": [
+     "Highest"
+    ],
+    "power": 50,
+    "powerPerLevel": 0,
+    "residualModifier": 0,
+    "rounds": 0,
+    "statTypes": [
+     "None"
+    ],
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "pierce"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "blocks": "buffprevent",
+    "calculation": "static",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 100,
+    "powerPerLevel": 0,
+    "rounds": 2,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "immunity"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "placeholder",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "power": 40,
+    "powerPerLevel": 0,
+    "rounds": 0,
+    "shieldRounds": 3,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "SELF",
+    "type": "consume"
+   }
+  ]
+ },
+ "failed": 0,
+ "gate": "C1",
+ "scope": "accepted effect array + maxImbueNumber guard + full ItemValidator on the accepted record"
+}

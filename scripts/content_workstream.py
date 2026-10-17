@@ -33,6 +33,10 @@ COMMANDS
   list                      every workstream with progress and current work
   next <slug>               executable and blocked tasks right now
   init <slug> --task <id>   the session initialization packet
+  new <slug> --title T --type quest|event [--write] [--json]
+                            scaffold an OPTIONAL multi-session workstream from
+                            the versioned template; previews unless --write,
+                            and never overwrites an existing workstream
   --selftest                socket-free tests over synthesized fixtures
 
 Stdlib only, deterministic, socket-free. Nothing here contacts ChatGPT, GitHub,
@@ -43,6 +47,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -930,6 +935,225 @@ def init_packet(roadmap: dict, task: dict, repo_root: Path) -> tuple[list[str], 
 
 
 # --------------------------------------------------------------------------
+# new - scaffold an optional multi-session workstream
+# --------------------------------------------------------------------------
+
+TEMPLATE_DIR = Path(__file__).resolve().parent / "workstream_templates"
+DEFAULT_TEMPLATE = TEMPLATE_DIR / "multisession_v1.json"
+NEW_CONTENT_TYPES = ("quest", "event")
+SLUG_MAX = 48
+TITLE_MAX = 80
+# Title characters that would break a Markdown table, a code span, inline HTML or
+# a template placeholder in the generated projections.
+TITLE_FORBIDDEN = set("|`<>{}\\")
+PLACEHOLDER = re.compile(r"\{\{(title|slug|content_type|content_ref)\}\}")
+
+
+def load_template(path: Path = DEFAULT_TEMPLATE) -> dict:
+    try:
+        with path.open(encoding="utf-8") as handle:
+            template = json.load(handle)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"content_workstream: cannot read template {path}: {exc}")
+    for field in ("template", "template_version", "content_types", "workstream", "tasks"):
+        if field not in template:
+            raise SystemExit(f"content_workstream: template {path} lacks {field!r}")
+    return template
+
+
+def _bad_slug(slug: str) -> str | None:
+    if not isinstance(slug, str) or not slug:
+        return "slug is required"
+    if len(slug) > SLUG_MAX:
+        return f"slug is longer than {SLUG_MAX} characters"
+    if not re.fullmatch(r"[a-z][a-z0-9_-]*", slug):
+        return "slug must start with a lowercase letter and use only a-z, 0-9, _ and -"
+    return None
+
+
+def _bad_title(title: str) -> str | None:
+    if not isinstance(title, str) or not title.strip():
+        return "title is required"
+    if title != title.strip():
+        return "title has leading or trailing whitespace"
+    if len(title) > TITLE_MAX:
+        return f"title is longer than {TITLE_MAX} characters"
+    if any(ord(ch) < 32 or ord(ch) == 127 for ch in title):
+        return "title contains a control character"
+    bad = sorted(set(title) & TITLE_FORBIDDEN)
+    if bad:
+        return f"title contains {' '.join(bad)}; these break the generated Markdown"
+    return None
+
+
+def _fill(value, tokens: dict[str, str]):
+    """Substitute {{placeholders}} in one pass, so a title can never expand another token."""
+    if isinstance(value, str):
+        return PLACEHOLDER.sub(lambda m: tokens[m.group(1)], value)
+    if isinstance(value, list):
+        return [_fill(v, tokens) for v in value]
+    if isinstance(value, dict):
+        return {k: _fill(v, tokens) for k, v in value.items()}
+    return value
+
+
+def scaffold(template: dict, slug: str, title: str, content_type: str, repo_root: Path) -> tuple[dict, list[str]]:
+    """Build a starter roadmap. Returns (roadmap, warnings); never touches the filesystem.
+
+    A template pointer to a file this repository lacks is never kept as a resource:
+    it is dropped and becomes a named blocker on its task, so the scaffold cannot
+    claim an input that does not exist.
+    """
+    tokens = {
+        "title": title,
+        "slug": slug,
+        "content_type": content_type,
+        "content_ref": template["content_types"][content_type]["content_ref"],
+    }
+    filled = _fill({"workstream": template["workstream"], "tasks": template["tasks"]}, tokens)
+    warnings: list[str] = []
+
+    resources = []
+    for res in filled["workstream"].get("resources", []):
+        if (repo_root / res["path"]).exists():
+            resources.append(res)
+        else:
+            warnings.append(f"workstream resource {res['path']} is not in this repository; not linked")
+
+    tasks = []
+    for raw in filled["tasks"]:
+        task = dict(raw)
+        kept = []
+        for res in task.get("required_resources", []):
+            if (repo_root / res["path"]).exists():
+                kept.append(res)
+                continue
+            task.setdefault("blockers", [])
+            task["blockers"] = task["blockers"] + [
+                f"Template resource {res['path']} is not in this repository. Commit it or replace "
+                "the pointer, then remove this blocker."
+            ]
+            task["status"] = "BLOCKED"
+            warnings.append(f"task {task['id']}: template resource {res['path']} missing; task BLOCKED")
+        task["required_resources"] = kept
+        task["evidence"] = []
+        tasks.append(task)
+
+    roadmap = {
+        "schema": SCHEMA,
+        "version": VERSION,
+        "slug": slug,
+        "title": title,
+        "content_type": content_type,
+        "status": filled["workstream"]["status"],
+        "objective": filled["workstream"]["objective"],
+        "notes": [
+            f"Scaffolded by scripts/content_workstream.py new from template "
+            f"{template['template']} v{template['template_version']}.",
+            "Every task starts PLANNED or BLOCKED. Mark a task READY only when its inputs are "
+            "committed and `validate` passes; refine, split or SKIP template tasks as the design requires.",
+        ],
+        "resources": resources,
+        "tasks": tasks,
+    }
+    return roadmap, warnings
+
+
+def serialize_roadmap(roadmap: dict) -> str:
+    return json.dumps(roadmap, indent=2, ensure_ascii=False) + "\n"
+
+
+def new_workstream(
+    repo_root: Path,
+    slug: str,
+    title: str,
+    content_type: str,
+    write: bool = False,
+    template_path: Path = DEFAULT_TEMPLATE,
+) -> tuple[int, list[str], str | None]:
+    """Preview or create a workstream. Returns (exit code, report lines, roadmap text or None)."""
+    problems = []
+    for reason in (_bad_slug(slug), _bad_title(title)):
+        if reason:
+            problems.append(reason)
+    if content_type not in NEW_CONTENT_TYPES:
+        problems.append(f"type must be one of {', '.join(NEW_CONTENT_TYPES)}, got {content_type!r}")
+    if problems:
+        return 2, [f"refused: {p}" for p in problems], None
+
+    base = repo_root / WORKSTREAMS_DIR
+    target_dir = base / slug
+    target = target_dir / "roadmap.json"
+    if target_dir.exists() or target_dir.is_symlink():
+        return 1, [f"refused: {target_dir.relative_to(repo_root).as_posix()} already exists; "
+                   "new never overwrites or modifies an existing workstream"], None
+    for path in roadmap_paths(repo_root):
+        try:
+            other = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        names = {str(other.get("slug", "")).lower(), str(other.get("title", "")).lower()}
+        if slug.lower() in names or title.lower() in names:
+            return 1, [f"refused: slug or title collides with existing workstream "
+                       f"{path.parent.name!r}; lookups by name would become ambiguous"], None
+
+    template = load_template(template_path)
+    if content_type not in template["content_types"]:
+        return 2, [f"refused: template {template_path.name} has no {content_type!r} variant"], None
+    roadmap, warnings = scaffold(template, slug, title, content_type, repo_root)
+    errors = validate(roadmap, repo_root, target)
+    if errors:
+        return 1, ["refused: the scaffold does not validate (template defect):"] + [f"  - {e}" for e in errors], None
+    text = serialize_roadmap(roadmap)
+
+    rel = target.relative_to(repo_root).as_posix()
+    lines = [
+        ("CREATED" if write else "PREVIEW (nothing written; re-run with --write to create)")
+        + f" - {title} (`{slug}`), {content_type}, template {template['template']} v{template['template_version']}",
+        "",
+        "Paths:",
+        f"  {rel}  (canonical; edit this)",
+        f"  {WORKSTREAMS_DIR}/{slug}/ROADMAP.md  (generated)",
+        f"  {WORKSTREAMS_DIR}/INDEX.md  (generated, shared)",
+        "",
+        "Tasks:",
+    ]
+    for task in roadmap["tasks"]:
+        lines.append(f"  {task['status']:<8} {task['id']}")
+    lines += ["", "Missing inputs and decision gates:"]
+    for task in roadmap["tasks"]:
+        for item in task.get("blockers", []):
+            lines.append(f"  {task['id']}: BLOCKER {item}")
+    for task in roadmap["tasks"]:
+        for item in task.get("open_decisions", []):
+            lines.append(f"  {task['id']}: OPEN DECISION (user-owned) {item}")
+    for item in warnings:
+        lines.append(f"  warning: {item}")
+    lines += [
+        "",
+        "Nothing is READY. Commit the design source, add it to design.graph's required_resources,",
+        "clear its blocker, set it READY, then:",
+        "  python3 scripts/content_workstream.py validate --all",
+        "  python3 scripts/content_workstream.py render --all",
+        f"  python3 scripts/content_workstream.py next {slug}",
+        f"  python3 scripts/content_workstream.py init {slug} --task design.graph",
+    ]
+
+    if write:
+        base.mkdir(parents=True, exist_ok=True)
+        target_dir.mkdir(exist_ok=False)
+        target.write_text(text, encoding="utf-8")
+        import contextlib
+
+        # render's per-file lines go to stderr so `--json` stdout stays exactly roadmap.json.
+        with contextlib.redirect_stdout(sys.stderr):
+            code = render_all(repo_root, only=target)
+        if code:
+            return code, lines + ["render failed after roadmap.json was written"], text
+    return 0, lines, text
+
+
+# --------------------------------------------------------------------------
 # selftest
 # --------------------------------------------------------------------------
 
@@ -990,6 +1214,259 @@ def _valid_fixture(repo: Path) -> dict:
             },
         ],
     }
+
+
+def _template_paths(template: dict) -> list[str]:
+    """Every repository path the template can point at, for seeding isolated test repos."""
+    refs = [v["content_ref"] for v in template["content_types"].values()]
+    paths = set(refs)
+    blob = json.dumps({"w": template["workstream"], "t": template["tasks"]})
+    for match in re.finditer(r'"path": "([^"]+)"', blob):
+        if "{{" not in match.group(1):
+            paths.add(match.group(1))
+    return sorted(paths)
+
+
+def _selftest_new(want, has) -> None:
+    import contextlib
+    import copy
+    import io
+    import tempfile
+
+    template = load_template()
+    golden_path = TEMPLATE_DIR / "multisession_v1.example_quest.roadmap.json"
+
+    def seed(root: Path, skip: tuple[str, ...] = ()) -> Path:
+        for rel in _template_paths(template) + ["docs/00_INDEX.md"]:
+            if rel in skip:
+                continue
+            target = root / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(f"stub {rel}\n", encoding="utf-8")
+        return root
+
+    def snapshot(root: Path) -> dict[str, bytes]:
+        return {p.relative_to(root).as_posix(): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()}
+
+    def run(root: Path, slug: str, title: str, ctype: str = "quest", write: bool = False):
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            return new_workstream(root, slug, title, ctype, write=write)
+
+    def quiet_render(root: Path, check: bool) -> int:
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            return render_all(root, check=check)
+
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        tmp = Path(raw_tmp)
+
+        print("\nnew: preview writes nothing")
+        repo = seed(tmp / "a")
+        before = snapshot(repo)
+        code, lines, text = run(repo, "example_quest", "Example Quest")
+        want(code == 0 and text is not None, "a preview succeeds")
+        want(snapshot(repo) == before, "a preview writes no file at all")
+        want(any("PREVIEW" in line for line in lines), "a preview says nothing was written")
+        want(text == golden_path.read_text(encoding="utf-8"),
+             "the preview equals the committed golden example byte for byte")
+        want(run(repo, "example_quest", "Example Quest")[2] == text, "repeated previews are identical")
+
+        print("\nnew: the scaffold is honest")
+        roadmap = json.loads(text)
+        statuses = {t["status"] for t in roadmap["tasks"]}
+        want(statuses <= {"PLANNED", "BLOCKED"}, "every scaffolded task starts PLANNED or BLOCKED")
+        want(all(t["evidence"] == [] for t in roadmap["tasks"]), "no scaffolded task carries evidence")
+        want(find_task(roadmap, "design.graph")["status"] == "BLOCKED", "the design task is blocked on a missing design source")
+        want(roadmap["status"] == "PLANNED", "the workstream starts PLANNED")
+        want("{{" not in text, "no placeholder survives substitution")
+        want(len(roadmap["tasks"]) == len(template["tasks"]), "one task per template stage, no per-asset explosion")
+        want(_fill("{{title}}", {"title": "{{slug}}", "slug": "S", "content_type": "q", "content_ref": "r"}) == "{{slug}}",
+             "substitution is single-pass; a value cannot expand another placeholder")
+        event = json.loads(run(repo, "example_event", "Example Event", "event")[2])
+        want(event["content_type"] == "event"
+             and any(r["path"].endswith("references/event.md") for r in event["resources"]),
+             "an event scaffold routes the event reference")
+
+        print("\nnew: --write creates exactly the workstream and its projections")
+        other = tmp / "other"
+        (other / WORKSTREAMS_DIR / "fixture").mkdir(parents=True)
+        seed(other)
+        fixture = _valid_fixture(other)
+        (other / WORKSTREAMS_DIR / "fixture" / "roadmap.json").write_text(json.dumps(fixture), encoding="utf-8")
+        quiet_render(other, check=False)
+        fixture_files = {k: v for k, v in snapshot(other).items() if "/fixture/" in k}
+        code, _, text = run(other, "example_quest", "Example Quest", write=True)
+        written = other / WORKSTREAMS_DIR / "example_quest"
+        want(code == 0, "--write succeeds")
+        want((written / "roadmap.json").read_text(encoding="utf-8") == text, "the written roadmap equals the preview")
+        want((written / "ROADMAP.md").is_file(), "ROADMAP.md is rendered by the existing renderer")
+        want(validate(load_roadmap(written / "roadmap.json"), other, written / "roadmap.json") == [],
+             "the written roadmap validates")
+        want(quiet_render(other, check=True) == 0, "render --check is clean straight after creation")
+        want({k: v for k, v in snapshot(other).items() if "/fixture/" in k} == fixture_files,
+             "an existing workstream is byte-for-byte untouched")
+        index = (other / WORKSTREAMS_DIR / "INDEX.md").read_text(encoding="utf-8")
+        want("`fixture`" in index and "`example_quest`" in index, "the shared INDEX lists both workstreams")
+
+        twin = seed(tmp / "twin")
+        (twin / WORKSTREAMS_DIR / "fixture").mkdir(parents=True)
+        (twin / WORKSTREAMS_DIR / "fixture" / "roadmap.json").write_text(json.dumps(fixture), encoding="utf-8")
+        quiet_render(twin, check=False)
+        run(twin, "example_quest", "Example Quest", write=True)
+        want({k: v for k, v in snapshot(twin).items() if k.startswith(WORKSTREAMS_DIR)}
+             == {k: v for k, v in snapshot(other).items() if k.startswith(WORKSTREAMS_DIR)},
+             "creation in two clean trees is byte-identical")
+
+        print("\nnew: refusals change nothing")
+        before = snapshot(other)
+        code, lines, _ = run(other, "example_quest", "Example Quest", write=True)
+        want(code == 1 and has(lines, "already exists"), "a repeated slug is refused")
+        code, lines, _ = run(other, "another_one", "Example Quest", write=True)
+        want(code == 1 and has(lines, "collides"), "a title already used by another workstream is refused")
+        code, lines, _ = run(other, "fixture_event", "fixture", write=True)
+        want(code == 1 and has(lines, "collides"), "a title equal to another workstream's slug is refused")
+        (other / WORKSTREAMS_DIR / "stray").mkdir()
+        before = snapshot(other)
+        code, lines, _ = run(other, "stray", "Stray Quest", write=True)
+        want(code == 1 and has(lines, "already exists"), "an existing directory without a roadmap is refused")
+        for slug in ("../evil", "a/b", "Upper", "", "_lead", "x" * (SLUG_MAX + 1), "a b", "a.b"):
+            code, lines, _ = run(other, slug, "Fine Title", write=True)
+            want(code == 2 and has(lines, "slug"), f"bad slug refused: {slug!r}")
+        for title in ("", "   ", " Lead", "Trail ", "A|B", "A`B", "A\nB", "A{{slug}}", "A<b>", "x" * (TITLE_MAX + 1)):
+            code, lines, _ = run(other, "fine_slug", title, write=True)
+            want(code == 2 and has(lines, "title"), f"bad title refused: {title!r}")
+        code, lines, _ = run(other, "fine_slug", "Fine Title", "mission", write=True)
+        want(code == 2 and has(lines, "type must be"), "an unsupported content type is refused")
+        want(snapshot(other) == before, "no refusal wrote or changed any file")
+
+        print("\nnew: a missing template resource becomes a blocker, never a pointer")
+        sparse = seed(tmp / "sparse", skip=("docs/workflows/ART_PRODUCTION.md",))
+        code, lines, text = run(sparse, "sparse_quest", "Sparse Quest")
+        art = find_task(json.loads(text), "art.production")
+        want(code == 0 and art["status"] == "BLOCKED", "the task whose template source is missing is BLOCKED")
+        want(not any(r["path"] == "docs/workflows/ART_PRODUCTION.md" for r in art["required_resources"]),
+             "the missing path is not kept as a required resource")
+        want(has(art.get("blockers", []), "ART_PRODUCTION.md is not in this repository"), "the blocker names the missing path")
+        want(has(lines, "warning"), "the CLI report warns about it")
+
+        print("\nnew: end-to-end rehearsal at multi-quest scale")
+        rehearsal = seed(tmp / "rehearsal")
+        run(rehearsal, "skyglass_rehearsal", "Skyglass Rehearsal", write=True)
+        path = rehearsal / WORKSTREAMS_DIR / "skyglass_rehearsal" / "roadmap.json"
+        plan = load_roadmap(path)
+
+        packet, ok = init_packet(plan, find_task(plan, "design.graph"), rehearsal)
+        want(not ok and "No committed design source" in "\n".join(packet),
+             "init refuses the blocked design task and states the missing input")
+
+        design = find_task(plan, "design.graph")
+        design["status"] = "READY"
+        design["blockers"] = []
+        design["required_resources"].append({"path": "/mnt/data/ghost_ship_handoff.zip", "why": "old bundle"})
+        want(has(validate(plan, rehearsal, path), "ephemeral"), "a sandbox-path handoff bundle cannot make a task READY")
+        design["required_resources"][-1] = {"path": "state/rehearsal_design.md", "why": "design source"}
+        want(has(validate(plan, rehearsal, path), "cannot be READY"), "a missing design source file cannot make a task READY")
+        (rehearsal / "state" / "rehearsal_design.md").parent.mkdir(parents=True, exist_ok=True)
+        (rehearsal / "state" / "rehearsal_design.md").write_text("two variants, six endings\n", encoding="utf-8")
+        want(validate(plan, rehearsal, path) == [],
+             "with the design source file present the READY task validates (existence, not Git commitment)")
+
+        packet, ok = init_packet(plan, design, rehearsal)
+        want(ok and "state/rehearsal_design.md" in "\n".join(packet), "init executes the READY task and routes its source")
+        packet, ok = init_packet(plan, find_task(plan, "research.sources"), rehearsal)
+        want(not ok and "design.graph is READY" in "\n".join(packet), "a downstream task still refuses until design is settled")
+
+        design["status"] = "COMPLETE"
+        design["evidence"] = [{"kind": "note", "ref": "finished in chat"}]
+        want(has(validate(plan, rehearsal, path), "no evidence item is a verifiable anchor"), "a chat claim cannot close the task")
+        design["evidence"] = [{"kind": "path", "ref": "state/rehearsal_design.md"}]
+        want(validate(plan, rehearsal, path) == [], "existing repository-path evidence closes the task")
+
+        # Ghost Ship scale: split art by asset class and build two quest variants.
+        art = find_task(plan, "art.production")
+        art["status"] = "SUPERSEDED"
+        classes = ("scene_characters", "avatars", "icons", "backgrounds")
+        for name in classes:
+            split = copy.deepcopy(art)
+            split.update(id=f"art.{name}", title=f"Art: {name}", status="PLANNED", scope=[f"all {name}, one at a time"])
+            plan["tasks"].append(split)
+        build = find_task(plan, "build.manifest")
+        build["depends_on"] = [d for d in build["depends_on"] if d != "art.production"] + [f"art.{n}" for n in classes]
+        variant = copy.deepcopy(build)
+        variant.update(id="build.manifest_variant_b", title="Manifest build: variant B")
+        plan["tasks"].append(variant)
+        find_task(plan, "production.hidden_run")["depends_on"].append(variant["id"])
+        want(validate(plan, rehearsal, path) == [], "the refined multi-variant roadmap validates")
+        path.write_text(serialize_roadmap(plan), encoding="utf-8")
+        want(quiet_render(rehearsal, check=True) == 1, "render --check catches the stale projection after an edit")
+        quiet_render(rehearsal, check=False)
+        want(quiet_render(rehearsal, check=True) == 0, "a re-render clears it")
+        md = (rehearsal / WORKSTREAMS_DIR / "skyglass_rehearsal" / "ROADMAP.md").read_text(encoding="utf-8")
+        want("### `art.production` - Art production plan and assets (SUPERSEDED)" in md,
+             "the superseded task is shown as SUPERSEDED, not as pending work")
+        want("`build.manifest_variant_b` - waiting on" in md, "a variant build waits on its unfinished inputs")
+
+        (rehearsal / "state" / "rehearsal_design.md").unlink()
+        want(has(validate(load_roadmap(path), rehearsal, path), "rehearsal_design.md does not exist"),
+             "a removed or stale input is surfaced by validate, not silently trusted")
+
+        print("\nnew: the hidden run needs a finished build, whatever happens to review")
+        gate = seed(tmp / "gate")
+        (gate / "state").mkdir(parents=True, exist_ok=True)
+        (gate / "state" / "gate_build.md").write_text("build evidence stand-in\n", encoding="utf-8")
+        run(gate, "gate_quest", "Gate Quest", write=True)
+        gate_path = gate / WORKSTREAMS_DIR / "gate_quest" / "roadmap.json"
+        scaffolded = load_roadmap(gate_path)
+        want(set(find_task(scaffolded, "production.hidden_run")["depends_on"]) == {"build.manifest", "review.independent"},
+             "the template makes the hidden run depend directly on the build and the review")
+
+        def cli(*argv: str) -> int:
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                return main(["--repo-root", str(gate), *argv])
+
+        def stage(build: str, review: str) -> dict:
+            plan = copy.deepcopy(scaffolded)
+            for tid in ("design.graph", "research.sources", "admin.decisions", "prose.production", "art.production"):
+                task = find_task(plan, tid)
+                task.update(status="SKIPPED", blockers=[])
+            built = find_task(plan, "build.manifest")
+            built["status"] = build
+            if build == "COMPLETE":
+                built["evidence"] = [{"kind": "path", "ref": "state/gate_build.md"}]
+            reviewed = find_task(plan, "review.independent")
+            reviewed["status"] = review
+            if review == "COMPLETE":
+                reviewed["evidence"] = [{"kind": "path", "ref": "state/gate_build.md"}]
+            find_task(plan, "production.hidden_run")["status"] = "READY"
+            gate_path.write_text(serialize_roadmap(plan), encoding="utf-8")
+            return plan
+
+        plan = stage(build="PLANNED", review="SKIPPED")
+        want(has(validate(plan, gate, gate_path), "depends on unfinished build.manifest (PLANNED)"),
+             "a skipped review cannot bypass an unfinished build (validate)")
+        want(cli("init", "gate_quest", "--task", "production.hidden_run") == 1,
+             "a skipped review cannot bypass an unfinished build (init refuses)")
+
+        plan = stage(build="COMPLETE", review="PLANNED")
+        want(has(validate(plan, gate, gate_path), "depends on unfinished review.independent (PLANNED)"),
+             "a pending review still blocks the hidden run after the build completes (validate)")
+        want(cli("init", "gate_quest", "--task", "production.hidden_run") == 1,
+             "a pending review still blocks the hidden run after the build completes (init refuses)")
+
+        for review in ("SKIPPED", "COMPLETE"):
+            plan = stage(build="COMPLETE", review=review)
+            want(validate(plan, gate, gate_path) == [] and cli("validate", "--all") == 0,
+                 f"a completed build with a {review.lower()} review validates")
+            want(cli("init", "gate_quest", "--task", "production.hidden_run") == 0,
+                 f"a completed build with a {review.lower()} review lets the hidden run initialize")
+            packet, ok = init_packet(plan, find_task(plan, "production.hidden_run"), gate)
+            want(ok and "build.manifest (COMPLETE):" in "\n".join(packet),
+                 f"the hidden-run packet lists the build output as upstream evidence ({review.lower()} review)")
+
+    print("\nnew: a single-session quest needs no workstream")
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        bare = Path(raw_tmp)
+        want(roadmap_paths(bare) == [], "a repository with no workstream has nothing to validate")
+        want("_No workstreams yet._" in render_index_md([]), "the index renders without any workstream")
 
 
 def selftest() -> int:
@@ -1216,6 +1693,8 @@ def selftest() -> int:
         want(resolve_workstream(repo, "fixture") == source, "workstream resolves by slug")
         want(resolve_workstream(repo, "Fixture Event") == source, "workstream resolves by unambiguous title")
 
+    _selftest_new(want, has)
+
     print()
     if failures:
         print(f"{len(failures)} FAILED")
@@ -1254,6 +1733,13 @@ def main(argv=None) -> int:
     p_init = sub.add_parser("init", help="print the session initialization packet")
     p_init.add_argument("workstream")
     p_init.add_argument("--task", required=True)
+
+    p_new = sub.add_parser("new", help="scaffold an optional multi-session workstream (preview unless --write)")
+    p_new.add_argument("slug")
+    p_new.add_argument("--title", required=True)
+    p_new.add_argument("--type", required=True, dest="content_type", help="quest or event")
+    p_new.add_argument("--write", action="store_true", help="create the files; without it nothing is written")
+    p_new.add_argument("--json", action="store_true", help="print exactly the roadmap.json bytes to stdout")
 
     args = parser.parse_args(argv)
     if args.selftest:
@@ -1365,6 +1851,17 @@ def main(argv=None) -> int:
         stream = sys.stdout if ok else sys.stderr
         print("\n".join(packet), file=stream)
         return 0 if ok else 1
+
+    if args.command == "new":
+        code, lines, text = new_workstream(
+            repo_root, args.slug, args.title, args.content_type, write=args.write
+        )
+        if args.json and text is not None:
+            sys.stdout.write(text)
+            print("\n".join(lines), file=sys.stderr)
+        else:
+            print("\n".join(lines), file=sys.stdout if code == 0 else sys.stderr)
+        return code
 
     parser.print_help()
     return 2

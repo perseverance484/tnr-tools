@@ -1,0 +1,58 @@
+{
+ "_note": "READ-ONLY Skyglass Crystal mirror capture (Ghost Ship / Skyglass, RUL-2026-10-12-005). Zero mutations. Operator-run only; never an agent request. Seven item.get point reads with persist:\"full\" of live, non-hidden crystals from harvests/seed/41_INDEX_item.json (index lists itemType/rarity only; crystalTargetTypes, costs and economy fields are unverified there). Order: the two public LEGENDARY crystals first (Fortify Crystal III McKQIkyiuX1qIN54qI7UR, Heal Crystal III iJM0kb1i6iNXjADJlZGV_), then EPIC/RARE damage-family crystals likely to target WEAPON (Damage Crystal II XMsOqatPbFXEEJPtOJ6os, Afterburn Crystal q6g5vKOr3MMYHly0TZKgJ, Drain Crystal ipczu2knFPA103pYhzZh3, Hemorrhage Cystal DEILccCULyDDKOz8UqFhM, Offense Crystal 1 ae5u8QFD2pCYTAtczYuO8). A record qualifies as the mirror source only if the returned id matches and the row is itemType CRYSTAL with crystalTargetTypes WEAPON; prefer LEGENDARY, else the nearest rarity. This capture chooses nothing. Fable copies only the fields no ruling sets (cost, requiredLevel, action/pool costs, cooldown, durability, maxEquips, maxImbueNumber, stack, destroyOnUse, battleUsageType, xpToLevel, craftingExperience) into the Skyglass Crystal record, keeping every RUL005/006/RUL-2026-10-12-005 decision, and reports the chosen source to dauntless. Keep the full results bundle and its export metadata (at, ok, persistOk, snapshotKey).",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "McKQIkyiuX1qIN54qI7UR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "iJM0kb1i6iNXjADJlZGV_"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "XMsOqatPbFXEEJPtOJ6os"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "q6g5vKOr3MMYHly0TZKgJ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "ipczu2knFPA103pYhzZh3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "DEILccCULyDDKOz8UqFhM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "ae5u8QFD2pCYTAtczYuO8"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "tnr.ghost_ship_skyglass_final_item_design.v1",
+  "status": "DIRECTOR_APPROVED_DESIGN (RUL006 as amended by RUL-2026-10-12-005/006); FINAL_RECORD_RUNTIME_VALIDATION_PENDING; NOT_A_MANIFEST",
+  "ruling": "RUL-2026-10-11-006",
+  "canonicalOwner": "state/ghost_ship_skyglass_reward_decisions.md",
+  "supersedes": "RUL005 design delta for timing and Crystal economy only; historical records and evidence remain unchanged",
+  "katana": {
+    "consume": {
+      "type": "consume",
+      "power": 15,
+      "calculation": "percentage",
+      "target": "SELF",
+      "rounds": 2,
+      "shieldRounds": 2
+    },
+    "effectCount": 3,
+    "preserve": [
+      "Pierce50, Crystal element",
+      "SELF immunity blocking buffprevent, rounds2",
+      "LEGENDARY WEAPON/SWORD",
+      "canBeImbued:false",
+      "Night's Testament RUL004 baseline/economy",
+      "3% independent Crowned Captain drop"
+    ]
+  },
+  "crystal": {
+    "consume": {
+      "type": "consume",
+      "power": 10,
+      "calculation": "percentage",
+      "target": "SELF",
+      "rounds": 2,
+      "shieldRounds": 2
+    },
+    "effectCount": 1,
+    "itemType": "CRYSTAL",
+    "crystalTargetTypes": "WEAPON",
+    "rarity": "LEGENDARY",
+    "canBeTraded": true,
+    "canBeCrafted": true,
+    "acquisition": "3% independent direct Reliquary drop, plus 12 Skyglass Filaments craft one Crystal (LEGENDARY: Forgemaster-only natively)",
+    "preserve": [
+      "Cannot imbue the non-imbuable Skyglass Katana",
+      "Native imbuement eligibility guards"
+    ],
+    "recipe": {
+      "requirement": "@item:Skyglass Filament (new item, manifest ref)",
+      "quantity": 12,
+      "ruling": "RUL-2026-10-12-005"
+    },
+    "undecidedFields": "mirror an existing live LEGENDARY (or nearest) weapon crystal from an operator-run read-only capture (RUL-2026-10-12-005)"
+  },
+  "consumeOverlap": {
+    "status": "CLOSED_NATIVE (RUL-2026-10-12-006)",
+    "instruction": "Native behaviour accepted; no correction or restriction. At 2/2 separate Crystal weapons cannot overlap (shared Consume cooldown 3 > buff 2)."
+  },
+  "filaments": {
+    "rewardTableChanged": false,
+    "use": "Crystal recipe, 12 per Crystal (RUL-2026-10-12-005)",
+    "tradingDecision": "OPEN"
+  },
+  "historicalEvidence": {
+    "r4": "3f825562ea051306a3803f47428b742ae5100011",
+    "activeConsume3by3": "fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2",
+    "note": "Neither validates the final 2/2 timing and Legendary, tradable, non-craftable Crystal as a complete record."
+  },
+  "implementationOwner": "Fable",
+  "brief": "state/prompt_ghost_ship_skyglass_final_item_revalidation.md",
+  "releaseGates": [
+    "Final complete-record validation and runtime evidence",
+    "Independent frozen-SHA review",
+    "Presentation/art",
+    "Remaining workstream content and capture gates"
+  ],
+  "amendments": [
+    "RUL-2026-10-12-005: 12-Filament recipe restored (canBeCrafted true); undecided Crystal fields mirror a live crystal capture",
+    "RUL-2026-10-12-006: Consume overlap closed as native; presentation supplied by the director"
+  ],
+  "presentation": "supplied by the director (RUL-2026-10-12-006)"
+}

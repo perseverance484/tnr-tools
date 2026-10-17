@@ -1,0 +1,14 @@
+{
+ "_note": "READ-ONLY deployed damage-settings capture (Ghost Ship / Skyglass harness fidelity). Zero mutations. Operator-run only; never an agent request. One misc.getDmgConfig read (public query, no input) with persist:\"full\": the live damage-formula config that combat reads at battle time. The offline harnesses use engine source defaults (battle.extraState.dmgConfig unset); Fable compares this live config with the defaults at engine 585534d7 and reruns affected measurements only if they differ. No public procedure exposes the deployed engine commit; the deployed version must be supplied by the operator separately (for example from the site build footer) if known. Keep the full results bundle and its export metadata.",
+ "capture": {
+  "before": [
+   {
+    "proc": "misc.getDmgConfig",
+    "input": {},
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

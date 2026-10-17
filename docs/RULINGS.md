@@ -472,3 +472,684 @@ Potency scope is matching supported tags on **all Shadow jutsu** under RUL-2026-
 **Rationale:** The user supplied the outstanding pilot pricing and duration decision. This applies to the current BEE package; it does not establish prices for other bloodlines or approve descriptions, folder visibility, release, or live execution.
 
 **Canonical destination:** `forge/bloodright/bee.pilot.json`.
+
+---
+
+## RUL-2026-10-10-001 — Skyglass Ghost Ship drop stats and hidden-release assumption
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project expansion / rewards and release  
+**Status:** SUPERSEDED (see RUL-2026-10-10-002; historical Katana Consume spec, Crystal and visibility context retained below)  
+**Supersedes:** earlier uncommitted Katana concept based on Night's Testament + shield potency; no prior RUL id
+
+**Ruling:** The new **Skyglass Katana** is a **Legendary** weapon with **30 EP Damage** and **40% Consume**, using an approved *Legendary baseline* for other weapon fields such as cooldown, pool costs and AP (exact baseline numbers still need source identification and director sign-off). It drops independently at **3%** from the **Crowned Captain**. This supersedes the earlier Night's Testament exact-copy / shield-potency +X plan.
+
+The new **Skyglass Crystal** is a **weapon-only** imbue with **30% Consume**, obtained via the previously approved Skyglass Reliquary hybrid chest loop (including a 3% direct Crystal roll and the 12-Filament crafting route). These are director-approved effect and source values, **not** proof of engine validity: current Consume validation/imbuement behavior must be resolved without altering the promised mechanic.
+
+**Operational clarification:** The director reports both Ghost Ship profession quests currently **hidden**; the earlier October 1 capture's `hidden:false` state is historical, not current. A fresh read-only capture is required before edits. The implementation must retain hidden state; publication is separately director-owned and not authorized by this ruling.
+
+**Rationale:** Fix the two new reward identities and rates without allowing the earlier concept placeholder to survive into manifests, and prevent a stale public-visibility capture from driving an unnecessary or dangerous live cutover.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` for operative task-specific values and technical gates; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` for the release workplan. Generated schemas, actual game source, and new operator-readback captures retain their separate authority for contracts and current storage state.
+
+---
+
+## RUL-2026-10-10-002 — Skyglass Katana three-effect final direction
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project expansion / Skyglass Katana rewards  
+**Status:** SUPERSEDED by RUL-2026-10-10-007 (historical 30 EP Damage + Shield version)  
+**Supersedes:** RUL-2026-10-10-001
+
+**Ruling:** **Skyglass Katana** is a **Legendary WEAPON** dropped by the **Crowned Captain at 3%** independently of his **20% Skyglass Crown fragment**. The exact weapon effects are **30 EP Damage**, **300 HP Shield for 2 rounds** on the wielder, and **Immunity to Buff Prevent for 2 rounds** on the wielder. The previous **40% Consume** effect on the Katana is REMOVED; do not include both. These are three effects, at TNR's normal maximum. The shield is an on-use temporary self shield, not shield-potency scaling.
+
+The effect intent maps to `damage` (raw power 30), `shield` (`health:300`, `rounds:2`, `target:SELF`, `power:100` to guarantee creation), and `immunity` (`blocks:buffprevent`, `rounds:2`, `target:SELF`). The immunity blocks **new Buff Prevent effects** during its duration; it does not clear already-active Buff Prevent or immunize against every debuff. This mapping is supported by `45c_DATA_constructors.json` and pinned game source `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6`; offline integration behavior and remaining Legendary weapon cooldown/AP/pool baseline values must still be checked before manifest freeze.
+
+**Unchanged:** The **Skyglass Crystal** remains a Ghost Ship-exclusive **weapon-only 30% Consume** imbue, sourced from the approved Reliquary hybrid rewards (including its 3% direct opening roll and 12-Filament recipe). Both Ghost Ship profession quests remain hidden per director report, requiring a fresh read-only capture before edits. No live-game writes or publishing are authorized.
+
+**Rationale:** Give the Crowned Captain's command blade a fixed, predictable defensive identity instead of the prior damage-conversion mechanic, without silently changing the separate Crystal's Consume chase or any protected production-release decisions.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` is the operative design/reward record; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` governs task/release sequencing. Item effect schemas and engine behavior remain owned by generated contracts/pinned source, not this ruling.
+
+---
+
+## RUL-2026-10-10-003 — Ghost Ship Skyglass Expedition 83-node structure approved
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project / expanded quest structure  
+**Status:** ACTIVE (structural approval; prose, combat, art and build not frozen)  
+**Supersedes:** the preserve-57-nodes / preserve-all-original-edges constraint in the base Ghost Ship retheme patch for expansion planning only; no earlier RUL ID is changed.
+
+**Ruling:** The director APPROVED **Model B: Skyglass Expedition** as represented by the six-ending **83-objective design** in `state/ghost_ship_skyglass_expansion_design.md` and `state/ghost_ship_skyglass_graph_patch.json`, both at the design-branch freeze candidate `7ac886b845b88e76a9fd7206ce0e025d2cfce230`. Both existing Gather/Hunt quests preserve all 57 original objective IDs and five established endings, rewire 12 original forward paths, and introduce 26 nodes including a **mutually exclusive sixth `w_secret` ending** that guarantees one Skyglass Reliquary. The newly added route proceeds via hull infiltration, Core Horror, optional reconstruction/chamber investigation, the fixed quarantine-seal puzzle, the Quarantined Archive, and the new **Sealwright** elite encounter.
+
+Wrong quarantine-seal answers **close the secret route for that quest run**, returning the player to the normal adventure rather than failing the quest; the correct answer reaches the archive. The Oathkeeper `Time` solution retains the short **two-battle Crowned Captain farming route** with optional, bypassable lore. The extra crew-history dialogs, ordinary-Captain gallery/aftermath, visible shore-puzzle feedback, and preserved nine-beat Skyglass reveal are part of the accepted structural shape. No additional battle is mandatory on the oathbound route. New combat balancing, final dialogue wording, item mechanics, art, and user-run execution remain separate approvals.
+
+**Rationale:** Expands the airborne ship's exploration, investigation and rewards without discarding working quest IDs, making the Crown farm slower, or creating a generic new series of battles. The graph's offline structural checks passed for both October 1 profession captures, but do not establish full manifest validity or current live state.
+
+**Canonical destination:** `state/ghost_ship_skyglass_expansion_design.md` is the expanded content-design owner and `state/ghost_ship_skyglass_graph_patch.json` its machine-readable structural proposal; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` coordinates the next content/combat/art tasks. Original `state/ghost_ship_retheme_patch.json` remains the authority for unchanged base retheme text and identities. Schemas, engine laws, captures, and live state retain independent authority.
+
+---
+
+## RUL-2026-10-10-004 — Sealwright is a regular-Captain-tier boss using boss-pool jutsu
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright combat
+**Status:** ACTIVE (combat-tier direction approved; exact kit and runtime parity still under review)  
+**Supersedes:** the earlier 2.5× stats / 3.0× pools mid-tier Sealwright combat draft (unruled). Refines Sealwright combat tier under RUL-2026-10-10-003 without changing the approved 83-node structural graph.
+
+**Ruling:** Sealwright must be **on par with the regular Captain** in practical battle difficulty, not a lesser elite, and must use meaningful **boss-pool abilities** from the existing shared AI jutsu pool. The current captured regular Captain profile is Level 100 / JONIN, **3.0× stats, 2.5× pools, regeneration 60**; matching those values is the recommended initial numeric parity baseline, subject to real-equipment/effective-combat comparison. Do not silently make Sealwright Crowned-Captain tier or add another phase, separate chest drop, or non-pool jutsu. He remains the solitary Quarantined Archive guardian on the already approved mutually exclusive secret route.
+
+**Candidate, NOT yet frozen by this ruling:** the revised six-move proposal uses boss-grade **B14 Cataclysm Detonation** and **B16 Sovereign Fetters**, supported by **B22 Compression Barrier**, **B33 Piercing Judgment**, **S27 Weakening Strike**, and **S31 Unraveling Strike**. B16's two-round Stun plus Seal requires special comparative balance testing. The director approved the **tier and boss-pool inclusion direction**, not this exact kit, AI rules, or eventual battle results.
+
+**Rationale:** The secret Reliquary ending deserves a proper boss encounter of comparable difficulty to the regular Captain while retaining a technically distinct defensive containment identity. Mirroring raw multipliers without analyzing cooldowns, control windows and Captain equipment would overstate parity.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns the current technical combat proposal; `state/ghost_ship_skyglass_expansion_design.md` owns the approved quest narrative/graph; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing. The shared pool and captured AI profiles retain their evidence authority.
+
+---
+
+## RUL-2026-10-10-005 — Sealwright reserves Nullifying Wave against excessive IDG
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright AI behavior  
+**Status:** ACTIVE (specific seventh-jutsu and trigger approved; remaining rotation under review)  
+**Supersedes:** none; refines the provisional six-move kit discussed under RUL-2026-10-10-004
+
+**Ruling:** Equip **Nullifying Wave (B32, shared-pool ID `JWZYiHKPNwYziWEFjw4Fn`)** as the **seventh jutsu** on Sealwright. **Do not cast it during ordinary rotation.** Use it **only when the opponent's summed Increased Damage Given (IDG) exceeds 70**, and only when cooldown, action points, targeting and range permit. It has a **100% Clear** effect, **60 AP cost**, **8-round cooldown** and **range 5**. Place the conditional response first; if unavailable, fall through to the six normal moves.
+
+**Source-backed rule encoding:** `target_has_effect` with `effectType:"increasedamagegiven"`, `target:"CLOSEST_OPPONENT"`, and `threshold:71`, AND `distance_lower_than` with `target:"CLOSEST_OPPONENT"`, `value:6`; action `use_specific_jutsu` with matching target and B32's ID. The game engine tests **sum(effect.power) >= threshold**. Because the threshold is integer, totals between 70 and 71 are not expressible as strict >70 without engine change. `clear 100` removes all removable positive effects, not IDG selectively; `clearprevent` may block it.
+
+**Rationale:** Prevent extreme offensive buff stacking from trivializing a Captain-tier encounter without turning Nullifying Wave into a routine dispel. The six rotating techniques and their effective difficulty remain independently reviewable.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns detailed implementation and source-backed AI rule; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` tracks next work. Current upstream code for the condition is `studie-tech/TheNinjaRPG@4774560eb6e8c9a5ef156d66b953dcb6aeeba4d6` in `app/src/libs/combat/ai_v2.ts`.
+
+---
+
+## RUL-2026-10-10-006 — Sealwright dual-Clear overlap is intentional core playstyle
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Expedition / Sealwright combat identity  
+**Status:** ACTIVE (seven-jutsu design accepted; effective parity and final rule order still require offline validation)  
+**Supersedes:** the concern that regular Unraveling Strike could make the B32 reserve redundant; refines RUL-2026-10-10-004/005 without superseding their combat tier or trigger.
+
+**Ruling:** The director explicitly wants the Sealwright to **constantly strip removable positive buffs**. Regular **S31 Unraveling Strike** (Damage 40 plus Clear 100, range 3, cooldown 5) is his routine, high-priority damaging dispel and must remain in the normal rotation; **B32 Nullifying Wave** (Clear 100, range 5, cooldown 8) remains **equipped as the seventh jutsu**, used **only** when the same targeted opponent's total Increased Damage Given (IDG) is strictly above 70 (source-backed integer threshold 71), with normal range/AP/cooldown constraints. **Overlapping Clear effects are intentional, not a flaw to eliminate**. S31 may remove IDG before the emergency threshold is reached; that is desired, not cause to weaken either effect. Both jutsu remove *all removable positive buffs*, not only IDG. `clearprevent` and other existing game rules still apply.
+
+The working seven-technique roster is **B22 Compression Barrier, B16 Sovereign Fetters, B14 Cataclysm Detonation, B33 Piercing Judgment, S27 Weakening Strike, S31 Unraveling Strike, B32 Nullifying Wave**. Captain-tier parity, other pool jutsu and no independent Sealwright loot remain as previously directed. Specific AI priority/positioning and measured difficulty need offline tests before final manifest freeze; no new jutsu, game modifications or publications are authorized.
+
+**Rationale:** Make buff denial the core active Sealwright identity instead of an optional response, while preserving a separately threshold-gated emergency purge when players push IDG exceptionally high. The deliberate double-Clear distinguishes the archive custodian from the regular Captain.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_combat_draft.md` owns this design; `state/ghost_ship_skyglass_sealwright_rule_contract.json` owns the source-backed AI-rule proposal and tests; `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` owns sequencing.
+
+---
+
+## RUL-2026-10-10-007 — Skyglass Katana Pierce/Consume Sword and Crystal 20% Consume
+
+**Date:** 2026-10-10  
+**Domain:** Ghost Ship / Skyglass Project / final intended item identities  
+**Status:** ACTIVE (item effects and category approved; unprovided baseline/engine validation still open)  
+**Supersedes:** RUL-2026-10-10-002 for all prior Katana effects; supersedes the earlier Crystal Consume 30% design in RUL-2026-10-10-001/002. Quest, Sealwright and other reward decisions remain in force.
+
+**Ruling:** The new **Skyglass Katana** is a **LEGENDARY WEAPON of weapon type SWORD** that **cannot be imbued**. Exactly three item effects are authorized: **50 EP Pierce** (one `pierce` effect), **Buff Prevent immunity on SELF for 2 rounds** (one `immunity` tag with `blocks:"buffprevent"`), and **40% Consume** (one `consume` tag). No separate flat Shield, no standard Damage tag, no historical shield-potency modifier, and no additional imbuement slot are authorized. The `canBeImbued:false` field enforces no imbuement; do not try setting the schema's minimum-one `maxImbueNumber` to zero. Cooldown, AP, pool costs, range, equip slot and other Legendary Sword baseline fields have not been numerically selected and remain subject to captured-reference review.
+
+The new **Skyglass Crystal** remains a **CRYSTAL**, restricted to `crystalTargetTypes:"WEAPON"`, with **exactly one Consume 20% effect** (changed from 30%). The Crystal cannot be applied to the Katana since the Katana forbids imbuing. Crystal rarity/trading and one-tag validation/activation are not settled by this ruling.
+
+**Reward sourcing unchanged:** Skyglass Katana drops independently at **3%** from Crowned Captain, whose Skyglass Crown fragment independently drops at **20%**. The secret route guarantees **one Skyglass Reliquary**. The Reliquary retains a **3% independent Crystal roll** and the **12-Skyglass-Filaments-to-one-Crystal** crafting route and other already approved chest outcomes.
+
+**Technical consequence:** In current TNR source `studie-tech/TheNinjaRPG@cddd7d91c9e6bdebc978ddcb61e5b8a305bd0f93`, a WEAPON effect array containing **Pierce plus Consume** meets `SuperRefineEffects` companion-tag conditions, and damage calculations for Pierce create outgoing damage eligible for Consume's conversion. This supports, but does not replace, offline validator and combat testing. Conversely, a **Consume-only CRYSTAL** fails item-level validation because the crystal's **own** effects array lacks Damage/Pierce, even when the target weapon provides an attack effect after imbuing. An upstream corrective change, if warranted, needs a separately approved technical implementation and tests. Do not add unrequested filler damage/pierce.
+
+**Rationale:** Give the Crowned Captain's personal Sword a penetrating attack and damage-to-shield defensive loop that is powerful but cannot accept further imbuements, while offering a distinct weaker Consume bonus as a Ghost Ship-exclusive weapon crystal. Historical posters or numeric examples are not authoritative after this ruling.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (operative item design), `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (release gates), and `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` (offline technical study). Schemas/source and fresh readbacks retain independent authority for mechanics/live state.
+
+---
+
+## RUL-2026-10-11-001 — Selectively preserve distinctive Ghost Ship legacy jutsu
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship combat identity and shared-pool migration
+
+**Status:** ACTIVE DIRECTION; exact retained roster and revised hybrid kits still require selection.
+
+**Supersedes:** wholesale replacement/retirement of all legacy-only Ghost Ship jutsu and the automatic new-record clone of Explosion in `state/ghost_ship_shared_pool_migration.json`. It does not change the approved quest graph, rewards/items or Sealwright's seven-jutsu identity.
+
+**Ruling:** Keep approximately twelve legacy jutsu that the shared global pool cannot genuinely replace, explicitly including Explosion and prioritizing most of the awakened/Crowned Captain's distinctive moves. Update retained jutsu names/descriptions for the Skyglass retheme while keeping their existing mechanics. Replace redundant jutsu with genuinely suitable shared-pool techniques. Do not equate matching effect labels with equivalent AP economy, target scope, control duration or behavior.
+
+**Not yet decided:** the exact roster/count, final names/descriptions, per-enemy hybrid kits and rule order, or any mechanical repair. The eleven-record review is a recommendation, not a newly approved roster. Removal from Ghost Ship kits is not proof that a record has no other consumers; database deletion remains dependency-gated.
+
+**Consequence:** the regular-Captain comparison kit used for Sealwright parity must be reconciled with the retained legacy selection before it is frozen. Katana/Crystal feasibility work and Sealwright's approved seven moves remain in scope unchanged.
+
+**Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the new retention policy and candidate comparison; `state/ghost_ship_shared_pool_migration.json` is explicitly marked superseded for final kit selection; the Stage 2 brief and full roadmap point at this gate.
+
+---
+
+## RUL-2026-10-11-002 — Approve the eleven retained jutsu and perform Skyglass conversion
+
+**Date:** 2026-10-11
+**Domain:** Ghost Ship / Skyglass jutsu identity
+**Status:** ACTIVE; retained roster approved and presentation conversion authorized. Final authored copy and hybrid AI kits remain subject to acceptance.
+**Supersedes:** the pending exact-roster selection in RUL-2026-10-11-001; its mechanical-preservation, shared-replacement and dependency requirements remain active.
+
+**Ruling:** dauntless approved the recommended eleven legacy records and requested their conversion to fit the new quest theme. Retain their existing IDs and all mechanics; author new top-level `name`, `description` and `battleDescription` only. The approved roster is Explosion! (`nCQETf-HNnbRec1OSY2-R`), Ghostly Deep Six (`ddbIyVtoxdPQwLRXxSBq8`), Ghostly Final Fathom (`X2P22h8ApDmTZHjWpNO87`), Death's Grasp (`PdD44PGaNv4MN5fOALhAF`), Ghostly Shipwreck Delusion (`EQ93LX8wvuIAd5u75q_i1`), Counter Stance (`T3glZGcSd-jS8G-NB43GR`), Death's Door (`0Y10JpChssDwFUxNRk6p3`), Ghostly Crossed Out (`wMcoazoyXaEXViSCn5weF`), Ghostly Rigging Snare (`1jXfTgrtGUaSfqTPSSa83`), Ghostly Strangling Weed (`Jz4Lb55NcpwZn3nUK5PrJ`) and Battle Trance (`MG9ZujAV8lK7--YxThVbQ`). Eleven satisfies the approximate twelve target; no quota padding is requested.
+
+**Conversion scope:** Use Skyglass command seals, preserved combat patterns and damaged ship reconstruction. This does not authorize mechanical repairs, changes to nested effect fields, new records, shared-global jutsu renames, art replacement, live-game actions or a full implementation manifest. Explosion is retained on its original ID; the former clone plan remains superseded. Fresh operator captures and dependency review precede eventual edits, including checks for external consumers. Fable remains the implementation owner.
+
+**Remaining gates:** The newly authored names/descriptions/battle text have not yet received separate final presentation acceptance. Per-enemy hybrid kits and AI rules remain open; final Sealwright parity must use the revised regular Captain. The quest graph, rewards/items, locked art and Sealwright's seven shared jutsu, including intentional double Clear, are unchanged.
+
+**Rationale:** Preserve the distinctive actions already selected while making their presentation native to the approved Skyglass setting, without turning a thematic conversion into a balance change.
+
+**Canonical destination:** `state/ghost_ship_legacy_retention_review.md` owns the approved selection. `state/ghost_ship_legacy_jutsu_conversion.json` owns the authored before/after text and preservation evidence; its `.md` companion supports review. The full roadmap, retheme design and Stage 2 brief record the resulting scope and comparator gates.
+
+---
+
+## RUL-2026-10-11-003 — Accept hybrid kits as the Stage 2 test baseline
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass combat membership and offline validation
+
+**Status:** ACTIVE; membership and substitution direction accepted for offline tests. Final rule behavior and measured balance remain pending.
+
+**Supersedes:** pending kit-selection approval in RUL-2026-10-11-001/002 and the corresponding proposal status in `state/ghost_ship_hybrid_kit_proposal.json`. The historical wholesale shared-pool migration remains superseded.
+
+**Ruling:** dauntless approved the complete hybrid-kit direction presented at `89fa921c839a9830fd66bb64aa267c470e8dd678` and requested the next task. Accept all eleven existing-enemy memberships, shared substitutions and consolidations in that packet as the baseline for Fable's offline tests: 65 equipped memberships, eleven retained legacy IDs and eighteen shared IDs. Preserve every original retained/shared membership. Sentinel's new Rigging Snare and Hollow Timber assignments are explicitly accepted, including disclosed element/range/cooldown differences. First Blade's EL04 Ion Lance replacement and its disclosed Lightning/power/cadence differences are accepted. Shared ordinary-attack and stance potency/cooldown differences are accepted for testing without an equal-difficulty claim.
+
+**Captain comparator:** Preserve the regular Captain's five captured moves: Unbroken Command, Remembered Form, Keelbind, B14 Cataclysm Detonation and B17 Worldbreaker Chorus. Crowned Captain keeps eleven moves with Sharpened Focus replaced by EA03 Windlash Focus. The six-move all-shared regular-Captain comparator is not operative. Preserve full numeric profiles and innate effects; do not add filler or silently tune retained records.
+
+**Still open:** Fable's exact AI rules and measured parity; any test-driven adjustment; whether Crowned Captain should actively rotate its equipped but unselected heal/copy/reflect support; final presentation acceptance. The approval does not authorize those behavior changes, engine modifications, art changes, live requests/writes, publication or a full implementation manifest. Sealwright's seven moves and deliberate double Clear, item contracts and quest/reward structure remain unchanged.
+
+**Next task and ownership:** Fable performs the already-authorized offline Stage 2 technical work on a separate owned branch and returns a frozen exact-SHA report/tests for independent review. ChatGPT records the acceptance and prepares the concrete handoff; the director retains final balance and release authority.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.json` / `.md` own the accepted kit baseline under their stable historical filenames. `state/prompt_ghost_ship_skyglass_stage2_feasibility.md` remains the exact test brief; `state/prompt_ghost_ship_skyglass_stage2_start.md` supplies the acceptance and delivery handoff.
+
+
+---
+
+## RUL-2026-10-11-004 — Skyglass Katana baseline: Night's Testament, Crystal Pierce, drop-only, tradable
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass rewards: Skyglass Katana non-effect fields
+
+**Status:** ACTIVE. Settles the "Legendary Sword baseline" gate left open by RUL-2026-10-10-007.
+
+**Supersedes:** nothing in RUL-2026-10-10-007's effects or sourcing. It fills that ruling's unselected baseline fields. The superseded "exact Night's Testament clone with shield-potency swap" variant stays superseded; this ruling uses Night's Testament only for non-effect fields and existing shared effect fields.
+
+**Evidence:** operator read-only capture push/85, `harvests/inbox/tnr_results_1791727479372.json` (job `85-mv3wa2l9`). Night's Testament `osJq3k77YPGoFWgof12FQ` is a full LEGENDARY WEAPON/SWORD record. The comparison is in `docs/reviews/GHOST_SHIP_SKYGLASS_CAPTURES_85_86_2026-10-11.md`.
+
+**Ruling:** dauntless chose **Night's Testament as the Skyglass Katana baseline**. Every non-presentation field copies the captured row, with these exceptions:
+
+1. Effects are exactly RUL-2026-10-10-007's three: Pierce 50 (Night's Testament's own Pierce tag), SELF Buff Prevent immunity for 2 rounds (Night's Testament's own immunity tag), and Consume 40%. The Pierce's element is **Crystal**, replacing Shadow.
+2. `canBeImbued:false` (RUL-2026-10-10-007).
+3. **Drop-only:** `canBeCrafted:false`, `craftingExperience:0`. The 3% independent Crowned Captain drop stays the sole source.
+4. **Tradable:** `canBeTraded:true`, as on Night's Testament.
+5. Created `hidden:true` per creation doctrine; publication is separate.
+
+The resulting values are:
+- AP 40, cooldown 6, range 4, OTHER_USER / SINGLE;
+- chakra 40, stamina 40, health 0, no per-level reducers;
+- slot HAND, maxEquips 1, durability 100, required level 1, no stat or mastery requirements;
+- battle usage BOTH, cost 1 ryo, not in shop, stack 1, xpToLevel 1000.
+
+**Not settled here:** description, battle description, image, and the effect animation/SFX asset IDs. These are presentation and art, are not copied from Night's Testament, and remain pending. No write manifest, art or publication is authorized.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative Katana specification. `state/ghost_ship_skyglass_katana_record.json` holds the derived field-level record, produced by `harness/ghost_ship_stage2/tools/build_katana_record.py` from the capture. Offline gate C3 validates it.
+
+---
+
+## RUL-2026-10-11-005 — Active Consume: Katana 15%, Crystal 10%
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass item effects
+
+**Status:** ACTIVE; revised rates and active-buff behavior approved. Timing and updated runtime validation remain pending.
+
+**Supersedes:** the Katana40 / Crystal20 Consume rates and instant-only interpretation in RUL-2026-10-10-007, the derived r4 records and RUL-2026-10-11-004's historical effect reference. All other accepted effect, baseline, economy and acquisition fields remain unchanged.
+
+**Ruling:** dauntless reports the engine's changed Consume behavior: Consume grants an active buff and qualifying hits while active grant shield, rather than conversion being tied directly to a single damage instance. Set Skyglass Katana Consume to **15%** and Skyglass Crystal Consume to **10%** using that behavior.
+
+Katana remains exactly Pierce50 (Crystal element), SELF Buff Prevent immunity2r and Consume15; LEGENDARY WEAPON/SWORD, `canBeImbued:false`, with the accepted Night's Testament non-effect baseline, drop-only/tradable economy and independent 3% Crowned Captain drop. Crystal remains a WEAPON-only CRYSTAL with exactly Consume10 and no added Damage/Pierce. Its 3% Reliquary drop and 12-Filament recipe are unchanged. All other rewards, quest structure, AI/jutsu decisions and art locks remain unchanged.
+
+**Source boundary:** reviewed upstream `studie-tech/TheNinjaRPG@585534d7eb21d6f0dd678d5c3eb92662f611d39b` implements active Consume. Its validator requires a same-array Damage/Pierce companion only for instant Consume (`rounds === 0`); positive-duration standalone Consume is source-admissible. This source check is not exact revised-item runtime validation or verification of deployment. The old Crystal correction proposal is historical, not an automatic implementation requirement.
+
+**Timing not selected:** active Consume duration and generated-shield lifetime are separate fields. Source defaults are 3/3; these may be labelled offline test carriers, not assumed balance approval. Do not carry forward the old explicit `rounds:0`. Weapon actions grant the buff; this ruling does not turn the weapon into permanent on-equip Consume.
+
+**Implementation boundary:** preserve frozen r4 old-pin evidence, including the former Katana record, builder and harness. Fable owns the next derived-record and offline test revision; old PASS results do not validate this change. No engine modification, live request/write, art change, full manifest or publication is authorized by this adjustment.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` owns the operative specification. `state/ghost_ship_skyglass_consume_revision.json` is the machine-readable design delta, not a full record. `state/prompt_ghost_ship_skyglass_consume_revalidation.md` supplies the bounded Fable test brief; the full roadmap points to these current gates.
+
+---
+
+## RUL-2026-10-11-006 — Consume 2/2; Legendary, tradable, non-craftable Crystal
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass item timing and Crystal economy
+
+**Status:** ACTIVE design approval. Final-record offline tests and independent acceptance remain required.
+
+**Supersedes:** unresolved Consume timing and Crystal rarity/trading/crafting in RUL005 and earlier decisions; removes the previously approved12-Filament Crystal recipe. Does not change rates, other effects, Katana baseline/economy, independent drop chances or the Reliquary contents.
+
+**Ruling:** dauntless selected “2/2 for Consume”: **both Skyglass Katana and Skyglass Crystal use active Consume `rounds:2` and generated-shield `shieldRounds:2`**. Katana remains15%; Crystal remains10%. The Crystal is **LEGENDARY**, **tradable** (`canBeTraded:true`) and **not craftable** (`canBeCrafted:false`). Its independent3% Reliquary roll remains; the12-Filament crafting route is removed from future construction. This does not remove Filament drops or invent a replacement use/trading decision for them. Native imbuement access remains engine-governed.
+
+**Explicit deferral:** Consume overlap need not be resolved now. It is not a blocking director decision for this pass. Preserve native behavior and technical evidence; do not implement stacking changes or new restrictions.
+
+**Combat request:** dauntless also requested Sealwright combat behavior design. This authorizes a concrete proposal; it does not constitute acceptance of the newly authored priority/movement/filler plan or numerical parity. The already approved seven jutsu, double-Clear intent and Captain-tier target remain locked.
+
+**Evidence boundary:** the active-Consume package `fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2` tests3/3 carriers at engine `585534d7eb21d6f0dd678d5c3eb92662f611d39b`. Preserve it and r4 as historical evidence. Fable must deliberately produce/test2/2 records and the selected Crystal economy; no old PASS is relabelled. No engine change, live request/write, art, full manifest or publication is authorized.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`; companion `state/ghost_ship_skyglass_final_item_contract.json`; bounded Fable brief `state/prompt_ghost_ship_skyglass_final_item_revalidation.md`. Sealwright's new proposal is linked from its existing combat draft to `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`.
+
+---
+
+## RUL-2026-10-11-007 — Activate Crowned Captain healing, conditional Copy and regular Reflect
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support behavior
+
+**Status:** ACTIVE design direction. Exact Copy threshold, native heal boundary, final order and balance acceptance remain pending.
+
+**Supersedes:** the unresolved choice of whether to activate Crowned Captain's equipped Second Wind, Stolen Form and Rebounding Form in RUL003 and the hybrid-kit review. Does not approve the old experiment's heal50/Copy30/Reflect-distance3 values.
+
+**Ruling:** dauntless directed that Crowned Captain **heal at 40% health**, **copy when enemies have high IDG**, and **use Reflect as part of his regular rotation**. Activate the already equipped S35 Second Wind, B07 Stolen Form and retained Rebounding Form accordingly. Preserve their original mechanics and IDs, all eleven accepted memberships, profile/innates and approved rewards/farming route. No extra technique or stat tuning is implied.
+
+**Unresolved details:** “high IDG” has no director-selected number. The companion proposes threshold71 on CLOSEST_OPPONENT with native distance gate5, ahead of routine Clear; this number/selector/order is not accepted by this ruling. Native `health_below:40` is strictly below40%, not inclusive of exactly40; disclose and obtain acceptance of that boundary rather than silently substituting41. The candidate uses ordinary SELF Reflect without a health/distance condition, subject to existing AP/cooldown rules. Final priority and measured consequences remain test/review work.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md` owns the activation direction and bounded Fable test brief. `state/ghost_ship_hybrid_kit_proposal.md` points to it; unchanged JSON and historical A1 results retain their original membership/test scope. No engine change, live request/write, art, manifest or publication is authorized.
+
+---
+
+## RUL-2026-10-11-008 — Accept Crowned Captain IDG71 and strict-below40 healing
+
+**Date:** 2026-10-11
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support triggers
+
+**Status:** ACTIVE design approval; runtime validation and final measured balance remain pending.
+
+**Supersedes:** the unresolved Copy number and native heal-boundary questions in RUL007. Preserves regular Reflect and all approved memberships/mechanics/rewards.
+
+**Ruling:** dauntless approved the explicit clarification: **Copy at summed IDG 71 or higher**, and **heal using the native `health_below:40` condition**, strictly below 40% of effective maximum health. Exactly 40% does not trigger healing. Do not replace the threshold with41 or introduce inclusive-boundary engine changes. The historical Copy30/heal50 experiment remains superseded for new behavior construction.
+
+**Scope:** these two numerical/boundary decisions are closed. The companion's Heal → conditional Copy → Reflect → existing offense order and same-target native selector remain the implementation candidate for Fable's tests; this approval is not a runtime PASS or final balance acceptance. No live requests/writes, engine changes, art, manifest or publication.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md`; the hybrid-kit readable companion and full roadmap track the closed trigger decisions. Preserve historical JSON, harnesses and results unchanged.
+
+---
+
+## RUL-2026-10-12-001 — Accept Crowned Captain support behavior as tested
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Crowned Captain support behavior
+
+**Status:** ACTIVE.
+
+**Supersedes:** the open order/selector and measured-balance questions left by RUL-2026-10-11-007/008.
+
+**Evidence:** Fable offline package `perseverance484/tnr-tools@4369f404dbfd83563d11508c2bcc2e0e17f9a786` (`harness/ghost_ship_final/`, CROWNED 36/0; `docs/reviews/GHOST_SHIP_FINAL_ITEMS_CROWNED_OFFLINE_RESULTS.md` §5). On engine `585534d7…`, the Captain won 66/66 test fights. Support lowers offensive AP from about 92 to 70 per round and raises survivability when hurt (forced 45% start: 52.0% left vs 37.4%).
+
+**Ruling:** dauntless accepted the tested behavior: S35 Second Wind (`health_below:40`, SELF) → B07 Stolen Form (`target_has_effect` IDG ≥ 71, CLOSEST_OPPONENT, `distance_lower_than:5`, same target) → Rebounding Form (SELF, no condition) → the prior candidate-remapped chain with `includeDefaultRules` unchanged. The slower, more attritional fights are accepted. The regular Captain is not given these rules.
+
+**Canonical destination:** `state/ghost_ship_skyglass_crowned_support_behavior.md`. Boss innate IDG is changed separately by RUL-2026-10-12-004.
+
+---
+
+## RUL-2026-10-12-002 — Accept the Sealwright behavior proposal as final, without new-pin testing
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Sealwright combat behavior
+
+**Status:** ACTIVE.
+
+**Supersedes:** the pending acceptance and the requested four-variant new-pin comparison in `state/ghost_ship_skyglass_sealwright_behavior_proposal.md`.
+
+**Ruling:** dauntless accepted the proposal's exact priority list as final Sealwright behavior: B32 (IDG ≥ 71, CLOSEST_OPPONENT, `distance_lower_than:6`) → S31 (`distance_lower_than:4`) → B22 SELF → B16 / B14 / B33 / S27 (`distance_lower_than:6`) → singleton basic attack when adjacent → late `move_towards_opponent` (`distance_higher_than:3`) → `end_turn`, with `includeDefaultRules:false`. The seven jutsu and double-Clear identity stay unchanged.
+
+**Explicitly declined:** a new-pin verification run. dauntless chose to skip it. The last measured evidence is old-pin (`cddd7d91…`): Sealwright lost the durable-striker fixture 0/5. No new parity claim is made. Sealwright's innate IDG is changed by RUL-2026-10-12-004, which postdates that evidence.
+
+**Canonical destination:** `state/ghost_ship_skyglass_sealwright_behavior_proposal.md` (now the accepted behavior) and `state/ghost_ship_skyglass_sealwright_combat_draft.md`.
+
+---
+
+## RUL-2026-10-12-003 — Approve the candidate rule remap for the nine other Ghost Ship AIs
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI rules
+
+**Status:** ACTIVE.
+
+**Ruling:** dauntless approved the mechanical candidate remap: each captured rule's jutsu IDs and combo IDs are remapped through the accepted RUL-2026-10-11-003 kit mapping, with consecutive duplicates collapsed in combos. Nothing else changes: conditions, targets, ordering and `includeDefaultRules` stay as captured. The regular Captain needs no remap. Crowned uses RUL-2026-10-12-001 on top of its remap. Sealwright has its own rules (RUL-2026-10-12-002). The ledger is `harness/ghost_ship_stage2/results/a1.json` `ruleChangeLedger` (produced by `F.remappedRules`).
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md`.
+
+---
+
+## RUL-2026-10-12-004 — Keep minion innate IDG; bosses get proportionally higher innate IDG
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI innate effects (tuning)
+
+**Status:** ACTIVE design decision. Fresh new-pin measurement is recommended before manifest construction.
+
+**Supersedes:** the open "minion duplicate innate IDG" decision. Narrows the RUL-2026-10-11-003/007 instruction "no stat adjustments / preserve innate arrays", for the three bosses only.
+
+**Ruling:** dauntless kept the seven minions' captured duplicate innate IDG unchanged (sustained 99-round totals 200–350%, opening peaks up to 420%). The bosses must sit slightly above the minions, so their sustained innate IDG becomes:
+
+- **Regular Captain: +375%** (new; keeps its captured increasestat 30% innate);
+- **Sealwright: +375%** (new; Captain-tier pair);
+- **Crowned Captain: +450% total** (his captured 60% 99-round entry is replaced by 450%).
+
+Each value is one 99-round `increasedamagegiven` innate (bloodline-source, so it stacks and resists Clear like the minions' entries). Hazards (Seal Charge, Core Canister) are unchanged.
+
+**Consequence disclosed before the decision:** minion-level IDG makes fixture players die in 1–3 rounds. All three bosses become far deadlier than measured at r3/r4 or in the 4369f404 package, and none of those measurements carries forward.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md` (boss innate rows); the Sealwright combat draft for its profile.
+
+---
+
+## RUL-2026-10-12-005 — Restore the 12-Filament Crystal recipe; Crystal mirrors a live crystal for undecided fields
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / Skyglass Crystal economy and record
+
+**Status:** ACTIVE.
+
+**Supersedes:** RUL-2026-10-11-006's `canBeCrafted:false` / recipe removal only. dauntless stated that removing the recipe was a mistake. Rarity LEGENDARY, `canBeTraded:true`, exactly one Consume10 with 2/2 timing, WEAPON-only, Katana exclusion and the 3% Reliquary drop are unchanged.
+
+**Ruling:**
+1. **Recipe restored:** `canBeCrafted:true`, with 12 Skyglass Filaments crafting one Crystal (`craftingRequirements` referencing the new Filament item by manifest ref). Filament drops are unchanged. Filament tradability stays undecided.
+2. **Native consequence:** LEGENDARY items require Forgemaster crafting rank at the pinned engine, so the recipe is Forgemaster-only. Imbuing a LEGENDARY Crystal also requires Forgemaster. Rarity was not changed to widen access.
+3. **Undecided fields mirror a live crystal:** the 14 non-ruling fields carried from the Flaming Sword template (cost, requiredLevel, action/pool costs, cooldown, durability, equips, imbue/stack/level fields, battle usage), plus craftingExperience, take the values of an existing live LEGENDARY (or nearest) weapon crystal. The values come from an operator-run read-only capture, keeping every RUL005/006/this-ruling decision.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`; companion `state/ghost_ship_skyglass_final_item_contract.json`.
+
+---
+
+## RUL-2026-10-12-006 — Close Consume overlap as native; presentation supplied by the director
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass items
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Consume overlap closed:** native engine behavior is accepted with no restriction or correction. Recorded fact (4369f404, ACTIVE): at 2/2 the 3-round shared Consume cooldown outlasts the 2-round buff, so two Crystal-imbued weapons cannot overlap through separate casts. Same-action SELF dedupe is unchanged.
+2. **Presentation and art:** dauntless will supply the final description, battle description, image and effect animation/SFX for both Skyglass Katana and Skyglass Crystal. Fable slots them in and validates. No text or art is drafted on the director's behalf.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md`.
+
+---
+
+## RUL-2026-10-12-007 — Accept source-default damage settings for offline evidence; live calibration by tester
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / test fidelity
+
+**Status:** ACTIVE.
+
+**Context:** the live damage-formula config cannot be captured through Forge 0.5.0. `persist:"full"` is limited to audited content-record reads, and summary mode stores no body (push/88 withdrawn; `archive/spent-manifests/push-2026-10-12/README.md`). No public procedure exposes the deployed engine version.
+
+**Ruling:** dauntless accepted the limitation. Offline harnesses keep using engine source-default damage settings at the pinned upstream engine, with that boundary disclosed. Final calibration happens in-game: a tester plays the Ghost Ship quests while they are still hidden, after the manifest is applied and before any publication. No Forge allowlist change is requested.
+
+**Canonical destination:** this ruling; the full-manifest roadmap's production gates.
+
+---
+
+## RUL-2026-10-12-008 — Release-manifest record and packaging decisions
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release manifest
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. **Skyglass Filament:** `itemType:"MATERIAL"`, `rarity:"RARE"`, tradable. It feeds the 12-Filament Crystal recipe (RUL-2026-10-12-005).
+2. **Skyglass Reliquary:** LEGENDARY consumable loot chest, **not tradable**. Its loot table is unchanged from the reward decisions.
+3. **Presentation text:** the director supplies description and battle description for all five items, Katana, Crystal, Reliquary, Filament and Skyglass Serum. Fable slots them in and validates; no item text is drafted on the director's behalf.
+4. **Prose:** the drafted quest retheme, objective, dialogue/choice and jutsu conversion text is accepted as final.
+5. **Sealwright record:** a new AI that copies the regular Captain's profile fields (level, rank, stat/pool multipliers, regeneration and similar), with the accepted Sealwright kit/rules and +375% innate IDG (RUL-2026-10-12-004).
+6. **Packaging:** one combined Forge manifest for the whole release. Art is the last input: the director provides a zip of all finalized art assets, and the manifest is finished around it.
+
+**Canonical destination:** `state/ghost_ship_skyglass_reward_decisions.md` (items 1–3); `docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md` (items 4–6).
+
+---
+
+## RUL-2026-10-12-009 — Normalize remapped AI distance gates to range+1
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI rules
+
+**Status:** ACTIVE.
+
+**Amends:** RUL-2026-10-12-003 ("conditions unchanged") for distance gates only.
+
+**Context:** after the remap, 14 captured `distance_lower_than` gates on pool-jutsu rules sit below the new jutsu's range+1. Law 40's text calls such gates safe, but Forge 0.5.0 enforces exact range+1 and refuses the manifest. Affected rules:
+- Oathkeeper Quick Strike 2→4.
+- Arsenal Keeper Numbing Shot 3→6 and Twin Shot 5→6.
+- Sentinel Twin Shot 2/3/5→6.
+- Core Horror Twin Shot 2/5→6.
+- First Blade Rapid Fire 2→6, Ion Lance 3→6 and Numbing Shot 4→6.
+- Crowned Captain Unraveling Strike 3→4.
+- Deck Warden Rapid Fire 4→6.
+- Wayfinder Lunging Strike 4→5.
+
+**Ruling:** dauntless chose Option A. Each of these gates is set to range+1. Those attacks fire from farther away. Where one jutsu had several range-banded rules, the bands collapse and the first matching rule wins. These gate values were not measured offline (RUL-007 tester calibration applies). Option B, loosening Forge's check, was declined.
+
+**Canonical destination:** `state/ghost_ship_hybrid_kit_proposal.md`; implemented by `push/90_ghost_ship_skyglass_release.gen.py --gate-policy law40` (default; `--final` requires it).
+
+---
+
+## RUL-2026-10-12-010 — Leave Counter Stance and Battle Trance unedited
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / retained legacy jutsu
+
+**Status:** ACTIVE.
+
+**Amends:** RUL-2026-10-11-002 and the conversion packet's text for two of the eleven retained jutsu. The text of the other nine is accepted as final (RUL-2026-10-12-008) and unchanged.
+
+**Evidence:** the AI census push/81–84 (2026-10-12, 535/535 reads; `state/ghost_ship_legacy_jutsu_consumer_audit.json`). 22 AIs outside Ghost Ship equip these two jutsu: 18 hold Counter Stance `T3glZGcSd-jS8G-NB43GR` and 4 hold Battle Trance `MG9ZujAV8lK7--YxThVbQ`. No outside AI holds any of the other nine. Editing an equipped jutsu severs its combat link (law 18/60), and the Skyglass text would also show in those AIs' fights.
+
+**Ruling:** dauntless chose Option B.
+- Counter Stance and Battle Trance keep their current live names, descriptions and battle descriptions. They are not renamed to "Rebounding Form" and "Remembered Form", and push/90 neither edits nor unequips them.
+- They stay in the Ghost Ship kits and rules unchanged, including Crowned's support Reflect rule (same id).
+- Re-equipping the 22 outside AIs (Option A) was declined, and so was cloning the two jutsu for Ghost Ship (Option C).
+
+**Canonical destination:** `state/ghost_ship_legacy_jutsu_edit_scope.json`, read by `push/90_ghost_ship_skyglass_release.gen.py` and `harness/ghost_ship_legacy_baseline/consumer_audit.py`. The conversion packet JSON is unchanged because the frozen harnesses pin it.
+
+---
+
+## RUL-2026-10-12-011 — Accept the residual consumer risk from unknown live AIs
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / retained legacy jutsu edits (law 18/60)
+
+**Status:** ACTIVE.
+
+**Evidence:**
+- The census push/81–84 read all 535 repository-known AI ids (535/535 ok, persisted): 506 live non-ELDER and 29 deleted.
+- push/91 (`tnr_results_1791772372237.json`, after the census) counted **522** live non-ELDER AIs.
+- So **16 live AIs** have ids the repository does not know and were not read. Forge keeps only the count of `profile.getAllAiNames`.
+- Among the 506 read, no AI outside Ghost Ship holds any of the nine jutsu push/90 edits. Counter Stance and Battle Trance are not edited (RUL-2026-10-12-010).
+
+**Ruling:** dauntless accepts the residual risk for all 16 unread AIs. If any of them equips one of the nine edited jutsu, push/90's edit severs that AI's combat link to it (law 18/60) and shows the Skyglass text in its fights. push/92 (7 candidate reads) is no longer required.
+
+**Implementation:** `harness/ghost_ship_legacy_baseline/consumer_audit.py --accept-residual RUL-2026-10-12-011` gives verdict `ACCEPTED_RESIDUAL` only when:
+- every census id was read without error;
+- the count shortfall is the only gap;
+- no known outside AI holds an edited jutsu.
+
+A known outside holder still yields CONSUMERS. push/90 `--final` accepts `ACCEPTED_RESIDUAL` only under this ruling id.
+
+**Canonical destination:** `state/ghost_ship_legacy_jutsu_consumer_audit.json`.
+
+---
+
+## RUL-2026-10-12-012 — Ten Ghost Ship AIs enter combat at the JONIN caps
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass / AI combat stats
+
+**Status:** ACTIVE. This is the director's stat-requirement amendment, issued alongside the four independent-review corrections of `5eb75123`.
+
+**Ruling:** against capped opponents, these must enter combat fully capped, with effective offence and defence 1,300,000 and strength, intelligence, willpower and speed 400,000 (they must reach the caps, not merely stay below them):
+- Deck Warden, Core Horror, Oathkeeper, Wayfinder, Arsenal Keeper, Sentinel and First Blade;
+- The Captain, Crowned Captain and Sealwright.
+
+All ten are level-100 JONIN profiles with equal-stat distributions; `statsMultiplier: 5` reaches the caps. Stored stats may exceed the caps.
+
+Sealwright is one full create: all six combat fields at 1,391,300 with `statsMultiplier: 5`. Its masteries, pools and regeneration equal the regular Captain's. Levels, ranks, pools, regeneration, masteries, kits, innate effects, rules, equipment, rewards and quest scaling are preserved.
+
+**Excluded hazards:** Seal Charge keeps `statsMultiplier: 10` and Core Canister keeps 20. The earlier suggestion to raise Seal Charge to 13 is withdrawn. Their other release changes stay in scope.
+
+**Review corrections applied with it** (independent review of `5eb75123`):
+1. The obsolete item requirement columns are not sent.
+2. Boss effects are canonical, equal to the server's parse.
+3. `preferredStat` is not sent on the Sealwright create.
+4. The incorrect two-stage Sealwright scaling is replaced by the single full create (push/93 retired). This depends on Forge 0.5.2 accepting post-0056 AI columns on a create.
+
+**Verification:** `harness/ghost_ship_final` r3, gate STATS, executes the pinned server save path and battle scaling and clamping for every AI push/90 writes.
+
+**Canonical destination:** `push/90_ghost_ship_skyglass_release.gen.py` (`CAPPED_AIS`, `STATS_MULTIPLIER`, `HAZARDS`) and `state/ghost_ship_hybrid_kit_proposal.md`.
+
+---
+
+## RUL-2026-10-12-013 — Release-specific validate.py exception for push/90
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE, release-specific.
+
+**Context:** the independent re-review of `be15d7f4` (GS-R5) closed GS-R1–R4 and passed the stat requirement. It held release on the canonical gate:
+- `cd skills/building-tnr-content/data && python3 ../scripts/validate.py ../../../push/90_ghost_ship_skyglass_release.json` exits 1, with 56 errors and 25 warnings.
+- Every diagnostic is either a generated contract lagging the pinned engine (45c/45d at `bdec2883`), a validator rule the pinned server no longer enforces, or director-approved content.
+
+The source gates prove the flagged payloads are what the server accepts: ItemValidator CONTRACT, the STATS effects fixed point, Forge `check_manifest` 0, and the reviewer's source-normalised replay.
+
+**Ruling:** dauntless approved a release-specific exception in place of contract adoption first. It applies **only** to push/90 at SHA-256 `6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7`, and only to the exact 81 diagnostics enumerated in `state/ghost_ship_skyglass_release_validate_exception.json`, in nine evidence-backed classes:
+
+| Class | Errors | Warnings |
+| --- | ---: | ---: |
+| Stale effect fields | 42 | |
+| `statTypes` `None` enum | 2 | |
+| Consume companion rule | 1 | |
+| IDG power cap | 6 | |
+| `preferredStat` L05 | 1 | |
+| Approved shared menu targets | 4 | |
+| Law-60 build order | | 9 |
+| Stale farm nullability | | 8 |
+| Captured self-target gates | | 8 |
+
+**Enforcement:** `python3 push/90_ghost_ship_skyglass_release.validate_exception.py` runs validate.py exactly as the doctrine prescribes. It refuses any unclassified line and passes only when the manifest hash, the validator and contract hashes, and the exact diagnostic multiset all equal the ledger. Any change voids the exception and needs a new ruling.
+
+The doctrine is unchanged and this is not a precedent. The correct payloads stay: stat values, canonical effects, and no `preferredStat`.
+
+**Follow-up (separate Lane A task):** bring `validate.py` and the generated contracts to 585534d7 through `schema_extract.py` and its adoption gate, with tests for the post-0056 create and the current item/effect contracts.
+
+**Canonical destination:** `state/ghost_ship_skyglass_release_validate_exception.json` (ledger) and this ruling.
+
+---
+
+## RUL-2026-10-12-014 — Sentinel renamed Guardian; push/93 repair and its validate.py exception
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; AI `3V_gdHYaclMB1gTyOPAbV`; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE. The exception is manifest-specific.
+
+**Context:** the operator ran push/90 (results `harvests/inbox/tnr_results_1791779642866.json`). 49 of 50 records completed. Item 29 failed with `Duplicate entry 'Sentinel' for key 'UserData.UserData_username_key'`: another live AI owns that name, probably one of the 16 unread AIs under RUL-2026-10-12-011. `updateAi` syncs the kit before the userData update, so the new kit landed. The name ("Ghostly Guardian"), statsMultiplier 3, avatar and behaviour rules did not change.
+
+**Ruling:** dauntless decided:
+- The AI's name is **Guardian**.
+- The quest text follows it: the four objective lines per quest that name the boss (`d_guardian`, `b_guardian`, `r_dig`, `d_claim_A`) say "Guardian" instead of "Sentinel".
+- push/93 (`push/93_ghost_ship_guardian_repair.gen.py`) re-sends:
+  - push/90 item 29 with only the name changed and the uploaded avatar URL resolved;
+  - both live quests with only those 8 lines changed.
+- push/90 and its design state (`state/ghost_ship_retheme_patch.json` aiRenames/objectiveText) stay as spent release history. This ruling and the push/93 generator own the rename.
+
+**Validator exception:** dauntless extended the RUL-2026-10-12-013 mechanism to push/93 at SHA-256 `840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753`, and only to the exact 7 diagnostics in `state/ghost_ship_guardian_repair_validate_exception.json`:
+
+| Class | Errors | Warnings |
+| --- | ---: | ---: |
+| Approved shared menu targets (already live) | 4 | |
+| Captured self-target gate | | 1 |
+| Stale-snapshot scene character (`b_K8qdNI651fTsRn9tfkk`, created by push/90) | | 2 |
+
+**Enforcement:** `python3 push/93_ghost_ship_guardian_repair.validate_exception.py`, as for push/90. Any change voids the exception. The doctrine is unchanged and this is not a precedent.
+
+---
+
+## RUL-2026-10-12-015 — "Guardian" also taken; name is Skyglass Sentinel; push/94 repair
+
+**Date:** 2026-10-12
+
+**Domain:** Ghost Ship / Skyglass release; AI `3V_gdHYaclMB1gTyOPAbV`; D-validate-always (`docs/DOCTRINE.md`)
+
+**Status:** ACTIVE; supersedes the name in RUL-2026-10-12-014. The exception is manifest-specific.
+
+**Context:** the operator ran push/93 (results `harvests/inbox/tnr_results_1791780626532.json`). The AI rename failed with `Duplicate entry 'Guardian' for key 'UserData.UserData_username_key'`, so the AI is still "Ghostly Guardian" at multiplier 3, with the new kit. Both quest edits landed, so the 8 boss lines said "Guardian".
+
+**Ruling:** dauntless named the AI **Skyglass Sentinel**. push/94 (`push/94_ghost_ship_skyglass_sentinel_repair.gen.py`) re-sends:
+- push/90 item 29 with only that name and the resolved avatar URL;
+- both quests exactly as push/90 shipped them. This restores the original "the Sentinel" lines, which fit the new name. The generator proves the live quests differ from push/90 only at those 8 lines.
+
+The `state/ghost_ship_retheme_patch.json` objective text is therefore live again, and only the AI's username departs from it (`aiRenames` says "Sentinel").
+
+**Validator exception:** the RUL-2026-10-12-014 terms apply to push/94 at SHA-256 `a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988`: the same 7 diagnostics in the same 3 classes, ledger `state/ghost_ship_skyglass_sentinel_repair_validate_exception.json`, gate `python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py`.
+
+---
+
+## RUL-2026-10-14-001 — Isolated art-generation sessions and opaque jutsu-icon backgrounds
+
+**Date:** 2026-10-14  
+**Domain:** TNR art production / Blue Blade Eyes (BBE) jutsu icons  
+**Status:** ACTIVE — approved operating method and visual presentation decision; separate tool-contract correction pending.  
+**Supersedes:** no prior visual acceptance; narrows the generic transparent-ICON presumption **for jutsu icon presentation only**, without editing or superseding the validator's actual contract.
+
+**Ruling:** dauntless approved the **Art Studio + Isolated Generation** production model. Keep one persistent workspace for art direction, silhouette registry, image-reference selection, prompt handoffs, cross-icon comparison, processing, QC and packaging. Use a **fresh generation conversation for each individual image/jutsu**, pass only one or two selected individual art references, generate one candidate at a time, and close after acceptance or a clear failure. Reference images establish *rendering and material*, not the new target's subject or composition. Accepted raw art is locked; processing must not replace or reimagine it.
+
+**Visual presentation:** newly produced **jutsu icons have designed backgrounds**; transparency is **not required**. This choice does not affect other asset types and does not authorize retroactive changes to existing game content. BBE's approved jutsu family uses pale translucent sapphire ice, sharp crystalline facets, frosted chakra, strong technique-specific silhouettes, and no mandatory circular sigils. Blue Crimson, Sapphire Command, Ice Shackles and Icebound Might have **director-approved raw visual candidates** only; see the exact source-evidence register.
+
+**BBE-specific delivery cap:** all BBE jutsu-icon exports must be **under 80,000 bytes**, in addition to the currently applicable square/format/size rules.
+
+**Unresolved mechanical conflict:** the current shared **ICON** target in skills/producing-tnr-art/data/25x_DATA_art_spec.json has chroma_key=lime, and the current artpreflight.py rejects opaque RGB icons for missing alpha. The user-approved opaque-background look does **not** automatically make that preflight green. Until an independently reviewed jutsu-specific spec/preflight path (normally Fable's implementation) or an approved evidence-backed exception exists, record this mismatch explicitly and do not claim mechanical upload readiness or zero-error preflight. Do not fabricate alpha or weaken other asset-class checks.
+
+**Canonical destinations:** docs/workflows/ISOLATED_ART_GENERATION.md (operating protocol); docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md (collection identity/approval state); docs/design/blue_blade_eyes/SOURCE_EVIDENCE.json (hashes of conversation source files). Existing skills/producing-tnr-art/ and 25x_DATA_art_spec.json retain technical authority; docs/00_INDEX.md retains routing and precedence.
+
+**Boundary:** no live-game request, upload, edit or publication is authorized by this ruling. The user controls all live-game actions. Separate Bloodright tier-emblem artwork is unaffected.
+
+---
+
+## RUL-2026-10-17-001 — Accept the Forge Bloodright bundle budgets
+
+**Date:** 2026-10-17
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Accept the Forge bundle ceiling of **400,000 raw / 91,000 gzip bytes** for the Bloodright collection/icon importer (PR #33), together with the earlier Bloodright importer increase from 354,000/78,000 to 386,000/88,000 (PRs #29/#30).
+
+**Evidence:** "Merge it. Budgets are accepted. Go ahead and integrate." (after independent review of PR #33 measured 389,034 raw / 87,864 gzip and the D1/D2 follow-up measured 389,081 / 87,883).
+
+**Rationale:** The user explicitly accepted both pending budget increases. This settles the bundle ceiling only; it does not approve Bloodright content, icons, folder visibility or live execution.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

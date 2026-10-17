@@ -53,8 +53,8 @@ import { fileURLToPath } from "node:url";
 const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_bundle.js");
 
 // Collection/icon candidate adds whole-collection preview and sequential scoped jobs.
-// PROPOSED budget, pending director/reviewer acceptance before release (including the
-// earlier 354000/78000 -> 386000/88000 increase). No released-loader change here.
+// Accepted by the director 2026-10-17 (RUL-2026-10-17-001), together with the earlier
+// 354000/78000 -> 386000/88000 Bloodright importer increase.
 export const BUDGET = { raw: 400_000, gzip: 91_000 };
 
 export function measure() {

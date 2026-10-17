@@ -1,0 +1,5378 @@
+{
+ "assertions": 39,
+ "checks": [
+  {
+   "detail": {
+    "69": "S31",
+    "70": "S31",
+    "71": "B32",
+    "90": "B32",
+    "70.5": "S31"
+   },
+   "name": "IDG 69/70/70.5 → S31 (routine), 71/90 → B32 (integer threshold 71, >=)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "hex4": "B32",
+    "hex5": "B32",
+    "hex6": "B22"
+   },
+   "name": "IDG 90: B32 at hex 4/5 (path ≤6), not at hex 6 (path 7)",
+   "pass": true
+  },
+  {
+   "detail": "S31",
+   "name": "B32 on cooldown → S31",
+   "pass": true
+  },
+  {
+   "detail": "B22",
+   "name": "40 AP left → not B32 (60 AP)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "cost": {
+     "cpCost": 0,
+     "hpCost": 0,
+     "spCost": 0
+    }
+   },
+   "name": "pools exhausted → still B32: the AI pool cost of B32 is 0/0/0, so pools never gate it",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 1
+    },
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 2
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 3
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 4
+    }
+   ],
+   "name": "Clear GCD after S31: B32 unavailable 2 rounds, back in round +3 ([false,false,true,true] for +1..+4)",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 1
+    },
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 2
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 3
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 4
+    }
+   ],
+   "name": "FINDING: S31 and B32 share the 'clear' GCD (3 rounds) — no same-round or back-to-back double Clear",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "S31",
+    "idg": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "summon_s was cleared of all positive status effects. ",
+     "summon_s takes 374.64 damage"
+    ]
+   },
+   "name": "closest low-IDG summon suppresses B32 even when a farther player has IDG 90",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "idg": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "idg-summon_s",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "summon_s",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. ",
+     "summon_s was cleared of all positive status effects. "
+    ]
+   },
+   "name": "buffed closest summon triggers B32; ALL Clear also reaches the farther player",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "idg": [
+     {
+      "id": "idg-user_p1",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p1",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "idg-user_p2",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p2",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p2 was cleared of all positive status effects. ",
+     "user_p1 was cleared of all positive status effects. "
+    ]
+   },
+   "name": "closest player IDG 90 triggers B32; distant second opponent (outside gate) recorded",
+   "pass": true
+  },
+  {
+   "detail": "B22",
+   "name": "wall between (hex 5) → path > 6 → no B32",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "name": "expired (rounds 0) IDG still counts toward the threshold → B32 cast with nothing removable",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "name": "protected (bloodline-source) IDG triggers B32 but is not removed",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "cp-user_p",
+      "roundsAfter": 2,
+      "roundsBefore": 2,
+      "target": "user_p",
+      "type": "clearprevent"
+     }
+    ],
+    "texts": [
+     "user_p resists being cleared"
+    ]
+   },
+   "name": "Clear Prevent: B32 cast, IDG not removed",
+   "pass": true
+  },
+  {
+   "detail": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "name": "newly cast IDG (isNew/castThisRound): B32 cast and the IDG removed",
+   "pass": true
+  },
+  {
+   "detail": {
+    "idg50_hex3": "S31",
+    "noBuffs_hex3": "S31",
+    "noBuffs_hex4": "B22"
+   },
+   "name": "no buffs at hex 3 → S31 first",
+   "pass": true
+  },
+  {
+   "detail": {
+    "idg50_hex3": "S31",
+    "noBuffs_hex3": "S31",
+    "noBuffs_hex4": "B22"
+   },
+   "name": "IDG 50 at hex 3 → S31 (not B32)",
+   "pass": true
+  },
+  {
+   "detail": "B22",
+   "name": "hex 4 (path 5) → S31 out of rule gate; next rule recorded",
+   "pass": true
+  },
+  {
+   "detail": {
+    "Captain": {
+     "fields": {
+      "defence": {
+       "battle": 834780,
+       "cap": 1300000,
+       "stored": 834780
+      },
+      "intelligence": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "offence": {
+       "battle": 834780,
+       "cap": 1300000,
+       "stored": 834780
+      },
+      "speed": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "strength": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "willpower": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      }
+     },
+     "ok": true,
+     "rank": "JONIN"
+    },
+    "Sealwright:contract": {
+     "fields": {
+      "defence": {
+       "battle": 834780,
+       "cap": 1300000,
+       "stored": 834780
+      },
+      "intelligence": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "offence": {
+       "battle": 834780,
+       "cap": 1300000,
+       "stored": 834780
+      },
+      "speed": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "strength": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      },
+      "willpower": {
+       "battle": 400000,
+       "cap": 400000,
+       "stored": 834780
+      }
+     },
+     "ok": true,
+     "rank": "JONIN"
+    }
+   },
+   "name": "Captain and Sealwright carrier fight at min(stored, rank cap) for offence/defence/generals",
+   "pass": true
+  },
+  {
+   "detail": [
+    {
+     "apReduction": 0,
+     "effects": [
+      {
+       "rounds": 2,
+       "type": "seal"
+      },
+      {
+       "rounds": 2,
+       "type": "stun"
+      }
+     ],
+     "round": 1
+    },
+    {
+     "apReduction": 20,
+     "effects": [
+      {
+       "rounds": 2,
+       "type": "seal"
+      },
+      {
+       "rounds": 2,
+       "type": "stun"
+      }
+     ],
+     "round": 2
+    },
+    {
+     "apReduction": 20,
+     "effects": [
+      {
+       "rounds": 1,
+       "type": "seal"
+      },
+      {
+       "rounds": 1,
+       "type": "stun"
+      }
+     ],
+     "round": 3
+    },
+    {
+     "apReduction": 0,
+     "effects": [
+      {
+       "rounds": 0,
+       "type": "seal"
+      },
+      {
+       "rounds": 0,
+       "type": "stun"
+      }
+     ],
+     "round": 4
+    }
+   ],
+   "name": "B16 applies stun and seal to the target",
+   "pass": true
+  },
+  {
+   "detail": [
+    0,
+    20,
+    20,
+    0
+   ],
+   "name": "B16 stun: AP reduction 0 in the cast round, 20 in rounds +1 and +2, 0 in round +3 (never a full lockout)",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "no boss AI-exhaustion give-up in any comparison fight",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "damage attribution: step HP deltas + residual reconcile exactly to final − initial HP (player and boss) in every fight",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "one round-start sample per distinct round in every fight",
+   "pass": true
+  },
+  {
+   "detail": [],
+   "name": "player kits carry no health cost or self-damage, so all player HP loss is boss-side",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 4,
+    "mean": 4,
+    "min": 4
+   },
+   "name": "jonin-cap/buffer: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "empty": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "removed": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    }
+   },
+   "name": "jonin-cap/buffer: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 3,
+    "mean": 3,
+    "min": 3
+   },
+   "name": "jonin-cap/striker: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "empty": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "removed": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    }
+   },
+   "name": "jonin-cap/striker: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 0,
+    "mean": 0,
+    "min": 0
+   },
+   "name": "jonin-cap/striker: Clears against a player with no positive effects remove nothing",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 2,
+    "mean": 2,
+    "min": 2
+   },
+   "name": "jonin-half/moderate: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "empty": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "removed": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    }
+   },
+   "name": "jonin-half/moderate: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 11,
+    "mean": 11,
+    "min": 11
+   },
+   "name": "jonin-cap-durable/buffer: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "empty": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "removed": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    }
+   },
+   "name": "jonin-cap-durable/buffer: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 6,
+    "mean": 6,
+    "min": 6
+   },
+   "name": "jonin-cap-durable/striker: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "empty": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "removed": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    }
+   },
+   "name": "jonin-cap-durable/striker: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 0,
+    "mean": 0,
+    "min": 0
+   },
+   "name": "jonin-cap-durable/striker: Clears against a player with no positive effects remove nothing",
+   "pass": true
+  },
+  {
+   "detail": {
+    "max": 7,
+    "mean": 7,
+    "min": 7
+   },
+   "name": "jonin-cap-durable/moderate: Sealwright casts Clears in combat (S31 routine)",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearCasts": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "empty": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "removed": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    }
+   },
+   "name": "jonin-cap-durable/moderate: every Sealwright Clear is classified as removing or empty",
+   "pass": true
+  }
+ ],
+ "comparator": "regular Captain QY69h271Nx9uHrBeR6jwW, captured kit = accepted five moves, captured profile (includeDefaultRules:true), innate effect kept",
+ "data": {
+  "b16Control": {
+   "texts": [
+    "user_p bloodline is sealed for the next 2 rounds",
+    "user_p is stunned [-20 AP] for the next 2 rounds",
+    "user_p takes 561.96 damage"
+   ],
+   "timeline": [
+    {
+     "apReduction": 0,
+     "effects": [
+      {
+       "rounds": 2,
+       "type": "seal"
+      },
+      {
+       "rounds": 2,
+       "type": "stun"
+      }
+     ],
+     "round": 1
+    },
+    {
+     "apReduction": 20,
+     "effects": [
+      {
+       "rounds": 2,
+       "type": "seal"
+      },
+      {
+       "rounds": 2,
+       "type": "stun"
+      }
+     ],
+     "round": 2
+    },
+    {
+     "apReduction": 20,
+     "effects": [
+      {
+       "rounds": 1,
+       "type": "seal"
+      },
+      {
+       "rounds": 1,
+       "type": "stun"
+      }
+     ],
+     "round": 3
+    },
+    {
+     "apReduction": 0,
+     "effects": [
+      {
+       "rounds": 0,
+       "type": "seal"
+      },
+      {
+       "rounds": 0,
+       "type": "stun"
+      }
+     ],
+     "round": 4
+    }
+   ]
+  },
+  "b32Unavailable": {
+   "ap40": "B22",
+   "b32PoolCost": {
+    "cpCost": 0,
+    "hpCost": 0,
+    "spCost": 0
+   },
+   "clearGcdAfterS31": [
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 1
+    },
+    {
+     "available": [
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 2
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 3
+    },
+    {
+     "available": [
+      "B32",
+      "B22",
+      "B16",
+      "B14",
+      "B33",
+      "S27"
+     ],
+     "roundsAfterS31": 4
+    }
+   ],
+   "cooldown": "S31",
+   "noPools": "B32"
+  },
+  "battleStartCaps": {
+   "Captain": {
+    "fields": {
+     "defence": {
+      "battle": 834780,
+      "cap": 1300000,
+      "stored": 834780
+     },
+     "intelligence": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "offence": {
+      "battle": 834780,
+      "cap": 1300000,
+      "stored": 834780
+     },
+     "speed": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "strength": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "willpower": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     }
+    },
+    "ok": true,
+    "rank": "JONIN"
+   },
+   "Sealwright:contract": {
+    "fields": {
+     "defence": {
+      "battle": 834780,
+      "cap": 1300000,
+      "stored": 834780
+     },
+     "intelligence": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "offence": {
+      "battle": 834780,
+      "cap": 1300000,
+      "stored": 834780
+     },
+     "speed": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "strength": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     },
+     "willpower": {
+      "battle": 400000,
+      "cap": 400000,
+      "stored": 834780
+     }
+    },
+    "ok": true,
+    "rank": "JONIN"
+   }
+  },
+  "blockedPath": {
+   "action": "B22",
+   "hexDistance": 5,
+   "texts": [
+    "Sealwright damage taken [all damage] is decreased by up to 25% for the next 3 rounds",
+    "Sealwright will absorb up to 20% damage and convert it to Health for the next 3 rounds"
+   ],
+   "wallColumn": 3
+  },
+  "bossActionSamplesSeed1": {
+   "jonin-cap-durable/buffer|Captain": [
+    "1:Worldbreaker Chorus:767",
+    "1:Death's Door:0",
+    "2:Battle Trance:0",
+    "2:Cataclysm Detonation:162",
+    "3:Death's Grasp:400",
+    "3:basicAttack:120",
+    "3:wait:0",
+    "4:basicAttack:120",
+    "4:wait:0",
+    "5:basicAttack:292",
+    "5:wait:0",
+    "6:basicAttack:292",
+    "6:wait:0",
+    "7:Battle Trance:0"
+   ],
+   "jonin-cap-durable/buffer|Sealwright:contract": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:move:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap-durable/buffer|Sealwright:lateClosing": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap-durable/buffer|Sealwright:noClosing": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap-durable/moderate|Captain": [
+    "1:Worldbreaker Chorus:767",
+    "1:Death's Door:0",
+    "2:Battle Trance:0",
+    "2:Cataclysm Detonation:717",
+    "3:Death's Grasp:735",
+    "3:basicAttack:220",
+    "3:wait:0",
+    "4:basicAttack:220",
+    "4:wait:0",
+    "5:basicAttack:307",
+    "5:wait:0",
+    "6:basicAttack:307",
+    "6:wait:0",
+    "7:Battle Trance:0"
+   ],
+   "jonin-cap-durable/moderate|Sealwright:contract": [
+    "1:Compression Barrier:0",
+    "1:move:0",
+    "1:move:0",
+    "1:move:0",
+    "1:wait:0",
+    "2:Unraveling Strike:375",
+    "2:wait:0",
+    "3:Sovereign Fetters:562",
+    "3:wait:0",
+    "4:Cataclysm Detonation:796",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap-durable/moderate|Sealwright:lateClosing": [
+    "1:Compression Barrier:0",
+    "1:Sovereign Fetters:562",
+    "2:Unraveling Strike:375",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Compression Barrier:0",
+    "6:wait:0",
+    "7:Unraveling Strike:375",
+    "7:wait:0"
+   ],
+   "jonin-cap-durable/moderate|Sealwright:noClosing": [
+    "1:Compression Barrier:0",
+    "1:Sovereign Fetters:562",
+    "2:Unraveling Strike:375",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Compression Barrier:0",
+    "6:wait:0",
+    "7:Unraveling Strike:375",
+    "7:wait:0"
+   ],
+   "jonin-cap-durable/striker|Captain": [
+    "1:Worldbreaker Chorus:767",
+    "1:Battle Trance:0",
+    "2:Cataclysm Detonation:960",
+    "2:basicAttack:169",
+    "2:wait:0",
+    "3:Death's Grasp:565",
+    "3:basicAttack:169",
+    "3:wait:0",
+    "4:basicAttack:164",
+    "4:wait:0",
+    "5:basicAttack:164",
+    "5:wait:0",
+    "6:Battle Trance:0",
+    "6:basicAttack:164"
+   ],
+   "jonin-cap-durable/striker|Sealwright:contract": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-cap-durable/striker|Sealwright:lateClosing": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-cap-durable/striker|Sealwright:noClosing": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-cap/buffer|Captain": [
+    "1:Worldbreaker Chorus:767",
+    "1:Death's Door:0",
+    "2:Battle Trance:0",
+    "2:Cataclysm Detonation:162",
+    "3:Death's Grasp:400",
+    "3:basicAttack:120",
+    "3:wait:0",
+    "4:basicAttack:120",
+    "4:wait:0",
+    "5:basicAttack:292",
+    "5:wait:0",
+    "6:basicAttack:292",
+    "6:wait:0",
+    "7:Battle Trance:0"
+   ],
+   "jonin-cap/buffer|Sealwright:contract": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:move:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap/buffer|Sealwright:lateClosing": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap/buffer|Sealwright:noClosing": [
+    "1:Nullifying Wave:0",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:62",
+    "2:move:0",
+    "2:move:0",
+    "2:move:0",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Unraveling Strike:375",
+    "4:wait:0",
+    "5:Piercing Judgment:644",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-cap/striker|Captain": [
+    "1:Worldbreaker Chorus:767",
+    "1:Battle Trance:0",
+    "2:Cataclysm Detonation:960",
+    "2:basicAttack:169",
+    "2:wait:0",
+    "3:Death's Grasp:565",
+    "3:basicAttack:169",
+    "3:wait:0",
+    "4:basicAttack:164",
+    "4:wait:0",
+    "5:basicAttack:164",
+    "5:wait:0",
+    "6:Battle Trance:0",
+    "6:basicAttack:164"
+   ],
+   "jonin-cap/striker|Sealwright:contract": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-cap/striker|Sealwright:lateClosing": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-cap/striker|Sealwright:noClosing": [
+    "1:Unraveling Strike:375",
+    "1:Compression Barrier:0",
+    "2:Sovereign Fetters:562",
+    "2:wait:0",
+    "3:Cataclysm Detonation:796",
+    "3:wait:0",
+    "4:Piercing Judgment:644",
+    "4:wait:0",
+    "5:Weakening Strike:468",
+    "5:wait:0",
+    "6:Unraveling Strike:468",
+    "6:Compression Barrier:0",
+    "7:wait:0",
+    "8:wait:0"
+   ],
+   "jonin-half/moderate|Captain": [
+    "1:Worldbreaker Chorus:1205",
+    "1:Death's Door:0",
+    "2:Battle Trance:0",
+    "2:Cataclysm Detonation:1418",
+    "3:Death's Grasp:1162",
+    "3:basicAttack:348",
+    "3:wait:0",
+    "4:basicAttack:348",
+    "4:wait:0"
+   ],
+   "jonin-half/moderate|Sealwright:contract": [
+    "1:Compression Barrier:0",
+    "1:move:0",
+    "1:move:0",
+    "1:move:0",
+    "1:wait:0",
+    "2:Unraveling Strike:577",
+    "2:wait:0",
+    "3:Sovereign Fetters:866",
+    "3:wait:0",
+    "4:Cataclysm Detonation:1227",
+    "4:wait:0",
+    "5:Piercing Judgment:992",
+    "5:wait:0",
+    "6:Compression Barrier:0"
+   ],
+   "jonin-half/moderate|Sealwright:lateClosing": [
+    "1:Compression Barrier:0",
+    "1:Sovereign Fetters:866",
+    "2:Unraveling Strike:577",
+    "2:wait:0",
+    "3:Cataclysm Detonation:1227",
+    "3:wait:0",
+    "4:Piercing Judgment:992",
+    "4:wait:0",
+    "5:Weakening Strike:722",
+    "5:wait:0",
+    "6:Compression Barrier:0",
+    "6:wait:0",
+    "7:Unraveling Strike:577",
+    "7:wait:0"
+   ],
+   "jonin-half/moderate|Sealwright:noClosing": [
+    "1:Compression Barrier:0",
+    "1:Sovereign Fetters:866",
+    "2:Unraveling Strike:577",
+    "2:wait:0",
+    "3:Cataclysm Detonation:1227",
+    "3:wait:0",
+    "4:Piercing Judgment:992",
+    "4:wait:0",
+    "5:Weakening Strike:722",
+    "5:wait:0",
+    "6:Compression Barrier:0",
+    "6:wait:0",
+    "7:Unraveling Strike:577",
+    "7:wait:0"
+   ]
+  },
+  "comparisonMatrix": {
+   "jonin-cap-durable/buffer|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 52,
+     "mean": 52,
+     "min": 52
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 5394.486,
+     "mean": 5394.486,
+     "min": 5394.486
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 1010,
+     "mean": 1010,
+     "min": 1010
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 4384.486,
+     "mean": 4384.486,
+     "min": 4384.486
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.994,
+     "mean": 0.994,
+     "min": 0.994
+    },
+    "bossWaits": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "bossWins": 0,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.909,
+     "mean": 0.909,
+     "min": 0.909
+    },
+    "playerDamageToBoss": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.92,
+     "mean": 0.92,
+     "min": 0.92
+    },
+    "playerMinStaminaPct": {
+     "max": 0.914,
+     "mean": 0.914,
+     "min": 0.914
+    },
+    "playerWins": 5,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "rounds": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "sampledRounds": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.126,
+     "mean": 0.126,
+     "min": 0.126
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.148,
+     "mean": 0.148,
+     "min": 0.148
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/buffer|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "b32Casts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "bossActiveApPerRound": {
+     "max": 58.205,
+     "mean": 58.205,
+     "min": 58.205
+    },
+    "bossApPerRound": {
+     "max": 98.974,
+     "mean": 98.974,
+     "min": 98.974
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "clearsThatRemoved": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.282,
+     "mean": 0.282,
+     "min": 0.282
+    },
+    "playerDamageToBoss": {
+     "max": 10944.053,
+     "mean": 10944.053,
+     "min": 10944.053
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.975,
+     "mean": 0.975,
+     "min": 0.975
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "recoveryWindows": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "rounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sampledRounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sealedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/buffer|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "b32Casts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "bossActiveApPerRound": {
+     "max": 58.205,
+     "mean": 58.205,
+     "min": 58.205
+    },
+    "bossApPerRound": {
+     "max": 98.974,
+     "mean": 98.974,
+     "min": 98.974
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "clearsThatRemoved": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.282,
+     "mean": 0.282,
+     "min": 0.282
+    },
+    "playerDamageToBoss": {
+     "max": 10944.053,
+     "mean": 10944.053,
+     "min": 10944.053
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.975,
+     "mean": 0.975,
+     "min": 0.975
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "recoveryWindows": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "rounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sampledRounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sealedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/buffer|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "b32Casts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "bossActiveApPerRound": {
+     "max": 58.205,
+     "mean": 58.205,
+     "min": 58.205
+    },
+    "bossApPerRound": {
+     "max": 98.974,
+     "mean": 98.974,
+     "min": 98.974
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 11,
+     "mean": 11,
+     "min": 11
+    },
+    "clearsThatRemoved": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.282,
+     "mean": 0.282,
+     "min": 0.282
+    },
+    "playerDamageToBoss": {
+     "max": 10944.053,
+     "mean": 10944.053,
+     "min": 10944.053
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.975,
+     "mean": 0.975,
+     "min": 0.975
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "recoveryWindows": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "rounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sampledRounds": {
+     "max": 39,
+     "mean": 39,
+     "min": 39
+    },
+    "sealedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/moderate|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 50,
+     "mean": 50,
+     "min": 50
+    },
+    "bossApPerRound": {
+     "max": 98,
+     "mean": 98,
+     "min": 98
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 2020,
+     "mean": 2020,
+     "min": 2020
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 10605,
+     "mean": 10605,
+     "min": 10605
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.987,
+     "mean": 0.987,
+     "min": 0.987
+    },
+    "bossWaits": {
+     "max": 16,
+     "mean": 16,
+     "min": 16
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.8,
+     "mean": 0.8,
+     "min": 0.8
+    },
+    "playerDamageToBoss": {
+     "max": 9458.511,
+     "mean": 9458.511,
+     "min": 9458.511
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.84,
+     "mean": 0.84,
+     "min": 0.84
+    },
+    "playerMinStaminaPct": {
+     "max": 0.827,
+     "mean": 0.827,
+     "min": 0.827
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "rounds": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "sampledRounds": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.138,
+     "mean": 0.138,
+     "min": 0.138
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.162,
+     "mean": 0.162,
+     "min": 0.162
+    },
+    "stunnedRounds": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/moderate|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 51.471,
+     "mean": 51.471,
+     "min": 51.471
+    },
+    "bossApPerRound": {
+     "max": 98.824,
+     "mean": 98.824,
+     "min": 98.824
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.618,
+     "mean": 0.618,
+     "min": 0.618
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 30,
+     "mean": 30,
+     "min": 30
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "clearsThatRemoved": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.471,
+     "mean": 0.471,
+     "min": 0.471
+    },
+    "playerDamageToBoss": {
+     "max": 10304.72,
+     "mean": 10304.72,
+     "min": 10304.72
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.979,
+     "mean": 0.979,
+     "min": 0.979
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 26,
+     "mean": 26,
+     "min": 26
+    },
+    "recoveryWindows": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "rounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sampledRounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sealedRounds": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/moderate|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 52.353,
+     "mean": 52.353,
+     "min": 52.353
+    },
+    "bossApPerRound": {
+     "max": 98.824,
+     "mean": 98.824,
+     "min": 98.824
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.618,
+     "mean": 0.618,
+     "min": 0.618
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 29,
+     "mean": 29,
+     "min": 29
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "clearsThatRemoved": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.471,
+     "mean": 0.471,
+     "min": 0.471
+    },
+    "playerDamageToBoss": {
+     "max": 8376.155,
+     "mean": 8376.155,
+     "min": 8376.155
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.977,
+     "mean": 0.977,
+     "min": 0.977
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 26,
+     "mean": 26,
+     "min": 26
+    },
+    "recoveryWindows": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "rounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sampledRounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sealedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/moderate|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 52.353,
+     "mean": 52.353,
+     "min": 52.353
+    },
+    "bossApPerRound": {
+     "max": 98.824,
+     "mean": 98.824,
+     "min": 98.824
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0.618,
+     "mean": 0.618,
+     "min": 0.618
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 29,
+     "mean": 29,
+     "min": 29
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "clearsThatRemoved": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.471,
+     "mean": 0.471,
+     "min": 0.471
+    },
+    "playerDamageToBoss": {
+     "max": 8376.155,
+     "mean": 8376.155,
+     "min": 8376.155
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.977,
+     "mean": 0.977,
+     "min": 0.977
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 26,
+     "mean": 26,
+     "min": 26
+    },
+    "recoveryWindows": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "rounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sampledRounds": {
+     "max": 34,
+     "mean": 34,
+     "min": 34
+    },
+    "sealedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/striker|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 5,
+     "mean": 5,
+     "min": 5
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 52.381,
+     "mean": 52.381,
+     "min": 52.381
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 2792.86,
+     "mean": 2792.86,
+     "min": 2792.86
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 9832.14,
+     "mean": 9832.14,
+     "min": 9832.14
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.986,
+     "mean": 0.986,
+     "min": 0.986
+    },
+    "bossWaits": {
+     "max": 18,
+     "mean": 18,
+     "min": 18
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 12267.116,
+     "mean": 12267.116,
+     "min": 12267.116
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.8,
+     "mean": 0.8,
+     "min": 0.8
+    },
+    "playerMinStaminaPct": {
+     "max": 0.785,
+     "mean": 0.785,
+     "min": 0.785
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "rounds": {
+     "max": 22,
+     "mean": 22,
+     "min": 22
+    },
+    "sampledRounds": {
+     "max": 22,
+     "mean": 22,
+     "min": 22
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.076,
+     "mean": 0.076,
+     "min": 0.076
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.101,
+     "mean": 0.101,
+     "min": 0.101
+    },
+    "stunnedRounds": {
+     "max": 5,
+     "mean": 5,
+     "min": 5
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/striker|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 50,
+     "mean": 50,
+     "min": 50
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossDefenceUptime": {
+     "max": 0.581,
+     "mean": 0.581,
+     "min": 0.581
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 24,
+     "mean": 24,
+     "min": 24
+    },
+    "bossWins": 0,
+    "clearCasts": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.977,
+     "mean": 0.977,
+     "min": 0.977
+    },
+    "playerWins": 5,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "rounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sampledRounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sealedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/striker|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 50,
+     "mean": 50,
+     "min": 50
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossDefenceUptime": {
+     "max": 0.581,
+     "mean": 0.581,
+     "min": 0.581
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 24,
+     "mean": 24,
+     "min": 24
+    },
+    "bossWins": 0,
+    "clearCasts": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.977,
+     "mean": 0.977,
+     "min": 0.977
+    },
+    "playerWins": 5,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "rounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sampledRounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sealedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "unresolved": 0
+   },
+   "jonin-cap-durable/striker|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 50,
+     "mean": 50,
+     "min": 50
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossDefenceUptime": {
+     "max": 0.581,
+     "mean": 0.581,
+     "min": 0.581
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 11063.493,
+     "mean": 11063.493,
+     "min": 11063.493
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 24,
+     "mean": 24,
+     "min": 24
+    },
+    "bossWins": 0,
+    "clearCasts": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 12625,
+     "mean": 12625,
+     "min": 12625
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.977,
+     "mean": 0.977,
+     "min": 0.977
+    },
+    "playerWins": 5,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "rounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sampledRounds": {
+     "max": 31,
+     "mean": 31,
+     "min": 31
+    },
+    "sealedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.063,
+     "mean": 0.063,
+     "min": 0.063
+    },
+    "stunnedRounds": {
+     "max": 6,
+     "mean": 6,
+     "min": 6
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/buffer|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 50,
+     "mean": 50,
+     "min": 50
+    },
+    "bossApPerRound": {
+     "max": 96,
+     "mean": 96,
+     "min": 96
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 1010,
+     "mean": 1010,
+     "min": 1010
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 4040,
+     "mean": 4040,
+     "min": 4040
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.994,
+     "mean": 0.994,
+     "min": 0.994
+    },
+    "bossWaits": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.9,
+     "mean": 0.9,
+     "min": 0.9
+    },
+    "playerDamageToBoss": {
+     "max": 10573.622,
+     "mean": 10573.622,
+     "min": 10573.622
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.8,
+     "mean": 0.8,
+     "min": 0.8
+    },
+    "playerMinStaminaPct": {
+     "max": 0.786,
+     "mean": 0.786,
+     "min": 0.786
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "rounds": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "sampledRounds": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.301,
+     "mean": 0.301,
+     "min": 0.301
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.301,
+     "mean": 0.301,
+     "min": 0.301
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/buffer|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "bossActiveApPerRound": {
+     "max": 62.143,
+     "mean": 62.143,
+     "min": 62.143
+    },
+    "bossApPerRound": {
+     "max": 97.143,
+     "mean": 97.143,
+     "min": 97.143
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.643,
+     "mean": 0.643,
+     "min": 0.643
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "clearsThatRemoved": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.286,
+     "mean": 0.286,
+     "min": 0.286
+    },
+    "playerDamageToBoss": {
+     "max": 3854.68,
+     "mean": 3854.68,
+     "min": 3854.68
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.98,
+     "mean": 0.98,
+     "min": 0.98
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 12,
+     "mean": 12,
+     "min": 12
+    },
+    "recoveryWindows": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "rounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sampledRounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/buffer|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "bossActiveApPerRound": {
+     "max": 62.143,
+     "mean": 62.143,
+     "min": 62.143
+    },
+    "bossApPerRound": {
+     "max": 97.143,
+     "mean": 97.143,
+     "min": 97.143
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.643,
+     "mean": 0.643,
+     "min": 0.643
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "clearsThatRemoved": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.286,
+     "mean": 0.286,
+     "min": 0.286
+    },
+    "playerDamageToBoss": {
+     "max": 3854.68,
+     "mean": 3854.68,
+     "min": 3854.68
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.98,
+     "mean": 0.98,
+     "min": 0.98
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 12,
+     "mean": 12,
+     "min": 12
+    },
+    "recoveryWindows": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "rounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sampledRounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/buffer|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "bossActiveApPerRound": {
+     "max": 62.143,
+     "mean": 62.143,
+     "min": 62.143
+    },
+    "bossApPerRound": {
+     "max": 97.143,
+     "mean": 97.143,
+     "min": 97.143
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.643,
+     "mean": 0.643,
+     "min": 0.643
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "clearsThatRemoved": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "emptyClears": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.286,
+     "mean": 0.286,
+     "min": 0.286
+    },
+    "playerDamageToBoss": {
+     "max": 3854.68,
+     "mean": 3854.68,
+     "min": 3854.68
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.98,
+     "mean": 0.98,
+     "min": 0.98
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 12,
+     "mean": 12,
+     "min": 12
+    },
+    "recoveryWindows": {
+     "max": 4,
+     "mean": 4,
+     "min": 4
+    },
+    "rounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sampledRounds": {
+     "max": 14,
+     "mean": 14,
+     "min": 14
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/striker|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 48,
+     "mean": 48,
+     "min": 48
+    },
+    "bossApPerRound": {
+     "max": 96,
+     "mean": 96,
+     "min": 96
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 1010,
+     "mean": 1010,
+     "min": 1010
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 4040,
+     "mean": 4040,
+     "min": 4040
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.994,
+     "mean": 0.994,
+     "min": 0.994
+    },
+    "bossWaits": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 6056.568,
+     "mean": 6056.568,
+     "min": 6056.568
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.8,
+     "mean": 0.8,
+     "min": 0.8
+    },
+    "playerMinStaminaPct": {
+     "max": 0.786,
+     "mean": 0.786,
+     "min": 0.786
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "rounds": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "sampledRounds": {
+     "max": 10,
+     "mean": 10,
+     "min": 10
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.19,
+     "mean": 0.19,
+     "min": 0.19
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.224,
+     "mean": 0.224,
+     "min": 0.224
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/striker|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 55.385,
+     "mean": 55.385,
+     "min": 55.385
+    },
+    "bossApPerRound": {
+     "max": 96.923,
+     "mean": 96.923,
+     "min": 96.923
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 5513.42,
+     "mean": 5513.42,
+     "min": 5513.42
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.978,
+     "mean": 0.978,
+     "min": 0.978
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "rounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sampledRounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/striker|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 55.385,
+     "mean": 55.385,
+     "min": 55.385
+    },
+    "bossApPerRound": {
+     "max": 96.923,
+     "mean": 96.923,
+     "min": 96.923
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 5513.42,
+     "mean": 5513.42,
+     "min": 5513.42
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.978,
+     "mean": 0.978,
+     "min": 0.978
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "rounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sampledRounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-cap/striker|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 55.385,
+     "mean": 55.385,
+     "min": 55.385
+    },
+    "bossApPerRound": {
+     "max": 96.923,
+     "mean": 96.923,
+     "min": 96.923
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.615,
+     "mean": 0.615,
+     "min": 0.615
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerDamageToBoss": {
+     "max": 5513.42,
+     "mean": 5513.42,
+     "min": 5513.42
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.978,
+     "mean": 0.978,
+     "min": 0.978
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "rounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sampledRounds": {
+     "max": 13,
+     "mean": 13,
+     "min": 13
+    },
+    "sealedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.158,
+     "mean": 0.158,
+     "min": 0.158
+    },
+    "stunnedRounds": {
+     "max": 3,
+     "mean": 3,
+     "min": 3
+    },
+    "unresolved": 0
+   },
+   "jonin-half/moderate|Captain": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 75,
+     "mean": 75,
+     "min": 75
+    },
+    "bossApPerRound": {
+     "max": 100,
+     "mean": 100,
+     "min": 100
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 568.415,
+     "mean": 568.415,
+     "min": 568.415
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 4481.585,
+     "mean": 4481.585,
+     "min": 4481.585
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 0.998,
+     "mean": 0.998,
+     "min": 0.998
+    },
+    "bossWaits": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "clearsThatRemoved": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.6,
+     "mean": 0.6,
+     "min": 0.6
+    },
+    "playerDamageToBoss": {
+     "max": 1513.333,
+     "mean": 1513.333,
+     "min": 1513.333
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 0.9,
+     "mean": 0.9,
+     "min": 0.9
+    },
+    "playerMinStaminaPct": {
+     "max": 0.896,
+     "mean": 0.896,
+     "min": 0.896
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "recoveryWindows": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "rounds": {
+     "max": 5,
+     "mean": 5,
+     "min": 5
+    },
+    "sampledRounds": {
+     "max": 5,
+     "mean": 5,
+     "min": 5
+    },
+    "sealedRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.281,
+     "mean": 0.281,
+     "min": 0.281
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.299,
+     "mean": 0.299,
+     "min": 0.299
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-half/moderate|Sealwright:contract": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 67.143,
+     "mean": 67.143,
+     "min": 67.143
+    },
+    "bossApPerRound": {
+     "max": 94.286,
+     "mean": 94.286,
+     "min": 94.286
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.571,
+     "mean": 0.571,
+     "min": 0.571
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 5,
+     "mean": 5,
+     "min": 5
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "clearsThatRemoved": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.429,
+     "mean": 0.429,
+     "min": 0.429
+    },
+    "playerDamageToBoss": {
+     "max": 1346.986,
+     "mean": 1346.986,
+     "min": 1346.986
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.992,
+     "mean": 0.992,
+     "min": 0.992
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "recoveryWindows": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "rounds": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "sampledRounds": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "sealedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-half/moderate|Sealwright:lateClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 55.556,
+     "mean": 55.556,
+     "min": 55.556
+    },
+    "bossApPerRound": {
+     "max": 95.556,
+     "mean": 95.556,
+     "min": 95.556
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.667,
+     "mean": 0.667,
+     "min": 0.667
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "clearsThatRemoved": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.333,
+     "mean": 0.333,
+     "min": 0.333
+    },
+    "playerDamageToBoss": {
+     "max": 1306.029,
+     "mean": 1306.029,
+     "min": 1306.029
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.988,
+     "mean": 0.988,
+     "min": 0.988
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "recoveryWindows": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "rounds": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "sampledRounds": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "sealedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   },
+   "jonin-half/moderate|Sealwright:noClosing": {
+    "allHpReconcile": true,
+    "allSamplesDistinct": true,
+    "apReducedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "b32Casts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossActiveApPerRound": {
+     "max": 55.556,
+     "mean": 55.556,
+     "min": 55.556
+    },
+    "bossApPerRound": {
+     "max": 95.556,
+     "mean": 95.556,
+     "min": 95.556
+    },
+    "bossDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossDefenceUptime": {
+     "max": 0.667,
+     "mean": 0.667,
+     "min": 0.667
+    },
+    "bossDelayedDamageToPlayer": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossDirectDamageToPlayer": {
+     "max": 5050,
+     "mean": 5050,
+     "min": 5050
+    },
+    "bossExhaustions": 0,
+    "bossIdleTimeouts": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "bossMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossMinStaminaPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "bossWaits": {
+     "max": 7,
+     "mean": 7,
+     "min": 7
+    },
+    "bossWins": 5,
+    "clearCasts": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "clearsThatRemoved": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "emptyClears": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "fights": 5,
+    "fullLockoutRounds": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "meanApReductionWhenReduced": {
+     "max": 20,
+     "mean": 20,
+     "min": 20
+    },
+    "playerBuffUptime": {
+     "max": 0.333,
+     "mean": 0.333,
+     "min": 0.333
+    },
+    "playerDamageToBoss": {
+     "max": 1306.029,
+     "mean": 1306.029,
+     "min": 1306.029
+    },
+    "playerHealing": {
+     "max": 0,
+     "mean": 0,
+     "min": 0
+    },
+    "playerMinChakraPct": {
+     "max": 1,
+     "mean": 1,
+     "min": 1
+    },
+    "playerMinStaminaPct": {
+     "max": 0.988,
+     "mean": 0.988,
+     "min": 0.988
+    },
+    "playerWins": 0,
+    "positiveEffectsRemovedByClears": {
+     "max": 8,
+     "mean": 8,
+     "min": 8
+    },
+    "recoveryWindows": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "rounds": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "sampledRounds": {
+     "max": 9,
+     "mean": 9,
+     "min": 9
+    },
+    "sealedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "spikeActionPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "spikeRoundPctOfPlayerMaxHp": {
+     "max": 0.243,
+     "mean": 0.243,
+     "min": 0.243
+    },
+    "stunnedRounds": {
+     "max": 2,
+     "mean": 2,
+     "min": 2
+    },
+    "unresolved": 0
+   }
+  },
+  "delayedHpChangeSamplesSeed1": {
+   "jonin-cap-durable/buffer|Captain": [
+    "4:user_p:Annihilating Wave:step -505 action -505",
+    "5:user_p:basicAttack:step -505 action -505"
+   ],
+   "jonin-cap-durable/buffer|Sealwright:contract": [],
+   "jonin-cap-durable/buffer|Sealwright:lateClosing": [],
+   "jonin-cap-durable/buffer|Sealwright:noClosing": [],
+   "jonin-cap-durable/moderate|Captain": [
+    "4:user_p:Sundering Blow:step -505 action -505",
+    "5:user_p:Windlash Focus:step -505 action -505",
+    "13:user_p:Windlash Focus:step -505 action -505",
+    "14:user_p:Sundering Blow:step -505 action -505"
+   ],
+   "jonin-cap-durable/moderate|Sealwright:contract": [],
+   "jonin-cap-durable/moderate|Sealwright:lateClosing": [],
+   "jonin-cap-durable/moderate|Sealwright:noClosing": [],
+   "jonin-cap-durable/striker|Captain": [
+    "4:user_p:Heavy Cut:step -505 action -505",
+    "5:user_p:basicAttack:step -505 action -505",
+    "13:user_p:basicAttack:step -505 action -505",
+    "14:user_p:basicAttack:step -505 action -505",
+    "21:user_p:basicAttack:step -505 action -505",
+    "22:user_p:basicAttack:step -268 action -268"
+   ],
+   "jonin-cap-durable/striker|Sealwright:contract": [],
+   "jonin-cap-durable/striker|Sealwright:lateClosing": [],
+   "jonin-cap-durable/striker|Sealwright:noClosing": [],
+   "jonin-cap/buffer|Captain": [
+    "4:user_p:Annihilating Wave:step -505 action -505",
+    "5:user_p:basicAttack:step -505 action -505"
+   ],
+   "jonin-cap/buffer|Sealwright:contract": [],
+   "jonin-cap/buffer|Sealwright:lateClosing": [],
+   "jonin-cap/buffer|Sealwright:noClosing": [],
+   "jonin-cap/striker|Captain": [
+    "4:user_p:Heavy Cut:step -505 action -505",
+    "5:user_p:basicAttack:step -505 action -505"
+   ],
+   "jonin-cap/striker|Sealwright:contract": [],
+   "jonin-cap/striker|Sealwright:lateClosing": [],
+   "jonin-cap/striker|Sealwright:noClosing": [],
+   "jonin-half/moderate|Captain": [
+    "4:user_p:Sundering Blow:step -505 action -505",
+    "5:user_p:Windlash Focus:step -63 action -63"
+   ],
+   "jonin-half/moderate|Sealwright:contract": [],
+   "jonin-half/moderate|Sealwright:lateClosing": [],
+   "jonin-half/moderate|Sealwright:noClosing": []
+  },
+  "distanceGate": {
+   "hex4": "B32",
+   "hex5": "B32",
+   "hex6": "B22"
+  },
+  "idgStatesAndClearPrevent": {
+   "clearPrevent": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "cp-user_p",
+      "roundsAfter": 2,
+      "roundsBefore": 2,
+      "target": "user_p",
+      "type": "clearprevent"
+     }
+    ],
+    "texts": [
+     "user_p resists being cleared"
+    ]
+   },
+   "expiredRoundsZero": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "newlyCastThisRound": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "protectedBloodlineSource": {
+    "action": "B32",
+    "effects": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   }
+  },
+  "s31Routine": {
+   "idg50_hex3": "S31",
+   "noBuffs_hex3": "S31",
+   "noBuffs_hex4": "B22"
+  },
+  "targeting": {
+   "buffedSummonCloser": {
+    "action": "B32",
+    "idg": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "idg-summon_s",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "summon_s",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. ",
+     "summon_s was cleared of all positive status effects. "
+    ]
+   },
+   "distantSecondOpponent": {
+    "action": "B32",
+    "idg": [
+     {
+      "id": "idg-user_p1",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p1",
+      "type": "increasedamagegiven"
+     },
+     {
+      "id": "idg-user_p2",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p2",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p2 was cleared of all positive status effects. ",
+     "user_p1 was cleared of all positive status effects. "
+    ]
+   },
+   "lowIdgSummonCloser": {
+    "action": "S31",
+    "idg": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": 3,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "summon_s was cleared of all positive status effects. ",
+     "summon_s takes 374.64 damage"
+    ]
+   }
+  },
+  "thresholdMatrix": {
+   "69": {
+    "action": "S31",
+    "idgAfter": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. ",
+     "user_p takes 374.64 damage"
+    ]
+   },
+   "70": {
+    "action": "S31",
+    "idgAfter": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. ",
+     "user_p takes 374.64 damage"
+    ]
+   },
+   "71": {
+    "action": "B32",
+    "idgAfter": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "90": {
+    "action": "B32",
+    "idgAfter": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. "
+    ]
+   },
+   "70.5": {
+    "action": "S31",
+    "idgAfter": [
+     {
+      "id": "idg-user_p",
+      "roundsAfter": null,
+      "roundsBefore": 3,
+      "target": "user_p",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "texts": [
+     "user_p was cleared of all positive status effects. ",
+     "user_p takes 374.64 damage"
+    ]
+   }
+  }
+ },
+ "dmgConfig": "engine source defaults",
+ "failed": 0,
+ "gate": "A2",
+ "migration": "app/drizzle/migrations/0056_unified_combat_stats_masteries.sql (AI branch)",
+ "sealwrightCarrier": "Captain numeric profile (level/stats/pools/regen/multipliers/preferences) without innate effect or items; contract seven jutsu at level 1"
+}

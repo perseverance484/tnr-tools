@@ -1,0 +1,178 @@
+{
+ "items": [
+  {
+   "name": "Wayward Blade",
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "uO4sBfcUGUZ7SYUTEaq4Q",
+   "srcId": "ai_wayward_blade",
+   "data": {
+    "offence": 420,
+    "defence": 420,
+    "strength": 150,
+    "speed": 150,
+    "intelligence": 150,
+    "willpower": 150,
+    "jutsus": [
+     "STu1VHNcfgeC3x-UiQDgt",
+     "taxbZNdm1Q7YL5AxaRssW",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "OyswJoalfNpmz7FsA8Hd8",
+     "Uou0sCjZ1rwiMJZ-JWEI_",
+     "Vo8N1luCT0p48y7JzKe84",
+     "LisNuMJ2gncEByAxG6QPI",
+     "mQ7-q8q46ry5njNVBFpGp",
+     "vWaGTnYOwiTiaMQW10y6A",
+     "6UE5jC71Y6nRjobkJ-UTV",
+     "AicYoMMpZmHAykb_5hYtY"
+    ],
+    "items": [],
+    "rules": [
+     {
+      "conditions": [
+       {
+        "type": "health_below",
+        "description": "Health below given percentage",
+        "value": 50
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "taxbZNdm1Q7YL5AxaRssW",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "OyswJoalfNpmz7FsA8Hd8",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "Uou0sCjZ1rwiMJZ-JWEI_",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "description": "Distance lower than or equal given value",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "Vo8N1luCT0p48y7JzKe84",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "LisNuMJ2gncEByAxG6QPI",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "mQ7-q8q46ry5njNVBFpGp",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "vWaGTnYOwiTiaMQW10y6A",
+       "target": "CLOSEST_OPPONENT"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "6UE5jC71Y6nRjobkJ-UTV",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "description": "Select specific jutsu",
+       "jutsuId": "AicYoMMpZmHAykb_5hYtY",
+       "target": "SELF"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "move_towards_opponent",
+       "description": "Move towards opponent",
+       "target": "CLOSEST_OPPONENT"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  }
+ ],
+ "_note": "AI EDIT for the Wayward Blade (uO4sBfcUGUZ7SYUTEaq4Q), fixing what the first fight log showed: 449/375 damage hits (offence/defence left at the floor by the upstream stat rework) and kiting. Sets offence/defence/generals to a capped split, replaces the kit with 11 live-verified pool jutsu (3 global ALL-method strikes for range, 4 single-target r5 strikes, 4 SELF 40 AP stances incl. a below-50% heal) and rewrites the rules with explicit targets. Passive effects untouched."
+}
