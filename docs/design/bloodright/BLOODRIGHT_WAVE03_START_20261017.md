@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** FIVE REFERENCE PACKS VERIFIED AND FIVE THEMES APPROVED. BR-083 Tetsugan trio DIRECTOR VISUALLY APPROVED (11/29 families, 33/87 icons total). BR-064 Shakunetsu Sakura trio PROPOSED / artwork-specific director approval PENDING.
+**Status:** WAVE 3 ORIGINAL REFERENCES VERIFIED AND FIVE PALETTE TREATMENTS DIRECTOR-APPROVED. BR-083 and BR-064 completed families visually approved (**12/29 families; 36/87 icons**). BR-020 Crystal Essence trio PROPOSED / final per-icon director acceptance PENDING.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -29,6 +29,13 @@
 **Expected input:** five original bloodline source-art ZIPs with **31 jutsu images** and, if supplied, five identity images. None of these five ZIPs has been attached/inspected in this wave yet. Filenames are suggested intake labels, not proof of file existence.
 
 **Distinguishability questions to assess only after inspecting actual pixels:** Tetsugan vs magnet bloodlines (Houkyuken/Itojinsei); Shakunetsu Sakura vs previously approved solar Taiyo Kami and lava Suragu; Crystal Essence vs icy Blue Blade Eyes; Suragu vs other orange/thermal themes; Vaporia vs ice/water/steam themes. Do not choose palettes, symbols or textures from classification/name alone.
+
+## 2026-10-17 — Shakunetsu visual acceptance; Crystal Essence production checkpoint
+
+- **Shakunetsu Sakura (BR-064):** Director accepted all 3 Midnight Blossomfire tiers. Raw PNG and lossless WebP bytes were not changed from the previously reviewed proposal. `BR-064_Shakunetsu_Sakura_Bloodright_Approved_3_Icons.zip` SHA-256 `ec1723a199b104737fcbb278de5f785898cfb280e1bb94377de4f413f0395463`. Full per-tier hashes and approval evidence in `BLOODRIGHT_WAVE03_BR064_PROPOSAL_QC_20261017.json`.
+- **Crystal Essence (BR-020):** Director-approved Prismatic Jadeglass recipe converted into 3 separate tier-emblem original 1254px PNGs plus 3 256px lossless RGB WebPs. Source ZIP 5 jutsu + identity independently SHA/manifest/format-verified. Exact brightness/foreground geometry preserved for each tier against approved Ethereal master; maxRGB matches at all 1254² pixels for all 3, IoU 1.0 at thresholds 1/16/64/128/192/240. Under working byte cap, WebP decoder and resize equality pass; QC contact/125-32px/neighbor comparisons programmatic only.
+- **Crystal family archive:** `BR-020_Crystal_Essence_Bloodright_Proposed_3_Icons.zip` SHA-256 `a9f128fb80718044086f86a0f0f05c10310d9079c4735600e8ded40f68ab31bc` (5,507,297 bytes). Per-tier hashes and technical status in `BLOODRIGHT_WAVE03_BR020_PROPOSAL_QC_20261017.json`. **Pending director acceptance of the actual three images**; never auto-promote palette approval to artwork approval.
+- **Progress: 12/29 families, 36/87 icons accepted; 17/29 / 51 icons remain.** All current binary artwork is still in conversation output packages, not Git-pinned artifacts. Strict skillTree.image validator, immutable imagePack, and live-game import/readback remain separate gates. No live requests/writes.
 
 ## 2026-10-17 — Tetsugan approval / Shakunetsu production checkpoint
 
@@ -71,6 +78,6 @@
 
 ## Immediate next action
 
-The director accepted BR-083 Tetsugan, and its exact accepted artwork has been preserved. **Present BR-064 Shakunetsu Sakura's proposed Foundation / Hidden Art / Advanced Art trio for director visual acceptance.** If approved, preserve its exact raw/WebP bytes and move on to BR-020 Crystal Essence using the already verified source ZIP.
+The director approved BR-083 Tetsugan and BR-064 Shakunetsu Sakura. **Present BR-020 Crystal Essence's three separately saved proposed Foundation / Hidden Art / Advanced Art images for director acceptance.** If approved, preserve their exact raw PNG and WebP hashes, package as accepted and continue with BR-074 Suragu using the verified source ZIP. No additional user palette ruling is necessary.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
