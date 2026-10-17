@@ -1,0 +1,77 @@
+{
+  "schema": "tnr.bloodright.wave05.family-approved-art-qc/1",
+  "date": "2026-10-17",
+  "review_id": "BR-005",
+  "family": "Arashima",
+  "rank": "A",
+  "theme": "Midnight Tempest — Stormcloud v02",
+  "approval": "DIRECTOR_VISUALLY_APPROVED_ALL_THREE_ON_2026-10-17",
+  "evidence": "Director initially rejected rain-glass v01 as too similar to Blue Blade Eyes, requested more stormcloud. Three independent stormcloud icons were generated and subsequently the director replied 'Perfect. Approved, next'.",
+  "old_proposal": {
+    "path": "BLOODRIGHT_WAVE05_BR005_PROPOSAL_QC_20261017.json",
+    "zip_sha256": "3c7be6392908fa7f74a28e8a5cbb34f6d4acb8f09dbc5af3367b112bc95a99bc",
+    "status": "REJECTED_VISUAL; DO_NOT_WIRE"
+  },
+  "approved_source_images": [
+    {
+      "tier": "foundation",
+      "imagegen_id": "e85606b9-33aa-4b54-b807-e0826a90255d",
+      "file_id": "file_00000000ad4081f58544c5f8854954bd",
+      "raw_sha256": "40d7dc95789728aef20f71f8e41c614d110802abda6889684883833d4a71bc16",
+      "webp_sha256": "d2f50f028deecabef4edee0a3a1194887bd20d76b416205999a8d6beb9815952",
+      "webp_bytes": 56876,
+      "threshold128_iou": 0.458393
+    },
+    {
+      "tier": "hidden_art",
+      "imagegen_id": "129ee0a0-3b92-484b-96b0-34cfd317edf2",
+      "file_id": "file_00000000613c81f59945c3c15ad7594d",
+      "raw_sha256": "0c54c8a40cdf9a9ad4b255cb7c8be3226d7e6b9a34a1c9bc9072b103df02b26a",
+      "webp_sha256": "3792ed27d27eccb10f62b6e5526d8f77360862508b709eabc3a9e3166672ad21",
+      "webp_bytes": 83842,
+      "threshold128_iou": 0.50407
+    },
+    {
+      "tier": "advanced_art",
+      "imagegen_id": "f3aa4810-1c7e-46d6-8c08-3267ddd4bd36",
+      "file_id": "file_000000007c4c81f59c1c582d77e9fcfe",
+      "raw_sha256": "b80f0fa6cbb0eaa56b82503ca4e84f72c3c77e135ae1b73b8d1acd232ff40a94",
+      "webp_sha256": "3e9759220f74b582ba273938485a78c9917fe10dbae5c92706f27e56e94a80f0",
+      "webp_bytes": 68966,
+      "threshold128_iou": 0.597364
+    }
+  ],
+  "source_reference_zip_sha256": "75cb6c9d01f77164819a19e5cfae8c6409a4bf89e3461393cc9d48f3accc922d",
+  "package": {
+    "file": "BR-005_Arashima_Bloodright_Approved_Stormcloud_v02_3_Icons.zip",
+    "sha256": "50d3f7bce75f789ffd2a48bb334a6480170cee01112781a1791585c6ea91b09b",
+    "bytes": 12396094,
+    "members": 18
+  },
+  "qa": {
+    "original_generation_PNG_bytes_unchanged": "PASS_ALL_3",
+    "three_RGB_1254_PNG": "PASS",
+    "lossless_RGB_WebP_256": "PASS_ALL_3",
+    "decoded_equals_Pillow_Lanczos_resized_source": "PASS_ALL_3",
+    "corner_black_and_byte_cap": "PASS_ALL_3",
+    "source_zip_crc_jutsu_id_sha_mime": "PASS",
+    "independent_joint_checks_passed": 188,
+    "independent_joint_failures": 0,
+    "master_max_RGB_pixelwise_equal": "FAIL_ALL_3",
+    "geometry_gate": "RED_NONEXACT",
+    "formal_skillTree_image_field_preflight": "NOT_RUN",
+    "Git_art_binary_pins": "NOT_DONE",
+    "Forge_imagePack": "NOT_DONE"
+  },
+  "boundaries": "Director visual approval is recorded and accepted PNGs must remain byte-identical. Exact-master pixel geometry fails for all three freeform accepted icons. Do not automatically restencil/edit without new user visual acceptance and do not claim field/Forge readiness.",
+  "progress": {
+    "visually_approved_families": 22,
+    "visually_approved_icons": 66,
+    "total_families": 29,
+    "total_icons": 87,
+    "nine_prior_wave04_nonexact_plus_new_three": 12
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
