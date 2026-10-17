@@ -1,6 +1,6 @@
 # Bloodright Wave 03 — Original-Art-Grounded Visual Treatments
 
-**Status:** FIVE VISUAL TREATMENTS PROPOSED; DIRECTOR ACCEPTANCE PENDING (2026-10-17).
+**Status:** ALL FIVE VISUAL TREATMENTS DIRECTOR-APPROVED (2026-10-17). Tetsugan three-icon candidate PRODUCED / FAMILY VISUAL ACCEPTANCE PENDING.
 **Scope:** Shared tier emblems only; never redesign captured jutsu art.
 **Evidence:** `BLOODRIGHT_WAVE03_SOURCE_INTAKE_20261017.json` plus portable ZIP (SHA-256 `27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844`); 31 original jutsu files and five identity images verified by exact archive SHA-256, internal manifest hashes, MIME and dimensions, with four jutsu + identity examined per family.
 **Geometry:** Foundation = nested elongated diamond; Hidden Art = nested diamond and paired crescents with crosspieces; Advanced Art = fixed multipoint starburst around diamond. These silhouettes, spacing and surrounding black negative space remain locked. All family treatment proposals modify interior palette/material, subtle edge glow and existing permitted texture only.
@@ -45,10 +45,16 @@
 
 **Contrast:** flowing high-pressure blue versus Blue Blade Eyes ice and Shiroi Youso ivory multi-element metal. **Do not add:** ocean/wave scenes, a new dragon silhouette, a fist, ring structures or separate orange fireball.
 
+## 2026-10-17 — Director treatment acceptance and Tetsugan proposal
+
+The director responded **“Approved”** to all five Wave 03 proposed material treatments. Lock their thematic palettes and exclusions for icon production; this is **direction approval only**, not acceptance of ungenerated artworks.
+
+**BR-083 Tetsugan:** three individually saved PNG masters plus 256px lossless WebPs produced under the approved Ward-Forged Steel treatment. Exact master-intensity (max RGB for every pixel) and geometry-threshold IoU verified for all three. Manual thumbnail review and comparison against neighboring family palette examples performed; source and export hashes and status documented in `BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json`. Portable Tetsugan proposed package SHA-256 `1d839cd52b309729de179574dc3b017e667cc0b2c105dd92b7c7ff4928eab0aa`, **not Git-pinned binaries**. **Art acceptance awaiting director review; no Wave 03 icons promoted to visually approved counts.**
+
 ## Director gate / execution order
 
-Director may approve or amend all five proposed treatments in one response. Then, one bloodline at a time in tracker order, use a clean coordinated three-icon production pass with three **separately saved originals**; use the approved high-resolution geometry masters as masks/references and verify finished roles before labeling. A five-row by three-tier QC sheet must be programmatically assembled from the actual saved images, not generated as a new illustration. Preserve approved raw art and compare at 125/64/32px.
+The director approved all five treatment cards. Now, one bloodline at a time in tracker order, use a clean coordinated three-icon production pass with three **separately saved originals**; use the approved high-resolution geometry masters as masks/references and verify finished roles before labeling. A five-row by three-tier QC sheet must be programmatically assembled from the actual saved images, not generated as a new illustration. Preserve approved raw art and compare at 125/64/32px.
 
 **Mechanical boundary:** current `main`'s `JUTSU_ICON` alpha-optional target is **only for `jutsu.image`**, not proof of opaque RGB acceptance for Bloodright `skillTree.image`. The art and main branch copies differ; validate the proper field against its real contract. Separate Fable implementation and user-controlled Forge/live operations remain pending.
 
-**Current completion:** 10/29 bloodlines / 30/87 icons visually accepted; Wave 03 0/5 trios yet generated. **Live requests/writes:** 0/0. **Credentials:** none.
+**Current completion:** 10/29 bloodlines / 30/87 icons visually accepted; Wave 03 1/5 trios produced and pending director visual approval (BR-083); 0/5 newly approved trios. **Live requests/writes:** 0/0. **Credentials:** none.
