@@ -168,6 +168,34 @@ settings in this branch remain BEE-only. Description acceptance, folder visibili
 release and live execution remain the earlier separate decisions. Nothing is newly
 staged under `push/`, merged, released, uploaded or sent to the game by this change.
 
+## Naming-pass collections (RUL-2026-10-17-003)
+
+The naming pass (`docs/design/bloodright/naming_pass/review.csv`) covers 25 bloodlines. Their
+five-point designs are generated, never hand-edited:
+
+```sh
+python3 scripts/bloodright_from_naming.py [--check]          # docs/design/bloodright/structural/
+python3 scripts/bloodright_collection_package.py [--icons-ref SHA] [--check]
+```
+
+The second script writes two collections. All values are placeholders: CSV bonuses, 20 Silver
+and 99 rounds.
+
+- `naming_pass_collection_a.json`: 13 trees using only the original ten potency tags. This
+  works with the current Forge contract.
+- `naming_pass_collection_b.json`: 11 trees (BEE included) using pierce, absorb, poison,
+  drain, consume or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
+  live game running upstream `133e2c7` or later. Import A first, then B.
+
+Cosmic Ascendant is left out until it has a qualifying element. New trees create a hidden
+folder named after the bloodline. If a folder with that name already exists, preview refuses
+and the folder must be bound by ID. BEE binds its existing folder and Hungry Pulse.
+
+Icons go in `art/bloodright/<slug>/{foundation,hidden_art,advanced_art}.webp`, where `<slug>`
+is the design's file name. Commit them, then rerun the package script with
+`--icons-ref <that commit>` to bind every icon to an immutable image pack. Until then both
+files are BLOCKED templates and must not be staged in `push/`.
+
 ## Persistence and recovery
 
 IDs use `br:<bloodlineId>:<localNodeId>` keys in Forge's existing ID map, exported in every
