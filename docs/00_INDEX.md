@@ -90,6 +90,7 @@ No clone means no state. Say so rather than working from memory.
 | Anything that pushes | skill `references/pipeline.md`, alongside the entity reference |
 | Bloodright structural SVG / tree layout | `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`; approved white SVG and mechanics in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.*` |
 | Art, any asset | skill `producing-tnr-art`; `chroma.py`, `artpreflight.py`, `shotlist.py` |
+| Bloodline jutsu-icon **ZIP-first Art Studio** (NOT Bloodright tier-emblem reskins) | `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md`; `docs/workflows/JUTSU_ICON_SHOWCASE.md`; minimal mobile startup prompt `docs/design/jutsu_icon_studio/START_PROMPT.md`. JUTSU_ICON spec/preflight remains owned by `skills/producing-tnr-art/` |
 | Isolated image-generation conversations / persistent Art Studio | `docs/workflows/ISOLATED_ART_GENERATION.md`; collection registers under `docs/design/` |
 | Existing jutsu art: name → captured record → image URL | `scripts/jutsu_art.py verify`, then `lookup`/`image-url`; `docs/workflows/JUTSU_ART_LOOKUP.md` |
 | Any capture or results bundle | `harvest.py` (v4.26+ inbox bundles normalize directly) |
