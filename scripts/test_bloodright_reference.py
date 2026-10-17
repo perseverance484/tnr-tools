@@ -238,19 +238,20 @@ class RealCohort(unittest.TestCase):
             br.check_url(j["image"])
         self.assertEqual(em["identity"]["status"], "READY")
 
-    def test_uncaptured_bloodlines_are_source_blocked_with_exact_gaps(self):
+    def test_gap_report_is_exact(self):
         s = self.inv["summary"]
-        self.assertLess(s["bloodlines_ready"], 29)
         self.assertEqual(len(s["missing"]), s["jutsu"] - s["jutsu_ready"])
         for m in s["missing"]:
-            self.assertEqual(m["status"], "MISSING_CAPTURE")
-            self.assertTrue(m["id"] and m["kit_name"] and m["review_id"])
+            self.assertTrue(m["id"] and m["kit_name"] and m["review_id"] and m["problems"])
 
-    def test_full_library_is_refused_while_blocked(self):
-        with tempfile.TemporaryDirectory() as d:
-            with self.assertRaisesRegex(PE, "full library refused"):
-                br.pack(self.inv, None, Path(d) / "c", Path(d) / "o")
-            self.assertFalse((Path(d) / "o").exists())
+    def test_pinned_captures_cover_the_full_cohort(self):
+        s = self.inv["summary"]
+        self.assertEqual((s["bloodlines_ready"], s["jutsu_ready"]), (29, 166))
+        for b in self.inv["bloodlines"]:
+            self.assertEqual(b["identity"]["status"], "READY", b["review_id"])
+            for j in b["jutsu"]:
+                br.check_url(j["image"])
+                self.assertEqual(j["warnings"], [], j["id"])
 
 
 # ---------------------------------------------------------------------------------------------
