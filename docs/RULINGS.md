@@ -1153,3 +1153,78 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Rationale:** The user explicitly accepted both pending budget increases. This settles the bundle ceiling only; it does not approve Bloodright content, icons, folder visibility or live execution.
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+---
+
+## RUL-2026-10-17-002 — Bloodright category icons may replace Hungry Pulse's live image
+
+**Date:** 2026-10-17
+
+**Domain:** Bloodright / Blood-Enchanted Eyes collection import / icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Clarifies the scope of RUL-2026-10-08-002, whose "retains Hungry Pulse's existing values" covers its Silver price and rounds, not its image.
+
+**Ruling:** When the BEE collection is imported with category icons, the Foundation icon **replaces Hungry Pulse's (`p2_t1`, `HWq7986PPhl5emkAM3L4a`) existing live image**, like every other Foundation node. No per-node `image` override is needed to protect it. Single-tree packages without icons still keep existing images.
+
+**Evidence:** "Hungry Pulse replacement is fine." (in reply to the PR #33 independent review, which flagged the replacement as conflicting with RUL-2026-10-08-002.)
+
+**Deferred, not decided here:** the 44 remaining legacy trees need a rebalance before conversion to the five-point format, and their values are currently unsettled. Do not convert, price or stage them until the user settles those values. Silver 20 / 99 rounds stays BEE-only.
+
+**Still open:** the actual icon bytes/URLs and immutable `imagePack`, and the `black_bg` art-direction question. The collection template remains BLOCKED until they are supplied.
+
+**Rationale:** The user accepted consistent tier iconography over preserving Hungry Pulse's older image. This settles the replacement question only; it does not approve icon art, release, folder visibility or live execution.
+
+**Canonical destination:** `forge/bloodright/README.md` (category-icon behaviour) and `forge/bloodright/collection.template.json`, which already applies the Foundation icon to `p2_t1`. No code change is required.
+
+---
+
+## RUL-2026-10-17-003 — Import the naming-pass Bloodright trees with placeholder values
+
+**Date:** 2026-10-17
+
+**Domain:** Bloodright / naming pass / collection import
+
+**Status:** ACTIVE
+
+**Supersedes:** the "Deferred" clause of RUL-2026-10-17-002 (remaining trees waiting on settled values), for the 25 bloodlines in the naming-pass CSV only; the other 19 stay deferred. The BEE pilot names and bonuses in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.json` are replaced for import by the naming-pass values. RUL-2026-10-08-002's 20 Silver / 99 rounds is unchanged and now also applies, as a placeholder, to the other trees.
+
+**Ruling:** Move forward with the Bloodright project: import the trees from the naming-pass document into the game with their names, icons and placeholder stats.
+
+- **Source:** `docs/design/bloodright/naming_pass/review.csv` (25 bloodlines x 12 nodes; names plus bonuses). Its bonus values are **placeholders** pending a later rebalance, not approved balance.
+- **Scope:** the 25 bloodlines in the CSV. The other 19 planned bloodlines are not in the document and are not covered.
+- **BEE:** uses the CSV names and bonuses like every other tree. Hungry Pulse keeps its name and binding; its image is replaced per RUL-2026-10-17-002.
+- **Silver and rounds:** every node gets **20 Seichi Silver** and **99 rounds** as placeholders.
+- **Icons:** the user supplies the icon files.
+- **Newer potency tags:** for the 41 nodes (11 bloodlines) that use pierce, absorb, poison, drain, consume or vamp, verify the game source and extend the importer rather than swapping tags. Source check: these tags were added to `PotencyTagTypes` upstream at TheNinjaRPG `133e2c7` (2026-10-08) and are applied generically by `resolvePotencyTags` at `94f9d84`. Whether the live game runs that code is unverified.
+
+**Evidence:** "I found a document from the naming pass of the skill tree. The names of all the different skills are provided, and the values contained can be used as placeholders. We can move forward with the Bloodright project. Objective, import all trees into game with their names, icons and placeholder stats." Then, answering the open questions: icons "I'll supply icon files"; tags "Verify, then extend"; BEE "Use the CSV"; Silver/rounds "20 Silver / 99 rounds".
+
+**Still open:** Cosmic Ascendant has no qualifying element in the game's element list, so its design cannot compile. Shiroi Youso's legacy design lists Fire + Lightning marked for director review; it is held out of the packages until the user confirms its elements. Both were first excluded; RUL-2026-10-17-004 brings them back with a placeholder. Icon art, folder visibility and publishing are not approved by this ruling.
+
+**Rationale:** Placeholder values let the full structure, names and icons go in hidden now, so balance can be tuned later by editing the hidden records instead of blocking the import.
+
+**Canonical destination:** `docs/design/bloodright/structural/*.json` (generated by `scripts/bloodright_from_naming.py`) and the packages `forge/bloodright/naming_pass_collection_{a,b}.json` (generated by `scripts/bloodright_collection_package.py`). The game contract stays owned by `forge/src/bloodright/contract.json`.
+
+**Boundary:** no live-game request or write is authorized by this ruling. The user runs the import through Forge.
+
+---
+
+## RUL-2026-10-17-004 — Cosmic Ascendant and Shiroi Youso import without an element for now
+
+**Date:** 2026-10-17
+
+**Domain:** Bloodright / naming-pass collection import
+
+**Status:** ACTIVE
+
+**Supersedes:** the Cosmic Ascendant and Shiroi Youso exclusions in RUL-2026-10-17-003's "Still open".
+
+**Ruling:** Build both trees without an element for now; their real classification will be resolved later. Implemented as the game element `None` in `qualifying_elements`, so the skills import with all 25 trees.
+
+**Evidence:** "CA and SY we'll just build without an element for now, that will be resolved later. Go ahead."
+
+**Consequence (source-verified, TheNinjaRPG `94f9d84`, `app/src/libs/combat/potency.ts` `resolvePotencyTags`):** `None` makes the bonuses apply only to jutsu tags without an element, so in practice these two trees do little until their elements are set. The alternative, an empty element list, would apply their bonuses to every jutsu of the matching tag regardless of element; that was not chosen because it would make these the strongest trees rather than neutral placeholders. Effect descriptions read "... on None jutsu ..." until resolved.
+
+**Canonical destination:** `scripts/bloodright_from_naming.py` (`NO_ELEMENT_PLACEHOLDER`) and the generated designs `docs/design/bloodright/structural/{cosmic_ascendant,shiroi_youso}.json`.
