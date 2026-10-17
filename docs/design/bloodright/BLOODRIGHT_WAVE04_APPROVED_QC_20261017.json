@@ -1,0 +1,180 @@
+{
+  "schema": "tnr.bloodright.wave04.approved-art-closeout/1",
+  "date": "2026-10-17",
+  "verdict": "FIVE_COMPLETE_FAMILIES_DIRECTOR_VISUALLY_APPROVED; OFFLINE_FILE_QC_PASS; NINE_OF_FIFTEEN_SOURCE_MASTER_GEOMETRY_CHECKS_FAIL",
+  "scope": "Universal Bloodright Foundation, Hidden Art, Advanced Art emblems ONLY, no individual jutsu changes, no live-game operations",
+  "family_list": [
+    {
+      "code": "BR-066",
+      "name": "Shinseina Ki",
+      "material": "Verdant Heartwood",
+      "accepted_source_zip": "BR-066_Shinseina_Ki_Bloodright_Approved_3_Icons.zip",
+      "source_sha256": "70df07a09b2e06d17705ea08871bf6b2b8e081fee1a5364e0baa0702c0397085",
+      "master_exact": "FAIL_ALL_THREE",
+      "ledger": "BLOODRIGHT_WAVE04_BR066_APPROVED_QC_20261017.json"
+    },
+    {
+      "code": "BR-008",
+      "name": "Bakuhatsu",
+      "material": "Detonation Core — revised red-core V02",
+      "accepted_source_zip": "BR-008_Bakuhatsu_Bloodright_Approved_RedCore_v02_3_Icons.zip",
+      "source_sha256": "901ef05b6dcd9c93c7a3cb4112731209f01570e9d8581b51c74acba76d3a1bf1",
+      "master_exact": "FAIL_ALL_THREE",
+      "ledger": "BLOODRIGHT_WAVE04_BR008_REVISED_APPROVED_QC_20261017.json",
+      "superseded": "Original fixed-master copper-orange V01 candidate visually rejected as too similar to Suragu"
+    },
+    {
+      "code": "BR-053",
+      "name": "Oblivion Seal",
+      "material": "Voidscar Amethyst V02",
+      "accepted_source_zip": "BR-053_Oblivion_Seal_Bloodright_Approved_3_Icons_v02.zip",
+      "source_sha256": "9968ced5593b28914a694568f87a91ffdd7ddfe4654e1864d53f67a7a4339217",
+      "master_exact": "PASS_ALL_THREE",
+      "ledger": "BLOODRIGHT_WAVE04_BR053_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "code": "BR-063",
+      "name": "Shadow Weaver",
+      "material": "Ebony Silk V03",
+      "accepted_source_zip": "BR-063_Shadow_Weaver_Bloodright_Approved_Ebony_Silk_v03_3_Icons.zip",
+      "source_sha256": "b8d0c3b7db825c84a398b6c96e629179bbf5491d20051b4c3bd234cb26af2d16",
+      "master_exact": "FAIL_ALL_THREE",
+      "ledger": "BLOODRIGHT_WAVE04_BR063_EBONY_SILK_APPROVED_QC_20261017.json",
+      "superseded": "Silver Moonless Filament and subsequent purple-shadow variants not accepted"
+    },
+    {
+      "code": "BR-032",
+      "name": "Heavenly Sonata",
+      "material": "Celestial Harmonics",
+      "accepted_source_zip": "BR-032_Heavenly_Sonata_Bloodright_Approved_3_Icons.zip",
+      "source_sha256": "91ea1253be0762f17c45f622a4b323ceefda2c9bcdf91aa1a16a817742e637ef",
+      "master_exact": "PASS_ALL_THREE",
+      "ledger": "BLOODRIGHT_WAVE04_BR032_PROPOSAL_QC_20261017.json",
+      "approved_image_bytes": "SIX_RAW_WEBP_MEMBERS_BYTE_IDENTICAL_TO_PREVIOUS_PROPOSAL",
+      "proposal_zip_sha256": "7aa80dc811e53ac88586dda7b28075a131a96cedf94a1af6361a8e695d9f2e21"
+    }
+  ],
+  "images": {
+    "raw_png": {
+      "count": 15,
+      "dimensions": "1254x1254",
+      "mode": "RGB",
+      "source_byte_preservation": "PASS_ALL_15"
+    },
+    "webp": {
+      "count": 15,
+      "dimensions": "256x256",
+      "mode": "RGB",
+      "format": "VP8L_lossless",
+      "decoded_pixel_equality_to_approved_raw_Lanczos_resize": "PASS_15_OF_15",
+      "working_byte_cap": "PASS_ALL_15_UNDER_460800"
+    }
+  },
+  "original_jutsu_source_reference_zips": {
+    "count": 5,
+    "verified_Sha_and_CRC": "PASS_ALL_FIVE",
+    "jutsu_images": 25,
+    "identity_images": 5,
+    "artwork_redesigned": false
+  },
+  "geometry": {
+    "approved_master_SHA": [
+      "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2",
+      "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc",
+      "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+    ],
+    "pixel_exact_count": 6,
+    "pixel_nonexact_count": 9,
+    "nonexact_codes": [
+      "BR-066",
+      "BR-008",
+      "BR-063"
+    ],
+    "operation": "max(R,G,B)_per_pixel_reference_1254",
+    "tests_at": [
+      1,
+      16,
+      64,
+      128,
+      192,
+      240
+    ],
+    "safety": "Nonexact accepted binaries remain untouched; require new director art acceptance for pixel-altering geometry repair"
+  },
+  "display": {
+    "family_sheet": "PROGRAMMATIC_FROM_ACCEPTED_RAW_15",
+    "thumbnail_sheet": "PROGRAMMATIC_FROM_ACCEPTED_WEBP_15",
+    "not_generatively_redrawn": true
+  },
+  "files": {
+    "full": {
+      "filename": "Bloodright_Wave04_Approved_All_5_Bloodlines_15_Icons_20261017.zip",
+      "sha256": "ff6df940762527f1d9e8e083b93989de26379224f858266a04fae15d93cffd38",
+      "bytes": 33254946
+    },
+    "webp_only": {
+      "filename": "Bloodright_Wave04_Approved_15_WebPs_256px_20261017.zip",
+      "sha256": "7270fa9bd79f4171724031207fd3b3d84eb0057322875a9e8c1824f4aa093d51",
+      "bytes": 979747
+    },
+    "accepted_heavenly": {
+      "filename": "BR-032_Heavenly_Sonata_Bloodright_Approved_3_Icons.zip",
+      "sha256": "91ea1253be0762f17c45f622a4b323ceefda2c9bcdf91aa1a16a817742e637ef",
+      "bytes": 10386396
+    },
+    "approved_showcase": {
+      "filename": "Bloodright_Wave04_Approved_Showcase_20261017.png",
+      "sha256": "31775e64947bda98a22956e99a74f3c46afbf13177b9de9d4c5fc9a86ae8458d",
+      "bytes": 1759490
+    },
+    "thumbnail_qc": {
+      "filename": "Bloodright_Wave04_Approved_125_64_32_QC_20261017.png",
+      "sha256": "4d93c07372f25c4e2c661693f0ee9c9a8f64ad48582ca5ebb2e0cd42ca8277a8",
+      "bytes": 348972
+    },
+    "wave05_starter": {
+      "filename": "Bloodright_Wave05_Production_Starter_20261017.zip",
+      "sha256": "5054109d3142154f668ba60d8b0d201971d4b2a2e03fcf6f408dbf5568605a4b",
+      "bytes": 8001320
+    }
+  },
+  "offline_qc": {
+    "passed": 510,
+    "failed": 0,
+    "report": "Bloodright_Wave04_Approved_20261017/WAVE04_APPROVED_QC_REPORT.json",
+    "notes": "Independent script directly read all five family approved ZIPs, original sources and three geometry masters; decoded and checked 15 original PNGs and 15 WebPs; validated exact geometry outcome pass and expected fail separately, plus all approved-package members."
+  },
+  "visual_progress": {
+    "prior_bloodlines": 15,
+    "prior_icons": 45,
+    "now_bloodlines": 20,
+    "now_icons": 60,
+    "total_bloodlines": 29,
+    "total_icons": 87,
+    "remaining_bloodlines": 9,
+    "remaining_icons": 27
+  },
+  "technical_gates": {
+    "strict_skillTree_image_preflight": "NOT_RUN",
+    "opaque_RGB_generic_ICON_alpha_conflict": "UNRESOLVED; jutsu.image-specific JUTSU_ICON exception does NOT apply",
+    "Git_binary_art_pin": "NOT_DONE",
+    "Forge_imagePack_binding": "NOT_DONE",
+    "mechanical_Bloodright_tree_import": "SEPARATE_FABLE_LANE",
+    "live_readback": "NOT_DONE"
+  },
+  "integration": {
+    "current_main_last_verified": "9a0970002a80531078ac5e4b0f72578d3f7855f5",
+    "merge_base_main": "99e86dc549b86f1f4a5846c0e509fa6bc15b3463",
+    "ruling_collision": "RUL-2026-10-17-004 art factory vs main element None; resolve before merge"
+  },
+  "next_wave_first_five": [
+    "BR-078 Tenohira Musei",
+    "BR-005 Arashima",
+    "BR-065 Shinrai Ou",
+    "BR-034 Hyouga Yui",
+    "BR-077 Teno Yuki"
+  ],
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
