@@ -60,7 +60,7 @@
 | Carryover, Medical 100, player-side Combat and Security Alert | PASS. Every battle start is checked; effects land on the player only and are allowlisted | R, C |
 | Beacon charged at start | PASS. One Beacon at `startQuest`, none on retries, never refunded | R, E |
 | Arakane hard fail | PASS on all four routes | R |
-| Real editor save of the compiled 99-objective quest (hidden) | PASS (128,074 bytes of content) | C |
+| Real editor save of the compiled 99-objective quest (hidden) | PASS (128,314 bytes of content) | C |
 | Commander rules save natively | PASS. All 20 profiles save through `ai.updateAiProfile` (`includeDefaultRules:false`, every rule kept). A 21-rule control is refused by the server cap | C |
 | Commander behaviour follows the authored priorities | PASS. Every roster priority for Master of Arms, Replicant Zero and the Grand Marshal, and each tested Arakane rule (1–11, 17–20), fires as authored. Highlights below | A |
 
