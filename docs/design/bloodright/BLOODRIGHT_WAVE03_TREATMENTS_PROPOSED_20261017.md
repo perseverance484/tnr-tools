@@ -1,6 +1,6 @@
 # Bloodright Wave 03 — Original-Art-Grounded Visual Treatments
 
-**Status:** ALL FIVE TREATMENT CARDS DIRECTOR-APPROVED (2026-10-17). Tetsugan complete three-icon family DIRECTOR VISUALLY APPROVED; Shakunetsu Sakura trio PRODUCED/QC PASSED, waiting for per-family image acceptance.
+**Status:** FIVE SOURCE-GROUNDED WAVE 03 TREATMENT CARDS DIRECTOR-APPROVED (2026-10-17). Tetsugan and Shakunetsu Sakura finished trios VISUALLY APPROVED; Crystal Essence three-icon family PRODUCED/QC PASSED, director artwork acceptance PENDING.
 **Scope:** Shared tier emblems only; never redesign captured jutsu art.
 **Evidence:** `BLOODRIGHT_WAVE03_SOURCE_INTAKE_20261017.json` plus portable ZIP (SHA-256 `27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844`); 31 original jutsu files and five identity images verified by exact archive SHA-256, internal manifest hashes, MIME and dimensions, with four jutsu + identity examined per family.
 **Geometry:** Foundation = nested elongated diamond; Hidden Art = nested diamond and paired crescents with crosspieces; Advanced Art = fixed multipoint starburst around diamond. These silhouettes, spacing and surrounding black negative space remain locked. All family treatment proposals modify interior palette/material, subtle edge glow and existing permitted texture only.
@@ -51,6 +51,12 @@ The director responded **“Approved”** to all five Wave 03 proposed material 
 
 **BR-083 Tetsugan:** three individually saved PNG masters plus 256px lossless WebPs produced under the approved Ward-Forged Steel treatment. Exact master-intensity (max RGB for every pixel) and geometry-threshold IoU verified for all three. Manual thumbnail review and comparison against neighboring family palette examples performed; source and export hashes and status documented in `BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json`. Portable Tetsugan proposed package SHA-256 `1d839cd52b309729de179574dc3b017e667cc0b2c105dd92b7c7ff4928eab0aa`, **not Git-pinned binaries**. **Art acceptance awaiting director review; no Wave 03 icons promoted to visually approved counts.**
 
+## 2026-10-17 — Shakunetsu accepted; Crystal Essence three-emblem proposal
+
+- **BR-064 Shakunetsu Sakura:** director specifically accepted all three finished Midnight Blossomfire artworks. Its proposed raw PNGs and WebPs are kept byte-identical in approved archive `BR-064_Shakunetsu_Sakura_Bloodright_Approved_3_Icons.zip` SHA-256 `ec1723a199b104737fcbb278de5f785898cfb280e1bb94377de4f413f0395463`. QC/approval evidence: `BLOODRIGHT_WAVE03_BR064_PROPOSAL_QC_20261017.json`.
+- **BR-020 Crystal Essence:** separately saved Foundation/Hidden/Advanced icon sources now exist. Material treatment retains cobalt, prismatic aqua glass, sparse green jade inclusions and a bright refracted golden central facet, intentionally distinct from Ethereal's monochrome teal. Literal original geometry is kept in all three masters with exact maxRGB pixel equality, six-threshold IoU 1.0, lossless 256px RGB WebPs and intact source ZIP. QC family sheet is programmatically composed. `BR-020_Crystal_Essence_Bloodright_Proposed_3_Icons.zip` SHA-256 `a9f128fb80718044086f86a0f0f05c10310d9079c4735600e8ded40f68ab31bc`. Exact output SHA and QC: `BLOODRIGHT_WAVE03_BR020_PROPOSAL_QC_20261017.json`.
+- **Not approved yet:** Crystal Essence three specific icon images require the director's visual acceptance. This is a source-verified offline art preview only; no strict skillTree field preflight, Git artifact pin, Forge imagePack binding, or game actions.
+
 ## 2026-10-17 — Tetsugan accepted, Shakunetsu Sakura proposed
 
 - **Tetsugan — approval locked:** the director approved all three separately saved Ward-Forged Steel icons. The original binary hashes are unchanged; newly packaged approved ZIP `BR-083_Tetsugan_Bloodright_Approved_3_Icons.zip` SHA-256 `e9c209e4eb9dad187256b83d740463bf0414684fb628686dc6d7b651cd0351e3`. The earlier proposed manifest is preserved as historical evidence; its repository QC record carries final acceptance.
@@ -63,4 +69,4 @@ The director approved all five treatment cards. Now, one bloodline at a time in 
 
 **Mechanical boundary:** current `main`'s `JUTSU_ICON` alpha-optional target is **only for `jutsu.image`**, not proof of opaque RGB acceptance for Bloodright `skillTree.image`. The art and main branch copies differ; validate the proper field against its real contract. Separate Fable implementation and user-controlled Forge/live operations remain pending.
 
-**Current completion:** 11/29 bloodlines / 33/87 icons visually approved; Wave 03 1/5 trios accepted (BR-083) and 1/5 more complete but not yet director accepted (BR-064). **Live requests/writes:** 0/0. **Credentials:** none.
+**Current completion:** 12/29 bloodlines / 36/87 tier icons visually approved. Wave 03 2/5 trios accepted (BR-083, BR-064), one more complete but not yet accepted (BR-020 Crystal Essence); BR-074 and BR-090 await production. **Live requests/writes:** 0/0. **Credentials:** none.
