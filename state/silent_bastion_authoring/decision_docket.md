@@ -1,6 +1,6 @@
 # Silent Bastion — director decision docket (one list)
 
-As of 2026-10-16 the director has ruled on every design and balance decision this package raised (RUL-2026-10-16-004 to -012, table F). What remains is listed below. Section A is still the director's to decide. B–D are not design decisions: they are fresh reads, live checks and tooling that must happen before a manifest. Evidence paths are relative to the repository root. "Gate A/C/I…" means the authoring harness `harness/silent_bastion_authoring/` (results in its `results/`).
+As of 2026-10-16 the director has ruled on every design and balance decision this package raised (RUL-2026-10-16-004 to -013, table F; review F1 found that Extermination Order's AP, range and powers and the two weapons were not yet ruled, and RUL-2026-10-16-013 closed that). What remains is listed below. Section A is still the director's to decide. B–D are not design decisions: they are fresh reads, live checks and tooling that must happen before a manifest. Evidence paths are relative to the repository root. "Gate A/C/I…" means the authoring harness `harness/silent_bastion_authoring/` (results in its `results/`).
 
 ## A. Still open for the director
 
@@ -13,12 +13,13 @@ As of 2026-10-16 the director has ruled on every design and balance decision thi
 
 5. **Fresh reads of the referenced records.** All current values come from committed captures (2026-08 to 2026-10) or the upstream seed. None is a live readback.
    - Tempest Cleave `Ul83iTziN__Z0i_UOzZTK` (Master of Arms): confirm it is live and equippable on an AI.
-   - Solar Bow `ALqXVSL58QMfJ4DgoJ5Il` and Crossbow `LbccOnzfsADLgTBPSHjKK` (Arakane): historic seed rows.
+   - Solar Bow `ALqXVSL58QMfJ4DgoJ5Il` (HAND_1) and Crossbow `LbccOnzfsADLgTBPSHjKK` (HAND_2) (Arakane): the **selection is approved** (RUL-2026-10-16-013), but the IDs and values are historic seed rows. Capture current IDs, item actions, AP, range, cooldown, slots, durability and AI loadout before manifest construction. A material mismatch goes to the director; never substitute weapons.
    - B09 Veilstep: RUL-2026-10-16-007 uses whatever the live record is; re-run gate A6 if it differs from 1r / CD 5.
    - The 19 cache ingredient IDs and the 8 recipes (2026-10-13 census capture).
 6. **Username collisions** for the 16 regulars and 4 commanders (law 66).
 7. **Calibration anchor fight** (balance doctrine law 13) before the stat ladder (RUL-2026-10-16-011) is final in game.
 8. **Two-phase build (law 17).** The Last Directive and Extermination Order must be created first. Arakane then equips them by literal ID; the validator errors for this are expected until then.
+9a. **F5: full AI loadout and combat integration** (independent review). Build a small offline fixture: create/edit through the editor with the Arakane loadout and at least one regular; attach `aiProfileId`; start one real quest battle. Verify the real gear rows (new AI items are inserted `equipped: "CHEST"`, while gate A's synthetic fixture uses ITEM_1 / HAND_1 / HAND_2), their usable battle actions and the attached rules. The release stays **BLOCKED** until this and calibration pass.
 9. **Ghost Ship Beacon drop** (10% per clear, RUL-2026-10-16-010) goes into the Ghost Ship content when the Beacon ships. This package does not edit Ghost Ship.
 
 ## C. Tooling (Lane A, not changed here)
@@ -68,3 +69,5 @@ As of 2026-10-16 the director has ruled on every design and balance decision thi
 | Written content | 16 regulars, 4 puzzles, 99 texts and the Division IV foreshadowing accepted | RUL-2026-10-16-011 | `design/regulars.json`, `design/script.json` |
 | Puzzle validator exception | Granted for `d2`–`d5.n.puzzle` | RUL-2026-10-16-012 | `check_validate.py` |
 | F4/F5 API text exposure | Accepted | RUL-2026-10-16-012 | this docket |
+| Extermination Order stats | 60 AP, range 5, single target, 80 damage, Elemental Seal 100/2r, Cleanse Prevent 100/2r; cooldown 4; active Final Stand only | RUL-2026-10-16-013 | `design/commanders.json` |
+| Arakane equipment | Countermand, Solar Bow (HAND_1), Crossbow (HAND_2) **approved**; fresh captures required | RUL-2026-10-16-013 | `design/commanders.json` (`itemsStatus`) |

@@ -121,7 +121,7 @@ def compose():
             objectives.append({"id": n["id"], "task": "fail_quest", "description": t["text"]})
     q = entry["quest"]
     quest = {
-        "status": "OFFLINE PACKAGE — not a manifest; symbolic refs; values and wording accepted (RUL-2026-10-16-004..012) except art, cache/Beacon rarity and cache names; never push/",
+        "status": "OFFLINE PACKAGE — not a manifest; symbolic refs; values and wording accepted (RUL-2026-10-16-004..013) except art, cache/Beacon rarity and cache names; never push/",
         "provenance": {"graph": gp, "graphSha256": lock["selectedGraph"]["rawSha256"], "lock": LOCK, "lockSha256": sha(LOCK),
                        "ruling": lock["selectedGraph"]["directorSelectionRuling"]},
         "record": {
@@ -247,7 +247,7 @@ def validation_manifest(quest, profiles, cmds, entry, caches):
     items = []
     for key, ex in cmds["exclusives"].items():
         r = {k: v for k, v in ex["record"].items() if k not in ("dropChancePerc",)}
-        r["effects"] = [{k: v for k, v in e.items() if k != "candidate"} for e in r["effects"]]
+        r["effects"] = [{k: v for k, v in e.items() if k not in ("candidate", "approval")} for e in r["effects"]]
         entity = "item" if r.get("itemType") else "jutsu"
         items.append({"entity": entity, "slot": "create", "srcId": key[2:].lower(), "name": r["name"], "data": {**r, "hidden": True}})
     b = entry["beacon"]

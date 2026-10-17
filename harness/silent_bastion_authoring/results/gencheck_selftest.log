@@ -1,0 +1,9 @@
+ok   all five current (status 0)
+ok   first check exits nonzero (status 1)
+ok   middle check exits nonzero (status 1)
+ok   last check exits nonzero (status 1)
+ok   first check reports STALE (status 1)
+ok   middle check reports STALE (status 1)
+ok   last check reports STALE (status 1)
+ok   later checks still run after a failure
+test_gencheck: 0 failed

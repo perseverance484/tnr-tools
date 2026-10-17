@@ -25,7 +25,7 @@
 - EA04 Zephyr Lance (60AP, range5/CD6; flat Pierce against shields).
 - B13 Hexweave (60AP, range4/CD8; Damage40, IDT40%, reduced healing, reduced stats).
 - B17 Worldbreaker Chorus (60AP, range5/CD10; Damage70 + Stun2r).
-- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand). **Cooldown 4 approved** (RUL-2026-10-16-004, AR1 mitigation). **Name approved** (RUL-2026-10-16-011).
+- **Exclusive Extermination Order** (working name only; **Damage80 + Elemental Seal2r + Cleanse Prevent2r**; only during active Final Stand). **Cooldown 4 approved** (RUL-2026-10-16-004, AR1 mitigation). **Name approved** (RUL-2026-10-16-011). **60 AP, range 5, single target, Damage 80, Elemental Seal 100/2r, Cleanse Prevent 100/2r approved** (RUL-2026-10-16-013); the active-Final-Stand restriction is retained.
 - B27 Scorching Rend (60AP, range5/CD6; damage + wound + afterburn).
 - B05 Devouring Grasp (60AP, range5/CD6; damage + drain).
 - B26 Braced Strike (60AP, range5/CD5; damage + defensive buff).
@@ -45,7 +45,7 @@
 | HAND_1 | **Solar Bow** (existing item) | **40AP, range5, CD3, not consumed** | Long-range weapon response while concealed or after a 60AP jutsu. |
 | HAND_2 | **Crossbow** (existing item) | **40AP, range3, CD0, not consumed** | **Repeatable close-range weapon action** after Arakane has approached; no need to wait for a jutsu or cooldown. |
 
-**Provenance limitation:** Solar Bow and Crossbow stats above are from the pinned game's **historical `app/data/item.sql` seed**, not a fresh live readback. The seed holds Solar Bow id `ALqXVSL58QMfJ4DgoJ5Il` and Crossbow id `LbccOnzfsADLgTBPSHjKK`. Verify the *current* full item records, weapon equip limits, AI equipment quantities, cooldown and availability from a fresh approved capture before constructing the manifest. The game has HAND_1 and HAND_2 slots and permits multiple hand weapons absent a specific restriction, but this combination still requires an actual loadout test.
+**Selection approved (RUL-2026-10-16-013):** Solar Bow in HAND_1 and Crossbow in HAND_2, with Countermand. Fresh captures remain mandatory; a mismatch goes to the director, not a substitution. **Provenance limitation:** Solar Bow and Crossbow stats above are from the pinned game's **historical `app/data/item.sql` seed**, not a fresh live readback. The seed holds Solar Bow id `ALqXVSL58QMfJ4DgoJ5Il` and Crossbow id `LbccOnzfsADLgTBPSHjKK`. Verify the *current* full item records, weapon equip limits, AI equipment quantities, cooldown and availability from a fresh approved capture before constructing the manifest. The game has HAND_1 and HAND_2 slots and permits multiple hand weapons absent a specific restriction, but this combination still requires an actual loadout test.
 
 **Chakra Pill II:** Exists in the historic item-name index (`nThwqBAKNrl1_4UTL-D_m`, CONSUMABLE). Its **current effects, cost, cooldown and `destroyOnUse` are not verified** here. Do **not** treat it as guaranteed CP recovery, or use finite consumables as the only Stealth fallback. It may be added later as optional AI utility if a rule slot is intentionally reassigned and fresh capture proves it helps. The two repeatable weapons above are the current safety proposal.
 

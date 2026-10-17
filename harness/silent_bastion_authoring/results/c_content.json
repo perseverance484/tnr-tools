@@ -1,5 +1,5 @@
 {
- "assertions": 44,
+ "assertions": 45,
  "checks": [
   {
    "name": "QuestValidator accepts the compiled candidate (battlepyramid, choose, pick 1, Beacon entry)",
@@ -55,6 +55,10 @@
   },
   {
    "name": "40 battles: non-empty objective text",
+   "pass": true
+  },
+  {
+   "name": "no objective text or option label has an unbalanced double quote (review F4)",
    "pass": true
   },
   {
@@ -213,7 +217,7 @@
     ]
    }
   },
-  "savedContentBytes": 128074,
+  "savedContentBytes": 128314,
   "startingEffects": [
    "b2.n.boss.alert:applyDebuffs:increasedamagetaken",
    "b2.n.boss.combat:applyBuffs:stunprevent",

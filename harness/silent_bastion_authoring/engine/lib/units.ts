@@ -59,7 +59,7 @@ export const jutsuRecord = (code: string) => {
   const ex = commanders.exclusives[code]!.record;
   const template = structuredClone(sources.jutsu[ex.target === "SELF" ? "B10" : "S07"]!.record);
   return { ...template, ...ex, id: exclusiveId(code), jutsuType: "AI", hidden: true,
-    effects: ex.effects.map(({ candidate: _c, ...e }) => tag({ ...e, target: ex.target === "SELF" ? "SELF" : "INHERIT" })) };
+    effects: ex.effects.map(({ candidate: _c, approval: _a, ...e }) => tag({ ...e, target: ex.target === "SELF" ? "SELF" : "INHERIT" })) };
 };
 
 /** Full item record: candidate exclusive (Countermand) or the upstream seed row. */

@@ -103,6 +103,9 @@ describe("C1 compiled quest: schemas, flow, counts, provenance", () => {
     const emptyDialog = objs.filter((o) => o.task === "dialog" && (!String(o.description).trim() || (o.nextObjectiveId as { text: string }[]).some((x) => !x.text.trim()))).map((o) => o.id);
     c("45 dialogs: non-empty scene text and option labels", emptyDialog.length === 0, emptyDialog);
     c("40 battles: non-empty objective text", objs.filter((o) => o.task === "start_battle" && !String(o.description).trim()).length === 0);
+    const oddQuotes = objs.filter((o) => [String(o.description ?? ""), ...(Array.isArray(o.nextObjectiveId) ? (o.nextObjectiveId as { text: string }[]).map((x) => x.text) : [])]
+      .some((t) => (t.match(/"/g) ?? []).length % 2 === 1)).map((o) => o.id);
+    c("no objective text or option label has an unbalanced double quote (review F4)", oddQuotes.length === 0, oddQuotes);
     c("12 resets are silent", objs.filter((o) => o.task === "reset_quest" && String(o.description ?? "").trim()).length === 0);
     const puzzle: Record<number, unknown> = {};
     const bad: string[] = [];

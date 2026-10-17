@@ -813,6 +813,7 @@
     "SEED:Solar Bow",
     "SEED:Crossbow"
    ],
+   "itemsStatus": "APPROVED loadout — Countermand (RUL-2026-10-16-011), Solar Bow in HAND_1 and Crossbow in HAND_2 (RUL-2026-10-16-013). Weapon IDs/values are historic upstream seed rows: FRESH CAPTURES REQUIRED before manifest construction; a mismatch goes to the director, never a silent substitution",
    "innate": [
     {
      "type": "sealprevent",
@@ -1181,7 +1182,7 @@
       "power": 30,
       "rounds": 5,
       "calculation": "percentage",
-      "candidate": "power 30 CANDIDATE — approved effect, unapproved magnitude"
+      "approval": "power 30 APPROVED — RUL-2026-10-16-011"
      },
      {
       "type": "clearprevent",
@@ -1192,7 +1193,7 @@
    }
   },
   "X:EXTERMINATION_ORDER": {
-   "status": "APPROVED 80 EP + Elemental Seal 2r + Cleanse Prevent 2r, only during active Final Stand; name 'Extermination Order' APPROVED (RUL-2026-10-16-011); cooldown 4 APPROVED (RUL-2026-10-16-004); AP/range/powers CANDIDATE",
+   "status": "APPROVED 80 EP + Elemental Seal 2r + Cleanse Prevent 2r, only during active Final Stand; name APPROVED (RUL-2026-10-16-011); cooldown 4 APPROVED (RUL-2026-10-16-004); 60 AP, range 5, single target, 80 damage, Elemental Seal 100/2r, Cleanse Prevent 100/2r APPROVED (RUL-2026-10-16-013). Active-Final-Stand restriction retained (rule 2); the AR1 residual risk stands",
    "record": {
     "name": "Extermination Order",
     "jutsuType": "AI",
@@ -1221,13 +1222,13 @@
       "type": "elementalseal",
       "power": 100,
       "rounds": 2,
-      "candidate": "power 100 CANDIDATE (proc not approved)"
+      "approval": "power 100 APPROVED — RUL-2026-10-16-013"
      },
      {
       "type": "cleanseprevent",
       "power": 100,
       "rounds": 2,
-      "candidate": "power 100 CANDIDATE"
+      "approval": "power 100 APPROVED — RUL-2026-10-16-013"
      }
     ]
    },
