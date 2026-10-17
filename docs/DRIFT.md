@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-10-16)
+# DRIFT.md - upstream contract drift (2026-10-17)
 
-Upstream: studie-tech/TheNinjaRPG@0651b039a466516a8fe24fc13b56f60dea11b7eb
+Upstream: studie-tech/TheNinjaRPG@eddf340568d7edb52228252a2f61b3385b66af83
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -179,36 +179,36 @@ REMOVALS
   ftype  jutsu  requiredTaijutsuOffence  preprocess
   ftype  jutsu  requiredWillpower  preprocess
 CHANGES
-  now-required  item  requiredSageMastery  optional -> required
-  now-required  item  isFarmSeed  optional -> required
-  now-required  item  farmTimeReductionSeconds  optional -> required
-  now-required  jutsu  requiredBloodlineMastery  optional -> required
-  now-required  item  cookingTimeSeconds  optional -> required
-  now-required  quest  teamEnabled  optional -> required
-  now-required  item  farmGrowTimeSeconds  optional -> required
-  now-required  jutsu  requiredTaijutsuMastery  optional -> required
-  now-required  jutsu  requiredGenjutsuMastery  optional -> required
-  now-required  item  farmMinLevel  optional -> required
-  now-required  item  cookingExperience  optional -> required
-  now-required  jutsu  requiredBukijutsuMastery  optional -> required
   now-required  jutsu  requiredSageMastery  optional -> required
-  now-required  item  cookingOutputQuantity  optional -> required
-  now-required  item  requiredNinjutsuMastery  optional -> required
-  now-required  item  mealDurationSeconds  optional -> required
-  now-required  item  farmSellValue  optional -> required
-  now-required  item  farmHarvestExperience  optional -> required
-  now-required  item  farmPlantExperience  optional -> required
-  now-required  item  requiredBloodlineMastery  optional -> required
-  now-required  item  farmExtractSeedCount  optional -> required
-  now-required  item  farmExtractSeedItemId  optional -> required
-  now-required  item  farmYieldItemId  optional -> required
-  now-required  item  cookingMinLevel  optional -> required
-  now-required  item  isFarmFertilizer  optional -> required
+  now-required  jutsu  requiredNinjutsuMastery  optional -> required
   now-required  item  farmFertilizerExperience  optional -> required
+  now-required  jutsu  requiredTaijutsuMastery  optional -> required
+  now-required  item  mealDurationSeconds  optional -> required
+  now-required  item  farmTimeReductionSeconds  optional -> required
+  now-required  item  farmMinLevel  optional -> required
+  now-required  quest  teamEnabled  optional -> required
+  now-required  jutsu  requiredGenjutsuMastery  optional -> required
+  now-required  item  farmExtractSeedItemId  optional -> required
+  now-required  jutsu  requiredBloodlineMastery  optional -> required
+  now-required  item  cookingExperience  optional -> required
+  now-required  item  cookingMinLevel  optional -> required
+  now-required  item  farmYieldItemId  optional -> required
   now-required  item  requiredBukijutsuMastery  optional -> required
+  now-required  item  cookingOutputQuantity  optional -> required
+  now-required  item  farmGrowTimeSeconds  optional -> required
+  now-required  item  farmExtractSeedCount  optional -> required
+  now-required  item  isFarmFertilizer  optional -> required
+  now-required  item  requiredNinjutsuMastery  optional -> required
+  now-required  item  farmHarvestExperience  optional -> required
+  now-required  item  requiredSageMastery  optional -> required
   now-required  item  requiredTaijutsuMastery  optional -> required
   now-required  item  requiredGenjutsuMastery  optional -> required
-  now-required  jutsu  requiredNinjutsuMastery  optional -> required
+  now-required  item  farmSellValue  optional -> required
+  now-required  item  requiredBloodlineMastery  optional -> required
+  now-required  jutsu  requiredBukijutsuMastery  optional -> required
+  now-required  item  cookingTimeSeconds  optional -> required
+  now-required  item  farmPlantExperience  optional -> required
+  now-required  item  isFarmSeed  optional -> required
 ADDITIONS
   field  item  cookingExperience
   field  item  cookingMinLevel
@@ -275,6 +275,9 @@ BREAKING: 48 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
 REMOVALS
   const-member  ALLIANCE_VILLAGE_TYPES  TOWN
+  const-member  AutoCombatBattleTypes  ARENA
+  const-member  AutoCombatBattleTypes  QUEST
+  const-member  AutoCombatBattleTypes  TRAINING
   const-member  AvailableEffectTypes  noncombatconsumereward
   const-member  SECTOR_TYPES  TOWN
   const-member  StatNames  bukijutsuDefence
@@ -298,6 +301,7 @@ REMOVALS
   const-member  UserStatNames  taijutsuDefence
   const-member  UserStatNames  taijutsuOffence
   const-member  UserStatNames  willpower
+  const-member  UserStatuses  KAGE_QUEUED
   const-member  privateState  bukijutsuDefence
   const-member  privateState  bukijutsuOffence
   const-member  privateState  genjutsuDefence
@@ -384,7 +388,7 @@ ADDITIONS
   const-member  ContentProposalOperations  CREATE
   const-member  ContentProposalOperations  UPDATE
   const-member  ContentProposalRejectReasons  FACTUALLY_WRONG
-  ... 300 more
+  ... 321 more
 
-BREAKING: 49 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 53 change(s) - DO NOT ADOPT (exit 1)
 ~~~
