@@ -44,6 +44,15 @@
 
 **Repository integration caution:** the art branch carries an art-studio `RUL-2026-10-17-004` whose identifier conflicts with `main`'s unrelated import `RUL-2026-10-17-004`. Resolve ruling IDs and any authority differences before recommending merge; do not rewrite user decisions merely to silence a conflict. This branch is not yet an integration candidate.
 
+## Portable reference starter (locally QC-verified)
+
+- Conversation deliverable (not a Git binary): `Bloodright_Wave03_Production_Starter_20261017.zip`
+- **SHA-256:** `baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30` (**6,395,153 bytes**)
+- Contains **three separate 1254px verified geometry-reference masters** plus **21 previously accepted 256px lossless WebP comparisons** (six pilot, 15 Wave 02 including corrected Shiroi v02 role assignment).
+- Manifest SHA-256s verified against preserved original source-package bytes; ZIP CRC and decoder/format checks pass. The package is intentionally light and contains **no Wave 03 jutsu source images** and **no newly generated icons**.
+- Wave 03 source reference ZIPs must still be supplied by the operator before any treatment or new art can be proposed. The previous-approved family colors are comparison evidence, not a palette prescription for an unseen target.
+- The portable starter is not an immutable Git `imagePack` or technical sign-off for `skillTree.image`.
+
 ## Immediate next action
 
 Request the five original bloodline art ZIPs, or a single outer ZIP containing them, then begin verification and issue the five **source-grounded** treatment cards. No generated Wave 3 artwork exists yet.
