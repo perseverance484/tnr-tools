@@ -1,9 +1,9 @@
 # Isolated Image Generation — TNR Art Studio Protocol
 
-**Status:** Director-approved operating model, 2026-10-14 (RUL-2026-10-14-001).  
+**Status:** FINAL. Director-approved 2026-10-14 (RUL-2026-10-14-001); tooling contract integrated 2026-10-17 (PR #34). Changes to this protocol need a new director ruling; changes to the JUTSU_ICON tooling go through Lane A review.  
 **Owner:** Art Studio coordination and Image Production under director acceptance.  
 **Routes from:** docs/00_INDEX.md and docs/workflows/ART_PRODUCTION.md.  
-**Scope:** ChatGPT-assisted creation of one production art asset at a time; Blue Blade Eyes (BBE) jutsu icons are the first proven case.
+**Scope:** assisted creation of one production art asset at a time, in any collection. Proven on the Blue Blade Eyes (BBE) jutsu-icon collection, completed 2026-10 (register: docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md, kept as the worked example).
 
 This is an **art-session coordination protocol**, not a replacement for skills/producing-tnr-art/SKILL.md, the current 25x_DATA_art_spec.json, docs/DOCTRINE.md, generated game contracts, or the user-controlled live upload path.
 
@@ -12,7 +12,7 @@ This is an **art-session coordination protocol**, not a replacement for skills/p
 | Session | Responsibility | Deliberately excluded |
 | --- | --- | --- |
 | **Art Studio / workspace** (persistent, can be reopened) | Reconstruct repo state; maintain an approved identity register and source ledger; decide next subject; write individual briefs; compare against the family; intake, verify, process, QC, package and record files | Image generation, silently changing accepted art, live-game requests/writes |
-| **Isolated Generation** (new conversation for each asset) | Ingest one small art brief and one or two **individual** approved references; generate **one candidate at a time** for that subject; obtain director visual approval; return the original image | Other jutsu, icon sheets, broad repository writes, batch generation, processing, publishing |
+| **Isolated Generation** (new conversation for each asset) | Ingest one small art brief and one or two **individual** approved references; generate **one candidate at a time** for that subject; obtain director visual approval; return the original image | Other assets, icon sheets, broad repository writes, batch generation, processing, publishing |
 
 The studio retains the full family overview; the generation session deliberately does not. One jutsu/asset per generation conversation. Revisions for that same asset may stay in its isolated session while the target remains stable; repeated wrong-subject generation means **close and restart clean**, not longer prompts in a polluted context.
 
@@ -64,7 +64,7 @@ Read the cited collection register for this one target.
 Goal/action: <what the technique does>
 Dominant silhouette: <one unmistakable shape>
 Secondary effect: <one supporting action cue>
-Rendering lock: <exact palette/material/facet/frost guidance>
+Rendering lock: <exact palette/material/texture guidance from the register>
 References attached: <one or two individually, each labeled style-only/material-only/subject>
 Composition: <orientation, negative space, focal hierarchy>
 Distinctiveness exclusions: <already-used silhouettes + wrong-subject forms>
@@ -90,22 +90,22 @@ Do not promote 'visually approved' or 'file < byte cap' to 'upload-ready'. Recor
 
 ## 5. Jutsu icon background and processing policy (director decision)
 
-**Director decision (2026-10-14): newly authored TNR jutsu icons have designed backgrounds; transparency is NOT a required presentation property for jutsu icons.** Do not remove the frosted background or create fake alpha just to satisfy a generic checker. This is a **jutsu-field decision**; do not generalize it to item, bloodline, avatar or character art, and do not retroactively rewrite existing live icons.
+**Director decision (2026-10-14): newly authored TNR jutsu icons have designed backgrounds; transparency is NOT a required presentation property for jutsu icons.** Do not remove the designed background or create fake alpha just to satisfy a generic checker. This is a **jutsu-field decision**; do not generalize it to item, bloodline, avatar or character art, and do not retroactively rewrite existing live icons.
 
 **Mechanical contract:** jutsu.image has its own spec target, **JUTSU_ICON**, in skills/producing-tnr-art/data/25x_DATA_art_spec.json. Its `alpha` policy is `optional`: scripts/artpreflight.py accepts an opaque RGB export and skips the alpha, soft-edge and residual-key checks that only apply to keyed art; a transparent jutsu icon is still held to every keyed check. Item and bloodline icons remain on shared **ICON** and still require alpha. Before that split, an opaque jutsu icon drew an **alpha** error and, on any near-lime colour in the design, a false **spill** error; treat any preflight record made before the split accordingly. The validator's verdict is still not a live-upload verification.
 
-For **BBE**, the additional director-imposed export ceiling is **strictly less than 80,000 bytes** (more conservative than either 80,000 or 80 KiB at the boundary). This is a workstream limit, not an unapproved replacement for the generic repo upload caps; check it with `artpreflight.py --max-bytes 80000`, which fails a file of 80,000 bytes or more. Derive all other export numbers from the current spec; JUTSU_ICON recommends 256×256 and requires square lossless WebP with at least 160px width.
+**Workstream byte caps.** A collection may set an export ceiling stricter than the spec's; record it in that collection's register and check it with `artpreflight.py --max-bytes N`, which fails a file of N bytes or more ("under N"). BBE's was under 80,000 bytes. A workstream cap never replaces the generic repo upload caps. Derive all other export numbers from the current spec; JUTSU_ICON recommends 256×256 and requires square lossless WebP with at least 160px width.
 
-Use repository processing tools where their contract applies. **Do not run lime chroma key over an opaque designed background.** The opaque export is Pillow RGB resizing to 256×256 and lossless WebP export, followed by `artpreflight.py --type JUTSU_ICON --max-bytes 80000` (the type is inferred only from an allow-listed `<name>_jutsu[_icon]` style name with no evidence for any other target; otherwise pass `--type`, which is always safe). If the export needs lossy encoding or destructive palette loss to meet 80,000 bytes, present the visible quality tradeoff rather than silently changing the approved look.
+Use repository processing tools where their contract applies. **Do not run lime chroma key over an opaque designed background.** The opaque export is Pillow RGB resizing to 256×256 and lossless WebP export, followed by `artpreflight.py --type JUTSU_ICON [--max-bytes N]`. Always pass `--type` in this workflow: filename inference is a convenience that only accepts an allow-listed `<name>_jutsu[_icon]` / `jutsu_<name>` style name and refuses anything doubtful. If the export needs lossy encoding or destructive palette loss to meet a byte cap, present the visible quality tradeoff rather than silently changing the approved look.
 
 ### Production QC record
 
 - Square/size checked against current target specification.
 - Lossless WebP verified from actual container/codec (not extension alone).
 - Background appearance and focal contrast visually checked at 125/64/32.
-- Strict BBE 80,000-byte ceiling checked.
+- Workstream byte cap, if the register sets one, checked with `--max-bytes`.
 - Source and final SHA-256, dimensions, byte count and versioned filenames captured.
-- artpreflight invoked against JUTSU_ICON (with the workstream `--max-bytes`) and full results recorded.
+- artpreflight invoked with `--type JUTSU_ICON` (plus the workstream `--max-bytes`, if any) and full results recorded.
 - Output @img filename identical to eventual manifest reference; ZIP entries and checksums checked when packaged.
 - No upload, publication or game-state claim without the user-controlled game workflow.
 
@@ -113,11 +113,13 @@ The JUTSU_ICON acceptance path is Lane A tooling owned by Fable; further changes
 
 ## 6. Repository evidence and handoffs
 
-Keep collection-specific identity/approval/source-evidence in its register (for the pilot: docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md and SOURCE_EVIDENCE.json). If exact approved reference bytes are only in a conversation, label **conversation source / Git intake pending**, even if the local file was hashed. A reproducible future generation session needs an actual attached or repo-pinned reference image, not merely its SHA or a text description. Intake source binaries on a dedicated art branch when separately assigned; do not invent CDN URLs or overwrite approved files.
+Keep collection-specific identity, silhouette ledger, approval state, byte cap and source evidence in that collection's register under docs/design/<collection>/ (worked example: docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md and SOURCE_EVIDENCE.json). If exact approved reference bytes are only in a conversation, label **conversation source / Git intake pending**, even if the local file was hashed. A reproducible future generation session needs an actual attached or repo-pinned reference image, not merely its SHA or a text description. Intake source binaries on a dedicated art branch when separately assigned; do not invent CDN URLs or overwrite approved files.
 
 **Studio → generation:** one compact fenced brief and 1–2 approved individual references.  
 **Generation → studio:** original candidate, exact target, approval status, generation/creation evidence if available.  
 **Studio → operator/Fable:** versioned filename, type, bytes, SHA-256, QC and preflight verdict, remaining contract issues, @img wiring needs if any.  
-**End of isolated session:** close after one accepted/rejected target. Do not reuse the thread for the next jutsu.
+**End of isolated session:** close after one accepted/rejected target. Do not reuse the thread for the next asset.
+
+**Closing a collection:** when the director reports the collection done, mark its register CLOSED with the date and what the repository does and does not hold as evidence (exports, preflight records, uploads). Do not back-fill evidence that was never recorded.
 
 This workflow changes neither the normal branch-ownership rules nor the user-only live-game upload boundary.

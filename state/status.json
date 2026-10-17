@@ -1,8 +1,8 @@
 {
   "generated": "2026-10-17",
-  "session": "Art tooling: PR #31 isolated art-generation protocol reviewed and integrated; JUTSU_ICON opaque jutsu-icon spec/preflight split built, F1 corrected through two focused re-review rounds, integrated as PR #34",
+  "session": "Art tooling: isolated art-generation protocol (PR #31) and JUTSU_ICON opaque preflight (PR #34) integrated; protocol finalized; BBE jutsu-icon collection closed on dauntless's report",
   "format_note": "PROJECTION of state/digest.json - edit the digest, run session_close.py",
-  "state_line": "JUTSU_ICON OPAQUE JUTSU-ICON PREFLIGHT INTEGRATED (PR #34, main@0c74ef724f2d622816ef9d228572f76dbf24b24b). jutsu.image has its own spec target with alpha optional, so a designed opaque background passes artpreflight; item and bloodline icons stay on ICON and still require alpha; --max-bytes enforces the BBE under-80,000-byte cap. JUTSU_ICON filename inference is allow-listed and fails closed; explicit --type is authoritative. ChatGPT's F1 finding was corrected; ChatGPT ran out of tokens, so the focused re-review was done at dauntless's direction by a separate Claude reviewer agent (PASS WITH NOTES). BBE jutsu icons: 4 raw visuals approved, none exported, sources not yet in Git; 4 still to generate. Other workstream entries below are carried from the 2026-09-20 digest and were NOT reverified this session.",
+  "state_line": "ISOLATED ART-GENERATION WORKFLOW FINAL. docs/workflows/ISOLATED_ART_GENERATION.md is the final protocol (RUL-2026-10-14-001) and its tooling contract is integrated: jutsu.image has its own JUTSU_ICON spec target with alpha optional, so a designed opaque background passes artpreflight; item and bloodline icons stay on ICON and still require alpha; --max-bytes enforces any workstream byte cap; --type is always passed in the workflow. ChatGPT's F1 finding was corrected; the focused re-review was done at dauntless's direction by a separate Claude reviewer agent (PASS WITH NOTES). BBE jutsu-icon collection CLOSED 2026-10-17 on dauntless's report; its exports and uploads are not recorded in the repository. Other workstream entries below are carried from the 2026-09-20 digest and were NOT reverified this session.",
   "ruled_this_session": [
     "2026-10-14 RULED (dauntless): Art Studio + isolated per-image generation conversations; newly produced jutsu icons carry designed backgrounds and transparency is not required; BBE jutsu-icon exports must be under 80,000 bytes. RUL-2026-10-14-001.",
     "2026-10-17 DIRECTED (dauntless): ChatGPT out of tokens; finish the JUTSU_ICON F1 re-review and integration without it. Substitute review by a separate Claude reviewer agent, recorded in docs/reviews/JUTSU_ICON_F1_FOCUSED_REREVIEW_20261017.md. One-off process deviation, not a precedent."
@@ -10,11 +10,11 @@
   "deployed": [
     "main@f083ddecfd400431ae2160d814546dab30f54f15: PR #31 merged - docs/workflows/ISOLATED_ART_GENERATION.md, docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md + SOURCE_EVIDENCE.json, RUL-2026-10-14-001. Review record docs/reviews/ISOLATED_ART_GENERATION_PR31_INDEPENDENT_REVIEW_2026-10-14.md.",
     "main@0c74ef724f2d622816ef9d228572f76dbf24b24b: PR #34 merged - 25x_DATA_art_spec.json JUTSU_ICON target, artpreflight.py alpha policy + allow-listed jutsu inference + --max-bytes, selftest 38 -> 98, docs. Reviewed code head fe3712129c3bd86f10bdf9e7eadf2539ebd10d70.",
-    "dist/producing-tnr-art.zip rebuilt by skillpack.yml; packaged spec/artpreflight/selftest/SKILL.md byte-identical to source. Skill reinstall by dauntless not yet done."
+    "dist/producing-tnr-art.zip rebuilt by skillpack.yml; packaged spec/artpreflight/selftest/SKILL.md byte-identical to source. Skill reinstall by dauntless not yet done.",
+    "Protocol finalized: ISOLATED_ART_GENERATION.md status FINAL, BBE-specific limits generalised to per-collection registers, collection-closing rule added; BBE register marked CLOSED."
   ],
   "in_progress": {
-    "jutsu_icon_preflight": "COMPLETE / integrated at main@0c74ef7 (PR #34). Notes N1-N3 in docs/reviews/JUTSU_ICON_F1_FOCUSED_REREVIEW_20261017.md are non-blocking.",
-    "bbe_jutsu_icons": "Blue Crimson, Sapphire Command, Ice Shackles, Icebound Might: RAW VISUAL APPROVED only - no export, no preflight record, source bytes conversation-only (hashes in docs/design/blue_blade_eyes/SOURCE_EVIDENCE.json). Quintessential Flake, Arctic Frost, Blade Resonance, Glacial Volley: need one isolated generation session each.",
+    "isolated_art_workflow": "FINAL. Protocol docs/workflows/ISOLATED_ART_GENERATION.md; tooling integrated at main@0c74ef7 (PR #34). BBE register closed 2026-10-17 and kept as the worked example.",
     "forge_size_pass": "COMPLETE / integrated at 05e7156 and released in Forge 0.5.1. Budget ratchet now 354000 raw/78000 gzip; measured 339669/74926. [carried from 2026-09-20; not reverified 2026-10-17]",
     "godstorm_publication": "The three new Stormcourt assets and the Stormcourt quest are live but HIDDEN, as doctrine requires. Publishing is a separate step that waits on the content admin's go-ahead and is dauntless's to perform. [carried from 2026-09-20; not reverified 2026-10-17]",
     "forge_next_phase1": "NEXT IMPLEMENTATION WORK per RUL-2026-09-20-004. READY/FROZEN contract remains on main at state/prompt_forge_next_phase1.md; implementation still has not begun. [carried from 2026-09-20; not reverified 2026-10-17]",
@@ -24,17 +24,13 @@
   },
   "open_by_owner": {
     "dauntless": [
-      "Attach the four approved BBE jutsu source originals so they can be committed with their SHA-256 and exported under 80,000 bytes.",
-      "Run the remaining four BBE jutsu icons through isolated generation sessions (docs/workflows/ISOLATED_ART_GENERATION.md).",
       "Decide whether jutsu icons get their own prompt scaffold (art direction).",
-      "After the first opaque jutsu icon upload, check in game whether it hides a rarity frame (unverified).",
       "Reinstall the producing-tnr-art skill from dist/ to pick up JUTSU_ICON.",
       "Godstorm repair is complete and verified; nothing further is owed on it. The three new assets and the quest are live but hidden. [carried from 2026-09-20]",
       "Publishing the Godstorm content is a separate step and waits on the content admin's go-ahead. [carried from 2026-09-20]",
       "Optionally delete redundant branch refs per docs/reviews/FORGE_NEXT_BRANCH_CLEANUP_FINAL.md. [carried from 2026-09-20]"
     ],
     "claude": [
-      "On receipt of BBE originals: commit sources, export via Pillow RGB 256x256 lossless WebP, run artpreflight --type JUTSU_ICON --max-bytes 80000, record QC per the register.",
       "mission.py --selftest cannot find its data outside /mnt/project in the cloud container (pre-existing; not touched).",
       "P0 size pass and P1 dossier/spec/lint are integrated and released; no further R1-R3 correction remains. [carried from 2026-09-20]",
       "After director acceptance of the design contract, prepare the concrete P2 brief including source-archive resolution, approved derivatives, MIME/dimensions and exact-art readiness. Keep renderer delivery separate from installed Android acceptance. [carried from 2026-09-20]",
@@ -57,15 +53,16 @@
     "Forge Next Phase 2+ director choices remain deferred until the brief for the phase that needs them. The Presentation Studio decisions are settled (RUL-2026-09-20-001..004)."
   ],
   "verified": [
-    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 35 files; 0 errors, 5 warnings (16d, 18, 37, 61, 69; pre-existing)",
+    "doctrinemap -> 21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)",
     "doctrine projections -> all projections current (exit 0)",
     "packs/TOCs -> all packs and TOCs current (exit 0)",
+    "lawmap -> 93 laws, 93 matrix rows, 77 citations across 36 files; 0 errors, 5 warnings (16d, 18, 37, 61, 69; pre-existing)",
     "parity tnr_results_1791906972359.json -> RED (EXIT 1): validate.py --parity raises TypeError on the bundle's checks:null. Pre-existing (bundle committed 2026-10-13 at 057acdd; validate.py untouched this session); not fixed and not reported green. session_close.py run without --guards because of it.",
     "artpreflight_selftest.py on main@0c74ef7 -> 98 passed, 0 failed; shotlist 23/0, rawqc OK, style_refs passed",
     "Live-game requests 0; live-game writes 0; credentials none."
   ],
   "token_ledger": [],
-  "next": "Art: send the four approved BBE jutsu originals to commit and export under the JUTSU_ICON preflight, then run the remaining four through isolated generation sessions. The 2026-09-20 carried next step (Forge Next Phase 1 from state/prompt_forge_next_phase1.md) has not been reverified against work merged since; confirm before picking it up.",
+  "next": "The isolated art-generation workflow is final; use it for the next art collection, with --type JUTSU_ICON for jutsu icons. The 2026-09-20 carried next step (Forge Next Phase 1 from state/prompt_forge_next_phase1.md) has not been reverified against work merged since; confirm before picking it up.",
   "forge_next": {
     "phase_0": "COMPLETE / integrated",
     "phase_1": "READY / FROZEN; implementation not begun at closeout",
@@ -105,11 +102,11 @@
     "original_review": "chatgpt/review-jutsu-icon-alpha-20261016@0763effd1986115a156ae8c5fdc0614565bcbebb",
     "rereview": "docs/reviews/JUTSU_ICON_F1_FOCUSED_REREVIEW_20261017.md (separate Claude agent; PASS WITH NOTES)",
     "selftest": "artpreflight_selftest 98/0",
-    "bbe_raw_approved": 4,
-    "bbe_exported": 0,
-    "bbe_pending_generation": 4,
     "live_requests": 0,
-    "live_writes": 0
+    "live_writes": 0,
+    "workflow_status": "FINAL",
+    "bbe_collection": "CLOSED 2026-10-17 (dauntless report); exports/uploads not recorded in repo",
+    "unverified": "whether an opaque jutsu icon hides a rarity frame in game"
   },
   "carried_state_notice": "2026-10-17: only this session's art-tooling entries were verified. Every other entry is carried verbatim from the 2026-09-20 digest; work merged since then (e.g. Ghost Ship Skyglass releases, QW-1 workstream starter) is not summarised here - read docs/RULINGS.md and docs/reviews/ before relying on any carried line."
 }
