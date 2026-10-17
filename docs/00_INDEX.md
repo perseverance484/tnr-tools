@@ -88,6 +88,7 @@ No clone means no state. Say so rather than working from memory.
 | Tuning, rewards, tiers, drop math | skill `references/balance.md`; `calc.py` |
 | Operative and raider lines (Unsigned, Verge, Forsworn) | skill `references/lines.md` |
 | Anything that pushes | skill `references/pipeline.md`, alongside the entity reference |
+| Bloodright **structural rollout / three tier emblems** (NOT jutsu-icon reworks) | `docs/design/bloodright/BLOODRIGHT_STRUCTURAL_ROLLOUT_PRIORITY_20261017.md`; `forge/bloodright/README.md`; emblem studio at `chatgpt/bloodright-icon-studio-20261016@792742c264c70c29733306f22962d7b4aad48fad` |
 | Bloodright structural SVG / tree layout | `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`; approved white SVG and mechanics in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.*` |
 | Art, any asset | skill `producing-tnr-art`; `chroma.py`, `artpreflight.py`, `shotlist.py` |
 | Isolated image-generation conversations / persistent Art Studio | `docs/workflows/ISOLATED_ART_GENERATION.md`; collection registers under `docs/design/` |
