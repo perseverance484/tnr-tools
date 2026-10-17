@@ -1,0 +1,209 @@
+{
+  "kind": "bloodright_reference_pilot_inventory",
+  "review_id": "BR-023",
+  "bloodline_id": "IxhIoLEmznqdcnc_6MCN9",
+  "name": "Ethereal Monarch",
+  "rank": "S",
+  "roster_pin": {
+    "ref": "7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
+    "path": "docs/design/bloodright/roster.json",
+    "blob": "64f6097cb65daccd636f98c8f35517941b67aebb"
+  },
+  "brief_pin": "1b3b93b3ac939afc2fed1c63390fe68ed0d261d6",
+  "capture_manifest": "push/101_bloodright_reference_ethereal_monarch_pilot_capture.json",
+  "cohort_check": {
+    "bloodlines": 29,
+    "ranks": {
+      "A": 19,
+      "S": 6,
+      "H": 4
+    },
+    "jutsu_records": 166,
+    "distinct_jutsu_ids": 166,
+    "selection": "owner_decision INCLUDE, public, rank A/S/H (28) + REFERENCE Taiyo Kami (1)"
+  },
+  "note": "Prior reads are cross-check evidence only. Only a jutsu.get persist:full point read with matching id and bloodlineId passes the brief's provenance gate; list rows and AI-profile nested bodies do not. The pilot re-reads all six so the pilot uses the same evidence path as the full collection; a URL that differs from its prior value is surfaced as drift, never silently accepted.",
+  "jutsu": [
+    {
+      "jutsu_id": "0_ip_8I2Dh_Ti2mYUcuAu",
+      "name": "Sixth Man",
+      "prior_distinct_image_urls": [
+        "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp"
+        }
+      ],
+      "qualifying_point_read": false,
+      "status": "AWAITING_PILOT_CAPTURE"
+    },
+    {
+      "jutsu_id": "Q3hmgslgYbbLHwwOZckT-",
+      "name": "Tamashī no Sakeme",
+      "prior_distinct_image_urls": [
+        "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1791771915726.json",
+          "read": "profile.getAi (nested)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb"
+        }
+      ],
+      "qualifying_point_read": false,
+      "status": "AWAITING_PILOT_CAPTURE"
+    },
+    {
+      "jutsu_id": "AK8P4xmHSdbUOh2ywzb1l",
+      "name": "Founder’s Wrath",
+      "prior_distinct_image_urls": [
+        "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTXAQKWa5IU29dZYJPoOKSh5vmlqatMub3Eig"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTXAQKWa5IU29dZYJPoOKSh5vmlqatMub3Eig"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1791771915726.json",
+          "read": "profile.getAi (nested)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTXAQKWa5IU29dZYJPoOKSh5vmlqatMub3Eig"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTXAQKWa5IU29dZYJPoOKSh5vmlqatMub3Eig"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTXAQKWa5IU29dZYJPoOKSh5vmlqatMub3Eig"
+        }
+      ],
+      "qualifying_point_read": false,
+      "status": "AWAITING_PILOT_CAPTURE"
+    },
+    {
+      "jutsu_id": "q7QKL0ETYGDEawoF_yzkS",
+      "name": "Celestial Sealing",
+      "prior_distinct_image_urls": [
+        "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1791906972359.json",
+          "read": "jutsu.get persist:full",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1791771966137.json",
+          "read": "profile.getAi (nested)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1791771915726.json",
+          "read": "profile.getAi (nested)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk"
+        }
+      ],
+      "qualifying_point_read": true,
+      "status": "AWAITING_PILOT_CAPTURE"
+    },
+    {
+      "jutsu_id": "xPfjuu4WMe786wDVaizik",
+      "name": "Heavenly Constructs",
+      "prior_distinct_image_urls": [
+        "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIuLwFSxfOewksxBoS1HQCihpL7c42Ky9uUFv"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIuLwFSxfOewksxBoS1HQCihpL7c42Ky9uUFv"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIuLwFSxfOewksxBoS1HQCihpL7c42Ky9uUFv"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIuLwFSxfOewksxBoS1HQCihpL7c42Ky9uUFv"
+        }
+      ],
+      "qualifying_point_read": false,
+      "status": "AWAITING_PILOT_CAPTURE"
+    },
+    {
+      "jutsu_id": "nvMSommJJLlG5xwT7nQ6b",
+      "name": "Starlight Veil",
+      "prior_distinct_image_urls": [
+        "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeC2Q8HDyV3OvUJQExAi0bGoIZDF74LqSnHRd"
+      ],
+      "prior_reads": [
+        {
+          "source": "harvests/inbox/tnr_results_1788061342415.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeC2Q8HDyV3OvUJQExAi0bGoIZDF74LqSnHRd"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065637150.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeC2Q8HDyV3OvUJQExAi0bGoIZDF74LqSnHRd"
+        },
+        {
+          "source": "harvests/inbox/tnr_results_1788065642059.json",
+          "read": "jutsu.getAllNames (list)",
+          "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeC2Q8HDyV3OvUJQExAi0bGoIZDF74LqSnHRd"
+        }
+      ],
+      "qualifying_point_read": false,
+      "status": "AWAITING_PILOT_CAPTURE"
+    }
+  ]
+}

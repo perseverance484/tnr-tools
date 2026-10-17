@@ -1,0 +1,16 @@
+{
+  "_note": "READ-ONLY Bloodright Jutsu Reference Library pilot capture (BR-023 Ethereal Monarch, S rank, bloodline IxhIoLEmznqdcnc_6MCN9). Zero mutations, zero items. Point-reads the six linked public jutsu as exact full records so each record's `image` URL can be source-verified before any CDN acquisition, plus one optional bloodline.get identity read that must never block the jutsu pack. Membership is taken from the pinned roster fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866 docs/design/bloodright/roster.json (blob 64f6097cb65daccd636f98c8f35517941b67aebb), per the approved brief chatgpt/bloodright-reference-library-brief-20261016@1b3b93b3ac939afc2fed1c63390fe68ed0d261d6. Order: Sixth Man, Tamashi no Sakeme, Founder's Wrath, Celestial Sealing, Heavenly Constructs, Starlight Veil, then the bloodline. Operator-executed only; agents make zero live requests.",
+  "capture": {
+    "before": [
+      { "proc": "jutsu.get", "input": { "id": "0_ip_8I2Dh_Ti2mYUcuAu" }, "persist": "full" },
+      { "proc": "jutsu.get", "input": { "id": "Q3hmgslgYbbLHwwOZckT-" }, "persist": "full" },
+      { "proc": "jutsu.get", "input": { "id": "AK8P4xmHSdbUOh2ywzb1l" }, "persist": "full" },
+      { "proc": "jutsu.get", "input": { "id": "q7QKL0ETYGDEawoF_yzkS" }, "persist": "full" },
+      { "proc": "jutsu.get", "input": { "id": "xPfjuu4WMe786wDVaizik" }, "persist": "full" },
+      { "proc": "jutsu.get", "input": { "id": "nvMSommJJLlG5xwT7nQ6b" }, "persist": "full" },
+      { "proc": "bloodline.get", "input": { "id": "IxhIoLEmznqdcnc_6MCN9" }, "persist": "full" }
+    ],
+    "after": []
+  },
+  "items": []
+}
