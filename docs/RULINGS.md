@@ -1153,3 +1153,27 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Rationale:** The user explicitly accepted both pending budget increases. This settles the bundle ceiling only; it does not approve Bloodright content, icons, folder visibility or live execution.
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+---
+
+## RUL-2026-10-17-002 — Bloodright category icons may replace Hungry Pulse's live image
+
+**Date:** 2026-10-17
+
+**Domain:** Bloodright / Blood-Enchanted Eyes collection import / icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Clarifies the scope of RUL-2026-10-08-002, whose "retains Hungry Pulse's existing values" covers its Silver price and rounds, not its image.
+
+**Ruling:** When the BEE collection is imported with category icons, the Foundation icon **replaces Hungry Pulse's (`p2_t1`, `HWq7986PPhl5emkAM3L4a`) existing live image**, like every other Foundation node. No per-node `image` override is needed to protect it. Single-tree packages without icons still keep existing images.
+
+**Evidence:** "Hungry Pulse replacement is fine." (in reply to the PR #33 independent review, which flagged the replacement as conflicting with RUL-2026-10-08-002.)
+
+**Deferred, not decided here:** the 44 remaining legacy trees need a rebalance before conversion to the five-point format, and their values are currently unsettled. Do not convert, price or stage them until the user settles those values. Silver 20 / 99 rounds stays BEE-only.
+
+**Still open:** the actual icon bytes/URLs and immutable `imagePack`, and the `black_bg` art-direction question. The collection template remains BLOCKED until they are supplied.
+
+**Rationale:** The user accepted consistent tier iconography over preserving Hungry Pulse's older image. This settles the replacement question only; it does not approve icon art, release, folder visibility or live execution.
+
+**Canonical destination:** `forge/bloodright/README.md` (category-icon behaviour) and `forge/bloodright/collection.template.json`, which already applies the Foundation icon to `p2_t1`. No code change is required.
