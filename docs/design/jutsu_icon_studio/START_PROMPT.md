@@ -4,6 +4,8 @@
 
 ~~~text
 Repository: perseverance484/tnr-tools
+Workflow Branch: chatgpt/bloodline-jutsu-studio-zip-first-20261017
+(This workflow is not yet integrated into main; retrieve it from this branch at its verified exact head if absent on main.)
 Session: BLOODLINE JUTSU ICON ART STUDIO — ZIP-FIRST
 Input: attached bloodline original-art ZIP
 Lead: ChatGPT Art Director | Support: Image Production
