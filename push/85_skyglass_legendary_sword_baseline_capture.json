@@ -1,0 +1,30 @@
+{
+ "_note": "READ-ONLY Skyglass Katana baseline capture (Ghost Ship / Skyglass Stage 2, gate C3). Zero mutations. Operator-run only; never an agent request. Three item.get point reads with persist:\"full\", so the complete returned rows are kept with no field selection. Night's Testament osJq3k77YPGoFWgof12FQ is the first comparator suggested in docs/reviews/GHOST_SHIP_SKYGLASS_STAGE2_READINESS_2026-10-11.md section 5. Chakra Sword oOdkdJixCLy2bW0Gxo5e0 and Masamune An9G-YkaAonclWsmcpx4E are that review's named alternates, captured in the same run to avoid a second operator round. harvests/seed/41_INDEX_item.json lists all three only as WEAPON/LEGENDARY/HAND with last_verified null; none of them has a verified SWORD weaponType or numeric baseline. A record qualifies only if the returned id matches and the row is itemType WEAPON, rarity LEGENDARY and weaponType SWORD. This capture does not choose a baseline. Fable compares AP, cooldown, pool/health costs and per-level reducers, target/method/range, slot, durability, level/stat requirements, battleUsageType, trade/economy and all other server-required fields against the approved Katana effects (Pierce 50 + SELF immunity(buffprevent, 2r) + Consume 40%, canBeImbued:false). dauntless accepts the exact values before any Katana write manifest exists. Keep the full results bundle and its export metadata (at, ok, persistOk, snapshotKey).",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "osJq3k77YPGoFWgof12FQ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "oOdkdJixCLy2bW0Gxo5e0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "An9G-YkaAonclWsmcpx4E"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

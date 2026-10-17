@@ -1,0 +1,30 @@
+{
+  "_note": "READ-ONLY comprehensive Resort in Need employee-event assessment, phase 1. Full current quest plus the two exact AI userId records used by the four battles, including embedded jutsu/items, stat fields and aiProfileId. AI behaviour profiles require follow-up by their live aiProfileId; do not guess them. No mutations, no publication. Operator-run only.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": {
+          "id": "xG0_Jq-amzhFgcLy8BVjw"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "1WAgDucRwcwGZ_yQ9r0uN"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "profile.getAi",
+        "input": {
+          "userId": "msKodzIJSH2J_BO-1FCIN"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}

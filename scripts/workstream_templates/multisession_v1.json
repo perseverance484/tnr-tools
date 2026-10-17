@@ -1,0 +1,227 @@
+{
+  "template": "multisession",
+  "template_version": 1,
+  "purpose": "Task-coordination skeleton for an OPTIONAL multi-session quest or event workstream. It is not a quest blueprint, manifest, reward table or art spec: every task points at the existing owner of that content and starts PLANNED or BLOCKED. Placeholders: {{title}}, {{slug}}, {{content_type}}, {{content_ref}}.",
+  "content_types": {
+    "quest": {"content_ref": "skills/building-tnr-content/references/quest.md"},
+    "event": {"content_ref": "skills/building-tnr-content/references/event.md"}
+  },
+  "workstream": {
+    "status": "PLANNED",
+    "objective": "Coordinate the multi-session {{content_type}} {{title}} from design through the hidden operator run, readback and a separate publication decision. Coordination only: content, rewards, art and engine rules keep their existing owners.",
+    "resources": [
+      {"path": "docs/00_INDEX.md", "why": "Precedence, evidence tiers and task routing; arbitrates every disagreement."},
+      {"path": "docs/workflows/CONTENT_WORKSTREAM.md", "why": "How to initialize, work and record a workstream task."},
+      {"path": "{{content_ref}}", "why": "Routed content reference for this content type."}
+    ]
+  },
+  "tasks": [
+    {
+      "id": "design.graph",
+      "title": "Design and objective graph",
+      "area": "design",
+      "owner": "shared",
+      "lead_role": "Content Designer",
+      "status": "BLOCKED",
+      "depends_on": [],
+      "objective": "Commit one durable design source for {{title}}: premise, objective graph, endings and the cast/asset list it implies.",
+      "scope": [
+        "Write or point at one committed design source; do not restate it in this roadmap.",
+        "Name every ending, battle and reward path the graph needs, without choosing reward values.",
+        "Mark any older design packet or handoff bundle this source supersedes."
+      ],
+      "out_of_scope": ["Reward values, rarity and balance numbers.", "Art generation.", "Manifest construction."],
+      "required_resources": [
+        {"path": "{{content_ref}}", "why": "Graph and flow rules for this content type."},
+        {"path": "docs/workflows/DIRECTOR_DECISIONS.md", "why": "How user-owned choices are surfaced instead of settled."}
+      ],
+      "deliverables": ["A committed design source path, added to this task's required_resources and evidence."],
+      "completion_gates": [
+        "The design source is committed and named as path evidence.",
+        "The user has accepted the design scope; the acceptance is recorded with a committed source."
+      ],
+      "blockers": ["No committed design source exists for {{title}} yet. Commit one, add it to required_resources, then remove this blocker."],
+      "open_decisions": ["Scope, endings and premise of {{title}} are the user's to approve."]
+    },
+    {
+      "id": "research.sources",
+      "title": "Source pins and capture inventory",
+      "area": "research",
+      "owner": "shared",
+      "lead_role": "Release Auditor",
+      "status": "PLANNED",
+      "depends_on": ["design.graph"],
+      "objective": "Inventory the live records, captures and source pins {{title}} depends on, and label the freshness and coverage of each.",
+      "scope": [
+        "List every existing record the design reuses or edits, with the committed capture that shows it.",
+        "Record the game-source pin each contract claim relies on; a sentinel or stamped file is not a deployment proof.",
+        "Report name-collision coverage as collision / not seen in captured scope / unknown; never claim global uniqueness from a partial census.",
+        "List the captures still missing; requesting them is the operator's action."
+      ],
+      "out_of_scope": ["Any live read or write by an agent.", "Contract adoption."],
+      "required_resources": [
+        {"path": "docs/00_INDEX.md", "why": "Capture vs contract precedence and evidence tiers."}
+      ],
+      "deliverables": ["A committed inventory of reused records, captures, source pins and missing captures."],
+      "completion_gates": ["The inventory is committed and every reused record names a committed capture or is listed as missing."]
+    },
+    {
+      "id": "admin.decisions",
+      "title": "AI, item and reward decisions",
+      "area": "admin",
+      "owner": "dauntless",
+      "lead_role": "Content Designer",
+      "status": "PLANNED",
+      "depends_on": ["design.graph", "research.sources"],
+      "objective": "Obtain and record the user-owned enemy, item and reward decisions {{title}} needs before anything is built.",
+      "scope": [
+        "Present each enemy/item/reward choice as options with consequences; the user decides.",
+        "Record each decision in a committed source (a ruling or decision file) and link it here.",
+        "Keep chance-based and guaranteed rewards distinct in every record."
+      ],
+      "out_of_scope": ["Choosing any value on the user's behalf."],
+      "required_resources": [
+        {"path": "docs/workflows/DIRECTOR_DECISIONS.md", "why": "Decision presentation and recording."},
+        {"path": "skills/building-tnr-content/references/balance.md", "why": "Tuning reference for proposals only."}
+      ],
+      "deliverables": ["Committed decision records for every enemy, item and reward the design needs."],
+      "completion_gates": ["Every decision is recorded with a committed source; none is inferred from an existing live value."],
+      "open_decisions": ["Enemy stats, item mechanics, reward values, rarity and drop chances for {{title}}."]
+    },
+    {
+      "id": "prose.production",
+      "title": "Player-facing prose",
+      "area": "prose",
+      "owner": "ChatGPT",
+      "lead_role": "Content Designer",
+      "status": "PLANNED",
+      "depends_on": ["design.graph"],
+      "objective": "Write and freeze the dialogue, objective text and descriptions {{title}} needs.",
+      "scope": ["All player-facing text named by the design source, in one committed prose source."],
+      "out_of_scope": ["Reward claims not yet recorded by admin.decisions."],
+      "required_resources": [
+        {"path": "{{content_ref}}", "why": "Text-field and flow constraints."}
+      ],
+      "deliverables": ["A committed prose source accepted by the user."],
+      "completion_gates": ["The prose source is committed and its user acceptance is recorded with a committed source."]
+    },
+    {
+      "id": "art.production",
+      "title": "Art production plan and assets",
+      "area": "art",
+      "owner": "ChatGPT",
+      "lead_role": "Art Director",
+      "status": "PLANNED",
+      "depends_on": ["design.graph"],
+      "objective": "Produce the art {{title}} needs through the existing art workflow, after splitting this task by asset class.",
+      "scope": [
+        "Before any generation, replace this task with one task per asset class (scene characters, avatars, icons, backgrounds) as CONTENT_WORKSTREAM.md section 3 requires; never one task per image.",
+        "Reuse approved art where it exists; do not redraw approved bytes.",
+        "Track each asset from raw approval to production acceptance, binding and readback; raw approval alone is not acceptance."
+      ],
+      "out_of_scope": ["Mixing asset classes in one generation session."],
+      "required_resources": [
+        {"path": "docs/workflows/ART_PRODUCTION.md", "why": "Art direction, generation, QC and handoff workflow."}
+      ],
+      "deliverables": ["Committed, preflighted asset files with recorded user acceptance, or SKIPPED with the reason."],
+      "completion_gates": [
+        "Every asset is committed and passes the art preflight.",
+        "User acceptance of each asset class is recorded with a committed source."
+      ]
+    },
+    {
+      "id": "build.manifest",
+      "title": "Manifest build and validation",
+      "area": "build",
+      "owner": "Fable",
+      "status": "PLANNED",
+      "depends_on": ["research.sources", "admin.decisions", "prose.production", "art.production"],
+      "objective": "Construct and validate the hidden manifest for {{title}} from the committed design, decision, prose and art sources.",
+      "scope": [
+        "Construct payloads with factory.py from the committed sources; hand-authoring is the fallback.",
+        "Every entity ships hidden.",
+        "Run validate.py and the Forge offline check and record both results."
+      ],
+      "out_of_scope": ["Running the manifest against the game.", "Changing any user-owned value."],
+      "required_resources": [
+        {"path": "skills/building-tnr-content/references/pipeline.md", "why": "Manifest format, push path and readback contract."},
+        {"path": "{{content_ref}}", "why": "Content rules the manifest must satisfy."}
+      ],
+      "deliverables": ["A committed manifest under push/ with its validator output."],
+      "completion_gates": [
+        "validate.py reports zero errors from the skill data/ directory, or an exact SHA-scoped exception is approved by ruling.",
+        "forge/tools/check_manifest.mjs exits 0 on the committed manifest."
+      ]
+    },
+    {
+      "id": "review.independent",
+      "title": "Independent review",
+      "area": "review",
+      "owner": "ChatGPT",
+      "lead_role": "Release Auditor",
+      "status": "PLANNED",
+      "depends_on": ["build.manifest"],
+      "objective": "Independently review the frozen manifest SHA when the scope calls for it; otherwise mark SKIPPED with the reason.",
+      "scope": ["Review the exact frozen SHA, not a branch name.", "Record findings and their disposition in a committed review file."],
+      "out_of_scope": ["Editing the author's branch."],
+      "required_resources": [
+        {"path": "docs/workflows/IMPLEMENTATION_HANDOFF.md", "why": "Exact-SHA handoff and review fields."}
+      ],
+      "deliverables": ["A committed review file naming the reviewed SHA, or SKIPPED with the reason."],
+      "completion_gates": ["The review names the exact reviewed SHA and every blocking finding is closed."]
+    },
+    {
+      "id": "production.hidden_run",
+      "title": "Hidden operator run and readback",
+      "area": "production",
+      "owner": "dauntless",
+      "status": "PLANNED",
+      "depends_on": ["build.manifest", "review.independent"],
+      "objective": "The operator runs the hidden manifest; the committed results and a fresh readback show what actually landed.",
+      "scope": [
+        "The operator alone runs the manifest; no agent touches the game.",
+        "Commit the results bundle and a fresh readback capture.",
+        "Classify every entity as match, drift, unverified or failed/partial; an HTTP 200 or push echo is not a readback."
+      ],
+      "out_of_scope": ["Unhiding or publishing.", "Automatic retries."],
+      "required_resources": [
+        {"path": "skills/building-tnr-content/references/pipeline.md", "why": "Results bundle and readback contract."}
+      ],
+      "deliverables": ["A committed results bundle and readback capture, with any partial failure named."],
+      "completion_gates": ["Results and readback captures are committed and every entity has a readback classification."]
+    },
+    {
+      "id": "production.calibration",
+      "title": "Hidden testing and calibration",
+      "area": "production",
+      "owner": "shared",
+      "status": "PLANNED",
+      "depends_on": ["production.hidden_run"],
+      "objective": "Test {{title}} while hidden and record any calibration the user approves as a new decision and repair manifest.",
+      "scope": ["Record test findings in a committed file.", "Any value change goes back through admin.decisions and a new validated manifest."],
+      "out_of_scope": ["Silent value changes.", "Publication."],
+      "required_resources": [
+        {"path": "docs/workflows/DIRECTOR_DECISIONS.md", "why": "Calibration changes are user decisions."}
+      ],
+      "deliverables": ["Committed test findings and, where approved, a repair manifest."],
+      "completion_gates": ["Findings are committed and the user has accepted the hidden result, recorded with a committed source."]
+    },
+    {
+      "id": "admin.publication",
+      "title": "Publication decision",
+      "area": "admin",
+      "owner": "dauntless",
+      "status": "PLANNED",
+      "depends_on": ["production.calibration"],
+      "objective": "The user decides whether and when {{title}} is unhidden and announced.",
+      "scope": ["Record the publication decision and, if published, the post-publication readback."],
+      "out_of_scope": ["Any agent unhiding, publishing or posting."],
+      "required_resources": [
+        {"path": "docs/workflows/DIRECTOR_DECISIONS.md", "why": "Publication is a user-owned decision."}
+      ],
+      "deliverables": ["A committed publication decision."],
+      "completion_gates": ["The decision is recorded with a committed source."],
+      "open_decisions": ["Whether and when {{title}} is published; this is the user's alone."]
+    }
+  ]
+}

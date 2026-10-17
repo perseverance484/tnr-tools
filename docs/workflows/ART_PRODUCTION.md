@@ -4,6 +4,8 @@ Use when ChatGPT is helping the user direct, generate, edit, process, review, or
 
 This workflow coordinates ChatGPT's Art Director / Image Production roles with the repository's existing `skills/producing-tnr-art/` production authority. It does not duplicate the art spec.
 
+**Isolated art sessions:** For long-running Art Studio coordination with one clean generation conversation per image, use `docs/workflows/ISOLATED_ART_GENERATION.md` in addition to this workflow. The director's jutsu-icon opaque-background decision is recorded there; jutsu icons use the spec's `JUTSU_ICON` target, while item and bloodline icons keep the shared `ICON` alpha rule.
+
 **Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary **information-presentation** reference, not a universal visual-style template; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
 
 ## 1. Establish the target

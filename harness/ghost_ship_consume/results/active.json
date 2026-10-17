@@ -1,0 +1,1454 @@
+{
+ "assertions": 75,
+ "buffPreventCarrier": {
+  "file": "harvests/inbox/tnr_results_1789188714166.json",
+  "pointer": "/captures/13/data"
+ },
+ "checks": [
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 221,
+      "rounds": 3
+     }
+    ],
+    "damage": 1475.389,
+    "ratio": 0.15
+   },
+   "name": "Katana granting hit converts 15%",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 159,
+      "rounds": 3
+     }
+    ],
+    "damage": 1062.28,
+    "ratio": 0.15
+   },
+   "name": "different action in the granting round converts 15%",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 136,
+      "rounds": 3
+     }
+    ],
+    "damage": 910.114,
+    "ratio": 0.15
+   },
+   "name": "different action in the next round converts 15%",
+   "pass": true
+  },
+  {
+   "name": "weapon Consume activates on use, not merely equipping; earned shields stack",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 47,
+      "rounds": 3
+     }
+    ],
+    "damage": 472.124,
+    "ratio": 0.1
+   },
+   "name": "Crystal granting weapon hit converts 10%",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 106,
+      "rounds": 3
+     }
+    ],
+    "damage": 1062.28,
+    "ratio": 0.1
+   },
+   "name": "no-hit recipient grants active Consume that converts a later action",
+   "pass": true
+  },
+  {
+   "name": "active Crystal on a no-damage weapon is not inert after activation",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 47,
+      "rounds": 3
+     }
+    ],
+    "referenceDamage": 472.124,
+    "shieldBefore": [
+     {
+      "power": 500,
+      "rounds": 2
+     }
+    ],
+    "shieldedDamage": 0
+   },
+   "name": "Crystal conversion uses pre-shield damage",
+   "pass": true
+  },
+  {
+   "name": "Katana Pierce destroys the target shield without reducing conversion",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 442,
+      "rounds": 3
+     }
+    ],
+    "damage": 2950.777,
+    "ratio": 0.15
+   },
+   "name": "ALL-method control aggregates two targets once",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 70,
+      "rounds": 3
+     }
+    ],
+    "damage": 472.124,
+    "ratio": 0.15
+   },
+   "name": "one action: own SELF Consume15 wins over appended Crystal10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 47,
+      "rounds": 3
+     }
+    ],
+    "damage": 472.124,
+    "ratio": 0.1
+   },
+   "name": "one action: two distinct Crystal records still realize one SELF Consume10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 94,
+      "rounds": 3
+     }
+    ],
+    "damage": 472.124,
+    "ratio": 0.2
+   },
+   "name": "separate casts: overlapping item Consume10 buffs convert 20%",
+   "pass": true
+  },
+  {
+   "name": "reapplication adds independently timed active buffs rather than refreshing the first",
+   "pass": true
+  },
+  {
+   "name": "buff expires at +4; shield earned at +3 survives until +7; no conversion after buff expiry",
+   "pass": true
+  },
+  {
+   "detail": {
+    "clearTexts": [
+     "user_wielder was cleared of all positive status effects. "
+    ],
+    "laterDamage": 1062.28
+   },
+   "name": "Clear removes item-source active Consume; later hit grants no shield",
+   "pass": true
+  },
+  {
+   "detail": {
+    "added": [
+     {
+      "power": 221,
+      "rounds": 3
+     }
+    ],
+    "damage": 1475.389,
+    "ratio": 0.15
+   },
+   "name": "source observation: existing Buff Prevent does not block Consume conversion",
+   "pass": true
+  },
+  {
+   "name": "unchanged immunity blocks new Buff Prevent in cast round/+1/+2; power100 applies at +3",
+   "pass": true
+  },
+  {
+   "name": "accepted action costs/availability/targeting execute unchanged",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 15,
+    "power": 15,
+    "residualHealthLost": 80,
+    "residualShield": 12
+   },
+   "name": "processor: residual tick is nonvacuous at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 15,
+    "power": 15,
+    "residualHealthLost": 80,
+    "residualShield": 12
+   },
+   "name": "processor: residual shield uses caster ratio at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 15,
+    "power": 15,
+    "residualHealthLost": 80,
+    "residualShield": 12
+   },
+   "name": "processor: poison spending causes damage at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 15,
+    "power": 15,
+    "residualHealthLost": 80,
+    "residualShield": 12
+   },
+   "name": "processor: poison shield uses health damage at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 10,
+    "power": 10,
+    "residualHealthLost": 80,
+    "residualShield": 8
+   },
+   "name": "processor: residual tick is nonvacuous at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 10,
+    "power": 10,
+    "residualHealthLost": 80,
+    "residualShield": 8
+   },
+   "name": "processor: residual shield uses caster ratio at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 10,
+    "power": 10,
+    "residualHealthLost": 80,
+    "residualShield": 8
+   },
+   "name": "processor: poison spending causes damage at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "poisonHealthLost": 100,
+    "poisonShield": 10,
+    "power": 10,
+    "residualHealthLost": 80,
+    "residualShield": 8
+   },
+   "name": "processor: poison shield uses health damage at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 15,
+    "staminaLost": 0
+   },
+   "name": "processor: health drains exact eligible pools at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 15,
+    "staminaLost": 0
+   },
+   "name": "processor: health converts Health only at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   "name": "processor: chakra_stamina drains exact eligible pools at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   "name": "processor: chakra_stamina converts Health only at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 15,
+    "staminaLost": 100
+   },
+   "name": "processor: all_pools drains exact eligible pools at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 15,
+    "staminaLost": 100
+   },
+   "name": "processor: all_pools converts Health only at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 10,
+    "staminaLost": 0
+   },
+   "name": "processor: health drains exact eligible pools at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 10,
+    "staminaLost": 0
+   },
+   "name": "processor: health converts Health only at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   "name": "processor: chakra_stamina drains exact eligible pools at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   "name": "processor: chakra_stamina converts Health only at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 10,
+    "staminaLost": 100
+   },
+   "name": "processor: all_pools drains exact eligible pools at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 10,
+    "staminaLost": 100
+   },
+   "name": "processor: all_pools converts Health only at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 15,
+    "expectedDamage": [
+     100,
+     200
+    ],
+    "healthLost": 300,
+    "otherShield": 20,
+    "type": "drain",
+    "victimShield": 0
+   },
+   "name": "processor: drain both caster ticks apply",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 15,
+    "expectedDamage": [
+     100,
+     200
+    ],
+    "healthLost": 300,
+    "otherShield": 20,
+    "type": "drain",
+    "victimShield": 0
+   },
+   "name": "processor: drain attributes shields independently",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 30,
+    "expectedDamage": [
+     200,
+     400
+    ],
+    "healthLost": 600,
+    "otherShield": 40,
+    "type": "wound",
+    "victimShield": 0
+   },
+   "name": "processor: wound both caster ticks apply",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 30,
+    "expectedDamage": [
+     200,
+     400
+    ],
+    "healthLost": 600,
+    "otherShield": 40,
+    "type": "wound",
+    "victimShield": 0
+   },
+   "name": "processor: wound attributes shields independently",
+   "pass": true
+  },
+  {
+   "detail": {
+    "mixedLost": 160,
+    "mixedShield": 12,
+    "ownLost": 80,
+    "ownShield": 12
+   },
+   "name": "processor: mixed direct damage includes both casters",
+   "pass": true
+  },
+  {
+   "detail": {
+    "mixedLost": 160,
+    "mixedShield": 12,
+    "ownLost": 80,
+    "ownShield": 12
+   },
+   "name": "processor: mixed direct damage converts owner's portion only",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 12,
+    "defenderShield": 4,
+    "direct": 80,
+    "reflected": 48
+   },
+   "name": "processor: reflection respects its 60 percent ceiling",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 12,
+    "defenderShield": 4,
+    "direct": 80,
+    "reflected": 48
+   },
+   "name": "processor: reflection does not inflate attacker's conversion",
+   "pass": true
+  },
+  {
+   "detail": {
+    "attackerShield": 12,
+    "defenderShield": 4,
+    "direct": 80,
+    "reflected": 48
+   },
+   "name": "processor: reflection converts using defender's 10 percent",
+   "pass": true
+  },
+  {
+   "name": "processor: self-cast inserts at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 15,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: self-damage actually resolves at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 15,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: self-reflection actually resolves at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 15,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: neither self-damage path converts at 15",
+   "pass": true
+  },
+  {
+   "name": "processor: self-cast inserts at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 10,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: self-damage actually resolves at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 10,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: self-reflection actually resolves at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "power": 10,
+    "reflectedLog": true,
+    "reflectedLost": 120,
+    "reflectedShield": 0,
+    "selfLost": 80,
+    "selfShield": 0
+   },
+   "name": "processor: neither self-damage path converts at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "deferredEntries": 1,
+    "firstHealth": 980,
+    "firstOpponentShield": 0,
+    "secondHealth": 970,
+    "secondOpponentShield": 0
+   },
+   "name": "processor: immediate recoil is nonvacuous",
+   "pass": true
+  },
+  {
+   "detail": {
+    "deferredEntries": 1,
+    "firstHealth": 980,
+    "firstOpponentShield": 0,
+    "secondHealth": 970,
+    "secondOpponentShield": 0
+   },
+   "name": "processor: deferred recoil is nonvacuous",
+   "pass": true
+  },
+  {
+   "detail": {
+    "deferredEntries": 1,
+    "firstHealth": 980,
+    "firstOpponentShield": 0,
+    "secondHealth": 970,
+    "secondOpponentShield": 0
+   },
+   "name": "processor: neither recoil installment feeds opponent Consume",
+   "pass": true
+  },
+  {
+   "detail": {
+    "count": 1,
+    "expectedRatio": 0.25,
+    "healthLost": 80,
+    "label": "revised_power_overlap_control",
+    "logs": 1,
+    "powers": [
+     15,
+     10
+    ],
+    "shield": 20,
+    "shieldRounds": 6
+   },
+   "name": "processor: revised_power_overlap_control converts at expected capped ratio",
+   "pass": true
+  },
+  {
+   "detail": {
+    "count": 1,
+    "expectedRatio": 0.25,
+    "healthLost": 80,
+    "label": "revised_power_overlap_control",
+    "logs": 1,
+    "powers": [
+     15,
+     10
+    ],
+    "shield": 20,
+    "shieldRounds": 6
+   },
+   "name": "processor: revised_power_overlap_control aggregates to one shield with longest lifetime",
+   "pass": true
+  },
+  {
+   "detail": {
+    "count": 1,
+    "expectedRatio": 1,
+    "healthLost": 80,
+    "label": "ceiling_stress_control_not_item_values",
+    "logs": 1,
+    "powers": [
+     80,
+     75
+    ],
+    "shield": 80,
+    "shieldRounds": 6
+   },
+   "name": "processor: ceiling_stress_control_not_item_values converts at expected capped ratio",
+   "pass": true
+  },
+  {
+   "detail": {
+    "count": 1,
+    "expectedRatio": 1,
+    "healthLost": 80,
+    "label": "ceiling_stress_control_not_item_values",
+    "logs": 1,
+    "powers": [
+     80,
+     75
+    ],
+    "shield": 80,
+    "shieldRounds": 6
+   },
+   "name": "processor: ceiling_stress_control_not_item_values aggregates to one shield with longest lifetime",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 15,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: shield cap source constant remains 100000 at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 15,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: both hits independently exceed shield ceiling at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 15,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: first generated shield is individually capped at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 15,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: two generated shields coexist beyond aggregate cap at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 10,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: shield cap source constant remains 100000 at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 10,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: both hits independently exceed shield ceiling at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 10,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: first generated shield is individually capped at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "aggregateHp": 200000,
+    "cap": 100000,
+    "firstDamage": 1600000,
+    "firstShields": [
+     100000
+    ],
+    "power": 10,
+    "secondDamage": 1600000,
+    "secondShields": [
+     100000,
+     100000
+    ],
+    "stressHitPower": 2000000
+   },
+   "name": "processor: two generated shields coexist beyond aggregate cap at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "consumeLogs": 1,
+    "losses": [
+     160,
+     80
+    ],
+    "power": 15,
+    "shield": 36,
+    "shieldCount": 1,
+    "total": 240
+   },
+   "name": "processor: all three hits apply across both targets at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "consumeLogs": 1,
+    "losses": [
+     160,
+     80
+    ],
+    "power": 15,
+    "shield": 36,
+    "shieldCount": 1,
+    "total": 240
+   },
+   "name": "processor: all hits aggregate before flooring at 15",
+   "pass": true
+  },
+  {
+   "detail": {
+    "consumeLogs": 1,
+    "losses": [
+     160,
+     80
+    ],
+    "power": 10,
+    "shield": 24,
+    "shieldCount": 1,
+    "total": 240
+   },
+   "name": "processor: all three hits apply across both targets at 10",
+   "pass": true
+  },
+  {
+   "detail": {
+    "consumeLogs": 1,
+    "losses": [
+     160,
+     80
+    ],
+    "power": 10,
+    "shield": 24,
+    "shieldCount": 1,
+    "total": 240
+   },
+   "name": "processor: all hits aggregate before flooring at 10",
+   "pass": true
+  }
+ ],
+ "data": {
+  "acceptedActionFields": {
+   "apAfter": 60,
+   "availability": [
+    {
+     "cut": true,
+     "ion": false,
+     "katana": false,
+     "offset": 0
+    },
+    {
+     "cut": true,
+     "ion": false,
+     "katana": false,
+     "offset": 1
+    },
+    {
+     "cut": true,
+     "ion": false,
+     "katana": false,
+     "offset": 2
+    },
+    {
+     "cut": true,
+     "ion": true,
+     "katana": false,
+     "offset": 3
+    },
+    {
+     "cut": true,
+     "ion": true,
+     "katana": false,
+     "offset": 4
+    },
+    {
+     "cut": true,
+     "ion": true,
+     "katana": false,
+     "offset": 5
+    },
+    {
+     "cut": true,
+     "ion": true,
+     "katana": true,
+     "offset": 6
+    }
+   ],
+   "costs": {
+    "cpCost": 40,
+    "hpCost": 0,
+    "spCost": 40
+   },
+   "invalid": [
+    {
+     "name": "beyond range",
+     "rejected": true,
+     "unchanged": true
+    },
+    {
+     "name": "self target",
+     "rejected": true,
+     "unchanged": true
+    }
+   ],
+   "range4Damage": 1475.389
+  },
+  "activationAndLaterActions": {
+   "finalShields": [
+    {
+     "power": 221,
+     "rounds": 3
+    },
+    {
+     "power": 159,
+     "rounds": 3
+    },
+    {
+     "power": 136,
+     "rounds": 3
+    }
+   ],
+   "first": [
+    {
+     "power": 221,
+     "rounds": 3
+    }
+   ],
+   "laterRound": [
+    {
+     "power": 136,
+     "rounds": 3
+    }
+   ],
+   "onEquipConsume": 0,
+   "sameRound": [
+    {
+     "power": 159,
+     "rounds": 3
+    }
+   ]
+  },
+  "buffPreventAndImmunity": {
+   "underExistingPrevent": {
+    "added": [
+     {
+      "power": 221,
+      "rounds": 3
+     }
+    ],
+    "consume": [
+     15
+    ]
+   },
+   "windows": [
+    {
+     "blocked": true,
+     "consume": [
+      {
+       "power": 15,
+       "rounds": 3
+      }
+     ],
+     "offset": 0,
+     "prevents": []
+    },
+    {
+     "blocked": true,
+     "consume": [
+      {
+       "power": 15,
+       "rounds": 3
+      }
+     ],
+     "offset": 1,
+     "prevents": []
+    },
+    {
+     "blocked": true,
+     "consume": [
+      {
+       "power": 15,
+       "rounds": 2
+      }
+     ],
+     "offset": 2,
+     "prevents": []
+    },
+    {
+     "blocked": false,
+     "consume": [
+      {
+       "power": 15,
+       "rounds": 1
+      }
+     ],
+     "offset": 3,
+     "prevents": [
+      100
+     ]
+    }
+   ]
+  },
+  "crystalComposition": {
+   "composed": [
+    "damage",
+    "afterburn",
+    "consume"
+   ],
+   "later": [
+    {
+     "power": 106,
+     "rounds": 3
+    }
+   ],
+   "noHit": {
+    "activePower": [
+     10
+    ],
+    "damage": 0,
+    "newShields": []
+   }
+  },
+  "dedupeAndOverlap": {
+   "activeDurations": [
+    1,
+    3
+   ],
+   "control": "two imbuable Flaming Sword carriers, second in HAND_2; captured cooldown4 unchanged",
+   "sameActionDoubleCrystal": [
+    {
+     "power": 47,
+     "rounds": 3
+    }
+   ],
+   "sameActionOwn": [
+    {
+     "power": 70,
+     "rounds": 3
+    }
+   ],
+   "separateCast": [
+    {
+     "power": 94,
+     "rounds": 3
+    }
+   ]
+  },
+  "processor_active_source_ratio": [
+   {
+    "count": 1,
+    "expectedRatio": 0.25,
+    "healthLost": 80,
+    "label": "revised_power_overlap_control",
+    "logs": 1,
+    "powers": [
+     15,
+     10
+    ],
+    "shield": 20,
+    "shieldRounds": 6
+   },
+   {
+    "count": 1,
+    "expectedRatio": 1,
+    "healthLost": 80,
+    "label": "ceiling_stress_control_not_item_values",
+    "logs": 1,
+    "powers": [
+     80,
+     75
+    ],
+    "shield": 80,
+    "shieldRounds": 6
+   }
+  ],
+  "processor_delayed_10": {
+   "poisonHealthLost": 100,
+   "poisonShield": 10,
+   "power": 10,
+   "residualHealthLost": 80,
+   "residualShield": 8
+  },
+  "processor_delayed_15": {
+   "poisonHealthLost": 100,
+   "poisonShield": 15,
+   "power": 15,
+   "residualHealthLost": 80,
+   "residualShield": 12
+  },
+  "processor_direct_attribution": {
+   "mixedLost": 160,
+   "mixedShield": 12,
+   "ownLost": 80,
+   "ownShield": 12
+  },
+  "processor_drain_10": [
+   {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 10,
+    "staminaLost": 0
+   },
+   {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 10,
+    "staminaLost": 100
+   }
+  ],
+  "processor_drain_15": [
+   {
+    "chakraLost": 0,
+    "count": 1,
+    "healthLost": 100,
+    "name": "health",
+    "shield": 15,
+    "staminaLost": 0
+   },
+   {
+    "chakraLost": 100,
+    "count": 0,
+    "healthLost": 0,
+    "name": "chakra_stamina",
+    "shield": 0,
+    "staminaLost": 100
+   },
+   {
+    "chakraLost": 100,
+    "count": 1,
+    "healthLost": 100,
+    "name": "all_pools",
+    "shield": 15,
+    "staminaLost": 100
+   }
+  ],
+  "processor_individual_cap_10": {
+   "aggregateHp": 200000,
+   "cap": 100000,
+   "firstDamage": 1600000,
+   "firstShields": [
+    100000
+   ],
+   "power": 10,
+   "secondDamage": 1600000,
+   "secondShields": [
+    100000,
+    100000
+   ],
+   "stressHitPower": 2000000
+  },
+  "processor_individual_cap_15": {
+   "aggregateHp": 200000,
+   "cap": 100000,
+   "firstDamage": 1600000,
+   "firstShields": [
+    100000
+   ],
+   "power": 15,
+   "secondDamage": 1600000,
+   "secondShields": [
+    100000,
+    100000
+   ],
+   "stressHitPower": 2000000
+  },
+  "processor_multihit_multitarget_10": {
+   "consumeLogs": 1,
+   "losses": [
+    160,
+    80
+   ],
+   "power": 10,
+   "shield": 24,
+   "shieldCount": 1,
+   "total": 240
+  },
+  "processor_multihit_multitarget_15": {
+   "consumeLogs": 1,
+   "losses": [
+    160,
+    80
+   ],
+   "power": 15,
+   "shield": 36,
+   "shieldCount": 1,
+   "total": 240
+  },
+  "processor_per_caster_ticks": [
+   {
+    "attackerShield": 15,
+    "expectedDamage": [
+     100,
+     200
+    ],
+    "healthLost": 300,
+    "otherShield": 20,
+    "type": "drain",
+    "victimShield": 0
+   },
+   {
+    "attackerShield": 30,
+    "expectedDamage": [
+     200,
+     400
+    ],
+    "healthLost": 600,
+    "otherShield": 40,
+    "type": "wound",
+    "victimShield": 0
+   }
+  ],
+  "processor_recoil_exclusion": {
+   "deferredEntries": 1,
+   "firstHealth": 980,
+   "firstOpponentShield": 0,
+   "secondHealth": 970,
+   "secondOpponentShield": 0
+  },
+  "processor_reflect_ownership": {
+   "attackerShield": 12,
+   "defenderShield": 4,
+   "direct": 80,
+   "reflected": 48
+  },
+  "processor_self_exclusion_10": {
+   "power": 10,
+   "reflectedLog": true,
+   "reflectedLost": 120,
+   "reflectedShield": 0,
+   "selfLost": 80,
+   "selfShield": 0
+  },
+  "processor_self_exclusion_15": {
+   "power": 15,
+   "reflectedLog": true,
+   "reflectedLost": 120,
+   "reflectedShield": 0,
+   "selfLost": 80,
+   "selfShield": 0
+  },
+  "separateLifetimes": {
+   "finalRound": 8,
+   "finalShields": [],
+   "lateShieldTimeline": [
+    {
+     "offset": 4,
+     "rounds": [
+      3
+     ]
+    },
+    {
+     "offset": 5,
+     "rounds": [
+      2
+     ]
+    },
+    {
+     "offset": 6,
+     "rounds": [
+      1
+     ]
+    },
+    {
+     "offset": 7,
+     "rounds": []
+    }
+   ],
+   "postExpiryAdded": [],
+   "postExpiryDamage": 910.114,
+   "timeline": [
+    {
+     "consume": [
+      3
+     ],
+     "offset": 0,
+     "round": 1,
+     "shields": [
+      {
+       "power": 221,
+       "rounds": 3
+      }
+     ]
+    },
+    {
+     "consume": [
+      3
+     ],
+     "offset": 1,
+     "round": 2,
+     "shields": [
+      {
+       "power": 221,
+       "rounds": 3
+      }
+     ]
+    },
+    {
+     "consume": [
+      2
+     ],
+     "offset": 2,
+     "round": 3,
+     "shields": [
+      {
+       "power": 221,
+       "rounds": 2
+      }
+     ]
+    },
+    {
+     "consume": [
+      1
+     ],
+     "offset": 3,
+     "round": 4,
+     "shields": [
+      {
+       "power": 221,
+       "rounds": 1
+      }
+     ]
+    },
+    {
+     "consume": [],
+     "offset": 4,
+     "round": 5,
+     "shields": [
+      {
+       "power": 159,
+       "rounds": 3
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "durationScope": "rounds=3/shieldRounds=3 are source-default test carriers; final timing unselected",
+ "failed": 0,
+ "gate": "ACTIVE",
+ "sourcePin": "585534d7eb21d6f0dd678d5c3eb92662f611d39b"
+}

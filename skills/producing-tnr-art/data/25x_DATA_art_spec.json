@@ -402,7 +402,7 @@
       "padding_rule": "Pad transparent to exact square AFTER keying, subject centred. Padding is what makes the aspect right; cropping to square eats the silhouette."
     },
     "ICON": {
-      "client_field": "item.image, jutsu.image, bloodline.image",
+      "client_field": "item.image, bloodline.image",
       "gameAsset_type": null,
       "render": {
         "_class": "derived",
@@ -440,6 +440,46 @@
         "_class": "asserted",
         "detail": "Concrete holdable objects only. The generator reliably fails on packaging formats, phenomena and amorphous material chunks. After three failed blind re-descriptions, switch to reference-image prompting rather than writing a fourth."
       }
+    },
+    "JUTSU_ICON": {
+      "client_field": "jutsu.image",
+      "gameAsset_type": null,
+      "render": {
+        "_class": "derived",
+        "same_as": "targets.ICON.render",
+        "note": "jutsu.image renders through the same ContentImage path as ICON. Split out only because the presentation rule below differs; every derived number here equals ICON's."
+      },
+      "delivered_width_px": 125,
+      "display_width_px": 160,
+      "aspect": {
+        "_class": "derived",
+        "value": "1:1",
+        "tolerance": 0.02,
+        "tolerance_note": "Audit tolerance. Exact-zero would flag rounding, not defects; anything outside 2% is visibly distorted at the delivered width."
+      },
+      "min_width_px": {
+        "_class": "asserted",
+        "value": 160,
+        "rationale": "Same as ICON: the display box is 160px and the CDN is asked for 125."
+      },
+      "recommended_source_px": {
+        "_class": "asserted",
+        "value": "256x256",
+        "rationale": "Same as ICON: matches the engine's own default maxDim for these fields."
+      },
+      "format": "webp",
+      "format_mode": "lossless",
+      "byte_ceiling_bytes": 460800,
+      "chroma_key": "lime",
+      "alpha": {
+        "_class": "asserted",
+        "value": "optional",
+        "ratified": "2026-10-14, RUL-2026-10-14-001",
+        "rationale": "dauntless ruled that newly produced jutsu icons carry designed backgrounds and transparency is not required. An opaque RGB export is accepted as-is: it was never keyed, so the alpha, soft-edge and residual-key checks do not apply to it. A transparent export took the keyed route and is held to every keyed check, exactly as ICON is. Never fabricate alpha over a designed background.",
+        "scope": "jutsu.image only. Item, bloodline, avatar, scene and pin art keep their own rules; existing live jutsu art is not changed by this."
+      },
+      "padding_rule": "Opaque route: designed full-bleed background, square canvas, no keying and no padding. Transparent route: key with chroma.py, then pad transparent to exact square as ICON does.",
+      "art_direction": "Not set here. Per-collection silhouette and palette registers live under docs/design/ (first: docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md); the session protocol is docs/workflows/ISOLATED_ART_GENERATION.md. Workstream byte caps stricter than byte_ceiling_bytes (BBE: under 80,000) belong to those registers and are passed with artpreflight --max-bytes."
     },
     "STATIC": {
       "client_field": "objectives[].image and quest.image are RAW URLS (see reference_kinds); effect.staticAssetPath is a gameAsset id",

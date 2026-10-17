@@ -1,0 +1,163 @@
+{
+ "_note": "READ-ONLY chest loot-table baseline for the crafting caches (Medicine Inro, Shinobi Tool Pouch, Sage's Strongbox). Zero mutations. Operator-run only; never an agent request. 22 item.get point reads with persist:\"full\" of every live, visible chest/cache in harvests/seed/41_INDEX_item.json, so their reward_items tables, reward_money and other reward fields can be compared with docs/design/crafting_caches/caches_draft.json by harness/crafting_caches/compare_chests.py. Ids come from the seed index (an index only, possibly stale): the comparison accepts a row only if the returned id and name match. Read order: the Gatherer's and Hunter's tiers, Genin Supply Cache, the five War Caches, then Bloodthorn Cache, Larry's Tackle Box, Mystery Chest, Ornate Chest, Wooden Treasure Chest and Bag of Prestige. Separate from the Ghost Ship quest capture. Zero live writes.",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "toBESPaPaHI5vEFRjWi20"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "gb6vxdzWTYZR--7s-4kTX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "SWQpaXB8csJWL3zZMTz4r"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "hikAzfsQPCvNUaFw_P8vs"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Fh3xch8ox_JMaHj0-ntTF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "-v1OQ5QSsWbV-DcZadM0h"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "KwgjMOya2XT6uYsgXbsh6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "M-0CPw9yBmmreLvJU6gav"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "32k2rXF6W-7gn_Fubp4kU"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "nAAfu3ya-dkVaZeH7LycZ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "0j4znEj9HCl0lKIW_9BP7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "74RxQoqSNYcfRnLxVDTfB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "TLjdSkY5kiaoD1n49y_3j"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "U6LFNfcweghWuqU-c4P-O"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "sfv8S6kuwZkPpALYAH7qh"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "BGbJPJGhjZxN8XzvfXf1b"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "OIw9FjNd-PXnSVzMtbclP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Wc68sUMJqcjttr2lLtMc-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "c5dUPtXmCedfKssqiwbpt"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "ONMLl57L7o0MivjhySHMA"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "sJpzHsubsYmOh1zzsKAVo"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "llCOxrK200QbY2ON7uQ1m"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

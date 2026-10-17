@@ -22,7 +22,10 @@ const DATE_RE = /^\d{4}-\d{1,2}-\d{1,2}$/;
 const DASH_RE = /[–—]/;
 const IMG_REF_RE = /@img:([A-Za-z0-9_.\-]+)/g;
 
-const AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredStat", "preferredGeneral1", "preferredGeneral2"];
+// preferredStat is NOT required: migration 0056 dropped the column (live rows have no such key), so
+// requiring it forced every AI create to send a key the server strips and Forge's read-back then
+// reports as drift. It stays an accepted key (pinned field set) for manifests that still send it.
+const AI_CREATE_REQUIRED = ["rank", "regeneration", "preferredGeneral1", "preferredGeneral2"];
 const FORMULA_TAGS = new Set(["damage", "pierce", "wound"]);            // L06
 const PCT_TAGS = new Set(["increasedamagegiven", "decreasedamagetaken", "increasedamagetaken"]); // L08
 const DIRECTIONS = { redirection: ["push", "pull"], increasestat: ["offence", "defence", "both"], decreasestat: ["offence", "defence", "both"] };

@@ -1,0 +1,960 @@
+{
+ "schema": "tnr.ghost_ship_skyglass_final_item_records.v1",
+ "status": "FINAL_2X2_RECORDS (RUL006 as amended by RUL-2026-10-12-005); PRESENTATION_PENDING_FROM_DIRECTOR; NOT_A_WRITE_MANIFEST",
+ "ruling": "RUL-2026-10-11-006",
+ "designCommit": "8a78115367feda143e9591f524b739a7d56330af",
+ "engineCommit": "585534d7eb21d6f0dd678d5c3eb92662f611d39b",
+ "contract": {
+  "file": "state/ghost_ship_skyglass_final_item_contract.json",
+  "sha256": "d314f3de985aa862dd74e83deca322d92ce0b7fe186a118f29fb5885c730e282"
+ },
+ "timing": {
+  "consumeRounds": 2,
+  "generatedShieldRounds": 2,
+  "approved": true,
+  "ruling": "RUL-2026-10-11-006"
+ },
+ "consumeOverlap": "CLOSED_NATIVE (RUL-2026-10-12-006)",
+ "historical": {
+  "r4Katana": {
+   "file": "state/ghost_ship_skyglass_katana_record.json",
+   "sha256": "6f5be02a8d8f3c42fe776cd05c8fb88e7d58a3c0ef133b3e5fdf1eae3d602469",
+   "tnrCommit": "3f825562ea051306a3803f47428b742ae5100011",
+   "katanaDiff": [
+    {
+     "path": "/effects/2/power",
+     "before": 40,
+     "after": 15
+    },
+    {
+     "path": "/effects/2/rounds",
+     "before": 0,
+     "after": 2
+    },
+    {
+     "path": "/effects/2/shieldRounds",
+     "before": 3,
+     "after": 2
+    }
+   ]
+  },
+  "activeConsume3x3": {
+   "file": "state/ghost_ship_skyglass_active_consume_carriers.json",
+   "sha256": "bbbfecd31d8aabde21f04a3f62a119970b51f94ffc4ff6a1b614f054b56edc2a",
+   "tnrCommit": "fcd79e5a3401dc8d95abbdaa05d0d4664c04a6e2",
+   "katanaDiff": [
+    {
+     "path": "/effects/2/rounds",
+     "before": 3,
+     "after": 2
+    },
+    {
+     "path": "/effects/2/shieldRounds",
+     "before": 3,
+     "after": 2
+    }
+   ],
+   "crystalDiff": [
+    {
+     "path": "/actionCostPerc",
+     "before": 40,
+     "after": 60
+    },
+    {
+     "path": "/battleDescription",
+     "before": "harness placeholder (presentation pending)",
+     "after": null
+    },
+    {
+     "path": "/canBeCrafted",
+     "before": false,
+     "after": true
+    },
+    {
+     "path": "/canBeTraded",
+     "before": false,
+     "after": true
+    },
+    {
+     "path": "/chakraCost",
+     "before": 40,
+     "after": 0
+    },
+    {
+     "path": "/cooldown",
+     "before": 4,
+     "after": 5
+    },
+    {
+     "path": "/cost",
+     "before": 150000,
+     "after": 1
+    },
+    {
+     "path": "/craftingExperience",
+     "before": 0,
+     "after": 800
+    },
+    {
+     "path": "/craftingRequirements",
+     "before": null,
+     "after": [
+      {
+       "ids": [
+        "@item:skyglass_filament"
+       ],
+       "number": 12
+      }
+     ]
+    },
+    {
+     "path": "/description",
+     "before": "harness placeholder (presentation pending)",
+     "after": null
+    },
+    {
+     "path": "/effects/0/rounds",
+     "before": 3,
+     "after": 2
+    },
+    {
+     "path": "/effects/0/shieldRounds",
+     "before": 3,
+     "after": 2
+    },
+    {
+     "path": "/hidden",
+     "before": false,
+     "after": true
+    },
+    {
+     "path": "/image",
+     "before": "",
+     "after": null
+    },
+    {
+     "path": "/inShop",
+     "before": true,
+     "after": false
+    },
+    {
+     "path": "/name",
+     "before": "Skyglass Crystal (offline carrier)",
+     "after": "Skyglass Crystal"
+    },
+    {
+     "path": "/purchaseLimitPeriod",
+     "before": null,
+     "after": "NONE"
+    },
+    {
+     "path": "/rarity",
+     "before": "RARE",
+     "after": "LEGENDARY"
+    },
+    {
+     "path": "/requiredLevel",
+     "before": 20,
+     "after": 1
+    },
+    {
+     "path": "/staminaCost",
+     "before": 40,
+     "after": 0
+    },
+    {
+     "path": "/target",
+     "before": "SELF",
+     "after": "CHARACTER"
+    }
+   ]
+  }
+ },
+ "katana": {
+  "status": "RUL004_BASELINE + RUL005_RATE + RUL006_TIMING; PRESENTATION_PENDING",
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1791727479372.json",
+   "captureSha256": "ddae560e3edbb3232c8f3f7cd286f9ae2e16b71239de52de76757561da669746",
+   "pointer": "/captures/0/data",
+   "id": "osJq3k77YPGoFWgof12FQ",
+   "name": "Night's Testament",
+   "capturedAt": "2026-10-11T14:04:38.932Z"
+  },
+  "droppedFields": [
+   "id",
+   "createdAt",
+   "updatedAt"
+  ],
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "record": {
+   "actionCostPerc": 40,
+   "auctionMaxPrice": null,
+   "auctionMinPrice": null,
+   "battleDescription": null,
+   "battleUsageType": "BOTH",
+   "bloodlineId": null,
+   "canBeCrafted": false,
+   "canBeGathered": false,
+   "canBeHunted": false,
+   "canBeImbued": false,
+   "canBeTraded": true,
+   "canStack": false,
+   "chakraCost": 40,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 6,
+   "coordinateTargeting": null,
+   "cost": 1,
+   "craftingExperience": 0,
+   "crystalTargetTypes": null,
+   "description": null,
+   "destroyOnUse": false,
+   "effects": [
+    {
+     "type": "pierce",
+     "power": 50,
+     "rounds": 0,
+     "target": "INHERIT",
+     "elements": [
+      "Crystal"
+     ],
+     "appearSfx": "",
+     "direction": "offence",
+     "statTypes": [
+      "None"
+     ],
+     "calculation": "formula",
+     "description": "placeholder",
+     "dmgModifier": 0,
+     "disappearSfx": "",
+     "generalTypes": [
+      "Highest"
+     ],
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "residualModifier": 0,
+     "disappearAnimation": "",
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true
+    },
+    {
+     "type": "immunity",
+     "power": 100,
+     "blocks": "buffprevent",
+     "rounds": 2,
+     "target": "SELF",
+     "appearSfx": "",
+     "direction": "offence",
+     "calculation": "static",
+     "description": "placeholder",
+     "disappearSfx": "",
+     "powerPerLevel": 0,
+     "appearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": "",
+     "disappearAnimation": ""
+    },
+    {
+     "type": "consume",
+     "power": 15,
+     "calculation": "percentage",
+     "target": "SELF",
+     "rounds": 2,
+     "shieldRounds": 2,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "description": "placeholder",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": ""
+    }
+   ],
+   "expireFromStoreAt": null,
+   "farmExtractSeedCount": 0,
+   "farmExtractSeedItemId": null,
+   "farmFertilizerExperience": 0,
+   "farmGrowTimeSeconds": 0,
+   "farmHarvestExperience": 0,
+   "farmMinLevel": 1,
+   "farmPlantExperience": 0,
+   "farmSellValue": 0,
+   "farmTimeReductionSeconds": 0,
+   "farmYieldItemId": null,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "hidden": true,
+   "image": null,
+   "inShop": false,
+   "isEventItem": false,
+   "isFarmFertilizer": false,
+   "isFarmSeed": false,
+   "itemType": "WEAPON",
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "name": "Skyglass Katana",
+   "parentItemId": null,
+   "preventBattleUsage": false,
+   "purchaseLimit": null,
+   "purchaseLimitPeriod": "NONE",
+   "range": 4,
+   "rarity": "LEGENDARY",
+   "repsCost": 0,
+   "requiredBloodlineMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredIntelligence": null,
+   "requiredLevel": 1,
+   "requiredNinjutsuMastery": null,
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
+   "requiredSpeed": null,
+   "requiredStrength": null,
+   "requiredTaijutsuMastery": null,
+   "requiredWillpower": null,
+   "seichiSilverCost": 0,
+   "slot": "HAND",
+   "stackSize": 1,
+   "staminaCost": 40,
+   "staminaCostReducePerLvl": 0,
+   "target": "OTHER_USER",
+   "weaponType": "SWORD",
+   "xpToLevel": 1000
+  },
+  "provenance": {
+   "actionCostPerc": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "auctionMaxPrice": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "auctionMinPrice": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "battleDescription": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "battleUsageType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "bloodlineId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeCrafted": {
+    "source": "override",
+    "why": "RUL-2026-10-11-004 drop-only"
+   },
+   "canBeGathered": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeHunted": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canBeImbued": {
+    "source": "override",
+    "why": "RUL-2026-10-10-007"
+   },
+   "canBeTraded": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "canStack": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "chakraCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "chakraCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "cooldown": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "coordinateTargeting": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "cost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "craftingExperience": {
+    "source": "override",
+    "why": "RUL-2026-10-11-004 drop-only"
+   },
+   "crystalTargetTypes": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "description": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "destroyOnUse": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "effects": {
+    "source": "override",
+    "why": "RUL004 retained Pierce50 (Crystal)/SELF immunity2r; RUL005 Consume15; RUL006 rounds2/shieldRounds2; pending visual IDs cleared"
+   },
+   "expireFromStoreAt": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmExtractSeedCount": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmExtractSeedItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmFertilizerExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmGrowTimeSeconds": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmHarvestExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmMinLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmPlantExperience": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmSellValue": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmTimeReductionSeconds": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "farmYieldItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "healthCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "healthCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "hidden": {
+    "source": "override",
+    "why": "creation doctrine; no publication"
+   },
+   "image": {
+    "source": "override",
+    "why": "presentation pending; validation/battle helper uses labelled placeholders"
+   },
+   "inShop": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isEventItem": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isFarmFertilizer": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "isFarmSeed": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "itemType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxDurability": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxEquips": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "maxImbueNumber": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "method": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "name": {
+    "source": "override",
+    "why": "RUL-2026-10-10-007"
+   },
+   "parentItemId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "preventBattleUsage": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "purchaseLimit": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "purchaseLimitPeriod": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "range": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "rarity": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "repsCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredBloodlineMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredBukijutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredGenjutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredIntelligence": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredNinjutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSageMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSkillId": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredSpeed": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredStrength": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredTaijutsuMastery": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "requiredWillpower": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "seichiSilverCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "slot": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "stackSize": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "staminaCost": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "staminaCostReducePerLvl": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "target": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "weaponType": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   },
+   "xpToLevel": {
+    "source": "Night's Testament; RUL004 approved non-effect baseline"
+   }
+  }
+ },
+ "crystal": {
+  "status": "RUL005/006/RUL-2026-10-12-005 DECIDED FIELDS + HEAL CRYSTAL III MIRROR; PRESENTATION_PENDING",
+  "baseline": {
+   "capture": "harvests/inbox/tnr_results_1791766317760.json",
+   "captureSha256": "ff8d3b65297e64c9912e01afe3850ecef45b19988f38409c5b61d3d36bc9e252",
+   "proc": "item.get",
+   "snapshotKey": "87-mv4jehc4::before::1",
+   "id": "iJM0kb1i6iNXjADJlZGV_",
+   "name": "Heal Crystal III",
+   "capturedAt": "2026-10-12T00:51:56.877Z"
+  },
+  "droppedFields": [
+   "id",
+   "createdAt",
+   "updatedAt"
+  ],
+  "presentationPending": [
+   "description",
+   "battleDescription",
+   "image"
+  ],
+  "mirroredFields": {
+   "actionCostPerc": 60,
+   "battleUsageType": "BOTH",
+   "canStack": false,
+   "chakraCost": 0,
+   "cooldown": 5,
+   "cost": 1,
+   "craftingExperience": 800,
+   "destroyOnUse": false,
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "range": 0,
+   "requiredLevel": 1,
+   "slot": "ITEM",
+   "stackSize": 1,
+   "staminaCost": 0,
+   "target": "CHARACTER",
+   "weaponType": "NONE",
+   "xpToLevel": 1000
+  },
+  "recipe": {
+   "requirement": "@item:skyglass_filament",
+   "quantity": 12,
+   "ruling": "RUL-2026-10-12-005"
+  },
+  "note": "Undecided fields mirror the live Heal Crystal III row. The Filament ref resolves to the item created in the same release manifest; offline tests substitute a harness id.",
+  "record": {
+   "actionCostPerc": 60,
+   "auctionMaxPrice": null,
+   "auctionMinPrice": null,
+   "battleDescription": null,
+   "battleUsageType": "BOTH",
+   "bloodlineId": null,
+   "canBeCrafted": true,
+   "canBeGathered": false,
+   "canBeHunted": false,
+   "canBeImbued": false,
+   "canBeTraded": true,
+   "canStack": false,
+   "chakraCost": 0,
+   "chakraCostReducePerLvl": 0,
+   "cooldown": 5,
+   "coordinateTargeting": null,
+   "cost": 1,
+   "craftingExperience": 800,
+   "craftingRequirements": [
+    {
+     "ids": [
+      "@item:skyglass_filament"
+     ],
+     "number": 12
+    }
+   ],
+   "crystalTargetTypes": "WEAPON",
+   "description": null,
+   "destroyOnUse": false,
+   "effects": [
+    {
+     "type": "consume",
+     "power": 10,
+     "calculation": "percentage",
+     "target": "SELF",
+     "rounds": 2,
+     "shieldRounds": 2,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "description": "placeholder",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "staticAnimation": "",
+     "staticAssetPath": ""
+    }
+   ],
+   "expireFromStoreAt": null,
+   "farmExtractSeedCount": 0,
+   "farmExtractSeedItemId": null,
+   "farmFertilizerExperience": 0,
+   "farmGrowTimeSeconds": 0,
+   "farmHarvestExperience": 0,
+   "farmMinLevel": 1,
+   "farmPlantExperience": 0,
+   "farmSellValue": 0,
+   "farmTimeReductionSeconds": 0,
+   "farmYieldItemId": null,
+   "healthCost": 0,
+   "healthCostReducePerLvl": 0,
+   "hidden": true,
+   "image": null,
+   "inShop": false,
+   "isEventItem": false,
+   "isFarmFertilizer": false,
+   "isFarmSeed": false,
+   "itemType": "CRYSTAL",
+   "maxDurability": 100,
+   "maxEquips": 1,
+   "maxImbueNumber": 1,
+   "method": "SINGLE",
+   "name": "Skyglass Crystal",
+   "parentItemId": null,
+   "preventBattleUsage": false,
+   "purchaseLimit": null,
+   "purchaseLimitPeriod": "NONE",
+   "range": 0,
+   "rarity": "LEGENDARY",
+   "repsCost": 0,
+   "requiredBloodlineMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredIntelligence": null,
+   "requiredLevel": 1,
+   "requiredNinjutsuMastery": null,
+   "requiredSageMastery": null,
+   "requiredSkillId": null,
+   "requiredSpeed": null,
+   "requiredStrength": null,
+   "requiredTaijutsuMastery": null,
+   "requiredWillpower": null,
+   "seichiSilverCost": 0,
+   "slot": "ITEM",
+   "stackSize": 1,
+   "staminaCost": 0,
+   "staminaCostReducePerLvl": 0,
+   "target": "CHARACTER",
+   "weaponType": "NONE",
+   "xpToLevel": 1000
+  },
+  "provenance": {
+   "actionCostPerc": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "auctionMaxPrice": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "auctionMinPrice": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "battleDescription": {
+    "source": "override",
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
+   },
+   "battleUsageType": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "bloodlineId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "canBeCrafted": {
+    "source": "override",
+    "why": "RUL-2026-10-12-005: 12-Filament recipe restored"
+   },
+   "canBeGathered": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "canBeHunted": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "canBeImbued": {
+    "source": "override",
+    "why": "a Crystal is not an imbue recipient"
+   },
+   "canBeTraded": {
+    "source": "override",
+    "why": "RUL-2026-10-11-006"
+   },
+   "canStack": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "chakraCost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "chakraCostReducePerLvl": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "cooldown": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "coordinateTargeting": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "cost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "craftingExperience": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "craftingRequirements": {
+    "source": "override",
+    "why": "RUL-2026-10-12-005: 12 Skyglass Filaments craft one Crystal (Filament created in the release manifest)"
+   },
+   "crystalTargetTypes": {
+    "source": "override",
+    "why": "RUL005/006 weapon-only"
+   },
+   "description": {
+    "source": "override",
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
+   },
+   "destroyOnUse": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "effects": {
+    "source": "override",
+    "why": "RUL005 sole Consume10; RUL006 rounds2/shieldRounds2"
+   },
+   "expireFromStoreAt": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmExtractSeedCount": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmExtractSeedItemId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmFertilizerExperience": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmGrowTimeSeconds": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmHarvestExperience": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmMinLevel": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmPlantExperience": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmSellValue": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmTimeReductionSeconds": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "farmYieldItemId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "healthCost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "healthCostReducePerLvl": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "hidden": {
+    "source": "override",
+    "why": "creation doctrine; no publication"
+   },
+   "image": {
+    "source": "override",
+    "why": "presentation supplied by the director (RUL-2026-10-12-006)"
+   },
+   "inShop": {
+    "source": "override",
+    "why": "acquisition is the 3% Reliquary drop and the Filament recipe"
+   },
+   "isEventItem": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "isFarmFertilizer": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "isFarmSeed": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "itemType": {
+    "source": "override",
+    "why": "RUL005/006 category"
+   },
+   "maxDurability": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "maxEquips": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "maxImbueNumber": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "method": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "name": {
+    "source": "override",
+    "why": "approved item name (reward decisions)"
+   },
+   "parentItemId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "preventBattleUsage": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "purchaseLimit": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "purchaseLimitPeriod": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "range": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "rarity": {
+    "source": "override",
+    "why": "RUL-2026-10-11-006"
+   },
+   "repsCost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredBloodlineMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredBukijutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredGenjutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredIntelligence": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredLevel": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredNinjutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredSageMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredSkillId": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredSpeed": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredStrength": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredTaijutsuMastery": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "requiredWillpower": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "seichiSilverCost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "slot": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "stackSize": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "staminaCost": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "staminaCostReducePerLvl": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "target": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "weaponType": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   },
+   "xpToLevel": {
+    "source": "Heal Crystal III live mirror (RUL-2026-10-12-005)"
+   }
+  }
+ }
+}
