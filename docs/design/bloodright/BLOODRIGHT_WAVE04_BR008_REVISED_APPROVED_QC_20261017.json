@@ -1,0 +1,88 @@
+{
+  "schema": "tnr.bloodright.wave04.br008.revised-approval-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-008",
+  "name": "Bakuhatsu",
+  "rank": "A",
+  "art_direction": "Detonation Core — brighter white-hot explosive centers and saturated scarlet/red outer shock sparks",
+  "director_visual_approval": "APPROVED_REVISED_V02_FOUNDATION_HIDDEN_ADVANCED",
+  "evidence": "Director said 'Much better, approved, next' after viewing three revised red-edged / brilliant-center independent image-generation originals.",
+  "supersedes": "BLOODRIGHT_WAVE04_BR008_PROPOSAL_QC_20261017.json; v01 fixed-master Bakuhatsu was visually REJECTED for reading like Suragu magma. Preserve it as historical candidate, do not wire.",
+  "source_reference_zip": {
+    "name": "BR-008_Bakuhatsu.zip",
+    "sha256": "7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24",
+    "verified_jutsu": 5,
+    "identity": 1
+  },
+  "package": {
+    "name": "BR-008_Bakuhatsu_Bloodright_Approved_RedCore_v02_3_Icons.zip",
+    "sha256": "901ef05b6dcd9c93c7a3cb4112731209f01570e9d8581b51c74acba76d3a1bf1",
+    "bytes": 7326514
+  },
+  "format": "1254x1254 RGB original PNGs, unchanged raw source bytes; Pillow Lanczos -> 256x256 lossless RGB WebP VP8L",
+  "icons": [
+    {
+      "tier": "Foundation",
+      "source_file": "blazing_celestial_diamond_sigil.png",
+      "generation_id": "12d988e0-f4d2-43ce-9ffb-a4ab7319780e",
+      "raw_sha256": "7bdd53b0cd2474c373bf2b8922876549c094425dfcdb9b6fadc99b4e3698490a",
+      "webp_filename": "br008_bakuhatsu_foundation_v02.webp",
+      "webp_sha256": "73ef90599fd48b1e51164c00fe2669d52132e018fd1016326aee30d1bd412a5c",
+      "webp_bytes": 62936,
+      "master_maxrgb_equal_fraction": 0.554936,
+      "iou_threshold128": 0.678102
+    },
+    {
+      "tier": "Hidden Art",
+      "source_file": "fiery_explosive_diamond_sigil.png",
+      "generation_id": "8dcfa2b5-4700-4189-9900-daeb2de98591",
+      "raw_sha256": "85a67b7e2325c5f575845485fded31bbc15b9e14574ce2d765f654a7a61769b2",
+      "webp_filename": "br008_bakuhatsu_hidden_art_v02.webp",
+      "webp_sha256": "93d34f8c8ed8c74c1839cf30dac35d27cda4b80f2eaf51a9cd4dd5409fb33d82",
+      "webp_bytes": 108390,
+      "master_maxrgb_equal_fraction": 0.219475,
+      "iou_threshold128": 0.632838
+    },
+    {
+      "tier": "Advanced Art",
+      "source_file": "blazing_eight_point_sigil.png",
+      "generation_id": "5632e182-0163-4ea2-9576-789d0be6703b",
+      "raw_sha256": "e0e7b00f6afc5eaf51520def8e7143a8217cb288da6d3995812cff23d87de0cc",
+      "webp_filename": "br008_bakuhatsu_advanced_art_v02.webp",
+      "webp_sha256": "6df9b9cdf4936fb291466b35e17285fbd87f0177587b644f1f5b0cae8454759d",
+      "webp_bytes": 95046,
+      "master_maxrgb_equal_fraction": 0.303268,
+      "iou_threshold128": 0.586557
+    }
+  ],
+  "geometry": {
+    "director_visual_shape_read": "PASS_APPROVED",
+    "exact_master_maxRGB": "FAIL_3_OF_3_FREEFORM_GENERATION",
+    "consequence": "Original user-approved artwork preserved byte-for-byte. This trio is not proven geometry-locked to the universal master and must not be called strict shape-QC passed or upload-ready. A future stenciled revision would change art and require new approval."
+  },
+  "qc": {
+    "source_reference_zip_crc_manifest_sha": "PASS",
+    "raw_PNG_source_sha": "PASS_3",
+    "webp_RGB_lossless_VP8L": "PASS_3",
+    "webp_decoded_pixel_equal_Lanczos_resize": "PASS_3",
+    "working_byte_ceiling_460800": "PASS_3",
+    "black_corner": "PASS_3",
+    "programmatic_previews": "PASS",
+    "packaging_zip_crc_and_exact_binary": "PASS",
+    "independent_offline_assertions": "134_PASS_0_FAIL_SHARED_WITH_BR053",
+    "skillTree_image_field_preflight": "NOT_DONE",
+    "git_binary_art_pin": "NOT_DONE",
+    "Forge_immutable_imagePack": "NOT_DONE",
+    "operator_live_readback": "NOT_DONE"
+  },
+  "progress": {
+    "visually_approved_bloodlines": 17,
+    "visually_approved_icons": 51,
+    "total_bloodlines": 29,
+    "total_icons": 87,
+    "strict_master_geometry_pass_for_BR008": 0
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
