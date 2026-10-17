@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 05
 
-**Status:** SESSION INITIALIZED / SOURCE-ART INTAKE PENDING. **Zero Wave05 icons produced, zero visual treatments proposed or approved.**
+**Status:** FIVE ORIGINAL SOURCE ZIPS RECEIVED AND HASH-VERIFIED; FIVE ART TREATMENT CARDS PROPOSED FOR DIRECTOR APPROVAL. NO WAVE05 ICONS PRODUCED.
 **Date:** 2026-10-17.
 **Role:** Art Director (lead), Image Production (support). **Tooling/Forge:** Fable technical ownership.
 **Repository:** `perseverance484/tnr-tools`.
@@ -43,6 +43,14 @@
 
 `Bloodright_Wave05_Production_Starter_20261017.zip`, **SHA-256 `5054109d3142154f668ba60d8b0d201971d4b2a2e03fcf6f408dbf5568605a4b`**, **8,001,320 bytes**. Contains the **three exact individually approved 1254px geometry masters** (SHA pinned in Wave04 QC) + the **15 exact accepted Wave04 RGB lossless 256px WebP icons** for cross-family contrast, plus source hashes, Wave04 visual acceptance ledger, and programmatic showcase / thumbnail QC. **Does not contain any Wave05 original jutsu art, new emblems or game requests.** Files are conversation portable assets, NOT immutable Git image binaries.
 
+## 2026-10-17 — Verified intake and treatment proposals
+
+- All five original Wave05 bloodline art ZIPs are now received and safely inspected offline. **305 checks passed, zero failures** across archive CRC/path integrity, actual image SHA-256 and bytes, decoded format/dimensions, pinned bloodline and jutsu IDs. **25 original jutsu images + five identity images** inspected. The historic game-capture metadata in archive manifests remains a provenance claim, not a new live request.
+- Five proposed visual treatments: **Equinox Rift** (Tenohira Musei), **Midnight Tempest** (Arashima), **Raijin Whitebolt** (Shinrai Ou), **Cerulean Shatter** (Hyouga Yui), **Winterglass Sanctum** (Teno Yuki). Each is grounded in real supplied imagery; the storm pair and ice pair need side-by-side thumbnail contrast.
+- Canonical evidence: `BLOODRIGHT_WAVE05_SOURCE_INTAKE_20261017.json`. Full source-grounded cards: `BLOODRIGHT_WAVE05_TREATMENTS_PROPOSED_20261017.md`.
+- Portable file: `Bloodright_Wave05_Source_Intake_And_Treatment_Proposals_20261017.zip`; SHA-256 `378f26713655c449084750d35265a9390b394b1bfee66eb590bb8057adefcc29`. All five exact source ZIPs, prior approved geometry masters/reference bundle, original-art boards, package manifest and treatment cards. Conversation artifact, **not Git-pinned accepted binary art**.
+- **Director palette/material approval PENDING. No Wave05 tier icons produced; no game requests/writes.**
+
 ## Workstation production and approval gates
 
 1. **Receive ZIPs** from the director (individual or one larger ZIP). Inspect safe paths, ZIP CRC, name, bloodline ID/rank, individual jutsu IDs, image MIME/format/dimensions and raw SHA-256 hashes against manifests and pinned `roster.json`. No live-game requests.
@@ -61,4 +69,4 @@ Remaining last four if Wave05 is completed: **BR-033 Houkyuken**, **BR-036 Itoji
 
 ## Immediate next action
 
-**Request all five original Wave05 bloodline art ZIPs** from the operator. No Wave05 source intake or visual treatment review has occurred yet. When supplied, verify and open real artwork, propose a five-family treatment card batch for explicit director approval, then start BR-078 Tenohira Musei's isolated three-emblem production.
+Five original source ZIPs are now verified, and their five material treatment cards are proposed. **Obtain director approval or revisions before beginning production** with BR-078 Tenohira Musei's separate Foundation/Hidden Art/Advanced Art emblem originals. All previous artwork and technical/live-game authority gates remain unchanged.
