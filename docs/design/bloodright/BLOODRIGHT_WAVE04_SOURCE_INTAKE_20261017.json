@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave04.original-art-intake-qc/1",
   "date": "2026-10-17",
-  "status": "FIVE_KITS_VERIFIED_AND_THEMES_APPROVED; BR066_BR008_VISUALLY_APPROVED; BR053_PROPOSED",
+  "status": "FIVE_SOURCE_PACKS_VERIFIED_THEMES_APPROVED; BR066_BR008_BR053_VISUALLY_APPROVED; BR063_PROPOSED",
   "roster": {
     "ref": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "reviewed_in_tracker": "docs/design/bloodright/ICON_PRODUCTION_TRACKER.md"
@@ -91,8 +91,10 @@
       ],
       "do_not_use": "No Godstorm lightning bolts, Cosmic stardust, extra runes, claws or external rings.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "3_OF_3_PROPOSED_DIRECTOR_ART_APPROVAL_PENDING",
-      "family_qc_record": "BLOODRIGHT_WAVE04_BR053_PROPOSAL_QC_20261017.json"
+      "icon_artwork_status": "3_OF_3_DIRECTOR_VISUALLY_APPROVED_VOIDSCAR_AMETHYST_V02; EXACT_MASTER_GEOMETRY_PASS",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR053_PROPOSAL_QC_20261017.json",
+      "approved_original_package": "BR-053_Oblivion_Seal_Bloodright_Approved_3_Icons_v02.zip",
+      "approved_original_package_sha256": "9968ced5593b28914a694568f87a91ffdd7ddfe4654e1864d53f67a7a4339217"
     },
     {
       "code": "BR-063",
@@ -120,7 +122,8 @@
       ],
       "do_not_use": "Keep strong bright silhouette on black; no spiderwebs, ghost figures, portals or Oblivion-like saturated purple.",
       "visual_treatment_approval": "APPROVED_BY_DIRECTOR_2026-10-17",
-      "icon_artwork_status": "NOT_GENERATED"
+      "icon_artwork_status": "3_OF_3_INDEPENDENTLY_QC_VERIFIED_PROPOSED; AWAITING_DIRECTOR_IMAGE_ACCEPTANCE",
+      "family_qc_record": "BLOODRIGHT_WAVE04_BR063_PROPOSAL_QC_20261017.json"
     },
     {
       "code": "BR-032",
@@ -193,16 +196,16 @@
     "total_icons": 87,
     "remaining_bloodlines": 14,
     "remaining_icons": 42,
-    "wave04_approved_bloodlines": 2,
-    "wave04_approved_icons": 6,
-    "current_visually_approved_bloodlines": 17,
-    "current_visually_approved_icons": 51,
-    "current_remaining_bloodlines": 12,
-    "current_remaining_icons": 36,
-    "wave04_fixed_geometry_machine_pass_icon_count": 0,
+    "wave04_approved_bloodlines": 3,
+    "wave04_approved_icons": 9,
+    "current_visually_approved_bloodlines": 18,
+    "current_visually_approved_icons": 54,
+    "current_remaining_bloodlines": 11,
+    "current_remaining_icons": 33,
+    "wave04_fixed_geometry_machine_pass_icon_count": 3,
     "wave04_fixed_geometry_proposal_pass_icons": 3
   },
-  "decision_gate": "Director acceptance/revision of Oblivion Seal Voidscar Amethyst specific proposed three-tier artwork next; five family themes already approved.",
+  "decision_gate": "Director visual approval of BR-063 Shadow Weaver specific saved Foundation / Hidden Art / Advanced Art trio; then proceed Heavenly Sonata.",
   "technical_boundaries": [
     "Current main JUTSU_ICON optional alpha applies ONLY to jutsu.image; not field-verified for Bloodright skillTree.image",
     "Exact accepted art source binaries/masters still not committed/pinned by immutable Git SHA",
@@ -213,5 +216,5 @@
   "live_game_writes": 0,
   "credentials": false,
   "treatment_director_approval": "ALL_FIVE_CARDS_APPROVED_BY_DIRECTOR_ON_2026-10-17",
-  "geometry_exception_notice": "BR-066 Shinseina and BR-008 revised Bakuhatsu image-generated approved trios visually accepted but fail pixel-exact master geometry; preserve exact raw bytes; do not claim technically ready or silently regenerate. BR-053 proposed trio passes exact master geometry."
+  "geometry_exception_notice": "Director-approved BR-066 Shinseina Ki and revised BR-008 Bakuhatsu (6 icons) still fail pixel-exact master geometry; keep bytes immutable. BR-053 Oblivion Seal passes exact, BR-063 Shadow Weaver proposed exact masks pending visual approval."
 }
