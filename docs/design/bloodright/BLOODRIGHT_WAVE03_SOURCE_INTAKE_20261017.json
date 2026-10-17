@@ -1,0 +1,161 @@
+{
+  "schema": "tnr.bloodright.wave03.source-intake-index/1",
+  "date": "2026-10-17",
+  "status": "FIVE_ORIGINAL_ART_PACKS_VERIFIED_31_JUTSU_IMAGES_PLUS_5_IDENTITIES; FIVE_TREATMENTS_PROPOSED_NOT_APPROVED",
+  "bloodright_art_contract": "docs/workflows/BLOODRIGHT_ICON_STUDIO.md",
+  "reference_source": "Operator-supplied ZIPs only; source manifests contain prior capture provenance; no fresh live requests",
+  "families": [
+    {
+      "code": "BR-083",
+      "name": "Tetsugan",
+      "rank": "H",
+      "source_zip": "BR-083_Tetsugan.zip",
+      "source_zip_sha256": "ee51014dc769de0e39ce5ff479c1ca673ff8dd85d566f7d818338ea284254fb8",
+      "jutsu": 11,
+      "identity_images": 1,
+      "treatment": "Ward-Forged Steel",
+      "refs": [
+        "Tranquil Guard Flowing Form",
+        "Pivoting Fortress",
+        "Crimson Thrust",
+        "Inner Peace"
+      ],
+      "palette": [
+        "#171c27",
+        "#92a7bb",
+        "#5ecfe8",
+        "#bb8a4c",
+        "#842936"
+      ]
+    },
+    {
+      "code": "BR-064",
+      "name": "Shakunetsu Sakura",
+      "rank": "A",
+      "source_zip": "BR-064_Shakunetsu_Sakura.zip",
+      "source_zip_sha256": "08ae88c6b8b2cf6d20bcae02402059385b182551e39ac34c4834c68142355f2b",
+      "jutsu": 5,
+      "identity_images": 1,
+      "treatment": "Midnight Blossomfire",
+      "refs": [
+        "Yozakura: Sakura Dragon Pearl",
+        "Yozakura: Dancing Embers",
+        "Asazakura: Sakura Dragon Tree",
+        "Hiru Sakura: Sakura-ame"
+      ],
+      "palette": [
+        "#1d1021",
+        "#e92264",
+        "#fd7040",
+        "#ffc45b",
+        "#f8a6c6"
+      ]
+    },
+    {
+      "code": "BR-020",
+      "name": "Crystal Essence",
+      "rank": "A",
+      "source_zip": "BR-020_Crystal_Essence.zip",
+      "source_zip_sha256": "0a6acc8fb678b1030f1ada358b7fd522cf531b0dfb2f49f2bf0a0a969f5329af",
+      "jutsu": 5,
+      "identity_images": 1,
+      "treatment": "Prismatic Jadeglass",
+      "refs": [
+        "Summoning: Jade",
+        "Prism",
+        "Crystal Cave",
+        "Crystal Sphere"
+      ],
+      "palette": [
+        "#06212c",
+        "#23bccb",
+        "#6fd3e5",
+        "#48aa72",
+        "#f9ba45"
+      ]
+    },
+    {
+      "code": "BR-074",
+      "name": "Suragu",
+      "rank": "A",
+      "source_zip": "BR-074_Suragu.zip",
+      "source_zip_sha256": "687729d4857943f991d2d34253386259af20ec104daa0fc9c462da92e4a45916",
+      "jutsu": 5,
+      "identity_images": 1,
+      "treatment": "Obsidian Magma",
+      "refs": [
+        "Lava Wave",
+        "Eruption Strike",
+        "Magma Slayer",
+        "Infernal Stream"
+      ],
+      "palette": [
+        "#1a161a",
+        "#50302b",
+        "#c83b18",
+        "#fd831e",
+        "#ffef98"
+      ]
+    },
+    {
+      "code": "BR-090",
+      "name": "Vaporia",
+      "rank": "A",
+      "source_zip": "BR-090_Vaporia.zip",
+      "source_zip_sha256": "41b0a1338a6f5ec2d776a2e1334d198d815100462c9a27758654ba3c97991a9a",
+      "jutsu": 5,
+      "identity_images": 1,
+      "treatment": "Hydrothermal Crucible",
+      "refs": [
+        "Azure Dragon Palm",
+        "Liquid Ember Shell",
+        "Scorch Break",
+        "Surfing Strike"
+      ],
+      "palette": [
+        "#06182d",
+        "#1262bb",
+        "#33bfff",
+        "#f46c22",
+        "#ffe0ae"
+      ]
+    }
+  ],
+  "qc": {
+    "zip_crc_and_paths": "PASS_FIVE",
+    "manifest_bloodline_identity": "PASS_FIVE",
+    "jutsu_ids_vs_pinned_roster": "PASS_FIVE",
+    "actual_files_sha256_vs_source_manifests": "PASS_36",
+    "actual_images_dimensions_mime_vs_manifests": "PASS_36",
+    "original_source_image_inspection": "FOUR_JUTSU_PLUS_IDENTITY_PER_FAMILY",
+    "files_downloaded_from_game": "NONE"
+  },
+  "portable": {
+    "name": "Bloodright_Wave03_Source_Intake_And_Treatment_Proposals_20261017.zip",
+    "sha256": "27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844",
+    "bytes": 11798447,
+    "contents": "Five source ZIPs, verified Wave03 production starter ZIP with previous approved comparisons and 3 geometry masters, source SHA256 report, treatment cards, contact preview, manifest"
+  },
+  "scope": {
+    "fixed_geometry": "Foundation nested diamond; Hidden Art paired crescents/crosspieces; Advanced Art starburst",
+    "background": "Opaque near-black director-approved",
+    "not_authorized": "Jutsu redesign, geometry modifications, upload, publication, live-game operations"
+  },
+  "open_gates": [
+    "Director approval of five new material treatment cards",
+    "Three independently saved raw icons per bloodline",
+    "Machine geometry-intensity QC and size/byte export",
+    "Field-specific skillTree.image preflight",
+    "Immutable Git source binaries and Forge imagePack",
+    "RUL identifier collision with newer main before integration"
+  ],
+  "progress": {
+    "already_approved_families": 10,
+    "already_approved_icons": 30,
+    "total_families": 29,
+    "total_icons": 87
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false
+}
