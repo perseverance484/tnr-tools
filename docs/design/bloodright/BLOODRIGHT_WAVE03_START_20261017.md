@@ -1,6 +1,6 @@
 # Bloodright Tier-Emblem Art Studio — Wave 03 Intake
 
-**Status:** ALL FIVE ORIGINAL REFERENCE PACKS VERIFIED; FIVE VISUAL TREATMENT CARDS PROPOSED / DIRECTOR DECISION PENDING. No Wave 03 tier-emblem artwork generated.
+**Status:** ALL FIVE SOURCE REFERENCE PACKS VERIFIED AND VISUAL TREATMENT CARDS DIRECTOR APPROVED. BR-083 three-icon proposed family produced/QC'ed; artwork-specific director approval PENDING.
 **Date:** 2026-10-17
 **Lead:** ChatGPT Art Director; **support:** Image Production.
 **Branch:** `chatgpt/bloodright-wave03-art-studio-20261017`
@@ -38,7 +38,7 @@
 
 **Source-kit portable archive:** `Bloodright_Wave03_Source_Intake_And_Treatment_Proposals_20261017.zip` SHA-256 `27017bf5558e4dfad54695ebd18b93724f6ec5e71efc4cb6bb986d4476627844` (11,798,447 bytes), containing all five exact source-art ZIPs, previously verified geometry/reference starter, original-art comparison board, offline manifest/hash QC and treatment cards. Conversation binary, **not a Git-pinned source-art object**. ZIP CRC/member byte equality PASS.
 
-**Next gate:** director's explicit approval/revision of all five visual treatments. No output image has been made for Wave 03.
+**Next gate:** director review of BR-083 Tetsugan's complete Foundation/Hidden Art/Advanced Art trio. Exact per-tier raw/WebP SHA-256, source ZIP, QC and package hash are recorded in `BLOODRIGHT_WAVE03_BR083_PROPOSAL_QC_20261017.json`. Themes for all five families are approved; 1 family produced but no Wave 03 art is accepted yet.
 
 ## Input and production gates
 
@@ -65,6 +65,6 @@
 
 ## Immediate next action
 
-Original source ZIPs received and validated. **Obtain director acceptance of the five proposed palette/material cards**, then begin production of the Tetsugan trio (one coordinated generation session with three separately saved icons). No Wave 3 tier-emblem artwork exists yet.
+Five source art ZIPs received and validated; all five treatment cards director approved. **Review BR-083 Tetsugan's three individually saved proposed emblems** against the programmatically composed comparison. Await director final family acceptance before moving to BR-064 Shakunetsu Sakura. No Wave 03 tier set is marked accepted yet.
 
 **Live game requests/writes:** 0/0. **Credentials:** none.
