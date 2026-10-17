@@ -1,0 +1,32 @@
+{
+  "schema": "tnr.bloodright_reference_sources/1",
+  "_note": "Source pins for scripts/bloodright_reference.py. Changing any pin is a deliberate scope or evidence change, not a refresh. Add one entry to `captures` per committed capture-only results bundle whose jutsu.get / bloodline.get full reads are adopted as image evidence.",
+  "brief": {
+    "branch": "chatgpt/bloodright-reference-library-brief-20261016",
+    "sha": "1b3b93b3ac939afc2fed1c63390fe68ed0d261d6",
+    "path": "state/prompt_bloodright_reference_library.md"
+  },
+  "roster": {
+    "branch": "fable/bloodright-planning-20261003",
+    "ref": "7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
+    "path": "docs/design/bloodright/roster.json",
+    "blob": "64f6097cb65daccd636f98c8f35517941b67aebb",
+    "kits_dir": "docs/design/bloodright/kits"
+  },
+  "cohort_rule": "public (hidden=false) records with owner_decision INCLUDE and rank A/S/H, plus the single REFERENCE record; members are each record's public_jutsu_ids (all linked jutsu types, including SPECIAL with a bloodlineId)",
+  "expected": {
+    "bloodlines": 29,
+    "ranks": {"A": 19, "S": 6, "H": 4},
+    "jutsu": 166
+  },
+  "captures": [
+    {
+      "manifest": "push/101_bloodright_reference_ethereal_monarch_pilot_capture.json",
+      "manifest_number": 101,
+      "manifest_hash": "c902cd43",
+      "bundle": "harvests/inbox/tnr_results_1792212938515.json",
+      "bundle_sha256": "df2ecce81b49c8de195f1bfce3f5bddd9f0fe924ecf94e8b891139f8d434caec",
+      "job_id": "101-mvbxb3q6"
+    }
+  ]
+}
