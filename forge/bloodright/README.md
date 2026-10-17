@@ -6,6 +6,10 @@ artifact: importing creates skill records and prerequisites, not an SVG on the g
 
 ## BEE pilot
 
+> Superseded for import by the naming-pass collections below (RUL-2026-10-17-003): BEE now
+> uses the CSV names and bonuses. Do not run `bee.pilot.json` or `collection.template.json`
+> alongside them; they target the older pilot design and would rename BEE nodes.
+
 `bee.pilot.json` names the approved 12-node BEE design at tools commit
 `5963810895aae4e2deaa61b72424c203752f50c1`. It explicitly binds:
 
@@ -164,7 +168,7 @@ Do not invent a commit or URL to fill it. `collection.readiness.json` records th
 
 The complete package needs the latest intended trees, actual icons (or exact uploaded
 URLs), and explicit node settings for those trees. The approved 20 Silver / 99 rounds
-settings in this branch remain BEE-only. Description acceptance, folder visibility,
+settings were BEE-only when written; RUL-2026-10-17-003 now applies them as placeholders to the naming-pass trees. Description acceptance, folder visibility,
 release and live execution remain the earlier separate decisions. Nothing is newly
 staged under `push/`, merged, released, uploaded or sent to the game by this change.
 
@@ -183,11 +187,13 @@ and 99 rounds.
 
 - `naming_pass_collection_a.json`: 13 trees using only the original ten potency tags. This
   works with the current Forge contract.
-- `naming_pass_collection_b.json`: 11 trees (BEE included) using pierce, absorb, poison,
+- `naming_pass_collection_b.json`: 10 trees (BEE included) using pierce, absorb, poison,
   drain, consume or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
   live game running upstream `133e2c7` or later. Import A first, then B.
 
-Cosmic Ascendant is left out until it has a qualifying element. New trees create a hidden
+Cosmic Ascendant is left out until it has a qualifying element, and Shiroi Youso until its
+Fire + Lightning classification is confirmed. The package script pins `DESIGN_REF`; after
+changing designs, commit them, update `DESIGN_REF` and rerun. Merge with a merge commit. New trees create a hidden
 folder named after the bloodline. If a folder with that name already exists, preview refuses
 and the folder must be bound by ID. BEE binds its existing folder and Hungry Pulse.
 

@@ -5,7 +5,7 @@ Splits the structural designs into two collections:
   A - trees whose bonuses use only the original ten potency tags;
   B - trees that use the seven tags added upstream at TheNinjaRPG 133e2c7
       (needs the re-pinned Forge contract, and a live game running that code).
-Trees with unresolved qualifying elements are left out and listed.
+Trees with unresolved or director-review qualifying elements are left out and listed.
 
 Icons are expected at art/bloodright/<slug>/{foundation,hidden_art,advanced_art}.webp.
 With --icons-ref <commit>, every icon is bound to an immutable imagePack at that commit.
@@ -38,11 +38,22 @@ def git(*args, binary=False):
                           text=not binary).stdout
 
 
+# The exact commit the packages pin. Update it (and rerun) whenever the designs change.
+# Explicit rather than derived from history, so squash/rebase merges and shallow clones
+# cannot silently move it; design_ref() proves the working tree still matches it.
+DESIGN_REF = "4fce0b04c977ccedd77ae8bac42092c59d98ab24"
+
+
 def design_ref():
-    ref = git("log", "-1", "--format=%H", "--", DESIGNS).strip()
     if git("status", "--porcelain", "--", DESIGNS).strip():
         raise SystemExit(f"{DESIGNS} has uncommitted changes; commit them first")
-    return ref
+    try:
+        same = not git("diff", "--name-only", DESIGN_REF, "--", DESIGNS).strip()
+    except subprocess.CalledProcessError:
+        raise SystemExit(f"DESIGN_REF {DESIGN_REF} is not available in this clone")
+    if not same:
+        raise SystemExit(f"{DESIGNS} differs from DESIGN_REF {DESIGN_REF}; update DESIGN_REF")
+    return DESIGN_REF
 
 
 def blob(ref, path):
@@ -58,8 +69,13 @@ def build(icons_ref):
     skipped, missing, files, sizes = [], [], {"a": {}, "b": {}}, {"a": {}, "b": {}}
     for path in sorted((ROOT / DESIGNS).glob("*.json")):
         slug, design = path.stem, json.loads(blob(ref, f"{DESIGNS}/{path.name}"))
-        if not design["classification"]["qualifying_elements"]:
+        cls = design["classification"]
+        if not cls["qualifying_elements"]:
             skipped.append(f"{design['bloodline']['name']}: no qualifying element")
+            continue
+        if "director review" in (cls.get("classification_status") or ""):
+            # User-owned until confirmed (CLAUDE.md section 10); never imported on a guess.
+            skipped.append(f"{design['bloodline']['name']}: elements {'+'.join(cls['qualifying_elements'])} await director review")
             continue
         tags = {t for n in design["nodes"] for t in n["bonuses"]}
         group = "a" if tags <= ORIGINAL_TAGS else "b"

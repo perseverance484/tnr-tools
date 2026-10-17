@@ -1188,7 +1188,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Status:** ACTIVE
 
-**Supersedes:** the "Deferred" clause of RUL-2026-10-17-002 (remaining trees waiting on settled values). The BEE pilot names and bonuses in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.json` are replaced for import by the naming-pass values. RUL-2026-10-08-002's 20 Silver / 99 rounds is unchanged and now also applies, as a placeholder, to the other trees.
+**Supersedes:** the "Deferred" clause of RUL-2026-10-17-002 (remaining trees waiting on settled values), for the 25 bloodlines in the naming-pass CSV only; the other 19 stay deferred. The BEE pilot names and bonuses in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.json` are replaced for import by the naming-pass values. RUL-2026-10-08-002's 20 Silver / 99 rounds is unchanged and now also applies, as a placeholder, to the other trees.
 
 **Ruling:** Move forward with the Bloodright project: import the trees from the naming-pass document into the game with their names, icons and placeholder stats.
 
@@ -1201,7 +1201,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Evidence:** "I found a document from the naming pass of the skill tree. The names of all the different skills are provided, and the values contained can be used as placeholders. We can move forward with the Bloodright project. Objective, import all trees into game with their names, icons and placeholder stats." Then, answering the open questions: icons "I'll supply icon files"; tags "Verify, then extend"; BEE "Use the CSV"; Silver/rounds "20 Silver / 99 rounds".
 
-**Still open:** Cosmic Ascendant has no qualifying element in the game's element list, so its design cannot compile. Shiroi Youso uses Fire + Lightning, which its legacy design marks for director review; it is imported with both as a placeholder. Icon art, folder visibility and publishing are not approved by this ruling.
+**Still open:** Cosmic Ascendant has no qualifying element in the game's element list, so its design cannot compile. Shiroi Youso's legacy design lists Fire + Lightning marked for director review; it is held out of the packages until the user confirms its elements. Both are excluded, leaving 23 trees in the packages. Icon art, folder visibility and publishing are not approved by this ruling.
 
 **Rationale:** Placeholder values let the full structure, names and icons go in hidden now, so balance can be tuned later by editing the hidden records instead of blocking the import.
 
