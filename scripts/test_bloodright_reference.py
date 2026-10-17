@@ -132,7 +132,7 @@ def make_world(*, images=None, records_override=None, capture_mutator=None, extr
     if capture_mutator:
         capture_mutator(bundle)
     bundle_bytes = json.dumps(bundle).encode()
-    sources = {"brief": {"sha": "b" * 40}, "roster": {"ref": REF, "path": "roster.json", "blob": br.git_blob_sha1(roster_bytes), "kits_dir": KITS},
+    sources = {"brief": {"sha": "b" * 40}, "roster": {"branch": "fable/fixture", "ref": REF, "path": "roster.json", "blob": br.git_blob_sha1(roster_bytes), "kits_dir": KITS},
                "expected": {"bloodlines": 2, "ranks": {"A": 1, "S": 1, "H": 0}, "jutsu": 5},
                "captures": [{"manifest": "push/1.json", "manifest_number": 1, "manifest_hash": mhash, "bundle": "h/1.json",
                              "bundle_sha256": hashlib.sha256(bundle_bytes).hexdigest(), "job_id": job}]}
@@ -617,6 +617,45 @@ class Build(Base):
             br.build(inv, ["BR-002"], self.cache, self.out, fetch=f)
         self.assertEqual(f.calls, [])
         self.assertFalse(self.out.exists())
+
+
+class CaptureManifests(Base):
+    def blocked_world(self):
+        # drop every capture so both fixture bloodlines are MISSING_CAPTURE
+        src = make_world()
+        s = json.loads(src.files[br.SOURCES_PATH])
+        s["captures"] = []
+        src.files[br.SOURCES_PATH] = json.dumps(s).encode()
+        return br.inventory(src)[0]
+
+    def test_whole_bloodlines_capped_reads_capture_only(self):
+        inv = self.blocked_world()
+        out = br.capture_manifests(inv, 200, limit=4)
+        self.assertEqual([p for p, _ in out], ["push/200_bloodright_reference_capture_batch_1.json",
+                                               "push/201_bloodright_reference_capture_batch_2.json"])
+        seen = []
+        for _, m in out:
+            self.assertEqual((m["items"], m["capture"]["after"]), ([], []))
+            self.assertLessEqual(len(m["capture"]["before"]), 4)
+            for c in m["capture"]["before"]:
+                self.assertEqual(c["persist"], "full")
+                self.assertIn(c["proc"], ("jutsu.get", "bloodline.get"))
+                seen.append(c["input"]["id"])
+        self.assertEqual(sorted(x for x in seen if x not in (BL_A, BL_S)), sorted(J_A + J_S))
+        self.assertEqual(len(seen), len(set(seen)))
+
+    def test_ready_bloodlines_are_not_recaptured(self):
+        _, inv = self.world()
+        self.assertEqual(br.capture_manifests(inv, 200), [])
+
+    def test_bloodline_larger_than_limit_is_refused(self):
+        with self.assertRaisesRegex(PE, "exceed"):
+            br.capture_manifests(self.blocked_world(), 200, limit=2)
+
+    def test_non_capture_gap_needs_a_decision(self):
+        _, inv = self.world(images={"sA1": "https://evil.example/x.png"})
+        with self.assertRaisesRegex(PE, "needs a decision"):
+            br.capture_manifests(inv, 200)
 
 
 class VerifyTamper(Base):
