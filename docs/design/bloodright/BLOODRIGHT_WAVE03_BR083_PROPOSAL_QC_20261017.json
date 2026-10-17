@@ -5,7 +5,7 @@
   "family": "Tetsugan",
   "theme": "Ward-Forged Steel",
   "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
-  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "tier_art_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-17",
   "source_reference_zip": {
     "name": "BR-083_Tetsugan.zip",
     "sha256": "ee51014dc769de0e39ce5ff479c1ca673ff8dd85d566f7d818338ea284254fb8",
@@ -73,21 +73,30 @@
     "three_exports_decoded_equal_Lanczos_resize": "PASS",
     "three_webps_below_460800_bytes": "PASS",
     "corners_near_black": "PASS",
-    "visual_125_64_32": "PASS",
+    "visual_125_64_32": "PASS_DIRECTOR_ACCEPTED",
     "compared_to_approved_neighbor_families": "PASS",
     "formal_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_NOT_VERIFIED",
     "immutable_git_art_binary_pin": "NOT_DONE",
     "forge_imagePack_binding": "NOT_DONE",
-    "operator_live_import_and_readback": "NOT_DONE"
+    "operator_live_import_and_readback": "NOT_DONE",
+    "raw_and_webp_unchanged_after_approval": "PASS_SIX_HASHES"
   },
   "boundaries": {
     "opaque_rgb_background": "DIRECTOR_APPROVED_VISUAL_DIRECTION_NOT_FORMAL_UPLOAD_PREFLIGHT",
     "jutsu_image_JUTSU_ICON_exception": "DOES_NOT_APPLY_TO_skillTree.image",
     "underlying_tier_png_and_webp": "EXTERNAL_CONVERSATION_DELIVERABLE_NOT_GIT_BINARIES",
-    "current_approved_count_unchanged": "10_29_FAMILIES__30_87_ICONS",
-    "next": "Director approves/rejects Tetsugan trio; only if accepted lock source bytes and move to Shakunetsu Sakura"
+    "current_approved_count_unchanged": "11_29_FAMILIES__33_87_ICONS",
+    "next": "Director reviews the BR-064 Shakunetsu Sakura proposed trio; if accepted, then Crystal Essence."
   },
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials_used": false
+  "credentials_used": false,
+  "approval_evidence": "Director answered 'Approved. Next' to BR-083 Tetsugan's individually saved three-tier family preview.",
+  "approved_package": {
+    "name": "BR-083_Tetsugan_Bloodright_Approved_3_Icons.zip",
+    "sha256": "e9c209e4eb9dad187256b83d740463bf0414684fb628686dc6d7b651cd0351e3",
+    "bytes": 5848938,
+    "binary_source_equivalence": "ALL_SIX_PNG_WEBP_FILES_BYTE_IDENTICAL_TO_PROPOSED",
+    "zip_crc": "PASS"
+  }
 }
