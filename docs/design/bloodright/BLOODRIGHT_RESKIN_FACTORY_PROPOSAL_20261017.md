@@ -1,7 +1,7 @@
 # Bloodright Emblem Reskin Factory — Approved Method for Remaining 26 Bloodlines
 
-**Status: DIRECTOR APPROVED (2026-10-17) — geometry-locked reskins and 4–6-bloodline batch review.** The factory approach is approved; its reusable automation and pilot imagery are **not yet implemented/generated**. Subsequent per-bloodline art direction and visual acceptance remain director-owned.
-**Date:** 2026-10-17. **Lead:** ChatGPT Art Director / Image Production; **support:** Fable for durable, reusable image tooling and Forge structural import. **Approved pilot subjects:** Taiyo Kami (BR-075) + Godstorm Eclipse (BR-029); their source ZIPs still need to be supplied.
+**Status: DIRECTOR APPROVED (2026-10-17) — geometry-locked reskins and 4–6-bloodline batch review. FIRST CONTRASTING PILOT VISUALLY APPROVED AND FILE-QC EXPORTED (2026-10-17); reusable deterministic mask/texture automation NOT YET IMPLEMENTED.** New per-bloodline art direction and final acceptance remain director-owned.
+**Date:** 2026-10-17. **Lead:** ChatGPT Art Director / Image Production; **support:** Fable for durable, reusable image tooling and Forge structural import. **Completed pilot subjects:** Taiyo Kami (BR-075) + Godstorm Eclipse (BR-029); user supplied both ZIPs and visually approved all six emblem originals. Local lossless WebP / pixel / ZIP QC is recorded in `BLOODRIGHT_FACTORY_PILOT_QC_20261017.json`.
 **Repository refs verified for proposal:** `main@b0267998bca90c128f10b591c862b79caec9b764`; approved Ethereal QC branch `chatgpt/ethereal-monarch-bloodright-art-qc-20261017@4cb46b4ee2076aaf3b122d197cb4c615d24c08eb`.
 **Governing art process:** `docs/workflows/BLOODRIGHT_ICON_STUDIO.md` on this branch; status/roster `docs/design/bloodright/ICON_PRODUCTION_TRACKER.md`.
 **Prioritization:** director's Bloodright structural-rollout direction at `chatgpt/bloodright-structural-priority-20261017@620223109623ab044f0580b78ad1ebe5eac2b83c`. This plan does not replace the separately routed jutsu-icon redesign workflow.
@@ -36,7 +36,7 @@ The strict shape lock is the scalability gain: a director review should answer *
 
 **Batch previews:** Produce **three independently saved images per bloodline** from the locked masters, then a compact matrix **rows = bloodlines / columns = Foundation, Hidden Art, Advanced Art** for user comparison. Mark each row as PROPOSED; the user accepts/revises/rejects **per bloodline**. A wave approval never silently approves an uninspected output. Edit only the rejected families and never mutate a frozen approval.
 
-**Director-approved pilot:** **Taiyo Kami (BR-075)** and **Godstorm Eclipse (BR-029)**, after receiving both original reference ZIPs and confirming their source artwork. This tests bright solar/scorch material against dark hybrid storm/shadow. The remaining 24 bloodlines follow in practical waves aligned with Forge import readiness; the director retains final acceptance of every generated family.
+**Pilot COMPLETED with director visual approval:** **Taiyo Kami (BR-075)** and **Godstorm Eclipse (BR-029)**, sourced from their verified original reference ZIPs. The solar/scorch vs electric shadow/storm test yielded six individually accepted originals and QC'd exports. The remaining 24 bloodlines follow in waves aligned with Forge import readiness; the director retains final acceptance of every new family.
 
 **Approved coordinated-session rule:** Use **one fresh, dedicated production conversation per bloodline** for its entire three-tier reskin, or one deterministic mask-based batch from the same approved recipe. Maintain **three independently saved square originals** and obtain explicit approval for the family. A generated contact sheet is never a substitute for those originals. This is a **Bloodright-tier-emblem exception only**; the separate jutsu-icon rework workflow remains per-jutsu. The owning `BLOODRIGHT_ICON_STUDIO.md` is updated alongside this approval.
 
@@ -64,10 +64,10 @@ An optional aggregated `Bloodright_Emblems_Approved_Wave_N.zip` contains the ind
 
 ## Approved execution sequence
 
-1. **Operator uploads the Taiyo Kami and Godstorm Eclipse reference ZIPs** (or a master ZIP containing both). These have not yet been supplied in this conversation; do not infer their pixels from names or prior posters.
-2. The Art Studio verifies actual intake bytes and source manifests; chooses geometry-master references and prepares two treatment cards for director confirmation.
-3. Generate or deterministically process six independent outputs and compose a single *non-generative* pilot comparison sheet; director accepts or requests targeted revisions.
-4. Fable implements reusable image processor/geometry QC automation on a dedicated implementation branch if the pilot proves it worthwhile. ChatGPT independently reviews tool/test changes; the user owns art direction and approval.
-5. Continue remaining 24 families in 4–6-bloodline approval waves, export versioned WebPs and maintain per-family provenance. Fable receives completed three-WebP family packages for separate structural Forge import preparation.
+1. **COMPLETE:** Operator supplied both original reference ZIPs; the Art Studio verified the manifest image hashes and inspected representative jutsu/identity imagery. The director accepted six separately generated original PNG tier emblems.
+2. **COMPLETE (local QC only):** Six 256×256 lossless RGB WebPs were exported; exact decoded-pixel equality to Lanczos-resized raws, byte caps, black corners, source ZIP manifest hashes, ZIP CRC and 125/64/32 thumbnail previews passed. Evidence: `BLOODRIGHT_FACTORY_PILOT_QC_20261017.json`. No machine exact-geometry mask overlap or `skillTree.image` formal preflight claimed.
+3. **NEXT — production continuation:** Operator provides the next 4–6 bloodline art packs; ChatGPT proposes/executes geometric reskins and assembled QC; director accepts per family.
+4. **NEXT — tooling and distribution lane:** Fable implements repeatable image/mask/geometry QC automation where warranted, with independent review, and intake-pins the approved existing six PNG/WebP sources under frozen SHA for immutable Forge packs. Do not silently regenerate accepted art.
+5. **PARALLEL — structural lane:** Fable prepares completed family three-WebP bindings for each reviewed five-BP tree with explicit names, silver and rounds; user controls any hidden in-game imports/read-back. No new live writes authorized.
 
 **Tool implementation is a separate Lane A task.** Approving this art-production method does not authorize ChatGPT to edit Fable's tooling branch, run the live game or declare an opaque Bloodright skill icon fully preflight-clear.
