@@ -1,0 +1,122 @@
+{
+  "schema": "tnr.bloodright.wave04.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-063",
+  "name": "Shadow Weaver",
+  "rank": "A",
+  "visual_treatment": "Moonless Filament",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "specific_three_icon_art_approval": "PROPOSED_AWAITING_DIRECTOR",
+  "source_zip": {
+    "name": "BR-063_Shadow_Weaver.zip",
+    "sha256": "ed10a667be59bc2eda72ddd66c3c0715030631561c079e7be0ebe6523ac73fd8",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "CRC_original_ID_SHA_MIME_dimensions": "PASS"
+  },
+  "source_masters": {
+    "foundation": {
+      "filename": "Ethereal_Monarch_Foundation_TEAL_1254.png",
+      "sha256": "bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2"
+    },
+    "hidden_art": {
+      "filename": "Ethereal_Monarch_Hidden_Art_TEAL_1254.png",
+      "sha256": "97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc"
+    },
+    "advanced_art": {
+      "filename": "Ethereal_Monarch_Advanced_Art_TEAL_1254.png",
+      "sha256": "0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014"
+    }
+  },
+  "production": {
+    "method": "single deterministic 1254px master geometry maxRGB-preserving appearance recipe for all three individual tier originals, no generative composite",
+    "material": "moonless graphite/pewter, pale moon-silver light facets with controlled smoky lilac inner filaments; unlike saturated ultraviolet Oblivion Seal",
+    "source_jutsu_images_visually_inspected": [
+      "Shadow Domain",
+      "Shadow Severance",
+      "Shadow Shell",
+      "Shadow Weaver bloodline identity"
+    ],
+    "recipe_file": "evidence/PRODUCTION_SCRIPT.py (included with packaged proposal)",
+    "background": "solid opaque black approved",
+    "raw": "three independently saved 1254x1254 RGB PNG originals",
+    "export": "Pillow Lanczos 256x256 RGB WebP VP8L lossless, method 6",
+    "geometry": "exact pixelwise max(R,G,B) intensity of corresponding approved Ethereal master; all 6 mask thresholds 1,16,64,128,192,240 exactly match",
+    "contact_and_neighbor_previews": "programmatically composed from exact source PNG/WebP bytes, never image-generated artwork sheets"
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_png_sha256": "dd227151cf31bdc87e6f467ba4f655719d81d792c0fff98a405f51cebe7653fe",
+      "webp_filename": "br063_shadow_weaver_foundation_v01.webp",
+      "webp_sha256": "6864c6e986388b358f8627f18ef584e6c509ffae1436369d67dc9c17f5d788ea",
+      "webp_bytes": 39516
+    },
+    {
+      "tier": "hidden_art",
+      "raw_png_sha256": "0111f5a4f5705abfc5e29e09caf4723844e648d9f041ca4a86e46c052e7cba81",
+      "webp_filename": "br063_shadow_weaver_hidden_art_v01.webp",
+      "webp_sha256": "b271792974f1190a1a30bb3544dae23bdc9dc6c056142f3eef72d2139be1693f",
+      "webp_bytes": 63650
+    },
+    {
+      "tier": "advanced_art",
+      "raw_png_sha256": "7e0935d1feed516a3ae17bb3761c8cfccbd81de3656ce9b91e1ea737fd985658",
+      "webp_filename": "br063_shadow_weaver_advanced_art_v01.webp",
+      "webp_sha256": "9f0de162496a6db5ca79ee7fc40042955b959defcffca252386d899cee647c71",
+      "webp_bytes": 53908
+    }
+  ],
+  "proposed_package": {
+    "name": "BR-063_Shadow_Weaver_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "489ff35f1e58112e9f2f7a970996e9d9646760a57de80005797368d570564f53",
+    "bytes": 5062599,
+    "CRC_and_full_member_sha_verification": "PASS"
+  },
+  "programmatic_previews": [
+    {
+      "file": "BR-063_Shadow_Weaver_Proposed_Family_Comparison.png",
+      "sha256": "e4b02dea45fed6ead2c6f09bd8af65c582245b0161fd99f7e31d505cf5e6a1b4"
+    },
+    {
+      "file": "BR-063_Shadow_Weaver_Proposed_125_64_32.png",
+      "sha256": "eb5a5cc2543856c9e07f980823dfac86f0c028b63511df2ba6d7634a7bedaf79"
+    },
+    {
+      "file": "BR-063_Shadow_Weaver_Neighbor_Foundation_Contrast.png",
+      "sha256": "6a57e32fd0b4e8e2f9df7f67a85150669f43ef6fb6ca4da392789675479b3a61"
+    }
+  ],
+  "qc": {
+    "raw_png_rgb_1254": "PASS_3",
+    "source_ZIP_original_5_jutsu_plus_identity_crc_ids_sha_dimensions": "PASS",
+    "machine_exact_max_RGB_preservation_vs_masters": "PASS_3_OF_3",
+    "six_foreground_masks_thresholds": "IoU_1.0_EXACT_ALL_18",
+    "lossless_256_rgb_VP8L": "PASS_3",
+    "webp_decoded_pixels_equal_Lanczos_resized_raw": "PASS_3",
+    "webp_each_under_460800_bytes": "PASS_3",
+    "opaque_black_corners": "PASS_3",
+    "small_125_64_32": "PASS_VISUAL_QC",
+    "neighbor_contrast_vs_Oblivion_Seal_and_Tetsugan": "DISTINCT_SILVER_LILAC_VS_UV_PURPLE_AND_CYAN",
+    "independent_QC": {
+      "file": "Wave04_BR053_Approved_BR063_Proposed_Independent_QC.json",
+      "sha256": "86ed1e3766fc7992ad1a45f1273bff0705fcc295d0d169130e5130092883d5be",
+      "assertions_passed": 175,
+      "failures": 0,
+      "includes_BR053_approved_proposed_binary_equality": true
+    },
+    "strict_skillTree_image_field_specific_preflight": "NOT_RUN",
+    "approved_art_binary_Git_pins": "NOT_DONE",
+    "immutable_Forge_imagePack": "NOT_DONE",
+    "operator_live_game_readback": "NOT_DONE"
+  },
+  "status_boundaries": {
+    "current_visual_approval_count": "18/29 families, 54/87 icons (includes approved Oblivion Seal; Shadow Weaver not counted)",
+    "current_machine_geometry_blockers": "6 visually accepted Wave 04 images: Shinseina Ki and Bakuhatsu V02 are freeform generations and NOT pixel-exact",
+    "director_action_required": "Review Shadow Weaver specific trio and approve/rework; only then advance to BR-032 Heavenly Sonata",
+    "art_not_uploaded": true
+  },
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials": false
+}
