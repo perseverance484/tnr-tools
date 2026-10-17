@@ -1,0 +1,99 @@
+{
+  "schema": "tnr.bloodright.wave03.family-proposal-qc/1",
+  "date": "2026-10-17",
+  "code": "BR-020",
+  "family": "Crystal Essence",
+  "rank": "A",
+  "theme": "Prismatic Jadeglass",
+  "theme_approval": "DIRECTOR_APPROVED_2026-10-17",
+  "tier_art_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "source_reference_zip": {
+    "name": "BR-020_Crystal_Essence.zip",
+    "sha256": "0a6acc8fb678b1030f1ada358b7fd522cf531b0dfb2f49f2bf0a0a969f5329af",
+    "jutsu_count": 5,
+    "identity_count": 1,
+    "manifest_sha256_verification": "PASS_6",
+    "original_jutsu_ids_verified_against_pinned_roster": true
+  },
+  "reference_master_zip": {
+    "name": "Bloodright_Wave03_Production_Starter_20261017.zip",
+    "sha256": "baa13be126891971564952387e771a56a02aef0280fa2ee516b8ec60f04f8f30"
+  },
+  "production": {
+    "method": "One coordinated deterministic fixed-master maxRGB-preserving appearance treatment; three individually saved tier sources",
+    "raw": "Three separate 1254x1254 RGB PNG originals",
+    "export": "Pillow LANCZOS 256x256 lossless RGB WebP VP8L",
+    "materials": "Cobalt/aqua crystal glass with bright jade inclusions, prismatic gold concentrated in existing inner-diamond facets and white-blue lens glints",
+    "reproducibility": "Full per-family local processing script included in portable family ZIP; reusable geometry-mask processor not implemented",
+    "strict_geometry": "all output pixels retain each corresponding exact Ethereal master max(R,G,B) brightness; masks IoU 1.0 at all six thresholds",
+    "generated_icon_sheet": false,
+    "preview_type": "programmatic only"
+  },
+  "icons": [
+    {
+      "tier": "foundation",
+      "raw_sha256": "436d171cea35f4e0ecca7b3ccd7aa933be0ea64d6069c15bce5d167bcf65a13a",
+      "webp_sha256": "e92503243abdd4a5f35c5aaac6545e43e659cf354035a6dc974b45e01c41bdfe",
+      "webp_bytes": 42548
+    },
+    {
+      "tier": "hidden_art",
+      "raw_sha256": "08f181de3770142115ceafe488541face76330e9d1bcb453405c5ef2be1f7fcb",
+      "webp_sha256": "cdc0aa6ac65b54d468f332f05053ecc95c8ab711e32506cbecb72fecbe9cdfa7",
+      "webp_bytes": 68442
+    },
+    {
+      "tier": "advanced_art",
+      "raw_sha256": "ecd8735c30be902a62581b43cdfd0da77cbd10ac43e41e92cc73128715dfb93c",
+      "webp_sha256": "1cd4216aa88480bbc9040d2a1f216cccd0ac2c6e833f7d20affbc4b80499542c",
+      "webp_bytes": 57678
+    }
+  ],
+  "package": {
+    "name": "BR-020_Crystal_Essence_Bloodright_Proposed_3_Icons.zip",
+    "sha256": "a9f128fb80718044086f86a0f0f05c10310d9079c4735600e8ded40f68ab31bc",
+    "bytes": 5507297
+  },
+  "previews": [
+    {
+      "file": "qc/BR-020_Crystal_Essence_Proposed_Family_Comparison.png",
+      "sha256": "1974fae8bbbc953d6095f99324db16ed329a5e1e72a6c39de54c572eba566674"
+    },
+    {
+      "file": "qc/BR-020_Crystal_Essence_Proposed_125_64_32.png",
+      "sha256": "eb4a2f33f396ef9299c4a0cf72bf5d17602ccd74d40d819565346829553b494f"
+    },
+    {
+      "file": "qc/BR-020_Crystal_Essence_Neighbor_Foundation_Contrast.png",
+      "sha256": "44acf9234cedbe6313121ad6043cb0c8c162d64ab271d01c23bb60f86d2fa770"
+    }
+  ],
+  "qc": {
+    "source_zip_crc_manifest_sha_name_ids_mime_dimensions": "PASS_6",
+    "three_png_rgb_1254": "PASS",
+    "machine_master_maxRGB_pixel_equality": "PASS_3_OF_3",
+    "threshold_geometry_iou_1_16_64_128_192_240": "EXACT_1_000_ALL",
+    "webp_256_square_lossless_vp8l": "PASS_3",
+    "exports_decode_equal_Lanczos_resized_raw": "PASS_3",
+    "three_webps_under_460800_bytes": "PASS_3",
+    "opaque_black_corners": "PASS_3",
+    "preview_composed_only_from_saved_sources": true,
+    "manual_125_64_32_legibility": "PASS_INTERNAL_VISUAL_QC",
+    "compared_to_neighbor_families": "PASS_DISTINCT_GOLD_CORE_VS_ETHEREAL_TEAL_AND_TETSU_STEEL",
+    "director_final_visual_approval": "PENDING",
+    "formal_skillTree_image_field_preflight": "NOT_RUN_FIELD_CONTRACT_UNVERIFIED",
+    "immutable_git_art_binary_pin": "NOT_DONE",
+    "forge_immutable_imagePack": "NOT_DONE",
+    "operator_live_import_readback": "NOT_DONE"
+  },
+  "boundaries": {
+    "opaque_black_background": "DIRECTOR_APPROVED_VISUAL_DIRECTION",
+    "current_main_JUTSU_ICON_alpha_optional": "ONLY_FOR_jutsu.image_NOT_skillTree.image",
+    "accepted_family_count": "12_OF_29__36_OF_87_ICONS",
+    "production_package": "CONVERSATION_DELIVERABLE_NOT_GIT_PINNED_SOURCE_BINARY",
+    "next": "Obtain director approval/rework for the three Crystal Essence originals; if accepted, continue Suragu",
+    "live_game_requests": 0,
+    "live_game_writes": 0,
+    "credentials": false
+  }
+}
