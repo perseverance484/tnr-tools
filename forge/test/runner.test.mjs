@@ -19,7 +19,7 @@ import { Reconciler } from "../src/reconcile/reconciler.mjs";
 import { MemoryStorage, fakeClock } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 
-const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredStat: "Ninjutsu", preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
+const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
 
 const SCHEMAS = JSON.parse(readFileSync(new URL("../src/runner/fields.json", import.meta.url), "utf8"));
 const FIELDS = SCHEMAS;
@@ -357,6 +357,8 @@ test("a NetworkError inside withSent leaves the item SENT and pauses the job (am
   assert.equal(s.items[0].state, "SENT");
 });
 
+const PRE_0056_HISTORY_PROBLEM = /unknown key "(ninjutsu|genjutsu|taijutsu|bukijutsu)(Offence|Defence)"|unknown key "preferredStat"/;
+const PRE_0056_HISTORY = new Set(["47_one_perfect_crop_core_manifest.json", "56_wind_beneath_ruins.json", "61_jellyfish_coast_quest.json", "62_jellyfish_coast_recovery.json"]);
 test("compatibility: staged manifests parse, plan and pass Forge pre-send validation", () => {
   const dir = new URL("../../push/", import.meta.url);
   for (const f of readdirSync(dir).filter((name) => name.endsWith(".json")).sort()) {
@@ -364,6 +366,12 @@ test("compatibility: staged manifests parse, plan and pass Forge pre-send valida
     // gate a handoff runs and the gate CI runs cannot drift apart. It plans as well as parses:
     // a staged manifest whose refs do not resolve is refused here rather than at selection.
     const report = checkManifest(fileURLToPath(new URL(f, dir)));
+    if (PRE_0056_HISTORY.has(f)) {
+      // Already run (results in harvests/inbox); kept in push/ only until archived. Their AI creates
+      // carry stat columns migration 0056 removed, which the 94f9d84 contracts refuse loudly.
+      assert.ok(report.problems.length && report.problems.every((p) => PRE_0056_HISTORY_PROBLEM.test(p)), `${f}: ${report.problems.join(" | ")}`);
+      continue;
+    }
     assert.deepEqual(report.problems, [], `${f}: ${report.problems.join(" | ")}`);
   }
 });
@@ -399,7 +407,8 @@ test("aiProfile cannot be a manifest item: a create is refused, rules ride on th
 
 test("the One Perfect Crop core manifest plans as three items, both AI through the rules phase", () => {
   const report = checkManifest(fileURLToPath(new URL("../../push/47_one_perfect_crop_core_manifest.json", import.meta.url)));
-  assert.deepEqual(report.problems, []);
+  // Its AI creates carry pre-0056 stat keys (see PRE_0056_HISTORY); the routing below is what this test pins.
+  assert.ok(report.problems.every((p) => PRE_0056_HISTORY_PROBLEM.test(p)), report.problems.join(" | "));
   assert.deepEqual(report.plan.map((it) => [it.entity, it.op, it.phase]), [
     ["ai", "create", "rules"],
     ["ai", "create", "rules"],
@@ -416,7 +425,8 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
 // encoding, not a contract change, and this is the gate that keeps it one: the digest below is of
 // the canonical JSON of the key surface as the file carried it BEFORE the compaction, computed
 // from that file at 451,847 raw bytes of bundle. If a re-derivation, a hand edit or a bug in
-// expandNested() moves one key, the digest moves with it.
+// expandNested() moves one key, the digest moves with it. Re-pinned 2026-10-18 to 94f9d84
+// (tools/derive_nested.mjs): the digest, counts and slots below are that derivation's.
 test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
   const expanded = expandNested(NESTED_KEYS);
   assert.ok(expanded, "the committed nested.json must expand");
@@ -425,16 +435,16 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "53d8bbcf3e07483e73065d589bb35c1b7ff64cad9680a0ee956a4e4f6a5dc0af",
+    "a0d66edf346b5de9acf39100ee559490d0f9201b390b201ce2418fee2ddb340d",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest
-  assert.equal(Object.keys(expanded.effects).length, 76);
-  assert.equal(Object.keys(expanded.objectives).length, 65);
+  assert.equal(Object.keys(expanded.effects).length, 84);
+  assert.equal(Object.keys(expanded.objectives).length, 70);
   assert.ok(expanded.objectives.start_battle.includes("opponentAIs"));
   assert.ok(expanded.effects.damage.includes("power"));
   assert.deepEqual(expanded.questContent, ["objectives", "reward", "sceneBackground", "sceneCharacters"]);
-  // the table really is shared: 165 discriminator values resolve to 53 distinct array objects,
+  // the table really is shared: 180 discriminator values resolve to 60 distinct array objects,
   // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
   const arrays = new Set();
   let slots = 0;
@@ -442,8 +452,8 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     if (Array.isArray(v)) { slots += 1; arrays.add(v); continue; }
     for (const set of Object.values(v)) { slots += 1; arrays.add(set); }
   }
-  assert.equal(slots, 165, "the pin defines 165 key-set slots");
-  assert.equal(arrays.size, 53, "which are only 53 distinct key sets");
+  assert.equal(slots, 180, "the pin defines 180 key-set slots");
+  assert.equal(arrays.size, 60, "which are only 60 distinct key sets");
 });
 
 test("a nested table that cannot be trusted fails closed rather than half-expanding", () => {
