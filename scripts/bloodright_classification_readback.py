@@ -17,7 +17,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BEFORE = ["harvests/inbox/tnr_results_1792352813119.json", "harvests/inbox/tnr_results_1792352829484.json"]
 # Columns that legitimately move on any write or with time.
-VOLATILE = {"updatedAt", "regenAt", "curHealth", "curChakra", "curStamina", "curEnergy"}
+VOLATILE = {"updatedAt", "regenAt", "curHealth", "curChakra", "curStamina", "curEnergy",
+            "unreadNews", "unreadNotifications", "inboxNews"}
+# Effect-tag keys the pinned validators no longer define are stripped by the server on any save
+# (e.g. lifesteal statTypes, removed upstream; the engine no longer reads it: tags.ts
+# getEfficiencyRatio limits damage-derived tags by generalTypes only). Compare effects on the keys
+# allowed at the pin, from forge/src/runner/nested.json, and report what was dropped separately.
+_NESTED = json.loads((ROOT / "forge/src/runner/nested.json").read_text())
+ALLOWED = {t: set(_NESTED["sets"][i]) for t, i in _NESTED["effects"].items()}
+
+
+def pinned(effects):
+    out, dropped = [], []
+    for e in effects or []:
+        keep = ALLOWED.get(e.get("type"))
+        if keep is None:
+            out.append(e)
+            continue
+        out.append({k: v for k, v in e.items() if k in keep})
+        dropped += [f"{e.get('type')}.{k}" for k in e if k not in keep]
+    return out, dropped
 
 
 def ais(paths):
@@ -41,6 +60,11 @@ def compare(before, after):
     problems = []
     for k in sorted(set(before) | set(after)):
         if k in VOLATILE or k in ("jutsus", "items"):
+            continue
+        if k == "effects":
+            (eb, gone), (ea, _) = pinned(before.get(k)), pinned(after.get(k))
+            if eb != ea:
+                problems.append(f"effects (keys allowed at the pin) differ: {json.dumps(eb)[:120]} -> {json.dumps(ea)[:120]}")
             continue
         if before.get(k) != after.get(k):
             problems.append(f"{k}: {json.dumps(before.get(k))[:80]} -> {json.dumps(after.get(k))[:80]}")
@@ -70,6 +94,9 @@ def main(argv):
                           if r.get("jutsu") and r["jutsu"].get("elementClassification") not in (None, "None")})
         mark = "ok" if not problems else "DIFF"
         print(f"{mark:4} {a['username']} ({u}): {len(a.get('jutsus') or [])} jutsu, classified {classes}")
+        stripped = set(pinned(before[u].get("effects"))[1]) - set(pinned(a.get("effects"))[1])
+        if stripped:
+            print(f"       note: obsolete effect keys dropped by the server on save: {sorted(set(stripped))}")
         for p in problems:
             print("       " + p)
         bad += bool(problems)
