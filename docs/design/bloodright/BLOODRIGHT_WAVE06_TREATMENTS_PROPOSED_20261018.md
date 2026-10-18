@@ -15,7 +15,7 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 - **Contrast gate:** Houkyuken's heavy two-pole force / magnetite volume vs Itojinsei's cold, nearly colorless *thin wire* web; versus Tenohira Musei's equal split azure/ember duality. The family must remain recognizable at 32px.
 - **Forbidden:** extra magnet icons, free-floating orbits, toroidal rings, boxing fist/actor, lightning bolts outside fixed masks, a new center insignia.
 
-## BR-036 Itojinsei — Tensionwire Steel (PROPOSED)
+## BR-036 Itojinsei — Tensionwire Steel (DIRECTION APPROVED)
 
 **Visually inspected individual evidence:** Iron Web Entrapment `RuWEPO4LteilE7gBD3wJq`, Lightning Threads `MPdM_YflOOnuSqyIhj0sf`, Eternal Embrace `5BIEYE1r1-Tdi0LONTeOX`, and identity `j4_9ypNqYq8Ifbqf-9D2r`. Source images consistently show stretched metallic white-silver threads, tiny cool-blue spark junctions and restrained gunmetal/charcoal scenes. Lightning is an occasional energized thread, **not** the primary symbolic shape.
 
@@ -24,7 +24,7 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 - **Contrast gate:** No cyan/red magnetic dual-pole glow. Unlike Shinrai Ou, electrical effects must read as precision engineered linework, not torn white lightning; unlike Teno Yuki, the silver is solid tensioned metal, not translucent snowglass.
 - **Forbidden:** new external web/mesh silhouette, needles or projectile stars, characters, halos, oversized lightning arcs, loss of approved tier-point geometry.
 
-## BR-002 Aerathiel — Aether Dissolution (PROPOSED)
+## BR-002 Aerathiel — Aether Dissolution (DIRECTION APPROVED)
 
 **Visually inspected individual evidence:** Windshear Decay `VmoEzExhfgtzme2b5RuzJ`, Atomic Shield `FGSJC-7Zd0BYh7-tvsUdH`, Particle Cannon `egtCp5UC5pRwxz7egJm7J`, and identity `1C34syOOEKp6k3UKweYT6`. Actual jutsu art shows fast luminous aqua/green-cyan shear ribbons shedding fine **pale golden/ivory particulate** into dark ultramarine space. Identity art depicts softer swirling ivory/teal air and cream scrolls; the combat icons supply the vivid particle treatment.
 
@@ -33,7 +33,7 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 - **Contrast gate:** Differentiate from Ethereal Monarch's essentially monochromatic crystalline teal through **pale warm micro-particles and eroded opal texture**; not Vaporia's thick blue water and orange liquid-ember contrast. Its dust is light, suspended and wind-sheared, not Kyuko-sei's heavy sandstone collapse.
 - **Forbidden:** new wind rings/spiral symbols around the master, literal water waves, gold frame/halo, green glass blob, dissolution that alters outline/mask.
 
-## BR-040 Kyuko-sei — Collapsed Amber (PROPOSED)
+## BR-040 Kyuko-sei — Collapsed Amber (DIRECTION APPROVED)
 
 **Visually inspected individual evidence:** Temporal Erosion `g3wqcN_BzdSprujUBN84p`, Singularity `7GGmPc5Sbp3JSeHGYgaJV`, Ethereal Particle Storm `IKv0cRCVTFpFCCEbAbuA7`, and identity `Y10fxyLR39IBJ3ICkAdEp`. Sources emphasize fractured dusty sandstone, ochre-gold particulate, dark earth/bronze mineral fragments and incandescent gravitational concentration; not the bright turquoise color of Aerathiel's jutsu.
 
