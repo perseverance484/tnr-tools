@@ -6,7 +6,7 @@
   "rank": "A",
   "approved_material": "Winterglass Sanctum",
   "director_material_approval": "APPROVED_2026-10-17",
-  "specific_three_icon_visual_acceptance": "PROPOSED_AWAITING_DIRECTOR",
+  "specific_three_icon_visual_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-18",
   "original_source_zip": {
     "file": "BR-077_Teno_Yuki.zip",
     "sha256": "5a41a65a4f1c268a6a7ec5c7bf02edd878cde87d36b3967636cfc6fb280b9554",
@@ -80,7 +80,8 @@
     "black_corners": "PASS",
     "Hyouga_approval_preserves_3_original_png_and_3_webp": "PASS",
     "identity_distinction": "Teno near-neutral snow-white, Hyouga saturated cobalt ice; verified actual saved foundation RGB ratios",
-    "programmatic_125_64_32": "PASS_VISUAL_INSPECTION"
+    "programmatic_125_64_32": "PASS_VISUAL_INSPECTION",
+    "acceptance_zip_binary_invariance": "PASS_3_PNG_3_WEBP"
   },
   "previews": {
     "trio": "Bloodright_Wave05_Production/BR-077_Teno_Yuki/qc/BR-077_Teno_Yuki_Proposed_Family_Comparison.png",
@@ -88,12 +89,12 @@
     "adjacent_ice": "Bloodright_Wave05_Production/BR-077_Teno_Yuki/qc/BR-077_Teno_Yuki_Neighbor_Foundation_Contrast.png"
   },
   "acceptance": {
-    "prior_accepted_bloodlines": 24,
-    "prior_accepted_icons": 72,
+    "prior_accepted_bloodlines": 25,
+    "prior_accepted_icons": 75,
     "total_bloodlines": 29,
     "total_icons": 87,
-    "Teno_Yuki_proposed_icons_not_counted": 3,
-    "next": "Director accept/revise specific finished Teno Yuki Foundation/Hidden Art/Advanced Art originals. On acceptance close Wave05, then 4 family Wave06 magnet/dust remain."
+    "Teno_Yuki_proposed_icons_not_counted": 0,
+    "next": "Wave05 closed: 25/29 families, 75/87 icons visually accepted. Four remaining family art ZIPs needed for Wave06. Technical field preflight/Forge/geometry exception still open."
   },
   "technical_gates": {
     "skillTree_image_specific_preflight": "NOT_RUN_FIELD_CONTRACT_UNVERIFIED",
@@ -101,9 +102,22 @@
     "exact_image_Git_binary_pins": "NOT_DONE",
     "immutable_Forge_imagePack": "NOT_DONE",
     "live_import_readback": "NOT_DONE",
-    "prior_master_geometry_exceptions": "12 director-approved Wave04/05 icons not exact pixel masks, preserved unmodified"
+    "prior_master_geometry_exceptions": "12 director-approved Wave04/05 icons not exact pixel masks, preserved unmodified",
+    "Wave05_accepted_nonexact_geometry_icons": 3,
+    "All_Wave04_plus_Wave05_accepted_nonexact_geometry_icons": 12,
+    "visual_acceptance_is_not_skillTree_preflight": true
   },
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials": false
+  "credentials": false,
+  "director_approval_evidence": "Director said 'Approved.' after viewing the exact three individual BR-077 Teno Yuki Winterglass Sanctum originals and programmatically composed family/QC comparison.",
+  "approved_package": {
+    "file": "BR-077_Teno_Yuki_Bloodright_Approved_3_Icons.zip",
+    "sha256": "95256b448e1728a2ed3cc35d22d8790566b72a7315b3f03950c0b6c9b4ed19f4",
+    "bytes": 10039853,
+    "source_proposal_sha256": "d2889923acc8fa06da2aabe9b05834e619847c92dd17b08aab7a5766b1d256bc",
+    "source_PNG_and_WebP_members": "PASS_ALL_SIX_BYTE_IDENTICAL_TO_PROPOSAL",
+    "manifest_and_README": "ACCEPTANCE_ONLY_METADATA_CHANGED",
+    "independent_QC": "289 final offline assertions pass across Wave05 all accepted sources and final artifact packages"
+  }
 }
