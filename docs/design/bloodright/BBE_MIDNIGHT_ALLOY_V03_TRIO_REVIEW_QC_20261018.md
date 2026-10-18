@@ -1,5 +1,8 @@
 # BR-015 Blue Blade Eyes — Midnight Blade Alloy V03 Three-Tier Art Review
 
+> **LATER SOURCE-PALETTE CORRECTION — HOLD V03 AS HISTORICAL, DO NOT CONTINUE ITS TWO PROPOSED TIERS.** On 2026-10-18 the director uploaded the actual BR-015 8-jutsu plus identity archive and clarified **“BBE is more of a pale blue, like baby blue or ice.”** The previous deep-Midnight V03 Foundation is still byte-exact and specifically was director-approved when presented, but this palette is now challenged by higher-quality actual family source evidence. V03 Hidden and Advanced were **never** director-approved. A new **single** exact-master pale-blue Frostblade Azure V04 Foundation is independently QC-passed and awaiting director visual approval before superseding anything. See [BBE_FROSTBLADE_V04_SOURCE_GROUNDED_PILOT_20261018.md](BBE_FROSTBLADE_V04_SOURCE_GROUNDED_PILOT_20261018.md). **No BBE trio should be accepted/exported as final based solely on the old V03 material decision.**
+
+
 **Status:** **FOUNDATION SPECIFIC ART DIRECTOR APPROVED (2026-10-18)**; **HIDDEN ART + ADVANCED ART individually produced and PROPOSED only**. New full trio is **NOT** director-approved. Offline geometry/format/byte integrity verified; `skillTree.image` field-specific upload preflight remains unresolved. **Zero game reads/writes; no credentials.**
 
 **Date:** 2026-10-18. **Lead:** Image Production; **support:** Art Director.
