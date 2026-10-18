@@ -21,12 +21,28 @@ const banner = `// TNR forge bundle v${pkg.version} - full-page content builder,
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
 // Entry: /forge (a providerless 404) arms the tab and hands off; Forge then mounts as an overlay on a
 // real application route so ClerkProvider and the tRPC provider stay alive under it. Layers: storage, transport, budget, runner, reconcile, ui.
-// Legacy engine facts: studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
+// Legacy engine facts (procedures, budgets): studie-tech/TheNinjaRPG@345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9.
+// Content field contracts (fields.json, nested.json): studie-tech/TheNinjaRPG@94f9d84c770004172ba423ada3d6710849acc451.
 // Scoped Bloodright contract: studie-tech/TheNinjaRPG@94f9d84c770004172ba423ada3d6710849acc451.`;
+
+// JSON contracts (fields, nested, the Bloodright contract, the AI pool) are embedded as ONE compact
+// JSON.parse("...") string instead of esbuild's indented object literal. Same data, same default
+// export, a fraction of the bytes in this unminified bundle; JSON.parse also keeps a "__proto__" key
+// as data where an object literal would not.
+const compactJson = {
+  name: "compact-json",
+  setup(b) {
+    b.onLoad({ filter: /\.json$/ }, (args) => ({
+      contents: `export default JSON.parse(${JSON.stringify(JSON.stringify(JSON.parse(readFileSync(args.path, "utf8"))))});`,
+      loader: "js",
+    }));
+  },
+};
 
 // Built WITHOUT the banner: the banner is itself a comment and must survive the strip, so it is
 // prepended afterwards rather than fed through it.
 const built = await build({
+  plugins: [compactJson],
   entryPoints: [join(here, "src", "main.mjs")],
   bundle: true,
   format: "iife",
