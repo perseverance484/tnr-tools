@@ -207,6 +207,18 @@ is the design's file name. Commit them, then rerun the package script with
 `--icons-ref <that commit>` to bind every icon to an immutable image pack. Until then both
 files are BLOCKED templates and must not be staged in `push/`.
 
+Before staging, run `validate.py <package> --strict` from `skills/building-tnr-content/data`.
+For a collection it runs Forge's own `prepareCollection` offline
+(`forge/tools/validate_bloodright_package.mjs`). Designs come from this checkout at each
+tree's pinned ref, and the image pack and byte ledger are parsed. Each icon blob is verified at
+the pack ref: it must exist, match its SHA-256 and byte count, fit the 524,288-byte upload
+ceiling, and sit on a pushed branch (a remote-tracking branch must contain the pack ref; commits
+reachable only from tags or PR refs are refused offline even though GitHub would serve them). Only live facts (bindings exist and are hidden, no
+global name or folder collision) are left to Forge's preview.
+Skill icons render as 48 px and 64 px circles (`object-cover`), so keep the subject centred.
+Check them with `artpreflight.py --type JUTSU_ICON --max-bytes 524288`; the opaque route
+is allowed, and 524,288 bytes is Forge's upload ceiling.
+
 ## Persistence and recovery
 
 Compiled Bloodright manifests record the game-contract pin. After a Forge update that
