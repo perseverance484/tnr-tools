@@ -84,7 +84,7 @@ function topLevelKeys(body) {
       const m = /^[^\S\n]*([A-Za-z_$][\w$]*)\s*:/.exec(body.slice(i, i + 200));
       if (m && !keys.includes(m[1])) keys.push(m[1]);
       const s = /^[^\S\n]*\.\.\.(.{0,80})/.exec(body.slice(i, i + 200));
-      if (s) spreads.push(s[1].split("\n")[0].trim());
+      if (s) spreads.push(s[1].split("\n")[0].trim().replace(/,$/, ""));
     }
     lineStart = c === "\n";
     if (c === "{" || c === "(" || c === "[") depth++;
@@ -105,8 +105,13 @@ function spreadKeys(spread, seen = new Set()) {
   if (!name) throw new Error("unresolvable spread: " + spread);
   if (seen.has(name)) return [];
   seen.add(name);
+  const decls = [...validatorSrc.matchAll(new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=`, "g"))];
+  if (decls.length > 1) throw new Error(`spread ${name} is declared ${decls.length} times across validators/; cannot tell which one is spread`);
   const m = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*(?:z\\s*\\.(?:object|strictObject|looseObject)\\(\\s*)?\\{`).exec(validatorSrc);
   if (!m) throw new Error("spread declaration not found: " + name);
+  // `z.object({...}).extend({...})` (or .merge/.and) would hide keys after the first body: refuse it.
+  const tail = validatorSrc.slice(m.index + m[0].length + balancedFrom(validatorSrc, m.index + m[0].length).length + 1).match(/^\s*\)?\s*\.(\w+)/);
+  if (tail && /^(extend|merge|and|safeExtend)$/.test(tail[1])) throw new Error(`spread ${name} uses .${tail[1]}(); resolve it by hand`);
   const { keys, spreads } = topLevelKeys(balancedFrom(validatorSrc, m.index + m[0].length));
   return [...keys, ...spreads.flatMap((s) => spreadKeys(s, seen))];
 }

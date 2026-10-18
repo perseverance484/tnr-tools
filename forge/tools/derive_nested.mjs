@@ -167,6 +167,25 @@ function inlineArrayObjectKeys(name, field) {
   return [...out].sort();
 }
 
+/**
+ * QuestValidatorRawSchema.content: its top-level keys (spread groups resolved, source order) and
+ * the schema name its `reward` field references. Read from source, not hand-kept: a key missing
+ * here is refused by Forge and reset to its default by the server on every shallow content merge.
+ */
+function questContentShape() {
+  const body = bodyOf("QuestValidatorRawSchema");
+  if (body == null) throw new Error("cannot find QuestValidatorRawSchema");
+  const m = /\bcontent\s*:\s*z\s*\.\s*object\(\s*\{/.exec(body);
+  if (!m) throw new Error("QuestValidatorRawSchema.content is not an inline z.object({...})");
+  const inner = balanced(body, m.index + m[0].length);
+  const { keys, spreads } = shallow(inner);
+  const out = [...keys];
+  for (const sp of spreads) for (const k of keysOf(sp)) if (!out.includes(k)) out.push(k);
+  const r = /(?:^|[\s,{])reward\s*:\s*([A-Za-z_$][\w$]*)\s*[,\n]/.exec(inner);
+  if (!r) throw new Error("QuestValidatorRawSchema.content.reward is not a named schema");
+  return { keys: out, reward: r[1] };
+}
+
 const derived = {
   effects: family("AllTags", "type"),
   objectives: family("AllObjectives", "task"),
@@ -178,8 +197,10 @@ const derived = {
   //   idsWithNumberField (attackers, opponentAIs): z.array(z.object({ids, number, quantity}))
   objectiveChoice: inlineArrayObjectKeys("DialogObjective", "nextObjectiveId"),
   idsWithNumber: inlineArrayObjectKeys("idsWithNumberField", null),
-  objectiveReward: keysOf("ObjectiveReward").sort(),
-  questContent: ["objectives", "reward", "sceneBackground", "sceneCharacters"], // QuestValidatorRawSchema.content
+  // content.reward is checked against the schema QuestValidatorRawSchema.content.reward names at
+  // the pin (ObjectiveReward at 345d18ac; QuestReward, which adds reward_packages, at 94f9d84).
+  objectiveReward: keysOf(questContentShape().reward).sort(),
+  questContent: questContentShape().keys,
 };
 
 for (const [k, v] of Object.entries(derived)) {
