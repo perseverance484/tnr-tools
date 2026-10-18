@@ -2,6 +2,7 @@
 // @name         TNR forge (loader)
 // @namespace    tnr-tools-forge
 // @version      0.6.0
+// @x-release-pending 0.7.0
 // @description  Loads forge_bundle.js: the full-page TNR content builder (journal, cache-first reads, two-phase creates, reconciliation). Installs beside the old TNR Content Builder loader; both can stay.
 // @match        *://www.theninja-rpg.com/*
 // @match        *://theninja-rpg.com/*
@@ -24,8 +25,10 @@
 // @match therefore covers the whole game origin, exactly as the old builder loader does: the
 // carrier route is not fixed in advance (the app may redirect a signed-in operator elsewhere),
 // so activation is decided by a per-tab sessionStorage marker rather than by a URL. On any game
-// page in a tab that has NOT been armed through /forge, the bundle does nothing at all - it
-// returns before touching the document, issuing a request or installing a style.
+// page in a tab that has NOT been armed through /forge, the bundle does nothing at all except
+// show one small "Forge" button (since 0.7.0), added only after the game has finished loading
+// the page: no request, no stylesheet, no game element touched. Tapping it opens Forge right
+// there, so typing /forge is no longer needed (it still works).
 //
 // RELEASE PIN. @require must always resolve to an IMMUTABLE bundle commit. Development branches
 // keep the last released @version/@require and may carry @x-release-pending <package-version>.
