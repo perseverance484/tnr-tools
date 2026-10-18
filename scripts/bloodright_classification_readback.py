@@ -70,6 +70,10 @@ def compare(before, after):
             problems.append(f"{k}: {json.dumps(before.get(k))[:80]} -> {json.dumps(after.get(k))[:80]}")
     kb, ka = kit(before), kit(after)
     for j in sorted(set(kb) | set(ka)):
+        # RUL-2026-10-18-005: a jutsu that was unequipped before and is now absent from the kit is
+        # battle-equivalent (battles load only equipped jutsu), so it is not a difference.
+        if j in kb and j not in ka and kb[j][2] is False:
+            continue
         if kb.get(j) != ka.get(j):
             problems.append(f"jutsu {j}: {kb.get(j)} -> {ka.get(j)}")
     if items(before) != items(after):
