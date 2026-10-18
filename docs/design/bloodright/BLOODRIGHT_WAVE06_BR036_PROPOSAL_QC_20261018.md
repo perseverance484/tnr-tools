@@ -1,5 +1,8 @@
 # Bloodright Wave 06 — BR-036 Itojinsei Tensionwire Steel v01 Proposal
 
+> **SUPERSEDED — VISUALLY REJECTED by director on 2026-10-18.** The pale V01 three-icon set was too similar to Teno Yuki. The 151 independent checks below remain correct **only as historical mechanical checks on the rejected V01 files**; the director subsequently requested prominent black crossed wires and approved a new, **single composited three-emblem Blackwire visual source**. Canonical revision record: [BLOODRIGHT_WAVE06_BR036_BLACKWIRE_VISUAL_APPROVAL_20261018.md](BLOODRIGHT_WAVE06_BR036_BLACKWIRE_VISUAL_APPROVAL_20261018.md). Do **not** relabel these V01 raw PNG/WebPs approved, claim the Blackwire sheet passed geometry, or confuse the two source files. No revised Ito standalone production exports have been accepted yet.
+
+
 **State:** Source artwork inspected; **MATERIAL TREATMENT DIRECTOR APPROVED** 2026-10-18, but **THREE SPECIFIC TIER IMAGES PROPOSED, AWAITING DIRECTOR ARTWORK ACCEPTANCE**. No in-game upload/readback or formal field-preflight.
 **Lead:** Image Production · **Lens:** Art Director.
 **Art branch:** `chatgpt/bloodright-wave06-art-studio-20261018`; Wave05 approved base `5512aa0e8faad6153e13122c262e5277e58c6a08`.
