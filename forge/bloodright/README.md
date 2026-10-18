@@ -212,7 +212,8 @@ For a collection it runs Forge's own `prepareCollection` offline
 (`forge/tools/validate_bloodright_package.mjs`). Designs come from this checkout at each
 tree's pinned ref, and the image pack and byte ledger are parsed. Each icon blob is verified at
 the pack ref: it must exist, match its SHA-256 and byte count, fit the 524,288-byte upload
-ceiling, and sit on a pushed branch. Only live facts (bindings exist and are hidden, no
+ceiling, and sit on a pushed branch (a remote-tracking branch must contain the pack ref; commits
+reachable only from tags or PR refs are refused offline even though GitHub would serve them). Only live facts (bindings exist and are hidden, no
 global name or folder collision) are left to Forge's preview.
 Skill icons render as 48 px and 64 px circles (`object-cover`), so keep the subject centred.
 Check them with `artpreflight.py --type JUTSU_ICON --max-bytes 524288`; the opaque route
