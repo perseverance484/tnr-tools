@@ -1,5 +1,8 @@
 # Bloodright Wave 06 — BR-040 Kyuko-sei Collapsed Amber V03 Proposal
 
+> **SUPERSEDED AS CURRENT ART PROPOSAL on 2026-10-18, NOT VISUALLY APPROVED.** Director requested an erosion/dust wave and discrete particles to distinguish this V03 from *Sands of Time* and similar golden themes, then flagged the follow-on generatively created dust-wave showcase for **incorrect geometry**. The new proposed response is a **deterministic exact-master-masked Dustwake V05 trio**, see [BR040_DUSTWAKE_V05_STRICT_GEOMETRY_PROPOSAL_20261018.md](BLOODRIGHT_WAVE06_BR040_DUSTWAKE_V05_STRICT_GEOMETRY_PROPOSAL_20261018.md). V03 source SHA and 171/171 QC below remain accurate **historical V03 evidence only**; neither they nor the off-geometry imagegen sheets are acceptance/QC evidence for V05. V05 awaiting director visual acceptance.
+
+
 **Status:** Four-family wave ART MATERIAL DIRECTION APPROVED; **BR-040 three specific images newly PRODUCED/PROPOSED, not yet director artwork-approved**. Last Wave06 bloodline. No field-specific `skillTree.image` preflight / Forge / game operations.
 **Date:** 2026-10-18 · **Roles:** Image Production lead; Art Director supporting.
 **Repository lineage:** `perseverance484/tnr-tools`, `chatgpt/bloodright-wave06-art-studio-20261018`; Wave05 art parent `5512aa0e8faad6153e13122c262e5277e58c6a08` (not integrated with main).
