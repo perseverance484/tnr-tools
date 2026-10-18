@@ -1,0 +1,47 @@
+# BR-015 Blue Blade Eyes — Frostblade Azure V04 Three-Tier Production & Review
+
+**Date:** 2026-10-18. **Lead:** Image Production; **support:** Art Director.
+**Status:** `FOUNDATION_DIRECTOR_VISUALLY_APPROVED`; `HIDDEN_ART_PROPOSED`; `ADVANCED_ART_PROPOSED`; **FULL V04 TRIO NOT YET DIRECTOR-APPROVED**. No game-field preflight acceptance or live operation.
+**Repository:** `perseverance484/tnr-tools`; **art branch:** `chatgpt/bbe-pale-blue-source-correction-20261018`, inherited from `chatgpt/bbe-midnight-alloy-trio-20261018@c016a4d8230666e3fd265379023ce6a03546e598`. Main at this task's bootstrap `fd7e194afab71a5712b83d16397feffdf704e9d2`.
+
+## Director's acceptance; source and palette
+
+The director corrected the old dark Midnight Blade Alloy treatment using **actual BBE jutsu art** and directed pale baby-blue/ice instead. The operator-supplied `BR-015_Blue_Blade_Eyes.zip`, SHA-256 `97f463fe08e421bd67de53a45abc079be643b5e7b2bba6a05caf03c433be7309`, contains eight original captured jutsu WebPs and one bloodline identity image. They were inspected and independently checked by per-image byte SHA/size/mode/format and the pinned BBE jutsu ID/name roster. These are captured CDN renditions, **not a new live harvest**. Original references are included unchanged in the portable production pack.
+
+On 2026-10-18 the director explicitly replied **“Approved, next”** to the specific **Frostblade Azure V04 Foundation** review (individual 1254px art and neighbor comparison). This is acceptance of its pale-blue family direction and **exact original Foundation PNG + WebP binary bytes**, not advance approval of new images for other tiers. The earlier dark V03 Foundation retains historical acceptance but is superseded as current preferred family direction; V03 Hidden/Advanced never received approval and do not enter this V04 family package.
+
+The already-accepted Foundation V04 appearance formula was applied *unchanged* to the two additional original geometry masters, with their distinct existing silhouette/inner geometry preserved. Pale icy blue, restrained cyan-white blade-light within the original brightness envelope, darker blue inner shadows and **no** new sparkle/shard/eye/weapon glyphs, frames or characters. Unlike Hyouga Yui's deep cobalt and Teno Yuki's near-white winterglass, BBE's middle-range cold pale-blue remains source-grounded. Existing approved adjacent bloodline icons were used solely for visual contrast, never repainted.
+
+## Three separately saved exact-master artworks
+
+**Master source archive:** director-supplied `Bloodright_Wave06_Production_Starter_20261018.zip` SHA `9898257e9ab3bc03e2339c4cb3ee6ae228643a362e18e4de271ea40be5d4938e`, contains three **individually approved 1254px RGB** Ethereal Monarch geometry masters with respectively:
+- Foundation master SHA `bb3a3e331e5913fa527049980e2738c151b85eb54ef579cd468126b10039cea2`;
+- Hidden Art master SHA `97ac6df359070f885d8d5545060b788bbd8d374fdfd181c90c60976560a213fc`;
+- Advanced Art master SHA `0e97566732f8ade28eedb1b18f77a666b9804f9467198f9574e3757d940cd014`.
+
+The deterministic material processor consumes those three real original source PNG bytes separately, together with the earlier V03 original source-facet RGB ratios (all SHA-verified) and *exact V04 formula*, and produces separately saved 1254px opaque RGB PNGs. It is **not image generation or contact-sheet extraction**. Every candidate pixel's `max(R,G,B)` exactly equals its corresponding original master pixel, 3/3 × 1,572,516 pixels. The nine intensity thresholds **1/8/16/32/64/128/192/240/254** match exactly on all tiers (**27/27 binary masks IoU 1.0**), including negative-space black. The lossless game-sized RGB WebPs decode identically to the Pillow LANCZOS downsize of their actual raw PNGs.
+
+| Tier | Actual 1254px RGB PNG SHA-256 | Actual 256px VP8L lossless WebP SHA-256 | WebP bytes | Art acceptance |
+|---|---|---|---:|---|
+| **Foundation** | `a31f1bc80e7dcddb4261877b857bfdf78c2d68b802b01b9fd876b494cf1d458b` | `5c9a74ec58a60bc24d8db8fe14e0f7d74952eb9b2613a356e3ba3e414b2f5e66` | **43,076** | **DIRECTOR APPROVED — byte-identical to prior V04 pilot** |
+| **Hidden Art** | `56a2353dca5db0b87214170dfd73428c389fce40b1192372b126b9aa0c4aff0b` | `dd026d67f9046c9cc72eac83e8092798e65c36db7f7b7e50fd59f0e829afa023` | **70,662** | **PROPOSED** |
+| **Advanced Art** | `d9de377c6e6d79bc41eceebcdf58329fa27eb3fec1e88a52845c9a64ee90a440` | `925f9b2a7df1f8fae881f3d92662a99cb4c00629b4111050c7a6ccde4abe326f` | **59,758** | **PROPOSED** |
+
+**Independent offline QC:** **157 passed / 0 failed** using a checker separate from the production recipe, proving nine manifest/image hashes for the eight BBE source jutsu + one identity, original master SHA and full maxRGB, 27 masks, black negative space and four canvas corners, full RGB/mode/dimensions, decoded VP8L pixel equality, generic ICON 460,800-byte reference ceiling, original user-approved V04 Foundation PNG/WebP byte identity, independently rerun six-file producer byte-identical reproducibility, and neighboring approved Hyouga/Teno/Shinrai/Tetsugan source SHA checks. Both delivered archives separately passed ZIP CRC/member byte equality and rebuilt to **identical SHA-256** on immediate repeat execution.
+
+## Portable exact files (conversation attachments — not Git image pins)
+
+| Portable asset | SHA-256 | Bytes |
+|---|---|---:|
+| `BR015_BBE_Frostblade_Azure_V04_Three_WebPs_REVIEW_20261018.zip` (three individually named 256px VP8L WebPs) | **`5d0f1af060ffd72b23a4887b4d4c69195ef94c33a3b9887736ed6be65e1ec86a`** | 174,110 |
+| `BR015_BBE_Frostblade_Azure_V04_Complete_Three_Tier_Review_20261018.zip` (includes exact BBE original jutsu ZIP, master starter ZIP, original old-facet sources, immutable director-approved V04 Foundation, three new PNG/WebPs, two reproducible Python scripts, QC report, comparison previews/manifest) | **`1717e0b830bedf6fc83fffadbc2069bd13e7895b7a873125cb10ee841de607c6`** | 20,818,544 |
+| `BR015_Frostblade_Azure_V04_Independent_Offline_QC.json` inside full package | `c134ef534263f38dd6c5f122b96debd07203c6e539a211cbda2d41399d89aee2` | 157 source/geometry/export/replay check results |
+| `BR015_Frostblade_Azure_V04_Three_Tiers_REVIEW.png` in full package | `d48df968fb97b07d521e57468677a6094c6257031591fbc75e5c4902c46c1d31` | programmatic 256px WebP showcase |
+| `BR015_Frostblade_Azure_V04_HIRES_Three_Tiers_REVIEW.png` in full package | `c0d2833061dcc553e2a4913fdf73d04e8be584c60fc24b23862cddb97320c015` | programmatic 1254px source art preview |
+| `BR015_Frostblade_Azure_V04_Neighbor_Comparison.png` in full package | `f800a13579c9365a23eaa662f614a39dd84499f8c9a1ba7f07fadfc0030dda6c` | original approved neighbor pixels vs source-grounded candidate |
+
+## Remaining approval / technical gates
+
+**NOW:** director visually judges the newly proposed **Hidden Art and Advanced Art** exact images. Only Foundation is approved. If both pass, preserve these six exact art-file hashes, mark **new BBE V04 trio visual-approved** and move to BEE in a separate family session. If rejected, change only the requested tiers; do not mutate already accepted Foundation.
+
+**Not game upload-cleared:** The main repository's generic `ICON` target still governs keyed `item.image,bloodline.image` and assumes alpha. `JUTSU_ICON` optional alpha is limited to `jutsu.image`; this Bloodright tier-icon `skillTree.image` consumer and its opaque RGB preflight have not been source-verified. **No formal `artpreflight.py` zero-error claim; preflight remains unresolved**. Source binaries remain user-conversation artifacts, not immutable Git-pinned files/Forge imagePack. Existing 78 independent approved WebPs from other bloodlines remain byte-unchanged. **Live-game requests/writes: 0/0. Credentials: none.**
