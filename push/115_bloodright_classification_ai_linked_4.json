@@ -126,5 +126,31 @@
     ]
    }
   }
- ]
+ ],
+ "capture": {
+  "before": [],
+  "after": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "id": "RWDWENhorIa5zRfeHtOU7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "id": "RPyVKLWMVYK6nkznxkJas"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "id": "8qER-JhOO0qVwLt6h_4YC"
+    },
+    "persist": "full"
+   }
+  ]
+ }
 }
