@@ -1,3 +1,4 @@
+import { AI_OMITTED } from "./validate.mjs";
 // Per-entity write recipes. Every path and input shape below was read at source
 // (studie-tech/TheNinjaRPG@345d18ac, app/src/server/api/routers/*), not from the old bundle.
 //
@@ -91,10 +92,8 @@ export function mergeForUpdate(entity, live, data, fields) {
 // An item entry's `number` is written to userItem.dropChancePerc (profile.ts:1528-1530, :1577),
 // NOT quantity (law 69); re-sending the live kit therefore carries dropChancePerc back.
 export const AI_OMIT = new Set([
-  // omitted from insertAiSchema at schema.ts:2578-2591
-  "trainingStartedAt", "occupationSignupAt", "currentlyTraining", "deletionAt", "travelFinishAt",
-  "questData", "occupation", "stealthActivatedAt", "stealthCooldownAt", "lastSensoryAt",
-  "covertTrainingType", "covertTrainingStartedAt", "covertTrainingMinutes",
+  // omitted from insertAiSchema at the pin (fields.json entities.ai.omitted)
+  ...AI_OMITTED,
   // relation objects and routing keys that are not columns
   "rules", "includeDefaultRules",
 ]);

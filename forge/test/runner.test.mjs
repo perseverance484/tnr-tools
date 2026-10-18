@@ -435,7 +435,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "a0d66edf346b5de9acf39100ee559490d0f9201b390b201ce2418fee2ddb340d",
+    "1a7c959f44455a156c68b9add1d36edec7dc6671057e92635ca1a3fef977cafd",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest
@@ -443,7 +443,11 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   assert.equal(Object.keys(expanded.objectives).length, 70);
   assert.ok(expanded.objectives.start_battle.includes("opponentAIs"));
   assert.ok(expanded.effects.damage.includes("power"));
-  assert.deepEqual(expanded.questContent, ["objectives", "reward", "sceneBackground", "sceneCharacters"]);
+  // derived from QuestValidatorRawSchema.content at the pin, spread groups included
+  assert.deepEqual(expanded.questContent, ["objectives", "reward", "sceneBackground", "sceneCharacters",
+    "entryItems", "isolated", "rewardMode", "rewardPickCount"]);
+  // content.reward is QuestReward at 94f9d84 (rewardFields + reward_packages)
+  assert.ok(expanded.objectiveReward.includes("reward_packages"));
   // the table really is shared: 180 discriminator values resolve to 60 distinct array objects,
   // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
   const arrays = new Set();

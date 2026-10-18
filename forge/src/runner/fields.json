@@ -61,8 +61,8 @@
    "source": "app/src/validators/combat.ts:1897",
    "validator": "ItemValidatorRawSchema",
    "spreads": [
-    "itemEconomySchema.shape,",
-    "furnitureItemSchema.shape,"
+    "itemEconomySchema.shape",
+    "furnitureItemSchema.shape"
    ],
    "fields": {
     "name": true,
@@ -170,7 +170,7 @@
    "source": "app/src/validators/objectives.ts:805",
    "validator": "QuestValidatorRawSchema",
    "spreads": [
-    "masteryRequirementFields,"
+    "masteryRequirementFields"
    ],
    "fields": {
     "name": true,

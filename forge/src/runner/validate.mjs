@@ -1,3 +1,4 @@
+import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
@@ -59,12 +60,9 @@ export const AI_POST_0056_KEYS = Object.freeze([
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
 
-// Columns insertAiSchema .omit()s (drizzle/schema.ts:2578-2592): the server strips them silently.
-export const AI_OMITTED = Object.freeze([
-  "trainingStartedAt", "occupationSignupAt", "currentlyTraining", "deletionAt", "travelFinishAt",
-  "questData", "occupation", "stealthActivatedAt", "stealthCooldownAt", "lastSensoryAt",
-  "covertTrainingType", "covertTrainingStartedAt", "covertTrainingMinutes",
-]);
+// Columns insertAiSchema .omit()s at the pin: the server strips them silently. Read from fields.json
+// (derive_fields.mjs, entities.ai.omitted) so the list moves with the pin instead of being hand-kept.
+export const AI_OMITTED = Object.freeze([...PINNED_FIELDS.entities.ai.omitted]);
 
 /** Which 45d entity backs a manifest entity. */
 export const SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai" });

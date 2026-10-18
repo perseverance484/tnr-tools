@@ -1103,3 +1103,16 @@ test("F4b: only the exact adapter error shape is fanned out per index", () => {
   assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: "-32015", data: { code: "X" } } } }), false);
   assert.throws(() => decodeResponse(504, '{"error":{"json":{"message":"x","data":{"code":"Y"}}}}', 1), TransportError);
 });
+
+test("re-pin 94f9d84: quest content keys added after 345d18ac are accepted, so a content merge can carry them", () => {
+  const v = V();
+  const content = { objectives: [], reward: { reward_packages: [] }, isolated: true, rewardMode: "pick", rewardPickCount: 1, entryItems: [] };
+  assert.deepEqual(v.problems("quest", { content }), []);
+  assert.match(v.problems("quest", { content: { objectives: [], isolatd: true } }).join(";"), /content: unknown key "isolatd"/);
+});
+
+test("re-pin 94f9d84: ai columns insertAiSchema omits at the pin are refused even when the live row carries them", () => {
+  const v = V();
+  assert.match(v.problems("ai", { warMission: "x" }, { username: "X", warMission: null }).join(";"), /"warMission" is not writable on an ai/);
+  assert.match(v.problems("ai", { currentlyTrainingElement: "Fire" }).join(";"), /not writable on an ai/);
+});
