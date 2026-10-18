@@ -1,0 +1,148 @@
+{
+  "schema": "tnr.bloodright.wave05.approved-art-closeout/1",
+  "date": "2026-10-18",
+  "status": "WAVE05_ALL_FIVE_TRIOS_DIRECTOR_VISUALLY_APPROVED; OFFLINE_ARCHIVE_AND_FILE_QC_PASS; 3_WAVE05_ICONS_NOT_EXACT_MASTER_MASKS",
+  "authority": "docs/workflows/BLOODRIGHT_ICON_STUDIO.md; docs/design/bloodright/ICON_PRODUCTION_TRACKER.md; director specific five-family artwork acceptance",
+  "family_approval": [
+    {
+      "id": "BR-078",
+      "name": "Tenohira Musei",
+      "theme": "Equinox Rift",
+      "source_art_sha256": "24d390da8c756f2707b09249fbffe637083b42f389eaebac1d4e980d07d64f92",
+      "accepted_family_archive_sha256": "e6694ecad239bb6a61ef89a79992b5b71ea0e26560f49cd7230384b9a9a95180",
+      "pixel_exact_master": "PASS_3",
+      "individual_assets": "BLOODRIGHT_WAVE05_BR078_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "id": "BR-005",
+      "name": "Arashima",
+      "theme": "Midnight Tempest Stormcloud V02",
+      "source_art_sha256": "75cb6c9d01f77164819a19e5cfae8c6409a4bf89e3461393cc9d48f3accc922d",
+      "accepted_family_archive_sha256": "50d3f7bce75f789ffd2a48bb334a6480170cee01112781a1791585c6ea91b09b",
+      "pixel_exact_master": "FAIL_3; DIRECTOR_VISUAL_APPROVAL_PRESERVED",
+      "individual_assets": "BLOODRIGHT_WAVE05_BR005_STORMCLOUD_V02_APPROVED_QC_20261017.json",
+      "superseded": "Original rain-glass V01 geometry-exact candidate visually rejected, never substitute"
+    },
+    {
+      "id": "BR-065",
+      "name": "Shinrai Ou",
+      "theme": "Raijin Whitebolt",
+      "source_art_sha256": "11304693f71981967c3e9a03a10a1731dc0f4a4aa4f22a69c9d43d90e09e7281",
+      "accepted_family_archive_sha256": "74134d8ca746edbf7e1326c8bd88a28c841767b55b4610fb87a5b31e547fb324",
+      "pixel_exact_master": "PASS_3",
+      "individual_assets": "BLOODRIGHT_WAVE05_BR065_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "id": "BR-034",
+      "name": "Hyouga Yui",
+      "theme": "Cerulean Shatter",
+      "source_art_sha256": "7da05a184fc2c4b6adb3d06ee8348411aed84bab744d356e79d5a665574b7dc8",
+      "accepted_family_archive_sha256": "ca9ef13e7d4aca12a4d3d097429d9a7435ab90e6437377caa72019444c8003fa",
+      "pixel_exact_master": "PASS_3",
+      "individual_assets": "BLOODRIGHT_WAVE05_BR034_PROPOSAL_QC_20261017.json"
+    },
+    {
+      "id": "BR-077",
+      "name": "Teno Yuki",
+      "theme": "Winterglass Sanctum",
+      "source_art_sha256": "5a41a65a4f1c268a6a7ec5c7bf02edd878cde87d36b3967636cfc6fb280b9554",
+      "accepted_family_archive_sha256": "95256b448e1728a2ed3cc35d22d8790566b72a7315b3f03950c0b6c9b4ed19f4",
+      "proposal_archive_sha256": "d2889923acc8fa06da2aabe9b05834e619847c92dd17b08aab7a5766b1d256bc",
+      "pixel_exact_master": "PASS_3",
+      "individual_assets": "BLOODRIGHT_WAVE05_BR077_PROPOSAL_QC_20261017.json",
+      "approval_date": "2026-10-18",
+      "raw_png_and_webp_binaries": "BYTE_IDENTICAL_TO_THE_DIRECTOR_REVIEWED_PROPOSAL"
+    }
+  ],
+  "visual_progress": {
+    "total_bloodlines": 29,
+    "total_icons": 87,
+    "previous_approved_bloodlines": 20,
+    "previous_approved_icons": 60,
+    "wave05_director_approved_bloodlines": 5,
+    "wave05_director_approved_icons": 15,
+    "now_approved_bloodlines": 25,
+    "now_approved_icons": 75,
+    "remaining_bloodlines": 4,
+    "remaining_icons": 12
+  },
+  "source_art": {
+    "original_5_source_art_zips": 5,
+    "jutsu_images": 25,
+    "identity_images": 5,
+    "prior_intake_qc": "BLOODRIGHT_WAVE05_SOURCE_INTAKE_20261017.json: 305 passed, 0 failed",
+    "jutsu_icon_redesign": "NONE"
+  },
+  "art": {
+    "originals": "15 independent, exact accepted source 1254x1254 RGB PNG binaries",
+    "exports": "15 independent lossless 256x256 RGB VP8L WebP; unchanged accepted binary hashes",
+    "preview": "programmatic five-family by three-tier grid and 125/64/32px QC from those exact accepted source art members"
+  },
+  "machine_geometry": {
+    "strict_maxRGB_source_mask_exact_wave05": 12,
+    "strict_maxRGB_nonexact_wave05": 3,
+    "nonexact_accepted_Wave05_family": "BR-005 Arashima Stormcloud V02",
+    "previous_Wave04_nonexact_accepted_icons": 9,
+    "total_known_visually_approved_pixel_nonexact_Wave04_Wave05": 12,
+    "nonexact_policy": "Keep director-approved original bytes unchanged; no substitute with rejected geometry-exact V01. Pixel-modifying correction requires renewed director approval."
+  },
+  "offline_audit": {
+    "assertions_passed": 289,
+    "assertions_failed": 0,
+    "report_file": "Bloodright_Wave05_Final_QC_Report_20261018.json",
+    "report_sha256": "0ef17fb2c2921e0ba3a297eba70ee41f28560a2e115a1e446e6f1958a779bdd3",
+    "steps": "Original family archives CRC/SHA, original 15 PNG and 15 lossless WebP exact SHA, pixelwise master geometry and intensity threshold expected PASS or FAIL, lossless decoded pixel equality to Pillow Lanczos raw resize, byte caps, near-black corners, individual accepted Teno byte invariance, assembled package contents, WebP-only and Wave06 starter CRC."
+  },
+  "artifacts": {
+    "approved_teno_zip": {
+      "file": "BR-077_Teno_Yuki_Bloodright_Approved_3_Icons.zip",
+      "sha256": "95256b448e1728a2ed3cc35d22d8790566b72a7315b3f03950c0b6c9b4ed19f4",
+      "bytes": 10039853
+    },
+    "complete_five_family_zip": {
+      "file": "Bloodright_Wave05_Approved_All_5_Bloodlines_15_Icons_20261018.zip",
+      "sha256": "a861a26416bb49fd17c0f27cef8d65ea5773637424e56de074f96ec1fdb81c34",
+      "bytes": 31829483
+    },
+    "webp_only_zip": {
+      "file": "Bloodright_Wave05_Approved_15_WebPs_256px_20261018.zip",
+      "sha256": "c1ec178233c42c5d75fde0bab2a55547c6dcbdcc414547c36dbff95ec1587545",
+      "bytes": 892481
+    },
+    "showcase": {
+      "file": "Bloodright_Wave05_Approved_Showcase_20261018.png",
+      "sha256": "a595588eea393eac03886b3ba5450fe8dd5858e521f185bc909a93cc1c86775f"
+    },
+    "thumbnail_qc": {
+      "file": "Bloodright_Wave05_Approved_125_64_32_QC_20261018.png",
+      "sha256": "a575f6cfb8c26dcbd9eac77f02c64cc1f18fd65d57bf77d9bb691f52e03392f9"
+    },
+    "wave06_reference_starter": {
+      "file": "Bloodright_Wave06_Production_Starter_20261018.zip",
+      "sha256": "9898257e9ab3bc03e2339c4cb3ee6ae228643a362e18e4de271ea40be5d4938e",
+      "bytes": 8622919
+    }
+  },
+  "technical_gates": {
+    "field_specific_skillTree_image_preflight": "NOT_RUN",
+    "generic_ICON_alpha_vs_opaque_RGB": "UNRESOLVED; JUTSU_ICON optional-alpha exception is jutsu.image ONLY",
+    "source_binaries_Git_pinned": "NOT_DONE; reference and approved image binaries are conversation artifacts only",
+    "immutable_Forge_imagePack": "NOT_DONE",
+    "structural_five_BP_trees": "SEPARATE_FABLE_TASK",
+    "operator_import_and_live_readback": "NOT_DONE"
+  },
+  "repository_integration": {
+    "main_last_verified": "9a0970002a80531078ac5e4b0f72578d3f7855f5",
+    "merge_base": "99e86dc549b86f1f4a5846c0e509fa6bc15b3463",
+    "ruling_collision": "Art branch RUL-2026-10-17-004 reskin factory vs main's same ID placeholder-element ruling; reconcile before merge"
+  },
+  "next_wave_expected": [
+    "BR-033 Houkyuken",
+    "BR-036 Itojinsei",
+    "BR-002 Aerathiel",
+    "BR-040 Kyuko-sei"
+  ],
+  "live_game_requests": 0,
+  "live_game_writes": 0,
+  "credentials_used": false
+}
