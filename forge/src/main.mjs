@@ -17,13 +17,13 @@ import { Runner } from "./runner/runner.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
-import { entryTakeover, mountHost, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./hosts/userscript/takeover.mjs";
+import { entryTakeover, mountHost, mountLauncher, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./hosts/userscript/takeover.mjs";
 import { CSS, CSS_DOC } from "./ui/styles.mjs";
 import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.6.0";
+export const VERSION = "forge 0.7.0";
 
 /**
  * SHA-256, the ONE environment primitive repo-backed image packs need. It lives here because this is
@@ -97,17 +97,57 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
  *           the protected surface once.
  *   INERT   anything else. The loader now matches the whole game origin (it has to: the carrier
  *           route is not known in advance and the app may redirect), so on an ordinary game page
- *           in an unarmed tab Forge must do NOTHING - no stop(), no document edit, no request,
- *           no style. This branch returning null is the guarantee that installing Forge does not
- *           change the game for the operator who is not using it.
+ *           in an unarmed tab Forge does almost nothing - no stop(), no request, no style, no
+ *           game node touched. The ONE exception is the launcher button (mountLauncher): a
+ *           single custom element appended after the game has hydrated, which goes to /forge
+ *           when clicked. Pass { launcher: false } to make the page fully inert.
  *
  * @returns {Promise<App|null>} the mounted app, or null when this page is not Forge's to run on.
  */
-export async function boot(win = window, { redirect = null, establish = true, readiness = {} } = {}) {
+export async function boot(win = window, { redirect = null, establish = true, readiness = {}, launcher = true } = {}) {
   const doc = win.document;
   if (onEntryPath(win.location)) return bootEntry(win, doc, redirect);
-  if (!isArmed(win)) return null;
-  return bootHost(win, doc, { establish, readiness });
+  if (!isArmed(win)) {
+    // Not awaited: boot() still returns null at once and nothing is written synchronously. The
+    // launcher waits for the game to hydrate, then adds its one button (see mountLauncher).
+    if (launcher) offerLauncher(win, doc, { redirect, readiness });
+    return null;
+  }
+  const app = await bootHost(win, doc, { establish, readiness });
+  // An armed tab whose host did not come up (the page never became ready, or mounting failed)
+  // would otherwise be left with neither Forge nor a way back in short of typing /forge. Offer
+  // the button: /forge then shows the recorded diagnostic and disarms, exactly as before.
+  if (!app && launcher && !alreadyMounted(doc)) offerLauncher(win, doc, { redirect, readiness, armed: true });
+  return app;
+}
+
+/**
+ * The launcher: wait for <body> and for the game to hydrate it, then show the Forge button.
+ * Clicking it goes to /forge, exactly as typing the address does - so the carrier, the hop
+ * counter and every diagnostic stay the ones /forge already has. It does not open Forge in place:
+ * the current page may be a providerless 404 or a heavy game route, and the carrier is chosen by
+ * the entry, not by wherever the operator happened to be.
+ */
+function offerLauncher(win, doc, opts) {
+  (async () => {
+    await whenBodyReady(doc, win);
+    if (opts.armed) {
+      // The armed fallback runs after bootHost gave up, usually because the page never became
+      // ready; waiting for readiness again would only time out again. Hydration is the one thing
+      // that could claim the button, so: ready now, or a fully loaded page that never hydrated.
+      if (!carrierReadiness(doc, win)) await whenLoaded(doc, win);
+    } else if (!(await whenCarrierReady(doc, win, opts.readiness))) return;
+    showLauncher(win, doc, opts);
+  })().catch(() => { /* never break the host page */ });
+}
+function whenLoaded(doc, win) {
+  if (doc.readyState === "complete") return Promise.resolve();
+  return new Promise((resolve) => { try { win.addEventListener("load", () => resolve(), { once: true }); } catch { resolve(); } });
+}
+function showLauncher(win, doc, { redirect = null, armed = false } = {}) {
+  if (onEntryPath(win.location) || (isArmed(win) && !armed)) return;
+  const go = redirect ?? ((url) => { win.location.assign(url); });
+  mountLauncher(doc, win, { onOpen: () => go(ENTRY_PATH) });
 }
 
 /**
@@ -245,7 +285,7 @@ async function bootHost(win, doc, { establish = true, readiness = {} } = {}) {
       version: VERSION, storage: win.localStorage, now: clock, ...deps,
       // Step 5. release() disconnects the loss watchers before it removes the host, so Close is
       // never mistaken for a loss; host is read at call time so a remounted host is the one released.
-      exit: () => { disarm(win); host.release(); },
+      exit: () => { disarm(win); host.release(); try { showLauncher(win, doc); } catch { /* never break the host page */ } },
     });
     deps.app.mount(host.body, doc);
     log(`mounted on ${win.location.pathname} (carrier ready via ${via})`);

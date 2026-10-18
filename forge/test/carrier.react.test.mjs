@@ -16,7 +16,7 @@ import { renderToString } from "react-dom/server";
 import { hydrateRoot } from "react-dom/client";
 import { boot } from "../src/main.mjs";
 import { App } from "../src/ui/app.mjs";
-import { arm, isArmed, armHops, mountHost, carrierHydrated, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
+import { LAUNCHER_TAG, arm, isArmed, armHops, mountHost, carrierHydrated, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
 
 const e = React.createElement;
 function Layout({ children }) {
@@ -115,5 +115,34 @@ test("0.4.1: boot waits for React to own body, mounts once with the tree intact,
   assert.equal(doc.body.style.overflow, "");
   assert.equal(isArmed(win), false);
   assert.equal(doc.getElementById("layout"), shell);
+  root.unmount();
+});
+
+test("react-dom 19.2.8: the launcher waits for hydration, does not disturb it, survives navigation, and goes to /forge", async () => {
+  const win = carrier();
+  const doc = win.document;
+  const shell = doc.getElementById("layout");
+  const went = [];
+  assert.equal(await boot(win, { establish: false, redirect: (u) => went.push(u) }), null, "an unarmed page");
+  await settle();
+  assert.equal(doc.querySelector(LAUNCHER_TAG), null, "nothing is added before React owns body");
+  const errors = [];
+  const root = hydrateRoot(doc, landing, { onRecoverableError: (err) => errors.push(err.message) });
+  await settle(120);
+  assert.deepEqual(errors, [], "hydration was clean");
+  assert.equal(doc.getElementById("layout"), shell, "the shell keeps its server-rendered identity");
+  const launcher = doc.querySelector(LAUNCHER_TAG);
+  assert.ok(launcher, "the launcher appears once React has committed");
+
+  win.history.pushState({}, "", "/profile");
+  root.render(profile);
+  await settle();
+  assert.ok(doc.getElementById("profile"), "the game navigated");
+  assert.equal(doc.querySelector(LAUNCHER_TAG), launcher, "and the launcher is still there");
+
+  launcher.shadowRoot.querySelector("button").click();
+  await settle();
+  assert.deepEqual(went, ["/forge"]);
+  assert.equal(doc.querySelector("." + OVERLAY_CLASS), null);
   root.unmount();
 });
