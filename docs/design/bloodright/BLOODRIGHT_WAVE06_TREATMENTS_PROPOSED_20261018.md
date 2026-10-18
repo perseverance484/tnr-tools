@@ -1,6 +1,6 @@
 # Bloodright Wave 06 — Four Source-Inspected Material Treatments
 
-**Status:** ALL FOUR FAMILY MATERIAL TREATMENTS DIRECTOR APPROVED (2026-10-18). Direction approval is distinct from image acceptance: **BR-033 Houkyuken v02's specific three-tier artworks were subsequently director accepted**; BR-036 Itojinsei v01 images are **proposed and pending**, BR-002/BR-040 artworks unproduced. Direction/image acceptance does **not** clear field-specific preflight or authorize live-game activity.
+**Status:** ALL FOUR FAMILY MATERIAL TREATMENTS DIRECTOR APPROVED (2026-10-18). Direction approval is distinct from image acceptance: **BR-033 Houkyuken V02** has three approved independent sources; **BR-036 Itojinsei pale V01** is VISUALLY REJECTED, replaced by **director-approved Blackwire three-tier visual composite** (standalone raw exports still pending); **BR-002 Aerathiel Aether Dissolution V02** has three separately saved and QC-passed original+WebP proposals under director review, and BR-040 Kyuko-sei artwork is unproduced. Direction/image acceptance does **not** clear field-specific preflight or authorize live-game activity.
 **Date:** 2026-10-18 · **Lead:** Art Director · **Support:** Image Production.
 **Sources:** `BLOODRIGHT_WAVE06_SOURCE_INTAKE_20261018.md`; uploaded and independently decoded/verified actual original art for **20 jutsu and 4 bloodline identities**; approved Wave05 individual comparator WebPs. Four families complete the planned 29-member visual-art queue.
 
@@ -44,10 +44,12 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 
 ## Artwork acceptance ledger — 2026-10-18
 
-- **BR-033 Houkyuken Ferroflux V02** — director explicitly approved the actual three images after a visual similarity check with Tenohira Musei; accepted original raw/output SHA/archives are frozen in [BR033 QC](BLOODRIGHT_WAVE06_BR033_PROPOSAL_QC_20261018.md). **3/3 ART APPROVED**.
-- **BR-036 Itojinsei Tensionwire V01** — completed and independently verified three separate production candidates and 125/64/32 previews, [BR036 proposal QC](BLOODRIGHT_WAVE06_BR036_PROPOSAL_QC_20261018.md). **0/3 ART APPROVED; director review pending**.
-- **BR-002 Aerathiel / BR-040 Kyuko-sei** — **0/6 ART PRODUCED**, visual material directions remain approved.
-- **Overall:** **26/29 bloodline families, 78/87 emblems visually accepted**. The next substantive gate is Itojinsei actual-art visual review, not another palette signoff. No new image has field-specific preflight/upload approval.
+- **BR-033 Houkyuken Ferroflux V02:** user-approved actual three independent original tier PNGs + matching WebPs, exact geometry tested; [BR033 accepted source/sha](BLOODRIGHT_WAVE06_BR033_PROPOSAL_QC_20261018.md). **3/3 ART APPROVED as individual files**.
+- **BR-036 Itojinsei:** user rejected pale Tensionwire V01 for resemblance to Teno Yuki, then requested dark crossed cables and specifically **APPROVED** a new single blackwire emblems sheet. The new exact sheet (SHA-256 `8391780ec142f3f74a77082f3c6ec462d2ae7876893193a05925f9559944542b`) is the approved visual source. **3/3 depicted tier VISUAL DESIGNS APPROVED, but 0 individual Blackwire raw PNG/WebP pairs technically complete.** The old V01 151/151 QC cannot be reused. [Blackwire approval/remaining gates](BLOODRIGHT_WAVE06_BR036_BLACKWIRE_VISUAL_APPROVAL_20261018.md).
+- **BR-002 Aerathiel Aether Dissolution V02:** three separately saved precise-master RGB PNGs + VP8L WebPs, **146/146 independent offline tests PASS**. V01 resembled Ethereal too closely internally, not submitted; v02 bright sapphire/seafoam/champagne dust candidate is **PENDING DIRECTOR ARTWORK APPROVAL**. [BR002 proposal QC](BLOODRIGHT_WAVE06_BR002_PROPOSAL_QC_20261018.md).
+- **BR-040 Kyuko-sei Collapsed Amber:** material approved, all three artworks still **NOT PRODUCED**.
+- **Visual acceptance:** **27/29 families and 81/87 tier concepts visually approved**, including approved Ito Blackwire sheet. **Approved standalone deliverables:** **26/29 families and 78/87 independently saved and approved raw+WebP pairs**. Not one of the six remaining Dust emblems is visually approved yet.
+- **Cross-cutting technical holds:** `skillTree.image` field-specific preflight, immutable original-art Git pins/Forge imagePack, 12 prior accepted shape NONEXACT original images, Ito revised non-independent montage, art-lineage ruling-ID collision. Live requests/writes 0/0.
 
 ## Execution/approval gates
 
