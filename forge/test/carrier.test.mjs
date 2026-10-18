@@ -12,10 +12,11 @@ import { JSDOM } from "jsdom";
 import { IDBFactory } from "fake-indexeddb";
 import { boot } from "../src/main.mjs";
 import { App } from "../src/ui/app.mjs";
-import { arm, disarm, isArmed, armHops, armFailure, mountHost, whenCarrierReady, carrierReadiness, carrierHydrated, alreadyMounted, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
+import { LAUNCHER_TAG, arm, disarm, isArmed, armHops, armFailure, mountHost, whenCarrierReady, carrierReadiness, carrierHydrated, alreadyMounted, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, OVERLAY_CLASS } from "../src/hosts/userscript/takeover.mjs";
 import { stampHydrated, isStamped, hydrateLikeReact, parseShell, clientNavigate, SHELL } from "./carrier.mjs";
 
 const tick = (ms = 80) => new Promise((r) => setTimeout(r, ms));
+const launcherButton = (el) => (el.shadowRoot || el).querySelector("button");
 const hosts = (doc) => doc.querySelectorAll("." + OVERLAY_CLASS).length;
 
 /** The carrier as the parser leaves it: the server-rendered shell, not yet hydrated. */
@@ -108,15 +109,112 @@ test("the /forge entry still arms and hands off to the carrier without a second 
   assert.equal(armHops(win), 1);
 });
 
-test("an unarmed page is untouched and never even waits for readiness", async () => {
+test("an unarmed page gets only the launcher button, and only after the game has hydrated", async () => {
   const win = dom("https://www.theninja-rpg.com/village");
   const before = win.document.body.innerHTML;
-  assert.equal(await boot(win), null);
+  assert.equal(await boot(win), null, "boot still returns at once on an unarmed page");
+  await tick();
+  assert.equal(win.document.body.innerHTML, before, "nothing is added before hydration (it could be claimed)");
+  stampHydrated(win.document);
+  await tick();
+  const launchers = win.document.querySelectorAll(LAUNCHER_TAG);
+  assert.equal(launchers.length, 1, "one launcher");
+  assert.equal(win.document.body.lastElementChild, launchers[0], "appended after the game's own nodes");
+  launchers[0].remove();
+  assert.equal(win.document.body.innerHTML, before, "and nothing else in the page changed");
+  assert.equal(hosts(win.document), 0);
+  assert.equal((win.document.adoptedStyleSheets || []).length, 0, "no stylesheet is installed on the game document");
+  assert.equal(isArmed(win), false, "showing the button does not arm the tab");
+});
+
+test("launcher: false keeps an unarmed page fully inert", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");
+  const before = win.document.body.innerHTML;
+  assert.equal(await boot(win, { launcher: false }), null);
   stampHydrated(win.document);
   await tick();
   assert.equal(win.document.body.innerHTML, before);
+});
+
+test("clicking the launcher goes to /forge, exactly as typing the address does", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");
+  hydrateLikeReact(win.document);
+  const went = [];
+  await boot(win, { establish: false, redirect: (u) => went.push(u) });
+  await tick();
+  const launcher = win.document.querySelector(LAUNCHER_TAG);
+  assert.ok(launcher);
+  const btn = launcherButton(launcher);
+  const seen = [];
+  for (const ev of ["mousedown", "pointerdown", "click"]) win.document.addEventListener(ev, () => seen.push(ev));
+  btn.dispatchEvent(new win.MouseEvent("mousedown", { bubbles: true, composed: true }));
+  btn.click();
+  await tick();
+  assert.deepEqual(went, [ENTRY_PATH]);
+  assert.deepEqual(seen, [], "the game's own document handlers do not see the press or the click");
+  assert.equal(hosts(win.document), 0, "nothing opens in place: the carrier is the entry's choice");
+  assert.equal(isArmed(win), false, "/forge arms the tab, not the button");
+  assert.equal(win.document.querySelector(LAUNCHER_TAG), null);
+  btn.click();
+  assert.deepEqual(went, [ENTRY_PATH], "a second click on the removed button does nothing");
+});
+
+test("no launcher on the /forge entry itself", async () => {
+  const win = dom("https://www.theninja-rpg.com" + ENTRY_PATH);
+  await boot(win, { redirect: () => {} });
+  stampHydrated(win.document);
+  await tick();
+  assert.equal(win.document.querySelector(LAUNCHER_TAG), null);
+});
+
+test("an armed tab whose host never came up gets the launcher back, so /forge can show the diagnostic", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");
+  hydrateLikeReact(win.document);
+  arm(win, { hops: 1 });
+  // mounting the overlay fails (bootHost returns null with nothing mounted)
+  const real = win.document.body.appendChild;
+  win.document.body.appendChild = function (n) { if (n && n.classList && n.classList.contains(OVERLAY_CLASS)) throw new Error("mount refused"); return real.call(this, n); };
+  const again = await boot(win, { establish: false });
+  win.document.body.appendChild = real;
+  assert.equal(again, null);
+  await tick();
+  assert.equal(win.document.querySelectorAll(LAUNCHER_TAG).length, 1, "the operator has a way back in");
+  assert.equal(isArmed(win), true, "the marker is left for /forge to report and clear");
+});
+
+test("an armed tab on a page that never became ready gets the launcher back without a second wait", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");   // parsed shell, never hydrates
+  arm(win, { hops: 1 });
+  const app = await boot(win, { establish: false, readiness: { graceMs: 30 } });
+  assert.equal(app, null);
+  assert.match(armFailure(win) || "", /never became ready/, "the diagnostic is recorded for /forge");
+  await tick();
+  assert.equal(win.document.querySelectorAll(LAUNCHER_TAG).length, 1, "the button is back at once");
   assert.equal(hosts(win.document), 0);
-  assert.equal((win.document.adoptedStyleSheets || []).length, 0);
+});
+
+test("closing Forge brings the launcher back, disarmed", async () => {
+  const win = dom();
+  const doc = win.document;
+  arm(win, { hops: 1 });
+  hydrateLikeReact(doc);
+  const app = await boot(win, { establish: false });
+  assert.equal(doc.querySelector(LAUNCHER_TAG), null, "no launcher in an armed tab");
+  app.close();
+  assert.equal(hosts(doc), 0);
+  assert.equal(isArmed(win), false);
+  assert.equal(doc.querySelectorAll(LAUNCHER_TAG).length, 1, "the button is back");
+});
+
+test("the launcher survives the game's client navigation", async () => {
+  const win = dom();
+  hydrateLikeReact(win.document);
+  await boot(win, { establish: false });
+  await tick();
+  const shell = clientNavigate(win, "/profile");
+  await tick();
+  assert.equal(shell.textContent, "profile page");
+  assert.equal(win.document.querySelectorAll(LAUNCHER_TAG).length, 1);
 });
 
 // ------------------------------------------------------------------ brief test 7

@@ -116,7 +116,7 @@ test("release loader: still document-start, because the /forge entry has to be s
 test("release loader: the loader documents that an unarmed page is untouched", () => {
   // @match now covers every game page, so the promise that Forge is inert unless armed is a
   // user-visible contract and belongs in the file the operator installs.
-  assert.match(LOADER, /has NOT been armed[\s\S]*does nothing at all/);
+  assert.match(LOADER, /has NOT been armed[\s\S]*does nothing at all except[\s\S]*"Forge" button/);
 });
 
 test("release loader: the operator entry point is still /forge", () => {
