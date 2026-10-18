@@ -22,7 +22,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9";
+const PIN = process.argv[3] || "94f9d84c770004172ba423ada3d6710849acc451";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",
@@ -34,6 +34,11 @@ if (!root || !Object.values(FILES).every((f) => existsSync(join(root, f)))) {
   console.error("usage: derive_nested.mjs <TheNinjaRPG checkout> [pin]");
   process.exit(2);
 }
+// Validator files that only exist at later pins; read when present so earlier pins derive unchanged.
+const OPTIONAL_FILES = {
+  rewardPackages: "app/src/validators/rewardPackages.ts",
+};
+for (const [k, f] of Object.entries(OPTIONAL_FILES)) if (existsSync(join(root, f))) FILES[k] = f;
 const src = Object.fromEntries(Object.entries(FILES).map(([k, f]) => [k, readFileSync(join(root, f), "utf8")]));
 const ALL = Object.values(src).join("\n");
 
@@ -55,7 +60,8 @@ function balanced(s, from) {
 /** The body of `const NAME = z.object({...})` or `const NAME = {...}`, wherever it is declared. */
 function bodyOf(name) {
   for (const text of Object.values(src)) {
-    const re = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*(z\\.object\\(\\s*)?\\{`, "m");
+    // Upstream also writes \`z\n  .object({\` and z.strictObject/looseObject; whitespace before the dot is allowed.
+    const re = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*(z\\s*\\.(?:object|strictObject|looseObject)\\(\\s*)?\\{`, "m");
     const m = re.exec(text);
     if (!m) continue;
     return balanced(text, m.index + m[0].length);
@@ -90,7 +96,7 @@ function shallow(body) {
 
 /** `const NAME = z.object(OTHER)` - an alias, not an inline body. */
 function aliasOf(name) {
-  const m = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*z\\.object\\(\\s*([A-Za-z_$][\\w$]*)\\s*\\)`, "m").exec(ALL);
+  const m = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*z\\s*\\.(?:object|strictObject|looseObject)\\(\\s*([A-Za-z_$][\\w$]*)\\s*\\)`, "m").exec(ALL);
   return m ? m[1] : null;
 }
 

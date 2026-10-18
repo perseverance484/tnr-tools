@@ -26,6 +26,21 @@ test("the checked bundle is inside its raw and gzip budget", () => {
   assert.ok(raw > BUDGET.raw * 0.7, "raw budget has drifted far above the bundle; re-set it");
 });
 
+test("the bundle embeds each JSON contract exactly once, equal to its source file (compact-json build plugin)", async () => {
+  const { readFileSync } = await import("node:fs");
+  const b = readFileSync(join(FORGE, "..", "forge_bundle.js"), "utf8");
+  const lits = [];
+  for (const m of b.matchAll(/JSON\.parse\((['`"])/g)) {
+    const q = m[1]; let i = m.index + m[0].length;
+    while (i < b.length && b[i] !== q) i += b[i] === "\\" ? 2 : 1;
+    try { lits.push(JSON.stringify(JSON.parse(new Function(`return ${b.slice(m.index + 11, i + 1)}`)()))); } catch { /* not a JSON literal */ }
+  }
+  for (const f of ["src/runner/fields.json", "src/runner/nested.json", "src/bloodright/contract.json", "../32b_DATA_pool.json"]) {
+    const src = JSON.stringify(JSON.parse(readFileSync(join(FORGE, f), "utf8")));
+    assert.equal(lits.filter((l) => l === src).length, 1, `${f} must be embedded exactly once and unchanged`);
+  }
+});
+
 test("the boundary gate catches a QUALIFIED fetch, not just a bare one", () => {
   // `globalThis.fetch("/api/...")` reaches the game from a forbidden layer without naming a host.
   // The first detector used a negative lookbehind that excluded anything after a dot, so this form

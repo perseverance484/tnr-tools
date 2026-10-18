@@ -4,8 +4,11 @@ import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../blo
 // and the mutation reports success. The only place that error can surface is here.
 //
 // Field sets come from src/runner/fields.json, derived from the PINNED validators by
-// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, and ai). 45d_DATA_entity_schemas
-// (generated 2026-08-26) is stale against 345d18ac: it lacks the twelve item farm* keys and
+// tools/derive_fields.mjs (jutsu, item, bloodline, quest, gameAsset, and ai), pinned to
+// TheNinjaRPG@94f9d84 since 2026-10-18 (spreads resolved). Every update is a fetch-merge filtered to
+// these fields and the server saves the whole parsed record, so a field missing here is RESET on
+// each edit (elementClassification to "None", requiredSkillId/reskin links/masteries to null).
+// 45d_DATA_entity_schemas (generated 2026-08-26) was already stale against 345d18ac: it lacks the twelve item farm* keys and
 // quest.requiredFarmingLevel, and ItemValidator REQUIRES farmYieldItemId, so an item update
 // picked by the 45d set would be refused by zod. Both files share one shape; the constructor
 // accepts either. The AI record has no entity list (insertAiSchema is the whole userData
@@ -37,7 +40,8 @@ export const AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement",
 // dropped by the pinned-field merge before the send, and excluded from the read-back diff.
 export const AI_STRIPPED_OK = Object.freeze(["hidden"]);
 
-// POST-MIGRATION-0056 COMBAT COLUMNS. The field set above is pinned to 345d18ac, which predates
+// POST-MIGRATION-0056 COMBAT COLUMNS. Kept for history: the field set is now pinned to 94f9d84 (post-0056)
+// and already contains these keys, so this list is redundant there. Before that it was pinned to 345d18ac, which predated
 // upstream migration app/drizzle/migrations/0056_unified_combat_stats_masteries.sql: there the AI
 // row had per-type ninjutsuOffence..bukijutsuDefence, and offence/defence/masteries did not exist.
 // The live game runs past 0056 (push/86 rows carry these columns; push/78 and push/86 reads, and

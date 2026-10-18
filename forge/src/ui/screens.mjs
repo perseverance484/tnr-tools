@@ -391,7 +391,7 @@ export function SettingsScreen(app) {
       app.cacheSize ? h("div", { class: "f-mute" }, `capture cache: ${app.cacheSize}`) : null,
     ),
     h("h2", {}, "About"),
-    h("div", { class: "f-card f-mute" }, `forge ${app.version} · pinned to studie-tech/TheNinjaRPG@345d18ac · journal v1 · keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`),
+    h("div", { class: "f-card f-mute" }, `forge ${app.version} · content fields pinned to studie-tech/TheNinjaRPG@94f9d84 (procedures 345d18ac) · journal v1 · keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`),
   );
   return root;
 }
