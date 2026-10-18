@@ -286,7 +286,8 @@ export function whenCarrierReady(doc = document, win = window, { graceMs = CARRI
  * never matches against one of its own elements, and its look lives in a shadow root, so no
  * stylesheet is installed on the game document and no game style reaches it. No request is made.
  *
- * Clicking it calls onOpen() once and removes the button; the caller opens Forge in place.
+ * Clicking it calls onOpen() once and removes the button; the caller navigates to /forge. Press
+ * and click events stop at the button so the game's own outside-click handlers do not see them.
  * Sits above the old builder's bottom-left button (.k-fab, bottom:12px) rather than on top of it,
  * and below the Forge overlay.
  */
@@ -306,6 +307,9 @@ export function mountLauncher(doc = document, win = window, { onOpen } = {}) {
   btn.setAttribute("style", "all:initial;cursor:pointer;background:#2b4a7a;color:#fff;border-radius:10px;"
     + "padding:11px 16px;font:600 14px system-ui,sans-serif;box-shadow:0 4px 16px #0008;");
   let used = false;
+  for (const ev of ["pointerdown", "mousedown", "touchstart"]) {
+    btn.addEventListener(ev, (e) => { try { e.stopPropagation(); } catch { /* nothing to stop */ } });
+  }
   btn.addEventListener("click", (e) => {
     try { e.preventDefault(); e.stopPropagation(); } catch { /* nothing to stop */ }
     if (used) return;

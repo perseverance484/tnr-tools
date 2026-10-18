@@ -99,7 +99,7 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
  *           route is not known in advance and the app may redirect), so on an ordinary game page
  *           in an unarmed tab Forge does almost nothing - no stop(), no request, no style, no
  *           game node touched. The ONE exception is the launcher button (mountLauncher): a
- *           single custom element appended after the game has hydrated, which opens Forge here
+ *           single custom element appended after the game has hydrated, which goes to /forge
  *           when clicked. Pass { launcher: false } to make the page fully inert.
  *
  * @returns {Promise<App|null>} the mounted app, or null when this page is not Forge's to run on.
@@ -110,17 +110,23 @@ export async function boot(win = window, { redirect = null, establish = true, re
   if (!isArmed(win)) {
     // Not awaited: boot() still returns null at once and nothing is written synchronously. The
     // launcher waits for the game to hydrate, then adds its one button (see mountLauncher).
-    if (launcher) offerLauncher(win, doc, { establish, readiness });
+    if (launcher) offerLauncher(win, doc, { redirect, readiness });
     return null;
   }
-  return bootHost(win, doc, { establish, readiness });
+  const app = await bootHost(win, doc, { establish, readiness });
+  // An armed tab whose host did not come up (the page never became ready, or mounting failed)
+  // would otherwise be left with neither Forge nor a way back in short of typing /forge. Offer
+  // the button: /forge then shows the recorded diagnostic and disarms, exactly as before.
+  if (!app && launcher && !alreadyMounted(doc)) offerLauncher(win, doc, { redirect, readiness, armed: true });
+  return app;
 }
 
 /**
- * The launcher on an unarmed page: wait for <body> and for the game to hydrate it, then show the
- * Forge button. Clicking it arms the tab and opens Forge in place on this page, which is already a
- * live application route with its providers mounted - the same thing /forge hands off to. If the
- * page never becomes ready, nothing is shown and nothing is recorded.
+ * The launcher: wait for <body> and for the game to hydrate it, then show the Forge button.
+ * Clicking it goes to /forge, exactly as typing the address does - so the carrier, the hop
+ * counter and every diagnostic stay the ones /forge already has. It does not open Forge in place:
+ * the current page may be a providerless 404 or a heavy game route, and the carrier is chosen by
+ * the entry, not by wherever the operator happened to be.
  */
 function offerLauncher(win, doc, opts) {
   (async () => {
@@ -129,9 +135,10 @@ function offerLauncher(win, doc, opts) {
     showLauncher(win, doc, opts);
   })().catch(() => { /* never break the host page */ });
 }
-function showLauncher(win, doc, opts) {
-  if (onEntryPath(win.location) || isArmed(win)) return;
-  mountLauncher(doc, win, { onOpen: () => { arm(win, { hops: 1, failure: null }); return bootHost(win, doc, opts); } });
+function showLauncher(win, doc, { redirect = null, armed = false } = {}) {
+  if (onEntryPath(win.location) || (isArmed(win) && !armed)) return;
+  const go = redirect ?? ((url) => { win.location.assign(url); });
+  mountLauncher(doc, win, { onOpen: () => go(ENTRY_PATH) });
 }
 
 /**
@@ -269,7 +276,7 @@ async function bootHost(win, doc, { establish = true, readiness = {} } = {}) {
       version: VERSION, storage: win.localStorage, now: clock, ...deps,
       // Step 5. release() disconnects the loss watchers before it removes the host, so Close is
       // never mistaken for a loss; host is read at call time so a remounted host is the one released.
-      exit: () => { disarm(win); host.release(); try { showLauncher(win, doc, { establish, readiness }); } catch { /* never break the host page */ } },
+      exit: () => { disarm(win); host.release(); try { showLauncher(win, doc); } catch { /* never break the host page */ } },
     });
     deps.app.mount(host.body, doc);
     log(`mounted on ${win.location.pathname} (carrier ready via ${via})`);

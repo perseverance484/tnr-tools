@@ -6412,6 +6412,14 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     btn.setAttribute("aria-label", "Open TNR forge");
     btn.setAttribute("style", "all:initial;cursor:pointer;background:#2b4a7a;color:#fff;border-radius:10px;padding:11px 16px;font:600 14px system-ui,sans-serif;box-shadow:0 4px 16px #0008;");
     let used = false;
+    for (const ev of ["pointerdown", "mousedown", "touchstart"]) {
+      btn.addEventListener(ev, (e) => {
+        try {
+          e.stopPropagation();
+        } catch {
+        }
+      });
+    }
     btn.addEventListener("click", (e) => {
       try {
         e.preventDefault();
@@ -6579,10 +6587,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const doc = win.document;
     if (onEntryPath(win.location)) return bootEntry(win, doc, redirect);
     if (!isArmed(win)) {
-      if (launcher) offerLauncher(win, doc, { establish, readiness });
+      if (launcher) offerLauncher(win, doc, { redirect, readiness });
       return null;
     }
-    return bootHost(win, doc, { establish, readiness });
+    const app = await bootHost(win, doc, { establish, readiness });
+    if (!app && launcher && !alreadyMounted(doc)) offerLauncher(win, doc, { redirect, readiness, armed: true });
+    return app;
   }
   function offerLauncher(win, doc, opts) {
     (async () => {
@@ -6592,12 +6602,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     })().catch(() => {
     });
   }
-  function showLauncher(win, doc, opts) {
-    if (onEntryPath(win.location) || isArmed(win)) return;
-    mountLauncher(doc, win, { onOpen: () => {
-      arm(win, { hops: 1, failure: null });
-      return bootHost(win, doc, opts);
-    } });
+  function showLauncher(win, doc, { redirect = null, armed = false } = {}) {
+    if (onEntryPath(win.location) || isArmed(win) && !armed) return;
+    const go = redirect ?? ((url) => {
+      win.location.assign(url);
+    });
+    mountLauncher(doc, win, { onOpen: () => go(ENTRY_PATH) });
   }
   function bootEntry(win, doc, redirect) {
     const { body } = entryTakeover(doc, win);
@@ -6696,7 +6706,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           disarm(win);
           host.release();
           try {
-            showLauncher(win, doc, { establish, readiness });
+            showLauncher(win, doc);
           } catch {
           }
         }
