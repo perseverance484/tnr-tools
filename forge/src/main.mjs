@@ -131,9 +131,18 @@ export async function boot(win = window, { redirect = null, establish = true, re
 function offerLauncher(win, doc, opts) {
   (async () => {
     await whenBodyReady(doc, win);
-    if (!(await whenCarrierReady(doc, win, opts.readiness))) return;
+    if (opts.armed) {
+      // The armed fallback runs after bootHost gave up, usually because the page never became
+      // ready; waiting for readiness again would only time out again. Hydration is the one thing
+      // that could claim the button, so: ready now, or a fully loaded page that never hydrated.
+      if (!carrierReadiness(doc, win)) await whenLoaded(doc, win);
+    } else if (!(await whenCarrierReady(doc, win, opts.readiness))) return;
     showLauncher(win, doc, opts);
   })().catch(() => { /* never break the host page */ });
+}
+function whenLoaded(doc, win) {
+  if (doc.readyState === "complete") return Promise.resolve();
+  return new Promise((resolve) => { try { win.addEventListener("load", () => resolve(), { once: true }); } catch { resolve(); } });
 }
 function showLauncher(win, doc, { redirect = null, armed = false } = {}) {
   if (onEntryPath(win.location) || (isArmed(win) && !armed)) return;
