@@ -1,6 +1,6 @@
 # Bloodright Wave 06 — Four Source-Inspected Material Treatments
 
-**Status:** ALL FOUR FAMILY MATERIAL TREATMENTS DIRECTOR APPROVED (2026-10-18). The approval authorizes beginning source-geometry-locked artwork production; it does **not** accept any new tier-emblem image, clear field-specific preflight, or authorize live-game activity.
+**Status:** ALL FOUR FAMILY MATERIAL TREATMENTS DIRECTOR APPROVED (2026-10-18). Direction approval is distinct from image acceptance: **BR-033 Houkyuken v02's specific three-tier artworks were subsequently director accepted**; BR-036 Itojinsei v01 images are **proposed and pending**, BR-002/BR-040 artworks unproduced. Direction/image acceptance does **not** clear field-specific preflight or authorize live-game activity.
 **Date:** 2026-10-18 · **Lead:** Art Director · **Support:** Image Production.
 **Sources:** `BLOODRIGHT_WAVE06_SOURCE_INTAKE_20261018.md`; uploaded and independently decoded/verified actual original art for **20 jutsu and 4 bloodline identities**; approved Wave05 individual comparator WebPs. Four families complete the planned 29-member visual-art queue.
 
@@ -41,6 +41,13 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 - **Proposed palette:** `#1E171B` burnt shadow, `#573F33` basalt brown, `#9E7046` iron ochre, `#D6A169` dusty amber, `#F9E4BE` concentrated light.
 - **Contrast gate:** Aerathiel's cool seafoam dissolution vs Kyuko's deep warm particulate compression; unlike Taiyo Kami's solar light or Bakuhatsu's detonation, the luminosity should feel **compressed/inward and abrasive**, without sunrays or flames.
 - **Forbidden:** additional black-hole circles, floating planets, cosmic actor scenery, external flying rocks/rays, flamelike blowout, silhouette alteration.
+
+## Artwork acceptance ledger — 2026-10-18
+
+- **BR-033 Houkyuken Ferroflux V02** — director explicitly approved the actual three images after a visual similarity check with Tenohira Musei; accepted original raw/output SHA/archives are frozen in [BR033 QC](BLOODRIGHT_WAVE06_BR033_PROPOSAL_QC_20261018.md). **3/3 ART APPROVED**.
+- **BR-036 Itojinsei Tensionwire V01** — completed and independently verified three separate production candidates and 125/64/32 previews, [BR036 proposal QC](BLOODRIGHT_WAVE06_BR036_PROPOSAL_QC_20261018.md). **0/3 ART APPROVED; director review pending**.
+- **BR-002 Aerathiel / BR-040 Kyuko-sei** — **0/6 ART PRODUCED**, visual material directions remain approved.
+- **Overall:** **26/29 bloodline families, 78/87 emblems visually accepted**. The next substantive gate is Itojinsei actual-art visual review, not another palette signoff. No new image has field-specific preflight/upload approval.
 
 ## Execution/approval gates
 
