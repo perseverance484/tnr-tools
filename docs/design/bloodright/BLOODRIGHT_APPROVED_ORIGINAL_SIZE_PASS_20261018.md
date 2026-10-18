@@ -34,7 +34,7 @@ The operator's conversation currently mounts the four original Wave06 bloodline 
 | Conversation delivery | SHA-256 | Contents |
 |---|---|---|
 | `Bloodright_27_Approved_Original_WebPs_256px_20261018.zip` | **`a941e28898ecff609d35f2361f1c251933c2d9eeb094d1e73190cb8c7f81f6c0`** | **Flat 27 separate, original named, approved 256×256 lossless VP8L files**. No remaster, no reimagined sheet, no duplicate, no Itojinsei V01. |
-| `Bloodright_27_Approved_Original_SizePass_Archive_with_QC_20261018.zip` | **`babce0c7558dc686c8f1fe911dcd387126d140f3483089b2f94193927fee0288`** | 27 identical originals, 3 exact approved Ethereal 1254px PNG masters, all 87 slot statuses with exact 27 WebP hashes and full source parent SHA, QC gallery, readme. |
+| `Bloodright_27_Approved_Original_SizePass_Archive_with_QC_20261018.zip` | **`280ac6a5e950adfe90eea0f08123f88ccb2b2141198ca9a1a64e6a0e4712ae8d`** | 27 identical originals, 3 exact approved Ethereal 1254px PNG masters, all 87 slot statuses with exact 27 WebP hashes and full source parent SHA, QC gallery, readme. |
 | `BR-036_Itojinsei_Blackwire_3_Separated_REVIEW_ONLY_20261018.zip` | **`42d94702cc75d4b33f351f2f4a43d8eac0b5296b5d7275841320f26360d73f17`** | One unmodified accepted Blackwire 1254px triple-source composite + **three strictly crop/pad/resize-derived individual 256px VP8L files** and review composite + crop coordinates. The director accepted the **single original sheet**, NOT these individual exports. Exact approved geometry-master preservation **has NOT been verified** for Blackwire; do not include these in approved 27 pack or wire to the game without separate acceptance. |
 
 ## Missing exact original approved bytes — 57/87
