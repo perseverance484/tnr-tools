@@ -1,6 +1,6 @@
 # Bloodright Wave 06 — Source-Verified Original Art Intake
 
-**Status:** SOURCE INTAKE VERIFIED; FOUR TREATMENT DIRECTIONS **DIRECTOR APPROVED** (2026-10-18). BR-033 three-tier artwork **PROPOSED**, awaiting director visual acceptance; other 9 Wave06 icons unproduced. No field-specific production preflight or game operations.
+**Status:** SOURCE INTAKE VERIFIED; FOUR TREATMENT DIRECTIONS **DIRECTOR APPROVED** (2026-10-18). BR-033 three-tier artwork **DIRECTOR APPROVED** (all 3 original files), BR-036 three v01 tier icons **PROPOSED** but not yet approved; BR-002/BR-040 six icons still unproduced. No field-specific production preflight or game operations.
 **Date:** 2026-10-18. **Lead:** Art Director; **support:** Image Production.
 **Branch baseline:** Wave05 frozen approved art closeout `chatgpt/bloodright-wave05-art-studio-20261017@5512aa0e8faad6153e13122c262e5277e58c6a08` (separate art lineage; not merged to main).
 **Roster authority:** `docs/design/bloodright/roster.json` at `fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866` (blob `64f6097cb65daccd636f98c8f35517941b67aebb`). This is an approved planning roster, not a fresh game census.
@@ -30,6 +30,7 @@ The operator supplied all four actual individual bloodline art ZIPs after Wave05
 
 ## Status and handoff
 
-Wave05 remains **25/29 families, 75/87 emblems visually approved**. Wave06 four families / twelve emblems are **not approved or generated**. Four source references were inspected and the director specifically approved all four material treatments in `BLOODRIGHT_WAVE06_TREATMENTS_PROPOSED_20261018.md`. BR-033's exact geometry-locked V02 three-tier original-art set has been proposed with independently verified offline QC (see `BLOODRIGHT_WAVE06_BR033_PROPOSAL_QC_20261018.md`) but **those specific images are not yet director-approved**; no Wave06 visual-approved count increases until artwork approval.
+Wave05's historical closeout was **25/29 families, 75/87 icons accepted**. After Wave06 source intake, all four material directions were approved. **BR-033 Houkyuken Ferroflux Polarity V02 was explicitly visually accepted (3 exact original images)** and frozen by SHA in [BR033 acceptance record](BLOODRIGHT_WAVE06_BR033_PROPOSAL_QC_20261018.md). **BR-036 Itojinsei Tensionwire Steel V01 now has a distinct three-tier original-art proposal** (three source PNGs and three WebPs, replayable 151/151 offline QC) awaiting final visual review; see [BR036 proposal](BLOODRIGHT_WAVE06_BR036_PROPOSAL_QC_20261018.md). Aerathiel and Kyuko-sei have approved material directions but no generated tier emblems. Current visual acceptance = **26/29 families, 78/87 icons**; three families/nine icons remain unapproved.
+
 
 The strict-masked geometry masters remain the planned standard; previous 12 Wave04/05 visually accepted exceptions remain technically nonexact and unchanged. `skillTree.image` field-specific preflight/opaque background, immutable Git source pinning and Forge imagePack are OPEN, not upload-cleared. Art-lineage `RUL-2026-10-17-004` still conflicts in identifier with unrelated main ruling; reconcile before any merge. **Live requests/writes: 0/0. Credentials: none.**
