@@ -1295,3 +1295,32 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Canonical destination:** `docs/design/bloodright/balance/round_total/` (`PROVENANCE.md`, `proposal_trees.json`, `codex_review_README.md`).
 
 **Boundary:** no live-game action is authorized. Publishing, final balance acceptance and the six constraint-limited kits remain user decisions.
+
+---
+
+## RUL-2026-10-18-003 — Set Bloodright kit jutsu classification so tree bonuses apply
+
+**Date:** 2026-10-18
+
+**Domain:** Bloodright / kit jutsu / live content
+
+**Status:** ACTIVE
+
+**Supersedes:** none. It corrects the stated consequence of RUL-2026-10-17-004.
+
+**Ruling:** Set `elementClassification` on the Bloodright naming-pass bloodlines' kit jutsu to the bloodline's tree element, so their tree bonuses reach the kit. Balancing models the game after this edit, which is the same assumption Codex's round-total scores made.
+
+- **Why:** engine-verified, 71 of the trees' 130 bonus tags (201 node bonuses) reach no kit jutsu today. After the edit, 2 do. Evidence: `docs/reviews/BLOODRIGHT_KIT_CLASSIFICATION.md`.
+- **Scope:** 122 kit jutsu across the 23 single-element trees. Cosmic Ascendant and Shiroi Youso have no single element and are not edited.
+- **Execution:** a staged live operation run by the user through Forge, because 46 AIs equip 38 of these jutsu (laws 18 and 60).
+  1. Read-only capture, `push/109`–`110`.
+  2. Unequip the affected AIs, after a one-AI stat-scaling probe.
+  3. Convert the 122 jutsu, changing only `elementClassification`.
+  4. Re-equip the AIs from the before-image, with read-back gates after each step.
+- **Correction to RUL-2026-10-17-004:** the `None` placeholder does not make Cosmic Ascendant's and Shiroi Youso's bonuses "do little". `None` matches every element-less effect row on any jutsu the player casts, so it is broad. Their handling is pending a user decision.
+
+**Evidence:** the user chose option 1 ("Set the classifications") from: (1) set the classifications, (2) balance only what works today, (3) ask the game developer to change matching.
+
+**Canonical destination:** the live jutsu records, via the staged manifests. The analysis is in `docs/reviews/BLOODRIGHT_KIT_CLASSIFICATION.md`.
+
+**Boundary:** agents make no live requests. The user runs every stage. Stat re-scaling found by the probe is a user decision.
