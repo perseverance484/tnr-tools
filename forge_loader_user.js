@@ -9,7 +9,7 @@
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
-// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@7ba312cd61f97b978c47839453222ba72e184117/forge_bundle.js
+// @require      https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@3e258aa922e863fbc6c92f63f38356e2aaa23631/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. That entry is unchanged, but since
 // 0.4.0 it is a doorway, not the host: /forge is a same-origin 404 that renders through
