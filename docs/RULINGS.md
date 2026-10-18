@@ -1324,3 +1324,23 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Canonical destination:** the live jutsu records, via the staged manifests. The analysis is in `docs/reviews/BLOODRIGHT_KIT_CLASSIFICATION.md`.
 
 **Boundary:** agents make no live requests. The user runs every stage. Stat re-scaling found by the probe is a user decision.
+
+---
+
+## RUL-2026-10-18-004 — Keep Cosmic Ascendant and Shiroi Youso in the import with the `None` placeholder
+
+**Date:** 2026-10-18
+
+**Domain:** Bloodright / naming-pass collection import
+
+**Status:** ACTIVE
+
+**Supersedes:** the pending item in RUL-2026-10-18-003.
+
+**Ruling:** Cosmic Ascendant and Shiroi Youso stay in the import packages with the `None` element placeholder, so both bloodlines have trees. Their real classification will be resolved later.
+
+**Known consequence:** with `None`, their bonuses apply to every element-less effect row on any jutsu the player casts, so they are broad rather than neutral (RUL-2026-10-18-003). Their kit jutsu are not reclassified.
+
+**Evidence:** "Leave CA and SY in for now so they at least have trees, we'll take it from there."
+
+**Canonical destination:** `scripts/bloodright_from_naming.py` (`NO_ELEMENT_PLACEHOLDER`) and `forge/bloodright/naming_pass_collection_{a,b}.json`. No change is needed; both trees are already packaged.
