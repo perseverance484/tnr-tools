@@ -136,25 +136,50 @@ test("launcher: false keeps an unarmed page fully inert", async () => {
   assert.equal(win.document.body.innerHTML, before);
 });
 
-test("clicking the launcher opens Forge in place on the current page, with no navigation", async () => {
+test("clicking the launcher goes to /forge, exactly as typing the address does", async () => {
   const win = dom("https://www.theninja-rpg.com/village");
   hydrateLikeReact(win.document);
-  await boot(win, { establish: false });
+  const went = [];
+  await boot(win, { establish: false, redirect: (u) => went.push(u) });
   await tick();
   const launcher = win.document.querySelector(LAUNCHER_TAG);
   assert.ok(launcher);
   const btn = launcherButton(launcher);
+  const seen = [];
+  for (const ev of ["mousedown", "pointerdown", "click"]) win.document.addEventListener(ev, () => seen.push(ev));
+  btn.dispatchEvent(new win.MouseEvent("mousedown", { bubbles: true, composed: true }));
   btn.click();
   await tick();
-  assert.equal(win.location.pathname, "/village", "no page load: Forge opens where the operator is");
-  assert.equal(hosts(win.document), 1, "Forge is mounted");
-  assert.ok(win.document.querySelector("." + OVERLAY_CLASS + " .f-app"));
-  assert.equal(win.document.querySelector(LAUNCHER_TAG), null, "the button is gone while Forge is open");
-  assert.equal(isArmed(win), true);
-  assert.equal(armHops(win), 0, "a stable mount resets the hop counter");
+  assert.deepEqual(went, [ENTRY_PATH]);
+  assert.deepEqual(seen, [], "the game's own document handlers do not see the press or the click");
+  assert.equal(hosts(win.document), 0, "nothing opens in place: the carrier is the entry's choice");
+  assert.equal(isArmed(win), false, "/forge arms the tab, not the button");
+  assert.equal(win.document.querySelector(LAUNCHER_TAG), null);
   btn.click();
+  assert.deepEqual(went, [ENTRY_PATH], "a second click on the removed button does nothing");
+});
+
+test("no launcher on the /forge entry itself", async () => {
+  const win = dom("https://www.theninja-rpg.com" + ENTRY_PATH);
+  await boot(win, { redirect: () => {} });
+  stampHydrated(win.document);
   await tick();
-  assert.equal(hosts(win.document), 1, "a second click on the removed button does nothing");
+  assert.equal(win.document.querySelector(LAUNCHER_TAG), null);
+});
+
+test("an armed tab whose host never came up gets the launcher back, so /forge can show the diagnostic", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");
+  hydrateLikeReact(win.document);
+  arm(win, { hops: 1 });
+  // mounting the overlay fails (bootHost returns null with nothing mounted)
+  const real = win.document.body.appendChild;
+  win.document.body.appendChild = function (n) { if (n && n.classList && n.classList.contains(OVERLAY_CLASS)) throw new Error("mount refused"); return real.call(this, n); };
+  const again = await boot(win, { establish: false });
+  win.document.body.appendChild = real;
+  assert.equal(again, null);
+  await tick();
+  assert.equal(win.document.querySelectorAll(LAUNCHER_TAG).length, 1, "the operator has a way back in");
+  assert.equal(isArmed(win), true, "the marker is left for /forge to report and clear");
 });
 
 test("closing Forge brings the launcher back, disarmed", async () => {

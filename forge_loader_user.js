@@ -27,8 +27,8 @@
 // so activation is decided by a per-tab sessionStorage marker rather than by a URL. On any game
 // page in a tab that has NOT been armed through /forge, the bundle does nothing at all except
 // show one small "Forge" button (since 0.7.0), added only after the game has finished loading
-// the page: no request, no stylesheet, no game element touched. Tapping it opens Forge right
-// there, so typing /forge is no longer needed (it still works).
+// the page: no request, no stylesheet, no game element touched. Tapping it goes to /forge, so
+// the address no longer has to be typed (typing it still works the same way).
 //
 // RELEASE PIN. @require must always resolve to an IMMUTABLE bundle commit. Development branches
 // keep the last released @version/@require and may carry @x-release-pending <package-version>.

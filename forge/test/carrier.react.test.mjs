@@ -118,11 +118,12 @@ test("0.4.1: boot waits for React to own body, mounts once with the tree intact,
   root.unmount();
 });
 
-test("react-dom 19.2.8: the launcher waits for hydration, does not disturb it, survives navigation, and opens Forge in place", async () => {
+test("react-dom 19.2.8: the launcher waits for hydration, does not disturb it, survives navigation, and goes to /forge", async () => {
   const win = carrier();
   const doc = win.document;
   const shell = doc.getElementById("layout");
-  assert.equal(await boot(win, { establish: false }), null, "an unarmed page");
+  const went = [];
+  assert.equal(await boot(win, { establish: false, redirect: (u) => went.push(u) }), null, "an unarmed page");
   await settle();
   assert.equal(doc.querySelector(LAUNCHER_TAG), null, "nothing is added before React owns body");
   const errors = [];
@@ -140,10 +141,8 @@ test("react-dom 19.2.8: the launcher waits for hydration, does not disturb it, s
   assert.equal(doc.querySelector(LAUNCHER_TAG), launcher, "and the launcher is still there");
 
   launcher.shadowRoot.querySelector("button").click();
-  await settle(120);
-  assert.equal(doc.querySelectorAll("." + OVERLAY_CLASS).length, 1, "Forge opened on /profile");
-  assert.equal(win.location.pathname, "/profile");
-  assert.equal(doc.querySelector(LAUNCHER_TAG), null);
-  assert.equal(isArmed(win), true);
+  await settle();
+  assert.deepEqual(went, ["/forge"]);
+  assert.equal(doc.querySelector("." + OVERLAY_CLASS), null);
   root.unmount();
 });
