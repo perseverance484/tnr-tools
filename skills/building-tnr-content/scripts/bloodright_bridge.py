@@ -33,5 +33,7 @@ def package_problems(value):
         if not isinstance(result, list):
             raise ValueError("validator did not return a problem list")
         return result
+    except subprocess.CalledProcessError as exc:
+        return [f"Bloodright package validator failed: {(exc.stderr or '').strip() or exc}"]
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
         return [f"Bloodright package validator unavailable: {exc}"]

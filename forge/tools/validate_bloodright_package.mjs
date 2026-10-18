@@ -4,21 +4,55 @@
 // <ref>:<path>`; no network. The live inventory is replaced by hidden stand-ins for the probe
 // and every bound record, so live-only facts (bindings exist and are hidden, no global name
 // collision, folder name free) are NOT checked here: Forge proves them at preview.
+// Image-pack blobs ARE checked here: each exists at the pack ref, its SHA-256 and byte count
+// match, it is within Forge's upload ceiling, and the ref is on a pushed (remote) branch.
 // Usage: node tools/validate_bloodright_package.mjs REPO_ROOT < package.json  ->  JSON problem list
-import { readFileSync } from "node:fs";
+import { readFileSync, realpathSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { pathToFileURL } from "node:url";
 import { prepareCollection } from "../src/bloodright/collection.mjs";
 import { bloodrightProblems } from "../src/bloodright/validate.mjs";
+import { SLUGS } from "../src/transport/upload.mjs";
+
+const COMMIT = /^[a-f0-9]{40}$/;
+const UPLOAD_CEILING = SLUGS.imageUploader.maxBytes;
 
 function memoryStorage() {
   const m = new Map();
   return { getItem: k => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: k => m.delete(k) };
 }
 
-export async function packageProblems(pkg, root) {
+// Only ever hand git an exact commit and a plain repository path, never an option.
+function gitShow(root, ref, path, encoding) {
+  if (!COMMIT.test(ref ?? "") || typeof path !== "string" || !path || path.startsWith("-") || path.includes("..")) throw new Error(`refusing git read of ${ref}:${path}`);
+  try { return execFileSync("git", ["-C", root, "show", "--end-of-options", `${ref}:${path}`], { encoding, stdio: ["ignore", "pipe", "pipe"] }); }
+  catch { throw new Error(`${path} is not readable at ${ref.slice(0, 7)} in this checkout; fetch that commit first`); }
+}
+
+/** Offline checks of the pack's repository blobs; Forge repeats them against GitHub at preview. */
+export function packBlobProblems(pack, root) {
+  if (!pack) return [];
+  const out = [];
+  if (!COMMIT.test(pack.ref ?? "")) return [`imagePack ref must be a 40-hex commit, got ${pack.ref}`];
+  let pushed = "";
+  try { pushed = execFileSync("git", ["-C", root, "branch", "-r", "--contains", pack.ref], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim(); } catch { /* unknown commit: reported per file below */ }
+  if (!pushed) out.push(`imagePack ref ${pack.ref.slice(0, 7)} is not on any pushed branch; Forge fetches icons from GitHub`);
+  for (const [name, f] of Object.entries(pack.files ?? {})) {
+    let bytes;
+    try { bytes = gitShow(root, pack.ref, f?.path); } catch (e) { out.push(`icon ${name}: ${e.message}`); continue; }
+    const digest = createHash("sha256").update(bytes).digest("hex");
+    if (digest !== f.sha256) out.push(`icon ${name}: sha256 ${digest.slice(0, 12)} does not match the pack's ${String(f.sha256).slice(0, 12)}`);
+    if (bytes.length !== f.bytes) out.push(`icon ${name}: ${bytes.length} bytes, pack says ${f.bytes}`);
+    if (bytes.length > UPLOAD_CEILING) out.push(`icon ${name}: ${bytes.length} bytes exceeds the ${UPLOAD_CEILING}-byte upload ceiling`);
+  }
+  return out;
+}
+
+export async function packageProblems(pkg, root, { blobs = true } = {}) {
   const c = pkg?.bloodrightCollection;
   if (!c || !Array.isArray(c.trees)) return ["not a bloodrightCollection package"];
-  const text = (path, ref) => execFileSync("git", ["-C", root, "show", `${ref}:${path}`], { encoding: "utf8" });
+  const text = (path, ref) => gitShow(root, ref, path, "utf8");
   // Stand-in inventory: only what the package itself binds.
   const skills = new Map(), folders = new Map();
   for (const t of c.trees) {
@@ -39,12 +73,13 @@ export async function packageProblems(pkg, root) {
   };
   const ctx = { github: { text }, reader, storage: memoryStorage(), auth: { assert() {} }, journal: { listJobs: () => [] },
     validator: { problems: (entity, data, live) => bloodrightProblems(entity, data, live) } };
-  try {
-    return (await prepareCollection(ctx, pkg)).problems;
-  } catch (e) { return [e.message]; }
+  let problems;
+  try { problems = (await prepareCollection(ctx, pkg)).problems; } catch (e) { problems = [e.message]; }
+  return blobs ? [...problems, ...packBlobProblems(pkg.imagePack, root)] : problems;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const entry = (() => { try { return pathToFileURL(realpathSync(process.argv[1])).href; } catch { return null; } })();
+if (import.meta.url === entry) {
   const root = process.argv[2];
   let out;
   try { out = root ? await packageProblems(JSON.parse(readFileSync(0, "utf8")), root) : ["usage: validate_bloodright_package.mjs REPO_ROOT < package.json"]; }
