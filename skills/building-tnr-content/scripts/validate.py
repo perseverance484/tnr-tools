@@ -1122,6 +1122,12 @@ def check_manifest(path, ctors_path, strict=False):
     items = man.get("items") or []
     if man.get("bloodright"):
         rep.err("manifest", "Bloodright design package is not a compiled manifest; prepare its authenticated inventory preview in Forge")
+    collection = man.get("bloodrightCollection")
+    if collection:
+        from bloodright_bridge import package_problems
+        for problem in package_problems(man):
+            rep.err("Bloodright collection", problem)
+        rep.note("Bloodright collection", f"{len(collection.get('trees') or [])} tree(s) checked offline; Forge proves live bindings, name collisions and folders at preview")
     if any(e.get("entity") in ("skillTree", "skillTreeFolder") for e in items):
         from bloodright_bridge import problems
         for problem in problems(man):
@@ -1133,9 +1139,9 @@ def check_manifest(path, ctors_path, strict=False):
             _e["entity"] = "gameAsset"
     cap = man.get("capture") or {}
     cap_calls = (cap.get("before") or []) + (cap.get("after") or [])
-    if not items and not cap_calls:
+    if not items and not cap_calls and not collection:
         rep.err("manifest", "no items")
-    elif not items:
+    elif not items and not collection:
         rep.note("manifest", f"capture-only manifest: {len(cap_calls)} read(s), zero mutations")
     for phase in ("before", "after"):
         for c in (cap.get(phase) or []):
