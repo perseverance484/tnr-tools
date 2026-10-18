@@ -26,8 +26,12 @@ function memoryStorage() {
 // Only ever hand git an exact commit and a plain repository path, never an option.
 function gitShow(root, ref, path, encoding) {
   if (!COMMIT.test(ref ?? "") || typeof path !== "string" || !path || path.startsWith("-") || path.includes("..")) throw new Error(`refusing git read of ${ref}:${path}`);
-  try { return execFileSync("git", ["-C", root, "show", "--end-of-options", `${ref}:${path}`], { encoding, stdio: ["ignore", "pipe", "pipe"] }); }
-  catch { throw new Error(`${path} is not readable at ${ref.slice(0, 7)} in this checkout; fetch that commit first`); }
+  try { return execFileSync("git", ["-C", root, "show", "--end-of-options", `${ref}:${path}`], { encoding, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 64 * 1024 * 1024 }); }
+  catch {
+    let known = false;
+    try { execFileSync("git", ["-C", root, "cat-file", "-e", `${ref}^{commit}`], { stdio: "ignore" }); known = true; } catch { /* commit absent */ }
+    throw new Error(known ? `${path} does not exist at ${ref.slice(0, 7)}` : `${path}: commit ${ref.slice(0, 7)} is not in this checkout; fetch it first`);
+  }
 }
 
 /** Offline checks of the pack's repository blobs; Forge repeats them against GitHub at preview. */
@@ -37,6 +41,7 @@ export function packBlobProblems(pack, root) {
   if (!COMMIT.test(pack.ref ?? "")) return [`imagePack ref must be a 40-hex commit, got ${pack.ref}`];
   let pushed = "";
   try { pushed = execFileSync("git", ["-C", root, "branch", "-r", "--contains", pack.ref], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim(); } catch { /* unknown commit: reported per file below */ }
+  // Approximation of "GitHub serves it": a remote-tracking branch contains the commit.
   if (!pushed) out.push(`imagePack ref ${pack.ref.slice(0, 7)} is not on any pushed branch; Forge fetches icons from GitHub`);
   for (const [name, f] of Object.entries(pack.files ?? {})) {
     let bytes;

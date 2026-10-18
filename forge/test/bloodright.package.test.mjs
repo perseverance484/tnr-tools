@@ -52,7 +52,7 @@ test("review F2: pack blobs are verified offline - digest, size, upload ceiling 
     git(repo, "init", "-q"); mkdirSync(join(repo, "art"));
     const small = new Uint8Array([82, 73, 70, 70, 1, 2, 3]), big = new Uint8Array(524289);
     writeFileSync(join(repo, "art/a.webp"), small); writeFileSync(join(repo, "art/big.webp"), big);
-    git(repo, "add", "."); git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "icons");
+    git(repo, "add", "."); git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false", "commit", "-q", "-m", "icons");
     const ref = git(repo, "rev-parse", "HEAD"), sha = b => createHash("sha256").update(b).digest("hex");
     const good = { ref, files: { "a.webp": { path: "art/a.webp", sha256: sha(small), bytes: small.length } } };
     assert.ok(packBlobProblems(good, repo).some(p => /not on any pushed branch/.test(p)));
@@ -63,7 +63,12 @@ test("review F2: pack blobs are verified offline - digest, size, upload ceiling 
     const size = structuredClone(good); size.files["a.webp"].bytes = 99;
     assert.ok(packBlobProblems(size, repo).some(p => /pack says 99/.test(p)));
     const missing = structuredClone(good); missing.files["a.webp"].path = "art/none.webp";
-    assert.ok(packBlobProblems(missing, repo).some(p => /not readable/.test(p)));
+    assert.ok(packBlobProblems(missing, repo).some(p => /does not exist at/.test(p)));
+    const huge = new Uint8Array(1536 * 1024); writeFileSync(join(repo, "art/huge.webp"), huge);
+    git(repo, "add", "."); git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false", "commit", "-q", "-m", "huge");
+    const ref2 = git(repo, "rev-parse", "HEAD"); git(repo, "update-ref", "refs/remotes/origin/main", ref2);
+    assert.ok(packBlobProblems({ ref: ref2, files: { "huge.webp": { path: "art/huge.webp", sha256: sha(huge), bytes: huge.length } } }, repo).some(p => /upload ceiling/.test(p)));
+    assert.ok(packBlobProblems({ ref: "e".repeat(40), files: { "a.webp": good.files["a.webp"] } }, repo).some(p => /not in this checkout; fetch it first/.test(p)));
     const over = { ref, files: { "big.webp": { path: "art/big.webp", sha256: sha(big), bytes: big.length } } };
     assert.ok(packBlobProblems(over, repo).some(p => /upload ceiling/.test(p)));
   } finally { rmSync(repo, { recursive: true, force: true }); }
