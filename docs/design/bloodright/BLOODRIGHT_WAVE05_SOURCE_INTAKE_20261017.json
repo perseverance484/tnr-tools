@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bloodright.wave05.source-intake-qc/1",
   "date": "2026-10-17",
-  "state": "ALL_FIVE_SOURCE_PACKS_VERIFIED_AND_TREATMENTS_APPROVED; BR078_BR005_BR065_BR034_VISUALLY_APPROVED; BR077_PROPOSED_PENDING_DIRECTOR",
+  "state": "WAVE05_FIVE_SOURCE_ZIPS_VERIFIED_FIVE_MATERIAL_TREATMENTS_APPROVED_AND_ALL_FIVE_TRIOS_VISUALLY_APPROVED__TECHNICAL_GATES_OPEN",
   "lineage": {
     "pinned_roster": "fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866",
     "pinned_roster_blob": "64f6097cb65daccd636f98c8f35517941b67aebb",
@@ -191,12 +191,12 @@
     "game_writes": 0,
     "credentials_used": false
   },
-  "director_gate": "Director accept/rework the three actual Teno Yuki Winterglass Sanctum tier-emblem originals. If accepted, archive Wave05 five approved trios from exact saved source binaries; Wave06 has final magnet and dust pairs.",
+  "director_gate": "Wave05 visual art complete. Wave06 four remaining families need original source ZIPs: BR-033 Houkyuken, BR-036 Itojinsei, BR-002 Aerathiel, BR-040 Kyuko-sei. Formal skillTree.image preflight/Forge remains separate.",
   "director_material_approval": {
     "status": "APPROVED_ALL_FIVE_2026-10-17",
     "source": "Director replied 'Approved, proceed' to five cards Equinox Rift, Midnight Tempest, Raijin Whitebolt, Cerulean Shatter, Winterglass Sanctum."
   },
-  "generated_tier_art": "15_WAVE05_TIER_ORIGINALS_PRODUCED; 12_APPROVED_BR078_BR005_BR065_BR034; 3_PROPOSED_BR077",
+  "generated_tier_art": "15_WAVE05_IMAGES_PRODUCED_AND_ALL_15_DIRECTOR_VISUALLY_APPROVED",
   "BR078_proposal": {
     "QC_path": "BLOODRIGHT_WAVE05_BR078_PROPOSAL_QC_20261017.json",
     "zip_file": "BR-078_Tenohira_Musei_Bloodright_Proposed_3_Icons.zip",
@@ -228,13 +228,12 @@
     "superseded_by": "BLOODRIGHT_WAVE05_BR005_STORMCLOUD_V02_APPROVED_QC_20261017.json"
   },
   "visual_progress": {
-    "accepted_bloodlines": 24,
-    "accepted_icons": 72,
+    "accepted_bloodlines": 25,
+    "accepted_icons": 75,
     "total_bloodlines": 29,
     "total_icons": 87,
-    "remaining_bloodlines": 5,
-    "remaining_icons": 15,
-    "pending_Teno_Yuki_icons_not_counted": 3
+    "remaining_bloodlines": 4,
+    "remaining_icons": 12
   },
   "BR005_approved_stormcloud_v02": {
     "approved": "DIRECTOR_APPROVED_2026-10-17",
@@ -277,7 +276,7 @@
   },
   "BR077_proposal": {
     "theme": "Winterglass Sanctum",
-    "specific_artwork_director_acceptance": "PENDING",
+    "specific_artwork_director_acceptance": "DIRECTOR_VISUALLY_APPROVED_2026-10-18",
     "original_jutsu_zip_sha256": "5a41a65a4f1c268a6a7ec5c7bf02edd878cde87d36b3967636cfc6fb280b9554",
     "archive": "BR-077_Teno_Yuki_Bloodright_Proposed_3_Icons_QC_v02.zip",
     "archive_sha256": "d2889923acc8fa06da2aabe9b05834e619847c92dd17b08aab7a5766b1d256bc",
@@ -287,6 +286,21 @@
       "passes": 186,
       "failures": 0
     },
-    "paired_ice_family": "Approved Hyouga Cerulean Shatter is saturated cobalt; proposed Teno is pale near-neutral silver-white frost, source-pixel contrast verified."
+    "paired_ice_family": "Approved Hyouga Cerulean Shatter is saturated cobalt; proposed Teno is pale near-neutral silver-white frost, source-pixel contrast verified.",
+    "approved_family_zip": "BR-077_Teno_Yuki_Bloodright_Approved_3_Icons.zip",
+    "approved_family_zip_sha256": "95256b448e1728a2ed3cc35d22d8790566b72a7315b3f03950c0b6c9b4ed19f4",
+    "raw_png_and_webp_binary_unchanged": "PASS_ALL_SIX"
+  },
+  "closeout_20261018": {
+    "ledger": "BLOODRIGHT_WAVE05_APPROVED_QC_20261018.json",
+    "full_zip_sha256": "a861a26416bb49fd17c0f27cef8d65ea5773637424e56de074f96ec1fdb81c34",
+    "webps_only_zip_sha256": "c1ec178233c42c5d75fde0bab2a55547c6dcbdcc414547c36dbff95ec1587545",
+    "offline_assertions_passed": 289,
+    "offline_assertions_failed": 0,
+    "exact_geometry_icons": 12,
+    "nonexact_geometry_icons": 3,
+    "previous_wave04_nonexact_geometry_icons": 9,
+    "live_game_requests": 0,
+    "live_game_writes": 0
   }
 }
