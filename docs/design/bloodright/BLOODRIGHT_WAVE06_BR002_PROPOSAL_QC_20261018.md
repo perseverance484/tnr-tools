@@ -30,8 +30,10 @@ All original full-size outputs are 1254×1254 opaque RGB PNG, separately saved. 
 | `BR-002_Aerathiel_Aether_Dissolution_v02_Proposed_Production_Pack_20261018.zip` | `fe94abc82e1885a951fd1f4c535ea6a62cb5ee2193338c7354d7b1487c9cae4c` | Exact 5-jutsu+identity original ZIP, three individual geometry masters via starter ZIP, producer script, six independent icon files, offline audit, previews and metadata |
 | `BR-002_Aerathiel_Aether_Dissolution_v02_3_WebPs_PROPOSED_20261018.zip` | `a606219fbc695c5595bbb65732e27c9d4f910c72aa7d404aca57d668bd87e426` | Just the three individually saved game-sized lossless WebPs |
 | `BR-002_Aerathiel_Aether_Dissolution_Three_Tiers_PROPOSED_v02.png` | `9264375bea4feaf06157caaa54f5b78186735c3f1b9e4777ba4fe5a0bdde0dce` | Programmatically assembled from exact saved WebP pixels, **not separate generated artwork** |
-| `BR-002_Aerathiel_vs_Ethereal_Hyouga_Teno_20261018.png` | Independent composite of exact accepted comparator images and proposed Aerathiel files | Comparison only |
-| `BR-002_Aerathiel_Aether_Dissolution_Three_Tiers_PROPOSED_HIRES_v02_20261018.png` | Secondary preview (hash in conversation files) | Programmatically assembled from saved raw PNG pixels to improve close visual review; no art modification |
+| `BR-002_Aerathiel_vs_Ethereal_Hyouga_Teno_20261018.png` | `0907ae84739d5717e17d3cbe2b25a065235a1b2bb0398849f8e72137b815f344` | Programmatically composed exact accepted comparator pixels and V02 proposed outputs; visual contrast only |
+| `BR-002_Aerathiel_Aether_Dissolution_Three_Tiers_PROPOSED_HIRES_v02_20261018.png` | `a148a5c15f96373f7f0c99005aa6a4fbd613f61a5123fb59a3c65004d0ef3d4a` | Programmatically assembled from separately saved original PNG pixels; visual preview only |
+
+**Exact offline audit log:** `BR-002_Aerathiel_Aether_Dissolution_v02_Offline_QC_20261018.json` SHA-256 `2f253ed2ed4d71f150ca7bc40c7ecd6b3213ba1a0add2e33c194c1485552f0bc`, 146 check records; reproducible producer script SHA-256 `7cd05ab7fc4cdeb52338cc88b7729959e99b7cedc1edf50f20c28a51bd2be0a3` (portable inside full ZIP). No independent green game-field preflight has been claimed.
 
 **Next director gate:** approve/revise **exact** V02 proposed three-tier images, not the already-approved treatment concept. If approved preserve all six exact raw/export SHA-256s before advancing to BR-040 Kyuko-sei (Collapsed Amber).
 
