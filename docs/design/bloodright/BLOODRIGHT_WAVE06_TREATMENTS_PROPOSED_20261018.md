@@ -1,12 +1,12 @@
 # Bloodright Wave 06 — Four Source-Inspected Material Treatments
 
-**Status:** ART DIRECTION PROPOSALS ONLY / awaiting director approval. No tier emblems generated or visually approved.
+**Status:** ALL FOUR FAMILY MATERIAL TREATMENTS DIRECTOR APPROVED (2026-10-18). The approval authorizes beginning source-geometry-locked artwork production; it does **not** accept any new tier-emblem image, clear field-specific preflight, or authorize live-game activity.
 **Date:** 2026-10-18 · **Lead:** Art Director · **Support:** Image Production.
 **Sources:** `BLOODRIGHT_WAVE06_SOURCE_INTAKE_20261018.md`; uploaded and independently decoded/verified actual original art for **20 jutsu and 4 bloodline identities**; approved Wave05 individual comparator WebPs. Four families complete the planned 29-member visual-art queue.
 
 These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT reworking the five linked jutsu artwork images. Each trio uses the *same fixed* Foundation (nested diamond), Hidden Art (nested diamond + inward crescents), and Advanced Art (nested diamond + pointed starburst) geometry masters. Differentiate through intrinsic material, lighting, faceting and controlled masked texture; always opaque black background and clean negative space.
 
-## BR-033 Houkyuken — Ferroflux Polarity (PROPOSED)
+## BR-033 Houkyuken — Ferroflux Polarity (DIRECTION APPROVED)
 
 **Visually inspected individual evidence:** Magnetic Pulse Strike `DEF2BLauG-nis5B0K7ULi`, Rising Star `NB5sGddr-RgH9eEp2L8jL`, Houkyuken: Magnetic Assignment `8Xoc-IdRz5pX4zT9LWOSc`, and identity `ALoGrHuBY5Ml9bJG_DILe`. Images repeatedly show cobalt/electric-cyan orbit lighting opposed to intensely heated crimson/orange-red magnetic pressure, against dark blue-charcoal bodies. Identity adds orange ferromagnetic currents; the jutsu art more clearly establishes **two opposing color polarities**.
 
@@ -44,8 +44,8 @@ These cards govern **three Bloodright skill-tier emblems per bloodline**, NOT re
 
 ## Execution/approval gates
 
-1. **Now:** director accepts or modifies the four treatment cards as a wave. Their current statuses are **PROPOSED, NOT APPROVED**.
-2. **After treatment approval:** build one bloodline's three separate high-resolution square tier emblems from the supplied **actual master PNG bytes** (not from a contact sheet), with precisely locked geometry/black void, then three independent 256px RGB VP8L lossless exports as appropriate. Use consistent material on all three tiers.
+1. **COMPLETE (2026-10-18):** director replied **“Approved”** to the four proposed source-inspected material directions as a wave; **only visual treatment is approved, not raw artwork**.
+2. **NEXT — after treatment approval:** build one bloodline's three separate high-resolution square tier emblems from the supplied **actual master PNG bytes** (not from a contact sheet), with precisely locked geometry/black void, then three independent 256px RGB VP8L lossless exports as appropriate. Use consistent material on all three tiers.
 3. **Per-family review:** programmatic exact-pixel family sheet + 125/64/32 stress preview; compare opposing Magnet/Dust pair and accepted Wave05 near-neighbors. Director approves/rejects the specific three actual outputs, independently of palette signoff.
 4. **Evidence:** write source raw/export SHA, geometry test at full resolution and thresholds, rendered WebP pixel-equality, ZIP CRC and precise visual approval. Accepted raw file bytes immutable. No image is upload-ready while `skillTree.image` field-specific preflight remains unverified.
 5. **Boundary:** source ZIPs are palette/identity references only. The studio does not alter jutsu art, Fable's code/workstream branches, game content, or game state. **Live requests/writes 0/0, credentials none.**
