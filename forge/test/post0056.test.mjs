@@ -28,9 +28,11 @@ test("post-0056: the combat columns are accepted on an AI create, before any liv
   // the additive list does not open the door to typos, omitted or server-owned columns
   assert.match(v.problems("ai", { username: "S", offense: 1 }, null, { preCreate: true }).join(";"), /unknown key "offense"/);
   assert.match(v.problems("ai", { username: "S", occupation: "NONE" }, null, { preCreate: true }).join(";"), /not writable on an ai/);
-  // backward compatible: the pinned set (pre-0056 keys included) is unchanged
-  assert.equal(v.knownFields("ai").size, 157);
-  assert.deepEqual(v.problems("ai", { username: "S", ninjutsuOffence: 1, preferredStat: "Ninjutsu" }, null, { preCreate: true }), []);
+  // Re-pinned at 94f9d84 (post-0056): the pre-0056 per-type stats and preferredStat are gone upstream,
+  // so they are refused loudly instead of being stripped silently by the server.
+  assert.equal(v.knownFields("ai").size, 181);
+  const old = v.problems("ai", { username: "S", ninjutsuOffence: 1, preferredStat: "Ninjutsu" }, null, { preCreate: true }).join(";");
+  assert.match(old, /unknown key "ninjutsuOffence"/); assert.match(old, /unknown key "preferredStat"/);
 });
 
 test("post-0056: L05 no longer requires preferredStat on an AI create, and still requires the rest", () => {

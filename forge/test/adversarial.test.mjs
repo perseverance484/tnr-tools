@@ -34,7 +34,7 @@ const J = (s = new MemoryStorage()) => new Journal(s, fakeClock(), { yieldTask: 
 function harness({ game = new FakeGame(), storage = new MemoryStorage(), idb = new IDBFactory(), tabId = "tab", client = null } = {}) {
   return composeForTest({ game, storage, idb, tabId, client });
 }
-const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredStat: "Ninjutsu", preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
+const AIREQ = Object.freeze({ rank: "GENIN", regeneration: 1, preferredGeneral1: "Strength", preferredGeneral2: "Speed" }); // L05 requires these on an ai create
 const ONE = { items: [{ entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", description: "d", hidden: true } }] };
 
 // ---------------------------------------------------------------- L1 storage
@@ -562,12 +562,26 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const v = new Validator(SCHEMAS);
   assert.deepEqual(v.problems("item", { name: "Seed", isFarmSeed: true, farmGrowTimeSeconds: 60, farmYieldItemId: "x" }), []);
   assert.deepEqual(v.problems("quest", { name: "Q", requiredFarmingLevel: 3 }), []);
-  assert.equal(v.knownFields("item").size, 71); assert.equal(v.knownFields("quest").size, 29);
+  assert.equal(v.knownFields("item").size, 81); assert.equal(v.knownFields("quest").size, 36);
   const live = { id: "i1", name: "Old", farmYieldItemId: "y", farmGrowTimeSeconds: 120, isFarmSeed: true, createdAt: "x" };
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9");
+  assert.equal(SCHEMAS._provenance.pin, "94f9d84c770004172ba423ada3d6710849acc451");
+});
+
+test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {
+  const v = new Validator(SCHEMAS, NESTED);
+  const jutsuLive = { id: "j1", name: "Kit", elementClassification: "Scorch", requiredSkillId: "sk1", reskinParentJutsuId: "p1",
+    bloodlineReskinId: "r1", requiredNinjutsuMastery: 40, requiredSageMastery: 5, coordinateTargeting: null, injectableInBattle: true };
+  const j = mergeForUpdate("jutsu", jutsuLive, { description: "new" }, v.knownFields("jutsu"));
+  for (const k of ["elementClassification", "requiredSkillId", "reskinParentJutsuId", "bloodlineReskinId", "requiredNinjutsuMastery", "requiredSageMastery", "injectableInBattle"])
+    assert.equal(j[k], jutsuLive[k], `jutsu ${k} must survive a fetch-merge edit`);
+  assert.deepEqual(v.problems("jutsu", { elementClassification: "Scorch", injectableInBattle: false }), []);
+  const itemLive = { id: "i1", name: "Cache", farmYieldItemId: "y", auctionMinPrice: 10, auctionMaxPrice: 90, purchaseLimit: 3, purchaseLimitPeriod: "DAILY", requiredSkillId: "sk2" };
+  const i = mergeForUpdate("item", itemLive, { name: "Cache 2" }, v.knownFields("item"));
+  for (const k of ["auctionMinPrice", "auctionMaxPrice", "purchaseLimit", "purchaseLimitPeriod", "requiredSkillId"]) assert.equal(i[k], itemLive[k], `item ${k} must survive`);
+  for (const k of ["requiredNinjutsuOffence", "ninjutsuOffence"]) assert.ok(!v.knownFields(k.startsWith("required") ? "jutsu" : "ai").has(k), `${k} was dropped upstream`);
 });
 
 test("L3: the budget mirrors the server's weighted sliding window, so this client alone never reaches 60% of the limit at the bucket edge", async () => {
@@ -1000,7 +1014,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   const v = new Validator(SCHEMAS);
   assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
   assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
-  assert.equal(v.knownFields("ai").size, 157);
+  assert.equal(v.knownFields("ai").size, 181); // insertAiSchema at 94f9d84 (post-0056)
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();
@@ -1088,4 +1102,17 @@ test("F4b: only the exact adapter error shape is fanned out per index", () => {
   assert.equal(isTrpcErrorBody({ error: { json: { message: "x", data: { code: "INTERNAL_SERVER_ERROR" } } } }), false, "no numeric jsonrpc code: an intermediary body");
   assert.equal(isTrpcErrorBody({ error: { json: { message: "x", code: "-32015", data: { code: "X" } } } }), false);
   assert.throws(() => decodeResponse(504, '{"error":{"json":{"message":"x","data":{"code":"Y"}}}}', 1), TransportError);
+});
+
+test("re-pin 94f9d84: quest content keys added after 345d18ac are accepted, so a content merge can carry them", () => {
+  const v = V();
+  const content = { objectives: [], reward: { reward_packages: [] }, isolated: true, rewardMode: "pick", rewardPickCount: 1, entryItems: [] };
+  assert.deepEqual(v.problems("quest", { content }), []);
+  assert.match(v.problems("quest", { content: { objectives: [], isolatd: true } }).join(";"), /content: unknown key "isolatd"/);
+});
+
+test("re-pin 94f9d84: ai columns insertAiSchema omits at the pin are refused even when the live row carries them", () => {
+  const v = V();
+  assert.match(v.problems("ai", { warMission: "x" }, { username: "X", warMission: null }).join(";"), /"warMission" is not writable on an ai/);
+  assert.match(v.problems("ai", { currentlyTrainingElement: "Fire" }).join(";"), /not writable on an ai/);
 });

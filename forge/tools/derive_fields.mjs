@@ -5,12 +5,12 @@
 //   node tools/derive_fields.mjs /path/to/TheNinjaRPG > src/runner/fields.json
 //
 // No network. Reads the checked-out source only. Re-run whenever the pin moves.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
 if (!root || !existsSync(join(root, "app/src/validators/combat.ts")) || !existsSync(join(root, "app/drizzle/schema.ts"))) { console.error("usage: derive_fields.mjs <TheNinjaRPG checkout>"); process.exit(2); }
-const PIN = process.argv[3] || "345d18accf6d8ea8d8d47ef0e61b5aff7d5a1cf9";
+const PIN = process.argv[3] || "94f9d84c770004172ba423ada3d6710849acc451";
 
 const TARGETS = {
   jutsu:     { file: "app/src/validators/combat.ts",     name: "JutsuValidatorRawSchema" },
@@ -84,7 +84,7 @@ function topLevelKeys(body) {
       const m = /^[^\S\n]*([A-Za-z_$][\w$]*)\s*:/.exec(body.slice(i, i + 200));
       if (m && !keys.includes(m[1])) keys.push(m[1]);
       const s = /^[^\S\n]*\.\.\.(.{0,80})/.exec(body.slice(i, i + 200));
-      if (s) spreads.push(s[1].split("\n")[0].trim());
+      if (s) spreads.push(s[1].split("\n")[0].trim().replace(/,$/, ""));
     }
     lineStart = c === "\n";
     if (c === "{" || c === "(" || c === "[") depth++;
@@ -94,12 +94,34 @@ function topLevelKeys(body) {
   return { keys, spreads };
 }
 
-const out = { _provenance: { generator: "forge/tools/derive_fields.mjs", pin: PIN, note: "top-level keys of each entity validator at the pinned commit; spreads listed for manual review" }, entities: {} };
+// Spreads (`...name` or `...name.shape`) are resolved against every validator file, so their keys
+// are part of the entity's field set. An unresolved spread would mean its fields are silently
+// dropped by every fetch-merge update, so it is a hard error, not a review note.
+const VALIDATOR_DIR = join(root, "app/src/validators");
+const validatorSrc = readdirSync(VALIDATOR_DIR).filter((f) => f.endsWith(".ts")).sort()
+  .map((f) => readFileSync(join(VALIDATOR_DIR, f), "utf8")).join("\n");
+function spreadKeys(spread, seen = new Set()) {
+  const name = /^([A-Za-z_$][\w$]*)(?:\.shape)?\s*,?\s*$/.exec(spread)?.[1];
+  if (!name) throw new Error("unresolvable spread: " + spread);
+  if (seen.has(name)) return [];
+  seen.add(name);
+  const decls = [...validatorSrc.matchAll(new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=`, "g"))];
+  if (decls.length > 1) throw new Error(`spread ${name} is declared ${decls.length} times across validators/; cannot tell which one is spread`);
+  const m = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*(?:z\\s*\\.(?:object|strictObject|looseObject)\\(\\s*)?\\{`).exec(validatorSrc);
+  if (!m) throw new Error("spread declaration not found: " + name);
+  // `z.object({...}).extend({...})` (or .merge/.and) would hide keys after the first body: refuse it.
+  const tail = validatorSrc.slice(m.index + m[0].length + balancedFrom(validatorSrc, m.index + m[0].length).length + 1).match(/^\s*\)?\s*\.(\w+)/);
+  if (tail && /^(extend|merge|and|safeExtend)$/.test(tail[1])) throw new Error(`spread ${name} uses .${tail[1]}(); resolve it by hand`);
+  const { keys, spreads } = topLevelKeys(balancedFrom(validatorSrc, m.index + m[0].length));
+  return [...keys, ...spreads.flatMap((s) => spreadKeys(s, seen))];
+}
+
+const out = { _provenance: { generator: "forge/tools/derive_fields.mjs", pin: PIN, note: "top-level keys of each entity validator at the pinned commit; spreads are resolved into fields" }, entities: {} };
 for (const [entity, t] of Object.entries(TARGETS)) {
   const src = readFileSync(join(root, t.file), "utf8");
   const { body, line } = objectBody(src, t.name);
   const { keys, spreads } = topLevelKeys(body);
-  const fields = {}; for (const k of keys) fields[k] = true;
+  const fields = {}; for (const k of [...keys, ...spreads.flatMap((sp) => spreadKeys(sp))]) fields[k] = true;
   out.entities[entity] = { source: `${t.file}:${line}`, validator: t.name, spreads, fields };
 }
 out.entities.ai = insertAiSchemaFields(readFileSync(join(root, "app/drizzle/schema.ts"), "utf8"));
