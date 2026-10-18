@@ -6597,9 +6597,21 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   function offerLauncher(win, doc, opts) {
     (async () => {
       await whenBodyReady(doc, win);
-      if (!await whenCarrierReady(doc, win, opts.readiness)) return;
+      if (opts.armed) {
+        if (!carrierReadiness(doc, win)) await whenLoaded(doc, win);
+      } else if (!await whenCarrierReady(doc, win, opts.readiness)) return;
       showLauncher(win, doc, opts);
     })().catch(() => {
+    });
+  }
+  function whenLoaded(doc, win) {
+    if (doc.readyState === "complete") return Promise.resolve();
+    return new Promise((resolve) => {
+      try {
+        win.addEventListener("load", () => resolve(), { once: true });
+      } catch {
+        resolve();
+      }
     });
   }
   function showLauncher(win, doc, { redirect = null, armed = false } = {}) {

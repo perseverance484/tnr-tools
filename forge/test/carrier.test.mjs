@@ -182,6 +182,17 @@ test("an armed tab whose host never came up gets the launcher back, so /forge ca
   assert.equal(isArmed(win), true, "the marker is left for /forge to report and clear");
 });
 
+test("an armed tab on a page that never became ready gets the launcher back without a second wait", async () => {
+  const win = dom("https://www.theninja-rpg.com/village");   // parsed shell, never hydrates
+  arm(win, { hops: 1 });
+  const app = await boot(win, { establish: false, readiness: { graceMs: 30 } });
+  assert.equal(app, null);
+  assert.match(armFailure(win) || "", /never became ready/, "the diagnostic is recorded for /forge");
+  await tick();
+  assert.equal(win.document.querySelectorAll(LAUNCHER_TAG).length, 1, "the button is back at once");
+  assert.equal(hosts(win.document), 0);
+});
+
 test("closing Forge brings the launcher back, disarmed", async () => {
   const win = dom();
   const doc = win.document;
