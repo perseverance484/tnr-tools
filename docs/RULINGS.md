@@ -1228,3 +1228,70 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Consequence (source-verified, TheNinjaRPG `94f9d84`, `app/src/libs/combat/potency.ts` `resolvePotencyTags`):** `None` makes the bonuses apply only to jutsu tags without an element, so in practice these two trees do little until their elements are set. The alternative, an empty element list, would apply their bonuses to every jutsu of the matching tag regardless of element; that was not chosen because it would make these the strongest trees rather than neutral placeholders. Effect descriptions read "... on None jutsu ..." until resolved.
 
 **Canonical destination:** `scripts/bloodright_from_naming.py` (`NO_ELEMENT_PLACEHOLDER`) and the generated designs `docs/design/bloodright/structural/{cosmic_ascendant,shiroi_youso}.json`.
+
+---
+
+## RUL-2026-10-18-001 — Bloodright tree standard: Taiyo Kami exemplar and clean round totals
+
+**Date:** 2026-10-18 (decisions made in the user's Codex balance sessions, 2026-10-17/18)
+
+**Domain:** Bloodright / tree design and balance
+
+**Status:** ACTIVE
+
+**Supersedes:** none. It refines the placeholder-value basis of RUL-2026-10-17-003; the values imported under that ruling already equal the round-total proposal.
+
+**Ruling:** Bloodright trees follow the accepted **Taiyo Kami** exemplar:
+
+- **Structure:** four independent Foundation → Hidden Art → Advanced Art paths; 1 BP per node, 5 BP total. The intended full build is one complete path plus another path's Foundation and Hidden Art (3+2).
+- **Prerequisites:** one tag per Foundation and per Hidden Art, ascending along the path.
+- **Capstones:** distinctive Advanced Arts with one or two related effects.
+- **Percentage tags:** clean steps of +2% / +3% / +5%. A finished build must total exactly +5% or +10% of each percentage tag, so players see round numbers.
+- **Damage:** clean amounts. The original ladder was +0.4 / +0.8 / +1.2. +0.2 is approved for lower tiers, and +0.6 is approved as an exception (Taiyo uses +0.2 → +0.6 → +0.8). Aggregate Damage stays within 5 across eligible jutsu rows. For reference, +0.8 equals two jutsu levels at +0.4 per level.
+- **How to balance:** use tag selection, placement and capstone combinations, never odd amounts chosen by an optimizer to equalize scores. There are no fixed per-tier or per-build Weight targets; the earlier 4-Weight target was provisional and is dropped.
+- **Exemplar:** Taiyo Kami's round-total version is the accepted exemplar. Path → Foundation / Hidden / Advanced:
+  - Damage → +0.2 / +0.6 / +0.8 Damage +5% DDG
+  - Afterburn → +2% / +3% / +0.8 Damage +5% DDT
+  - DDT → +2% / +3% / +5% IDT +0.4 Damage
+  - DDG → +2% / +3% / +5% DDG +5% Afterburn
+- **Presentation:** for review (e.g. a Discord thread), present each tree as cumulative totals, prerequisites included. That means its four 3-BP completed Advanced Arts and its twelve 5-BP builds, labelled as total Bloodright bonuses.
+
+**Evidence (user, in the Codex sessions):**
+- "4 points was also provisional and it seems like you're throwing a lot of tags out there to try to make it work."
+- "I kind of want to put damage at an even .8 here because that would translate to exactly 2 jutsu levels worth of scaling."
+- "This tree looks done and usable as an exemplar."
+- "I had wanted clean increments of +2/+3/+5 for tags and +.4/+.8/+1.2 for damage."
+- "A lower tier damage of +.2 is approved."
+- "The goal is for a finished build to have +5 or +10 of % tags, so their jutsu have a nice round number."
+- "OK, looks good. Do the same for every other tree", in reply to the recommended +0.2 → +0.6 → +0.8 Taiyo rebalance with the +0.6 exception.
+- "We can just present the 3 BP builds and then the 5 BP variations as finalized kit numbers in text format right?"
+
+**Rationale:** Players read and compare clean, round totals. Balance should come from design choices, not decimal tuning.
+
+**Canonical destination:** the generated designs in `docs/design/bloodright/structural/`. Evidence: `docs/design/bloodright/balance/round_total/` (Codex's `proposal_trees.json` and its README). Codex's `BALANCING_STANDARD.md` and scripts were not pushed to this repository.
+
+---
+
+## RUL-2026-10-18-002 — Round-total values are the current Bloodright placeholders; 21 trees remain drafts
+
+**Date:** 2026-10-18
+
+**Domain:** Bloodright / naming-pass collection import
+
+**Status:** ACTIVE
+
+**Supersedes:** none.
+
+**Ruling:** Codex's round-total proposal for all 25 A/S trees (applied with "Do the same for every other tree") is the value set behind the naming-pass import. It matches the imported designs node for node. It remains a placeholder set for hidden import, not finished balance.
+
+- **Pass Codex's normal and symmetric-pressure screens:** Taiyo Kami (accepted exemplar), Arashima, Heavenly Sonata and Teno Yuki.
+- **Flagged drafts:** the other 21. They meet the structure, finished-percentage and cap rules, but keep a weaker secondary choice.
+- **Constraint-limited:** six of those drafts cannot reach the 90% secondary-choice screen under the current rules, because their kits offer only four tag families: Hyouga Yui, Itojinsei, Shadow Weaver, Shinrai Ou, Shinseina Ki and Tenohira Musei. They need a kit or design-rule change.
+- **BEE and BBE** keep their keystone placement rules. Their healing and coverage gaps remain open.
+- **Further balance work** happens on the hidden records or in a later pass. It does not block the hidden import.
+
+**Evidence:** "Do the same for every other tree" (user). Codex reported: "21 remain flagged drafts, not finalized balanced trees. Six cannot reach the 90% secondary-choice target within the current rules in this model."
+
+**Canonical destination:** `docs/design/bloodright/balance/round_total/` (`PROVENANCE.md`, `proposal_trees.json`, `codex_review_README.md`).
+
+**Boundary:** no live-game action is authorized. Publishing, final balance acceptance and the six constraint-limited kits remain user decisions.
