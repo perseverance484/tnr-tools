@@ -1,6 +1,6 @@
 # Bloodright Wave 06 — BR-033 Houkyuken Ferroflux Polarity v02 Proposal
 
-**State:** MATERIAL DIRECTION **DIRECTOR APPROVED** (2026-10-18); the actual three tier-icon images are **PROPOSED — AWAITING DIRECTOR VISUAL ACCEPTANCE**. No source-art or export-image acceptance may be inferred from the direction approval.
+**State:** MATERIAL DIRECTION + **ALL THREE SPECIFIC ORIGINAL TIER ART IMAGES DIRECTOR VISUALLY APPROVED** (2026-10-18, reply “Nah its fine. Approved, next”). Earlier v01 was discarded; accepted candidate is specifically Ferroflux v02, with original three PNG and WebP art bytes unchanged. This is visual-art approval and offline QC ONLY; `skillTree.image` preflight and Forge/live upload remain unverified.
 **Lead:** Image Production · **Lens:** Art Director.
 **Production branch:** `chatgpt/bloodright-wave06-art-studio-20261018`; parent Wave05 closeout `5512aa0e8faad6153e13122c262e5277e58c6a08`; material approval `c2651f7067be8f1be5d05e1d5568e53007f51e2a`.
 
@@ -33,8 +33,17 @@
 
 ## Required decision and technical boundary
 
-**NOW:** request the director's visual approval/rework of this specific three-artwork v02 trio. If approved, lock these exact raw and WebP SHA-256 bytes, then proceed to Itojinsei under the already-approved wave direction.
+**COMPLETE:** Director approved the exact v02 trio. Its three raw and three WebP SHA-256s shown above remain locked. **NEXT:** Itojinsei Tensionwire Steel three-tier artwork proposal under the previously accepted treatment.
 
 **OPEN, do not claim green:** `skillTree.image` specific image/alpha acceptance and production `artpreflight.py` unresolved; generic `ICON` still requires alpha whereas director-approved Bloodright icons have intentionally opaque black backgrounds. No independent field-specific preflight was run here. Forge imagePack, Git immutable binary source pinning, any prior 12 visual-approved Wave04/05 geometry discrepancies, and historical art-lineage-vs-main ruling-ID conflict remain unresolved. The candidate is **NOT upload-ready**, regardless of offline pass.
 
 **Live-game requests/writes: 0/0 · Credentials: none.**
+
+## 2026-10-18 Director artwork acceptance / immutable file preservation
+
+The user explicitly chose to keep Ferroflux v02 despite noticing possible visual similarity to Tenohira Musei, then replied **“Nah its fine. Approved, next.”** This settles visual acceptance for exactly the three v02 tier images already recorded above. No pixels were changed to record approval; the originally proposed pack remains provenance.
+
+- Full portable approved package `BR-033_Houkyuken_Ferroflux_v02_Approved_Production_Pack_20261018.zip` SHA-256 `7489f63df227a009ab097c6502302529899c2c0c617aadbf2a34c5abefcbdcb7`. It contains each previous original proposed package member byte-for-byte identical and adds only director acceptance metadata and an approved README.
+- Approved three-WebP-only bundle `BR-033_Houkyuken_Ferroflux_v02_3_WebPs_APPROVED_20261018.zip` SHA-256 `a9a3d858a3c147f6abd39dcdf2dd1576bc1da7314bd427720f853d056c6f8409`. All three contained WebPs match the original v02 exact SHA-256 values above.
+- Independent archive/source/export preservation was checked within 151/151 checks in the next Itojinsei packaging audit (covering both families). The new archive wrapper hashes are *not* new artwork approvals. The old proposal ZIP and all six original-art file hashes remain valid immutable source fingerprints. Conversation archive files are not Git-pinned binaries.
+- Accepted count becomes **26/29 families and 78/87 tier icons**. Itojinsei remains candidate-only until a subsequent approval.
