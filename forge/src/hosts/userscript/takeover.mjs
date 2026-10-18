@@ -278,6 +278,46 @@ export function whenCarrierReady(doc = document, win = window, { graceMs = CARRI
   });
 }
 
+/**
+ * The launcher: one small "Forge" button on an ordinary game page, so the operator does not have
+ * to type /forge. It is the only thing Forge ever adds to an unarmed page, and it is added the same
+ * way the overlay is: after the game has hydrated <body> (whenCarrierReady), never before, because
+ * a node appended earlier can be claimed by hydration. Its tag is a custom element, which React
+ * never matches against one of its own elements, and its look lives in a shadow root, so no
+ * stylesheet is installed on the game document and no game style reaches it. No request is made.
+ *
+ * Clicking it calls onOpen() once and removes the button; the caller opens Forge in place.
+ * Sits above the old builder's bottom-left button (.k-fab, bottom:12px) rather than on top of it,
+ * and below the Forge overlay.
+ */
+export const LAUNCHER_TAG = "tnr-forge-launch";
+export function launcherShown(doc = document) { return !!doc.querySelector(LAUNCHER_TAG); }
+export function mountLauncher(doc = document, win = window, { onOpen } = {}) {
+  if (!doc.body || launcherShown(doc) || alreadyMounted(doc)) return null;
+  const el = doc.createElement(LAUNCHER_TAG);
+  el.setAttribute("style", "all:initial;position:fixed;left:12px;bottom:62px;z-index:2147482000;");
+  let root = el;
+  try { if (typeof el.attachShadow === "function") root = el.attachShadow({ mode: "open" }); } catch { root = el; }
+  const btn = doc.createElement("button");
+  btn.type = "button";
+  btn.textContent = "Forge";
+  btn.title = "Open TNR forge";
+  btn.setAttribute("aria-label", "Open TNR forge");
+  btn.setAttribute("style", "all:initial;cursor:pointer;background:#2b4a7a;color:#fff;border-radius:10px;"
+    + "padding:11px 16px;font:600 14px system-ui,sans-serif;box-shadow:0 4px 16px #0008;");
+  let used = false;
+  btn.addEventListener("click", (e) => {
+    try { e.preventDefault(); e.stopPropagation(); } catch { /* nothing to stop */ }
+    if (used) return;
+    used = true;
+    el.remove();
+    if (onOpen) { try { Promise.resolve(onOpen()).catch(() => {}); } catch { /* never break the page */ } }
+  });
+  root.appendChild(btn);
+  doc.body.appendChild(el);
+  return el;
+}
+
 /** Is Forge already mounted in this document? One overlay per document, always. */
 export function alreadyMounted(doc = document) { return !!doc.querySelector("." + OVERLAY_CLASS); }
 

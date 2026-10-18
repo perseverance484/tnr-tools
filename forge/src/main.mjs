@@ -17,13 +17,13 @@ import { Runner } from "./runner/runner.mjs";
 import { Reconciler } from "./reconcile/reconciler.mjs";
 import { Github } from "./github.mjs";
 import { App } from "./ui/app.mjs";
-import { entryTakeover, mountHost, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./hosts/userscript/takeover.mjs";
+import { entryTakeover, mountHost, mountLauncher, whenBodyReady, whenCarrierReady, carrierReadiness, alreadyMounted, onEntryPath, pageAuthRuntime, arm, disarm, isArmed, armHops, armFailure, ENTRY_PATH, CARRIER_PATH, MAX_HOPS, MAX_HOST_LOSSES, CARRIER_GRACE_MS } from "./hosts/userscript/takeover.mjs";
 import { CSS, CSS_DOC } from "./ui/styles.mjs";
 import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.6.0";
+export const VERSION = "forge 0.7.0";
 
 /**
  * SHA-256, the ONE environment primitive repo-backed image packs need. It lives here because this is
@@ -97,17 +97,41 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
  *           the protected surface once.
  *   INERT   anything else. The loader now matches the whole game origin (it has to: the carrier
  *           route is not known in advance and the app may redirect), so on an ordinary game page
- *           in an unarmed tab Forge must do NOTHING - no stop(), no document edit, no request,
- *           no style. This branch returning null is the guarantee that installing Forge does not
- *           change the game for the operator who is not using it.
+ *           in an unarmed tab Forge does almost nothing - no stop(), no request, no style, no
+ *           game node touched. The ONE exception is the launcher button (mountLauncher): a
+ *           single custom element appended after the game has hydrated, which opens Forge here
+ *           when clicked. Pass { launcher: false } to make the page fully inert.
  *
  * @returns {Promise<App|null>} the mounted app, or null when this page is not Forge's to run on.
  */
-export async function boot(win = window, { redirect = null, establish = true, readiness = {} } = {}) {
+export async function boot(win = window, { redirect = null, establish = true, readiness = {}, launcher = true } = {}) {
   const doc = win.document;
   if (onEntryPath(win.location)) return bootEntry(win, doc, redirect);
-  if (!isArmed(win)) return null;
+  if (!isArmed(win)) {
+    // Not awaited: boot() still returns null at once and nothing is written synchronously. The
+    // launcher waits for the game to hydrate, then adds its one button (see mountLauncher).
+    if (launcher) offerLauncher(win, doc, { establish, readiness });
+    return null;
+  }
   return bootHost(win, doc, { establish, readiness });
+}
+
+/**
+ * The launcher on an unarmed page: wait for <body> and for the game to hydrate it, then show the
+ * Forge button. Clicking it arms the tab and opens Forge in place on this page, which is already a
+ * live application route with its providers mounted - the same thing /forge hands off to. If the
+ * page never becomes ready, nothing is shown and nothing is recorded.
+ */
+function offerLauncher(win, doc, opts) {
+  (async () => {
+    await whenBodyReady(doc, win);
+    if (!(await whenCarrierReady(doc, win, opts.readiness))) return;
+    showLauncher(win, doc, opts);
+  })().catch(() => { /* never break the host page */ });
+}
+function showLauncher(win, doc, opts) {
+  if (onEntryPath(win.location) || isArmed(win)) return;
+  mountLauncher(doc, win, { onOpen: () => { arm(win, { hops: 1, failure: null }); return bootHost(win, doc, opts); } });
 }
 
 /**
@@ -245,7 +269,7 @@ async function bootHost(win, doc, { establish = true, readiness = {} } = {}) {
       version: VERSION, storage: win.localStorage, now: clock, ...deps,
       // Step 5. release() disconnects the loss watchers before it removes the host, so Close is
       // never mistaken for a loss; host is read at call time so a remounted host is the one released.
-      exit: () => { disarm(win); host.release(); },
+      exit: () => { disarm(win); host.release(); try { showLauncher(win, doc, { establish, readiness }); } catch { /* never break the host page */ } },
     });
     deps.app.mount(host.body, doc);
     log(`mounted on ${win.location.pathname} (carrier ready via ${via})`);
