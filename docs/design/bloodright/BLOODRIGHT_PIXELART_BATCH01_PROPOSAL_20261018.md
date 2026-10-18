@@ -34,14 +34,16 @@ Processing source file: `tools/produce_batch01.py` inside portable ZIP; no origi
 
 | Artifact | Exact SHA-256 | Purpose |
 |---|---|---|
-| `Bloodright_PixelArt_Batch01_10_PROPOSED_20261018.zip` | `089f0bbf2f848306d5579fb3e5cbf1d7a7b1210c320327dc948e7edef5a50780` | 10 exact source WebPs, 10 proposed PNGs, 10 proposed lossless WebPs, producer code, manifests and display QC |
-| `Bloodright_PixelArt_Batch01_10_WebPs_PROPOSED_20261018.zip` | `111d4fc135b49866e153724b32a5528e0ba21923020d4c1d6c4f9255d525f6bf` | 10 individually accessible proposed game-sized VP8L WebPs |
-| `qc/Bloodright_Batch01_10_Pixel_Art_Proposals.png` | `92a6c8a1242d490d40500eec0e0ac5b75a39c402caf018db80fdbde0b2f2bb77` | Non-generative visual sheet built from exact candidate pixels |
+| `Bloodright_PixelArt_Batch01_10_PROPOSED_20261018.zip` | `0c4ca65db73568a7b4c0fd689e12baf24f22035f578704d1f71601b0b9ebb3a9` | 10 exact source WebPs, 10 proposed PNGs, 10 proposed lossless WebPs, producer code, manifests and display QC |
+| `Bloodright_PixelArt_Batch01_10_WebPs_PROPOSED_20261018.zip` | `0f4877aa859a65ab6b0b1b6b376d8cbf0dfad8becaed4e14f5f9618e1b45b1e5` | 10 individually accessible proposed game-sized VP8L WebPs |
+| `qc/Bloodright_Batch01_10_Pixel_Art_Proposals.png` | `ae6da09afe29a5c9dffed8de23055749e56e5b35e8e9d081d2bec590a9a65d50` | Non-generative visual sheet built from exact candidate pixels |
 | `qc/Bloodright_Batch01_10_125_64_32_QC.png` | `e0ea43fe7e93ad15a0c57ca7d8041735fe35dde3e45ce39ddd8d757acdf9270d` | Small-size stress view |
 | `qc/Bloodright_Batch01_10_Before_After.png` | `96ecb8504d2de75b515879d65a157c022fe0e3a02d903b817dbc14ae81710566` | Approved earlier WebPs beside exact candidate revisions |
 | `qc/PROPOSAL_QC_MANIFEST.json` | `b933294897f3ad751d6402402c16d7930167f2cfb6f62460b911d7c8613b23ed` | Detailed per-icon source/output file names, SHA, codec, size, mask IoUs and status |
 
 **Image-generation exploratory gallery:** a separate style ideation render introduced new pictorial subjects and ornate UI frames. Its geometry and characters **DO NOT match the fixed Bloodright tier masters**, so it is intentionally **REJECTED AS SOURCE ART**, excluded from these packages and not treated as approval evidence. The ten actual proposed candidates in the ZIP are sourced from the approved individual icons and mechanically constrained instead.
+
+**Archive reproducibility improvement:** all ZIP entries now have fixed, normalized timestamps and permissions rather than OS-file mtimes. The complete pipeline was executed twice on the same accessible archived approved sources; **the exact full ZIP and WebP-only ZIP SHA-256 hashes were identical on both independent replays**. Candidate image and evidence hashes likewise stable. The overview canvas was corrected to show all ten outputs fully; no source or candidate pixel was changed in this packaging fix.
 
 ## Director gate / workflow safety
 
