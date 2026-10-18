@@ -43,7 +43,7 @@ There are **19 previously visually approved families** whose individual approved
 
 **Needed from director's original approved archives** (batch-friendly):
 1. First/pilot family approved exports for BR-011 **Blood-Enchanted Eyes**, BR-015 **Blue Blade Eyes**, BR-075 **Taiyo Kami**, BR-029 **Godstorm Eclipse**. BR-023 Ethereal Monarch is **already recovered** and need not be re-uploaded.
-2. `Bloodright_Wave02_Approved_15_WebPs_256px_20261017.zip` expected SHA-256 **`90c45c7937ac300f86864eeae396b9c69eb0c963a2e64c606bd8d064f2d63e21`** (BR-067, BR-018, BR-027, BR-051, BR-059; **15 icons**).
+2. `Bloodright_Wave02_Approved_15_WebPs_256px_RoleSwap_v02.zip` expected SHA-256 **`6a04203df4d35a2c86db550014c809dfcdd1d01cf296a4578485e5a81b2b5f4a`** (BR-067, BR-018, BR-027, BR-051, BR-059; **15 icons**).
 3. `Bloodright_Wave03_Approved_15_WebPs_256px_20261017.zip` expected SHA-256 **`d31ffd49acdfac9702210b9cac321f91569697649be90962155297435f82d1fd`** (BR-083, BR-064, BR-020, BR-074, BR-090; **15 icons**).
 4. `Bloodright_Wave04_Approved_15_WebPs_256px_20261017.zip` expected SHA-256 **`7270fa9bd79f4171724031207fd3b3d84eb0057322875a9e8c1824f4aa093d51`** (BR-066, BR-008, BR-053, BR-063, BR-032; **15 icons**).
 
