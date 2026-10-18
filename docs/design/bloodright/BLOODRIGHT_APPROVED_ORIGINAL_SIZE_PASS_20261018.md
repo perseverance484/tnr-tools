@@ -1,5 +1,7 @@
 # Bloodright — Approved Original Artwork, Game-Size Consolidation
 
+> **HISTORICAL 27/87 RECOVERY SNAPSHOT, SUPERSEDED AS CURRENT COVERAGE (2026-10-18).** Director supplied `Bloodright_Waves_01-04_Approved_Recovered_54_of_60_Icons_20261018.zip`; all 54 original raw/WebP pairs verified against independent SHA ledgers, three Ethereal originals overlap exactly, and the pack now contains **78 approved, individual, byte-unchanged 256px WebPs**. Current authoritative coverage and all artifact SHA/source-geometry findings: [BLOODRIGHT_APPROVED_ORIGINALS_78_VERIFIED_20261018.md](BLOODRIGHT_APPROVED_ORIGINALS_78_VERIFIED_20261018.md). Preserve the 27-era text below as the audit history of that earlier stage; do not request its entire old 57-image backlog again.
+
 **Status:** DIRECTOR-APPROVED NO-REGENERATION EXPORT POLICY; **27/87 exact final-size source-art WebPs independently verified and packaged from bytes currently recoverable in this conversation**; 57 earlier approved individual binaries not accessible; BR-036 Blackwire three individual exports are REVIEW-ONLY. **Not a 87/87 export closeout.** Field-specific `skillTree.image` preflight unresolved.
 
 **Date:** 2026-10-18 · **Lead:** Image Production · **Lens:** Art Director · **Repository:** `perseverance484/tnr-tools`.
