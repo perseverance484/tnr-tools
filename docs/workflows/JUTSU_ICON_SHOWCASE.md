@@ -24,7 +24,7 @@ The compositor uses equal square presentation tiles, neutral gutters and a consi
 | 9 | 3+3+3 |
 | N ≥ 10 | `ceil(N/4)` balanced rows, each ≤4, longer rows first (10=**4+3+3**, 11=**4+4+3**, 12=4+4+4, 13=**4+3+3+3**) |
 
-`jutsu_studio.py grid_rows` implements that table; `audit-gallery` refuses nonconforming layouts as **INVALID** even when it separately reports their source pixels `FAITHFUL`. Historical BEE 8-tile 1536×854 and Vaporia 5-tile 1156×854 canvases are **examples**, not mandatory output sizes. Do not force five icons into an eight-icon sheet.
+The `grid_rows()` function in `jutsu_studio.py` implements that table (it is **not** a CLI subcommand); `audit-gallery` refuses nonconforming layouts as **INVALID** even when it separately reports their source pixels `FAITHFUL`. Historical BEE 8-tile 1536×854 and Vaporia 5-tile 1156×854 canvases are **examples**, not mandatory output sizes. Do not force five icons into an eight-icon sheet.
 
 ## Mechanical output and external audit
 
