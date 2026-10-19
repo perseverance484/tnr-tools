@@ -323,3 +323,30 @@ test("repair: reopening a collection whose recorded icons no longer load re-uplo
   assert.equal(fresh.length, 4);
   assert.ok(d.uploadCount() === before, "the original uploader was not used again");
 });
+
+test("an upload that does not load is never saved onto a skill or recorded for reuse", async () => {
+  const d = setup();
+  d.runner.imageProbe = async () => false;
+  await d.core.selectManifest(d.entry());
+  await d.core.startJob();
+  const jobs = d.journal.listJobs();
+  const failed = jobs.flatMap((j) => j.items).filter((it) => it.state === "FAILED");
+  assert.ok(failed.length > 0 && failed.every((it) => /does not load/.test(it.error ?? "")), JSON.stringify(failed.slice(0, 1)));
+  assert.deepEqual(readAssetUploads(d.storage), {}, "nothing recorded for reuse");
+  assert.ok(![...d.game.skills.values()].some((sk) => /^https:\/\/example\.test\/[0-9a-f]{64}\.webp$/.test(sk.image)), "no skill carries the dead upload");
+});
+
+test("verification resolves images from what was recorded and never uploads", async () => {
+  const d = setup();
+  // Probes say every link is dead DURING verification only: a verify that probed would forget the
+  // records and upload again; one that only reads finishes with exactly the six original uploads.
+  let verifying = false;
+  d.runner.imageProbe = async () => !verifying;
+  const verify = d.runner._verify.bind(d.runner);
+  d.runner._verify = async (...a) => { verifying = true; try { return await verify(...a); } finally { verifying = false; } };
+  await d.core.selectManifest(d.entry());
+  const uploadsBefore = d.uploadCount();
+  await d.core.startJob();
+  assert.equal(d.uploadCount() - uploadsBefore, 6);
+  assert.ok(d.journal.listJobs().every((j) => j.state === "DONE" && j.items.every((it) => it.verify === "match")));
+});

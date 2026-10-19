@@ -160,8 +160,9 @@ export async function prepareBloodright({ config, github, reader, storage, auth,
     all.data[index] = r.data;
   }
   // Recorded uploads of this pack's icons count only while their URLs still load; a dead one is
-  // forgotten, so the preview shows those skills' images as changes and Start uploads them again.
+  // left out (not forgotten: the run probes again), so the preview shows those skills' images as
+  // changes and Start uploads them again.
   const shas = new Set(Object.values(imagePack?.files ?? {}).map((f) => f?.sha256).filter(Boolean));
-  const uploads = await liveAssetUploads(storage, imageProbe, shas);
+  const uploads = await liveAssetUploads(storage, imageProbe, shas, { forget: false });
   return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads });
 }
