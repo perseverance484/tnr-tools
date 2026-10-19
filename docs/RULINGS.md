@@ -1235,7 +1235,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Date:** 2026-10-17  
 **Domain:** individual bloodline jutsu.icon artwork production / session startup speed / art processing  
-**Status:** ACTIVE — director authorized ZIP-first consolidation and optimization. The ruling itself grants no tool implementation, live-game operation or new artwork acceptance. The separate P1 Option B offline CLI later integrated under RUL-2026-10-19-005, PR #66.
+**Status:** ACTIVE — director authorized consolidation and optimization; no tool implementation, live-game operation or new artwork acceptance implied.
 
 **Ruling:** The director instructed ChatGPT to consolidate the lessons from **Blue Blade Eyes (BBE), Blood-Enchanted Eyes (BEE) and Vaporia** into a **repeatable Bloodline Jutsu Icon Art Studio**, initialized with **one concise prompt plus one source-art ZIP**. Optimize repeated start-up and processing latency, reported as 8–10-minute Bloodright turns, without replacing checks with guesses: batch live repository/authority reads where possible, inspect and hash the ZIP once, derive exact jutsu name/ID/N mapping, establish the family palette/material and an **N-jutsu technique-first silhouette ledger together**. New jutsu icons are **individually designed per move**, prioritizing distinctive thumbnail-readable shapes and appropriate supernatural chakra rendering, with actors only when genuinely necessary. They do **not** reuse Bloodright's three fixed universal tier emblems.
 
