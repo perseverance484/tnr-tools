@@ -67,8 +67,10 @@ def main(src):
                   "Heal bonuses are flat power: +5 Pierce adds 5 power to each pierce hit, +5 Heal adds 50 HP "
                   "per heal tick.\n")
     anchor = json.loads((src / "taiyo_kami.json").read_text())["anchor"]
-    review.append(f"Strength is compared with the pre-rebalance Taiyo Kami exemplar: its average full build, "
-                  f"{anchor:.2f} Weight, is the anchor the search pulls every tree toward.\n")
+    review.append(f"Strength target: an average full build of {anchor:.2f} Weight, today's Bloodright power level "
+                  "(the roster median of the round-totals rules without a strength pull). Rules (RUL-2026-10-19-001): "
+                  "every finished build totals a multiple of 5 for each percentage effect (at most 20), paths step "
+                  "+2/+3, +4/+6 or +6/+9, capstones +5 or +10; Damage and Pierce use clean power steps.\n")
     for slug in sorted(current):
         f = src / f"{slug}.json"
         r = json.loads(f.read_text())
