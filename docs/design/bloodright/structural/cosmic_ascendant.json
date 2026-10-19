@@ -15,8 +15,6 @@
     "p1_t3",
     "p2_t3",
     "p3_t3",
-    "p4_t1",
-    "p4_t2",
     "p4_t3"
    ]
   }
@@ -84,8 +82,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 5,
-    "lifesteal": 5
+    "increasedamagegiven": 5,
+    "damage": 0.8
    }
   },
   {
@@ -128,7 +126,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 5,
+    "lifesteal": 5,
     "increasedamagegiven": 5
    }
   },
@@ -172,8 +170,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 5,
-    "decreasedamagegiven": 5
+    "afterburn": 5,
+    "decreasedamagetaken": 5
    }
   },
   {
@@ -186,7 +184,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 2
+    "decreasedamagetaken": 2
    }
   },
   {
@@ -201,7 +199,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 3
+    "decreasedamagetaken": 3
    }
   },
   {
