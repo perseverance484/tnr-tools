@@ -219,7 +219,8 @@ test("collection screen labels the scope and compiled icon manifests pass Python
     const app = { state: d.core.state, journal: d.journal, runner: d.runner, storage: d.storage, now: d.clock, budget: d.budget,
       view: { pickerQuery: "" }, blockedPaths: (...args) => d.core.blockedPaths(...args) };
     const screen = ManifestsScreen(app);
-    assert.match(screen.textContent, /2 Bloodright trees with icons/);
+    assert.match(screen.textContent, /2 Bloodright trees, all created hidden/);
+    assert.match(screen.textContent, /2 trees · 24 skills · 2 folders · 6 icons/);
     assert.ok([...screen.querySelectorAll("button")].some(b => b.textContent === "Start all trees" && !b.disabled));
     await d.core.startJob();
     assert.match(RunScreen(app).textContent, /tree 2\/2/);

@@ -118,7 +118,7 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
   const provenance = { version: 1, source: config.source, gamePin: CONTRACT._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter(it => it.targetId).map(it => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
   const packed = normalizeImagePack(imagePack, { imgSizes, names: items.map(it => it.data.image).filter(v => typeof v === "string" && v.startsWith("@img:")).map(v => v.slice(5)) });
   problems.push(...packed.errors);
-  return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...(packed.pack ? { imagePack: packed.pack } : {}), ...(Object.keys(imgSizes).length ? { imgSizes } : {}) } };
+  return { problems, preview, allocations, maxAdvanced: advanced, bloodlineName: design.bloodline?.name ?? null, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...(packed.pack ? { imagePack: packed.pack } : {}), ...(Object.keys(imgSizes).length ? { imgSizes } : {}) } };
 }
 
 /** Read-only preparation; the caller freezes the returned manifest for Start and reload. */

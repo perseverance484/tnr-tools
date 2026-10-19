@@ -161,7 +161,16 @@ export function runHeadline(job, summary) {
       text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`,
     };
   }
-  return { outcome, kind, ms: 8000, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
+  // Plain words first; the tallies follow for anyone who wants them.
+  const n = job.items.length;
+  const parts = [["failed", job.items.filter((i) => i.state === "FAILED").length], ["changed after writing", job.items.filter((i) => i.verify === "drift").length],
+    ["could not be read back", job.items.filter((i) => i.verify === "unread").length], ["skipped", job.items.filter((i) => i.state === "SKIPPED").length]]
+    .filter(([, c]) => c).map(([w, c]) => `${c} ${w}`).join(", ");
+  const head = !n ? (outcome === "success" ? "Capture finished" : "Capture finished with problems")
+    : summary.state === "PAUSED" ? "Paused"
+    : outcome === "success" ? `Finished: ${n === 1 ? "1 item" : `all ${n} items`} written and verified`
+    : outcome === "failed" ? `Finished with failures: ${parts}` : `Finished, not fully verified: ${parts || "verification outstanding"}`;
+  return { outcome, kind, ms: 8000, sessionPause: false, text: n ? `${head}.` : `${head}: ${detail}` };
 }
 
 /** Postflight tallies for the exported bundle. */
