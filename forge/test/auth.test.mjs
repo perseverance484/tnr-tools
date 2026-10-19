@@ -100,7 +100,7 @@ test("the auth class of every audited procedure is transcribed from source, not 
   assert.equal(isProtected("quests.update"), true);      // routers/quests.ts:700
   assert.equal(isProtected("gameAsset.get"), false);     // routers/asset.ts:147, publicProcedure
   assert.equal(isProtected("jutsu.getAllNames"), false); // routers/jutsu.ts:257, publicProcedure
-  assert.equal(PROTECTED_PATHS.length, 31);
+  assert.equal(PROTECTED_PATHS.length, 34); // 31 audited + 3 content review (src/review/contract.json)
   assert.throws(() => isProtected("jutsu.nope"), /unknown procedure/);
 });
 
@@ -139,7 +139,7 @@ test("FPA-3: the auth classification is identical at the task pin and at Forge's
   ].join("\n"));
   assert.deepEqual(table, { getAllNames: "publicProcedure", update: "protectedProcedure" });
   // and the tool reads Forge's own table out of the shipped source, not a copy of it
-  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).filter(([p]) => !p.startsWith("skillTree.")).map(([p, v]) => [p, v.auth])));
+  assert.deepEqual(forgeTable(), Object.fromEntries(Object.entries(PROCEDURES).filter(([p]) => !p.startsWith("skillTree.") && !p.startsWith("contentReview.")).map(([p, v]) => [p, v.auth])));
 });
 
 

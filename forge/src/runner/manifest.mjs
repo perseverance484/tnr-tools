@@ -14,6 +14,7 @@ import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
+import REVIEW from "../review/contract.json" with { type: "json" };
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
@@ -33,6 +34,34 @@ export class ManifestError extends Error {
 }
 
 /** Parse text or object into a normalized manifest. Throws ManifestError on structural problems. */
+/** The suggestion defaults, checked against the review desk's own limits, and each item's fit. */
+function suggestPolicy(m, items) {
+  const problems = [];
+  const s = m.suggestion && typeof m.suggestion === "object" ? m.suggestion : {};
+  const check = (where, x) => {
+    if (x.category !== undefined && !REVIEW.categories.includes(x.category)) problems.push(`${where}: category must be one of ${REVIEW.categories.join(", ")}`);
+    if (x.title !== undefined && (typeof x.title !== "string" || x.title.trim().length < REVIEW.titleLength.min)) problems.push(`${where}: title needs at least ${REVIEW.titleLength.min} characters`);
+    if (x.rationale !== undefined && (typeof x.rationale !== "string" || x.rationale.trim().length < REVIEW.rationaleLength.min || x.rationale.length > REVIEW.rationaleLength.max)) problems.push(`${where}: rationale needs ${REVIEW.rationaleLength.min}-${REVIEW.rationaleLength.max} characters`);
+  };
+  check("suggestion", s);
+  if (m.bloodrightImport || m.capture?.before?.length || m.capture?.after?.length) problems.push("suggest mode is for item edits only (no Bloodright import, no captures)");
+  for (const it of items) {
+    const where = `item ${it.idx + 1} (${it.name})`;
+    if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
+    if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}${REVIEW._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${REVIEW._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
+    // The desk keeps only its own editable fields and would drop the rest without a word.
+    if (it.entity === "ai") {
+      const dropped = Object.keys(it.data ?? {}).filter((k) => !REVIEW.aiEditableKeys.includes(k));
+      if (dropped.length) problems.push(`${where}: the review desk does not take ${dropped.join(", ")} for an AI; edit them directly instead`);
+    }
+    if (it.suggestion) check(where, it.suggestion);
+    const merged = { ...s, ...(it.suggestion ?? {}) };
+    if (!merged.title || !merged.rationale) problems.push(`${where}: needs a suggestion title and rationale (manifest "suggestion" or the item's own)`);
+  }
+  if (problems.length) throw new ManifestError("suggest mode problems:\n" + problems.join("\n"), { problems });
+  return { category: s.category ?? "BALANCE", title: s.title ?? null, rationale: s.rationale ?? null };
+}
+
 export function parseManifest(source) {
   let m = source;
   if (typeof source === "string") {
@@ -128,6 +157,14 @@ export function parseManifest(source) {
     if (typeof b.hiddenProbeId !== "string" || !b.hiddenProbeId || !b.bindings || typeof b.bindings !== "object" || Array.isArray(b.bindings)) throw new ManifestError("Bloodright import requires hidden-probe identity and explicit bindings");
     for (const it of items) if (it.op === "update" && (!it.expected || typeof it.expected !== "object" || Array.isArray(it.expected) || b.bindings[it.srcId] !== it.targetId)) throw new ManifestError(`Bloodright edit ${it.name} requires a frozen preimage and matching binding`);
     policy.bloodrightImport = b;
+  }
+  // SUGGEST MODE. Instead of saving, each edit is sent to the game's content review desk as a
+  // suggestion a reviewer approves (src/review/contract.json). Edits to existing records only: a
+  // suggested new record has no id until approved, so nothing could reference it. Added to the
+  // policy only when present, so every other manifest keeps its identity.
+  if (m.mode !== undefined && m.mode !== "write") {
+    if (m.mode !== "suggest") throw new ManifestError(`mode must be "write" or "suggest", got ${JSON.stringify(m.mode)}`);
+    policy.suggest = suggestPolicy(m, items);
   }
   return {
     items, capture, warnings, poolResolved, policy,
@@ -235,6 +272,8 @@ function normalizeItem(it, idx) {
     ...(it.expected !== undefined ? { expected: it.expected } : {}),
     // A Bloodright edit the director approved to move a skill from another bloodline.
     ...(it.reassign === true ? { reassign: true } : {}),
+    // Suggest mode: this item's own title/category/rationale, over the manifest's.
+    ...(it.suggestion && typeof it.suggestion === "object" ? { suggestion: it.suggestion } : {}),
   };
 }
 

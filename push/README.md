@@ -96,3 +96,7 @@ known to the repo. If any of the others equips a kit jutsu, it needs a re-equip 
 ## 124 Bloodright collection A image read-back (read-only)
 
 `124_bloodright_collection_a_image_readback.json` reads the 180 skills push/122 created, with full records, so each saved image URL can be checked against its icon. Zero mutations. Takes about 6 minutes (30 reads per minute). Run it, then send the results.
+
+## Suggest mode (Forge 0.8.0)
+
+A manifest with `"mode": "suggest"` sends its edits to the game's content review desk instead of saving them; nothing changes until a reviewer approves. Format, limits and behaviour: `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). After the run, use **Check suggestions** on the Run screen to see each one's status.
