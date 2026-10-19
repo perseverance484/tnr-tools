@@ -161,6 +161,12 @@ export function validateJobShape(job) {
   return job;
 }
 
+// A finished job this old is assumed to have had its results taken (auto-export runs at finish).
+export const RECLAIM_AGE_MS = 24 * 60 * 60 * 1000;
+// Free a little more than the one write needs, so the next writes of the run fit too.
+export const RECLAIM_HEADROOM = 256 * 1024;
+const isQuotaError = (e) => !!e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22 || e.code === 1014 || /quota/i.test(String(e.message)));
+
 export class Journal {
   /**
    * @param {Storage} storage  a localStorage-compatible object
@@ -185,7 +191,14 @@ export class Journal {
     job.updatedAt = nowIso(this.clock);
     const text = JSON.stringify(job);
     try {
-      this.storage.setItem(this._key(job.jobId), text);
+      try { this.storage.setItem(this._key(job.jobId), text); }
+      catch (e) {
+        // Browser storage is a fixed few megabytes shared with the game, and every finished job
+        // stays in it. When it is full, make room from the oldest finished jobs whose results
+        // already left the browser (see reclaimable), then try the write once more.
+        if (!isQuotaError(e) || !this.reclaim(job.jobId, text.length)) throw e;
+        this.storage.setItem(this._key(job.jobId), text);
+      }
     } catch (e) {
       // QuotaExceededError or a storage that is read-only. Surface it; never swallow, because
       // a swallowed failure here is exactly a lost write-ahead record.
@@ -194,6 +207,34 @@ export class Journal {
       });
     }
     return job;
+  }
+
+  /**
+   * Finished jobs that may be removed to make room, oldest first: DONE or ABORTED, no SENT item,
+   * and either exported (its results bundle was committed or shown) or finished over a day ago.
+   * Open jobs and the job being written are never candidates.
+   */
+  reclaimable(exceptJobId = null) {
+    const now = this.clock();
+    return this.listJobs()
+      .filter((j) => j.jobId !== exceptJobId && (j.state === "DONE" || j.state === "ABORTED"))
+      .filter((j) => !j.items.some((it) => it.state === "SENT"))
+      .filter((j) => j.exportedAt || now - Date.parse(j.updatedAt || j.startedAt || 0) > RECLAIM_AGE_MS)
+      .sort((a, b) => String(a.updatedAt || a.startedAt).localeCompare(String(b.updatedAt || b.startedAt)));
+  }
+
+  /** Remove reclaimable jobs, oldest first, until about `bytes` (plus headroom) is freed. */
+  reclaim(exceptJobId, bytes) {
+    let freed = 0;
+    const want = bytes + RECLAIM_HEADROOM;
+    for (const j of this.reclaimable(exceptJobId)) {
+      if (freed >= want) break;
+      const raw = this.storage.getItem(this._key(j.jobId));
+      this.storage.removeItem(this._key(j.jobId));
+      freed += raw ? raw.length : 0;
+      (this.reclaimed ??= []).push(j.jobId);
+    }
+    return freed > 0;
   }
 
   _read(jobId) {

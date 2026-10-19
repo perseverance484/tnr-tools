@@ -162,7 +162,7 @@ export class App {
         facts.signedOut
           ? "Forge could not use a signed-in game session in this browser. Protected reads and writes are blocked and nothing protected will be sent."
           : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."),
-      h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
+      h("div", { class: "f-mute" }, "Sign in to the game in this browser (close Forge, sign in, reopen /forge), then re-check. Capture-only manifests can still run."),
       facts.detail ? h("div", { class: "f-mute" }, facts.detail) : null,
       h("div", { class: "f-actions" }, recheck));
   }

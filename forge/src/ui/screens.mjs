@@ -229,12 +229,12 @@ function SelectedManifest(app) {
   if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
-    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on.${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
+    `Each exact record body goes into the results bundle (committed to the repository when GitHub sync is on).${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
   const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
   if (blocked.length) card.appendChild(h("div", { class: "f-banner bad" },
     h("b", {}, "Blocked: TNR authentication is unavailable. "),
-    `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`));
+    `This manifest needs ${blocked.join(", ")}, which needs a signed-in session. Nothing will be sent. Sign in, then re-check above.`));
   // What the operator has actually selected, judged against the manifest's byte ledger BEFORE the
   // job opens. The picker used to show a green "picked" pill for any file at all, which is how a
   // 1.7 MB master PNG rode into a live run behind the name of a 207 KB .webp and failed five
@@ -282,7 +282,7 @@ function SelectedManifest(app) {
     h("div", { class: "f-grow" }, h("div", {}, `${it.idx + 1}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + [...new Set(it.deps)].join(", ") : ""} · keys: ${keysText(it.data)}`)))), `Show all ${s.plan.length} items`));
   if (s.bloodright) {
     card.appendChild(h("div", { class: "f-banner info" }, s.collection
-      ? `${plural(s.collection.length, "Bloodright tree")}, all created hidden. Start runs them in order and stops at the first tree that does not fully verify. Pause stops the remaining trees. Each tree saves its own results. After a reload, resume the current tree, then reopen this file.`
+      ? `${plural(s.collection.length, "Bloodright tree")}, all hidden. Start runs them in order and stops at the first tree that does not verify. Pause stops the rest. After a reload, resume the current tree, then reopen this file.`
       : `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
     const trees = (s.bloodright.trees ?? []).map((tree) => h("div", { class: "f-mute" }, `${tree.name ?? tree.bloodlineId}: ${tree.allocations} legal builds · ${tree.maxAdvanced} reachable Advanced Art(s)`));
     if (trees.length) card.appendChild(h("details", {}, h("summary", {}, `Tree checks (${trees.length})`), trees));
@@ -297,7 +297,7 @@ function SelectedManifest(app) {
     const kind = !packResult ? "info" : ready === bound.length ? "ok" : "bad";
     card.appendChild(h("div", { class: "f-banner " + kind },
       h("b", {}, `Repo-backed images: ${ready}/${bound.length} verified. `),
-      `Bound to ${GH.owner}/${GH.repo} at commit ${pack.ref.slice(0, 12)}. Forge fetched each file from that immutable commit and checked its SHA-256 against the manifest; nothing is uploaded unless the digest matches.`,
+      `From ${GH.owner}/${GH.repo} @ ${pack.ref.slice(0, 12)}. Each file is checked against its SHA-256 before upload.`,
       h("div", { class: "f-actions" },
         h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository"))));
   }
@@ -394,7 +394,7 @@ export function RunScreen(app) {
     root.appendChild(h("div", { class: "f-banner bad" },
       h("b", {}, "Paused: TNR authentication unavailable. "),
       job.pause.authRefused
-        ? `The game refused ${job.pause.path ? job.pause.path : "a protected procedure"} as unauthenticated. That item is recorded as refused, not as an uncertain write: the server answered, so nothing was written.`
+        ? `The game refused ${job.pause.path ? job.pause.path : "a protected procedure"} as signed out. The server answered, so nothing was written.`
         : `Forge stopped before sending${job.pause.path ? ` ${job.pause.path}` : ""} because the game session is not available. Nothing further was sent.`,
       h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser, re-check the session above, then resume. Resuming re-reads before it re-sends anything."),
       job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
@@ -445,12 +445,12 @@ export function RunScreen(app) {
       ));
     if (["skillTree", "skillTreeFolder"].includes(it.entity) && it.state === "CONFIRMED" && ["PAUSED", "INCOMPLETE"].includes(job.state)) {
       row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.items.some(i => i.state === "SENT") || typeof globalThis.confirm !== "function",
-        onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
+        onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? The record and its saved ID stay as they are, the write is not verified, and dependent skills stay blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
     }
     if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
       // A rare recovery tool: kept behind "More" so it is not one stray tap away on every row.
       row.appendChild(h("details", { class: "f-more" }, h("summary", {}, "More"), h("button", { class: "f-danger", disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
-        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding")));
+        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only if the record was deleted or replaced: forgetting one that still exists can create duplicates. Nothing in the game is deleted; old jobs will need a fresh preview.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding")));
     }
     root.appendChild(row);
   }
@@ -486,7 +486,7 @@ function SnapshotsSection(app) {
   const list = h("div", {});
   section.append(head, note, h("div", { class: "f-actions" }, h("button", {
     class: "f-danger",
-    onClick: () => app.confirm("Delete ALL full-capture snapshots? These are the exact record bodies exported bundles are built from; a job that has not been exported yet loses its evidence and cannot recover it without reading the game again.", async () => { await app.cache.clearSnapshots(); app.refresh(); }),
+    onClick: () => app.confirm("Delete ALL full-capture snapshots? Exported bundles are built from them; an unexported job loses its evidence until the game is read again.", async () => { await app.cache.clearSnapshots(); app.refresh(); }),
   }, "Delete all snapshots")), list);
   app.cache.listSnapshots().then((recs) => {
     const bytes = recs.reduce((a, r) => a + (r.bytes || 0), 0);

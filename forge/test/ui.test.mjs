@@ -149,7 +149,7 @@ test("Bloodright recovery UI requires confirmation, blocks SENT and exports fail
   assert.equal(button().disabled,true);
   journal.transition("resolve-ui",1,"FAILED");app.refresh();assert.equal(button().disabled,false);
   let prompt="";globalThis.confirm=message=>{prompt=message;return false;};
-  button().click();await Promise.resolve();assert.equal(journal.get("resolve-ui").items[0].state,"CONFIRMED");assert.match(prompt,/does not verify/);
+  button().click();await Promise.resolve();assert.equal(journal.get("resolve-ui").items[0].state,"CONFIRMED");assert.match(prompt,/is not verified/);
   globalThis.confirm=()=>true;button().click();await Promise.resolve();
   assert.equal(journal.get("resolve-ui").items[0].state,"FAILED");assert.equal(game.calls.length,0);
   assert.match(win.document.querySelector(".f-main").textContent,/Recovery stopped by operator/);
@@ -229,7 +229,7 @@ test("a full-capture manifest is labelled before the run and reported body-by-bo
   const main = win.document.querySelector(".f-main");
   // BEFORE the run: "1 full capture" is visibly not "1 capture", and it says where the body goes
   assert.match(main.textContent, /1 full capture/);
-  assert.match(main.textContent, /written into the results bundle/);
+  assert.match(main.textContent, /goes into the results bundle/);
   assert.match(main.textContent, /zero mutations/);
   let prompt = "";
   app.confirm = (message, run) => { prompt = message; run(); };
