@@ -13,11 +13,17 @@ Input: attached original bloodline jutsu-art ZIP.
 Verify live refs; read required TNR bootstrap plus
 docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md,
 ISOLATED_ART_GENERATION.md (P0) and JUTSU_ICON_SHOWCASE.md
-from verified main. Batch repo reads; run the CLI doctor
-and safe one-pass ZIP intake; map exact IDs/names/N.
+from verified main. Batch repo reads; use the actually
+installed producing-tnr-art skill ZIP from dist/ or a
+repo checkout with jutsu_studio.py and its pinned companions.
+If the CLI is absent, record NOT_RUN and request the runtime;
+do not fabricate an intake or canonical PASS. Run doctor,
+then one safe ZIP intake and map exact IDs/names/N.
 Inspect actual individual art. Main pins 16 BBE/BEE
 STYLE/MATERIAL-only exemplars; Sanguine Plague v3 has
-PROVENANCE_PARTIAL, and Vaporia finals are not pinned.
+PROVENANCE_PARTIAL. Five Vaporia and five Aerathiel
+WebP exports are Git-pinned (main@538c258d), but NOT
+indexed as JUTSU_ICON style_refs exemplars.
 Only claim style image conditioning when bytes are attached.
 Return one compact inventory, family treatment card,
 one UNIQUE technique silhouette/action for every jutsu,
@@ -45,6 +51,11 @@ Bootstrap:
   docs/workflows/ISOLATED_ART_GENERATION.md
   docs/workflows/JUTSU_ICON_SHOWCASE.md
   and current art skill/JUTSU_ICON spec.
+- Use installed producing-tnr-art skill bundle (dist/producing-tnr-art.zip)
+  or repo checkout; bundle contains jutsu_studio.py,
+  artpreflight.py, spec and preflight_pins.json.
+- If CLI is unavailable, report NOT_RUN/missing dependency;
+  never invent a substitute intake or canonical PASS.
 - Run jutsu_studio.py doctor (readiness, not preflight of this ZIP).
 - Use jutsu_studio.py intake PACK.zip --out WORK/intake
   with --roster only when verified identity mapping needs it.
@@ -54,7 +65,10 @@ Bootstrap:
   assume the generator can see pixels inside a ZIP.
 - Main pins 16 individual BBE/BEE JUTSU_ICON style exemplars
   under RUL-2026-10-17-021; Sanguine Plague v3 is
-  PROVENANCE_PARTIAL. Vaporia finals are not pinned.
+  PROVENANCE_PARTIAL. Vaporia (5) and Aerathiel (5)
+  final WebP exports are Git-pinned at art/jutsu_icons/
+  (main@538c258d), but neither is indexed in style_refs.
+  Their source/galleries and gate evidence remain distinct.
 - Use one actually attached exemplar as STYLE/MATERIAL ONLY;
   if absent, say model style-conditioning pixels were PENDING.
 
