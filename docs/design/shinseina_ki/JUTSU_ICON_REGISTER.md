@@ -79,3 +79,15 @@ Final delivery is to the operator's bloodline ZIP processing/master collection w
 `GIT_BINARY_PIN`: NOT_PERFORMED.
 `USER_UPLOAD_READBACK`: NOT_PERFORMED.
 Live-game requests/writes: 0/0; credentials: none.
+
+## Separate companion — Ancient Wood Golem AI avatar (2026-10-19)
+
+**Director instruction:** Add one additional **AI portrait**, not a sixth jutsu, to the Shinseina Ki showcase. The supplied file `1000018846.png` is actually a JPEG (1536×1536, SHA-256 `0ef0dab603449d759eb1db0d62a10be72693b482741388794f21959c664e3832`); its exact uploaded bytes are retained in the companion review package. No AI record ID/game binding has been established.
+
+**Mechanical AI_AVATAR export:** `ai_shinseina_ki_ancient_wood_golem_v1.webp`, 608×608 RGBA **lossless VP8L WebP**, 426,438 bytes, SHA-256 `231984d61ff33560024c32a0c5b8af5bfc09a475a64dd00de3ddff153693983e`. The black original background needed a **documented border-connected near-black matte removal**, then the official `chroma.py --target AI_AVATAR --key magenta` final exporter, with magenta override to preserve jade chakra. This is a one-off transparent-source preparation, **not** an unreviewed change to the canonical processing script. The export required no quantization and the script/spec blobs match the pins. The actual `artpreflight.py --type AI_AVATAR` returned **0 errors and 0 warnings**. Dark and 320px light/dark/white composites were inspected. Source art already touches its lower edge at the feet; do not claim cropping was repaired.
+
+**Extended visual board:** `Shinseina_Ki_Showcase_with_AI_Avatar_v2.png`, SHA-256 `0ef87a13bb64da6c3e826af245da31ff9dc739d89626e62b7f6c6ef1933f861f`, is a **separate 3+3 companion showcase** with **5 JUTSU_ICON + 1 AI_AVATAR**, assembled only from the exact six processed WebPs. Pixel-equality verification PASS 6/6. **Do not submit this image to the P1 five-jutsu `audit-gallery` as though the avatar were a jutsu.** The original five-icon audited gallery (`2606f5c7fa545a305417de4eb5e287d7c04e815e0bd76fce4a04b209b0cbe252`) and its five-member P1 commitment remain unchanged and **director acceptance PENDING**.
+
+**Companion delivery:** `Shinseina_Ki_AI_Avatar_Companion_REVIEW_v1.zip`, 6,825,125 bytes, SHA-256 `0cf78c68ca1b1191e29fd592da1c35ce9b14f41cc2790626eed2472dee70aa28`. This **REVIEW** package is not the five-icon master processing closeout, and image bytes are not Git-pinned. Its SHA evidence and remaining gates are in `AI_AVATAR_COMPANION_V1.json`.
+
+**Director gates remain separate:** Processed AI avatar and extended showcase visual acceptance PENDING; original exact five-jutsu gallery acceptance PENDING; formal Wood Warrior anatomy exception confirmation PENDING; AI record-ID binding and user-only live upload/readback NOT_PERFORMED. Live-game requests/writes: 0/0; credentials: none.
