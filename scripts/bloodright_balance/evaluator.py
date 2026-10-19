@@ -29,6 +29,9 @@ WEIGHT = 50.5                      # Codex's unit: 1% of LEVEL_HP
 ROUNDS = 7
 AP = 100
 JUTSU_LEVEL = 20                   # JUTSU_LEVEL_CAP (drizzle/constants.ts)
+SYSTEM_BOOST = 0.60               # OUT_OF_COMBAT_BASE_DAMAGE_INCREASE (drizzle/constants.ts)
+SYSTEM_DR = 0.50                  # OUT_OF_COMBAT_BASE_DAMAGE_REDUCTION
+DR_CAP = 0.9                      # DMG_REDUCTION_CAP: at least 10% of the boosted hit lands
 LEECH_CAP = 0.6                    # DAMAGE_LEECH_CAP_RATIO: lifesteal + vamp
 AFTERBURN_CAP = 0.6                # afterburn: 60% of the damage it converts (tags.ts afterburn)
 POTENCY_TAGS = {"damage", "increasedamagegiven", "decreasedamagegiven", "increasedamagetaken",
@@ -82,8 +85,11 @@ def jutsu_from_capture(j, classification):
                         elements=tuple(e.get("elements") or ()), generals=tuple(e.get("generalTypes") or ()),
                         to_self=to_self, shield_health=float(e.get("health", 0) or 0),
                         shield_rounds=int(e.get("shieldRounds", 3) or 3)))
+    # pool costs at the fixture's jutsu level (actions.ts: cost - costReducePerLvl * level), read by poison
+    chakra = max(0.0, float(j.get("chakraCost", 0) or 0) - JUTSU_LEVEL * float(j.get("chakraCostReducePerLvl", 0) or 0))
+    stamina = max(0.0, float(j.get("staminaCost", 0) or 0) - JUTSU_LEVEL * float(j.get("staminaCostReducePerLvl", 0) or 0))
     return Jutsu(j["name"], int(j.get("actionCostPerc", 60)), int(j.get("cooldown", 7)), rows, classification,
-                 float(j.get("chakraCost", 0) or 0), float(j.get("staminaCost", 0) or 0))
+                 chakra, stamina)
 
 
 def apply_bonuses(jutsu, bonuses, tree_elements):
@@ -161,28 +167,29 @@ def simulate(kits, plans, pressure, start_hp=(LEVEL_HP, LEVEL_HP)):
         hp[side] += gain
 
     def damage(src, dst, amount, rnd, kind="damage", elements=("None",), leech=0.0):
-        """kind: 'damage' (modifiers, shields, afterburn), 'pierce' (modifiers only: tags.ts
-        afterburn skips pierce; adjustDamageGiven/Taken do not), 'true' (drain, poison, wound ticks)."""
+        """kind: 'damage' (modifier pipeline, shields, afterburn), 'pierce' (none of those; reflect
+        and absorb still read it), 'true' (drain, poison, wound ticks)."""
         if amount <= 0:
             return 0.0
         amount *= scale[src]
         piercing = kind != "damage"
-        if kind != "true":
-            mod = 0.0
+        if kind == "damage":
+            # process.ts computeDamagePacket (94f9d84): raw x (1 + 60% system boost) x each jutsu
+            # boost in turn, x (1 - 50% system DR) x each reduction in turn, never below 10% of the
+            # boosted, system-reduced hit (DMG_REDUCTION_CAP). Pierce and true damage skip this:
+            # pierce consequences are built after the modifier pipeline (process.ts:466-480).
+            boost, dr = 1.0 + SYSTEM_BOOST, 1.0
             for e in effects:
                 if not active(e, rnd) or e.type not in MODIFIERS:
                     continue
                 if e.elements and not any(x in elements for x in e.elements):
                     continue                                   # getEfficiencyRatio: modifier elements
-                if e.type == "increasedamagegiven" and e.target == src:
-                    mod += e.power
-                elif e.type == "decreasedamagegiven" and e.target == src:
-                    mod -= e.power
-                elif e.type == "increasedamagetaken" and e.target == dst:
-                    mod += e.power
-                elif e.type == "decreasedamagetaken" and e.target == dst:
-                    mod -= e.power
-            amount *= max(0.0, 1 + mod / 100.0)
+                if (e.type == "increasedamagegiven" and e.target == src) or (e.type == "increasedamagetaken" and e.target == dst):
+                    boost *= 1 + e.power / 100.0
+                elif (e.type == "decreasedamagegiven" and e.target == src) or (e.type == "decreasedamagetaken" and e.target == dst):
+                    dr *= max(0.0, 1 - e.power / 100.0)
+            boosted = amount * boost * (1 - SYSTEM_DR)
+            amount = max(boosted * dr, boosted * (1 - DR_CAP))
         dealt = amount
         # shields and consume shields on the defender soak first (tags.ts shield / consume)
         for e in effects:
