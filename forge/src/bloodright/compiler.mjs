@@ -96,7 +96,8 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
   if (folderId && !folder) fail(`bound folder ${folderId} is not visible; check hidden-content access and binding`);
   if (!folderId && !config.folder?.name) fail("bind an existing folder ID or explicitly configure a new folder");
   const folderData = folder ? writableSnapshot("skillTreeFolder", folder) : { image: "", description: "", order: 0, ...config.folder, hidden: true };
-  if (!folderId && folders.some(f => sameName(f.name, folderData.name ?? ""))) fail("a folder with this name exists; bind its ID explicitly");
+  const twin = !folderId && folders.find(f => sameName(f.name, folderData.name ?? ""));
+  if (twin) fail(`folder "${twin.name}" exists (${twin.id}, ${twin.hidden ? "hidden" : "visible"}); bind its ID explicitly`);
   if (folder || !folderId) {
     for (const p of bloodrightProblems("skillTreeFolder", folderData)) fail(`folder: ${p}`);
     const it = { entity: "skillTreeFolder", slot: folder ? "edit" : "create", srcId: folderKey, name: folderData.name, ...(folder ? { targetId: folderId, expected: folderData } : {}), data: folderData };
@@ -116,7 +117,7 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
       if (claimed.has(targetId)) fail(`${n.name}: ID ${targetId} is bound twice`);
       claimed.add(targetId);
       if (!live) fail(`${n.name}: bound record ${targetId} is not visible; check access/binding`);
-      else if (live.pathType !== "BLOODRIGHT" || live.bloodlineId !== bl) fail(`${n.name}: binding belongs to another bloodline or SKILL path`);
+      else if (live.pathType !== "BLOODRIGHT" || live.bloodlineId !== bl) fail(`${n.name}: binding belongs to another bloodline or SKILL path (${live.pathType}, bloodline ${live.bloodlineId})`);
       else if (!live.hidden) fail(`${n.name}: bound skill is already visible; this importer stages hidden content only`);
     }
     if (skills.some(s => s.id !== targetId && sameName(s.name, n.name))) fail(`${n.name}: global name collision; bind the intended record explicitly or rename the design`);
