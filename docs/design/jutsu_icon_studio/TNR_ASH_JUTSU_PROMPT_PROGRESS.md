@@ -32,7 +32,7 @@
 | A | [Shadow Weaver](../bloodright/trees/shadow_weaver.json) | BR-063 | `d0WYPbbsVx7Y_i0fddwxc` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shakunetsu Sakura](../bloodright/trees/shakunetsu_sakura.json) | BR-064 | `aa1lZukkHpz6ihmcxLaei` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shinrai Ou](../bloodright/trees/shinrai_ou.json) | BR-065 | `xO4Dycx7FFEqxwvAEXBxY` | TO_DRAFT | NOT_STARTED | — |
-| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | PROMPT_READY | NOT_STARTED | Selected 2026-10-19; opener [`prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md`](prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md) @ `c4f424f769b2b6eecd2ebc31b3bcb8f3725f78f0`; not launched. |
+| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | PROMPT_READY | NOT_STARTED | Selected 2026-10-19; opener [`prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md`](prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md) @ `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`; not launched. |
 | A | [Suragu](../bloodright/trees/suragu.json) | BR-074 | `Ksb6ogNqc5mp4l_hRgPuW` | TO_DRAFT | NOT_STARTED | — |
 | A | [Taiyo Kami](../bloodright/trees/taiyo_kami.json) | BR-075 | `6C2t3jK35hvPoVocLiHEl` | TO_DRAFT | NOT_STARTED | — |
 | A | [Teno Yuki](../bloodright/trees/teno_yuki.json) | BR-077 | `clh4d6qjs000gtb0hr357gjvv` | TO_DRAFT | NOT_STARTED | — |
@@ -53,7 +53,7 @@
 
 | Date | Bloodline | Prompt | Art Studio | Evidence |
 | --- | --- | --- | --- | --- |
-| 2026-10-19 | Shinseina Ki (A, BR-066, `vA8I_7iBNgvkuKOpnG1yD`) | **PROMPT_READY** | **NOT_STARTED** | Opening document `prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md` at `c4f424f769b2b6eecd2ebc31b3bcb8f3725f78f0`. Identity/rank `docs/design/bloodright/trees/shinseina_ki.json` at `main@4e674234d0539b7010c34025034330980a38b196`. Historical kit comparator `docs/design/bloodright/kits/shinseina_ki.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866` (2026-10-01 public snapshot; not a current-live claim). |
+| 2026-10-19 | Shinseina Ki (A, BR-066, `vA8I_7iBNgvkuKOpnG1yD`) | **PROMPT_READY** | **NOT_STARTED** | Opening document `prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md` at `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`. Identity/rank `docs/design/bloodright/trees/shinseina_ki.json` at `main@4e674234d0539b7010c34025034330980a38b196`. Historical kit comparator `docs/design/bloodright/kits/shinseina_ki.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866` (2026-10-01 public snapshot; not a current-live claim). |
 
 No studio branch/thread, intake, target lock, raw approval, gallery acceptance, or upload evidence has been returned to this desk yet.
 
