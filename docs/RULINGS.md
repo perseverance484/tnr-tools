@@ -1388,10 +1388,10 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 - **Scorer fidelity:** an independent review found three mechanics that differed from 94f9d84 (damage modifiers multiply in turn with the system boost, system reduction and 10% floor; pierce skips the modifier pipeline; poison reads level-reduced costs). They were fixed and the search rerun before these values were written.
 - **Pierce and Heal:** both bonuses are flat power. +5 Pierce adds 5 power to each pierce hit, which is Damage-like but outside the Damage budget. The trees step them +2 / +3 / +5 like the percentage effects, as Codex's trees did. This is open for a user ruling.
 - **Why Claude's scorer:** Codex's scoring scripts were never pushed. Claude's scorer, rebuilt from the pinned game source, agrees with Codex on overall tree strength but not on path evenness; it rated Taiyo's paths uneven. The user chose it over waiting for Codex's tools, accepting that Taiyo and the other three passing trees change.
-- **Result:** in 21 of 24 trees every finished path is within 15% of the strongest, and 17 of 24 trees sit within ±25% of Taiyo. Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
+- **Result:** in 21 of 24 trees every finished path is within 15% of the strongest, and 17 of 24 trees sit within ±25% of the pre-rebalance Taiyo exemplar's strength (its average full build, 4.23 Weight; the search's anchor). Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
 - **Known limits:**
   - the add-on choice (another path's Foundation and Hidden Art) stays uneven on most trees, because the four root effects are not worth the same in each kit;
-  - the kits set seven trees' strength outside ±25% of Taiyo: Blue Blade Eyes (+170%), Shinseina Ki (+51%), Tenohira Musei (+41%), Bakuhatsu (+31%) and Blood-Enchanted Eyes (+27%) are stronger; Cosmic Ascendant (−43%) and Heavenly Sonata (−35%) are weaker;
+  - the kits set seven trees' strength outside ±25% of that anchor: Blue Blade Eyes (+170%), Shinseina Ki (+51%), Tenohira Musei (+41%), Bakuhatsu (+31%) and Blood-Enchanted Eyes (+27%) are stronger; Cosmic Ascendant (−43%) and Heavenly Sonata (−35%) are weaker;
   - Bakuhatsu, Hyouga Yui and Shinrai Ou keep one weak path.
   The +5/+5 root variant, which helps the add-on choice on 8 trees, was offered and declined.
 - **Shiroi Youso:** unchanged. With the `None` placeholder only three effects reach its kit, too few for four distinct paths. It needs its element decided first (RUL-2026-10-18-004).
