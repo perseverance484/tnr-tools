@@ -1,0 +1,9 @@
+{
+  "schema": "tnr.preflight-pins/1",
+  "purpose": "RUL-2026-10-19-005 D9: an artpreflight --type JUTSU_ICON run is canonical only when the script and art-spec git blobs equal these. Re-pin only through Lane A review when either file changes on main; jutsu_studio_selftest.py fails while the pins are stale.",
+  "pinned_from_main": "f620db3d934fbb5a13effa5f90ed25bf16a33718",
+  "blobs": {
+    "scripts/artpreflight.py": "71ed409853c8b3da6f5b66c5c3db5ab2c9274bb4",
+    "data/25x_DATA_art_spec.json": "8536cd9b81da4c8f88a095af89026437a25a2c15"
+  }
+}
