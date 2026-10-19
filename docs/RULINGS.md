@@ -1587,3 +1587,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User answer "1." to the scope's options, then "Yes, start on it. Size limit raise approved."
 
 **Canonical destination:** `forge/src/review/contract.json`, `forge/src/runner/manifest.mjs` (`suggestPolicy`), `forge/src/runner/runner.mjs` (`_suggestItem`), `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+## RUL-2026-10-19-007 — Suggest-mode rationales are specific to each record
+
+**Date:** 2026-10-19
+
+**Domain:** Forge suggest mode / manifest authoring
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Every item in a suggest-mode manifest carries its own `suggestion.rationale`: a short blurb telling the reviewer what is being changed on that record and why. A generic rationale shared by the whole manifest is a fallback, not the norm. Icon updates (the main planned use) say what the new art shows and why it replaces the old one.
+
+**Evidence:** User, 2026-10-19: "I think for rationale we could try to give a more specific reason than just the generic reason. Just a short blurb for the reviewer to explain what they're reviewing and why".
+
+**Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). Forge already supports per-item rationales; no code change.

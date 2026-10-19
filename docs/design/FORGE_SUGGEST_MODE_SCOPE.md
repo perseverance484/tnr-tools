@@ -112,6 +112,13 @@ A manifest opts in with a top-level `mode` and the suggestion's text:
 - **Quests are refused for now:** `quests.get` hides objective locations from staff who cannot save content (sector 1337), so a suggestion built from it would overwrite the real objectives if approved.
 - **AI edits** may only touch the fields the review desk accepts (`aiEditableKeys` in the contract); anything else (e.g. `maxHealth`, `rules`) is refused rather than silently dropped.
 - An item may carry its own `suggestion` (title, category, rationale) over the manifest's. Category defaults to BALANCE.
+- **Write a specific rationale for every item** (RUL-2026-10-19-007). The manifest-level `suggestion` supplies the shared title and category; each item carries its own `suggestion.rationale`, a short blurb telling the reviewer what this record's change is and why (for an icon: what the new art shows, and what was wrong with or missing from the old one). The desk already shows the field diff, so the rationale explains the change rather than repeating it. A generic text shared by every item is only a fallback.
+
+```json
+{ "entity": "jutsu", "slot": "edit", "name": "Glacial Volley", "targetId": "<jutsu id>",
+  "data": { "image": "@img:icon_bbe_glacial_volley_v2.webp" },
+  "suggestion": { "rationale": "New icon for <bloodline>: <what the art shows>, matching <what the jutsu does>. Replaces <what was wrong with or missing from the old icon>." } }
+```
 - Forge reads the live record, merges the edit exactly as a save would, and sends it with `contentReview.create`. The title gets a short job tag (`[abc123-1]`) so Forge can find the suggestion in the review queue and record its id.
 - An edit the live record already holds is verified instead of suggested.
 - A lost response is settled on resume from the review queue (every status, staff suggestions, every page): found means it is not sent again; not found means it is sent again; a queue too long to search finishes without resending.
