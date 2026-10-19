@@ -737,14 +737,14 @@
     storage.setItem(ASSET_UPLOADS_KEY, JSON.stringify(map));
     return map;
   }
-  async function liveAssetUploads(storage, probe, shas = null) {
+  async function liveAssetUploads(storage, probe, shas = null, { forget = false } = {}) {
     const map = readAssetUploads(storage);
     if (typeof probe !== "function") return map;
     for (const [sha, rec] of Object.entries(map)) {
       if (shas && !shas.has(sha)) continue;
       if (await probe(rec?.url) === false) {
         delete map[sha];
-        forgetAssetUpload(storage, sha);
+        if (forget) forgetAssetUpload(storage, sha);
       }
     }
     return map;
@@ -2005,20 +2005,28 @@
     ceiling() {
       return SLUGS[this.slug].maxBytes;
     }
-    async upload(file) {
+    async upload(file, { onWait = null } = {}) {
       for (let attempt = 0; ; attempt++) {
         if (this._last != null) {
           const wait = this._last + this.minGapMs - this.clock();
-          if (wait > 0) await this.sleep(wait);
+          if (wait > 0) await this._wait(wait, onWait);
         }
         try {
           return await this._once(file);
         } catch (e) {
           if (!(e instanceof UploadError && e.removed && TRANSIENT.test(e.reason ?? "")) || attempt >= this.retryDelays.length) throw e;
-          await this.sleep(this.retryDelays[attempt]);
+          await this._wait(this.retryDelays[attempt], onWait);
         } finally {
           this._last = this.clock();
         }
+      }
+    }
+    async _wait(ms, onWait) {
+      while (ms > 0) {
+        if (onWait) onWait();
+        const step = Math.min(ms, 1e4);
+        await this.sleep(step);
+        ms -= step;
       }
     }
     async _once(file) {
@@ -2069,23 +2077,32 @@
     }
   };
 
-  function browserImageProbe(win, { timeoutMs = 15e3 } = {}) {
+  function browserImageProbe(win, { timeoutMs = 15e3, confirmDelayMs = 1500 } = {}) {
     const seen =  new Map();
+    const load = (src) => new Promise((resolve) => {
+      const img = new win.Image();
+      const done = (v) => {
+        win.clearTimeout(timer);
+        img.onload = img.onerror = null;
+        resolve(v);
+      };
+      const timer = win.setTimeout(() => done(null), timeoutMs);
+      img.onload = () => done(img.naturalWidth > 0);
+      img.onerror = () => done(false);
+      img.src = src;
+    });
+    const offline = () => win.navigator && win.navigator.onLine === false;
     return (url) => {
       if (typeof url !== "string" || !/^https:\/\//.test(url)) return Promise.resolve(false);
       if (seen.has(url)) return seen.get(url);
-      const answer = new Promise((resolve) => {
-        const img = new win.Image();
-        const done = (v) => {
-          win.clearTimeout(timer);
-          img.onload = img.onerror = null;
-          resolve(v);
-        };
-        const timer = win.setTimeout(() => done(null), timeoutMs);
-        img.onload = () => done(img.naturalWidth > 0);
-        img.onerror = () => done(false);
-        img.src = url;
-      });
+      const answer = (async () => {
+        if (offline()) return null;
+        const first = await load(url);
+        if (first !== false) return first;
+        await new Promise((r) => win.setTimeout(r, confirmDelayMs));
+        if (offline()) return null;
+        return load(`${url}${url.includes("?") ? "&" : "?"}forge-probe=${Date.now()}`);
+      })();
       seen.set(url, answer.then((v) => {
         if (v === null) seen.delete(url);
         return v;
@@ -3969,7 +3986,7 @@
     }
     async _verify(jobId, item, planned) {
       const rc = recipe(item.entity);
-      const data = await this._resolved(planned.data, jobId);
+      const data = await this._resolved(planned.data, jobId, { readOnly: true });
       const diffs = [];
       if (item.entity !== "aiProfile") {
         this._requireAuth(rc.get, item.idx);
@@ -4142,7 +4159,11 @@
         return pfx.startsWith("skillTree") ? owned ?? map[key] : map[key] ?? owned;
       };
     }
-    async _resolved(data, jobId) {
+    async _resolved(data, jobId, { readOnly = false } = {}) {
+      const probe = readOnly ? null : this.imageProbe;
+      const heartbeat = () => {
+        if (jobId) this._lease(jobId);
+      };
       const refs = collectRefs(data).filter((r) => r.pfx === "img");
       for (const r of refs) {
         const prov = this.imgProvenance.get(r.key) ?? null;
@@ -4150,7 +4171,7 @@
         let file;
         if (prov) {
           let known = readAssetUploads(this.storage)[prov.sha256];
-          if (known && known.url && this.imageProbe && await this.imageProbe(known.url) === false) {
+          if (known && known.url && probe && await probe(known.url) === false) {
             forgetAssetUpload(this.storage, prov.sha256);
             known = null;
           }
@@ -4163,14 +4184,19 @@
           }
           file = await this._imgBytes(r.key, prov);
         } else {
+          if (map[r.key] && probe && await probe(map[r.key]) === false) {
+            delete map[r.key];
+            writeIdmap(this.storage, map);
+          }
           if (map[r.key]) continue;
           file = this.files.get(r.key);
           if (!file) throw new Error(`@img:${r.key} has no file picked`);
         }
+        if (readOnly) throw new Error(`@img:${r.key} has no recorded upload to verify against`);
         if (!this.uploader) throw new Error("no uploader configured for @img refs");
-        const up = await this.uploader.upload(file);
+        const up = await this.uploader.upload(file, { onWait: heartbeat });
         const url = up.url ?? up.ufsUrl;
-        if (this.imageProbe && await this.imageProbe(url) === false) throw new Error(`@img:${r.key} uploaded but does not load (${url}); nothing was saved with it`);
+        if (probe && await probe(url) === false) throw new Error(`@img:${r.key} uploaded but does not load (${url}); nothing was saved with it`);
         map[r.key] = url;
         writeIdmap(this.storage, map);
         if (prov) recordAssetUpload(this.storage, prov.sha256, url, { path: prov.path, ref: prov.ref, at: this.clock() });
@@ -5609,7 +5635,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       all.data[index] = r.data;
     }
     const shas = new Set(Object.values(imagePack?.files ?? {}).map((f) => f?.sha256).filter(Boolean));
-    const uploads = await liveAssetUploads(storage, imageProbe, shas);
+    const uploads = await liveAssetUploads(storage, imageProbe, shas, { forget: false });
     return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads });
   }
 

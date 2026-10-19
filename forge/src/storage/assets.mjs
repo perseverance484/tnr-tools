@@ -119,15 +119,16 @@ export function forgetAssetUpload(storage, sha256) {
 }
 
 /**
- * The recorded uploads, minus any whose URL the browser says no longer loads (those are also
- * forgotten). Without a probe nothing is dropped. Only `shas` are checked when given.
+ * The recorded uploads, minus any whose URL the browser says no longer loads. Without a probe
+ * nothing is dropped. Only `shas` are checked when given. `forget` also removes the dead records
+ * from storage; a preview leaves storage alone and lets the run (which probes again) decide.
  */
-export async function liveAssetUploads(storage, probe, shas = null) {
+export async function liveAssetUploads(storage, probe, shas = null, { forget = false } = {}) {
   const map = readAssetUploads(storage);
   if (typeof probe !== "function") return map;
   for (const [sha, rec] of Object.entries(map)) {
     if (shas && !shas.has(sha)) continue;
-    if ((await probe(rec?.url)) === false) { delete map[sha]; forgetAssetUpload(storage, sha); }
+    if ((await probe(rec?.url)) === false) { delete map[sha]; if (forget) forgetAssetUpload(storage, sha); }
   }
   return map;
 }

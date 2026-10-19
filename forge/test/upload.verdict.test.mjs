@@ -4,7 +4,8 @@
 // recorded link is reused only while it loads, and a preview offers dead images as changes.
 import test from "node:test";
 import assert from "node:assert/strict";
-import { Uploader, UploadError, RETRY_DELAYS_MS } from "../src/transport/upload.mjs";
+import { Uploader, UploadError, RETRY_DELAYS_MS, MIN_GAP_MS } from "../src/transport/upload.mjs";
+import { browserImageProbe } from "../src/transport/imageprobe.mjs";
 import { recordAssetUpload, readAssetUploads, liveAssetUploads } from "../src/storage/assets.mjs";
 import { MemoryStorage } from "./shim.mjs";
 
@@ -27,9 +28,24 @@ function fakeUpload(verdicts) {
   return { up, calls, slept };
 }
 
-test("a removed upload is never returned as a URL", async () => {
-  const { up } = fakeUpload([{ fileUrl: "", error: "Image contains disallowed content" }]);
+test("a removed upload is never returned as a URL, and a flagged image is not retried", async () => {
+  const { up, calls } = fakeUpload([{ fileUrl: "", error: "Image contains disallowed content" }]);
   await assert.rejects(up.upload(file()), (e) => e instanceof UploadError && e.removed && /disallowed/.test(e.message));
+  assert.equal(calls.filter(([m]) => m === "PUT").length, 1);
+});
+
+test("a verdict with no fileUrl and no error falls back to ufsUrl", async () => {
+  const { up } = fakeUpload([{}]);
+  assert.match((await up.upload(file())).url, /raw1$/);
+});
+
+test("long waits call onWait at least every 10 s, so the caller's job lease stays fresh", async () => {
+  const fail = { fileUrl: "", error: "Unable to validate uploaded image." };
+  const { up, slept } = fakeUpload([fail, fail, { fileUrl: "https://x.ufs.sh/f/ok.webp" }]);
+  let beats = 0;
+  await up.upload(file(), { onWait: () => beats++ });
+  assert.ok(slept.every((ms) => ms <= 10_000), JSON.stringify(slept));
+  assert.ok(beats >= slept.length);
 });
 
 test("a 'could not validate' removal is retried after a pause, and the served URL is kept", async () => {
@@ -51,7 +67,7 @@ test("retries stop after the last pause and the refusal is reported", async () =
 test("uploads back to back are spaced out", async () => {
   const { up, slept } = fakeUpload([{ fileUrl: "https://x.ufs.sh/f/a.webp" }, { fileUrl: "https://x.ufs.sh/f/b.webp" }]);
   await up.upload(file("a.webp")); await up.upload(file("b.webp"));
-  assert.ok(slept.length >= 1 && slept[0] > 0, "the second upload waited");
+  assert.deepEqual(slept, [MIN_GAP_MS], "the second upload waited the full gap (the fake clock does not advance on its own)");
 });
 
 test("a response without a verdict still works (older ingest), using ufsUrl", async () => {
@@ -65,8 +81,35 @@ test("recorded uploads whose links no longer load are forgotten; undecided ones 
   recordAssetUpload(storage, "b".repeat(64), "https://x/live.webp");
   recordAssetUpload(storage, "c".repeat(64), "https://x/slow.webp");
   const probe = async (url) => (url.includes("dead") ? false : url.includes("slow") ? null : true);
-  const live = await liveAssetUploads(storage, probe);
-  assert.deepEqual(Object.keys(live).sort(), ["b".repeat(64), "c".repeat(64)]);
-  assert.ok(!("a".repeat(64) in readAssetUploads(storage)), "the dead record is gone from storage too");
+  const preview = await liveAssetUploads(storage, probe);
+  assert.deepEqual(Object.keys(preview).sort(), ["b".repeat(64), "c".repeat(64)]);
+  assert.ok("a".repeat(64) in readAssetUploads(storage), "a preview leaves storage alone");
+  await liveAssetUploads(storage, probe, null, { forget: true });
+  assert.ok(!("a".repeat(64) in readAssetUploads(storage)), "forget removes the dead record");
   assert.equal(Object.keys(await liveAssetUploads(new MemoryStorage(), null)).length, 0);
+});
+
+/** A fake window whose images load or fail per URL, with an instant timer. */
+function fakeWin(behaviour, { onLine = true } = {}) {
+  const loads = [];
+  class Image {
+    set src(v) { loads.push(v); const r = behaviour(v); queueMicrotask(() => r === "load" ? (this.naturalWidth = 1, this.onload?.()) : r === "error" ? this.onerror?.() : null); }
+  }
+  return { Image, loads, navigator: { onLine }, setTimeout: (fn, ms) => (ms >= 15000 ? 0 : (queueMicrotask(fn), 0)), clearTimeout: () => {} };
+}
+
+test("the browser probe confirms a failure with a second, cache-busted load", async () => {
+  const win = fakeWin((src) => (src.includes("forge-probe") ? "load" : "error"));
+  assert.equal(await browserImageProbe(win)("https://x/a.webp"), true, "a blip that recovers is not dead");
+  const dead = fakeWin(() => "error");
+  assert.equal(await browserImageProbe(dead)("https://x/b.webp"), false);
+  assert.equal(dead.loads.length, 2);
+});
+
+test("the browser probe answers null when offline, and refuses non-https input", async () => {
+  const win = fakeWin(() => "error", { onLine: false });
+  const probe = browserImageProbe(win);
+  assert.equal(await probe("https://x/a.webp"), null);
+  assert.equal(win.loads.length, 0);
+  assert.equal(await probe("http://x/a.webp"), false);
 });

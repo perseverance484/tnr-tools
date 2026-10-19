@@ -63,18 +63,28 @@ export class Uploader {
    * Upload, honouring the game's verdict: retried after a pause when the game could not check the
    * image, refused when it removed it. @returns {Promise<{url: string, ufsUrl: string, key: string}>}
    */
-  async upload(file) {
+  async upload(file, { onWait = null } = {}) {
     for (let attempt = 0; ; attempt++) {
       if (this._last != null) {
         const wait = this._last + this.minGapMs - this.clock();
-        if (wait > 0) await this.sleep(wait);
+        if (wait > 0) await this._wait(wait, onWait);
       }
       try { return await this._once(file); }
       catch (e) {
         if (!(e instanceof UploadError && e.removed && TRANSIENT.test(e.reason ?? "")) || attempt >= this.retryDelays.length) throw e;
-        await this.sleep(this.retryDelays[attempt]);
+        await this._wait(this.retryDelays[attempt], onWait);
       }
       finally { this._last = this.clock(); }
+    }
+  }
+
+  /** Sleep in steps of at most 10 s, calling onWait before each, so a caller's heartbeat stays fresh. */
+  async _wait(ms, onWait) {
+    while (ms > 0) {
+      if (onWait) onWait();
+      const step = Math.min(ms, 10_000);
+      await this.sleep(step);
+      ms -= step;
     }
   }
 
