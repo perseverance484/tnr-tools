@@ -190,9 +190,9 @@ The second script writes two collections. Bonuses are the scorer-v1 rebalance
 (RUL-2026-10-19-001; Shiroi Youso keeps its CSV placeholder); 20 Silver and 99 rounds remain
 placeholders.
 
-- `naming_pass_collection_a.json`: 14 trees using only the original ten potency tags. This
+- `naming_pass_collection_a.json`: 15 trees using only the original ten potency tags. This
   works with the current Forge contract.
-- `naming_pass_collection_b.json`: 11 trees using pierce, absorb, poison, drain, consume
+- `naming_pass_collection_b.json`: 10 trees using pierce, absorb, poison, drain, consume
   or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
   live game running upstream `133e2c7` or later. Import A first, then B.
 
