@@ -181,7 +181,12 @@ export class App {
   // ------------------------------------------------------------------ forwarded actions
   clearSelection() { return this.core.clearSelection(); }
   loadPicker(force) { return this.core.loadPicker(force); }
-  selectManifest(entry) { return this.core.selectManifest(entry); }
+  selectManifest(entry) {
+    // The opened manifest renders at the top of the screen; bring the operator there from deep in the list.
+    const scroller = this.root && this.root.parentElement;
+    if (scroller && typeof scroller.scrollTo === "function") scroller.scrollTo(0, 0);
+    return this.core.selectManifest(entry);
+  }
   prepareImages(force) { return this.core.prepareImages(force); }
   startJob() { return this.core.startJob(); }
   resumeJob(jobId) { return this.core.resumeJob(jobId); }
