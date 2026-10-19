@@ -1231,6 +1231,24 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 ---
 
+## RUL-2026-10-17-021 — BBE and BEE jutsu-icon finals are the approved JUTSU_ICON style library
+
+**Date:** 2026-10-17 (recorded on `claude/bloodline-jutsu-icon-studio-3nmvc2@6bc0af4e`; integrated on main by the P1 tooling change under RUL-2026-10-19-005 D3)
+
+**Domain:** bloodline jutsu-icon art / style references / Art Studio tooling
+
+**Status:** ACTIVE
+
+**Ruling:** dauntless supplied the final BBE and BEE jutsu-icon export ZIPs and directed: "Save them as the approved style library. And optimize the workflow so I *can* begin a session with a prompt and an art pack zip." The 16 WebPs are pinned byte-for-byte as the `JUTSU_ICON` style/material exemplar library.
+
+**Scope and limits:** exemplars are STYLE/MATERIAL ONLY; each one's silhouette stays reserved by its family. The PRIMARY/SUPPORTING order in `style_refs.json` is a reversible selection default set at intake (based on a 32px readability check), not an art-direction ruling. BEE's `icon_bee_sanguine_plague_v3.webp` is not the version in the BEE closeout (which approved v2); it is pinned on this instruction, and the repository holds no individual raw approval or raw original for it, so selection output flags it `PROVENANCE_PARTIAL`. Vaporia's finals are not pinned. Nothing here uploads art, changes a jutsu record or touches the live game.
+
+**Canonical destination:** `art/style_refs/jutsu_icons/` + `art/style_refs/jutsu_icons/INTAKE_20261017.json` (bytes and provenance); `skills/producing-tnr-art/data/style_refs.json` and `scripts/style_refs.py` (index and selection).
+
+**Supersedes:** none. The companion ZIP-first workflow ruling (RUL-2026-10-17-020) and its workflow documents are ChatGPT-owned and integrate separately (RUL-2026-10-19-005 D4).
+
+---
+
 ## RUL-2026-10-18-001 — Bloodright tree standard: Taiyo Kami exemplar and clean round totals
 
 **Date:** 2026-10-18 (decisions made in the user's Codex balance sessions, 2026-10-17/18)
@@ -1522,3 +1540,34 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** Forge 0.7.7 preview of push/123: "Hungry Pulse: binding belongs to another bloodline or SKILL path (BLOODRIGHT, bloodline 1C34syOOEKp6k3UKweYT6)" and "folder "Ethereal Monarch" exists (Z7_y_40drZY8k_ECDRLMa, visible)". User answer: "Move it back to BEE".
 
 **Canonical destination:** `scripts/bloodright_collection_package.py` (`BEE`, `EXISTING_FOLDERS`), regenerated into `forge/bloodright/naming_pass_collection_b.json` and `push/123_bloodright_collection_b.json`.
+
+---
+
+## RUL-2026-10-19-005 — Approve jutsu-icon P1 tooling scope (Option B) and decisions D1–D10
+
+**Date:** 2026-10-19
+
+**Domain:** Art production tooling / `jutsu.image` (Lane A)
+
+**Status:** ACTIVE — director-approved; implementation by Fable, subject to independent review at an exact SHA.
+
+**Supersedes:** none. Implements, and does not change, the P0 gates of RUL-2026-10-19-003 in `docs/workflows/ISOLATED_ART_GENERATION.md`.
+
+**Ruling:** Adopt every recommendation in `docs/design/jutsu_icon_studio/P1_TOOLING_SCOPE_PROPOSAL_20261019.md` §8:
+
+- **D1** Scope **Option B**: harden and integrate the prototype CLI and add P0 record support (target lock, attempt/failure log, compare sheet, anatomy exception record, rejection codes), `audit-gallery`, the K gate table, roster evidence levels, `doctor`, and export speedups. Option C items are out of scope.
+- **D2** Port only the Fable code commit `6bc0af4e` onto a fresh Fable implementation branch from current main; the prototype branch stays frozen as evidence and is not merged.
+- **D3** Pin the 16 BBE/BEE exemplar WebPs (RUL-2026-10-17-021), with `icon_bee_sanguine_plague_v3.webp` flagged `PROVENANCE_PARTIAL`.
+- **D4** The ZIP-first studio/showcase workflow documents and RUL-2026-10-17-020 are landed by their owner (ChatGPT) as a separate PR; until then the P1 CLI cites only main authorities.
+- **D5** Gallery layout for N ≥ 10: balanced rows of at most four, longer rows first (10 = 4+3+3, 11 = 4+4+3, 13 = 4+3+3+3). N ≤ 9 keeps the existing table.
+- **D6** When canonical preflight is not PASS, the flat WebP ZIP is still built but named `*_webps_PREFLIGHT_NOT_RUN_*` (or `NON_CANONICAL` / `FAIL`), never `upload`.
+- **D7** Gate vocabulary adopts the retrospective K names verbatim.
+- **D8** Attempt log records `attempt_count`, `wrong_target_count`, `silhouette_conflict_count`, `art_style_drift_count`, `anatomy_rejection_count`, `approved_raw_after_attempt_n`; `generator_wait_ms` only where actually measured. The studio records attempts; tooling only validates and counts.
+- **D9** A preflight is canonical only when the `artpreflight.py` and art-spec git blobs equal the pinned blobs of a named main commit; otherwise the verdict is `NON_CANONICAL`, never PASS.
+- **D10** P1 tests use synthetic fixtures only; Aerathiel artefacts are neither consumed nor pinned.
+
+**Evidence:** Director reply "All recommendations approved, proceed" to the P1 proposal (committed `d9252768` on `ccr-f0d2b974-k6121h`), 2026-10-19.
+
+**Canonical destination:** `state/prompt_jutsu_icon_p1_tooling_20261019.md` (build contract); implementation in `skills/producing-tnr-art/scripts/jutsu_studio.py` and its selftest.
+
+**Boundary:** Aerathiel gallery acceptance stays PENDING, canonical preflight NOT RUN, Git binary pinning PENDING and upload/readback NOT PERFORMED. No tool may claim to judge whether pixels depict the locked technique. No live-game actions are authorized.
