@@ -146,3 +146,34 @@ test("review fixes: a failed queue read after a successful send pauses instead o
   assert.equal(d.game.proposals.length, 1);
   assert.equal(d.journal.get("r4").items[0].suggestion.id, d.game.proposals[0].id);
 });
+
+test("re-review: a failed queue read while settling a lost response pauses the resume, and the next resume settles it", async () => {
+  const d = setup();
+  d.game.dropCreateResponse = true;
+  d.runner.plan(JSON.stringify(manifest()), { jobId: "r5" });
+  await d.runner.run("r5");
+  d.game.failQueue = 1;
+  await d.runner.resume("r5");
+  let job = d.journal.get("r5");
+  assert.equal(job.state, "PAUSED"); assert.equal(job.items[0].state, "SENT", "untouched until the queue answers");
+  await d.runner.resume("r5");
+  job = d.journal.get("r5");
+  assert.equal(job.state, "DONE");
+  assert.equal(d.game.proposals.length, 1, "not resent");
+  assert.equal(job.items[0].suggestion.id, d.game.proposals[0].id);
+});
+
+test("an icon change is uploaded, then suggested: the review desk sees the new image link and the record keeps its old one", async () => {
+  const d = setup();
+  d.game.rows("jutsu")[0].image = "https://x.ufs.sh/f/old.webp";
+  d.runner.files.set("ember.webp", new File([new Uint8Array([82, 73, 70, 70, 1, 2])], "ember.webp", { type: "image/webp" }));
+  d.runner.uploader = { upload: async () => ({ url: "https://x.ufs.sh/f/new.webp" }) };
+  const m = manifest([edit({ data: { image: "@img:ember.webp" } })], { imgSizes: { "ember.webp": 6 }, suggestion: { category: "VISUAL", title: "New icons", rationale: "Bloodline jutsu icon refresh." } });
+  d.runner.plan(JSON.stringify(m), { jobId: "v1" });
+  await d.runner.run("v1");
+  assert.equal(d.journal.get("v1").state, "DONE", JSON.stringify(d.journal.get("v1").items[0]));
+  assert.equal(d.game.rows("jutsu")[0].image, "https://x.ufs.sh/f/old.webp");
+  const p = d.game.proposals[0];
+  assert.equal(p.category, "VISUAL");
+  assert.deepEqual(p.after, { image: "https://x.ufs.sh/f/new.webp" });
+});
