@@ -1,0 +1,107 @@
+{
+ "slug": "blue_blade_eyes",
+ "eligible": {
+  "damage": 5,
+  "shield": 1,
+  "decreasedamagegiven": 1,
+  "increasedamagegiven": 4,
+  "increasedamagetaken": 3,
+  "decreasedamagetaken": 2,
+  "lifesteal": 1
+ },
+ "damage_ceiling": 1.0,
+ "score": 2.4292347335545053,
+ "paths": [
+  {
+   "root": "decreasedamagegiven",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "decreasedamagegiven": 5.0,
+    "increasedamagetaken": 5.0
+   }
+  },
+  {
+   "root": "damage",
+   "f": 0.2,
+   "h": 0.6,
+   "cap": {
+    "decreasedamagetaken": 5.0,
+    "lifesteal": 5.0
+   }
+  },
+  {
+   "root": "decreasedamagetaken",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "increasedamagegiven": 5.0
+   }
+  },
+  {
+   "root": "lifesteal",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "increasedamagetaken": 5.0
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.4941,
+  "secondary_panel": 0.4398,
+  "three_spread": 0.904,
+  "mean5": 9.9139,
+  "three": {
+   "p1": 7.759,
+   "p2": 7.273,
+   "p3": 8.045,
+   "p4": 7.79
+  },
+  "five": {
+   "p1+p2": 10.147,
+   "p1+p3": 10.16,
+   "p1+p4": 10.442,
+   "p2+p1": 8.599,
+   "p2+p3": 9.674,
+   "p2+p4": 9.859,
+   "p3+p1": 9.371,
+   "p3+p2": 10.444,
+   "p3+p4": 10.729,
+   "p4+p1": 9.116,
+   "p4+p2": 10.233,
+   "p4+p3": 10.191
+  },
+  "changes": 3
+ },
+ "current_score": 1.9350068145053596,
+ "current_ok": false,
+ "current_info": {
+  "secondary_normal": 0.4343,
+  "secondary_panel": 0.383,
+  "three_spread": 0.6448,
+  "mean5": 8.9013,
+  "three": {
+   "p1": 5.187,
+   "p2": 5.258,
+   "p3": 8.045,
+   "p4": 7.79
+  },
+  "five": {
+   "p1+p2": 8.108,
+   "p1+p3": 7.588,
+   "p1+p4": 7.723,
+   "p2+p1": 6.584,
+   "p2+p3": 7.659,
+   "p2+p4": 7.857,
+   "p3+p1": 9.371,
+   "p3+p2": 11.043,
+   "p3+p4": 10.729,
+   "p4+p1": 9.116,
+   "p4+p2": 10.843,
+   "p4+p3": 10.191
+  },
+  "changes": 0
+ },
+ "anchor": 4.6882375000000005
+}

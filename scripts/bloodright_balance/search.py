@@ -42,6 +42,9 @@ PRESSURES = (0.5, 1.0, 1.5)
 SECONDARY_SCREEN = 0.90
 DOUBLE_ROOTS = "--double-roots" in sys.argv   # variant: a percentage root may step +5 / +5 (total 10)
 ROUND_TOTALS = (5.0, 10.0)
+STRENGTH_BAND = 0.10     # mean 5-BP build within about +-10% of the Taiyo anchor before any penalty
+STRENGTH_WEIGHT = float(sys.argv[sys.argv.index("--strength-weight") + 1]) if "--strength-weight" in sys.argv else 6.0
+CHANGE_COST = 0.04       # a changed node (which then needs a new name) must buy a visible improvement
 
 
 def eligible_tags(ev):
@@ -143,6 +146,11 @@ def tree_ok(slug, paths, dmg_rows):
         for t, v in b.items():
             if t in PCT and v not in ROUND_TOTALS:
                 return False
+    # every finished build is its own package: four distinct completed paths, twelve distinct 5-BP builds
+    keys3 = {tuple(sorted(b.items())) for b in three.values()}
+    keys5 = {tuple(sorted(b.items())) for b in five.values()}
+    if len(keys3) != 4 or len(keys5) != 12:
+        return False
     ceiling = damage_ceiling(dmg_rows)
     # every legal allocation: one capstone at most, prerequisites, 5 BP
     fh = [(p.nodes()[0].get("damage", 0) + 0, p.nodes()[1].get("damage", 0)) for p in paths]
@@ -214,7 +222,7 @@ def evaluate(paths, value, anchor, current_keys):
     changes = sum(1 for i, p in enumerate(paths) for a, b in zip(p.nodes(), current_keys[i]) if a != b)
     floor = min(sec_n, sec_p)
     score = (3.0 * min(floor, SECONDARY_SCREEN) + 2.0 * min(spread, SECONDARY_SCREEN)
-             + 0.3 * (floor + spread) - 1.5 * max(0.0, dev - 0.15) - 0.01 * changes)
+             + 0.3 * (floor + spread) - STRENGTH_WEIGHT * max(0.0, dev - STRENGTH_BAND) - CHANGE_COST * changes)
     return score, {"secondary_normal": sec_n, "secondary_panel": sec_p, "three_spread": spread, "mean5": mean5,
                    "three": t1, "five": res[1.0][1], "changes": changes}
 
@@ -256,9 +264,14 @@ def search(slug, tree, anchor, kits=None, restarts=60, seed=7, verify=40):
     def ok(paths):
         return tree_ok(slug, paths, dmg_rows)
 
+    if len({p.root for p in opts}) < 4:
+        return {"slug": slug, "eligible": tags, "infeasible": "fewer than four eligible root effects for four distinct paths",
+                "current_info": _jsonable(evaluate(cur, scorer.full, anchor, cur_nodes)[1])}
     pool = {}
     starts = [cur] if ok(cur) else []
-    while len(starts) < restarts:
+    tries = 0
+    while len(starts) < restarts and tries < 200000:
+        tries += 1
         cand = rng.sample(opts, 4)
         if ok(cand):
             starts.append(cand)
@@ -315,6 +328,7 @@ if __name__ == "__main__":
     out_dir = FsPath(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else None
     if out_dir:
         args = [a for a in args if a != str(out_dir)]
+    args = [a for a in args if a != str(STRENGTH_WEIGHT) and a != sys.argv[sys.argv.index("--strength-weight") + 1]] if "--strength-weight" in sys.argv else args
     trees = json.loads(CURRENT.read_text())
     kits = E.load_kits()
     anchor = anchor_value(trees, kits)
@@ -322,6 +336,12 @@ if __name__ == "__main__":
     for slug in args or trees:
         r = search(slug, trees[slug], anchor, kits)
         r["anchor"] = anchor
+        if "infeasible" in r:
+            print(f"{slug:28} INFEASIBLE: {r['infeasible']} (eligible: {sorted(r['eligible'])})")
+            if out_dir:
+                out_dir.mkdir(parents=True, exist_ok=True)
+                (out_dir / f"{slug}.json").write_text(json.dumps(r, indent=1) + "\n")
+            continue
         i, c = r["info"], r["current_info"]
         print(f"{slug:28} now sec {c['secondary_normal']*100:5.1f}/{c['secondary_panel']*100:5.1f} spread {c['three_spread']*100:5.1f} mean5 {c['mean5']:.2f}"
               f"  ->  sec {i['secondary_normal']*100:5.1f}/{i['secondary_panel']*100:5.1f} spread {i['three_spread']*100:5.1f} mean5 {i['mean5']:.2f} changes {i['changes']}")

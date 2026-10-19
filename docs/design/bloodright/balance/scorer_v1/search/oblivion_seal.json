@@ -1,0 +1,104 @@
+{
+ "slug": "oblivion_seal",
+ "eligible": {
+  "pierce": 1,
+  "increasedamagetaken": 1,
+  "damage": 3,
+  "increasedamagegiven": 1,
+  "decreasedamagetaken": 1,
+  "lifesteal": 1
+ },
+ "damage_ceiling": 1.6,
+ "score": 4.514966375885601,
+ "paths": [
+  {
+   "root": "decreasedamagetaken",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "decreasedamagetaken": 5.0
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "increasedamagetaken": 5.0
+   }
+  },
+  {
+   "root": "pierce",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "pierce": 5.0
+   }
+  },
+  {
+   "root": "damage",
+   "f": 0.4,
+   "h": 0.8,
+   "cap": {
+    "increasedamagegiven": 5.0
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.8308,
+  "secondary_panel": 0.9076,
+  "three_spread": 0.8927,
+  "mean5": 4.9188,
+  "three": {
+   "p1": 3.152,
+   "p2": 3.158,
+   "p3": 3.45,
+   "p4": 3.531
+  },
+  "five": {
+   "p1+p2": 4.731,
+   "p1+p3": 4.877,
+   "p1+p4": 4.585,
+   "p2+p1": 4.734,
+   "p2+p3": 4.883,
+   "p2+p4": 4.676,
+   "p3+p1": 5.026,
+   "p3+p2": 5.029,
+   "p3+p4": 4.883,
+   "p4+p1": 5.107,
+   "p4+p2": 5.152,
+   "p4+p3": 5.342
+  },
+  "changes": 7
+ },
+ "current_score": 3.123276988081818,
+ "current_ok": false,
+ "current_info": {
+  "secondary_normal": 0.7233,
+  "secondary_panel": 0.7506,
+  "three_spread": 0.6496,
+  "mean5": 5.8789,
+  "three": {
+   "p1": 4.292,
+   "p2": 3.158,
+   "p3": 4.862,
+   "p4": 3.938
+  },
+  "five": {
+   "p1+p2": 5.871,
+   "p1+p3": 6.189,
+   "p1+p4": 6.028,
+   "p2+p1": 5.228,
+   "p2+p3": 4.883,
+   "p2+p4": 4.929,
+   "p3+p1": 7.086,
+   "p3+p2": 6.471,
+   "p3+p4": 6.557,
+   "p4+p1": 6.075,
+   "p4+p2": 5.567,
+   "p4+p3": 5.663
+  },
+  "changes": 0
+ },
+ "anchor": 4.6882375000000005
+}
