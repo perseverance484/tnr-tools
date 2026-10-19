@@ -192,8 +192,8 @@ placeholders.
 
 - `naming_pass_collection_a.json`: 15 trees using only the original ten potency tags. This
   works with the current Forge contract.
-- `naming_pass_collection_b.json`: 10 trees using pierce, absorb, poison, drain, consume,
-  heal or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
+- `naming_pass_collection_b.json`: 10 trees using pierce, absorb, poison, drain, consume
+  or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
   live game running upstream `133e2c7` or later. Import A first, then B.
 
 Cosmic Ascendant and Shiroi Youso use the element `None` as a placeholder until their
