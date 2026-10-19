@@ -739,7 +739,8 @@ def approved_template(src: dict) -> dict:
                       "family": family_code(src["bloodline"].get("name"))},
         "family_byte_cap_exclusive": None,
         "family_byte_cap_ruling": None,
-        "family_acceptance": {"status": "PENDING", "evidence": "", "gallery_sha256": None},
+        "family_acceptance": {"status": "PENDING", "evidence": "", "gallery_sha256": None,
+                              "gallery_pixels_sha256": None, "members_sha256": None},
         "jutsu": [{"jutsu_id": j["jutsu_id"], "name": j["name"], "slug": slugify(j["name"]), "version": 1,
                    "raw_file": None, "raw_sha256": None,
                    "director_raw_approval": {"status": "PENDING", "evidence": ""},
@@ -748,7 +749,8 @@ def approved_template(src: dict) -> dict:
                    "APPROVED with the approval evidence, then run: jutsu_studio.py finalize approved.json --out DIR. "
                    "family_byte_cap_exclusive stays null unless the director approved a stricter cap (cite the ruling). "
                    "quantize stays null unless the director approved that icon's visible palette loss. "
-                   "family_acceptance ACCEPTED must name the exact gallery_sha256 the director accepted.",
+                   "family_acceptance ACCEPTED copies gallery.sha256, gallery.pixels_sha256 and members_sha256 from the "
+                   "exact showcase_manifest.json the director accepted.",
     }
 
 
@@ -871,21 +873,23 @@ def lock_sha(target: dict) -> str:
     return sha256(canon({k: v for k, v in target.items() if k != "direction_approval"}).encode())
 
 
-def load_json(path: Path, what: str) -> dict:
+def load_json(path: Path, what: str, data: bytes | None = None) -> dict:
     try:
-        return json.loads(Path(path).read_text(encoding="utf-8"))
+        if data is None:
+            data = Path(path).read_bytes()
+        return json.loads(data.decode("utf-8"))
     except FileNotFoundError:
         raise StudioError(f"{what} not found: {path}")
-    except json.JSONDecodeError as exc:
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise StudioError(f"{what} is not valid JSON: {exc}")
 
 
-def check_locks(path: Path, source_index: Path | None = None) -> dict:
+def check_locks(path: Path, source_index: Path | None = None, data: bytes | None = None) -> dict:
     """Return {"doc", "by_id", "incomplete": {id: [problems]}, "approved": set}. Raise on refusals.
 
     Refusals are records that contradict themselves or the roster; incompleteness (a missing
     field) is reported as LOCK_INCOMPLETE so a studio can fill a lock in stages."""
-    doc = load_json(path, "target locks")
+    doc = load_json(path, "target locks", data)
     errs: list[str] = []
     if doc.get("schema") != "tnr.jutsu-studio.locks/1":
         errs.append("schema must be 'tnr.jutsu-studio.locks/1'")
@@ -990,9 +994,9 @@ def check_locks(path: Path, source_index: Path | None = None) -> dict:
 # ---------------------------------------------------------------------------------------------
 
 
-def check_attempts(path: Path, locks: dict | None = None) -> dict:
+def check_attempts(path: Path, locks: dict | None = None, data: bytes | None = None) -> dict:
     """Validate the studio's attempt log; return per-jutsu and family statistics. Raise on refusals."""
-    doc = load_json(path, "attempt log")
+    doc = load_json(path, "attempt log", data)
     errs: list[str] = []
     if doc.get("schema") != "tnr.jutsu-studio.attempts/1":
         errs.append("schema must be 'tnr.jutsu-studio.attempts/1'")
@@ -1001,11 +1005,18 @@ def check_attempts(path: Path, locks: dict | None = None) -> dict:
         raise StudioError("attempt log problems:\n  - " + "\n  - ".join(errs + ["attempts must be an array"]))
     per: dict[str, list[dict]] = {}
     rejected_shas: set = set()
+    session_owner: dict[str, str] = {}
     for pos, a in enumerate(rows):
         if not isinstance(a, dict) or not isinstance(a.get("jutsu_id"), str):
             errs.append(f"attempts[{pos}] needs a jutsu_id")
             continue
         per.setdefault(a["jutsu_id"], []).append(a)
+        sid = a.get("session_id")
+        if isinstance(sid, str) and sid.strip():  # one jutsu per isolated conversation (P0 s1)
+            owner = session_owner.setdefault(sid, a["jutsu_id"])
+            if owner != a["jutsu_id"]:
+                errs.append(f"session {sid!r} is used for {owner} and {a['jutsu_id']}; each isolated generation "
+                            f"conversation serves exactly one jutsu")
         if a.get("outcome") == "rejected" and SHA_RE.match(str(a.get("candidate_sha256") or "")):
             rejected_shas.add(a["candidate_sha256"])
     lock_ids = locks["by_id"] if locks else None
@@ -1078,19 +1089,24 @@ def check_attempts(path: Path, locks: dict | None = None) -> dict:
                 if lock_ids is not None and jid in lock_ids and jid not in locks["approved"]:
                     errs.append(f"{al}: approved before the target lock was DIRECTION_APPROVED")
                 approved_n, approved_sha = i, a.get("candidate_sha256")
-        last_sid = seq[-1].get("session_id") if seq else None
+        terminal = seq[-1] if seq else {}
+        terminal_sha = terminal.get("candidate_sha256") if terminal.get("outcome") == "approved" else None
+        last_sid = terminal.get("session_id")
         if streak.get(last_sid, 0) >= 2 and approved_n != len(seq):
             restart_required = last_sid
         stats[jid] = {"attempt_count": len(seq), **counts, "approved_raw_after_attempt_n": approved_n,
-                      "approved_candidate_sha256": approved_sha, "wrong_target_shown_to_director": shown_wrong,
+                      "terminal_outcome": terminal.get("outcome"), "terminal_attempt": terminal.get("attempt"),
+                      "approved_candidate_sha256": terminal_sha, "last_approved_sha256": approved_sha,
+                      "wrong_target_shown_to_director": shown_wrong,
                       "generator_wait_ms": wait if wait_n else None, "generator_wait_measured_n": wait_n,
                       "sessions": len({a.get("session_id") for a in seq}),
                       "restart_required_session": restart_required}
     if errs:
         raise StudioError("attempt log problems:\n  - " + "\n  - ".join(errs))
     fam = {"attempt_count": sum(s["attempt_count"] for s in stats.values()),
-           "approved": sum(1 for s in stats.values() if s["approved_raw_after_attempt_n"]),
-           "first_attempt_approvals": sum(1 for s in stats.values() if s["approved_raw_after_attempt_n"] == 1)}
+           "approved": sum(1 for s in stats.values() if s["approved_candidate_sha256"]),
+           "first_attempt_approvals": sum(1 for s in stats.values()
+                                          if s["approved_candidate_sha256"] and s["attempt_count"] == 1)}
     for k in ("wrong_target_count", "composition_count", "silhouette_conflict_count", "art_style_drift_count",
               "anatomy_rejection_count", "invented_symbol_count", "wrong_target_shown_to_director"):
         fam[k] = sum(s[k] for s in stats.values())
@@ -1117,10 +1133,11 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
     """Return the checked plan. Raise StudioError listing every problem found."""
     path = Path(path)
     try:
-        doc = json.loads(path.read_text(encoding="utf-8"))
+        approved_bytes = path.read_bytes()  # read once: these bytes are checked and sealed
+        doc = json.loads(approved_bytes.decode("utf-8"))
     except FileNotFoundError:
         raise StudioError(f"approved ledger not found: {path}")
-    except json.JSONDecodeError as exc:
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise StudioError(f"approved ledger is not valid JSON: {exc}")
     nums = spec_numbers(spec)
     root = Path(raw_root) if raw_root else path.parent
@@ -1150,6 +1167,11 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
         if not SHA_RE.match(str(fam_acc.get("gallery_sha256") or "")):
             errs.append("family_acceptance ACCEPTED must name the exact gallery_sha256 the director accepted; "
                         "acceptance never transfers to a different gallery")
+        if not SHA_RE.match(str(fam_acc.get("members_sha256") or "")):
+            errs.append("family_acceptance ACCEPTED must name members_sha256 (from the accepted showcase manifest); "
+                        "acceptance binds to the exact raw and export bytes too")
+        if fam_acc.get("gallery_pixels_sha256") is not None and not SHA_RE.match(str(fam_acc["gallery_pixels_sha256"])):
+            errs.append("family_acceptance gallery_pixels_sha256 must be a 64-hex digest when given")
     rows = doc.get("jutsu")
     if not isinstance(rows, list) or not rows:
         raise StudioError("approved ledger problems:\n  - " + "\n  - ".join(errs + ["jutsu must be a non-empty array"]))
@@ -1240,7 +1262,17 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
                      "approval": appr, "quantize": q})
 
     if source_index is not None:
-        src = json.loads(Path(source_index).read_text(encoding="utf-8"))
+        src = load_json(source_index, "source index")
+        sbl = src.get("bloodline") if isinstance(src.get("bloodline"), dict) else {}
+        for field in ("id", "name"):  # exact bloodline identity, not only the jutsu set
+            want_v = sbl.get(field)
+            if want_v in (None, ""):
+                continue
+            got = bl.get(field)
+            if got in (None, ""):
+                errs.append(f"bloodline.{field} is required: the intake roster records {want_v!r}")
+            elif (name_key(str(got)) != name_key(str(want_v))) if field == "name" else (got != want_v):
+                errs.append(f"bloodline.{field} {got!r} != intake {want_v!r}")
         roster = {j["jutsu_id"]: j["name"] for j in src.get("jutsu", [])}
         if not roster:
             errs.append("source index has no roster; N cannot be verified")
@@ -1253,8 +1285,16 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
                 errs.append(f"{p['jutsu_id']}: approved name {p['name']!r} != roster name {roster[p['jutsu_id']]!r}")
 
     lock_info = attempt_info = None
+    evidence: dict[str, dict] = {}
+    for key, src_path in (("locks", locks), ("attempts", attempts)):
+        if src_path is not None:  # read once; these exact bytes are what is checked and later sealed
+            try:
+                blob = Path(src_path).read_bytes()
+            except OSError as exc:
+                raise StudioError(f"{key} file {src_path} cannot be read: {exc}")
+            evidence[key] = {"path": str(src_path), "bytes": blob, "sha256": sha256(blob)}
     if locks is not None:
-        lock_info = check_locks(locks, source_index)
+        lock_info = check_locks(locks, source_index, evidence["locks"]["bytes"])
         if bl.get("id") not in (None, "") and lock_info["doc"].get("bloodline", {}).get("id") != bl.get("id"):
             errs.append(f"approved bloodline.id {bl.get('id')!r} != locks bloodline.id "
                         f"{lock_info['doc'].get('bloodline', {}).get('id')!r}")
@@ -1267,20 +1307,26 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
             elif name_key(str(tg.get("name"))) != name_key(p["name"]):
                 errs.append(f"{p['jutsu_id']}: lock name {tg.get('name')!r} != approved name {p['name']!r}")
     if attempts is not None:
-        attempt_info = check_attempts(attempts, lock_info)
+        attempt_info = check_attempts(attempts, lock_info, evidence["attempts"]["bytes"])
         for p in plan:
             st = attempt_info["per_jutsu"].get(p["jutsu_id"])
-            if st is None or not st["approved_candidate_sha256"]:
-                errs.append(f"{p['jutsu_id']}: the attempt log has no approved attempt for this jutsu")
+            if st is None:
+                errs.append(f"{p['jutsu_id']}: the attempt log has no attempt for this jutsu")
+            elif st["terminal_outcome"] != "approved":
+                errs.append(f"{p['jutsu_id']}: the terminal attempt ({st['terminal_attempt']}) is "
+                            f"{st['terminal_outcome']}, not approved; an earlier approval does not survive a later "
+                            f"attempt (record a fresh approved attempt to reaffirm it)")
             elif st["approved_candidate_sha256"] != p["raw_sha256"]:
-                errs.append(f"{p['jutsu_id']}: approved raw {p['raw_sha256'][:12]} is not the candidate of the last "
-                            f"approved attempt ({st['approved_candidate_sha256'][:12]})")
+                errs.append(f"{p['jutsu_id']}: approved raw {p['raw_sha256'][:12]} is not the candidate of the terminal "
+                            f"approved attempt ({str(st['approved_candidate_sha256'])[:12]})")
 
     if errs:
         raise StudioError("approved ledger problems:\n  - " + "\n  - ".join(errs))
     return {"doc": doc, "family": family, "bloodline": bl, "cap": cap, "family_acceptance": fam_acc,
-            "rows": plan, "approved_sha256": file_sha(path), "approved_bytes": path.read_bytes(),
-            "source_index_checked": source_index is not None, "locks": lock_info, "attempts": attempt_info}
+            "rows": plan, "approved_sha256": sha256(approved_bytes), "approved_bytes": approved_bytes,
+            "approved_path": str(path),
+            "source_index_checked": source_index is not None, "locks": lock_info, "attempts": attempt_info,
+            "evidence": evidence}
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1569,22 +1615,42 @@ def read_verified(path: Path, want_sha: str, what: str) -> bytes:
     return data
 
 
-def acceptance_for(recorded: dict, gallery_sha: str, gallery_pixels: str) -> dict:
-    """Director family acceptance applies only to the exact gallery it names (P0 F5)."""
+def members_commitment(icons: list[dict]) -> str:
+    """Ordered commitment to the family a gallery shows: (jutsu_id, approved raw sha, export sha)."""
+    return sha256(canon([[i["jutsu_id"], i["approved_raw_sha256"], i["output_sha256"]] for i in icons]).encode())
+
+
+def acceptance_for(recorded: dict, gallery_sha: str, gallery_pixels: str, members_sha: str) -> dict:
+    """Director family acceptance applies only to the exact family members AND gallery it names (P0 F5).
+
+    The member commitment must match (any changed raw or export bytes invalidate, even when the
+    pixels look identical). The gallery matches by file sha against the recorded file sha, or by
+    decoded-pixel sha against the recorded pixel sha; the two hash domains are never mixed."""
     status = recorded.get("status", "PENDING")
-    named = recorded.get("gallery_sha256")
-    matched = "file" if named == gallery_sha else "pixels" if named == gallery_pixels else None
+    named_file, named_pixels = recorded.get("gallery_sha256"), recorded.get("gallery_pixels_sha256")
+    named_members = recorded.get("members_sha256")
+    gallery_match = ("file" if named_file and named_file == gallery_sha else
+                     "pixels" if named_pixels and named_pixels == gallery_pixels else None)
+    members_match = bool(named_members) and named_members == members_sha
+    matched = gallery_match if members_match else None
     if status == "ACCEPTED":
         state = "ACCEPTED" if matched else "INVALIDATED"
     elif status == "REJECTED":
         state = "REJECTED" if matched else "PENDING"
     else:
         state = "PENDING"
-    out = {"status": state, "recorded_status": status, "recorded_gallery_sha256": named,
-           "recorded_evidence": recorded.get("evidence"), "matched_by": matched}
+    out = {"status": state, "recorded_status": status, "recorded_gallery_sha256": named_file,
+           "recorded_gallery_pixels_sha256": named_pixels, "recorded_members_sha256": named_members,
+           "recorded_evidence": recorded.get("evidence"), "matched_by": matched,
+           "members_match": members_match, "gallery_match": gallery_match}
     if state == "INVALIDATED":
-        out["note"] = (f"acceptance was for gallery {str(named)[:12]}; this gallery differs, so it needs a fresh "
-                       f"director decision on these exact pixels")
+        why = []
+        if not members_match:
+            why.append(f"family members changed (accepted {str(named_members)[:12]}, now {members_sha[:12]})")
+        if not gallery_match:
+            why.append(f"gallery differs (accepted {str(named_file)[:12]})")
+        out["note"] = ("acceptance no longer applies: " + "; ".join(why) +
+                       ". It needs a fresh director decision on these exact members and pixels.")
     return out
 
 
@@ -1607,8 +1673,10 @@ def audit_gallery(gallery: bytes, manifest: dict, exports_dir: Path) -> dict:
     if not icons or sum(rows) != len(icons) or manifest.get("n") != len(icons):
         problems.append(f"manifest n/row_lengths/icons disagree (n={manifest.get('n')}, rows={rows}, icons={len(icons)})")
         return {"verdict": "INVALID", "problems": problems, "notes": notes, "tiles": []}
-    if grid_rows(len(icons)) != rows:
-        notes.append(f"LAYOUT_RULE_OUTDATED: rows {rows}, current rule {grid_rows(len(icons))}")
+    layout_problems = []
+    if grid_rows(len(icons)) != rows:  # D5: a final gallery must use the approved layout
+        layout_problems.append(f"LAYOUT_NONCONFORMING: rows {rows}, approved rule for N={len(icons)} is "
+                               f"{grid_rows(len(icons))}")
     width, height, spots = layout(rows)
     if [width, height] != list((manifest.get("geometry") or {}).get("canvas") or []) or img.size != (width, height):
         problems.append(f"canvas {img.size[0]}x{img.size[1]} != layout {width}x{height} (manifest "
@@ -1652,11 +1720,18 @@ def audit_gallery(gallery: bytes, manifest: dict, exports_dir: Path) -> dict:
             box = ImageChops.difference(expected, img).getbbox()
             problems.append(f"non-tile pixels (captions/background/gutters) differ from the deterministic render, "
                             f"bounding box {box}")
+    if manifest.get("members_sha256") is not None and len(items) == len(icons) and \
+            manifest["members_sha256"] != members_commitment(icons):
+        problems.append("manifest members_sha256 does not commit to the listed jutsu/raw/export hashes")
     g = manifest.get("gallery") or {}
     if g.get("sha256") and g["sha256"] != sha256(gallery):
         notes.append("gallery file bytes differ from the manifest sha256" +
                      ("; decoded pixels are identical (re-encoded container)" if not problems else ""))
-    return {"verdict": "INVALID" if problems else "VALID", "problems": problems, "notes": notes, "tiles": tiles,
+    fidelity = "FAITHFUL" if not problems else "NOT_FAITHFUL"
+    all_problems = layout_problems + problems
+    return {"verdict": "INVALID" if all_problems else "VALID", "problems": all_problems, "notes": notes,
+            "tiles": tiles, "pixel_fidelity": fidelity,
+            "layout": "NONCONFORMING" if layout_problems else "CONFORMING",
             "gallery_sha256": sha256(gallery), "gallery_pixels_sha256": pixels_sha(img)}
 
 
@@ -1696,7 +1771,9 @@ def build_showcase(exports: list[dict], out: Path, plan: dict, preflight: dict, 
         "gallery": {"file": f"{stem}.png", "sha256": sha256(gallery), "pixels_sha256": gallery_pixels, "bytes": len(gallery)},
         "phone_preview": {"file": f"{stem}_phone.png", "sha256": sha256(phone), "bytes": len(phone)},
         "thumbnail_qc": {"file": f"{plan['family']}_jutsu_thumbs_125_64_32_{label}.png", "sha256": sha256(thumbs), "sizes": list(QC_SIZES)},
-        "director_family_acceptance": acceptance_for(plan["family_acceptance"], sha256(gallery), gallery_pixels),
+        "members_sha256": members_commitment(icons),
+        "director_family_acceptance": acceptance_for(plan["family_acceptance"], sha256(gallery), gallery_pixels,
+                                                     members_commitment(icons)),
         "canonical_preflight": {k: preflight.get(k) for k in ("verdict", "command", "exit_code", "spec_sha256", "script_sha256", "reason")},
         "status_note": "A family showcase is accepted only by an explicit director decision that names this gallery's sha256; "
                        "N raw approvals are not that decision. Never a game @img asset.",
@@ -1805,6 +1882,8 @@ def final_ledger(plan, exports, preflight, showcase, archives, spec_sha) -> dict
             "bloodline": plan["bloodline"], "family": plan["family"], "n": len(rows),
             "family_byte_cap_exclusive": plan["cap"], "family_byte_cap_ruling": plan["doc"].get("family_byte_cap_ruling"),
             "approved_ledger_sha256": plan["approved_sha256"], "spec_sha256": spec_sha,
+            "locks_sha256": plan["evidence"].get("locks", {}).get("sha256"),
+            "attempts_sha256": plan["evidence"].get("attempts", {}).get("sha256"),
             "tool": encoder_versions(), "rows": rows, "collection_gates": collection_gates(rows),
             "attempt_statistics": plan["attempts"]["family"] if plan.get("attempts") else None,
             "showcase_gallery_sha256": showcase and showcase["gallery"]["sha256"],
@@ -1889,11 +1968,11 @@ def finalize(approved: Path, out: Path, spec_path: Path = DEFAULT_SPEC, label: s
     wname = f"{plan['family']}_jutsu_icons_webps_PREFLIGHT_{verdict}_{len(exports)}webp_{label}.zip"
     ledger = final_ledger(plan, exports, preflight, showcase, True, spec_sha)
     members["manifest/studio_ledger.json"] = dump_json(ledger)
+    read_verified(Path(plan["approved_path"]), plan["approved_sha256"], "approved ledger")
     members["manifest/approved.json"] = plan["approved_bytes"]
-    if plan.get("locks"):
-        members["manifest/locks.json"] = Path(locks).read_bytes()
-    if plan.get("attempts"):
-        members["manifest/attempts.json"] = Path(attempts).read_bytes()
+    for key, ev in plan["evidence"].items():  # seal the verified bytes, and refuse if the file moved since
+        read_verified(Path(ev["path"]), ev["sha256"], f"{key} record")
+        members[f"manifest/{key}.json"] = ev["bytes"]
     members[f"qc/export_qc_{label}.json"] = dump_json(qc)
     members[f"qc/preflight_{label}.json"] = dump_json(preflight)
     members["SHA256SUMS"] = "".join(f"{sha256(members[n])}  {n}\n" for n in sorted(members)).encode()
@@ -2061,8 +2140,13 @@ def doctor(spec_path: Path = DEFAULT_SPEC, script: Path = DEFAULT_PREFLIGHT, pin
                                            + (f" ({rec.get('reason')})" if rec.get("reason") else ""))
         if not ran:
             reason = f"artpreflight probe did not run cleanly: {rec.get('reason') or rec.get('stderr', '')[:200]}"
+    # Every failed check blocks green. canonical_pins is reported through the NON_CANONICAL verdict;
+    # a git_ref_blobs check exists only when --git-ref was supplied, and then it must pass.
+    failed = [c["check"] for c in checks if not c["ok"] and c["check"] != "canonical_pins"]
     if reason:
         verdict = f"NOT_RUN: {reason}"
+    elif failed:
+        verdict = f"NOT_READY: failed {', '.join(failed)}"
     elif canon and canon["canonical"]:
         verdict = "RUN_CAPABLE_CANONICAL"
     else:
@@ -2237,7 +2321,8 @@ def main(argv=None) -> int:
                 print(f"  INVALID: {x}")
             for x in res["notes"]:
                 print(f"  note: {x}")
-            print(f"audit-gallery: {res['verdict']}  gallery sha256 {res.get('gallery_sha256', '-')}")
+            print(f"audit-gallery: {res['verdict']}  (pixel fidelity {res.get('pixel_fidelity', 'NOT_FAITHFUL')}, "
+                  f"layout {res.get('layout', '-')})  gallery sha256 {res.get('gallery_sha256', '-')}")
             return 0 if res["verdict"] == "VALID" else 1
         if args.cmd == "bench":
             sizes = [int(s) for s in args.sizes.split(",") if s.strip()]
