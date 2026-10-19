@@ -2,7 +2,7 @@
 
 **Studio:** Persistent ZIP-first Art Studio, not Bloodright tier emblems.
 **Lead:** Art Director; **support:** Image Production.
-**Director decisions (2026-10-19):** Sacred Heartwood treatment and five reserved technique silhouettes APPROVED; Guardian's Grove, Exploding Wood Serpent and Forest Wisdom now have individual raw visual approval (3/5). Wood Warrior Summon is next.
+**Director decisions (2026-10-19):** Sacred Heartwood treatment and the five family technique silhouette reservations APPROVED. Guardian's Grove, Exploding Wood Serpent, Forest Wisdom and Wood Warrior Summon have individual director-approved raw images (4/5). Eternal Forest is next.
 **Studio baseline:** `main@4e674234d0539b7010c34025034330980a38b196`. No live game requests.
 **Family:** Shinseina Ki / BR-066 / A rank / bloodline ID `vA8I_7iBNgvkuKOpnG1yD`.
 
@@ -30,39 +30,44 @@
 
 Lookalike action/silhouette is a failure even if palettes differ. Stress-test 125/64/32px. BBE's under-80,000-byte rule does **not** apply automatically.
 
-## Raw visual approvals — 3/5
+## Raw visual approvals — 4/5
 
-| Jutsu | Approved raw (uploaded bytes) | Director | Local export QC | Canonical preflight | Family gallery | Git binary pin |
+| Jutsu | Director-approved uploaded raw, actual decoded bytes | Raw acceptance | Local export QC | Canonical preflight | Gallery acceptance | Git binary pin |
 |---|---|---|---|---|---|---|
-| Guardian's Grove | JPEG RGB 1536×1536, 663,598 bytes; SHA-256 `814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8` | APPROVED | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
-| Exploding Wood Serpent | JPEG RGB 1536×1536, 645,451 bytes; SHA-256 `311dd5adbd377cf1189ffdd6c990a1aab7a9667fffc032083fac90254e626d54` | APPROVED | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
-| Forest Wisdom | JPEG RGB 1536×1536, 763,252 bytes; SHA-256 `9d2d1077c62ec9f375b82deff148fa9b3efc347c965e50e56d6d1344ef181556` | APPROVED | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
-| Wood Warrior Summon / Eternal Forest | No accepted raw yet | PENDING | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
+| Guardian's Grove | JPEG 1536×1536, 663598 bytes; SHA-256 `814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8` | APPROVED | NOT_RUN | NOT_RUN | PENDING | NOT_PERFORMED |
+| Exploding Wood Serpent | JPEG 1536×1536, 645451 bytes; SHA-256 `311dd5adbd377cf1189ffdd6c990a1aab7a9667fffc032083fac90254e626d54` | APPROVED | NOT_RUN | NOT_RUN | PENDING | NOT_PERFORMED |
+| Forest Wisdom | JPEG 1536×1536, 763252 bytes; SHA-256 `9d2d1077c62ec9f375b82deff148fa9b3efc347c965e50e56d6d1344ef181556` | APPROVED | NOT_RUN | NOT_RUN | PENDING | NOT_PERFORMED |
+| Wood Style: Wood Warrior Summon | Uploaded `1000018841.png` contains **JPEG** 1536×1536 RGB, 792381 bytes; SHA-256 `fc930c256b259328336dd48e068b4f28417bf7f090a39155686bda1bd9454086` | APPROVED | NOT_RUN | NOT_RUN | PENDING | NOT_PERFORMED |
+| Eternal Forest | None | PENDING | NOT_RUN | NOT_RUN | PENDING | NOT_PERFORMED |
 
-**Raw preservation:** Uploaded filenames `1000018837.png`, `1000018839.png`, `1000018840.png` all contain **JPEG bytes**, not PNG. Preserve exact source bytes as `raw_shinseina_ki_guardians_grove_v1.jpg`, `raw_shinseina_ki_exploding_wood_serpent_v1.jpg`, `raw_shinseina_ki_forest_wisdom_v1.jpg`. Original user uploads and approvals are verified; generator-native session/attempt provenance remains UNVERIFIED, and raw binaries are NOT pinned in Git.
+**Preservation:** The four director-approved upload files all had a `.png` filename but contain JPEG bytes; store their **exact original bytes**, under accurate `.jpg` names, in the local Studio recovery checkpoint. This is not proof of generator-native original-file or session/attempt provenance. Binary Git pins have not been performed. No re-encoding or mechanical export has occurred.
 
-**Visual QC:** The official `jutsu_studio.py compare` generated a non-generative 125/64/32 review aid comparing Forest Wisdom against Guardian's Grove and Exploding Wood Serpent. The solid heartwood disk/core, enclosing root cavern and exploding S-strike are visually distinct at all three sizes. Compare PNG SHA-256 `4152ff617e3c32ce2ee8fcbf93e8eed161c1c6a6ff53a20c6497aa91ef8b8417`. This **does not** certify final exported WebPs or gallery acceptance.
+**Wood Warrior's target-scoped art-direction deviation:** The accepted candidate portrays a head-like wooden crest, shoulders and limb-like bark armour. The originally approved pre-generation v1 lock explicitly excluded humanoid anatomy. The director visually approved **this exact image**, so record the acceptance and this narrow, target-specific visible exception together; do **not** silently recast the locked negatives, claim a separate verbal exception, or treat it as approval of anatomy in Eternal Forest or future icons. If formal P0 evidence requires a separately stated exception, flag this unresolved distinction at closeout; do not promote raw acceptance to all-gates PASS.
 
-**Recovery:** `shinseina_ki_studio_checkpoint_3of5_20261019.zip` preserves the three approved raw sources, byte hashes, source mapping, lock register, reference for the next target, and comparative review aid. Earlier checkpoints are historical. The checkpoint is NOT a P1 final production closeout or flat preflight-PASS export ZIP.
+**125/64/32 QC:** The actual repository `jutsu_studio.py compare` tool was run on the newly approved JPEG and all three previously approved raw JPEGs, with direct pixel inspection. Wood Warrior's rising armoured sentinel has a distinct upright mass; Guardian's Grove is the closing U-shaped cavern, Serpent is the exploding S-strike, and Forest Wisdom is a solid growth-ring disk. Review PNG SHA-256 `daefd709dc6bb0582f12d58c836435f0eded7311510e02ca41706335a43dfa7a`. This non-generative comparison is **not a final family showcase** or WebP QC.
+
+**Recovery:** `shinseina_ki_studio_checkpoint_4of5_20261019.zip` preserves four unchanged approved JPEG byte streams, the historical source index, target locks, hashes and non-generative compare records, plus the original identity art for the final target. This ZIP is **not** a full-family closeout or final WebP delivery.
 
 ## Target locks
 
-`docs/design/shinseina_ki/JUTSU_TARGET_LOCKS.json` is the `tnr.jutsu-studio.locks/1` register. All five locks are complete; four now have hash-bound direction approval grounded in the approved family reservations and sequential “Approved, next” instructions: Guardian's Grove, Exploding Wood Serpent, Forest Wisdom and Wood Warrior Summon. No separate individually quoted SHA acceptance is invented. `jutsu_studio.py lock-check --source-index`: PASS (2026-10-19), validating four approved locks and five complete roster identities. Eternal Forest remains direction PENDING.
+`docs/design/shinseina_ki/JUTSU_TARGET_LOCKS.json` is the `tnr.jutsu-studio.locks/1` source. All five target locks are complete and now have director-grounded direction approvals (approved five-family silhouette ledger and successive “Approved, next” instructions). This binds exact jutsu IDs, action, camera, motion, sibling exclusions and reference roles; the actual rendered pixels require separate human judgment. `jutsu_studio.py lock-check --source-index`: PASS on the five mapped roster targets. The Eternal Forest lock's v1 SHA-256 is `9a18d583149d0cacf490f48ec9a3af4b83569f85611ad7e7180d73a81eab29ed`, with Forest Wisdom's raw JPG as STYLE/MATERIAL ONLY.
 
-## Next — Wood Style: Wood Warrior Summon
+## Next — Eternal Forest (fifth and final technique)
 
-**Jutsu:** `LnzsA7WDqi06AU0s7yrVP` — A-rank BLOODLINE. The historical October 17 `jutsu.get` describes summoning one's ancestors' sacred guardian, with `target: EMPTY_GROUND` and a `summon` effect. It is not a broad forest trap, serpent or buff. Not proven against the current-live game.
+**Identity:** `D3t1nlaVAw8kLfjDO5Wvy`, A-rank BLOODLINE, Shinseina Ki / `vA8I_7iBNgvkuKOpnG1yD`.
 
-**Approved target lock:** A **single angular armoured heartwood war-pillar** visibly assembling upward from a burst of interlocking roots. Camera frontal three-quarter, motion bottom-to-top. Thick bark plates slot into a defined upright guardian/war-effigy silhouette, with **one** restrained jade chakra channel glowing through fitted seams. Powerful vertical architecture and a strong dark background; crisply readable at 125/64/32px.
+**Historical combat evidence:** October 17 read-only `jutsu.get` describes “Trap your enemy in a never ending Forest.” Its authored rows show one Wood-element damage hit and a wound effect, target `OTHER_USER`, method `SINGLE`. Neither is current-live proof of exact behavior. Original PNG member: `images/D3t1nlaVAw8kLfjDO5Wvy_Eternal_Forest.png`, original SHA-256 `92e1555eb68748287c1dbefa2b497980a5484237cef6681c7997a35fbe3956ac`.
 
-**Important technique constraint:** The old original shows a humanoid tree guardian; it is **identity reference only**. No literal body, human/wooden face, eyes, hands, arms or limbs are approved for this target. The guardian concept must read through wood-armour **construction and summoned emergence**, not anatomy. If actor-free composition proves inadequate, seek a target-specific director exception rather than assuming approval.
+**Approved dominant technique and silhouette:** A vast **V-shaped, repeating corridor of immense ancient tree walls** forms an apparently endless wood-and-chakra prison. Camera looks deep between **converging walls**, vanishing into a thin distant seam. Walls are physical thick bark/heartwood and advance inward around the unseen victim (no characters); the foreground becomes a strong V that compresses toward far distance. Motion: opposing walls press from sides toward the center while recurring trunk ribs shrink down the depth axis. A single jagged root edge or splintering pressure seam provides the wound/attack cue. Strong foreground root masses + small distant dark pocket, minimal emerald lighting along forced-in seams. Not a natural forest vista.
 
-**Sibling exclusions:** No Forest Wisdom solid ringed disk/central vortex, Guardian's Grove closing U-shaped root cavern, Serpent's attacking S-shaped coil/detonation, or Eternal Forest's V-shaped endless tree corridor. No runes, spells, floating sigils, text or UI.
+**Critical distinctness:** **NOT Guardian's Grove** — which has a near, fully enclosed U-shaped cavern and green toxic hollow; Eternal Forest is long-range forced perspective with repeated wall pairs and no rounded entrance/cave arch. NOT Forest Wisdom's solid circular disk/chakra core, Serpent's attack coil/explosion, Wood Warrior's giant vertical humanoid construct.
 
-**References:** Individually attach the **original Wood Warrior Summon PNG** (IDENTITY ONLY), SHA-256 `cc3db58546880fcd77c009eb1c4b46cc93898544fa3dfb6528da3a95b14d30b4`, and the **approved Guardian's Grove JPEG** (STYLE/MATERIAL ONLY), SHA-256 `814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8`. Never copy its root-arch prison silhouette. Each actual image must be attached to the isolated generator, no ZIP or URL-only conditioning.
+**Art controls:** Sacred Heartwood amber-gold heartwood, dark umber roots, restrained jade-green flowing chakra against deep charcoal. Premium controlled pixel-detail, no text/UI/symbols/runes/spell circles/actors/anatomy. No decorative endless glade/forest ambience, central standing fighter, circular chakra ring or magical vortex. Thumbnail-readability 125/64/32.
 
-**Lock v1 SHA-256:** `44b877dfc1339c45ea1e2f0cfe45950ac5aa917e36b813ece229ee9472bfd27b`.
+**Attached references (at most two):**
+1. Exact `92e1555eb687_D3t1nlaVAw8kLfjDO5Wvy_Eternal_Forest.png` — **IDENTITY ONLY** (never copy its human or luminous circular floor effect).
+2. Exact `raw_shinseina_ki_forest_wisdom_v1.jpg` — **STYLE/MATERIAL ONLY** (do not copy its round tree slice or central vortex).
 
-## Outstanding production gates
+## Remaining production gates
 
-ORIGINAL_SOURCE_VERIFIED: PASS (historical; not current live). DIRECTION_APPROVED: 4/5. RAW_VISUAL_APPROVED: 3/5. OUTPUT_LOCAL_QC: NOT_RUN. CANONICAL_PREFLIGHT: NOT_RUN (no final WebPs). FAMILY_SHOWCASE_ACCEPTED: PENDING. ZIP_DELIVERED (final N/N closeout): NOT_PERFORMED. GIT_BINARY_PIN: NOT_PERFORMED. USER_UPLOAD_READBACK: NOT_PERFORMED. Live-game requests/writes: 0/0; credentials: none.
+ORIGINAL_SOURCE_VERIFIED: PASS with historical roster, no live check. DIRECTION_APPROVED: 5/5. RAW_VISUAL_APPROVED: 4/5. OUTPUT_LOCAL_QC: NOT_RUN. CANONICAL_PREFLIGHT: NOT_RUN; a successful `doctor` only establishes capability. FAMILY_SHOWCASE_ACCEPTED: PENDING, not built. ZIP_DELIVERED: CHECKPOINT_ONLY (no N/N closeout). GIT_BINARY_PIN: NOT_PERFORMED. USER_UPLOAD_READBACK: NOT_PERFORMED. Live-game requests/writes: 0/0; credentials: none.
