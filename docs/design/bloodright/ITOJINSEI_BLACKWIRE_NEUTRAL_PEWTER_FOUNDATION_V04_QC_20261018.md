@@ -1,7 +1,7 @@
 # BR-036 Itojinsei — Blackwire Neutral Pewter V04, Source-Geometry-Locked Foundation Pilot
 
 **Date:** 2026-10-18 · **Lead:** Image Production · **Supporting lens:** Art Director.
-**Status:** NEW **FOUNDATION V04 PROPOSED — NOT DIRECTOR APPROVED**. Latest refined Freehand Foundation `futuristic_blackwire_diamond_emblem.png` was director **VISUALLY APPROVED** in conversation but is not assumed to match the universal geometry. The newly generated Hidden/Advanced freehand candidates are **NOT GEOMETRY-APPROVED OR FILE-ACCEPTED**. The existing 84/87 approved individual icons remain unchanged.
+**Status:** THE EXACT SOURCE-MASK-LOCKED **FOUNDATION V04 DIRECTOR APPROVED** after proposal was shown (2026-10-18 reply “Approved”). Latest refined Freehand Foundation `futuristic_blackwire_diamond_emblem.png` was director **VISUALLY APPROVED** in conversation but is not assumed to match the universal geometry. The newly generated Hidden/Advanced freehand candidates are **NOT GEOMETRY-APPROVED OR FILE-ACCEPTED**. The existing 84/87 approved individual icons remain unchanged.
 **Repository:** `perseverance484/tnr-tools`; `chatgpt/itojinsei-blackwire-finalization-20261018`; previous head `d5c7dc3e070bfbd73106b7aca04be5307bb262df`; art-lineage base `8b6edf8045b5f51331a7ac3f9c011e8907fe326d`. Read-only main confirmed `fd7e194afab71a5712b83d16397feffdf704e9d2`.
 
 ## Director feedback / family disambiguation
@@ -35,6 +35,12 @@ The V04 production script is deterministic, uses the actual 1254px geometry mast
 - **Complete source/master/reference/producer/independent QC package:** `BR036_Itojinsei_Blackwire_Neutral_Pewter_v04_Foundation_PROPOSED_Source_QC_20261018.zip`, **SHA-256 `e9a37b691244f5cae34085171a6e1f287129f6dbd29adf4632e0ae9536d1efcf`**, 13,174,730 bytes. Contains immutable latest director-approved visual source, earlier three-emblem source, jutsu source ZIP, immutable original master ZIP, deterministic Python producer, independent geometry/codec replay auditor, one separate Foundation raw PNG, one VP8L WebP, 125/64/32 QC and a comparison assembled programmatically from individual actual saved image pixels. 13 members, CRC/member byte-integrity PASS, double-build exactly reproducible.
 - **WebP-only review ZIP:** `BR036_Itojinsei_Blackwire_Neutral_Pewter_v04_Foundation_WebP_PROPOSED_20261018.zip`, SHA **`c9192167f05f46d27d2680ebf6ddb5f46a5e97365cea771e735c4091ef30f01f`** (one 256px file, 34,941 bytes).
 - **Review:** `qc/BR036_Itojinsei_Blackwire_Neutral_Pewter_v04_Review.png` shows latest accepted visual reference vs exact geometry master vs new actual 256px neutral-source version vs separate accepted BR-063 Shadow Weaver Ebony Silk Foundation. `qc/BR036_Itojinsei_Blackwire_v04_125_64_32_QC.png` confirms readability tests.
+
+## 2026-10-18 specific director approval — no image pixels changed
+
+The director explicitly answered **“Approved”** to the actual Neutral Pewter V04 Foundation source image and 256px VP8L review, including the transparently reported dark-cable **internal brightness-mask exception** (original master t=1 support / black void exact; maxRGB intensity differs internally). Its original `1254px PNG` SHA **`e03ea5410ce31ffe9f0a85ebcc807e2e0d8332cba1737c64d781f38b78fa3a27`** and original `256px VP8L` SHA **`f992a71182e7d52ee7b21d758ad0180434be244fa7483def19efa7f14ba451fc`** remain byte-identical; neither was repainted or regenerated.
+
+As requested, the same deterministic recipe was applied to each of the two remaining immutable high-resolution approved tier masks. New **individual** Hidden Art and Advanced Art source PNG/WebP proposals passed a separate 121-check independent source/format/mask/readback/clean-replay audit and 28 further ZIP byte/CRC/determinism checks. **They are not yet director-approved**, and the approved 84-file collection remains unchanged. Specific proposals and SHA: [ITOJINSEI_BLACKWIRE_NEUTRAL_PEWTER_V04_TRIO_REVIEW_QC_20261018.md](ITOJINSEI_BLACKWIRE_NEUTRAL_PEWTER_V04_TRIO_REVIEW_QC_20261018.md).
 
 ## Next user-controlled decision and remaining technical gates
 
