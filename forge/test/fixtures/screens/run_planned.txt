@@ -1,9 +1,9 @@
 <section>
   <div>
     <b>
-      #text "push/45_fixture.json"
-    <span class="f-pill RUNNING">
-      #text "RUNNING"
+      #text "45_fixture.json"
+    <span class="f-pill PAUSED">
+      #text "INTERRUPTED"
     <span class="f-mute">
       #text " · started 0s ago"
   <div class="f-bar">
@@ -12,7 +12,7 @@
     <button class="f-primary">
       #text "Resume"
     <button>
-      #text "Export bundle"
+      #text "Export results"
   <h3>
     #text "Budget (limited reads, per path, this minute)"
   <div class="f-card">
@@ -23,7 +23,7 @@
   <div class="f-row">
     <div class="f-grow">
       <div>
-        #text "0. Fixture Jutsu "
+        #text "1. Fixture Jutsu "
         <span class="f-pill PLANNED">
           #text "PLANNED"
         <span class="f-mute">
@@ -31,7 +31,7 @@
   <div class="f-row">
     <div class="f-grow">
       <div>
-        #text "1. Fixture Item "
+        #text "2. Fixture Item "
         <span class="f-pill PLANNED">
           #text "PLANNED"
         <span class="f-mute">

@@ -22,12 +22,12 @@ export const CSS = `
 .f-app .f-top { position:sticky; top:0; z-index:10; background:var(--panel); border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px; padding:8px 10px; }
 .f-app .f-title { font-weight:700; letter-spacing:.02em; }
 .f-app .f-ver { color:var(--mute); font-size:12px; margin-left:auto; }
-.f-app .f-exit { min-height:32px; padding:4px 10px; font-size:13px; }
+.f-app .f-exit { min-height:44px; padding:4px 12px; font-size:13px; }
 .f-app .f-nav { display:flex; gap:4px; overflow-x:auto; padding:6px 8px; background:var(--panel); border-bottom:1px solid var(--line); }
-.f-app .f-nav button { flex:1 0 auto; min-height:40px; }
+.f-app .f-nav button { flex:1 1 0; min-width:0; min-height:44px; padding:8px 4px; font-size:14px; }
 .f-app .f-nav button[aria-current="page"] { background:var(--acc); color:#0b0d12; }
 .f-app .f-main { flex:1; padding:12px 10px 80px; max-width:760px; width:100%; margin:0 auto; }
-.f-app h2 { font-size:17px; margin:14px 0 8px; } .f-app h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
+.f-app h2 { font-size:17px; margin:14px 0 8px; overflow-wrap:anywhere; } .f-app h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
 .f-app button, .f-app .f-btn { font:inherit; min-height:44px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#222733; color:var(--ink); cursor:pointer; }
 .f-app button:disabled { opacity:.45; cursor:default; }
 .f-app button.f-primary { background:var(--acc); color:#0b0d12; border-color:transparent; font-weight:600; }
@@ -38,21 +38,28 @@ export const CSS = `
 .f-app .f-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
 .f-app .f-row:last-child { border-bottom:0; }
 .f-app .f-row.f-tap { cursor:pointer; } .f-app .f-row.f-tap:active { background:#1d2230; }
-.f-app .f-grow { flex:1; min-width:0; } .f-app .f-mute { color:var(--mute); font-size:13px; } .f-app .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
+.f-app .f-row.f-sel { background:#1a2237; box-shadow: inset 3px 0 0 var(--acc); padding-left:8px; }
+.f-app .f-list { margin:6px 0 0; padding-left:20px; } .f-app .f-list li { margin:4px 0; }
+.f-app .f-more summary { font-size:13px; min-height:44px; display:flex; align-items:center; }
+.f-app details.f-group { border-bottom:1px solid var(--line); } .f-app details.f-group > summary { padding:12px 0; color:var(--ink); }
+.f-app .f-grow { flex:1; min-width:0; overflow-wrap:anywhere; } .f-app .f-mute { color:var(--mute); font-size:13px; } .f-app .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
 .f-app .f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
 .f-app .f-pill.PLANNED { color:var(--mute); } .f-app .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-app .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
 .f-app .f-pill.VERIFIED, .f-app .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-app .f-pill.FAILED, .f-app .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
 .f-app .f-pill.ORPHANED, .f-app .f-pill.PAUSED, .f-app .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-app .f-pill.SKIPPED { color:var(--mute); }
 .f-app .f-authbar { padding:0 10px; max-width:760px; width:100%; margin:0 auto; }
 .f-app .f-authbar:empty { display:none; }
-.f-app .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
+.f-app .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; overflow-wrap:anywhere; }
+.f-app .f-banner.f-compact { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:2px 4px 2px 12px; }
+.f-app .f-banner.f-compact .f-actions { margin:0; }
 .f-app .f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-app .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-app .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-app .f-banner.info { border-color:var(--acc); background:#141b2e; }
 .f-app .f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-app .f-bar > i { display:block; height:100%; background:var(--acc); }
 .f-app .f-bar.warn > i { background:var(--warn); }
 .f-app .f-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
 .f-app .f-kv { display:grid; grid-template-columns: auto 1fr; gap:4px 12px; font-size:13px; } .f-app .f-kv b { color:var(--mute); font-weight:500; }
-.f-app .f-err { white-space:pre-wrap; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
+.f-app .f-err { white-space:pre-wrap; overflow-wrap:anywhere; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
 .f-app .f-toast { position:fixed; left:10px; right:10px; bottom:12px; z-index:2147483001; }
+.f-app .f-toast .f-banner { cursor:pointer; box-shadow:0 4px 16px #000a; }
 .f-app details summary { cursor:pointer; color:var(--mute); }
 .f-boot .f-mute { color:var(--mute); font-size:13px; }
 .f-boot p { margin:8px 0; max-width:52ch; }
