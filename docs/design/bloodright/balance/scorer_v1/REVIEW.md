@@ -2,6 +2,8 @@
 
 Cumulative Bloodright bonuses per build, prerequisites included (RUL-2026-10-18-001 presentation). Weight = seven-round HP-equivalent value / 50.5 (1 = 1% of a level-100 health pool), scored by `scripts/bloodright_balance/` against a mirror of the kit. Pierce and Heal bonuses are flat power: +5 Pierce adds 5 power to each pierce hit, +5 Heal adds 50 HP per heal tick.
 
+Strength is compared with the pre-rebalance Taiyo Kami exemplar: its average full build, 4.23 Weight, is the anchor the search pulls every tree toward.
+
 
 ## Aerathiel
 

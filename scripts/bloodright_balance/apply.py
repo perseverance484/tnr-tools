@@ -66,6 +66,9 @@ def main(src):
                   "health pool), scored by `scripts/bloodright_balance/` against a mirror of the kit. Pierce and "
                   "Heal bonuses are flat power: +5 Pierce adds 5 power to each pierce hit, +5 Heal adds 50 HP "
                   "per heal tick.\n")
+    anchor = json.loads((src / "taiyo_kami.json").read_text())["anchor"]
+    review.append(f"Strength is compared with the pre-rebalance Taiyo Kami exemplar: its average full build, "
+                  f"{anchor:.2f} Weight, is the anchor the search pulls every tree toward.\n")
     for slug in sorted(current):
         f = src / f"{slug}.json"
         r = json.loads(f.read_text())
