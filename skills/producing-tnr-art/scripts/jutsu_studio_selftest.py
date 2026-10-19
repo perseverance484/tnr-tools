@@ -112,6 +112,7 @@ def main() -> int:
         run_layout_tests()
         run_finalize_tests(tmp, spec, nums)
         run_p1_tests(tmp, spec, nums)
+        run_correction_tests(tmp, spec, nums)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print(f"\n{PASSES} passed, {len(FAILS)} failed")
@@ -323,8 +324,9 @@ def run_finalize_tests(tmp: Path, spec: dict, nums: dict) -> None:
         ("cap without ruling", lambda d: d.update(family_byte_cap_exclusive=80000, family_byte_cap_ruling=None), "director decision"),
         ("quantize without approval", lambda d: d["jutsu"][0].__setitem__("quantize", {"method": "MEDIANCUT", "colors": 256}), "director_approved"),
         ("bad slug", lambda d: d["jutsu"][0].__setitem__("slug", "Bad Slug"), "slug"),
-        ("family accepted without evidence", lambda d: d.__setitem__("family_acceptance", {"status": "ACCEPTED", "evidence": "", "gallery_sha256": "a" * 64}), "evidence"),
-        ("family accepted without a gallery sha", lambda d: d.__setitem__("family_acceptance", {"status": "ACCEPTED", "evidence": "director said yes"}), "gallery_sha256"),
+        ("family accepted without evidence", lambda d: d.__setitem__("family_acceptance", {"status": "ACCEPTED", "evidence": "", "gallery_sha256": "a" * 64, "members_sha256": "b" * 64}), "evidence"),
+        ("family accepted without a gallery sha", lambda d: d.__setitem__("family_acceptance", {"status": "ACCEPTED", "evidence": "director said yes", "members_sha256": "b" * 64}), "gallery_sha256"),
+        ("family accepted without a members commitment", lambda d: d.__setitem__("family_acceptance", {"status": "ACCEPTED", "evidence": "director said yes", "gallery_sha256": "a" * 64}), "members_sha256"),
     ]
     for label, mutate, needle in checks:
         d = copy.deepcopy(doc)
@@ -523,8 +525,11 @@ def run_p1_tests(tmp: Path, spec: dict, nums: dict) -> None:
     root, path, doc = family(base, 3, name="acc")
     r1 = js.finalize(path, root / "out", label="v1")
     g1 = r1["showcase"]["gallery"]["sha256"]
+    m1 = r1["showcase"]["members_sha256"]
+    p1 = r1["showcase"]["gallery"]["pixels_sha256"]
     d = copy.deepcopy(doc)
-    d["family_acceptance"] = {"status": "ACCEPTED", "evidence": "fixture: director accepted v1 sheet", "gallery_sha256": g1}
+    d["family_acceptance"] = {"status": "ACCEPTED", "evidence": "fixture: director accepted v1 sheet", "gallery_sha256": g1,
+                              "gallery_pixels_sha256": p1, "members_sha256": m1}
     rewrite(path, d)
     r2 = js.finalize(path, root / "out", label="v1acc")
     want(r2["showcase"]["director_family_acceptance"]["status"] == "ACCEPTED"
@@ -539,11 +544,46 @@ def run_p1_tests(tmp: Path, spec: dict, nums: dict) -> None:
     want(acc["status"] == "INVALIDATED" and acc["recorded_gallery_sha256"] == g1
          and all(r["gates"]["FAMILY_SHOWCASE_ACCEPTED"] == "INVALIDATED" for r in r3["ledger"]["rows"]),
          "a changed raw invalidates the earlier acceptance instead of inheriting it")
-    d["family_acceptance"] = {"status": "REJECTED", "evidence": "fixture", "gallery_sha256": g1}
+    d["family_acceptance"] = {"status": "REJECTED", "evidence": "fixture", "gallery_sha256": g1, "members_sha256": m1}
     rewrite(path, d)
     r4 = js.finalize(path, root / "out", label="v2rej")
     want(r4["showcase"]["director_family_acceptance"]["status"] == "PENDING",
          "a rejection of an older gallery leaves the new gallery PENDING, not REJECTED")
+
+    print("\nF1 acceptance binds to member bytes, not only gallery pixels")
+    from PIL import PngImagePlugin
+    d = copy.deepcopy(doc)
+    d["family_acceptance"] = {"status": "ACCEPTED", "evidence": "fixture", "gallery_sha256": g1,
+                              "gallery_pixels_sha256": p1, "members_sha256": m1}
+    meta = root / "raws" / "r0_meta.png"
+    info = PngImagePlugin.PngInfo()
+    info.add_text("Comment", "metadata only")
+    with Image.open(root / doc["jutsu"][0]["raw_file"]) as im:
+        im.save(meta, "PNG", pnginfo=info)
+    with Image.open(meta) as a, Image.open(root / doc["jutsu"][0]["raw_file"]) as b:
+        same_pixels = a.convert("RGB").tobytes() == b.convert("RGB").tobytes()
+    d["jutsu"][0].update(raw_file="raws/r0_meta.png", raw_sha256=js.file_sha(meta), version=3,
+                         superseded_raw_sha256=[doc["jutsu"][0]["raw_sha256"]])
+    rewrite(path, d)
+    r5 = js.finalize(path, root / "out", label="v3meta")
+    a5 = r5["showcase"]["director_family_acceptance"]
+    want(same_pixels and js.file_sha(meta) != doc["jutsu"][0]["raw_sha256"] and r5["showcase"]["gallery"]["sha256"] == g1
+         and a5["status"] == "INVALIDATED" and not a5["members_match"] and a5["gallery_match"] == "file",
+         "a metadata-only raw re-encode keeps identical gallery pixels/bytes yet INVALIDATES the acceptance")
+    icons = r1["showcase"]["icons"]
+    rec = {"status": "ACCEPTED", "gallery_sha256": g1, "gallery_pixels_sha256": p1, "members_sha256": m1}
+    want(js.acceptance_for(rec, "e" * 64, p1, m1)["status"] == "ACCEPTED"
+         and js.acceptance_for(rec, "e" * 64, p1, m1)["matched_by"] == "pixels",
+         "a re-encoded gallery container with identical pixels and members stays ACCEPTED (pixel domain)")
+    cross = {"status": "ACCEPTED", "gallery_sha256": p1, "members_sha256": m1}
+    want(js.acceptance_for(cross, "e" * 64, p1, m1)["status"] == "INVALIDATED",
+         "a recorded file sha is never compared with a pixel sha (no cross-domain match)")
+    swapped = copy.deepcopy(icons)
+    swapped[1]["output_sha256"] = "f" * 64
+    want(js.acceptance_for(rec, g1, p1, js.members_commitment(swapped))["status"] == "INVALIDATED",
+         "a pixel-equivalent but byte-different export invalidates the acceptance")
+    want(js.acceptance_for({"status": "ACCEPTED", "gallery_sha256": g1}, g1, p1, m1)["status"] == "INVALIDATED",
+         "an acceptance without a members commitment never matches")
     rewrite(path, doc)
 
     print("\nP1 every stage re-proves its inputs (G2, G3)")
@@ -856,8 +896,8 @@ def run_p1_tests(tmp: Path, spec: dict, nums: dict) -> None:
          "approved raws that match their approved attempts and approved locks verify")
     write_attempts([attempt("J0", 1, "s0", "approved", sha="f" * 64)] +
                    [attempt(f"J{i}", 1, f"s{i}", "approved", sha=doc["jutsu"][i]["raw_sha256"]) for i in (1, 2)])
-    want(refused(lambda: js.verify_approved(path, spec, locks=lp, attempts=ap_), "last approved attempt"),
-         "an approved raw that is not its last approved candidate is refused")
+    want(refused(lambda: js.verify_approved(path, spec, locks=lp, attempts=ap_), "terminal approved attempt"),
+         "an approved raw that is not its terminal approved candidate is refused")
     lp.write_text(json.dumps(lock_doc(names, approve=False)))
     want(refused(lambda: js.verify_approved(path, spec, locks=lp), "DIRECTION_APPROVED"),
          "a raw whose target lock is not direction-approved is refused")
@@ -889,6 +929,133 @@ def run_p1_tests(tmp: Path, spec: dict, nums: dict) -> None:
          "compare is deterministic (identical rerun)")
     want(refused(lambda: js.compare(cand, [cand] + fam_files, base / "cmp", label="c2"), "same bytes twice"),
          "a candidate listed in its own family is refused")
+
+
+# ---------------------------------------------------------------------------------------------
+# review corrections F2-F6 (docs/reviews/JUTSU_ICON_P1_FROZEN_SHA_REVIEW_20261019.md)
+# ---------------------------------------------------------------------------------------------
+
+
+def run_correction_tests(tmp: Path, spec: dict, nums: dict) -> None:
+    base = tmp / "corr"
+    base.mkdir()
+    names = ["Technique Number 1", "Technique Number 2", "Technique Number 3"]
+
+    print("\nF2 sealed lock/attempt/approval evidence is the verified bytes")
+    root, path, doc = family(base, 3, name="evid")
+    lp, ap_ = root / "locks.json", root / "attempts.json"
+    lp.write_text(json.dumps(lock_doc(names)))
+    good_attempts = {"schema": "tnr.jutsu-studio.attempts/1",
+                     "attempts": [attempt(f"J{i}", 1, f"s{i}", "approved", sha=doc["jutsu"][i]["raw_sha256"]) for i in range(3)]}
+    ap_.write_text(json.dumps(good_attempts))
+
+    def swap_after_showcase(target: Path, content: bytes):
+        def hook(stage):
+            if stage == "showcase":
+                target.write_bytes(content)
+        return hook
+
+    for label, target, content in (
+            ("lock", lp, json.dumps(lock_doc(names, approve=False)).encode()),
+            ("attempt", ap_, b'{"schema": "tnr.jutsu-studio.attempts/1", "attempts": []}'),
+            ("approved", path, json.dumps({**doc, "family_acceptance": {"status": "REJECTED"}}).encode())):
+        keep_l, keep_a, keep_p = lp.read_bytes(), ap_.read_bytes(), path.read_bytes()
+        out = root / f"out_{label}"
+        msg = expect_raise(lambda: js.finalize(path, out, label="v1", locks=lp, attempts=ap_,
+                                               on_stage=swap_after_showcase(target, content)))
+        want("not the recorded bytes" in msg and not (out / "dist").exists(),
+             f"a {label} record swapped after verification is refused before any archive is written")
+        lp.write_bytes(keep_l)
+        ap_.write_bytes(keep_a)
+        path.write_bytes(keep_p)
+    ok = js.finalize(path, root / "out_ok", label="v1", locks=lp, attempts=ap_)
+    zf = zipfile.ZipFile(root / "out_ok" / "dist" / ok["archives"]["closeout"]["file"])
+    want(zf.read("manifest/locks.json") == lp.read_bytes() and zf.read("manifest/attempts.json") == ap_.read_bytes()
+         and ok["ledger"]["locks_sha256"] == js.sha256(lp.read_bytes())
+         and ok["ledger"]["attempts_sha256"] == js.sha256(ap_.read_bytes()),
+         "the closeout seals exactly the verified lock/attempt bytes and the ledger records their sha256")
+
+    print("\nF3 terminal approval and one jutsu per session")
+    rows = [attempt("J0", 1, "s0", "approved", sha=doc["jutsu"][0]["raw_sha256"]),
+            attempt("J0", 2, "s0", "rejected", ["quality"])] + \
+           [attempt(f"J{i}", 1, f"s{i}", "approved", sha=doc["jutsu"][i]["raw_sha256"]) for i in (1, 2)]
+    ap_.write_text(json.dumps({"schema": "tnr.jutsu-studio.attempts/1", "attempts": rows}))
+    want(refused(lambda: js.verify_approved(path, spec, locks=lp, attempts=ap_), "terminal attempt (2) is rejected"),
+         "an approval followed by a later rejection does not let the earlier raw finalize")
+    rows.insert(2, attempt("J0", 3, "s0b", "approved", sha=doc["jutsu"][0]["raw_sha256"]))
+    ap_.write_text(json.dumps({"schema": "tnr.jutsu-studio.attempts/1", "attempts": rows}))
+    want(len(js.verify_approved(path, spec, locks=lp, attempts=ap_)["rows"]) == 3,
+         "a fresh terminal approved attempt re-affirms the raw explicitly")
+    shared = [attempt("J0", 1, "shared", "approved", sha=doc["jutsu"][0]["raw_sha256"]),
+              attempt("J1", 1, "shared", "approved", sha=doc["jutsu"][1]["raw_sha256"]),
+              attempt("J2", 1, "s2", "approved", sha=doc["jutsu"][2]["raw_sha256"])]
+    ap_.write_text(json.dumps({"schema": "tnr.jutsu-studio.attempts/1", "attempts": shared}))
+    want(refused(lambda: js.check_attempts(ap_), "exactly one jutsu"), "one session id used for two jutsu is refused")
+    ap_.write_text(json.dumps(good_attempts))
+
+    print("\nF4 doctor is green only when every check passes")
+    bad = js.doctor(git_ref="does-not-exist-ref")
+    want(bad["verdict"].startswith("NOT_READY") and "git_ref_blobs" in bad["verdict"],
+         "a supplied --git-ref that cannot be compared blocks green")
+    want(js.main(["doctor", "--git-ref", "does-not-exist-ref"]) == 3, "doctor exits non-zero with a failed requested check")
+    real = js.encode_webp
+    flip = {"n": 0}
+
+    def unstable(img):
+        flip["n"] += 1
+        buf = io.BytesIO()
+        img.save(buf, "WEBP", lossless=True, method=6 if flip["n"] % 2 else 0, exact=True)
+        return buf.getvalue()
+
+    js.encode_webp = unstable
+    try:
+        nd = js.doctor()
+    finally:
+        js.encode_webp = real
+    want(nd["verdict"].startswith("NOT_READY") and "encoder_determinism" in nd["verdict"],
+         "a non-deterministic encoder blocks green even when the preflight probe runs")
+    want(js.doctor()["verdict"] == "RUN_CAPABLE_CANONICAL", "with every check passing doctor is green")
+
+    print("\nF5 audit refuses a non-conforming layout as final")
+    r10, p10, d10 = family(base, 10, name="ten", size=256)
+    res10 = js.finalize(p10, r10 / "out", label="v1", stop_after="preflight")
+    ex10 = r10 / "out" / "exports"
+    items, icons = [], []
+    for e in res10["exports"]:
+        data = (ex10 / e["output"]).read_bytes()
+        items.append({"name": e["name"], "output_bytes": len(data), "tile": js.tile_from_export(data)})
+    old_rows = [4, 4, 2]
+    canvas, placed, _ = js.render_canvas(items, old_rows)
+    for e, pl in zip(res10["exports"], placed):
+        icons.append({"jutsu_id": e["jutsu_id"], "jutsu_name": e["name"], "approved_raw_sha256": e["raw_sha256"],
+                      "output_filename": e["output"], "output_sha256": e["output_sha256"],
+                      "output_bytes": e["output_bytes"], **pl})
+    old_man = {"schema": "tnr.jutsu-showcase/1", "n": 10, "row_lengths": old_rows, "icons": icons,
+               "geometry": {"canvas": list(canvas.size)}, "members_sha256": js.members_commitment(icons)}
+    au = js.audit_gallery(png_of(canvas), old_man, ex10)
+    want(au["verdict"] == "INVALID" and au["layout"] == "NONCONFORMING" and au["pixel_fidelity"] == "FAITHFUL",
+         "a faithful 4+4+2 ten-icon sheet is INVALID as a final gallery but reported pixel-FAITHFUL")
+    full10 = js.finalize(p10, r10 / "out", label="v1full")
+    want(full10["showcase"]["row_lengths"] == [4, 3, 3], "the tool itself builds 10 = 4+3+3")
+    bad_man = copy.deepcopy(old_man)
+    bad_man["members_sha256"] = "0" * 64
+    want(any("members_sha256" in x for x in js.audit_gallery(png_of(canvas), bad_man, ex10)["problems"]),
+         "a manifest whose members commitment disagrees with its icons is a problem")
+
+    print("\nF6 source-index bloodline identity")
+    si = base / "si_bl.json"
+    si.write_text(json.dumps({"bloodline": {"id": "BLX", "name": "Fixture Line"},
+                              "jutsu": [{"jutsu_id": f"J{i}", "name": names[i]} for i in range(3)]}))
+    want(len(js.verify_approved(path, spec, source_index=si)["rows"]) == 3, "matching bloodline identity verifies")
+    for label, change, needle in (("a different bloodline id", {"id": "OTHER"}, "!= intake 'BLX'"),
+                                  ("a missing bloodline id", {"id": ""}, "bloodline.id is required"),
+                                  ("a different bloodline name", {"name": "Some Other Line"}, "bloodline.name")):
+        dd = copy.deepcopy(doc)
+        dd["bloodline"].update(change)
+        rewrite(path, dd)
+        want(refused(lambda: js.verify_approved(path, spec, source_index=si), needle),
+             f"{label} against the intake roster is refused (no --locks needed)")
+    rewrite(path, doc)
 
 
 if __name__ == "__main__":
