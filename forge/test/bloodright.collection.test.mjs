@@ -357,3 +357,30 @@ test("a name clash with an existing folder names that folder's ID, so it can be 
   await d.core.selectManifest(d.entry());
   assert.ok(d.core.state.selected.problems.some((p) => /folder "Test collection folder" exists \(existingF1, hidden\)/.test(p)), d.core.state.selected.problems.join(" | "));
 });
+
+test("reassign: a bound skill moved to another bloodline is refused unless the package names it, then moved back and verified", async () => {
+  const d = setup();
+  const hp = d.game.skills.get(HP);
+  hp.bloodlineId = "1C34syOOEKp6k3UKweYT6"; // moved by hand to another bloodline
+  await d.core.selectManifest(d.entry());
+  assert.ok(d.core.state.selected.problems.some((p) => /binding belongs to another bloodline/.test(p)));
+  const node = Object.keys(d.pkg.bloodrightCollection.trees[0].bindings.nodes)[0];
+  d.pkg.bloodrightCollection.trees[0].bindings.reassign = [node];
+  await d.core.selectManifest(d.entry());
+  assert.deepEqual(d.core.state.selected.problems, []);
+  const row = d.core.state.selected.bloodright.preview.find((r) => r.targetId === HP);
+  assert.ok(row.changes.some((c) => c.key === "bloodlineId"), JSON.stringify(row.changes));
+  await d.core.startJob();
+  assert.equal(d.game.skills.get(HP).bloodlineId, design.bloodline.id);
+  assert.ok(d.journal.listJobs().every((j) => j.state === "DONE"));
+});
+
+test("reassign refuses to move a skill other skills require", async () => {
+  const d = setup();
+  d.game.skills.get(HP).bloodlineId = "1C34syOOEKp6k3UKweYT6";
+  d.game.skills.set("dependent", { ...structuredClone(d.game.skills.get(HP)), id: "dependent", name: "Needs Hungry Pulse", tier: 2, requiredSkillIds: [HP] });
+  const node = Object.keys(d.pkg.bloodrightCollection.trees[0].bindings.nodes)[0];
+  d.pkg.bloodrightCollection.trees[0].bindings.reassign = [node];
+  await d.core.selectManifest(d.entry());
+  assert.ok(d.core.state.selected.problems.some((p) => /other skills require/.test(p)), d.core.state.selected.problems.join(" | "));
+});

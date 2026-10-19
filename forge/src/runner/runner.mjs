@@ -598,7 +598,7 @@ export class Runner {
     if (live.data == null && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${id}; recheck the session, hidden-content access and target before resuming` });
     if (live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
     if (isBloodrightEntity(item.entity)) {
-      if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || live.data.bloodlineId !== data.bloodlineId || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
+      if (item.entity === "skillTree" && (live.data.pathType !== "BLOODRIGHT" || (live.data.bloodlineId !== data.bloodlineId && !planned.reassign) || !live.data.hidden)) throw new Error("Bloodright binding no longer identifies hidden content for this bloodline");
       if (item.op === "create" && item.entity === "skillTree" && live.data.name !== rc.placeholder(id) && diffAsserted(item.entity, data, live.data).length) throw new Error("adopted skill is not the expected placeholder; refusing to overwrite it");
       if (!diffAsserted(item.entity, data, live.data).length) {
         const reuse = { entityId: id, phase: "verify", reused: true, asserted: Object.keys(data) };
