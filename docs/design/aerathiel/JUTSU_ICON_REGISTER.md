@@ -1,6 +1,6 @@
 # Aerathiel — Jutsu Icon Art Studio Register
 
-**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD RAW VISUAL APPROVED (1/5), 2026-10-19. Next target: Windshear Decay.
+**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD + WINDSHEAR DECAY RAW VISUAL APPROVED (2/5), 2026-10-19. Next target: Death's March.
 **Scope:** five `jutsu.image` remasters; NOT Bloodright tier emblems. Lead Art Director; Image Production supports isolated per-jutsu generation, processing and QC.
 **Baseline:** `main@fd7e194afab71a5712b83d16397feffdf704e9d2`. Specialized ZIP-first workflow is read from `chatgpt/bloodline-jutsu-studio-zip-first-20261017@d04a87c05999c7037af8667db2b2b79324a53d3c`; this workflow was not on main at this intake. Governing integrated art contract: `docs/workflows/ISOLATED_ART_GENERATION.md`, `skills/producing-tnr-art/SKILL.md`, and the live `JUTSU_ICON` spec on baseline.
 **Bloodline:** Aerathiel, ID `1C34syOOEKp6k3UKweYT6`, rank A.
@@ -37,7 +37,7 @@
 3. After 5/5 exact raw visual approvals, preserve raw hashes and batch-export opaque 256² lossless WebP; use `artpreflight.py --type JUTSU_ICON`. No Aerathiel-specific <80,000-byte cap is established; BBE's cap must not be copied. Build deterministic 3+2 family showcase and obtain separate family acceptance before packaging. Export isn't called live/upload-ready until QC and canonical preflight are actually run.
 4. Track raw approvals, processing, preflight, gallery, ZIP, binary git pin and user upload/readback as separate states. Live requests/writes 0/0; credentials none.
 
-**After Atomic Shield approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; 1/5 raw remasters visually approved (Atomic Shield only); 0/5 exports; 0 canonical preflights; no upload.
+**After Windshear Decay approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **2/5 raw remasters visually approved** (Atomic Shield, Windshear Decay); 0/5 exports; 0 canonical preflights; no upload.
 
 ## Atomic Shield raw visual approval — 2026-10-19
 
@@ -47,10 +47,29 @@
 - Approval = **RAW VISUAL APPROVED ONLY**. Neither the PNG nor any processed WebP is currently certified for game upload. No new processing, preflight or family-showcase signoff.
 - As the first director-approved Aerathiel icon, this is the preferred **STYLE/MATERIAL ONLY** reference for Windshear Decay, paired with the exact extracted original Windshear image as **IDENTITY ONLY**; do not copy Atomic Shield's dominant circular composition or concentric swirl.
 
-## Next isolated target — Windshear Decay
+## Windshear Decay — approved direction (historical)
 
 - ID: `VmoEzExhfgtzme2b5RuzJ`; source description: razor-sharp wind slashes leave lasting decay.
 - Preferred silhouette: **one large diagonally driving serrated air-shear wedge**, with a sharply fragmenting lee side that breaks into ash-gray and pale-gold atomic particles. It should clearly read as an *attack cutting and decaying matter*, not a smooth ring/crescent or a generic magical slash.
 - Supporting cue: particulate erosion begins where the air shear passes; restrained turquoise compressed-flow bands and bright white edge, against deep navy designed atmosphere.
 - No caster, targets, swords, bubble or defensive rings. Avoid BBE's triple precision cuts, single crescent slash and Atomic Shield's enclosed orb. Technique first; thumbnail stress at 125/64/32 before raw acceptance.
- The full repository clone and `session_open.py` were unavailable in this tool environment; bootstrapping used verified GitHub refs plus direct source files, not a local session-open run.
+
+
+## Windshear Decay raw visual approval — 2026-10-19
+
+- Director approved the crisp pixel-art turquoise cutting-wind formation and particulate-erosion trail shown in the third candidate's output.
+- Approved raw source: `Aerathiel_Windshear_Decay_APPROVED_raw_v1.png`, PNG RGB 1254×1254, 2,319,652 bytes; SHA-256 `f552ada11a06ce82fcfd50a9849067ec01590f6bc23c419d70f81d216ed6e02a`.
+- Actual original bytes retained alongside Atomic Shield in the local studio `approved_raw/` folder. The new binary is **not Git-pinned**. No WebP or canonical preflight is claimed; raw visual approval is not upload readiness.
+- The compositional crescent/diagonal air-shear and flying debris are Windshear's reserved shapes; do not repeat as another Aerathiel icon's main subject.
+
+## Next target — Death's March (generation pending)
+
+- ID `UgYXqNIJNjLGkAS5b5udH`; supplied original: `images/UgYXqNIJNjLGkAS5b5udH_Death_s_March.png` — **IDENTITY ONLY**.
+- Technique evidence: old `jutsu.get` capture describes a radiant chakra tunnel enveloping the target; unyielding waves attack cells until the body decays. Do not import the original's caster/target actors into the remaster.
+- **Unique primary silhouette:** a towering foreshortened *pressure corridor*, with **three thick successive forward-advancing annular wavefronts** tightening toward a disintegrating dark core. The silhouette should read as an inexorable march of layered energy pulses, not as an ordinary whirlpool or a circular protective bubble.
+- Secondary effect: small ash-gray, pale gold and cyan cell-like fragments pulled off the dark core and atomized by the advancing waves.
+- Rendering lock: crisp premium pixel-disciplined edge geometry and cel-shaded deep midnight indigo/teal, saturated luminous turquoise rim bands, restrained pearl-white pressure seams. Opaque designed background, minimal visual noise outside subject, readability at 125/64/32.
+- Reference: approved **Atomic Shield or Windshear Decay** raw, **STYLE/MATERIAL ONLY**; exact original Death's March art **IDENTITY ONLY**. Never reuse either approved prior icon's bubble/crescent composition.
+- Strict exclusions: no characters, ninja silhouettes, shield, defensive bubble, sideways slashing arc, swords, spell rings, UI or text. One image for isolated visual review; do not process or upload before director acceptance.
+
+**Environment:** GitHub-connector repository reconstruction; full local clone/session_open not run in this conversation. No TNR live requests/writes; no credentials.
