@@ -378,10 +378,15 @@ if __name__ == "__main__":
     out_dir = FsPath(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else None
     if out_dir:
         args = [a for a in args if a != str(out_dir)]
-    args = [a for a in args if a != str(STRENGTH_WEIGHT) and a != sys.argv[sys.argv.index("--strength-weight") + 1]] if "--strength-weight" in sys.argv else args
+    for flag in ("--strength-weight", "--target"):
+        if flag in sys.argv:
+            val = sys.argv[sys.argv.index(flag) + 1]
+            args = [a for a in args if a != val]
     trees = json.loads(CURRENT.read_text())
     kits = E.load_kits()
-    anchor = anchor_value(trees, kits)
+    # --target W: pull every tree toward an absolute mean 5-BP Weight (a rule set's roster level)
+    # instead of the pre-rebalance Taiyo exemplar.
+    anchor = float(sys.argv[sys.argv.index("--target") + 1]) if "--target" in sys.argv else anchor_value(trees, kits)
     print(f"anchor (Taiyo mean 5-BP, normal pressure): {anchor:.3f}")
     for slug in args or trees:
         r = search(slug, trees[slug], anchor, kits)
