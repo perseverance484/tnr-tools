@@ -1,0 +1,109 @@
+{
+ "slug": "bakuhatsu",
+ "eligible": {
+  "damage": 3,
+  "decreasedamagetaken": 1,
+  "increasedamagegiven": 2,
+  "increasedamagetaken": 1,
+  "afterburn": 1
+ },
+ "damage_ceiling": 1.6,
+ "score": 3.471467834901986,
+ "paths": [
+  {
+   "root": "afterburn",
+   "f": 2.0,
+   "htag": "afterburn",
+   "h": 3.0,
+   "cap": {
+    "increasedamagetaken": 5.0,
+    "damage": 0.6
+   }
+  },
+  {
+   "root": "damage",
+   "f": 0.2,
+   "htag": "damage",
+   "h": 0.8,
+   "cap": {
+    "afterburn": 10.0
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "htag": "increasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "afterburn": 5.0,
+    "damage": 0.4
+   }
+  },
+  {
+   "root": "decreasedamagetaken",
+   "f": 2.0,
+   "htag": "decreasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "damage": 0.6
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.466,
+  "secondary_panel": 0.4712,
+  "three_spread": 0.8929,
+  "mean5": 5.2579,
+  "three": {
+   "p1": 3.637,
+   "p2": 3.784,
+   "p3": 3.388,
+   "p4": 3.379
+  },
+  "five": {
+   "p1+p2": 4.881,
+   "p1+p3": 5.274,
+   "p1+p4": 6.307,
+   "p2+p1": 5.086,
+   "p2+p3": 5.484,
+   "p2+p4": 6.454,
+   "p3+p1": 4.72,
+   "p3+p2": 4.632,
+   "p3+p4": 6.058,
+   "p4+p1": 4.669,
+   "p4+p2": 4.56,
+   "p4+p3": 4.969
+  },
+  "changes": 3
+ },
+ "current_score": 2.0795388258733176,
+ "current_ok": true,
+ "current_info": {
+  "secondary_normal": 0.4634,
+  "secondary_panel": 0.4634,
+  "three_spread": 0.4903,
+  "mean5": 6.6904,
+  "three": {
+   "p1": 5.217,
+   "p2": 4.354,
+   "p3": 3.388,
+   "p4": 6.91
+  },
+  "five": {
+   "p1+p2": 6.454,
+   "p1+p3": 6.881,
+   "p1+p4": 7.887,
+   "p2+p1": 5.735,
+   "p2+p3": 6.06,
+   "p2+p4": 7.024,
+   "p3+p1": 4.72,
+   "p3+p2": 4.632,
+   "p3+p4": 6.058,
+   "p4+p1": 8.23,
+   "p4+p2": 8.125,
+   "p4+p3": 8.479
+  },
+  "changes": 0
+ },
+ "anchor": 5.24
+}

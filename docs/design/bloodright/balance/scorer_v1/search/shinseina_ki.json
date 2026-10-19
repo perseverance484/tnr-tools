@@ -1,0 +1,107 @@
+{
+ "slug": "shinseina_ki",
+ "eligible": {
+  "damage": 3,
+  "increasedamagetaken": 1,
+  "poison": 1,
+  "increasedamagegiven": 2
+ },
+ "damage_ceiling": 1.6,
+ "score": 1.9808569989024074,
+ "paths": [
+  {
+   "root": "damage",
+   "f": 0.2,
+   "htag": "damage",
+   "h": 0.6,
+   "cap": {
+    "increasedamagetaken": 5.0
+   }
+  },
+  {
+   "root": "increasedamagegiven",
+   "f": 2.0,
+   "htag": "increasedamagegiven",
+   "h": 3.0,
+   "cap": {
+    "poison": 5.0
+   }
+  },
+  {
+   "root": "poison",
+   "f": 6.0,
+   "htag": "poison",
+   "h": 9.0,
+   "cap": {
+    "increasedamagetaken": 5.0,
+    "poison": 5.0
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "htag": "increasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "damage": 0.6
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.2632,
+  "secondary_panel": 0.2632,
+  "three_spread": 0.639,
+  "mean5": 5.9044,
+  "three": {
+   "p1": 3.276,
+   "p2": 4.665,
+   "p3": 3.68,
+   "p4": 2.981
+  },
+  "five": {
+   "p1+p2": 7.781,
+   "p1+p3": 4.465,
+   "p1+p4": 5.409,
+   "p2+p1": 5.884,
+   "p2+p3": 5.854,
+   "p2+p4": 6.919,
+   "p3+p1": 4.861,
+   "p3+p2": 8.108,
+   "p3+p4": 5.776,
+   "p4+p1": 4.162,
+   "p4+p2": 7.467,
+   "p4+p3": 4.169
+  },
+  "changes": 7
+ },
+ "current_score": 0.10173296838970858,
+ "current_ok": true,
+ "current_info": {
+  "secondary_normal": 0.0864,
+  "secondary_panel": 0.0864,
+  "three_spread": 0.4771,
+  "mean5": 7.9764,
+  "three": {
+   "p1": 4.457,
+   "p2": 9.342,
+   "p3": 4.588,
+   "p4": 5.061
+  },
+  "five": {
+   "p1+p2": 9.039,
+   "p1+p3": 6.626,
+   "p1+p4": 4.853,
+   "p2+p1": 10.637,
+   "p2+p3": 11.781,
+   "p2+p4": 9.738,
+   "p3+p1": 5.805,
+   "p3+p2": 9.173,
+   "p3+p4": 4.984,
+   "p4+p1": 6.28,
+   "p4+p2": 9.486,
+   "p4+p3": 7.315
+  },
+  "changes": 0
+ },
+ "anchor": 5.24
+}

@@ -1,0 +1,114 @@
+{
+ "slug": "ethereal_monarch",
+ "eligible": {
+  "increasedamagegiven": 3,
+  "increasedamagetaken": 1,
+  "afterburn": 1,
+  "damage": 2,
+  "consume": 1,
+  "pierce": 1,
+  "decreasedamagetaken": 2,
+  "reflect": 1
+ },
+ "damage_ceiling": 2.4000000000000004,
+ "score": 4.184589720112504,
+ "paths": [
+  {
+   "root": "decreasedamagetaken",
+   "f": 6.0,
+   "htag": "decreasedamagetaken",
+   "h": 9.0,
+   "cap": {
+    "decreasedamagetaken": 5.0,
+    "reflect": 5.0
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "htag": "increasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "damage": 1.2,
+    "pierce": 0.4
+   }
+  },
+  {
+   "root": "afterburn",
+   "f": 2.0,
+   "htag": "afterburn",
+   "h": 3.0,
+   "cap": {
+    "reflect": 10.0,
+    "pierce": 1.6
+   }
+  },
+  {
+   "root": "consume",
+   "f": 6.0,
+   "htag": "consume",
+   "h": 9.0,
+   "cap": {
+    "consume": 5.0,
+    "damage": 0.4
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.8466,
+  "secondary_panel": 0.7601,
+  "three_spread": 0.9214,
+  "mean5": 5.0665,
+  "three": {
+   "p1": 2.952,
+   "p2": 3.167,
+   "p3": 3.107,
+   "p4": 3.204
+  },
+  "five": {
+   "p1+p2": 4.749,
+   "p1+p3": 4.872,
+   "p1+p4": 5.019,
+   "p2+p1": 5.136,
+   "p2+p3": 5.21,
+   "p2+p4": 5.375,
+   "p3+p1": 4.856,
+   "p3+p2": 4.975,
+   "p3+p4": 5.174,
+   "p4+p1": 5.173,
+   "p4+p2": 5.12,
+   "p4+p3": 5.14
+  },
+  "changes": 10
+ },
+ "current_score": 1.5953048242761683,
+ "current_ok": false,
+ "current_info": {
+  "secondary_normal": 0.7663,
+  "secondary_panel": 0.5939,
+  "three_spread": 0.9103,
+  "mean5": 2.5777,
+  "three": {
+   "p1": 1.936,
+   "p2": 1.762,
+   "p3": 1.781,
+   "p4": 1.867
+  },
+  "five": {
+   "p1+p2": 2.556,
+   "p1+p3": 2.639,
+   "p1+p4": 2.686,
+   "p2+p1": 2.605,
+   "p2+p3": 2.451,
+   "p2+p4": 2.582,
+   "p3+p1": 2.637,
+   "p3+p2": 2.437,
+   "p3+p4": 2.531,
+   "p4+p1": 2.723,
+   "p4+p2": 2.523,
+   "p4+p3": 2.563
+  },
+  "changes": 0
+ },
+ "anchor": 5.24
+}
