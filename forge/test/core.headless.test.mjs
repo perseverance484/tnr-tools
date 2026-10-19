@@ -95,7 +95,7 @@ test("a non-DOM host drives select -> start -> run -> resolve -> export end to e
   assert.ok(kinds.includes("driving"), "a host can show progress");
   assert.ok(kinds.includes("idle"), "a host can stop showing progress");
   const headline = notes.filter((n) => n.type === "message").map((n) => n.text);
-  assert.ok(headline.some((t) => /^job DONE \(success\)/.test(t)), "the run headline is a plain sentence");
+  assert.ok(headline.some((t) => /^Finished: .* written and verified\.$/.test(t)), "the run headline is a plain sentence");
   for (const n of notes) assert.ok(typeof n.type === "string" && !("element" in n), "notifications carry no nodes");
 });
 

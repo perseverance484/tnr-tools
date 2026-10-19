@@ -33,7 +33,9 @@ export class App {
     // View-owned state. A search box's contents, the picker's re-render callback and whether the
     // browser granted persistent storage are presentation: they used to be written onto the core's
     // machine state by screen code, which is how a boundary widens without anyone deciding to.
-    this.view = { pickerQuery: "", renderPicker: null, persisted: null };
+    // exports: results/journal text the operator has not closed yet. Kept here, not in the DOM, so
+    // a redraw (the end of a run, a Re-check) cannot wipe a bundle the operator still has to save.
+    this.view = { pickerQuery: "", renderPicker: null, persisted: null, exports: [] };
     this.root = null;
     this._tick = null;
     this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
@@ -107,15 +109,17 @@ export class App {
     replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
     if (this.$auth) replace(this.$auth, this.authBanner());
     try {
-      replace(this.$main, SCREENS[this.state.screen][1](this));
+      replace(this.$main, this.view.exports.length ? this.exportsCard() : null, SCREENS[this.state.screen][1](this));
     } catch (e) {
       replace(this.$main, h("div", { class: "f-banner bad" }, h("b", {}, "This screen failed to render. "), h("div", { class: "f-err" }, String(e && e.stack || e))));
     }
   }
 
   toast(text, kind = "info", ms = 4000) {
-    const el = h("div", { class: "f-banner " + kind }, text);
+    // Tap to dismiss, and never more than two at once, so they cannot pile over the buttons below.
+    const el = h("div", { class: "f-banner " + kind, title: "tap to dismiss", onClick: () => el.remove() }, text);
     this.$toast.appendChild(el);
+    while (this.$toast.childElementCount > 2) this.$toast.firstElementChild.remove();
     setTimeout(() => el.remove(), ms);
   }
   fail(context, e) { this.core.fail(context, e); }
@@ -147,7 +151,8 @@ export class App {
     if (!facts) return null;
     const recheck = h("button", { disabled: this.authBusy, onClick: () => this.recheckAuth() }, this.authBusy ? "Checking\u2026" : "Re-check");
     if (facts.ready) {
-      return h("div", { class: "f-banner ok" }, h("span", {}, "TNR session active. Protected reads and writes are available."), h("div", { class: "f-actions" }, recheck));
+      // One quiet line when all is well; the full banner is kept for when something needs doing.
+      return h("div", { class: "f-banner ok f-compact" }, h("span", {}, "TNR session active"), h("div", { class: "f-actions" }, recheck));
     }
     if (facts.probing) {
       return h("div", { class: "f-banner info" }, "Checking the TNR session\u2026");
@@ -155,7 +160,7 @@ export class App {
     return h("div", { class: "f-banner bad" },
       h("div", {}, h("b", {}, facts.signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
         facts.signedOut
-          ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent."
+          ? "Forge could not use a signed-in game session in this browser. Protected reads and writes are blocked and nothing protected will be sent."
           : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."),
       h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
       facts.detail ? h("div", { class: "f-mute" }, facts.detail) : null,
@@ -171,11 +176,46 @@ export class App {
   }
 
   showExport(text, title) {
-    const ta = h("textarea", { readOnly: true, value: text });
-    const card = h("div", { class: "f-card" }, h("h2", {}, title), ta, h("div", { class: "f-actions" },
-      h("button", { onClick: async () => { try { await navigator.clipboard.writeText(text); this.toast("copied", "ok"); } catch { ta.focus(); ta.select(); this.toast("select-all and copy", "warn"); } } }, "Copy"),
-      h("button", { onClick: () => card.remove() }, "Close")));
-    this.$main.prepend(card);
+    const name = /\.json$/.test(title) ? title : `${String(title).replace(/[^\w.-]+/g, "_")}.txt`;
+    this.view.exports = [{ text, title, name }, ...this.view.exports.filter((x) => x.title !== title)].slice(0, 20);
+    this.refresh();
+    const scroller = this.root && this.root.parentElement;
+    if (scroller && typeof scroller.scrollTo === "function") scroller.scrollTo(0, 0);
+  }
+
+  /**
+   * Every unsaved export in ONE compact card: a collection leaves a file per tree, and fifteen full
+   * cards would bury every screen. Each file gets a short row; its text is folded away until asked.
+   */
+  exportsCard() {
+    const xs = this.view.exports;
+    const download = (x) => {
+      try {
+        const url = URL.createObjectURL(new Blob([x.text], { type: x.name.endsWith(".json") ? "application/json" : "text/plain" }));
+        const a = h("a", { href: url, download: x.name, style: { display: "none" } });
+        this.root.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+        return true;
+      } catch (e) { this.toast(`download failed: ${e.message}; use Copy`, "bad", 8000); return false; }
+    };
+    const remove = (gone) => { this.view.exports = this.view.exports.filter((y) => !gone.includes(y)); this.refresh(); };
+    const row = (x) => {
+      const ta = h("textarea", { readOnly: true, value: x.text });
+      const copy = async () => {
+        try { await navigator.clipboard.writeText(x.text); this.toast("copied", "ok"); }
+        catch { details.open = true; ta.focus(); ta.select(); this.toast("Copy was blocked; the text is selected, copy it from the box", "warn", 8000); }
+      };
+      const details = h("details", {}, h("summary", {}, "Show text"), ta);
+      return h("div", { class: "f-row" }, h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, x.title), details),
+        h("button", { onClick: () => download(x) }, "Download"), h("button", { onClick: copy }, "Copy"),
+        h("button", { title: "remove from this list", onClick: () => remove([x]) }, "\u2715"));
+    };
+    return h("div", { class: "f-card f-exports" },
+      h("div", { class: "f-row" }, h("div", { class: "f-grow" }, h("b", {}, `Results to save (${xs.length})`),
+        h("div", { class: "f-mute" }, "Download keeps each as a file. Remove a row once it is saved.")),
+        h("button", { class: "f-primary", onClick: () => { for (const x of xs) download(x); } }, xs.length > 1 ? "Download all" : "Download"),
+        h("button", { onClick: () => this.confirm(`Remove ${xs.length === 1 ? "this result" : `all ${xs.length} results`} from the list? Only do this once they are saved.`, () => remove([...xs])) }, "Clear")),
+      xs.length > 1 ? h("details", {}, h("summary", {}, `Show ${xs.length} files`), xs.map(row)) : row(xs[0]));
   }
 
   // ------------------------------------------------------------------ forwarded actions

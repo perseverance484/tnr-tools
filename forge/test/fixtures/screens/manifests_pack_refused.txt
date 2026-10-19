@@ -7,12 +7,18 @@
     <h2>
       #text "46_pack_fixture.json"
     <div class="f-mute">
-      #text "1 items · manifest hash 6dec500e"
+      #text "1 item · manifest hash 6dec500e"
     <div class="f-banner bad">
       <b>
-        #text "Cannot run: repo-backed images are not verified. "
-      <div class="f-err">
-        #text "fixture_icon.webp is bound to art/fixtures/fixture_icon.webp at 28bba70d0e14 but has not been fetched and verified"
+        #text "Cannot run: 1 repo-backed image not verified. "
+      <details>
+        <summary>
+          #text "Show details"
+        <div class="f-err">
+          #text "fixture_icon.webp is bound to art/fixtures/fixture_icon.webp at 28bba70d0e14 but has not been fetched and verified"
+      <div class="f-actions">
+        <button>
+          #text "Re-fetch from repository"
     <div class="f-actions">
       <button :disabled="true" class="f-primary" disabled="">
         #text "Start job"
@@ -21,7 +27,7 @@
     <div class="f-row">
       <div class="f-grow">
         <div>
-          #text "0. Fixture Asset"
+          #text "1. Fixture Asset"
         <div class="f-mute">
           #text "asset · create · keys: name, hidden, type, url"
     <div class="f-banner bad">
@@ -44,13 +50,13 @@
         <div class="f-err">
           #text "art/fixtures/fixture_icon.webp at 28bba70d0e14 hashes to 8c0cc17a04942cc4f8e0fe0b302606d3108860c126428ba2ceeb5f9ed41c2b05; the pack says ab5f8b5cb9435354c7b58603592d5faf081e17ceb05f7a7c67f4b666f12ca457. Nothing was uploaded and this image cannot be used; the manifest and the repository disagree about which file this is."
   <div class="f-mute">
-    #text "1 file in push/ · listed 0s ago"
+    #text "1 manifest · listed 0s ago"
   <div>
-    <div class="f-row f-tap">
+    <div class="f-row f-tap f-sel">
       <div class="f-grow">
         <div>
           <b>
             #text "#46 "
           #text "46_pack_fixture.json"
         <div class="f-mute">
-          #text "Fixture Asset · 1 item (1 create)"
+          #text "Fixture Asset · 1 item (1 new)"

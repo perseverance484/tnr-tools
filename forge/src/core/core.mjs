@@ -348,7 +348,7 @@ export class ForgeCore {
       const group = `collection-${Date.now().toString(36)}`;
       for (const [index, tree] of s.collection.entries()) {
         if (this._collectionStop) break;
-        const jobId = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path });
+        const jobId = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path, name: tree.bloodright.bloodlineName ?? null });
         const job = jobId && this.journal.get(jobId);
         if (!job || job.state !== "DONE" || !job.items.every(it => it.state === "VERIFIED" && it.verify === "match")) {
           this.say(`Collection stopped at tree ${index + 1}/${s.collection.length}. Resolve this job, then reopen the collection for a fresh preview.`, "warn", 12000);
@@ -371,7 +371,7 @@ export class ForgeCore {
       }
       if (this._collectionStop) return;
       this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
-      if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, ...(collection ? { collection } : {}) });
+      if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, bloodlineName: s.bloodright.bloodlineName ?? null, ...(collection ? { collection } : {}) });
     } catch (e) { return this.fail("plan", e); }
     this.state.selected = null;
     this.go("run", { jobId });

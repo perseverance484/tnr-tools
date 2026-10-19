@@ -10,6 +10,47 @@ import { packGateProblems } from "../core/imagepack.mjs";
 import { packBinds } from "../runner/imgpack.mjs";
 
 const pill = (state) => h("span", { class: "f-pill " + state }, state);
+const plural = (n, one, many = one + "s") => `${n} ${n === 1 ? one : many}`;
+const base = (p) => String(p || "").replace(/^push\//, "");
+const TERMINAL = ["VERIFIED", "FAILED", "SKIPPED"];
+
+// Pause reasons in the operator's words. The code itself stays in the journal and the bundle.
+const PAUSE_WORDS = {
+  USER: "Paused by you", SESSION: "Paused: signed out of the game", NETWORK: "Paused: connection problem",
+  TOO_MANY_REQUESTS: "Paused: game rate limit reached", ORPHANED: "Paused: an item needs your decision",
+  DEPENDENCY: "Paused: waiting on an earlier item", UNDECODABLE_RESPONSE: "Paused: the game sent an unreadable reply",
+  AMBIGUOUS: "Paused: unclear whether the last write landed", VISIBILITY: "Paused: a record is not visible to this session",
+  STALE_PREVIEW: "Paused: a record changed since the preview", STALE_BINDINGS: "Paused: saved IDs no longer match the game",
+  UNRESOLVED_IMPORT: "Paused: an earlier import is unresolved",
+};
+export const pauseWords = (pause) => PAUSE_WORDS[pause.reason] ?? `Paused (${pause.reason})`;
+
+/** What a job is, in words: the manifest, or the collection tree and bloodline it imported. */
+export function jobLabel(job) {
+  if (job.collection) return `${base(job.collection.path)} · tree ${job.collection.index + 1}/${job.collection.total}${job.collection.name ? ` · ${job.collection.name}` : ""}`;
+  if (job.bloodrightImport) return `Bloodright · ${job.bloodlineName || job.bloodrightImport.bloodlineId}`;
+  return base(job.manifestPath) || job.jobId;
+}
+
+/** A job's pill: its outcome once finished, and INTERRUPTED for a run that is no longer running. */
+function jobPill(app, job) {
+  if (job.state === "RUNNING" && app.state.running !== job.jobId) return h("span", { class: "f-pill PAUSED" }, "INTERRUPTED");
+  if (job.state === "DONE") {
+    const outcome = jobOutcome(job);
+    if (outcome === "failed") return h("span", { class: "f-pill FAILED" }, "FAILURES");
+    if (outcome === "unverified") return h("span", { class: "f-pill INCOMPLETE" }, "UNVERIFIED");
+  }
+  return pill(job.state);
+}
+
+const resumeLabel = (job) => job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume";
+
+function jobRow(app, j) {
+  const counts = {}; for (const it of j.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
+  return h("div", { class: "f-row f-tap", onClick: () => app.go("run", { jobId: j.jobId }) },
+    h("div", { class: "f-grow" }, h("div", {}, jobLabel(j), " ", jobPill(app, j)),
+      h("div", { class: "f-mute" }, `${plural(j.items.length, "item")}${j.items.length ? ` · ${Object.entries(counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")}` : ""} · ${fmtAgo(j.startedAt, app.now())}`)));
+}
 
 // ------------------------------------------------------------------ 1. Jobs
 export function JobsScreen(app) {
@@ -17,18 +58,16 @@ export function JobsScreen(app) {
   const open = app.journal.resumable();
   const orphans = jobs.flatMap((j) => j.items.filter((it) => it.state === "ORPHANED").map((it) => ({ job: j, it })));
   const root = h("section", {});
-  if (open.length) {
-    for (const j of open) {
-      root.appendChild(h("div", { class: "f-banner warn" },
-        h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
-        j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
-        j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " · retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " · " + j.pause.detail : ""}`) : null,
-        app.resumeBlockedReason && app.resumeBlockedReason(j) ? h("div", { class: "f-err" }, app.resumeBlockedReason(j)) : null,
-        h("div", { class: "f-actions" },
-          h("button", { class: "f-primary", disabled: !!(app.resumeBlockedReason && app.resumeBlockedReason(j)), onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
-          h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open"),
-        )));
-    }
+  for (const j of open) {
+    const blockedReason = app.resumeBlockedReason ? app.resumeBlockedReason(j) : null;
+    root.appendChild(h("div", { class: "f-banner warn" },
+      h("div", {}, h("b", {}, "Open job: "), jobLabel(j), " ", jobPill(app, j)),
+      j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${plural(j.items.filter((i) => !TERMINAL.includes(i.state)).length, "item")} still to read back. Resuming only re-reads; it cannot re-send.`) : null,
+      j.pause ? h("div", { class: "f-mute" }, `${pauseWords(j.pause)}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " · retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " · " + j.pause.detail : ""}`) : null,
+      blockedReason ? h("div", { class: "f-err" }, blockedReason) : null,
+      h("div", { class: "f-actions" },
+        h("button", { class: "f-primary", disabled: !!blockedReason, onClick: () => app.resumeJob(j.jobId) }, resumeLabel(j)),
+        h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open"))));
   }
   if (orphans.length) {
     root.appendChild(h("h2", {}, `Orphans needing a decision (${orphans.length})`));
@@ -36,12 +75,22 @@ export function JobsScreen(app) {
   }
   root.appendChild(h("h2", {}, "Recent runs"));
   if (!jobs.length) root.appendChild(h("div", { class: "f-mute" }, "No jobs yet. Pick a manifest to start one."));
-  for (const j of jobs.slice(0, 20)) {
-    const counts = {}; for (const it of j.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
-    root.appendChild(h("div", { class: "f-row f-tap", onClick: () => app.go("run", { jobId: j.jobId }) },
-      h("div", { class: "f-grow" }, h("div", {}, j.manifestPath || j.jobId, " ", pill(j.state)),
-        h("div", { class: "f-mute" }, `${j.items.length} items · ${Object.entries(counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} · ${fmtAgo(j.startedAt, app.now())}`)),
-    ));
+  // A collection's trees are one run to the operator: they fold under one line instead of filling
+  // the list (and pushing older runs off it) one tree at a time.
+  const rows = [], groups = new Map();
+  for (const j of jobs) {
+    const g = j.collection?.id;
+    if (!g) { rows.push({ job: j }); continue; }
+    if (!groups.has(g)) { groups.set(g, []); rows.push({ group: g }); }
+    groups.get(g).push(j);
+  }
+  for (const r of rows.slice(0, 20)) {
+    if (r.job) { root.appendChild(jobRow(app, r.job)); continue; }
+    const trees = groups.get(r.group).sort((a, b) => a.collection.index - b.collection.index);
+    const first = trees[0], ok = trees.filter((j) => j.state === "DONE" && jobOutcome(j) === "success").length;
+    root.appendChild(h("details", { class: "f-group" },
+      h("summary", {}, `${base(first.collection.path)} · collection · ${ok}/${first.collection.total} trees verified · ${fmtAgo(first.startedAt, app.now())}`),
+      trees.map((j) => jobRow(app, j))));
   }
   return root;
 }
@@ -49,7 +98,7 @@ export function JobsScreen(app) {
 function OrphanCard(app, job, it) {
   const cands = it.candidates || [];
   const card = h("div", { class: "f-card" },
-    h("div", {}, h("b", {}, it.name), " ", h("span", { class: "f-mute" }, `${it.entity} · ${job.manifestPath || job.jobId} · item ${it.idx}`)),
+    h("div", {}, h("b", {}, it.name), " ", h("span", { class: "f-mute" }, `${it.entity} · ${jobLabel(job)} · item ${it.idx + 1}`)),
     h("div", { class: "f-mute" }, it.error || "ambiguous"),
   );
   if (cands.length) {
@@ -74,6 +123,19 @@ function OrphanCard(app, job, it) {
 }
 
 // ------------------------------------------------------------------ 2. Manifests
+function summaryText(e) {
+  if (!e.summary) return e.loading ? "loading…" : e.error || "";
+  const x = e.summary;
+  if (x.trees) return `${x.title} · ${plural(x.trees, "tree")} · ${plural(x.skills, "skill")}`;
+  return `${x.title || "(untitled)"} · ${plural(x.items, "item")}${x.creates ? ` (${x.creates} new)` : ""}${x.captures ? ` · ${plural(x.captures, "capture")}` : ""}`;
+}
+
+function listingHint(error) {
+  return /HTTP 40[13]/.test(error)
+    ? " GitHub refused the listing. Wait a few minutes (GitHub limits reads without a token) or add a GitHub token in Settings, then tap Refresh."
+    : " Check the connection, then tap Refresh.";
+}
+
 export function ManifestsScreen(app) {
   const root = h("section", {});
   const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.view.pickerQuery || "", onInput: (e) => { app.view.pickerQuery = e.target.value; renderList(); } });
@@ -88,22 +150,37 @@ export function ManifestsScreen(app) {
     h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
     h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))));
   root.append(status, list);
+  const current = app.state.selected?.entry?.name ?? app.state.opening?.name ?? app.state.openError?.name ?? null;
+  // Summaries arrive one file at a time. While the set of rows is unchanged only their text is
+  // updated in place, so a row is never swapped out from under a finger mid-tap.
+  const texts = new Map();
+  let shown = null;
   function renderList() {
     const entries = app.state.picker || [];
     const needle = (app.view.pickerQuery || "").toLowerCase();
-    const seen = new Set(app.journal.listJobs().map((j) => j.manifestPath));
+    const seen = new Set(app.journal.listJobs().map((j) => j.collection?.path ?? j.manifestPath));
     const rows = entries.filter((e) => !needle || e.name.toLowerCase().includes(needle) || String(e.number ?? "").includes(needle) || (e.summary?.title || "").toLowerCase().includes(needle));
-    replace(list, rows.length ? rows.map((e) => h("div", { class: "f-row f-tap", onClick: () => app.selectManifest(e) },
-      h("div", { class: "f-grow" },
-        h("div", {}, e.number != null ? h("b", {}, "#" + e.number + " ") : null, e.name, seen.has(e.path) ? h("span", { class: "f-pill VERIFIED", style: { marginLeft: "6px" } }, "ran") : null),
-        h("div", { class: "f-mute" }, e.summary ? `${e.summary.title || "(untitled)"} · ${e.summary.items} item${e.summary.items === 1 ? "" : "s"}${e.summary.creates ? ` (${e.summary.creates} create)` : ""}${e.summary.captures ? ` · ${e.summary.captures} capture` : ""}` : (e.loading ? "loading…" : e.error || "")),
-      ))) : h("div", { class: "f-mute" }, app.state.pickerError ? "" : "nothing matches"));
-    replace(status, app.state.pickerError ? h("div", { class: "f-banner bad" }, "Could not list push/: ", app.state.pickerError) : `${entries.length} file${entries.length === 1 ? "" : "s"} in push/` + (app.state.pickerAt ? ` · listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
+    const key = rows.map((e) => e.path).join("\n");
+    if (key === shown && rows.length) {
+      for (const e of rows) { const t = texts.get(e.path), want = summaryText(e); if (t && t.textContent !== want) t.textContent = want; }
+    } else {
+      shown = key; texts.clear();
+      replace(list, rows.length ? rows.map((e) => {
+        const text = h("div", { class: "f-mute" }, summaryText(e));
+        texts.set(e.path, text);
+        return h("div", { class: "f-row f-tap" + (e.name === current ? " f-sel" : ""), onClick: () => app.selectManifest(e) },
+          h("div", { class: "f-grow" },
+            h("div", {}, e.number != null ? h("b", {}, "#" + e.number + " ") : null, e.name, seen.has(e.path) ? h("span", { class: "f-pill VERIFIED", style: { marginLeft: "6px" } }, "ran") : null),
+            text));
+      }) : h("div", { class: "f-mute" }, app.state.pickerError ? "" : "nothing matches"));
+    }
+    replace(status, app.state.pickerError
+      ? h("div", { class: "f-banner bad" }, h("b", {}, "Could not list manifests: "), app.state.pickerError, listingHint(app.state.pickerError))
+      : `${plural(entries.length, "manifest")}` + (app.state.pickerAt ? ` · listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
   }
   renderList();
   app.view.renderPicker = renderList;
   if (!app.state.picker) app.loadPicker(false);
-
   return root;
 }
 
@@ -124,6 +201,13 @@ export function captureLabel(captures) {
 
 // Lists longer than this fold behind one "Show all" line.
 const FOLD_AT = 12;
+const fold = (rows, label) => rows.length > FOLD_AT ? [h("details", {}, h("summary", {}, label), rows)] : rows;
+/** Whole keys up to ~120 characters, never a key cut mid-word. */
+function keysText(data) {
+  let out = "";
+  for (const k of Object.keys(data)) { if ((out + k).length > 120) return out + "…"; out += (out ? ", " : "") + k; }
+  return out;
+}
 
 function SelectedManifest(app) {
   const s = app.state.selected;
@@ -131,18 +215,26 @@ function SelectedManifest(app) {
   const captureCount = captures.length;
   const fullCount = captures.filter((c) => c.persist === "full").length;
   const label = captureLabel(captures);
-  const readOnly = s.plan.length === 0 && !s.bloodright;
-  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` · ${label}` : ""} · ${s.manifest.hash ? "manifest hash " + s.manifest.hash : "draft preview"}`));
-  if (readOnly && !s.bloodright) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+  // Read-only is a property of the MANIFEST (no items, not Bloodright), never of a plan that failed
+  // to build: a write manifest whose planning failed must not be offered as a capture job.
+  const itemCount = s.manifest.items?.length ?? s.plan.length;
+  const readOnly = !s.bloodright && itemCount === 0;
+  const count = (entity) => s.plan.filter((i) => i.entity === entity).length;
+  const creates = s.plan.filter((i) => i.op === "create").length;
+  const imgs = s.images || [];
+  const scope = s.collection
+    ? `${plural(s.collection.length, "tree")} · ${plural(count("skillTree"), "skill")} · ${plural(count("skillTreeFolder"), "folder")} · ${plural(imgs.length, "icon")}`
+    : `${plural(itemCount, "item")}${captureCount ? ` · ${label}` : ""}`;
+  const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` · manifest hash ${s.manifest.hash}` : ""}`));
+  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
-    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
+    `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on.${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
   if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
   const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
   if (blocked.length) card.appendChild(h("div", { class: "f-banner bad" },
     h("b", {}, "Blocked: TNR authentication is unavailable. "),
     `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`));
-  const imgs = s.images || [];
   // What the operator has actually selected, judged against the manifest's byte ledger BEFORE the
   // job opens. The picker used to show a green "picked" pill for any file at all, which is how a
   // 1.7 MB master PNG rode into a live run behind the name of a 207 KB .webp and failed five
@@ -152,17 +244,30 @@ function SelectedManifest(app) {
   const packResult = s.packResult || null;
   const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
   const badImgs = unusablePicks(picks);
+  const imagesHead = h("h3", {}, `Images (${imgs.length})`);
   // The same gate startJob() re-reads at the tap, shown here so Start is not merely greyed out.
   const packProblems = packGateProblems(pack, imgs, app.runner);
-  if (packProblems.length) card.appendChild(h("div", { class: "f-banner bad" },
-    h("b", {}, "Cannot run: repo-backed images are not verified. "), h("div", { class: "f-err" }, packProblems.join("\n"))));
+  if (packProblems.length && pack && !packResult) {
+    // Still fetching: this is the normal path, not a refusal.
+    card.appendChild(h("div", { class: "f-banner info" }, `Verifying ${plural(packProblems.length, "image")} from the repository… Start unlocks when every file matches.`));
+  } else if (packProblems.length) {
+    card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, `Cannot run: ${plural(packProblems.length, "repo-backed image")} not verified. `),
+      h("details", {}, h("summary", {}, "Show details"), h("div", { class: "f-err" }, packProblems.join("\n"))),
+      h("div", { class: "f-actions" }, h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository"))));
+  }
+  const unpicked = badImgs.filter((p) => !packBinds(pack, p.name));
+  if (unpicked.length) card.appendChild(h("div", { class: "f-banner warn" },
+    h("b", {}, `Pick ${plural(unpicked.length, "image")} below to enable Start. `), unpicked.map((p) => p.name).join(", "),
+    h("div", { class: "f-actions" }, h("button", { onClick: () => imagesHead.scrollIntoView({ block: "start" }) }, "Go to images"))));
   // Start sits near the top of the card, under the reasons it may be refused; the item, preview and
   // image detail follows, so a long plan never pushes the main action off screen.
   card.appendChild(h("div", { class: "f-actions" },
     h("button", { class: "f-primary", disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0, onClick: () => app.confirm(
       readOnly
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
-        : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
+        : s.collection
+          ? `Start ${plural(s.collection.length, "Bloodright tree")} from ${s.entry.name}: ${plural(count("skillTree"), "skill")}, ${plural(count("skillTreeFolder"), "folder")} and ${plural(imgs.length, "icon")}, all created hidden? This writes to the game.`
+          : `Start ${s.entry.name}: ${plural(s.plan.length, "item")} (${creates} new)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
     }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
     h("button", { onClick: () => app.clearSelection() }, "Clear"),
@@ -170,22 +275,20 @@ function SelectedManifest(app) {
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
   // advisories: worth reading, not worth blocking. A blocking lint is already in `problems`.
   if (s.manifest.warnings && s.manifest.warnings.length) {
-    card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
+    card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${plural(s.manifest.warnings.length, "advisory", "advisories")}:`),
+      h("ul", { class: "f-list" }, s.manifest.warnings.map((w) => h("li", {}, w)))));
   }
-  const planRows = s.plan.map((it) => h("div", { class: "f-row" },
-    h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + it.deps.join(", ") : ""} · keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))));
-  if (planRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${planRows.length} items`), ...planRows));
-  else card.append(...planRows);
+  card.append(...fold(s.plan.map((it) => h("div", { class: "f-row" },
+    h("div", { class: "f-grow" }, h("div", {}, `${it.idx + 1}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + [...new Set(it.deps)].join(", ") : ""} · keys: ${keysText(it.data)}`)))), `Show all ${s.plan.length} items`));
   if (s.bloodright) {
     card.appendChild(h("div", { class: "f-banner info" }, s.collection
-      ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.`
+      ? `${plural(s.collection.length, "Bloodright tree")}, all created hidden. Start runs them in order and stops at the first tree that does not fully verify. Pause stops the remaining trees. Each tree saves its own results. After a reload, resume the current tree, then reopen this file.`
       : `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
-    for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations · ${tree.maxAdvanced} reachable Advanced Art(s)`));
-    const previewRows = s.bloodright.preview.map((row) => h("details", {},
+    const trees = (s.bloodright.trees ?? []).map((tree) => h("div", { class: "f-mute" }, `${tree.name ?? tree.bloodlineId}: ${tree.allocations} legal builds · ${tree.maxAdvanced} reachable Advanced Art(s)`));
+    if (trees.length) card.appendChild(h("details", {}, h("summary", {}, `Tree checks (${trees.length})`), trees));
+    card.append(...fold(s.bloodright.preview.map((row) => h("details", {},
       h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " → " + row.targetId : ""} · ${row.changes.length} changed field(s)`),
-      h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))));
-    if (previewRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${previewRows.length} preview rows`), ...previewRows));
-    else card.append(...previewRows);
+      h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2)))), `Show all ${s.bloodright.preview.length} preview rows`));
     card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
   }
   if (pack) {
@@ -199,20 +302,20 @@ function SelectedManifest(app) {
         h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository"))));
   }
   if (imgs.length) {
-    card.appendChild(h("h3", {}, `Images (${imgs.length})`));
-    for (const p of picks) {
+    card.appendChild(imagesHead);
+    const rows = picks.map((p) => {
       const name = p.name;
       const bound = packBinds(pack, name);
       const e = bound ? packEntry(name) : null;
       const inp = h("input", { type: "file", accept: "image/*", style: { display: "none" }, onChange: (ev) => { const f = ev.target.files[0]; if (f) { app.runner.files.set(name, f); app.refresh(); } } });
       const pillFor = { ready: ["VERIFIED", bound ? "verified" : "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", bound ? "not fetched" : "missing"] }[p.state];
-      card.appendChild(h("div", { class: "f-row" },
+      return h("div", { class: "f-row" },
         h("div", { class: "f-grow" },
           h("div", { class: "f-mono" }, name, " ", h("span", { class: "f-pill " + pillFor[0] }, pillFor[1])),
           // Provenance, for a bound image, is the whole point: the path, the commit and the digest
           // Forge actually computed, not a claim that it matched.
           bound ? h("div", { class: "f-mute f-mono" },
-            `repo: ${pack.files[name].path} @ ${pack.ref.slice(0, 12)} · sha256 ${pack.files[name].sha256.slice(0, 16)}\u2026 · ${fmtBytes(pack.files[name].bytes)}${e && e.state === "ready" ? ` · verified from ${e.source}` : ""}`) : null,
+            `repo: ${pack.files[name].path} @ ${pack.ref.slice(0, 12)} · sha256 ${pack.files[name].sha256.slice(0, 16)}… · ${fmtBytes(pack.files[name].bytes)}${e && e.state === "ready" ? ` · verified from ${e.source}` : ""}`) : null,
           // the physical bytes, always, not only when they are wrong
           p.picked ? h("div", { class: "f-mute f-mono" },
             `selected: ${p.picked.name ?? "(unnamed)"} · ${fmtBytes(p.picked.size)}${p.expectedBytes != null ? ` · ledger ${fmtBytes(p.expectedBytes)}` : ""}${p.picked.type ? ` · ${p.picked.type}` : ""}`) : null,
@@ -222,8 +325,10 @@ function SelectedManifest(app) {
         // A bound image has NO manual override. A provenance an operator can replace from a gallery
         // is not provenance, so the only button is the one that fetches the named bytes again.
         bound ? null : h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
-        bound ? null : inp));
-    }
+        bound ? null : inp);
+    });
+    // Only a list with nothing left to do folds away; one needing picks stays open.
+    card.append(...(picks.every((p) => p.state === "ready") ? fold(rows, `Show all ${imgs.length} images (all verified)`) : rows));
   }
   return card;
 }
@@ -234,10 +339,17 @@ export function RunScreen(app) {
   const job = jobId ? app.journal.get(jobId) : null;
   const root = h("section", {});
   if (!job) { root.appendChild(h("div", { class: "f-mute" }, "No job selected. Pick one on Jobs.")); return root; }
-  if (job.collection) root.appendChild(h("div", { class: "f-banner info" }, `Bloodright collection · tree ${job.collection.index + 1}/${job.collection.total} · ${job.collection.path}. Pause stops later trees too. After reload, resume this job, then reopen the collection.`));
-  const done = job.items.filter((i) => ["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length;
+  const done = job.items.filter((i) => TERMINAL.includes(i.state)).length;
+  if (job.collection) {
+    // Overall progress across the whole collection, not only this tree.
+    const c = job.collection, overall = (c.index + done / (job.items.length || 1)) / (c.total || 1);
+    root.appendChild(h("div", { class: "f-banner info" },
+      h("b", {}, `Collection ${base(c.path)}: tree ${c.index + 1} of ${c.total}${c.name ? ` (${c.name})` : ""}`),
+      h("div", { class: "f-bar" }, h("i", { style: { width: Math.round(overall * 100) + "%" } })),
+      h("div", { class: "f-mute" }, "Pause stops the remaining trees. After a reload, resume this tree, then reopen the collection file.")));
+  }
   root.append(
-    h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` · started ${fmtAgo(job.startedAt, app.now())}`)),
+    h("div", {}, h("b", {}, jobLabel(job)), " ", jobPill(app, job), h("span", { class: "f-mute" }, ` · started ${fmtAgo(job.startedAt, app.now())}`)),
     h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } })),
   );
   const outcome = jobOutcome(job);
@@ -268,11 +380,12 @@ export function RunScreen(app) {
     const failed = job.items.filter((i) => i.state === "FAILED").length;
     const skipped = job.items.filter((i) => i.state === "SKIPPED").length;
     root.appendChild(outcome === "success"
-      ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "every item read back equal on its asserted keys.")
+      ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "Every item read back exactly as written.")
       : h("div", { class: "f-banner " + (outcome === "failed" ? "bad" : "warn") },
-          h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished UNVERIFIED. "),
-          [failed ? `${failed} failed` : null, drift ? `${drift} drifted` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "),
-          ". These writes are not proven. ",
+          h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished, not fully verified. "),
+          [failed ? `${failed} failed` : null, drift ? `${drift} changed after writing` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "), ". ",
+          failed ? "Each failed item shows its reason below. " : "",
+          drift || unread ? "The items that changed or could not be read back are not proven written. " : "",
           job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""));
   }
   if (job.pause && job.pause.reason === "SESSION") {
@@ -286,15 +399,20 @@ export function RunScreen(app) {
       h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser, re-check the session above, then resume. Resuming re-reads before it re-sends anything."),
       job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
   } else if (job.pause) root.appendChild(h("div", { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
-    h("b", {}, `Paused: ${job.pause.reason}`), job.pause.path ? ` on ${job.pause.path}` : "", job.pause.until ? ` · wait ${fmtCountdown(job.pause.until, app.now())}` : "", job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
-  if (app.state.running === jobId) root.appendChild(h("div", { class: "f-banner info" }, "Running… ", app.state.runningNote || ""));
+    h("b", {}, pauseWords(job.pause)), job.pause.path ? ` on ${job.pause.path}` : "", job.pause.until ? ` · wait ${fmtCountdown(job.pause.until, app.now())}` : "", job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null));
+  if (app.state.running === jobId) {
+    const next = job.items.find((i) => !TERMINAL.includes(i.state));
+    root.appendChild(h("div", { class: "f-banner info" }, next
+      ? `Working on item ${next.idx + 1} of ${job.items.length}: ${next.name}`
+      : app.state.runningNote || "All items sent; reading back and saving the results…"));
+  }
   const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
   if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
   root.appendChild(h("div", { class: "f-actions" },
     job.state === "PAUSED" || job.state === "INCOMPLETE" || (job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)))
-      ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
+      ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, resumeLabel(job)) : null,
     app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
-    h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle"),
+    app.state.running === jobId ? null : h("button", { onClick: () => app.exportJob(jobId) }, "Export results"),
   ));
   root.appendChild(h("h3", {}, "Budget (limited reads, per path, this minute)"));
   const st = app.budget.status();
@@ -310,7 +428,7 @@ export function RunScreen(app) {
         capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null)));
     }
   }
-  root.appendChild(h("h3", {}, "Items"));
+  if (job.items.length) root.appendChild(h("h3", {}, "Items"));
   const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
   const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
   if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
@@ -318,7 +436,7 @@ export function RunScreen(app) {
     const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` · phase ${it.phase}` : "";
     const row = h("div", { class: "f-row" },
       h("div", { class: "f-grow" },
-        h("div", {}, `${it.idx}. ${it.name} `, pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
+        h("div", {}, `${it.idx + 1}. ${it.name} `, pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
         it.entityId ? h("div", { class: "f-mono" }, it.entityId) : null,
         it.error ? h("div", { class: "f-err" }, it.error) : null,
         it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
@@ -330,8 +448,9 @@ export function RunScreen(app) {
         onClick: () => app.confirm(`Mark "${it.name}" (${it.entityId}) failed and stop recovery? Its record and saved ID stay unchanged. This does not verify the write. Dependent skills in this job will remain blocked.`, () => app.resolveConfirmed(jobId, it.idx, { confirmed: true })) }, "Mark failed (leave as is)"));
     }
     if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
-      row.appendChild(h("button", { class: "f-danger", disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
-        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding"));
+      // A rare recovery tool: kept behind "More" so it is not one stray tap away on every row.
+      row.appendChild(h("details", { class: "f-more" }, h("summary", {}, "More"), h("button", { class: "f-danger", disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
+        onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId })) }, "Forget saved binding")));
     }
     root.appendChild(row);
   }
@@ -395,8 +514,8 @@ export function SettingsScreen(app) {
       h("div", { class: "f-actions" }, h("button", { class: "f-primary", onClick: () => { writeGh(app.storage, { on: sync.checked, pat: pat.value.trim() }); app.toast("saved", "ok"); app.refresh(); } }, "Save"), h("button", { class: "f-danger", onClick: () => app.confirm("Forget the PAT?", () => { writeGh(app.storage, { on: false, pat: "" }); app.refresh(); }) }, "Forget")),
     ),
     h("h2", {}, "Session"),
-    h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, JSON.stringify(app.session.describe())),
-      h("b", {}, "auth"), h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.view.persisted == null ? "unknown" : String(app.view.persisted))),
+    h("div", { class: "f-card f-kv" }, h("b", {}, "game"), h("span", {}, describeText(app.session.describe())),
+      h("b", {}, "auth"), h("span", {}, app.auth ? describeText(app.auth.describe()) : "not wired"), h("b", {}, "budget"), h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`), h("b", {}, "persisted storage"), h("span", { id: "f-persist" }, app.view.persisted == null ? "unknown" : String(app.view.persisted))),
     h("h2", {}, "Journal"),
     h("div", { class: "f-card" },
       h("div", { class: "f-actions" },
@@ -405,7 +524,13 @@ export function SettingsScreen(app) {
       app.cacheSize ? h("div", { class: "f-mute" }, `capture cache: ${app.cacheSize}`) : null,
     ),
     h("h2", {}, "About"),
-    h("div", { class: "f-card f-mute" }, `forge ${app.version} · content fields pinned to studie-tech/TheNinjaRPG@94f9d84 (procedures 345d18ac) · journal v1 · keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`),
+    h("div", { class: "f-card f-mute" }, `${app.version} · content fields pinned to studie-tech/TheNinjaRPG@94f9d84 (procedures 345d18ac) · journal v1 · keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`),
   );
   return root;
+}
+
+/** A describe() object as "key: value" text; epoch timestamps read as local times. */
+function describeText(obj) {
+  return Object.entries(obj || {}).filter(([, v]) => v != null && v !== "")
+    .map(([k, v]) => `${k}: ${typeof v === "number" && v > 1e12 ? new Date(v).toLocaleString() : typeof v === "object" ? JSON.stringify(v) : v}`).join(" · ") || "—";
 }

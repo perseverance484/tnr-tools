@@ -1,4 +1,4 @@
-// TNR forge bundle v0.7.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.7.2 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
@@ -4286,7 +4286,11 @@
   function manifestSummary(text) {
     try {
       const m = JSON.parse(text);
-      if (m.bloodrightCollection) return { ok: true, title: m._note ?? "Bloodright collection (prepare all trees)", items: (m.bloodrightCollection.trees ?? []).reduce((n, t) => n + Object.keys(t.nodes ?? {}).length, 0), creates: 0, captures: 0 };
+      if (m.bloodrightCollection) {
+        const trees = m.bloodrightCollection.trees ?? [];
+        const title2 = typeof m._note === "string" ? m._note.split(/[.:;]\s|\n/)[0].slice(0, 80) : "Bloodright collection";
+        return { ok: true, title: title2, items: 0, creates: 0, captures: 0, trees: trees.length, skills: trees.reduce((n, t) => n + Object.keys(t.nodes ?? {}).length, 0) };
+      }
       if (m.bloodright) return { ok: true, title: m._note ?? "Bloodright design (prepare preview)", items: Object.keys(m.bloodright.nodes ?? {}).length, creates: 0, captures: 0 };
       const items = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
       const caps = m.capture && (m.capture.before || []).length + (m.capture.after || []).length || 0;
@@ -4316,6 +4320,7 @@
       else if (k === "style" && typeof v === "object") Object.assign(el.style, v);
       else if (k.startsWith("on") && typeof v === "function") el.addEventListener(k.slice(2).toLowerCase(), v);
       else if (k === "dataset") Object.assign(el.dataset, v);
+      else if (k === "value" && tag === "textarea") el.value = String(v);
       else if (k in el && typeof v !== "string") el[k] = v;
       else el.setAttribute(k, String(v));
     }
@@ -4397,12 +4402,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 .f-app .f-top { position:sticky; top:0; z-index:10; background:var(--panel); border-bottom:1px solid var(--line); display:flex; align-items:center; gap:8px; padding:8px 10px; }
 .f-app .f-title { font-weight:700; letter-spacing:.02em; }
 .f-app .f-ver { color:var(--mute); font-size:12px; margin-left:auto; }
-.f-app .f-exit { min-height:32px; padding:4px 10px; font-size:13px; }
+.f-app .f-exit { min-height:44px; padding:4px 12px; font-size:13px; }
 .f-app .f-nav { display:flex; gap:4px; overflow-x:auto; padding:6px 8px; background:var(--panel); border-bottom:1px solid var(--line); }
-.f-app .f-nav button { flex:1 0 auto; min-height:40px; }
+.f-app .f-nav button { flex:1 1 0; min-width:0; min-height:44px; padding:8px 4px; font-size:14px; }
 .f-app .f-nav button[aria-current="page"] { background:var(--acc); color:#0b0d12; }
 .f-app .f-main { flex:1; padding:12px 10px 80px; max-width:760px; width:100%; margin:0 auto; }
-.f-app h2 { font-size:17px; margin:14px 0 8px; } .f-app h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
+.f-app h2 { font-size:17px; margin:14px 0 8px; overflow-wrap:anywhere; } .f-app h3 { font-size:14px; color:var(--mute); margin:12px 0 6px; text-transform:uppercase; letter-spacing:.06em; }
 .f-app button, .f-app .f-btn { font:inherit; min-height:44px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:#222733; color:var(--ink); cursor:pointer; }
 .f-app button:disabled { opacity:.45; cursor:default; }
 .f-app button.f-primary { background:var(--acc); color:#0b0d12; border-color:transparent; font-weight:600; }
@@ -4413,21 +4418,28 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 .f-app .f-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
 .f-app .f-row:last-child { border-bottom:0; }
 .f-app .f-row.f-tap { cursor:pointer; } .f-app .f-row.f-tap:active { background:#1d2230; }
-.f-app .f-grow { flex:1; min-width:0; } .f-app .f-mute { color:var(--mute); font-size:13px; } .f-app .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
+.f-app .f-row.f-sel { background:#1a2237; box-shadow: inset 3px 0 0 var(--acc); padding-left:8px; }
+.f-app .f-list { margin:6px 0 0; padding-left:20px; } .f-app .f-list li { margin:4px 0; }
+.f-app .f-more summary { font-size:13px; min-height:44px; display:flex; align-items:center; }
+.f-app details.f-group { border-bottom:1px solid var(--line); } .f-app details.f-group > summary { padding:12px 0; color:var(--ink); }
+.f-app .f-grow { flex:1; min-width:0; overflow-wrap:anywhere; } .f-app .f-mute { color:var(--mute); font-size:13px; } .f-app .f-mono { font-family: ui-monospace, Menlo, monospace; font-size:12px; word-break:break-all; }
 .f-app .f-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; border:1px solid var(--line); color:var(--mute); }
 .f-app .f-pill.PLANNED { color:var(--mute); } .f-app .f-pill.SENT { color:var(--sent); border-color:var(--sent); } .f-app .f-pill.CONFIRMED { color:var(--acc); border-color:var(--acc); }
 .f-app .f-pill.VERIFIED, .f-app .f-pill.DONE { color:var(--ok); border-color:var(--ok); } .f-app .f-pill.FAILED, .f-app .f-pill.ABORTED { color:var(--bad); border-color:var(--bad); }
 .f-app .f-pill.ORPHANED, .f-app .f-pill.PAUSED, .f-app .f-pill.INCOMPLETE { color:var(--warn); border-color:var(--warn); } .f-app .f-pill.SKIPPED { color:var(--mute); }
 .f-app .f-authbar { padding:0 10px; max-width:760px; width:100%; margin:0 auto; }
 .f-app .f-authbar:empty { display:none; }
-.f-app .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; }
+.f-app .f-banner { padding:10px 12px; border-radius:10px; margin:8px 0; border:1px solid; overflow-wrap:anywhere; }
+.f-app .f-banner.f-compact { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:2px 4px 2px 12px; }
+.f-app .f-banner.f-compact .f-actions { margin:0; }
 .f-app .f-banner.warn { border-color:var(--warn); background:#2a2312; } .f-app .f-banner.bad { border-color:var(--bad); background:#2a1515; } .f-app .f-banner.ok { border-color:var(--ok); background:#12261c; } .f-app .f-banner.info { border-color:var(--acc); background:#141b2e; }
 .f-app .f-bar { height:6px; background:#0b0d12; border-radius:4px; overflow:hidden; margin:6px 0; } .f-app .f-bar > i { display:block; height:100%; background:var(--acc); }
 .f-app .f-bar.warn > i { background:var(--warn); }
 .f-app .f-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
 .f-app .f-kv { display:grid; grid-template-columns: auto 1fr; gap:4px 12px; font-size:13px; } .f-app .f-kv b { color:var(--mute); font-weight:500; }
-.f-app .f-err { white-space:pre-wrap; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
+.f-app .f-err { white-space:pre-wrap; overflow-wrap:anywhere; font-family: ui-monospace, Menlo, monospace; font-size:12px; color:#ffb4b0; }
 .f-app .f-toast { position:fixed; left:10px; right:10px; bottom:12px; z-index:2147483001; }
+.f-app .f-toast .f-banner { cursor:pointer; box-shadow:0 4px 16px #000a; }
 .f-app details summary { cursor:pointer; color:var(--mute); }
 .f-boot .f-mute { color:var(--mute); font-size:13px; }
 .f-boot p { margin:8px 0; max-width:52ch; }
@@ -4541,7 +4553,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         text: `job PAUSED: TNR authentication unavailable${job.pause.path ? ` on ${job.pause.path}` : ""}. Nothing further was sent. Sign in and resume.`
       };
     }
-    return { outcome, kind, ms: 8e3, sessionPause: false, text: `job ${summary.state} (${outcome}): ${detail}` };
+    const n = job.items.length;
+    const parts = [
+      ["failed", job.items.filter((i) => i.state === "FAILED").length],
+      ["changed after writing", job.items.filter((i) => i.verify === "drift").length],
+      ["could not be read back", job.items.filter((i) => i.verify === "unread").length],
+      ["skipped", job.items.filter((i) => i.state === "SKIPPED").length]
+    ].filter(([, c]) => c).map(([w, c]) => `${c} ${w}`).join(", ");
+    const head = !n ? outcome === "success" ? "Capture finished" : "Capture finished with problems" : summary.state === "PAUSED" ? "Paused" : outcome === "success" ? `Finished: ${n === 1 ? "1 item" : `all ${n} items`} written and verified` : outcome === "failed" ? `Finished with failures: ${parts}` : `Finished, not fully verified: ${parts || "verification outstanding"}`;
+    return { outcome, kind, ms: 8e3, sessionPause: false, text: n ? `${head}.` : `${head}: ${detail}` };
   }
   function postflight(job) {
     return {
@@ -4589,8 +4609,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
   async function one(ctx, want, force) {
     const { github, assetCache, digest, now } = ctx;
-    const base = { name: want.name, path: want.path, ref: want.ref, sha256: want.sha256, bytes: want.bytes };
-    const fail = (o) => ({ entry: { ...base, source: null, size: null, digest: null, ...o }, stage: null });
+    const base2 = { name: want.name, path: want.path, ref: want.ref, sha256: want.sha256, bytes: want.bytes };
+    const fail = (o) => ({ entry: { ...base2, source: null, size: null, digest: null, ...o }, stage: null });
     if (typeof digest !== "function") {
       return fail({ state: "error", error: "SHA-256 is not available in this context, so repo-backed bytes cannot be verified; Forge will not use them unverified" });
     }
@@ -4637,7 +4657,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           return fail({ state: "error", source, size, digest: hex, error: e && e.message || String(e) });
         }
         return {
-          entry: { ...base, state: "ready", source, size, digest: hex, error: null },
+          entry: { ...base2, state: "ready", source, size, digest: hex, error: null },
           stage: { name: want.name, file, prov: { sha256: want.sha256, path: want.path, ref: want.ref, bytes: want.bytes, at: now() } }
         };
       }
@@ -4691,28 +4711,74 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
   }
 
   var pill = (state) => h("span", { class: "f-pill " + state }, state);
+  var plural = (n, one2, many = one2 + "s") => `${n} ${n === 1 ? one2 : many}`;
+  var base = (p) => String(p || "").replace(/^push\//, "");
+  var TERMINAL = ["VERIFIED", "FAILED", "SKIPPED"];
+  var PAUSE_WORDS = {
+    USER: "Paused by you",
+    SESSION: "Paused: signed out of the game",
+    NETWORK: "Paused: connection problem",
+    TOO_MANY_REQUESTS: "Paused: game rate limit reached",
+    ORPHANED: "Paused: an item needs your decision",
+    DEPENDENCY: "Paused: waiting on an earlier item",
+    UNDECODABLE_RESPONSE: "Paused: the game sent an unreadable reply",
+    AMBIGUOUS: "Paused: unclear whether the last write landed",
+    VISIBILITY: "Paused: a record is not visible to this session",
+    STALE_PREVIEW: "Paused: a record changed since the preview",
+    STALE_BINDINGS: "Paused: saved IDs no longer match the game",
+    UNRESOLVED_IMPORT: "Paused: an earlier import is unresolved"
+  };
+  var pauseWords = (pause) => PAUSE_WORDS[pause.reason] ?? `Paused (${pause.reason})`;
+  function jobLabel(job) {
+    if (job.collection) return `${base(job.collection.path)} \xB7 tree ${job.collection.index + 1}/${job.collection.total}${job.collection.name ? ` \xB7 ${job.collection.name}` : ""}`;
+    if (job.bloodrightImport) return `Bloodright \xB7 ${job.bloodlineName || job.bloodrightImport.bloodlineId}`;
+    return base(job.manifestPath) || job.jobId;
+  }
+  function jobPill(app, job) {
+    if (job.state === "RUNNING" && app.state.running !== job.jobId) return h("span", { class: "f-pill PAUSED" }, "INTERRUPTED");
+    if (job.state === "DONE") {
+      const outcome = jobOutcome(job);
+      if (outcome === "failed") return h("span", { class: "f-pill FAILED" }, "FAILURES");
+      if (outcome === "unverified") return h("span", { class: "f-pill INCOMPLETE" }, "UNVERIFIED");
+    }
+    return pill(job.state);
+  }
+  var resumeLabel = (job) => job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume";
+  function jobRow(app, j) {
+    const counts = {};
+    for (const it of j.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
+    return h(
+      "div",
+      { class: "f-row f-tap", onClick: () => app.go("run", { jobId: j.jobId }) },
+      h(
+        "div",
+        { class: "f-grow" },
+        h("div", {}, jobLabel(j), " ", jobPill(app, j)),
+        h("div", { class: "f-mute" }, `${plural(j.items.length, "item")}${j.items.length ? ` \xB7 ${Object.entries(counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")}` : ""} \xB7 ${fmtAgo(j.startedAt, app.now())}`)
+      )
+    );
+  }
   function JobsScreen(app) {
     const jobs = app.journal.listJobs();
     const open = app.journal.resumable();
     const orphans = jobs.flatMap((j) => j.items.filter((it) => it.state === "ORPHANED").map((it) => ({ job: j, it })));
     const root = h("section", {});
-    if (open.length) {
-      for (const j of open) {
-        root.appendChild(h(
+    for (const j of open) {
+      const blockedReason = app.resumeBlockedReason ? app.resumeBlockedReason(j) : null;
+      root.appendChild(h(
+        "div",
+        { class: "f-banner warn" },
+        h("div", {}, h("b", {}, "Open job: "), jobLabel(j), " ", jobPill(app, j)),
+        j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${plural(j.items.filter((i) => !TERMINAL.includes(i.state)).length, "item")} still to read back. Resuming only re-reads; it cannot re-send.`) : null,
+        j.pause ? h("div", { class: "f-mute" }, `${pauseWords(j.pause)}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " \xB7 retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " \xB7 " + j.pause.detail : ""}`) : null,
+        blockedReason ? h("div", { class: "f-err" }, blockedReason) : null,
+        h(
           "div",
-          { class: "f-banner warn" },
-          h("div", {}, h("b", {}, "Open job: "), j.manifestPath || j.jobId, " ", pill(j.state)),
-          j.state === "INCOMPLETE" ? h("div", { class: "f-mute" }, `Finished unverified: ${j.items.filter((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length} item(s) still owe a read-back. Resuming re-reads them and cannot re-send.`) : null,
-          j.pause ? h("div", { class: "f-mute" }, `Paused: ${j.pause.reason}${j.pause.path ? " on " + j.pause.path : ""}${j.pause.until ? " \xB7 retry allowed in " + fmtCountdown(j.pause.until, app.now()) : ""}${j.pause.detail ? " \xB7 " + j.pause.detail : ""}`) : null,
-          app.resumeBlockedReason && app.resumeBlockedReason(j) ? h("div", { class: "f-err" }, app.resumeBlockedReason(j)) : null,
-          h(
-            "div",
-            { class: "f-actions" },
-            h("button", { class: "f-primary", disabled: !!(app.resumeBlockedReason && app.resumeBlockedReason(j)), onClick: () => app.resumeJob(j.jobId) }, j.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : j.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume"),
-            h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open")
-          )
-        ));
-      }
+          { class: "f-actions" },
+          h("button", { class: "f-primary", disabled: !!blockedReason, onClick: () => app.resumeJob(j.jobId) }, resumeLabel(j)),
+          h("button", { onClick: () => app.go("run", { jobId: j.jobId }) }, "Open")
+        )
+      ));
     }
     if (orphans.length) {
       root.appendChild(h("h2", {}, `Orphans needing a decision (${orphans.length})`));
@@ -4720,18 +4786,31 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     }
     root.appendChild(h("h2", {}, "Recent runs"));
     if (!jobs.length) root.appendChild(h("div", { class: "f-mute" }, "No jobs yet. Pick a manifest to start one."));
-    for (const j of jobs.slice(0, 20)) {
-      const counts = {};
-      for (const it of j.items) counts[it.state] = (counts[it.state] ?? 0) + 1;
+    const rows = [], groups =  new Map();
+    for (const j of jobs) {
+      const g = j.collection?.id;
+      if (!g) {
+        rows.push({ job: j });
+        continue;
+      }
+      if (!groups.has(g)) {
+        groups.set(g, []);
+        rows.push({ group: g });
+      }
+      groups.get(g).push(j);
+    }
+    for (const r of rows.slice(0, 20)) {
+      if (r.job) {
+        root.appendChild(jobRow(app, r.job));
+        continue;
+      }
+      const trees = groups.get(r.group).sort((a, b) => a.collection.index - b.collection.index);
+      const first = trees[0], ok = trees.filter((j) => j.state === "DONE" && jobOutcome(j) === "success").length;
       root.appendChild(h(
-        "div",
-        { class: "f-row f-tap", onClick: () => app.go("run", { jobId: j.jobId }) },
-        h(
-          "div",
-          { class: "f-grow" },
-          h("div", {}, j.manifestPath || j.jobId, " ", pill(j.state)),
-          h("div", { class: "f-mute" }, `${j.items.length} items \xB7 ${Object.entries(counts).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")} \xB7 ${fmtAgo(j.startedAt, app.now())}`)
-        )
+        "details",
+        { class: "f-group" },
+        h("summary", {}, `${base(first.collection.path)} \xB7 collection \xB7 ${ok}/${first.collection.total} trees verified \xB7 ${fmtAgo(first.startedAt, app.now())}`),
+        trees.map((j) => jobRow(app, j))
       ));
     }
     return root;
@@ -4741,7 +4820,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const card = h(
       "div",
       { class: "f-card" },
-      h("div", {}, h("b", {}, it.name), " ", h("span", { class: "f-mute" }, `${it.entity} \xB7 ${job.manifestPath || job.jobId} \xB7 item ${it.idx}`)),
+      h("div", {}, h("b", {}, it.name), " ", h("span", { class: "f-mute" }, `${it.entity} \xB7 ${jobLabel(job)} \xB7 item ${it.idx + 1}`)),
       h("div", { class: "f-mute" }, it.error || "ambiguous")
     );
     if (cands.length) {
@@ -4772,6 +4851,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     card.appendChild(h("div", { class: "f-actions" }, h("button", { class: "f-danger", onClick: () => app.confirm(`Skip "${it.name}"? Nothing is deleted; the server row (if any) stays.`, () => app.skip(job.jobId, it.idx)) }, "Skip (leave as is)")));
     return card;
   }
+  function summaryText(e) {
+    if (!e.summary) return e.loading ? "loading\u2026" : e.error || "";
+    const x = e.summary;
+    if (x.trees) return `${x.title} \xB7 ${plural(x.trees, "tree")} \xB7 ${plural(x.skills, "skill")}`;
+    return `${x.title || "(untitled)"} \xB7 ${plural(x.items, "item")}${x.creates ? ` (${x.creates} new)` : ""}${x.captures ? ` \xB7 ${plural(x.captures, "capture")}` : ""}`;
+  }
+  function listingHint(error) {
+    return /HTTP 40[13]/.test(error) ? " GitHub refused the listing. Wait a few minutes (GitHub limits reads without a token) or add a GitHub token in Settings, then tap Refresh." : " Check the connection, then tap Refresh.";
+  }
   function ManifestsScreen(app) {
     const root = h("section", {});
     const q = h("input", { type: "search", placeholder: "search filename, number, title", value: app.view.pickerQuery || "", onInput: (e) => {
@@ -4796,22 +4884,39 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))
     ));
     root.append(status, list);
+    const current = app.state.selected?.entry?.name ?? app.state.opening?.name ?? app.state.openError?.name ?? null;
+    const texts =  new Map();
+    let shown = null;
     function renderList() {
       const entries = app.state.picker || [];
       const needle = (app.view.pickerQuery || "").toLowerCase();
-      const seen = new Set(app.journal.listJobs().map((j) => j.manifestPath));
+      const seen = new Set(app.journal.listJobs().map((j) => j.collection?.path ?? j.manifestPath));
       const rows = entries.filter((e) => !needle || e.name.toLowerCase().includes(needle) || String(e.number ?? "").includes(needle) || (e.summary?.title || "").toLowerCase().includes(needle));
-      replace(list, rows.length ? rows.map((e) => h(
-        "div",
-        { class: "f-row f-tap", onClick: () => app.selectManifest(e) },
-        h(
-          "div",
-          { class: "f-grow" },
-          h("div", {}, e.number != null ? h("b", {}, "#" + e.number + " ") : null, e.name, seen.has(e.path) ? h("span", { class: "f-pill VERIFIED", style: { marginLeft: "6px" } }, "ran") : null),
-          h("div", { class: "f-mute" }, e.summary ? `${e.summary.title || "(untitled)"} \xB7 ${e.summary.items} item${e.summary.items === 1 ? "" : "s"}${e.summary.creates ? ` (${e.summary.creates} create)` : ""}${e.summary.captures ? ` \xB7 ${e.summary.captures} capture` : ""}` : e.loading ? "loading\u2026" : e.error || "")
-        )
-      )) : h("div", { class: "f-mute" }, app.state.pickerError ? "" : "nothing matches"));
-      replace(status, app.state.pickerError ? h("div", { class: "f-banner bad" }, "Could not list push/: ", app.state.pickerError) : `${entries.length} file${entries.length === 1 ? "" : "s"} in push/` + (app.state.pickerAt ? ` \xB7 listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
+      const key = rows.map((e) => e.path).join("\n");
+      if (key === shown && rows.length) {
+        for (const e of rows) {
+          const t = texts.get(e.path), want = summaryText(e);
+          if (t && t.textContent !== want) t.textContent = want;
+        }
+      } else {
+        shown = key;
+        texts.clear();
+        replace(list, rows.length ? rows.map((e) => {
+          const text = h("div", { class: "f-mute" }, summaryText(e));
+          texts.set(e.path, text);
+          return h(
+            "div",
+            { class: "f-row f-tap" + (e.name === current ? " f-sel" : ""), onClick: () => app.selectManifest(e) },
+            h(
+              "div",
+              { class: "f-grow" },
+              h("div", {}, e.number != null ? h("b", {}, "#" + e.number + " ") : null, e.name, seen.has(e.path) ? h("span", { class: "f-pill VERIFIED", style: { marginLeft: "6px" } }, "ran") : null),
+              text
+            )
+          );
+        }) : h("div", { class: "f-mute" }, app.state.pickerError ? "" : "nothing matches"));
+      }
+      replace(status, app.state.pickerError ? h("div", { class: "f-banner bad" }, h("b", {}, "Could not list manifests: "), app.state.pickerError, listingHint(app.state.pickerError)) : `${plural(entries.length, "manifest")}` + (app.state.pickerAt ? ` \xB7 listed ${fmtAgo(app.state.pickerAt, app.now())}` : ""));
     }
     renderList();
     app.view.renderPicker = renderList;
@@ -4828,20 +4933,34 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return `${n} ${noun} (${full} full)`;
   }
   var FOLD_AT = 12;
+  var fold = (rows, label) => rows.length > FOLD_AT ? [h("details", {}, h("summary", {}, label), rows)] : rows;
+  function keysText(data) {
+    let out = "";
+    for (const k of Object.keys(data)) {
+      if ((out + k).length > 120) return out + "\u2026";
+      out += (out ? ", " : "") + k;
+    }
+    return out;
+  }
   function SelectedManifest(app) {
     const s = app.state.selected;
     const captures = [...s.manifest.capture.before, ...s.manifest.capture.after];
     const captureCount = captures.length;
     const fullCount = captures.filter((c) => c.persist === "full").length;
     const label = captureLabel(captures);
-    const readOnly = s.plan.length === 0 && !s.bloodright;
-    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${s.plan.length} items${captureCount ? ` \xB7 ${label}` : ""} \xB7 ${s.manifest.hash ? "manifest hash " + s.manifest.hash : "draft preview"}`));
-    if (readOnly && !s.bloodright) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+    const itemCount = s.manifest.items?.length ?? s.plan.length;
+    const readOnly = !s.bloodright && itemCount === 0;
+    const count = (entity) => s.plan.filter((i) => i.entity === entity).length;
+    const creates = s.plan.filter((i) => i.op === "create").length;
+    const imgs = s.images || [];
+    const scope = s.collection ? `${plural(s.collection.length, "tree")} \xB7 ${plural(count("skillTree"), "skill")} \xB7 ${plural(count("skillTreeFolder"), "folder")} \xB7 ${plural(imgs.length, "icon")}` : `${plural(itemCount, "item")}${captureCount ? ` \xB7 ${label}` : ""}`;
+    const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` \xB7 manifest hash ${s.manifest.hash}` : ""}`));
+    if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
     if (fullCount) card.appendChild(h(
       "div",
       { class: "f-banner warn" },
       h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
-      `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on. Still queries only; zero mutations. Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`
+      `The exact record body of each is written into the results bundle, which is committed to the repository when GitHub sync is on.${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`
     ));
     if (s.problems.length) card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, "Cannot run: "), h("div", { class: "f-err" }, s.problems.join("\n"))));
     const blocked = app.blockedPaths ? app.blockedPaths(s.plan, s.manifest) : [];
@@ -4851,18 +4970,31 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       h("b", {}, "Blocked: TNR authentication is unavailable. "),
       `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`
     ));
-    const imgs = s.images || [];
     const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
     const pack = s.pack || null;
     const packResult = s.packResult || null;
     const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
     const badImgs = unusablePicks(picks);
+    const imagesHead = h("h3", {}, `Images (${imgs.length})`);
     const packProblems = packGateProblems(pack, imgs, app.runner);
-    if (packProblems.length) card.appendChild(h(
+    if (packProblems.length && pack && !packResult) {
+      card.appendChild(h("div", { class: "f-banner info" }, `Verifying ${plural(packProblems.length, "image")} from the repository\u2026 Start unlocks when every file matches.`));
+    } else if (packProblems.length) {
+      card.appendChild(h(
+        "div",
+        { class: "f-banner bad" },
+        h("b", {}, `Cannot run: ${plural(packProblems.length, "repo-backed image")} not verified. `),
+        h("details", {}, h("summary", {}, "Show details"), h("div", { class: "f-err" }, packProblems.join("\n"))),
+        h("div", { class: "f-actions" }, h("button", { onClick: () => app.prepareImages(true) }, "Re-fetch from repository"))
+      ));
+    }
+    const unpicked = badImgs.filter((p) => !packBinds(pack, p.name));
+    if (unpicked.length) card.appendChild(h(
       "div",
-      { class: "f-banner bad" },
-      h("b", {}, "Cannot run: repo-backed images are not verified. "),
-      h("div", { class: "f-err" }, packProblems.join("\n"))
+      { class: "f-banner warn" },
+      h("b", {}, `Pick ${plural(unpicked.length, "image")} below to enable Start. `),
+      unpicked.map((p) => p.name).join(", "),
+      h("div", { class: "f-actions" }, h("button", { onClick: () => imagesHead.scrollIntoView({ block: "start" }) }, "Go to images"))
     ));
     card.appendChild(h(
       "div",
@@ -4871,7 +5003,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         class: "f-primary",
         disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0,
         onClick: () => app.confirm(
-          readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
+          readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : s.collection ? `Start ${plural(s.collection.length, "Bloodright tree")} from ${s.entry.name}: ${plural(count("skillTree"), "skill")}, ${plural(count("skillTreeFolder"), "folder")} and ${plural(imgs.length, "icon")}, all created hidden? This writes to the game.` : `Start ${s.entry.name}: ${plural(s.plan.length, "item")} (${creates} new)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
           () => app.startJob()
         )
       }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
@@ -4879,26 +5011,28 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     ));
     if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
     if (s.manifest.warnings && s.manifest.warnings.length) {
-      card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
+      card.appendChild(h(
+        "div",
+        { class: "f-banner warn" },
+        h("b", {}, `${plural(s.manifest.warnings.length, "advisory", "advisories")}:`),
+        h("ul", { class: "f-list" }, s.manifest.warnings.map((w) => h("li", {}, w)))
+      ));
     }
-    const planRows = s.plan.map((it) => h(
+    card.append(...fold(s.plan.map((it) => h(
       "div",
       { class: "f-row" },
-      h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} \xB7 ${it.op}${it.targetId ? " \u2192 " + it.targetId : ""}${it.deps?.length ? " \xB7 after " + it.deps.join(", ") : ""} \xB7 keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))
-    ));
-    if (planRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${planRows.length} items`), ...planRows));
-    else card.append(...planRows);
+      h("div", { class: "f-grow" }, h("div", {}, `${it.idx + 1}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} \xB7 ${it.op}${it.targetId ? " \u2192 " + it.targetId : ""}${it.deps?.length ? " \xB7 after " + [...new Set(it.deps)].join(", ") : ""} \xB7 keys: ${keysText(it.data)}`))
+    )), `Show all ${s.plan.length} items`));
     if (s.bloodright) {
-      card.appendChild(h("div", { class: "f-banner info" }, s.collection ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.` : `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
-      for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations \xB7 ${tree.maxAdvanced} reachable Advanced Art(s)`));
-      const previewRows = s.bloodright.preview.map((row) => h(
+      card.appendChild(h("div", { class: "f-banner info" }, s.collection ? `${plural(s.collection.length, "Bloodright tree")}, all created hidden. Start runs them in order and stops at the first tree that does not fully verify. Pause stops the remaining trees. Each tree saves its own results. After a reload, resume the current tree, then reopen this file.` : `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      const trees = (s.bloodright.trees ?? []).map((tree) => h("div", { class: "f-mute" }, `${tree.name ?? tree.bloodlineId}: ${tree.allocations} legal builds \xB7 ${tree.maxAdvanced} reachable Advanced Art(s)`));
+      if (trees.length) card.appendChild(h("details", {}, h("summary", {}, `Tree checks (${trees.length})`), trees));
+      card.append(...fold(s.bloodright.preview.map((row) => h(
         "details",
         {},
         h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " \u2192 " + row.targetId : ""} \xB7 ${row.changes.length} changed field(s)`),
         h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))
-      ));
-      if (previewRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${previewRows.length} preview rows`), ...previewRows));
-      else card.append(...previewRows);
+      )), `Show all ${s.bloodright.preview.length} preview rows`));
       card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
     }
     if (pack) {
@@ -4918,8 +5052,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       ));
     }
     if (imgs.length) {
-      card.appendChild(h("h3", {}, `Images (${imgs.length})`));
-      for (const p of picks) {
+      card.appendChild(imagesHead);
+      const rows = picks.map((p) => {
         const name = p.name;
         const bound = packBinds(pack, name);
         const e = bound ? packEntry(name) : null;
@@ -4931,7 +5065,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           }
         } });
         const pillFor = { ready: ["VERIFIED", bound ? "verified" : "picked"], refused: ["FAILED", "wrong file"], missing: ["FAILED", bound ? "not fetched" : "missing"] }[p.state];
-        card.appendChild(h(
+        return h(
           "div",
           { class: "f-row" },
           h(
@@ -4954,8 +5088,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           ),
           bound ? null : h("button", { onClick: () => inp.click() }, p.picked ? "Replace" : "Pick"),
           bound ? null : inp
-        ));
-      }
+        );
+      });
+      card.append(...picks.every((p) => p.state === "ready") ? fold(rows, `Show all ${imgs.length} images (all verified)`) : rows);
     }
     return card;
   }
@@ -4967,10 +5102,19 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       root.appendChild(h("div", { class: "f-mute" }, "No job selected. Pick one on Jobs."));
       return root;
     }
-    if (job.collection) root.appendChild(h("div", { class: "f-banner info" }, `Bloodright collection \xB7 tree ${job.collection.index + 1}/${job.collection.total} \xB7 ${job.collection.path}. Pause stops later trees too. After reload, resume this job, then reopen the collection.`));
-    const done = job.items.filter((i) => ["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)).length;
+    const done = job.items.filter((i) => TERMINAL.includes(i.state)).length;
+    if (job.collection) {
+      const c = job.collection, overall = (c.index + done / (job.items.length || 1)) / (c.total || 1);
+      root.appendChild(h(
+        "div",
+        { class: "f-banner info" },
+        h("b", {}, `Collection ${base(c.path)}: tree ${c.index + 1} of ${c.total}${c.name ? ` (${c.name})` : ""}`),
+        h("div", { class: "f-bar" }, h("i", { style: { width: Math.round(overall * 100) + "%" } })),
+        h("div", { class: "f-mute" }, "Pause stops the remaining trees. After a reload, resume this tree, then reopen the collection file.")
+      ));
+    }
     root.append(
-      h("div", {}, h("b", {}, job.manifestPath || job.jobId), " ", pill(job.state), h("span", { class: "f-mute" }, ` \xB7 started ${fmtAgo(job.startedAt, app.now())}`)),
+      h("div", {}, h("b", {}, jobLabel(job)), " ", jobPill(app, job), h("span", { class: "f-mute" }, ` \xB7 started ${fmtAgo(job.startedAt, app.now())}`)),
       h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } }))
     );
     const outcome = jobOutcome(job);
@@ -4993,12 +5137,14 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       const unread = job.items.filter((i) => i.verify === "unread").length;
       const failed = job.items.filter((i) => i.state === "FAILED").length;
       const skipped = job.items.filter((i) => i.state === "SKIPPED").length;
-      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "every item read back equal on its asserted keys.") : h(
+      root.appendChild(outcome === "success" ? h("div", { class: "f-banner ok" }, h("b", {}, "Verified. "), "Every item read back exactly as written.") : h(
         "div",
         { class: "f-banner " + (outcome === "failed" ? "bad" : "warn") },
-        h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished UNVERIFIED. "),
-        [failed ? `${failed} failed` : null, drift ? `${drift} drifted` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "),
-        ". These writes are not proven. ",
+        h("b", {}, outcome === "failed" ? "Finished with failures. " : "Finished, not fully verified. "),
+        [failed ? `${failed} failed` : null, drift ? `${drift} changed after writing` : null, unread ? `${unread} could not be read back` : null, skipped ? `${skipped} skipped` : null].filter(Boolean).join(", "),
+        ". ",
+        failed ? "Each failed item shows its reason below. " : "",
+        drift || unread ? "The items that changed or could not be read back are not proven written. " : "",
         job.state === "INCOMPLETE" ? "Resume to re-read them; resuming can only read, never re-send." : ""
       ));
     }
@@ -5014,20 +5160,23 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     } else if (job.pause) root.appendChild(h(
       "div",
       { class: "f-banner " + (job.pause.reason === "TOO_MANY_REQUESTS" ? "bad" : "warn") },
-      h("b", {}, `Paused: ${job.pause.reason}`),
+      h("b", {}, pauseWords(job.pause)),
       job.pause.path ? ` on ${job.pause.path}` : "",
       job.pause.until ? ` \xB7 wait ${fmtCountdown(job.pause.until, app.now())}` : "",
       job.pause.detail ? h("div", { class: "f-err" }, job.pause.detail) : null
     ));
-    if (app.state.running === jobId) root.appendChild(h("div", { class: "f-banner info" }, "Running\u2026 ", app.state.runningNote || ""));
+    if (app.state.running === jobId) {
+      const next = job.items.find((i) => !TERMINAL.includes(i.state));
+      root.appendChild(h("div", { class: "f-banner info" }, next ? `Working on item ${next.idx + 1} of ${job.items.length}: ${next.name}` : app.state.runningNote || "All items sent; reading back and saving the results\u2026"));
+    }
     const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
     if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
     root.appendChild(h(
       "div",
       { class: "f-actions" },
-      job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, job.items.some((i) => i.state === "SENT") ? "Reconcile & resume" : job.state === "INCOMPLETE" ? "Re-read unverified items" : "Resume") : null,
+      job.state === "PAUSED" || job.state === "INCOMPLETE" || job.state === "RUNNING" && app.state.running !== jobId && job.items.some((i) => !["VERIFIED", "FAILED", "SKIPPED"].includes(i.state)) ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, resumeLabel(job)) : null,
       app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
-      h("button", { onClick: () => app.exportJob(jobId) }, "Export bundle")
+      app.state.running === jobId ? null : h("button", { onClick: () => app.exportJob(jobId) }, "Export results")
     ));
     root.appendChild(h("h3", {}, "Budget (limited reads, per path, this minute)"));
     const st = app.budget.status();
@@ -5046,7 +5195,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         )));
       }
     }
-    root.appendChild(h("h3", {}, "Items"));
+    if (job.items.length) root.appendChild(h("h3", {}, "Items"));
     const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;
     const bindingBlocked = bloodlineId && unresolvedBloodrightJob(app.journal, bloodlineId);
     if (Object.keys(job.forgottenBindings ?? {}).length) root.appendChild(h("div", { class: "f-banner warn" }, "A saved binding was forgotten. Export this job for evidence and prepare a fresh preview; this job cannot restore the old binding."));
@@ -5058,7 +5207,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         h(
           "div",
           { class: "f-grow" },
-          h("div", {}, `${it.idx}. ${it.name} `, pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
+          h("div", {}, `${it.idx + 1}. ${it.name} `, pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
           it.entityId ? h("div", { class: "f-mono" }, it.entityId) : null,
           it.error ? h("div", { class: "f-err" }, it.error) : null,
           it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
@@ -5074,11 +5223,11 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         }, "Mark failed (leave as is)"));
       }
       if (bloodlineId && ["skillTree", "skillTreeFolder"].includes(it.entity) && ["FAILED", "VERIFIED"].includes(it.state) && it.entityId && savedBindings[it.srcId] === it.entityId) {
-        row.appendChild(h("button", {
+        row.appendChild(h("details", { class: "f-more" }, h("summary", {}, "More"), h("button", {
           class: "f-danger",
           disabled: !!app.state.running || job.state === "RUNNING" || !!bindingBlocked || typeof globalThis.confirm !== "function",
           onClick: () => app.confirm(`Forget saved binding for "${it.name}" (${it.entityId})? Only do this after confirming the record was deleted or choosing an explicit replacement. Forgetting a record that still exists can create duplicates. No game record is deleted. Old jobs using this binding will require a fresh preview. Remove or replace any explicit package binding too.`, () => app.forgetBinding(jobId, it.idx, { confirmed: true, expectedId: it.entityId }))
-        }, "Forget saved binding"));
+        }, "Forget saved binding")));
       }
       root.appendChild(row);
     }
@@ -5170,9 +5319,9 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         "div",
         { class: "f-card f-kv" },
         h("b", {}, "game"),
-        h("span", {}, JSON.stringify(app.session.describe())),
+        h("span", {}, describeText(app.session.describe())),
         h("b", {}, "auth"),
-        h("span", {}, app.auth ? JSON.stringify(app.auth.describe()) : "not wired"),
+        h("span", {}, app.auth ? describeText(app.auth.describe()) : "not wired"),
         h("b", {}, "budget"),
         h("span", {}, `${app.budget.allowance} / ${app.budget.limit} per path per minute (margin ${app.budget.margin})`),
         h("b", {}, "persisted storage"),
@@ -5197,9 +5346,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         app.cacheSize ? h("div", { class: "f-mute" }, `capture cache: ${app.cacheSize}`) : null
       ),
       h("h2", {}, "About"),
-      h("div", { class: "f-card f-mute" }, `forge ${app.version} \xB7 content fields pinned to studie-tech/TheNinjaRPG@94f9d84 (procedures 345d18ac) \xB7 journal v1 \xB7 keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`)
+      h("div", { class: "f-card f-mute" }, `${app.version} \xB7 content fields pinned to studie-tech/TheNinjaRPG@94f9d84 (procedures 345d18ac) \xB7 journal v1 \xB7 keys tnr_forge_job_v1:*, tnr_forge_sendlog_v1, tnr_forge_snap_v1:*`)
     );
     return root;
+  }
+  function describeText(obj2) {
+    return Object.entries(obj2 || {}).filter(([, v]) => v != null && v !== "").map(([k, v]) => `${k}: ${typeof v === "number" && v > 1e12 ? new Date(v).toLocaleString() : typeof v === "object" ? JSON.stringify(v) : v}`).join(" \xB7 ") || "\u2014";
   }
 
   var scopeKey = (bloodlineId, nodeId) => `br:${bloodlineId}:${nodeId}`;
@@ -5344,7 +5496,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const provenance = { version: 1, source: config.source, gamePin: contract_default._meta.pin, bloodlineId: bl, bindings: Object.fromEntries(items.filter((it) => it.targetId).map((it) => [it.srcId, it.targetId])), hiddenProbeId: config.hiddenProbeId };
     const packed = normalizeImagePack(imagePack, { imgSizes, names: items.map((it) => it.data.image).filter((v) => typeof v === "string" && v.startsWith("@img:")).map((v) => v.slice(5)) });
     problems.push(...packed.errors);
-    return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...packed.pack ? { imagePack: packed.pack } : {}, ...Object.keys(imgSizes).length ? { imgSizes } : {} } };
+    return { problems, preview, allocations, maxAdvanced: advanced, bloodlineName: design.bloodline?.name ?? null, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...packed.pack ? { imagePack: packed.pack } : {}, ...Object.keys(imgSizes).length ? { imgSizes } : {} } };
   }
   async function readBloodrightInventory({ reader, hiddenProbeId }) {
     if (!id(hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
@@ -5421,7 +5573,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       plan: trees.flatMap((t) => t.plan),
       images: [...new Set(trees.flatMap((t) => t.images))],
       manifest: { capture: { before: [], after: [] }, imgSizes: pkg.imgSizes ?? {}, warnings: [], imagePack: trees[0]?.pack ?? null },
-      bloodright: { preview: trees.flatMap((t) => t.bloodright.preview), trees: trees.map((t) => ({ bloodlineId: t.manifest.policy.bloodrightImport.bloodlineId, allocations: t.bloodright.allocations, maxAdvanced: t.bloodright.maxAdvanced })) }
+      bloodright: { preview: trees.flatMap((t) => t.bloodright.preview), trees: trees.map((t) => ({ bloodlineId: t.manifest.policy.bloodrightImport.bloodlineId, name: t.bloodright.bloodlineName, allocations: t.bloodright.allocations, maxAdvanced: t.bloodright.maxAdvanced })) }
     };
   }
 
@@ -5788,7 +5940,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         const group = `collection-${Date.now().toString(36)}`;
         for (const [index, tree] of s.collection.entries()) {
           if (this._collectionStop) break;
-          const jobId2 = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path });
+          const jobId2 = await this._startSelected({ ...tree, entry: s.entry }, { id: group, index, total: s.collection.length, path: s.entry.path, name: tree.bloodright.bloodlineName ?? null });
           const job = jobId2 && this.journal.get(jobId2);
           if (!job || job.state !== "DONE" || !job.items.every((it) => it.state === "VERIFIED" && it.verify === "match")) {
             this.say(`Collection stopped at tree ${index + 1}/${s.collection.length}. Resolve this job, then reopen the collection for a fresh preview.`, "warn", 12e3);
@@ -5810,7 +5962,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         }
         if (this._collectionStop) return;
         this.runner.plan(s.text, { jobId, manifestPath, manifestNumber: s.entry.number });
-        if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, ...collection ? { collection } : {} });
+        if (s.bloodright) this.journal.annotateJob(jobId, { bloodrightImport: s.manifest.policy.bloodrightImport, preview: s.bloodright.preview, bloodlineName: s.bloodright.bloodlineName ?? null, ...collection ? { collection } : {} });
       } catch (e) {
         return this.fail("plan", e);
       }
@@ -5984,7 +6136,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       this.now = d.now ?? (() => Date.now());
       this.exit = d.exit ?? null;
       this.core = d.core ?? new ForgeCore({ ...d, now: this.now });
-      this.view = { pickerQuery: "", renderPicker: null, persisted: null };
+      this.view = { pickerQuery: "", renderPicker: null, persisted: null, exports: [] };
       this.root = null;
       this._tick = null;
       this._unsubscribe = this.core.subscribe((n) => this._onCore(n));
@@ -6075,14 +6227,15 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       replace(this.$nav, Object.entries(SCREENS2).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
       if (this.$auth) replace(this.$auth, this.authBanner());
       try {
-        replace(this.$main, SCREENS2[this.state.screen][1](this));
+        replace(this.$main, this.view.exports.length ? this.exportsCard() : null, SCREENS2[this.state.screen][1](this));
       } catch (e) {
         replace(this.$main, h("div", { class: "f-banner bad" }, h("b", {}, "This screen failed to render. "), h("div", { class: "f-err" }, String(e && e.stack || e))));
       }
     }
     toast(text, kind = "info", ms = 4e3) {
-      const el = h("div", { class: "f-banner " + kind }, text);
+      const el = h("div", { class: "f-banner " + kind, title: "tap to dismiss", onClick: () => el.remove() }, text);
       this.$toast.appendChild(el);
+      while (this.$toast.childElementCount > 2) this.$toast.firstElementChild.remove();
       setTimeout(() => el.remove(), ms);
     }
     fail(context, e) {
@@ -6115,7 +6268,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (!facts) return null;
       const recheck = h("button", { disabled: this.authBusy, onClick: () => this.recheckAuth() }, this.authBusy ? "Checking\u2026" : "Re-check");
       if (facts.ready) {
-        return h("div", { class: "f-banner ok" }, h("span", {}, "TNR session active. Protected reads and writes are available."), h("div", { class: "f-actions" }, recheck));
+        return h("div", { class: "f-banner ok f-compact" }, h("span", {}, "TNR session active"), h("div", { class: "f-actions" }, recheck));
       }
       if (facts.probing) {
         return h("div", { class: "f-banner info" }, "Checking the TNR session\u2026");
@@ -6127,7 +6280,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
           "div",
           {},
           h("b", {}, facts.signedOut ? "TNR authentication unavailable. " : "TNR authentication not confirmed. "),
-          facts.signedOut ? "The game refused a protected procedure for this browser session. Protected reads and writes are blocked and nothing protected will be sent." : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."
+          facts.signedOut ? "Forge could not use a signed-in game session in this browser. Protected reads and writes are blocked and nothing protected will be sent." : "Forge could not confirm a signed-in session, so protected reads and writes are blocked. This is not a read failure."
         ),
         h("div", { class: "f-mute" }, "Sign in to The Ninja RPG in this browser (the page under Forge is the game itself \u2014 close Forge, sign in, reopen /forge), then re-check. Public capture-only manifests can still run."),
         facts.detail ? h("div", { class: "f-mute" }, facts.detail) : null,
@@ -6144,23 +6297,74 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (globalThis.confirm ? globalThis.confirm(text) : true) Promise.resolve().then(fn).catch((e) => this.fail("action", e));
     }
     showExport(text, title) {
-      const ta = h("textarea", { readOnly: true, value: text });
-      const card = h("div", { class: "f-card" }, h("h2", {}, title), ta, h(
-        "div",
-        { class: "f-actions" },
-        h("button", { onClick: async () => {
+      const name = /\.json$/.test(title) ? title : `${String(title).replace(/[^\w.-]+/g, "_")}.txt`;
+      this.view.exports = [{ text, title, name }, ...this.view.exports.filter((x) => x.title !== title)].slice(0, 20);
+      this.refresh();
+      const scroller = this.root && this.root.parentElement;
+      if (scroller && typeof scroller.scrollTo === "function") scroller.scrollTo(0, 0);
+    }
+    exportsCard() {
+      const xs = this.view.exports;
+      const download = (x) => {
+        try {
+          const url = URL.createObjectURL(new Blob([x.text], { type: x.name.endsWith(".json") ? "application/json" : "text/plain" }));
+          const a = h("a", { href: url, download: x.name, style: { display: "none" } });
+          this.root.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 6e4);
+          return true;
+        } catch (e) {
+          this.toast(`download failed: ${e.message}; use Copy`, "bad", 8e3);
+          return false;
+        }
+      };
+      const remove = (gone) => {
+        this.view.exports = this.view.exports.filter((y) => !gone.includes(y));
+        this.refresh();
+      };
+      const row = (x) => {
+        const ta = h("textarea", { readOnly: true, value: x.text });
+        const copy2 = async () => {
           try {
-            await navigator.clipboard.writeText(text);
+            await navigator.clipboard.writeText(x.text);
             this.toast("copied", "ok");
           } catch {
+            details.open = true;
             ta.focus();
             ta.select();
-            this.toast("select-all and copy", "warn");
+            this.toast("Copy was blocked; the text is selected, copy it from the box", "warn", 8e3);
           }
-        } }, "Copy"),
-        h("button", { onClick: () => card.remove() }, "Close")
-      ));
-      this.$main.prepend(card);
+        };
+        const details = h("details", {}, h("summary", {}, "Show text"), ta);
+        return h(
+          "div",
+          { class: "f-row" },
+          h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, x.title), details),
+          h("button", { onClick: () => download(x) }, "Download"),
+          h("button", { onClick: copy2 }, "Copy"),
+          h("button", { title: "remove from this list", onClick: () => remove([x]) }, "\u2715")
+        );
+      };
+      return h(
+        "div",
+        { class: "f-card f-exports" },
+        h(
+          "div",
+          { class: "f-row" },
+          h(
+            "div",
+            { class: "f-grow" },
+            h("b", {}, `Results to save (${xs.length})`),
+            h("div", { class: "f-mute" }, "Download keeps each as a file. Remove a row once it is saved.")
+          ),
+          h("button", { class: "f-primary", onClick: () => {
+            for (const x of xs) download(x);
+          } }, xs.length > 1 ? "Download all" : "Download"),
+          h("button", { onClick: () => this.confirm(`Remove ${xs.length === 1 ? "this result" : `all ${xs.length} results`} from the list? Only do this once they are saved.`, () => remove([...xs])) }, "Clear")
+        ),
+        xs.length > 1 ? h("details", {}, h("summary", {}, `Show ${xs.length} files`), xs.map(row)) : row(xs[0])
+      );
     }
     clearSelection() {
       return this.core.clearSelection();
@@ -6577,7 +6781,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 
   var nested_default = JSON.parse('{"_meta":{"generated_by":"forge/tools/derive_nested.mjs","pin":"94f9d84c770004172ba423ada3d6710849acc451","files":{"combat":"app/src/validators/combat.ts","objectives":"app/src/validators/objectives.ts","rewards":"app/src/validators/rewards.ts","ai":"app/src/validators/ai.ts","base":"app/src/validators/base.ts","rewardPackages":"app/src/validators/rewardPackages.ts"},"note":"Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod.","format":"Shared key-set table. `sets` holds every distinct allowed key set once; each section value is an index into it (or a map of discriminator value -> index). forge/src/runner/validate.mjs expandNested() restores the per-discriminator key sets and FAILS CLOSED on an index this file does not define."},"sets":[["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","elements","friendlyFire","generalTypes","poolsAffected","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","elements","friendlyFire","generalTypes","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["absorbPercentage","appearAnimation","appearSfx","calculation","coordinateTargeting","curHealth","description","direction","disappearAnimation","disappearSfx","friendlyFire","maxHealth","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","shieldRounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["allowBloodlineDamageDecrease","allowBloodlineDamageIncrease","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","dmgModifier","elements","friendlyFire","generalTypes","power","powerPerLevel","residualModifier","rounds","statTypes","staticAnimation","staticAssetPath","target","timeTracker","type"],["aggroMode","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["actionsAffected","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","elements","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["affectedElements","affectedTag","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","poolsAffected","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","masteryTypes","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","elements","friendlyFire","generalTypes","power","powerPerLevel","rounds","statTypes","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","delayRounds","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rank","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","jutsuIds","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","blocks","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rewardMode","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","rounds","staticAnimation","staticAssetPath","target","timeTracker","type","weightedCache"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","skillId","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","elements","friendlyFire","generalTypes","power","powerPerLevel","robPercentage","rounds","statTypes","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","health","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["apReduction","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["aiHp","aiId","appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","friendlyFire","playerControlled","power","powerPerLevel","rounds","staticAnimation","staticAssetPath","target","timeTracker","type"],["appearAnimation","appearSfx","calculation","coordinateTargeting","description","direction","disappearAnimation","disappearSfx","dmgModifier","elements","friendlyFire","generalTypes","items","jutsus","power","powerPerLevel","rounds","statTypes","staticAnimation","staticAssetPath","target","timeTracker","type"],["attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","description","durationSeconds","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","value"],["description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task"],["description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","resetObjectiveId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task"],["description","id","latitude","longitude","newQuestIds","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task"],["allyAIs","applyBuffs","applyDebuffs","completionOutcome","description","drawDescription","failDescription","failObjectiveId","fleeDescription","givePools","id","keepOriginalPools","latitude","longitude","nextObjectiveId","opponentAIs","opponent_scaled_to_user","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","scaleGains","sceneBackground","sceneCharacters","sector","successDescription","task"],["attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","completed","description","hideLocation","id","image","latitude","locationType","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","sectorList","sectorType","successDescription","task"],["attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","collectItemIds","collect_time_minutes","completed","delete_on_complete","description","hideLocation","id","image","item_name","latitude","locationType","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","sectorList","sectorType","successDescription","task"],["attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","completed","delete_on_complete","deliverItemIds","description","hideLocation","id","image","item_name","latitude","locationType","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","sectorList","sectorType","successDescription","task"],["allyAIs","applyBuffs","applyDebuffs","attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","completed","completionOutcome","description","drawDescription","failDescription","failObjectiveId","fleeDescription","givePools","hideLocation","id","image","keepOriginalPools","latitude","locationType","longitude","nextObjectiveId","opponentAIs","opponent_scaled_to_user","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","scaleGains","sceneBackground","sceneCharacters","sector","sectorList","sectorType","successDescription","task"],["attackers","attackers_max_per_battle","attackers_scale_gains","attackers_scaled_to_user","description","id","image","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task"],["applyBuffs","applyDebuffs","completionOutcome","description","drawDescription","failDescription","failObjectiveId","fleeDescription","givePools","id","image","keepOriginalPools","latitude","longitude","nextObjectiveId","opponentAIs","opponent_scaled_to_user","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","scaleGains","sceneBackground","sceneCharacters","sector","successDescription","task"],["craftItemIds","description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","value"],["description","id","latitude","longitude","masteryType","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","trainJutsuIds","value"],["completeQuestIds","description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","value"],["buyItemIds","description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","value"],["description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","useItemIds","value"],["combatType","description","id","latitude","longitude","masteryType","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task","useJutsuIds","value"],["description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","tagType","task","value"],["description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","singleBattle","successDescription","task","value"],["bloodlineRanks","description","id","latitude","longitude","nextObjectiveId","overworldPlacementId","reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing","sceneBackground","sceneCharacters","sector","successDescription","task"],["description","type","value"],["description","target","type","value"],["description","type"],["description","effectType","threshold","type"],["description","effectType","target","threshold","type"],["description","maxRange","minRange","type"],["coordinates","description","target","type"],["coordinates","description","jutsuId","target","type"],["coordinates","description","itemId","target","type"],["coordinates","description","effect","target","type"],["comboIds","coordinates","description","target","type"],["action","conditions","group","id"],["nextObjectiveId","text"],["ids","number","quantity"],["reward_anbupoints","reward_badges","reward_bloodline_experience","reward_bloodlines","reward_bukijutsu_experience","reward_clanpoints","reward_crafting_experience","reward_exp","reward_gathering_experience","reward_gathering_items","reward_gathering_items_ids","reward_genjutsu_experience","reward_hunter_items","reward_hunter_items_ids","reward_hunting_experience","reward_items","reward_jutsus","reward_mastery_rank","reward_mastery_stat","reward_medical_experience","reward_money","reward_ninjutsu_experience","reward_packages","reward_prestige","reward_rank","reward_reputation","reward_sage_mastery_experience","reward_sage_modes","reward_sage_stat_experience","reward_seichi_silver","reward_skillpoints","reward_taijutsu_experience","reward_tokens","reward_village_membership","reward_war_damage","reward_war_healing"],["objectives","reward","sceneBackground","sceneCharacters","entryItems","isolated","rewardMode","rewardPickCount"]],"effects":{"increaseregeneration":0,"absorb":1,"activatesagemode":0,"afterburn":2,"barrier":3,"buffprevent":0,"cleanseprevent":0,"cleanse":0,"clearprevent":0,"clear":0,"clone":0,"consume":4,"copy":0,"damage":5,"debuffprevent":0,"decreaseaggro":6,"decreasecooldown":7,"decreasedamagegiven":8,"decreasedamagetaken":8,"decreaseheal":0,"decreasepotency":9,"decreasepoolcost":10,"decreasemaxpools":10,"decreasemastery":11,"decreasestat":12,"diffuse":13,"disarm":0,"drain":10,"elementalseal":0,"finalstand":0,"fleeprevent":0,"flee":0,"healprevent":0,"heal":10,"increaseaggro":6,"increasecooldown":7,"increasedamagegiven":8,"increasedamagetaken":8,"increaseheal":0,"increasepotency":9,"marriageslotincrease":14,"noncombatincreasereskins":14,"injectjutsus":15,"increasepoolcost":10,"increasemaxpools":10,"increaserange":7,"increasemastery":11,"increasestat":12,"immunity":16,"lifesteal":2,"mirror":0,"moveprevent":0,"move":0,"noncombatconsumereward":17,"noncombatgainskill":18,"repair":0,"onehitkillprevent":0,"onehitkill":0,"pierce":5,"poison":10,"recoil":2,"redirection":12,"reflect":2,"removebloodline":0,"robprevent":0,"rob":19,"rollbloodline":14,"rollsagemode":0,"sealprevent":0,"seal":0,"shield":20,"stealth":0,"stunprevent":0,"stun":21,"summonprevent":0,"summon":22,"timecompression":12,"timedilation":12,"unlockitemvariant":0,"unknown":0,"vamp":0,"visual":0,"weakness":23,"wound":2},"objectives":{"espionage":24,"sabotage":24,"siege_operation":24,"combined_mission_effort":24,"pvp_kills":24,"arena_kills":24,"minutes_passed":24,"anbu_kills":24,"tournaments_won":24,"village_funds_earned":24,"any_missions_completed":24,"any_crimes_completed":24,"days_as_kage":24,"errands_total":24,"a_missions_total":24,"b_missions_total":24,"c_missions_total":24,"d_missions_total":24,"a_crimes_total":24,"b_crimes_total":24,"c_crimes_total":24,"d_crimes_total":24,"minutes_training":24,"stats_trained":24,"days_in_village":24,"jutsus_mastered":24,"user_level":24,"reputation_points":24,"random_encounter_wins":24,"spars_won":24,"medical_experience":24,"medical_experience_gained":24,"crafting_experience":24,"crafting_experience_gained":24,"hunting_experience":24,"hunting_experience_gained":24,"gathering_experience":24,"gathering_experience_gained":24,"items_crafted":24,"creatures_hunted":24,"herbs_gathered":24,"seeds_planted":24,"plants_watered":24,"plants_fertilized":24,"plants_harvested":24,"farming_collection_log":24,"farming_level":24,"students_trained":24,"fail_quest":25,"win_quest":25,"reset_quest":26,"new_quest":27,"start_battle":28,"move_to_location":29,"collect_item":30,"deliver_item":31,"defeat_opponents":32,"dialog":33,"win_encounter_at_location":29,"open_raid":34,"exclusive_raid":34,"craft_specific_item":35,"train_specific_jutsu":36,"complete_specific_quest":37,"buy_item":38,"use_specific_item_combat":39,"use_specific_jutsu_combat":40,"tag_usage_win":41,"damage_dealt":42,"bloodline_collection":43},"aiConditions":{"health_below":44,"specific_round":44,"round_greater_than":44,"round_lower_than":44,"distance_higher_than":45,"distance_lower_than":45,"does_not_have_summon":46,"has_effect":47,"target_has_effect":48,"player_within_range":49,"summon_within_range":49},"aiActions":{"move_towards_opponent":50,"end_turn":46,"use_specific_jutsu":51,"use_specific_item":52,"use_random_jutsu":50,"use_random_item":50,"use_highest_power_action":53,"use_highest_power_jutsu":53,"use_highest_power_item":53,"use_combo_action":54},"aiRule":55,"objectiveChoice":56,"idsWithNumber":57,"objectiveReward":58,"questContent":59}');
 
-  var VERSION = "forge 0.7.1";
+  var VERSION = "forge 0.7.2";
   function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.subtle) {
     if (!subtle || typeof subtle.digest !== "function") {
       return Promise.reject(new Error("crypto.subtle is unavailable (WebCrypto needs a secure context), so repo-backed image bytes cannot be verified"));

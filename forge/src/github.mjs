@@ -80,7 +80,12 @@ export function manifestNumber(name) { const m = /^(\d+)[a-z]?_/i.exec(name); re
 export function manifestSummary(text) {
   try {
     const m = JSON.parse(text);
-    if (m.bloodrightCollection) return { ok: true, title: m._note ?? "Bloodright collection (prepare all trees)", items: (m.bloodrightCollection.trees ?? []).reduce((n, t) => n + Object.keys(t.nodes ?? {}).length, 0), creates: 0, captures: 0 };
+    if (m.bloodrightCollection) {
+      // A collection is counted in what the operator recognises: trees and the skills they hold.
+      const trees = m.bloodrightCollection.trees ?? [];
+      const title = typeof m._note === "string" ? m._note.split(/[.:;]\s|\n/)[0].slice(0, 80) : "Bloodright collection";
+      return { ok: true, title, items: 0, creates: 0, captures: 0, trees: trees.length, skills: trees.reduce((n, t) => n + Object.keys(t.nodes ?? {}).length, 0) };
+    }
     if (m.bloodright) return { ok: true, title: m._note ?? "Bloodright design (prepare preview)", items: Object.keys(m.bloodright.nodes ?? {}).length, creates: 0, captures: 0 };
     const items = Array.isArray(m.items) ? m.items : Array.isArray(m.jutsu) ? m.jutsu : [];
     const caps = (m.capture && ((m.capture.before || []).length + (m.capture.after || []).length)) || 0;
