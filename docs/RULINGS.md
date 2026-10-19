@@ -1231,6 +1231,26 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 ---
 
+## RUL-2026-10-17-020 — ZIP-first Bloodline Jutsu Art Studio and faster session/processing workflow
+
+**Date:** 2026-10-17  
+**Domain:** individual bloodline jutsu.icon artwork production / session startup speed / art processing  
+**Status:** ACTIVE — director authorized ZIP-first consolidation and optimization. The ruling itself grants no tool implementation, live-game operation or new artwork acceptance. The separate P1 Option B offline CLI later integrated under RUL-2026-10-19-005, PR #66.
+
+**Ruling:** The director instructed ChatGPT to consolidate the lessons from **Blue Blade Eyes (BBE), Blood-Enchanted Eyes (BEE) and Vaporia** into a **repeatable Bloodline Jutsu Icon Art Studio**, initialized with **one concise prompt plus one source-art ZIP**. Optimize repeated start-up and processing latency, reported as 8–10-minute Bloodright turns, without replacing checks with guesses: batch live repository/authority reads where possible, inspect and hash the ZIP once, derive exact jutsu name/ID/N mapping, establish the family palette/material and an **N-jutsu technique-first silhouette ledger together**. New jutsu icons are **individually designed per move**, prioritizing distinctive thumbnail-readable shapes and appropriate supernatural chakra rendering, with actors only when genuinely necessary. They do **not** reuse Bloodright's three fixed universal tier emblems.
+
+**Session and finalization rule:** Preserve the existing **one clean isolated generation session per jutsu** under RUL-2026-10-14-001; the persistent Studio coordinates direction, briefs, byte-accurate intake, approvals, and final processing. Generator input is only one or two *individual actual image references*, not the entire ZIP or a contact sheet. Process approved raw assets **in one family-level export/preflight/QC pass where available**, then assemble the final count-adaptive family showcase **deterministically from the actual saved WebPs** (not with image generation). Whole-family visual acceptance is a separate director gate from N individual icon acceptances; Vaporia's historical 5/5 raw approvals did **not** prove final showcase approval.
+
+**Art/technical boundaries:** Opaque designed backgrounds are permitted for **jutsu.image**, which already has a dedicated current `JUTSU_ICON` target with alpha optional. Do not fabricate alpha, force rarity-frame accommodation, or carry legacy generic `ICON` blockers forward as current jutsu requirements. Use current spec-driven dimensions/format and record real `artpreflight.py --type JUTSU_ICON` results. **BBE's under-80,000-byte cap is BBE-specific**, and its palette quantization was a recorded quality tradeoff, not a default that can silently flatten other artwork. Director-approved raw artwork must not be silently regenerated, recolored, or replaced. Image originals, processed exports, family acceptance, canonical preflight, immutable source pins and live upload/read-back are distinct gates.
+
+**Canonical destination:** `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md`, `docs/workflows/JUTSU_ICON_SHOWCASE.md`, `docs/design/jutsu_icon_studio/START_PROMPT.md`, and `GENERATION_AND_CLOSEOUT_TEMPLATES.md`, all under the existing `docs/workflows/ISOLATED_ART_GENERATION.md` and current art-skill/spec authority. `state/prompt_jutsu_icon_studio_fast_tooling_20261017.md` describes potential Fable-owned offline batch tooling; no unimplemented script may be presented as operational.
+
+**Priority and production boundary:** Bloodright structural import remains a **separate higher-priority workstream** under user direction; this standardization does not cause jutsu icon uploads. Any Fable tooling/code follows Lane A independent review. No agent live-game requests/writes/uploads, credentials or publication authorized by this ruling.
+
+**Operative precedence / integration note (2026-10-19):** `docs/workflows/ISOLATED_ART_GENERATION.md` (P0 A–F, RUL-2026-10-19-003) governs exact per-target locks, default anatomy restrictions, visual fail-fast and deterministic-gallery acceptance; the ZIP-first workflow specialises intake and coordination beneath it. The current CLI is `skills/producing-tnr-art/scripts/jutsu_studio.py` (P1 Option B, PR #66), not the 2026-10-17 queued tooling proposal. The historical `state/prompt_jutsu_icon_studio_fast_tooling_20261017.md` is retained at `chatgpt/bloodline-jutsu-studio-zip-first-20261017@d04a87c05999c7037af8667db2b2b79324a53d3c` as **SUPERSEDED**, not added to current main. Gallery layout, accepted-gallery evidence and archive names follow RUL-2026-10-19-005 D5–D9.
+
+---
+
 ## RUL-2026-10-17-021 — BBE and BEE jutsu-icon finals are the approved JUTSU_ICON style library
 
 **Date:** 2026-10-17 (recorded on `claude/bloodline-jutsu-icon-studio-3nmvc2@6bc0af4e`; integrated on main by the P1 tooling change under RUL-2026-10-19-005 D3)
@@ -1245,7 +1265,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Canonical destination:** `art/style_refs/jutsu_icons/` + `art/style_refs/jutsu_icons/INTAKE_20261017.json` (bytes and provenance); `skills/producing-tnr-art/data/style_refs.json` and `scripts/style_refs.py` (index and selection).
 
-**Supersedes:** none. The companion ZIP-first workflow ruling (RUL-2026-10-17-020) and its workflow documents are ChatGPT-owned and integrate separately (RUL-2026-10-19-005 D4).
+**Supersedes:** none. Companion RUL-2026-10-17-020 and its ZIP-first documents are now brought into the separate ChatGPT-owned D4 documentation PR under RUL-2026-10-19-005; this RUL-021 continues to govern the BBE/BEE style-exemplar pinning, not their production approvals.
 
 ---
 
