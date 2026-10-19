@@ -339,9 +339,15 @@ export class Runner {
         const planned = order[item.idx];
         // A suggestion is settled by the review queue, not the record: found means it landed, and
         // not found means it did not, so it is simply sent again.
-        const r = item.phase === "suggest"
-          ? ((await this._findSuggestion(item)) ? { action: "confirm", entityId: item.entityId, phase: "suggest-find", note: "found in the review queue" } : { action: "confirm", entityId: item.entityId, phase: "suggest", note: "not in the review queue; it will be suggested again" })
-          : await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
+        let r;
+        if (item.phase === "suggest") {
+          // Every status: a reviewer may have decided it already. Resend only when the whole queue
+          // was searched and it is not there; otherwise finish without its id rather than risk a duplicate.
+          const f = await this._findSuggestion(item, REVIEW.statuses);
+          r = f.hit || !f.complete
+            ? { action: "confirm", entityId: item.entityId, phase: "suggest-find", note: f.hit ? "found in the review queue" : "queue too long to search; not resent" }
+            : { action: "confirm", entityId: item.entityId, phase: "suggest", note: "not in the review queue; it will be suggested again" };
+        } else r = await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
         if (r.action === "confirm") {
           // landed:true means the sent request is proven to have applied; the runner never re-sends
           // it. The next step is verify, except that a landed UPDATE on an ai with rules still owes
@@ -645,20 +651,28 @@ export class Runner {
     return { category: merged.category ?? "BALANCE", rationale: merged.rationale, title: base.slice(0, REVIEW.titleLength.max - tag.length) + tag };
   }
 
-  /** A pending suggestion of ours in the review queue: matched by its tagged title and target. */
-  async _findSuggestion(item) {
+  /**
+   * Our suggestion in the review queue, matched by its tagged title and target, across `statuses`
+   * (a reviewer may already have decided it). Staff suggestions only, every page.
+   * @returns {{hit: object|null, complete: boolean}}  complete:false when the search could not
+   *   cover the whole queue, so "not found" must not be taken as "never sent".
+   */
+  async _findSuggestion(item, statuses = ["PENDING"]) {
     const entityType = REVIEW.entityTypes[item.entity], id = item.entityId ?? item.targetId;
-    for (let cursor = 0, page = 0; page < 6; page++) {
-      this._requireAuth("contentReview.getQueue", item.idx);
-      const r = await this.client.call("contentReview.getQueue", { status: "PENDING", entityType, cursor, limit: 50 });
-      if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
-      if (!r.ok) throw new Error(`contentReview.getQueue failed: ${r.error?.message ?? "error"}`);
-      const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id));
-      if (hit) return hit;
-      if (r.data?.nextCursor == null) return null;
-      cursor = r.data.nextCursor;
+    for (const status of statuses) {
+      for (let cursor = 0, page = 0; ; page++) {
+        if (page >= 60) return { hit: null, complete: false };
+        this._requireAuth("contentReview.getQueue", item.idx);
+        const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
+        if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
+        if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });
+        const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id));
+        if (hit) return { hit, complete: true };
+        if (r.data?.nextCursor == null) break;
+        cursor = r.data.nextCursor;
+      }
     }
-    return null;
+    return { hit: null, complete: true };
   }
 
   /**
@@ -670,6 +684,7 @@ export class Runner {
    */
   async _suggestItem(jobId, item, planned, manifest) {
     const rc = recipe(item.entity), id = item.entityId ?? item.targetId;
+    if (item.state === "CONFIRMED" && item.phase === "verify") return this._verifyOrSkip(jobId, item, planned, manifest);
     if (!(item.state === "CONFIRMED" && item.phase === "suggest-find")) {
       const data = await this._resolved(planned.data, jobId);
       this._requireAuth(rc.get, item.idx);
@@ -679,6 +694,8 @@ export class Runner {
       const problems = this.validator.problems(item.entity, data, live.data);
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+      // The game's item form and review loader hold a missing store expiry as "", not null.
+      if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
       const s = this._suggestion(manifest, planned, jobId, item);
       this._requireAuth("contentReview.create", item.idx);
       const decoded = await this.journal.withSent(jobId, item.idx, { phase: "suggest", entityId: id, suggestTitle: s.title },
@@ -686,18 +703,20 @@ export class Runner {
       const o = readMutation(decoded);
       if (o.kind !== "ok") {
         if (/nothing changed/i.test(o.message ?? "")) {
-          // The live record already holds this edit: there is nothing to suggest, and that is verified.
-          this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "verify", asserted: Object.keys(data) });
-          return this._verify(jobId, this.journal.get(jobId).items[item.idx], planned);
+          // The desk compared the edit with the live record and found nothing to suggest.
+          this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "suggest-find" });
+          this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "match", reconciled: "the review desk reports the record already holds this edit" });
+          return;
         }
         return this._failFromOutcome(jobId, item, o, "suggest");
       }
       this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "suggest-find" });
       item = this.journal.get(jobId).items[item.idx];
     }
-    const found = await this._findSuggestion(item);
-    this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "suggested", suggestion: { id: found?.id ?? null, status: found?.status ?? "PENDING" },
-      ...(found ? {} : { reconciled: "sent for review; not found in the queue to record its id" }) });
+    // Normally it is the newest PENDING row; a reviewer may already have decided it.
+    const { hit } = await this._findSuggestion(item, REVIEW.statuses);
+    this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "suggested", suggestion: { id: hit?.id ?? null, status: hit?.status ?? "PENDING" },
+      ...(hit ? {} : { reconciled: "sent for review; not found in the queue to record its id" }) });
   }
 
   async _rules(jobId, item, planned, userId) {

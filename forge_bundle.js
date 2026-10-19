@@ -349,7 +349,7 @@
 
   var contract_default = JSON.parse('{"_meta":{"pin":"94f9d84c770004172ba423ada3d6710849acc451","scope":"Bloodright potency import only; other effects intentionally refused","sources":{"app/src/validators/combat.ts":"a7530df9e0537d19aaa2ae3ad06ebe0da6c3f12a636c79b93932f57b4a02ff0a","app/src/server/api/routers/skillTree.ts":"9c8a498cf847639b8638fd296284fc428b82cbf0f0826d0bc3d8de98dc52f374","app/drizzle/constants.ts":"40590ebb64d483677b5fc5cc2629169f6b7f4b6a5ed950d49ae3dae03200603b","app/src/validators/skillTree.ts":"7cea7b987f5db45a21f72717ebec0300ef865b453a7b448d1c5fa8dcc2b97040"}},"skillFields":["name","image","description","target","tier","requiredSkillIds","costSkillPoints","pathType","bloodlineId","seichiSilverCost","hidden","skillType","folderId","effects"],"folderFields":["name","image","description","hidden","order"],"effectFields":["staticAssetPath","staticAnimation","appearAnimation","disappearAnimation","appearSfx","disappearSfx","rounds","timeTracker","power","powerPerLevel","direction","target","coordinateTargeting","friendlyFire","calculation","affectedTag","affectedElements","type","description"],"tags":["damage","increasedamagegiven","decreasedamagegiven","increasedamagetaken","decreasedamagetaken","afterburn","lifesteal","reflect","increaseheal","heal","vamp","absorb","consume","shield","pierce","drain","poison"],"elements":["Fire","Water","Wind","Earth","Lightning","Ice","Crystal","Dust","Shadow","Wood","Scorch","Storm","Magnet","Yin-Yang","Lava","Explosion","Light","Boil","Metal","Sand","None"],"procedures":{"skillTree.get":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.getAll":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.getAllFolders":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.update":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.createFolder":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.updateFolder":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"}}}');
 
-  var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","quest":"QUEST","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"]}`);
+  var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible","aiEditableKeys":"libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"},"notSuggestible":{"quest":"quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"],"aiEditableKeys":["username","npcTitle","avatar","avatar3d","avatarFacing","gender","level","regeneration","rank","bloodlineId","offence","defence","ninjutsuMastery","genjutsuMastery","taijutsuMastery","bukijutsuMastery","bloodlineMastery","sageMastery","statsMultiplier","poolsMultiplier","strength","intelligence","willpower","speed","isSummon","inArena","inShrines","primaryElement","secondaryElement","preferredGeneral1","preferredGeneral2","anbuId","clanId","jutsus","items","effects"]}`);
 
   var PROCEDURES = Object.freeze({
     ...contract_default.procedures,
@@ -3345,7 +3345,11 @@
     for (const it of items) {
       const where = `item ${it.idx + 1} (${it.name})`;
       if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
-      if (!contract_default2.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(contract_default2.entityTypes).join(", ")}`);
+      if (!contract_default2.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(contract_default2.entityTypes).join(", ")}${contract_default2._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${contract_default2._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
+      if (it.entity === "ai") {
+        const dropped = Object.keys(it.data ?? {}).filter((k) => !contract_default2.aiEditableKeys.includes(k));
+        if (dropped.length) problems.push(`${where}: the review desk does not take ${dropped.join(", ")} for an AI; edit them directly instead`);
+      }
       if (it.suggestion) check(where, it.suggestion);
       const merged = { ...s, ...it.suggestion ?? {} };
       if (!merged.title || !merged.rationale) problems.push(`${where}: needs a suggestion title and rationale (manifest "suggestion" or the item's own)`);
@@ -3772,7 +3776,11 @@
         for (const item of job.items) {
           if (item.state !== "SENT") continue;
           const planned = order[item.idx];
-          const r = item.phase === "suggest" ? await this._findSuggestion(item) ? { action: "confirm", entityId: item.entityId, phase: "suggest-find", note: "found in the review queue" } : { action: "confirm", entityId: item.entityId, phase: "suggest", note: "not in the review queue; it will be suggested again" } : await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
+          let r;
+          if (item.phase === "suggest") {
+            const f = await this._findSuggestion(item, contract_default2.statuses);
+            r = f.hit || !f.complete ? { action: "confirm", entityId: item.entityId, phase: "suggest-find", note: f.hit ? "found in the review queue" : "queue too long to search; not resent" } : { action: "confirm", entityId: item.entityId, phase: "suggest", note: "not in the review queue; it will be suggested again" };
+          } else r = await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
           if (r.action === "confirm") {
             const owesRules = item.phase === "update" && item.entity === "ai" && Array.isArray(planned?.data?.rules);
             const phase = r.landed ? owesRules ? "rules" : "verify" : r.phase ?? item.phase;
@@ -4010,22 +4018,26 @@
       const base2 = `${merged.title} \xB7 ${item.name}`;
       return { category: merged.category ?? "BALANCE", rationale: merged.rationale, title: base2.slice(0, contract_default2.titleLength.max - tag.length) + tag };
     }
-    async _findSuggestion(item) {
+    async _findSuggestion(item, statuses = ["PENDING"]) {
       const entityType = contract_default2.entityTypes[item.entity], id2 = item.entityId ?? item.targetId;
-      for (let cursor = 0, page = 0; page < 6; page++) {
-        this._requireAuth("contentReview.getQueue", item.idx);
-        const r = await this.client.call("contentReview.getQueue", { status: "PENDING", entityType, cursor, limit: 50 });
-        if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
-        if (!r.ok) throw new Error(`contentReview.getQueue failed: ${r.error?.message ?? "error"}`);
-        const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id2));
-        if (hit) return hit;
-        if (r.data?.nextCursor == null) return null;
-        cursor = r.data.nextCursor;
+      for (const status of statuses) {
+        for (let cursor = 0, page = 0; ; page++) {
+          if (page >= 60) return { hit: null, complete: false };
+          this._requireAuth("contentReview.getQueue", item.idx);
+          const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
+          if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
+          if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });
+          const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id2));
+          if (hit) return { hit, complete: true };
+          if (r.data?.nextCursor == null) break;
+          cursor = r.data.nextCursor;
+        }
       }
-      return null;
+      return { hit: null, complete: true };
     }
     async _suggestItem(jobId, item, planned, manifest) {
       const rc = recipe(item.entity), id2 = item.entityId ?? item.targetId;
+      if (item.state === "CONFIRMED" && item.phase === "verify") return this._verifyOrSkip(jobId, item, planned, manifest);
       if (!(item.state === "CONFIRMED" && item.phase === "suggest-find")) {
         const data = await this._resolved(planned.data, jobId);
         this._requireAuth(rc.get, item.idx);
@@ -4035,6 +4047,7 @@
         const problems = this.validator.problems(item.entity, data, live.data);
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
         const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+        if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
         const s = this._suggestion(manifest, planned, jobId, item);
         this._requireAuth("contentReview.create", item.idx);
         const decoded = await this.journal.withSent(
@@ -4046,19 +4059,20 @@
         const o = readMutation(decoded);
         if (o.kind !== "ok") {
           if (/nothing changed/i.test(o.message ?? "")) {
-            this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "verify", asserted: Object.keys(data) });
-            return this._verify(jobId, this.journal.get(jobId).items[item.idx], planned);
+            this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "suggest-find" });
+            this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "match", reconciled: "the review desk reports the record already holds this edit" });
+            return;
           }
           return this._failFromOutcome(jobId, item, o, "suggest");
         }
         this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "suggest-find" });
         item = this.journal.get(jobId).items[item.idx];
       }
-      const found = await this._findSuggestion(item);
+      const { hit } = await this._findSuggestion(item, contract_default2.statuses);
       this.journal.transition(jobId, item.idx, "VERIFIED", {
         verify: "suggested",
-        suggestion: { id: found?.id ?? null, status: found?.status ?? "PENDING" },
-        ...found ? {} : { reconciled: "sent for review; not found in the queue to record its id" }
+        suggestion: { id: hit?.id ?? null, status: hit?.status ?? "PENDING" },
+        ...hit ? {} : { reconciled: "sent for review; not found in the queue to record its id" }
       });
     }
     async _rules(jobId, item, planned, userId) {
