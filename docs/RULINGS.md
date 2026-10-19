@@ -1504,3 +1504,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/workflows/ISOLATED_ART_GENERATION.md` (jutsu-icon scoped amendment). Art spec/skill tooling remain in their existing canonical owners; any executable validation or batch-CLI additions are Fable-owned Lane A work subject to independent review.
 
 **Boundary:** This accepts **P0 A–F only**, not retrospective P1 proposals or an unreviewed CLI. It does not grant acceptance of Aerathiel's still-pending deterministic gallery, a canonical artpreflight PASS, Git binary pinning, or any production upload/readback. No live-game actions are authorized.
+
+---
+
+## RUL-2026-10-19-004 — Move Hungry Pulse back to Blood-Enchanted Eyes; bind Ethereal Monarch's existing folder
+
+**Date:** 2026-10-19
+
+**Domain:** Bloodright import / push/123 (collection B)
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Hungry Pulse (`HWq7986PPhl5emkAM3L4a`), the Blood-Enchanted Eyes p2_t1 skill, was found on Aerathiel's bloodline (`1C34syOOEKp6k3UKweYT6`). No Forge job wrote to it, so it was moved by hand. The director chose to **move it back to Blood-Enchanted Eyes** in push/123. Collection B marks that binding `reassign`; Forge allows the move only for a named node, only for a hidden BLOODRIGHT skill, and only when no other skill requires it. Ethereal Monarch binds its existing folder `Z7_y_40drZY8k_ECDRLMa` (visible; the imported skills stay hidden) instead of creating a same-named second folder.
+
+**Evidence:** Forge 0.7.7 preview of push/123: "Hungry Pulse: binding belongs to another bloodline or SKILL path (BLOODRIGHT, bloodline 1C34syOOEKp6k3UKweYT6)" and "folder "Ethereal Monarch" exists (Z7_y_40drZY8k_ECDRLMa, visible)". User answer: "Move it back to BEE".
+
+**Canonical destination:** `scripts/bloodright_collection_package.py` (`BEE`, `EXISTING_FOLDERS`), regenerated into `forge/bloodright/naming_pass_collection_b.json` and `push/123_bloodright_collection_b.json`.

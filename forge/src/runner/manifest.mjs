@@ -233,6 +233,8 @@ function normalizeItem(it, idx) {
     phase: typeof it.phase === "number" ? it.phase : null,
     data,
     ...(it.expected !== undefined ? { expected: it.expected } : {}),
+    // A Bloodright edit the director approved to move a skill from another bloodline.
+    ...(it.reassign === true ? { reassign: true } : {}),
   };
 }
 
