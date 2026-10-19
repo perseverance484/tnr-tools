@@ -20,6 +20,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CURRENT = ROOT / "docs/design/bloodright/balance/round_total/proposal_trees.json"
 OUT = ROOT / "docs/design/bloodright/balance/scorer_v1"
+NAMES_FILE = OUT / "names.json"
+DRAFTED = json.loads(NAMES_FILE.read_text()) if NAMES_FILE.is_file() else {}
 LABEL = {"damage": "Damage", "increasedamagegiven": "IDG", "decreasedamagegiven": "DDG", "increasedamagetaken": "IDT",
          "decreasedamagetaken": "DDT", "afterburn": "Afterburn", "lifesteal": "Lifesteal", "reflect": "Reflect",
          "absorb": "Absorb", "consume": "Consume", "heal": "Heal", "pierce": "Pierce", "poison": "Poison",
@@ -108,6 +110,9 @@ def main(src):
                     t[k] = round(t.get(k, 0) + v, 4)
             return t
         names = {n["id"]: n["name"] for n in current[slug]["nodes"]}
+        drafted = DRAFTED.get(slug, {})
+        old_names = dict(names)
+        names.update({i: d["name"] for i, d in drafted.items()})
         review.append(f"\n## {name}\n")
         review.append(f"Weakest completed path is {info['three_spread']*100:.0f}% of the strongest; weakest add-on "
                       f"{min(info['secondary_normal'], info['secondary_panel'])*100:.0f}% of the strongest; "
@@ -123,9 +128,11 @@ def main(src):
                 if a != c:
                     review.append(f"- {a} + {c}: {fmt(total([f'{a}_t1', f'{a}_t2', f'{a}_t3', f'{c}_t1', f'{c}_t2']))}")
         if renamed:
-            review.append("\nNodes whose effects changed (names need review):\n")
+            review.append("\nNodes whose effects changed (drafted names, for review):\n")
             for x in renamed:
-                review.append(f"- {x['id']} {x['name']}: {x['was']} -> {x['now']}")
+                d = drafted.get(x["id"])
+                label = (f"{d['name']} (kept)" if d.get("keep") else f"{d['name']} (was {old_names[x['id']]})") if d else f"{x['name']} (name needed)"
+                review.append(f"- {x['id']} {label}: {x['was']} -> {x['now']}" + (f". {d['rationale']}" if d else ""))
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "trees.json").write_text(json.dumps(overlay, indent=1, ensure_ascii=False) + "\n")
     (OUT / "REVIEW.md").write_text("\n".join(review) + "\n")
