@@ -34,7 +34,11 @@ def fmt(bonus):
     parts = []
     for t in sorted(bonus, key=lambda t: (t != "damage", LABEL.get(t, t))):
         v = bonus[t]
-        parts.append(f"+{num(v)} {LABEL.get(t, t)}" if t in ("damage", "drain") else f"+{num(v)}% {LABEL.get(t, t)}")
+        # Damage, Drain, Pierce and Heal bonuses are flat power (forge compiles every bonus as a
+        # static potency); the rest add percentage points to percentage rows.
+        flat = t in ("damage", "drain", "pierce", "heal")
+        parts.append(f"+{num(v)} {LABEL.get(t, t)}" + (" power" if t in ("pierce", "heal") else "") if flat
+                     else f"+{num(v)}% {LABEL.get(t, t)}")
     return ", ".join(parts) or "none"
 
 
@@ -59,7 +63,9 @@ def main(src):
     review.append("# Bloodright rebalance (scorer v1)\n")
     review.append("Cumulative Bloodright bonuses per build, prerequisites included (RUL-2026-10-18-001 "
                   "presentation). Weight = seven-round HP-equivalent value / 50.5 (1 = 1% of a level-100 "
-                  "health pool), scored by `scripts/bloodright_balance/` against a mirror of the kit.\n")
+                  "health pool), scored by `scripts/bloodright_balance/` against a mirror of the kit. Pierce and "
+                  "Heal bonuses are flat power: +5 Pierce adds 5 power to each pierce hit, +5 Heal adds 50 HP "
+                  "per heal tick.\n")
     for slug in sorted(current):
         f = src / f"{slug}.json"
         r = json.loads(f.read_text())
@@ -98,7 +104,7 @@ def main(src):
             return t
         names = {n["id"]: n["name"] for n in current[slug]["nodes"]}
         review.append(f"\n## {name}\n")
-        review.append(f"Paths within {info['three_spread']*100:.0f}% of each other; weakest add-on "
+        review.append(f"Weakest completed path is {info['three_spread']*100:.0f}% of the strongest; weakest add-on "
                       f"{min(info['secondary_normal'], info['secondary_panel'])*100:.0f}% of the strongest; "
                       f"average full build {info['mean5']:.2f} Weight (before: {r['current_info']['mean5']:.2f}).\n")
         review.append("| Path | Foundation | Hidden Art | Advanced Art | Completed path (3 BP) |\n|---|---|---|---|---|")
