@@ -1,0 +1,302 @@
+{
+ "schema": "tnr.style_refs.delivery-intake/1",
+ "date": "2026-10-17",
+ "purpose": "Exact-byte intake of the director-approved BBE and BEE jutsu-icon deliveries as the JUTSU_ICON style-reference library (RUL-2026-10-17-021). Style/material calibration only.",
+ "method": "Each uploaded ZIP read once in memory: CRC test, member-name safety (no absolute/traversal/backslash/symlink/duplicate), decoded with Pillow, SHA-256 per member; members copied byte-for-byte to art/style_refs/jutsu_icons/<family>/ under their original names; members compared with the frozen closeout records named below.",
+ "live_game_requests": 0,
+ "live_game_writes": 0,
+ "credentials": "none",
+ "deliveries": [
+  {
+   "key": "bbe_final_20261017",
+   "family": "BBE",
+   "bloodline_name": "Blue Blade Eyes",
+   "bloodline_id": null,
+   "zip_filename": "BBE_Jutsu_Icons_Final_20261017.zip",
+   "zip_bytes": 497338,
+   "zip_sha256": "595ff010ef7b7e147ee88f36840d72fda17f216cc1c333667bd843de00d8e960",
+   "zip_crc_ok": true,
+   "received": "2026-10-17, uploaded by the director into the Claude Code session that performed this intake (conversation delivery; the ZIP container itself is not committed, its members are)",
+   "closeout_record": {
+    "ref": "chatgpt/bbe-final-export-closeout-20261017@e5aa3b13eb4896e93b3e85799b8f0ec2eaedeb9f",
+    "path": "docs/design/blue_blade_eyes/FINAL_EXPORT_QC_20261017.json",
+    "zip_sha256": "595ff010ef7b7e147ee88f36840d72fda17f216cc1c333667bd843de00d8e960"
+   },
+   "zip_matches_closeout": true,
+   "members": [
+    {
+     "name": "BBE_FINAL_MANIFEST.json",
+     "bytes": 8312,
+     "sha256": "59163342ec1b4be49f4f3d6d8fda19f009edf1ce395b0d88be2128b77eca025f",
+     "decoded": "JSON",
+     "role": "manifest",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/BBE_FINAL_MANIFEST.json"
+    },
+    {
+     "name": "icon_bbe_arctic_frost_v2.webp",
+     "bytes": 59408,
+     "sha256": "e40498f61e8cb770dc9cfd3e38e7f984a514e6b53d9c683ae51f6014808762f2",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_arctic_frost_v2.webp"
+    },
+    {
+     "name": "icon_bbe_blade_resonance_v2.webp",
+     "bytes": 63010,
+     "sha256": "fe82f265e7b1ccd9432b26c1d9068b7afaffd4f9cc20024c1f1f311714a716c0",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_blade_resonance_v2.webp"
+    },
+    {
+     "name": "icon_bbe_blue_crimson_v2.webp",
+     "bytes": 59574,
+     "sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_blue_crimson_v2.webp"
+    },
+    {
+     "name": "icon_bbe_glacial_volley_v2.webp",
+     "bytes": 60062,
+     "sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_glacial_volley_v2.webp"
+    },
+    {
+     "name": "icon_bbe_ice_shackles_v2.webp",
+     "bytes": 60172,
+     "sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_ice_shackles_v2.webp"
+    },
+    {
+     "name": "icon_bbe_icebound_might_v2.webp",
+     "bytes": 61438,
+     "sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_icebound_might_v2.webp"
+    },
+    {
+     "name": "icon_bbe_quintessential_flake_v2.webp",
+     "bytes": 62838,
+     "sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_quintessential_flake_v2.webp"
+    },
+    {
+     "name": "icon_bbe_sapphire_command_v2.webp",
+     "bytes": 61270,
+     "sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp"
+    }
+   ],
+   "closeout_cross_check": [
+    {
+     "member": "icon_bbe_arctic_frost_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "e40498f61e8cb770dc9cfd3e38e7f984a514e6b53d9c683ae51f6014808762f2"
+    },
+    {
+     "member": "icon_bbe_blade_resonance_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "fe82f265e7b1ccd9432b26c1d9068b7afaffd4f9cc20024c1f1f311714a716c0"
+    },
+    {
+     "member": "icon_bbe_blue_crimson_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "69d2524ff0cd3e15bcabddbd0fb81210747733057fab6f01b671ce4bfcaf76c9"
+    },
+    {
+     "member": "icon_bbe_glacial_volley_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "f096d7e2f09e4a9eafcf0e6e8059fb0dd1bad2cccd235ab4bba35afa1a66345f"
+    },
+    {
+     "member": "icon_bbe_ice_shackles_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "97405eb77670dc6e367c16a37eb450c927acc4107bd5b5934b3c0825a817f6eb"
+    },
+    {
+     "member": "icon_bbe_icebound_might_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "0bda6a99560ee2d69226d349409042477a650b535ad73602acff8f0c27b51f40"
+    },
+    {
+     "member": "icon_bbe_quintessential_flake_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "7f487233686732fc1d5876c4611303c719482753108953a01e236ca3e8ba7be8"
+    },
+    {
+     "member": "icon_bbe_sapphire_command_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "410b8c5a20af40b27aaf728d5d8c7b2260adc500c7dd64187b08c0953e6531c5"
+    }
+   ]
+  },
+  {
+   "key": "bee_final_20261017",
+   "family": "BEE",
+   "bloodline_name": "Blood-Enchanted Eyes",
+   "bloodline_id": "ovZIWu28ANn-Cij5TjT8S",
+   "zip_filename": "bee_blood_enchanted_eyes_8_approved_jutsu_icons_vampiric_malediction_20261017.zip",
+   "zip_bytes": 738825,
+   "zip_sha256": "3287299f21a0216f54534d17f5d98288c9b9c400f3901aa6d2693912b24fc54b",
+   "zip_crc_ok": true,
+   "received": "2026-10-17, uploaded by the director into the Claude Code session that performed this intake (conversation delivery; the ZIP container itself is not committed, its members are)",
+   "closeout_record": {
+    "ref": "chatgpt/bee-jutsu-art-studio-20261014@1f6010be0967d1ed42645a1a7476b8a1ec2a75e2",
+    "path": "docs/design/blood_enchanted_eyes/SHOWCASE_QC_20261017.json",
+    "zip_sha256": "767449b94477056b240d9d8f08c59750bea51594c52a5c304a82437f14ab7172"
+   },
+   "zip_matches_closeout": false,
+   "members": [
+    {
+     "name": "icon_bee_crimson_impact_v1.webp",
+     "bytes": 100902,
+     "sha256": "bc228a385a6b58c0f5924596ea8992808d42d7719ae8aecdc520c92b96915222",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_crimson_impact_v1.webp"
+    },
+    {
+     "name": "icon_bee_crimson_tithe_v1.webp",
+     "bytes": 76088,
+     "sha256": "5f56d5594440dae025daa028913e7ff44ac626f1d9f4610635d7e56ea2295a0a",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_crimson_tithe_v1.webp"
+    },
+    {
+     "name": "icon_bee_hemocure_v1.webp",
+     "bytes": 88642,
+     "sha256": "234c0c4fa325c49cedcd4eee0703d6c35f373c93c8ad276045ac27f2149f2839",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp"
+    },
+    {
+     "name": "icon_bee_reapers_embrace_v1.webp",
+     "bytes": 88318,
+     "sha256": "0a59b653a2ca6efb04a0e8ea29c4e0eb0021cc53ac977c151c3f2ec83f765fd7",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_reapers_embrace_v1.webp"
+    },
+    {
+     "name": "icon_bee_ring_of_spilled_blood_v2.webp",
+     "bytes": 80484,
+     "sha256": "c791b05124052c901bf1cd8fbf5044c3fb778d6bb436d2492cde19d915b10853",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_ring_of_spilled_blood_v2.webp"
+    },
+    {
+     "name": "icon_bee_sanguine_plague_v3.webp",
+     "bytes": 96622,
+     "sha256": "8540f52e2351c5d487733ceafbbd5ac27a0299d17e592e2da9b234e857b07da3",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_sanguine_plague_v3.webp"
+    },
+    {
+     "name": "icon_bee_thousand_strike_v1.webp",
+     "bytes": 121642,
+     "sha256": "558ad8a9792db009e487f593f657624e1ae9f1085ea7c3b6a6f2a0f59d0afc21",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_thousand_strike_v1.webp"
+    },
+    {
+     "name": "icon_bee_unholy_enhancement_v2.webp",
+     "bytes": 84818,
+     "sha256": "6bd058a1c8ecf7a9fe9201424a4d97fb387a5e0cc26a198fc5a989cf3ba78368",
+     "decoded": "WEBP 256x256 RGB VP8L",
+     "role": "icon",
+     "pinned_path": "art/style_refs/jutsu_icons/bee/icon_bee_unholy_enhancement_v2.webp"
+    }
+   ],
+   "closeout_cross_check": [
+    {
+     "member": "icon_bee_crimson_impact_v1.webp",
+     "status": "MATCH",
+     "closeout_sha256": "bc228a385a6b58c0f5924596ea8992808d42d7719ae8aecdc520c92b96915222"
+    },
+    {
+     "member": "icon_bee_crimson_tithe_v1.webp",
+     "status": "MATCH",
+     "closeout_sha256": "5f56d5594440dae025daa028913e7ff44ac626f1d9f4610635d7e56ea2295a0a"
+    },
+    {
+     "member": "icon_bee_hemocure_v1.webp",
+     "status": "MATCH",
+     "closeout_sha256": "234c0c4fa325c49cedcd4eee0703d6c35f373c93c8ad276045ac27f2149f2839"
+    },
+    {
+     "member": "icon_bee_reapers_embrace_v1.webp",
+     "status": "MATCH",
+     "closeout_sha256": "0a59b653a2ca6efb04a0e8ea29c4e0eb0021cc53ac977c151c3f2ec83f765fd7"
+    },
+    {
+     "member": "icon_bee_ring_of_spilled_blood_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "c791b05124052c901bf1cd8fbf5044c3fb778d6bb436d2492cde19d915b10853"
+    },
+    {
+     "member": "icon_bee_sanguine_plague_v3.webp",
+     "status": "NOT_IN_CLOSEOUT",
+     "closeout_sha256": null
+    },
+    {
+     "member": "icon_bee_thousand_strike_v1.webp",
+     "status": "MATCH",
+     "closeout_sha256": "558ad8a9792db009e487f593f657624e1ae9f1085ea7c3b6a6f2a0f59d0afc21"
+    },
+    {
+     "member": "icon_bee_unholy_enhancement_v2.webp",
+     "status": "MATCH",
+     "closeout_sha256": "6bd058a1c8ecf7a9fe9201424a4d97fb387a5e0cc26a198fc5a989cf3ba78368"
+    }
+   ]
+  }
+ ],
+ "canonical_preflight": [
+  {
+   "family": "BBE",
+   "command": "python3 skills/producing-tnr-art/scripts/artpreflight.py art/style_refs/jutsu_icons/bbe/icon_bbe_arctic_frost_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_blade_resonance_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_blue_crimson_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_glacial_volley_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_ice_shackles_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_icebound_might_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_quintessential_flake_v2.webp art/style_refs/jutsu_icons/bbe/icon_bbe_sapphire_command_v2.webp --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json --type JUTSU_ICON --json --max-bytes 80000",
+   "exit_code": 0,
+   "errors": 0,
+   "files": 8,
+   "warnings": 0,
+   "stderr": "",
+   "spec_sha256": "24815e39746204fa68ee2ae977717b2009dabaf13be71923eb6735416d34873d",
+   "script_sha256": "e8aa60e96eb43ef4d5991134ca28ec242e310b4cadb4bfffe728a1cbe3e8891d",
+   "verdict": "PASS",
+   "workstream_cap": "under 80000 bytes (BBE-only, RUL-2026-10-14-001)"
+  },
+  {
+   "family": "BEE",
+   "command": "python3 skills/producing-tnr-art/scripts/artpreflight.py art/style_refs/jutsu_icons/bee/icon_bee_crimson_impact_v1.webp art/style_refs/jutsu_icons/bee/icon_bee_crimson_tithe_v1.webp art/style_refs/jutsu_icons/bee/icon_bee_hemocure_v1.webp art/style_refs/jutsu_icons/bee/icon_bee_reapers_embrace_v1.webp art/style_refs/jutsu_icons/bee/icon_bee_ring_of_spilled_blood_v2.webp art/style_refs/jutsu_icons/bee/icon_bee_sanguine_plague_v3.webp art/style_refs/jutsu_icons/bee/icon_bee_thousand_strike_v1.webp art/style_refs/jutsu_icons/bee/icon_bee_unholy_enhancement_v2.webp --spec skills/producing-tnr-art/data/25x_DATA_art_spec.json --type JUTSU_ICON --json",
+   "exit_code": 0,
+   "errors": 0,
+   "files": 8,
+   "warnings": 0,
+   "stderr": "",
+   "spec_sha256": "24815e39746204fa68ee2ae977717b2009dabaf13be71923eb6735416d34873d",
+   "script_sha256": "e8aa60e96eb43ef4d5991134ca28ec242e310b4cadb4bfffe728a1cbe3e8891d",
+   "verdict": "PASS",
+   "workstream_cap": "none; spec byte_ceiling_bytes applies"
+  }
+ ],
+ "notes": [
+  "BBE: the uploaded ZIP is byte-identical to the closeout's final ZIP (595ff010...). All 8 icons match the closeout per-file hashes. BBE_FINAL_MANIFEST.json is pinned beside them. The closeout rows carry no jutsu IDs, so BBE references record jutsu_id null; a production binding must join to source-backed IDs, never these names.",
+  "BEE: the uploaded ZIP container (3287299f...) is NOT the closeout's ZIP (767449b9..., 8 entries, 726,250 bytes). 7 of 8 icons byte-match the closeout's processed exports. icon_bee_sanguine_plague_v3.webp (96,622 B) is not in the closeout, which approved icon_bee_sanguine_plague_v2.webp (84,216 B); the closeout's final showcase (f7050731...) shows v2. v3 is pinned on the director's 2026-10-17 instruction to save this delivery as the approved style library; no repository record shows its individual raw approval, and its raw original is not in this delivery.",
+  "These are the first actual executions of artpreflight.py --type JUTSU_ICON on these exact files; both family closeouts had recorded NOT_RUN. This is file acceptance only, not upload or live read-back."
+ ]
+}
