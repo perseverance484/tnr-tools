@@ -285,3 +285,16 @@ test("Core collection: the live inventory is read once for every tree, progress 
   d.core.clearSelection();
   assert.equal(d.core.state.openError, null);
 });
+
+test("a shared collection inventory is never changed by one tree's bound-skill re-reads", async () => {
+  const { readBloodrightInventory, prepareBloodright } = await import("../src/bloodright/compiler.mjs");
+  const d = setup();
+  const inventory = await readBloodrightInventory({ reader: d.core.reader, hiddenProbeId: HP });
+  const before = JSON.stringify(inventory);
+  // The bound skill now reads differently from the inventory row, so tree one replaces that row.
+  d.game.skills.get(HP).description = "changed after the inventory read";
+  const tree = d.pkg.bloodrightCollection.trees[0];
+  const r = await prepareBloodright({ ...d.core, config: tree, imagePack: d.pkg.imagePack, imgSizes: d.pkg.imgSizes, requireIcons: true, inventory });
+  assert.deepEqual(r.problems, []);
+  assert.equal(JSON.stringify(inventory), before);
+});

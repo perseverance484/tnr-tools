@@ -3,22 +3,16 @@
     <input placeholder="search filename, number, title" type="search" value="">
     <button>
       #text "Refresh"
-  <div class="f-mute">
-    #text "1 file in push/ · listed 0s ago"
-  <div>
-    <div class="f-row f-tap">
-      <div class="f-grow">
-        <div>
-          <b>
-            #text "#46 "
-          #text "46_pack_fixture.json"
-        <div class="f-mute">
-          #text "Fixture Asset · 1 item (1 create)"
   <div class="f-card">
     <h2>
       #text "46_pack_fixture.json"
     <div class="f-mute">
       #text "1 items · manifest hash 6dec500e"
+    <div class="f-actions">
+      <button class="f-primary">
+        #text "Start job"
+      <button>
+        #text "Clear"
     <div class="f-row">
       <div class="f-grow">
         <div>
@@ -44,8 +38,14 @@
           #text "repo: art/fixtures/fixture_icon.webp @ 28bba70d0e14 · sha256 ab5f8b5cb9435354… · 32 B · verified from repo"
         <div class="f-mute f-mono">
           #text "selected: fixture_icon.webp · 32 B · ledger 32 B · image/webp"
-    <div class="f-actions">
-      <button class="f-primary">
-        #text "Start job"
-      <button>
-        #text "Clear"
+  <div class="f-mute">
+    #text "1 file in push/ · listed 0s ago"
+  <div>
+    <div class="f-row f-tap">
+      <div class="f-grow">
+        <div>
+          <b>
+            #text "#46 "
+          #text "46_pack_fixture.json"
+        <div class="f-mute">
+          #text "Fixture Asset · 1 item (1 create)"
