@@ -24,6 +24,6 @@ jobs:
       - name: Commit pinned loaders
         run: >-
           python3 .github/scripts/commit_generated.py
-          "loader: pin bundles to $GITHUB_SHA via jsDelivr [auto]"
+          "loader: pin bundles to $GITHUB_SHA via GitHub raw [auto]"
           builder_loader_user.js
           forge_loader_user.js
