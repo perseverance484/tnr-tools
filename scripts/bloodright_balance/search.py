@@ -42,6 +42,20 @@ PRESSURES = (0.5, 1.0, 1.5)
 SECONDARY_SCREEN = 0.90
 DOUBLE_ROOTS = "--double-roots" in sys.argv   # variant: a percentage root may step +5 / +5 (total 10)
 ROUND_TOTALS = (5.0, 10.0)
+# Variant "round5" (proposal, 2026-10-19): a jutsu's displayed value stays round when every finished
+# percentage total is a multiple of 5 (capped kit rows read 30/35/40 at level 25). Roots may total
+# 5, 10 or 15 (steps 2/3, 4/6, 6/9: still rising), capstones +5 or +10, finished totals any multiple
+# of 5 up to ROUND5_CAP; Pierce moves to a power ladder like Damage with its own budget.
+ROUND5 = "--round5" in sys.argv or "--node5" in sys.argv
+# Variant "node5": every node is +5 or +10 of one percentage effect (or a Damage / Pierce power
+# step), and a path's Hidden Art may carry a different effect from its Foundation. Every build,
+# partial ones included, then shows round values.
+NODE5 = "--node5" in sys.argv
+ROUND5_CAP = 20.0
+PCT_ROOT_TOTALS = [(2.0, 3.0), (4.0, 6.0), (6.0, 9.0)]
+PIERCE_FH = [(0.2, 0.4), (0.2, 0.6), (0.4, 0.6), (0.4, 0.8), (0.4, 1.2), (0.8, 1.2)]
+PIERCE_CAP = [0.4, 0.8, 1.2, 1.6]
+PIERCE_ROWS = {}         # slug -> eligible pierce rows, filled by search()
 STRENGTH_BAND = 0.10     # mean 5-BP build within about +-10% of the Taiyo anchor before any penalty
 STRENGTH_WEIGHT = float(sys.argv[sys.argv.index("--strength-weight") + 1]) if "--strength-weight" in sys.argv else 6.0
 CHANGE_COST = 0.04       # a changed node (which then needs a new name) must buy a visible improvement
@@ -68,23 +82,29 @@ def damage_ceiling(rows):
 
 
 class TreePath:
-    __slots__ = ("root", "f", "h", "cap")
+    __slots__ = ("root", "f", "h", "cap", "htag")
 
-    def __init__(self, root, f, h, cap):
+    def __init__(self, root, f, h, cap, htag=None):
         self.root, self.f, self.h, self.cap = root, f, h, dict(cap)
+        self.htag = htag or root
 
     def nodes(self):
-        return [{self.root: self.f}, {self.root: self.h}, dict(self.cap)]
+        return [{self.root: self.f}, {self.htag: self.h}, dict(self.cap)]
 
     def key(self):
-        return (self.root, self.f, self.h, tuple(sorted(self.cap.items())))
+        return (self.root, self.f, self.htag, self.h, tuple(sorted(self.cap.items())))
 
 
 def path_options(tags, slug):
     """Every legal path for this kit, before the cross-path checks."""
     roots = [t for t in tags if t in PCT or t == "damage"]
     caps = []
-    singles = [(t, 5.0) for t in tags if t in PCT] + [("damage", d) for d in DAMAGE_CAP if "damage" in tags]
+    if ROUND5:
+        singles = ([(t, a) for t in tags if t in PCT and t != "pierce" for a in (5.0, 10.0)]
+                   + [("damage", d) for d in DAMAGE_CAP if "damage" in tags]
+                   + [("pierce", d) for d in PIERCE_CAP if "pierce" in tags])
+    else:
+        singles = [(t, 5.0) for t in tags if t in PCT] + [("damage", d) for d in DAMAGE_CAP if "damage" in tags]
     if "drain" in tags:
         singles.append(("drain", 25.0))
     for a in singles:
@@ -93,19 +113,37 @@ def path_options(tags, slug):
         if a[0] != b[0]:
             caps.append({a[0]: a[1], b[0]: b[1]})
     out = []
+    if NODE5:
+        pct = [t for t in tags if t in PCT and t != "pierce"]
+        for root in roots:
+            if root in ("damage", "pierce"):
+                fhs = [(root, f, root, h) for f, h in (DAMAGE_FH if root == "damage" else PIERCE_FH)]
+            else:
+                fhs = [(root, f, ht, h) for f in (5.0, 10.0) for ht in pct for h in (5.0, 10.0)
+                       if ht != root or h >= f]
+            for rt, f, ht, h in fhs:
+                for cap in caps:
+                    if rt in ("damage", "pierce") and rt in cap and cap[rt] <= h:
+                        continue
+                    out.append(TreePath(rt, f, h, cap, ht))
+        return [p for p in out if keystone_ok(slug, p)]
     for root in roots:
-        fhs = DAMAGE_FH if root == "damage" else ([(2.0, 3.0), (5.0, 5.0)] if DOUBLE_ROOTS else [(2.0, 3.0)])
+        if ROUND5:
+            fhs = DAMAGE_FH if root == "damage" else PIERCE_FH if root == "pierce" else PCT_ROOT_TOTALS
+        else:
+            fhs = DAMAGE_FH if root == "damage" else ([(2.0, 3.0), (5.0, 5.0)] if DOUBLE_ROOTS else [(2.0, 3.0)])
         for f, h in fhs:
             for cap in caps:
-                if root == "damage" and "damage" in cap and cap["damage"] <= h:
-                    continue          # ascending along a Damage path
+                if root in ("damage", "pierce") and root in cap and cap[root] <= h:
+                    continue          # ascending along a Damage / Pierce path
                 out.append(TreePath(root, f, h, cap))
     return [p for p in out if keystone_ok(slug, p)]
 
 
 def keystone_ok(slug, p):
     if slug == "blue_blade_eyes":
-        if p.root == "lifesteal" and p.cap != {"increasedamagetaken": 5.0}:
+        if p.root == "lifesteal" and (p.htag != "lifesteal" or set(p.cap) != {"increasedamagetaken"}
+                                      or (not NODE5 and p.cap != {"increasedamagetaken": 5.0})):
             return False
         if p.root != "lifesteal" and "increasedamagetaken" in p.cap and p.cap.get("increasedamagetaken"):
             return True
@@ -144,25 +182,35 @@ def tree_ok(slug, paths, dmg_rows):
     three, five = builds_of(paths)
     for b in list(three.values()) + list(five.values()):
         for t, v in b.items():
-            if t in PCT and v not in ROUND_TOTALS:
+            if ROUND5:
+                if t in PCT and t != "pierce" and (abs(v / 5 - round(v / 5)) > 1e-9 or v > ROUND5_CAP):
+                    return False
+            elif t in PCT and v not in ROUND_TOTALS:
                 return False
     # every finished build is its own package: four distinct completed paths, twelve distinct 5-BP builds
     keys3 = {tuple(sorted(b.items())) for b in three.values()}
     keys5 = {tuple(sorted(b.items())) for b in five.values()}
     if len(keys3) != 4 or len(keys5) != 12:
         return False
-    ceiling = damage_ceiling(dmg_rows)
-    # every legal allocation: one capstone at most, prerequisites, 5 BP
-    fh = [(p.nodes()[0].get("damage", 0) + 0, p.nodes()[1].get("damage", 0)) for p in paths]
+    budgets = [("damage", dmg_rows)]
+    if ROUND5:
+        budgets.append(("pierce", PIERCE_ROWS.get(slug, 0)))
+    return all(max_allocation(paths, t) <= damage_ceiling(rows) + 1e-9 for t, rows in budgets)
+
+
+def max_allocation(paths, tag):
+    """Largest total of a flat-power tag over every legal allocation: one capstone at most,
+    prerequisites, 5 BP."""
+    fh = [(p.nodes()[0].get(tag, 0), p.nodes()[1].get(tag, 0)) for p in paths]
     best = 0.0
     for i, p in enumerate(paths):            # with path i's capstone
-        own = sum(n.get("damage", 0) for n in p.nodes())
+        own = sum(n.get(tag, 0) for n in p.nodes())
         others = sorted((a + b for j, (a, b) in enumerate(fh) if j != i), reverse=True)
         singles = sorted((a for j, (a, _) in enumerate(fh) if j != i), reverse=True)
         best = max(best, own + max(others[0], singles[0] + singles[1] if len(singles) > 1 else 0))
     pair = sorted((a + b for a, b in fh), reverse=True)
     best = max(best, pair[0] + pair[1] + max(a for a, _ in fh))
-    return best <= ceiling + 1e-9
+    return best
 
 
 def totals(node_lists):
@@ -250,10 +298,12 @@ def current_paths(tree):
     return out
 
 
-def search(slug, tree, anchor, kits=None, restarts=60, seed=7, verify=40):
+def search(slug, tree, anchor, kits=None, restarts=None, seed=7, verify=40):
+    restarts = restarts or (20 if NODE5 else 60)
     ev = E.Evaluator(slug, kits)
     tags = eligible_tags(ev)
     dmg_rows = tags.get("damage", 0)
+    PIERCE_ROWS[slug] = tags.get("pierce", 0)
     opts = path_options(tags, slug)
     scorer = Scorer(ev)
     cur = current_paths(tree)
@@ -299,7 +349,7 @@ def search(slug, tree, anchor, kits=None, restarts=60, seed=7, verify=40):
     s, paths, info = verified[0]
     cs, cinfo = evaluate(cur, scorer.full, anchor, cur_nodes)
     return {"slug": slug, "eligible": tags, "damage_ceiling": damage_ceiling(dmg_rows), "score": s,
-            "paths": [{"root": p.root, "f": p.f, "h": p.h, "cap": p.cap} for p in paths], "info": _jsonable(info),
+            "paths": [{"root": p.root, "f": p.f, "htag": p.htag, "h": p.h, "cap": p.cap} for p in paths], "info": _jsonable(info),
             "current_score": cs, "current_ok": ok(cur), "current_info": _jsonable(cinfo)}
 
 
