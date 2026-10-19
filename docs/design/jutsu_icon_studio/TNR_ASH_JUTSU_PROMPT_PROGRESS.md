@@ -6,7 +6,7 @@
 **Startup counts:** 4 director-reported art-complete; 25 still to tackle (17 A / 4 S / 4 H); 1 of the 25 is a FULL RESTART (Houkyuken); 0 opening prompts authored by this new desk.
 **Git-owned ledger:** `chatgpt/ash-jutsu-prompt-desk-20261019` at `docs/design/jutsu_icon_studio/TNR_ASH_JUTSU_PROMPT_PROGRESS.md` (ChatGPT sole writer; main unaffected unless separately merged).
 **Bootstrap verification (2026-10-19):** `main@4e674234d0539b7010c34025034330980a38b196`; pinned census 29/29 members, 19 A / 6 S / 4 H; 29/29 tree metadata bloodline IDs, BR numbers and ranks individually matched. Name-label differences are known aliases only: Houkyuken/Hokyuken, BEE and BBE abbreviations.
-**Desk state (2026-10-19):** Director selected **Shinseina Ki** as the first target. Its opening prompt is `PROMPT_READY` (Git-pinned); **studio NOT launched**, original ZIP NOT received by this desk, art `NOT_STARTED`. Prompts: 1 READY, 24 TO_DRAFT, 4 NOT_REQUIRED, 0 LAUNCHED. Art remains 4 DONE_DIRECTOR_REPORTED / 24 NOT_STARTED / 1 ABANDONED_RESET. Art totals remain 29 / 4 / 25. Repository-only reads and prompt/ledger commits; zero artwork generation/QC and zero live-game requests/writes; no credentials.
+**Desk state (2026-10-19, director milestone):** Director now reports **Shinseina Ki complete** as artwork (five original raws director-approved per the studio register). Its persistent Art Studio has independently verifiable repository evidence at `chatgpt/shinseina-ki-jutsu-art-studio-20261019@b527aa39e1af6f6c883effeb01534d2277b0bbb8`, so the prompt/Studio state advances to `LAUNCHED`; the assertion that this exact opening-prompt text was pasted is not separately captured. **Art:** `DONE_DIRECTOR_REPORTED`. Prompts: 1 LAUNCHED, 24 TO_DRAFT, 4 NOT_REQUIRED, 0 PROMPT_READY. Art: 5 DONE_DIRECTOR_REPORTED / 23 NOT_STARTED / 1 ABANDONED_RESET. Total 29 / 5 / 24 (A 19/3/16; S 6/2/4; H 4/0/4). Shinseina's latest pinned studio record still has `FAMILY_SHOWCASE_ACCEPTED: PENDING`; no accepted-gallery SHA, final closeout delivery, Git binary pin, anatomy exception reconciliation or user upload/readback may be inferred from director shorthand “complete.” No live-game requests/writes by this desk; credentials none.
 
 ## Status meaning and edits
 
@@ -32,7 +32,7 @@
 | A | [Shadow Weaver](../bloodright/trees/shadow_weaver.json) | BR-063 | `d0WYPbbsVx7Y_i0fddwxc` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shakunetsu Sakura](../bloodright/trees/shakunetsu_sakura.json) | BR-064 | `aa1lZukkHpz6ihmcxLaei` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shinrai Ou](../bloodright/trees/shinrai_ou.json) | BR-065 | `xO4Dycx7FFEqxwvAEXBxY` | TO_DRAFT | NOT_STARTED | — |
-| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | PROMPT_READY | NOT_STARTED | Selected 2026-10-19; opener [`prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md`](prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md) @ `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`; not launched. |
+| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | LAUNCHED | DONE_DIRECTOR_REPORTED | Director 2026-10-19: “Shinseina Ki complete.” Opener [`prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md`](prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md) @ `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`; separate studio branch `chatgpt/shinseina-ki-jutsu-art-studio-20261019@b527aa39e1af6f6c883effeb01534d2277b0bbb8`; 5/5 raw approvals, 5/5 canonical preflight PASS as recorded, gallery acceptance PENDING, Wood Warrior anatomy-exception reconciliation PENDING, ZIP user delivery not proven, binaries not Git-pinned, game upload/readback not proven. No verifiable final closeout handoff yet. |
 | A | [Suragu](../bloodright/trees/suragu.json) | BR-074 | `Ksb6ogNqc5mp4l_hRgPuW` | TO_DRAFT | NOT_STARTED | — |
 | A | [Taiyo Kami](../bloodright/trees/taiyo_kami.json) | BR-075 | `6C2t3jK35hvPoVocLiHEl` | TO_DRAFT | NOT_STARTED | — |
 | A | [Teno Yuki](../bloodright/trees/teno_yuki.json) | BR-077 | `clh4d6qjs000gtb0hr357gjvv` | TO_DRAFT | NOT_STARTED | — |
@@ -53,18 +53,20 @@
 
 | Date | Bloodline | Prompt | Art Studio | Evidence |
 | --- | --- | --- | --- | --- |
-| 2026-10-19 | Shinseina Ki (A, BR-066, `vA8I_7iBNgvkuKOpnG1yD`) | **PROMPT_READY** | **NOT_STARTED** | Opening document `prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md` at `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`. Identity/rank `docs/design/bloodright/trees/shinseina_ki.json` at `main@4e674234d0539b7010c34025034330980a38b196`. Historical kit comparator `docs/design/bloodright/kits/shinseina_ki.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866` (2026-10-01 public snapshot; not a current-live claim). |
+| 2026-10-19 | Shinseina Ki (A, BR-066, `vA8I_7iBNgvkuKOpnG1yD`) | **LAUNCHED** (Studio evidenced; exact pasted prompt unverified) | **DONE_DIRECTOR_REPORTED** | Director 2026-10-19 reports completed art. Opening document `prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md` @ `ef6533f87f1d2e8075c3a6f88abdb881bf91157a`; Studio `chatgpt/shinseina-ki-jutsu-art-studio-20261019@b527aa39e1af6f6c883effeb01534d2277b0bbb8` with five original visual approvals, five current processed outputs and reported pinned canonical preflight PASS. Exact gallery family acceptance PENDING and Wood Warrior anatomy exception unresolved; final closeout/user delivery NOT VERIFIED. Historical kit `docs/design/bloodright/kits/shinseina_ki.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866`, not current-live proof. |
 
-No studio branch/thread, intake, target lock, raw approval, gallery acceptance, or upload evidence has been returned to this desk yet.
+**Shinseina Ki observed Studio:** `chatgpt/shinseina-ki-jutsu-art-studio-20261019@b527aa39e1af6f6c883effeb01534d2277b0bbb8`, source intake and five per-target locks evidenced. `JUTSU_ICON_REGISTER.md` records 5/5 raw visual approvals, 5/5 local QC PASS and canonical `artpreflight --type JUTSU_ICON` PASS. A deterministic 3+2 WebP-source gallery has a technical audit VALID, but **exact director family-gallery acceptance remains PENDING**, as does the image-specific Wood Warrior anatomy exception. v1 archives are **BUILT_NOT_DELIVERED** in pinned evidence, binary ZIP/image bytes **NOT_GIT_PINNED**, no verified user upload/readback; do not treat the director's art-complete report as those gates passing. An actual final Studio closeout handoff is not yet in this desk's records.
+
+**Suggested next target (not director-selected):** Bakuhatsu (A / BR-008 / `RNUcHSH2c00IhOLc2C9aJ`). Identity/rank verified from `docs/design/bloodright/trees/bakuhatsu.json@main:4e674234d0539b7010c34025034330980a38b196`. Historical kit comparator exists at `docs/design/bloodright/kits/bakuhatsu.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866`. No prompt prepared or studio launched for Bakuhatsu until the director selects it; actual techniques/movements must come from its original ZIP.
 
 ## Milestone snapshot
 
 | Rank | Total | Art done (director-reported) | Remain |
 | --- | ---: | ---: | ---: |
-| A | 19 | 2 | 17 |
+| A | 19 | 3 | 16 |
 | S | 6 | 2 | 4 |
 | H | 4 | 0 | 4 |
-| **TOTAL** | **29** | **4** | **25** |
+| **TOTAL** | **29** | **5** | **24** |
 
 **Explicit director reset:** Houkyuken/Hokyuken earlier art session was not salvageable; discard all old generated candidates, prior purported approvals and the previous visual direction. A fresh future ZIP-first Studio must start with legacy source originals (IDENTITY ONLY), independent pinned style/material examples, new technique/action silhouette reservations and a new director-approved lock. The earlier session is historical rejection evidence only, not a source of approved final jutsu artwork.
 
