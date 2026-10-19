@@ -1,0 +1,225 @@
+{
+  "schema": "tnr.jutsu-studio.locks/1",
+  "bloodline": {
+    "id": "RNUcHSH2c00IhOLc2C9aJ",
+    "name": "Bakuhatsu",
+    "rank": "A"
+  },
+  "family_treatment": {
+    "name": "CONCUSSIVE FRACTURE",
+    "state": "DIRECTOR_APPROVED",
+    "evidence": "2026-10-19 director: 'Approved, proceed' to family and Blast Shield as first target",
+    "palette": "Ember orange, incandescent gold, white-hot yellow, charcoal and burnt copper; deep crimson only as restrained accent; blue-white electrical trace only when supported (Charge 4 Explosion).",
+    "material": "Concussive detonation: fractured stone, compressed chakra pressure and sharp blast-fronts, not lava, persistent fire or hydrothermal vapor.",
+    "rendering": "Premium TNR crisp pixel clusters, coherent focal silhouette with dark negative space, one secondary effect, 125/64/32 legibility, no anatomy unless separately approved."
+  },
+  "targets": [
+    {
+      "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+      "name": "Inferno Cataclysm",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Detonate a fissure in the ground into a devastating area eruption; historical capture describes fractured earth and explosive recoil.",
+      "dominant_silhouette": "One long, jagged split in the earth erupting into a brutal angled wall of incandescent pressure; no isolated fireball.",
+      "camera": "Elevated three-quarter view, looking down the torn ground plane; fissure clearly extends into depth.",
+      "motion_axis": "Lateral force tears ground open from the central crack while explosive pressure erupts upward toward the far edge.",
+      "secondary_effect": "One massive displaced stone slab to show violent ground breakup.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+          "silhouette": "One compressed luminous projectile breaking apart into a controlled fan/constellation of smaller detonations; a distinct multi-burst breakup. ACTION: The main projectile travels toward the target then bursts radially into multiple distinct small charges."
+        },
+        {
+          "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+          "silhouette": "A thick horseshoe-shaped compressed explosive-pressure wall with an unmistakably protected dark central void; the shield actively deflects an incoming strike. ACTION: Pressure drives outward from the protected center, while one incoming attack is redirected away from the wall."
+        },
+        {
+          "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+          "silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring. ACTION: A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation."
+        },
+        {
+          "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+          "silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind. ACTION: Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact."
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "path": "images/FTTl_wnTlbvOfOyiGCc-b_Inferno_Cataclysm.png",
+          "sha256": "e9b09efefd19881b7884a297620f8471e65059014fdd421ccaea8e4dd8cf3a2a"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    },
+    {
+      "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+      "name": "Kinetic Nova",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Compress explosive chakra into a thrown ball that ruptures into many tiny explosions and disrupts the opponent’s chakra.",
+      "dominant_silhouette": "One compressed luminous projectile breaking apart into a controlled fan/constellation of smaller detonations; a distinct multi-burst breakup.",
+      "camera": "Near-frontal three-quarter view facing the target; near side of the exploding sphere in foreground.",
+      "motion_axis": "The main projectile travels toward the target then bursts radially into multiple distinct small charges.",
+      "secondary_effect": "One frayed, interrupted chakra filament indicating disruption after impact.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+          "silhouette": "One long, jagged split in the earth erupting into a brutal angled wall of incandescent pressure; no isolated fireball. ACTION: Lateral force tears ground open from the central crack while explosive pressure erupts upward toward the far edge."
+        },
+        {
+          "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+          "silhouette": "A thick horseshoe-shaped compressed explosive-pressure wall with an unmistakably protected dark central void; the shield actively deflects an incoming strike. ACTION: Pressure drives outward from the protected center, while one incoming attack is redirected away from the wall."
+        },
+        {
+          "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+          "silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring. ACTION: A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation."
+        },
+        {
+          "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+          "silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind. ACTION: Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact."
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "path": "images/y8y01n9jz16bz5EBzl4wr_Kinetic_Nova.png",
+          "sha256": "c3e22e1e683347abe8e58a29dc19de2a68f427358c14a466bc4b344e18acc045"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    },
+    {
+      "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+      "name": "Blast Shield",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Concussive explosion expands around the caster to neutralize incoming attacks; source includes damage reduction and a protective barrier.",
+      "dominant_silhouette": "A thick horseshoe-shaped compressed explosive-pressure wall with an unmistakably protected dark central void; the shield actively deflects an incoming strike.",
+      "camera": "Oblique frontal three-quarter camera: see both the outer shockwall face and the sheltered space behind it.",
+      "motion_axis": "Pressure drives outward from the protected center, while one incoming attack is redirected away from the wall.",
+      "secondary_effect": "A single small inbound projectile deflects sharply off the outer blast shield, not another surrounding detonation.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+          "silhouette": "One long, jagged split in the earth erupting into a brutal angled wall of incandescent pressure; no isolated fireball. ACTION: Lateral force tears ground open from the central crack while explosive pressure erupts upward toward the far edge."
+        },
+        {
+          "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+          "silhouette": "One compressed luminous projectile breaking apart into a controlled fan/constellation of smaller detonations; a distinct multi-burst breakup. ACTION: The main projectile travels toward the target then bursts radially into multiple distinct small charges."
+        },
+        {
+          "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+          "silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring. ACTION: A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation."
+        },
+        {
+          "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+          "silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind. ACTION: Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact."
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "path": "images/Awyd1k1-tw4uzn-PLbcdP_Blast_Shield.png",
+          "sha256": "3994cb097d698aea3e2b329a34f350ea2df5177135b2cc41fd91b82e8b7599b2"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "APPROVED",
+        "lock_sha256": "05fedb7fefc0a59ae7760bdd04aaee99b313cb5dc295164f6f51c138bb103464",
+        "evidence": "Director, 2026-10-19: 'Approved, proceed' to the explicitly proposed CONCUSSIVE FRACTURE family and Blast Shield first TARGET LOCK in this Art Studio conversation."
+      }
+    },
+    {
+      "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+      "name": "Charge 4 Explosion",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Disperse explosive chakra across the battlefield, making successive microexplosions at contact points; offensive charging and afterburn.",
+      "dominant_silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring.",
+      "camera": "Elevated three-quarter tactical view looking along the ground and across multiple spatially separated ignition points.",
+      "motion_axis": "A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation.",
+      "secondary_effect": "One thin blue-white electrical chakra filament tracing the charge between ignition points, supported by source artwork.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+          "silhouette": "One long, jagged split in the earth erupting into a brutal angled wall of incandescent pressure; no isolated fireball. ACTION: Lateral force tears ground open from the central crack while explosive pressure erupts upward toward the far edge."
+        },
+        {
+          "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+          "silhouette": "One compressed luminous projectile breaking apart into a controlled fan/constellation of smaller detonations; a distinct multi-burst breakup. ACTION: The main projectile travels toward the target then bursts radially into multiple distinct small charges."
+        },
+        {
+          "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+          "silhouette": "A thick horseshoe-shaped compressed explosive-pressure wall with an unmistakably protected dark central void; the shield actively deflects an incoming strike. ACTION: Pressure drives outward from the protected center, while one incoming attack is redirected away from the wall."
+        },
+        {
+          "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+          "silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind. ACTION: Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact."
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "path": "images/rOqCTqNBSW_A-QYesFBw9_Charge_4_Explosion.png",
+          "sha256": "cea27f1480536975938b179d2c74f6b1941294d871742191ea6f9e0da95a49d0"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    },
+    {
+      "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+      "name": "Howitzer Crash",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Blast-propel the fighter toward the enemy, then release a second major close-range explosion at collision; exclude bodies from the icon.",
+      "dominant_silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind.",
+      "camera": "Dynamic oblique three-quarter view along the attack trajectory; collision fills the nearer lower-right third.",
+      "motion_axis": "Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact.",
+      "secondary_effect": "One tight taper of scorched propulsion exhaust behind the shock-cone, clearly distinct from the leading collision.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+          "silhouette": "One long, jagged split in the earth erupting into a brutal angled wall of incandescent pressure; no isolated fireball. ACTION: Lateral force tears ground open from the central crack while explosive pressure erupts upward toward the far edge."
+        },
+        {
+          "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+          "silhouette": "One compressed luminous projectile breaking apart into a controlled fan/constellation of smaller detonations; a distinct multi-burst breakup. ACTION: The main projectile travels toward the target then bursts radially into multiple distinct small charges."
+        },
+        {
+          "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+          "silhouette": "A thick horseshoe-shaped compressed explosive-pressure wall with an unmistakably protected dark central void; the shield actively deflects an incoming strike. ACTION: Pressure drives outward from the protected center, while one incoming attack is redirected away from the wall."
+        },
+        {
+          "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+          "silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring. ACTION: A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation."
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "path": "images/hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png",
+          "sha256": "ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    }
+  ]
+}
