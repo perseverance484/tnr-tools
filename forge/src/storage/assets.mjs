@@ -109,6 +109,30 @@ function readJson(storage, key) {
 /** { [sha256]: {url, at, path, ref} } - uploads of repo-backed bytes, keyed by content. */
 export function readAssetUploads(storage) { return readJson(storage, ASSET_UPLOADS_KEY); }
 
+/** Drop a recorded upload whose URL no longer loads, so it is uploaded again rather than reused. */
+export function forgetAssetUpload(storage, sha256) {
+  const map = readAssetUploads(storage);
+  if (!(sha256 in map)) return map;
+  delete map[sha256];
+  storage.setItem(ASSET_UPLOADS_KEY, JSON.stringify(map));
+  return map;
+}
+
+/**
+ * The recorded uploads, minus any whose URL the browser says no longer loads. Without a probe
+ * nothing is dropped. Only `shas` are checked when given. `forget` also removes the dead records
+ * from storage; a preview leaves storage alone and lets the run (which probes again) decide.
+ */
+export async function liveAssetUploads(storage, probe, shas = null, { forget = false } = {}) {
+  const map = readAssetUploads(storage);
+  if (typeof probe !== "function") return map;
+  for (const [sha, rec] of Object.entries(map)) {
+    if (shas && !shas.has(sha)) continue;
+    if ((await probe(rec?.url)) === false) { delete map[sha]; if (forget) forgetAssetUpload(storage, sha); }
+  }
+  return map;
+}
+
 export function recordAssetUpload(storage, sha256, url, { path = null, ref = null, at = Date.now() } = {}) {
   const map = readAssetUploads(storage);
   map[sha256] = { url, at, path, ref };

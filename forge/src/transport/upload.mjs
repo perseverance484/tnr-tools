@@ -16,6 +16,13 @@
 // Ceilings are per slug and are enforced server-side in app/src/app/api/uploadthing/core.ts
 // (R8: carried as data, never as one constant). onUploadComplete runs moderateUploadedImage,
 // so an upload is not final at the moment the PUT returns.
+//
+// THE VERDICT. moderateUploadedImage DELETES the file when the image is flagged, and also when the
+// moderation call itself fails (a rate limit, a timeout), then answers serverData
+// {fileUrl: "", error}. The PUT still returns 200 with a ufsUrl, which then points at nothing:
+// push/122 (2026-10-19) saved dead image links on whole trees this way. So the serverData verdict
+// decides success, a "could not validate" refusal is retried after a pause, and the URL kept is
+// the one the game serves (serverData.fileUrl), never the bare ufsUrl when a verdict exists.
 
 export const UT_VERSION = "7.7.4";
 export const SLUGS = Object.freeze({
@@ -29,6 +36,13 @@ export class UploadError extends Error {
   constructor(message, info = {}) { super(message); this.name = "UploadError"; Object.assign(this, info); }
 }
 
+// A moderation call that failed (as opposed to an image it flagged) is worth retrying after a pause.
+const TRANSIENT = /unable to validate/i;
+export const RETRY_DELAYS_MS = Object.freeze([10_000, 30_000, 60_000]);
+// Uploads back to back are what tripped moderation; keep a gap between them.
+export const MIN_GAP_MS = 3_000;
+const realSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 export class Uploader {
   /**
    * @param {object} o
@@ -36,15 +50,46 @@ export class Uploader {
    * @param {(url: string, init: object) => Promise<Response>} o.fetchImpl  plain fetch for the ingest host
    * @param {string} [o.slug="imageUploader"]
    */
-  constructor({ session, fetchImpl, slug = "imageUploader" }) {
+  constructor({ session, fetchImpl, slug = "imageUploader", sleep = realSleep, clock = () => Date.now(), retryDelays = RETRY_DELAYS_MS, minGapMs = MIN_GAP_MS }) {
     if (!SLUGS[slug]) throw new UploadError("unknown slug " + slug);
     this.session = session; this.fetchImpl = fetchImpl; this.slug = slug;
+    this.sleep = sleep; this.clock = clock; this.retryDelays = retryDelays; this.minGapMs = minGapMs;
+    this._last = null;
   }
 
   ceiling() { return SLUGS[this.slug].maxBytes; }
 
-  /** @param {File|Blob & {name?: string, lastModified?: number}} file  @returns {Promise<{ufsUrl: string, key: string}>} */
-  async upload(file) {
+  /**
+   * Upload, honouring the game's verdict: retried after a pause when the game could not check the
+   * image, refused when it removed it. @returns {Promise<{url: string, ufsUrl: string, key: string}>}
+   */
+  async upload(file, { onWait = null } = {}) {
+    for (let attempt = 0; ; attempt++) {
+      if (this._last != null) {
+        const wait = this._last + this.minGapMs - this.clock();
+        if (wait > 0) await this._wait(wait, onWait);
+      }
+      try { return await this._once(file); }
+      catch (e) {
+        if (!(e instanceof UploadError && e.removed && TRANSIENT.test(e.reason ?? "")) || attempt >= this.retryDelays.length) throw e;
+        await this._wait(this.retryDelays[attempt], onWait);
+      }
+      finally { this._last = this.clock(); }
+    }
+  }
+
+  /** Sleep in steps of at most 10 s, calling onWait before each, so a caller's heartbeat stays fresh. */
+  async _wait(ms, onWait) {
+    while (ms > 0) {
+      if (onWait) onWait();
+      const step = Math.min(ms, 10_000);
+      await this.sleep(step);
+      ms -= step;
+    }
+  }
+
+  /** @param {File|Blob & {name?: string, lastModified?: number}} file */
+  async _once(file) {
     const max = this.ceiling();
     if (file.size > max) throw new UploadError(`${file.name ?? "file"} is ${file.size} bytes; ${this.slug} ceiling is ${max}`, { size: file.size, max });
     const meta = { name: file.name ?? "upload", size: file.size, type: file.type || "application/octet-stream", lastModified: file.lastModified ?? 0 };
@@ -74,6 +119,12 @@ export class Uploader {
     let done;
     try { done = JSON.parse(putText); } catch { throw new UploadError("upload response is not JSON"); }
     if (!done || typeof done.ufsUrl !== "string") throw new UploadError("upload response missing ufsUrl", { body: putText.slice(0, 160) });
-    return { ufsUrl: done.ufsUrl, key: p.key, fileHash: done.fileHash ?? null };
+    const verdict = done.serverData && typeof done.serverData === "object" ? done.serverData : null;
+    if (verdict && (verdict.error || verdict.fileUrl === "")) {
+      const reason = String(verdict.error || "the game removed the upload");
+      throw new UploadError(`the game removed ${meta.name} after upload: ${reason}`, { removed: true, reason });
+    }
+    const url = verdict && typeof verdict.fileUrl === "string" && /^https:\/\//.test(verdict.fileUrl) ? verdict.fileUrl : done.ufsUrl;
+    return { url, ufsUrl: done.ufsUrl, key: p.key, fileHash: done.fileHash ?? null };
   }
 }

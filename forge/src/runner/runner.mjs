@@ -28,7 +28,7 @@ import { TransportError } from "../transport/envelope.mjs";
 import { RateLimited } from "../budget/bucket.mjs";
 import { readInput, listInput } from "../budget/reader.mjs";
 import { readIdmap, writeIdmap } from "../storage/compat.mjs";
-import { readAssetUploads, recordAssetUpload } from "../storage/assets.mjs";
+import { readAssetUploads, recordAssetUpload, forgetAssetUpload } from "../storage/assets.mjs";
 import { toHex } from "./imgpack.mjs";
 import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
@@ -677,7 +677,8 @@ export class Runner {
 
   async _verify(jobId, item, planned) {
     const rc = recipe(item.entity);
-    const data = await this._resolved(planned.data, jobId);
+    // Verification only reads: it resolves images from what was recorded, never probes or uploads.
+    const data = await this._resolved(planned.data, jobId, { readOnly: true });
     const diffs = [];
     if (item.entity !== "aiProfile") {
       this._requireAuth(rc.get, item.idx);
@@ -895,7 +896,10 @@ export class Runner {
     };
   }
 
-  async _resolved(data, jobId) {
+  async _resolved(data, jobId, { readOnly = false } = {}) {
+    const probe = readOnly ? null : this.imageProbe;
+    // Uploads can wait (retries, spacing): keep this tab's claim on the job fresh meanwhile.
+    const heartbeat = () => { if (jobId) this._lease(jobId); };
     // upload any @img refs first
     const refs = collectRefs(data).filter((r) => r.pfx === "img");
     for (const r of refs) {
@@ -906,7 +910,13 @@ export class Runner {
         // Reuse is decided by CONTENT, not by filename: a recorded upload of this exact digest is
         // the same image, and nothing else is. The idmap is still written so resolveRefs() can
         // substitute the URL, but it is never read as permission to skip the upload.
-        const known = readAssetUploads(this.storage)[prov.sha256];
+        let known = readAssetUploads(this.storage)[prov.sha256];
+        // A recorded URL is reused only while it still loads: the game deletes uploads it could
+        // not moderate, and a dead link must be uploaded again, not copied onto more records.
+        if (known && known.url && probe && (await probe(known.url)) === false) {
+          forgetAssetUpload(this.storage, prov.sha256);
+          known = null;
+        }
         if (known && known.url) {
           if (map[r.key] !== known.url) { map[r.key] = known.url; writeIdmap(this.storage, map); }
           continue;
@@ -914,14 +924,19 @@ export class Runner {
         // Re-verified here, not trusted from the preparation that ran before the operator tapped.
         file = await this._imgBytes(r.key, prov);
       } else {
+        // A picked image's recorded link is reused only while it still loads.
+        if (map[r.key] && probe && (await probe(map[r.key])) === false) { delete map[r.key]; writeIdmap(this.storage, map); }
         if (map[r.key]) continue;
         file = this.files.get(r.key);
         if (!file) throw new Error(`@img:${r.key} has no file picked`);
       }
+      if (readOnly) throw new Error(`@img:${r.key} has no recorded upload to verify against`);
       if (!this.uploader) throw new Error("no uploader configured for @img refs");
-      const up = await this.uploader.upload(file);
-      map[r.key] = up.ufsUrl; writeIdmap(this.storage, map);
-      if (prov) recordAssetUpload(this.storage, prov.sha256, up.ufsUrl, { path: prov.path, ref: prov.ref, at: this.clock() });
+      const up = await this.uploader.upload(file, { onWait: heartbeat });
+      const url = up.url ?? up.ufsUrl;
+      if (probe && (await probe(url)) === false) throw new Error(`@img:${r.key} uploaded but does not load (${url}); nothing was saved with it`);
+      map[r.key] = url; writeIdmap(this.storage, map);
+      if (prov) recordAssetUpload(this.storage, prov.sha256, url, { path: prov.path, ref: prov.ref, at: this.clock() });
     }
     const job = jobId ? this.journal.get(jobId) : null;
     const { value, unresolved } = resolveRefs(data, this._lookup(job));

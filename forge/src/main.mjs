@@ -10,6 +10,7 @@ import { CookieSession } from "./transport/session.mjs";
 import { AuthState, AUTH } from "./transport/auth.mjs";
 import { TrpcClient } from "./transport/client.mjs";
 import { Uploader } from "./transport/upload.mjs";
+import { browserImageProbe } from "./transport/imageprobe.mjs";
 import { Budget } from "./budget/bucket.mjs";
 import { CachedReader } from "./budget/reader.mjs";
 import { Validator } from "./runner/validate.mjs";
@@ -23,7 +24,7 @@ import { h, installCss } from "./ui/dom.mjs";
 import FIELDS from "./runner/fields.json" with { type: "json" };
 import NESTED from "./runner/nested.json" with { type: "json" };
 
-export const VERSION = "forge 0.7.3";
+export const VERSION = "forge 0.7.4";
 
 /**
  * SHA-256, the ONE environment primitive repo-backed image packs need. It lives here because this is
@@ -56,7 +57,7 @@ export function sha256(bytes, subtle = globalThis.crypto && globalThis.crypto.su
  */
 export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(), tabId,
                           log = () => {}, client = null, sleep, runtime = null, authState = AUTH.UNKNOWN,
-                          digest = sha256 } = {}) {
+                          digest = sha256, imageProbe = null } = {}) {
   const deps = {};
   deps.journal = new Journal(storage, clock);
   deps.cache = new CaptureCache(indexedDB, clock);
@@ -75,11 +76,13 @@ export function compose({ storage, indexedDB, fetchImpl, clock = () => Date.now(
   deps.reader = new CachedReader({ client: deps.client, cache: deps.cache, budget: deps.budget });
   deps.reconciler = new Reconciler({ storage, reader: deps.reader, clock, journal: deps.journal });
   deps.github = new Github({ fetchImpl, storage });
-  deps.uploader = new Uploader({ session: deps.session, fetchImpl });
+  deps.uploader = new Uploader({ session: deps.session, fetchImpl, clock, ...(sleep ? { sleep } : {}) });
+  // Asks the browser whether an image URL loads; null in a harness with no images to load.
+  deps.imageProbe = imageProbe;
   deps.validator = new Validator(FIELDS, NESTED);
   deps.runner = new Runner({
     journal: deps.journal, client: deps.client, reader: deps.reader, cache: deps.cache, repoCache: deps.repoCache,
-    budget: deps.budget, validator: deps.validator, uploader: deps.uploader,
+    budget: deps.budget, validator: deps.validator, uploader: deps.uploader, imageProbe,
     reconciler: deps.reconciler, auth: deps.auth, digest: deps.digest, storage, clock, tabId, log,
   });
   return deps;
@@ -279,7 +282,7 @@ async function bootHost(win, doc, { establish = true, readiness = {} } = {}) {
     host = mountHost(doc, win, { onLost });
     deps = compose({
       storage: win.localStorage, indexedDB: win.indexedDB, fetchImpl: win.fetch.bind(win),
-      clock, tabId, runtime: pageAuthRuntime(win), log,
+      clock, tabId, runtime: pageAuthRuntime(win), log, imageProbe: browserImageProbe(win),
     });
     deps.app = new App({
       version: VERSION, storage: win.localStorage, now: clock, ...deps,
