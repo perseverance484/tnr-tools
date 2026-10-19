@@ -109,7 +109,7 @@ export class App {
     replace(this.$nav, Object.entries(SCREENS).map(([k, [label]]) => h("button", { "aria-current": this.state.screen === k ? "page" : null, onClick: () => this.go(k) }, label)));
     if (this.$auth) replace(this.$auth, this.authBanner());
     try {
-      replace(this.$main, this.view.exports.map((x) => this.exportCard(x)), SCREENS[this.state.screen][1](this));
+      replace(this.$main, this.view.exports.length ? this.exportsCard() : null, SCREENS[this.state.screen][1](this));
     } catch (e) {
       replace(this.$main, h("div", { class: "f-banner bad" }, h("b", {}, "This screen failed to render. "), h("div", { class: "f-err" }, String(e && e.stack || e))));
     }
@@ -183,28 +183,39 @@ export class App {
     if (scroller && typeof scroller.scrollTo === "function") scroller.scrollTo(0, 0);
   }
 
-  /** One unsaved export: Download, Copy (with a select-all fallback), Close. */
-  exportCard(x) {
-    const ta = h("textarea", { readOnly: true, value: x.text });
-    const download = () => {
+  /**
+   * Every unsaved export in ONE compact card: a collection leaves a file per tree, and fifteen full
+   * cards would bury every screen. Each file gets a short row; its text is folded away until asked.
+   */
+  exportsCard() {
+    const xs = this.view.exports;
+    const download = (x) => {
       try {
         const url = URL.createObjectURL(new Blob([x.text], { type: x.name.endsWith(".json") ? "application/json" : "text/plain" }));
         const a = h("a", { href: url, download: x.name, style: { display: "none" } });
         this.root.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 60000);
-      } catch (e) { this.toast(`download failed: ${e.message}; use Copy`, "bad", 8000); }
+        return true;
+      } catch (e) { this.toast(`download failed: ${e.message}; use Copy`, "bad", 8000); return false; }
     };
-    const copy = async () => {
-      try { await navigator.clipboard.writeText(x.text); this.toast("copied", "ok"); }
-      catch { ta.focus(); ta.select(); this.toast("Copy was blocked; the text is selected, copy it from the box", "warn", 8000); }
+    const remove = (gone) => { this.view.exports = this.view.exports.filter((y) => !gone.includes(y)); this.refresh(); };
+    const row = (x) => {
+      const ta = h("textarea", { readOnly: true, value: x.text });
+      const copy = async () => {
+        try { await navigator.clipboard.writeText(x.text); this.toast("copied", "ok"); }
+        catch { details.open = true; ta.focus(); ta.select(); this.toast("Copy was blocked; the text is selected, copy it from the box", "warn", 8000); }
+      };
+      const details = h("details", {}, h("summary", {}, "Show text"), ta);
+      return h("div", { class: "f-row" }, h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, x.title), details),
+        h("button", { onClick: () => download(x) }, "Download"), h("button", { onClick: copy }, "Copy"),
+        h("button", { title: "remove from this list", onClick: () => remove([x]) }, "\u2715"));
     };
-    const close = () => { this.view.exports = this.view.exports.filter((y) => y !== x); this.refresh(); };
-    return h("div", { class: "f-card" }, h("h2", {}, x.title),
-      h("div", { class: "f-mute" }, "Save this before closing it: Download keeps it as a file."),
-      ta, h("div", { class: "f-actions" },
-        h("button", { class: "f-primary", onClick: download }, "Download"),
-        h("button", { onClick: copy }, "Copy"),
-        h("button", { onClick: close }, "Close")));
+    return h("div", { class: "f-card f-exports" },
+      h("div", { class: "f-row" }, h("div", { class: "f-grow" }, h("b", {}, `Results to save (${xs.length})`),
+        h("div", { class: "f-mute" }, "Download keeps each as a file. Remove a row once it is saved.")),
+        h("button", { class: "f-primary", onClick: () => { for (const x of xs) download(x); } }, xs.length > 1 ? "Download all" : "Download"),
+        h("button", { onClick: () => this.confirm(`Remove ${xs.length === 1 ? "this result" : `all ${xs.length} results`} from the list? Only do this once they are saved.`, () => remove([...xs])) }, "Clear")),
+      xs.length > 1 ? h("details", {}, h("summary", {}, `Show ${xs.length} files`), xs.map(row)) : row(xs[0]));
   }
 
   // ------------------------------------------------------------------ forwarded actions
