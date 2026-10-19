@@ -1,6 +1,6 @@
 # Aerathiel — Jutsu Icon Art Studio Register
 
-**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD + WINDSHEAR DECAY RAW VISUAL APPROVED (2/5), 2026-10-19. Next target: Death's March.
+**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD, WINDSHEAR DECAY + DEATH'S MARCH RAW VISUAL APPROVED (3/5), 2026-10-19. Next target: Decaying Touch.
 **Scope:** five `jutsu.image` remasters; NOT Bloodright tier emblems. Lead Art Director; Image Production supports isolated per-jutsu generation, processing and QC.
 **Baseline:** `main@fd7e194afab71a5712b83d16397feffdf704e9d2`. Specialized ZIP-first workflow is read from `chatgpt/bloodline-jutsu-studio-zip-first-20261017@d04a87c05999c7037af8667db2b2b79324a53d3c`; this workflow was not on main at this intake. Governing integrated art contract: `docs/workflows/ISOLATED_ART_GENERATION.md`, `skills/producing-tnr-art/SKILL.md`, and the live `JUTSU_ICON` spec on baseline.
 **Bloodline:** Aerathiel, ID `1C34syOOEKp6k3UKweYT6`, rank A.
@@ -37,7 +37,7 @@
 3. After 5/5 exact raw visual approvals, preserve raw hashes and batch-export opaque 256² lossless WebP; use `artpreflight.py --type JUTSU_ICON`. No Aerathiel-specific <80,000-byte cap is established; BBE's cap must not be copied. Build deterministic 3+2 family showcase and obtain separate family acceptance before packaging. Export isn't called live/upload-ready until QC and canonical preflight are actually run.
 4. Track raw approvals, processing, preflight, gallery, ZIP, binary git pin and user upload/readback as separate states. Live requests/writes 0/0; credentials none.
 
-**After Windshear Decay approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **2/5 raw remasters visually approved** (Atomic Shield, Windshear Decay); 0/5 exports; 0 canonical preflights; no upload.
+**After Death's March approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **3/5 raw remasters visually approved** (Atomic Shield, Windshear Decay, Death's March); 0/5 exports; 0 canonical preflights; no upload.
 
 ## Atomic Shield raw visual approval — 2026-10-19
 
@@ -62,7 +62,7 @@
 - Actual original bytes retained alongside Atomic Shield in the local studio `approved_raw/` folder. The new binary is **not Git-pinned**. No WebP or canonical preflight is claimed; raw visual approval is not upload readiness.
 - The compositional crescent/diagonal air-shear and flying debris are Windshear's reserved shapes; do not repeat as another Aerathiel icon's main subject.
 
-## Next target — Death's March (generation pending)
+## Death's March — direction at generation (historical; now approved)
 
 - ID `UgYXqNIJNjLGkAS5b5udH`; supplied original: `images/UgYXqNIJNjLGkAS5b5udH_Death_s_March.png` — **IDENTITY ONLY**.
 - Technique evidence: old `jutsu.get` capture describes a radiant chakra tunnel enveloping the target; unyielding waves attack cells until the body decays. Do not import the original's caster/target actors into the remaster.
@@ -73,3 +73,19 @@
 - Strict exclusions: no characters, ninja silhouettes, shield, defensive bubble, sideways slashing arc, swords, spell rings, UI or text. One image for isolated visual review; do not process or upload before director acceptance.
 
 **Environment:** GitHub-connector repository reconstruction; full local clone/session_open not run in this conversation. No TNR live requests/writes; no credentials.
+
+## Death's March raw visual approval — 2026-10-19
+
+- Director accepted the exact third Aerathiel remaster image. Distinctive silhouette: a large vertical vortex of multiple broad luminous wavefronts with suspended matter atomizing in its wake. Premium teal/white/light-gold pixel rendering against deep midnight blue.
+- Raw source retained unmodified in this conversation's studio: `Aerathiel_Deaths_March_APPROVED_raw_v1.png` (PNG RGB, 1254×1254 px, 2,666,854 bytes); SHA-256 `159f0071cea241a303953b8910b6e387bcfbc73302244979c5a106282602360c`.
+- This source is **not Git-pinned**, processed, canonical-preflighted or uploaded. Source is only a visually accepted raw, not production-ready.
+- Reserve the stacked spiraling tunnel silhouette for Death's March; later assets may share its pixel-art material quality but must not duplicate its large concentric pressure bands.
+
+## Next isolated target — Decaying Touch (generation pending)
+
+- Jutsu ID: `Zr6Zo2NcXxWuL13ufQsHw`; source: original user ZIP image `images/Zr6Zo2NcXxWuL13ufQsHw_Decaying_Touch.png`. Historical `jutsu.get` describes physical contact inflicting progressive dusty decay, not simply a blast or a ranged strike.
+- **Dominant silhouette:** one enlarged turquoise spectral **five-finger contact handprint**, clearly discernible as a palm imprint rather than a character, pressed onto a dark angular stone/matter surface. Impact point begins *erasing* the surface into tiny pale-gold/ash-white granular motes; solid shape on one side, visibly particulate absence on the other.
+- **Supporting action cue:** sharply branching pixel-scale disintegration seams originating at fingertip and palm touchpoints, one coherent wave of decay traveling outward; avoid conventional rock explosions / generic magic impact rings. Strong negative space outlines palm and missing material.
+- **Style/material:** adopted crisp premium TNR pixel-art register (dimensional cel-shaded sprite-work, hard square pixel edges, controlled turquoise/white energetic rim with small gold accents on deep midnight-navy opaque background). No airbrushed photorealism or generic glowing noise.
+- **Uniqueness exclusions:** no full ninja figures or victim portraits; no Atomic Shield bubble, Windshear slash arc, Death's March tornado/vortex, or Particle Cannon directional laser. The touch/handprint, not a ring or rock cloud, must own the icon at 125/64/32px.
+- Next action: generate exactly one Decaying Touch candidate for director visual approval. Approved Aerathiel previous raws are style/material-only; legacy original is identity-only. Do not process, preflight, montage or upload before acceptance.
