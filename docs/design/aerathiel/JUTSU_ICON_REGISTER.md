@@ -1,6 +1,6 @@
 # Aerathiel — Jutsu Icon Art Studio Register
 
-**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD, WINDSHEAR DECAY + DEATH'S MARCH RAW VISUAL APPROVED (3/5), 2026-10-19. Next target: Decaying Touch.
+**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD, WINDSHEAR DECAY, DEATH'S MARCH + DECAYING TOUCH RAW VISUAL APPROVED (4/5), 2026-10-19. Next target: Particle Cannon.
 **Scope:** five `jutsu.image` remasters; NOT Bloodright tier emblems. Lead Art Director; Image Production supports isolated per-jutsu generation, processing and QC.
 **Baseline:** `main@fd7e194afab71a5712b83d16397feffdf704e9d2`. Specialized ZIP-first workflow is read from `chatgpt/bloodline-jutsu-studio-zip-first-20261017@d04a87c05999c7037af8667db2b2b79324a53d3c`; this workflow was not on main at this intake. Governing integrated art contract: `docs/workflows/ISOLATED_ART_GENERATION.md`, `skills/producing-tnr-art/SKILL.md`, and the live `JUTSU_ICON` spec on baseline.
 **Bloodline:** Aerathiel, ID `1C34syOOEKp6k3UKweYT6`, rank A.
@@ -37,7 +37,7 @@
 3. After 5/5 exact raw visual approvals, preserve raw hashes and batch-export opaque 256² lossless WebP; use `artpreflight.py --type JUTSU_ICON`. No Aerathiel-specific <80,000-byte cap is established; BBE's cap must not be copied. Build deterministic 3+2 family showcase and obtain separate family acceptance before packaging. Export isn't called live/upload-ready until QC and canonical preflight are actually run.
 4. Track raw approvals, processing, preflight, gallery, ZIP, binary git pin and user upload/readback as separate states. Live requests/writes 0/0; credentials none.
 
-**After Death's March approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **3/5 raw remasters visually approved** (Atomic Shield, Windshear Decay, Death's March); 0/5 exports; 0 canonical preflights; no upload.
+**After Decaying Touch approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **4/5 raw remasters visually approved** (Atomic Shield, Windshear Decay, Death's March, Decaying Touch); 0/5 exports; 0 canonical preflights; no upload.
 
 ## Atomic Shield raw visual approval — 2026-10-19
 
@@ -81,7 +81,7 @@
 - This source is **not Git-pinned**, processed, canonical-preflighted or uploaded. Source is only a visually accepted raw, not production-ready.
 - Reserve the stacked spiraling tunnel silhouette for Death's March; later assets may share its pixel-art material quality but must not duplicate its large concentric pressure bands.
 
-## Next isolated target — Decaying Touch (generation pending)
+## Decaying Touch — approved after isolated regeneration
 
 - Jutsu ID: `Zr6Zo2NcXxWuL13ufQsHw`; source: original user ZIP image `images/Zr6Zo2NcXxWuL13ufQsHw_Decaying_Touch.png`. Historical `jutsu.get` describes physical contact inflicting progressive dusty decay, not simply a blast or a ranged strike.
 - **Dominant silhouette:** one enlarged turquoise spectral **five-finger contact handprint**, clearly discernible as a palm imprint rather than a character, pressed onto a dark angular stone/matter surface. Impact point begins *erasing* the surface into tiny pale-gold/ash-white granular motes; solid shape on one side, visibly particulate absence on the other.
@@ -89,3 +89,21 @@
 - **Style/material:** adopted crisp premium TNR pixel-art register (dimensional cel-shaded sprite-work, hard square pixel edges, controlled turquoise/white energetic rim with small gold accents on deep midnight-navy opaque background). No airbrushed photorealism or generic glowing noise.
 - **Uniqueness exclusions:** no full ninja figures or victim portraits; no Atomic Shield bubble, Windshear slash arc, Death's March tornado/vortex, or Particle Cannon directional laser. The touch/handprint, not a ring or rock cloud, must own the icon at 125/64/32px.
 - Next action: generate exactly one Decaying Touch candidate for director visual approval. Approved Aerathiel previous raws are style/material-only; legacy original is identity-only. Do not process, preflight, montage or upload before acceptance.
+
+## Decaying Touch exact raw approval — 2026-10-19
+
+- After rejecting a prior slash lookalike and a figure/arm disintegration candidate, director explicitly approved the **third candidate**: a dominant full five-finger spectral handprint glowing turquoise/pearl white against deeply shadowed stone, a focused luminous palm and radial fissuring/particulate erosion.
+- Approved source bytes copied unchanged from `glowing_spectral_handprint_shattering_stone.png` to local `/mnt/data/Aerathiel_Jutsu_Studio/approved_raw/Aerathiel_Decaying_Touch_APPROVED_raw_v1.png`. Opened/fully decoded with Pillow: **PNG RGB 1254×1254; 2,792,173 bytes; SHA-256 `13c453870e1b7686688d31f55872cb5a5556e45ffddfcb6e674944d7b06c0207`**. Destination SHA matched source exactly.
+- **RAW VISUAL APPROVED ONLY.** No repository binary pin, export/preflight/showcase, game upload or live read-back has occurred. Preserve handprint identity at 125/64/32 QC.
+
+## Next isolated target — Particle Cannon (generation pending)
+
+- Exact `jutsu.image` ID `egtCp5UC5pRwxz7egJm7J`, bloodline Aerathiel `1C34syOOEKp6k3UKweYT6` (historical full-record capture in `harvests/inbox/tnr_results_1792216348638.json`). Original member `images/egtCp5UC5pRwxz7egJm7J_Particle_Cannon.png` extracted/inspected as **IDENTITY ONLY**.
+- Historical battle action: user creates an intricate triangle with fingers, concentrates a brilliant radiant orb and releases a directed particle beam; target takes damage and wound. Original includes a caster, hand triangle and energetic long-range beam. Remaster is technique-first: **no full character or literal hands**, but preserve the iconic *triangular convergence* as a true distinguishable silhouette.
+- **Primary silhouette:** enormous sharp-edged three-sided **teal particle-chakra convergence aperture** dominating the lower-left/center of the square, its three corners each projecting layered high-energy currents inward into a blinding pearl-white core; from the core ONE very straight densely concentrated brilliant turquoise/white beam launches diagonally toward the upper-right.
+- **Supporting effect:** particles stream *toward* the triangle's core in narrow coherent paths; at the upper-right tip, a restrained tiny bloom of disintegrating dust/energy marks laser contact. Do not surround the whole icon in rubble; main triangle and single continuous beam must be legible at 125/64/32.
+- Rendering lock: premium TNR **crisp pixel-art** with coherent 2D/3D cel-structured volume, clearly stepped pixel edges and controlled block-dither; midnight navy/near-black opaque designed backdrop, saturated teal/turquoise channels, white-hot focal aperture and gold used sparingly as accent. Avoid soft airbrushing and painterly glow.
+- Unique silhouette exclusions: NO bubble/orb shield (Atomic Shield), NO curving slashing crescent (Windshear Decay), NO stacking spiral tower/rings (Death's March), NO spectral handprint/fingers (Decaying Touch), no caster, guns, lettering, UI or franchise insignia. Do not accidentally generate another sword/slash, circular portal, or generic radial explosion.
+- Reference selection: original Particle Cannon image is **identity/history only**, and one actually available approved Aerathiel source is **style/material only**; never duplicate its composition. First generation is **one square raw candidate only**, director review before approval. No automatic processing or game action.
+
+**Session boundary:** local clone/`session_open.py` not run; repository via GitHub connector. Live game requests/writes 0/0; credentials none.
