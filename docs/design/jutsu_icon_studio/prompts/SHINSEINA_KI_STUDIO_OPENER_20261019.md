@@ -6,103 +6,85 @@ Copy the text block into a **new, separate TNR Tools conversation**, attaching t
 
 ```text
 Repository: perseverance484/tnr-tools
-Workstream: SHINSEINA KI JUTSU ICON ART STUDIO
-Session: PERSISTENT ZIP-FIRST ART STUDIO — NOT IMAGE GENERATION
-Lead: Art Director | Support: Image Production
-Bloodline: Shinseina Ki | Rank: A | BR-066
-Bloodline ID: vA8I_7iBNgvkuKOpnG1yD
-Input: ATTACH the ORIGINAL Shinseina Ki jutsu-art ZIP to THIS NEW Art Studio conversation.
-Live-game requests/writes: 0/0 | Credentials: none
+Workstream: SHINSEINA KI — JUTSU ICON ART STUDIO
+Session: PERSISTENT ZIP-FIRST ART STUDIO | Lead: Art Director
+Support: Image Production | Not a Bloodright tier-emblem project
+Input: Attach the ORIGINAL Shinseina Ki jutsu-art ZIP to this NEW conversation.
 
-SOURCE LOCK (verify rather than merely trust this opener):
-- Prompt Desk checked main@4e674234d0539b7010c34025034330980a38b196.
-- Exact identity/rank: docs/design/bloodright/trees/shinseina_ki.json at that SHA.
-- Historical kit comparison ONLY: docs/design/bloodright/kits/shinseina_ki.json
-  at 7c1dfdd5e3ee163b90c22694dbb2de94ede08866
-  (2026-10-01 captured public kit; NOT current-live proof).
-- Wood classification in the tree is historical design context, NOT approval
-  of a palette, visual direction, individual technique action, or exact kit.
-- No jutsu names, IDs, effects or count may be guessed from rank or tree.
-  Derive the exact N/name/ID/source-member mapping from the original ZIP,
-  compare against pinned sources, and flag mismatches. Include eligible
-  bloodline-owned SPECIAL jutsu if verified. Missing mappings = MAPPING_REQUIRED.
+IDENTITY / SOURCE REFERENCES:
+- Shinseina Ki | A-rank | BR-066 | bloodline ID vA8I_7iBNgvkuKOpnG1yD.
+- Prompt Desk verified main@4e674234d0539b7010c34025034330980a38b196,
+  docs/design/bloodright/trees/shinseina_ki.json (identity/rank only).
+- Historical comparison: docs/design/bloodright/kits/shinseina_ki.json
+  @7c1dfdd5e3ee163b90c22694dbb2de94ede08866 (2026-10-01 capture).
+  This is NOT current-live proof, a fixed jutsu roster, or approved art direction.
+- Derive exact jutsu names/IDs/types/N and original-file mappings from the
+  attached ZIP and source evidence. Check against the pinned historical
+  dossier; flag differences/MAPPING_REQUIRED instead of guessing. Include
+  source-supported bloodline-owned SPECIAL techniques if present. Never
+  infer N from rank or raw ZIP file count.
 
-BOOTSTRAP ON LAUNCH:
-1. Verify the then-current main SHA and any owned studio branch. Reconstruct
-   state/active-context.md, state/status.json, docs/00_INDEX.md, docs/RULINGS.md,
-   CHATGPT.md, docs/DEVELOPMENT_WORKFLOW.md, docs/agents/README.md,
-   ART_DIRECTOR.md and IMAGE_PRODUCTION.md; batch independent reads.
-2. Read current docs/workflows/ART_PRODUCTION.md,
-   ISOLATED_ART_GENERATION.md (operative P0 A–F),
-   BLOODLINE_JUTSU_ICON_STUDIO.md and JUTSU_ICON_SHOWCASE.md,
-   docs/design/jutsu_icon_studio/START_PROMPT.md and
-   GENERATION_AND_CLOSEOUT_TEMPLATES.md, plus
-   skills/producing-tnr-art/SKILL.md and the current JUTSU_ICON spec.
-3. Locate an actually usable repo checkout or installed producing-tnr-art
-   skill with jutsu_studio.py, artpreflight.py, spec and preflight_pins.json.
-   Run jutsu_studio.py doctor, then ONE safe bounded
-   jutsu_studio.py intake ORIGINAL.zip --out WORK/intake
-   (add --roster only when verified mapping requires it). Record actual
-   CRC/decoder/SHA-256/file paths and evidence levels. Reject unsafe ZIP
-   entries. If tool/dependency unavailable, say NOT_RUN / BLOCKED explicitly;
-   do not fabricate intake or canonical preflight success.
-4. Inspect the studio-only orientation index and 2–4 actual individual
-   extracted originals to observe Shinseina Ki's material and palette.
-   Original icons are IDENTITY ONLY, not mandatory new compositions.
-   Do not request redundant screenshots if the ZIP already supplies them.
-   Do not attach the ZIP or any contact sheet to an image generator.
+BOOTSTRAP — VERIFY ON LAUNCH, BATCH REPO READS:
+Read current state/active-context.md, state/status.json, docs/00_INDEX.md,
+docs/RULINGS.md, CHATGPT.md, docs/DEVELOPMENT_WORKFLOW.md, docs/agents/
+(README, ART_DIRECTOR, IMAGE_PRODUCTION), and these main workflows:
+- docs/workflows/ISOLATED_ART_GENERATION.md (operative P0 A–F)
+- docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md
+- docs/workflows/JUTSU_ICON_SHOWCASE.md
+- docs/workflows/ART_PRODUCTION.md
+- docs/design/jutsu_icon_studio/START_PROMPT.md
+- docs/design/jutsu_icon_studio/GENERATION_AND_CLOSEOUT_TEMPLATES.md
+Read the current producing-tnr-art SKILL.md and JUTSU_ICON spec.
+Reverify current main SHA, relevant owned studio ref and source provenance.
 
-ART DIRECTION — PROPOSAL, NOT PRE-APPROVAL:
-- Premium TNR pixel-art finish. Technique FIRST: each jutsu must depict its
-  source-supported combat action through ONE unmistakable dominant shape
-  and its operation, not a generic forest scene or decorative wood effects.
-- Propose a distinctive source-grounded wood/chakra rendering treatment;
-  let inspected originals and the director determine palette and material.
-  Keep family rendering coherent while differentiating every jutsu's
-  action AND silhouette, including at 125/64/32-pixel preview sizes.
-- Reserve a distinct dominant silhouette/action, camera/perspective,
-  motion axis, focal hierarchy, negative space, one secondary effect and
-  sibling geometry/action exclusions for each of N jutsu.
-- No anatomy (actors, faces, hands, fingers, limbs, body fragments) unless
-  the director explicitly authorizes an exception for that exact target.
-  No disembodied spell glyphs, runes, ornamental magic circles, labels,
-  UI chrome, watermarks, franchise imagery, or unrelated scenes.
-  Designed opaque jutsu-icon backgrounds are permitted.
-- Approved BBE/BEE exemplars: 16 pinned STYLE/MATERIAL-ONLY WebPs in
-  art/style_refs/jutsu_icons/; Sanguine Plague v3 = PROVENANCE_PARTIAL.
-  Vaporia/Aerathiel exports are pinned, but not indexed style_refs.
-  Only claim visual reference conditioning when the individual IMAGE BYTES
-  are actually attached; never borrow another icon's technique silhouette.
+Use an ACTUALLY installed skill or matching repo checkout containing
+jutsu_studio.py, artpreflight.py, spec and preflight_pins.json. Run
+jutsu_studio.py doctor, then ONE safe bounded intake:
+jutsu_studio.py intake ORIGINAL.zip --out WORK/intake
+(add --roster only if evidence-backed mapping requires it). Check CRC,
+decoder/true MIME, members and SHA-256. Refuse unsafe entries. If the
+CLI/dependency is missing, report NOT_RUN/BLOCKED; never fabricate
+intake, preflight or a PASS. Inspect the studio-only orientation index
+and 2–4 individual originals. Do not request redundant screenshots
+when the ZIP already holds the original art.
 
-FIRST RESPONSE ONLY — NO IMAGE GENERATION:
-A. Compact verified N-row inventory: exact jutsu name, ID, kind, ZIP member,
-   available original, source/evidence level, ambiguous or missing entries.
-B. ONE Shinseina Ki family treatment card based on observed images, clearly
-   distinguishing verified material/palette from proposed choices.
-C. N-row technique/action + primary-silhouette reservation ledger with
-   camera and motion axis, secondary effect and sibling exclusions.
-D. Recommend the FIRST single-jutsu target and draft its P0 TARGET LOCK
-   (exact bloodline/jutsu IDs, source-supported action, composition, camera,
-   motion axis, negative space, exclusions, reference roles). Seek director
-   approval of family direction and the first lock before generating.
-Do not launch an isolated generator, generate any image, process art,
-run export QC, build a showcase or upload anything in this startup turn.
+VISUAL PLANNING / P0:
+Technique first: depict what each move DOES, not generic forest scenery,
+leaf particles or ornamental chakra. Wood is a historical classification,
+not a predetermined palette. Propose a distinctive source-grounded
+wood/chakra material treatment after inspecting the actual originals.
+For each jutsu reserve ONE unique dominant action AND silhouette,
+camera/perspective, motion axis, focal hierarchy/negative space,
+one secondary effect, and explicit exclusions for all sibling actions/
+shapes. Target legibility at 125/64/32; shared colors are allowed,
+lookalike geometry/action is not. No actors, faces, hands, limbs or other
+anatomy unless I approve an exception for that exact target. No runes,
+floating ornamental geometry, spell circles, text, UI or franchise art.
+Designed opaque jutsu backgrounds are allowed.
+BBE/BEE offer 16 pinned STYLE/MATERIAL-ONLY WebPs under
+art/style_refs/jutsu_icons/; Sanguine Plague v3 is PROVENANCE_PARTIAL.
+Vaporia/Aerathiel exports are pinned but NOT indexed style_refs.
+Only claim reference conditioning if individual IMAGE BYTES are attached;
+never pass a ZIP, sheet, rejected candidate or unseen URL to a generator.
 
-AFTER DIRECTOR APPROVAL (separate future turns/conversations only):
-- Persistent Studio owns the family register, progress and original bytes.
-- ONE clean isolated generation conversation per jutsu; attach max TWO
-  individual actual images (original = IDENTITY ONLY; approved exemplar =
-  STYLE/MATERIAL ONLY). Never attach ZIP, contact sheet or rejected art.
-- Generate one candidate at a time, inspect returned PIXELS against P0,
-  track attempts and director decisions; restart clean after TWO wrong-target
-  or composition failures. Preserve accepted raw source bytes.
-- Only at N/N raw approvals: verify-approved/finalize using actual P1 CLI,
-  run pinned canonical artpreflight --type JUTSU_ICON, deterministically
-  compose/audit the family gallery from exact processed WebPs, obtain
-  director acceptance bound to gallery/member hashes, and deliver
-  versioned archives. Report each K gate independently: raw approval,
-  local QC, canonical preflight, gallery, ZIP delivery, Git pin and
-  USER_UPLOAD_READBACK are NOT interchangeable.
-- The BBE <80,000-byte cap is BBE-specific, not Shinseina Ki's default.
-- No live-game requests, writes, uploads or publication. No credentials.
+FIRST STUDIO RESPONSE ONLY (NO GENERATION):
+1. Compact N-row exact name/ID/type/ZIP-member/source-evidence inventory;
+   disclose mapping gaps and historical-vs-current source limits.
+2. ONE family treatment card: observed materials vs proposed palette.
+3. N-row technique/action/silhouette reservation ledger, with camera,
+   motion axis, sibling exclusions and readable distinctness.
+4. ONE recommended first target, source-supported P0 TARGET LOCK and
+   proposed individually attachable references. Request director approval
+   of family direction and first target lock. STOP before generating art.
+
+LATER, IN SEPARATE CONVERSATIONS: One clean isolated generator per jutsu,
+max two real individual role-labeled images; one candidate at a time.
+Visually inspect actual pixels, log director decisions, restart after two
+wrong-target/composition failures, and preserve accepted original bytes.
+After N/N raw approvals, use the pinned P1 verify-approved/finalize,
+canonical artpreflight --type JUTSU_ICON, deterministic exact-WebP
+showcase/audit and hash-bound director gallery acceptance. Report raw,
+local QC, canonical preflight, gallery, ZIP, Git pin and live-readback
+gates SEPARATELY; BBE's <80,000-byte cap is not this family's default.
+No live-game requests, writes, uploads or publishing. No credentials.
 ```
