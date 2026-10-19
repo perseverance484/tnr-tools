@@ -371,6 +371,7 @@ export class Runner {
       // for any other failed reconciliation read - pause, touch nothing - plus invalidating the
       // auth state so the banner, the gate and Resume all agree (independent review round 2,
       // surviving path B). Every SENT item stays SENT and is reconciled again after sign-in.
+      if (e instanceof Paused) return this._pause(jobId, e.reason, e);
       if (e instanceof AuthRefused) { const p = this._authRefused(e.error, { path: e.path }); return this._pause(jobId, p.reason, p); }
       if (e instanceof RateLimited) return this._pause(jobId, "TOO_MANY_REQUESTS", { path: e.path, until: e.until });
       if (isTransport(e)) return this._pause(jobId, "NETWORK", { detail: String(e && e.message), httpStatus: e.httpStatus ?? null });

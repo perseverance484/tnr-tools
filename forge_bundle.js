@@ -3793,6 +3793,7 @@
           }
         }
       } catch (e) {
+        if (e instanceof Paused) return this._pause(jobId, e.reason, e);
         if (e instanceof AuthRefused) {
           const p = this._authRefused(e.error, { path: e.path });
           return this._pause(jobId, p.reason, p);
