@@ -48,7 +48,12 @@ function suggestPolicy(m, items) {
   for (const it of items) {
     const where = `item ${it.idx + 1} (${it.name})`;
     if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
-    if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}`);
+    if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}${REVIEW._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${REVIEW._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
+    // The desk keeps only its own editable fields and would drop the rest without a word.
+    if (it.entity === "ai") {
+      const dropped = Object.keys(it.data ?? {}).filter((k) => !REVIEW.aiEditableKeys.includes(k));
+      if (dropped.length) problems.push(`${where}: the review desk does not take ${dropped.join(", ")} for an AI; edit them directly instead`);
+    }
     if (it.suggestion) check(where, it.suggestion);
     const merged = { ...s, ...(it.suggestion ?? {}) };
     if (!merged.title || !merged.rationale) problems.push(`${where}: needs a suggestion title and rationale (manifest "suggestion" or the item's own)`);

@@ -89,3 +89,60 @@ test("Check suggestions records each suggestion's current status", async () => {
   const s = d.journal.get("s5").items[0].suggestion;
   assert.equal(s.status, "REJECTED"); assert.equal(s.note, "too strong");
 });
+
+test("review fixes: quests and AI fields the desk would drop are refused up front", () => {
+  assert.throws(() => parseManifest(manifest([edit({ entity: "quest", targetId: "q1" })])), /quest cannot be suggested/);
+  assert.throws(() => parseManifest(manifest([edit({ entity: "ai", targetId: "a1", data: { maxHealth: 10 } })])), /does not take maxHealth/);
+  assert.throws(() => parseManifest(manifest([edit({ entity: "ai", targetId: "a1", data: { rules: [] } })])), /does not take rules/);
+  assert.ok(parseManifest(manifest([edit({ entity: "ai", targetId: "a1", data: { level: 40 } })])).policy.suggest);
+});
+
+test("review fixes: an item with no store expiry sends it as the game's form does", async () => {
+  const d = setup();
+  d.game.seed("item", { id: "i1", name: "Inro", description: "Old.", hidden: false, effects: [], expireFromStoreAt: "" });
+  d.game.tables.item.get("i1").expireFromStoreAt = null; // item.get returns the raw null
+  d.runner.plan(JSON.stringify(manifest([edit({ entity: "item", name: "Inro", targetId: "i1", data: { description: "New." } })])), { jobId: "i" });
+  await d.runner.run("i");
+  const sent = d.game.calls.find((c) => c.path === "contentReview.create").input.data;
+  assert.equal(sent.expireFromStoreAt, "");
+});
+
+test("review fixes: resume never resends a suggestion a reviewer already decided", async () => {
+  const d = setup();
+  d.game.dropCreateResponse = true;
+  d.runner.plan(JSON.stringify(manifest()), { jobId: "r1" });
+  await d.runner.run("r1");
+  d.game.proposals[0].status = "REJECTED";
+  await d.runner.resume("r1");
+  assert.equal(d.game.proposals.length, 1);
+  assert.equal(d.journal.get("r1").items[0].suggestion.status, "REJECTED");
+});
+
+test("review fixes: other people's and agent suggestions do not hide ours; an unsearchable queue is never resent", async () => {
+  const d = setup();
+  for (let i = 0; i < 400; i++) d.game.proposals.push({ id: `ag${i}`, source: "AGENT", title: "audit", status: "PENDING", targets: [{ entityType: "JUTSU", entityId: "j1" }] });
+  d.runner.plan(JSON.stringify(manifest()), { jobId: "r2" });
+  await d.runner.run("r2");
+  assert.ok(d.journal.get("r2").items[0].suggestion.id, "found past 400 agent rows");
+
+  const e = setup();
+  for (let i = 0; i < 3001; i++) e.game.proposals.push({ id: `st${i}`, source: "STAFF", title: "other", status: "PENDING", targets: [{ entityType: "JUTSU", entityId: "x" }] });
+  e.game.dropCreateResponse = true;
+  e.runner.plan(JSON.stringify(manifest()), { jobId: "r3" });
+  await e.runner.run("r3");
+  await e.runner.resume("r3");
+  assert.equal(e.game.proposals.filter((p) => p.title.startsWith("Ember tune")).length, 1, "not resent");
+  assert.equal(e.journal.get("r3").state, "DONE");
+});
+
+test("review fixes: a failed queue read after a successful send pauses instead of failing", async () => {
+  const d = setup();
+  d.game.failQueue = 1;
+  d.runner.plan(JSON.stringify(manifest()), { jobId: "r4" });
+  await d.runner.run("r4");
+  const job = d.journal.get("r4");
+  assert.equal(job.state, "PAUSED"); assert.equal(job.items[0].state, "CONFIRMED");
+  await d.runner.resume("r4");
+  assert.equal(d.game.proposals.length, 1);
+  assert.equal(d.journal.get("r4").items[0].suggestion.id, d.game.proposals[0].id);
+});

@@ -11,17 +11,100 @@
     "citations": {
       "contentReview.create": "contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)",
       "contentReview.getQueue": "contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own",
-      "contentReview.getProposal": "contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible"
+      "contentReview.getProposal": "contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible",
+      "aiEditableKeys": "libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"
+    },
+    "notSuggestible": {
+      "quest": "quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"
     }
   },
   "procedures": {
-    "contentReview.create": { "kind": "mutation", "limited": false, "mcp": false, "auth": "protected" },
-    "contentReview.getQueue": { "kind": "query", "limited": false, "mcp": false, "auth": "protected" },
-    "contentReview.getProposal": { "kind": "query", "limited": false, "mcp": false, "auth": "protected" }
+    "contentReview.create": {
+      "kind": "mutation",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "contentReview.getQueue": {
+      "kind": "query",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "contentReview.getProposal": {
+      "kind": "query",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    }
   },
-  "entityTypes": { "jutsu": "JUTSU", "item": "ITEM", "bloodline": "BLOODLINE", "quest": "QUEST", "asset": "GAME_ASSET", "ai": "AI" },
-  "categories": ["GRAMMAR", "BALANCE", "SOUND", "ANIMATION", "VISUAL", "CONSISTENCY", "NEW_CONTENT"],
-  "titleLength": { "min": 3, "max": 120 },
-  "rationaleLength": { "min": 10, "max": 4000 },
-  "statuses": ["PENDING", "APPLIED", "REJECTED", "OUTDATED", "REVERTED"]
+  "entityTypes": {
+    "jutsu": "JUTSU",
+    "item": "ITEM",
+    "bloodline": "BLOODLINE",
+    "asset": "GAME_ASSET",
+    "ai": "AI"
+  },
+  "categories": [
+    "GRAMMAR",
+    "BALANCE",
+    "SOUND",
+    "ANIMATION",
+    "VISUAL",
+    "CONSISTENCY",
+    "NEW_CONTENT"
+  ],
+  "titleLength": {
+    "min": 3,
+    "max": 120
+  },
+  "rationaleLength": {
+    "min": 10,
+    "max": 4000
+  },
+  "statuses": [
+    "PENDING",
+    "APPLIED",
+    "REJECTED",
+    "OUTDATED",
+    "REVERTED"
+  ],
+  "aiEditableKeys": [
+    "username",
+    "npcTitle",
+    "avatar",
+    "avatar3d",
+    "avatarFacing",
+    "gender",
+    "level",
+    "regeneration",
+    "rank",
+    "bloodlineId",
+    "offence",
+    "defence",
+    "ninjutsuMastery",
+    "genjutsuMastery",
+    "taijutsuMastery",
+    "bukijutsuMastery",
+    "bloodlineMastery",
+    "sageMastery",
+    "statsMultiplier",
+    "poolsMultiplier",
+    "strength",
+    "intelligence",
+    "willpower",
+    "speed",
+    "isSummon",
+    "inArena",
+    "inShrines",
+    "primaryElement",
+    "secondaryElement",
+    "preferredGeneral1",
+    "preferredGeneral2",
+    "anbuId",
+    "clanId",
+    "jutsus",
+    "items",
+    "effects"
+  ]
 }

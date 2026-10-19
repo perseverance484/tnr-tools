@@ -108,10 +108,12 @@ A manifest opts in with a top-level `mode` and the suggestion's text:
 }
 ```
 
-- Items must be edits (`slot: "edit"` with `targetId`) of jutsu, item, bloodline, quest, asset or ai. Creates, captures and Bloodright imports are refused in suggest mode.
+- Items must be edits (`slot: "edit"` with `targetId`) of jutsu, item, bloodline, asset or ai. Creates, captures and Bloodright imports are refused in suggest mode.
+- **Quests are refused for now:** `quests.get` hides objective locations from staff who cannot save content (sector 1337), so a suggestion built from it would overwrite the real objectives if approved.
+- **AI edits** may only touch the fields the review desk accepts (`aiEditableKeys` in the contract); anything else (e.g. `maxHealth`, `rules`) is refused rather than silently dropped.
 - An item may carry its own `suggestion` (title, category, rationale) over the manifest's. Category defaults to BALANCE.
 - Forge reads the live record, merges the edit exactly as a save would, and sends it with `contentReview.create`. The title gets a short job tag (`[abc123-1]`) so Forge can find the suggestion in the review queue and record its id.
 - An edit the live record already holds is verified instead of suggested.
-- A lost response is settled on resume from the review queue: found means it is not sent again; not found means it is sent again.
+- A lost response is settled on resume from the review queue (every status, staff suggestions, every page): found means it is not sent again; not found means it is sent again; a queue too long to search finishes without resending.
 - The Run screen's **Check suggestions** button reads each suggestion's status (in review, applied, rejected, outdated, reverted) and the reviewer's note.
 - Procedures and limits: `forge/src/review/contract.json`, pinned to studie-tech/TheNinjaRPG@2aed7e4.
