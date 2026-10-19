@@ -31,7 +31,7 @@ import { packBinds } from "../runner/imgpack.mjs";
 // cannot be computed must fail, not fall back to using the bytes unverified, and a consumer that
 // forgets to wire them should learn that here rather than at the moment an operator taps Start.
 export const REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "assetCache", "digest", "runner", "github", "validator"];
-export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
+export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "imageProbe", "now"];
 
 // The machine state the core owns. Presentation state (a search box's contents, a render callback,
 // whether the browser granted persistent storage) belongs to whichever shell is drawing, and the
@@ -182,7 +182,7 @@ export class ForgeCore {
       }
       let bloodright = null;
       if (packageData.bloodright) {
-        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal, imagePack: packageData.imagePack, imgSizes: packageData.imgSizes });
+        bloodright = await prepareBloodright({ config: packageData.bloodright, github: this.github, reader: this.reader, storage: this.storage, auth: this.auth, journal: this.journal, imagePack: packageData.imagePack, imgSizes: packageData.imgSizes, imageProbe: this.imageProbe });
         if (selection !== this._selection) return;
         if (bloodright.problems.length) {
           this.state.selected = { entry, text: null, manifest: { capture: { before: [], after: [] }, imgSizes: {} }, plan: [], problems: bloodright.problems, images: [], pack: null, bloodright };
