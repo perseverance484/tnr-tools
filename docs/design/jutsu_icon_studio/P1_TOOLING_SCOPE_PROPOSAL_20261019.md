@@ -1,6 +1,6 @@
 # Jutsu Icon P1 Tooling — Scope Proposal and Gap Analysis
 
-**Status:** PROPOSAL for director approval, 2026-10-19. **P1 is NOT approved for implementation.** Nothing here changes a workflow, ruling, tool or artwork.
+**Status:** APPROVED 2026-10-19 — all §8 recommendations (Option B, D1–D10) adopted as RUL-2026-10-19-005; build contract `state/prompt_jutsu_icon_p1_tooling_20261019.md`. The analysis below is kept as written at proposal time.
 **Author / lane:** Fable (Claude Code), Lane A scoping only. No code was written, ported or integrated.
 **Authority:** `docs/workflows/ISOLATED_ART_GENERATION.md` (P0 A–F, RUL-2026-10-19-003) governs. This proposal cites it; it does not restate or extend it.
 
