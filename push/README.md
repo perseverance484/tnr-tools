@@ -92,3 +92,7 @@ these runs.
 
 **Not covered:** 4 AIs were created after the 2026-10-12 census (522 → 526 live). Only Sealwright is
 known to the repo. If any of the others equips a kit jutsu, it needs a re-equip after these runs.
+
+## 124 Bloodright collection A image read-back (read-only)
+
+`124_bloodright_collection_a_image_readback.json` reads the 180 skills push/122 created, with full records, so each saved image URL can be checked against its icon. Zero mutations. Takes about 6 minutes (30 reads per minute). Run it, then send the results.
