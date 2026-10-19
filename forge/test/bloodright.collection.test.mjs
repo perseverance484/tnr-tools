@@ -299,3 +299,27 @@ test("a shared collection inventory is never changed by one tree's bound-skill r
   assert.deepEqual(r.problems, []);
   assert.equal(JSON.stringify(inventory), before);
 });
+
+test("repair: reopening a collection whose recorded icons no longer load re-uploads only those and updates only their skills", async () => {
+  const d = setup();
+  await d.core.selectManifest(d.entry());
+  await d.core.startJob();
+  const before = d.uploadCount();
+  // The game deleted tree one's Foundation icon after it was saved. Fresh uploads get new URLs.
+  const deadUrl = readAssetUploads(d.storage)[d.pkg.imagePack.files["test-0-0.webp"].sha256].url;
+  let n = 0;
+  d.uploader.upload = async () => ({ url: `https://example.test/fresh-${++n}.webp` });
+  const probe = async (url) => url !== deadUrl;
+  d.core.imageProbe = probe; d.runner.imageProbe = probe;
+  await d.core.selectManifest(d.entry());
+  const s = d.core.state.selected;
+  assert.deepEqual(s.problems, []);
+  const updates = s.bloodright.preview.filter((row) => row.operation === "update");
+  assert.equal(updates.length, 4, "the four Foundation skills of tree one, nothing else");
+  assert.ok(updates.every((row) => row.changes.length === 1 && row.changes[0].key === "image"));
+  await d.core.startJob();
+  assert.equal(n, 1, "the dead icon is uploaded once and shared by its four skills");
+  const fresh = [...d.game.skills.values()].filter((sk) => sk.image === "https://example.test/fresh-1.webp");
+  assert.equal(fresh.length, 4);
+  assert.ok(d.uploadCount() === before, "the original uploader was not used again");
+});
