@@ -122,19 +122,33 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
 }
 
 /** Read-only preparation; the caller freezes the returned manifest for Start and reload. */
-export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons }) {
-  if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
-  if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
-  auth?.assert("skillTree.create");
-  if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
-  const design = JSON.parse(await github.text(config.source.path, config.source.ref));
-  assertBloodrightAvailable(journal, design?.bloodline?.id);
-  const probe = await reader.get("skillTree.get", config.hiddenProbeId, { fresh: true });
+/**
+ * The live reads every preview starts from: the hidden probe (proves staff-visible inventory),
+ * the complete skill inventory and every folder. A collection reads this once and shares it, so
+ * opening N trees costs one inventory, not N (each inventory is several rate-limited pages).
+ */
+export async function readBloodrightInventory({ reader, hiddenProbeId }) {
+  if (!id(hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+  const probe = await reader.get("skillTree.get", hiddenProbeId, { fresh: true });
   if (!probe.ok || probe.data?.hidden !== true) throw new Error("hidden-content access not established: the known hidden skill is not visible; check the session, role, and probe ID");
   const all = await reader.list("skillTree.getAll", { fresh: true });
   const folders = await reader.list("skillTree.getAllFolders", { fresh: true });
   if (!all.ok || !folders.ok) throw new Error("Bloodright inventory failed; no preview or writes available");
-  if (!all.data.some(s => s.id === config.hiddenProbeId)) throw new Error("hidden probe missing from inventory; incomplete access or changed session");
+  if (!all.data.some(s => s.id === hiddenProbeId)) throw new Error("hidden probe missing from inventory; incomplete access or changed session");
+  return { hiddenProbeId, skills: all.data, folders: folders.data };
+}
+
+export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory }) {
+  if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
+  if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
+  auth?.assert("skillTree.create");
+  if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+  if (inventory && inventory.hiddenProbeId !== config.hiddenProbeId) throw new Error("shared inventory was verified with a different hidden probe");
+  const design = JSON.parse(await github.text(config.source.path, config.source.ref));
+  assertBloodrightAvailable(journal, design?.bloodline?.id);
+  const inv = inventory ?? await readBloodrightInventory({ reader, hiddenProbeId: config.hiddenProbeId });
+  // Copies: bound-skill re-reads below replace rows, and a shared inventory must stay as read.
+  const all = { data: structuredClone(inv.skills) }, folders = { data: structuredClone(inv.folders) };
   // Full point records for every bound skill, including remembered imports; never infer binding by name.
   const map = readIdmap(storage);
   const boundIds = [...new Set(design.nodes.map(n => config.bindings?.nodes?.[n.id] || map[scopeKey(design.bloodline.id, n.id)]).filter(Boolean))];
