@@ -1413,7 +1413,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Domain:** Bloodright / tree design and balance
 
-**Status:** PROPOSED (the user approves the resulting trees from the review sheet)
+**Status:** ACTIVE (the user approved the rebalanced trees and drafted names by merging PR #53: "merge it", 2026-10-19)
 
 **Supersedes:** RUL-2026-10-18-006's values. It amends RUL-2026-10-18-001's value rules as below; that ruling's structure (four paths, 1 BP per node, 3+2 builds, distinctive capstones) stands.
 
@@ -1441,7 +1441,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 - **Blue Blade Eyes** (+72%): kit-limited. +5% IDG alone is worth about 10 Weight there.
 - **Shiroi Youso:** unchanged. Its element is still unresolved (RUL-2026-10-18-004).
 
-**Names:** 124 nodes changed effects. Claude drafted their names at the user's request (116 new, 8 kept because they still fit), in `docs/design/bloodright/balance/scorer_v1/names.json`, each with a one-line rationale. They are unique across the roster and the kit jutsu names. The names are drafts for the user's review.
+**Names:** 124 nodes changed effects. Claude drafted their names at the user's request (116 new, 8 kept because they still fit), in `docs/design/bloodright/balance/scorer_v1/names.json`, each with a one-line rationale. They are unique across the roster and the kit jutsu names. Approved with the merge.
 
 **Analysis:** the user asked for a full analysis of how to balance within the round-number constraint. Three rule sets were compared on the same scorer (jutsu level 25), first on six sample trees:
 - A, strict +2/+3/+5;
