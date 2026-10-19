@@ -367,7 +367,7 @@ test("release pin: pinning turns the branch URL into a commit URL and drops the 
   // is legitimately allowed to lag on @version, so a fixture that kept the marker would be
   // asserting against the staged state, not the released one.
   const pinned = loader
-    .replace(/(\/\/ @require\s+)\S*forge_bundle\.js\S*/, `$1https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@${sha}/forge_bundle.js`)
+    .replace(/(\/\/ @require\s+)\S*forge_bundle\.js\S*/, `$1https://raw.githubusercontent.com/perseverance484/tnr-tools/${sha}/forge_bundle.js`)
     .replace(/^\/\/ @x-unpinned-until-release.*\n/m, "")
     .replace(/^\/\/ @x-release-pending.*\n/m, "")
     .replace(/(\/\/ @version\s+)\S+/, `$1${pkg.version}`);
@@ -389,7 +389,7 @@ test("no test can open a socket, and no source reaches a host it should not", ()
   // The suite's whole premise is that nothing here can touch the live game. Two greps keep it
   // that way: no test may import a network module or call a global fetch (every request goes
   // through an injected fetchImpl), and src/ may name only the same-origin API paths and the two
-  // hosts it is allowed to reach - jsDelivr is the loader's business, api.github.com is the
+  // hosts it is allowed to reach - the bundle URL is the loader's business, api.github.com is the
   // manifest picker's.
   const testDir = dirname(fileURLToPath(import.meta.url));
   const self = "ui.test.mjs"; // this file carries the patterns as literals; it would match itself
