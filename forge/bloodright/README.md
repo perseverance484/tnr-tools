@@ -187,7 +187,7 @@ byte-identical copies of `fable/bloodright-planning-20261003` checked against th
 `trees/SOURCE.json`.
 
 The second script writes two collections. Bonuses are the scorer-v1 rebalance
-(RUL-2026-10-18-006; Shiroi Youso keeps its CSV placeholder); 20 Silver and 99 rounds remain
+(RUL-2026-10-19-001; Shiroi Youso keeps its CSV placeholder); 20 Silver and 99 rounds remain
 placeholders.
 
 - `naming_pass_collection_a.json`: 14 trees using only the original ten potency tags. This

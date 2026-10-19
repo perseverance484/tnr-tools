@@ -104,7 +104,7 @@ def build(icons_ref):
     for group, trees in packages.items():
         blocked = [m for m in missing if any(m.startswith(f"art/bloodright/{Path(t['source']['path']).stem}/") for t in trees)]
         note = ("BLOCKED TEMPLATE: icons missing (" + ", ".join(blocked) + "). Do not stage in push/ yet."
-                if blocked else f"Naming-pass collection {group.upper()}: {len(trees)} trees, scorer-v1 rebalance values (RUL-2026-10-18-006); Shiroi Youso keeps its placeholder.")
+                if blocked else f"Naming-pass collection {group.upper()}: {len(trees)} trees, scorer-v1 rebalance values (RUL-2026-10-19-001); Shiroi Youso keeps its placeholder.")
         out[group] = {
             "_note": note,
             "_skipped": skipped,

@@ -29,7 +29,7 @@ CSV_PATH = "docs/design/bloodright/naming_pass/review.csv"
 OUT_DIR = ROOT / "docs/design/bloodright/structural"
 LEGACY_REF = "7c1dfdd5e3ee163b90c22694dbb2de94ede08866"
 READINESS = ROOT / "forge/bloodright/collection.readiness.json"
-# Rebalance overlay (RUL-2026-10-18-006): node bonuses that replace the CSV placeholders, keyed by
+# Rebalance overlay (RUL-2026-10-19-001): node bonuses that replace the CSV placeholders, keyed by
 # design slug. Names still come from the naming-pass CSV.
 BALANCE = ROOT / "docs/design/bloodright/balance/scorer_v1/trees.json"
 CATEGORY = {1: "Foundation", 2: "Hidden Art", 3: "Advanced Art"}
@@ -102,7 +102,7 @@ def build():
             "legacy_tree": {"path": t["source"]["path"], "ref": LEGACY_REF},
         }
         if overlay is not None:
-            provenance["balance"] = {"path": str(BALANCE.relative_to(ROOT)), "ruling": "RUL-2026-10-18-006",
+            provenance["balance"] = {"path": str(BALANCE.relative_to(ROOT)), "ruling": "RUL-2026-10-19-001",
                                      "rename_needed": [x["id"] for x in rebalanced.get("rename_needed", [])]}
         designs[name] = {
             "title": f"{name} - " + ("rebalanced (scorer v1)" if overlay is not None else "naming pass (placeholder values)"),
