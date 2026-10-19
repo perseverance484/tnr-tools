@@ -86,6 +86,38 @@
         "git_pin": "NOT_PERFORMED",
         "generator_native_provenance": "UNVERIFIED"
       }
+    },
+    {
+      "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+      "name": "Exploding Wood Serpent",
+      "date": "2026-10-19",
+      "evidence": "Director attached the completed Serpent image in the persistent Studio and replied 'Approved, next'.",
+      "status": "RAW_VISUAL_APPROVED",
+      "exact_uploaded_file": {
+        "name": "1000018839.png",
+        "true_mime": "image/jpeg",
+        "size_bytes": 645451,
+        "width": 1536,
+        "height": 1536,
+        "encoding": "JPEG",
+        "sha256": "311dd5adbd377cf1189ffdd6c990a1aab7a9667fffc032083fac90254e626d54",
+        "source_bytes_preserved_without_recompression": true,
+        "git_pin": "NOT_PERFORMED",
+        "generator_native_provenance": "UNVERIFIED"
+      },
+      "comparison": {
+        "tool": "jutsu_studio.py compare",
+        "status": "REVIEW_AID_NOT_GALLERY",
+        "sizes": [
+          125,
+          64,
+          32
+        ],
+        "other_jutsu": "Guardian's Grove",
+        "reference_sha256": "814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8",
+        "review_image_sha256": "a1b1c1d2f8480a1a6df2bb1ef91f0b5ca62cfa445a12270c3fc5d8c961303a93",
+        "visual_distinctness": "PASS"
+      }
     }
   ],
   "family_direction": {
