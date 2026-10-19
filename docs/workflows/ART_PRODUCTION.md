@@ -4,6 +4,8 @@ Use when ChatGPT is helping the user direct, generate, edit, process, review, or
 
 This workflow coordinates ChatGPT's Art Director / Image Production roles with the repository's existing `skills/producing-tnr-art/` production authority. It does not duplicate the art spec.
 
+**Individual bloodline jutsu icon ZIP-first studios:** For one startup prompt + one original-art ZIP, safe intake, per-technique silhouette/action planning and exact-source family showcases, use `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md` and `docs/workflows/JUTSU_ICON_SHOWCASE.md` as specialised coordination/presentation guides **under** `docs/workflows/ISOLATED_ART_GENERATION.md` P0 A–F. Mobile starter: `docs/design/jutsu_icon_studio/START_PROMPT.md`. Executable offline tooling is `skills/producing-tnr-art/scripts/jutsu_studio.py` (P1, PR #66), not a new art authority. This workflow is distinct from the three fixed Bloodright tier emblems.
+
 **Isolated art sessions:** For long-running Art Studio coordination with one clean generation conversation per image, use `docs/workflows/ISOLATED_ART_GENERATION.md` in addition to this workflow. The director's jutsu-icon opaque-background decision is recorded there; jutsu icons use the spec's `JUTSU_ICON` target, while item and bloodline icons keep the shared `ICON` alpha rule.
 
 **Bloodright showcase posters are a specialized presentation exception.** For those, read and follow `docs/workflows/BLOODRIGHT_POSTERS.md` first. Its approved Ethereal Monarch poster is the primary **information-presentation** reference, not a universal visual-style template; the normal in-game raw-art prohibition on text/UI does not apply to the composed showcase poster itself.
