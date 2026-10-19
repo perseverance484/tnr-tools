@@ -12,7 +12,7 @@ const UPDATE_RE = /^\/\/ @updateURL\s+(\S+)\s*$/m;
 const DOWNLOAD_RE = /^\/\/ @downloadURL\s+(\S+)\s*$/m;
 const MARKER_RE = /^\/\/ @x-unpinned-until-release\s+(\S+)\s*$/m;
 const PENDING_RE = /^\/\/ @x-release-pending\s+(\S+)\s*$/m;
-const JSDELIVR_RE = /^https:\/\/cdn\.jsdelivr\.net\/gh\/perseverance484\/tnr-tools@(.+)\/([A-Za-z0-9_.-]+\.js)$/;
+const BUNDLE_RE = /^https:\/\/raw\.githubusercontent\.com\/perseverance484\/tnr-tools\/([^/]+)\/([A-Za-z0-9_.-]+\.js)$/;
 const SHA_RE = /^[0-9a-f]{40}$/;
 const UPDATE_URL = "https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js";
 const WORKFLOWS = [".github/workflows/release_pin.yml", "state/staged_workflows/release_pin.yml"];
@@ -31,9 +31,9 @@ export function checkReleasePin({ root = repo } = {}) {
   if (!req) {
     add("forge_loader_user.js has no @require line");
   } else {
-    const url = JSDELIVR_RE.exec(req[1]);
+    const url = BUNDLE_RE.exec(req[1]);
     if (!url) {
-      add(`forge_loader_user.js @require is not a jsDelivr URL for this repository: ${req[1]}`);
+      add(`forge_loader_user.js @require is not a raw.githubusercontent.com URL for this repository: ${req[1]}`);
     } else {
       const [, ref, file] = url;
       if (file !== "forge_bundle.js") add(`forge_loader_user.js @require serves ${file}, not forge_bundle.js`);

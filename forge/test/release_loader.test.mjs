@@ -40,7 +40,7 @@ function stagedLoader({ version = OLDER_VERSION, pending = PKG_VERSION } = {}) {
 test("release loader: current install has a stable self-update channel and immutable bundle", () => {
   assert.match(LOADER, new RegExp(`^// @updateURL\\s+${UPDATE_URL.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}$`, "m"));
   assert.match(LOADER, new RegExp(`^// @downloadURL\\s+${UPDATE_URL.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}$`, "m"));
-  assert.match(LOADER, /^\/\/ @require\s+https:\/\/cdn\.jsdelivr\.net\/gh\/perseverance484\/tnr-tools@[0-9a-f]{40}\/forge_bundle\.js$/m);
+  assert.match(LOADER, /^\/\/ @require\s+https:\/\/raw\.githubusercontent\.com\/perseverance484\/tnr-tools\/[0-9a-f]{40}\/forge_bundle\.js$/m);
   assert.deepEqual(checkReleasePin(), []);
 });
 
@@ -84,7 +84,7 @@ test("release loader: a pending marker that disagrees with the package is a bloc
 
 test("release loader: pending staging never permits a moving bundle or a different update source", () => {
   const staged = stagedLoader()
-    .replace(/tnr-tools@[0-9a-f]{40}\/forge_bundle\.js/, "tnr-tools@moving-branch/forge_bundle.js")
+    .replace(/tnr-tools\/[0-9a-f]{40}\/forge_bundle\.js/, "tnr-tools/moving-branch/forge_bundle.js")
     .replace(UPDATE_URL, "https://example.invalid/forge_loader_user.js");
   const root = fixtureRoot(staged);
   try {

@@ -19,7 +19,9 @@ TARGETS = (
 def pin(bundle: str, loader: str, version_file: str | None, sha: str) -> None:
     path = ROOT / loader
     text = path.read_text()
-    url = f"https://cdn.jsdelivr.net/gh/perseverance484/tnr-tools@{sha}/{bundle}"
+    # Served straight from GitHub at the merge commit: immutable, and no CDN in between that has to
+    # copy the (large) repository first. jsDelivr was refusing the 0.7.2 bundle (2026-10-19).
+    url = f"https://raw.githubusercontent.com/perseverance484/tnr-tools/{sha}/{bundle}"
     text, count = re.subn(
         rf"(// @require\s+)\S*{re.escape(bundle)}\S*",
         lambda match: match.group(1) + url,
