@@ -35,15 +35,19 @@ Lookalike action/silhouette is a failure even if palettes differ. Stress-test 12
 | Jutsu | Director direction | Approved raw source | Raw visual | Local export QC | Canonical preflight | Family gallery | Git binary pin |
 |---|---|---|---|---|---|---|---|
 | Guardian's Grove | APPROVED | 2026-10-19 user-uploaded candidate; **decoded JPEG** (despite upload ending .png), 1536×1536 RGB, **663,598 bytes**, SHA-256 `814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8` | **APPROVED (1/5)** | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
-| Other four | Family reservations approved; individual hash-bound locks pending | none | PENDING (0/4) | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
+| Other four | Family reservations approved; Exploding Wood Serpent hash-bound lock now APPROVED; remaining three pending | none | PENDING (0/4) | NOT_RUN | NOT_RUN | NOT_BUILT | NOT_PERFORMED |
 
 **Guardian raw provenance:** The exact *uploaded file bytes* were preserved without recompression in a `.jpg`-suffixed studio copy. The repository contains the evidence SHA and decision but **not those binary bytes**; do not assert a Git pin. Generator-native original-file or attempt/session provenance was **not** independently proven. A standalone deterministic 125/64/32 raw thumbnail composite was made; full pairwise visual QC remains pending.
 
 **Stable recovery checkpoint:** `shinseina_ki_guardians_grove_checkpoint_20261019.zip` was delivered in the 2026-10-19 Studio conversation; includes exact user-uploaded approved JPG bytes, checksum-bound receipt, target-lock draft and non-generative thumbnail composite. This checkpoint is **not** the full-family closeout or a production export.
 
+## Target-lock records
+
+`docs/design/shinseina_ki/JUTSU_TARGET_LOCKS.json` is a tool-compatible `tnr.jutsu-studio.locks/1` ledger for the five identities. All five target fields are complete; Guardian's Grove and Exploding Wood Serpent have hash-bound direction approvals, while the remaining three await individual advancement. The validator checks identity, role-labeled reference hashes and full sibling exclusions; it cannot prove whether generated pixels depict the right technique.
+
 ## Next — Exploding Wood Serpent
 
-Source evidence (Oct 17, historical capture): technique description **“Summon an exploding wooden serpent”**; single-enemy Wood damage, additional recoil effect recorded. Original member `images/8MRWPNK3lOxCLVqWrE-xJ_Exploding_Wood_Serpent.png`, SHA-256 `f76461fc436bfd5e8631c586cf664a12c69d7cb42b7784bf66c7de98cd300123`. Next image must be a distinct S-shaped **striking-and-detonating** articulated heartwood serpent; not another enclosing ring or forest. No animal face/eyes/teeth or anatomical limbs unless the director approves that exact exception. The prior family reservation is director-approved; per-target v1 lock SHA `9d1a37f2d6c030a69f6ff8c0195f7a833cc51316143efbed15e78d223d60601f` is mechanically complete but **individual hash-bound direction approval remains PENDING**.
+Source evidence (Oct 17, historical capture): technique description **“Summon an exploding wooden serpent”**; single-enemy Wood damage, additional recoil effect recorded. Original member `images/8MRWPNK3lOxCLVqWrE-xJ_Exploding_Wood_Serpent.png`, SHA-256 `f76461fc436bfd5e8631c586cf664a12c69d7cb42b7784bf66c7de98cd300123`. Next image must be a distinct S-shaped **striking-and-detonating** articulated heartwood serpent; not another enclosing ring or forest. No animal face/eyes/teeth or anatomical limbs unless the director approves that exact exception. The prior family reservation is director-approved; per-target v1 lock SHA `9d1a37f2d6c030a69f6ff8c0195f7a833cc51316143efbed15e78d223d60601f` is **APPROVED** in `docs/design/shinseina_ki/JUTSU_TARGET_LOCKS.json`, bound to the director's approval of the five-target family ledger and subsequent “Approved, next” instruction. Do not claim there was a separate quote explicitly acknowledging the SHA.
 
 **Generator references (maximum 2 individual images):** the original Exploding Wood Serpent PNG (IDENTITY ONLY), and accepted Guardian's Grove source JPEG (STYLE/MATERIAL ONLY, no cavern/arch composition). Each requires actual attached bytes; a path or image URL does not establish conditioning.
 
