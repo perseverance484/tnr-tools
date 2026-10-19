@@ -55,7 +55,10 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Collection/icon candidate adds whole-collection preview and sequential scoped jobs.
 // Accepted by the director 2026-10-17 (RUL-2026-10-17-001), together with the earlier
 // 354000/78000 -> 386000/88000 Bloodright importer increase.
-export const BUDGET = { raw: 400_000, gzip: 91_000 };
+// PROPOSED 2026-10-19, pending the director's approval (PR "Forge 0.7.2: QA pass fixes"): gzip
+// 91000 -> 95000 for the phone QA fixes (results card, plain wording, grouped jobs, progress).
+// Measured 389,230 raw / 92,996 gzip. Raw is unchanged.
+export const BUDGET = { raw: 400_000, gzip: 95_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

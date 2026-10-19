@@ -415,7 +415,7 @@ test("a screen that throws is shown as an error banner, never a blank page", () 
   assert.match(win.document.querySelector(".f-main").textContent, /failed to render.*boom/s);
 });
 
-test("QA: an exported bundle shows its text, survives redraws and offers Download until closed", async () => {
+test("QA: an exported bundle shows its text, survives redraws and offers Download until cleared", async () => {
   const win = dom();
   assert.equal(h("textarea", { value: "bundle text" }).value, "bundle text", "a textarea's value is its property");
   const { app } = appWith();
@@ -425,9 +425,15 @@ test("QA: an exported bundle shows its text, survives redraws and offers Downloa
   const ta = win.document.querySelector(".f-main textarea");
   assert.ok(ta, "the export card is still on screen after redraws and a screen change");
   assert.equal(ta.value, '{"ok":true}');
-  const buttons = [...win.document.querySelectorAll(".f-main .f-card button")].map((b) => b.textContent);
-  assert.deepEqual(buttons.slice(0, 3), ["Download", "Copy", "Close"]);
-  [...win.document.querySelectorAll(".f-main .f-card button")].find((b) => b.textContent === "Close").click();
+  const card = win.document.querySelector(".f-main .f-exports");
+  assert.match(card.textContent, /Results to save \(1\)/);
+  assert.ok([...card.querySelectorAll("button")].some((b) => b.textContent === "Download"));
+  // A collection's many results share ONE compact card, not one full card each.
+  for (let i = 2; i <= 15; i++) app.showExport(`{"tree":${i}}`, `tnr_results_${i}.json`);
+  assert.equal(win.document.querySelectorAll(".f-main .f-exports").length, 1);
+  assert.match(win.document.querySelector(".f-exports").textContent, /Results to save \(15\)/);
+  [...win.document.querySelectorAll(".f-exports button")].find((b) => b.textContent === "Clear").click();
+  await new Promise((r) => setTimeout(r, 0));
   assert.equal(win.document.querySelector(".f-main textarea"), null);
 });
 

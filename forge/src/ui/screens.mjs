@@ -404,7 +404,7 @@ export function RunScreen(app) {
     const next = job.items.find((i) => !TERMINAL.includes(i.state));
     root.appendChild(h("div", { class: "f-banner info" }, next
       ? `Working on item ${next.idx + 1} of ${job.items.length}: ${next.name}`
-      : `Running… ${app.state.runningNote || "finishing up"}`));
+      : app.state.runningNote || "All items sent; reading back and saving the results…"));
   }
   const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
   if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
