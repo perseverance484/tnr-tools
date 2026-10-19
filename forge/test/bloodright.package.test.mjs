@@ -19,10 +19,9 @@ function bound(g) {
 }
 const git = (cwd, ...args) => execFileSync("git", ["-C", cwd, ...args], { encoding: "utf8" }).trim();
 
-test("offline package check: committed templates are blocked on icons; structurally bound packages are clean", async () => {
+test("offline package check: committed packages are complete (icons bound, blobs verified); structurally bound packages are clean", async () => {
   for (const g of ["a", "b"]) {
-    const blocked = await packageProblems(committed(g), root);
-    assert.ok(blocked.length && blocked.every(p => /imgSizes|imagePack/.test(p)), JSON.stringify(blocked.slice(0, 2)));
+    assert.deepEqual(await packageProblems(committed(g), root), []);
     assert.deepEqual(await packageProblems(bound(g), root, { blobs: false }), []);
   }
 });
@@ -83,6 +82,7 @@ test("validate.py --strict routes collections to the offline check: no 'no items
     assert.doesNotMatch(r.out, /no items|capture-only/); assert.match(r.out, /checked offline/);
     const lines = r.out.split("\n").filter(l => l.startsWith("ERROR"));
     assert.ok(lines.length && lines.every(l => /icon |imagePack ref/.test(l)), lines.slice(0, 3).join("\n"));
-    const blocked = run(join(root, "forge/bloodright/naming_pass_collection_b.json")); assert.notEqual(blocked.code, 0);
+    const real = run(join(root, "forge/bloodright/naming_pass_collection_b.json"));
+    assert.equal(real.code, 0, real.out); assert.match(real.out, /checked offline/);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
