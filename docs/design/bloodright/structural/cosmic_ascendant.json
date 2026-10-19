@@ -10,10 +10,12 @@
   },
   "balance": {
    "path": "docs/design/bloodright/balance/scorer_v1/trees.json",
-   "ruling": "RUL-2026-10-18-006",
+   "ruling": "RUL-2026-10-19-001",
    "rename_needed": [
     "p1_t3",
     "p2_t3",
+    "p3_t1",
+    "p3_t2",
     "p3_t3",
     "p4_t3"
    ]
@@ -52,7 +54,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 2
+    "afterburn": 4
    }
   },
   {
@@ -67,7 +69,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 3
+    "afterburn": 6
    }
   },
   {
@@ -82,7 +84,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 5,
+    "increasedamagegiven": 10,
     "damage": 0.8
    }
   },
@@ -96,7 +98,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 2
+    "increasedamagegiven": 4
    }
   },
   {
@@ -111,7 +113,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 3
+    "increasedamagegiven": 6
    }
   },
   {
@@ -126,8 +128,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "lifesteal": 5,
-    "increasedamagegiven": 5
+    "decreasedamagetaken": 10
    }
   },
   {
@@ -140,7 +141,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.4
+    "increasedamagetaken": 2
    }
   },
   {
@@ -155,7 +156,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.8
+    "increasedamagetaken": 3
    }
   },
   {
@@ -170,8 +171,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 5,
-    "decreasedamagetaken": 5
+    "decreasedamagetaken": 10,
+    "decreasedamagegiven": 5
    }
   },
   {
@@ -184,7 +185,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagetaken": 2
+    "decreasedamagetaken": 4
    }
   },
   {
@@ -199,7 +200,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagetaken": 3
+    "decreasedamagetaken": 6
    }
   },
   {
@@ -214,8 +215,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagetaken": 5,
-    "damage": 0.8
+    "afterburn": 10,
+    "damage": 1.2
    }
   }
  ]

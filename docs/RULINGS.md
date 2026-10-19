@@ -1375,7 +1375,7 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 
 **Domain:** Bloodright / tree balance
 
-**Status:** PROPOSED (the user re-approves the trees, Taiyo Kami included, from the review sheet)
+**Status:** SUPERSEDED by RUL-2026-10-19-001 (its values were replaced; its scorer and reasons stand)
 
 **Supersedes:** the placeholder values of RUL-2026-10-18-002 for 24 trees. RUL-2026-10-18-001's structure and value rules stand unchanged.
 
@@ -1404,3 +1404,56 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Canonical destination:** `docs/design/bloodright/balance/scorer_v1/trees.json`, applied by `scripts/bloodright_from_naming.py` into `docs/design/bloodright/structural/`. The scorer and search live in `scripts/bloodright_balance/`.
 
 **Boundary:** no live-game action. The import packages stay blocked on icons, and import remains the user's step.
+
+---
+
+## RUL-2026-10-19-001 — Bloodright balance rules: round finished totals at today's power level
+
+**Date:** 2026-10-19
+
+**Domain:** Bloodright / tree design and balance
+
+**Status:** PROPOSED (the user approves the resulting trees from the review sheet)
+
+**Supersedes:** RUL-2026-10-18-006's values. It amends RUL-2026-10-18-001's value rules as below; that ruling's structure (four paths, 1 BP per node, 3+2 builds, distinctive capstones) stands.
+
+**Ruling:** Bloodright trees are balanced with Claude's scorer under these value rules:
+
+- **Percentage effects:** every finished build totals a multiple of 5 for each effect, at most 20. That keeps capped jutsu values round, since kit rows read 30/35/40 at max jutsu level 25.
+  - A path's Foundation and Hidden Art carry the same effect and step +2/+3, +4/+6 or +6/+9, so each path opens with +5, +10 or +15.
+  - Capstones give +5 or +10.
+- **Damage:** clean power steps of 0.2 as before, with Damage × eligible damage rows ≤ 5.
+- **Pierce:** clean power steps like Damage (+0.2 to +1.6), sized to its value, with its own matching budget (Pierce × eligible pierce rows ≤ 5). It is no longer a +2/+3/+5 percentage step.
+- **Power level:** trees are pulled toward today's Bloodright power: an average full build of 5.24 Weight, the roster median under these rules without a strength pull.
+- **Distinct builds:** every finished path and 5-BP build stays distinct. No effect sits on more than two capstones (Damage up to three).
+
+**Result (24 trees):**
+- 21 are within ±15% of the power target.
+- In 19, every finished path is within 15% of the strongest.
+- The add-on choice improves on most trees but reaches 80% only on Vaporia, Teno Yuki and Oblivion Seal. Equalising it further needs every node at +5/+10 (rule set C), which doubles Bloodright power; the user declined that.
+- Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
+
+**Flagged:**
+- **Arashima** (−54%): kit-limited. Its own shield soaks the hits damage reduction would cut, and its main hit is Pierce, so tree bonuses barely register. It is left as balanced as it can be and flagged for a later kit change.
+- **Blue Blade Eyes** (+72%): kit-limited. +5% IDG alone is worth about 10 Weight there.
+- **Shiroi Youso:** unchanged. Its element is still unresolved (RUL-2026-10-18-004).
+
+**Names:** 124 nodes changed effects and keep their naming-pass names until a naming review.
+
+**Analysis:** the user asked for a full analysis of how to balance within the round-number constraint. Three rule sets were compared on the same scorer (jutsu level 25), first on six sample trees:
+- A, strict +2/+3/+5;
+- B, round finished totals;
+- C, every node +5/+10.
+
+C balanced add-ons best (about 80–90%) at about 2× today's power. B kept today's power with partial add-on balance.
+
+**Evidence:**
+- "The important part is not using weird decimals to balance weights."
+- "I want all the trees to be a similar power level as well as their second path choices to be balanced."
+- "Pierce values can be adjusted to reflect appropriate weights."
+- Chose "B: round totals, today's power" over C and over keeping A.
+- Chose "Leave it, flag it" for Arashima.
+
+**Canonical destination:** the rules in `scripts/bloodright_balance/search.py` (`--round5`), the values in `docs/design/bloodright/balance/scorer_v1/trees.json`, applied into `docs/design/bloodright/structural/`.
+
+**Boundary:** no live-game action. The import packages stay blocked on icons.

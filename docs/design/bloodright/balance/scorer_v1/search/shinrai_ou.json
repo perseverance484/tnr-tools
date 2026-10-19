@@ -7,20 +7,22 @@
   "reflect": 1
  },
  "damage_ceiling": 1.2000000000000002,
- "score": 1.8388225085422705,
+ "score": 2.6048855920904046,
  "paths": [
   {
    "root": "damage",
    "f": 0.2,
-   "h": 0.4,
+   "htag": "damage",
+   "h": 0.6,
    "cap": {
     "increasedamagetaken": 5.0,
-    "damage": 0.6
+    "reflect": 5.0
    }
   },
   {
    "root": "increasedamagegiven",
    "f": 2.0,
+   "htag": "increasedamagegiven",
    "h": 3.0,
    "cap": {
     "damage": 0.4
@@ -29,75 +31,79 @@
   {
    "root": "reflect",
    "f": 2.0,
+   "htag": "reflect",
    "h": 3.0,
    "cap": {
-    "reflect": 5.0
+    "reflect": 5.0,
+    "damage": 0.4
    }
   },
   {
    "root": "increasedamagetaken",
    "f": 2.0,
+   "htag": "increasedamagetaken",
    "h": 3.0,
    "cap": {
-    "increasedamagetaken": 5.0
+    "increasedamagetaken": 10.0,
+    "damage": 0.4
    }
   }
  ],
  "info": {
-  "secondary_normal": 0.1958,
-  "secondary_panel": 0.1958,
-  "three_spread": 0.5696,
-  "mean5": 4.7025,
+  "secondary_normal": 0.2482,
+  "secondary_panel": 0.2482,
+  "three_spread": 0.9268,
+  "mean5": 5.9263,
   "three": {
-   "p1": 2.535,
-   "p2": 3.968,
-   "p3": 3.043,
-   "p4": 2.26
+   "p1": 3.852,
+   "p2": 4.156,
+   "p3": 3.892,
+   "p4": 4.06
   },
   "five": {
-   "p1+p2": 6.192,
-   "p1+p3": 4.056,
-   "p1+p4": 3.694,
-   "p2+p1": 4.704,
-   "p2+p3": 5.49,
-   "p2+p4": 5.191,
-   "p3+p1": 3.73,
-   "p3+p2": 6.521,
-   "p3+p4": 4.173,
-   "p4+p1": 2.977,
-   "p4+p2": 5.921,
-   "p4+p3": 3.782
+   "p1+p2": 7.661,
+   "p1+p3": 5.565,
+   "p1+p4": 5.06,
+   "p2+p1": 5.151,
+   "p2+p3": 5.869,
+   "p2+p4": 5.44,
+   "p3+p1": 4.823,
+   "p3+p2": 7.583,
+   "p3+p4": 5.09,
+   "p4+p1": 5.05,
+   "p4+p2": 8.05,
+   "p4+p3": 5.773
   },
-  "changes": 2
+  "changes": 5
  },
- "current_score": 0.41047128433830826,
+ "current_score": 1.0474132985895923,
  "current_ok": true,
  "current_info": {
-  "secondary_normal": 0.1958,
-  "secondary_panel": 0.1958,
-  "three_spread": 0.1905,
-  "mean5": 5.2287,
+  "secondary_normal": 0.1891,
+  "secondary_panel": 0.1891,
+  "three_spread": 0.184,
+  "mean5": 5.5633,
   "three": {
-   "p1": 1.375,
-   "p2": 7.218,
-   "p3": 3.043,
-   "p4": 2.26
+   "p1": 1.397,
+   "p2": 7.588,
+   "p3": 3.426,
+   "p4": 2.376
   },
   "five": {
-   "p1+p2": 4.949,
-   "p1+p3": 2.896,
-   "p1+p4": 2.535,
-   "p2+p1": 8.004,
-   "p2+p3": 8.739,
-   "p2+p4": 8.518,
-   "p3+p1": 3.73,
-   "p3+p2": 6.521,
-   "p3+p4": 4.173,
-   "p4+p1": 2.977,
-   "p4+p2": 5.921,
-   "p4+p3": 3.782
+   "p1+p2": 5.151,
+   "p1+p3": 3.11,
+   "p1+p4": 2.614,
+   "p2+p1": 8.386,
+   "p2+p3": 9.302,
+   "p2+p4": 8.953,
+   "p3+p1": 4.125,
+   "p3+p2": 7.085,
+   "p3+p4": 4.614,
+   "p4+p1": 3.104,
+   "p4+p2": 6.226,
+   "p4+p3": 4.089
   },
   "changes": 0
  },
- "anchor": 4.228474255330968
+ "anchor": 5.24
 }

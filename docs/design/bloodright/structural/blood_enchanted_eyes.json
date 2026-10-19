@@ -10,13 +10,14 @@
   },
   "balance": {
    "path": "docs/design/bloodright/balance/scorer_v1/trees.json",
-   "ruling": "RUL-2026-10-18-006",
+   "ruling": "RUL-2026-10-19-001",
    "rename_needed": [
     "p1_t3",
     "p2_t3",
     "p3_t3",
     "p4_t1",
-    "p4_t2"
+    "p4_t2",
+    "p4_t3"
    ]
   }
  },
@@ -68,7 +69,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.8
+    "damage": 0.6
    }
   },
   {
@@ -83,7 +84,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "pierce": 0.4
    }
   },
   {
@@ -170,7 +172,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "absorb": 5
+    "absorb": 5,
+    "pierce": 0.4
    }
   },
   {
@@ -183,7 +186,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "pierce": 2
+    "vamp": 2
    }
   },
   {
@@ -198,7 +201,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "pierce": 3
+    "vamp": 3
    }
   },
   {
@@ -213,8 +216,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 5,
-    "pierce": 5
+    "afterburn": 10
    }
   }
  ]
