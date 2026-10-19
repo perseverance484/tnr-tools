@@ -38,7 +38,9 @@ not restate a number from this file or from a scaffold; read the spec.
 
 **References calibrate; the spec governs.** `art/style_refs/` holds exact copies of approved live
 TNR scene art, materialized from a committed read-only capture with per-file SHA-256s.
-`data/style_refs.json` indexes them and `scripts/style_refs.py` selects them. The pack does not
+`data/style_refs.json` indexes them and `scripts/style_refs.py` selects them. `art/style_refs/jutsu_icons/`
+adds the director-approved BBE/BEE jutsu-icon finals as `JUTSU_ICON` style/material exemplars, proven
+against their delivery-intake record instead of a live capture (RUL-2026-10-17-021). The pack does not
 replace `spec.house_style` and restates none of its clauses or numbers - it is the calibration
 layer that stops a session reconstructing "TNR style" from prose and memory.
 
@@ -50,6 +52,7 @@ Where references exist for the target, this order is required before any product
    ```
    python3 scripts/style_refs.py select --target SCENE_CHARACTER --register NINJA --limit 4
    python3 scripts/style_refs.py select --target SCENE_BACKGROUND --tag interior
+   python3 scripts/style_refs.py select --target JUTSU_ICON            # style/material only
    ```
 4. **Open and actually look at each selected image.** Not the filenames, not the notes - the pixels.
 5. Only then compose the prompt and generate.
@@ -191,8 +194,9 @@ upload paths.
 | `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
 | `scripts/artpreflight.py` | Acceptance check before handover. `--max-bytes N` adds a stricter workstream cap (file must be under N). `--index <art_index.json>` audits the whole live library instead of files. |
 | `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
-| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
+| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--family ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
 | `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
+| `scripts/jutsu_studio.py` | **Bloodline jutsu-icon studio, ZIP-first** (protocol: docs/workflows/ISOLATED_ART_GENERATION.md; contract: state/prompt_jutsu_icon_p1_tooling_20261019.md). `doctor` - can this container run the pinned canonical preflight? `intake PACK.zip --out DIR [--roster F]` - safe bounded ZIP scan, true-format decode, hashes, exact jutsu ID/name mapping (never guessed) with its evidence level; `lock-check` - target-lock completeness and approval integrity; `attempts` - attempt log, restart rule and failure statistics; `compare` - candidate beside the family at 125/64/32 (review aid, not a gallery); `finalize approved.json --out DIR [--locks] [--attempts]` - cached lossless VP8L export, the real artpreflight `--type JUTSU_ICON` (canonical only when it matches `data/preflight_pins.json`), the deterministic showcase audited from its written bytes, closeout + `PREFLIGHT_<verdict>` WebP ZIPs; `audit-gallery` - VALID/INVALID for any gallery against its manifest; `bench` times the deterministic steps. It records studio and director judgements; it never decides whether pixels depict the locked technique. Socket-free tests: `scripts/jutsu_studio_selftest.py`. |
 
 All of them read `25x_DATA_art_spec.json` from the working directory. Copy it in at session start,
 or set `TNR_ART_SPEC`.
