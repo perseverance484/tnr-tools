@@ -1,0 +1,96 @@
+{
+  "schema": "tnr.shinseina-ai-avatar-companion/1",
+  "workstream": "SHINSEINA KI — JUTSU ICON ART STUDIO + SEPARATE AI_AVATAR COMPANION",
+  "date": "2026-10-19",
+  "user_direction": "After five jutsu raw approvals, user supplied additional Wood Golem image and requested AI portrait production under AI_AVATAR rules and inclusion in the showcase.",
+  "identity": {
+    "bloodline": "Shinseina Ki",
+    "bloodline_id": "vA8I_7iBNgvkuKOpnG1yD",
+    "asset": "Ancient Wood Golem",
+    "target": "AI_AVATAR",
+    "ai_record_id": "NOT_ESTABLISHED",
+    "not_jutsu_icon": true
+  },
+  "source": {
+    "upload_name": "1000018846.png",
+    "true_format": "JPEG",
+    "dimensions": [
+      1536,
+      1536
+    ],
+    "bytes": 472441,
+    "sha256": "0ef0dab603449d759eb1db0d62a10be72693b482741388794f21959c664e3832",
+    "source_bytes_preserved_in_companion_zip": true,
+    "content_regenerated": false
+  },
+  "processing": {
+    "pipeline": "Deterministic black-matte premask + repository skills/producing-tnr-art/scripts/chroma.py --target AI_AVATAR --key magenta --spec 25x_DATA_art_spec.json --qc",
+    "premask": "Remove only near-black max(R,G,B)<=8 pixels connected to input border (8-connectivity). Requires exception because user image is flat black, not the standard lime/magenta chroma source.",
+    "prekey": "prekey_black_matte_608_RGBA.png",
+    "prekey_sha256": "c3f247b9bfc2d7913429e415b1130ec49fd7505b7792ace6387b9fb4caacc9a6",
+    "resize": "1536->608 Pillow LANCZOS, RGBA; 640 test exceeded target byte ceiling; 608 preserves lossless mode without quantization",
+    "output": "ai_shinseina_ki_ancient_wood_golem_v1.webp",
+    "output_sha256": "231984d61ff33560024c32a0c5b8af5bfc09a475a64dd00de3ddff153693983e",
+    "output_bytes": 426438,
+    "dimensions": [
+      608,
+      608
+    ],
+    "format": "WEBP lossless VP8L",
+    "alpha": "present and nontrivial",
+    "soft_edges": "4.7%",
+    "spec_target": "AI_AVATAR",
+    "min_width": 320,
+    "byte_ceiling": 460800,
+    "lossless": true,
+    "quantization": false,
+    "script_blob": "71ed409853c8b3da6f5b66c5c3db5ab2c9274bb4",
+    "spec_blob": "8536cd9b81da4c8f88a095af89026437a25a2c15",
+    "pins_match": true,
+    "artpreflight": {
+      "command": "artpreflight.py --type AI_AVATAR --spec 25x_DATA_art_spec.json ai_shinseina_ki_ancient_wood_golem_v1.webp --json",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    "visual_qc": {
+      "native_dark_composite": "INSPECTED",
+      "dark_light_white_320": "INSPECTED",
+      "caveat": "Source golem's feet meet the lower edge; processing cannot invent missing source geometry"
+    }
+  },
+  "showcase": {
+    "kind": "NONCANONICAL_COMPANION_PRESENTATION—not sixth jutsu icon",
+    "filename": "Shinseina_Ki_Showcase_with_AI_Avatar_v2.png",
+    "sha256": "0ef87a13bb64da6c3e826af245da31ff9dc739d89626e62b7f6c6ef1933f861f",
+    "phone_filename": "Shinseina_Ki_Showcase_with_AI_Avatar_v2_phone.png",
+    "phone_sha256": "d0d98f133c49b098b7a623c8372e4d6ebabea6a9aa324ba4efd4412afc5de01e",
+    "grid": "3+3 (five JUTSU_ICON WebPs, one AI_AVATAR WebP)",
+    "actual_export_pixel_audit": "6/6 PASS",
+    "five_jutsu_webp_exports": "exact bytes unchanged",
+    "source_five_jutsu_gallery_sha256": "2606f5c7fa545a305417de4eb5e287d7c04e815e0bd76fce4a04b209b0cbe252",
+    "source_five_jutsu_gallery_status": "P1 audit VALID; director gallery acceptance PENDING",
+    "companion_gallery_director_acceptance": "PENDING"
+  },
+  "delivery": {
+    "package": "Shinseina_Ki_AI_Avatar_Companion_REVIEW_v1.zip",
+    "sha256": "0cf78c68ca1b1191e29fd592da1c35ce9b14f41cc2790626eed2472dee70aa28",
+    "bytes": 6825125,
+    "zip_integrity": "PASS; 19 members incl source, output, QC, gallery, member hashes",
+    "status": "BUILT_FOR_REVIEW—not acceptance-sealed five-jutsu closeout"
+  },
+  "open": {
+    "avatar_user_visual_acceptance": "PENDING",
+    "final_companion_gallery_acceptance": "PENDING",
+    "canonical_five_jutsu_gallery_acceptance": "PENDING",
+    "wood_warrior_target_specific_anatomy_exception": "PENDING FORMAL CONFIRMATION",
+    "ai_live_record_binding": "NOT_VERIFIED",
+    "git_binary_pins": "NOT_PERFORMED",
+    "live_game_upload": "NOT_PERFORMED"
+  },
+  "safety": {
+    "live_requests": 0,
+    "live_writes": 0,
+    "credentials": "none"
+  }
+}
