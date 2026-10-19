@@ -1,6 +1,6 @@
 # Aerathiel — Jutsu Icon Art Studio Register
 
-**Status:** ZIP INTAKE VERIFIED; FAMILY DIRECTION APPROVED; ATOMIC SHIELD, WINDSHEAR DECAY, DEATH'S MARCH + DECAYING TOUCH RAW VISUAL APPROVED (4/5), 2026-10-19. Next target: Particle Cannon.
+**Status:** **ART STUDIO CLOSED 2026-10-19 — 5/5 DIRECTOR RAW VISUAL APPROVALS.** Locally exported and source-faithful family sheet prepared. **Canonical preflight NOT RUN; exact source-faithful gallery director acceptance PENDING; upload/readback NOT PERFORMED.** Read the closeout and workflow retrospective below before using these as production evidence.
 **Scope:** five `jutsu.image` remasters; NOT Bloodright tier emblems. Lead Art Director; Image Production supports isolated per-jutsu generation, processing and QC.
 **Baseline:** `main@fd7e194afab71a5712b83d16397feffdf704e9d2`. Specialized ZIP-first workflow is read from `chatgpt/bloodline-jutsu-studio-zip-first-20261017@d04a87c05999c7037af8667db2b2b79324a53d3c`; this workflow was not on main at this intake. Governing integrated art contract: `docs/workflows/ISOLATED_ART_GENERATION.md`, `skills/producing-tnr-art/SKILL.md`, and the live `JUTSU_ICON` spec on baseline.
 **Bloodline:** Aerathiel, ID `1C34syOOEKp6k3UKweYT6`, rank A.
@@ -37,7 +37,7 @@
 3. After 5/5 exact raw visual approvals, preserve raw hashes and batch-export opaque 256² lossless WebP; use `artpreflight.py --type JUTSU_ICON`. No Aerathiel-specific <80,000-byte cap is established; BBE's cap must not be copied. Build deterministic 3+2 family showcase and obtain separate family acceptance before packaging. Export isn't called live/upload-ready until QC and canonical preflight are actually run.
 4. Track raw approvals, processing, preflight, gallery, ZIP, binary git pin and user upload/readback as separate states. Live requests/writes 0/0; credentials none.
 
-**After Decaying Touch approval:** 5/5 ZIP asset maps source-hash verified; 5/5 family direction allocations approved in principle; **4/5 raw remasters visually approved** (Atomic Shield, Windshear Decay, Death's March, Decaying Touch); 0/5 exports; 0 canonical preflights; no upload.
+**Historical checkpoint before Particle Cannon:** 5/5 ZIP asset maps source-hash verified; 4/5 raws then approved. **Current closeout: 5/5 raw approved, 5/5 lossless WebPs locally validated, canonical preflight NOT_RUN, source-faithful family gallery acceptance PENDING, no game upload.**
 
 ## Atomic Shield raw visual approval — 2026-10-19
 
@@ -96,7 +96,7 @@
 - Approved source bytes copied unchanged from `glowing_spectral_handprint_shattering_stone.png` to local `/mnt/data/Aerathiel_Jutsu_Studio/approved_raw/Aerathiel_Decaying_Touch_APPROVED_raw_v1.png`. Opened/fully decoded with Pillow: **PNG RGB 1254×1254; 2,792,173 bytes; SHA-256 `13c453870e1b7686688d31f55872cb5a5556e45ffddfcb6e674944d7b06c0207`**. Destination SHA matched source exactly.
 - **RAW VISUAL APPROVED ONLY.** No repository binary pin, export/preflight/showcase, game upload or live read-back has occurred. Preserve handprint identity at 125/64/32 QC.
 
-## Next isolated target — Particle Cannon (generation pending)
+## Particle Cannon — historical generation brief (final raw now approved)
 
 - Exact `jutsu.image` ID `egtCp5UC5pRwxz7egJm7J`, bloodline Aerathiel `1C34syOOEKp6k3UKweYT6` (historical full-record capture in `harvests/inbox/tnr_results_1792216348638.json`). Original member `images/egtCp5UC5pRwxz7egJm7J_Particle_Cannon.png` extracted/inspected as **IDENTITY ONLY**.
 - Historical battle action: user creates an intricate triangle with fingers, concentrates a brilliant radiant orb and releases a directed particle beam; target takes damage and wound. Original includes a caster, hand triangle and energetic long-range beam. Remaster is technique-first: **no full character or literal hands**, but preserve the iconic *triangular convergence* as a true distinguishable silhouette.
@@ -107,3 +107,27 @@
 - Reference selection: original Particle Cannon image is **identity/history only**, and one actually available approved Aerathiel source is **style/material only**; never duplicate its composition. First generation is **one square raw candidate only**, director review before approval. No automatic processing or game action.
 
 **Session boundary:** local clone/`session_open.py` not run; repository via GitHub connector. Live game requests/writes 0/0; credentials none.
+
+## Aerathiel family art-studio closeout — 2026-10-19
+
+**Director decision:** 5/5 individual exact raw icons approved, including the front-facing Eclipse Cannon interpretation of Particle Cannon. No mechanical/balance edits, art replacement upload or publishing was authorized or performed.
+
+**Approved final Particle Cannon**: source `/mnt/data/triangular_energy_beam_burst.png` → unmodified `approved_raw/Aerathiel_Particle_Cannon_APPROVED_raw_v1.png`. PNG RGB 1254×1254, 2,271,841 bytes; SHA-256 `85e68be44cab09c7f9b53e2ef9c3d91edcd61d975a4429a94715091527711a35`. Distinct **frontal triangular particle-chakra aperture** with a blinding beam expanding directly toward camera. No hand anatomy, decorative artifact, protective sphere or side-view slash. Earlier six in-thread Particle Cannon generations and one separately supplied wizard-like candidate are **superseded/rejected**.
+
+**Local production intake/export**, with exact raw hashes from this register and the original ZIP:
+- Source archive: `/mnt/data/Aerathiel_Jutsu_Studio_Closeout_20261019.zip`, SHA-256 `263ad93c11774dcc5385ffcf8eb93ebabe80764d9fd5532bc08abf118d752529`, 15,537,075 bytes.
+- Flat five-WebP pack: `/mnt/data/Aerathiel_Jutsu_WebPs_256_QC_pending.zip`, SHA-256 `464a500fd324af211ac2cc9b7f07056e954bd09d907a17674cf3d1bb8d0a1115`, 648,786 bytes. This filename intentionally signals **QC pending**; not formally upload-ready.
+- Five full-color, opaque RGB, **256×256 VP8L lossless WebPs** exported from individually approved PNG sources by Pillow LANCZOS with lossless WebP (`method=6`). Decode/pixel equivalence to the LANCZOS transformed source: **PASS** for all five. Each below the `JUTSU_ICON` spec's 460,800-byte ceiling. No quantization. Export timings were approximately 1.3 s total on this particular host; not a promise of model-generation speed.
+- Atomic Shield `Aerathiel_Atomic_Shield_jutsu_v1.webp` — 125,140 B.
+- Death's March `Aerathiel_Deaths_March_jutsu_v1.webp` — 136,166 B.
+- Decaying Touch `Aerathiel_Decaying_Touch_jutsu_v1.webp` — 139,596 B.
+- Windshear Decay `Aerathiel_Windshear_Decay_jutsu_v1.webp` — 127,300 B.
+- Particle Cannon `Aerathiel_Particle_Cannon_jutsu_v1.webp` — 119,594 B.
+- Source-faithful **3+2** gallery `qc/family_showcase.png` (1138×921, SHA-256 `d81ed09104277f71559e8ad5e9bd4935877ecef0e40f3039e617e6af0ce67b6f`), phone preview and 125/64/32 QC grid. Gallery tiles independently checked pixel-identical to resized actual export WebPs; user has **NOT** yet accepted this exact source-faithful sheet.
+- Prior `aerathiel_jutsu_icon_showcase.png`, created via generative image rather than deterministic composition, is explicitly **INVALID** as a workflow-compliant source-faithful gallery; not included in the archive.
+- Full archive holds exact five approved PNGs, five exports, `manifest.json`, preview/QC images, ZIP member SHA256SUMS and `qc/preflight.json` recording **NOT_RUN**. Local CRC and manifest/jutsu ID/source joins: PASS. Binary Git pin: **NO**; all binary artifacts are conversation-container files.
+- **Canonical script `artpreflight.py --type JUTSU_ICON`: NOT RUN**, because an actual repository checkout/artpreflight installation was unavailable in this session. Local PIL/codec checks cannot replace this gate. Do not claim official preflight PASS.
+- **Family acceptance**: 5/5 individual raw approvals YES; exact deterministic gallery director acceptance PENDING. The user's earlier instruction to build a gallery and subsequent session close do not retroactively approve a new source-faithful sheet. Studio may close with this pending status per `docs/workflows/JUTSU_ICON_SHOWCASE.md`.
+- Live-game requests/writes **0/0**; credential use **none**; jutsu upload/read-back **NOT PERFORMED**.
+
+**Next process gates:** (1) run current canonical `artpreflight.py --type JUTSU_ICON` with checked spec at a verified repo checkout, (2) obtain director signoff of exact deterministic gallery or keep gallery acceptance pending, (3) operator-only upload/readback when later requested. **No automatic further art generation**. Proposed next-workflow improvements: `docs/design/aerathiel/JUTSU_ICON_WORKFLOW_RETROSPECTIVE_20261019.md`.
