@@ -103,7 +103,7 @@ dist/<fam>_jutsu_icons_closeout_<label>.zip
   manifest/studio_ledger.json
   manifest/locks.json             # only when supplied
   manifest/attempts.json          # only when supplied
-  raws/raw_<slug>_v<version>.<source-extension>   # original bytes
+  raws/raw_<slug>_v<version>.<decoded-format-extension> # original bytes (JPEG bytes named .png seal as .jpg)
   exports/icon_<fam>_<slug>_v<version>.webp        # current exports
   qc/export_qc_<label>.json
   qc/preflight_<label>.json
