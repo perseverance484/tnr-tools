@@ -9,6 +9,38 @@ The pre-cleanup push tree from 2026-09-09 is preserved under `archive/spent-mani
 `harvests/inbox/tnr_results_1789842714086.json`, 9/9 VERIFIED) and is archived under
 `archive/spent-manifests/push-2026-09-19/` with its outcome recorded there.
 
+## 122–123 Bloodright trees: hidden import (RUL-2026-10-19-001)
+
+Copies of `forge/bloodright/naming_pass_collection_{a,b}.json`, built by
+`scripts/bloodright_collection_package.py --icons-ref a84807a5a85015e09b7dd11b237e81ed25177289`.
+The 75 icons are committed under `art/bloodright/<slug>/`, and each is pinned by its SHA-256
+and size.
+
+| File | Trees |
+|---|---|
+| `122_bloodright_collection_a.json` | 15 trees using the original ten potency effects (45 icons) |
+| `123_bloodright_collection_b.json` | 10 trees using the newer effects (Pierce, Absorb, Poison, Drain, Consume, Vamp; 30 icons) |
+
+Package B needs the live game on upstream TheNinjaRPG `133e2c7` or later.
+
+What the import creates:
+- Every skill is created **hidden**, and every new folder is hidden.
+- Forge refuses any bound skill that is already visible.
+- BEE reuses its existing folder (`kvxMu9ntHbNcD6FFHKGo3`) and its live Hungry Pulse skill (RUL-2026-10-17-002).
+- All nodes are placeholders at 20 Silver / 99 rounds. Bonuses and names follow RUL-2026-10-19-001.
+- Shiroi Youso keeps its placeholder tree until its element is decided.
+
+**Run, A first, then B:**
+1. Open Forge and select the package. The preview proves hidden-content access through the Hungry
+   Pulse probe and shows every tree's create/reuse plan and the image ledger.
+2. Use **Start all trees**. Trees are written one at a time, and any pause or failure stops the run
+   before the next tree starts.
+3. Export the results after each package. If the run is interrupted, resume it from Jobs, then
+   reopen the package: finished trees show as reused, and the run continues.
+
+Return both results bundles. Validated offline with `forge/tools/validate_bloodright_package.mjs`
+(0 problems, blobs included) and `validate.py` (0 errors, 0 warnings).
+
 ## 109–110 Bloodright kit-classification AI capture (stage 1, read-only)
 
 `109_bloodright_classification_ai_capture_1.json` (24 reads) and `110_..._2.json` (23 reads):
