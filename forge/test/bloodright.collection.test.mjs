@@ -350,3 +350,10 @@ test("verification resolves images from what was recorded and never uploads", as
   assert.equal(d.uploadCount() - uploadsBefore, 6);
   assert.ok(d.journal.listJobs().every((j) => j.state === "DONE" && j.items.every((it) => it.verify === "match")));
 });
+
+test("a name clash with an existing folder names that folder's ID, so it can be bound", async () => {
+  const d = setup();
+  d.game.folders.set("existingF1", { id: "existingF1", name: "Test collection folder", image: "", description: null, order: 0, hidden: true });
+  await d.core.selectManifest(d.entry());
+  assert.ok(d.core.state.selected.problems.some((p) => /folder "Test collection folder" exists \(existingF1, hidden\)/.test(p)), d.core.state.selected.problems.join(" | "));
+});
