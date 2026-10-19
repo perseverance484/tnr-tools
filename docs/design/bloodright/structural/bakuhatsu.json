@@ -82,7 +82,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 5
+    "afterburn": 5,
+    "damage": 0.4
    }
   },
   {
@@ -95,7 +96,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.2
+    "damage": 0.4
    }
   },
   {
@@ -125,7 +126,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagetaken": 5
+    "afterburn": 5
    }
   },
   {
@@ -168,7 +169,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 5
+    "damage": 0.4
    }
   },
   {
@@ -211,8 +212,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "afterburn": 5,
-    "damage": 0.4
+    "decreasedamagetaken": 5
    }
   }
  ]

@@ -13,10 +13,10 @@
    "ruling": "RUL-2026-10-18-006",
    "rename_needed": [
     "p1_t3",
-    "p2_t1",
-    "p2_t2",
     "p2_t3",
     "p3_t3",
+    "p4_t1",
+    "p4_t2",
     "p4_t3"
    ]
   }
@@ -84,7 +84,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "damage": 0.8
    }
   },
   {
@@ -97,7 +98,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 2
+    "pierce": 2
    }
   },
   {
@@ -112,7 +113,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 3
+    "pierce": 3
    }
   },
   {
@@ -127,8 +128,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 5,
-    "damage": 1.2
+    "decreasedamagegiven": 5
    }
   },
   {
@@ -171,8 +171,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 5,
-    "damage": 0.8
+    "damage": 1.2
    }
   },
   {
@@ -185,7 +184,7 @@
    "parents": [],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.4
+    "increasedamagetaken": 2
    }
   },
   {
@@ -200,7 +199,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "damage": 0.6
+    "increasedamagetaken": 3
    }
   },
   {
@@ -215,8 +214,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "heal": 5,
-    "decreasedamagegiven": 5
+    "increasedamagegiven": 5,
+    "damage": 0.4
    }
   }
  ]

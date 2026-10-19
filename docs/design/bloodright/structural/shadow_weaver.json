@@ -82,8 +82,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 5,
-    "decreasedamagetaken": 5
+    "increasedamagegiven": 5,
+    "decreasedamagegiven": 5
    }
   },
   {
@@ -126,6 +126,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
+    "decreasedamagetaken": 5,
     "damage": 0.4
    }
   },
@@ -169,7 +170,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "decreasedamagetaken": 5
    }
   },
   {
@@ -212,8 +214,7 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagegiven": 5,
-    "damage": 0.4
+    "increasedamagegiven": 5
    }
   }
  ]

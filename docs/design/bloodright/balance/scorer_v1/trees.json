@@ -3,13 +3,13 @@
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "increasedamagegiven": 2
+    "decreasedamagegiven": 2
    },
    "p1_t2": {
-    "increasedamagegiven": 3
+    "decreasedamagegiven": 3
    },
    "p1_t3": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5
    },
    "p2_t1": {
     "increasedamagetaken": 2
@@ -18,17 +18,16 @@
     "increasedamagetaken": 3
    },
    "p2_t3": {
-    "decreasedamagegiven": 5,
-    "damage": 0.4
+    "damage": 0.6
    },
    "p3_t1": {
-    "damage": 0.4
+    "damage": 0.2
    },
    "p3_t2": {
     "damage": 0.8
    },
    "p3_t3": {
-    "increasedamagetaken": 5
+    "increasedamagegiven": 5
    },
    "p4_t1": {
     "reflect": 2
@@ -42,34 +41,22 @@
   },
   "rename_needed": [
    {
-    "id": "p1_t1",
-    "name": "Withering Breath",
-    "was": "+2% DDG",
-    "now": "+2% IDG"
-   },
-   {
-    "id": "p1_t2",
-    "name": "Strength to Dust",
-    "was": "+3% DDG",
-    "now": "+3% IDG"
-   },
-   {
     "id": "p1_t3",
     "name": "Total Disintegration",
     "was": "+0.4 Damage, +5% IDG",
-    "now": "+5% IDG"
+    "now": "+5% DDG"
    },
    {
     "id": "p2_t3",
     "name": "Atomic Reprisal",
     "was": "+5% DDG, +5% Reflect",
-    "now": "+0.4 Damage, +5% DDG"
+    "now": "+0.6 Damage"
    },
    {
     "id": "p3_t3",
     "name": "Dustfall Rupture",
     "was": "+0.6 Damage, +5% IDT",
-    "now": "+5% IDT"
+    "now": "+5% IDG"
    },
    {
     "id": "p4_t3",
@@ -79,30 +66,30 @@
    }
   ],
   "scores": {
-   "secondary_normal": 0.6366,
-   "secondary_panel": 0.6366,
-   "three_spread": 0.9117,
-   "mean5": 5.3729
+   "secondary_normal": 0.4363,
+   "secondary_panel": 0.4202,
+   "three_spread": 0.8626,
+   "mean5": 4.7054
   },
   "before": {
-   "secondary_normal": 0.3276,
-   "secondary_panel": 0.3276,
-   "three_spread": 0.5929,
-   "mean5": 5.6224
+   "secondary_normal": 0.2496,
+   "secondary_panel": 0.2448,
+   "three_spread": 0.622,
+   "mean5": 6.0924
   }
  },
  "arashima": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "increasedamagegiven": 2
+    "damage": 0.4
    },
    "p1_t2": {
-    "increasedamagegiven": 3
+    "damage": 0.8
    },
    "p1_t3": {
-    "poison": 5,
-    "damage": 0.8
+    "pierce": 5,
+    "drain": 25
    },
    "p2_t1": {
     "lifesteal": 2
@@ -111,8 +98,8 @@
     "lifesteal": 3
    },
    "p2_t3": {
-    "decreasedamagegiven": 5,
-    "drain": 25
+    "lifesteal": 5,
+    "poison": 5
    },
    "p3_t1": {
     "pierce": 2
@@ -121,38 +108,21 @@
     "pierce": 3
    },
    "p3_t3": {
-    "poison": 5
+    "increasedamagegiven": 5,
+    "drain": 25
    },
    "p4_t1": {
-    "decreasedamagegiven": 2
+    "poison": 2
    },
    "p4_t2": {
-    "decreasedamagegiven": 3
+    "poison": 3
    },
    "p4_t3": {
-    "lifesteal": 5,
-    "decreasedamagegiven": 5
+    "poison": 5,
+    "pierce": 5
    }
   },
   "rename_needed": [
-   {
-    "id": "p1_t1",
-    "name": "Thunderseed",
-    "was": "+0.4 Damage",
-    "now": "+2% IDG"
-   },
-   {
-    "id": "p1_t2",
-    "name": "Gathering Thunderhead",
-    "was": "+1.2 Damage",
-    "now": "+3% IDG"
-   },
-   {
-    "id": "p1_t3",
-    "name": "Reaper's Stormlance",
-    "was": "+25 Drain, +5% Pierce",
-    "now": "+0.8 Damage, +5% Poison"
-   },
    {
     "id": "p2_t1",
     "name": "Stormveil",
@@ -166,29 +136,47 @@
     "now": "+3% Lifesteal"
    },
    {
+    "id": "p2_t3",
+    "name": "The Storm's Due",
+    "was": "+5% DDG, +25 Drain",
+    "now": "+5% Lifesteal, +5% Poison"
+   },
+   {
     "id": "p3_t3",
     "name": "Unleashed Thunderhead",
     "was": "+0.8 Damage, +5% IDG",
-    "now": "+5% Poison"
+    "now": "+25 Drain, +5% IDG"
+   },
+   {
+    "id": "p4_t1",
+    "name": "Deadwind Breath",
+    "was": "+2% DDG",
+    "now": "+2% Poison"
+   },
+   {
+    "id": "p4_t2",
+    "name": "Deadwind Dirge",
+    "was": "+3% DDG",
+    "now": "+3% Poison"
    },
    {
     "id": "p4_t3",
     "name": "Tempest Breaks Through",
-    "was": "+5% IDG, +2% Pierce",
-    "now": "+5% DDG, +5% Lifesteal"
+    "was": "+5% IDG, +2 Pierce power",
+    "now": "+5 Pierce power, +5% Poison"
    }
   ],
   "scores": {
-   "secondary_normal": 0.5994,
-   "secondary_panel": 0.6696,
-   "three_spread": 0.9765,
-   "mean5": 4.6615
+   "secondary_normal": 0.2166,
+   "secondary_panel": 0.2926,
+   "three_spread": 0.9045,
+   "mean5": 3.922
   },
   "before": {
-   "secondary_normal": 0.56,
-   "secondary_panel": 0.5508,
-   "three_spread": 0.7437,
-   "mean5": 3.8212
+   "secondary_normal": 0.0,
+   "secondary_panel": 0.0,
+   "three_spread": 0.3288,
+   "mean5": 2.5208
   }
  },
  "bakuhatsu": {
@@ -201,16 +189,17 @@
     "afterburn": 3
    },
    "p1_t3": {
-    "afterburn": 5
+    "afterburn": 5,
+    "damage": 0.4
    },
    "p2_t1": {
-    "damage": 0.2
+    "damage": 0.4
    },
    "p2_t2": {
     "damage": 0.8
    },
    "p2_t3": {
-    "decreasedamagetaken": 5
+    "afterburn": 5
    },
    "p3_t1": {
     "increasedamagetaken": 2
@@ -219,7 +208,7 @@
     "increasedamagetaken": 3
    },
    "p3_t3": {
-    "increasedamagetaken": 5
+    "damage": 0.4
    },
    "p4_t1": {
     "decreasedamagetaken": 2
@@ -228,8 +217,7 @@
     "decreasedamagetaken": 3
    },
    "p4_t3": {
-    "afterburn": 5,
-    "damage": 0.4
+    "decreasedamagetaken": 5
    }
   },
   "rename_needed": [
@@ -237,51 +225,51 @@
     "id": "p1_t3",
     "name": "Shelter at Ground Zero",
     "was": "+5% Afterburn, +5% DDT",
-    "now": "+5% Afterburn"
+    "now": "+0.4 Damage, +5% Afterburn"
    },
    {
     "id": "p2_t3",
     "name": "Critical Mass",
     "was": "+5% IDG",
-    "now": "+5% DDT"
+    "now": "+5% Afterburn"
    },
    {
     "id": "p3_t3",
     "name": "Siege Battery",
     "was": "+0.4 Damage, +5% Afterburn",
-    "now": "+5% IDT"
+    "now": "+0.4 Damage"
    },
    {
     "id": "p4_t3",
     "name": "Bastion of Shrapnel",
     "was": "+5% DDT, +5% IDT",
-    "now": "+0.4 Damage, +5% Afterburn"
+    "now": "+5% DDT"
    }
   ],
   "scores": {
-   "secondary_normal": 0.8757,
-   "secondary_panel": 0.8757,
-   "three_spread": 0.8149,
-   "mean5": 5.1478
+   "secondary_normal": 0.7917,
+   "secondary_panel": 0.7917,
+   "three_spread": 0.6685,
+   "mean5": 5.5434
   },
   "before": {
-   "secondary_normal": 0.8782,
-   "secondary_panel": 0.8782,
-   "three_spread": 0.7866,
-   "mean5": 6.4254
+   "secondary_normal": 0.6849,
+   "secondary_panel": 0.6849,
+   "three_spread": 0.7355,
+   "mean5": 7.4174
   }
  },
  "blood_enchanted_eyes": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "afterburn": 2
+    "damage": 0.2
    },
    "p1_t2": {
-    "afterburn": 3
+    "damage": 0.8
    },
    "p1_t3": {
-    "decreasedamagetaken": 5
+    "decreasedamagegiven": 5
    },
    "p2_t1": {
     "lifesteal": 2
@@ -290,6 +278,7 @@
     "lifesteal": 3
    },
    "p2_t3": {
+    "afterburn": 5,
     "vamp": 5
    },
    "p3_t1": {
@@ -302,39 +291,28 @@
     "absorb": 5
    },
    "p4_t1": {
-    "decreasedamagegiven": 2
+    "pierce": 2
    },
    "p4_t2": {
-    "decreasedamagegiven": 3
+    "pierce": 3
    },
    "p4_t3": {
-    "damage": 0.8
+    "afterburn": 5,
+    "pierce": 5
    }
   },
   "rename_needed": [
    {
-    "id": "p1_t1",
-    "name": "Sanguine Edge",
-    "was": "+0.2 Damage",
-    "now": "+2% Afterburn"
-   },
-   {
-    "id": "p1_t2",
-    "name": "Crimson Cleave",
-    "was": "+0.6 Damage",
-    "now": "+3% Afterburn"
-   },
-   {
     "id": "p1_t3",
     "name": "Covenant of Blunted Blades",
     "was": "+5% DDG, +5% DDT",
-    "now": "+5% DDT"
+    "now": "+5% DDG"
    },
    {
     "id": "p2_t3",
     "name": "Feast of the Fallen",
     "was": "+5% DDT, +5% Vamp",
-    "now": "+5% Vamp"
+    "now": "+5% Afterburn, +5% Vamp"
    },
    {
     "id": "p3_t3",
@@ -343,23 +321,29 @@
     "now": "+5% Absorb"
    },
    {
-    "id": "p4_t3",
-    "name": "Rending Crimson Brand",
-    "was": "+5% Afterburn, +5% Pierce",
-    "now": "+0.8 Damage"
+    "id": "p4_t1",
+    "name": "Withering Gaze",
+    "was": "+2% DDG",
+    "now": "+2 Pierce power"
+   },
+   {
+    "id": "p4_t2",
+    "name": "Sanguine Oppression",
+    "was": "+3% DDG",
+    "now": "+3 Pierce power"
    }
   ],
   "scores": {
-   "secondary_normal": 0.7683,
-   "secondary_panel": 0.8132,
-   "three_spread": 0.9222,
-   "mean5": 5.6924
+   "secondary_normal": 0.6276,
+   "secondary_panel": 0.7163,
+   "three_spread": 0.9046,
+   "mean5": 5.3714
   },
   "before": {
-   "secondary_normal": 0.6374,
-   "secondary_panel": 0.7032,
-   "three_spread": 0.8909,
-   "mean5": 7.4926
+   "secondary_normal": 0.4689,
+   "secondary_panel": 0.6002,
+   "three_spread": 0.6634,
+   "mean5": 6.3459
   }
  },
  "blue_blade_eyes": {
@@ -373,17 +357,16 @@
    },
    "p1_t3": {
     "decreasedamagegiven": 5,
-    "increasedamagetaken": 5
+    "increasedamagegiven": 5
    },
    "p2_t1": {
     "damage": 0.2
    },
    "p2_t2": {
-    "damage": 0.6
+    "damage": 0.4
    },
    "p2_t3": {
-    "decreasedamagetaken": 5,
-    "lifesteal": 5
+    "increasedamagegiven": 5
    },
    "p3_t1": {
     "decreasedamagetaken": 2
@@ -392,7 +375,8 @@
     "decreasedamagetaken": 3
    },
    "p3_t3": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "increasedamagetaken": 5
    },
    "p4_t1": {
     "lifesteal": 2
@@ -409,26 +393,32 @@
     "id": "p1_t3",
     "name": "Numbing Sapphire Feast",
     "was": "+5% DDG, +5% Lifesteal",
-    "now": "+5% DDG, +5% IDT"
+    "now": "+5% DDG, +5% IDG"
    },
    {
     "id": "p2_t3",
     "name": "Glacial Aegis",
     "was": "+5% DDT",
-    "now": "+5% DDT, +5% Lifesteal"
+    "now": "+5% IDG"
+   },
+   {
+    "id": "p3_t3",
+    "name": "Glacier Unleashed",
+    "was": "+5% IDG",
+    "now": "+5% DDG, +5% IDT"
    }
   ],
   "scores": {
-   "secondary_normal": 0.4941,
-   "secondary_panel": 0.4398,
-   "three_spread": 0.904,
-   "mean5": 9.9139
+   "secondary_normal": 0.1133,
+   "secondary_panel": 0.1819,
+   "three_spread": 0.8978,
+   "mean5": 11.4159
   },
   "before": {
-   "secondary_normal": 0.4343,
-   "secondary_panel": 0.383,
-   "three_spread": 0.6448,
-   "mean5": 8.9013
+   "secondary_normal": 0.0848,
+   "secondary_panel": 0.1641,
+   "three_spread": 0.2205,
+   "mean5": 8.8286
   }
  },
  "cosmic_ascendant": {
@@ -441,8 +431,8 @@
     "afterburn": 3
    },
    "p1_t3": {
-    "increasedamagetaken": 5,
-    "lifesteal": 5
+    "increasedamagegiven": 5,
+    "damage": 0.8
    },
    "p2_t1": {
     "increasedamagegiven": 2
@@ -451,7 +441,7 @@
     "increasedamagegiven": 3
    },
    "p2_t3": {
-    "afterburn": 5,
+    "lifesteal": 5,
     "increasedamagegiven": 5
    },
    "p3_t1": {
@@ -461,14 +451,14 @@
     "damage": 0.8
    },
    "p3_t3": {
-    "increasedamagetaken": 5,
-    "decreasedamagegiven": 5
+    "afterburn": 5,
+    "decreasedamagetaken": 5
    },
    "p4_t1": {
-    "increasedamagetaken": 2
+    "decreasedamagetaken": 2
    },
    "p4_t2": {
-    "increasedamagetaken": 3
+    "decreasedamagetaken": 3
    },
    "p4_t3": {
     "decreasedamagetaken": 5,
@@ -480,31 +470,19 @@
     "id": "p1_t3",
     "name": "Supernova's Feast",
     "was": "+5% Afterburn, +5% Lifesteal",
-    "now": "+5% IDT, +5% Lifesteal"
+    "now": "+0.8 Damage, +5% IDG"
    },
    {
     "id": "p2_t3",
     "name": "Voidburst Resonance",
     "was": "+0.4 Damage, +5% Afterburn",
-    "now": "+5% Afterburn, +5% IDG"
+    "now": "+5% IDG, +5% Lifesteal"
    },
    {
     "id": "p3_t3",
     "name": "Hunger of the Singularity",
     "was": "+5% IDG, +5% Lifesteal",
-    "now": "+5% DDG, +5% IDT"
-   },
-   {
-    "id": "p4_t1",
-    "name": "Orbiting Veil",
-    "was": "+2% DDT",
-    "now": "+2% IDT"
-   },
-   {
-    "id": "p4_t2",
-    "name": "Celestial Mantle",
-    "was": "+3% DDT",
-    "now": "+3% IDT"
+    "now": "+5% Afterburn, +5% DDT"
    },
    {
     "id": "p4_t3",
@@ -514,16 +492,16 @@
    }
   ],
   "scores": {
-   "secondary_normal": 0.3,
-   "secondary_panel": 0.3178,
-   "three_spread": 0.9132,
-   "mean5": 4.3654
+   "secondary_normal": 0.6541,
+   "secondary_panel": 0.6541,
+   "three_spread": 0.9495,
+   "mean5": 2.4149
   },
   "before": {
-   "secondary_normal": 0.4626,
-   "secondary_panel": 0.602,
-   "three_spread": 0.6599,
-   "mean5": 2.7962
+   "secondary_normal": 0.7306,
+   "secondary_panel": 0.6868,
+   "three_spread": 0.5915,
+   "mean5": 2.3818
   }
  },
  "crystal_essence": {
@@ -536,7 +514,7 @@
     "reflect": 3
    },
    "p1_t3": {
-    "decreasedamagetaken": 5,
+    "increasedamagegiven": 5,
     "reflect": 5
    },
    "p2_t1": {
@@ -546,7 +524,8 @@
     "decreasedamagetaken": 3
    },
    "p2_t3": {
-    "increasedamagetaken": 5
+    "increasedamagegiven": 5,
+    "damage": 0.6
    },
    "p3_t1": {
     "increasedamagegiven": 2
@@ -555,7 +534,7 @@
     "increasedamagegiven": 3
    },
    "p3_t3": {
-    "increasedamagetaken": 5,
+    "decreasedamagetaken": 5,
     "damage": 0.4
    },
    "p4_t1": {
@@ -565,142 +544,166 @@
     "damage": 0.6
    },
    "p4_t3": {
-    "increasedamagegiven": 5,
+    "decreasedamagetaken": 5,
     "reflect": 5
    }
   },
   "rename_needed": [
    {
+    "id": "p1_t3",
+    "name": "Citadel of Returning Light",
+    "was": "+5% DDT, +5% Reflect",
+    "now": "+5% IDG, +5% Reflect"
+   },
+   {
     "id": "p2_t3",
     "name": "Armored Radiance",
     "was": "+5% DDT, +5% IDG",
-    "now": "+5% IDT"
+    "now": "+0.6 Damage, +5% IDG"
    },
    {
     "id": "p3_t3",
     "name": "Shardstorm Reprisal",
     "was": "+0.4 Damage, +5% Reflect",
-    "now": "+0.4 Damage, +5% IDT"
+    "now": "+0.4 Damage, +5% DDT"
    },
    {
     "id": "p4_t3",
     "name": "Adamant Lance",
     "was": "+0.8 Damage, +5% DDT",
-    "now": "+5% IDG, +5% Reflect"
+    "now": "+5% DDT, +5% Reflect"
    }
   ],
   "scores": {
-   "secondary_normal": 0.6381,
-   "secondary_panel": 0.6381,
-   "three_spread": 0.8827,
-   "mean5": 4.3894
+   "secondary_normal": 0.6421,
+   "secondary_panel": 0.6421,
+   "three_spread": 0.9089,
+   "mean5": 3.8789
   },
   "before": {
-   "secondary_normal": 0.6381,
-   "secondary_panel": 0.6381,
-   "three_spread": 0.7565,
-   "mean5": 3.7409
+   "secondary_normal": 0.5918,
+   "secondary_panel": 0.5918,
+   "three_spread": 0.7227,
+   "mean5": 3.7765
   }
  },
  "ethereal_monarch": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "damage": 0.4
-   },
-   "p1_t2": {
-    "damage": 0.8
-   },
-   "p1_t3": {
-    "increasedamagetaken": 5,
-    "consume": 5
-   },
-   "p2_t1": {
-    "decreasedamagetaken": 2
-   },
-   "p2_t2": {
-    "decreasedamagetaken": 3
-   },
-   "p2_t3": {
-    "increasedamagetaken": 5,
-    "damage": 0.4
-   },
-   "p3_t1": {
-    "increasedamagetaken": 2
-   },
-   "p3_t2": {
-    "increasedamagetaken": 3
-   },
-   "p3_t3": {
-    "reflect": 5,
-    "damage": 0.4
-   },
-   "p4_t1": {
     "afterburn": 2
    },
-   "p4_t2": {
+   "p1_t2": {
     "afterburn": 3
    },
+   "p1_t3": {
+    "afterburn": 5,
+    "damage": 1.2
+   },
+   "p2_t1": {
+    "increasedamagetaken": 2
+   },
+   "p2_t2": {
+    "increasedamagetaken": 3
+   },
+   "p2_t3": {
+    "afterburn": 5,
+    "reflect": 5
+   },
+   "p3_t1": {
+    "reflect": 2
+   },
+   "p3_t2": {
+    "reflect": 3
+   },
+   "p3_t3": {
+    "pierce": 5,
+    "reflect": 5
+   },
+   "p4_t1": {
+    "pierce": 2
+   },
+   "p4_t2": {
+    "pierce": 3
+   },
    "p4_t3": {
-    "consume": 5,
-    "damage": 0.4
+    "pierce": 5,
+    "damage": 1.2
    }
   },
   "rename_needed": [
    {
+    "id": "p1_t1",
+    "name": "Soul Splinter",
+    "was": "+0.2 Damage",
+    "now": "+2% Afterburn"
+   },
+   {
+    "id": "p1_t2",
+    "name": "Tear in the Soul",
+    "was": "+0.6 Damage",
+    "now": "+3% Afterburn"
+   },
+   {
     "id": "p1_t3",
     "name": "Heaven's Mirrored Crown",
     "was": "+5% DDT, +5% Reflect",
-    "now": "+5% Consume, +5% IDT"
+    "now": "+1.2 Damage, +5% Afterburn"
+   },
+   {
+    "id": "p2_t1",
+    "name": "Astral Veil",
+    "was": "+2% DDT",
+    "now": "+2% IDT"
+   },
+   {
+    "id": "p2_t2",
+    "name": "Woven Starlight",
+    "was": "+3% DDT",
+    "now": "+3% IDT"
    },
    {
     "id": "p2_t3",
     "name": "Heaven's Wardbreaker",
-    "was": "+5% DDT, +3% Pierce",
-    "now": "+0.4 Damage, +5% IDT"
+    "was": "+5% DDT, +3 Pierce power",
+    "now": "+5% Afterburn, +5% Reflect"
    },
    {
     "id": "p3_t1",
     "name": "Claimed Stardust",
     "was": "+2% Consume",
-    "now": "+2% IDT"
+    "now": "+2% Reflect"
    },
    {
     "id": "p3_t2",
     "name": "Soulwoven Aegis",
     "was": "+3% Consume",
-    "now": "+3% IDT"
+    "now": "+3% Reflect"
    },
    {
     "id": "p3_t3",
     "name": "Thronebreaker of Heaven",
-    "was": "+0.6 Damage, +3% Pierce",
-    "now": "+0.4 Damage, +5% Reflect"
+    "was": "+0.6 Damage, +3 Pierce power",
+    "now": "+5 Pierce power, +5% Reflect"
    },
    {
-    "id": "p4_t1",
-    "name": "Ethereal Needle",
-    "was": "+2% Pierce",
-    "now": "+2% Afterburn"
-   },
-   {
-    "id": "p4_t2",
-    "name": "Veil-Piercing Ray",
-    "was": "+3% Pierce",
-    "now": "+3% Afterburn"
+    "id": "p4_t3",
+    "name": "Spoils of the Celestial Throne",
+    "was": "+0.4 Damage, +5% Consume",
+    "now": "+1.2 Damage, +5 Pierce power"
    }
   ],
   "scores": {
-   "secondary_normal": 0.5769,
-   "secondary_panel": 0.5969,
-   "three_spread": 0.6878,
-   "mean5": 4.8394
+   "secondary_normal": 0.8173,
+   "secondary_panel": 0.6717,
+   "three_spread": 0.9559,
+   "mean5": 4.4131
   },
   "before": {
-   "secondary_normal": 0.1546,
-   "secondary_panel": 0.0496,
-   "three_spread": 0.6705,
-   "mean5": 5.3309
+   "secondary_normal": 0.0,
+   "secondary_panel": 0.1047,
+   "three_spread": 0.5826,
+   "mean5": 2.062
   }
  },
  "eyes_of_the_forsaken_king": {
@@ -722,8 +725,8 @@
     "decreasedamagetaken": 3
    },
    "p2_t3": {
-    "afterburn": 5,
-    "damage": 0.4
+    "reflect": 5,
+    "increasedamagegiven": 5
    },
    "p3_t1": {
     "reflect": 2
@@ -732,7 +735,8 @@
     "reflect": 3
    },
    "p3_t3": {
-    "reflect": 5
+    "afterburn": 5,
+    "damage": 0.4
    },
    "p4_t1": {
     "afterburn": 2
@@ -753,6 +757,12 @@
     "now": "+5% Afterburn"
    },
    {
+    "id": "p2_t3",
+    "name": "Judgment of the Forsaken",
+    "was": "+0.4 Damage, +5% Afterburn",
+    "now": "+5% IDG, +5% Reflect"
+   },
+   {
     "id": "p3_t1",
     "name": "Royal Resolve",
     "was": "+2% IDG",
@@ -768,7 +778,7 @@
     "id": "p3_t3",
     "name": "Kingdom of One",
     "was": "+0.6 Damage, +5% Reflect",
-    "now": "+5% Reflect"
+    "now": "+0.4 Damage, +5% Afterburn"
    },
    {
     "id": "p4_t3",
@@ -778,39 +788,39 @@
    }
   ],
   "scores": {
-   "secondary_normal": 0.4041,
-   "secondary_panel": 0.4041,
-   "three_spread": 0.9875,
-   "mean5": 4.9753
+   "secondary_normal": 0.501,
+   "secondary_panel": 0.4483,
+   "three_spread": 0.8928,
+   "mean5": 3.8667
   },
   "before": {
-   "secondary_normal": 0.2902,
-   "secondary_panel": 0.2902,
-   "three_spread": 0.4375,
-   "mean5": 4.5486
+   "secondary_normal": 0.3953,
+   "secondary_panel": 0.5362,
+   "three_spread": 0.412,
+   "mean5": 3.6741
   }
  },
  "heavenly_sonata": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "increasedamagegiven": 2
-   },
-   "p1_t2": {
-    "increasedamagegiven": 3
-   },
-   "p1_t3": {
-    "increasedamagetaken": 5,
-    "drain": 25
-   },
-   "p2_t1": {
     "decreasedamagetaken": 2
    },
-   "p2_t2": {
+   "p1_t2": {
     "decreasedamagetaken": 3
    },
-   "p2_t3": {
+   "p1_t3": {
     "decreasedamagetaken": 5,
+    "increasedamagetaken": 5
+   },
+   "p2_t1": {
+    "damage": 0.4
+   },
+   "p2_t2": {
+    "damage": 0.8
+   },
+   "p2_t3": {
+    "decreasedamagegiven": 5,
     "drain": 25
    },
    "p3_t1": {
@@ -820,8 +830,8 @@
     "increasedamagetaken": 3
    },
    "p3_t3": {
-    "decreasedamagegiven": 5,
-    "increasedamagegiven": 5
+    "increasedamagetaken": 5,
+    "drain": 25
    },
    "p4_t1": {
     "decreasedamagegiven": 2
@@ -836,22 +846,28 @@
   },
   "rename_needed": [
    {
-    "id": "p1_t3",
-    "name": "Discordant Sanctuary",
-    "was": "+5% DDT, +5% IDT",
-    "now": "+25 Drain, +5% IDT"
-   },
-   {
-    "id": "p2_t1",
-    "name": "Striking Note",
-    "was": "+0.4 Damage",
+    "id": "p1_t1",
+    "name": "Opening Measure",
+    "was": "+2% IDG",
     "now": "+2% DDT"
    },
    {
-    "id": "p2_t2",
-    "name": "Dissonant Chord",
-    "was": "+1.2 Damage",
+    "id": "p1_t2",
+    "name": "Rising Crescendo",
+    "was": "+3% IDG",
     "now": "+3% DDT"
+   },
+   {
+    "id": "p2_t3",
+    "name": "Sanctuary of Waning Breath",
+    "was": "+5% DDT, +25 Drain",
+    "now": "+5% DDG, +25 Drain"
+   },
+   {
+    "id": "p3_t3",
+    "name": "Anthem of Ascendancy",
+    "was": "+5% DDG, +5% IDG",
+    "now": "+25 Drain, +5% IDT"
    },
    {
     "id": "p4_t3",
@@ -861,16 +877,16 @@
    }
   ],
   "scores": {
-   "secondary_normal": 1.0,
-   "secondary_panel": 0.8333,
-   "three_spread": 0.8362,
-   "mean5": 3.8013
+   "secondary_normal": 0.7895,
+   "secondary_panel": 0.8214,
+   "three_spread": 0.8682,
+   "mean5": 2.7426
   },
   "before": {
-   "secondary_normal": 0.8976,
-   "secondary_panel": 0.7199,
-   "three_spread": 0.8345,
-   "mean5": 3.8457
+   "secondary_normal": 0.6921,
+   "secondary_panel": 0.6547,
+   "three_spread": 0.6702,
+   "mean5": 2.7257
   }
  },
  "houkyuken": {
@@ -880,20 +896,21 @@
     "damage": 0.2
    },
    "p1_t2": {
-    "damage": 0.8
+    "damage": 0.6
    },
    "p1_t3": {
     "decreasedamagetaken": 5,
     "increasedamagegiven": 5
    },
    "p2_t1": {
-    "increasedamagetaken": 2
+    "decreasedamagetaken": 2
    },
    "p2_t2": {
-    "increasedamagetaken": 3
+    "decreasedamagetaken": 3
    },
    "p2_t3": {
-    "increasedamagetaken": 5
+    "reflect": 5,
+    "decreasedamagetaken": 5
    },
    "p3_t1": {
     "increasedamagegiven": 2
@@ -911,7 +928,8 @@
     "reflect": 3
    },
    "p4_t3": {
-    "reflect": 5
+    "increasedamagetaken": 5,
+    "damage": 0.4
    }
   },
   "rename_needed": [
@@ -922,22 +940,10 @@
     "now": "+5% DDT, +5% IDG"
    },
    {
-    "id": "p2_t1",
-    "name": "Repelling Field",
-    "was": "+2% DDT",
-    "now": "+2% IDT"
-   },
-   {
-    "id": "p2_t2",
-    "name": "Reversed Polarity",
-    "was": "+3% DDT",
-    "now": "+3% IDT"
-   },
-   {
     "id": "p2_t3",
     "name": "Inexorable Pull",
     "was": "+0.4 Damage, +5% IDT",
-    "now": "+5% IDT"
+    "now": "+5% DDT, +5% Reflect"
    },
    {
     "id": "p3_t3",
@@ -949,20 +955,20 @@
     "id": "p4_t3",
     "name": "Violent Repulsion",
     "was": "+5% IDT, +5% Reflect",
-    "now": "+5% Reflect"
+    "now": "+0.4 Damage, +5% IDT"
    }
   ],
   "scores": {
-   "secondary_normal": 0.7182,
-   "secondary_panel": 0.7621,
-   "three_spread": 0.8465,
-   "mean5": 5.1134
+   "secondary_normal": 0.5662,
+   "secondary_panel": 0.5809,
+   "three_spread": 0.8914,
+   "mean5": 4.4216
   },
   "before": {
-   "secondary_normal": 0.51,
-   "secondary_panel": 0.4608,
-   "three_spread": 0.6236,
-   "mean5": 5.1428
+   "secondary_normal": 0.4285,
+   "secondary_panel": 0.3798,
+   "three_spread": 0.6963,
+   "mean5": 4.5063
   }
  },
  "hyouga_yui": {
@@ -975,7 +981,8 @@
     "decreasedamagetaken": 3
    },
    "p1_t3": {
-    "decreasedamagetaken": 5
+    "increasedamagetaken": 5,
+    "damage": 0.4
    },
    "p2_t1": {
     "increasedamagegiven": 2
@@ -984,7 +991,7 @@
     "increasedamagegiven": 3
    },
    "p2_t3": {
-    "damage": 0.4
+    "increasedamagegiven": 5
    },
    "p3_t1": {
     "damage": 0.4
@@ -993,7 +1000,8 @@
     "damage": 0.8
    },
    "p3_t3": {
-    "increasedamagetaken": 5
+    "increasedamagetaken": 5,
+    "decreasedamagetaken": 5
    },
    "p4_t1": {
     "increasedamagetaken": 2
@@ -1002,8 +1010,7 @@
     "increasedamagetaken": 3
    },
    "p4_t3": {
-    "decreasedamagetaken": 5,
-    "damage": 0.4
+    "decreasedamagetaken": 5
    }
   },
   "rename_needed": [
@@ -1011,38 +1018,38 @@
     "id": "p1_t3",
     "name": "Avalanche Bastion",
     "was": "+5% DDT, +5% IDG",
-    "now": "+5% DDT"
+    "now": "+0.4 Damage, +5% IDT"
    },
    {
     "id": "p2_t3",
     "name": "The Glacier Advances",
     "was": "+0.4 Damage, +5% IDT",
-    "now": "+0.4 Damage"
+    "now": "+5% IDG"
    },
    {
     "id": "p3_t3",
     "name": "Spear Behind the Icewall",
     "was": "+0.8 Damage, +5% DDT",
-    "now": "+5% IDT"
+    "now": "+5% DDT, +5% IDT"
    },
    {
     "id": "p4_t3",
     "name": "Bastion of Broken Ice",
     "was": "+5% DDT, +5% IDT",
-    "now": "+0.4 Damage, +5% DDT"
+    "now": "+5% DDT"
    }
   ],
   "scores": {
-   "secondary_normal": 0.5693,
-   "secondary_panel": 0.663,
-   "three_spread": 0.6265,
-   "mean5": 5.2679
+   "secondary_normal": 0.5969,
+   "secondary_panel": 0.6188,
+   "three_spread": 0.7246,
+   "mean5": 4.5215
   },
   "before": {
-   "secondary_normal": 0.372,
-   "secondary_panel": 0.4235,
-   "three_spread": 0.5479,
-   "mean5": 6.5824
+   "secondary_normal": 0.3402,
+   "secondary_panel": 0.3878,
+   "three_spread": 0.5361,
+   "mean5": 4.707
   }
  },
  "itojinsei": {
@@ -1071,7 +1078,7 @@
     "damage": 0.2
    },
    "p3_t2": {
-    "damage": 0.6
+    "damage": 0.8
    },
    "p3_t3": {
     "increasedamagegiven": 5,
@@ -1102,16 +1109,16 @@
    }
   ],
   "scores": {
-   "secondary_normal": 0.48,
-   "secondary_panel": 0.4514,
-   "three_spread": 0.939,
-   "mean5": 5.2615
+   "secondary_normal": 0.4514,
+   "secondary_panel": 0.3502,
+   "three_spread": 0.8928,
+   "mean5": 4.0095
   },
   "before": {
-   "secondary_normal": 0.36,
-   "secondary_panel": 0.3684,
-   "three_spread": 0.3852,
-   "mean5": 4.1842
+   "secondary_normal": 0.3524,
+   "secondary_panel": 0.3259,
+   "three_spread": 0.3331,
+   "mean5": 3.0613
   }
  },
  "kyuko_sei": {
@@ -1124,17 +1131,16 @@
     "damage": 0.6
    },
    "p1_t3": {
-    "decreasedamagetaken": 5,
-    "decreasedamagegiven": 5
+    "decreasedamagetaken": 5
    },
    "p2_t1": {
-    "increasedamagegiven": 2
+    "decreasedamagegiven": 2
    },
    "p2_t2": {
-    "increasedamagegiven": 3
+    "decreasedamagegiven": 3
    },
    "p2_t3": {
-    "decreasedamagegiven": 5
+    "increasedamagegiven": 5
    },
    "p3_t1": {
     "decreasedamagetaken": 2
@@ -1143,14 +1149,14 @@
     "decreasedamagetaken": 3
    },
    "p3_t3": {
-    "decreasedamagetaken": 5,
+    "decreasedamagegiven": 5,
     "damage": 0.4
    },
    "p4_t1": {
-    "increasedamagetaken": 2
+    "increasedamagegiven": 2
    },
    "p4_t2": {
-    "increasedamagetaken": 3
+    "increasedamagegiven": 3
    },
    "p4_t3": {
     "damage": 0.4
@@ -1161,31 +1167,31 @@
     "id": "p1_t3",
     "name": "Mantle of the Dying Star",
     "was": "+5% DDT, +5% IDG",
-    "now": "+5% DDG, +5% DDT"
-   },
-   {
-    "id": "p2_t1",
-    "name": "Fading Force",
-    "was": "+2% DDG",
-    "now": "+2% IDG"
-   },
-   {
-    "id": "p2_t2",
-    "name": "Entropic Weakening",
-    "was": "+3% DDG",
-    "now": "+3% IDG"
+    "now": "+5% DDT"
    },
    {
     "id": "p2_t3",
     "name": "Frailty of Ages",
     "was": "+5% DDG, +5% IDT",
-    "now": "+5% DDG"
+    "now": "+5% IDG"
    },
    {
     "id": "p3_t3",
     "name": "Sanctuary of Erosion",
     "was": "+5% DDT, +5% IDT",
-    "now": "+0.4 Damage, +5% DDT"
+    "now": "+0.4 Damage, +5% DDG"
+   },
+   {
+    "id": "p4_t1",
+    "name": "Eroded Seam",
+    "was": "+2% IDT",
+    "now": "+2% IDG"
+   },
+   {
+    "id": "p4_t2",
+    "name": "Crumbling Firmament",
+    "was": "+3% IDT",
+    "now": "+3% IDG"
    },
    {
     "id": "p4_t3",
@@ -1195,29 +1201,30 @@
    }
   ],
   "scores": {
-   "secondary_normal": 0.4909,
-   "secondary_panel": 0.4909,
-   "three_spread": 0.9512,
-   "mean5": 4.4603
+   "secondary_normal": 0.2487,
+   "secondary_panel": 0.4445,
+   "three_spread": 0.9448,
+   "mean5": 4.7626
   },
   "before": {
-   "secondary_normal": 0.274,
-   "secondary_panel": 0.274,
-   "three_spread": 0.6837,
-   "mean5": 5.5347
+   "secondary_normal": 0.2234,
+   "secondary_panel": 0.3702,
+   "three_spread": 0.6827,
+   "mean5": 7.3306
   }
  },
  "oblivion_seal": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "decreasedamagetaken": 2
+    "increasedamagegiven": 2
    },
    "p1_t2": {
-    "decreasedamagetaken": 3
+    "increasedamagegiven": 3
    },
    "p1_t3": {
-    "decreasedamagetaken": 5
+    "pierce": 5,
+    "increasedamagegiven": 5
    },
    "p2_t1": {
     "increasedamagetaken": 2
@@ -1226,70 +1233,67 @@
     "increasedamagetaken": 3
    },
    "p2_t3": {
-    "increasedamagetaken": 5
+    "increasedamagetaken": 5,
+    "increasedamagegiven": 5
    },
    "p3_t1": {
-    "pierce": 2
+    "decreasedamagetaken": 2
    },
    "p3_t2": {
-    "pierce": 3
+    "decreasedamagetaken": 3
    },
    "p3_t3": {
-    "pierce": 5
+    "decreasedamagetaken": 5,
+    "lifesteal": 5
    },
    "p4_t1": {
-    "damage": 0.4
+    "damage": 0.2
    },
    "p4_t2": {
     "damage": 0.8
    },
    "p4_t3": {
-    "increasedamagegiven": 5
+    "increasedamagetaken": 5,
+    "decreasedamagetaken": 5
    }
   },
   "rename_needed": [
    {
-    "id": "p1_t1",
-    "name": "Umbral Vigor",
-    "was": "+2% IDG",
+    "id": "p2_t3",
+    "name": "Brand of Oblivion",
+    "was": "+5% IDT",
+    "now": "+5% IDG, +5% IDT"
+   },
+   {
+    "id": "p3_t1",
+    "name": "Void Needle",
+    "was": "+2 Pierce power",
     "now": "+2% DDT"
    },
    {
-    "id": "p1_t2",
-    "name": "Umbral Claws",
-    "was": "+3% IDG",
+    "id": "p3_t2",
+    "name": "Wardrending Shade",
+    "was": "+3 Pierce power",
     "now": "+3% DDT"
-   },
-   {
-    "id": "p1_t3",
-    "name": "Absolute Erasure",
-    "was": "+5% IDG, +0.4% Pierce",
-    "now": "+5% DDT"
-   },
-   {
-    "id": "p3_t3",
-    "name": "Sanguine Seal of Shelter",
-    "was": "+5% DDT, +5% Lifesteal",
-    "now": "+5% Pierce"
    },
    {
     "id": "p4_t3",
     "name": "Wardbreaker in Shadow",
-    "was": "+5% DDT, +2% Pierce",
-    "now": "+5% IDG"
+    "was": "+5% DDT, +2 Pierce power",
+    "now": "+5% DDT, +5% IDT"
    }
   ],
   "scores": {
-   "secondary_normal": 0.8308,
-   "secondary_panel": 0.9076,
-   "three_spread": 0.8927,
-   "mean5": 4.9188
+   "secondary_normal": 0.7191,
+   "secondary_panel": 0.7191,
+   "three_spread": 0.9791,
+   "mean5": 4.6822
   },
   "before": {
-   "secondary_normal": 0.7233,
-   "secondary_panel": 0.7506,
-   "three_spread": 0.6496,
-   "mean5": 5.8789
+   "secondary_normal": 0.5561,
+   "secondary_panel": 0.6123,
+   "three_spread": 0.4924,
+   "mean5": 4.3305
   }
  },
  "shadow_weaver": {
@@ -1302,8 +1306,8 @@
     "damage": 0.6
    },
    "p1_t3": {
-    "decreasedamagegiven": 5,
-    "decreasedamagetaken": 5
+    "increasedamagegiven": 5,
+    "decreasedamagegiven": 5
    },
    "p2_t1": {
     "increasedamagegiven": 2
@@ -1312,6 +1316,7 @@
     "increasedamagegiven": 3
    },
    "p2_t3": {
+    "decreasedamagetaken": 5,
     "damage": 0.4
    },
    "p3_t1": {
@@ -1321,7 +1326,8 @@
     "decreasedamagegiven": 3
    },
    "p3_t3": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "decreasedamagetaken": 5
    },
    "p4_t1": {
     "decreasedamagetaken": 2
@@ -1330,8 +1336,7 @@
     "decreasedamagetaken": 3
    },
    "p4_t3": {
-    "decreasedamagegiven": 5,
-    "damage": 0.4
+    "increasedamagegiven": 5
    }
   },
   "rename_needed": [
@@ -1339,38 +1344,38 @@
     "id": "p1_t3",
     "name": "Night Unraveled",
     "was": "+0.6 Damage",
-    "now": "+5% DDG, +5% DDT"
+    "now": "+5% DDG, +5% IDG"
    },
    {
     "id": "p2_t3",
     "name": "A Thousand Striking Threads",
     "was": "+5% IDG",
-    "now": "+0.4 Damage"
+    "now": "+0.4 Damage, +5% DDT"
    },
    {
     "id": "p3_t3",
     "name": "Strings Cut Short",
     "was": "+5% DDG",
-    "now": "+5% IDG"
+    "now": "+5% DDG, +5% DDT"
    },
    {
     "id": "p4_t3",
     "name": "Seamless Shroud",
     "was": "+5% DDT",
-    "now": "+0.4 Damage, +5% DDG"
+    "now": "+5% IDG"
    }
   ],
   "scores": {
-   "secondary_normal": 0.3038,
-   "secondary_panel": 0.3089,
-   "three_spread": 0.57,
-   "mean5": 4.1769
+   "secondary_normal": 0.2906,
+   "secondary_panel": 0.3753,
+   "three_spread": 0.89,
+   "mean5": 4.1779
   },
   "before": {
-   "secondary_normal": 0.1616,
-   "secondary_panel": 0.2566,
-   "three_spread": 0.25,
-   "mean5": 3.8633
+   "secondary_normal": 0.2581,
+   "secondary_panel": 0.2778,
+   "three_spread": 0.2616,
+   "mean5": 3.2667
   }
  },
  "shakunetsu_sakura": {
@@ -1383,17 +1388,17 @@
     "increasedamagegiven": 3
    },
    "p1_t3": {
-    "increasedamagegiven": 5
+    "decreasedamagegiven": 5,
+    "damage": 0.8
    },
    "p2_t1": {
-    "decreasedamagegiven": 2
+    "pierce": 2
    },
    "p2_t2": {
-    "decreasedamagegiven": 3
+    "pierce": 3
    },
    "p2_t3": {
-    "increasedamagegiven": 5,
-    "damage": 1.2
+    "decreasedamagegiven": 5
    },
    "p3_t1": {
     "heal": 2
@@ -1402,100 +1407,7 @@
     "heal": 3
    },
    "p3_t3": {
-    "decreasedamagegiven": 5,
-    "damage": 0.8
-   },
-   "p4_t1": {
-    "damage": 0.4
-   },
-   "p4_t2": {
-    "damage": 0.6
-   },
-   "p4_t3": {
-    "heal": 5,
-    "decreasedamagegiven": 5
-   }
-  },
-  "rename_needed": [
-   {
-    "id": "p1_t3",
-    "name": "Dragon in Full Blossom",
-    "was": "+0.4 Damage, +5% IDG",
-    "now": "+5% IDG"
-   },
-   {
-    "id": "p2_t1",
-    "name": "Petal Needle",
-    "was": "+2% Pierce",
-    "now": "+2% DDG"
-   },
-   {
-    "id": "p2_t2",
-    "name": "Blossom Through Iron",
-    "was": "+3% Pierce",
-    "now": "+3% DDG"
-   },
-   {
-    "id": "p2_t3",
-    "name": "Scorching Hanami",
-    "was": "+5% Pierce",
-    "now": "+1.2 Damage, +5% IDG"
-   },
-   {
-    "id": "p3_t3",
-    "name": "Dragon's Wardrending Bloom",
-    "was": "+5% IDG, +0.4% Pierce",
-    "now": "+0.8 Damage, +5% DDG"
-   },
-   {
-    "id": "p4_t3",
-    "name": "Oppressive Dragon's Breath",
-    "was": "+5% DDG, +2% Pierce",
-    "now": "+5% DDG, +5% Heal"
-   }
-  ],
-  "scores": {
-   "secondary_normal": 0.303,
-   "secondary_panel": 0.303,
-   "three_spread": 0.918,
-   "mean5": 4.5736
-  },
-  "before": {
-   "secondary_normal": 0.3412,
-   "secondary_panel": 0.3412,
-   "three_spread": 0.4507,
-   "mean5": 7.0511
-  }
- },
- "shinrai_ou": {
-  "status": "rebalanced",
-  "nodes": {
-   "p1_t1": {
-    "damage": 0.2
-   },
-   "p1_t2": {
-    "damage": 0.6
-   },
-   "p1_t3": {
-    "reflect": 5
-   },
-   "p2_t1": {
-    "increasedamagegiven": 2
-   },
-   "p2_t2": {
-    "increasedamagegiven": 3
-   },
-   "p2_t3": {
-    "increasedamagetaken": 5
-   },
-   "p3_t1": {
-    "reflect": 2
-   },
-   "p3_t2": {
-    "reflect": 3
-   },
-   "p3_t3": {
-    "damage": 0.4
+    "damage": 1.2
    },
    "p4_t1": {
     "increasedamagetaken": 2
@@ -1511,53 +1423,134 @@
   "rename_needed": [
    {
     "id": "p1_t3",
+    "name": "Dragon in Full Blossom",
+    "was": "+0.4 Damage, +5% IDG",
+    "now": "+0.8 Damage, +5% DDG"
+   },
+   {
+    "id": "p2_t3",
+    "name": "Scorching Hanami",
+    "was": "+5 Pierce power",
+    "now": "+5% DDG"
+   },
+   {
+    "id": "p3_t3",
+    "name": "Dragon's Wardrending Bloom",
+    "was": "+5% IDG, +0.4 Pierce power",
+    "now": "+1.2 Damage"
+   },
+   {
+    "id": "p4_t1",
+    "name": "Scorching Petal",
+    "was": "+0.6 Damage",
+    "now": "+2% IDT"
+   },
+   {
+    "id": "p4_t2",
+    "name": "Blazing Petal Torrent",
+    "was": "+1.2 Damage",
+    "now": "+3% IDT"
+   },
+   {
+    "id": "p4_t3",
+    "name": "Oppressive Dragon's Breath",
+    "was": "+5% DDG, +2 Pierce power",
+    "now": "+0.4 Damage, +5% IDG"
+   }
+  ],
+  "scores": {
+   "secondary_normal": 0.5776,
+   "secondary_panel": 0.6131,
+   "three_spread": 0.8531,
+   "mean5": 4.6898
+  },
+  "before": {
+   "secondary_normal": 0.5776,
+   "secondary_panel": 0.6131,
+   "three_spread": 0.6646,
+   "mean5": 4.8416
+  }
+ },
+ "shinrai_ou": {
+  "status": "rebalanced",
+  "nodes": {
+   "p1_t1": {
+    "damage": 0.2
+   },
+   "p1_t2": {
+    "damage": 0.4
+   },
+   "p1_t3": {
+    "increasedamagetaken": 5,
+    "damage": 0.6
+   },
+   "p2_t1": {
+    "increasedamagegiven": 2
+   },
+   "p2_t2": {
+    "increasedamagegiven": 3
+   },
+   "p2_t3": {
+    "damage": 0.4
+   },
+   "p3_t1": {
+    "reflect": 2
+   },
+   "p3_t2": {
+    "reflect": 3
+   },
+   "p3_t3": {
+    "reflect": 5
+   },
+   "p4_t1": {
+    "increasedamagetaken": 2
+   },
+   "p4_t2": {
+    "increasedamagetaken": 3
+   },
+   "p4_t3": {
+    "increasedamagetaken": 5
+   }
+  },
+  "rename_needed": [
+   {
+    "id": "p1_t3",
     "name": "Thunder King's Wrath",
     "was": "+0.6 Damage",
-    "now": "+5% Reflect"
+    "now": "+0.6 Damage, +5% IDT"
    },
    {
     "id": "p2_t3",
     "name": "Judgement from Above",
     "was": "+5% IDG",
-    "now": "+5% IDT"
-   },
-   {
-    "id": "p3_t3",
-    "name": "Heaven's Reprisal",
-    "was": "+5% Reflect",
     "now": "+0.4 Damage"
-   },
-   {
-    "id": "p4_t3",
-    "name": "Thunder King's Condemnation",
-    "was": "+5% IDT",
-    "now": "+0.4 Damage, +5% IDG"
    }
   ],
   "scores": {
-   "secondary_normal": 0.3891,
-   "secondary_panel": 0.3891,
-   "three_spread": 0.8258,
-   "mean5": 4.7702
+   "secondary_normal": 0.1958,
+   "secondary_panel": 0.1958,
+   "three_spread": 0.5696,
+   "mean5": 4.7025
   },
   "before": {
-   "secondary_normal": 0.2852,
-   "secondary_panel": 0.2852,
-   "three_spread": 0.321,
-   "mean5": 4.6535
+   "secondary_normal": 0.1958,
+   "secondary_panel": 0.1958,
+   "three_spread": 0.1905,
+   "mean5": 5.2287
   }
  },
  "shinseina_ki": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "damage": 0.4
+    "damage": 0.2
    },
    "p1_t2": {
-    "damage": 0.8
+    "damage": 0.6
    },
    "p1_t3": {
-    "poison": 5
+    "increasedamagetaken": 5,
+    "damage": 0.8
    },
    "p2_t1": {
     "increasedamagegiven": 2
@@ -1576,7 +1569,7 @@
    },
    "p3_t3": {
     "increasedamagetaken": 5,
-    "damage": 0.4
+    "poison": 5
    },
    "p4_t1": {
     "poison": 2
@@ -1585,17 +1578,10 @@
     "poison": 3
    },
    "p4_t3": {
-    "poison": 5,
-    "damage": 0.4
+    "increasedamagegiven": 5
    }
   },
   "rename_needed": [
-   {
-    "id": "p1_t3",
-    "name": "Sundering Heartwood",
-    "was": "+0.8 Damage, +5% IDT",
-    "now": "+5% Poison"
-   },
    {
     "id": "p2_t3",
     "name": "The Forest Strikes",
@@ -1603,29 +1589,23 @@
     "now": "+0.4 Damage"
    },
    {
-    "id": "p3_t3",
-    "name": "Venomous Judgment of the Grove",
-    "was": "+5% IDT, +5% Poison",
-    "now": "+0.4 Damage, +5% IDT"
-   },
-   {
     "id": "p4_t3",
     "name": "Dominion of the Venomwood",
     "was": "+5% IDG, +5% Poison",
-    "now": "+0.4 Damage, +5% Poison"
+    "now": "+5% IDG"
    }
   ],
   "scores": {
-   "secondary_normal": 0.4994,
-   "secondary_panel": 0.4994,
-   "three_spread": 0.9384,
-   "mean5": 5.1168
+   "secondary_normal": 0.1418,
+   "secondary_panel": 0.1418,
+   "three_spread": 0.9251,
+   "mean5": 6.3658
   },
   "before": {
-   "secondary_normal": 0.4546,
-   "secondary_panel": 0.4546,
-   "three_spread": 0.622,
-   "mean5": 6.5252
+   "secondary_normal": 0.1418,
+   "secondary_panel": 0.1418,
+   "three_spread": 0.4858,
+   "mean5": 7.5522
   }
  },
  "shiroi_youso": {
@@ -1640,14 +1620,14 @@
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "damage": 0.4
+    "decreasedamagetaken": 2
    },
    "p1_t2": {
-    "damage": 0.8
+    "decreasedamagetaken": 3
    },
    "p1_t3": {
-    "increasedamagetaken": 5,
-    "damage": 1.2
+    "increasedamagegiven": 5,
+    "poison": 5
    },
    "p2_t1": {
     "increasedamagetaken": 2
@@ -1657,84 +1637,90 @@
    },
    "p2_t3": {
     "pierce": 5,
-    "damage": 0.8
+    "afterburn": 5
    },
    "p3_t1": {
-    "lifesteal": 2
+    "damage": 0.4
    },
    "p3_t2": {
-    "lifesteal": 3
+    "damage": 0.8
    },
    "p3_t3": {
-    "decreasedamagetaken": 5,
-    "lifesteal": 5
+    "poison": 5,
+    "damage": 1.2
    },
    "p4_t1": {
-    "decreasedamagetaken": 2
+    "increasedamagegiven": 2
    },
    "p4_t2": {
-    "decreasedamagetaken": 3
+    "increasedamagegiven": 3
    },
    "p4_t3": {
-    "decreasedamagetaken": 5,
-    "damage": 0.6
+    "pierce": 5,
+    "damage": 0.8
    }
   },
   "rename_needed": [
    {
     "id": "p1_t1",
     "name": "Molten Needle",
-    "was": "+2% Pierce",
-    "now": "+0.4 Damage"
+    "was": "+2 Pierce power",
+    "now": "+2% DDT"
    },
    {
     "id": "p1_t2",
     "name": "Slagbreaker",
-    "was": "+3% Pierce",
-    "now": "+0.8 Damage"
+    "was": "+3 Pierce power",
+    "now": "+3% DDT"
    },
    {
     "id": "p1_t3",
     "name": "Feast of the Resonant Caldera",
     "was": "+5% Afterburn, +5% Lifesteal",
-    "now": "+1.2 Damage, +5% IDT"
+    "now": "+5% IDG, +5% Poison"
    },
    {
     "id": "p2_t3",
     "name": "Venomous Feast of the Mountain",
     "was": "+5% Lifesteal, +5% Poison",
-    "now": "+0.8 Damage, +5% Pierce"
+    "now": "+5% Afterburn, +5 Pierce power"
    },
    {
-    "id": "p4_t1",
-    "name": "Stoked Furnace",
-    "was": "+2% IDG",
-    "now": "+2% DDT"
+    "id": "p3_t1",
+    "name": "Hungry Ember",
+    "was": "+2% Lifesteal",
+    "now": "+0.4 Damage"
    },
    {
-    "id": "p4_t2",
-    "name": "Magmatic Surge",
-    "was": "+3% IDG",
-    "now": "+3% DDT"
+    "id": "p3_t2",
+    "name": "Molten Draught",
+    "was": "+3% Lifesteal",
+    "now": "+0.8 Damage"
+   },
+   {
+    "id": "p3_t3",
+    "name": "Heart of the Caldera",
+    "was": "+5% DDT, +5% Lifesteal",
+    "now": "+1.2 Damage, +5% Poison"
    },
    {
     "id": "p4_t3",
     "name": "Wardrending Hunger",
-    "was": "+5% Lifesteal, +0.4% Pierce",
-    "now": "+0.6 Damage, +5% DDT"
+    "was": "+5% Lifesteal, +0.4 Pierce power",
+    "now": "+0.8 Damage, +5 Pierce power"
    }
   ],
   "scores": {
-   "secondary_normal": 0.7251,
-   "secondary_panel": 0.7651,
-   "three_spread": 0.9787,
-   "mean5": 5.0171
+   "secondary_normal": 0.9001,
+   "secondary_panel": 0.7868,
+   "three_spread": 0.9602,
+   "mean5": 3.8854
   },
   "before": {
-   "secondary_normal": 0.5276,
-   "secondary_panel": 0.5276,
-   "three_spread": 0.6724,
-   "mean5": 5.2655
+   "secondary_normal": 0.5805,
+   "secondary_panel": 0.6496,
+   "three_spread": 0.6692,
+   "mean5": 3.5785
   }
  },
  "taiyo_kami": {
@@ -1748,7 +1734,7 @@
    },
    "p1_t3": {
     "afterburn": 5,
-    "decreasedamagegiven": 5
+    "increasedamagegiven": 5
    },
    "p2_t1": {
     "afterburn": 2
@@ -1757,7 +1743,8 @@
     "afterburn": 3
    },
    "p2_t3": {
-    "decreasedamagetaken": 5
+    "increasedamagegiven": 5,
+    "damage": 0.6
    },
    "p3_t1": {
     "decreasedamagetaken": 2
@@ -1766,8 +1753,8 @@
     "decreasedamagetaken": 3
    },
    "p3_t3": {
-    "increasedamagetaken": 5,
-    "damage": 0.4
+    "decreasedamagegiven": 5,
+    "damage": 0.6
    },
    "p4_t1": {
     "increasedamagetaken": 2
@@ -1777,7 +1764,7 @@
    },
    "p4_t3": {
     "afterburn": 5,
-    "damage": 0.6
+    "decreasedamagegiven": 5
    }
   },
   "rename_needed": [
@@ -1785,13 +1772,19 @@
     "id": "p1_t3",
     "name": "Solar Cataclysm",
     "was": "+0.8 Damage, +5% DDG",
-    "now": "+5% Afterburn, +5% DDG"
+    "now": "+5% Afterburn, +5% IDG"
    },
    {
     "id": "p2_t3",
     "name": "Eternal Noon",
     "was": "+0.8 Damage, +5% DDT",
-    "now": "+5% DDT"
+    "now": "+0.6 Damage, +5% IDG"
+   },
+   {
+    "id": "p3_t3",
+    "name": "Sovereign Sun",
+    "was": "+0.4 Damage, +5% IDT",
+    "now": "+0.6 Damage, +5% DDG"
    },
    {
     "id": "p4_t1",
@@ -1804,25 +1797,19 @@
     "name": "Heart of the Sun",
     "was": "+3% DDG",
     "now": "+3% IDT"
-   },
-   {
-    "id": "p4_t3",
-    "name": "Zenith Incarnate",
-    "was": "+5% Afterburn, +5% DDG",
-    "now": "+0.6 Damage, +5% Afterburn"
    }
   ],
   "scores": {
-   "secondary_normal": 0.6472,
-   "secondary_panel": 0.6472,
-   "three_spread": 0.9271,
-   "mean5": 4.6921
+   "secondary_normal": 0.6014,
+   "secondary_panel": 0.6014,
+   "three_spread": 0.8718,
+   "mean5": 4.395
   },
   "before": {
-   "secondary_normal": 0.3704,
-   "secondary_panel": 0.5621,
-   "three_spread": 0.6421,
-   "mean5": 4.6882
+   "secondary_normal": 0.3125,
+   "secondary_panel": 0.3125,
+   "three_spread": 0.601,
+   "mean5": 4.2285
   }
  },
  "teno_yuki": {
@@ -1836,10 +1823,10 @@
    },
    "p1_t3": {
     "increasedamagegiven": 5,
-    "absorb": 5
+    "increasedamagetaken": 5
    },
    "p2_t1": {
-    "damage": 0.2
+    "damage": 0.4
    },
    "p2_t2": {
     "damage": 0.8
@@ -1855,8 +1842,7 @@
     "increasedamagetaken": 3
    },
    "p3_t3": {
-    "heal": 5,
-    "damage": 0.4
+    "heal": 5
    },
    "p4_t1": {
     "absorb": 2
@@ -1865,10 +1851,17 @@
     "absorb": 3
    },
    "p4_t3": {
-    "heal": 5
+    "increasedamagegiven": 5,
+    "absorb": 5
    }
   },
   "rename_needed": [
+   {
+    "id": "p1_t3",
+    "name": "Hunger of the Winter Crown",
+    "was": "+5% Absorb, +5% IDG",
+    "now": "+5% IDG, +5% IDT"
+   },
    {
     "id": "p2_t3",
     "name": "Palace of Consuming Ice",
@@ -1891,26 +1884,26 @@
     "id": "p3_t3",
     "name": "Winter's Sheltering Verdict",
     "was": "+5% DDT, +5% IDT",
-    "now": "+0.4 Damage, +5% Heal"
+    "now": "+5 Heal power"
    },
    {
     "id": "p4_t3",
     "name": "Winter's Exposing Command",
     "was": "+5% IDG, +5% IDT",
-    "now": "+5% Heal"
+    "now": "+5% Absorb, +5% IDG"
    }
   ],
   "scores": {
-   "secondary_normal": 0.7279,
-   "secondary_panel": 0.7279,
-   "three_spread": 0.984,
-   "mean5": 4.5183
+   "secondary_normal": 0.8436,
+   "secondary_panel": 0.8436,
+   "three_spread": 0.8935,
+   "mean5": 3.8847
   },
   "before": {
-   "secondary_normal": 0.2008,
-   "secondary_panel": 0.2008,
-   "three_spread": 0.4827,
-   "mean5": 3.9259
+   "secondary_normal": 0.2564,
+   "secondary_panel": 0.2564,
+   "three_spread": 0.5309,
+   "mean5": 3.307
   }
  },
  "tenohira_musei": {
@@ -1927,7 +1920,7 @@
     "increasedamagetaken": 5
    },
    "p2_t1": {
-    "damage": 0.2
+    "damage": 0.4
    },
    "p2_t2": {
     "damage": 0.8
@@ -1944,7 +1937,7 @@
    },
    "p3_t3": {
     "increasedamagegiven": 5,
-    "damage": 0.6
+    "damage": 0.4
    },
    "p4_t1": {
     "increasedamagetaken": 2
@@ -1953,7 +1946,8 @@
     "increasedamagetaken": 3
    },
    "p4_t3": {
-    "increasedamagetaken": 5
+    "increasedamagetaken": 5,
+    "damage": 0.4
    }
   },
   "rename_needed": [
@@ -1961,36 +1955,30 @@
     "id": "p3_t3",
     "name": "The Silent Impact",
     "was": "+5% IDG, +5% IDT",
-    "now": "+0.6 Damage, +5% IDG"
-   },
-   {
-    "id": "p4_t3",
-    "name": "Eclipse in Hand",
-    "was": "+0.4 Damage, +5% IDT",
-    "now": "+5% IDT"
+    "now": "+0.4 Damage, +5% IDG"
    }
   ],
   "scores": {
-   "secondary_normal": 0.4872,
-   "secondary_panel": 0.4872,
-   "three_spread": 0.9408,
-   "mean5": 5.0798
+   "secondary_normal": 0.6243,
+   "secondary_panel": 0.6243,
+   "three_spread": 0.8862,
+   "mean5": 5.9782
   },
   "before": {
-   "secondary_normal": 0.4872,
-   "secondary_panel": 0.4872,
-   "three_spread": 0.7526,
-   "mean5": 5.4983
+   "secondary_normal": 0.5272,
+   "secondary_panel": 0.5272,
+   "three_spread": 0.7265,
+   "mean5": 6.2778
   }
  },
  "vaporia": {
   "status": "rebalanced",
   "nodes": {
    "p1_t1": {
-    "increasedamagegiven": 2
+    "lifesteal": 2
    },
    "p1_t2": {
-    "increasedamagegiven": 3
+    "lifesteal": 3
    },
    "p1_t3": {
     "increasedamagetaken": 5
@@ -2012,56 +2000,68 @@
     "afterburn": 3
    },
    "p3_t3": {
-    "pierce": 5,
-    "damage": 0.4
+    "increasedamagegiven": 5
    },
    "p4_t1": {
-    "increasedamagetaken": 2
+    "pierce": 2
    },
    "p4_t2": {
-    "increasedamagetaken": 3
+    "pierce": 3
    },
    "p4_t3": {
-    "heal": 5
+    "reflect": 5,
+    "damage": 0.4
    }
   },
   "rename_needed": [
    {
     "id": "p1_t1",
     "name": "Mending Vapor",
-    "was": "+2% Heal",
-    "now": "+2% IDG"
+    "was": "+2 Heal power",
+    "now": "+2% Lifesteal"
    },
    {
     "id": "p1_t2",
     "name": "Restorative Mist",
-    "was": "+3% Heal",
-    "now": "+3% IDG"
+    "was": "+3 Heal power",
+    "now": "+3% Lifesteal"
    },
    {
     "id": "p3_t3",
     "name": "Bastion of Returning Steam",
     "was": "+5% DDT, +5% Reflect",
-    "now": "+0.4 Damage, +5% Pierce"
+    "now": "+5% IDG"
+   },
+   {
+    "id": "p4_t1",
+    "name": "Scalded Seam",
+    "was": "+2% IDT",
+    "now": "+2 Pierce power"
+   },
+   {
+    "id": "p4_t2",
+    "name": "Deepening Scald",
+    "was": "+3% IDT",
+    "now": "+3 Pierce power"
    },
    {
     "id": "p4_t3",
     "name": "Dragon's Siphoning Fang",
-    "was": "+5% Lifesteal, +2% Pierce",
-    "now": "+5% Heal"
+    "was": "+5% Lifesteal, +2 Pierce power",
+    "now": "+0.4 Damage, +5% Reflect"
    }
   ],
   "scores": {
-   "secondary_normal": 0.87,
-   "secondary_panel": 0.8762,
-   "three_spread": 0.9212,
-   "mean5": 5.0792
+   "secondary_normal": 0.9533,
+   "secondary_panel": 0.8074,
+   "three_spread": 0.9597,
+   "mean5": 4.0376
   },
   "before": {
-   "secondary_normal": 0.6978,
-   "secondary_panel": 0.7194,
-   "three_spread": 0.888,
-   "mean5": 5.6732
+   "secondary_normal": 0.6375,
+   "secondary_panel": 0.6375,
+   "three_spread": 0.6792,
+   "mean5": 4.791
   }
  }
 }

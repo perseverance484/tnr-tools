@@ -14,9 +14,9 @@
    "rename_needed": [
     "p1_t3",
     "p2_t3",
+    "p3_t3",
     "p4_t1",
-    "p4_t2",
-    "p4_t3"
+    "p4_t2"
    ]
   }
  },
@@ -84,7 +84,7 @@
    "parent_rule": "ALL",
    "bonuses": {
     "afterburn": 5,
-    "decreasedamagegiven": 5
+    "increasedamagegiven": 5
    }
   },
   {
@@ -127,7 +127,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "decreasedamagetaken": 5
+    "increasedamagegiven": 5,
+    "damage": 0.6
    }
   },
   {
@@ -170,8 +171,8 @@
    ],
    "parent_rule": "ALL",
    "bonuses": {
-    "increasedamagetaken": 5,
-    "damage": 0.4
+    "decreasedamagegiven": 5,
+    "damage": 0.6
    }
   },
   {
@@ -215,7 +216,7 @@
    "parent_rule": "ALL",
    "bonuses": {
     "afterburn": 5,
-    "damage": 0.6
+    "decreasedamagegiven": 5
    }
   }
  ]
