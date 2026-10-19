@@ -152,6 +152,48 @@
         "image_sha256": "4152ff617e3c32ce2ee8fcbf93e8eed161c1c6a6ff53a20c6497aa91ef8b8417",
         "visual_distinctness": "PASS: solid illuminated growth-ring disk vs enclosing timber cavern and attacking exploding S-curve"
       }
+    },
+    {
+      "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+      "name": "Wood Style: Wood Warrior Summon",
+      "date": "2026-10-19",
+      "evidence": "Director attached the completed Wood Warrior image in the persistent Studio and replied 'Approved, next'.",
+      "status": "RAW_VISUAL_APPROVED",
+      "exact_uploaded_file": {
+        "name": "1000018841.png",
+        "true_mime": "image/jpeg",
+        "encoding": "JPEG",
+        "size_bytes": 792381,
+        "width": 1536,
+        "height": 1536,
+        "sha256": "fc930c256b259328336dd48e068b4f28417bf7f090a39155686bda1bd9454086",
+        "source_bytes_preserved_without_recompression": true,
+        "git_pin": "NOT_PERFORMED",
+        "generator_native_provenance": "UNVERIFIED"
+      },
+      "comparison": {
+        "tool": "jutsu_studio.py compare",
+        "status": "REVIEW_AID_NOT_GALLERY",
+        "sizes": [
+          125,
+          64,
+          32
+        ],
+        "siblings": [
+          "Guardian's Grove",
+          "Exploding Wood Serpent",
+          "Forest Wisdom"
+        ],
+        "image_sha256": "daefd709dc6bb0582f12d58c836435f0eded7311510e02ca41706335a43dfa7a",
+        "visual_distinctness": "PASS: upright assembled wooden guardian versus root trap, S-strike detonation and heartwood disk"
+      },
+      "visual_direction_note": {
+        "observed": "Art has recognizably humanoid wooden guardian architecture (head-like crest, shoulders, arm-like constructions).",
+        "prior_target_lock": "No humanoid anatomy; strict default anatomy exception NONE.",
+        "director_decision": "Exact uploaded candidate explicitly visually APPROVED; this is exact-image acceptance, not general approval for anatomy in any other target.",
+        "disagreement": "The pre-generation negative lock differs from the approved composition. Preserve both rather than retroactively rewriting the frozen lock SHA.",
+        "formal_anatomy_exception": "NO_SEPARATE_VERBAL_EXCEPTION_RECORD; flag during final review if the formal P0 anatomy condition requires additional acknowledgment."
+      }
     }
   ],
   "family_direction": {
