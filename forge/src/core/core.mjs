@@ -512,9 +512,16 @@ export class ForgeCore {
       try {
         const r = await this.github.put(inboxPath(name), text, `results: ${name} (forge)`);
         this.say(`committed ${name}${r.sha ? " @" + r.sha.slice(0, 7) : ""}`, "ok");
+        this._markExported(jobId, name, true);
         return;
       } catch (e) { this.fail("commit results", e); }
     }
-    if (!auto || !synced) this.notify({ type: "export", text, name });
+    if (!auto || !synced) { this.notify({ type: "export", text, name }); this._markExported(jobId, name, false); }
+  }
+
+  /** Record that a job's results left the browser, so its journal entry may later make room. */
+  _markExported(jobId, name, committed) {
+    try { this.journal.annotateJob(jobId, { exportedAt: new Date(this.now()).toISOString(), exportName: name, exportCommitted: committed }); }
+    catch { /* the bundle is out; failing to note it only keeps the job around longer */ }
   }
 }

@@ -807,8 +807,8 @@ test("the auth banner names the problem and offers a re-check; the run button is
 
   const bar = win.document.querySelector(".f-authbar").textContent;
   assert.match(bar, /TNR authentication unavailable/);
-  assert.match(bar, /Sign in to The Ninja RPG/);
-  assert.match(bar, /Public capture-only manifests can still run/);
+  assert.match(bar, /Sign in to the game/);
+  assert.match(bar, /Capture-only manifests can still run/);
   assert.ok([...win.document.querySelectorAll(".f-authbar button")].some((b) => /Re-check/.test(b.textContent)));
 
   await app.selectManifest({ name: "04_probe.json", path: "push/04_probe.json", sha: "s" });
