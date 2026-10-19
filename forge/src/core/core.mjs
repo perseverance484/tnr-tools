@@ -36,7 +36,7 @@ export const OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "
 // The machine state the core owns. Presentation state (a search box's contents, a render callback,
 // whether the browser granted persistent storage) belongs to whichever shell is drawing, and the
 // golden test proves none of it lands here.
-const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
+const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "opening", "openError", "running", "runningNote"];
 
 // The screens a shell may route to, and the ONLY keys go() will accept in a patch. go() used to be
 // `Object.assign(this.state, patch, { screen })` with `patch` unconstrained, which meant any shell
@@ -58,7 +58,7 @@ export class ForgeCore {
     for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
     this.now = d.now ?? (() => Date.now());
     this.authBusy = false;
-    this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, running: null, runningNote: "" };
+    this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
     this._listeners = new Set();
   }
 
@@ -87,7 +87,7 @@ export class ForgeCore {
   static get STATE_KEYS() { return [...STATE_KEYS]; }
 
   /** Drop the current manifest selection. A screen must not assign state.selected itself. */
-  clearSelection() { this._selection = {}; this.state.selected = null; this.changed(); }
+  clearSelection() { this._selection = {}; this.state.selected = null; this.state.opening = null; this.state.openError = null; this.changed(); }
 
   // ------------------------------------------------------------------ notifications
   /** @param {(n: {type: string, [k: string]: any}) => void} fn @returns {() => void} */
@@ -164,12 +164,15 @@ export class ForgeCore {
   async selectManifest(entry) {
     if (this._starting || this.state.running) return this.say("Pause the running import before selecting another manifest", "warn");
     const selection = this._selection = {};
-    this.state.selected = null; this.changed();
+    // Opening can take a while (a collection reads the live inventory first), so the screen shows
+    // what is being prepared, and a failure stays on screen instead of only in a brief toast.
+    this.state.selected = null; this.state.opening = { name: entry.name, step: "loading" }; this.state.openError = null; this.changed();
+    const progress = (step) => { if (selection === this._selection) { this.state.opening = { name: entry.name, step }; this.changed(); } };
     try {
       let text = entry.text ?? await this.github.text(entry.path);
       const packageData = JSON.parse(text);
       if (packageData.bloodrightCollection) {
-        const result = await prepareCollection(this, packageData);
+        const result = await prepareCollection(this, packageData, { onProgress: progress });
         if (selection !== this._selection) return;
         this.state.selected = { ...result, entry, text: null, collection: result.trees, pack: result.manifest.imagePack, packResult: null };
         this._scopePackProvenance(this.state.selected.pack);
@@ -205,7 +208,12 @@ export class ForgeCore {
       // therefore where the fetch belongs - not Start, which must only ever GATE. A failure here is
       // reported and leaves Start refused; it never throws out of selection.
       if (this.state.selected.pack) await this.prepareImages();
-    } catch (e) { this.fail("select manifest", e instanceof ManifestError ? e : e); }
+    } catch (e) {
+      const msg = this.fail("select manifest", e);
+      if (selection === this._selection) this.state.openError = { name: entry.name, text: msg };
+    } finally {
+      if (selection === this._selection) { this.state.opening = null; this.changed(); }
+    }
   }
 
   /**

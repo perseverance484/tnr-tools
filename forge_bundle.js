@@ -1,4 +1,4 @@
-// TNR forge bundle v0.7.0 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.7.1 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
@@ -4802,6 +4802,19 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     app.view.renderPicker = renderList;
     if (!app.state.picker) app.loadPicker(false);
     if (app.state.selected) root.appendChild(SelectedManifest(app));
+    else if (app.state.opening) root.appendChild(h(
+      "div",
+      { class: "f-card" },
+      h("h2", {}, app.state.opening.name),
+      h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}\u2026 Start appears when every check has passed. Nothing is written while preparing.`)
+    ));
+    else if (app.state.openError) root.appendChild(h(
+      "div",
+      { class: "f-card" },
+      h("h2", {}, app.state.openError.name),
+      h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
+      h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))
+    ));
     return root;
   }
   function captureLabel(captures) {
@@ -5329,19 +5342,26 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     problems.push(...packed.errors);
     return { problems, preview, allocations, maxAdvanced: advanced, manifest: problems.length ? null : { _note: `Bloodright: ${design.title}`, dedupNames: true, bloodrightImport: provenance, items, ...packed.pack ? { imagePack: packed.pack } : {}, ...Object.keys(imgSizes).length ? { imgSizes } : {} } };
   }
-  async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons }) {
-    if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
-    if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
-    auth?.assert("skillTree.create");
-    if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
-    const design = JSON.parse(await github.text(config.source.path, config.source.ref));
-    assertBloodrightAvailable(journal, design?.bloodline?.id);
-    const probe = await reader.get("skillTree.get", config.hiddenProbeId, { fresh: true });
+  async function readBloodrightInventory({ reader, hiddenProbeId }) {
+    if (!id(hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+    const probe = await reader.get("skillTree.get", hiddenProbeId, { fresh: true });
     if (!probe.ok || probe.data?.hidden !== true) throw new Error("hidden-content access not established: the known hidden skill is not visible; check the session, role, and probe ID");
     const all = await reader.list("skillTree.getAll", { fresh: true });
     const folders = await reader.list("skillTree.getAllFolders", { fresh: true });
     if (!all.ok || !folders.ok) throw new Error("Bloodright inventory failed; no preview or writes available");
-    if (!all.data.some((s) => s.id === config.hiddenProbeId)) throw new Error("hidden probe missing from inventory; incomplete access or changed session");
+    if (!all.data.some((s) => s.id === hiddenProbeId)) throw new Error("hidden probe missing from inventory; incomplete access or changed session");
+    return { hiddenProbeId, skills: all.data, folders: folders.data };
+  }
+  async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory }) {
+    if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
+    if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
+    auth?.assert("skillTree.create");
+    if (!id(config.hiddenProbeId)) throw new Error("name a known hidden skill ID to verify staff-visible inventory");
+    if (inventory && inventory.hiddenProbeId !== config.hiddenProbeId) throw new Error("shared inventory was verified with a different hidden probe");
+    const design = JSON.parse(await github.text(config.source.path, config.source.ref));
+    assertBloodrightAvailable(journal, design?.bloodline?.id);
+    const inv = inventory ?? await readBloodrightInventory({ reader, hiddenProbeId: config.hiddenProbeId });
+    const all = { data: structuredClone(inv.skills) }, folders = { data: structuredClone(inv.folders) };
     const map = readIdmap(storage);
     const boundIds = [...new Set(design.nodes.map((n) => config.bindings?.nodes?.[n.id] || map[scopeKey(design.bloodline.id, n.id)]).filter(Boolean))];
     for (const target of boundIds) {
@@ -5354,13 +5374,20 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads: readAssetUploads(storage) });
   }
 
-  async function prepareCollection(ctx, pkg) {
+  async function prepareCollection(ctx, pkg, { onProgress = () => {
+  } } = {}) {
     const c = pkg.bloodrightCollection;
     if (pkg.bloodright || pkg.items || pkg.jutsu || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
+    const probes = [...new Set(c.trees.map((t) => t?.hiddenProbeId))];
+    if (probes.length !== 1) throw new Error("every tree in a collection must name the same hidden probe");
+    ctx.auth?.assert("skillTree.create");
+    onProgress(`reading the live skill inventory (once for all ${c.trees.length} trees)`);
+    const inventory = await readBloodrightInventory({ reader: ctx.reader, hiddenProbeId: probes[0] });
     const trees = [], problems = [], names =  new Map(), bloodlines =  new Set();
     for (const [index, config] of c.trees.entries()) {
       try {
-        const bloodright = await prepareBloodright({ ...ctx, config, imagePack: pkg.imagePack, imgSizes: pkg.imgSizes, requireIcons: true });
+        onProgress(`checking tree ${index + 1}/${c.trees.length}`);
+        const bloodright = await prepareBloodright({ ...ctx, config, imagePack: pkg.imagePack, imgSizes: pkg.imgSizes, requireIcons: true, inventory });
         if (bloodright.problems.length) {
           problems.push(...bloodright.problems.map((p) => `tree ${index + 1}: ${p}`));
           continue;
@@ -5470,7 +5497,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
 
   var REQUIRED_DEPS = ["version", "storage", "journal", "cache", "repoCache", "assetCache", "digest", "runner", "github", "validator"];
   var OPTIONAL_DEPS = ["budget", "reader", "client", "session", "auth", "reconciler", "uploader", "now"];
-  var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
+  var STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "opening", "openError", "running", "runningNote"];
   var SCREENS = ["jobs", "manifests", "run", "captures", "settings"];
   var GO_PATCH_KEYS = ["jobId"];
   var ForgeCore = class {
@@ -5480,7 +5507,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       for (const k of [...REQUIRED_DEPS, ...OPTIONAL_DEPS]) if (d[k] != null) this[k] = d[k];
       this.now = d.now ?? (() => Date.now());
       this.authBusy = false;
-      this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, running: null, runningNote: "" };
+      this.state = { screen: "jobs", jobId: null, picker: null, pickerAt: null, pickerError: null, selected: null, opening: null, openError: null, running: null, runningNote: "" };
       this._listeners =  new Set();
     }
     static get ACTIONS() {
@@ -5523,6 +5550,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     clearSelection() {
       this._selection = {};
       this.state.selected = null;
+      this.state.opening = null;
+      this.state.openError = null;
       this.changed();
     }
     subscribe(fn) {
@@ -5605,12 +5634,20 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       if (this._starting || this.state.running) return this.say("Pause the running import before selecting another manifest", "warn");
       const selection = this._selection = {};
       this.state.selected = null;
+      this.state.opening = { name: entry.name, step: "loading" };
+      this.state.openError = null;
       this.changed();
+      const progress = (step) => {
+        if (selection === this._selection) {
+          this.state.opening = { name: entry.name, step };
+          this.changed();
+        }
+      };
       try {
         let text = entry.text ?? await this.github.text(entry.path);
         const packageData = JSON.parse(text);
         if (packageData.bloodrightCollection) {
-          const result = await prepareCollection(this, packageData);
+          const result = await prepareCollection(this, packageData, { onProgress: progress });
           if (selection !== this._selection) return;
           this.state.selected = { ...result, entry, text: null, collection: result.trees, pack: result.manifest.imagePack, packResult: null };
           this._scopePackProvenance(this.state.selected.pack);
@@ -5649,7 +5686,13 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         this.changed();
         if (this.state.selected.pack) await this.prepareImages();
       } catch (e) {
-        this.fail("select manifest", e instanceof ManifestError ? e : e);
+        const msg = this.fail("select manifest", e);
+        if (selection === this._selection) this.state.openError = { name: entry.name, text: msg };
+      } finally {
+        if (selection === this._selection) {
+          this.state.opening = null;
+          this.changed();
+        }
       }
     }
     async prepareImages(force = false) {
