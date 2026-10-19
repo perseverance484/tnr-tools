@@ -186,13 +186,14 @@ The first script reads the legacy tree metadata from `docs/design/bloodright/tre
 byte-identical copies of `fable/bloodright-planning-20261003` checked against the blob ids in
 `trees/SOURCE.json`.
 
-The second script writes two collections. All values are placeholders: CSV bonuses, 20 Silver
-and 99 rounds.
+The second script writes two collections. Bonuses are the scorer-v1 rebalance
+(RUL-2026-10-18-006; Shiroi Youso keeps its CSV placeholder); 20 Silver and 99 rounds remain
+placeholders.
 
-- `naming_pass_collection_a.json`: 14 trees using only the original ten potency tags. This
+- `naming_pass_collection_a.json`: 15 trees using only the original ten potency tags. This
   works with the current Forge contract.
-- `naming_pass_collection_b.json`: 11 trees (BEE included) using pierce, absorb, poison,
-  drain, consume or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
+- `naming_pass_collection_b.json`: 10 trees using pierce, absorb, poison, drain, consume,
+  heal or vamp. These need the contract re-pinned to TheNinjaRPG `94f9d84` and a
   live game running upstream `133e2c7` or later. Import A first, then B.
 
 Cosmic Ascendant and Shiroi Youso use the element `None` as a placeholder until their
