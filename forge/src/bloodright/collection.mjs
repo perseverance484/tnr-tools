@@ -1,17 +1,25 @@
-import { prepareBloodright } from "./compiler.mjs";
+import { prepareBloodright, readBloodrightInventory } from "./compiler.mjs";
 import { parseManifest, planOrder } from "../runner/manifest.mjs";
 import { collectRefs } from "../runner/refs.mjs";
 import { readIdmap } from "../storage/compat.mjs";
 
 // A collection is a preview/execution envelope, not a multi-bloodline runner manifest.
 // Every child retains its own provenance, lease, preimages, frozen text and recovery.
-export async function prepareCollection(ctx, pkg) {
+// The live inventory is read once for the whole collection and shared by every tree; per-tree reads
+// made opening a 15-tree package take minutes of rate-limited waiting with nothing on screen.
+export async function prepareCollection(ctx, pkg, { onProgress = () => {} } = {}) {
   const c = pkg.bloodrightCollection;
   if (pkg.bloodright || pkg.items || pkg.jutsu || pkg.capture || c?.version !== 1 || !Array.isArray(c.trees) || !c.trees.length || c.trees.length > 100) throw new Error("collection needs version 1 and 1..100 trees, without other manifest operations");
+  const probes = [...new Set(c.trees.map(t => t?.hiddenProbeId))];
+  if (probes.length !== 1) throw new Error("every tree in a collection must name the same hidden probe");
+  ctx.auth?.assert("skillTree.create");
+  onProgress(`reading the live skill inventory (once for all ${c.trees.length} trees)`);
+  const inventory = await readBloodrightInventory({ reader: ctx.reader, hiddenProbeId: probes[0] });
   const trees = [], problems = [], names = new Map(), bloodlines = new Set();
   for (const [index, config] of c.trees.entries()) {
     try {
-      const bloodright = await prepareBloodright({ ...ctx, config, imagePack: pkg.imagePack, imgSizes: pkg.imgSizes, requireIcons: true });
+      onProgress(`checking tree ${index + 1}/${c.trees.length}`);
+      const bloodright = await prepareBloodright({ ...ctx, config, imagePack: pkg.imagePack, imgSizes: pkg.imgSizes, requireIcons: true, inventory });
       if (bloodright.problems.length) { problems.push(...bloodright.problems.map(p => `tree ${index + 1}: ${p}`)); continue; }
       const text = JSON.stringify(bloodright.manifest), manifest = parseManifest(text);
       const bl = manifest.policy.bloodrightImport.bloodlineId;

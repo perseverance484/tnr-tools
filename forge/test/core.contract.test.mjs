@@ -24,7 +24,7 @@ const ACTIONS = [
   "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
   "snapshot", "startJob", "subscribe",
 ];
-const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "running", "runningNote"];
+const STATE_KEYS = ["screen", "jobId", "picker", "pickerAt", "pickerError", "selected", "opening", "openError", "running", "runningNote"];
 
 function core() {
   const storage = new MemoryStorage();

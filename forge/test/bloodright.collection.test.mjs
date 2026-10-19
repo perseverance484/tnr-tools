@@ -256,3 +256,32 @@ test("D2: a collection beside top-level jutsu is refused before Start", async ()
   await d.core.startJob();
   assert.equal(d.journal.listJobs().length, 0); assert.equal(mutations(d).length, 0); assert.equal(d.uploadCount(), 0);
 });
+
+test("Core collection: the live inventory is read once for every tree, progress is shown, and a failed open stays on screen", async () => {
+  const d = setup();
+  const steps = []; d.core.subscribe(() => { if (d.core.state.opening) steps.push(d.core.state.opening.step); });
+  await d.core.selectManifest(d.entry());
+  assert.deepEqual(d.core.state.selected.problems, []);
+  const calls = p => d.game.calls.filter(c => c.path === p).length;
+  // One probe read and one folder read for the whole collection (two trees), not one per tree.
+  assert.equal(calls("skillTree.getAllFolders"), 1);
+  // One complete inventory: two agreeing scans over the SKILL and BLOODRIGHT paths, one page each here.
+  assert.equal(calls("skillTree.getAll"), 4);
+  assert.ok(steps.some(s => /live skill inventory/.test(s)) && steps.some(s => /tree 2\/2/.test(s)), steps.join(" | "));
+  assert.equal(d.core.state.opening, null);
+
+  // Mixed probes are refused before any read.
+  const mixed = structuredClone(d.pkg); mixed.bloodrightCollection.trees[1].hiddenProbeId = "Zz".repeat(10) + "Z";
+  const before = d.game.calls.length;
+  await d.core.selectManifest({ path: "push/mixed.json", name: "mixed", text: JSON.stringify(mixed) });
+  assert.equal(d.game.calls.length, before);
+  assert.match(d.core.state.openError.text, /same hidden probe/);
+  assert.equal(d.core.state.selected, null); assert.equal(d.core.state.opening, null);
+
+  // Lost hidden access: the reason stays on screen until cleared.
+  d.game.hiddenAccess = false;
+  await d.core.selectManifest(d.entry());
+  assert.match(d.core.state.openError.text, /hidden-content access not established/);
+  d.core.clearSelection();
+  assert.equal(d.core.state.openError, null);
+});

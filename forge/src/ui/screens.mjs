@@ -97,6 +97,11 @@ export function ManifestsScreen(app) {
   if (!app.state.picker) app.loadPicker(false);
 
   if (app.state.selected) root.appendChild(SelectedManifest(app));
+  else if (app.state.opening) root.appendChild(h("div", { class: "f-card" }, h("h2", {}, app.state.opening.name),
+    h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}… Start appears when every check has passed. Nothing is written while preparing.`)));
+  else if (app.state.openError) root.appendChild(h("div", { class: "f-card" }, h("h2", {}, app.state.openError.name),
+    h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
+    h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))));
   return root;
 }
 
