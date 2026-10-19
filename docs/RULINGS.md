@@ -1424,7 +1424,8 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
   - Capstones give +5 or +10.
 - **Damage:** clean power steps of 0.2 as before, with Damage × eligible damage rows ≤ 5.
 - **Pierce:** clean power steps like Damage (+0.2 to +1.6), sized to its value, with its own matching budget (Pierce × eligible pierce rows ≤ 5). It is no longer a +2/+3/+5 percentage step.
-- **Power level:** trees are pulled toward today's Bloodright power: an average full build of 5.24 Weight, the roster median under these rules without a strength pull.
+- **Power level:** trees are pulled toward today's Bloodright power: an average full build of 5.24 Weight. That is the median of a six-tree sample (Taiyo Kami, Aerathiel, Arashima, Vaporia, Oblivion Seal, Kyuko-sei) under these rules without a strength pull, not a full-roster median.
+- **Round numbers apply to finished builds only.** Partial allocations (e.g. a lone Foundation, +2) can still show non-round values; making every allocation round is rule set C (every node +5/+10), which the user declined.
 - **Distinct builds:** every finished path and 5-BP build stays distinct. No effect sits on more than two capstones (Damage up to three).
 
 **Result (24 trees):**
@@ -1434,6 +1435,8 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 - Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
 
 **Flagged:**
+- **Kyuko-sei** (+25%): just outside the power band.
+- **Uneven paths:** Blue Blade Eyes (55%), Shinseina Ki (64%), Hyouga Yui (80%), Itojinsei (82%) and Kyuko-sei (84%) have a finished path below 85% of the strongest.
 - **Arashima** (−54%): kit-limited. Its own shield soaks the hits damage reduction would cut, and its main hit is Pierce, so tree bonuses barely register. It is left as balanced as it can be and flagged for a later kit change.
 - **Blue Blade Eyes** (+72%): kit-limited. +5% IDG alone is worth about 10 Weight there.
 - **Shiroi Youso:** unchanged. Its element is still unresolved (RUL-2026-10-18-004).
@@ -1453,6 +1456,8 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 - "Pierce values can be adjusted to reflect appropriate weights."
 - Chose "B: round totals, today's power" over C and over keeping A.
 - Chose "Leave it, flag it" for Arashima.
+
+**Reproduce:** run `python3 scripts/bloodright_balance/search.py <slug> --round5 --target 5.24 --strength-weight 4 --out <dir>` once per tree (single pass, no per-tree selection between strength settings), then `python3 scripts/bloodright_balance/apply.py <dir>` and `python3 scripts/bloodright_from_naming.py`.
 
 **Canonical destination:** the rules in `scripts/bloodright_balance/search.py` (`--round5`), the values in `docs/design/bloodright/balance/scorer_v1/trees.json`, applied into `docs/design/bloodright/structural/`.
 
