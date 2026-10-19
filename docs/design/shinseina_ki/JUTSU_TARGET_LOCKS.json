@@ -1,0 +1,245 @@
+{
+  "schema": "tnr.jutsu-studio.locks/1",
+  "bloodline": {
+    "id": "vA8I_7iBNgvkuKOpnG1yD",
+    "name": "Shinseina Ki",
+    "rank": "A"
+  },
+  "family_treatment": "Sacred Heartwood: amber heartwood and dark bark, jade/emerald chakra, deep charcoal designed opaque ground, crisp TNR pixel art",
+  "family_reservations_director_approved": true,
+  "targets": [
+    {
+      "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+      "name": "Exploding Wood Serpent",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Exploding wooden serpent launched against a single enemy; the articulated wooden strike detonates on contact (October 17 historical capture describes an exploding wooden serpent; Wood damage).",
+      "dominant_silhouette": "Segmented S-shaped wooden strike exploding at its leading section",
+      "camera": "Three-quarter view of a serpent-like articulated wood structure across a square image; one large S bend, not a complete ring.",
+      "motion_axis": "Lower left to upper right, leading wedge of timber moving outward and bursting at upper right.",
+      "secondary_effect": "One focused rupture of amber bark splinters from the leading impact, energized by narrow emerald chakra fissures.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+          "silhouette": "Heavy U-shaped/arched root cavern closing on trapped central void"
+        },
+        {
+          "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+          "silhouette": "Single ancient heartwood cross-section concentrating a chakra pulse inward"
+        },
+        {
+          "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+          "silhouette": "Upright angular armored heartwood war-pillar assembling from rising roots"
+        },
+        {
+          "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+          "silhouette": "V-shaped endless corridor of tree walls advancing inward"
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "f76461fc436bfd5e8631c586cf664a12c69d7cb42b7784bf66c7de98cd300123",
+          "path": "images/8MRWPNK3lOxCLVqWrE-xJ_Exploding_Wood_Serpent.png"
+        },
+        {
+          "kind": "individual",
+          "role": "material-only",
+          "sha256": "814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8",
+          "path": "raws/raw_shinseina_ki_guardians_grove_v1.jpg"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "APPROVED",
+        "evidence": "2026-10-19 director approved all five family silhouette/action reservations (including this target's S-strike, three-quarter camera and lower-left to upper-right axis), then directed 'Approved, next' after Guardian's Grove; this record binds those previously approved elements, not a claim of a separate SHA-specific quote.",
+        "lock_sha256": "9d1a37f2d6c030a69f6ff8c0195f7a833cc51316143efbed15e78d223d60601f"
+      }
+    },
+    {
+      "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+      "name": "Guardian's Grove",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Trap enemy space inside a wood-formed poisonous cavern (October 17 captured description; AOE_CIRCLE_SPAWN).",
+      "dominant_silhouette": "Heavy U-shaped/arched root cavern closing on trapped central void",
+      "camera": "Three-quarter perspective looking slightly into the cavern opening; dark center framed by weighty timber.",
+      "motion_axis": "Heavy root walls from left and right converge inward toward central trapped space.",
+      "secondary_effect": "Dense toxic emerald chakra vapor collecting inside the enclosed chamber.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+          "silhouette": "Segmented S-shaped wooden strike exploding at its leading section"
+        },
+        {
+          "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+          "silhouette": "Single ancient heartwood cross-section concentrating a chakra pulse inward"
+        },
+        {
+          "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+          "silhouette": "Upright angular armored heartwood war-pillar assembling from rising roots"
+        },
+        {
+          "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+          "silhouette": "V-shaped endless corridor of tree walls advancing inward"
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "132f466cf47330ab035cabd97db3a973311b34813ef9f331b0a6c21929ec9bad",
+          "path": "images/6jxreCs3oWJ9sKPB9Sw4b_Guardian_s_Grove.png"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "APPROVED",
+        "evidence": "2026-10-19 director explicitly approved Sacred Heartwood family and Guardian's Grove individual target lock before generation; returned raw subsequently approved in persistent studio",
+        "lock_sha256": "dea61a07c01e50e8cba2955968740db4616d3536f42c5a16476f4392492fd204"
+      }
+    },
+    {
+      "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+      "name": "Forest Wisdom",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Self-directed battle wisdom strengthens the caster's damage potential (October 17 historic jutsu.get); no literal character is required.",
+      "dominant_silhouette": "Single ancient heartwood cross-section concentrating a chakra pulse inward",
+      "camera": "Close slightly elevated perspective of a physical carved heartwood cross-section, not a floating symbol.",
+      "motion_axis": "Radial inward compression of the physical wood rings toward one small chakra center.",
+      "secondary_effect": "Concentrated emerald chakra pulse held within the ring grain.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+          "silhouette": "Segmented S-shaped wooden strike exploding at its leading section"
+        },
+        {
+          "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+          "silhouette": "Heavy U-shaped/arched root cavern closing on trapped central void"
+        },
+        {
+          "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+          "silhouette": "Upright angular armored heartwood war-pillar assembling from rising roots"
+        },
+        {
+          "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+          "silhouette": "V-shaped endless corridor of tree walls advancing inward"
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "565db6d95e497e5e8611f479bc63ca6d93f61ad2eddbf5a6a10a41e82cbf9ded",
+          "path": "images/zZ-QZGRXC-aUiskpZ4Z_3_Forest_Wisdom.png"
+        },
+        {
+          "kind": "individual",
+          "role": "material-only",
+          "sha256": "814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8",
+          "path": "raws/raw_shinseina_ki_guardians_grove_v1.jpg"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    },
+    {
+      "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+      "name": "Wood Style: Wood Warrior Summon",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Summon an ancient sacred wooden guardian onto empty ground (October 17 historical capture, summon effect); no literal actor anatomy approved.",
+      "dominant_silhouette": "Upright angular armored heartwood war-pillar assembling from rising roots",
+      "camera": "Frontal three-quarter view emphasizing angular armor-like timber construction over humanoid identity.",
+      "motion_axis": "Vertical emergence upward from ground; interlocking wooden plates fit together.",
+      "secondary_effect": "Single restrained jade core channel illuminating the joining seams.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+          "silhouette": "Segmented S-shaped wooden strike exploding at its leading section"
+        },
+        {
+          "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+          "silhouette": "Heavy U-shaped/arched root cavern closing on trapped central void"
+        },
+        {
+          "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+          "silhouette": "Single ancient heartwood cross-section concentrating a chakra pulse inward"
+        },
+        {
+          "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+          "silhouette": "V-shaped endless corridor of tree walls advancing inward"
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "cc3db58546880fcd77c009eb1c4b46cc93898544fa3dfb6528da3a95b14d30b4",
+          "path": "images/LnzsA7WDqi06AU0s7yrVP_Wood_Style_Wood_Warrior_Summon.png"
+        },
+        {
+          "kind": "individual",
+          "role": "material-only",
+          "sha256": "814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8",
+          "path": "raws/raw_shinseina_ki_guardians_grove_v1.jpg"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    },
+    {
+      "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+      "name": "Eternal Forest",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "action": "Imprison a foe in an unending forest that inflicts Wood damage (October 17 historical jutsu.get).",
+      "dominant_silhouette": "V-shaped endless corridor of tree walls advancing inward",
+      "camera": "Three-quarter perspective looking deep down a corridor of massive timber walls; repeat tree geometry toward a distant vanishing point.",
+      "motion_axis": "Opposing tree walls advance inward and converge into depth.",
+      "secondary_effect": "One razor-edged wall of roots/wood fracture suggesting attack and entrapment.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+          "silhouette": "Segmented S-shaped wooden strike exploding at its leading section"
+        },
+        {
+          "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+          "silhouette": "Heavy U-shaped/arched root cavern closing on trapped central void"
+        },
+        {
+          "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+          "silhouette": "Single ancient heartwood cross-section concentrating a chakra pulse inward"
+        },
+        {
+          "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+          "silhouette": "Upright angular armored heartwood war-pillar assembling from rising roots"
+        }
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "92e1555eb68748287c1dbefa2b497980a5484237cef6681c7997a35fbe3956ac",
+          "path": "images/D3t1nlaVAw8kLfjDO5Wvy_Eternal_Forest.png"
+        },
+        {
+          "kind": "individual",
+          "role": "material-only",
+          "sha256": "814225c19ea175f0eefd71bc747b1d69cdd5b170b76b5d6b9971b8e68dffeff8",
+          "path": "raws/raw_shinseina_ki_guardians_grove_v1.jpg"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "PENDING"
+      }
+    }
+  ]
+}
