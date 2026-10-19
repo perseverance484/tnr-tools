@@ -168,6 +168,7 @@ export function runHeadline(job, summary) {
     .filter(([, c]) => c).map(([w, c]) => `${c} ${w}`).join(", ");
   const head = !n ? (outcome === "success" ? "Capture finished" : "Capture finished with problems")
     : summary.state === "PAUSED" ? "Paused"
+    : outcome === "success" && job.items.some((i) => i.verify === "suggested") ? `Finished: ${job.items.filter((i) => i.verify === "suggested").length} sent for review; nothing changes until approved`
     : outcome === "success" ? `Finished: ${n === 1 ? "1 item" : `all ${n} items`} written and verified`
     : outcome === "failed" ? `Finished with failures: ${parts}` : `Finished, not fully verified: ${parts || "verification outstanding"}`;
   return { outcome, kind, ms: 8000, sessionPause: false, text: n ? `${head}.` : `${head}: ${detail}` };

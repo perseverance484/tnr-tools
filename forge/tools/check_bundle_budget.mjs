@@ -57,7 +57,9 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // 354000/78000 -> 386000/88000 Bloodright importer increase.
 // Phone QA pass fixes (PR #56, Forge 0.7.2): gzip 91000 -> 95000, accepted by the director
 // 2026-10-19 (RUL-2026-10-19-002). Measured 389,230 raw / 92,996 gzip. Raw is unchanged.
-export const BUDGET = { raw: 400_000, gzip: 95_000 };
+// Suggest mode (PR "Forge 0.8.0", 2026-10-19): raised to 420,000 raw / 100,000 gzip, accepted by
+// the director in advance ("Size limit raise approved", RUL-2026-10-19-005). Measured 407,434 / 97,814.
+export const BUDGET = { raw: 420_000, gzip: 100_000 };
 
 export function measure() {
   const raw = statSync(BUNDLE).size;

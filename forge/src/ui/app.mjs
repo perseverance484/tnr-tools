@@ -237,6 +237,7 @@ export class App {
   forgetBinding(jobId, idx, options) { return this.core.forgetBinding(jobId, idx, options); }
   resolveCaptures(jobId) { return this.core.resolveCaptures(jobId); }
   exportJob(jobId, opts) { return this.core.exportJob(jobId, opts); }
+  checkSuggestions(jobId) { return this.core.checkSuggestions(jobId); }
 
   async _persist() {
     try { if (navigator.storage && navigator.storage.persist) { this.view.persisted = await navigator.storage.persist(); const el = document.getElementById("f-persist"); if (el) el.textContent = String(this.view.persisted); } } catch { /* best effort */ }
