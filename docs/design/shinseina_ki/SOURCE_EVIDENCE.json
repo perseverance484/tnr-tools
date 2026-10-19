@@ -118,6 +118,40 @@
         "review_image_sha256": "a1b1c1d2f8480a1a6df2bb1ef91f0b5ca62cfa445a12270c3fc5d8c961303a93",
         "visual_distinctness": "PASS"
       }
+    },
+    {
+      "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+      "name": "Forest Wisdom",
+      "date": "2026-10-19",
+      "evidence": "Director uploaded completed Forest Wisdom candidate to persistent Shinseina Ki Art Studio and replied 'Approved, next'.",
+      "status": "RAW_VISUAL_APPROVED",
+      "exact_uploaded_file": {
+        "name": "1000018840.png",
+        "true_mime": "image/jpeg",
+        "encoding": "JPEG",
+        "size_bytes": 763252,
+        "width": 1536,
+        "height": 1536,
+        "sha256": "9d2d1077c62ec9f375b82deff148fa9b3efc347c965e50e56d6d1344ef181556",
+        "source_bytes_preserved_without_recompression": true,
+        "git_pin": "NOT_PERFORMED",
+        "generator_native_provenance": "UNVERIFIED"
+      },
+      "comparison": {
+        "tool": "jutsu_studio.py compare",
+        "status": "REVIEW_AID_NOT_GALLERY",
+        "sizes": [
+          125,
+          64,
+          32
+        ],
+        "siblings": [
+          "Guardian's Grove",
+          "Exploding Wood Serpent"
+        ],
+        "image_sha256": "4152ff617e3c32ce2ee8fcbf93e8eed161c1c6a6ff53a20c6497aa91ef8b8417",
+        "visual_distinctness": "PASS: solid illuminated growth-ring disk vs enclosing timber cavern and attacking exploding S-curve"
+      }
     }
   ],
   "family_direction": {
