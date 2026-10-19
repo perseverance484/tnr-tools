@@ -1,6 +1,6 @@
 # Isolated Image Generation — TNR Art Studio Protocol
 
-**Status:** FINAL. Director-approved 2026-10-14 (RUL-2026-10-14-001); tooling contract integrated 2026-10-17 (PR #34). Changes to this protocol need a new director ruling; changes to the JUTSU_ICON tooling go through Lane A review.  
+**Status:** FINAL. Director-approved 2026-10-14 (RUL-2026-10-14-001); jutsu-icon P0 visual-quality and gallery gates approved 2026-10-19 (RUL-2026-10-19-003); tooling contract integrated 2026-10-17 (PR #34). Further substantive protocol changes need a new director ruling; JUTSU_ICON tooling changes go through Lane A review.  
 **Owner:** Art Studio coordination and Image Production under director acceptance.  
 **Routes from:** docs/00_INDEX.md and docs/workflows/ART_PRODUCTION.md.  
 **Scope:** assisted creation of one production art asset at a time, in any collection. Proven on the Blue Blade Eyes (BBE) jutsu-icon collection, completed 2026-10 (register: docs/design/blue_blade_eyes/JUTSU_ICON_REGISTER.md, kept as the worked example).
@@ -29,6 +29,16 @@ Before opening the fresh generation session, the studio establishes and records:
 5. **At most two approved, individual images** selected for style or specific object identity. State explicitly whether each reference is **style-only**, **material-only**, or **subject reference**. Never use a sheet/contact collage, a rejected-generation image, or an unrelated previous jutsu as implicit composition.
 6. The expected small-size display and restrictions: no labels, titles, UI frames, franchise insignia, watermarks or irrelevant character scenes.
 
+### Jutsu-icon TARGET LOCK (P0 A/B)
+
+For each `jutsu.image` generation, the brief must lock these facts **before** rendering:
+
+- **Immutable identity:** exact bloodline ID, jutsu ID and display name; specific source-supported combat technique/action and the source's evidence level (historical captures are not current-live checks).
+- **Composition before effects:** one reserved dominant technique silhouette, what it **does**, its **camera/perspective and motion axis**, focal direction/negative space, and one secondary effect. Set the action/geometry first; palette, chakra material and particles dress this composition, never replace it.
+- **Family exclusions and references:** each other family member's reserved primary silhouette/action, target-specific wrong-subject exclusions, and the role of each actually attached individual reference (identity-only versus style/material-only or true subject). Keep the rendering lock and approved constraints short and concrete.
+
+A static brief/checklist validator may catch missing identity or camera fields, but it cannot prove that a generated image depicts the right technique.
+
 The studio produces a copy-ready brief. Pass the actual selected image bytes with the prompt: a source filename or URL alone does not prove the generator saw the pixels. If the reference's bytes are not available, say so and do not claim a faithful reference-conditioned result.
 
 ## 3. Isolated generation contract
@@ -43,7 +53,16 @@ Open a **new project conversation**. Read the current TNR bootstrap and art auth
 - **Chakra vocabulary**: motion blur, strike trails, binding structures, protective reinforcement, resonance or targeting only when appropriate to that jutsu. No mandatory chakra ring.
 - **Exclusions**: forbid the concrete wrong compositions and actors that would erase the intended distinction.
 
-**Approval loop:** show one candidate; director accepts, rejects or requests a same-subject revision. After two wrong-subject/composition failures, stop and reinitialize in a new isolated conversation. Once accepted, preserve the **original source bytes**, not a screenshot or a regenerated approximation, and return them to the studio with the target name and approval status.
+### Jutsu-icon candidate fail-fast gate (P0 A–E)
+
+Inspect **each actually rendered candidate** against the target lock before seeking director judgment:
+
+1. **Target and action:** use the tool's visible result description only as an early wrong-target hint, then inspect the **pixels**. Reject immediately if the candidate is another jutsu, a generic object/effect instead of the locked technique, or has the wrong camera/geometry. The hidden image-generator prompt is not inspectable; do not infer what it was. If the UI already auto-displayed the bad result, mark it rejected without asking the director to diagnose it.
+2. **Distinctness:** compare its primary geometry **and technique action** against **all** sibling silhouette reservations, including 125/64/32-pixel previews when obtainable, before promoting it as a viable candidate. Reject a reasonable sibling-technique lookalike; matching color or elemental materials alone is **not** grounds for rejection. This is visual/art-direction judgment, not an automatic color-score rule. Final side-by-side review of actual approved family assets still occurs at studio intake.
+3. **Technique-first, anatomy-off by default:** no full actor, face, body, hand, fingers or limb fragments for jutsu icons unless the director approves an exception for **that exact target** and it is genuinely useful to the action. A specifically approved abstract five-digit contact handprint is not general approval to depict anatomical hands. When literal anatomy is expressly authorized, inspect digit count, thumb placement and proportions; discard malformed results and normally return to actor-free presentation.
+4. **Chakra, not invented magic:** physical silhouettes such as triangles are allowed when they are the *working attack/protection structure*, not a disembodied glyph. Reject unsupported ornamental frames, spell circles, runes, polished gold corner artifacts or floating geometric symbols. Example: a frontal charged triangular aperture firing a near-camera particle beam is a technique; a floating ornamental triangle is not.
+
+**Approval loop:** show one viable candidate; director accepts, rejects or requests a same-subject revision. After **two** wrong-subject/composition failures, stop and open a **new clean isolated conversation** with exactly the original jutsu image (identity only) and, if available, one truly approved individual family raw (style/material only). Do not reuse rejected images or pile up longer negative prompts. Once accepted, preserve the **original source bytes**, not a screenshot or a regenerated approximation, and return them to the studio with the target name and approval status.
 
 The generator does not mark an image upload-ready, does not run game writes, and does not quietly alter the jutsu's mechanics.
 
@@ -53,6 +72,7 @@ The generator does not mark an image upload-ready, does not run game writes, and
 Repository: perseverance484/tnr-tools
 Workstream: <bloodline / collection>
 Target: <single jutsu or asset>
+Jutsu target lock (if jutsu.image): bloodline ID <exact>, jutsu ID <exact>, display name <exact>
 Lead: Image Production; supporting lens Art Director
 Session: ISOLATED GENERATION — one asset only
 State: exploratory until director approves
@@ -62,12 +82,13 @@ Credentials: none
 Initialize from live repository; verify main and read TNR art authorities.
 Read the cited collection register for this one target.
 Goal/action: <what the technique does>
-Dominant silhouette: <one unmistakable shape>
+Dominant silhouette: <one unmistakable shape and its technique action>
+Camera/perspective and motion axis: <orientation, focal direction, near/far>
 Secondary effect: <one supporting action cue>
 Rendering lock: <exact palette/material/texture guidance from the register>
 References attached: <one or two individually, each labeled style-only/material-only/subject>
 Composition: <orientation, negative space, focal hierarchy>
-Distinctiveness exclusions: <already-used silhouettes + wrong-subject forms>
+Distinctiveness exclusions: <all reserved sibling primary silhouettes/actions + wrong-subject forms>
 Other negatives: no unrelated actors, no text, no UI, no franchise imagery.
 
 Generate exactly ONE square icon candidate for review.
@@ -87,6 +108,18 @@ On receiving the approved candidate:
 5. Update the collection register: approval and raw acceptance are distinct from production QC, @img binding, and live publishing.
 
 Do not promote 'visually approved' or 'file < byte cap' to 'upload-ready'. Record each check separately.
+
+## 4a. Jutsu-icon family gallery — deterministic-only (P0 F)
+
+An `icon sheet`, `family showcase` or `closeout collage` is a **non-generative** QC/presentation work mode, not another image-generation job:
+
+1. Require the full current **N/N director-approved raws** and the accessible exact corresponding **processed WebP bytes**. Preserve their hashes. If an input is missing, label any partial sheet **DRAFT**; it is not final acceptance evidence.
+2. Compose only those files through a deterministic, count-adaptive, balanced equal-tile layout (for N=5, **3+2 centered**). Scale presentation copies uniformly using a recorded filter; do not invent, repaint, recolor, retouch, crop or regenerate artwork. The game-ready exported WebPs themselves remain unmodified.
+3. Include exact display names and **actual export bytes/1000 (decimal kB)**, not guessed sizes; record gallery and member SHA-256s, tile layout/positions and resampling parameters. Verify that each displayed tile is pixel-equal to the corresponding recorded resampling of the **actual exported** pixels, and inspect 125/64/32 thumbnail QC for the whole family.
+4. A gallery made using a generative image tool is **INVALID** even if visually attractive, because it cannot prove preservation of approved icon pixels. Rebuild it by exact-source compositing; never treat a generated imitation as the family sheet.
+5. **Final gallery director acceptance is separate** from N/N raw visual approvals, local export QC and canonical `artpreflight.py --type JUTSU_ICON` acceptance. New/changed source bytes invalidate the prior gallery and require rebuilt evidence and fresh gallery signoff. A closed art studio may truthfully record gallery acceptance **PENDING**.
+
+No gallery step authorizes a game upload or publication. Gallery layout/compositor tooling is Fable-owned Lane A implementation; this protocol sets the visual acceptance rule.
 
 ## 5. Jutsu icon background and processing policy (director decision)
 
