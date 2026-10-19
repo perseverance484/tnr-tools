@@ -1,0 +1,112 @@
+{
+ "slug": "taiyo_kami",
+ "eligible": {
+  "damage": 3,
+  "afterburn": 1,
+  "increasedamagegiven": 2,
+  "decreasedamagetaken": 1,
+  "decreasedamagegiven": 1,
+  "shield": 1,
+  "increasedamagetaken": 1
+ },
+ "damage_ceiling": 1.6,
+ "score": 4.321091949478948,
+ "paths": [
+  {
+   "root": "increasedamagegiven",
+   "f": 2.0,
+   "htag": "increasedamagegiven",
+   "h": 3.0,
+   "cap": {
+    "decreasedamagegiven": 5.0,
+    "damage": 0.8
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "htag": "increasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "increasedamagegiven": 10.0
+   }
+  },
+  {
+   "root": "decreasedamagetaken",
+   "f": 2.0,
+   "htag": "decreasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "decreasedamagetaken": 5.0,
+    "damage": 0.4
+   }
+  },
+  {
+   "root": "decreasedamagegiven",
+   "f": 2.0,
+   "htag": "decreasedamagegiven",
+   "h": 3.0,
+   "cap": {
+    "increasedamagetaken": 5.0,
+    "damage": 0.6
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.7623,
+  "secondary_panel": 0.7742,
+  "three_spread": 0.9517,
+  "mean5": 4.7687,
+  "three": {
+   "p1": 3.373,
+   "p2": 3.504,
+   "p3": 3.484,
+   "p4": 3.335
+  },
+  "five": {
+   "p1+p2": 4.65,
+   "p1+p3": 4.822,
+   "p1+p4": 4.942,
+   "p2+p1": 4.701,
+   "p2+p3": 5.074,
+   "p2+p4": 5.074,
+   "p3+p1": 4.587,
+   "p3+p2": 4.727,
+   "p3+p4": 4.812,
+   "p4+p1": 4.467,
+   "p4+p2": 4.584,
+   "p4+p3": 4.784
+  },
+  "changes": 7
+ },
+ "current_score": 2.9277560126720266,
+ "current_ok": true,
+ "current_info": {
+  "secondary_normal": 0.4498,
+  "secondary_panel": 0.4657,
+  "three_spread": 0.7151,
+  "mean5": 4.5084,
+  "three": {
+   "p1": 2.948,
+   "p2": 3.259,
+   "p3": 3.158,
+   "p4": 4.122
+  },
+  "five": {
+   "p1+p2": 3.965,
+   "p1+p3": 4.397,
+   "p1+p4": 4.518,
+   "p2+p1": 3.965,
+   "p2+p3": 4.828,
+   "p2+p4": 4.708,
+   "p3+p1": 3.868,
+   "p3+p2": 3.863,
+   "p3+p4": 4.607,
+   "p4+p1": 4.828,
+   "p4+p2": 5.105,
+   "p4+p3": 5.45
+  },
+  "changes": 0
+ },
+ "anchor": 5.24
+}

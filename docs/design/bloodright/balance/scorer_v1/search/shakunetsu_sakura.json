@@ -1,0 +1,111 @@
+{
+ "slug": "shakunetsu_sakura",
+ "eligible": {
+  "heal": 1,
+  "pierce": 1,
+  "damage": 2,
+  "increasedamagetaken": 2,
+  "shield": 1,
+  "decreasedamagegiven": 1,
+  "increasedamagegiven": 1
+ },
+ "damage_ceiling": 2.4000000000000004,
+ "score": 3.943984500097915,
+ "paths": [
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "htag": "increasedamagetaken",
+   "h": 3.0,
+   "cap": {
+    "heal": 5.0
+   }
+  },
+  {
+   "root": "decreasedamagegiven",
+   "f": 4.0,
+   "htag": "decreasedamagegiven",
+   "h": 6.0,
+   "cap": {
+    "damage": 0.4,
+    "pierce": 1.6
+   }
+  },
+  {
+   "root": "heal",
+   "f": 2.0,
+   "htag": "heal",
+   "h": 3.0,
+   "cap": {
+    "increasedamagegiven": 5.0,
+    "pierce": 0.4
+   }
+  },
+  {
+   "root": "increasedamagegiven",
+   "f": 4.0,
+   "htag": "increasedamagegiven",
+   "h": 6.0,
+   "cap": {
+    "increasedamagegiven": 5.0
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.6751,
+  "secondary_panel": 0.7245,
+  "three_spread": 0.9205,
+  "mean5": 5.7373,
+  "three": {
+   "p1": 3.635,
+   "p2": 3.392,
+   "p3": 3.355,
+   "p4": 3.645
+  },
+  "five": {
+   "p1+p2": 6.096,
+   "p1+p3": 5.615,
+   "p1+p4": 6.454,
+   "p2+p1": 5.047,
+   "p2+p3": 5.372,
+   "p2+p4": 5.844,
+   "p3+p1": 5.074,
+   "p3+p2": 5.816,
+   "p3+p4": 5.785,
+   "p4+p1": 6.014,
+   "p4+p2": 6.105,
+   "p4+p3": 5.625
+  },
+  "changes": 9
+ },
+ "current_score": 3.582089999999986,
+ "current_ok": false,
+ "current_info": {
+  "secondary_normal": 0.6075,
+  "secondary_panel": 0.6469,
+  "three_spread": 0.6858,
+  "mean5": 5.0032,
+  "three": {
+   "p1": 2.743,
+   "p2": 4.0,
+   "p3": 3.355,
+   "p4": 3.342
+  },
+  "five": {
+   "p1+p2": 4.743,
+   "p1+p3": 4.723,
+   "p1+p4": 4.153,
+   "p2+p1": 5.215,
+   "p2+p3": 5.98,
+   "p2+p4": 5.312,
+   "p3+p1": 4.57,
+   "p3+p2": 5.355,
+   "p3+p4": 4.716,
+   "p4+p1": 4.606,
+   "p4+p2": 5.342,
+   "p4+p3": 5.323
+  },
+  "changes": 0
+ },
+ "anchor": 5.24
+}

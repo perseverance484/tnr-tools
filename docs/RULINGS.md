@@ -1366,3 +1366,99 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Evidence:** the user chose "Restore old behaviour" from: keep them active; restore old behaviour; activate all of them.
 
 **Canonical destination:** the live AI records, via push/120–121. The read-back comparison is `scripts/bloodright_classification_readback.py`.
+
+---
+
+## RUL-2026-10-18-006 — Rebalance the Bloodright trees with Claude's scorer, strict round totals
+
+**Date:** 2026-10-18 (applied 2026-10-19)
+
+**Domain:** Bloodright / tree balance
+
+**Status:** SUPERSEDED by RUL-2026-10-19-001 (its values were replaced; its scorer and reasons stand)
+
+**Supersedes:** the placeholder values of RUL-2026-10-18-002 for 24 trees. RUL-2026-10-18-001's structure and value rules stand unchanged.
+
+**Ruling:** The Bloodright trees are rebalanced with Claude's scorer (`scripts/bloodright_balance/`) under the strict RUL-2026-10-18-001 rules: +2 / +3 / +5 percentage steps, clean Damage amounts, round finished totals and four distinct path roots. In addition:
+
+- every completed path and every 5-BP build has its own bonus package;
+- no effect sits on more than two capstones (Damage on up to three, as in Taiyo);
+- each tree's average full build is pulled toward the Taiyo exemplar's strength.
+
+- **Scorer fidelity:** an independent review found three mechanics that differed from 94f9d84 (damage modifiers multiply in turn with the system boost, system reduction and 10% floor; pierce skips the modifier pipeline; poison reads level-reduced costs). They were fixed and the search rerun before these values were written.
+- **Pierce and Heal:** both bonuses are flat power. +5 Pierce adds 5 power to each pierce hit, which is Damage-like but outside the Damage budget. The trees step them +2 / +3 / +5 like the percentage effects, as Codex's trees did. This is open for a user ruling.
+- **Why Claude's scorer:** Codex's scoring scripts were never pushed. Claude's scorer, rebuilt from the pinned game source, agrees with Codex on overall tree strength but not on path evenness; it rated Taiyo's paths uneven. The user chose it over waiting for Codex's tools, accepting that Taiyo and the other three passing trees change.
+- **Result:** in 21 of 24 trees every finished path is within 15% of the strongest, and 17 of 24 trees sit within ±25% of the pre-rebalance Taiyo exemplar's strength (its average full build, 4.23 Weight; the search's anchor). Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
+- **Known limits:**
+  - the add-on choice (another path's Foundation and Hidden Art) stays uneven on most trees, because the four root effects are not worth the same in each kit;
+  - the kits set seven trees' strength outside ±25% of that anchor: Blue Blade Eyes (+170%), Shinseina Ki (+51%), Tenohira Musei (+41%), Bakuhatsu (+31%) and Blood-Enchanted Eyes (+27%) are stronger; Cosmic Ascendant (−43%) and Heavenly Sonata (−35%) are weaker;
+  - Bakuhatsu, Hyouga Yui and Shinrai Ou keep one weak path.
+  The +5/+5 root variant, which helps the add-on choice on 8 trees, was offered and declined.
+- **Shiroi Youso:** unchanged. With the `None` placeholder only three effects reach its kit, too few for four distinct paths. It needs its element decided first (RUL-2026-10-18-004).
+- **Names:** 112 nodes changed effects and keep their naming-pass names for now. They are listed for a naming review.
+
+**Evidence:**
+- "Use my scorer" (chosen over getting Codex's tools, or a rules-only pass).
+- "Strict, tighten strength" (chosen over allowing +5/+5 starters, or showing both first).
+
+**Canonical destination:** `docs/design/bloodright/balance/scorer_v1/trees.json`, applied by `scripts/bloodright_from_naming.py` into `docs/design/bloodright/structural/`. The scorer and search live in `scripts/bloodright_balance/`.
+
+**Boundary:** no live-game action. The import packages stay blocked on icons, and import remains the user's step.
+
+---
+
+## RUL-2026-10-19-001 — Bloodright balance rules: round finished totals at today's power level
+
+**Date:** 2026-10-19
+
+**Domain:** Bloodright / tree design and balance
+
+**Status:** ACTIVE (the user approved the rebalanced trees and drafted names by merging PR #53: "merge it", 2026-10-19)
+
+**Supersedes:** RUL-2026-10-18-006's values. It amends RUL-2026-10-18-001's value rules as below; that ruling's structure (four paths, 1 BP per node, 3+2 builds, distinctive capstones) stands.
+
+**Ruling:** Bloodright trees are balanced with Claude's scorer under these value rules:
+
+- **Percentage effects:** every finished build totals a multiple of 5 for each effect, at most 20. That keeps capped jutsu values round, since kit rows read 30/35/40 at max jutsu level 25.
+  - A path's Foundation and Hidden Art carry the same effect and step +2/+3, +4/+6 or +6/+9, so each path opens with +5, +10 or +15.
+  - Capstones give +5 or +10.
+- **Damage:** clean power steps of 0.2 as before, with Damage × eligible damage rows ≤ 5.
+- **Pierce:** clean power steps like Damage (+0.2 to +1.6), sized to its value, with its own matching budget (Pierce × eligible pierce rows ≤ 5). It is no longer a +2/+3/+5 percentage step.
+- **Power level:** trees are pulled toward today's Bloodright power: an average full build of 5.24 Weight. That is the median of a six-tree sample (Taiyo Kami, Aerathiel, Arashima, Vaporia, Oblivion Seal, Kyuko-sei) under these rules without a strength pull, not a full-roster median.
+- **Round numbers apply to finished builds only.** Partial allocations (e.g. a lone Foundation, +2) can still show non-round values; making every allocation round is rule set C (every node +5/+10), which the user declined.
+- **Distinct builds:** every finished path and 5-BP build stays distinct. No effect sits on more than two capstones (Damage up to three).
+
+**Result (24 trees):**
+- 21 are within ±15% of the power target.
+- In 19, every finished path is within 15% of the strongest.
+- The add-on choice improves on most trees but reaches 80% only on Vaporia, Teno Yuki and Oblivion Seal. Equalising it further needs every node at +5/+10 (rule set C), which doubles Bloodright power; the user declined that.
+- Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
+
+**Flagged:**
+- **Kyuko-sei** (+25%): just outside the power band.
+- **Uneven paths:** Blue Blade Eyes (55%), Shinseina Ki (64%), Hyouga Yui (80%), Itojinsei (82%) and Kyuko-sei (84%) have a finished path below 85% of the strongest.
+- **Arashima** (−54%): kit-limited. Its own shield soaks the hits damage reduction would cut, and its main hit is Pierce, so tree bonuses barely register. It is left as balanced as it can be and flagged for a later kit change.
+- **Blue Blade Eyes** (+72%): kit-limited. +5% IDG alone is worth about 10 Weight there.
+- **Shiroi Youso:** unchanged. Its element is still unresolved (RUL-2026-10-18-004).
+
+**Names:** 124 nodes changed effects. Claude drafted their names at the user's request (116 new, 8 kept because they still fit), in `docs/design/bloodright/balance/scorer_v1/names.json`, each with a one-line rationale. They are unique across the roster and the kit jutsu names. Approved with the merge.
+
+**Analysis:** the user asked for a full analysis of how to balance within the round-number constraint. Three rule sets were compared on the same scorer (jutsu level 25), first on six sample trees:
+- A, strict +2/+3/+5;
+- B, round finished totals;
+- C, every node +5/+10.
+
+C balanced add-ons best (about 80–90%) at about 2× today's power. B kept today's power with partial add-on balance.
+
+**Evidence:**
+- "The important part is not using weird decimals to balance weights."
+- "I want all the trees to be a similar power level as well as their second path choices to be balanced."
+- "Pierce values can be adjusted to reflect appropriate weights."
+- Chose "B: round totals, today's power" over C and over keeping A.
+- Chose "Leave it, flag it" for Arashima.
+
+**Reproduce:** run `python3 scripts/bloodright_balance/search.py <slug> --round5 --target 5.24 --strength-weight 4 --out <dir>` once per tree (single pass, no per-tree selection between strength settings), then `python3 scripts/bloodright_balance/apply.py <dir>` and `python3 scripts/bloodright_from_naming.py`.
+
+**Canonical destination:** the rules in `scripts/bloodright_balance/search.py` (`--round5`), the values in `docs/design/bloodright/balance/scorer_v1/trees.json`, applied into `docs/design/bloodright/structural/`.
+
+**Boundary:** no live-game action. The import packages stay blocked on icons.

@@ -41,7 +41,7 @@ def git(*args, binary=False):
 # The exact commit the packages pin. Update it (and rerun) whenever the designs change.
 # Explicit rather than derived from history, so squash/rebase merges and shallow clones
 # cannot silently move it; design_ref() proves the working tree still matches it.
-DESIGN_REF = "9d18175a95c2d8ed98664b15d31ab20e87725f6e"
+DESIGN_REF = "be3053ddc9c041040fa4294d93c93d3479bfa83f"
 
 
 def design_ref():
@@ -104,7 +104,7 @@ def build(icons_ref):
     for group, trees in packages.items():
         blocked = [m for m in missing if any(m.startswith(f"art/bloodright/{Path(t['source']['path']).stem}/") for t in trees)]
         note = ("BLOCKED TEMPLATE: icons missing (" + ", ".join(blocked) + "). Do not stage in push/ yet."
-                if blocked else f"Naming-pass collection {group.upper()}: {len(trees)} trees, placeholder values.")
+                if blocked else f"Naming-pass collection {group.upper()}: {len(trees)} trees, scorer-v1 rebalance values (RUL-2026-10-19-001); Shiroi Youso keeps its placeholder.")
         out[group] = {
             "_note": note,
             "_skipped": skipped,
