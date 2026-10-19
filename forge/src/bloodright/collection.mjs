@@ -40,5 +40,5 @@ export async function prepareCollection(ctx, pkg, { onProgress = () => {} } = {}
   }
   return { trees, problems, plan: trees.flatMap(t => t.plan), images: [...new Set(trees.flatMap(t => t.images))],
     manifest: { capture: { before: [], after: [] }, imgSizes: pkg.imgSizes ?? {}, warnings: [], imagePack: trees[0]?.pack ?? null },
-    bloodright: { preview: trees.flatMap(t => t.bloodright.preview), trees: trees.map(t => ({ bloodlineId: t.manifest.policy.bloodrightImport.bloodlineId, allocations: t.bloodright.allocations, maxAdvanced: t.bloodright.maxAdvanced })) } };
+    bloodright: { preview: trees.flatMap(t => t.bloodright.preview), trees: trees.map(t => ({ bloodlineId: t.manifest.policy.bloodrightImport.bloodlineId, name: t.bloodright.bloodlineName, allocations: t.bloodright.allocations, maxAdvanced: t.bloodright.maxAdvanced })) } };
 }

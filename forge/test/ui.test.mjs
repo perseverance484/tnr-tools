@@ -297,7 +297,7 @@ test("Manifests: list, select, plan shown, Start job runs to DONE through the ru
   const row = win.document.querySelector(".f-main .f-row.f-tap");
   assert.ok(row); assert.match(row.textContent, /#45/);
   await app.selectManifest(app.state.picker[0]);
-  assert.match(win.document.querySelector(".f-main").textContent, /1 items/);
+  assert.match(win.document.querySelector(".f-main").textContent, /1 item\b/);
   const start = [...win.document.querySelectorAll("button")].find((b) => b.textContent === "Start job");
   assert.ok(start && !start.disabled);
   await app.startJob();
@@ -327,7 +327,7 @@ test("a finished-but-unverified job is never shown or exported as success", asyn
   assert.equal(job.state, "INCOMPLETE", "a drifted read-back is not DONE");
   assert.equal(job.items[0].verify, "drift");
   const main = win.document.querySelector(".f-main");
-  assert.match(main.textContent, /Finished UNVERIFIED/);
+  assert.match(main.textContent, /Finished, not fully verified/);
   assert.match(main.textContent, /not proven/);
   assert.ok([...win.document.querySelectorAll("button")].some((b) => b.textContent === "Re-read unverified items"), "still resumable");
   assert.ok(!/^Verified\./m.test(main.textContent));
@@ -413,4 +413,59 @@ test("a screen that throws is shown as an error banner, never a blank page", () 
   app.journal.listJobs = () => { throw new Error("boom"); };
   app.go("jobs");
   assert.match(win.document.querySelector(".f-main").textContent, /failed to render.*boom/s);
+});
+
+test("QA: an exported bundle shows its text, survives redraws and offers Download until cleared", async () => {
+  const win = dom();
+  assert.equal(h("textarea", { value: "bundle text" }).value, "bundle text", "a textarea's value is its property");
+  const { app } = appWith();
+  app.mount(win.document.body, win.document);
+  app.showExport('{"ok":true}', "tnr_results_1.json");
+  app.refresh(); app.go("settings"); app.refresh();
+  const ta = win.document.querySelector(".f-main textarea");
+  assert.ok(ta, "the export card is still on screen after redraws and a screen change");
+  assert.equal(ta.value, '{"ok":true}');
+  const card = win.document.querySelector(".f-main .f-exports");
+  assert.match(card.textContent, /Results to save \(1\)/);
+  assert.ok([...card.querySelectorAll("button")].some((b) => b.textContent === "Download"));
+  // A collection's many results share ONE compact card, not one full card each.
+  for (let i = 2; i <= 15; i++) app.showExport(`{"tree":${i}}`, `tnr_results_${i}.json`);
+  assert.equal(win.document.querySelectorAll(".f-main .f-exports").length, 1);
+  assert.match(win.document.querySelector(".f-exports").textContent, /Results to save \(15\)/);
+  [...win.document.querySelectorAll(".f-exports button")].find((b) => b.textContent === "Clear").click();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(win.document.querySelector(".f-main textarea"), null);
+});
+
+test("QA: manifest summaries update rows in place, so a row is never replaced under a tap", async () => {
+  const win = dom();
+  const { app } = appWith();
+  let release; const gate = new Promise((r) => { release = r; });
+  const text = app.github.text; app.core.github.text = async (...a) => { await gate; return text(...a); };
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  const loading = app.loadPicker(true);
+  await new Promise((r) => setTimeout(r, 0));
+  const row = win.document.querySelector(".f-main .f-row.f-tap");
+  assert.ok(row); assert.match(row.textContent, /loading/);
+  release(); await loading;
+  assert.equal(win.document.querySelector(".f-main .f-row.f-tap"), row, "same row element after its summary arrived");
+  assert.match(row.textContent, /A · 1 item \(1 new\)/);
+});
+
+test("QA: a write manifest whose plan fails is never offered as a read-only capture job", async () => {
+  const win = dom();
+  const { app } = appWith();
+  // Item B depends on an unknown ref, so planning throws; the manifest still writes two items.
+  app.core.github.text = async () => JSON.stringify({ items: [
+    { entity: "jutsu", slot: "create", name: "A", srcId: "a", data: { name: "A", hidden: true } },
+    { entity: "jutsu", slot: "create", name: "B", srcId: "b", data: { name: "B", hidden: true, description: "@jutsu:missing" } }] });
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  const main = win.document.querySelector(".f-main").textContent;
+  assert.ok(app.state.selected.problems.length, "planning failed");
+  assert.doesNotMatch(main, /Read-only capture job|zero mutations|Run captures/);
+  assert.match(main, /2 items/);
 });

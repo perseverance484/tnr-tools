@@ -1462,3 +1462,23 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** the rules in `scripts/bloodright_balance/search.py` (`--round5`), the values in `docs/design/bloodright/balance/scorer_v1/trees.json`, applied into `docs/design/bloodright/structural/`.
 
 **Boundary:** no live-game action. The import packages stay blocked on icons.
+
+---
+
+## RUL-2026-10-19-002 — Accept the Forge 0.7.2 bundle budget
+
+**Date:** 2026-10-19
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-17-001 (gzip ceiling only; raw ceiling unchanged)
+
+**Ruling:** Accept the Forge bundle ceiling of **400,000 raw / 95,000 gzip bytes** for the phone QA pass fixes (PR #56, Forge 0.7.2).
+
+**Evidence:** "approve the budget" (after PR #56 measured 389,230 raw / 92,996 gzip against the 91,000 gzip ceiling; main measured 89,976 gzip).
+
+**Rationale:** The user explicitly accepted the increase. This settles the bundle ceiling only.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

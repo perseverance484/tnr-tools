@@ -3,9 +3,9 @@
     <div>
       <b>
         #text "Open job: "
-      #text "push/45_fixture.json"
-      <span class="f-pill RUNNING">
-        #text "RUNNING"
+      #text "45_fixture.json"
+      <span class="f-pill PAUSED">
+        #text "INTERRUPTED"
     <div class="f-actions">
       <button class="f-primary">
         #text "Resume"
@@ -16,8 +16,8 @@
   <div class="f-row f-tap">
     <div class="f-grow">
       <div>
-        #text "push/45_fixture.json"
-        <span class="f-pill RUNNING">
-          #text "RUNNING"
+        #text "45_fixture.json"
+        <span class="f-pill PAUSED">
+          #text "INTERRUPTED"
       <div class="f-mute">
         #text "2 items · 2 planned · 0s ago"
