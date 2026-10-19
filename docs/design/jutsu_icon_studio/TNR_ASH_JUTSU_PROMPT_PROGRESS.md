@@ -6,7 +6,7 @@
 **Startup counts:** 4 director-reported art-complete; 25 still to tackle (17 A / 4 S / 4 H); 1 of the 25 is a FULL RESTART (Houkyuken); 0 opening prompts authored by this new desk.
 **Git-owned ledger:** `chatgpt/ash-jutsu-prompt-desk-20261019` at `docs/design/jutsu_icon_studio/TNR_ASH_JUTSU_PROMPT_PROGRESS.md` (ChatGPT sole writer; main unaffected unless separately merged).
 **Bootstrap verification (2026-10-19):** `main@4e674234d0539b7010c34025034330980a38b196`; pinned census 29/29 members, 19 A / 6 S / 4 H; 29/29 tree metadata bloodline IDs, BR numbers and ranks individually matched. Name-label differences are known aliases only: Houkyuken/Hokyuken, BEE and BBE abbreviations.
-**Desk state:** Director has not selected the next target. No opener drafted or Studio launched in this campaign. Repository-only reads, zero artwork generation/QC and zero live-game requests/writes; no credentials.
+**Desk state (2026-10-19):** Director selected **Shinseina Ki** as the first target. Its opening prompt is `PROMPT_READY` (Git-pinned); **studio NOT launched**, original ZIP NOT received by this desk, art `NOT_STARTED`. Prompts: 1 READY, 24 TO_DRAFT, 4 NOT_REQUIRED, 0 LAUNCHED. Art remains 4 DONE_DIRECTOR_REPORTED / 24 NOT_STARTED / 1 ABANDONED_RESET. Art totals remain 29 / 4 / 25. Repository-only reads and prompt/ledger commits; zero artwork generation/QC and zero live-game requests/writes; no credentials.
 
 ## Status meaning and edits
 
@@ -32,7 +32,7 @@
 | A | [Shadow Weaver](../bloodright/trees/shadow_weaver.json) | BR-063 | `d0WYPbbsVx7Y_i0fddwxc` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shakunetsu Sakura](../bloodright/trees/shakunetsu_sakura.json) | BR-064 | `aa1lZukkHpz6ihmcxLaei` | TO_DRAFT | NOT_STARTED | — |
 | A | [Shinrai Ou](../bloodright/trees/shinrai_ou.json) | BR-065 | `xO4Dycx7FFEqxwvAEXBxY` | TO_DRAFT | NOT_STARTED | — |
-| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | TO_DRAFT | NOT_STARTED | — |
+| A | [Shinseina Ki](../bloodright/trees/shinseina_ki.json) | BR-066 | `vA8I_7iBNgvkuKOpnG1yD` | PROMPT_READY | NOT_STARTED | Selected 2026-10-19; opener [`prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md`](prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md) @ `c4f424f769b2b6eecd2ebc31b3bcb8f3725f78f0`; not launched. |
 | A | [Suragu](../bloodright/trees/suragu.json) | BR-074 | `Ksb6ogNqc5mp4l_hRgPuW` | TO_DRAFT | NOT_STARTED | — |
 | A | [Taiyo Kami](../bloodright/trees/taiyo_kami.json) | BR-075 | `6C2t3jK35hvPoVocLiHEl` | TO_DRAFT | NOT_STARTED | — |
 | A | [Teno Yuki](../bloodright/trees/teno_yuki.json) | BR-077 | `clh4d6qjs000gtb0hr357gjvv` | TO_DRAFT | NOT_STARTED | — |
@@ -48,6 +48,14 @@
 | H | [Night Parade of A Thousand Demons](../bloodright/trees/night_parade_of_a_thousand_demons.json) | BR-051 | `r_99Xg8SIOYw2awCMSR7e` | TO_DRAFT | NOT_STARTED | — |
 | H | [Sands of Time](../bloodright/trees/sands_of_time.json) | BR-059 | `yzbSbZ5rqRVIjiwN-farx` | TO_DRAFT | NOT_STARTED | — |
 | H | [Tetsugan](../bloodright/trees/tetsugan.json) | BR-083 | `T-MyR4yQ1_aVbaJDLoI07` | TO_DRAFT | NOT_STARTED | — |
+
+## Prepared openings (verified milestones)
+
+| Date | Bloodline | Prompt | Art Studio | Evidence |
+| --- | --- | --- | --- | --- |
+| 2026-10-19 | Shinseina Ki (A, BR-066, `vA8I_7iBNgvkuKOpnG1yD`) | **PROMPT_READY** | **NOT_STARTED** | Opening document `prompts/SHINSEINA_KI_STUDIO_OPENER_20261019.md` at `c4f424f769b2b6eecd2ebc31b3bcb8f3725f78f0`. Identity/rank `docs/design/bloodright/trees/shinseina_ki.json` at `main@4e674234d0539b7010c34025034330980a38b196`. Historical kit comparator `docs/design/bloodright/kits/shinseina_ki.json@7c1dfdd5e3ee163b90c22694dbb2de94ede08866` (2026-10-01 public snapshot; not a current-live claim). |
+
+No studio branch/thread, intake, target lock, raw approval, gallery acceptance, or upload evidence has been returned to this desk yet.
 
 ## Milestone snapshot
 
