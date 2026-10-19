@@ -4780,7 +4780,22 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     } });
     const list = h("div", {});
     const status = h("div", { class: "f-mute" });
-    root.append(h("div", { class: "f-actions" }, q, h("button", { onClick: () => app.loadPicker(true) }, "Refresh")), status, list);
+    root.append(h("div", { class: "f-actions" }, q, h("button", { onClick: () => app.loadPicker(true) }, "Refresh")));
+    if (app.state.selected) root.appendChild(SelectedManifest(app));
+    else if (app.state.opening) root.appendChild(h(
+      "div",
+      { class: "f-card" },
+      h("h2", {}, app.state.opening.name),
+      h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}\u2026 Start appears when every check has passed. Nothing is written while preparing.`)
+    ));
+    else if (app.state.openError) root.appendChild(h(
+      "div",
+      { class: "f-card" },
+      h("h2", {}, app.state.openError.name),
+      h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
+      h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))
+    ));
+    root.append(status, list);
     function renderList() {
       const entries = app.state.picker || [];
       const needle = (app.view.pickerQuery || "").toLowerCase();
@@ -4801,20 +4816,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     renderList();
     app.view.renderPicker = renderList;
     if (!app.state.picker) app.loadPicker(false);
-    if (app.state.selected) root.appendChild(SelectedManifest(app));
-    else if (app.state.opening) root.appendChild(h(
-      "div",
-      { class: "f-card" },
-      h("h2", {}, app.state.opening.name),
-      h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}\u2026 Start appears when every check has passed. Nothing is written while preparing.`)
-    ));
-    else if (app.state.openError) root.appendChild(h(
-      "div",
-      { class: "f-card" },
-      h("h2", {}, app.state.openError.name),
-      h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
-      h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))
-    ));
     return root;
   }
   function captureLabel(captures) {
@@ -4826,6 +4827,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     if (full === n) return `${n} full ${noun}`;
     return `${n} ${noun} (${full} full)`;
   }
+  var FOLD_AT = 12;
   function SelectedManifest(app) {
     const s = app.state.selected;
     const captures = [...s.manifest.capture.before, ...s.manifest.capture.after];
@@ -4849,33 +4851,56 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       h("b", {}, "Blocked: TNR authentication is unavailable. "),
       `This manifest needs ${blocked.join(", ")}, which ${blocked.length === 1 ? "is a protected procedure" : "are protected procedures"} and requires a signed-in session. Nothing will be sent. Sign in to the game and re-check the session above.`
     ));
-    if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
-    if (s.manifest.warnings && s.manifest.warnings.length) {
-      card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
-    }
-    for (const it of s.plan) {
-      card.appendChild(h(
-        "div",
-        { class: "f-row" },
-        h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} \xB7 ${it.op}${it.targetId ? " \u2192 " + it.targetId : ""}${it.deps?.length ? " \xB7 after " + it.deps.join(", ") : ""} \xB7 keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))
-      ));
-    }
-    if (s.bloodright) {
-      card.appendChild(h("div", { class: "f-banner info" }, s.collection ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.` : `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
-      for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations \xB7 ${tree.maxAdvanced} reachable Advanced Art(s)`));
-      for (const row of s.bloodright.preview) card.appendChild(h(
-        "details",
-        {},
-        h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " \u2192 " + row.targetId : ""} \xB7 ${row.changes.length} changed field(s)`),
-        h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))
-      ));
-      card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
-    }
     const imgs = s.images || [];
     const picks = imagePicks(imgs, app.runner.files, s.manifest.imgSizes, "imageUploader");
     const pack = s.pack || null;
     const packResult = s.packResult || null;
     const packEntry = (name) => (packResult && packResult.entries ? packResult.entries.find((e) => e.name === name) : null) || null;
+    const badImgs = unusablePicks(picks);
+    const packProblems = packGateProblems(pack, imgs, app.runner);
+    if (packProblems.length) card.appendChild(h(
+      "div",
+      { class: "f-banner bad" },
+      h("b", {}, "Cannot run: repo-backed images are not verified. "),
+      h("div", { class: "f-err" }, packProblems.join("\n"))
+    ));
+    card.appendChild(h(
+      "div",
+      { class: "f-actions" },
+      h("button", {
+        class: "f-primary",
+        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0,
+        onClick: () => app.confirm(
+          readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
+          () => app.startJob()
+        )
+      }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
+      h("button", { onClick: () => app.clearSelection() }, "Clear")
+    ));
+    if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
+    if (s.manifest.warnings && s.manifest.warnings.length) {
+      card.appendChild(h("div", { class: "f-banner warn" }, h("b", {}, `${s.manifest.warnings.length} advisory: `), h("div", {}, s.manifest.warnings.join("\n"))));
+    }
+    const planRows = s.plan.map((it) => h(
+      "div",
+      { class: "f-row" },
+      h("div", { class: "f-grow" }, h("div", {}, `${it.idx}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} \xB7 ${it.op}${it.targetId ? " \u2192 " + it.targetId : ""}${it.deps?.length ? " \xB7 after " + it.deps.join(", ") : ""} \xB7 keys: ${Object.keys(it.data).join(", ").slice(0, 120)}`))
+    ));
+    if (planRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${planRows.length} items`), ...planRows));
+    else card.append(...planRows);
+    if (s.bloodright) {
+      card.appendChild(h("div", { class: "f-banner info" }, s.collection ? `${s.collection.length} Bloodright trees with icons. Start runs them in order and stops on the first incomplete tree. Pause stops the collection. Each tree exports its own results. After reload, resume the current job, then reopen this package for a fresh preview.` : `Bloodright preview \xB7 five BP \xB7 ${s.bloodright.allocations ?? "?"} legal allocations \xB7 ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      for (const tree of s.bloodright.trees ?? []) card.appendChild(h("div", { class: "f-mute" }, `${tree.bloodlineId}: ${tree.allocations} legal allocations \xB7 ${tree.maxAdvanced} reachable Advanced Art(s)`));
+      const previewRows = s.bloodright.preview.map((row) => h(
+        "details",
+        {},
+        h("summary", {}, `${row.operation}: ${row.name}${row.targetId ? " \u2192 " + row.targetId : ""} \xB7 ${row.changes.length} changed field(s)`),
+        h("pre", { class: "f-err" }, JSON.stringify(row.changes, null, 2))
+      ));
+      if (previewRows.length > FOLD_AT) card.appendChild(h("details", {}, h("summary", {}, `Show all ${previewRows.length} preview rows`), ...previewRows));
+      else card.append(...previewRows);
+      card.appendChild(h("button", { class: "f-btn", onclick: () => app.selectManifest(s.entry) }, "Refresh Bloodright preview"));
+    }
     if (pack) {
       const bound = imgs.filter((n) => packBinds(pack, n));
       const ready = bound.filter((n) => (packEntry(n) || {}).state === "ready").length;
@@ -4932,27 +4957,6 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
         ));
       }
     }
-    const badImgs = unusablePicks(picks);
-    const packProblems = packGateProblems(pack, imgs, app.runner);
-    if (packProblems.length) card.appendChild(h(
-      "div",
-      { class: "f-banner bad" },
-      h("b", {}, "Cannot run: repo-backed images are not verified. "),
-      h("div", { class: "f-err" }, packProblems.join("\n"))
-    ));
-    card.appendChild(h(
-      "div",
-      { class: "f-actions" },
-      h("button", {
-        class: "f-primary",
-        disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0,
-        onClick: () => app.confirm(
-          readOnly ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.` : `Start job for ${s.entry.name}: ${s.plan.length} items (${s.plan.filter((i) => i.op === "create").length} creates)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
-          () => app.startJob()
-        )
-      }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
-      h("button", { onClick: () => app.clearSelection() }, "Clear")
-    ));
     return card;
   }
   function RunScreen(app) {
@@ -6165,6 +6169,8 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       return this.core.loadPicker(force);
     }
     selectManifest(entry) {
+      const scroller = this.root && this.root.parentElement;
+      if (scroller && typeof scroller.scrollTo === "function") scroller.scrollTo(0, 0);
       return this.core.selectManifest(entry);
     }
     prepareImages(force) {
