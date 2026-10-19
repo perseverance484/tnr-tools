@@ -1522,3 +1522,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** Forge 0.7.7 preview of push/123: "Hungry Pulse: binding belongs to another bloodline or SKILL path (BLOODRIGHT, bloodline 1C34syOOEKp6k3UKweYT6)" and "folder "Ethereal Monarch" exists (Z7_y_40drZY8k_ECDRLMa, visible)". User answer: "Move it back to BEE".
 
 **Canonical destination:** `scripts/bloodright_collection_package.py` (`BEE`, `EXISTING_FOLDERS`), regenerated into `forge/bloodright/naming_pass_collection_b.json` and `push/123_bloodright_collection_b.json`.
+
+---
+
+## RUL-2026-10-19-005 — Build Forge suggest mode (option 1) and raise the bundle budget for it
+
+**Date:** 2026-10-19
+
+**Domain:** Forge / content review / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-19-002 (bundle ceiling only)
+
+**Ruling:** Forge gains a suggest mode that sends edits of existing records to the game's content review desk instead of saving them (option 1 of `docs/design/FORGE_SUGGEST_MODE_SCOPE.md`). New content keeps the create-hidden path; Bloodright imports are not suggestible. The Forge bundle ceiling rises to **420,000 raw / 100,000 gzip bytes** for it (measured 407,434 / 97,814).
+
+**Evidence:** User answer "1." to the scope's options, then "Yes, start on it. Size limit raise approved."
+
+**Canonical destination:** `forge/src/review/contract.json`, `forge/src/runner/manifest.mjs` (`suggestPolicy`), `forge/src/runner/runner.mjs` (`_suggestItem`), `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

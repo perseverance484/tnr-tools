@@ -226,7 +226,9 @@ function SelectedManifest(app) {
     ? `${plural(s.collection.length, "tree")} · ${plural(count("skillTree"), "skill")} · ${plural(count("skillTreeFolder"), "folder")} · ${plural(imgs.length, "icon")}`
     : `${plural(itemCount, "item")}${captureCount ? ` · ${label}` : ""}`;
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` · manifest hash ${s.manifest.hash}` : ""}`));
+  const suggest = !!s.manifest.policy?.suggest;
   if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job: zero mutations."));
+  if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `Each exact record body goes into the results bundle (committed to the repository when GitHub sync is on).${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
@@ -267,9 +269,10 @@ function SelectedManifest(app) {
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : s.collection
           ? `Start ${plural(s.collection.length, "Bloodright tree")} (${plural(count("skillTree"), "skill")}, all hidden)? This writes to the game.`
+          : suggest ? `Send ${plural(s.plan.length, "suggestion")} from ${s.entry.name} for review? Nothing changes until approved.`
           : `Start ${s.entry.name}: ${plural(s.plan.length, "item")} (${creates} new)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
-    }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
+    }, readOnly ? "Run captures" : s.collection ? "Start all trees" : suggest ? "Send for review" : "Start job"),
     h("button", { onClick: () => app.clearSelection() }, "Clear"),
   ));
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
@@ -413,6 +416,7 @@ export function RunScreen(app) {
       ? h("button", { class: "f-primary", disabled: !!resumeBlocked, onClick: () => app.resumeJob(jobId) }, resumeLabel(job)) : null,
     app.state.running === jobId ? h("button", { onClick: () => app.requestPause() }, "Pause after this item") : null,
     app.state.running === jobId ? null : h("button", { onClick: () => app.exportJob(jobId) }, "Export results"),
+    app.state.running !== jobId && job.items.some((i) => i.suggestion?.id) ? h("button", { onClick: () => app.checkSuggestions(jobId) }, "Check suggestions") : null,
   ));
   root.appendChild(h("h3", {}, "Budget (limited reads, per path, this minute)"));
   const st = app.budget.status();
@@ -436,8 +440,9 @@ export function RunScreen(app) {
     const phase = it.state === "SENT" || it.state === "CONFIRMED" ? ` · phase ${it.phase}` : "";
     const row = h("div", { class: "f-row" },
       h("div", { class: "f-grow" },
-        h("div", {}, `${it.idx + 1}. ${it.name} `, pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
+        h("div", {}, `${it.idx + 1}. ${it.name} `, it.suggestion ? h("span", { class: "f-pill " + (it.suggestion.status === "APPLIED" ? "VERIFIED" : /REJECTED|OUTDATED|REVERTED|NOT FOUND/.test(it.suggestion.status) ? "FAILED" : "SENT") }, it.suggestion.status === "PENDING" ? "IN REVIEW" : it.suggestion.status) : pill(it.state), h("span", { class: "f-mute" }, ` ${it.entity}${phase}`)),
         it.entityId ? h("div", { class: "f-mono" }, it.entityId) : null,
+        it.suggestion ? h("div", { class: "f-mute" }, `suggestion ${it.suggestion.id ?? "(id not found)"}${it.suggestion.reviewedBy ? ` · by ${it.suggestion.reviewedBy}` : ""}${it.suggestion.note ? ` · ${it.suggestion.note}` : ""}`) : null,
         it.error ? h("div", { class: "f-err" }, it.error) : null,
         it.diffs && it.diffs.length ? h("details", {}, h("summary", {}, `drift on ${it.diffs.length} key(s)`), h("div", { class: "f-err" }, it.diffs.map((d) => `${d.key}: sent ${JSON.stringify(d.sent)} live ${JSON.stringify(d.live)}`).join("\n"))) : null,
         it.reconciled ? h("div", { class: "f-mute" }, it.reconciled) : null,

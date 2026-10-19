@@ -19,7 +19,7 @@ import { FakeGame } from "./fakegame.mjs";
 // is an ACTION rather than something a screen does because fetching and verifying bound bytes is a
 // workflow decision that a headless host must be able to drive (core/imagepack.mjs).
 const ACTIONS = [
-  "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
+  "adopt", "blockedPaths", "changed", "checkSuggestions", "clearSelection", "drive", "establishAuth", "exportJob",
   "fail", "forgetBinding", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
   "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
   "snapshot", "startJob", "subscribe",

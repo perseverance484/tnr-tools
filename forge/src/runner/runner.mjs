@@ -36,6 +36,7 @@ import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
+import REVIEW from "../review/contract.json" with { type: "json" };
 
 // One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
 // both send (adversarial L1/L3: the whole-record journal write cannot detect it). The lease is a
@@ -66,6 +67,8 @@ export function protectedPathsFor(order, manifest) {
     const path = c.proc || c.procedure;
     if (path && isProtected(path)) paths.add(path);
   }
+  // Suggest mode sends to the review desk and finds the result there; both are protected.
+  if (manifest?.policy?.suggest) { paths.add("contentReview.create"); paths.add("contentReview.getQueue"); }
   for (const planned of order || []) {
     const rc = recipe(planned.entity);
     for (const path of [rc.create && rc.create.path, rc.get, rc.update, rc.names, rc.profileToggle, rc.profileUpdate]) {
@@ -334,7 +337,11 @@ export class Runner {
       for (const item of job.items) {
         if (item.state !== "SENT") continue;
         const planned = order[item.idx];
-        const r = await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
+        // A suggestion is settled by the review queue, not the record: found means it landed, and
+        // not found means it did not, so it is simply sent again.
+        const r = item.phase === "suggest"
+          ? ((await this._findSuggestion(item)) ? { action: "confirm", entityId: item.entityId, phase: "suggest-find", note: "found in the review queue" } : { action: "confirm", entityId: item.entityId, phase: "suggest", note: "not in the review queue; it will be suggested again" })
+          : await this.reconciler.resolveSent(this.journal.get(jobId), item, { planned, lookup: this._lookup(this.journal.get(jobId)) });
         if (r.action === "confirm") {
           // landed:true means the sent request is proven to have applied; the runner never re-sends
           // it. The next step is verify, except that a landed UPDATE on an ai with rules still owes
@@ -445,6 +452,7 @@ export class Runner {
   async _runItem(jobId, item, planned, manifest) {
     const ent = item.entity;
     try {
+      if (manifest.policy?.suggest) return await this._suggestItem(jobId, item, planned, manifest);
       if (item.state === "CONFIRMED" && item.phase === "verify") return await this._verifyOrSkip(jobId, item, planned, manifest);
       if (item.state === "CONFIRMED" && (item.phase === "rules" || item.phase === "rules-toggle")) {
         // the update landed (reconciled or normal); only the rules step remains
@@ -623,6 +631,73 @@ export class Runner {
       return;
     }
     this._failFromOutcome(jobId, item, o, "update");
+  }
+
+  // ------------------------------------------------------------------ suggest mode
+  /** The title/category/rationale a suggestion is sent with. The title carries a short job tag so
+   * the suggestion can be found again in the review queue (the desk does not return its id). */
+  _suggestion(manifest, planned, jobId, item) {
+    const s = { ...manifest.policy.suggest, ...(planned.suggestion ?? {}) };
+    for (const k of ["title", "rationale", "category"]) if (s[k] == null) delete s[k];
+    const merged = { ...manifest.policy.suggest, ...s };
+    const tag = ` [${String(jobId).slice(-6)}-${item.idx + 1}]`;
+    const base = `${merged.title} · ${item.name}`;
+    return { category: merged.category ?? "BALANCE", rationale: merged.rationale, title: base.slice(0, REVIEW.titleLength.max - tag.length) + tag };
+  }
+
+  /** A pending suggestion of ours in the review queue: matched by its tagged title and target. */
+  async _findSuggestion(item) {
+    const entityType = REVIEW.entityTypes[item.entity], id = item.entityId ?? item.targetId;
+    for (let cursor = 0, page = 0; page < 6; page++) {
+      this._requireAuth("contentReview.getQueue", item.idx);
+      const r = await this.client.call("contentReview.getQueue", { status: "PENDING", entityType, cursor, limit: 50 });
+      if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
+      if (!r.ok) throw new Error(`contentReview.getQueue failed: ${r.error?.message ?? "error"}`);
+      const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id));
+      if (hit) return hit;
+      if (r.data?.nextCursor == null) return null;
+      cursor = r.data.nextCursor;
+    }
+    return null;
+  }
+
+  /**
+   * Send one edit to the review desk instead of saving it. The live record is read and the edit
+   * merged in exactly as a save would send it; the game keeps only the fields that differ.
+   * PLANNED (or CONFIRMED at phase "suggest", a resend) -> SENT -> CONFIRMED "suggest-find" ->
+   * VERIFIED with verify "suggested" and the suggestion's id. Nothing in the game changes until a
+   * reviewer approves it.
+   */
+  async _suggestItem(jobId, item, planned, manifest) {
+    const rc = recipe(item.entity), id = item.entityId ?? item.targetId;
+    if (!(item.state === "CONFIRMED" && item.phase === "suggest-find")) {
+      const data = await this._resolved(planned.data, jobId);
+      this._requireAuth(rc.get, item.idx);
+      const live = await this.reader.get(rc.get, id, { fresh: true });
+      if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
+      if (!live.ok || live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
+      const problems = this.validator.problems(item.entity, data, live.data);
+      if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
+      const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+      const s = this._suggestion(manifest, planned, jobId, item);
+      this._requireAuth("contentReview.create", item.idx);
+      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "suggest", entityId: id, suggestTitle: s.title },
+        () => this.client.call("contentReview.create", { entityType: REVIEW.entityTypes[item.entity], entityId: id, category: s.category, title: s.title, rationale: s.rationale, data: payload }));
+      const o = readMutation(decoded);
+      if (o.kind !== "ok") {
+        if (/nothing changed/i.test(o.message ?? "")) {
+          // The live record already holds this edit: there is nothing to suggest, and that is verified.
+          this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "verify", asserted: Object.keys(data) });
+          return this._verify(jobId, this.journal.get(jobId).items[item.idx], planned);
+        }
+        return this._failFromOutcome(jobId, item, o, "suggest");
+      }
+      this.journal.transition(jobId, item.idx, "CONFIRMED", { phase: "suggest-find" });
+      item = this.journal.get(jobId).items[item.idx];
+    }
+    const found = await this._findSuggestion(item);
+    this.journal.transition(jobId, item.idx, "VERIFIED", { verify: "suggested", suggestion: { id: found?.id ?? null, status: found?.status ?? "PENDING" },
+      ...(found ? {} : { reconciled: "sent for review; not found in the queue to record its id" }) });
   }
 
   async _rules(jobId, item, planned, userId) {
