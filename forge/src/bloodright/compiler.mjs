@@ -5,6 +5,36 @@ import { readIdmap } from "../storage/compat.mjs";
 import { liveAssetUploads } from "../storage/assets.mjs";
 import { normalizeImagePack } from "../runner/imgpack.mjs";
 
+const realSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Reads change nothing, so a read that hit a server hiccup (an error page instead of data, a
+// dropped connection, a per-record error) is simply asked again after a pause.
+export const BOUND_READ_RETRY_MS = Object.freeze([3_000, 10_000]);
+
+/** Full records for the bound skills, batched, each id retried while the read keeps failing. */
+export async function readBoundSkills(reader, ids, { sleep = realSleep, delays = BOUND_READ_RETRY_MS } = {}) {
+  const found = new Map();
+  let pending = [...ids], lastError = null;
+  for (let attempt = 0; pending.length; attempt++) {
+    if (attempt > 0) {
+      if (attempt > delays.length) throw new Error(`bound skill ${pending[0]} is unreadable${lastError ? `: ${lastError}` : ""}`);
+      await sleep(delays[attempt - 1]);
+    }
+    try {
+      const rows = typeof reader.getMany === "function"
+        ? await reader.getMany("skillTree.get", pending, { fresh: true })
+        : await Promise.all(pending.map((id) => reader.get("skillTree.get", id, { fresh: true })));
+      const next = [];
+      rows.forEach((r, i) => { if (r && r.ok && r.data) found.set(pending[i], r.data); else { next.push(pending[i]); lastError = r?.error?.message ?? "no record returned"; } });
+      pending = next;
+    } catch (e) {
+      // A rate-limit trip is the budget's to handle, never something to hammer through.
+      if (e && e.name === "RateLimited") throw e;
+      lastError = (e && e.message) || String(e);
+    }
+  }
+  return found;
+}
+
 export const scopeKey = (bloodlineId, nodeId) => `br:${bloodlineId}:${nodeId}`;
 const object = v => !!v && typeof v === "object" && !Array.isArray(v);
 const id = v => typeof v === "string" && /^[A-Za-z0-9_-]+$/.test(v);
@@ -138,7 +168,7 @@ export async function readBloodrightInventory({ reader, hiddenProbeId }) {
   return { hiddenProbeId, skills: all.data, folders: folders.data };
 }
 
-export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory, imageProbe }) {
+export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory, imageProbe, sleep }) {
   if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
   if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
   auth?.assert("skillTree.create");
@@ -152,12 +182,11 @@ export async function prepareBloodright({ config, github, reader, storage, auth,
   // Full point records for every bound skill, including remembered imports; never infer binding by name.
   const map = readIdmap(storage);
   const boundIds = [...new Set(design.nodes.map(n => config.bindings?.nodes?.[n.id] || map[scopeKey(design.bloodline.id, n.id)]).filter(Boolean))];
+  const bound = await readBoundSkills(reader, boundIds, sleep ? { sleep } : {});
   for (const target of boundIds) {
-    const r = await reader.get("skillTree.get", target, { fresh: true });
-    if (!r.ok || !r.data) throw new Error(`bound skill ${target} is unreadable`);
     const index = all.data.findIndex(s => s.id === target);
     if (index < 0) throw new Error(`bound skill ${target} absent from complete inventory`);
-    all.data[index] = r.data;
+    all.data[index] = bound.get(target);
   }
   // Recorded uploads of this pack's icons count only while their URLs still load; a dead one is
   // left out (not forgotten: the run probes again), so the preview shows those skills' images as
