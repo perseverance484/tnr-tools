@@ -69,7 +69,7 @@ export function buildRequest(calls, kind, { endpoint = ENDPOINT } = {}) {
 export function decodeResponse(status, text, expectedCount, { mutation = false } = {}) {
   let body;
   try { body = JSON.parse(text); } catch (e) {
-    throw new TransportError("response is not JSON", { httpStatus: status, snippet: String(text).slice(0, 200) });
+    throw new TransportError(`response is not JSON${status ? ` (HTTP ${status})` : ""}`, { httpStatus: status, snippet: String(text).slice(0, 200) });
   }
   if (!Array.isArray(body)) {
     // A request-level adapter error (bad batch envelope, unsupported media type, oversized
