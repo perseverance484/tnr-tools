@@ -2,7 +2,7 @@ import { assertBloodrightAvailable } from "./jobs.mjs";
 import { CONTRACT, bloodrightProblems, writableSnapshot } from "./validate.mjs";
 import { diffAsserted } from "../runner/validate.mjs";
 import { readIdmap } from "../storage/compat.mjs";
-import { readAssetUploads } from "../storage/assets.mjs";
+import { liveAssetUploads } from "../storage/assets.mjs";
 import { normalizeImagePack } from "../runner/imgpack.mjs";
 
 export const scopeKey = (bloodlineId, nodeId) => `br:${bloodlineId}:${nodeId}`;
@@ -138,7 +138,7 @@ export async function readBloodrightInventory({ reader, hiddenProbeId }) {
   return { hiddenProbeId, skills: all.data, folders: folders.data };
 }
 
-export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory }) {
+export async function prepareBloodright({ config, github, reader, storage, auth, journal, imagePack, imgSizes, requireIcons, inventory, imageProbe }) {
   if (config?.version !== 1) throw new Error("unsupported Bloodright package version");
   if (!/^[a-f0-9]{40}$/.test(config.source?.ref ?? "")) throw new Error("Bloodright source requires an exact commit");
   auth?.assert("skillTree.create");
@@ -159,5 +159,9 @@ export async function prepareBloodright({ config, github, reader, storage, auth,
     if (index < 0) throw new Error(`bound skill ${target} absent from complete inventory`);
     all.data[index] = r.data;
   }
-  return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads: readAssetUploads(storage) });
+  // Recorded uploads of this pack's icons count only while their URLs still load; a dead one is
+  // forgotten, so the preview shows those skills' images as changes and Start uploads them again.
+  const shas = new Set(Object.values(imagePack?.files ?? {}).map((f) => f?.sha256).filter(Boolean));
+  const uploads = await liveAssetUploads(storage, imageProbe, shas);
+  return compileBloodright({ design, config, skills: all.data, folders: folders.data, idmap: map, imagePack, imgSizes, requireIcons, uploads });
 }
