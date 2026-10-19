@@ -1571,3 +1571,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/prompt_jutsu_icon_p1_tooling_20261019.md` (build contract); implementation in `skills/producing-tnr-art/scripts/jutsu_studio.py` and its selftest.
 
 **Boundary:** Aerathiel gallery acceptance stays PENDING, canonical preflight NOT RUN, Git binary pinning PENDING and upload/readback NOT PERFORMED. No tool may claim to judge whether pixels depict the locked technique. No live-game actions are authorized.
+
+## RUL-2026-10-19-006 — Build Forge suggest mode (option 1) and raise the bundle budget for it
+
+**Date:** 2026-10-19
+
+**Domain:** Forge / content review / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-19-002 (bundle ceiling only)
+
+**Ruling:** Forge gains a suggest mode that sends edits of existing records to the game's content review desk instead of saving them (option 1 of `docs/design/FORGE_SUGGEST_MODE_SCOPE.md`). New content keeps the create-hidden path; Bloodright imports are not suggestible. The Forge bundle ceiling rises to **420,000 raw / 100,000 gzip bytes** for it (measured 407,434 / 97,814).
+
+**Evidence:** User answer "1." to the scope's options, then "Yes, start on it. Size limit raise approved."
+
+**Canonical destination:** `forge/src/review/contract.json`, `forge/src/runner/manifest.mjs` (`suggestPolicy`), `forge/src/runner/runner.mjs` (`_suggestItem`), `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

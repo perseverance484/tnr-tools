@@ -65,7 +65,7 @@ export class ForgeCore {
   /** The public action surface. Pinned by the golden test so a shell cannot quietly grow one. */
   static get ACTIONS() {
     return [
-      "adopt", "blockedPaths", "changed", "clearSelection", "drive", "establishAuth", "exportJob",
+      "adopt", "blockedPaths", "changed", "checkSuggestions", "clearSelection", "drive", "establishAuth", "exportJob",
       "fail", "forgetBinding", "go", "loadPicker", "notify", "prepareImages", "recheckAuth", "requestPause",
       "resolveCaptures", "resolveConfirmed", "resumeBlockedReason", "resumeJob", "say", "selectManifest", "skip",
       "snapshot", "startJob", "subscribe",
@@ -517,6 +517,28 @@ export class ForgeCore {
       } catch (e) { this.fail("commit results", e); }
     }
     if (!auto || !synced) { this.notify({ type: "export", text, name }); this._markExported(jobId, name, false); }
+  }
+
+  /**
+   * Ask the review desk where each suggestion this job sent now stands (PENDING, APPLIED,
+   * REJECTED, OUTDATED or REVERTED) and record it on the item. Reads only.
+   */
+  async checkSuggestions(jobId) {
+    const job = this.journal.get(jobId);
+    const items = (job?.items ?? []).filter((it) => it.suggestion?.id);
+    if (!items.length) return this.say("This job has no suggestions to check", "warn");
+    try { this.auth?.assert?.("contentReview.getProposal"); } catch (e) { return this.fail("check suggestions", e); }
+    const tally = {};
+    for (const it of items) {
+      const r = await this.client.call("contentReview.getProposal", { id: it.suggestion.id });
+      if (!r.ok) { this.fail("check suggestions", new Error(r.error?.message ?? "read failed")); break; }
+      const p = r.data;
+      const status = p ? p.status : "NOT FOUND";
+      tally[status] = (tally[status] ?? 0) + 1;
+      this.journal.annotate(jobId, it.idx, { suggestion: { ...it.suggestion, status, reviewedBy: p?.reviewedBy ?? null, note: p?.reviewNote ?? p?.rejectReason ?? p?.outdatedReason ?? null, checkedAt: new Date(this.now()).toISOString() } });
+    }
+    this.say(`Suggestions: ${Object.entries(tally).map(([k, v]) => `${v} ${k.toLowerCase()}`).join(", ")}`, "ok", 8000);
+    this.changed();
   }
 
   /** Record that a job's results left the browser, so its journal entry may later make room. */

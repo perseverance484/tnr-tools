@@ -82,7 +82,7 @@ export function jobOutcome(job) {
     return captures.every(captureOk) ? "success" : "failed";
   }
   if (job.items.some((it) => it.state === "FAILED")) return "failed";
-  if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match"))) return "unverified";
+  if (job.items.some((it) => !TERMINAL_ITEM_STATES.includes(it.state) || it.state === "SKIPPED" || (it.verify && it.verify !== "match" && it.verify !== "suggested"))) return "unverified";
   if (captures.some((capture) => capture && capture.persist === "full" && capture.persistOk !== true)) return "unverified";
   return "success";
 }
