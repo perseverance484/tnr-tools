@@ -1,0 +1,148 @@
+{
+  "schema": "tnr.shinseina-jutsu-art-production-evidence/1",
+  "recorded_on": "2026-10-19",
+  "repository": "perseverance484/tnr-tools",
+  "branch": "chatgpt/shinseina-ki-jutsu-art-studio-20261019",
+  "shared_base_sha": "4e674234d0539b7010c34025034330980a38b196",
+  "bloodline": {
+    "id": "vA8I_7iBNgvkuKOpnG1yD",
+    "name": "Shinseina Ki",
+    "rank": "A",
+    "N": 5
+  },
+  "source": {
+    "original_zip": "BR-066_Shinseina_Ki.zip",
+    "zip_sha256": "7b5260dd7f2e389763d3339edb967c08485b29426a143f02df255da0fbba0e39",
+    "roster_origin": "historical ZIP manifest crosschecked against 2026-10-17 read-only jutsu.get capture; not current-live evidence",
+    "raw_approvals": 5,
+    "director_approval_source": "2026-10-19 persistent Shinseina Ki Studio conversation; per-image user messages 'Approved, next'",
+    "raw_format": "decoded JPEG files received under .png upload filenames; exact uploaded bytes preserved",
+    "generator_native_provenance": "NOT_PROVEN",
+    "generation_attempts": "NOT_RECORDED"
+  },
+  "production": {
+    "tool": "skills/producing-tnr-art/scripts/jutsu_studio.py",
+    "tool_version": "1.1.0",
+    "script_git_blob_sha": "952236b57017930338e24dd1ddeb1840b6a0895b",
+    "runtime": {
+      "python": "3.13.5",
+      "pillow": "12.3.0",
+      "libwebp": "1.6.0"
+    },
+    "environment_doctor": "RUN_CAPABLE_CANONICAL",
+    "jutsu_studio_selftests": {
+      "passed": 191,
+      "failed": 0
+    },
+    "artpreflight_selftests": {
+      "passed": 98,
+      "failed": 0
+    },
+    "source_index_verified": true,
+    "locks_approved": 5,
+    "approved_ledger_sha256": "e87399232c6767d8534cc45f6170c9bb7d08de8cea278a67d81451cd4763683f",
+    "finalize_command": "python3 skills/producing-tnr-art/scripts/jutsu_studio.py finalize approved.json --out final_shinseina_ki --label v1 --source-index source_index.json --locks locks.json",
+    "processing": "All five exact approved 1536x1536 JPEG originals resized to 256x256 with LANCZOS, opaque RGB lossless VP8L WebP. No quantization, retouch, regeneration, palette edits or alpha fabrication.",
+    "art_spec": {
+      "type": "JUTSU_ICON",
+      "square": true,
+      "recommended": "256x256",
+      "format": "lossless WebP",
+      "alpha": "optional",
+      "byte_ceiling_bytes": 460800
+    },
+    "canonical_preflight": {
+      "verdict": "PASS",
+      "exit_code": 0,
+      "script_pinned_blob": "71ed409853c8b3da6f5b66c5c3db5ab2c9274bb4",
+      "spec_pinned_blob": "8536cd9b81da4c8f88a095af89026437a25a2c15",
+      "pins_from_main": "f620db3d934fbb5a13effa5f90ed25bf16a33718"
+    },
+    "export_local_qc": "PASS (5/5, codec VP8L, decoded pixels equal transformed approved originals, expected 256x256 RGB, within spec byte ceiling)",
+    "exports": [
+      {
+        "jutsu_id": "8MRWPNK3lOxCLVqWrE-xJ",
+        "name": "Exploding Wood Serpent",
+        "file": "icon_shinseina_ki_exploding_wood_serpent_v1.webp",
+        "bytes": 116566,
+        "sha256": "609cf6050f84c458dc6ae7f717f9eb3803efc4067c7b4096afc959dc77aae661"
+      },
+      {
+        "jutsu_id": "6jxreCs3oWJ9sKPB9Sw4b",
+        "name": "Guardian's Grove",
+        "file": "icon_shinseina_ki_guardians_grove_v1.webp",
+        "bytes": 119950,
+        "sha256": "3a91b8d4a187fa35f637fac9e78c5c0e2d79c29372b190593701b7a19aabdc90"
+      },
+      {
+        "jutsu_id": "zZ-QZGRXC-aUiskpZ4Z_3",
+        "name": "Forest Wisdom",
+        "file": "icon_shinseina_ki_forest_wisdom_v1.webp",
+        "bytes": 127236,
+        "sha256": "2792e17931fed2dcca3d3f65d7ff643dc8d4d50486cf56f9ffb4e74d2aa4febe"
+      },
+      {
+        "jutsu_id": "LnzsA7WDqi06AU0s7yrVP",
+        "name": "Wood Style: Wood Warrior Summon",
+        "file": "icon_shinseina_ki_wood_style_wood_warrior_summon_v1.webp",
+        "bytes": 130156,
+        "sha256": "809f0e0547b20fdc176c94c56768fed765f17676faa933f133202f6120d9df8f"
+      },
+      {
+        "jutsu_id": "D3t1nlaVAw8kLfjDO5Wvy",
+        "name": "Eternal Forest",
+        "file": "icon_shinseina_ki_eternal_forest_v1.webp",
+        "bytes": 134176,
+        "sha256": "d39af3d423fd13997282d0327db72287bc0f66ec7561c6e233e8d59765e42127"
+      }
+    ],
+    "gallery": {
+      "name": "shinseina_ki_jutsu_showcase_v1.png",
+      "sha256": "2606f5c7fa545a305417de4eb5e287d7c04e815e0bd76fce4a04b209b0cbe252",
+      "pixels_sha256": "4da47c596f74b0596fd1a74a1104a6194bfe6fb926c2886fc16a5269a1082816",
+      "manifest_sha256": "39556b6b947e0894070ee25675712a0d5895ea6a0aff7562dd87be5f2d43a957",
+      "members_sha256": "470a549a5155e8d63df939e605d30636496b2f28ddbb831f3a8e0e5c3c1dd550",
+      "rows": [
+        3,
+        2
+      ],
+      "tiles": 5,
+      "source_fidelity": "FAITHFUL decoded tile pixels match recorded exact-WebP resizes",
+      "layout": "CONFORMING",
+      "audit_gallery": "VALID",
+      "phone_preview": {
+        "file": "shinseina_ki_jutsu_showcase_v1_phone.png",
+        "sha256": "30308b18528d74614e752249b606e5f88c6258bd5217a586043b6c4e01494f28"
+      },
+      "thumbnail_qc": {
+        "file": "shinseina_ki_jutsu_thumbs_125_64_32_v1.png",
+        "sha256": "84e06bcfed385126340a2dfa11f023342b38183b71604f89bcd8ce106b181a55"
+      },
+      "director_gallery_acceptance": "PENDING — gallery not yet approved by user; hashes are candidate evidence, not approval"
+    },
+    "archives": {
+      "full": {
+        "filename": "shinseina_ki_jutsu_icons_closeout_v1.zip",
+        "bytes": 7128174,
+        "sha256": "a036b44fd8715fde75a743fe6362d41c2c44e64908c0c91769033ebf5abd9067",
+        "status": "BUILT_PENDING_GALLERY_DIRECTOR_SIGNOFF",
+        "members": 20
+      },
+      "flat_webps": {
+        "filename": "shinseina_ki_jutsu_icons_webps_PREFLIGHT_PASS_5webp_v1.zip",
+        "bytes": 629139,
+        "sha256": "ab96c433235136b2db5085346fb7c5d9a8708ec184cf28ce057d8e6d09f90c28",
+        "status": "BUILT_PENDING_GALLERY_DIRECTOR_SIGNOFF",
+        "members": 5
+      }
+    },
+    "safety": {
+      "originals_pinned_to_git": false,
+      "webps_pinned_to_git": false,
+      "external_game_requests": 0,
+      "external_game_writes": 0,
+      "credentials": "none"
+    },
+    "open_gate": "Director must approve exact gallery SHA + members SHA; Wood Warrior Summon's pre-gen no-anatomy prohibition versus visibly humanoid director-accepted raw is an explicitly recorded art-direction discrepancy; request confirmation of the image-specific exception at gallery acceptance. Once accepted, update approved.json family_acceptance and re-finalize with fresh label (v2), never overwrite old archives. Live-game readback remains user-controlled."
+  }
+}
