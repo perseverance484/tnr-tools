@@ -18,10 +18,10 @@ const TERMINAL = ["VERIFIED", "FAILED", "SKIPPED"];
 const PAUSE_WORDS = {
   USER: "Paused by you", SESSION: "Paused: signed out of the game", NETWORK: "Paused: connection problem",
   TOO_MANY_REQUESTS: "Paused: game rate limit reached", ORPHANED: "Paused: an item needs your decision",
-  DEPENDENCY: "Paused: waiting on an earlier item", UNDECODABLE_RESPONSE: "Paused: the game sent an unreadable reply",
-  AMBIGUOUS: "Paused: unclear whether the last write landed", VISIBILITY: "Paused: a record is not visible to this session",
-  STALE_PREVIEW: "Paused: a record changed since the preview", STALE_BINDINGS: "Paused: saved IDs no longer match the game",
-  UNRESOLVED_IMPORT: "Paused: an earlier import is unresolved",
+  DEPENDENCY: "Paused: waiting on an earlier item", UNDECODABLE_RESPONSE: "Paused: unreadable game reply",
+  AMBIGUOUS: "Paused: last write uncertain", VISIBILITY: "Paused: record not visible",
+  STALE_PREVIEW: "Paused: a record changed since the preview", STALE_BINDINGS: "Paused: saved IDs out of date",
+  UNRESOLVED_IMPORT: "Paused: earlier import unresolved",
 };
 export const pauseWords = (pause) => PAUSE_WORDS[pause.reason] ?? `Paused (${pause.reason})`;
 
