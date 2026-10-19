@@ -84,6 +84,10 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
   if (Number.isInteger(rules.max_advanced) && advanced > rules.max_advanced) fail("design exceeds its Advanced Art limit");
   const bindings = config.bindings ?? {};
   for (const key of Object.keys(bindings.nodes ?? {})) if (!byId.has(key)) fail(`binding names unknown node ${key}`);
+  // A bound skill normally must already belong to this bloodline. `reassign` names nodes whose
+  // bound skill the director chose to move here from another bloodline (RUL-2026-10-19-004).
+  const reassign = new Set(Array.isArray(bindings.reassign) ? bindings.reassign : []);
+  for (const key of reassign) if (!bindings.nodes?.[key]) fail(`reassign names ${key}, which has no explicit binding`);
   for (const key of Object.keys(config.nodes ?? {})) if (!byId.has(key)) fail(`settings name unknown node ${key}`);
   const bound = (node, explicit) => {
     const remembered = idmap[scopeKey(bl, node)];
@@ -117,7 +121,8 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
       if (claimed.has(targetId)) fail(`${n.name}: ID ${targetId} is bound twice`);
       claimed.add(targetId);
       if (!live) fail(`${n.name}: bound record ${targetId} is not visible; check access/binding`);
-      else if (live.pathType !== "BLOODRIGHT" || live.bloodlineId !== bl) fail(`${n.name}: binding belongs to another bloodline or SKILL path (${live.pathType}, bloodline ${live.bloodlineId})`);
+      else if (live.pathType !== "BLOODRIGHT" || (live.bloodlineId !== bl && !reassign.has(n.id))) fail(`${n.name}: binding belongs to another bloodline or SKILL path (${live.pathType}, bloodline ${live.bloodlineId})`);
+      else if (live.bloodlineId !== bl && skills.some(s => s.id !== targetId && (s.requiredSkillIds ?? []).includes(targetId))) fail(`${n.name}: other skills require it`);
       else if (!live.hidden) fail(`${n.name}: bound skill is already visible; this importer stages hidden content only`);
     }
     if (skills.some(s => s.id !== targetId && sameName(s.name, n.name))) fail(`${n.name}: global name collision; bind the intended record explicitly or rename the design`);
@@ -142,7 +147,7 @@ export function compileBloodright({ design, config, skills, folders, idmap = {},
     const asset = imagePack?.files?.[imageName];
     if (imageName && asset && uploads[asset.sha256]?.url) resolved.image = uploads[asset.sha256].url;
     const changes = live ? diffAsserted("skillTree", resolved, live) : Object.entries(data).map(([key, sent]) => ({ key, sent }));
-    const it = { entity: "skillTree", srcId: scopeKey(bl, n.id), name: n.name, slot: targetId ? "edit" : "create", ...(targetId ? { targetId, expected: live ? writableSnapshot("skillTree", live) : null } : {}), data };
+    const it = { entity: "skillTree", srcId: scopeKey(bl, n.id), name: n.name, slot: targetId ? "edit" : "create", ...(targetId ? { targetId, expected: live ? writableSnapshot("skillTree", live) : null } : {}), ...(targetId && live && live.bloodlineId !== bl ? { reassign: true } : {}), data };
     items.push(it);
     preview.push({ nodeId: n.id, name: n.name, targetId, operation: targetId ? changes.length ? "update" : "reuse" : "create", changes });
   }

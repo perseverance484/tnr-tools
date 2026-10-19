@@ -145,7 +145,7 @@ export function ManifestsScreen(app) {
   // The open manifest sits above the list, so Start is reachable without scrolling past every file.
   if (app.state.selected) root.appendChild(SelectedManifest(app));
   else if (app.state.opening) root.appendChild(h("div", { class: "f-card" }, h("h2", {}, app.state.opening.name),
-    h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}… Start appears when every check has passed. Nothing is written while preparing.`)));
+    h("div", { class: "f-banner info" }, `Preparing: ${app.state.opening.step}… Nothing is written yet.`)));
   else if (app.state.openError) root.appendChild(h("div", { class: "f-card" }, h("h2", {}, app.state.openError.name),
     h("div", { class: "f-banner bad" }, h("b", {}, "Could not open: "), h("div", { class: "f-err" }, app.state.openError.text)),
     h("div", { class: "f-actions" }, h("button", { onClick: () => app.clearSelection() }, "Clear"))));
@@ -226,7 +226,7 @@ function SelectedManifest(app) {
     ? `${plural(s.collection.length, "tree")} · ${plural(count("skillTree"), "skill")} · ${plural(count("skillTreeFolder"), "folder")} · ${plural(imgs.length, "icon")}`
     : `${plural(itemCount, "item")}${captureCount ? ` · ${label}` : ""}`;
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` · manifest hash ${s.manifest.hash}` : ""}`));
-  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job. This sends queries only; zero mutations."));
+  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job: zero mutations."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `Each exact record body goes into the results bundle (committed to the repository when GitHub sync is on).${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));
@@ -249,7 +249,7 @@ function SelectedManifest(app) {
   const packProblems = packGateProblems(pack, imgs, app.runner);
   if (packProblems.length && pack && !packResult) {
     // Still fetching: this is the normal path, not a refusal.
-    card.appendChild(h("div", { class: "f-banner info" }, `Verifying ${plural(packProblems.length, "image")} from the repository… Start unlocks when every file matches.`));
+    card.appendChild(h("div", { class: "f-banner info" }, `Verifying ${plural(packProblems.length, "image")}…`));
   } else if (packProblems.length) {
     card.appendChild(h("div", { class: "f-banner bad" }, h("b", {}, `Cannot run: ${plural(packProblems.length, "repo-backed image")} not verified. `),
       h("details", {}, h("summary", {}, "Show details"), h("div", { class: "f-err" }, packProblems.join("\n"))),
@@ -266,7 +266,7 @@ function SelectedManifest(app) {
       readOnly
         ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : s.collection
-          ? `Start ${plural(s.collection.length, "Bloodright tree")} from ${s.entry.name}: ${plural(count("skillTree"), "skill")}, ${plural(count("skillTreeFolder"), "folder")} and ${plural(imgs.length, "icon")}, all created hidden? This writes to the game.`
+          ? `Start ${plural(s.collection.length, "Bloodright tree")} (${plural(count("skillTree"), "skill")}, all hidden)? This writes to the game.`
           : `Start ${s.entry.name}: ${plural(s.plan.length, "item")} (${creates} new)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
     }, readOnly ? "Run captures" : s.collection ? "Start all trees" : "Start job"),
@@ -282,8 +282,8 @@ function SelectedManifest(app) {
     h("div", { class: "f-grow" }, h("div", {}, `${it.idx + 1}. ${it.name}`), h("div", { class: "f-mute" }, `${it.entity} · ${it.op}${it.targetId ? " → " + it.targetId : ""}${it.deps?.length ? " · after " + [...new Set(it.deps)].join(", ") : ""} · keys: ${keysText(it.data)}`)))), `Show all ${s.plan.length} items`));
   if (s.bloodright) {
     card.appendChild(h("div", { class: "f-banner info" }, s.collection
-      ? `${plural(s.collection.length, "Bloodright tree")}, all hidden. Start runs them in order and stops at the first tree that does not verify. Pause stops the rest. After a reload, resume the current tree, then reopen this file.`
-      : `Bloodright preview · five BP · ${s.bloodright.allocations ?? "?"} legal allocations · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden. Existing images are preserved unless explicitly replaced.`));
+      ? `${plural(s.collection.length, "Bloodright tree")}, all hidden, run in order; a tree that does not verify stops the rest.`
+      : `Bloodright preview · ${s.bloodright.allocations ?? "?"} legal builds · ${s.bloodright.maxAdvanced ?? "?"} reachable Advanced Art(s). New skills stay hidden.`));
     const trees = (s.bloodright.trees ?? []).map((tree) => h("div", { class: "f-mute" }, `${tree.name ?? tree.bloodlineId}: ${tree.allocations} legal builds · ${tree.maxAdvanced} reachable Advanced Art(s)`));
     if (trees.length) card.appendChild(h("details", {}, h("summary", {}, `Tree checks (${trees.length})`), trees));
     card.append(...fold(s.bloodright.preview.map((row) => h("details", {},
@@ -346,7 +346,7 @@ export function RunScreen(app) {
     root.appendChild(h("div", { class: "f-banner info" },
       h("b", {}, `Collection ${base(c.path)}: tree ${c.index + 1} of ${c.total}${c.name ? ` (${c.name})` : ""}`),
       h("div", { class: "f-bar" }, h("i", { style: { width: Math.round(overall * 100) + "%" } })),
-      h("div", { class: "f-mute" }, "Pause stops the remaining trees. After a reload, resume this tree, then reopen the collection file.")));
+      h("div", { class: "f-mute" }, "Pause stops the rest. After a reload, resume this tree, then reopen the file.")));
   }
   root.append(
     h("div", {}, h("b", {}, jobLabel(job)), " ", jobPill(app, job), h("span", { class: "f-mute" }, ` · started ${fmtAgo(job.startedAt, app.now())}`)),

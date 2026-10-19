@@ -28,7 +28,11 @@ ORIGINAL_TAGS = {"damage", "increasedamagegiven", "decreasedamagegiven", "increa
                  "decreasedamagetaken", "afterburn", "lifesteal", "reflect", "increaseheal", "heal"}
 # BEE's live folder and Hungry Pulse (RUL-2026-10-08-002, RUL-2026-10-17-002).
 HUNGRY_PULSE = "HWq7986PPhl5emkAM3L4a"
-BEE = {"bloodline": "ovZIWu28ANn-Cij5TjT8S", "folder": "kvxMu9ntHbNcD6FFHKGo3", "nodes": {"p2_t1": HUNGRY_PULSE}}
+# Hungry Pulse was moved to Aerathiel by hand after the pilot; the director chose to move it back
+# (RUL-2026-10-19-004), so its binding is marked for reassignment.
+BEE = {"bloodline": "ovZIWu28ANn-Cij5TjT8S", "folder": "kvxMu9ntHbNcD6FFHKGo3", "nodes": {"p2_t1": HUNGRY_PULSE}, "reassign": ["p2_t1"]}
+# Bloodlines whose folder already exists live: bind it instead of creating a same-named second one.
+EXISTING_FOLDERS = {"IxhIoLEmznqdcnc_6MCN9": "Z7_y_40drZY8k_ECDRLMa"}  # Ethereal Monarch (visible folder; skills stay hidden)
 SILVER, ROUNDS = 20, 99  # placeholders for every node (see docs/RULINGS.md)
 ICONS = {"Foundation": "foundation", "Hidden Art": "hidden_art", "Advanced Art": "advanced_art"}
 
@@ -79,13 +83,15 @@ def build(icons_ref):
             continue
         tags = {t for n in design["nodes"] for t in n["bonuses"]}
         group = "a" if tags <= ORIGINAL_TAGS else "b"
-        bee = design["bloodline"]["id"] == BEE["bloodline"]
+        blid = design["bloodline"]["id"]
+        bee = blid == BEE["bloodline"]
         tree = {
             "version": 1,
             "source": {"path": f"{DESIGNS}/{path.name}", "ref": ref},
             "hiddenProbeId": HUNGRY_PULSE,
-            "bindings": {"folderId": BEE["folder"], "nodes": BEE["nodes"]} if bee else {},
-            **({} if bee else {"folder": {"name": design["bloodline"]["name"]}}),
+            "bindings": ({"folderId": BEE["folder"], "nodes": BEE["nodes"], "reassign": BEE["reassign"]} if bee
+                         else {"folderId": EXISTING_FOLDERS[blid]} if blid in EXISTING_FOLDERS else {}),
+            **({} if bee or blid in EXISTING_FOLDERS else {"folder": {"name": design["bloodline"]["name"]}}),
             "nodes": {n["id"]: {"seichiSilverCost": SILVER, "rounds": ROUNDS} for n in design["nodes"]},
             "icons": {},
         }
