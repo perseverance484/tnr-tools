@@ -28,7 +28,7 @@ EP_NORM = 40.0                     # DMG_EP_NORMALIZATION
 WEIGHT = 50.5                      # Codex's unit: 1% of LEVEL_HP
 ROUNDS = 7
 AP = 100
-JUTSU_LEVEL = 20                   # JUTSU_LEVEL_CAP (drizzle/constants.ts)
+JUTSU_LEVEL = 25                   # max level: JUTSU_TRAIN_LEVEL_CAP (jutsu.ts: "must be at max level (25) to evolve"); 25 + 0.4*25 = 35
 SYSTEM_BOOST = 0.60               # OUT_OF_COMBAT_BASE_DAMAGE_INCREASE (drizzle/constants.ts)
 SYSTEM_DR = 0.50                  # OUT_OF_COMBAT_BASE_DAMAGE_REDUCTION
 DR_CAP = 0.9                      # DMG_REDUCTION_CAP: at least 10% of the boosted hit lands

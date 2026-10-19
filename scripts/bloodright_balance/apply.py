@@ -83,7 +83,7 @@ def main(src):
         nodes, renamed = {}, []
         for b in sorted(placed):
             p = placed[b]
-            new = [{p["root"]: p["f"]}, {p["root"]: p["h"]}, p["cap"]]
+            new = [{p["root"]: p["f"]}, {p.get("htag", p["root"]): p["h"]}, p["cap"]]
             for tier, bonus in enumerate(new, 1):
                 nid = f"{b}_t{tier}"
                 nodes[nid] = {k: num(v) for k, v in bonus.items()}
