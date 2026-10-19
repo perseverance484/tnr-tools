@@ -1057,6 +1057,42 @@ def run_correction_tests(tmp: Path, spec: dict, nums: dict) -> None:
              f"{label} against the intake roster is refused (no --locks needed)")
     rewrite(path, doc)
 
+    print("\nR1 locks-only bloodline identity (no --source-index)")
+    lp.write_text(json.dumps(lock_doc(names)))
+    want(len(js.verify_approved(path, spec, locks=lp)["rows"]) == 3, "an approved ledger naming the locks' bloodline verifies")
+    for label, change, needle in (("a blank bloodline id", {"id": ""}, "bloodline.id is required: the target locks"),
+                                  ("a missing bloodline id", None, "bloodline.id is required: the target locks"),
+                                  ("a different bloodline id", {"id": "OTHER"}, "!= locks bloodline.id"),
+                                  ("a different bloodline name", {"name": "Some Other Line"}, "!= locks bloodline.name")):
+        dd = copy.deepcopy(doc)
+        if change is None:
+            dd["bloodline"].pop("id")
+        else:
+            dd["bloodline"].update(change)
+        rewrite(path, dd)
+        want(refused(lambda: js.verify_approved(path, spec, locks=lp), needle),
+             f"{label} against the target locks is refused with --locks alone")
+    rewrite(path, doc)
+
+    print("\nR2 attempt summary reports the terminal state")
+    rows = [attempt("J0", 1, "s0", "approved", sha=doc["jutsu"][0]["raw_sha256"]),
+            attempt("J0", 2, "s0", "rejected", ["quality"])]
+    ap_.write_text(json.dumps({"schema": "tnr.jutsu-studio.attempts/1", "attempts": rows}))
+    st = js.check_attempts(ap_)["per_jutsu"]["J0"]
+    want(st["approved_raw_after_attempt_n"] is None and st["last_approved_attempt_n"] == 1
+         and st["terminal_outcome"] == "rejected" and st["approved_candidate_sha256"] is None,
+         "an approval followed by a rejection is not reported as a current approved raw")
+    buf = io.StringIO()
+    real_stdout, sys.stdout = sys.stdout, buf
+    try:
+        rc = js.main(["attempts", str(ap_)])
+    finally:
+        sys.stdout = real_stdout
+    out = buf.getvalue()
+    want(rc == 0 and "terminal rejected (attempt 2; last approval 1 no longer current)" in out and "approved at 1" not in out,
+         "the attempts CLI prints the terminal state, never 'approved at N' after a later rejection")
+    ap_.write_text(json.dumps(good_attempts))
+
 
 if __name__ == "__main__":
     sys.exit(main())

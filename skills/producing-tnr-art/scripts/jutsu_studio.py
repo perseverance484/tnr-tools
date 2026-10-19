@@ -1094,7 +1094,9 @@ def check_attempts(path: Path, locks: dict | None = None, data: bytes | None = N
         last_sid = terminal.get("session_id")
         if streak.get(last_sid, 0) >= 2 and approved_n != len(seq):
             restart_required = last_sid
-        stats[jid] = {"attempt_count": len(seq), **counts, "approved_raw_after_attempt_n": approved_n,
+        stats[jid] = {"attempt_count": len(seq), **counts,
+                      "approved_raw_after_attempt_n": approved_n if terminal_sha else None,
+                      "last_approved_attempt_n": approved_n,
                       "terminal_outcome": terminal.get("outcome"), "terminal_attempt": terminal.get("attempt"),
                       "approved_candidate_sha256": terminal_sha, "last_approved_sha256": approved_sha,
                       "wrong_target_shown_to_director": shown_wrong,
@@ -1295,9 +1297,16 @@ def verify_approved(path: Path, spec: dict, raw_root: Path | None = None,
             evidence[key] = {"path": str(src_path), "bytes": blob, "sha256": sha256(blob)}
     if locks is not None:
         lock_info = check_locks(locks, source_index, evidence["locks"]["bytes"])
-        if bl.get("id") not in (None, "") and lock_info["doc"].get("bloodline", {}).get("id") != bl.get("id"):
-            errs.append(f"approved bloodline.id {bl.get('id')!r} != locks bloodline.id "
-                        f"{lock_info['doc'].get('bloodline', {}).get('id')!r}")
+        lbl = lock_info["doc"].get("bloodline") if isinstance(lock_info["doc"].get("bloodline"), dict) else {}
+        for field in ("id", "name"):  # the approved ledger must name the same family as its locks
+            want_v = lbl.get(field)
+            if want_v in (None, ""):
+                continue
+            got = bl.get(field)
+            if got in (None, ""):
+                errs.append(f"bloodline.{field} is required: the target locks record {want_v!r}")
+            elif (name_key(str(got)) != name_key(str(want_v))) if field == "name" else (got != want_v):
+                errs.append(f"approved bloodline.{field} {got!r} != locks bloodline.{field} {want_v!r}")
         for p in plan:
             tg = lock_info["by_id"].get(p["jutsu_id"])
             if tg is None:
@@ -2291,7 +2300,10 @@ def main(argv=None) -> int:
             res = check_attempts(args.attempts, lock_info)
             for jid, s in res["per_jutsu"].items():
                 flag = f"  RESTART_REQUIRED (session {s['restart_required_session']})" if s["restart_required_session"] else ""
-                print(f"  {jid}: {s['attempt_count']} attempt(s), approved at {s['approved_raw_after_attempt_n']}, "
+                state = (f"approved at {s['approved_raw_after_attempt_n']}" if s["approved_raw_after_attempt_n"] else
+                         f"terminal {s['terminal_outcome']} (attempt {s['terminal_attempt']}; last approval "
+                         f"{s['last_approved_attempt_n'] or 'none'} no longer current)")
+                print(f"  {jid}: {s['attempt_count']} attempt(s), {state}, "
                       f"wrong_target {s['wrong_target_count']}, silhouette {s['silhouette_conflict_count']}, "
                       f"drift {s['art_style_drift_count']}, anatomy {s['anatomy_rejection_count']}{flag}")
             print(json.dumps(res["family"], indent=1))
