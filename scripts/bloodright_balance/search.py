@@ -174,6 +174,14 @@ def tree_ok(slug, paths, dmg_rows):
             use[t] = use.get(t, 0) + 1
     if any(n > (3 if t == "damage" else 2) for t, n in use.items()):   # Taiyo puts Damage on three
         return False
+    if NODE5:
+        # path identity: no effect on more than two of the eight Foundation / Hidden Art nodes
+        fh_use = {}
+        for p in paths:
+            for t in {p.root} | {p.htag} if p.htag != p.root else [p.root, p.root]:
+                fh_use[t] = fh_use.get(t, 0) + 1
+        if any(n > 2 for n in fh_use.values()):
+            return False
     if slug == "blue_blade_eyes" and not any(p.root == "lifesteal" for p in paths):
         return False
     if slug == "blood_enchanted_eyes" and not ({"lifesteal", "decreasedamagetaken"} <= {p.root for p in paths}):
