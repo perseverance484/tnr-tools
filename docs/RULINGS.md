@@ -1482,3 +1482,25 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Rationale:** The user explicitly accepted the increase. This settles the bundle ceiling only.
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+---
+
+## RUL-2026-10-19-003 — Adopt P0 jutsu-icon accuracy and source-faithful showcase gates
+
+**Date:** 2026-10-19
+
+**Domain:** Art production / `jutsu.image` workflow
+
+**Status:** ACTIVE — director-approved; canonical protocol change staged for integration.
+
+**Supersedes:** None. Extends RUL-2026-10-14-001's isolated-art workflow; jutsu backgrounds, alpha policy, client/spec requirements and user-controlled live actions remain unchanged.
+
+**Ruling:** Adopt Aerathiel retrospective P0 proposals A–F with the two review refinements: (A) immutable exact jutsu/bloodline identity and technique/silhouette/camera target lock; (B) composition and perspective before rendering, with a clean isolated restart after two wrong-subject/composition failures; (C) fail-fast family-distinctness checks of primary silhouette **and action** at 125/64/32 pixels; (D) default technique-first jutsu icons without anatomy, allowing narrowly director-approved target-specific exceptions only; (E) chakra structures integrated into the actual technique instead of unsupported magical ornaments or floating symbols; (F) deterministic, exact-source-asset family galleries only, never generative remakes of accepted tiles.
+
+**Refinements:** Generator descriptions are triage hints, not proof: inspect the returned **pixels**, and do not claim hidden prompt access or control. Family distinctness is a contextual visual/art judgment on recognizable geometry and action, **not** an automatic color-similarity rejection; family members may share palette or elemental materials. A wrong-target result that auto-appears in the UI is rejected as a failed candidate, not put to the director for diagnosis.
+
+**Evidence:** Director replied "Approved with the refinements" to the six-item P0 review and its two stated refinements on 2026-10-19. Retrospective source: `docs/design/aerathiel/JUTSU_ICON_WORKFLOW_RETROSPECTIVE_20261019.md` at `chatgpt/aerathiel-jutsu-art-studio-20261019@2994305e5cd4894953a14b7c1d8727ddfc00fdd3`.
+
+**Canonical destination:** `docs/workflows/ISOLATED_ART_GENERATION.md` (jutsu-icon scoped amendment). Art spec/skill tooling remain in their existing canonical owners; any executable validation or batch-CLI additions are Fable-owned Lane A work subject to independent review.
+
+**Boundary:** This accepts **P0 A–F only**, not retrospective P1 proposals or an unreviewed CLI. It does not grant acceptance of Aerathiel's still-pending deterministic gallery, a canonical artpreflight PASS, Git binary pinning, or any production upload/readback. No live-game actions are authorized.
