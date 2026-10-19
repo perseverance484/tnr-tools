@@ -1366,3 +1366,39 @@ The `state/ghost_ship_retheme_patch.json` objective text is therefore live again
 **Evidence:** the user chose "Restore old behaviour" from: keep them active; restore old behaviour; activate all of them.
 
 **Canonical destination:** the live AI records, via push/120–121. The read-back comparison is `scripts/bloodright_classification_readback.py`.
+
+---
+
+## RUL-2026-10-18-006 — Rebalance the Bloodright trees with Claude's scorer, strict round totals
+
+**Date:** 2026-10-18 (applied 2026-10-19)
+
+**Domain:** Bloodright / tree balance
+
+**Status:** PROPOSED (the user re-approves the trees, Taiyo Kami included, from the review sheet)
+
+**Supersedes:** the placeholder values of RUL-2026-10-18-002 for 24 trees. RUL-2026-10-18-001's structure and value rules stand unchanged.
+
+**Ruling:** The Bloodright trees are rebalanced with Claude's scorer (`scripts/bloodright_balance/`) under the strict RUL-2026-10-18-001 rules: +2 / +3 / +5 percentage steps, clean Damage amounts, round finished totals and four distinct path roots. In addition:
+
+- every completed path and every 5-BP build has its own bonus package;
+- no effect sits on more than two capstones (Damage on up to three, as in Taiyo);
+- each tree's average full build is pulled toward the Taiyo exemplar's strength.
+
+- **Why Claude's scorer:** Codex's scoring scripts were never pushed. Claude's scorer, rebuilt from the pinned game source, agrees with Codex on overall tree strength but not on path evenness; it rated Taiyo's paths uneven. The user chose it over waiting for Codex's tools, accepting that Taiyo and the other three passing trees change.
+- **Result:** the finished paths of most trees are now close in strength, and 23 of 24 trees sit within ±25% of Taiyo. Scores and every build: `docs/design/bloodright/balance/scorer_v1/REVIEW.md`.
+- **Known limits:**
+  - the add-on choice (another path's Foundation and Hidden Art) stays uneven on most trees, because the four root effects are not worth the same in each kit;
+  - Blue Blade Eyes is about twice Taiyo's strength, because all its effects are high-value;
+  - Shadow Weaver, Hyouga Yui and Ethereal Monarch keep uneven paths.
+  The +5/+5 root variant, which helps the add-on choice on 8 trees, was offered and declined.
+- **Shiroi Youso:** unchanged. With the `None` placeholder only three effects reach its kit, too few for four distinct paths. It needs its element decided first (RUL-2026-10-18-004).
+- **Names:** 114 nodes changed effects and keep their naming-pass names for now. They are listed for a naming review.
+
+**Evidence:**
+- "Use my scorer" (chosen over getting Codex's tools, or a rules-only pass).
+- "Strict, tighten strength" (chosen over allowing +5/+5 starters, or showing both first).
+
+**Canonical destination:** `docs/design/bloodright/balance/scorer_v1/trees.json`, applied by `scripts/bloodright_from_naming.py` into `docs/design/bloodright/structural/`. The scorer and search live in `scripts/bloodright_balance/`.
+
+**Boundary:** no live-game action. The import packages stay blocked on icons, and import remains the user's step.

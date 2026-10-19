@@ -1,0 +1,103 @@
+{
+ "slug": "shinrai_ou",
+ "eligible": {
+  "damage": 4,
+  "increasedamagetaken": 1,
+  "increasedamagegiven": 3,
+  "reflect": 1
+ },
+ "damage_ceiling": 1.2000000000000002,
+ "score": 2.9835357552905424,
+ "paths": [
+  {
+   "root": "damage",
+   "f": 0.2,
+   "h": 0.6,
+   "cap": {
+    "reflect": 5.0
+   }
+  },
+  {
+   "root": "increasedamagegiven",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "increasedamagetaken": 5.0
+   }
+  },
+  {
+   "root": "reflect",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "damage": 0.4
+   }
+  },
+  {
+   "root": "increasedamagetaken",
+   "f": 2.0,
+   "h": 3.0,
+   "cap": {
+    "increasedamagegiven": 5.0,
+    "damage": 0.4
+   }
+  }
+ ],
+ "info": {
+  "secondary_normal": 0.3891,
+  "secondary_panel": 0.3891,
+  "three_spread": 0.8258,
+  "mean5": 4.7702,
+  "three": {
+   "p1": 3.338,
+   "p2": 2.909,
+   "p3": 2.837,
+   "p4": 3.436
+  },
+  "five": {
+   "p1+p2": 5.621,
+   "p1+p3": 5.675,
+   "p1+p4": 4.263,
+   "p2+p1": 3.963,
+   "p2+p3": 5.246,
+   "p2+p4": 3.818,
+   "p3+p1": 3.838,
+   "p3+p2": 5.1,
+   "p3+p4": 3.755,
+   "p4+p1": 4.49,
+   "p4+p2": 5.699,
+   "p4+p3": 5.773
+  },
+  "changes": 5
+ },
+ "current_score": 1.6794134131992602,
+ "current_ok": true,
+ "current_info": {
+  "secondary_normal": 0.2852,
+  "secondary_panel": 0.2852,
+  "three_spread": 0.321,
+  "mean5": 4.6535,
+  "three": {
+   "p1": 1.501,
+   "p2": 4.485,
+   "p3": 4.674,
+   "p4": 1.819
+  },
+  "five": {
+   "p1+p2": 3.805,
+   "p1+p3": 3.838,
+   "p1+p4": 2.434,
+   "p2+p1": 5.297,
+   "p2+p3": 6.822,
+   "p2+p4": 5.151,
+   "p3+p1": 5.425,
+   "p3+p2": 6.917,
+   "p3+p4": 5.584,
+   "p4+p1": 2.594,
+   "p4+p2": 3.818,
+   "p4+p3": 4.156
+  },
+  "changes": 0
+ },
+ "anchor": 4.6882375000000005
+}
