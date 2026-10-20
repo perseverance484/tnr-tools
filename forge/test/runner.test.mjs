@@ -434,8 +434,8 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
 // encoding, not a contract change, and this is the gate that keeps it one: the digest below is of
 // the canonical JSON of the key surface as the file carried it BEFORE the compaction, computed
 // from that file at 451,847 raw bytes of bundle. If a re-derivation, a hand edit or a bug in
-// expandNested() moves one key, the digest moves with it. Re-pinned 2026-10-18 to 94f9d84
-// (tools/derive_nested.mjs): the digest, counts and slots below are that derivation's.
+// expandNested() moves one key, the digest moves with it. Re-pinned 2026-10-18 to 94f9d84, then
+// 2026-10-20 to 6524d0f (tools/derive_nested.mjs; adds elementaldamage, noncombatquest, reward_titles): the digest, counts and slots below are that derivation's.
 test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
   const expanded = expandNested(NESTED_KEYS);
   assert.ok(expanded, "the committed nested.json must expand");
@@ -444,11 +444,11 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "1a7c959f44455a156c68b9add1d36edec7dc6671057e92635ca1a3fef977cafd",
+    "b7dda4f40657b73e346a0589503155c6e8abcaa382a370372c59cd99e283324c",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest
-  assert.equal(Object.keys(expanded.effects).length, 84);
+  assert.equal(Object.keys(expanded.effects).length, 86);
   assert.equal(Object.keys(expanded.objectives).length, 70);
   assert.ok(expanded.objectives.start_battle.includes("opponentAIs"));
   assert.ok(expanded.effects.damage.includes("power"));
@@ -457,7 +457,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     "entryItems", "isolated", "rewardMode", "rewardPickCount"]);
   // content.reward is QuestReward at 94f9d84 (rewardFields + reward_packages)
   assert.ok(expanded.objectiveReward.includes("reward_packages"));
-  // the table really is shared: 180 discriminator values resolve to 60 distinct array objects,
+  // the table really is shared: 182 discriminator values resolve to 62 distinct array objects,
   // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
   const arrays = new Set();
   let slots = 0;
@@ -465,8 +465,8 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     if (Array.isArray(v)) { slots += 1; arrays.add(v); continue; }
     for (const set of Object.values(v)) { slots += 1; arrays.add(set); }
   }
-  assert.equal(slots, 180, "the pin defines 180 key-set slots");
-  assert.equal(arrays.size, 60, "which are only 60 distinct key sets");
+  assert.equal(slots, 182, "the pin defines 182 key-set slots");
+  assert.equal(arrays.size, 62, "which are only 62 distinct key sets");
 });
 
 test("a nested table that cannot be trusted fails closed rather than half-expanding", () => {
