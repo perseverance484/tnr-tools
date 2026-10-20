@@ -45,6 +45,7 @@ export function checkManifest(path) {
   return {
     path: basename(path),
     hash: manifest.hash,
+    census: manifest.census,
     warnings: manifest.warnings,
     problems,
     plan: order.map((it) => ({
@@ -70,6 +71,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const w of report.warnings) console.log("warn   " + w);
   for (const p of report.problems) console.error("ERROR  " + p);
   console.log(`${report.path}: ${report.plan.length} planned item(s), manifest hash ${report.hash}`);
+  if (report.census) console.log(`  read-only census ${report.census.kind}, pageLimit ${report.census.pageLimit}: item.getAll discovery + item.get persist:full point reads, zero mutations`);
   for (const it of report.plan) {
     console.log(`  ${it.idx}. ${it.entity} ${it.op} ${it.srcId ?? it.targetId ?? ""} -> ${it.phase} phase`);
   }
