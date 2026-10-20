@@ -43,38 +43,44 @@ is a small streak, and the actor breaks the current jutsu-icon rules (anatomy of
 
 ## Approved comparison families
 
-Besides the pinned BBE and BEE library (`art/style_refs/jutsu_icons/`), dauntless has approved the
-current icons of three more bloodlines as part of the standard (2026-10-20): **Vaporia**,
-**Bakuhatsu** and **Aerathiel**. Their bytes are not pinned in the repository yet; the live icons are
-listed here (2026-10-20 public read, all 256x256 or close, opaque RGB).
+Besides the pinned BBE and BEE library (`art/style_refs/jutsu_icons/`), dauntless has approved three
+more bloodline sets as part of the standard (2026-10-20): **Vaporia**, **Bakuhatsu** and
+**Aerathiel**. All are pinned in the repository under `art/jutsu_icons/`.
 
-| Family | Jutsu | What it shows | Live icon |
+- **Vaporia** and **Aerathiel:** director-approved WebP exports (2026-10-19). They are byte-identical
+  to the live icons in the 2026-10-20 public read (256x256, opaque RGB).
+- **Bakuhatsu:** the approved set is the **2026-10-19 "Concussive Fracture" raws** in
+  `art/jutsu_icons/bakuhatsu/raws/`, not the live icons. The live Bakuhatsu icons are the old
+  figure-silhouette set, superseded and **not** a reference. The new raws are approved one by one;
+  their WebP exports and family gallery are not done yet (see that folder's README).
+
+| Family | Jutsu | What it shows | Pinned file |
 |---|---|---|---|
-| Vaporia | Azure Dragon Palm | a coiling water dragon | https://ui0arpl8sm.ufs.sh/f/_cUoYZoKioQaTPVOpmKNe.webp |
-| Vaporia | Drowning Strike | a crushing water column | https://ui0arpl8sm.ufs.sh/f/57Xm-Ip7L9-yDuzmFv25s.webp |
-| Vaporia | Liquid Ember Shell | a water sphere with an ember core | https://ui0arpl8sm.ufs.sh/f/amWN-ocawQd6-r6utGzAU.webp |
-| Vaporia | Scorch Break | a fire fissure splitting water | https://ui0arpl8sm.ufs.sh/f/62fHEuIiD6V-Wzq-WeuDn.webp |
-| Vaporia | Surfing Strike | a breaking wave with an ember edge | https://ui0arpl8sm.ufs.sh/f/5aG7AAlzPk3WXKOIr-1hk.webp |
-| Bakuhatsu | Blast Shield | a fire dome around a crouched figure silhouette | https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJDGyrUDzEwoh0WXMnscL279N8ayVQUCbRzS3p |
-| Bakuhatsu | Charge 4 Explosion | a figure silhouette over charged ground blasts | https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmm6g6eHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap |
-| Bakuhatsu | Howitzer Crash | a figure silhouette driving a fire impact | https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJvfTVgNpEmSnXwslYEpV1yOeNL8gMtqhjPdf3 |
-| Bakuhatsu | Inferno Cataclysm | a fire pillar striking beside a figure silhouette | https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJzDu0tpemvaQu94EYJs8HpxVzofny6iPtbgCZ |
-| Bakuhatsu | Kinetic Nova | a figure silhouette releasing an explosive orb | https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgYZyUAcU9cpECTimBdjaqbNn7vQsxGR1wLk4 |
-| Aerathiel | Atomic Shield | a swirling energy sphere | https://ui0arpl8sm.ufs.sh/f/p_PfPraibI9zT2Nmib4R0.webp |
-| Aerathiel | Death's March | a rising vortex column with debris | https://ui0arpl8sm.ufs.sh/f/JU_JG_oMOhnF9anYhAAv1.webp |
-| Aerathiel | Decaying Touch | a glowing open handprint with particles | https://ui0arpl8sm.ufs.sh/f/6lkOgutxdynF6dYMd77MK.webp |
-| Aerathiel | Particle Cannon | a triangular aperture firing a beam | https://ui0arpl8sm.ufs.sh/f/qpOQwJzGlRyx_nIhdU7DR.webp |
-| Aerathiel | Windshear Decay | a spiralling shear wind | https://ui0arpl8sm.ufs.sh/f/6yUkVCOnVg3uC2KV8HBRp.webp |
+| Vaporia | Azure Dragon Palm | a coiling water dragon | `art/jutsu_icons/vaporia/vaporia_azure_dragon_palm_jutsu_icon_v1.webp` |
+| Vaporia | Drowning Strike | a crushing water column | `art/jutsu_icons/vaporia/vaporia_drowning_strike_jutsu_icon_v1.webp` |
+| Vaporia | Liquid Ember Shell | a water sphere with an ember core | `art/jutsu_icons/vaporia/vaporia_liquid_ember_shell_jutsu_icon_v1.webp` |
+| Vaporia | Scorch Break | a fire fissure splitting water | `art/jutsu_icons/vaporia/vaporia_scorch_break_jutsu_icon_v1.webp` |
+| Vaporia | Surfing Strike | a breaking wave with an ember edge | `art/jutsu_icons/vaporia/vaporia_surfing_strike_jutsu_icon_v1.webp` |
+| Bakuhatsu | Blast Shield | a circular fire barrier deflecting debris | `art/jutsu_icons/bakuhatsu/raws/raw_bakuhatsu_blast_shield_v1.jpg` |
+| Bakuhatsu | Charge 4 Explosion | linked micro-detonations tracing a "C4" on cracked ground | `art/jutsu_icons/bakuhatsu/raws/raw_bakuhatsu_charge_4_explosion_v1.jpg` |
+| Bakuhatsu | Howitzer Crash | a V-shaped bow shock converging on one point | `art/jutsu_icons/bakuhatsu/raws/raw_bakuhatsu_howitzer_crash_v3.png` |
+| Bakuhatsu | Inferno Cataclysm | a fire pillar erupting from a fissure, tilted stone slabs | `art/jutsu_icons/bakuhatsu/raws/raw_bakuhatsu_inferno_cataclysm_v1.jpg` |
+| Bakuhatsu | Kinetic Nova | an airborne cluster of many small explosions | `art/jutsu_icons/bakuhatsu/raws/raw_bakuhatsu_kinetic_nova_v1.jpg` |
+| Aerathiel | Atomic Shield | a swirling energy sphere | `art/jutsu_icons/aerathiel/Aerathiel_Atomic_Shield_jutsu_v1.webp` |
+| Aerathiel | Death's March | a rising vortex column with debris | `art/jutsu_icons/aerathiel/Aerathiel_Deaths_March_jutsu_v1.webp` |
+| Aerathiel | Decaying Touch | a glowing open handprint with particles | `art/jutsu_icons/aerathiel/Aerathiel_Decaying_Touch_jutsu_v1.webp` |
+| Aerathiel | Particle Cannon | a triangular aperture firing a beam | `art/jutsu_icons/aerathiel/Aerathiel_Particle_Cannon_jutsu_v1.webp` |
+| Aerathiel | Windshear Decay | a spiralling shear wind | `art/jutsu_icons/aerathiel/Aerathiel_Windshear_Decay_jutsu_v1.webp` |
 
 What they add to the standard:
 
-- **Vaporia** and **Aerathiel** are technique-first with no figure, like BBE and BEE: one bold
-  element shape on a dark ground. Vaporia shows a two-colour element pairing (water with an ember
-  accent) that still reads at small sizes. Aerathiel is the best cyan energy and wind rendering.
-- **Bakuhatsu** is an approved family **exception**: every icon carries a dark figure silhouette
-  inside the fire. It is not licence for figures in the starter set, which stays actor-free.
-- **Aerathiel's Decaying Touch** (an open handprint) is likewise a family-specific approval, not
-  general approval for hands.
+- All three are technique-first with no figure, like BBE and BEE: one bold element shape on a dark
+  ground.
+- **Vaporia** shows a two-colour element pairing (water with an ember accent) that still reads at
+  small sizes. **Aerathiel** is the best cyan energy and wind rendering. **Bakuhatsu** is the best
+  pure fire and explosion rendering: molten orange and gold sparks, cracked ground, flying debris.
+- **Aerathiel's Decaying Touch** (an open handprint) is a family-specific approval, not general
+  approval for hands.
 - Every listed silhouette is **reserved by its family**: use these for rendering, material and
   palette handling only, never as a composition to copy.
 
@@ -84,13 +90,14 @@ What they add to the standard:
 
   | Theme | Exemplar | Why |
   |---|---|---|
-  | Poison, shadow / spirit | BEE `icon_bee_hemocure_v1.webp` (pinned) | best dark-ground focal contrast and rim light |
-  | Plain chakra | Aerathiel Windshear Decay or Particle Cannon (live) | cyan energy rendering |
-  | Fire | Vaporia Scorch Break (live) | ember material on a dark ground without a figure |
-  | Water | Vaporia Surfing Strike (live) | water and foam rendering |
-  | Wind | Aerathiel Windshear Decay (live) | moving air and debris |
+  | Poison, shadow / spirit | BEE `icon_bee_hemocure_v1.webp` | best dark-ground focal contrast and rim light |
+  | Plain chakra | Aerathiel Windshear Decay or Particle Cannon | cyan energy rendering |
+  | Fire | Vaporia Scorch Break, or Bakuhatsu Kinetic Nova | ember material on a dark ground; Kinetic Nova for bursts and explosions |
+  | Water | Vaporia Surfing Strike | water and foam rendering |
+  | Wind | Aerathiel Windshear Decay | moving air and debris |
 
-  Bakuhatsu is a fire palette reference only, because its figures must not carry over.
+  Use the pinned files listed above. Never attach the old live Bakuhatsu icons. Searing Might keeps
+  Scorch Break, because Bakuhatsu's only shield (Blast Shield) is the shape it must avoid.
 - **Do not attach the current starter icons.** `style_refs.py select` normally pairs the legacy
   identity icon with one exemplar, but these legacy icons are actor scenes and would pull the
   generator back to a ninja figure. Identity is carried by the target lock text instead.
@@ -115,7 +122,7 @@ Vaporia Scorch Break for 3; Aerathiel Particle Cannon for 4.
   other's shape: no needles in 6, no fog face in 1.
 - 2 owns *afterimage plus smoke*; no smoke in any other icon.
 - 3 owns *a shield*; no shield or armour anywhere else. It must also not look like Bakuhatsu's Blast
-  Shield (a fire dome) or Vaporia's Liquid Ember Shell (a sphere): plates, front-on, not a dome or orb.
+  Shield (a circular fire barrier) or Vaporia's Liquid Ember Shell (a sphere): plates, front-on, not a dome or orb.
 - 4 owns *a crescent cut with shock rings*; no other icon uses an arc slash or rings. Not Aerathiel's
   Particle Cannon triangle or beam.
 - 5 owns *chains*; no chains or bindings elsewhere.
