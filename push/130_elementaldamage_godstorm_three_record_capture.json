@@ -1,0 +1,30 @@
+{
+  "_note": "READ-ONLY elemental damage investigation — Stormrender vs Mastered Shūren no Yaiba with Godstorm Eclipse. Three source-identified full record point reads only; no mutations, no player/private/account capture. Exact live record values and item effects are not assumed. Operator execution only.",
+  "capture": {
+    "before": [
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "cLXXf8RJv5l9B_gGsYN2a"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "item.get",
+        "input": {
+          "id": "DfV_RZr-4mSvuS1E452aj"
+        },
+        "persist": "full"
+      },
+      {
+        "proc": "bloodline.get",
+        "input": {
+          "id": "szai-IgtB7PLubojIIlh-"
+        },
+        "persist": "full"
+      }
+    ],
+    "after": []
+  },
+  "items": []
+}
