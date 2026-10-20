@@ -1,0 +1,103 @@
+{
+  "_note": "QA ticket 4 (docs/reviews/QA_LIVE_2026-10-20.md, TXT-PLACEHOLDER). Suggest mode: content review desk, no direct save. Seven visible Tetsugan jutsu read 'New jutsu description' at the public read of 2026-10-20T19:37:17.859Z; text drafted from each jutsu's effects and battle line and approved by dauntless 2026-10-20. Equilibrium Guard Strike also replaces its generic '%user uses %jutsu on %target' battle line. Only text fields change; injectableInBattle is re-sent at its live value (law 20). Forge fetch-merges every other field. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "GRAMMAR",
+    "title": "Tetsugan: real descriptions for seven jutsu",
+    "rationale": "Seven Tetsugan jutsu still show the placeholder 'New jutsu description'. Replace them with descriptions matching what each jutsu does."
+  },
+  "items": [
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Crimson Thrust",
+      "targetId": "oh9CmLX8nltc2WfrkvswH",
+      "data": {
+        "description": "A crimson-charged dagger lunge that carries the user forward into the strike and sets the target ablaze, so later blows burn deeper.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Equilibrium Guard Strike",
+      "targetId": "OQqC5LhjVMFMmI_zoR9S7",
+      "data": {
+        "description": "A balanced sword cut sent in a straight line that cracks the target's guard, leaving them more vulnerable to metal techniques.",
+        "injectableInBattle": true,
+        "battleDescription": "%user settles into a balanced guard, then cuts a clean line of metal chakra through %target, breaking their footing and leaving their defenses open."
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Inner Peace",
+      "targetId": "sav_H5tjyeHUIlGNPKC3h",
+      "data": {
+        "description": "A moment of perfect stillness that sharpens the user's strikes and steadies their defense for a short time.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Middle Guard Stance",
+      "targetId": "r2QGirLcf1lpWvYCHS60g",
+      "data": {
+        "description": "A centered, balanced stance that strengthens offense and defense while shrugging off attempts to weaken the user.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Phantom Slash",
+      "targetId": "lXlcfj4ZrhX8mzkOgy0oI",
+      "data": {
+        "description": "A ghostly dagger cut that slips past the target's guard, leaving them exposed and hurting them for every blow they land.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Shadow Pierce",
+      "targetId": "J6HTCnlUw84zOyaf9xxmD",
+      "data": {
+        "description": "A silent dagger thrust from the shadows that pierces straight through defenses and leaves a lingering wound.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Vacuum Fan",
+      "targetId": "QE05DhEhb09fhnC1573Vj",
+      "data": {
+        "description": "A fan of metallic chakra whose vacuum drags enemies toward the user, weakening their strikes and leaving them open to metal.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the jutsu does."
+      }
+    }
+  ]
+}
