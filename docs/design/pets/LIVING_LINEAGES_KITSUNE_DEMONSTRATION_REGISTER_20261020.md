@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** VISUAL PILOT ACTIVE — **19 unique art images** required for the final two-panel sheet (instead of original 37). Juvenile master and **Ember, Moonlit, Jade Rank 1** visuals approved; **Obsidian Rank 1 next**. SVG structure **DIRECTOR APPROVED / LOCKED (2026-10-20)**; artwork population remains pending; no game writes or transparent production exports.  
+**Status:** VISUAL PILOT ACTIVE — **19 unique art images** required for the final two-panel sheet (instead of original 37). Juvenile master + **all four individual Rank 1** visuals director-approved; **Ember Rank 2 Scout next**. SVG structure **DIRECTOR APPROVED / LOCKED (2026-10-20)**; artwork population remains pending; no game writes or transparent production exports.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable history ledger, 19 active assets](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json), [editable SVG layout](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg), and [26-placement slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) belong to the ChatGPT-owned workdesk branch. The JSON ledger owns approval and parentage; this register owns direction; the SVG/slot map own presentation structure. No Fable-branch or game-state writes.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
@@ -123,7 +123,7 @@ The director provided **five previously generated mature Kitsune illustrations**
 | Intake ZIP | `TNR_Living_Lineages_Moonlit_Rank1_Approved_Source_Intake_20261020.zip`, SHA-256 `0d30357be3536db51a796566db8c872ef0f7ce12d1718bb4569c08c8a1c1c6f0` (conversation artifact, **not Git-pinned**) |
 | Mechanical gate | **NOT RUN** — source retains opaque background; no transparent cutout, final WebP or artpreflight |
 
-**Historical next generation at Moonlit approval (now complete):** `C_R01` Jade Rank 1. See Jade intake below; its accepted source becomes `C_R02`'s own sole parent. **Current next:** `D_R01` Obsidian Rank 1.
+**Historical next generation at Moonlit approval (now complete):** `C_R01` Jade Rank 1; see its acceptance below. This row preserves the prior intake chronology rather than claiming the still-current next generation.
 
 ## Rank 1 approval intake — Jade (C_R01), 2026-10-20
 
@@ -144,6 +144,36 @@ The director provided **five previously generated mature Kitsune illustrations**
 
 **Next identity to establish:** `D_R01`, Obsidian **(9)** black/dark-violet/silver; **Dappled accents (9)** small contrasting spots; **Spirit aura (7)** a few faint pearl-coloured spirit motes. Keep an unmistakably youthful two-tail fox. Earlier mature Obsidian visual benchmarks must **not** be used as Rank 1 conditioning art.
 
+## Rank 1 approval intake — Obsidian (D_R01), 2026-10-20
+
+**Director decision:** “Approved, next.” This completes the **four unique Rank 1 kitsune** in the demonstration. Obsidian has a well-defined juvenile two-tail silhouette with dark violet-black, silver patches and lilac dapples, bright purple eyes and several restrained pearl Spirit motes. At 160px the dark exterior meets the opaque black background, so carefully QC the edges after eventual cutout processing; this is **not a rejection** of its accepted visual design.
+
+| Intake field | Evidence |
+| --- | --- |
+| Approved asset | `D_R01`, Obsidian Rank 1 Companion |
+| Expected sole reference | `SPECIES_REF`, SHA-256 `8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9`; actual generator-side reference ingestion **UNVERIFIED** |
+| Original user image | `1000018902.png` — actually **JPEG/JFIF RGB**, 1536×1536, **248075 bytes**, black opaque background |
+| Approved original SHA-256 | `440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b` |
+| Byte-identical corrected filename | `kitsune_obsidian_rank1_approved_source_20261020.jpg` (conversation artifact, not Git-pinned) |
+| Small-size visual QC | **PASS WITH NOTE** — natural head/paws and two separate tails, dappled spots, expressive eyes and pearl spirit motes at 160px; inspect dark outline after chroma/background removal |
+| Dedicated intake ZIP | `TNR_Living_Lineages_Obsidian_Rank1_Approved_Source_Intake_20261020.zip`, SHA-256 `fd0e957cff32e505d0a7cd104dde35d63a2a8bc150f8d1cc6f453b608f28ddbb`; Obsidian and exact juvenile master original JPEGs plus manifest |
+| Family original archive | `TNR_Living_Lineages_Kitsune_Rank1_Family_Sources_20261020.zip`, SHA-256 `e294e00c011dc7b311dc286f9c306229a7f903f30dd2a48760f410e009f1d4ec`; five byte-identical approved original JPEGs and source manifest. Archive is **not a generation input** |
+| Mechanical QC | **NOT RUN**: no transparency/export, lossless WebP or upload artpreflight. No published or live-game state |
+
+**The exact accepted Obsidian R1 SHA is now the only permitted `D_R02` parent**, once that isolated Scout generation begins. The original juvenile species master is no longer the parent for *any* evolution beyond Rank 1.
+
+### Rank 1 family gate — CLOSED FOR VISUAL ACCEPTANCE
+
+**Five approved reference/Rank 1 images:** species master + Ember, Moonlit, Jade, Obsidian. Original source SHA-256s, independent trait configurations, and intended species-parent links are recorded in `LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json`. Actual reference conditioning remains unverified without the isolate's tool-input evidence, and all sources are JPEG/RGB on black, so transparency/process QC remains **PENDING**.
+
+Deterministic family visual QC from exact original bytes at 250px confirms four distinct individuals with shared juvenile Kitsune anatomy, two organic bushy tails each, and a clear Ember/Wind, Moonlit/Moon, Jade/Lightning, Obsidian/Spirit identification. This comparison is **not** the final approved SVG showcase and is **not** a substitute for individual source files.
+
+### Next: Rank 2 Scout — Ember first
+
+Approved shared Rank 2 species concept: **yearling growth, not metamorphosis**. Visibly lengthen lower legs and torso, lift shoulders/sternum, gently narrow/lengthen muzzle, slightly change ear carriage and give an alert exploratory Scout stance. Keep exactly **two separate natural tails**, the characteristic Ember/Pale Tips/Wind cosmetics and its unique face. Rank 2 must show growth at 160px beyond pose, zoom or added glow; the first new tail does not appear until **Rank 3**.
+
+**The single actual image reference for isolated `A_R02` MUST be Ember Rank 1:** `kitsune_ember_rank1_approved_source_20261020.jpg`, SHA-256 `b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470`. **Never attach** the original juvenile species master, other player pets, benchmark mature art, family comparison sheet or the family ZIP to this evolution generation. Director approval of Ember R2 precedes applying the same rank concept separately to Moonlit, Jade and Obsidian.
+
 ## Director-revised final sheet: 19 distinct images / 26 placements (2026-10-20)
 
 The director supplied a 1536×1024 reference composition and explicitly changed the demonstration deliverable. **Do not produce an unnecessary nine-rank chain for Moonlit, Jade or Obsidian.** The full ranked chain now belongs to **Ember only**. The other three lineages appear only at Ranks 1–3 to demonstrate individuality and early inheritable growth.
@@ -157,14 +187,14 @@ The director supplied a 1536×1024 reference composition and explicitly changed 
 - **No format invention:** SVG [structural template](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg) has editable labeled art placeholders and 1536×1024 geometry; [slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) binds all slots to their 19 canonical asset IDs. The image reference itself is a **layout example**, not source art.
 - **Approval gates:** Director **APPROVED the structural SVG layout, spacing, rank corrections and text on 2026-10-20**. This does **not** approve missing pet illustrations, transparency processing, production preflight or the eventual populated showcase.
 
-**Working sequence:** Finish Jade/Obsidian R1 first. Produce R2 for all four from their own **accepted R1**, then R3 for all four from their own **accepted R2**. After four R3 approvals, proceed with **Ember R4→R5→R6→R7→R8→R9** only, preserving one immediate, approved Ember parent image at each rank. Old mature reference images are **style comparators only** at Ember R5/R6. Shared rank concepts remain the director-approved species roadmap, even though only Ember exercises ranks 4–9 in this particular sheet.
+**Working sequence:** Rank 1 across all four is **COMPLETE**. Next produce R2 for all four from their own **accepted R1**, then R3 for all four from their own **accepted R2**. After four R3 approvals, proceed with **Ember R4→R5→R6→R7→R8→R9** only, preserving one immediate, approved Ember parent image at each rank. Old mature reference images are **style comparators only** at Ember R5/R6. Shared rank concepts remain the director-approved species roadmap, even though only Ember exercises ranks 4–9 in this particular sheet.
 
 **Ledger integrity:** Keep the initial **37 IDs** for traceability, but mark the **18 non-Ember R4–R9** IDs `OUT_OF_SCOPE_FOR_APPROVED_SHEET`—they are not rejections, missing deliverables, or a reason to generate more images. The **active 19** source assets and **26 placements** control completion.
 
 ## Revised production order and acceptance rules
 
 1. **COMPLETE:** The director accepted the juvenile visual source and the common nine-rank Kitsune form milestones/tail curve `2,2,3,3,4,5,6,7,8`.
-2. **Rank 1 family (4/4 required):** Ember **APPROVED**; Moonlit **APPROVED**; Jade **APPROVED**; Obsidian **NEXT**. Each generation requires **exactly one source image: the species master**; actual tool-side reference consumption is recorded as unverified where not independently witnessed.
+2. **COMPLETE — Rank 1 family 4/4 director-approved:** Ember, Moonlit, Jade and Obsidian accepted individually. Each had exactly one **expected** reference image—the approved species master. Actual generator-side reference ingestion remains unverified; original visual sources are preserved in the family archive.
 3. **Rank 2 family (4/4 required):** Each individual uses only its own director-approved Rank 1; inspect at full and 160px for genuine youth-to-yearling growth.
 4. **Rank 3 family (4/4 required):** Each individual uses only its own director-approved Rank 2; third attached tail and adolescent runner anatomy must be visible.
 5. **Ember Rank 4–9 only:** Sequential new images using the immediately preceding accepted Ember source, with **major metamorphoses at R5/R7/R9**. Each distinct parent-child link must have its own source hashes and approvals. The other three lineages are finished at Rank 3 for this sheet.
@@ -180,8 +210,8 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 - Structural SVG: **DIRECTOR APPROVED / V1 FROZEN** at `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg`; overview shows **Species Reference → Rank 1 → ... → Rank 9**, with **Rank 5 Hunter correctly present**. Identical structure and rendered pixels; only SVG approval metadata was changed.
 - Target: **19 unique images**, not the original 37. **26 placements**; retained ledger keeps 18 out-of-scope history slots.
-- Director-approved raw visuals: **4/19** — species master + **Ember Rank 1**, **Moonlit Rank 1**, **Jade Rank 1**. **15 remain.** No final transparent production exports or gallery QC claimed.
-- Next isolated generation: **D · Obsidian / Rank 1 Companion**, from the exact juvenile master; then all four R2 and R3 before Ember R4–R9.
+- Director-approved raw visuals: **5/19** — species master + **Ember Rank 1**, **Moonlit Rank 1**, **Jade Rank 1**, **Obsidian Rank 1**. **14 remain.** All 4/4 Rank 1 originals accepted; no final transparent production exports or art preflight claimed.
+- Next isolated generation: **A · Ember / Rank 2 Scout**, from the **exact director-approved Ember Rank 1 original JPEG**, not from the species master or any other individual's image. Then Moonlit, Jade and Obsidian Rank 2, all four Rank 3, and only Ember R4–R9.
 - Exact parent image intended on each individual R1 was the species master; actual tool-side conditioning ingestion remains independently **UNVERIFIED**. No live-game calls, player pet attempts, credentials or publication.
 
 ## Structural SVG verification (2026-10-20)
@@ -201,4 +231,4 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 **Binding layout record:** `LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` marks `DIRECTOR_APPROVED_STRUCTURAL_LAYOUT_V1`, carries the accepted SVG hash and freezes the placement mapping. `LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` records this approval separately from artwork acceptance.
 
-**Updated visual intake:** 4/19 individual visuals approved (species master, Ember Rank 1, Moonlit Rank 1, Jade Rank 1); **15 images outstanding**, next `D_R01` Obsidian from the exact juvenile species master. Final source-composed poster, alpha/cutout processing and production review still **PENDING**, and approval of structural geometry authorizes no game uploads or other live actions. Any later structural rewrite requires a fresh director decision.
+**Updated visual intake:** **5/19** source visuals approved (species master and all four Rank 1 founders); **14 images outstanding**, next `A_R02` Ember Scout using the exact Ember Rank 1 original. Final source-composed poster, alpha/cutout processing and production review remain **PENDING**. Approval of structural geometry authorizes no game uploads or other live actions. Any later structural rewrite requires a fresh director decision.
