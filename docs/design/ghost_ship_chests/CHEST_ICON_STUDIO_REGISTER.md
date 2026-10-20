@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** GEOMETRY RESTART READY: **director confirmed one arched metal hoop per lid end + one separate central family binding**; previous 6/12 raw approvals remain REVOKED; **0/12 currently valid visual approvals; 0/12 production-ready exports**. Fresh corrected Common Hunter isolated generation is READY.  
+**Status:** GEOMETRY LOCKED; NEW MATERIAL LADDER PROPOSED / DIRECTOR DECISION PENDING: previous 6 raw approvals remain REVOKED; **0/12 currently valid visual approvals; 0/12 production-ready exports**. The revised Common Hunter prompt is prepared, but new generation waits for approval of the five-tier leather/rope ladder.  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -17,11 +17,19 @@
 
 ## Director geometry confirmation — 2026-10-20
 
-**Director:** “Sure, that looks fine. It was the double band on one side that threw it off.” **Decision settled:** the structural model is one true arched metal end hoop on each outer end of the lid, with a distinct central leather/fang binding (Hunter) or rope/sprig binding (Gatherer). Reject *extra independent bands parallel to either outer hoop*; edge highlights or polished edging on **the same band** remain allowed but may not create the appearance of a separate band. This approves the **topology specification only**, not any new raw. The six former approvals remain revoked, and no previously rejected image can return as an image reference. **First new clean isolated-generation session unblocked:** Common Hunter, from the reset brief.
+**Director:** “Sure, that looks fine. It was the double band on one side that threw it off.” **Decision settled:** the structural model is one true arched metal end hoop on each outer end of the lid, with a distinct central leather/fang binding (Hunter) or rope/sprig binding (Gatherer). Reject *extra independent bands parallel to either outer hoop*; edge highlights or polished edging on **the same band** remain allowed but may not create the appearance of a separate band. This approves the **topology specification only**, not any new raw. The six former approvals remain revoked, and no previously rejected image can return as an image reference. **Geometry gate cleared**, but the **new director-requested binding material ladder is proposed** and awaits approval before opening Common Hunter's new generation session. See `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md`.
+
+## New material ladder — decision pending (2026-10-20)
+
+**Director request:** “I think we should use different materials for the strap/rope on each chest as well to make the chests more visually distinguishable. Plan material ladder for both and redo prompt accordingly.”
+
+**Proposal (NOT YET AN APPROVED OPERATIVE RULE):** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` lays out a five-tier material progression for **Hunter's one flat leather strap** and **Gatherer's one round rope**, Rusted → Common → Rare → Epic → Legendary, with contrasting base hue, fiber/hide texture and ornamental workmanship visible at 125px. It does not alter the director-confirmed **one outer metal hoop left + one right + one center family binding** topology. Decorative stitching, weave, trim and filaments remain *within* that one center binding; no extra parallel arch allowed. The original motifs, tier treatments and Ornate/Mystery subjects remain otherwise unchanged.
+
+**Current gate:** a proposed tier ladder should not be promoted into approved style canon silently. The revised Common Hunter isolated brief uses the proposed **plain saddle-brown leather** rather than generic brown, but its generation is **ON HOLD pending director material acceptance**. Upon approval, update canonical operative art brief / durable ruling as appropriate, then launch exactly one new clean Common Hunter generation. Former six rejected originals remain forbidden as reference inputs.
 
 ## Current gates
 
-- Gate 01 — Common Hunter's Chest: previous `1000018925.png` **REVOKED — GEOMETRY INVALID**, historical only, never an eligible generation reference. **NEW CLEAN ISOLATED GENERATION READY**, director-confirmed geometry: **one metal arching end hoop left, one right, one distinct center leather/fang strap**, with no second independent parallel hoop on either side. Use `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md` plus **only the original Reliquary** attached (style/material, never geometry). Do not count slot 01 approved until the director visually accepts a newly generated geometry-correct image.
+- Gate 01 — Common Hunter's Chest: previous `1000018925.png` **REVOKED — GEOMETRY INVALID**, historical only, never an eligible generation reference. Geometry **CONFIRMED** (one metal end hoop left, one right, single center leather/fang strap; never a second arch). **REVISED ISOLATED BRIEF DRAFTED, GENERATION HELD FOR MATERIAL-LADDER ACCEPTANCE:** `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md` specifies *one smooth saddle-brown tanned leather strap* distinct from Common Gatherer's proposed *thick golden jute rope*. After director accepts the material ladder, open a clean isolated generation using **only** the original Reliquary (style/material, never geometry). Do not count slot 01 approved until a newly generated geometry-correct image is accepted.
 - Gate 02 — Common Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018926.png` quarantined and unusable as reference. Rebuild only after geometry-correct Common Hunter wins fresh director approval.
 - Gate 03 — Rare Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018929.png` is **not** an eligible generation reference. Previously approved cold-gunmetal armor and star motif are still concept references **in text**, but layered reinforcement may only plate an existing single hoop, never become a duplicate parallel band.
 - Gate 04 — Rare Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018930.png` quarantined. Regenerate after corrected Common Gatherer + corrected Rare Hunter with geometry check first.
@@ -132,6 +140,8 @@ The six **formerly approved, now geometry-revoked** conversation-delivered origi
 Fable / Claude Code, after the director accepts the completed set: commit binaries under `art/`, pin an `imagePack`, and prepare exactly one Forge **suggest-mode** ticket (`VISUAL`, title `Update icon`, one rationale per chest). No writes to game. All twelve chests' item rarity (`COMMON` including “Legendary” named chests) remains a **separate director decision**, not a change request in this workstream.
 
 ## History
+
+- 2026-10-20: Director requested distinct materials for each Hunter leather / Gatherer rope tier before clean regeneration. A five-tier **PROPOSAL**, concrete 125px cues and rewritten Common Hunter geometry-reset prompt were committed on the ChatGPT Art Studio branch. **Material proposal awaiting director acceptance**, so new image generation is held; existing geometry approval stands; old six images still revoked.
 
 - 2026-10-20: Director confirmed geometry correction: “Sure, that looks fine. It was the double band on one side that threw it off.” Approved one continuous arched metal hoop at each end plus separate central family binding; no duplicate independent parallel bands. Unblocked one fresh isolated Common Hunter regeneration using the original Reliquary only. Previous six revocations stand, currently valid approvals remain 0/12, no production export/preflight run.
 
