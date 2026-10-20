@@ -126,3 +126,12 @@ directly. One loot line in Bloodthorn Cache (`OIw9FjNd-PXnSVzMtbclP`) grants the
 (dauntless, 2026-10-20). The other 20 lines are copied unchanged from the 2026-10-20 public read.
 Source: `docs/reviews/QA_LIVE_2026-10-20.md` (REF-REWARD). `validate.py`: 0 errors, 0 warnings.
 Run it from Forge, then use **Check suggestions** and return the results bundle.
+
+## 133 Forbidden Jutsu Scroll: Rebirth fix (suggest mode, QA ticket 2)
+
+`133_forbidden_scroll_rebirth_fix.json` sends one edit to the content review desk; it does not
+save directly. The scroll (`X5q3Ww-yfCeJ3m6ZqPmmz`) grants jutsu `lbSdCH5lTz0U2f-t9gWxw`, which no
+longer exists. The edit points the reward at Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), the jutsu the
+scroll's description names (dauntless, 2026-10-20). Every other field is copied unchanged from the
+2026-10-20 public read. `validate.py`: 0 errors, 0 warnings. Run it from Forge, then use
+**Check suggestions** and return the results bundle.
