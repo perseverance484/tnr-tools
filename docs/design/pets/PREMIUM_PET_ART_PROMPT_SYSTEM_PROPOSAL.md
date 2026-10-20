@@ -1,5 +1,7 @@
 # TNR Premium Pet Artwork — Prompt and Evolution Direction
 
+> **Current human-facing direction (2026-10-20):** Read [PET_ART_REFERENCE_EVOLUTION_ONE_PAGE.md](PET_ART_REFERENCE_EVOLUTION_ONE_PAGE.md) first. The director has clarified that **one approved base image per species is required for FIRST generation**, while each later evolution uses **that individual pet's latest accepted image** plus a staff-editable rank concept. This reuses the existing one-image reference path. Any suggestions below to defer all species image references, or start with text-only references, are **superseded for this workflow**. The technical findings below remain supporting research, not a deployed contract.
+
 **Status:** DESIGN PROPOSAL — for TNR developer and director review; not deployed or approved as an implementation contract.  
 **Prepared:** 2026-10-20  
 **TNR game source inspected:** `studie-tech/TheNinjaRPG@19e2010f9cd3f9be26fff96cca0bf6dece322f11` (public source; *not* a live-database capture).  
