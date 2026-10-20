@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "SPECIES_AND_RANK_ROADMAP_APPROVED__RANK1_EMBER_READY_FOR_ISOLATED_GENERATION",
+  "status": "RANK1_EMBER_RAW_APPROVED__RANK1_MOONLIT_READY__ART_QC_PENDING",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -257,22 +257,68 @@
       "rank_name": "Companion",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "SPECIES_REF",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_APPLICABLE",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
-      "approved_original": null,
-      "approved_original_sha256": null,
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL__PROCESSING_AND_ALPHA_PENDING",
+      "director_visual_approval": "APPROVED",
+      "identity_qc": "PASS_VISUAL_DIRECTOR_APPROVED: two-tail youthful fox, Ember warm russet/charcoal/amber, pale ear/limb tips and restrained pale Wind wisps; new pose/facial individuality visible",
+      "progression_qc": "NOT_APPLICABLE_RANK1__distinct juvenility vs species base verified at 160px",
+      "thumbnail_160_qc": "PASS_VISUAL_160PX_SIDE_BY_SIDE_WITH_SPECIES_REFERENCE; identity and independent silhouette readable",
+      "reference_original": {
+        "filename": "1000018898.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 318746,
+        "background": "opaque black",
+        "sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+        "source_location": "conversation_upload",
+        "data_note": "Despite .png file extension, actual bytes are JPEG RGB"
+      },
+      "approved_original": {
+        "filename": "kitsune_ember_rank1_approved_source_20261020.jpg",
+        "archive_filename": "images/kitsune_ember_rank1_approved_source.jpg",
+        "sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+        "bytes": 318746,
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "alpha_policy": "NOT_COMPLIANT_AS_PRODUCTION_EXPORT",
+        "located_in": "2026-10-20 conversation attachment and downloadable approved-source intake ZIP (NOT GIT PINNED)"
+      },
+      "approved_original_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
-      "isolated_session": null,
-      "approval_date": null,
-      "revision_notes": []
+      "mechanical_preflight": "NOT_RUN__SOURCE_JPEG_RGB_OPAQUE_BLACK; transparency cleanup/export not completed",
+      "isolated_session": {
+        "type": "ISOLATED_GENERATION_ART_RETURN",
+        "target": "Ember Rank 1",
+        "session_url": null,
+        "evidence": "Director posted rendered Ember image and explicitly approved in this workdesk; no runtime output manifest or upstream image attachment proof provided"
+      },
+      "approval_date": "2026-10-20",
+      "revision_notes": [
+        "Director response 2026-10-20: 'Approved, next' accompanying Ember Rank 1 image.",
+        "Actual bytes SHA-256 b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470; image is JPEG RGB/opaque black although named 1000018898.png.",
+        "Raw director visual approval and full/160px art review recorded; no mechanical alpha removal, lossless WebP export, asset preflight, or upload readiness.",
+        "Expected parent is approved juvenile master exactly; generator reference ingestion cannot independently be proven from returned image alone.",
+        "Keep original bytes immutable; future A Rank 2 must use this approved Ember source as its sole conditioning image, not the species base or another individual's image."
+      ],
+      "parent_conditioning_evidence": "EXPECTED from previously approved isolated-generation opening prompt (species reference SHA-256 8b32...dc9); actual image-generator attachment/ingestion not independently audited. This is not verified conditioning provenance.",
+      "raw_source_archive": {
+        "filename": "TNR_Living_Lineages_Ember_Rank1_Approved_Source_Intake_20261020.zip",
+        "sha256": "9c7483429eab15859c5ccc9b032f0d6c5b4cc6c59a8dc7e0b3896de434ba4640",
+        "bytes": 557250,
+        "entry": "images/kitsune_ember_rank1_approved_source.jpg",
+        "parent_entry": "images/kitsune_juvenile_species_reference.jpg",
+        "source_kind": "conversation_artifact_not_git_pinned",
+        "manifest_entry": "intake_manifest.json"
+      }
     },
     {
       "asset_id": "B_R01",
@@ -1255,13 +1301,61 @@
     "evidence_source": "director response in project conversation; no downstream rank image has yet been approved"
   },
   "next_generation": {
-    "asset_id": "A_R01",
-    "lineage": "Ember",
+    "asset_id": "B_R01",
+    "lineage": "Moonlit",
     "rank": 1,
     "expected_parent_asset_id": "SPECIES_REF",
     "expected_parent_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
     "gate": "READY_FOR_ISOLATED_GENERATION",
-    "requires": "attach the ACTUAL director-approved species reference; one illustration only; then director visual approval and byte-QC before ledger advancement"
+    "requires": "Attach exact juvenile species source (not Ember); one image only; Moonlit palette (1), Crescent marking (1), Moon aura (5); director approval before Jade Rank 1"
   },
-  "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight"
+  "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight",
+  "lineage_progress": {
+    "A": {
+      "label": "Ember",
+      "highest_director_approved_rank": 1,
+      "latest_approved_asset_id": "A_R01",
+      "latest_approved_original_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470"
+    },
+    "B": {
+      "label": "Moonlit",
+      "highest_director_approved_rank": 0,
+      "latest_approved_asset_id": null,
+      "latest_approved_original_sha256": null
+    },
+    "C": {
+      "label": "Jade",
+      "highest_director_approved_rank": 0,
+      "latest_approved_asset_id": null,
+      "latest_approved_original_sha256": null
+    },
+    "D": {
+      "label": "Obsidian",
+      "highest_director_approved_rank": 0,
+      "latest_approved_asset_id": null,
+      "latest_approved_original_sha256": null
+    }
+  },
+  "approved_image_count": 2,
+  "approved_individual_rank_images_count": 1,
+  "generation_sessions_returned": [
+    {
+      "target_asset_id": "A_R01",
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL",
+      "received_date": "2026-10-20",
+      "raw_source_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+      "session_url": null,
+      "provenance": "Director supplied image in master workdesk; actual generator reference ingestion unverified"
+    }
+  ],
+  "source_intake_archives": [
+    {
+      "filename": "TNR_Living_Lineages_Ember_Rank1_Approved_Source_Intake_20261020.zip",
+      "sha256": "9c7483429eab15859c5ccc9b032f0d6c5b4cc6c59a8dc7e0b3896de434ba4640",
+      "bytes": 557250,
+      "entries": 2,
+      "role": "accepted Ember R1 + approved species reference exact source JPEG bytes",
+      "git_pinned": false
+    }
+  ]
 }
