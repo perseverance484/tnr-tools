@@ -62,6 +62,7 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 - **Locked siblings excluded:** Blast Shield's thick round protective wall and deflected projectile; Inferno's shattered stone planes plus eruption column; Kinetic Nova's aerial radial multi-burst constellation; Howitzer Crash's pending diagonal propulsion impact.
 - **Approved references:** original Charge 4 PNG — **IDENTITY ONLY**; approved Blast Shield raw JPEG SHA-256 `f2167a947f77c56f39a6d24b8af0660406cf7654872fdf88407333f0539be308` — **STYLE/MATERIAL ONLY**. Attach both individual image files for the new isolated generation; do not copy the shield geometry.
 - **P0 v1 APPROVED lock:** `e6b9d38cb7bed0968a1e91e95654483cfd1e4f00b6b25e284bcdbeebcc6ab93a`. Director approved the proposed direction on October 19; machine-readable status is APPROVED. Raw generation remains pending.
+- **Current lock-check:** PASS using installed canonical `jutsu_studio.py lock-check` against the verified Bakuhatsu ZIP `source_index.json` and a local file whose Git blob SHA exactly matches committed `JUTSU_TARGET_LOCKS.json` blob `e70cb8bb101b32af1f0197809bf527a7c653acfc`. Four locks DIRECTION_APPROVED; Howitzer Crash COMPLETE, direction PENDING. No export preflight run.
 
 ## Current K gates
 
