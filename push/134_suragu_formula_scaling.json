@@ -1,0 +1,131 @@
+{
+  "_note": "QA ticket 3 (docs/reviews/QA_LIVE_2026-10-20.md, FX-FORMULA-TYPES). Suggest mode: content review desk, no direct save. Built from the public jutsu.getAll read at 2026-10-20T19:36:41.058Z. Each jutsu's full effects array is reproduced unchanged except effects[0] statTypes/generalTypes, which go to the kit's own pattern (Infernal Stream: statTypes [None], the server-normalised Highest marker per push/131, and generalTypes [Highest]). Suragu has statClassification None on every jutsu and element-scoped bloodline boosts, so there is no style pair to match (dauntless asked for kit-consistent scaling, 2026-10-20). injectableInBattle is re-sent at its live value (law 20). Neither jutsu is equipped on a captured AI (law 18). Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "BALANCE",
+    "title": "Suragu: give Magma Slayer and Eruption Strike the kit's scaling",
+    "rationale": "Two Suragu damage jutsu are missing attribute scaling. Set them to the Highest/Highest scaling the rest of the kit uses."
+  },
+  "items": [
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Magma Slayer",
+      "targetId": "98Qji30as-AHzsAbke5Z_",
+      "data": {
+        "effects": [
+          {
+            "type": "damage",
+            "power": 35,
+            "rounds": 0,
+            "target": "INHERIT",
+            "elements": [
+              "Lava"
+            ],
+            "appearSfx": "16vlpusdcPY8Ki3zE4qOs",
+            "direction": "offence",
+            "statTypes": [
+              "None"
+            ],
+            "calculation": "formula",
+            "description": "<p>placeholder</p>",
+            "dmgModifier": 1,
+            "disappearSfx": "",
+            "friendlyFire": "ENEMIES",
+            "powerPerLevel": 0.4,
+            "appearAnimation": "yMKIGrIw9jlCKiiQHTN2K",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "residualModifier": 0,
+            "disappearAnimation": "rising_smoke",
+            "allowBloodlineDamageDecrease": true,
+            "allowBloodlineDamageIncrease": true,
+            "generalTypes": [
+              "Highest"
+            ]
+          },
+          {
+            "type": "wound",
+            "power": 20,
+            "rounds": 2,
+            "target": "INHERIT",
+            "appearSfx": "",
+            "direction": "offence",
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0.4,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ],
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Magma Slayer's Lava damage hit is missing its attribute scaling and lists the four fighting styles instead. Suragu is a style-neutral bloodline: its passive boosts are element-based and the kit's other damage jutsu, Infernal Stream, scales on the Highest stat and Highest attribute. This sets the hit to the same Highest/Highest scaling. Power, wound rider and every other field are unchanged."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Eruption Strike",
+      "targetId": "dUyMUmOqPxBQ6u0Md6tR5",
+      "data": {
+        "effects": [
+          {
+            "type": "pierce",
+            "power": 48,
+            "rounds": 0,
+            "target": "INHERIT",
+            "elements": [
+              "Lava"
+            ],
+            "appearSfx": "",
+            "direction": "offence",
+            "statTypes": [
+              "None"
+            ],
+            "calculation": "formula",
+            "description": "<p>placeholder</p>",
+            "dmgModifier": 1,
+            "disappearSfx": "",
+            "friendlyFire": "ENEMIES",
+            "powerPerLevel": 0.4,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "residualModifier": 0,
+            "disappearAnimation": "",
+            "allowBloodlineDamageDecrease": true,
+            "allowBloodlineDamageIncrease": true,
+            "generalTypes": [
+              "Highest"
+            ]
+          },
+          {
+            "type": "afterburn",
+            "power": 25,
+            "rounds": 2,
+            "target": "INHERIT",
+            "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+            "direction": "offence",
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0.4,
+            "appearAnimation": "Ek2RQoC6UhJwaUbZLqKuA",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ],
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Eruption Strike's Lava pierce hit is missing its attribute scaling and lists the four fighting styles instead. Suragu is a style-neutral bloodline: its passive boosts are element-based and the kit's other damage jutsu, Infernal Stream, scales on the Highest stat and Highest attribute. This sets the hit to the same Highest/Highest scaling. Power, afterburn rider and every other field are unchanged."
+      }
+    }
+  ]
+}
