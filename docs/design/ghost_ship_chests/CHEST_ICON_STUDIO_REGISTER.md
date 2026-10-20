@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** RESTART READY: director-approved **two-end-hoop geometry AND Rusted/Common/Rare/Epic/Legendary binding material ladder** (RUL-2026-10-20-005); six old candidate raws remain REVOKED; **0/12 currently valid visual approvals; 0/12 production-ready exports**. New clean Common Hunter isolated generation is READY, approval of its new pixels remains PENDING.  
+**Status:** GEOMETRY/MATERIAL RESTART UNDERWAY; corrected Common Hunter visually approved for subject/geometry, **pixel-art style conformance UNDER REVIEW**. Six previous geometry-invalid raws remain REVOKED; **0/12 style-cleared visual approvals; 0/12 production-ready exports**. Do not generate Common Gatherer from the new Common Hunter until the director resolves this visual-standard question.  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -26,6 +26,20 @@
 **Director-approved material ladder:** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` details the five-step Rusted → Common → Rare → Epic → Legendary center-binding progression for **Hunter's one flat leather strap** versus **Gatherer's one rounded rope**. The **canonical operative rule** is `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a, with RUL-2026-10-20-005 recording director acceptance. Differences in base hue, hide/fiber texture, and craftsmanship must read at 125px, without modifying the approved **one outer metal hoop left + one right + one center family binding** topology. Stitches, weave, edge trim and filaments remain **within** that one center binding; no additional parallel arch. Original motifs, rarity-tier treatments and separate Ornate/Mystery designs remain approved unchanged.
 
 **Current gate:** The director answered **“Approved.”** Material/geometry art direction is settled; the revised Common Hunter isolated brief is **ACTIVE**, using **plain smooth saddle-brown tanned leather**, never Rare/Epic/Legendary materials. Generate **one** clean Common Hunter candidate in a separate isolated conversation with only the original Reliquary as style/material reference; inspect band count and physical continuity first. Former six rejected originals remain forbidden as reference inputs. **No new artwork is approved yet.**
+
+## Pixel-rendering conformity review — 2026-10-20 (director decision pending)
+
+**Status: OPEN STYLE-CONFORMANCE FINDING / PROPAGATION HOLD**, not a unilateral revocation of the director's newly approved visual. After the geometry-restart Common Hunter image was shown and visually approved, the director asked: “Actually I just noticed that doesnt seem to match TNR's premium high quality pixel art design spec. Is it pixel art”.
+
+**Observed raw:** new Common Hunter submission `1000018934.png` is in fact **JPEG RGB, opaque**, 1536×1536, 366893 bytes, SHA-256 `ce7e7943ccd5b2fa14c3a1ffc60b39348baf0bcd4f0772e440958e8d64c80172`. It depicts a geometry-correct closed domed chest with one hoop per outer lid end, central saddle-brown leather/fang binding, three front claws and one cyan clasp, but has **smooth antialiased contours, high-frequency painterly/photoreal wood/leather and metallic texturing, blended glossy shading**, not a visibly intentional pixel-grid cluster structure or flat cel shading. JPEG encoding/opaque black background further blocks conformant item `ICON` alpha/preflight. This is an assessment of the actual rendered pixels, not merely prompt wording.
+
+**Authority disagreement:** The ratified art spec `skills/producing-tnr-art/data/25x_DATA_art_spec.json` §`house_style.clauses` specifies **“crisp pixel lineart, flat cel shading, limited palette”**, with painterly depth restrained and no airbrush gradients/bloom; its ICON prompt scaffold also calls for **pixel-art**. The Ghost Ship chest workstream’s shared style clause currently says **“painted digital illustration with a crisp dark outline”**, which can generate smooth, high-resolution painterly illustrations. Per `docs/00_INDEX.md`, spec governs and visual references calibrate; a workstream style clause must not silently displace the spec unless the director explicitly rules an intentional exception. **Do not blend the two as though they were equivalent.**
+
+**Conclusion:** Not true pixel-disciplined TNR item-icon rendering by the ratified house-style standard, despite otherwise attractive painted quality. Downscaling to 256×256/WebP will not retroactively create hand-placed pixel clusters or correct the shading register.
+
+**Decision:** The director owns whether to (A) require the ratified premium crisp-pixel / flat-cel register and **regenerate the corrected Common Hunter with geometry retained**, or (B) deliberately authorize an explicit collection-specific painterly Ghost Ship exception with corresponding canonical brief/ruling update. Until that decision is settled, **do not propagate this Common Hunter as an approved style/material reference for the next Gatherer's chest**. Keep the director's earlier subject/geometry approval historically true; mark style acceptance **UNDER REVIEW**, no automatic revocation or game-ready status. The six previous geometry-invalid images remain separately revoked.
+
+**Live-game requests/writes:** 0/0. **No artwork editing or game uploads.**
 
 ## Current gates
 
@@ -140,6 +154,8 @@ The six **formerly approved, now geometry-revoked** conversation-delivered origi
 Fable / Claude Code, after the director accepts the completed set: commit binaries under `art/`, pin an `imagePack`, and prepare exactly one Forge **suggest-mode** ticket (`VISUAL`, title `Update icon`, one rationale per chest). No writes to game. All twelve chests' item rarity (`COMMON` including “Legendary” named chests) remains a **separate director decision**, not a change request in this workstream.
 
 ## History
+
+- 2026-10-20: Director approved geometry-correct Common Hunter candidate, then immediately questioned its **premium TNR pixel-art** conformity. Studio reviewed actual 1536px JPEG pixels against canonical house style; recorded smooth painterly rendering vs crisp pixel lineart/flat cel shading/limited palette conflict. Previous geometry approval preserved, style acceptance marked **UNDER REVIEW**, Common Gatherer generation paused rather than propagate a questionable style; no production preflight.
 
 - 2026-10-20: Director **APPROVED** the five-tier Hunter flat-leather / Gatherer round-rope binding material ladder, following the previously confirmed two-end-hoop geometry correction. Adopted into canonical Ghost Ship art request §4a and recorded as RUL-2026-10-20-005 on this studio branch. Activated geometry-first Common Hunter isolated brief. Six older raws remain revoked and forbidden as image references; 0/12 current visual approvals, preflight/export NOT_RUN and 0 live game requests/writes.
 
