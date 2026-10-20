@@ -8,7 +8,7 @@
 
 ## Technical launch gate — NOT YET CLOSED
 
-The source ZIP has passed independent local inspection, and 5/5 jutsu IDs/names and source images match the committed historical capture. However the prescribed installed `producing-tnr-art` runtime and matching full repository checkout are **not present** in this isolated container; `jutsu_studio.py doctor`, `intake`, and `lock-check` remain **NOT_RUN**. The source is **not** canonically intake-certified, and production preflight has not run. A new generation session must wait until a compatible environment produces a successful canonical doctor/intake source index and confirms the first target's lock against that index (additional four target locks remain pending; missing future locks are expected, not currently approved). Do not fabricate a PASS or treat a manual manifest read as a canonical CLI result. No need to obtain new live captures: sources are committed and explicitly historical.
+The source ZIP has passed independent local inspection, and 5/5 jutsu IDs/names and source images match the committed historical capture. However the prescribed installed `producing-tnr-art` runtime and matching full repository checkout are **not present** in this isolated container; `jutsu_studio.py doctor`, `intake`, and `lock-check` remain **NOT_RUN**. The source is **not** canonically intake-certified, and production preflight has not run. A new generation session must wait until a compatible environment produces a successful canonical doctor/intake source index and confirms the first target's lock against that index (the four other complete silhouette reservations have direction_approval PENDING; only Kōsai is APPROVED). Do not fabricate a PASS or treat a manual manifest read as a canonical CLI result. No need to obtain new live captures: sources are committed and explicitly historical.
 
 Required local commands in a matching checkout/installed skill:
 
@@ -18,7 +18,7 @@ python3 skills/producing-tnr-art/scripts/jutsu_studio.py intake BR-020_Crystal_E
 python3 skills/producing-tnr-art/scripts/jutsu_studio.py lock-check docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json --source-index WORK/crystal_essence/intake/source_index.json
 ~~~
 
-The CLI may report `LOCK_INCOMPLETE` for the four not-yet-approved jutsu: verify **Kōsai Shippū specifically** is approved with its matching lock hash. Current ZIP manifest rows provide `jutsu_type`; the CLI source index currently extracts `type`, so additionally cross-check BLOODLINE type against committed `jutsu.get` captures instead of treating an absent source-index type as proof of a different jutsu type. Do not modify the original ZIP.
+Expect one APPROVED target (Kōsai Shippū) and four complete-but-DIRECTION-PENDING reservations; a `LOCK_INCOMPLETE` or refusal must be investigated, not called PASS. Verify **Kōsai Shippū specifically** matches its approved lock hash. Current ZIP manifest rows provide `jutsu_type`; the CLI source index currently extracts `type`, so additionally cross-check BLOODLINE type against committed `jutsu.get` captures instead of treating an absent source-index type as proof of a different jutsu type. Do not modify the original ZIP.
 
 ## Approved single-target composition (P0 A–F)
 
