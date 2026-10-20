@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "EMBER_R02_R09_SINGLE_REQUEST_BATCH_READY__NO_BATCH_IMAGES_GENERATED__5_OF_19_APPROVED",
+  "status": "FOUR_LINEAGE_BATCH_BRIEFS_PREPARED__EMBER_R2_R9_8_STEP_AND_3_VARIANTS_R2_R3_2_STEP__5_OF_19_APPROVED",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -53,7 +53,8 @@
     "showcase_placements": 26,
     "intermediate_visual_approval_gate": "WAIVED_FOR_PROVISIONAL_BATCH_INPUT_ONLY; DIRECTOR_REVIEWS_FINAL_BATCH_AS_SET",
     "batch_reference_parentage": "IMMEDIATELY_PREVIOUS_GENERATED_RANK_OF_SAME_INDIVIDUAL; NEVER_ALL_EIGHT_FROM_R1",
-    "style_qc_strictness": "RELAXED_FOR_EXPLORATORY_MOCK_SHOWCASE, NOT FOR_UPLOAD_OR_LIVE_GAME_ART"
+    "style_qc_strictness": "RELAXED_FOR_EXPLORATORY_MOCK_SHOWCASE, NOT FOR_UPLOAD_OR_LIVE_GAME_ART",
+    "variant_batch_preparations": "MOONLIT_JADE_OBSIDIAN_R02_R03_ALL_PREPARED; EACH REQUIRES OWN CLEAN ISOLATED_SESSION_AND_ONLY_ITS_OWN_R1_IMAGE"
   },
   "lineages": [
     {
@@ -669,7 +670,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
+        "rank": 2,
+        "sequence_step": 1,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "B_R01",
+        "expected_parent_source_sha256_at_planning_time": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+        "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "C_R02",
@@ -695,7 +710,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
+        "rank": 2,
+        "sequence_step": 1,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "C_R01",
+        "expected_parent_source_sha256_at_planning_time": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+        "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "D_R02",
@@ -721,7 +750,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "OBSIDIAN_R02_R03_ONE_REQUEST_20261020",
+        "rank": 2,
+        "sequence_step": 1,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "D_R01",
+        "expected_parent_source_sha256_at_planning_time": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
+        "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "A_R03",
@@ -790,7 +833,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
+        "rank": 3,
+        "sequence_step": 2,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "B_R02",
+        "expected_parent_source_sha256_at_planning_time": null,
+        "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "C_R03",
@@ -816,7 +873,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
+        "rank": 3,
+        "sequence_step": 2,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "C_R02",
+        "expected_parent_source_sha256_at_planning_time": null,
+        "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "D_R03",
@@ -842,7 +913,21 @@
       "approval_date": null,
       "revision_notes": [],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "showcase_batch_plan": {
+        "batch_id": "OBSIDIAN_R02_R03_ONE_REQUEST_20261020",
+        "rank": 3,
+        "sequence_step": 2,
+        "input_mode": "ONLY_PREVIOUS_RANK_OF_SAME_INDIVIDUAL",
+        "expected_parent_asset_id": "D_R02",
+        "expected_parent_source_sha256_at_planning_time": null,
+        "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "director_preapproval_not_required_to_seed_rank3": true,
+        "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
+        "compact_manifest_required": true
+      }
     },
     {
       "asset_id": "A_R04",
@@ -2111,5 +2196,67 @@
     "use_case": "Ember full R2–R9 prototype, remaining lineages later R2–R3 batches",
     "live_requests": 0,
     "live_writes": 0
+  },
+  "variation_batches": {
+    "Moonlit": {
+      "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
+      "status": "PREPARED_NOT_GENERATED",
+      "lead": "IMAGE_PRODUCTION",
+      "isolated_session_scope": "Moonlit R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
+      "brief_path": "docs/design/pets/LIVING_LINEAGES_MOONLIT_R2_R3_BATCH_BRIEF_20261020.md",
+      "only_initial_input_asset_id": "B_R01",
+      "only_initial_input_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+      "step_2_uses_new_rank2_image": true,
+      "output_asset_ids": [
+        "B_R02",
+        "B_R03"
+      ],
+      "no_parallel_r1_only_generation": true,
+      "no_per_rank_director_pause": true,
+      "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
+      "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
+      "live_requests": 0,
+      "live_writes": 0
+    },
+    "Jade": {
+      "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
+      "status": "PREPARED_NOT_GENERATED",
+      "lead": "IMAGE_PRODUCTION",
+      "isolated_session_scope": "Jade R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
+      "brief_path": "docs/design/pets/LIVING_LINEAGES_JADE_R2_R3_BATCH_BRIEF_20261020.md",
+      "only_initial_input_asset_id": "C_R01",
+      "only_initial_input_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+      "step_2_uses_new_rank2_image": true,
+      "output_asset_ids": [
+        "C_R02",
+        "C_R03"
+      ],
+      "no_parallel_r1_only_generation": true,
+      "no_per_rank_director_pause": true,
+      "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
+      "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
+      "live_requests": 0,
+      "live_writes": 0
+    },
+    "Obsidian": {
+      "batch_id": "OBSIDIAN_R02_R03_ONE_REQUEST_20261020",
+      "status": "PREPARED_NOT_GENERATED",
+      "lead": "IMAGE_PRODUCTION",
+      "isolated_session_scope": "Obsidian R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
+      "brief_path": "docs/design/pets/LIVING_LINEAGES_OBSIDIAN_R2_R3_BATCH_BRIEF_20261020.md",
+      "only_initial_input_asset_id": "D_R01",
+      "only_initial_input_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
+      "step_2_uses_new_rank2_image": true,
+      "output_asset_ids": [
+        "D_R02",
+        "D_R03"
+      ],
+      "no_parallel_r1_only_generation": true,
+      "no_per_rank_director_pause": true,
+      "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
+      "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
+      "live_requests": 0,
+      "live_writes": 0
+    }
   }
 }
