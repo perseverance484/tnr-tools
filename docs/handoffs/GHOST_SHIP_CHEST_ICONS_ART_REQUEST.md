@@ -2,8 +2,9 @@
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-20)
-- **Status:** DRAFT for director approval. The family motifs, tier ladder, Ornate accent and Mystery
-  treatment below are proposals; the director locks them by approving icons 1 and 2.
+- **Status:** APPROVED as written by dauntless, 2026-10-20 (RUL-2026-10-20-002): the family motifs,
+  tier ladder, Ornate gold accent and Mystery treatment below. The rendered style is still locked
+  by the director's visual approval of icons 1 and 2.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md` (one asset per generation session).
   Spec authority: `skills/producing-tnr-art/data/25x_DATA_art_spec.json`, target `ICON`.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
@@ -148,7 +149,9 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 - After intake and preflight, the twelve icons go to the review desk as one Forge suggest-mode
   ticket (category VISUAL, title "Update icon", one rationale per chest).
 
-## 9. Open decisions for the director
+## 9. Director decisions
+
+Approved as written on 2026-10-20 (items 1 to 4). Item 5 stays open.
 
 1. Family motifs: claw gouges + leather and fang for Hunter's, leaf + rope and sprig for Gatherer's.
 2. The tier ladder in section 4.
