@@ -1,6 +1,6 @@
 # Isolated generation 01R — Common Hunter's Chest (geometry restart)
 
-**Status:** READY FOR NEW CLEAN ISOLATED GENERATION — director-approved geometry AND binding material ladder (RUL-2026-10-20-005); replacement image acceptance PENDING  
+**Status:** STYLE-CONFORMANCE REVIEW HOLD — the director approved a new geometry-correct Common Hunter candidate, then questioned whether its smooth painterly rendering meets TNR's premium pixel-art house style. Do not reuse that image as the next generation reference until director resolves style; see `CHEST_ICON_STUDIO_REGISTER.md`.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -11,6 +11,12 @@
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
 **Eventual production filename:** `icon-gs-chest-hunter-common.webp`  
 **Live-game requests/writes:** 0/0, credentials none. No generation in persistent studio, no upload, publication or game requests.
+
+## New style-conformance gate (2026-10-20)
+
+The 2026-10-20 replacement candidate `1000018934.png` was visually approved for geometry, but the director subsequently asked whether it is actually pixel art. **The source looks like a smoothly rendered high-resolution digital painting, not the ratified TNR house style's “crisp pixel lineart, flat cel shading, limited palette.”** The canonical `ICON` prompt scaffold calls for pixel art. The inherited Ghost Ship shared prompt instead says “painted digital illustration,” which may have biased all attempts toward smooth painting.
+
+**Current decision is open:** Do not propagate that candidate to the new Common Gatherer session or treat the earlier visual approval as an automatic pixel-art style acceptance. Geometry and material locks remain director-approved. The prior prompt below is recorded as the already-used geometry/material request; if the director chooses spec-conformant pixel art, revise its **rendering clause** before another clean isolated generation, without changing the locked geometry/straps/claws. No new finished game-ready image or preflight exists.
 
 ## Why this is a clean restart
 
