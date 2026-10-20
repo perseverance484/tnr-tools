@@ -1641,3 +1641,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/schema_adoption_ledger_85cecae.json` (the ledger, OLD = `main`'s bdec2883-era files), `skills/building-tnr-content/scripts/schema_diff.py` (`--accept`), `scripts/schema_adoption_ledger.py`; handoff `docs/handoffs/STORMRENDER_FORGE_REPIN_6524D0F.md`.
 
 **Boundary:** Not a law change. Law 4's tag list and `["Highest"]` default, and law 6's flat power cap of 100, now disagree with the source; they go to the law-reconciliation process, not into this ruling. The push/90/93/94 validate exceptions pin the old contract hashes and are voided by their own terms; every diagnostic still reported on them is one they approved.
+
+## RUL-2026-10-20-002 — Ghost Ship chest icons: art direction approved as written
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / item icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Twelve chests get new icons: the ten Ghost Ship (Hunt) and Ghost Ship (Gather) reward chests (Common to Legendary Hunter's and Gatherer's tiers, Ornate Chest and Mystery Chest) plus the Rusted Hunter's and Gatherer's Chests, included for set consistency. The icons follow the Ghost Ship / Skyglass style, as set out in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`: Hunter's chests carry claw gouges with a leather strap and fang clasp, Gatherer's chests a leaf brand with a rope binding and sprig; tiers escalate Rusted, Common, Rare, Epic, Legendary by material, ornament and crystal; the Ornate Chest may use aged gold as a second accent; the Mystery Chest is chained and sealed with no question mark. Generation follows `docs/workflows/ISOLATED_ART_GENERATION.md`; the director's visual approval of icons 1 and 2 locks the rendered style.
+
+**Evidence:** User, 2026-10-20: "Your direction is approved as written land it on main for the art director".
+
+**Canonical destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight. The chests' rarity (all COMMON) is not decided here.
