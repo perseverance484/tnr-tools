@@ -1,6 +1,6 @@
 # Isolated generation 03 — Ghost Ship Rare Hunter's Chest
 
-**Status:** READY FOR ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (candidate 3, 2026-10-20); processed export/alpha/preflight PENDING  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -54,3 +54,24 @@ The first candidate repeats Common's domed lid, leather/fang and central gem, cl
 **Targeted revision:** keep family shape/identity, camera and scale, but visibly armor the lid and upper body: **layered stepped steel plates overlaying each curved hoop band**, **larger distinct riveted shoulder/corner reinforcement plates** that expand the mechanical upper outline, and **a stronger steel backing/housing for the skyglass clasp**. Keep the claw gouges fully visible, as well as leather strap and fang. These are *structural* Rare-tier upgrades, not Epic silver filigree or decoration. Reduce the bright cyan strips to **one delicate lid-seam glow**. Pass a comparison against approved Common Hunter at 125 px **and grayscale** before seeking director acceptance.
 
 First candidate actual bytes: studio attachment `1000018927.png`, JPEG/RGB despite extension, 1536×1536, 372094 bytes, SHA-256 `dfdce5512e8f4d826519fd13550723297bcde17e881356b354cb958b07e416ce`. Black matte fails native-alpha/flat-lime production input requirement. Preserve this failure record; do not use failed image as a new reference attachment and do not claim it passed production QC.
+
+
+## Candidate 2 — structural revision, not approved (2026-10-20)
+
+After candidate 1 failed for appearing like Common with extra cyan, candidate 2 introduced substantially stronger stepped steel bands, angular reinforced corners, and a larger protected skyglass clasp. **Director feedback:** “there needs to be some sort of color or icon differentiation too, it still looks too similar.” **Result: NOT APPROVED.** Structural reinforcement alone was still insufficient. Correct subject, same-target revision rather than a wrong-subject strike.
+
+Received source `1000018928.png`, actual decoder JPEG/RGB with opaque black matte, 1536×1536, 436920 bytes, SHA-256 `e99dfb130700ace9428e2f0f740b5328b9a402e2c6057c66b917902d06c9836a`. Candidate is rejected, NOT approved and must not be used as a generation reference.
+
+**Director-directed Rare refinement:** retain mechanical armor, visibly distinguish Rare's reinforcement with **lighter cold-steel/gunmetal material**, and incorporate small engraved **four-point star rune details** on metal plates or skyglass crystal housing. Restrain seam glow and preserve Epic/Legendary escalation.
+
+## Candidate 3 — visually approved Rare Hunter (2026-10-20)
+
+**Director approval:** “There we go, approved.”
+
+- Original conversation attachment: `1000018929.png`; actual decoded type **JPEG**, RGB, 1536×1536, 473394 bytes; SHA-256 `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c`.
+- **Approved visual content:** closed domed dark-wood Hunter's Chest, clear three claw gouges, brown leather strap and fang clasp, reinforced stepped cold-steel bands, angular armor/corner plates, substantial cyan crystal housing, four-point star engravings with restrained cyan insets, narrow cyan lid-seam light. Distinct from Common in both armor and palette/motifs.
+- **Tier style lock for subsequent Rare Gatherer:** strengthened cold gunmetal plates and star-rune ornament as a **controlled Rare material/ornament identity** on top of the originally approved Rare rivets, gem and seam light. This is a **director refinement specific to this collection**, not permission to copy Hunter claw/fang motifs onto Gatherer.
+- Compared the approved candidate with Common Hunter at **125 px** (deterministic nearest presentation copy, Lanczos resampling); the structural/metal/rune differences survive reduction. **Visual gate approved by director**, not a mechanical icon-art production PASS.
+- **Production issue:** raw file contains **black matte and no alpha**, not the specified transparent or true flat-lime background. Its file extension `.png` must not be trusted as PNG; retain exact JPEG bytes as the raw source. **Raw mechanical alpha/key gate BLOCKED**, processed lossless WebP absent, dark-composite alpha-edge check NOT_RUN, `artpreflight.py --type ICON` NOT_RUN, game upload/publishing NONE. Resolve background independently without repainting the accepted subject or silently accepting chewed dark edges.
+
+**Next independent generation:** Rare Gatherer's Chest, in a NEW conversation with only the original Skyglass Reliquary and the director-approved Common Gatherer's Chest as individually attached references. The approved Rare Hunter's *tier treatment* is specified in text; it must **not** become a third image reference.
