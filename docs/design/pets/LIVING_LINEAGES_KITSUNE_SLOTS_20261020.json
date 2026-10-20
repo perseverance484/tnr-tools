@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "EMBER_R2_R9_8_ORIGINALS_RECEIVED_PENDING_ONE_DIRECTOR_BATCH_REVIEW__5_OF_19_APPROVED",
+  "status": "V2_REFERENCE_FIRST_STRUCTURAL_DRAFT_PENDING_DIRECTOR__EMBER_8_AND_VARIANTS_4_RAW_CANDIDATES_REVIEW_PENDING__OBSIDIAN_PAIR_ONLY",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -705,20 +705,35 @@
       "expected_parent_asset_id": "B_R01",
       "expected_parent_approved_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_RUN",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
+      "status": "RAW_CANDIDATE_RECEIVED__BATCH_DIRECTOR_REVIEW_PENDING",
+      "director_visual_approval": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW",
+      "identity_qc": "LIGHTWEIGHT_SOURCE_VISUAL_REVIEW: species and lineage palette, cosmetic trait, and R2/R3 maturity appear consistent; director batch approval still pending.",
+      "progression_qc": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW: apparent 2-tail yearling Scout versus 3-tail adolescent Tracker; actual model conditioning unverified.",
+      "thumbnail_160_qc": "NOT FORMALLY RUN; original JPEG inspected and source-faithful quicklook produced.",
+      "reference_original": {
+        "filename": "1000018912.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 297866,
+        "background": "opaque black",
+        "sha256": "b31168d0de30371e8df214f43bf7532e908949d5b3cc1ea161974a154e746172",
+        "source_location": "2026-10-20 director conversation upload (not Git-pinned); preserved byte-for-byte in five-file intake ZIP",
+        "file_extension_warning": "Upload .png contains JPEG"
+      },
       "approved_original": null,
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT RUN; JPEG RGB opaque black source is NOT game-ready alpha art.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director submitted this raw image with 'Here's the rest' while requesting presentation layout change, NOT explicit visual approval."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -729,11 +744,27 @@
         "expected_parent_asset_id": "B_R01",
         "expected_parent_source_sha256_at_planning_time": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
         "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "ORIGINAL_RECEIVED_PROVISIONAL",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
-        "compact_manifest_required": true
+        "compact_manifest_required": true,
+        "observed_candidate_source_sha256": "b31168d0de30371e8df214f43bf7532e908949d5b3cc1ea161974a154e746172",
+        "actual_tool_reference_ingestion": "UNVERIFIED"
+      },
+      "batch_candidate": {
+        "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
+        "source_sha256": "b31168d0de30371e8df214f43bf7532e908949d5b3cc1ea161974a154e746172",
+        "provisional": true,
+        "source_filename": "1000018912.png",
+        "rank_assignment_basis": "inferred from user upload ordering + visual maturity",
+        "expected_parent_asset_id": "B_R01",
+        "expected_parent_candidate_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+        "actual_generator_reference_input_verified": false,
+        "director_visual_acceptance": "PENDING",
+        "source_archive": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+        "source_archive_sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+        "background_cleanup_and_preflight": "NOT_RUN"
       }
     },
     {
@@ -745,20 +776,35 @@
       "expected_parent_asset_id": "C_R01",
       "expected_parent_approved_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_RUN",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
+      "status": "RAW_CANDIDATE_RECEIVED__BATCH_DIRECTOR_REVIEW_PENDING",
+      "director_visual_approval": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW",
+      "identity_qc": "LIGHTWEIGHT_SOURCE_VISUAL_REVIEW: species and lineage palette, cosmetic trait, and R2/R3 maturity appear consistent; director batch approval still pending.",
+      "progression_qc": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW: apparent 2-tail yearling Scout versus 3-tail adolescent Tracker; actual model conditioning unverified.",
+      "thumbnail_160_qc": "NOT FORMALLY RUN; original JPEG inspected and source-faithful quicklook produced.",
+      "reference_original": {
+        "filename": "1000018914.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 343257,
+        "background": "opaque black",
+        "sha256": "cdc25cc257054c0fbe030ee1683f88f4ae0b6486933d6dd124de1b8d8e60ab4c",
+        "source_location": "2026-10-20 director conversation upload (not Git-pinned); preserved byte-for-byte in five-file intake ZIP",
+        "file_extension_warning": "Upload .png contains JPEG"
+      },
       "approved_original": null,
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT RUN; JPEG RGB opaque black source is NOT game-ready alpha art.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director submitted this raw image with 'Here's the rest' while requesting presentation layout change, NOT explicit visual approval."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -769,11 +815,27 @@
         "expected_parent_asset_id": "C_R01",
         "expected_parent_source_sha256_at_planning_time": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
         "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "ORIGINAL_RECEIVED_PROVISIONAL",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
-        "compact_manifest_required": true
+        "compact_manifest_required": true,
+        "observed_candidate_source_sha256": "cdc25cc257054c0fbe030ee1683f88f4ae0b6486933d6dd124de1b8d8e60ab4c",
+        "actual_tool_reference_ingestion": "UNVERIFIED"
+      },
+      "batch_candidate": {
+        "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
+        "source_sha256": "cdc25cc257054c0fbe030ee1683f88f4ae0b6486933d6dd124de1b8d8e60ab4c",
+        "provisional": true,
+        "source_filename": "1000018914.png",
+        "rank_assignment_basis": "inferred from user upload ordering + visual maturity",
+        "expected_parent_asset_id": "C_R01",
+        "expected_parent_candidate_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+        "actual_generator_reference_input_verified": false,
+        "director_visual_acceptance": "PENDING",
+        "source_archive": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+        "source_archive_sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+        "background_cleanup_and_preflight": "NOT_RUN"
       }
     },
     {
@@ -785,8 +847,8 @@
       "expected_parent_asset_id": "D_R01",
       "expected_parent_approved_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "COMPOSITE_ONLY_SUBMITTED__INDIVIDUAL_ORIGINAL_MISSING",
+      "director_visual_approval": "PENDING_DIRECTOR_VARIATION_BATCH_REVIEW_AND_SOURCE_SPLIT_DECISION",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -795,10 +857,12 @@
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT_RUN: no individual original, composite JPEG RGB opaque black; no game-ready artifact.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "Single paired Obsidian JPEG provided with two forms, likely R2 left and R3 right; no independent raw originals, no verified generator reference chain, no crop accepted."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -809,11 +873,21 @@
         "expected_parent_asset_id": "D_R01",
         "expected_parent_source_sha256_at_planning_time": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
         "reference_verification": "APPROVED_R1_SOURCE_SHA256_VERIFIED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "COMPOSITE_REPRESENTATION_ONLY_NO_STANDALONE_RAW",
+        "approval_status": "PENDING_DIRECTOR_DECISION",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
         "compact_manifest_required": true
+      },
+      "composite_visual_source": {
+        "filename": "1000018915.png",
+        "sha256": "5d1745b4552e029a49feb5ef172fe96ea3924df76fa931be330aaf35067d2654",
+        "width": 1536,
+        "height": 777,
+        "mime": "image/jpeg",
+        "bytes": 200895,
+        "source_role": "LEFT_FOX_IN_TWO_UP_COMPOSITE_PROPOSED_R2",
+        "source_warning": "Only one two-creature JPEG exists. No separate original source SHA-256 for this rank; do not misstate it as independently saved or approved. Deterministic crop only with director authorisation."
       }
     },
     {
@@ -918,20 +992,35 @@
       "expected_parent_asset_id": "B_R02",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_RUN",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
+      "status": "RAW_CANDIDATE_RECEIVED__BATCH_DIRECTOR_REVIEW_PENDING",
+      "director_visual_approval": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW",
+      "identity_qc": "LIGHTWEIGHT_SOURCE_VISUAL_REVIEW: species and lineage palette, cosmetic trait, and R2/R3 maturity appear consistent; director batch approval still pending.",
+      "progression_qc": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW: apparent 2-tail yearling Scout versus 3-tail adolescent Tracker; actual model conditioning unverified.",
+      "thumbnail_160_qc": "NOT FORMALLY RUN; original JPEG inspected and source-faithful quicklook produced.",
+      "reference_original": {
+        "filename": "1000018911.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 331764,
+        "background": "opaque black",
+        "sha256": "b0868310f64f17be067f8352001b2f2105db707770fbc0c4ae0c5467dcae058b",
+        "source_location": "2026-10-20 director conversation upload (not Git-pinned); preserved byte-for-byte in five-file intake ZIP",
+        "file_extension_warning": "Upload .png contains JPEG"
+      },
       "approved_original": null,
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT RUN; JPEG RGB opaque black source is NOT game-ready alpha art.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director submitted this raw image with 'Here's the rest' while requesting presentation layout change, NOT explicit visual approval."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -942,11 +1031,27 @@
         "expected_parent_asset_id": "B_R02",
         "expected_parent_source_sha256_at_planning_time": null,
         "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "ORIGINAL_RECEIVED_PROVISIONAL",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
-        "compact_manifest_required": true
+        "compact_manifest_required": true,
+        "observed_candidate_source_sha256": "b0868310f64f17be067f8352001b2f2105db707770fbc0c4ae0c5467dcae058b",
+        "actual_tool_reference_ingestion": "UNVERIFIED"
+      },
+      "batch_candidate": {
+        "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
+        "source_sha256": "b0868310f64f17be067f8352001b2f2105db707770fbc0c4ae0c5467dcae058b",
+        "provisional": true,
+        "source_filename": "1000018911.png",
+        "rank_assignment_basis": "inferred from user upload ordering + visual maturity",
+        "expected_parent_asset_id": "B_R02",
+        "expected_parent_candidate_sha256": "b31168d0de30371e8df214f43bf7532e908949d5b3cc1ea161974a154e746172",
+        "actual_generator_reference_input_verified": false,
+        "director_visual_acceptance": "PENDING",
+        "source_archive": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+        "source_archive_sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+        "background_cleanup_and_preflight": "NOT_RUN"
       }
     },
     {
@@ -958,20 +1063,35 @@
       "expected_parent_asset_id": "C_R02",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_RUN",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
+      "status": "RAW_CANDIDATE_RECEIVED__BATCH_DIRECTOR_REVIEW_PENDING",
+      "director_visual_approval": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW",
+      "identity_qc": "LIGHTWEIGHT_SOURCE_VISUAL_REVIEW: species and lineage palette, cosmetic trait, and R2/R3 maturity appear consistent; director batch approval still pending.",
+      "progression_qc": "PENDING_ONE_DIRECTOR_VARIATION_BATCH_REVIEW: apparent 2-tail yearling Scout versus 3-tail adolescent Tracker; actual model conditioning unverified.",
+      "thumbnail_160_qc": "NOT FORMALLY RUN; original JPEG inspected and source-faithful quicklook produced.",
+      "reference_original": {
+        "filename": "1000018913.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 369391,
+        "background": "opaque black",
+        "sha256": "dc67a0a1549c5af25c3e41f5b3311a69fdd2b26a2971b663009b37728e5e4c2f",
+        "source_location": "2026-10-20 director conversation upload (not Git-pinned); preserved byte-for-byte in five-file intake ZIP",
+        "file_extension_warning": "Upload .png contains JPEG"
+      },
       "approved_original": null,
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT RUN; JPEG RGB opaque black source is NOT game-ready alpha art.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director submitted this raw image with 'Here's the rest' while requesting presentation layout change, NOT explicit visual approval."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -982,11 +1102,27 @@
         "expected_parent_asset_id": "C_R02",
         "expected_parent_source_sha256_at_planning_time": null,
         "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "ORIGINAL_RECEIVED_PROVISIONAL",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
-        "compact_manifest_required": true
+        "compact_manifest_required": true,
+        "observed_candidate_source_sha256": "dc67a0a1549c5af25c3e41f5b3311a69fdd2b26a2971b663009b37728e5e4c2f",
+        "actual_tool_reference_ingestion": "UNVERIFIED"
+      },
+      "batch_candidate": {
+        "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
+        "source_sha256": "dc67a0a1549c5af25c3e41f5b3311a69fdd2b26a2971b663009b37728e5e4c2f",
+        "provisional": true,
+        "source_filename": "1000018913.png",
+        "rank_assignment_basis": "inferred from user upload ordering + visual maturity",
+        "expected_parent_asset_id": "C_R02",
+        "expected_parent_candidate_sha256": "cdc25cc257054c0fbe030ee1683f88f4ae0b6486933d6dd124de1b8d8e60ab4c",
+        "actual_generator_reference_input_verified": false,
+        "director_visual_acceptance": "PENDING",
+        "source_archive": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+        "source_archive_sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+        "background_cleanup_and_preflight": "NOT_RUN"
       }
     },
     {
@@ -998,8 +1134,8 @@
       "expected_parent_asset_id": "D_R02",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "COMPOSITE_ONLY_SUBMITTED__INDIVIDUAL_ORIGINAL_MISSING",
+      "director_visual_approval": "PENDING_DIRECTOR_VARIATION_BATCH_REVIEW_AND_SOURCE_SPLIT_DECISION",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1008,10 +1144,12 @@
       "approved_original_sha256": null,
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
+      "mechanical_preflight": "NOT_RUN: no individual original, composite JPEG RGB opaque black; no game-ready artifact.",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "Single paired Obsidian JPEG provided with two forms, likely R2 left and R3 right; no independent raw originals, no verified generator reference chain, no crop accepted."
+      ],
       "in_current_demonstration": true,
       "showcase_role": "RANK1_TO_3_VARIANT",
       "showcase_batch_plan": {
@@ -1022,11 +1160,21 @@
         "expected_parent_asset_id": "D_R02",
         "expected_parent_source_sha256_at_planning_time": null,
         "reference_verification": "PROVISIONAL_NEW_R2_SOURCE_MUST_BE_CREATED_AND_HASHED",
-        "output_status": "NOT_GENERATED",
-        "approval_status": "PENDING_ONE_POST_BATCH_DIRECTOR_REVIEW",
+        "output_status": "COMPOSITE_REPRESENTATION_ONLY_NO_STANDALONE_RAW",
+        "approval_status": "PENDING_DIRECTOR_DECISION",
         "director_preapproval_not_required_to_seed_rank3": true,
         "artistic_drift": "RELAXED_FOR_DEMONSTRATION",
         "compact_manifest_required": true
+      },
+      "composite_visual_source": {
+        "filename": "1000018915.png",
+        "sha256": "5d1745b4552e029a49feb5ef172fe96ea3924df76fa931be330aaf35067d2654",
+        "width": 1536,
+        "height": 777,
+        "mime": "image/jpeg",
+        "bytes": 200895,
+        "source_role": "RIGHT_FOX_IN_TWO_UP_COMPOSITE_PROPOSED_R3",
+        "source_warning": "Only one two-creature JPEG exists. No separate original source SHA-256 for this rank; do not misstate it as independently saved or approved. Deterministic crop only with director authorisation."
       }
     },
     {
@@ -2382,6 +2530,14 @@
       "entries": 12,
       "role": "Ember R1 approved source plus 8 generated rank candidates + manifest/quicklook; approval pending; all original JPEG bytes identical",
       "git_pinned": false
+    },
+    {
+      "filename": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+      "sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+      "bytes": 1507410,
+      "entries": 6,
+      "role": "Four separate R2/R3 candidates for Moonlit/Jade plus one two-up Obsidian candidate and manifest",
+      "git_pinned": false
     }
   ],
   "original_demonstration_scope": {
@@ -2706,7 +2862,7 @@
   "variation_batches": {
     "Moonlit": {
       "batch_id": "MOONLIT_R02_R03_ONE_REQUEST_20261020",
-      "status": "PREPARED_NOT_GENERATED",
+      "status": "TWO_OF_TWO_ORIGINALS_RECEIVED__DIRECTOR_BATCH_REVIEW_PENDING",
       "lead": "IMAGE_PRODUCTION",
       "isolated_session_scope": "Moonlit R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
       "brief_path": "docs/design/pets/LIVING_LINEAGES_MOONLIT_R2_R3_BATCH_BRIEF_20261020.md",
@@ -2722,11 +2878,13 @@
       "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
       "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
       "live_requests": 0,
-      "live_writes": 0
+      "live_writes": 0,
+      "output_source_readiness": "TWO_SEPARATE_JPEG_SOURCE_FILES_RECEIVED",
+      "director_batch_approval": "PENDING"
     },
     "Jade": {
       "batch_id": "JADE_R02_R03_ONE_REQUEST_20261020",
-      "status": "PREPARED_NOT_GENERATED",
+      "status": "TWO_OF_TWO_ORIGINALS_RECEIVED__DIRECTOR_BATCH_REVIEW_PENDING",
       "lead": "IMAGE_PRODUCTION",
       "isolated_session_scope": "Jade R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
       "brief_path": "docs/design/pets/LIVING_LINEAGES_JADE_R2_R3_BATCH_BRIEF_20261020.md",
@@ -2742,11 +2900,13 @@
       "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
       "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
       "live_requests": 0,
-      "live_writes": 0
+      "live_writes": 0,
+      "output_source_readiness": "TWO_SEPARATE_JPEG_SOURCE_FILES_RECEIVED",
+      "director_batch_approval": "PENDING"
     },
     "Obsidian": {
       "batch_id": "OBSIDIAN_R02_R03_ONE_REQUEST_20261020",
-      "status": "PREPARED_NOT_GENERATED",
+      "status": "PAIRED_COMPOSITE_RECEIVED__TWO_INDIVIDUAL_ORIGINALS_MISSING",
       "lead": "IMAGE_PRODUCTION",
       "isolated_session_scope": "Obsidian R2 Scout then R3 Tracker, 2 sequential outputs without interim approval",
       "brief_path": "docs/design/pets/LIVING_LINEAGES_OBSIDIAN_R2_R3_BATCH_BRIEF_20261020.md",
@@ -2762,7 +2922,9 @@
       "variation_policy": "MILD_STYLE_DRIFT_ACCEPTED",
       "minimal_qc": "Save exact source files with hashes and correct rank mapping; review both together; no game-ready preflight claim",
       "live_requests": 0,
-      "live_writes": 0
+      "live_writes": 0,
+      "output_source_readiness": "ONE_TWO_CREATURE_JPEG_ONLY; separate rank2/rank3 originals unavailable",
+      "director_batch_approval": "PENDING_AND_CROP_VS_SEPARATE_ORIGINALS_DECISION"
     }
   },
   "next_review": {
@@ -2780,5 +2942,46 @@
     ],
     "gate": "PENDING",
     "note": "Ask once whether to accept 8 Ember originals together for chart. Do not promote to approved automatically."
+  },
+  "remaining_variation_source_intake": {
+    "date": "2026-10-20",
+    "intake_doc": "docs/design/pets/LIVING_LINEAGES_VARIANTS_R2_R3_INTAKE_20261020.md",
+    "source_manifest": "TNR_Living_Lineages_Remaining_Variants_Source_Manifest_20261020.json",
+    "source_zip": "TNR_Living_Lineages_Remaining_Variants_Source_Intake_20261020.zip",
+    "source_zip_sha256": "bc0935f7c0f143e9798425db62ab0a5f5d78b30a00a7861ba722c483f48b624e",
+    "five_source_files_received": true,
+    "separate_individual_images": 4,
+    "paired_composite_count": 1,
+    "potential_rank_slots_represented": 6,
+    "actual_standalone_rank_sources_missing": [
+      "D_R02",
+      "D_R03"
+    ],
+    "actual_generator_parent_chaining_verified": false,
+    "visual_approval": "NOT_YET_GRANTED"
+  },
+  "presentation_v2": {
+    "status": "STRUCTURAL_DRAFT_PENDING_DIRECTOR_APPROVAL",
+    "design_document": "docs/design/pets/LIVING_LINEAGES_KITSUNE_PRESENTATION_V2_20261020.md",
+    "slot_map": "docs/design/pets/LIVING_LINEAGES_KITSUNE_CONCEPT_FLOW_V2_SLOT_MAP_20261020.json",
+    "source_svg_filename": "TNR_Living_Lineages_Kitsune_Concept_Flow_Structural_V2_20261020.svg",
+    "source_svg_sha256": "01481cd9e7bcbc1c94d2eab9b55b995cde7f1ce05ad38ee5dc7be2a36e84eee8",
+    "source_svg_git_blob_sha1": "f69591bfbc8ed84742d11acaabc9a7aa2b60a0e7",
+    "source_svg_status": "EXACT_LOCAL_CONVERSATION_ARTIFACT_NOT_GIT_PINNED",
+    "preview_filename": "TNR_Living_Lineages_Kitsune_Concept_Flow_Preview_V2_20261020.png",
+    "preview_sha256": "e29eed9a04d65e8edeec76dcf761068e37232fab175e6db5044a337064c24587",
+    "canvas": [
+      2048,
+      1980
+    ],
+    "source_placements": 26,
+    "unique_sources": 19,
+    "sections": [
+      "species_reference_plus_player_traits_plus_4_example_founders",
+      "four_independent_lineages_ranks1_to_3",
+      "full_ember_rank1_to_9"
+    ],
+    "previous_v1_status": "APPROVED_AND_FROZEN_UNCHANGED",
+    "director_approval": "PENDING_EXPLICIT_V2_LAYOUT_REVIEW"
   }
 }
