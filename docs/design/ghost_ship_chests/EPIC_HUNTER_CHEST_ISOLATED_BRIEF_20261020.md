@@ -1,6 +1,6 @@
 # Isolated generation 05 — Ghost Ship Epic Hunter's Chest
 
-**Status:** READY FOR ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-20); production-alpha/export/preflight PENDING  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -58,3 +58,13 @@ Attach **actual original image bytes** individually, not just URLs/filenames; no
 4. Return **original raw image bytes**, target name and director approval state to persistent studio. Isolated generation does **not** export production WebP, key alpha, crop, run `artpreflight.py`, commit art, upload or publish.
 5. Studio intake must decode true image MIME, record SHA-256/bytes, run 125/64/32 family QC, complete native-alpha or exact-lime chroma processing, pad transparently to square, lossless WebP (`ICON` spec: 256×256 recommended, under 460800 bytes), inspect dark composite and run canonical `artpreflight.py --type ICON`.
 6. After approval move to the separate **Epic Gatherer's Chest** generation conversation, using the Reliquary and the approved **Rare Gatherer's Chest** as its two individual references. Preserve botanical family identity, describe Epic-tier upgrades in text only.
+
+## Director-approved Epic Hunter original and visual gate (2026-10-20)
+
+**Director:** “Approved, next.” This is visual acceptance of the displayed candidate; **not** a production/preflight approval.
+
+- **Actual conversation original:** `1000018931.png`; despite `.png` extension it decodes as **JPEG**, RGB, 1536×1536, **498203 bytes**, raw SHA-256 `9cdded700f3027e2788ba040cc1995667afb322ef229476d51436728e02d0339`. Source remains attached in the conversation; **not Git-pinned**.
+- **Approved appearance:** closed Hunter domed lid, brown leather/bone-fang clasp, recognizable **three bright cyan-glowing claw gouges**, visibly **polished silver trim** on raised armored lid bands/corner hardware, enlarged faceted cyan skyglass clasp, controlled star-rune insets. This advances Common → Rare → Epic by visible structural/material and focal-motif changes; does not introduce Legendary's lid crystal cluster or extensive filigree.
+- **Visual size gate:** compared source images for Common Hunter / Rare Hunter / Epic Hunter at **125px** using deterministic Lanczos reduction; physical bright silver vs cold gunmetal and the triple glowing claw brand remain prominent. Additional **64px and 32px** stress previews constructed, not game-scale assertions and not final QC for alpha/compositing. Review images are mechanical composites of unchanged source pixels, **not input references for isolated generation**.
+- **Production concern (unchanged from siblings):** opaque **black JPEG matte**, no true alpha, no approved uniform chroma-key background; original does **not** meet `ICON` transparency requirements. Requires separate approved safe matting/alpha restoration or a valid transparent original, avoiding loss of dark outlines. Final lossless WebP, actual byte cap, dark-background alpha-edge QC and canonical `artpreflight.py --type ICON` are **NOT_RUN**.
+- **Next isolated target:** Epic Gatherer's Chest. Only the original Skyglass Reliquary and director-approved **Rare Gatherer's Chest** are image references; Epic Hunter's visual-tier upgrade is communicated **in text only**, never attached as a third image. See `EPIC_GATHERER_CHEST_ISOLATED_BRIEF_20261020.md`.
