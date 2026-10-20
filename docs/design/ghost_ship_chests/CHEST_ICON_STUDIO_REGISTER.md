@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** 2/12 director-approved visuals; Rare Hunter isolated brief READY; 0/12 production-ready exports  
+**Status:** 2/12 director-approved visuals; Rare Hunter candidate 1 visual revision requested; 0/12 production-ready exports  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -15,7 +15,7 @@
 
 - Gate 01 — Common Hunter's Chest: **DIRECTOR APPROVED**, original supplied in studio conversation as `1000018925.png`. Visual Ghost Ship rendered-style lock and Hunter's claw/leather/fang family motif lock **established**. Mechanical background/alpha QC unresolved (source decoded JPEG on black matte).
 - Gate 02 — Common Gatherer's Chest: **DIRECTOR APPROVED**, isolated prompt retrospectively recorded in `COMMON_GATHERER_CHEST_ISOLATED_BRIEF_20261020.md`, original supplied in studio conversation as `1000018926.png`. Gatherer's leaf/rope/sprig family motif **established**. Compared both conversation-supplied images side-by-side after Lanczos reduction to **125 px**: family identities **VISUALLY DISTINCT** (fang/claws versus rope/sprig/leaf). Mechanical background/alpha QC unresolved (source decoded JPEG on black matte).
-- Gate 03 — Rare Hunter's Chest: **READY FOR ISOLATED GENERATION** under `RARE_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md`; attach the Reliquary and approved Common Hunter's Chest only. Director approval PENDING.
+- Gate 03 — Rare Hunter's Chest: **REVISION REQUESTED / NOT APPROVED**. Initial candidate received and visually reviewed at 125 px beside approved Common Hunter, including a grayscale comparison. The director observed that it looks virtually identical to Common except for blue lighting; the tier escalation does not yet read. Request a **same-subject revision in the existing isolated generation session**, not a wrong-subject restart. The original generation brief remains `RARE_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md`. Two individually attached refs remain Reliquary + approved Common Hunter only.
 - Gates 04–10: **BLOCKED** pending preceding approved illustrations; in each case attach Reliquary and one approved icon from that same family only. Gates 11–12 (Ornate and Mystery) are also **BLOCKED**; neither has a same-family predecessor, so the canonical 'same family' second-reference instruction is undefined for these two; confirm applicable reference handling with director when reached. Never invent a reference or attach a collage.
 - Collection handoff: **BLOCKED** until 12/12 original image approvals, raw QC, native-alpha/key processing, lossless 256×256 WebP exports, dark-composite checks, and `artpreflight.py --type ICON` output. The director retains final acceptance.
 
@@ -25,6 +25,14 @@
 - **Attach actual reference bytes**, not a textual path, URL, thumbnail, collage or rejected image. Session 01 uses this reference **alone**.
 - Approved subject and palette remain in the canonical handoff. Chest lids are **closed and domed**; no legacy pixel-art chest references; Hunter's claw brand/leather/fang versus Gatherer's leaf/rope/sprig must remain readable at 125 px.
 - The shared prompt clause calls for a crystal with a soft inner glow while the Common treatment says “no glow.” Preserve both approved phrases in their respective source clauses; for Common QC distinguish crystal material brightness from extra cast glow, lit seams/brands, auras or halos. If a candidate makes the distinction ambiguous, director visual approval settles its acceptance — the studio must not silently rewrite the tier ladder.
+
+## Rare Hunter's Chest — candidate 1 feedback (2026-10-20)
+
+- **Source attachment:** `1000018927.png`; actual decoder format JPEG (RGB, **opaque black matte**), 1536×1536, 372094 bytes, SHA-256 `dfdce5512e8f4d826519fd13550723297bcde17e881356b354cb958b07e416ce`. Candidate evidence only; **not** an approved raw, production asset, or Git-pinned binary.
+- **Director feedback:** “Kinda looks identical to common other than the blue tinge.” Accordingly, **visual acceptance is withheld**; do not advance to Rare Gatherer's as if Rare Hunter were approved.
+- **Independent 125-px comparison:** Common and candidate share practically the same domed lid, two curved iron bands, leather/fang geometry, dark corner rivet blocks, diamond gem housing and front claw placement. Their 125-px grayscale silhouettes/material structure remain extremely similar. The most visible change is extra saturated cyan seam lines; this reads as a lighting pass rather than the approved material/tier evolution.
+- **Revision target (art-direction proposal, not a new tier rule):** emphasize *mechanically distinct* Rare reinforced ironwork visible without color: **layered/stepped steel reinforcement bands over the two arch hoops**, **substantial riveted shoulder/corner armor plates**, and a **visibly stronger faceted clasp housing**. Keep claws/leather/fang readable and the same camera/size. Retain **only a faint lid-seam** cyan glow; avoid multiple neon-blue stripes. No silver trim, glowing brand, filigree, crystal cluster, gold, or chains (reserved to higher/special tiers). Judge against Common at **125 px and grayscale** before asking for approval.
+- **Protocol classification:** correct subject with inadequate tier readability, *not* a wrong-subject strike. Same isolated session may revise. Production background issue remains (opaque JPEG/black rather than native alpha or approved lime key).
 
 ## Production ledger
 
@@ -71,6 +79,8 @@ The two conversation-delivered originals have filenames ending in `.png` but **d
 Fable / Claude Code, after the director accepts the completed set: commit binaries under `art/`, pin an `imagePack`, and prepare exactly one Forge **suggest-mode** ticket (`VISUAL`, title `Update icon`, one rationale per chest). No writes to game. All twelve chests' item rarity (`COMMON` including “Legendary” named chests) remains a **separate director decision**, not a change request in this workstream.
 
 ## History
+
+- 2026-10-20: Rare Hunter candidate 1 returned; director withheld approval due to insufficient structural tier differentiation. 125-px + grayscale comparison corroborated. Candidate raw metadata logged; same-subject revision requested, generation remains isolated.
 
 - 2026-10-20: initialized from fresh `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc`; targeted canonical art brief, ruling, isolation workflow, skill/spec and original Reliquary style reference inspected. No raw generations received at initialization; no preflight run; no uploads/publishing.
 - 2026-10-20: director visually approved Common Hunter and Common Gatherer from conversation attachments. Studio decoded, hashed, inspected and verified 125-px family differentiation. Discovered that attached `.png` filenames actually contain opaque JPEG black-matte images; native-alpha/lime background mechanical gate is blocked for both. Rare Hunter brief prepared, no image generation or preflight run in studio.
