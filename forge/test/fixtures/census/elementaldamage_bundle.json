@@ -1,0 +1,987 @@
+{
+ "census": {
+  "kind": "item.weapon.elementaldamage",
+  "pageLimit": 3,
+  "inventory": "COMPLETE",
+  "problems": [],
+  "scans": [
+   {
+    "pages": [
+     {
+      "hidden": false,
+      "cursor": 0,
+      "rows": 3,
+      "nextCursor": 1
+     },
+     {
+      "hidden": false,
+      "cursor": 1,
+      "rows": 3,
+      "nextCursor": 2
+     },
+     {
+      "hidden": false,
+      "cursor": 2,
+      "rows": 1,
+      "nextCursor": null
+     },
+     {
+      "hidden": true,
+      "cursor": 0,
+      "rows": 2,
+      "nextCursor": null
+     }
+    ],
+    "rows": 9,
+    "digest": "fnv1a32:7adbde6b"
+   },
+   {
+    "pages": [
+     {
+      "hidden": false,
+      "cursor": 0,
+      "rows": 3,
+      "nextCursor": 1
+     },
+     {
+      "hidden": false,
+      "cursor": 1,
+      "rows": 3,
+      "nextCursor": 2
+     },
+     {
+      "hidden": false,
+      "cursor": 2,
+      "rows": 1,
+      "nextCursor": null
+     },
+     {
+      "hidden": true,
+      "cursor": 0,
+      "rows": 2,
+      "nextCursor": null
+     }
+    ],
+    "rows": 9,
+    "digest": "fnv1a32:7adbde6b"
+   }
+  ],
+  "targets": [
+   {
+    "id": "cLXXf8RJv5l9B_gGsYN2a",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-ambiguous",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-both-missing",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-both-present",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-missing-gens",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-missing-stats",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-static",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   },
+   {
+    "id": "fx-two-tags",
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "reason": "elementaldamage"
+   }
+  ],
+  "crossCheck": {
+   "filteredRows": 8,
+   "filterOnly": [],
+   "missedByFilter": [],
+   "notInInventory": []
+  },
+  "counts": {
+   "hidden:false": 7,
+   "hidden:true": 2,
+   "total": 9,
+   "tagged": 8,
+   "malformed": 0
+  },
+  "digest": "fnv1a32:7adbde6b",
+  "inventoryKey": "fixture::census::inventory",
+  "at": "2025-09-01T04:13:20.000Z",
+  "verdict": "COMPLETE",
+  "rows": [
+   {
+    "id": "cLXXf8RJv5l9B_gGsYN2a",
+    "name": "Stormrender",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage",
+     "increasedamagetaken"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-missing-stats",
+    "name": "Item fx-missing-stats",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-missing-gens",
+    "name": "Item fx-missing-gens",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-both-present",
+    "name": "Item fx-both-present",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage",
+     "damage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-two-tags",
+    "name": "Item fx-two-tags",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage",
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-ambiguous",
+    "name": "Item fx-ambiguous",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-damage-only",
+    "name": "Item fx-damage-only",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "damage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-both-missing",
+    "name": "Item fx-both-missing",
+    "itemType": "WEAPON",
+    "hidden": true,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   },
+   {
+    "id": "fx-static",
+    "name": "Item fx-static",
+    "itemType": "WEAPON",
+    "hidden": true,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "effectTypes": [
+     "elementaldamage"
+    ],
+    "effectsMalformed": false
+   }
+  ]
+ },
+ "builder": "forge test",
+ "at": "2025-09-01T04:13:20.000Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "cLXXf8RJv5l9B_gGsYN2a"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::0",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 668,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "cLXXf8RJv5l9B_gGsYN2a",
+    "name": "Stormrender",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 10,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula"
+     },
+     {
+      "power": 20,
+      "rounds": 2,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "increasedamagetaken",
+      "calculation": "percentage"
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-ambiguous"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::1",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 442,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-ambiguous",
+    "name": "Item fx-ambiguous",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 80,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "statTypes": "Highest"
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-both-missing"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::2",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 465,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-both-missing",
+    "name": "Item fx-both-missing",
+    "itemType": "WEAPON",
+    "hidden": true,
+    "rarity": "EPIC",
+    "cost": 40,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": false,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula",
+      "statTypes": []
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-both-present"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::3",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 769,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-both-present",
+    "name": "Item fx-both-present",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 50,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula",
+      "statTypes": [
+       "Ninjutsu"
+      ],
+      "generalTypes": [
+       "Strength",
+       "Speed"
+      ]
+     },
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "damage",
+      "calculation": "formula",
+      "statTypes": [
+       "Ninjutsu"
+      ],
+      "generalTypes": [
+       "Strength"
+      ]
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-missing-gens"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::4",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 471,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-missing-gens",
+    "name": "Item fx-missing-gens",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 30,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ]
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-missing-stats"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::5",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 479,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-missing-stats",
+    "name": "Item fx-missing-stats",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 20,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula",
+      "generalTypes": [
+       "Highest"
+      ]
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-static"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::6",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 437,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-static",
+    "name": "Item fx-static",
+    "itemType": "WEAPON",
+    "hidden": true,
+    "rarity": "EPIC",
+    "cost": 60,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "static"
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  },
+  {
+   "phase": "census",
+   "proc": "item.get",
+   "input": {
+    "id": "fx-two-tags"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "fixture::census::7",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 704,
+   "updatedAt": "2026-10-01T00:00:00.000Z",
+   "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+   "stale": false,
+   "accepted": true,
+   "problems": [],
+   "at": "2025-09-01T04:13:20.000Z",
+   "data": {
+    "id": "fx-two-tags",
+    "name": "Item fx-two-tags",
+    "itemType": "WEAPON",
+    "hidden": false,
+    "rarity": "EPIC",
+    "cost": 70,
+    "repsCost": 0,
+    "effects": [
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ]
+     },
+     {
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "direction": "offence",
+      "description": "placeholder",
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true,
+      "type": "elementaldamage",
+      "calculation": "formula"
+     }
+    ],
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "createdAt": "2026-10-01T00:00:00.000Z",
+    "description": "d"
+   }
+  }
+ ],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "fixture",
+  "manifestPath": "push/132_elementaldamage_weapon_census.json",
+  "manifestNumber": 132,
+  "manifestHash": "f5612cbb",
+  "startedAt": "2025-09-01T04:13:20.000Z",
+  "updatedAt": "2025-09-01T04:13:20.000Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [],
+  "census": {
+   "kind": "item.weapon.elementaldamage",
+   "pageLimit": 3,
+   "inventory": "COMPLETE",
+   "problems": [],
+   "scans": [
+    {
+     "pages": [
+      {
+       "hidden": false,
+       "cursor": 0,
+       "rows": 3,
+       "nextCursor": 1
+      },
+      {
+       "hidden": false,
+       "cursor": 1,
+       "rows": 3,
+       "nextCursor": 2
+      },
+      {
+       "hidden": false,
+       "cursor": 2,
+       "rows": 1,
+       "nextCursor": null
+      },
+      {
+       "hidden": true,
+       "cursor": 0,
+       "rows": 2,
+       "nextCursor": null
+      }
+     ],
+     "rows": 9,
+     "digest": "fnv1a32:7adbde6b"
+    },
+    {
+     "pages": [
+      {
+       "hidden": false,
+       "cursor": 0,
+       "rows": 3,
+       "nextCursor": 1
+      },
+      {
+       "hidden": false,
+       "cursor": 1,
+       "rows": 3,
+       "nextCursor": 2
+      },
+      {
+       "hidden": false,
+       "cursor": 2,
+       "rows": 1,
+       "nextCursor": null
+      },
+      {
+       "hidden": true,
+       "cursor": 0,
+       "rows": 2,
+       "nextCursor": null
+      }
+     ],
+     "rows": 9,
+     "digest": "fnv1a32:7adbde6b"
+    }
+   ],
+   "targets": [
+    {
+     "id": "cLXXf8RJv5l9B_gGsYN2a",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-ambiguous",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-both-missing",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-both-present",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-missing-gens",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-missing-stats",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-static",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    },
+    {
+     "id": "fx-two-tags",
+     "updatedAt": "2026-10-01T00:00:00.000Z",
+     "reason": "elementaldamage"
+    }
+   ],
+   "crossCheck": {
+    "filteredRows": 8,
+    "filterOnly": [],
+    "missedByFilter": [],
+    "notInInventory": []
+   },
+   "counts": {
+    "hidden:false": 7,
+    "hidden:true": 2,
+    "total": 9,
+    "tagged": 8,
+    "malformed": 0
+   },
+   "digest": "fnv1a32:7adbde6b",
+   "inventoryKey": "fixture::census::inventory",
+   "at": "2025-09-01T04:13:20.000Z"
+  },
+  "capturesCensusPartial": null,
+  "capturesCensus": [
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "cLXXf8RJv5l9B_gGsYN2a"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::0",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 668,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-ambiguous"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::1",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 442,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-both-missing"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::2",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 465,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-both-present"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::3",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 769,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-missing-gens"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::4",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 471,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-missing-stats"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::5",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 479,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-static"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::6",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 437,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   },
+   {
+    "phase": "census",
+    "proc": "item.get",
+    "input": {
+     "id": "fx-two-tags"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "fixture::census::7",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 704,
+    "updatedAt": "2026-10-01T00:00:00.000Z",
+    "expectUpdatedAt": "2026-10-01T00:00:00.000Z",
+    "stale": false,
+    "accepted": true,
+    "problems": [],
+    "at": "2025-09-01T04:13:20.000Z"
+   }
+  ]
+ }
+}

@@ -1,0 +1,8 @@
+{
+  "_note": "READ-ONLY census of every WEAPON record carrying an elementaldamage effect, hidden:false AND hidden:true. Stage A pages item.getAll to nextCursor:null for both partitions, twice, plus one elementaldamage-filtered cross-check, and keeps only an id/name/type/hidden/updatedAt/effect-type projection. Stage B sends one item.get persist:full per tagged weapon. Zero mutations, zero player/private/account reads. Operator execution only; turn the results bundle into the ledger with scripts/elementaldamage_census_ledger.py. Guide: docs/workflows/ELEMENTALDAMAGE_WEAPON_CENSUS.md.",
+  "census": {
+    "kind": "item.weapon.elementaldamage",
+    "pageLimit": 100
+  },
+  "items": []
+}

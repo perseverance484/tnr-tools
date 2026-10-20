@@ -7,7 +7,7 @@
 import { AUTH } from "../transport/auth.mjs";
 import { SLUGS } from "../transport/upload.mjs";
 import { protectedPathsFor } from "../runner/runner.mjs";
-import { jobOutcome } from "../storage/journal.mjs";
+import { jobOutcome, allCaptures, censusVerdict } from "../storage/journal.mjs";
 
 // One results-bundle entry, in the shape harvests/inbox/ already holds, so the repository's
 // harvest.py reads a forge bundle natively (readiness brief section 9). The mapping is deliberate:
@@ -148,7 +148,7 @@ export function authFacts(auth, busy) {
  * describes the symptom of a signed-out session as though the captures were the problem (brief D).
  */
 export function runHeadline(job, summary) {
-  const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+  const captures = allCaptures(job);
   const outcome = jobOutcome(job);
   const full = captures.filter((capture) => capture.persist === "full");
   const detail = job.items.length
@@ -171,7 +171,15 @@ export function runHeadline(job, summary) {
     : outcome === "success" && job.items.some((i) => i.verify === "suggested") ? `Finished: ${job.items.filter((i) => i.verify === "suggested").length} sent for review; nothing changes until approved`
     : outcome === "success" ? `Finished: ${n === 1 ? "1 item" : `all ${n} items`} written and verified`
     : outcome === "failed" ? `Finished with failures: ${parts}` : `Finished, not fully verified: ${parts || "verification outstanding"}`;
+  if (job.census) return { outcome, kind, ms: 12000, sessionPause: false, text: censusLine(job) };
   return { outcome, kind, ms: 8000, sessionPause: false, text: n ? `${head}.` : `${head}: ${detail}` };
+}
+
+/** One sentence for a census job: its verdict, the population it counted, and what it captured. */
+export function censusLine(job) {
+  const c = job.census, v = censusVerdict(job), n = c.counts, pts = job.capturesCensus || job.capturesCensusPartial || [];
+  const ok = pts.filter((p) => p.accepted && p.persistOk === true).length;
+  return `Census ${v}${n ? `: ${n.total} records (${n["hidden:false"]} visible, ${n["hidden:true"]} hidden), ${c.targets.length} to capture, ${ok}/${c.targets.length} full bodies accepted${pts.some((p) => p.stale) ? `, ${pts.filter((p) => p.stale).length} STALE` : ""}` : ""}${c.problems?.length ? ` · ${c.problems[0]}` : ""} · zero mutations`;
 }
 
 /** Postflight tallies for the exported bundle. */

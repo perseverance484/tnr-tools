@@ -1630,7 +1630,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Domain:** Generated contracts (skill `data/` 45c/45d/45e/45f/45g) / adoption gate
 
-**Status:** ACTIVE — Lane A; pending independent review of the frozen SHA
+**Status:** ACTIVE — integrated by PR #76 (merge `d91c0878`) after independent round-2 review PASS WITH NOTES (`chatgpt/review-pr76-round2-20261020@4791ebc`)
 
 **Supersedes:** none. D-adopt-gate is unchanged in intent: nothing is adopted unless `schema_diff.py diff` exits 0.
 
@@ -1641,3 +1641,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/schema_adoption_ledger_85cecae.json` (the ledger, OLD = `main`'s bdec2883-era files), `skills/building-tnr-content/scripts/schema_diff.py` (`--accept`), `scripts/schema_adoption_ledger.py`; handoff `docs/handoffs/STORMRENDER_FORGE_REPIN_6524D0F.md`.
 
 **Boundary:** Not a law change. Law 4's tag list and `["Highest"]` default, and law 6's flat power cap of 100, now disagree with the source; they go to the law-reconciliation process, not into this ruling. The push/90/93/94 validate exceptions pin the old contract hashes and are voided by their own terms; every diagnostic still reported on them is one they approved.
+
+## RUL-2026-10-20-002 — Bundle ceiling for the read-only item census
+
+**Date:** 2026-10-20
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-19-006 (bundle ceiling only). Renumbered from a colliding `RUL-2026-10-20-001` on the census branch (census review F4); the decision is unchanged.
+
+**Ruling:** The Forge bundle ceiling rises to **432,000 raw / 105,000 gzip bytes** for the read-only `elementaldamage` WEAPON census (`forge/src/runner/census.mjs`; measured 424,212 / 102,630 against the 420,000 / 100,000 ceiling).
+
+**Evidence:** Director answer "Raise to 432k/105k (Recommended)" when the census implementation measured over the previous ceiling.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

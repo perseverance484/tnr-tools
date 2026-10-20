@@ -1139,7 +1139,17 @@ def check_manifest(path, ctors_path, strict=False):
             _e["entity"] = "gameAsset"
     cap = man.get("capture") or {}
     cap_calls = (cap.get("before") or []) + (cap.get("after") or [])
-    if not items and not cap_calls and not collection:
+    census = man.get("census")
+    if census is not None:
+        # Forge read-only census (forge/src/runner/census.mjs); Forge's parser is the authority on
+        # its shape (node forge/tools/check_manifest.mjs), this only keeps it from reading as empty.
+        if items or cap_calls or collection or man.get("mode") is not None:
+            rep.err("census", "a census manifest carries no items, captures or mode")
+        if not isinstance(census, dict) or census.get("kind") != "item.weapon.elementaldamage":
+            rep.err("census", "census.kind must be item.weapon.elementaldamage")
+        else:
+            rep.note("manifest", f"census manifest {census['kind']}: read-only discovery + full point reads, zero mutations")
+    elif not items and not cap_calls and not collection:
         rep.err("manifest", "no items")
     elif not items and not collection:
         rep.note("manifest", f"capture-only manifest: {len(cap_calls)} read(s), zero mutations")
