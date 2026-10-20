@@ -1,4 +1,7 @@
-# Bakuhatsu — Howitzer Crash v2 — isolated-generation opening contract
+# Bakuhatsu — Howitzer Crash v2 — RETIRED / DO NOT GENERATE
+
+> **SUPERSEDED BY DIRECTOR REJECTION, 2026-10-20.** The original V2 approval below is historical only. Subsequent footstep, footprint, and dual-foot crater image attempts were not accepted, and the director ruled this entire direction a dead end. **Do not use this V2 brief as a generation instruction.** Current pending proposal: `HOWITZER_V3_DIRECTION_PROPOSAL_20261020.md`; current machine-readable source: `JUTSU_TARGET_LOCKS.json` V3 `direction_approval=PENDING`. No approved Howitzer raw exists.
+
 
 **STATUS:** `BLAST-STEP ZIGZAG — DIRECTION_APPROVED` · `RAW_VISUAL_APPROVED=PENDING`.
 **Workstream:** Bakuhatsu (A-rank / BR-008), jutsu icon (not Bloodright tier artwork).
