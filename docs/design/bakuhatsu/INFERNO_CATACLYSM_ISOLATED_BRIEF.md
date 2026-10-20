@@ -1,10 +1,10 @@
-# Bakuhatsu — Inferno Cataclysm — proposed isolated-generation brief
+# Bakuhatsu — Inferno Cataclysm — director-approved isolated-generation brief
 
-**State:** TARGET LOCK COMPLETE / **DIRECTION_APPROVAL PENDING**. This file does **not** authorize generation by itself.
+**State:** **DIRECTION_APPROVED** on 2026-10-19; **RAW_VISUAL_APPROVED=PENDING**. Generation is authorized in a new isolated conversation for this target only, using exact individual references.
 **P0 target lock SHA-256:** `8b97e0768ca9301e6a9b47bb522bb4b5e159d0fbbfc64fa8e157029e3838c758`
 **Authority:** `docs/design/bakuhatsu/JUTSU_TARGET_LOCKS.json`, `JUTSU_ICON_REGISTER.md`, and `docs/workflows/ISOLATED_ART_GENERATION.md` P0 A–F.
 
-## Copy-ready handoff (ONLY after director approves this exact lock)
+## Copy-ready handoff — approved target
 
 ~~~text
 Repository: perseverance484/tnr-tools
@@ -26,8 +26,8 @@ Jutsu ID: FTTl_wnTlbvOfOyiGCc-b
 P0 Target Lock SHA256:
 8b97e0768ca9301e6a9b47bb522bb4b5e159d0fbbfc64fa8e157029e3838c758
 
-Status: DIRECTION_PENDING — must be updated from actual director approval
-before this text is used to generate artwork.
+Status: DIRECTION_APPROVED by director 2026-10-19.
+RAW_VISUAL_APPROVED: PENDING. Generate one candidate for review.
 
 SOURCE:
 Historical Oct 17 verified jutsu.get record describes a ground
@@ -113,4 +113,4 @@ Live-game requests/writes: 0/0. Credentials: None.
 
 ## Evidence boundary
 
-The family treatment and Blast Shield raw have director approval, but **Inferno Cataclysm's direction lock is not yet approved** as of this draft. The lock SHA binds the pending proposal only. Before generation, promote `direction_approval` to `APPROVED` in the JSON with explicit director decision evidence and the unchanged `lock_sha256`, run `jutsu_studio.py lock-check --source-index ...`, and update this handoff's status. No image bytes or uploads are committed by this text brief.
+The family treatment and Blast Shield raw were already approved. On 2026-10-19, the director explicitly replied **“Approved”** to the proposed Inferno Cataclysm target direction. `JUTSU_TARGET_LOCKS.json` now records that approval against the unchanged v1 target SHA and the installed `jutsu_studio.py lock-check --source-index` returned no errors (2 approved, 3 pending); `doctor` reported `RUN_CAPABLE_CANONICAL`, an environment verdict **not** a production preflight. The director has **not** yet approved any Inferno raw image; no Inferno generation, processing, ZIP, gallery or live-game operation is implied. Attach two actual individual reference images to the isolated conversation; a path/URL alone does not supply their image bytes.
