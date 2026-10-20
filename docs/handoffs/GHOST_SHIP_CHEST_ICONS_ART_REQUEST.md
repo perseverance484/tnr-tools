@@ -11,7 +11,9 @@
 
 ## 1. Why
 
-These twelve chests are the rewards of the Ghost Ship (Hunt) and Ghost Ship (Gather) quests. The
+Ten of these chests are the rewards of the Ghost Ship (Hunt) and Ghost Ship (Gather) quests: each
+quest gives its own Common, Rare, Epic and Legendary tier plus Ornate and Mystery. The Rusted pair is
+not a quest reward, but uses the same old icons and is included so the set stays consistent. The
 quests got the Ghost Ship / Skyglass art update (`art/ghost_ship_skyglass/`); the chests did not, and
 still use the older pixel-art icons. Two further problems:
 
@@ -40,7 +42,7 @@ chests must read as the same family as the Reliquary without looking like it.
 | 9 | Rusted Hunter's Chest | Furs, pelts, shells, antlers; small chance of Rare Jewels | `icon-gs-chest-hunter-rusted.webp` |
 | 10 | Rusted Gatherer's Chest | Herbs, ores, Mosswolf Tuft; small chance of Rare Jewels | `icon-gs-chest-gatherer-rusted.webp` |
 | 11 | Ornate Chest | Imperial Gold, Unobtanium, Rare Jewels, Lion Token | `icon-gs-chest-ornate.webp` |
-| 12 | Mystery Chest | Any other chest, the Skyglass Reliquary included | `icon-gs-chest-mystery.webp` |
+| 12 | Mystery Chest | The Common to Legendary Hunter's and Gatherer's chests, Ornate, Mystery itself and the Skyglass Reliquary (not the Rusted pair) | `icon-gs-chest-mystery.webp` |
 
 Ids and current icon URLs are in the 2026-10-20 public read and are added by script when the release
 manifest is built; they are not needed to draw.
