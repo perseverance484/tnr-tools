@@ -1,0 +1,32 @@
+{
+ "_note": "Step 2 of 2 (push/146-147). Suggest mode: content review desk. Run only after push/146 has saved. Re-equips Frost Warden's exact six-jutsu kit in its original order (laws 18, 60) and sets rank STUDENT -> JONIN (approved by dauntless 2026-10-20). Forge fetches the live record at run time, so the unequipped state from 146 is the base. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "BALANCE",
+  "title": "Fix boss rank and re-equip jutsu",
+  "rationale": "The daily boss was ranked Student, capping it far below its build, and three of its jutsu had lost their combat link."
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Frost Warden",
+   "targetId": "gqOxWqXElRszsLksj83zx",
+   "data": {
+    "rank": "JONIN",
+    "jutsus": [
+     "0tPhVC7G21Ej99YSICtJO",
+     "1cN_HSfk-YC0PB5lSixB_",
+     "1Ds-JuqAFyZ0UivUev2Xe",
+     "oBa304e0EfaUCOsMB7XU4",
+     "RES8ajxppnF3bngpohMkK",
+     "Y_P_cjtzD-ppxgW16SWY0"
+    ]
+   },
+   "suggestion": {
+    "title": "Fix boss rank and re-equip 3 jutsu",
+    "rationale": "Jutsu: Glacial Cataclysm, Frosty Demise and Frost Reflection were edited while equipped, which severed the boss's combat link to them, so it could not use them. They have been unequipped and are awaiting this re-equip, which gives them fresh links. The boss goes from 3 usable jutsu (Arctic Frost, Ice Palace, Frostbite Barrage) to its full 6, adding Frosty Demise (a one-round stun and a 40-power hit), Glacial Cataclysm (a 40-power hit with 80% recoil on the boss itself) and Frost Reflection (a 30-power hit on all opponents and a 35% reflect for 2 rounds). Rank: Student caps an AI at level 10 and 20,000 per stat in combat, so this level-60 boss built with about 91,000 in each stat fought like a level-10 Student. Jonin lifts the caps: in combat its level goes from 10 to 60 and each stat from 20,000 to its built ~91,000, about 4.6 times higher (a stat ratio, not a damage figure). Its saved stats do not change. Who meets it: only players running the visible daily \"Shinobi Fundamentals: Frost Warden\" (levels 50 to 60, one attempt a day). No other quest, summon jutsu or item uses this AI."
+   }
+  }
+ ]
+}
