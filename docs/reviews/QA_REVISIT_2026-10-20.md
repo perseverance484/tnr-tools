@@ -14,13 +14,13 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 | Celestial Teapot | OTHER, rare | "New item description" | Not used by any live quest |
 | Potion Sample | OTHER, epic | "New item description" | Not used by any live quest |
 | Torn Stonefang Banner | OTHER, common | "Other" | Not used by any live quest |
-| Ember-Stained Edict | OTHER, common | empty | Collected in a hidden Path of Crimson quest (Part II: The Ember Trail) |
+| Ember-Stained Edict | OTHER, common | an embedded YouTube video, no text | Collected in a hidden Path of Crimson quest (Part II: The Ember Trail). Its battle line is empty, so like the Medallion it needs a battle line in the same edit |
 | Akane's Grandmother | OTHER, common | empty | Not used by any live quest |
 | Cat | OTHER, rare | "The Cat!" | Not used by any live quest |
 | Plague Mask | MATERIAL, common | "New item description" | Not used by any live quest |
 | Potato Sunflower | MATERIAL, rare | empty | Not used by any live quest |
 | Bloodline Scroll | CONSUMABLE, legendary | "New item description" | Grants from a list of 14 bloodlines; how the pick works is unconfirmed |
-| Inari Fox Figurine Whispers | CONSUMABLE, legendary | "New item description" | Grants one bloodline; which one and how players get it is unconfirmed |
+| Inari Fox Figurine Whispers | CONSUMABLE, legendary | "New item description" | Grants the Hyouga Yui bloodline; how players get it is unconfirmed |
 
 ## Waiting on something else
 
@@ -34,7 +34,7 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 
 | Record | Issue |
 |---|---|
-| Apple, Corn, Eggplant, Mushroom, Plum, Potatoes, Pumpkin | Usable in combat, but the battle line says "%user throws an onion at %target". Each could name its own item. |
+| Apple, Blueberry, Corn, Eggplant, Mushroom, Pear, Plum, Potatoes, Pumpkin, Raspberry, Tomato | Usable in combat, but the battle line says "%user throws an onion at %target". Each could name its own item. |
 | Nin Gen Alliance | Its damage can also hit allies (`friendlyFire: ALL`); the new description (ticket 136) does not say so. |
 | Widow's bite | Pool costs are the fractional 0.05 placeholder; real costs are a balance call. |
 
