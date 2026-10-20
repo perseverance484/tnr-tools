@@ -1,0 +1,84 @@
+{
+  "_note": "QA ticket 2 (docs/reviews/QA_LIVE_2026-10-20.md, REF-REWARD). Suggest mode: goes to the content review desk, no direct save. Built from the public item.getAll read at 2026-10-20T19:37:00.236Z: the full effects array is reproduced unchanged except reward_jutsus, deleted id lbSdCH5lTz0U2f-t9gWxw -> Ethereal Rebirth K0t6Z-Q4lau1jFt8Tkpot, the jutsu the scroll's own description names (dauntless, 2026-10-20: Ethereal Rebirth got a new id in the great jutsu deletion event). Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "CONSISTENCY",
+    "title": "Forbidden Jutsu Scroll: Rebirth grants a deleted jutsu",
+    "rationale": "Ethereal Rebirth was re-created with a new id in the jutsu deletion event; repoint the scroll to it."
+  },
+  "items": [
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Forbidden Jutsu Scroll: Rebirth",
+      "targetId": "X5q3Ww-yfCeJ3m6ZqPmmz",
+      "data": {
+        "target": "SELF",
+        "effects": [
+          {
+            "type": "noncombatconsumereward",
+            "power": 1,
+            "target": "INHERIT",
+            "appearSfx": "",
+            "direction": "offence",
+            "reward_exp": 0,
+            "calculation": "static",
+            "description": "placeholder",
+            "reward_rank": "NONE",
+            "disappearSfx": "",
+            "reward_items": [],
+            "reward_money": 0,
+            "powerPerLevel": 0,
+            "reward_badges": [],
+            "reward_jutsus": [
+              "K0t6Z-Q4lau1jFt8Tkpot"
+            ],
+            "reward_tokens": 0,
+            "appearAnimation": "",
+            "reward_prestige": 0,
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "reward_anbupoints": 0,
+            "reward_bloodlines": [],
+            "reward_clanpoints": 0,
+            "reward_reputation": 0,
+            "reward_sage_modes": [],
+            "reward_war_damage": 0,
+            "disappearAnimation": "",
+            "reward_skillpoints": 0,
+            "reward_war_healing": 0,
+            "reward_hunter_items": false,
+            "reward_seichi_silver": 0,
+            "reward_gathering_items": false,
+            "reward_hunter_items_ids": [],
+            "reward_hunting_experience": 0,
+            "reward_medical_experience": 0,
+            "reward_village_membership": "NONE",
+            "reward_crafting_experience": 0,
+            "reward_gathering_items_ids": [],
+            "reward_gathering_experience": 0,
+            "reward_sage_mastery_experience": 0
+          },
+          {
+            "type": "visual",
+            "power": 1,
+            "target": "INHERIT",
+            "appearSfx": "gR2880EZVlWV4eam-ufei",
+            "direction": "offence",
+            "calculation": "static",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0,
+            "appearAnimation": "nseqXlK7E7x7FZ5PROgPP",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ]
+      },
+      "suggestion": {
+        "rationale": "Ethereal Rebirth got a new id in the great jutsu deletion event, but this scroll still grants the old id (lbSdCH5lTz0U2f-t9gWxw), which no longer exists, so using it grants nothing. This points the reward at Ethereal Rebirth's current id (K0t6Z-Q4lau1jFt8Tkpot, FORBIDDEN, S rank, visible), the jutsu the scroll's description promises. The visual effect and every other field are unchanged."
+      }
+    }
+  ]
+}

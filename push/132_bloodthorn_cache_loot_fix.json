@@ -1,0 +1,213 @@
+{
+  "_note": "QA ticket 1 (docs/reviews/QA_LIVE_2026-10-20.md, REF-REWARD). Suggest mode: submits to the content review desk, no direct save. Built from the public item.getAll read at 2026-10-20T19:37:00.236Z: the full effects array is reproduced unchanged except one reward_items id, [PILL_PACK_ID] -> Pill Pack XX8TLmUNJtqeiGM1T99tD (dauntless, 2026-10-20: the line was meant to be Pill Pack; the launch manifest used a placeholder id). Chance 20 and quantity 2 unchanged. Every other id was checked against the live item list. Operator runs it from Forge; never skipPreflight. target SELF is re-sent at its live value so the L18 lint can see it.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "CONSISTENCY",
+    "title": "Bloodthorn Cache: replace unfilled loot id",
+    "rationale": "The launch manifest left a placeholder id on the Pill Pack loot line. Set it to the real Pill Pack id; nothing else changes."
+  },
+  "items": [
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Bloodthorn Cache",
+      "targetId": "OIw9FjNd-PXnSVzMtbclP",
+      "data": {
+        "target": "SELF",
+        "effects": [
+          {
+            "type": "noncombatconsumereward",
+            "power": 1,
+            "target": "INHERIT",
+            "appearSfx": "",
+            "direction": "offence",
+            "reward_exp": 0,
+            "calculation": "static",
+            "description": "Gain various rewards from consumption outside of combat",
+            "reward_rank": "NONE",
+            "disappearSfx": "",
+            "reward_items": [
+              {
+                "ids": [
+                  "_5152PR1inHUEZUBjiaHJ"
+                ],
+                "number": 34.5,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "_5152PR1inHUEZUBjiaHJ"
+                ],
+                "number": 17.25,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "nThwqBAKNrl1_4UTL-D_m"
+                ],
+                "number": 22.5,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "nThwqBAKNrl1_4UTL-D_m"
+                ],
+                "number": 11.25,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "CbUq--UpWnawD_7Xk_GCV"
+                ],
+                "number": 22.5,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "CbUq--UpWnawD_7Xk_GCV"
+                ],
+                "number": 11.25,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "R_xTf5Fy8EDcrJrRCwAcf"
+                ],
+                "number": 9,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "R_xTf5Fy8EDcrJrRCwAcf"
+                ],
+                "number": 4.5,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "TtYPd-LcXKeK3sMuhq1TP"
+                ],
+                "number": 9,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "TtYPd-LcXKeK3sMuhq1TP"
+                ],
+                "number": 4.5,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "FCqGTz3jEFEJoGCeagx1P"
+                ],
+                "number": 11.25,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "FCqGTz3jEFEJoGCeagx1P"
+                ],
+                "number": 5.62,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "6DnJn4x6LWWXtBu7UZybb"
+                ],
+                "number": 4.5,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "6DnJn4x6LWWXtBu7UZybb"
+                ],
+                "number": 2.25,
+                "quantity": 20
+              },
+              {
+                "ids": [
+                  "WgXIvANXaffar1zCYcEKf"
+                ],
+                "number": 26.25,
+                "quantity": 5
+              },
+              {
+                "ids": [
+                  "WgXIvANXaffar1zCYcEKf"
+                ],
+                "number": 13.12,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "ZHHFba1VW9JrDXdWrbtrv"
+                ],
+                "number": 30,
+                "quantity": 3
+              },
+              {
+                "ids": [
+                  "XX8TLmUNJtqeiGM1T99tD"
+                ],
+                "number": 20,
+                "quantity": 2
+              },
+              {
+                "ids": [
+                  "FG4xYkI8UmRrJCdD3yPxI"
+                ],
+                "number": 1.5,
+                "quantity": 1
+              },
+              {
+                "ids": [
+                  "yVNeLzxHSFkNpTPnlm7yQ"
+                ],
+                "number": 37.5,
+                "quantity": 10
+              },
+              {
+                "ids": [
+                  "yVNeLzxHSFkNpTPnlm7yQ"
+                ],
+                "number": 18.75,
+                "quantity": 20
+              }
+            ],
+            "reward_money": 0,
+            "powerPerLevel": 0,
+            "reward_badges": [],
+            "reward_jutsus": [],
+            "reward_tokens": 0,
+            "appearAnimation": "",
+            "reward_prestige": 0,
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "reward_anbupoints": 0,
+            "reward_bloodlines": [],
+            "reward_clanpoints": 0,
+            "reward_reputation": 0,
+            "reward_war_damage": 0,
+            "disappearAnimation": "",
+            "reward_skillpoints": 0,
+            "reward_war_healing": 0,
+            "reward_hunter_items": false,
+            "reward_seichi_silver": 0,
+            "reward_gathering_items": false,
+            "reward_hunter_items_ids": [],
+            "reward_hunting_experience": 0,
+            "reward_medical_experience": 0,
+            "reward_village_membership": "NONE",
+            "reward_crafting_experience": 0,
+            "reward_gathering_items_ids": [],
+            "reward_gathering_experience": 0
+          }
+        ]
+      },
+      "suggestion": {
+        "rationale": "This line was meant to grant Pill Pack, but the cache's launch manifest shipped the unfilled placeholder id [PILL_PACK_ID] instead of the real id. No item has that id, so this roll (20% chance, quantity 2) pays nothing. This sets it to Pill Pack (XX8TLmUNJtqeiGM1T99tD). Chance, quantity and the other 20 loot lines are unchanged."
+      }
+    }
+  ]
+}
