@@ -4,8 +4,8 @@ import { h, replace, fmtAgo, fmtBytes, fmtCountdown } from "./dom.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
 import { readGh, writeGh, readIdmap } from "../storage/compat.mjs";
 import { unresolvedBloodrightJob } from "../bloodright/jobs.mjs";
-import { jobOutcome } from "../storage/journal.mjs";
-import { imagePicks, unusablePicks } from "../core/facts.mjs";
+import { jobOutcome, allCaptures } from "../storage/journal.mjs";
+import { imagePicks, unusablePicks, censusLine } from "../core/facts.mjs";
 import { packGateProblems } from "../core/imagepack.mjs";
 import { packBinds } from "../runner/imgpack.mjs";
 
@@ -227,7 +227,10 @@ function SelectedManifest(app) {
     : `${plural(itemCount, "item")}${captureCount ? ` · ${label}` : ""}`;
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` · manifest hash ${s.manifest.hash}` : ""}`));
   const suggest = !!s.manifest.policy?.suggest;
-  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job: zero mutations."));
+  const census = s.manifest.census;
+  if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, census
+    ? [h("b", {}, `Read-only census ${census.kind}. `), `Pages item.getAll for every WEAPON, hidden:false AND hidden:true, ${census.pageLimit} per page, to the end, twice, plus one elementaldamage-filtered cross-check; then one item.get full capture for each record whose effects carry elementaldamage. The number of point reads is decided by the inventory. 0 writes.`]
+    : "Read-only capture job: zero mutations."));
   if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
@@ -266,13 +269,13 @@ function SelectedManifest(app) {
   card.appendChild(h("div", { class: "f-actions" },
     h("button", { class: "f-primary", disabled: s.problems.length > 0 || badImgs.length > 0 || blocked.length > 0 || packProblems.length > 0, onClick: () => app.confirm(
       readOnly
-        ? `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
+        ? census ? `Run read-only census ${census.kind}? Every matching record body is written into the results bundle. No mutations will be sent.` : `Run read-only capture job for ${s.entry.name}: ${label}?${fullCount ? ` ${fullCount} exact record ${fullCount === 1 ? "body is" : "bodies are"} written into the results bundle.` : ""} No mutations will be sent.`
         : s.collection
           ? `Start ${plural(s.collection.length, "Bloodright tree")} (${plural(count("skillTree"), "skill")}, all hidden)? This writes to the game.`
           : suggest ? `Send ${plural(s.plan.length, "suggestion")} from ${s.entry.name} for review? Nothing changes until approved.`
           : `Start ${s.entry.name}: ${plural(s.plan.length, "item")} (${creates} new)${fullCount ? `, ${label}` : ""}? This writes to the game.`,
       () => app.startJob()),
-    }, readOnly ? "Run captures" : s.collection ? "Start all trees" : suggest ? "Send for review" : "Start job"),
+    }, readOnly ? (census ? "Run census" : "Run captures") : s.collection ? "Start all trees" : suggest ? "Send for review" : "Start job"),
     h("button", { onClick: () => app.clearSelection() }, "Clear"),
   ));
   if (s.manifest.poolResolved) card.appendChild(h("div", { class: "f-mute" }, `${s.manifest.poolResolved} pool code(s) resolved to ids and gates`));
@@ -356,8 +359,10 @@ export function RunScreen(app) {
     h("div", { class: "f-bar" + (job.state === "PAUSED" ? " warn" : "") }, h("i", { style: { width: Math.round(done / (job.items.length || 1) * 100) + "%" } })),
   );
   const outcome = jobOutcome(job);
-  if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
-    const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+  if (job.census) root.appendChild(h("div", { class: "f-banner " + (outcome === "success" ? "ok" : job.state === "DONE" ? "bad" : "info") }, h("b", {}, censusLine(job)),
+    job.census.problems?.length ? h("div", { class: "f-err" }, job.census.problems.join("\n")) : null));
+  else if ((job.state === "DONE" || job.state === "INCOMPLETE") && job.items.length === 0) {
+    const captures = allCaptures(job);
     const failed = captures.filter((capture) => !capture.ok).length;
     const full = captures.filter((capture) => capture.persist === "full");
     const unpersisted = full.filter((capture) => capture.ok && capture.persistOk !== true);
@@ -407,7 +412,7 @@ export function RunScreen(app) {
     const next = job.items.find((i) => !TERMINAL.includes(i.state));
     root.appendChild(h("div", { class: "f-banner info" }, next
       ? `Working on item ${next.idx + 1} of ${job.items.length}: ${next.name}`
-      : app.state.runningNote || "All items sent; reading back and saving the results…"));
+      : app.state.runningNote || (job.items.length ? "All items sent; reading back and saving the results…" : `Reading${job.census ? ` (${(job.capturesCensusPartial || job.capturesCensus || []).length}/${job.census.targets.length} point reads)` : ""}; nothing is written. The rate limit can make this take minutes.`)));
   }
   const resumeBlocked = app.resumeBlockedReason ? app.resumeBlockedReason(job) : null;
   if (resumeBlocked) root.appendChild(h("div", { class: "f-mute" }, resumeBlocked));
@@ -422,15 +427,14 @@ export function RunScreen(app) {
   const st = app.budget.status();
   const used = Object.entries(st.paths).filter(([, v]) => v.used > 0);
   root.appendChild(h("div", { class: "f-card" }, used.length ? used.map(([p, v]) => h("div", { class: "f-kv" }, h("b", {}, p), h("span", {}, `${v.used} / ${v.allowance} (server ${v.serverLimit}) · resets in ${fmtCountdown(app.now() + v.resetInMs, app.now())}`))) : h("span", { class: "f-mute" }, "nothing spent"), st.tripped ? h("div", { class: "f-err" }, `TRIPPED on ${st.tripped.path} until ${new Date(st.tripped.until).toLocaleTimeString()}`) : null));
-  const allCaptures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
-  if (allCaptures.some((capture) => capture && capture.persist === "full")) {
+  const fulls = allCaptures(job).filter((capture) => capture && capture.persist === "full");
+  if (fulls.length) {
     root.appendChild(h("h3", {}, "Full captures"));
-    for (const capture of allCaptures.filter((capture) => capture.persist === "full")) {
-      root.appendChild(h("div", { class: "f-row" }, h("div", { class: "f-grow" },
+    root.append(...fold(fulls.map((capture) => h("div", { class: "f-row" }, h("div", { class: "f-grow" },
         h("div", {}, `${capture.proc} `, h("span", { class: "f-pill " + (capture.persistOk === true ? "VERIFIED" : "FAILED") }, capture.persistOk === true ? "body persisted" : "not persisted"), h("span", { class: "f-mute" }, capture.ok ? " · read ok" : " · read failed")),
         h("div", { class: "f-mono" }, `${capture.snapshotKey || ""}${capture.input && capture.input.id ? " · " + capture.input.id : ""}`),
-        capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null)));
-    }
+        capture.persistError ? h("div", { class: "f-err" }, capture.persistError) : null,
+        capture.problems?.length ? h("div", { class: "f-err" }, capture.problems.join("\n")) : null))), `Show all ${fulls.length} full captures`));
   }
   if (job.items.length) root.appendChild(h("h3", {}, "Items"));
   const savedBindings = readIdmap(app.storage), bloodlineId = job.bloodrightImport?.bloodlineId;

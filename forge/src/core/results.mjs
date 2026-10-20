@@ -4,7 +4,7 @@
 import { MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { readGh } from "../storage/compat.mjs";
 import { GH } from "../github.mjs";
-import { jobOutcome } from "../storage/journal.mjs";
+import { jobOutcome, censusVerdict } from "../storage/journal.mjs";
 import { harvestEntry, postflight } from "./facts.mjs";
 
 /**
@@ -27,7 +27,8 @@ export async function resolveCaptures({ journal, cache }, jobId) {
   const job = journal.get(jobId);
   const patch = {};
   const out = [];
-  for (const key of ["capturesBefore", "capturesAfter"]) {
+  // A paused census still exports the point reads it finished (capturesCensusPartial).
+  for (const key of ["capturesBefore", "capturesCensus", "capturesCensusPartial", "capturesAfter"]) {
     if (!Array.isArray(job[key])) continue;
     const resolved = [];
     for (const capture of job[key]) resolved.push(await materialize(cache, capture));
@@ -68,12 +69,29 @@ export async function materialize(cache, capture) {
   return c;
 }
 
+/**
+ * A census job's block for the bundle: the journaled summary, its verdict, and the inventory
+ * projection materialized from its immutable snapshot (never re-crawled). A missing snapshot
+ * downgrades a COMPLETE verdict, because the inventory is half the evidence.
+ */
+export async function resolveCensus({ cache }, job) {
+  if (!job?.census) return null;
+  const c = { ...job.census, verdict: censusVerdict(job), rows: null };
+  try {
+    const rec = await cache.getSnapshot(c.inventoryKey);
+    if (rec) c.rows = rec.data;
+  } catch (e) { c.inventoryError = "inventory snapshot read failed: " + (e?.message ?? e); }
+  if (!c.rows && c.inventory === "COMPLETE") { c.verdict = "FAILED"; c.inventoryError ??= `inventory snapshot ${c.inventoryKey} is gone; it was not re-crawled`; }
+  return c;
+}
+
 /** The results bundle, in the shape harvests/inbox/ already holds. */
-export function buildBundle({ version, storage, now }, job, captures) {
+export function buildBundle({ version, storage, now }, job, captures, census = null) {
   return {
+    ...(census ? { census } : {}),
     builder: version, at: new Date(now()).toISOString(), cfg: "forge", checks: null,
     // `outcome` is the honest headline: an exported bundle is evidence, not a claim of success.
-    state: job.state, outcome: jobOutcome(job),
+    state: job.state, outcome: census && census.verdict !== "COMPLETE" ? "failed" : jobOutcome(job),
     postflight: postflight(job),
     entries: job.items.map((i) => harvestEntry(i)),
     captures,

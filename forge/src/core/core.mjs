@@ -17,9 +17,9 @@ import { prepareCollection } from "../bloodright/collection.mjs";
 import { parseManifest, planOrder, ManifestError } from "../runner/manifest.mjs";
 import { collectRefs } from "../runner/refs.mjs";
 import { manifestNumber, manifestSummary, GH } from "../github.mjs";
-import { JournalError } from "../storage/journal.mjs";
+import { JournalError, allCaptures } from "../storage/journal.mjs";
 import { blockedPaths, imagePicks, resumeBlockedReason, runHeadline, unusablePicks } from "./facts.mjs";
-import { resolveCaptures, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
+import { resolveCaptures, resolveCensus, buildBundle, bundleName, repoSyncReady, inboxPath } from "./results.mjs";
 import { prepareImagePack, commitImagePack, packGateProblems } from "./imagepack.mjs";
 import { packBinds } from "../runner/imgpack.mjs";
 
@@ -492,10 +492,12 @@ export class ForgeCore {
       // unresolvable full capture is persistOk:false, so nothing claims a body it does not carry.
       this.fail("resolve full captures", e);
       const j = this.journal.get(jobId);
-      captures = [...(j.capturesBefore || []), ...(j.capturesAfter || [])];
+      captures = allCaptures(j);
     }
     const job = this.journal.get(jobId); // read AFTER resolveCaptures so the embedded journal agrees
-    const bundle = buildBundle(this, job, captures);
+    let census = null;
+    try { census = await resolveCensus(this, job); } catch (e) { this.fail("resolve census", e); }
+    const bundle = buildBundle(this, job, captures, census);
     if (job.manifestPath?.startsWith("bloodright-job:")) {
       try {
         const frozen = await this.repoCache.get("bloodright.manifest", job.manifestPath);

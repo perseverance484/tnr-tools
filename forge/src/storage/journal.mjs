@@ -73,11 +73,32 @@ export function captureOk(capture) {
   return capture.persist !== "full" || capture.persistOk === true;
 }
 
+/** Every capture a job journaled: before, census point reads (runner/census.mjs), after. */
+export const allCaptures = (job) => [...(job.capturesBefore || []), ...(job.capturesCensus || job.capturesCensusPartial || []), ...(job.capturesAfter || [])];
+
+/**
+ * A census job's own verdict. COMPLETE only when the inventory was complete and stable AND every
+ * target's point read was accepted with its body persisted; anything less is named, never rounded
+ * up. null for a job that is not a census.
+ */
+export function censusVerdict(job) {
+  const c = job?.census;
+  if (!c) return null;
+  if (c.inventory !== "COMPLETE") return c.inventory || "FAILED";
+  const pts = job.capturesCensus;
+  if (!Array.isArray(pts)) return "INCOMPLETE";
+  if (pts.length !== c.targets.length) return "INCOMPLETE";
+  if (pts.some((p) => p.stale)) return "STALE";
+  return pts.every((p) => p.accepted && p.persistOk === true) ? "COMPLETE" : "FAILED";
+}
+
 export function jobOutcome(job) {
   if (!job || !Array.isArray(job.items)) return "open";
   if (job.state === "RUNNING" || job.state === "PAUSED") return "open";
-  const captures = [...(job.capturesBefore || []), ...(job.capturesAfter || [])];
+  const captures = allCaptures(job);
+  if (job.census && censusVerdict(job) !== "COMPLETE") return "failed";
   if (!job.items.length) {
+    if (job.census) return captures.every(captureOk) ? "success" : "failed";
     if (!captures.length) return "unverified";
     return captures.every(captureOk) ? "success" : "failed";
   }
