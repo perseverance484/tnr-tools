@@ -77,4 +77,4 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 | GIT_BINARY_PIN | NOT_PERFORMED for original/new art bytes |
 | USER_UPLOAD_READBACK | NOT_PERFORMED |
 
-Next: seek director approval of the proposed Charge 4 Explosion v1 target lock. Only after approval, launch one new isolated Charge 4 generation conversation with its own identity PNG and Blast Shield raw as style/material only. Keep all three accepted raw files unchanged. No processing/export/gallery/canonical preflight before N/N raw approvals. Live-game requests/writes 0/0; no publishing or credentials.
+Next: open one new isolated generation session for approved Charge 4 Explosion. Attach the original identity image and approved Blast Shield style reference. Seek separate raw approval. Production and live operations remain pending.
