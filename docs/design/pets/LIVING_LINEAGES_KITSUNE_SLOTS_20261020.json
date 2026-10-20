@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "SCOPE_19_IMAGES__SPECIES_EMBER_R01_MOONLIT_R01_APPROVED__JADE_R01_NEXT__STRUCTURAL_SVG_DRAFT",
+  "status": "SCOPE_19_IMAGES__STRUCTURE_APPROVED__3_VISUALS_APPROVED__JADE_R01_NEXT",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -47,7 +47,10 @@
       "lower_other_lineages_ranks_1_to_3": 9,
       "unique_total": 19,
       "display_placements": 26
-    }
+    },
+    "presentation_layout_status": "DIRECTOR_APPROVED_LOCKED_V1",
+    "approved_showcase_source_count": 19,
+    "showcase_placements": 26
   },
   "lineages": [
     {
@@ -1617,7 +1620,7 @@
       "D_R09"
     ],
     "repeated_exact_source_slots": 7,
-    "structural_svg_status": "DRAFT_PENDING_DIRECTOR_APPROVAL",
+    "structural_svg_status": "DIRECTOR_APPROVED_STRUCTURE_LOCKED_V1",
     "notes": [
       "The 37-slot tracker retains all initial planned slots for audit/history but only 19 are in scope for the presentation.",
       "The matrix species-reference artwork is the SAME exact approved source in each row; do not invent/recolour source refs.",
@@ -1625,7 +1628,9 @@
       "Do not relabel skipped Rank 5 as Rank 4 or accept non-game rank names."
     ],
     "ruling": "RUL-2026-10-20-003",
-    "ruling_dependency": "RUL-2026-10-20-002 (juvenile visual reference and full rank morphology)"
+    "ruling_dependency": "RUL-2026-10-20-002 (juvenile visual reference and full rank morphology)",
+    "structure_approved_on": "2026-10-20",
+    "approved_asset_status": "3/19 approved source images; structural approval not art approval"
   },
   "target_unique_images": 19,
   "scope_counts": {
@@ -1639,11 +1644,11 @@
   },
   "structural_svg_qc": {
     "performed_on": "2026-10-20",
-    "template_review_status": "DRAFT_AWAITING_DIRECTOR_ACCEPTANCE",
+    "template_review_status": "DIRECTOR_APPROVED_STRUCTURE_ONLY",
     "svg_repository_path": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
-    "svg_git_blob_sha1": "c1e44dd0459a667d6b40c55c0153accd8054cced",
+    "svg_git_blob_sha1": "4cb7ea34d75c15ae79cb0c6df145c889a6e3ec22",
     "svg_local_file_byte_identical_to_repository_blob": true,
-    "svg_size_bytes": 30811,
+    "svg_size_bytes": 30810,
     "svg_dimensions_px": [
       1536,
       1024
@@ -1660,7 +1665,13 @@
     "package_filename": "TNR_Living_Lineages_Kitsune_Structural_Sheet_Package_20261020.zip",
     "package_sha256": "6166e76cbed4b57fb4eac5b178b6392897dc19cea20612c7e9745f356d8ae74a",
     "package_location": "conversation artifact; NOT Git pinned",
-    "draft_layout_approved": false
+    "draft_layout_approved": true,
+    "previous_director_reviewed_blob_sha1": "c1e44dd0459a667d6b40c55c0153accd8054cced",
+    "svg_sha256": "cf0168ce11a898b6be75a9f6ee0950626dd0d9c7c1d5d3f01786afdfb1a4e52f",
+    "approved_on": "2026-10-20",
+    "approval_evidence": "Director reply 'Yes, structure approved.' in Living Lineages master workdesk, reviewing 1536x1024 placeholder preview.",
+    "metadata_only_approval_flag_change": "data-approved-layout=false -> true; CairoSVG rendered pixel-identical 1536×1024 RGBA before/after; no placement, text or geometry change",
+    "final_populated_sheet_director_approval": "PENDING_GENERATION_AND_QC"
   },
   "branch_integration_drift": {
     "seen_on": "2026-10-20",
