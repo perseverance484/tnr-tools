@@ -1,0 +1,199 @@
+{
+  "_note": "QA ticket 7 (docs/reviews/QA_LIVE_2026-10-20.md, grammar and typos). Suggest mode: content review desk, no direct save. Fourteen visible jutsu and items get minimal text corrections built by exact substring replacement on the public read of 2026-10-20T19:37:17.859Z (each replaced substring occurs once); approved by dauntless 2026-10-20. Item battle lines are only touched on items usable in combat. Jutsu re-send injectableInBattle at its live value (law 20). Violet Stormglass (description copied from a tusk) and his/her battle lines are deliberately excluded. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "GRAMMAR",
+    "title": "Fix grammar",
+    "rationale": "Corrects grammar and typos in the text without changing its meaning."
+  },
+  "items": [
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Chakra Shield",
+      "targetId": "FimDQpYL0LWRv8U81ZP9H",
+      "data": {
+        "battleDescription": "As %user focuses their chakra, a shimmering barrier forms around them, manifesting as a protective shield. The opponent's attacks are repelled by this formidable barrier, their strikes weakening as they impact the shield. %user stands resolute behind the chakra shield, ready to defend against any assault with unwavering determination.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "A sentence started with a lowercase 'the'."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "illuminance",
+      "targetId": "8wl2YvOZB_WwZx4FXzrlm",
+      "data": {
+        "battleDescription": "%user creates a jutsu formula that spreads out from their feet. Acting as a homing signal, a bright pattern appears above %target. The chakra condenses and beams of light fire towards %target.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix typos",
+        "rationale": "Fixes 'honing' to 'homing', a stray space before a full stop, a double space and the missing final full stop."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Enjin",
+      "targetId": "PwTpi68-ZNKk5CnsR9Q8_",
+      "data": {
+        "battleDescription": "%user’s weapon bursts into flames, the intense heat warping the air around them. With every swing, the flames grow fiercer, their strikes gaining momentum and power. The weapon becomes an extension of %user’s fiery will, cutting through defenses like a hot knife through butter, and leaving behind trails of searing heat that scorch the battlefield.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "'%user weapon' was missing the possessive; it now reads '%user's weapon'."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Chōha",
+      "targetId": "8NfEZTMQDK25fgerqjtXB",
+      "data": {
+        "battleDescription": "%user's weapon shimmers as it becomes enveloped in swirling water, the fluid force enhancing their agility. With every swing, the weapon moves with the grace and power of a tidal wave, each strike increasing in speed and precision. The water flows seamlessly around %user, allowing them to dodge and counter with fluidity, making them nearly untouchable in battle.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "'%user weapon' was missing the possessive; it now reads '%user's weapon'."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Hollow Veil",
+      "targetId": "GAhckNCW8xUES4YGTJPGL",
+      "data": {
+        "battleDescription": "%user weaves a single seal, cloaking %target's body in a thin, shimmering veil of chakra. This veil absorbs all impact and saps the strength of %target.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "'%target body' was missing the possessive, and the line had no final full stop."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Eclipse Cyclone",
+      "targetId": "UgCKhDiEvNuXsrwf85tMM",
+      "data": {
+        "description": "A mesmerizing jutsu that amalgamates the user's mastery over both celestial energy and kinetic manipulation to disorient the enemy.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "title": "Fix description grammar",
+        "rationale": "The description broke off into a fragment ('. which disorients the enemy'); it is now one sentence."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Pizza Dough",
+      "targetId": "AmPR6ruTnuNa2lxK1cXS0",
+      "data": {
+        "battleDescription": "%user pulls out the Pizza Dough and throws it at %target. Perfect shot! %target is unable to move!"
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "The battle line used %User, which does not get replaced with the player's name, and a capitalised 'Pulls'. Also fixes 'throw' to 'throws', a space before the full stop and a trailing space."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Pizza",
+      "targetId": "dM-0kkFkJ38IyAuCr8Xj8",
+      "data": {
+        "battleDescription": "%user pulls out the perfectly made Pizza and throws it like a frisbee towards %target. Upon contact it explodes, completely covering %target in a whirl of dough, cheese, sauce and pizza toppings."
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "Removes a stray space before the full stop after %target."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Tectonic Spear",
+      "targetId": "UIGk6S0B4AZST1rrewLoN",
+      "data": {
+        "battleDescription": "%user channels their chakra into the spear, causing the tip to become hard as diamond before hurling it at %target, breaking through their defenses."
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "Removes a stray space before the comma after %target and a trailing space."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Gaea's Embrace",
+      "targetId": "-LzgdTM1yTjlezOyjd-6H",
+      "data": {
+        "battleDescription": "%user channels their chakra into the spear, causing the tip to become hard as diamond before hurling it at %target, breaking through their defenses."
+      },
+      "suggestion": {
+        "title": "Fix battle line grammar",
+        "rationale": "Removes a stray space before the comma after %target and a trailing space."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Tachi",
+      "targetId": "Z7JM5yxPzAN7U6dyZCnMO",
+      "data": {
+        "description": "Bloodline Sword for Tetsugan. A blade made of fine metal with expert sharpness."
+      },
+      "suggestion": {
+        "title": "Fix description grammar",
+        "rationale": "A sentence started with a lowercase 'a', and the description had no final full stop."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Crystalized Sand",
+      "targetId": "-PmDx8m7gXcvFv4NWDDdk",
+      "data": {
+        "description": "<p>You find a sack of what seems like sand, but it glimmers with countless different colors. There is a note attached to the sack. </p>  <p><em>In a land where light meets sand,<br> Golden waves at your command,<br>A landscape glowing in the sun,<br> Mirroring stars when day is done.<br> What name is given to this sight,<br> Where grains of sand reflect the light?</em></p>"
+      },
+      "suggestion": {
+        "title": "Fix description grammar",
+        "rationale": "A sentence started with a lowercase 'there', and the riddle ended with a closing quote that had no opening quote."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Kaeruun’s Ember Carapace",
+      "targetId": "6g-leb_pyJJlDjY1i-gz3",
+      "data": {
+        "description": "Forged from the shell of the Kaeruun and embedded with its heart, this armor piece was designed for flexibility and style for female shinobi, offering great protection."
+      },
+      "suggestion": {
+        "title": "Fix typos",
+        "rationale": "Fixes 'Forged the from', the misspelt 'Kaerun', 'it's' for 'its', a missing comma, and 'Shinobis'."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Kaeruun’s Molten Carapace",
+      "targetId": "SPyb1Df6im2zc8IONIc9_",
+      "data": {
+        "description": "Forged from the shell of the Kaeruun and embedded with its heart, this armor piece was designed for flexibility and strength for male shinobi, offering great protection."
+      },
+      "suggestion": {
+        "title": "Fix typos",
+        "rationale": "Fixes 'Forged the from', the misspelt 'Kaerun', 'it's' for 'its', a missing comma, and 'Shinobis'."
+      }
+    }
+  ]
+}
