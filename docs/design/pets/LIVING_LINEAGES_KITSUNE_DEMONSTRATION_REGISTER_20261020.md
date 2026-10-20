@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** VISUAL PILOT ACTIVE — **19 unique art images** for the approved two-panel sheet. Juvenile master + all four Rank 1 visuals director-approved (**5/19**); **Ember R2–R9 one-request sequential batch PREPARED, NOT RUN**. SVG structure **DIRECTOR APPROVED / LOCKED**; no game writes or transparent production exports.  
+**Status:** VISUAL PILOT ACTIVE — **19 unique art images** for the locked two-panel sheet. Juvenile master + all four Rank 1 originals director-approved (**5/19**); **all four isolated evolution-batch briefs prepared (Ember R2–9 and Moonlit/Jade/Obsidian R2–3), none executed or accepted**. SVG structure approved; no game writes or transparent production exports.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable history ledger, 19 active assets](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json), [editable SVG layout](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg), and [26-placement slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) belong to the ChatGPT-owned workdesk branch. The JSON ledger owns approval and parentage; this register owns direction; the SVG/slot map own presentation structure. No Fable-branch or game-state writes.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
@@ -247,3 +247,17 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 **Binding layout record:** `LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` marks `DIRECTOR_APPROVED_STRUCTURAL_LAYOUT_V1`, carries the accepted SVG hash and freezes the placement mapping. `LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` records this approval separately from artwork acceptance.
 
 **Updated visual intake:** **5/19** source visuals approved (species master and all four Rank 1 founders); **14 images outstanding**, next `A_R02` Ember Scout using the exact Ember Rank 1 original. Final source-composed poster, alpha/cutout processing and production review remain **PENDING**. Approval of structural geometry authorizes no game uploads or other live actions. Any later structural rewrite requires a fresh director decision.
+
+## Moonlit / Jade / Obsidian one-request batches prepared — 2026-10-20
+
+The director requested copy-ready opening prompts for **each remaining variation**, using the same director-authorized relaxed-QC batch rhythm as Ember. Three **distinct** clean isolated generation sessions are now prepared, **not executed**. Each starts from **that individual's own approved Rank 1**, makes Rank 2 Scout (**2 tails**, visibly taller/leggier growing yearling), then takes the **newly generated Rank 2 as its only image reference** for Rank 3 Tracker (**3 organically attached tails**, longer athletic runner body, stronger haunches). No pause for director approval between those two images. Both raw images are provisional until one post-batch director visual acceptance. Artistically natural variations are welcome; high-fidelity style lock and production export/QC are deferred.
+
+| Lineage | Exact approved Rank 1 JPEG input SHA-256 | Individual 2-image execution brief |
+| --- | --- | --- |
+| **Moonlit** — silver/slate/pale-blue, forehead Crescent (1), Moon aura (5) | `f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1` | [Moonlit R2–R3 batch](LIVING_LINEAGES_MOONLIT_R2_R3_BATCH_BRIEF_20261020.md) |
+| **Jade** — jade/teal/cream, Mismatched Eyes (5), violet Lightning (4) | `c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378` | [Jade R2–R3 batch](LIVING_LINEAGES_JADE_R2_R3_BATCH_BRIEF_20261020.md) |
+| **Obsidian** — black/dark-violet/silver, Dappled Accents (9), pearl Spirit (7) | `440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b` | [Obsidian R2–R3 batch](LIVING_LINEAGES_OBSIDIAN_R2_R3_BATCH_BRIEF_20261020.md) |
+
+**One-image input rule:** Attach only that line's actual Rank 1 JPEG. Do not attach the shared species master, other lineages, ZIPs, the family sheet or mature benchmark art. One operator request authorizes **two dependent renders**, never two parallel variants from R1. If the tool cannot condition R3 on its newly generated R2 in the same unattended session, it must state that limitation and save its actual partial output rather than inventing verified lineage ancestry.
+
+**Expected return per variation:** Two separate original image files, exact hashes and parent-source information where verifiable, a compact ZIP with manifest, and optionally a deterministic thumbnail preview. No image-generator composite, heavy per-image QC, game upload, published status, or claim of production preflight. **Current global approval count remains 5/19.** The Ember eight-output batch is separately prepared; opening order of the three variant batch sessions is flexible and changes no figure in the approved structural SVG.
