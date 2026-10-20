@@ -152,29 +152,29 @@
     {
       "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
       "name": "Charge 4 Explosion",
-      "version": 1,
+      "version": 2,
       "evidence_level": "historical_capture",
       "action": "Disperse explosive chakra across the battlefield, making successive microexplosions at contact points; offensive charging and afterburn.",
-      "dominant_silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring.",
-      "camera": "Elevated three-quarter tactical view looking along the ground and across multiple spatially separated ignition points.",
-      "motion_axis": "A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation.",
-      "secondary_effect": "One thin blue-white electrical chakra filament tracing the charge between ignition points, supported by source artwork.",
+      "dominant_silhouette": "The visible C4 silhouette is BUILT FROM distinct explosions on the battlefield: a broad curved C of ground-contact blast nodes on the left and a sharply angled 4 of blast nodes on the right, preserving dark gaps; not flat typography, a glyph floating in space, or a generic diagonal explosion chain.",
+      "camera": "Elevated three-quarter, near-overhead view of dark rocky battleground, preserving the legibility of the C on the left and 4 on the right while showing ignition points physically contacting ground.",
+      "motion_axis": "Linked concussive detonations ignite around the left-side C curve and then through the angled strokes of the right-side 4; the chain is a field spread and contact-based cascade, not a single straight diagonal attack.",
+      "secondary_effect": "One restrained network of intermittent thin blue-white chakra filaments connecting some ignition points; all other stray sparks and debris are subordinate.",
       "sibling_exclusions": [
         {
           "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
-          "silhouette": "Director-approved Inferno Cataclysm: a towering white-yellow explosive eruption splitting jagged dark rock slabs upward along a broad ground fissure. ACTION: major ground fault bursts upward as one cataclysmic column. Charge 4 must keep ground intact aside from small contact scorch marks, with no slabs or eruption wall."
+          "silhouette": "The approved Inferno Cataclysm is a huge earth fissure shattering dark slabs and erupting a tall white-hot detonation wall; no broad ground fault or upward eruption in the C4 ground-contact pattern."
         },
         {
           "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
-          "silhouette": "Director-approved Kinetic Nova: five airborne, spatially separated large incandescent explosion starbursts around an exploding central projectile, erupting radially in free space. ACTION: compressed projectile fractures into explosive mini-bursts. Charge 4 must show a much lower, smaller sequential chain of ground-contact microignitions, not floating radial blast clusters."
+          "silhouette": "The approved Kinetic Nova is an airborne asymmetric radial constellation of five large starburst detonations from one disintegrating core; C4 must consist of ground-contact nodes arranged as a curved C plus angular 4, not floating radial bursts."
         },
         {
           "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
-          "silhouette": "Director-approved Blast Shield: thick near-enclosing amber concussive-pressure dome/circular wall sheltering a dark center, a single inbound projectile deflecting at upper-right. ACTION: defensive circular barrier deflects attacks; Charge 4 has no shield, ring or protected hollow."
+          "silhouette": "The approved Blast Shield is a nearly enclosing protective circular barrier with a dark center and an inbound deflected projectile; C4 uses separate contact blasts with intentional gaps, no continuous shield wall or protected center."
         },
         {
           "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
-          "silhouette": "A single compressed diagonal shock-cone with a leading high-energy terminal collision blast and a sharply separate propulsion jet behind. ACTION: Fast thrust from upper-left to lower-right: narrow wake opens toward one hard, localized close-range impact."
+          "silhouette": "Howitzer Crash is a concentrated upper-left-to-lower-right blast-propulsion shock-wedge terminating in one massive lower-right close-range impact; C4 must not look like a thrust path or single terminal strike."
         }
       ],
       "references": [
@@ -194,9 +194,10 @@
       "anatomy_exception": null,
       "direction_approval": {
         "status": "APPROVED",
-        "lock_sha256": "e6b9d38cb7bed0968a1e91e95654483cfd1e4f00b6b25e284bcdbeebcc6ab93a",
-        "evidence": "Director, 2026-10-19 persistent Bakuhatsu Art Studio: 'Approved' in direct response to the proposed Charge 4 Explosion ground-level diagonal sequential microdetonation direction and explicit approval request."
-      }
+        "lock_sha256": "ceebff14d0db4e4dd788cba41f0027d675747363f9d4d3765373c2491f1dc311",
+        "evidence": "Director, Bakuhatsu Art Studio 2026-10-19: superseded earlier v1 diagonal-chain direction by requesting a 'C4' silhouette made of explosions, then explicitly 'Yep, do that'. Later, responding to exact visually rendered C4 image 1000018870.png: 'So perfect. Approved. Next'. This v2 lock records the approved C4 composition; the original jutsu combat action remains from historical capture."
+      },
+      "negative_space": "Unlit charcoal ground clearly separates the C arc from the 4 and keeps the openings of each shape recognizable at 125, 64 and 32 px."
     },
     {
       "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
@@ -223,7 +224,7 @@
         },
         {
           "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
-          "silhouette": "A staggered, diagonal chain of small ground-contact detonations across a broad battlefield swath, NOT one large fireball or ring. ACTION: A controlled cascade propagates from the near lower-left ignition to the far upper-right detonation."
+          "silhouette": "Director-approved Charge 4 Explosion v2: a readable C shape on the left and angular 4 on the right, built from discrete, ground-contact detonation nodes and intermittent fine blue-white electrical filaments. ACTION: multiple localized explosions make a C4-shaped propagated battlefield charge, not a one-way high-speed propelled crash."
         }
       ],
       "references": [
@@ -232,6 +233,12 @@
           "role": "identity-only",
           "path": "images/hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png",
           "sha256": "ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508"
+        },
+        {
+          "kind": "individual",
+          "role": "style-only",
+          "path": "raw_bakuhatsu_inferno_cataclysm_v1.jpg",
+          "sha256": "6bdaaf03a35532b0cfa3bc64150187540a2b4bbcaf87b283d0f6d09e0828e214"
         }
       ],
       "anatomy_exception": null,
