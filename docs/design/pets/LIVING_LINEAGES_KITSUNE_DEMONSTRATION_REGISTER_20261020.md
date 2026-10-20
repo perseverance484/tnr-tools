@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** VISUAL PILOT ACTIVE — approved 1536×1024 structural sheet requires **19 unique sources**. Species reference + 4 Rank 1 originals **director-approved (5/19)**; **Ember R2–R9 eight originals RECEIVED / awaiting one director batch decision**; other three R2–R3 batches prepared but not returned. No production alpha exports or live-game writes.  
+**Status:** VISUAL PILOT ACTIVE — **reference-first V2 structural SVG draft ready for director review**; previously approved V1 remains locked. **19 unique art sources needed, 5/19 founder/species visuals director-approved**. Ember 8 and Moonlit/Jade 4 new individual rank candidates received but not approved; Obsidian R2/R3 currently one two-creature composite only. No alpha exports or live-game activity.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable history ledger, 19 active assets](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json), [editable SVG layout](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg), and [26-placement slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) belong to the ChatGPT-owned workdesk branch. The JSON ledger owns approval and parentage; this register owns direction; the SVG/slot map own presentation structure. No Fable-branch or game-state writes.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
