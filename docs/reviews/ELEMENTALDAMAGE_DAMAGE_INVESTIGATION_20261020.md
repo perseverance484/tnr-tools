@@ -1,0 +1,89 @@
+# `elementaldamage` weapon damage investigation — 2026-10-20
+
+**Status:** SOURCE-VERIFIED SELECTOR/PARITY MECHANISM; live player reproduction **NOT VERIFIED**. This report is an investigation, not an approved change to elemental balance.
+
+| Field | Value |
+| --- | --- |
+| Review owner | ChatGPT — Content Designer, Engineering Auditor lens |
+| TNR Tools baseline | `main@4e674234d0539b7010c34025034330980a38b196` |
+| Inspected game source | `studie-tech/TheNinjaRPG@b836d6931991c9487952cbc093f24e4b0d89c7bc` |
+| Introduction | `050bc4b6c8a365cce6ab4807caf011c06511c0ac`, 2026-10-19 |
+| Game deployment | NOT VERIFIED; upstream branch is not itself evidence of deployed production SHA |
+| Player/item captures or paired logs | NONE supplied; symptom reported by director |
+| Live requests / writes | **0 / 0** |
+| Tests/builds executed | **None** (source, committed tests, and contracts inspected) |
+| Credentials | None |
+
+## Finding F1 — Preferred-element selection can remove previously matching bonuses
+
+**Tier: SOURCE-VERIFIED mechanism; observed reports not yet causally tied to specific items.**
+
+The new authored tag is `DamageTag` minus an editable `elements` list. Combat converts it to **ordinary `damage` with exactly one basic element**, selected in this order: (1) actor's saved `preferredDamageElement`; (2) innate `primaryElement` if basic; (3) Fire. It does not infer the strongest element or consult the actor's active trained element, bloodline, secondary element, bonus magnitudes, or target defenses.
+
+- [Validator, tag shape](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/validators/combat.ts#L544-L563)
+- [Resolver and fallback](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/elementalDamage.ts#L7-L31)
+- [Profile preference interface](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/layout/ProfileEdit.tsx#L724-L784)
+- [Battle-start preference snapshot](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/server/api/routers/combat.ts#L4235-L4250)
+
+Damage bonuses and reductions explicitly scoped to elements only apply when they overlap the **resolved damage effect's elements**. An authored manual `damage` list may have more than one element; the dynamic tag has just one. The combat engine therefore permits reduced output when the old list matched buffs that the newly resolved element does not. Potency effects may similarly lose element matches on items. The replacement tag does **not** grant an extra damage boost of its own.
+
+- [Element eligibility in modifier matcher](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/tags.ts#L3441-L3470)
+- [Actual damage multiplier pipeline](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/process.ts#L2072-L2233)
+- [Potency element matching](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/potency.ts#L79-L125)
+
+### Reproduction scenario derivable from committed source/tests
+
+**Setup:** player innate primary Fire; full Elemental Mastery trained/activated Wind; no saved preferred damage element; otherwise identical weapon rows and battle.
+
+| Item / variant | Resolved damage element(s) | Wind mastery +15% applies? | Illustrative raw packet 1,000 (other modifiers held equal) |
+| --- | --- | --- | ---: |
+| Prior manual `damage`, `elements:["Wind"]` | Wind | Yes | 1,150 |
+| New `elementaldamage` with unset preference | Fire (innate fallback) | No | 1,000 |
+| New `elementaldamage` with preference set to Wind | Wind | Yes | 1,150 |
+
+The second result is **150 less**, or **13.04% below** the first result. These are **derived illustrative figures, not a captured player hit**. The 15% constant and the Fire/Wind distinction are explicitly covered by the source and [existing Elemental Mastery test](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/tests/libs/combat/elementalMastery.test.ts). An activated trained element is intentionally distinct from elements supplied by the innate pair/bloodline, making the default mismatch plausible for affected players.
+
+Additional mismatch scenarios: bloodline element-specific buffs separate from innate primary; previously authored *multiple-element* damage tags matching several bonus sources; previously authored advanced elements such as Ice, which cannot be chosen in the new basic-element-only profile preference.
+
+**Severity:** potentially material player-facing regression/expectation mismatch (15% in demonstrated mastery-only scenario, possibly more with multiple buffs). Do not label a confirmed universal engine damage nerf without matched item/player captures.
+
+## Finding F2 — Basic damage resolver path itself appears sound
+
+**Tier: SOURCE-VERIFIED path; actual paired-weapon parity TEST NOT EXECUTED.**
+
+Weapon items use `userItemToAction`, and both available-action prediction and action insertion resolve `elementaldamage` before potency and normal combat processing. `realizeTag` covers passive sources. The new tag inherits the same power, formula/static mode, stats, generals, level scaling and damage modifiers as `DamageTag`. If both rows have identical fields and the **same single resolved element**, source inspection suggests base hit parity; a reproducible lower result under those controlled conditions would warrant a separate engine defect investigation.
+
+- [Item conversion](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/actions.ts#L746-L789)
+- [Available actions resolve per actor](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/actions.ts#L338-L347)
+- [Cast resolves before potency](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/actions.ts#L1022-L1033)
+- [Passive realization](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/src/libs/combat/tags.ts#L88-L108)
+
+[Current elemental tag tests](https://github.com/studie-tech/TheNinjaRPG/blob/b836d6931991c9487952cbc093f24e4b0d89c7bc/app/tests/libs/combat/elementalDamage.test.ts) assert preferences, separate actor resolution, snapshotting, potency, sealing and elemental modifier matching on a **jutsu** fixture. They do not establish complete **weapon-versus-weapon damage parity** for equivalent item definitions.
+
+## Finding F3 — TNR Tools' generated effect contract is stale
+
+**Tier: SOURCE-VERIFIED generated-file discrepancy; validator effect on new authoring not executed.**
+
+The existing root `45c_DATA_constructors.json` (`_provenance.extracted: 2026-08-30`, game source drop `bdec2883`) contains `unions.AllTags.damage` but **does not have `unions.AllTags.elementaldamage`**. The root `45g_DATA_checks.json` was extracted 2026-09-09 from that older source drop. Therefore TNR Tools' local authoring contracts do not model the Oct-19 tag, even though the newer game source does. This is a **separate builder/manifest readiness issue** rather than an explanation for already-live weapon combat numbers.
+
+Do not hand-edit generated artifacts. Fable should use the established `schema_extract.py --ctors` / `schema_diff.py --invariants` and diff adoption gate from `docs/00_INDEX.md`; then validate that factories, builder, Forge, and validation agree on the new tag before any authoring/push.
+
+## Proposed offline regression matrix for Fable / upstream engine contributor
+
+1. **Parity positive control:** same level-1 WEAPON, identical `power`, `calculation`, `powerPerLevel`, `statTypes`, `generalTypes`, costs and enemy; legacy `damage.elements=["Wind"]` versus `elementaldamage` with preference Wind; assert equal resolved effects and final damage, both with no buffs and with a Wind IDG.
+2. **Default regression scenario:** innate Fire, activated trained Wind, preference null; assert dynamic Fire vs manual Wind and exactly the expected 15% mastery difference, preferably through the actual item-action/packet path.
+3. **Configured recovery:** same setup with preference explicitly Wind; assert parity restored.
+4. **Multi-element semantics:** manual `["Fire","Wind"]` and separate Fire/Wind bonuses vs dynamic one selected element; document known difference (do **not** silently preserve old multi-buff stacking).
+5. **Bloodline and advanced element:** Water-specific buff with innate Fire, advanced-element-only manual damage; confirm supported limitations and expected display.
+6. **Payload parity controls:** matching `formula` vs `static` values, `generalTypes:["Highest"]`, item level, potency, target reductions, ranked battle; verify no unrelated field was reset during editor migration.
+7. **Rendered behavior:** UI tooltip/battle action preview shows exactly which element is resolved; check profile preference changes take effect only in **new** battles.
+
+The available evidence is sufficient to reproduce the *mechanism* offline but **does not identify the user's specific affected live items**, their saved fields, or deployed SHA. A read-only capture of two compared weapon effect rows, player innate/selected/trained elements and one controlled comparison log would tie the mechanism to the actual complaint. Any production capture/live test is **operator-owned**.
+
+## Decision gate / recommended next step
+
+**Director decision required:** Is `elementaldamage` deliberately a **single selected basic element** (current implementation), or should it dynamically choose the **best eligible element** / mimic **old multi-element coverage**? These choices have different stacking and balance consequences. A narrower possible improvement, subject to approval, is changing only the default when preference is unset (e.g. trained element over innate); that still does not recreate multiple-element or advanced-element behavior and changes intended fallback behavior.
+
+**Immediate operator workaround** (if appropriate to advise affected players): set **Edit Profile → Combat Preferences → Primary damage element** to the intended buffed basic element and enter a new battle. This cannot recreate multi-element stacking or advanced elements.
+
+**Next step:** Fable / engine contributor to implement focused offline parity tests, verify controlled captured examples, and propose the smallest correction after the director rules on selection semantics. ChatGPT can independently review the frozen implementation SHA. Do not modify production, live weapons, or source-of-truth balance rules as part of this read-only investigation.
