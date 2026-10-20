@@ -14,8 +14,8 @@ Rules (buf / json-schema-diff-validator shaped, fail-closed):
   - union variant removed                  - new union / new variant
   - inline enum member removed             - new field, new entity
   - entity field removed                   - field became optional
-  - field type changed
-  - field optional -> required
+  - field type changed                    (entity fields AND union-variant fields)
+  - field optional -> required            (entity fields AND union-variant fields)
 
 Member sets are compared BY VALUE, never by count. Output is a phone-readable
 ADDITIONS / REMOVALS / CHANGES list.
@@ -83,6 +83,12 @@ def atoms(doc):
                     # a key leaving a tag/objective/action is a removal like any other; it was
                     # invisible here, so a regen could drop `elements` from a tag and pass
                     out.add(("variant-field", uname + "." + vkey, fname))
+                    # type and required-ness of a variant's field, as for entity fields: a tag's
+                    # `power` turning from number to string changed no other atom (PR #76 review F2)
+                    if isinstance(f, dict) and f.get("type"):
+                        out.add(("vfield-type", uname + "." + vkey, fname, str(f["type"])))
+                    if isinstance(f, dict) and not f.get("optional") and "default" not in f:
+                        out.add(("vfield-required", uname + "." + vkey, fname))
                     if isinstance(f, dict) and isinstance(f.get("enum"), list):
                         for m in f["enum"]:
                             out.add(("enum-member", uname + "." + vkey + "." + fname, str(m)))
@@ -146,36 +152,57 @@ BREAK_ON_REMOVE = {"const-member", "union-variant", "enum-member", "field", "var
 
 def _sha256(path):
     import hashlib
-    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+    with open(path, "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()
 
 
-def cmd_diff(old_path, new_path, accept_path=None):
-    old, new = atoms(json.load(open(old_path))), atoms(json.load(open(new_path)))
+# (type atom, required atom, field atom) for entity fields and for union-variant fields
+PAIRED = (("ftype", "required", "field"), ("vfield-type", "vfield-required", "variant-field"))
+
+
+def classify(old, new):
+    """(removed, added, changes, breaking) for two atom sets. One implementation, shared by
+    cmd_diff and scripts/schema_adoption_ledger.py, so the gate and its ledger cannot disagree."""
     removed = sorted(old - new)
     added = sorted(new - old)
 
     # type changes and required-flips pair a removal with an addition on the
-    # same (entity, field); report them as CHANGES, not as remove+add noise.
+    # same (owner, field); report them as CHANGES, not as remove+add noise.
     def keyed(s, kind):
         return {a[1:3]: a for a in s if a[0] == kind}
     changes, hide = [], set()
-    ot, nt = keyed(set(removed), "ftype"), keyed(set(added), "ftype")
-    for k in set(ot) & set(nt):
-        changes.append(("type-changed", k[0], k[1], ot[k][3] + " -> " + nt[k][3]))
-        hide.add(ot[k]); hide.add(nt[k])
-    orq, nrq = keyed(set(removed), "required"), keyed(set(added), "required")
-    for k in set(nrq) - set(orq):          # became required = tightening
-        hide.add(nrq[k])
-        # only a field OLD already had can flip optional -> required; a field OLD lacked is an
-        # addition (it was reported as a flip, so every newly extracted field looked breaking)
-        if ("field",) + k in old:
-            changes.append(("now-required", k[0], k[1], "optional -> required"))
-    for k in set(orq) - set(nrq):          # became optional = relaxation, additive
-        hide.add(orq[k])
+    for tkind, rkind, fkind in PAIRED:
+        ot, nt = keyed(set(removed), tkind), keyed(set(added), tkind)
+        for k in set(ot) & set(nt):
+            changes.append(("type-changed", k[0], k[1], ot[k][3] + " -> " + nt[k][3]))
+            hide.add(ot[k]); hide.add(nt[k])
+        for k in set(ot) - set(nt):
+            hide.add(ot[k])
+            if (fkind,) + k in new:            # field kept, type dropped: still a type change
+                changes.append(("type-changed", k[0], k[1], ot[k][3] + " -> (none)"))
+            # else the field itself went, and its removal is the breaking atom
+        for k in set(nt) - set(ot):          # a field that is new, or newly typed: additive
+            hide.add(nt[k])
+        orq, nrq = keyed(set(removed), rkind), keyed(set(added), rkind)
+        for k in set(nrq) - set(orq):          # became required = tightening
+            hide.add(nrq[k])
+            # only a field OLD already had can flip optional -> required; a field OLD lacked is
+            # an addition (it was reported as a flip, so every newly extracted field looked breaking)
+            if (fkind,) + k in old:
+                changes.append(("now-required", k[0], k[1], "optional -> required"))
+        for k in set(orq) - set(nrq):          # became optional = relaxation, additive
+            hide.add(orq[k])
 
     removed = [a for a in removed if a not in hide]
     added = [a for a in added if a not in hide]
+    changes.sort()   # set iteration order varies with PYTHONHASHSEED; ledgers must be stable
     breaking = [a for a in removed if a[0] in BREAK_ON_REMOVE] + changes
+    return removed, added, changes, breaking
+
+
+def cmd_diff(old_path, new_path, accept_path=None):
+    old, new = atoms(json.load(open(old_path))), atoms(json.load(open(new_path)))
+    removed, added, changes, breaking = classify(old, new)
 
     def show(label, rows):
         if rows:
@@ -201,7 +228,8 @@ def _check_accept(accept_path, old_path, new_path, breaking, n_added):
     exactly these two files (sha256 of OLD and NEW) and lists exactly the breaking set: every
     breaking atom accepted under a class with source evidence, and no accepted atom that is not
     breaking. Anything else - a new removal, a changed file, a stale entry - fails as before."""
-    led = json.load(open(accept_path))
+    with open(accept_path) as fh:
+        led = json.load(fh)
     pair = None
     for p in led.get("files", []):
         if p.get("old_sha256") == _sha256(old_path) and p.get("new_sha256") == _sha256(new_path):
