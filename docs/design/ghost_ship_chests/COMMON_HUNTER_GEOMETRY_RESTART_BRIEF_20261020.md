@@ -1,6 +1,6 @@
 # Isolated generation 01R — Common Hunter's Chest (geometry restart)
 
-**Status:** DRAFT / DO NOT GENERATE UNTIL DIRECTOR CONFIRMS BAND LAYOUT  
+**Status:** READY FOR NEW CLEAN ISOLATED GENERATION — two-end-hoop geometry confirmed by director 2026-10-20; rendered candidate still requires independent director approval  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -15,7 +15,7 @@
 
 The director discovered a recurring incorrect **extra metal band beside the right lid hoop**, amplified into adjacent double-arch reinforcement at higher tiers. All six earlier Common/Rare/Epic Hunter and Gatherer originals are **REVOKED**, including the previously accepted Common Hunter. **Do not attach or imitate any of those rejected originals**. Previous “approved” labels, source hashes or reference status in older prompts do not authorize reuse. Cancel the earlier Legendary Hunter generation too.
 
-**Pending director confirmation:** proposed corrected physical topological model has **one left arched end hoop and one right arched end hoop**, plus **one distinct centered leather family strap**. No secondary thin metal arc immediately adjoining the right band; likewise no ghost arc on the left. The count is **not locked** until the director confirms that this is the band error they mean. Once confirmed, remove the status gate without changing the approved motif/tier direction.
+**Director geometry confirmation (2026-10-20):** “Sure, that looks fine. It was the double band on one side that threw it off.” This **approves** the corrected physical topology: one **left end hoop** and one **right end hoop**, plus the separate **central leather family strap**. The extra side-by-side *independent* band on one end was the actual defect. A metal edge highlight or trim on the same hoop is permissible only if it does **not** form a new parallel band volume. This confirmation is **not** approval of a yet-to-be-generated replacement image.
 
 ## Geometry lock — solve object structure BEFORE ornament
 
@@ -37,7 +37,7 @@ The director discovered a recurring incorrect **extra metal band beside the righ
 
 A style-reference image is **not** an assembly blueprint. If the Reliquary visibly biases the rendering back toward the duplicated band, stop and propose a clean text-only regeneration plan rather than adding more failed reference images.
 
-## Subject + approved style (use after topology confirmation)
+## Subject + approved style (geometry confirmed; use in a fresh isolated conversation)
 
 **Subject:**
 
@@ -57,7 +57,7 @@ A style-reference image is **not** an assembly blueprint. If the Reliquary visib
 
 ## Isolated session boundary and return
 
-- This prompt is not active until the director confirms the exact hoop interpretation. Generate **ONE** square, centered, closed chest in a **NEW CLEAN GENERATION CONVERSATION**, not this persistent studio.
+- **Director confirmed the geometry lock** on 2026-10-20; this prompt is now READY. Generate **ONE** square, centered, closed chest in a **NEW CLEAN GENERATION CONVERSATION**, not this persistent studio.
 - Fail fast on structural geometry before seeking director judgment; then check family motif, style, background and 125px recognizability. If a wrong-subject/composition error repeats twice, close and start a new clean isolated conversation.
 - The director must approve the *corrected geometry* visibly before treating this as a replacement for Common Hunter. Prior approval of the invalidated image is not transferrable.
 - Return exact original source bytes with approval and target name. Do not process, crop, export lossless WebP, run preflight or upload in the isolated session.
