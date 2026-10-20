@@ -164,3 +164,12 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 - Director-approved raw visuals: **3/19** — species master + **Ember Rank 1** + **Moonlit Rank 1**. No final transparent production exports or gallery QC claimed.
 - Next isolated generation: **C · Jade / Rank 1 Companion** from the exact juvenile master, then Obsidian Rank 1; all four R2 and R3 before Ember R4–R9.
 - Exact parent image intended on each individual R1 was the species master; actual tool-side conditioning ingestion remains independently **UNVERIFIED**. No live-game calls, player pet attempts, credentials or publication.
+
+## Structural SVG verification (2026-10-20)
+
+- **Director acceptance:** PENDING. This is an editable **structural-only** poster and contains **zero artwork pixels**; no unapproved or prior example creatures are embedded.
+- **Exact committed SVG:** `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg`; Git blob SHA-1 `c1e44dd0459a667d6b40c55c0153accd8054cced`. Downloadable conversation SVG checked **byte-for-byte identical** against that repository blob (via `git hash-object`).
+- **Visual/mechanical structural QC:** XML parsed successfully; CairoSVG generated an inspected **1536×1024** PNG; 26 unique placement IDs map to exactly 19 asset IDs; `SPECIES_REF` has five identical-source placement requirements; A Rank 1–3 repeat once below; all nine top rank labels and game names are source-verified and **A_R05 Hunter appears between A_R04 Guardian and A_R06 Warden**. Long cosmetic labels and metamorphosis captions were adjusted for 1536px legibility.
+- **Distribution:** `TNR_Living_Lineages_Kitsune_Structural_Sheet_Package_20261020.zip`, SHA-256 `6166e76cbed4b57fb4eac5b178b6392897dc19cea20612c7e9745f356d8ae74a`, contains source SVG, PNG preview, mapping JSON and notes. ZIP is conversation deliverable; committed canonical geometry is SVG + JSON slot map on the workdesk branch.
+- **Rulings:** Visual foundation `RUL-2026-10-20-002`, updated scope `RUL-2026-10-20-003`. Current live `main@02a288e966db27f427508734a6223e0e583b081a` independently added `RUL-2026-10-20-001` for schema adoption, so we renumbered this branch's art rulings to avoid duplicate IDs. Branch is **not merged**; main was 12 commits ahead of the workdesk merge-base when checked. **Re-verify/reconcile main and RULINGS before a PR/merge**; do not overwrite new main decisions with the branch's older RULINGS file.
+- **Safety:** Git-only design records, no live-game requests/writes, credentials, player image-generation attempts, or art production preflight.
