@@ -1,4 +1,7 @@
-# Bakuhatsu — Howitzer Crash composition reset (2026-10-20)
+# Bakuhatsu — historical Howitzer V1→V2 revision (RETIRED)
+
+> **Historical approval only.** The director rejected the later V2 footstep/trail/impact-crater experiments as a dead end on 2026-10-20. V2 is not current generation authority. The current unapproved V3 candidate is documented in `HOWITZER_V3_DIRECTION_PROPOSAL_20261020.md`; `JUTSU_TARGET_LOCKS.json` V3 is PENDING. This document below remains as provenance for why V1→V2 was attempted.
+
 
 **Studio role:** Art Director. **Stage:** Two v1 raw candidates rejected; v2 BLAST-STEP ZIGZAG **DIRECTION_APPROVED** by director on 2026-10-20. Howitzer raw approval remains PENDING. No new image generated in this Studio.
 
