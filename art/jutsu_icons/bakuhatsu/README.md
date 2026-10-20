@@ -22,7 +22,9 @@ Source: `bakuhatsu_Art_Studio_Closeout_5of5_20261020.zip` (sha256
   `jutsu_studio.py finalize` from the raws without retouching. `artpreflight.py --type JUTSU_ICON`:
   0 errors, 0 warnings. QC and preflight output in `exports/qc/`; the 125/64/32 px sheet and the 3+2
   showcase are in `exports/`.
-- Family acceptance (director approval of the export showcase) is still `PENDING` in `approved.json`.
+- Family acceptance: **ACCEPTED** by the director on 2026-10-20 ("They are all approved yes"), bound in
+  `approved.json` to the showcase and members hashes in `exports/showcase_manifest.json`.
+  `audit-gallery` on the showcase: VALID (pixel fidelity FAITHFUL).
 - Sent to the content review desk as push/142 (suggest mode). The live game shows the old icons until
   a reviewer approves.
 
@@ -50,4 +52,4 @@ python3 ../../../skills/producing-tnr-art/scripts/jutsu_studio.py lock-check loc
 python3 ../../../skills/producing-tnr-art/scripts/jutsu_studio.py verify-approved approved.json --source-index source_index.json --locks locks.json
 ```
 
-Both pass on 2026-10-20: verify-approved reports `N=5, family acceptance PENDING`.
+Both pass on 2026-10-20: verify-approved reports `N=5, family acceptance ACCEPTED`.

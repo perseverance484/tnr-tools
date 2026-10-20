@@ -51,8 +51,9 @@ more bloodline sets as part of the standard (2026-10-20): **Vaporia**, **Bakuhat
   to the live icons in the 2026-10-20 public read (256x256, opaque RGB).
 - **Bakuhatsu:** the approved set is the **2026-10-19 "Concussive Fracture" raws** in
   `art/jutsu_icons/bakuhatsu/raws/`, not the live icons. The live Bakuhatsu icons are the old
-  figure-silhouette set, superseded and **not** a reference. The new raws are approved one by one;
-  their WebP exports and family gallery are not done yet (see that folder's README).
+  figure-silhouette set, superseded and **not** a reference. The raws, their WebP exports
+  (`art/jutsu_icons/bakuhatsu/exports/`) and the family showcase are all director-approved
+  (2026-10-20); push/142 sends the exports to the review desk.
 
 | Family | Jutsu | What it shows | Pinned file |
 |---|---|---|---|
