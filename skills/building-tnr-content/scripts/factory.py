@@ -319,7 +319,11 @@ def _selftest():
             cases.append((label, False, "NOT CAUGHT"))
 
     expect("jutsu: runtime-only tag", lambda: f.tag("activatesagemode", power=1))
-    expect("jutsu: power over cap", lambda: f.tag("damage", power=400))
+    # A constructor-level bound, from 45c. damage/pierce/... take PowerAttributes.power (min 0, no
+    # max), which overrides BaseAttributes.power; the 100 cap the old 45c reported for them was
+    # the extractor's spread-precedence mistake (RUL-2026-10-20-001). weakness keeps the
+    # BaseAttributes bound, so it still proves a ctor bound is enforced.
+    expect("jutsu: power over ctor cap", lambda: f.tag("weakness", power=400))
     expect("jutsu: unknown tag field", lambda: f.tag("damage", nonsense=1))
     # NOTE: these use the edit slot deliberately. On a create the required-field
     # check fires first and the case would pass without ever reaching the effect
