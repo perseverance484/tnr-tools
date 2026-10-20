@@ -1697,3 +1697,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each pinned file. Bakuhatsu's raws, ledgers and approval evidence are in `art/jutsu_icons/bakuhatsu/` (README).
 
 **Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports passed preflight and the director accepted the family on 2026-10-20 ("They are all approved yes"; recorded in `art/jutsu_icons/bakuhatsu/approved.json`). No upload, live edit or publication is authorized.
+
+## RUL-2026-10-20-005 — Village bloodline scroll icons: art direction approved as written
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / item icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The six village bloodline scrolls (Shadow Scroll: Oblivion Seal, Wood Scroll: Shinseina Ki, Storm Scroll: Arashima, Sun Scroll: Taiyo Kami, Wind Scroll: Aerathiel, Ice Scroll: Hyouga Yui), which currently share one image, get their own icons as set out in `docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md`: one shared closed-handscroll silhouette, told apart by each bloodline's palette, cord and one element effect, with no symbols, writing or glyphs; the style follows the approved crafting caches icons (RUL-2026-10-13-001..004). Generation follows `docs/workflows/ISOLATED_ART_GENERATION.md`; the director's visual approval of icon 1 (Oblivion Seal) locks the rendered style.
+
+**Evidence:** User, 2026-10-20: "Approved as written, land it and give me the handoff prompt".
+
+**Canonical destination:** `docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight.
