@@ -6,11 +6,11 @@
 **Frozen design authority:** `docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json`, target lock SHA-256 `2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5`.  
 **Approval:** director, 2026-10-20: “Approved, proceed” to the proposed family treatment and Kōsai Shippū target lock. This does **not** approve any generated image, nor the four other targets.
 
-## Technical launch gate — NOT YET CLOSED
+## Technical launch gate — CLEARED (official ZIP-first doctor/intake/lock-check)
 
-The source ZIP has passed independent local inspection, and 5/5 jutsu IDs/names and source images match the committed historical capture. However the prescribed installed `producing-tnr-art` runtime and matching full repository checkout are **not present** in this isolated container; `jutsu_studio.py doctor`, `intake`, and `lock-check` remain **NOT_RUN**. The source is **not** canonically intake-certified, and production preflight has not run. A new generation session must wait until a compatible environment produces a successful canonical doctor/intake source index and confirms the first target's lock against that index (the four other complete silhouette reservations have direction_approval PENDING; only Kōsai is APPROVED). Do not fabricate a PASS or treat a manual manifest read as a canonical CLI result. No need to obtain new live captures: sources are committed and explicitly historical.
+After receiving the official, exact Git-verified `dist/producing-tnr-art.zip`, the Art Studio ran the real `jutsu_studio.py doctor` (**RUN_CAPABLE_CANONICAL**), one bounded original ZIP `intake` (**5/5 MANIFEST_VERIFIED**, CRC OK, no issues), and `lock-check` against that generated `source_index.json` (**exit 0**). Kōsai is **DIRECTION_APPROVED**, and the four other complete reservations remain direction **PENDING**. Exact sources/hashes/commands and the non-blocking type normalization issue: `docs/design/crystal_essence/SOURCE_INTAKE_VERIFIED_20261020.md`. The source verification gate is now **CLOSED** for Kōsai; this does not imply real WebP exports, family gallery approval or `CANONICAL_PREFLIGHT` PASS. No new live capture was performed.
 
-Required local commands in a matching checkout/installed skill:
+Reproduction commands (already executed successfully using the frozen official package and actual source ZIP):
 
 ~~~sh
 python3 skills/producing-tnr-art/scripts/jutsu_studio.py doctor
@@ -18,7 +18,7 @@ python3 skills/producing-tnr-art/scripts/jutsu_studio.py intake BR-020_Crystal_E
 python3 skills/producing-tnr-art/scripts/jutsu_studio.py lock-check docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json --source-index WORK/crystal_essence/intake/source_index.json
 ~~~
 
-Expect one APPROVED target (Kōsai Shippū) and four complete-but-DIRECTION-PENDING reservations; a `LOCK_INCOMPLETE` or refusal must be investigated, not called PASS. Verify **Kōsai Shippū specifically** matches its approved lock hash. Current ZIP manifest rows provide `jutsu_type`; the CLI source index currently extracts `type`, so additionally cross-check BLOODLINE type against committed `jutsu.get` captures instead of treating an absent source-index type as proof of a different jutsu type. Do not modify the original ZIP.
+Actual `lock-check` returned exit 0: Kōsai Shippū `DIRECTION_APPROVED` with lock SHA-256 `2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5`; four other records complete/direction PENDING. The original source manifest's `jutsu_type` is BLOODLINE but `source_index.type` remains null due to a CLI field-name mapping gap; independently verified from the original manifest and committed historical `jutsu.get` captures. The source ZIP and approved image-reference bytes are preserved unchanged.
 
 ## Approved single-target composition (P0 A–F)
 
