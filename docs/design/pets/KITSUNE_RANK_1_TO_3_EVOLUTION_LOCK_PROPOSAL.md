@@ -1,4 +1,6 @@
-# Kitsune — Rank 1 → 2 → 3 Evolution Lock
+# Kitsune — Rank 1 → 2 → 3 Evolution Lock (HISTORICAL / SUPERSEDED)
+
+> **SUPERSEDED / VISUAL DEMONSTRATION REJECTED (director, 2026-10-20).** This earlier plan starts with already-mature multi-tail figures and prescribes changes too subtle to read as evolutions. Its Rank 1→3 art lineage and no-new-tails/mild-change restrictions are **not approved for further production**. Historical image candidates remain style-quality references only. See [KITSUNE_JUVENILE_GROWTH_METAMORPHOSIS_RESTART_20261020.md](KITSUNE_JUVENILE_GROWTH_METAMORPHOSIS_RESTART_20261020.md) for the current restart proposal: juvenile base, Rank 1–4 growth, Rank 5–9 visibly transformative stages, Rank 10 capstone proposed.
 
 **Status:** PROPOSED art direction; director approval required before promotion to a generation lock.  
 **Date:** 2026-10-20  
