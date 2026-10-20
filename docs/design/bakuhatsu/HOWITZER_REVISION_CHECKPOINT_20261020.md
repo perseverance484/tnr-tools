@@ -1,6 +1,6 @@
 # Bakuhatsu — Howitzer Crash composition reset (2026-10-20)
 
-**Studio role:** Art Director. **Stage:** Two raw candidates rejected; new v2 direction **PROPOSED, NOT APPROVED**. No new image generated here.
+**Studio role:** Art Director. **Stage:** Two v1 raw candidates rejected; v2 BLAST-STEP ZIGZAG **DIRECTION_APPROVED** by director on 2026-10-20. Howitzer raw approval remains PENDING. No new image generated in this Studio.
 
 ## Grounded rejection evidence
 
@@ -11,7 +11,7 @@
 - **Director request:** “Tried both of these. One is too similar to Inferno Cataclusm, the other is too similar to C4/Kinetic Nova. We need something fresh.”
 - **Attempts provenance:** exact source candidates and order above are known from this Studio response; original isolated generation session ID and complete attempt log unavailable. Do **not** fabricate a canonical `attempts` record. Neither rejected raw is an approved style exemplar or a permissible image-generation conditioning reference. Begin a **new clean isolated conversation** once a new direction is approved.
 
-## Proposed P0 v2 — BLAST-STEP ZIGZAG (DIRECTOR APPROVAL PENDING)
+## Approved P0 v2 — BLAST-STEP ZIGZAG (DIRECTION_APPROVED)
 
 **Distinctive technique silhouette:** Three or four oversized staggered, dark boot-tread-shaped concussive scorch **imprints** (not anatomy, boots, or bodies) zig-zag across mostly intact charcoal ground. An **off-center compact, low, asymmetric ground-contact impact flash** ends the path. The broken Z movement trace dominates, not the impact explosion. Unlike Charge 4, the preceding marks are **dark/hot prints rather than full explosion bursts**.
 
@@ -23,10 +23,10 @@
 
 **Reference reset:** attach **ONLY original Howitzer PNG**, SHA-256 `ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508`, **IDENTITY ONLY**. The former style-only Inferno image is intentionally **excluded** as a generator input because its giant eruption composition contributed to confusion. Render family CONCUSSIVE FRACTURE style from the written material/color lock.
 
-**Pending v2 target SHA-256:** `2699357dfc78e002c20f1e01c0b92c5bbcb2251762e3d303c72e350d10e56a63`. Canonical installed `jutsu_studio.py lock-check --source-index` on the locally prepared v2 showed **4 DIRECTION_APPROVED + Howitzer v2 COMPLETE, direction PENDING**; this is not an approval or production preflight.
+**Director-approved v2 lock SHA-256:** `2699357dfc78e002c20f1e01c0b92c5bbcb2251762e3d303c72e350d10e56a63`. **Approval evidence:** Director answered “Approved” to this v2 concept in the Bakuhatsu persistent Studio on 2026-10-20. The v2 lock's technique and composition fields remain unchanged. Installed canonical `jutsu_studio.py doctor` reported `RUN_CAPABLE_CANONICAL`; actual `jutsu_studio.py lock-check --source-index` returned **5/5 DIRECTION_APPROVED** on the approved file byte-identical to Git blob `c4d99f6ae0ffeb0962dda611dd294141eb3363d6`. Neither command establishes raw approval or production preflight.
 
 ## Gates
 
 Four previously accepted raw images remain unchanged. Howitzer **RAW_VISUAL_APPROVED=PENDING**. Family processing, preflight, gallery and live-game upload **NOT RUN**. No live-game requests/writes, no credentials.
 
-**Next:** ask director to approve/revise the **new zig-zag blast-footprint concept** before preparing a generation handoff.
+**Next:** open ONE fresh isolated-generation conversation using only the exact original Howitzer PNG as IDENTITY ONLY; do not attach the rejected v1 candidates or Inferno style reference. Generate one candidate, inspect P0 rendered pixels and thumbnail distinctness, and obtain separate director raw approval before any processing.
