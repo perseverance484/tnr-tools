@@ -1,11 +1,11 @@
-# Bakuhatsu — Kinetic Nova — proposed isolated-generation brief
+# Bakuhatsu — Kinetic Nova — completed raw-visual generation brief
 
-**State:** P0 TARGET LOCK COMPLETE / **DIRECTION_APPROVAL PENDING** / Kinetic Nova raw NOT GENERATED. This draft does **not** authorize generation.
+**State:** **DIRECTION_APPROVED + RAW_VISUAL_APPROVED** (director 2026-10-19). Accepted raw must not be regenerated or reinterpreted. No processing, canonical preflight or gallery acceptance yet.
 **Target lock v1 SHA-256:** `f2e7e04372cabcbf882708329d75ed744c2a09867d68ff1da0161eb6fec8528f`
 **Authority:** `docs/design/bakuhatsu/JUTSU_TARGET_LOCKS.json`, `JUTSU_ICON_REGISTER.md`, `docs/workflows/ISOLATED_ART_GENERATION.md` P0 A–F.
 **Source:** `BR-008_Bakuhatsu.zip` (original ZIP SHA-256 `7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`); October 17 historical `jutsu.get`, not current-live verification.
 
-## One-jutsu opening prompt (ONLY after explicit director approval of the exact pending target lock)
+## Historical opening prompt — RETIRED after raw visual acceptance
 
 ~~~text
 Repository: perseverance484/tnr-tools
@@ -26,8 +26,8 @@ Jutsu ID: y8y01n9jz16bz5EBzl4wr
 P0 TARGET LOCK SHA256:
 f2e7e04372cabcbf882708329d75ed744c2a09867d68ff1da0161eb6fec8528f
 
-Status: DIRECTION_PENDING. Do NOT generate until the director
-explicitly approves this P0 lock and the studio updates its evidence.
+Status at closeout: DIRECTION_APPROVED + RAW_VISUAL_APPROVED.
+Historical prompt follows for provenance only: do not generate again.
 
 SOURCE-SUPPORTED ACTION:
 The user compresses explosive chakra into a throwable ball,
@@ -113,6 +113,13 @@ contact/live-upload to the game.
 Live-game requests/writes: 0/0. Credentials: none.
 ~~~
 
-## Evidence and next action
+## Accepted raw and evidence
 
-As of this briefing, `DIRECTION_APPROVED= PENDING` and `RAW_VISUAL_APPROVED=PENDING` for Kinetic Nova. The Kinetic lock contains two role-labelled individual image references whose exact bytes are available in the Art Studio but are not pinned in Git. `lock-check` using canonical installed `jutsu_studio.py` and the verified `source_index.json` reported **COMPLETE, direction PENDING** (not an approval). The director must approve or revise Kinetic Nova's v1 action/composition/axis/references. On approval: stamp the exact same lock SHA with director evidence, rerun lock-check, update this brief to APPROVED, then start **one fresh isolated-generation conversation** with the two individual images actually attached. No generation, processing, production preflight, gallery, or live-game action is authorized by this draft.
+- **Director direction approval:** October 19, 2026, “Approved” to the proposed Kinetic Nova fragmentation lock. SHA-256 `f2e7e04372cabcbf882708329d75ed744c2a09867d68ff1da0161eb6fec8528f`; current lock status in `JUTSU_TARGET_LOCKS.json` is APPROVED.
+- **Director raw visual approval:** October 19, “Approved, next” to the visually presented Kinetic Nova image `1000018862.png`.
+- **Exact accepted raw SHA-256:** `7bfdcfaeb20a026f5f98a5381ac564f8a6d441ab8b024f1c7d39a84237bc5050`; actual decoded format **JPEG** (although uploaded as PNG), RGB **1536×1536**, **615406 bytes**. Stored byte-for-byte as `bakuhatsu_work/approved_raws/raw_bakuhatsu_kinetic_nova_v1.jpg` in this conversation runtime; Git-binary-pin not performed.
+- **Distinctness:** airborne irregular constellation of five explosive bursts and interrupted chakra filaments, distinct from Blast Shield's circular defense and Inferno Cataclysm's ground fault. Charge 4 Explosion may not copy the aerial starburst constellation.
+- **Attempts:** isolated generation session details and ordered attempts were not received by this studio. `NOT_RECORDED`; never claim a canonical attempt-log PASS.
+- **Gates remaining:** `OUTPUT_LOCAL_QC=NOT_RUN`; `CANONICAL_PREFLIGHT=NOT_RUN`; `FAMILY_SHOWCASE_ACCEPTED=NOT_BUILT`; `GIT_BINARY_PIN=NOT_PERFORMED`; `USER_UPLOAD_READBACK=NOT_PERFORMED`.
+
+Next: Charge 4 Explosion direction approval, then separate isolated generation. Keep approved Kinetic bytes unchanged.
