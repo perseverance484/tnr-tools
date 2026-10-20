@@ -1,0 +1,191 @@
+{
+  "_note": "QA ticket 5 (docs/reviews/QA_LIVE_2026-10-20.md, TXT-PLACEHOLDER / generic battle lines / grammar). Suggest mode: content review desk, no direct save. Thirteen visible player jutsu read 'New jutsu description' at the public read of 2026-10-20T19:37:17.859Z; text drafted from each jutsu's effects and approved by dauntless 2026-10-20. Seven generic '%user uses %jutsu on %target' battle lines are replaced and four battle lines get grammar fixes. Only text fields change; injectableInBattle is re-sent at its live value (law 20). Test-named and boss-phase jutsu are deliberately excluded. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "GRAMMAR",
+    "title": "Descriptions and battle lines for thirteen jutsu",
+    "rationale": "Thirteen visible jutsu still show 'New jutsu description', several with the generic battle line or grammar slips. Replace them with text matching what each jutsu does."
+  },
+  "items": [
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Sticky Fingers",
+      "targetId": "wvmEuCP9hyd19tTgIKLE9",
+      "data": {
+        "description": "A quick-handed trick that pockets some of the target's ryo while they are distracted.",
+        "battleDescription": "%user slips close to %target and, with a flick of the wrist, makes off with a handful of their ryo.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the ryo theft."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Armor of Protection",
+      "targetId": "Fw9mlda5fSCtRbsMM-2Jw",
+      "data": {
+        "description": "Forges protective chakra armor around the user, boosting their stats, hardening their defense and empowering their metal attacks for a short time.",
+        "battleDescription": "%user forges special armor that strengthens and protects them.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one covering the stat, defense and metal damage boosts; adds the missing full stop to the battle line."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Decrease Potency",
+      "targetId": "L-efsQqEouOx5rcKPqyzn",
+      "data": {
+        "description": "Disrupts the target's chakra, weakening the strength of their effects for a short time.",
+        "battleDescription": "%user disrupts %target's chakra flow, dulling the strength of their techniques.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the potency drain on the target."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Increase Potency",
+      "targetId": "q7dNri4fTgAG72SDBxf_a",
+      "data": {
+        "description": "Draws the user's chakra inward to strengthen their effects for a short time.",
+        "battleDescription": "%user draws their chakra inward, sharpening every technique that follows.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the self potency boost."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "First Form: Burst",
+      "targetId": "6_yY7S3jwc4mm_9M1hix_",
+      "data": {
+        "description": "An explosive opening form that greatly increases the user's damage for a short time.",
+        "battleDescription": "%user bursts into the First Form, chakra flaring as their strikes gather overwhelming force.",
+        "injectableInBattle": true
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the large self damage boost."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Momo3",
+      "targetId": "JddcgfDdi4A4pJonCNjv1",
+      "data": {
+        "description": "The user's horns extend into spears that impale the target and leave them more vulnerable to attack.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching the horn strike and its damage-taken debuff."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Nin Gen Alliance",
+      "targetId": "YAIc54VL2s3hUZXBN00xl",
+      "data": {
+        "description": "Blends ninjutsu and genjutsu into one blast on a target area, carrying the user through the opening it leaves.",
+        "battleDescription": "%user weaves ninjutsu and genjutsu together and releases them in a single blast, stepping through the opening it leaves.",
+        "injectableInBattle": true
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the area blast and the user's movement."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Pill Pack: Stamina Pill III",
+      "targetId": "ARo3wgUkgeVRf3sod3yBR",
+      "data": {
+        "description": "A potent pill that toughens the user against incoming damage while leaving the target more exposed.",
+        "injectableInBattle": true
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one matching what the pill actually does: less damage taken by the user, more by the target."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Swallow's Flight Slice",
+      "targetId": "ngv6qd1Qw80LkO8Yz0gBi",
+      "data": {
+        "description": "A swift closing slash that restores the user's health from the damage it deals.",
+        "battleDescription": "Closing the gap with the speed and relentlessness of a demon, %user draws their bokken and strikes with the force of a hundred men.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one covering the slash and its lifesteal; fixes 'relentless' to 'relentlessness', uses 'their' like other battle lines, and removes a double space."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Widow's Maw",
+      "targetId": "sel6FvDRFIDiA63y57ajw",
+      "data": {
+        "description": "Sweeps a spiral of shadowed silk across the ground that weakens the strikes of anyone it catches.",
+        "battleDescription": "%user casts a spiralling net of shadowed silk across the ground, sapping the strength of anyone it catches.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the spiral that weakens enemy strikes."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Widow's bite",
+      "targetId": "aw1UJ7irh5D63g9nNNsJo",
+      "data": {
+        "description": "A quick shadow-charged bite that strikes hard for very little effort.",
+        "battleDescription": "%user lunges in a blur of shadow and sinks a vicious bite into %target.",
+        "injectableInBattle": false
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description and the generic battle line with text describing the cheap shadow damage strike."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Stardust",
+      "targetId": "0_ip_8I2Dh_Ti2mYUcuAu",
+      "data": {
+        "description": "Calls down star-like dust that empowers the user while leaving the target more vulnerable and burning under later blows.",
+        "battleDescription": "%user performs strange handseals, and with each seal a strange pattern appears on their body. As %user glows, small dust-like particles fall from the heavens, covering the battlefield.",
+        "injectableInBattle": true
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one covering the self buff, the target's vulnerability and afterburn; fixes the battle line's missing %user and its grammar."
+      }
+    },
+    {
+      "entity": "jutsu",
+      "slot": "edit",
+      "name": "Voltari",
+      "targetId": "uVRjiBKSVATMYxEqPZuFw",
+      "data": {
+        "description": "Calls lightning down onto a target area and channels the charge to empower the user's earth, lightning and water techniques.",
+        "battleDescription": "%user summons lightning from the heavens, drawing it down upon %target's body and containing the current within and around their form. Electricity crackles violently across %target's body.",
+        "injectableInBattle": true
+      },
+      "suggestion": {
+        "rationale": "Replaces the placeholder description with one covering the lightning strike and the elemental self buff; fixes '%target body' to '%target's body' in the battle line."
+      }
+    }
+  ]
+}
