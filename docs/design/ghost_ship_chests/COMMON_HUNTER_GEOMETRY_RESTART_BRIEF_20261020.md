@@ -1,11 +1,11 @@
 # Isolated generation 01R — Common Hunter's Chest (geometry restart)
 
-**Status:** REVISED DRAFT — geometry already director-approved; proposed *binding material ladder* and this updated prompt await director acceptance before fresh isolated generation  
+**Status:** READY FOR NEW CLEAN ISOLATED GENERATION — director-approved geometry AND binding material ladder (RUL-2026-10-20-005); replacement image acceptance PENDING  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Reset authority:** `GEOMETRY_RESTART_20261020.md` (director withdrew visual approval from all 6 former raws)
-**New material proposal:** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` (all ten Hunter/Gatherer binding materials; director acceptance pending)  
+**Binding material ruling:** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` (director-approved material proposal, details canonized in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a; RUL-2026-10-20-005)  
 **Approved broader art direction:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`, `RUL-2026-10-20-002`  
 **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`  
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
@@ -18,11 +18,11 @@ The director discovered a recurring incorrect **extra metal band beside the righ
 
 **Director geometry confirmation (2026-10-20):** “Sure, that looks fine. It was the double band on one side that threw it off.” This **approves** the corrected physical topology: one **left end hoop** and one **right end hoop**, plus the separate **central leather family strap**. The extra side-by-side *independent* band on one end was the actual defect. A metal edge highlight or trim on the same hoop is permissible only if it does **not** form a new parallel band volume. This confirmation is **not** approval of a yet-to-be-generated replacement image.
 
-## Binding materials — new requested differentiation (PROPOSED)
+## Director-approved binding material for Common Hunter
 
 **Binding identity is now deliberately tier-specific; this is not permission to add straps.** See `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md`. Common Hunter uses **one smooth, medium-warm saddle-brown tanned leather strap**: broad, flat, visibly simple, with a small bone fang clasp and no visible decorative silver stitching. It contrasts with Common Gatherer's proposed **one golden-tan chunky twisted jute rope**, rounded and fibrous, with a tucked green sprig.
 
-The remaining named tiers have their **own** distinct Hunter hide / Gatherer rope materials (Rusted ruined rawhide / hemp; Rare pebbled smoky hide / waxed slate flax; Epic glossy black silver-stitched leather / pale silver sea-silk; Legendary midnight scale-embossed silver/cyan-thread leather / indigo silk with cyan filaments). These later-tier materials are **excluded from Common**. The material ladder is awaiting director approval; it does not alter the already-confirmed single-left-hoop/single-right-hoop/one-central-family-binding geometry.
+The remaining named tiers have their **own director-approved** Hunter hide / Gatherer rope materials (Rusted ruined rawhide / hemp; Rare pebbled smoky hide / waxed slate flax; Epic glossy black silver-stitched leather / pale silver sea-silk; Legendary midnight scale-embossed silver/cyan-thread leather / indigo silk with cyan filaments). These later-tier materials are **excluded from Common**. The approved material ladder **does not alter** the confirmed single-left-hoop/single-right-hoop/one-central-family-binding geometry.
 
 ## Geometry lock — solve object structure BEFORE ornament
 
@@ -64,7 +64,7 @@ A style-reference image is **not** an assembly blueprint. If the Reliquary visib
 
 ## Isolated session boundary and return
 
-- **Director confirmed the geometry lock** on 2026-10-20. The broader **binding material ladder is now PROPOSED and awaiting director acceptance**; generate **only after that decision**. Then generate **ONE** square, centered, closed chest in a **NEW CLEAN GENERATION CONVERSATION**, not this persistent studio.
+- **Director confirmed the geometry lock** and subsequently **approved the binding material ladder** on 2026-10-20. Both direction gates are cleared. Generate **ONE** square, centered, closed chest in a **NEW CLEAN GENERATION CONVERSATION**, not this persistent studio.
 - Fail fast on structural geometry before seeking director judgment; then check family motif, style, background and 125px recognizability. If a wrong-subject/composition error repeats twice, close and start a new clean isolated conversation.
 - The director must approve the *corrected geometry* visibly before treating this as a replacement for Common Hunter. Prior approval of the invalidated image is not transferrable.
 - Return exact original source bytes with approval and target name. Do not process, crop, export lossless WebP, run preflight or upload in the isolated session.
