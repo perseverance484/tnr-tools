@@ -1,6 +1,6 @@
 # Bakuhatsu — Howitzer Crash — proposed isolated-generation brief
 
-**State:** P0 target lock COMPLETE · **DIRECTION_APPROVAL=PENDING** · **RAW_VISUAL_APPROVED=PENDING**. Do **NOT** generate without director signoff.
+**State:** P0 target lock COMPLETE · **DIRECTION_APPROVED** (director 2026-10-20) · **RAW_VISUAL_APPROVED=PENDING**.
 **Target lock v1 SHA-256:** `361b5cdcf2065407bb9b1143cc5af6502e766f2b73446481e52d9fd1077602d3`
 **Authority:** `docs/design/bakuhatsu/JUTSU_TARGET_LOCKS.json`, `JUTSU_ICON_REGISTER.md`, `docs/workflows/ISOLATED_ART_GENERATION.md` P0 A–F.
 **Source basis:** original `BR-008_Bakuhatsu.zip` (`7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`) and 2026-10-17 historical `jutsu.get`, **not** current-live game verification.
