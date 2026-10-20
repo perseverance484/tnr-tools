@@ -172,3 +172,13 @@ Minor Repair Kit, Halloween Tournament - 2nd Place) get descriptions drafted fro
 loot (dauntless, 2026-10-20: descriptions only). Held back: Medallion of the Serpent King (empty
 battleDescription, so its save would fail) and Bloodthorn Cache (132 pending on the same record).
 `validate.py`: 0 errors, 0 warnings. Run it from Forge, then use **Check suggestions**.
+
+## 138 Grammar batch 1 (suggest mode, QA ticket 7)
+
+`138_grammar_batch_1.json` sends fourteen text corrections to the content review desk; it does not
+save directly. Each one changes only the error, by exact substring replacement on the 2026-10-20
+public read: placeholder slips (`%User`, `%user weapon`, `%target body`, `%target .`), lowercase
+sentence starts, a sentence fragment, typos (honing, Kaerun, it's, Shinobis) and stray spaces
+(dauntless, 2026-10-20). Item battle lines are only touched on items usable in combat. Violet
+Stormglass and his/her battle lines are on the revisit list instead. `validate.py`: 0 errors,
+0 warnings. Run it from Forge, then use **Check suggestions**.
