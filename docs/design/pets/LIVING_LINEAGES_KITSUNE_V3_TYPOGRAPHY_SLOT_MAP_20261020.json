@@ -1,0 +1,475 @@
+{
+  "schema": "tnr-living-lineages-v3-typography-layout/v1",
+  "status": "DIRECTOR_APPROVED_TYPOGRAPHY_DIRECTION__ALTERNATING_STAGE_MODEL_PROPOSED__V3_STRUCTURAL_DRAFT_PENDING_FINAL_LAYOUT_ACCEPTANCE",
+  "date": "2026-10-20",
+  "canvas": {
+    "width": 2048,
+    "height": 2290
+  },
+  "current_presentation": "V3 REVIEW DRAFT; V2 filled poster retained unchanged as accepted structure/previous deliverable",
+  "design_owner": "docs/design/pets/LIVING_LINEAGES_ALTERNATING_GROWTH_EVOLUTION_PROPOSAL_20261020.md",
+  "directive": "Remove repeated individual captions; enlarge typography; foreground one shared species, player inputs, independent R1-3 development, one full Ember R1-9 growth/evolution; incorporate user proposal odd=EVOLVE even=GROW in draft pending final rule locks",
+  "age_form_stages": [
+    {
+      "rank": 1,
+      "game_rank": "Companion",
+      "operation": "EVOLVE",
+      "age": "BABY",
+      "form": "Base Form"
+    },
+    {
+      "rank": 2,
+      "game_rank": "Scout",
+      "operation": "GROW",
+      "age": "JUVENILE",
+      "form": "Base Form"
+    },
+    {
+      "rank": 3,
+      "game_rank": "Tracker",
+      "operation": "EVOLVE",
+      "age": "JUVENILE",
+      "form": "Evolution I"
+    },
+    {
+      "rank": 4,
+      "game_rank": "Guardian",
+      "operation": "GROW",
+      "age": "YOUNG ADULT",
+      "form": "Evolution I"
+    },
+    {
+      "rank": 5,
+      "game_rank": "Hunter",
+      "operation": "EVOLVE",
+      "age": "YOUNG ADULT",
+      "form": "Evolution II"
+    },
+    {
+      "rank": 6,
+      "game_rank": "Warden",
+      "operation": "GROW",
+      "age": "MATURE ADULT",
+      "form": "Evolution II"
+    },
+    {
+      "rank": 7,
+      "game_rank": "Sentinel",
+      "operation": "EVOLVE",
+      "age": "MATURE ADULT",
+      "form": "Evolution III"
+    },
+    {
+      "rank": 8,
+      "game_rank": "Mythic",
+      "operation": "GROW",
+      "age": "SEASONED ADULT",
+      "form": "Evolution III"
+    },
+    {
+      "rank": 9,
+      "game_rank": "Sovereign",
+      "operation": "EVOLVE",
+      "age": "FULLY REALIZED",
+      "form": "Final Form"
+    }
+  ],
+  "age_brackets": [
+    {
+      "ranks": [
+        1
+      ],
+      "label": "BABY"
+    },
+    {
+      "ranks": [
+        2,
+        3
+      ],
+      "label": "JUVENILE"
+    },
+    {
+      "ranks": [
+        4,
+        5
+      ],
+      "label": "YOUNG ADULT"
+    },
+    {
+      "ranks": [
+        6,
+        7
+      ],
+      "label": "MATURE ADULT"
+    },
+    {
+      "ranks": [
+        8
+      ],
+      "label": "SEASONED ADULT"
+    },
+    {
+      "ranks": [
+        9
+      ],
+      "label": "FULLY REALIZED"
+    }
+  ],
+  "evolution_form_brackets": [
+    {
+      "ranks": [
+        1,
+        2
+      ],
+      "label": "BASE FORM"
+    },
+    {
+      "ranks": [
+        3,
+        4
+      ],
+      "label": "EVOLUTION I"
+    },
+    {
+      "ranks": [
+        5,
+        6
+      ],
+      "label": "EVOLUTION II"
+    },
+    {
+      "ranks": [
+        7,
+        8
+      ],
+      "label": "EVOLUTION III"
+    },
+    {
+      "ranks": [
+        9
+      ],
+      "label": "FINAL FORM"
+    }
+  ],
+  "evolution_color": "#E6B47B",
+  "growth_color": "#83B8C5",
+  "concept_conflict": "Prior approved roadmap had growth R1–4 and introduced tails at even ranks R6/R8; new director-suggested odd/even model remains proposal pending explicit strict tail timing and Rank10 decisions.",
+  "v2_visible_text_elements": 138,
+  "v3_filled_visible_text_elements": 73,
+  "relative_text_reduction_pct": 47.1,
+  "asset_slots": [
+    {
+      "slot_id": "foundation_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "section": "foundation",
+      "rect": {
+        "x": 68,
+        "y": 297,
+        "width": 270,
+        "height": 282
+      }
+    },
+    {
+      "slot_id": "example_A_R01",
+      "asset_id": "A_R01",
+      "section": "founders",
+      "rect": {
+        "x": 744,
+        "y": 298,
+        "width": 267,
+        "height": 282
+      }
+    },
+    {
+      "slot_id": "example_B_R01",
+      "asset_id": "B_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1066,
+        "y": 298,
+        "width": 267,
+        "height": 282
+      }
+    },
+    {
+      "slot_id": "example_C_R01",
+      "asset_id": "C_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1388,
+        "y": 298,
+        "width": 267,
+        "height": 282
+      }
+    },
+    {
+      "slot_id": "example_D_R01",
+      "asset_id": "D_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1710,
+        "y": 298,
+        "width": 267,
+        "height": 282
+      }
+    },
+    {
+      "slot_id": "lineage_A_R01",
+      "asset_id": "A_R01",
+      "section": "lineages",
+      "rect": {
+        "x": 267,
+        "y": 920,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_A_R02",
+      "asset_id": "A_R02",
+      "section": "lineages",
+      "rect": {
+        "x": 857,
+        "y": 920,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_A_R03",
+      "asset_id": "A_R03",
+      "section": "lineages",
+      "rect": {
+        "x": 1447,
+        "y": 920,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_B_R01",
+      "asset_id": "B_R01",
+      "section": "lineages",
+      "rect": {
+        "x": 267,
+        "y": 1063,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_B_R02",
+      "asset_id": "B_R02",
+      "section": "lineages",
+      "rect": {
+        "x": 857,
+        "y": 1063,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_B_R03",
+      "asset_id": "B_R03",
+      "section": "lineages",
+      "rect": {
+        "x": 1447,
+        "y": 1063,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_C_R01",
+      "asset_id": "C_R01",
+      "section": "lineages",
+      "rect": {
+        "x": 267,
+        "y": 1206,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_C_R02",
+      "asset_id": "C_R02",
+      "section": "lineages",
+      "rect": {
+        "x": 857,
+        "y": 1206,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_C_R03",
+      "asset_id": "C_R03",
+      "section": "lineages",
+      "rect": {
+        "x": 1447,
+        "y": 1206,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_D_R01",
+      "asset_id": "D_R01",
+      "section": "lineages",
+      "rect": {
+        "x": 267,
+        "y": 1349,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_D_R02",
+      "asset_id": "D_R02",
+      "section": "lineages",
+      "rect": {
+        "x": 857,
+        "y": 1349,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "lineage_D_R03",
+      "asset_id": "D_R03",
+      "section": "lineages",
+      "rect": {
+        "x": 1447,
+        "y": 1349,
+        "width": 557,
+        "height": 133
+      }
+    },
+    {
+      "slot_id": "ember_path_R01",
+      "asset_id": "A_R01",
+      "section": "ember_full",
+      "rect": {
+        "x": 51,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R02",
+      "asset_id": "A_R02",
+      "section": "ember_full",
+      "rect": {
+        "x": 271,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R03",
+      "asset_id": "A_R03",
+      "section": "ember_full",
+      "rect": {
+        "x": 491,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R04",
+      "asset_id": "A_R04",
+      "section": "ember_full",
+      "rect": {
+        "x": 711,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R05",
+      "asset_id": "A_R05",
+      "section": "ember_full",
+      "rect": {
+        "x": 931,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R06",
+      "asset_id": "A_R06",
+      "section": "ember_full",
+      "rect": {
+        "x": 1151,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R07",
+      "asset_id": "A_R07",
+      "section": "ember_full",
+      "rect": {
+        "x": 1371,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R08",
+      "asset_id": "A_R08",
+      "section": "ember_full",
+      "rect": {
+        "x": 1591,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    },
+    {
+      "slot_id": "ember_path_R09",
+      "asset_id": "A_R09",
+      "section": "ember_full",
+      "rect": {
+        "x": 1811,
+        "y": 1733,
+        "width": 192,
+        "height": 298
+      }
+    }
+  ],
+  "artwork_unique_source_count": 19,
+  "artwork_placement_count": 26,
+  "approved_art_sources_reused": "The same 19 original sources and existing presentation-derived cutouts from exact V2 ZIP; none regenerated",
+  "inputs_archive": "TNR_Living_Lineages_Kitsune_Poster_V2_FILLED_Sources_20261020.zip",
+  "inputs_archive_sha256": "347dc2d10b6a5335b3e0b0411e01abebf16ad6911c101586b98f787c93e9b01c",
+  "artifact_filenames": {
+    "structural_svg": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_STRUCTURAL.svg",
+    "filled_review_svg": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_FILLED_REVIEW.svg",
+    "filled_review_png": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_FILLED_REVIEW.png",
+    "structural_preview_png": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_STRUCTURAL_PREVIEW.png",
+    "create_section_png": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_CREATE_SECTION.png",
+    "lineages_section_png": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_LINEAGES_SECTION.png",
+    "ember_section_png": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_EMBER_SECTION.png"
+  },
+  "sha256": {
+    "structural_svg": "c39dcbf70bc9c2208979ceab190015b8688326c71c232ae84f5e836a756d08b3",
+    "filled_review_svg": "d79f2ff82cc33c0fa07289464513c8b1fdf8a13c50491d2f3e98a0875bf5cbdc",
+    "filled_review_png": "dc5a19be46a37d553bda1398c9093857a951eaa728daeb1207a965c7993d9d30",
+    "structural_preview_png": "54603fb6db28e68d60be4a6601bb3bee71c1ac76f770f27012b32cb59ac27ff1",
+    "create_section_png": "98f3ab66233edd3340b43806a07b75ad269122a5e1bc7e2420f247530de51689",
+    "lineages_section_png": "d8bb03e6dcdb731061726fc99c0996c028994b887366b071366648996e2f88ce",
+    "ember_section_png": "aa0867477527dc4e0f8c46cd87a1f07ed97b87bd318999de10a6fb080eccbf4f"
+  },
+  "binary_artifacts_status": "USER-DOWNLOADABLE_CONVERSATION_FILES_NOT_GIT_PINNED",
+  "directory_is_not_game_production": true,
+  "live_game_requests": 0,
+  "live_game_writes": 0
+}
