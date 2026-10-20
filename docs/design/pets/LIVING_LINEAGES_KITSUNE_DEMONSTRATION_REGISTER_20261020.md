@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** DIRECTOR APPROVED THE JUVENILE VISUAL REFERENCE AND RANKS 1–9 MORPHOLOGY FOR THE **VISUAL PILOT** (2026-10-20). Individual Rank 1–9 images remain ungenerated/unapproved. This is a concept-art lock, not a deployed game change.  
+**Status:** VISUAL PILOT ACTIVE: juvenile species master + all nine rank concepts approved; **Ember Rank 1 director-approved raw accepted (2026-10-20)**, **Moonlit Rank 1 next**. No production exports, generation-chain proof or game deployment implied.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable ledger](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json) belong to the ChatGPT-owned workdesk branch; do not alter the separate pet-proposal branch or active Fable branches. The JSON ledger owns per-image status, bytes and parentage; this file owns creative direction and process.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
@@ -87,6 +87,27 @@ The director provided **five previously generated mature Kitsune illustrations**
 
 **One-image conditioning remains inviolable:** At R5 and R6, generator input is still only that lineage's immediate accepted previous-rank image. The old mature pictures inform **workdesk art direction and post-generation comparison**, not an extra image input. If a prompt concept changes after visual comparison, revise it centrally and obtain director approval before resuming that rank.
 
+## Rank 1 approval intake — Ember (A_R01), 2026-10-20
+
+**Director decision:** “Approved, next,” supplied with the image of the new juvenile Ember Companion. This is **the first of four unique Rank 1 lineage images**, not a Rank 2 evolution. **Next: Moonlit Rank 1**, again from the ORIGINAL species master.
+
+| Intake field | Value / evidence |
+| --- | --- |
+| Current asset | `A_R01` — Ember · Rank 1 Companion |
+| Parent identity expected | `SPECIES_REF`, source SHA-256 `8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9` |
+| Actual generator reference-use proof | **NOT independently verifiable** from this returned image; the isolated-session prompt required the species master, but the tool invocation/actual image attachment was not supplied in the intake |
+| Original upload | `1000018898.png` — **actually JPEG/RGB**, 1536×1536, **opaque black background**, 318746 bytes |
+| Approved raw original SHA-256 | `b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470` |
+| Byte-identical corrected extension | `kitsune_ember_rank1_approved_source_20261020.jpg` (conversation artifact; **not Git-pinned**) |
+| Dedicated 2-image source/parent archive | `TNR_Living_Lineages_Ember_Rank1_Approved_Source_Intake_20261020.zip`, SHA-256 `9c7483429eab15859c5ccc9b032f0d6c5b4cc6c59a8dc7e0b3896de434ba4640`, 557250 bytes; source bytes verified against manifest |
+| Visual verdict | **DIRECTOR APPROVED**. At full size and a 160px side-by-side, clearly new playful juvenile fox pose with two separate tails; warm russet/charcoal/amber palette, pale tips and restrained pale Wind wisps remain visible |
+| Mechanical QC | **NOT PRODUCTION READY**: raw is opaque RGB/JPEG with black background. No transparent cutout, lossless WebP export, canonical preflight, or upload check |
+| Parent for A Rank 2 | This exact approved Ember image SHA-256 `b493...8470`, not the species base. Rank 2 stays blocked until Moonlit/Jade/Obsidian Rank 1 are also approved. |
+
+**Anatomy note:** The approved Ember has a fuller juvenile chest ruff and slightly fuller tail arcs than the original species master but remains youthful; the rank-1 visual gate was settled by the director. The same approved Rank 1 concept applies to each other variant—do not copy Ember's colours, markings, pose, or raw image as their conditioning input.
+
+**Next generation lock:** `B_R01` **Moonlit Companion**. Attach only `SPECIES_REF` (exact approved source SHA above), with **Moonlit (1)** silver/slate/pale blue coat; **Crescent marking (1)** small forehead crescent; **Moon aura (5)** faint cool halo at silhouette. Retain juvenile two-tail fox structure and premium pixel clusters; compose a **new individual**, not a recolour of Ember or the base. The next new approved image will become `B_R01`'s unique Rank 2 parent. Director review required before advancing to Jade.
+
 ## Ordered production and 37-slot acceptance ledger
 
 **One species reference + four Rank 1 pets + eight more ranks × four pets = 37 images.** All 37 slots already exist in [the JSON ledger](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json). No generated lineage images are accepted at initialization. Source receipt is not signoff.
@@ -107,6 +128,7 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 - Reference: source SHA-256 **APPROVED FOR VISUAL CONDITIONING**; RGB JPEG/black source limitation recorded; not transparent production QC.
 - Morphology/tail curve: all **nine rank concepts APPROVED FOR VISUAL PILOT** (2/2/3/3/4/5/6/7/8 tails).
-- Rank images: **0/36** approved; full target **1/37** approved for visual demonstration including the reference master (production compliance untested).
-- Pending generation: **A · Ember / Rank 1 Companion**, **READY** for its clean isolated session with the *actual* juvenile source attachment; director visual/QC review then required.
-- No art generation, no live-game requests, no pet attempts, no game changes, no credentials, no production preflight.
+- Rank images: **1/36** approved (A Ember Rank 1); full visual-demo approval **2/37** including species master; all mechanical processing/export QC remains pending.
+- Next generation: **B · Moonlit / Rank 1 Companion**, **READY**, from the exact species reference—not Ember. Rank 1 set remains **1/4** approved.
+- Parentage: A Rank 1 expected parent SHA matches locked species master; actual generator image-reference ingestion was not independently proven from returned art. This cannot be represented as a proved runtime conditioning event.
+- No workdesk image generation, no live-game requests, no player pet attempts, no game changes, no credentials, no production preflight.
