@@ -1636,3 +1636,20 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Rationale:** Preserve genuine juvenile-to-adult headroom and later dramatic evolution, without collapsing identity inheritance or falsely counting historical adult artwork as approved R5/R6 outcomes.
 
 **Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (visual rules and approval sequence) and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (37-slot approval/parent-evidence ledger). The current art skill/spec and pinned game contracts retain production/technical authority.
+
+## RUL-2026-10-20-002 — Living Lineages proof sheet uses full Ember path and abbreviated three-variant comparison
+
+**Date:** 2026-10-20  
+**Domain:** Pet visual proof of concept / Kitsune Living Lineages final showcase  
+**Status:** ACTIVE — director-approved presentation scope; structural SVG still awaiting separate visual acceptance  
+**Supersedes:** The initial 37-image / four fully-evolved lineage demonstration **scope only** in the workdesk's 2026-10-20 opening. **Does not supersede** the juvenile species master, nine-rank shared evolution concept/tail-count curve or single-parent inheritance specified in RUL-2026-10-20-001.
+
+**Ruling:** The final demonstration will reproduce the director-supplied **two-panel 1536×1024 example** structurally. Its upper panel is **one species reference plus the complete Ember Rank 1–9 sequence**; the lower panel shows the same species reference and **Ranks 1–3 for Ember, Moonlit, Jade and Obsidian**. The example mistakenly repeats Rank 4 and omits Rank 5 in the top line: the correct overview is **Species Reference, then R1 Companion, R2 Scout, R3 Tracker, R4 Guardian, R5 Hunter, R6 Warden, R7 Sentinel, R8 Mythic, R9 Sovereign**. Use source-verified game rank names in both panels. Every lower-panel species-reference cell must show the **same exact approved juvenile master**, not variant recolours. Required unique images are now **19** (= 1 species + 9 Ember + 3×3 other lineage ranks), occupying **26 display positions** through exact asset reuse.
+
+**Production:** Finish Rank 1 for all four (Ember and Moonlit already director-approved raws, Jade next), then Rank 2 and Rank 3 for all four, then complete **Ember R4–R9 only**, advancing with its immediately preceding approved rank image. No non-Ember R4–R9 image is required for this specific sheet. Retain the 18 superseded slots in the 37-slot historical tracker as **OUT_OF_SCOPE**, not rejected or incomplete. The visual structure is an **editable SVG**, pending director signoff; later place only actual approved assets through deterministic composition. Do not use generative reconstruction for any showcase panel.
+
+**Evidence:** Director supplied the example image and directed: “First we'll create a structural SVG that reproduces this layout but fixes the error where they have two rank 4s and skip rank 5 in the larger overview. This also means we only need ember fully generated, we only need rank 1-3 of the others.”
+
+**Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (showcase direction and revised production path), `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (19 in-scope IDs retained within the 37-slot ledger), `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg` (editable geometry), and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` (26 deterministic placements).
+
+**Boundary:** Layout acceptance is distinct from image acceptance, byte-level provenance, export/preflight and live-game operation. No player image-generation attempts, game requests/writes, external credentials, uploads or publication authorized.
