@@ -44,3 +44,13 @@ The full individual image **bytes** must be attached to the new conversation. Te
 3. Return **original source image bytes**, target name, approval status and filename to Art Studio. **Do not** process, claim production-ready, create icon sheets or upload.
 4. Art Studio logs decoded MIME/dimensions/SHA, checks 125/64/32px size and family distinctions, resolves native alpha/flat lime key, pad square, lossless WebP (~256×256 and <460800 bytes), checks dark composite, and runs canonical `artpreflight.py --type ICON`.
 5. Next generation session after approval: **Rare Gatherer's Chest**, using Reliquary + approved **Common Gatherer's Chest** as the two image references. Its rarity treatment must match Rare Hunter's, but do not include Hunter as a third reference.
+
+## Candidate 1 review and revision (2026-10-20; same subject)
+
+**Director feedback:** “Kinda looks identical to common other than the blue tinge.” This is **NOT APPROVED** as the Rare tier visual. Correct Hunter's subject; inadequate *material/structural* progression, so revise **within the same isolated session**. It is not a wrong-subject failure.
+
+The first candidate repeats Common's domed lid, leather/fang and central gem, claw marks, two hoop bands and metal corner blocks essentially unchanged; the biggest new feature is blue seam stripes. At 125 pixels and in grayscale, it is nearly the same chest. Do **not** fix this with more glow or a brighter crystal alone.
+
+**Targeted revision:** keep family shape/identity, camera and scale, but visibly armor the lid and upper body: **layered stepped steel plates overlaying each curved hoop band**, **larger distinct riveted shoulder/corner reinforcement plates** that expand the mechanical upper outline, and **a stronger steel backing/housing for the skyglass clasp**. Keep the claw gouges fully visible, as well as leather strap and fang. These are *structural* Rare-tier upgrades, not Epic silver filigree or decoration. Reduce the bright cyan strips to **one delicate lid-seam glow**. Pass a comparison against approved Common Hunter at 125 px **and grayscale** before seeking director acceptance.
+
+First candidate actual bytes: studio attachment `1000018927.png`, JPEG/RGB despite extension, 1536×1536, 372094 bytes, SHA-256 `dfdce5512e8f4d826519fd13550723297bcde17e881356b354cb958b07e416ce`. Black matte fails native-alpha/flat-lime production input requirement. Preserve this failure record; do not use failed image as a new reference attachment and do not claim it passed production QC.
