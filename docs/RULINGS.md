@@ -1659,3 +1659,62 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`.
 
 **Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight. The chests' rarity (all COMMON) is not decided here.
+
+## RUL-2026-10-20-003 — Starter jutsu icons follow the approved jutsu-icon standard, Academy first
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The 62 visible NORMAL jutsu learnable at Academy Student and Genin rank get new icons in the approved JUTSU_ICON standard (RUL-2026-10-17-021 exemplars): technique first, no ninja figure or anatomy, one bold silhouette per jutsu, colour by technique theme since these jutsu carry no element classification, designed dark backgrounds. Phase 1 is the six Academy Student jutsu; the Genin jutsu follow in themed batches. Each raw is approved individually by the director under `docs/workflows/ISOLATED_ART_GENERATION.md`.
+
+**Evidence:** User, 2026-10-20, choosing "Approved icon standard (Recommended)" for making the Academy Student and Genin jutsu "look iconic".
+
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. Finished icons go to the content review desk as Forge suggest-mode tickets after intake and preflight.
+
+## RUL-2026-10-20-004 — Vaporia, Bakuhatsu and Aerathiel jutsu icons join the approved jutsu-icon standard
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / jutsu-icon style references
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Extends RUL-2026-10-17-021 (BBE and BEE library); RUL-2026-10-20-003 is unchanged.
+
+**Ruling (as amended 2026-10-20):** The approved Vaporia, Bakuhatsu and Aerathiel bloodline jutsu icons (five each) are approved examples of the jutsu-icon standard and may be used as style/material references. For Vaporia and Aerathiel these are the director-approved exports in `art/jutsu_icons/vaporia/` and `art/jutsu_icons/aerathiel/`, byte-identical to the live icons. For Bakuhatsu they are the five director-approved 2026-10-19 "Concussive Fracture" raws in `art/jutsu_icons/bakuhatsu/raws/`; the live Bakuhatsu icons are the superseded figure-silhouette set and are not a reference. Each icon's silhouette stays reserved by its family. Aerathiel's Decaying Touch handprint is a family-specific approval, not general licence for hands; the starter jutsu icons stay actor-free.
+
+**Amendment (2026-10-20):** The first text approved the *live* Bakuhatsu icons and called their figure silhouettes a family exception. dauntless corrected this the same day: "No no, Bakuhatsu was this. Those are the old ones. Fix and update", with `bakuhatsu_Art_Studio_Closeout_5of5_20261020.zip` attached (sha256 `c66853c6009e4de3d5bd901b26ab10e4c1f155d88ed079b5aa63e442b6e574cc`). There is no Bakuhatsu figure exception.
+
+**Evidence:** User, 2026-10-20: "There's also vaporia, Bakuhatsu and Aerathiel to compare to. These are also approved".
+
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each pinned file. Bakuhatsu's raws, ledgers and approval evidence are in `art/jutsu_icons/bakuhatsu/` (README).
+
+**Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports passed preflight and the director accepted the family on 2026-10-20 ("They are all approved yes"; recorded in `art/jutsu_icons/bakuhatsu/approved.json`). No upload, live edit or publication is authorized.
+
+
+## RUL-2026-10-20-005 — Ghost Ship chests: geometry reset and tier-specific center bindings
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / Ghost Ship item icons
+
+**Status:** ACTIVE
+
+**Supersedes:** Only the six *rendered image approvals* previously recorded for Common, Rare and Epic Hunter's/Gatherer's Chests. **Extends** RUL-2026-10-20-002; does not revoke its family motifs, original tier treatment, Ornate/Mystery design, or separate rarity decision.
+
+**Ruling:** The twelve-icon Ghost Ship campaign restarts at Common Hunter after discovering a recurrent extra curved metal band on the right side of the existing six candidate images. Approved construction is **one physically continuous metal end hoop on the left outer lid and one on the right**, plus exactly **one distinct family-specific center binding**. No separate adjacent/parallel duplicate hoop, split strap, or extra center binding. Reinforced tiers apply plates, stitching, silver trim and filigree **on the existing components**, not as extra structural hoops.
+
+The director additionally approved a **Rusted → Common → Rare → Epic → Legendary binding material ladder** to differentiate the Hunter and Gatherer chests at 125px: Hunter's single *flat hide/leather strap* changes from cracked ash-brown rawhide → smooth saddle-brown tanned leather → pebbled smoky charcoal-brown salt-cured leather → glossy near-black silver-stitched leather → midnight-blue scale-embossed silver/cyan-threaded leather. Gatherer's single *rounded rope* changes from rotting gray hemp → honey-tan three-strand jute → slate-blue waxed flax herringbone braid → pale silver-gray sea-silk with woven silver thread → deep storm-indigo silk with silver/cyan filaments. Hunter retains fang clasp and three claw marks; Gatherer retains rope, tucked sprig and leaf brand. Natural binding colors remain material detail; no extra magical aura. **Ornate/Mystery** are standalone designs and are not assigned this leather/rope ladder. The canonical art brief owns all operative material details.
+
+**Evidence:** Director, 2026-10-20: “Just noticed all the chests need to be regenerated. Their geometry is messed up, there's an extra metal band on the right side”; confirmed intended two-end-hoop construction: “Sure, that looks fine. It was the double band on one side that threw it off.” Director then requested separate materials by tier for Hunter straps and Gatherer ropes; on the five-step proposal and revised Common Hunter prompt, responded **“Approved.”**
+
+**Canonical destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` (sections 4, 4a, 6 and 7). Durable workstream audit/provenance: `docs/design/ghost_ship_chests/GEOMETRY_RESTART_20261020.md` and `docs/design/ghost_ship_chests/CHEST_ICON_STUDIO_REGISTER.md`.
+
+**Boundary:** The six old JPEG-on-black chest originals remain **REVOKED / GEOMETRY INVALID**, forbidden as generation references. No replacement image is approved yet. One clean isolated generation for corrected Common Hunter with **only original Skyglass Reliquary as a style/material reference** is authorized by art direction (not a game action); fresh director pixel approval, alpha/raw QC and `artpreflight.py --type ICON` remain separate gates. No live-game requests/writes, upload or publishing is authorized. The twelve chests' item rarity is a separate director call.
