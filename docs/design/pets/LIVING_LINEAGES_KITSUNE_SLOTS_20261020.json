@@ -1623,7 +1623,9 @@
       "The matrix species-reference artwork is the SAME exact approved source in each row; do not invent/recolour source refs.",
       "Actual approved image bytes inserted deterministically only; structural SVG contains placeholders.",
       "Do not relabel skipped Rank 5 as Rank 4 or accept non-game rank names."
-    ]
+    ],
+    "ruling": "RUL-2026-10-20-003",
+    "ruling_dependency": "RUL-2026-10-20-002 (juvenile visual reference and full rank morphology)"
   },
   "target_unique_images": 19,
   "scope_counts": {
@@ -1634,5 +1636,38 @@
     "approved_rank_images": 2,
     "required_rank_images": 18,
     "remaining_rank_images": 16
+  },
+  "structural_svg_qc": {
+    "performed_on": "2026-10-20",
+    "template_review_status": "DRAFT_AWAITING_DIRECTOR_ACCEPTANCE",
+    "svg_repository_path": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
+    "svg_git_blob_sha1": "c1e44dd0459a667d6b40c55c0153accd8054cced",
+    "svg_local_file_byte_identical_to_repository_blob": true,
+    "svg_size_bytes": 30811,
+    "svg_dimensions_px": [
+      1536,
+      1024
+    ],
+    "xml_parser": "lxml.etree.parse PASSED",
+    "visual_preview": "CairoSVG-rendered 1536×1024 PNG visually inspected; no overflowing Rank 5 captions or cosmetic labels after refinements",
+    "slot_count": 26,
+    "distinct_required_images": 19,
+    "shared_species_ref_placements": 5,
+    "rank5_overview_slot": "A_R05",
+    "slot_mapping_verified": true,
+    "source_media_embedded": 0,
+    "source_file_reuse_requirements": "SPECIES_REF x5 identical; Ember A_R01/A_R02/A_R03 repeated 2x; remaining unique",
+    "package_filename": "TNR_Living_Lineages_Kitsune_Structural_Sheet_Package_20261020.zip",
+    "package_sha256": "6166e76cbed4b57fb4eac5b178b6392897dc19cea20612c7e9745f356d8ae74a",
+    "package_location": "conversation artifact; NOT Git pinned",
+    "draft_layout_approved": false
+  },
+  "branch_integration_drift": {
+    "seen_on": "2026-10-20",
+    "current_main_sha_at_last_check": "02a288e966db27f427508734a6223e0e583b081a",
+    "workdesk_initial_base_sha": "e13bc9fa085b37bd84ab7736256da8d1ad2a4a99",
+    "status": "INTEGRATION_NOT_STARTED; CURRENT_MAIN_AHEAD_BY_12_AT_CHECK; REVERIFY_AND_RECONCILE_BEFORE_MERGE",
+    "ruling_collision_correction": "Current main owns RUL-2026-10-20-001 for schema adoption. Workdesk art decisions renumbered to RUL-2026-10-20-002 and -003 on this branch to avoid ID collision.",
+    "warning": "Do not overwrite current main docs/RULINGS by pushing older entire file; use normal integration/conflict resolution after director accepts layout"
   }
 }
