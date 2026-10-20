@@ -37,8 +37,15 @@ Emission order of enum members is NOT audited: TNR enum order is semantic
 (LetterRanks D..H). Order-independence for review comes from this gate
 comparing sets, not from sorting the source of truth.
 
+Reviewed removals (--accept LEDGER.json): a genuine upstream removal (a column a migration
+dropped) can never pass the diff on its own. The ledger names, for one exact OLD/NEW file pair
+(sha256), every breaking atom and the evidenced class it belongs to; the diff then exits 0 only
+when the breaking set and the ledger are IDENTICAL. Any unlisted removal, stale entry or file
+change fails exactly as before. 45g is covered (every removed check entry is breaking), and so
+is a key removed from a union variant.
+
 Usage
-  python3 schema_diff.py diff OLD.json NEW.json
+  python3 schema_diff.py diff OLD.json NEW.json [--accept LEDGER.json]
   python3 schema_diff.py --invariants 45c.json [--constants 45e.json]
 
 Adoption flow (docs/00_INDEX.md): extract -> --invariants -> diff old new ->
@@ -73,6 +80,9 @@ def atoms(doc):
             for vkey, var in variants.items():
                 out.add(("union-variant", uname, vkey))
                 for fname, f in (var.get("fields") or {}).items() if isinstance(var, dict) else []:
+                    # a key leaving a tag/objective/action is a removal like any other; it was
+                    # invisible here, so a regen could drop `elements` from a tag and pass
+                    out.add(("variant-field", uname + "." + vkey, fname))
                     if isinstance(f, dict) and isinstance(f.get("enum"), list):
                         for m in f["enum"]:
                             out.add(("enum-member", uname + "." + vkey + "." + fname, str(m)))
@@ -90,13 +100,56 @@ def atoms(doc):
                 if isinstance(f.get("enum"), list):
                     for m in f["enum"]:
                         out.add(("enum-member", ename + "." + fname, str(m)))
+    # 45f procedures: router -> procedure -> {procedure guard, kind}. Also had no atoms.
+    routers = doc.get("routers")
+    if isinstance(routers, dict):
+        for rname, procs in routers.items():
+            for pname, spec in (procs or {}).items():
+                out.add(("procedure", rname, pname))
+                if isinstance(spec, dict):
+                    for k in ("procedure", "kind"):
+                        if spec.get(k):
+                            out.add(("proc-" + k, rname + "." + pname, str(spec[k])))
+    # 45g check config: every block is {"_class", "fields"|"values"}. It had no atoms at all, so
+    # `diff OLD_45g NEW_45g` reported "0 additions, safe to adopt" whatever changed.
+    if "_contract" in doc and any(isinstance(v, dict) and "_class" in v for v in doc.values()):
+        for block, spec in doc.items():
+            if block.startswith("_") or not isinstance(spec, dict) or "_class" not in spec:
+                continue
+            for key in ("fields", "values"):
+                if key in spec:
+                    for path, val in _leaves(spec[key], block + "." + key):
+                        out.add(("check", path, val))
     return out
 
 
-BREAK_ON_REMOVE = {"const-member", "union-variant", "enum-member", "field"}
+def _leaves(v, path):
+    """(path, scalar) for every leaf of a 45g block; list members by value, so order is free."""
+    if isinstance(v, dict):
+        for k, x in v.items():
+            yield from _leaves(x, path + "." + str(k))
+    elif isinstance(v, list):
+        for x in v:
+            if isinstance(x, (dict, list)):
+                yield from _leaves(x, path + "[]")
+            else:
+                yield path, json.dumps(x)
+    else:
+        yield path, json.dumps(v)
 
 
-def cmd_diff(old_path, new_path):
+# 45g removals are breaking without exception: a check config is read by validate.py AND the
+# builder, and a removed entry silently changes what both refuse or require.
+BREAK_ON_REMOVE = {"const-member", "union-variant", "enum-member", "field", "variant-field", "check",
+                   "procedure", "proc-procedure", "proc-kind"}
+
+
+def _sha256(path):
+    import hashlib
+    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+
+
+def cmd_diff(old_path, new_path, accept_path=None):
     old, new = atoms(json.load(open(old_path))), atoms(json.load(open(new_path)))
     removed = sorted(old - new)
     added = sorted(new - old)
@@ -112,8 +165,11 @@ def cmd_diff(old_path, new_path):
         hide.add(ot[k]); hide.add(nt[k])
     orq, nrq = keyed(set(removed), "required"), keyed(set(added), "required")
     for k in set(nrq) - set(orq):          # became required = tightening
-        changes.append(("now-required", k[0], k[1], "optional -> required"))
         hide.add(nrq[k])
+        # only a field OLD already had can flip optional -> required; a field OLD lacked is an
+        # addition (it was reported as a flip, so every newly extracted field looked breaking)
+        if ("field",) + k in old:
+            changes.append(("now-required", k[0], k[1], "optional -> required"))
     for k in set(orq) - set(nrq):          # became optional = relaxation, additive
         hide.add(orq[k])
 
@@ -131,10 +187,56 @@ def cmd_diff(old_path, new_path):
     show("REMOVALS", removed)
     show("CHANGES", changes)
     show("ADDITIONS", added)
+    if breaking and accept_path:
+        return _check_accept(accept_path, old_path, new_path, breaking, len(added))
     if breaking:
         print("\nBREAKING: %d change(s) - DO NOT ADOPT (exit 1)" % len(breaking))
         return 1
     print("\nno breaking changes: %d addition(s), safe to adopt (exit 0)" % len(added))
+    return 0
+
+
+def _check_accept(accept_path, old_path, new_path, breaking, n_added):
+    """A reviewed-removal ledger turns a breaking diff into an adoption ONLY when it is about
+    exactly these two files (sha256 of OLD and NEW) and lists exactly the breaking set: every
+    breaking atom accepted under a class with source evidence, and no accepted atom that is not
+    breaking. Anything else - a new removal, a changed file, a stale entry - fails as before."""
+    led = json.load(open(accept_path))
+    pair = None
+    for p in led.get("files", []):
+        if p.get("old_sha256") == _sha256(old_path) and p.get("new_sha256") == _sha256(new_path):
+            pair = p
+            break
+    if pair is None:
+        print("\nBREAKING: %d change(s); ledger %s covers neither this OLD nor this NEW file "
+              "(sha256 mismatch) - DO NOT ADOPT (exit 1)" % (len(breaking), accept_path))
+        return 1
+    classes = led.get("classes", {})
+    want = {json.dumps(list(a)) for a in breaking}
+    have, bad = {}, []
+    for row in pair.get("accepted", []):
+        key = json.dumps(row.get("atom"))
+        cls = row.get("class")
+        if cls not in classes or not (classes[cls].get("evidence") or "").strip():
+            bad.append("accepted atom with no evidenced class: %s (%s)" % (key, cls))
+        have[key] = cls
+    missing = sorted(want - set(have))
+    stale = sorted(set(have) - want)
+    for m in missing[:40]:
+        print("  UNACCEPTED  " + m)
+    for m in stale[:40]:
+        print("  STALE       " + m)
+    for b in bad[:40]:
+        print("  " + b)
+    if missing or stale or bad:
+        print("\nBREAKING: %d change(s); ledger mismatch (%d unaccepted, %d stale, %d unevidenced)"
+              " - DO NOT ADOPT (exit 1)" % (len(breaking), len(missing), len(stale), len(bad)))
+        return 1
+    from collections import Counter
+    by = Counter(have.values())
+    print("\nACCEPTED: all %d breaking change(s) are in the reviewed ledger %s (%s); %d addition(s)."
+          " Adopt (exit 0)." % (len(breaking), accept_path,
+                                ", ".join("%s %d" % kv for kv in sorted(by.items())), n_added))
     return 0
 
 
@@ -181,7 +283,8 @@ def cmd_invariants(ctor_path, const_path=None):
 def main():
     a = sys.argv[1:]
     if len(a) >= 3 and a[0] == "diff":
-        return cmd_diff(a[1], a[2])
+        acc = a[a.index("--accept") + 1] if "--accept" in a else None
+        return cmd_diff(a[1], a[2], acc)
     if a and a[0] == "--invariants":
         cp = a[a.index("--constants") + 1] if "--constants" in a else None
         return cmd_invariants(a[1], cp)
