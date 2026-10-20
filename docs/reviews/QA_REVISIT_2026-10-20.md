@@ -27,7 +27,7 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 | Record | Waiting on |
 |---|---|
 | Bloodthorn Cache description | Ticket 132 (loot fix) to be decided. A suggestion carries the whole record, so a second one could undo 132 if approved after it. |
-| Medallion of the Serpent King description | Its battle line is empty, and items cannot be saved with an empty battle line, so a description-only edit would fail. Needs any non-empty battle line in the same edit. |
+| Medallion of the Serpent King description | Ticketed in 141 (description and battle line in one edit). |
 | Magma Slayer and Eruption Strike scaling (withdrawn 134) | The damage formula's handling of missing `generalTypes` read in the game source, or a fight capture. Archived under `archive/spent-manifests/push-2026-10-20/`. |
 
 ## Optional follow-ups

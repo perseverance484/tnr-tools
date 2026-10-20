@@ -202,3 +202,10 @@ director-approved files committed for push/90 (`art/ghost_ship_skyglass/scene_ch
 pinned by commit and SHA-256 in `imagePack`) under fresh logical names and points `image` at them.
 `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
 Run it from Forge, then use **Check suggestions**.
+
+## 141 Medallion of the Serpent King text fix (suggest mode, QA ticket 10)
+
+`141_medallion_text_fix.json` sends one edit to the content review desk; it does not save directly.
+The Medallion's description and battle line are both empty, and an empty battle line stops any save
+of the item, so both are filled in one edit (dauntless, 2026-10-20). Only those two text fields
+change. `validate.py`: 0 errors, 0 warnings. Run it from Forge, then use **Check suggestions**.

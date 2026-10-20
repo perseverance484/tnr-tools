@@ -1,0 +1,25 @@
+{
+  "_note": "QA ticket 10 (docs/reviews/QA_LIVE_2026-10-20.md, TXT-EMPTY; revisit list). Suggest mode: content review desk, no direct save. Medallion of the Serpent King has an empty description and an empty battleDescription at the public read of 2026-10-20T19:37:02.337Z. battleDescription is DB NOT NULL (item.md gotcha 2), so any save of this item fails until it has one; both fields are filled in one edit (dauntless, 2026-10-20). Only these two text fields change. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "GRAMMAR",
+    "title": "Add description and battle line",
+    "rationale": "The description and battle line were empty. Both are filled in, which also lets the item be saved again."
+  },
+  "items": [
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Medallion of the Serpent King",
+      "targetId": "ls-0eURQV9hLjnaplhYaB",
+      "data": {
+        "description": "A medallion bearing the mark of the Serpent King that lessens the damage its wearer takes for a long time.",
+        "battleDescription": "The Medallion of the Serpent King shields %user from harm."
+      },
+      "suggestion": {
+        "title": "Add description and battle line",
+        "rationale": "The description and battle line were both empty. An empty battle line also stops the item from being saved at all, so both are filled in: the description says the medallion reduces the damage its wearer takes."
+      }
+    }
+  ]
+}
