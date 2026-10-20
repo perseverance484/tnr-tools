@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "RANK1_EMBER_RAW_APPROVED__RANK1_MOONLIT_READY__ART_QC_PENDING",
+  "status": "RANK1_EMBER_AND_MOONLIT_RAW_APPROVED__RANK1_JADE_READY__ART_QC_PENDING",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -327,22 +327,81 @@
       "rank_name": "Companion",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "SPECIES_REF",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_APPLICABLE",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
-      "approved_original": null,
-      "approved_original_sha256": null,
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL__PROCESSING_AND_ALPHA_PENDING",
+      "director_visual_approval": "APPROVED",
+      "identity_qc": "PASS_VISUAL_DIRECTOR_APPROVED: one youthful Kitsune, exactly two separate attached bushy tails, silver/slate/pale-blue Moonlit coat, luminous small forehead Crescent marking, contained cool blue Moon edge-light. Clear identity contrast from Ember and species master.",
+      "progression_qc": "NOT_APPLICABLE_RANK1: independent juvenile variant; progression to rank 2 not yet evaluated",
+      "thumbnail_160_qc": "PASS_160PX_VISUAL_CHECK: full two-tailed silhouette, distinct crescent and moonlit palette readable; separate QC file generated deterministically from exact raw",
+      "reference_original": {
+        "filename": "1000018899.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 345097,
+        "background": "opaque black",
+        "sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+        "source_location": "conversation_upload",
+        "data_note": "Misleading .png filename; original bytes JPEG RGB and must be preserved byte-for-byte"
+      },
+      "approved_original": {
+        "filename": "kitsune_moonlit_rank1_approved_source_20261020.jpg",
+        "archive_filename": "images/kitsune_moonlit_rank1_approved_source.jpg",
+        "sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+        "bytes": 345097,
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "alpha_policy": "NOT_COMPLIANT_AS_PRODUCTION_EXPORT",
+        "located_in": "2026-10-20 conversation attachment and downloaded approved-source intake ZIP, NOT GIT PINNED"
+      },
+      "approved_original_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
-      "isolated_session": null,
-      "approval_date": null,
-      "revision_notes": []
+      "mechanical_preflight": "NOT_RUN__SOURCE_JPEG_RGB_OPAQUE_BLACK; no transparent cutout, lossless WebP export, canonical preflight, or game upload",
+      "isolated_session": {
+        "type": "ISOLATED_GENERATION_ART_RETURN",
+        "target": "Moonlit Rank 1",
+        "session_url": null,
+        "evidence": "Director posted new Moonlit image in master workdesk with explicit 'Approved, next'. No generator-reference ingestion or upstream tool invocation evidence attached."
+      },
+      "approval_date": "2026-10-20",
+      "revision_notes": [
+        "Director response 2026-10-20: 'Approved, next' accompanying new Moonlit Rank 1 illustration.",
+        "Original JPEG RGB 1536x1536, 345097 bytes, black opaque background, SHA-256 f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1; source filename .png does not match actual format.",
+        "Director visual approval and 160px silhouette/crescent clarity recorded. Distinct individual from Ember; expected parent juvenile reference hash verified as available exact bytes.",
+        "Isolated-generation image tool's actual reference attachment/ingestion is not independently proven by intake; expected parentage only.",
+        "Mechanical chroma/alpha cleanup, export and preflight NOT RUN. Preserve untouched JPEG bytes; no production readiness claimed.",
+        "For B Rank2, attach this Moonlit original only, after all Rank1 sibling approvals; never substitute Ember or generic species reference."
+      ],
+      "parent_conditioning_evidence": "EXPECTED from Moonlit Rank 1 isolated-session prompt: approved juvenile master SHA-256 8b32...dc9; actual image-generator attachment/ingestion was not independently audited. Reference-child runtime provenance remains UNVERIFIED.",
+      "raw_source_archive": {
+        "filename": "TNR_Living_Lineages_Moonlit_Rank1_Approved_Source_Intake_20261020.zip",
+        "sha256": "0d30357be3536db51a796566db8c872ef0f7ce12d1718bb4569c08c8a1c1c6f0",
+        "bytes": 563791,
+        "entry": "images/kitsune_moonlit_rank1_approved_source.jpg",
+        "parent_entry": "images/kitsune_juvenile_species_reference.jpg",
+        "source_kind": "conversation_artifact_not_git_pinned",
+        "manifest_entry": "intake_manifest.json"
+      },
+      "visual_qc_artifacts": [
+        {
+          "filename": "kitsune_moonlit_rank1_160px_visual_qc_20261020.png",
+          "sha256": "f6a0a00ac0d1608cc7b2cda6b697950da41bc85bdedb47fbe747c0adb2a2d60e",
+          "method": "Pillow LANCZOS RGB 1536x1536 ->160x160, exact raw"
+        },
+        {
+          "filename": "kitsune_moonlit_rank1_qc_compare_20261020.png",
+          "sha256": "3cde91ee7068bc6fc51e16a835900a5147a9c54615b4695ad2ae6be778e7e84e",
+          "method": "Pillow deterministic 240px each approved species/Ember/Moonlit on dark panel; display-only preview"
+        }
+      ]
     },
     {
       "asset_id": "C_R01",
@@ -399,7 +458,7 @@
       "rank_name": "Scout",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "A_R01",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
       "used_parent_sha256": null,
       "status": "NOT_STARTED",
       "director_visual_approval": "NOT_REVIEWED",
@@ -423,7 +482,7 @@
       "rank_name": "Scout",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "B_R01",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
       "used_parent_sha256": null,
       "status": "NOT_STARTED",
       "director_visual_approval": "NOT_REVIEWED",
@@ -1301,13 +1360,13 @@
     "evidence_source": "director response in project conversation; no downstream rank image has yet been approved"
   },
   "next_generation": {
-    "asset_id": "B_R01",
-    "lineage": "Moonlit",
+    "asset_id": "C_R01",
+    "lineage": "Jade",
     "rank": 1,
     "expected_parent_asset_id": "SPECIES_REF",
     "expected_parent_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
     "gate": "READY_FOR_ISOLATED_GENERATION",
-    "requires": "Attach exact juvenile species source (not Ember); one image only; Moonlit palette (1), Crescent marking (1), Moon aura (5); director approval before Jade Rank 1"
+    "requires": "Attach only actual juvenile species reference (not Moonlit or Ember); Jade green/dark teal/cream palette index 10, Mismatched eyes index 5, subtle violet Lightning sparks index 4, two juvenile tails; obtain director visual approval before Obsidian R1"
   },
   "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight",
   "lineage_progress": {
@@ -1319,9 +1378,9 @@
     },
     "B": {
       "label": "Moonlit",
-      "highest_director_approved_rank": 0,
-      "latest_approved_asset_id": null,
-      "latest_approved_original_sha256": null
+      "highest_director_approved_rank": 1,
+      "latest_approved_asset_id": "B_R01",
+      "latest_approved_original_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1"
     },
     "C": {
       "label": "Jade",
@@ -1336,8 +1395,8 @@
       "latest_approved_original_sha256": null
     }
   },
-  "approved_image_count": 2,
-  "approved_individual_rank_images_count": 1,
+  "approved_image_count": 3,
+  "approved_individual_rank_images_count": 2,
   "generation_sessions_returned": [
     {
       "target_asset_id": "A_R01",
@@ -1346,6 +1405,14 @@
       "raw_source_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
       "session_url": null,
       "provenance": "Director supplied image in master workdesk; actual generator reference ingestion unverified"
+    },
+    {
+      "target_asset_id": "B_R01",
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL",
+      "received_date": "2026-10-20",
+      "raw_source_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+      "session_url": null,
+      "provenance": "Director supplied approved image to workdesk; actual model use of referenced species master unverified"
     }
   ],
   "source_intake_archives": [
@@ -1355,6 +1422,14 @@
       "bytes": 557250,
       "entries": 2,
       "role": "accepted Ember R1 + approved species reference exact source JPEG bytes",
+      "git_pinned": false
+    },
+    {
+      "filename": "TNR_Living_Lineages_Moonlit_Rank1_Approved_Source_Intake_20261020.zip",
+      "sha256": "0d30357be3536db51a796566db8c872ef0f7ce12d1718bb4569c08c8a1c1c6f0",
+      "bytes": 563791,
+      "entries": 3,
+      "role": "accepted Moonlit R1 + approved species juvenile reference exact source JPEG bytes + manifest",
       "git_pinned": false
     }
   ]
