@@ -30,3 +30,18 @@ Optional quicklook `TNR_Living_Lineages_Remaining_Variants_Intake_Preview_202610
 ## Approval gates and scope
 
 The current V1 poster structure was previously approved; V2 is a new structural **DRAFT** that foregrounds reference/input mechanics. Neither structurally generated text nor user submission of these images is final batch acceptance. `LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` remains the source for individual approval, background, and parentage fields; **5/19 fully director-approved visuals as of intake** (species master and four Rank 1 founders). Ember R2–9 also remain candidates awaiting one batch-level signoff. No source files or new variant images were published to the game; live requests/writes 0.
+
+## New separate Obsidian original sources — resolved (2026-10-20)
+
+The director subsequently supplied **two distinct, full-size original Obsidian images** with the explicit direction **“Structure approved. Insert images.”** These replace the earlier paired composite as the current poster sources. The composite `1000018915.png` remains an earlier source-evidence artifact, **not** a source used to populate V2.
+
+| Active chart slot | New source filename | Decoded actual format | SHA-256 | Why assigned |
+| --- | --- | --- | --- | --- |
+| **`D_R02` Scout** | `1000018916.png` | **JPEG RGB**, 1536×1475, **286,146 bytes** | `70c541d0b0a3e6167f60bf5b5c5edf77a18983223dd2976ac3ad9f997db8278b` | Visibly younger upright yearling with **two** bushy tails and preserved dappled/Spirit identity. |
+| **`D_R03` Tracker** | `1000018917.png` | **JPEG RGB**, 1536×1536, **228,051 bytes** | `20ce9623607b6e1aef6e143003b88162036605b0bb7c7bd77b8af79ab1a27602` | More developed low forward hunter stance and **three** substantial tails, with persistent dapples and motes. |
+
+**Identity/placement status:** Both originals exist separately, are byte-verified, and have been selected for V2 deterministic slot placement. The earlier blocking **“missing separate original images” is RESOLVED**. All submissions still have black opaque JPEG backgrounds despite `.png` filenames. Do not claim actual generator-side parent-reference ingestion or TNR production preflight was proven.
+
+**Display derivatives:** Poster V2 uses separately generated transparent **presentation-only** cutouts of these exact two JPEG sources, preserving original SHA-256 provenance. The originals are included unchanged in the downloadable filled-poster archive, and every repeated placement uses one identical derivative per asset ID.
+
+**Approval distinction:** “Structure approved. Insert images.” authorizes using the submitted artwork in the **director-approved V2 structural poster**; it does not substitute for a separate final populated-poster visual signoff or source transparency/upload validation. Prior historical composite remains archived but is **not** used as a rank original.
