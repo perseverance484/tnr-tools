@@ -22,7 +22,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "94f9d84c770004172ba423ada3d6710849acc451";
+const PIN = process.argv[3] || "6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",
@@ -100,12 +100,62 @@ function aliasOf(name) {
   return m ? m[1] : null;
 }
 
+/**
+ * `const NAME = BASE.omit({ k: true }).extend({ ... })` - a schema derived from another by a chain
+ * of .omit / .pick / .extend calls (ElementalDamageTag at 6524d0f). Returns {base, steps} or null.
+ * Any other chained call (.merge, .partial, .refine, ...) is a hard error: its key set is not
+ * something this tool can read, so it must not be guessed.
+ */
+function derivedOf(name) {
+  for (const text of Object.values(src)) {
+    const m = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*([A-Za-z_$][\\w$]*)\\s*\\.\\s*(?=[A-Za-z_$])`, "m").exec(text);
+    if (!m || m[1] === "z") continue;
+    const steps = [];
+    let i = m.index + m[0].length;
+    for (;;) {
+      const cm = (steps.length ? /^\s*\.\s*([A-Za-z_$][\w$]*)\s*\(\s*\{/ : /^([A-Za-z_$][\w$]*)\s*\(\s*\{/).exec(text.slice(i));
+      if (!cm) break;
+      if (!["omit", "pick", "extend"].includes(cm[1])) {
+        throw new Error(`${name}: unsupported schema derivation .${cm[1]}() on ${m[1]}`);
+      }
+      const open = i + cm[0].length;
+      const body = balanced(text, open);
+      steps.push({ op: cm[1], body });
+      i = open + body.length + 1; // past the closing brace
+      const close = /^\s*\)/.exec(text.slice(i));
+      if (!close) throw new Error(`${name}: .${cm[1]}() takes more than one object argument`);
+      i += close[0].length;
+    }
+    if (!steps.length) throw new Error(`${name}: derived from ${m[1]} by a call this tool cannot read`);
+    const tail = /^\s*([;\n]|$)/.exec(text.slice(i));
+    if (!tail) throw new Error(`${name}: unsupported call chained after .${steps.at(-1).op}()`);
+    return { base: m[1], steps };
+  }
+  return null;
+}
+
 /** Every key of a schema, spreads resolved (across files), deduplicated. */
 function keysOf(name, seen = new Set()) {
   if (seen.has(name)) return [];
   seen.add(name);
   const alias = aliasOf(name);
   if (alias) return keysOf(alias, seen);
+  const derivation = derivedOf(name);
+  if (derivation) {
+    let out = new Set(keysOf(derivation.base, new Set(seen)));
+    for (const { op, body } of derivation.steps) {
+      const { keys, spreads } = shallow(body);
+      if (op === "extend") {
+        for (const k of keys) out.add(k);
+        for (const s of spreads) for (const k of keysOf(s, new Set(seen))) out.add(k);
+      } else {
+        if (spreads.length) throw new Error(`${name}: spread inside .${op}()`);
+        for (const k of keys) if (!out.has(k)) throw new Error(`${name}: .${op}() names ${k}, which ${derivation.base} does not have`);
+        out = op === "omit" ? new Set([...out].filter((k) => !keys.includes(k))) : new Set(keys);
+      }
+    }
+    return [...out];
+  }
   const body = bodyOf(name);
   if (body == null) throw new Error("cannot find declaration for " + name);
   const { keys, spreads } = shallow(body);
@@ -116,7 +166,17 @@ function keysOf(name, seen = new Set()) {
 
 /** The discriminator values a schema accepts on `field` (z.literal, z.enum([...]) or z.enum(CONST)). */
 function discriminators(name, field) {
-  const body = bodyOf(name);
+  let body = bodyOf(name);
+  if (body == null) {
+    // A derived schema must declare its own discriminator in an .extend(); inheriting the base's
+    // would file the derived key set under the base's value and silently overwrite it.
+    const derivation = derivedOf(name);
+    if (!derivation) throw new Error("cannot find declaration for " + name);
+    body = derivation.steps.filter((s) => s.op === "extend").map((s) => s.body).join("\n");
+    if (!new RegExp(`\\b${field}\\s*:`).test(body)) {
+      throw new Error(`${name}: derived schema does not redeclare its ${field} discriminator`);
+    }
+  }
   const re = new RegExp(`\\b${field}\\s*:\\s*z\\.(literal|enum)\\(`, "m");
   const m = re.exec(body);
   if (!m) return [];

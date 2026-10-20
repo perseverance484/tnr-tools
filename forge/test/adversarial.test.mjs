@@ -562,12 +562,12 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const v = new Validator(SCHEMAS);
   assert.deepEqual(v.problems("item", { name: "Seed", isFarmSeed: true, farmGrowTimeSeconds: 60, farmYieldItemId: "x" }), []);
   assert.deepEqual(v.problems("quest", { name: "Q", requiredFarmingLevel: 3 }), []);
-  assert.equal(v.knownFields("item").size, 81); assert.equal(v.knownFields("quest").size, 36);
+  assert.equal(v.knownFields("item").size, 82); assert.equal(v.knownFields("quest").size, 37);
   const live = { id: "i1", name: "Old", farmYieldItemId: "y", farmGrowTimeSeconds: 120, isFarmSeed: true, createdAt: "x" };
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "94f9d84c770004172ba423ada3d6710849acc451");
+  assert.equal(SCHEMAS._provenance.pin, "6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb");
 });
 
 test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {
@@ -582,6 +582,40 @@ test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item colum
   const i = mergeForUpdate("item", itemLive, { name: "Cache 2" }, v.knownFields("item"));
   for (const k of ["auctionMinPrice", "auctionMaxPrice", "purchaseLimit", "purchaseLimitPeriod", "requiredSkillId"]) assert.equal(i[k], itemLive[k], `item ${k} must survive`);
   for (const k of ["requiredNinjutsuOffence", "ninjutsuOffence"]) assert.ok(!v.knownFields(k.startsWith("required") ? "jutsu" : "ai").has(k), `${k} was dropped upstream`);
+});
+
+// push/131 (Stormrender): an item edit that replaces `effects` on a live record whose first effect is
+// the elementaldamage tag (ElementalDamageTag = DamageTag.omit({ elements }).extend(...) at 6524d0f).
+// At 94f9d84 the tag did not exist, so Forge refused the edit fail-closed. Replayed here against the
+// operator's full capture of the live row, socket-free.
+test("re-pin 6524d0f: an item edit keeps an elementaldamage effect and adds statTypes None / generalTypes Highest", () => {
+  const v = new Validator(SCHEMAS, NESTED);
+  const cap = JSON.parse(readFileSync(new URL("../../harvests/inbox/tnr_results_1792478135730.json", import.meta.url), "utf8"));
+  const live = cap.captures.map((c) => c.data).find((d) => d.id === "cLXXf8RJv5l9B_gGsYN2a");
+  const manifest = JSON.parse(readFileSync(new URL("../../push/131_stormrender_highest_scaling_suggestion.json", import.meta.url), "utf8"));
+  const edit = manifest.items[0].data;
+  assert.equal(live.effects[0].type, "elementaldamage");
+  assert.equal(live.effects[0].statTypes, undefined); assert.equal(live.effects[0].generalTypes, undefined);
+  // the edit itself and the full merged payload both pass pre-send validation
+  assert.deepEqual(v.problems("item", edit), []);
+  const payload = mergeForUpdate("item", live, edit, v.knownFields("item"));
+  assert.deepEqual(v.problems("item", payload), []);
+  // every live column the pin knows survives, including methodSize (absent from the 94f9d84 item set)
+  assert.ok(v.knownFields("item").has("methodSize"));
+  for (const k of v.knownFields("item")) if (k !== "effects" && live[k] !== undefined) assert.deepEqual(payload[k], live[k], `item ${k} must survive the merge`);
+  for (const k of ["id", "createdAt", "updatedAt"]) assert.equal(payload[k], undefined, `${k} is server-owned`);
+  // effects: exactly the two added selectors on effects[0], nothing else moved
+  const { statTypes, generalTypes, ...rest0 } = payload.effects[0];
+  assert.deepEqual(statTypes, ["None"]); assert.deepEqual(generalTypes, ["Highest"]);
+  assert.deepEqual(rest0, live.effects[0]);
+  assert.deepEqual(payload.effects[1], live.effects[1]);
+  assert.equal(payload.effects.length, 2);
+  // the derived key set is DamageTag's minus `elements`: a typo or an omitted key is still refused
+  const ed = (extra) => ({ name: "S", effects: [{ ...live.effects[0], ...extra }] });
+  assert.match(v.problems("item", ed({ elements: ["Fire"] })).join(";"), /effects\[0\] \(elementaldamage\): unknown key "elements"/);
+  assert.match(v.problems("item", ed({ genralTypes: ["Highest"] })).join(";"), /unknown key "genralTypes"/);
+  // ordinary damage keeps accepting the same selectors (and its elements key)
+  assert.deepEqual(v.problems("item", { name: "S", effects: [{ type: "damage", power: 30, calculation: "formula", statTypes: ["Highest"], generalTypes: ["Highest"], elements: ["Fire"] }] }), []);
 });
 
 test("L3: the budget mirrors the server's weighted sliding window, so this client alone never reaches 60% of the limit at the bucket edge", async () => {
@@ -1014,7 +1048,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   const v = new Validator(SCHEMAS);
   assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
   assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
-  assert.equal(v.knownFields("ai").size, 181); // insertAiSchema at 94f9d84 (post-0056)
+  assert.equal(v.knownFields("ai").size, 189); // insertAiSchema at 6524d0f (post-0056; +pet/title columns, -customTitle)
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();
