@@ -1,4 +1,7 @@
-# Bakuhatsu — Howitzer Crash — approved isolated-generation brief
+# Bakuhatsu — Howitzer Crash — RETIRED v1 isolated-generation brief
+
+> **DO NOT GENERATE FROM THIS DOCUMENT.** Two rendered candidates following the previously approved narrow-diagonal-propulsion composition were director-rejected for family resemblance on 2026-10-20. The original v1 approval SHA `361b5cdcf2065407bb9b1143cc5af6502e766f2b73446481e52d9fd1077602d3` remains historical evidence, but the current machine-readable target is **v2 BLAST-STEP ZIGZAG, DIRECTION PENDING**, SHA-256 `2699357dfc78e002c20f1e01c0b92c5bbcb2251762e3d303c72e350d10e56a63`. Read `HOWITZER_REVISION_CHECKPOINT_20261020.md` for exact rejected image hashes, new composition, and reference reset. Only after new director approval may a clean isolated-generation brief be activated.
+
 
 **State:** P0 target lock COMPLETE · **DIRECTION_APPROVED** (director 2026-10-20) · **RAW_VISUAL_APPROVED=PENDING**.
 **Target lock v1 SHA-256:** `361b5cdcf2065407bb9b1143cc5af6502e766f2b73446481e52d9fd1077602d3`
