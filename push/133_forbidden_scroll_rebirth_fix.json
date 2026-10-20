@@ -4,7 +4,7 @@
   "suggestion": {
     "category": "CONSISTENCY",
     "title": "Forbidden Jutsu Scroll: Rebirth grants a deleted jutsu",
-    "rationale": "Ethereal Rebirth was re-created with a new id in the jutsu deletion event; repoint the scroll to it."
+    "rationale": "Fixing the scroll pointing at the wrong jutsu ID, correcting it to Ethereal Rebirth's ID."
   },
   "items": [
     {
@@ -77,7 +77,7 @@
         ]
       },
       "suggestion": {
-        "rationale": "Ethereal Rebirth got a new id in the great jutsu deletion event, but this scroll still grants the old id (lbSdCH5lTz0U2f-t9gWxw), which no longer exists, so using it grants nothing. This points the reward at Ethereal Rebirth's current id (K0t6Z-Q4lau1jFt8Tkpot, FORBIDDEN, S rank, visible), the jutsu the scroll's description promises. The visual effect and every other field are unchanged."
+        "rationale": "Fixing the scroll pointing at the wrong jutsu ID, correcting it to Ethereal Rebirth's ID."
       }
     }
   ]
