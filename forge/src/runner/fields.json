@@ -1,12 +1,12 @@
 {
  "_provenance": {
   "generator": "forge/tools/derive_fields.mjs",
-  "pin": "94f9d84c770004172ba423ada3d6710849acc451",
+  "pin": "85cecaebf4ada2e265a18a1405f63c9637443275",
   "note": "top-level keys of each entity validator at the pinned commit; spreads are resolved into fields"
  },
  "entities": {
   "jutsu": {
-   "source": "app/src/validators/combat.ts:1703",
+   "source": "app/src/validators/combat.ts:1778",
    "validator": "JutsuValidatorRawSchema",
    "spreads": [],
    "fields": {
@@ -17,11 +17,13 @@
     "extraBaseCost": true,
     "jutsuWeapon": true,
     "jutsuType": true,
+    "requiredPetSpeciesId": true,
     "jutsuRank": true,
     "requiredRank": true,
     "requiredLevel": true,
     "method": true,
     "coordinateTargeting": true,
+    "methodSize": true,
     "target": true,
     "range": true,
     "statClassification": true,
@@ -58,7 +60,7 @@
    }
   },
   "item": {
-   "source": "app/src/validators/combat.ts:1897",
+   "source": "app/src/validators/combat.ts:1979",
    "validator": "ItemValidatorRawSchema",
    "spreads": [
     "itemEconomySchema.shape",
@@ -93,6 +95,7 @@
     "maxEquips": true,
     "method": true,
     "coordinateTargeting": true,
+    "methodSize": true,
     "target": true,
     "itemType": true,
     "weaponType": true,
@@ -149,7 +152,7 @@
    }
   },
   "bloodline": {
-   "source": "app/src/validators/combat.ts:1786",
+   "source": "app/src/validators/combat.ts:1868",
    "validator": "BloodlineValidator",
    "spreads": [],
    "fields": {
@@ -167,7 +170,7 @@
    }
   },
   "quest": {
-   "source": "app/src/validators/objectives.ts:805",
+   "source": "app/src/validators/objectives.ts:810",
    "validator": "QuestValidatorRawSchema",
    "spreads": [
     "masteryRequirementFields"
@@ -181,6 +184,7 @@
     "medicalRank": true,
     "huntingRank": true,
     "gatheringRank": true,
+    "petTaskMinutes": true,
     "requiredLevel": true,
     "requiredFarmingLevel": true,
     "maxLevel": true,
@@ -196,6 +200,7 @@
     "content": true,
     "hidden": true,
     "teamEnabled": true,
+    "publicLocations": true,
     "retryDelay": true,
     "attemptDelay": true,
     "consecutiveObjectives": true,
@@ -229,10 +234,10 @@
    }
   },
   "ai": {
-   "source": "app/drizzle/schema.ts:2814",
+   "source": "app/drizzle/schema.ts:2875",
    "validator": "insertAiSchema",
    "spreads": [],
-   "columns": 197,
+   "columns": 205,
    "omitted": [
     "bracketImmunityPausedAt",
     "covertTrainingMinutes",
@@ -279,6 +284,8 @@
    ],
    "fields": {
     "activeNpcQuestId": true,
+    "activePetId": true,
+    "activeTitleId": true,
     "activeTrainedElement": true,
     "aiCalls": true,
     "aiProfileId": true,
@@ -312,7 +319,6 @@
     "curEnergy": true,
     "curHealth": true,
     "curStamina": true,
-    "customTitle": true,
     "dailyArenaFights": true,
     "dailyErrands": true,
     "dailyMedicalMissions": true,
@@ -392,8 +398,15 @@
     "musicOn": true,
     "nRecruited": true,
     "ninjutsuMastery": true,
+    "npcTitle": true,
     "offence": true,
+    "petAcquisitions": true,
+    "petDailyClaims": true,
+    "petExperience": true,
+    "petSlots": true,
+    "petTask": true,
     "poolsMultiplier": true,
+    "preferredDamageElement": true,
     "preferredGeneral1": true,
     "preferredGeneral2": true,
     "primaryElement": true,

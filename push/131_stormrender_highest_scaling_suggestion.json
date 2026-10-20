@@ -1,0 +1,66 @@
+{
+  "_note": "Director-requested Stormrender formula-scaling repair based on verified Forge 0.8.0 full item captures (harvests/inbox/tnr_results_1792478135730.json). Change only effects[0] statTypes/generalTypes; preserve the full two-effect array and all other item columns via Forge fetch-merge. The director requested Highest for both selectors: the CURRENT game validator converts statTypes:[\"Highest\"] into statTypes:[\"None\"] on save, with equivalent offence-scaling behavior; the manifest sends canonical [\"None\"] to avoid a false read-back drift, and keeps generalTypes:[\"Highest\"]. Suggestion mode only: submission to content review, no immediate live item edit. DO NOT RUN until Forge's source-derived nested effect contract and 45c/45g tooling support elementaldamage and both offline gates pass; currently blocked by old Forge pin. Never use skipPreflight. Operator owns all game actions.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "BALANCE",
+    "title": "Stormrender damage scaling correction",
+    "rationale": "Restore Stormrender's missing offence and highest-general formula selectors so its 30-EP elementaldamage hit scales consistently with legacy formula weapons; retain all other effects."
+  },
+  "items": [
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Stormrender",
+      "targetId": "cLXXf8RJv5l9B_gGsYN2a",
+      "data": {
+        "effects": [
+          {
+            "type": "elementaldamage",
+            "power": 30,
+            "rounds": 0,
+            "target": "INHERIT",
+            "appearSfx": "eJCEtS5_P_pW_VPc6ttRh",
+            "direction": "offence",
+            "calculation": "formula",
+            "description": "placeholder",
+            "dmgModifier": 0,
+            "disappearSfx": "",
+            "powerPerLevel": 0,
+            "appearAnimation": "Tp_X5YbW6-Xec1pUlhFub",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "residualModifier": 0,
+            "disappearAnimation": "",
+            "allowBloodlineDamageDecrease": true,
+            "allowBloodlineDamageIncrease": true,
+            "statTypes": [
+              "None"
+            ],
+            "generalTypes": [
+              "Highest"
+            ]
+          },
+          {
+            "type": "increasedamagetaken",
+            "power": 20,
+            "rounds": 2,
+            "target": "INHERIT",
+            "appearSfx": "",
+            "direction": "offence",
+            "calculation": "percentage",
+            "description": "placeholder",
+            "disappearSfx": "",
+            "powerPerLevel": 0,
+            "appearAnimation": "",
+            "staticAnimation": "",
+            "staticAssetPath": "",
+            "disappearAnimation": ""
+          }
+        ]
+      },
+      "suggestion": {
+        "rationale": "Stormrender's captured 30-power formula elemental attack lacks statTypes and generalTypes, making it ignore Offence/Defence and highest generals. Add a nonempty canonical stat selector (None is the server-normalized Highest marker) and generalTypes Highest. Keep the 20% Increased Damage Taken rider and every other effect property byte-faithfully unchanged."
+      }
+    }
+  ]
+}

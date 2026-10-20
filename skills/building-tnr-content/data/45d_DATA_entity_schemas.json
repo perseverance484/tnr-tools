@@ -1,14 +1,14 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-09-09",
-  "source_drop": "git:studie-tech/TheNinjaRPG@bdec2883 (2026-08-29)",
+  "extracted": "2026-10-20",
+  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "905c5c61ecf459a1",
-   "app/src/validators/ai.ts": "56f0719ad861591c",
+   "app/drizzle/constants.ts": "93272fe38b94ee7f",
+   "app/src/validators/ai.ts": "889a5bcdae666e2d",
    "app/src/validators/asset.ts": "b4a1cb632651922e",
-   "app/src/validators/combat.ts": "56e2e5cef6b28412",
-   "app/src/validators/objectives.ts": "bfb97953c942b06a"
+   "app/src/validators/combat.ts": "830100d31626d245",
+   "app/src/validators/objectives.ts": "3c3aa15270fa0fb4"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -78,6 +78,16 @@
      "nullable": false,
      "enum_ref": "JutsuTypes"
     },
+    "requiredPetSpeciesId": {
+     "raw": "z.string().max(191).nullish().transform((value) => value || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "max": 191,
+     "_transform": true,
+     "doc": "Empty form resets and omitted values both clear the species restriction.\n  requiredPetSpeciesId: z\n    .string()\n    .max(191)\n    .nullish()\n    .transform((value) => value || null)"
+    },
     "jutsuRank": {
      "raw": "z.enum(LetterRanks)",
      "type": "enum",
@@ -111,6 +121,20 @@
      "nullable": false,
      "enum_ref": "AttackMethods"
     },
+    "coordinateTargeting": {
+     "type": "object",
+     "schema_ref": "coordinateTargetingSchema",
+     "raw": "coordinateTargetingSchema.nullish()",
+     "optional": true,
+     "nullable": true
+    },
+    "methodSize": {
+     "type": "object",
+     "schema_ref": "methodSizeSchema",
+     "raw": "methodSizeSchema.nullish()",
+     "optional": true,
+     "nullable": true
+    },
     "target": {
      "raw": "z.enum(AttackTargets)",
      "type": "enum",
@@ -130,14 +154,23 @@
      "max": 5
     },
     "statClassification": {
-     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"Highest\")",
+     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"None\")",
      "type": "enum",
      "coerce": false,
      "optional": true,
      "nullable": true,
      "enum_ref": "StatTypes",
      "_transform": true,
-     "doc": "The column is nullable, so rows stored before this field existed - and any\n  // write that leaves it out - arrive as null. Fall back to the catch-all\n  // classification rather than blocking the save.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"Highest\")"
+     "doc": "The column is nullable, so rows stored before this field existed - and any\n  // write that leaves it out - arrive as null. Fall back to the catch-all\n  // classification rather than blocking the save.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"None\")"
+    },
+    "elementClassification": {
+     "raw": "z.enum(ElementNames).nullish().transform((v) => v ?? \"None\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "enum_ref": "ElementNames",
+     "_transform": true
     },
     "hidden": {
      "raw": "z.coerce.boolean().optional()",
@@ -228,6 +261,15 @@
      "min": 0,
      "max": 300
     },
+    "requiredSkillId": {
+     "raw": "z.string().max(191).nullish().transform((v) => v || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "max": 191,
+     "_transform": true
+    },
     "bloodlineId": {
      "raw": "z.string().nullable()",
      "type": "string",
@@ -268,6 +310,22 @@
      "default": "BOTH",
      "enum_ref": "BattleUsageTypes"
     },
+    "reskinParentJutsuId": {
+     "raw": "z.string().nullish().transform((v) => v || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "_transform": true
+    },
+    "bloodlineReskinId": {
+     "raw": "z.string().nullish().transform((v) => v || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "_transform": true
+    },
     "parentJutsuId": {
      "raw": "z.string().nullable().optional().transform((v) => (v === \"\" ? null : v) ?? null)",
      "type": "string",
@@ -276,134 +334,102 @@
      "nullable": true,
      "_transform": true
     },
-    "requiredNinjutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredNinjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredNinjutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredGenjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredGenjutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredTaijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredGenjutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredBukijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredTaijutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredBloodlineMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredTaijutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredSageMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
-     "int": true,
-     "min": 0,
-     "_helper": "makeCappedNullableNumber"
-    },
-    "requiredBukijutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
-     "type": "preprocess",
-     "coerce": true,
-     "optional": false,
-     "nullable": true,
-     "enum_ref": "WeaponTypes",
-     "int": true,
-     "min": 0,
-     "_helper": "makeCappedNullableNumber"
-    },
-    "requiredBukijutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
-     "type": "preprocess",
-     "coerce": true,
-     "optional": false,
-     "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredStrength": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredSpeed": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredIntelligence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredWillpower": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
@@ -415,9 +441,57 @@
    "schema": "ItemValidatorRawSchema",
    "superRefine": [
     "SuperRefineBase",
-    "SuperRefineItem"
+    "SuperRefineItem",
+    "refineItemEconomy"
    ],
    "fields": {
+    "auctionMinPrice": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value == null ? null : value), z.coerce.number().int().0(0).4_294_967_295(4_294_967_295).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "_helper": "nullableInteger",
+     "spread_from": "itemEconomySchema"
+    },
+    "auctionMaxPrice": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value == null ? null : value), z.coerce.number().int().0(0).4_294_967_295(4_294_967_295).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "_helper": "nullableInteger",
+     "spread_from": "itemEconomySchema"
+    },
+    "purchaseLimit": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value == null ? null : value), z.coerce.number().int().1(1).MAX_ITEM_PURCHASE_LIMIT(MAX_ITEM_PURCHASE_LIMIT).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "_helper": "nullableInteger",
+     "spread_from": "itemEconomySchema"
+    },
+    "purchaseLimitPeriod": {
+     "raw": "z.enum(ItemPurchaseLimitPeriods).default(\"NONE\")",
+     "type": "enum",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": "NONE",
+     "enum_ref": "ItemPurchaseLimitPeriods",
+     "spread_from": "itemEconomySchema"
+    },
+    "furnitureData": {
+     "type": "object",
+     "schema_ref": "furnitureDataSchema",
+     "raw": "furnitureDataSchema.nullable().prefault(null)",
+     "nullable": true,
+     "spread_from": "furnitureItemSchema"
+    },
     "name": {
      "raw": "z.string().trim()",
      "type": "string",
@@ -541,23 +615,23 @@
      "default": false
     },
     "maxImbueNumber": {
-     "raw": "z.coerce.number().int().min(1).max(3)",
+     "raw": "z.coerce.number().int().min(0).max(3)",
      "type": "number",
      "coerce": true,
      "optional": false,
      "nullable": false,
      "int": true,
-     "min": 1,
+     "min": 0,
      "max": 3
     },
     "maxDurability": {
-     "raw": "z.coerce.number().int().min(1).max(100)",
+     "raw": "z.coerce.number().int().min(0).max(100)",
      "type": "number",
      "coerce": true,
      "optional": false,
      "nullable": false,
      "int": true,
-     "min": 1,
+     "min": 0,
      "max": 100
     },
     "inShop": {
@@ -656,6 +730,20 @@
      "nullable": false,
      "enum_ref": "AttackMethods"
     },
+    "coordinateTargeting": {
+     "type": "object",
+     "schema_ref": "coordinateTargetingSchema",
+     "raw": "coordinateTargetingSchema.nullish()",
+     "optional": true,
+     "nullable": true
+    },
+    "methodSize": {
+     "type": "object",
+     "schema_ref": "methodSizeSchema",
+     "raw": "methodSizeSchema.nullish()",
+     "optional": true,
+     "nullable": true
+    },
     "target": {
      "raw": "z.enum(AttackTargets)",
      "type": "enum",
@@ -726,134 +814,102 @@
      "nullable": true,
      "_transform": true
     },
-    "requiredNinjutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredNinjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredNinjutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredGenjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredGenjutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredTaijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredGenjutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredBukijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredTaijutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredBloodlineMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
-    "requiredTaijutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
+    "requiredSageMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
-     "int": true,
-     "min": 0,
-     "_helper": "makeCappedNullableNumber"
-    },
-    "requiredBukijutsuOffence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
-     "type": "preprocess",
-     "coerce": true,
-     "optional": false,
-     "nullable": true,
-     "enum_ref": "WeaponTypes",
-     "int": true,
-     "min": 0,
-     "_helper": "makeCappedNullableNumber"
-    },
-    "requiredBukijutsuDefence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_STATS_CAP(MAX_STATS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.stri",
-     "type": "preprocess",
-     "coerce": true,
-     "optional": false,
-     "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredStrength": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredSpeed": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredIntelligence": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
     },
     "requiredWillpower": {
-     "raw": "z.preprocess( (v) => (v === \"\" || v === null || v === undefined ? null : v), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), ); export const JutsuValidatorRawSchema = z.object({ name: z.string().trim(), image: z.string",
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_GENS_CAP(MAX_GENS_CAP).nullable(), )",
      "type": "preprocess",
      "coerce": true,
      "optional": false,
      "nullable": true,
-     "enum_ref": "WeaponTypes",
      "int": true,
      "min": 0,
      "_helper": "makeCappedNullableNumber"
@@ -914,6 +970,175 @@
      "nullable": false,
      "default": false
     },
+    "isFarmSeed": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "farmGrowTimeSeconds": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "farmYieldItemId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "farmMinLevel": {
+     "raw": "z.coerce.number().int().min(1).max(100).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "farmPlantExperience": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "farmHarvestExperience": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "farmSellValue": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "farmExtractSeedItemId": {
+     "raw": "z.string().nullable()",
+     "type": "string",
+     "coerce": false,
+     "optional": false,
+     "nullable": true
+    },
+    "farmExtractSeedCount": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "isFarmFertilizer": {
+     "raw": "z.coerce.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "farmTimeReductionSeconds": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "farmFertilizerExperience": {
+     "raw": "z.coerce.number().int().min(0).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0
+    },
+    "cookingMinLevel": {
+     "raw": "z.coerce.number().int().min(1).max(100).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "int": true,
+     "min": 1,
+     "max": 100
+    },
+    "cookingTimeSeconds": {
+     "raw": "z.coerce.number().int().min(1).max(MAX_MEAL_DURATION_SECONDS).prefault(60)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 60,
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_MEAL_DURATION_SECONDS",
+     "max": 604800
+    },
+    "cookingOutputQuantity": {
+     "raw": "z.coerce.number().int().min(1).max(MAX_COOKING_OUTPUT).prefault(1)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 1,
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_COOKING_OUTPUT",
+     "max": 100
+    },
+    "cookingExperience": {
+     "raw": "z.coerce.number().int().min(0).max(1000000).prefault(0)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 0,
+     "int": true,
+     "min": 0,
+     "max": 1000000
+    },
+    "mealDurationSeconds": {
+     "raw": "z.coerce.number().int().min(1).max(MAX_MEAL_DURATION_SECONDS).prefault(60)",
+     "type": "number",
+     "coerce": true,
+     "optional": false,
+     "nullable": false,
+     "default": 60,
+     "int": true,
+     "min": 1,
+     "max_ref": "MAX_MEAL_DURATION_SECONDS",
+     "max": 604800
+    },
     "craftingExperience": {
      "raw": "z.coerce.number().int().min(0).prefault(0)",
      "type": "number",
@@ -931,6 +1156,15 @@
      "optional": false,
      "nullable": true,
      "enum_ref": "ItemTypes"
+    },
+    "requiredSkillId": {
+     "raw": "z.string().max(191).nullish().transform((v) => v || null)",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": true,
+     "max": 191,
+     "_transform": true
     },
     "bloodlineId": {
      "raw": "z.string().nullable()",
@@ -1007,14 +1241,14 @@
      "max": 100
     },
     "statClassification": {
-     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"Highest\")",
+     "raw": "z.enum(StatTypes).nullish().transform((v) => v ?? \"None\")",
      "type": "enum",
      "coerce": false,
      "optional": true,
      "nullable": true,
      "enum_ref": "StatTypes",
      "_transform": true,
-     "doc": "Nullable in the schema for the same reason as on jutsu - see JutsuValidatorRawSchema.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"Highest\")"
+     "doc": "Nullable in the schema for the same reason as on jutsu - see JutsuValidatorRawSchema.\n  statClassification: z\n    .enum(StatTypes)\n    .nullish()\n    .transform((v) => v ?? \"None\")"
     },
     "villageId": {
      "raw": "z.string().nullable()",
@@ -1047,7 +1281,7 @@
      "max": 256
     },
     "effects": {
-     "raw": "z.array(AllTags).superRefine(SuperRefineEffects)",
+     "raw": "z.array(AllTags).superRefine(SuperRefineEffects).superRefine(SuperRefinePassiveEffects)",
      "type": "array",
      "coerce": false,
      "optional": false,
@@ -1064,6 +1298,72 @@
     "questSuperRefine"
    ],
    "fields": {
+    "requiredNinjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
+    "requiredGenjutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
+    "requiredTaijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
+    "requiredBukijutsuMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
+    "requiredBloodlineMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
+    "requiredSageMastery": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(0).MAX_MASTERY_CAP(MAX_MASTERY_CAP).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 0,
+     "_helper": "makeCappedNullableNumber",
+     "spread_from": "masteryRequirementFields"
+    },
     "name": {
      "raw": "z.string().min(1).max(191)",
      "type": "string",
@@ -1130,6 +1430,17 @@
      "nullable": true,
      "enum_ref": "GATHERING_RANKS"
     },
+    "petTaskMinutes": {
+     "raw": "z.preprocess( (value) => (value === \"\" || value === null || value === undefined ? null : value), z.coerce.number().int().min(1).max(PET_TASK_MAX_MINUTES).nullable(), )",
+     "type": "preprocess",
+     "coerce": true,
+     "optional": false,
+     "nullable": true,
+     "int": true,
+     "min": 1,
+     "max_ref": "PET_TASK_MAX_MINUTES",
+     "schema_ref": "petTaskMinutesSchema"
+    },
     "requiredLevel": {
      "raw": "z.coerce.number().min(0).max(100).optional()",
      "type": "number",
@@ -1137,6 +1448,16 @@
      "optional": true,
      "nullable": false,
      "min": 0,
+     "max": 100
+    },
+    "requiredFarmingLevel": {
+     "raw": "z.coerce.number().min(0).max(FARMING_MAX_LEVEL).optional()",
+     "type": "number",
+     "coerce": true,
+     "optional": true,
+     "nullable": false,
+     "min": 0,
+     "max_ref": "FARMING_MAX_LEVEL",
      "max": 100
     },
     "maxLevel": {
@@ -1232,7 +1553,7 @@
      "enum_ref": "QuestTypes"
     },
     "content": {
-     "raw": "z.object({ objectives: z.array(AllObjectives), reward: ObjectiveReward, sceneBackground: z.string().prefault(\"\"), sceneCharacters: z.array(z.string()).prefault([]), })",
+     "raw": "z.object({ ...questRunFields, objectives: z.array(AllObjectives), reward: QuestReward, ...questRewardModeFields, sceneBackground: z.string().prefault(\"\"), sceneCharacters: z.array(z.string()).prefault([]), })",
      "type": "array",
      "coerce": false,
      "optional": false,
@@ -1246,6 +1567,22 @@
      "coerce": true,
      "optional": false,
      "nullable": false
+    },
+    "teamEnabled": {
+     "raw": "z.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": false
+    },
+    "publicLocations": {
+     "raw": "z.boolean().prefault(false)",
+     "type": "boolean",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "default": false
     },
     "retryDelay": {
      "raw": "z.enum(RetryQuestDelays).optional()",
@@ -1396,6 +1733,23 @@
    "schema": "AiRule",
    "superRefine": [],
    "fields": {
+    "id": {
+     "raw": "z.string().optional()",
+     "type": "string",
+     "coerce": false,
+     "optional": true,
+     "nullable": false
+    },
+    "group": {
+     "raw": "z.object({ id: z.string().min(1), name: z.string().trim().min(1).max(100), note: z.string().max(1000).prefault(\"\"), }).optional()",
+     "type": "object",
+     "coerce": false,
+     "optional": true,
+     "nullable": false,
+     "default": "",
+     "min": 1,
+     "max": 100
+    },
     "conditions": {
      "raw": "z.array(ZodAllAiConditions)",
      "type": "array",
@@ -1405,9 +1759,12 @@
      "items_ref": "ZodAllAiConditions"
     },
     "action": {
-     "type": "object",
-     "schema_ref": "ZodAllAiActions",
-     "raw": "ZodAllAiActions"
+     "raw": "z.union([ ActionMoveTowardsOpponent, ActionEndTurn, ActionUseSpecificJutsu, ActionUseSpecificItem, ActionUseRandomJutsu, ActionUseRandomItem, ActionWithEffectHighestPower, ActionWithHighestPowerJutsuEffect, ActionWithHighestPowerItemEffect,",
+     "type": "union",
+     "coerce": false,
+     "optional": false,
+     "nullable": false,
+     "schema_ref": "ZodAllAiActions"
     }
    }
   }

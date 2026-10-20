@@ -1623,3 +1623,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-19: "I think for rationale we could try to give a more specific reason than just the generic reason. Just a short blurb for the reviewer to explain what they're reviewing and why".
 
 **Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). Forge already supports per-item rationales; no code change.
+
+## RUL-2026-10-20-001 — Adopt the generated skill contracts at TheNinjaRPG@85cecae in one pass, under a reviewed-removal ledger
+
+**Date:** 2026-10-20
+
+**Domain:** Generated contracts (skill `data/` 45c/45d/45e/45f/45g) / adoption gate
+
+**Status:** ACTIVE — Lane A; pending independent review of the frozen SHA
+
+**Supersedes:** none. D-adopt-gate is unchanged in intent: nothing is adopted unless `schema_diff.py diff` exits 0.
+
+**Ruling:** Fix the extractor's blind spots and adopt all five generated contracts in one pass, together with Forge's content contracts, at `85cecaebf4ada2e265a18a1405f63c9637443275` (first adopted at `6524d0fb`; moved to `85cecae` by PR #76 review F1, because that source adds `quest.publicLocations`, which a fetch-merge without it would reset to false) ("Option B"), not a push/131-only validate exception. Genuine upstream removals are adopted only through a ledger that lists, for the exact OLD/NEW file hashes, every breaking atom and the evidenced class it belongs to; `schema_diff.py diff OLD NEW --accept <ledger>` exits 0 only when the breaking set and the ledger are identical. Every ledger class is re-verified against both source pins by `scripts/schema_adoption_ledger.py`, using methods independent of `schema_extract.py`; an atom no class verifies blocks adoption.
+
+**Evidence:** Director, 2026-10-20, answering (a) push/131-only exception vs (b) full extractor fix and adoption: "Do B, we'll have to fix more than Stormrender. We'll do one big pass and put it in for review".
+
+**Canonical destination:** `state/schema_adoption_ledger_85cecae.json` (the ledger, OLD = `main`'s bdec2883-era files), `skills/building-tnr-content/scripts/schema_diff.py` (`--accept`), `scripts/schema_adoption_ledger.py`; handoff `docs/handoffs/STORMRENDER_FORGE_REPIN_6524D0F.md`.
+
+**Boundary:** Not a law change. Law 4's tag list and `["Highest"]` default, and law 6's flat power cap of 100, now disagree with the source; they go to the law-reconciliation process, not into this ruling. The push/90/93/94 validate exceptions pin the old contract hashes and are voided by their own terms; every diagnostic still reported on them is one they approved.

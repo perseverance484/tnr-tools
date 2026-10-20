@@ -562,12 +562,12 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const v = new Validator(SCHEMAS);
   assert.deepEqual(v.problems("item", { name: "Seed", isFarmSeed: true, farmGrowTimeSeconds: 60, farmYieldItemId: "x" }), []);
   assert.deepEqual(v.problems("quest", { name: "Q", requiredFarmingLevel: 3 }), []);
-  assert.equal(v.knownFields("item").size, 81); assert.equal(v.knownFields("quest").size, 36);
+  assert.equal(v.knownFields("item").size, 82); assert.equal(v.knownFields("quest").size, 38);
   const live = { id: "i1", name: "Old", farmYieldItemId: "y", farmGrowTimeSeconds: 120, isFarmSeed: true, createdAt: "x" };
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "94f9d84c770004172ba423ada3d6710849acc451");
+  assert.equal(SCHEMAS._provenance.pin, "85cecaebf4ada2e265a18a1405f63c9637443275");
 });
 
 test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {
@@ -582,6 +582,40 @@ test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item colum
   const i = mergeForUpdate("item", itemLive, { name: "Cache 2" }, v.knownFields("item"));
   for (const k of ["auctionMinPrice", "auctionMaxPrice", "purchaseLimit", "purchaseLimitPeriod", "requiredSkillId"]) assert.equal(i[k], itemLive[k], `item ${k} must survive`);
   for (const k of ["requiredNinjutsuOffence", "ninjutsuOffence"]) assert.ok(!v.knownFields(k.startsWith("required") ? "jutsu" : "ai").has(k), `${k} was dropped upstream`);
+});
+
+// push/131 (Stormrender): an item edit that replaces `effects` on a live record whose first effect is
+// the elementaldamage tag (ElementalDamageTag = DamageTag.omit({ elements }).extend(...) at 6524d0f).
+// At 94f9d84 the tag did not exist, so Forge refused the edit fail-closed. Replayed here against the
+// operator's full capture of the live row, socket-free.
+test("re-pin 6524d0f: an item edit keeps an elementaldamage effect and adds statTypes None / generalTypes Highest", () => {
+  const v = new Validator(SCHEMAS, NESTED);
+  const cap = JSON.parse(readFileSync(new URL("../../harvests/inbox/tnr_results_1792478135730.json", import.meta.url), "utf8"));
+  const live = cap.captures.map((c) => c.data).find((d) => d.id === "cLXXf8RJv5l9B_gGsYN2a");
+  const manifest = JSON.parse(readFileSync(new URL("../../push/131_stormrender_highest_scaling_suggestion.json", import.meta.url), "utf8"));
+  const edit = manifest.items[0].data;
+  assert.equal(live.effects[0].type, "elementaldamage");
+  assert.equal(live.effects[0].statTypes, undefined); assert.equal(live.effects[0].generalTypes, undefined);
+  // the edit itself and the full merged payload both pass pre-send validation
+  assert.deepEqual(v.problems("item", edit), []);
+  const payload = mergeForUpdate("item", live, edit, v.knownFields("item"));
+  assert.deepEqual(v.problems("item", payload), []);
+  // every live column the pin knows survives, including methodSize (absent from the 94f9d84 item set)
+  assert.ok(v.knownFields("item").has("methodSize"));
+  for (const k of v.knownFields("item")) if (k !== "effects" && live[k] !== undefined) assert.deepEqual(payload[k], live[k], `item ${k} must survive the merge`);
+  for (const k of ["id", "createdAt", "updatedAt"]) assert.equal(payload[k], undefined, `${k} is server-owned`);
+  // effects: exactly the two added selectors on effects[0], nothing else moved
+  const { statTypes, generalTypes, ...rest0 } = payload.effects[0];
+  assert.deepEqual(statTypes, ["None"]); assert.deepEqual(generalTypes, ["Highest"]);
+  assert.deepEqual(rest0, live.effects[0]);
+  assert.deepEqual(payload.effects[1], live.effects[1]);
+  assert.equal(payload.effects.length, 2);
+  // the derived key set is DamageTag's minus `elements`: a typo or an omitted key is still refused
+  const ed = (extra) => ({ name: "S", effects: [{ ...live.effects[0], ...extra }] });
+  assert.match(v.problems("item", ed({ elements: ["Fire"] })).join(";"), /effects\[0\] \(elementaldamage\): unknown key "elements"/);
+  assert.match(v.problems("item", ed({ genralTypes: ["Highest"] })).join(";"), /unknown key "genralTypes"/);
+  // ordinary damage keeps accepting the same selectors (and its elements key)
+  assert.deepEqual(v.problems("item", { name: "S", effects: [{ type: "damage", power: 30, calculation: "formula", statTypes: ["Highest"], generalTypes: ["Highest"], elements: ["Fire"] }] }), []);
 });
 
 test("L3: the budget mirrors the server's weighted sliding window, so this client alone never reaches 60% of the limit at the bucket edge", async () => {
@@ -1014,7 +1048,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   const v = new Validator(SCHEMAS);
   assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
   assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
-  assert.equal(v.knownFields("ai").size, 181); // insertAiSchema at 94f9d84 (post-0056)
+  assert.equal(v.knownFields("ai").size, 189); // insertAiSchema at 6524d0f/85cecae (post-0056; +pet/title columns, -customTitle)
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();
@@ -1115,4 +1149,38 @@ test("re-pin 94f9d84: ai columns insertAiSchema omits at the pin are refused eve
   const v = V();
   assert.match(v.problems("ai", { warMission: "x" }, { username: "X", warMission: null }).join(";"), /"warMission" is not writable on an ai/);
   assert.match(v.problems("ai", { currentlyTrainingElement: "Fire" }).join(";"), /not writable on an ai/);
+});
+
+// derive_nested read `// "anbu_kills",` inside SimpleTasks as a live member, so Forge accepted six
+// quest tasks the server's z.enum refuses (anbu_kills, tournaments_won, village_funds_earned,
+// any_missions_completed, any_crimes_completed, students_trained). Commented members are not members.
+test("nested contract: commented-out task enum members are not objective discriminators", () => {
+  for (const t of ["anbu_kills", "tournaments_won", "village_funds_earned", "any_missions_completed", "any_crimes_completed", "students_trained"])
+    assert.equal(new Validator(SCHEMAS, NESTED).nested.objectives[t], undefined, `${t} is commented out upstream`);
+  for (const t of ["espionage", "pvp_kills", "damage_dealt", "dialog", "start_battle"]) assert.ok(new Validator(SCHEMAS, NESTED).nested.objectives[t], `${t} is a live task`);
+});
+
+// PR #76 review F1. At 85cecae QuestValidatorRawSchema gains publicLocations: z.boolean().prefault(false)
+// and quests.update saves {...input.data}, so a fetch-merge filtered to a contract WITHOUT the column
+// would send no key and the server would reset a public quest to false on any unrelated edit.
+test("re-pin 85cecae: quest publicLocations survives an unrelated fetch-merge edit", () => {
+  const v = new Validator(SCHEMAS, NESTED);
+  assert.ok(v.knownFields("quest").has("publicLocations"));
+  const live = { id: "q1", name: "Old", publicLocations: true, hidden: true, createdAt: "x", updatedAt: "y" };
+  const payload = mergeForUpdate("quest", live, { name: "New" }, v.knownFields("quest"));
+  assert.equal(payload.publicLocations, true, "an edit that does not assert publicLocations must re-send the live true");
+  assert.equal(payload.name, "New");
+  const off = mergeForUpdate("quest", live, { publicLocations: false }, v.knownFields("quest"));
+  assert.equal(off.publicLocations, false, "an asserted value still wins");
+  assert.deepEqual(v.problems("quest", { name: "Q", publicLocations: true }), []);
+});
+
+test("re-pin 85cecae: objectives accept the four map-location keys and still refuse a typo", () => {
+  const v = new Validator(SCHEMAS, NESTED);
+  const quest = (extra) => ({ name: "Q", content: { objectives: [{ task: "move_to_location", id: "o1", ...extra }] } });
+  const keys = { structureAssetId: "a1", locationName: "Old Mill", locationDescription: "A ruin", structureScale: 1 };
+  assert.deepEqual(v.problems("quest", quest(keys)), []);
+  for (const t of ["dialog", "start_battle", "collect_item"]) for (const k of Object.keys(keys))
+    assert.ok(v.nested.objectives[t].includes(k), `${t}.${k}`);
+  assert.match(v.problems("quest", quest({ locationNmae: "x" })).join(";"), /unknown key "locationNmae"/);
 });
