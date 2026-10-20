@@ -1,11 +1,11 @@
-# Bakuhatsu — Howitzer Crash — proposed isolated-generation brief
+# Bakuhatsu — Howitzer Crash — approved isolated-generation brief
 
 **State:** P0 target lock COMPLETE · **DIRECTION_APPROVED** (director 2026-10-20) · **RAW_VISUAL_APPROVED=PENDING**.
 **Target lock v1 SHA-256:** `361b5cdcf2065407bb9b1143cc5af6502e766f2b73446481e52d9fd1077602d3`
 **Authority:** `docs/design/bakuhatsu/JUTSU_TARGET_LOCKS.json`, `JUTSU_ICON_REGISTER.md`, `docs/workflows/ISOLATED_ART_GENERATION.md` P0 A–F.
 **Source basis:** original `BR-008_Bakuhatsu.zip` (`7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`) and 2026-10-17 historical `jutsu.get`, **not** current-live game verification.
 
-## Proposed final-family composition: TWO-STAGE CONCUSSIVE IMPACT
+## Approved final-family composition: TWO-STAGE CONCUSSIVE IMPACT
 
 **Target:** Howitzer Crash · B-rank BLOODLINE · jutsu ID `hW4IV1Hp59BqVFx0u-gTd` · Bakuhatsu A-rank bloodline ID `RNUcHSH2c00IhOLc2C9aJ`.
 
@@ -28,7 +28,7 @@
 
 **Absolute negatives:** no actor/face/limbs/hands/fingers; no artillery gun, cannon, rocket, bullet, or weapon; no single unstructured fireball, disconnected energy arrow, text/UI/borders/marks, floating glyphs, magic spell-circle, lava/boil effects, or typography.
 
-### Reference inputs — attach exactly TWO individual images after approval
+### Reference inputs — attach exactly TWO individual images
 
 1. `hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png` — original ZIP SHA-256 `ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508` — **IDENTITY ONLY**. The original fighter's anatomy, clothes, or pose must not be copied.
 2. `raw_bakuhatsu_inferno_cataclysm_v1.jpg` — director-approved SHA-256 `6bdaaf03a35532b0cfa3bc64150187540a2b4bbcaf87b283d0f6d09e0828e214` — **STYLE/MATERIAL ONLY**, never imitate its vertical eruption or fissure geometry.
