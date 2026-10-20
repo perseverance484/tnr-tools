@@ -1,6 +1,6 @@
 # Kitsune — Juvenile Growth → True Metamorphosis
 
-**Status:** Director-directed **creative reset** (2026-10-20); **precise appearance milestones below are PROPOSED** until visual approval.  
+**Status:** Director-directed **creative reset** (2026-10-20); the original table below is the **proposal history**. **Director approval of the species visual master and Rank 1–9 concepts/tail counts was received 2026-10-20**; see [Living Lineages Kitsune Demonstration Register](LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md) and the [37-image tracking ledger](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json) for the operative approved visual-pilot direction and exact-byte/reference limitations.  
 **Species:** Kitsune, `pet-species-65` (source-seeded; not live-captured).  
 **Game source:** `studie-tech/TheNinjaRPG@19e2010f9cd3f9be26fff96cca0bf6dece322f11`.  
 **Previous experiment:** [KITSUNE_RANK_1_TO_3_EVOLUTION_LOCK_PROPOSAL.md](KITSUNE_RANK_1_TO_3_EVOLUTION_LOCK_PROPOSAL.md) — **RETIRED**. Images had near-identical silhouettes because their *Rank 1* designs already looked advanced.
