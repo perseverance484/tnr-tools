@@ -146,3 +146,13 @@ of Highest, see 131) and `generalTypes: ["Highest"]` (dauntless, 2026-10-20). Ev
 unchanged from the 2026-10-20 public read. Neither jutsu is equipped on a captured AI.
 `validate.py`: 0 errors, 1 warning (L06 on Magma Slayer's percentage wound rider, left as is: 48 of 55
 visible wound effects carry no scaling types). Run it from Forge, then use **Check suggestions**.
+
+## 135 Tetsugan descriptions (suggest mode, QA ticket 4)
+
+`135_tetsugan_descriptions.json` sends seven text edits to the content review desk; it does not save
+directly. Seven visible Tetsugan jutsu (Crimson Thrust, Equilibrium Guard Strike, Inner Peace, Middle
+Guard Stance, Phantom Slash, Shadow Pierce, Vacuum Fan) still read "New jutsu description". Each gets
+a description drafted from its effects and battle line; Equilibrium Guard Strike also replaces its
+generic "%user uses %jutsu on %target" battle line (dauntless, 2026-10-20). Only text changes;
+`injectableInBattle` is re-sent at its live value. `validate.py`: 0 errors, 0 warnings.
+Run it from Forge, then use **Check suggestions**.
