@@ -84,7 +84,7 @@ class Ledger(unittest.TestCase):
     def test_stormrender_is_classified_but_never_a_new_candidate(self):
         r = ledger(load())["records"][led.STORMRENDER_ID]
         self.assertEqual(r["classifications"], [led.C_MISS_BOTH, led.C_STORMRENDER])
-        self.assertTrue(r["status"].startswith("ALREADY STAGED / PR #73"))
+        self.assertTrue(r["status"].startswith("ALREADY STAGED: push/131"))
         self.assertEqual([o["type"] for o in r["otherEffects"]], ["increasedamagetaken"])
 
     def test_each_dynamic_tag_is_assessed_independently(self):
@@ -173,6 +173,82 @@ class Ledger(unittest.TestCase):
         for name in ("b.ledger.json", "b.ledger.md"):
             a, c = (o1 / name).read_text(), (o2 / name).read_text()
             self.assertEqual(a.replace(str(o1.parent), ""), c.replace(str(o2.parent), ""))
+
+
+class CorruptedBundles(unittest.TestCase):
+    """Census review F1/F2 negative controls: the ledger recomputes, it does not trust Forge."""
+
+    def assertNotComplete(self, b, needle=None):
+        L = ledger(b)
+        self.assertNotEqual(L["status"], "COMPLETE")
+        self.assertEqual(run_cli(b)[0], 1)
+        if needle:
+            self.assertTrue(any(needle in e for e in L["ledgerErrors"]), L["ledgerErrors"])
+        return L
+
+    def test_reviewers_counterexample_tagged_target_with_empty_body_effects(self):
+        # tagged inventory row, data.effects:[] , unchanged updatedAt, accepted:true, verdict COMPLETE
+        b = load()
+        c = point(b, "fx-missing-stats")
+        c["data"]["effects"] = []
+        self.assertEqual(c["accepted"], True)
+        self.assertEqual(b["census"]["verdict"], "COMPLETE")
+        L = self.assertNotComplete(b, "no elementaldamage effect in the captured body")
+        self.assertIn("fx-missing-stats", L["failed"])
+
+    def test_body_disagreeing_with_its_projection_at_the_same_updatedAt(self):
+        b = load()
+        point(b, "fx-both-present")["data"]["effects"].append({"type": "heal", "power": 1})
+        self.assertNotComplete(b, "!= inventory projection")
+
+    def test_target_reason_and_updatedAt_are_recomputed_from_the_row(self):
+        b = load()
+        t = next(t for t in b["census"]["targets"] if t["id"] == "fx-static")
+        t["reason"] = "effectsMalformed"
+        self.assertNotComplete(b, "reason 'effectsMalformed' but its inventory row gives 'elementaldamage'")
+        b = load()
+        next(t for t in b["census"]["targets"] if t["id"] == "fx-static")["updatedAt"] = "2026-01-01T00:00:00.000Z"
+        self.assertNotComplete(b, "but its inventory row has")
+
+    def test_duplicate_target_and_extra_or_duplicate_point_captures(self):
+        b = load()
+        b["census"]["targets"].append(dict(b["census"]["targets"][0]))
+        self.assertNotComplete(b, "census.targets repeats an id")
+        b = load()
+        extra = copy.deepcopy(point(b, "fx-static"))
+        extra["input"]["id"] = "fx-damage-only"
+        b["captures"].append(extra)
+        self.assertNotComplete(b, "which is not a census target")
+        b = load()
+        b["captures"].append(copy.deepcopy(point(b, "fx-static")))
+        self.assertNotComplete(b, "two census captures for fx-static")
+
+    def test_malformed_flag_is_recomputed_from_effect_types(self):
+        b = load()
+        row = next(r for r in b["census"]["rows"] if r["id"] == "fx-damage-only")
+        row["effectTypes"] = ["damage", None]   # a malformed member, flag still false
+        self.assertNotComplete(b, "effectsMalformed=False but its effectTypes say True")
+
+    def test_a_malformed_target_makes_the_ledger_ambiguous_even_if_the_bundle_says_complete(self):
+        # review F1: a row with an untyped member, captured, consistent everywhere, verdict forged COMPLETE
+        b = load()
+        row = next(r for r in b["census"]["rows"] if r["id"] == "fx-damage-only")
+        row["effectTypes"], row["effectsMalformed"] = ["damage", None], True
+        b["census"]["counts"]["malformed"] = 1
+        b["census"]["targets"].append({"id": "fx-damage-only", "updatedAt": row["updatedAt"], "reason": "effectsMalformed"})
+        body = copy.deepcopy(point(b, "fx-static"))
+        body["input"]["id"] = "fx-damage-only"
+        body["data"] = {**body["data"], "id": "fx-damage-only", "updatedAt": row["updatedAt"], "effects": [{"type": "damage", "power": 30}, {"power": 1}]}
+        b["captures"].append(body)
+        L = self.assertNotComplete(b, "bundle census verdict COMPLETE but the ledger derives AMBIGUOUS")
+        self.assertEqual(L["ambiguous"], ["fx-damage-only"])
+        self.assertEqual(L["ledgerVerdict"], "AMBIGUOUS")
+        self.assertTrue(L["records"]["fx-damage-only"]["status"].startswith("MANUAL REVIEW"))
+        # with the honest AMBIGUOUS verdict there is no ledger error, and still no COMPLETE
+        b["census"]["verdict"] = "AMBIGUOUS"
+        L = ledger(b)
+        self.assertEqual(L["ledgerErrors"], [])
+        self.assertTrue(L["status"].startswith("NOT COMPLETE"))
 
 
 if __name__ == "__main__":

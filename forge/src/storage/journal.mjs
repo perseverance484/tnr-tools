@@ -89,7 +89,10 @@ export function censusVerdict(job) {
   if (!Array.isArray(pts)) return "INCOMPLETE";
   if (pts.length !== c.targets.length) return "INCOMPLETE";
   if (pts.some((p) => p.stale)) return "STALE";
-  return pts.every((p) => p.accepted && p.persistOk === true) ? "COMPLETE" : "FAILED";
+  if (!pts.every((p) => p.accepted && p.persistOk === true)) return "FAILED";
+  // Every body is captured, but a target whose list effects were malformed was never ruled in or
+  // out: the census cannot certify the population until that is resolved explicitly.
+  return c.targets.some((t) => t.reason === "effectsMalformed") ? "AMBIGUOUS" : "COMPLETE";
 }
 
 export function jobOutcome(job) {

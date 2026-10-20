@@ -97,7 +97,12 @@ test("the projection keeps exactly the allowlisted fields and normalizes Date to
   assert.deepEqual(Object.keys(p).sort(), ["effectTypes", "effectsMalformed", "hidden", "id", "itemType", "name", "updatedAt"]);
   assert.equal(p.updatedAt, T0.toISOString());
   assert.deepEqual(p.effectTypes, ["elementaldamage", null]);
+  assert.equal(p.effectsMalformed, true, "a member without a type is malformed even beside a real tag (review F1)");
   assert.equal(projectRow({ id: "x", effects: "[]" }).effectsMalformed, true);
+  for (const fx of [[null], [{ power: 30 }], ["elementaldamage"], [{ type: "" }], [{ type: 7 }], [[{ type: "elementaldamage" }]]])
+    assert.equal(projectRow({ id: "x", effects: fx }).effectsMalformed, true, JSON.stringify(fx));
+  assert.equal(projectRow({ id: "x", effects: [] }).effectsMalformed, false);
+  assert.equal(projectRow({ id: "x", effects: [{ type: "damage" }] }).effectsMalformed, false);
 });
 
 // ---------------------------------------------------------------- the happy path
@@ -175,17 +180,38 @@ test("a clean zero-match census is COMPLETE with no point reads", async () => {
   assert.equal(b.census.targets.length, 0);
 });
 
-test("a row whose effects cannot be parsed is captured too, as effectsMalformed", async () => {
+test("a row whose effects cannot be parsed is captured as evidence, and the census is AMBIGUOUS, never COMPLETE", async () => {
   const h = harness();
   h.game.seed("item", item("m", { effects: "not-an-array" }));
   h.runner.plan(CENSUS(5), { jobId: "mal" });
   await h.runner.run("mal");
   const job = h.journal.get("mal");
   assert.deepEqual(job.census.targets, [{ id: "m", updatedAt: T0.toISOString(), reason: "effectsMalformed" }]);
-  assert.equal(job.capturesCensus[0].accepted, false, "an unparseable body cannot be accepted");
-  assert.match(job.capturesCensus[0].problems.join(), /effects is not an array/);
+  assert.equal(job.capturesCensus[0].persistOk, true, "its full body is kept: it is what the game holds");
+  assert.equal(censusVerdict(job), "AMBIGUOUS");
   assert.equal(jobOutcome(job), "failed");
+  assert.equal((await h.bundle("mal")).census.verdict, "AMBIGUOUS");
 });
+
+// Census review F1: a malformed MEMBER of an effects array used to count as well-formed, so the row
+// fell out of the target set and a census could be COMPLETE without ever reading it.
+for (const [label, fx] of [["null member", [null]], ["untyped member", [{ power: 30 }]], ["bare string member", ["elementaldamage"]],
+  ["tag beside an untyped member", [ed(), { power: 1 }]]]) {
+  test(`malformed effect member (${label}): the record is a target, its body is captured, the census is never COMPLETE`, async () => {
+    const h = harness();
+    h.game.seed("item", item("ok", { effects: [{ type: "damage", power: 1 }] }));
+    h.game.seed("item", item("bad", { effects: fx }));
+    h.runner.plan(CENSUS(5), { jobId: "mm" });
+    const s = await h.runner.run("mm");
+    const job = h.journal.get("mm");
+    assert.deepEqual(job.census.targets, [{ id: "bad", updatedAt: T0.toISOString(), reason: "effectsMalformed" }]);
+    assert.equal(job.census.counts.malformed, 1);
+    assert.deepEqual(getCalls(h.game).map((c) => c.input.id), ["bad"], "the malformed record gets its full point read");
+    assert.equal(job.capturesCensus[0].persistOk, true);
+    assert.equal(censusVerdict(job), "AMBIGUOUS");
+    assert.equal(s.outcome, "failed", "an ambiguous census is never success");
+  });
+}
 
 // ---------------------------------------------------------------- Stage A refusals
 const stageAFailure = async (hook, re, verdict = "FAILED") => {
@@ -378,6 +404,41 @@ test("Pause after this item stops a census between point reads and resumes at th
   const r = await h.runner.run("up");
   assert.equal(r.outcome, "success");
   assert.deepEqual(getCalls(h.game).map((c) => c.input.id), TARGETS);
+});
+
+// Census review F3: Pause used to be checked only between Stage B point reads, so the two full
+// scans and the cross-check ran on, spending rate budget, after the operator pressed it.
+for (const [label, at] of [["first scan", 1], ["second scan", 6], ["filtered cross-check", 11]]) {
+  test(`Pause during Stage A (${label}) stops before the next page; nothing is journaled; resume restarts at cursor 0`, async () => {
+    const h = harness();
+    seed(h.game);
+    let pages = 0;
+    h.game.onCall = (path) => { if (path === "item.getAll" && ++pages === at) h.runner.requestPause(); };
+    h.runner.plan(CENSUS(2), { jobId: "pa" });
+    const s = await h.runner.run("pa");
+    assert.equal(s.state, "PAUSED"); assert.equal(s.pause.reason, "USER");
+    assert.match(s.pause.detail, /Stage A/);
+    assert.equal(listCalls(h.game).length, at, "no page is read after the pause request");
+    assert.equal(getCalls(h.game).length, 0);
+    assert.equal(h.journal.get("pa").census, undefined, "a half-finished inventory is never journaled");
+    h.game.onCall = null;
+    const before = listCalls(h.game).length;
+    const r = await h.runner.run("pa");
+    assert.equal(r.outcome, "success");
+    assert.equal(listCalls(h.game)[before].input.cursor, 0, "the resume crawls again from cursor 0");
+    assert.equal(listCalls(h.game)[before].input.hidden, false);
+    assert.deepEqual(getCalls(h.game).map((c) => c.input.id), TARGETS);
+  });
+}
+
+test("Pause during Stage A of a zero-target census does not let it finish DONE", async () => {
+  const h = harness();
+  h.game.seed("item", item("x", { effects: [{ type: "damage", power: 1 }] }));
+  h.game.onCall = (path) => { if (path === "item.getAll") h.runner.requestPause(); };
+  h.runner.plan(CENSUS(5), { jobId: "pz" });
+  const s = await h.runner.run("pz");
+  assert.equal(s.state, "PAUSED");
+  assert.equal(listCalls(h.game).length, 1);
 });
 
 // ---------------------------------------------------------------- the committed ledger fixture

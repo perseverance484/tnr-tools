@@ -46,7 +46,8 @@
     if (!Array.isArray(pts)) return "INCOMPLETE";
     if (pts.length !== c.targets.length) return "INCOMPLETE";
     if (pts.some((p) => p.stale)) return "STALE";
-    return pts.every((p) => p.accepted && p.persistOk === true) ? "COMPLETE" : "FAILED";
+    if (!pts.every((p) => p.accepted && p.persistOk === true)) return "FAILED";
+    return c.targets.some((t) => t.reason === "effectsMalformed") ? "AMBIGUOUS" : "COMPLETE";
   }
   function jobOutcome(job) {
     if (!job || !Array.isArray(job.items)) return "open";
@@ -3374,22 +3375,25 @@
   function projectRow(row) {
     const fx = row?.effects;
     const ok = Array.isArray(fx);
+    const types = ok ? fx.map(effectType) : null;
     return {
       id: row?.id ?? null,
       name: typeof row?.name === "string" ? row.name : null,
       itemType: row?.itemType ?? null,
       hidden: row?.hidden ?? null,
       updatedAt: iso(row?.updatedAt),
-      effectTypes: ok ? fx.map((e) => e && typeof e.type === "string" ? e.type : null) : null,
-      effectsMalformed: !ok
+      effectTypes: types,
+      effectsMalformed: !ok || types.some((t) => t === null)
     };
   }
+  var effectType = (e) => e && typeof e === "object" && !Array.isArray(e) && typeof e.type === "string" && e.type ? e.type : null;
   var hasTag = (row, tag) => !!row.effectTypes?.includes(tag);
-  async function crawl(page, k, hidden, limit, extra, seen) {
+  async function crawl(page, k, hidden, limit, extra, seen, checkpoint) {
     const rows = [], pages = [];
     for (let cursor = 0; ; cursor++) {
       if (cursor >= MAX_PAGES) return { problem: `hidden:${hidden}: no terminating page after ${MAX_PAGES} pages` };
       const input = { itemType: k.itemType, hidden, ...extra, limit, cursor };
+      checkpoint?.({ hidden, cursor, filtered: !!extra.effect });
       const r = await page(input);
       const where = `hidden:${hidden}${extra.effect ? " (filtered)" : ""} cursor ${cursor}`;
       if (!r.ok) return { problem: `${where}: read failed ${r.error?.code ?? "?"}: ${r.error?.message ?? ""}` };
@@ -3411,10 +3415,10 @@
       if (next == null) return { rows, pages };
     }
   }
-  async function scan(page, k, limit, extra = {}) {
+  async function scan(page, k, limit, extra = {}, checkpoint) {
     const seen =  new Set(), rows = [], pages = [];
     for (const hidden of k.partitions) {
-      const c = await crawl(page, k, hidden, limit, extra, seen);
+      const c = await crawl(page, k, hidden, limit, extra, seen, checkpoint);
       if (c.pages) pages.push(...c.pages);
       if (c.problem) return { problem: c.problem, pages };
       rows.push(...c.rows);
@@ -3431,11 +3435,11 @@
       reordered: a.length === b.length && a.some((r, i) => r.id !== b[i].id)
     };
   }
-  async function runInventory(page, { kind, pageLimit }) {
+  async function runInventory(page, { kind, pageLimit }, { checkpoint } = {}) {
     const k = CENSUS_KINDS[kind];
     const out = { inventory: "FAILED", problems: [], scans: [], rows: [], targets: [] };
     for (let n = 0; n < 2; n++) {
-      const s = await scan(page, k, pageLimit);
+      const s = await scan(page, k, pageLimit, {}, checkpoint);
       out.scans.push({ pages: s.pages, rows: s.rows?.length ?? null, digest: s.rows ? digest(s.rows) : null });
       if (s.problem) {
         out.problems.push(`scan ${n + 1}: ${s.problem}`);
@@ -3450,7 +3454,7 @@
       }
     }
     const rows = out.rows;
-    const f = await scan(page, k, pageLimit, { effect: [k.tag] });
+    const f = await scan(page, k, pageLimit, { effect: [k.tag] }, checkpoint);
     const exact = rows.filter((r) => hasTag(r, k.tag)).map((r) => r.id);
     if (f.problem) out.problems.push(`cross-check: ${f.problem}`);
     else {
@@ -3480,8 +3484,10 @@
     else {
       if (d.id !== target.id) problems.push(`answered id ${d.id}`);
       if (d.itemType !== k.itemType) problems.push(`itemType ${d.itemType}`);
-      if (!Array.isArray(d.effects)) problems.push("effects is not an array");
-      else if (target.reason === k.tag && !d.effects.some((e) => e?.type === k.tag)) problems.push(`no ${k.tag} effect any more`);
+      if (target.reason !== "effectsMalformed") {
+        if (!Array.isArray(d.effects)) problems.push("effects is not an array");
+        else if (!d.effects.some((e) => effectType(e) === k.tag)) problems.push(`no ${k.tag} effect any more`);
+      }
     }
     if (entry.persistOk !== true) problems.push(`body not persisted: ${entry.persistError ?? "?"}`);
     const stale = !!d && iso(d.updatedAt) !== target.updatedAt;
@@ -4390,7 +4396,11 @@
       let job = this.journal.get(jobId);
       if (!job.census) {
         this._emit("census:inventory", { jobId });
-        const { rows, ...inv } = await runInventory((input) => this.reader.censusPage(k.listPath, input), spec);
+        const checkpoint = ({ hidden, cursor, filtered }) => {
+          if (this.pauseRequested) throw new Paused("USER", { detail: `census paused during Stage A (${filtered ? "cross-check, " : ""}hidden:${hidden} page ${cursor}); the inventory restarts from cursor 0 on resume` });
+          this._lease(jobId);
+        };
+        const { rows, ...inv } = await runInventory((input) => this.reader.censusPage(k.listPath, input), spec, { checkpoint });
         const inventoryKey = snapshotKey(jobId, "census", "inventory");
         try {
           await this.cache.putSnapshot({ key: inventoryKey, jobId, phase: "census", ordinal: "inventory", path: "census:" + spec.kind, id: null, input: spec, data: rows });
