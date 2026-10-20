@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** 5/12 director-approved visuals (Common Hunter, Common Gatherer, Rare Hunter, Rare Gatherer, Epic Hunter); Epic Gatherer isolated brief READY; 0/12 production-ready exports  
+**Status:** 6/12 director-approved visuals (Common/Rare/Epic Hunter and Gatherer); Legendary Hunter isolated brief READY; 0/12 production-ready exports  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -18,8 +18,9 @@
 - Gate 03 — Rare Hunter's Chest: **DIRECTOR VISUALLY APPROVED (candidate 3)**, source `1000018929.png`; visually locked Rare-tier reinforced cold-gunmetal bands, angular riveted armor, robust clasp housing, four-point star insets and restrained cyan seam. Initial two candidates were correct-subject but **NOT APPROVED** for insufficient differentiation from Common; see recorded feedback below and the appended Rare Hunter brief. **Source JPEG black matte means production-alpha/QC gate BLOCKED.**
 - Gate 04 — Rare Gatherer's Chest: **DIRECTOR VISUALLY APPROVED**, original received as `1000018930.png`. Leaf/rope/sprig identity survives raised cold-gunmetal armor, star runes and narrow cyan seam. Side-by-side 125px versus Common Gatherer visibly separates the tiers; 64/32px stress previews also inspected. **Mechanical alpha/background gate remains BLOCKED**: original is opaque JPEG on black, not transparent/flat lime.
 - Gate 05 — Epic Hunter's Chest: **DIRECTOR VISUALLY APPROVED**, original `1000018931.png`, actual JPEG/RGB 1536×1536 on opaque black, SHA-256 `9cdded700f3027e2788ba040cc1995667afb322ef229476d51436728e02d0339`. Distinct Epic signature: polished silver-trimmed reinforcements, larger skyglass centerpiece, **three cyan-glowing claw gouges**. Still retains leather/fang and dark wood; Legendary crystal cluster/filigree not introduced. Reviewed Common/Rare/Epic Hunter at 125px plus 64/32 stress previews. **Mechanical alpha/background gate BLOCKED**; export/preflight NOT_RUN.
-- Gate 06 — Epic Gatherer's Chest: **READY FOR ISOLATED GENERATION**, exact brief `EPIC_GATHERER_CHEST_ISOLATED_BRIEF_20261020.md` committed. Attach **only** the original Reliquary plus the approved **Rare Gatherer's Chest**; convey the Epic Hunter material/tier pattern in text, not via a third image. New read: **polished silver edging, larger gem and softly glowing leaf brand** while preserving rope/sprig.
-- Gates 07–10: **BLOCKED** pending preceding approved illustrations; in each case attach Reliquary and one approved icon from that same family only. Gates 11–12 (Ornate and Mystery) are also **BLOCKED**; neither has a same-family predecessor, so the canonical 'same family' second-reference instruction is undefined for these two; confirm applicable reference handling with director when reached. Never invent a reference or attach a collage.
+- Gate 06 — Epic Gatherer's Chest: **DIRECTOR VISUALLY APPROVED**, original `1000018932.png` decoded as JPEG/RGB 1536x1536 with black matte, SHA-256 `9ec335743a0898552f009e5906a28b043ef9e43472bd0fe6521101af7e65ebdc`. Silver-edged armored metalwork, larger faceted cyan clasp and **bright pale-cyan glowing leaf engraving** upgrade Rare while retaining Gatherer rope/sprig. Common/Rare/Epic Gatherer side-by-side and Hunter/Gatherer Epic twins checked at 125px; 64/32px stress previews inspected. **Production-alpha, final export and preflight NOT_RUN.**
+- Gate 07 — Legendary Hunter's Chest: **READY FOR ISOLATED GENERATION**, target brief `LEGENDARY_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md` committed. Attach **only** original Skyglass Reliquary (style/material) plus approved Epic Hunter (same-family). Legendary needs a **small physically mounted lid-top skyglass shard cluster**, distinct silver **filigree** (not just more plate armor), and the brightest **localized** tier glow with no halo. Keep the three glowing claws, leather/fang, dark wood, camera and closed domed lid.
+- Gates 08–10: **BLOCKED** pending preceding approved illustrations; in each case attach Reliquary and one approved icon from that same family only. Gates 11–12 (Ornate and Mystery) are also **BLOCKED**; neither has a same-family predecessor, so the canonical 'same family' second-reference instruction is undefined for these two; confirm applicable reference handling with director when reached. Never invent a reference or attach a collage.
 - Collection handoff: **BLOCKED** until 12/12 original image approvals, raw QC, native-alpha/key processing, lossless 256×256 WebP exports, dark-composite checks, and `artpreflight.py --type ICON` output. The director retains final acceptance.
 
 ## Approved reference and style gate
@@ -66,6 +67,14 @@
 
 The canonical Ghost Ship handoff proposes a lime `#00FF00` fallback because *skyglass is cyan*. However, Gatherer's actual **green sprig** triggers the skill/spec `magenta_when` exception for foliage. **Source conflict explicitly retained:** favor **native transparency** in all generation sessions; if genuinely unavailable for Gatherer, use true flat **magenta `#FF00FF`** as the spec's foliage-safe alternative and document the deviation from the workstream's lime suggestion. Final background/chroma acceptance remains a studio mechanical gate; never claim a black-matte original is ready or silently override an accepted object's green colors.
 
+## Epic Gatherer's Chest — visual acceptance and source integrity (2026-10-20)
+
+- **Director:** “Approved. Next”. Visual approval is **recorded**, separate from unfinished export/preflight and from user-owned live-game action.
+- **Original delivered to persistent studio:** `1000018932.png` (actual **JPEG/RGB**, **1536×1536**, **480043 bytes**), SHA-256 `9ec335743a0898552f009e5906a28b043ef9e43472bd0fe6521101af7e65ebdc`; exact source bytes are conversation-supplied, **not Git pinned**.
+- **125px tier visual comparison:** Common/Rare/Epic Gatherer from approved source originals and Epic Hunter/Epic Gatherer twins, all resized **Lanczos**, with upscaled nearest-neighbor viewing copies. Epic shows *polished silver-edged reinforcement, enlarged faceted cyan crystal and a bright cyan glowing leaf brand* while rope/sprig and dark wood remain recognizable. Hunter twin retains *three glowing claws*, brown leather and fang instead, easily distinct. Also inspected 64px/32px stress sizes; detail naturally compresses at 32px and **no game-size claim** follows from those stress images.
+- **Production background issue persists:** the JPEG original has an **opaque black matte** rather than alpha or valid uniform chroma field. Keep visual approval separate from mechanical acceptance; **do not indiscriminately black-key** the dark wood/iron outlines. Before game-ready status, separately obtain valid transparency or authorize and verify a safe alpha-recovery approach, then run proper preflight. No full-gallery acceptance, production export, upload or publish occurred.
+- **Next:** Legendary Hunter must be structurally above Epic in a way that survives 125px. Its small *physically mounted* skyglass crystal cluster **breaking the dome lid's top silhouette** plus refined silver filigree and the brightest controlled internal glow are the approved ladder. Keep familiar Hunter fang/leather and claw identity; no aged gold (Ornate), no chain/mist (Mystery).
+
 ## Production ledger
 
 `—` means not yet produced or measured; **PENDING** is not an approval, QC pass or preflight result. Store actual original image identity, MIME/format and SHA-256 in an intake entry when received; processed export SHA-256 and byte count are distinct from raw identity.
@@ -77,7 +86,7 @@ The canonical Ghost Ship handoff proposes a lime `#00FF00` fallback because *sky
 | 03 | Rare Hunter's Chest | `icon-gs-chest-hunter-rare.webp` | ICON | APPROVED | — | — | `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c` | NOT_RUN |
 | 04 | Rare Gatherer's Chest | `icon-gs-chest-gatherer-rare.webp` | ICON | APPROVED | — | — | `d5e44dba4c5947067ee0da8cef1d7e326a1aafbec7d85c21e6eba76db33a31a4` | NOT_RUN |
 | 05 | Epic Hunter's Chest | `icon-gs-chest-hunter-epic.webp` | ICON | APPROVED | — | — | `9cdded700f3027e2788ba040cc1995667afb322ef229476d51436728e02d0339` | NOT_RUN |
-| 06 | Epic Gatherer's Chest | `icon-gs-chest-gatherer-epic.webp` | ICON | PENDING | — | — | — | NOT_RUN |
+| 06 | Epic Gatherer's Chest | `icon-gs-chest-gatherer-epic.webp` | ICON | APPROVED | — | — | `9ec335743a0898552f009e5906a28b043ef9e43472bd0fe6521101af7e65ebdc` | NOT_RUN |
 | 07 | Legendary Hunter's Chest | `icon-gs-chest-hunter-legendary.webp` | ICON | PENDING | — | — | — | NOT_RUN |
 | 08 | Legendary Gatherer's Chest | `icon-gs-chest-gatherer-legendary.webp` | ICON | PENDING | — | — | — | NOT_RUN |
 | 09 | Rusted Hunter's Chest | `icon-gs-chest-hunter-rusted.webp` | ICON | PENDING | — | — | — | NOT_RUN |
@@ -87,7 +96,7 @@ The canonical Ghost Ship handoff proposes a lime `#00FF00` fallback because *sky
 
 ## Uploaded-original intake evidence (2026-10-20)
 
-The five director-approved conversation-delivered originals have filenames ending in `.png` but **decode as JPEG** (`RGB`, no alpha), each 1536×1536 with an opaque black background. The hashes below describe **the exact bytes supplied to this studio**, not Git-pinned original generators, finished WebP files, or production QC.
+The six director-approved conversation-delivered originals have filenames ending in `.png` but **decode as JPEG** (`RGB`, no alpha), each 1536×1536 with an opaque black background. The hashes below describe **the exact bytes supplied to this studio**, not Git-pinned original generators, finished WebP files, or production QC.
 
 | Target | Studio intake filename | Decoded format | Pixels | Raw bytes | Raw SHA-256 | 125-px visual gate | Mechanical alpha/key gate |
 |---|---|---|---|---:|---|---|---|
@@ -96,6 +105,7 @@ The five director-approved conversation-delivered originals have filenames endin
 | Rare Hunter's | `1000018929.png` | JPEG (RGB, opaque) | 1536×1536 | 473394 | `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c` | PASS visually vs Common Hunter; director approval | **BLOCKED**: black matte, no native alpha/lime key |
 | Rare Gatherer's | `1000018930.png` | JPEG (RGB, opaque) | 1536×1536 | 420968 | `d5e44dba4c5947067ee0da8cef1d7e326a1aafbec7d85c21e6eba76db33a31a4` | PASS visually vs Common Gatherer at 125px; director approval | **BLOCKED**: black matte, no native alpha/lime key |
 | Epic Hunter's | `1000018931.png` | JPEG (RGB, opaque) | 1536×1536 | 498203 | `9cdded700f3027e2788ba040cc1995667afb322ef229476d51436728e02d0339` | PASS visually across Common/Rare/Epic at 125px; director approval | **BLOCKED**: black matte, no native alpha/lime key |
+| Epic Gatherer's | `1000018932.png` | JPEG (RGB, opaque) | 1536×1536 | 480043 | `9ec335743a0898552f009e5906a28b043ef9e43472bd0fe6521101af7e65ebdc` | PASS vs Gatherer tiers and Epic Hunter twin at 125px; director approval | **BLOCKED**: black matte, no native alpha/lime key |
 
 **Important:** Director approval is visual acceptance only. The approved images are suitable as visual reference attachments for subsequent generation, but **none is a valid production input for the prescribed native-alpha/lime-key pipeline yet**. Re-acquire transparent/flat-lime originals or explicitly approve and verify a separate safe background-matting repair; keying pure black indiscriminately risks eating near-black wood/outline. Never claim clean alpha, finished WebPs, successful preflight or upload readiness from this evidence. The background issue need not stop generation of later tiers; communicate the issue promptly and require transparency/flat lime on new outputs.
 
@@ -114,6 +124,8 @@ The five director-approved conversation-delivered originals have filenames endin
 Fable / Claude Code, after the director accepts the completed set: commit binaries under `art/`, pin an `imagePack`, and prepare exactly one Forge **suggest-mode** ticket (`VISUAL`, title `Update icon`, one rationale per chest). No writes to game. All twelve chests' item rarity (`COMMON` including “Legendary” named chests) remains a **separate director decision**, not a change request in this workstream.
 
 ## History
+
+- 2026-10-20: Epic Gatherer's Chest **DIRECTOR VISUALLY APPROVED**; decoded source as JPEG/RGB 1536×1536, 480043 bytes, recorded exact SHA-256. Verified 125px Common/Rare/Epic Gatherer progression and Epic Hunter/Gatherer sibling distinction, also 64/32px stress previews. Six/12 visually approved, 0/12 processed/preflight-ready; all six retain unresolved opaque-black-background issue. Legendary Hunter isolated brief committed, no game activity.
 
 - 2026-10-20: Epic Hunter **APPROVED** by director, raw JPEG/RGB 1536×1536 and SHA-256 recorded; deterministic 125px Common/Rare/Epic Hunter QC and 64/32px stress previews. Five/12 raw visuals approved, zero game-ready exports. Epic Gatherer isolated brief committed; green-sprig chroma conflict between workstream lime fallback and skill foliage-safe magenta explicitly recorded for studio intake.
 
