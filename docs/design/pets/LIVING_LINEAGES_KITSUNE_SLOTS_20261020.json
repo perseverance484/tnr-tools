@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "RANK1_EMBER_AND_MOONLIT_RAW_APPROVED__RANK1_JADE_READY__ART_QC_PENDING",
+  "status": "SCOPE_19_IMAGES__SPECIES_EMBER_R01_MOONLIT_R01_APPROVED__JADE_R01_NEXT__STRUCTURAL_SVG_DRAFT",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -22,16 +22,32 @@
     "source_evidence": "SOURCE_SEEDED_NOT_LIVE_CAPTURED"
   },
   "workflow": {
-    "target_approved_images": 37,
+    "target_approved_images": 19,
     "species_reference_images": 1,
     "individual_count": 4,
-    "rank_count_per_individual": 9,
-    "image_generation_mode": "ONE_RANK_ALL_FOUR_ONE_AT_A_TIME",
+    "rank_count_per_individual": {
+      "A": 9,
+      "B": 3,
+      "C": 3,
+      "D": 3
+    },
+    "image_generation_mode": "ONE_RANK_AT_A_TIME_ACROSS_ALL_FOUR_FOR_RANKS_1_TO_3__THEN_EMBER_ONLY_RANKS_4_TO_9",
     "concept_source": "docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md",
     "visual_approval_authority": "DIRECTOR",
     "source_img_workflow": "reference for R1; previous same-lineage approved image for R2-R9",
     "rank10_image_excluded": true,
-    "production_uploads_allowed": false
+    "production_uploads_allowed": false,
+    "original_target_approved_images": 37,
+    "presentation_layout": "ONE_EMBER_FULL_EVOLUTION_UPPER_PLUS_FOUR_PLAYER_VARIANTS_RANKS1_TO_3_LOWER",
+    "presentation_svg": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
+    "presentation_slots": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json",
+    "phase_required": {
+      "shared_species_reference": 1,
+      "upper_ember_ranks_1_to_9": 9,
+      "lower_other_lineages_ranks_1_to_3": 9,
+      "unique_total": 19,
+      "display_placements": 26
+    }
   },
   "lineages": [
     {
@@ -248,7 +264,9 @@
         "Source pixels unavailable through Git commit; attach the actual source image in isolated sessions, not just the hash.",
         "Director approved use of the juvenile reference after the exact-byte/reference-background question; JPEG/black background remains a documented conditioning risk, NOT a production-quality transparent asset.",
         "Treat species-reference colours as non-binding; new Rank 1 sprites must be unique identity variants and pass separate visual/QC."
-      ]
+      ],
+      "in_current_demonstration": true,
+      "showcase_role": "SHARED_SPECIES_MASTER"
     },
     {
       "asset_id": "A_R01",
@@ -318,7 +336,9 @@
         "parent_entry": "images/kitsune_juvenile_species_reference.jpg",
         "source_kind": "conversation_artifact_not_git_pinned",
         "manifest_entry": "intake_manifest.json"
-      }
+      },
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R01",
@@ -401,7 +421,9 @@
           "sha256": "3cde91ee7068bc6fc51e16a835900a5147a9c54615b4695ad2ae6be778e7e84e",
           "method": "Pillow deterministic 240px each approved species/Ember/Moonlit on dark panel; display-only preview"
         }
-      ]
+      ],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "C_R01",
@@ -425,7 +447,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "D_R01",
@@ -449,7 +473,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "A_R02",
@@ -473,7 +499,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R02",
@@ -497,7 +525,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "C_R02",
@@ -521,7 +551,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "D_R02",
@@ -545,7 +577,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "A_R03",
@@ -569,7 +603,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R03",
@@ -593,7 +629,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "C_R03",
@@ -617,7 +655,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "D_R03",
@@ -641,7 +681,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "RANK1_TO_3_VARIANT"
     },
     {
       "asset_id": "A_R04",
@@ -665,7 +707,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R04",
@@ -676,8 +720,8 @@
       "expected_parent_asset_id": "B_R03",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -689,7 +733,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R04",
@@ -700,8 +748,8 @@
       "expected_parent_asset_id": "C_R03",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -713,7 +761,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R04",
@@ -724,8 +776,8 @@
       "expected_parent_asset_id": "D_R03",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -737,7 +789,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "A_R05",
@@ -761,7 +817,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R05",
@@ -772,8 +830,8 @@
       "expected_parent_asset_id": "B_R04",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -785,7 +843,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R05",
@@ -796,8 +858,8 @@
       "expected_parent_asset_id": "C_R04",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -809,7 +871,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R05",
@@ -820,8 +886,8 @@
       "expected_parent_asset_id": "D_R04",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -833,7 +899,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "A_R06",
@@ -857,7 +927,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R06",
@@ -868,8 +940,8 @@
       "expected_parent_asset_id": "B_R05",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -881,7 +953,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R06",
@@ -892,8 +968,8 @@
       "expected_parent_asset_id": "C_R05",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -905,7 +981,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R06",
@@ -916,8 +996,8 @@
       "expected_parent_asset_id": "D_R05",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -929,7 +1009,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "A_R07",
@@ -953,7 +1037,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R07",
@@ -964,8 +1050,8 @@
       "expected_parent_asset_id": "B_R06",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -977,7 +1063,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R07",
@@ -988,8 +1078,8 @@
       "expected_parent_asset_id": "C_R06",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1001,7 +1091,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R07",
@@ -1012,8 +1106,8 @@
       "expected_parent_asset_id": "D_R06",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1025,7 +1119,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "A_R08",
@@ -1049,7 +1147,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R08",
@@ -1060,8 +1160,8 @@
       "expected_parent_asset_id": "B_R07",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1073,7 +1173,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R08",
@@ -1084,8 +1188,8 @@
       "expected_parent_asset_id": "C_R07",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1097,7 +1201,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R08",
@@ -1108,8 +1216,8 @@
       "expected_parent_asset_id": "D_R07",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1121,7 +1229,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "A_R09",
@@ -1145,7 +1257,9 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [],
+      "in_current_demonstration": true,
+      "showcase_role": "EMBER_FULL_PATH"
     },
     {
       "asset_id": "B_R09",
@@ -1156,8 +1270,8 @@
       "expected_parent_asset_id": "B_R08",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1169,7 +1283,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "C_R09",
@@ -1180,8 +1298,8 @@
       "expected_parent_asset_id": "C_R08",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1193,7 +1311,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     },
     {
       "asset_id": "D_R09",
@@ -1204,8 +1326,8 @@
       "expected_parent_asset_id": "D_R08",
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
+      "status": "OUT_OF_SCOPE_FOR_APPROVED_SHEET",
+      "director_visual_approval": "NOT_REQUESTED_SCOPE_REDUCED",
       "identity_qc": "NOT_RUN",
       "progression_qc": "NOT_RUN",
       "thumbnail_160_qc": "NOT_RUN",
@@ -1217,7 +1339,11 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": []
+      "revision_notes": [
+        "2026-10-20: Director revised final sheet to complete Ember Rank1-9 plus only Ranks1-3 of other three lineages. Retained this original 37-image slot for traceability; it is NOT required and must not be generated for current sheet."
+      ],
+      "in_current_demonstration": false,
+      "showcase_role": "HISTORICAL_SCOPE_EXCLUDED"
     }
   ],
   "generation_sessions_open": [],
@@ -1432,5 +1558,81 @@
       "role": "accepted Moonlit R1 + approved species juvenile reference exact source JPEG bytes + manifest",
       "git_pinned": false
     }
-  ]
+  ],
+  "original_demonstration_scope": {
+    "unique_target_images": 37,
+    "species_reference": 1,
+    "rank_images_per_lineage": {
+      "A": 9,
+      "B": 9,
+      "C": 9,
+      "D": 9
+    },
+    "disposition": "SUPERSEDED_2026_10_20_DIRECTOR_SHEET_SCOPE_CHANGE"
+  },
+  "visual_sheet_scope_revision": {
+    "approved_on": "2026-10-20",
+    "evidence": "Director provided desired showcase screenshot and directed: 'First we'll create a structural SVG that reproduces this layout but fixes the error where they have two rank 4s and skip rank 5 ... only need ember fully generated ... only need rank 1-3 of the others.'",
+    "basis": "TNR game ranks 1-9 are Companion, Scout, Tracker, Guardian, Hunter, Warden, Sentinel, Mythic, Sovereign.",
+    "distinct_required_images": 19,
+    "in_scope_asset_ids": [
+      "SPECIES_REF",
+      "A_R01",
+      "B_R01",
+      "C_R01",
+      "D_R01",
+      "A_R02",
+      "B_R02",
+      "C_R02",
+      "D_R02",
+      "A_R03",
+      "B_R03",
+      "C_R03",
+      "D_R03",
+      "A_R04",
+      "A_R05",
+      "A_R06",
+      "A_R07",
+      "A_R08",
+      "A_R09"
+    ],
+    "retained_not_required_asset_ids": [
+      "B_R04",
+      "C_R04",
+      "D_R04",
+      "B_R05",
+      "C_R05",
+      "D_R05",
+      "B_R06",
+      "C_R06",
+      "D_R06",
+      "B_R07",
+      "C_R07",
+      "D_R07",
+      "B_R08",
+      "C_R08",
+      "D_R08",
+      "B_R09",
+      "C_R09",
+      "D_R09"
+    ],
+    "repeated_exact_source_slots": 7,
+    "structural_svg_status": "DRAFT_PENDING_DIRECTOR_APPROVAL",
+    "notes": [
+      "The 37-slot tracker retains all initial planned slots for audit/history but only 19 are in scope for the presentation.",
+      "The matrix species-reference artwork is the SAME exact approved source in each row; do not invent/recolour source refs.",
+      "Actual approved image bytes inserted deterministically only; structural SVG contains placeholders.",
+      "Do not relabel skipped Rank 5 as Rank 4 or accept non-game rank names."
+    ]
+  },
+  "target_unique_images": 19,
+  "scope_counts": {
+    "target": 19,
+    "approved_total": 3,
+    "pending": 16,
+    "excluded_legacy": 18,
+    "approved_rank_images": 2,
+    "required_rank_images": 18,
+    "remaining_rank_images": 16
+  }
 }
