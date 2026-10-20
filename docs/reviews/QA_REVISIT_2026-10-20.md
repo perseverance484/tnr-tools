@@ -39,6 +39,10 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 | Widow's bite | Pool costs are the fractional 0.05 placeholder; real costs are a balance call. |
 | Violet Stormglass | Description reads "An tusk taken from the Mōmoku Inoshishi", which looks copied from a tusk item and does not fit a stormglass. Needs the intended text. |
 | Battle lines that use "his" or "her" (visible jutsu and items) | Some are character-specific (e.g. the crimson queen kits); switching to "their" is a style call. |
+| Kamunari's Claw, Ember-sealed Scroll, Hollowfoot Fur, Drained Talisman of Grimjack, Storm Crest, Forest Moon Amulet | Empty battle lines, so no edit of these items can be saved. Lines drafted 2026-10-20 (not pressing, per dauntless); descriptions stay as they are. |
+| Underworld Ledger | Description reads "...the activi of the underworld New item description"; drafted fix "...the activities of the underworld." |
+| Undying Rage | Stuns its own user (with stun prevention); may be an intended rage trade-off. |
+| Breeze Guardian Shield | Gives its damage reduction and reflect to the opponent, like ticket 143, but its bloodline no longer exists. |
 
 ## Deliberately not ticketed
 
