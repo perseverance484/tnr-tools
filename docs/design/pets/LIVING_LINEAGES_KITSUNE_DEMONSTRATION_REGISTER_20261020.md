@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** MASTER WORKDESK OPEN; all visual milestones below are **PROPOSED, NOT DIRECTOR-LOCKED**. No new rank images generated or approved by this workdesk.  
+**Status:** DIRECTOR APPROVED THE JUVENILE VISUAL REFERENCE AND RANKS 1–9 MORPHOLOGY FOR THE **VISUAL PILOT** (2026-10-20). Individual Rank 1–9 images remain ungenerated/unapproved. This is a concept-art lock, not a deployed game change.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable ledger](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json) belong to the ChatGPT-owned workdesk branch; do not alter the separate pet-proposal branch or active Fable branches. The JSON ledger owns per-image status, bytes and parentage; this file owns creative direction and process.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
@@ -13,7 +13,7 @@
 - Proposal hierarchy: [one-page reference evolution](PET_ART_REFERENCE_EVOLUTION_ONE_PAGE.md) and [juvenile reset](KITSUNE_JUVENILE_GROWTH_METAMORPHOSIS_RESTART_20261020.md). The old [R1–R3 lock](KITSUNE_RANK_1_TO_3_EVOLUTION_LOCK_PROPOSAL.md) is **RETIRED** as an evolution specification. The user-supplied one-page PDF (2026-10-20) has SHA-256 `21d35178c528ee675d2ee818795aa7f7d21cfb637f4d34714e1106bcd65cac4c`.
 - Production governance: `docs/00_INDEX.md`, `docs/DEVELOPMENT_WORKFLOW.md`, `docs/workflows/ART_PRODUCTION.md`, `docs/workflows/ISOLATED_ART_GENERATION.md`, `skills/producing-tnr-art/SKILL.md` and current `25x_DATA_art_spec.json`. **AI_AVATAR** is the closest current asset target: square, lossless WebP, minimum width 320px, byte ceiling 460800 and a transparent cutout. These are production export constraints, **not** what the raw concept-art input has already passed.
 
-## Species reference gate: received, not yet locked
+## Species reference gate: APPROVED FOR VISUAL CONDITIONING (not a production export)
 
 **Director-supplied conversation image:** `1000018892.png` (attachment from this workdesk initialization).
 
@@ -23,12 +23,12 @@
 | Actual decoder/bytes | **JPEG**, 1536 × 1536, RGB, 236666 bytes; `.png` filename is misleading |
 | Alpha/transparency | **Absent**; solid black background (corner pixel 0,0,0) |
 | Visual concept | Youthful, expressive fox, visibly two attached bushy tails, fox body and ears; orange/cream coat, not neutral-grey |
-| Director approval | **PENDING EXPLICIT LOCK OF THESE EXACT BYTES**; supplied/reference-intended does not by itself prove signoff |
+| Director approval | **APPROVED 2026-10-20 FOR SPECIES SHAPE/STYLE REFERENCE** — the director answered “Approved” to the species-reference gate. This does not assert transparency or mechanical compliance |
 | Raw/QC status | Identity inspected; **not** a compliant transparent cutout and not production-preflight accepted |
-| Durable image bytes | **CONVERSATION SOURCE ONLY**; no Git binary pin; source hash alone cannot supply a reference to a later generation |
+| Durable image bytes | **CONVERSATION SOURCE ONLY**, with byte-identical source copied into the director-downloadable intake ZIP `TNR_Living_Lineages_Kitsune_Reference_Intake_20261020.zip` (SHA-256 `4432ccd3172b41e09f1f89a2bb83a7b31a471d8b107456eacdd6921aea9a51ff`); **not pinned in Git**. Actual image bytes must still be attached to the isolated R1 session |
 | Risk | Black ground may contaminate reference-conditioned generations; orange coat may bias non-Ember variants. Treat the base's colours as **non-binding** |
 
-**Acceptance question:** may this exact JPEG be locked as a **shape/style-only conditioning reference** despite its opaque black background, or will the director supply/approve a transparent corrected juvenile original? Never pretend a filename rename creates alpha. In either case, new Rank 1 assets must actually meet the transparent-cutout visual brief; production-ready status requires separate QC.
+**Decision (2026-10-20): APPROVED as the visual species master** despite its JPEG/opaque-black source. The black background remains a conditioning risk; never claim a filename rename creates alpha. Every new Rank 1 must independently satisfy the transparent-cutout visual brief, with mechanical production QC tracked separately.
 
 ## Four demonstration identity locks (source-verified indices)
 
@@ -41,9 +41,9 @@
 
 These are **mock identity test vectors**, not rolled player records. No variant may borrow another's actual image.
 
-## Unified Kitsune Rank 1–9 morphology roadmap — PROPOSED, director approval required
+## Unified Kitsune Rank 1–9 morphology roadmap — DIRECTOR-APPROVED FOR VISUAL PILOT
 
-**Common form law (proposed):** one fox head, connected quadrupedal torso, four functional fox legs and paws, one muzzle, two ears, every tail individually attached at the rump. No humanoid hands, extra limb types, wings, feathers, disconnected tails, costume armour, jewelry, horns, scenes or emblems. Palette/characteristic/aura are individual traits, not fixed by the species base. Every rank shares the exact same morphology concept across all four lineages. Tail counts and every shape milestone below require director lock **before** they become generation rules.
+**Common form design lock (2026-10-20 visual pilot):** one fox head, connected quadrupedal torso, four functional fox legs and paws, one muzzle, two ears, every tail individually attached at the rump. No humanoid hands, extra limb types, wings, feathers, disconnected tails, costume armour, jewelry, horns, scenes or emblems. Palette/characteristic/aura are individual traits, not fixed by the species base. Every rank shares the exact same morphology concept across all four lineages. The director **approved the nine-stage morphology and 2/2/3/3/4/5/6/7/8 tail-count progression** for this demonstration on 2026-10-20. Further changes require an explicit new decision; the roadmap is not a production generator contract.
 
 | Rank / game label | Phase / anatomy and signature silhouette | Attached tails | Visual acceptance difference from previous rank |
 | --- | --- | ---: | --- |
@@ -57,7 +57,7 @@ These are **mock identity test vectors**, not rolled player records. No variant 
 | **8 · Mythic** | **Guardian-form development:** sustained sentinel shoulder volume; taller multi-layer **fur** ridges along neck and upper spine, finer elongated face, sculpted haunch muscles, a second inner contour within the rear fan. | **7** attached plumes in layered fan | Developed dorsal crest and dual-depth tail fan while R7 identity anchors remain |
 | **9 · Sovereign** | **THIRD MAJOR METAMORPHOSIS — sovereign fox:** rebuild upper body into a regal apex prow: dramatically raised integrated tripartite head/neck **fur** crown, deep projecting multi-tier chest mantle, formidable weight-bearing paws and broad anchored hindquarters, paired with a vast **two-tier** tail fan behind. No external armour or supernatural appendages. | **8** individually attached tails with two large contour levels | Entire head-to-chest-to-fan outer outline changes into a new form; never accept R8 + longer fur/glow alone |
 
-**Rank 10 · Celestial** is deliberately **OUT OF SCOPE** for images. A proposed nine-tail culmination exists in the juvenile restart document; **nothing here approves it**. R9's eight-tail choice intentionally leaves headroom. A director who prefers nine tails at R9 can change the proposal before production, but the scheme must be decided together, not improvised by separate generators.
+**Rank 10 · Celestial** is deliberately **OUT OF SCOPE** for images. A proposed nine-tail culmination exists in the juvenile restart document; **nothing here approves it**. R9's eight-tail choice intentionally leaves headroom. A later nine-tail-at-R9 change would require a new director decision and a deliberate coordinated roadmap revision, not an improvisation in a generation session.
 
 ### Progression acceptance locks
 
@@ -69,11 +69,29 @@ These are **mock identity test vectors**, not rolled player records. No variant 
 - **Source of rank art:** R1 receives **one actual species master**; R2–R9 receive **only the immediately prior approved image of the same individual**. Parent image SHA-256 is recorded before opening the isolated session. A generation is **not approved** merely because a candidate exists.
 - **Direction checks:** do not approve R5/R7/R9 until a true **structural** change survives a 160px side-by-side check. Subtle aura or more ornament is not a substitute for form change.
 
+## Mature-form comparator intake — director supplied 2026-10-20
+
+The director provided **five previously generated mature Kitsune illustrations** and described them as potentially useful **around Rank 5–6**. These are **visual vocabulary and QA comparators**, *not* retroactively accepted Rank 5/6 assets. They are **not parent images** in any of the 36 individual lineage slots and **must not replace** the one-image inheritance chain.
+
+| Intake (misleading `.png` name; actual JPEG) | Recognizable visual family | Source SHA-256 |
+| --- | --- | --- |
+| `1000018893.png` | Jade/teal with mismatched eyes and violet sparks | `2126971390351dfee90f24fd8cedbf8f0a2733bd6116041189fced60b923f602` |
+| `1000018894.png` | Obsidian/violet with dapples and pearl spirit motes | `f8790f02c227e74676cfec63ff6187cb9a71e226b1fc77fe558cd8f2a193c5e9` |
+| `1000018895.png` | Moonlit silver/pale blue with forehead crescent | `1c6fcd98a1e85734df66f34496bf4ee2bdfa47c180eff13342cf8115def55db7` |
+| `1000018896.png` | Dark warm Ember palette, russet/charcoal and light wind wisps | `8cf0e8b82978589a0b8e6057e8042eec8f766198968dbb6ddbb0bf828f0cda9f` |
+| `1000018897.png` | Additional pale gold/cream mature comparator; exact cosmetic assignment unverified | `275c6f1ba2f65e7003021c7b8de09bded3d145eb9aa4eb8e98c07d52a8f2ebd6` |
+
+**Actual bytes:** all five are 1536×1536 **JPEG/RGB**, opaque black background despite `.png` filenames. Their originals were preserved byte-for-byte in the companion intake ZIP with corrected `.jpg` names and a manifest; archive SHA-256 `4432ccd3172b41e09f1f89a2bb83a7b31a471d8b107456eacdd6921aea9a51ff`. The ZIP is a **conversation artifact**, not a Git-pinned binary. Do not treat those images as preflight-passed transparent sprites.
+
+**What to learn:** These strong mature-form examples supply a useful **R5→R6 visual maturity envelope**—a clear adult muzzle, established layered cheek/chest fur, dramatic but connected fox tails and immediately legible individual palettes/markings. The five images also share almost the same mature anatomy and orientation. The new system must NOT copy that anatomy unchanged across its late ranks. **R5** should establish the new battle-fox structure without reaching the full giant mantle; **R6** can achieve the richer mature layering. **R7 and R9 must then exceed these comparators through true new body architecture**, not simply more surface detail or glow. Precise tail count still comes from the approved **rank table**, not from overlapping tails in these comparator images.
+
+**One-image conditioning remains inviolable:** At R5 and R6, generator input is still only that lineage's immediate accepted previous-rank image. The old mature pictures inform **workdesk art direction and post-generation comparison**, not an extra image input. If a prompt concept changes after visual comparison, revise it centrally and obtain director approval before resuming that rank.
+
 ## Ordered production and 37-slot acceptance ledger
 
 **One species reference + four Rank 1 pets + eight more ranks × four pets = 37 images.** All 37 slots already exist in [the JSON ledger](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json). No generated lineage images are accepted at initialization. Source receipt is not signoff.
 
-1. Director explicitly locks the species-reference exact bytes/transparent handling and this proposed **nine-rank morphology/tail roadmap**.
+1. **COMPLETE 2026-10-20:** Director approved the exact juvenile source for species-reference use (despite the opaque background) and the full **nine-rank morphology/tail roadmap**.
 2. Produce **A Rank 1** in its own isolated session from the species master and A's exact traits. Inspect full-size and 160px; director accepts. Repeat **B/C/D Rank 1**, always using the same species master, never A.
 3. Continue strictly **one rank across all four pets at a time**: A Rank 2 from A Rank 1, then B/C/D Rank 2 from their own accepted R1; repeat until Rank 9. Stop if any sibling is unapproved. A single shared concept per rank; changes are proposed/approved centrally, not silently customized.
 4. Every approved generation records actual source bytes/MIME/size/alpha/SHA-256, exactly one accepted parent SHA-256, isolated session reference, director approval, 160px identity/progression judgments and separate art processing/preflight results. Missing bytes, hash mismatch or wrong parent **BLOCK** the next evolution.
@@ -87,8 +105,8 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 ## Immediate workdesk checkpoint (2026-10-20)
 
-- Reference: received and byte-identified; explicit visual lock + transparent/reference handling **PENDING**.
-- Morphology/tail curve: nine rank concepts **PROPOSED / awaiting director approval**.
-- Rank images: **0/36** approved; full target **0/37** approved (species candidate received, not counted as accepted).
-- Pending generation: **A · Ember / Rank 1 Companion**, **BLOCKED** on reference and rank-roadmap director locks. Copy-ready isolated brief may be prepared without rendering.
+- Reference: source SHA-256 **APPROVED FOR VISUAL CONDITIONING**; RGB JPEG/black source limitation recorded; not transparent production QC.
+- Morphology/tail curve: all **nine rank concepts APPROVED FOR VISUAL PILOT** (2/2/3/3/4/5/6/7/8 tails).
+- Rank images: **0/36** approved; full target **1/37** approved for visual demonstration including the reference master (production compliance untested).
+- Pending generation: **A · Ember / Rank 1 Companion**, **READY** for its clean isolated session with the *actual* juvenile source attachment; director visual/QC review then required.
 - No art generation, no live-game requests, no pet attempts, no game changes, no credentials, no production preflight.
