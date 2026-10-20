@@ -1624,7 +1624,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). Forge already supports per-item rationales; no code change.
 
-## RUL-2026-10-20-001 — Living Lineages Kitsune visual-pilot locks
+## RUL-2026-10-20-002 — Living Lineages Kitsune visual-pilot locks
 
 **Date:** 2026-10-20  
 **Domain:** Kitsune companion visual proof-of-concept  
@@ -1637,12 +1637,12 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (visual rules and approval sequence) and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (37-slot approval/parent-evidence ledger). The current art skill/spec and pinned game contracts retain production/technical authority.
 
-## RUL-2026-10-20-002 — Living Lineages proof sheet uses full Ember path and abbreviated three-variant comparison
+## RUL-2026-10-20-003 — Living Lineages proof sheet uses full Ember path and abbreviated three-variant comparison
 
 **Date:** 2026-10-20  
 **Domain:** Pet visual proof of concept / Kitsune Living Lineages final showcase  
 **Status:** ACTIVE — director-approved presentation scope; structural SVG still awaiting separate visual acceptance  
-**Supersedes:** The initial 37-image / four fully-evolved lineage demonstration **scope only** in the workdesk's 2026-10-20 opening. **Does not supersede** the juvenile species master, nine-rank shared evolution concept/tail-count curve or single-parent inheritance specified in RUL-2026-10-20-001.
+**Supersedes:** The initial 37-image / four fully-evolved lineage demonstration **scope only** in the workdesk's 2026-10-20 opening. **Does not supersede** the juvenile species master, nine-rank shared evolution concept/tail-count curve or single-parent inheritance specified in RUL-2026-10-20-002.
 
 **Ruling:** The final demonstration will reproduce the director-supplied **two-panel 1536×1024 example** structurally. Its upper panel is **one species reference plus the complete Ember Rank 1–9 sequence**; the lower panel shows the same species reference and **Ranks 1–3 for Ember, Moonlit, Jade and Obsidian**. The example mistakenly repeats Rank 4 and omits Rank 5 in the top line: the correct overview is **Species Reference, then R1 Companion, R2 Scout, R3 Tracker, R4 Guardian, R5 Hunter, R6 Warden, R7 Sentinel, R8 Mythic, R9 Sovereign**. Use source-verified game rank names in both panels. Every lower-panel species-reference cell must show the **same exact approved juvenile master**, not variant recolours. Required unique images are now **19** (= 1 species + 9 Ember + 3×3 other lineage ranks), occupying **26 display positions** through exact asset reuse.
 
