@@ -17,14 +17,14 @@ reward list. Each needs its own icon that names its bloodline's element at a gla
 
 ## 2. Targets
 
-| # | Item | Grants | Element (from the bloodline) | Delivery filename |
+| # | Item | Grants (village) | Element (from the bloodline) | Delivery filename |
 |---|---|---|---|---|
 | 1 | Shadow Scroll: Oblivion Seal | Oblivion Seal (Syndicate) | Shadow | `icon-village-scroll-oblivion-seal.webp` |
 | 2 | Wood Scroll: Shinseina Ki | Shinseina Ki (Tsukimori) | Wood | `icon-village-scroll-shinseina-ki.webp` |
-| 3 | Storm Scroll: Arashima | Arashima (Shroud) | Storm | `icon-village-scroll-arashima.webp` |
-| 4 | Sun Scroll: Taiyo Kami | Taiyo Kami (Shine) | Scorch | `icon-village-scroll-taiyo-kami.webp` |
-| 5 | Wind Scroll: Aerathiel | Aerathiel (Current) | Dust | `icon-village-scroll-aerathiel.webp` |
-| 6 | Ice Scroll: Hyouga Yui | Hyouga Yui (Glacier) | Ice | `icon-village-scroll-hyouga-yui.webp` |
+| 3 | Storm Scroll: Arashima | Arashima (Akasumi, formerly Shroud) | Storm | `icon-village-scroll-arashima.webp` |
+| 4 | Sun Scroll: Taiyo Kami | Taiyo Kami (Shirohana, formerly Shine) | Scorch | `icon-village-scroll-taiyo-kami.webp` |
+| 5 | Wind Scroll: Aerathiel | Aerathiel (Akikaze, formerly Current) | Dust | `icon-village-scroll-aerathiel.webp` |
+| 6 | Ice Scroll: Hyouga Yui | Hyouga Yui (Hyorin, formerly Glacier) | Ice | `icon-village-scroll-hyouga-yui.webp` |
 
 Ids and current icon URLs are in the 2026-10-20 public read and are added by script when the release
 manifest is built; they are not needed to draw.
@@ -32,7 +32,7 @@ manifest is built; they are not needed to draw.
 ## 3. Style lock (from the approved crafting caches set)
 
 Taken from the director-approved item icons in `art/crafting_caches/` (Medicine Inro, Shinobi Tool
-Pouch, Sage's Strongbox; RUL-2026-10-13-001..004):
+Pouch, Sage's Strongbox; director-approved 2026-10-13, provenance in `art/crafting_caches/README.md`):
 
 - painted rendering with a crisp dark outline, soft rim light, no hard cast shadow;
 - dark lacquer, wood and paper materials with **aged gold** fittings;
