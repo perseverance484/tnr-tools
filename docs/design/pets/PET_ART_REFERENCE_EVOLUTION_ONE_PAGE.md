@@ -1,21 +1,27 @@
-# TNR Pet Art — Reference-Led Evolutions
+# TNR Pet Art — One Base, Unique Evolutions
 
-**The goal:** Every pet of the same species should share a recognizable design and premium TNR pixel-art quality, while each player's pet remains unique.
+**Goal:** Give every species a consistent, premium pixel-art identity **without giving every player identical art**.
 
-**1. One base reference per species.** I'll supply an approved image for each species, like our Kitsune, Dragon and Phoenix examples. It establishes **anatomy, silhouette and art quality** — *not* fixed colours, markings, aura or pose.
+### How it works
 
-**2. Generate the player's first pet (Rank 1).** Give the generator that species' base image, the player's **rolled palette + marking + aura**, and an editable **Rank 1 concept**. It creates a unique pet image. **Save that image as this individual pet's reference.**
+1. **Species reference:** I'll provide **one approved image per species**. It anchors the animal's anatomy, silhouette and rendering quality — **not** its colour, markings, aura or exact pose.
 
-**3. Evolve the same pet (Ranks 2–10).** From then on, give the generator the pet's **latest accepted image** (not the generic base image) plus an **editable evolution concept for this species and rank**. Make the change clear and logical: a tiger develops its own musculature, fangs or fur, *not feathers*. Keep the pet's unique colours, markings and recognizable identity. The accepted new image becomes the reference for the next rank.
+2. **First generation (Rank 1):** Use the **species reference + that pet's rolled palette, marking and aura + Rank 1 concept**. Generate a unique sprite. **Save it as this individual pet's reference.**
 
-> **Flow:** Species base image → unique Rank 1 pet → Rank 2 → … → Rank 10. Each arrow after Rank 1 uses the previous accepted pet image.
+3. **Rank-ups (Ranks 2–10):** Use the pet's **latest accepted image**, plus the **editable evolution concept for its species and new rank**. Changes should be clearly stronger but anatomically logical (tigers shouldn't grow feathers!), preserving the individual pet's colours, markings and identity. The accepted image becomes the reference for its next evolution.
 
-### What I'd like added
+> **Species base → Unique Rank 1 → Rank 2 → … → Rank 10.** After Rank 1, each new image references the preceding individual pet image.
 
-- **Species editor:** one uploadable **base reference image** and **10 editable rank concepts** per species (Rank 1 plus nine evolutions).
-- **Generation logic:** use the species image **only for initial creation**, then reuse each pet's last accepted image for rank-ups; keep player cosmetics and same-rank redraws intact.
-- **Quality:** premium crisp, detailed pixel art like the approved examples; clean transparent full-body sprites, correct species anatomy, no background or ground shadow. Keep the existing cutout, moderation and visual-review checks.
+### What we'd need
 
-**I'll provide the base images and rank-by-rank descriptions.** No nine fixed uploads per species and **no multi-image reference system needed for this flow**: the current generator already accepts one reference image for evolutions.
+**I'll provide:** One base image and **10 short rank concepts per species** (the first form plus nine evolutions).
 
-*Design handoff, not a deployed change. Source checked: `studie-tech/TheNinjaRPG@19e2010f9cd3f9be26fff96cca0bf6dece322f11`.*
+**Developer side:** Add a **base-reference upload and editable Rank 1–10 prompts** to the species editor. Use the species base **only for first generation**; use the pet's own previous image thereafter.
+
+**Quality bar:** Our approved Kitsune, Dragon and Phoenix — crisp, detailed TNR pixel art, correct animal anatomy, transparent full-body sprites, **no background**. Preserve the existing player cosmetics, same-rank redraw behaviour and safety/visual checks.
+
+**Why this is practical:** The generator already accepts **one reference image**. We don't need nine fixed images per species, or a two-reference system.
+
+**Result:** Same art family, recognizable species, unique pets and logical evolutions.
+
+*Proposed workflow; no live changes. Verified against public TNR source at `studie-tech/TheNinjaRPG@19e2010f9cd3f9be26fff96cca0bf6dece322f11`.*
