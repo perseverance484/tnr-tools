@@ -1,6 +1,6 @@
 # Isolated generation 04 — Ghost Ship Rare Gatherer's Chest
 
-**Status:** READY FOR ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-20); production alpha/export/preflight PENDING  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -64,3 +64,14 @@ The completed pair should read **Rare Hunter = fortified cold-steel/rune Hunter 
 3. Present this one candidate for **director visual approval**. Same-subject revisions may remain in this conversation; after two wrong-subject/composition generations, close it and restart clean.
 4. On approval, return the **original exact image bytes** to the persistent Art Studio. **Do not** process, convert to game WebP, construct a collage, commit art or upload. Studio will record MIME/size/hash, complete raw QC, resolve native-alpha/flat-lime key, pad to square, run 125/64/32px family comparisons and `artpreflight.py --type ICON` on the final lossless WebP.
 5. Following approval, the next distinct session is **Epic Hunter's Chest**, with Reliquary + approved Hunter-family image as its only two references.
+
+## Director visual acceptance and studio intake (2026-10-20)
+
+**Director:** “Approved, next.” This records visual acceptance of the Rare Gatherer's Chest as supplied; it does **not** certify production readiness.
+
+- **Received conversation source:** `1000018930.png` (extension is misleading: Pillow decodes **JPEG**). RGB, **1536×1536**, **420968 raw bytes**, exact SHA-256 `d5e44dba4c5947067ee0da8cef1d7e326a1aafbec7d85c21e6eba76db33a31a4`.
+- **Visual subject:** single complete closed domed-lid chest, substantially reinforced polished cold-gunmetal/steel lid bands and corner rivets, engraved small star-rune motifs, brighter enlarged cyan clasp, narrow cyan seam light; Gatherer leaf on front panel and rope/sprig retained and distinguish it from Hunter.
+- **125 px visual pair gate:** inspected alongside director-approved Common Gatherer's in a deterministic Lanczos-downsampled two-icon comparison. Reinforced silver-cold metal and seam differentiate Rare from Common; leaf/rope/sprig family identity remains visible. 64/32 px stress-preview images also made; they are visual aids, not mechanical preflight.
+- **File/background gate remains BLOCKED:** raw is JPEG RGB with **opaque black matte**, no alpha and no compliant flat lime `#00FF00` key. Producing a transparent alpha matte requires separate, verified handling of near-black chest edges; do **not** blindly key black and damage the accepted wood/metal details.
+- **Not done:** no production-ready 256×256 lossless WebP, dark-composite alpha-edge QC, canonical `artpreflight.py --type ICON` run, `imagePack`, Forge ticket, or game upload. Actual delivered raw remains conversation-supplied; no Git binary pin.
+- **Next session:** Epic Hunter's Chest (separate conversation), using only original Skyglass Reliquary + director-approved **Rare Hunter's Chest** as individual references; see `EPIC_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md`.
