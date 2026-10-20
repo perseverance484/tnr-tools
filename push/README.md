@@ -231,3 +231,21 @@ array is the live one with only that field changed). `injectableInBattle` is re-
 value (law 20). Neither jutsu is AI-equipped in the committed captures (laws 18, 60). Approved by
 dauntless 2026-10-20. `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0
 pre-send problems. Run it from Forge, then use **Check suggestions**.
+
+## 144-145 Frost Warden rank and jutsu refresh (suggest mode, QA ticket 12)
+
+The visible daily "Shinobi Fundamentals: Frost Warden" (levels 50-60, one attempt a day) is the only
+content that uses the Frost Warden AI. The boss is level 60 with about 91,462 in each base stat but
+ranked STUDENT, so combat caps it at level 10 and 20,000 per stat (law 16). Three of its jutsu were
+edited on 2026-10-17 while equipped, so their combat links are likely severed (laws 18, 60).
+Approved by dauntless 2026-10-20 (rank JONIN; the equip refresh also as a suggestion).
+
+Run in order:
+1. `144_frost_warden_rank_fix.json`: rank STUDENT -> JONIN (about 4.6x the in-combat stats, level
+   10 -> 60) and unequips Glacial Cataclysm, Frosty Demise and Frost Reflection.
+2. `145_frost_warden_reequip.json`: re-equips the exact six-jutsu kit in its original order. Run it
+   only after the 144 suggestion shows **APPLIED** under **Check suggestions**; if 144 is rejected,
+   do not run it. Between the two the boss fights with Arctic Frost, Ice Palace and Frostbite Barrage.
+
+`validate.py`: 0 errors, 0 warnings on both. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Manifest hashes: 144 `8e2176e0`, 145 `d59b79e3`.
