@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "SCOPE_19_IMAGES__STRUCTURE_APPROVED__3_VISUALS_APPROVED__JADE_R01_NEXT",
+  "status": "SCOPE_19_IMAGES__STRUCTURE_APPROVED__RANK1_EMBER_MOONLIT_JADE_RAW_APPROVED__OBSIDIAN_R01_NEXT",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -435,24 +435,84 @@
       "rank_name": "Companion",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "SPECIES_REF",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_APPLICABLE",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
-      "approved_original": null,
-      "approved_original_sha256": null,
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL__PROCESSING_AND_ALPHA_PENDING",
+      "director_visual_approval": "APPROVED",
+      "identity_qc": "PASS_VISUAL_DIRECTOR_APPROVED: recognizable juvenile two-tail Kitsune, dark-teal/jade-green/cream natural fur, two visibly different harmonious eye colours (green and cyan/blue), subtle localized violet lightning sparks; distinct from Ember and Moonlit.",
+      "progression_qc": "NOT_APPLICABLE_RANK1: unique juvenile creation; rank2 physical growth not yet evaluated.",
+      "thumbnail_160_qc": "PASS_VISUAL_160PX_LANCZOS: two separate attached tail shapes, mismatched eye identity and contained violet lightning identifiable. Full-family source/Ember/Moonlit/Jade comparison visually checked.",
+      "reference_original": {
+        "filename": "1000018901.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 324168,
+        "background": "opaque black",
+        "sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+        "source_location": "conversation_upload",
+        "data_note": "Original .png filename contains JPEG RGB bytes. Full source bytes verified, preserved without recompression."
+      },
+      "approved_original": {
+        "filename": "kitsune_jade_rank1_approved_source_20261020.jpg",
+        "archive_filename": "images/kitsune_jade_rank1_approved_source.jpg",
+        "sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+        "bytes": 324168,
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "alpha_policy": "NOT_COMPLIANT_AS_PRODUCTION_EXPORT",
+        "located_in": "2026-10-20 conversation attachment and approved-source source/parent ZIP (NOT Git-pinned)"
+      },
+      "approved_original_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
-      "isolated_session": null,
-      "approval_date": null,
-      "revision_notes": [],
+      "mechanical_preflight": "NOT_RUN__SOURCE_JPEG_RGB_OPAQUE_BLACK, requires separate alpha/cutout and lossless WebP export; no upload readiness claimed.",
+      "isolated_session": {
+        "type": "ISOLATED_GENERATION_ART_RETURN",
+        "target": "Jade Rank 1",
+        "session_url": null,
+        "evidence": "Director attached completed Jade Rank1 candidate in master workdesk and wrote 'Approved, nexr' (interpreted as next). Provider invocation/conditioning reference attachment not independently verified."
+      },
+      "approval_date": "2026-10-20",
+      "revision_notes": [
+        "Director 2026-10-20: 'Approved, nexr' accompanying visually approved Jade Rank1, interpreted as 'Approved, next.'",
+        "Exact original SHA-256 c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378. Source is 1536x1536 opaque black-background JPEG (324168 bytes) despite .png upload extension.",
+        "Visually inspected at full and 160px beside species master, Ember R1 and Moonlit R1; approved juvenile characteristics, distinct jade palette, mismatched eyes and restrained purple Lightning.",
+        "Actual image generator parent-reference ingestion not proven; expected lineage parent is exact species reference SHA, never Ember/Moonlit.",
+        "Mechanical alpha cleanup, lossless WebP, production preflight NOT RUN. Original bytes preserved byte-for-byte without recompression.",
+        "Jade R2 must use this exact approved Jade raw as its sole image reference, only after all four R1 siblings approved."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "parent_conditioning_evidence": "EXPECTED from Jade Rank 1 isolated-session instructions (only approved juvenile SPECIES_REF); actual image generator attachment / reference ingestion cannot be independently verified from returned pixels. Parent use remains UNVERIFIED.",
+      "raw_source_archive": {
+        "filename": "TNR_Living_Lineages_Jade_Rank1_Approved_Source_Intake_20261020.zip",
+        "sha256": "ee8ebca6b9b0ec20f59ccfe2cb31d9cab83106381264633081fedddf70cfead7",
+        "bytes": 542452,
+        "entry": "images/kitsune_jade_rank1_approved_source.jpg",
+        "parent_entry": "images/kitsune_juvenile_species_reference.jpg",
+        "source_kind": "conversation_artifact_not_git_pinned",
+        "manifest_entry": "intake_manifest.json",
+        "status": "MANIFEST_READBACK_VERIFIED_TWO_EXACT_JPEG_ORIGINALS"
+      },
+      "visual_qc_artifacts": [
+        {
+          "filename": "kitsune_jade_rank1_160px_visual_qc_20261020.png",
+          "sha256": "1fcbd881148d09f24e38408f845ff6f1f15cc679ac50b681e6dbffbbec37fccc",
+          "method": "Pillow LANCZOS RGB 1536x1536 -> 160x160, exact untouched source JPEG"
+        },
+        {
+          "filename": "kitsune_jade_rank1_qc_compare_20261020.png",
+          "sha256": "d3b39755c8feab51184de7cafb8dbb61d656e5854f238b98c64d9eae2ef45330",
+          "method": "Deterministic Pillow 270px family comparison of exact source/Ember/Moonlit/Jade originals"
+        }
+      ]
     },
     {
       "asset_id": "D_R01",
@@ -539,7 +599,7 @@
       "rank_name": "Scout",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "C_R01",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
       "used_parent_sha256": null,
       "status": "NOT_STARTED",
       "director_visual_approval": "NOT_REVIEWED",
@@ -1489,13 +1549,13 @@
     "evidence_source": "director response in project conversation; no downstream rank image has yet been approved"
   },
   "next_generation": {
-    "asset_id": "C_R01",
-    "lineage": "Jade",
+    "asset_id": "D_R01",
+    "lineage": "Obsidian",
     "rank": 1,
     "expected_parent_asset_id": "SPECIES_REF",
     "expected_parent_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
     "gate": "READY_FOR_ISOLATED_GENERATION",
-    "requires": "Attach only actual juvenile species reference (not Moonlit or Ember); Jade green/dark teal/cream palette index 10, Mismatched eyes index 5, subtle violet Lightning sparks index 4, two juvenile tails; obtain director visual approval before Obsidian R1"
+    "requires": "Attach ONLY exact approved juvenile species master; Obsidian palette index 9 black/dark violet/silver, Dappled accents characteristic index 9, Spirit aura index 7 few faint pearl-coloured spirit motes. Create new youthful 2-tail fox. Do not condition on previous mature Obsidian benchmark or another Rank1 variant; obtain director approval."
   },
   "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight",
   "lineage_progress": {
@@ -1513,9 +1573,9 @@
     },
     "C": {
       "label": "Jade",
-      "highest_director_approved_rank": 0,
-      "latest_approved_asset_id": null,
-      "latest_approved_original_sha256": null
+      "highest_director_approved_rank": 1,
+      "latest_approved_asset_id": "C_R01",
+      "latest_approved_original_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378"
     },
     "D": {
       "label": "Obsidian",
@@ -1524,8 +1584,8 @@
       "latest_approved_original_sha256": null
     }
   },
-  "approved_image_count": 3,
-  "approved_individual_rank_images_count": 2,
+  "approved_image_count": 4,
+  "approved_individual_rank_images_count": 3,
   "generation_sessions_returned": [
     {
       "target_asset_id": "A_R01",
@@ -1542,6 +1602,14 @@
       "raw_source_sha256": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
       "session_url": null,
       "provenance": "Director supplied approved image to workdesk; actual model use of referenced species master unverified"
+    },
+    {
+      "target_asset_id": "C_R01",
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL",
+      "received_date": "2026-10-20",
+      "raw_source_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+      "session_url": null,
+      "provenance": "Director-supplied raw image in workdesk; actual image model's conditioning source not independently proven"
     }
   ],
   "source_intake_archives": [
@@ -1559,6 +1627,14 @@
       "bytes": 563791,
       "entries": 3,
       "role": "accepted Moonlit R1 + approved species juvenile reference exact source JPEG bytes + manifest",
+      "git_pinned": false
+    },
+    {
+      "filename": "TNR_Living_Lineages_Jade_Rank1_Approved_Source_Intake_20261020.zip",
+      "sha256": "ee8ebca6b9b0ec20f59ccfe2cb31d9cab83106381264633081fedddf70cfead7",
+      "bytes": 542452,
+      "entries": 3,
+      "role": "approved Jade R1 + verified identical juvenile species reference raw JPEGs + intake manifest",
       "git_pinned": false
     }
   ],
@@ -1635,12 +1711,12 @@
   "target_unique_images": 19,
   "scope_counts": {
     "target": 19,
-    "approved_total": 3,
-    "pending": 16,
+    "approved_total": 4,
+    "pending": 15,
     "excluded_legacy": 18,
-    "approved_rank_images": 2,
+    "approved_rank_images": 3,
     "required_rank_images": 18,
-    "remaining_rank_images": 16
+    "remaining_rank_images": 15
   },
   "structural_svg_qc": {
     "performed_on": "2026-10-20",
