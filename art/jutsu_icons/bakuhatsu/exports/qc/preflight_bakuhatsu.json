@@ -1,0 +1,28 @@
+{
+ "command": "python3 artpreflight.py icon_bakuhatsu_inferno_cataclysm_v1.webp icon_bakuhatsu_kinetic_nova_v1.webp icon_bakuhatsu_blast_shield_v1.webp icon_bakuhatsu_charge_4_explosion_v1.webp icon_bakuhatsu_howitzer_crash_v3.webp --spec 25x_DATA_art_spec.json --type JUTSU_ICON --json",
+ "cwd": "exports/",
+ "exit_code": 0,
+ "stdout": "{\n \"rows\": [\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_inferno_cataclysm_v1.webp\",\n   \"check\": \"aspect\",\n   \"message\": \"256x256 matches 1:1\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_inferno_cataclysm_v1.webp\",\n   \"check\": \"alpha\",\n   \"message\": \"mode RGB; opaque designed background accepted for JUTSU_ICON\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_kinetic_nova_v1.webp\",\n   \"check\": \"aspect\",\n   \"message\": \"256x256 matches 1:1\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_kinetic_nova_v1.webp\",\n   \"check\": \"alpha\",\n   \"message\": \"mode RGB; opaque designed background accepted for JUTSU_ICON\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_blast_shield_v1.webp\",\n   \"check\": \"aspect\",\n   \"message\": \"256x256 matches 1:1\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_blast_shield_v1.webp\",\n   \"check\": \"alpha\",\n   \"message\": \"mode RGB; opaque designed background accepted for JUTSU_ICON\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_charge_4_explosion_v1.webp\",\n   \"check\": \"aspect\",\n   \"message\": \"256x256 matches 1:1\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_charge_4_explosion_v1.webp\",\n   \"check\": \"alpha\",\n   \"message\": \"mode RGB; opaque designed background accepted for JUTSU_ICON\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_howitzer_crash_v3.webp\",\n   \"check\": \"aspect\",\n   \"message\": \"256x256 matches 1:1\"\n  },\n  {\n   \"level\": \"note\",\n   \"file\": \"icon_bakuhatsu_howitzer_crash_v3.webp\",\n   \"check\": \"alpha\",\n   \"message\": \"mode RGB; opaque designed background accepted for JUTSU_ICON\"\n  }\n ],\n \"errors\": 0\n}\n",
+ "stderr": "",
+ "script_sha256": "e8aa60e96eb43ef4d5991134ca28ec242e310b4cadb4bfffe728a1cbe3e8891d",
+ "spec_sha256": "24815e39746204fa68ee2ae977717b2009dabaf13be71923eb6735416d34873d",
+ "files": [
+  "icon_bakuhatsu_inferno_cataclysm_v1.webp",
+  "icon_bakuhatsu_kinetic_nova_v1.webp",
+  "icon_bakuhatsu_blast_shield_v1.webp",
+  "icon_bakuhatsu_charge_4_explosion_v1.webp",
+  "icon_bakuhatsu_howitzer_crash_v3.webp"
+ ],
+ "canonical": {
+  "canonical": true,
+  "pins_file": "preflight_pins.json",
+  "script_blob": "71ed409853c8b3da6f5b66c5c3db5ab2c9274bb4",
+  "spec_blob": "8536cd9b81da4c8f88a095af89026437a25a2c15",
+  "pinned_from_main": "f620db3d934fbb5a13effa5f90ed25bf16a33718",
+  "reason": null
+ },
+ "errors": 0,
+ "error_rows": [],
+ "warning_rows": [],
+ "verdict": "PASS"
+}

@@ -1,0 +1,167 @@
+{
+ "schema": "tnr.jutsu-showcase/1",
+ "bloodline": {
+  "id": "RNUcHSH2c00IhOLc2C9aJ",
+  "name": "Bakuhatsu",
+  "family": "bakuhatsu"
+ },
+ "n": 5,
+ "row_lengths": [
+  3,
+  2
+ ],
+ "icons": [
+  {
+   "jutsu_id": "FTTl_wnTlbvOfOyiGCc-b",
+   "jutsu_name": "Inferno Cataclysm",
+   "approved_raw_sha256": "6bdaaf03a35532b0cfa3bc64150187540a2b4bbcaf87b283d0f6d09e0828e214",
+   "output_filename": "icon_bakuhatsu_inferno_cataclysm_v1.webp",
+   "output_sha256": "e1556eafe266ea53e4c9f1f0c223f73954bd3cbc3049527f20da4aa16e19ee6e",
+   "output_bytes": 130016,
+   "caption": "Inferno Cataclysm 130.0kB",
+   "position": {
+    "row": 1,
+    "col": 1,
+    "x": 28,
+    "y": 28
+   }
+  },
+  {
+   "jutsu_id": "y8y01n9jz16bz5EBzl4wr",
+   "jutsu_name": "Kinetic Nova",
+   "approved_raw_sha256": "7bfdcfaeb20a026f5f98a5381ac564f8a6d441ab8b024f1c7d39a84237bc5050",
+   "output_filename": "icon_bakuhatsu_kinetic_nova_v1.webp",
+   "output_sha256": "bd2dbe42b0ea603998a1867362c54838e88b9a3d3f00e56f31856b860fcc052b",
+   "output_bytes": 119208,
+   "caption": "Kinetic Nova 119.2kB",
+   "position": {
+    "row": 1,
+    "col": 2,
+    "x": 406,
+    "y": 28
+   }
+  },
+  {
+   "jutsu_id": "Awyd1k1-tw4uzn-PLbcdP",
+   "jutsu_name": "Blast Shield",
+   "approved_raw_sha256": "f2167a947f77c56f39a6d24b8af0660406cf7654872fdf88407333f0539be308",
+   "output_filename": "icon_bakuhatsu_blast_shield_v1.webp",
+   "output_sha256": "69111187faee0a28f997bb202a635116808e1e604a74ac32873eab8ae51f0e13",
+   "output_bytes": 114406,
+   "caption": "Blast Shield 114.4kB",
+   "position": {
+    "row": 1,
+    "col": 3,
+    "x": 784,
+    "y": 28
+   }
+  },
+  {
+   "jutsu_id": "rOqCTqNBSW_A-QYesFBw9",
+   "jutsu_name": "Charge 4 Explosion",
+   "approved_raw_sha256": "619bc4f7a86adfdbdf98a124a2f816911e199389ae26240cb04a56c8bb1bdd8a",
+   "output_filename": "icon_bakuhatsu_charge_4_explosion_v1.webp",
+   "output_sha256": "61738332b128c02cbd94fe4539914ae5c72c5771f6774b0ee19c3bc022f01748",
+   "output_bytes": 132104,
+   "caption": "Charge 4 Explosion 132.1kB",
+   "position": {
+    "row": 2,
+    "col": 1,
+    "x": 217,
+    "y": 470
+   }
+  },
+  {
+   "jutsu_id": "hW4IV1Hp59BqVFx0u-gTd",
+   "jutsu_name": "Howitzer Crash",
+   "approved_raw_sha256": "e410b382b9e268efdad878f80d9f97ce21b70a289350674c3c18c7ec9a39727c",
+   "output_filename": "icon_bakuhatsu_howitzer_crash_v3.webp",
+   "output_sha256": "661fa177909871dc05a677a66a298a07e4978acc56f8b8f72463e78b82129417",
+   "output_bytes": 100670,
+   "caption": "Howitzer Crash 100.7kB",
+   "position": {
+    "row": 2,
+    "col": 2,
+    "x": 595,
+    "y": 470
+   }
+  }
+ ],
+ "geometry": {
+  "canvas": [
+   1162,
+   912
+  ],
+  "tile": 350,
+  "gutter": 28,
+  "margin": 28,
+  "caption_band": 64,
+  "background": [
+   13,
+   17,
+   28
+  ],
+  "rows_centered": true,
+  "layout_rule": "N<=9 table; N>=10 ceil(N/4) balanced rows, longer first (RUL-2026-10-19-005 D5)"
+ },
+ "compositor": {
+  "tool": "jutsu_studio.py 1.1.0",
+  "versions": {
+   "tool": "1.1.0",
+   "pillow": "12.3.0",
+   "libwebp": "1.6.0",
+   "python": "3.13"
+  },
+  "resample": "LANCZOS 256->350",
+  "fonts": [
+   "pillow-default-freetype-22"
+  ]
+ },
+ "caption_units": "bytes/1000, one decimal (decimal kB, not KiB)",
+ "gallery": {
+  "file": "bakuhatsu_jutsu_showcase_bakuhatsu.png",
+  "sha256": "d19402238f8cb5e6539bcd68df833c8e33ef2b605a29a9b6e47f547f4752b135",
+  "pixels_sha256": "4a9d7cf953eebd40604e8869e8901dd94121d6f3fee46e115d51e3aef75519f3",
+  "bytes": 1192836
+ },
+ "phone_preview": {
+  "file": "bakuhatsu_jutsu_showcase_bakuhatsu_phone.png",
+  "sha256": "37ecb112de8530a6ada4be47ee3dda45e63ddfe5712012ab9118db1a5033ab30",
+  "bytes": 1087443
+ },
+ "thumbnail_qc": {
+  "file": "bakuhatsu_jutsu_thumbs_125_64_32_bakuhatsu.png",
+  "sha256": "977e7f3a680be4bd71001ef2eeac40fbf89ff8146a06c99ea643dcd0e07768ed",
+  "sizes": [
+   125,
+   64,
+   32
+  ]
+ },
+ "members_sha256": "b429a0ca380d677c0152f9b49120958be15b0b4b939b5cd79631283dde198202",
+ "director_family_acceptance": {
+  "status": "PENDING",
+  "recorded_status": "PENDING",
+  "recorded_gallery_sha256": null,
+  "recorded_gallery_pixels_sha256": null,
+  "recorded_members_sha256": null,
+  "recorded_evidence": "No director approval of processed export-based canonical family gallery is recorded. Plain raw preview is DRAFT only.",
+  "matched_by": null,
+  "members_match": false,
+  "gallery_match": null
+ },
+ "canonical_preflight": {
+  "verdict": "PASS",
+  "command": "python3 artpreflight.py icon_bakuhatsu_inferno_cataclysm_v1.webp icon_bakuhatsu_kinetic_nova_v1.webp icon_bakuhatsu_blast_shield_v1.webp icon_bakuhatsu_charge_4_explosion_v1.webp icon_bakuhatsu_howitzer_crash_v3.webp --spec 25x_DATA_art_spec.json --type JUTSU_ICON --json",
+  "exit_code": 0,
+  "spec_sha256": "24815e39746204fa68ee2ae977717b2009dabaf13be71923eb6735416d34873d",
+  "script_sha256": "e8aa60e96eb43ef4d5991134ca28ec242e310b4cadb4bfffe728a1cbe3e8891d",
+  "reason": null
+ },
+ "status_note": "A family showcase is accepted only by an explicit director decision that names this gallery's sha256; N raw approvals are not that decision. Never a game @img asset.",
+ "tile_pixel_equality": {
+  "verified_from": "written PNG bytes vs recorded export bytes",
+  "tiles": 5,
+  "all_equal": true
+ }
+}
