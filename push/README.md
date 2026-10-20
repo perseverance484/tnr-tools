@@ -149,3 +149,15 @@ a description drafted from its effects and battle line; Equilibrium Guard Strike
 generic "%user uses %jutsu on %target" battle line (dauntless, 2026-10-20). Only text changes;
 `injectableInBattle` is re-sent at its live value. `validate.py`: 0 errors, 0 warnings.
 Run it from Forge, then use **Check suggestions**.
+
+## 136 Jutsu text batch 1 (suggest mode, QA ticket 5)
+
+`136_jutsu_text_batch_1.json` sends thirteen text edits to the content review desk; it does not save
+directly. Thirteen visible player jutsu still read "New jutsu description" (Sticky Fingers, Armor of
+Protection, Decrease Potency, Increase Potency, First Form: Burst, Momo3, Nin Gen Alliance, Pill Pack:
+Stamina Pill III, Swallow's Flight Slice, Widow's Maw, Widow's bite, Stardust, Voltari). Each gets a
+description drafted from its effects; seven generic "%user uses %jutsu on %target" battle lines are
+replaced, and Swallow's Flight Slice, Stardust, Voltari and Armor of Protection get battle-line grammar
+fixes (dauntless, 2026-10-20). Only text changes; `injectableInBattle` is re-sent at its live value.
+Test-named and boss-phase jutsu are excluded. `validate.py`: 0 errors, 0 warnings.
+Run it from Forge, then use **Check suggestions**.
