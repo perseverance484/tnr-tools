@@ -1,0 +1,5423 @@
+{
+ "schema": "tnr.schema_adoption_ledger",
+ "ruling": "RUL-2026-10-20-001",
+ "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound to the exact OLD and NEW file hashes. Not a waiver: any other file, or any other breaking atom, fails schema_diff.py exactly as before.",
+ "source": {
+  "old": "studie-tech/TheNinjaRPG@bdec2883",
+  "new": "studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb"
+ },
+ "regenerate": "python3 scripts/schema_adoption_ledger.py <bdec2883 checkout> <6524d0fb checkout> <pre-adoption 45x dir> <adopted 45x dir> --write state/schema_adoption_ledger_6524d0fb.json",
+ "classes": {
+  "upstream_field_removed": {
+   "evidence": "A key the validator no longer declares at the new pin. Verified independently: Forge tools/derive_fields.mjs (entity columns) or tools/derive_nested.mjs (tag/objective/AI keys) lists it at the old pin and not at the new one. Examples: migration 0056 dropped required{Ninjutsu,...}{Offence,Defence}; ten tags stopped spreading IncludeStats.",
+   "count": 31
+  },
+  "upstream_const_member_removed": {
+   "evidence": "A member the constant's declaration no longer contains at the new pin (comments stripped, spreads followed), present at the old pin. E.g. StatTypes lost \"Highest\" (IncludeStats maps legacy Highest to None), UserStatuses lost KAGE_QUEUED.",
+   "count": 50
+  },
+  "upstream_procedure_removed": {
+   "evidence": "A router procedure no longer declared in its router file at the new pin (kage challenges, train.stopTraining -> stopMasteryTraining, ...); its guard/kind atoms go with it.",
+   "count": 33
+  },
+  "consequence_of_removal": {
+   "evidence": "An enum member, or a 45g nullable/required/enum/null-strip entry, that belonged to a field verified as removed in this same ledger, or to a constant member verified as removed (statClassification lost \"Highest\" because StatTypes did).",
+   "count": 352
+  },
+  "extractor_spread_marker": {
+   "evidence": "The old file carried a literal \"...Name\" spread marker as if it were a value (ElementNames held \"...BasicElementName\" instead of Fire/Water/...). The fixed extractor expands the spread; the marker was never a value the server accepts.",
+   "count": 25
+  },
+  "extractor_nested_key": {
+   "evidence": "The old line-based parser attributed a key of an inline nested z.object to the outer variant (dialog.text came from nextObjectiveId: z.array(z.object({text, ...}))). Forge derive_nested at the old pin confirms it was never a dialog key.",
+   "count": 1
+  },
+  "extractor_helper_overreach": {
+   "evidence": "The old helper collector read a fixed 600-character window past a helper, so z.enum(WeaponTypes) from unrelated code became the enum of every stat requirement (requiredStrength...). The old field's own raw expression declares no enum.",
+   "count": 112
+  },
+  "extractor_spread_precedence": {
+   "evidence": "The old flattener let the FIRST spread win; zod lets the LAST win. BaseAttributes.power (max 100) was reported for tags whose PowerAttributes.power (min 0, no max) overrides it: the 45g tag_power_max mistake Forge validate.mjs documents. The new 45c field for that tag has no max.",
+   "count": 61
+  },
+  "extractor_ref_resolution": {
+   "evidence": "A field typed by a named schema was recorded as an opaque object; the fixed extractor resolves the name (aiRule.action: ZodAllAiActions is a z.union).",
+   "count": 2
+  }
+ },
+ "files": [
+  {
+   "file": "skills/building-tnr-content/data/45c_DATA_constructors.json",
+   "old_sha256": "d3c398f01580a2fa866992a85bca843e20bd179775f76108c5468a055dbd6062",
+   "new_sha256": "476812788b27deb7a764cbfc74640f5c54d1b7cd9200a3807e61c4131914c9d8",
+   "accepted": [
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.absorb.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.afterburn.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.damage.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.generalTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.generalTypes",
+      "Intelligence"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.generalTypes",
+      "Speed"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.generalTypes",
+      "Strength"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.generalTypes",
+      "Willpower"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagegiven.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.generalTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.generalTypes",
+      "Intelligence"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.generalTypes",
+      "Speed"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.generalTypes",
+      "Strength"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.generalTypes",
+      "Willpower"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasedamagetaken.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.decreasestat.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Boil"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Crystal"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Dust"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Explosion"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Ice"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Lava"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Light"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Magnet"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Metal"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "None"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Sand"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Scorch"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Shadow"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Storm"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Wood"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.elementalseal.elements",
+      "Yin-Yang"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.generalTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.generalTypes",
+      "Intelligence"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.generalTypes",
+      "Speed"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.generalTypes",
+      "Strength"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.generalTypes",
+      "Willpower"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagegiven.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.generalTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.generalTypes",
+      "Intelligence"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.generalTypes",
+      "Speed"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.generalTypes",
+      "Strength"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.generalTypes",
+      "Willpower"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasedamagetaken.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.increasestat.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.lifesteal.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.pierce.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.recoil.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.redirection.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.reflect.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.rob.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.timecompression.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.timedilation.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.weakness.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.elements",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.statTypes",
+      "Bukijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.statTypes",
+      "Genjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.statTypes",
+      "Highest"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.statTypes",
+      "Ninjutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "enum-member",
+      "AllTags.wound.statTypes",
+      "Taijutsu"
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllObjectives.dialog",
+      "text"
+     ],
+     "class": "extractor_nested_key"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.absorb",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.afterburn",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.decreasedamagegiven",
+      "generalTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.decreasedamagegiven",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.decreasedamagetaken",
+      "generalTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.decreasedamagetaken",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.elementalseal",
+      "elements"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.increasedamagegiven",
+      "generalTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.increasedamagegiven",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.increasedamagetaken",
+      "generalTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.increasedamagetaken",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.lifesteal",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.recoil",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.reflect",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "variant-field",
+      "AllTags.wound",
+      "statTypes"
+     ],
+     "class": "upstream_field_removed"
+    }
+   ]
+  },
+  {
+   "file": "skills/building-tnr-content/data/45d_DATA_entity_schemas.json",
+   "old_sha256": "96580ed19256b38e980cf21c4b2e081aa428a0448bf3cb007073daeb24372221",
+   "new_sha256": "37d2609591d6cd3b14c3ec3f364416e744683046af84fb9ce6680b761460e14d",
+   "accepted": [
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredBukijutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredBukijutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredGenjutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredGenjutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredNinjutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredNinjutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredTaijutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "item",
+      "requiredTaijutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredBukijutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredBukijutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredGenjutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredGenjutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredNinjutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredNinjutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredTaijutsuDefence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "field",
+      "jutsu",
+      "requiredTaijutsuOffence"
+     ],
+     "class": "upstream_field_removed"
+    },
+    {
+     "atom": [
+      "type-changed",
+      "aiRule",
+      "action",
+      "object -> union"
+     ],
+     "class": "extractor_ref_resolution"
+    },
+    {
+     "atom": [
+      "now-required",
+      "aiRule",
+      "action",
+      "optional -> required"
+     ],
+     "class": "extractor_ref_resolution"
+    }
+   ]
+  },
+  {
+   "file": "skills/building-tnr-content/data/45e_DATA_constants.json",
+   "old_sha256": "e4392228b4d649b6a8a66be07816a4b44f6e808c66407c338cedcd9cb1f46ecc",
+   "new_sha256": "dfe5b1950a9d43c83a22da5701177cd3b1c0bcd166da3a093c2d7faf8b7e4472",
+   "accepted": [
+    {
+     "atom": [
+      "const-member",
+      "ALLIANCE_VILLAGE_TYPES",
+      "TOWN"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "AutoCombatBattleTypes",
+      "ARENA"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "AutoCombatBattleTypes",
+      "QUEST"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "AutoCombatBattleTypes",
+      "TRAINING"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "ElementNames",
+      "...BasicElementName"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "const-member",
+      "HomeTypes",
+      "LARGE_ESTATE"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "HomeTypes",
+      "SMALL_ESTATE"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "HomeTypes",
+      "SMALL_MANSION"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "SECTOR_TYPES",
+      "TOWN"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "bukijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "bukijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "genjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "genjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "ninjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "ninjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "taijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatNames",
+      "taijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "StatTypes",
+      "Highest"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "bukijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "bukijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "genjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "genjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "ninjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "ninjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "taijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatNames",
+      "taijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "UserStatuses",
+      "KAGE_QUEUED"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "allState",
+      "...privateState"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "const-member",
+      "allState",
+      "...publicState"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "const-member",
+      "damageModifierTypes",
+      "...damageBoostTypes"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "const-member",
+      "damageModifierTypes",
+      "...damageReductionTypes"
+     ],
+     "class": "extractor_spread_marker"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "bukijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "bukijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "genjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "genjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "highestDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "highestOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "ninjutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "ninjutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "taijutsuDefence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "taijutsuOffence"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "privateState",
+      "updatedAt"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "anbuId"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "basicActions"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "dailySageActivations"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "items"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "jutsus"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "location"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "medicalExperience"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "regeneration"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "relationIds"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "sageMasteryExperience"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "sageModeId"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "sector"
+     ],
+     "class": "upstream_const_member_removed"
+    },
+    {
+     "atom": [
+      "const-member",
+      "publicState",
+      "warIds"
+     ],
+     "class": "upstream_const_member_removed"
+    }
+   ]
+  },
+  {
+   "file": "skills/building-tnr-content/data/45f_DATA_procedures.json",
+   "old_sha256": "0c72c63ce1c2dcc8749332bcf6287dea87c890a7ada76d910d9e724e8bfb1190",
+   "new_sha256": "272d1df158aacc2a43cd87b19d95921d0bae2e33568f2f62c5dbbb0681622733",
+   "accepted": [
+    {
+     "atom": [
+      "proc-kind",
+      "blackmarket.updateCustomTitle",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "clan.upgradeHideoutToTown",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.acceptChallenge",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.cancelChallenge",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.createChallenge",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.getDailyLockedTime",
+      "query"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.getUserChallenges",
+      "query"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.rejectChallenge",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "kage.toggleOpenForChallenges",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "openai.create3dModel",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-kind",
+      "train.stopTraining",
+      "mutation"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "blackmarket.updateCustomTitle",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "clan.upgradeHideoutToTown",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.acceptChallenge",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.cancelChallenge",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.createChallenge",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.getDailyLockedTime",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.getUserChallenges",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.rejectChallenge",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "kage.toggleOpenForChallenges",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "openai.create3dModel",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "proc-procedure",
+      "train.stopTraining",
+      "protectedProcedure"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "blackmarket",
+      "updateCustomTitle"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "clan",
+      "upgradeHideoutToTown"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "acceptChallenge"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "cancelChallenge"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "createChallenge"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "getDailyLockedTime"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "getUserChallenges"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "rejectChallenge"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "kage",
+      "toggleOpenForChallenges"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "openai",
+      "create3dModel"
+     ],
+     "class": "upstream_procedure_removed"
+    },
+    {
+     "atom": [
+      "procedure",
+      "train",
+      "stopTraining"
+     ],
+     "class": "upstream_procedure_removed"
+    }
+   ]
+  },
+  {
+   "file": "skills/building-tnr-content/data/45g_DATA_checks.json",
+   "old_sha256": "cb8473d25f5d223aa2ae5c64774b83082d82f475428b8dbf9f1fb32cdf048a1e",
+   "new_sha256": "510e56ee7b2ad2f0c39c2f695f971d790d1b5ca4a9659f5b490dda2b4391cbef",
+   "accepted": [
+    {
+     "atom": [
+      "check",
+      "enums.fields.bloodline.statClassification",
+      "\"Highest\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredBukijutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredGenjutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredIntelligence",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredNinjutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredSpeed",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredStrength",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredTaijutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.item.requiredWillpower",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredBukijutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredGenjutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredIntelligence",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredNinjutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredSpeed",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredStrength",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuDefence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"AXE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"BOW\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"CHAIN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"DAGGER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"FAN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"FLAIL\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"HAMMER\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"NONE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"POLEARM\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"SHURIKEN\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"SICKLE\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"STAFF\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredTaijutsuOffence",
+      "\"SWORD\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"AXE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"BOW\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"CHAIN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"DAGGER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"FAN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"FIST_WEAPON\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"FLAIL\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"HAMMER\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"NONE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"POLEARM\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"SHURIKEN\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"SICKLE\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"STAFF\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.requiredWillpower",
+      "\"SWORD\""
+     ],
+     "class": "extractor_helper_overreach"
+    },
+    {
+     "atom": [
+      "check",
+      "enums.fields.jutsu.statClassification",
+      "\"Highest\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredBukijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredBukijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredGenjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredGenjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredNinjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredNinjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredTaijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "null_strip_exempt.values",
+      "\"requiredTaijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredBukijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredBukijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredGenjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredGenjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredNinjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredNinjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredTaijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.item",
+      "\"requiredTaijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredBukijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredBukijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredGenjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredGenjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredNinjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredNinjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredTaijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "nullable.fields.jutsu",
+      "\"requiredTaijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredBukijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredBukijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredGenjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredGenjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredNinjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredNinjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredTaijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.item",
+      "\"requiredTaijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredBukijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredBukijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredGenjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredGenjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredNinjutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredNinjutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredTaijutsuDefence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "required_on_create.fields.jutsu",
+      "\"requiredTaijutsuOffence\""
+     ],
+     "class": "consequence_of_removal"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.absorb",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.afterburn",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.barrier",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.buffprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.cleanse",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.cleanseprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.clear",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.clearprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.clone",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.consume",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.copy",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.damage",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.debuffprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasecooldown",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasedamagegiven",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasedamagetaken",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreaseheal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasemaxpools",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasepoolcost",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.decreasestat",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.disarm",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.drain",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.elementalseal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.flee",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.fleeprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.heal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.healprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.immunity",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasecooldown",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasedamagegiven",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasedamagetaken",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increaseheal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasemaxpools",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasepoolcost",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increaserange",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.increasestat",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.lifesteal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.mirror",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.move",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.moveprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.onehitkill",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.onehitkillprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.pierce",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.poison",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.recoil",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.redirection",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.reflect",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.rob",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.robprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.seal",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.sealprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.shield",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.stealth",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.stun",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.stunprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.summon",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.summonprevent",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.timecompression",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.timedilation",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.vamp",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    },
+    {
+     "atom": [
+      "check",
+      "tag_power_max.fields.wound",
+      "100"
+     ],
+     "class": "extractor_spread_precedence"
+    }
+   ]
+  }
+ ]
+}
