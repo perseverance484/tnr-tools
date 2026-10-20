@@ -1,6 +1,6 @@
 # Isolated generation 06 — Ghost Ship Epic Gatherer's Chest
 
-**Status:** READY FOR ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-20); production alpha/export/preflight PENDING  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -65,3 +65,13 @@ A **single, closed, domed-lid Epic Gatherer's Chest** in the approved Ghost Ship
 4. On approval return the **original exact source bytes** (not screenshot) with target/filename and approval status to persistent Art Studio. Do **not** crop, process, convert to final WebP, commit, publish or upload in the isolated session.
 5. Studio then decodes real MIME/dimensions/alpha, hashes source, checks family at **125/64/32px**, keys genuine flat-color background or keeps native alpha, transparent square-pads, exports lossless `ICON` WebP (256×256 recommended; under 460800 bytes), dark-composite edge QC, and runs canonical `artpreflight.py --type ICON`. Visual approval alone is not production-ready.
 6. After approval: separate isolated **Legendary Hunter's Chest** generation, referencing only the Reliquary plus the approved same-family Epic Hunter (not this Gatherer as a third image).
+
+## Director-approved Epic Gatherer's original and visual check (2026-10-20)
+
+**Director:** “Approved. Next”. This visually accepts the single returned candidate, not production readiness.
+
+- **Exact conversation source:** `1000018932.png`; decoder reports **JPEG** despite `.png` name, `RGB`, square **1536×1536**, **480043 bytes**, SHA-256 `9ec335743a0898552f009e5906a28b043ef9e43472bd0fe6521101af7e65ebdc`. Retain exact source bytes. Original is a conversation attachment, **not** a Git-pinned asset.
+- **Approved subject/material:** complete closed domed chest, visibly brighter/polished silver-edged raised armor and corner rivets over dark wood, **larger cyan faceted central crystal**, a single **bright cyan leaf-shaped engraving** on the front wood, thick rope binding and a green sprig tucked underneath. Hunter fang/leather/claw motifs do not appear.
+- **Visual comparison at 125 px:** deterministic Lanczos source reduction shows Common Gatherer → Rare Gatherer → Epic Gatherer tier ladder via metal craft, crystal scale and formerly brown-to-glowing leaf brand. A separate **Epic Hunter versus Epic Gatherer** 125-px inspection shows glowing **three-claw** versus glowing **leaf** motifs and distinct fang/leather versus rope/sprig hardware. Additional 64-px and 32-px reductions inspected as stress previews; not proof of final in-client renders. These previews are made from existing source pixels only, without generation or retouching.
+- **Production status: BLOCKED** for the same reason as the five predecessors: original source is **opaque JPEG on black**, no true alpha or valid flat chroma field. The spec's `ICON` alpha requirement remains; **do not silently black-key dark wood and outlines**. Source's 480043 bytes do **not** imply that any future 256×256 WebP will fail the 460800-byte budget; actual output checks remain `NOT_RUN`. No finished lossless WebP, dark-background alpha-edge QC, `artpreflight.py --type ICON`, repository binary pin, imagePack, Forge ticket, game upload or publishing.
+- **Next isolated target:** Legendary Hunter's Chest in a **new** conversation. Attach ONLY the original Skyglass Reliquary (style/material) plus the approved **Epic Hunter's Chest** (same-family subject/style). See `LEGENDARY_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md`.
