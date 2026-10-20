@@ -1,0 +1,37 @@
+{
+  "_note": "QA ticket 8 (docs/reviews/QA_LIVE_2026-10-20.md, IMG-BROKEN). Suggest mode: content review desk, no direct save. The Ghost Ship Exterior Keel Walk scene background's image URL answers 404 (checked 2026-10-20), so the Keel Walk nodes in Ghost Ship (Gather) and Ghost Ship (Hunt) show no backdrop. This re-uploads the director-approved file committed for push/90 (art/ghost_ship_skyglass/, sha256 f665ca4b..., 1536x1024, 3:2) under a fresh logical name (law 32; push/129 hit 'File already exists' on a reused name) and points `image` at it. Only `image` changes; `url` is the uploader's default placeholder and is left alone. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "VISUAL",
+    "title": "Fix broken background image",
+    "rationale": "The background's image link is broken, so the Ghost Ship Keel Walk scenes show no backdrop. This re-uploads the approved Keel Walk art."
+  },
+  "imgSizes": {
+    "scene_bg_ghost_ship_exterior_keel_walk_b.webp": 224364
+  },
+  "imagePack": {
+    "ref": "eb151c3a8638addf5864cd2d8604561a2ee489eb",
+    "files": {
+      "scene_bg_ghost_ship_exterior_keel_walk_b.webp": {
+        "path": "art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp",
+        "sha256": "f665ca4bb8bc4da031241d4b7275359409e6a6a7a711dce0874bd1d1cebfd70a",
+        "bytes": 224364
+      }
+    }
+  },
+  "items": [
+    {
+      "entity": "asset",
+      "slot": "edit",
+      "name": "Ghost Ship Exterior Keel Walk",
+      "targetId": "ujMH_Rcu9muS1z4KgqPla",
+      "data": {
+        "image": "@img:scene_bg_ghost_ship_exterior_keel_walk_b.webp"
+      },
+      "suggestion": {
+        "title": "Fix broken background image",
+        "rationale": "The background's image link returns an error, so the Keel Walk scenes in Ghost Ship (Gather) and Ghost Ship (Hunt) show no backdrop. This re-uploads the original approved Keel Walk art; the picture itself is unchanged."
+      }
+    }
+  ]
+}
