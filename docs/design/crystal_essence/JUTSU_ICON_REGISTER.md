@@ -1,6 +1,6 @@
 # Crystal Essence — jutsu-icon Art Studio register
 
-**Status:** INITIALIZATION / DIRECTION PROPOSED / DIRECTOR APPROVAL PENDING. Not a generation approval, current-live census, P1 intake, or production QC.
+**Status:** FAMILY ART DIRECTION APPROVED / KŌSAI SHIPPŪ P0 LOCK APPROVED / CANONICAL ZIP INTAKE NOT_RUN / GENERATION NOT LAUNCHED. No other target lock, raw artwork, preflight, or upload approval is implied.
 **Lead:** Art Director · Support: Image Production
 **Bloodline:** Crystal Essence · A · `ssevlOGQ4JjPn2sHZtq0c` · BR-020.
 **Repository base:** `main@02a288e966db27f427508734a6223e0e583b081a`.
@@ -25,15 +25,15 @@ Conversation ZIP: `BR-020_Crystal_Essence.zip`, **379102 bytes**, SHA-256 `0a6ac
 
 Optional identity-only: `identity/ssevlOGQ4JjPn2sHZtq0c_Crystal_Essence.jpg`, 256², 51818 bytes, SHA-256 `55dbca6a90c475b6ae4d04e83f54421779a92ceddec5db867374d899616f90ce`. Not a jutsu and not a Bloodright emblem target.
 
-## Proposed family treatment — NOT APPROVED
+## Approved family treatment — director 2026-10-20
 
 **OBSERVED in original artwork:** deep ink/navy backgrounds, cool translucent cyan/teal-to-ultramarine crystal plates, bright hard edge reflections, prismatic ivory/gold/orange impact light, occasional jade, sharply fractured shard clusters. Old originals often contain painted human actors and dense spark fields; Crystal Cave original is predominantly a scenic cavern. These are observations, **not** permission to reproduce their composition or anatomy.
 
-**PROPOSED art direction:** `LUMINOUS SILICATE / WARM-CORE REFRACTION`: rich black-navy negative space; dense glass-like teal/jade/cyan crystal faces with selective pale white facet edges; concentrated amber/sun-gold light refracted through actual working crystal structures; crisp premium TNR pixel outlines / planar cel shadows; shaped full-bleed opaque backgrounds with dominant action legible first. Material identity is **mineral glass fractured by energy**, not BBE's frosted sapphire ice, snow/flake dust, shackles or blade/flake borrowed silhouettes. No mandatory rings, floating gems, glyphs, UI, decorative spell geometry, unrelated scenery or anatomy. Keep accent/glints subordinate to action, inspect at 125/64/32 px. `JUTSU_ICON` spec: 256×256 recommended output, square lossless WebP, minimum width 160px, <=460800 bytes; BBE-only 80000 cap **does not apply**.
+**APPROVED family art direction:** `LUMINOUS SILICATE / WARM-CORE REFRACTION`: rich black-navy negative space; dense glass-like teal/jade/cyan crystal faces with selective pale white facet edges; concentrated amber/sun-gold light refracted through actual working crystal structures; crisp premium TNR pixel outlines / planar cel shadows; shaped full-bleed opaque backgrounds with dominant action legible first. Material identity is **mineral glass fractured by energy**, not BBE's frosted sapphire ice, snow/flake dust, shackles or blade/flake borrowed silhouettes. No mandatory rings, floating gems, glyphs, UI, decorative spell geometry, unrelated scenery or anatomy. Keep accent/glints subordinate to action, inspect at 125/64/32 px. `JUTSU_ICON` spec: 256×256 recommended output, square lossless WebP, minimum width 160px, <=460800 bytes; BBE-only 80000 cap **does not apply**.
 
-## Per-technique P0 action / silhouette reservations — DRAFT
+## Per-technique P0 action / silhouette reservations — DRAFT (only Kōsai approved)
 
-All actions below use the named 2026-10-17 `jutsu.get` description/battleDescription; static artwork is identity only. All composition fields and sibling exclusions are **proposed**, not confirmed source facts.
+All actions below use the named 2026-10-17 `jutsu.get` description/battleDescription; static artwork is identity only. Composition/sibling reservations for the other four jutsu remain **draft proposals**; only the Kōsai Shippū immutable composition target lock is director-approved.
 
 | Jutsu | Source-supported action | Reserved dominant silhouette/action | Camera · motion axis · focal / negative space | ONE secondary cue | Explicit sibling exclusions · tiny-size concern |
 | --- | --- | --- | --- | --- | --- |
@@ -43,7 +43,7 @@ All actions below use the named 2026-10-17 `jutsu.get` description/battleDescrip
 | **Crystal Sphere** | A protective crystal sphere encases the caster, reducing damage; capture also has an enemy vulnerability effect. | **Single closed round faceted BULWARK** visibly deflecting an exterior strike, showing a protected empty interior. | Frontal slight 3/4; **upper-right incoming→upward outward rebound**; center stays dark/open. | One chipped impact flash on outer rim. | No open vertical cocoon, cavern jaws, beam or 3 wave arcs; 32px solid shell + one ricochet, not a decorative floating orb. |
 | **Crystal Cave** | A crystal cave traps a target; same capture's battle description depicts impaling rising crystals, plus damage/debuff/reflect rows. | **Opposing upper/lower jagged cave-teeth SPIKES CLAMP INWARD** around a dark target pocket; trapping/impalement is the action, not an empty scenic cave. | Shallow sectional 3/4, **top/bottom→center** compression, central negative void. | Local fractured stone chips at spike bases. | No Jade upright shell/V opening, Sphere round shield, straight Prism lance or lateral waves; 32px requires 4–6 large opposing teeth, not mini scenery. |
 
-### First isolated target — Proposed immutable P0 TARGET LOCK
+### First isolated target — Director-approved immutable P0 TARGET LOCK
 
 - **Jutsu:** `Kōsai Shippū` · `igPSz82fa_L2XPrtnMvnz` · BLOODLINE D; bloodline `Crystal Essence` · `ssevlOGQ4JjPn2sHZtq0c` · A.
 - **Evidence level:** committed, read-only 2026-10-17 `jutsu.get` in `tnr_results_1792216502874.json` capture index 1; *historical capture; not verified current live*.
@@ -53,11 +53,17 @@ All actions below use the named 2026-10-17 `jutsu.get` description/battleDescrip
 - **Sibling exclusions:** Jade splitting upright cocoon; Prism single straight solar beam; Sphere round protection dome; Cave inward-closing opposing spike jaws. No warrior/body/hands/limbs/face, no decorative ring/rune/diamond, no Blade Eyes ice/flake/sword grammar.
 - **References:** extracted actual `images/igPSz82fa_L2XPrtnMvnz_Kosai_Shippu.png`, SHA-256 `111319fe33b495e4cc5d68de8a67f3d5bc9d52d8185d096283403585d33e6bbd`, **IDENTITY ONLY**. An individually attached genuinely approved BBE/BEE exemplar may serve **STYLE/MATERIAL ONLY** later, but **none has been independently attached to an isolated generation session**; default to 1 reference if absent. Do not send the ZIP, collage, unseen URL or other target as positive conditioning.
 - **Anatomy exception:** **NONE**.
-- **Director approval:** **PENDING**; not a validated lock_sha or generation authorization.
-- **Next gate:** director accepts/edits family treatment and first lock. Only then one clean isolated conversation for this exact jutsu, one candidate; source pixels inspect and 125/64/32 family check. No generator in this studio.
+- **Director approval:** **APPROVED** 2026-10-20 (director: “Approved, proceed” in response to the family-treatment + Kōsai P0 proposal); immutable target lock SHA-256 `2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5`. Local static hash consistency PASS; canonical `jutsu_studio.py lock-check` NOT_RUN; this approval does **not** waive source-intake prerequisites.
+- **Next gate:** complete prescribed `jutsu_studio.py doctor` and safe original ZIP `intake` in an installed producing-tnr-art skill or exact repo checkout; validate the approved target against its source index. Only after this canonical intake gate, open one clean isolated conversation for this exact jutsu, one candidate; inspect returned pixels at 125/64/32. No generator in this studio.
+
+## Director approval checkpoint — 2026-10-20
+
+Director explicitly approved **LUMINOUS SILICATE / WARM-CORE REFRACTION** and the **Kōsai Shippū** P0 target lock in this Art Studio (“Approved, proceed”). The other four sibling silhouette reservations remain proposed, not approved. Immutable machine-readable first lock: `docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json` (lock SHA-256 `2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5`). One-target generation brief: `docs/design/crystal_essence/KOSAI_SHIPPU_ISOLATED_BRIEF_20261020.md`, **prepared but not launched**. Exact individual source original copied without re-encoding or processing; SHA-256 remains `111319fe33b495e4cc5d68de8a67f3d5bc9d52d8185d096283403585d33e6bbd`.
+
+**Mechanical gate:** the intended `jutsu_studio.py doctor` / `intake` / `lock-check` are still **NOT_RUN** because the installed skill/matching checkout isn't present in this runtime; the independent preliminary ZIP checks are not equivalent. The ZIP manifest calls the type field `jutsu_type`, whereas current CLI `source_index` construction reads `type`; preserve the exact known BLOODLINE types from the committed 2026-10-17 `jutsu.get` capture and flag any missing type in future source-index output rather than guessing. No ZIP mutation or production QC here. No generator can be launched before the canonical intake gate is closed.
 
 ## Gates / restrictions (initialization)
 
-`ORIGINAL_SOURCE_VERIFIED`: preliminary local inspection only; **P1 INTAKE NOT_RUN**. `DIRECTION_APPROVED`: PENDING. `RAW_VISUAL_APPROVED`: 0/5. `OUTPUT_LOCAL_QC`: NOT_RUN. `CANONICAL_PREFLIGHT`: NOT_RUN. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+`ORIGINAL_SOURCE_VERIFIED`: preliminary local inspection only; **P1 INTAKE NOT_RUN**. `DIRECTION_APPROVED`: **APPROVED for family treatment + Kōsai target only**; four other targets PENDING. `RAW_VISUAL_APPROVED`: 0/5. `OUTPUT_LOCAL_QC`: NOT_RUN. `CANONICAL_PREFLIGHT`: NOT_RUN. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
 
 **Live-game requests/writes:** 0/0. **Credentials:** none. **Image generation:** 0. **Production processing/gallery:** 0.
