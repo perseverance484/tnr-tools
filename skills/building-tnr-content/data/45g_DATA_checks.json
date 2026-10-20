@@ -2,11 +2,11 @@
  "_provenance": {
   "generator": "schema_extract.py v2.0",
   "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@6524d0fb (2026-10-20)",
+  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "2089844dd8ed0062",
+   "app/drizzle/constants.ts": "93272fe38b94ee7f",
    "app/src/validators/combat.ts": "830100d31626d245",
-   "app/src/validators/objectives.ts": "0f0df6e1464032e9",
+   "app/src/validators/objectives.ts": "3c3aa15270fa0fb4",
    "app/src/validators/ai.ts": "889a5bcdae666e2d"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
@@ -679,6 +679,7 @@
    "quest": [
     "consecutiveObjectives",
     "hidden",
+    "publicLocations",
     "teamEnabled"
    ],
    "gameAsset": [

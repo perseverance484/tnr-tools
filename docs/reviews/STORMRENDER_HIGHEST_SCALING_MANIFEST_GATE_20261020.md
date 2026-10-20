@@ -1,5 +1,7 @@
 # Stormrender scaling repair — manifest and compatibility gate (2026-10-20)
 
+> **Amended 2026-10-20 (PR #76): the RED tooling blocker below is resolved; the rest of this report stands.** Forge 0.8.1 and the skill contracts are re-derived at `studie-tech/TheNinjaRPG@85cecaebf4ada2e265a18a1405f63c9637443275` (RUL-2026-10-20-001), both now know `elementaldamage`, and on push/131 `node forge/tools/check_manifest.mjs` reports 0 pre-send problems and `validate.py` 0 errors, 0 warnings. See `docs/handoffs/STORMRENDER_FORGE_REPIN_6524D0F.md`. The manifest is unchanged. **Before execution, the operator must still take a fresh capture of Stormrender and confirm its effects have not changed since 2026-10-20 06:35 UTC** (last section below). Merging code does not approve a live run.
+
 **Status:** MANIFEST STAGED / **NOT FOR OPERATOR EXECUTION YET**  
 **Lead:** Content Designer; Engineering Auditor review lens  
 **Authority:** Director approved an item-specific correction: "Create manifest to add Highest to both fields." No additional balance edits were approved.

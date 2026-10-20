@@ -1,7 +1,7 @@
 {
  "_provenance": {
   "generator": "forge/tools/derive_fields.mjs",
-  "pin": "6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb",
+  "pin": "85cecaebf4ada2e265a18a1405f63c9637443275",
   "note": "top-level keys of each entity validator at the pinned commit; spreads are resolved into fields"
  },
  "entities": {
@@ -170,7 +170,7 @@
    }
   },
   "quest": {
-   "source": "app/src/validators/objectives.ts:806",
+   "source": "app/src/validators/objectives.ts:810",
    "validator": "QuestValidatorRawSchema",
    "spreads": [
     "masteryRequirementFields"
@@ -200,6 +200,7 @@
     "content": true,
     "hidden": true,
     "teamEnabled": true,
+    "publicLocations": true,
     "retryDelay": true,
     "attemptDelay": true,
     "consecutiveObjectives": true,

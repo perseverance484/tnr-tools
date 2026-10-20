@@ -1,9 +1,10 @@
-# Contract refresh to TheNinjaRPG@6524d0f: Forge re-pin + extractor fix + skill-data adoption — 2026-10-20
+# Contract refresh to TheNinjaRPG@85cecae: Forge re-pin + extractor fix + skill-data adoption — 2026-10-20
 
 **Lane:** A (code/tooling/generated contracts). **Ruling:** RUL-2026-10-20-001 ("Do B ... one big pass and put it in for review").
-**Branch:** `claude/stormrender-highest-scaling-yj2nef`, built on PR #73 head `590c0d8968d21aa53713276ef2faacf2fb42b84c` (merge-base `main@383ac0f`). The `chatgpt/*` branch was not modified. The push/131 manifest is unchanged.
-**Game source:** `studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb` (new), `bdec2883` (previous skill data), `94f9d84` (previous Forge pin). Read only, never executed.
-**Live requests / writes:** 0 / 0. **Credentials:** none.
+**PR:** #76. **Branch:** `claude/stormrender-highest-scaling-yj2nef`. Merge-base `383ac0f`; `main@e13bc9f` (the drift-sentinel commit) is merged in. The new frozen head is reported with the push; this file is the handoff for it.
+**Review round 1:** `chatgpt/review-pr76-integration-20261020@62b81061` (`docs/reviews/PR76_INDEPENDENT_INTEGRATION_REVIEW_20261020.md`), HOLD on F1 (P1) and F2 (P2). Both are corrected below. The review branch was not modified or merged.
+**Game source:** `studie-tech/TheNinjaRPG@85cecaebf4ada2e265a18a1405f63c9637443275`, the commit `main`'s drift sentinel reported and the reviewer inspected; 41 commits after the first adoption pin `6524d0fb`. TNR main was 5 commits further (`19e2010`) at the time and is not adopted. Read only, never executed. (The file name keeps "6524D0F" because other documents link it.)
+**Live requests / writes:** 0 / 0. **Credentials:** none. The push/131 manifest is unchanged.
 
 ## Outcome
 
@@ -11,73 +12,125 @@
 | --- | --- | --- |
 | `node forge/tools/check_manifest.mjs push/131_…json` | 1 problem (`elementaldamage` unknown) | **0** |
 | `validate.py push/131_…json` (cwd skill `data/`) | 3 errors | **0 errors, 0 warnings** |
-| `validate.py` over all 86 `push/*.json` | 81 pass / 5 fail | **83 pass / 3 fail** (90/93/94, see below) |
-| `schema_diff.py diff` per file, adopted files | — | exit 0 with `--accept state/schema_adoption_ledger_6524d0fb.json` |
+| `validate.py` over all 86 `push/*.json` | 81 pass / 5 fail | **83 pass / 3 fail** (90/93/94, below) |
+| `schema_diff.py diff OLD NEW` (OLD = `main`'s files) | — | exit 0 for all five with `--accept state/schema_adoption_ledger_85cecae.json` |
 
-## Part 1 — Forge 0.8.1 (commit `31b3697` + follow-up)
+## Review corrections
 
-- `forge/tools/derive_nested.mjs` reads `Base.omit/pick/extend` derivations (`ElementalDamageTag`), fail-closed on any other chained call. It **also no longer reads commented-out enum members as live values**: at both pins `SimpleTasks` etc. contain `// "anbu_kills",` and Forge accepted six quest tasks the server refuses (anbu_kills, tournaments_won, village_funds_earned, any_missions_completed, any_crimes_completed, students_trained). With that fix, Forge's objective set equals the skill extractor's `allObjectiveTasks` exactly (64).
-- `fields.json` / `nested.json` re-derived at 6524d0f. The adopted item contract equals the live Stormrender capture's columns exactly. At 6524d0f `jutsu.update` nulls `requiredPetSpeciesId` and `quests.update` nulls `petTaskMinutes` when omitted, so the old contract would have lost data.
-- `pin_relevance.mjs` (16 surfaces changed) was read surface-by-surface: limiter, procedure paths/auth, the `item.update` whole-record save, the `/forge` host and the review-desk procedures are unchanged in what Forge relies on.
-- Regression tests: the captured Stormrender row + push/131 edit through `mergeForUpdate` and pre-send validation; commented-out tasks refused. Version 0.8.1, `@x-release-pending 0.8.1`; the loader keeps the released 0.8.0 pin.
+**F1 (P1), `quest.publicLocations` lost on Forge quest edits.** Forge `fields.json`/`nested.json` and all skill contracts are re-derived at 85cecae.
+- `quest.publicLocations` (`z.boolean().prefault(false)`) is now in the quest write set, so `mergeForUpdate` re-sends the live value.
+- Every objective gains `structureAssetId`, `locationName`, `locationDescription` and `structureScale` (`mapLocationFields`, from the new `validators/mapLocation.ts`).
+- `derive_nested.mjs` now searches every validator file, so a new module is found rather than failing. A name declared in more than one file is refused, not guessed.
+- Regression tests (`forge/test/adversarial.test.mjs`):
+  - `publicLocations: true` survives an unrelated edit, and an asserted `false` still wins;
+  - all four location keys are accepted on objectives and a typo is refused.
+- `pin_relevance.mjs` 6524d0f→85cecae: 7 surfaces changed. The two router diffs were read.
+  - `quests.update` now refuses a missing structure asset (loudly) and writes `publicLocations` on its presentation-only path.
+  - `jutsu.getAll` changed its `hideAi` filter.
+  - Nothing else changes what Forge relies on.
+- Item contract unchanged: it still equals the live Stormrender capture's columns.
 
-## Part 2 — `schema_extract.py` blind spots fixed
+**F2 (P2), type-only changes inside 45c union-variant fields were invisible.**
+- `schema_diff.py` now emits `vfield-type` and `vfield-required` atoms. A union-variant field changing type, losing its type, or becoming required (no `optional`, no `default`) is breaking.
+- The breaking-set computation is one shared function (`schema_diff.classify`), used by both the gate and the ledger tool, and is deterministic across `PYTHONHASHSEED`.
+- New `scripts/test_schema_diff.py` (9 tests) covers:
+  - the reviewer's `power: number → string` mutation failing without a ledger, and passing only with an exact-hash, evidenced, identical ledger;
+  - the ledger refusing an unevidenced class, a stale entry, a missing entry or a different NEW file;
+  - a dropped type, optional→required, an additive new required field, and 45g/45f removals.
+  - The tests fail against the previous `schema_diff.py`.
+- The stronger gate changed the breaking set. The ledger was regenerated (not waived) and is re-verified below. It surfaced:
+  - 29 genuine upstream changes: every objective `task` lost its `.prefault()`, so it is now required;
+  - 2 more extractor corrections.
 
-Each was confirmed at both bdec2883 and 6524d0f. At bdec2883 the fixed extractor **removes nothing** relative to the committed files; it only adds what was missed and corrects values, for the reasons below.
+**Non-blocking items:**
+- The preliminary `docs/reviews/STORMRENDER_HIGHEST_SCALING_MANIFEST_GATE_20261020.md` now carries an amendment: the blocker is resolved, and the fresh-recapture instruction is kept.
+- The manifest `_note` is unchanged; its "do not run until both offline gates pass" condition is now met.
 
-| Blind spot | Effect in the old files |
-| --- | --- |
-| Line-based object parser: multi-line fields, `z\n .object({`, `...X.shape`, cross-file spreads, `Base.omit().extend()`, block-bodied helpers (`msg`, `type`) | `description`/`direction` missing on every tag (the push/131 `increasedamagetaken` errors); reward_* missing on `noncombatconsumereward` (push/97); `statTypes` missing on all tags at 6524d0f; `elementaldamage` and `noncombatconsumereward` missing |
-| Spread precedence first-wins (zod is last-wins) | 45g `tag_power_max` 100 on 61 tags whose real `power` has no max (the mistake Forge `validate.mjs` documented) |
-| `0` dropped (`v not in (None, False)`) | every `default: 0`, `min: 0`, `max: 0` missing |
-| A nested object's keys attributed to the outer variant | `dialog.text`; inner bounds/defaults reported as the field's own |
-| Fields typed by a named schema dropped | `coordinateTargeting` (all tags), `allyAIs`, `applyBuffs`/`applyDebuffs`, AI `coordinates` refused as unknown. Now resolved to the zod constant when there is one, else an opaque `{"type":"ref"}` (present, no claims) |
-| `[...Name, "x"]` constant lists | `ElementNames` held `"...BasicElementName"` instead of Fire/Water/Earth/Wind/Lightning; `MaxPoolTypes` lost Health/Chakra/Stamina |
-| One commented-out member dropped a whole list | `SimpleTasks` and every list spreading it |
-| Helper body read as a fixed 600-char window | `enum_ref: WeaponTypes` on every stat requirement (`requiredStrength`, …) |
-| 45d entity spreads and named-schema fields unresolved; `export const AiRule = z\n .object` | at 6524d0f upstream moved columns into `itemEconomySchema`, `furnitureItemSchema` and `masteryRequirementFields`: without the fix 45d lacked 7 item, 7 quest and 2 jutsu columns (auction/purchase limits, masteries, `coordinateTargeting`, `methodSize`) and `aiRule` entirely. (At bdec2883 those columns were inline, so counts there are unchanged) |
-| `AvailableEffectTypes` assumed = all tags | at 6524d0f it excludes `elementaldamage` |
-| 45c had no `_provenance` from the tool | now emitted (payload fingerprint as the 2026-08-30 file did by hand) |
+## Forge 0.8.1
 
-**Independent cross-check:** at 6524d0f, 45c's per-variant key sets equal Forge `nested.json` for all four union families (effects, objectives, AI conditions, AI actions). 45d's entity field sets equal Forge `fields.json` for jutsu, item, bloodline, quest and gameAsset. The two derivations share no code.
+- `derive_nested.mjs`:
+  - reads `Base.omit/pick/extend` (`ElementalDamageTag`);
+  - ignores commented-out enum members (six quest tasks the server refuses had been accepted);
+  - searches all validator files (`_meta.files` lists the core ones plus a `searched` count; listing all 87 would cost ~4 KB of bundle).
+- At 6524d0f the old pin's `jutsu.update`/`quests.update` would null `requiredPetSpeciesId`/`petTaskMinutes`. The 85cecae contract carries both.
+- Stormrender regression test: the captured row plus the push/131 edit through `mergeForUpdate` and pre-send validation.
+- Version 0.8.1 with `@x-release-pending 0.8.1`; the loader keeps the released 0.8.0 pin.
 
-## Part 3 — the gate and the ledger
+## `schema_extract.py` blind spots (fixed)
 
-`schema_diff.py` gaps fixed: keys removed from a union variant were not atoms; 45g and 45f had **no atoms at all** (both reported "0 additions, safe to adopt" whatever changed); a newly extracted field was reported as an optional→required flip. Added `--accept LEDGER`: exit 0 only for the exact OLD/NEW sha256 pair and an **identical** breaking set, with every entry under an evidenced class. A negative control (one entry removed) fails.
+Balanced, cross-file, last-wins object parsing. This covers:
+- multi-line fields and `z\n .object({`;
+- `...X.shape` and cross-file spreads;
+- `Base.omit().extend()` derivations;
+- block-bodied helpers (`msg`, `type`);
+- zero values (`default/min/max: 0` were dropped as falsy);
+- fields typed by a named schema (resolved, or emitted as opaque `{"type":"ref"}` instead of dropped);
+- constant lists built with `[...Name]`, and lists with a commented-out member;
+- the helper body read as a fixed 600-character window (the `WeaponTypes` enum on stat requirements);
+- 45d entity spreads and `AiRule`;
+- the `AvailableEffectTypes` filter;
+- 45c `_provenance`.
 
-`scripts/schema_adoption_ledger.py` classifies every breaking atom and re-verifies each class against both pins, without using `schema_extract.py`:
+At bdec2883 the fixed extractor removes nothing from the committed files. At 85cecae:
+- 45c per-variant key sets equal Forge `nested.json` for all four union families;
+- 45d entity fields equal Forge `fields.json` (jutsu, item, bloodline, quest, gameAsset);
+- the two derivations share no code.
+
+## The ledger (`state/schema_adoption_ledger_85cecae.json`, `main` → 85cecae)
+
+`scripts/schema_adoption_ledger.py` re-verifies every breaking atom against both pins without `schema_extract.py`. It reads the pins from each checkout's `git rev-parse HEAD`. Any atom it cannot verify blocks adoption.
 
 | Class | Count | Verified by |
 | --- | ---: | --- |
-| upstream_field_removed | 31 | Forge `derive_fields`/`derive_nested` at bdec2883 vs 6524d0f (migration-0056 stat requirements; ten tags stopped spreading `IncludeStats`; `elementalseal.elements`) |
-| upstream_const_member_removed | 50 | declaration text at both pins (e.g. `StatTypes` lost `Highest`, `UserStatuses.KAGE_QUEUED`, estate home types) |
-| upstream_procedure_removed | 33 | router files at both pins (kage challenges, `train.stopTraining`→`stopMasteryTraining`, …) |
-| consequence_of_removal | 352 | enum/nullable/required/null-strip entries of a field or member verified above (incl. `statClassification` losing `Highest`) |
-| extractor_helper_overreach | 112 | the old field's own raw expression declares no enum |
+| upstream_field_removed | 31 | Forge `derive_fields`/`derive_nested` at both pins |
+| upstream_const_member_removed | 50 | declaration text at both pins |
+| upstream_procedure_removed | 33 | router files at both pins |
+| upstream_default_removed | 29 | the variant schema's own field declaration at both pins (`task: z.literal(x).prefault(x)` → `z.literal(x)`) |
+| consequence_of_removal | 352 | belongs to a field or member verified above |
+| extractor_helper_overreach | 112 | the old field's raw expression declares no enum |
 | extractor_spread_precedence | 61 | the new 45c `power` for that tag has no max |
 | extractor_spread_marker | 25 | the removed value is a literal `...Name` |
+| extractor_nested_key | 2 | inner key of `z.array(z.object(...))`: `dialog.text`, and `nextObjectiveId` typed "string" |
 | extractor_ref_resolution | 2 | `aiRule.action` old raw is a bare schema name |
-| extractor_nested_key | 1 | Forge derive at bdec2883 never had `dialog.text` |
+| extractor_type_fragment | 1 | `consume.rounds` typed "coerce"; the declaration is `z.coerce.number()` at both pins |
 
-Re-run: `python3 scripts/schema_adoption_ledger.py <bdec2883> <6524d0fb> <pre-adoption 45x dir> skills/building-tnr-content/data --check state/schema_adoption_ledger_6524d0fb.json` (pre-adoption files: `git show 383ac0f:skills/building-tnr-content/data/<file>`).
+The superseded `state/schema_adoption_ledger_6524d0fb.json` is removed. It described an intermediate step that never reached `main`.
+
+To re-run (pre-adoption files from `git show 383ac0f:skills/building-tnr-content/data/<file>`):
+```
+python3 scripts/schema_adoption_ledger.py <bdec2883 checkout> <85cecae checkout> <pre-adoption dir> skills/building-tnr-content/data --check state/schema_adoption_ledger_85cecae.json
+```
 
 ## Gates (exact, all exit 0 unless stated)
 
-- Forge (`forge/`): `npm test` 642/642; fixtures + `git diff --exit-code` clean; `npm run build` reproducible; `check_bundle_budget` raw 410,676/420,000 (97.8%), gzip 98,610/100,000 (98.6%); `check_release_pin`, `check_boundaries`, `check_imports` clean.
-- Skill: `schema_diff.py --invariants` 142 variants, 0 errors; `diff … --accept` for all five files; `schema_extract.py` reproduces all five adopted files byte-for-byte; `selfcheck.py --generated data` 0 errors (factory selftest 20/20; validate.py consumes 16/16 45g blocks); `schema_adoption_ledger.py --check` matches.
-- Doctrine/packs: `doctrinemap.py .` 0/0; `render_doctrine.py --check` current; `build_packs.py --check` current; `lawmap.py .` 0 errors, 5 pre-existing warnings (16d, 18, 37, 61, 69).
-- `validate.py --parity` not run (pre-existing TypeError on `checks:null`, unchanged).
+- **Forge (`forge/`):**
+  - `npm test` 644/644; fixtures plus `git diff --exit-code` clean; `npm run build` reproducible.
+  - `check_bundle_budget`: raw 412,173/420,000 (98.1%), gzip 98,680/100,000 (98.7%).
+  - `check_release_pin`, `check_boundaries`, `check_imports` clean.
+  - Stormrender `check_manifest` 0.
+- **Skill:**
+  - `schema_diff.py --invariants`: 142 variants, 0 errors.
+  - `diff … --accept` passes for all five files.
+  - `schema_extract.py` reproduces all five adopted files byte-for-byte.
+  - `selfcheck.py --generated data`: 0 errors (factory 20/20; 16/16 45g blocks).
+  - `schema_adoption_ledger.py --check` matches (PYTHONHASHSEED 1, 2, 3).
+  - `python3 -m unittest scripts/test_schema_diff.py`: 9/9.
+- **Doctrine/packs:** `doctrinemap.py .` 0/0; `render_doctrine.py --check` current; `build_packs.py --check` current; `lawmap.py .` 0 errors, 5 pre-existing warnings.
+- **Not run:** `validate.py --parity`, because of a pre-existing TypeError on `checks:null` (unchanged).
 
 ## Known effects, debt and open decisions
 
-1. **push/90/93/94 validate exceptions are voided by their own terms** (they pin the old contract hashes). Nothing new was found: every error/warning they still produce is one their rulings approved, and 42 + 8 + 3 + 2 approved push/90 diagnostics (stale effect fields, farm nullability, power cap, Highest→None) no longer occur. They are released history; no new ruling was written for them.
-2. **Law reconciliation needed (not done here):** law 4 lists `(damage, pierce, wound)` and says `["Highest"]` is the default for both selectors. At 6524d0f `elementaldamage` is copied into a plain `damage` tag before combat (`libs/combat/elementalDamage.ts` `resolveElementalDamage`), so the rule applies to it too, and `statTypes` `Highest` is mapped to `None`. Law 6's flat power cap of 100 is a `BaseAttributes` bound that `PowerAttributes` overrides for 61 tags. `validate.py` still applies the law-6 text (entity level, unchanged), and its `LFORM`/45g `formula_tags` stay `damage/pierce/wound`.
-3. `factory.py` self-test "power over cap" now uses `weakness` (a real constructor cap); the `damage` case tested the false bound.
-4. The nightly sentinel (`regen_schemas.yml`) will report drift on its first run after merge, because the extractor's output changed. That is expected; it is signal only and never adopts.
-5. 45d `doc` strings can include adjacent code text (pre-existing `split_entries` comment regex; cosmetic, unchanged).
-6. Root `45c`/`45g` copies updated to equal skill `data/` (the old builder reads them from `main` after merge). The old builder applies the same enum/min/max checks as validate.py; it was not run.
-7. `dist/` skill packs are rebuilt by the packaging workflow after merge; not rebuilt here.
+1. **push/90/93/94 validate exceptions are voided by their own terms.** They pin the old contract hashes. Every error and warning they still produce is one their rulings approved; none are new.
+2. **Law reconciliation needed (not done here):**
+   - Law 4 lists `(damage, pierce, wound)` and gives `["Highest"]` as the default for both selectors. `elementaldamage` becomes plain `damage` before combat, and `statTypes` `Highest` is mapped to `None`.
+   - Law 6's flat power cap of 100 is a `BaseAttributes` bound that `PowerAttributes` overrides for 61 tags.
+   - `validate.py` still applies the law text as written.
+3. `factory.py` self-test "power over cap" now uses `weakness`, a real constructor cap.
+4. **The nightly sentinel will report drift on its first run after merge**, because the extractor's output changed and TNR main has moved past 85cecae. That is a signal only; it never adopts.
+5. Root `45c`/`45g` copies equal skill `data/`. The old builder applies the same enum/min/max checks as validate.py; it was not run.
+6. `dist/` skill packs are rebuilt by the packaging workflow.
 
 ## Not done
 
-Browser/live preview, suggestion submission, PR #73 merge, Forge release, any law/doctrine text change, any push/131 manifest change. Before push/131 runs, re-capture Stormrender: the manifest replaces the whole `effects` array from the 06:35 UTC snapshot.
+- No browser, live or session checks; no suggestion submitted; no PR merge or Forge release; no law or doctrine text changes.
+- **Before push/131 runs, re-capture Stormrender:** the manifest replaces the whole `effects` array from the 06:35 UTC snapshot.
