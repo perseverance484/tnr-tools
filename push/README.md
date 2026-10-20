@@ -136,16 +136,9 @@ scroll's description names. It got a new id in the great jutsu deletion event (d
 2026-10-20 public read. `validate.py`: 0 errors, 0 warnings. Run it from Forge, then use
 **Check suggestions** and return the results bundle.
 
-## 134 Suragu formula scaling (suggest mode, QA ticket 3)
+## 134 Suragu formula scaling (withdrawn)
 
-`134_suragu_formula_scaling.json` sends two edits to the content review desk; it does not save
-directly. Magma Slayer's and Eruption Strike's main hits list the four fighting styles and carry no
-`generalTypes`. Suragu is style-neutral (no stat class on any jutsu, element-scoped bloodline boosts),
-so both hits get the kit's own scaling from Infernal Stream: `statTypes: ["None"]` (the stored form
-of Highest, see 131) and `generalTypes: ["Highest"]` (dauntless, 2026-10-20). Everything else is copied
-unchanged from the 2026-10-20 public read. Neither jutsu is equipped on a captured AI.
-`validate.py`: 0 errors, 1 warning (L06 on Magma Slayer's percentage wound rider, left as is: 48 of 55
-visible wound effects carry no scaling types). Run it from Forge, then use **Check suggestions**.
+Withdrawn before it was run; moved to `archive/spent-manifests/push-2026-10-20/` with the reason.
 
 ## 135 Tetsugan descriptions (suggest mode, QA ticket 4)
 
