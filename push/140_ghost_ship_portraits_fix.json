@@ -1,0 +1,56 @@
+{
+  "_note": "QA ticket 9 (docs/reviews/QA_LIVE_2026-10-20.md, IMG-BROKEN). Suggest mode: content review desk, no direct save. The Sealwright and Oathkeeper scene-character assets' image URLs answer 404 (checked 2026-10-20), so neither portrait renders in the visible Ghost Ship (Gather) and Ghost Ship (Hunt) quests. This re-uploads the director-approved files committed for push/90 (art/ghost_ship_skyglass/, pinned by commit and SHA-256) under fresh logical names (law 32) and points `image` at them, as push/139 does for the Keel Walk background. Only `image` changes; `url` is the uploader's default placeholder and is left alone. Operator runs it from Forge; never skipPreflight.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "VISUAL",
+    "title": "Fix broken portrait image",
+    "rationale": "The portrait's image link is broken, so the character does not appear in the Ghost Ship dialog scenes. This re-uploads the approved portrait."
+  },
+  "imgSizes": {
+    "scene_char_ghost_ship_sealwright_portrait_b.webp": 111628,
+    "scene_char_ghost_ship_oathkeeper_portrait_b.webp": 59642
+  },
+  "imagePack": {
+    "ref": "4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc",
+    "files": {
+      "scene_char_ghost_ship_sealwright_portrait_b.webp": {
+        "path": "art/ghost_ship_skyglass/scene_char_ghost_ship_sealwright_portrait.webp",
+        "sha256": "a60fc306003c0b3efadc9923ca1d4428825e8e922c8406a5c8f2a89413c6dd43",
+        "bytes": 111628
+      },
+      "scene_char_ghost_ship_oathkeeper_portrait_b.webp": {
+        "path": "art/ghost_ship_skyglass/scene_char_ghost_ship_oathkeeper_portrait.webp",
+        "sha256": "bca783c84161cac70ed44531370ee9fa70caa680212585a164f10b6b985510d2",
+        "bytes": 59642
+      }
+    }
+  },
+  "items": [
+    {
+      "entity": "asset",
+      "slot": "edit",
+      "name": "Sealwright Scene Portrait",
+      "targetId": "b_K8qdNI651fTsRn9tfkk",
+      "data": {
+        "image": "@img:scene_char_ghost_ship_sealwright_portrait_b.webp"
+      },
+      "suggestion": {
+        "title": "Fix broken portrait image",
+        "rationale": "The portrait's image link returns an error, so the Sealwright does not appear in the Ghost Ship (Gather) and Ghost Ship (Hunt) dialog scenes. This re-uploads the original approved portrait; the picture itself is unchanged."
+      }
+    },
+    {
+      "entity": "asset",
+      "slot": "edit",
+      "name": "Oathkeeper Portrait",
+      "targetId": "6iwMYC8WTCGJTf2QIYfBz",
+      "data": {
+        "image": "@img:scene_char_ghost_ship_oathkeeper_portrait_b.webp"
+      },
+      "suggestion": {
+        "title": "Fix broken portrait image",
+        "rationale": "The portrait's image link returns an error, so the Oathkeeper does not appear in the Ghost Ship (Gather) and Ghost Ship (Hunt) dialog scenes. This re-uploads the original approved portrait; the picture itself is unchanged."
+      }
+    }
+  ]
+}
