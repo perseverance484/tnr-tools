@@ -180,14 +180,29 @@ function discriminators(name, field) {
   const re = new RegExp(`\\b${field}\\s*:\\s*z\\.(literal|enum)\\(`, "m");
   const m = re.exec(body);
   if (!m) return [];
-  const inner = balanced(body, m.index + m[0].length);
+  const inner = stripComments(balanced(body, m.index + m[0].length));
   const literals = [...inner.matchAll(/"([^"]+)"/g)].map((x) => x[1]);
   if (literals.length) return literals;
   const ref = /^\s*([A-Za-z_$][\w$]*)/.exec(inner);
   if (!ref) return [];
   const cm = new RegExp(`const\\s+${ref[1]}\\s*=\\s*\\[`, "m").exec(ALL);
   if (!cm) throw new Error(`cannot resolve enum source ${ref[1]} for ${name}.${field}`);
-  return [...balanced(ALL, cm.index + cm[0].length).matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+  // A commented-out member (SimpleTasks: // "anbu_kills") is not a member: the server's z.enum
+  // refuses it, so Forge must not accept it as a discriminator.
+  return [...stripComments(balanced(ALL, cm.index + cm[0].length)).matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+}
+
+/** Source text with // and /* *\/ comments removed (string literals left intact). */
+function stripComments(s) {
+  let out = "", i = 0;
+  while (i < s.length) {
+    const c = s[i], n = s[i + 1];
+    if (c === "/" && n === "/") { const j = s.indexOf("\n", i); i = j < 0 ? s.length : j; continue; }
+    if (c === "/" && n === "*") { const j = s.indexOf("*/", i + 2); i = j < 0 ? s.length : j + 2; continue; }
+    if (c === '"' || c === "'" || c === "`") { const q = c; let j = i + 1; while (j < s.length && s[j] !== q) { if (s[j] === "\\") j++; j++; } out += s.slice(i, j + 1); i = j + 1; continue; }
+    out += c; i++;
+  }
+  return out;
 }
 
 /** Members of a z.union / z.discriminatedUnion, by name. */

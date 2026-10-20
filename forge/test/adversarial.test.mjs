@@ -1150,3 +1150,12 @@ test("re-pin 94f9d84: ai columns insertAiSchema omits at the pin are refused eve
   assert.match(v.problems("ai", { warMission: "x" }, { username: "X", warMission: null }).join(";"), /"warMission" is not writable on an ai/);
   assert.match(v.problems("ai", { currentlyTrainingElement: "Fire" }).join(";"), /not writable on an ai/);
 });
+
+// derive_nested read `// "anbu_kills",` inside SimpleTasks as a live member, so Forge accepted six
+// quest tasks the server's z.enum refuses (anbu_kills, tournaments_won, village_funds_earned,
+// any_missions_completed, any_crimes_completed, students_trained). Commented members are not members.
+test("nested contract: commented-out task enum members are not objective discriminators", () => {
+  for (const t of ["anbu_kills", "tournaments_won", "village_funds_earned", "any_missions_completed", "any_crimes_completed", "students_trained"])
+    assert.equal(new Validator(SCHEMAS, NESTED).nested.objectives[t], undefined, `${t} is commented out upstream`);
+  for (const t of ["espionage", "pvp_kills", "damage_dealt", "dialog", "start_battle"]) assert.ok(new Validator(SCHEMAS, NESTED).nested.objectives[t], `${t} is a live task`);
+});

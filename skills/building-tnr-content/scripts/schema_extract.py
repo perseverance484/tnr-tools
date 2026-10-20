@@ -57,7 +57,7 @@ FIELD_RE = re.compile(r"^\s{2,}([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.+?),?\s*$")
 BLOCK_RE = re.compile(r"(?:export )?const (\w+)\s*=\s*\{")
 SCHEMA_RE = re.compile(r"export const (\w+)\s*=\s*z\.object\(\{")
 SPREAD_RE = re.compile(r"^\s{2,}\.\.\.(\w+)[,)]?\s*$")
-UNION_RE = re.compile(r"export const (\w+)\s*=\s*z\.(?:union|discriminatedUnion)\(")
+UNION_RE = re.compile(r"export const (\w+)\s*=\s*z\s*\.\s*(?:union|discriminatedUnion)\(")
 ARRCONST_RE = re.compile(r"(?:export )?const (\w+)\s*=\s*\[")
 
 
@@ -108,49 +108,192 @@ def parse_expr(expr: str) -> dict:
     return out
 
 
-def parse_objects(path: str) -> dict:
-    """Every `export const X = z.object({...})` in a file."""
-    blocks, cur, depth = {}, None, 0
-    with open(path) as fh:
-        lines = fh.readlines()
-    for line in lines:
-        if cur is None:
-            m = BLOCK_RE.match(line) or SCHEMA_RE.match(line)
-            if m:
-                cur, depth = m.group(1), 1
-                blocks[cur] = {}
+# Object declarations are parsed with the balanced-expression helpers defined in the v2 section
+# below (resolved at call time). The original line-based parser missed every multi-line field
+# (`statTypes: z\n .array(...)`), every `export const X = z\n  .object({` declaration, `...X.shape`
+# spreads, spreads across files (rewardFields lives in rewards.ts), `Base.omit({..}).extend({..})`
+# derivations (ElementalDamageTag), block-bodied helpers (msg/type), and applied spreads with
+# first-wins precedence where zod is last-wins (BaseAttributes.power max 100 overridden by
+# PowerAttributes.power: the 45g tag_power_max mistake).
+
+DECL_RE = re.compile(r"^(?:export\s+)?const\s+(\w+)\s*(?::[^=\n]*)?=\s*", re.M)
+OBJ_OPEN_RE = re.compile(r"z\s*\.\s*(?:object|strictObject|looseObject)\s*\(\s*\{")
+DERIV_RE = re.compile(r"([A-Za-z_]\w*)\s*\.\s*(omit|pick|extend)\s*\(\s*\{")
+DERIV_NEXT_RE = re.compile(r"\s*\)\s*\.\s*(omit|pick|extend)\s*\(\s*\{")
+
+UNRESOLVED = set()   # spread / derivation names that resolved to nothing (reported on stderr)
+
+
+def collect_decls(src: str) -> dict:
+    """Top-level object declarations of one file, in source order:
+    name -> ("obj", body) | ("deriv", base, [(op, body), ...])."""
+    out = {}
+    for m in DECL_RE.finditer(src):
+        name, i = m.group(1), m.end()
+        if name in out:
             continue
-        depth += line.count("{") - line.count("}")
-        if depth <= 0:
-            cur = None
+        if src.startswith("{", i):
+            a, b = balanced(src, i)
+            out[name] = ("obj", src[a + 1:b])
             continue
-        sp = SPREAD_RE.match(line.rstrip())
-        if sp:
-            blocks[cur].setdefault("__spreads__", []).append(sp.group(1))
+        om = OBJ_OPEN_RE.match(src, i)
+        if om:
+            a, b = balanced(src, om.end() - 1)
+            out[name] = ("obj", src[a + 1:b])
             continue
-        fm = FIELD_RE.match(line.rstrip())
-        if fm and "z." in fm.group(2):
-            blocks[cur][fm.group(1)] = parse_expr(fm.group(2))
-        elif fm:
-            bare = fm.group(2).rstrip(",").strip()
-            cm = re.match(r"([A-Za-z_]\w*)([.(].*)?$", bare)
-            if cm:
-                # cross-module ref, plain or chained (attackers: idsWithNumberField,
-                # opponentAIs: idsWithNumberField.optional()); resolved against
-                # REF_FILES in build_constructors, else dropped
-                blocks[cur][fm.group(1)] = {"raw": bare, "_bare": True,
-                                            "_base": cm.group(1),
-                                            "_chain": cm.group(2) or ""}
-    # flatten spreads so composed members carry their inherited fields
-    for _ in range(4):
-        for name, fields in blocks.items():
-            for src_name in list(fields.get("__spreads__", [])):
-                base = blocks.get(src_name, {})
-                for f, r in base.items():
-                    if f != "__spreads__":
-                        fields.setdefault(f, dict(r, _from=src_name))
-    for fields in blocks.values():
-        fields.pop("__spreads__", None)
+        dm = DERIV_RE.match(src, i)
+        if dm and dm.group(1) != "z":
+            steps, op, j = [], dm.group(2), dm.end() - 1
+            while True:
+                a, b = balanced(src, j)
+                steps.append((op, src[a + 1:b]))
+                nm = DERIV_NEXT_RE.match(src, b + 1)
+                if not nm:
+                    break
+                op, j = nm.group(1), nm.end() - 1
+            out[name] = ("deriv", dm.group(1), steps)
+            continue
+        if re.match(r"z\s*\.", src[i:i + 40]):
+            # a non-object zod constant (allyAIsField = z.array(...)); used to type a field
+            # that names it, never as a spread
+            out[name] = ("expr", normalize_expr(" ".join(_top_expr(src[i:]).split())))
+    return out
+
+
+def outer_rule(expr: str) -> dict:
+    """parse_expr for an expression whose first call nests a whole object
+    (z.array(z.object({...})), z.array(Base.extend({...}))): bounds, default and literal are
+    read from the OUTER chain only, so the inner object's `.min(1)`/`.prefault(1)` are not
+    reported as the field's own."""
+    m = re.match(r"^z\.(?:coerce\.)?(\w+)\(", expr)
+    if not m:
+        return parse_expr(expr)
+    a, b = balanced(expr, m.end() - 1, "(", ")")
+    tail = expr[b + 1:]
+    out = {"raw": " ".join(expr.split()), "type": KIND.get(m.group(1), m.group(1)),
+           "coerce": ".coerce." in expr[:12],
+           "optional": ".optional()" in tail or ".nullish()" in tail,
+           "nullable": ".nullable()" in tail or ".nullish()" in tail}
+    d = re.search(r"\.(?:prefault|default)\(", tail)
+    if d:
+        i, j = balanced(tail, d.end() - 1, "(", ")")
+        raw = tail[i + 1:j].strip()
+        try:
+            out["default"] = json.loads(raw.replace("'", '"'))
+        except Exception:
+            out["default"] = raw.strip("\"'")
+    for name in ("min", "max"):
+        bm = re.search(rf"\.{name}\((-?\d+)\)", tail)
+        if bm:
+            out[name] = int(bm.group(1))
+    return out
+
+
+def _nests_object(expr: str) -> bool:
+    return bool(re.search(r"z\.(?:object|strictObject|looseObject)\(|\.(?:extend|omit|pick)\(\{|\.element\.", expr))
+
+
+def _field_rule(expr: str, helpers: dict):
+    hm = re.match(r"^(\w+)\(", expr)
+    if hm and hm.group(1) in helpers:
+        return parse_expr2(expr, helpers)
+    if "z." in expr:
+        return outer_rule(expr) if _nests_object(expr) else parse_expr(expr)
+    cm = re.match(r"([A-Za-z_]\w*)([.(].*)?$", expr)
+    if cm:
+        # cross-module ref, plain or chained (attackers: idsWithNumberField,
+        # opponentAIs: idsWithNumberField.optional()); resolved against
+        # REF_FILES in build_constructors, else dropped
+        return {"raw": expr, "_bare": True, "_base": cm.group(1), "_chain": cm.group(2) or ""}
+    return None
+
+
+def _apply_body(out: dict, body: str, ctx: dict, rel: str, stack: tuple) -> None:
+    """Apply one object body to `out` in source order. Later keys win, as in zod/JS; a key
+    keeps the position of its first occurrence."""
+    helpers = ctx["helpers"].get(rel) or ctx["all_helpers"]
+    for _doc, text in split_entries(body):
+        t = text.strip()
+        if not t:
+            continue
+        sm = re.match(r"^\.\.\.([A-Za-z_]\w*)(?:\.shape)?$", t)
+        if sm:
+            sub = resolve_object(sm.group(1), ctx, rel, stack)
+            if sub is None:
+                UNRESOLVED.add(sm.group(1))
+                continue
+            for f, r in sub.items():
+                out[f] = dict(r, _from=r.get("_from", sm.group(1)))
+            continue
+        f, expr = split_field(t)
+        if not f or not expr:
+            continue
+        r = _field_rule(expr, {**ctx["all_helpers"], **helpers})
+        if r is not None:
+            out[f.strip("\"'")] = r
+
+
+def resolve_object(name: str, ctx: dict, rel: str = None, stack: tuple = ()):
+    """Fields of a declared object (spreads and derivations resolved, across files),
+    preferring a declaration in `rel`. None when nothing by that name is an object."""
+    cands = [c for c in ctx["decls"].get(name, []) if c[1][0] != "expr"]
+    if not cands or name in stack:
+        return None
+    own = [c for c in cands if c[0] == rel]
+    drel, decl = (own or cands)[0]
+    key = (drel, name)
+    if key in ctx["cache"]:
+        return ctx["cache"][key]
+    stack = stack + (name,)
+    out = {}
+    if decl[0] == "obj":
+        _apply_body(out, decl[1], ctx, drel, stack)
+    else:
+        base = resolve_object(decl[1], ctx, drel, stack)
+        if base is None:
+            UNRESOLVED.add(decl[1])
+            return None
+        out = dict(base)
+        for op, body in decl[2]:
+            if op == "extend":
+                _apply_body(out, body, ctx, drel, stack)
+                continue
+            keys = {split_field(t.strip())[0] for _d, t in split_entries(body)} - {None}
+            keys = {k.strip("\"'") for k in keys}
+            out = ({k: v for k, v in out.items() if k not in keys} if op == "omit"
+                   else {k: v for k, v in out.items() if k in keys})
+    ctx["cache"][key] = out
+    return out
+
+
+def object_context(repo: str, rels) -> dict:
+    ctx = {"decls": {}, "helpers": {}, "all_helpers": {}, "cache": {}}
+    for rel in rels:
+        p = os.path.join(repo, rel)
+        if not os.path.exists(p):
+            continue
+        src = open(p).read()
+        for k, v in collect_decls(src).items():
+            ctx["decls"].setdefault(k, []).append((rel, v))
+        h = collect_helpers(src)
+        ctx["helpers"][rel] = h
+        for k, v in h.items():
+            ctx["all_helpers"].setdefault(k, v)
+    return ctx
+
+
+def parse_objects(path: str, ctx: dict = None, rel: str = None) -> dict:
+    """Every top-level object declaration in a file, fields resolved."""
+    if ctx is None:
+        root, rel = os.path.dirname(path), os.path.basename(path)
+        ctx = object_context(root, [rel])
+    blocks = {}
+    for name, cands in ctx["decls"].items():
+        for drel, _d in cands:
+            if drel == rel:
+                fields = resolve_object(name, ctx, rel)
+                if fields is not None:
+                    blocks[name] = fields
     return blocks
 
 
@@ -200,10 +343,41 @@ def parse_const_arrays(path: str) -> dict:
         body = src[i + 1:j]
         if "{" in body:          # array of objects, not an enum list
             continue
+        # strip comments first: one commented-out member (// "anbu_kills") used to fail the
+        # member check below and drop the whole list (SimpleTasks)
+        body = re.sub(r"/\*.*?\*/", " ", body, flags=re.S)
+        body = re.sub(r"//[^\n]*", "", body)
         vals = [x.strip().strip("\"'") for x in body.split(",") if x.strip()]
         if vals and all(re.match(r"^[\w \-'/.]+$", v) for v in vals):
             out[name] = vals
     return out
+
+
+def expand_spreads(vals, lookup, seen=()):
+    """Replace `...NAME` members of a constant list with NAME's members (recursively).
+    Emitting the marker as a member (ElementNames carried "...BasicElementName") or dropping it
+    (MaxPoolTypes lost Health/Chakra/Stamina) are both wrong; an unresolvable one is reported."""
+    out = []
+    for v in vals:
+        if isinstance(v, str) and v.startswith("..."):
+            name = v[3:].strip()
+            sub = lookup(name) if name not in seen else None
+            if sub is None:
+                UNRESOLVED.add(name)
+                continue
+            out.extend(expand_spreads(sub, lookup, seen + (name,)))
+        else:
+            out.append(v)
+    return list(dict.fromkeys(out))
+
+
+def expand_all(table, fallback=None):
+    """Expand every list in {name: list} against the table itself, then `fallback`."""
+    def look(n):
+        if n in table:
+            return table[n]
+        return fallback(n) if fallback else None
+    return {k: expand_spreads(v, look) for k, v in table.items()}
 
 
 REF_FILES = ["app/src/validators/base.ts"]
@@ -255,22 +429,30 @@ def parse_ref_schemas(repo: str) -> dict:
 
 def build_constructors(repo: str) -> dict:
     objects, unions, obj_src = {}, {}, {}
+    # spreads and derivations resolve across every validator file (rewardFields is in
+    # rewards.ts, idsWithNumberField in base.ts), not only the files that declare unions
+    vdir = os.path.join(repo, "app/src/validators")
+    extra = sorted("app/src/validators/" + n for n in os.listdir(vdir) if n.endswith(".ts")) \
+        if os.path.isdir(vdir) else []
+    ctx = object_context(repo, list(dict.fromkeys(CTOR_FILES + extra)))
     for rel in CTOR_FILES:
         p = os.path.join(repo, rel)
         if not os.path.exists(p):
             continue
-        for k, v in parse_objects(p).items():
+        for k, v in parse_objects(p, ctx, rel).items():
             if v:
                 objects.setdefault(k, {}).update(v)
                 obj_src.setdefault(k, rel)
         unions.update(parse_unions(p))
 
-    enums = parse_const_arrays(os.path.join(repo, CONST_FILE))
+    enums = expand_all(parse_const_arrays(os.path.join(repo, CONST_FILE)))
     file_enums = {}
     for rel in CTOR_FILES:
         p = os.path.join(repo, rel)
         if os.path.exists(p):
-            local = parse_const_arrays(p)
+            # a local list may spread a local one (AvailableActionTargets = [...AvailableTargets,
+            # "COORDINATE"]) or one from constants.ts (ElementNames = [...BasicElementName, ...])
+            local = expand_all(parse_const_arrays(p), enums.get)
             file_enums[rel] = local
             for k, v in local.items():
                 enums[k + "@" + rel.replace("app/src/", "")] = v
@@ -283,11 +465,13 @@ def build_constructors(repo: str) -> dict:
             fields = objects.get(mem)
             if not fields:
                 continue
+            # the discriminant is the union's tag field; other literal fields (BaseAttributes
+            # direction: type("offence")) must not be mistaken for it
             disc = None
-            for f, r in fields.items():
-                if r.get("literal"):
-                    disc = {"field": f, "value": r["literal"]}
-                    break
+            lits = [(f, r["literal"]) for f, r in fields.items() if r.get("literal")]
+            for f, v in sorted(lits, key=lambda x: (x[0] not in ("type", "task"),)):
+                disc = {"field": f, "value": v}
+                break
             spec = {"schema": mem, "fields": {}}
             if disc:
                 spec["discriminant"] = disc
@@ -310,11 +494,29 @@ def build_constructors(repo: str) -> dict:
                     spec["fields"][f] = shape
                     continue
                 if r.get("_bare"):
-                    continue  # unresolved cross-module ref: omit rather than emit junk
+                    # A field typed by a named schema. Omitting it made validate.py refuse a key
+                    # the server accepts (coordinateTargeting on every tag, allyAIs, applyBuffs).
+                    # Resolve a zod constant's expression when there is one; otherwise emit the
+                    # field as an opaque reference: present, but with no type/enum/bound claims.
+                    chain = r.get("_chain", "")
+                    zexpr = [d for _rel, d in ctx["decls"].get(base, []) if d[0] == "expr"]
+                    if zexpr and not chain.startswith("("):
+                        ze = zexpr[0][1] + chain
+                        r = outer_rule(ze) if _nests_object(ze) else parse_expr(ze)
+                    else:
+                        fs = {"type": "ref", "schema_ref": base}
+                        if ".optional()" in chain or ".nullish()" in chain:
+                            fs["optional"] = True
+                        if ".nullable()" in chain or ".nullish()" in chain:
+                            fs["nullable"] = True
+                        spec["fields"][f] = fs
+                        continue
                 fs = {"type": r.get("type", "unknown")}
                 for k in ("default", "literal", "min", "max", "int", "optional", "nullable"):
-                    if r.get(k) not in (None, False):
-                        fs[k] = r[k]
+                    v = r.get(k)
+                    # `v not in (None, False)` dropped every 0 (0 == False): default 0, min 0
+                    if v is not None and v is not False:
+                        fs[k] = v
                 ref = r.get("enum_ref")
                 if r.get("enum"):
                     fs["enum"] = r["enum"]
@@ -374,7 +576,7 @@ def emit_shapes(repo: str) -> dict:
     }
 
 
-def emit_ctors(repo: str) -> dict:
+def emit_ctors(repo: str, zipname=None) -> dict:
     c = build_constructors(repo)
     ai = c["unions"]
     # union members are complete under `unions`; keeping a second copy in
@@ -395,6 +597,24 @@ def emit_ctors(repo: str) -> dict:
                       "top-level enums/objects blocks had no consumer and are no longer emitted."),
         },
         "unions": ai,
+        "_provenance": _ctor_provenance(repo, ai, zipname),
+    }
+
+
+def _ctor_provenance(repo, unions, zipname):
+    """45c's stamp. content_sha256_16 fingerprints the payload (sha256 of
+    json.dumps(unions, sort_keys=True)), as the 2026-08-30 file did by hand."""
+    import hashlib
+    import datetime
+    return {
+        "generator": "schema_extract.py v%s" % VERSION,
+        "extracted": datetime.date.today().isoformat(),
+        "source_drop": zipname or os.path.basename(repo.rstrip("/")),
+        "content_sha256_16": hashlib.sha256(
+            json.dumps(unions, sort_keys=True).encode()).hexdigest()[:16],
+        "contract": ("GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, "
+                     "not the stamp: two files claiming the same generator, drop and date but "
+                     "differing in content are detectable by comparing this field."),
     }
 
 
@@ -554,15 +774,45 @@ def split_field(text):
     return None, None
 
 
+def _top_expr(text):
+    """Text up to the first top-level `;` (or an unbalanced closer)."""
+    depth, i = 0, 0
+    while i < len(text):
+        sk = _skip(text, i)
+        if sk is not None:
+            i = sk
+            continue
+        c = text[i]
+        if c in "{[(":
+            depth += 1
+        elif c in "}])":
+            if depth == 0:
+                break
+            depth -= 1
+        elif c == ";" and depth == 0:
+            break
+        i += 1
+    return text[:i]
+
+
 def collect_helpers(src):
-    """`const f = (a) => z...` arrow helpers that return a zod expression."""
+    """`const f = (a) => z...` and `const f = (a) => { return z...; }` arrow helpers that
+    return a zod expression. The body is cut at its own end, not at a fixed width."""
     out = {}
-    for m in re.finditer(r"const (\w+)\s*=\s*\(([^)]*)\)\s*=>\s*", src):
-        tail = src[m.end():m.end() + 600]
-        if not tail.lstrip().startswith("z."):
+    for m in re.finditer(r"const (\w+)\s*=\s*\(([^)]*)\)\s*(?::[^=]*)?=>\s*", src):
+        tail = src[m.end():m.end() + 2000]
+        st = tail.lstrip()
+        if st.startswith("{"):
+            r = re.match(r"\{\s*return\s+", st)
+            if not r:
+                continue
+            body = _top_expr(st[r.end():])
+        else:
+            body = _top_expr(st)
+        if not body.lstrip().startswith("z."):
             continue
         params = [p.split(":")[0].strip() for p in m.group(2).split(",") if p.strip()]
-        out[m.group(1)] = (params, " ".join(tail.split()))
+        out[m.group(1)] = (params, normalize_expr(" ".join(body.split())))
     return out
 
 
@@ -753,7 +1003,21 @@ def extract_constants(repo, rel=None):
                         e["derived_from"] = r
                     except Exception:
                         pass
+    _expand_const_lists(out)
     return out
+
+
+def _expand_const_lists(table, extra=None):
+    """Expand `...NAME` members of every list-valued constant in place."""
+    def look(n):
+        e = table.get(n) or (extra or {}).get(n)
+        v = e.get("value") if e else None
+        return v if isinstance(v, list) else None
+    for e in table.values():
+        if isinstance(e.get("value"), list) and any(
+                isinstance(x, str) and x.startswith("...") for x in e["value"]):
+            e["value"] = expand_spreads(e["value"], look)
+            e["spreads_resolved"] = True
 
 
 def const_values(consts):
@@ -762,30 +1026,82 @@ def const_values(consts):
 
 # ---------------------------------------------------------- entity schemas
 
-def extract_entity(repo, rel, name, consts):
-    src = open(os.path.join(repo, rel)).read()
-    helpers = collect_helpers(src)
-    m = re.search(r"export const %s\s*=\s*z\.object\(" % re.escape(name), src)
-    if not m:
+def _entity_spec(expr, doc, ctx, rel, cvals):
+    helpers = {**ctx["all_helpers"], **(ctx["helpers"].get(rel) or {})}
+    bare = re.match(r"^([A-Za-z_]\w*)((?:\.\w+\([^()]*\))*)$", expr)
+    if bare and bare.group(1) != "z" and bare.group(1) not in helpers:
+        # a field typed by a named schema (rewardFields-style object, a zod constant, or an
+        # import such as coordinateTargetingSchema / methodSizeSchema). It used to be dropped
+        # unless the name was Capitalised with no chain.
+        ref, chain = bare.group(1), bare.group(2) or ""
+        kinds = {d[0]: d for _r, d in ctx["decls"].get(ref, [])}
+        if "expr" in kinds and not kinds.keys() & {"obj", "deriv"}:
+            spec = parse_expr2(kinds["expr"][1] + chain, helpers, cvals)
+            spec["schema_ref"] = ref
+        else:
+            spec = {"type": "object" if kinds or ref[:1].isupper() else "ref",
+                    "schema_ref": ref, "raw": expr}
+            if ".optional()" in chain or ".nullish()" in chain:
+                spec["optional"] = True
+            if ".nullable()" in chain or ".nullish()" in chain:
+                spec["nullable"] = True
+    elif "z." in expr or re.match(r"^\w+\(", expr):
+        spec = parse_expr2(expr, helpers, cvals)
+    else:
         return None
-    i, j = balanced(src, m.end(), "{", "}")
+    if doc:
+        spec["doc"] = doc[:300]
+    return spec
+
+
+def _entity_fields(name, ctx, rel, cvals, stack=()):
+    """Fields of an object declaration for 45d, in source order, spreads resolved across
+    validator files (`...itemEconomySchema.shape`, `...masteryRequirementFields`), later keys
+    winning as in zod. Returns (fields, unresolved_spreads)."""
+    cands = [c for c in ctx["decls"].get(name, []) if c[1][0] == "obj"]
+    if not cands or name in stack:
+        return None
+    own = [c for c in cands if c[0] == rel]
+    drel, decl = (own or cands)[0]
     fields = {}
-    for doc, text in split_entries(src[i + 1:j]):
-        f, expr = split_field(text)
+    for doc, text in split_entries(decl[1]):
+        t = text.strip()
+        sm = re.match(r"^\.\.\.([A-Za-z_]\w*)(?:\.shape)?$", t)
+        if sm:
+            sub = _entity_fields(sm.group(1), ctx, drel, cvals, stack + (name,))
+            if sub is None:
+                UNRESOLVED.add(sm.group(1))
+                continue
+            for f, spec in sub.items():
+                fields[f] = dict(spec, spread_from=spec.get("spread_from", sm.group(1)))
+            continue
+        f, expr = split_field(t)
         if not f or not expr:
             continue
-        bare = re.match(r"^([A-Z]\w+)$", expr)
-        if bare:
-            spec = {"type": "object", "schema_ref": bare.group(1), "raw": expr}
-        elif "z." in expr or re.match(r"^\w+\(", expr):
-            spec = parse_expr2(expr, helpers, const_values(consts))
-        else:
-            continue
-        if doc:
-            spec["doc"] = doc[:300]
-        fields[f] = spec
+        spec = _entity_spec(expr, doc, ctx, drel, cvals)
+        if spec is not None:
+            fields[f.strip("\"'")] = spec
+    return fields
+
+
+def _validator_context(repo):
+    vdir = os.path.join(repo, "app/src/validators")
+    rels = sorted("app/src/validators/" + n for n in os.listdir(vdir) if n.endswith(".ts")) \
+        if os.path.isdir(vdir) else []
+    return object_context(repo, rels)
+
+
+def extract_entity(repo, rel, name, consts, ctx=None):
+    src = open(os.path.join(repo, rel)).read()
+    ctx = ctx or _validator_context(repo)
+    # `export const AiRule = z\n  .object({` is the same declaration as the one-line form
+    if not re.search(r"export const %s\s*=\s*z\s*\.\s*object\(" % re.escape(name), src):
+        return None
+    fields = _entity_fields(name, ctx, rel, const_values(consts))
+    if fields is None:
+        return None
     refines = re.findall(
-        r"export const %s\s*=\s*%s((?:\.superRefine\(\w+\))+)"
+        r"export const %s\s*=\s*%s((?:\s*\.\s*superRefine\(\w+\))+)"
         % (re.escape(name.replace("RawSchema", "")), re.escape(name)), src)
     return {
         "source": rel,
@@ -866,8 +1182,9 @@ def provenance(repo, files, zipname=None):
 def emit_entities(repo, zipname=None):
     consts = extract_constants(repo)
     ents = {}
+    ctx = _validator_context(repo)
     for label, rel, name in ENTITY_TARGETS:
-        e = extract_entity(repo, rel, name, consts)
+        e = extract_entity(repo, rel, name, consts, ctx)
         if e:
             ents[label] = e
     files = sorted({rel for _, rel, _ in ENTITY_TARGETS} | {CONST_FILE})
@@ -915,8 +1232,8 @@ def extract_local_enums(repo):
             for v in split_top_args(body):
                 v = re.sub(r"/\*.*?\*/", " ", v, flags=re.S)
                 v = re.sub(r"//.*", "", v).strip().strip("\"'")
-                if v and "..." not in v:
-                    vals.append(v)
+                if v:
+                    vals.append(v)   # `...NAME` kept; expanded in emit_constants
             if vals and all(re.match(r"^[\w \-'/.]+$", v) for v in vals):
                 out.setdefault(name, {"value": vals, "kind": "list", "source": rel,
                                       "exported": src[max(0, m.start() - 7):m.start()].endswith("export ")
@@ -932,14 +1249,25 @@ def emit_constants(repo, zipname=None):
     loc = extract_local_enums(repo)
     for k, v in loc.items():
         c.setdefault(k, v)
-    # tagTypes / AvailableEffectTypes are AllTags.options, i.e. the tag
-    # discriminants. Derive them so every enum_ref resolves.
+    _expand_const_lists(c)
+    # tagTypes is AllTags.options, i.e. the tag discriminants. AvailableEffectTypes is tagTypes,
+    # minus whatever validators/ai.ts filters out (elementaldamage at 6524d0f). Derive both so
+    # every enum_ref resolves.
     tags = sorted(build_constructors(repo)["unions"].get("AllTags", {}))
     if tags:
-        for nm, src_note in (("tagTypes", "AllTags.options"),
-                             ("AvailableEffectTypes", "tagTypes fallback [damage]")):
-            c[nm] = {"value": tags, "kind": "list", "derived_from": src_note,
-                     "source": "app/src/validators/combat.ts"}
+        c["tagTypes"] = {"value": tags, "kind": "list", "derived_from": "AllTags.options",
+                         "source": "app/src/validators/combat.ts"}
+        ai_src = os.path.join(repo, "app/src/validators/ai.ts")
+        src = open(ai_src).read() if os.path.exists(ai_src) else ""
+        m = re.search(r"export const AvailableEffectTypes\s*=\s*([^;]*);", src)
+        body = m.group(1) if m else ""
+        excluded = re.findall(r"!==\s*[\"']([^\"']+)[\"']", body)
+        if body and (excluded or "tagTypes" in body):
+            note = ("tagTypes.filter(type !== %s)" % ", ".join(excluded)) if excluded \
+                else "tagTypes fallback [damage]"
+            c["AvailableEffectTypes"] = {"value": [t for t in tags if t not in excluded],
+                                         "kind": "list", "derived_from": note,
+                                         "source": "app/src/validators/ai.ts"}
     return {
         "_provenance": provenance(repo, [CONST_FILE, CONST_FILE_COMBAT] + LOCAL_ENUM_FILES, zipname),
         "_contract": {
@@ -1127,14 +1455,22 @@ def emit_checks(repo, zipname=None):
     }
 
 
+def _report_unresolved():
+    if UNRESOLVED:
+        sys.stderr.write("schema_extract: unresolved spread/derivation base(s), fields omitted: %s\n"
+                         % ", ".join(sorted(UNRESOLVED)))
+
+
 if __name__ == "__main__":
+    import atexit
+    atexit.register(_report_unresolved)
     repo = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/src_repo/TheNinjaRPG-main"
     mode = sys.argv[2] if len(sys.argv) > 2 else "--report"
     zipname = sys.argv[3] if len(sys.argv) > 3 else None
     if mode == "--shapes":
         print(json.dumps(emit_shapes(repo), indent=1))
     elif mode == "--ctors":
-        print(json.dumps(emit_ctors(repo), indent=1))
+        print(json.dumps(emit_ctors(repo, zipname), indent=1))
     elif mode == "--entities":
         print(json.dumps(emit_entities(repo, zipname), indent=1))
     elif mode == "--constants":
