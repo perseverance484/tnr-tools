@@ -1,6 +1,6 @@
 {
   "schema": "tnr-living-lineages-showcase-layout/v1",
-  "status": "STRUCTURAL_DRAFT_PENDING_DIRECTOR_ACCEPTANCE",
+  "status": "DIRECTOR_APPROVED_STRUCTURAL_LAYOUT_V1",
   "source_layout_reference": "director supplied 1536x1024 two-panel illustration on 2026-10-20 (structure reproduced only; artwork NOT traced or embedded)",
   "svg_path": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
   "dimensions": {
@@ -481,5 +481,18 @@
       "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
       "placeholder": true
     }
-  ]
+  ],
+  "approval": {
+    "date": "2026-10-20",
+    "decision_by": "DIRECTOR",
+    "evidence": "Director replied 'Yes, structure approved.' to the rendered 1536x1024 structural SVG and preview.",
+    "scope": "Exact 1536x1024 layout, headings/legends, 26 art slots backed by 19 unique sources, correction R4→R5 Hunter→R6 in Ember overview, four-variant lower R1-R3 matrix.",
+    "approved_svg_repository_path": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
+    "approved_svg_git_blob_sha1": "4cb7ea34d75c15ae79cb0c6df145c889a6e3ec22",
+    "approved_svg_bytes_sha256": "cf0168ce11a898b6be75a9f6ee0950626dd0d9c7c1d5d3f01786afdfb1a4e52f",
+    "visual_comparison": "The approved SVG differs from the director-reviewed structural draft by ONLY data-approved-layout=false -> true; CairoSVG full 1536x1024 RGBA render pixel-identical before/after.",
+    "structure_frozen": true,
+    "future_changes": "Any structural layout/text/slot change requires fresh director approval. Populate existing slots deterministically with only approved original art; final filled-sheet approval is separate.",
+    "excluded": "No individual art generation approvals, alpha cleanup or preflight, avatar output, or live game activity implied."
+  }
 }
