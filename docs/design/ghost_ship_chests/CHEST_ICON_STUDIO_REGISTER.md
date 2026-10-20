@@ -17,7 +17,7 @@
 
 ## Current gates
 
-- Gate 01 — Common Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018925.png` preserved as historical rejected evidence, **not an eligible generation reference**. New clean generation blocked pending director confirmation of the geometry lock in `GEOMETRY_RESTART_20261020.md`. Previous rendered style/family may inform prose only, never contaminated images.
+- Gate 01 — Common Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018925.png` preserved as historical rejected evidence, **not an eligible generation reference**. New clean generation blocked pending director confirmation of the geometry lock in `GEOMETRY_RESTART_20261020.md`. A new geometry-first Common Hunter prompt is staged at `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md` with **DO NOT GENERATE** status until that count/layout is confirmed. Previous rendered style/family may inform prose only, never contaminated images.
 - Gate 02 — Common Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018926.png` quarantined and unusable as reference. Rebuild only after geometry-correct Common Hunter wins fresh director approval.
 - Gate 03 — Rare Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018929.png` is **not** an eligible generation reference. Previously approved cold-gunmetal armor and star motif are still concept references **in text**, but layered reinforcement may only plate an existing single hoop, never become a duplicate parallel band.
 - Gate 04 — Rare Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018930.png` quarantined. Regenerate after corrected Common Gatherer + corrected Rare Hunter with geometry check first.
