@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "RANK1_FAMILY_4_OF_4_RAW_VISUAL_APPROVED__SHEET_LAYOUT_LOCKED__EMBER_R02_NEXT",
+  "status": "EMBER_R02_R09_SINGLE_REQUEST_BATCH_READY__NO_BATCH_IMAGES_GENERATED__5_OF_19_APPROVED",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -31,7 +31,7 @@
       "C": 3,
       "D": 3
     },
-    "image_generation_mode": "ONE_RANK_AT_A_TIME_ACROSS_ALL_FOUR_FOR_RANKS_1_TO_3__THEN_EMBER_ONLY_RANKS_4_TO_9",
+    "image_generation_mode": "DIRECTOR_APPROVED_ONE_REQUEST_SEQUENTIAL_BATCH_PER_LINEAGE; EMBER_R2_R9_EIGHT_STEP_NOW; OTHERS_R2_R3_TWO_STEP_LATER",
     "concept_source": "docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md",
     "visual_approval_authority": "DIRECTOR",
     "source_img_workflow": "reference for R1; previous same-lineage approved image for R2-R9",
@@ -50,7 +50,10 @@
     },
     "presentation_layout_status": "DIRECTOR_APPROVED_LOCKED_V1",
     "approved_showcase_source_count": 19,
-    "showcase_placements": 26
+    "showcase_placements": 26,
+    "intermediate_visual_approval_gate": "WAIVED_FOR_PROVISIONAL_BATCH_INPUT_ONLY; DIRECTOR_REVIEWS_FINAL_BATCH_AS_SET",
+    "batch_reference_parentage": "IMMEDIATELY_PREVIOUS_GENERATED_RANK_OF_SAME_INDIVIDUAL; NEVER_ALL_EIGHT_FROM_R1",
+    "style_qc_strictness": "RELAXED_FOR_EXPLORATORY_MOCK_SHOWCASE, NOT FOR_UPLOAD_OR_LIVE_GAME_ART"
   },
   "lineages": [
     {
@@ -621,9 +624,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 1,
+        "reference_asset_id": "A_R01",
+        "reference_sha256_at_plan_time": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+        "requires_previous_generated_step": false,
+        "batch_reference_status": "VERIFIED_APPROVED_RANK1_INPUT",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R02",
@@ -725,9 +745,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 2,
+        "reference_asset_id": "A_R02",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R03",
@@ -829,9 +866,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 3,
+        "reference_asset_id": "A_R03",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R04",
@@ -939,9 +993,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 4,
+        "reference_asset_id": "A_R04",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R05",
@@ -1049,9 +1120,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 5,
+        "reference_asset_id": "A_R05",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R06",
@@ -1159,9 +1247,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 6,
+        "reference_asset_id": "A_R06",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R07",
@@ -1269,9 +1374,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 7,
+        "reference_asset_id": "A_R07",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R08",
@@ -1379,9 +1501,26 @@
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
       "approval_date": null,
-      "revision_notes": [],
+      "revision_notes": [
+        "2026-10-20 director authorized a fast one-request Ember R2-R9 exploratory batch: no intermediate director approvals or intensive QC; per-step immediate Ember parent imagery retained. Style drift is acceptable, final batch reviewed together. No asset generated or approved by this authorization."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "EMBER_FULL_PATH"
+      "showcase_role": "EMBER_FULL_PATH",
+      "showcase_batch_plan": {
+        "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+        "sequence_step": 8,
+        "reference_asset_id": "A_R08",
+        "reference_sha256_at_plan_time": null,
+        "requires_previous_generated_step": true,
+        "batch_reference_status": "PENDING_PROVISIONAL_OUTPUT_FROM_SAME_BATCH",
+        "input_mode": "ONE_IMAGE_PREVIOUS_EMBER_RANK_ONLY",
+        "director_approval_checkpoint_before_next_step": false,
+        "artistic_consistency": "RELAXED_BY_DIRECTOR_FOR_EXPLORATORY_SHEET",
+        "source_and_parent_hashes_required_on_return": true,
+        "output_status": "NOT_GENERATED",
+        "approval_status": "PENDING_FINAL_BATCH_DIRECTOR_REVIEW",
+        "disclaimer": "Provisional intermediate rank image may condition next generation without per-rank signoff; not production engine evidence."
+      }
     },
     {
       "asset_id": "B_R09",
@@ -1615,7 +1754,10 @@
     "expected_parent_asset_id": "A_R01",
     "expected_parent_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
     "gate": "READY_FOR_ISOLATED_GENERATION",
-    "requires": "Attach the ACTUAL approved Ember Rank1 source JPEG only (SHA-256 b4935401...8470). Apply shared approved R2 Scout morphology: visibly yearling/leggier, torso and muzzle longer, ear carriage raised, exactly TWO attached tails. Preserve Ember palette (0), Pale Tips (10), Wind aura (0), individual facial/marking identity. New distinct anatomy at 160px, no third tail. Director approve Ember R2 concept/result before B/C/D R2."
+    "requires": "ATTACH THE EXACT APPROVED EMBER RANK1 JPEG ONLY. Generate R2 then chain each new Ember output through R9 with no intermediate director signoff. Return 8 raw files + manifest + optional deterministic preview. If tool cannot chain newly generated image references, stop/report rather than using R1 as stand-in. Director reviews whole batch after completion.",
+    "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+    "batch_range": "A_R02..A_R09",
+    "one_request_eight_sequential_steps": true
   },
   "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight",
   "lineage_progress": {
@@ -1862,5 +2004,112 @@
     "actual_model_conditioning_evidence": "UNVERIFIED for all R1 images",
     "generation_next": "A_R02",
     "date": "2026-10-20"
+  },
+  "ember_batch_pilot": {
+    "batch_id": "EMBER_R02_R09_ONE_REQUEST_20261020",
+    "authorized_date": "2026-10-20",
+    "status": "AUTHORIZED_NOT_EXECUTED",
+    "director_instruction": "Use one isolated Ember session with attached approved Ember Rank 1 to one-shot all eight additional rank evolutions; aesthetic deviations acceptable, low QC, no intermediate signoff.",
+    "batch_brief_path": "docs/design/pets/LIVING_LINEAGES_EMBER_R2_R9_BATCH_BRIEF_20261020.md",
+    "reference_asset_id": "A_R01",
+    "reference_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+    "execution_model": "ONE_DIRECTOR_REQUEST_EIGHT_SEQUENTIAL_CHANGES_WITH_EACH_REAL_GENERATED_PREVIOUS_EMBER_RANK_AS_SOLE_NEXT_REFERENCE",
+    "no_parallel_r1_only_generation": true,
+    "no_generated_multi_rank_sheet": true,
+    "output_count_expected": 8,
+    "output_asset_ids": [
+      "A_R02",
+      "A_R03",
+      "A_R04",
+      "A_R05",
+      "A_R06",
+      "A_R07",
+      "A_R08",
+      "A_R09"
+    ],
+    "steps": [
+      {
+        "asset_id": "A_R02",
+        "rank": 2,
+        "game_rank_name": "Scout",
+        "proposed_attached_tails": 2,
+        "expected_conditioning_asset_id": "A_R01",
+        "source_sha256_at_request": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R03",
+        "rank": 3,
+        "game_rank_name": "Tracker",
+        "proposed_attached_tails": 3,
+        "expected_conditioning_asset_id": "A_R02",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R04",
+        "rank": 4,
+        "game_rank_name": "Guardian",
+        "proposed_attached_tails": 3,
+        "expected_conditioning_asset_id": "A_R03",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R05",
+        "rank": 5,
+        "game_rank_name": "Hunter",
+        "proposed_attached_tails": 4,
+        "expected_conditioning_asset_id": "A_R04",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R06",
+        "rank": 6,
+        "game_rank_name": "Warden",
+        "proposed_attached_tails": 5,
+        "expected_conditioning_asset_id": "A_R05",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R07",
+        "rank": 7,
+        "game_rank_name": "Sentinel",
+        "proposed_attached_tails": 6,
+        "expected_conditioning_asset_id": "A_R06",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R08",
+        "rank": 8,
+        "game_rank_name": "Mythic",
+        "proposed_attached_tails": 7,
+        "expected_conditioning_asset_id": "A_R07",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      },
+      {
+        "asset_id": "A_R09",
+        "rank": 9,
+        "game_rank_name": "Sovereign",
+        "proposed_attached_tails": 8,
+        "expected_conditioning_asset_id": "A_R08",
+        "source_sha256_at_request": null,
+        "output_status": "NOT_GENERATED"
+      }
+    ],
+    "director_approval_policy": "ONE_POST_BATCH_REVIEW_OF_EIGHT_RAW_IMAGES; NONE PREAPPROVED",
+    "temporary_parentage_rule": "Generated step Rk can be used as provisional reference for Rk+1 before director visual signoff; record actual hashes and mark intermediate as provisional. Final director signoff separate.",
+    "variance_policy": "Style/pose/rendering/mild-anatomy deviations accepted as natural player-like individuality; preserve recognizable Ember Kitsune, palette, pale tips, Wind aura and distinct growth/evolution concepts.",
+    "minimal_required_qc": "8 readable files, distinct rank assignments, one animal identity, exact bytes and parent hashes, no heavy formal visual or artpreflight gates",
+    "fallback": "If image tool cannot reuse output as next reference without an additional user turn, report limit and accurately track partial output rather than claim a complete chain or silently seed all ranks from R1.",
+    "scope": "VISUAL_CHART_DEMONSTRATION_ONLY__NOT_LIVE_GAME_EVIDENCE",
+    "gallery_layout_frozen": true,
+    "use_case": "Ember full R2–R9 prototype, remaining lineages later R2–R3 batches",
+    "live_requests": 0,
+    "live_writes": 0
   }
 }
