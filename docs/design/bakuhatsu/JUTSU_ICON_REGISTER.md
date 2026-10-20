@@ -1,7 +1,7 @@
 # Bakuhatsu — Jutsu Icon Register
 
 **Workstream:** BR-008 / Bakuhatsu / A-rank / `RNUcHSH2c00IhOLc2C9aJ`. **NOT** Bloodright tier emblems.
-**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment APPROVED · Blast Shield, Inferno Cataclysm, Kinetic Nova and Charge 4 Explosion RAW_VISUAL_APPROVED (**4/5**). Charge 4 v1 direction superseded by approved v2 C4 detonation silhouette; Howitzer's previously approved V2 footstep/crater direction is REJECTED after attempted generation; fresh MACH-SHEAR BOW SHOCK V3 direction is PROPOSED/PENDING (4/5 current directions approved), raw remains PENDING.
+**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment APPROVED · Blast Shield, Inferno Cataclysm, Kinetic Nova, Charge 4 Explosion v2 and Howitzer Crash v3 RAW_VISUAL_APPROVED (**5/5**). The director rejected Howitzer v1 propulsion and v2 footprint/crater directions, then approved v3 MACH-SHEAR BOW SHOCK and its exact raw; all five current direction locks APPROVED. Family export, canonical preflight and final audited gallery remain pending.
 **Source:** Original `BR-008_Bakuhatsu.zip` 381668 bytes, SHA-256 `7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`; canonical `jutsu_studio.py intake` PASS with 5/5 CRC/SHA/decoded image and manifest mappings. ZIP original stays in conversation/Library, not Git-pinned; hashes do not substitute for source bytes.
 **Historical corroboration:** `harvests/inbox/tnr_results_1792216348638.json` captures 12–17 (`jutsu.get` 5 + `bloodline.get` 1), 2026-10-17. All five are public BLOODLINE jutsu owned by Bakuhatsu. Not current-live verification; no unverified SPECIAL technique is invented.
 **Tooling:** `jutsu_studio.py doctor: RUN_CAPABLE_CANONICAL` on installed producing-tnr-art skill, October 19, 2026. No export or family canonical preflight has run.
@@ -20,7 +20,7 @@ Explosive chakra as kinetic shock and controlled detonation: amber/orange and in
 | Kinetic Nova | A | `y8y01n9jz16bz5EBzl4wr` | `images/y8y01n9jz16bz5EBzl4wr_Kinetic_Nova.png`<br>`c3e22e1e683347abe8e58a29dc19de2a68f427358c14a466bc4b344e18acc045` | Compressed thrown chakra sphere breaks into a distinct constellation of small explosive charges; near-frontal, radial fragmentation. Exclude ground fissure, shield, ground cascade, thrust/impact. | APPROVED v1 (2026-10-19) |
 | Blast Shield | D | `Awyd1k1-tw4uzn-PLbcdP` | `images/Awyd1k1-tw4uzn-PLbcdP_Blast_Shield.png`<br>`3994cb097d698aea3e2b329a34f350ea2df5177135b2cc41fd91b82e8b7599b2` | Protective horseshoe of outward explosive pressure with dark sheltered center; oblique frontal 3/4, incoming projectile deflects. Exclude offensive fireball, ground rupture, chain detonation, propulsion. | APPROVED v1 |
 | Charge 4 Explosion | C | `rOqCTqNBSW_A-QYesFBw9` | `images/rOqCTqNBSW_A-QYesFBw9_Charge_4_Explosion.png`<br>`cea27f1480536975938b179d2c74f6b1941294d871742191ea6f9e0da95a49d0` | Director-approved explosive C4 ground-contact silhouette: a curved C at left and angular 4 at right built from distinct microdetonations and thin blue-white linking chakra on dark rocky ground. No literal overlaid lettering, shield ring, vertical fissure, airborne Kinetic Nova constellation or Howitzer propulsion. | **v2 C4 APPROVED — RAW APPROVED** (v1 superseded) |
-| Howitzer Crash | B | `hW4IV1Hp59BqVFx0u-gTd` | `images/hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png`<br>`ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508` | V3 PROPOSED: one airborne OPEN sideways V-shaped bow-shock of two jagged pressure wings converging at a tiny collision apex right-of-center; oblique near-side 3/4. No beam, ground, crater, footwear, ring, explosion clusters or C4 detonation letters. | **V3 MACH-SHEAR PROPOSED / PENDING**; V1/V2 retired |
+| Howitzer Crash | B | `hW4IV1Hp59BqVFx0u-gTd` | `images/hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png`<br>`ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508` | V3 APPROVED: one airborne OPEN sideways V-shaped bow-shock of two jagged pressure wings converging at a tiny collision apex right-of-center; oblique near-side 3/4. No beam, ground, crater, footwear, ring, explosion clusters or C4 detonation letters. | **V3 MACH-SHEAR DIRECTION + RAW APPROVED**; V1/V2 retired |
 
 The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.json`. It contains one individual **original identity-only** image reference per target, exact source hashes, sibling action/geometry exclusions and the Blast Shield approval bound to its lock SHA. No BBE/BEE WebP is included as a reference because its actual image bytes were not supplied to this studio generation handoff. Do not treat a Git URL alone as visual conditioning.
 
@@ -63,22 +63,22 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 - **Visible approved geometry:** chain of incandescent contact explosions makes a broadly legible C shape left and angular 4 right over dark rugged ground; restrained pale blue-white chakra connectors. Ground-contact and C4 action distinguish it from Kinetic Nova airborne radial clusters, Blast Shield circular barrier, and Inferno Cataclysm vertical rupture.
 - **Evidence limits:** original generation session ID and ordered attempt log were not provided to Studio; `attempts=NOT_RECORDED`. Raw acceptance is not `OUTPUT_LOCAL_QC`, `CANONICAL_PREFLIGHT`, `FAMILY_SHOWCASE_ACCEPTED`, Git pin, or game upload/read-back; these remain pending.
 
-## Howitzer Crash — v1/v2 retired; v3 MACH-SHEAR BOW SHOCK proposed
+## Howitzer Crash — v1/v2 retired; v3 MACH-SHEAR BOW SHOCK raw approved
 
 - **Identity and mechanics:** B-rank BLOODLINE `Howitzer Crash`, `hW4IV1Hp59BqVFx0u-gTd`; October 17 historical capture describes explosion-propelled rapid approach followed by close-range explosive impact. This is not a live check.
 - **V1 failure:** two attempted giant impact / detonation-chain renders were director-rejected for looking too much like Inferno, Kinetic Nova and C4. Prior V1 lock `361b5cdcf2065407bb9b1143cc5af6502e766f2b73446481e52d9fd1077602d3` and candidates remain in historical `HOWITZER_REVISION_CHECKPOINT_20261020.md`.
 - **V2 failure:** the director explored a zig-zag trail of footfall pressure marks, looser burnt imprints, a crater with a footprint trail, and a two-footed crash crater. Multiple rendered attempts had incorrect movement direction, modern shoe/boot appearance, implausible gait, over-specific imprints, or repeated Inferno-like crater/rock detonation geometry. The director declared the entire footprint/crater treatment **“a dead end”** and requested a new direction. Former director-approved V2 target lock SHA `2699357dfc78e002c20f1e01c0b92c5bbcb2251762e3d303c72e350d10e56a63` is **historical, RETIRED for new art generation**; do not use `HOWITZER_CRASH_V2_ISOLATED_BRIEF.md`. None of these candidate sources is an approved raw or acceptable image-generation style reference.
 - **V3 proposal:** `MACH-SHEAR BOW SHOCK`, detailed in `HOWITZER_V3_DIRECTION_PROPOSAL_20261020.md`. No terrain or character: a single wide **open sideways V** made of two asymmetrical sheets of bent explosive pressure converging into one small white-hot collision apex right-of-center. Black negative-space air pocket and short copper pressure wake. Oblique side 3/4, force rushes left→right, then shock fans laterally. This is kinetic collision physics, not a decorative glyph or giant fireball.
 - **Reference:** exact original Howitzer ZIP PNG SHA-256 `ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508`, **IDENTITY ONLY**; no rejected candidate or Inferno style-only reference.
-- **Current machine-readable target:** V3 `direction_approval=PENDING` until director approves/revises the new design. Other four targets remain DIRECTION_APPROVED and RAW_VISUAL_APPROVED. No generation in this Art Studio.
+- **Current machine-readable target:** V3 `direction_approval=APPROVED` by director after the proposed Mach-Shear design. Lock SHA-256 `45e1ca264be21129af8277a4f4c1683e0a3de6f9e0f21bb234d9b00f874aa392`. The director also accepted the exact generated image (`pixel_art_v_shaped_shockwave_blast.png`): RGB PNG, 1254×1254, 2,125,913 bytes, SHA-256 `e410b382b9e268efdad878f80d9f97ce21b70a289350674c3c18c7ec9a39727c`. Byte-preserved locally as `bakuhatsu_work/approved_raws/raw_bakuhatsu_howitzer_crash_v3.png`. No Git binary pin, attempt history or export preflight is implied. The earlier generative showcase is not valid deterministic source evidence.
 
 ## Current K gates
 
 | Gate | Status |
 |---|---|
 | ORIGINAL_SOURCE_VERIFIED | VERIFIED 5/5 (historical-capture provenance) |
-| DIRECTION_APPROVED | APPROVED 4/5: Blast Shield, Inferno Cataclysm, Kinetic Nova, Charge 4 Explosion v2; Howitzer V3 PENDING |
-| RAW_VISUAL_APPROVED | APPROVED 4/5 (Blast Shield, Inferno Cataclysm, Kinetic Nova, Charge 4 Explosion; exact raw JPEG hashes and unchanged local bytes verified) |
+| DIRECTION_APPROVED | APPROVED 5/5: Blast Shield, Inferno Cataclysm, Kinetic Nova, Charge 4 Explosion v2, Howitzer Crash v3 |
+| RAW_VISUAL_APPROVED | APPROVED 5/5 (four historical raw JPEGs + Howitzer V3 raw PNG; exact hashes recorded, bytes preserved) |
 | OUTPUT_LOCAL_QC | NOT_RUN |
 | CANONICAL_PREFLIGHT | NOT_RUN |
 | FAMILY_SHOWCASE_ACCEPTED | NOT_BUILT |
@@ -86,4 +86,4 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 | GIT_BINARY_PIN | NOT_PERFORMED for original/new art bytes |
 | USER_UPLOAD_READBACK | NOT_PERFORMED |
 
-Next: director reviews the MACH-SHEAR BOW SHOCK V3 proposal. Until explicit approval, do not open a Howitzer isolated-generation session. The four previously accepted raw files are unchanged; no exports, canonical preflight, family gallery, or game action have been performed.
+Next: five of five raw icons are visually approved. Review the plain embedded-originals 3+2 SVG preview; it is DRAFT pending official export-based deterministic gallery. Process and canonical-preflight the five raws in the appropriate production workflow, then rebuild and audit final gallery from the actual WebPs before requesting separate family acceptance. No live-game action.
