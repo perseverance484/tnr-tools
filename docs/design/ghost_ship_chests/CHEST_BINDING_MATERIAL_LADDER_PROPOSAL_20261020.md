@@ -1,6 +1,6 @@
 # Ghost Ship chest icons — central binding material ladder (proposal, 2026-10-20)
 
-**Status:** PROPOSED / DIRECTOR MATERIAL ACCEPTANCE PENDING. Do not treat this document as an approved art-direction amendment yet.  
+**Status:** DIRECTOR APPROVED 2026-10-20; the *operative* ladder is incorporated into `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a. This file remains the detailed proposal/evidence record, not a second competing art authority.  
 **Lead:** Art Director; support: Image Production.  
 **Director request:** “I think we should use different materials for the strap/rope on each chest as well to make the chests more visually distinguishable. Plan material ladder for both and redo prompt accordingly.”  
 **Scope:** the five Hunter's and five Gatherer's chest tiers (Rusted, Common, Rare, Epic, Legendary). Ornate and Mystery are special standalone subjects, **not** forced to acquire a leather/rope family binding.  
@@ -11,7 +11,7 @@
 
 The first six visuals were revoked because an unphysical **duplicate metal lid hoop** propagated across the family. During regeneration, the *single central family binding* should add another clear cue of **family identity and named tier**. Texture, width, surface value, and weave/finish matter more than tiny color adjustments. This is a five-step material ladder **within each family**; Hunter always means **one flat leather/hide strap + fang clasp**, Gatherer always means **one visibly round braided rope + tucked botanical sprig**. The other rarity treatments (iron armor, crystal, glow, filigree) remain as already approved.
 
-## Proposed binding material ladder — bottom to top
+## Director-approved binding material ladder — bottom to top
 
 | Named tier | Hunter's **ONE centered flat strap** | Gatherer's **ONE centered round rope** | Intended readable difference at 125px |
 | --- | --- | --- | --- |
@@ -56,6 +56,6 @@ These are art-direction *material descriptions*, **not new loot materials, actua
 4. **No unauthorized escalation:** Common no bright rivet/rune/glow escalation; Rare limited cold gunmetal/star details; Epic silver trim and glowing family brand; Legendary silver filigree/lid crystals. Ornate's aged gold and Mystery's chains/mist remain exclusive.
 5. **Original-byte preflight still separate:** previous 6 source images are revoked and opaque JPEG-on-black; any new generation needs genuine alpha or proper chroma (magenta for Gatherer's green sprig when native alpha unavailable, flagging the conflict with the workstream's lime fallback). Do not treat visual approval as a finished `ICON` export or `artpreflight.py --type ICON` pass.
 
-## Decision needed
+## Decision resolved — director approved 2026-10-20
 
-**Director approval requested on this material ladder before regenerating corrected Common Hunter.** If approved, update the canonical operative brief at `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` and the durable ruling record as appropriate, then activate the updated `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md`. Until then, only the two-end-hoop geometry and original workstream family/tier motifs remain formally locked. Do **not** attach any of the six revoked originals as visual references.
+Director response to the proposed complete ladder and revised Common Hunter prompt: **“Approved.”** The five steps are **ratified for this Ghost Ship chest-icon collection**. `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a now owns the operative visual details, supplemented by `RUL-2026-10-20-005` for the durable approval record and `GEOMETRY_RESTART_20261020.md` for the already-approved two-end-hoop topology. The corrected Common Hunter isolated session may start; it must attach **only the original Skyglass Reliquary**, never one of the six rejected chests. A new image still needs its own fresh director visual approval and separate mechanical preflight.
