@@ -1,0 +1,417 @@
+{
+  "schema": "tnr-living-lineages-workflow-structural-map/v2",
+  "status": "STRUCTURAL_V2_DRAFT_PENDING_DIRECTOR_APPROVAL",
+  "canvas_px": [
+    2048,
+    1980
+  ],
+  "visual_reference": "Director-specified baseline species + three player cosmetic inputs + four example outputs + independent early evolution + Ember full 1–9 example",
+  "structure_version": "V2_WORKFLOW_PROPOSAL",
+  "supersedes_on_acceptance_only": "V1 approved 1536x1024 chronology-first sheet",
+  "svg_file": "TNR_Living_Lineages_Kitsune_Concept_Flow_Structural_V2_20261020.svg",
+  "svg_draft_sha256": "01481cd9e7bcbc1c94d2eab9b55b995cde7f1ce05ad38ee5dc7be2a36e84eee8",
+  "svg_draft_git_blob_sha1": "f69591bfbc8ed84742d11acaabc9a7aa2b60a0e7",
+  "svg_draft_source_bytes": 38655,
+  "svg_present_in_git": false,
+  "rendered_preview_file": "TNR_Living_Lineages_Kitsune_Concept_Flow_Preview_V2_20261020.png",
+  "rendered_preview_sha256": "e29eed9a04d65e8edeec76dcf761068e37232fab175e6db5044a337064c24587",
+  "unique_asset_count": 19,
+  "display_slots": 26,
+  "source_reference_placements": 1,
+  "founder_example_cards": 4,
+  "lineage_comparison_slots": 12,
+  "ember_full_path_slots": 9,
+  "source_reuse": "Each repeated asset_id must display identical approved original or accepted deterministic derivative; never a new generated recreation.",
+  "concept_art_not_live_generator_proof": true,
+  "section_notes": {
+    "01_foundation_inputs_outcomes": "One single species reference establishes anatomy/rendering. Four examples show persisted catalogue choices (palette, characteristic/marking, aura) used for unique R1 pets. Cards marked EXAMPLE.",
+    "02_growth_comparison": "Four rows: R1 from shared species + traits, R2 from its own R1, R3 from its own R2. Proposed contract, generator conditioning not independently verified.",
+    "03_ember_full": "Ember nine-rank progression (growth R1–4; metamorphosis R5–9). R5 Hunter present, R7 Sentinel and R9 Sovereign highlighted.",
+    "04_boundary": "Rank10 out of scope; no artworks embedded; individual batch outputs provisional until director approval."
+  },
+  "variants": [
+    {
+      "id": "A",
+      "name": "Ember",
+      "palette": "Ember",
+      "characteristic": "Pale tips",
+      "aura": "Wind",
+      "color": "#E99A68"
+    },
+    {
+      "id": "B",
+      "name": "Moonlit",
+      "palette": "Moonlit",
+      "characteristic": "Crescent marking",
+      "aura": "Moon",
+      "color": "#9EBFED"
+    },
+    {
+      "id": "C",
+      "name": "Jade",
+      "palette": "Jade",
+      "characteristic": "Mismatched eyes",
+      "aura": "Lightning",
+      "color": "#7ACCA5"
+    },
+    {
+      "id": "D",
+      "name": "Obsidian",
+      "palette": "Obsidian",
+      "characteristic": "Dappled accents",
+      "aura": "Spirit",
+      "color": "#C39DE8"
+    }
+  ],
+  "rank_names": [
+    "Companion",
+    "Scout",
+    "Tracker",
+    "Guardian",
+    "Hunter",
+    "Warden",
+    "Sentinel",
+    "Mythic",
+    "Sovereign"
+  ],
+  "art_slot_placements": [
+    {
+      "slot_id": "foundation_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "section": "foundation",
+      "rect": {
+        "x": 76,
+        "y": 262,
+        "width": 240,
+        "height": 224
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "outcome_A_R01",
+      "asset_id": "A_R01",
+      "section": "founders",
+      "rect": {
+        "x": 738,
+        "y": 268,
+        "width": 264,
+        "height": 182
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "outcome_B_R01",
+      "asset_id": "B_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1054,
+        "y": 268,
+        "width": 264,
+        "height": 182
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "outcome_C_R01",
+      "asset_id": "C_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1370,
+        "y": 268,
+        "width": 264,
+        "height": 182
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "outcome_D_R01",
+      "asset_id": "D_R01",
+      "section": "founders",
+      "rect": {
+        "x": 1686,
+        "y": 268,
+        "width": 264,
+        "height": 182
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_A_R01",
+      "asset_id": "A_R01",
+      "section": "comparison",
+      "rect": {
+        "x": 341,
+        "y": 770,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_A_R02",
+      "asset_id": "A_R02",
+      "section": "comparison",
+      "rect": {
+        "x": 898,
+        "y": 770,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_A_R03",
+      "asset_id": "A_R03",
+      "section": "comparison",
+      "rect": {
+        "x": 1455,
+        "y": 770,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_B_R01",
+      "asset_id": "B_R01",
+      "section": "comparison",
+      "rect": {
+        "x": 341,
+        "y": 920,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_B_R02",
+      "asset_id": "B_R02",
+      "section": "comparison",
+      "rect": {
+        "x": 898,
+        "y": 920,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_B_R03",
+      "asset_id": "B_R03",
+      "section": "comparison",
+      "rect": {
+        "x": 1455,
+        "y": 920,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_C_R01",
+      "asset_id": "C_R01",
+      "section": "comparison",
+      "rect": {
+        "x": 341,
+        "y": 1070,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_C_R02",
+      "asset_id": "C_R02",
+      "section": "comparison",
+      "rect": {
+        "x": 898,
+        "y": 1070,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_C_R03",
+      "asset_id": "C_R03",
+      "section": "comparison",
+      "rect": {
+        "x": 1455,
+        "y": 1070,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_D_R01",
+      "asset_id": "D_R01",
+      "section": "comparison",
+      "rect": {
+        "x": 341,
+        "y": 1220,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_D_R02",
+      "asset_id": "D_R02",
+      "section": "comparison",
+      "rect": {
+        "x": 898,
+        "y": 1220,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "lineage_D_R03",
+      "asset_id": "D_R03",
+      "section": "comparison",
+      "rect": {
+        "x": 1455,
+        "y": 1220,
+        "width": 135,
+        "height": 117
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R01",
+      "asset_id": "A_R01",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 67,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R02",
+      "asset_id": "A_R02",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 281,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R03",
+      "asset_id": "A_R03",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 495,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R04",
+      "asset_id": "A_R04",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 709,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R05",
+      "asset_id": "A_R05",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 923,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R06",
+      "asset_id": "A_R06",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 1137,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R07",
+      "asset_id": "A_R07",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 1351,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R08",
+      "asset_id": "A_R08",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 1565,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    },
+    {
+      "slot_id": "ember_path_R09",
+      "asset_id": "A_R09",
+      "section": "ember_full_path",
+      "rect": {
+        "x": 1779,
+        "y": 1531,
+        "width": 190,
+        "height": 210
+      },
+      "placeholder": true,
+      "source_usage": "same exact approved image bytes for every repeated asset_id"
+    }
+  ]
+}
