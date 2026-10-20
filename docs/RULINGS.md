@@ -1696,4 +1696,4 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each pinned file. Bakuhatsu's raws, ledgers and approval evidence are in `art/jutsu_icons/bakuhatsu/` (README).
 
-**Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports, preflight and family-gallery acceptance are still to do (family acceptance PENDING). No upload, live edit or publication is authorized.
+**Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports passed preflight and the director accepted the family on 2026-10-20 ("They are all approved yes"; recorded in `art/jutsu_icons/bakuhatsu/approved.json`). No upload, live edit or publication is authorized.
