@@ -1,0 +1,101 @@
+{
+ "_note": "QA ticket 11 (docs/reviews/QA_LIVE_2026-10-20.md, FX-BUFF-ENEMY). Suggest mode: content review desk, no direct save. Two visible jutsu put beneficial effects on the enemy (public read of 2026-10-20). Storm's Lullaby: target OPPONENT -> ALLY (its cleanse and shield are friendlyFire FRIENDLY and its description names an ally). Hiding Water Technique: effects[2] decreasedamagetaken target INHERIT -> SELF; the effects array is the live one with only that field changed. injectableInBattle re-sent at its live value (false, law 20). Neither jutsu is equipped by any AI in the committed captures (laws 18, 60); the captures do not cover every AI. Approved by dauntless 2026-10-20. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "BALANCE",
+  "title": "Fix effects landing on the enemy",
+  "rationale": "These jutsu gave their protective effects to the opponent instead of the intended ally or user."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm's Lullaby",
+   "targetId": "Ac1nbz3RUrPCCWmiOl7Jr",
+   "data": {
+    "target": "ALLY",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "title": "Target an ally instead of an enemy",
+    "rationale": "The jutsu could only be aimed at an opponent, but its cleanse and shield only work on friendlies and its description says it protects an ally, so it did nothing. It now targets an ally."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Water Release: Hiding Water Technique",
+   "targetId": "5pr6XcEuVurUSFgl1S8Ay",
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 20,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Water"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "Ninjutsu"
+      ],
+      "calculation": "formula",
+      "description": "<p>placeholder</p>",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Intelligence",
+       "Speed"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "visual",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "30ScqLHOkHV-TEAEB8Oo9",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 10,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "title": "Protect the user instead of the target",
+    "rationale": "After the hit, the damage reduction went to the enemy, making them take 10% less damage for 2 rounds. The battle line has the user hiding in water to set up a counterattack, so the reduction now goes to the user. The damage still hits the enemy."
+   }
+  }
+ ]
+}
