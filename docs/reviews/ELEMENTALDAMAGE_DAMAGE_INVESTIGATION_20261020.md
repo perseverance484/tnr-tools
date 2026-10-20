@@ -87,3 +87,19 @@ The available evidence is sufficient to reproduce the *mechanism* offline but **
 **Immediate operator workaround** (if appropriate to advise affected players): set **Edit Profile → Combat Preferences → Primary damage element** to the intended buffed basic element and enter a new battle. This cannot recreate multi-element stacking or advanced elements.
 
 **Next step:** Fable / engine contributor to implement focused offline parity tests, verify controlled captured examples, and propose the smallest correction after the director rules on selection semantics. ChatGPT can independently review the frozen implementation SHA. Do not modify production, live weapons, or source-of-truth balance rules as part of this read-only investigation.
+
+## Named case / operator capture staged 2026-10-20
+
+The director identified **Stormrender** and **Mastered Shūren no Yaiba** on a player using **Godstorm Eclipse**. These exact identities were resolved from `answers/names_item.json` and the `harvests/seed/41_INDEX_item.json` weapon index, and from `docs/design/bloodright/trees/godstorm_eclipse.json`; the bloodline ID is independently present in the previous read-only capture manifest `push/105_bloodright_reference_capture_batch_2.json`.
+
+| Record | Procedure | ID |
+| --- | --- | --- |
+| Stormrender | `item.get` | `cLXXf8RJv5l9B_gGsYN2a` |
+| Mastered Shūren no Yaiba | `item.get` | `DfV_RZr-4mSvuS1E452aj` |
+| Godstorm Eclipse | `bloodline.get` | `szai-IgtB7PLubojIIlh-` |
+
+**Operator-ready candidate:** `push/130_elementaldamage_godstorm_three_record_capture.json`, exactly three `capture.before` calls with `persist:"full"`, no after calls, and `items:[]`. Forge's full-persistence allowlist permits both procedures. Static source-contract/readback checks passed; the complete local Forge `check_manifest.mjs` and Python `validate.py` commands were **not executed** in this connector-only session. The manifest is not a captured result; operator execution remains pending.
+
+The proposed Bloodright tree classifies Godstorm Eclipse as **Shadow + Storm**, but that design classification is **not** proof of the active live bloodline's effects; confirm the `bloodline.get` payload. The item capture must determine which weapon currently carries `damage` vs `elementaldamage`, and compare the full fields (not just the effect type). This capture does **not** record the particular player's `preferredDamageElement`, innate primary/secondary, active Elemental Mastery, other gear, or combat outcomes. Avoid declaring an identified personal damage cause until that evidence is independently supplied.
+
+**Capture acceptance:** after the director runs the manifest in Forge, inspect the exported bundle's three per-call `ok` values, `persistOk`, exact IDs, non-null data and effect arrays. A completed job with missing bodies is NOT a successful full capture. Use `harvest.py` to import the exported bundle; confirm both item objects and the bloodline before making player-specific claims. No game mutation is authorized by this capture manifest.
