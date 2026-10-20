@@ -1688,10 +1688,12 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Supersedes:** none. Extends RUL-2026-10-17-021 (BBE and BEE library); RUL-2026-10-20-003 is unchanged.
 
-**Ruling:** The current live icons of the Vaporia, Bakuhatsu and Aerathiel bloodline jutsu (five each) are approved examples of the jutsu-icon standard and may be used as style/material references. Each icon's silhouette stays reserved by its family. Bakuhatsu's figure silhouettes and Aerathiel's Decaying Touch handprint are family-specific approvals, not general licence for figures or hands; the starter jutsu icons stay actor-free.
+**Ruling (as amended 2026-10-20):** The approved Vaporia, Bakuhatsu and Aerathiel bloodline jutsu icons (five each) are approved examples of the jutsu-icon standard and may be used as style/material references. For Vaporia and Aerathiel these are the director-approved exports in `art/jutsu_icons/vaporia/` and `art/jutsu_icons/aerathiel/`, byte-identical to the live icons. For Bakuhatsu they are the five director-approved 2026-10-19 "Concussive Fracture" raws in `art/jutsu_icons/bakuhatsu/raws/`; the live Bakuhatsu icons are the superseded figure-silhouette set and are not a reference. Each icon's silhouette stays reserved by its family. Aerathiel's Decaying Touch handprint is a family-specific approval, not general licence for hands; the starter jutsu icons stay actor-free.
+
+**Amendment (2026-10-20):** The first text approved the *live* Bakuhatsu icons and called their figure silhouettes a family exception. dauntless corrected this the same day: "No no, Bakuhatsu was this. Those are the old ones. Fix and update", with `bakuhatsu_Art_Studio_Closeout_5of5_20261020.zip` attached (sha256 `c66853c6009e4de3d5bd901b26ab10e4c1f155d88ed079b5aa63e442b6e574cc`). There is no Bakuhatsu figure exception.
 
 **Evidence:** User, 2026-10-20: "There's also vaporia, Bakuhatsu and Aerathiel to compare to. These are also approved".
 
-**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each live icon URL from the 2026-10-20 public read.
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each pinned file. Bakuhatsu's raws, ledgers and approval evidence are in `art/jutsu_icons/bakuhatsu/` (README).
 
-**Boundary:** The bytes are not yet pinned in `art/style_refs/jutsu_icons/` or indexed in `style_refs.json`; pinning them is a separate change. No upload, live edit or publication is authorized.
+**Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports, preflight and family-gallery acceptance are still to do (family acceptance PENDING). No upload, live edit or publication is authorized.

@@ -1,0 +1,8 @@
+  ok   pillow: Pillow 12.3.0, libwebp 1.6.0
+  ok   webp_lossless: lossless VP8L round-trip
+  ok   encoder_determinism: same input encodes to the same bytes
+  ok   art_spec: 25x_DATA_art_spec.json JUTSU_ICON size 256, ceiling 460800
+  ok   artpreflight_present: artpreflight.py
+  ok   canonical_pins: blobs match pins from main f620db3d934fbb5a13effa5f90ed25bf16a33718
+  ok   artpreflight_probe_run: exit 0, verdict PASS
+doctor: RUN_CAPABLE_CANONICAL
