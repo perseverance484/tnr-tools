@@ -61,7 +61,7 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 - **Material:** CONCUSSIVE FRACTURE; sharply clustered copper/amber-white contact explosions, dark intact ground between the blasts, restrained charged blue-white energy from the original image. No slabs/fracture wall. No continuous shield ring. No airborne starburst constellation, self-propelling shock cone, or generic fireball.
 - **Locked siblings excluded:** Blast Shield's thick round protective wall and deflected projectile; Inferno's shattered stone planes plus eruption column; Kinetic Nova's aerial radial multi-burst constellation; Howitzer Crash's pending diagonal propulsion impact.
 - **References if director approves:** (1) the exact original Charge 4 Explosion PNG — **IDENTITY ONLY**; (2) byte-exact approved Blast Shield raw JPEG SHA-256 `f2167a947f77c56f39a6d24b8af0660406cf7654872fdf88407333f0539be308` — **STYLE/MATERIAL ONLY**, explicitly forbidding its circular barrier.
-- **P0 v1 pending lock SHA-256:** `e6b9d38cb7bed0968a1e91e95654483cfd1e4f00b6b25e284bcdbeebcc6ab93a`. Canonical installed `jutsu_studio.py lock-check --source-index` verified this lock **COMPLETE, direction PENDING**. Approval required before any isolated generation.
+- **P0 v1 APPROVED lock:** `e6b9d38cb7bed0968a1e91e95654483cfd1e4f00b6b25e284bcdbeebcc6ab93a`. Director approved the proposed direction on October 19; machine-readable status is APPROVED. Raw generation remains pending.
 
 ## Current K gates
 
