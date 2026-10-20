@@ -1,6 +1,6 @@
 # Ghost Ship chest icons — cross-family geometry reset (2026-10-20)
 
-**Status:** DIRECTOR RESTART / STOP-USE — all 6 previously accepted chest raws are visually invalidated and require regeneration.  
+**Status:** DIRECTOR GEOMETRY LOCK CONFIRMED — six earlier chest raws remain REVOKED; corrected Common Hunter isolated generation may begin; all later slots await fresh geometry-correct approvals.  
 **Working role:** Art Director (lead), Image Production (support)  
 **Authority:** Director's 2026-10-20 message: “Just noticed all the chests need to be regenerated. Their geometry is messed up, there's an extra metal band on the right side, looks like it was copied from the Sage's Stromgbox reference image's leather strap.”  
 **Governing approved workstream brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`; `RUL-2026-10-20-002`; `docs/workflows/ISOLATED_ART_GENERATION.md`  
@@ -8,7 +8,7 @@
 
 ## Rejection and provenance discipline
 
-The director has **withdrawn visual acceptance** of ALL six previously approved chest images. Their original approval statements were authentic at the time, but their current operative state is **REVOKED — GEOMETRY INVALID**. The six original source bytes and earlier approval history are preserved as **rejected historical evidence**, not active generation references. Do not silently erase their hashes, rewrite the history as though never approved, or treat them as ready for production.
+The director has **withdrawn visual acceptance** of ALL six previously approved chest images. Their original approval statements were authentic at the time, but their current operative state is **REVOKED — GEOMETRY INVALID**. The six conversation-source originals and earlier approval history remain **rejected historical evidence**, not active generation references (the original binaries have not been Git-pinned). Do not silently erase their hashes, rewrite the history as though never approved, or treat them as ready for production.
 
 | # | Invalidated target | Conversation source | Raw SHA-256 | Current |
 | --- | --- | --- | --- | --- |
@@ -30,7 +30,7 @@ Studied the actual six source images as a cross-family set, then enlarged the Ep
 
 This defect is fundamentally compositional/structural. Keying, resizing, alpha cleanup, silver-rarity polish, or manual production preflight cannot repair it without modifying the director-accepted subject itself. Regenerate rather than process the old files.
 
-## Proposed hard geometry lock (director confirmation required before restart)
+## Director-approved hard geometry lock (confirmed 2026-10-20)
 
 **Do not confuse tier ornament with structural band count.** Proposed intended chest assembly:
 
@@ -40,7 +40,7 @@ This defect is fundamentally compositional/structural. Keying, resizing, alpha c
 4. **Tier changes applied to existing geometry rather than increasing hoop count:** Rare strengthens each **existing** end hoop with riveted *on-top-of-band* raised plate armor and cooler gunmetal. Epic refines those existing surfaces with silver edging, larger gem and illuminated family brand. Legendary uses filigree and a physically mounted lid shard group, **not** additional parallel metal hoops.
 5. **Visual QC first:** inspect the top and near/far right sides at **full source resolution** and **125px**, alongside a mirrored check of the left; confirm proper band count/attachment BEFORE considering motif correctness or tier aesthetics.
 
-The above **two-end-hoop** topology is a concrete studio proposal to remove the observed duplication; the director controls final geometry interpretation. Do not silently present a corrected geometry as approved until the director confirms this intended reading of “extra band.”
+**Director confirmation received:** “Sure, that looks fine. It was the double band on one side that threw it off.” The **two-end-hoop + single central family binding** construction above is now the approved structural target. The specific failure to reject is a **second independent side-by-side arch/metal band on the same end**, especially on the camera-right side. Natural light edges or silver trim on the *surface of a single existing hoop* do not count as a new separate hoop; they must not create a second band-shaped volume. This confirmation approves the **geometry direction**, not any new rendered image.
 
 ## Restart sequence
 
@@ -51,8 +51,8 @@ The above **two-end-hoop** topology is a concrete studio proposal to remove the 
 5. The approved direction from the original brief (Hunter claws/leather/fang; Gatherer leaf/rope/sprig; tier ladder; Ornate aged gold; Mystery chains/lock/mist with no question mark) is **still approved as concept and palette**. **Only the previously approved rendered originals are invalidated.** The director's actual item rarity decision remains out of scope.
 6. Each new corrected raw gets its own exact raw SHA and provenance, and must pass alpha/background QC, dark-composite edge QC, lossless `ICON` WebP, and `artpreflight.py --type ICON` prior to any packaging. **No production-ready exports exist.** Respect the original target delivery filenames for the eventual replacements; if any actual file has already been delivered under a production filename, use versioned suffixes rather than overwriting.
 
-## Pending director clarification
+## Director confirmation and next action
 
-**Confirm topology before initiating the new Common Hunter:** is the intended correction *exactly one curved metal hoop at each outer end of the lid* (plus the single center leather/rope binding), with the extra adjacent right-side thin band removed? A different intended end-band count/layout must be established here before a full 12-icon regeneration campaign.
+**Confirmed 2026-10-20:** “Sure, that looks fine. It was the double band on one side that threw it off.” This explicitly clears the prior topology gate. The approved form is **one visible independent arching metal hoop at each outside end** plus a **single distinct family binding in the center**, with **no duplicate parallel extra band on the same end**.
 
-**Next:** update the persistent studio register and supersede earlier isolated briefs, then issue ONE corrected Common Hunter isolated prompt **only after the intended topology is confirmed**. No artwork generation in the studio.
+**Next:** open **one clean isolated generation session for corrected Common Hunter** using `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md`. Attach ONLY the original Skyglass Reliquary as a material/style reference. Inspect both end bands and their physical continuity at source resolution and 125px before presenting the rendered candidate. Do not reuse any of the six invalidated raws as visual references. This persistent Art Studio generates no artwork.
