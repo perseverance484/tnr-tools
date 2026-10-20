@@ -1,6 +1,10 @@
 # Isolated generation 02 — Ghost Ship Common Gatherer's Chest
 
-**Record status:** Director visually approved 2026-10-20. This document records the isolated target direction supplied in the prior studio handoff **after** that session, not a claim that this file existed before generation.  
+## GEOMETRY-RESET OVERRIDE — PREVIOUS APPROVAL REVOKED (2026-10-20)
+
+The director has rescinded the visual acceptance of this chest and **all six** earlier Common/Rare/Epic originals because an **extra/duplicated curved metal lid band** was propagated through the family. This prompt and any “approved” notes below are **historical only**; the pictured raw is **REJECTED AND PROHIBITED AS A FUTURE REFERENCE**, even if otherwise visually attractive. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register. Rebuild this slot with corrected physical band continuity and a NEW raw source; use only the original Reliquary (style/material only) and **newly** geometry-correct predecessors as appropriate. Preserve prior hashes/decisions as evidence, but do not count them as currently approved or game-ready.
+
+**Status:** REVOKED — GEOMETRY INVALID, historical design/approval record only; new corrected raw required
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Canonical authority:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`; `RUL-2026-10-20-002`; `docs/workflows/ISOLATED_ART_GENERATION.md`  
 **Type:** `ICON` (`item.image`); **delivery filename:** `icon-gs-chest-gatherer-common.webp`
