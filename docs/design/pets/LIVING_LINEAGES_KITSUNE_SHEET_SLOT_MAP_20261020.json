@@ -1,0 +1,485 @@
+{
+  "schema": "tnr-living-lineages-showcase-layout/v1",
+  "status": "STRUCTURAL_DRAFT_PENDING_DIRECTOR_ACCEPTANCE",
+  "source_layout_reference": "director supplied 1536x1024 two-panel illustration on 2026-10-20 (structure reproduced only; artwork NOT traced or embedded)",
+  "svg_path": "docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg",
+  "dimensions": {
+    "width": 1536,
+    "height": 1024
+  },
+  "svg_viewbox": [
+    0,
+    0,
+    1536,
+    1024
+  ],
+  "section_structure": {
+    "upper": "Shared species master + complete Ember Ranks 1–9",
+    "lower": "Four-lineage comparison: identical species reference + Ranks 1–3 per lineage"
+  },
+  "rank_names": [
+    "Companion",
+    "Scout",
+    "Tracker",
+    "Guardian",
+    "Hunter",
+    "Warden",
+    "Sentinel",
+    "Mythic",
+    "Sovereign"
+  ],
+  "rank_tails": [
+    2,
+    2,
+    3,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "phase_tags": [
+    "GROWTH",
+    "GROWTH",
+    "GROWTH",
+    "GROWTH",
+    "MAJOR_EVOLUTION",
+    "DEVELOPMENT",
+    "MAJOR_EVOLUTION",
+    "DEVELOPMENT",
+    "MAJOR_EVOLUTION"
+  ],
+  "counts": {
+    "unique_required_images": 19,
+    "display_placements": 26,
+    "repeat_placements": 7,
+    "reference_count": 1,
+    "ember_unique_rank_count": 9,
+    "other_unique_rank_count_each": 3,
+    "other_lineages": 3
+  },
+  "source_uniqueness_contract": "All 5 SPECIES_REF placements must display the exact same approved juvenile bytes. A_R01..A_R03 repeat between upper and lower sections. Do not recolour or regenerate pictures inside a showcase.",
+  "image_render_contract": {
+    "source": "exact accepted individual source images; use deterministic compositing only",
+    "contain": "preserveAspectRatio xMidYMid meet",
+    "pixels": "do not retouch approved asset",
+    "margin": "individual placement centers full source without cropping",
+    "background": "transparent art assets preferred; raw JPEG black backgrounds cannot be presented as finished cutouts",
+    "source_hashes_in": "LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json",
+    "mechanical_preflight": "separate from director visual acceptance"
+  },
+  "ranks_in_order": [
+    {
+      "rank": 1,
+      "game_rank_name": "Companion",
+      "asset_id": "A_R01"
+    },
+    {
+      "rank": 2,
+      "game_rank_name": "Scout",
+      "asset_id": "A_R02"
+    },
+    {
+      "rank": 3,
+      "game_rank_name": "Tracker",
+      "asset_id": "A_R03"
+    },
+    {
+      "rank": 4,
+      "game_rank_name": "Guardian",
+      "asset_id": "A_R04"
+    },
+    {
+      "rank": 5,
+      "game_rank_name": "Hunter",
+      "asset_id": "A_R05"
+    },
+    {
+      "rank": 6,
+      "game_rank_name": "Warden",
+      "asset_id": "A_R06"
+    },
+    {
+      "rank": 7,
+      "game_rank_name": "Sentinel",
+      "asset_id": "A_R07"
+    },
+    {
+      "rank": 8,
+      "game_rank_name": "Mythic",
+      "asset_id": "A_R08"
+    },
+    {
+      "rank": 9,
+      "game_rank_name": "Sovereign",
+      "asset_id": "A_R09"
+    }
+  ],
+  "placements": [
+    {
+      "slot_id": "top_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 8,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R01",
+      "asset_id": "A_R01",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 160,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R02",
+      "asset_id": "A_R02",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 312,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R03",
+      "asset_id": "A_R03",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 464,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R04",
+      "asset_id": "A_R04",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 616,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R05",
+      "asset_id": "A_R05",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 768,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R06",
+      "asset_id": "A_R06",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 920,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R07",
+      "asset_id": "A_R07",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 1072,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R08",
+      "asset_id": "A_R08",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 1224,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "top_A_R09",
+      "asset_id": "A_R09",
+      "placement": "upper-ember-line",
+      "region": "upper",
+      "rect": {
+        "x": 1376,
+        "y": 87,
+        "width": 147,
+        "height": 191
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_A_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "placement": "matrix-A-row",
+      "region": "lower",
+      "rect": {
+        "x": 192,
+        "y": 509,
+        "width": 290,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_A_R01",
+      "asset_id": "A_R01",
+      "placement": "matrix-A-row",
+      "region": "lower",
+      "rect": {
+        "x": 489,
+        "y": 509,
+        "width": 320,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_A_R02",
+      "asset_id": "A_R02",
+      "placement": "matrix-A-row",
+      "region": "lower",
+      "rect": {
+        "x": 816,
+        "y": 509,
+        "width": 336,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_A_R03",
+      "asset_id": "A_R03",
+      "placement": "matrix-A-row",
+      "region": "lower",
+      "rect": {
+        "x": 1159,
+        "y": 509,
+        "width": 359,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_B_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "placement": "matrix-B-row",
+      "region": "lower",
+      "rect": {
+        "x": 192,
+        "y": 633,
+        "width": 290,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_B_R01",
+      "asset_id": "B_R01",
+      "placement": "matrix-B-row",
+      "region": "lower",
+      "rect": {
+        "x": 489,
+        "y": 633,
+        "width": 320,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_B_R02",
+      "asset_id": "B_R02",
+      "placement": "matrix-B-row",
+      "region": "lower",
+      "rect": {
+        "x": 816,
+        "y": 633,
+        "width": 336,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_B_R03",
+      "asset_id": "B_R03",
+      "placement": "matrix-B-row",
+      "region": "lower",
+      "rect": {
+        "x": 1159,
+        "y": 633,
+        "width": 359,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_C_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "placement": "matrix-C-row",
+      "region": "lower",
+      "rect": {
+        "x": 192,
+        "y": 757,
+        "width": 290,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_C_R01",
+      "asset_id": "C_R01",
+      "placement": "matrix-C-row",
+      "region": "lower",
+      "rect": {
+        "x": 489,
+        "y": 757,
+        "width": 320,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_C_R02",
+      "asset_id": "C_R02",
+      "placement": "matrix-C-row",
+      "region": "lower",
+      "rect": {
+        "x": 816,
+        "y": 757,
+        "width": 336,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_C_R03",
+      "asset_id": "C_R03",
+      "placement": "matrix-C-row",
+      "region": "lower",
+      "rect": {
+        "x": 1159,
+        "y": 757,
+        "width": 359,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_D_SPECIES_REF",
+      "asset_id": "SPECIES_REF",
+      "placement": "matrix-D-row",
+      "region": "lower",
+      "rect": {
+        "x": 192,
+        "y": 881,
+        "width": 290,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_D_R01",
+      "asset_id": "D_R01",
+      "placement": "matrix-D-row",
+      "region": "lower",
+      "rect": {
+        "x": 489,
+        "y": 881,
+        "width": 320,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_D_R02",
+      "asset_id": "D_R02",
+      "placement": "matrix-D-row",
+      "region": "lower",
+      "rect": {
+        "x": 816,
+        "y": 881,
+        "width": 336,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    },
+    {
+      "slot_id": "matrix_D_R03",
+      "asset_id": "D_R03",
+      "placement": "matrix-D-row",
+      "region": "lower",
+      "rect": {
+        "x": 1159,
+        "y": 881,
+        "width": 359,
+        "height": 120
+      },
+      "image_transform": "preserveAspectRatio=xMidYMid meet; inset in identical art panel; no artwork redrawing",
+      "placeholder": true
+    }
+  ]
+}
