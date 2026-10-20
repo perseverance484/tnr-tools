@@ -1,7 +1,7 @@
 # Bakuhatsu — Jutsu Icon Register
 
 **Workstream:** BR-008 / Bakuhatsu / A-rank / `RNUcHSH2c00IhOLc2C9aJ`. **NOT** Bloodright tier emblems.
-**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment approved · Blast Shield RAW_VISUAL_APPROVED (1/5) · Inferno Cataclysm DIRECTION_APPROVED (2/5 direction locks total). Kinetic Nova, Charge 4 Explosion, and Howitzer Crash locks remain PENDING.
+**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment approved · Blast Shield and Inferno Cataclysm RAW_VISUAL_APPROVED (**2/5**). Two individual P0 direction locks APPROVED; Kinetic Nova, Charge 4 Explosion, and Howitzer Crash remain DIRECTION_PENDING.
 **Source:** Original `BR-008_Bakuhatsu.zip` 381668 bytes, SHA-256 `7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`; canonical `jutsu_studio.py intake` PASS with 5/5 CRC/SHA/decoded image and manifest mappings. ZIP original stays in conversation/Library, not Git-pinned; hashes do not substitute for source bytes.
 **Historical corroboration:** `harvests/inbox/tnr_results_1792216348638.json` captures 12–17 (`jutsu.get` 5 + `bloodline.get` 1), 2026-10-17. All five are public BLOODLINE jutsu owned by Bakuhatsu. Not current-live verification; no unverified SPECIAL technique is invented.
 **Tooling:** `jutsu_studio.py doctor: RUN_CAPABLE_CANONICAL` on installed producing-tnr-art skill, October 19, 2026. No export or family canonical preflight has run.
@@ -33,14 +33,28 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 - **Provenance:** source bytes held in this conversation and working sandbox; no Git binary pin, no isolated-generation session/ordered rejected-attempt metadata proven. `attempts: NOT_RECORDED` (not a synthetic PASS). Director approval is **raw-visual only**, not gallery or production approval.
 - **No production claim:** raw is **not** a WebP export and its JPEG size is **not** the game-ready byte count. `OUTPUT_LOCAL_QC=NOT_RUN`, `CANONICAL_PREFLIGHT=NOT_RUN`, `FAMILY_SHOWCASE_ACCEPTED=NOT_BUILT`, `USER_UPLOAD_READBACK=NOT_PERFORMED`.
 
-## Next target — Inferno Cataclysm (DIRECTION APPROVED, RAW PENDING)
+## Director-approved raw evidence — Inferno Cataclysm (2026-10-19)
 
-- Exact identity: A-rank BLOODLINE, `FTTl_wnTlbvOfOyiGCc-b`; verified ZIP original `images/FTTl_wnTlbvOfOyiGCc-b_Inferno_Cataclysm.png` SHA-256 `e9b09efefd19881b7884a297620f8471e65059014fdd421ccaea8e4dd8cf3a2a`.
-- P0 director-approved target lock v1 SHA-256: `8b97e0768ca9301e6a9b47bb522bb4b5e159d0fbbfc64fa8e157029e3838c758`; `direction_approval=APPROVED` by the director's 2026-10-19 response “Approved” to the explicit Inferno Cataclysm proposal. Immutable lock geometry/action was not changed.
-- Historical `jutsu.get` describes ground fissures erupting into a cataclysmic detonation. Technique-first composition: a prominent **irregular earth fault** tearing across an elevated three-quarter ground plane, erupting into a **single angled wall/jet of compressed explosive chakra**, with one displaced stone slab to anchor the earthquake. No people or fireball.
-- Camera: elevated 3/4, fissure receding into depth. Motion: lateral ground fracture + violent upward detonation. Keep slab secondary. Must not resemble Blast Shield's approved circular wall, Kinetic Nova's exploding sphere, Charge 4's ignition chain, or Howitzer Crash's diagonal impact.
-- References for one new isolated generation session: actual original Inferno PNG **IDENTITY ONLY**, plus the byte-exact director-approved Blast Shield JPEG **STYLE/MATERIAL ONLY** (never copy its circular protective geometry). Both individual bytes are available in the conversation/workspace, but must be explicitly attached to the isolated session.
-- Direction approval gate **SATISFIED**; single-candidate isolated generation may now begin. On 2026-10-19 the installed canonical CLI reported doctor `RUN_CAPABLE_CANONICAL` and `lock-check` against the verified ZIP `source_index.json` completed with both Blast Shield and Inferno `DIRECTION_APPROVED` and all five locks complete. This is **not** production/export preflight.
+- **Director decision:** “Approved, next” in the persistent Bakuhatsu Art Studio, referring to the actually attached Inferno Cataclysm candidate `1000018860.png`. This is **RAW VISUAL APPROVAL**, not production or family gallery acceptance.
+- **Immutable jutsu association:** Inferno Cataclysm (A-rank BLOODLINE), `FTTl_wnTlbvOfOyiGCc-b`; source identity-only ZIP member `images/FTTl_wnTlbvOfOyiGCc-b_Inferno_Cataclysm.png` SHA-256 `e9b09efefd19881b7884a297620f8471e65059014fdd421ccaea8e4dd8cf3a2a`.
+- **Previously approved P0 target-lock v1:** `8b97e0768ca9301e6a9b47bb522bb4b5e159d0fbbfc64fa8e157029e3838c758`; direction accepted on October 19 before rendering; original lock remains unchanged.
+- **Exact director-approved RAW source bytes:** uploaded file named `1000018860.png`, but actual decoded content is **JPEG**, RGB **1536×1536**, **694089 bytes**, SHA-256 **`6bdaaf03a35532b0cfa3bc64150187540a2b4bbcaf87b283d0f6d09e0828e214`**. Pillow decoder verification PASS. Preserved without any alteration as `bakuhatsu_work/approved_raws/raw_bakuhatsu_inferno_cataclysm_v1.jpg` (not a processed export).
+- **Approved technique/action:** a large jagged near/far field of *fractured stone slabs* surrounds a white-yellow cataclysmic blast pressure column. Main axis is ground rupture plus upward detonation. It is visually distinct from Blast Shield's enclosing concussive circular barrier.
+- **Observed lock variance:** approved pixels contain **multiple prominent displaced stone slabs and debris**, not only the v1 lock's proposed single secondary displaced slab. Director approved these actual pixels. Do **not** revise raw or overwrite the original lock retroactively; carry the approved eruption and fracture shapes as additional sibling exclusions.
+- **Provenance:** approved raw bytes held as conversation upload / local file; **not Git binary pinned**. Exact ordered per-attempt log and isolated-generation session ID were not delivered to this studio: `attempts=NOT_RECORDED`, not falsely validated. Source bytes were copied unchanged; no production processing, WebP or family QC was run.
+- **Outstanding gates:** `OUTPUT_LOCAL_QC=NOT_RUN`, `CANONICAL_PREFLIGHT=NOT_RUN`, `FAMILY_SHOWCASE_ACCEPTED=NOT_BUILT`, `ZIP_DELIVERED=NOT_BUILT`, `USER_UPLOAD_READBACK=NOT_PERFORMED`.
+
+## Next target — Kinetic Nova (PROPOSED DIRECTION — AWAITING DIRECTOR APPROVAL)
+
+- **Exact identity:** Kinetic Nova (A-rank BLOODLINE), `y8y01n9jz16bz5EBzl4wr`; original identity source `images/y8y01n9jz16bz5EBzl4wr_Kinetic_Nova.png` SHA-256 `c3e22e1e683347abe8e58a29dc19de2a68f427358c14a466bc4b344e18acc045`. Historical `jutsu.get` records compressed chakra hurled at an opponent, erupting into many small explosions and disrupting the opponent's chakra; the source image contains a combatant with an orange circular burst. **The combatant and continuous circular ring are not approved new compositions.**
+- **Proposed P0 v1 lock SHA-256:** `b09e6dc2810f13f75320596dfa396ec6974face8152652b23abb203b3f49e53b`; `direction_approval=PENDING` as of this checkpoint. Existing v1 lock remains unchanged.
+- **Dominant ACTION and geometry:** one tightly compressed luminous airborne chakra projectile caught **mid-fracture**, throwing off an *asymmetrical constellation of distinct small concussive detonations* separated by clear dark gaps. The instant of projectile break-up, not a single big fireball, must dominate.
+- **Camera/motion:** near-frontal 3/4 toward the target, with the near side of the original projectile in the foreground; outward radial fragmentation, biased slightly to the right for motion but not a single diagonal ground ignition chain. No ground plane, no continuous blast annulus.
+- **One secondary cue:** frayed, suddenly broken chakra filament showing the disrupted-energy aftereffect. Keep it subordinate and avoid invented magical symbols or decorative lightning.
+- **Family renderer:** CONCUSSIVE FRACTURE, restrained amber/copper/gold-white explosion material and dark charcoal negative space. Compact burst islands must stay distinct at 125/64/32, without becoming a regular six-petal flower or starburst.
+- **Sibling exclusions:** Blast Shield's ACTUAL thick circular protecting pressure barrier and deflected upper-right projectile; Inferno Cataclysm's ACTUAL jagged ground slabs and towering eruption; Charge 4 Explosion's sequenced ground-level microdetonation chain with blue-white line; Howitzer Crash's diagonal thrust/shock-cone and close-range collision. No anatomy, fireball ring, portal, lava, boiling mist or unsupported floating geometric glyphs.
+- **References after approval:** (1) exact original Kinetic Nova PNG, **IDENTITY ONLY** (do not reproduce fighter/circular ring); (2) exact approved Inferno Cataclysm JPEG `6bdaaf03a35532b0cfa3bc64150187540a2b4bbcaf87b283d0f6d09e0828e214` **STYLE/MATERIAL ONLY** (do not reproduce its ground eruption). Supply actual two individual image bytes to the new isolated conversation.
+- **Next gate:** director must accept/revise the Kinetic Nova v1 P0 target lock before any Kinetic Nova generation. No image generation in this Studio response.
 
 ## Current K gates
 
@@ -48,7 +62,7 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 |---|---|
 | ORIGINAL_SOURCE_VERIFIED | VERIFIED 5/5 (historical-capture provenance) |
 | DIRECTION_APPROVED | APPROVED 2/5: Blast Shield and Inferno Cataclysm; other three PENDING |
-| RAW_VISUAL_APPROVED | APPROVED 1/5 (Blast Shield only; exact raw JPEG receipt above) |
+| RAW_VISUAL_APPROVED | APPROVED 2/5 (Blast Shield and Inferno Cataclysm; both exact raw JPEGs preserved and recorded) |
 | OUTPUT_LOCAL_QC | NOT_RUN |
 | CANONICAL_PREFLIGHT | NOT_RUN |
 | FAMILY_SHOWCASE_ACCEPTED | NOT_BUILT |
@@ -56,4 +70,4 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 | GIT_BINARY_PIN | NOT_PERFORMED for original/new art bytes |
 | USER_UPLOAD_READBACK | NOT_PERFORMED |
 
-Next: launch ONE fresh isolated generation conversation for Inferno Cataclysm with its original identity PNG plus Blast Shield's exact approved raw JPEG as STYLE/MATERIAL only. Return exact generated candidate bytes and director approval evidence to the Studio. Preserve every approved source byte; do not process or production-QC until N/N approved raws. Live-game requests/writes 0/0; no publishing or credentials.
+Next: seek director acceptance of the exact reserved Kinetic Nova v1 target lock. Only after approval, open one fresh isolated generation conversation using its original identity PNG and optional actual accepted Inferno raw JPEG as STYLE/MATERIAL only. Keep source bytes unchanged. No processing/export/gallery/canonical preflight before N/N raws. Live-game requests/writes 0/0; no publishing or credentials.
