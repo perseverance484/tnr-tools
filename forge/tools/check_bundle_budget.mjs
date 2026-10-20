@@ -60,7 +60,7 @@ const BUNDLE = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "forge_
 // Suggest mode (PR "Forge 0.8.0", 2026-10-19): raised to 420,000 raw / 100,000 gzip, accepted by
 // the director in advance ("Size limit raise approved", RUL-2026-10-19-006). Measured 407,434 / 97,814.
 // Item census (elementaldamage WEAPON census, 2026-10-20): raised to 432,000 raw / 105,000 gzip,
-// approved by the director ("Raise to 432k/105k", RUL-2026-10-20-001). Measured 424,212 / 102,630.
+// approved by the director ("Raise to 432k/105k", RUL-2026-10-20-002). Measured 424,212 / 102,630.
 export const BUDGET = { raw: 432_000, gzip: 105_000 };
 
 export function measure() {

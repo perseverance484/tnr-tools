@@ -21,7 +21,9 @@ ledger was written but the census is not complete (the ledger then says so on it
 Classification is OBSERVED EVIDENCE, never a repair decision. A missing selector is a candidate
 for the director's review, not proof of unintended design, and nothing here approves a repair.
 
-Engine facts the classifier relies on (studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb):
+Engine facts the classifier relies on (studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb; re-checked at
+85cecae, the contract pin since PR #76: combat.ts and elementalDamage.ts unchanged, tags.ts changed only in
+Clear/Cleanse, which moves the damageCalc lines below by +4):
   - validators/combat.ts:156-169   statTypes accepts "Highest" and stores it as "None"; any
                                    NONEMPTY statTypes (["None"] included) is stat-scaling-positive.
   - libs/combat/tags.ts:1438-1447  damageCalc adds the offence/defence term only when
@@ -43,7 +45,7 @@ from pathlib import Path
 KIND = "item.weapon.elementaldamage"
 TAG = "elementaldamage"
 STORMRENDER_ID = "cLXXf8RJv5l9B_gGsYN2a"
-STORMRENDER_NOTE = "ALREADY STAGED / PR #73 (push/131_stormrender_highest_scaling_suggestion.json); do not submit a duplicate repair"
+STORMRENDER_NOTE = "ALREADY STAGED: push/131_stormrender_highest_scaling_suggestion.json (integrated by PR #76, which superseded PR #73); do not submit a duplicate repair"
 GAME_PIN = "studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb"
 PROJECTION_KEYS = {"id", "name", "itemType", "hidden", "updatedAt", "effectTypes", "effectsMalformed"}
 
@@ -68,6 +70,18 @@ def canon(v) -> str:
 
 def sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def effect_type(e):
+    """A member's type when it is an object with a non-empty string `type`, else None (as Forge's
+    census.mjs effectType). A member without one cannot be ruled out as the tag."""
+    return e["type"] if isinstance(e, dict) and isinstance(e.get("type"), str) and e["type"] else None
+
+
+def row_malformed(row: dict) -> bool:
+    """Recomputed from the projection itself: effects not an array, or any member untyped."""
+    types = row.get("effectTypes")
+    return not isinstance(types, list) or any(not isinstance(t, str) or not t for t in types)
 
 
 def selector(effect: dict, key: str):
@@ -163,10 +177,28 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
             errors.append(f"census.counts[{k}] = {(census.get('counts') or {}).get(k)} but the rows give {v}")
     if counts["hidden:false"] + counts["hidden:true"] != counts["total"]:
         errors.append("a row has a non-boolean hidden")
-    expected = sorted(r["id"] for r in rows if TAG in (r.get("effectTypes") or []) or r.get("effectsMalformed"))
+    for r in rows:
+        if bool(r.get("effectsMalformed")) != row_malformed(r):
+            errors.append(f"inventory row {r.get('id')}: effectsMalformed={r.get('effectsMalformed')} but its effectTypes say {row_malformed(r)}")
+    # The target set, each target's reason and its updatedAt are recomputed from the rows, not
+    # taken from Forge (census review F2): a malformed row is a target too (review F1).
+    expected = {r["id"]: ("effectsMalformed" if row_malformed(r) else TAG) for r in rows
+                if row_malformed(r) or TAG in (r.get("effectTypes") or [])}
     targets = census.get("targets") or []
-    if sorted(t["id"] for t in targets) != expected:
+    tids = [t.get("id") for t in targets]
+    if len(set(tids)) != len(tids):
+        errors.append("census.targets repeats an id")
+    if sorted(set(tids)) != sorted(expected):
         errors.append("census.targets is not exactly the tagged + malformed inventory rows")
+    inv_rows = {r.get("id"): r for r in rows}
+    for t in targets:
+        r = inv_rows.get(t.get("id"))
+        if r is None:
+            continue
+        if t.get("reason") != expected.get(t.get("id")):
+            errors.append(f"target {t.get('id')}: reason {t.get('reason')!r} but its inventory row gives {expected.get(t.get('id'))!r}")
+        if t.get("updatedAt") != r.get("updatedAt"):
+            errors.append(f"target {t.get('id')}: updatedAt {t.get('updatedAt')} but its inventory row has {r.get('updatedAt')}")
     scans = census.get("scans") or []
     if census.get("inventory") == "COMPLETE" and (len(scans) != 2 or scans[0].get("digest") != scans[1].get("digest")):
         errors.append("inventory claims COMPLETE without two agreeing scans")
@@ -190,6 +222,8 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
         if pid in points:
             errors.append(f"two census captures for {pid}")
         points[pid] = c
+    for pid in sorted(set(points) - set(tids), key=str):
+        errors.append(f"census capture for {pid}, which is not a census target")
     inv = {r["id"]: r for r in rows}
     stale, missing, failed = [], [], []
     records = {}
@@ -197,9 +231,10 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
         tid = t["id"]
         c = points.get(tid)
         row = inv.get(tid, {})
+        reason = expected.get(tid, t.get("reason"))   # the ledger's own reason, not Forge's
         rec = {
             "id": tid, "name": row.get("name"), "hidden": row.get("hidden"),
-            "inventoryUpdatedAt": t.get("updatedAt"), "targetReason": t.get("reason"),
+            "inventoryUpdatedAt": row.get("updatedAt", t.get("updatedAt")), "targetReason": reason,
         }
         problems = []
         data = c.get("data") if c else None
@@ -216,11 +251,24 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
                     problems.append(f"body id {data.get('id')}")
                 if data.get("itemType") != "WEAPON":
                     problems.append(f"body itemType {data.get('itemType')}")
-                if not isinstance(data.get("effects"), list):
-                    problems.append("body effects is not an array")
-                if data.get("updatedAt") != t.get("updatedAt"):
-                    problems.append(f"STALE: captured updatedAt {data.get('updatedAt')} != inventoried {t.get('updatedAt')}; RECAPTURE REQUIRED")
+                fx = data.get("effects")
+                if reason != "effectsMalformed":
+                    # same acceptance as Forge acceptPoint: an array with the exact tag
+                    if not isinstance(fx, list):
+                        problems.append("body effects is not an array")
+                    elif not any(effect_type(e) == TAG for e in fx):
+                        problems.append(f"no {TAG} effect in the captured body")
+                is_stale = data.get("updatedAt") != row.get("updatedAt", t.get("updatedAt"))
+                if is_stale:
+                    problems.append(f"STALE: captured updatedAt {data.get('updatedAt')} != inventoried {row.get('updatedAt', t.get('updatedAt'))}; RECAPTURE REQUIRED")
                     stale.append(tid)
+                elif row:
+                    # Same record, same updatedAt: item.getAll and item.get both return the stored
+                    # row, so the body's effect types must be exactly the projected ones. A
+                    # disagreement means the bundle is inconsistent (corrupted or edited).
+                    body_types = [effect_type(e) for e in fx] if isinstance(fx, list) else None
+                    if body_types != row.get("effectTypes"):
+                        errors.append(f"{tid}: body effect types {body_types} != inventory projection {row.get('effectTypes')} at the same updatedAt")
             if bool(c.get("accepted")) != (not problems):
                 errors.append(f"{tid}: bundle says accepted={c.get('accepted')} but the ledger's own check {'found ' + '; '.join(problems) if problems else 'passes'}")
             rec["provenance"] = {
@@ -254,7 +302,7 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
             rec["status"] = STORMRENDER_NOTE
         elif any(c in CANDIDATE_CLASSES for c in classes):
             rec["status"] = "CANDIDATE: director review (observed evidence only; no repair proposed or approved)"
-        elif C_MALFORMED in classes or not dyn:
+        elif reason == "effectsMalformed" or C_MALFORMED in classes or not dyn:
             rec["status"] = "MANUAL REVIEW: malformed or ambiguous"
         else:
             rec["status"] = "CONTROL: no formula-scaling gap observed"
@@ -273,13 +321,20 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
         errors.append("the bundle is not a pure read: it carries items, entries, or a non item.get capture")
 
     verdict = census.get("verdict")
-    complete = verdict == "COMPLETE" and not errors and not stale and not missing and not failed
+    ambiguous = sorted(tid for tid, why in expected.items() if why == "effectsMalformed")
+    # The ledger's own verdict. A malformed target can never be COMPLETE (Forge reports AMBIGUOUS):
+    # it was captured, but nobody has resolved whether it is the tag (census review F1).
+    own = ("INCOMPLETE" if missing else "STALE" if stale else "FAILED" if failed
+           else "AMBIGUOUS" if ambiguous else "COMPLETE")
+    if census.get("inventory") == "COMPLETE" and verdict != own:
+        errors.append(f"bundle census verdict {verdict} but the ledger derives {own}")
+    complete = own == "COMPLETE" and verdict == "COMPLETE" and not errors
     by_class = {k: sorted(tid for tid, r in records.items() if k in r["classifications"]) for k in ALL_CLASSES}
     effect_counts = {k: sum(1 for r in records.values() for d in r["elementaldamageEffects"] if d["classification"] == k) for k in ALL_CLASSES}
     return {
         "ledger": "elementaldamage WEAPON census",
-        "status": "COMPLETE" if complete else f"NOT COMPLETE (census verdict {verdict}; {len(errors)} ledger error(s), {len(stale)} stale, {len(missing)} missing, {len(failed)} failed)",
-        "reviewGate": "STOP: observed evidence only. Every candidate needs an ID-level director decision before any suggest/edit manifest is prepared; Stormrender is already staged in PR #73.",
+        "status": "COMPLETE" if complete else f"NOT COMPLETE (census verdict {verdict}, ledger verdict {own}; {len(errors)} ledger error(s), {len(stale)} stale, {len(missing)} missing, {len(failed)} failed, {len(ambiguous)} ambiguous)",
+        "reviewGate": "STOP: observed evidence only. Every candidate needs an ID-level director decision before any suggest/edit manifest is prepared; Stormrender is already staged (push/131, integrated by PR #76).",
         "gamePin": GAME_PIN,
         "source": {
             "bundle": bundle_path, "bundleSha256": bundle_sha256, "bundleAt": bundle.get("at"), "builder": bundle.get("builder"),
@@ -299,7 +354,8 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
         "manualReview": sorted(tid for tid, r in records.items() if r["status"].startswith("MANUAL")),
         "alreadyStaged": sorted(tid for tid, r in records.items() if C_STORMRENDER in r["classifications"]),
         "byClassification": by_class,
-        "stale": sorted(stale), "missing": sorted(missing), "failed": sorted(failed),
+        "stale": sorted(stale), "missing": sorted(missing), "failed": sorted(failed), "ambiguous": ambiguous,
+        "ledgerVerdict": own,
         "crossCheck": census.get("crossCheck"),
         "censusProblems": census.get("problems") or [],
         "ledgerErrors": errors,
@@ -326,7 +382,8 @@ def render_md(L: dict) -> str:
         out.append(f"| {k} | {c['recordsByClassification'][k]} | {c['effectsByClassification'][k] if k != C_STORMRENDER else '-'} |")
     for title, key in (("Candidates for director review", "candidates"), ("Already staged", "alreadyStaged"),
                        ("Manual review", "manualReview"), ("Controls", "controls"),
-                       ("Stale (recapture required)", "stale"), ("Missing", "missing"), ("Failed", "failed")):
+                       ("Stale (recapture required)", "stale"), ("Missing", "missing"), ("Failed", "failed"),
+                       ("Ambiguous (malformed effects; the census cannot be COMPLETE)", "ambiguous")):
         out += ["", f"## {title} ({len(L[key])})", ""]
         out += [f"- `{tid}` {L['records'][tid]['name'] if tid in L['records'] else ''}" for tid in L[key]] or ["- none"]
     for title, key in (("Census problems", "censusProblems"), ("Ledger errors", "ledgerErrors")):

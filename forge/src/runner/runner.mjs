@@ -912,7 +912,13 @@ export class Runner {
     let job = this.journal.get(jobId);
     if (!job.census) {
       this._emit("census:inventory", { jobId });
-      const { rows, ...inv } = await runInventory((input) => this.reader.censusPage(k.listPath, input), spec);
+      // Pause is honoured before every Stage A page (census review F3); the lease is renewed too,
+      // since two full scans of a large population outlast one point read by far.
+      const checkpoint = ({ hidden, cursor, filtered }) => {
+        if (this.pauseRequested) throw new Paused("USER", { detail: `census paused during Stage A (${filtered ? "cross-check, " : ""}hidden:${hidden} page ${cursor}); the inventory restarts from cursor 0 on resume` });
+        this._lease(jobId);
+      };
+      const { rows, ...inv } = await runInventory((input) => this.reader.censusPage(k.listPath, input), spec, { checkpoint });
       const inventoryKey = snapshotKey(jobId, "census", "inventory");
       try {
         await this.cache.putSnapshot({ key: inventoryKey, jobId, phase: "census", ordinal: "inventory", path: "census:" + spec.kind, id: null, input: spec, data: rows });

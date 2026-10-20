@@ -16,7 +16,8 @@
 // Nothing here can write. Both procedures are public queries in the audited registry; a kind
 // that named anything else is refused by assertCensusKinds() at module load.
 //
-// Source contract, studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb:
+// Source contract, studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb (routers/item.ts and
+// validators/item.ts are byte-identical at 85cecae, the Forge contract pin since PR #76):
 //   item.getAll   routers/item.ts:1101-1132  publicProcedure, input itemFilteringSchema +
 //                 {cursor: number nullish, limit: 1..500}; offset = cursor * limit; ordered by
 //                 cost, repsCost, id; nextCursor = rows < limit ? null : cursor + 1.
@@ -71,13 +72,21 @@ export const iso = (v) => (v instanceof Date ? v.toISOString() : v ?? null);
 export function projectRow(row) {
   const fx = row?.effects;
   const ok = Array.isArray(fx);
+  const types = ok ? fx.map(effectType) : null;
   return {
     id: row?.id ?? null, name: typeof row?.name === "string" ? row.name : null,
     itemType: row?.itemType ?? null, hidden: row?.hidden ?? null, updatedAt: iso(row?.updatedAt),
-    effectTypes: ok ? fx.map((e) => (e && typeof e.type === "string" ? e.type : null)) : null,
-    effectsMalformed: !ok,
+    effectTypes: types,
+    // Malformed is the whole effects value OR any one member: `[null]`, `[{power:30}]` and
+    // `["elementaldamage"]` cannot be ruled out as the tag, so such a row is captured, never
+    // silently dropped from the target set (census review F1).
+    effectsMalformed: !ok || types.some((t) => t === null),
   };
 }
+
+/** A member's type when it is a plain object with a non-empty string `type`, else null. */
+export const effectType = (e) =>
+  (e && typeof e === "object" && !Array.isArray(e) && typeof e.type === "string" && e.type ? e.type : null);
 
 const hasTag = (row, tag) => !!row.effectTypes?.includes(tag);
 
@@ -87,11 +96,14 @@ const hasTag = (row, tag) => !!row.effectTypes?.includes(tag);
  * (ok:false) does the same. RateLimited and transport errors propagate: the job pauses and Stage
  * A restarts from cursor 0 on resume, because half an offset crawl proves nothing.
  */
-async function crawl(page, k, hidden, limit, extra, seen) {
+async function crawl(page, k, hidden, limit, extra, seen, checkpoint) {
   const rows = [], pages = [];
   for (let cursor = 0; ; cursor++) {
     if (cursor >= MAX_PAGES) return { problem: `hidden:${hidden}: no terminating page after ${MAX_PAGES} pages` };
     const input = { itemType: k.itemType, hidden, ...extra, limit, cursor };
+    // Before EVERY page read: the runner's Pause throws here (census review F3). Nothing of a
+    // half-finished Stage A is kept, so the resume crawls again from cursor 0.
+    checkpoint?.({ hidden, cursor, filtered: !!extra.effect });
     const r = await page(input);
     const where = `hidden:${hidden}${extra.effect ? " (filtered)" : ""} cursor ${cursor}`;
     if (!r.ok) return { problem: `${where}: read failed ${r.error?.code ?? "?"}: ${r.error?.message ?? ""}` };
@@ -114,10 +126,10 @@ async function crawl(page, k, hidden, limit, extra, seen) {
   }
 }
 
-async function scan(page, k, limit, extra = {}) {
+async function scan(page, k, limit, extra = {}, checkpoint) {
   const seen = new Set(), rows = [], pages = [];
   for (const hidden of k.partitions) {
-    const c = await crawl(page, k, hidden, limit, extra, seen);
+    const c = await crawl(page, k, hidden, limit, extra, seen, checkpoint);
     if (c.pages) pages.push(...c.pages);
     if (c.problem) return { problem: c.problem, pages };
     rows.push(...c.rows);
@@ -141,11 +153,11 @@ function scanDiff(a, b) {
  * snapshot, so one pass cannot be called complete), then one tag-filtered scan as a cross-check.
  * Returns the projection rows plus a summary; `inventory` is "COMPLETE", "UNSTABLE" or "FAILED".
  */
-export async function runInventory(page, { kind, pageLimit }) {
+export async function runInventory(page, { kind, pageLimit }, { checkpoint } = {}) {
   const k = CENSUS_KINDS[kind];
   const out = { inventory: "FAILED", problems: [], scans: [], rows: [], targets: [] };
   for (let n = 0; n < 2; n++) {
-    const s = await scan(page, k, pageLimit);
+    const s = await scan(page, k, pageLimit, {}, checkpoint);
     out.scans.push({ pages: s.pages, rows: s.rows?.length ?? null, digest: s.rows ? digest(s.rows) : null });
     if (s.problem) { out.problems.push(`scan ${n + 1}: ${s.problem}`); return out; }
     out.rows = n ? out.rows : s.rows;
@@ -157,7 +169,7 @@ export async function runInventory(page, { kind, pageLimit }) {
     }
   }
   const rows = out.rows;
-  const f = await scan(page, k, pageLimit, { effect: [k.tag] });
+  const f = await scan(page, k, pageLimit, { effect: [k.tag] }, checkpoint);
   const exact = rows.filter((r) => hasTag(r, k.tag)).map((r) => r.id);
   if (f.problem) out.problems.push(`cross-check: ${f.problem}`);
   else {
@@ -202,8 +214,13 @@ export function acceptPoint(kind, target, r, entry) {
   else {
     if (d.id !== target.id) problems.push(`answered id ${d.id}`);
     if (d.itemType !== k.itemType) problems.push(`itemType ${d.itemType}`);
-    if (!Array.isArray(d.effects)) problems.push("effects is not an array");
-    else if (target.reason === k.tag && !d.effects.some((e) => e?.type === k.tag)) problems.push(`no ${k.tag} effect any more`);
+    // A malformed target is read to CAPTURE its body as evidence: whatever shape it has is what
+    // the game holds, so it is not refused here. It can never make the census COMPLETE: the
+    // verdict is AMBIGUOUS until someone resolves it explicitly (storage/journal.mjs censusVerdict).
+    if (target.reason !== "effectsMalformed") {
+      if (!Array.isArray(d.effects)) problems.push("effects is not an array");
+      else if (!d.effects.some((e) => effectType(e) === k.tag)) problems.push(`no ${k.tag} effect any more`);
+    }
   }
   if (entry.persistOk !== true) problems.push(`body not persisted: ${entry.persistError ?? "?"}`);
   const stale = !!d && iso(d.updatedAt) !== target.updatedAt;

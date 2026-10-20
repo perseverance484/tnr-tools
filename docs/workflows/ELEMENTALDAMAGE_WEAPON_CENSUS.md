@@ -14,9 +14,9 @@ One Forge job, two stages, both read-only:
 | Stage | Reads | Kept |
 | --- | --- | --- |
 | A. Inventory | `item.getAll` with `itemType:"WEAPON"`, `limit:100`, explicitly `hidden:false` and then `hidden:true`, cursor 0 upward until `nextCursor:null`. The whole crawl runs **twice** and both passes must match exactly. Then one more crawl with `effect:["elementaldamage"]` as a cross-check. | A projection per row only: `id, name, itemType, hidden, updatedAt, effectTypes, effectsMalformed`. No raw list body is stored or exported. |
-| B. Point reads | One `item.get {id}` with `persist:"full"` for every inventoried WEAPON whose effects contain `type:"elementaldamage"` (plus any row whose effects could not be parsed). | The exact record body, in Forge's immutable capture-snapshot store, then in the results bundle. |
+| B. Point reads | One `item.get {id}` with `persist:"full"` for every inventoried WEAPON whose effects contain `type:"elementaldamage"`, plus every row whose effects are **malformed**: not an array, or ANY member that is not an object with a non-empty string `type` (`[null]`, `[{power:30}]`, `["elementaldamage"]`). Such a row cannot be ruled out, so it is captured, never dropped. | The exact record body, in Forge's immutable capture-snapshot store, then in the results bundle. |
 
-Each point read is checked: read ok, one row, body persisted, same id, `itemType` WEAPON, `effects` is an array, the tag is still there, and `updatedAt` equals what Stage A saw. A changed `updatedAt` is **STALE / RECAPTURE REQUIRED**.
+Each point read is checked: read ok, one row, body persisted, same id, `itemType` WEAPON, and `updatedAt` equals what Stage A saw; for a tagged target also `effects` is an array and the tag is still there. A malformed target's body is captured as evidence whatever its shape. A changed `updatedAt` is **STALE / RECAPTURE REQUIRED**.
 
 **Why two scans:** `item.getAll` is offset-paginated (sorted by cost, repsCost, id). An item created, deleted or repriced while the crawl runs can shift rows between pages, so one pass cannot prove it saw everyone. If the two passes differ, the census says **UNSTABLE**, names the changed ids, and sends no point reads.
 
@@ -43,6 +43,7 @@ Both procedures are public and rate-limited. Forge's existing budget allows 30 r
 | `COMPLETE` | Both partitions fully paged, two scans agree, cross-check consistent, every target's body captured and accepted. A census with zero targets is also `COMPLETE`. | Build the ledger. |
 | `UNSTABLE` | The two scans disagreed. No point reads were sent. | Stop editing, run the manifest again as a new job. |
 | `STALE` | A target changed between Stage A and its point read. Its body is kept but not accepted. | Run again. |
+| `AMBIGUOUS` | Every body was captured, but at least one target's effects were malformed, so whether it carries the tag was never decided. Never `COMPLETE`. | Read the malformed record(s) in the ledger's **Ambiguous** list; resolve explicitly (fix the record in the game, then run a fresh census). |
 | `FAILED` | A page broke the source contract (malformed, wrong type or partition, repeated id, bad cursor, failed read), the cross-check disagreed, or a body failed acceptance / persistence. The bundle's `census.problems` and per-capture `problems` name it. | Read the problem; usually run again. |
 | `INCOMPLETE` | Exported while paused. The bodies already read are in the bundle. | Resume and export again. |
 
@@ -63,7 +64,7 @@ Per `elementaldamage` effect it records the calculation, power, `statTypes`, `ge
 - `formula / missing statTypes`, `formula / missing generalTypes`, `formula / both missing` — **candidates** for director review;
 - `formula / both present` and `non-formula / scaling not applicable` — **controls**;
 - `malformed or ambiguous` — manual review;
-- `already-staged Stormrender` — `cLXXf8RJv5l9B_gGsYN2a`, **ALREADY STAGED / PR #73**, never a new repair.
+- `already-staged Stormrender` — `cLXXf8RJv5l9B_gGsYN2a`, **ALREADY STAGED** as push/131 (integrated by PR #76, which superseded PR #73), never a new repair.
 
 `statTypes:[]` and an absent `statTypes` are missing; `statTypes:["None"]` is present and stat-scaling-positive (legacy `"Highest"` is saved as `"None"`). Each dynamic tag on an item is classified separately. Ordinary `damage` effects are listed as context only.
 
@@ -74,4 +75,4 @@ The ledger is observed evidence. A missing selector is a candidate, not proof th
 1. Fable submits the candidate list, keyed by item id, for the director's decision.
 2. The director approves or rejects each id. There is no blanket approval.
 3. Only approved ids get a minimal repair manifest, built from the captured full effects, through the normal fetch-merge, `mode:"suggest"` or edit, and read-back workflow.
-4. Repair manifests that assert an `elementaldamage` effects array stay blocked until the generated-contract refresh PR #73 needs (`forge/src/runner/nested.json`, skill `45c`/`45g`) is done as its own reviewed Lane A change. The census itself does not depend on it.
+4. Repair manifests that assert an `elementaldamage` effects array need Forge 0.8.1 or later: the generated-contract refresh that once blocked PR #73 landed in PR #76 (`forge/src/runner/nested.json`, skill `45c`/`45g` at TheNinjaRPG@85cecae). The census itself never depended on it.
