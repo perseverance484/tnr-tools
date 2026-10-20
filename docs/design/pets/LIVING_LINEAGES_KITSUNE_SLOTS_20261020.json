@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "DRAFT_AWAITING_DIRECTOR_REFERENCE_AND_ROADMAP_LOCK",
+  "status": "SPECIES_AND_RANK_ROADMAP_APPROVED__RANK1_EMBER_READY_FOR_ISOLATED_GENERATION",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -117,72 +117,81 @@
       "name": "Companion",
       "phase": "GROWTH",
       "proposed_attached_tail_count": 2,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 2,
       "name": "Scout",
       "phase": "GROWTH",
       "proposed_attached_tail_count": 2,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 3,
       "name": "Tracker",
       "phase": "GROWTH",
       "proposed_attached_tail_count": 3,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 4,
       "name": "Guardian",
       "phase": "GROWTH",
       "proposed_attached_tail_count": 3,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 5,
       "name": "Hunter",
       "phase": "MAJOR_METAMORPHOSIS",
       "proposed_attached_tail_count": 4,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 6,
       "name": "Warden",
       "phase": "EVOLVED_FORM_DEVELOPMENT",
       "proposed_attached_tail_count": 5,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 7,
       "name": "Sentinel",
       "phase": "MAJOR_METAMORPHOSIS",
       "proposed_attached_tail_count": 6,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 8,
       "name": "Mythic",
       "phase": "EVOLVED_FORM_DEVELOPMENT",
       "proposed_attached_tail_count": 7,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     },
     {
       "rank": 9,
       "name": "Sovereign",
       "phase": "MAJOR_METAMORPHOSIS",
       "proposed_attached_tail_count": 8,
-      "director_approval": "PENDING",
-      "approved_on": null
+      "director_approval": "DIRECTOR_APPROVED_FOR_VISUAL_PILOT",
+      "approved_on": "2026-10-20",
+      "approval_evidence": "2026-10-20 director response 'Approved' to species-reference and full nine-rank roadmap decisions"
     }
   ],
   "assets": [
@@ -195,8 +204,8 @@
       "expected_parent_asset_id": null,
       "expected_parent_approved_sha256": null,
       "used_parent_sha256": null,
-      "status": "SOURCE_RECEIVED_DIRECTOR_LOCK_PENDING",
-      "director_visual_approval": "PENDING_EXPLICIT_CONFIRMATION",
+      "status": "DIRECTOR_APPROVED_SPECIES_VISUAL_REFERENCE__QC_UNRUN",
+      "director_visual_approval": "APPROVED_FOR_SPECIES_REFERENCE",
       "identity_qc": "INSPECTED_JUVENILE_TWO_TAILS",
       "progression_qc": "NOT_APPLICABLE",
       "thumbnail_160_qc": "NOT_RUN",
@@ -213,18 +222,32 @@
         "sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
         "source_location": "conversation_upload_not_repository_pinned"
       },
-      "approved_original": null,
-      "approved_original_sha256": null,
+      "approved_original": {
+        "filename": "1000018892.png",
+        "archive_filename": "images/kitsune_juvenile_species_reference.jpg",
+        "sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "alpha": false,
+        "source_evidence": "2026-10-20 director reply: Approved; previous-session illustrations potentially useful around ranks 5–6",
+        "role": "species_appearance_reference_for_Rank1_only",
+        "located_in": "current conversation attachment; reference archive provided to director (NOT GIT PINNED)"
+      },
+      "approved_original_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
       "processed_asset": null,
       "processed_sha256": null,
       "mechanical_preflight": "NOT_RUN",
       "isolated_session": null,
-      "approval_date": null,
+      "approval_date": "2026-10-20",
       "revision_notes": [
         "File extension .png does not match actual JPEG bytes.",
         "Black opaque background; not a transparent cutout.",
         "Visual identity and source hash recorded; the user has supplied this candidate but exact-byte lock was not explicitly verified in this session.",
-        "Source pixels unavailable through Git commit; attach the actual source image in isolated sessions, not just the hash."
+        "Source pixels unavailable through Git commit; attach the actual source image in isolated sessions, not just the hash.",
+        "Director approved use of the juvenile reference after the exact-byte/reference-background question; JPEG/black background remains a documented conditioning risk, NOT a production-quality transparent asset.",
+        "Treat species-reference colours as non-binding; new Rank 1 sprites must be unique identity variants and pass separate visual/QC."
       ]
     },
     {
@@ -1094,17 +1117,151 @@
   ],
   "generation_sessions_open": [],
   "director_decisions_pending": [
-    "Lock the exact source reference image/bytes and decide JPEG black-background conditioning vs a transparent replacement",
-    "Approve or revise the complete R1-R9 tail-count and morphology concept curve",
-    "Approve each lineage image and any conceptual revisions one at a time"
+    "Approve or reject each of the 36 subsequently generated individual rank illustrations one at a time",
+    "Any change in the shared rank concept after examining one generated result must be explicitly approved and recorded",
+    "Resolve black-background/raw transparency and mechanical export/preflight only when the corresponding image is processed for production, not by claiming an opaque JPEG passes"
   ],
   "known_technical_mismatches": [
-    "Supplied 1536-square .png file contains JPEG RGB black background; cannot be called transparent/source-QC-passed",
+    "Supplied 1536-square .png file contains JPEG RGB black background; cannot be called transparent/source-QC-passed Director accepted the opaque source as a visual species reference only.",
     "Current pinned pet appearance composer overrides juvenile prompts with adult proportions",
     "Production game requests uniform light-gray staging; demonstration asks for transparent source/output",
     "Public seeded species record and catalogue are not current-live capture"
   ],
   "live_game_requests": 0,
   "live_game_writes": 0,
-  "credentials_used": false
+  "credentials_used": false,
+  "legacy_mature_concept_references": [
+    {
+      "original_filename": "1000018893.png",
+      "archive_filename": "images/legacy_jade_lightning_benchmark.jpg",
+      "lineage_id": "C",
+      "visual_family": "Jade / Lightning",
+      "bytes": 446669,
+      "sha256": "2126971390351dfee90f24fd8cedbf8f0a2733bd6116041189fced60b923f602",
+      "width": 1536,
+      "height": 1536,
+      "detected_format": "JPEG",
+      "mime": "image/jpeg",
+      "mode": "RGB",
+      "has_alpha": false,
+      "background": "opaque black",
+      "provenance": "provided by director on 2026-10-20, generated in prior conversation; original provider generation bytes not independently proven",
+      "director_gate": "RECEIVED_FOR_CONCEPT_COMPARISON_NOT_APPROVED_RANK_OUTPUT",
+      "suggested_use": "around rank 5-6, comparative direction / palette continuity / maturity envelope only",
+      "parent_of_any_rank_image": false,
+      "may_condition_generator": false,
+      "git_binary_pinned": false,
+      "note": "Do not assign as R5 or R6 asset; do not reuse as cross-lineage image input; follow single exact-parent inheritance"
+    },
+    {
+      "original_filename": "1000018894.png",
+      "archive_filename": "images/legacy_obsidian_spirit_benchmark.jpg",
+      "lineage_id": "D",
+      "visual_family": "Obsidian / Spirit",
+      "bytes": 432806,
+      "sha256": "f8790f02c227e74676cfec63ff6187cb9a71e226b1fc77fe558cd8f2a193c5e9",
+      "width": 1536,
+      "height": 1536,
+      "detected_format": "JPEG",
+      "mime": "image/jpeg",
+      "mode": "RGB",
+      "has_alpha": false,
+      "background": "opaque black",
+      "provenance": "provided by director on 2026-10-20, generated in prior conversation; original provider generation bytes not independently proven",
+      "director_gate": "RECEIVED_FOR_CONCEPT_COMPARISON_NOT_APPROVED_RANK_OUTPUT",
+      "suggested_use": "around rank 5-6, comparative direction / palette continuity / maturity envelope only",
+      "parent_of_any_rank_image": false,
+      "may_condition_generator": false,
+      "git_binary_pinned": false,
+      "note": "Do not assign as R5 or R6 asset; do not reuse as cross-lineage image input; follow single exact-parent inheritance"
+    },
+    {
+      "original_filename": "1000018895.png",
+      "archive_filename": "images/legacy_moonlit_moon_benchmark.jpg",
+      "lineage_id": "B",
+      "visual_family": "Moonlit / Moon",
+      "bytes": 430448,
+      "sha256": "1c6fcd98a1e85734df66f34496bf4ee2bdfa47c180eff13342cf8115def55db7",
+      "width": 1536,
+      "height": 1536,
+      "detected_format": "JPEG",
+      "mime": "image/jpeg",
+      "mode": "RGB",
+      "has_alpha": false,
+      "background": "opaque black",
+      "provenance": "provided by director on 2026-10-20, generated in prior conversation; original provider generation bytes not independently proven",
+      "director_gate": "RECEIVED_FOR_CONCEPT_COMPARISON_NOT_APPROVED_RANK_OUTPUT",
+      "suggested_use": "around rank 5-6, comparative direction / palette continuity / maturity envelope only",
+      "parent_of_any_rank_image": false,
+      "may_condition_generator": false,
+      "git_binary_pinned": false,
+      "note": "Do not assign as R5 or R6 asset; do not reuse as cross-lineage image input; follow single exact-parent inheritance"
+    },
+    {
+      "original_filename": "1000018896.png",
+      "archive_filename": "images/legacy_ember_wind_benchmark.jpg",
+      "lineage_id": "A",
+      "visual_family": "Ember / Wind",
+      "bytes": 437033,
+      "sha256": "8cf0e8b82978589a0b8e6057e8042eec8f766198968dbb6ddbb0bf828f0cda9f",
+      "width": 1536,
+      "height": 1536,
+      "detected_format": "JPEG",
+      "mime": "image/jpeg",
+      "mode": "RGB",
+      "has_alpha": false,
+      "background": "opaque black",
+      "provenance": "provided by director on 2026-10-20, generated in prior conversation; original provider generation bytes not independently proven",
+      "director_gate": "RECEIVED_FOR_CONCEPT_COMPARISON_NOT_APPROVED_RANK_OUTPUT",
+      "suggested_use": "around rank 5-6, comparative direction / palette continuity / maturity envelope only",
+      "parent_of_any_rank_image": false,
+      "may_condition_generator": false,
+      "git_binary_pinned": false,
+      "note": "Do not assign as R5 or R6 asset; do not reuse as cross-lineage image input; follow single exact-parent inheritance"
+    },
+    {
+      "original_filename": "1000018897.png",
+      "archive_filename": "images/legacy_warm_cream_unassigned_benchmark.jpg",
+      "lineage_id": null,
+      "visual_family": "Warm cream/gold — cosmetic assignment unverified",
+      "bytes": 408841,
+      "sha256": "275c6f1ba2f65e7003021c7b8de09bded3d145eb9aa4eb8e98c07d52a8f2ebd6",
+      "width": 1536,
+      "height": 1536,
+      "detected_format": "JPEG",
+      "mime": "image/jpeg",
+      "mode": "RGB",
+      "has_alpha": false,
+      "background": "opaque black",
+      "provenance": "provided by director on 2026-10-20, generated in prior conversation; original provider generation bytes not independently proven",
+      "director_gate": "RECEIVED_FOR_CONCEPT_COMPARISON_NOT_APPROVED_RANK_OUTPUT",
+      "suggested_use": "around rank 5-6, comparative direction / palette continuity / maturity envelope only",
+      "parent_of_any_rank_image": false,
+      "may_condition_generator": false,
+      "git_binary_pinned": false,
+      "note": "Do not assign as R5 or R6 asset; do not reuse as cross-lineage image input; follow single exact-parent inheritance"
+    }
+  ],
+  "reference_intake_archive": {
+    "filename": "TNR_Living_Lineages_Kitsune_Reference_Intake_20261020.zip",
+    "sha256": "4432ccd3172b41e09f1f89a2bb83a7b31a471d8b107456eacdd6921aea9a51ff",
+    "bytes": 2398493,
+    "images": 6,
+    "archive_contents": "byte-identical JPEG images + intake_manifest.json; corrected archive extensions; available as conversation artifact, NOT repository-pinned"
+  },
+  "gate_evidence": {
+    "director_approval_date": "2026-10-20",
+    "decision": "Approved species juvenile visual reference and full R1-R9 roadmap with proposed 2/2/3/3/4/5/6/7/8 tails; supplied five older mature illustration benchmarks for potential R5-R6 concept reference",
+    "evidence_source": "director response in project conversation; no downstream rank image has yet been approved"
+  },
+  "next_generation": {
+    "asset_id": "A_R01",
+    "lineage": "Ember",
+    "rank": 1,
+    "expected_parent_asset_id": "SPECIES_REF",
+    "expected_parent_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
+    "gate": "READY_FOR_ISOLATED_GENERATION",
+    "requires": "attach the ACTUAL director-approved species reference; one illustration only; then director visual approval and byte-QC before ledger advancement"
+  },
+  "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight"
 }
