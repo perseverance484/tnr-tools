@@ -2,8 +2,9 @@
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-20)
-- **Status:** DRAFT for dauntless's approval: silhouette, per-scroll treatment, palettes and style
-  lock below. The rendered style is then locked by the director's visual approval of icon 1.
+- **Status:** APPROVED as written by dauntless, 2026-10-20 (RUL-2026-10-20-005): the silhouette,
+  per-scroll treatments, palettes and style lock below. The rendered style is still locked by the
+  director's visual approval of icon 1.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md` (one asset per generation session).
   Spec authority: `skills/producing-tnr-art/data/25x_DATA_art_spec.json`, target `ICON`.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
@@ -16,14 +17,14 @@ reward list. Each needs its own icon that names its bloodline's element at a gla
 
 ## 2. Targets
 
-| # | Item | Grants | Element (from the bloodline) | Delivery filename |
+| # | Item | Grants (village) | Element (from the bloodline) | Delivery filename |
 |---|---|---|---|---|
 | 1 | Shadow Scroll: Oblivion Seal | Oblivion Seal (Syndicate) | Shadow | `icon-village-scroll-oblivion-seal.webp` |
 | 2 | Wood Scroll: Shinseina Ki | Shinseina Ki (Tsukimori) | Wood | `icon-village-scroll-shinseina-ki.webp` |
-| 3 | Storm Scroll: Arashima | Arashima (Shroud) | Storm | `icon-village-scroll-arashima.webp` |
-| 4 | Sun Scroll: Taiyo Kami | Taiyo Kami (Shine) | Scorch | `icon-village-scroll-taiyo-kami.webp` |
-| 5 | Wind Scroll: Aerathiel | Aerathiel (Current) | Dust | `icon-village-scroll-aerathiel.webp` |
-| 6 | Ice Scroll: Hyouga Yui | Hyouga Yui (Glacier) | Ice | `icon-village-scroll-hyouga-yui.webp` |
+| 3 | Storm Scroll: Arashima | Arashima (Akasumi, formerly Shroud) | Storm | `icon-village-scroll-arashima.webp` |
+| 4 | Sun Scroll: Taiyo Kami | Taiyo Kami (Shirohana, formerly Shine) | Scorch | `icon-village-scroll-taiyo-kami.webp` |
+| 5 | Wind Scroll: Aerathiel | Aerathiel (Akikaze, formerly Current) | Dust | `icon-village-scroll-aerathiel.webp` |
+| 6 | Ice Scroll: Hyouga Yui | Hyouga Yui (Hyorin, formerly Glacier) | Ice | `icon-village-scroll-hyouga-yui.webp` |
 
 Ids and current icon URLs are in the 2026-10-20 public read and are added by script when the release
 manifest is built; they are not needed to draw.
@@ -31,7 +32,7 @@ manifest is built; they are not needed to draw.
 ## 3. Style lock (from the approved crafting caches set)
 
 Taken from the director-approved item icons in `art/crafting_caches/` (Medicine Inro, Shinobi Tool
-Pouch, Sage's Strongbox; RUL-2026-10-13-001..004):
+Pouch, Sage's Strongbox; director-approved 2026-10-13, provenance in `art/crafting_caches/README.md`):
 
 - painted rendering with a crisp dark outline, soft rim light, no hard cast shadow;
 - dark lacquer, wood and paper materials with **aged gold** fittings;
@@ -45,7 +46,7 @@ Do not pass the current shared scroll icon, and do not pass the Bloodright glyph
 (`art/bloodright/*/foundation.webp`): its diamond glyphs would pull in an ornamental symbol (P0 D).
 Palettes below are taken from that art as text only.
 
-## 4. Design proposal (for approval)
+## 4. Design (approved)
 
 **Silhouette (all six).** One closed handscroll (makimono) lying on a slight diagonal: two lacquered
 wooden end rollers with gold caps, the paper rolled tight and bound by a cord tied in a knot. The
@@ -119,6 +120,8 @@ lightning**, Aerathiel the **sand and dust**, so the two stay apart at 125 px.
   (category VISUAL, title "Update icon", one rationale per scroll).
 
 ## 9. Director decisions
+
+Approved as written on 2026-10-20 (items 1 to 3).
 
 1. One shared handscroll silhouette, told apart by colour, cord and element effect (section 4).
 2. The six palettes and treatments in section 4.
