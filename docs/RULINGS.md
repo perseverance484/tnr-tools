@@ -1677,3 +1677,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md`.
 
 **Boundary:** No upload, live edit or publication is authorized. Finished icons go to the content review desk as Forge suggest-mode tickets after intake and preflight.
+
+## RUL-2026-10-20-004 — Vaporia, Bakuhatsu and Aerathiel jutsu icons join the approved jutsu-icon standard
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / jutsu-icon style references
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Extends RUL-2026-10-17-021 (BBE and BEE library); RUL-2026-10-20-003 is unchanged.
+
+**Ruling:** The current live icons of the Vaporia, Bakuhatsu and Aerathiel bloodline jutsu (five each) are approved examples of the jutsu-icon standard and may be used as style/material references. Each icon's silhouette stays reserved by its family. Bakuhatsu's figure silhouettes and Aerathiel's Decaying Touch handprint are family-specific approvals, not general licence for figures or hands; the starter jutsu icons stay actor-free.
+
+**Evidence:** User, 2026-10-20: "There's also vaporia, Bakuhatsu and Aerathiel to compare to. These are also approved".
+
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` ("Approved comparison families"), which lists each live icon URL from the 2026-10-20 public read.
+
+**Boundary:** The bytes are not yet pinned in `art/style_refs/jutsu_icons/` or indexed in `style_refs.json`; pinning them is a separate change. No upload, live edit or publication is authorized.
