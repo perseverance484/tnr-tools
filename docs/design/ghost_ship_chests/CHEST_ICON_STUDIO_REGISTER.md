@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** 2/12 director-approved visuals; Rare Hunter candidate 1 visual revision requested; 0/12 production-ready exports  
+**Status:** 3/12 director-approved visuals (Common Hunter, Common Gatherer, Rare Hunter); Rare Gatherer isolated brief READY; 0/12 production-ready exports  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -15,8 +15,9 @@
 
 - Gate 01 — Common Hunter's Chest: **DIRECTOR APPROVED**, original supplied in studio conversation as `1000018925.png`. Visual Ghost Ship rendered-style lock and Hunter's claw/leather/fang family motif lock **established**. Mechanical background/alpha QC unresolved (source decoded JPEG on black matte).
 - Gate 02 — Common Gatherer's Chest: **DIRECTOR APPROVED**, isolated prompt retrospectively recorded in `COMMON_GATHERER_CHEST_ISOLATED_BRIEF_20261020.md`, original supplied in studio conversation as `1000018926.png`. Gatherer's leaf/rope/sprig family motif **established**. Compared both conversation-supplied images side-by-side after Lanczos reduction to **125 px**: family identities **VISUALLY DISTINCT** (fang/claws versus rope/sprig/leaf). Mechanical background/alpha QC unresolved (source decoded JPEG on black matte).
-- Gate 03 — Rare Hunter's Chest: **REVISION REQUESTED / NOT APPROVED**. Initial candidate received and visually reviewed at 125 px beside approved Common Hunter, including a grayscale comparison. The director observed that it looks virtually identical to Common except for blue lighting; the tier escalation does not yet read. Request a **same-subject revision in the existing isolated generation session**, not a wrong-subject restart. The original generation brief remains `RARE_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md`. Two individually attached refs remain Reliquary + approved Common Hunter only.
-- Gates 04–10: **BLOCKED** pending preceding approved illustrations; in each case attach Reliquary and one approved icon from that same family only. Gates 11–12 (Ornate and Mystery) are also **BLOCKED**; neither has a same-family predecessor, so the canonical 'same family' second-reference instruction is undefined for these two; confirm applicable reference handling with director when reached. Never invent a reference or attach a collage.
+- Gate 03 — Rare Hunter's Chest: **DIRECTOR VISUALLY APPROVED (candidate 3)**, source `1000018929.png`; visually locked Rare-tier reinforced cold-gunmetal bands, angular riveted armor, robust clasp housing, four-point star insets and restrained cyan seam. Initial two candidates were correct-subject but **NOT APPROVED** for insufficient differentiation from Common; see recorded feedback below and the appended Rare Hunter brief. **Source JPEG black matte means production-alpha/QC gate BLOCKED.**
+- Gate 04 — Rare Gatherer's Chest: **READY FOR ISOLATED GENERATION**, brief `RARE_GATHERER_CHEST_ISOLATED_BRIEF_20261020.md` committed. Attach **only** Reliquary + approved Common Gatherer's Chest (not Rare Hunter as a third image). Carry accepted Rare Hunter's upgraded materials/tier identity **in text**, replacing Hunter claws/fang/leather with Gatherer leaf/rope/sprig.
+- Gates 05–10: **BLOCKED** pending preceding approved illustrations; in each case attach Reliquary and one approved icon from that same family only. Gates 11–12 (Ornate and Mystery) are also **BLOCKED**; neither has a same-family predecessor, so the canonical 'same family' second-reference instruction is undefined for these two; confirm applicable reference handling with director when reached. Never invent a reference or attach a collage.
 - Collection handoff: **BLOCKED** until 12/12 original image approvals, raw QC, native-alpha/key processing, lossless 256×256 WebP exports, dark-composite checks, and `artpreflight.py --type ICON` output. The director retains final acceptance.
 
 ## Approved reference and style gate
@@ -34,6 +35,15 @@
 - **Revision target (art-direction proposal, not a new tier rule):** emphasize *mechanically distinct* Rare reinforced ironwork visible without color: **layered/stepped steel reinforcement bands over the two arch hoops**, **substantial riveted shoulder/corner armor plates**, and a **visibly stronger faceted clasp housing**. Keep claws/leather/fang readable and the same camera/size. Retain **only a faint lid-seam** cyan glow; avoid multiple neon-blue stripes. No silver trim, glowing brand, filigree, crystal cluster, gold, or chains (reserved to higher/special tiers). Judge against Common at **125 px and grayscale** before asking for approval.
 - **Protocol classification:** correct subject with inadequate tier readability, *not* a wrong-subject strike. Same isolated session may revise. Production background issue remains (opaque JPEG/black rather than native alpha or approved lime key).
 
+## Rare Hunter's Chest — candidates 2 and 3; accepted tier treatment (2026-10-20)
+
+- **Candidate 2 (NOT APPROVED):** `1000018928.png`, actual JPEG/RGB 1536×1536, 436920 bytes, SHA-256 `e99dfb130700ace9428e2f0f740b5328b9a402e2c6057c66b917902d06c9836a`. Reinforced bands and corner plates improved shape but did not materially distinguish the Rare chest from Common. Director directed a material/color/motif revision; this is **not** a wrong-subject attempt.
+- **Director refinement:** Rare requires (A) visibly fortified structural armor, (B) **cooler/lighter steel or gunmetal reinforcement** against the dark-wood base, and (C) small **four-point engraved star rune / cyan-inset** ornament on selected metal plates and clasp. Keep seam glow narrow; no Epic silver trim/glowing family brand, Legendary filigree/lid crystals, or non-family motif substitutions.
+- **Candidate 3 (APPROVED):** original source `1000018929.png`, actual JPEG/RGB 1536×1536, 473394 bytes, SHA-256 `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c`. Director: **“There we go, approved.”** Armor, brighter cold steel, four-point stars and crystal housing create visibly distinguishable Rare-tier treatment while preserving three claw gouges, leather/fang and overall Ghost Ship style.
+- **125px review:** inspected actual source after Lanczos reduction alongside Common Hunter and interim Rare. Accepted Rare's armor and star-motif treatment survive at icon scale; director final visual approval is the controlling decision.
+- **Collection-level lock:** carry this accepted **Rare-tier construction/material/rune treatment** to **Rare Gatherer**, preserving leaf/rope/sprig instead of Hunter claws/leather/fang. Only Reliquary and same-family Common Gatherer may be attached in the next session.
+- **Remaining production gate:** raw is **opaque JPEG on black**, despite its `.png` filename. No production-valid native alpha or flat lime key; no export or preflight run. Exact original JPEG bytes are conversation-supplied only, **not committed to Git**.
+
 ## Production ledger
 
 `—` means not yet produced or measured; **PENDING** is not an approval, QC pass or preflight result. Store actual original image identity, MIME/format and SHA-256 in an intake entry when received; processed export SHA-256 and byte count are distinct from raw identity.
@@ -42,7 +52,7 @@
 |---|---|---|---|---|---|---|---|---|
 | 01 | Common Hunter's Chest | `icon-gs-chest-hunter-common.webp` | ICON | APPROVED | — | — | `b341d9e939d7a5cb182ac8576ab97777b36cfea607a3e4d6768052554ea3e4f3` | NOT_RUN |
 | 02 | Common Gatherer's Chest | `icon-gs-chest-gatherer-common.webp` | ICON | APPROVED | — | — | `acb6f618cdbc3b5414a3bfbfaabc682b9e03403141fe0d8b7b8c0a4a5356381a` | NOT_RUN |
-| 03 | Rare Hunter's Chest | `icon-gs-chest-hunter-rare.webp` | ICON | PENDING | — | — | — | NOT_RUN |
+| 03 | Rare Hunter's Chest | `icon-gs-chest-hunter-rare.webp` | ICON | APPROVED | — | — | `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c` | NOT_RUN |
 | 04 | Rare Gatherer's Chest | `icon-gs-chest-gatherer-rare.webp` | ICON | PENDING | — | — | — | NOT_RUN |
 | 05 | Epic Hunter's Chest | `icon-gs-chest-hunter-epic.webp` | ICON | PENDING | — | — | — | NOT_RUN |
 | 06 | Epic Gatherer's Chest | `icon-gs-chest-gatherer-epic.webp` | ICON | PENDING | — | — | — | NOT_RUN |
@@ -55,14 +65,15 @@
 
 ## Uploaded-original intake evidence (2026-10-20)
 
-The two conversation-delivered originals have filenames ending in `.png` but **decode as JPEG** (`RGB`, no alpha), each 1536×1536 with an opaque black background. The hashes below describe **the exact bytes supplied to this studio**, not Git-pinned original generators, finished WebP files, or production QC.
+The three director-approved conversation-delivered originals have filenames ending in `.png` but **decode as JPEG** (`RGB`, no alpha), each 1536×1536 with an opaque black background. The hashes below describe **the exact bytes supplied to this studio**, not Git-pinned original generators, finished WebP files, or production QC.
 
 | Target | Studio intake filename | Decoded format | Pixels | Raw bytes | Raw SHA-256 | 125-px visual gate | Mechanical alpha/key gate |
 |---|---|---|---|---:|---|---|---|
 | Common Hunter's | `1000018925.png` | JPEG (RGB, opaque) | 1536×1536 | 333824 | `b341d9e939d7a5cb182ac8576ab97777b36cfea607a3e4d6768052554ea3e4f3` | PASS (paired) | **BLOCKED**: black matte, no native alpha/lime key |
 | Common Gatherer's | `1000018926.png` | JPEG (RGB, opaque) | 1536×1536 | 364006 | `acb6f618cdbc3b5414a3bfbfaabc682b9e03403141fe0d8b7b8c0a4a5356381a` | PASS (paired) | **BLOCKED**: black matte, no native alpha/lime key |
+| Rare Hunter's | `1000018929.png` | JPEG (RGB, opaque) | 1536×1536 | 473394 | `bb2d7affc025c49e21111f8db8f4a0bbc15b3930f96193a2c13ec9430c21793c` | PASS visually vs Common Hunter; director approval | **BLOCKED**: black matte, no native alpha/lime key |
 
-**Important:** Director approval is visual acceptance only. The approved images are suitable as visual reference attachments for subsequent generation, but **neither is a valid production input for the prescribed native-alpha/lime-key pipeline yet**. Re-acquire transparent/flat-lime originals or explicitly approve and verify a separate safe background-matting repair; keying pure black indiscriminately risks eating near-black wood/outline. Never claim clean alpha, finished WebPs, successful preflight or upload readiness from this evidence. The background issue need not stop generation of later tiers; communicate the issue promptly and require transparency/flat lime on new outputs.
+**Important:** Director approval is visual acceptance only. The approved images are suitable as visual reference attachments for subsequent generation, but **none is a valid production input for the prescribed native-alpha/lime-key pipeline yet**. Re-acquire transparent/flat-lime originals or explicitly approve and verify a separate safe background-matting repair; keying pure black indiscriminately risks eating near-black wood/outline. Never claim clean alpha, finished WebPs, successful preflight or upload readiness from this evidence. The background issue need not stop generation of later tiers; communicate the issue promptly and require transparency/flat lime on new outputs.
 
 ## Intake checklist, per approved original
 
@@ -81,6 +92,7 @@ Fable / Claude Code, after the director accepts the completed set: commit binari
 ## History
 
 - 2026-10-20: Rare Hunter candidate 1 returned; director withheld approval due to insufficient structural tier differentiation. 125-px + grayscale comparison corroborated. Candidate raw metadata logged; same-subject revision requested, generation remains isolated.
+- 2026-10-20: Rare Hunter candidate 2 revised structural armor but failed material/color/motif differentiation gate. Candidate 3 added lighter cold gunmetal and four-point rune accents; director explicitly **APPROVED**. Exact candidate sources hashed; 125-px comparison inspected. Rare Gatherer isolated brief prepared. Three approved visuals, zero finished/preflight-validated WebPs.
 
 - 2026-10-20: initialized from fresh `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc`; targeted canonical art brief, ruling, isolation workflow, skill/spec and original Reliquary style reference inspected. No raw generations received at initialization; no preflight run; no uploads/publishing.
 - 2026-10-20: director visually approved Common Hunter and Common Gatherer from conversation attachments. Studio decoded, hashed, inspected and verified 125-px family differentiation. Discovered that attached `.png` filenames actually contain opaque JPEG black-matte images; native-alpha/lime background mechanical gate is blocked for both. Rare Hunter brief prepared, no image generation or preflight run in studio.
