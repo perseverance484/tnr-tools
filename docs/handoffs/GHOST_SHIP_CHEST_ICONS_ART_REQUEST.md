@@ -2,9 +2,7 @@
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-20)
-- **Status:** APPROVED as written by dauntless, 2026-10-20 (RUL-2026-10-20-002): the family motifs,
-  tier ladder, Ornate gold accent and Mystery treatment below. The rendered style is still locked
-  by the director's visual approval of icons 1 and 2.
+- **Status:** APPROVED direction (RUL-2026-10-20-002), **amended 2026-10-20** after director geometry-reset and five-tier family-binding decisions (RUL-2026-10-20-005). The original six candidate visuals were subsequently **REVOKED for duplicated lid bands**: 0/12 currently valid raw approvals. The rendered style and both family motifs must be revalidated through fresh geometry-correct icons 1 and 2. This brief is the operative art-direction owner; its original approval history remains intact.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md` (one asset per generation session).
   Spec authority: `skills/producing-tnr-art/data/25x_DATA_art_spec.json`, target `ICON`.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
@@ -67,8 +65,7 @@ Do not pass the old pixel-art chest icons; they would pull the generator back to
 
 ## 4. Design proposal (director to approve)
 
-**Silhouette.** A classic domed-lid chest, like the current icons. This keeps tiers recognisable and
-separates the set from the Reliquary, which is a flat-lidded box with a central vertical crystal clasp.
+**Silhouette.** A classic closed domed-lid chest, distinct from the Reliquary's flat lid. **Director-locked construction (2026-10-20 geometry reset): exactly ONE continuous metal reinforcement hoop near the outer left end of the lid and ONE near the outer right end, plus ONE separate centered family binding (Hunter flat hide/leather strap or Gatherer round fiber/silk rope).** No extra parallel hoop beside the left or right hoop (the observed defect that invalidated six prior raws). Any Rare/Epic/Legendary layered plating, silver trim or filigree must be **on the surfaces of the existing TWO hoops**, never a third/fourth hoop or duplicate independent curved strip. Binding edge-stitching and rope knots must not masquerade as additional hoops. Verify physical band continuity in the original pixels before style/tier acceptance. See `docs/design/ghost_ship_chests/GEOMETRY_RESTART_20261020.md` for provenance and the invalidated image ledger.
 
 **Family motif** (must read at 125 px):
 
@@ -86,6 +83,22 @@ separates the set from the Reliquary, which is a flat-lidded box with a central 
 | Rare | reinforced bands with steel rivets, brighter crystal clasp, faint glow along the lid seam |
 | Epic | silver-trimmed bands, a larger faceted crystal, the family brand glowing |
 | Legendary | silver filigree, a small skyglass crystal cluster crowning the lid, the brightest glow (still rim light, never a halo) |
+
+### 4a. Director-approved central binding materials (2026-10-20 amendment)
+
+**Only ONE centered family binding per chest.** Hunter always uses a **single broad FLAT hide/leather strap with a bone/fang clasp**; Gatherer always uses **a single ROUND twisted/braided rope with a tucked botanical sprig**. These materials are visual/texture descriptors, **not new item or loot-material records**. At 125px, keep the binding's different **base tone, width, and fiber/finish** readable; tiny threads may simplify. No binding is an extra metal hoop.
+
+| Named tier | Hunter center strap, one flat hide/leather binding | Gatherer center rope, one round fiber/silk binding |
+|---|---|---|
+| **Rusted** | **Cracked ash-brown rawhide**, peeling/frayed edges, dull worn fang attachment. | **Rotting gray hemp**, rough fuzzy/unraveling fibers, one withered tucked sprig. |
+| **Common** | **Smooth saddle-brown tanned leather**, broad plain flat hide, no silver stitching, simple bone/fang clasp. | **Honey-tan coarse three-strand twisted jute**, visibly rounded cord and simple knot, small fresh tucked green sprig. |
+| **Rare** | **Smoky charcoal-brown pebbled salt-cured hide**, a few subtle tidy dark-steel eyelets/stitches integrated in the same flat strap. | **Slate-blue waxed flax** in a tighter herringbone braid, neat bound knot, tucked green sprig. |
+| **Epic** | **Glossy near-black polished leather**, visible **silver saddle-stitching WITHIN the same strap's edges** and recognizable fang clasp. | **Pale silver-gray braided sea-silk**, subtle silver threads woven within the one continuous rope, green sprig retained. |
+| **Legendary** | **Midnight-blue scale-embossed fine leather**, refined silver embroidery and *fine* integrated cyan skyglass thread, refined fang clasp. | **Storm-indigo braided silk** with fine silver strands and restrained cyan skyglass filaments integrated within the same cord; ornate knot and tucked green sprig. |
+
+**Structural prohibition:** neither silver stitching nor flax braid forms an extra parallel arched band. Rusted fraying and Legendary thread are surface treatments of the **same central binding**. The Rare/Epic/Legendary armor, silverwork and filigree are separately applied **on the two existing metal end hoops**. Ornate and Mystery retain their separately approved special designs and are **not** automatically assigned Hunter leather or Gatherer rope.
+
+**Source/provenance:** director-approved proposal recorded in `docs/design/ghost_ship_chests/CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` and the geometry reset record. The operative art-direction rule is **this brief**, not its proposal.
 
 **Ornate Chest.** The grandest chest in the set, closed: heavy silver filigree and several inset
 skyglass gems. Proposal: allow **aged gold** as a second accent, because its loot is Imperial Gold;
@@ -105,7 +118,7 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 | format | WebP, lossless |
 | byte ceiling | 460,800 bytes |
 | padding | transparent margin so the rarity frame behind the icon still reads |
-| background | native transparency preferred; otherwise lime `#00FF00` key (skyglass is cyan, so lime is safe) |
+| background | native transparency strongly preferred. Default flat lime `#00FF00` key; when the image includes a Gatherer green sprig, the spec's foliage-safe alternative is flat magenta `#FF00FF` (record this exception at intake). Opaque black is not accepted as a key. |
 
 ## 6. Prompts
 
@@ -115,31 +128,29 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 **Shared negative:**
 `no text, no letters, no question mark, no symbols other than the brand described, no labels, no UI, no frame, no circular medal, no watermark, no asset sheet, no multiple objects, no open lid, no contents spilling out, no loose items around it, no surface or table under it, no shadow on the background, no glow halo or light disc, no franchise insignia`
 
-**Subject lines** (one per session; append the style clause, then the background clause):
+**Subject lines** (one per session; append the style clause, then the background clause). For the ten family-tier targets, explicitly apply the **one-central-binding materials** in section 4a. Geometry is fixed at exactly **one left and one right outer metal hoop**, never a duplicate.
 
 | # | Subject |
 |---|---|
-| 1 | a closed domed-lid chest of plain blackened iron bands on dark wood, one small skyglass crystal clasp, a leather strap with a bone fang clasp, three parallel claw gouges branded on the front panel |
-| 2 | a closed domed-lid chest of plain blackened iron bands on dark wood, one small skyglass crystal clasp, a coiled rope binding with a small sprig tucked under it, a single leaf branded on the front panel |
-| 3-8 | as 1 or 2, with the tier treatment from section 4 |
-| 9-10 | as 1 or 2, with the Rusted treatment |
+| 1 | a closed domed-lid chest of dark wood with exactly one plain blackened iron lid hoop at each outer end (two total), no extra parallel arch, ONE separate centered broad flat smooth saddle-brown tanned leather strap, secured by a simple bone fang clasp, one small pale-cyan skyglass crystal clasp, three parallel claw gouges branded on the front panel |
+| 2 | a closed domed-lid chest of dark wood with exactly one plain blackened iron lid hoop at each outer end (two total), no extra parallel arch, ONE separate centered thick round three-strand honey-tan jute rope secured by one front knot with a small green sprig tucked under it, one small pale-cyan skyglass crystal clasp, a single leaf branded on the front panel |
+| 3-8 | as the corresponding Hunter/Gatherer family subject with the original tier treatment from section 4 **AND the exact Rare/Epic/Legendary center binding materials from section 4a**, keeping the confirmed two-end-hoop geometry |
+| 9-10 | as the corresponding Hunter/Gatherer family subject with the Rusted treatment from section 4 **AND the exact Rusted center binding materials from section 4a**, keeping the confirmed two-end-hoop geometry |
 | 11 | a closed, grand domed-lid treasure chest with heavy silver filigree and several inset skyglass gems, aged gold trim |
 | 12 | a closed domed-lid chest bound by crossed iron chains and a heavy lock, faint skyglass mist curling from the lid seam |
 
 **Background clause:** `transparent background` where the generator supports it; otherwise
 `on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard`.
 
+**Foliage exception:** Gatherer sprigs contain green leaves. When genuinely native alpha is unavailable, the canonical art spec's foliage-safe **flat magenta `#FF00FF`** key takes precedence over lime; declare this explicitly for that isolated generation and record the deviation at intake. A black JPEG background is **not** a native-alpha source or flat key.
+
 ## 7. Process
 
-1. **Icon 1 (Common Hunter's) first.** One image per session. Show it to the director and wait for
-   approval: it locks the style clause and the Hunter's motif.
-2. **Icon 2 (Common Gatherer's)** with icon 1 as a reference. Director approval locks the Gatherer's
-   motif and confirms the twins read differently at 125 px.
-3. Then the Rare, Epic, Legendary and Rusted pairs, then Ornate, then Mystery. Each session gets the
-   Reliquary plus the approved icon of the same family, nothing else.
+1. **Restart at icon 1 (Common Hunter's).** The first six original attempts are **rejected geometry-invalid** despite their historical visual approvals; never attach them as references. Generate in a **new clean isolated session** with **only the original Skyglass Reliquary** (style/material only). **Inspect both end-hoop counts and continuous physical construction FIRST** at full pixels and 125px, plus the single correct family binding. Show a viable candidate to the director; its acceptance establishes a NEW geometry-correct rendered style/Hunter motif lock.
+2. **Icon 2 (Common Gatherer's)** only after fresh icon 1 acceptance, using Reliquary + the **newly corrected** Common Hunter (not revoked artwork). Director approval locks the new Gatherer's motif and confirms the twins read differently at 125px **by both front brand and center binding material**.
+3. Then Rare, Epic, Legendary and Rusted pairs, then Ornate and Mystery. For Hunter/Gatherer family icons, each session gets the Reliquary plus **one newly approved geometry-correct same-family predecessor** (max two separate individual images); do not attach revoked images or a collage. For standalone Ornate/Mystery, which have no same-family predecessor, settle the second-reference role explicitly before launching those sessions.
 4. Two wrong-subject results in one session: close it and start clean (protocol section 3).
-5. **Raw QC before processing:** square, one complete closed chest, no text or symbols beyond the
-   brand, no halo or glow disc, not sitting on a surface, background truly flat or transparent.
+5. **Raw QC before processing:** square, one complete closed chest, **exactly two outer metal end hoops + one centered family binding with no duplicate side band**, tier-appropriate center material from section 4a, no text or extra symbols, no halo or glow disc, not sitting on a surface, background truly flat and keyable or genuinely transparent.
 6. **Processing at intake:** key or keep native alpha, clamp spill, pad to square, lossless WebP,
    check edges on a dark composite, then `artpreflight.py --type ICON`.
 
@@ -153,11 +164,12 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 
 ## 9. Director decisions
 
-Approved as written on 2026-10-20 (items 1 to 4). Item 5 stays open.
+Original family/tier/special designs were approved 2026-10-20 (items 1–4). **Same-day amendment**: director confirmed two end hoops/no duplicate side band and approved the five-level center binding material ladder in section 4a. Six visually accepted source images from before this correction were revoked; fresh geometry-correct approvals are pending. Item 5 stays open.
 
 1. Family motifs: claw gouges + leather and fang for Hunter's, leaf + rope and sprig for Gatherer's.
 2. The tier ladder in section 4.
 3. Aged gold as a second accent on the Ornate Chest.
 4. Mystery Chest without a question mark.
-5. Separate, not part of this request: all twelve chests are rarity COMMON, including the
+5. **Amendment approved 2026-10-20:** one arched metal lid hoop per outer end plus ONE centered family binding, no duplicate parallel bands; the Rusted/Common/Rare/Epic/Legendary flat leather vs round rope material ladder in section 4a. These decisions invalidate the six historical chest image approvals, not the art-direction motifs.
+6. Separate, not part of this request: all twelve chests are rarity COMMON, including the
    "Legendary" ones. Rarity is a director call.
