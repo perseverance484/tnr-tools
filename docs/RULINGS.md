@@ -1653,3 +1653,18 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (showcase direction and revised production path), `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (19 in-scope IDs retained within the 37-slot ledger), `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg` (editable geometry), and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` (26 deterministic placements).
 
 **Boundary:** Layout acceptance is distinct from image acceptance, byte-level provenance, export/preflight and live-game operation. No player image-generation attempts, game requests/writes, external credentials, uploads or publication authorized.
+
+## RUL-2026-10-20-004 — Lock the Living Lineages Kitsune structural showcase SVG
+
+**Date:** 2026-10-20  
+**Domain:** Kitsune visual proof of concept / deterministic two-panel showcase layout  
+**Status:** ACTIVE — structural layout approved; actual populated artwork and production QC are separate pending gates  
+**Supersedes:** none; confirms the structural acceptance gate left open in RUL-2026-10-20-003.
+
+**Ruling:** The director explicitly accepted the generated structural SVG and preview: **“Yes, structure approved.”** The locked design is a 1536×1024 dark/gold two-panel sheet: upper **shared species reference → Ember Rank 1 Companion through Rank 9 Sovereign**, including the corrected **Rank 5 Hunter** between Guardian R4 and Warden R6; lower **Ember, Moonlit, Jade, Obsidian** comparison with the **same exact species reference** and each lineage's Ranks 1–3. The **26 placements use 19 unique artwork sources**. Neither the original screenshot's duplicate Rank 4 nor non-game rank labels carry into the accepted layout.
+
+**Accepted evidence:** Git SVG blob `4cb7ea34d75c15ae79cb0c6df145c889a6e3ec22`, raw SHA-256 `cf0168ce11a898b6be75a9f6ee0950626dd0d9c7c1d5d3f01786afdfb1a4e52f`. Approval changed only the top-level `data-approved-layout` metadata from `false` to `true` versus visually reviewed Git blob `c1e44dd0459a667d6b40c55c0153accd8054cced`; the full rendered 1536×1024 output remained pixel-identical. No art images are embedded in the structural SVG.
+
+**Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg` (approved visible geometry), `docs/design/pets/LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` (frozen placement map/approval evidence), `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (direction/next work), and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (individual image/parent/QC tracking).
+
+**Boundary:** Structure approval is NOT approval of the remaining 16 artwork sources, their individual rank parentage, transparent production exports, the finally populated sheet, or the live game's image generation behavior. No live-game requests, player attempts, writes, uploads, credentials, content publishing or game deployment authorized. All structural revisions require separate director approval. Branch integration must account for current `main` drift and unique ruling IDs.
