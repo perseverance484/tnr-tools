@@ -15,7 +15,7 @@
 
 - Gate 01 — Common Hunter's Chest: isolated brief `COMMON_HUNTER_CHEST_ISOLATED_BRIEF_20261020.md` prepared. Original not generated/received. Director visual approval **PENDING**. This approval will lock the rendered style and Hunter's motif.
 - Gate 02 — Common Gatherer's Chest: **BLOCKED** by gate 01. Use Reliquary + approved icon 01 as the only two individually attached images; require director approval and 125px Hunter/Gatherer differentiation.
-- Gates 03–12: **BLOCKED** until the required predecessor approvals; proceed in the exact order listed below. Every isolated conversation generates one asset and receives the Reliquary plus the approved same-family reference, at most two individual image attachments. For Ornate and Mystery, use the explicitly approved applicable reference strategy without introducing extra images.
+- Gates 03–10: **BLOCKED** until their family predecessor approvals; proceed in order with the Reliquary and a single approved icon from the same family, at most two individual image attachments. Gates 11–12 (Ornate and Mystery) are also **BLOCKED** until prior icons: neither has a same-family predecessor, so the canonical “same family” second-reference instruction is undefined for these two; confirm the permitted second image (or Reliquary only) with the director when those gates are reached. Never invent a reference or attach a collage.
 - Collection handoff: **BLOCKED** until 12/12 original image approvals, raw QC, native-alpha/key processing, lossless 256×256 WebP exports, dark-composite checks, and `artpreflight.py --type ICON` output. The director retains final acceptance.
 
 ## Approved reference and style gate
