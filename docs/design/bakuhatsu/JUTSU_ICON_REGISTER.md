@@ -1,7 +1,7 @@
 # Bakuhatsu — Jutsu Icon Register
 
 **Workstream:** BR-008 / Bakuhatsu / A-rank / `RNUcHSH2c00IhOLc2C9aJ`. **NOT** Bloodright tier emblems.
-**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment approved · Blast Shield, Inferno Cataclysm and Kinetic Nova RAW_VISUAL_APPROVED (**3/5**). Three P0 direction locks APPROVED. Charge 4 Explosion and Howitzer Crash remain DIRECTION_PENDING.
+**Status:** ART STUDIO ACTIVE · CONCUSSIVE FRACTURE family treatment approved · Blast Shield, Inferno Cataclysm and Kinetic Nova RAW_VISUAL_APPROVED (**3/5**). Four P0 direction locks APPROVED. Charge 4 Explosion is DIRECTION_APPROVED; Howitzer Crash is DIRECTION_PENDING.
 **Source:** Original `BR-008_Bakuhatsu.zip` 381668 bytes, SHA-256 `7944d75ab09950d89fa927fec9fe5421d58eb29de36dd986e17c420ad2d18a24`; canonical `jutsu_studio.py intake` PASS with 5/5 CRC/SHA/decoded image and manifest mappings. ZIP original stays in conversation/Library, not Git-pinned; hashes do not substitute for source bytes.
 **Historical corroboration:** `harvests/inbox/tnr_results_1792216348638.json` captures 12–17 (`jutsu.get` 5 + `bloodline.get` 1), 2026-10-17. All five are public BLOODLINE jutsu owned by Bakuhatsu. Not current-live verification; no unverified SPECIAL technique is invented.
 **Tooling:** `jutsu_studio.py doctor: RUN_CAPABLE_CANONICAL` on installed producing-tnr-art skill, October 19, 2026. No export or family canonical preflight has run.
