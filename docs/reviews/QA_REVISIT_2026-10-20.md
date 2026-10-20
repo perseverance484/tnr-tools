@@ -37,6 +37,8 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 | Apple, Blueberry, Corn, Eggplant, Mushroom, Pear, Plum, Potatoes, Pumpkin, Raspberry, Tomato | Usable in combat, but the battle line says "%user throws an onion at %target". Each could name its own item. |
 | Nin Gen Alliance | Its damage can also hit allies (`friendlyFire: ALL`); the new description (ticket 136) does not say so. |
 | Widow's bite | Pool costs are the fractional 0.05 placeholder; real costs are a balance call. |
+| Violet Stormglass | Description reads "An tusk taken from the Mōmoku Inoshishi", which looks copied from a tusk item and does not fit a stormglass. Needs the intended text. |
+| Battle lines using his/her (18 jutsu and items) | Some are character-specific (e.g. the crimson queen kits); switching to "their" is a style call. |
 
 ## Deliberately not ticketed
 
