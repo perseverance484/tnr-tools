@@ -1,6 +1,10 @@
 # Isolated generation 07 — Ghost Ship Legendary Hunter's Chest
 
-**Status:** READY FOR ISOLATED GENERATION; director visual approval PENDING  
+## GEOMETRY-RESET OVERRIDE — CANCELLED, DO NOT GENERATE (2026-10-20)
+
+The director revoked all six preceding Common/Rare/Epic Hunter/Gatherer visual approvals for repeated **extra metal-band geometry**. This Legendary Hunter prompt is **CANCELLED** because its Epic Hunter image reference was invalidated. It is historical only. Do not launch it or attach any of the six rejected chest images. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register; restart from corrected Common Hunter after director confirmation of the intended hoop topology.
+
+**Status:** CANCELLED / SUPERSEDED after director geometry reset 2026-10-20; DO NOT GENERATE
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
