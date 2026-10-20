@@ -18,9 +18,21 @@ Source: `bakuhatsu_Art_Studio_Closeout_5of5_20261020.zip` (sha256
 ## Status
 
 - Raw approvals: 5/5. Direction locks: 5/5 `DIRECTION_APPROVED`.
-- **No WebP exports yet.** Processing, `artpreflight.py --type JUTSU_ICON` on the exports, and the
-  export-based family gallery are still to do. Family acceptance is `PENDING` in `approved.json`.
-- Not uploaded. The live game still shows the old icons.
+- **Exports (2026-10-20):** `exports/icon_bakuhatsu_*.webp`, 256x256 lossless WebP, made by
+  `jutsu_studio.py finalize` from the raws without retouching. `artpreflight.py --type JUTSU_ICON`:
+  0 errors, 0 warnings. QC and preflight output in `exports/qc/`; the 125/64/32 px sheet and the 3+2
+  showcase are in `exports/`.
+- Family acceptance (director approval of the export showcase) is still `PENDING` in `approved.json`.
+- Sent to the content review desk as push/142 (suggest mode). The live game shows the old icons until
+  a reviewer approves.
+
+| Export | Bytes | sha256 |
+|---|---|---|
+| `exports/icon_bakuhatsu_blast_shield_v1.webp` | 114406 | `69111187faee0a28f997bb202a635116808e1e604a74ac32873eab8ae51f0e13` |
+| `exports/icon_bakuhatsu_charge_4_explosion_v1.webp` | 132104 | `61738332b128c02cbd94fe4539914ae5c72c5771f6774b0ee19c3bc022f01748` |
+| `exports/icon_bakuhatsu_howitzer_crash_v3.webp` | 100670 | `661fa177909871dc05a677a66a298a07e4978acc56f8b8f72463e78b82129417` |
+| `exports/icon_bakuhatsu_inferno_cataclysm_v1.webp` | 130016 | `e1556eafe266ea53e4c9f1f0c223f73954bd3cbc3049527f20da4aa16e19ee6e` |
+| `exports/icon_bakuhatsu_kinetic_nova_v1.webp` | 119208 | `bd2dbe42b0ea603998a1867362c54838e88b9a3d3f00e56f31856b860fcc052b` |
 
 ## Files
 
