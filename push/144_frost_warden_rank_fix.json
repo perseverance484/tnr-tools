@@ -1,0 +1,29 @@
+{
+ "_note": "QA ticket 12 (docs/reviews/QA_LIVE_2026-10-20.md, top-10 #7). Step 1 of 2 (push/144-145). Suggest mode: content review desk, no direct save. Frost Warden (level 60, ~91,462 in each base stat, capture 2026-10-18) is rank STUDENT, so combat caps it at level 10 and 20,000 per stat (USER_CAPS, law 16). rank STUDENT -> JONIN, approved by dauntless 2026-10-20. Same edit drops Glacial Cataclysm, Frosty Demise and Frost Reflection: they were edited 2026-10-17 while equipped and their equip rows still date 2026-05-30, so the combat links are likely severed (laws 18, 60). push/145 re-equips the exact kit in its original order and must run only after this suggestion is APPLIED. Until then the boss fights with 3 jutsu. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "BALANCE",
+  "title": "Fix boss rank",
+  "rationale": "The daily boss was ranked Student, which caps it far below the level and stats it was built with."
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Frost Warden",
+   "targetId": "gqOxWqXElRszsLksj83zx",
+   "data": {
+    "rank": "JONIN",
+    "jutsus": [
+     "0tPhVC7G21Ej99YSICtJO",
+     "1Ds-JuqAFyZ0UivUev2Xe",
+     "Y_P_cjtzD-ppxgW16SWY0"
+    ]
+   },
+   "suggestion": {
+    "title": "Fix boss rank and refresh 3 jutsu (step 1 of 2)",
+    "rationale": "Rank: Student caps an AI at level 10 and 20,000 per stat in combat, so this level-60 boss built with about 91,000 in each stat fought like a level-10 Student. Jonin lifts the caps: in combat its level goes from 10 to 60 and each stat from 20,000 to its built ~91,000 (about 4.6 times stronger). Its saved stats do not change. Jutsu: Glacial Cataclysm, Frosty Demise and Frost Reflection were edited while equipped, which breaks the boss's link to them, so it most likely cannot use them now. This step unequips them; the next suggestion re-equips them, which is the order the engine needs. Approve that one only after this one. Between the two it fights with Arctic Frost, Ice Palace and Frostbite Barrage, which is likely what it uses today. Who meets it: only players running the visible daily \"Shinobi Fundamentals: Frost Warden\" (levels 50 to 60, one attempt a day). No other quest, summon jutsu or item uses this AI."
+   }
+  }
+ ]
+}

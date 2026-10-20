@@ -1,0 +1,31 @@
+{
+ "_note": "Step 2 of 2 (push/144-145). Run only after the push/144 suggestion shows APPLIED under Check suggestions (if 144 is REJECTED, do not run this). Suggest mode. Re-equips Frost Warden's exact kit in its original order (laws 18, 60); Forge fetches the live record at run time, so the JONIN rank from 144 is kept. Only `jutsus` changes. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "BALANCE",
+  "title": "Re-equip boss jutsu",
+  "rationale": "Second step of the Frost Warden fix: puts back the three jutsu removed in step 1 so their combat link is fresh."
+ },
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "name": "Frost Warden",
+   "targetId": "gqOxWqXElRszsLksj83zx",
+   "data": {
+    "jutsus": [
+     "0tPhVC7G21Ej99YSICtJO",
+     "1cN_HSfk-YC0PB5lSixB_",
+     "1Ds-JuqAFyZ0UivUev2Xe",
+     "oBa304e0EfaUCOsMB7XU4",
+     "RES8ajxppnF3bngpohMkK",
+     "Y_P_cjtzD-ppxgW16SWY0"
+    ]
+   },
+   "suggestion": {
+    "title": "Re-equip 3 jutsu (step 2 of 2)",
+    "rationale": "Puts back Glacial Cataclysm, Frosty Demise and Frost Reflection after step 1 removed them, giving the boss fresh links. Approve only after step 1 is applied. Power: if the old links were broken, the boss goes from 3 usable jutsu to its full 6, adding a one-round stun (Frosty Demise), two more 40-power hits (Glacial Cataclysm, Frosty Demise) and a 35% reflect for 2 rounds (Frost Reflection). If the links were not broken, nothing changes. Who meets it: only players running the visible daily \"Shinobi Fundamentals: Frost Warden\" (levels 50 to 60, one attempt a day). No other quest, summon jutsu or item uses this AI."
+   }
+  }
+ ]
+}
