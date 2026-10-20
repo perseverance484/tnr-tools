@@ -1,6 +1,6 @@
 # Living Lineages — Kitsune four-lineage demonstration
 
-**Status:** VISUAL PILOT ACTIVE — **19 unique art images** required for the final two-panel sheet (instead of original 37). Juvenile master plus Ember and Moonlit Rank 1 visually approved; **Jade Rank 1 next**. SVG template is STRUCTURAL DRAFT pending director acceptance; no game writes or transparent production exports.  
+**Status:** VISUAL PILOT ACTIVE — **19 unique art images** required for the final two-panel sheet (instead of original 37). Juvenile master plus Ember and Moonlit Rank 1 visually approved; **Jade Rank 1 next**. SVG structure **DIRECTOR APPROVED / LOCKED (2026-10-20)**; artwork population remains pending; no game writes or transparent production exports.  
 **Lead:** Art Director; support: Image Production.  
 **Ownership:** This register + [37-slot machine-readable history ledger, 19 active assets](LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json), [editable SVG layout](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg), and [26-placement slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) belong to the ChatGPT-owned workdesk branch. The JSON ledger owns approval and parentage; this register owns direction; the SVG/slot map own presentation structure. No Fable-branch or game-state writes.  
 **Scope:** Concept-art proof, not deployed generation behavior, live records, balance or publishing. **Live-game requests/writes: 0. Credentials: none.**
@@ -136,7 +136,7 @@ The director supplied a 1536×1024 reference composition and explicitly changed 
 - **Count:** **1** species image + **9** Ember Rank 1–9 images + **3×3 = 9** other individual Rank 1–3 images = **19 unique approved images**. The SVG contains **26 placements** because the species master is reused four additional times and Ember R1–3 are repeated once in the bottom comparison. **No duplication in generation.**
 - **Source-safe showcaser:** assemble from actual individually approved files using deterministic image placement, alpha/cutout processing if required, and source hashes; no image generation of the composite and no retouching inside the presentation. Raw JPEG with opaque black backgrounds must never be misreported as transparent production-ready artwork.
 - **No format invention:** SVG [structural template](LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg) has editable labeled art placeholders and 1536×1024 geometry; [slot map](LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json) binds all slots to their 19 canonical asset IDs. The image reference itself is a **layout example**, not source art.
-- **Approval gates:** Current structural sheet is a **DRAFT**, pending the director's visual approval of layout, spacing and text. Its creation does NOT approve missing pet illustrations or their future processed art.
+- **Approval gates:** Director **APPROVED the structural SVG layout, spacing, rank corrections and text on 2026-10-20**. This does **not** approve missing pet illustrations, transparency processing, production preflight or the eventual populated showcase.
 
 **Working sequence:** Finish Jade/Obsidian R1 first. Produce R2 for all four from their own **accepted R1**, then R3 for all four from their own **accepted R2**. After four R3 approvals, proceed with **Ember R4→R5→R6→R7→R8→R9** only, preserving one immediate, approved Ember parent image at each rank. Old mature reference images are **style comparators only** at Ember R5/R6. Shared rank concepts remain the director-approved species roadmap, even though only Ember exercises ranks 4–9 in this particular sheet.
 
@@ -159,7 +159,7 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 ## Immediate workdesk checkpoint (2026-10-20)
 
-- Structural SVG: **DRAFT CREATED** at `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg`, awaiting director layout approval; overview shows **Species Reference → Rank 1 → ... → Rank 9**, with **Rank 5 Hunter correctly present**.
+- Structural SVG: **DIRECTOR APPROVED / V1 FROZEN** at `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg`; overview shows **Species Reference → Rank 1 → ... → Rank 9**, with **Rank 5 Hunter correctly present**. Identical structure and rendered pixels; only SVG approval metadata was changed.
 - Target: **19 unique images**, not the original 37. **26 placements**; retained ledger keeps 18 out-of-scope history slots.
 - Director-approved raw visuals: **3/19** — species master + **Ember Rank 1** + **Moonlit Rank 1**. No final transparent production exports or gallery QC claimed.
 - Next isolated generation: **C · Jade / Rank 1 Companion** from the exact juvenile master, then Obsidian Rank 1; all four R2 and R3 before Ember R4–R9.
@@ -167,9 +167,19 @@ The pinned game's `app/src/libs/pets/appearance.ts` explicitly forces **natural 
 
 ## Structural SVG verification (2026-10-20)
 
-- **Director acceptance:** PENDING. This is an editable **structural-only** poster and contains **zero artwork pixels**; no unapproved or prior example creatures are embedded.
+- **Director acceptance:** **APPROVED, 2026-10-20**. Evidence: director reply “Yes, structure approved.” This remains an editable **structural-only** poster with **zero embedded artwork pixels**; no unapproved or prior example creatures are embedded.
 - **Exact committed SVG:** `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg`; Git blob SHA-1 `c1e44dd0459a667d6b40c55c0153accd8054cced`. Downloadable conversation SVG checked **byte-for-byte identical** against that repository blob (via `git hash-object`).
 - **Visual/mechanical structural QC:** XML parsed successfully; CairoSVG generated an inspected **1536×1024** PNG; 26 unique placement IDs map to exactly 19 asset IDs; `SPECIES_REF` has five identical-source placement requirements; A Rank 1–3 repeat once below; all nine top rank labels and game names are source-verified and **A_R05 Hunter appears between A_R04 Guardian and A_R06 Warden**. Long cosmetic labels and metamorphosis captions were adjusted for 1536px legibility.
 - **Distribution:** `TNR_Living_Lineages_Kitsune_Structural_Sheet_Package_20261020.zip`, SHA-256 `6166e76cbed4b57fb4eac5b178b6392897dc19cea20612c7e9745f356d8ae74a`, contains source SVG, PNG preview, mapping JSON and notes. ZIP is conversation deliverable; committed canonical geometry is SVG + JSON slot map on the workdesk branch.
 - **Rulings:** Visual foundation `RUL-2026-10-20-002`, updated scope `RUL-2026-10-20-003`. Current live `main@02a288e966db27f427508734a6223e0e583b081a` independently added `RUL-2026-10-20-001` for schema adoption, so we renumbered this branch's art rulings to avoid duplicate IDs. Branch is **not merged**; main was 12 commits ahead of the workdesk merge-base when checked. **Re-verify/reconcile main and RULINGS before a PR/merge**; do not overwrite new main decisions with the branch's older RULINGS file.
 - **Safety:** Git-only design records, no live-game requests/writes, credentials, player image-generation attempts, or art production preflight.
+
+## Structural layout director lock — 2026-10-20
+
+**Decision:** “Yes, structure approved.” This accepts the exact structural composition shown in the preview, including the upper ten-image (shared species + Ember R1–R9) overview, **Rank 5 Hunter correction**, lower four-lineage species/R1–R3 matrix, official game rank labels, dark/gold presentation and the **26 placements bound to 19 unique images**.
+
+**Frozen structural bytes:** `LIVING_LINEAGES_KITSUNE_SHEET_STRUCTURAL_20261020.svg` Git blob SHA-1 `4cb7ea34d75c15ae79cb0c6df145c889a6e3ec22`, raw SVG SHA-256 `cf0168ce11a898b6be75a9f6ee0950626dd0d9c7c1d5d3f01786afdfb1a4e52f`. Compared with the exact director-reviewed draft `c1e44dd0459a667d6b40c55c0153accd8054cced`: **only** the top-level `data-approved-layout` attribute changed `false`→`true`, and CairoSVG 1536×1024 RGBA rendered pixels were identical. Slot geometry, labels, typography and colour remain unchanged.
+
+**Binding layout record:** `LIVING_LINEAGES_KITSUNE_SHEET_SLOT_MAP_20261020.json` marks `DIRECTOR_APPROVED_STRUCTURAL_LAYOUT_V1`, carries the accepted SVG hash and freezes the placement mapping. `LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` records this approval separately from artwork acceptance.
+
+**Remaining:** 3/19 individual visuals approved (species master, Ember Rank 1, Moonlit Rank 1); **16 images outstanding**, next `C_R01` Jade from the exact juvenile species master. Final source-composed poster, alpha/cutout processing and production review still **PENDING**, and approval of structural geometry authorizes no game uploads or other live actions. Any later structural rewrite requires a fresh director decision.
