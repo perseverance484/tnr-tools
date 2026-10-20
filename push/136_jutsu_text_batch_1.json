@@ -3,8 +3,8 @@
   "mode": "suggest",
   "suggestion": {
     "category": "GRAMMAR",
-    "title": "Descriptions and battle lines for thirteen jutsu",
-    "rationale": "Thirteen visible jutsu still show 'New jutsu description', several with the generic battle line or grammar slips. Replace them with text matching what each jutsu does."
+    "title": "Add description",
+    "rationale": "The description was a placeholder. It now describes what the jutsu does."
   },
   "items": [
     {
@@ -18,7 +18,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the ryo theft."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe the jutsu stealing the target's ryo."
       }
     },
     {
@@ -32,7 +33,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one covering the stat, defense and metal damage boosts; adds the missing full stop to the battle line."
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now covers the stat, defense and metal damage boosts. The battle line also gets its missing full stop."
       }
     },
     {
@@ -46,7 +48,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the potency drain on the target."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe weakening the target's effects."
       }
     },
     {
@@ -60,7 +63,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the self potency boost."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe strengthening the user's own effects."
       }
     },
     {
@@ -74,7 +78,8 @@
         "injectableInBattle": true
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the large self damage boost."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe the user's large damage boost."
       }
     },
     {
@@ -87,7 +92,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one matching the horn strike and its damage-taken debuff."
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now describes the horn strike and the damage-taken debuff it leaves."
       }
     },
     {
@@ -101,7 +107,8 @@
         "injectableInBattle": true
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the area blast and the user's movement."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe the area blast and the user moving through it."
       }
     },
     {
@@ -114,7 +121,8 @@
         "injectableInBattle": true
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one matching what the pill actually does: less damage taken by the user, more by the target."
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the pill does: the user takes less damage and the target takes more."
       }
     },
     {
@@ -128,7 +136,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one covering the slash and its lifesteal; fixes 'relentless' to 'relentlessness', uses 'their' like other battle lines, and removes a double space."
+        "title": "Add description, fix battle line grammar",
+        "rationale": "The description was a placeholder; it now covers the slash and its lifesteal. The battle line read 'speed and relentless of a demon' and used 'his'; it now reads 'relentlessness' and 'their'."
       }
     },
     {
@@ -142,7 +151,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the spiral that weakens enemy strikes."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe the spiral that weakens enemy strikes."
       }
     },
     {
@@ -156,7 +166,8 @@
         "injectableInBattle": false
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description and the generic battle line with text describing the cheap shadow damage strike."
+        "title": "Add description and battle line",
+        "rationale": "The description was a placeholder and the battle line was generic. Both now describe the low-cost shadow strike."
       }
     },
     {
@@ -170,7 +181,8 @@
         "injectableInBattle": true
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one covering the self buff, the target's vulnerability and afterburn; fixes the battle line's missing %user and its grammar."
+        "title": "Add description, fix battle line grammar",
+        "rationale": "The description was a placeholder; it now covers the self buff, the target's vulnerability and the afterburn. The battle line was missing a %user and had broken grammar."
       }
     },
     {
@@ -184,7 +196,8 @@
         "injectableInBattle": true
       },
       "suggestion": {
-        "rationale": "Replaces the placeholder description with one covering the lightning strike and the elemental self buff; fixes '%target body' to '%target's body' in the battle line."
+        "title": "Add description, fix battle line grammar",
+        "rationale": "The description was a placeholder; it now covers the lightning strike and the elemental self buff. The battle line said '%target body' instead of '%target's body'."
       }
     }
   ]
