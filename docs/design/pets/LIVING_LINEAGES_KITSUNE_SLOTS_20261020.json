@@ -2,7 +2,7 @@
   "schema": "tnr-living-lineages-kitsune-demonstration-tracker/v1",
   "created_on": "2026-10-20",
   "updated_on": "2026-10-20",
-  "status": "SCOPE_19_IMAGES__STRUCTURE_APPROVED__RANK1_EMBER_MOONLIT_JADE_RAW_APPROVED__OBSIDIAN_R01_NEXT",
+  "status": "RANK1_FAMILY_4_OF_4_RAW_VISUAL_APPROVED__SHEET_LAYOUT_LOCKED__EMBER_R02_NEXT",
   "lead_role": "ART_DIRECTOR",
   "support_role": "IMAGE_PRODUCTION",
   "repository": "perseverance484/tnr-tools",
@@ -521,24 +521,83 @@
       "rank_name": "Companion",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "SPECIES_REF",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
       "used_parent_sha256": null,
-      "status": "NOT_STARTED",
-      "director_visual_approval": "NOT_REVIEWED",
-      "identity_qc": "NOT_RUN",
-      "progression_qc": "NOT_APPLICABLE",
-      "thumbnail_160_qc": "NOT_RUN",
-      "reference_original": null,
-      "approved_original": null,
-      "approved_original_sha256": null,
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL__PROCESSING_AND_ALPHA_PENDING",
+      "director_visual_approval": "APPROVED",
+      "identity_qc": "PASS_VISUAL_DIRECTOR_APPROVED: juvenile Kitsune has one head, four fox legs and two distinct connected bushy tails; black/dark violet/silver palette, small white/lilac dapples visible on coat and tails, restrained floating pearl Spirit motes, distinctly recognizable from Ember/Moonlit/Jade.",
+      "progression_qc": "NOT_APPLICABLE_RANK1; initial individualized species creation. Rank2 structural growth not yet assessed.",
+      "thumbnail_160_qc": "PASS_160PX_VISUAL_CHECK_WITH_NOTE: distinct eye/muzzle, two tails, dappled accents and pearl motes retain legibility; darkest outer fur partly blends into black background, pending transparent background QC; no extra limbs detected.",
+      "reference_original": {
+        "filename": "1000018902.png",
+        "detected_format": "JPEG",
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "bytes": 248075,
+        "background": "opaque black",
+        "sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
+        "source_location": "conversation_upload",
+        "data_note": "Filename .png contains JPEG JFIF bytes; source preserved byte-for-byte."
+      },
+      "approved_original": {
+        "filename": "kitsune_obsidian_rank1_approved_source_20261020.jpg",
+        "archive_filename": "images/kitsune_obsidian_rank1_approved_source.jpg",
+        "sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
+        "bytes": 248075,
+        "mime": "image/jpeg",
+        "width": 1536,
+        "height": 1536,
+        "mode": "RGB",
+        "has_alpha": false,
+        "alpha_policy": "NOT_COMPLIANT_AS_PRODUCTION_EXPORT",
+        "located_in": "2026-10-20 conversation and byte-verified intake ZIP (not Git-pinned)"
+      },
+      "approved_original_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
       "processed_asset": null,
       "processed_sha256": null,
-      "mechanical_preflight": "NOT_RUN",
-      "isolated_session": null,
-      "approval_date": null,
-      "revision_notes": [],
+      "mechanical_preflight": "NOT_RUN__SOURCE_IS_RGB_JPEG_WITH_OPAQUE_BLACK_BACKGROUND. Alpha/cutout, lossless WebP export and artpreflight remain separate pending gates.",
+      "isolated_session": {
+        "type": "ISOLATED_GENERATION_ART_RETURN",
+        "target": "Obsidian Rank 1",
+        "session_url": null,
+        "evidence": "Director supplied the new Obsidian illustration and explicitly replied 'Approved, next.' in master workdesk; no generator tool invocation/source ingestion record returned."
+      },
+      "approval_date": "2026-10-20",
+      "revision_notes": [
+        "Director message 2026-10-20: 'Approved, next.' to Obsidian Rank1 candidate.",
+        "Exact raw SHA-256 440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b; JPEG RGB, 1536x1536, 248075 bytes, black opaque background despite .png source filename.",
+        "160px and five-source family comparisons inspected: dappled coat, purple-black fur, white ruff, pearlescent spirit wisps are visible. Dark fur edge needs attention during later transparency processing.",
+        "Generator reference ingestion not independently verified; expected sole parent is exact species reference SHA-256.",
+        "No export/preflight performed. D Rank2 must use this exact approved Obsidian JPEG ONLY after the family Rank1 gate completes (now 4/4)."
+      ],
       "in_current_demonstration": true,
-      "showcase_role": "RANK1_TO_3_VARIANT"
+      "showcase_role": "RANK1_TO_3_VARIANT",
+      "parent_conditioning_evidence": "EXPECTED from Obsidian Rank 1 isolated-session instructions (one image: exact juvenile SPECIES_REF). Actual generator reference attachment/ingestion not independently evidenced by workdesk returned art; lineage-parent conditioning remains UNVERIFIED.",
+      "raw_source_archive": {
+        "filename": "TNR_Living_Lineages_Obsidian_Rank1_Approved_Source_Intake_20261020.zip",
+        "sha256": "fd0e957cff32e505d0a7cd104dde35d63a2a8bc150f8d1cc6f453b608f28ddbb",
+        "bytes": 465666,
+        "entry": "images/kitsune_obsidian_rank1_approved_source.jpg",
+        "parent_entry": "images/kitsune_juvenile_species_reference.jpg",
+        "source_kind": "conversation_artifact_not_git_pinned",
+        "manifest_entry": "intake_manifest.json",
+        "status": "MANIFEST_READBACK_VERIFIED_TWO_EXACT_JPEG_ORIGINALS"
+      },
+      "visual_qc_artifacts": [
+        {
+          "filename": "kitsune_obsidian_rank1_160px_visual_qc_20261020.png",
+          "sha256": "c0e25ffa52d5c4f7da4361ab61e0bae640b247fbb55686d7b27040677d97e6ce",
+          "method": "Pillow LANCZOS original JPEG 1536x1536 ->160x160, no art retouch"
+        },
+        {
+          "filename": "kitsune_rank1_family_visual_qc_20261020.png",
+          "sha256": "cbfa520d25b1762174be8145158f06c1610dbbebb73c3d1ea303132ae39b93a5",
+          "method": "Deterministic Pillow 250px source/Ember/Moonlit/Jade/Obsidian row; source JPEGs unchanged; visual QC only"
+        }
+      ]
     },
     {
       "asset_id": "A_R02",
@@ -625,7 +684,7 @@
       "rank_name": "Scout",
       "role": "individual_pet_rank",
       "expected_parent_asset_id": "D_R01",
-      "expected_parent_approved_sha256": null,
+      "expected_parent_approved_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
       "used_parent_sha256": null,
       "status": "NOT_STARTED",
       "director_visual_approval": "NOT_REVIEWED",
@@ -1549,13 +1608,14 @@
     "evidence_source": "director response in project conversation; no downstream rank image has yet been approved"
   },
   "next_generation": {
-    "asset_id": "D_R01",
-    "lineage": "Obsidian",
-    "rank": 1,
-    "expected_parent_asset_id": "SPECIES_REF",
-    "expected_parent_sha256": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
+    "asset_id": "A_R02",
+    "lineage": "Ember",
+    "rank": 2,
+    "rank_name": "Scout",
+    "expected_parent_asset_id": "A_R01",
+    "expected_parent_sha256": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
     "gate": "READY_FOR_ISOLATED_GENERATION",
-    "requires": "Attach ONLY exact approved juvenile species master; Obsidian palette index 9 black/dark violet/silver, Dappled accents characteristic index 9, Spirit aura index 7 few faint pearl-coloured spirit motes. Create new youthful 2-tail fox. Do not condition on previous mature Obsidian benchmark or another Rank1 variant; obtain director approval."
+    "requires": "Attach the ACTUAL approved Ember Rank1 source JPEG only (SHA-256 b4935401...8470). Apply shared approved R2 Scout morphology: visibly yearling/leggier, torso and muzzle longer, ear carriage raised, exactly TWO attached tails. Preserve Ember palette (0), Pale Tips (10), Wind aura (0), individual facial/marking identity. New distinct anatomy at 160px, no third tail. Director approve Ember R2 concept/result before B/C/D R2."
   },
   "production_status": "DEMONSTRATION_ONLY; no individual pet art exported or passed artpreflight",
   "lineage_progress": {
@@ -1579,13 +1639,13 @@
     },
     "D": {
       "label": "Obsidian",
-      "highest_director_approved_rank": 0,
-      "latest_approved_asset_id": null,
-      "latest_approved_original_sha256": null
+      "highest_director_approved_rank": 1,
+      "latest_approved_asset_id": "D_R01",
+      "latest_approved_original_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b"
     }
   },
-  "approved_image_count": 4,
-  "approved_individual_rank_images_count": 3,
+  "approved_image_count": 5,
+  "approved_individual_rank_images_count": 4,
   "generation_sessions_returned": [
     {
       "target_asset_id": "A_R01",
@@ -1610,6 +1670,14 @@
       "raw_source_sha256": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
       "session_url": null,
       "provenance": "Director-supplied raw image in workdesk; actual image model's conditioning source not independently proven"
+    },
+    {
+      "target_asset_id": "D_R01",
+      "status": "DIRECTOR_APPROVED_RAW_VISUAL",
+      "received_date": "2026-10-20",
+      "raw_source_sha256": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b",
+      "session_url": null,
+      "provenance": "Director-supplied original JPEG in master workdesk; generator conditioning unverified"
     }
   ],
   "source_intake_archives": [
@@ -1636,6 +1704,23 @@
       "entries": 3,
       "role": "approved Jade R1 + verified identical juvenile species reference raw JPEGs + intake manifest",
       "git_pinned": false
+    },
+    {
+      "filename": "TNR_Living_Lineages_Obsidian_Rank1_Approved_Source_Intake_20261020.zip",
+      "sha256": "fd0e957cff32e505d0a7cd104dde35d63a2a8bc150f8d1cc6f453b608f28ddbb",
+      "bytes": 465666,
+      "entries": 3,
+      "role": "approved Obsidian R1 JPEG and exact approved juvenile master + manifest",
+      "git_pinned": false
+    },
+    {
+      "filename": "TNR_Living_Lineages_Kitsune_Rank1_Family_Sources_20261020.zip",
+      "sha256": "e294e00c011dc7b311dc286f9c306229a7f903f30dd2a48760f410e009f1d4ec",
+      "bytes": 1427818,
+      "entries": 6,
+      "role": "all four director-approved Rank1 RAW JPGs and one species master, byte-identical source files + manifest",
+      "git_pinned": false,
+      "important_usage": "do not pass entire archive as conditioning image to any isolated Rank2 session"
     }
   ],
   "original_demonstration_scope": {
@@ -1711,12 +1796,12 @@
   "target_unique_images": 19,
   "scope_counts": {
     "target": 19,
-    "approved_total": 4,
-    "pending": 15,
+    "approved_total": 5,
+    "pending": 14,
     "excluded_legacy": 18,
-    "approved_rank_images": 3,
+    "approved_rank_images": 4,
     "required_rank_images": 18,
-    "remaining_rank_images": 15
+    "remaining_rank_images": 14
   },
   "structural_svg_qc": {
     "performed_on": "2026-10-20",
@@ -1756,5 +1841,26 @@
     "status": "INTEGRATION_NOT_STARTED; CURRENT_MAIN_AHEAD_BY_12_AT_CHECK; REVERIFY_AND_RECONCILE_BEFORE_MERGE",
     "ruling_collision_correction": "Current main owns RUL-2026-10-20-001 for schema adoption. Workdesk art decisions renumbered to RUL-2026-10-20-002 and -003 on this branch to avoid ID collision.",
     "warning": "Do not overwrite current main docs/RULINGS by pushing older entire file; use normal integration/conflict resolution after director accepts layout"
+  },
+  "rank1_family_closeout": {
+    "director_approved": 4,
+    "total": 4,
+    "source_sha256s": {
+      "SPECIES_REF": "8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9",
+      "A_R01": "b49354012e173291b415383cf4aca91942d921297041e232d9ef3dd057058470",
+      "B_R01": "f42524d1be91e8e92dee9ae4bd2140374907431c2ee431621f36cf84dc5619b1",
+      "C_R01": "c240b7f610e4d8c50281b99eb7512e89867d749e4229e80804e0b2652af2b378",
+      "D_R01": "440ba5c866f74a21ba0d46654e3b2f6b7cc21fb1dd1c7dcdb69db2be11d6849b"
+    },
+    "full_visual_comparison": "PASS_SOURCE_FAITHFUL_QC; unique facial expressions, palettes/markings/auras and 2 tails per child",
+    "thumbnail_160_visual": "PASS_WITH_NOTE Obsidian dark fur edges blend into black background of raw JPEG",
+    "collection_archive_filename": "TNR_Living_Lineages_Kitsune_Rank1_Family_Sources_20261020.zip",
+    "collection_archive_sha256": "e294e00c011dc7b311dc286f9c306229a7f903f30dd2a48760f410e009f1d4ec",
+    "collection_archive_bytes": 1427818,
+    "collection_archive_kind": "conversation artifact, source raw JPGs and manifest, NOT Git-pinned",
+    "production_exports": "NOT_RUN",
+    "actual_model_conditioning_evidence": "UNVERIFIED for all R1 images",
+    "generation_next": "A_R02",
+    "date": "2026-10-20"
   }
 }
