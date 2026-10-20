@@ -3253,7 +3253,7 @@
     "previous_v1_approval_retained_for_history": true
   },
   "presentation_v3": {
-    "status": "DRAFT_LAYOUT_BUILT__TYPGRAPHY_DIRECTION_APPROVED__FINAL_ODD_EVEN_RULE_NOT_FROZEN__DIRECTOR_V3_REVIEW_PENDING",
+    "status": "DRAFT_LAYOUT_BUILT__TYPOGRAPHY_DIRECTION_APPROVED__FINAL_ODD_EVEN_RULE_NOT_FROZEN__DIRECTOR_V3_REVIEW_PENDING",
     "created_date": "2026-10-20",
     "director_typography_authorization": "Approved, proceed (reduce repetition, increase text, share three cropped views)",
     "subsequent_director_rank_proposal": "Each odd rank evolution, each even rank growth. R1 baby individualized base, R2 juvenile growth, R3 juvenile Evolution I, R4 young adult growth, R5 young adult Evolution II, R6 mature adult growth, R7 mature adult Evolution III, R8 seasoned adult growth, R9 final form.",
@@ -3290,7 +3290,30 @@
       "Old approved tail curve increases at R6 and R8; new rank formula may require even ranks to keep evolution trait/tail count unchanged",
       "Rank10 Celestial exists outside the R9 demonstration; later stage not defined"
     ],
-    "no_live_game_requests_or_writes": true
+    "no_live_game_requests_or_writes": true,
+    "review_zip_filename": "TNR_Living_Lineages_Kitsune_V3_Alternating_20261020_REVIEW_PACKAGE.zip",
+    "review_zip_sha256": "45923285a010482b1841d5c5d9a9706f2cabcf7fcdc8d645236a47cdd04ffe2f",
+    "review_zip_bytes": 9985478,
+    "review_zip_entries": 10,
+    "preview_structure_source_sha256": "c39dcbf70bc9c2208979ceab190015b8688326c71c232ae84f5e836a756d08b3",
+    "filled_visible_text_count": 73,
+    "v2_visible_text_count": 138,
+    "visible_text_reduction_pct": 47.1,
+    "local_structural_tests": {
+      "svg_xml_parse": "PASS",
+      "structural_filled_slot_ids_and_coordinates": "PASS_26_IDENTICAL",
+      "unique_original_image_sources": "PASS_19",
+      "embedded_image_png_exact_byte_identity_to_previous_v2": "PASS_19_OF_19",
+      "all_26_svg_uses_source_bound": "PASS",
+      "rank_names_actual_game_labels": "PASS",
+      "section_crops_exact_preview_pixel_identity": "PASS_3_OF_3",
+      "current_filled_preview_dimensions": "2048x2290",
+      "reproducible_archive_crc": "PASS",
+      "no_new_art_generation": true,
+      "no_source_retouched": true,
+      "production_preflight": "NOT_RUN",
+      "director_v3_layout_approval": "PENDING"
+    }
   },
   "design_questions_pending": [
     "Approve or revise proposed odd EVOLVE/even GROW timing for canonical Living Lineages behavior",
