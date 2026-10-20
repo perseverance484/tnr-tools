@@ -19,7 +19,7 @@ Explosive chakra as kinetic shock and controlled detonation: amber/orange and in
 | Inferno Cataclysm | A | `FTTl_wnTlbvOfOyiGCc-b` | `images/FTTl_wnTlbvOfOyiGCc-b_Inferno_Cataclysm.png`<br>`e9b09efefd19881b7884a297620f8471e65059014fdd421ccaea8e4dd8cf3a2a` | Jagged lateral ground fissure violently erupting into an angled explosion wall; elevated 3/4, lateral/upward split. Exclude sphere, arch, ignition cascade, propulsion strike. | APPROVED v1 (2026-10-19) |
 | Kinetic Nova | A | `y8y01n9jz16bz5EBzl4wr` | `images/y8y01n9jz16bz5EBzl4wr_Kinetic_Nova.png`<br>`c3e22e1e683347abe8e58a29dc19de2a68f427358c14a466bc4b344e18acc045` | Compressed thrown chakra sphere breaks into a distinct constellation of small explosive charges; near-frontal, radial fragmentation. Exclude ground fissure, shield, ground cascade, thrust/impact. | APPROVED v1 (2026-10-19) |
 | Blast Shield | D | `Awyd1k1-tw4uzn-PLbcdP` | `images/Awyd1k1-tw4uzn-PLbcdP_Blast_Shield.png`<br>`3994cb097d698aea3e2b329a34f350ea2df5177135b2cc41fd91b82e8b7599b2` | Protective horseshoe of outward explosive pressure with dark sheltered center; oblique frontal 3/4, incoming projectile deflects. Exclude offensive fireball, ground rupture, chain detonation, propulsion. | APPROVED v1 |
-| Charge 4 Explosion | C | `rOqCTqNBSW_A-QYesFBw9` | `images/rOqCTqNBSW_A-QYesFBw9_Charge_4_Explosion.png`<br>`cea27f1480536975938b179d2c74f6b1941294d871742191ea6f9e0da95a49d0` | Separated diagonal line of propagating battlefield microdetonations; elevated 3/4, near-left to far-right propagation, one blue-white charge filament. Exclude solid ring, giant ball, shielding arc, fissure, thrust. | PROPOSED v1 (PENDING) |
+| Charge 4 Explosion | C | `rOqCTqNBSW_A-QYesFBw9` | `images/rOqCTqNBSW_A-QYesFBw9_Charge_4_Explosion.png`<br>`cea27f1480536975938b179d2c74f6b1941294d871742191ea6f9e0da95a49d0` | Separated diagonal line of propagating battlefield microdetonations; elevated 3/4, near-left to far-right propagation, one blue-white charge filament. Exclude solid ring, giant ball, shielding arc, fissure, thrust. | APPROVED v1 (2026-10-19) |
 | Howitzer Crash | B | `hW4IV1Hp59BqVFx0u-gTd` | `images/hW4IV1Hp59BqVFx0u-gTd_Howitzer_Crash.png`<br>`ab014d12ee4854fc193460cb4afe19af6b37a5b0948010144d95ddadba565508` | Explosive propulsion wake drives a compressed diagonal shock-cone into one bright close-contact terminal blast; oblique 3/4, upper-left to lower-right. Exclude persistent fireball, shield, sphere breakup, ground fissure and chain. | PROPOSED v1 (PENDING) |
 
 The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.json`. It contains one individual **original identity-only** image reference per target, exact source hashes, sibling action/geometry exclusions and the Blast Shield approval bound to its lock SHA. No BBE/BEE WebP is included as a reference because its actual image bytes were not supplied to this studio generation handoff. Do not treat a Git URL alone as visual conditioning.
@@ -53,7 +53,7 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 - **Accepted subject:** a small central white-hot explosive chakra rupture surrounded by five irregular, separated airborne concussive explosion starbursts. Dark voids and branching hot filaments between the major bursts; NO protective shield, ground fissure or propulsion jet. The approved starburst constellation is **reserved for Kinetic Nova** and must not be reused by Charge 4.
 - **Limitations:** approved raw remains a conversation/local source and is **not Git-binary-pinned**. Exact ordered generator attempt history not available in this studio; record `attempts=NOT_RECORDED`. No exports, production QC, canonical JUTSU_ICON preflight, gallery, or game upload/read-back have run.
 
-## Next target — Charge 4 Explosion (PROPOSED P0 DIRECTION, NOT APPROVED)
+## Next target — Charge 4 Explosion (DIRECTION APPROVED; RAW PENDING)
 
 - **Identity:** C-rank BLOODLINE `Charge 4 Explosion`, ID `rOqCTqNBSW_A-QYesFBw9`; original ZIP member `images/rOqCTqNBSW_A-QYesFBw9_Charge_4_Explosion.png`, SHA-256 `cea27f1480536975938b179d2c74f6b1941294d871742191ea6f9e0da95a49d0`.
 - **Source-supported action:** historical jutsu.get describes explosive chakra spread across the battlefield causing microexplosions wherever it contacts surfaces, plus increased damage given/taken and afterburn effects. The number “4” in the display name is **not** evidence for exactly four detonations.
@@ -68,7 +68,7 @@ The machine-readable **P0 target-lock source of record** is `JUTSU_TARGET_LOCKS.
 | Gate | Status |
 |---|---|
 | ORIGINAL_SOURCE_VERIFIED | VERIFIED 5/5 (historical-capture provenance) |
-| DIRECTION_APPROVED | APPROVED 3/5: Blast Shield, Inferno Cataclysm and Kinetic Nova; other two PENDING |
+| DIRECTION_APPROVED | APPROVED 4/5: Blast Shield, Inferno Cataclysm, Kinetic Nova, Charge 4 Explosion; Howitzer Crash PENDING |
 | RAW_VISUAL_APPROVED | APPROVED 3/5 (Blast Shield, Inferno Cataclysm and Kinetic Nova; exact raw JPEG SHA-256s recorded and source bytes preserved) |
 | OUTPUT_LOCAL_QC | NOT_RUN |
 | CANONICAL_PREFLIGHT | NOT_RUN |
