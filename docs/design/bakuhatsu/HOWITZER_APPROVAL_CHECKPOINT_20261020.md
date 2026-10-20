@@ -1,5 +1,8 @@
 # Bakuhatsu — Howitzer direction checkpoint (2026-10-20)
 
+> **HISTORICAL v1 ONLY — NOT CURRENT GENERATION AUTHORITY.** This document captures the earlier approved `TWO-STAGE CONCUSSIVE IMPACT` lock. Two resulting artworks were director-rejected. That exact lock is superseded for new generation by **v2 BLAST-STEP ZIGZAG, DIRECTION PENDING**, as recorded in `HOWITZER_REVISION_CHECKPOINT_20261020.md` and the current `JUTSU_TARGET_LOCKS.json`. The earlier 5/5 direction approval below is historical, not the current v2 approval count.
+
+
 - Director decision: **APPROVED** the proposed Howitzer Crash two-stage concussive-impact composition.
 - Target: Howitzer Crash, B-rank BLOODLINE, `hW4IV1Hp59BqVFx0u-gTd`; Bakuhatsu `RNUcHSH2c00IhOLc2C9aJ`.
 - Operative target lock: `JUTSU_TARGET_LOCKS.json`, Howitzer v1, `DIRECTION_APPROVED`.
