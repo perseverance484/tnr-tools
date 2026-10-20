@@ -161,3 +161,14 @@ replaced, and Swallow's Flight Slice, Stardust, Voltari and Armor of Protection 
 fixes (dauntless, 2026-10-20). Only text changes; `injectableInBattle` is re-sent at its live value.
 Test-named and boss-phase jutsu are excluded. `validate.py`: 0 errors, 0 warnings.
 Run it from Forge, then use **Check suggestions**.
+
+## 137 Item descriptions batch 1 (suggest mode, QA ticket 6)
+
+`137_item_descriptions_batch_1.json` sends fifteen description edits to the content review desk; it
+does not save directly. Fifteen visible player items with placeholder, stub or name-only descriptions
+(Azure Dragon Helm and Soles, Basic Shinobi Hand Guards, Samui Kage Hat, Scorch Plate, the three Two
+Tails pieces, Sealed Bracelet of Envy, Rusted Gatherer's and Hunter's Chests, Copper Ore, Muskshade,
+Minor Repair Kit, Halloween Tournament - 2nd Place) get descriptions drafted from their effects and
+loot (dauntless, 2026-10-20: descriptions only). Held back: Medallion of the Serpent King (empty
+battleDescription, so its save would fail) and Bloodthorn Cache (132 pending on the same record).
+`validate.py`: 0 errors, 0 warnings. Run it from Forge, then use **Check suggestions**.

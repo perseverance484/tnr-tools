@@ -1,0 +1,206 @@
+{
+  "_note": "QA ticket 6 (docs/reviews/QA_LIVE_2026-10-20.md, TXT-PLACEHOLDER / TXT-SHORT). Suggest mode: content review desk, no direct save. Fifteen visible player items with placeholder, stub or name-only descriptions at the public read of 2026-10-20T19:37:02.337Z; text drafted from each item's effects and loot and approved by dauntless 2026-10-20 (descriptions only, no battle-line changes). Medallion of the Serpent King is held back: its battleDescription is empty, which is DB NOT NULL, so its save would fail until it gets a battle line. Staff tools, test items and quest props of unknown context are excluded. Only description changes; Forge fetch-merges every other field. Operator runs it from Forge; never skipPreflight. Bloodthorn Cache is also held back while its loot-fix suggestion (132) is pending: a suggestion carries the whole merged record, so a second one could revert that fix if approved after it.",
+  "mode": "suggest",
+  "suggestion": {
+    "category": "GRAMMAR",
+    "title": "Add description",
+    "rationale": "The description was a placeholder. It now says what the item is and does."
+  },
+  "items": [
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Azure Dragon Helm",
+      "targetId": "ubMvchpc6Uf88eJxKNjWC",
+      "data": {
+        "description": "A helm shaped like the head of the Azure Dragon, giving its wearer a lasting boost to the damage they deal."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a stub ('Dragon Head'). It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Azure Dragon Soles",
+      "targetId": "iJ-FBnZinr3koRl2LWAyd",
+      "data": {
+        "description": "Boots shaped like the Azure Dragon's claws, giving its wearer a lasting boost to the damage they deal."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a stub ('Dragon Feet'). It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Basic Shinobi Hand Guards",
+      "targetId": "GdTDdhX5p279sm9rMQaPe",
+      "data": {
+        "description": "Simple hand guards issued to new shinobi, giving a small, lasting boost to damage dealt."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description just repeated the item's name. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Samui Kage Hat",
+      "targetId": "m47XR6C5ELSL8xemspKP7",
+      "data": {
+        "description": "The ceremonial hat of the Samui Kage, giving a small boost to damage dealt."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a stub ('Other'). It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Scorch Plate",
+      "targetId": "VTUt74ZnOkJCPSBM5X8qB",
+      "data": {
+        "description": "A heat-forged chest plate that hardens its wearer against fire, water, wind, earth and lightning damage."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Two Tails Jaki-Tabi",
+      "targetId": "vW7pgjvMnJMbg2aFzWwZo",
+      "data": {
+        "description": "Split-toe boots from the Two Tails set that boost the wearer's damage and stats and shorten their cooldowns."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Two Tails Tabi",
+      "targetId": "4voAt9Cg1z7X0Wg3YKQ_m",
+      "data": {
+        "description": "Leg wraps from the Two Tails set that boost the wearer's damage and stats and lower their chakra and stamina costs."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description just repeated the item's name. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Two Tails Zukin",
+      "targetId": "qcIb0edEpXfLaOiERicCE",
+      "data": {
+        "description": "A hood from the Two Tails set that boosts the wearer's damage and stats and absorbs part of incoming damage into their pools."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description just repeated the item's name. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Sealed Bracelet of Envy",
+      "targetId": "zO9fheu82ANH6gUool-a_",
+      "data": {
+        "description": "A sealed keystone bracelet steeped in envy that lets its wearer steal back a little health with each hit."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a stub ('Bracelet'). It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Rusted Gatherer's Chest",
+      "targetId": "toBESPaPaHI5vEFRjWi20",
+      "data": {
+        "description": "A weathered gatherer's chest. Opening it rolls for herbs and ores, with a small chance at Rare Jewels."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Rusted Hunter's Chest",
+      "targetId": "-v1OQ5QSsWbV-DcZadM0h",
+      "data": {
+        "description": "A weathered hunter's chest. Opening it rolls for creature materials such as furs, pelts, shells and antlers, with a small chance at Rare Jewels."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Copper Ore",
+      "targetId": "_LBl_abDuOY3jVwq9eHKn",
+      "data": {
+        "description": "Raw copper ore gathered from the earth and used in crafting."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description just repeated the item's name. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Muskshade",
+      "targetId": "A5rgavBvGPrN16N4XoDY8",
+      "data": {
+        "description": "A wild herb collected through gathering and used in crafting."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Minor Repair Kit",
+      "targetId": "sy0h4bH73yVVbaegMgsAE",
+      "data": {
+        "description": "A small kit that restores some durability to a damaged item."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    },
+    {
+      "entity": "item",
+      "slot": "edit",
+      "name": "Halloween Tournament - 2nd Place",
+      "targetId": "h5VREG9-wcWb15QQyyTfH",
+      "data": {
+        "description": "Prize for placing second in the Halloween Tournament. Using it grants extra reskin slots, reputation and silver."
+      },
+      "suggestion": {
+        "title": "Add description",
+        "rationale": "The description was a placeholder. It now says what the item is and does."
+      }
+    }
+  ]
+}
