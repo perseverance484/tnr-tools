@@ -1,6 +1,10 @@
 # Isolated generation 06 — Ghost Ship Epic Gatherer's Chest
 
-**Status:** DIRECTOR VISUALLY APPROVED (2026-10-20); production alpha/export/preflight PENDING  
+## GEOMETRY-RESET OVERRIDE — PREVIOUS APPROVAL REVOKED (2026-10-20)
+
+The director has rescinded the visual acceptance of this chest and **all six** earlier Common/Rare/Epic originals because an **extra/duplicated curved metal lid band** was propagated through the family. This prompt and any “approved” notes below are **historical only**; the pictured raw is **REJECTED AND PROHIBITED AS A FUTURE REFERENCE**, even if otherwise visually attractive. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register. Rebuild this slot with corrected physical band continuity and a NEW raw source; use only the original Reliquary (style/material only) and **newly** geometry-correct predecessors as appropriate. Preserve prior hashes/decisions as evidence, but do not count them as currently approved or game-ready.
+
+**Status:** REVOKED — GEOMETRY INVALID, historical design/approval record only; new corrected raw required
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
