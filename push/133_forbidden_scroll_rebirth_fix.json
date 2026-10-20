@@ -1,10 +1,10 @@
 {
-  "_note": "QA ticket 2 (docs/reviews/QA_LIVE_2026-10-20.md, REF-REWARD). Suggest mode: goes to the content review desk, no direct save. Built from the public item.getAll read at 2026-10-20T19:37:00.236Z: the full effects array is reproduced unchanged except reward_jutsus, deleted id lbSdCH5lTz0U2f-t9gWxw -> Ethereal Rebirth K0t6Z-Q4lau1jFt8Tkpot, the jutsu the scroll's own description names (approved by dauntless 2026-10-20). Operator runs it from Forge; never skipPreflight.",
+  "_note": "QA ticket 2 (docs/reviews/QA_LIVE_2026-10-20.md, REF-REWARD). Suggest mode: goes to the content review desk, no direct save. Built from the public item.getAll read at 2026-10-20T19:37:00.236Z: the full effects array is reproduced unchanged except reward_jutsus, deleted id lbSdCH5lTz0U2f-t9gWxw -> Ethereal Rebirth K0t6Z-Q4lau1jFt8Tkpot, the jutsu the scroll's own description names (dauntless, 2026-10-20: Ethereal Rebirth got a new id in the great jutsu deletion event). Operator runs it from Forge; never skipPreflight.",
   "mode": "suggest",
   "suggestion": {
     "category": "CONSISTENCY",
     "title": "Forbidden Jutsu Scroll: Rebirth grants a deleted jutsu",
-    "rationale": "The scroll grants a jutsu id that no longer exists. Point it at Ethereal Rebirth, the jutsu its description promises."
+    "rationale": "Ethereal Rebirth was re-created with a new id in the jutsu deletion event; repoint the scroll to it."
   },
   "items": [
     {
@@ -77,7 +77,7 @@
         ]
       },
       "suggestion": {
-        "rationale": "The scroll's description says it grants the Forbidden Jutsu Ethereal Rebirth, but its reward_jutsus holds lbSdCH5lTz0U2f-t9gWxw, an id that is not among the live jutsu, so using the scroll grants nothing. Ethereal Rebirth exists as K0t6Z-Q4lau1jFt8Tkpot (FORBIDDEN, S rank, visible). This repoints the reward to it, matching how Forbidden Jutsu Scroll: Nexus grants Ethereal Nexus. The visual effect and every other field are unchanged."
+        "rationale": "Ethereal Rebirth got a new id in the great jutsu deletion event, but this scroll still grants the old id (lbSdCH5lTz0U2f-t9gWxw), which no longer exists, so using it grants nothing. This points the reward at Ethereal Rebirth's current id (K0t6Z-Q4lau1jFt8Tkpot, FORBIDDEN, S rank, visible), the jutsu the scroll's description promises. The visual effect and every other field are unchanged."
       }
     }
   ]
