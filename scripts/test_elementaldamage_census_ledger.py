@@ -40,6 +40,20 @@ def run_cli(bundle) -> tuple[int, Path]:
     return rc, d / "out"
 
 
+def reseal(bundle):
+    """After a deliberate, CONSISTENT edit of the inventory rows, recompute what Forge would have
+    exported for them (digest, both scan digests, tagged/malformed counts), so a test exercises
+    the rule it names instead of tripping the fingerprint check."""
+    c = bundle["census"]
+    fp = led.projection_digest(c["rows"])
+    c["digest"] = fp
+    for sc in c["scans"]:
+        sc["digest"] = fp
+    c["counts"]["tagged"] = sum(1 for r in c["rows"] if led.TAG in (r.get("effectTypes") or []))
+    c["counts"]["malformed"] = sum(1 for r in c["rows"] if led.row_malformed(r))
+    return bundle
+
+
 def point(bundle, item_id):
     return next(c for c in bundle["captures"] if c.get("phase") == "census" and c["input"]["id"] == item_id)
 
@@ -234,7 +248,7 @@ class CorruptedBundles(unittest.TestCase):
         b = load()
         row = next(r for r in b["census"]["rows"] if r["id"] == "fx-damage-only")
         row["effectTypes"], row["effectsMalformed"] = ["damage", None], True
-        b["census"]["counts"]["malformed"] = 1
+        reseal(b)
         b["census"]["targets"].append({"id": "fx-damage-only", "updatedAt": row["updatedAt"], "reason": "effectsMalformed"})
         body = copy.deepcopy(point(b, "fx-static"))
         body["input"]["id"] = "fx-damage-only"
@@ -249,6 +263,87 @@ class CorruptedBundles(unittest.TestCase):
         L = ledger(b)
         self.assertEqual(L["ledgerErrors"], [])
         self.assertTrue(L["status"].startswith("NOT COMPLETE"))
+
+
+class Round2(unittest.TestCase):
+    """Census round-2 review R2-F2A / R2-F2B."""
+
+    def assertNeverComplete(self, b, needle=None):
+        L = ledger(b)
+        self.assertNotEqual(L["status"], "COMPLETE")
+        self.assertEqual(run_cli(b)[0], 1)
+        if needle:
+            self.assertTrue(any(needle in e for e in L["ledgerErrors"]), L["ledgerErrors"])
+        return L
+
+    def test_fixture_fingerprint_is_recomputed_exactly(self):
+        b = load()
+        self.assertEqual(led.projection_digest(b["census"]["rows"]), b["census"]["digest"])
+
+    def test_inventory_not_complete_is_never_complete_even_with_good_points(self):
+        # the reviewer's reproduction: only census.inventory changes
+        for state in ("UNSTABLE", "FAILED"):
+            b = load()
+            b["census"]["inventory"] = state
+            self.assertNeverComplete(b, f"bundle census verdict COMPLETE but the ledger derives {state}")
+
+    def test_one_field_inventory_mutations_are_refused(self):
+        cases = [
+            (lambda c: c.__setitem__("digest", "fnv1a32:00000000"), "census.digest"),
+            (lambda c: c["scans"][1].__setitem__("digest", "fnv1a32:00000000"), "scan 2 digest"),
+            (lambda c: c["scans"][0].__setitem__("rows", 8), "scan 1 reports 8 rows"),
+            (lambda c: c["scans"][1]["pages"][0].__setitem__("rows", c["scans"][1]["pages"][0]["rows"] - 1), "scan 2 pages add up to"),
+            (lambda c: c["counts"].__setitem__("tagged", 7), "census.counts[tagged]"),
+            (lambda c: c["counts"].__setitem__("malformed", 1), "census.counts[malformed]"),
+            (lambda c: c["crossCheck"].__setitem__("missedByFilter", ["fx-static"]), "crossCheck.missedByFilter"),
+            (lambda c: c["crossCheck"].__setitem__("notInInventory", ["ghost"]), "crossCheck.notInInventory"),
+            (lambda c: c["crossCheck"].__setitem__("filterOnly", ["fx-static"]), "crossCheck.filterOnly names"),
+            (lambda c: c["crossCheck"].__setitem__("filteredRows", 3), "crossCheck.filteredRows"),
+            (lambda c: c.pop("crossCheck"), "without a cross-check"),
+            (lambda c: c.__setitem__("problems", ["cross-check: disagree"]), "census.problems"),
+        ]
+        for mutate, needle in cases:
+            with self.subTest(needle=needle):
+                b = load()
+                mutate(b["census"])
+                self.assertNeverComplete(b, needle)
+
+    def test_an_edited_projection_row_breaks_the_fingerprint(self):
+        b = load()
+        b["census"]["rows"][0]["name"] = "renamed"
+        self.assertNeverComplete(b, "fingerprint to")
+
+    def test_an_honest_unstable_bundle_is_a_usable_partial_ledger(self):
+        b = load()
+        c = b["census"]
+        c["inventory"] = c["verdict"] = "UNSTABLE"
+        c["scans"][1]["digest"] = "fnv1a32:00000000"
+        c["problems"] = ["the two complete scans disagree"]
+        b["captures"] = [x for x in b["captures"] if x.get("phase") != "census"]
+        L = ledger(b)
+        self.assertTrue(L["status"].startswith("NOT COMPLETE"))
+        self.assertEqual(L["ledgerVerdict"], "UNSTABLE")
+        self.assertFalse(any("digest" in e or "verdict" in e for e in L["ledgerErrors"]), L["ledgerErrors"])
+        self.assertEqual(run_cli(b)[0], 1)
+
+    def test_valid_tag_beside_untyped_member_is_manual_review_not_a_candidate(self):
+        # R2-F2B: the valid member alone would classify "formula / both missing" (a candidate)
+        b = load()
+        row = next(r for r in b["census"]["rows"] if r["id"] == "fx-both-missing")
+        row["effectTypes"], row["effectsMalformed"] = row["effectTypes"] + [None], True
+        reseal(b)
+        t = next(t for t in b["census"]["targets"] if t["id"] == "fx-both-missing")
+        t["reason"] = "effectsMalformed"
+        point(b, "fx-both-missing")["data"]["effects"].append({"power": 1})
+        b["census"]["verdict"] = "AMBIGUOUS"
+        L = ledger(b)
+        self.assertEqual(L["ledgerErrors"], [])
+        self.assertIn("fx-both-missing", L["manualReview"])
+        self.assertNotIn("fx-both-missing", L["candidates"])
+        self.assertIn(led.C_MISS_BOTH, L["records"]["fx-both-missing"]["classifications"], "the evidence is still recorded")
+        self.assertEqual(L["ambiguous"], ["fx-both-missing"])
+        self.assertTrue(L["status"].startswith("NOT COMPLETE"))
+        self.assertEqual(run_cli(b)[0], 1)
 
 
 if __name__ == "__main__":

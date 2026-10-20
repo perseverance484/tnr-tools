@@ -72,6 +72,33 @@ def sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
+def stable_stringify(v) -> str:
+    """Forge storage/hash.mjs stableStringify for JSON-decoded values: keys sorted as JS sorts
+    them (UTF-16 code units), JSON.stringify scalars, integral floats printed as integers."""
+    if v is None or isinstance(v, (bool, int, str)):
+        return json.dumps(v, ensure_ascii=False)
+    if isinstance(v, float):
+        return json.dumps(int(v)) if v.is_integer() else json.dumps(v)
+    if isinstance(v, list):
+        return "[" + ",".join(stable_stringify(x) for x in v) + "]"
+    keys = sorted(v, key=lambda k: k.encode("utf-16-be"))
+    return "{" + ",".join(json.dumps(k, ensure_ascii=False) + ":" + stable_stringify(v[k]) for k in keys) + "}"
+
+
+def fnv1a32(text: str) -> str:
+    """Forge storage/hash.mjs fnv1a32: over UTF-16 code units, as String.charCodeAt reads them."""
+    h, b = 0x811C9DC5, text.encode("utf-16-le")
+    for i in range(0, len(b), 2):
+        h ^= b[i] | (b[i + 1] << 8)
+        h = (h * 0x01000193) & 0xFFFFFFFF
+    return f"{h:08x}"
+
+
+def projection_digest(rows) -> str:
+    """Forge census.mjs digest(rows), recomputed from the exported projection."""
+    return "fnv1a32:" + fnv1a32(stable_stringify(rows))
+
+
 def effect_type(e):
     """A member's type when it is an object with a non-empty string `type`, else None (as Forge's
     census.mjs effectType). A member without one cannot be ruled out as the tag."""
@@ -202,6 +229,42 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
     scans = census.get("scans") or []
     if census.get("inventory") == "COMPLETE" and (len(scans) != 2 or scans[0].get("digest") != scans[1].get("digest")):
         errors.append("inventory claims COMPLETE without two agreeing scans")
+    # A COMPLETE inventory must PROVE itself against the exported projection (census round-2
+    # review R2-F2A): the fingerprint is recomputed here, not read back; each scan's row and page
+    # totals, the tagged/malformed counts, the cross-check and the problem list must all agree.
+    # Honest UNSTABLE/FAILED inventories are not held to this; they can never be COMPLETE anyway.
+    if census.get("inventory") == "COMPLETE":
+        fp = projection_digest(rows)
+        if census.get("digest") != fp:
+            errors.append(f"census.digest {census.get('digest')} but the exported rows fingerprint to {fp}")
+        for i, sc in enumerate(scans):
+            if sc.get("digest") != fp:
+                errors.append(f"scan {i + 1} digest {sc.get('digest')} but the exported rows fingerprint to {fp}")
+            if sc.get("rows") != len(rows):
+                errors.append(f"scan {i + 1} reports {sc.get('rows')} rows but the inventory has {len(rows)}")
+            paged = sum(p.get("rows") or 0 for p in sc.get("pages") or [] if isinstance(p.get("rows"), int))
+            if paged != len(rows):
+                errors.append(f"scan {i + 1} pages add up to {paged} rows but the inventory has {len(rows)}")
+        tagged = sum(1 for r in rows if TAG in (r.get("effectTypes") or []))
+        malformed = sum(1 for r in rows if row_malformed(r))
+        for k, v in (("tagged", tagged), ("malformed", malformed)):
+            if (census.get("counts") or {}).get(k) != v:
+                errors.append(f"census.counts[{k}] = {(census.get('counts') or {}).get(k)} but the rows give {v}")
+        cc = census.get("crossCheck")
+        if not isinstance(cc, dict):
+            errors.append("inventory claims COMPLETE without a cross-check")
+        else:
+            for k in ("missedByFilter", "notInInventory"):
+                if cc.get(k) != []:
+                    errors.append(f"inventory claims COMPLETE but crossCheck.{k} is {cc.get(k)!r}")
+            exact = {r.get("id") for r in rows if TAG in (r.get("effectTypes") or [])}
+            stray = [i for i in cc.get("filterOnly") or [] if i not in inv_rows or i in exact]
+            if stray:
+                errors.append(f"crossCheck.filterOnly names {stray}, which are not untagged inventory rows")
+            if cc.get("filteredRows") != len(exact) + len(cc.get("filterOnly") or []):
+                errors.append(f"crossCheck.filteredRows {cc.get('filteredRows')} != {len(exact)} exact + {len(cc.get('filterOnly') or [])} filterOnly")
+        if census.get("problems"):
+            errors.append(f"inventory claims COMPLETE but census.problems is {census.get('problems')!r}")
     for s in scans:
         parts = {p.get("hidden") for p in s.get("pages") or []}
         if census.get("inventory") == "COMPLETE" and parts != {False, True}:
@@ -298,11 +361,16 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
         rec["classifications"] = classes
         if problems:
             rec["status"] = "RECAPTURE REQUIRED" if tid in stale else "NOT CAPTURED / FAILED"
+        elif reason == "effectsMalformed":
+            # Before ANY candidate or control status (round-2 review R2-F2B): a well-formed tag
+            # beside an untyped member is still an unresolved record, not a repair candidate.
+            # Stormrender keeps its staged marker in `classifications` either way.
+            rec["status"] = "MANUAL REVIEW: malformed or ambiguous"
         elif tid == STORMRENDER_ID:
             rec["status"] = STORMRENDER_NOTE
         elif any(c in CANDIDATE_CLASSES for c in classes):
             rec["status"] = "CANDIDATE: director review (observed evidence only; no repair proposed or approved)"
-        elif reason == "effectsMalformed" or C_MALFORMED in classes or not dyn:
+        elif C_MALFORMED in classes or not dyn:
             rec["status"] = "MANUAL REVIEW: malformed or ambiguous"
         else:
             rec["status"] = "CONTROL: no formula-scaling gap observed"
@@ -324,11 +392,18 @@ def build_ledger(bundle: dict, *, bundle_path: str, bundle_sha256: str) -> dict:
     ambiguous = sorted(tid for tid, why in expected.items() if why == "effectsMalformed")
     # The ledger's own verdict. A malformed target can never be COMPLETE (Forge reports AMBIGUOUS):
     # it was captured, but nobody has resolved whether it is the tag (census review F1).
-    own = ("INCOMPLETE" if missing else "STALE" if stale else "FAILED" if failed
-           else "AMBIGUOUS" if ambiguous else "COMPLETE")
-    if census.get("inventory") == "COMPLETE" and verdict != own:
+    inventory = census.get("inventory")
+    if inventory != "COMPLETE":
+        # no trustworthy target list: the verdict IS the inventory state (Forge censusVerdict)
+        own = inventory if inventory in ("UNSTABLE", "FAILED") else "FAILED"
+    else:
+        own = ("INCOMPLETE" if missing else "STALE" if stale else "FAILED" if failed
+               else "AMBIGUOUS" if ambiguous else "COMPLETE")
+    if verdict != own:
         errors.append(f"bundle census verdict {verdict} but the ledger derives {own}")
-    complete = own == "COMPLETE" and verdict == "COMPLETE" and not errors
+    # COMPLETE needs a COMPLETE inventory unconditionally (R2-F2A), on top of the ledger's own
+    # verdict, the bundle's verdict and zero errors.
+    complete = inventory == "COMPLETE" and own == "COMPLETE" and verdict == "COMPLETE" and not errors
     by_class = {k: sorted(tid for tid, r in records.items() if k in r["classifications"]) for k in ALL_CLASSES}
     effect_counts = {k: sum(1 for r in records.values() for d in r["elementaldamageEffects"] if d["classification"] == k) for k in ALL_CLASSES}
     return {

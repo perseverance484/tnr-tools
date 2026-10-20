@@ -2,8 +2,25 @@
 
 **Lane:** A (Forge code/tooling). The director's later census run and ledger are Lane B.
 **Implementation owner:** Fable / Claude Code. **Independent reviewer:** ChatGPT.
-**Status:** ROUND 1 CORRECTED, FROZEN FOR FOCUSED RE-REVIEW. Do not modify this branch during review.
+**Status:** ROUND 2 CORRECTED, FROZEN FOR NARROW RE-REVIEW. Do not modify this branch during review.
 **Round 1 review:** `chatgpt/review-elementaldamage-weapon-census-20261020@3a30a604` (`docs/reviews/ELEMENTALDAMAGE_WEAPON_CENSUS_INDEPENDENT_REVIEW_20261020.md`), HOLD on F1–F4; corrections below. Round-1 target was `0dd1d43a`.
+
+## Round 2 corrections (2026-10-20)
+
+Round-2 review: `chatgpt/review-elementaldamage-census-round2-20261020@e2fc3c20` (`docs/reviews/ELEMENTALDAMAGE_WEAPON_CENSUS_FOCUSED_REREVIEW_ROUND2_20261020.md`). F1, F3 and F4 were closed; F2 was partially closed, with two residual findings. Round-2 target was `5b60f840`; base still `main@02a288e9`. Ledger only: no Forge code changed in this round.
+
+- **R2-F2A, incomplete or contradictory inventory certified COMPLETE.**
+  - Ledger COMPLETE now requires `census.inventory == "COMPLETE"` unconditionally. When the inventory is not COMPLETE, the ledger's own verdict is the inventory state (UNSTABLE/FAILED, as Forge's `censusVerdict`), and the bundle verdict must equal it in every case.
+  - A COMPLETE inventory must now prove itself against the exported projection. The ledger recomputes Forge's `fnv1a32(stableStringify(rows))` independently (Python port, verified to reproduce the fixture's `7adbde6b`) and checks it against `census.digest` and both scan digests. It also checks:
+    - each scan's `rows`, and its page row totals, against the inventory size;
+    - `counts.tagged` and `counts.malformed` against the rows;
+    - that a cross-check is present, with empty `missedByFilter`/`notInInventory`, `filterOnly` naming only untagged inventory rows, and `filteredRows` = exact + filterOnly;
+    - that `census.problems` is empty.
+  - Honest UNSTABLE/FAILED bundles are not held to these checks and still produce a usable partial ledger (NOT COMPLETE, exit 1).
+  - Tests: the reviewer's `inventory` flip (UNSTABLE and FAILED); 12 one-field mutations (digest, scan digest, scan rows, page rows, tagged, malformed, missedByFilter, notInInventory, filterOnly, filteredRows, missing cross-check, problems); an edited projection row; and the honest UNSTABLE partial ledger.
+- **R2-F2B, mixed malformed records listed as candidates.** A target whose reason is `effectsMalformed` now gets MANUAL REVIEW before any Stormrender, candidate or control status. Its `classifications` still record the observed evidence (e.g. `formula / both missing`), and Stormrender keeps its staged marker. Test: a valid formula `elementaldamage` member beside an untyped member is in `manualReview`, not in `candidates`, and the status is NOT COMPLETE.
+- Test harness: `reseal()` re-derives the digests and counts after a deliberate, consistent fixture edit, so each negative test hits the rule it names. The round-1 mixed-malformed test uses it.
+- All 6 new round-2 test methods (17 cases with subtests) fail against the round-2 ledger and pass now.
 
 ## Round 1 corrections (2026-10-20)
 
