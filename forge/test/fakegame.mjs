@@ -63,6 +63,9 @@ export class FakeGame {
   /** Handle one procedure call; returns a decoded element. */
   handle(path, input) {
     const n = this.calls.push({ path, input });
+    // A test hook that sees every call first: it may change server state (an edit landing mid-crawl)
+    // or answer instead of the game (a malformed page, a 429 on call n). undefined = carry on.
+    if (this.onCall) { const o = this.onCall(path, input, n, this); if (o !== undefined) return o; }
     const [router, proc] = path.split(".");
     const table = this.tables[TABLE[router]];
     const ok = (data) => ({ ok: true, data });
@@ -99,6 +102,18 @@ export class FakeGame {
       if (path === "gameAsset.getAllNames" && input.type) rows = rows.filter((r) => r.type === input.type);
       const name = (r) => (path === "gameAsset.getAllNames" && input.folderPrefix ? `${r.folder ?? ""}/${r[nk]}` : r[nk]);
       result = ok(rows.map((r) => ({ [k]: r[k], [nk]: name(r) })));
+    } else if (path === "item.getAll") {
+      // routers/item.ts:1101-1132 and itemDatabaseFilter (:4395-4458) @ TheNinjaRPG 6524d0fb:
+      // absent hidden means hidden:false; effect is JSON_SEARCH for ANY equal string in effects;
+      // ordered cost, repsCost, id; offset cursor*limit; nextCursor null on a short page.
+      const anyString = (v, x) => (typeof v === "string" ? v === x : v && typeof v === "object" ? Object.values(v).some((w) => anyString(w, x)) : false);
+      const cursor = input.cursor ?? 0, limit = input.limit;
+      let rows = [...table.values()].filter((r) => r.hidden === (input.hidden ?? false));
+      if (input.itemType) rows = rows.filter((r) => r.itemType === input.itemType);
+      if (input.effect?.length) rows = rows.filter((r) => input.effect.some((x) => anyString(r.effects, x)));
+      rows.sort((a, b) => (a.cost ?? 0) - (b.cost ?? 0) || (a.repsCost ?? 0) - (b.repsCost ?? 0) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+      const data = rows.slice(cursor * limit, cursor * limit + limit).map((r) => structuredClone(r));
+      result = ok({ data, nextCursor: data.length < limit ? null : cursor + 1 });
     } else if (path === "ai.getAiProfile") {
       const p = this.tables.aiProfile.get(input.id); result = p ? ok(structuredClone(p)) : err("NOT_FOUND", "profile not found", 404);
     } else if (path === "ai.toggleAiProfile") {

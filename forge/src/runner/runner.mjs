@@ -36,6 +36,7 @@ import { recipe, mergeForUpdate } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
+import { CENSUS_KINDS, runInventory, acceptPoint } from "./census.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
 // One tab drives a job at a time. Two runners over one localStorage would each read PLANNED and
@@ -209,7 +210,7 @@ export class Runner {
     const manifest = parseManifest(manifestSource);
     assertBloodrightAvailable(this.journal, manifest.policy.bloodrightImport?.bloodlineId);
     const order = planOrder(manifest, readIdmap(this.storage));
-    const captureOnly = order.length === 0 && manifest.capture.before.length + manifest.capture.after.length > 0;
+    const captureOnly = order.length === 0 && (manifest.capture.before.length + manifest.capture.after.length > 0 || !!manifest.census);
     const job = this.journal.open({ jobId, manifestPath, manifestNumber, manifestHash: manifest.hash, items: toJournalSpecs(order), allowEmpty: captureOnly, bloodrightImport: manifest.policy.bloodrightImport });
     this.manifests.set(jobId, { manifest, order });
     return job;
@@ -271,6 +272,7 @@ export class Runner {
     this._emit("job:start", { jobId, items: job.items.length, mode: "run" });
     try {
       if (manifest.capture.before.length && !job.capturesBefore) await this._captures(jobId, manifest.capture.before, "before");
+      if (manifest.census && !job.capturesCensus) await this._census(jobId, manifest.census);
       if (manifest.dedupNames) await this._dedupNames(jobId, order);
       for (let i = 0; i < job.items.length; i++) {
         this._lease(jobId); // heartbeat
@@ -892,6 +894,52 @@ export class Runner {
     }
     this.journal.annotateJob(jobId, { [key]: out, [key + "Partial"]: null });
     return out;
+  }
+
+  /**
+   * A census (runner/census.mjs). Stage A runs whole or not at all: it is journaled only once
+   * both scans and the cross-check are in, so a pause inside it (429, network) leaves nothing
+   * behind and the resume crawls again from cursor 0. Its projection rows go to the immutable
+   * snapshot store, never the journal, which keeps only the summary and the target ids.
+   *
+   * Stage B is the ordinary incremental capture loop: each point read is journaled before the
+   * next is sent, so a resume continues at the next target and never re-reads one already done,
+   * and the target list is the one Stage A froze, so a record edited in between reads as STALE
+   * instead of quietly being re-classified.
+   */
+  async _census(jobId, spec) {
+    const k = CENSUS_KINDS[spec.kind];
+    let job = this.journal.get(jobId);
+    if (!job.census) {
+      this._emit("census:inventory", { jobId });
+      const { rows, ...inv } = await runInventory((input) => this.reader.censusPage(k.listPath, input), spec);
+      const inventoryKey = snapshotKey(jobId, "census", "inventory");
+      try {
+        await this.cache.putSnapshot({ key: inventoryKey, jobId, phase: "census", ordinal: "inventory", path: "census:" + spec.kind, id: null, input: spec, data: rows });
+      } catch (e) {
+        inv.inventory = "FAILED"; inv.targets = [];
+        inv.problems.push("inventory snapshot write failed: " + (e?.message ?? e));
+      }
+      this.journal.annotateJob(jobId, { census: { ...spec, ...inv, inventoryKey, at: new Date(this.clock()).toISOString() } });
+      job = this.journal.get(jobId);
+    }
+    const c = job.census;
+    // An incomplete inventory has no trustworthy target list: no point read is sent from it.
+    if (c.inventory !== "COMPLETE") { this.journal.annotateJob(jobId, { capturesCensus: [], capturesCensusPartial: null }); return; }
+    const out = Array.isArray(job.capturesCensusPartial) ? job.capturesCensusPartial : [];
+    for (let i = out.length; i < c.targets.length; i++) {
+      if (this.pauseRequested) throw new Paused("USER", { detail: `census paused after ${i} of ${c.targets.length} point reads` });
+      this._lease(jobId);
+      const t = c.targets[i], input = readInput(k.getPath, t.id);
+      const r = await this.reader.get(k.getPath, t.id, { fresh: true });
+      const entry = { phase: "census", proc: k.getPath, input, ok: r.ok, rows: r.ok && r.data ? 1 : 0, error: r.ok ? null : r.error.code };
+      Object.assign(entry, await this._persistFull(jobId, "census", i, k.getPath, t.id, input, r));
+      Object.assign(entry, acceptPoint(spec.kind, t, r, entry));
+      out.push(entry);
+      this.journal.annotateJob(jobId, { capturesCensusPartial: out });
+      this._emit("census:point", { jobId, done: i + 1, total: c.targets.length });
+    }
+    this.journal.annotateJob(jobId, { capturesCensus: out, capturesCensusPartial: null });
   }
 
   /**

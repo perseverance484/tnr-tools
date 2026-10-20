@@ -469,3 +469,30 @@ test("QA: a write manifest whose plan fails is never offered as a read-only capt
   assert.doesNotMatch(main, /Read-only capture job|zero mutations|Run captures/);
   assert.match(main, /2 items/);
 });
+
+test("a census manifest is presented as a read-only census with 0 writes and reported by verdict", async () => {
+  const win = dom();
+  const { app, game } = appWith();
+  const T = new Date("2026-10-01T00:00:00Z");
+  game.seed("item", { id: "w1", name: "W1", itemType: "WEAPON", hidden: false, cost: 1, repsCost: 0, updatedAt: T, effects: [{ type: "elementaldamage", calculation: "formula", power: 30 }] });
+  game.seed("item", { id: "w2", name: "W2", itemType: "WEAPON", hidden: true, cost: 2, repsCost: 0, updatedAt: T, effects: [] });
+  app.github.text = async () => JSON.stringify({ census: { kind: "item.weapon.elementaldamage", pageLimit: 100 } });
+  app.mount(win.document.body, win.document);
+  app.go("manifests");
+  await app.loadPicker(true);
+  await app.selectManifest(app.state.picker[0]);
+  const main = win.document.querySelector(".f-main");
+  assert.match(main.textContent, /Read-only census item\.weapon\.elementaldamage/);
+  assert.match(main.textContent, /hidden:false AND hidden:true/);
+  assert.match(main.textContent, /0 writes/);
+  let prompt = "";
+  app.confirm = (message, run) => { prompt = message; run(); };
+  [...main.querySelectorAll("button")].find((b) => b.textContent === "Run census").click();
+  await new Promise((resolve) => setTimeout(resolve, 60));
+  assert.match(prompt, /No mutations will be sent/);
+  assert.deepEqual([...new Set(game.calls.map((c) => c.path))].sort(), ["item.get", "item.getAll"]);
+  const job = app.journal.listJobs()[0];
+  app.go("run", { jobId: job.jobId });
+  const text = win.document.querySelector(".f-main").textContent;
+  assert.match(text, /Census COMPLETE: 2 records \(1 visible, 1 hidden\), 1 to capture, 1\/1 full bodies accepted · zero mutations/);
+});

@@ -1623,3 +1623,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-19: "I think for rationale we could try to give a more specific reason than just the generic reason. Just a short blurb for the reviewer to explain what they're reviewing and why".
 
 **Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). Forge already supports per-item rationales; no code change.
+
+## RUL-2026-10-20-001 — Bundle ceiling for the read-only item census
+
+**Date:** 2026-10-20
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-19-006 (bundle ceiling only)
+
+**Ruling:** The Forge bundle ceiling rises to **432,000 raw / 105,000 gzip bytes** for the read-only `elementaldamage` WEAPON census (`forge/src/runner/census.mjs`; measured 424,212 / 102,630 against the 420,000 / 100,000 ceiling).
+
+**Evidence:** Director answer "Raise to 432k/105k (Recommended)" when the census implementation measured over the previous ceiling.
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).

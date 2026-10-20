@@ -14,6 +14,7 @@ import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
+import { normalizeCensus } from "./census.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
@@ -76,7 +77,18 @@ export function parseManifest(source) {
     before: rawCapture.before.map((c, i) => normalizeCapture(c, "before", i)),
     after: rawCapture.after.map((c, i) => normalizeCapture(c, "after", i)),
   };
-  if (!raw.length && !capture.before.length && !capture.after.length) throw new ManifestError("manifest has no items and no captures");
+  if (!raw.length && !capture.before.length && !capture.after.length && m.census === undefined) throw new ManifestError("manifest has no items and no captures");
+  // CENSUS (runner/census.mjs): a read-only job whose reads are discovered, not listed. It stands
+  // alone so that "census" can never be read as a qualifier on a manifest that also writes.
+  let census = null;
+  if (m.census !== undefined) {
+    const c = normalizeCensus(m.census);
+    const alone = raw.length || capture.before.length || capture.after.length || m.mode !== undefined || m.bloodrightImport || m.imagePack || m.dedupNames
+      ? ["a census manifest carries no items, captures, mode, bloodrightImport, imagePack or dedupNames"] : [];
+    const problems = [...(c.problems ?? []), ...alone];
+    if (problems.length) throw new ManifestError("census problems:\n" + problems.join("\n"), { problems });
+    census = c;
+  }
 
   const items = raw.map((it, i) => normalizeItem(it, i));
   const problems = [];
@@ -148,6 +160,8 @@ export function parseManifest(source) {
   // already had - including one carrying a non-default policy, whose open jobs therefore still
   // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
   if (packed.pack) policy.imagePack = packed.pack;
+  // Folded into identity only when present, so every other manifest keeps the hash it had.
+  if (census) policy.census = census;
   if (items.some(it => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
   if (m.bloodrightImport) {
     const b = m.bloodrightImport;
@@ -167,7 +181,7 @@ export function parseManifest(source) {
     policy.suggest = suggestPolicy(m, items);
   }
   return {
-    items, capture, warnings, poolResolved, policy,
+    items, capture, warnings, poolResolved, policy, census,
     note: typeof m._note === "string" ? m._note : null,
     skipPreflight: policy.skipPreflight,
     dedupNames: policy.dedupNames,

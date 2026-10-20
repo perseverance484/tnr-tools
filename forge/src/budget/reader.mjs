@@ -56,6 +56,9 @@ function stableInput(v) {
 }
 function sameInput(a, b) { return a === b || stableInput(a) === stableInput(b); }
 
+// The list queries a census (runner/census.mjs) may page. Anything else is refused by censusPage.
+export const CENSUS_LIST_PATHS = Object.freeze(["item.getAll"]);
+
 export class CachedReader {
   constructor({ client, cache, budget, maxBatch = 20 }) {
     this.client = client; this.cache = cache; this.budget = budget; this.maxBatch = maxBatch;
@@ -141,6 +144,20 @@ export class CachedReader {
     this.budget.observe([r], [path]);
     return r;
   }
+  /**
+   * ONE page of an audited census list query, under the budget and never cached: a census page is
+   * evidence about now, and a cached page would be evidence about whenever it was cached. Uses the
+   * same acquire/observe pair as every other read, so a 429 persists the trip and throws.
+   */
+  async censusPage(path, input) {
+    if (!CENSUS_LIST_PATHS.includes(path)) throw new Error("censusPage is only for " + CENSUS_LIST_PATHS.join(", ") + ": " + path);
+    await this.budget.acquire(path, 1);
+    this.stats.requests++;
+    const [r] = await this.client.batch([{ path, input }]);
+    this.budget.observe([r], [path]);
+    return r;
+  }
+
   // This is the complete skill inventory, not getAllNames (which omits BLOODRIGHT).
   // Every page consumes its own budget token. Nothing partial is cached or returned.
   async skillInventory(path, { fresh, input }) {
