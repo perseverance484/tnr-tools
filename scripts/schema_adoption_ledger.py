@@ -5,7 +5,7 @@
     python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --check state/LEDGER.json
 
 OLD_SRC / NEW_SRC  read-only TheNinjaRPG checkouts the committed and the regenerated files were
-                   extracted from (bdec2883 and 6524d0fb for the 2026-10-20 adoption).
+                   extracted from (pins are read from each checkout's git HEAD).
 OLD_DIR / NEW_DIR  the 45x files before and after, named as in skill data/
                    (45c_DATA_constructors.json, ...). Before adoption OLD_DIR is skill data/;
                    after it, extract the pre-adoption files with `git show <base>:<path>`.
@@ -66,8 +66,10 @@ CLASSES = {
         "extractor expands the spread; the marker was never a value the server accepts."),
     "extractor_nested_key": (
         "The old line-based parser attributed a key of an inline nested z.object to the outer "
-        "variant (dialog.text came from nextObjectiveId: z.array(z.object({text, ...}))). Forge "
-        "derive_nested at the old pin confirms it was never a dialog key."),
+        "variant (dialog.text came from nextObjectiveId: z.array(z.object({text, ...}))), and "
+        "reported that inner key's type as the field's (nextObjectiveId \"string\", really an "
+        "array). Forge derive_nested at the old pin confirms `text` was never a dialog key; the "
+        "field's declaration at both pins is z.array(z.object({...}))."),
     "extractor_helper_overreach": (
         "The old helper collector read a fixed 600-character window past a helper, so "
         "z.enum(WeaponTypes) from unrelated code became the enum of every stat requirement "
@@ -77,6 +79,14 @@ CLASSES = {
         "(max 100) was reported for tags whose PowerAttributes.power (min 0, no max) overrides "
         "it: the 45g tag_power_max mistake Forge validate.mjs documents. The new 45c field for "
         "that tag has no max."),
+    "upstream_default_removed": (
+        "A union-variant field that had a default at the old pin and none at the new one, so it "
+        "is now required (every objective's `task: z.literal(x).prefault(x)` became "
+        "`z.literal(x)` upstream). Verified from the variant schema's own field declaration at "
+        "both pins (top-level entries of the declared object; spreads followed)."),
+    "extractor_type_fragment": (
+        "The old line-based parser read `z.coerce` at the end of a line as the type \"coerce\"; "
+        "the field's declaration at both pins is z.coerce.number()."),
     "extractor_ref_resolution": (
         "A field typed by a named schema was recorded as an opaque object; the fixed extractor "
         "resolves the name (aiRule.action: ZodAllAiActions is a z.union)."),
@@ -88,23 +98,8 @@ def sha256(path):
 
 
 def breaking(old_doc, new_doc):
-    """The same breaking set schema_diff.cmd_diff computes."""
-    old, new = sd.atoms(old_doc), sd.atoms(new_doc)
-    removed, added = sorted(old - new), sorted(new - old)
-    keyed = lambda s, k: {a[1:3]: a for a in s if a[0] == k}  # noqa: E731
-    changes, hide = [], set()
-    ot, nt = keyed(set(removed), "ftype"), keyed(set(added), "ftype")
-    for k in set(ot) & set(nt):
-        changes.append(("type-changed", k[0], k[1], ot[k][3] + " -> " + nt[k][3]))
-        hide.update((ot[k], nt[k]))
-    orq, nrq = keyed(set(removed), "required"), keyed(set(added), "required")
-    for k in set(nrq) - set(orq):
-        hide.add(nrq[k])
-        if ("field",) + k in old:
-            changes.append(("now-required", k[0], k[1], "optional -> required"))
-    for k in set(orq) - set(nrq):
-        hide.add(orq[k])
-    return [a for a in removed if a not in hide and a[0] in sd.BREAK_ON_REMOVE] + changes
+    """Exactly the breaking set schema_diff.cmd_diff computes (shared implementation)."""
+    return sd.classify(sd.atoms(old_doc), sd.atoms(new_doc))[3]
 
 
 # ------------------------------------------------------------- independent source reads
@@ -170,6 +165,63 @@ def const_members(src, name, seen=()):
     return out
 
 
+def _balanced(s, i, op, cl):
+    d = 0
+    for j in range(i, len(s)):
+        c = s[j]
+        if c in "\"'`":
+            k = j + 1
+            while k < len(s) and s[k] != c:
+                k += 2 if s[k] == "\\" else 1
+            continue
+        d += (c == op) - (c == cl)
+        if d == 0:
+            return s[i + 1:j]
+    return s[i + 1:]
+
+
+def _top_entries(body):
+    out, d, start = [], 0, 0
+    for j, c in enumerate(body):
+        if c in "([{":
+            d += 1
+        elif c in ")]}":
+            d -= 1
+        elif c == "," and d == 0:
+            out.append(body[start:j])
+            start = j + 1
+    out.append(body[start:])
+    return [" ".join(e.split()) for e in out if e.strip()]
+
+
+def field_expr(src, schema, field, seen=()):
+    """The source expression a declared object gives `field` (last one wins, as in zod), read
+    directly from the validator files; spreads (`...X`, `...X.shape`) followed."""
+    vdir = os.path.join(src, "app/src/validators")
+    for n in sorted(os.listdir(vdir)):
+        if not n.endswith(".ts"):
+            continue
+        text = _strip(open(os.path.join(vdir, n)).read())
+        m = re.search(r"^(?:export\s+)?const\s+%s\s*=\s*(?:z\s*\.\s*(?:object|strictObject|looseObject)\s*\(\s*)?\{" % re.escape(schema), text, re.M)
+        if not m:
+            continue
+        found = None
+        for e in _top_entries(_balanced(text, m.end() - 1, "{", "}")):
+            sm = re.match(r"^\.\.\.([A-Za-z_]\w*)(?:\.shape)?$", e)
+            if sm and sm.group(1) not in seen:
+                sub = field_expr(src, sm.group(1), field, seen + (schema,))
+                found = sub if sub is not None else found
+            elif re.match(r"^[\"']?%s[\"']?\s*:" % re.escape(field), e):
+                # `z\n  .array(` and `z.coerce\n  .number()` read as one chain
+                found = re.sub(r"\s*\.\s*(?=[A-Za-z_])", ".", e.split(":", 1)[1].strip())
+        return found
+    return None
+
+
+def _has_default(expr):
+    return expr is not None and re.search(r"\.(?:prefault|default)\(", expr) is not None
+
+
 def has_procedure(src, router, proc):
     p = os.path.join(src, "app/src/server/api/routers", router + ".ts")
     return os.path.exists(p) and re.search(r"^\s+%s\s*:" % re.escape(proc), _strip(open(p).read()), re.M) is not None
@@ -212,6 +264,21 @@ def classify(name, atom, ctx):
         router, proc = (atom[1], atom[2]) if kind == "procedure" else atom[1].split(".", 1)
         if has_procedure(ctx["old"], router, proc) and not has_procedure(ctx["new"], router, proc):
             return "upstream_procedure_removed"
+        return None
+    if name == "45c" and kind in ("type-changed", "now-required") and "." in atom[1]:
+        union, variant = atom[1].split(".", 1)
+        so = ctx["old_docs"]["45c"]["unions"].get(union, {}).get(variant, {}).get("schema")
+        sn = ctx["new_docs"]["45c"]["unions"].get(union, {}).get(variant, {}).get("schema")
+        eo = field_expr(ctx["old"], so, atom[2]) if so else None
+        en = field_expr(ctx["new"], sn, atom[2]) if sn else None
+        if kind == "now-required" and eo is not None and en is not None and _has_default(eo) and not _has_default(en):
+            return "upstream_default_removed"
+        if kind == "type-changed" and atom[3].startswith("coerce -> ") and eo and en \
+                and eo.startswith("z.coerce.") and en.startswith("z.coerce."):
+            return "extractor_type_fragment"
+        if kind == "type-changed" and atom[3].endswith(" -> array") and eo and en \
+                and eo.startswith("z.array(") and en.startswith("z.array(") and re.search(r"z\.object\(", eo):
+            return "extractor_nested_key"
         return None
     if kind in ("type-changed", "now-required") and atom[1] == "aiRule":
         old_raw = ctx["old_docs"]["45d"]["entities"]["aiRule"]["fields"][atom[2]].get("raw", "")
@@ -290,6 +357,12 @@ def build(old_src, new_src, old_dir, new_dir):
     return files, unclassified
 
 
+def _head(src):
+    """The commit a checkout is at, read from git rather than typed (the ledger names its pins)."""
+    return subprocess.run(["git", "-C", src, "rev-parse", "HEAD"], capture_output=True,
+                          text=True, check=True).stdout.strip()
+
+
 def main():
     a = sys.argv[1:]
     if len(a) != 6 or a[4] not in ("--write", "--check"):
@@ -307,8 +380,8 @@ def main():
         "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound "
                  "to the exact OLD and NEW file hashes. Not a waiver: any other file, or any "
                  "other breaking atom, fails schema_diff.py exactly as before.",
-        "source": {"old": "studie-tech/TheNinjaRPG@bdec2883", "new": "studie-tech/TheNinjaRPG@6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb"},
-        "regenerate": "python3 scripts/schema_adoption_ledger.py <bdec2883 checkout> <6524d0fb checkout> "
+        "source": {"old": "studie-tech/TheNinjaRPG@" + _head(old_src), "new": "studie-tech/TheNinjaRPG@" + _head(new_src)},
+        "regenerate": "python3 scripts/schema_adoption_ledger.py <OLD checkout> <NEW checkout> "
                       "<pre-adoption 45x dir> <adopted 45x dir> --write state/" + os.path.basename(ledger),
         "classes": {k: {"evidence": v, "count": counts.get(k, 0)} for k, v in CLASSES.items()},
         "files": files,

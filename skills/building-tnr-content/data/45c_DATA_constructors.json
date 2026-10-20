@@ -828,6 +828,26 @@
    "SimpleObjective": {
     "schema": "SimpleObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -1170,6 +1190,26 @@
    "InstantWinLoseObjective": {
     "schema": "InstantWinLoseObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -1422,6 +1462,26 @@
    "reset_quest": {
     "schema": "ResetQuestObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -1679,6 +1739,26 @@
    "new_quest": {
     "schema": "InstantNewQuestObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -1936,6 +2016,26 @@
    "start_battle": {
     "schema": "InstantStartBattleObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -2270,6 +2370,26 @@
    "move_to_location": {
     "schema": "MoveToObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -2602,6 +2722,26 @@
    "collect_item": {
     "schema": "CollectItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -2952,6 +3092,26 @@
    "deliver_item": {
     "schema": "DeliverItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -3297,6 +3457,26 @@
    "defeat_opponents": {
     "schema": "DefeatOpponents",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -3708,6 +3888,26 @@
    "dialog": {
     "schema": "DialogObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -4002,6 +4202,26 @@
    "win_encounter_at_location": {
     "schema": "EncountersAtLocation",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -4334,6 +4554,26 @@
    "RaidObjective": {
     "schema": "RaidObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -4667,6 +4907,26 @@
    "craft_specific_item": {
     "schema": "CraftSpecificItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -4929,6 +5189,26 @@
    "train_specific_jutsu": {
     "schema": "TrainSpecificJutsu",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -5198,6 +5478,26 @@
    "complete_specific_quest": {
     "schema": "CompleteSpecificQuest",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -5460,6 +5760,26 @@
    "buy_item": {
     "schema": "BuyItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -5722,6 +6042,26 @@
    "use_specific_item_combat": {
     "schema": "UseSpecificItemCombat",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -5984,6 +6324,26 @@
    "use_specific_jutsu_combat": {
     "schema": "UseSpecificJutsuCombat",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -6262,6 +6622,26 @@
    "tag_usage_win": {
     "schema": "TagUsageWin",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -6597,6 +6977,26 @@
    "damage_dealt": {
     "schema": "DamageDealt",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -6858,6 +7258,26 @@
    "bloodline_collection": {
     "schema": "BloodlineCollection",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -7127,6 +7547,26 @@
    "SimpleObjective": {
     "schema": "SimpleObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -7469,6 +7909,26 @@
    "move_to_location": {
     "schema": "MoveToObjective",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -7801,6 +8261,26 @@
    "collect_item": {
     "schema": "CollectItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -8151,6 +8631,26 @@
    "deliver_item": {
     "schema": "DeliverItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -8496,6 +8996,26 @@
    "defeat_opponents": {
     "schema": "DefeatOpponents",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -8907,6 +9427,26 @@
    "craft_specific_item": {
     "schema": "CraftSpecificItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -9169,6 +9709,26 @@
    "train_specific_jutsu": {
     "schema": "TrainSpecificJutsu",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -9438,6 +9998,26 @@
    "complete_specific_quest": {
     "schema": "CompleteSpecificQuest",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -9700,6 +10280,26 @@
    "buy_item": {
     "schema": "BuyItem",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -9962,6 +10562,26 @@
    "use_specific_item_combat": {
     "schema": "UseSpecificItemCombat",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -10224,6 +10844,26 @@
    "use_specific_jutsu_combat": {
     "schema": "UseSpecificJutsuCombat",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -10502,6 +11142,26 @@
    "tag_usage_win": {
     "schema": "TagUsageWin",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -10837,6 +11497,26 @@
    "damage_dealt": {
     "schema": "DamageDealt",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -11098,6 +11778,26 @@
    "bloodline_collection": {
     "schema": "BloodlineCollection",
     "fields": {
+     "structureAssetId": {
+      "type": "string",
+      "default": "",
+      "max": 191
+     },
+     "locationName": {
+      "type": "string",
+      "default": "",
+      "max": 100
+     },
+     "locationDescription": {
+      "type": "string",
+      "default": "",
+      "max": 2000
+     },
+     "structureScale": {
+      "type": "number",
+      "default": 1,
+      "max": 5
+     },
      "id": {
       "type": "string"
      },
@@ -21759,8 +22459,8 @@
  "_provenance": {
   "generator": "schema_extract.py v2.0",
   "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@6524d0fb (2026-10-20)",
-  "content_sha256_16": "4ac8c56c7156fa7a",
+  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "content_sha256_16": "fba6416171a4ffdb",
   "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field."
  }
 }

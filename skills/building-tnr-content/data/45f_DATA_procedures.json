@@ -2,9 +2,9 @@
  "_provenance": {
   "generator": "schema_extract.py v2.0",
   "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@6524d0fb (2026-10-20)",
+  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
   "source_sha256_16": {
-   "app/src/server/api/routers/ (79 files)": "e80ff378420ae374"
+   "app/src/server/api/routers/ (79 files)": "4210e555b3cc1b5e"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -15,7 +15,7 @@
  },
  "counts": {
   "routers": 78,
-  "procedures": 850,
+  "procedures": 851,
   "described": 469
  },
  "routers": {
@@ -2534,7 +2534,8 @@
    },
    "create": {
     "procedure": "protectedProcedure",
-    "kind": "mutation"
+    "kind": "mutation",
+    "input": "createMapAssetSchema"
    },
    "update": {
     "procedure": "protectedProcedure",
@@ -3546,6 +3547,11 @@
    }
   },
   "quests": {
+   "getPublicLocations": {
+    "procedure": "publicProcedure",
+    "kind": "query",
+    "input": "publicMapLocationsSchema"
+   },
    "getAllNames": {
     "procedure": "publicProcedure",
     "kind": "query",

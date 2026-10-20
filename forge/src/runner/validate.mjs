@@ -23,7 +23,7 @@ import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../blo
 // use it; 45g asserts a cap of 100 that the server does not impose, because schema_extract.py
 // does not handle spread precedence. Wiring it would make this client reject payloads the
 // server accepts. 45g is not loaded by this module at all. The generator was fixed at the
-// 6524d0f adoption (RUL-2026-10-20-001): tag_power_max now lists only tags whose cap is real.
+// 2026-10-20 adoption (RUL-2026-10-20-001): tag_power_max now lists only tags whose cap is real.
 // Forge still checks key sets only, never bounds; see docs/BUILDER_APP_NOTES.md.
 
 export class ValidationError extends Error {

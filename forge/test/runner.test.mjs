@@ -436,7 +436,8 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
 // from that file at 451,847 raw bytes of bundle. If a re-derivation, a hand edit or a bug in
 // expandNested() moves one key, the digest moves with it. Re-pinned 2026-10-18 to 94f9d84, then
 // 2026-10-20 to 6524d0f (tools/derive_nested.mjs; adds elementaldamage, noncombatquest, reward_titles;
-// commented-out task enum members are no longer read as live tasks): the digest, counts and slots below are that derivation's.
+// commented-out task enum members are no longer read as live tasks), then to 85cecae (every
+// objective gains the mapLocationFields keys from validators/mapLocation.ts): the digest, counts and slots below are that derivation's.
 test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
   const expanded = expandNested(NESTED_KEYS);
   assert.ok(expanded, "the committed nested.json must expand");
@@ -445,7 +446,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "b30053b801c8402f0c9f23d6265c2a3aeba7a392740bd3037dc2f9921531eaf3",
+    "dc5861d2888de8f301e7d6b2143ca07f809db8c2a6c75d3587ceb63ebafb6561",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest

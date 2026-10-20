@@ -18,11 +18,11 @@
 // value. It deliberately does NOT record types, bounds or enums: bounds are what the 45g power cap
 // got wrong, and a key set is checkable without re-implementing zod.
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb";
+const PIN = process.argv[3] || "85cecaebf4ada2e265a18a1405f63c9637443275";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",
@@ -39,7 +39,16 @@ const OPTIONAL_FILES = {
   rewardPackages: "app/src/validators/rewardPackages.ts",
 };
 for (const [k, f] of Object.entries(OPTIONAL_FILES)) if (existsSync(join(root, f))) FILES[k] = f;
-const src = Object.fromEntries(Object.entries(FILES).map(([k, f]) => [k, readFileSync(join(root, f), "utf8")]));
+// Every other validator file is searched too, after the core ones: upstream moves shared field
+// groups into new modules (mapLocationFields in validators/mapLocation.ts at 85cecae), and a group
+// this tool cannot find is a hard error, never a silent omission. A name declared in more than one
+// file is refused rather than guessed (bodyOf).
+const SEARCHED = {};
+for (const f of readdirSync(join(root, "app/src/validators")).filter((n) => n.endsWith(".ts")).sort()) {
+  const rel = "app/src/validators/" + f;
+  if (!Object.values(FILES).includes(rel)) SEARCHED[f.replace(/\.ts$/, "")] = rel;
+}
+const src = Object.fromEntries(Object.entries({ ...FILES, ...SEARCHED }).map(([k, f]) => [k, readFileSync(join(root, f), "utf8")]));
 const ALL = Object.values(src).join("\n");
 
 /** Text inside the braces/brackets that open at `from` (index of the opening char + 1). */
@@ -59,14 +68,15 @@ function balanced(s, from) {
 
 /** The body of `const NAME = z.object({...})` or `const NAME = {...}`, wherever it is declared. */
 function bodyOf(name) {
-  for (const text of Object.values(src)) {
+  const found = [];
+  for (const [file, text] of Object.entries(src)) {
     // Upstream also writes \`z\n  .object({\` and z.strictObject/looseObject; whitespace before the dot is allowed.
     const re = new RegExp(`(?:export\\s+)?const\\s+${name}\\s*=\\s*(z\\s*\\.(?:object|strictObject|looseObject)\\(\\s*)?\\{`, "m");
     const m = re.exec(text);
-    if (!m) continue;
-    return balanced(text, m.index + m[0].length);
+    if (m) found.push([file, balanced(text, m.index + m[0].length)]);
   }
-  return null;
+  if (found.length > 1) throw new Error(`${name} is declared in ${found.map((f) => f[0]).join(", ")}; cannot tell which one is meant`);
+  return found.length ? found[0][1] : null;
 }
 
 /** Top-level `key:` names and `...Spread` names of one object body. */
@@ -304,6 +314,8 @@ const nested = {
     generated_by: "forge/tools/derive_nested.mjs",
     pin: PIN,
     files: FILES,
+    // the rest of app/src/validators/*.ts, searched for spread groups; counted, not listed (bundle size)
+    searched: Object.keys(SEARCHED).length,
     note: "Allowed KEY SETS only, per discriminator value. No types, bounds or enums: a bound this "
       + "tool cannot see is the 45g.tag_power_max mistake, and a key set is checkable without zod.",
     format: "Shared key-set table. `sets` holds every distinct allowed key set once; each section "

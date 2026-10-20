@@ -10,7 +10,7 @@ import { join } from "node:path";
 
 const root = process.argv[2];
 if (!root || !existsSync(join(root, "app/src/validators/combat.ts")) || !existsSync(join(root, "app/drizzle/schema.ts"))) { console.error("usage: derive_fields.mjs <TheNinjaRPG checkout>"); process.exit(2); }
-const PIN = process.argv[3] || "6524d0fbd7c0b80ecfd28ca63e9c4becdfb210eb";
+const PIN = process.argv[3] || "85cecaebf4ada2e265a18a1405f63c9637443275";
 
 const TARGETS = {
   jutsu:     { file: "app/src/validators/combat.ts",     name: "JutsuValidatorRawSchema" },
