@@ -2,7 +2,7 @@
 
 **Session:** PERSISTENT ART STUDIO, not image generation  
 **Lead:** Art Director · **Supporting lens:** Image Production  
-**Status:** GEOMETRY RESET DIRECTED: **0/12 currently valid visual approvals; 6/12 previously approved originals REVOKED due to repeated duplicated metal-band geometry; 0/12 production-ready exports.** Corrected Common Hunter generation BLOCKED pending director confirmation of end-hoop topology.  
+**Status:** GEOMETRY RESTART READY: **director confirmed one arched metal hoop per lid end + one separate central family binding**; previous 6/12 raw approvals remain REVOKED; **0/12 currently valid visual approvals; 0/12 production-ready exports**. Fresh corrected Common Hunter isolated generation is READY.  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Base:** `main@4e8346ba71e4f72d3b14a81bd1ec2a5e92b921bc` (2026-10-20)  
 **Canonical approved brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`  
@@ -13,11 +13,15 @@
 
 ## Operative geometry-reset notice — 2026-10-20
 
-**DO NOT USE THE SIX PREVIOUSLY APPROVED CHEST IMAGES AS GENERATION REFERENCES.** The director invalidated all of them after identifying an extra curved metal band along the camera-right lid, propagated across the set. Additional left-side double arches are visible on higher-tier icons. Prior approval comments remain historical evidence only; the current verdict is **REVOKED — GEOMETRY INVALID** for slots 01–06. The previously prepared Legendary Hunter session is **CANCELLED**. See **`GEOMETRY_RESTART_20261020.md`** for visual evidence, suspected-but-unverified Strongbox provenance, the proposed corrected hoop layout, fail-fast QC, and the director geometry-confirmation gate. **Approved family identities and rarity ladder remain valid as textual direction, not as approved pixels.** No new image generation occurs in this persistent Art Studio.
+**DO NOT USE THE SIX PREVIOUSLY APPROVED CHEST IMAGES AS GENERATION REFERENCES.** The director invalidated all of them after identifying an extra curved metal band along the camera-right lid, propagated across the set. Additional left-side double arches are visible on higher-tier icons. Prior approval comments remain historical evidence only; the current verdict is **REVOKED — GEOMETRY INVALID** for slots 01–06. The previously prepared Legendary Hunter session is **CANCELLED**. See **`GEOMETRY_RESTART_20261020.md`** for visual evidence, suspected-but-unverified Strongbox provenance, the **director-confirmed** two-end-hoop geometry and fail-fast QC. **Approved family identities and rarity ladder remain valid as textual direction, not as approved pixels.** No new image generation occurs in this persistent Art Studio.
+
+## Director geometry confirmation — 2026-10-20
+
+**Director:** “Sure, that looks fine. It was the double band on one side that threw it off.” **Decision settled:** the structural model is one true arched metal end hoop on each outer end of the lid, with a distinct central leather/fang binding (Hunter) or rope/sprig binding (Gatherer). Reject *extra independent bands parallel to either outer hoop*; edge highlights or polished edging on **the same band** remain allowed but may not create the appearance of a separate band. This approves the **topology specification only**, not any new raw. The six former approvals remain revoked, and no previously rejected image can return as an image reference. **First new clean isolated-generation session unblocked:** Common Hunter, from the reset brief.
 
 ## Current gates
 
-- Gate 01 — Common Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018925.png` preserved as historical rejected evidence, **not an eligible generation reference**. New clean generation blocked pending director confirmation of the geometry lock in `GEOMETRY_RESTART_20261020.md`. A new geometry-first Common Hunter prompt is staged at `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md` with **DO NOT GENERATE** status until that count/layout is confirmed. Previous rendered style/family may inform prose only, never contaminated images.
+- Gate 01 — Common Hunter's Chest: previous `1000018925.png` **REVOKED — GEOMETRY INVALID**, historical only, never an eligible generation reference. **NEW CLEAN ISOLATED GENERATION READY**, director-confirmed geometry: **one metal arching end hoop left, one right, one distinct center leather/fang strap**, with no second independent parallel hoop on either side. Use `COMMON_HUNTER_GEOMETRY_RESTART_BRIEF_20261020.md` plus **only the original Reliquary** attached (style/material, never geometry). Do not count slot 01 approved until the director visually accepts a newly generated geometry-correct image.
 - Gate 02 — Common Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018926.png` quarantined and unusable as reference. Rebuild only after geometry-correct Common Hunter wins fresh director approval.
 - Gate 03 — Rare Hunter's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018929.png` is **not** an eligible generation reference. Previously approved cold-gunmetal armor and star motif are still concept references **in text**, but layered reinforcement may only plate an existing single hoop, never become a duplicate parallel band.
 - Gate 04 — Rare Gatherer's Chest: **REVOKED — GEOMETRY INVALID**; original `1000018930.png` quarantined. Regenerate after corrected Common Gatherer + corrected Rare Hunter with geometry check first.
@@ -128,6 +132,8 @@ The six **formerly approved, now geometry-revoked** conversation-delivered origi
 Fable / Claude Code, after the director accepts the completed set: commit binaries under `art/`, pin an `imagePack`, and prepare exactly one Forge **suggest-mode** ticket (`VISUAL`, title `Update icon`, one rationale per chest). No writes to game. All twelve chests' item rarity (`COMMON` including “Legendary” named chests) remains a **separate director decision**, not a change request in this workstream.
 
 ## History
+
+- 2026-10-20: Director confirmed geometry correction: “Sure, that looks fine. It was the double band on one side that threw it off.” Approved one continuous arched metal hoop at each end plus separate central family binding; no duplicate independent parallel bands. Unblocked one fresh isolated Common Hunter regeneration using the original Reliquary only. Previous six revocations stand, currently valid approvals remain 0/12, no production export/preflight run.
 
 - 2026-10-20: **DIRECTOR REVOKED ALL SIX PREVIOUS VISUAL APPROVALS** after discovering duplicated/extra right-side curved metal bands in the common underlying geometry (similar duplicated strips also apparent at higher tiers). Prior images quarantined and all generations from them stopped. Prepared Legendary Hunter brief superseded. Restore geometry-first hard gate and restart at a clean Common Hunter session only after director confirms exact two-end-hoop interpretation. 0/12 currently valid approvals; 0 production-ready exports; zero live-game requests/writes.
 
