@@ -1,0 +1,73 @@
+{
+  "schema": "tnr.jutsu-studio.locks/1",
+  "bloodline": {
+    "id": "ssevlOGQ4JjPn2sHZtq0c",
+    "name": "Crystal Essence",
+    "rank": "A",
+    "reference": "BR-020"
+  },
+  "source_zip_sha256": "0a6acc8fb678b1030f1ada358b7fd522cf531b0dfb2f49f2bf0a0a969f5329af",
+  "family_treatment": {
+    "name": "LUMINOUS SILICATE / WARM-CORE REFRACTION",
+    "status": "APPROVED",
+    "evidence": "Director 2026-10-20: \"Approved, proceed\" on family-treatment proposal."
+  },
+  "targets": [
+    {
+      "jutsu_id": "igPSz82fa_L2XPrtnMvnz",
+      "name": "Kōsai Shippū",
+      "version": 1,
+      "evidence_level": "historical_capture",
+      "source_capture": {
+        "bundle": "harvests/inbox/tnr_results_1792216502874.json",
+        "capture_index": 1,
+        "captured_at": "2026-10-17T05:53:58.990Z",
+        "game_live_request_in_studio": false
+      },
+      "action": "Unleash accelerated crystal-laced shockwaves toward enemy target (source description: speed enhancement and crystal-laced shockwaves).",
+      "dominant_silhouette": "Three broad, staggered sweeping CRESCENT shockwave bands, each actively carrying integrated jagged crystal ridges rather than decorative gems.",
+      "camera": "Lateral shallow front/side three-quarter view; left-starting waves sweep toward near-right impact; dark negative gaps between exactly three bands.",
+      "motion_axis": "Left to right horizontal forward acceleration with impact at the near-right edge.",
+      "secondary_effect": "Sparse trailing hard-glass splinters showing recoil and speed.",
+      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates.",
+      "sibling_exclusions": [
+        {
+          "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
+          "silhouette": "Upright split crystal cocoon opening away from a dark central seam."
+        },
+        {
+          "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
+          "silhouette": "One refracted straight solar beam/lance, with no curved wave fan."
+        },
+        {
+          "jutsu_id": "zKK0rjIJqbpSiTw7McDAv",
+          "silhouette": "One continuous defensive round shell that deflects, not an ornamental floating gemstone."
+        },
+        {
+          "jutsu_id": "AggTDO90TarIRTPqGdvvY",
+          "silhouette": "Large opposing impaling cave teeth converging inward rather than a scenic cavern or closed sphere."
+        }
+      ],
+      "wrong_subject_exclusions": [
+        "No warrior, human actor, face, body, hand, fingers or limbs (anatomy exception NONE).",
+        "No generic magic ring, unsupported floating rune or decorative faceted diamond.",
+        "No BBE ice flake, frost, sword or shackles composition."
+      ],
+      "references": [
+        {
+          "kind": "individual",
+          "role": "identity-only",
+          "sha256": "111319fe33b495e4cc5d68de8a67f3d5bc9d52d8185d096283403585d33e6bbd",
+          "original_zip_member": "images/igPSz82fa_L2XPrtnMvnz_Kosai_Shippu.png"
+        }
+      ],
+      "anatomy_exception": null,
+      "direction_approval": {
+        "status": "APPROVED",
+        "evidence": "Director 2026-10-20: \"Approved, proceed\" in response to the approved family-treatment and Kōsai Shippū P0 lock proposal.",
+        "lock_sha256": "2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5"
+      }
+    }
+  ],
+  "draft_reservations": "Full five-jutsu reservation table in JUTSU_ICON_REGISTER.md; only director-approved locks enter targets here. Others pending."
+}
