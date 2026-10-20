@@ -192,3 +192,13 @@ director-approved file committed for push/90 (`art/ghost_ship_skyglass/scene_bg_
 pinned by commit and SHA-256 in `imagePack`) under a fresh logical name and points `image` at it.
 `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
 Run it from Forge, then use **Check suggestions**.
+
+## 140 Ghost Ship portraits fix (suggest mode, QA ticket 9)
+
+`140_ghost_ship_portraits_fix.json` sends two edits to the content review desk; it does not save
+directly. The Sealwright and Oathkeeper scene-character assets' image URLs answer 404, so neither
+portrait renders in Ghost Ship (Gather) or Ghost Ship (Hunt). Like 139, it re-uploads the
+director-approved files committed for push/90 (`art/ghost_ship_skyglass/scene_char_ghost_ship_*_portrait.webp`,
+pinned by commit and SHA-256 in `imagePack`) under fresh logical names and points `image` at them.
+`validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Run it from Forge, then use **Check suggestions**.
