@@ -43,6 +43,7 @@ Quest props and rewards whose story is not in the data. Tell us what each one is
 | Underworld Ledger | Description reads "...the activi of the underworld New item description"; drafted fix "...the activities of the underworld." |
 | Undying Rage | Stuns its own user (with stun prevention); may be an intended rage trade-off. |
 | Breeze Guardian Shield | Gives its damage reduction and reflect to the opponent, like ticket 143, but its bloodline no longer exists. |
+| Frost Warden (boss of the daily "Shinobi Fundamentals: Frost Warden", levels 50-60) | Shelved by dauntless 2026-10-20. Ranked STUDENT at level 60, so combat caps it at level 10 and 20,000 per stat (about 4.6x below its build); approved fix was rank JONIN. Glacial Cataclysm, Frosty Demise and Frost Reflection were edited 2026-10-17 while equipped, so their links are likely severed (laws 18, 60) and need unequip then re-equip. Note: `updateAi` runs `scaleUserStats` on every write (laws 15, 71), so even a jutsus-only save rescales its stats. Drafts: archived push/144-145; closed PR #100 (push/146-147). |
 
 ## Deliberately not ticketed
 
