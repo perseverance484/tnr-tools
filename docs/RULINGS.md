@@ -1623,3 +1623,16 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-19: "I think for rationale we could try to give a more specific reason than just the generic reason. Just a short blurb for the reviewer to explain what they're reviewing and why".
 
 **Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1"). Forge already supports per-item rationales; no code change.
+
+## RUL-2026-10-20-001 — Living Lineages Kitsune visual-pilot locks
+
+**Date:** 2026-10-20  
+**Domain:** Kitsune companion visual proof-of-concept  
+**Status:** ACTIVE (art direction only; not live-game implementation)  
+**Supersedes:** The retired early adult R1–R3 concept, not the repository art workflow.
+
+**Ruling:** Director answered “Approved” to acceptance of the supplied two-tailed juvenile Kitsune species reference and the nine-rank shared morphology roadmap, with per-rank tails **2→2→3→3→4→5→6→7→8**. Growth is R1–4; actual major fox-form metamorphoses are R5, R7 and R9. Source reference SHA-256 `8b32ed6bb9ba4ea919fb18812fbdece4a845c49ec6a3c85a45610ec022c59dc9` is JPEG with opaque black background (the approval is not transparent-export/preflight approval). Director also provided five prior mature illustrations as **possible visual benchmarks around R5–6**, not approved new-rank images or substitute ancestors. All rank generations remain one-image conditioned: species reference only for Rank 1; exact prior accepted individual image thereafter. No lineage generation, game calls or uploads were authorized or performed.
+
+**Rationale:** Preserve genuine juvenile-to-adult headroom and later dramatic evolution, without collapsing identity inheritance or falsely counting historical adult artwork as approved R5/R6 outcomes.
+
+**Canonical destination:** `docs/design/pets/LIVING_LINEAGES_KITSUNE_DEMONSTRATION_REGISTER_20261020.md` (visual rules and approval sequence) and `docs/design/pets/LIVING_LINEAGES_KITSUNE_SLOTS_20261020.json` (37-slot approval/parent-evidence ledger). The current art skill/spec and pinned game contracts retain production/technical authority.
