@@ -1659,3 +1659,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`.
 
 **Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight. The chests' rarity (all COMMON) is not decided here.
+
+## RUL-2026-10-20-003 — Starter jutsu icons follow the approved jutsu-icon standard, Academy first
+
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The 62 visible NORMAL jutsu learnable at Academy Student and Genin rank get new icons in the approved JUTSU_ICON standard (RUL-2026-10-17-021 exemplars): technique first, no ninja figure or anatomy, one bold silhouette per jutsu, colour by technique theme since these jutsu carry no element classification, designed dark backgrounds. Phase 1 is the six Academy Student jutsu; the Genin jutsu follow in themed batches. Each raw is approved individually by the director under `docs/workflows/ISOLATED_ART_GENERATION.md`.
+
+**Evidence:** User, 2026-10-20, choosing "Approved icon standard (Recommended)" for making the Academy Student and Genin jutsu "look iconic".
+
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. Finished icons go to the content review desk as Forge suggest-mode tickets after intake and preflight.
