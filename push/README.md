@@ -182,3 +182,13 @@ sentence starts, a sentence fragment, typos (honing, Kaerun, it's, Shinobis) and
 (dauntless, 2026-10-20). Item battle lines are only touched on items usable in combat. Violet
 Stormglass and his/her battle lines are on the revisit list instead. `validate.py`: 0 errors,
 0 warnings. Run it from Forge, then use **Check suggestions**.
+
+## 139 Keel Walk background fix (suggest mode, QA ticket 8)
+
+`139_keel_walk_background_fix.json` sends one edit to the content review desk; it does not save
+directly. The Ghost Ship Exterior Keel Walk scene background's image URL answers 404, so the Keel
+Walk nodes in Ghost Ship (Gather) and Ghost Ship (Hunt) show no backdrop. The edit re-uploads the
+director-approved file committed for push/90 (`art/ghost_ship_skyglass/scene_bg_ghost_ship_exterior_keel_walk.webp`,
+pinned by commit and SHA-256 in `imagePack`) under a fresh logical name and points `image` at it.
+`validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Run it from Forge, then use **Check suggestions**.
