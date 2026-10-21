@@ -1698,8 +1698,25 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** The files are not indexed in `art/style_refs/jutsu_icons/` or `style_refs.json`; that is a separate change. Bakuhatsu's exports passed preflight and the director accepted the family on 2026-10-20 ("They are all approved yes"; recorded in `art/jutsu_icons/bakuhatsu/approved.json`). No upload, live edit or publication is authorized.
 
+## RUL-2026-10-20-005 — Village bloodline scroll icons: art direction approved as written
 
-## RUL-2026-10-20-005 — Ghost Ship chests: geometry reset and tier-specific center bindings
+**Date:** 2026-10-20
+
+**Domain:** TNR art production / item icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The six village bloodline scrolls (Shadow Scroll: Oblivion Seal, Wood Scroll: Shinseina Ki, Storm Scroll: Arashima, Sun Scroll: Taiyo Kami, Wind Scroll: Aerathiel, Ice Scroll: Hyouga Yui), which currently share one image, get their own icons as set out in `docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md`: one shared closed-handscroll silhouette, told apart by each bloodline's palette, cord and one element effect, with no symbols, writing or glyphs; the style follows the director-approved crafting caches icons (2026-10-13; provenance in `art/crafting_caches/README.md`). Generation follows `docs/workflows/ISOLATED_ART_GENERATION.md`; the director's visual approval of icon 1 (Oblivion Seal) locks the rendered style.
+
+**Evidence:** User, 2026-10-20: "Approved as written, land it and give me the handoff prompt".
+
+**Canonical destination:** `docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight.
+
+## RUL-2026-10-20-006 — Ghost Ship chests: geometry reset and tier-specific center bindings
 
 **Date:** 2026-10-20
 
@@ -1707,7 +1724,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Status:** ACTIVE
 
-**Supersedes:** Only the six *rendered image approvals* previously recorded for Common, Rare and Epic Hunter's/Gatherer's Chests. **Extends** RUL-2026-10-20-002; does not revoke its family motifs, original tier treatment, Ornate/Mystery design, or separate rarity decision.
+**Supersedes:** The six *rendered image approvals* previously recorded for Common, Rare and Epic Hunter's/Gatherer's Chests, and the subsequent smooth-painted Common Hunter candidate `1000018934.png` as a style lock. Historical acceptance remains documented; only the pixels were disqualified. **Extends** RUL-2026-10-20-002; does not revoke its family motifs, original tier treatment, Ornate/Mystery design, or separate rarity decision.
 
 **Ruling:** The twelve-icon Ghost Ship campaign restarts at Common Hunter after discovering a recurrent extra curved metal band on the right side of the existing six candidate images. Approved construction is **one physically continuous metal end hoop on the left outer lid and one on the right**, plus exactly **one distinct family-specific center binding**. No separate adjacent/parallel duplicate hoop, split strap, or extra center binding. Reinforced tiers apply plates, stitching, silver trim and filigree **on the existing components**, not as extra structural hoops.
 
@@ -1717,4 +1734,8 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Canonical destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` (sections 4, 4a, 6 and 7). Durable workstream audit/provenance: `docs/design/ghost_ship_chests/GEOMETRY_RESTART_20261020.md` and `docs/design/ghost_ship_chests/CHEST_ICON_STUDIO_REGISTER.md`.
 
-**Boundary:** The six old JPEG-on-black chest originals remain **REVOKED / GEOMETRY INVALID**, forbidden as generation references. No replacement image is approved yet. One clean isolated generation for corrected Common Hunter with **only original Skyglass Reliquary as a style/material reference** is authorized by art direction (not a game action); fresh director pixel approval, alpha/raw QC and `artpreflight.py --type ICON` remain separate gates. No live-game requests/writes, upload or publishing is authorized. The twelve chests' item rarity is a separate director call.
+**Pixel-art rendering amendment, confirmed 2026-10-20:** The director rejected the new smooth digital-painting Common Hunter as failing the premium pixel-art standard and directed a clean restart using the existing canonical `house_style` — **crisp pixel lineart, flat cel shading, limited palette, intentional pixel clusters and restrained shading**. This is the mandatory Ghost Ship item-icon rendering style, not a painterly exception. The director visually approved the newly rendered geometry-correct pixel-art Common Hunter supplied as `1000018935.png` (decoded JPEG/RGB 1536×1536, 257500 bytes, SHA-256 `23038075363dc9ccafd4f4fb2ead70183704015ecb8f4abd66ad00bd8c23933a`), saying “Now this is approved and perfect. Next.” This acceptance **locks the corrected geometry, Hunter motif and pixel rendering** for the new chest family; Common Gatherer is next, with the original Reliquary (style/material only) and this approved individual Common Hunter image as references. Item-icon mechanical alpha/export/preflight requirements remain unfulfilled for the new JPEG-black-matte source. Any clean-generation reference must be this **new** approved Hunter, not a revoked candidate.
+
+**Ruling ID provenance:** Ghost Ship previously occupied draft ID `RUL-2026-10-20-005` on the isolated ChatGPT studio branch, but live `main` assigned 005 to **Village bloodline scroll icons** before integration. The unrelated main ruling is retained verbatim; this Ghost Ship record takes **006** to avoid duplicate IDs. No ruling was overwritten on main.
+
+**Boundary:** The six old JPEG-on-black chest originals remain **REVOKED / GEOMETRY INVALID**, forbidden as generation references. One **new geometry-and-pixel-correct Common Hunter** has director **visual** approval (1/12 valid visual approvals), but its source remains opaque JPEG on black. Its **raw QC/background cleanup, lossless WebP export, dark-edge checks and `artpreflight.py --type ICON` remain separate, pending gates**. The next authorized art task is one clean isolated generation for **Common Gatherer**, using **the original Reliquary plus the newly approved Common Hunter**, and no rejected raw as reference. No live-game requests/writes, upload or publishing is authorized. The twelve chests' item rarity is a separate director call.
