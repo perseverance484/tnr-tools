@@ -393,7 +393,7 @@ Not chosen: D2, D3, B2 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/191 (QA ticket 19), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/191, suggestion `BbegNUANjqTR0GSCbj-Ms`, PENDING |
 | Icon | PAUSED |
 
 ## 9. Martial Movement

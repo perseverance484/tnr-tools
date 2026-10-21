@@ -396,15 +396,8 @@ Submitted 2026-10-21 as suggestion `xyt0fWuyHjJuTSBcteOvA` (PENDING). Archived u
 Submitted 2026-10-21 as suggestion `YPylvcpG3knNN5vzLQ4pD` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
-## 191 Static Flicker text (suggest mode, QA ticket 19)
+## 191 Static Flicker text: RUN, pending review
 
-`191_static_flicker_text.json` sends one text edit to the content review desk; it does not save directly.
-Static Flicker (`UwWqo_4Igdue7-unPXwne`) described a light illusion; it moves the user, hits nearby
-enemies with a lightning pierce and leaves an afterburn. Its battle line had a leading space, no full
-stop, and `%target` on an empty-ground jutsu. The new description and battle line were approved by
-dauntless (RUL-2026-10-21-016; register section 8). Only text changes; `injectableInBattle` is re-sent
-at its live value, false (law 20). Live record from the 2026-10-21 census; not equipped by any AI
-(push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors, 0 warnings.
-`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `068643ae`. Run it from Forge,
-then use **Check suggestions**.
+Submitted 2026-10-21 as suggestion `BbegNUANjqTR0GSCbj-Ms` (PENDING). Archived under
+`archive/spent-manifests/push-2026-10-21/`.
 
