@@ -190,3 +190,50 @@ Not chosen: D2, D3, B1 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/185 (QA ticket 14), awaiting the run |
 | Icon | PAUSED |
 
+## 4. Fire Release: Great Fireball
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `jwXvmSztaK81u2k98Hc1Z` |
+| Type / rank / gate | NORMAL, B rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on an `OPPONENT`, range 4: a circular blast; damage hits enemies only (`friendlyFire: ENEMIES`) |
+| Cost | 60 AP, cooldown 7 |
+| Effect 1 | `damage` power 35, Fire, instant |
+| Effect 2 | `wound` 20%, 2 rounds: on each of the next two rounds, every unit the blast hit takes another 20% of the damage the blast dealt it (`tags.ts` `wound`) |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "Create a gigantic fireball." Battle line: "%user exhales a massive fireball
+at %target, its searing heat continuing to scorch over time"
+**What is wrong:** the description says nothing about the area blast or the lingering burns; the battle
+line is close but has no full stop.
+
+**Name (decision for the director, not in this ticket):** "Fire Release: Great Fireball" closely echoes
+a technique name from the franchise the project never references. Renaming is your call; the text below
+works with or without a new name.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every
+  enemy caught in the blaze keeps burning, taking more damage over the next few rounds."
+- **D2** "A roaring sphere of flame pours from the user's lips and engulfs the ground around the target.
+  Enemies caught in it are left with searing burns that keep hurting for a short time."
+- **D3** "The user breathes out a fireball large enough to swallow a crowd. It explodes on impact, and the
+  burns it leaves on every enemy it catches go on searing after the flames die."
+
+Battle line:
+- **B1** "%user exhales a massive fireball that bursts over %target, leaving burns that keep searing."
+- **B2** "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that
+  leave lasting burns."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Name | flagged for the director |
+| Icon | PAUSED |
+
