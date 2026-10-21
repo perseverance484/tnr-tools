@@ -34,8 +34,8 @@ The complete set of fields written on `jutsu.update`, captured from a live AI ju
 | Field | Values | Notes |
 |---|---|---|
 | `name` | string | Display name. **Must be UNIQUE across all live jutsu.** A duplicate name returns HTTP 200 with `success:false` and leaves a blank `New Jutsu - <id>` shell. See 2.2. |
-| `description` | non-empty string | Menu blurb. Empty or missing 400s. |
-| `battleDescription` | non-empty string | Combat-log line. Placeholders `%user`, `%target`, `%jutsu`. Empty or missing 400s. |
+| `description` | non-empty string | Menu blurb. Empty or missing 400s. Writing rules: `references/jutsu_text.md`. |
+| `battleDescription` | non-empty string | Combat-log line. Placeholders `%user` and `%target` (`%jutsu` is NOT replaced; see `references/jutsu_text.md`). Empty or missing 400s. |
 | `jutsuType` | `"AI"` for enemy kits; a player category otherwise | AI-kit jutsu use `"AI"`. |
 | `jutsuRank` | full ladder `D` / `C` / `B` / `A` / `S` / `H` (there is no E rank) | Cosmetic for hidden AI jutsu; prefer `"D"`. |
 | `jutsuWeapon` | `NONE`, or one of: `STAFF` `AXE` `FIST_WEAPON` `SHURIKEN` `SICKLE` `DAGGER` `SWORD` `POLEARM` `FLAIL` `CHAIN` `FAN` `BOW` `HAMMER` | This is the JUTSU weapon field; the same 14-value enum as the item `weaponType`. |
