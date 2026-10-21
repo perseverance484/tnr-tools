@@ -1,6 +1,6 @@
 # Legendary Hunter's Chest — starsteel / fossilized tusk premium pixel-art generation
 
-**Status:** PREPARED — **GENERATION BLOCKED** pending director-approved Epic Hunter GENUI/IMAGE generator-original source verification, or an explicit director-approved JPEG reference-only exception. No Legendary Hunter visual generation/approval yet.  
+**Status:** PREPARED — **GENERATION BLOCKED** pending director-approved Epic Hunter genuine generator-original source verification, or an explicit director-approved JPEG reference-only exception. No Legendary Hunter visual generation/approval yet.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
