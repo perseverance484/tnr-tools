@@ -72,3 +72,9 @@ Result `harvests/inbox/tnr_results_1792580890032.json` (Forge, 2026-10-21T11:08Z
 matching, outcome success: Water's Domain suggested and found in the review queue as suggestion
 `QLhebDwC6QNumb_iRqIVm`, status PENDING. The review outcome is not known yet; push/183 (icon) waits on it.
 
+## 186 great_fireball_text (QA ticket 15) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792586304102.json` (Forge, 2026-10-21T12:38Z), hash `4fac0d0b`
+matching, outcome success: Fire Release: Great Fireball suggested and found in the review queue as
+suggestion `Tb8SnhnSExY4eDDZwj152`, status PENDING.
+

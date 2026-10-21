@@ -229,3 +229,58 @@ Not chosen: D2, D3, B1 (in git history).
 | Name | flagged for the director, no decision yet |
 | Icon | PAUSED |
 
+## 5. Earthshatter Strike
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `kw8dlRl4y5WBg8GkHSEvp` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN`, **target SELF**, range 0: it affects only the caster |
+| Cost | 40 AP, cooldown 7 |
+| Effect 1 | `decreasedamagetaken` 20%, SELF, 2 rounds, against all four schools: the user takes less damage |
+| Effect 2 | `increasedamagegiven` 20%, SELF, 2 rounds, Taijutsu only: the user's taijutsu hits harder |
+| Damage | **none** |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2024-08-11 |
+
+**Old text.** Description: "A devastating strike that boosts the user's offense while weakening the
+enemy's ability to hit back". Battle line: "%user anchors their stance, chakra compacting into their fist
+until the tension hums in the air. With a surge of motion, they drive their strike into %target with
+ground-splitting force. The blow rattles more than bone—it fractures momentum. %target's offensive
+pressure falters under the weight of the hit, while %user's own chakra surges upward, intensifying their
+killing intent."
+**What is wrong:** it claims to weaken the enemy and to strike them; it does neither (no damage, no
+enemy effect), and its real defensive buff is not mentioned. The battle line uses `%target` twice on a
+self-target jutsu, so the combat log prints the caster's own name as the one being struck. It also has
+an em dash and runs to four sentences.
+
+**Name (decision for the director, not in this ticket):** "Strike" promises a hit the jutsu does not
+make. The drafts below keep the name by having the user strike the ground; renaming it, or giving it
+damage (a balance change), is your call.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user drives a chakra-packed fist into the ground, and the shockwave rolls back up through
+  their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder."
+- **D2** "Instead of striking a foe, the user shatters the earth at their feet and draws its strength into
+  themselves, hardening their body and adding force to their taijutsu for a short while."
+- **D3** "A ground-splitting punch turned inward: the earth's force braces the user's stance and fuels
+  their fists, leaving them tougher and their taijutsu heavier for a short time."
+
+Battle line (no `%target`, since nothing else is affected):
+- **B1** "%user drives their fist into the ground, and the shattered earth surges back through them,
+  hardening their stance and loading their strikes with force."
+- **B2** "%user splits the ground with a single punch and plants their feet in the rubble, steeling their
+  body for the blows to come."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Name | flagged for the director |
+| Icon | PAUSED |
+
