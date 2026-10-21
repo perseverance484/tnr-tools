@@ -2,7 +2,7 @@
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-20)
-- **Status:** APPROVED direction (RUL-2026-10-20-002), **amended 2026-10-20** after director geometry-reset and five-tier family-binding decisions (RUL-2026-10-20-005). The original six candidate visuals were subsequently **REVOKED for duplicated lid bands**: 0/12 currently valid raw approvals. The rendered style and both family motifs must be revalidated through fresh geometry-correct icons 1 and 2. This brief is the operative art-direction owner; its original approval history remains intact.
+- **Status:** APPROVED direction (RUL-2026-10-20-002), **amended 2026-10-20** after director geometry-reset and five-tier family-binding decisions (RUL-2026-10-20-006). The original six candidate visuals were subsequently **REVOKED for duplicated lid bands**: 1/12 currently valid visual approvals (geometry- and pixel-correct Common Hunter), but 0/12 finished/preflight-valid exports. The rendered premium pixel-art style, chest geometry and Hunter motif are now **visually locked by the newly approved Common Hunter**; Gatherer motif and twin readability await fresh icon 2 approval. This brief is the operative art-direction owner; its original approval history remains intact.
 - **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md` (one asset per generation session).
   Spec authority: `skills/producing-tnr-art/data/25x_DATA_art_spec.json`, target `ICON`.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
@@ -53,15 +53,15 @@ katana, reliquary, serum):
 - near-black iron and dark wood, low overall value; blackened iron banding with rivets;
 - **one accent: pale cyan skyglass crystal**, faceted, with a soft inner glow;
 - engraved four-point star rune motif on metal (sparingly);
-- painted rendering with a crisp dark outline, soft cool rim light, no hard cast shadow;
+- **premium high-quality pixel art** with **crisp pixel lineart, flat cel shading, limited palette, deliberately shaped pixel clusters**, defined tonal ramps and **restrained painterly depth**; no smooth digital-paint blending, airbrush gradients, glossy photoreal texturing, blurry antialiasing or bloom;
+- soft even lighting and a restrained cool edge accent (no hard cast shadow or broad rim-light halo);
 - 3/4 view at eye level, the same camera as the Reliquary; transparent background.
 
 **References per session (pass the actual image bytes, individually, never a collage):**
 1. `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp`: **style/material only**.
-2. After approval, icon 1 (and from icon 3 on, the approved twin of the same family): **style and
-   family motif only**.
+2. **For icon 2:** the new approved Common Hunter is **pixel-rendering, size, camera, geometry and overall chest-family construction reference ONLY**. Its claw brand, leather strap and fang are **not Gatherer subject references**. **From icon 3 onward**, use one NEW director-approved geometry-and-pixel-correct predecessor **of that exact Hunter/Gatherer family**, style and family motif only. **Never attach any of the six revoked images or the smooth-painted rejected Common Hunter**.
 
-Do not pass the old pixel-art chest icons; they would pull the generator back to the old style.
+Do not pass the old pre-Ghost-Ship pixel-art chest icons (wrong family register), any of the six geometry-revoked images, or the smooth-painted Common Hunter candidate. Their rejection does **not** permit smooth painterly rendering: the **pixel art quality/style requirement above is binding**.
 
 ## 4. Design proposal (director to approve)
 
@@ -122,8 +122,8 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 
 ## 6. Prompts
 
-**Shared style clause (proposal; icon 1 locks it):**
-`game item icon, painted digital illustration with a crisp dark outline, near-black iron and dark wood, one accent of pale cyan faceted skyglass crystal with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, no foreshortening, strong readable silhouette, centered, single object`
+**Shared pixel-rendering style clause (director locked by new Common Hunter):**
+`premium high-quality TNR pixel-art game item icon, crisp pixel lineart and intentional clean pixel clusters, flat cel shading with restrained painterly depth, limited controlled dark palette and defined hard-edged shadow shapes, near-black iron and dark wood, one restrained pale-cyan faceted skyglass crystal accent with internal facet light, soft even cool edge lighting, eye-level flat 3/4 view, no foreshortening, single complete centered object with a strong readable silhouette, genuine transparent background`
 
 **Shared negative:**
 `no text, no letters, no question mark, no symbols other than the brand described, no labels, no UI, no frame, no circular medal, no watermark, no asset sheet, no multiple objects, no open lid, no contents spilling out, no loose items around it, no surface or table under it, no shadow on the background, no glow halo or light disc, no franchise insignia`
@@ -146,11 +146,11 @@ the lid seam. **No question mark**, since symbols and lettering are out. If the 
 
 ## 7. Process
 
-1. **Restart at icon 1 (Common Hunter's).** The first six original attempts are **rejected geometry-invalid** despite their historical visual approvals; never attach them as references. Generate in a **new clean isolated session** with **only the original Skyglass Reliquary** (style/material only). **Inspect both end-hoop counts and continuous physical construction FIRST** at full pixels and 125px, plus the single correct family binding. Show a viable candidate to the director; its acceptance establishes a NEW geometry-correct rendered style/Hunter motif lock.
-2. **Icon 2 (Common Gatherer's)** only after fresh icon 1 acceptance, using Reliquary + the **newly corrected** Common Hunter (not revoked artwork). Director approval locks the new Gatherer's motif and confirms the twins read differently at 125px **by both front brand and center binding material**.
+1. **New pixel-art Common Hunter's Chest (icon 1) visually APPROVED on 2026-10-20:** new source `1000018935.png` (actually JPEG/RGB 1536×1536, 257500 bytes, SHA-256 `23038075363dc9ccafd4f4fb2ead70183704015ecb8f4abd66ad00bd8c23933a`). The director: “Now this is approved and perfect. Next.” This candidate has geometry-correct left/right single hoops, one saddle-brown flat leather/fang binding, three claw gouges, a small crystal and **intentional premium pixel rendering**. The original six candidates remain **rejected geometry-invalid**; the later smooth-painted Common Hunter `1000018934.png` is **style rejected**. Neither may be attached as a reference. **This new director visual approval locks the rendered pixel style/Hunter motif and approved geometry**, NOT alpha/export/preflight readiness.
+2. **NEXT: Icon 2 (Common Gatherer's)**, in ONE NEW CLEAN isolated session using exactly **two individual actual images**: original Reliquary (**style/material only**) plus the newly approved **Common Hunter `1000018935.png`** (**premium pixel rendering, camera, geometry, scale only; NOT Hunter claw/leather/fang subject**). Enforce **one thick round honey-tan three-strand jute rope + tucked green sprig + one leaf brand**, two end hoops/no doubles, small skyglass crystal, and matching intentionally pixelated shade clusters. Director approval locks Gatherer motif and confirms distinctness at 125px in both front brand and physical binding.
 3. Then Rare, Epic, Legendary and Rusted pairs, then Ornate and Mystery. For Hunter/Gatherer family icons, each session gets the Reliquary plus **one newly approved geometry-correct same-family predecessor** (max two separate individual images); do not attach revoked images or a collage. For standalone Ornate/Mystery, which have no same-family predecessor, settle the second-reference role explicitly before launching those sessions.
 4. Two wrong-subject results in one session: close it and start clean (protocol section 3).
-5. **Raw QC before processing:** square, one complete closed chest, **exactly two outer metal end hoops + one centered family binding with no duplicate side band**, tier-appropriate center material from section 4a, no text or extra symbols, no halo or glow disc, not sitting on a surface, background truly flat and keyable or genuinely transparent.
+5. **Raw QC before processing:** square, one complete closed chest, **exactly two outer metal end hoops + one centered family binding with no duplicate side band**, tier-appropriate center material from section 4a, **premium crisp pixel linework/flat cel tonal clusters/limited palette (reject smooth painterly look)**, no text or extra symbols, no halo or glow disc, not sitting on a surface, background truly flat and keyable or genuinely transparent. JPEG on opaque black is NOT production-ready even when director visually approves the pixel art.
 6. **Processing at intake:** key or keep native alpha, clamp spill, pad to square, lossless WebP,
    check edges on a dark composite, then `artpreflight.py --type ICON`.
 
@@ -170,6 +170,7 @@ Original family/tier/special designs were approved 2026-10-20 (items 1–4). **S
 2. The tier ladder in section 4.
 3. Aged gold as a second accent on the Ornate Chest.
 4. Mystery Chest without a question mark.
-5. **Amendment approved 2026-10-20:** one arched metal lid hoop per outer end plus ONE centered family binding, no duplicate parallel bands; the Rusted/Common/Rare/Epic/Legendary flat leather vs round rope material ladder in section 4a. These decisions invalidate the six historical chest image approvals, not the art-direction motifs.
-6. Separate, not part of this request: all twelve chests are rarity COMMON, including the
+5. **Amendment approved 2026-10-20 (RUL-2026-10-20-006):** one arched metal lid hoop per outer end plus ONE centered family binding, no duplicate parallel bands; the Rusted/Common/Rare/Epic/Legendary flat leather vs round rope material ladder in section 4a. These decisions invalidate the six historical chest image approvals, not the art-direction motifs.
+6. **Premium pixel-art rendering is mandatory (2026-10-20):** conform to `25x_DATA_art_spec.json` (`house_style`, ICON scaffold). The director rejected the smooth-painted geometry-correct candidate and approved new Common Hunter `1000018935.png`; **its pixels lock the rendered family style**, but its opaque JPEG black background means output alpha/export/preflight remain pending.
+7. Separate, not part of this request: all twelve chests are rarity COMMON, including the
    "Legendary" ones. Rarity is a director call.
