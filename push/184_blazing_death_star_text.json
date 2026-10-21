@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 13 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 2). Suggest mode: content review desk, no direct save. Blazing Death Star's text claimed the fire makes the shuriken faster, which no effect does, never mentioned its afterburn, and its battle line was one run-on sentence. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-008). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the push/180 census (harvests/inbox/tnr_results_1792580094677.json, 2026-10-21). Not equipped by any AI (2026-10-21 AI census, push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "The old text did not match what the jutsu does. The new text describes its damage and its afterburn."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Death Star",
+   "targetId": "y0fmp1QvVcQnBoVZVLFfL",
+   "data": {
+    "description": "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike the target and leave them smouldering, so the blows that follow burn deeper.",
+    "battleDescription": "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars and leaving them smouldering.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The old text said the fire chakra makes the shuriken faster, but no effect does that, and it never mentioned the jutsu's second effect: for two rounds the target takes an extra 20% of every hit as burn damage. The old battle line was also one run-on sentence with no full stop. The new text keeps the flaming-shuriken idea and says what happens: the target is left smouldering, so the next blows burn deeper."
+   }
+  }
+ ]
+}
