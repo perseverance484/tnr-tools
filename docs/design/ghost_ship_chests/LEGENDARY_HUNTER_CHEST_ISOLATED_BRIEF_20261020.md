@@ -1,5 +1,9 @@
 # Isolated generation 07 — Ghost Ship Legendary Hunter's Chest
 
+## CURRENT LEGENDARY HUNTER POINTER (2026-10-21)
+
+This is historical pre-reset material. **DO NOT GENERATE** from this document. The operative Legenday Hunter target and source-gate are in `LEGENDARY_HUNTER_STARSTEEL_FOSSIL_TUSK_ISOLATED_BRIEF_20261021.md`: iridescent PALE STARSTEEL / midnight-blue scale-embossed single short leather / exactly one fossilized tusk with restrained cyan inlay / 3 glowing claws / small NONSTRUCTURAL mounted lid shard cluster. Fixed exact Common two-band/corner construction. Generation BLOCKED until director-approved Epic Hunter genuine original is verified or a written JPEG-reference-only exception granted.
+
 ## GEOMETRY-RESET OVERRIDE — CANCELLED, DO NOT GENERATE (2026-10-20)
 
 The director revoked all six preceding Common/Rare/Epic Hunter/Gatherer visual approvals for repeated **extra metal-band geometry**. This Legendary Hunter prompt is **CANCELLED** because its Epic Hunter image reference was invalidated. It is historical only. Do not launch it or attach any of the six rejected chest images. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register; restart from corrected Common Hunter after director confirmation of the intended hoop topology.
