@@ -461,3 +461,12 @@ Kits from the 2026-10-21 AI census (push/159); Prism's record from the 2026-10-1
 (laws 15, 71), as in push/126-128. All three: `validate.py --strict` 0 errors, 0 warnings;
 `forge/tools/check_manifest.mjs` 0 pre-send problems.
 
+## 201-202 Round 2 capture (read-only)
+
+`201_round2_capture_1.json` and `202_round2_capture_2.json` read the 200 jutsu in text sweep round 2
+(RUL-2026-10-21-022) with `jutsu.get`, full records, zero writes: the 188 rejected push/196 jutsu being
+redone as targeted fixes, and 12 applied ones getting an American-spelling fix. It confirms their live text
+before the round 2 manifest is built, since an approver can edit a suggestion while applying it.
+`validate.py --strict`: 0 errors, 0 warnings (each). `forge/tools/check_manifest.mjs`: 0 pre-send
+problems (each). Hashes `cfe3c259`, `f5648a25`. Run 201 then 202 and commit both results bundles.
+
