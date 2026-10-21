@@ -84,7 +84,11 @@ def check_jutsu(before, after, sent):
     for k in sorted(set(before) | set(after)):
         if k in ("updatedAt",):
             continue
-        if k in sent:
+        if k == "effects" and k in sent:
+            # The server drops effect keys its validators no longer define, so compare on the pinned keys.
+            if pinned(after.get(k))[0] != pinned(sent[k])[0]:
+                problems.append(f"effects: sent {json.dumps(pinned(sent[k])[0])[:100]}, read {json.dumps(pinned(after.get(k))[0])[:100]}")
+        elif k in sent:
             if after.get(k) != sent[k]:
                 problems.append(f"{k}: sent {json.dumps(sent[k])[:80]}, read {json.dumps(after.get(k))[:80]}")
         elif k == "effects":

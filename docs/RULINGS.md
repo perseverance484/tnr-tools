@@ -1791,3 +1791,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170). After an operator-verified live run, the pool registry names and B31's target are updated through `32_REGISTRY_shared_ai_pool.md` → `32b_DATA_pool.json`.
 
 **Boundary:** No live edit is authorized by this ruling. The operator runs push/162–177 through Forge.
+
+## RUL-2026-10-21-005 — Backlash Palm's recoil lasts 2 rounds
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool balance (B28, `ElSK-RCrLjddEUm76FZrs`)
+
+**Status:** ACTIVE
+
+**Supersedes:** closes the "Open" item in RUL-2026-10-21-004.
+
+**Evidence:** B28's recoil effect was stored with `rounds: 0`. Recoil is a debuff on the enemy that, while active, turns the recoil percentage of the damage they deal back on themselves (the user's statement, matching `tags.ts` `recoil` at `studie-tech/TheNinjaRPG@dcf1cea`). It does not fire on the round it is applied, and `isEffectActive` (`libs/combat/util.ts`) treats a 0-round effect as expired, so as stored it never had an active round. User, 2026-10-21: "It needs rounds: 2".
+
+**Ruling:** B28's recoil effect gets `rounds: 2`. Its power (15%) and every other field are unchanged.
+
+**Implementation:** `battle_lines.json` `effect_rounds: {"recoil": 2}` on B28. push/170 re-sends B28's live effects list with only that number changed, leaving out the obsolete `recoil.statTypes` key, which the server drops on any save (pinned keys: `forge/src/runner/nested.json`). The read-back check compares effects on the pinned keys.
+
+**Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170).

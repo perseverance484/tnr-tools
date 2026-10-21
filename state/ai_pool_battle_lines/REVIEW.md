@@ -28,9 +28,11 @@ Capture: `harvests/inbox/tnr_results_1792551342555.json`.
 | S07 | Rapid Fire | **Shuriken Storm** |
 | S08 | Numbing Shot | **Numbing Senbon** |
 
-## Mechanical change
+## Mechanical changes
 
-B31 Rallying Spiral: `target` OTHER_USER → ALLY. Its buffs (less damage taken, more damage dealt) used to land on the enemy.
+- B31 Rallying Spiral: `target` OTHER_USER → ALLY. Its buffs (less damage taken, more damage dealt) used to land on the enemy (RUL-2026-10-21-004).
+- B28 Recoil Slam: `recoil` rounds 0 → 2; the rest of the effects list is re-sent unchanged (RUL-2026-10-21-005).
+- Obsolete effect keys left out of the re-sent list (the server drops them on any save): `B28 recoil.statTypes`.
 
 ## All 82 lines
 
