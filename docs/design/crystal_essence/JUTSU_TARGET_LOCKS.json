@@ -16,7 +16,7 @@
     {
       "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
       "name": "Summoning: Jade",
-      "version": 1,
+      "version": 2,
       "evidence_level": "historical_capture",
       "source_capture": {
         "bundle": "harvests/inbox/tnr_results_1792216502874.json",
@@ -24,12 +24,12 @@
         "captured_at": "2026-10-17T05:53:58.631Z",
         "game_live_request_in_studio": false
       },
-      "action": "Opening crystal cocoon summons a fierce warrior.",
-      "dominant_silhouette": "Tall jade crystal chrysalis splits open into an upright V-shaped cavity; depict summoning moment without anatomy.",
-      "camera": "Shallow frontal three-quarter; focus on dark seam opening in the center, single upright chrysalis occupying foreground.",
-      "motion_axis": "Vertical upward and outward separation along V-shaped split.",
-      "secondary_effect": "Two broad shell plates thrown outward.",
-      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates. Summoning Jade-specific: large single jade-green mineral chrysalis splits V-shaped upward and outward from a deep near-black inner seam, with gold-white contained emergence light. Thick glasslike panels, not a round sphere, a static gem or a cave-mouth trap.",
+      "action": "A crystal cocoon cracks and peels outward, summoning Jade, a fierce warrior, visibly into the battlefield.",
+      "dominant_silhouette": "A visibly identifiable adult Jade warrior emerges in the central open V of ONE tall split jade-mineral crystal chrysalis; two large shell panels peel up/outward and remain strong framing masses. Jade is the clear subject inside the summoning event.",
+      "camera": "Shallow frontal three-quarter view: centered warrior emerging toward the viewer, surrounded by the tall cracked jade chrysalis opening on both sides.",
+      "motion_axis": "Cocoon shell parts upward/outward from central seam; summoned Jade warrior advances forward from golden light within.",
+      "secondary_effect": "Two heavy crystal shell panels peeling away from the opening, with sparse subordinate shard chips.",
+      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates. Summoning Jade-specific: large single jade-green mineral chrysalis splits V-shaped upward and outward from a deep near-black inner seam, with gold-white contained emergence light. Thick glasslike panels, not a round sphere, a static gem or a cave-mouth trap. DIRECTOR-APPROVED JADE V2 EXCEPTION: include exactly one adult summoned Jade warrior visibly emerging. Match the 2026-10-21 director-approved revised PNG's crisp pixel-art warrior, green crystal armor, flowing dark hair, jade sword and full-body emergence. The human character is unique to this exact Summoning: Jade target; do not add people to siblings.",
       "sibling_exclusions": [
         {
           "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
@@ -49,12 +49,11 @@
         }
       ],
       "wrong_subject_exclusions": [
-        "No anatomy, human/warrior actor, hands, face, body, figure, silhouette or limb fragments (exception NONE unless director expressly rules on Summoning: Jade).",
-        "No Kōsai three horizontal traveling crescent shockwaves or slash bands; reference provides material/pixel discipline ONLY.",
-        "No closed round Crystal Sphere defensive barrier, orb, upper-right deflection strike or protective ring.",
-        "No opposing top/bottom Crystal Cave crystal teeth closing inward or horizontal cavern floor/roof composition; Jade panels split outward from a single upright chrysalis.",
-        "No Prism long focused straight solar beam, redirected diagonal lance or terminal hit flash; emergence light stays contained in the cocoon.",
-        "No generic floating diamond, portal arch with absent action, magic rune, golden glyph, decorative V-shaped symbol, snowflake, ice shards, text or UI frame."
+        "No absent summoned Jade warrior, empty cocoon, or energy-only chrysalis; the director requires Jade to appear visibly.",
+        "No more than one character and no disconnected limbs, incorrect anatomy, or extra humanoid summons.",
+        "No Kōsai three traveling crystal crescents, no Crystal Sphere circular protective barrier, no Cave inward-clamping teeth, no Prism long diagonal solar strike as main subject.",
+        "No generic magic rune, portal-only image, frost, snowflake, text, UI or watermark.",
+        "Preserve visible split-open V-shaped jade crystal chrysalis as summoning setting; warrior must be recognizable at icon thumbnail size."
       ],
       "references": [
         {
@@ -73,11 +72,14 @@
           "source_evidence": "docs/design/crystal_essence/KOSAI_SHIPPU_RAW_APPROVAL_20261020.md"
         }
       ],
-      "anatomy_exception": null,
+      "anatomy_exception": {
+        "scope": "Summoning: Jade (yuJn_D_zPlHV0xJW01JRA) ONLY: depict one adult female Jade warrior with readable face, torso, arms, and legs emerging visibly between crystal chrysalis panels. Exact approved candidate has dark flowing hair, green armor and a crystal sword. No other jutsu anatomy permission is implied.",
+        "director_evidence": "Director requested: 'All approved except the summoning icon needs to show Jade, the summon'; after the new Jade-warrior image was generated, director replied: 'Approved, give me all 5 in a zip for a manifest' on 2026-10-21. Previous actor-free Jade v1 is superseded."
+      },
       "direction_approval": {
         "status": "APPROVED",
-        "evidence": "Director approved Summoning: Jade's proposed tall outward-splitting crystal chrysalis, no-anatomy constraint, and two reference roles in the persistent Crystal Essence Studio on 2026-10-21 (reply: 'Approved, proceed'). Previous studio head b60b04ff281237f6dacbbe3e1ff9cba2489da5ee.",
-        "lock_sha256": "cda3c005261226a355ad745534200b3596669b6993922c8dd9e1181b781d0358"
+        "evidence": "Director explicitly required the summon Jade be shown in Summoning: Jade and subsequently approved the visible-Jade-warrior revision on 2026-10-21. V2 supersedes prior actor-free target lock; Jade-specific anatomy exception and exact two original ref roles are recorded. Raw SHA256 0d214b55d628b24dbe76dd690abcbd4ffe993f63080bde977b999a68a7a39e9e.",
+        "lock_sha256": "de06a99cc314e95e8f1a0f554d4340c7ad2dadf85d8e15a2802262271ca7a365"
       }
     },
     {
@@ -339,11 +341,11 @@
   "next_target": {
     "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
     "name": "Summoning: Jade",
-    "status": "P0_APPROVED_LOCK_VERIFIED_READY_FOR_ISOLATED_GENERATION",
-    "source_original_sha256": "04422340d90c43d9dc3c60a0c454c094185e28a5d3820a0be6944d877c252a8a",
-    "style_reference_approved_kosai_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
-    "approved_raw_count": "4/5",
-    "brief": "docs/design/crystal_essence/SUMMONING_JADE_ISOLATED_BRIEF_20261021.md",
-    "lock_sha256": "cda3c005261226a355ad745534200b3596669b6993922c8dd9e1181b781d0358"
+    "status": "P0_V2_DIRECTOR_APPROVED_RAW_VISUAL_APPROVED",
+    "lock_sha256": "de06a99cc314e95e8f1a0f554d4340c7ad2dadf85d8e15a2802262271ca7a365",
+    "previous_lock_sha256": "cda3c005261226a355ad745534200b3596669b6993922c8dd9e1181b781d0358",
+    "approved_raw_v2_sha256": "0d214b55d628b24dbe76dd690abcbd4ffe993f63080bde977b999a68a7a39e9e",
+    "raw_format": "PNG",
+    "zip_staging": "Crystal_Essence_5_Jutsu_Manifest_Ready_v2.zip"
   }
 }
