@@ -13,5 +13,5 @@ Register and direction: `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md`
 ## Processing
 
 Each export is its raw resized to 256x256 (Pillow LANCZOS), saved as lossless WebP, opaque RGB; no
-retouching. `artpreflight.py --type JUTSU_ICON`: 0 errors, 0 warnings. The other two Phase 1 icons
-and the 3+3 family gallery are still to come.
+retouching. `artpreflight.py --type JUTSU_ICON`: 0 errors, 0 warnings. Venomous Phobia and the 3+3
+family gallery are still to come.
