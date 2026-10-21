@@ -138,7 +138,7 @@
       "camera": "Shallow frontal three-quarter; single beam starts upper-left through optical crystal and ends lower-right; dark negative space beyond beam edges.",
       "motion_axis": "Upper-left to lower-right diagonal, focusing the beam at one impact point.",
       "secondary_effect": "One tightly localized burst at the impact point.",
-      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates.",
+      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates. Prism-specific: one bright coherent hard-edged solar lance with concentrated gold-white core and restrained teal/cyan prismatic fringe; visibly intersect a functional faceted mineral-glass refractor. Brightness follows the action path. Avoid Sphere's circular protective shell or an ornamental isolated gemstone.",
       "sibling_exclusions": [
         {
           "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
@@ -158,9 +158,12 @@
         }
       ],
       "wrong_subject_exclusions": [
-        "No warrior, human actor, face, body, hand, fingers or limbs (anatomy exception NONE).",
-        "No generic magic ring, unsupported floating rune or decorative faceted diamond.",
-        "No BBE ice flake, frost, sword or shackles composition."
+        "No actor, anatomy, face, hands, fingers, limbs or silhouettes of a caster.",
+        "No spherical defensive crystal shell, circular barrier, upper-right incoming projectile or deflection geometry from Sphere; style reference is materials ONLY.",
+        "No three Kōsai sweeping shockwave arcs, curling air slash or multi-beam fan.",
+        "No Cave's upper/lower enclosing teeth and no Jade's splitting V cocoon.",
+        "No floating unattached ornamental diamond, glyph, runic triangle, magical ring, sun disc or rainbow halo substituting for functional refraction.",
+        "Do not depict a loose decorative gemstone with bloom; a refracting optic must physically intercept a solar ray and redirect ONE straight offensive light lance."
       ],
       "references": [
         {
@@ -168,6 +171,15 @@
           "role": "identity-only",
           "sha256": "b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70",
           "original_zip_member": "images/6XpY1m4rAwrBHBKYsPRDJ_Prism.png"
+        },
+        {
+          "kind": "individual",
+          "role": "style-only",
+          "sha256": "077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4",
+          "attachment_alias": "Crystal_Essence_Crystal_Sphere_APPROVED_RAW_v1.jpg",
+          "actual_decoded_format": "JPEG",
+          "jutsu_id": "zKK0rjIJqbpSiTw7McDAv",
+          "source_evidence": "docs/design/crystal_essence/CRYSTAL_SPHERE_RAW_APPROVAL_20261021.md"
         }
       ],
       "anatomy_exception": null,
@@ -311,12 +323,12 @@
   ],
   "draft_reservations": "All five actions/silhouettes reserved; director approved only Kōsai Shippū. Remaining four full records are DIRECTION PENDING.",
   "next_target": {
-    "jutsu_id": "AggTDO90TarIRTPqGdvvY",
-    "name": "Crystal Cave",
-    "status": "P0_APPROVED_LOCK_VERIFIED_READY_FOR_ISOLATED_GENERATION",
-    "source_original_sha256": "a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530",
-    "style_reference_approved_kosai_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
-    "brief": "docs/design/crystal_essence/CRYSTAL_CAVE_ISOLATED_BRIEF_20261021.md",
-    "lock_sha256": "f9cececc9564fa7c831604a0b4e02aeb08f6a2d332ea2ddd52b0e4a66f78424a"
+    "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
+    "name": "Prism",
+    "status": "P0_PROPOSED_PENDING_DIRECTOR",
+    "source_original_sha256": "b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70",
+    "style_reference_approved_sphere_sha256": "077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4",
+    "raw_approvals": "3/5",
+    "brief": "docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md"
   }
 }
