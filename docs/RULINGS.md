@@ -1744,9 +1744,17 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Common Gatherer visual acceptance (2026-10-20 follow-up):** Director said **“Approved, next”** for the new premium pixel-art short-latch Common Gatherer `1000018960.png` (actual **JPEG/RGB**, 1536×1536, **283293 bytes**, SHA-256 **`7721f96c04fe1c13475a0d7428b77a64999de70a69a822c5ec379d1faf8a961d`**). Its two nonduplicated outer metal hoops, rounded honey-tan three-strand JUTE rope ending in a compact **upper-front knot** (with short tucked ends), green sprig, one unlit leaf carving on exposed front wood, faceted cyan clasp and premium limited-palette pixel clusters meet the approved family construction. Full-size and 125px twin comparison with approved Common Hunter `1000018956.png` confirmed family distinctness while preserving matching camera/scale/rendering; 64/32px stress previews were also checked. **Both Common-family originals now have director visual acceptance (2/12)**. This does not certify production: both raw sources are JPEG on opaque black with no native alpha, game-ready WebP or preflight evidence. The next isolated target is **Rare Hunter**, referencing only the original Reliquary plus the director-approved *Common Hunter*, not Common Gatherer as a third image. Rare-tier material/armor and motif advancement remain per the canonical art brief, with one metal hoop at each end and a short leather termination.
 
+**Later same-day director-approved rarity-material and Hunter-trophy refinement (2026-10-20):** The director explicitly rejected rarity-driven CHEST STRUCTURAL redesign, including earlier Rare oversized angular gunmetal armor plates and large star emblems. **Every named tier reuses the exact approved Common domed-lid chest structure** — exactly TWO identical curved outer metal hoop shapes, unchanged corner fixture geometry, ONE short upper-front center binding, and exposed lower wood with the family brand. Rarity reads chiefly through existing metal MATERIAL/FINISH (Rusted **corroded pitted iron**, Common **blackened steel**, Rare **burnished DARK BRONZE**, Epic **polished SILVER**, Legendary **iridescent PALE STARSTEEL**), the already-approved individual leather/rope material ladder, exactly ONE Hunter trophy or compact Gatherer botanical sprig, and restrained cyan skyglass changes. **Gold is reserved for Ornate**; earlier large reinforced armor/engraved-star emphasis at Rare is SUPERSEDED. Small Legendary lid crystal decor may remain as previously approved, but cannot restructure bands/lid. Hunter trophy now uses an explicit five-tier visual sequence: **short chipped weathered bone / small ivory fang / sharply hooked monster TALON / ridged curved monster HORN / ornate fossilized TUSK with restrained cyan inlays**. Gatherer keeps ONE front leaf brand and a small attached sprig whose leaf shape/finish may evolve. No new game material, named enemy species, loot or actual item-rarity rule is created.
+
+**New Rare Hunter bronze/talon visual approval:** Director expressly stated **“APPROVED — NEW CHEST RARITY DIRECTION”** and **“RARE HUNTER — DIRECTOR APPROVED.”** Accepted design retains Common chest geometry, bronze end hoops/corners, single charcoal-brown pebbled-leather short upper-front strap, ONE hooked talon, one brighter faceted cyan skyglass clasp, faint thin cyan seam and THREE UNLIT Hunter claw gouges, refined TNR pixel art. Former Rare Hunter with bulky gunmetal armor/large star ornamentation is REJECTED and not an image-generation reference. Next target Rare Gatherer, using **only** original Reliquary (material/palette) plus director-approved short-latch Common Gatherer `1000018960.png` (subject/style/geometry) as separate reference images; Rare bronze direction remains TEXT ONLY, not a third image.
+
+**Raw integrity / source provenance exception:** The director's handoff names the **approved original** `rare_hunter_s_bronze_bound_chest.png` as PNG/RGBA 1254×1254, 1,349,268 bytes, SHA-256 `99ca6f817fe390b0c9aff16cdc2016f70d897f44dbda2e06b511696a5da94f08`. These exact bytes have **NOT yet been provided or verified in the persistent studio**. The attached visual `1000018962.png` actually decodes **JPEG/RGB 1536×1536, 301659 bytes**, SHA-256 `6c7c4d879f9261c6cd3b03c8a461053363b13293f42a1ba8aefd0de221babfd6`: an opaque preview, **NOT the same original source**. Director's VISUAL APPROVAL remains valid (**3/12 visuals**), but approved-original intake/hash, native alpha, final lossless WebP and canonical `artpreflight.py --type ICON` remain **NOT_RUN**. Do not mark original-QC PASS or treat the preview as a future same-family reference. Obtain original PNG and verify before Epic Hunter can reference it. Preview-only 125/64/32 visual check is not equivalent to original-source QC.
+
+**Canonical operative destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §§4–4b and 6–7, with durability/provenance in `docs/design/ghost_ship_chests/RARITY_MATERIAL_AND_TROPHY_REFINEMENT_20261020.md`, `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md` and studio register.
+
 **Ruling ID provenance:** Ghost Ship previously occupied draft ID `RUL-2026-10-20-005` on the isolated ChatGPT studio branch, but live `main` assigned 005 to **Village bloodline scroll icons** before integration. The unrelated main ruling is retained verbatim; this Ghost Ship record takes **006** to avoid duplicate IDs. No ruling was overwritten on main.
 
-**Boundary:** Six old duplicated-band chest sources remain REVOKED, as do the smooth-painted/overlong-binding candidates. **Two short-latch premium pixel-art Commons (`1000018956.png` Hunter, `1000018960.png` Gatherer) have director VISUAL approval (2/12)**, but both are opaque JPEGs on black. **Raw alpha/key processing, lossless WebP export, dark-composite edge checks and `artpreflight.py --type ICON` are NOT_RUN**; no icon is ready for upload. The next art task is an isolated **Rare Hunter** generation using ONLY original Reliquary (materials) + the short-latch Common Hunter (same family/geometry/pixel rendering); Rare Gatherer follows separately with Reliquary + Common Gatherer. **No live-game requests/writes, upload or publishing authorized.** Chest rarity remains a separate director decision.
+**Boundary:** Six previously duplicated-band chests and subsequent smooth-painted/overlong-binding/oversized-armored candidates remain REJECTED as image references. **Three designs have director VISUAL approval** (corrected short-latch Common Hunter/Gatherer and bronze/talon Rare Hunter), but the latter's claimed ORIGINAL PNG/RGBA has not been supplied/verified. The two Common originals remain JPEG on black; zero icons have passed alpha/flat-key, lossless WebP, dark-composite checks or `artpreflight.py --type ICON`. The next generation is Rare Gatherer, attaching **only original Reliquary + approved Common Gatherer**. Future Epic Hunter is held at the source-reference gate until Rare Hunter's real approved original is obtained and verified. **0 live-game requests/writes; no upload or publishing authorized.** Actual chest rarity remains a separate director decision.
 
 ## RUL-2026-10-21-001 — Replacement Technique icon: log-swap art approved as an exception
 
@@ -1766,3 +1774,78 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Boundary:** No upload, live edit or publication is authorized. The icon goes to the content review desk as push/148 (suggest mode).
 
+## RUL-2026-10-21-002 — AI pool battle-line pass: accept the residual risk from 14 unread AIs
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool / battle-line pass push/162–177 (law 18/60)
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Same shape as RUL-2026-10-12-011, for a different pass.
+
+**Evidence:**
+- The fresh census push/157–161 read all 512 repository-known live AI ids (512/512 ok, persisted). `profile.getAllAiNames` counted **526** live non-ELDER AIs at both its start (push/157) and its end (push/161).
+- So **14 live AIs** have ids the repository does not know and were not read. Forge keeps only the count of a list read.
+- Among the 512 read, 345 AIs equip at least one of the 82 pool jutsu; push/162–169 unequip them and push/171–177 re-equip them.
+
+**Ruling:** dauntless accepts the residual risk for the 14 unread AIs. If any of them equips a pool jutsu, push/170's edit severs that AI's combat link to it (law 18/60) and shows the new battle line in its fights.
+
+**Canonical destination:** `push/README.md` (section 162–177, "Not covered").
+
+## RUL-2026-10-21-003 — AI pool battle-line pass keeps the law order: unequip, edit, re-equip
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool / battle-line pass push/162–177 (law 18/60)
+
+**Status:** ACTIVE
+
+**Supersedes:** none.
+
+**Evidence:** The user first described the pass as "update the jutsu first, then perform the unequip and re-equip of each AI". Law 60 (`docs/ENGINE_LAWS.md`) requires strictly unequip, then edit, then re-equip, and says an edit followed by a re-equip is not sufficient. The game source at `studie-tech/TheNinjaRPG@dcf1cea` (`routers/jutsu.ts` update) shows no mechanism that would make edit-first safe. Asked to choose, the user answered "keep law order".
+
+**Ruling:** push/162–169 (unequip) run before push/170 (edit), and push/171–177 (re-equip) run after it. Law 60 is unchanged.
+
+**Canonical destination:** `docs/ENGINE_LAWS.md` laws 18 and 60 (unchanged); the run order in `push/README.md` section 162–177.
+
+## RUL-2026-10-21-004 — AI pool battle lines, renames and Rallying Spiral target approved
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool content (`32b_DATA_pool.json`, 82 jutsu)
+
+**Status:** ACTIVE
+
+**Supersedes:** the reconstructed battle text in `state/ai_pool_battle_lines/recovered/` (kept for comparison only).
+
+**Ruling:**
+- The 82 battle lines in `state/ai_pool_battle_lines/battle_lines.json` are approved as written: 2–3 sentences each, an Edo-era ninja voice, chakra-driven, describing only effects the live record carries.
+- The 17 renames are approved, including B28 Recoil Slam → Backlash Palm (chosen earlier) and B04 Executioner Seal → Choking Seal.
+- B31 Rallying Spiral targets `ALLY` instead of `OTHER_USER`. Its buffs used to land on the enemy. The user's instruction was "Retire rallying spiral lol, or have it target allies"; it was retargeted rather than retired.
+
+**Evidence:** User, 2026-10-21: "approve the prose", after reviewing `state/ai_pool_battle_lines/REVIEW.md`; the B31 instruction is quoted above. The user also stated recoil's meaning: a debuff on an enemy that, while active, deals the recoil percentage of the damage they deal back to themselves. That matches `tags.ts` `recoil` at `dcf1cea`.
+
+**Open:** B28's recoil has `rounds: 0`. `isEffectActive` (`libs/combat/util.ts`) treats a 0-round effect as expired, and recoil does not fire on the round it is applied, so as stored it never has an active round. Its duration is a balance decision, not yet made.
+
+**Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170). After an operator-verified live run, the pool registry names and B31's target are updated through `32_REGISTRY_shared_ai_pool.md` → `32b_DATA_pool.json`.
+
+**Boundary:** No live edit is authorized by this ruling. The operator runs push/162–177 through Forge.
+
+## RUL-2026-10-21-005 — Backlash Palm's recoil lasts 2 rounds
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool balance (B28, `ElSK-RCrLjddEUm76FZrs`)
+
+**Status:** ACTIVE
+
+**Supersedes:** closes the "Open" item in RUL-2026-10-21-004.
+
+**Evidence:** B28's recoil effect was stored with `rounds: 0`. Recoil is a debuff on the enemy that, while active, turns the recoil percentage of the damage they deal back on themselves (the user's statement, matching `tags.ts` `recoil` at `studie-tech/TheNinjaRPG@dcf1cea`). It does not fire on the round it is applied, and `isEffectActive` (`libs/combat/util.ts`) treats a 0-round effect as expired, so as stored it never had an active round. User, 2026-10-21: "It needs rounds: 2".
+
+**Ruling:** B28's recoil effect gets `rounds: 2`. Its power (15%) and every other field are unchanged.
+
+**Implementation:** `battle_lines.json` `effect_rounds: {"recoil": 2}` on B28. push/170 re-sends B28's live effects list with only that number changed, leaving out the obsolete `recoil.statTypes` key, which the server drops on any save (pinned keys: `forge/src/runner/nested.json`). The read-back check compares effects on the pinned keys.
+
+**Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170).
