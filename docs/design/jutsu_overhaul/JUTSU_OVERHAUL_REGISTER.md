@@ -536,26 +536,17 @@ enemy healing) and the move are not mentioned, and it reads as a single target w
 around the landing spot. The description is missing "the" ("into shape of"). The battle line is three
 sentences with `%target` three times on an empty-ground jutsu.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-020)
 
-Description:
-- **D1** "The user dashes in with a blade of fire chakra blazing from their palm and cuts through the
-  enemies around them. The flame sears every wound it opens, so they heal poorly for a short time."
-- **D2** "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through
-  nearby enemies. The scorched cuts resist healing for a short while."
-- **D3** "A sword of living flame carries the user across the field in a single cut. Enemies caught by the
-  swing are burned, and the seared wounds hold back their healing for a short time."
+- **Description** (D2): "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through nearby enemies. The scorched cuts resist healing for a short while."
+- **Battle line** (B2): "Flames take the shape of a sword in %user's hand as they surge across the field, carving through nearby enemies in a single searing arc."
 
-Battle line (no `%target`):
-- **B1** "%user leaps forward with a sword of flame erupting from their palm and sweeps it through nearby
-  enemies, scorching their wounds so they will not mend."
-- **B2** "Flames take the shape of a sword in %user's hand as they surge across the field, carving through
-  nearby enemies in a single searing arc."
+Not chosen: D1, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/195 (QA ticket 23), awaiting the run |
 | Icon | PAUSED |
 

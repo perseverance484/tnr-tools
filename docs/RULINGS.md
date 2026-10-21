@@ -2062,3 +2062,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-020 — Blazing Edge overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Blazing Edge (`oPtg5xq6HaYgJBqzKsZUC`) gets the description "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through nearby enemies. The scorched cuts resist healing for a short while." and the battle line "Flames take the shape of a sword in %user's hand as they surge across the field, carving through nearby enemies in a single searing arc."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D2 b2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 12).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
