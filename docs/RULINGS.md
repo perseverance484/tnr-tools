@@ -1758,9 +1758,13 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Source integrity VERIFIED (ZIP original intake, 2026-10-21):** Exact director-uploaded archive `Rare_Hunter_Approved_Original_PNG.zip` (ZIP SHA-256 `c4cf58e360c42dcca9be629a090cff49147ef28afd559e271d0ea3ba56a7e044`) contained ONE correctly named PNG source file. Source SHA, bytes, image signature, 1254×1254 dimensions and RGBA native alpha MATCH the earlier director-provided provenance record. Alpha has real transparent regions (734,780 fully transparent pixels), albeit many partial-alpha subject pixels and tiny alpha=1 edge noise requiring later cleanup. Raw identity and generation-reference eligibility are VERIFIED; native alpha cleanup, lossless icon WebP, dark-edge check and `artpreflight.py --type ICON` remain NOT_RUN. The previous JPEG preview mismatch is preserved as historical evidence, not relabeled as the original.
 
+**Epic Hunter silver/horn visual acceptance (2026-10-21):** Director: **“Approved, next.”** Accepted the redesigned Epic Hunter with the SAME corrected Common chest geometry (one outer hoop per side, identical corner supports and single short upper-front binding), POLISHED SILVER replacing Rare bronze, one glossy near-black silver-stitched flat leather strap, one RIDGED CURVED MONSTER HORN replacing Rare hooked talon, a larger faceted cyan clasp and exactly THREE softly pale-cyan GLOWING Hunter claw gouges. Premium crisp TNR pixel-art clusters and restrained cyan seam light remain locked; gold, extra armor and Legendary lid crystals were not introduced. Uploaded attachment `1000018979.png` has independently verified **JPEG/RGB**, **1536×1536**, **301097 bytes**, SHA-256 **`d563139d14c3519b74e0f8d30d3ad64f84bb02379b314c6b8d6ffa2578cfe0ea`**; opaque black matte/no alpha. Its generation-original source, if different, was not received; do not claim original PNG/alpha. Visual comparisons of Common/Rare/Epic Hunter at 125px show a clear steel→bronze→silver ladder, charcoal→near-black binding and Epic's glowing brand; 64/32px reductions were stress previews, not output preflight. **5/12 current director VISUAL approvals, 0/12 production-ready icons.** The old doubled-band/smooth-paint Epic Hunter remains a rejected historical image.
+
+**Next Epic Gatherer — source-reference hold (2026-10-21):** Its target direction is established by the canonical metal/binding/brand ladder: SAME fixed Common closed dome, two unchanged metal hoops/corners now POLISHED SILVER, one PALE SILVER-GRAY braided SEA-SILK round rope with fine integrated silver threads ending in the short upper-front knot, a compact upgraded emerald/silver-veined botanical sprig, a larger cyan skyglass clasp and a softly CYAN-GLOWING SINGLE LEAF brand on exposed wood. Brief `docs/design/ghost_ship_chests/EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md` is prepared, but generation remains **BLOCKED**: the approved Rare Gatherer `1000018969.png` exists only as a verified JPEG/RGB display attachment (SHA-256 `c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`), not a verified unmodified generation-original source. The director can supply the genuine approved original via file/ZIP for independent byte/type/alpha/provenance QC, OR explicitly grant a **reference-only JPEG exception** (never production readiness) if original unavailable. Do NOT silently attach the JPEG or substitute Epic Hunter as a third image. After resolving gate, use exactly the original Reliquary (material/palette) + approved Rare Gatherer original (same family/style/geometry); one isolated image and new director visual approval. Item rarity, game publishing and upload remain user-owned and out of scope.
+
 **Ruling ID provenance:** Ghost Ship previously occupied draft ID `RUL-2026-10-20-005` on the isolated ChatGPT studio branch, but live `main` assigned 005 to **Village bloodline scroll icons** before integration. The unrelated main ruling is retained verbatim; this Ghost Ship record takes **006** to avoid duplicate IDs. No ruling was overwritten on main.
 
-**Boundary:** Earlier duplicated-band, smooth-painted, long-binding and bulky-armor chest candidates remain REJECTED image references. **Four chest designs have director VISUAL approval** (Common Hunter/Gatherer + bronze/talon Rare Hunter + bronze/slate-flax Rare Gatherer). The genuine Rare Hunter PNG/RGBA original is now verified for generation reference use; Rare Gatherer's displayed JPEG still has no alpha. **No icon has completed production alpha/edge processing, lossless WebP, dark-composite output QC or `artpreflight.py --type ICON` (0/12 production-ready).** The NEXT art target **Epic Hunter is READY for ONE isolated generation** with exactly original Reliquary and verified Rare Hunter PNG. Director will approve the generated Epic artwork separately. **Zero live-game requests/writes, no uploads or publishing authorized**; actual item-rarity decision remains separate.
+**Boundary:** Earlier duplicated-band, smooth-painted, long-binding and bulky-armor chest candidates remain REJECTED image references. **Five current designs have director VISUAL approval** (Common Hunter/Gatherer; bronze Rare Hunter/Gatherer; silver/ridged-horn Epic Hunter). Authentic Rare Hunter RGBA PNG is verified, but Rare Gatherer and Epic Hunter attached JPEGs have no native alpha and are not verified as original generator files. **No icon has completed production alpha/edge processing, lossless WebP, dark-composite QC or `artpreflight.py --type ICON` (0/12 production-ready).** The NEXT art target **Epic Gatherer is PREPARED BUT BLOCKED** until the genuine approved Rare Gatherer source is verified or the director explicitly permits JPEG for generation reference only. Never attach Epic Hunter as third image. **Zero live-game requests/writes, no uploads/publishing authorized**; actual item-rarity decision remains separate.
 
 ## RUL-2026-10-21-001 — Replacement Technique icon: log-swap art approved as an exception
 
@@ -1891,3 +1895,94 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 **Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 1).
 
 **Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets; the text ticket is built only after the push/178-181 census confirms the live record.
+
+## RUL-2026-10-21-008 — Blazing Death Star overhaul: text and icon direction approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text and icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Blazing Death Star (`y0fmp1QvVcQnBoVZVLFfL`) gets the description "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike the target and leave them smouldering, so the blows that follow burn deeper." and the battle line "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars and leaving them smouldering." Its new icon follows option I2: three flaming four-pointed shuriken in a falling-star arc, each trailing a tail of fire, in the jutsu-icon pixel-art rendering (ember orange and molten gold on charcoal), Vaporia Scorch Break as the style/material reference only. The director's visual approval of the raw still locks the art. Drafting note from the same review: single-target reach is not announced with stock phrases such as "one foe" ("You seem to have a fixation on 'one foe' as a term.").
+
+**Evidence:** User, 2026-10-21, after three redrafted descriptions, two battle lines and three icon options: "D1, B1, I2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 2).
+
+**Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets, the icon only after the text suggestion resolves.
+
+## RUL-2026-10-21-009 — Divine Thunder Slap overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Divine Thunder Slap (`Je0gvHDVCm__vy2rT8YBB`) gets the description "The user claps their hands until they crackle with lightning, then delivers a thunderous open-palm slap. The charge lingers in their hands, making their next attacks hit harder." and the battle line "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving %user crackling with power." Icons for the overhaul are paused for now: "lets skip icons for now since we cant submit icons and text fixes" (text and icon suggestions cannot both be open on one record).
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 3).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-010 — Fire Release: Great Fireball overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Fire Release: Great Fireball (`jwXvmSztaK81u2k98Hc1Z`) gets the description "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every enemy caught in the blaze keeps burning, taking more damage over the next few rounds." and the battle line "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that leave lasting burns." The jutsu's name was flagged as echoing a franchise technique; no renaming decision has been made.
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 4).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name is untouched.
+
+## RUL-2026-10-21-011 — Earthshatter Strike overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Earthshatter Strike (`kw8dlRl4y5WBg8GkHSEvp`) gets the description "The user drives a chakra-packed fist into the ground, and the shockwave rolls back up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder." and the battle line "%user splits the ground with a single punch and plants their feet in the rubble, steeling their body for the blows to come." The name ("Strike" on a jutsu that deals no damage) was flagged; no renaming or balance decision has been made.
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 5).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name and effects are untouched.
+
+## RUL-2026-10-21-012 — Suggest-mode rationales state the fix, briefly
+
+**Date:** 2026-10-21
+
+**Domain:** Forge suggest mode / manifest authoring
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Narrows RUL-2026-10-19-007 (rationales stay specific to each record).
+
+**Ruling:** A per-item `suggestion.rationale` is one to three plain sentences: what was wrong and what the fix changes. No narrative or retelling of the old text. Example (push/185): "Adds the missing user damage boost (+20% for 2 rounds) to both texts. Battle line: 'his' replaced, 'subtle hit caresses' wording removed."
+
+**Evidence:** User, 2026-10-21: "Let's make our ticket rationale's a bit less verbose. Describe the fix without telling a story." Applied the same day to the unrun push/183, 184, 185 and 187; push/182 and 186 were already submitted.
+
+**Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1", rationale paragraph).
+
+**Boundary:** No code change. The jutsu text guide (under review at `c0e9d1b`) picks this up after review, not on the frozen SHA.
+
