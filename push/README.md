@@ -470,7 +470,7 @@ Kits from the 2026-10-21 AI census (push/159); Prism's record from the 2026-10-1
 `203_jutsu_text_round2.json` sends 198 targeted text fixes to the content review desk, one suggestion per
 jutsu, following the director's review of push/196 (RUL-2026-10-21-022):
 - 137 jutsu whose round 1 description was accepted ("Description is good"): that description goes back in
-  American spelling; the **original** battle line is kept, corrected only where it was wrong (39 untouched).
+  American spelling; the **original** battle line is kept, corrected only where it was wrong (31 untouched; those items send the description only).
 - 49 jutsu redone from the original text per the director's note (over-rewrites, area wording, spelling,
   event jutsu, one-off notes).
 - 12 applied push/196 texts: American spelling only.
