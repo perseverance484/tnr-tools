@@ -1734,3 +1734,60 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No upload, live edit or publication is authorized. The icon goes to the content review desk as push/148 (suggest mode).
 
+## RUL-2026-10-21-002 — AI pool battle-line pass: accept the residual risk from 14 unread AIs
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool / battle-line pass push/162–177 (law 18/60)
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Same shape as RUL-2026-10-12-011, for a different pass.
+
+**Evidence:**
+- The fresh census push/157–161 read all 512 repository-known live AI ids (512/512 ok, persisted). `profile.getAllAiNames` counted **526** live non-ELDER AIs at both its start (push/157) and its end (push/161).
+- So **14 live AIs** have ids the repository does not know and were not read. Forge keeps only the count of a list read.
+- Among the 512 read, 345 AIs equip at least one of the 82 pool jutsu; push/162–169 unequip them and push/171–177 re-equip them.
+
+**Ruling:** dauntless accepts the residual risk for the 14 unread AIs. If any of them equips a pool jutsu, push/170's edit severs that AI's combat link to it (law 18/60) and shows the new battle line in its fights.
+
+**Canonical destination:** `push/README.md` (section 162–177, "Not covered").
+
+## RUL-2026-10-21-003 — AI pool battle-line pass keeps the law order: unequip, edit, re-equip
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool / battle-line pass push/162–177 (law 18/60)
+
+**Status:** ACTIVE
+
+**Supersedes:** none.
+
+**Evidence:** The user first described the pass as "update the jutsu first, then perform the unequip and re-equip of each AI". Law 60 (`docs/ENGINE_LAWS.md`) requires strictly unequip, then edit, then re-equip, and says an edit followed by a re-equip is not sufficient. The game source at `studie-tech/TheNinjaRPG@dcf1cea` (`routers/jutsu.ts` update) shows no mechanism that would make edit-first safe. Asked to choose, the user answered "keep law order".
+
+**Ruling:** push/162–169 (unequip) run before push/170 (edit), and push/171–177 (re-equip) run after it. Law 60 is unchanged.
+
+**Canonical destination:** `docs/ENGINE_LAWS.md` laws 18 and 60 (unchanged); the run order in `push/README.md` section 162–177.
+
+## RUL-2026-10-21-004 — AI pool battle lines, renames and Rallying Spiral target approved
+
+**Date:** 2026-10-21
+
+**Domain:** Shared AI jutsu pool content (`32b_DATA_pool.json`, 82 jutsu)
+
+**Status:** ACTIVE
+
+**Supersedes:** the reconstructed battle text in `state/ai_pool_battle_lines/recovered/` (kept for comparison only).
+
+**Ruling:**
+- The 82 battle lines in `state/ai_pool_battle_lines/battle_lines.json` are approved as written: 2–3 sentences each, an Edo-era ninja voice, chakra-driven, describing only effects the live record carries.
+- The 17 renames are approved, including B28 Recoil Slam → Backlash Palm (chosen earlier) and B04 Executioner Seal → Choking Seal.
+- B31 Rallying Spiral targets `ALLY` instead of `OTHER_USER`. Its buffs used to land on the enemy. The user's instruction was "Retire rallying spiral lol, or have it target allies"; it was retargeted rather than retired.
+
+**Evidence:** User, 2026-10-21: "approve the prose", after reviewing `state/ai_pool_battle_lines/REVIEW.md`; the B31 instruction is quoted above. The user also stated recoil's meaning: a debuff on an enemy that, while active, deals the recoil percentage of the damage they deal back to themselves. That matches `tags.ts` `recoil` at `dcf1cea`.
+
+**Open:** B28's recoil has `rounds: 0`. `isEffectActive` (`libs/combat/util.ts`) treats a 0-round effect as expired, and recoil does not fire on the round it is applied, so as stored it never has an active round. Its duration is a balance decision, not yet made.
+
+**Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170). After an operator-verified live run, the pool registry names and B31's target are updated through `32_REGISTRY_shared_ai_pool.md` → `32b_DATA_pool.json`.
+
+**Boundary:** No live edit is authorized by this ruling. The operator runs push/162–177 through Forge.

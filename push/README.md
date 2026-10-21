@@ -365,7 +365,8 @@ Check every results bundle before the next manifest:
   171–177: they restore each kit from the push/158–161 before-image. The old text of every jutsu is in
   `harvests/inbox/tnr_results_1792551342555.json`.
 - **Not covered:** 14 live AIs the repository has no id for (526 live, 512 read). If any of them equips
-  a pool jutsu, 170 severs it.
+  a pool jutsu, 170 severs it. Risk accepted (RUL-2026-10-21-002); order kept (RUL-2026-10-21-003);
+  lines and renames approved (RUL-2026-10-21-004).
 - **Warnings:** `validate.py --strict` is 0/0 on 162–170. 171–177 carry 97 warnings that a kit is all
   60 AP attacks; those are the AIs' current live kits, restored unchanged.
 
