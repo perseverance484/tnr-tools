@@ -1,6 +1,6 @@
 # Epic Hunter's Chest — polished silver / horn isolated generation
 
-**Status:** PREPARED — **GENERATION BLOCKED** until the director-approved Rare Hunter ORIGINAL PNG is actually received and byte-verified; no substitution of a JPEG preview.  
+**Status:** **READY FOR ONE NEW CLEAN ISOLATED GENERATION** — verified director-approved Rare Hunter ORIGINAL PNG source identity/alpha intake **PASS (2026-10-21)**; Epic Hunter visual approval PENDING. Production alpha/edge/QC of Rare and Epic assets separate.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -12,14 +12,14 @@
 **Future output filename:** `icon-gs-chest-hunter-epic.webp`  
 **Game requests/writes:** 0/0; credentials none. No uploads, publishing, binary art commits or processing in generator.
 
-## Unresolved reference gate — DO NOT GENERATE YET
+## Approved reference gate — VERIFIED PASS, GENERATION UNBLOCKED
 
-Attach **exactly TWO individual original image files** ONLY after these intake checks:
+Attach **exactly TWO individual approved original image files**. Source intake has been completed and verified as follows:
 
 1. **Original Skyglass Reliquary:** `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp`, Git blob `eefd3e22c2fff6255f231b5402697b68f5fd7577`. Role: MATERIAL/PALETTE ONLY. Dark wood/iron, pale cyan faceted skyglass; **NEVER** copy flat lid, outer-band/corner construction or smooth painting incompatible with premium pixel art.
-2. **NEW director-approved Rare Hunter bronze/talon ORIGINAL PNG:** user-reported filename `rare_hunter_s_bronze_bound_chest.png`, claimed **PNG/RGBA 1254×1254, 1,349,268 bytes**, SHA-256 **`99ca6f817fe390b0c9aff16cdc2016f70d897f44dbda2e06b511696a5da94f08`**. This reported filename/dimension/hash has **NOT** been independently verified by the persistent studio. The studio must receive the actual file bytes, decode/hash them, verify alpha and director provenance, and write a PASS in `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md` and the studio register BEFORE attaching it. Role when verified: approved **HUNTER SAME-FAMILY SUBJECT, TWO-HOOP GEOMETRY, SHORT CENTER BINDING, CAMERA, SCALE AND PREMIUM PIXEL-STYLE REFERENCE**; evolve the materials, not the structure.
+2. **VERIFIED director-approved Rare Hunter bronze/talon ORIGINAL PNG:** `rare_hunter_s_bronze_bound_chest.png`, extracted byte-for-byte from director-uploaded `Rare_Hunter_Approved_Original_PNG.zip` on 2026-10-21. Decoder confirms **PNG/RGBA 1254×1254, 1,349,268 bytes**; SHA-256 **`99ca6f817fe390b0c9aff16cdc2016f70d897f44dbda2e06b511696a5da94f08`** (**PASS exact director report**). Four corners transparent; native alpha verified. Studio-approved same-family **HUNTER SUBJECT, FIXED TWO-HOOP GEOMETRY, SHORT CENTER LEATHER LATCH, CAMERA, SCALE AND PREMIUM PIXEL RENDERING REFERENCE**. Evolve silver materials and horn/claws, not chest structure. In this current conversation, the original extracted and preserved file is `/mnt/data/rare_hunter_s_bronze_bound_chest.png` (do not copy the ZIP as a third reference or attach a JPEG rendering). Reference-source gate: **PASS**; separate processed WebP/preflight: NOT_RUN.
 
-**Absolutely forbidden as references:** uploaded chat display `1000018962.png` (actually JPEG/RGB, SHA-256 `6c7c4d879f9261c6cd3b03c8a461053363b13293f42a1ba8aefd0de221babfd6`, **not** the claimed approved PNG original); old oversized-gunmetal-armor Rare Hunter; previous six double-band variants; long-leather Common Hunter; new Rare Gatherer as a third image; contact sheets/collages, Sage's Strongbox or an unverified thumbnail. DO NOT replace the missing approved Rare source with Common Hunter without explicit new director authorization.
+**Absolutely forbidden as references:** uploaded chat display `1000018962.png` (actually JPEG/RGB, SHA-256 `6c7c4d879f9261c6cd3b03c8a461053363b13293f42a1ba8aefd0de221babfd6`, **not** the claimed approved PNG original); old oversized-gunmetal-armor Rare Hunter; previous six double-band variants; long-leather Common Hunter; new Rare Gatherer as a third image; contact sheets/collages, Sage's Strongbox or an unverified thumbnail. Do not swap this verified approved Rare original for Common Hunter or the JPEG preview. Both reference image bytes must be attached individually in the NEW isolated generation session.
 
 ## Director-approved target: rarity changes MATERIALS, NOT BODY GEOMETRY
 
@@ -41,7 +41,7 @@ Create **one closed domed-lid Hunter chest** with EXACTLY the same Common/Rare u
 
 Match the validated Common and Rare chest register: **crisp stepped pixel lineart, intentional clean block clusters, restrained LIMITED dark palette, flat cel shading with clearly bounded shadow ramps, softly localized cool edge lighting, and one restrained cyan accent**. High-quality detailed pixel workmanship readable at **125px**; not an 8-bit caricature and NOT smooth digital painting/photoreal 3D, airbrush gradients, polished texture-blend, lens bloom or antialias blur.
 
-## One-generation prompt once the RAW source gate PASSES
+## One-generation prompt — RAW source reference gate PASSED
 
 `a single closed domed-lid EPIC HUNTER'S CHEST identical in shape, two outer lid metal bands, corner hardware and 3/4 camera to the approved Rare Hunter and Common Hunter, with all existing metal SURFACES changed to polished SILVER while retaining their exact geometry, dark wooden body, ONE centered flat glossy near-black LEATHER strap bearing fine SILVER edge stitching within that strap, the strap crossing only the lid and TERMINATING at a SHORT UPPER-FRONT CLASP beneath the lid seam, ONE prominent distinctly RIDGED CURVED MONSTER HORN mounted at the front keeper (not a hooked talon or ivory fang), one larger refined faceted pale-cyan skyglass gem at the upper lock, exactly THREE parallel CLAW GOUGES cut into exposed dark front wood GLOWING SOFT CYAN FROM WITHIN, restrained faint cyan lid-seam light, refined premium high-quality TNR PIXEL ART, crisp stepped pixel clusters and pixel lineart, controlled limited dark palette, flat cel shading with defined hard tonal ramps, even cool edge highlights, single complete centered object, eye-level flat 3/4 view`
 
@@ -51,8 +51,8 @@ Match the validated Common and Rare chest register: **crisp stepped pixel linear
 
 ## Production/generation gate
 
-1. **STOP** until the exact director-approved Rare Hunter PNG bytes pass source intake and verification. Do not substitute a preview. The user may supply that missing file; studio records decoder, hash, alpha, and provenance before unlocking this brief.
-2. Once unblocked, open ONE clean isolated Epic Hunter session with exactly TWO approved individual images and this frozen brief. Generate exactly ONE square icon candidate; do not produce other chests/sheets.
+1. **DONE — SOURCE GATE PASS (2026-10-21):** studio received the original from a ZIP containing exactly one correct PNG file; verified exact byte count, matching SHA-256, decoded RGBA 1254², native transparency and approved subject. Recorded in `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md` and `CHEST_ICON_STUDIO_REGISTER.md`. **No JPEG substitute allowed.**
+2. **Now READY:** Open ONE NEW clean isolated Epic Hunter session, attaching only the original Skyglass Reliquary AND extracted verified Rare Hunter ORIGINAL PNG as **two separate images**; carry this brief. Generate exactly ONE square icon candidate; do not produce other chests/sheets.
 3. Self-check geometry (two hoops/no duplication; one short strap) FIRST, then silver surfaces, ridged single horn, enlarged gem, THREE glowing claws, premium pixel clusters, and clear visual advancement from Rare at 125px.
 4. Show to director for independent visual acceptance. Same-subject revision may remain in session; after two wrong-subject results close and restart clean.
 5. Return exact generation-original bytes + target/hash/approval to studio. Only studio may later process alpha, clamp spill, pad square, export lossless WebP (256×256 recommended, under 460800 bytes), do dark-composite 125/64/32px QC and `artpreflight.py --type ICON`; no publishing/live game writes.
