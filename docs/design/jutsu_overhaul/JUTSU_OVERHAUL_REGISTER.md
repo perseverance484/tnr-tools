@@ -35,34 +35,27 @@ art is approved and preflighted, so a rejection of one does not cost the other.
 **What is wrong:** the battle line claims it saps the target's strength, which no effect does; neither
 text mentions the healing boost; the name's "domain" plays no part in either.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21)
 
-Description:
-- **D1** "The user claims the surrounding water as their domain and brings a crushing tide down on
-  one foe. While the domain holds, the same waters swell every healing art the user performs."
-- **D2** "Within the user's domain, water answers to them alone: it rises to crush a single foe,
-  then flows back to its master, deepening their healing for a short time."
-- **D3** "The user declares the battlefield a domain of water. A tide surges out to drown one foe,
-  and the waters left behind feed the user's healing until they recede."
+- **Description** (D2 with the director's edits): "Within the user's domain, water answers to them
+  alone. It rises to crush their foe, then flows back to its master, deepening their healing for a
+  short time."
+- **Battle line** (B2): "%user spreads their domain across the field, hurling its tide at %target
+  before the waters pool back around %user to strengthen their healing."
 
-Battle line:
-- **B1** "%user claims the field as their domain; a crushing tide drowns %target, then the waters
-  return to %user, swelling their healing arts."
-- **B2** "%user spreads their domain across the field, hurling its tide at %target before the waters
-  pool back around %user to strengthen their healing."
+Not chosen: D1, D3 and B1 (in git history at eeccaa4).
 
-### Icon (PROPOSAL)
+### Icon (I1 APPROVED, dauntless 2026-10-21; RUL-2026-10-21-007)
 
 - **Why:** part of the overhaul; the new icon should show the domain and both halves of the jutsu
   (crushing tide, restorative calm). The current icon was not viewed for this request (no live
   reads); it is not passed to the generator either way.
 - **Theme palette:** Water, deep blue and white foam, with one soft aqua-teal healing glow as the
   secondary cue.
-- **Reserved silhouette (option I1, recommended):** a **vast whirlpool basin** seen from a low 3/4
+- **Reserved silhouette (I1, approved):** a **vast whirlpool basin** seen from a low 3/4
   angle, its outer rim a churning wall of white foam, its calm eye glowing a soft restorative aqua.
-- Alternatives: **I2** a ring of rising water walls enclosing a still, glowing pool (territory
-  claimed); **I3** a crushing torrent falling onto one point with a single glowing droplet rising
-  from the spray (shows both effects, but two shapes read weaker at 32 px).
+- Not chosen: I2 (ring of water walls around a glowing pool) and I3 (torrent onto one point with a
+  rising droplet).
 - **Must not copy** (reserved by other families): Vaporia's coiling water dragon, crushing water
   column, water sphere and breaking wave; no shield or plates (Searing Might), no chains, no smoke.
 - **Exemplar (style/material only):** Vaporia Surfing Strike,
@@ -78,7 +71,7 @@ Target: Water's Domain
 Jutsu target lock: jutsu ID -8W4JOqG3Cb-oPQtF9rMs, display name Water's Domain; no bloodline
 Lead: Image Production; supporting lens Art Director
 Session: ISOLATED GENERATION, one asset only
-State: exploratory until director approves
+State: exploratory until director approves the raw
 Live-game requests/writes: 0. Credentials: none.
 
 Goal/action: the caster claims the water around them as their domain; a crushing tide strikes one
@@ -107,5 +100,5 @@ Return the original asset after director visual approval.
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
-| Icon | REQUEST DRAFT, awaiting director approval of the silhouette |
+| Text | APPROVED 2026-10-21; ticket waits on the push/178-181 census to confirm the live record |
+| Icon | DIRECTION APPROVED 2026-10-21 (I1); generation not started, raw needs director approval |
