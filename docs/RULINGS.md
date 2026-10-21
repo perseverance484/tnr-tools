@@ -2044,3 +2044,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-019 — Purgatory overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Purgatory (`_Hhz6aPpNCMc4U7hNzDqe`) gets the description "The user ignites their limbs with fire chakra and unleashes a spiralling flurry of burning strikes that scorches every enemy in its path. The blaze keeps roaring through their body, making their attacks hit harder for a short time." and the battle line "Flames burst from %user's fists and feet as they whirl through a spiral of strikes, the heat building with every blow."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, b2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 11).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
