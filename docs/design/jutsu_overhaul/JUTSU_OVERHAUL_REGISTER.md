@@ -508,7 +508,7 @@ Not chosen: D2, D3, B1 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/194 (QA ticket 22), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/194, suggestion `YIs81fC3GTqP1LRnVMv02`, PENDING |
 | Icon | PAUSED |
 
 ## 12. Blazing Edge
