@@ -573,28 +573,17 @@ of rapid, precise strikes, overwhelming %target with the relentless power of the
 **What is wrong:** neither text mentions the move, the area hit, or the absorb (the user's sustain).
 "Relentless" appears twice in the battle line, which also uses `%target` on an empty-ground jutsu.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-021)
 
-Description:
-- **D1** "The user flows to a new position and unleashes rapid water-charged palm strikes on the enemies
-  around them. The current keeps moving through their body afterwards, turning part of every blow they
-  take into health for a short time."
-- **D2** "Like a wave reaching the shore, the user surges forward and batters nearby enemies with a flurry of
-  fluid palm strikes, then lets incoming blows wash through them, recovering health from part of the
-  damage for a short while."
-- **D3** "Every movement flows like water: the user glides in, strikes all nearby enemies with rapid palms,
-  and for a short time absorbs part of the damage they take as health."
+- **Description** (D1): "The user flows to a new position and unleashes rapid water-charged palm strikes on the enemies around them. The current keeps moving through their body afterwards, turning part of every blow they take into health for a short time."
+- **Battle line** (B2): "%user glides forward on a rush of water chakra and crashes into nearby enemies with rapid palm strikes, the current around them ready to drink in the next blow."
 
-Battle line (no `%target`):
-- **B1** "%user flows across the field like a breaking wave and unleashes a flurry of water-charged palm
-  strikes on nearby enemies, their body loosening to soak up the blows that follow."
-- **B2** "%user glides forward on a rush of water chakra and crashes into nearby enemies with rapid palm
-  strikes, the current around them ready to drink in the next blow."
+Not chosen: D2, D3, B1 (in git history). Goes out in the master sweep manifest (push/196).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; included in the master sweep manifest push/196 |
 | Icon | PAUSED |
 
