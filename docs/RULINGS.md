@@ -1936,3 +1936,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No code change. The jutsu text guide (under review at `c0e9d1b`) picks this up after review, not on the frozen SHA.
 
+## RUL-2026-10-21-013 — Earthshatter Strike reworked as Bedrock Stance
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu name and text
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-21-011 (its text was never submitted; push/187 was withdrawn unrun).
+
+**Ruling:** Jutsu `kw8dlRl4y5WBg8GkHSEvp`, live as Earthshatter Strike, is renamed "Bedrock Stance" with the description "The user roots themselves to the earth and draws its strength up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder." and the battle line "%user sinks into a low stance as the ground hardens beneath them, their body turning stone-steady and their fists heavy." Its effects (a self buff, no damage) are unchanged.
+
+**Evidence:** User, 2026-10-21: "Honestly earthshatter strike needs a rename as well, if it doesnt deal damage it shouldnt be called a strike. Let's rework the whole thing", then, after four names, three descriptions and two battle lines: "N1, D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 5).
+
+**Boundary:** No live edit or publication is authorized. Name and text go to the content review desk as one Forge suggest-mode ticket. Name uniqueness was checked only against the 1,500 names the repository knows; the desk's save validation is the final check.
+
