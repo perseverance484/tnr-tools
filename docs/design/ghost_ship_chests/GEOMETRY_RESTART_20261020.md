@@ -1,6 +1,6 @@
 # Ghost Ship chest icons — cross-family geometry reset (2026-10-20)
 
-**Status:** DIRECTOR GEOMETRY LOCK CONFIRMED — six earlier chest raws remain REVOKED; corrected Common Hunter isolated generation may begin; all later slots await fresh geometry-correct approvals.  
+**Status:** DIRECTOR GEOMETRY LOCK AMENDED 2026-10-20 — one metal lid hoop per outer end PLUS one centered family binding ending at the SHORT UPPER-FRONT LATCH (no lower-front continuation). Six earlier chest raws remain REVOKED; new pixel-style-approved Common Hunter is pending an upper-latch edit and renewed visual approval before future family propagation.  
 **Working role:** Art Director (lead), Image Production (support)  
 **Authority:** Director's 2026-10-20 message: “Just noticed all the chests need to be regenerated. Their geometry is messed up, there's an extra metal band on the right side, looks like it was copied from the Sage's Stromgbox reference image's leather strap.”  
 **Governing approved workstream brief:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`; `RUL-2026-10-20-002`; `docs/workflows/ISOLATED_ART_GENERATION.md`  
@@ -41,6 +41,14 @@ This defect is fundamentally compositional/structural. Keying, resizing, alpha c
 5. **Visual QC first:** inspect the top and near/far right sides at **full source resolution** and **125px**, alongside a mirrored check of the left; confirm proper band count/attachment BEFORE considering motif correctness or tier aesthetics.
 
 **Director confirmation received:** “Sure, that looks fine. It was the double band on one side that threw it off.” The **two-end-hoop + single central family binding** construction above is now the approved structural target. The specific failure to reject is a **second independent side-by-side arch/metal band on the same end**, especially on the camera-right side. Natural light edges or silver trim on the *surface of a single existing hoop* do not count as a new separate hoop; they must not create a second band-shaped volume. This confirmation approves the **geometry direction**, not any new rendered image.
+
+## Later approved upper-latch termination refinement (2026-10-20)
+
+Following the director's approval of a pixel-art Common Hunter candidate and inspection of the new Common Gatherer candidate, the director approved **shortening BOTH central bindings**: the one Hunter leather strap and one Gatherer round rope run over the CLOSED DOMED LID, turn over the front lip, and **END at a secured receiver/latch directly under the front lid seam**. A bone/fang and cyan crystal locking assembly secures the Hunter strap; the Gatherer rope terminates in one compact upper-front knot with short tucked tails. **No leather or rope extends below that upper latch down the lower body/front to the chest base**. The two metal outer lid hoops remain intact and may continue down the corners for structural support. The front Hunter claw or Gatherer leaf brand stays unobstructed.
+
+**Additional director-art latitude:** The fang/tooth and leaf sprig may vary in shape and detail by tier to imply rarity. The exact candidates are not approved in advance; keep one clear Hunter tooth, one Gatherer leaf sprig and unchanged fixed family brands, with rarity-specific material progression from canonical §4a. The operative wording and suggested variants are in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4b. Supporting record `FRONT_LATCH_AND_MOTIF_REFINEMENT_20261020.md`.
+
+**Consequence for previous approvals:** The newly approved premium pixel-art Common Hunter `1000018935.png` must be revised **only at the leather termination** and the revised image re-approved. The Common Gatherer pixel candidate `1000018939.png` was NOT director-approved and must have its overlong rope corrected. These two images are not fully compliant reference inputs for future generation. See live studio register for latest gates; the original six double-band images remain permanently rejected.
 
 ## Restart sequence
 
