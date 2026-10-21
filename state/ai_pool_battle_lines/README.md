@@ -1,7 +1,7 @@
 # AI pool battle lines (82 shared-AI-pool jutsu)
 
 Working folder for the battle-description pass on the 82 jutsu in `32b_DATA_pool.json`.
-**Nothing here is in `push/`, on purpose.** The jutsu edit severs every AI's combat link to an
+**Nothing here was ever in `push/`, on purpose.** The jutsu edit severs every AI's combat link to an
 edited jutsu (laws 18, 60), so it must run only between a validated unequip and re-equip, and
 those don't exist yet.
 
@@ -29,11 +29,11 @@ Rebuild: `python3 state/ai_pool_battle_lines/build.py harvests/inbox/<bundle>.js
 - `effects` on B28 Backlash Palm: recoil `rounds` 0 → 2 (RUL-2026-10-21-005), the rest unchanged.
 - `injectableInBattle` re-sent at its captured live value (law 20).
 
-## Status
+## Status: LIVE (2026-10-21)
 
-- Built from `harvests/inbox/tnr_results_1792551342555.json` (push/157, 2026-10-21). It runs as
-  `push/170_ai_pool_battle_lines_edit.json`, between the unequip (162-169) and the re-equip (171-177).
-  See `push/README.md`.
+- Ran as push/170 between the unequip (162-169) and the re-equip (171-177), all verified; outcome in
+  `archive/spent-manifests/push-2026-10-21/README.md`. Built from
+  `harvests/inbox/tnr_results_1792551342555.json` (push/157).
 - **Changed live since the first draft** (edited in the game, not by the repository): B04 Executioner Seal
   (2026-10-11, instant kill -> lowers the target's jutsu power for 5 rounds), S02 Quick Strike and S07
   Rapid Fire (2026-10-15, new effects; S07 now targets OPPONENT). Their lines were rewritten to match,

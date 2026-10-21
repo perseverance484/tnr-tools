@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Check the read-backs of the AI pool battle-line pass (push/162-177) against the before-image.
 
-Before-image: push/157 (82 jutsu) and push/158-161 (AIs), the inputs of push/162_ai_pool_reequip.gen.py.
+Before-image: push/157 (82 jutsu) and push/158-161 (AIs), the inputs of push/162_ai_pool_reequip.gen.py
+(all archived under archive/spent-manifests/push-2026-10-21/).
 The step is read from each results bundle's own manifest path:
 
   unequip  (162-169)  kit = before-image minus the EQUIPPED pool rows; every other kit row unchanged
@@ -29,7 +30,7 @@ from bloodright_classification_readback import VOLATILE, items, pinned  # noqa: 
 JUTSU_BEFORE = "harvests/inbox/tnr_results_1792551342555.json"
 AI_BEFORE = ["harvests/inbox/tnr_results_1792551456483.json", "harvests/inbox/tnr_results_1792551557783.json",
              "harvests/inbox/tnr_results_1792551619150.json", "harvests/inbox/tnr_results_1792551674258.json"]
-EDIT_MANIFEST = "push/170_ai_pool_battle_lines_edit.json"
+EDIT_MANIFEST = "archive/spent-manifests/push-2026-10-21/170_ai_pool_battle_lines_edit.json"
 MASTERIES = {"ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery", "bloodlineMastery", "sageMastery"}
 MASTERY_ROUNDING = 0.005 + 1e-9
 
