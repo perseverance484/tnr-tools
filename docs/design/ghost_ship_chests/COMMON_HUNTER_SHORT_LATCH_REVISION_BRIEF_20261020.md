@@ -1,6 +1,6 @@
 # Common Hunter's Chest — upper-latch binding revision (2026-10-20)
 
-**Status:** REVISED PIXEL-ART SHORT-LATCH CANDIDATE `1000018956.png` HAS STUDIO VISUAL QC PASS, **DIRECTOR APPROVAL PENDING**; previous smooth-painted `1000018947.png` is not accepted as a style reference. No production preflight.  
+**Status:** **DIRECTOR VISUALLY APPROVED** short-latch pixel-art Common Hunter `1000018956.png` (“Yes, next”, 2026-10-20). One valid visual accepted original, but raw alpha/export/preflight remain NOT_RUN; all old painted/long-binding raws stay rejected as future geometry references.  
 **Lead:** Image Production · **Support:** Art Director  
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
 **Future delivery filename:** `icon-gs-chest-hunter-common.webp`  
@@ -52,4 +52,4 @@ Prefer revising the existing Common Hunter image in its **original isolated gene
 
 **Independent visual verdict: PASS for the intended revision; awaiting director explicit acceptance.** Compared full-size candidate and deterministic 125/64/32px previews with approved premium pixel-art original `1000018935.png` and smooth-painted failed short-latch candidate `1000018947.png`. The new rendering has obvious **crisp stepped pixel clusters, defined cel shading and limited palette**, avoiding smooth painterly regression. Exactly two independent outer metal lid hoops. One saddle-brown leather strip runs over the domed lid and terminates at the upper-front metal receiver/gem/fang lock, with the lower-front chest panel showing wood. Three claws, cyan faceted crystal, ivory fang, camera and silhouette remain. The fang hangs beneath the clasp as an ornament; it is **not the leather tail**.
 
-**Approval gate:** The director has sent the image but has not yet said that this candidate is approved. Do **not** claim a new lock, allow Common Gatherer to use it as an approved image reference, or claim a finished item `ICON` until explicit director acceptance and subsequent mechanical QC.
+**Approval gate CLOSED:** Director said **“Yes, next.”** The exact raw `1000018956.png` (JPEG/RGB 1536×1536, 276722 bytes, SHA-256 `a46aa0279a7ba45784f397417c5fd4b8a5fb40ebde3a71074699d35ffdb7562c`) is **visually approved** as the geometry-correct PREMIUM PIXEL-ART Common Hunter. Use it alongside original Skyglass Reliquary as the only two individual references for a clean Common Gatherer session (`COMMON_GATHERER_SHORT_LATCH_ISOLATED_BRIEF_20261020.md`), with roles material/palette versus pixel style/geometry, respectively. **Production alpha/QC/export/preflight remain NOT_RUN** because actual original is opaque JPEG on black. No live-game requests or writes.
