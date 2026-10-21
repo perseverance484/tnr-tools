@@ -292,3 +292,13 @@ full stop in the jutsu's name is left for a text ticket); `injectableInBattle` i
 live value, false (law 20). No AI equips it in the committed captures (laws 18, 60). `validate.py`:
 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `488c286b`.
 Run it from Forge, then use **Check suggestions**. This completes the six Academy Student icons.
+
+## 154 Village bloodline scroll icons 1-2 (suggest mode)
+
+`154_village_scroll_icons_1.json` sends new icons for Shadow Scroll: Oblivion Seal and Wood Scroll:
+Shinseina Ki to the content review desk; it does not save directly. All six village bloodline scrolls
+share one image today. The art (`art/village_bloodline_scrolls/exports/`, pinned by commit and SHA-256
+in `imagePack`) is director-approved (RUL-2026-10-20-005). Only `image` changes; both scrolls'
+battle lines are non-empty, so the save is not blocked. `validate.py`: 0 errors, 0 warnings.
+`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `31acb505`. The other four
+scrolls follow in a later ticket. Run it from Forge, then use **Check suggestions**.

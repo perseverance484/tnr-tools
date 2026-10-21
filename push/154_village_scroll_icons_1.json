@@ -1,0 +1,54 @@
+{
+ "_note": "New icons for two of the six village bloodline scrolls, which all share one image (docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md, RUL-2026-10-20-005). Director-approved 2026-10-21; the other four follow in a later ticket. Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes; the scrolls' battleDescription is non-empty in the 2026-10-20 public read, so the save does not trip the NOT NULL rule. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "Update icon",
+  "rationale": "Each village bloodline scroll gets its own icon; all six currently share one image."
+ },
+ "imgSizes": {
+  "icon-village-scroll-oblivion-seal.webp": 48584,
+  "icon-village-scroll-shinseina-ki_b.webp": 55370
+ },
+ "imagePack": {
+  "ref": "aee6dfbef1fa3ffe5282648fc5b3bf2721bc801b",
+  "files": {
+   "icon-village-scroll-oblivion-seal.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-oblivion-seal.webp",
+    "sha256": "e8954f17c32bbe915a43e08395fca67460dcac7fba71170c99710ab15f2381a4",
+    "bytes": 48584
+   },
+   "icon-village-scroll-shinseina-ki_b.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-shinseina-ki_b.webp",
+    "sha256": "c0eb91f83b16e022434babee01303ac857f441e5fab327bfe777c84db11046aa",
+    "bytes": 55370
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Shadow Scroll: Oblivion Seal",
+   "targetId": "7tZoY3uG2Jxg8Fp0dZlwE",
+   "data": {
+    "image": "@img:icon-village-scroll-oblivion-seal.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a black handscroll bound with a violet cord, with violet shadow seeping from the paper, matching the shadow bloodline it grants."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Wood Scroll: Shinseina Ki",
+   "targetId": "DWFRB8hWCaWpWpUWUO8t5",
+   "data": {
+    "image": "@img:icon-village-scroll-shinseina-ki_b.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a handscroll with living-wood rollers sprouting leaves, bound with a green cord and glowing green along the paper, matching the wood bloodline it grants."
+   }
+  }
+ ]
+}
