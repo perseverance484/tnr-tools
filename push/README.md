@@ -372,3 +372,15 @@ live value, false (law 20). Live record from the 2026-10-21 census; not equipped
 (push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors, 0 warnings.
 `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `a8e422dc`. Run it from Forge, then use **Check suggestions**.
 
+## 186 Fire Release: Great Fireball text (suggest mode, QA ticket 15)
+
+`186_great_fireball_text.json` sends one text edit to the content review desk; it does not save
+directly. Fire Release: Great Fireball (`jwXvmSztaK81u2k98Hc1Z`) had the description "Create a gigantic
+fireball.", which said nothing about its area blast or its wound (each enemy hit takes another 20% of the
+blast's damage on each of the next two rounds); its battle line had no full stop. The new description and
+battle line were approved by dauntless (RUL-2026-10-21-010; register section 4). Only text changes; the
+name is untouched (flagged separately). `injectableInBattle` is re-sent at its live value, false (law 20).
+Live record from the 2026-10-21 census; not equipped by any AI (push/158-161); no other suggestion open
+on it. `validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send
+problems. Manifest hash `4fac0d0b`. Run it from Forge, then use **Check suggestions**.
+
