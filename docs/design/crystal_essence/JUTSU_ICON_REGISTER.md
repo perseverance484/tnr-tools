@@ -1,6 +1,6 @@
 # Crystal Essence — jutsu-icon Art Studio register
 
-**Status:** FAMILY DIRECTION APPROVED / CANONICAL SOURCE INTAKE PASS (5/5) / DIRECTOR RAW VISUAL APPROVALS **2/5** (Kōsai Shippū + Crystal Sphere) / CRYSTAL CAVE P0 **DIRECTOR APPROVED**, OFFICIAL LOCK-CHECK **PASS**. Direction approved 3/5, raw-approved 2/5. Summoning: Jade and Prism directions pending. No production exports, real preflight, final gallery or game operations.
+**Status:** FAMILY DIRECTION APPROVED / SOURCE INTAKE PASS (5/5) / DIRECTOR RAW VISUAL APPROVALS **3/5** (Kōsai Shippū, Crystal Sphere, Crystal Cave) / PRISM NEXT P0 PROPOSED — DIRECTOR PENDING. Previously approved directions 3/5, remaining Prism and Summoning: Jade pending. No production exports, real preflight, final gallery or game operations.
 **Lead:** Art Director · Support: Image Production
 **Bloodline:** Crystal Essence · A · `ssevlOGQ4JjPn2sHZtq0c` · BR-020.
 **Repository base:** `main@02a288e966db27f427508734a6223e0e583b081a`.
@@ -94,8 +94,17 @@ Director replied **“Approved”** to the Crystal Cave proposed target at studi
 
 **Generation references, EXACTLY two individual images:** original Cave PNG `a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530` **IDENTITY ONLY**, approved Kōsai raw JPEG `84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5` **STYLE/MATERIAL ONLY**. Do not copy its triple crescent attack. Approved Sphere remains a comparison sibling only (no third reference). Use one fresh isolated Cave generation conversation, one candidate. **Cave has no raw approval yet; total remains 2/5.** Studio performed no image generation, export/preflight, gallery or live-game requests/writes.
 
-## Current gates / restrictions (post Sphere raw approval)
 
-`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere + Crystal Cave (3/5)**; only Summoning: Jade and Prism PENDING. `RAW_VISUAL_APPROVED`: **2/5 (Kōsai Shippū, Crystal Sphere)**; Crystal Cave generation NOT_STARTED; its P0 direction is approved. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+## Crystal Cave visual acceptance and Prism next P0 proposal — 2026-10-21
 
-**Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generations received:** 2. **Production processing/gallery:** 0.
+**Crystal Cave RAW_VISUAL_APPROVED** by the director (“Approved, next”) on exact attached candidate `1000018974.png`. Actual decoded original is **JPEG (JFIF) RGB 1536×1536**, 757,271 bytes, SHA-256 `223af5ff36f525cfc93b4df798388f4c1925fe78809efd462c5bcd60a5e1cc34`. Accepted bytes were preserved unchanged with accurate extension under `Crystal_Essence_Crystal_Cave_APPROVED_RAW_v1.jpg` (conversation attachment, **not Git binary pinned**). Non-generative 125/64/32 sibling comparison confirms recognizably different opposing cave spikes versus Sphere's closed shield and Kōsai's three traveling arcs. Detailed provenance: `CRYSTAL_CAVE_RAW_APPROVAL_20261021.md`. **Raw visual acceptance: 3/5.** This does NOT establish production WebP QC, canonical preflight, family gallery acceptance or live state.
+
+**Next P0 proposal: Prism (A)**, ID `6XpY1m4rAwrBHBKYsPRDJ`. Source captures a solar/light-based damaging, wounding strike. Single **hard-edged solar-light lance** visibly redirected through a functional mineral-glass prism from upper-left toward lower-right, ending in one compact impact burst. Distinct from Kōsai's curved wave trio, Sphere's round defensive shell, Cave's vertical converging crystal jaws and Jade's V-opening chrysalis. No human anatomy, floating ornamental gem or decorative magic circle. The original Prism PNG (62,831 bytes, RGB 240²), SHA-256 `b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70`, is **IDENTITY ONLY**. The approved Crystal Sphere raw JPEG, SHA-256 `077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4`, is **STYLE/MATERIAL ONLY** for light transmission/facets, **never** sphere geometry. The other approved siblings stay in Studio for comparison, not as generation conditioning.
+
+**Prism P0 direction remains PENDING director approval.** Complete lock reservation and proposed isolated brief: `docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json`, `docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md`. Once director approves, seal hash and run official lock-check with source-index before opening a clean, single-jutsu isolated generation conversation. No new images generated in this Studio.
+
+## Current gates / restrictions (post Cave raw approval)
+
+`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere + Crystal Cave (3/5)**; only Summoning: Jade and Prism PENDING. `RAW_VISUAL_APPROVED`: **3/5 (Kōsai Shippū, Crystal Sphere, Crystal Cave)**; next Prism P0 proposed, director approval pending. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+
+**Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generations received:** 3. **Production processing/gallery:** 0.
