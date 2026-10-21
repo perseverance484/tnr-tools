@@ -161,3 +161,18 @@ Result `harvests/inbox/tnr_results_1792614808975.json` (Forge export after **Che
 
 Some rejections carry more than one reason, so the rows overlap.
 
+## Round 2 (push/203)
+
+198 targeted fixes built from the review notes (RUL-2026-10-21-022); live text confirmed in push/201-202.
+Drafts: `JUTSU_TEXT_SWEEP_ROUND2_2026-10-21.json`. New findings during round 2:
+
+| Jutsu | Note |
+|---|---|
+| Inner Flame | Its absorb restores chakra and stamina only, not health; the text says "renewed energy". Health would need an effect change. |
+| Lightning Blitz Strike | The note asked for %target, but the live battle line already has it; only "your" in the description was fixed. |
+| Seal of Nullification | A 1% damage-given cut (element None) is set to land on allies; it can never matter. |
+| Tempest Cleave | Every effect has friendlyFire ALL, so it also hits allies; the text says "friend or foe". |
+| Fire Release: Inferno | Deals no damage (afterburn and fire vulnerability only) despite its name. |
+| Primordial Blight | Its text names five elements, but its damage has none; kept as concept imagery. |
+| Desert Illusions, Stone Circle | Original lines state a move lock as certain; it is about a 50% chance at the level cap. Kept as story text. |
+

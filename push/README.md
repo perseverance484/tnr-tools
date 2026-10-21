@@ -461,12 +461,24 @@ Kits from the 2026-10-21 AI census (push/159); Prism's record from the 2026-10-1
 (laws 15, 71), as in push/126-128. All three: `validate.py --strict` 0 errors, 0 warnings;
 `forge/tools/check_manifest.mjs` 0 pre-send problems.
 
-## 201-202 Round 2 capture (read-only)
+## 201-202 Round 2 capture: RUN, archived
 
-`201_round2_capture_1.json` and `202_round2_capture_2.json` read the 200 jutsu in text sweep round 2
-(RUL-2026-10-21-022) with `jutsu.get`, full records, zero writes: the 188 rejected push/196 jutsu being
-redone as targeted fixes, and 12 applied ones getting an American-spelling fix. It confirms their live text
-before the round 2 manifest is built, since an approver can edit a suggestion while applying it.
-`validate.py --strict`: 0 errors, 0 warnings (each). `forge/tools/check_manifest.mjs`: 0 pre-send
-problems (each). Hashes `cfe3c259`, `f5648a25`. Run 201 then 202 and commit both results bundles.
+200/200 reads ok; no record had drifted. Archived under `archive/spent-manifests/push-2026-10-21/`.
+
+## 203 Jutsu text sweep round 2 (suggest mode, 198 suggestions)
+
+`203_jutsu_text_round2.json` sends 198 targeted text fixes to the content review desk, one suggestion per
+jutsu, following the director's review of push/196 (RUL-2026-10-21-022):
+- 137 jutsu whose round 1 description was accepted ("Description is good"): that description goes back in
+  American spelling; the **original** battle line is kept, corrected only where it was wrong (39 untouched).
+- 49 jutsu redone from the original text per the director's note (over-rewrites, area wording, spelling,
+  event jutsu, one-off notes).
+- 12 applied push/196 texts: American spelling only.
+
+Each item sends only the fields that change, with `injectableInBattle` at its live value (law 20). Every
+record's live text was confirmed unchanged in push/201-202. Not resubmitted: totems, custom reskins, custom
+contributions, test and non-functioning jutsu, texts the director called sufficient, and two drafts that
+matched the live text. Drafts and per-jutsu fixes: `docs/reviews/JUTSU_TEXT_SWEEP_ROUND2_2026-10-21.json`.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 198 planned items, 0 pre-send
+problems. Manifest hash `5105f502`. Run it from Forge, then **Check suggestions** and export the results.
 

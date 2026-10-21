@@ -1,0 +1,2734 @@
+{
+ "_note": "Jutsu text sweep round 2 (director review lessons, RUL-2026-10-21-022). Suggest mode: content review desk, one suggestion per jutsu. Redoes the push/196 rejections as targeted fixes that keep the original text's length and voice (the director's accepted descriptions go back in American spelling, with the original battle line corrected only where it was wrong), plus American-spelling fixes to 12 applied texts. Each item sends only the fields that change, with injectableInBattle at its live value (law 20). Every record's live text was confirmed unchanged in the push/201-202 capture before building; any that drifted were left out. Not resubmitted: totems, custom reskins, custom contributions, test and non-functioning jutsu, and texts the director called sufficient. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Correct description and battle line",
+  "rationale": "Targeted text fixes to match the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Drift",
+   "targetId": "57xgGwYtfhQXFQePC4_V4",
+   "data": {
+    "description": "The user drifts across the field as a streak of lightning and lets loose a crackling burst on landing that strikes every enemy around them. The charge stays with them, making their attacks hit harder for a short time.",
+    "battleDescription": "In the midst of combat, %user channels their chakra into the air, infusing it with the raw energy of lightning. With a sudden surge, they vanish in a streak of light, their body becoming as fluid and unpredictable as a lightning bolt. Weaving through obstacles at blinding speed, %user appears and disappears in rapid succession, their movements too fast to be tracked by the naked eye. As they drift through the battlefield, crackling electricity trails behind them and bursts outward where they land, searing everything caught in the blast. The air around %user hums with static, making it clear that the storm is far from over.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed enemy-presence wording; replaced false disorient/vulnerable debuff with the landing burst it actually deals. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Release: Raijin's Bow",
+   "targetId": "cEu_gGsh8kJk0JIBI64ga",
+   "data": {
+    "description": "The user shapes lightning chakra into a crackling bow and looses an arrow of pure electricity at the target. The charge lingers in their hands, making their attacks hit a little harder for a short time.",
+    "battleDescription": "With a swift, intricate hand seal, %user channels their lightning chakra, shaping it into a dazzling bow crackling with raw energy. Nocking an arrow of pure electricity, they draw and release, sending the charged projectile streaking toward %target. The arrow explodes on impact in a blinding flash and deafening thunderclap, unleashing a torrent of lightning that engulfs %target in a devastating storm of electricity.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: towards -> toward. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Release: Spark Blade",
+   "targetId": "LwCDZpiRgXoApfDUnBNPa",
+   "data": {
+    "description": "The user charges their blade with lightning chakra and cuts the target with a crackling slash. The jolt leaves them slightly more vulnerable to every attack for a short while.",
+    "battleDescription": "%user channels lightning chakra into their blade, causing it to crackle with electrifying energy. With a swift and precise strike, %user slashes through the air, releasing a dazzling display of sparks. Upon contact, the blade delivers a shocking jolt to %target, leaving them vulnerable to further attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: vulnerability applies to all damage, not only Bukijutsu. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phantom Step",
+   "targetId": "GAyHRgaa1lkYGhE9WxlRL",
+   "data": {
+    "description": "The user flits across the field like a phantom, landing in near silence. Allies around the landing spot take less damage for a short time, while the user's own attacks hit harder.",
+    "battleDescription": "In the midst of combat, %user channels their chakra into their legs and feet, synchronizing their movements with the surrounding shadows. With a light step, they become nearly invisible to the naked eye, their presence fading like a phantom. The user moves silently and swiftly, weaving through obstacles without making a sound. As %user advances, their form flickers in and out of visibility, making their movements difficult to track. By the time anyone pinpoints %user's position, it's already too late; %user is poised for a counterstrike, and the lingering shadows guard any ally standing within them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed enemy-presence wording; removed false evasion claim; added the ally damage reduction; trailing space removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Primate Assimilate",
+   "targetId": "AFxOB8St3rqdY3xqkBJo4",
+   "data": {
+    "description": "The user takes on the hardy instincts of a primate, letting their body soak up punishment. For a short time, part of the damage they take is turned into health.",
+    "battleDescription": "%user channels their chakra, performing the Primate Assimilate jutsu. Through this technique, %user takes on the hardy instincts of a primate, gaining the power to absorb the force of their opponents' attacks and turn it into health. The primal strength rising within %user grows with every blow they endure.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed nonexistent monkey ally; absorb described as damage turned into health. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Rock Barrage",
+   "targetId": "xyjrJbVY55eqGnpXP-Oqy",
+   "data": {
+    "description": "The user tears jagged stones from the ground and hurls them in a hail at the target. The rocks shatter on impact, battering every enemy caught around them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept exactly; it is accurate and clean. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Siren's Lament",
+   "targetId": "k2Ux_SvO4gBapsnpIJ2tz",
+   "data": {
+    "description": "The user sings a haunting siren's melody that drags the target beneath a crushing phantom tide. As the song fades, its calm settles over the user, strengthening their healing for a short while.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept exactly; it is accurate and clean. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stormcaller's Wrath",
+   "targetId": "6oEfWeXvDqa-ly9wHSB9Q",
+   "data": {
+    "description": "The user calls down a raging storm that crashes over the target and every enemy around them. Those caught in it are left battered, their combat strength sapped for a short while.",
+    "battleDescription": "%user summons a raging storm that crashes down upon %target, dealing heavy damage. The relentless surge tears through defenses, leaving %target's guard shattered and their fighting strength sapped.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: effect lowers combat stats, not resistance. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest Dash",
+   "targetId": "vQ9JMX3sFvg3zqDI9zUHg",
+   "data": {
+    "description": "The user rides a tempest to a new position, the wind of their passage slicing every enemy around where they land. The gale lingers in their limbs, making their attacks hit harder for a short time.",
+    "battleDescription": "In the heat of battle, %user focuses their chakra, allowing it to flow into their legs. With a sudden surge of energy, the air around them whirls and intensifies. In an instant, %user propels themselves forward with the force of a tempest, moving at a speed that seems almost impossible. The wind roars in their wake, creating a vortex that tears at the surroundings. As %user completes their dash, they reappear in a new position, ready to strike or evade further assaults, while chaotic winds burst outward to slash at everything around their landing spot.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false disorient and enemy-presence wording; lingering buffet replaced with the landing burst it actually deals. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest of the Blade",
+   "targetId": "j5hPo43OhrI1LP9R0TCl2",
+   "data": {
+    "description": "The user shapes wind chakra into a great blade and hurls it at the target with tremendous force. The cut tears their guard open, so they take more damage for a short while.",
+    "battleDescription": "As %user focuses their chakra, the air around them becomes charged with energy, swirling into a tempest. With a mighty swing, %user unleashes this tempest upon %target, the blade cutting through the air with a deafening roar. The tempest strikes %target with the force of a raging storm, dealing devastating damage.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: leading space removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Terra Shift",
+   "targetId": "CLlN7iJPGCGRIDbJTo4P5",
+   "data": {
+    "description": "The user sinks into the earth and bursts out at a new position, hurling soil and stone across the ground around them. A layer of rock clings to their body, softening incoming blows for a short time.",
+    "battleDescription": "In the midst of combat, %user focuses their chakra into the earth beneath their feet. The ground responds, softening momentarily as %user merges with the terrain, disappearing from sight. They move beneath the surface, undetectable and protected by layers of earth and stone. With a sudden burst of energy, %user re-emerges at a new location, the ground parting to allow their passage. As they exit the earth, the displaced soil surges outward, creating a small shockwave that strikes everything caught in the burst. The battlefield trembles under their command as %user uses the very ground beneath them as a conduit for swift and tactical repositioning.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false stagger, chance wording and enemy-presence wording. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tidal Shift",
+   "targetId": "GGJTdjQ90dVbOvWLXerlO",
+   "data": {
+    "description": "The user dissolves into a surging torrent and reforms at a new position, crashing over the ground around them. The gathered momentum stays with the user, making their attacks hit harder for a short time.",
+    "battleDescription": "%user harnesses the power of water, their body becoming fluid and untouchable. In a surge of motion, they dissolve into a torrent that sweeps across the battlefield, slipping through the chaos as waves crash in their wake. Reforming in an instant, %user channels the gathered momentum into a devastating, water-imbued strike that greatly enhances their offensive power.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false evasion claim. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Style: Sky Dragon",
+   "targetId": "fCWC_ICdWT1bJDkDVq22e",
+   "data": {
+    "description": "The user molds chakra into a colossal dragon of cutting wind that dives through the target. The gashes it leaves keep bleeding for a short while afterward.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept exactly; it is accurate and clean. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Abyssal Suffocation",
+   "targetId": "g990x68t7LKZh8Zgt4VGI",
+   "data": {
+    "description": "The user traps the target in a drowning illusion where the ocean turns against them. For a short while, the user draws strength from the suffering they cause, healing for part of the damage they deal.",
+    "battleDescription": "With a simple seal and a piercing gaze, %user traps %target in a genjutsu where the ocean turns against them. Water crashes down in suffocating waves as spectral tides pull them into an abyss of pressure and despair. As %target gasps for air within the illusion, %user draws strength from their suffering, regaining vitality with every heartbeat stolen beneath the surface.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: 'the user' -> %user; em dash removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Abyssal Surge",
+   "targetId": "Xd1nYH0TryplDPd6fORFm",
+   "data": {
+    "description": "The user draws dense, high-pressure chakra up from the depths and wraps it around their body. For a short time their strikes hit harder, and part of every blow they take is drawn in as health.",
+    "battleDescription": "%user steadies their breath, water beginning to churn and rise from the ground like a tide answering a silent call. Abyssal Surge engulfs their body in dense, high-pressure chakra drawn from oceanic depths. As the aura wraps tightly around their limbs and core, it sharpens their strikes and fortifies their body. Each enemy blow is drawn into the fluid barrier, its force flowing back into %user as health. In this state, the user becomes both sharper and harder to wear down, a relentless force riding the surge of the abyss.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: absorb described as health, not damage reduction; em dash removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Aqua Fang Strike",
+   "targetId": "7cAGPnf455jrmdvt_kmQC",
+   "data": {
+    "description": "The user forms a serrated fang of water around their arm and drives it into the target. Thin rings of water linger around them, restoring health from part of every blow they take for a short time.",
+    "battleDescription": "%user darts in low, water forming around their arm in the shape of a serrated fang. With a sharp forward burst, they drive the strike into %target, a spiral of pressurized water lashing outward on impact. As the blow lands, the chakra doesn’t fade; it lingers, swirling around %user in thin, translucent rings. This water actively siphons the force from incoming attacks, absorbing a portion of the damage and turning it into health for %user.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed; absorb covers all incoming damage and becomes health. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Knuckle",
+   "targetId": "CGWAK5O7Rw_hXYjFDq-TG",
+   "data": {
+    "description": "The user sets their fists alight and drives a blazing combination into the target. The fire chakra burrows into their frame, leaving them open to heavier damage from every source in the rounds that follow.",
+    "battleDescription": "%user’s fists ignite with concentrated fire chakra, the heat pulsing with each movement. They launch into a flurry of blazing punches, hammering %target with rapid, explosive force. Each strike forces fire chakra into the target’s frame, loosening muscle control and distorting their ability to brace. The result is lasting vulnerability, and %target becomes far more susceptible to every attack that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed; vulnerability applies to all damage, not only Taijutsu; missing full stop added. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Bonecrusher Kick",
+   "targetId": "PB70sBEpFd3AWm81h3w7R",
+   "data": {
+    "description": "The user whips a crushing kick into the target with bone-cracking force. The blow leaves their body battered, so every attack against them hits harder for a short while.",
+    "battleDescription": "%user charges forward, planting one foot with brutal precision as their leg whips into a wide, crushing arc. The kick slams into %target with raw, unfiltered force, striking deep into the nervous system and chakra flow. The impact causes more than just physical pain; it scrambles coordination and breaks down their defenses. Their guard crumbles under the weight of the blow, so every attack that follows lands harder.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed; replaced false stat debuffs with the increased damage taken. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Chakra Enfeeblement",
+   "targetId": "FlQ0Mk8CB7afkYqxFempz",
+   "data": {
+    "description": "The user forms a quick sequence of seals and drives refined chakra into the target's system, unraveling its flow. For a short time they take heavier damage and their own attacks lose force.",
+    "battleDescription": "%user forms a brief sequence of hand seals, projecting a wave of refined chakra directly into %target’s system. The energy latches onto their internal flow, destabilizing it with precision. Defensive chakra pathways collapse under the interference, causing %target’s body to react poorly to incoming attacks. Their guard weakens, and every hit taken from that point forward lands harder than before, while their own attacks lose force.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: added the missing reduced damage dealt. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Chakra Invigoration",
+   "targetId": "AJNmwnlzhqiHzdE84_m9k",
+   "data": {
+    "description": "The user surges across the field in a burst of chakra-charged speed. The rush floods their body with energy, so for a short time they hit harder and take less damage.",
+    "battleDescription": "%user surges forward in a burst of chakra-enhanced motion, leaving afterimages as they reposition across the battlefield. As their body moves, internal chakra flow heightens, enhancing physical and mental performance all at once.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Chouryū Ken",
+   "targetId": "ZwKVxg1y4C_4mYR23O2iC",
+   "data": {
+    "description": "The user coils water around their arm and launches a rising uppercut that crashes into the target like a dragon. The force leaves them shaken, so the blows that follow hurt more for a little while.",
+    "battleDescription": "%user crouches low, water coiling around their arm like a living serpent. With a surge of momentum, they launch into a leaping uppercut at %target, water bursting upward in a spiraling torrent. As the punch ascends, it forms the shape of a roaring dragon made entirely of water, propelling %user into the air. The soaked terrain beneath them churns from the pressure, marking the devastating path left behind by the Soaring Dragon Fist.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: single-target line now names %target. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Crashing Wave Palm",
+   "targetId": "wEVgBznGHllg6pU-790Ll",
+   "data": {
+    "description": "The user strikes with a water-charged palm that bursts outward like a crashing wave, hitting the target and everything around them. The current then wraps the user, softening the blows they take while the water lingers.",
+    "battleDescription": "%user channels water chakra into their palm, forming rippling currents around their arm. With a deep breath, they surge into the strike, their movements fluid like the ocean. Upon contact, the palm strike releases a compressed burst of water pressure, slamming into %target with crushing force. The strike not only deals direct damage but wraps %user in a protective layer of moving water, softening the blows of subsequent attacks. The battlefield ripples with the aftermath of the blow, as if a wave had passed through.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false dash movement. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Crimson Spires",
+   "targetId": "q6dapAxicsEGFthmBiSOP",
+   "data": {
+    "description": "The user raises blood-red chakra spikes beneath the target and leaves a curse in their flesh. For a short time non-elemental attacks hit them harder, and their own blows rebound on them.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "battleDescription": "%user conjures blood-red chakra spikes beneath %target’s feet. The moment they pierce upward, they embed a lingering curse that tears at %target's body whenever they attack. Non-elemental damage becomes harder to withstand, and each strike %target makes sends backlash through their own frame.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: 'the %target' grammar; recoil only on attacking, not moving; vulnerability is non-elemental damage only. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Cyclone",
+   "targetId": "YGc7EiGlwUvkbSkSQqKFW",
+   "data": {
+    "description": "The user whips the air into a tight cyclone that tears into the target. The cuts it leaves keep reopening, dealing further damage over the next few rounds.",
+    "battleDescription": "%user spins their fingers subtly, releasing a genjutsu that swirls into %target’s mind like a twisting cyclone. Within moments, the enemy is trapped in a howling illusion, disoriented by phantom winds that lash and rip at their senses. The mental strain tears at their resistance, leaving their mind raw with wounds that keep reopening. What began as a single storm becomes a gateway for future torment.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: replaced false genjutsu vulnerability with the wound. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Delayed Tempest",
+   "targetId": "m6CPGUWVLADF0Nt8_qNZg",
+   "data": {
+    "description": "The user plants an illusion that lies calm for a heartbeat before a phantom storm spirals through the target and every enemy in its path. Its momentum lingers in the user, sharpening their attacks for a short time.",
+    "battleDescription": "%user casts an illusion that triggers moments after eye contact, creating a false sense of calm before the storm erupts. When it activates, %target is caught in a delayed mental tempest of violent wind, piercing sounds, and blinding flashes that strike their senses all at once. As the illusion disrupts the battlefield, %user appears to shift positions amidst the chaos, empowered by the storm’s momentum. Their chakra surges, enhancing their offensive strength for the next strike.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earth Release: Seven Heavenly Pillars",
+   "targetId": "0f-qDg-CcolKVZ25lVY7k",
+   "data": {
+    "description": "The user drives chakra into the ground and a ring of stone pillars erupts across an area, pounding enemies over the next few rounds. Those caught among the pillars are staggered, and their attacks lose force.",
+    "battleDescription": "%user slams their hands into the earth, summoning seven towering stone pillars that burst upward across the area. Anyone caught among them is crushed again and again and left staggered, their ability to strike effectively reduced.",
+    "injectableInBattle": true
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed %target on a ground jutsu; area wording; damage lasts over rounds. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Electric Prison",
+   "targetId": "Y57kLbqcGN7PYeWBAg0d6",
+   "data": {
+    "description": "The user traps the target in an illusory prison of blinding lightning that lashes the space around them. The phantom jolts stun whoever is caught inside, robbing them of action.",
+    "battleDescription": "With a surge of chakra and a flicker of illusion, %user traps %target in a prison of blinding lightning. The phantom bolts lash at their senses, sending jolts of searing pain through their body. Overwhelmed by the crackling current, the target is left stunned as it locks down both body and mind.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false movement lock; stun stays a chance at the level cap. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Endless Drowning",
+   "targetId": "ZysflsRCgc0yGRARooBN2",
+   "data": {
+    "description": "The user locks eyes with the target and drags them into an illusion of a boundless, drowning sea. The dread lingers, so every blow that follows strikes them harder while the illusion lingers.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "battleDescription": "%user locks eyes with %target and casts a crushing illusion of a boundless, inescapable sea. In an instant, the battlefield melts away as torrents of water rise from nothing, surrounding %target in a vast, cold abyss. The sense of drowning becomes unbearable as sight warps, sounds distort, and movements feel paralyzed under the weight of imagined pressure. Panic and helplessness set in as the illusion traps the target’s mind in an endless descent.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Eroding Current",
+   "targetId": "bxMYe0eLmXg3HGE87Hfgz",
+   "data": {
+    "description": "The user sends a torrent surging up from the ground across an area, battering enemies over the next few rounds. The current wears down their guard, so other attacks hit them harder as well.",
+    "battleDescription": "%user channels water chakra into the ground, summoning a sudden upward torrent across the area. The relentless pressure of the surge breaks the footing of anyone caught in it and erodes their guard, amplifying the impact of future attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed %target on a ground jutsu; area wording. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Flame Crescent Slash",
+   "targetId": "hTILEGnxudGLPdG0OnEE-",
+   "data": {
+    "description": "The user sweeps their blade through a wide arc, releasing a crescent of flame at the target. The fire leaves them scorched, so every hit they take burns hotter for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept exactly; it is accurate and clean. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Flame Vortex",
+   "targetId": "vUNA5R_JVkPpXq_e31Pm7",
+   "data": {
+    "description": "The user drives fire chakra into the ground until a spinning column of flame erupts beneath the target. The heat lingers on their body, making every blow that follows burn deeper for a short while.",
+    "battleDescription": "%user channels fire chakra into the earth, erupting a spinning column of flames beneath %target. The spiraling inferno engulfs them in a brutal surge of heat and force, the flames clinging to them long after the column fades.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: removed false 'no lingering effects'; afterburn hinted. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gaia's Wrath",
+   "targetId": "2Ye-jrvIAdn2Ckk6lqhiP",
+   "data": {
+    "description": "The user shapes a massive hammer of earthen chakra and brings it down on the target with the weight of the land. Stone dust settles over the user like a thin crust of armor, slightly softening incoming blows for a brief spell.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept exactly; it is accurate and clean. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gale Force Blast",
+   "targetId": "rBcwIiHjKOF07Yoq4wVqU",
+   "data": {
+    "description": "The user compresses wind chakra into a narrow, drilling stream that bores straight through the target's guard. The blast leaves them torn open, taking more damage from every attack for a short while.",
+    "battleDescription": "%user compresses a violent burst of wind chakra into a narrow stream and launches it toward %target. The blast drills through defenses, disrupting their chakra flow and making them more vulnerable to all incoming attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: vulnerability applies to all damage, not only ninjutsu. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gale Force Kick",
+   "targetId": "V9Kc147t3v6PoBVjZKUzd",
+   "data": {
+    "description": "The user spins into a kick packed with compressed wind that bursts against the target like a cannon blast. The battering gusts leave them raw, so every blow that follows bites deeper over the next few rounds.",
+    "battleDescription": "%user channels wind chakra into their legs, the air around them spiraling into a violent vortex. With a sudden burst of movement, they leap and twist, launching a devastating kick toward %target. The moment of impact unleashes a compressed burst of wind that strikes like a cannon blast, tearing through defenses and leaving %target reeling.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dash removed; removed false knockback. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gale Mirage",
+   "targetId": "yFzR-cwQWXcvRJOKPSkly",
+   "data": {
+    "description": "The user conjures an illusion of spectral wind blades that slice into the target's senses with very real pain. The mirage lingers in their mind, so for a short time part of every blow they deal turns back on them.",
+    "battleDescription": "%user forms a single-handed seal, and the air begins to shimmer with illusory distortions. A cascade of spectral wind blades surrounds %target, slicing into their senses and nerves with phantom pain. As they strike back, a portion of their own force is turned against them, bent back through the genjutsu’s twisting illusions and causing recoil damage that echoes the pain they inflict.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with targeted fixes: em dashes removed; recoil tied to their own attacks. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gale Palm Strike",
+   "targetId": "2YVxpGp4GLMRi-5_0yjzc",
+   "data": {
+    "description": "The user drives out a palm strike packed with compressed air, sending a spiraling gust through every enemy in its path. The surge of wind sets their chakra flaring, making their attacks hit harder for a little while.",
+    "battleDescription": "%user surges forward, carried by slicing currents of wind chakra. Their body glides low across the battlefield like a stormfront breaking through resistance. With a flash-step and a palm strike infused with sharp, compressed air, they slam into %target with explosive force. As the wind detonates from their strike zone, %user’s chakra flares, amplifying the force of all their attacks in the aftermath.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; buff is all damage, not Taijutsu only. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gale Reaver",
+   "targetId": "CPKuVxo5AXUMJ_zQaMly6",
+   "data": {
+    "description": "The user gathers wind chakra into a keen edge and releases it in a sweeping arc that carves into the target. The shredding winds leave them raw, so the hits that follow cut deeper for a short time.",
+    "battleDescription": "%user gathers immense wind chakra into a concentrated edge and releases it in a sweeping arc. The resulting surge carves through the air with violent speed, shredding everything in its path and crashing into %target with brutal precision.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; added missing full stop. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Graveyard of Stone",
+   "targetId": "Ad0K8Kgo0WqDgDt5E4lkx",
+   "data": {
+    "description": "The user traps the target in a vision of a vast graveyard where stone hands drag them under and jagged rock rains down. The phantom weight lingers on their mind, so every hit they take strikes deeper for a short while.",
+    "battleDescription": "The user performs a silent sequence of hand seals before slamming a palm to the ground. In an instant, the terrain warps in %target’s vision as they are plunged into a nightmarish realm of collapsing cliffs and shifting tombs. The enemy sees themselves standing in a vast graveyard where every headstone bears their name. Stone hands erupt from the earth, grabbing at their limbs and dragging them downward as the sky rains jagged obsidian boulders. With each phantom impact, real pain blossoms, blurring the line between illusion and reality. The oppressive weight of stone breaks their focus and crushes their will, delivering devastating damage through sheer psychological terror.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; %target on a single-target jutsu; em dash removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Infernal Mirage",
+   "targetId": "akdAdQ10HK0960Go1YJif",
+   "data": {
+    "description": "The user casts the target into an illusion of a burning hellscape that scorches their mind. The torment leaves them shaken and exposed, so they take more damage from every attack for a short time.",
+    "battleDescription": "The user executes a sequence of fluid hand seals, projecting %target into an intense illusion of a hellish landscape. The burning terrain pulses with psychological torment, disorienting the target’s perception and leaving them increasingly exposed to every attack that follows. The more they struggle, the deeper the illusion claws into their mind.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; %target on a single-target jutsu; vulnerability applies to all damage, not only genjutsu. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Inferno Burst",
+   "targetId": "dxPAjw0hO_BpKLMe3FtBA",
+   "data": {
+    "description": "The user hurls a dense knot of fire chakra that erupts over the area, scorching every enemy in the blast. The heat lingers on anyone caught inside, leaving them more vulnerable to fire for a short time.",
+    "battleDescription": "%user expels a high-speed blast of condensed fire chakra that detonates on impact with %target, scorching their body and chakra network. The heat lingers, disrupting their chakra defenses and increasing the damage they take from future fire techniques.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; vulnerability is Fire-only, not ninjutsu. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Inferno Kick",
+   "targetId": "Y-_dK9pqbeqLCzsfm-pB2",
+   "data": {
+    "description": "The user sets their leg ablaze and spins into a flaming kick that erupts in searing heat on impact. The flames cling to the wound, burning the target again over the next few rounds.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Inferno Kunai Barrage",
+   "targetId": "iioSrLkg_-jlX5xIycMYr",
+   "data": {
+    "description": "The user looses a storm of flaming kunai that rains down across the area, striking every enemy within it. The burning wounds linger, so each blow taken by anyone caught burns hotter over the next few rounds.",
+    "battleDescription": "%user unleashes a relentless stream of flaming kunai at %target, each one carving through the air with searing heat. The scorching impacts ignite lingering flames that make every later blow against %target burn hotter.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; afterburn is extra damage on later hits, not a burn over time. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Flash Strike",
+   "targetId": "cAkALDZJM9O8v-Z_Y0dXa",
+   "data": {
+    "description": "The user charges their blade with raw lightning and cuts through the target in a blinding flash. Sparks keep crawling over their body, so every hit they take bites deeper for a short while.",
+    "battleDescription": "%user channels raw lightning into their blade and launches at %target in a blinding flash. The strike cleaves through the air with violent speed, erupting in an electric burst upon contact. The sheer velocity and power tear through defenses, leaving behind scorched ground and ringing silence as arcs of electricity dance across the impact zone.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed implied stun the jutsu does not have. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Release: Charged Senbon",
+   "targetId": "3HoqYq3nE_S6p4eZgkeyl",
+   "data": {
+    "description": "The user hurls a cluster of senbon crackling with lightning chakra at the target. The shock bursting from each needle stuns them, stealing time from their next move.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; stun stays a chance at the level cap, so no certain paralysis. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Limit Breaker",
+   "targetId": "P7dDcC102RhwBTTgA4HU_",
+   "data": {
+    "description": "The user settles into a taijutsu stance and lets raw fighting spirit flood their limbs. For a short time their attacks hit harder, while the pressure they give off weakens the target's strikes.",
+    "battleDescription": "%user tightens their stance, breathing slow and deep as raw fighting spirit surges through their limbs. Muscles tense. Focus sharpens. Power spikes violently: strikes hit harder, movements become instinctive. At the same time, the user’s aura emits crushing pressure that destabilizes %target’s combat rhythm, weakening their offensive output.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; buff is all damage, not Taijutsu only; trailing space removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Mental Fortress",
+   "targetId": "UiBR2V2AKkmh64JiYlL3w",
+   "data": {
+    "description": "The user clasps a firm seal and projects a fortress of focused will across the battlefield. It sharpens their own attacks for a short while and frays the intent behind the target's strikes.",
+    "battleDescription": "%user clasps their hands in a firm seal, eyes locked with unshakable focus. A web of radiant chakra sigils ignites from their body, expanding outward in layered rings that pulse with calculated force. The mental barrier they project doesn’t block attacks physically; it disrupts the intent behind them, unraveling the precision of enemy strikes. As the battlefield warps subtly under this pressure, %user’s resolve sharpens, amplifying their own power while clouding %target’s offensive edge.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; %target on a single-target jutsu. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Midare",
+   "targetId": "Y10xOmrtfFfTr3n8v5K9g",
+   "data": {
+    "description": "The user whirls into a relentless barrage of water-charged kunai that cut the target from every angle. Currents keep swirling around the user afterwards, turning part of each blow they take into health for a short while.",
+    "battleDescription": "%user hurls forward into a whirlwind of motion, striking %target with a rapid barrage of kunai infused with water chakra. Each slash and throw disrupts the opponent's rhythm while thin currents of chakra swirl around %user’s body. With every movement, the surrounding moisture condenses into a protective flow, allowing them to turn some of the damage from incoming attacks into health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; absorb described as damage turned into health. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Mizukumi",
+   "targetId": "qe40i5VoewLPvjJfTI4Vi",
+   "data": {
+    "description": "The user moves like flowing water, lashing the target with a heavy strike of water chakra. The water then wraps around the user as a veil, converting a share of incoming damage into restored health in the rounds that follow.",
+    "battleDescription": "%user moves like liquid vengeance: fluid, controlled, and deadly. As they strike %target, water chakra lashes out with every movement. After the impact, the water wraps around %user like a protective veil, absorbing incoming force and restoring their health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Mountain Crusher",
+   "targetId": "yNyBxYW9BupuWp1R_ssWp",
+   "data": {
+    "description": "The user wraps their fist in earth chakra as heavy as a mountain and drives it into the ground, sending a seismic shock across the area. Any enemy caught in it is rattled, their attacks weakened for a short time.",
+    "battleDescription": "%user drives forward with immovable force, earth chakra wrapping around their limb like the weight of a mountain. The strike lands against %target with crushing density, sending a seismic jolt through their frame.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; stray 'Description:' prefix removed; trailing space removed. Description from round 1, with enemy wording made conditional."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phantom Gale",
+   "targetId": "MzPdazALBQiLZALMbvCHw",
+   "data": {
+    "description": "The user bends the air into an illusion of spectral wind blades that slash at the target from every side. The phantom cuts linger in their senses, so each hit that follows lands harder for a brief spell.",
+    "battleDescription": "%user channels intense chakra into the air, weaving an illusion that bends wind into spectral blades. As the winds roar and converge around %target, their vision fractures, phantoms of slicing gales lashing from every direction. The illusion feels real, striking with such precision and force that even the ground trembles underfoot. Each gust tears into the senses, making escape feel impossible as %target is enveloped by a tempest of illusory devastation.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phantom Whirlpool",
+   "targetId": "vnpd9EYGrlrHudotYmLJA",
+   "data": {
+    "description": "The user conjures the illusion of a vast whirlpool that drags every enemy in the area into its spiraling depths. Their command over the vision deepens as it turns, making the user's attacks hit harder for a short while.",
+    "battleDescription": "%user conjures the illusion of a massive whirlpool swirling beneath %target’s feet, dragging their senses into a spiraling abyss. As the illusion tightens, the crushing pressure distorts their perception, causing real damage and mentally fracturing their composure. The user’s mastery over the genjutsu deepens with the cast, heightening the force behind every attack that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed implied defense debuff the jutsu does not have; self buff applies to all damage, not only illusions. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phoenix Heart",
+   "targetId": "969T57fJmysi-1WGpPCpI",
+   "data": {
+    "description": "The user engulfs the area in an illusory inferno as the cry of a phoenix sears everyone within. The visionary flames refuse to fade, burning them again over the next few rounds.",
+    "battleDescription": "The user’s chakra flares with ethereal fire as they weave hand signs that blur the line between reality and illusion. %target finds themselves engulfed in a rising inferno of rebirth, their thoughts seared by the haunting cries of a celestial phoenix. As their mental defenses crumble, the phantom flames cling to their mind, searing them again with every breath in the rounds that follow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed self genjutsu buff the jutsu does not have; describes the lingering wound instead. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phoenix's Wrath Strike",
+   "targetId": "Zi60d_m2DY4uvPqkcjwTT",
+   "data": {
+    "description": "The user channels fire chakra through their limbs like molten wings and drives a blazing strike into the target. The flames dig into the wound, scorching them again over the next few rounds.",
+    "battleDescription": "%user channels fire chakra through their limbs, the aura shimmering like molten wings poised to strike. With a fierce step forward, they deliver a crushing blow that erupts on contact with %target, igniting not only flesh but the sinew beneath. Flames snake through %target’s muscles, digging deeper with every heartbeat and refusing to die out. As the embers cling to the wound, they keep searing %target in the rounds that follow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed implied strength debuff; removed strength/reflex/guard debuffs and self buff the jutsu does not have; describes the lingering wound instead. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Quaking Fist",
+   "targetId": "XVHy-OORSuDuZi0U8jXu3",
+   "data": {
+    "description": "The user stomps forward and hammers a stone-cracking punch into the earth, sending a quake through the area. The tremor shakes everyone it reaches, blunting their attacks over the next few rounds.",
+    "battleDescription": "%user anchors their stance, fists brimming with stone-cracking force. With a forward stomp and a devastating punch, they channel tectonic weight into %target’s body, the blow landing like the fall of a mountain. But the damage isn’t just physical. The shock seeps inward, fracturing focus, disrupting chakra flow, and shaking the very core of %target’s will. Their techniques falter, their strikes lose their bite under the pressure, and their power erodes like stone in a quake.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; stat debuffs replaced with the real effect (weaker attacks); added missing full stop. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Quicksand Trap",
+   "targetId": "fv98USDeNTb8DFPgBkfDS",
+   "data": {
+    "description": "The user casts an illusion of the ground collapsing into churning quicksand that drags down every enemy in the area. Standing calm above the mirage, the user shrugs off part of the damage they take for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Rai Yari",
+   "targetId": "lTgAFUgVj1Erzh6LbzI0w",
+   "data": {
+    "description": "The user forms a spear of raw lightning in one hand and hurls it at the target in a blinding streak. The charge surges back into the user's chakra, making their attacks hit harder for a little while.",
+    "battleDescription": "%user’s chakra erupts in a crackle of lightning as they form a spear of raw energy in one hand. With a fierce cry, they hurl it forward, lightning tearing through the air in a blinding streak. The spear slams toward %target with explosive force, surging back into the user’s core and igniting their chakra into an overcharged state, heightening the destructive potential of every jutsu that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Raimei Gen",
+   "targetId": "X2frfBlw0Q5k4oMp3DPyr",
+   "data": {
+    "description": "The user calls down a crack of thunder that lances through the target's mind and body. The strike leaves their healing sluggish, while the charge lingers around the user and makes their attacks hit harder for a short time.",
+    "battleDescription": "%user unleashes a genjutsu that strikes %target’s mind like a bolt of thunder. A flash of light, a roar of psychic lightning, and the illusion crashes down with jarring force. Neural signals distort, stalling %target’s ability to heal, and the target reels from imagined pain while %user’s own power becomes supercharged, amplified by the illusion’s residual current. The echo of thunder leaves a lingering charge in the user’s aura, intensifying their next attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; added missing healing reduction; self buff is all damage, not genjutsu only; self buff is all damage, not illusions only. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Razor Water Whip",
+   "targetId": "4nKhXSVT-LqPul27ljDOf",
+   "data": {
+    "description": "The user cracks a whip of razor-edged water that bursts over an area, slicing any enemy caught in its reach. The rush of water chakra lingers in the user's hands, making their Water attacks hit harder in the rounds that follow.",
+    "battleDescription": "%user lashes out with a swift, bladed whip of condensed water chakra that carves into %target with razor precision. As the whip extends and recoils, it channels violent chakra flow through %user’s system, boosting the power of their water techniques for subsequent strikes.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; self buff is Water damage only, not ninjutsu. Description from round 1, with enemy wording made conditional."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Rengoku Rō",
+   "targetId": "fKQxOwBqZs8PXvpdGlbPg",
+   "data": {
+    "description": "The user locks eyes with the target and drags them into an illusory prison of endless flame. The phantom fire keeps smoldering in their mind, so the blows that follow burn deeper for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Resounding Crescendo",
+   "targetId": "kvuECU_A6qeZYsWwU_Zvq",
+   "data": {
+    "description": "The user builds a rhythm of blows that swells into a crashing final strike against the target. The echo of the impact settles over their body as a hardened guard, so the hits they take land softer over the next few rounds.",
+    "battleDescription": "%user strikes with precise rhythm, each movement building in intensity until the final blow crashes into %target like a drumbeat shaking the air. The force of the hit reverberates through the user’s body, channeling momentum inward. As the impact fades, hardened chakra settles over %user’s frame, reducing damage taken from future blows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Rib Breaker",
+   "targetId": "cNVnsrANAhtym1JmW1ZJl",
+   "data": {
+    "description": "The user drives a coiled fist into the target's ribs, cracking the channels that carry their chakra. For a short while, every technique the target performs drains far more chakra and stamina.",
+    "battleDescription": "%user drives forward with a tightly coiled strike, targeting the ribs with pinpoint precision. The moment their fist crashes into %target’s side, chakra surges through the blow, fracturing internal flow and rupturing control points. The hit leaves more than bruises; it disrupts how %target channels energy. From that moment on, their chakra and stamina slip through the cracks, making every technique cost more to maintain.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; em dash removed; trailing space removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Ryūsa Kōka",
+   "targetId": "sEDO_J07YRbTqHnxuPUA5",
+   "data": {
+    "description": "The user wraps their body in a flowing layer of hardened earth chakra. For a short while their attacks hit harder, and the armor blunts any Earth attack that strikes them.",
+    "battleDescription": "%user envelops their body in a dense, moving layer of fortified earth chakra. The hardened flow surges with pressure, sharpening attacks and blunting earthen impacts, allowing the user to strike harder while enduring Earth techniques with ease.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; damage reduction is Earth-only and is not absorb. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Seimyaku",
+   "targetId": "g6lFjSMDbTmoZ7V74s3Ka",
+   "data": {
+    "description": "The user sends a quiet pulse of chakra through the target's veins, choking their ability to heal. The same pulse settles around the user, blunting non-elemental attacks against them over the next few rounds.",
+    "battleDescription": "%user emits a deep, controlled pulse of refined chakra that interferes with %target’s ability to recover while reinforcing their own defenses. The technique dampens restorative energies around the enemy and surrounds the user in a chakra field that cushions incoming non-elemental attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; damage reduction applies to non-elemental attacks only. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Severed Pulse",
+   "targetId": "kxtK9kUTK4dRb-WPLo16I",
+   "data": {
+    "description": "The user slices a wave of chakra through the target's pulse, cutting off the flow that mends their body. For a short while their healing falters and non-elemental attacks strike them harder.",
+    "battleDescription": "%user releases a cutting wave of chakra that severs the natural flow of recovery within %target. The disruption corrodes regenerative functions and breaks down their guard, amplifying the effect of incoming non-elemental attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; vulnerability applies to non-elemental attacks only. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Shōen Gen'ei",
+   "targetId": "_awxVdbjLYE1_Xa2lKZW1",
+   "data": {
+    "description": "The user conjures a spiraling mirage of heat that sweeps the field and burns every enemy it touches. The haze stokes the user's own fighting spirit, making their attacks hit harder for a short while.",
+    "battleDescription": "%user vanishes into a mirage of heat and haze, reappearing in flickering bursts as spectral flames race across the battlefield. The illusion strikes everything in its spiral with scorching clarity, searing the mind as much as the body. Each movement sharpens the user's own aggression, amplifying the potency of their next attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed %target on an EMPTY_GROUND jutsu. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Spectral Chain",
+   "targetId": "NavJ494P96fquk81SQxVF",
+   "data": {
+    "description": "Spectral chains lash out of the void and wrap around the target's mind, wracking them with phantom pain. While the illusion holds, the user stands steady and cannot be stunned.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Breaker",
+   "targetId": "VUDhCjKW-RseBAAl7Ag-b",
+   "data": {
+    "description": "The user drives a stone-weighted weapon down with a crash that breaks over a wide patch of ground. Any enemy caught in the impact is left shaken, their attacks weaker for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1, with enemy wording made conditional."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Dance Slash",
+   "targetId": "UMGgKY9iM29Xtcfqb1qyO",
+   "data": {
+    "description": "The user dances forward and whips a weapon heavy with earth chakra across the target. The grinding stone leaves them battered, so the blows that follow hit harder over the next few rounds.",
+    "battleDescription": "%user channels seismic chakra into their weapon and dashes toward %target, unleashing a spiraling slash infused with the force of crumbling mountains. A vortex of rotating stones surrounds the user, whirling with the blade and amplifying the power of the strike. The impact sends jagged rock fragments flying, shaking the ground beneath and leaving a cracked, ruptured battlefield in its wake.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removed defense claim the jutsu does not have. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Hammer Kick",
+   "targetId": "ixKFXfF3g16_kIj5AksTs",
+   "data": {
+    "description": "The user brings a stone-hard heel down like a falling slab, sending a shockwave through every enemy in the area. Shards of hardened chakra cling to the user afterwards, dulling the blows they take for a short time.",
+    "battleDescription": "%user reinforces their leg with dense earth chakra, then launches into a spinning downward kick that slams into %target like a falling slab of stone. Upon impact, shockwaves ripple through the ground, and fragments of hardened chakra recoil around %user’s body. These chakra shards linger like a shell, bracing against impact and dulling incoming attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; damage reduction is not absorb. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Pillar Strike",
+   "targetId": "_v9bedotLR_vy8xm7ybTV",
+   "data": {
+    "description": "The user drives chakra into the ground and a jagged pillar of stone erupts beneath the target. Shattered rock clings to the user as armor, cutting the damage they take in the rounds that follow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept unchanged; no errors found. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Warden",
+   "targetId": "rhXnjfAdFMqYavvjX1Qp_",
+   "data": {
+    "description": "The user conjures an illusion of an ancient stone guardian that crashes down upon the target. Its looming presence weighs on their mind, so their attacks deal less damage for a short time.",
+    "battleDescription": "A towering illusion of an ancient stone guardian erupts from the battlefield, crashing down upon %target with terrifying force. The overwhelming presence of the Stone Warden fractures their focus, dulling the force behind every attack they make. The enemy is left mentally burdened and less capable of mounting an effective counterattack.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; replaces the claimed stat suppression (not an effect) with the damage-given reduction it actually applies. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone of the Withering",
+   "targetId": "CTYkpwuoqS9mJkOB3Lm8U",
+   "data": {
+    "description": "The user hurls a withered shard of compacted earth that cracks against the target. The shard's hunger passes into the user, letting their attacks draw back health for a time.",
+    "battleDescription": "%user hurls a cursed shard of compacted earth chakra at %target. The impact disrupts their vitality and awakens a latent siphoning effect within the caster, allowing them to absorb health from their next damaging attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; adds the missing full stop. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stonebreaker Strike",
+   "targetId": "ntGBMLX_UAwPgGw0vytDU",
+   "data": {
+    "description": "The user roots their stance and drives an earth-laden fist through the target hard enough to crack the ground. The shock lingers in their body, so every blow that follows lands harder while the tremor lasts.",
+    "battleDescription": "%user roots themselves to the ground, channeling dense earth chakra through their body and into their strike. With a sudden forward step, they deliver a crushing blow aimed at breaking not just %target, but the terrain itself. The sheer force of the attack sends a deep shockwave through the ground, cracking stone and rupturing the earth beneath their feet.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Kick",
+   "targetId": "exOKjKQiIi0r2xFxGWC6n",
+   "data": {
+    "description": "The user unleashes a spiraling lightning kick that cuts straight through the guard of every enemy in its path. The current wraps around the user afterwards, hurling part of every hit they take back at the attacker.",
+    "battleDescription": "%user channels lightning chakra into their leg, their form crackling with unstable voltage. With a flash of movement, they lash out like a bolt breaking loose from a thundercloud. The kick lands cleanly against %target, piercing through their guard with razor precision. But the technique doesn’t stop there. Storm Kick leaves a current behind, wrapping the user in reactive lightning. For a short time, part of any damage aimed at %user arcs back toward the attacker, punishing them for every blow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the cross-field movement it does not have, replaces an em dash and makes the reflect partial. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stormblade Arc",
+   "targetId": "G6MRbppaDZ2a5Wr0GIjH8",
+   "data": {
+    "description": "The user carves a spiraling arc of storm-charged steel that slices through the defenses of every enemy in its path. Lightning coils around the user afterwards, throwing part of the damage they take back at the attacker.",
+    "battleDescription": "%user strikes in a flash, slashing through %target with a blade crackling with storm energy. The momentum whirls the blade onward in a spiral as arcs of electricity coil around their form. The blade’s storm-charged edge reflects part of the incoming damage back toward its source.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the charge and cross-field movement it does not have and makes the reflect partial. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Suijin Gir",
+   "targetId": "0amTsGDinGJSYQfqDIs4_",
+   "data": {
+    "description": "The user dashes in with a slash of high-pressure water that bursts against the target. The crashing current leaves them off balance, so they take more damage from every source over the next few rounds.",
+    "battleDescription": "%user dashes in with a swift slash imbued with high-pressure water, striking %target with explosive force. The slicing current crashes through defenses, leaving the enemy off balance and more susceptible to every follow-up attack.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the vulnerability applies to all damage, not just Bukijutsu. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Swallow’s Flight",
+   "targetId": "6rbBS--qndzlbbDlauzxE",
+   "data": {
+    "description": "The user darts across the field with the grace of a swallow and lands in a spinning kick. Every enemy near the landing spot is struck by the sweep of their legs.",
+    "battleDescription": "%user channels chakra into their legs and darts forward with birdlike elegance. Their body moves in a blur, dashing to a new position and landing in a precise aerial kick. The combination of striking force and tactical movement mirrors the fleeting flight of a swallow, dealing damage and adjusting battlefield placement.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; reorders the action so the user moves and then strikes around the landing spot, as the effects do. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest Slash",
+   "targetId": "_6PY8GqUsMgH8D71ys9VQ",
+   "data": {
+    "description": "The user draws a blade wrapped in razor wind and slashes clean through the target's guard. The wind lingers beneath the skin, so the blows that follow cut deeper until the gale dies away.",
+    "battleDescription": "%user strikes with their weapon drawn low and wind chakra twisting tightly around the blade. As they slash through %target, the strike cuts clean, but deeper than it appears. The wind slips beneath the surface, unraveling their ability to brace against future blows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; restores its truncated first sentence, removes the pass-through movement and replaces an em dash. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest of Shadows",
+   "targetId": "SDOtQeRgYBrZl16YjHDd4",
+   "data": {
+    "description": "The user twists light and shadow into a whirling storm of illusory blades that pierce the target's guard. The phantom cuts linger, leaving them open to harder hits from every attack in the rounds ahead.",
+    "battleDescription": "With a silent breath, %user extends their hand, distorting the light and shadows around them into a whirling maelstrom of razor-sharp illusions. The air tears open before %target as spectral blades howl through the storm, piercing mind and body alike. Every cut amplifies the target’s susceptibility to harm, warping their perception and weakening their defenses. The storm does not relent; it lingers in the mind, turning every blow that follows into inescapable torment.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the vulnerability covers all damage rather than only genjutsu, and an em dash is replaced. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest’s Whisper",
+   "targetId": "bRkM_O27WOimOKAudQWM8",
+   "data": {
+    "description": "The user murmurs a genjutsu that floods the target's senses with crashing phantom tides. The calm water settles around the user afterwards, turning part of every blow they take into health for a short while.",
+    "battleDescription": "With a mere glance and a faint motion, %user casts a silent genjutsu that invades %target’s senses like a creeping tide. In the illusion, a storm stirs around them, whispers of rain lashing through reality. The target is struck by phantom torrents, while their attacks feel muffled and distant, as if the storm is stealing their force. The user remains within the illusion’s calm eye, the storm turning the blows that reach them into fresh health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; swaps the wind imagery for water to match the Water damage, replaces an em dash and describes the absorb as damage turned into health. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunder Chain Slash",
+   "targetId": "p3Lq4ULNopF8n-jm-zwm5",
+   "data": {
+    "description": "The user snaps a lightning-charged chain weapon at the target in a sudden lashing slash. The jolt locks up their muscles, stunning them and costing them action points.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate (stun is certain) and clean; left unchanged. Description from round 1 with 'can' removed, since the stun is certain at power 100."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunder Fist",
+   "targetId": "WWc1ny_fRgPXEy2N5ZgXU",
+   "data": {
+    "description": "The user charges a fist with violent static and slams it into the target. The discharge seizes their nerves, stunning them and stealing their momentum.",
+    "battleDescription": "%user channels concentrated lightning chakra into their fist until it pulses with violent static. With a flash-step and explosive lunge, they slam their electrified strike into %target. The chakra discharges on impact, sending a jolt through the target’s nervous system, locking muscles, distorting balance, and interrupting movement. Thunder Fist is not just a blow; it’s a system shock, leaving %target frozen and open for the next attack.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; replaces two em dashes. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderbolt Spear",
+   "targetId": "41ZvXLK7xw_Y2ePKdsCSB",
+   "data": {
+    "description": "The user forges a dense spear of lightning and hurls it straight through the target's defenses. Leftover charge crackles over the user, throwing part of every hit they take back at the attacker until the charge fades.",
+    "battleDescription": "%user forms a high-density spear of lightning chakra and hurls it toward %target, piercing their defenses with explosive speed. The charged impact lingers around %user in a crackling stream, causing a reactive backlash that reflects a portion of incoming attacks back at the attacker.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the reflect is a self buff on the user, not a backlash inside the target. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderstorm Delusion",
+   "targetId": "80fuWZZhMMG7PtHFe09Qx",
+   "data": {
+    "description": "The user traps the target inside an illusion of an endless storm, every bolt seeming to strike them directly. The phantom lightning leaves their nerves raw, so the blows that follow hit harder over the next few rounds.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderstrike Punch",
+   "targetId": "6l-E6XDZfGr2h6q_1eQ-K",
+   "data": {
+    "description": "The user channels a live current into their arm and lands a punch that detonates like a bolt from the sky. The charge keeps buzzing through the target, so later blows hurt them more until the current fades.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunder’s Judgement",
+   "targetId": "qNeccb2eF20oL0Ws-VhKS",
+   "data": {
+    "description": "The user wraps themselves in reactive lightning that answers every blow with judgment. For a short while their attacks strike harder and part of every hit they take is thrown back at the attacker.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tidal Crush",
+   "targetId": "ZRhOaYAh9SJX1yTb4rmpD",
+   "data": {
+    "description": "The user summons a crushing tidal wave that slams down over an area and batters every enemy within it. A film of chakra-laden water clings to the user afterwards, softening the blows they take in the rounds that follow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate, uses %target only and assumes no one else in the area; left unchanged. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tidal Slice",
+   "targetId": "qh5skzKmzAiIWpmpqoFvH",
+   "data": {
+    "description": "The user pivots and sweeps a blade of pressurized water through the target. The surge wraps around the user as it recedes, softening the hits they take for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tides of Despair",
+   "targetId": "qyhJXIDiArlp3oDPmwfEU",
+   "data": {
+    "description": "The user drowns every enemy in the area under a sorrowful tide of illusion. The ebbing waters wash back over the user, steadying their mind so the blows they take land softer as the tide recedes.",
+    "battleDescription": "Waves of illusion crash down upon %target, carrying with them the weight of despair and failure. The enemy becomes overwhelmed by visions of loss and futility, their thoughts dulled by a mind too heavy to focus. The user's chakra synchronizes with the flow, reinforcing their mental defenses against incoming assaults.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the claim that the enemy's attacks are dulled, which no effect does. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tornado Fist",
+   "targetId": "ZrfglOJoBPJsgUqnhZ16U",
+   "data": {
+    "description": "The user wraps a fist in a condensed cyclone and drives it into the target's core. The torn flesh keeps ripping, dealing further damage over the next few rounds.",
+    "battleDescription": "%user spins into action, wind chakra whipping around their arm in a vicious spiral. As they launch their fist forward, a condensed cyclone wraps tightly around the strike. The blow lands with explosive force against %target, tearing at their stance and disrupting their physical core. The turbulence doesn’t fade; it lingers. Wind chakra burrows beneath the skin and into the muscle, tearing at them from within. With the wound left open, %target keeps bleeding long after the blow has landed.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the jutsu wounds rather than raising taijutsu damage taken, so the last two sentences now describe the lingering wound. An em dash is replaced. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Torrential Fist",
+   "targetId": "6O0ZDNYaYHMUQg2xzSlEn",
+   "data": {
+    "description": "The user coils a raging torrent around their arm and unleashes it in a crushing punch. The surge floods back into their muscles, making their attacks hit harder until the tide ebbs.",
+    "battleDescription": "A low hum fills the air as %user’s fist clenches, veins glowing faintly with surging water chakra. The liquid spirals violently around their arm, no longer gentle like a stream but raging like a storm barely contained. With eyes locked on %target, %user surges forward, each step leaving splashes in their wake. The punch lands with a brutal crash, detonating in a geyser of pressure that feels more like a tidal eruption than a strike. Steam rises from soaked ground as %user pulls back, aura pulsing, their strength now amplified by the very force that sought to drown their enemy.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes a stray leading percent sign and replaces an em dash. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Toxic Pool",
+   "targetId": "HBof21qe_fP_mUE5UNKtR",
+   "data": {
+    "description": "The user floods the ground with a bubbling pool of toxic chakra that scalds every enemy in the area. The poison seeps into their system, burning them each time they spend chakra or stamina over the next few rounds.",
+    "battleDescription": "%user releases toxic chakra into the ground, forming a bubbling, acidic pool that spreads across the area. The vapor and liquid gnaw at whatever stands in it, inflicting immediate pain and poisoning the body. Every burst of chakra or stamina spent afterward worsens the poison.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes %target from a ground jutsu and corrects the poison, which bites when chakra or stamina is spent rather than for staying in the pool. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Vacuum Palm",
+   "targetId": "VJTgXcLzcsH_UyHjR_uh3",
+   "data": {
+    "description": "The user compresses wind into a thin, invisible edge around their palm and thrusts it straight through the target's guard. The vacuum lingers in the wound, leaving them open to heavier punishment from every attack for a short time.",
+    "battleDescription": "%user focuses wind chakra into their palm, compressing it into a thin, invisible blade of force. With a single, precise thrust, they drive the strike through the air and into %target, piercing through defenses without warning. The impact disrupts muscular control and weakens the body’s ability to absorb further punishment. After being struck by Vacuum Palm, %target becomes noticeably more vulnerable to every attack, their guard compromised by the razor-thin force still lingering within.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the vulnerability covers all damage rather than only taijutsu, and two em dashes are replaced. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Veil of Shadows",
+   "targetId": "l6iUf3mc7LZQQEDDif1zW",
+   "data": {
+    "description": "The user draws a veil of living shadow across the field, and its formless shapes lash at the target. The veil then settles over the user, turning part of the damage they take into health for a short time.",
+    "battleDescription": "%user forms a slow, deliberate seal as an ominous haze spreads through the air, cloaking the battlefield in spectral mist. %target’s vision darkens as they’re pulled into an illusion where formless shadows lash out with invisible strikes. As the veil settles, a portion of every blow aimed at the user loops back to reinforce their health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the absorb turns damage the user takes into health, not damage they deal. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Volt Crash",
+   "targetId": "fXpFymFNqyTPNiivQKGnv",
+   "data": {
+    "description": "The user hurls a crackling charge of lightning that crashes into the target with explosive force. The current clings to them, so every hit they take over the next few rounds burns a little deeper.",
+    "battleDescription": "%user erupts in a flash of lightning, hurling the charge across the battlefield in an instant. With thunderclap velocity, it slams into %target like a living bolt, delivering a crushing impact that leaves sparks and destruction in its wake.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the user no longer crosses the field (no move effect), the lightning charge does. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Volt Fang",
+   "targetId": "UeSsPxrjc-0yuh3Ia_Tea",
+   "data": {
+    "description": "The user sweeps a lightning-cloaked blade in a crackling arc that bites into the ground around the target. The surge flows back up the steel, making the user's attacks hit harder for a short while.",
+    "battleDescription": "%user lunges forward and slashes %target with a blade cloaked in surging lightning chakra. The strike jolts through the enemy in a burst of current that races back up the blade, empowering every attack the user makes.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes an enemy debuff it does not have and widens the user buff to all damage. Description from round 1 with the area phrase no longer assuming enemies are present."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Volt Jab Barrage",
+   "targetId": "tAV232faDLgzFoYcnkWc3",
+   "data": {
+    "description": "The user unleashes a flurry of lightning-charged jabs, each punch jolting the target's nerves. The shocks leave their body raw and exposed, so attacks against them hit harder for a short time.",
+    "battleDescription": "%user’s fists spark to life as lightning surges through their limbs. In a flash, they close the distance and unleash a relentless barrage of precise jabs, each punch crackling with high-voltage chakra. Every hit sends jolts through %target’s nervous system, overloading muscles, rattling their nerves, and breaking their physical rhythm. As %target’s guard deteriorates, the electricity lingering in their body leaves them open, so every blow that follows lands harder.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the jutsu raises the target's damage taken, so the claimed stat debuffs and user taijutsu buff are replaced with that. An em dash is removed. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Volt Reaper",
+   "targetId": "ZZ3BNMarAAO-G2vI2zvHV",
+   "data": {
+    "description": "The user whips a lightning-charged limb across the target in a reaping arc. The discharge coils around the user like a second skin, making all their attacks strike harder for a short while.",
+    "battleDescription": "%user charges forward, lightning chakra crackling across their limbs in jagged, twitching arcs. With a sudden pivot, they slash their leg or arm across %target with blinding speed, the strike crackling on impact. As the chakra discharges, it doesn’t fade; instead, it coils around %user like a second skin.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; replaces an em dash and removes a trailing space. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wave Cleaver",
+   "targetId": "fwqYriYXDpCQyqrs9cxwR",
+   "data": {
+    "description": "The user swings their weapon in a wide arc and releases a cleaving wave of water that crashes over the target and the ground around them. Everything it batters stays soaked and reeling, taking extra damage from every hit for a short while.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1 with the area phrase no longer assuming others are present."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Weary Fists",
+   "targetId": "8TNJHxH0dswm6Tl52m_vn",
+   "data": {
+    "description": "The user drives a slow, crushing punch weighed down with dense chakra into the target. The chakra hardens around the user afterwards, turning part of every blow they take into health for a short time.",
+    "battleDescription": "%user approaches with grounded steps, chakra coiling around their arm like lead. They drive a deliberate, crushing punch into %target, the force transferring with bone-deep weight. On impact, residual chakra lingers around %user, hardening into a dense field that turns a portion of incoming damage into health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; says the absorb turns damage into health and removes a trailing space. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Whirlwind Kick",
+   "targetId": "ZRKMTLqO1SBDKS_KMJ2Zi",
+   "data": {
+    "description": "The user spins into a gale-driven kick that tears through the target and the air close around them. Wind lingers in their joints and loosens their guard, so all attacks against them hit harder for a short while.",
+    "battleDescription": "%user channels wind chakra through their legs and launches into a fierce spin, kicking with the force of a gale. Wind spirals outward in a sharp arc, amplifying the velocity and reach of the strike. When the blow lands, the shock tears through %target’s balance and muscular control. Wind chakra lingers in the joints, loosening their ability to brace or defend.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes a trailing space. Description from round 1 with the area phrase no longer assuming enemies are present."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Whispering Winds",
+   "targetId": "RuGPHn5J21lIG959ShE-v",
+   "data": {
+    "description": "A ghostly breeze whistles from the user's hand, slicing at the target and filling their ears with eerie whispers. The voices fray their nerve, leaving them more exposed to every kind of attack for a short time.",
+    "battleDescription": "With a gentle sway of the hand, %user summons a spectral wind that whistles with haunted whispers. The gust slashes through %target’s senses, disrupting their mental clarity and unraveling their resistance to harm. The eerie presence lingers, amplifying every attack to come.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the vulnerability covers all damage rather than only genjutsu, and the caster is named with %user. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Scythe Barrage",
+   "targetId": "LCIa6ZNN9mKocs_olrfC0",
+   "data": {
+    "description": "The user flings a spiraling barrage of crescent wind scythes that cut through every enemy in their path. The rhythm of the assault sharpens the user's own edge, making their attacks hit harder for a short while.",
+    "battleDescription": "%user whirls in a blur of motion, launching a barrage of crescent-shaped wind scythes across the battlefield. As the scythes fly, chakra surges through their body, sharpening their offensive edge and enhancing the power of future attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the movement it does not have. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Abyssal Wraith",
+   "targetId": "57JrAbfLuAliey0TgH2uM",
+   "data": {
+    "description": "The user conjures wraiths from the abyss that swarm through the target's mind. Their haunting shapes rake at every sense the target has, landing a sharp blow of mental damage.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean; left unchanged. Description from round 1."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Bursting Compressed Air",
+   "targetId": "PPtI3N-X7eoqTfav-s0r3",
+   "data": {
+    "description": "The user packs air into a dense orb between their palms and bursts it at the target, punching straight through their defenses. The shock leaves them reeling, so attacks against them hit a little harder for a short time.",
+    "battleDescription": "%user compresses air with precise chakra control into a tightly packed orb between their palms. With a sharp thrust, the orb explodes forward, releasing a concentrated shockwave that tears through the air. The blast distorts the surroundings as it barrels toward %target, hitting with the crushing force of pure atmospheric pressure.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; uses %target for the single target. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Desert Illusions",
+   "targetId": "JlGhMTpr_6c5jer6s-hw1",
+   "data": {
+    "description": "The user traps the target in a mirage of shifting sand that crushes in around them. The phantom dunes may also mire their feet, leaving them unable to move for a short while.",
+    "battleDescription": "With a subtle hand seal and a steady gaze, %user casts an illusion that traps %target in a mirage of shifting sands and scorching sun. In the false desert, every step becomes a struggle, and escape seems impossible. %target is struck by searing mirages while their movement is locked in the grip of the genjutsu’s disorienting landscape.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; swaps the generic 'the shinobi', 'the enemy' and 'The target' for %user and %target on a single-target jutsu. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earth Release: Palm Push",
+   "targetId": "cqjy1SyJ5KBt-YlEiPKOu",
+   "data": {
+    "description": "The user thrusts a palm forward and a wall of solid force rises between them and the target. Blows land softer on the user, and the target's own attacks lose some of their bite for a short time.",
+    "battleDescription": "With a grounded stance, %user channels earth chakra into their palm before thrusting forward. A sudden wave of solid force erupts, intercepting %target’s attack and dispersing its power. This technique reduces the damage %user receives while subtly shifting the incoming force, blunting the strength of %target’s attacks with controlled redirection.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the claim that it displaces the enemy (no movement effect) and names %target, whose attacks it weakens. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earth Style: Shattering Kick",
+   "targetId": "P299J4VUOJ_Iz5JXhp0XX",
+   "data": {
+    "description": "The user plants their weight and drives an earth-charged kick upward into the target. The ground cracks beneath their heel as the blow lands with crushing force.",
+    "battleDescription": "%user drops low and plants their weight before delivering a crushing upward kick infused with earth chakra. The ground beneath their foot cracks as force surges through the strike, slamming into %target with seismic impact. The blow drives deep into their body, the earth chakra hammering home with the weight of the land itself.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the opening and the cracking-ground image; removes the charge forward and the knockback across the battlefield, which the jutsu does not do (damage only), and names %target. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Electric Maul",
+   "targetId": "Ti2Q1aLB5aLyLGepoEFkX",
+   "data": {
+    "description": "The user drives lightning chakra into the earth, and a tiger of crackling electricity bursts out to maul the target. Its claws leave their body jolted and exposed, so attacks against them hit harder for a short time.",
+    "battleDescription": "%user slams their palm into the earth, channeling lightning chakra through the terrain. From the surge, a roaring tiger made entirely of crackling electricity erupts into view, its body outlined in streaks of blinding light. The beast charges %target with terrifying speed, pouncing and delivering a mauling strike of raw elemental force. This genin-level jutsu strikes fear into opponents through its fierce visual and devastating impact.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; swaps 'The user' and 'the enemy' for %user and %target. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Electric Surge",
+   "targetId": "00-UJnRE9RptoyI8LZvQh",
+   "data": {
+    "description": "The user floods the target's mind with the illusion of a violent surge of lightning. The shock feels real enough that it stuns them, stealing time from their next moves.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Flash Kick",
+   "targetId": "Z6D_e97_syaNN11ap_lYO",
+   "data": {
+    "description": "The user flashes across the field and lands in a storm of lightning-charged kicks. Every enemy around the landing spot is caught in the crackling flurry.",
+    "battleDescription": "%user explodes forward in a storm of lightning-charged kicks, each strike cracking with blinding speed and power. The final roundhouse erupts in a flash of electricity, scattering a haze of sparks across the ground where %user lands.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the last clause used %target and a stagger-back on an empty-ground area jutsu, now it describes the burst around the landing spot. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Infernal Ascension",
+   "targetId": "1Utdp_1sdXw7CUOB_EXhY",
+   "data": {
+    "description": "The user calls up an infernal blaze from within, their aura roaring into flame. Every fire technique they unleash burns far fiercer for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Cloak",
+   "targetId": "rjV6z8ygicPTp1TZ1ybrB",
+   "data": {
+    "description": "The user wraps their body in a crackling mantle of lightning. While it holds, their lightning techniques strike harder and ring with thunder for a short while.",
+    "battleDescription": "%user surrounds their body in a radiant sheath of crackling lightning, each muscle fiber twitching with raw power. As they move, arcs of electricity trail behind them, lending raw force to every motion. Their strikes become charged with electric energy, enhancing the impact of all lightning-based techniques with devastating precision.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the claimed speed boost and the 'piercing' wording, since the jutsu only raises lightning damage. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Release: Holy Strike",
+   "targetId": "_LNNwTWdKsUBFfrBnD6Og",
+   "data": {
+    "description": "The user clasps their hands in prayer and calls down a divine bolt of lightning on the target. The holy glare leaves them shaken, dulling the force of their attacks for a short while.",
+    "battleDescription": "%user weaves a multitude of hand signs, then clasps their hands in a praying motion. Their body is cloaked in lightning that almost seems divine. In a swift motion, lightning arcs toward %target, delivering a devastating blow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; fixes the garbled 'sends in their hands clasped' and 'giving a devastating blow', and removes a trailing space. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Quicksand Mirages",
+   "targetId": "oEf8f1hEHz4a0to5YAACt",
+   "data": {
+    "description": "The user bends the target's mind until the ground seems to swallow them, the illusion striking at their senses. Panic grips them as they sink, weakening their attacks for a short while.",
+    "battleDescription": "%user bends the mind of %target and creates an illusion of them sinking into quicksand. The feeling is real as their body sinks into the sand, and they can feel it getting stuck under the pressure as they fall into a state of panic.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; fixes the run-on second sentence. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Rotting Bite",
+   "targetId": "69LbdTR46ecbDsKoP0Lsy",
+   "data": {
+    "description": "The user sinks phantom fangs into the target, and the illusion of rotting flesh spreads across their skin. The rot feeds the user, letting them heal from a share of the damage they deal for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Shocking Discharge",
+   "targetId": "W4zdFCmPuybGX1aytawAq",
+   "data": {
+    "description": "The user looses a jagged bolt of lightning from their palm into the target. The shock seizes their muscles and stuns them, costing them precious time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Shockwave Fist",
+   "targetId": "EOMOSOVn3za-UddIC2hY9",
+   "data": {
+    "description": "The user charges their fist with lightning and releases a crackling shockwave on impact. The surge rattles through the target and stuns them.",
+    "battleDescription": "This technique charges %user’s fists with electrical chakra to deliver a crushing blow. Upon impact, the strike releases a violent surge of electricity that deals damage and stuns %target, leaving them momentarily unable to act.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Circle",
+   "targetId": "LNqxd5sm6FicSD047XZYs",
+   "data": {
+    "description": "The user slams their hands to the earth and a ring of jagged stone pillars bursts up around the target. The pillars strike hard and may close in tight, leaving them unable to move for a short while.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Shuriken Technique",
+   "targetId": "rZXlJv6_AbCLK02zR_J5X",
+   "data": {
+    "description": "The user packs compacted earth into hard stone shuriken and hurls them at the target. Each one lands with the dull weight of rock, battering them with earth.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Stone Skipping",
+   "targetId": "ajehm6KDqv-glvYE4WFp6",
+   "data": {
+    "description": "The user skims chakra-weighted stones low across the ground so they bounce into the target in quick succession. The battering leaves them off balance, so the blows that follow land harder for a short while.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tectonic Ascendancy",
+   "targetId": "VL85zkB3uifqpF2T8OEnE",
+   "data": {
+    "description": "The user stamps down and draws the deep strength of the tectonic plates up through their body. For a short time, their earth techniques strike with far greater force.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tidefall Punch",
+   "targetId": "7tcIGa47M3B_XEDO_53St",
+   "data": {
+    "description": "The user coils water around their arm and drives it into the target like a falling tide. The spray settles over their own body, softening the blows they take for a short while.",
+    "battleDescription": "%user surges forward, water spiraling tightly around their arm like a coiled serpent. As they drive their fist into %target, the crashing blow sends a shockwave rippling outward like a tidal surge erupting from their knuckles. The impact drenches the battlefield in pressurized chakra-infused water, fortifying %user’s body with a durable aquatic guard.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the em dash and swaps 'shield' for 'guard', since the effect is damage reduction, not a shield. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tides of Sovereignty",
+   "targetId": "SQuwOilXd6w-v0HHKy7yn",
+   "data": {
+    "description": "The user commands the sea to rise within them, their chakra swelling like a spring tide. For a short time, every water technique they unleash hits with sovereign force.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Water Shuriken",
+   "targetId": "Ixz0pPNGtAaXDgBGAQzOr",
+   "data": {
+    "description": "The user compresses water into razor-edged shuriken and sends them spinning at the target. Each one strikes with the force of a breaking wave.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Water Style: Water Beast",
+   "targetId": "CM_NI6GdHsno1s-p-pQ2e",
+   "data": {
+    "description": "The user conjures a beast of churning water that surges forward and slams into the target. A vortex lingers around the user, turning part of the damage they take into health for a short while.",
+    "battleDescription": "%user conjures a massive beast made entirely of churning water, which surges forward to slam into %target. As it crashes home, a swirling vortex lingers around %user, turning a portion of incoming damage into health. This technique balances offense with a defensive advantage.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; uses %user and %target and describes the absorb as turning damage into health. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Release: Tempest Edge",
+   "targetId": "wNuzOUwu1ifZACY15NdVh",
+   "data": {
+    "description": "The user wraps their weapon in a swirling vortex of wind chakra, honing its edge to a howling sharpness. They bring it down on the target with the force of a raging storm.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Vacuum",
+   "targetId": "P31SbGF6-w21A_U3aCXq5",
+   "data": {
+    "description": "The user draws the surrounding air into a tight vacuum around their body, compressing their chakra. For a short time their attacks strike harder and the pressure blunts incoming blows.",
+    "battleDescription": "%user draws in surrounding air with a deep inhalation, forming an intense vacuum around their body. As the pressure equalizes, their chakra surges violently, amplifying the force and sharpness of every technique they unleash. The surrounding atmosphere distorts slightly, blunting incoming blows and signaling the enhanced potential of their next strike.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; the damage boost applies to all damage, not only wind, and the damage-taken reduction is now hinted. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Zephyr Strike",
+   "targetId": "KDjCiZ-3tzuFPX2Wsj5IX",
+   "data": {
+    "description": "The user lets a light breeze carry their weapon into a swift, cutting strike. The wind lingers around the target and turns against them, so their own attacks rebound on them for a short time.",
+    "battleDescription": "As %user channels wind chakra into their weapon, a light breeze envelops the blade. %user strikes with swift grace, the edge flashing toward %target faster than the eye can follow. As it connects, the breeze clings to %target and twists against them. Each blow they throw is caught by the contrary wind and hurled back upon them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the opening and the four-sentence shape; the user gets no speed buff, so the lines now show the strike on %target and the wind turning their own blows back on them (recoil). Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Phantom Requiem",
+   "targetId": "kbrQuf3nYNHoKEvusATTO",
+   "data": {
+    "description": "The user calls up a ghostly mist that strikes the target and seeps into their body. Over the next few rounds it bleeds away their health, chakra and stamina.",
+    "battleDescription": "%user forms a seal, summoning a ghostly mist that seeps into %target’s body. Wisps of blue and red energy, chakra and stamina along with their very life, are ripped from them, spiraling away into the mist. %target’s limbs grow heavy, their strength fading as exhaustion takes hold. If they don’t break free, they’ll collapse under the relentless drain.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the em dashes, adds health to the drained pools and drops the claim that the energy flows to the user. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Seal of Nullification",
+   "targetId": "g-b0Fs5o8EzQIphq0YIAX",
+   "data": {
+    "description": "The user binds the target in chains of sealing script that lock their chakra against any new enhancement. The same seals ward the user, shielding them from debuffs for a short time.",
+    "battleDescription": "%user weaves intricate seals in the air, summoning glowing ethereal chains that surge toward %target, coiling tightly to disrupt their chakra flow, suppressing any attempts to invoke new enhancements while the last links settle over %user as a ward against debuffs.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; it does not strip existing buffs (it blocks new ones), and the user's debuff ward is now mentioned. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Primordial Blight",
+   "targetId": "Uu1J0ht_YiSNwUoPca5Jg",
+   "data": {
+    "description": "The user lays a festering blight on the target at close quarters, rotting at their body. The corruption can stop them from healing at all for several rounds.",
+    "battleDescription": "%user summons a malevolent elemental blight of fire, water, wind, earth, and lightning that engulfs %target, scorching their vitality and corrupting their recovery, leaving them unable to mend against %user’s assault.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes 'freezing chakra flow' and 'weakened and defenseless', which the jutsu does not do, leaving damage and heal prevention. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Style: Daibutsu Thunder 2",
+   "targetId": "zwAsamVDhEaio_XKhT28O",
+   "data": {
+    "description": "The user calls down a storm that crashes over an area as a wave of lightning-charged water. The charge clings to every enemy it strikes, so their own attacks jolt back into them for a short while.",
+    "battleDescription": "%user raises their hands, summoning a massive storm as dark clouds gather and electricity crackles through the air, unleashing a torrential wave of electrified water that crashes toward %target with violent force, striking with bolts of lightning and dealing devastating damage while leaving the battlefield drenched and charged with residual energy that clings to whoever it struck, turning their own attacks back upon them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; it has no heal prevention, so the lingering charge now describes the recoil on everything struck. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Style: Divine Railgun 2",
+   "targetId": "WU5_Td4ZmPkL8vB0Hvobs",
+   "data": {
+    "description": "The user wraps a pebble in water chakra and fires it on a surge of lightning at blinding speed. The charge left behind makes the target far more vulnerable to storm attacks for a short time.",
+    "battleDescription": "%user coats a small pebble in water chakra, then using lightning, they supercharge it sending it flying toward %target before they can even react, inflicting massive injury with what seems like just a flick of a finger.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; adds the missing 'a'. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Crippling Blade",
+   "targetId": "z17S47TiSnNBgQMVkxsnH",
+   "data": {
+    "description": "A forbidden bukijutsu that sheathes the user's weapon in a dark, ominous aura before it cuts into the target. The aura seeps into their veins, sapping their strength and blunting their offense and defense for several rounds.",
+    "battleDescription": "With a swift, calculated strike, %user's weapon is engulfed in a menacing, dark aura, crackling with malevolent energy. As the blade connects, the aura surges into %target's body, creeping through their veins like icy tendrils, sapping their strength and agility. %target's movements slow, each step becoming a laborious effort as the oppressive force of the curse weighs them down. The once nimble and powerful fighter now struggles against the debilitating effects of the jutsu, their greatest strengths drained and diminished.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes the wrong name 'Crippling Strike' and the Taijutsu-only claim, since the debuff hits the target's highest stat. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Forbidden Art: Heaven's Rupture Oath",
+   "targetId": "lOZQks4GCxjXsNQxop-zo",
+   "data": {
+    "description": "A lost oath that splits the sky with dust and yin-yang chakra and crashes down on the target, threatening to seal their elements. Its chains then bind the user, armoring them while every technique costs more for a short time.",
+    "battleDescription": "%user draws their weapon across the air without touching %target. For a heartbeat, nothing happens. Then the sky splits along the blade's path, and a silent dust-white wound opens above %target. The rupture crashes down, carving through defenses and sealing forbidden elements in its wake. As the oath closes, chains of chakra lash back around %user's arms, hardening them against harm while making every movement cost far more than it should.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; adds the user's damage reduction and replaces 'cost twice', which overstates the cost increase. Description from round 1, in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Verdant Renewal",
+   "targetId": "fRiW0t9PqWUYMl25ZiBbg",
+   "data": {
+    "description": "The user presses their palms to the ground and draws vines and blossoms up to wrap around them. For several rounds the living growth turns part of every blow they take into health.",
+    "battleDescription": "%user kneels and places their palms on the ground, channeling energy into the earth. Vines and blossoms emerge, wrapping gently around %user. The vibrant greenery pulses with life, ready to drink in incoming blows and knit them into health. The sweet scent of blooming flowers steadies %user’s resolve as the living growth stands guard.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line; removes %target on a self jutsu, describes the absorb (damage into health) instead of a direct heal, and drops the claimed strength buff. Description from round 1, unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Aegis of Shadows",
+   "targetId": "XS08zZhUhK615Dle4j3f3",
+   "data": {
+    "description": "The user wraps the target in coiling shadows that smother their strength and strip away their guard. For a short time the target hits more weakly and takes heavier damage from every blow.",
+    "battleDescription": "%user performs a series of intricate hand seals, and the shadows around them coil and rise like a sentient tide. The darkness lunges across the field and wraps around %target, hardening into a suffocating shroud. Every strike %target throws dissipates weakly into the veil, as if swallowed by an abyss, while the shadows gnaw through their guard. The eerie shroud flickers and tightens, leaving %target exposed to every blow that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original texts described a protective barrier, but the jutsu weakens the target's damage and raises the damage they take. Battle line keeps the original four-sentence shadow-tide imagery, now aimed at %target; description reuses the accurate round 1 text."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Fang Strike",
+   "targetId": "l3oXmqSJ7L-r4XI9IBIyh",
+   "data": {
+    "description": "The user calls up the fiery essence of a dragon and looses twin fangs of flame that tear straight through the target's guard. The wounds keep smoldering for several rounds, so every hit the target takes afterwards burns deeper.",
+    "battleDescription": "%user performs swift hand seals, summoning the fiery essence of a dragon. Twin fangs of flame erupt from their palms, spiraling with intense heat. With a ferocious roar, the fiery fangs lunge toward %target, searing through defenses and engulfing them in a blaze of dragon-shaped fury. Residual embers cling to %target long after the strike, making every blow that follows burn deeper.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original rich battle line; its closing sentence now shows the lingering afterburn instead of generic embers. Stub description replaced with a fuller one covering the guard-piercing hit and the afterburn."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Celestial Dew",
+   "targetId": "2vNeMhph6A9Ld--WXa35O",
+   "data": {
+    "description": "The user calls down luminous drops of celestial dew that mend their wounds over the next round. The dew then settles into a shimmering shield that soaks up incoming damage for a short time.",
+    "battleDescription": "%user clasps their hands, invoking a soft, luminous chant. From above, ethereal droplets of dew descend, shimmering with celestial light. The dew gathers upon %user, mending wounds and revitalizing their spirit. As the healing touch takes effect, the droplets settle into a shimmering veil of light around %user, shielding them against further harm.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The jutsu targets only the user, but the original healed allies and never mentioned the shield. Battle line keeps the original four sentences and chant imagery, drops the allies and closes on the shield."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Subaku Palace",
+   "targetId": "jELEiw5W3N4m2R3oJm3Pk",
+   "data": {
+    "description": "Stolen from Subaku Castle, this technique lets the user call forth the demon palace, whose gates rise in a spiral across the battlefield. The palace fuels the user's attacks for a short time and saps the strength of every enemy caught within its walls for several rounds.",
+    "battleDescription": "%user presses their hand to the ground, and a chakra formula spreads from their palm to the corners of the battlefield. Large demon gates rise out of the earth in a spiral, empowering their master and weighing on anything hostile caught within their walls.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description keeps the Subaku Castle lore but now states the actual effects (user hits harder, enemies in the area deal less damage) instead of 'offense and defense'. Battle line keeps the original image, removes %target from a ground jutsu and fixes grammar."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempest Cleave",
+   "targetId": "Ul83iTziN__Z0i_UOzZTK",
+   "data": {
+    "description": "The user spins into a cleaving whirlwind of razor-edged chakra that tears through everything in the area, friend or foe. For a short while those caught take heavier damage, and every later hit burns deeper.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "battleDescription": "%user spins swiftly, their weapon or bare hands trailing razor-edged chakra. The air around them twists into a slicing vortex that rips across the battlefield. %target and everything caught in the tempest are battered by the cutting currents, friend and foe alike, and left raw to every blow that follows. The relentless storm fades with a final powerful slash, its wounds still burning hot beneath every new hit.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original whirlwind battle line at full length but drops the enemy-presence wording and the fire/wind element, adding the vulnerability and afterburn. Description notes that it hits allies too; the training warning is kept."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Dark World",
+   "targetId": "p4N7lt4QgQjLytzkXJTz9",
+   "data": {
+    "description": "A forbidden jutsu that releases the shadows of the underworld on the target, piercing them with black lightning and leaving them open to heavier damage. For a short while the user feeds on the blows they land, though the darkness leaves them burning under every hit.",
+    "battleDescription": "%user forces chakra through their body until it pours out into their shadow. The chakra mixes with their shadow, which grows and absorbs every bit of shadow in the vicinity. As the shadow spreads around %target it also expands, covering the surrounding area in complete darkness. The moment the jutsu hits, it locks %target in a dome of darkness where black razor spikes crackling with lightning jut from the ground and retract, stabbing %target and leaving them exposed to every blow to come. The darkness seeps back into %user, feeding on the blows they land while leaving them burning under every hit they take.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original premium battle line nearly word for word, fixing its grammar and missing full stop and adding the lightning, the target's vulnerability, the user's lifesteal and self-burn. Description keeps its opening and adds the effects."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Dragon King's Impact",
+   "targetId": "FytS2iqFInf1go6WhOvUU",
+   "data": {
+    "description": "A forbidden jutsu that burns the user's own lifeforce to power a high-flying dragon of fire that crashes down on the target, leaving wounds that keep burning. For a short time the user's attacks hit harder, though their scorched body takes extra damage from every hit.",
+    "battleDescription": "%user uses a single hand to perform a series of simple hand seals before pressing the same hand on their blade. The blade shimmers briefly as %user jumps into the air, and the chakra flowing around the weapon bursts into flame and forms a dragon shape around %user, its maw centered on the tip. With breathtaking speed, %user plummets toward %target, smashing the blade into them with devastating power and destroying everything in the impact zone. The dragon's fire lingers in %target's wounds, while the lifeforce it burned leaves %user striking harder but scorched beneath every hit.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original dragon-dive battle line, fixing its run-on sentence and swapping the %weapon placeholder for 'blade' since no weapon is required. Adds the fire element, the lingering wound, and the user's damage buff and self-burn to both texts."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Fury of The White Tiger",
+   "targetId": "QXE9J0fnu1t-DAGTGbaCX",
+   "data": {
+    "description": "The user opens seven of the eight inner gates and releases a devastating tiger-shaped gale at the target, staggering them. The surge makes the user's attacks hit harder for a short time but leaves their body burning under every hit.",
+    "battleDescription": "Waves of green and blue energy flow from %user's body as %user opens the first seven Inner Gates. Each Gate adds terrible force to their strikes, engulfing %user with an all-repelling aura of pure power. %user goes into the Tiger stance before striking the air in front of them with an explosion of power. The violent punch sends a massive tiger-shaped shockwave of wind crashing into %target, staggering them where they stand. The strain of the open Gates sears through %user's body, leaving them vulnerable to every blow even as their strikes grow heavier.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original Inner Gates battle line, fixing its typos and spacing and replacing the strength/speed claim with the real damage buff. Adds the stun and the user's self-burn to both texts."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Gaze into Yomi",
+   "targetId": "UXXs6CZ8NZNjLs9175yZ4",
+   "data": {
+    "description": "A forbidden jutsu that brings the target's departed loved ones to the battlefield, crushing them in a cold mist and sealing their bloodline. The user's attacks hit harder for a short time, though every hit they take then burns deeper.",
+    "battleDescription": "%user forms hand seals while smoke rises from their body. The smoke rapidly expands into a cold, damp cloud, engulfing %user and hiding them from sight. %target feels a cold chill run down their back as the area around them turns gray and all color drains from their vision. The mist materializes into spirit-like apparitions resembling deceased family members. They float around %target, softly wailing in agony as they close in, their cold grip crushing the breath from %target and smothering their bloodline while the borrowed grief sharpens %user's strikes and leaves them raw to every blow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original spirit apparition battle line, in American spelling, and adds the damage, bloodline seal and the user's buff and self-burn. Description no longer addresses the reader and now lists the effects."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Adamantine Fortress",
+   "targetId": "i4lGrYY5HNN2Q2GPToKUS",
+   "data": {
+    "battleDescription": "%user slams their hand to the ground, channeling earth chakra outward in all directions. Thick stone walls erupt across the field in rapid formation: dense, layered, and reinforced with chakra. These barriers deflect incoming strikes and dull the force of enemy attacks. While active, %user's body is further reinforced by lingering stone chakra, allowing them to absorb more punishment than usual.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line, which already covered the wall and damage reduction; only fixes the em dash, apostrophe, missing full stop and the wall's placement. Description unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Chakra Overflow",
+   "targetId": "e2eC-x4UXc5m6QexNbx8w",
+   "data": {
+    "description": "A potent chakra buff that surges through every offensive path, making all of the user's attacks hit far harder for a short time.",
+    "battleDescription": "%user channels a surge of chakra beyond their natural limit, their aura expanding in a volatile ripple of power. This overflowing chakra wraps around them in thick, radiant waves, barely restrained. Chakra Overflow heightens every offensive path: physical strikes land harder, ninjutsu hits with greater force, and even genjutsu becomes more potent. The surge floods through %user's body and mind, doubling down on that force for the intensity of high-stakes combat. It is the edge between control and chaos, a moment where %user becomes a living conduit of power.",
+    "injectableInBattle": true
+   },
+   "suggestion": {
+    "rationale": "Keeps the original five-sentence battle line, removing em dashes and the claim that core stats rise; both effects are damage buffs, now told as the surge doubling the force. Description drops the stat claim."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Crescent  Reaper Fang",
+   "targetId": "cjRErpuffG4GiwIU8OsCw",
+   "data": {
+    "description": "A high-speed weapon slash that deals massive damage to the target and briefly blocks every attempt to cleanse their ailments.",
+    "battleDescription": "%user grips their weapon with both hands and crouches low before vanishing in a flash of speed. A single arc slices through the air past %target, and for a heartbeat, nothing happens. Then a diagonal wound bursts open across their body, blood spraying as if the strike had been delayed in time. But the real sting comes after: the wound lingers in %target's chakra and refuses every attempt to cleanse it, as if their body is punishing them for moving too soon.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original delayed-wound battle line; its last sentence claimed backlash on the target's attacks, which the jutsu does not do, and now describes the cleanse block. Description grammar fixed."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Eclipse Drain",
+   "targetId": "ou7VyChQ-SFCm8T8yGS7I",
+   "data": {
+    "description": "A cursed enhancement that boosts the user's damage and restores health with every strike.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "battleDescription": "%user draws in a slow breath as a shadow-like chakra coils around their arms and chest, pulsing with violent rhythm. Their strikes begin to land harder, the weight of each hit intensified by dark energy. As they attack, part of the damage inflicted siphons back into their body, restoring vitality through every blow.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text was accurate; only a curly apostrophe, an em dash and a trailing space are fixed; the battle line is otherwise word for word."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Eight Fist Style: Lotus Dance",
+   "targetId": "zCmYLVL4JYzfhjPXHi9rH",
+   "data": {
+    "description": "The user drops into a low, still stance before detonating into eight rapid strikes in perfect rhythm, each landing with surgical precision. The relentless barrage shatters the target's guard and seals them off from any buffs for a moment.",
+    "battleDescription": "%user's stance drops low, tense and almost still, then detonates. With masterful precision and tempestuous speed, they unleash eight rapid, deliberate strikes in perfect rhythm. Each blow strikes with surgical accuracy, shattering %target's guard and sending their balance crumbling under the relentless cadence, their body sealed off from any empowering chakra.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description was bland; now shows the eight-strike barrage and the buff block. Battle line keeps the original three sentences, fixing the em dash and apostrophes and dropping the knockback the jutsu does not have."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Leviathan's Embrace",
+   "targetId": "EOgm0Q9z3Gufq4BfyvmKe",
+   "data": {
+    "battleDescription": "%user channels the wrath of the deep as water chakra surges down their spine and coils around their limbs like serpents from the abyss. With a chilling calm, they square up to %target and drive their fist forward, unleashing a crushing blow that echoes with the pressure of the ocean floor. The strike erupts in a spiral of black-blue water, tearing through defenses and drawing life essence back into %user like a drowning tide claiming its own. Each hit binds them deeper to the flow of %target's chakra, feeding life back into their body as they press on like the relentless sea.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original four-sentence battle line, fixing em dashes and an apostrophe, softening an implied movement and making the lifesteal read as life rather than strength. Description unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Sealing Technique: Lotus Barrier",
+   "targetId": "04HFzvH0IvRZBEc3mGM_r",
+   "data": {
+    "description": "Creates a barrier of chakra that takes the shape of a lotus around the target, blocking all of their summoning. The glowing petals weigh on them as well, so their attacks deal less damage for a short time.",
+    "battleDescription": "%user slams their palm to the ground, releasing a bloom of glowing lotus-shaped seals that spread outward in a perfect circle. The lotus petals rise upward, forming a radiant, semi-transparent barrier of light around %target, sealing away their summons and weighing down every strike they throw.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original lotus battle line and adds the summon block and the target's damage reduction it left out. Description grammar fixed and the damage reduction added."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Aqua Fist",
+   "targetId": "epukHI7iUUL2UVbjuL7WX",
+   "data": {
+    "description": "Forms hardened water around the fists for devastating punches. Afterwards the water flows back over the user, strengthening their healing for a short time.",
+    "battleDescription": "%user's fists, surrounded by swirling, hardened water, unleash a barrage of punches at %target, each strike hitting with the force of crashing waves, before the water flows back over %user and strengthens their healing.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original claimed the punches disrupt the target's chakra and leave them vulnerable, which the jutsu does not do, and omitted the healing boost. Both texts keep their wording and now end on the user's stronger healing."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Flash",
+   "targetId": "-G6SjD-TlQYVACir8wFui",
+   "data": {
+    "description": "Envelops the user in flames to dash across the field with explosive speed and erupt in fire where they land, scorching every enemy caught in the blast. The blaze lingers around the user, making their attacks hit harder for a short time.",
+    "battleDescription": "%user focuses their chakra, igniting flames that swirl around their body. With a sudden burst of energy, they propel themselves forward at blinding speed, leaving a trail of fire in their wake. The intense heat generated by their movement scorches the ground and air, making their path difficult to follow. As %user moves, the flames around them roar and grow, turning their rapid dashes into fiery streaks that sear anything they touch. The final strike comes when %user reaches their destination, the flames concentrating into a devastating kick or punch that sends a wave of fire bursting across the surrounding ground. The battlefield is left smoldering, with %user standing amidst the remnants of their fiery dash, the flames still roaring around their fists.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original six-sentence battle line but removes the assumed opponent from an empty-ground area jutsu and hints the user's damage buff. Description adds the fire burst on landing and the buff."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Burning Coil",
+   "targetId": "mYCbcdDwDzJBul52HiwhC",
+   "data": {
+    "description": "Blazing coils of fire wrap around the target and scorch them. The seared skin leaves them vulnerable, so they take more damage for a short time.",
+    "battleDescription": "%user summons blazing coils of fire that wrap around %target, searing their skin and leaving them vulnerable to further damage.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original battle line with a grammar fix. Description's verb agreement and missing full stop fixed and the damage-taken effect added."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earthquake Slam",
+   "targetId": "W3DYPc2NbNjFP8KJlrWAG",
+   "data": {
+    "description": "The user channels earth chakra to deliver a powerful Earthquake Slam, causing the ground to shake upon impact with the target. The force of the quake surges into the user's own strikes, making them hit harder for a short time.",
+    "battleDescription": "%user's decisive slam sends shockwaves through the ground beneath %target, and the earth's power answers %user, loading their next strikes with greater force.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original claimed it staggers nearby enemies; it is a single-target hit with no stun. Both texts keep their opening and now show the user's damage buff as power flowing into their strikes."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Eight Fist Style: Earthen Grasp",
+   "targetId": "0LpgkGVTHrg3mJXFTQPNK",
+   "data": {
+    "description": "Eight Fist Style: Earthen Grasp is a taijutsu technique that focuses on immobilizing the opponent. Its earth-charged blows call stone hands from the ground that can root the target in place for a moment.",
+    "battleDescription": "%user channels Earth Release chakra into their fists, delivering a barrage of strikes that causes the ground to erupt. Earthen hands emerge and seize %target's legs. %user finishes with a crushing kick, sending %target to the ground, where the earthen hands may keep them from moving.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original three-sentence battle line; the move block stays a real chance at max level, so 'immobilizing' and 'unable to move' are softened to chance wording. Description keeps its sentence and adds the hit and root chance."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Fire Fist",
+   "targetId": "DaX0SIBgE5ah0SBc4C-FN",
+   "data": {
+    "description": "Ignites the user's fist for a strike that releases a burst of fire, scorching the target and the ground around them.",
+    "battleDescription": "With a focused burst of chakra, %user ignites their fist in roaring flames. The strike releases a fiery shockwave that scorches %target and the ground around them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original description addressed the reader and assumed nearby enemies. Both texts keep their wording and now describe the blast reaching the ground around the target."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "First Chakra Gate",
+   "targetId": "rCmgi5gtJb-wnPfuwruI2",
+   "data": {
+    "description": "Unlocks the user's chakra flow, making all of their attacks hit harder while the surging energy dulls the damage they take for a short time.",
+    "battleDescription": "A deep roar echoes from within as %user tears open the first chakra gate. Their aura erupts in a violent surge of energy, rippling through the air like a heatwave. Veins glow beneath their skin as raw chakra floods their network, amplifying every movement and sharpening their control. The ground beneath them fractures under the pressure, and the battlefield trembles as their techniques flare with newfound ferocity, faster, heavier, and more destructive than before, while the surging aura dulls every blow that reaches them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original four-sentence battle line; the damage buff applies to all attacks, not only ninjutsu, and the missing damage reduction is added. Description capitalized and corrected the same way."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Flame Infusion",
+   "targetId": "V32MasayzHD2us5okaZVI",
+   "data": {
+    "description": "A burning taijutsu attack that damages the enemy and weakens their stats for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The original battle line was already correct in American spelling and is kept unchanged. Description only gains its missing full stop and a duration."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Harden Fist",
+   "targetId": "C1SdH7N13naMHG3bKE07k",
+   "data": {
+    "description": "A taijutsu technique that hardens the user's body to blunt incoming blows and boost their striking power for a short time.",
+    "battleDescription": "%user tightens their stance, chakra flowing into their limbs until the muscle fibers tense like steel cables. A faint aura pulses around their fists, dense, controlled, and brimming with suppressed force. Harden Fist enhances the body at its core, toughening it against incoming blows while reinforcing every strike with hardened impact. The result is a sharper, more brutal form of taijutsu, each blow landing with enhanced precision and punishing force. It is not just about hitting harder; it is about becoming a weapon in motion.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original five-sentence battle line, fixing em dashes and the truncated last word, and replaces the Strength/Speed stat claim with the actual damage reduction. Description corrected the same way."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Hurricane Strike",
+   "targetId": "p95udTCrsVzXfW4218pGl",
+   "data": {
+    "description": "The user spins into a wind-charged kick that bursts into a gale around the target, battering everything caught in the blast. The momentum carries through the user's body, raising their strength, speed, taijutsu and bukijutsu for a short time.",
+    "battleDescription": "%user channels wind chakra into their leg, executing a spinning kick that generates a powerful gust, striking %target with force as the gale tears across the surrounding ground.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept; drops the knockback it does not have and adds the area gust without assuming anyone is there. Description covers the blast and the self stat buff."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Ice Vortex",
+   "targetId": "Xd9gpgncFrXnQul8shiZD",
+   "data": {
+    "description": "The user conjures a freezing polar vortex that engulfs the target and the ground around them. The bitter cold numbs whoever it catches, so their attacks deal less damage for a short while.",
+    "battleDescription": "%user conjures a raging vortex of ice, engulfing %target in relentless, churning frost.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept but it named water on an Ice jutsu. Description now describes the vortex area rather than enemies at the target's side, and adds the damage-dealt reduction."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Inferno Cyclone",
+   "targetId": "MAmXv0bRXBcmc9wsA9LGX",
+   "data": {
+    "description": "The user raises a spinning column of fire around the target. The blaze leaves them smoldering, so each blow they take over the next few rounds burns deeper.",
+    "battleDescription": "%user summons a blazing cyclone, engulfing %target in flames that leave them smoldering against the blows to come.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line claimed a strength debuff it does not have; now hints the afterburn. Description from round one in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Inner Flame",
+   "targetId": "kUcL8K94TW3iCkRcoik_7",
+   "data": {
+    "description": "A fiery aura that shields the user against incoming blows. Through methods few understand, it also turns part of the damage they take into renewed energy.",
+    "battleDescription": "%user ignites their inner fire, reducing the force of incoming blows and using the energy to replenish and reinforce themselves.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Absorb now reads as turning damage into health, per the director, with no chakra or stamina named. Removed the unbacked power boost and the trailing spaces. Its absorb restores energy rather than health, so the text says energy."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Blitz Strike",
+   "targetId": "HNMweb8uPrZFIJXlMhdkm",
+   "data": {
+    "description": "The user channels lightning chakra into their limbs to deliver a swift series of electrifying taijutsu strikes.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The live battle line already uses %target, so it is kept unchanged. Only the description's 'your' is fixed."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Flash Step",
+   "targetId": "Hj0l8y3PKMH1Mwuf6Au2q",
+   "data": {
+    "description": "The user flashes to a new position in a burst of lightning, unleashing strikes that pierce any guard across the area around their landing point. The shocks linger, hurting anyone struck again over the next few rounds.",
+    "battleDescription": "%user surrounds themselves with lightning chakra, flashing to a new position at blinding speed and delivering rapid, precise strikes from all angles that tear through any guard.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Drops the rejected 'on a crack of lightning' wording and returns to the original line, fixing %target on an empty-ground jutsu. Description now covers the move, piercing strikes and lingering wound."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Release: Thunder Edge",
+   "targetId": "aj1gDBeNKzxWKEPOPiKKp",
+   "data": {
+    "description": "Lightning Release: Thunder Edge is a versatile jutsu that allows the user to infuse their weapon with lightning chakra and drive it into the ground. The charge erupts around the target in a surge of electrical energy that stuns anything caught in it over the next few rounds.",
+    "battleDescription": "%user releases a surge of electrical chakra through their blade and strikes the ground. The current races out from the blade, crackling across the surrounding ground and wrapping itself around %target.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original two-part text; area wording describes the surge across the ground instead of enemies near the target. Stun kept as 'can' because it stays below certain at the cap."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Lightning Ward",
+   "targetId": "GsDJufr8bn-55VSGPe0hA",
+   "data": {
+    "description": "Envelops the user's weapon in lightning, strengthening their Lightning attacks and leaving the target vulnerable to all further attacks for a short time.",
+    "battleDescription": "%user surrounds their weapon with crackling lightning, empowering their Lightning techniques before marking %target with a jolt of electricity that leaves them vulnerable to further attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Returns to the original text without the parlor-trick spark. Fixes 'your' and the scope: the buff covers all Lightning damage and the target takes more damage from every source."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Medusa's Gaze",
+   "targetId": "dg-I3ff8mWl8i7Nk1fvPj",
+   "data": {
+    "description": "A mythical genjutsu in which the user channels the power of Medusa, their eyes turning a cold serpent yellow. For a short time every attack they make strikes harder, and the blows against them land softer.",
+    "battleDescription": "%user closes their eyes and gathers chakra as the air grows still around them. When the lids lift, a cold serpent's stare looks out, and Medusa's power floods through %user, strengthening every strike and blunting the blows that come for them.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The original battle line was broken. New line keeps its closed-eyes-then-gaze arc as a two-sentence premium line without pierce-like wording; both texts now state the damage boost and damage reduction."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Quaking Earth Strike",
+   "targetId": "VOS_VDwAUUlpYxYlNSLnt",
+   "data": {
+    "description": "The user smashes the earth so the ground quakes and shatters across the area around the target. The tremors break the footing of anything caught in them, leaving it open to more damage for a short time.",
+    "battleDescription": "%user smashes the earth, sending shockwaves rippling through the ground around %target and weakening their defenses against further attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original battle line kept with the shockwave spreading through the ground instead of 'the enemies around them'. Description covers the area and the vulnerability."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tempestual Fury",
+   "targetId": "uf5dAzEg_Blu4MBePzx_m",
+   "data": {
+    "description": "Tempestual Fury is a wind-element Ninjutsu that summons a devastating storm of immense size and power. Its winds leave everything they batter raw, so the hits that follow strike harder for a short time.",
+    "battleDescription": "%user summons a raging tempest, its ferocious winds slamming into %target and scouring the ground around them with relentless force.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original text, fixing the misnamed jutsu and the leading space. Area is described as scoured ground rather than enemies around the target; afterburn added."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderbolt Fusillade",
+   "targetId": "WfluLTdmhSRBkOCbLK54Q",
+   "data": {
+    "description": "Summons a barrage of lightning bolts at the target while surrounding the user with a current that wards off harmful effects for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept; description fixes 'yourself' and states the debuff ward plainly with no 'very likely'."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tidal Crash",
+   "targetId": "qVt6keegjChKW6Y2sy6xS",
+   "data": {
+    "description": "Uses water-enhanced strikes to overwhelm the target, the surge spilling outward over the surrounding ground.",
+    "battleDescription": "%user channels chakra into the water, amplifying their strength to unleash a series of powerful, wave-infused blows that batter %target, leaving them soaked as the surge spills across the surrounding ground.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept; the area is the surge spreading over the ground, not enemies close by, and the unbacked disorientation is dropped."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Aqua Serpent Strike",
+   "targetId": "ZKxQZOT8pJqv4iq8wSLgZ",
+   "data": {
+    "battleDescription": "%user channels water chakra through their limbs, shaping it into a sinuous, whip-like flow around their arm. With swift, coiling motion, they dart toward %target and unleash a fierce, fluid strike that lashes across flesh like a serpent breaking the surface. The impact disorients the enemy's defenses, soaking them in reactive chakra that lingers like venom, heightening the damage they suffer from subsequent attacks. The strike is silent, swift, and merciless, like the serpent it's named for.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Restores the full original battle line, only replacing its em dashes. Description was already accurate."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Reprisal",
+   "targetId": "fIn7udQihVEDhMEaAqhul",
+   "data": {
+    "description": "The user wreathes the target in clinging flames that make every later hit burn deeper. The fire also feeds the user, letting their own attacks draw back life over the next few rounds.",
+    "battleDescription": "%user sets %target smoldering in a ring of fire, the embers curling back to mend %user with each blow that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original was broken (typos, no full stop, described lifesteal as absorbing the target's health). Round one text kept in American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Fire Release: Inferno",
+   "targetId": "6MRVlYvhkrQlV0iN-2M0H",
+   "data": {
+    "description": "The user wraps the target in a clinging haze of fire chakra that does no harm by itself. For a short time every blow they take burns deeper, and fire techniques strike them harder still.",
+    "battleDescription": "%user breathes a shimmering wave of heat over %target, leaving them smoldering and primed for the flames to come.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The original implied direct damage the jutsu does not deal. Round one text kept, with American spelling."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Infernal Surge",
+   "targetId": "xq6ebGBs2R0bfvcogHMWn",
+   "data": {
+    "description": "Channeling searing flames, the user ignites their body and strikes, engulfing their foe in fire while fueling their own fire techniques with unrelenting heat.",
+    "battleDescription": "A roar of flame erupts as %user's body ignites with blazing energy, surging forward in a torrent of fire. The onslaught engulfs %target, searing all it touches while each ember clings to %user, feeding their power and amplifying the fury behind every flame that follows.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Keeps the original premium text in full; removes the em dash and narrows the damage boost to fire, matching the Fire-only effect."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Majestic Flame",
+   "targetId": "mdIWNxovAIVj_8esBaYGX",
+   "data": {
+    "description": "A spiraling blaze of fire chakra that scorches the area around the target. Everything it engulfs is left smoldering, so the hits that follow burn deeper.",
+    "battleDescription": "%user channels refined fire chakra into a spiraling blaze that engulfs %target. The scorching flames sweep the surrounding ground and leave everything they touch smoldering, so each hit that follows burns deeper.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept in American spelling; the afterburn is described as later hits burning deeper rather than a lingering burn, and the area is shown without assuming foes."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Mizushibari",
+   "targetId": "ULll9S_P3B852zdPP_EIT",
+   "data": {
+    "description": "A water-based strike that crushes the enemy, then coils around the user to turn part of the damage they take into health.",
+    "battleDescription": "%user unleashes a burst of high-pressure water that lashes out toward %target, striking with force before swirling around their own body. The lingering vortex hardens like fluid armor, drinking in a portion of the damage from the attacks that follow and turning it into health.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept (already American). Only the absorb wording changes so it reads as turning damage into health."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Summoning: Lord Pengu",
+   "targetId": "eyp7n2EBpiRXavV6KG8Wa",
+   "data": {
+    "description": "The people of Hyorin have cohabitated with the Ancient Penguins and have earned the favor of Lord Pengu, who answers the user's call and fights at their side for several rounds.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original kept; Glacier renamed Hyorin, full stop added and the summon's duration noted. Battle line unchanged."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Cutter",
+   "targetId": "ZkEUw55gKCHbGJKbAbPA4",
+   "data": {
+    "description": "A high-speed wind slash that carves through the area around the target, dealing heavy damage and draining health, chakra and stamina over the next few rounds.",
+    "battleDescription": "%user blurs forward in a burst of wind, slashing through %target with razor-sharp wind chakra. The cutting force is so intense it leaves a trail of cleaved air behind, carving across the surrounding ground and draining the strength of all it cuts.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept; area is the cleaved ground rather than people around the target, and the unbacked teleport is dropped. Description adds the full drain and a full stop."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Zephyr’s Judgment",
+   "targetId": "X_5ssRed5Zu1ZIbQwROgd",
+   "data": {
+    "description": "This technique has been passed down by several ninja of old times. By achieving control of the wind nature, the user subjugates the winds around their fists and legs, and every blow leaves a miniature cyclone at the point of impact that keeps cutting at the target over the next few rounds.",
+    "battleDescription": "%user enters a wind-infused trance and unleashes a blur of strikes on %target. Each rapid punch and kick leaves a miniature cyclone spinning at the point of impact, shredding at %target long after the blow lands.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept; cyclones now spin at the point of impact and keep dealing damage, per the director. Removes the unbacked immobilize and 'his'."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earth Release: Stone Fist Strike",
+   "targetId": "Z7eE7xZPPyNfM02tklN7T",
+   "data": {
+    "battleDescription": "%user reinforces their arm with dense earth chakra before launching a crushing punch into %target's core. The impact echoes like stone slamming into steel, rocking the opponent and disrupting their ability to channel power. The force of the strike not only causes direct physical damage but saps their offensive momentum, reducing the strength of their follow-up attacks.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Restores the full original battle line; only 'staggering' changes, since the jutsu has no stun. Description was already accurate."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Ignition Kick",
+   "targetId": "TmPI8fO615KJ8vhZ426fW",
+   "data": {
+    "description": "This technique focuses on utilizing fire elemental chakra on the leg to erupt in fire as it makes contact with the opponent. The flames keep burning afterward, draining their health over the next few rounds.",
+    "battleDescription": "%user channels fire chakra into their leg, delivering a swift roundhouse kick to %target. The impact erupts in a burst of flames, scorching %target and leaving them burning.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Original text kept in American spelling; adds the health drain and drops the stagger, which the jutsu does not have."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Pressure Damage",
+   "targetId": "haRHBRJ7ifpnXApDOlSVk",
+   "data": {
+    "battleDescription": "%user crushes a roaring tornado into a dense sphere of air and unleashes it on %target, the blast ripping straight through their defenses.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: defences. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Fist",
+   "targetId": "j2H5lwEkOq4HwxgMR9a4j",
+   "data": {
+    "description": "The user wraps their fist in a spiraling vortex of lightning and drives it into the target. The charge clings to them, so every hit that follows burns deeper for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: spiralling. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thorn Grasp",
+   "targetId": "A6c_GX5nB2YOnpoXhSz4Z",
+   "data": {
+    "battleDescription": "%user summons spiked vines that wrap around %target, puncturing them and leaving their defenses exposed.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: defences. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderclap Barrage",
+   "targetId": "6qsy5FQd99kTDvd85sfHp",
+   "data": {
+    "battleDescription": "%user floods their weapon with storm chakra and rains a rapid series of strikes on %target, the leftover current gathering around them like armor.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: armour. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Thunderclap Strike",
+   "targetId": "cag1bMTspiRzPhpZuROge",
+   "data": {
+    "description": "The user charges their fists with lightning and lands a strike that bursts with a thunderous boom. The crackling energy surges through their body, sharpening their offense and defense for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: defence, offence. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Wind Dance",
+   "targetId": "wL3GSeUVnts8GxCZCb4jB",
+   "data": {
+    "description": "The user dances within circling currents of wind that cushion incoming blows. The flowing air sharpens their movements, raising their offense and defense for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: defence, offence. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Acidic Permeation",
+   "targetId": "Wg9SddniAFitkQoGzM4w-",
+   "data": {
+    "description": "The user hurls seal-made pellets that burst into a cloud of acid around the target. The particles eat into their armor, leaving them more vulnerable to damage for a short time.",
+    "battleDescription": "%user flicks a handful of acid-filled pellets at %target, and as they burst the fine mist seeps through their defenses.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: armour, defences. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Arcbound Vortex",
+   "targetId": "Yp9zmQuJBdL8BmCbQAjTp",
+   "data": {
+    "battleDescription": "%user slams a hand to the ground and a spiraling vortex of lightning tears up through the earth, crackling around every enemy inside.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: spiralling. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Chakra Resistance",
+   "targetId": "hAyQsDqPQQ0bKn4u1DdRn",
+   "data": {
+    "battleDescription": "%user draws chakra inward until it settles over their body like armor, steeling them to endure and to strike back harder.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: armour. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Cyclone Shredder",
+   "targetId": "toACbYzFgTFs_ND80JcWo",
+   "data": {
+    "description": "The user releases a spiraling vortex of bladed wind that shreds the target and everything around them. Every enemy caught in the storm is left raw, so the blows that follow hurt more for a short time.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: spiralling. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Riptide Reaper",
+   "targetId": "NP8BGL5ZxXMyxMT3K8m-G",
+   "data": {
+    "battleDescription": "%user swings through a spiraling riptide that drags across the battlefield, the dark water flowing back to feed %user.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: spiralling. No other change to the text applied in push/196."
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Shippūgeki",
+   "targetId": "EDnJIgrOf_4bs9Wy05dl_",
+   "data": {
+    "description": "The user whips up a spiraling gale of cutting winds that tears through every enemy in its path. The surge of speed carries on through the user, making their attacks hit harder for a short time.",
+    "battleDescription": "%user unleashes a spiraling storm of razor winds across the field, the gale feeding back into their own strength.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "American spelling only: spiralling. No other change to the text applied in push/196."
+   }
+  }
+ ]
+}
