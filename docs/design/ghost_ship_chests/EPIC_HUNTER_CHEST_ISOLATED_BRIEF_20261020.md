@@ -1,5 +1,7 @@
 # Isolated generation 05 — Ghost Ship Epic Hunter's Chest
 
+**CURRENT OVERRIDE (2026-10-21): THIS IS A REVOKED HISTORICAL PROMPT.** The current Epic Hunter design is the identical Common chassis with polished SILVER on existing metal surfaces, a single glossy near-black stitched leather short binding, exactly ONE ridged curved MONSTER HORN, larger cyan gem and three softly glowing Hunter claws (not new armor plates). The active replacement brief is `EPIC_HUNTER_SILVER_HORN_SHORT_LATCH_ISOLATED_BRIEF_20261021.md`, currently **BLOCKED until the genuine director-approved Rare Hunter PNG original is received and byte verified**. Do NOT generate from this older geometry-invalid prompt or any of its old image references.
+
 ## GEOMETRY-RESET OVERRIDE — PREVIOUS APPROVAL REVOKED (2026-10-20)
 
 The director has rescinded the visual acceptance of this chest and **all six** earlier Common/Rare/Epic originals because an **extra/duplicated curved metal lid band** was propagated through the family. This prompt and any “approved” notes below are **historical only**; the pictured raw is **REJECTED AND PROHIBITED AS A FUTURE REFERENCE**, even if otherwise visually attractive. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register. Rebuild this slot with corrected physical band continuity and a NEW raw source; use only the original Reliquary (style/material only) and **newly** geometry-correct predecessors as appropriate. Preserve prior hashes/decisions as evidence, but do not count them as currently approved or game-ready.
