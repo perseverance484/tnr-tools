@@ -550,3 +550,51 @@ Not chosen: D1, D3, B1 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/195 (QA ticket 23), awaiting the run |
 | Icon | PAUSED |
 
+## 13. Liquid Palm
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `boyPcTIywrR-adY6M6ZAN` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on `EMPTY_GROUND`, range 4: the user moves to the chosen tile; damage hits enemies around it |
+| Cost | 60 AP, cooldown 6 |
+| Effect 1 | `damage` power 28, Water, instant, scaled on Taijutsu (Speed, Strength) |
+| Effect 2 | `absorb` 20%, **target SELF**, 2 rounds, into Health: part of the damage the user takes comes back as health |
+| Effect 3 | `move`: the user relocates to the chosen tile |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "This taijutsu technique harnesses the power of flowing water, focusing it
+into rapid, precise hand-to-hand strikes that mimic the fluidity and force of crashing waves." Battle
+line: "Embodying the relentless force of crashing waves, %user channels the fluidity of water into a series
+of rapid, precise strikes, overwhelming %target with the relentless power of the Liquid Palm Style."
+**What is wrong:** neither text mentions the move, the area hit, or the absorb (the user's sustain).
+"Relentless" appears twice in the battle line, which also uses `%target` on an empty-ground jutsu.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user flows to a new position and unleashes rapid water-charged palm strikes on the enemies
+  around them. The current keeps moving through their body afterwards, turning part of every blow they
+  take into health for a short time."
+- **D2** "Like a wave reaching the shore, the user surges forward and batters nearby enemies with a flurry of
+  fluid palm strikes, then lets incoming blows wash through them, recovering health from part of the
+  damage for a short while."
+- **D3** "Every movement flows like water: the user glides in, strikes all nearby enemies with rapid palms,
+  and for a short time absorbs part of the damage they take as health."
+
+Battle line (no `%target`):
+- **B1** "%user flows across the field like a breaking wave and unleashes a flurry of water-charged palm
+  strikes on nearby enemies, their body loosening to soak up the blows that follow."
+- **B2** "%user glides forward on a rush of water chakra and crashes into nearby enemies with rapid palm
+  strikes, the current around them ready to drink in the next blow."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
