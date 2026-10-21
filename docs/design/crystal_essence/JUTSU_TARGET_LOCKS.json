@@ -29,7 +29,7 @@
       "camera": "Shallow frontal three-quarter; focus on dark seam opening in the center, single upright chrysalis occupying foreground.",
       "motion_axis": "Vertical upward and outward separation along V-shaped split.",
       "secondary_effect": "Two broad shell plates thrown outward.",
-      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates.",
+      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates. Summoning Jade-specific: large single jade-green mineral chrysalis splits V-shaped upward and outward from a deep near-black inner seam, with gold-white contained emergence light. Thick glasslike panels, not a round sphere, a static gem or a cave-mouth trap.",
       "sibling_exclusions": [
         {
           "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
@@ -49,9 +49,12 @@
         }
       ],
       "wrong_subject_exclusions": [
-        "No warrior, human actor, face, body, hand, fingers or limbs (anatomy exception NONE).",
-        "No generic magic ring, unsupported floating rune or decorative faceted diamond.",
-        "No BBE ice flake, frost, sword or shackles composition."
+        "No anatomy, human/warrior actor, hands, face, body, figure, silhouette or limb fragments (exception NONE unless director expressly rules on Summoning: Jade).",
+        "No Kōsai three horizontal traveling crescent shockwaves or slash bands; reference provides material/pixel discipline ONLY.",
+        "No closed round Crystal Sphere defensive barrier, orb, upper-right deflection strike or protective ring.",
+        "No opposing top/bottom Crystal Cave crystal teeth closing inward or horizontal cavern floor/roof composition; Jade panels split outward from a single upright chrysalis.",
+        "No Prism long focused straight solar beam, redirected diagonal lance or terminal hit flash; emergence light stays contained in the cocoon.",
+        "No generic floating diamond, portal arch with absent action, magic rune, golden glyph, decorative V-shaped symbol, snowflake, ice shards, text or UI frame."
       ],
       "references": [
         {
@@ -59,6 +62,15 @@
           "role": "identity-only",
           "sha256": "04422340d90c43d9dc3c60a0c454c094185e28a5d3820a0be6944d877c252a8a",
           "original_zip_member": "images/yuJn_D_zPlHV0xJW01JRA_Summoning_Jade.png"
+        },
+        {
+          "kind": "individual",
+          "role": "style-only",
+          "sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
+          "attachment_alias": "Crystal_Essence_Kosai_Shippu_APPROVED_RAW_v1.jpg",
+          "actual_decoded_format": "JPEG",
+          "jutsu_id": "igPSz82fa_L2XPrtnMvnz",
+          "source_evidence": "docs/design/crystal_essence/KOSAI_SHIPPU_RAW_APPROVAL_20261020.md"
         }
       ],
       "anatomy_exception": null,
@@ -324,13 +336,12 @@
   ],
   "draft_reservations": "All five actions/silhouettes reserved; director approved only Kōsai Shippū. Remaining four full records are DIRECTION PENDING.",
   "next_target": {
-    "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
-    "name": "Prism",
-    "status": "P0_APPROVED_LOCK_VERIFIED_READY_FOR_ISOLATED_GENERATION",
-    "source_original_sha256": "b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70",
-    "style_reference_approved_sphere_sha256": "077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4",
-    "raw_approvals": "3/5",
-    "brief": "docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md",
-    "lock_sha256": "98e41e8e310bee9b46a31e3324789cebeb99a4bbebdd6be14025b754af97279d"
+    "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
+    "name": "Summoning: Jade",
+    "status": "P0_PROPOSED_PENDING_DIRECTOR",
+    "source_original_sha256": "04422340d90c43d9dc3c60a0c454c094185e28a5d3820a0be6944d877c252a8a",
+    "style_reference_approved_kosai_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
+    "approved_raw_count": "4/5",
+    "brief": "docs/design/crystal_essence/SUMMONING_JADE_ISOLATED_BRIEF_20261021.md"
   }
 }
