@@ -1816,7 +1816,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Domain:** Roadmap / content QA / Forge Next
 
-**Status:** ACTIVE
+**Status:** SHELVED 2026-10-21. The director: "Let's skip this for now, seems excessive." Ticket work continues by hand as suggest-mode manifests in `push/`, as for push/132–156. RUL-2026-09-20-004 is unchanged.
 
 **Supersedes:** none. Keeps RUL-2026-09-20-004 (Forge Next Phase 1 is the next implementation work, ahead of Presentation Studio P2) and gives Phase 1 a concrete work package.
 

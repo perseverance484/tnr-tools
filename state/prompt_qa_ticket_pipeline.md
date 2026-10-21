@@ -1,6 +1,6 @@
 # QA ticket pipeline — find, fix, submit, track (Forge Next Phase 1 as stage one)
 
-**Status:** DRAFT FOR INDEPENDENT REVIEW — not yet an implementation contract  
+**Status:** SHELVED 2026-10-21 (director: "skip this for now, seems excessive"). Kept for reference; not under review and not an implementation contract.  
 **Date:** 2026-10-21  
 **Repository:** `perseverance484/tnr-tools`  
 **Drafted from:** `main@43af7ddf6ba50303330a79e9ebf9fbdd5c663282`  
