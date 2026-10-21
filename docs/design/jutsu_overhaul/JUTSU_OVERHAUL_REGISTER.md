@@ -126,13 +126,13 @@ doubled space, no full stop and a trailing space; the description addresses "you
 
 ### Text (PROPOSAL, pick one of each or edit)
 
-Description:
+Description (redrafted 2026-10-21 without "one foe", at the director's note):
 - **D1** "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike
-  one foe and leave it smouldering, so the blows that follow burn deeper."
-- **D2** "The user hurls a flurry of shuriken and ignites them mid-flight. The blazing stars scorch one
-  foe and set it smouldering, so every hit it takes soon after burns hotter."
-- **D3** "Fire nature chakra turns ordinary shuriken into blazing death stars. One foe is struck and left
-  smouldering, and the flames feed on each blow it takes for a short time."
+  the target and leave them smouldering, so the blows that follow burn deeper."
+- **D2** "The user hurls a flurry of shuriken and ignites them mid-flight. The blazing stars scorch the
+  enemy and leave them smouldering, so every hit they take soon after burns hotter."
+- **D3** "Fire nature chakra turns ordinary shuriken into blazing death stars. Whoever they strike is
+  left smouldering, the flames feeding on each blow that follows."
 
 Battle line:
 - **B1** "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars
