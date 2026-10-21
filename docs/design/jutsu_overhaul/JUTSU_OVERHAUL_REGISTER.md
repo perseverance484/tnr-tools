@@ -396,3 +396,48 @@ Not chosen: D2, D3, B2 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/191 (QA ticket 19), awaiting the run |
 | Icon | PAUSED |
 
+## 9. Martial Movement
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `V34OBxnSDj6PfxT4Y3fhx` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on `EMPTY_GROUND`, range 5: the user moves to the chosen tile; the debuff hits enemies around it |
+| Cost | 40 AP, cooldown 7 |
+| Effect 1 | `move`: the user relocates to the chosen tile |
+| Effect 2 | `decreasedamagegiven` 10%, on enemies hit, 2 rounds, all four schools: their attacks deal less damage |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2024-12-03 |
+
+**Old text.** Description: "A refined movement technique that evades attacks and reduces the enemy's
+offensive power." Battle line: "%user shifts position with disciplined footwork and controlled breathing,
+weaving through combat with fluid precision. Their movements disrupt %target's rhythm, dulling the force
+behind their attacks and reducing the damage they can deliver."
+**What is wrong:** "evades attacks" promises a defensive effect the jutsu does not have. The rest is close.
+The battle line uses `%target` on an empty-ground jutsu, so it prints literally when no enemy is near.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user glides to a new position with disciplined footwork, landing in a way that throws nearby
+  enemies off their rhythm. For a short time, they strike with less force."
+- **D2** "A measured martial step carries the user across the field. Its flowing feints unsettle every enemy
+  close to where they land, dulling their attacks for a short while."
+- **D3** "Footwork honed through endless drills: the user repositions in a single fluid movement and breaks
+  the timing of nearby enemies, weakening their attacks for a short time."
+
+Battle line (no `%target`):
+- **B1** "%user crosses the field in a few controlled steps and settles into a flowing guard, throwing
+  nearby enemies off their rhythm."
+- **B2** "%user weaves across the battlefield with disciplined footwork, feinting so sharply on landing that
+  nearby enemies lose the force behind their strikes."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
