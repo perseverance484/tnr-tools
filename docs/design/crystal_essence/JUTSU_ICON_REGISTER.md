@@ -1,6 +1,6 @@
 # Crystal Essence — jutsu-icon Art Studio register
 
-**Status:** FAMILY ART DIRECTION APPROVED / CANONICAL ZIP INTAKE PASS (5/5) / KŌSAI RAW VISUAL APPROVED (1/5) / CRYSTAL SPHERE P0 DIRECTOR APPROVED + LOCK-CHECK PASS / GENERATION NOT_STARTED. Other three target locks direction PENDING; real export preflight and upload not performed.
+**Status:** FAMILY DIRECTION APPROVED / CANONICAL SOURCE INTAKE PASS (5/5) / DIRECTOR RAW VISUAL APPROVALS **2/5** (Kōsai Shippū + Crystal Sphere) / CRYSTAL CAVE NEXT P0 PROPOSED — DIRECTOR PENDING. Three other target directions remain PENDING. No production WebP exports, real preflight, gallery acceptance or game uploads.
 **Lead:** Art Director · Support: Image Production
 **Bloodline:** Crystal Essence · A · `ssevlOGQ4JjPn2sHZtq0c` · BR-020.
 **Repository base:** `main@02a288e966db27f427508734a6223e0e583b081a`.
@@ -76,8 +76,17 @@ The director explicitly approved the Crystal Sphere target lock at studio head `
 
 **Next action:** open a fresh isolated **Crystal Sphere** image-generation conversation with exactly two individual reference files: original Crystal Sphere PNG (IDENTITY ONLY), and director-approved Kōsai JPEG (STYLE/MATERIAL ONLY). Render ONE candidate for director decision; there is no Sphere visual approval yet. Do not attach original/tool ZIPs or a contact sheet to image generation. No production processing, generated gallery or live-game operation has occurred.
 
-## Current gates / restrictions (post Kōsai visual approval)
 
-`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere**; three other target locks PENDING. `RAW_VISUAL_APPROVED`: **1/5 (Kōsai)**; Crystal Sphere P0 approved, raw candidate NOT_STARTED. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+## Crystal Sphere raw approved; Crystal Cave P0 proposal — 2026-10-21
 
-**Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generation received:** 1. **Production processing/gallery:** 0.
+**Crystal Sphere RAW_VISUAL_APPROVED** by director (“Approved, next”) for the exact received conversation candidate `1000018970.png`, which is **JPEG (not PNG)**, RGB **1536×1536**, **686801 bytes**, SHA-256 `077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4`. The unmodified byte-preserving local reference alias is `Crystal_Essence_Crystal_Sphere_APPROVED_RAW_v1.jpg`. A studio-only non-generative 125/64/32 comparison with approved Kōsai retains clearly different circle-defense versus forward triple-wave silhouettes. Source provenance, thumbnail observations and remaining independent K gates are in `CRYSTAL_SPHERE_RAW_APPROVAL_20261021.md`. **Raw visual approvals: 2/5.** No processed output, family gallery, binary Git pin or live game step implied.
+
+**Next proposed P0:** `Crystal Cave`, B rank, `AggTDO90TarIRTPqGdvvY`. Its original PNG source `images/AggTDO90TarIRTPqGdvvY_Crystal_Cave.png` has SHA-256 `a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530`, observed as a luminous cavern with hanging/ground crystal growth and a legacy tiny actor. The 2026-10-17 committed `jutsu.get` description supports trapping in a crystal cave; battle text supports **impaling jagged crystal growth**. Proposed composition reserves a **non-circular pair of huge upper/lower crystal spike arrays compressing inward into a dark trap pocket**. Shallow sectional 3/4 camera; top and bottom toward center motion; one small chip effect at the roots; no anatomy. Keep distinct from Sphere's closed sphere/deflection, Kōsai's lateral crescents, Prism's straight beam and Jade's opening chrysalis. At 32px this must read as opposed cave teeth, not a round shield or pretty static cave.
+
+**Reference-selection rationale:** For the subsequent isolated Cave conversation, pass only **(1) original Cave PNG, IDENTITY ONLY** and **(2) director-approved Kōsai JPEG, STYLE/MATERIAL ONLY**. Kōsai minimizes silhouette contamination from Sphere's similar enclosure/ground formation while preserving already-approved crystal/gold rendering. The approved Sphere JPEG is a **family comparison exclusion**, not a third generator reference. Full proposal `CRYSTAL_CAVE_ISOLATED_BRIEF_20261021.md`; the corresponding Cave record in `JUTSU_TARGET_LOCKS.json` is **COMPLETE / direction PENDING**. **Explicit director approval of this exact P0 is required before generation.**
+
+## Current gates / restrictions (post Sphere raw approval)
+
+`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere**; three other target locks PENDING. `RAW_VISUAL_APPROVED`: **2/5 (Kōsai Shippū, Crystal Sphere)**; Crystal Cave next P0 proposed, director approval pending. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+
+**Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generations received:** 2. **Production processing/gallery:** 0.
