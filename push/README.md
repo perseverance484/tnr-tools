@@ -376,3 +376,17 @@ live value, false (law 20). Live record from the 2026-10-21 census; not equipped
 
 Submitted 2026-10-21 as suggestion `Tb8SnhnSExY4eDDZwj152` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
+
+## 187 Earthshatter Strike text (suggest mode, QA ticket 16)
+
+`187_earthshatter_strike_text.json` sends one text edit to the content review desk; it does not save
+directly. Earthshatter Strike (`kw8dlRl4y5WBg8GkHSEvp`) only buffs its caster (20% less damage taken,
+20% more taijutsu damage, two rounds) and deals no damage, but its text claimed it strikes the enemy and
+weakens their attacks; its battle line used `%target` on a self-target jutsu, so the log named the caster
+as the one struck. The new description and battle line were approved by dauntless (RUL-2026-10-21-011;
+register section 5). Only text changes; name and effects untouched (name flagged separately).
+`injectableInBattle` is re-sent at its live value, false (law 20). Live record from the 2026-10-21
+census; not equipped by any AI (push/158-161); no other suggestion open on it. `validate.py --strict`:
+0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `cf97ed2d`.
+Run it from Forge, then use **Check suggestions**.
+

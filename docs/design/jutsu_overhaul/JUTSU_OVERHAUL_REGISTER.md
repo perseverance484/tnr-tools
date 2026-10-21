@@ -260,27 +260,18 @@ an em dash and runs to four sentences.
 make. The drafts below keep the name by having the user strike the ground; renaming it, or giving it
 damage (a balance change), is your call.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-011)
 
-Description:
-- **D1** "The user drives a chakra-packed fist into the ground, and the shockwave rolls back up through
-  their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder."
-- **D2** "Instead of striking a foe, the user shatters the earth at their feet and draws its strength into
-  themselves, hardening their body and adding force to their taijutsu for a short while."
-- **D3** "A ground-splitting punch turned inward: the earth's force braces the user's stance and fuels
-  their fists, leaving them tougher and their taijutsu heavier for a short time."
+- **Description** (D1): "The user drives a chakra-packed fist into the ground, and the shockwave rolls back up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder."
+- **Battle line** (B2): "%user splits the ground with a single punch and plants their feet in the rubble, steeling their body for the blows to come."
 
-Battle line (no `%target`, since nothing else is affected):
-- **B1** "%user drives their fist into the ground, and the shattered earth surges back through them,
-  hardening their stance and loading their strikes with force."
-- **B2** "%user splits the ground with a single punch and plants their feet in the rubble, steeling their
-  body for the blows to come."
+Not chosen: D2, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
-| Name | flagged for the director |
+| Text | APPROVED 2026-10-21; sent as push/187 (QA ticket 16), awaiting the run |
+| Name | flagged for the director, no decision yet |
 | Icon | PAUSED |
 

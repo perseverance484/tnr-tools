@@ -1900,3 +1900,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name is untouched.
 
+## RUL-2026-10-21-011 — Earthshatter Strike overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Earthshatter Strike (`kw8dlRl4y5WBg8GkHSEvp`) gets the description "The user drives a chakra-packed fist into the ground, and the shockwave rolls back up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder." and the battle line "%user splits the ground with a single punch and plants their feet in the rubble, steeling their body for the blows to come." The name ("Strike" on a jutsu that deals no damage) was flagged; no renaming or balance decision has been made.
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 5).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name and effects are untouched.
+
