@@ -1,6 +1,6 @@
 # Crystal Essence — jutsu-icon Art Studio register
 
-**Status:** FAMILY DIRECTION APPROVED / SOURCE INTAKE PASS (5/5) / DIRECTOR RAW VISUAL APPROVALS **3/5** (Kōsai Shippū, Crystal Sphere, Crystal Cave) / PRISM NEXT P0 PROPOSED — DIRECTOR PENDING. Previously approved directions 3/5, remaining Prism and Summoning: Jade pending. No production exports, real preflight, final gallery or game operations.
+**Status:** FAMILY DIRECTION APPROVED / SOURCE INTAKE PASS (5/5) / PRISM P0 DIRECTOR APPROVED AND OFFICIAL LOCK-CHECK PASS / DIRECTION APPROVALS **4/5** (Kōsai, Sphere, Cave, Prism) / RAW VISUAL APPROVALS **3/5** (Kōsai, Sphere, Cave). Only Summoning: Jade direction remains pending. No production exports, real preflight, accepted family gallery or game operations.
 **Lead:** Art Director · Support: Image Production
 **Bloodline:** Crystal Essence · A · `ssevlOGQ4JjPn2sHZtq0c` · BR-020.
 **Repository base:** `main@02a288e966db27f427508734a6223e0e583b081a`.
@@ -31,9 +31,9 @@ Optional identity-only: `identity/ssevlOGQ4JjPn2sHZtq0c_Crystal_Essence.jpg`, 25
 
 **APPROVED family art direction:** `LUMINOUS SILICATE / WARM-CORE REFRACTION`: rich black-navy negative space; dense glass-like teal/jade/cyan crystal faces with selective pale white facet edges; concentrated amber/sun-gold light refracted through actual working crystal structures; crisp premium TNR pixel outlines / planar cel shadows; shaped full-bleed opaque backgrounds with dominant action legible first. Material identity is **mineral glass fractured by energy**, not BBE's frosted sapphire ice, snow/flake dust, shackles or blade/flake borrowed silhouettes. No mandatory rings, floating gems, glyphs, UI, decorative spell geometry, unrelated scenery or anatomy. Keep accent/glints subordinate to action, inspect at 125/64/32 px. `JUTSU_ICON` spec: 256×256 recommended output, square lossless WebP, minimum width 160px, <=460800 bytes; BBE-only 80000 cap **does not apply**.
 
-## Per-technique P0 action / silhouette reservations — three approved, two draft
+## Per-technique P0 action / silhouette reservations — four approved, one draft
 
-All actions below use the named 2026-10-17 `jutsu.get` description/battleDescription; static artwork is identity only. Composition/sibling reservations for **Summoning: Jade and Prism** remain draft proposals; immutable target locks for **Kōsai Shippū, Crystal Sphere and Crystal Cave** are director-approved.
+All actions below use the named 2026-10-17 `jutsu.get` description/battleDescription; static artwork is identity only. Composition/sibling reservation for **Summoning: Jade** remains a draft proposal; immutable target locks for **Kōsai Shippū, Crystal Sphere, Crystal Cave and Prism** are director-approved.
 
 | Jutsu | Source-supported action | Reserved dominant silhouette/action | Camera · motion axis · focal / negative space | ONE secondary cue | Explicit sibling exclusions · tiny-size concern |
 | --- | --- | --- | --- | --- | --- |
@@ -103,8 +103,21 @@ Director replied **“Approved”** to the Crystal Cave proposed target at studi
 
 **Prism P0 direction remains PENDING director approval.** Complete lock reservation and proposed isolated brief: `docs/design/crystal_essence/JUTSU_TARGET_LOCKS.json`, `docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md`. Once director approves, seal hash and run official lock-check with source-index before opening a clean, single-jutsu isolated generation conversation. No new images generated in this Studio.
 
-## Current gates / restrictions (post Cave raw approval)
 
-`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere + Crystal Cave (3/5)**; only Summoning: Jade and Prism PENDING. `RAW_VISUAL_APPROVED`: **3/5 (Kōsai Shippū, Crystal Sphere, Crystal Cave)**; next Prism P0 proposed, director approval pending. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+## Prism P0 approval and canonical lock-check — 2026-10-21
+
+Director responded **“Approved”** to Prism's specific source-supported combat action and two reference roles after the Crystal Cave raw acceptance, at studio `60d1596b51f447ab74541591fd8b306e813dc350`. This settles Prism's direction only; it does **not** approve a generated Prism image or Summoning: Jade's direction. Durable decision/evidence: `PRISM_P0_APPROVAL_20261021.md`; generation brief: `PRISM_ISOLATED_BRIEF_20261021.md`.
+
+**Immutable Prism P0 lock SHA-256:** `98e41e8e310bee9b46a31e3324789cebeb99a4bbebdd6be14025b754af97279d`. Exact `JUTSU_TARGET_LOCKS.json` Git blob: `ac582b54e02c4bbc30f13fc33cbb45571af8ca0d`. Official matching art-toolchain `doctor` returned `RUN_CAPABLE_CANONICAL` (exit 0), and **actual `jutsu_studio.py lock-check`** against the existing source-verified 5/5 historical intake returned exit **0**: Prism, Kōsai Shippū, Crystal Sphere and Crystal Cave **DIRECTION_APPROVED**; Summoning: Jade **COMPLETE / direction PENDING**; no incomplete target rows. Previous approved P0 target records were untouched. Source-index local SHA-256 `71c84d1d95c257aa1504384ef28155535c6be1f843896394b4e55ed29a887764` (not Git binary-pinned). The old source manifest's `jutsu_type` / source-index null `type` mapping gap remains separately recorded.
+
+**Approved Prism action:** a small functional mineral-glass refractor receives sunlight and redirects it into **one straight, forceful solar-light lance** traveling upper-left → lower-right, terminating in one compact impact flash. No caster anatomy. Exclusions: three traveling Kōsai crescent waves, defensive Sphere dome, converging Cave spike jaws, Jade's opening chrysalis, ornamental unattached gem/runes/magic ring. Render with approved LUMINOUS SILICATE — WARM-CORE REFRACTION; prioritize technique silhouette at 125/64/32.
+
+**For the next fresh isolated generation conversation, attach exactly TWO original individual files:** (1) `Crystal_Essence_Prism_ORIGINAL_IDENTITY_ONLY.png` **IDENTITY ONLY**, SHA-256 `b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70`; (2) director-approved `Crystal_Essence_Crystal_Sphere_APPROVED_RAW_v1.jpg` **STYLE/MATERIAL ONLY**, SHA-256 `077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4`. The latter's spherical geometry may NOT be reused. The other approved siblings are for Studio comparisons only; no third/fourth generator image, source ZIP, contact sheet or unseen URL conditioning.
+
+**Production gates remain separate:** director raw visual approvals **3/5**, no approved Prism raw, no production exports/preflight, gallery acceptance pending, no Git-pinned approved art binaries, no game operations. Live-game requests/writes **0/0**. Credentials: **none**.
+
+## Current gates / restrictions (post Prism P0 direction approval)
+
+`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai + Crystal Sphere + Crystal Cave + Prism (4/5)**; only Summoning: Jade PENDING. `RAW_VISUAL_APPROVED`: **3/5 (Kōsai Shippū, Crystal Sphere, Crystal Cave)**; Prism raw candidate NOT_STARTED although its P0 direction is approved. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
 
 **Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generations received:** 3. **Production processing/gallery:** 0.
