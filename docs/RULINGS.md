@@ -1972,3 +1972,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-015 — Kinjutsu: Black Thorn Rose overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Kinjutsu: Black Thorn Rose (`qB550OM_X-Mh0w_KlNNji`) gets the description "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral, choking the healing of every enemy they catch, while the rose's thorns close around the user as armour." and the battle line "%user opens their palm with a thorn and lets the blood fall. A black rose tears up through the earth, its vines spiralling outward to choke every wound they find, while its thorns curl back to armour the one who fed it." Drafting note: forbidden and high-rank jutsu get a fuller, higher-quality battle line (two sentences are fine) rather than a plain one-liner.
+
+**Evidence:** User, 2026-10-21: "D1. Battle line needs more work, this is a forbidden jutsu it should have a high quality battle line", then, from four richer drafts: "B3".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 7). The drafting note goes into the jutsu text guide after its review.
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+

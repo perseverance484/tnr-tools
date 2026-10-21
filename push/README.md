@@ -391,3 +391,15 @@ Submitted 2026-10-21 as suggestion `H5owbVykZkUFsjyOGfGua` (PENDING). Archived u
 Submitted 2026-10-21 as suggestion `xyt0fWuyHjJuTSBcteOvA` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+## 190 Kinjutsu: Black Thorn Rose text (suggest mode, QA ticket 18)
+
+`190_black_thorn_rose_text.json` sends one text edit to the content review desk; it does not save
+directly. Kinjutsu: Black Thorn Rose (`qB550OM_X-Mh0w_KlNNji`) claimed a rose that grows with use and
+siphons energy, and left out its real effects (enemy healing 40% weaker, user takes 20% less damage,
+two rounds); its battle line used `%target` on a ground-targeted spiral. The new description and battle
+line were approved by dauntless (RUL-2026-10-21-015; register section 7). Only text changes;
+`injectableInBattle` is re-sent at its live value, false (law 20). Live record from the 2026-10-21
+census; not equipped by any AI (push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors,
+0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `53281394`. Run it from
+Forge, then use **Check suggestions**.
+
