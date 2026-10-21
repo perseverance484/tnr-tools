@@ -48,3 +48,21 @@ pool registry update (names, B31's target, and the B04/S02/S07 mechanics that ch
 **Held manifests:** push/128 now only adds Crimson Impact back to Ravena Bloodsilk: safe once its
 suggestion resolves. push/79 (Wayward Blade, 2026-10-08) would add 6 jutsu, remove 2 (including S02
 Quick Strike) and overwrite stats and rules: out of date, do not run as-is.
+
+## 178–181 player_jutsu_census — RUN, SUCCESS
+
+Read-only fresh records for the player jutsu overhaul (QA tickets from 12). Results (Forge,
+2026-10-21T10:44Z–10:59Z), all success, manifest hashes matching (`137a004a`, `818722c3`,
+`a94d15c1`, `3f16fdfa`), every read ok and persisted:
+`harvests/inbox/tnr_results_1792579495414.json` (178), `…79795355` (179), `…80094677` (180),
+`…80390632` (181).
+
+- `jutsu.getAllNames`: 1,673 live rows (1,671 at the 2026-10-20 QA read). Jutsu made since the seed
+  index and not flagged by that QA pass are not in this census.
+- 590/590 ids read, all live. 439 are visible player jutsu with no bloodline (NORMAL 362, SPECIAL 54,
+  EVENT 14, FORBIDDEN 8, LOYALTY 1); 10 visible SPECIAL jutsu carry a bloodline; 3 are now AI or
+  BLOODLINE type; 138 are hidden.
+- Water's Domain (`-8W4JOqG3Cb-oPQtF9rMs`) was edited in the game on 2026-10-18 (element and stat
+  classification, target type); its effects are unchanged. push/182 is built on this read.
+- `178_player_jutsu_census.gen.py` is kept as run; it reads paths relative to the repository root.
+

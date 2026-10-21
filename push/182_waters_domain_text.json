@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 12 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 1). Suggest mode: content review desk, no direct save. Water's Domain's battle line claimed it saps the target's strength, which no effect does, and neither text mentioned its real second effect (the caster's healing is stronger for 2 rounds). New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-007). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record confirmed in the push/178 census (harvests/inbox/tnr_results_1792579495414.json, 2026-10-21): effects unchanged since 2026-10-06; the 2026-10-18 edit only set elementClassification Water, statClassification None and target OPPONENT. Not equipped by any AI (2026-10-21 AI census, push/158-161). Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "The old text did not match what the jutsu does. The new text describes its damage and its healing boost."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Water's Domain",
+   "targetId": "-8W4JOqG3Cb-oPQtF9rMs",
+   "data": {
+    "description": "Within the user's domain, water answers to them alone. It rises to crush their foe, then flows back to its master, deepening their healing for a short time.",
+    "battleDescription": "%user spreads their domain across the field, hurling its tide at %target before the waters pool back around %user to strengthen their healing.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The old battle line said Water's Domain saps the target's strength, but it has no such effect, and neither text mentioned what its second effect really does: it makes the caster's own healing 25% stronger for two rounds. The new text ties both effects to the name: the user's domain of water crushes one foe, then flows back to strengthen the user's healing."
+   }
+  }
+ ]
+}
