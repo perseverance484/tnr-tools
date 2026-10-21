@@ -137,3 +137,10 @@ ids: `196_suggestion_ledger.json` in this folder. Findings and flags:
 207 REJECTED, all by dauntless. The ledger now carries each status and reviewer note. Analysis:
 `docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md` ("Review outcome"); lessons: RUL-2026-10-21-022.
 
+## 201-202 round2_capture — RUN, SUCCESS
+
+Results `harvests/inbox/tnr_results_1792615418022.json` (201) and `…1792615664863.json` (202), hashes
+`cfe3c259` and `f5648a25` matching, 200/200 reads ok and persisted. Every round 2 record's live text matched
+what its fix was built on (the 2026-10-21 census for the 188 rejected jutsu; the push/196 text for the 12
+applied ones, so no approver had edited them). push/203 is built on this read.
+
