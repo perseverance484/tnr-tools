@@ -264,3 +264,12 @@ does not save directly. The art (`art/jutsu_icons/starter/exports/`, pinned by c
 `injectableInBattle` is re-sent at its live value, false (law 20). No AI equips it in the committed
 captures (laws 18, 60). `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0
 pre-send problems. Manifest hash `18797fff`. Run it from Forge, then use **Check suggestions**.
+
+## 151 Sonic Slash icon (suggest mode)
+
+`151_sonic_slash_icon.json` sends the new Sonic Slash icon to the content review desk; it does not
+save directly. The art (`art/jutsu_icons/starter/exports/`, pinned by commit and SHA-256 in
+`imagePack`) follows the starter register's reserved silhouette. Only `image` changes;
+`injectableInBattle` is re-sent at its live value, false (law 20). No AI equips it in the committed
+captures (laws 18, 60). `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0
+pre-send problems. Manifest hash `59524189`. Run it from Forge, then use **Check suggestions**.
