@@ -278,7 +278,54 @@ Effects unchanged. Not chosen: N2-N4, D2, D3, B1 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21 (rework); sent as push/188 (QA ticket 16), awaiting the run |
+| Text | APPROVED 2026-10-21 (rework); submitted as push/188, suggestion `H5owbVykZkUFsjyOGfGua`, PENDING |
 | Name | Bedrock Stance, approved 2026-10-21; in push/188 |
+| Icon | PAUSED |
+
+## 6. Flame Barrage
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `OZp6neM54VPLXIzHc713P` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_SPIRAL_SHOOT` on `EMPTY_GROUND`, range 4: a spiral-shaped blast; damage hits enemies only |
+| Cost | 60 AP, cooldown 7 |
+| Effect 1 | `damage` power 28, Fire, instant, scaled on Ninjutsu (Intelligence, Willpower) |
+| Effect 2 | `increasedamagegiven` 20%, **target SELF**, 2 rounds, all damage: the user hits harder |
+| Movement | **none** |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "A mobile blaze assault that scorches the enemy and leaves them exposed to
+intensified ninjutsu damage." Battle line: "%user blazes across the battlefield, launching a spread of
+fireballs from shifting positions that hammer into %target. The impacts disrupt their chakra defenses,
+amplifying the damage they take from future ninjutsu techniques."
+**What is wrong:** it claims the enemy takes more ninjutsu damage afterwards; the real second effect
+boosts the user's own damage. "Mobile" and "shifting positions" promise movement the jutsu does not have.
+`%target` on a ground-targeted spiral prints literally when the blast hits nobody.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its
+  path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time."
+- **D2** "Fireballs spiral out from the user's hands and burst across an area. Each blaze that lands feeds
+  the user's fire, strengthening their attacks for a short while."
+- **D3** "A barrage of fireballs coils outward in a widening spiral, burning any enemy it reaches, while
+  the user draws on the flames to empower their next attacks."
+
+Battle line (no `%target`, since the blast can land on empty ground):
+- **B1** "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to
+  stoke their own chakra."
+- **B2** "%user spins a coil of fireballs outward, scorching everything in its path as the heat builds in
+  their hands."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
 | Icon | PAUSED |
 

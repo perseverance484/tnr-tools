@@ -84,3 +84,9 @@ Withdrawn 2026-10-21 before it was run: dauntless asked for the whole jutsu to b
 included ("if it doesnt deal damage it shouldnt be called a strike"). The approved text in
 RUL-2026-10-21-011 is superseded by the rework (register section 5).
 
+## 188 bedrock_stance_rework (QA ticket 16) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792587305188.json` (Forge, 2026-10-21T12:55Z), hash `8c717621`
+matching, outcome success: the rename to Bedrock Stance passed submit-time validation and was found in
+the review queue as suggestion `H5owbVykZkUFsjyOGfGua`, status PENDING.
+
