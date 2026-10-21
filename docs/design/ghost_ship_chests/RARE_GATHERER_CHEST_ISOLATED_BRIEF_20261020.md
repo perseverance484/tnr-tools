@@ -1,5 +1,11 @@
 # Isolated generation 04 — Ghost Ship Rare Gatherer's Chest
 
+## NEW MATERIAL-LADDER OVERRIDE — HISTORICAL BRIEF ONLY, DO NOT GENERATE (2026-10-20)
+
+The director has since approved the **material-only** rarity treatment: Rare = **BURNISHED DARK BRONZE** on the SAME two Common end metal hoop shapes and corner braces (no angular armor enlargement), plus one Gatherer **SLATE-BLUE WAXED FLAX HERRINGBONE ROPE** ending at the **upper-front knot**, upgraded compact leafy sprig, small brighter cyan clasp, faint seam light, unlit ONE carved leaf and premium pixel rendering. This old document's earlier cold-gunmetal / reinforced-plate / star-emblem language is **SUPERSEDED**. The newly approved Rare Hunter has **a single HOOKED TALON**, replacing old generic fang treatments. **DO NOT attach Rare Hunter as a third reference.**
+
+**ACTIVE NEXT BRIEF:** `RARE_GATHERER_BRONZE_SHORT_LATCH_ISOLATED_BRIEF_20261020.md`; exactly two images: original Skyglass Reliquary (material only) plus director-approved short-latch Common Gatherer `1000018960.png` (same-family geometry/style/identity). Canonical owner: `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §§4–4b; supporting decision: `RARITY_MATERIAL_AND_TROPHY_REFINEMENT_20261020.md`; ruling 006.
+
 ## GEOMETRY-RESET OVERRIDE — PREVIOUS APPROVAL REVOKED (2026-10-20)
 
 The director has rescinded the visual acceptance of this chest and **all six** earlier Common/Rare/Epic originals because an **extra/duplicated curved metal lid band** was propagated through the family. This prompt and any “approved” notes below are **historical only**; the pictured raw is **REJECTED AND PROHIBITED AS A FUTURE REFERENCE**, even if otherwise visually attractive. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register. Rebuild this slot with corrected physical band continuity and a NEW raw source; use only the original Reliquary (style/material only) and **newly** geometry-correct predecessors as appropriate. Preserve prior hashes/decisions as evidence, but do not count them as currently approved or game-ready.
