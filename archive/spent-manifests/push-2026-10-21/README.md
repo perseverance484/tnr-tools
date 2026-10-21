@@ -78,3 +78,9 @@ Result `harvests/inbox/tnr_results_1792586304102.json` (Forge, 2026-10-21T12:38Z
 matching, outcome success: Fire Release: Great Fireball suggested and found in the review queue as
 suggestion `Tb8SnhnSExY4eDDZwj152`, status PENDING.
 
+## 187 earthshatter_strike_text (QA ticket 16) — WITHDRAWN, never run
+
+Withdrawn 2026-10-21 before it was run: dauntless asked for the whole jutsu to be reworked, name
+included ("if it doesnt deal damage it shouldnt be called a strike"). The approved text in
+RUL-2026-10-21-011 is superseded by the rework (register section 5).
+
