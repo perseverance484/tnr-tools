@@ -344,7 +344,7 @@ commit `f575f42` and SHA-256 in `imagePack`) is the director-approved whirlpool 
 raw approved 2026-10-21). Only `image` changes; `injectableInBattle` is re-sent at its live value,
 false (law 20). Not equipped by any AI (push/158-161). `validate.py --strict`: 0 errors, 0 warnings.
 `forge/tools/check_manifest.mjs`: 0 pre-send problems. `artpreflight.py --type JUTSU_ICON`: 0 errors,
-0 warnings. Manifest hash `b3d5e177`.
+0 warnings. Manifest hash `923ec924`.
 **Run it only after push/182 shows APPLIED or REJECTED** under **Check suggestions**: approving one
 suggestion on a record makes any other open suggestion on it OUTDATED.
 
@@ -358,7 +358,7 @@ battle line were approved by dauntless (RUL-2026-10-21-008; register section 2).
 `injectableInBattle` is re-sent at its live value, false (law 20). Live record from the push/180
 census (2026-10-21); not equipped by any AI (push/158-161); no other suggestion open on it.
 `validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
-Manifest hash `521f43cf`. Run it from Forge, then use **Check suggestions**. The new icon follows as
+Manifest hash `ffa4ca57`. Run it from Forge, then use **Check suggestions**. The new icon follows as
 its own ticket once this one resolves.
 
 ## 185 Divine Thunder Slap text (suggest mode, QA ticket 14)
@@ -370,7 +370,7 @@ damage is 20% higher for two rounds); its battle line said "his" for every caste
 (RUL-2026-10-21-009; register section 3). Only text changes; `injectableInBattle` is re-sent at its
 live value, false (law 20). Live record from the 2026-10-21 census; not equipped by any AI
 (push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors, 0 warnings.
-`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `a8e422dc`. Run it from Forge, then use **Check suggestions**.
+`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `65726cee`. Run it from Forge, then use **Check suggestions**.
 
 ## 186 Fire Release: Great Fireball text: RUN, pending review
 
@@ -387,6 +387,6 @@ as the one struck. The new description and battle line were approved by dauntles
 register section 5). Only text changes; name and effects untouched (name flagged separately).
 `injectableInBattle` is re-sent at its live value, false (law 20). Live record from the 2026-10-21
 census; not equipped by any AI (push/158-161); no other suggestion open on it. `validate.py --strict`:
-0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `cf97ed2d`.
+0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `4757dd24`.
 Run it from Forge, then use **Check suggestions**.
 
