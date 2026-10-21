@@ -406,3 +406,14 @@ Submitted 2026-10-21 as suggestion `BbegNUANjqTR0GSCbj-Ms` (PENDING). Archived u
 Submitted 2026-10-21 as suggestion `gj-3F1OuG_H5zPQJwOe9H` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+## 193 Void Rend text (suggest mode, QA ticket 21)
+
+`193_void_rend_text.json` sends one text edit to the content review desk; it does not save directly.
+Void Rend (`_QfGq0SseWD11jHO23pr1`) had a description cut off mid-word, and neither text said the user
+moves or that nearby enemies are hit; its battle line had an em dash and `%target` on an empty-ground
+jutsu. The new description and battle line were approved by dauntless (RUL-2026-10-21-018; register
+section 10). Only text changes; `injectableInBattle` is re-sent at its live value, false (law 20). Live
+record from the 2026-10-21 census; not equipped by any AI (push/158-161); no other suggestion open on it.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Manifest hash `3b7a6b7e`. Run it from Forge, then use **Check suggestions**.
+

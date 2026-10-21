@@ -2026,3 +2026,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-018 — Void Rend overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Void Rend (`_QfGq0SseWD11jHO23pr1`) gets the description "In one surging step the user closes in and tears at the space around them with raw chakra. Every enemy caught in the rend takes damage and finds their healing weakened for several rounds." and the battle line "%user lunges across the field, and a rift of unstable chakra splits open around them, rending nearby enemies and leaving wounds that refuse to close."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D2, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 10).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
