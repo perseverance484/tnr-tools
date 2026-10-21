@@ -426,3 +426,15 @@ Submitted 2026-10-21 as suggestion `xDeO9D4-UULIqvSHQWuS0` (PENDING). Archived u
 Submitted 2026-10-21: all 342 suggestions found in the review queue, 0 errors. Archived under
 `archive/spent-manifests/push-2026-10-21/` with a per-jutsu suggestion-id ledger.
 
+## 197 Crystal Essence jutsu icons (suggest mode)
+
+`197_crystal_essence_icons.json` sends four new icons to the content review desk, one suggestion per jutsu;
+it does not save directly. Crystal Cave, Crystal Sphere, Kōsai Shippū and Summoning: Jade get the
+director-supplied Crystal Essence set (`art/jutsu_icons/crystal_essence/exports/`, pinned by commit `bb9255c`
+and SHA-256 in `imagePack`). Only `image` changes; `injectableInBattle` is re-sent at its live value, false
+(capture of 2026-10-17; law 20). None is equipped by an AI (push/158-161), and no other suggestion is open on
+them. **Prism is held back:** the AIs Jade and Mermaid Jade equip it, and an edit would sever their combat
+link (laws 18, 60). `artpreflight.py --type JUTSU_ICON`: 0 errors, 0 warnings on each icon. `validate.py
+--strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash
+`1318a4a0`. Run it from Forge, then use **Check suggestions**.
+
