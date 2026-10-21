@@ -1918,3 +1918,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name and effects are untouched.
 
+## RUL-2026-10-21-012 — Suggest-mode rationales state the fix, briefly
+
+**Date:** 2026-10-21
+
+**Domain:** Forge suggest mode / manifest authoring
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Narrows RUL-2026-10-19-007 (rationales stay specific to each record).
+
+**Ruling:** A per-item `suggestion.rationale` is one to three plain sentences: what was wrong and what the fix changes. No narrative or retelling of the old text. Example (push/185): "Adds the missing user damage boost (+20% for 2 rounds) to both texts. Battle line: 'his' replaced, 'subtle hit caresses' wording removed."
+
+**Evidence:** User, 2026-10-21: "Let's make our ticket rationale's a bit less verbose. Describe the fix without telling a story." Applied the same day to the unrun push/183, 184, 185 and 187; push/182 and 186 were already submitted.
+
+**Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1", rationale paragraph).
+
+**Boundary:** No code change. The jutsu text guide (under review at `c0e9d1b`) picks this up after review, not on the frozen SHA.
+
