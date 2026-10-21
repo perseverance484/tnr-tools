@@ -75,8 +75,9 @@
       ],
       "anatomy_exception": null,
       "direction_approval": {
-        "status": "PENDING",
-        "evidence": null
+        "status": "APPROVED",
+        "evidence": "Director approved Summoning: Jade's proposed tall outward-splitting crystal chrysalis, no-anatomy constraint, and two reference roles in the persistent Crystal Essence Studio on 2026-10-21 (reply: 'Approved, proceed'). Previous studio head b60b04ff281237f6dacbbe3e1ff9cba2489da5ee.",
+        "lock_sha256": "cda3c005261226a355ad745534200b3596669b6993922c8dd9e1181b781d0358"
       }
     },
     {
@@ -338,10 +339,11 @@
   "next_target": {
     "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
     "name": "Summoning: Jade",
-    "status": "P0_PROPOSED_PENDING_DIRECTOR",
+    "status": "P0_DIRECTOR_APPROVED_AWAITING_CANONICAL_LOCK_CHECK",
     "source_original_sha256": "04422340d90c43d9dc3c60a0c454c094185e28a5d3820a0be6944d877c252a8a",
     "style_reference_approved_kosai_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
     "approved_raw_count": "4/5",
-    "brief": "docs/design/crystal_essence/SUMMONING_JADE_ISOLATED_BRIEF_20261021.md"
+    "brief": "docs/design/crystal_essence/SUMMONING_JADE_ISOLATED_BRIEF_20261021.md",
+    "lock_sha256": "cda3c005261226a355ad745534200b3596669b6993922c8dd9e1181b781d0358"
   }
 }
