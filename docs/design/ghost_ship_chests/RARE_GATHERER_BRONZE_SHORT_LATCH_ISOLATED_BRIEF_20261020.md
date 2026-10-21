@@ -1,6 +1,6 @@
 # Rare Gatherer's Chest — bronze-bound premium pixel-art isolated generation
 
-**Status:** DIRECTOR VISUALLY APPROVED (2026-10-21) — burnished bronze / slate-blue flax Rare Gatherer's Chest; exact uploaded JPEG preview recorded; production-original/alpha/export/preflight pending  
+**Status:** DIRECTOR VISUAL APPROVAL + AUTHENTIC ORIGINAL PNG/RGBA ZIP INTAKE **PASS (2026-10-21)**; exact approved Rare Gatherer source now VERIFIED and reference-eligible. Final alpha-edge processing/lossless WebP/preflight NOT_RUN. Epic Gatherer subsequently director-approved visually.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -53,6 +53,27 @@ Match the Common Gatherer reference's **crisp intentional pixel clusters and ste
 5. Studio performs separate raw/QC, independent 125/64/32px compare, genuine alpha/chroma + spill clamp + transparent square margin, **lossless 256×256 WebP recommended below 460800 bytes**, dark-composite edge check, and canonical `artpreflight.py --type ICON`. Visual approval alone is not preflight PASS.
 6. After Rare Gatherer approval, next workstream target is **Epic Hunter**. The original director-approved Rare Hunter PNG `rare_hunter_s_bronze_bound_chest.png` must first be actually supplied and verified before it can serve as the approved same-family Epic Hunter reference. The chat-displayed JPEG preview is NOT byte-equivalent to that reported RGBA source and MUST NOT substitute for it.
 
+## Authentic original ZIP intake — PASS (2026-10-21)
+
+**Archive:** `Rare_Gatherers_Chest_Original_PNG.zip`, size **1,290,371 bytes**, SHA-256 **`dc9811053edbe57a7b762168f2145fc91abf7b3be89698ae2722adf04e9c85f9`**. It contains exactly ONE named file `rare_gatherers_chest_original.png`, extracted without pixel processing to `/mnt/data/rare_gatherers_chest_original.png` in this conversation; ZIP not written to Git.
+
+| Item | Independently observed | Verdict |
+| --- | --- | --- |
+| Member filename | `rare_gatherers_chest_original.png` | **PASS** |
+| Original source byte count | **1,375,718** | **PASS** |
+| Original SHA-256 | `4a1ef5e71b915e12c517bd5b30d8ec6b4c163c0b7b363b5ea0575aa93cdb1a76` | **PASS** |
+| True decoder / color channels | **PNG / RGBA** | **PASS** |
+| Pixel dimensions | **1254×1254** | **PASS** |
+| Alpha histogram | **681,111** pixels alpha=0; **890,674** partially transparent; **731** fully opaque | **GENUINE ALPHA PASS** |
+| Corners | All four RGBA `(0,0,0,0)` | **PASS** |
+| Subject bounds | alpha>8 bounding box `(61,179,1193,1170)` | visible margin confirmed |
+| Tiny alpha spill | 18 bottom-edge pixels at alpha=1, none alpha>8 at canvas borders | Requires later production edge-clamp QC |
+| Director-approved subject | Bronze hoops, slate-blue flax upper knot, distinctive green sprig, carved unlit leaf, cyan clasp, identical two-hoop geometry and premium pixel clusters | **REFERENCE PASS** |
+
+**Historical JPEG stays distinct:** the previously uploaded `1000018969.png` is actually 1536² JPEG/RGB, 304,581 bytes, SHA-256 `c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`. It was sufficient for visual director approval but **NOT** the original PNG. Both identities remain preserved in the studio register.
+
+**Scope of PASS:** exact provenance of the received file, genuine RGBA transparency and eligibility as the SAME-GATHERER reference for Epic Gatherer. **NOT** production-ready: partial-alpha edge cleanup, 256×256 lossless `ICON` WebP, dark-composite edge QC, output byte ceiling and `artpreflight.py --type ICON` remain **NOT_RUN**. The studio performed non-destructive 125/64/32px family-comparison previews. No asset was uploaded or published.
+
 ## Director approval and source-evidence QC — 2026-10-21
 
 **Director:** “Approved, next.” This accepts the depicted Rare Gatherer's Chest visually, not its production file readiness.
@@ -65,4 +86,4 @@ Match the Common Gatherer reference's **crisp intentional pixel clusters and ste
 
 **Mechanical gate:** The JPEG attachment has NO alpha or flat chroma background. The required `ICON` transparency is unmet; no alpha matting, spill correction, exact square padding, lossless 256×256 WebP (<460800 bytes), dark-composite edge QC or `artpreflight.py --type ICON` has run. Do not automatically black-key a near-black wood/metal silhouette. No game requests/writes/uploads/publishing. Studio has **4/12 director visually accepted designs, 0/12 production-ready images**.
 
-**Later progress / NEW next gate (2026-10-21):** Epic Hunter followed this accepted Rare Gatherer design after the Rare Hunter genuine PNG source was verified, and the director subsequently approved the new polished-silver/curved-horn Epic Hunter (verified attached JPEG/RGB `1000018979.png` SHA-256 `d563139d14c3519b74e0f8d30d3ad64f84bb02379b314c6b8d6ffa2578cfe0ea`; generator-original/alpha and production preflight still pending). **NEXT intended target is Epic Gatherer** but the generation source-reference gate is **BLOCKED:** the current approved Rare Gatherer exists in this studio as a JPEG/RGB black-matte display attachment `1000018969.png`, and a genuine unmodified generator-original file (if different) has NOT been provided. Obtain the true original Rare Gatherer file in ZIP for independent byte/decoder/alpha verification, or obtain the director's EXPLICIT JPEG-reference-only exception, before using this chest as Epic Gatherer's family reference. Prepared brief `EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md` forbids a silent preview substitution; use only original Reliquary plus verified Rare Gatherer (two images). The Rare Gatherer approval remains valid; production not ready.
+**Further progress / SOURCE GATE RESOLVED (2026-10-21):** Director's `Rare_Gatherers_Chest_Original_PNG.zip` was received, containing the authentic `rare_gatherers_chest_original.png` with raw SHA-256 `4a1ef5e71b915e12c517bd5b30d8ec6b4c163c0b7b363b5ea0575aa93cdb1a76`. PNG/RGBA, 1254×1254, 1,375,718 bytes, genuine transparent corners. **REFERENCE INPUT PASS**; earlier `1000018969.png` JPEG remains a distinct display artifact, not rebranded as the original. Epic Gatherer's generation was unblocked and the director subsequently **APPROVED its polished silver/sea-silk/glowing-leaf candidate**. Full source/alpha statistics and subsequent Epic approval are in the register and `EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md`. Production alpha-edge cleanup/lossless WebP/preflight NOT_RUN.
