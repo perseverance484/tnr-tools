@@ -416,3 +416,14 @@ Submitted 2026-10-21 as suggestion `q_G4vXjL2rje90zlKjTZc` (PENDING). Archived u
 Submitted 2026-10-21 as suggestion `YIs81fC3GTqP1LRnVMv02` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+## 195 Blazing Edge text (suggest mode, QA ticket 23)
+
+`195_blazing_edge_text.json` sends one text edit to the content review desk; it does not save directly.
+Blazing Edge (`oPtg5xq6HaYgJBqzKsZUC`) promised a lingering burn, which no effect does, and left out its
+weaker-healing effect and the move; its battle line used `%target` three times on an empty-ground jutsu.
+The new description and battle line were approved by dauntless (RUL-2026-10-21-020; register section
+12). Only text changes; `injectableInBattle` is re-sent at its live value, false (law 20). Live record
+from the 2026-10-21 census; not equipped by any AI (push/158-161); no other suggestion open on it.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Manifest hash `b92bc31c`. Run it from Forge, then use **Check suggestions**.
+

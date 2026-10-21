@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 23 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 12). Suggest mode: content review desk, no direct save. Blazing Edge's text promised a lingering burn (no such effect) and left out its weaker-healing effect and the move; its battle line used %target three times on an empty-ground jutsu. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-020). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Blazing Edge",
+   "targetId": "oPtg5xq6HaYgJBqzKsZUC",
+   "data": {
+    "description": "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through nearby enemies. The scorched cuts resist healing for a short while.",
+    "battleDescription": "Flames take the shape of a sword in %user's hand as they surge across the field, carving through nearby enemies in a single searing arc.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Text promised fire that keeps burning; the jutsu has no such effect. Rewritten to its real effects: the user moves, nearby enemies take fire damage and heal 20% less for 2 rounds. Battle line shortened; %target removed (it printed literally on empty ground)."
+   }
+  }
+ ]
+}
