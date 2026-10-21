@@ -1809,3 +1809,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Implementation:** `battle_lines.json` `effect_rounds: {"recoil": 2}` on B28. push/170 re-sends B28's live effects list with only that number changed, leaving out the obsolete `recoil.statTypes` key, which the server drops on any save (pinned keys: `forge/src/runner/nested.json`). The read-back check compares effects on the pinned keys.
 
 **Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170).
+
+## RUL-2026-10-21-006 — Next project: the QA ticket pipeline, with Forge Next Phase 1 as its stage one
+
+**Date:** 2026-10-21
+
+**Domain:** Roadmap / content QA / Forge Next
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Keeps RUL-2026-09-20-004 (Forge Next Phase 1 is the next implementation work, ahead of Presentation Studio P2) and gives Phase 1 a concrete work package.
+
+**Evidence:** The 92 suggestions sent to the content review desk on 2026-10-19 and 2026-10-20 (push/125–156) all read `PENDING` in their committed bundles. Forge records review outcomes only in the browser journal, so the director could not see what was approved or rejected, or why. Offered (1) the ticket pipeline with Phase 1 re-scoped as its first stage, or (2) Phase 1 as originally frozen, then the pipeline, the director answered: "Ticket pipeline with Phase 1 as stage one, draft the brief".
+
+**Ruling:** The next project is a find → fix → submit → track pipeline for content tickets. Stage one is `state/prompt_forge_next_phase1.md`, implemented as frozen, with its research-read registry's first rows being the review desk's `contentReview.getQueue` and `getProposal` (and, depending on decision D1, the paged catalog reads). Stage two is a ticket ledger. Stage three adds fix generators and the operating loop.
+
+**Canonical destination:** `state/prompt_qa_ticket_pipeline.md` (DRAFT FOR INDEPENDENT REVIEW; its open decisions D1–D6 are listed in its §7).
+
+**Boundary:** No implementation has begun. The brief becomes the implementation contract only after independent review and the director's answers to the stage-one decisions (D1–D4).
