@@ -587,3 +587,9 @@ Not chosen: D2, D3, B1 (in git history). Goes out in the master sweep manifest (
 | Text | APPROVED 2026-10-21; included in the master sweep manifest push/196 |
 | Icon | PAUSED |
 
+## Master sweep (push/196)
+
+The rest of the eligible census went out as one master manifest, push/196 (342 suggestions), written in the
+house style without one-by-one picks (RUL-2026-10-21-021). Findings and flags:
+`docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md`; every draft: `docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.json`.
+

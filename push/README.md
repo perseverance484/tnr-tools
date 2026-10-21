@@ -421,3 +421,17 @@ Submitted 2026-10-21 as suggestion `YIs81fC3GTqP1LRnVMv02` (PENDING). Archived u
 Submitted 2026-10-21 as suggestion `xDeO9D4-UULIqvSHQWuS0` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+## 196 Player jutsu text sweep (suggest mode, master manifest)
+
+`196_jutsu_text_sweep.json` sends 342 text edits to the content review desk, one suggestion per jutsu; it
+does not save directly, and each suggestion is approved or rejected on its own. It covers every eligible
+visible player jutsu in the 2026-10-21 census whose text did not match its effects or had a writing defect,
+written in the house style derived from the director's choices (RUL-2026-10-21-021;
+`docs/design/jutsu_overhaul/WRITING_STYLE.md`), plus the approved Liquid Palm text. Only `description` and
+`battleDescription` change; `injectableInBattle` is re-sent at each live value (law 20); staff "DON'T TRAIN"
+notes inside descriptions are kept. Excluded: AI-equipped jutsu, bloodline jutsu, test/staff records, and
+every record with an open suggestion (push/182-195 and earlier). Findings, skips and the name and
+mechanics flags: `docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md`. `validate.py --strict`: 0 errors,
+0 warnings. `forge/tools/check_manifest.mjs`: 342 planned items, 0 pre-send problems. Manifest hash
+`424af319`. Run it from Forge (342 submissions), then use **Check suggestions**.
+
