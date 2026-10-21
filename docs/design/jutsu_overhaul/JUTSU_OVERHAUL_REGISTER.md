@@ -511,3 +511,51 @@ Not chosen: D2, D3, B1 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/194 (QA ticket 22), awaiting the run |
 | Icon | PAUSED |
 
+## 12. Blazing Edge
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `oPtg5xq6HaYgJBqzKsZUC` |
+| Type / rank / gate | NORMAL, B rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on `EMPTY_GROUND`, range 4: the user moves to the chosen tile; damage and debuff hit enemies around it |
+| Cost | 60 AP, cooldown 6 |
+| Effect 1 | `damage` power 28, Fire, instant |
+| Effect 2 | `decreaseheal` 20%, on enemies hit, 2 rounds: their healing is weaker |
+| Effect 3 | `move`: the user relocates to the chosen tile |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "A focused strike that channels intense fire chakra into shape of a blade,
+cutting through and igniting the enemy." Battle line (three sentences): "Flames taking the shape of a
+sword erupt from %user's palm ... With a deadly swing, %user strikes %target ... The fire clings to
+%target, burning even after the initial strike."
+**What is wrong:** it promises a lingering burn the jutsu does not have; its real second effect (weaker
+enemy healing) and the move are not mentioned, and it reads as a single target when it hits everyone
+around the landing spot. The description is missing "the" ("into shape of"). The battle line is three
+sentences with `%target` three times on an empty-ground jutsu.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user dashes in with a blade of fire chakra blazing from their palm and cuts through the
+  enemies around them. The flame sears every wound it opens, so they heal poorly for a short time."
+- **D2** "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through
+  nearby enemies. The scorched cuts resist healing for a short while."
+- **D3** "A sword of living flame carries the user across the field in a single cut. Enemies caught by the
+  swing are burned, and the seared wounds hold back their healing for a short time."
+
+Battle line (no `%target`):
+- **B1** "%user leaps forward with a sword of flame erupting from their palm and sweeps it through nearby
+  enemies, scorching their wounds so they will not mend."
+- **B2** "Flames take the shape of a sword in %user's hand as they surge across the field, carving through
+  nearby enemies in a single searing arc."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
