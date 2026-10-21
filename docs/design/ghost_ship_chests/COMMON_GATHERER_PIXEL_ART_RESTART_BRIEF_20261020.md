@@ -1,6 +1,6 @@
 # Isolated generation 02R — Common Gatherer's Chest (pixel-art + geometry clean restart)
 
-**Status:** READY FOR NEW CLEAN ISOLATED GENERATION; director visual approval of Gatherer PENDING  
+**Status:** BLOCKED PENDING REVISED SHORT-LATCH COMMON HUNTER APPROVAL — new Gatherer candidate `1000018939.png` is UNAPPROVED; its rope continues too far down the front. Do not launch this earlier long-rope brief without incorporating the approved upper-front termination and new correct Hunter reference.  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -14,20 +14,28 @@
 
 ## Director-approved predecessor and reference isolation
 
-**The director visually accepted the new premium pixel-art Common Hunter, not any old chest.** The new approved Hunter establishes the fresh rendered style, geometric construction and 125px scale. This one Common Gatherer candidate must match that style but **NOT copy its Hunter subject details**.
+**The director visually accepted the premium pixel-art Common Hunter before approving the SHORT UPPER-LATCH termination rule.** The prior source `1000018935.png` establishes the visual style but its long leather body extension is no longer an acceptable construction reference. Wait for the revised short-latch Hunter to be separately approved and replace reference #2 with THAT new original before opening a fresh Common Gatherer session. The Gatherer must match its style/scale/geometry, not the Hunter motif.
 
 Attach EXACTLY TWO separate original approved image files:
 
 1. **Original Skyglass Reliquary**: `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp` at repo, Git blob SHA `eefd3e22c2fff6255f231b5402697b68f5fd7577`. **MATERIAL / PALETTE REFERENCE ONLY**: dark wood, blackened iron, cyan faceted skyglass and cool highlights. DO NOT copy its flat lid, flat box silhouette, clasp/strap arrangement, or rendering if it conflicts with the current premium pixel-art lock.
-2. **NEW director-approved Common Hunter**: original conversation-returned `1000018935.png`, decoder **JPEG RGB** despite extension, 1536×1536, raw SHA-256 `23038075363dc9ccafd4f4fb2ead70183704015ecb8f4abd66ad00bd8c23933a`. **PIXEL-ART RENDERING, CHEST GEOMETRY, CAMERA, OVERALL SIZE, LINEWORK, SHADING AND QUALITY REFERENCE ONLY**. Its single leather/fang, three claw marks and specific Hunter front-panel icon are **NOT** the Gatherer subject. Black JPEG background is **NOT** an acceptable alpha/chroma template.
+2. **PENDING CORRECTED Common Hunter**: use only a **new director-approved SHORT UPPER-LATCH Common Hunter** once its original bytes and exact SHA-256 are returned to the persistent studio. **PIXEL-ART RENDERING, CHEST TWO-HOOP + SHORT FRONT KEEPER GEOMETRY, CAMERA, SCALE AND QUALITY ONLY**. Do NOT attach the earlier long-leather `1000018935.png` as the new construction reference, nor copy any Hunter claw/fang/leather as the Gatherer subject. The new approved reference's actual identity/hash must be written into this brief before generating.
 
-Attach actual separate image **bytes**, not a link-only prompt, rejected-generation image, existing 125px composite or contact sheet. **Forbidden references:** six pre-reset Common/Rare/Epic chest images (revoked for extra band geometry); smooth painted Common Hunter `1000018934.png` (style rejected); any past Gatherer chest; Sage's Strongbox; old generic pixel-art chest icons. The only eligible second image is the new pixel-art Common Hunter `1000018935.png`.
+Attach actual separate image **bytes**, not a link-only prompt, rejected-generation image, existing 125px composite or contact sheet. **Forbidden references:** six pre-reset Common/Rare/Epic chest images (revoked for extra band geometry); smooth painted Common Hunter `1000018934.png` (style rejected); any past Gatherer chest; Sage's Strongbox; old generic pixel-art chest icons. The only eligible second image **will be** the subsequently approved shortened-latch Common Hunter (not yet produced).
+
+## Director-approved short upper-front binding — overrides earlier prompt (2026-10-20)
+
+The director approved that **both families' center bindings terminate at the upper-front keeper just below the lid seam**, rather than continue down the front to the base. Gatherer rope must tie into ONE COMPACT KNOT at the top front of the body, with **only short tucked ends**, and the upper lock incorporates the small cyan gem. Expose the wood front panel below the keeper so the single non-glowing Common leaf emblem is uninterrupted.
+
+The newly received pixel-art Gatherer `1000018939.png` (decoded JPEG/RGB 1536×1536, 290290 bytes, SHA-256 `e5b0a3b7809ba041858defec3bb0c00227cab12f7e1f226eaa54b3e65a676795`) has strong pixel rendering, leaf/green sprig and two outer hoops but **long jute descends nearly to the base**. It was **never director-approved**. Treat as rejected geometry candidate for current standard, not as a reference attachment. Director also permitted modest graded shapes in the tucked leaves for rarer variants; **Common keeps one simple fresh green sprig** and its single leaf wood brand. See canonical Ghost Ship request §4b.
+
+**RESTART CONDITION:** The Common Hunter also currently has a too-long leather center strip. Only after a **new corrected short-latch Hunter** is director-approved can this Gatherer session be launched with exactly Reliquary + the **new** Hunter as reference images. Do not quietly reuse `1000018935.png` or old revoked family art.
 
 ## Locked subject silhouette & geometry — nonnegotiable
 
 - Depict **exactly ONE COMPLETE CLOSED DOMED-LID GATHERER'S CHEST**. Curved dark wood staves, clear front panel and coherent physically attached metal corners, eye-level **flat 3/4** view at the same orientation and on-canvas size as the approved new Common Hunter.
 - The domed lid must have **EXACTLY TWO distinct external plain blackened-iron reinforcement hoops TOTAL**: ONE near its left outer end, ONE near its right outer end. A metal highlight/edge is part of its existing hoop, **NOT a second parallel band**. No phantom arch or duplicate extra band at right or left. Metal bands connect logically to the chest.
-- **ONE separate center binding made from ONE thick round, HONEY-TAN, COARSE THREE-STRAND TWISTED JUTE ROPE**. Natural fibrous spiral with a visible round cross-section, over the lid and secured in one simple gathered knot at the front. The rope is one continuous length; the knot must NOT make a second full-length strap across the lid. No leather center strap.
+- **ONE separate center binding made from ONE thick round, HONEY-TAN, COARSE THREE-STRAND TWISTED JUTE ROPE**. Natural fibrous spiral with a visible round cross-section, over the lid, turning over the front lip and **ENDING IN ONE COMPACT UPPER-FRONT KNOT anchored to a keeper immediately below the lid seam**. The single rope is one continuous length with only SHORT TUCKED TAILS: **NO THICK ROPE CONTINUES DOWN THE LOWER FRONT PANEL TO THE BASE**. The knot must NOT make a second full-length strap across the lid. No leather center strap.
 - **ONE small fresh GREEN BOTANICAL SPRIG tucked into the central jute rope** close to the lid/front junction. It reads as a real gathered plant, distinct from ornamental cyan crystals. Keep it clear at 125px without making it a big extra object.
 - **ONE single unmistakable LEAF BRAND cut/burned into the FRONT WOOD PANEL**, using exposed pale warm wood color and an intact leaf-vein silhouette. This is the **Gatherer's front emblem**. Keep it large enough at 125px and unobscured by rope or clasp. It is **not illuminated** at Common.
 - **ONE small faceted pale-cyan SKYGLASS CRYSTAL CLASP** in a compact blackened-iron setting at the center front, matching Common's restraint and placement (not a large Rare/Epic jewel).
@@ -51,7 +59,7 @@ The render MUST match the ratified **premium pixel-art** item-icon register, **a
 
 **Subject:**
 
-`a single closed domed-lid Common Gatherer's Chest with curved dark wood staves, EXACTLY ONE plain blackened-iron curved lid hoop at the left outer end and EXACTLY ONE at the right outer end, no duplicate parallel bands, ONE centered thick round honey-tan natural coarse three-strand twisted JUTE ROPE wrapped continuously over the dome and knotted once on the front with one small fresh green sprig tucked under it, a SINGLE large leaf brand carved into the front wood panel, ONE small pale-cyan faceted skyglass crystal clasp, plain Common ironwork, sound physically connected chest construction`
+`a single closed domed-lid Common Gatherer's Chest with curved dark wood staves, EXACTLY ONE plain blackened-iron curved lid hoop at the left outer end and EXACTLY ONE at the right outer end (no duplicate parallel bands), ONE centered thick round honey-tan coarse three-strand twisted JUTE ROPE traveling only over the curved lid and ending in a COMPACT KNOT at an UPPER-FRONT KEEPER JUST BELOW THE LID SEAM, with very short tucked tails and NO rope running down the lower wooden front panel, one small fresh green sprig tucked into this knot, a SINGLE non-glowing LEAF BRAND carved into the clear lower front wood panel, ONE small pale-cyan faceted skyglass crystal clasp in the same upper locking assembly, plain Common ironwork, coherent physically connected construction, premium TNR pixel-art rendering`
 
 **Pixel-art style clause (locked by director):**
 
@@ -63,7 +71,7 @@ The render MUST match the ratified **premium pixel-art** item-icon register, **a
 
 `no text, no letters, no question mark, no symbols other than the brand described, no labels, no UI, no frame, no circular medal, no watermark, no asset sheet, no multiple objects, no open lid, no contents spilling out, no loose items around it, no surface or table under it, no shadow on the background, no glow halo or light disc, no franchise insignia`
 
-**Specific exclusions:** NO Hunter three claws / leather / fang clasp. NO split or duplicated rope. NO metal arc immediately adjacent to left/right hoop. NO copied flat-lid Reliquary silhouette. NO smooth non-pixel painting or blurred/smoothed 3-D shading. NO glowing leaf or Rare rivet armor, Epic silver trim, Legendary filigree/lid crystal crown, Ornate gold or Mystery chains/mist.
+**Specific exclusions:** NO LONG ROPE across lower front panel, no rope to base, no hanging loose tails or large central bottom knot; NO Hunter three claws / leather / fang clasp. NO split or duplicated rope. NO metal arc immediately adjacent to left/right hoop. NO copied flat-lid Reliquary silhouette. NO smooth non-pixel painting or blurred/smoothed 3-D shading. NO glowing leaf or Rare rivet armor, Epic silver trim, Legendary filigree/lid crystal crown, Ornate gold or Mystery chains/mist.
 
 ## Isolated generation QC / studio return
 
@@ -72,4 +80,4 @@ The render MUST match the ratified **premium pixel-art** item-icon register, **a
 3. Present only viable candidate for director's visual approval. If same subject needs revision it may remain in that one isolated session. **After two wrong-subject/composition failures, stop and relaunch clean.** Never attach rejected images.
 4. On acceptance preserve and return **the original exact bytes**, target, filename, director decision and provenance to this persistent studio; **no image processing in the generation session, no game writes**.
 5. Studio intake separately verifies true decoded type, dimensions/alpha/hash, source quality, 125/64/32px set QC, native alpha or legitimate chroma, clean square padding, **lossless WebP** recommended 256×256 and below **460800 bytes**, dark-composite alpha-edge check and canonical `artpreflight.py --type ICON`. **A visually approved raw is NOT upload ready**, including the existing Common Hunter JPEG-black source.
-6. Only after director approves this corrected Common Gatherer do we unlock **Rare Hunter**, with exactly two original references: Reliquary plus **newly** approved Common Hunter, not the new Gatherer as a third image. Rare-tier cold gunmetal and star insets must armor the **existing single end hoops**, never create a new parallel band.
+6. **Do not generate from this brief yet.** First obtain the director-approved short-latch Common Hunter original, replace the pending reference identity/hashes, then launch a fresh ONE-ASSET Common Gatherer isolated generation. After its new shortened-jute original is approved, unlock Rare Hunter with Reliquary plus the newly approved short-latch Common Hunter only. Never attach an old long-binding source or a third image. Rare-tier cold gunmetal and star insets must armor the **existing single end hoops**, never create a new parallel band.
