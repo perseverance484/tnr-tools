@@ -429,7 +429,7 @@ Not chosen: D1, D3, B2 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/192 (QA ticket 20), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/192, suggestion `gj-3F1OuG_H5zPQJwOe9H`, PENDING |
 | Icon | PAUSED |
 
 ## 10. Void Rend
