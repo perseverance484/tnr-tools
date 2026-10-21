@@ -1,6 +1,6 @@
 # Isolated generation 02R — Common Gatherer's Chest (pixel-art + geometry clean restart)
 
-**Status:** BLOCKED PENDING REVISED SHORT-LATCH COMMON HUNTER APPROVAL — new Gatherer candidate `1000018939.png` is UNAPPROVED; its rope continues too far down the front. Do not launch this earlier long-rope brief without incorporating the approved upper-front termination and new correct Hunter reference.  
+**Status:** SUPERSEDED / HISTORICAL (2026-10-20) — prior Gatherer `1000018939.png` remains UNAPPROVED (long rope to base). Corrected Hunter `1000018956.png` has now been DIRECTOR APPROVED. **DO NOT GENERATE FROM THIS OLDER BRIEF**; current clean Gatherer brief is `COMMON_GATHERER_SHORT_LATCH_ISOLATED_BRIEF_20261020.md` with exact correct source SHA/roles.  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -11,6 +11,10 @@
 **Target:** Common Gatherer's Chest · `item.image` · type `ICON`  
 **Exact delivery filename (future processed output):** `icon-gs-chest-gatherer-common.webp`  
 **Live-game requests/writes:** 0/0. Credentials: none. No game upload or publishing.
+
+## Authority override — newer short-latch Gatherer isolated brief
+
+The director explicitly approved pixel-art short-latch Common Hunter `1000018956.png` (JPEG/RGB 1536×1536, SHA-256 `a46aa0279a7ba45784f397417c5fd4b8a5fb40ebde3a71074699d35ffdb7562c`) on 2026-10-20 with “Yes, next.” This former long-rope Gatherer document is retained as a historical design record; the only operative new isolated-generation instructions are in **`COMMON_GATHERER_SHORT_LATCH_ISOLATED_BRIEF_20261020.md`**. Attach original Skyglass Reliquary + this NEW approved Hunter only. Do not use rejected `1000018939.png` or old long-strap `1000018935.png` as image references.
 
 ## Director-approved predecessor and reference isolation
 
