@@ -1715,3 +1715,22 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md`.
 
 **Boundary:** No upload, live edit or publication is authorized. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight.
+
+## RUL-2026-10-21-001 — Replacement Technique icon: log-swap art approved as an exception
+
+**Date:** 2026-10-21
+
+**Domain:** TNR art production / jutsu icons (starter jutsu, Phase 1)
+
+**Status:** ACTIVE
+
+**Supersedes:** none. Narrows RUL-2026-10-20-003 for this one icon.
+
+**Ruling:** The director-supplied Replacement Technique icon (a wooden log in swirling smoke with two glowing blue chakra arrows; raw sha256 `90e98a48298c81569d169f3413962425dcc35ce7e89c7237c4c7e0a082102893`) is approved as an exception to the starter register's reserved silhouette ("a dissolving chakra afterimage outline bursting into smoke") and to its "no log-swap substitution trope" rule. The exception covers this icon only: the log and the arrows are not licence for logs, arrows or other substitution props in the remaining starter icons, and the register's rules still apply to them.
+
+**Evidence:** User, 2026-10-21, on being told the raw uses the log trope the brief rules out: "Approve as exception".
+
+**Canonical destination:** `docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md` (Phase 1 table note) and `art/jutsu_icons/starter/README.md`.
+
+**Boundary:** No upload, live edit or publication is authorized. The icon goes to the content review desk as push/148 (suggest mode).
+
