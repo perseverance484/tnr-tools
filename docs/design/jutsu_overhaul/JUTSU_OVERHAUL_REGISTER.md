@@ -467,7 +467,7 @@ Not chosen: D1, D3, B1 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/193 (QA ticket 21), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/193, suggestion `q_G4vXjL2rje90zlKjTZc`, PENDING |
 | Icon | PAUSED |
 
 ## 11. Purgatory
