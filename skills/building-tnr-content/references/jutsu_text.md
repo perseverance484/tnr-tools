@@ -38,11 +38,13 @@ is a mechanics finding: flag it and leave the effects alone. A text ticket chang
 
 - One or two sentences, roughly 80 to 220 characters.
 - Say what the technique **looks like** and what it **does**, in that order or woven together:
-  "A crushing torrent of water slams into one foe while the user draws on its flow to strengthen
-  their own healing."
+  "Within the user's domain, water answers to them alone. It rises to crush their foe, then flows
+  back to its master, deepening their healing for a short time." (Water's Domain, director-approved)
 - Cover every effect the player will notice. A secondary effect can be a clause; it cannot be
   missing, and nothing may be claimed that the effects do not do.
-- Match the reach: "one foe", "everything in the blast", "the user", "an ally".
+- Never contradict the reach, but only state it when it changes how the jutsu is used: an area
+  blast, an ally, the user. A single target is the default; do not announce it with stock phrases
+  like "one foe" or "a single foe". Vary the wording from jutsu to jutsu.
 - Words, not numbers: "for a short time", "lingering", "heavily". The card shows the values.
 - Plain present tense, third person ("the user", "the target"). No "you", no lore dumps, no
   jokes that hide what the jutsu does, no build notes or staff abbreviations.
