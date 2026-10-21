@@ -1,6 +1,6 @@
 # Isolated generation 01R — Common Hunter's Chest (geometry restart)
 
-**Status:** STYLE-CONFORMANCE REVIEW HOLD — the director approved a new geometry-correct Common Hunter candidate, then questioned whether its smooth painterly rendering meets TNR's premium pixel-art house style. Do not reuse that image as the next generation reference until director resolves style; see `CHEST_ICON_STUDIO_REGISTER.md`.  
+**Status:** DIRECTOR VISUALLY APPROVED — corrected pixel-art Common Hunter source `1000018935.png`, 2026-10-20. Geometry, Hunter motif and premium pixel-rendering accepted; **raw alpha/export/preflight NOT_RUN**. Previous smooth-painted `1000018934.png` is rejected as a style reference.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -12,11 +12,11 @@
 **Eventual production filename:** `icon-gs-chest-hunter-common.webp`  
 **Live-game requests/writes:** 0/0, credentials none. No generation in persistent studio, no upload, publication or game requests.
 
-## New style-conformance gate (2026-10-20)
+## Style-conformance gate — RESOLVED (2026-10-20)
 
 The 2026-10-20 replacement candidate `1000018934.png` was visually approved for geometry, but the director subsequently asked whether it is actually pixel art. **The source looks like a smoothly rendered high-resolution digital painting, not the ratified TNR house style's “crisp pixel lineart, flat cel shading, limited palette.”** The canonical `ICON` prompt scaffold calls for pixel art. The inherited Ghost Ship shared prompt instead says “painted digital illustration,” which may have biased all attempts toward smooth painting.
 
-**Current decision is open:** Do not propagate that candidate to the new Common Gatherer session or treat the earlier visual approval as an automatic pixel-art style acceptance. Geometry and material locks remain director-approved. The prior prompt below is recorded as the already-used geometry/material request; if the director chooses spec-conformant pixel art, revise its **rendering clause** before another clean isolated generation, without changing the locked geometry/straps/claws. No new finished game-ready image or preflight exists.
+**Decision resolved:** Director directed strict premium pixel-art compliance and then approved the **new** pixel-disciplined Common Hunter `1000018935.png`, saying “Now this is approved and perfect. Next.” The smooth-painted `1000018934.png` is NOT style approved and must never be attached as a generation reference. The approved new source has a valid single left and right metal hoop, one saddle-brown leather band, fang clasp, three claw marks and small skyglass crystal; pixel clusters/limited palette/defined shading are visually aligned with the ratified `house_style`. Only the **new** Common Hunter source is now the chest pixel-rendering/geometry reference for the next Common Gatherer isolated session. Source decoded JPEG/RGB 1536×1536, 257500 bytes, SHA-256 `23038075363dc9ccafd4f4fb2ead70183704015ecb8f4abd66ad00bd8c23933a`. Despite `.png` extension the JPEG has **opaque black matte**, so item `ICON` alpha and preflight remain BLOCKED. No processed lossless WebP or game upload exists.
 
 ## Why this is a clean restart
 
@@ -56,9 +56,11 @@ A style-reference image is **not** an assembly blueprint. If the Reliquary visib
 
 `one closed domed-lid Common Hunter's Chest built from curved dark wood staves, EXACTLY ONE plain blackened iron arched end hoop at each outside end of the lid (one on the left and one on the right, no adjacent duplicate or extra steel arc), ONE separate centered broad FLAT SMOOTH SADDLE-BROWN TANNED LEATHER STRAP curving over the dome and down the front, plain natural hide with no embossing or silver stitching, secured by a simple bone fang clasp above ONE small pale-cyan faceted skyglass crystal clasp, exactly THREE parallel diagonal claw gouges carved into the front dark wood, coherent physically connected chest construction, restrained Common-tier hardware and no external seam glow`
 
-**Canonical shared style clause (unchanged):**
+**Canonical shared style clause (amended and director visually locked):**
 
-`game item icon, painted digital illustration with a crisp dark outline, near-black iron and dark wood, one accent of pale cyan faceted skyglass crystal with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, no foreshortening, strong readable silhouette, centered, single object`
+`premium high-quality TNR pixel-art game item icon, crisp pixel lineart and intentional clean pixel clusters, flat cel shading with restrained painterly depth, limited controlled dark palette and defined hard-edged shadow shapes, near-black iron and dark wood, one restrained pale-cyan faceted skyglass crystal accent with internal facet light, soft even cool edge lighting, eye-level flat 3/4 view, no foreshortening, single complete centered object with a strong readable silhouette, genuine transparent background`
+
+The original brief's **“painted digital illustration”** style clause is now **superseded** by the director-approved pixel-art rendering lock and must NOT be used to launch another generation.
 
 **Background:** `transparent background` with true native alpha. If native alpha is not possible, `on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard`. **Reject opaque black.**
 
@@ -74,4 +76,4 @@ A style-reference image is **not** an assembly blueprint. If the Reliquary visib
 - Fail fast on structural geometry before seeking director judgment; then check family motif, style, background and 125px recognizability. If a wrong-subject/composition error repeats twice, close and start a new clean isolated conversation.
 - The director must approve the *corrected geometry* visibly before treating this as a replacement for Common Hunter. Prior approval of the invalidated image is not transferrable.
 - Return exact original source bytes with approval and target name. Do not process, crop, export lossless WebP, run preflight or upload in the isolated session.
-- After a corrected Common Hunter is visually accepted, create a NEW Common Gatherer isolated brief and reference the original Reliquary plus **corrected** Common Hunter only. Never use an invalidated raw as an image reference.
+- **Common Hunter is visually accepted** (new original `1000018935.png`, SHA-256 above). The next isolated target is **Common Gatherer's Chest** using only the original Skyglass Reliquary + this newly approved pixel-art Common Hunter individually attached as material/style and pixel-rendering/geometry references respectively. Never use an invalidated raw as an image reference. Next brief: `COMMON_GATHERER_PIXEL_ART_RESTART_BRIEF_20261020.md`.
