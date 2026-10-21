@@ -1864,3 +1864,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets, the icon only after the text suggestion resolves.
 
+## RUL-2026-10-21-009 — Divine Thunder Slap overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Divine Thunder Slap (`Je0gvHDVCm__vy2rT8YBB`) gets the description "The user claps their hands until they crackle with lightning, then delivers a thunderous open-palm slap. The charge lingers in their hands, making their next attacks hit harder." and the battle line "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving %user crackling with power." Icons for the overhaul are paused for now: "lets skip icons for now since we cant submit icons and text fixes" (text and icon suggestions cannot both be open on one record).
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 3).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+

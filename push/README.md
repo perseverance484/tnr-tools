@@ -361,3 +361,14 @@ census (2026-10-21); not equipped by any AI (push/158-161); no other suggestion 
 Manifest hash `521f43cf`. Run it from Forge, then use **Check suggestions**. The new icon follows as
 its own ticket once this one resolves.
 
+## 185 Divine Thunder Slap text (suggest mode, QA ticket 14)
+
+`185_divine_thunder_slap_text.json` sends one text edit to the content review desk; it does not save
+directly. Divine Thunder Slap (`Je0gvHDVCm__vy2rT8YBB`) never mentioned its second effect (the user's
+damage is 20% higher for two rounds); its battle line said "his" for every caster and described a
+"subtle" hit that "caresses" the target. The new description and battle line were approved by dauntless
+(RUL-2026-10-21-009; register section 3). Only text changes; `injectableInBattle` is re-sent at its
+live value, false (law 20). Live record from the 2026-10-21 census; not equipped by any AI
+(push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors, 0 warnings.
+`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `a8e422dc`. Run it from Forge, then use **Check suggestions**.
+

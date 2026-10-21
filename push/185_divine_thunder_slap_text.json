@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 14 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 3). Suggest mode: content review desk, no direct save. Divine Thunder Slap's text never mentioned its second effect (the user's damage is 20% higher for two rounds), its battle line said 'his' for every caster, and 'a bright and subtle hit caresses their cheek' undercut a thunder slap. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-009). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (2026-10-21 AI census, push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "The old text did not match what the jutsu does. The new text describes its lightning slap and the damage boost it gives the user."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Divine Thunder Slap",
+   "targetId": "Je0gvHDVCm__vy2rT8YBB",
+   "data": {
+    "description": "The user claps their hands until they crackle with lightning, then delivers a thunderous open-palm slap. The charge lingers in their hands, making their next attacks hit harder.",
+    "battleDescription": "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving %user crackling with power.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The old text never mentioned the jutsu's second effect: after the slap, the user's own attacks deal 20% more damage for two rounds. The old battle line also said 'his' for every caster and described a 'bright and subtle hit' that 'caresses' the target, which does not fit a thunder slap. The new text shows the lightning slap and the charge that stays with the user to power up their next attacks."
+   }
+  }
+ ]
+}
