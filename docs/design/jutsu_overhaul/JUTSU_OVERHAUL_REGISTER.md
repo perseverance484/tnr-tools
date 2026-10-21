@@ -432,3 +432,50 @@ Not chosen: D1, D3, B2 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/192 (QA ticket 20), awaiting the run |
 | Icon | PAUSED |
 
+## 10. Void Rend
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `_QfGq0SseWD11jHO23pr1` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on `EMPTY_GROUND`, range 4: the user moves to the chosen tile; damage and debuff hit enemies around it |
+| Cost | 60 AP, cooldown 6 |
+| Effect 1 | `damage` power 30, no element, instant |
+| Effect 2 | `decreaseheal` 30%, on enemies hit, **3 rounds**: their healing is weaker |
+| Effect 3 | `move`: the user relocates to the chosen tile |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2024-08-27 |
+
+**Old text.** Description: "A brutal strike that damages the enemy and limits their ability to recov".
+Battle line: "%user surges forward and delivers a precision strike laced with unstable chakra. The moment
+it connects with %target, the energy fractures inward—disrupting their chakra network and corrupting their
+natural recovery. Healing becomes sluggish, unstable, and incomplete. "
+**What is wrong:** the description is cut off mid-word and has no full stop; neither text says the user
+moves or that nearby enemies (not one) are hit. The battle line has an em dash, a trailing space, three
+sentences, and `%target` on an empty-ground jutsu.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user lunges across the field and lands a strike laced with unstable void chakra. The energy
+  fractures inside nearby enemies, crippling their healing for a while after the blow."
+- **D2** "In one surging step the user closes in and tears at the space around them with raw chakra. Every
+  enemy caught in the rend takes damage and finds their healing weakened for several rounds."
+- **D3** "Unstable chakra gathers in the user's strike as they rush to a new position. It rips through
+  nearby enemies and lingers in their wounds, making them harder to heal for some time."
+
+Battle line (no `%target`):
+- **B1** "%user surges forward and drives a strike of unstable chakra into the ground, the void tearing
+  through nearby enemies and souring their wounds."
+- **B2** "%user lunges across the field, and a rift of unstable chakra splits open around them, rending
+  nearby enemies and leaving wounds that refuse to close."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
