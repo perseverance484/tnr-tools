@@ -5,7 +5,7 @@
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
 **Reset authority:** `GEOMETRY_RESTART_20261020.md` (director withdrew visual approval from all 6 former raws)
-**Binding material ruling:** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` (director-approved material proposal, details canonized in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a; RUL-2026-10-20-005)  
+**Binding material ruling:** `CHEST_BINDING_MATERIAL_LADDER_PROPOSAL_20261020.md` (director-approved material proposal, details canonized in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4a; RUL-2026-10-20-006)  
 **Approved broader art direction:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md`, `RUL-2026-10-20-002`  
 **Protocol:** `docs/workflows/ISOLATED_ART_GENERATION.md`  
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
