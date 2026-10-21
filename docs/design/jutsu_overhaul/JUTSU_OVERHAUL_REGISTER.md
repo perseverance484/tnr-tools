@@ -356,6 +356,54 @@ quality battle line". Not chosen: D2, D3, B1, B2, B4-B6.
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/190 (QA ticket 18), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/190, suggestion `YPylvcpG3knNN5vzLQ4pD`, PENDING |
+| Icon | PAUSED |
+
+## 8. Static Flicker
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `UwWqo_4Igdue7-unPXwne` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_CIRCLE_SPAWN` on `EMPTY_GROUND`, range 4: the user moves to the chosen empty tile and the burst hits enemies around it |
+| Cost | 60 AP, cooldown 7 |
+| Effect 1 | `pierce` power 46, Lightning, instant, scaled on Ninjutsu: ignores damage reduction |
+| Effect 2 | `move`: the user relocates to the chosen tile (`tags.ts` `move`) |
+| Effect 3 | `afterburn` 20%, on enemies hit, 2 rounds: they take an extra 20% of every non-pierce hit |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "The user surrounds the target with an illusion of crackling static
+electricity, making them feel as if they are constantly being lightly shocked." Battle line: " %user
+channels a burst of electricity into %target, leaving them jolted and weakened"
+**What is wrong:** it describes a light illusion; the jutsu is a heavy piercing lightning burst with a
+reposition and a lingering charge, none of which is mentioned. The battle line has a leading space and
+no full stop, and uses `%target` on an empty-ground jutsu.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user flickers to a new position in a crack of static and discharges a burst of lightning that
+  cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow
+  hurt more."
+- **D2** "In a blink of static, the user reappears elsewhere on the field and releases the charge around
+  them. The lightning pierces every enemy close by and leaves them crackling, taking extra damage from
+  hits for a short time."
+- **D3** "The user rides a spark across the battlefield and lands in a burst of static that ignores
+  protection, leaving nearby enemies charged so later blows strike harder."
+
+Battle line (no `%target`, since the user lands on empty ground):
+- **B1** "%user vanishes in a crackle of static and reappears across the field, releasing a burst of
+  lightning that leaves nearby enemies sparking."
+- **B2** "%user flickers through the air like a dropped spark and lands in a discharge of static, lightning
+  lancing through every foe within reach."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
 | Icon | PAUSED |
 
