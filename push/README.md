@@ -319,3 +319,20 @@ Yui to the content review desk; it does not save directly. Same pattern as 154-1
 the six scrolls. Only `image` changes; both battle lines are non-empty. `validate.py`: 0 errors, 0
 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `007e32d8`. Run it from
 Forge, then use **Check suggestions**.
+
+## 157–161 AI pool fresh census (read-only)
+
+Before-image for the 82 shared-AI-pool jutsu battle-description pass (B28 Recoil Slam → Backlash Palm).
+It replaces the 2026-10-12 census (push/81–84, archived under `push-2026-10-12/`), which is stale for 38 pool
+holders after push/90–126. Zero mutations. Run in order, back to back, then return all five results bundles:
+
+1. `157_ai_pool_fresh_census_jutsu.json` (83 reads, hash `1047e4b3`): the AI count, then all 82 pool jutsu in full.
+   It has the same reads as the archived push/80, so it has the same hash; Forge allows that because the push/80
+   job finished.
+2. `158`–`161` `_ai_1`–`_4` (128 reads each, hashes `62eeb77f`, `657c3002`, `6df62425`, `8598101d`): `profile.getAi`
+   in full for all 512 AI ids the repository knows to be live or not yet checked. 161 ends with a second AI count.
+
+About 30 reads a minute, so roughly 20 minutes in total. If one is interrupted, re-run only that one.
+**Completeness:** the non-ELDER AIs returned must equal the AI count, and the two counts must agree. The last count
+was 526 (2026-10-18), so expect about 14 live AIs the repository still does not know; Forge can only count a list.
+`validate.py --strict`: 0 errors, 0 warnings on all five. `forge/tools/check_manifest.mjs`: exit 0 on all five.
