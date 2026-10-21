@@ -1990,3 +1990,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-016 — Static Flicker overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Static Flicker (`UwWqo_4Igdue7-unPXwne`) gets the description "The user flickers to a new position in a crack of static and discharges a burst of lightning that cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow hurt more." and the battle line "%user vanishes in a crackle of static and reappears across the field, releasing a burst of lightning that leaves nearby enemies sparking."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B1".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 8).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+

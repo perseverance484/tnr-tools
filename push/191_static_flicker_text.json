@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 19 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 8). Suggest mode: content review desk, no direct save. Static Flicker's text described a light illusion; the jutsu moves the user, hits nearby enemies with a lightning pierce and leaves an afterburn. Battle line had a leading space, no full stop, and used %target on an empty-ground jutsu. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-016). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Static Flicker",
+   "targetId": "UwWqo_4Igdue7-unPXwne",
+   "data": {
+    "description": "The user flickers to a new position in a crack of static and discharges a burst of lightning that cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow hurt more.",
+    "battleDescription": "%user vanishes in a crackle of static and reappears across the field, releasing a burst of lightning that leaves nearby enemies sparking.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description called it a light illusion; it moves the user, pierces nearby enemies with lightning and leaves an afterburn (+20% damage from hits, 2 rounds). Rewritten to match. Battle line: leading space and %target removed (it printed literally on empty ground), full stop added."
+   }
+  }
+ ]
+}
