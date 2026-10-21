@@ -1,5 +1,9 @@
 # Isolated generation 06 — Ghost Ship Epic Gatherer's Chest
 
+## CURRENT BRIEF POINTER (2026-10-21)
+
+The current Epic Gatherer direction and source gates are in `EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md`. This older brief remains superseded. Do not launch it.
+
 ## GEOMETRY-RESET OVERRIDE — PREVIOUS APPROVAL REVOKED (2026-10-20)
 
 The director has rescinded the visual acceptance of this chest and **all six** earlier Common/Rare/Epic originals because an **extra/duplicated curved metal lid band** was propagated through the family. This prompt and any “approved” notes below are **historical only**; the pictured raw is **REJECTED AND PROHIBITED AS A FUTURE REFERENCE**, even if otherwise visually attractive. Read `GEOMETRY_RESTART_20261020.md` and the reset studio register. Rebuild this slot with corrected physical band continuity and a NEW raw source; use only the original Reliquary (style/material only) and **newly** geometry-correct predecessors as appropriate. Preserve prior hashes/decisions as evidence, but do not count them as currently approved or game-ready.
