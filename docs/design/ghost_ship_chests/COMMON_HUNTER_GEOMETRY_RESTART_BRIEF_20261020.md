@@ -1,6 +1,6 @@
 # Isolated generation 01R — Common Hunter's Chest (geometry restart)
 
-**Status:** DIRECTOR VISUALLY APPROVED — corrected pixel-art Common Hunter source `1000018935.png`, 2026-10-20. Geometry, Hunter motif and premium pixel-rendering accepted; **raw alpha/export/preflight NOT_RUN**. Previous smooth-painted `1000018934.png` is rejected as a style reference.  
+**Status:** HISTORICAL PIXEL-STYLE/OUTER-HOOP APPROVAL; NEW UPPER-LATCH TERMINATION REVISION REQUIRED (2026-10-20). This earlier brief and source `1000018935.png` predate the approved short-latch rule. **DO NOT USE AS A FINISHED ICON OR NEXT GATHERER REFERENCE** until fresh edited pixels are director-approved. Current revision brief: `COMMON_HUNTER_SHORT_LATCH_REVISION_BRIEF_20261020.md`. Raw alpha/export/preflight NOT_RUN.  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -11,6 +11,10 @@
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
 **Eventual production filename:** `icon-gs-chest-hunter-common.webp`  
 **Live-game requests/writes:** 0/0, credentials none. No generation in persistent studio, no upload, publication or game requests.
+
+## Latest approved geometry refinement — SHORT UPPER LATCH (2026-10-20)
+
+Director approved shortening BOTH families' central binding: the single Hunter leather strap travels over the closed domed lid and ENDS at a compact keeper directly below the front lid seam, secured by the fang/skyglass lock. **The long leather continuation to the lower chest body must be omitted**, leaving front wood and three claws visible. The current Common Hunter image was approved *before* this refinement, so it requires a same-subject revision and new approval. The director also authorized rarity-specific fang and Gatherer botanical leaf shape variation; Common keeps a simple smooth ivory tooth. The operative change is in `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4b and `COMMON_HUNTER_SHORT_LATCH_REVISION_BRIEF_20261020.md`. The prior subject line below says “down the front” and is historical; **it must not be used unchanged in new generation**.
 
 ## Style-conformance gate — RESOLVED (2026-10-20)
 
