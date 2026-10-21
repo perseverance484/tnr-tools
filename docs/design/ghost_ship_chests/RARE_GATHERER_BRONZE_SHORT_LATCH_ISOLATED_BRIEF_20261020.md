@@ -1,6 +1,6 @@
 # Rare Gatherer's Chest — bronze-bound premium pixel-art isolated generation
 
-**Status:** READY FOR FRESH ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-21) — burnished bronze / slate-blue flax Rare Gatherer's Chest; exact uploaded JPEG preview recorded; production-original/alpha/export/preflight pending  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -52,3 +52,17 @@ Match the Common Gatherer reference's **crisp intentional pixel clusters and ste
 4. On approval hand back exact ORIGINAL candidate bytes, actual decoded type, dimensions, alpha evidence and raw SHA-256 to persistent Art Studio. Never key/export/preflight, commit image binaries, upload or publish from generation session.
 5. Studio performs separate raw/QC, independent 125/64/32px compare, genuine alpha/chroma + spill clamp + transparent square margin, **lossless 256×256 WebP recommended below 460800 bytes**, dark-composite edge check, and canonical `artpreflight.py --type ICON`. Visual approval alone is not preflight PASS.
 6. After Rare Gatherer approval, next workstream target is **Epic Hunter**. The original director-approved Rare Hunter PNG `rare_hunter_s_bronze_bound_chest.png` must first be actually supplied and verified before it can serve as the approved same-family Epic Hunter reference. The chat-displayed JPEG preview is NOT byte-equivalent to that reported RGBA source and MUST NOT substitute for it.
+
+## Director approval and source-evidence QC — 2026-10-21
+
+**Director:** “Approved, next.” This accepts the depicted Rare Gatherer's Chest visually, not its production file readiness.
+
+**Uploaded conversation image:** `1000018969.png` — actual decoded **JPEG/RGB** despite the `.png` suffix, **1536×1536**, **304581 bytes**, SHA-256 **`c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`**, black opaque corners `(0,0,0)`. These exact ATTACHMENT bytes were verified; the independently preserved PNG/RGBA generation original, if any, **has not been submitted or verified**. Do not claim source-alpha PASS or conflate a future original with these JPEG bytes. Raw-file identity check is separate from director's valid visual approval.
+
+**Visual QC at source and 125px:** ONE unchanged domed chest silhouette with exactly TWO outer bronze band hoops and standard corner fixtures; the material clearly reads as **burnished dark bronze** against Common's black steel. ONE rounded tighter **slate-blue waxed flax** binding travels over the lid and ends in a compact upper-front knot with short tucked ends; no rope continues down the lower wood front. Its distinct upgraded green leafy sprig is tucked beside the knot. ONE recognizable non-glowing leaf carving occupies the exposed lower wood; one bright cyan gem in the upper clasp, subtle closed-lid seam light, premium crisp intentional pixel clusters and limited cel-shaded palette. No double band, armor enlargement, smooth-paint drift or Hunter trophy. Director's explicit acceptance is the controlling visual gate.
+
+**Small-scale review:** paired the unmodified uploaded Rare Gatherer attachment with the accepted Common Gatherer `1000018960.png` at **125px** via deterministic Lanczos reduction and nearest-neighbor enlarged QC copies. Clear differentiation through **bronze vs blackened-steel metal** and **blue tight braid vs golden coarse jute**, with denser green foliage; same family leaf/rope shape and approximately consistent scale/camera. At **64px**, bronze and blue binding still read; at **32px** the tiny leaf/fiber details become hard to identify, so 125px remains the controlling client review. The generated QC previews are derived aids, not substitute production originals.
+
+**Mechanical gate:** The JPEG attachment has NO alpha or flat chroma background. The required `ICON` transparency is unmet; no alpha matting, spill correction, exact square padding, lossless 256×256 WebP (<460800 bytes), dark-composite edge QC or `artpreflight.py --type ICON` has run. Do not automatically black-key a near-black wood/metal silhouette. No game requests/writes/uploads/publishing. Studio has **4/12 director visually accepted designs, 0/12 production-ready images**.
+
+**Next intended art slot:** Epic Hunter's Chest — silver metal / ridged horn / glossy near-black stitched leather / three cyan-glowing claws, with unchanged two-hoop body and short upper latch. Its isolated brief is **PREPARED BUT NOT LAUNCHABLE** until the genuine director-approved Rare Hunter bronze/talon ORIGINAL `rare_hunter_s_bronze_bound_chest.png` passes raw source/hash intake; the previously attached JPEG preview is not interchangeable. See `EPIC_HUNTER_SILVER_HORN_SHORT_LATCH_ISOLATED_BRIEF_20261021.md` and `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md`.
