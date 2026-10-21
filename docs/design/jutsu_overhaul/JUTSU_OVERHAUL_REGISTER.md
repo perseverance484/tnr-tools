@@ -497,27 +497,17 @@ taijutsu."
 boosts the user's own damage. "Closes distance" promises movement the jutsu does not have. The battle line
 has an em dash, three long sentences and `%target` twice on an empty-ground jutsu.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-019)
 
-Description:
-- **D1** "The user ignites their limbs with fire chakra and unleashes a spiralling flurry of burning
-  strikes that scorches every enemy in its path. The blaze keeps roaring through their body, making their
-  attacks hit harder for a short time."
-- **D2** "A taijutsu inferno: the user's strikes trail fire in a widening spiral, burning nearby enemies,
-  and the heat left in their limbs strengthens their attacks for a short while."
-- **D3** "The user becomes a whirl of burning fists and feet, searing every enemy the spiral reaches. The
-  flames they carry afterwards stoke their next attacks."
+- **Description** (D1): "The user ignites their limbs with fire chakra and unleashes a spiralling flurry of burning strikes that scorches every enemy in its path. The blaze keeps roaring through their body, making their attacks hit harder for a short time."
+- **Battle line** (B2): "Flames burst from %user's fists and feet as they whirl through a spiral of strikes, the heat building with every blow."
 
-Battle line (no `%target`):
-- **B1** "%user spins into a blazing spiral of kicks and punches, scorching every enemy it reaches as the
-  fire settles into their limbs."
-- **B2** "Flames burst from %user's fists and feet as they whirl through a spiral of strikes, the heat
-  building with every blow."
+Not chosen: D2, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/194 (QA ticket 22), awaiting the run |
 | Icon | PAUSED |
 
