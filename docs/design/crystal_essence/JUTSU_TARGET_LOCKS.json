@@ -184,8 +184,9 @@
       ],
       "anatomy_exception": null,
       "direction_approval": {
-        "status": "PENDING",
-        "evidence": null
+        "status": "APPROVED",
+        "evidence": "Director explicitly approved the Prism proposed P0 technique action, camera, exclusions and two reference roles in the persistent Crystal Essence Art Studio conversation on 2026-10-21 (reply: 'Approved'), at prior frozen studio head 60d1596b51f447ab74541591fd8b306e813dc350.",
+        "lock_sha256": "98e41e8e310bee9b46a31e3324789cebeb99a4bbebdd6be14025b754af97279d"
       }
     },
     {
@@ -325,10 +326,11 @@
   "next_target": {
     "jutsu_id": "6XpY1m4rAwrBHBKYsPRDJ",
     "name": "Prism",
-    "status": "P0_PROPOSED_PENDING_DIRECTOR",
+    "status": "P0_APPROVED_LOCK_VERIFIED_READY_FOR_ISOLATED_GENERATION",
     "source_original_sha256": "b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70",
     "style_reference_approved_sphere_sha256": "077cff98ed9767e673da0aef3a9f95cd7817b2d026c9ac82cdbcfa697ce986c4",
     "raw_approvals": "3/5",
-    "brief": "docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md"
+    "brief": "docs/design/crystal_essence/PRISM_ISOLATED_BRIEF_20261021.md",
+    "lock_sha256": "98e41e8e310bee9b46a31e3324789cebeb99a4bbebdd6be14025b754af97279d"
   }
 }
