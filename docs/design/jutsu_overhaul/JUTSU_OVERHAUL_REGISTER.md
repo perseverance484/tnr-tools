@@ -124,30 +124,20 @@ nature chakra envelops the shuriken increasing their speed and their destructive
 mentions the afterburn, the jutsu's real second effect; the battle line is one run-on sentence with a
 doubled space, no full stop and a trailing space; the description addresses "you" and has no full stop.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-008)
 
-Description (redrafted 2026-10-21 without "one foe", at the director's note):
-- **D1** "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike
-  the target and leave them smouldering, so the blows that follow burn deeper."
-- **D2** "The user hurls a flurry of shuriken and ignites them mid-flight. The blazing stars scorch the
-  enemy and leave them smouldering, so every hit they take soon after burns hotter."
-- **D3** "Fire nature chakra turns ordinary shuriken into blazing death stars. Whoever they strike is
-  left smouldering, the flames feeding on each blow that follows."
+- **Description** (D1): "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike the target and leave them smouldering, so the blows that follow burn deeper."
+- **Battle line** (B1): "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars and leaving them smouldering."
 
-Battle line:
-- **B1** "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars
-  and leaving them smouldering."
-- **B2** "%user weaves hand signs as the shuriken fly, and the stars burst into flame against %target,
-  leaving embers that flare with every blow."
+Not chosen: D2, D3, B2 (in git history).
 
-### Icon (PROPOSAL)
+### Icon (I2 APPROVED, dauntless 2026-10-21; RUL-2026-10-21-008)
 
 - **Theme palette:** Fire, ember orange and molten gold on charcoal.
-- **I1 (recommended):** one four-pointed shuriken wreathed in flame, spinning toward the viewer on a
-  falling diagonal, trailing a comet tail of fire like a falling star.
-- **I2:** three flaming shuriken in a falling-star arc, each trailing fire.
-- **I3:** a single shuriken embedded in charred ground, glowing ember cracks spreading from it (shows the
-  afterburn, but loses the "star in flight").
+- **Reserved silhouette (I2, approved):** three flaming four-pointed shuriken in a falling-star arc, each
+  trailing a tail of fire.
+- Not chosen: I1 (one flaming shuriken with a comet tail) and I3 (shuriken in charred ground with ember
+  cracks).
 - **Must not copy:** Poisonous Senbon's needle volley, Bakuhatsu's explosions and burst clusters,
   Searing Might's shield, Vaporia Scorch Break's fire fissure.
 - **Exemplar (style/material only):** Vaporia Scorch Break,
@@ -160,6 +150,6 @@ Battle line:
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
-| Icon | REQUEST DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/184 (QA ticket 13), awaiting the run |
+| Icon | DIRECTION APPROVED 2026-10-21 (I2); prompt `docs/handoffs/BLAZING_DEATH_STAR_ICON_DIRECTOR_PROMPT.md`; raw needs director approval |
 

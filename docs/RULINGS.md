@@ -1845,3 +1845,22 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 1).
 
 **Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets; the text ticket is built only after the push/178-181 census confirms the live record.
+
+## RUL-2026-10-21-008 — Blazing Death Star overhaul: text and icon direction approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text and icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Blazing Death Star (`y0fmp1QvVcQnBoVZVLFfL`) gets the description "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike the target and leave them smouldering, so the blows that follow burn deeper." and the battle line "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars and leaving them smouldering." Its new icon follows option I2: three flaming four-pointed shuriken in a falling-star arc, each trailing a tail of fire, in the jutsu-icon pixel-art rendering (ember orange and molten gold on charcoal), Vaporia Scorch Break as the style/material reference only. The director's visual approval of the raw still locks the art. Drafting note from the same review: single-target reach is not announced with stock phrases such as "one foe" ("You seem to have a fixation on 'one foe' as a term.").
+
+**Evidence:** User, 2026-10-21, after three redrafted descriptions, two battle lines and three icon options: "D1, B1, I2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 2).
+
+**Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets, the icon only after the text suggestion resolves.
+

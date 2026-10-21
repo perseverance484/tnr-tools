@@ -347,3 +347,17 @@ false (law 20). Not equipped by any AI (push/158-161). `validate.py --strict`: 0
 0 warnings. Manifest hash `b3d5e177`.
 **Run it only after push/182 shows APPLIED or REJECTED** under **Check suggestions**: approving one
 suggestion on a record makes any other open suggestion on it OUTDATED.
+
+## 184 Blazing Death Star text (suggest mode, QA ticket 13)
+
+`184_blazing_death_star_text.json` sends one text edit to the content review desk; it does not save
+directly. Blazing Death Star (`y0fmp1QvVcQnBoVZVLFfL`) said its fire chakra makes the shuriken faster,
+which no effect does, and never mentioned its second effect: for two rounds the target takes an extra
+20% of every hit as burn damage. Its battle line was one run-on sentence. The new description and
+battle line were approved by dauntless (RUL-2026-10-21-008; register section 2). Only text changes;
+`injectableInBattle` is re-sent at its live value, false (law 20). Live record from the push/180
+census (2026-10-21); not equipped by any AI (push/158-161); no other suggestion open on it.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
+Manifest hash `521f43cf`. Run it from Forge, then use **Check suggestions**. The new icon follows as
+its own ticket once this one resolves.
+
