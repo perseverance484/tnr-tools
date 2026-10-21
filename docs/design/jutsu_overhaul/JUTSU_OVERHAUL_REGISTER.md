@@ -103,3 +103,63 @@ Return the original asset after director visual approval.
 |---|---|
 | Text | APPROVED 2026-10-21; sent as push/182 (QA ticket 12), awaiting the run |
 | Icon | RAW APPROVED 2026-10-21 ("Honestly this one is approved, it matches the art style enough"); export `art/jutsu_icons/overhaul/exports/icon-jutsu-waters-domain.webp`, preflight 0/0; ticket push/183 waits for push/182 to resolve |
+
+## 2. Blazing Death Star
+
+| Field | Live (2026-10-21 census, push/180) |
+|---|---|
+| Id | `y0fmp1QvVcQnBoVZVLFfL` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `SINGLE`, `OPPONENT`, range 4; weapon NONE |
+| Cost | 60 AP, cooldown 7 |
+| Effect 1 | `damage` power 30, Fire, instant |
+| Effect 2 | `afterburn` 20%, on the target, 2 rounds: from the round after the cast, the target takes an extra 20% of every non-pierce hit it receives as burn damage, from anyone (`tags.ts` `afterburn`; capped at 60% of a hit when stacked) |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "Add fire nature chakra to your Shurikens". Battle line: "%user throws a
+barrage of shuriken at %target as they are  flying towards target they weave together handsigns as fire
+nature chakra envelops the shuriken increasing their speed and their destructive power "
+**What is wrong:** it claims the fire makes the shuriken faster, which no effect does; neither text
+mentions the afterburn, the jutsu's real second effect; the battle line is one run-on sentence with a
+doubled space, no full stop and a trailing space; the description addresses "you" and has no full stop.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "Shuriken wreathed in fire nature chakra blaze across the field like falling stars. They strike
+  one foe and leave it smouldering, so the blows that follow burn deeper."
+- **D2** "The user hurls a flurry of shuriken and ignites them mid-flight. The blazing stars scorch one
+  foe and set it smouldering, so every hit it takes soon after burns hotter."
+- **D3** "Fire nature chakra turns ordinary shuriken into blazing death stars. One foe is struck and left
+  smouldering, and the flames feed on each blow it takes for a short time."
+
+Battle line:
+- **B1** "%user hurls a fan of shuriken that ignite mid-flight, slamming into %target as blazing stars
+  and leaving them smouldering."
+- **B2** "%user weaves hand signs as the shuriken fly, and the stars burst into flame against %target,
+  leaving embers that flare with every blow."
+
+### Icon (PROPOSAL)
+
+- **Theme palette:** Fire, ember orange and molten gold on charcoal.
+- **I1 (recommended):** one four-pointed shuriken wreathed in flame, spinning toward the viewer on a
+  falling diagonal, trailing a comet tail of fire like a falling star.
+- **I2:** three flaming shuriken in a falling-star arc, each trailing fire.
+- **I3:** a single shuriken embedded in charred ground, glowing ember cracks spreading from it (shows the
+  afterburn, but loses the "star in flight").
+- **Must not copy:** Poisonous Senbon's needle volley, Bakuhatsu's explosions and burst clusters,
+  Searing Might's shield, Vaporia Scorch Break's fire fissure.
+- **Exemplar (style/material only):** Vaporia Scorch Break,
+  `art/jutsu_icons/vaporia/vaporia_scorch_break_jutsu_icon_v1.webp` (ember rendering on a dark ground).
+- **Rendering lock:** the reusable block in `docs/reviews/WATERS_DOMAIN_PIXEL_STYLE_ANALYSIS_2026-10-21.md`
+  section 7 (high-resolution pixel art; neither painterly nor chunky).
+- **Delivery filename:** `icon-jutsu-blazing-death-star.webp`.
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | REQUEST DRAFT, awaiting director pick |
+
