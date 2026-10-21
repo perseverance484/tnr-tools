@@ -1827,3 +1827,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/prompt_qa_ticket_pipeline.md` (DRAFT FOR INDEPENDENT REVIEW; its open decisions D1–D6 are listed in its §7).
 
 **Boundary:** No implementation has begun. The brief becomes the implementation contract only after independent review and the director's answers to the stage-one decisions (D1–D4).
+
+## RUL-2026-10-21-007 — Water's Domain overhaul: text and icon direction approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text and icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Water's Domain (`-8W4JOqG3Cb-oPQtF9rMs`) gets the description "Within the user's domain, water answers to them alone. It rises to crush their foe, then flows back to its master, deepening their healing for a short time." and the battle line "%user spreads their domain across the field, hurling its tide at %target before the waters pool back around %user to strengthen their healing." Its new icon follows option I1: a vast whirlpool basin with a churning white-foam rim and a calm eye glowing soft restorative aqua, in the approved jutsu-icon standard (deep blue and white foam, one aqua-teal accent), Vaporia Surfing Strike as the style/material reference only. The director's visual approval of the raw still locks the art.
+
+**Evidence:** User, 2026-10-21, after reviewing three descriptions, two battle lines and three icon options: "D2 with edits : 'Within the user's domain, water answers to them alone. It rises to crush their foe, then flows back to its master, deepening their healing for a short time.' B2 I1". Earlier the same day: "I think we need a better description for it than that, one that encompasses the technique name and it's effect better. This will be part of a larger overhaul, we will submit an art request for a new icon as well."
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 1).
+
+**Boundary:** No upload, live edit or publication is authorized. Text and icon go to the content review desk as separate Forge suggest-mode tickets; the text ticket is built only after the push/178-181 census confirms the live record.
