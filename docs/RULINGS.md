@@ -1752,9 +1752,13 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Canonical operative destination:** `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §§4–4b and 6–7, with durability/provenance in `docs/design/ghost_ship_chests/RARITY_MATERIAL_AND_TROPHY_REFINEMENT_20261020.md`, `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md` and studio register.
 
+**Rare Gatherer visual approval and next-source gate (2026-10-21):** The director responded **“Approved, next”** for the Rare Gatherer's Chest displayed as `1000018969.png`. The attached bytes were independently decoded as **JPEG/RGB 1536×1536, 304581 bytes, SHA-256 `c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`**, not a PNG/RGBA original; black opaque background, no production alpha. The accepted design preserves EXACT Common chest two-hoop/corner geometry and upper-front single knot while changing Common black steel to **BURNISHED DARK BRONZE** and honey-tan jute to the approved **SLATE-BLUE WAXED FLAX** rope; a slightly more distinctive attached green sprig, unlit front leaf carving, brighter skyglass and faint lid-seam light remain within the approved Rare ladder. Visually compared against Common Gatherer at 125px: material separation and family continuity PASS; 64/32px reductions were stress-only aids with details lost at 32px. This raises the workstream to **4/12 director visually approved chest designs**, but **0/12 production-ready exports**, no alpha/key, no lossless WebP or `artpreflight.py --type ICON` completed. The JPEG attachment identity is verified; any distinct original-generation PNG has not been supplied.
+
+**Next planned asset — Epic Hunter, BLOCKED on source verification:** The Epic design is already approved in principle by the material/trophy ladder (the original Common physical chassis with **POLISHED SILVER** metal, glossy near-black silver-stitched flat leather upper binding, exactly ONE RIDGED CURVED MONSTER HORN, one enlarged cyan gem and three gently glowing claw gouges). A new isolated brief `docs/design/ghost_ship_chests/EPIC_HUNTER_SILVER_HORN_SHORT_LATCH_ISOLATED_BRIEF_20261021.md` is prepared, but generation **must not start** until the actual director-approved Rare Hunter PNG `rare_hunter_s_bronze_bound_chest.png` (reported 1254×1254 RGBA, SHA-256 `99ca6f817fe390b0c9aff16cdc2016f70d897f44dbda2e06b511696a5da94f08`) is **received and independently verified** for same-family reference use. The distinct JPEG display preview `1000018962.png` is not interchangeable; reference fallback to Common Hunter is NOT automatically authorized. Once unblocked, Epic Hunter takes exactly original Reliquary + verified Rare Hunter original. The user remains the only live-game operator.
+
 **Ruling ID provenance:** Ghost Ship previously occupied draft ID `RUL-2026-10-20-005` on the isolated ChatGPT studio branch, but live `main` assigned 005 to **Village bloodline scroll icons** before integration. The unrelated main ruling is retained verbatim; this Ghost Ship record takes **006** to avoid duplicate IDs. No ruling was overwritten on main.
 
-**Boundary:** Six previously duplicated-band chests and subsequent smooth-painted/overlong-binding/oversized-armored candidates remain REJECTED as image references. **Three designs have director VISUAL approval** (corrected short-latch Common Hunter/Gatherer and bronze/talon Rare Hunter), but the latter's claimed ORIGINAL PNG/RGBA has not been supplied/verified. The two Common originals remain JPEG on black; zero icons have passed alpha/flat-key, lossless WebP, dark-composite checks or `artpreflight.py --type ICON`. The next generation is Rare Gatherer, attaching **only original Reliquary + approved Common Gatherer**. Future Epic Hunter is held at the source-reference gate until Rare Hunter's real approved original is obtained and verified. **0 live-game requests/writes; no upload or publishing authorized.** Actual chest rarity remains a separate director decision.
+**Boundary:** Earlier duplicated-band, smooth-painted, long-binding and bulky-armor chest candidates stay REJECTED image references. **Four current chest designs have director VISUAL approval** (the Common Hunter/Gatherer pair plus bronze/talon Rare Hunter and bronze/flax Rare Gatherer), but the claimed Rare Hunter PNG original remains unverified and the Rare Gatherer uploaded JPEG has no alpha. **No icon has passed safe alpha/chroma processing, lossless WebP export, dark-composite QC, or `artpreflight.py --type ICON` (0/12 production-ready).** The NEXT art design target is **Epic Hunter**, which remains **BLOCKED** until the approved Rare Hunter source original is actually verified and attached alongside the original Reliquary. **Zero game requests/writes, no uploads or publishing authorized.** Actual item rarity remains a separate director decision.
 
 ## RUL-2026-10-21-001 — Replacement Technique icon: log-swap art approved as an exception
 
@@ -1849,3 +1853,21 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 **Implementation:** `battle_lines.json` `effect_rounds: {"recoil": 2}` on B28. push/170 re-sends B28's live effects list with only that number changed, leaving out the obsolete `recoil.statTypes` key, which the server drops on any save (pinned keys: `forge/src/runner/nested.json`). The read-back check compares effects on the pinned keys.
 
 **Canonical destination:** `state/ai_pool_battle_lines/battle_lines.json` (source of push/170).
+
+## RUL-2026-10-21-006 — Next project: the QA ticket pipeline, with Forge Next Phase 1 as its stage one
+
+**Date:** 2026-10-21
+
+**Domain:** Roadmap / content QA / Forge Next
+
+**Status:** SHELVED 2026-10-21. The director: "Let's skip this for now, seems excessive." Ticket work continues by hand as suggest-mode manifests in `push/`, as for push/132–156. RUL-2026-09-20-004 is unchanged.
+
+**Supersedes:** none. Keeps RUL-2026-09-20-004 (Forge Next Phase 1 is the next implementation work, ahead of Presentation Studio P2) and gives Phase 1 a concrete work package.
+
+**Evidence:** The 92 suggestions sent to the content review desk on 2026-10-19 and 2026-10-20 (push/125–156) all read `PENDING` in their committed bundles. Forge records review outcomes only in the browser journal, so the director could not see what was approved or rejected, or why. Offered (1) the ticket pipeline with Phase 1 re-scoped as its first stage, or (2) Phase 1 as originally frozen, then the pipeline, the director answered: "Ticket pipeline with Phase 1 as stage one, draft the brief".
+
+**Ruling:** The next project is a find → fix → submit → track pipeline for content tickets. Stage one is `state/prompt_forge_next_phase1.md`, implemented as frozen, with its research-read registry's first rows being the review desk's `contentReview.getQueue` and `getProposal` (and, depending on decision D1, the paged catalog reads). Stage two is a ticket ledger. Stage three adds fix generators and the operating loop.
+
+**Canonical destination:** `state/prompt_qa_ticket_pipeline.md` (DRAFT FOR INDEPENDENT REVIEW; its open decisions D1–D6 are listed in its §7).
+
+**Boundary:** No implementation has begun. The brief becomes the implementation contract only after independent review and the director's answers to the stage-one decisions (D1–D4).
