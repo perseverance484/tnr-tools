@@ -11,7 +11,7 @@
 **Final delivery filename AFTER studio processing:** `icon-gs-chest-gatherer-common.webp`  
 **Live-game requests/writes:** 0/0. Credentials none; no upload, publication or repository art-binary writes.
 
-## Exact two image references (attach actual individual source bytes)
+## Attach EXACTLY TWO approved individual images — actual original source bytes
 
 1. **Original Skyglass Reliquary:** `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp` (Git blob SHA `eefd3e22c2fff6255f231b5402697b68f5fd7577`). **Material/palette only**: dark wood, near-black iron, pale-cyan faceted skyglass and cool highlights. **Never copy its flat lid, structural band pattern or rendering when it conflicts with premium pixel art.**
 2. **NEW director-approved Common Hunter, correct SHORT UPPER LATCH and pixel art:** conversation source `1000018956.png` (actual JPEG/RGB despite suffix, 1536×1536, 276722 bytes; exact SHA-256 `a46aa0279a7ba45784f397417c5fd4b8a5fb40ebde3a71074699d35ffdb7562c`). **Premium pixel clusters, cel-shading, composition, proportions, camera, EXACTLY two outer metal hoops, upper-front binding endpoint and scale ONLY.** Do **not** copy Hunter's flat saddle leather, fang, or three-claw wood brand into Gatherer. Its black JPEG background is NOT a production-alpha reference.
