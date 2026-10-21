@@ -1,6 +1,6 @@
 # Epic Gatherer's Chest — polished silver / sea-silk short-latch pixel-art generation
 
-**Status:** PREPARED; **GENERATION BLOCKED** pending provenance-verified approved Rare Gatherer generation-original bytes or an explicit director reference-only exception. Epic Gatherer director visual approval PENDING.  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-21) — polished silver/sea-silk/glowing-leaf Epic Gatherer; Rare Gatherer original ZIP source gate PASSED; exact Epic JPEG/RGB display attachment identity verified, Epic genuine generation-original and final alpha/export/preflight NOT_RUN.  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -12,12 +12,12 @@
 **Future exact processed filename:** `icon-gs-chest-gatherer-epic.webp`  
 **Live-game requests/writes:** 0/0; no credentials, game uploads, publishing, art-binary commits or production processing inside isolated generation.
 
-## Reference gate — EXACTLY TWO separate source images after Rare Gatherer source verification
+## Historic isolated-generation reference gate — PASSED (2026-10-21)
 
 1. **Original Skyglass Reliquary**, repository `art/ghost_ship_skyglass/icon_ghost_ship_skyglass_reliquary.webp`, Git blob SHA `eefd3e22c2fff6255f231b5402697b68f5fd7577`. **MATERIAL/PALETTE ONLY**: dark wood, near-black metal, restrained cyan facet lighting. **Not** a flat-lid geometry guide and not permission for smooth non-pixel art.
-2. **Director-approved new Rare Gatherer's Chest GENERATION ORIGINAL**, **exact original image bytes still NOT VERIFIED**. The artwork was visually approved on 2026-10-21. The only verified attachment was `1000018969.png` (actual **JPEG/RGB**, 1536×1536, 304581 bytes, SHA-256 `c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`), a re-rendered display with opaque black matte, **not proven to be the genuine generator-original image**. Require the director to supply the unmodified original as a file/ZIP and have the studio verify decoder, source hash, dimensions, any alpha, and identity before unlocking. **Do not invent its original name, PNG status, dimensions or hash**. When verified, use it for **GATHERER SUBJECT/FAMILY, premium pixel style, exact two-hoop/corner and short-knotted-rope geometry, camera and scale**. Do not copy its Rare bronze, slate-blue flax or unlit leaf as Epic's finished materials.
+2. **Director-approved authentic Rare Gatherer's Chest GENERATION ORIGINAL — VERIFIED:** `rare_gatherers_chest_original.png`, extracted byte-for-byte from director-uploaded `Rare_Gatherers_Chest_Original_PNG.zip` (archive SHA-256 `dc9811053edbe57a7b762168f2145fc91abf7b3be89698ae2722adf04e9c85f9`). Actual original **PNG/RGBA, 1254×1254, 1,375,718 bytes**, SHA-256 **`4a1ef5e71b915e12c517bd5b30d8ec6b4c163c0b7b363b5ea0575aa93cdb1a76`**, genuine alpha and transparent corners. Used as **GATHERER SAME-FAMILY SUBJECT, premium pixel style, two-hoop/corner and compact upper-knotted rope geometry, camera/scale reference**, not finished Epic metal/rope/brand palette. The distinct JPEG display `1000018969.png` stays historical evidence and NOT the approved original source.
 
-**If the director cannot provide the original**, an exception to use the independently verified JPEG as a **GENERATION REFERENCE ONLY** can be proposed, but **requires the director's explicit permission and a separate durable ledger decision**. Such an exception would never certify a transparent production source or allow publication.
+**Gate resolution:** original was successfully provided by ZIP and verified. No JPEG reference-only exception was needed or authorized. Production-ready export remains a different gate.
 
 **Forbidden additional references:** approved Epic Hunter's Chest as a third image, its `1000018979.png` JPEG display, Common Gatherer as an unapproved substitute for Rare Gatherer, old duplicated-band/painterly/long-binding candidates, contact sheets/collages, Sage's Strongbox, and any rejected-generation image. Epic Hunter material/tier direction is specified **in TEXT ONLY**, not as a third reference.
 
@@ -35,7 +35,7 @@
 
 **Premium high-quality TNR pixel art**, matching the accepted chest family: intentional crisp stepped pixel-cluster linework, flat cel ramps, limited low-key dark palette, discrete well-separated metal/silk/wood planes, controlled soft even cool rim accents, clean large silhouette at **125px**. No smooth painted/photoreal 3D surfaces, lens glows, motion blur, blurred antialiasing, heavy dithering/noise or chunky crude 8-bit pixels. Silver/sea-silk should read as distinct MATERIALS at 125px even without glow.
 
-## One-target generation text (ONLY after source gate PASS)
+## Isolated generation text — reference gate PASSED and director approved resulting artwork
 
 **Subject:**
 
@@ -51,9 +51,20 @@
 
 ## Acceptance / handback protocol
 
-1. **Generation STOP gate:** obtain and verify the genuine director-approved Rare Gatherer original, or explicit director reference-only JPEG exception recorded in the studio/canonical routing. Do not use unverified `1000018969.png` silently.
-2. **Then one NEW isolated image-generation conversation only**, exactly two separately attached sources: original Skyglass Reliquary + approved Rare Gatherer reference. Generate exactly ONE Epic Gatherer candidate.
+1. **DONE / SOURCE PASS (2026-10-21):** director supplied ZIP with verified Rare Gatherer original PNG/RGBA 1254×1254 and exact SHA-256 `4a1ef5e71b915e12c517bd5b30d8ec6b4c163c0b7b363b5ea0575aa93cdb1a76`. Reference eligibility confirmed. JPEG display never substituted.
+2. **DONE / VISUAL DIRECTOR APPROVAL:** One Epic Gatherer candidate was generated in an isolated session using the approved references. Director subsequently said “Approved, next.” Exact received display bytes and independent visual QC are recorded below. No production output is implied.
 3. Inspect in order: **same Common geometry (two hoops, original corner shapes) → single short-knotted round sea-silk → silver material instead of bronze → upgraded compact sprig → recognizable glowing single leaf brand → larger cyan gem → crisp premium pixel clusters and native alpha**. Compare at 125px against approved Rare Gatherer and the Epic Hunter tier's textual silver/glow target (do not attach Epic Hunter).
 4. Present one candidate for **director visual approval**. Same-subject revisions may remain; after two wrong-subject/composition failures, close and restart clean.
 5. On approval return EXACT unmodified source bytes and provenance to this studio. Studio separately performs input MIME/dim/hash/alpha QC, 125/64/32px comparisons, safe alpha/chroma and spill-clamp, transparent square-padding, lossless WebP recommended 256×256 / **<460800 bytes**, dark-edge composite check, and canonical `artpreflight.py --type ICON`. No game publishing/writes.
-6. Next after approved Epic Gatherer: Legendary Hunter, using only Reliquary + individually director-approved Epic Hunter **genuine original source** as the two generation references once its source identity gate has passed.
+6. **NEXT intended Legendary Hunter:** current silver/ridged-horn Epic Hunter design is director-approved visually, but its uploaded file `1000018979.png` is a JPEG/RGB black display. Obtain the genuine Epic Hunter unmodified generator ORIGINAL via file/ZIP for byte/format/alpha/source QC, or an explicit director-approved JPEG-reference-only exception, before using it as the second reference beside original Reliquary. A NEW starsteel/fossil-tusk brief is prepared at `LEGENDARY_HUNTER_STARSTEEL_FOSSIL_TUSK_ISOLATED_BRIEF_20261021.md`. The older pre-reset Legendary Hunter brief remains revoked.
+
+## Director-approved Epic Gatherer — exact displayed pixels and QC (2026-10-21)
+
+**Director:** “Approved, next.” This explicitly approves the polished-silver/sea-silk/glowing-leaf Epic Gatherer visual after authenticated Rare Gatherer ZIP intake. It does not approve processing/publishing.
+
+- **Exact attached display:** `1000018986.png` is actually **JPEG/RGB** despite the `.png` filename, **1536×1536**, **332,255 bytes**, SHA-256 **`7ef536a950e085bcd98f8a1ddb189b081cd8ac6f0669ae77fbe001c74b66da3c`**; opaque black corners `(0,0,0)`, no alpha. This hashes only the attached display pixels; an authentic PNG/RGBA generation-original for Epic Gatherer (if distinct) was **NOT provided**. Do not mislabel this JPEG as a source-original or ready-to-upload ICON.
+- **Geometry / family PASS at source and 125px:** unchanged Common/Rare domed chest, exactly two ORIGINAL-shaped curved outer metal hoops with standard corner rivets/plates; one PALE SILVER-GRAY sea-silk round braided rope with silver-toned fibers over lid, one compact knot/keeper at upper front, small short tucked rope ends, **no rope to base**. Compact upgraded green/emerald leaf sprig tucked beside knot; exposed dark front wood with one recognizable **SOFTLY CYAN-GLOWING LEAF BRAND**, not Hunter claws. Larger brilliant cyan faceted gem and restrained seam cyan light. **POLISHED SILVER** existing hardware (not starsteel/gold), premium coherent pixel clusters and limited cel-shading; no duplicate right band/giant armor/smooth paint.
+- **Gatherer tier preview QC:** compared unmodified Common Gatherer `1000018960.png` (JPEG display), verified authentic Rare Gatherer `rare_gatherers_chest_original.png` (**PNG/RGBA**, composited over black for like-for-like display), and new Epic Gatherer JPEG at **125px** through deterministic Lanczos reduction. Clear dark steel/honey jute/non-glowing leaf → dark bronze/slate-blue flax/unlit leaf → polished silver/silver-gray sea-silk/**glowing** leaf transition with SAME physical geometry. 64px and 32px stress-preview reductions were also produced; large color/band changes remain at 64px, fine foliage/leaf/gem details heavily compress at 32px. The controlling size is **125px**, not an actual in-game screenshot. Previews do not alter original raw bytes.
+- **Mechanical state:** black JPEG display lacks native alpha. The `ICON` alpha requirement, valid input source provenance, output lossless WebP (<460800 bytes), dark-composite edge QC, `artpreflight.py --type ICON` remain **NOT_RUN**. No raw art binary committed. No game requests/writes, credentials, uploads or publishing. Current **6/12 director-approved VISUAL designs; 0/12 production-ready exports**.
+- **Next reference gate:** Legendary Hunter requires `EPIC_HUNTER` approved **original** source, NOT the Epic Gatherer just accepted. Epic Hunter only has a verified JPEG/RGB display `1000018979.png` in this studio. Before the new Legendary Hunter generation, obtain its authentic file in ZIP/Files or record director-authorized JPEG reference-only exception; never automatically substitute JPEG or add a third reference.
+
