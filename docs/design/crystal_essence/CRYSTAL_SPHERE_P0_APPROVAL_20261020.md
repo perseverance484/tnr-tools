@@ -6,7 +6,7 @@ Director replied “Approved” to the Crystal Sphere design proposed at studio 
 - Action: one continuous faceted protective shell deflects an incoming upper-right strike, with a concentrated chipped-facet flash. Dark center; no human anatomy.
 - Director-approved family rendering: Luminous Silicate — Warm-Core Refraction.
 - Immutable approved P0 target-lock SHA-256: `7470dd1e720c5081c4d209561c4d7e30e3151542786f5577b0f6c2b1820c0c8e`.
-- Exact lock file Git blob: `ba6b4c64aa9ded27eb9f7413e1a3c21ebe5f0e4f`.
+- Exact lock file Git blob: `046839381caf31d6b84e9341e06bc46dcd8565be`.
 - Individual identity reference: original Crystal Sphere PNG, SHA-256 `be71cec840a8a359c47bf7a1d5dbc0c953c020cf2f6fead4ea997cf64b835e74`.
 - Individual style/material reference: exact approved Kōsai JPEG, SHA-256 `84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5`; never copy its three traveling crescents.
 - Historical source: 2026-10-17 `jutsu.get` capture index 3 in `harvests/inbox/tnr_results_1792216502874.json`. Not current live proof.
