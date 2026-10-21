@@ -386,3 +386,15 @@ Not run. Replaced by a full rework (new name and text); archived under `archive/
 Submitted 2026-10-21 as suggestion `H5owbVykZkUFsjyOGfGua` (PENDING). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+## 189 Flame Barrage text (suggest mode, QA ticket 17)
+
+`189_flame_barrage_text.json` sends one text edit to the content review desk; it does not save directly.
+Flame Barrage (`OZp6neM54VPLXIzHc713P`) claimed the enemy takes more ninjutsu damage afterwards and that
+the user moves; its second effect boosts the user's own damage, and it has no movement. Its battle line
+used `%target` on a ground-targeted spiral. The new description and battle line were approved by
+dauntless (RUL-2026-10-21-014; register section 6). Only text changes; `injectableInBattle` is re-sent
+at its live value, false (law 20). Live record from the 2026-10-21 census; not equipped by any AI
+(push/158-161); no other suggestion open on it. `validate.py --strict`: 0 errors, 0 warnings.
+`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `ab681609`. Run it from Forge,
+then use **Check suggestions**.
+
