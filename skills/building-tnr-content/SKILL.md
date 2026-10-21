@@ -36,6 +36,7 @@ references are for deep dives and for editing (packs re-render from them).
 | Jutsu build/edit that pushes | `packs/jutsu-build.md` |
 | AI enemy build/edit that pushes | `packs/ai-build.md` |
 | Quest/event build/edit that pushes | `packs/quest-build.md` |
+| Jutsu descriptions and battle lines (new jutsu or text fixes) | `references/jutsu_text.md` |
 | Items, weapons, loot chests, crafting | `references/item.md` + pipeline sections via `_toc` |
 | Tuning numbers, tiering, reward scale | `references/balance.md` |
 | Processing a submitted staff design sheet into a whole event | `references/event.md` (staff canvas is `EVENT_SHEET.md` at repo root) |
