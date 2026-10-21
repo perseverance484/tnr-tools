@@ -105,3 +105,8 @@ suggestion `YPylvcpG3knNN5vzLQ4pD`, status PENDING.
 Result `harvests/inbox/tnr_results_1792598103539.json` (Forge), hash `068643ae` matching, outcome success:
 suggestion `BbegNUANjqTR0GSCbj-Ms`, status PENDING.
 
+## 192 martial_movement_text (QA ticket 20) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792600091125.json` (Forge), hash `b0e15d63` matching, outcome success:
+suggestion `gj-3F1OuG_H5zPQJwOe9H`, status PENDING.
+
