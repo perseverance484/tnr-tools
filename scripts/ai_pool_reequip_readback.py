@@ -34,6 +34,27 @@ MASTERIES = {"ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsu
 MASTERY_ROUNDING = 0.005 + 1e-9
 
 
+def effects_key(effects):
+    """Effects on the keys allowed at the pin, with the server's own statTypes normalisation applied.
+
+    The schema rewrites statTypes "Highest" to "None" on every save (validators/combat.ts IncludeStats,
+    studie-tech/TheNinjaRPG@dcf1cea), and realizeTag (libs/combat/tags.ts:105-110) maps a stored
+    "Highest" to "None" before any effect, passive ones included, enters a battle. So the two are the
+    same in combat, and a save that turns one into the other is not a difference.
+    """
+    out = []
+    for e in pinned(effects)[0]:
+        e = dict(e)
+        if isinstance(e.get("statTypes"), list):
+            e["statTypes"] = ["None" if t == "Highest" else t for t in e["statTypes"]]
+        if e.get("statTypes") is None:
+            e.pop("statTypes", None)
+        if e.get("generalTypes") in (None, []):
+            e.pop("generalTypes", None)
+        out.append(e)
+    return out
+
+
 def bodies(paths, proc, key):
     out = {}
     for f in paths:
@@ -54,8 +75,8 @@ def compare_columns(before, after):
             continue
         b, a = before.get(k), after.get(k)
         if k == "effects":
-            if pinned(b)[0] != pinned(a)[0]:
-                problems.append(f"effects differ: {json.dumps(pinned(b)[0])[:100]} -> {json.dumps(pinned(a)[0])[:100]}")
+            if effects_key(b) != effects_key(a):
+                problems.append(f"effects differ: {json.dumps(effects_key(b))[:100]} -> {json.dumps(effects_key(a))[:100]}")
             continue
         if k in MASTERIES and isinstance(a, (int, float)) and isinstance(b, (int, float)) and abs(a - b) <= MASTERY_ROUNDING:
             continue
@@ -86,14 +107,14 @@ def check_jutsu(before, after, sent):
             continue
         if k == "effects" and k in sent:
             # The server drops effect keys its validators no longer define, so compare on the pinned keys.
-            if pinned(after.get(k))[0] != pinned(sent[k])[0]:
-                problems.append(f"effects: sent {json.dumps(pinned(sent[k])[0])[:100]}, read {json.dumps(pinned(after.get(k))[0])[:100]}")
+            if effects_key(after.get(k)) != effects_key(sent[k]):
+                problems.append(f"effects: sent {json.dumps(effects_key(sent[k]))[:100]}, read {json.dumps(effects_key(after.get(k)))[:100]}")
         elif k in sent:
             if after.get(k) != sent[k]:
                 problems.append(f"{k}: sent {json.dumps(sent[k])[:80]}, read {json.dumps(after.get(k))[:80]}")
         elif k == "effects":
-            if pinned(before.get(k))[0] != pinned(after.get(k))[0]:
-                problems.append("effects changed although 170 does not send them")
+            if effects_key(before.get(k)) != effects_key(after.get(k)):
+                problems.append(f"effects changed although 170 does not send them: {json.dumps(effects_key(before.get(k)))[:100]} -> {json.dumps(effects_key(after.get(k)))[:100]}")
         elif before.get(k) != after.get(k):
             problems.append(f"{k} changed although 170 does not send it: {json.dumps(before.get(k))[:60]} -> {json.dumps(after.get(k))[:60]}")
     return problems
@@ -127,7 +148,12 @@ def main(argv):
             print("   not a push/162-177 bundle")
             bad += 1
             continue
-        failed = [it for it in bundle.get("entries") or [] if it.get("state") != "ok" or it.get("verdict") not in (None, "match")]
+        # Forge's own verify compares raw values, so it reports the Highest -> None save rewrite as drift.
+        # The read-back below is the authority; an entry only fails here if it did not save.
+        failed = [it for it in bundle.get("entries") or [] if it.get("state") != "ok"]
+        for it in bundle.get("entries") or []:
+            if it.get("state") == "ok" and it.get("verdict") not in (None, "match"):
+                print(f"   note {it.get('name')}: Forge verdict {it.get('verdict')} (checked against the read-back below)")
         for it in failed:
             print(f"   ENTRY {it.get('name')}: state {it.get('state')}, verdict {it.get('verdict')}")
         bad += len(failed)

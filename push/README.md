@@ -351,6 +351,11 @@ editing a jutsu an AI has equipped severs that AI's combat link. So the order is
 Check every results bundle before the next manifest:
 `python3 scripts/ai_pool_reequip_readback.py harvests/inbox/<results>.json`. It must print 0 problems.
 
+**Expected Forge "drift":** on save the server rewrites an effect's `statTypes` value `"Highest"` to `"None"`
+(`validators/combat.ts` IncludeStats). Combat already treats a stored `"Highest"` as `"None"` (`libs/combat/tags.ts`
+`realizeTag`), so nothing changes in battle. Forge's verify compares raw values and can report it as drift (push/170:
+Backlash Palm); the read-back script applies the same mapping and is the authority.
+
 - **What the unequip sends:** only the `jutsus` list, minus the *equipped* pool rows. The 117 pool rows
   stored as unequipped are never sent in either direction, so they stay unequipped (RUL-2026-10-18-005).
   Items, stats and rules are not sent; Forge re-sends the live items with their drop chances.
