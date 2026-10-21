@@ -66,3 +66,9 @@ Read-only fresh records for the player jutsu overhaul (QA tickets from 12). Resu
   classification, target type); its effects are unchanged. push/182 is built on this read.
 - `178_player_jutsu_census.gen.py` is kept as run; it reads paths relative to the repository root.
 
+## 182 waters_domain_text (QA ticket 12) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792580890032.json` (Forge, 2026-10-21T11:08Z), hash `1f1f4646`
+matching, outcome success: Water's Domain suggested and found in the review queue as suggestion
+`QLhebDwC6QNumb_iRqIVm`, status PENDING. The review outcome is not known yet; push/183 (icon) waits on it.
+

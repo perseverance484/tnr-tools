@@ -331,15 +331,19 @@ manifests, their generator and the outcome are under `archive/spent-manifests/pu
 
 Run 2026-10-21, 590/590 reads ok. Manifests and outcome under `archive/spent-manifests/push-2026-10-21/`.
 
-## 182 Water's Domain text (suggest mode, QA ticket 12)
+## 182 Water's Domain text: RUN, pending review
 
-`182_waters_domain_text.json` sends one text edit to the content review desk; it does not save
-directly. Water's Domain (`-8W4JOqG3Cb-oPQtF9rMs`) said in its battle line that it saps the target's
-strength, which no effect does, and neither text mentioned its second effect: the caster's own
-healing is 25% stronger for two rounds. The new description and battle line, built on the jutsu's
-name, were approved by dauntless (RUL-2026-10-21-007; register
-`docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md`). Only text changes; `injectableInBattle` is
-re-sent at its live value, false (law 20). Live record confirmed in the push/178 census (2026-10-21);
-not equipped by any AI (push/158-161). `validate.py --strict`: 0 errors, 0 warnings.
-`forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `1f1f4646`. Run it from Forge,
-then use **Check suggestions**. The new icon follows as its own ticket.
+Submitted 2026-10-21 as suggestion `QLhebDwC6QNumb_iRqIVm` (PENDING). Archived under
+`archive/spent-manifests/push-2026-10-21/`. Check its status with **Check suggestions** before running 183.
+
+## 183 Water's Domain icon (suggest mode)
+
+`183_waters_domain_icon.json` sends the new Water's Domain icon to the content review desk; it does not
+save directly. The art (`art/jutsu_icons/overhaul/exports/icon-jutsu-waters-domain.webp`, pinned by
+commit `f575f42` and SHA-256 in `imagePack`) is the director-approved whirlpool (RUL-2026-10-21-007,
+raw approved 2026-10-21). Only `image` changes; `injectableInBattle` is re-sent at its live value,
+false (law 20). Not equipped by any AI (push/158-161). `validate.py --strict`: 0 errors, 0 warnings.
+`forge/tools/check_manifest.mjs`: 0 pre-send problems. `artpreflight.py --type JUTSU_ICON`: 0 errors,
+0 warnings. Manifest hash `b3d5e177`.
+**Run it only after push/182 shows APPLIED or REJECTED** under **Check suggestions**: approving one
+suggestion on a record makes any other open suggestion on it OUTDATED.

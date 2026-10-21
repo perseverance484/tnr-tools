@@ -1,0 +1,37 @@
+{
+ "_note": "New Water's Domain icon (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 1; direction RUL-2026-10-21-007, raw director-approved 2026-10-21). Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes; injectableInBattle is re-sent at its live value (false, push/178 census 2026-10-21; law 20). Not equipped by any AI (push/158-161). RUN ONLY AFTER push/182 (text, suggestion QLhebDwC6QNumb_iRqIVm) shows APPLIED or REJECTED under Check suggestions: approving one suggestion on a record makes any other open suggestion on it OUTDATED. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New jutsu icon",
+  "rationale": "New icon from the director-approved player jutsu overhaul."
+ },
+ "imgSizes": {
+  "icon-jutsu-waters-domain.webp": 116394
+ },
+ "imagePack": {
+  "ref": "f575f429ceeff48aec83b722aa97eb5aafada385",
+  "files": {
+   "icon-jutsu-waters-domain.webp": {
+    "path": "art/jutsu_icons/overhaul/exports/icon-jutsu-waters-domain.webp",
+    "sha256": "f25305856592d39414a741c2b28b94aa35ec53e3daab93b05fb00d2717bf6b43",
+    "bytes": 116394
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Water's Domain",
+   "targetId": "-8W4JOqG3Cb-oPQtF9rMs",
+   "data": {
+    "image": "@img:icon-jutsu-waters-domain.webp",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "New icon: a whirlpool of deep blue water ringed by white foam, spiralling into a calm centre that glows aqua. It shows the user's domain of water crushing a foe and the waters flowing back to strengthen the user's healing, matching the jutsu's new description. Drawn in the game's pixel-art icon style; it replaces the old icon as part of the Water's Domain overhaul."
+   }
+  }
+ ]
+}
