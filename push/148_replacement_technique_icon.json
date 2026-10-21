@@ -1,0 +1,37 @@
+{
+ "_note": "New Replacement Technique icon (starter jutsu icons, Phase 1; docs/design/starter_jutsu_icons/JUTSU_ICON_REGISTER.md). The art is a director-approved exception to the register's reserved silhouette (RUL-2026-10-21-001). Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes; injectableInBattle is re-sent at its live value (true, 2026-10-20 public read; law 20). No AI equips it in the committed captures (laws 18, 60). Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New jutsu icon",
+  "rationale": "New icon from the director-approved starter jutsu icon set."
+ },
+ "imgSizes": {
+  "icon-starter-replacement-technique.webp": 99508
+ },
+ "imagePack": {
+  "ref": "bbf3142d90b3395425467327d50385761070db05",
+  "files": {
+   "icon-starter-replacement-technique.webp": {
+    "path": "art/jutsu_icons/starter/exports/icon-starter-replacement-technique.webp",
+    "sha256": "d4a5fbb72cf887677665aafd9321651da6bd64c95bfb0c4d866206cf68d7d36b",
+    "bytes": 99508
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Replacement Technique",
+   "targetId": "clh4d6pok0002tb0hx1bxro6l",
+   "data": {
+    "image": "@img:icon-starter-replacement-technique.webp",
+    "injectableInBattle": true
+   },
+   "suggestion": {
+    "rationale": "New icon: a wooden log caught in a burst of smoke, with two glowing chakra arrows circling it, showing the instant swap that moves the user to another tile. It replaces the old small scene of a posing ninja, which was hard to read at small sizes."
+   }
+  }
+ ]
+}
