@@ -42,7 +42,7 @@ WORDS = {
 }
 AREA = {"ALL": "all in range", "AOE_LINE_SHOOT": "line", "AOE_CIRCLE_SHOOT": "ring",
         "AOE_CIRCLE_SPAWN": "area", "AOE_SPIRAL_SHOOT": "spiral"}
-WHO = {"SELF": "self", "OTHER_USER": "enemy", "EMPTY_GROUND": "ground", "ALLY": "ally"}
+WHO = {"SELF": "self", "OTHER_USER": "other fighter", "OPPONENT": "enemy", "EMPTY_GROUND": "ground", "ALLY": "ally"}
 
 
 def lint(code, line, target):
@@ -53,7 +53,7 @@ def lint(code, line, target):
         out.append(f"{code}: {len(sentences)} sentences (want 2-3)")
     if "%user" not in line:
         out.append(f"{code}: no %user")
-    if target in ("OTHER_USER", "ALLY") and "%target" not in line:
+    if target in ("OTHER_USER", "OPPONENT", "ALLY") and "%target" not in line:
         out.append(f"{code}: targets {target} but has no %target")
     if target in ("SELF", "EMPTY_GROUND") and "%target" in line:
         out.append(f"{code}: %target on a {target} jutsu")
