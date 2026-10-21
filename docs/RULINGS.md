@@ -2080,3 +2080,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-021 — Liquid Palm text approved; house style derived; full-census sweep requested
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** (1) Liquid Palm (`boyPcTIywrR-adY6M6ZAN`) gets the description "The user flows to a new position and unleashes rapid water-charged palm strikes on the enemies around them. The current keeps moving through their body afterwards, turning part of every blow they take into health for a short time." and the battle line "%user glides forward on a rush of water chakra and crashes into nearby enemies with rapid palm strikes, the current around them ready to drink in the next blow." (2) The director's choices so far are distilled into a house style, `docs/design/jutsu_overhaul/WRITING_STYLE.md`. (3) Every eligible jutsu in the 2026-10-21 census is checked against that style and the live effects, and the edits go out as one master suggest-mode manifest, one suggestion per jutsu (each still approved or rejected on its own at the review desk).
+
+**Evidence:** User, 2026-10-21: "D1, B2. Analyze my choices thus far to develop a writing style. Then analyze all jutsu in the census for edits and create one master manifest to submit tickets for each."
+
+**Canonical destination:** `docs/design/jutsu_overhaul/WRITING_STYLE.md` (style); `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (Liquid Palm, section 13).
+
+**Boundary:** No live edit or publication is authorized. Names, effects and balance are out of scope for the sweep; name and mechanics findings are flagged to the director. This ruling is the director's go-ahead for sweep text written in the house style without one-by-one picks; the review desk remains the approval step.
+
