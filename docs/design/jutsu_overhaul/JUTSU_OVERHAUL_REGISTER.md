@@ -418,26 +418,17 @@ behind their attacks and reducing the damage they can deliver."
 **What is wrong:** "evades attacks" promises a defensive effect the jutsu does not have. The rest is close.
 The battle line uses `%target` on an empty-ground jutsu, so it prints literally when no enemy is near.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-017)
 
-Description:
-- **D1** "The user glides to a new position with disciplined footwork, landing in a way that throws nearby
-  enemies off their rhythm. For a short time, they strike with less force."
-- **D2** "A measured martial step carries the user across the field. Its flowing feints unsettle every enemy
-  close to where they land, dulling their attacks for a short while."
-- **D3** "Footwork honed through endless drills: the user repositions in a single fluid movement and breaks
-  the timing of nearby enemies, weakening their attacks for a short time."
+- **Description** (D2): "A measured martial step carries the user across the field. Its flowing feints unsettle every enemy close to where they land, dulling their attacks for a short while."
+- **Battle line** (B1): "%user crosses the field in a few controlled steps and settles into a flowing guard, throwing nearby enemies off their rhythm."
 
-Battle line (no `%target`):
-- **B1** "%user crosses the field in a few controlled steps and settles into a flowing guard, throwing
-  nearby enemies off their rhythm."
-- **B2** "%user weaves across the battlefield with disciplined footwork, feinting so sharply on landing that
-  nearby enemies lose the force behind their strikes."
+Not chosen: D1, D3, B2 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/192 (QA ticket 20), awaiting the run |
 | Icon | PAUSED |
 

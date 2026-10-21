@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 20 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 9). Suggest mode: content review desk, no direct save. Martial Movement's description claimed it evades attacks (no such effect); it moves the user and weakens nearby enemies' attacks. Battle line used %target on an empty-ground jutsu. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-017). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Martial Movement",
+   "targetId": "V34OBxnSDj6PfxT4Y3fhx",
+   "data": {
+    "description": "A measured martial step carries the user across the field. Its flowing feints unsettle every enemy close to where they land, dulling their attacks for a short while.",
+    "battleDescription": "%user crosses the field in a few controlled steps and settles into a flowing guard, throwing nearby enemies off their rhythm.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description claimed it evades attacks; it has no such effect. It moves the user and weakens nearby enemies' attacks (-10% damage, 2 rounds). Rewritten to match; %target removed from the battle line (it printed literally on empty ground)."
+   }
+  }
+ ]
+}
