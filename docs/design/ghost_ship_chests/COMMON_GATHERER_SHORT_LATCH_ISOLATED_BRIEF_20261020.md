@@ -1,6 +1,6 @@
 # Isolated generation 02 — Common Gatherer's Chest (short-latch premium pixel-art restart)
 
-**Status:** READY FOR CLEAN ISOLATED GENERATION; director visual approval PENDING  
+**Status:** DIRECTOR VISUALLY APPROVED (2026-10-20) — premium TNR pixel-art Common Gatherer `1000018960.png`; source has opaque black JPEG background, alpha/export/preflight pending  
 **Lead:** Image Production · **Support:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -50,3 +50,17 @@ Match approved short-latch Hunter **`1000018956.png`** precisely in:
 3. Present ONE candidate for **director visual approval**. Same-target revisions may remain here; after TWO wrong-subject/composition results close and restart clean. No other chest/tier image is authorized.
 4. On approval return exact raw source bytes, actual decoder format, dimensions, SHA-256 and target to persistent Art Studio. The studio alone handles native alpha / safe chroma processing, transparent square padding, lossless WebP (256×256 recommended, <460800 bytes), dark-composite edge QC, 125/64/32px tests and `artpreflight.py --type ICON`. **No preflight result or game upload is implied by director visual approval.**
 5. Next slot only after this approved Gatherer: Rare Hunter (new clean isolated generation with original Reliquary plus the **approved short-latch Common Hunter**, never the unapproved Gatherer as a third reference). Tier ornaments sit **on existing two end hoops**; center leather/fang changes to approved Rare material/motif.
+
+## Director approval and actual source intake — 2026-10-20
+
+**Director:** “Approved, next.” This is **final visual acceptance** of the shown corrected short-latch Common Gatherer's Chest, not production/readiness approval.
+
+**Original attached to studio:** `1000018960.png`, **actual decoded JPEG (RGB)** despite its PNG filename; **1536×1536**, **283293 bytes**, raw SHA-256 `7721f96c04fe1c13475a0d7428b77a64999de70a69a822c5ec379d1faf8a961d`. Exact bytes are conversation-supplied, not pinned in Git. A byte-identical correctly named JPEG copy is available in this conversation as `ghost_ship_common_gatherer_short_latch_approved_original_20261020.jpg`.
+
+**Visual subject QC:** one closed domed-lid chest; two and only two curved metal end hoops attached to corner fixtures; **one centered round honey-tan three-strand twisted jute rope**, ending in a **compact knot with short tucked ends immediately below the lid seam**, with **NO long rope down the lower wood face**. One small fresh green sprig tucked at the knot; single recognizable warm-wood leaf brand exposed on lower front; one small faceted cyan skyglass clasp; plain Common iron and dark wood. Premium visible deliberate pixel clusters and cel-shadow ramps match approved short-latch Common Hunter. No Hunter fang/flat leather/claws in Gatherer.
+
+**125px sibling gate:** compared directly against director-approved Common Hunter short latch `1000018956.png` with deterministic Lanczos resampling of both individual unmodified original files. **PASS for family distinction:** one flat saddle-brown leather/fang + three claw gouges versus a clearly round honey-tan rope/green sprig + single carved leaf. Identical two-end-hoop/chest construction and consistent eye-level 3/4 pixel style. **64px and 32px stress previews also generated**; small cues compress but recognizable family difference persists. This is art-review aid, not a full game-client acceptance or alpha preflight.
+
+**Production issue not resolved:** JPEG has **opaque black** background (corner RGB 0,0,0), **no native alpha or true flat lime/magenta key**. The user-approved visual must still undergo separately authorized edge-safe alpha extraction/padding, lossless 256×256 WebP, dark-composite QC and canonical `artpreflight.py --type ICON`. Neither this raw nor the approved Hunter is an upload-ready `ICON`. Export bytes and preflight status **NOT_RUN**, no game calls, writes or publishing.
+
+**Next gate:** Rare Hunter's Chest in a **new isolated generation session**, with exactly **two separate originals attached**: (1) original Reliquary as material/palette only, and (2) director-approved **short-latch pixel-art Common Hunter `1000018956.png`** as the same-family subject, pixel style, geometry and camera reference. Do not attach this Gatherer as a third image; Rare-tier direction in canonical brief and `RARE_HUNTER_SHORT_LATCH_PIXEL_ART_ISOLATED_BRIEF_20261020.md`.
