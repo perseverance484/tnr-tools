@@ -90,3 +90,8 @@ Result `harvests/inbox/tnr_results_1792587305188.json` (Forge, 2026-10-21T12:55Z
 matching, outcome success: the rename to Bedrock Stance passed submit-time validation and was found in
 the review queue as suggestion `H5owbVykZkUFsjyOGfGua`, status PENDING.
 
+## 189 flame_barrage_text (QA ticket 17) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792597423853.json` (Forge, 2026-10-21T15:43Z), hash `ab681609`
+matching, outcome success: suggestion `xyt0fWuyHjJuTSBcteOvA`, status PENDING.
+

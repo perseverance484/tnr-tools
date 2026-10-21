@@ -317,6 +317,55 @@ Not chosen: D2, D3, B2 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/189 (QA ticket 17), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/189, suggestion `xyt0fWuyHjJuTSBcteOvA`, PENDING |
+| Icon | PAUSED |
+
+## 7. Kinjutsu: Black Thorn Rose
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `qB550OM_X-Mh0w_KlNNji` |
+| Type / rank / gate | NORMAL, S rank, Jonin |
+| Reach | `AOE_SPIRAL_SHOOT` on `GROUND`, range 4: a spiral-shaped area; the debuff hits enemies only |
+| Cost | 40 AP, cooldown 7; 500 chakra, 500 stamina and **100 health** |
+| Effect 1 | `decreaseheal` 40%, on enemies hit, 2 rounds: their healing (heals, lifesteal, vamp, absorb) is weaker |
+| Effect 2 | `decreasedamagetaken` 20%, **target SELF**, 2 rounds: the user takes less damage |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2025-06-11 |
+
+**Old text.** Description: "Once learned, this jutsu marks the user with a tiny rose bud that grows with
+each use, feeding off the user's life force. Once the jutsu is activated, it plants a rose on the target
+that siphons their energy away." Battle line: "Chakra vines grow out from %user and latch on to %target
+suppressing their ability to heal and regenerate."
+**What is wrong:** nothing grows with use and nothing siphons energy; the real effects (weaker enemy
+healing, and protection for the user) are missing from the description. The health cost does match
+"feeding off the user's life force". The battle line leaves out the user's protection, has a doubled
+space and no full stop, and uses `%target` on a ground-targeted spiral.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral,
+  choking the healing of every enemy they catch, while the rose's thorns close around the user as
+  armour."
+- **D2** "The user feeds their life force to a black rose that blooms across the field. Its thorns fester
+  in the wounds of enemies caught in it, weakening their healing, and wrap the user in a hardened guard."
+- **D3** "Black thorns spiral out from the user, drinking a little of their blood as they grow. Enemies
+  snared in the vines struggle to heal, and the thorny shell left around the user turns aside part of
+  each blow."
+
+Battle line (no `%target`, since the spiral can land on empty ground):
+- **B1** "Black thorn vines spiral out from %user, choking the healing of all they ensnare as the rose's
+  thorns close around %user like armour."
+- **B2** "%user offers their blood to the black rose, and its thorny vines spread across the battlefield
+  while a shell of thorns hardens around them."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
 | Icon | PAUSED |
 
