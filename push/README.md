@@ -311,3 +311,11 @@ Kami to the content review desk; it does not save directly. Same pattern as 154:
 director-supplied (RUL-2026-10-20-005); only `image` changes; both battle lines are non-empty.
 `validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest
 hash `3aa6ab04`. Hyouga Yui and Aerathiel follow. Run it from Forge, then use **Check suggestions**.
+
+## 156 Village bloodline scroll icons 5-6 (suggest mode)
+
+`156_village_scroll_icons_3.json` sends new icons for Wind Scroll: Aerathiel and Ice Scroll: Hyouga
+Yui to the content review desk; it does not save directly. Same pattern as 154-155; this completes
+the six scrolls. Only `image` changes; both battle lines are non-empty. `validate.py`: 0 errors, 0
+warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `007e32d8`. Run it from
+Forge, then use **Check suggestions**.
