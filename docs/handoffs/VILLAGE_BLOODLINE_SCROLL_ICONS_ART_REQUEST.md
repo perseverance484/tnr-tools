@@ -9,7 +9,7 @@
   Spec authority: `skills/producing-tnr-art/data/25x_DATA_art_spec.json`, target `ICON`.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
 
-**Delivered (2026-10-21):** 1 Oblivion Seal and 2 Shinseina Ki (`_b`), director-approved; files in `art/village_bloodline_scrolls/`, sent for review as push/154. Icon 1 locks **pixel-art rendering** and the silhouette: a painted Shinseina Ki v1 was rejected for that reason. Fittings are per scroll (silver on Oblivion Seal, gold on Shinseina Ki, both approved), so section 3's "aged gold" is a default, not a rule.
+**Delivered (2026-10-21):** 1 Oblivion Seal and 2 Shinseina Ki (`_b`), director-approved, push/154; 3 Arashima and 4 Taiyo Kami, push/155. Files in `art/village_bloodline_scrolls/`. Icon 1 locks **pixel-art rendering** and the silhouette: a painted Shinseina Ki v1 was rejected for that reason. Fittings are per scroll (silver on Oblivion Seal, gold on Shinseina Ki, both approved), so section 3's "aged gold" is a default, not a rule.
 
 ## 1. Why
 

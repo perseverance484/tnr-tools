@@ -302,3 +302,12 @@ in `imagePack`) is director-approved (RUL-2026-10-20-005). Only `image` changes;
 battle lines are non-empty, so the save is not blocked. `validate.py`: 0 errors, 0 warnings.
 `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest hash `31acb505`. The other four
 scrolls follow in a later ticket. Run it from Forge, then use **Check suggestions**.
+
+## 155 Village bloodline scroll icons 3-4 (suggest mode)
+
+`155_village_scroll_icons_2.json` sends new icons for Storm Scroll: Arashima and Sun Scroll: Taiyo
+Kami to the content review desk; it does not save directly. Same pattern as 154: the art
+(`art/village_bloodline_scrolls/exports/`, pinned by commit and SHA-256 in `imagePack`) is
+director-supplied (RUL-2026-10-20-005); only `image` changes; both battle lines are non-empty.
+`validate.py`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest
+hash `3aa6ab04`. Hyouga Yui and Aerathiel follow. Run it from Forge, then use **Check suggestions**.

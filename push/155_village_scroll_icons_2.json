@@ -1,0 +1,54 @@
+{
+ "_note": "New icons for two more of the six village bloodline scrolls, which all share one image (docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md, RUL-2026-10-20-005); icons 1-2 are push/154. Director-supplied 2026-10-21. Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes; both scrolls' battleDescription is non-empty in the 2026-10-20 public read. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "Update icon",
+  "rationale": "Each village bloodline scroll gets its own icon; all six currently share one image."
+ },
+ "imgSizes": {
+  "icon-village-scroll-arashima.webp": 49682,
+  "icon-village-scroll-taiyo-kami.webp": 55798
+ },
+ "imagePack": {
+  "ref": "aae63b8bfdb64df227ab436d5ac6f24227fac4ed",
+  "files": {
+   "icon-village-scroll-arashima.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-arashima.webp",
+    "sha256": "95b0226858f21dae4c2c1c9cfae175a78dec41d5a2617f33271b0f2a647d5c46",
+    "bytes": 49682
+   },
+   "icon-village-scroll-taiyo-kami.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-taiyo-kami.webp",
+    "sha256": "f44f49821fbfc5b3427b39994cbd3cb764caefb1dc1480f134b3177bfd60b09e",
+    "bytes": 55798
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Storm Scroll: Arashima",
+   "targetId": "InPbAQg3-Tf6yqoZWD4zT",
+   "data": {
+    "image": "@img:icon-village-scroll-arashima.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a storm-grey handscroll with silver caps and a grey cord, crackling with white-blue lightning, matching the storm bloodline it grants."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Sun Scroll: Taiyo Kami",
+   "targetId": "NnYP2epwQk8ej-q-7yuxi",
+   "data": {
+    "image": "@img:icon-village-scroll-taiyo-kami.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a sun-gold handscroll with sun-disc end caps and an orange cord, glowing with embers, matching the scorch bloodline it grants."
+   }
+  }
+ ]
+}
