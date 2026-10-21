@@ -102,4 +102,4 @@ Return the original asset after director visual approval.
 | Part | Status |
 |---|---|
 | Text | APPROVED 2026-10-21; sent as push/182 (QA ticket 12), awaiting the run |
-| Icon | DIRECTION APPROVED 2026-10-21 (I1); generation not started, raw needs director approval |
+| Icon | RAW APPROVED 2026-10-21 ("Honestly this one is approved, it matches the art style enough"); export `art/jutsu_icons/overhaul/exports/icon-jutsu-waters-domain.webp`, preflight 0/0; ticket push/183 waits for push/182 to resolve |
