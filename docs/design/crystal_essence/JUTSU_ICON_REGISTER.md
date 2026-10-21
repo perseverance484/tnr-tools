@@ -1,6 +1,6 @@
 # Crystal Essence — jutsu-icon Art Studio register
 
-**Status:** FAMILY ART DIRECTION APPROVED / KŌSAI SHIPPŪ P0 LOCK APPROVED / CANONICAL ZIP INTAKE PASS (5/5) / TARGET LOCK-CHECK PASS / GENERATION NOT LAUNCHED. No other target lock, raw artwork, *real export* preflight, or upload approval is implied.
+**Status:** FAMILY ART DIRECTION APPROVED / CANONICAL ORIGINAL ZIP INTAKE PASS (5/5) / KŌSAI SHIPPŪ P0 LOCK APPROVED + RAW VISUAL APPROVED (1/5) / CRYSTAL SPHERE NEXT P0 PROPOSED. No other target direction or raw approvals, real export preflight, or upload approval implied.
 **Lead:** Art Director · Support: Image Production
 **Bloodline:** Crystal Essence · A · `ssevlOGQ4JjPn2sHZtq0c` · BR-020.
 **Repository base:** `main@02a288e966db27f427508734a6223e0e583b081a`.
@@ -54,7 +54,7 @@ All actions below use the named 2026-10-17 `jutsu.get` description/battleDescrip
 - **References:** extracted actual `images/igPSz82fa_L2XPrtnMvnz_Kosai_Shippu.png`, SHA-256 `111319fe33b495e4cc5d68de8a67f3d5bc9d52d8185d096283403585d33e6bbd`, **IDENTITY ONLY**. An individually attached genuinely approved BBE/BEE exemplar may serve **STYLE/MATERIAL ONLY** later, but **none has been independently attached to an isolated generation session**; default to 1 reference if absent. Do not send the ZIP, collage, unseen URL or other target as positive conditioning.
 - **Anatomy exception:** **NONE**.
 - **Director approval:** **APPROVED** 2026-10-20 (director: “Approved, proceed” in response to the family-treatment + Kōsai P0 proposal); immutable target lock SHA-256 `2d374ea676b47415bc6d17246c7e7540e044aa08187a2c5edd262610e7c2f3d5`. Local static hash consistency PASS; canonical `jutsu_studio.py lock-check` PASS (exit 0) against the actual P1 source index; the original source-intake prerequisite is now satisfied.
-- **Next gate:** open one clean isolated generation conversation for Kōsai only with the approved brief and separately attached byte-verified individual original PNG (IDENTITY ONLY); generate one candidate, inspect actual pixels against P0 at 125/64/32, and request director approval. Technical doctor/intake/lock-check gate is now closed; no generator in this persistent studio.
+- **Post-generation:** Kōsai's exact candidate was approved by the director on 2026-10-20 and received into the persistent Studio as the byte-verified JPEG raw described in `KOSAI_SHIPPU_RAW_APPROVAL_20261020.md`. No export/preflight has run. Next proposed target: Crystal Sphere (C), awaiting its own director P0 approval.
 
 ## Director approval checkpoint — 2026-10-20
 
@@ -62,8 +62,15 @@ Director explicitly approved **LUMINOUS SILICATE / WARM-CORE REFRACTION** and th
 
 **Mechanical gate CLEARED (2026-10-20):** official Git-verified producing-tnr-art ZIP provided; actual `jutsu_studio.py doctor` **RUN_CAPABLE_CANONICAL**, `intake` **PASS** and `lock-check` **PASS**, all exit 0; see `SOURCE_INTAKE_VERIFIED_20261020.md`. The manifest uses `jutsu_type` while CLI reads `type` and currently emits null types; original manifest and committed 2026-10-17 `jutsu.get` captures independently corroborate five BLOODLINE types. This presentation gap is Fable-owned tooling follow-up, not a rejection of the exact ID/name/image mapping. Original ZIP preserved, no art processing or game access. Kōsai may proceed to a fresh isolated generation session.
 
-## Gates / restrictions (initialization)
 
-`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED for family treatment + Kōsai target only**; four other targets PENDING. `RAW_VISUAL_APPROVED`: 0/5. `OUTPUT_LOCAL_QC`: NOT_RUN. `CANONICAL_PREFLIGHT`: NOT_RUN. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+## Kōsai accepted raw and next-target handoff — 2026-10-20
 
-**Live-game requests/writes:** 0/0. **Credentials:** none. **Image generation:** 0. **Production processing/gallery:** 0.
+**Director RAW_VISUAL_APPROVED:** Kōsai Shippū, `igPSz82fa_L2XPrtnMvnz`, exact received user-image attachment `1000018957.png` decodes as **JPEG**, RGB 1536², **628679 bytes**; SHA-256 `84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5`. A byte-for-byte alias named `Crystal_Essence_Kosai_Shippu_APPROVED_RAW_v1.jpg` is available from this conversation for true-format attachments. Source-provenance qualifier and gate boundary: `docs/design/crystal_essence/KOSAI_SHIPPU_RAW_APPROVAL_20261020.md`. 125/64/32 thumbnail inspection was non-generative, **not** a production preflight or final family showcase. Git binary pin PENDING.
+
+**Next target proposed:** `Crystal Sphere` (C), `zKK0rjIJqbpSiTw7McDAv`. A continuous round faceted *protective crystal shell* actively deflects one incoming strike from upper-right, with a dark hollow protected interior, one chipped impact flash, and no anatomy. This is not Kōsai's three traveling crescents, Prism's straight beam, Jade's split cocoon, or Cave's inward-closing spike jaws. The original Crystal Sphere PNG is **IDENTITY ONLY** (`be71cec840a8a359c47bf7a1d5dbc0c953c020cf2f6fead4ea997cf64b835e74`); Kōsai's accepted JPEG is the second **STYLE/MATERIAL ONLY** reference (`84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5`). Both actual individual file bytes are required as separate attachments in the *next isolated generation conversation*. Full target brief `docs/design/crystal_essence/CRYSTAL_SPHERE_ISOLATED_BRIEF_20261020.md` is **PROPOSED**; director P0 approval and approved-lock check must precede generation.
+
+## Current gates / restrictions (post Kōsai visual approval)
+
+`ORIGINAL_SOURCE_VERIFIED`: **P1 INTAKE VERIFIED / 5 OF 5**. `DIRECTION_APPROVED`: **APPROVED family + Kōsai only**; four other target locks PENDING. `RAW_VISUAL_APPROVED`: **1/5 (Kōsai)**; next Crystal Sphere P0 proposal PENDING. `OUTPUT_LOCAL_QC`: NOT_RUN for production export. `CANONICAL_PREFLIGHT`: NOT_RUN on real exports. `FAMILY_SHOWCASE_ACCEPTED`: PENDING. `ZIP_DELIVERED`: NOT_PERFORMED. `GIT_BINARY_PIN`: NOT_PERFORMED. `USER_UPLOAD_READBACK`: NOT_PERFORMED.
+
+**Live-game requests/writes:** 0/0. **Credentials:** none. **Approved raw generation received:** 1. **Production processing/gallery:** 0.
