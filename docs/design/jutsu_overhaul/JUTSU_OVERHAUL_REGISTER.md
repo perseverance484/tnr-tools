@@ -344,28 +344,18 @@ healing, and protection for the user) are missing from the description. The heal
 "feeding off the user's life force". The battle line leaves out the user's protection, has a doubled
 space and no full stop, and uses `%target` on a ground-targeted spiral.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-015)
 
-Description:
-- **D1** "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral,
-  choking the healing of every enemy they catch, while the rose's thorns close around the user as
-  armour."
-- **D2** "The user feeds their life force to a black rose that blooms across the field. Its thorns fester
-  in the wounds of enemies caught in it, weakening their healing, and wrap the user in a hardened guard."
-- **D3** "Black thorns spiral out from the user, drinking a little of their blood as they grow. Enemies
-  snared in the vines struggle to heal, and the thorny shell left around the user turns aside part of
-  each blow."
+- **Description** (D1): "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral, choking the healing of every enemy they catch, while the rose's thorns close around the user as armour."
+- **Battle line** (B3, second round): "%user opens their palm with a thorn and lets the blood fall. A black rose tears up through the earth, its vines spiralling outward to choke every wound they find, while its thorns curl back to armour the one who fed it."
 
-Battle line (no `%target`, since the spiral can land on empty ground):
-- **B1** "Black thorn vines spiral out from %user, choking the healing of all they ensnare as the rose's
-  thorns close around %user like armour."
-- **B2** "%user offers their blood to the black rose, and its thorny vines spread across the battlefield
-  while a shell of thorns hardens around them."
+The first battle-line drafts (B1, B2) were sent back: "this is a forbidden jutsu it should have a high
+quality battle line". Not chosen: D2, D3, B1, B2, B4-B6.
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/190 (QA ticket 18), awaiting the run |
 | Icon | PAUSED |
 

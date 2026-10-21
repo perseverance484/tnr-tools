@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 18 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 7). Suggest mode: content review desk, no direct save. Kinjutsu: Black Thorn Rose's description claimed a rose that grows with use and siphons energy (no such effects) and omitted its real effects (weaker enemy healing, user takes less damage); its battle line used %target on a ground-targeted spiral and had no full stop. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-015). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Kinjutsu: Black Thorn Rose",
+   "targetId": "qB550OM_X-Mh0w_KlNNji",
+   "data": {
+    "description": "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral, choking the healing of every enemy they catch, while the rose's thorns close around the user as armour.",
+    "battleDescription": "%user opens their palm with a thorn and lets the blood fall. A black rose tears up through the earth, its vines spiralling outward to choke every wound they find, while its thorns curl back to armour the one who fed it.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description claimed a rose that grows with use and siphons energy; the jutsu does neither. Rewritten to its real effects: enemy healing -40% and user damage taken -20%, 2 rounds, paid for with health. Battle line rewritten to show both; %target removed (it printed literally on empty ground)."
+   }
+  }
+ ]
+}
