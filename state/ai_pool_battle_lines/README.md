@@ -23,8 +23,7 @@ Rebuild: `python3 state/ai_pool_battle_lines/build.py harvests/inbox/<bundle>.js
 - `battleDescription` on all 82: 2-3 sentences, Edo-era ninja voice, chakra-driven, describing only
   effects the live record carries. Lint (in `build.py`): `%user` always, `%target` exactly when the
   jutsu targets another fighter, no exclamation marks, dashes or curly quotes.
-- `name` on 17 jutsu, including B28 Recoil Slam → Backlash Palm (director-approved). The other 16
-  are proposals. Each was checked against the jutsu name catalog (`Jutsu_name_key` is unique).
+- `name` on 17 jutsu, including B28 Recoil Slam → Backlash Palm. All approved (RUL-2026-10-21-004). Each was checked against the jutsu name catalog (`Jutsu_name_key` is unique).
 - `target` on B31 Rallying Spiral: OTHER_USER → ALLY (director, 2026-10-21). Its buffs used to land
   on the enemy.
 - `injectableInBattle` re-sent at its captured live value (law 20).
@@ -38,10 +37,11 @@ Rebuild: `python3 state/ai_pool_battle_lines/build.py harvests/inbox/<bundle>.js
   (2026-10-11, instant kill -> lowers the target's jutsu power for 5 rounds), S02 Quick Strike and S07
   Rapid Fire (2026-10-15, new effects; S07 now targets OPPONENT). Their lines were rewritten to match,
   and B04 gets a proposed rename, Choking Seal.
-- Director prose review of the lines and the 16 proposed renames is pending.
-- **Open balance question:** B28's recoil effect has `rounds: 0`. The engine skips recoil on the round
-  it is cast (`tags.ts` `recoil`, `!effect.isNew && !effect.castThisRound`), so it may never fire,
-  and the approved line describes an effect that may not happen.
+- **Approved** (RUL-2026-10-21-004): the 82 lines, all 17 renames and the B31 retarget.
+- **Open balance question:** B28's recoil effect has `rounds: 0`. Recoil is a debuff that, while active,
+  turns part of the enemy's damage back on them, but it does not fire on the round it is applied
+  (`tags.ts` `recoil`), and `isEffectActive` (`util.ts`) treats a 0-round effect as expired. As stored,
+  it never has an active round.
 - After an operator-verified live run, update the pool registry names (and B31's target) through
   `32_REGISTRY_shared_ai_pool.md` -> `32b_DATA_pool.json`. Do not edit 32b by hand.
 
