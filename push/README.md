@@ -381,15 +381,8 @@ Submitted 2026-10-21 as suggestion `Tb8SnhnSExY4eDDZwj152` (PENDING). Archived u
 
 Not run. Replaced by a full rework (new name and text); archived under `archive/spent-manifests/push-2026-10-21/`.
 
-## 188 Bedrock Stance rework (suggest mode, QA ticket 16)
+## 188 Bedrock Stance rework: RUN, pending review
 
-`188_bedrock_stance_rework.json` sends one edit to the content review desk; it does not save directly.
-It replaces the withdrawn push/187. Earthshatter Strike (`kw8dlRl4y5WBg8GkHSEvp`) deals no damage and
-only buffs its user, so it is renamed **Bedrock Stance** and its description and battle line are
-rewritten to match (RUL-2026-10-21-013; register section 5). Effects untouched; `injectableInBattle` is
-re-sent at its live value, false (law 20). The new name matches none of the 1,500 jutsu names the
-repository knows (live has 1,673); a duplicate would be refused at submit. Live record from the
-2026-10-21 census; not equipped by any AI (push/158-161); no other suggestion open on it.
-`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems.
-Manifest hash `8c717621`. Run it from Forge, then use **Check suggestions**.
+Submitted 2026-10-21 as suggestion `H5owbVykZkUFsjyOGfGua` (PENDING). Archived under
+`archive/spent-manifests/push-2026-10-21/`.
 
