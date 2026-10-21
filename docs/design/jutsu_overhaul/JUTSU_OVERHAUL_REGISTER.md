@@ -214,26 +214,18 @@ line is close but has no full stop.
 a technique name from the franchise the project never references. Renaming is your call; the text below
 works with or without a new name.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-010)
 
-Description:
-- **D1** "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every
-  enemy caught in the blaze keeps burning, taking more damage over the next few rounds."
-- **D2** "A roaring sphere of flame pours from the user's lips and engulfs the ground around the target.
-  Enemies caught in it are left with searing burns that keep hurting for a short time."
-- **D3** "The user breathes out a fireball large enough to swallow a crowd. It explodes on impact, and the
-  burns it leaves on every enemy it catches go on searing after the flames die."
+- **Description** (D1): "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every enemy caught in the blaze keeps burning, taking more damage over the next few rounds."
+- **Battle line** (B2): "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that leave lasting burns."
 
-Battle line:
-- **B1** "%user exhales a massive fireball that bursts over %target, leaving burns that keep searing."
-- **B2** "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that
-  leave lasting burns."
+Not chosen: D2, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
-| Name | flagged for the director |
+| Text | APPROVED 2026-10-21; sent as push/186 (QA ticket 15), awaiting the run |
+| Name | flagged for the director, no decision yet |
 | Icon | PAUSED |
 

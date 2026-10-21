@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 15 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 4). Suggest mode: content review desk, no direct save. Fire Release: Great Fireball's description ('Create a gigantic fireball.') said nothing about its area blast or its wound (each enemy hit takes another 20% of the blast's damage on each of the next two rounds); its battle line had no full stop. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-010). Only text changes; the name is untouched; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (2026-10-21 AI census, push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "The old text did not describe what the jutsu does. The new text covers its area blast and the burns it leaves."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Fire Release: Great Fireball",
+   "targetId": "jwXvmSztaK81u2k98Hc1Z",
+   "data": {
+    "description": "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every enemy caught in the blaze keeps burning, taking more damage over the next few rounds.",
+    "battleDescription": "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that leave lasting burns.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "The old description, 'Create a gigantic fireball.', said nothing about what the jutsu does: it blasts an area, and every enemy it hits keeps taking burn damage (20% of the blast's damage) on each of the next two rounds. The old battle line also had no full stop. The new text describes the area blast and the lasting burns."
+   }
+  }
+ ]
+}

@@ -1882,3 +1882,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
 
+## RUL-2026-10-21-010 — Fire Release: Great Fireball overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Fire Release: Great Fireball (`jwXvmSztaK81u2k98Hc1Z`) gets the description "The user draws a deep breath and exhales a towering fireball that bursts over an area. Every enemy caught in the blaze keeps burning, taking more damage over the next few rounds." and the battle line "%user draws a deep breath and unleashes a roaring fireball, engulfing %target in flames that leave lasting burns." The jutsu's name was flagged as echoing a franchise technique; no renaming decision has been made.
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 4).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket; the name is untouched.
+
