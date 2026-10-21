@@ -95,3 +95,8 @@ the review queue as suggestion `H5owbVykZkUFsjyOGfGua`, status PENDING.
 Result `harvests/inbox/tnr_results_1792597423853.json` (Forge, 2026-10-21T15:43Z), hash `ab681609`
 matching, outcome success: suggestion `xyt0fWuyHjJuTSBcteOvA`, status PENDING.
 
+## 190 black_thorn_rose_text (QA ticket 18) — RUN, SUBMITTED, PENDING REVIEW
+
+Result `harvests/inbox/tnr_results_1792597831302.json` (Forge), hash `53281394` matching, outcome success:
+suggestion `YPylvcpG3knNN5vzLQ4pD`, status PENDING.
+
