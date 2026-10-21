@@ -1,6 +1,6 @@
 # Common Hunter's Chest — upper-latch binding revision (2026-10-20)
 
-**Status:** SAME-SUBJECT PIXEL-STYLE CORRECTION REQUIRED — first short-latch candidate fixed leather termination but drifted into smooth painterly rendering; NO FINAL APPROVAL; fresh director visual acceptance required  
+**Status:** REVISED PIXEL-ART SHORT-LATCH CANDIDATE `1000018956.png` HAS STUDIO VISUAL QC PASS, **DIRECTOR APPROVAL PENDING**; previous smooth-painted `1000018947.png` is not accepted as a style reference. No production preflight.  
 **Lead:** Image Production · **Support:** Art Director  
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
 **Future delivery filename:** `icon-gs-chest-hunter-common.webp`  
@@ -45,3 +45,11 @@ Prefer revising the existing Common Hunter image in its **original isolated gene
 - **Art-director review:** The long lower-front leather is now removed, exposing front wood; upper fang/crystal latch, original single left/right metal hoops and three front claws remain recognizable. **This geometry change is directionally successful.** However, the entire new image is rendered as a smooth/high-frequency painted fantasy illustration, with gradients and antialiasing, rather than the mandatory ratified **premium TNR pixel-art** style. It closely resembles the earlier smooth-painted rejected raw `1000018934.png`. The intended pixel-art style reference is `1000018935.png`, the director's explicitly approved premium pixel source.
 - **Do not copy the paint regression into any future family reference.** This image is a **nonapproved** style-mismatch candidate. Do not use it to launch Common Gatherer.
 - **Precise next action:** Modify the **pixel-art original `1000018935.png`** at the central leather area only: take out the long lower-front leather tail, replace it with the existing dark wood treatment, and terminate the single flat brown strap in a short receiver just under the lid seam. Preserve the *actual chunky, intentional pixel clusters*, crisp stepped lineart, flat cel ramps, shading, face, fang, gem, dark wood and proportions. **Do not restart by editing the older smooth-painted image `1000018934.png` or the latest painted short-latch candidate `1000018947.png`.** After producing one candidate, inspect style and geometry at full resolution and 125px before seeking renewed director acceptance. No game interaction/processing.
+
+## Second short-latch candidate — pixel-art preservation restored; studio review PASS (2026-10-20)
+
+**New conversation upload:** `1000018956.png`, decoded JPEG/RGB 1536×1536, **276722 bytes**, raw SHA-256 `a46aa0279a7ba45784f397417c5fd4b8a5fb40ebde3a71074699d35ffdb7562c`. **Opaque black background** (not compliant transparent/flat chroma), so processing/export/preflight remain PENDING. Exact raw bytes are conversation-supplied; no repository binary pin.
+
+**Independent visual verdict: PASS for the intended revision; awaiting director explicit acceptance.** Compared full-size candidate and deterministic 125/64/32px previews with approved premium pixel-art original `1000018935.png` and smooth-painted failed short-latch candidate `1000018947.png`. The new rendering has obvious **crisp stepped pixel clusters, defined cel shading and limited palette**, avoiding smooth painterly regression. Exactly two independent outer metal lid hoops. One saddle-brown leather strip runs over the domed lid and terminates at the upper-front metal receiver/gem/fang lock, with the lower-front chest panel showing wood. Three claws, cyan faceted crystal, ivory fang, camera and silhouette remain. The fang hangs beneath the clasp as an ornament; it is **not the leather tail**.
+
+**Approval gate:** The director has sent the image but has not yet said that this candidate is approved. Do **not** claim a new lock, allow Common Gatherer to use it as an approved image reference, or claim a finished item `ICON` until explicit director acceptance and subsequent mechanical QC.
