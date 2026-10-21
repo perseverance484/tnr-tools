@@ -1,6 +1,6 @@
-# Crystal Essence — Crystal Cave isolated-generation proposal
+# Crystal Essence — Crystal Cave director-approved isolated-generation brief
 
-**Status: P0 COMPOSITION PROPOSED — DIRECTOR APPROVAL PENDING.** This is a persistent Art Studio planning brief, **not generation authorization**. Before launching, director approval must be bound to the exact `JUTSU_TARGET_LOCKS.json` hash and verified through `jutsu_studio.py lock-check` against the original-source index. One clean generation conversation per approved jutsu under `ISOLATED_ART_GENERATION.md` P0 A–F.
+**Status: P0 DIRECTOR APPROVED / CANONICAL LOCK-CHECK PASS / READY FOR ONE FRESH ISOLATED GENERATION.** The director-approved exact target hash is `f9cececc9564fa7c831604a0b4e02aeb08f6a2d332ea2ddd52b0e4a66f78424a` (Git locks blob `3f126a33be29f5eeee5c51fbb272a70d193a549e`). Real script doctor, ZIP intake (5/5), and source-index lock-check all returned exit 0. See `CRYSTAL_CAVE_P0_APPROVAL_20261021.md`. This Studio does not generate images.
 
 **Lead:** Art Director · Supporting lens: Image Production.
 **Workstream:** Crystal Essence, BR-020. Family treatment `LUMINOUS SILICATE / WARM-CORE REFRACTION` already approved.
@@ -13,7 +13,7 @@
 - **Original source:** `BR-020_Crystal_Essence.zip` member `images/AggTDO90TarIRTPqGdvvY_Crystal_Cave.png`. Exactly **RGB PNG 210×210, 60162 bytes**, SHA-256 `a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530`.
 - **Action evidence:** read-only 2026-10-17 `jutsu.get` capture index **4** of `harvests/inbox/tnr_results_1792216502874.json`, matching original manifest. Public description: create a crystal cave that **traps** a target; battle text depicts **jagged crystals impaling** a target. Damage and increased-damage-taken effects are present. Source battle prose also mentions reducing attack power, which is not corroborated by the recorded effect rows; do not build a distinct false debuff motif into the art. This is historical captured evidence, not a current live read.
 
-## Proposed immutable P0 visual lock
+## Director-approved immutable P0 visual lock
 
 **Dominant action:** The cave itself **closes in on an unseen target**: large transparent mineral-crystal **stalactites thrust down** from an oppressive upper cavern edge while opposing **stalagmites erupt upward** from below, visibly converging toward the same dark trapped interior. Show the imprisoning/impaling action mid-closure, not a pleasant glowing cavern landscape.
 
@@ -41,7 +41,7 @@
 - **Summoning: Jade:** one **upright chrysalis splitting outward into a V-shaped opening** is reserved. Cave spikes must press *inward*, from two opposed cave surfaces.
 - No characters/hands/faces/limbs, generic gemstone, spell geometry, rune, emblem, text, watermark, UI, ice/snowflake motifs, or decorative gold glow field.
 
-## References — attach EXACTLY two verified individual images when approved
+## References — attach EXACTLY two verified individual images in fresh isolated generation
 
 **1. Identity reference — IDENTITY ONLY.** `Crystal_Essence_Crystal_Cave_ORIGINAL_IDENTITY_ONLY.png` is an exact-byte copy of the original source PNG; SHA-256 `a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530`. Source identity is crystalline cavern, NOT the original's human figure or static scenic framing.
 
@@ -51,6 +51,6 @@ Never send the ZIP or contact sheet to the image generator. The generation sessi
 
 ## Acceptance / execution
 
-**P0 direction:** PENDING exact director approval. Once approved, bind immutable hash in `JUTSU_TARGET_LOCKS.json`; verify CLI `lock-check` with source-index. Then open one NEW isolated conversation, generate ONE square Crystal Cave jutsu-icon candidate, inspect actual pixels/action/siblings at 125/64/32, and request director **raw** approval. If two wrong-target/composition attempts occur in that single conversation, abandon and restart clean.
+**P0 direction:** **APPROVED** (“Approved”, director, 2026-10-21). Immutable hash sealed and verified against the original source index (actual `jutsu_studio.py lock-check` exit 0). Open one NEW isolated conversation, generate ONE square Crystal Cave jutsu-icon candidate, inspect actual pixels/action/siblings at 125/64/32, and request director **raw** approval. If two wrong-target/composition attempts occur in that single conversation, abandon and restart clean.
 
 `RAW_VISUAL_APPROVED=2/5`, `OUTPUT_LOCAL_QC=NOT_RUN`, `CANONICAL_PREFLIGHT=NOT_RUN` for real exports, `FAMILY_SHOWCASE_ACCEPTED=PENDING`, `GIT_BINARY_PIN=NOT_PERFORMED`, `USER_UPLOAD_READBACK=NOT_PERFORMED`. Persistent Studio image generation: 0; live-game requests/writes: 0/0; credentials: none.
