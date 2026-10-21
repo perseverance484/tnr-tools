@@ -470,3 +470,54 @@ Not chosen: D1, D3, B1 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/193 (QA ticket 21), awaiting the run |
 | Icon | PAUSED |
 
+## 11. Purgatory
+
+Text only (icons paused, RUL-2026-10-21-009).
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `_Hhz6aPpNCMc4U7hNzDqe` |
+| Type / rank / gate | NORMAL, C rank, Chunin |
+| Reach | `AOE_SPIRAL_SHOOT` on `EMPTY_GROUND`, range 4: a spiral-shaped blast; damage hits enemies only |
+| Cost | 60 AP, cooldown 7 |
+| Effect 1 | `damage` power 28, Fire, instant, scaled on Taijutsu (Speed, Strength) |
+| Effect 2 | `increasedamagegiven` 20%, **target SELF**, 2 rounds, all damage: the user hits harder |
+| Effect 3 | `visual` (cosmetic) |
+| Movement | **none** |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "A fire-charged taijutsu that closes distance and makes the enemy more
+vulnerable to taijutsu strikes." Battle line (three sentences): "%user ignites their feet with fire
+chakra, launching forward in a streak of flame across the battlefield. ... Upon reaching %target, they
+deliver a brutal strike that brands the enemy with residual fire chakra—one that lingers in the muscles
+and nerves, ... From that moment on, %target becomes more susceptible to the crushing weight of
+taijutsu."
+**What is wrong:** it claims the enemy becomes more vulnerable to taijutsu; the real second effect
+boosts the user's own damage. "Closes distance" promises movement the jutsu does not have. The battle line
+has an em dash, three long sentences and `%target` twice on an empty-ground jutsu.
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user ignites their limbs with fire chakra and unleashes a spiralling flurry of burning
+  strikes that scorches every enemy in its path. The blaze keeps roaring through their body, making their
+  attacks hit harder for a short time."
+- **D2** "A taijutsu inferno: the user's strikes trail fire in a widening spiral, burning nearby enemies,
+  and the heat left in their limbs strengthens their attacks for a short while."
+- **D3** "The user becomes a whirl of burning fists and feet, searing every enemy the spiral reaches. The
+  flames they carry afterwards stoke their next attacks."
+
+Battle line (no `%target`):
+- **B1** "%user spins into a blazing spiral of kicks and punches, scorching every enemy it reaches as the
+  fire settles into their limbs."
+- **B2** "Flames burst from %user's fists and feet as they whirl through a spiral of strikes, the heat
+  building with every blow."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
