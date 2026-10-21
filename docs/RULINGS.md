@@ -2098,3 +2098,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. Names, effects and balance are out of scope for the sweep; name and mechanics findings are flagged to the director. This ruling is the director's go-ahead for sweep text written in the house style without one-by-one picks; the review desk remains the approval step.
 
+## RUL-2026-10-21-022 — Jutsu text edits are targeted; American English; generic area wording
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** the British-spelling and "one-sentence battle line" parts of the house style derived under RUL-2026-10-21-021.
+
+**Ruling:** Text fixes on existing jutsu are targeted: keep the length, voice and content of premium text and change only what is inaccurate or broken; full rewrites are for placeholder, stub, broken or wholly wrong text. American English only. Area wording must not assume anyone stands in the area. Single-target battle lines use %target. Avoid chance wording where power growth (powerPerLevel, cap 25) makes it untrue. Absorb reads as health first. Totem summons, custom reskins, custom or contributed jutsu, test jutsu and non-functioning jutsu are not touched; event jutsu are never simplified; villages use current names (Glacier is Hyorin).
+
+**Evidence:** The director's review of push/196 on the content review desk, 2026-10-21: 135 applied, 207 rejected, with written reasons (e.g. "Description is good. Battle description overwrites too much, rewrite"; "No British spelling. We're English mate. American English only"; "'And the enemies around them' is not good description text for AoE attacks, there won't always be enemies in the surrounding area"; "When performing rewrites to adjust effect accuracy and grammar, we want to maintain the same quality/quantity of content, and make targetted corrections only"; "Dont rewrite totems"; "This is a custom reskin"). Exported as harvests/inbox/tnr_results_1792614808975.json.
+
+**Canonical destination:** `docs/design/jutsu_overhaul/WRITING_STYLE.md` ("Review lessons").
+
+**Boundary:** No live edit. The jutsu text guide under review (c0e9d1b) picks these up after its review.
+

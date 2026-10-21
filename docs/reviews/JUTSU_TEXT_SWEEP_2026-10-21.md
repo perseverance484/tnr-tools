@@ -142,3 +142,22 @@ These two facts also belong in the jutsu text guide once its review returns (the
 
 Fireball, Typhoon Tear, Aqua Barrier, Stormguard Aura, Tempestual Rend, Aqua Fang, Arashi Ikari, Blazing Chains, Bolt of Terror, Boulder Crush, Chakra Siphon, Crimson Surge, Crimson Tides, Dancing Wind, Divine Pulse, Dreamshell, Drowning Illusion, Emberbane Cocoon, Ethereal Bloom, Fiend Fire, Gale Blade, Inferno Dragon's Wrath, Inferno Slash, Lunar Descent, Molten Manipulation, Netherblight, Phantom Scythe, Skybreaker Palm, KGK: Veilguard Pulse.
 
+## Review outcome (2026-10-21)
+
+Result `harvests/inbox/tnr_results_1792614808975.json` (Forge export after **Check suggestions**,
+2026-10-21T20:33Z): **135 APPLIED, 207 REJECTED**, all reviewed by dauntless. Per-jutsu status and reason:
+`archive/spent-manifests/push-2026-10-21/196_suggestion_ledger.json`. Lessons are folded into
+`docs/design/jutsu_overhaul/WRITING_STYLE.md` ("Review lessons", RUL-2026-10-21-022).
+
+| Rejections | Reason |
+|---|---|
+| 139 | Description good; the new battle line overwrote or cut too much of the original premium line |
+| 16 | The whole rewrite replaced premium text instead of making targeted fixes |
+| 14 | Not to be touched: totem summons, custom reskins, custom contributions |
+| 11 | Area wording assumed enemies are present ("enemies around them" is dead text) |
+| 8 | British spelling (American English only) |
+| 4 | Too simple for an event jutsu |
+| 15 | One-off notes (wording, %target on single target, chance wording, absorb, Hyorin, test or broken jutsu, original sufficient) |
+
+Some rejections carry more than one reason, so the rows overlap.
+

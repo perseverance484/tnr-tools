@@ -125,11 +125,15 @@ suggestion `YIs81fC3GTqP1LRnVMv02`, status PENDING.
 Result `harvests/inbox/tnr_results_1792600950132.json` (Forge), hash `b92bc31c` matching, outcome success:
 suggestion `xDeO9D4-UULIqvSHQWuS0`, status PENDING.
 
-## 196 jutsu_text_sweep (master sweep) — RUN, 342/342 SUBMITTED, PENDING REVIEW
+## 196 jutsu_text_sweep (master sweep) — RUN, REVIEWED: 135 APPLIED, 207 REJECTED
 
 Result `harvests/inbox/tnr_results_1792604389431.json` (Forge, 2026-10-21T17:39Z), hash `424af319`
 matching, outcome success. All 342 items were suggested and found in the review queue (342 distinct
 suggestion ids, 0 errors, item targets identical to the manifest), every one PENDING. Per-jutsu suggestion
 ids: `196_suggestion_ledger.json` in this folder. Findings and flags:
 `docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md`.
+
+**Review outcome (2026-10-21T20:33Z export, `harvests/inbox/tnr_results_1792614808975.json`):** 135 APPLIED,
+207 REJECTED, all by dauntless. The ledger now carries each status and reviewer note. Analysis:
+`docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md` ("Review outcome"); lessons: RUL-2026-10-21-022.
 
