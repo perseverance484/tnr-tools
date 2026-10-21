@@ -480,5 +480,10 @@ record's live text was confirmed unchanged in push/201-202. Not resubmitted: tot
 contributions, test and non-functioning jutsu, texts the director called sufficient, and two drafts that
 matched the live text. Drafts and per-jutsu fixes: `docs/reviews/JUTSU_TEXT_SWEEP_ROUND2_2026-10-21.json`.
 `validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 198 planned items, 0 pre-send
-problems. Manifest hash `5105f502`. Run it from Forge, then **Check suggestions** and export the results.
+problems. Manifest hash `48bdbcfa`. Run it from Forge, then **Check suggestions** and export the results.
+
+Revised before it was run (director, 2026-10-21): the 9 jutsu whose original description was 150 characters
+or longer (Tempest of the Blade, Crimson Spires, Tides of Sovereignty, Tidal Shift, Tectonic Ascendancy,
+Lightning Cloak, Endless Drowning, Crippling Blade, Lightning Release: Raijin's Bow) keep their original
+description with targeted fixes instead of the round 1 rewrite.
 
