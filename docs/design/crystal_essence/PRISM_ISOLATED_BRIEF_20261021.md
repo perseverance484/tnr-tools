@@ -1,6 +1,6 @@
-# Crystal Essence — Prism isolated-generation proposal (2026-10-21)
+# Crystal Essence — Prism director-approved isolated-generation brief (2026-10-21)
 
-**State: P0 DIRECTION PROPOSED / DIRECTOR APPROVAL PENDING.** This is an Art Director proposal for the next **single** Crystal Essence jutsu icon, not authorization to generate it. Bind the exact director-approved lock hash and check it against the existing verified source index with `jutsu_studio.py lock-check` *before* starting the separate isolated generation conversation.
+**State: P0 DIRECTOR APPROVED / OFFICIAL `jutsu_studio.py lock-check` PASS (exit 0) / READY FOR ONE FRESH ISOLATED GENERATION.** Immutable Prism target-lock SHA-256 `98e41e8e310bee9b46a31e3324789cebeb99a4bbebdd6be14025b754af97279d`. The exact Git lock file blob is `ac582b54e02c4bbc30f13fc33cbb45571af8ca0d`. See `PRISM_P0_APPROVAL_20261021.md`. Raw candidate acceptance is a future, distinct director gate.
 
 **Lead:** Art Director · **Support:** Image Production. **Workstream:** Crystal Essence (A), BR-020, bloodline ID `ssevlOGQ4JjPn2sHZtq0c`. Family material/renderer already director approved: **LUMINOUS SILICATE — WARM-CORE REFRACTION**.
 
@@ -13,7 +13,7 @@
 - **Battle text/action:** the user unleashes a blinding prism of light, striking and wounding the target. Damage (Crystal) and wound effects are recorded. These are **historical captured records**, not current live proof.
 - **Original image member:** `images/6XpY1m4rAwrBHBKYsPRDJ_Prism.png`, exact decoded **RGB PNG 240×240**, **62,831 bytes**, SHA-256 `b5729710e01f46457ea81452a9c7e13c138fd4005086182568806a825ab58b70`. The original legacy art depicts a caster and several warm light rays; **caster anatomy is not approved** and the legacy multi-ray composition is not required.
 
-## Technique-first P0 proposal
+## Director-approved technique-first P0 action and silhouette
 
 **Action and dominant silhouette:** An actual faceted teal-jade mineral optic **catches a short incoming golden sunray and sharply refracts it into ONE massive, straight, blinding solar-light LANCE** crossing the icon diagonally and visibly striking. A functional beam-through-crystal interaction is mandatory: not a static gemstone with decorative glows, not a passive sun emblem, not many thin arc/ray trails.
 
@@ -45,6 +45,6 @@ The approved Kōsai and Cave raws are reserved for **studio sibling comparison**
 
 ## Procedure and gates
 
-First obtain explicit director approval of the proposed Prism P0 composition and the **two** selected reference roles. Then seal `JUTSU_TARGET_LOCKS.json` with that approval's immutable hash and run `jutsu_studio.py lock-check` against the source-index for **all five** entries; Prism must be `DIRECTION_APPROVED` and previous approvals unchanged. Open **one fresh isolated Prism generation conversation** with only the two named actual images and this brief. Generate **one square icon candidate** and inspect returned pixels against the lock and all sibling silhouettes at 125/64/32. Director decides raw acceptance. After two wrong-subject/composition failures in that isolated thread, restart clean.
+Director explicitly APPROVED this Prism P0 composition and both selected reference roles on 2026-10-21. `JUTSU_TARGET_LOCKS.json` sealed with the immutable hash and the actual `jutsu_studio.py lock-check` returned **exit 0** against the previously verified source index for **all five** entries; Prism `DIRECTION_APPROVED`, three previously approved target records unchanged, Summoning: Jade `COMPLETE, direction PENDING`. Open **one fresh isolated Prism generation conversation** with only the two named actual images and this brief. Generate **one square icon candidate** and inspect returned pixels against the lock and all sibling silhouettes at 125/64/32. Director decides raw acceptance. After two wrong-subject/composition failures in that isolated thread, restart clean.
 
-`DIRECTION_APPROVED` currently 3/5; `RAW_VISUAL_APPROVED` currently **3/5**. `OUTPUT_LOCAL_QC` and real `CANONICAL_PREFLIGHT` still NOT_RUN; `FAMILY_SHOWCASE_ACCEPTED` PENDING; `GIT_BINARY_PIN`, `USER_UPLOAD_READBACK` NOT_PERFORMED. Studio image generation 0; live-game requests/writes 0/0; credentials none.
+`DIRECTION_APPROVED` now **4/5** (Kōsai, Sphere, Cave, Prism); `RAW_VISUAL_APPROVED` remains **3/5** (Kōsai, Sphere, Cave). `OUTPUT_LOCAL_QC` and real `CANONICAL_PREFLIGHT` still NOT_RUN; `FAMILY_SHOWCASE_ACCEPTED` PENDING; `GIT_BINARY_PIN`, `USER_UPLOAD_READBACK` NOT_PERFORMED. Studio image generation 0; live-game requests/writes 0/0; credentials none.
