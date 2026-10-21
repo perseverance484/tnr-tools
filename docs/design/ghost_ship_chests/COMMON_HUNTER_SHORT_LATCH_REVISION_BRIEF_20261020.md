@@ -1,6 +1,6 @@
 # Common Hunter's Chest — upper-latch binding revision (2026-10-20)
 
-**Status:** TARGETED SAME-SUBJECT REVISION READY; revised image requires NEW director visual acceptance  
+**Status:** SAME-SUBJECT PIXEL-STYLE CORRECTION REQUIRED — first short-latch candidate fixed leather termination but drifted into smooth painterly rendering; NO FINAL APPROVAL; fresh director visual acceptance required  
 **Lead:** Image Production · **Support:** Art Director  
 **Target:** Common Hunter's Chest · `item.image` · `ICON`  
 **Future delivery filename:** `icon-gs-chest-hunter-common.webp`  
@@ -37,3 +37,11 @@ Prefer revising the existing Common Hunter image in its **original isolated gene
 2. Present ONE candidate for **fresh director visual acceptance**; don't equate the historical 1000018935 approval with acceptance of the edited image. The Common Hunter pixel-rendering register remains the style goal.
 3. If approved, return exact source bytes, true MIME, dimensions, SHA-256, and user approval. Preserve previous JPEG raw as historical provenance; output correct lossless WebP through studio processing only after native-alpha/key cleanup and `artpreflight.py --type ICON`.
 4. Only after the director approves this shortened-latch Hunter may the studio issue a **fresh corrected Common Gatherer isolated brief** using original Reliquary + *new Hunter* as the two reference images. Common Gatherer must terminate its jute rope in a compact front-upper knot, with no thick rope continuation to the base. Both fronts keep their distinct claw/leaf brands.
+
+## First short-latch candidate — geometry better, style wrong (2026-10-20)
+
+- **Candidate:** `1000018947.png`; actual JPEG RGB 1536×1536, 374075 bytes, SHA-256 `8e05446eef6d5866c04a066f2d798d8cf8ae5570e4943ba50f334ca4099afa7e`; black opaque background, alpha/preflight NOT_RUN.
+- **Director:** “That looks better.” This expresses improvement in shortening the long leather strap but **does not explicitly approve this candidate**.
+- **Art-director review:** The long lower-front leather is now removed, exposing front wood; upper fang/crystal latch, original single left/right metal hoops and three front claws remain recognizable. **This geometry change is directionally successful.** However, the entire new image is rendered as a smooth/high-frequency painted fantasy illustration, with gradients and antialiasing, rather than the mandatory ratified **premium TNR pixel-art** style. It closely resembles the earlier smooth-painted rejected raw `1000018934.png`. The intended pixel-art style reference is `1000018935.png`, the director's explicitly approved premium pixel source.
+- **Do not copy the paint regression into any future family reference.** This image is a **nonapproved** style-mismatch candidate. Do not use it to launch Common Gatherer.
+- **Precise next action:** Modify the **pixel-art original `1000018935.png`** at the central leather area only: take out the long lower-front leather tail, replace it with the existing dark wood treatment, and terminate the single flat brown strap in a short receiver just under the lid seam. Preserve the *actual chunky, intentional pixel clusters*, crisp stepped lineart, flat cel ramps, shading, face, fang, gem, dark wood and proportions. **Do not restart by editing the older smooth-painted image `1000018934.png` or the latest painted short-latch candidate `1000018947.png`.** After producing one candidate, inspect style and geometry at full resolution and 125px before seeking renewed director acceptance. No game interaction/processing.
