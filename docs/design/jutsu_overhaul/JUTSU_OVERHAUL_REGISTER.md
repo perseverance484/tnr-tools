@@ -382,28 +382,17 @@ channels a burst of electricity into %target, leaving them jolted and weakened"
 reposition and a lingering charge, none of which is mentioned. The battle line has a leading space and
 no full stop, and uses `%target` on an empty-ground jutsu.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-016)
 
-Description:
-- **D1** "The user flickers to a new position in a crack of static and discharges a burst of lightning that
-  cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow
-  hurt more."
-- **D2** "In a blink of static, the user reappears elsewhere on the field and releases the charge around
-  them. The lightning pierces every enemy close by and leaves them crackling, taking extra damage from
-  hits for a short time."
-- **D3** "The user rides a spark across the battlefield and lands in a burst of static that ignores
-  protection, leaving nearby enemies charged so later blows strike harder."
+- **Description** (D1): "The user flickers to a new position in a crack of static and discharges a burst of lightning that cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow hurt more."
+- **Battle line** (B1): "%user vanishes in a crackle of static and reappears across the field, releasing a burst of lightning that leaves nearby enemies sparking."
 
-Battle line (no `%target`, since the user lands on empty ground):
-- **B1** "%user vanishes in a crackle of static and reappears across the field, releasing a burst of
-  lightning that leaves nearby enemies sparking."
-- **B2** "%user flickers through the air like a dropped spark and lands in a discharge of static, lightning
-  lancing through every foe within reach."
+Not chosen: D2, D3, B2 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/191 (QA ticket 19), awaiting the run |
 | Icon | PAUSED |
 
