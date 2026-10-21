@@ -1,6 +1,6 @@
 # Rare Hunter's Chest — isolated premium pixel-art generation (geometry + short latch locked)
 
-**Status:** READY FOR CLEAN ISOLATED GENERATION; director visual approval PENDING  
+**Status:** SUPERSEDED / DO NOT GENERATE (director's NEW rarity-material ruling, 2026-10-20). Prior cold-gunmetal armor, large plate/ornament and hooked-fang direction is REJECTED; approved Rare Hunter uses Common geometry + dark BRONZE trim + single HOOKED TALON; see `RARITY_MATERIAL_AND_TROPHY_REFINEMENT_20261020.md` and `RARE_HUNTER_BRONZE_APPROVAL_AND_INTAKE_20261020.md`. Visual approved; claimed original raw not yet verified.  
 **Lead:** Image Production · **Supporting lens:** Art Director  
 **Repository:** `perseverance484/tnr-tools`  
 **Studio branch:** `chatgpt/ghost-ship-chest-icon-art-studio-20261020`  
@@ -10,6 +10,10 @@
 **Target:** Rare Hunter's Chest · `item.image` · `ICON`  
 **Future exact production filename:** `icon-gs-chest-hunter-rare.webp`  
 **Live-game requests/writes:** 0/0; no credentials, production processing, image uploads, game publishing or commits of asset binaries in generation session.
+
+## Operative override — Rare Hunter design replaced, 2026-10-20
+
+**DO NOT REUSE THIS PROMPT.** It instructed the generator to expand the Rare chest's metal construction with angular raised gunmetal armor and conspicuous star details. The director **rejected that structural redesign** and explicitly approved the NEW bronze-bound Rare Hunter with *the same exact two-band/corner geometry as Common*, smoky charcoal leather, ONE hooked **monster talon**, brighter cyan crystal and faint seam illumination. Metal changes are now material substitution rather than geometry escalation: Rusted corroded iron → Common blackened steel → Rare burnished dark bronze → Epic polished silver → Legendary pale iridescent starsteel. Gold reserved for Ornate. The new target was visually approved; exact director-reported PNG original must still be provided for intake. This historical brief is retained only as a record of superseded direction. **NEXT is Rare Gatherer**, from `RARE_GATHERER_BRONZE_SHORT_LATCH_ISOLATED_BRIEF_20261020.md` with only Reliquary + approved Common Gatherer individual references. No rejected Rare chest as an image reference.
 
 ## References — attach EXACTLY TWO separate original images
 
