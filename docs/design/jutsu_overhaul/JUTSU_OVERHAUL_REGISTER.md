@@ -547,7 +547,7 @@ Not chosen: D1, D3, B1 (in git history).
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; sent as push/195 (QA ticket 23), awaiting the run |
+| Text | APPROVED 2026-10-21; submitted as push/195, suggestion `xDeO9D4-UULIqvSHQWuS0`, PENDING |
 | Icon | PAUSED |
 
 ## 13. Liquid Palm
