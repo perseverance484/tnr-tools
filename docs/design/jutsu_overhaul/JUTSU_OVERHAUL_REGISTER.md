@@ -176,26 +176,17 @@ hit caresses their cheek."
 line uses "his" for every caster, and "subtle" and "caresses" undercut a thunder slap; the description
 addresses the reader ("your opponent").
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-009)
 
-Description:
-- **D1** "The user claps their hands until they crackle with lightning, then delivers a thunderous
-  open-palm slap. The charge lingers in their hands, making their next attacks hit harder."
-- **D2** "A slap carried on a clap of thunder. Lightning bursts from the user's palm on impact, and the
-  leftover current keeps surging through them, strengthening their attacks for a short time."
-- **D3** "Divine lightning gathers in the user's palm and lands with a ringing slap. The storm stays with
-  them afterwards, adding weight to every attack they make for a short while."
+- **Description** (D1): "The user claps their hands until they crackle with lightning, then delivers a thunderous open-palm slap. The charge lingers in their hands, making their next attacks hit harder."
+- **Battle line** (B2): "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving %user crackling with power."
 
-Battle line:
-- **B1** "%user claps their hands until they crackle with lightning, then slaps %target with a
-  thunderous crack, keeping the leftover charge sparking in their own palms."
-- **B2** "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving
-  %user crackling with power."
+Not chosen: D2, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/185 (QA ticket 14), awaiting the run |
 | Icon | PAUSED |
 
