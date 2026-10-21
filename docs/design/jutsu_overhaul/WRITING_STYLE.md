@@ -1,6 +1,6 @@
 # Jutsu text: house style (from the director's choices)
 
-**Status:** derived 2026-10-21 from the director's 13 overhaul decisions (RUL-2026-10-21-007 to -021) and
+**Status:** corrected 2026-10-21 by the director's review of the 342-jutsu sweep (RUL-2026-10-21-022, section "Review lessons" below wins over anything above it). Derived 2026-10-21 from the director's 13 overhaul decisions (RUL-2026-10-21-007 to -021) and
 notes. Engine rules for placeholders and effects are in `skills/building-tnr-content/references/jutsu_text.md`
 (under review); this file is the voice. Final prose stays the director's call.
 
@@ -36,12 +36,13 @@ have a high quality battle line"; rationales should "describe the fix without te
   several rounds" when it lasts 3 or more. No numbers.
 - **Reach without stock phrases:** "the target", "their foe", "nearby enemies", "every enemy caught in
   the blast", "the user". Never "one foe" or "a single foe".
-- Third person ("the user"), present tense, British spelling ("armour", "smouldering", "spiralling").
-  No "you", no em dashes, no lore that hides what the jutsu does.
+- Third person ("the user"), present tense, **American English** ("armor", "smoldering", "spiraling";
+  RUL-2026-10-21-022). No "you", no em dashes, no lore that hides what the jutsu does.
 
 ## Battle line
 
-- **One sentence**, about 90 to 160 characters, present tense, starting with `%user` or with the image
+- **For new or replaced lines only:** one sentence, about 90 to 160 characters (an existing premium line keeps
+  its length; see Review lessons 1), present tense, starting with `%user` or with the image
   around them ("Flames burst from %user's fists...").
 - **One vivid image of the cast.** The secondary effect may be hinted ("the heat building with every
   blow") or left to the description; the director usually picked the tighter, more vivid option.
@@ -61,3 +62,30 @@ caresses' wording removed."
 
 Names, effects, costs and balance. A name that contradicts the effects, or echoes a franchise technique,
 is flagged to the director; an effect that lands on the wrong side is flagged as a mechanics finding.
+
+## Review lessons (RUL-2026-10-21-022)
+
+From the director's review of push/196 (135 applied, 207 rejected; reasons in
+`docs/reviews/JUTSU_TEXT_SWEEP_2026-10-21.md`, "Review outcome"). These override the rules above.
+
+1. **Edits are targeted, not rewrites.** When existing text is premium (rich, multi-sentence), keep its
+   length, voice and content; change only what is wrong (an effect it misstates or omits, grammar,
+   placeholders). Never cut a three-sentence battle line to one. A full rewrite is only for placeholder,
+   stub, broken or wholly wrong text. Director: "When performing rewrites to adjust effect accuracy and
+   grammar, we want to maintain the same quality/quantity of content, and make targetted corrections only."
+2. **American English only.** "No British spelling. We're English mate. American English only."
+3. **Area wording must not assume anyone is there.** No "the enemies around them", "everyone at their
+   side", "those nearby": that is dead text when nobody stands in the area. Describe the area itself
+   ("the blast", "the surrounding ground", "everything caught in the vortex").
+4. **Single-target jutsu use `%target`** in the battle line.
+5. **Avoid chance wording** ("can", "very likely") where it may stop being true: effect power grows with
+   jutsu level (`powerPerLevel`, cap 25), so a 90% stun at level 1 is certain at level 25. Use chance
+   wording only when the effect stays a real chance at the cap.
+6. **Absorb is health first.** Describe it as turning damage into health; do not name chakra or stamina.
+7. **Do not touch** totem summons, custom reskins, custom or contributed jutsu, test jutsu, or jutsu that
+   do not function; leave text that is already sufficient.
+8. **Event and signature jutsu keep their richness**; never simplify them.
+9. **Current names:** villages use their current names (Glacier is now Hyorin).
+10. **Ninja-grade imagery.** No parlor tricks ("flicking a spark"); buffs must read as buffs (a "tremor
+    rising through the limbs" reads as a debuff).
+
