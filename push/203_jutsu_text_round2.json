@@ -27,12 +27,12 @@
    "name": "Lightning Release: Raijin's Bow",
    "targetId": "cEu_gGsh8kJk0JIBI64ga",
    "data": {
-    "description": "The user shapes lightning chakra into a crackling bow and looses an arrow of pure electricity at the target. The charge lingers in their hands, making their attacks hit a little harder for a short time.",
+    "description": "Raijin's Bow is a powerful lightning-based jutsu that manifests as a bow made of crackling electricity. It allows the user to create and shoot arrows infused with lightning, dealing devastating damage to their target, and the charge lingers in their hands to strengthen their attacks for a short time.",
     "battleDescription": "With a swift, intricate hand seal, %user channels their lightning chakra, shaping it into a dazzling bow crackling with raw energy. Nocking an arrow of pure electricity, they draw and release, sending the charged projectile streaking toward %target. The arrow explodes on impact in a blinding flash and deafening thunderclap, unleashing a torrent of lightning that engulfs %target in a devastating storm of electricity.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line with targeted fixes: towards -> toward. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: leading space removed; adds the user's damage boost (+10%, 2 rounds). Keeps the original battle line with targeted fixes: towards -> toward."
    }
   },
   {
@@ -137,12 +137,12 @@
    "name": "Tempest of the Blade",
    "targetId": "j5hPo43OhrI1LP9R0TCl2",
    "data": {
-    "description": "The user shapes wind chakra into a great blade and hurls it at the target with tremendous force. The cut tears their guard open, so they take more damage for a short while.",
+    "description": "The user creates a large, blade-shaped construct of pure wind chakra, which can be wielded as a weapon or launched at the target with tremendous force. The cut leaves the target exposed, so every attack against them hits harder for a short time.",
     "battleDescription": "As %user focuses their chakra, the air around them becomes charged with energy, swirling into a tempest. With a mighty swing, %user unleashes this tempest upon %target, the blade cutting through the air with a deafening roar. The tempest strikes %target with the force of a raging storm, dealing devastating damage.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line with targeted fixes: leading space removed. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: adds the missing vulnerability (+20% damage taken, 2 rounds). Keeps the original battle line with targeted fixes: leading space removed."
    }
   },
   {
@@ -165,12 +165,12 @@
    "name": "Tidal Shift",
    "targetId": "GGJTdjQ90dVbOvWLXerlO",
    "data": {
-    "description": "The user dissolves into a surging torrent and reforms at a new position, crashing over the ground around them. The gathered momentum stays with the user, making their attacks hit harder for a short time.",
+    "description": "The user transforms into surging water, darting across the battlefield to a new position while boosting their offensive power before striking with crushing force.",
     "battleDescription": "%user harnesses the power of water, their body becoming fluid and untouchable. In a surge of motion, they dissolve into a torrent that sweeps across the battlefield, slipping through the chaos as waves crash in their wake. Reforming in an instant, %user channels the gathered momentum into a devastating, water-imbued strike that greatly enhances their offensive power.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line with targeted fixes: removed false evasion claim. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: 'to evade attacks' replaced (no defensive effect; the jutsu moves the user). Keeps the original battle line with targeted fixes: removed false evasion claim."
    }
   },
   {
@@ -318,12 +318,12 @@
    "name": "Crimson Spires",
    "targetId": "q6dapAxicsEGFthmBiSOP",
    "data": {
-    "description": "The user raises blood-red chakra spikes beneath the target and leaves a curse in their flesh. For a short time non-elemental attacks hit them harder, and their own blows rebound on them.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "description": "A cursed spike technique that makes the enemy take more damage from non-elemental attacks and suffer recoil when they strike.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
     "battleDescription": "%user conjures blood-red chakra spikes beneath %target’s feet. The moment they pierce upward, they embed a lingering curse that tears at %target's body whenever they attack. Non-elemental damage becomes harder to withstand, and each strike %target makes sends backlash through their own frame.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line with targeted fixes: 'the %target' grammar; recoil only on attacking, not moving; vulnerability is non-elemental damage only. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: the extra damage taken applies to non-elemental attacks only; staff note kept. Keeps the original battle line with targeted fixes: 'the %target' grammar; recoil only on attacking, not moving; vulnerability is non-elemental damage only."
    }
   },
   {
@@ -388,12 +388,12 @@
    "name": "Endless Drowning",
    "targetId": "ZysflsRCgc0yGRARooBN2",
    "data": {
-    "description": "The user locks eyes with the target and drags them into an illusion of a boundless, drowning sea. The dread lingers, so every blow that follows strikes them harder while the illusion lingers.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
+    "description": "A powerful genjutsu that overwhelms the target’s senses with the illusion of being pulled into an infinite, drowning ocean. For a short time after, every blow they take drags them deeper and hurts more.<br><br><span style=\"color:#D22B2B\">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>",
     "battleDescription": "%user locks eyes with %target and casts a crushing illusion of a boundless, inescapable sea. In an instant, the battlefield melts away as torrents of water rise from nothing, surrounding %target in a vast, cold abyss. The sense of drowning becomes unbearable as sight warps, sounds distort, and movements feel paralyzed under the weight of imagined pressure. Panic and helplessness set in as the illusion traps the target’s mind in an endless descent.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line with targeted fixes: em dash removed. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: adds the missing afterburn (+30% damage from hits, 2 rounds); staff note kept. Keeps the original battle line with targeted fixes: em dash removed."
    }
   },
   {
@@ -1559,12 +1559,12 @@
    "name": "Lightning Cloak",
    "targetId": "rjV6z8ygicPTp1TZ1ybrB",
    "data": {
-    "description": "The user wraps their body in a crackling mantle of lightning. While it holds, their lightning techniques strike harder and ring with thunder for a short while.",
+    "description": "Enshrouded in crackling energy, the user dons a mantle of lightning, amplifying the ferocity of their electric attacks until every strike sings with thunder’s fury.",
     "battleDescription": "%user surrounds their body in a radiant sheath of crackling lightning, each muscle fiber twitching with raw power. As they move, arcs of electricity trail behind them, lending raw force to every motion. Their strikes become charged with electric energy, enhancing the impact of all lightning-based techniques with devastating precision.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line; removes the claimed speed boost and the 'piercing' wording, since the jutsu only raises lightning damage. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: em dash replaced. Keeps the original battle line; removes the claimed speed boost and the 'piercing' wording, since the jutsu only raises lightning damage."
    }
   },
   {
@@ -1680,11 +1680,11 @@
    "name": "Tectonic Ascendancy",
    "targetId": "VL85zkB3uifqpF2T8OEnE",
    "data": {
-    "description": "The user stamps down and draws the deep strength of the tectonic plates up through their body. For a short time, their earth techniques strike with far greater force.",
+    "description": "Harnessing the primal energy of the earth’s tectonic plates, the user channels a massive surge of chakra into their own body, turning every earth-based attack into a destructive force of nature.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: it reshaped no terrain and deals no damage itself: it raises the user's Earth damage (+20%, 2 rounds); full stop added. Original battle line is accurate and clean, kept unchanged."
    }
   },
   {
@@ -1707,11 +1707,11 @@
    "name": "Tides of Sovereignty",
    "targetId": "SQuwOilXd6w-v0HHKy7yn",
    "data": {
-    "description": "The user commands the sea to rise within them, their chakra swelling like a spring tide. For a short time, every water technique they unleash hits with sovereign force.",
+    "description": "Summoning the might of the endless sea, the user commands the tides to swell their power, amplifying the force of every water-based assault with sovereign wrath.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Original battle line is accurate and clean, kept unchanged. Description from round 1, unchanged."
+    "rationale": "Original description kept with targeted fixes: em dash replaced. Original battle line is accurate and clean, kept unchanged."
    }
   },
   {
@@ -1858,12 +1858,12 @@
    "name": "Crippling Blade",
    "targetId": "z17S47TiSnNBgQMVkxsnH",
    "data": {
-    "description": "A forbidden bukijutsu that sheathes the user's weapon in a dark, ominous aura before it cuts into the target. The aura seeps into their veins, sapping their strength and blunting their offense and defense for several rounds.",
+    "description": "Crippling Blade is a Forbidden S-Rank Bukijutsu that enhances the user's weapon with a dark, ominous aura, sapping the strength of their foe and dulling their strongest abilities for several rounds.",
     "battleDescription": "With a swift, calculated strike, %user's weapon is engulfed in a menacing, dark aura, crackling with malevolent energy. As the blade connects, the aura surges into %target's body, creeping through their veins like icy tendrils, sapping their strength and agility. %target's movements slow, each step becoming a laborious effort as the oppressive force of the curse weighs them down. The once nimble and powerful fighter now struggles against the debilitating effects of the jutsu, their greatest strengths drained and diminished.",
     "injectableInBattle": false
    },
    "suggestion": {
-    "rationale": "Keeps the original battle line; removes the wrong name 'Crippling Strike' and the Taijutsu-only claim, since the debuff hits the target's highest stat. Description from round 1, in American spelling."
+    "rationale": "Original description kept with targeted fixes: wrong name 'Crippling Strike' fixed; the debuff lowers the target's highest stats, not Taijutsu (3 rounds). Keeps the original battle line; removes the wrong name 'Crippling Strike' and the Taijutsu-only claim, since the debuff hits the target's highest stat."
    }
   },
   {
