@@ -120,6 +120,7 @@ def build():
     out[f"push/{num}_ai_pool_battle_lines_edit.json"] = {
         "_note": ("AI pool battle-line pass, step 2 EDIT: the 82 shared-AI-pool jutsu. battleDescription on all 82, "
                   f"name on {sum('name' in it['data'] for it in edits)} (B28 Recoil Slam -> Backlash Palm), target on B31 (OTHER_USER -> ALLY), "
+                  "B28 recoil rounds 0 -> 2 (RUL-2026-10-21-005; the rest of its effects re-sent unchanged), "
                   "injectableInBattle re-sent at its live value (law 20). Run ONLY after 162-169 are all done and "
                   "their read-backs pass: editing a jutsu an AI still has equipped severs that AI's combat link "
                   "(laws 18, 60). Ends with a full jutsu.get read-back. Built from "

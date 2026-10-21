@@ -339,8 +339,8 @@ was 526 (2026-10-18), so expect about 14 live AIs the repository still does not 
 
 ## 162–177 AI pool battle-line pass: unequip → edit → re-equip
 
-New battle lines for the 82 shared-AI-pool jutsu, 17 renames (B28 Recoil Slam → Backlash Palm), and B31
-Rallying Spiral retargeted to allies. 345 AIs equip at least one of these jutsu (1,278 equipped rows), and
+New battle lines for the 82 shared-AI-pool jutsu, 17 renames (B28 Recoil Slam → Backlash Palm), B31
+Rallying Spiral retargeted to allies, and B28's recoil set to 2 rounds (RUL-2026-10-21-005). 345 AIs equip at least one of these jutsu (1,278 equipped rows), and
 editing a jutsu an AI has equipped severs that AI's combat link. So the order is strict (laws 18, 60):
 
 1. `162_ai_pool_unequip_probe.json`: 1 AI (Bukijutsu Specialist). **Check its read-back before 163.**
