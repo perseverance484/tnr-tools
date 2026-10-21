@@ -153,3 +153,49 @@ Not chosen: D2, D3, B2 (in git history).
 | Text | APPROVED 2026-10-21; sent as push/184 (QA ticket 13), awaiting the run |
 | Icon | DIRECTION APPROVED 2026-10-21 (I2); prompt `docs/handoffs/BLAZING_DEATH_STAR_ICON_DIRECTOR_PROMPT.md`; raw needs director approval |
 
+## 3. Divine Thunder Slap
+
+Icons are paused for now (director, 2026-10-21: text and icon suggestions cannot both be open on one
+record); this entry is text only.
+
+| Field | Live (2026-10-21 census) |
+|---|---|
+| Id | `Je0gvHDVCm__vy2rT8YBB` |
+| Type / rank / gate | NORMAL, B rank, Chunin |
+| Reach | `SINGLE`, `OPPONENT`, range 4; weapon NONE |
+| Cost | 60 AP, cooldown 6 |
+| Effect 1 | `damage` power 20, Lightning, instant, scaled on Taijutsu (Speed, Strength) |
+| Effect 2 | `increasedamagegiven` 20%, **target SELF**, 2 rounds: the user's own attacks hit harder, from the round after the cast |
+| AI-equipped | no (2026-10-21 census, push/158-161) |
+| Last edited | 2026-10-18 (classification sweep) |
+
+**Old text.** Description: "Give your opponent a shocking hit." Battle line: "%user claps his hands
+together as they begin to crackle with lightning. Suddenly, %target reels in pain as a bright and subtle
+hit caresses their cheek."
+**What is wrong:** neither text mentions the jutsu's second effect (the user's damage boost); the battle
+line uses "his" for every caster, and "subtle" and "caresses" undercut a thunder slap; the description
+addresses the reader ("your opponent").
+
+### Text (PROPOSAL, pick one of each or edit)
+
+Description:
+- **D1** "The user claps their hands until they crackle with lightning, then delivers a thunderous
+  open-palm slap. The charge lingers in their hands, making their next attacks hit harder."
+- **D2** "A slap carried on a clap of thunder. Lightning bursts from the user's palm on impact, and the
+  leftover current keeps surging through them, strengthening their attacks for a short time."
+- **D3** "Divine lightning gathers in the user's palm and lands with a ringing slap. The storm stays with
+  them afterwards, adding weight to every attack they make for a short while."
+
+Battle line:
+- **B1** "%user claps their hands until they crackle with lightning, then slaps %target with a
+  thunderous crack, keeping the leftover charge sparking in their own palms."
+- **B2** "Lightning gathers between %user's palms and breaks across %target in one ringing slap, leaving
+  %user crackling with power."
+
+### Status
+
+| Part | Status |
+|---|---|
+| Text | DRAFT, awaiting director pick |
+| Icon | PAUSED |
+
