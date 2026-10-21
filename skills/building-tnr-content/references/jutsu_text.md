@@ -107,6 +107,8 @@ For a tag not listed, read its `description` in `validators/combat.ts` and its h
 
 - [ ] Fresh capture of the record (no older than the last edit to it you know of).
 - [ ] Not equipped by any AI in the latest census (laws 18, 60); if it is, flag it instead.
+- [ ] No other suggestion is open on the record: approving one makes the other OUTDATED, so a
+      text fix and an icon for the same jutsu go one after the other.
 - [ ] `data` carries only `description` and/or `battleDescription`, plus `injectableInBattle`
       at its live value (law 20).
 - [ ] The item's `suggestion.rationale` names what was wrong with the old text and what the new
