@@ -1762,9 +1762,15 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 
 **Next Epic Gatherer — source-reference hold (2026-10-21):** Its target direction is established by the canonical metal/binding/brand ladder: SAME fixed Common closed dome, two unchanged metal hoops/corners now POLISHED SILVER, one PALE SILVER-GRAY braided SEA-SILK round rope with fine integrated silver threads ending in the short upper-front knot, a compact upgraded emerald/silver-veined botanical sprig, a larger cyan skyglass clasp and a softly CYAN-GLOWING SINGLE LEAF brand on exposed wood. Brief `docs/design/ghost_ship_chests/EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md` is prepared, but generation remains **BLOCKED**: the approved Rare Gatherer `1000018969.png` exists only as a verified JPEG/RGB display attachment (SHA-256 `c421c5ff3cc2e26eb7fb3a7f2c881196fa21d559c3119cc65384eedac2eeca9a`), not a verified unmodified generation-original source. The director can supply the genuine approved original via file/ZIP for independent byte/type/alpha/provenance QC, OR explicitly grant a **reference-only JPEG exception** (never production readiness) if original unavailable. Do NOT silently attach the JPEG or substitute Epic Hunter as a third image. After resolving gate, use exactly the original Reliquary (material/palette) + approved Rare Gatherer original (same family/style/geometry); one isolated image and new director visual approval. Item rarity, game publishing and upload remain user-owned and out of scope.
 
+**Rare Gatherer genuine original source verification + Epic Gatherer visual acceptance (2026-10-21):** The director provided `Rare_Gatherers_Chest_Original_PNG.zip` (ZIP SHA-256 `dc9811053edbe57a7b762168f2145fc91abf7b3be89698ae2722adf04e9c85f9`). Independent safe intake recovered exactly `rare_gatherers_chest_original.png`: true **PNG/RGBA 1254×1254, 1,375,718 bytes, SHA-256 `4a1ef5e71b915e12c517bd5b30d8ec6b4c163c0b7b363b5ea0575aa93cdb1a76`**, with native transparent corners and substantial genuine alpha (681,111 alpha=0, 890,674 partially transparent, 731 fully opaque). The earlier approved `1000018969.png` is a distinct opaque JPEG display and remains historical provenance, NOT the original. Rare Gatherer now passes the approved same-family **generation-reference source gate**, but output alpha-edge clamp, WebP, dark-composite and artpreflight remain NOT_RUN.
+
+**Epic Gatherer visual approval (2026-10-21):** After Rare source gate PASS, the director explicitly said **“Approved, next”** for the new premium pixel-art Epic Gatherer. Its **same fixed Common body geometry** has exactly two unchanged outer metal bands/corners; metal FINISH is **POLISHED SILVER** (not bronze or Legendary starsteel), a single round PALE SILVER-GRAY braided SEA-SILK rope with silver threads ends in one compact upper-front knot, a small emerald refined sprig remains tucked, one enlarged cyan faceted clasp sits above an exposed front panel with a **single softly glowing leaf brand** (Rare was unlit), and seam cyan remains restrained. Uploaded `1000018986.png` decodes as **JPEG/RGB 1536×1536, 332,255 bytes, SHA-256 `7ef536a950e085bcd98f8a1ddb189b081cd8ac6f0669ae77fbe001c74b66da3c`**, with opaque black background. This verifies the attached DISPLAY bytes, not an original generator PNG or production-valid ICON alpha. Non-destructive **125px Common/Rare/Epic Gatherer** comparison shows a distinct steel/jute → bronze/flax → silver/sea-silk/glowing-leaf material ladder at matching scale; 64/32px previews were stress-only aids. **6/12 director VISUAL approvals; 0/12 production-ready exports**. Source/verdict records: `docs/design/ghost_ship_chests/RARE_GATHERER_BRONZE_SHORT_LATCH_ISOLATED_BRIEF_20261020.md`, `EPIC_GATHERER_SILVER_SEASILK_SHORT_LATCH_ISOLATED_BRIEF_20261021.md`, studio register.
+
+**Next Legendary Hunter (icon 7) — design prepared, SOURCE-REFERENCE BLOCKED (2026-10-21):** The operative five-tier ladder calls for identical two-hoop/corner Common geometry but existing metal becomes **IRIDESCENT PALE STARSTEEL**; a single MIDNIGHT-BLUE scale-embossed fine leather binding with silver/cyan threads ends at the compact upper keeper; exactly one elaborate **FOSSILIZED TUSK** with restrained cyan inlays replaces Epic's ridged horn; one refined faceted skyglass lock and three glowing cyan Hunter claws retain the same placements. A small lid-mounted skyglass shard group may be a **NONSTRUCTURAL ornament** but must not alter the chest chassis. The original approved Epic Hunter source file is NOT yet verified; only its `1000018979.png` JPEG/RGB display (SHA-256 `d563139d14c3519b74e0f8d30d3ad64f84bb02379b314c6b8d6ffa2578cfe0ea`) is available. The director may submit unmodified original in ZIP for byte/format/alpha verification, or expressly authorize **JPEG for generation-reference use ONLY**, recorded before use; such an exception never authorizes production upload. New document: `docs/design/ghost_ship_chests/LEGENDARY_HUNTER_STARSTEEL_FOSSIL_TUSK_ISOLATED_BRIEF_20261021.md`. Do NOT attach Epic Gatherer as a third reference.
+
 **Ruling ID provenance:** Ghost Ship previously occupied draft ID `RUL-2026-10-20-005` on the isolated ChatGPT studio branch, but live `main` assigned 005 to **Village bloodline scroll icons** before integration. The unrelated main ruling is retained verbatim; this Ghost Ship record takes **006** to avoid duplicate IDs. No ruling was overwritten on main.
 
-**Boundary:** Earlier duplicated-band, smooth-painted, long-binding and bulky-armor chest candidates remain REJECTED image references. **Five current designs have director VISUAL approval** (Common Hunter/Gatherer; bronze Rare Hunter/Gatherer; silver/ridged-horn Epic Hunter). Authentic Rare Hunter RGBA PNG is verified, but Rare Gatherer and Epic Hunter attached JPEGs have no native alpha and are not verified as original generator files. **No icon has completed production alpha/edge processing, lossless WebP, dark-composite QC or `artpreflight.py --type ICON` (0/12 production-ready).** The NEXT art target **Epic Gatherer is PREPARED BUT BLOCKED** until the genuine approved Rare Gatherer source is verified or the director explicitly permits JPEG for generation reference only. Never attach Epic Hunter as third image. **Zero live-game requests/writes, no uploads/publishing authorized**; actual item-rarity decision remains separate.
+**Boundary:** Previously duplicated-band, smooth-painted, long-binding and bulky-armor candidate images remain REJECTED references. **Six current chest designs have director VISUAL approval** (Common/Rare/Epic Hunter and Gatherer pairs). **Rare Hunter and Rare Gatherer genuine original PNG/RGBA sources are ZIP-verifed** and reference-ready; Epic Hunter/Epic Gatherer received display JPEGs have no production alpha, and their generator originals (if distinct) are not verified. **No icon has completed production alpha-edge processing, transparent square-pad/export to lossless WebP, dark-composite QC or `artpreflight.py --type ICON` (0/12 production ready).** The NEXT Legendary Hunter art session is **PREPARED BUT BLOCKED** until its approved Epic Hunter source original is verified or the director explicitly grants JPEG-generation-reference-only permission. Exactly Reliquary + Epic Hunter (no third reference). **No live-game requests/writes/uploads/publishing**; actual item rarity remains a separate director decision.
 
 ## RUL-2026-10-21-001 — Replacement Technique icon: log-swap art approved as an exception
 
@@ -1985,4 +1991,166 @@ The director additionally approved a **Rusted → Common → Rare → Epic → L
 **Canonical destination:** `docs/design/FORGE_SUGGEST_MODE_SCOPE.md` ("Implemented: option 1", rationale paragraph).
 
 **Boundary:** No code change. The jutsu text guide (under review at `c0e9d1b`) picks this up after review, not on the frozen SHA.
+
+## RUL-2026-10-21-013 — Earthshatter Strike reworked as Bedrock Stance
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu name and text
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-21-011 (its text was never submitted; push/187 was withdrawn unrun).
+
+**Ruling:** Jutsu `kw8dlRl4y5WBg8GkHSEvp`, live as Earthshatter Strike, is renamed "Bedrock Stance" with the description "The user roots themselves to the earth and draws its strength up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder." and the battle line "%user sinks into a low stance as the ground hardens beneath them, their body turning stone-steady and their fists heavy." Its effects (a self buff, no damage) are unchanged.
+
+**Evidence:** User, 2026-10-21: "Honestly earthshatter strike needs a rename as well, if it doesnt deal damage it shouldnt be called a strike. Let's rework the whole thing", then, after four names, three descriptions and two battle lines: "N1, D1, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 5).
+
+**Boundary:** No live edit or publication is authorized. Name and text go to the content review desk as one Forge suggest-mode ticket. Name uniqueness was checked only against the 1,500 names the repository knows; the desk's save validation is the final check.
+
+## RUL-2026-10-21-014 — Flame Barrage overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Flame Barrage (`OZp6neM54VPLXIzHc713P`) gets the description "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time." and the battle line "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to stoke their own chakra."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B1".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 6).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-015 — Kinjutsu: Black Thorn Rose overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Kinjutsu: Black Thorn Rose (`qB550OM_X-Mh0w_KlNNji`) gets the description "A forbidden art paid for in the user's own blood. Black thorn vines lash out in a spiral, choking the healing of every enemy they catch, while the rose's thorns close around the user as armour." and the battle line "%user opens their palm with a thorn and lets the blood fall. A black rose tears up through the earth, its vines spiralling outward to choke every wound they find, while its thorns curl back to armour the one who fed it." Drafting note: forbidden and high-rank jutsu get a fuller, higher-quality battle line (two sentences are fine) rather than a plain one-liner.
+
+**Evidence:** User, 2026-10-21: "D1. Battle line needs more work, this is a forbidden jutsu it should have a high quality battle line", then, from four richer drafts: "B3".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 7). The drafting note goes into the jutsu text guide after its review.
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-016 — Static Flicker overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Static Flicker (`UwWqo_4Igdue7-unPXwne`) gets the description "The user flickers to a new position in a crack of static and discharges a burst of lightning that cuts straight through the guard of nearby enemies. The charge clings to them, so the blows that follow hurt more." and the battle line "%user vanishes in a crackle of static and reappears across the field, releasing a burst of lightning that leaves nearby enemies sparking."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B1".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 8).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-017 — Martial Movement overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Martial Movement (`V34OBxnSDj6PfxT4Y3fhx`) gets the description "A measured martial step carries the user across the field. Its flowing feints unsettle every enemy close to where they land, dulling their attacks for a short while." and the battle line "%user crosses the field in a few controlled steps and settles into a flowing guard, throwing nearby enemies off their rhythm."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D2, B1".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 9).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-018 — Void Rend overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Void Rend (`_QfGq0SseWD11jHO23pr1`) gets the description "In one surging step the user closes in and tears at the space around them with raw chakra. Every enemy caught in the rend takes damage and finds their healing weakened for several rounds." and the battle line "%user lunges across the field, and a rift of unstable chakra splits open around them, rending nearby enemies and leaving wounds that refuse to close."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D2, B2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 10).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-019 — Purgatory overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Purgatory (`_Hhz6aPpNCMc4U7hNzDqe`) gets the description "The user ignites their limbs with fire chakra and unleashes a spiralling flurry of burning strikes that scorches every enemy in its path. The blaze keeps roaring through their body, making their attacks hit harder for a short time." and the battle line "Flames burst from %user's fists and feet as they whirl through a spiral of strikes, the heat building with every blow."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, b2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 11).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-020 — Blazing Edge overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Blazing Edge (`oPtg5xq6HaYgJBqzKsZUC`) gets the description "Fire chakra forms a sword in the user's hand as they surge to a new position and sweep it through nearby enemies. The scorched cuts resist healing for a short while." and the battle line "Flames take the shape of a sword in %user's hand as they surge across the field, carving through nearby enemies in a single searing arc."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D2 b2".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 12).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
+## RUL-2026-10-21-021 — Liquid Palm text approved; house style derived; full-census sweep requested
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** (1) Liquid Palm (`boyPcTIywrR-adY6M6ZAN`) gets the description "The user flows to a new position and unleashes rapid water-charged palm strikes on the enemies around them. The current keeps moving through their body afterwards, turning part of every blow they take into health for a short time." and the battle line "%user glides forward on a rush of water chakra and crashes into nearby enemies with rapid palm strikes, the current around them ready to drink in the next blow." (2) The director's choices so far are distilled into a house style, `docs/design/jutsu_overhaul/WRITING_STYLE.md`. (3) Every eligible jutsu in the 2026-10-21 census is checked against that style and the live effects, and the edits go out as one master suggest-mode manifest, one suggestion per jutsu (each still approved or rejected on its own at the review desk).
+
+**Evidence:** User, 2026-10-21: "D1, B2. Analyze my choices thus far to develop a writing style. Then analyze all jutsu in the census for edits and create one master manifest to submit tickets for each."
+
+**Canonical destination:** `docs/design/jutsu_overhaul/WRITING_STYLE.md` (style); `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (Liquid Palm, section 13).
+
+**Boundary:** No live edit or publication is authorized. Names, effects and balance are out of scope for the sweep; name and mechanics findings are flagged to the director. This ruling is the director's go-ahead for sweep text written in the house style without one-by-one picks; the review desk remains the approval step.
 
