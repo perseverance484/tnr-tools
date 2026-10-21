@@ -456,26 +456,17 @@ natural recovery. Healing becomes sluggish, unstable, and incomplete. "
 moves or that nearby enemies (not one) are hit. The battle line has an em dash, a trailing space, three
 sentences, and `%target` on an empty-ground jutsu.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-018)
 
-Description:
-- **D1** "The user lunges across the field and lands a strike laced with unstable void chakra. The energy
-  fractures inside nearby enemies, crippling their healing for a while after the blow."
-- **D2** "In one surging step the user closes in and tears at the space around them with raw chakra. Every
-  enemy caught in the rend takes damage and finds their healing weakened for several rounds."
-- **D3** "Unstable chakra gathers in the user's strike as they rush to a new position. It rips through
-  nearby enemies and lingers in their wounds, making them harder to heal for some time."
+- **Description** (D2): "In one surging step the user closes in and tears at the space around them with raw chakra. Every enemy caught in the rend takes damage and finds their healing weakened for several rounds."
+- **Battle line** (B2): "%user lunges across the field, and a rift of unstable chakra splits open around them, rending nearby enemies and leaving wounds that refuse to close."
 
-Battle line (no `%target`):
-- **B1** "%user surges forward and drives a strike of unstable chakra into the ground, the void tearing
-  through nearby enemies and souring their wounds."
-- **B2** "%user lunges across the field, and a rift of unstable chakra splits open around them, rending
-  nearby enemies and leaving wounds that refuse to close."
+Not chosen: D1, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/193 (QA ticket 21), awaiting the run |
 | Icon | PAUSED |
 

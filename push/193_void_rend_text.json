@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 21 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 10). Suggest mode: content review desk, no direct save. Void Rend's description was cut off mid-word, and neither text said the user moves or that nearby enemies are hit; its battle line had an em dash, a trailing space and %target on an empty-ground jutsu. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-018). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Void Rend",
+   "targetId": "_QfGq0SseWD11jHO23pr1",
+   "data": {
+    "description": "In one surging step the user closes in and tears at the space around them with raw chakra. Every enemy caught in the rend takes damage and finds their healing weakened for several rounds.",
+    "battleDescription": "%user lunges across the field, and a rift of unstable chakra splits open around them, rending nearby enemies and leaving wounds that refuse to close.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Description was cut off mid-word ('recov'). Both texts now cover the move, the damage to nearby enemies and their weakened healing (-30%, 3 rounds). Battle line: em dash and %target removed (it printed literally on empty ground)."
+   }
+  }
+ ]
+}
