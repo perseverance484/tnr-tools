@@ -258,7 +258,7 @@
       "camera": "Shallow sectional three-quarter cave-mouth view; opposing rows of thick spikes frame a dark target pocket.",
       "motion_axis": "Top and bottom toward center, visibly closing/trapping.",
       "secondary_effect": "Few stone and glass chips at spike bases.",
-      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates.",
+      "rendering_lock": "LUMINOUS SILICATE / WARM-CORE REFRACTION: crisp premium TNR pixel/cel planes, dense deep teal-jade/cyan translucent mineral-glass facets, restrained bright amber and sun-gold internal refraction, navy-black negative space, full-bleed designed background; avoid frosted sapphire/ice look, text, frames, runes, generic floating gems; technique action always dominates. Crystal Cave distinctness: rough rock-anchored large teal/jade mineral-glass stalactites and stalagmites thrust inward from opposing upper/lower cavern edges around a dark compressed trap space. No spherical dome or staged projectile impact; 4–6 bold spikes at 32px.",
       "sibling_exclusions": [
         {
           "jutsu_id": "yuJn_D_zPlHV0xJW01JRA",
@@ -278,9 +278,11 @@
         }
       ],
       "wrong_subject_exclusions": [
-        "No warrior, human actor, face, body, hand, fingers or limbs (anatomy exception NONE).",
-        "No generic magic ring, unsupported floating rune or decorative faceted diamond.",
-        "No BBE ice flake, frost, sword or shackles composition."
+        "No human actor, face, body, hands, limbs or anatomical fragments; represent trapped target only via empty dark pocket (anatomy exception NONE).",
+        "No Kōsai traveling crescent shockwave bands or horizontal slash trails; style exemplar supplies rendering only.",
+        "No closed spherical crystal shell or upper-right projectile deflection (reserved by approved Crystal Sphere).",
+        "No Prism straight focused beam or Jade upright chrysalis splitting outward.",
+        "No generic glowing cavern landscape, floating jewel, decorative sigil, ice flakes or full decorative magic ring."
       ],
       "references": [
         {
@@ -288,6 +290,15 @@
           "role": "identity-only",
           "sha256": "a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530",
           "original_zip_member": "images/AggTDO90TarIRTPqGdvvY_Crystal_Cave.png"
+        },
+        {
+          "kind": "individual",
+          "role": "style-only",
+          "sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
+          "attachment_alias": "Crystal_Essence_Kosai_Shippu_APPROVED_RAW_v1.jpg",
+          "actual_decoded_format": "JPEG",
+          "jutsu_id": "igPSz82fa_L2XPrtnMvnz",
+          "source_evidence": "docs/design/crystal_essence/KOSAI_SHIPPU_RAW_APPROVAL_20261020.md"
         }
       ],
       "anatomy_exception": null,
@@ -299,11 +310,11 @@
   ],
   "draft_reservations": "All five actions/silhouettes reserved; director approved only Kōsai Shippū. Remaining four full records are DIRECTION PENDING.",
   "next_target": {
-    "jutsu_id": "zKK0rjIJqbpSiTw7McDAv",
-    "name": "Crystal Sphere",
-    "status": "P0_APPROVED_LOCK_VERIFIED_READY_FOR_ISOLATED_GENERATION",
-    "source_original_sha256": "be71cec840a8a359c47bf7a1d5dbc0c953c020cf2f6fead4ea997cf64b835e74",
-    "approved_family_style_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
-    "lock_sha256": "7470dd1e720c5081c4d209561c4d7e30e3151542786f5577b0f6c2b1820c0c8e"
+    "jutsu_id": "AggTDO90TarIRTPqGdvvY",
+    "name": "Crystal Cave",
+    "status": "P0_PROPOSED_PENDING_DIRECTOR",
+    "source_original_sha256": "a3d8f09b6e104a1e1e7a6dc9d91681245eb19b5cd2ffeaf19adef202f5d28530",
+    "style_reference_approved_kosai_sha256": "84a523fbc5fab3e3eb6f43ff3bf88682643477cf54154d1e0bc3b151353f8ee5",
+    "brief": "docs/design/crystal_essence/CRYSTAL_CAVE_ISOLATED_BRIEF_20261021.md"
   }
 }
