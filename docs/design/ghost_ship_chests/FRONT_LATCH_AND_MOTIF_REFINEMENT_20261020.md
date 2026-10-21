@@ -1,9 +1,9 @@
 # Ghost Ship chest upper-latch binding refinement
 
-Status: Director-approved direction, 2026-10-20.
+Status: DIRECTOR APPROVED, 2026-10-20. Canonical operative art direction is `docs/handoffs/GHOST_SHIP_CHEST_ICONS_ART_REQUEST.md` §4b; this is the supporting decision/evidence record.
 
 Both families' single center bindings travel over the closed domed lid and terminate at a secured upper-front receiver near the lid seam. Neither leather nor rope extends to the bottom of the front panel. Hunter retains a flat strap and tooth clasp; Gatherer retains a single round rope secured in a compact knot. Keep two outer metal hoops and one center binding, without duplicates.
 
-The director also permits visible rarity progression in the fang/tooth ornament and botanical leaves, provided the Hunter claw mark and Gatherer single-leaf brand remain recognizable. Exact variants are visual candidate decisions, not new game item materials or rewards. Each still requires director approval at 125px.
+The director also permits visible rarity progression in the fang/tooth ornament and botanical leaves, provided the Hunter claw mark and Gatherer single-leaf brand remain recognizable. The suggested Rusted/Common/Rare/Epic/Legendary visual-motif options are given in canonical §4b. **Their specific anatomy and number of leaves are starting points, not rigid locks or independent approvals; individual rendered designs remain director-owned.** No new item materials, monster species, loot records or rarity-field changes are authorized. Each still requires director approval at 125px.
 
-Previous Common Hunter and Gatherer images must be revised for shortened front bindings before becoming accepted sources for subsequent tiers. Premium pixel-art standard remains mandatory; no game requests, processing, uploading or publishing.
+**Image acceptance boundary:** Pixel-art Common Hunter `1000018935.png` was director-approved for style and former geometry, but the newly settled termination requires a targeted same-subject correction and renewed visual approval of the revised image before it seeds future chest generations. New Common Gatherer candidate `1000018939.png` was **never director-approved** and carries a long lower-front rope; it must be revised or cleanly regenerated. Keep the approved pixel-art/material direction; do not reintroduce any of the six revoked pre-reset images. Main progression pauses at icon 1 until its revised image is accepted. Premium pixel-art standard remains mandatory; no game requests, processing, uploading or publishing.
