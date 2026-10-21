@@ -19,16 +19,17 @@ art is approved and preflighted, so a rejection of one does not cost the other.
 
 ## 1. Water's Domain
 
-| Field | Live (2026-10-06) |
+| Field | Live (2026-10-21 census, push/178) |
 |---|---|
 | Id | `-8W4JOqG3Cb-oPQtF9rMs` |
 | Type / rank / gate | NORMAL, C rank, Chunin |
-| Reach | `SINGLE`, `OTHER_USER`, range 4 |
+| Reach | `SINGLE`, `OPPONENT`, range 4 |
 | Cost | 60 AP, cooldown 6 |
 | Effect 1 | `damage` power 20, Water, instant |
 | Effect 2 | `increaseheal` 25%, **target SELF**, 2 rounds: the caster's own healing (heals, lifesteal, vamp, absorb) is stronger, from the round after the cast (`tags.ts` `adjustHealGiven`) |
 | AI-equipped | no (2026-10-21 census, push/158-161) |
-| Last edited | 2023-12-30 |
+| Classification | element Water, stat None (set 2026-10-18) |
+| Last edited | 2026-10-18 (classification and target type only; effects unchanged since 2026-10-06) |
 
 **Old text.** Description: "Encase your foe under a torrent of water." Battle line: "%user engulfs
 %target in a powerful surge of water, dealing damage while sapping their strength."
@@ -100,5 +101,5 @@ Return the original asset after director visual approval.
 
 | Part | Status |
 |---|---|
-| Text | APPROVED 2026-10-21; ticket waits on the push/178-181 census to confirm the live record |
+| Text | APPROVED 2026-10-21; sent as push/182 (QA ticket 12), awaiting the run |
 | Icon | DIRECTION APPROVED 2026-10-21 (I1); generation not started, raw needs director approval |
