@@ -1,0 +1,54 @@
+{
+ "_note": "New icons for the last two of the six village bloodline scrolls, which all share one image (docs/handoffs/VILLAGE_BLOODLINE_SCROLL_ICONS_ART_REQUEST.md, RUL-2026-10-20-005); icons 1-4 are push/154-155. Director-supplied 2026-10-21. Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes; both scrolls' battleDescription is non-empty in the 2026-10-20 public read. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "Update icon",
+  "rationale": "Each village bloodline scroll gets its own icon; all six currently share one image."
+ },
+ "imgSizes": {
+  "icon-village-scroll-aerathiel.webp": 64602,
+  "icon-village-scroll-hyouga-yui.webp": 58422
+ },
+ "imagePack": {
+  "ref": "15078d188e25e3467f66ec07c783bd203c494e08",
+  "files": {
+   "icon-village-scroll-aerathiel.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-aerathiel.webp",
+    "sha256": "f14ccd79d905a24ef9a7072d181409331ef1c003417888acf86fb986fa02b327",
+    "bytes": 64602
+   },
+   "icon-village-scroll-hyouga-yui.webp": {
+    "path": "art/village_bloodline_scrolls/exports/icon-village-scroll-hyouga-yui.webp",
+    "sha256": "e5237f8db9fb287642f3d8a9f4e297ef2c675f1c1a9ccf449f302ea7c5cf726b",
+    "bytes": 58422
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Wind Scroll: Aerathiel",
+   "targetId": "Y8lCO3hAPivjpTSZQOuR2",
+   "data": {
+    "image": "@img:icon-village-scroll-aerathiel.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a sand-coloured handscroll with a pale cyan cord, wrapped in a spiral of wind carrying dust, matching the dust bloodline it grants."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Ice Scroll: Hyouga Yui",
+   "targetId": "YqQ5dZb1nKHS8yqnLL8hF",
+   "data": {
+    "image": "@img:icon-village-scroll-hyouga-yui.webp"
+   },
+   "suggestion": {
+    "rationale": "All six village bloodline scrolls share one image, so players cannot tell them apart. This scroll gets its own icon: a deep blue handscroll with frosted silver caps and a blue cord, with ice crystals forming along it, matching the ice bloodline it grants."
+   }
+  }
+ ]
+}
