@@ -1,0 +1,25 @@
+{
+ "_note": "QA ticket 17 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 6). Suggest mode: content review desk, no direct save. Flame Barrage's text claimed the enemy takes more ninjutsu damage afterwards and that the user moves; its second effect actually boosts the user's damage, and it has no movement. Battle line used %target on a ground-targeted spiral. New description and battle line approved by dauntless 2026-10-21 (RUL-2026-10-21-014). Only text changes; injectableInBattle is re-sent at its live value (law 20). Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "GRAMMAR",
+  "title": "Rewrite description and battle line",
+  "rationale": "Text now matches the jutsu's effects."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Flame Barrage",
+   "targetId": "OZp6neM54VPLXIzHc713P",
+   "data": {
+    "description": "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time.",
+    "battleDescription": "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to stoke their own chakra.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Text claimed the enemy takes more ninjutsu damage and that the user moves; the jutsu does neither. Its second effect boosts the user's damage (+20% for 2 rounds). Rewritten to match; %target removed from the battle line, where it printed literally when the blast hit nobody."
+   }
+  }
+ ]
+}

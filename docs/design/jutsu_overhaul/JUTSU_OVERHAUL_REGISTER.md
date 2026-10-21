@@ -306,26 +306,17 @@ amplifying the damage they take from future ninjutsu techniques."
 boosts the user's own damage. "Mobile" and "shifting positions" promise movement the jutsu does not have.
 `%target` on a ground-targeted spiral prints literally when the blast hits nobody.
 
-### Text (PROPOSAL, pick one of each or edit)
+### Text (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-014)
 
-Description:
-- **D1** "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its
-  path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time."
-- **D2** "Fireballs spiral out from the user's hands and burst across an area. Each blaze that lands feeds
-  the user's fire, strengthening their attacks for a short while."
-- **D3** "A barrage of fireballs coils outward in a widening spiral, burning any enemy it reaches, while
-  the user draws on the flames to empower their next attacks."
+- **Description** (D1): "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time."
+- **Battle line** (B1): "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to stoke their own chakra."
 
-Battle line (no `%target`, since the blast can land on empty ground):
-- **B1** "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to
-  stoke their own chakra."
-- **B2** "%user spins a coil of fireballs outward, scorching everything in its path as the heat builds in
-  their hands."
+Not chosen: D2, D3, B2 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | DRAFT, awaiting director pick |
+| Text | APPROVED 2026-10-21; sent as push/189 (QA ticket 17), awaiting the run |
 | Icon | PAUSED |
 

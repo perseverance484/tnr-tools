@@ -1954,3 +1954,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit or publication is authorized. Name and text go to the content review desk as one Forge suggest-mode ticket. Name uniqueness was checked only against the 1,500 names the repository knows; the desk's save validation is the final check.
 
+## RUL-2026-10-21-014 — Flame Barrage overhaul: text approved
+
+**Date:** 2026-10-21
+
+**Domain:** Player jutsu overhaul / jutsu text
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** Flame Barrage (`OZp6neM54VPLXIzHc713P`) gets the description "The user looses a spiralling stream of fireballs across the field, scorching every enemy in its path. The rising heat stokes the user's own chakra, making their attacks hit harder for a short time." and the battle line "%user hurls a spiralling barrage of fireballs across the battlefield, the flames roaring back to stoke their own chakra."
+
+**Evidence:** User, 2026-10-21, after three descriptions and two battle lines: "D1, B1".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md` (section 6).
+
+**Boundary:** No live edit or publication is authorized. The text goes to the content review desk as a Forge suggest-mode ticket.
+
