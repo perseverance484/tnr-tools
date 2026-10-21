@@ -229,7 +229,7 @@ Not chosen: D2, D3, B1 (in git history).
 | Name | flagged for the director, no decision yet |
 | Icon | PAUSED |
 
-## 5. Earthshatter Strike
+## 5. Earthshatter Strike → Bedrock Stance
 
 Text only (icons paused, RUL-2026-10-21-009).
 
@@ -266,37 +266,19 @@ D1 and B2 were approved (RUL-2026-10-21-011) and built as push/187, then withdra
 the director asked for a full rework, name included ("if it doesnt deal damage it shouldnt be called a
 strike. Let's rework the whole thing").
 
-### Rework (PROPOSAL): name, description, battle line
+### Rework (APPROVED, dauntless 2026-10-21; RUL-2026-10-21-013)
 
-Effects stay as they are (a self buff: 20% less damage taken, 20% more taijutsu damage, 2 rounds).
-Giving it damage would be a balance change and is not proposed.
+- **Name** (N1): "Bedrock Stance"
+- **Description** (D1): "The user roots themselves to the earth and draws its strength up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder."
+- **Battle line** (B2): "%user sinks into a low stance as the ground hardens beneath them, their body turning stone-steady and their fists heavy."
 
-Name (none of these matches any of the 1,500 jutsu names the repository knows; the live game has
-1,673, so the review desk is the final uniqueness check):
-- **N1 Bedrock Stance** (recommended): earth, immovable, and "stance" says it is a buff.
-- **N2 Stoneheart Stance**
-- **N3 Rooted Mountain**
-- **N4 Earthbound Resolve**
-
-Description (fits any of the names):
-- **D1** "The user roots themselves to the earth and draws its strength up through their body. For a short
-  time they shrug off blows like bedrock and their taijutsu lands harder."
-- **D2** "Chakra sinks through the user's feet into the ground and returns as stone-hard resolve,
-  hardening their body and adding weight to their taijutsu for a short while."
-- **D3** "The user settles into an immovable earthen stance. While it holds, blows break against them and
-  their fists hit with the weight of the mountain."
-
-Battle line:
-- **B1** "%user plants their feet and draws the strength of the earth up through their body, steeling it
-  for the blows to come."
-- **B2** "%user sinks into a low stance as the ground hardens beneath them, their body turning
-  stone-steady and their fists heavy."
+Effects unchanged. Not chosen: N2-N4, D2, D3, B1 (in git history).
 
 ### Status
 
 | Part | Status |
 |---|---|
-| Text | REWORK proposed 2026-10-21 (push/187 withdrawn); awaiting director pick |
-| Name | rename requested by the director; awaiting pick of N1-N4 |
+| Text | APPROVED 2026-10-21 (rework); sent as push/188 (QA ticket 16), awaiting the run |
+| Name | Bedrock Stance, approved 2026-10-21; in push/188 |
 | Icon | PAUSED |
 

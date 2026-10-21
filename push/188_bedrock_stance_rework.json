@@ -1,0 +1,26 @@
+{
+ "_note": "QA ticket 16 (player jutsu overhaul, docs/design/jutsu_overhaul/JUTSU_OVERHAUL_REGISTER.md section 5), replacing the withdrawn push/187. Suggest mode: content review desk, no direct save. Earthshatter Strike only buffs its user and deals no damage, so it is renamed Bedrock Stance and its description and battle line are rewritten to match (the old battle line used %target on a self-target jutsu). Approved by dauntless 2026-10-21 (RUL-2026-10-21-013). Name, description and battle line change; effects untouched; injectableInBattle is re-sent at its live value (law 20). 'Bedrock Stance' matches none of the 1,500 jutsu names the repository knows (live has 1,673); a duplicate would be refused at submit. Live record from the 2026-10-21 census (push/178-181). Not equipped by any AI (push/158-161). No other suggestion is open on this record. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "CONSISTENCY",
+  "title": "Rename and rewrite text",
+  "rationale": "The name and text described an attack; the jutsu is a self buff."
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Earthshatter Strike",
+   "targetId": "kw8dlRl4y5WBg8GkHSEvp",
+   "data": {
+    "name": "Bedrock Stance",
+    "description": "The user roots themselves to the earth and draws its strength up through their body. For a short time they shrug off blows like bedrock and their taijutsu lands harder.",
+    "battleDescription": "%user sinks into a low stance as the ground hardens beneath them, their body turning stone-steady and their fists heavy.",
+    "injectableInBattle": false
+   },
+   "suggestion": {
+    "rationale": "Renamed from Earthshatter Strike: it deals no damage and only buffs the user (20% less damage taken, 20% more taijutsu damage, 2 rounds). Text rewritten to match; %target removed from the battle line, where it printed the user's own name."
+   }
+  }
+ ]
+}
