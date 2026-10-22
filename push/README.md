@@ -526,10 +526,17 @@ Bundles `tnr_results_1792643578689.json` (unequip, 2/2 match) and `tnr_results_1
 suggestion) to be approved or rejected. If 198 is still open, approving it edits Prism while Jade and Mermaid
 Jade have it equipped (laws 18/60). push/200 archived under `archive/spent-manifests/push-2026-10-22/`.
 
-## 211 Event scrolls capture: READY (read-only)
+## 211 Event scrolls capture: RUN, archived
 
-`211_event_scrolls_capture.json`, hash `41b9eecf`. 27 full point reads, zero writes: 26 scroll items (the
-"Scroll of …" legendary consumables and the "<Element> Scroll: <Jutsu>" scrolls, from the 2026-10-20 item
-index) ahead of the director's new scroll icons, starting with Scroll of Cleave (`K5j9Hq19eRftSFDyIX6TN`), plus
-Storm Dragons Halo to confirm push/210. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+27/27 reads ok (`harvests/inbox/tnr_results_1792693531799.json`, 2026-10-22 18:25Z). All 26 scrolls are visible
+with a non-empty battleDescription, so icon tickets can save. Storm Dragons Halo was edited by hand at 06:18Z,
+after push/210: `reskinParentJutsuId` is back to Tamashī no Sakeme, `bloodlineReskinId` is null, and its image and
+description changed. push/210 is not re-run without the director. Archived under
+`archive/spent-manifests/push-2026-10-22/`.
+
+## 212 Scroll of Cleave icon: READY
+
+`212_scroll_of_cleave_icon.json`, hash `4453ec68`. Suggest mode, one VISUAL suggestion: new `image` on Scroll of
+Cleave (`K5j9Hq19eRftSFDyIX6TN`, teaches Tempest Cleave). Icon `art/item_icons/event_scrolls/exports/icon_scroll_of_cleave_v1.webp`
+(256x256 lossless, 64,032 bytes), pinned at `4e7945c`; artpreflight `--type ICON` clean. Live record from push/211.
+Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
