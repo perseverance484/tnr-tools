@@ -550,9 +550,10 @@ desk. Shadows, Hollow Veil and Cleave overlap other scrolls and are slated for a
 17/17 reads ok (`harvests/inbox/tnr_results_1792701435901.json`). Mostly quest/lore props; Bloodline Scroll and
 Compensation Scroll still carry "New item description". Archived under `archive/spent-manifests/push-2026-10-22/`.
 
-## 217 Scroll icons set 3 capture: READY (read-only)
+## 217 Scroll icons set 3 capture: RUN, archived
 
-`217_scroll_set3_capture.json`, hash `c2b202a6`. Ten full point reads, zero writes: Colored Jewel of the Dragon's Neck
-(`_8HEbybzN5QPX8vUG24Tk`, added to set 3 by the director) and fresh records of the nine set-3 scrolls, so the single
-set-3 ticket is built from current live state. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+10/10 reads ok (`harvests/inbox/tnr_results_1792712111396.json`, 2026-10-22). All ten visible, battleDescription
+non-empty. Shadows, Hollow Veil and Cleave still carry their pre-push/215 images, so the push/215 suggestions for them
+were not approved by then (pending or rejected); they must be resolved before the set-3 ticket covers those three.
+Oblivion Seal's description reads "village bloodline of Syndicate:: O..." (double colon; text item). Archived under
+`archive/spent-manifests/push-2026-10-22/`.
