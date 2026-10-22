@@ -22,7 +22,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
-const PIN = process.argv[3] || "85cecaebf4ada2e265a18a1405f63c9637443275";
+const PIN = process.argv[3] || "107d7a86894f806a4c9cec89effef5992118a0ed";
 const FILES = {
   combat: "app/src/validators/combat.ts",
   objectives: "app/src/validators/objectives.ts",

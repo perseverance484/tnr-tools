@@ -437,7 +437,8 @@ test("the One Perfect Crop core manifest plans as three items, both AI through t
 // expandNested() moves one key, the digest moves with it. Re-pinned 2026-10-18 to 94f9d84, then
 // 2026-10-20 to 6524d0f (tools/derive_nested.mjs; adds elementaldamage, noncombatquest, reward_titles;
 // commented-out task enum members are no longer read as live tasks), then to 85cecae (every
-// objective gains the mapLocationFields keys from validators/mapLocation.ts): the digest, counts and slots below are that derivation's.
+// objective gains the mapLocationFields keys from validators/mapLocation.ts), then 2026-10-22 to 107d7a8 (the
+// siphon tag; reward_level/reward_stats join every reward key set): the digest, counts and slots below are that derivation's.
 test("the shared key-set table expands to exactly the pre-compaction key surface", () => {
   const expanded = expandNested(NESTED_KEYS);
   assert.ok(expanded, "the committed nested.json must expand");
@@ -446,11 +447,11 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
   const stable = (v) => Array.isArray(v) ? v.map(stable)
     : (v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, stable(v[k])])) : v);
   assert.equal(createHash("sha256").update(JSON.stringify(stable(expanded))).digest("hex"),
-    "dc5861d2888de8f301e7d6b2143ca07f809db8c2a6c75d3587ceb63ebafb6561",
+    "577e6f69c334faaf06b0fdba28858cca7f018fde5461474549cc53e9f0f07813",
     "the expanded nested key surface no longer matches the pinned pre-compaction content");
   assert.ok(canonical.length > 0);
   // the shape the Validator reads, spot-checked against the pin rather than only against a digest
-  assert.equal(Object.keys(expanded.effects).length, 86);
+  assert.equal(Object.keys(expanded.effects).length, 87);
   assert.equal(Object.keys(expanded.objectives).length, 64);
   assert.ok(expanded.objectives.start_battle.includes("opponentAIs"));
   assert.ok(expanded.effects.damage.includes("power"));
@@ -459,7 +460,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     "entryItems", "isolated", "rewardMode", "rewardPickCount"]);
   // content.reward is QuestReward at 94f9d84 (rewardFields + reward_packages)
   assert.ok(expanded.objectiveReward.includes("reward_packages"));
-  // the table really is shared: 176 discriminator values resolve to 62 distinct array objects,
+  // the table really is shared: 177 discriminator values resolve to 62 distinct array objects,
   // and same-shaped tags resolve to the IDENTICAL object, not to equal copies
   const arrays = new Set();
   let slots = 0;
@@ -467,7 +468,7 @@ test("the shared key-set table expands to exactly the pre-compaction key surface
     if (Array.isArray(v)) { slots += 1; arrays.add(v); continue; }
     for (const set of Object.values(v)) { slots += 1; arrays.add(set); }
   }
-  assert.equal(slots, 176, "the pin defines 176 key-set slots");
+  assert.equal(slots, 177, "the pin defines 177 key-set slots");
   assert.equal(arrays.size, 62, "which are only 62 distinct key sets");
 });
 

@@ -567,7 +567,7 @@ test("validate: the pinned ItemValidator's farm* keys and quest.requiredFarmingL
   const payload = mergeForUpdate("item", live, { name: "New" }, v.knownFields("item"));
   assert.equal(payload.farmYieldItemId, "y", "ItemValidator requires farmYieldItemId; stripping it would fail every item update");
   assert.equal(payload.farmGrowTimeSeconds, 120); assert.equal(payload.name, "New");
-  assert.equal(SCHEMAS._provenance.pin, "85cecaebf4ada2e265a18a1405f63c9637443275");
+  assert.equal(SCHEMAS._provenance.pin, "107d7a86894f806a4c9cec89effef5992118a0ed");
 });
 
 test("re-pin 94f9d84: fetch-merge keeps every post-345d18ac jutsu and item column instead of resetting it", () => {
@@ -1048,7 +1048,7 @@ test("F3: an unknown AI key is refused BEFORE the placeholder is created", async
   const v = new Validator(SCHEMAS);
   assert.match(v.problems("ai", { username: "X", usernmae: "typo" }, null, { preCreate: true }).join(";"), /unknown key "usernmae"/);
   assert.deepEqual(v.problems("ai", { username: "X", level: 3, avatar: "u", jutsus: [], items: [], rules: [], includeDefaultRules: false }, null, { preCreate: true }), []);
-  assert.equal(v.knownFields("ai").size, 189); // insertAiSchema at 6524d0f/85cecae (post-0056; +pet/title columns, -customTitle)
+  assert.equal(v.knownFields("ai").size, 189); // insertAiSchema at 6524d0f/85cecae/107d7a8 (post-0056; +pet/title columns, -customTitle; validators/aiInput.ts since 8d14dbe)
   for (const k of ["username", "level", "avatar", "isAi", "jutsus", "items"]) assert.ok(v.knownFields("ai").has(k), k);
   for (const k of ["questData", "occupation", "deletionAt"]) assert.ok(!v.knownFields("ai").has(k), k + " is omitted by insertAiSchema");
   const h = harness();
@@ -1183,4 +1183,26 @@ test("re-pin 85cecae: objectives accept the four map-location keys and still ref
   for (const t of ["dialog", "start_battle", "collect_item"]) for (const k of Object.keys(keys))
     assert.ok(v.nested.objectives[t].includes(k), `${t}.${k}`);
   assert.match(v.problems("quest", quest({ locationNmae: "x" })).join(";"), /unknown key "locationNmae"/);
+});
+
+// Re-pin 2026-10-22 to 107d7a8 (RUL-2026-10-22-005). SiphonTag = ConsumeTag.extend({ rounds min 1 })
+// joins AllTags, and milestoneRewardFields (reward_level, reward_stats) join every reward key set
+// for the Elite Jonin milestone quests. Key sets only: the milestone superRefine (solo starter quest,
+// requiredLevel === maxLevel === reward_level - 1, ...) is the server's and is not modelled here.
+test("re-pin 107d7a8: a siphon effect is a known tag with ConsumeTag's keys, and a typo is refused", () => {
+  const v = V();
+  const eff = (extra) => ({ name: "J", hidden: true, effects: [{ type: "siphon", power: 20, rounds: 3, shieldRounds: 2, target: "SELF", calculation: "percentage", ...extra }] });
+  assert.deepEqual(v.problems("jutsu", eff({})), []);
+  assert.ok(v.nested.effects.siphon.includes("shieldRounds"));
+  assert.deepEqual([...v.nested.effects.siphon].sort(), [...v.nested.effects.consume].sort(), "siphon extends consume without new keys");
+  assert.match(v.problems("jutsu", eff({ sheildRounds: 2 })).join(";"), /effects\[0\] \(siphon\): unknown key "sheildRounds"/);
+});
+
+test("re-pin 107d7a8: reward_level and reward_stats are known quest reward keys", () => {
+  const v = V();
+  const quest = { name: "Q", content: { objectives: [{ task: "dialog", id: "o1" }], reward: { reward_level: 101, reward_stats: 20000 } } };
+  assert.deepEqual(v.problems("quest", quest), []);
+  assert.ok(v.nested.objectiveReward.includes("reward_level"));
+  assert.ok(v.nested.objectiveReward.includes("reward_stats"));
+  assert.match(v.problems("quest", { ...quest, content: { ...quest.content, reward: { reward_levle: 101 } } }).join(";"), /unknown key "reward_levle"/);
 });
