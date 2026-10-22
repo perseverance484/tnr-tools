@@ -10,6 +10,8 @@
   suggest-mode manifest with one suggestion per scroll.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
 
+**Delivered:** 1/9. #1 Scroll of Shadows (`raw_scroll_of_shadows_b.png`, native alpha; export `icon_scroll_of_shadows_b.webp`, preflight clean), 2026-10-22.
+
 ## 1. Why
 
 Every jutsu and bloodline scroll must read as a different scroll at icon size (125 px). Today three of our new
