@@ -1,0 +1,37 @@
+{
+ "_note": "READ-ONLY capture of the Tenryūseigan bloodline (H rank, ieDD4S_zzLMmVadUuD69s; hidden) and the three jutsu known to belong to it (QA_LIVE_2026-10-20 findings): Tenryūseigan: Tamashī no Sakeme (nM3rV7Z2uzokyoHD0TqHB), Tenryūseigan: Celestial Sealing (86FM95zHP_PgZuJXFlbty), Crowned Horizon (a7Xsm5Zcz9AbKUu_BBlHU). Purpose: map the six director-supplied icons (art/jutsu_icons/tenryuseigan/) to their jutsu, and record live image and injectableInBattle values for the icon ticket (law 20). Forge can only full-persist point reads, so the rest of the bloodline's jutsu need ids from the director. Zero items, zero writes. Operator runs it from Forge.",
+ "capture": {
+  "before": [
+   {
+    "proc": "bloodline.get",
+    "input": {
+     "id": "ieDD4S_zzLMmVadUuD69s"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "nM3rV7Z2uzokyoHD0TqHB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "86FM95zHP_PgZuJXFlbty"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "a7Xsm5Zcz9AbKUu_BBlHU"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
