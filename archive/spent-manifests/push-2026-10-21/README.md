@@ -154,3 +154,8 @@ suggestions found in the review queue, 0 errors. Per-jutsu suggestion ids: `203_
 Result `harvests/inbox/tnr_results_1792629744565.json`, hash `1b7f2e98` matching, 12/12 reads ok. The Kitsune
 icons it names were downloaded as references to `art/two_tails_armor/refs/`.
 
+## 205 two_tails_armor_icons — WITHDRAWN, never run
+
+Withdrawn 2026-10-22: the director dropped the new icons in favour of a stats rework (RUL-2026-10-22-002). The
+processed art stays in `art/two_tails_armor/`, unused.
+
