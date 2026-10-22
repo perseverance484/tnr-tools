@@ -2172,3 +2172,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/jutsu_overhaul/TENRYUSEIGAN_TEXT_DRAFTS.md` (mapping, text, flags); the create manifest once the open points are settled.
 
 **Boundary:** No live write until the director runs the manifest. Hiding or retiring the existing copies is a separate director decision.
+
+## RUL-2026-10-22-004 — QA S1 quest items: intended or out of scope; Salt Gate Phantom may be deleted
+
+**Date:** 2026-10-22
+
+**Domain:** Quests / QA triage (`docs/reviews/QA_LIVE_2026-10-20.md`, S1 quest sections)
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The QA S1 quest findings are closed as follows. The Nameless Thorn (`qn36dRZfTnru7oSgjDElO`) is stranded on purpose; leave it. The Kuroganekai CHUNIN/GENIN (`iQ5tqJaUKSvqbOybqVVDy`, `iUnQO8Fek3yJ-tL4Djv99`) and Subaku Demon Castle (`Br7u84Gq7orlEpu0yqy1A`) battle-gating and fail-route findings are left alone. The achievement Kill the Creator (`g2ilVOzFys21wkEHwfTeE`) targets the game creator's account on purpose (it awards an achievement for defeating him). Salt Gate Phantom (`nwVJG9bsllGo7DefKM2ic`) is believed to be a stub and may be deleted; deletion is the director's run after a capture confirms it is a stub. Ravena Bloodsilk's Crimson Impact was repaired by the director directly, so push/128's equip step is spent.
+
+**Evidence:** User, 2026-10-22: "Salt Gate Phantom can be deleted I believe its just a stubborn. The Namelwss Thorn is meant to be stranded, leave it be. Leave the KGK/Subaku stuff alone as well. Kill the Creator points to the game creator's account and awards an achievement for killing him. I cant check any of those, I did repair crimson impact on Ravena."
+
+**Canonical destination:** this ruling (QA triage record); future QA passes should whitelist these ids.
+
+**Boundary:** No quest manifest is implied except an optional Salt Gate Phantom capture and delete, run by the director.
