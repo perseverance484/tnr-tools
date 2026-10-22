@@ -93,7 +93,7 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
    will deal with the live versions later.
 2. Redo Shadows (oxblood on black) and Hollow Veil (ash grey / bone white); recolour Cleave (steel silver, orange
    edge, no teal). Event silhouette.
-3. Recolour Oblivion Seal away from violet (indigo-black void proposed). Bloodline silhouette.
+3. Recolour Oblivion Seal to the bloodline art's electric blue-violet (brighter and bluer than KGK). Bloodline silhouette. Delivered 2026-10-22.
 4. New, on the **universal bloodline scroll** silhouette (the former village shape): Scroll of Metal (dark iron,
    molten rivets) and Scroll of Time (sand and aged bronze, hourglass).
 5. New: Dragon's Scroll (jade dragon pearl); the forbidden pair (chained; magenta / scarlet seals).
