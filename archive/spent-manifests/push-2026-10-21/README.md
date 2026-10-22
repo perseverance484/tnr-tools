@@ -149,3 +149,8 @@ applied ones, so no approver had edited them). push/203 is built on this read.
 Result `harvests/inbox/tnr_results_1792618067912.json`, hash `48bdbcfa` matching, outcome success: all 198
 suggestions found in the review queue, 0 errors. Per-jutsu suggestion ids: `203_suggestion_ledger.json`.
 
+## 204 two_tails_kitsune_capture — RUN, SUCCESS
+
+Result `harvests/inbox/tnr_results_1792629744565.json`, hash `1b7f2e98` matching, 12/12 reads ok. The Kitsune
+icons it names were downloaded as references to `art/two_tails_armor/refs/`.
+
