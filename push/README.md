@@ -556,3 +556,10 @@ only. The items are those of push/212-214, unchanged:
 Icons in `art/item_icons/event_scrolls/exports/` (256x256 lossless; Cleave from native alpha, the rest keyed from
 black with `process_scroll_icon.py`), artpreflight `--type ICON` clean. Live records from push/211. Gates:
 `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+
+## 216 Remaining scrolls capture: READY (read-only)
+
+`216_remaining_scrolls_capture.json`, hash `1f4b7869`. 17 full point reads, zero writes: the scroll-named items
+push/211 did not read (Bloodline Scroll, Legendary Jutsu Scroll, the accessory Ice/Storm/Sun/Wind Scrolls, the Old
+Scrolls, and others), for `docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`. Gates: `validate.py --strict` 0 errors,
+0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
