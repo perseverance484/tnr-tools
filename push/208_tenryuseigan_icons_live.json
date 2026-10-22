@@ -1,0 +1,157 @@
+{
+ "_note": "LIVE update, Tenryūseigan icon set, all six Ethereal Monarch-bloodline copies (director 2026-10-22: icons only, no name or description changes, and fix any copy that differs from base Ethereal Monarch). Images: Celestial Sealing copy -> Celestial Bind, Tamashī no Sakeme copy -> Skyfang Burst, Dragon Eye Awakening, Void Gaze Rift -> Void Gaze, Storm Dragon's Halo -> Storm Dragon, Heavenly Barrier. Fix: Storm Dragon's Halo carried Tamashī no Sakeme's kit (SINGLE, damage 40 + consume); it now takes Founder's Wrath's method (AOE_CIRCLE_SPAWN), effects (copied whole from Founder's Wrath, push/207 harvests/inbox/tnr_results_1792638258224.json) and injectableInBattle (true). Every other item re-sends injectableInBattle at its live value (law 20; push/206, push/209 harvests/inbox/tnr_results_1792638600393.json). The other five copies already match their originals except jutsuRank H and hidden, which are left as they are. None is in any AI capture. Icons: art/jutsu_icons/tenryuseigan/, opaque JUTSU_ICON route (RUL-2026-10-14-001), artpreflight clean. Operator runs it from Forge; never skipPreflight.",
+ "imgSizes": {
+  "icon_tenryuseigan_celestial_bind_v1.webp": 110472,
+  "icon_tenryuseigan_skyfang_burst_v1.webp": 114772,
+  "icon_tenryuseigan_dragon_eye_awakening_v1.webp": 113166,
+  "icon_tenryuseigan_void_gaze_v1.webp": 119442,
+  "icon_tenryuseigan_storm_dragon_v1.webp": 122126,
+  "icon_tenryuseigan_heavenly_barrier_v1.webp": 117068
+ },
+ "imagePack": {
+  "ref": "ac907cd0ba15da858fd76b2ace6b250ed351af84",
+  "files": {
+   "icon_tenryuseigan_celestial_bind_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_celestial_bind_v1.webp",
+    "sha256": "a633009f98460e624e8a0978dd7bdcf0add438599c9d18048542ce833133bf6a",
+    "bytes": 110472
+   },
+   "icon_tenryuseigan_skyfang_burst_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_skyfang_burst_v1.webp",
+    "sha256": "7959c018676429a0c124ea0639c54fc850c27b2d969a25553fa05ecbe1e489ea",
+    "bytes": 114772
+   },
+   "icon_tenryuseigan_dragon_eye_awakening_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_dragon_eye_awakening_v1.webp",
+    "sha256": "c804f5b1bbecb381954a2f8848ed9bf433ed77c4f6b963b9e8084dd80df03d65",
+    "bytes": 113166
+   },
+   "icon_tenryuseigan_void_gaze_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_void_gaze_v1.webp",
+    "sha256": "4cd9c15034d769e3152d6c97ca9319f59093d34e6bfad1d6a31c1922ded2d436",
+    "bytes": 119442
+   },
+   "icon_tenryuseigan_storm_dragon_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_storm_dragon_v1.webp",
+    "sha256": "5ba9db37acb107f6551cbf617dc7d69bfd127fd3445a589898dc2bc758128a73",
+    "bytes": 122126
+   },
+   "icon_tenryuseigan_heavenly_barrier_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_heavenly_barrier_v1.webp",
+    "sha256": "e5c00b2040f4f317b49bdc2bd9c1fa45dd727387f9f2d07ef085acaded5626f8",
+    "bytes": 117068
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tenryūseigan: Celestial Sealing - 86FM95zHP_PgZuJXFlbty",
+   "targetId": "86FM95zHP_PgZuJXFlbty",
+   "data": {
+    "image": "@img:icon_tenryuseigan_celestial_bind_v1.webp",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tenryūseigan: Tamashī no Sakeme - nM3rV7Z2uzokyoHD0TqHB",
+   "targetId": "nM3rV7Z2uzokyoHD0TqHB",
+   "data": {
+    "image": "@img:icon_tenryuseigan_skyfang_burst_v1.webp",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Dragon Eye Awakening",
+   "targetId": "a7Xsm5Zcz9AbKUu_BBlHU",
+   "data": {
+    "image": "@img:icon_tenryuseigan_dragon_eye_awakening_v1.webp",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Void Gaze Rift",
+   "targetId": "nry9aXIAr29hJvvOjh67V",
+   "data": {
+    "image": "@img:icon_tenryuseigan_void_gaze_v1.webp",
+    "injectableInBattle": true
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Dragons Halo",
+   "targetId": "GazEyKNZpxgMDuZyAeUfY",
+   "data": {
+    "image": "@img:icon_tenryuseigan_storm_dragon_v1.webp",
+    "injectableInBattle": true,
+    "method": "AOE_CIRCLE_SPAWN",
+    "effects": [
+     {
+      "type": "pierce",
+      "power": 56,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Yin-Yang"
+      ],
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 0,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "TSmIQGaONz67wDHYh9eIP",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "TSmIQGaONz67wDHYh9eIP",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "decreasedamagetaken",
+      "power": 20,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Heavenly Barrier",
+   "targetId": "FgmIkbsSAulI9c4PZgAyE",
+   "data": {
+    "image": "@img:icon_tenryuseigan_heavenly_barrier_v1.webp",
+    "injectableInBattle": false
+   }
+  }
+ ]
+}
