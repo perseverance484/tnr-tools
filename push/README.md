@@ -548,3 +548,20 @@ Bastion (`-qVND9J0r_tkDi7ZdRaCC`, teaches Earthen Bastion). Icon `art/item_icons
 (256x256 lossless), pinned at `618de0c`; delivered on black and keyed by keeping black within 7 px of the art
 (`process_scroll_icon.py`); artpreflight `--type ICON` clean. Live record from push/211. Independent of push/212.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+
+## 214 Event scroll icons (5): READY
+
+`214_event_scroll_icons.json`, hash `16d81109`. Suggest mode, five VISUAL suggestions, one per item, `image` only:
+
+| Scroll | Id | Teaches |
+|---|---|---|
+| Scroll of Renewal | `ZRrluzsDengJNuRYM_lQ6` | Drops of Renewal |
+| Scroll of Blazing | `VPLmBobycTYFLhB4qX23A` | Blazing Fang Strike |
+| Scroll of Celestial Dew | `FO7a7BlDpjx1Rxoy3X5bR` | Celestial Dew |
+| Scroll of Hollow Veil | `4huDnXDq5zInzZ3dLgykM` | Hollow Veil |
+| Scroll of Shadows | `uLLAWOSCFeDz9Mc3d0rKw` | Aegis of Shadows |
+
+Icons in `art/item_icons/event_scrolls/exports/`, pinned at `543ee15`; delivered on black and keyed with
+`process_scroll_icon.py` (black kept within 7 px of the art); artpreflight `--type ICON` clean on all five. Live
+records from push/211. Independent of push/212 and push/213. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.
