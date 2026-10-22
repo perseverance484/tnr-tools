@@ -1,0 +1,36 @@
+{
+ "_note": "New Scroll of Cleave icon (director-supplied 2026-10-22, art/item_icons/event_scrolls/, pinned by commit and SHA-256 in imagePack), first of the new event jutsu scroll icons. Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes on item K5j9Hq19eRftSFDyIX6TN (teaches Tempest Cleave). Live record from push/211 (harvests/inbox/tnr_results_1792693531799.json, 2026-10-22): visible, battleDescription non-empty ('None'), so the save is not blocked. No other suggestion is known to be open on this item. ICON route: native alpha cleaned (body alpha 250-253 snapped to opaque, faint black specks cleared, edge band tightened after resize), padded square, 256x256 lossless WebP; artpreflight --type ICON clean. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New scroll icon",
+  "rationale": "New icon for the Scroll of Cleave, part of the refreshed event scroll icon set."
+ },
+ "imgSizes": {
+  "icon_scroll_of_cleave_v1.webp": 64032
+ },
+ "imagePack": {
+  "ref": "4e7945cac4f13429d5cf40933e808c7ddb6a0a8f",
+  "files": {
+   "icon_scroll_of_cleave_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_cleave_v1.webp",
+    "sha256": "98e8bbe959d13a59c6269216dccf52a12641d6b8fe684fbb9cc168a2b1be3ec1",
+    "bytes": 64032
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Cleave",
+   "targetId": "K5j9Hq19eRftSFDyIX6TN",
+   "data": {
+    "image": "@img:icon_scroll_of_cleave_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a steel-capped scroll wrapped in slicing wind, matching Tempest Cleave, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  }
+ ]
+}
