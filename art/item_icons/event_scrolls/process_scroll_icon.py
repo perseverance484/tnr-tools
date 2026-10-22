@@ -5,7 +5,7 @@ from PIL import Image
 src, slug = sys.argv[1], sys.argv[2]
 T = int(sys.argv[3]) if len(sys.argv) > 3 else 8
 BLO, BHI = (int(sys.argv[4]), int(sys.argv[5])) if len(sys.argv) > 5 else (48, 192)
-base = 'art/item_icons/event_scrolls'
+base = os.environ.get('BASE', 'art/item_icons/event_scrolls')
 VER = os.environ.get('VER', 'v1')
 raw = f'{base}/raws/raw_{slug}_{VER}.png'
 Image.open(src).save(raw)
