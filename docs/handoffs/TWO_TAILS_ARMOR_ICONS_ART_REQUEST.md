@@ -2,6 +2,7 @@
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-22)
+- **Progress:** 1 Shozoku director-approved 2026-10-22 (`art/two_tails_armor/raws/raw_two_tails_shozoku_v1.png`); it locks the rendering and palette for pieces 2 to 5.
 - **Status:** direction approved (RUL-2026-10-22-001: icons only, match the Kitsune set, offensive
   nekomata theme). Per-piece silhouettes below are proposals; the director's visual approval of each raw
   locks it, and icon 1 locks the rendered style.
