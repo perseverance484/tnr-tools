@@ -99,6 +99,4 @@ process or upload anything: intake, preflight and the review-desk ticket are Fab
 
 **Combined ticket:** the scroll-jutsu icons (`SCROLL_JUTSU_ICONS_ART_REQUEST.md`) join this set's manifest (director, 2026-10-22).
 
-**Ticket note (Fable):** the push/215 suggestions for Shadows, Hollow Veil and Cleave were submitted 2026-10-22. The
-desk allows one open suggestion per record, so those three must be approved or rejected before the new ticket covers
-them; the other six have none open.
+**Ticket note (Fable):** the push/215 suggestions for Shadows, Hollow Veil and Cleave were removed from the review desk by the director (2026-10-22), so all eleven set-3 items are clear for new suggestions.
