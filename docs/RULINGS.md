@@ -2190,3 +2190,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** this ruling (QA triage record); future QA passes should whitelist these ids.
 
 **Boundary:** No quest manifest is implied except an optional Salt Gate Phantom capture and delete, run by the director.
+
+## RUL-2026-10-22-005 — Tooling update to TheNinjaRPG@107d7a8 (Lane A, separate review)
+
+**Date:** 2026-10-22
+
+**Domain:** Generated contracts (skill `data/` 45c–45g), Forge contracts, validator / Lane A
+
+**Status:** ACTIVE — Lane A on `fable/contracts-107d7a8`; pending independent review of the frozen SHA
+
+**Supersedes:** none. RUL-2026-10-20-001's adoption gate and ledger process are unchanged.
+
+**Ruling:** Re-pin the tooling to `studie-tech/TheNinjaRPG@107d7a86894f806a4c9cec89effef5992118a0ed`: adopt the regenerated 45c–45g contracts under a reviewed ledger, regenerate Forge's derived contracts, and teach the validator the new game rules (level cap 110, the `siphon` effect, Elite Jonin milestone quest rewards). Work goes on its own `fable/` branch with an exact-SHA handoff for independent review before it reaches `main`. Engine laws 4 and 6 are NOT corrected in this pass; they go through the law-reconciliation process separately.
+
+**Evidence:** User, 2026-10-22: "Lets definitely do a tooling update", then (asked where it goes and whether to include laws 4/6): "New fable/ branch (Recommended)" and "Separate pass (Recommended)".
+
+**Canonical destination:** `state/schema_adoption_ledger_107d7a8.json`; the handoff `docs/handoffs/CONTRACTS_REPIN_107D7A8.md`.
+
+**Boundary:** No live requests. Content decisions about authoring `siphon` effects or milestone quests stay with the director.

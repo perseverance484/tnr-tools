@@ -1,10 +1,10 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "extracted": "2026-10-22",
+  "source_drop": "git:studie-tech/TheNinjaRPG@107d7a8 (2026-10-22)",
   "source_sha256_16": {
-   "app/src/server/api/routers/ (79 files)": "4210e555b3cc1b5e"
+   "app/src/server/api/routers/ (79 files)": "7e032ac15169c37c"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -15,8 +15,8 @@
  },
  "counts": {
   "routers": 78,
-  "procedures": 851,
-  "described": 469
+  "procedures": 855,
+  "described": 471
  },
  "routers": {
   "accountDeletion": {
@@ -422,7 +422,7 @@
    "getHistorical": {
     "procedure": "protectedProcedure",
     "kind": "query",
-    "input": "z.object({ relationId: z.string().optional(), limit: z.number().min(1).max(100).optional(), cursor: z.number().optional(), }),"
+    "input": "mediaHistoryQuerySchema"
    }
   },
   "avatar": {
@@ -437,7 +437,7 @@
     "kind": "query",
     "mcp": false,
     "description": "Get user's historical avatars",
-    "input": "z.object({ relationId: z.string().nullish(), limit: z.number().min(1).max(100).nullish(), cursor: z.number().nullish(), }),"
+    "input": "mediaHistoryQuerySchema"
    },
    "updateAvatar": {
     "procedure": "protectedProcedure",
@@ -1161,7 +1161,7 @@
     "kind": "mutation",
     "mcp": false,
     "description": "Hand battle turns to own AI profile or take back control",
-    "input": "z.object({ battleId: z.string(), enabled: z.boolean() })"
+    "input": "toggleAutoCombatSchema"
    },
    "startShrineBattle": {
     "procedure": "protectedProcedure",
@@ -1490,14 +1490,14 @@
    "getAiBalanceStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), userRanks: z.array(z.string()).optional(), villages: z.array(z.string()).optional(), minLevel: z.number().min(1).default(1), maxLevel: z.number().max(100).default(100), }),"
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), userRanks: z.array(z.string()).optional(), villages: z.array(z.string()).optional(), minLevel: z.number().min(1).default(1), maxLevel: z.number().max(MAX_PLAYER_LEVEL).default(MAX_PLAYER_LEVEL), }),"
    },
    "getBattleLengthStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
     "mcp": false,
     "description": "Get battle length distribution data",
-    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), minWinnerLevel: z.number().min(1).max(100).optional(), maxWinnerLevel: z.number().min(1).max(100).optional(), minLoserLevel: z.number().min(1).max(100).optional(), maxLoserLevel: z.number().min(1).max(100).optional(), }),"
+    "input": "z.object({ battleTypes: z.array(z.enum(BattleTypes)).optional(), minCount: z.number().min(1).default(1), minWinnerLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxWinnerLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), minLoserLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxLoserLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), }),"
    },
    "getQueueLengthStatistics": {
     "procedure": "publicProcedure",
@@ -1520,7 +1520,7 @@
    "getRankedRankDistributionStatistics": {
     "procedure": "publicProcedure",
     "kind": "query",
-    "input": "z.object({ minCount: z.number().min(1).default(1), minLevel: z.number().min(1).max(100).optional(), maxLevel: z.number().min(1).max(100).optional(), }),"
+    "input": "z.object({ minCount: z.number().min(1).default(1), minLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), maxLevel: z.number().min(1).max(MAX_PLAYER_LEVEL).optional(), }),"
    },
    "getQuestRewardStatistics": {
     "procedure": "publicProcedure",
@@ -2253,7 +2253,7 @@
     "kind": "query",
     "mcp": false,
     "description": "Get current user's jutsus",
-    "input": "jutsuFilteringSchema"
+    "input": "userJutsuFilteringSchema"
    },
    "getUserJutsuOwnership": {
     "procedure": "protectedProcedure",
@@ -2485,10 +2485,20 @@
     "kind": "mutation",
     "input": "kageMatchSchema"
    },
-   "startDefense": {
+   "requestInstantDefense": {
     "procedure": "protectedProcedure",
     "kind": "mutation",
     "input": "kageMatchSchema"
+   },
+   "dismissInstantDefense": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "kageInstantResponseSchema"
+   },
+   "startDefense": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "input": "kageStartSchema"
    }
   },
   "linkpromotion": {
@@ -2675,6 +2685,19 @@
     "kind": "query",
     "mcp": false,
     "description": "Get captcha for verification"
+   },
+   "refreshCaptcha": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": false,
+    "description": "Replace the pending captcha with a new one"
+   },
+   "verifyCaptcha": {
+    "procedure": "protectedProcedure",
+    "kind": "mutation",
+    "mcp": false,
+    "description": "Answer the pending training captcha",
+    "input": "z.object({ guess: z.string().trim().min(1).max(20) })"
    },
    "submitNotification": {
     "procedure": "protectedProcedure",

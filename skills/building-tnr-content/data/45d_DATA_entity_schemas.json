@@ -1,14 +1,14 @@
 {
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
+  "extracted": "2026-10-22",
+  "source_drop": "git:studie-tech/TheNinjaRPG@107d7a8 (2026-10-22)",
   "source_sha256_16": {
-   "app/drizzle/constants.ts": "93272fe38b94ee7f",
+   "app/drizzle/constants.ts": "4d3cf207812a7ef9",
    "app/src/validators/ai.ts": "889a5bcdae666e2d",
    "app/src/validators/asset.ts": "b4a1cb632651922e",
-   "app/src/validators/combat.ts": "830100d31626d245",
-   "app/src/validators/objectives.ts": "3c3aa15270fa0fb4"
+   "app/src/validators/combat.ts": "e050191dc5b1998c",
+   "app/src/validators/objectives.ts": "b6e7bc8ad480b8de"
   },
   "contract": "GENERATED. Do not hand-edit. Regenerate from the source drop with schema_extract.py. If a value here disagrees with a guide, this file wins and the guide is stale."
  },
@@ -105,13 +105,14 @@
      "enum_ref": "UserRanks"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().min(1).max(100)",
+     "raw": "z.coerce.number().min(1).max(MAX_PLAYER_LEVEL)",
      "type": "number",
      "coerce": true,
      "optional": false,
      "nullable": false,
      "min": 1,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "method": {
      "raw": "z.enum(AttackMethods)",
@@ -785,7 +786,7 @@
      "enum_ref": "ItemSlotTypes"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().int().min(1).max(100).prefault(1)",
+     "raw": "z.coerce.number().int().min(1).max(MAX_PLAYER_LEVEL).prefault(1)",
      "type": "number",
      "coerce": true,
      "optional": false,
@@ -793,7 +794,8 @@
      "default": 1,
      "int": true,
      "min": 1,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "xpToLevel": {
      "raw": "z.coerce.number().int().min(1).max(100000).prefault(ITEM_XP_TO_LEVEL)",
@@ -1442,13 +1444,15 @@
      "schema_ref": "petTaskMinutesSchema"
     },
     "requiredLevel": {
-     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "raw": "z.coerce.number().int().min(0).max(MAX_PLAYER_LEVEL).optional()",
      "type": "number",
      "coerce": true,
      "optional": true,
      "nullable": false,
+     "int": true,
      "min": 0,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "requiredFarmingLevel": {
      "raw": "z.coerce.number().min(0).max(FARMING_MAX_LEVEL).optional()",
@@ -1461,13 +1465,15 @@
      "max": 100
     },
     "maxLevel": {
-     "raw": "z.coerce.number().min(0).max(100).optional()",
+     "raw": "z.coerce.number().int().min(0).max(MAX_PLAYER_LEVEL).optional()",
      "type": "number",
      "coerce": true,
      "optional": true,
      "nullable": false,
+     "int": true,
      "min": 0,
-     "max": 100
+     "max_ref": "MAX_PLAYER_LEVEL",
+     "max": 110
     },
     "maxAttempts": {
      "raw": "z.coerce.number().min(0).max(100).prefault(1)",

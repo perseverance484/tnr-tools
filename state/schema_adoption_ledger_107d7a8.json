@@ -1,0 +1,125 @@
+{
+ "schema": "tnr.schema_adoption_ledger",
+ "ruling": "RUL-2026-10-22-005",
+ "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound to the exact OLD and NEW file hashes. Not a waiver: any other file, or any other breaking atom, fails schema_diff.py exactly as before.",
+ "source": {
+  "old": "studie-tech/TheNinjaRPG@85cecaebf4ada2e265a18a1405f63c9637443275",
+  "new": "studie-tech/TheNinjaRPG@107d7a86894f806a4c9cec89effef5992118a0ed"
+ },
+ "regenerate": "python3 scripts/schema_adoption_ledger.py <OLD checkout> <NEW checkout> <pre-adoption 45x dir> <adopted 45x dir> --write state/schema_adoption_ledger_107d7a8.json",
+ "classes": {
+  "upstream_field_removed": {
+   "evidence": "A key the validator no longer declares at the new pin. Verified independently: Forge tools/derive_fields.mjs (entity columns) or tools/derive_nested.mjs (tag/objective/AI keys) lists it at the old pin and not at the new one. Examples: migration 0056 dropped required{Ninjutsu,...}{Offence,Defence}; ten tags stopped spreading IncludeStats.",
+   "count": 0
+  },
+  "upstream_const_member_removed": {
+   "evidence": "A member the constant's declaration no longer contains at the new pin (comments stripped, spreads followed), present at the old pin. E.g. StatTypes lost \"Highest\" (IncludeStats maps legacy Highest to None), UserStatuses lost KAGE_QUEUED.",
+   "count": 0
+  },
+  "upstream_procedure_removed": {
+   "evidence": "A router procedure no longer declared in its router file at the new pin (kage challenges, train.stopTraining -> stopMasteryTraining, ...); its guard/kind atoms go with it.",
+   "count": 0
+  },
+  "consequence_of_removal": {
+   "evidence": "An enum member, or a 45g nullable/required/enum/null-strip entry, that belonged to a field verified as removed in this same ledger, or to a constant member verified as removed (statClassification lost \"Highest\" because StatTypes did).",
+   "count": 0
+  },
+  "extractor_spread_marker": {
+   "evidence": "The old file carried a literal \"...Name\" spread marker as if it were a value (ElementNames held \"...BasicElementName\" instead of Fire/Water/...). The fixed extractor expands the spread; the marker was never a value the server accepts.",
+   "count": 0
+  },
+  "extractor_nested_key": {
+   "evidence": "The old line-based parser attributed a key of an inline nested z.object to the outer variant (dialog.text came from nextObjectiveId: z.array(z.object({text, ...}))), and reported that inner key's type as the field's (nextObjectiveId \"string\", really an array). Forge derive_nested at the old pin confirms `text` was never a dialog key; the field's declaration at both pins is z.array(z.object({...})).",
+   "count": 0
+  },
+  "extractor_helper_overreach": {
+   "evidence": "The old helper collector read a fixed 600-character window past a helper, so z.enum(WeaponTypes) from unrelated code became the enum of every stat requirement (requiredStrength...). The old field's own raw expression declares no enum.",
+   "count": 0
+  },
+  "extractor_spread_precedence": {
+   "evidence": "The old flattener let the FIRST spread win; zod lets the LAST win. BaseAttributes.power (max 100) was reported for tags whose PowerAttributes.power (min 0, no max) overrides it: the 45g tag_power_max mistake Forge validate.mjs documents. The new 45c field for that tag has no max.",
+   "count": 0
+  },
+  "upstream_default_removed": {
+   "evidence": "A union-variant field that had a default at the old pin and none at the new one, so it is now required (every objective's `task: z.literal(x).prefault(x)` became `z.literal(x)` upstream). Verified from the variant schema's own field declaration at both pins (top-level entries of the declared object; spreads followed).",
+   "count": 0
+  },
+  "extractor_type_fragment": {
+   "evidence": "The old line-based parser read `z.coerce` at the end of a line as the type \"coerce\"; the field's declaration at both pins is z.coerce.number().",
+   "count": 0
+  },
+  "upstream_cap_raised": {
+   "evidence": "A 45g cap_100 entry for a field whose upper bound moved from the literal 100 to a named constant above 100 (requiredLevel/maxLevel: .max(100) -> .max(MAX_PLAYER_LEVEL), 110, for the Elite Jonin levels). Verified from the entity validator's own field declaration at both pins: .max(100) at the old pin, .max(NAME) at the new one, with NAME declared as an integer literal greater than 100. The field stays capped; 45d carries the new max.",
+   "count": 4
+  },
+  "extractor_ref_resolution": {
+   "evidence": "A field typed by a named schema was recorded as an opaque object; the fixed extractor resolves the name (aiRule.action: ZodAllAiActions is a z.union).",
+   "count": 0
+  }
+ },
+ "files": [
+  {
+   "file": "skills/building-tnr-content/data/45c_DATA_constructors.json",
+   "old_sha256": "8ea74e2a69fb8d577c3ef7db3537eaf88b78f762071f1dacde5db6dbc40f81c3",
+   "new_sha256": "78baa4ac877be6e1a189eb23e6e2f47c15e758ff2ca16df061c48738c56c47e2",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45d_DATA_entity_schemas.json",
+   "old_sha256": "71aae6108915890ab03ff3490f2cd1667f033e66407d1abab372bf3950183e4a",
+   "new_sha256": "a0621ab7004417fe9c554b45ffad0091b6b3f38d839c53bf3c7c64818c2e585c",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45e_DATA_constants.json",
+   "old_sha256": "3fe30e13fe9796f6af3f479a3f68d5e6535c39f3dcf1c526c2f36d37d7a5cd06",
+   "new_sha256": "7f956a14fbcc0bca66e6e17f921c48fc3a5d40d279258005386885686b01a9fb",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45f_DATA_procedures.json",
+   "old_sha256": "43db77353bf3f4e9c2390cf5dda79814e3792818624ddbe5bc38cec5690dea6f",
+   "new_sha256": "f939e1f0856f9d0489e58f4fb81563d2e50ccdc692267a53432bb158d590c125",
+   "accepted": []
+  },
+  {
+   "file": "skills/building-tnr-content/data/45g_DATA_checks.json",
+   "old_sha256": "3c51960d15adc733df31cff2ea60c21cb8a1ed3e9c571e9146905697e972c198",
+   "new_sha256": "a37c91bfca4358daa32518f06c6b355b646e89c5bb2218cb07f0b19deb5af989",
+   "accepted": [
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.item",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_cap_raised"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.jutsu",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_cap_raised"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.quest",
+      "\"maxLevel\""
+     ],
+     "class": "upstream_cap_raised"
+    },
+    {
+     "atom": [
+      "check",
+      "cap_100.fields.quest",
+      "\"requiredLevel\""
+     ],
+     "class": "upstream_cap_raised"
+    }
+   ]
+  }
+ ]
+}
