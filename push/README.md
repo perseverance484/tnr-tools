@@ -505,3 +505,11 @@ Skyfang Burst; Dragon Eye Awakening `a7Xsm5Zcz9AbKUu_BBlHU` gets its own. `injec
 `false` (law 20, push/206). In no AI capture. Image pack pinned at `0f6dc690`. Batch 2 (Storm Dragon, Heavenly
 Barrier, Void Gaze) waits on the three copies' ids. Gates: `validate.py --strict` 0 errors, 0 warnings;
 `forge/tools/check_manifest.mjs` 0 pre-send problems.
+
+## 209 Tenryūseigan batch 2 capture: READY (read-only)
+
+`209_tenryuseigan_batch2_capture.json`, hash `b136c43d`. Three full point reads, zero writes: Void Gaze Rift
+`nry9aXIAr29hJvvOjh67V`, Storm Dragon's Halo `GazEyKNZpxgMDuZyAeUfY`, Heavenly Barrier
+`FgmIkbsSAulI9c4PZgAyE`. Compares each with its Ethereal Monarch original (Stardust, Founder's Wrath, Heavenly
+Constructs; push/207) before the batch 2 icon update. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.
