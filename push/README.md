@@ -495,3 +495,13 @@ current originals exactly in effects and stats; only `jutsuRank` (H) and `hidden
 originals lost stray `statTypes` keys, moved `target` to OPPONENT and took `elementClassification` Yin-Yang.
 Heavenly Constructs still injects Stardust (`0_ip_8I2Dh_Ti2mYUcuAu`). Archived under
 `archive/spent-manifests/push-2026-10-22/`.
+
+## 208 Tenryūseigan icons, live, batch 1: READY
+
+`208_tenryuseigan_icons_live_1.json`, hash `e1574887`. Direct (live) jutsu edits, image only, on three Ethereal
+Monarch-bloodline copies; nothing moved or renamed (director, 2026-10-22). Celestial Sealing copy
+`86FM95zHP_PgZuJXFlbty` gets the Celestial Bind icon; Tamashī no Sakeme copy `nM3rV7Z2uzokyoHD0TqHB` gets
+Skyfang Burst; Dragon Eye Awakening `a7Xsm5Zcz9AbKUu_BBlHU` gets its own. `injectableInBattle` re-sent at live
+`false` (law 20, push/206). In no AI capture. Image pack pinned at `0f6dc690`. Batch 2 (Storm Dragon, Heavenly
+Barrier, Void Gaze) waits on the three copies' ids. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.
