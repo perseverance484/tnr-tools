@@ -507,16 +507,29 @@ in push/210). Heavenly Barrier's unlock cannot be changed on the reskin, and in 
 added without reskin cosmetics (`libs/combat/actions.ts` handleInjectedJutsus), so Tenryūseigan players see
 Ethereal Monarch's Stardust there. Archived under `archive/spent-manifests/push-2026-10-22/`.
 
-## 210 Storm Dragons Halo reskin parent: READY
+## 210 Storm Dragons Halo reskin parent: RUN, archived
 
-`210_storm_dragons_halo_reskin_parent.json`, hash `90a7e476`. One live edit: `reskinParentJutsuId` from
-Tamashī no Sakeme to Founder's Wrath (`AK8P4xmHSdbUOh2ywzb1l`), so the server copies Founder's Wrath's
-mechanics and effects onto Storm Dragons Halo. `injectableInBattle` re-sent at live `true`. Name, image and
-text unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0
-pre-send problems.
+Bundle `harvests/inbox/tnr_results_1792643104585.json`: 1/1 match (`reskinParentJutsuId` now Founder's Wrath).
+push/211 re-reads the jutsu to confirm the inherited mechanics. Archived under
+`archive/spent-manifests/push-2026-10-22/`.
 
 ## 209 Tenryūseigan batch 2 capture: RUN, archived
 
 3/3 reads ok (`harvests/inbox/tnr_results_1792638600393.json`). Void Gaze Rift = Stardust and Heavenly Barrier
 = Heavenly Constructs exactly (rank H aside); Storm Dragons Halo carried Tamashī no Sakeme's kit (fixed in
 push/208). Archived under `archive/spent-manifests/push-2026-10-22/`.
+
+## 199-200 Prism unequip / re-equip: RUN, archived
+
+Bundles `tnr_results_1792643578689.json` (unequip, 2/2 match) and `tnr_results_1792643590802.json`
+(re-equip, 2/2 match), run 12 seconds apart on 2026-10-22. push/200 was meant to wait for push/198 (Prism icon
+suggestion) to be approved or rejected. If 198 is still open, approving it edits Prism while Jade and Mermaid
+Jade have it equipped (laws 18/60). push/200 archived under `archive/spent-manifests/push-2026-10-22/`.
+
+## 211 Event scrolls capture: READY (read-only)
+
+`211_event_scrolls_capture.json`, hash `41b9eecf`. 27 full point reads, zero writes: 26 scroll items (the
+"Scroll of …" legendary consumables and the "<Element> Scroll: <Jutsu>" scrolls, from the 2026-10-20 item
+index) ahead of the director's new scroll icons, starting with Scroll of Cleave (`K5j9Hq19eRftSFDyIX6TN`), plus
+Storm Dragons Halo to confirm push/210. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.

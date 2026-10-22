@@ -1,0 +1,198 @@
+{
+ "_note": "READ-ONLY capture: the jutsu/event scroll items (legendary consumables named 'Scroll of …' and '<Element> Scroll: <Jutsu>', from harvests/seed/41_INDEX_item.json, 2026-10-20) ahead of the director's new scroll icons, starting with Scroll of Cleave. Records each scroll's live image, battleDescription (an empty one blocks item saves) and the jutsu it grants, so each icon ticket needs no further capture. Also re-reads Storm Dragons Halo (GazEyKNZpxgMDuZyAeUfY) to confirm push/210 gave it Founder's Wrath's mechanics. Zero items, zero writes. Operator runs it from Forge.",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "K5j9Hq19eRftSFDyIX6TN"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "-qVND9J0r_tkDi7ZdRaCC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "VPLmBobycTYFLhB4qX23A"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "FO7a7BlDpjx1Rxoy3X5bR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "4huDnXDq5zInzZ3dLgykM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Kzx7F3FsKMqfWNNVhpMbG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "ZRrluzsDengJNuRYM_lQ6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "uLLAWOSCFeDz9Mc3d0rKw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "8iiJYkza-6d2LDiFWQeCm"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "_M2UwSUpP_szhbuicUoSC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "rFtea8kQnNDWfR8xw1GDw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "XZfVErGEkHpPiPtPa7_VC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "X5q3Ww-yfCeJ3m6ZqPmmz"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "YqQ5dZb1nKHS8yqnLL8hF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Izs2ylsFzJ7fZtdvwDwcH"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "eDtb6vAHFShsb8ZGlD_V0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "DoDrH6CM7o0euz9UQXBS8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "hxQjy9yMVBgjvpNoheh7B"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "7tZoY3uG2Jxg8Fp0dZlwE"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "InPbAQg3-Tf6yqoZWD4zT"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "NnYP2epwQk8ej-q-7yuxi"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Y8lCO3hAPivjpTSZQOuR2"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "DWFRB8hWCaWpWpUWUO8t5"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Apc3YBy_gWux5g9dpN1kB"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "U_vp884X6iwsgUVnGj6GR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mDBpVrKfygS5V5EZgvcn1"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GazEyKNZpxgMDuZyAeUfY"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
