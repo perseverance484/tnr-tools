@@ -2152,3 +2152,23 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No manifest until a version is approved; no live edit.
 
+
+## RUL-2026-10-22-003 — Tenryūseigan kit: new jutsu as exact copies of Ethereal Monarch's six
+
+**Date:** 2026-10-22
+
+**Domain:** Bloodline jutsu / content creation
+
+**Status:** ACTIVE (build pending the director's open decisions below)
+
+**Supersedes:** none
+
+**Ruling:** Tenryūseigan (`ieDD4S_zzLMmVadUuD69s`, H rank, hidden) gets its own kit of six jutsu that are exact copies of Ethereal Monarch's six (effects and stats unchanged), under the director's new names, with the director-supplied icons (`art/jutsu_icons/tenryuseigan/`) and new text (`docs/design/jutsu_overhaul/TENRYUSEIGAN_TEXT_DRAFTS.md`). Mapping: Celestial Bind = Celestial Sealing, Heavenly Barrier = Heavenly Constructs (unlocks Void Gaze), Dragon Eye Awakening = Starlight Veil, Storm Dragon = Founder's Wrath, Void Gaze = Stardust, Skyfang Burst = Tamashī no Sakeme.
+
+**Evidence:** push/206 (`harvests/inbox/tnr_results_1792635598196.json`): the three existing "Tenryūseigan" copies are attached to Ethereal Monarch, so Tenryūseigan has no jutsu of its own. User, 2026-10-22: "I think we'll need to make new jutsu for the bloodline", then "Exact copies, I'll figure out the rest in a bit".
+
+**Open (director):** reuse the three existing copies or create all six; whether Skyfang Burst's `consume` moves from the target to the caster; ship as a direct builder manifest or as two suggest-mode rounds; final names and prose.
+
+**Canonical destination:** `docs/design/jutsu_overhaul/TENRYUSEIGAN_TEXT_DRAFTS.md` (mapping, text, flags); the create manifest once the open points are settled.
+
+**Boundary:** No live write until the director runs the manifest. Hiding or retiring the existing copies is a separate director decision.
