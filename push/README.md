@@ -481,12 +481,16 @@ Not run; the icons were dropped for a stats rework (RUL-2026-10-22-002). Archive
 `archive/spent-manifests/push-2026-10-21/`.
 
 
-## 206 Tenryūseigan capture: READY (read-only)
+## 206 Tenryūseigan capture: RUN, archived
 
-`206_tenryuseigan_capture.json`, hash `ed07ff6d`. Four full point reads, zero writes: the Tenryūseigan
-bloodline (`ieDD4S_zzLMmVadUuD69s`, H rank, hidden) and the three jutsu known to belong to it
-(Tenryūseigan: Tamashī no Sakeme `nM3rV7Z2uzokyoHD0TqHB`, Tenryūseigan: Celestial Sealing
-`86FM95zHP_PgZuJXFlbty`, Crowned Horizon `a7Xsm5Zcz9AbKUu_BBlHU`). It maps the six new icons in
-`art/jutsu_icons/tenryuseigan/` to their jutsu. Forge only keeps full records for point reads, so the
-bloodline's other jutsu need ids from the director. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+4/4 reads ok (`harvests/inbox/tnr_results_1792635598196.json`). Finding: the three "Tenryūseigan" jutsu are
+attached to Ethereal Monarch (`IxhIoLEmznqdcnc_6MCN9`), and Crowned Horizon is now the visible Dragon Eye
+Awakening (a Starlight Veil copy), so Tenryūseigan owns no jutsu. Director: build new jutsu as exact copies
+(RUL-2026-10-22-003). Archived under `archive/spent-manifests/push-2026-10-22/`.
+
+## 207 Ethereal Monarch kit capture: READY (read-only)
+
+`207_ethereal_monarch_kit_capture.json`, hash `baa220e3`. Six full point reads, zero writes: Stardust,
+Tamashī no Sakeme, Founder's Wrath, Celestial Sealing, Heavenly Constructs and Starlight Veil, as fresh
+templates for the Tenryūseigan copies (law 31; last read 2026-10-17). Gates: `validate.py --strict` 0 errors,
+0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.

@@ -2,7 +2,7 @@
 
 - **Bloodline:** Tenryūseigan (`ieDD4S_zzLMmVadUuD69s`, H rank, hidden), a renamed copy of Ethereal Monarch's kit.
 - **Icons:** `art/jutsu_icons/tenryuseigan/exports/` (director-supplied 2026-10-22, preflight clean).
-- **Status:** DRAFT. The mapping is proposed except Celestial Bind (director: "Celestial Bind -> Celestial
+- **Status:** DRAFT. Director: new jutsu, exact copies of Ethereal Monarch's six (RUL-2026-10-22-003). The mapping is proposed except Celestial Bind (director: "Celestial Bind -> Celestial
   Sealing"). Text is written from the Ethereal Monarch records (bundle `tnr_results_1792212938515.json`,
   2026-10-17) and must be checked against the live Tenryūseigan copies from push/206 before any ticket.
   Names, final prose and acceptance are the director's (CLAUDE.md section 10).
@@ -14,9 +14,9 @@
 |---|---|---|---|
 | Celestial Bind | Celestial Sealing | director | given |
 | Heavenly Barrier | Heavenly Constructs | dome = self shield (reflect, debuff immunity) | high |
-| Dragon Eye Awakening | Starlight Veil | self power-up (damage up, damage down) | high |
+| Dragon Eye Awakening | Starlight Veil | live copy already renamed, identical effects (push/206) | confirmed |
 | Storm Dragon | Founder's Wrath | the only area attack; a storm crashing down | high |
-| Void Gaze | Stardust | debuff on the target (takes more damage, afterburn) | medium |
+| Void Gaze | Stardust | Heavenly Constructs injects Stardust (2026-10-17 record) | confirmed |
 | Skyfang Burst | Tamashī no Sakeme | single burst of damage | medium |
 
 ## Drafts
