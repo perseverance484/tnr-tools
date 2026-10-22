@@ -116,6 +116,6 @@ with a ledger row (filename, jutsu, pixel size, bytes). Do not process or upload
 - **Open text suggestions:** at the last ledger (push/203), round-2 text suggestions were still PENDING on Aegis of
   Shadows, Blazing Fang Strike, Celestial Dew, Subaku Palace and Tempest Cleave. One open suggestion per record: those
   must be approved or rejected before their icon suggestions go in.
-- **Earthen Bastion is equipped by an AI (War Commander, 2026-10-21 census).** A suggestion edits the jutsu at approval,
-  which severs the AI link (laws 18, 60). It is flagged to the director, not ticketed on its own: either leave it out,
-  or run unequip → icon suggestion → approve/reject → re-equip, as was done for Prism (push/198–200).
+- **Earthen Bastion is equipped by an AI (War Commander, 2026-10-21 census).** Director, 2026-10-22: "Include it. I'll
+  reequip later." It goes in the combined ticket like the others; approving its suggestion edits the jutsu and severs
+  War Commander's link (laws 18, 60), and the director re-equips War Commander afterwards. The ticket note says so.
