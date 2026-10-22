@@ -46,17 +46,24 @@ function objectBody(src, name) {
 
 /**
  * The AI record has no content validator: profile.updateAi takes insertAiSchema, which is
- * createInsertSchema(userData).omit({...}).extend(z.object({...})) at drizzle/schema.ts:2577.
+ * createInsertSchema(userData).omit({...}).extend(z.object({...})). The userData table is in
+ * drizzle/schema.ts; insertAiSchema itself was there until TheNinjaRPG 8d14dbe moved it to
+ * validators/aiInput.ts. Both locations are searched, and exactly one must declare it.
  * Derive its effective top-level key set from the table columns so an AI create can be validated
  * BEFORE the placeholder is minted; waiting for a live row means a typo costs a live row.
  */
+const AI_SCHEMA_FILES = ["app/drizzle/schema.ts", "app/src/validators/aiInput.ts"];
+const AI_SCHEMA_RE = /export const insertAiSchema\s*=\s*createInsertSchema\(\s*userData\s*\)/;
 function insertAiSchemaFields(schemaSrc) {
   const t = /export const userData = mysqlTable\(\s*"[^"]*"\s*,\s*\{/.exec(schemaSrc);
   if (!t) throw new Error("not found: userData mysqlTable");
   const columns = topLevelKeys(balancedFrom(schemaSrc, t.index + t[0].length)).keys;
-  const a = /export const insertAiSchema\s*=\s*createInsertSchema\(\s*userData\s*\)/.exec(schemaSrc);
-  if (!a) throw new Error("not found: insertAiSchema");
-  const tail = schemaSrc.slice(a.index);
+  const hits = AI_SCHEMA_FILES.filter((f) => existsSync(join(root, f)))
+    .map((f) => { const src = readFileSync(join(root, f), "utf8"); return { f, src, a: AI_SCHEMA_RE.exec(src) }; })
+    .filter((h) => h.a);
+  if (hits.length !== 1) throw new Error(hits.length ? `insertAiSchema is declared in ${hits.map((h) => h.f).join(" and ")}; cannot tell which one the server uses` : "not found: insertAiSchema");
+  const { f: aiFile, src: aiSrc, a } = hits[0];
+  const tail = aiSrc.slice(a.index);
   const om = /\.omit\(\s*\{/.exec(tail);
   const omit = om ? topLevelKeys(balancedFrom(tail, om.index + om[0].length)).keys : [];
   const ex = /\.extend\(\s*(?:z\s*\.object\(\s*)?\{/.exec(tail);
@@ -65,7 +72,7 @@ function insertAiSchemaFields(schemaSrc) {
   const set = new Set(columns.filter((k) => !omit.includes(k)));
   for (const k of extend) set.add(k);
   const fields = {}; for (const k of [...set].sort()) fields[k] = true;
-  return { source: "app/drizzle/schema.ts:" + schemaSrc.slice(0, a.index).split("\n").length, validator: "insertAiSchema",
+  return { source: `${aiFile}:` + aiSrc.slice(0, a.index).split("\n").length, validator: "insertAiSchema",
            spreads: [], columns: columns.length, omitted: omit.sort(), extended: extend.sort(), fields };
 }
 

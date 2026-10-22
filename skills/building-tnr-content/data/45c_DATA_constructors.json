@@ -1143,6 +1143,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -1452,6 +1463,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -1724,6 +1746,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -2001,6 +2034,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -2356,6 +2400,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -2666,6 +2721,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -3041,6 +3107,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -3405,6 +3482,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -3837,6 +3925,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -4142,6 +4241,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -4498,6 +4608,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -4897,6 +5018,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -5174,6 +5306,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -5464,6 +5607,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -5745,6 +5899,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -6028,6 +6193,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -6309,6 +6485,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -6608,6 +6795,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -6750,6 +6948,7 @@
        "seal",
        "sealprevent",
        "shield",
+       "siphon",
        "stealth",
        "stun",
        "stunprevent",
@@ -6962,6 +7161,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -7243,6 +7453,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -7530,6 +7751,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -7861,6 +8093,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -8205,6 +8448,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -8580,6 +8834,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -8944,6 +9209,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -9376,6 +9652,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -9695,6 +9982,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -9984,6 +10282,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -10265,6 +10574,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -10548,6 +10868,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -10829,6 +11160,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -11128,6 +11470,17 @@
       "type": "number",
       "default": 0
      },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
+     },
      "reward_packages": {
       "type": "array",
       "max": 50,
@@ -11270,6 +11623,7 @@
        "seal",
        "sealprevent",
        "shield",
+       "siphon",
        "stealth",
        "stun",
        "stunprevent",
@@ -11482,6 +11836,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -11763,6 +12128,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -12050,6 +12426,17 @@
      "reward_war_healing": {
       "type": "number",
       "default": 0
+     },
+     "reward_level": {
+      "type": "number",
+      "int": true,
+      "optional": true
+     },
+     "reward_stats": {
+      "type": "number",
+      "min": 0,
+      "int": true,
+      "optional": true
      },
      "reward_packages": {
       "type": "array",
@@ -13396,7 +13783,7 @@
      },
      "description": {
       "type": "string",
-      "default": "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Not affected by heal modifiers."
+      "default": "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Shares conversion and shield HP caps with Siphon. Not affected by heal modifiers."
      },
      "shieldRounds": {
       "type": "number",
@@ -13409,6 +13796,115 @@
     "discriminant": {
      "field": "type",
      "value": "consume"
+    }
+   },
+   "siphon": {
+    "schema": "SiphonTag",
+    "fields": {
+     "staticAssetPath": {
+      "type": "string",
+      "default": ""
+     },
+     "staticAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearAnimation": {
+      "type": "string",
+      "default": ""
+     },
+     "appearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "disappearSfx": {
+      "type": "string",
+      "default": ""
+     },
+     "rounds": {
+      "type": "number",
+      "default": 3,
+      "min": 1,
+      "max": 100,
+      "int": true
+     },
+     "timeTracker": {
+      "type": "record",
+      "optional": true
+     },
+     "power": {
+      "type": "number",
+      "default": 1,
+      "min": 0
+     },
+     "powerPerLevel": {
+      "type": "number",
+      "default": 0,
+      "min": 0,
+      "max": 1
+     },
+     "direction": {
+      "type": "literal",
+      "default": "offence",
+      "literal": "offence"
+     },
+     "target": {
+      "type": "enum",
+      "default": "SELF",
+      "optional": true,
+      "enum_ref": "BaseTagTargets@validators/combat.ts",
+      "enum": [
+       "COORDINATES",
+       "INHERIT",
+       "SELF"
+      ]
+     },
+     "coordinateTargeting": {
+      "type": "ref",
+      "schema_ref": "coordinateTargetingSchema",
+      "optional": true,
+      "nullable": true
+     },
+     "friendlyFire": {
+      "type": "enum",
+      "optional": true,
+      "enum": [
+       "ALL",
+       "FRIENDLY",
+       "ENEMIES"
+      ]
+     },
+     "calculation": {
+      "type": "enum",
+      "default": "percentage",
+      "enum": [
+       "percentage"
+      ]
+     },
+     "type": {
+      "type": "literal",
+      "default": "siphon",
+      "literal": "siphon"
+     },
+     "description": {
+      "type": "string",
+      "default": "While active, convert a percentage of damage you take after existing shields absorb it into stacking temporary shields. New shields are granted after damage resolves. Excludes self-inflicted damage and recoil. Shares conversion and shield HP caps with Consume. Can be cleared. Not affected by heal modifiers."
+     },
+     "shieldRounds": {
+      "type": "number",
+      "default": 3,
+      "min": 1,
+      "max": 100,
+      "int": true
+     }
+    },
+    "discriminant": {
+     "field": "type",
+     "value": "siphon"
     }
    },
    "copy": {
@@ -22458,9 +22954,9 @@
  },
  "_provenance": {
   "generator": "schema_extract.py v2.0",
-  "extracted": "2026-10-20",
-  "source_drop": "git:studie-tech/TheNinjaRPG@85cecaeb (2026-10-20)",
-  "content_sha256_16": "fba6416171a4ffdb",
+  "extracted": "2026-10-22",
+  "source_drop": "git:studie-tech/TheNinjaRPG@107d7a8 (2026-10-22)",
+  "content_sha256_16": "d020a403e50c848b",
   "contract": "GENERATED. Do not hand-edit. content_sha256_16 fingerprints the payload, not the stamp: two files claiming the same generator, drop and date but differing in content are detectable by comparing this field."
  }
 }

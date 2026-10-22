@@ -3,6 +3,7 @@
 
     python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --write state/LEDGER.json
     python3 scripts/schema_adoption_ledger.py OLD_SRC NEW_SRC OLD_DIR NEW_DIR --check state/LEDGER.json
+    (either form takes an optional trailing `--ruling RUL-...`; default RUL-2026-10-20-001)
 
 OLD_SRC / NEW_SRC  read-only TheNinjaRPG checkouts the committed and the regenerated files were
                    extracted from (pins are read from each checkout's git HEAD).
@@ -87,6 +88,12 @@ CLASSES = {
     "extractor_type_fragment": (
         "The old line-based parser read `z.coerce` at the end of a line as the type \"coerce\"; "
         "the field's declaration at both pins is z.coerce.number()."),
+    "upstream_cap_raised": (
+        "A 45g cap_100 entry for a field whose upper bound moved from the literal 100 to a named "
+        "constant above 100 (requiredLevel/maxLevel: .max(100) -> .max(MAX_PLAYER_LEVEL), 110, "
+        "for the Elite Jonin levels). Verified from the entity validator's own field declaration "
+        "at both pins: .max(100) at the old pin, .max(NAME) at the new one, with NAME declared as "
+        "an integer literal greater than 100. The field stays capped; 45d carries the new max."),
     "extractor_ref_resolution": (
         "A field typed by a named schema was recorded as an opaque object; the fixed extractor "
         "resolves the name (aiRule.action: ZodAllAiActions is a z.union)."),
@@ -227,6 +234,29 @@ def has_procedure(src, router, proc):
     return os.path.exists(p) and re.search(r"^\s+%s\s*:" % re.escape(proc), _strip(open(p).read()), re.M) is not None
 
 
+# The entity validators 45d and Forge derive_fields.mjs read (TARGETS there).
+ENTITY_SCHEMAS = {"jutsu": "JutsuValidatorRawSchema", "item": "ItemValidatorRawSchema",
+                  "quest": "QuestValidatorRawSchema", "bloodline": "BloodlineValidator",
+                  "gameAsset": "gameAssetValidator"}
+
+
+def cap_raised(old_src, new_src, entity, field):
+    """True when the field is .max(100) at the old pin and .max(NAME) at the new pin, NAME an
+    integer literal constant > 100. Read from the validator files, not from 45d."""
+    schema = ENTITY_SCHEMAS.get(entity)
+    if not schema:
+        return False
+    old_e, new_e = field_expr(old_src, schema, field), field_expr(new_src, schema, field)
+    if not old_e or not new_e or not re.search(r"\.max\(\s*100\s*\)", old_e):
+        return False
+    m = re.search(r"\.max\(\s*([A-Z_][A-Z0-9_]*)\s*\)", new_e)
+    if not m:
+        return False
+    raw = _decl(new_src, m.group(1))
+    v = re.match(r"\s*(\d+)\s*;", raw or "")
+    return bool(v) and int(v.group(1)) > 100
+
+
 # ------------------------------------------------------------------------- classify
 
 FAMILY = {"AllTags": "effects", "AllObjectives": "objectives", "allObjectiveSchema": "objectives",
@@ -316,6 +346,8 @@ def classify_late(name, atom, ctx):
         if nf and ref and (ref, val) in ctx["const_removed"]:
             return "consequence_of_removal"
         return None
+    if block == "cap_100" and (parts[2], val) not in ctx["field_removed"]:
+        return "upstream_cap_raised" if cap_raised(ctx["old"], ctx["new"], parts[2], val) else None
     if block in ("nullable", "required_on_create", "cap_100", "booleans", "date_fields"):
         return "consequence_of_removal" if (parts[2], val) in ctx["field_removed"] else None
     if block == "null_strip_exempt":
@@ -365,6 +397,9 @@ def _head(src):
 
 def main():
     a = sys.argv[1:]
+    ruling = "RUL-2026-10-20-001"  # the first adoption's ruling; later adoptions pass --ruling
+    if len(a) == 8 and a[6] == "--ruling":
+        ruling, a = a[7], a[:6]
     if len(a) != 6 or a[4] not in ("--write", "--check"):
         print(__doc__)
         return 2
@@ -376,7 +411,7 @@ def main():
     counts = Counter(r["class"] for f in files for r in f["accepted"])
     doc = {
         "schema": "tnr.schema_adoption_ledger",
-        "ruling": "RUL-2026-10-20-001",
+        "ruling": ruling,
         "scope": "One adoption of the generated 45c/45d/45e/45f/45g contracts; each entry is bound "
                  "to the exact OLD and NEW file hashes. Not a waiver: any other file, or any "
                  "other breaking atom, fails schema_diff.py exactly as before.",
