@@ -488,9 +488,10 @@ attached to Ethereal Monarch (`IxhIoLEmznqdcnc_6MCN9`), and Crowned Horizon is n
 Awakening (a Starlight Veil copy), so Tenryūseigan owns no jutsu. Director: build new jutsu as exact copies
 (RUL-2026-10-22-003). Archived under `archive/spent-manifests/push-2026-10-22/`.
 
-## 207 Ethereal Monarch kit capture: READY (read-only)
+## 207 Ethereal Monarch kit capture: RUN, archived
 
-`207_ethereal_monarch_kit_capture.json`, hash `baa220e3`. Six full point reads, zero writes: Stardust,
-Tamashī no Sakeme, Founder's Wrath, Celestial Sealing, Heavenly Constructs and Starlight Veil, as fresh
-templates for the Tenryūseigan copies (law 31; last read 2026-10-17). Gates: `validate.py --strict` 0 errors,
-0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+6/6 reads ok (`harvests/inbox/tnr_results_1792638258224.json`). The three known Tenryūseigan copies match their
+current originals exactly in effects and stats; only `jutsuRank` (H) and `hidden` differ. Since 2026-10-17 the
+originals lost stray `statTypes` keys, moved `target` to OPPONENT and took `elementClassification` Yin-Yang.
+Heavenly Constructs still injects Stardust (`0_ip_8I2Dh_Ti2mYUcuAu`). Archived under
+`archive/spent-manifests/push-2026-10-22/`.
