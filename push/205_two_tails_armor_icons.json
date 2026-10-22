@@ -1,0 +1,108 @@
+{
+ "_note": "New Two Tails armor icons (RUL-2026-10-22-001; art request docs/handoffs/TWO_TAILS_ARMOR_ICONS_ART_REQUEST.md). Five director-approved raws processed in art/two_tails_armor/ (pinned by commit and SHA-256 in imagePack). Suggest mode: content review desk, nothing changes until a reviewer approves; one suggestion per piece. Only image changes. All five battle lines are non-empty (push/204 capture, 2026-10-22), so the saves are not blocked. No other suggestion is open on these items. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New item icon",
+  "rationale": "New icon from the Two Tails armor set."
+ },
+ "imgSizes": {
+  "icon-two-tails-shozoku.webp": 56424,
+  "icon-two-tails-zukin.webp": 44944,
+  "icon-two-tails-tekkou.webp": 43160,
+  "icon-two-tails-tabi.webp": 37068,
+  "icon-two-tails-jaki-tabi.webp": 51016
+ },
+ "imagePack": {
+  "ref": "cdfe058879ff2b7b733de2a5899fe3de3b765a25",
+  "files": {
+   "icon-two-tails-shozoku.webp": {
+    "path": "art/two_tails_armor/exports/icon-two-tails-shozoku.webp",
+    "sha256": "c58a261f8875761e4093e9212e822b535522acf5b0a274a53cae398fd2cabdb3",
+    "bytes": 56424
+   },
+   "icon-two-tails-zukin.webp": {
+    "path": "art/two_tails_armor/exports/icon-two-tails-zukin.webp",
+    "sha256": "6ebb84300a3cbe5fffb676839c94840047f80fc4861d4432942a70bfed83a79c",
+    "bytes": 44944
+   },
+   "icon-two-tails-tekkou.webp": {
+    "path": "art/two_tails_armor/exports/icon-two-tails-tekkou.webp",
+    "sha256": "420051a1d4096bae4dcf2c95c74ad449c2b7230ac3df760edad3f4c2533cbc81",
+    "bytes": 43160
+   },
+   "icon-two-tails-tabi.webp": {
+    "path": "art/two_tails_armor/exports/icon-two-tails-tabi.webp",
+    "sha256": "e38b28776ee55995c69e921f3cc1871aaeaecc2c205f8098506e2711559d3a9f",
+    "bytes": 37068
+   },
+   "icon-two-tails-jaki-tabi.webp": {
+    "path": "art/two_tails_armor/exports/icon-two-tails-jaki-tabi.webp",
+    "sha256": "42831c7ba6ed2da280594977af07594d0c2556a6198d21c94fa159970ec958ac",
+    "bytes": 51016
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Two Tails Shozoku",
+   "targetId": "t88B9dtM-Wly3NZ_6f6NZ",
+   "data": {
+    "image": "@img:icon-two-tails-shozoku.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a black-lacquer chest guard with crimson cloth, claw-point pauldrons, claw-slash markings and a gold nekomata emblem. Matches the Kitsune set's style with an offensive two-tailed cat theme; replaces the old icon."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Two Tails Zukin",
+   "targetId": "qcIb0edEpXfLaOiERicCE",
+   "data": {
+    "image": "@img:icon-two-tails-zukin.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a black hood with cat-ear points and a fanged nekomata half-mask, in the set's black, crimson and gold. Part of the new Two Tails icon set matching the Kitsune set's style."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Two Tails Tekkou",
+   "targetId": "rFrYeO7r4fsIn8PrU2xd8",
+   "data": {
+    "image": "@img:icon-two-tails-tekkou.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a black-lacquer gauntlet with gold claw tips and a gold nekomata emblem at the wrist. Part of the new Two Tails icon set matching the Kitsune set's style."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Two Tails Tabi",
+   "targetId": "4voAt9Cg1z7X0Wg3YKQ_m",
+   "data": {
+    "image": "@img:icon-two-tails-tabi.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: crimson leg guards with black-lacquer greaves, gold knee caps and twin crimson streamers like two tails. Part of the new Two Tails icon set matching the Kitsune set's style."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Two Tails Jaki-Tabi",
+   "targetId": "vW7pgjvMnJMbg2aFzWwZo",
+   "data": {
+    "image": "@img:icon-two-tails-jaki-tabi.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: black-lacquer split-toe boots with crimson wraps and gold claw-point toe caps. Part of the new Two Tails icon set matching the Kitsune set's style."
+   }
+  }
+ ]
+}

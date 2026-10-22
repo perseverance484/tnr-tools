@@ -475,3 +475,15 @@ Submitted: all 198 suggestions found in the review queue, 0 errors. Archived und
 12/12 reads ok. Archived under `archive/spent-manifests/push-2026-10-21/`. Art request:
 `docs/handoffs/TWO_TAILS_ARMOR_ICONS_ART_REQUEST.md`.
 
+## 205 Two Tails armor icons (suggest mode)
+
+`205_two_tails_armor_icons.json` sends new icons for the five Two Tails armor pieces (Shozoku, Zukin, Tekkou,
+Tabi, Jaki-Tabi) to the content review desk, one suggestion per piece; it does not save directly. The art
+matches the Kitsune set's style with an offensive nekomata theme (RUL-2026-10-22-001); all five raws are
+director-approved and processed in `art/two_tails_armor/` (pinned by commit `cdfe058` and SHA-256 in
+`imagePack`; showcase `art/two_tails_armor/showcase/two_tails_showcase_v1.png`). Only `image` changes. All five
+battle lines are non-empty (push/204 capture), so the saves are not blocked, and the push/137 text
+suggestions on three of them are already applied. `artpreflight.py --type ICON`: 0 errors, 0 warnings on each.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Manifest
+hash `6fdf7234`. Run it from Forge, then use **Check suggestions**.
+
