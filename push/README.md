@@ -496,28 +496,24 @@ originals lost stray `statTypes` keys, moved `target` to OPPONENT and took `elem
 Heavenly Constructs still injects Stardust (`0_ip_8I2Dh_Ti2mYUcuAu`). Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
-## 208 Tenryūseigan icons, live: READY
+## 208 Tenryūseigan icons, live: RUN, archived
 
-`208_tenryuseigan_icons_live.json`, hash `bb255bc1`. Direct (live) edits on all six Ethereal Monarch-bloodline
-copies: new icons only, no name or description changes (director, 2026-10-22), plus one fix where a copy
-differed from its original.
+Bundle `harvests/inbox/tnr_results_1792642914090.json`: 6/6 writes accepted; all six icons verified live
+(4 jutsu fully VERIFIED). Two changes did not stick (verdict drift): Storm Dragons Halo kept SINGLE and Tamashī
+no Sakeme's effects, and Heavenly Barrier kept unlocking Stardust. Cause: all six are bloodline reskins (group
+`s1lAMELBtPt5nSErDJVrZ`), and a reskin inherits every mechanic, effects included, from its parent on each
+save (TheNinjaRPG@a744c04 `libs/jutsu/reskins.ts`). Storm Dragons Halo's parent is Tamashī no Sakeme (fixed
+in push/210). Heavenly Barrier's unlock cannot be changed on the reskin, and in battle unlocked jutsu are
+added without reskin cosmetics (`libs/combat/actions.ts` handleInjectedJutsus), so Tenryūseigan players see
+Ethereal Monarch's Stardust there. Archived under `archive/spent-manifests/push-2026-10-22/`.
 
-| Jutsu (live name) | Id | Icon | Other change |
-|---|---|---|---|
-| Tenryūseigan: Celestial Sealing | `86FM95zHP_PgZuJXFlbty` | Celestial Bind | none |
-| Tenryūseigan: Tamashī no Sakeme | `nM3rV7Z2uzokyoHD0TqHB` | Skyfang Burst | none |
-| Dragon Eye Awakening | `a7Xsm5Zcz9AbKUu_BBlHU` | Dragon Eye Awakening | none |
-| Void Gaze Rift | `nry9aXIAr29hJvvOjh67V` | Void Gaze | none |
-| Storm Dragons Halo | `GazEyKNZpxgMDuZyAeUfY` | Storm Dragon | method, effects, injectableInBattle copied from Founder's Wrath |
-| Heavenly Barrier | `FgmIkbsSAulI9c4PZgAyE` | Heavenly Barrier | unlocks Void Gaze Rift instead of Ethereal Monarch's Stardust (director) |
+## 210 Storm Dragons Halo reskin parent: READY
 
-Storm Dragons Halo carried Tamashī no Sakeme's kit (single-target damage 40 + consume); Founder's Wrath was the
-only original without a copy. It now takes Founder's Wrath's `AOE_CIRCLE_SPAWN`, its two effects copied whole
-(push/207) and `injectableInBattle: true`. The rest re-send `injectableInBattle` at live values (law 20). Rank H
-and hidden flags are left as they are. In no AI capture. Image pack pinned at `ac907cd0`. Gates:
-`validate.py` 0 errors, 1 warning, so `--strict` exits 1: the law 20 advisory that the validator prints for
-every `injectjutsus` effect. Its conditions hold: Void Gaze Rift is unhidden and `injectableInBattle: true`
-(push/209), and this manifest keeps it true. `forge/tools/check_manifest.mjs` 0 pre-send problems.
+`210_storm_dragons_halo_reskin_parent.json`, hash `90a7e476`. One live edit: `reskinParentJutsuId` from
+Tamashī no Sakeme to Founder's Wrath (`AK8P4xmHSdbUOh2ywzb1l`), so the server copies Founder's Wrath's
+mechanics and effects onto Storm Dragons Halo. `injectableInBattle` re-sent at live `true`. Name, image and
+text unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0
+pre-send problems.
 
 ## 209 Tenryūseigan batch 2 capture: RUN, archived
 

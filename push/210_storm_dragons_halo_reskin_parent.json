@@ -1,0 +1,15 @@
+{
+ "_note": "LIVE fix: Storm Dragons Halo (GazEyKNZpxgMDuZyAeUfY) is a bloodline reskin (group s1lAMELBtPt5nSErDJVrZ) whose reskinParentJutsuId is Tamashī no Sakeme (Q3hmgslgYbbLHwwOZckT-), the same parent as the Tenryūseigan: Tamashī no Sakeme reskin; Founder's Wrath (AK8P4xmHSdbUOh2ywzb1l) has no reskin. A reskin inherits every mechanic from its parent (TheNinjaRPG@a744c04 libs/jutsu/reskins.ts getJutsuReskinMechanics / inheritJutsuReskinEffects; routers/jutsu.ts update), which is why push/208's method and effects were overwritten (bundle harvests/inbox/tnr_results_1792642914090.json, verdict drift). This edit repoints the parent to Founder's Wrath; the server then copies its mechanics, rank H and effects. Founder's Wrath is not a reskin, not rank H and has no evolution links, so the server's reskin-parent checks pass. injectableInBattle re-sent at its live value (true after push/208; law 20). Name, image and text unchanged. Not in any AI capture. Operator runs it from Forge; never skipPreflight.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Storm Dragons Halo",
+   "targetId": "GazEyKNZpxgMDuZyAeUfY",
+   "data": {
+    "reskinParentJutsuId": "AK8P4xmHSdbUOh2ywzb1l",
+    "injectableInBattle": true
+   }
+  }
+ ]
+}
