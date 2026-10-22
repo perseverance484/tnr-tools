@@ -1,5 +1,5 @@
 {
- "_note": "LIVE update, Tenryūseigan icon set, all six Ethereal Monarch-bloodline copies (director 2026-10-22: icons only, no name or description changes, and fix any copy that differs from base Ethereal Monarch). Images: Celestial Sealing copy -> Celestial Bind, Tamashī no Sakeme copy -> Skyfang Burst, Dragon Eye Awakening, Void Gaze Rift -> Void Gaze, Storm Dragon's Halo -> Storm Dragon, Heavenly Barrier. Fix: Storm Dragon's Halo carried Tamashī no Sakeme's kit (SINGLE, damage 40 + consume); it now takes Founder's Wrath's method (AOE_CIRCLE_SPAWN), effects (copied whole from Founder's Wrath, push/207 harvests/inbox/tnr_results_1792638258224.json) and injectableInBattle (true). Every other item re-sends injectableInBattle at its live value (law 20; push/206, push/209 harvests/inbox/tnr_results_1792638600393.json). The other five copies already match their originals except jutsuRank H and hidden, which are left as they are. None is in any AI capture. Icons: art/jutsu_icons/tenryuseigan/, opaque JUTSU_ICON route (RUL-2026-10-14-001), artpreflight clean. Operator runs it from Forge; never skipPreflight.",
+ "_note": "LIVE update, Tenryūseigan icon set, all six Ethereal Monarch-bloodline copies (director 2026-10-22: icons only, no name or description changes, and fix any copy that differs from base Ethereal Monarch). Images: Celestial Sealing copy -> Celestial Bind, Tamashī no Sakeme copy -> Skyfang Burst, Dragon Eye Awakening, Void Gaze Rift -> Void Gaze, Storm Dragon's Halo -> Storm Dragon, Heavenly Barrier. Fix: Storm Dragon's Halo carried Tamashī no Sakeme's kit (SINGLE, damage 40 + consume); it now takes Founder's Wrath's method (AOE_CIRCLE_SPAWN), effects (copied whole from Founder's Wrath, push/207 harvests/inbox/tnr_results_1792638258224.json) and injectableInBattle (true). Heavenly Barrier: its injectjutsus effect now unlocks Void Gaze Rift (nry9aXIAr29hJvvOjh67V, injectableInBattle true) instead of Ethereal Monarch's Stardust (director, 2026-10-22); the rest of its effects are re-sent unchanged from the push/209 capture. Every other item re-sends injectableInBattle at its live value (law 20; push/206, push/209 harvests/inbox/tnr_results_1792638600393.json). The other five copies already match their originals except jutsuRank H and hidden, which are left as they are. None is in any AI capture. Icons: art/jutsu_icons/tenryuseigan/, opaque JUTSU_ICON route (RUL-2026-10-14-001), artpreflight clean. Operator runs it from Forge; never skipPreflight.",
  "imgSizes": {
   "icon_tenryuseigan_celestial_bind_v1.webp": 110472,
   "icon_tenryuseigan_skyfang_burst_v1.webp": 114772,
@@ -150,7 +150,61 @@
    "targetId": "FgmIkbsSAulI9c4PZgAyE",
    "data": {
     "image": "@img:icon_tenryuseigan_heavenly_barrier_v1.webp",
-    "injectableInBattle": false
+    "injectableInBattle": false,
+    "effects": [
+     {
+      "type": "debuffprevent",
+      "power": 90,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "YxR6W2Ua29Lqv5VOPnohy",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "YxR6W2Ua29Lqv5VOPnohy"
+     },
+     {
+      "type": "reflect",
+      "power": 30,
+      "rounds": 2,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "generalTypes": [],
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "injectjutsus",
+      "power": 100,
+      "rounds": 2,
+      "target": "INHERIT",
+      "jutsuIds": [
+       "nry9aXIAr29hJvvOjh67V"
+      ],
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0.4,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
    }
   }
  ]
