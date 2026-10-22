@@ -496,20 +496,29 @@ originals lost stray `statTypes` keys, moved `target` to OPPONENT and took `elem
 Heavenly Constructs still injects Stardust (`0_ip_8I2Dh_Ti2mYUcuAu`). Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
-## 208 Tenryūseigan icons, live, batch 1: READY
+## 208 Tenryūseigan icons, live: READY
 
-`208_tenryuseigan_icons_live_1.json`, hash `e1574887`. Direct (live) jutsu edits, image only, on three Ethereal
-Monarch-bloodline copies; nothing moved or renamed (director, 2026-10-22). Celestial Sealing copy
-`86FM95zHP_PgZuJXFlbty` gets the Celestial Bind icon; Tamashī no Sakeme copy `nM3rV7Z2uzokyoHD0TqHB` gets
-Skyfang Burst; Dragon Eye Awakening `a7Xsm5Zcz9AbKUu_BBlHU` gets its own. `injectableInBattle` re-sent at live
-`false` (law 20, push/206). In no AI capture. Image pack pinned at `0f6dc690`. Batch 2 (Storm Dragon, Heavenly
-Barrier, Void Gaze) waits on the three copies' ids. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+`208_tenryuseigan_icons_live.json`, hash `714027aa`. Direct (live) edits on all six Ethereal Monarch-bloodline
+copies: new icons only, no name or description changes (director, 2026-10-22), plus one fix where a copy
+differed from its original.
 
-## 209 Tenryūseigan batch 2 capture: READY (read-only)
+| Jutsu (live name) | Id | Icon | Other change |
+|---|---|---|---|
+| Tenryūseigan: Celestial Sealing | `86FM95zHP_PgZuJXFlbty` | Celestial Bind | none |
+| Tenryūseigan: Tamashī no Sakeme | `nM3rV7Z2uzokyoHD0TqHB` | Skyfang Burst | none |
+| Dragon Eye Awakening | `a7Xsm5Zcz9AbKUu_BBlHU` | Dragon Eye Awakening | none |
+| Void Gaze Rift | `nry9aXIAr29hJvvOjh67V` | Void Gaze | none |
+| Storm Dragons Halo | `GazEyKNZpxgMDuZyAeUfY` | Storm Dragon | method, effects, injectableInBattle copied from Founder's Wrath |
+| Heavenly Barrier | `FgmIkbsSAulI9c4PZgAyE` | Heavenly Barrier | none |
 
-`209_tenryuseigan_batch2_capture.json`, hash `b136c43d`. Three full point reads, zero writes: Void Gaze Rift
-`nry9aXIAr29hJvvOjh67V`, Storm Dragon's Halo `GazEyKNZpxgMDuZyAeUfY`, Heavenly Barrier
-`FgmIkbsSAulI9c4PZgAyE`. Compares each with its Ethereal Monarch original (Stardust, Founder's Wrath, Heavenly
-Constructs; push/207) before the batch 2 icon update. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+Storm Dragons Halo carried Tamashī no Sakeme's kit (single-target damage 40 + consume); Founder's Wrath was the
+only original without a copy. It now takes Founder's Wrath's `AOE_CIRCLE_SPAWN`, its two effects copied whole
+(push/207) and `injectableInBattle: true`. The rest re-send `injectableInBattle` at live values (law 20). Rank H
+and hidden flags are left as they are. In no AI capture. Image pack pinned at `6ca54e5`. Gates:
+`validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+
+## 209 Tenryūseigan batch 2 capture: RUN, archived
+
+3/3 reads ok (`harvests/inbox/tnr_results_1792638600393.json`). Void Gaze Rift = Stardust and Heavenly Barrier
+= Heavenly Constructs exactly (rank H aside); Storm Dragons Halo carried Tamashī no Sakeme's kit (fixed in
+push/208). Archived under `archive/spent-manifests/push-2026-10-22/`.
