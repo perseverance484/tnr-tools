@@ -534,34 +534,25 @@ after push/210: `reskinParentJutsuId` is back to Tamashī no Sakeme, `bloodlineR
 description changed. push/210 is not re-run without the director. Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
-## 212 Scroll of Cleave icon: READY
+## 212-214 Event scroll icons: SUPERSEDED (not run)
 
-`212_scroll_of_cleave_icon.json`, hash `4453ec68`. Suggest mode, one VISUAL suggestion: new `image` on Scroll of
-Cleave (`K5j9Hq19eRftSFDyIX6TN`, teaches Tempest Cleave). Icon `art/item_icons/event_scrolls/exports/icon_scroll_of_cleave_v1.webp`
-(256x256 lossless, 64,032 bytes), pinned at `4e7945c`; artpreflight `--type ICON` clean. Live record from push/211.
-Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+Merged into push/215 at the director's request. Archived unrun under `archive/spent-manifests/push-2026-10-22/`.
 
-## 213 Scroll of Bastion icon: READY
+## 215 Event scroll icons, all seven: READY
 
-`213_scroll_of_bastion_icon.json`, hash `dc04dcf0`. Suggest mode, one VISUAL suggestion: new `image` on Scroll of
-Bastion (`-qVND9J0r_tkDi7ZdRaCC`, teaches Earthen Bastion). Icon `art/item_icons/event_scrolls/exports/icon_scroll_of_bastion_v1.webp`
-(256x256 lossless), pinned at `618de0c`; delivered on black and keyed by keeping black within 7 px of the art
-(`process_scroll_icon.py`); artpreflight `--type ICON` clean. Live record from push/211. Independent of push/212.
-Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
-
-## 214 Event scroll icons (5): READY
-
-`214_event_scroll_icons.json`, hash `16d81109`. Suggest mode, five VISUAL suggestions, one per item, `image` only:
+`215_event_scroll_icons_all.json`, hash `f8686557`. Suggest mode, seven VISUAL suggestions, one per item, `image`
+only. The items are those of push/212-214, unchanged:
 
 | Scroll | Id | Teaches |
 |---|---|---|
+| Scroll of Cleave | `K5j9Hq19eRftSFDyIX6TN` | Tempest Cleave |
+| Scroll of Bastion | `-qVND9J0r_tkDi7ZdRaCC` | Earthen Bastion |
 | Scroll of Renewal | `ZRrluzsDengJNuRYM_lQ6` | Drops of Renewal |
 | Scroll of Blazing | `VPLmBobycTYFLhB4qX23A` | Blazing Fang Strike |
 | Scroll of Celestial Dew | `FO7a7BlDpjx1Rxoy3X5bR` | Celestial Dew |
 | Scroll of Hollow Veil | `4huDnXDq5zInzZ3dLgykM` | Hollow Veil |
 | Scroll of Shadows | `uLLAWOSCFeDz9Mc3d0rKw` | Aegis of Shadows |
 
-Icons in `art/item_icons/event_scrolls/exports/`, pinned at `543ee15`; delivered on black and keyed with
-`process_scroll_icon.py` (black kept within 7 px of the art); artpreflight `--type ICON` clean on all five. Live
-records from push/211. Independent of push/212 and push/213. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`forge/tools/check_manifest.mjs` 0 pre-send problems.
+Icons in `art/item_icons/event_scrolls/exports/` (256x256 lossless; Cleave from native alpha, the rest keyed from
+black with `process_scroll_icon.py`), artpreflight `--type ICON` clean. Live records from push/211. Gates:
+`validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
