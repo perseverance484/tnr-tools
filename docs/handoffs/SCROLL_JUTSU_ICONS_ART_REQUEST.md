@@ -69,7 +69,7 @@ earlier text choices do; the description mismatch is a separate text item.
    - Aegis of Shadows: `art/item_icons/event_scrolls/raws/raw_scroll_of_shadows_b.png`.
    - Tempest Cleave, Hollow Veil: `art/item_icons/event_scrolls/raws/raw_scroll_of_{cleave,hollow_veil}_b.png`.
    - Ethereal Nexus / Rebirth: `art/item_icons/event_scrolls/raws/raw_forbidden_scroll_{nexus,rebirth}_v1.png`.
-   - Subaku Palace: its new set-3 scroll (#11) once approved; until then, palette as text.
+   - Subaku Palace: `art/item_icons/event_scrolls/raws/raw_demon_scroll_subaku_palace_v1.png` (set-3 #11, delivered).
 
 ## 6. Prompt template
 
