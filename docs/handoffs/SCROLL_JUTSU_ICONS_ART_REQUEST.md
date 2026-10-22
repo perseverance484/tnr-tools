@@ -53,7 +53,7 @@ Each silhouette is unique in this set; pass the others as **text exclusions**, n
 | 6 | Hollow Veil (`GAhckNCW8xUES4YGTJPGL`) | on the target: deals less damage; absorb | Scroll of Hollow Veil: **ash grey, bone white** (set-3 redo) | a **drifting translucent veil** with a hollow empty centre, frayed ash edges | `icon_jutsu_hollow_veil_v1.webp` |
 | 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | a **kite shield made of oxblood shadow**, its rim unravelling into reaching tendrils | `icon_jutsu_aegis_of_shadows_v1.webp` |
 | 8 | Ethereal Nexus (`iktsCP-RjIhlYlsTg-JTN`), forbidden | damage, lifesteal, target takes more damage | Forbidden Nexus: **magenta seals**, black chain accents | **three magenta energy streams converging into a knot**, a thin red life-thread drawn back out | `icon_jutsu_ethereal_nexus_v1.webp` |
-| 9 | Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), forbidden | damage, absorb, target deals less damage | Forbidden Rebirth: **scarlet seals**, pale ember | a **scarlet phoenix-like ember rising** out of a cracked seal ring (no bird head detail needed) | `icon_jutsu_ethereal_rebirth_v1.webp` |
+| 9 | Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), forbidden | damage, absorb, target deals less damage | Forbidden Rebirth: **emerald green seals**, black chain accents | an **emerald phoenix-like ember rising** out of a cracked seal ring (no bird head detail needed) | `icon_jutsu_ethereal_rebirth_v1.webp` |
 | 10 | Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`) | area spiral; stats buff/debuff | Demon Scroll: Subaku Palace (new, set-3 #11): **rust sandstone with demon gold** | a **demonic pagoda gate** silhouette of rust sandstone, a gold-lit spiral sigil on the ground before it | `icon_jutsu_subaku_palace_v1.webp` |
 
 Mechanics note for the director: Aegis of Shadows' description says it "creates a shadow barrier that absorbs
@@ -67,8 +67,8 @@ earlier text choices do; the description mismatch is a separate text item.
 2. **Theme reference:** the jutsu's scroll art, for **palette and material only** ("do not draw a scroll"):
    - Bastion, Renewal, Blazing, Celestial Dew: `art/item_icons/event_scrolls/raws/raw_scroll_of_<name>_v1.png`.
    - Aegis of Shadows: `art/item_icons/event_scrolls/raws/raw_scroll_of_shadows_b.png`.
-   - Tempest Cleave, Hollow Veil, the two forbidden jutsu: their set-3 scroll is not delivered yet. Use the palette as
-     text, or wait for the approved scroll raw and attach it then.
+   - Tempest Cleave, Hollow Veil: `art/item_icons/event_scrolls/raws/raw_scroll_of_{cleave,hollow_veil}_b.png`.
+   - Ethereal Nexus / Rebirth: `art/item_icons/event_scrolls/raws/raw_forbidden_scroll_{nexus,rebirth}_v1.png`.
    - Subaku Palace: its new set-3 scroll (#11) once approved; until then, palette as text.
 
 ## 6. Prompt template
