@@ -1,0 +1,79 @@
+{
+ "_note": "READ-ONLY capture for the scroll icons set 3 ticket (docs/handoffs/SCROLL_ICONS_SET3_ART_REQUEST.md): the new target Colored Jewel of the Dragon's Neck (_8HEbybzN5QPX8vUG24Tk, the item Dragon's Scroll grants; director 2026-10-22: add a new icon for it to the same manifest) plus fresh records of the nine set-3 scrolls, so the ticket is built from current live state (image, battleDescription non-empty). Zero items, zero writes. Operator runs it from Forge.",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "_8HEbybzN5QPX8vUG24Tk"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "uLLAWOSCFeDz9Mc3d0rKw"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "4huDnXDq5zInzZ3dLgykM"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "K5j9Hq19eRftSFDyIX6TN"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "7tZoY3uG2Jxg8Fp0dZlwE"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "Kzx7F3FsKMqfWNNVhpMbG"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "_M2UwSUpP_szhbuicUoSC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "mDBpVrKfygS5V5EZgvcn1"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "XZfVErGEkHpPiPtPa7_VC"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "X5q3Ww-yfCeJ3m6ZqPmmz"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
