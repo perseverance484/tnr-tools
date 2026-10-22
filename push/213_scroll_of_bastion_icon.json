@@ -1,0 +1,36 @@
+{
+ "_note": "New Scroll of Bastion icon (director-supplied 2026-10-22 as 'Earthen Bastion', art/item_icons/event_scrolls/, pinned by commit and SHA-256 in imagePack), part of the new event jutsu scroll icons. Suggest mode: content review desk, nothing changes until a reviewer approves. Only `image` changes on item -qVND9J0r_tkDi7ZdRaCC (teaches Earthen Bastion). Live record from push/211 (harvests/inbox/tnr_results_1792693531799.json, 2026-10-22): visible, battleDescription non-empty, so the save is not blocked. No other suggestion is known to be open on this item. ICON route: delivered RGB on black; keyed by keeping black only within 7 px of the artwork (the outline shares the background colour; art/item_icons/event_scrolls/process_scroll_icon.py), padded square, 256x256 lossless WebP; artpreflight --type ICON clean. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New scroll icon",
+  "rationale": "New icon for the Scroll of Bastion, part of the refreshed event scroll icon set."
+ },
+ "imgSizes": {
+  "icon_scroll_of_bastion_v1.webp": 69004
+ },
+ "imagePack": {
+  "ref": "618de0c71058e98d5397d535c27c224fc586531f",
+  "files": {
+   "icon_scroll_of_bastion_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_bastion_v1.webp",
+    "sha256": "20bf8502d69cc44cef7369cdd708535710b9bcd6f4e3f36f8e6354ef2e4ff6f6",
+    "bytes": 69004
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Bastion",
+   "targetId": "-qVND9J0r_tkDi7ZdRaCC",
+   "data": {
+    "image": "@img:icon_scroll_of_bastion_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a steel-capped scroll circled by cracked stone and glowing earth, matching Earthen Bastion, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  }
+ ]
+}

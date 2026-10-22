@@ -540,3 +540,11 @@ description changed. push/210 is not re-run without the director. Archived under
 Cleave (`K5j9Hq19eRftSFDyIX6TN`, teaches Tempest Cleave). Icon `art/item_icons/event_scrolls/exports/icon_scroll_of_cleave_v1.webp`
 (256x256 lossless, 64,032 bytes), pinned at `4e7945c`; artpreflight `--type ICON` clean. Live record from push/211.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+
+## 213 Scroll of Bastion icon: READY
+
+`213_scroll_of_bastion_icon.json`, hash `dc04dcf0`. Suggest mode, one VISUAL suggestion: new `image` on Scroll of
+Bastion (`-qVND9J0r_tkDi7ZdRaCC`, teaches Earthen Bastion). Icon `art/item_icons/event_scrolls/exports/icon_scroll_of_bastion_v1.webp`
+(256x256 lossless), pinned at `618de0c`; delivered on black and keyed by keeping black within 7 px of the art
+(`process_scroll_icon.py`); artpreflight `--type ICON` clean. Live record from push/211. Independent of push/212.
+Gates: `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
