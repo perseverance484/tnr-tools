@@ -470,11 +470,8 @@ Kits from the 2026-10-21 AI census (push/159); Prism's record from the 2026-10-1
 Submitted: all 198 suggestions found in the review queue, 0 errors. Archived under
 `archive/spent-manifests/push-2026-10-21/` with a suggestion-id ledger.
 
-## 204 Two Tails and Kitsune armor capture (read-only)
+## 204 Two Tails and Kitsune armor capture: RUN, archived
 
-`204_two_tails_kitsune_capture.json` reads the 7 Kitsune armor pieces (the style reference) and the 5 Two
-Tails pieces (to be updated to match, with a more offensive theme) with `item.get`, full records, zero
-writes. Neither set has been captured before. The art request and the ticket are built on this read.
-`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Hash
-`1b7f2e98`. Run it and commit the results bundle.
+12/12 reads ok. Archived under `archive/spent-manifests/push-2026-10-21/`. Art request:
+`docs/handoffs/TWO_TAILS_ARMOR_ICONS_ART_REQUEST.md`.
 
