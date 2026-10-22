@@ -487,3 +487,11 @@ or longer (Tempest of the Blade, Crimson Spires, Tides of Sovereignty, Tidal Shi
 Lightning Cloak, Endless Drowning, Crippling Blade, Lightning Release: Raijin's Bow) keep their original
 description with targeted fixes instead of the round 1 rewrite.
 
+## 204 Two Tails and Kitsune armor capture (read-only)
+
+`204_two_tails_kitsune_capture.json` reads the 7 Kitsune armor pieces (the style reference) and the 5 Two
+Tails pieces (to be updated to match, with a more offensive theme) with `item.get`, full records, zero
+writes. Neither set has been captured before. The art request and the ticket are built on this read.
+`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 0 pre-send problems. Hash
+`1b7f2e98`. Run it and commit the results bundle.
+
