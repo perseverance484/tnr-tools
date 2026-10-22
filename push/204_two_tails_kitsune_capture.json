@@ -1,0 +1,91 @@
+{
+ "_note": "READ-ONLY capture for the Two Tails armor set update (match the Kitsune set, more offensive theme; director 2026-10-22). Reads the 7 Kitsune pieces (style reference: names, images, effects) and the 5 Two Tails pieces (targets) with item.get, full records. No item of either set has been captured before. Zero items, zero writes. Pieces: Kitsune Armor, Kitsune Belt, Kitsune Gauntlets, Kitsune Mask, Kitsune Pants, Kitsune Pants-F, Kitsune Tabi-Shoes, Two Tails Zukin, Two Tails Shozoku, Two Tails Tekkou, Two Tails Tabi, Two Tails Jaki-Tabi.",
+ "capture": {
+  "before": [
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "WgjbuICAqrLq1y6wmNHTd"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "tOSetjSOXPFOlfKH8ogkR"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "kNshju2IjLN8h0FvpNKgg"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "X0-snQ-GNGpqn4w5Ir2M0"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "CIT8c_SvjTP59tmNz1ghy"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "AmtbbB3Jm2dDB3t3r6kSW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "hDvjJp4aQlMW_jeYA8U_L"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "qcIb0edEpXfLaOiERicCE"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "t88B9dtM-Wly3NZ_6f6NZ"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "rFrYeO7r4fsIn8PrU2xd8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "4voAt9Cg1z7X0Wg3YKQ_m"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "item.get",
+    "input": {
+     "id": "vW7pgjvMnJMbg2aFzWwZo"
+    },
+    "persist": "full"
+   }
+  ]
+ }
+}
