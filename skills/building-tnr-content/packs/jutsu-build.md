@@ -1,9 +1,9 @@
-<!-- RENDERED pack 'jutsu-build' from jutsu.md@f9fa8cc + pipeline.md@f49e49f via build_packs.py - edit the sources, never this file -->
+<!-- RENDERED pack 'jutsu-build' from jutsu.md@6f33c05 + pipeline.md@f49e49f via build_packs.py - edit the sources, never this file -->
 # Pack: jutsu-build
 
 Minimal set for a jutsu create/edit that ends in a push. Read the SKILL doctrine block first, this pack second, data files as needed. Curation of ai/quest/item/art packs is follow-up work; this pack is the proven exemplar.
 
-<!-- pack-trace: jutsu.md @f9fa8cc '1. Jutsu tRPC contract' -->
+<!-- pack-trace: jutsu.md @6f33c05 '1. Jutsu tRPC contract' -->
 ## 1. Jutsu tRPC contract
 
 Envelope rules are in `10_TECH_pipeline.md`. Jutsu-specific:
@@ -22,7 +22,7 @@ The builder pattern is create-then-fill: POST a blank `jutsu.create`, read the i
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '2. Jutsu field schema (complete)' -->
+<!-- pack-trace: jutsu.md @6f33c05 '2. Jutsu field schema (complete)' -->
 ## 2. Jutsu field schema (complete)
 
 The complete set of fields written on `jutsu.update`, captured from a live AI jutsu record and now verified against the server's own write validator (JutsuValidator, extracted from the TNR source). The machine-readable schema with every type, range, default, and enum is `45_DATA_field_schemas.json`. Defaults shown are safe values for an AI-kit jutsu; player jutsu differ where noted (not hidden, real rank, real pool costs, a player `jutsuType`). Do not omit a required field on a `create`.
@@ -33,7 +33,7 @@ The complete set of fields written on `jutsu.update`, captured from a live AI ju
 |---|---|---|
 | `name` | string | Display name. **Must be UNIQUE across all live jutsu.** A duplicate name returns HTTP 200 with `success:false` and leaves a blank `New Jutsu - <id>` shell. See 2.2. |
 | `description` | non-empty string | Menu blurb. Empty or missing 400s. |
-| `battleDescription` | non-empty string | Combat-log line. Placeholders `%user`, `%target`, `%jutsu`. Empty or missing 400s. |
+| `battleDescription` | string (write real text) | Combat-log line. Placeholders `%user` and `%target` (filled only when the jutsu hits someone; otherwise printed literally). `%jutsu` is never substituted (TheNinjaRPG@107d7a8 `libs/combat/actions.ts`); do not use it. Missing 400s. An empty string is accepted (`z.string()`), and the log then falls back to "Name: user uses Name". |
 | `jutsuType` | `"AI"` for enemy kits; a player category otherwise | AI-kit jutsu use `"AI"`. |
 | `jutsuRank` | full ladder `D` / `C` / `B` / `A` / `S` / `H` (there is no E rank) | Cosmetic for hidden AI jutsu; prefer `"D"`. |
 | `jutsuWeapon` | `NONE`, or one of: `STAFF` `AXE` `FIST_WEAPON` `SHURIKEN` `SICKLE` `DAGGER` `SWORD` `POLEARM` `FLAIL` `CHAIN` `FAN` `BOW` `HAMMER` | This is the JUTSU weapon field; the same 14-value enum as the item `weaponType`. |
@@ -88,7 +88,7 @@ The complete set of fields written on `jutsu.update`, captured from a live AI ju
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '3. Effects and tags (shared schema)' -->
+<!-- pack-trace: jutsu.md @6f33c05 '3. Effects and tags (shared schema)' -->
 ## 3. Effects and tags (shared schema)
 
 The `effects[]` object schema is identical to the AI jutsu schema. Use the **verified effect-object schema in `21_GUIDE_ai_enemy.md` section 7.4** (keys: `type`, `power`, `powerPerLevel`, `rounds`, `calculation`, `direction`, `target`, `statTypes`, `generalTypes`, optional `elements` on damage/pierce, cosmetic keys optional). The complete lowercase `type` enum and the per-type direction and calculation rules are in that same section.
@@ -99,7 +99,7 @@ The **tag vocabulary in guide 21 section 4** also applies, with one difference: 
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '6. Mass-edit, sweep, and re-equip patterns' -->
+<!-- pack-trace: jutsu.md @6f33c05 '6. Mass-edit, sweep, and re-equip patterns' -->
 ## 6. Mass-edit, sweep, and re-equip patterns
 
 The builder's `convert` slot (entity `jutsu`) is the bulk-edit path. As of builder v4.6 it **fetch-merges**: on the first convert of a run it loads the full live jutsu catalog once (`jutsu.getAll`, two passes so **hidden AI jutsu are included**, mapped by id), then for each entry it merges your `data` over the live record, strips the read-only `bloodline` join, preserves the original `createdAt`, and sends `jutsu.update`. It throttles about 2 seconds apart with backoff and is idempotent.
@@ -116,7 +116,7 @@ Two known candidate sweeps over the live catalog (run with the bloodline-ownersh
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc '8. QA checklist (before any jutsu push)' -->
+<!-- pack-trace: jutsu.md @6f33c05 '8. QA checklist (before any jutsu push)' -->
 ## 8. QA checklist (before any jutsu push)
 
 - [ ] `create` payloads preferably carry the COMPLETE field set (section 2), including the three `*ReducePerLvl` numbers and `bloodlineId`/`villageId` as `""` (v4.12 merges defaults under partial creates, but placeholders are not content); `convert` payloads carry only the change (2.3).
@@ -133,7 +133,7 @@ Two known candidate sweeps over the live catalog (run with the bloodline-ownersh
 
 ---
 
-<!-- pack-trace: jutsu.md @f9fa8cc 'Relocated engine laws (2026-08-28)' -->
+<!-- pack-trace: jutsu.md @6f33c05 'Relocated engine laws (2026-08-28)' -->
 ## Relocated engine laws (2026-08-28)
 
 Verbatim law text moved out of project knowledge. Stage 3 splices these into the
