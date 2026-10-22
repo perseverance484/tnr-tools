@@ -538,28 +538,14 @@ description changed. push/210 is not re-run without the director. Archived under
 
 Merged into push/215 at the director's request. Archived unrun under `archive/spent-manifests/push-2026-10-22/`.
 
-## 215 Event scroll icons, all seven: READY
+## 215 Event scroll icons, all seven: RUN, archived
 
-`215_event_scroll_icons_all.json`, hash `f8686557`. Suggest mode, seven VISUAL suggestions, one per item, `image`
-only. The items are those of push/212-214, unchanged:
+Bundle `harvests/inbox/tnr_results_1792700438810.json` (2026-10-22 20:20Z): 7/7 suggestions submitted to the review
+desk. Shadows, Hollow Veil and Cleave overlap other scrolls and are slated for a redo/recolour
+(`docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`); the director will handle the live versions later. Archived under
+`archive/spent-manifests/push-2026-10-22/`.
 
-| Scroll | Id | Teaches |
-|---|---|---|
-| Scroll of Cleave | `K5j9Hq19eRftSFDyIX6TN` | Tempest Cleave |
-| Scroll of Bastion | `-qVND9J0r_tkDi7ZdRaCC` | Earthen Bastion |
-| Scroll of Renewal | `ZRrluzsDengJNuRYM_lQ6` | Drops of Renewal |
-| Scroll of Blazing | `VPLmBobycTYFLhB4qX23A` | Blazing Fang Strike |
-| Scroll of Celestial Dew | `FO7a7BlDpjx1Rxoy3X5bR` | Celestial Dew |
-| Scroll of Hollow Veil | `4huDnXDq5zInzZ3dLgykM` | Hollow Veil |
-| Scroll of Shadows | `uLLAWOSCFeDz9Mc3d0rKw` | Aegis of Shadows |
+## 216 Remaining scrolls capture: RUN, archived
 
-Icons in `art/item_icons/event_scrolls/exports/` (256x256 lossless; Cleave from native alpha, the rest keyed from
-black with `process_scroll_icon.py`), artpreflight `--type ICON` clean. Live records from push/211. Gates:
-`validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
-
-## 216 Remaining scrolls capture: READY (read-only)
-
-`216_remaining_scrolls_capture.json`, hash `1f4b7869`. 17 full point reads, zero writes: the scroll-named items
-push/211 did not read (Bloodline Scroll, Legendary Jutsu Scroll, the accessory Ice/Storm/Sun/Wind Scrolls, the Old
-Scrolls, and others), for `docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`. Gates: `validate.py --strict` 0 errors,
-0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
+17/17 reads ok (`harvests/inbox/tnr_results_1792701435901.json`). Mostly quest/lore props; Bloodline Scroll and
+Compensation Scroll still carry "New item description". Archived under `archive/spent-manifests/push-2026-10-22/`.

@@ -1,6 +1,7 @@
 # Scroll icon roadmap (jutsu and bloodline scrolls)
 
-- **Status:** PROPOSAL, stage 2 (2026-10-22). All 43 scroll-named items read (push/211, push/216) and their live art
+- **Status:** DIRECTION SET (2026-10-22, RUL-2026-10-22-006): decisions below are answered; colour slots stay
+  proposals until each raw is approved. All 43 scroll-named items read (push/211, push/216) and their live art
   downloaded from the image CDN (director-approved) for comparison. The colour slots and order below are proposals;
   art direction is the director's (CLAUDE.md section 10).
 - **Goal (director, 2026-10-22):** every scroll reads as a different scroll at icon size, with no visual overlap. The
@@ -86,19 +87,23 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 | Sand and aged bronze, hourglass | Scroll of Time | new |
 | Jade dragon pearl | Dragon's Scroll | new |
 
-## Order (proposal)
+## Order
 
-1. **Before push/215 runs:** take Scroll of Shadows, Scroll of Hollow Veil and Scroll of Cleave out of it, so the
-   overlapping versions never go live; run the other four (Bastion, Renewal, Blazing, Celestial Dew).
-2. Redo Shadows (oxblood) and Hollow Veil (ash/bone), recolour Cleave (steel/orange): event silhouette.
-3. Oblivion Seal recolour (village silhouette), once decision 1 is made.
-4. KGK emblem variants for Veilguard Pulse and KX: Hollow Surge (same case; ideally from the KGK artist).
-5. New: Dragon's Scroll; the forbidden pair; Metal and Time.
+1. ~~Hold Shadows, Hollow Veil and Cleave out of push/215~~: push/215 already ran (all seven submitted). The director
+   will deal with the live versions later.
+2. Redo Shadows (oxblood on black) and Hollow Veil (ash grey / bone white); recolour Cleave (steel silver, orange
+   edge, no teal). Event silhouette.
+3. Recolour Oblivion Seal away from violet (indigo-black void proposed). Bloodline silhouette.
+4. New, on the **universal bloodline scroll** silhouette (the former village shape): Scroll of Metal (dark iron,
+   molten rivets) and Scroll of Time (sand and aged bronze, hourglass).
+5. New: Dragon's Scroll (jade dragon pearl); the forbidden pair (chained; magenta / scarlet seals).
 
-## Decisions for the director
+KGK stays as two pairs (no new variants).
 
-1. Oblivion Seal: recolour from violet (it shares violet-on-black with KGK), or keep it, relying on the village
-   silhouette? Recommendation: recolour.
-2. Pull Shadows, Hollow Veil and Cleave out of push/215 before it runs? Recommendation: yes.
-3. Should the four KGK scrolls each get their own icon (two new variants), or stay as two pairs?
-4. Which family style for Metal and Time (bloodline unlocks): village silhouette (they unlock bloodlines) or event?
+## Decisions (director, 2026-10-22)
+
+1. push/215: already run; revisit the live Shadows, Hollow Veil and Cleave later.
+2. Oblivion Seal: **recolour** away from violet.
+3. KGK: **no** new variants; the four scrolls keep their two shared images.
+4. Metal and Time: **village scroll shape**, which becomes the **universal bloodline scroll** shape (every bloodline
+   scroll, not only village ones). The event shape stays for jutsu scrolls.
