@@ -465,27 +465,10 @@ Kits from the 2026-10-21 AI census (push/159); Prism's record from the 2026-10-1
 
 200/200 reads ok; no record had drifted. Archived under `archive/spent-manifests/push-2026-10-21/`.
 
-## 203 Jutsu text sweep round 2 (suggest mode, 198 suggestions)
+## 203 Jutsu text sweep round 2: RUN, 198/198 pending review
 
-`203_jutsu_text_round2.json` sends 198 targeted text fixes to the content review desk, one suggestion per
-jutsu, following the director's review of push/196 (RUL-2026-10-21-022):
-- 137 jutsu whose round 1 description was accepted ("Description is good"): that description goes back in
-  American spelling; the **original** battle line is kept, corrected only where it was wrong (31 untouched; those items send the description only).
-- 49 jutsu redone from the original text per the director's note (over-rewrites, area wording, spelling,
-  event jutsu, one-off notes).
-- 12 applied push/196 texts: American spelling only.
-
-Each item sends only the fields that change, with `injectableInBattle` at its live value (law 20). Every
-record's live text was confirmed unchanged in push/201-202. Not resubmitted: totems, custom reskins, custom
-contributions, test and non-functioning jutsu, texts the director called sufficient, and two drafts that
-matched the live text. Drafts and per-jutsu fixes: `docs/reviews/JUTSU_TEXT_SWEEP_ROUND2_2026-10-21.json`.
-`validate.py --strict`: 0 errors, 0 warnings. `forge/tools/check_manifest.mjs`: 198 planned items, 0 pre-send
-problems. Manifest hash `48bdbcfa`. Run it from Forge, then **Check suggestions** and export the results.
-
-Revised before it was run (director, 2026-10-21): the 9 jutsu whose original description was 150 characters
-or longer (Tempest of the Blade, Crimson Spires, Tides of Sovereignty, Tidal Shift, Tectonic Ascendancy,
-Lightning Cloak, Endless Drowning, Crippling Blade, Lightning Release: Raijin's Bow) keep their original
-description with targeted fixes instead of the round 1 rewrite.
+Submitted: all 198 suggestions found in the review queue, 0 errors. Archived under
+`archive/spent-manifests/push-2026-10-21/` with a suggestion-id ledger.
 
 ## 204 Two Tails and Kitsune armor capture (read-only)
 
