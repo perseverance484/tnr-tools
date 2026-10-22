@@ -6,7 +6,8 @@ src, slug = sys.argv[1], sys.argv[2]
 T = int(sys.argv[3]) if len(sys.argv) > 3 else 8
 BLO, BHI = (int(sys.argv[4]), int(sys.argv[5])) if len(sys.argv) > 5 else (48, 192)
 base = 'art/item_icons/event_scrolls'
-raw = f'{base}/raws/raw_{slug}_v1.png'
+VER = os.environ.get('VER', 'v1')
+raw = f'{base}/raws/raw_{slug}_{VER}.png'
 Image.open(src).save(raw)
 im = Image.open(raw).convert('RGBA'); w, h = im.size; px = im.load()
 opaque = all(px[x, y][3] == 255 for x, y in [(0, 0), (w-1, 0), (0, h-1), (w-1, h-1)])
@@ -28,7 +29,7 @@ p2 = out.load()
 for y in range(256):
     for x in range(256):
         if p2[x, y][3] == 0: p2[x, y] = (0, 0, 0, 0)
-o = f'{base}/exports/icon_{slug}_v1.webp'
+o = f'{base}/exports/icon_{slug}_{VER}.webp'
 out.save(o, 'WEBP', lossless=True, method=6, exact=True)
 vals = list(out.getchannel('A').get_flattened_data()); vis = sum(v > 0 for v in vals); part = sum(0 < v < 255 for v in vals)
 print(o, os.path.getsize(o), 'bbox', bb, 'partial% visible', round(100*part/vis, 2))
