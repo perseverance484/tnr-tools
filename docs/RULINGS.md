@@ -2190,3 +2190,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** this ruling (QA triage record); future QA passes should whitelist these ids.
 
 **Boundary:** No quest manifest is implied except an optional Salt Gate Phantom capture and delete, run by the director.
+
+## RUL-2026-10-22-006 — Scroll icons: one colour per scroll, KGK keeps violet, universal bloodline scroll shape
+
+**Date:** 2026-10-22
+
+**Domain:** TNR art production / item icons (jutsu and bloodline scrolls)
+
+**Status:** ACTIVE
+
+**Supersedes:** none (extends RUL-2026-10-20-005, the village bloodline scroll set)
+
+**Ruling:** Every jutsu and bloodline scroll must read as a different scroll at icon size: one colour slot per scroll (KGK as one family keeps violet on black lacquer, and its four scrolls stay on two shared images). Oblivion Seal is recoloured away from violet. The village scroll silhouette becomes the universal bloodline scroll shape (Scroll of Metal and Scroll of Time move to it); the fat steel-capped event silhouette is the jutsu scroll shape. The live Shadows, Hollow Veil and Cleave icons (push/215, already submitted) are revisited later. Plan and colour slots: `docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`.
+
+**Evidence:** User, 2026-10-22: "We want each scroll to clearly read as a different scroll... The KGK scrolls are already high quality so we may want to design around them rather than replace them outright"; answers: "1. Already ran, we'll worry about it later 2. Recolor 3. No 4. Village scroll, we'll make it a universal bloodline scroll shape not just villages".
+
+**Canonical destination:** `docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`.
+
+**Boundary:** Colour slots are proposals until the director approves each raw. No upload without a ticket.
