@@ -1,0 +1,108 @@
+{
+ "_note": "New icons for five event jutsu scrolls (director-supplied 2026-10-22, art/item_icons/event_scrolls/, pinned by commit and SHA-256 in imagePack): Renewal, Blazing, Celestial Dew, Hollow Veil, Shadows. Suggest mode: content review desk, nothing changes until a reviewer approves; one suggestion per item, only `image` changes. Live records from push/211 (harvests/inbox/tnr_results_1792693531799.json, 2026-10-22): all visible with a non-empty battleDescription, so saves are not blocked. No other suggestion is known to be open on these items. Icon-to-scroll mapping by art and the jutsu each scroll teaches. ICON route: delivered RGB on black; keyed by keeping black within 7 px of the art (process_scroll_icon.py), 256x256 lossless WebP; artpreflight --type ICON clean. Independent of push/212 and push/213. Operator runs it from Forge; never skipPreflight.",
+ "mode": "suggest",
+ "suggestion": {
+  "category": "VISUAL",
+  "title": "New scroll icon",
+  "rationale": "New icon from the refreshed event scroll icon set."
+ },
+ "imgSizes": {
+  "icon_scroll_of_renewal_v1.webp": 78606,
+  "icon_scroll_of_blazing_v1.webp": 77408,
+  "icon_scroll_of_celestial_dew_v1.webp": 70326,
+  "icon_scroll_of_hollow_veil_v1.webp": 63866,
+  "icon_scroll_of_shadows_v1.webp": 63444
+ },
+ "imagePack": {
+  "ref": "543ee15525f5f1a5f2e7150ecb2eff8a06506bf3",
+  "files": {
+   "icon_scroll_of_renewal_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_renewal_v1.webp",
+    "sha256": "a0bbcbe5ee49478bbf4461ce3b6e64fe2082a860cfa3fed61faefbcd430a3436",
+    "bytes": 78606
+   },
+   "icon_scroll_of_blazing_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_blazing_v1.webp",
+    "sha256": "5fa2b6756648fdd05aea1774e5ad3be4e28b43f20d244e953180875359c56d44",
+    "bytes": 77408
+   },
+   "icon_scroll_of_celestial_dew_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_celestial_dew_v1.webp",
+    "sha256": "9de98b3a3656d032e850e7c35a1cd8667bf2c5f5f28047c9cf5f0ed28b332497",
+    "bytes": 70326
+   },
+   "icon_scroll_of_hollow_veil_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_hollow_veil_v1.webp",
+    "sha256": "30a68bcba81a1313e4f7c18d767a52768dd43635955ecb128acc560db9462ab6",
+    "bytes": 63866
+   },
+   "icon_scroll_of_shadows_v1.webp": {
+    "path": "art/item_icons/event_scrolls/exports/icon_scroll_of_shadows_v1.webp",
+    "sha256": "76d64783289bc156e0e36503ded2fec1a79babdad2593b4ddb655365e249606e",
+    "bytes": 63444
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Renewal",
+   "targetId": "ZRrluzsDengJNuRYM_lQ6",
+   "data": {
+    "image": "@img:icon_scroll_of_renewal_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a steel-capped scroll ringed by water drops and green leaves, matching Drops of Renewal, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Blazing",
+   "targetId": "VPLmBobycTYFLhB4qX23A",
+   "data": {
+    "image": "@img:icon_scroll_of_blazing_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a steel-capped scroll wrapped in fanged flames, matching Blazing Fang Strike, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Celestial Dew",
+   "targetId": "FO7a7BlDpjx1Rxoy3X5bR",
+   "data": {
+    "image": "@img:icon_scroll_of_celestial_dew_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a silver scroll with a star emblem in a swirl of dew drops, matching Celestial Dew, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Hollow Veil",
+   "targetId": "4huDnXDq5zInzZ3dLgykM",
+   "data": {
+    "image": "@img:icon_scroll_of_hollow_veil_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a pale scroll wrapped in a ghostly lavender veil, matching Hollow Veil, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "name": "Scroll of Shadows",
+   "targetId": "uLLAWOSCFeDz9Mc3d0rKw",
+   "data": {
+    "image": "@img:icon_scroll_of_shadows_v1.webp"
+   },
+   "suggestion": {
+    "rationale": "New icon: a black scroll shrouded in purple shadow, matching Aegis of Shadows, the jutsu it teaches. Part of the new event scroll icon set."
+   }
+  }
+ ]
+}
