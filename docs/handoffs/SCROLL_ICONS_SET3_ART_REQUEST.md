@@ -96,6 +96,8 @@ Return each director-approved original under its exact filename (section 3; a co
 WebP at any size of 1024 px or more, square. Include a ledger row per file: filename, item, pixel size, bytes. Do not
 process or upload anything: intake, preflight and the review-desk ticket are Fable's.
 
+**Combined ticket:** the scroll-jutsu icons (`SCROLL_JUTSU_ICONS_ART_REQUEST.md`) join this set's manifest (director, 2026-10-22).
+
 **Ticket note (Fable):** the push/215 suggestions for Shadows, Hollow Veil and Cleave were submitted 2026-10-22. The
 desk allows one open suggestion per record, so those three must be approved or rejected before the new ticket covers
 them; the other six have none open.

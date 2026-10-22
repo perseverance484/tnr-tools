@@ -25,7 +25,7 @@ The scrolls that teach them now each have a distinct colour; the jutsu should re
 
 | In | Out |
 |---|---|
-| The 7 event jutsu, the 2 forbidden jutsu, Subaku Palace | **KGK: Black Fang Lance, Flash Step, Veilguard Pulse, KX Hollow Surge**: another staff member's custom contributions (director, push/196 review: "Dont rewrite other staffs custom contributions"); their icons are already a strong family. Bloodline scrolls grant whole bloodlines, not one jutsu. Dragon's Scroll grants an item. |
+| The 7 event jutsu taught by the event scrolls, the 2 forbidden jutsu, Subaku Palace (all inspired by their scrolls). **Open (director):** the six visible EVENT jutsu with no scroll (Black Coffin, Dark Pact, Frictional force, Hogs gone Wild, Moose Cleave, Moose Prime) | **KGK: Black Fang Lance, Flash Step, Veilguard Pulse, KX Hollow Surge**: another staff member's custom contributions (director, push/196 review: "Dont rewrite other staffs custom contributions"); their icons are already a strong family. Bloodline scrolls grant whole bloodlines, not one jutsu. Dragon's Scroll grants an item. |
 
 ## 3. Collection-wide visual lock (the exemplar design)
 
@@ -110,6 +110,8 @@ with a ledger row (filename, jutsu, pixel size, bytes). Do not process or upload
 
 ## 8. Ticket conditions (Fable)
 
+- **Combined ticket (director, 2026-10-22):** these jutsu icons go in the **same** manifest as scroll icons set 3
+  (`SCROLL_ICONS_SET3_ART_REQUEST.md`): one suggest-mode manifest for the scroll items, the Colored Jewel and these jutsu.
 - **One suggest-mode manifest** for all delivered icons, one suggestion per jutsu, `image` only, `injectableInBattle`
   re-sent at its live value (law 20), from a fresh capture of the ten jutsu taken just before the build.
 - **Open text suggestions:** at the last ledger (push/203), round-2 text suggestions were still PENDING on Aegis of
