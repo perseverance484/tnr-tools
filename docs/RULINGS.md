@@ -2134,3 +2134,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No upload, live edit or publication. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight; the director approves each raw.
 
+## RUL-2026-10-22-002 — Two Tails armor: new icons dropped; stats to become an offensive Kitsune counterpart
+
+**Date:** 2026-10-22
+
+**Domain:** Item balance / armor sets
+
+**Status:** ACTIVE (proposal stage; numbers await the director)
+
+**Supersedes:** RUL-2026-10-22-001 (the new Two Tails icons are not needed; push/205 withdrawn unrun; the processed art stays in `art/two_tails_armor/` unused).
+
+**Ruling:** The Two Tails armor set's stats are reworked into an offensive version of the Kitsune set: a slightly stronger counterpart geared to offensive tags, with slightly higher pool values than Kitsune. The values are a balance decision for the director; the proposal is in `docs/design/two_tails_armor/TWO_TAILS_STATS_PROPOSAL.md`.
+
+**Evidence:** User, 2026-10-22: "Change of plans, we dont need these new icons. We just need to adjust the stats of the Two Tails set to be an offensive version of the Kitsune set, with slightly higher pools. So we need it to be a slightly stronger counterpart to Kitsune with a more offensive theme."
+
+**Canonical destination:** `docs/design/two_tails_armor/TWO_TAILS_STATS_PROPOSAL.md`.
+
+**Boundary:** No manifest until a version is approved; no live edit.
+
