@@ -10,7 +10,7 @@
   suggest-mode manifest with one suggestion per scroll.
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
 
-**Delivered:** 1/9. #1 Scroll of Shadows (`raw_scroll_of_shadows_b.png`, native alpha; export `icon_scroll_of_shadows_b.webp`, preflight clean), 2026-10-22.
+**Delivered:** 2/9. #1 Scroll of Shadows (`raw_scroll_of_shadows_b.png` → `icon_scroll_of_shadows_b.webp`); #2 Scroll of Hollow Veil (`raw_scroll_of_hollow_veil_b.png` → `icon_scroll_of_hollow_veil_b.webp`). Both native alpha, preflight clean, 2026-10-22.
 
 ## 1. Why
 
