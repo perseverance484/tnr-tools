@@ -101,6 +101,7 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 KGK stays as two pairs (no new variants).
 
 **Art request:** `docs/handoffs/SCROLL_ICONS_SET3_ART_REQUEST.md` (all nine remaining icons; one manifest after delivery).
+**Jutsu icons:** `docs/handoffs/SCROLL_JUTSU_ICONS_ART_REQUEST.md` (the ten jutsu the scrolls teach, KGK excluded; theme from the scroll, design from the approved exemplars).
 
 ## Decisions (director, 2026-10-22)
 
