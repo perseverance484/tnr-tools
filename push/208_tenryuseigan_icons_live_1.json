@@ -1,0 +1,60 @@
+{
+ "_note": "LIVE image update, Tenryūseigan icon set, batch 1 of 2 (director 2026-10-22: images live, nothing moved or renamed; text goes to a separate suggest-mode ticket after comparison). Three Ethereal Monarch-bloodline copies whose ids are known: Celestial Sealing copy -> Celestial Bind icon, Tamashī no Sakeme copy -> Skyfang Burst icon, Dragon Eye Awakening. Only image changes; injectableInBattle is re-sent at its live value (false on all three, push/206 capture harvests/inbox/tnr_results_1792635598196.json; law 20). Not equipped by any AI (absent from every AI capture, including the 2026-10-21 census). Icons director-supplied, art/jutsu_icons/tenryuseigan/, opaque JUTSU_ICON route (RUL-2026-10-14-001), artpreflight clean. Operator runs it from Forge; never skipPreflight.",
+ "imgSizes": {
+  "icon_tenryuseigan_celestial_bind_v1.webp": 110472,
+  "icon_tenryuseigan_skyfang_burst_v1.webp": 114772,
+  "icon_tenryuseigan_dragon_eye_awakening_v1.webp": 113166
+ },
+ "imagePack": {
+  "ref": "0f6dc690439314fd2931010cb6a8a9931166add3",
+  "files": {
+   "icon_tenryuseigan_celestial_bind_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_celestial_bind_v1.webp",
+    "sha256": "a633009f98460e624e8a0978dd7bdcf0add438599c9d18048542ce833133bf6a",
+    "bytes": 110472
+   },
+   "icon_tenryuseigan_skyfang_burst_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_skyfang_burst_v1.webp",
+    "sha256": "7959c018676429a0c124ea0639c54fc850c27b2d969a25553fa05ecbe1e489ea",
+    "bytes": 114772
+   },
+   "icon_tenryuseigan_dragon_eye_awakening_v1.webp": {
+    "path": "art/jutsu_icons/tenryuseigan/exports/icon_tenryuseigan_dragon_eye_awakening_v1.webp",
+    "sha256": "c804f5b1bbecb381954a2f8848ed9bf433ed77c4f6b963b9e8084dd80df03d65",
+    "bytes": 113166
+   }
+  }
+ },
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tenryūseigan: Celestial Sealing - 86FM95zHP_PgZuJXFlbty",
+   "targetId": "86FM95zHP_PgZuJXFlbty",
+   "data": {
+    "image": "@img:icon_tenryuseigan_celestial_bind_v1.webp",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Tenryūseigan: Tamashī no Sakeme - nM3rV7Z2uzokyoHD0TqHB",
+   "targetId": "nM3rV7Z2uzokyoHD0TqHB",
+   "data": {
+    "image": "@img:icon_tenryuseigan_skyfang_burst_v1.webp",
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "name": "Dragon Eye Awakening",
+   "targetId": "a7Xsm5Zcz9AbKUu_BBlHU",
+   "data": {
+    "image": "@img:icon_tenryuseigan_dragon_eye_awakening_v1.webp",
+    "injectableInBattle": false
+   }
+  }
+ ]
+}
