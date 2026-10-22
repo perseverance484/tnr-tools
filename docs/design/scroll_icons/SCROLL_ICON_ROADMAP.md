@@ -100,6 +100,8 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 
 KGK stays as two pairs (no new variants).
 
+**Art request:** `docs/handoffs/SCROLL_ICONS_SET3_ART_REQUEST.md` (all nine remaining icons; one manifest after delivery).
+
 ## Decisions (director, 2026-10-22)
 
 1. push/215: already run; revisit the live Shadows, Hollow Veil and Cleave later.
