@@ -72,7 +72,7 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 | Oxblood crimson on black | Scroll of Shadows (Aegis of Shadows) | **redo** (now violet on black) |
 | Ash grey and bone-white veil | Scroll of Hollow Veil | **redo** (now lavender) |
 | Steel silver with orange edge | Scroll of Cleave | **recolour**: drop the teal wind (clashes with Aerathiel) |
-| Indigo-black void (or keep violet, see decision 1) | Oblivion Seal (village, live) | **recolour** glow from violet |
+| Electric blue-violet, bright (bloodline art hue ~262; delivered at 252) | Oblivion Seal (bloodline shape) | **recolour**: on-brand for the bloodline, brighter and bluer than KGK's dim violet; silver fittings, no emblem |
 | Teal wind on cream | Aerathiel (village) | none |
 | Leaf green | Shinseina Ki (village) | none |
 | Aqua water | Scroll of Renewal | none (drop the leaves if Shinseina still reads close) |
