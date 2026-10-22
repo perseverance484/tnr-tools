@@ -2116,3 +2116,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** No live edit. The jutsu text guide under review (c0e9d1b) picks these up after its review.
 
+## RUL-2026-10-22-001 — Two Tails armor icons: match the Kitsune set, offensive nekomata theme
+
+**Date:** 2026-10-22
+
+**Domain:** TNR art production / item icons
+
+**Status:** ACTIVE
+
+**Supersedes:** none
+
+**Ruling:** The five Two Tails armor pieces (Zukin, Shozoku, Tekkou, Tabi, Jaki-Tabi) get new icons that read as a family with the Kitsune armor set (style reference) but with a more offensive theme. Icons only: names, text, stats and effects are unchanged. The theme is the folklore nekomata (two-tailed cat spirit), avoiding blue ghost-fire and other imagery tied to the franchise's two-tailed cat. The Kitsune icons may be downloaded from the game's image CDN as style references (image files only; no game request).
+
+**Evidence:** User, 2026-10-22: "update the Two Tails armor set to match the Kitsune set but with a more offensive theme. We'll set up the task and pass off the image generation to the art director, then take the raw assets and process them for a ticket manifest", then "Icons only, download the Kitsune images, nekomata approved".
+
+**Canonical destination:** `docs/handoffs/TWO_TAILS_ARMOR_ICONS_ART_REQUEST.md` (written after the push/204 capture).
+
+**Boundary:** No upload, live edit or publication. The finished icons go to the content review desk as a Forge suggest-mode ticket after intake and preflight; the director approves each raw.
+
