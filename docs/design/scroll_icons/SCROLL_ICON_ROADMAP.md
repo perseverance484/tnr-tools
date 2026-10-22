@@ -53,7 +53,7 @@ replaces), `sheet_live_quest_lore_2026-10-22.png`.
 | Dragon's Scroll (grants an item, EPIC) | **reuses the KGK Black Fang Lance image** | replace: wrong family entirely |
 | Forbidden Jutsu Scroll: Nexus / Rebirth | small, low-res cream scrolls (magenta seal / red swirls) | replace as a "forbidden" pair (chains, seals) |
 | Scroll of Metal (Tetsugan) / Scroll of Time (Sands of Time) | plain parchment, low detail | replace (bloodline unlocks) |
-| Demon Scroll: Subaku Palace | hanging scroll, demon mask, distinct | keep |
+| Demon Scroll: Subaku Palace | hanging scroll, demon mask, distinct | **replace** (director 2026-10-22, with its new jutsu icon): jutsu shape, rust sandstone with demon gold |
 | Dragon King's Scroll / Tiger's Scroll | hanging scrolls (kanji + red seal / white tiger), distinct | keep |
 | Scroll of Summoning Momo | pink cross-stitch hanging scroll, distinct | keep |
 | Bloodline Scroll, Compensation Scroll | generic | keep (both still carry the placeholder description "New item description") |
@@ -86,6 +86,7 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 | Dark iron with molten rivets | Scroll of Metal | new |
 | Sand and aged bronze, hourglass | Scroll of Time | new |
 | Jade dragon pearl | Dragon's Scroll | new |
+| Rust sandstone with demon gold | Demon Scroll: Subaku Palace | new (jutsu shape) |
 
 ## Order
 

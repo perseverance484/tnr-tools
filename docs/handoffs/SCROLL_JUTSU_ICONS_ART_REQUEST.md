@@ -54,7 +54,7 @@ Each silhouette is unique in this set; pass the others as **text exclusions**, n
 | 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | a **kite shield made of oxblood shadow**, its rim unravelling into reaching tendrils | `icon_jutsu_aegis_of_shadows_v1.webp` |
 | 8 | Ethereal Nexus (`iktsCP-RjIhlYlsTg-JTN`), forbidden | damage, lifesteal, target takes more damage | Forbidden Nexus: **magenta seals**, black chain accents | **three magenta energy streams converging into a knot**, a thin red life-thread drawn back out | `icon_jutsu_ethereal_nexus_v1.webp` |
 | 9 | Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), forbidden | damage, absorb, target deals less damage | Forbidden Rebirth: **scarlet seals**, pale ember | a **scarlet phoenix-like ember rising** out of a cracked seal ring (no bird head detail needed) | `icon_jutsu_ethereal_rebirth_v1.webp` |
-| 10 | Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`) | area spiral; stats buff/debuff | Demon Scroll: Subaku Palace (kept as is): **demon red-orange on black** | a **demonic pagoda gate** silhouette with a burning spiral sigil on the ground before it | `icon_jutsu_subaku_palace_v1.webp` |
+| 10 | Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`) | area spiral; stats buff/debuff | Demon Scroll: Subaku Palace (new, set-3 #11): **rust sandstone with demon gold** | a **demonic pagoda gate** silhouette of rust sandstone, a gold-lit spiral sigil on the ground before it | `icon_jutsu_subaku_palace_v1.webp` |
 
 Mechanics note for the director: Aegis of Shadows' description says it "creates a shadow barrier that absorbs
 attacks", but its effects are two debuffs on the target. The icon follows the name (a shield) as the director's
@@ -69,8 +69,7 @@ earlier text choices do; the description mismatch is a separate text item.
    - Aegis of Shadows: `art/item_icons/event_scrolls/raws/raw_scroll_of_shadows_b.png`.
    - Tempest Cleave, Hollow Veil, the two forbidden jutsu: their set-3 scroll is not delivered yet. Use the palette as
      text, or wait for the approved scroll raw and attach it then.
-   - Subaku Palace: the live Demon Scroll icon (`docs/design/scroll_icons/sheet_live_jutsu_bloodline_2026-10-22.png`
-     shows it); palette as text is enough.
+   - Subaku Palace: its new set-3 scroll (#11) once approved; until then, palette as text.
 
 ## 6. Prompt template
 
@@ -99,7 +98,7 @@ Generate ONE image. Do not upload or process it.
 1. Event jutsu whose scroll is final: Earthen Bastion, Drops of Renewal, Blazing Fang Strike, Celestial Dew, Aegis of
    Shadows.
 2. Tempest Cleave and Hollow Veil once their set-3 scrolls are approved.
-3. Ethereal Nexus, then Ethereal Rebirth (after the forbidden scroll pair); Subaku Palace any time.
+3. Ethereal Nexus, then Ethereal Rebirth (after the forbidden scroll pair); Subaku Palace after its new scroll (set-3 #11).
 
 Raw QC per icon: no actor; one dominant silhouette matching its row; palette inside its slot; no reserved silhouette;
 reads at 125, 64 and 32 px. Two wrong-subject results in one session: close it and start clean.
