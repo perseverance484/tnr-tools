@@ -739,6 +739,124 @@ def check_nulls(entry, rep):  # law 72: optional vs nullable split
                            "Omit the key entirely; null is rejected")
 
 
+def check_bounds(entry, rep):
+    """Top-level numeric fields against the generated 45d bounds (min, max, int). The bound is
+    the zod chain's own, resolved through named constants (requiredLevel .max(MAX_PLAYER_LEVEL)
+    = 110 at 107d7a8), so a value the server refuses is caught here rather than as a 400."""
+    ent = entry.get("entity")
+    fields = ENTITIES.get(ent)
+    if not fields:
+        return
+    data = entry.get("data") or {}
+    where = f"[{ent}:{entry.get('name') or entry.get('srcId')}]"
+    for f, v in data.items():
+        rule = fields.get(f)
+        if not rule or isinstance(v, bool) or not isinstance(v, (int, float)):
+            continue
+        if rule.get("min") is not None and v < rule["min"]:
+            rep.err(where, f"{f}={v} is below the validator's min {rule['min']}")
+        if rule.get("max") is not None and v > rule["max"]:
+            via = f" ({rule['max_ref']})" if rule.get("max_ref") else ""
+            rep.err(where, f"{f}={v} is above the validator's max {rule['max']}{via}")
+        if rule.get("int") and float(v) != int(v):
+            rep.err(where, f"{f}={v} must be an integer")
+
+
+_LEVELS = []
+
+
+def _level_consts():
+    """(MAX_EXPERIENCE_LEVEL, MAX_PLAYER_LEVEL) from the generated 45e, or (None, None) without it."""
+    if not _LEVELS:
+        vals = (None, None)
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "45e_DATA_constants.json")
+        if not os.path.exists(p):
+            p = "45e_DATA_constants.json"
+        try:
+            c = json.load(open(p)).get("constants") or {}
+            vals = (c["MAX_EXPERIENCE_LEVEL"]["value"], c["MAX_PLAYER_LEVEL"]["value"])
+        except Exception:
+            pass
+        _LEVELS.append(vals)
+    return _LEVELS[0]
+
+
+MILESTONE_MSG = ("Elite Jonin milestones must be solo academy quests, grant positive combat stats, require "
+                 "exactly the preceding level, complete once without a reset, grant all rewards and have no "
+                 "rank reward")
+
+
+def check_milestone(entry, rep):
+    """The Elite Jonin milestone superRefine (TheNinjaRPG@107d7a8 validators/objectives.ts, QuestValidator):
+    a non-zero content.reward.reward_level needs questType "starter", no team, requiredLevel ==
+    maxLevel == reward_level - 1, maxCompletes 1, no retry delay, rewardMode "all", no reward_rank
+    anywhere (reward, reward packages, objectives and their packages) and a positive reward_stats.
+    reward_stats without reward_level is refused, and neither may sit on an objective. On an edit the
+    fields a manifest leaves out keep their live values, so those are warnings to confirm, not errors."""
+    data = entry.get("data") or {}
+    content = data.get("content")
+    if not isinstance(content, dict):
+        return
+    where = f"[quest:{entry.get('name') or entry.get('srcId')}]"
+    reward = content.get("reward") or {}
+    objs = content.get("objectives") or []
+    for i, o in enumerate(objs):
+        if isinstance(o, dict) and (o.get("reward_level") or o.get("reward_stats")):
+            rep.err(where, f"objectives[{i}]: reward_level/reward_stats belong on content.reward, "
+                           "not on an objective (the server refuses it)")
+    level = reward.get("reward_level")
+    if not level:
+        if reward.get("reward_stats"):
+            rep.err(where, "content.reward.reward_stats needs a reward_level (Elite Jonin milestone); "
+                           "the server refuses combat stats without one")
+        return
+    lo, hi = _level_consts()
+    if lo is not None and not (isinstance(level, int) and lo < level <= hi):
+        rep.err(where, f"milestone: reward_level={level!r} must be an integer {lo + 1}-{hi} "
+                       "(MAX_EXPERIENCE_LEVEL+1 to MAX_PLAYER_LEVEL), or 0 to disable")
+    edit = entry.get("slot") in ("edit", "convert")
+    defaults = {"teamEnabled": False, "maxCompletes": 1, "rewardMode": "all"}
+
+    def need(key, ok, want, value):
+        if value is None and key in defaults:
+            value = defaults[key]
+            if edit:
+                rep.warn(where, f"milestone: {key} is not in this edit; the live value must be {want}")
+                return
+        if value is None:
+            if edit:
+                rep.warn(where, f"milestone: {key} is not in this edit; the live value must be {want}")
+            else:
+                rep.err(where, f"milestone: {key} must be {want}. {MILESTONE_MSG}")
+            return
+        if not ok(value):
+            rep.err(where, f"milestone: {key}={value!r} must be {want}. {MILESTONE_MSG}")
+
+    need("questType", lambda v: v == "starter", '"starter"', data.get("questType"))
+    need("teamEnabled", lambda v: v is False, "false", data.get("teamEnabled"))
+    need("requiredLevel", lambda v: v == level - 1, level - 1, data.get("requiredLevel"))
+    need("maxLevel", lambda v: v == level - 1, level - 1, data.get("maxLevel"))
+    need("maxCompletes", lambda v: v == 1, 1, data.get("maxCompletes"))
+    if data.get("retryDelay") not in (None, "none"):
+        rep.err(where, f"milestone: retryDelay={data['retryDelay']!r} must be absent or \"none\". {MILESTONE_MSG}")
+    need("rewardMode", lambda v: v == "all", '"all"', content.get("rewardMode"))
+    parts = [("content.reward", reward)]
+    parts += [(f"content.reward.reward_packages[{j}]", (p or {}).get("rewards") or {})
+              for j, p in enumerate(reward.get("reward_packages") or [])]
+    for i, o in enumerate(objs):
+        if not isinstance(o, dict):
+            continue
+        parts.append((f"objectives[{i}]", o))
+        parts += [(f"objectives[{i}].reward_packages[{j}]", (p or {}).get("rewards") or {})
+                  for j, p in enumerate(o.get("reward_packages") or [])]
+    for path, part in parts:
+        if isinstance(part, dict) and part.get("reward_rank") not in (None, "NONE"):
+            rep.err(where, f"milestone: {path}.reward_rank={part['reward_rank']!r}; a milestone may grant no rank")
+    stats = reward.get("reward_stats")
+    if not (isinstance(stats, (int, float)) and stats > 0):
+        rep.err(where, f"milestone: content.reward.reward_stats must be positive. {MILESTONE_MSG}")
+
+
 def check_laws(entry, rep):
     """Assertable laws from 12_TECH. Each one folded in here is a law that can
     no longer be forgotten."""
@@ -750,6 +868,9 @@ def check_laws(entry, rep):
         rep.err(where, "law 46: image sent as empty string is nulled at the write path and 500s. Omit the key")
 
     check_nulls(entry, rep)
+    check_bounds(entry, rep)
+    if ent == "quest":
+        check_milestone(entry, rep)
 
     if ent == "quest":
         for f in ("startsAt", "endsAt"):
@@ -758,8 +879,12 @@ def check_laws(entry, rep):
                 rep.err(where, f"law 7: {f} must be plain YYYY-MM-DD, got {v!r}")
         for f in CAP_100:
             v = data.get(f)
-            if isinstance(v, (int, float)) and v > 100:
-                rep.err(where, f"law 8: {f}={v} exceeds the cap of 100; the whole fill 400s")
+            # The cap comes from the generated 45d bound when it has one: at 107d7a8 maxLevel is
+            # .max(MAX_PLAYER_LEVEL) = 110 for the Elite Jonin milestones, while maxAttempts and
+            # maxCompletes stay .max(100). Law 8's flat 100 is the fallback, not the authority.
+            cap = (ENTITIES.get("quest", {}).get(f) or {}).get("max", 100)
+            if isinstance(v, (int, float)) and not isinstance(v, bool) and v > cap:
+                rep.err(where, f"law 8: {f}={v} exceeds the cap of {cap}; the whole fill 400s")
         if entry.get("slot") == "create" and data.get("consecutiveObjectives") is not True:  # law 23
             rep.err(where, "consecutiveObjectives must be set true explicitly on every create: the DB default "
                            "is false, which makes every objective simultaneously claimable")
