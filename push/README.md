@@ -480,3 +480,13 @@ Submitted: all 198 suggestions found in the review queue, 0 errors. Archived und
 Not run; the icons were dropped for a stats rework (RUL-2026-10-22-002). Archived under
 `archive/spent-manifests/push-2026-10-21/`.
 
+
+## 206 Tenryūseigan capture: READY (read-only)
+
+`206_tenryuseigan_capture.json`, hash `ed07ff6d`. Four full point reads, zero writes: the Tenryūseigan
+bloodline (`ieDD4S_zzLMmVadUuD69s`, H rank, hidden) and the three jutsu known to belong to it
+(Tenryūseigan: Tamashī no Sakeme `nM3rV7Z2uzokyoHD0TqHB`, Tenryūseigan: Celestial Sealing
+`86FM95zHP_PgZuJXFlbty`, Crowned Horizon `a7Xsm5Zcz9AbKUu_BBlHU`). It maps the six new icons in
+`art/jutsu_icons/tenryuseigan/` to their jutsu. Forge only keeps full records for point reads, so the
+bloodline's other jutsu need ids from the director. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.
