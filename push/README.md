@@ -514,7 +514,7 @@ differed from its original.
 Storm Dragons Halo carried Tamashī no Sakeme's kit (single-target damage 40 + consume); Founder's Wrath was the
 only original without a copy. It now takes Founder's Wrath's `AOE_CIRCLE_SPAWN`, its two effects copied whole
 (push/207) and `injectableInBattle: true`. The rest re-send `injectableInBattle` at live values (law 20). Rank H
-and hidden flags are left as they are. In no AI capture. Image pack pinned at `6ca54e5`. Gates:
+and hidden flags are left as they are. In no AI capture. Image pack pinned at `ac907cd0`. Gates:
 `validate.py --strict` 0 errors, 0 warnings; `forge/tools/check_manifest.mjs` 0 pre-send problems.
 
 ## 209 Tenryūseigan batch 2 capture: RUN, archived
