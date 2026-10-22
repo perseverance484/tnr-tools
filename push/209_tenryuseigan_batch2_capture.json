@@ -1,0 +1,30 @@
+{
+ "_note": "READ-ONLY capture of the last three Tenryūseigan icon targets (ids from the director, 2026-10-22): Void Gaze Rift (nry9aXIAr29hJvvOjh67V), Storm Dragon's Halo (GazEyKNZpxgMDuZyAeUfY), Heavenly Barrier (FgmIkbsSAulI9c4PZgAyE). Expected copies of Stardust, Founder's Wrath and Heavenly Constructs. Purpose: compare each with its Ethereal Monarch original (push/207, harvests/inbox/tnr_results_1792638258224.json) and record live injectableInBattle for the icon update (law 20). Zero items, zero writes. Operator runs it from Forge.",
+ "capture": {
+  "before": [
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "nry9aXIAr29hJvvOjh67V"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "GazEyKNZpxgMDuZyAeUfY"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "jutsu.get",
+    "input": {
+     "id": "FgmIkbsSAulI9c4PZgAyE"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
