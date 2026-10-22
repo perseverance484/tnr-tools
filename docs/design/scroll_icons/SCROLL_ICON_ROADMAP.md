@@ -82,7 +82,7 @@ chained; hanging scrolls), but at 125 px colour has to carry the identity on its
 | Deep ice blue | Hyouga Yui (village) | none |
 | Pearl white with starlight | Scroll of Celestial Dew | none (keep the blue accents light) |
 | Earth brown | Scroll of Bastion | none |
-| Magenta / scarlet seals on chained cream | Forbidden Nexus / Rebirth | new pair |
+| Magenta / emerald seals on chained cream | Forbidden Nexus / Rebirth | new pair (Rebirth delivered emerald, not scarlet) |
 | Dark iron with molten rivets | Scroll of Metal | new |
 | Sand and aged bronze, hourglass | Scroll of Time | new |
 | Jade dragon pearl | Dragon's Scroll | new |
