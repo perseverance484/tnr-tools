@@ -549,3 +549,10 @@ desk. Shadows, Hollow Veil and Cleave overlap other scrolls and are slated for a
 
 17/17 reads ok (`harvests/inbox/tnr_results_1792701435901.json`). Mostly quest/lore props; Bloodline Scroll and
 Compensation Scroll still carry "New item description". Archived under `archive/spent-manifests/push-2026-10-22/`.
+
+## 217 Scroll icons set 3 capture: READY (read-only)
+
+`217_scroll_set3_capture.json`, hash `c2b202a6`. Ten full point reads, zero writes: Colored Jewel of the Dragon's Neck
+(`_8HEbybzN5QPX8vUG24Tk`, added to set 3 by the director) and fresh records of the nine set-3 scrolls, so the single
+set-3 ticket is built from current live state. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`forge/tools/check_manifest.mjs` 0 pre-send problems.
