@@ -116,3 +116,11 @@ at a fixed center; the wings are uncovered bottom-up while settling 40 px, never
 while rising). The star layer is narrowed to K4's proportions (x 0.672, y 0.84, raised 90 px), measured against K4.
 Result: 30 frames of 128 px, 197,002 bytes, intended speed 43 ms (1.3 s). Frame-by-frame check: horizontal center within
 0.5 px throughout, star size rises monotonically over frames 1-8, frames 12-20 hold exactly still.
+
+## 8. Revision 3: dissolve in and out (director, 2026-10-23)
+
+Director: "Its really good, but I think it might look better if it faded in and out, like a dissolve effect." `build_strip.py`
+v3 composes the finished emblem once (wings plus the narrowed star, the v2 final pose) and reveals it through a particle
+dissolve (a smooth noise field biased so the star's heart resolves first and vanishes last) combined with a fade, holds
+while sparks stream upward, then dissolves away the same way. Nothing changes size or position. 30 frames of 128 px,
+275,394 bytes (ceiling 460,800), intended speed 43 ms (1.3 s).

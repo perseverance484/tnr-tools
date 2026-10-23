@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble the Chakra Overflow cast animation from the art director's layers (route A), v2.
+"""Assemble the Chakra Overflow cast animation from the art director's layers (route A), v3 (dissolve in and out).
 
     python3 art/jutsu_icons/chakra_overflow/animation/build_strip.py [--frames N] [--size PX] [--preview DIR]
 
@@ -60,39 +60,58 @@ def place(canvas, layer, sx, sy, alpha=1.0, dy=0.0, keep_from=None, keep_to=None
     canvas.alpha_composite(im, (x, yy))
 
 
+def dissolve_field(seed=11):
+    """A smooth noise field in 0..1: pixels with a low value appear first and vanish last."""
+    rng = np.random.default_rng(seed)
+    fine = Image.fromarray((rng.random((W // 4, W // 4)) * 255).astype(np.uint8)).resize((W, W), Image.BICUBIC)
+    coarse = Image.fromarray((rng.random((W // 16, W // 16)) * 255).astype(np.uint8)).resize((W, W), Image.BICUBIC)
+    f = 0.6 * np.asarray(fine, np.float32) + 0.4 * np.asarray(coarse, np.float32)
+    f = (f - f.min()) / (f.max() - f.min())
+    # bias so the center (the star's heart) resolves first and dissolves last
+    yy, xx = np.mgrid[0:W, 0:W]
+    r = np.sqrt((xx - W / 2) ** 2 + (yy - W / 2 + STAR_DY * U * 0.6) ** 2) / (W * 0.5)
+    f = 0.7 * f + 0.3 * np.clip(r, 0, 1)
+    return (f - f.min()) / (f.max() - f.min())
+
+
+def apply_dissolve(img, field, p, soft=0.14):
+    """Keep pixels whose field value is below the progress p (0 = nothing, 1 = everything), with a soft band, and fade
+    the whole layer with p so the particles arrive and leave softly (a fade plus a dissolve)."""
+    a = np.asarray(img).astype(np.float32)
+    m = np.clip((p * (1 + soft) - field) / soft, 0, 1) * (0.35 + 0.65 * p)
+    a[..., 3] *= m
+    return Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
+
+
 def build(n_frames):
+    """v3 (director: "faded in and out, like a dissolve effect"): the finished emblem materializes through a particle
+    dissolve, holds while sparks stream upward, then dissolves away. Nothing changes size or position."""
     star, wings, flash, sparks = (load(f) for f in ('anim_co_L1_star.png', 'anim_co_L2_wings.png',
                                                      'anim_co_L3_flash.png', 'anim_co_L4_sparks.png'))
+    emblem = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    place(emblem, wings, WING_S, WING_S, dy=WING_DY)
+    place(emblem, star, STAR_SX, STAR_SY, dy=STAR_DY)
+    spark_layer = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    field = dissolve_field()
     frames = []
     for i in range(n_frames):
         t = i / (n_frames - 1)
         c = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-        # release (0.66-1.0): the emblem rises steadily and dissolves from the bottom up
-        rel = seg(t, 0.66, 1.0)
-        rise = -34 * rel
-        gone = rel                                    # 0 -> 1: dissolve line climbs steadily from the bottom to the top
-        fade = 1 - ease_in_out(seg(t, 0.84, 1.0))
-
-        # wings (0.20-0.50): uncovered from the bottom up while settling 40 px into place; never rescaled
-        wr = ease_in_out(seg(t, 0.20, 0.50))
-        if wr > 0:
-            place(c, wings, WING_S, WING_S, alpha=seg(t, 0.20, 0.30) * fade,
-                  dy=WING_DY + 40 * (1 - ease_out(seg(t, 0.20, 0.50))) + rise,
-                  keep_from=1.08 - wr * 1.2, keep_to=1.1 - gone * 1.25)
-
-        # star (0.00-0.30): one continuous grow from a point to the final size, fixed center
-        g = 0.06 + 0.94 * ease_out(seg(t, 0.0, 0.30))
-        place(c, star, STAR_SX * g, STAR_SY * g, alpha=min(1, 0.4 + 2.4 * t) * fade,
-              dy=STAR_DY + rise, keep_to=1.1 - max(0, gone - 0.15) * 1.3)
-
-        # flash: ignition burst, then a soft swell when the wings complete
-        fl = np.exp(-((t - 0.10) / 0.07) ** 2) + 0.30 * np.exp(-((t - 0.50) / 0.07) ** 2)
-        fs = 0.18 + 0.30 * ease_out(seg(t, 0.0, 0.18))
-        place(c, flash, fs, fs, alpha=min(1.0, fl), dy=STAR_DY * 0.6)
-
-        # sparks (0.44-1.0): stream upward at a constant speed, fade in and out
-        sp = seg(t, 0.44, 1.0)
-        place(c, sparks, 0.95, 0.95, alpha=seg(t, 0.44, 0.54) * (1 - seg(t, 0.86, 1.0)), dy=60 - 150 * sp)
+        p_in = ease_in_out(seg(t, 0.0, 0.38))          # dissolve in
+        p_out = 1 - ease_in_out(seg(t, 0.64, 1.0))     # dissolve out
+        p = min(p_in, p_out)
+        if p > 0:
+            c.alpha_composite(apply_dissolve(emblem, field, p))
+        # a soft swell of light at the heart as the emblem completes
+        fl = 0.55 * np.exp(-((t - 0.36) / 0.10) ** 2)
+        place(c, flash, 0.42, 0.42, alpha=fl, dy=STAR_DY * 0.6)
+        # sparks stream upward during the hold and dissolve with the emblem
+        sp = seg(t, 0.30, 1.0)
+        s = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+        place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.30, 0.44), dy=60 - 140 * sp)
+        if p_out < 1:
+            s = apply_dissolve(s, 1 - field, p_out)
+        c.alpha_composite(s)
         frames.append(c)
     return frames
 
