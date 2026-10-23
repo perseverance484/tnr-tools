@@ -9,7 +9,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 1 | Abyss of Shadows | Event | 8/10 | Circular shape and red/black scheme make it hard to tell apart from BEE icons (Ring of Spilled Blood, Hemocure); visual register overlaps too much |
 | 2 | Blazing Fang Strike | Event | 10/10 | No notes; well liked |
 | 3 | Celestial Dew | Event | 10/10 | No notes; well liked |
-| 4 | Drops of Renewal | Event |  |  |
+| 4 | Drops of Renewal | Event | 6/10 | Too realistic: the drop reads as plain water, not restorative energy; does not read well as a skill icon |
 | 5 | Earthen Bastion | Event |  |  |
 | 6 | Hollow Veil | Event |  |  |
 | 7 | Subaku Palace | Event |  |  |
