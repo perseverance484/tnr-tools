@@ -566,16 +566,15 @@ battleDescription; all 10 jutsu `injectableInBattle: false`; Aegis of Shadows st
 second effect (decreasedamagegiven, enemies) is the only one on Shadow Field 2. The new asset `zEvI0yd_As_FzNyrr5Iq4` is
 "DemonCastleFloor", STATIC in Fields, the same as Shadow Field 2. Archived under `archive/spent-manifests/push-2026-10-22/`.
 
-## 219 Combined set-3 + scroll-jutsu ticket: READY TO RUN (suggest mode)
+## 219 Combined set-3 + scroll-jutsu ticket: RUN, archived
 
-`push/219_scroll_set3_combined.json`, built by `push/219_scroll_set3_combined.gen.py` from the push/218 bundle; image pack
-pinned at `00362ce`. 25 suggestions, one per record, jutsu first:
+Bundle `harvests/inbox/tnr_results_1792727005693.json` (2026-10-23 03:43Z): 25/25 suggestions submitted and verified
+on the review desk; the director approved all 25 (2026-10-23). Aegis of Shadows is now Abyss of Shadows; Subaku Palace
+shows DemonCastleFloor. Follow-up: re-equip War Commander with Earthen Bastion (director). Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`; the generator stays at `push/219_scroll_set3_combined.gen.py`.
 
-- 10 jutsu (CONSISTENCY): new icon + approved description + battle line from
-  `docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md`, `injectableInBattle: false` re-sent (law 20). Aegis of Shadows
-  is renamed Abyss of Shadows. Subaku Palace re-sends its live effects with only the field asset changed (Shadow Field 2
-  `dKEJjYMI4asyfvH9hsQUZ` → DemonCastleFloor `zEvI0yd_As_FzNyrr5Iq4`, director 2026-10-23); no other key differs.
-- 15 items: new icons (VISUAL); Scroll of Shadows also gets "Learn the jutsu Abyss of Shadows upon use." (CONSISTENCY).
+## 220 Forbidden Chakra Fury capture: READY TO RUN
 
-Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors, 0 warnings. After approval, re-equip War
-Commander with Earthen Bastion (approval severs the AI link).
+Read-only `jutsu.get` for Forbidden Chakra Fury (`Lg_thN-MB8FRAr_Agf9tn`). Zero writes. Shows which effect will carry
+the new purple recoil field (in production in a separate art session) and its current asset, so the field ticket can
+re-send the live effects with only `staticAssetPath` changed, as push/219 did for Subaku Palace.
