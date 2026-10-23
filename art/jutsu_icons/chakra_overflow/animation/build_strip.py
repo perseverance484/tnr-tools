@@ -28,7 +28,14 @@ STAR_SX, STAR_SY, STAR_DY = 0.84 * 0.80, 0.84, -90   # final star, measured agai
 TOKEN_CY, TOKEN_R = 0.283, 0.248
 WINDOW_R = 0.96 * TOKEN_R                               # clear window, just inside the token's white rim
 CROWN_STAR_Y = 0.075                                    # star centre, frame fraction from the top (on top of the head)
-CROWN_STAR = 0.40                                       # star scale for the top-of-head position
+CROWN_STAR = 0.40                                       # star scale for the top-of-head position (scripted fallback)
+# crown art (C1 wings, C2 star; art director, 2026-10-23), placed in FRAME coordinates (no FIT shrink): the wings' drawn
+# window sits lower and smaller than the guide, so the wings are scaled 1.10 and raised 30 px (1254 space), the placement
+# that best clears the token inside the frame; the star (drawn centred at y 221, 352 px tall) is scaled to 0.24 of the frame
+# and centred at CROWN_STAR_Y.
+C1_SCALE, C1_DY = 1.10, -30
+C2_SRC_CY, C2_SRC_H = 221, 352
+CROWN_FADE = False                                       # True: soft-fade the wings where they cross the token
 WING_S, WING_DY = 0.98, 10
 
 
@@ -136,13 +143,34 @@ def build(n_frames, layout="crown"):
     else:
         window = np.ones((W, W), np.float32)
         star_y, star_dy, ssx, ssy = W / 2 + STAR_DY * U, STAR_DY, STAR_SX, STAR_SY
-    wing_img = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-    place(wing_img, wings, WING_S, WING_S, dy=WING_DY)
-    wa = np.asarray(wing_img).astype(np.float32); wa[..., 3] *= window
-    emblem = Image.fromarray(wa.clip(0, 255).astype(np.uint8), 'RGBA')
-    star_only = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-    place(star_only, star, ssx, ssy, dy=star_dy)
-    emblem.alpha_composite(star_only)
+    crown_art = layout == "crown" and os.path.exists(os.path.join(HERE, 'raws', 'anim_co_C1_wings_crown.png'))
+    if crown_art:
+        def frame_layer(img, scale, cy_target_frac=None, src_cy=None, dy_src=0):
+            k = W / SRC
+            sz = max(1, round(SRC * scale * k))
+            im = img.resize((sz, sz), Image.LANCZOS)
+            x = W // 2 - sz // 2
+            if cy_target_frac is None:
+                y = W // 2 - sz // 2 + round(dy_src * k)
+            else:
+                y = round(cy_target_frac * W - src_cy * scale * k)
+            can = Image.new('RGBA', (W + 2 * sz, W + 2 * sz), (0, 0, 0, 0))
+            can.alpha_composite(im, (x + sz, y + sz))
+            return can.crop((sz, sz, sz + W, sz + W))
+        wing_img = frame_layer(load('anim_co_C1_wings_crown.png'), C1_SCALE, dy_src=C1_DY)
+        if CROWN_FADE:
+            fa = np.asarray(wing_img).astype(np.float32); fa[..., 3] *= window; wing_img = Image.fromarray(fa.clip(0, 255).astype(np.uint8), 'RGBA')
+        emblem = wing_img
+        star_only = frame_layer(load('anim_co_C2_star_crown.png'), 0.24 * SRC / C2_SRC_H, CROWN_STAR_Y, C2_SRC_CY)
+        emblem.alpha_composite(star_only)
+    else:
+        wing_img = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+        place(wing_img, wings, WING_S, WING_S, dy=WING_DY)
+        wa = np.asarray(wing_img).astype(np.float32); wa[..., 3] *= window
+        emblem = Image.fromarray(wa.clip(0, 255).astype(np.uint8), 'RGBA')
+        star_only = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+        place(star_only, star, ssx, ssy, dy=star_dy)
+        emblem.alpha_composite(star_only)
     star_mask = np.asarray(star_only)[..., 3].astype(np.float32) / 255
     field = dissolve_field()
     yy, xx = np.mgrid[0:W, 0:W].astype(np.float32)

@@ -49,3 +49,14 @@ The flash (L3) and sparks (L4) from round A are reused; the dissolve and the gli
 `art/jutsu_icons/chakra_overflow/animation/raws/anim_co_C1_wings_crown.png`, `anim_co_C2_star_crown.png` (and C3);
 `build_strip.py` switches to them (the scripted window then becomes unnecessary), rebuilds the strip, re-previews it over the
 battle recording, and push/226 (asset create) and push/225 (jutsu suggestion) follow.
+
+## 5. Delivered and placed (2026-10-23)
+
+C1 (wings), C2 (star) and C3 (peak reference) delivered as 1254 px transparent PNGs. The wings' drawn window sits lower and a
+little smaller than the guide (centered about 0.40 of the frame instead of 0.283), and the star is drawn lower (center 0.176)
+and slightly larger, so `build_strip.py` places the layers rather than using them as-is: wings scaled 1.10 and raised 30 px,
+the placement that best clears the character inside the frame (16% of the token area still under the wings' inner rim,
+which reads as a frame around the token); star scaled to 0.24 of the frame and centered at 0.075. Placement comparison over
+the battle recording: `docs/design/chakra_overflow/animation/crown_art_placement_options.png`. A soft fade where the wings
+cross the token is one switch away (`CROWN_FADE`). New strip: 48 frames at 54 ms (2.6 s), 344,630 bytes; in-battle preview
+`crown_in_battle_preview.gif`.
