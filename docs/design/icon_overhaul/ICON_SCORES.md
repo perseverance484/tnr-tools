@@ -40,7 +40,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 32 | Particle Cannon | Aerathiel | 4/10 | Decent execution, but needs an art-style improvement |
 | 33 | Windshear Decay | Aerathiel | 1/10 | Same Aerathiel art-style problem; resembles Death's March and Atomic Shield too much |
 | 34 | Azure Dragon Palm | Vaporia | 6/10 | Needs more premium art |
-| 35 | Drowning Strike | Vaporia |  |  |
+| 35 | Drowning Strike | Vaporia | 6/10 | Needs more premium art |
 | 36 | Liquid Ember Shell | Vaporia |  |  |
 | 37 | Scorch Break | Vaporia |  |  |
 | 38 | Surfing Strike | Vaporia |  |  |
