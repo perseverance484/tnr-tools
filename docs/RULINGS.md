@@ -2226,3 +2226,22 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/jutsu_overhaul/ABYSS_OF_SHADOWS_TEXT.md`; icon row in `docs/handoffs/SCROLL_JUTSU_ICONS_ART_REQUEST.md`.
 
 **Boundary:** The rename and texts ship in the combined icon ticket, in the same suggestion as the new icon (director, 2026-10-23).
+
+## RUL-2026-10-23-002 — Chakra Overflow icon: its own project; color C, directions D1 + D2
+
+**Date:** 2026-10-23
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE (round 1 briefed)
+
+**Supersedes:** none
+
+**Ruling:** Chakra Overflow (`e2eC-x4UXc5m6QexNbx8w`), the most-used jutsu in the game, gets its icon as a dedicated project, split out of jutsu upgrade batch 1. Color **C**: deep chakra blue erupting into gold and white-hot light where it overflows. Round 1 explores **D1, the breaking vessel** (an orb of chakra cracking open, light spilling over its rim) and **D2, the flare** (a white-hot core erupting upward in a crown of flame-tongues), plus their hybrid.
+
+**Evidence:** User, 2026-10-23: "Chakra Overflow is probably the cornerstone jutsu of the game... It is in my opinion the most important icon in the game... Needs to be the best, most iconic, high quality icon we do. Nothing less will suffice... It deserves a project of its own essentially."; "C and D1 plus D2, write the art prompt".
+
+**Canonical destination:** `docs/design/chakra_overflow/CHAKRA_OVERFLOW_ICON_PROJECT.md`; round-1 prompt `docs/handoffs/CHAKRA_OVERFLOW_ART_SESSION_PROMPT.md`.
+
+**Boundary:** The final pick and every refinement are the director's. Text for Chakra Overflow is finalized with the icon.
+

@@ -54,6 +54,8 @@ mobile the whole icon is about 45 px. The emblem must live in the central area a
 
 Recommendation: **C**, if the art session can hold it at 32 px; otherwise **B** for continuity.
 
+**Decided (director, 2026-10-23; RUL-2026-10-23-002): C.**
+
 ## 5. Decision 2: concept direction (director picks one or two for round 1)
 
 Each is one bold emblem, the metaphor of the jutsu, no actor.
@@ -68,6 +70,8 @@ Each is one bold emblem, the metaphor of the jutsu, no actor.
 
 Recommendation: **D1 and D2** in round 1. D1 says "overflow" and D2 says "power up"; the best icon may combine them
 (an orb whose overflow erupts upward as a flare).
+
+**Decided (director, 2026-10-23): D1 and D2, plus the hybrid.** Round-1 prompt: `docs/handoffs/CHAKRA_OVERFLOW_ART_SESSION_PROMPT.md` (8 briefs: CO-D1a-c, CO-D2a-c, CO-H1-2).
 
 ## 6. Process
 
