@@ -573,4 +573,4 @@ use.", so CONSISTENCY). 10 jutsu with icon + approved description + battle line 
 `docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md` (CONSISTENCY), re-sending `injectableInBattle` live (law 20).
 Aegis of Shadows is renamed Abyss of Shadows. War Commander must be re-equipped with Earthen Bastion after approval.
 The script refuses to build and lists what is missing. Still missing: jutsu icons for
-Ethereal Rebirth and Subaku Palace (Abyss of Shadows, Tempest Cleave, Hollow Veil and Ethereal Nexus delivered 2026-10-23).
+Subaku Palace (Abyss of Shadows, Tempest Cleave, Hollow Veil, Ethereal Nexus and Ethereal Rebirth delivered 2026-10-23).
