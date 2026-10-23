@@ -2225,4 +2225,4 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Canonical destination:** `docs/design/jutsu_overhaul/ABYSS_OF_SHADOWS_TEXT.md`; icon row in `docs/handoffs/SCROLL_JUTSU_ICONS_ART_REQUEST.md`.
 
-**Boundary:** The rename ships as a review-desk text suggestion, after the combined icon ticket resolves on this record.
+**Boundary:** The rename and texts ship in the combined icon ticket, in the same suggestion as the new icon (director, 2026-10-23).
