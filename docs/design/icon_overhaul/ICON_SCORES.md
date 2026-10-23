@@ -18,7 +18,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 10 | Ethereal Rebirth | Forbidden | 0/10 | Players really disliked it. Reads as a poisonous energy explosion, not an ethereal rebirth; bad direction and quality. Direction: swirling restorative energy |
 | 11 | Poisonous Senbon | Normal | 5/10 | Decent idea, but the art style does not read as TNR premium pixel art |
 | 12 | Replacement Technique | Normal | 3/10 | Good image on its own, but players missed the old one, which captured the skill better. Direction: try working the two together |
-| 13 | Searing Might | Normal |  |  |
+| 13 | Searing Might | Normal | 2/10 | Too literal with the shield; art does not read as TNR premium pixel art |
 | 14 | Soul Shackles | Normal |  |  |
 | 15 | Venomous Phobia. | Normal |  |  |
 | 16 | Crimson Impact | Blood-Enchanted Eyes |  |  |
