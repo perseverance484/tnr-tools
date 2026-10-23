@@ -57,7 +57,7 @@ m = {
         "data": {"image": "@img:" + fn, "description": desc, "battleDescription": battle, "effects": effects,
                  "injectableInBattle": live['injectableInBattle']},
         "suggestion": {"category": "CONSISTENCY", "title": "New icon, animation and text",
-                       "rationale": "The most-used jutsu in the game gets a premium icon (a white-hot star rising on wings of blue chakra, readable at small sizes), a matching cast animation (the star dissolves in, glints, and dissolves out) in place of a stock violet effect shared with six other jutsu, and premium text. The old battle line ran five sentences listing the attack types it boosts and repeated the jutsu's name."},
+                       "rationale": "The most-used jutsu in the game gets a premium icon (a white-hot star rising on wings of blue chakra, readable at small sizes), a matching cast animation (blue-and-gold wings frame the caster and the star glints above their head) in place of a stock violet effect shared with six other jutsu, and premium text. The old battle line ran five sentences listing the attack types it boosts and repeated the jutsu's name."},
     }],
 }
 json.dump(m, open(OUT, 'w'), indent=1, ensure_ascii=False); open(OUT, 'a').write('\n')
