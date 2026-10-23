@@ -10,8 +10,8 @@
 
 ## 1. Verdict
 
-A striking image with the right color story and the right brightness, but it is **a fire, not the jutsu**, and it
-**fails the composition lock**. It should be regenerated with this draft's strengths carried over, not patched.
+A striking image with the right color story and the right brightness, but it is **a fire, not boundless chakra**,
+and it **fails the composition lock**. It should be regenerated with this draft's strengths carried over, not patched.
 
 ## 2. What to keep
 
@@ -33,8 +33,8 @@ A striking image with the right color story and the right brightness, but it is 
 | 4 | Clear of the badge corners | **Fails** | the flame base and its horizontal spray sit across the bottom band where the level and count badges go (`review/draft1_in_context.png`, 112 px tile); the brightest corners are the bottom ones. |
 | 6 | House rendering | **Partial** | a smooth digital painting with fractal wisps and no hard rim-lit outline. The approved icons are painterly too, but each has a defined form with a crisp edge; this has none. |
 | - | Composition lock (bounded, about 70%, above center) | **Fails** | the art spans the frame edge to edge (x 8-246, y 2-254 at 256); the tip touches the top edge and the border clips it; the brightness center sits below middle (y 143 of 256). |
-| - | Concept: chakra past its limit | **Not told** | there is no vessel or core, so nothing overflows. It sits nearest D2, but the brief's "compact white-hot core with a crown of flame-tongues" became a bonfire fanning from the bottom edge. |
-| - | Color C: blue **erupting into** gold | **Split, not a transition** | blue and gold sit side by side as separate fires. The blue is bright cyan, closer to ice or lightning fire than deep chakra blue. |
+| - | Concept: boundless chakra (director, 2026-10-23) | **Partly told** | the energy does pour upward, but as flames: it says "a fire is burning", not "chakra without limit is flowing". It sits nearest D2, but the brief's "compact white-hot core with a crown of flame-tongues" became a bonfire fanning from the bottom edge. |
+| - | Color C: blue **intensifying into** gold | **Split, not a transition** | blue and gold sit side by side as separate fires instead of one energy getting hotter toward its source. The blue is bright cyan, closer to ice or lightning fire than deep chakra blue. |
 
 ## 4. What the edit experiments showed (`review/draft1_mockups.png`)
 
@@ -54,47 +54,65 @@ presence against clarity; posterizing the detail made 112 px muddier without hel
 
 ## 5. How to make it the premier icon (ranked)
 
-1. **Restore the vessel.** Move to the **hybrid (CO-H1 / CO-H2)**: a bounded deep-blue orb of chakra whose crown bursts
-   open into one gold-white flare rising upward. One shape then holds both "overflow" (the vessel breaking) and
-   "power up" (the rising flare). This is also the strongest way out of the fire family and Ethereal Rebirth: a sphere
-   is a hard geometric form that no flame icon has.
-2. **Make the color a transition.** Deep cobalt or indigo blue inside the orb, shifting to gold and white-hot exactly
-   at the rupture. One boundary between blue below and gold above, not interleaved flames.
-3. **Give the flare a strong upward point.** Carry over this draft's central gold spike as the flare, but make it a
-   bold, wide shape (35-45% of the width) with a pointed tip or a rising chevron, its brightest point at or just above
-   center (about 43-47% down). Upward chevrons are the universal power-up sign, and no house icon uses one.
-4. **Enforce the frame.** Emblem inside the central 75-85%, at least 20 px of dark at 256 on every side, bottom corners
-   black, tip clear of the top edge. Lit coverage about 30-40%.
-5. **Hard, rim-lit silhouette.** A crisp orb outline and a clean flare edge, with far fewer fractal wisps; Hemocure's
-   sphere (BEE) shows the rendering quality, in a different hue.
-6. **Pass the grayscale test.** With color removed, the shape must differ from Ethereal Rebirth, Particle Cannon and
-   Drops of Renewal (silhouette match under 0.6; script from the distinctness review can be re-run).
+**Concept correction (director, 2026-10-23):** "An item doesnt need to overflow, the chakra we're depicting is what's
+overflowing. You're activating this flow of energy by using the technique. So we want to convey boundless chakra with
+this icon." There is no vessel, orb or container: **the subject is the chakra itself, flowing without limit.** The
+review's earlier "restore the vessel" recommendation is withdrawn; D1's breaking vessel and the CO-H hybrids are retired.
+
+1. **Draw chakra as energy, not flame.** Boundless chakra pours from a white-hot source as luminous currents, rays and
+   crackling streams with clean, smooth edges, never as flame tongues. This is what separates it from every fire icon,
+   from Ethereal Rebirth's flame pillar, and from a fire-element reading. Energy cues: light rays, smooth flowing
+   ribbons, an electric or plasma rim, sparks streaming upward.
+2. **One source, flowing out without end.** A compact white-hot heart near the center from which the chakra surges
+   outward and upward; the streams thin and fade into the dark before they reach the edges, so the flow reads as
+   endless while the emblem stays a bounded shape on screen. "Boundless" is told by motion and fade, not by filling
+   the frame.
+3. **Color as intensity.** Calm deep chakra blue at the outer reaches of the flow, growing hotter toward the source
+   until it turns gold and then white-hot: one energy, rising in power, not two fires side by side.
+4. **A strong upward weight.** The flow is strongest and longest upward, so the overall silhouette points up
+   (a crown-like burst or a rising arrowhead): the universal power-up sign, and the draft's best feature (its rising
+   central spike), kept. Brightest point at or just above center (about 43-47% down).
+5. **Enforce the frame.** Emblem inside the central 75-85%, at least 20 px of dark at 256 on every side, bottom corners
+   black, nothing touching an edge. Lit coverage about 30-40%.
+6. **Crisp, rim-lit form** with far fewer fractal wisps, so the shape survives at 32 px.
+7. **Pass the grayscale test.** With color removed, the shape must differ from Ethereal Rebirth, Particle Cannon and
+   Drops of Renewal (silhouette match under 0.6; the distinctness script can be re-run).
 
 ## 6. Round 2 brief (replaces section 2 of the round-1 prompt for the next generations)
 
 Use the round-1 shared header and exclusions unchanged, plus:
 
 ~~~text
-Lessons from draft 1 (director's first draft, reviewed 2026-10-23): keep its gold-as-brightest value and its
-rising central spike; drop the flame wings and the full-frame bonfire. It read as a fire-element jutsu and matched
-the Ethereal Rebirth flame pillar in grayscale.
+Concept (director, 2026-10-23): BOUNDLESS CHAKRA. Using the technique opens a flow of chakra without limit; the
+chakra itself is what overflows. There is no vessel, orb, container or object of any kind: the energy is the subject.
 
-Dominant silhouette: ONE deep cobalt-blue sphere of chakra, crisp rim-lit edge, filling about 55% of the frame
-width, sitting in the lower-middle of the frame (its base no lower than 80% down). Its crown has burst open: from
-the rupture one bold gold-to-white-hot flare rises straight up, wide at the base (about 40% of the frame width) and
-narrowing to a sharp point well clear of the top edge, shaped like an upward arrowhead or a crown of three tongues.
-Blue turns to gold exactly at the rupture; a little glowing gold overflow runs down the sphere's upper sides. The
-brightest point is where the flare leaves the sphere, near the center of the frame.
+Lessons from draft 1: keep its gold-as-brightest value and its rising central spike; drop the flame tongues, the
+side flame wings and the full-frame bonfire. Drawn as fire, it read as a fire-element jutsu and matched the Ethereal
+Rebirth flame pillar in grayscale.
+
+Dominant silhouette: a compact white-hot source of chakra just above the center of the frame, from which chakra
+surges outward and upward without end, as luminous energy (smooth flowing currents, light rays, crackling plasma
+edges, sparks streaming upward), NEVER as flame tongues. The flow is strongest and longest upward, so the whole
+emblem points up. Color is intensity: deep chakra blue at the outer reaches, hotter toward the source, turning gold
+and then white-hot at the heart. The streams thin and fade into the dark before they reach the frame edges, so the
+flow feels endless while the emblem stays one bounded shape.
 
 Composition: whole emblem inside the central 80%; dark navy-to-black space on every side; both bottom corners empty
 and dark; nothing touches any edge. Reads as "a power-up" at 32 px in grayscale.
 
-Avoid: flame wings or side flames, a bonfire spreading from the bottom, cyan or ice-blue fire, fractal wisp texture
-filling the frame, spirals, rings of fire, and any pillar rising from broken stone.
+Avoid: flames or flame tongues of any kind, fire, a bonfire spreading from the bottom, side flame wings, cyan or
+ice-blue fire, an orb, sphere, vessel or any object, a body or aura outline of a person, fractal wisp texture filling
+the frame, spirals, vortices, rings, and any pillar rising from broken stone.
 ~~~
 
-Variants worth one generation each: **R2-a** flare as a crown of three tongues; **R2-b** flare as a single upward
-arrowhead; **R2-c** sphere cracked with fine gold fissures below the rupture (more "breaking vessel").
+Variants worth one generation each:
+
+- **R2-a, chakra nova:** the source bursts outward in every direction as luminous streams, the upward ones longest,
+  forming a crown-shaped starburst.
+- **R2-b, rising torrent:** a wide surge of chakra currents rushes upward from the source and converges into one
+  sharp upward arrowhead, sparks streaming off its point.
+- **R2-c, power flare:** a tall teardrop flare of crackling chakra energy with a white-hot heart and an electric rim,
+  shedding rising streams from its tip (an energy flare, not a flame, and no figure inside it).
 
 ## 7. Evidence
 

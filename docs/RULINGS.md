@@ -2245,3 +2245,5 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Boundary:** The final pick and every refinement are the director's. Text for Chakra Overflow is finalized with the icon.
 
+**Amendment (2026-10-23):** concept is **boundless chakra**, not a vessel overflowing. User: "An item doesnt need to overflow, the chakra we're depicting is what's overflowing. You're activitating this flow of energy by using the technique. So we want to convey boundless chakra with this icon." D1 and the hybrids are retired; color C reads as intensity. Round 2 brief: `docs/design/chakra_overflow/DRAFT1_REVIEW.md` section 6.
+
