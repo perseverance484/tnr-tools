@@ -47,7 +47,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 39 | Crystal Cave | Crystal Essence | 10/10 | No notes |
 | 40 | Crystal Sphere | Crystal Essence | 10/10 | No notes |
 | 41 | Kōsai Shippū | Crystal Essence | 10/10 | No notes |
-| 42 | Prism | Crystal Essence |  |  |
+| 42 | Prism | Crystal Essence | 10/10 | No notes |
 | 43 | Summoning: Jade | Crystal Essence |  |  |
 | 44 | Arctic Frost | Blue Blade Eyes |  |  |
 | 45 | Blade Resonance | Blue Blade Eyes |  |  |
