@@ -572,5 +572,5 @@ suggestions, one per record. 15 item icons (VISUAL; Scroll of Shadows also gets 
 use.", so CONSISTENCY). 10 jutsu with icon + approved description + battle line from
 `docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md` (CONSISTENCY), re-sending `injectableInBattle` live (law 20).
 Aegis of Shadows is renamed Abyss of Shadows. War Commander must be re-equipped with Earthen Bastion after approval.
-The script refuses to build and lists what is missing. Still missing: jutsu icons for Abyss of Shadows (`_b`), Tempest
-Cleave, Hollow Veil, Ethereal Nexus, Ethereal Rebirth and Subaku Palace.
+The script refuses to build and lists what is missing. Still missing: jutsu icons for Tempest
+Cleave, Hollow Veil, Ethereal Nexus, Ethereal Rebirth and Subaku Palace (Abyss of Shadows delivered 2026-10-23).
