@@ -16,7 +16,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 8 | Tempest Cleave | Event | 0/10 | Total fail, do not reuse at all. Reads as a shuriken skill, not Tempest Cleave; not intimidating enough; wrong shape and art direction. Inspiration: an older version, a blue-white slicing whirlwind with lightning and cloud curls (`refs/08_tempest_cleave_older_version.png`, director's screenshot) |
 | 9 | Ethereal Nexus | Forbidden | 3/10 | Decent quality, but looks like a Shakunetsu Sakura skill (pink/magenta) and does not reflect the ability |
 | 10 | Ethereal Rebirth | Forbidden | 0/10 | Players really disliked it. Reads as a poisonous energy explosion, not an ethereal rebirth; bad direction and quality. Direction: swirling restorative energy |
-| 11 | Poisonous Senbon | Normal |  |  |
+| 11 | Poisonous Senbon | Normal | 5/10 | Decent idea, but the art style does not read as TNR premium pixel art |
 | 12 | Replacement Technique | Normal |  |  |
 | 13 | Searing Might | Normal |  |  |
 | 14 | Soul Shackles | Normal |  |  |
