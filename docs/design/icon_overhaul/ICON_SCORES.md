@@ -32,7 +32,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 24 | Blast Shield | Bakuhatsu | 6/10 | Pretty good, but reads as a generic shield with a recolor. Direction: show the actual blast/shockwave, and the ring of earth the jutsu kicks up around the user as a physical barrier |
 | 25 | Charge 4 Explosion | Bakuhatsu | 4/10 | Unique and creative (the blasts spell C4), but not high quality or premium |
 | 26 | Howitzer Crash | Bakuhatsu | 6/10 | Decent execution, but lacks real pop or skill identity |
-| 27 | Inferno Cataclysm | Bakuhatsu |  |  |
+| 27 | Inferno Cataclysm | Bakuhatsu | 6/10 | Visuals do not look premium; reads as a lava skill rather than an explosion skill |
 | 28 | Kinetic Nova | Bakuhatsu |  |  |
 | 29 | Atomic Shield | Aerathiel |  |  |
 | 30 | Death's March | Aerathiel |  |  |
