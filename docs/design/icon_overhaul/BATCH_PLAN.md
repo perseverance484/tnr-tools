@@ -30,8 +30,8 @@ The image is our earlier upload (`live_image_ours` in `state/jutsu_icon_revert/r
 
 Briefs come from `ICON_SCORES.md` and `STAFF_FEEDBACK.md`.
 
-| # | Jutsu | Family |
-|---|---|---|
+| # | Jutsu | Family | Status |
+|---|---|---|---|
 | 1 | Abyss of Shadows | Event |
 | 4 | Drops of Renewal | Event |
 | 5 | Earthen Bastion | Event |
@@ -41,7 +41,7 @@ Briefs come from `ICON_SCORES.md` and `STAFF_FEEDBACK.md`.
 | 9 | Ethereal Nexus | Forbidden |
 | 10 | Ethereal Rebirth | Forbidden |
 | 11 | Poisonous Senbon | Normal |
-| 12 | Replacement Technique | Normal |
+| 12 | Replacement Technique | Normal | round 1 briefed: `docs/handoffs/REPLACEMENT_TECHNIQUE_REWORK_SESSION_PROMPT.md` |
 | 13 | Searing Might | Normal |
 | 14 | Soul Shackles | Normal |
 | 15 | Venomous Phobia. | Normal |
