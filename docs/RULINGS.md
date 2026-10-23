@@ -2318,3 +2318,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `state/prompt_forge_dungeon_recipe.md` (the build contract).
 
 **Boundary:** No live request; the reward-package recipe is a separate follow-up.
+
+## RUL-2026-10-23-007 — Forge bundle budget raised to 435,000 raw / 105,000 gzip for the dungeon recipe
+
+**Date:** 2026-10-23
+
+**Domain:** Forge / bundle size budget
+
+**Status:** ACTIVE
+
+**Supersedes:** the 420,000 / 100,000 ceiling (RUL-2026-10-19-006).
+
+**Ruling:** The Forge bundle ceiling is raised to **435,000 raw / 105,000 gzip** to carry the dungeon recipe (RUL-2026-10-23-006). Measured with the recipe: 425,490 raw / 102,323 gzip, from a base of 412,173 / 98,680. Trimming and whitespace minification were offered and declined.
+
+**Evidence:** User, 2026-10-23, choosing "Raise to 435k / 105k (Recommended)" over "Trim to fit" and "Whitespace minify".
+
+**Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
