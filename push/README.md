@@ -579,8 +579,9 @@ Read-only `jutsu.get` for Forbidden Chakra Fury (`Lg_thN-MB8FRAr_Agf9tn`). Zero 
 the new purple recoil field (in production in a separate art session) and its current asset, so the field ticket can
 re-send the live effects with only `staticAssetPath` changed, as push/219 did for Subaku Palace.
 
-## 221 Six-AI names capture: READY TO RUN
+## 221 Six-AI names capture: RUN, archived (ids not retained)
 
-Read-only `profile.getAllAiNames` (step 1 of 2) for the six-AI kit ticket: Mara Vane, Kellan Flint, Sable Crow, Brigg
-Tusk, Yara Reed, Goro Blackthorn (director, 2026-10-23: equip shared-pool AI jutsu and basic rules). None of the six
-is in the repository catalogs, so this resolves their ids; step 2 point-reads each AI and its AI profile. Zero writes.
+`harvests/inbox/tnr_results_1792730594860.json`: `profile.getAllAiNames` ok, 544 rows (up from 522 at push/80), but
+Forge stores list procedures as counts only, so the names and ids are not in the bundle (same as push/77 and push/80;
+`persist: "full"` is refused for list reads). The six ids come from the director's editor links instead. Archived under
+`archive/spent-manifests/push-2026-10-22/`.
