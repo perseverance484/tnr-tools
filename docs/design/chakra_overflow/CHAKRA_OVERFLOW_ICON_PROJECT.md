@@ -93,3 +93,13 @@ the same scrutiny and is finalized with the icon so both tell the same image.
 
 - Current icon (predecessor record; never attach to a generation): `art/jutsu_icons/batch1/originals_live/original_chakra_overflow.webp`.
 - Approved style: `art/style_refs/jutsu_icons/bee/`, `art/jutsu_icons/scroll_jutsu/exports/`, `art/jutsu_icons/starter/exports/`.
+
+## 9. Concept correction (director, 2026-10-23)
+
+"An item doesnt need to overflow, the chakra we're depicting is what's overflowing. You're activating this flow of
+energy by using the technique. So we want to convey boundless chakra with this icon." The subject is **boundless
+chakra**: energy flowing without limit from a source, with no vessel, orb or container. D1 (the breaking vessel) and
+the CO-H hybrids are retired; D2's energy rising upward survives, drawn as chakra energy rather than flame. Color C
+stands, read as intensity (blue at the outer reaches, gold and white-hot at the source). Round 2 brief:
+`DRAFT1_REVIEW.md` section 6.
+
