@@ -91,3 +91,17 @@ transparent, plus a note of intended frame time. Claude Code keys, pads, scales 
 3. **One open suggestion per record:** push/225 (icon and text) must be resolved first, or, if push/225 has not been run
    yet, it can be rebuilt to carry the animation too, so the jutsu changes in one review.
 4. The six other jutsu keep the violet animation unless the director wants them looked at separately.
+
+## 6. Delivered and assembled (2026-10-23)
+
+- **Raws (route A):** all nine delivered as 1254 px transparent PNGs, registered within a few pixels of one center, clean over
+  dark, grass and snow backgrounds (`docs/design/chakra_overflow/animation/raws_on_backgrounds.png`); saved as
+  `art/jutsu_icons/chakra_overflow/animation/raws/anim_co_K1..K5.png`, `anim_co_L1_star`, `L2_wings`, `L3_flash`, `L4_sparks`.
+- **Strip:** `art/jutsu_icons/chakra_overflow/animation/exports/anim_chakra_overflow_v1.webp`, built by `build_strip.py`
+  (deterministic): 26 frames of 128 x 128, vertical strip, lossless, 353,740 bytes (ceiling 460,800); intended `speed` 50
+  (1.3 s). Preview at 128 and 50 px over three backgrounds: `anim_chakra_overflow_v1_preview.gif`; frames:
+  `anim_chakra_overflow_v1_frames.png`.
+- **Preflight:** `artpreflight.py --type ANIMATION` passes everything except `soft_edges` (57% partial alpha against a 5%
+  ceiling). That ceiling was set for keyed character sprites; a glow effect is semi-transparent by design, and the game's own
+  stock animation it replaces scores 51% on the same check. Recorded as a validator gap for glow FX (a tooling fix is Lane A
+  work), not an art defect.
