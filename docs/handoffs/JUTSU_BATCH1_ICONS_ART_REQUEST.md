@@ -1,4 +1,4 @@
-# Art request: jutsu upgrade batch 1 icons (10)
+# Art request: jutsu upgrade batch 1 icons (9; Chakra Overflow split out)
 
 - **For:** the art director and the image-generation sessions
 - **From:** Fable / Claude Code, at dauntless's request (2026-10-23)
@@ -14,7 +14,7 @@
 - **Delivery:** raws to `art/jutsu_icons/batch1/raws/`, exports (256x256 lossless WebP) to `art/jutsu_icons/batch1/exports/`.
 - **Live-game requests/writes:** 0.
 
-**Delivered:** 0/10.
+**Delivered:** 0/9. **Chakra Overflow (#1) is now its own project** (director, 2026-10-23: "the most important icon in the game"): `docs/design/chakra_overflow/CHAKRA_OVERFLOW_ICON_PROJECT.md`. Row 1 below is kept only as a silhouette exclusion.
 
 ## 1. Why
 
