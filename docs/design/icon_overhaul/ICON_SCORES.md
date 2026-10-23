@@ -24,7 +24,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 16 | Crimson Impact | Blood-Enchanted Eyes | 8/10 | Needs silhouette refinement |
 | 17 | Crimson Tithe | Blood-Enchanted Eyes | 10/10 | No notes |
 | 18 | Hemocure | Blood-Enchanted Eyes | 10/10 | No notes |
-| 19 | Reaper's Embrace | Blood-Enchanted Eyes |  |  |
+| 19 | Reaper's Embrace | Blood-Enchanted Eyes | 10/10 | No notes |
 | 20 | Ring of Spilled Blood | Blood-Enchanted Eyes |  |  |
 | 21 | Sanguine Plague | Blood-Enchanted Eyes |  |  |
 | 22 | Thousand Strike | Blood-Enchanted Eyes |  |  |
