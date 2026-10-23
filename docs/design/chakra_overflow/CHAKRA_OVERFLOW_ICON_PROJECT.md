@@ -109,3 +109,11 @@ Favorites R2-2, R2-4, R2-6 (`review/round2_in_context.png`); the silhouette was 
 dark and thin (mean luminance 22-31, 12-16% lit). Shape tests (`review/round2_shape_tests.png`) favored the
 **rising star**; the director chose a **subtle** chevron. Round 3 prompt: `docs/handoffs/CHAKRA_OVERFLOW_ROUND3_SESSION_PROMPT.md`.
 
+## 11. Final (director, 2026-10-23)
+
+The director approved the final icon, "the rising star" (`art/jutsu_icons/chakra_overflow/raws/raw_chakra_overflow_v1.png`
+→ `exports/icon_jutsu_chakra_overflow_v1.webp`): a white-hot four-point star with wings of deep blue chakra sweeping upward
+and burning gold toward its heart. Measured at 256 px: mean luminance 58, 34% lit, brightness center at the middle, both
+badge corners empty; reads as one shape at 32 px and in grayscale (`review/final_in_context.png`); artpreflight clean.
+Ships with its premium text (`CHAKRA_OVERFLOW_TEXT.md`) in push/225.
+
