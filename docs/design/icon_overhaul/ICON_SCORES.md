@@ -29,7 +29,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 21 | Sanguine Plague | Blood-Enchanted Eyes | 10/10 | No notes |
 | 22 | Thousand Strike | Blood-Enchanted Eyes | 10/10 | No notes |
 | 23 | Unholy Enhancement | Blood-Enchanted Eyes | 10/10 | No notes |
-| 24 | Blast Shield | Bakuhatsu |  |  |
+| 24 | Blast Shield | Bakuhatsu | 6/10 | Pretty good, but reads as a generic shield with a recolor. Direction: show the actual blast/shockwave, and the ring of earth the jutsu kicks up around the user as a physical barrier |
 | 25 | Charge 4 Explosion | Bakuhatsu |  |  |
 | 26 | Howitzer Crash | Bakuhatsu |  |  |
 | 27 | Inferno Cataclysm | Bakuhatsu |  |  |
