@@ -20,7 +20,7 @@ import { isBloodrightEntity, writableSnapshot } from "../bloodright/validate.mjs
 // it was. A server refusal (success:false) or a validation error is FAILED, never retried.
 // TOO_MANY_REQUESTS from a read pauses the job with the path and countdown (budget layer).
 
-import { readCreate, readMutation, classifyError } from "../transport/outcome.mjs";
+import { readCreate, readMutation, classifyError, OutcomeError, NANOID_RE } from "../transport/outcome.mjs";
 import { AuthUnavailable, AuthRefused } from "../transport/auth.mjs";
 import { isProtected } from "../transport/procedures.mjs";
 import { NetworkError } from "../transport/client.mjs";
@@ -32,7 +32,7 @@ import { readAssetUploads, recordAssetUpload, forgetAssetUpload } from "../stora
 import { toHex } from "./imgpack.mjs";
 import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
 import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
-import { recipe, mergeForUpdate } from "./recipes.mjs";
+import { recipe, mergeForUpdate, recipeRows, updateInput } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
@@ -587,7 +587,7 @@ export class Runner {
     const input = rc.create.input(createData);
     this._requireAuth(rc.create.path, item.idx);
     const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
-    const o = readCreate(decoded);
+    const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
     if (o.kind === "ok") {
       this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...(rc.oneStep ? { asserted: Object.keys(planned.data) } : {}) });
       this._remember(item.srcId, o.id);
@@ -628,7 +628,7 @@ export class Runner {
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
     const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
     this._requireAuth(rc.update, item.idx);
-    const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, { id, data: payload }));
+    const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, updateInput(rc, id, payload)));
     const o = readMutation(decoded);
     await this.cache.invalidateRecord(rc.cacheEntity, id);
     if (o.kind === "ok") {
@@ -836,7 +836,7 @@ export class Runner {
         if (cls === "SESSION") throw this._authRefused(r.error, { path: rc.names });
         throw new Paused("NETWORK", { detail: `dedupNames: ${rc.names} failed: ${r.error.code} ${r.error.message}` });
       }
-      const rows = Array.isArray(r.data) ? r.data : (r.data && Array.isArray(r.data.data) ? r.data.data : []);
+      const rows = recipeRows(rc, r.data);
       const live = new Set();
       for (const row of rows) {
         const v = row && (row[rc.nameKey] ?? row.name ?? row.username);
@@ -1038,4 +1038,17 @@ export class Runner {
     if (unresolved.length) throw new Error("unresolved refs: " + unresolved.map((u) => `@${u.pfx}:${u.key} at ${u.path}`).join(", "));
     return value;
   }
+}
+
+/**
+ * A create whose procedure answers with the new id in its own field rather than in `message`
+ * (dungeon.save: {success, message: "Dungeon saved.", id}). Same contract as readCreate: a
+ * success without a well-formed id is a contract break, never a success.
+ */
+function readCreatedId(rc, decoded) {
+  const o = readMutation(decoded);
+  if (o.kind !== "ok") return o;
+  const id = rc.createdId(decoded.data);
+  if (typeof id !== "string" || !NANOID_RE.test(id)) throw new OutcomeError("create reported success without a well-formed id: " + JSON.stringify(decoded.data).slice(0, 120), { outcome: o });
+  return { ...o, id };
 }

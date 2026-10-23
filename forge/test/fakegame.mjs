@@ -24,7 +24,7 @@ const PLACEHOLDER = {
   "quests.create": (id) => ({ id, name: `New Quest - ${id}`, hidden: true, content: { objectives: [], reward: {}, sceneBackground: "", sceneCharacters: [] }, createdAt: new Date(0), updatedAt: new Date(0) }),
   "profile.create": (id) => ({ userId: id, username: `New AI - ${id}`, isAi: true, level: 1, rank: "STUDENT", aiProfileId: null, jutsus: [], items: [], createdAt: new Date(0), updatedAt: new Date(0) }),
 };
-const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile" };
+const TABLE = { jutsu: "jutsu", item: "item", bloodline: "bloodline", gameAsset: "asset", quests: "quest", profile: "ai", ai: "aiProfile", dungeon: "dungeon" };
 const ID_KEY = { ai: "userId" };
 
 /**
@@ -42,7 +42,7 @@ export const rekey = (v) => (Array.isArray(v) ? v.map(rekey)
 
 export class FakeGame {
   constructor({ crashAt = Infinity, refuse = new Set(), limitPath = null, signedOut = false } = {}) {
-    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map() };
+    this.tables = { jutsu: new Map(), item: new Map(), bloodline: new Map(), asset: new Map(), quest: new Map(), ai: new Map(), aiProfile: new Map(), dungeon: new Map() };
     this.calls = [];
     this.crashAt = crashAt;
     this.refuse = refuse;        // set of paths that answer success:false
@@ -70,7 +70,8 @@ export class FakeGame {
     let result;
     if (this.limitPath === path) return err("TOO_MANY_REQUESTS", "You are moving too fast! Incident logged for review", 429);
     if (this.signedOut && isProtected(path)) return err("UNAUTHORIZED", `UNAUTHORIZED: Data: ${JSON.stringify(input ?? null)}`, 401);
-    if (PLACEHOLDER[path]) {
+    if (router === "dungeon") result = this.dungeon(proc, input, ok, err);
+    else if (PLACEHOLDER[path]) {
       if (this.refuse.has(path)) result = ok({ success: false, message: `Not allowed to create` });
       else { const id = nanoidLike(); const row = PLACEHOLDER[path](id, input); table.set(id, row); result = ok({ success: true, message: id }); }
     } else if (proc === "get" || proc === "getAi") {
@@ -119,6 +120,29 @@ export class FakeGame {
     return result;
   }
 }
+
+/**
+ * dungeon.getAll / dungeon.save as routers/dungeon.ts answers at the pin in src/dungeon/contract.json:
+ * getAll returns whole rows {id, content, updatedAt} (an empty list for non-staff); save without
+ * an id creates, with an id upserts the WHOLE content, and answers {success, message, id}. Waves
+ * and drops gain their server-side defaults (delayRounds 0, quantity 1), so read-back sees what a
+ * zod parse would store, not what the client sent.
+ */
+FakeGame.prototype.dungeon = function (proc, input, ok, err) {
+  const table = this.tables.dungeon;
+  if (proc === "getAll") return ok(this.notStaff ? [] : [...table.values()].map((r) => structuredClone(r)));
+  if (proc !== "save") return err("NOT_FOUND", "unknown procedure dungeon." + proc, 404);
+  if (this.notStaff) return ok({ success: false, message: "You cannot edit dungeons." });
+  if (this.refuse.has("dungeon.save")) return ok({ success: false, message: "An enemy or reward no longer exists." });
+  const c = structuredClone(input.content);
+  c.description ??= ""; c.structureAssetId ??= ""; c.structureScale ??= 1; c.hidden ??= true; c.background ??= "default";
+  c.tiers = (c.tiers ?? []).map((t) => t.map((f) => ({ ...f, waves: f.waves.map((w) => ({ ...w, delayRounds: w.delayRounds ?? 0 })) })));
+  c.rewards = { money: 0, experience: 0, tokens: 0, prestige: 0, ...c.rewards };
+  c.rewards.drops = (c.rewards.drops ?? []).map(({ package: _ignored, ...d }) => ({ ...d, quantity: d.quantity ?? 1 }));
+  const id = input.id ?? nanoidLike();
+  table.set(id, { id, content: rekey(c), updatedAt: new Date(1) });
+  return ok({ success: true, message: "Dungeon saved.", id });
+};
 
 /** A Session-less TrpcClient stand-in with the same batch()/call() surface, backed by FakeGame. */
 export class FakeClient {

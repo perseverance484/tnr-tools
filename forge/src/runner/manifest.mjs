@@ -16,8 +16,10 @@ import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
-export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder"]);
+export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder", "dungeon"]);
 const SLOT_TO_OP = Object.freeze({ create: "create", edit: "update", convert: "update" });
+// = floor(SERVER_LIMIT * DEFAULT_MARGIN) in src/budget/bucket.mjs: the allowance Forge keeps per path.
+export const MAX_DUNGEON_WRITES = 30;
 // Same production as lints.mjs IMG_REF_RE; a fresh instance because /g regexes carry lastIndex.
 const IMG_REF_SCAN = /@img:([A-Za-z0-9_.\-]+)/g;
 
@@ -148,6 +150,12 @@ export function parseManifest(source) {
   // already had - including one carrying a non-default policy, whose open jobs therefore still
   // resume - and (b) re-spelling a pack (key order, whitespace) does not change identity.
   if (packed.pack) policy.imagePack = packed.pack;
+  // dungeon.save is the one MUTATION the server rate-limits (60 per minute per user, money and bank
+  // docked on a trip; src/dungeon/contract.json). The budget meters reads only, so the cap is
+  // enforced here instead: a job sends at most one save per dungeon item, and keeping the count
+  // inside the budget's own allowance (half the window) leaves the other half for other tabs.
+  const dungeonWrites = items.filter(it => it.entity === "dungeon").length;
+  if (dungeonWrites > MAX_DUNGEON_WRITES) throw new ManifestError(`${dungeonWrites} dungeon writes: dungeon.save is rate-limited by the server, so a manifest carries at most ${MAX_DUNGEON_WRITES}; split it`);
   if (items.some(it => ["skillTree", "skillTreeFolder"].includes(it.entity)) && !m.bloodrightImport) throw new ManifestError("Bloodright writes require compiler provenance; prepare the design package in Forge");
   if (m.bloodrightImport) {
     const b = m.bloodrightImport;

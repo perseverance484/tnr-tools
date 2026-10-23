@@ -1,0 +1,124 @@
+{
+  "_meta": {
+    "pin": "107d7a86894f806a4c9cec89effef5992118a0ed",
+    "scope": "Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope",
+    "sources": {
+      "app/src/validators/dungeon.ts": "3ef77e9821e5b456a80c351b8fb91920d730be364d275d3927f6c22c23df0e27",
+      "app/src/server/api/routers/dungeon.ts": "6280604be39691695ea72c6e6026ba8f521586b847fd4130dc30463aee8b6ead",
+      "app/src/validators/coop.ts": "e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450",
+      "app/src/validators/mapLocation.ts": "274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e",
+      "app/drizzle/constants.ts": "4d3cf207812a7ef9403fb4b4e9a5bc74cc2baec8c5ea51b69d4f426bbcedab75",
+      "app/src/libs/dungeonRewards.ts": "4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8"
+    }
+  },
+  "contentFields": [
+    "name",
+    "description",
+    "structureAssetId",
+    "structureScale",
+    "sector",
+    "longitude",
+    "latitude",
+    "expiresAt",
+    "hidden",
+    "background",
+    "tiers",
+    "rewards"
+  ],
+  "rewardFields": [
+    "money",
+    "experience",
+    "tokens",
+    "prestige",
+    "drops"
+  ],
+  "dropFields": [
+    "type",
+    "id",
+    "chance",
+    "quantity",
+    "package"
+  ],
+  "floorFields": [
+    "kind",
+    "waves"
+  ],
+  "waveFields": [
+    "aiIds",
+    "delayRounds"
+  ],
+  "floorKinds": [
+    "floor",
+    "mini-boss",
+    "boss"
+  ],
+  "dropTypes": [
+    "item",
+    "jutsu",
+    "cache",
+    "package"
+  ],
+  "biomes": [
+    "ocean",
+    "ground",
+    "dessert",
+    "ice",
+    "snow",
+    "arena",
+    "default"
+  ],
+  "bounds": {
+    "nameMax": 100,
+    "descriptionMax": 2000,
+    "structureAssetIdMax": 191,
+    "structureScale": {
+      "min": 0.2,
+      "max": 5,
+      "default": 1
+    },
+    "sector": {
+      "min": 0,
+      "max": 1943
+    },
+    "longitude": {
+      "min": 0,
+      "max": 25
+    },
+    "latitude": {
+      "min": 0,
+      "max": 25
+    },
+    "maxTiers": 4,
+    "floorsPerTier": 5,
+    "maxWaves": 5,
+    "maxMobs": 10,
+    "maxWaveDelayRounds": 20,
+    "maxDrops": 100,
+    "chance": {
+      "min": 1,
+      "max": 100
+    },
+    "maxRewardQuantity": 100,
+    "maxRewardAmount": 1000000000,
+    "maxGrantedItems": 2000
+  },
+  "facts": {
+    "partySize": 3,
+    "runSeconds": 3600,
+    "inactiveRounds": 3
+  },
+  "procedures": {
+    "dungeon.getAll": {
+      "kind": "query",
+      "limited": false,
+      "mcp": false,
+      "auth": "protected"
+    },
+    "dungeon.save": {
+      "kind": "mutation",
+      "limited": true,
+      "mcp": false,
+      "auth": "protected"
+    }
+  }
+}
