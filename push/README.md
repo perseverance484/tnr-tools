@@ -621,7 +621,11 @@ live AIs no committed bundle has read, to finish the AI-equip check (laws 18, 60
 `docs/design/jutsu_overhaul/PRIORITY_TARGETS_2026-10-23.md`; text drafts `docs/design/jutsu_overhaul/BATCH1_TEXT_DRAFTS.md`;
 art request `docs/handoffs/JUTSU_BATCH1_ICONS_ART_REQUEST.md`.
 
-## 225 Chakra Overflow icon, animation and text: READY TO RUN (suggest mode)
+## 225 Chakra Overflow icon, animation and text: ON HOLD (icon revert, 2026-10-23)
+
+**Held:** the director reverted all new jutsu icons (push/227) and will restart the reworks one jutsu at a time. The built manifest
+was removed from `push/`; `push/225_chakra_overflow.gen.py` stays. As built before the hold:
+
 
 One suggestion for Chakra Overflow (`e2eC-x4UXc5m6QexNbx8w`, the most-used jutsu in the game), built by
 `push/225_chakra_overflow.gen.py harvests/inbox/tnr_results_1792774742796.json`:
@@ -637,7 +641,11 @@ One suggestion for Chakra Overflow (`e2eC-x4UXc5m6QexNbx8w`, the most-used jutsu
 Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors, 0 warnings. **Order:** push/226 (asset
 overwrite), then push/224 (read-only AI check for the 26 unread AIs; suggest mode allows no captures), then this.
 
-## 226 Chakra Overflow cast animation: first run done; now an UPDATE, READY TO RUN (direct)
+## 226 Chakra Overflow cast animation: first run done; update ON HOLD (icon revert, 2026-10-23)
+
+**Held** with push/225. The asset `D6edS-Ym0SNLWhULycuWb` exists (first run) but nothing points at it. The built update was
+removed from `push/`; the generator stays.
+
 
 **First run** (bundle `harvests/inbox/tnr_results_1792774742796.json`, 2026-10-23 16:59Z): created the `ANIMATION` asset
 "Chakra Overflow - Rising Star" as **`D6edS-Ym0SNLWhULycuWb`** with the earlier, centered strip (used for the director's
@@ -647,3 +655,27 @@ filename `anim_chakra_overflow_crown_v2.webp` (law 32). 48 frames at speed 54 (2
 unchanged. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors, 0 warnings. Then push/225 is
 rebuilt from the first-run bundle (`python3 push/225_chakra_overflow.gen.py harvests/inbox/tnr_results_1792774742796.json`;
 the id does not change) and push/224 and push/225 run.
+
+## 227 Revert our new jutsu icons: READY TO RUN (direct)
+
+Director (2026-10-23): "Lets revert all our new icons. Players dont like them. We'll have to start over and go slower. One
+icon at a time, a full premium rework for the entire jutsu." and "We're not unequipping and re adding. Just changing the
+updated and originals back." 59 jutsu get their **original image** back; each edit sends only `image` plus
+`injectableInBattle` at its live value (law 20). Direct edit. Built by `push/227_revert_jutsu_icons.gen.py` from
+`state/jutsu_icon_revert/revert_2026-10-23.json`:
+
+- **Which jutsu:** every jutsu whose live image (public read, 2026-10-23) is ours: 49 found as URLs Forge uploaded, 10 more found
+  by an exact match against our art files (Blue Blade Eyes: Arctic Frost, Blade Resonance, Blue Crimson, Glacial Volley, Ice
+  Shackles, Icebound Might, Quintessential Flake, Sapphire Command; and Skyfang Burst, Celestial Bind, uploaded by hand). Covers
+  the event 10, the starter icons that went live, Aerathiel, Bakuhatsu, Vaporia, BEE, Crystal Essence, Tenryūseigan / Ethereal
+  Monarch and Blue Blade Eyes.
+- **Original:** the earliest captured image that is not ours; all 59 URLs load (checked 2026-10-23).
+- **Not included:** jutsu whose new icon never went live (Sonic Slash, Water's Domain and the other overhaul jutsu), item icons
+  (the scrolls and the jewel), and changes made by other staff.
+- **AI links (law 18):** no unequip/re-equip, per the director. Editing Arctic Frost, Prism and Earthen Bastion severs the combat
+  link of ANBU Coordinator, Frost Warden, Frost Sovereign, Mermaid Jade, " Jade" and War Commander (2026-10-21 census); re-save
+  those AIs afterwards.
+
+Ends with a `jutsu.get` read-back of all 59. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors,
+0 warnings.
+
