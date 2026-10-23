@@ -38,6 +38,10 @@ The scrolls that teach them now each have a distinct colour; the jutsu should re
 - **Background:** full-bleed designed atmosphere in the jutsu's palette (opaque approved; do not fake transparency).
 - **Theme from the scroll:** the palette slot of the jutsu's scroll (section 4) is the jutsu's palette. A jutsu
   never uses another scroll's slot (taken slots: `SCROLL_ICONS_SET3_ART_REQUEST.md` section 2).
+- **BEE lesson (director, 2026-10-23):** each icon is **one bold emblem that is the ability's metaphor** and fills the
+  frame (BEE: a chalice for a tithe, an orb for healing, a skull in miasma for a plague), with the energy itself as the
+  subject. Never a diagram of the mechanics (no "broken sword + broken shield" for a debuff). Reference:
+  `art/style_refs/jutsu_icons/bee/`.
 - **Avoid:** actors/portraits, a scroll (the icon is the technique, not the item), mandatory mandalas or eye emblems,
   text/kanji/runes, frames, franchise insignia, any silhouette reserved for another jutsu below.
 
@@ -53,7 +57,7 @@ Each silhouette is unique in this set; pass the others as **text exclusions**, n
 | 4 | Blazing Fang Strike (`l3oXmqSJ7L-r4XI9IBIyh`) | piercing strike with afterburn | Scroll of Blazing: **fang red-orange flame** | **a serpentine fire dragon with bared fangs** (delivered 2026-10-23; was "three flaming fangs") | `icon_jutsu_blazing_fang_strike_v1.webp` |
 | 5 | Celestial Dew (`2vNeMhph6A9Ld--WXa35O`) | self: heal and shield | Scroll of Celestial Dew: **pearl white, pale blue starlight** | a **crescent moon** letting fall **one glowing dew drop** onto a soft dome of light | `icon_jutsu_celestial_dew_v1.webp` |
 | 6 | Hollow Veil (`GAhckNCW8xUES4YGTJPGL`) | on the target: deals less damage; absorb | Scroll of Hollow Veil: **ash grey, bone white** (set-3 redo) | a **drifting translucent veil** with a hollow empty centre, frayed ash edges | `icon_jutsu_hollow_veil_v1.webp` |
-| 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | **renamed Abyss of Shadows** (director, 2026-10-23): a **gaping oxblood abyss**, a pit of shadow energy yawning open in the dark, a cracked blade and a cracked shield sinking into its depths, tendrils rising round the rim; must read as a pit seen from above, not a ring (Tempest Cleave) or a spiral (Drops of Renewal) | `icon_jutsu_abyss_of_shadows_v1.webp` |
+| 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | **renamed Abyss of Shadows** (director, 2026-10-23). **The engulfing wave:** a towering wall of shadow with glowing oxblood edges curls over the top of the frame like a breaking wave, its inside a black void: the moment of being swallowed. One emblem filling the frame, BEE-style; no props | `icon_jutsu_abyss_of_shadows_v1.webp` |
 | 8 | Ethereal Nexus (`iktsCP-RjIhlYlsTg-JTN`), forbidden | damage, lifesteal, target takes more damage | Forbidden Nexus: **magenta seals**, black chain accents | **three magenta energy streams converging into a knot**, a thin red life-thread drawn back out | `icon_jutsu_ethereal_nexus_v1.webp` |
 | 9 | Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), forbidden | damage, absorb, target deals less damage | Forbidden Rebirth: **emerald green seals**, black chain accents | an **emerald phoenix-like ember rising** out of a cracked seal ring (no bird head detail needed) | `icon_jutsu_ethereal_rebirth_v1.webp` |
 | 10 | Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`) | area spiral; stats buff/debuff | Demon Scroll: Subaku Palace (new, set-3 #11): **rust sandstone with demon gold** | a **demonic pagoda gate** silhouette of rust sandstone, a gold-lit spiral sigil on the ground before it | `icon_jutsu_subaku_palace_v1.webp` |
