@@ -2,7 +2,7 @@
  "_note": "READ-ONLY step 1 of 2 for the six-AI kit ticket (director, 2026-10-23): Mara Vane, Kellan Flint, Sable Crow, Brigg Tusk, Yara Reed, Goro Blackthorn. None of the six is in the repository catalogs, so profile.getAllAiNames resolves their ids; step 2 then point-reads each with profile.getAi and its AI profile. getAllAiNames excludes rank ELDER (push/80 note). Zero items, zero writes.",
  "capture": {
   "before": [
-   {"proc": "profile.getAllAiNames", "input": {}, "persist": "full"}
+   {"proc": "profile.getAllAiNames", "input": {}}
   ],
   "after": []
  },
