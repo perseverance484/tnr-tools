@@ -100,4 +100,8 @@ process or upload anything: intake, preflight and the review-desk ticket are Fab
 
 **Combined ticket:** the scroll-jutsu icons (`SCROLL_JUTSU_ICONS_ART_REQUEST.md`) join this set's manifest (director, 2026-10-22).
 
-**Ticket note (Fable):** the push/215 suggestions for Shadows, Hollow Veil and Cleave were removed from the review desk by the director (2026-10-22), so all eleven set-3 items are clear for new suggestions.
+**Ticket note (Fable):** the director removed **all seven** push/215 suggestions from the review desk (2026-10-23), so none of
+the event-scroll icons went live. The combined ticket therefore also re-sends the three push/215 icons that were not
+redone: Scroll of Bastion (`icon_scroll_of_bastion_v1.webp`), Scroll of Renewal (`icon_scroll_of_renewal_v1.webp`) and
+Scroll of Celestial Dew (`icon_scroll_of_celestial_dew_v1.webp`), alongside the set-3 versions of Cleave, Hollow Veil,
+Shadows and Blazing. Every item is clear of open suggestions.

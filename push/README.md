@@ -542,8 +542,8 @@ Merged into push/215 at the director's request. Archived unrun under `archive/sp
 
 Bundle `harvests/inbox/tnr_results_1792700438810.json` (2026-10-22 20:20Z): 7/7 suggestions submitted to the review
 desk. Shadows, Hollow Veil and Cleave overlap other scrolls and are slated for a redo/recolour
-(`docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`); the director removed those three suggestions from the review desk
-(2026-10-22), so set 3 can replace them. Archived under
+(`docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`); the director removed all seven suggestions from the review desk
+(2026-10-23); the combined set-3 ticket re-sends Bastion, Renewal and Celestial Dew and replaces the other four. Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
 ## 216 Remaining scrolls capture: RUN, archived
