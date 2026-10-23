@@ -27,7 +27,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 19 | Reaper's Embrace | Blood-Enchanted Eyes | 10/10 | No notes |
 | 20 | Ring of Spilled Blood | Blood-Enchanted Eyes | 10/10 | No notes |
 | 21 | Sanguine Plague | Blood-Enchanted Eyes | 10/10 | No notes |
-| 22 | Thousand Strike | Blood-Enchanted Eyes |  |  |
+| 22 | Thousand Strike | Blood-Enchanted Eyes | 10/10 | No notes |
 | 23 | Unholy Enhancement | Blood-Enchanted Eyes |  |  |
 | 24 | Blast Shield | Bakuhatsu |  |  |
 | 25 | Charge 4 Explosion | Bakuhatsu |  |  |
