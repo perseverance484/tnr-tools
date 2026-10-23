@@ -105,3 +105,14 @@ transparent, plus a note of intended frame time. Claude Code keys, pads, scales 
   ceiling). That ceiling was set for keyed character sprites; a glow effect is semi-transparent by design, and the game's own
   stock animation it replaces scores 51% on the same check. Recorded as a validator gap for glow FX (a tooling fix is Lane A
   work), not an art defect.
+
+## 7. Revision 2: smoothness (director, 2026-10-23)
+
+Director: "not smooth enough. The shapes seem to change size/shift throughout the animation." Cause: v1 cross-faded
+between the key poses, which are separate drawings; the star in K4 is narrower and higher than the star layer L1 (L1 arms
+759 px wide against roughly 480 px in K4, core 58 px lower), so every hand-off made the star jump. Fix: `build_strip.py`
+v2 animates only the layers, one star and one pair of wings on continuous, monotonic curves (the star grows from a point
+at a fixed center; the wings are uncovered bottom-up while settling 40 px, never rescaled; the release dissolves bottom-up
+while rising). The star layer is narrowed to K4's proportions (x 0.672, y 0.84, raised 90 px), measured against K4.
+Result: 30 frames of 128 px, 197,002 bytes, intended speed 43 ms (1.3 s). Frame-by-frame check: horizontal center within
+0.5 px throughout, star size rises monotonically over frames 1-8, frames 12-20 hold exactly still.
