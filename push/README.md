@@ -585,3 +585,11 @@ re-send the live effects with only `staticAssetPath` changed, as push/219 did fo
 Forge stores list procedures as counts only, so the names and ids are not in the bundle (same as push/77 and push/80;
 `persist: "full"` is refused for list reads). The six ids come from the director's editor links instead. Archived under
 `archive/spent-manifests/push-2026-10-22/`.
+
+## 222 Six-AI capture: READY TO RUN
+
+Read-only step 2 for the six-AI kit ticket: `profile.getAi` ×6 and `ai.getAiProfile` ×5 (11 reads, zero writes). Ids
+come from one public `profile.getAllAiNames` read the director approved for this task (2026-10-23; no credentials,
+`harvests/inbox/tnr_results_1792731029314.json`, 544 AIs): Mara Vane L70 `fv33ZNwcZ_eXFWt-d-yrF`, Kellan Flint L80
+`dVr5LmHVke0wYz52uWlZr` (no own AI profile yet), Sable Crow L90 `FQ0ouWe29LXiUficxTACS`, Brigg Tusk L100
+`t4tCdrXKXhQ15l3u4XH-c`, Yara Reed L110 `mNvh7ddWnV412kGt9zVX8`, Goro Blackthorn L120 `fh8BgCYYChLhPNMFKRZ4I`.
