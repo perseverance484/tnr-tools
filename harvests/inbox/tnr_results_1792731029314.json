@@ -1,0 +1,4917 @@
+{
+ "builder": "public-read (Claude Code, one unauthenticated GET; director-approved 2026-10-23)",
+ "at": "2026-10-23T04:50:29.314Z",
+ "cfg": "public-read",
+ "state": "DONE",
+ "outcome": "success",
+ "_note": "One read-only public request, profile.getAllAiNames, no credentials, built with forge/src/transport/envelope.mjs. Approved by the director for this task (2026-10-23) to resolve six AI ids Forge cannot retain. Zero mutations.",
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "profile.getAllAiNames",
+   "input": {},
+   "at": "2026-10-23T04:50:29.314Z",
+   "ok": true,
+   "rows": 544,
+   "error": null,
+   "data": [
+    {
+     "userId": "C2npKrdVww2J9EKsJpa1W",
+     "username": "Sad Puppies",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-C2npKrdVww2J9EKsJpa1W-main-df6c29e810c1.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "clik9wpb0000009l606opg0zj",
+     "username": "Rabid Puppy",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-clik9wpb0000009l606opg0zj-main-0cc97f08e4bf.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xXZURcseUq7icBROYZ9Wq"
+    },
+    {
+     "userId": "ICXb49Z0Jle3GyJ-rosTi",
+     "username": "Academy Dummy",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ICXb49Z0Jle3GyJ-rosTi-main-5ef5c0a7c909.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "oY4j0GzdZ_VUQSU45lPKx",
+     "username": "Sad Puppy",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-oY4j0GzdZ_VUQSU45lPKx-main-df6c29e810c1.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "tLbjNogHAMTV-FiPsciDy",
+     "username": "Tengen Yoshimitsu",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-tLbjNogHAMTV-FiPsciDy-main-ceb9cd103d27.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "tra93opw09262024jut5ufa8f",
+     "username": "Training Dummy",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-tra93opw09262024jut5ufa8f-main-5ef5c0a7c909.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "yWmaHQTYMsvqZpChkoqKz",
+     "username": "Suna no Seirei",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yWmaHQTYMsvqZpChkoqKz-main-f20427d3ec7c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "pSHa0YdfqsNkjCIC_bQRJ"
+    },
+    {
+     "userId": "Zp0PnhIagkMf-2jyi5NbB",
+     "username": "Furuki no Seirei",
+     "level": 1,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Zp0PnhIagkMf-2jyi5NbB-main-60e8e9dfeb26.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MqDwXE9KTgmGzxDpASRuu"
+    },
+    {
+     "userId": "BaNzmefW4j4ke4sM5SV-h",
+     "username": "Siltcoin Scarab",
+     "level": 5,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/blGL9sakXqT_vuaWrPzSs.png",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "az1RWdhDjHK4FWw1wkoZa"
+    },
+    {
+     "userId": "cljwj43ij000008ml4c2xho09",
+     "username": "Mutated Spider",
+     "level": 5,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-cljwj43ij000008ml4c2xho09-main-553094dd3b5c.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "az1RWdhDjHK4FWw1wkoZa"
+    },
+    {
+     "userId": "13YpZRD2NcUjfCzJsV9oW",
+     "username": "Dark Wolf",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-13YpZRD2NcUjfCzJsV9oW-main-1978a8307601.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "oHqg9p0t3GFMYKHPZaHZA"
+    },
+    {
+     "userId": "5adiProrOk2sITqCtTbN0",
+     "username": "IronClawS2",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5adiProrOk2sITqCtTbN0-main-7c901c4d2ac9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "yn3vCe-_9jCThf-kBcF06"
+    },
+    {
+     "userId": "AGfRxLShMQzyOZnCeeerl",
+     "username": "Oreback Hauler",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/pVv4RxN189C9XHodbDk4A.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "yn3vCe-_9jCThf-kBcF06"
+    },
+    {
+     "userId": "CCxiEpGjKR-8vj92Q5uPP",
+     "username": "Top Student Hugo",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CCxiEpGjKR-8vj92Q5uPP-main-b704895cdf3b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "igcsv3wNaUdU6_62xOkky"
+    },
+    {
+     "userId": "clik9wzuy000109l650ds0x6x",
+     "username": "Wild Boar",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-clik9wzuy000109l650ds0x6x-main-e0f3959556ff.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "zhsawDu-6O5LYVQDe3OMh"
+    },
+    {
+     "userId": "gocAYWKP6NwO3YXFHfPV_",
+     "username": "KGK Rogue",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-gocAYWKP6NwO3YXFHfPV_-main-60ab311f15ee.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qhobHhx9tGTF9PISvXnmb"
+    },
+    {
+     "userId": "rSKiAHdA6JYDzYjhsthAW",
+     "username": "Probe Dummy",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rSKiAHdA6JYDzYjhsthAW-main-70c6f7159393.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "ZLOBpz-KsYbu_yzp91B8C",
+     "username": "Cindermaw Hound",
+     "level": 10,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/9O50ShzZITygntGh-0_RT.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "oHqg9p0t3GFMYKHPZaHZA"
+    },
+    {
+     "userId": "RyBQPvULKRnW3wr6YJ2n8",
+     "username": "Shrieker ",
+     "level": 12,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-RyBQPvULKRnW3wr6YJ2n8-main-77d345cb8941.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "sbeWoDjF3WViP1_mgy6Ff"
+    },
+    {
+     "userId": "yC4rDzEA9msp9oFIB_a1o",
+     "username": "Riku Boltcarver ",
+     "level": 14,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yC4rDzEA9msp9oFIB_a1o-main-febf0a9a3a7c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "2RUnsFv1CdfRGx7Y5YiMg",
+     "username": "Death's Maw",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2RUnsFv1CdfRGx7Y5YiMg-main-d39dc252afd3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "9lzaI8VVuuHEnyNCusSOc"
+    },
+    {
+     "userId": "68rxfOxV_k6fD8QetaMBe",
+     "username": "Taro Rockveil",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-68rxfOxV_k6fD8QetaMBe-main-6c7a0c968a66.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "aHtjrA0rDdCNN9K0x6-TQ"
+    },
+    {
+     "userId": "8abuRZFtUbpdshKShc8lt",
+     "username": "Cave Goblin",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8abuRZFtUbpdshKShc8lt-main-004393dc3b98.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "aGjGaQWDIivgCLPxaDL6u",
+     "username": "White Wolf",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aGjGaQWDIivgCLPxaDL6u-main-771fea88d994.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "D4h9sLofE3pfs6pledejL"
+    },
+    {
+     "userId": "atIFv8S9nDAt8QiHIqwJa",
+     "username": "Growler",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-atIFv8S9nDAt8QiHIqwJa-main-2df905877c41.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "EpzhN078k5O59Y5qTKvVf"
+    },
+    {
+     "userId": "b_WgOpRe0Gia1ihYs7wUs",
+     "username": "Howler",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-b_WgOpRe0Gia1ihYs7wUs-main-a4d0839e35ea.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "wRJN7iUEhN0WphpsZXlw0"
+    },
+    {
+     "userId": "cmDVrDjtqNZx0-5drdUFg",
+     "username": "Kuro Ironwall",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-cmDVrDjtqNZx0-5drdUFg-main-a806a1211160.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "dyfMWA6XKYYW4hVkXVKIj",
+     "username": "Aoi Tidewalker",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-dyfMWA6XKYYW4hVkXVKIj-main-b924c89051a5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "jQQD9CqybpYq_XKRGblGe",
+     "username": "Shaman Knight",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jQQD9CqybpYq_XKRGblGe-main-c35385c3e527.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "nKUcZ8AQpgxI9EWdwiFk8"
+    },
+    {
+     "userId": "n3gOf7UqZNBErr7yTfuR7",
+     "username": "Kael Thunderfang",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-n3gOf7UqZNBErr7yTfuR7-main-cc691ce8a4cc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "Rm9ejZjCEvWZD0JG3Slmm",
+     "username": "KX: Iron Aberration",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Rm9ejZjCEvWZD0JG3Slmm-main-9f54876023ff.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "HuwH4VXJsuU6re7FTBUn2"
+    },
+    {
+     "userId": "RszayCeGiEEh7U63uUM7j",
+     "username": "Veyra, the Hoardkeeper",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/hCliV8zp57nEpkx_xr4MH.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qhT4ihU2qXojXClIY7uPC"
+    },
+    {
+     "userId": "sroLF1dVFAee1g26UiBfP",
+     "username": "Hana Fireghost",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-sroLF1dVFAee1g26UiBfP-main-4401a067a22f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "Tpmvt0DPZnIoGM7LFNruG",
+     "username": "Enemy Chunin",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-Tpmvt0DPZnIoGM7LFNruG-main-fcbea1b32546.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "9qG7B_RZ7pjrPbEl7vUCn"
+    },
+    {
+     "userId": "uHKd1WdCuaI9fkgjgiTwx",
+     "username": "Mizu Bogstrider ",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uHKd1WdCuaI9fkgjgiTwx-main-c5153e051a42.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "UrAEVY5QvtQqKs-XB92PX",
+     "username": "Seichi Bandit",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-UrAEVY5QvtQqKs-XB92PX-main-66ecba90b2d4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "wx3d7Kei4hg4oFdyC_RzA",
+     "username": "Shiro Blightbla",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-wx3d7Kei4hg4oFdyC_RzA-main-6b13f590ed49.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "xGoYjB_ZkuHH8WPWRGapd",
+     "username": "Fuu Windreaver ",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-xGoYjB_ZkuHH8WPWRGapd-main-790ad439d27d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "zBwc727cY8a8tggHngCRz",
+     "username": "KGK Obelisk ",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zBwc727cY8a8tggHngCRz-main-d4b6dd0270ff.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "jRPh29xRrff5YkQ_XUmrI"
+    },
+    {
+     "userId": "ZcqVwWI1hudtPmDb6ovUZ",
+     "username": "Harpy",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ZcqVwWI1hudtPmDb6ovUZ-main-8c6179e82b3d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qhT4ihU2qXojXClIY7uPC"
+    },
+    {
+     "userId": "zD8HN-2nWzatpZjA4Qlyu",
+     "username": "The Banshee",
+     "level": 15,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zD8HN-2nWzatpZjA4Qlyu-main-d967c4ecea15.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YKNVLedwffRF8CXRyzQci"
+    },
+    {
+     "userId": "5FvtzaEb78NZewjG4eWyy",
+     "username": "Waddle Jr.",
+     "level": 18,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5FvtzaEb78NZewjG4eWyy-main-2e67b86648e0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "yT4e9iFtS6lCMIcd9mO04"
+    },
+    {
+     "userId": "l7S3_NO9FWdH-issrqe_I",
+     "username": "FeonFall",
+     "level": 18,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-l7S3_NO9FWdH-issrqe_I-main-3978934d17f6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "irn1truv0JF53SyRB1Tpx"
+    },
+    {
+     "userId": "zYqnlIhpbApVIr6bBGy7j",
+     "username": "RunStool",
+     "level": 18,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zYqnlIhpbApVIr6bBGy7j-main-3c23ed604dd2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "w518pmf8582MiV1hpzZy2"
+    },
+    {
+     "userId": "_YNqmh1xbL43c_aXS2ehP",
+     "username": "Spiral Saboteur",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-_YNqmh1xbL43c_aXS2ehP-main-a4e9eeeef4bb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "rePOM1qrZHuHu8xehdm0o"
+    },
+    {
+     "userId": "0IDpfxP2CRzxcwIYvu6Yz",
+     "username": "Crazed \"Sea Monster\"",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-0IDpfxP2CRzxcwIYvu6Yz-main-bb16dbcac0a9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "3-2jbHJN_4IjEs4765e91",
+     "username": "Yama",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3-2jbHJN_4IjEs4765e91-main-d5ad27158537.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "dLEEntEl1C8XBk_wDWEjZ"
+    },
+    {
+     "userId": "5uEZ5he_7epGbeS2OnZd-",
+     "username": "Leader Coop",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5uEZ5he_7epGbeS2OnZd--main-3a476fb4e895.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "8KDVCDrJG206DX43IXBri",
+     "username": "Angry Puppy",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8KDVCDrJG206DX43IXBri-main-7ab62f229a58.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xVBvFMDOvl5VTOe9AH-wf"
+    },
+    {
+     "userId": "AkGY27OK7lNmxvGAcGtJr",
+     "username": "MossWolf",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-AkGY27OK7lNmxvGAcGtJr-main-021b7ed4985f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Od1QqR3x6aDr0UmB-2-gT"
+    },
+    {
+     "userId": "BiwVVRd9UBMDI9XXQmigu",
+     "username": "Baby Sharks",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BiwVVRd9UBMDI9XXQmigu-main-0775121ef91a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Sjrci1TnpkkdJRWqzDCeS"
+    },
+    {
+     "userId": "BLXFQ_tLkytd8fMAA9rMX",
+     "username": "Daichi Stonechain",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BLXFQ_tLkytd8fMAA9rMX-main-c4c32bd2bb06.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "C87dej_zb3p1JcpkoFsjn",
+     "username": "Kaede Vital",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-C87dej_zb3p1JcpkoFsjn-main-3bbf8e324534.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "N5vc6nx817LAlnFEMYOsx"
+    },
+    {
+     "userId": "CtJJwiyX3Vch5WcqBQGVF",
+     "username": "Yuki Threadbinder",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CtJJwiyX3Vch5WcqBQGVF-main-20941ae16687.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "eX52HpaIbog31YowKk0d0",
+     "username": "Soma Reflectra",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eX52HpaIbog31YowKk0d0-main-5214c1bcc0c5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "fPHbAdToPNequ4j99Cpxp",
+     "username": "GENIN 01",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fPHbAdToPNequ4j99Cpxp-main-2b8dbba072bf.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "hcoYsoNdrso9ULrZQGBeD"
+    },
+    {
+     "userId": "gHPiwKQMYdf5-M1kfdom_",
+     "username": "Badgertle",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-gHPiwKQMYdf5-M1kfdom_-main-9f002cb62884.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ZSG-LV08NJ3kcuJK4Rp_X"
+    },
+    {
+     "userId": "gtku8xki8WJ3K1xob5oG_",
+     "username": "GENIN 02",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-gtku8xki8WJ3K1xob5oG_-main-4de6b6a51c0d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lyJbLDF4NVOuEsqwv5652"
+    },
+    {
+     "userId": "HS5pnbz_JDK43lNDBEoig",
+     "username": "OwlCat",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-HS5pnbz_JDK43lNDBEoig-main-54ec6e702cf1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0B70l8yrtu-m-UbX10c0x"
+    },
+    {
+     "userId": "jl0lSpkKsqBYl0xjONEKd",
+     "username": "GENIN 03",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jl0lSpkKsqBYl0xjONEKd-main-8201b69b8e76.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DoQPj5vPDA26JvqB3tzlq"
+    },
+    {
+     "userId": "KmP-42NPoaW0kPZZSQlZi",
+     "username": "Moro Venomstrike",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KmP-42NPoaW0kPZZSQlZi-main-36a7062d4366.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "ld7Cd-yHU15NwRKyjToZs",
+     "username": "Moonprowler",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ld7Cd-yHU15NwRKyjToZs-main-712ba972678c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "A0Q5oDWqF0_8nyLouZJTc"
+    },
+    {
+     "userId": "lQ45KotWMFRZq26vC6uU6",
+     "username": "Glimmermoth",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-lQ45KotWMFRZq26vC6uU6-main-d45a62281c70.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PB_eDR0AoT9PXWv95-9xX"
+    },
+    {
+     "userId": "m-s8nvf6yA-Pqs1YMduBt",
+     "username": "Mini-Momo",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-m-s8nvf6yA-Pqs1YMduBt-main-e28f2be24d87.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RteN1bPYGgfvHWXPlewdU"
+    },
+    {
+     "userId": "Mqr_PnBm1kshhhcZIOJgC",
+     "username": "Grumpy Puppy",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Mqr_PnBm1kshhhcZIOJgC-main-7ab62f229a58.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xVBvFMDOvl5VTOe9AH-wf"
+    },
+    {
+     "userId": "nmZZhX-YioQBTzbBGaycK",
+     "username": "Baby Shark",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-nmZZhX-YioQBTzbBGaycK-main-0775121ef91a.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "Sjrci1TnpkkdJRWqzDCeS"
+    },
+    {
+     "userId": "Pa4EvM_KWsTaKhnFjoSLo",
+     "username": "Goro Ironfist ",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Pa4EvM_KWsTaKhnFjoSLo-main-5efcc27bdf94.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "z-GRVaZZ6NG_FCig4UwhD",
+     "username": "Spiral Scout",
+     "level": 20,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-z-GRVaZZ6NG_FCig4UwhD-main-9230149bf0d5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "wZCr1z1VUHULIJ5uGAO2J"
+    },
+    {
+     "userId": "TLtlZGcGRSNimPBmW8tWG",
+     "username": "WindLaugh",
+     "level": 22,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TLtlZGcGRSNimPBmW8tWG-main-1e925a55691a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "na_unueIPLuZjORulubkt"
+    },
+    {
+     "userId": "Z3vzT_0GsIgvRUfg9aNhQ",
+     "username": "Current Sentinel",
+     "level": 22,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Z3vzT_0GsIgvRUfg9aNhQ-main-67c013c555e5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dd_dRBLoNrgpLSrNQTTIb"
+    },
+    {
+     "userId": "bCTTWqMLn_clRjR21aB2N",
+     "username": "Unmarked Stray",
+     "level": 25,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-bCTTWqMLn_clRjR21aB2N-main-026fa96d4dcf.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DaFSZJ_nkEKRv_xYOvHzO"
+    },
+    {
+     "userId": "n8EP0t5NN3zhzxXiDdZIY",
+     "username": "Marauder",
+     "level": 25,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-n8EP0t5NN3zhzxXiDdZIY-main-22e643ced031.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "sns7ox2fGGUj70JYhcSxy"
+    },
+    {
+     "userId": "ppHB1llqQfAI9IhKE06S2",
+     "username": "UltChair",
+     "level": 26,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-ppHB1llqQfAI9IhKE06S2-main-67ef737aad72.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "VHnxZfyzVESKy0eVGuW9x"
+    },
+    {
+     "userId": "97U7ui81xEMFFVz1Isn-z",
+     "username": "Syndicate Thief",
+     "level": 27,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-97U7ui81xEMFFVz1Isn-z-main-17401b3d5ba7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MYtp9yha8MitDBRFIszWO"
+    },
+    {
+     "userId": "0Jf6KNZgKQWtVGUzFkpnk",
+     "username": " Spiral Dust Adept",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0Jf6KNZgKQWtVGUzFkpnk-main-ad99cd83a31d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ddbcdBCyon-abIWbpQoXl"
+    },
+    {
+     "userId": "7oiYCe2ls73QiFhQVRnEf",
+     "username": "Masked Chunin",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-7oiYCe2ls73QiFhQVRnEf-main-fe5b2d202b62.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AF_fDSAv_aHzE6jIfDuVU"
+    },
+    {
+     "userId": "CLVtcpFQfceqDElorUv1K",
+     "username": "Lost Sky False Chime Apparition",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CLVtcpFQfceqDElorUv1K-main-853a4e970c52.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "iWA7CXe5n6HtZXMyrvNkO"
+    },
+    {
+     "userId": "fezkOtM7UPzwAZwBvF67e",
+     "username": "Verge Prowler",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fezkOtM7UPzwAZwBvF67e-main-914ed36ec53f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0KwC8X_PmYZWUaKszjhRE"
+    },
+    {
+     "userId": "g3H-6AdPLopNL92v6ig66",
+     "username": "CHUNIN 03",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-g3H-6AdPLopNL92v6ig66-main-9f002cb62884.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zFfwCpMrgTgBZ-O8ncAli"
+    },
+    {
+     "userId": "JBTjl1mvOWRfTPX0Igj03",
+     "username": "Unmarked Blade",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-JBTjl1mvOWRfTPX0Igj03-main-d255a2fffa3a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "gZfc_HxrW2GwC1DavBo3m"
+    },
+    {
+     "userId": "Mei8ncAT9O8j2-j0q-Djm",
+     "username": "Living Stalactite",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Mei8ncAT9O8j2-j0q-Djm-main-7e38fde4aee9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Z1l71mtDO6HzVmkUQ1T52"
+    },
+    {
+     "userId": "mMdDmmbqF3FPC4GsM_b4n",
+     "username": "Ethereal Spirit",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-mMdDmmbqF3FPC4GsM_b4n-main-ebf381be4318.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "uKBA_wwKCWEO0Eer7VeKX"
+    },
+    {
+     "userId": "NPs0dQHReoPXsUIIDnn_-",
+     "username": "Living Stalactite Summon",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-NPs0dQHReoPXsUIIDnn_--main-7e38fde4aee9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Z1l71mtDO6HzVmkUQ1T52"
+    },
+    {
+     "userId": "Q4GyhaQHa24hx623r9c9J",
+     "username": "FeonEcho",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Q4GyhaQHa24hx623r9c9J-main-27a7dbe0b0c7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "jmwWALF3p-D3PhusESmDY"
+    },
+    {
+     "userId": "sxx4aPbgm0p71fG8yP4wp",
+     "username": "Summoning: Komodo Dragon",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-sxx4aPbgm0p71fG8yP4wp-main-7b4705f89df6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1dJPPtvCy9mkQqgrl64Fk"
+    },
+    {
+     "userId": "TqpV06KlL873eCx51pvqe",
+     "username": "Giltbolt Archer",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/eBkVKGGctUg8OMkJFfRLc.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AF_fDSAv_aHzE6jIfDuVU"
+    },
+    {
+     "userId": "y07BRyFf73zFzoEJIWwNY",
+     "username": "Tor Tor",
+     "level": 30,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-y07BRyFf73zFzoEJIWwNY-main-7837a8ef1bf5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1NAd_vkcWgPdDRqmZt0RU"
+    },
+    {
+     "userId": "eD19dr9Iloz8xlGWvWSEf",
+     "username": "Lost Sky Veiled Acolyte",
+     "level": 32,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eD19dr9Iloz8xlGWvWSEf-main-3ecd4ce4f301.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YslUoDNDk8Kc3BAKXlhpz"
+    },
+    {
+     "userId": "hRc3_dFlIpQ6S87WylvLh",
+     "username": "ClawElite",
+     "level": 32,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-hRc3_dFlIpQ6S87WylvLh-main-fd066b0175e8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "4kLM9tXAWq8pONBEw7HKG"
+    },
+    {
+     "userId": "RWNLlZPiLzKrjHa0KwjA4",
+     "username": "embermura",
+     "level": 32,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RWNLlZPiLzKrjHa0KwjA4-main-d572d6baa3bb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "BJBT0O5cbRvGKNEaSWhj1"
+    },
+    {
+     "userId": "1vOQidmhnNGvanivIYZCH",
+     "username": "Angry Cat",
+     "level": 34,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1vOQidmhnNGvanivIYZCH-main-301a03a86344.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1vlLK-fugC21VEoKCZLki"
+    },
+    {
+     "userId": "hFeC_kD5VxyqNEPb9WDrT",
+     "username": "Chairbane",
+     "level": 34,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-hFeC_kD5VxyqNEPb9WDrT-main-bb22ceed34f6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "h3Ntd9B5utbd0GmYOZP9W"
+    },
+    {
+     "userId": "j4ai1imhFoPI2sEnLTr_p",
+     "username": "Lost Sky Kite-Bound Ambusher",
+     "level": 34,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-j4ai1imhFoPI2sEnLTr_p-main-26e673c40b25.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MDZg7HjRhA0u96sdK741e"
+    },
+    {
+     "userId": "_a1f7UI4xsreYltt4GEJ0",
+     "username": "Monster of the Moon",
+     "level": 35,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-_a1f7UI4xsreYltt4GEJ0-main-ff6d51264592.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Hg2rEqYEHmCmpRWjmlorL"
+    },
+    {
+     "userId": "4Eo44biJr4J4FaJZk2iCC",
+     "username": "Veyra",
+     "level": 35,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-4Eo44biJr4J4FaJZk2iCC-main-b8baf9507f4a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "fIcY_Qq8fafcB16dMzXgq"
+    },
+    {
+     "userId": "I6bph15IwA0--iAwacxIn",
+     "username": "Unmarked Shadow",
+     "level": 35,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-I6bph15IwA0--iAwacxIn-main-1789ed5e0875.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AD74K7k4ZibD16y9hzxq_"
+    },
+    {
+     "userId": "KH1C53S6OQKEDkZT3Ym86",
+     "username": "Forbidden Sorcerer",
+     "level": 35,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KH1C53S6OQKEDkZT3Ym86-main-b6f4b4a661c5.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "To6W3xIILI9YoeFvn5boI"
+    },
+    {
+     "userId": "1OhXhl6eoICCkm_UB__4K",
+     "username": "Gilded Drakelet",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/rtQsgbVyatizoJY-ddSOj.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DduIOC6vdpruSel-1Kavn"
+    },
+    {
+     "userId": "CMDtVYv8LKCwKOmB1CiMg",
+     "username": "Baby Dragon ",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CMDtVYv8LKCwKOmB1CiMg-main-3659656620f0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DduIOC6vdpruSel-1Kavn"
+    },
+    {
+     "userId": "d_rZiKu5QtovK1qQJKZEK",
+     "username": "Cryverin",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-d_rZiKu5QtovK1qQJKZEK-main-d6f0304bb8a7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "LEKp6F9XqzD0zFUkuFpXE"
+    },
+    {
+     "userId": "dUy1Rx1J0vztRbsgUoata",
+     "username": "Tide Treader",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-dUy1Rx1J0vztRbsgUoata-main-3b104c791c5f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dhgYzUtJRwgF9x3P1jJ-E"
+    },
+    {
+     "userId": "eag7ofEvBUiO9nDfhuY1x",
+     "username": "Thornelure",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eag7ofEvBUiO9nDfhuY1x-main-8c900bc0ebd4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "36AA7BCDAFzWzUgBC90AW"
+    },
+    {
+     "userId": "ERvW3ceoClmMDhzQ-p0jL",
+     "username": "Tainted Kuma",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ERvW3ceoClmMDhzQ-p0jL-main-85dd08f728aa.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "QYRQUymHBV3lvAurmBWrp"
+    },
+    {
+     "userId": "EUi24F5GDK-8sY4WWQP2u",
+     "username": "KX: Hollow Reaver",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-EUi24F5GDK-8sY4WWQP2u-main-1c3d0400bfc6.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "3BUgolxUVaN_CyDwakS7C"
+    },
+    {
+     "userId": "Fuu-PW-W30kuQOOlN_YEP",
+     "username": "Brassel",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Fuu-PW-W30kuQOOlN_YEP-main-85dd08f728aa.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "hTInOMfyR8b_tYW5gsFSC"
+    },
+    {
+     "userId": "IjogfBiosqrr6o6dt8R8Y",
+     "username": "ashledger",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-IjogfBiosqrr6o6dt8R8Y-main-433c0cbbc1b2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "halxeqPsmZ0p6G2pdRj3_"
+    },
+    {
+     "userId": "px11YTstH3oan7Bw3edRq",
+     "username": "Luzzel",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-px11YTstH3oan7Bw3edRq-main-c5a3510a61b7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XvtS147lRP-FO4afHY1p5"
+    },
+    {
+     "userId": "QkeO3FM0wjewDRCcWzUFP",
+     "username": "Blazdrift",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-QkeO3FM0wjewDRCcWzUFP-main-1f83d89a38be.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "fmv6bmeWi9obHDEKkY1Vd"
+    },
+    {
+     "userId": "rKWmoT0Ez1q4r8jEqprWP",
+     "username": "Faceless Stray",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rKWmoT0Ez1q4r8jEqprWP-main-648922cea9c5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "yXmZf1_XWhfXccBFRsoF9"
+    },
+    {
+     "userId": "T4iLiYblNMxBHmyCfVp3K",
+     "username": "Spintret",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-T4iLiYblNMxBHmyCfVp3K-main-9a0021fec3b2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PvYnDLv8Z1f7DTRZe5rge"
+    },
+    {
+     "userId": "Tg-d1WNjvrPUQ0iN3gBk6",
+     "username": "Lost Sky Kazane the False Wind",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Tg-d1WNjvrPUQ0iN3gBk6-main-bd4a247dd066.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "R5DCJbCBDj_S1ikjsU2zn"
+    },
+    {
+     "userId": "ZokDoe5lurxifxdivMmPE",
+     "username": "Ninjutsu Specialist",
+     "level": 40,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ZokDoe5lurxifxdivMmPE-main-40774f74fd50.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "aIgbVQz3LwvGE1UYdY-4Y"
+    },
+    {
+     "userId": "Ql6Lf5aSLvCjtyWEZLFlU",
+     "username": "WindGrin",
+     "level": 42,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Ql6Lf5aSLvCjtyWEZLFlU-main-c5afa3f0fe0f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "4n10mdDAZYVFlpuBV8A69"
+    },
+    {
+     "userId": "1Y1MowDQnf7hS5MrlBOLJ",
+     "username": "redscribe",
+     "level": 44,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1Y1MowDQnf7hS5MrlBOLJ-main-bf984721a31a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Jgyt2H1F-J-1_qMP9AwGx"
+    },
+    {
+     "userId": "zz6yyKj5-IMlpmN-m3b8R",
+     "username": "Riptide Adept",
+     "level": 44,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zz6yyKj5-IMlpmN-m3b8R-main-e555e10d3980.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ahe_JEBnT6hklw6bx7I4n"
+    },
+    {
+     "userId": "gfYxL5ZbAOQkuPIApmZhJ",
+     "username": "Gale Step Acolyte",
+     "level": 45,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-gfYxL5ZbAOQkuPIApmZhJ-main-188cdc2b8210.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RQSXC7gLujVF-7R5JOB_T"
+    },
+    {
+     "userId": "nQMWgYekEooSmiQbm-GqY",
+     "username": "Wandering Samurai ",
+     "level": 45,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-nQMWgYekEooSmiQbm-GqY-main-36ba9fe26b1b.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "vX0CUopR5d1O4o0200ipF"
+    },
+    {
+     "userId": "PaRwsa2nL863gfmaXt81x",
+     "username": "Verge Breaker",
+     "level": 45,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PaRwsa2nL863gfmaXt81x-main-a9b02e261848.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UMLrPC20ITFOFxIvUD8Xh"
+    },
+    {
+     "userId": "dgfwWWqrCuv7zbTkpMX4a",
+     "username": "Bell-Rope Watcher",
+     "level": 46,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-dgfwWWqrCuv7zbTkpMX4a-main-39f6aac2f355.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "aj6F19KPin_uCFDKJhbNx"
+    },
+    {
+     "userId": "AIABq5Kv3gNGmp2shUDt6",
+     "username": "Thunder Disciple",
+     "level": 48,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-AIABq5Kv3gNGmp2shUDt6-main-cf999e316e5e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "I1c7h84EYZInBe5eg6M-f"
+    },
+    {
+     "userId": "PX9ZOOALHMazzkbIjdOOe",
+     "username": "Maelstrom Adept",
+     "level": 48,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PX9ZOOALHMazzkbIjdOOe-main-72d522104ec8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Vu_Iai4iZBqFRTnGVFXlW"
+    },
+    {
+     "userId": "0u86UviUkzLpJqHkHAGjG",
+     "username": "Haru Yamada",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0u86UviUkzLpJqHkHAGjG-main-792eeac07064.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "1NPyinrS1ihiYlZK9dtjK",
+     "username": "Koharu Yuki",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1NPyinrS1ihiYlZK9dtjK-main-f426cec29ce3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "1WAgDucRwcwGZ_yQ9r0uN",
+     "username": "Jellyfish ",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1WAgDucRwcwGZ_yQ9r0uN-main-d65185a35b24.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "ePqWnmBprBeubGI3AZg7r"
+    },
+    {
+     "userId": "2ejpsLOsXHp1CnPb6XMw_",
+     "username": "Itsuki  Arakawa “Silver Fox”",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2ejpsLOsXHp1CnPb6XMw_-main-87ccfc756f51.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "4RhSfEUz7JERt9N8txxIi",
+     "username": "Mommy Shark",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-4RhSfEUz7JERt9N8txxIi-main-0ca879ee5c75.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "PvX0O_t18eFXpKwgV0VV1"
+    },
+    {
+     "userId": "5B27WnJCI4qoym-T5QeQ3",
+     "username": "Renji Kisaragi",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-5B27WnJCI4qoym-T5QeQ3-main-574318727ff0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "5nfTe8PUxNO4ktfL1-OgP",
+     "username": "KGK overseer",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5nfTe8PUxNO4ktfL1-OgP-main-4d1117c9265c.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "EHgYCmymT_YTN9jtDd5TP"
+    },
+    {
+     "userId": "74xF0NHo17yxa4NbdcCeq",
+     "username": "Tsubasa Mori",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-74xF0NHo17yxa4NbdcCeq-main-816efed564b3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "9dixqe9EOZgFA0_-qo0oB",
+     "username": "Aya “Wind Fox” Kisaragi",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-9dixqe9EOZgFA0_-qo0oB-main-289c0f06daef.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "AFCsgwxOdlWwV5cwxEfN8",
+     "username": "CHUNIN 04",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-AFCsgwxOdlWwV5cwxEfN8-main-986c91c5976f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PvX0O_t18eFXpKwgV0VV1"
+    },
+    {
+     "userId": "G7k1lg5nJCV0etLjuE1-I",
+     "username": "Dagger the Elf - ",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-G7k1lg5nJCV0etLjuE1-I-main-18502289d430.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Jzi3eYv5ROWEdcvt7MMWr"
+    },
+    {
+     "userId": "gDLQYe_MZpKMLhtGNhXr3",
+     "username": "Chain Sentinel",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-gDLQYe_MZpKMLhtGNhXr3-main-b1daeae1e990.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DxFRplaZriagvR64K4lzq"
+    },
+    {
+     "userId": "Gvl__65z9lZRZtPZP_zQR",
+     "username": "Titanboa",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Gvl__65z9lZRZtPZP_zQR-main-9ccdf820b920.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "OuL9TEEGlekl-S_0sGOcO"
+    },
+    {
+     "userId": "GYkoCDmLypeYcvKyor7LE",
+     "username": "Shark Master",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-GYkoCDmLypeYcvKyor7LE-main-18d11d830665.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "J0dhNrfbLONq8fGd40fp-",
+     "username": "Tidelord Kaisei",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-J0dhNrfbLONq8fGd40fp--main-7a33e77de02d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YFLe_TOCWGDBhgUrsN25P"
+    },
+    {
+     "userId": "m5TczoVfGqq-Cd4w3S1_H",
+     "username": "CHUNIN 02",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-m5TczoVfGqq-Cd4w3S1_H-main-15e856d42bea.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dXk_k9EMlZmYcPnevACdu"
+    },
+    {
+     "userId": "MkGKpH0vWRXkjpK75-WYB",
+     "username": "Akari Fubuki",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-MkGKpH0vWRXkjpK75-WYB-main-a460fde596d8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "NG49x8qgSqXjDsN4PzdRC",
+     "username": "Subaku Winged Guards",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-NG49x8qgSqXjDsN4PzdRC-main-d2699d1226e5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "pCc7ZUtEY4I4Bye3y6gez"
+    },
+    {
+     "userId": "ocn1mKp6x3Nbsw9LnDEeK",
+     "username": "GoahWayCult",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ocn1mKp6x3Nbsw9LnDEeK-main-4cb3106c7c32.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "cult_goah_way_profile"
+    },
+    {
+     "userId": "PtVQCFCZBk3SkhhYaDoHR",
+     "username": "Rei Minamoto",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PtVQCFCZBk3SkhhYaDoHR-main-08bf51e412f4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "Qtu7KRV7q7ptf92_thg4l",
+     "username": "Subaku Grunt",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Qtu7KRV7q7ptf92_thg4l-main-aae8d95b177c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "-3g7GniagTUdCpoeoF6oC"
+    },
+    {
+     "userId": "R_mDOir0ApMKBiui3aLiw",
+     "username": "Lord Pengu",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-R_mDOir0ApMKBiui3aLiw-main-ed714b749625.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UxzInEU2dRmpYjBe4_3ht"
+    },
+    {
+     "userId": "s_NmsTHU2mMTuJD6I3sUN",
+     "username": "Deepwater Warden",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-s_NmsTHU2mMTuJD6I3sUN-main-dad69b6a9b44.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "x02BSZcC4Wm6dN813DPxS"
+    },
+    {
+     "userId": "SJs7nn-cUwy-VtLt_vMwC",
+     "username": "Faceless Blade",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SJs7nn-cUwy-VtLt_vMwC-main-1ce543afc1c1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "gxqt80U43MDYLMiS2CNVE"
+    },
+    {
+     "userId": "TusExXW6jzGCbClfde7zF",
+     "username": "Mio Hoshino",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TusExXW6jzGCbClfde7zF-main-0d2d9de6547c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "VPsLUbApjbOIMb_EyXGA8",
+     "username": "Lady Peckyra",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-VPsLUbApjbOIMb_EyXGA8-main-f1030d3c3d76.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3gF-j58i2BYc_-PGwHQoV"
+    },
+    {
+     "userId": "vSIyNIXT4Vbgq4WrwCaNQ",
+     "username": "Daigo Hoshikawa",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vSIyNIXT4Vbgq4WrwCaNQ-main-de6b31a02872.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "WJGCYdxjHrS3n0Xd_FHEJ",
+     "username": "Tempest Spear Monk",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-WJGCYdxjHrS3n0Xd_FHEJ-main-3d1ddd52eaf8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Yp3UnY1fHshTLRLsL2W4H"
+    },
+    {
+     "userId": "xAQQD-n0YFTC2Dgpv8-Fh",
+     "username": "Lost Wind Overloaded Turbine Drone",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-xAQQD-n0YFTC2Dgpv8-Fh-main-d9e237f9421a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UVnsbomY_JcCYyK8vqeTy"
+    },
+    {
+     "userId": "XAYJlIk6txuhXDYoZebmH",
+     "username": "Lost Wind Windless Shade",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-XAYJlIk6txuhXDYoZebmH-main-4a5862e67d95.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "QhggKc_gEnTH1p3SAixcC"
+    },
+    {
+     "userId": "Y3P_iJ-9AyD-p77V0WxBv",
+     "username": "CHUNIN 01",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-Y3P_iJ-9AyD-p77V0WxBv-main-c547fa9405e2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2ybUiwpenqQvkgXr_JGar"
+    },
+    {
+     "userId": "YjFWldMKZ3HrNYLJRYOBH",
+     "username": "Lost Shinobi ",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-YjFWldMKZ3HrNYLJRYOBH-main-aa597564d23e.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "swB4zHoVh9sRmGG4DyKqf"
+    },
+    {
+     "userId": "ZhpzON3NSg4ySyMdmDo2Z",
+     "username": "Daichi “Iron Fist” Kurogane",
+     "level": 50,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ZhpzON3NSg4ySyMdmDo2Z-main-5d605ceaaee4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "aKwT8nmNEu1htydNRlUOv",
+     "username": "Storm Bell Enforcer",
+     "level": 51,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aKwT8nmNEu1htydNRlUOv-main-1ba6f3c3ef59.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DTNRc35qV-vUsxqaNeqrJ"
+    },
+    {
+     "userId": "oeK8NeH9-pUVMuCuLFQ88",
+     "username": "kaitovey",
+     "level": 52,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-oeK8NeH9-pUVMuCuLFQ88-main-1a94e6da1e21.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "N6HADMqb5D4unK390clfB"
+    },
+    {
+     "userId": "Dl7xkYyWwIb-RlMdDd4JC",
+     "username": "Stormbell Monk",
+     "level": 53,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Dl7xkYyWwIb-RlMdDd4JC-main-83273f96ea51.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XRgStFzuv_h3JXQPH7Nwt"
+    },
+    {
+     "userId": "2ZF5jMvECgiNBgrr4icqk",
+     "username": "Faceless Shadow",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2ZF5jMvECgiNBgrr4icqk-main-bed7ec52b7fd.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zIxcNQTcZh-SlZGWBmKwW"
+    },
+    {
+     "userId": "AM8bN5JlbqIQGSbiXLe4T",
+     "username": "RiftProto",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-AM8bN5JlbqIQGSbiXLe4T-main-920dff328699.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "prototype_goah_way_profile"
+    },
+    {
+     "userId": "dpp9mShY4DbLT5Ae58SCf",
+     "username": "Aery - The Crystal Dragon",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-dpp9mShY4DbLT5Ae58SCf-main-a14c4122985c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "6hFno-dOgQ75Pm3nOGBvv"
+    },
+    {
+     "userId": "eh6pJQJiV0onkJe0qNl1u",
+     "username": "GenzoClaw",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eh6pJQJiV0onkJe0qNl1u-main-538c46989cce.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "iZMpxeIUfclI6qXutHrwo"
+    },
+    {
+     "userId": "np_EJBegir7_6B55S8wpm",
+     "username": "Aery - The Dragon",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-np_EJBegir7_6B55S8wpm-main-a14c4122985c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "SIj3MPyVJf12-DJiHFPvB"
+    },
+    {
+     "userId": "wuiAi7GohZhHIHvoQDC36",
+     "username": "Abbot of the Broken Sky",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-wuiAi7GohZhHIHvoQDC36-main-db01ff0eb18b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PlBmzjYTC3s9JWY1OkgxR"
+    },
+    {
+     "userId": "z-5yOixqfgvxakGkP-2mE",
+     "username": "Sun Praiser ",
+     "level": 55,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-z-5yOixqfgvxakGkP-2mE-main-b349f9771cb4.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "drah1zBiZuwIRkyVM6qfm"
+    },
+    {
+     "userId": "frc9LTxqQlM7mncG4VZGK",
+     "username": "Core Canister",
+     "level": 56,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-frc9LTxqQlM7mncG4VZGK-main-6011ef9feb19.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zPHaNgwr2J4GQnPFHAWe8"
+    },
+    {
+     "userId": "11NiR7_xqwK5N6yps12_k",
+     "username": "Baby Diamond",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-11NiR7_xqwK5N6yps12_k-main-e36d0c63a776.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ZxPhA1glcmnwpphpHk0qa"
+    },
+    {
+     "userId": "2funBtkr_5b5QW_7KM0Nn",
+     "username": "Axel the Elf-",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2funBtkr_5b5QW_7KM0Nn-main-115d8662ea47.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e-Omh7NZwgN9qrUa8Dye9"
+    },
+    {
+     "userId": "3K5S1f3bguURTXtIArEkD",
+     "username": "Fire Grunt 1",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-3K5S1f3bguURTXtIArEkD-main-3d4685f5ea89.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "Tq_i1KWkYhnqQQACgsjsS"
+    },
+    {
+     "userId": "5URPuYb3rZ7QHytkZOvjD",
+     "username": "Sin of Wrath",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5URPuYb3rZ7QHytkZOvjD-main-926404df005d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dZ4VS1hm20ae49xauIBQd"
+    },
+    {
+     "userId": "7Zy5duSubprNO_HgTMYn0",
+     "username": "Verge Warband Captain",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7Zy5duSubprNO_HgTMYn0-main-99a66c4826d4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "sKprb3wI_MzcTBYS4vCTt"
+    },
+    {
+     "userId": "8xD4lv5NUsbfTYFeH8OZX",
+     "username": "Sin of Lust",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8xD4lv5NUsbfTYFeH8OZX-main-15dc37771a2c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "rPB0YgW_RMtPjLgPsAJLW"
+    },
+    {
+     "userId": "9sLd-qV82ktexu1HqkT1k",
+     "username": "Sin of Greed",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-9sLd-qV82ktexu1HqkT1k-main-e19af1331246.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qfGqWjrz0SCy3Ah7OuMZt"
+    },
+    {
+     "userId": "EvdnHl3slI3osBfXSKRzP",
+     "username": "StormGuard",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-EvdnHl3slI3osBfXSKRzP-main-bdeff97d1f00.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "guardian_goah_way_profile"
+    },
+    {
+     "userId": "gqOxWqXElRszsLksj83zx",
+     "username": "Frost Warden",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-gqOxWqXElRszsLksj83zx-main-1a4dff6e6bd2.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "Lvtngyubn-FIPj2hPNxOC",
+     "username": "Lost Wind Stillness Wraith",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Lvtngyubn-FIPj2hPNxOC-main-2bb1433509c8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "02Mg-8uD3FNdxc1nW7dPp"
+    },
+    {
+     "userId": "MUIvP0kikNv01CeKnuT0k",
+     "username": "Sin of Gluttony",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-MUIvP0kikNv01CeKnuT0k-main-5ff99757c83b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qj_1cMaI6w9wqFAwQz5Mt"
+    },
+    {
+     "userId": "Mzl0Xd5NeBqjsDYV__YVx",
+     "username": "Titanic Destruction",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Mzl0Xd5NeBqjsDYV__YVx-main-3f9e84e85d51.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3p88ul4P2fKGqMqrvmomV"
+    },
+    {
+     "userId": "PdsZeCsshdcStNSl8YlVk",
+     "username": "Fire Grunt # 2",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-PdsZeCsshdcStNSl8YlVk-main-3d4685f5ea89.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "8V2UOw5uIz5N_MFUDPnA4"
+    },
+    {
+     "userId": "Pgf283U2EcKNnhacBQJmV",
+     "username": "Frosty Praiser",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Pgf283U2EcKNnhacBQJmV-main-52d39fdd5312.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "kaRUBzMoJZkebDyHBzkoZ"
+    },
+    {
+     "userId": "rMzJyw8eU1EoIDu0C5yei",
+     "username": "Fire Grunt # 4",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-rMzJyw8eU1EoIDu0C5yei-main-3d4685f5ea89.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RT5MIX6WFhuRe6koPOyrE"
+    },
+    {
+     "userId": "TcYSulOJ3qUgG893bOb96",
+     "username": "Sin of Sloth",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TcYSulOJ3qUgG893bOb96-main-5ff45663771c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "10OopaCtqsllt1XPdKi8U"
+    },
+    {
+     "userId": "TWoSVtxDpwwWInYxCTLVo",
+     "username": "Frost Grunt #1",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TWoSVtxDpwwWInYxCTLVo-main-72200ea4486d.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "TYhE00BWPfvZNpcLgf1xB",
+     "username": "Triceranuggy",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TYhE00BWPfvZNpcLgf1xB-main-cbcfc46afad1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "_1Yk7be4zHVPx3ZlWFxtJ"
+    },
+    {
+     "userId": "V8QVNzhZv2V2WXY4npulZ",
+     "username": "Fire Grunt # 3",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-V8QVNzhZv2V2WXY4npulZ-main-3d4685f5ea89.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "jXln8oknyK7pRsSONnSbh"
+    },
+    {
+     "userId": "vKdbMGFRN4H7gLx-Yr7Fy",
+     "username": "Sin of Pride",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vKdbMGFRN4H7gLx-Yr7Fy-main-06463d2056ee.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "SxipW3vPk5pqjfEalDN4g"
+    },
+    {
+     "userId": "XMlYJ6wB8XCd-iW2J9Mui",
+     "username": "Baby Emerald",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-XMlYJ6wB8XCd-iW2J9Mui-main-20f79d272835.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1aDW4A5V4-hdjeCu5Uffb"
+    },
+    {
+     "userId": "YdjazDbs0kpcZfP8wEO1p",
+     "username": "Alpha sandworm",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-YdjazDbs0kpcZfP8wEO1p-main-da02d9a962f5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Cik2r9unHVXJvYn91Cx1v"
+    },
+    {
+     "userId": "Z662HS2Uvc1RoiYI3ZYIw",
+     "username": "Sin of Envy",
+     "level": 60,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Z662HS2Uvc1RoiYI3ZYIw-main-a367b8933701.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ORmu16GXjn3Dv_QoZBgY5"
+    },
+    {
+     "userId": "3_REzav8wh6sUuSm-2cCo",
+     "username": "Frost grunt #2",
+     "level": 65,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3_REzav8wh6sUuSm-2cCo-main-9e9b113b14b6.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "gTGZvqrKmImOlBFDV5BXu",
+     "username": "Warrior Monk",
+     "level": 65,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-gTGZvqrKmImOlBFDV5BXu-main-40f58fb8aeb2.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "28plWji6JFUTWAurkjXie"
+    },
+    {
+     "userId": "KZZnLV0hmOm0ZlyZTeU6L",
+     "username": "Ice manipulator",
+     "level": 65,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KZZnLV0hmOm0ZlyZTeU6L-main-36bf4eb25e8b.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "uUFuKSWiPCrACf-q0utOv",
+     "username": "AshenVow",
+     "level": 65,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uUFuKSWiPCrACf-q0utOv-main-4945ce573480.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "67y2U0eApUg6DtDPQtItV",
+     "username": "MaskInfil",
+     "level": 68,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-67y2U0eApUg6DtDPQtItV-main-b57b5f722179.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "GY3DqsddFED1aEFufE0S2"
+    },
+    {
+     "userId": "h8P71ZFiCsUxbGC6K30GI",
+     "username": "FalseAtt",
+     "level": 69,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-h8P71ZFiCsUxbGC6K30GI-main-4cff8ac4bbdf.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "u22uHIPb1g9nTpPpFSNDU"
+    },
+    {
+     "userId": "0AWnoVjMebJo1-QzkaaOA",
+     "username": "Tsukihana",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0AWnoVjMebJo1-QzkaaOA-main-f0016bc3fe3d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "oVACpj4EiilTDD5mP7QOH"
+    },
+    {
+     "userId": "2uclFUM9AeUEj2MlLY91n",
+     "username": "Tainted Kuma - Placeholder",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2uclFUM9AeUEj2MlLY91n-main-386cc702d328.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e6xnBCorxLYNIfDhG-DkF"
+    },
+    {
+     "userId": "7vvzBmJ4hLOv-W2qwiBcF",
+     "username": "Wyrmspire Hatchling",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7vvzBmJ4hLOv-W2qwiBcF-main-f88dc2056182.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "OVeo-AOpzzOe0npUw-L17"
+    },
+    {
+     "userId": "87b1bO9k4SI81KBYNoM8M",
+     "username": "Kugatsunagi",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-87b1bO9k4SI81KBYNoM8M-main-902d7ba56063.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xuU6IIyznoqZtFjkMeGOg"
+    },
+    {
+     "userId": "BYQd4zncGI2tvvoen1SEa",
+     "username": "Kajioka",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BYQd4zncGI2tvvoen1SEa-main-2cf86ba944be.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "aOIAXxhO-O3tDldBiseA_"
+    },
+    {
+     "userId": "fNy3IHktSjyTwNRlA57tx",
+     "username": "Emberweld Imp",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/GWROn8ZcITm81glpqka6f.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XKJTK1FI_7ofBpjOMiSu0"
+    },
+    {
+     "userId": "fUlYeOzHb8AJVD4pV5hxd",
+     "username": "Mōmoku Inoshishi - Placeholder ",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fUlYeOzHb8AJVD4pV5hxd-main-b33ff3d443be.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e6xnBCorxLYNIfDhG-DkF"
+    },
+    {
+     "userId": "fv33ZNwcZ_eXFWt-d-yrF",
+     "username": "Mara Vane",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-dlaeppQ2nxeYqErkArbPH-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "F8eVzXVU3ekx1UzbEio9A"
+    },
+    {
+     "userId": "Jn_yCpp75axp9BQUM4LzB",
+     "username": "OctiKameá - Placeholder ",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Jn_yCpp75axp9BQUM4LzB-main-2f5f31b808ba.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e6xnBCorxLYNIfDhG-DkF"
+    },
+    {
+     "userId": "kPCr_dLz14u5Ky1WhjRAb",
+     "username": "Warped Taka - Placeholder",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-kPCr_dLz14u5Ky1WhjRAb-main-e54c32933f91.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e6xnBCorxLYNIfDhG-DkF"
+    },
+    {
+     "userId": "MJMzOE67Cx2YP3NX8SAbh",
+     "username": "Shrine Guardian ",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-MJMzOE67Cx2YP3NX8SAbh-main-62275f8e945c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "kG5J6wnbq2widqroYTXSJ"
+    },
+    {
+     "userId": "PBuzkf3DOag-MxWqQ2d9H",
+     "username": "Shigekai",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-PBuzkf3DOag-MxWqQ2d9H-main-8a5106812fde.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e6xnBCorxLYNIfDhG-DkF"
+    },
+    {
+     "userId": "PqybaYn519lgLjF8SDp3O",
+     "username": "Uramaru",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PqybaYn519lgLjF8SDp3O-main-1816d18ab8f8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zFgDRfBGn7sDl3NTRP-X9"
+    },
+    {
+     "userId": "T7TYehJfXths45JKAutZe",
+     "username": "Haki",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-T7TYehJfXths45JKAutZe-main-05c6b2e5aa80.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "5o_zSw2JEetxhXeDQ9Fqk"
+    },
+    {
+     "userId": "TFROlnvLv8Z0X5lXFoWyZ",
+     "username": "VarosHeir",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TFROlnvLv8Z0X5lXFoWyZ-main-e93e9f1f8115.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "varos_goah_way_profile"
+    },
+    {
+     "userId": "TWpyf1EDIDjfr-a17Navk",
+     "username": "Demon Scorpion",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TWpyf1EDIDjfr-a17Navk-main-9fe7bcb6e23f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XKJTK1FI_7ofBpjOMiSu0"
+    },
+    {
+     "userId": "uSGVRVlHJBPP6iwvfLBr2",
+     "username": "Frost Grunt #3",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uSGVRVlHJBPP6iwvfLBr2-main-fb09be08f23f.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "vfwx4WWKh6oIx_C_cN85D",
+     "username": "Enrai No Oni",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-vfwx4WWKh6oIx_C_cN85D-main-a5e95521d796.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "pz5TOYPMeuFFAjxufN0cM"
+    },
+    {
+     "userId": "wTgO-Q32caSSd0is1QIS7",
+     "username": "Seal Charge",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-wTgO-Q32caSSd0is1QIS7-main-067335f147b0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "q1Rp9dPMlRMcD2JQmFiC7"
+    },
+    {
+     "userId": "yTHaQ_sdw-JW0C35W-Uo9",
+     "username": "Pale Fang",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-yTHaQ_sdw-JW0C35W-Uo9-main-6ddffd33c551.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "H0ItJ3_JKIymkKhCpDhVf"
+    },
+    {
+     "userId": "yXORSbA5ulnF4oR0iuscw",
+     "username": "Frost Sovereign",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yXORSbA5ulnF4oR0iuscw-main-4af745206253.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "zNdF4ODA4NXuK9KrMUStT",
+     "username": "RopeSab",
+     "level": 70,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zNdF4ODA4NXuK9KrMUStT-main-b1df9c72266f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "SxJDvpgIPie2r8yLbVUuJ"
+    },
+    {
+     "userId": "mBcLiquHEcQOqMGi4y_-7",
+     "username": "NullChoir",
+     "level": 72,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-mBcLiquHEcQOqMGi4y_-7-main-b4510f9f506a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "N35Vvu2leTDHdr2dXK0AD",
+     "username": "GaleCutter",
+     "level": 72,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-N35Vvu2leTDHdr2dXK0AD-main-b82e203c9ca2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "vwIs1vzCdcaUkLMPQiCGc"
+    },
+    {
+     "userId": "5wQMuldqWUgqJ_ho4hsRZ",
+     "username": "Corrupted Whisperer",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5wQMuldqWUgqJ_ho4hsRZ-main-6f47c2324211.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "55r7bfwzDAFrM0yZIopVC"
+    },
+    {
+     "userId": "9IRSL39wl4k5vLEXd-32D",
+     "username": "Totem of Fujin",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-9IRSL39wl4k5vLEXd-32D-main-76dcd0f5d944.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "3PgVNOA0jIQiMiUk8Pw-Y"
+    },
+    {
+     "userId": "bK524DZpr62sl3pSSUMud",
+     "username": "Magma Golem",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-bK524DZpr62sl3pSSUMud-main-204290f43936.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "Nph-kiM25LBYc30qoGo7c"
+    },
+    {
+     "userId": "Bq8WA_8nIM_SYGnOblCDs",
+     "username": "Reptile King",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Bq8WA_8nIM_SYGnOblCDs-main-e2767456e3cd.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "HNX96a49t38TjT676N6-u"
+    },
+    {
+     "userId": "cR_GDxFwU24HDem77k9NV",
+     "username": "Totem of Tsukuyomi",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-cR_GDxFwU24HDem77k9NV-main-c14f26860ee8.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "WEHrMwcFxJbVLyEf-28SV"
+    },
+    {
+     "userId": "d2pm8ZOqkoIbuFHtctUkM",
+     "username": "Totem of Okami",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-d2pm8ZOqkoIbuFHtctUkM-main-6041d399e6fd.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "JRvEy2j6I76TY1-4ZpHtA"
+    },
+    {
+     "userId": "FrcrpaFGmQ1HTrZnAgpxI",
+     "username": "Totem of Watatsumi",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-FrcrpaFGmQ1HTrZnAgpxI-main-61c4db5fba5b.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "ueXLviwnpUL_5J8-bzZJx"
+    },
+    {
+     "userId": "kkRImVBXHpsbT5umRzTEo",
+     "username": "Yokai: Momo",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-kkRImVBXHpsbT5umRzTEo-main-e1ecfa3b3e99.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "h08AStTCbncdSp51xKGLd"
+    },
+    {
+     "userId": "L1oiR2oDJGmkLSSiutP4u",
+     "username": "Totem of Daikokuten",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-L1oiR2oDJGmkLSSiutP4u-main-40ef0b8d73d3.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "R63IUMlO3JszbMJ6atogM"
+    },
+    {
+     "userId": "muAaN8Ix3e_Yce0pztH18",
+     "username": "Lesser Wood Golem",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-muAaN8Ix3e_Yce0pztH18-main-ce7d089a0715.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AoQ4vZHBO7-GHpy5Mh3Eq"
+    },
+    {
+     "userId": "N9CRRwZYydlBAxxDlQ4-q",
+     "username": "Ancient Wood Golem",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-N9CRRwZYydlBAxxDlQ4-q-main-f13491a639d9.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "AoQ4vZHBO7-GHpy5Mh3Eq"
+    },
+    {
+     "userId": "q5f2tkQmAGPp_9ey8n2aP",
+     "username": "Totem of Amaterasu",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-q5f2tkQmAGPp_9ey8n2aP-main-5dec5d234ae0.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "S3O64ahCtaY6tc7aISDfk"
+    },
+    {
+     "userId": "RPyVKLWMVYK6nkznxkJas",
+     "username": "Mermaid Jade",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RPyVKLWMVYK6nkznxkJas-main-772821913a45.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "IXFdMaz9iBfp3Z3Rn3oOz"
+    },
+    {
+     "userId": "RWDWENhorIa5zRfeHtOU7",
+     "username": " Jade",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RWDWENhorIa5zRfeHtOU7-main-772821913a45.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "IXFdMaz9iBfp3Z3Rn3oOz"
+    },
+    {
+     "userId": "tWOsBRrGGQzbZFXgcb3Cw",
+     "username": "Vanguard Ritual Guardian Prototype",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-tWOsBRrGGQzbZFXgcb3Cw-main-1db42f7a7246.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "bN-QtPypdJZibxNd6K9id"
+    },
+    {
+     "userId": "W6ofbyqJ8sh2gwNh2BcEJ",
+     "username": "Goodius Boyicus",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-W6ofbyqJ8sh2gwNh2BcEJ-main-3c6d9a5fc45c.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "96flrOuMxnyH0x4ltT8dk"
+    },
+    {
+     "userId": "XtlMPnlkDit5NBZPAgBf7",
+     "username": "Tyrant Guard",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-XtlMPnlkDit5NBZPAgBf7-main-b658b735cb71.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "1iNX6U4CGWW1nMpev_40L"
+    },
+    {
+     "userId": "YGWuZN__c1OD0Y1p2CtI9",
+     "username": "Violent Outlaw",
+     "level": 75,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-YGWuZN__c1OD0Y1p2CtI9-main-d20a74dd054d.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "tOiYn1sw7eSbIEbnX82BL"
+    },
+    {
+     "userId": "2ZBgHLqgyWGSRD7HaIuxo",
+     "username": "Blazing Scythe",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2ZBgHLqgyWGSRD7HaIuxo-main-ec0af810cdae.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2l7DIc0qr7kS9mFP5f1pt"
+    },
+    {
+     "userId": "5NelTeyn5V54f907iQH2w",
+     "username": "Corrupted Flamecaller",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5NelTeyn5V54f907iQH2w-main-598d1a9fff71.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "CuoWcnJOU_7EaUdH__YeT"
+    },
+    {
+     "userId": "7T_S65RAV7gVg9AsfKlMK",
+     "username": "Bukijutsu Specialist",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7T_S65RAV7gVg9AsfKlMK-main-56947ece2205.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "9wPiWBQ0OX1eKFBt3XELD"
+    },
+    {
+     "userId": "8Xs6SP6GKfOdm588B9biE",
+     "username": "Corrupted Spider",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8Xs6SP6GKfOdm588B9biE-main-7bb460973d78.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "x2ij6t1EkATXGfy1-UsJ-"
+    },
+    {
+     "userId": "aniNtcy6g3tjrhTKneEVW",
+     "username": "Vanguard Soldier",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aniNtcy6g3tjrhTKneEVW-main-9283dae1b548.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "JnaMm0wVq-SLb0E-Lj_CO"
+    },
+    {
+     "userId": "dVr5LmHVke0wYz52uWlZr",
+     "username": "Kellan Flint",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-Q8VNFDSZf0imRYooRhhnS-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "DYJ0TlyhrUXlUQT20VpcN",
+     "username": "Corrupted Fist",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-DYJ0TlyhrUXlUQT20VpcN-main-b4c313cc27d1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XCwai1Rw9S8XNagHa8WLv"
+    },
+    {
+     "userId": "f8F9ZRiwifvb5qkFVXW0W",
+     "username": "Water Grunt #1",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-f8F9ZRiwifvb5qkFVXW0W-main-d5db3c80aea1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1J_YqPGGkiK36YlcGMQmY"
+    },
+    {
+     "userId": "h41rnPPTe80DZ4FtIaTuR",
+     "username": "Water Grunt #3",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-h41rnPPTe80DZ4FtIaTuR-main-d5db3c80aea1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "L8JE_7XLiRbTfFoQqUpLI"
+    },
+    {
+     "userId": "HMFa6Mu3XNvKBXvDH3-0K",
+     "username": "Corrupted Bladesman",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-HMFa6Mu3XNvKBXvDH3-0K-main-7e9af83eb0b0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ietiDFU2mg2tvjz-kGJ7k"
+    },
+    {
+     "userId": "HQV1GGNUAXRia4YAG37Vl",
+     "username": "Water Grunt #2",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-HQV1GGNUAXRia4YAG37Vl-main-d5db3c80aea1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "p3jCX7u9UUL_l76eWXTR5"
+    },
+    {
+     "userId": "mOmvJ8_t5TKB4-37vb1-4",
+     "username": "Water Grunt #4",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-mOmvJ8_t5TKB4-37vb1-4-main-d5db3c80aea1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "y9sVi3M3Nk-OvFGQBFn4M"
+    },
+    {
+     "userId": "UKpqftX9eSAyRPmgPk_9B",
+     "username": "GlassWraith",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-UKpqftX9eSAyRPmgPk_9B-main-fd14c3f3cc8a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "vo-LEVcDlA8UwZmR0A1Fk",
+     "username": "NyraGale",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vo-LEVcDlA8UwZmR0A1Fk-main-373f8c962496.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "-5A8BumKjDi64PKDs1Bmo"
+    },
+    {
+     "userId": "WxsmoaAoV0y8vqcWYw96y",
+     "username": "Winter Crow",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-WxsmoaAoV0y8vqcWYw96y-main-a44d592648f5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "jCVEoYMOHFQK3SGjnxHoi"
+    },
+    {
+     "userId": "Y5YBOViBSWkiF_ZCormfy",
+     "username": "Wyrmspire Skyrender",
+     "level": 80,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Y5YBOViBSWkiF_ZCormfy-main-0e235da7ed48.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "v1v7Z8gDBlDZA3jHdCN7E"
+    },
+    {
+     "userId": "8Zb-tCyDv56qXWMtYR52O",
+     "username": "Drazir",
+     "level": 85,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-8Zb-tCyDv56qXWMtYR52O-main-863a4993bae9.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "AU2YuDOhrDliySOz7dJXe"
+    },
+    {
+     "userId": "BgNaYU3tZepB3GZ1EImnT",
+     "username": "Wyrmspire Cinderjaw",
+     "level": 85,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BgNaYU3tZepB3GZ1EImnT-main-85df2c398829.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DiBq0UcGD3AyqeuCx0lf3"
+    },
+    {
+     "userId": "g8l7lt-ua1ptrWvhqjrnl",
+     "username": "Old Ghost",
+     "level": 85,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-g8l7lt-ua1ptrWvhqjrnl-main-7118349e6c67.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XhEb-qAi6gC_7CyazsTiK"
+    },
+    {
+     "userId": "27wsf0Vneqm2NY0n13uDe",
+     "username": "DawnSever",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-27wsf0Vneqm2NY0n13uDe-main-162367f19b87.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "3RRSR7PUsGAtr2koel9H0",
+     "username": "Wyrmspire Stormcrown",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3RRSR7PUsGAtr2koel9H0-main-6d7be813f1fd.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "4fXfYpBn6eOoh4gl91Y-h"
+    },
+    {
+     "userId": "76agufMNnRmDMqFvfCNhC",
+     "username": "Wind Grunt # 4",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-76agufMNnRmDMqFvfCNhC-main-f66abae157c0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "vwGBXmlfGxWGv9kJMoG-C"
+    },
+    {
+     "userId": "8KnFxOna86ig2ierNDRvN",
+     "username": "Water Spirit: Undyne",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8KnFxOna86ig2ierNDRvN-main-fe8e96c7eaa3.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "cbzOIPjTG2OQ0uWFLi7yL"
+    },
+    {
+     "userId": "9uDe65Qt90xnT-fM5vJZ7",
+     "username": "Umbral Reaver",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-9uDe65Qt90xnT-fM5vJZ7-main-86dad6afccd4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "muR-teDw81mr-16Gr9TLn"
+    },
+    {
+     "userId": "AuSVI02QCZNG7ftooiCtz",
+     "username": "War Captain",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-AuSVI02QCZNG7ftooiCtz-main-d770c474f948.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "M1Z9n0HPAGgUW1epAlGwq"
+    },
+    {
+     "userId": "FQ0ouWe29LXiUficxTACS",
+     "username": "Sable Crow",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-CIBtOfwadfyfxvJuYUJnC-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "opyANA6k6N4lidBPycSqq"
+    },
+    {
+     "userId": "IG5Mbfi_2lpUTnUU4_XhZ",
+     "username": "Hollow Lantern",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-IG5Mbfi_2lpUTnUU4_XhZ-main-8bfb1c457ed1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "NyfJUsMqCBImEqMwl_Cfd"
+    },
+    {
+     "userId": "L4s3qy3-M5q4IvtqUEL2m",
+     "username": "Black Water",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-L4s3qy3-M5q4IvtqUEL2m-main-0cffa0c5b2b6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "BtOkxPv2hvoBv3BKx8vsO"
+    },
+    {
+     "userId": "qbpVUXSCQ43qrxTBVCGhk",
+     "username": "Wind Grunt # 3",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-qbpVUXSCQ43qrxTBVCGhk-main-f66abae157c0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xpS_Nd8N8VqI9wgdrUL1k"
+    },
+    {
+     "userId": "qQ6jMh8w6aiyr4pevwDh-",
+     "username": "Starless Monk",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-qQ6jMh8w6aiyr4pevwDh--main-5e6017d75ac8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "I6YfpRU-Rid8EBkFwBXra"
+    },
+    {
+     "userId": "VidPR8ZOB0NFHfVkAqNKn",
+     "username": "Wind Grunt # 1",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-VidPR8ZOB0NFHfVkAqNKn-main-f66abae157c0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UMdx20eflAH5zjPt1ELzs"
+    },
+    {
+     "userId": "WMHV_3jN8BFtJmjdk5zuv",
+     "username": "ANBU Coordinator",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-WMHV_3jN8BFtJmjdk5zuv-main-0c94404cdae1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "V8WEIh5Ws6z4rF40z6vzr"
+    },
+    {
+     "userId": "y5NvXwqU9D7_28loEi9Cf",
+     "username": "Wind Grunt # 2",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-y5NvXwqU9D7_28loEi9Cf-main-f66abae157c0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2QnkEllq474ACul5fLQG1"
+    },
+    {
+     "userId": "YvinZCoMWiz0RY8ZBP5EW",
+     "username": "Nightveil Sentinel",
+     "level": 90,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-YvinZCoMWiz0RY8ZBP5EW-main-a9e2b7373ada.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AzVC76q7s98Ip9D_KZrQA"
+    },
+    {
+     "userId": "oi4bHe3upEhLkI-ElJuMX",
+     "username": "Warden of the First Dark",
+     "level": 92,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-oi4bHe3upEhLkI-ElJuMX-main-6bc048fae741.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ODZUYqBF1MjvEpnc96gvc"
+    },
+    {
+     "userId": "s6LjnqhSW85pIxYRM76Fw",
+     "username": "Keeper of Hushed Hours",
+     "level": 94,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-s6LjnqhSW85pIxYRM76Fw-main-8f01f28cbc30.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1Aw1W61zQKukzGs8KLZig"
+    },
+    {
+     "userId": "1pm8yn2ShQD0-ETM13CLn",
+     "username": "Steam Golem",
+     "level": 95,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-1pm8yn2ShQD0-ETM13CLn-main-70eedfe52759.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "j2ZZ7BgdD-2LnIksfjrFf"
+    },
+    {
+     "userId": "9zteAgVlXWDTDzxSS4Jxm",
+     "username": "Kappa Creature",
+     "level": 95,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-9zteAgVlXWDTDzxSS4Jxm-main-f289124ddeeb.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "SQuy9apHjh0bvI1bkqHOw"
+    },
+    {
+     "userId": "PrAldiWIbJ9WVty_Gpq-y",
+     "username": "Repair Golem",
+     "level": 95,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PrAldiWIbJ9WVty_Gpq-y-main-2da0e6e4eff2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PHrGw0UK6etwgaJid3dXK"
+    },
+    {
+     "userId": "jGHpkz2pgLu8loti6pZZi",
+     "username": "The Moth Tyrant",
+     "level": 96,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-jGHpkz2pgLu8loti6pZZi-main-f46aa3d6d3e1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "G5Qti2x1kIl0bNw-viW1A"
+    },
+    {
+     "userId": "QV1PwoQR9JImZL2_fcOsk",
+     "username": "Chained Chorister",
+     "level": 98,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-QV1PwoQR9JImZL2_fcOsk-main-e6a899bb5680.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "JKZ0osqzYdiQv00R-yOxr"
+    },
+    {
+     "userId": "8jH9KrbXQsckLCtzt2dYB",
+     "username": "Sin of Envy (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8jH9KrbXQsckLCtzt2dYB-main-a367b8933701.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "ORmu16GXjn3Dv_QoZBgY5"
+    },
+    {
+     "userId": "erDLuK6pzuU691_Kdl74d",
+     "username": "Sin of Greed (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-erDLuK6pzuU691_Kdl74d-main-e19af1331246.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qfGqWjrz0SCy3Ah7OuMZt"
+    },
+    {
+     "userId": "FS_J6BJBrQpOy277lacGI",
+     "username": "Sin of Gluttony (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-FS_J6BJBrQpOy277lacGI-main-5ff99757c83b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qj_1cMaI6w9wqFAwQz5Mt"
+    },
+    {
+     "userId": "PXxuWrDlmwdMa8BaCiXX7",
+     "username": "Sin of Wrath (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PXxuWrDlmwdMa8BaCiXX7-main-926404df005d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dZ4VS1hm20ae49xauIBQd"
+    },
+    {
+     "userId": "qdiNdSJcFV-GRHjC0mre2",
+     "username": "Sin of Pride (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-qdiNdSJcFV-GRHjC0mre2-main-06463d2056ee.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "SxipW3vPk5pqjfEalDN4g"
+    },
+    {
+     "userId": "sy89KlKaSm9u6ciHlXa3M",
+     "username": "Sin of Sloth (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-sy89KlKaSm9u6ciHlXa3M-main-5ff45663771c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "10OopaCtqsllt1XPdKi8U"
+    },
+    {
+     "userId": "vF4czxGodL5_vTG9_-7V7",
+     "username": "Sin of Lust (Prime)",
+     "level": 99,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vF4czxGodL5_vTG9_-7V7-main-15dc37771a2c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "rPB0YgW_RMtPjLgPsAJLW"
+    },
+    {
+     "userId": "_-LABA3r7vwogsQ4O3ALq",
+     "username": "Larry",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-_-LABA3r7vwogsQ4O3ALq-main-32ffee104eae.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "9W63KKc06jdfKYxkiNss0"
+    },
+    {
+     "userId": "_OluNOjftyWpMim3pKLrn",
+     "username": "The Garden Sentinel",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-_OluNOjftyWpMim3pKLrn-main-9890c06171f4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lgFrudnmOhWO5Ez53X_Qr"
+    },
+    {
+     "userId": "_Qrz-6O0TYzFM5qXaDUmG",
+     "username": "Subaku Two Headed Beast",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-_Qrz-6O0TYzFM5qXaDUmG-main-dad45a6094bc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qjOKy3DqeRoJ6H_0VTp7M"
+    },
+    {
+     "userId": "_vxg9rWY3XliLgT-_eBDx",
+     "username": "*Ava-The Snow Terror*",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-_vxg9rWY3XliLgT-_eBDx-main-5789f2b3762d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "n1bJQTdJsOC8S3MmS3gNL"
+    },
+    {
+     "userId": "-OLzmohHbypVgSE2uc2vk",
+     "username": "New AI - -OLzmohHbypVgSE2uc2vk",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018--OLzmohHbypVgSE2uc2vk-main-894aae1672d4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "02CMBiXkLQgXAl0Qr42Pj"
+    },
+    {
+     "userId": "-QvAUrUMI0K76iUf648i5",
+     "username": "Icefire Spawnling:",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018--QvAUrUMI0K76iUf648i5-main-96850d8fd29b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0cqbuS2TnSGN0y3bTWgQw"
+    },
+    {
+     "userId": "-xF_-Uz5lF83yLGpQW2Z1",
+     "username": "Hellfire Hound",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018--xF_-Uz5lF83yLGpQW2Z1-main-f45f00b90e65.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "bPYli6zBL_VhvPglOWHod"
+    },
+    {
+     "userId": "04yY9a20Yq4umVlXqCfpd",
+     "username": "Tunnel Toll-Cutter",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-04yY9a20Yq4umVlXqCfpd-main-bda695cf315c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Ck0QjWafLFtzZCQ2KwYFD"
+    },
+    {
+     "userId": "0EnSqDfISrmyrSLM7HgLW",
+     "username": "Thalmyr Three Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0EnSqDfISrmyrSLM7HgLW-main-535331f82dec.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "y2m_uOfCSzsCJqu9WMTaX"
+    },
+    {
+     "userId": "0G5YskT52QJfdb4nHfAij",
+     "username": "Terrace Foreman",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0G5YskT52QJfdb4nHfAij-main-f40d78c7ef83.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xEiG_K0NpLZhUsBxjWJDd"
+    },
+    {
+     "userId": "0PZU_FvlbM3ErYGlD5r56",
+     "username": "Oathkeeper",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-0PZU_FvlbM3ErYGlD5r56-main-e3de85db0334.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RkkKzrFzJCVBggHTA8bNj"
+    },
+    {
+     "userId": "13bEqSixNOfBPfKQxLCkF",
+     "username": "Byakko - Fury of the White Tiger",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-13bEqSixNOfBPfKQxLCkF-main-0a3fbb3dfc7e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "1hWItxdiMIDC8IWOsDQ0d",
+     "username": "New AI - 1hWItxdiMIDC8IWOsDQ0d",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1hWItxdiMIDC8IWOsDQ0d-main-498d624d99dc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "1iUUFGm7TrkpZ1kvLGGFW",
+     "username": "Hoard Mimic",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/YSiQ76pzX3Pn9VlGHwiJ9.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "7Sd6GRE-0hEKGFqLtSBvj"
+    },
+    {
+     "userId": "1NGM2WYa_2dakRAZFKc3f",
+     "username": "Underworld Gate",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1NGM2WYa_2dakRAZFKc3f-main-ad8605801f0b.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "XnzZioJG2tl2D2PnP4j7v"
+    },
+    {
+     "userId": "1pU-t1n_dwfGIq0Ho74Wi",
+     "username": "Black Maw Channeler (α)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1pU-t1n_dwfGIq0Ho74Wi-main-dd3cf5911dfb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "V3QPHlnqHIkFecLHAef1g"
+    },
+    {
+     "userId": "1X8NoFSiiKkVMaoNGm31m",
+     "username": "Black Maw Channeler (γ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1X8NoFSiiKkVMaoNGm31m-main-dd3cf5911dfb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ImnpY_gRYUfr4UEvTsFiM"
+    },
+    {
+     "userId": "1zEgkU9zAeIyOpxu1GPto",
+     "username": "The Curator",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-1zEgkU9zAeIyOpxu1GPto-main-27c9c15a089a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Qz9V60_P8676R4tWlyYwT"
+    },
+    {
+     "userId": "2-gJmijAA8lGns_thDRjz",
+     "username": "Harvest Boar",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2-gJmijAA8lGns_thDRjz-main-e0f3959556ff.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ZhEa2_lW2tgTpDJCLaPeB"
+    },
+    {
+     "userId": "2OXJEXoktxJcjqMkE851g",
+     "username": "Arsenal Keeper",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2OXJEXoktxJcjqMkE851g-main-e5ee91c495de.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "3y6oASzyyRn5CdkeSlHk6"
+    },
+    {
+     "userId": "3GgiBgw-ysNtvTqvMJYqL",
+     "username": "The Countess",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3GgiBgw-ysNtvTqvMJYqL-main-99d690d91c42.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YTSr-l9n6QPJK0cafM_X0"
+    },
+    {
+     "userId": "3LRn9KO0o17R4ojbzvifJ",
+     "username": "Thorn Bounty Hunter",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3LRn9KO0o17R4ojbzvifJ-main-8778f57b8a4f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "_lLus297SZHazaUTRgtq8"
+    },
+    {
+     "userId": "3U0KRTg2ko93OlyezMrQS",
+     "username": "*Frost Sovereign*",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3U0KRTg2ko93OlyezMrQS-main-1da9dbd91b29.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "z_10mjizGVfbTBN9leCJM"
+    },
+    {
+     "userId": "3V_gdHYaclMB1gTyOPAbV",
+     "username": "Skyglass Sentinel",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3V_gdHYaclMB1gTyOPAbV-main-782112d1afca.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "AJ8BnFvtpflf57-BsrJRe"
+    },
+    {
+     "userId": "3XMsIV6Yv4jy-uaJAe52f",
+     "username": "Warden of the Half Eclipse",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-3XMsIV6Yv4jy-uaJAe52f-main-35a087c90062.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "k4iTMFZVIV1LksVL4QQZ7"
+    },
+    {
+     "userId": "4aTOYUEqgnzxgblxji-bo",
+     "username": "Izanro - Gaze into Yomi",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-4aTOYUEqgnzxgblxji-bo-main-45c39ddc0eae.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "4BtEg_Y_S6feRX2t0Hk5p",
+     "username": "New AI - 4BtEg_Y_S6feRX2t0Hk5p",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-4BtEg_Y_S6feRX2t0Hk5p-main-847e2c5f1525.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "vv4tkvpJm8aNyzeBGJve8"
+    },
+    {
+     "userId": "4cS42hlE24BN8IPse-jLu",
+     "username": "Tenshiro Kanna",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-4cS42hlE24BN8IPse-jLu-main-c8c892adcf3a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "JK96G15KI6Y_RwuLrSaJd"
+    },
+    {
+     "userId": "4f3qLZ42m7veClZfnSWMH",
+     "username": "Blazing Golem",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-4f3qLZ42m7veClZfnSWMH-main-f416eb2308cb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3n6DVbZZQlOip9AdMKOPu"
+    },
+    {
+     "userId": "53GqaiPVcSiB15JW-NqC4",
+     "username": "Kim Stein’s Monster",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-53GqaiPVcSiB15JW-NqC4-main-ceec07a4ee29.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "v2UwsVdvavzTvIM62wo9q"
+    },
+    {
+     "userId": "57HSSIgFAuUiFFzJH8n7g",
+     "username": "Hotaru Sunada",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-57HSSIgFAuUiFFzJH8n7g-main-d7f03e1523e0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "5C-jm87KVb4r0w4NAaOoV",
+     "username": "Saurus Guard",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5C-jm87KVb4r0w4NAaOoV-main-215ae883de7d.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "hgPWa6GJcHm9KY9C_bGMH"
+    },
+    {
+     "userId": "5JPRcnlZ80nbaL5wWWm80",
+     "username": "Ironbrood Pit Champion",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-5JPRcnlZ80nbaL5wWWm80-main-ca9fd3711165.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "8T519JmTMsCLFGqldB67E"
+    },
+    {
+     "userId": "6Epsi6Q6XFmZi2XnV2EUg",
+     "username": "Guard Captain",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-6Epsi6Q6XFmZi2XnV2EUg-main-4df3e91dcac1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "olVFh_t0J4jGyCRbgBnpo"
+    },
+    {
+     "userId": "6NVIZ4OQm9WFgHgXKqVIW",
+     "username": "Unkei no Kami ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-6NVIZ4OQm9WFgHgXKqVIW-main-2d9263002e18.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "4K9njc7FRwByEuONuIWGP"
+    },
+    {
+     "userId": "6piQnTPE4Ol18kz1_AfT6",
+     "username": "Karasuō - Black Crow",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-6piQnTPE4Ol18kz1_AfT6-main-36d8e2ca9296.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "7GYw-Bj5wEPth1WvJB5RI",
+     "username": "Kana Misora",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7GYw-Bj5wEPth1WvJB5RI-main-11abb3c5ac23.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "7j6fI5pKJjztwfpgl4XmN",
+     "username": "Pizza worker",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7j6fI5pKJjztwfpgl4XmN-main-92bd3337ff97.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "7rTiCa1loO3kyEewmxHJH",
+     "username": "AI Loadout: Default Rotation - copy",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7rTiCa1loO3kyEewmxHJH-main-ffdb05f48f77.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "QohCyU36XTUTQgWTdaNV7"
+    },
+    {
+     "userId": "7WY2QmiPnbWnir7RPS1X9",
+     "username": "Dojigiri",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7WY2QmiPnbWnir7RPS1X9-main-eee0b1ddac58.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "_DnIB8orOs33xv1eE3Rns"
+    },
+    {
+     "userId": "8q6pd_yZyYVcVPHUHVkoF",
+     "username": "Glasshade",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8q6pd_yZyYVcVPHUHVkoF-main-014a341b5ebd.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "8qER-JhOO0qVwLt6h_4YC",
+     "username": "Cult Blademistress",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8qER-JhOO0qVwLt6h_4YC-main-4f2d3c2b1cf7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "eAyzREp1UNnkNbUHn2yz5"
+    },
+    {
+     "userId": "8yRUnNxv8lCZakrxTvlBM",
+     "username": "Digger Sandworm",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-8yRUnNxv8lCZakrxTvlBM-main-3633910a80a1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "PosIr04j59abbsu2jOCuf"
+    },
+    {
+     "userId": "9aJ2EUbUEgz7cpNn0mowB",
+     "username": "Skeletal Spore",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-9aJ2EUbUEgz7cpNn0mowB-main-8375868a1f70.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "rffIc2SxEKkdYVYCiEMuH"
+    },
+    {
+     "userId": "9Va6NTDDY68qpDHqtgXhA",
+     "username": "Judgement",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-9Va6NTDDY68qpDHqtgXhA-main-608811534cbf.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "EieeNsGv_XiyqfDYI8QbM"
+    },
+    {
+     "userId": "9yLEi0OoYxcIL0a2XYkWk",
+     "username": "Nightveil Sentinel Ascendant",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-9yLEi0OoYxcIL0a2XYkWk-main-effaa1d55cb6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "cMgDkb6qPzzsVgM1UnuiH"
+    },
+    {
+     "userId": "a0aW--enMMeCkrdtq9WBF",
+     "username": "New AI - a0aW--enMMeCkrdtq9WBF",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-a0aW--enMMeCkrdtq9WBF-main-d343b5b3f241.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "a0FYTNLNsLO50Ltl9X-A5",
+     "username": "Mr. Waddles 2.0",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-a0FYTNLNsLO50Ltl9X-A5-main-358b9c0da3cd.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "yeCup1JIHTQilp6Hyaok-"
+    },
+    {
+     "userId": "A3E3wKFqOZ0e9o1SquwCm",
+     "username": "Black Maw Acolyte (α)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-A3E3wKFqOZ0e9o1SquwCm-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MzawLF4lzOwvkVDg4SLh7"
+    },
+    {
+     "userId": "A65jEDcPuAXRGryWd6_05",
+     "username": "Moon Shrine Guardian ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-A65jEDcPuAXRGryWd6_05-main-7d6a53e18c41.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "L1yRNjNcrlmb7-hxKCFXP"
+    },
+    {
+     "userId": "aaPEcvVH2uAOqE_ckEhHz",
+     "username": "Black Maw Channeler (β)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aaPEcvVH2uAOqE_ckEhHz-main-dd3cf5911dfb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "W2TEgn3fs-xfdpiMtmKly"
+    },
+    {
+     "userId": "adfgg3B6xMCtw5mf2FTxA",
+     "username": "Sabaku no Yurei",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-adfgg3B6xMCtw5mf2FTxA-main-3de71b7d6efb.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "-Lx3F2e77nE7l-SKm3vn0"
+    },
+    {
+     "userId": "agS6PmFfgqNKF0h9p6BSt",
+     "username": "Rogue Warden Gale Veil Phantom",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-agS6PmFfgqNKF0h9p6BSt-main-d627d88244c3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2arfBrOWDmPT6rWLTg4EF"
+    },
+    {
+     "userId": "AQi-bHJ-5tHXtxrnc0P9E",
+     "username": "Core Horror",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-AQi-bHJ-5tHXtxrnc0P9E-main-c26f9dc4befc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zD6EHeSmnHpcbX4zBOWGn"
+    },
+    {
+     "userId": "aYqqS2pD0H1hPGS97DO06",
+     "username": "Black Maw Acolyte (β)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aYqqS2pD0H1hPGS97DO06-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lfOMK5hGLzcgW2FQP1Ct5"
+    },
+    {
+     "userId": "b8PGgZl8zNNr6UdWH9dBv",
+     "username": "Hollow Lantern Ascendant",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-b8PGgZl8zNNr6UdWH9dBv-main-cf92ba267d7e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ZizkLReBsv70HbhI-lXXL"
+    },
+    {
+     "userId": "bkncKN-sTAXeXbcdbaqG_",
+     "username": "The Cellar Thing",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-bkncKN-sTAXeXbcdbaqG_-main-fc89ab2aee37.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "BGdMPDLfqD4GPjao6PotN"
+    },
+    {
+     "userId": "BLWL6UByLFSTdgPzJItLJ",
+     "username": "Juvenile Crystal Weaver",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BLWL6UByLFSTdgPzJItLJ-main-2418a49c2bcc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3N83EQUg9y_apqMFClCZq"
+    },
+    {
+     "userId": "BUxrRsXKaEEPV01CUKbl6",
+     "username": "Recolio",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BUxrRsXKaEEPV01CUKbl6-main-2cfc68fccf4b.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "ORmu16GXjn3Dv_QoZBgY5"
+    },
+    {
+     "userId": "Bxyqw_A-xt_C2QWXnBB0t",
+     "username": "Shallows Jellyfish",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Bxyqw_A-xt_C2QWXnBB0t-main-8d8e1d5b6656.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "n5EwpOY56x84l1_zGdmd_"
+    },
+    {
+     "userId": "BzDxu9QMH4YkgZI_-Qa6t",
+     "username": "Maw-Touched Initiate",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BzDxu9QMH4YkgZI_-Qa6t-main-f955c6203eae.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "m9B3nocqEsuDyQ23rnSHz"
+    },
+    {
+     "userId": "C-oGUNRXObgGtWJMFof2Z",
+     "username": "Gorvazan Four Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-C-oGUNRXObgGtWJMFof2Z-main-3f07e838215b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "CDrv0pENw8HPXzrHEhzv-",
+     "username": "Cult Elementalist",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CDrv0pENw8HPXzrHEhzv--main-8b8a7ce920e0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "44G-PXm-8Yv1ESx9EvzeZ"
+    },
+    {
+     "userId": "CGwy1W4e2ZGtJkwe6QB1_",
+     "username": "Black Maw Scavenger",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CGwy1W4e2ZGtJkwe6QB1_-main-fc20df96a425.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "7Sd6GRE-0hEKGFqLtSBvj"
+    },
+    {
+     "userId": "CJIymnUOxaIntPLmwABoz",
+     "username": "Jurogumo",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-CJIymnUOxaIntPLmwABoz-main-da84a2869647.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "8baN9tJB8_0JONPl5w-mJ"
+    },
+    {
+     "userId": "czs_soa4-j2Qq42Y_E0d9",
+     "username": "Asset \"Sparrow\"",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-czs_soa4-j2Qq42Y_E0d9-main-3a3127522a1c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YDawT1RZDBnBPBhm51cIC"
+    },
+    {
+     "userId": "d-t1xbnAoIZWEE2F8U8iS",
+     "username": "AI Loadout: Default Rotation",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-d-t1xbnAoIZWEE2F8U8iS-main-ffdb05f48f77.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "QohCyU36XTUTQgWTdaNV7"
+    },
+    {
+     "userId": "d6g0mOM7RBSsYI1hrUVT9",
+     "username": "First Blade",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-d6g0mOM7RBSsYI1hrUVT9-main-ae7a2d4e4029.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "IUgkMPWyf6jy7xbyTLBqX"
+    },
+    {
+     "userId": "DEZR2NYA_OmQPMa1pvZqZ",
+     "username": "Eviler Momo",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-DEZR2NYA_OmQPMa1pvZqZ-main-dd9ae863d5ee.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zK-LhY5a9mL4LJz4IslAp"
+    },
+    {
+     "userId": "dKEz_VsgZjrfbtxt4ldo8",
+     "username": "Road Bandit",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-dKEz_VsgZjrfbtxt4ldo8-main-1671c31e4f14.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "x5ok0REckE1ZRXvUi7tr6"
+    },
+    {
+     "userId": "dKjjSnUSu_aEAFFb-sFaH",
+     "username": "Tatarigami",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-dKjjSnUSu_aEAFFb-sFaH-main-823919430bbf.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "tQflmMi-rhJlbqzhnSDpa"
+    },
+    {
+     "userId": "DLo5FmA4_ApytoDvB1yKf",
+     "username": "New AI - DLo5FmA4_ApytoDvB1yKf",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-DLo5FmA4_ApytoDvB1yKf-main-34ce4519e321.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "DmYAnLRGg62nDl27yY2lb",
+     "username": "Rogue Warden Gale Veil Scout",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-DmYAnLRGg62nDl27yY2lb-main-e1160a4ffab7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "_EEjMTIhtMVUxUrapUIr1"
+    },
+    {
+     "userId": "DzhOZMl_FOPwO8XzqsGhP",
+     "username": "The Count Unmasked",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-DzhOZMl_FOPwO8XzqsGhP-main-d0425a869eb2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0ajGnIbEL1dOi3ZO3Bb7R"
+    },
+    {
+     "userId": "E4iWdOqDGEGF4fwWGoK_y",
+     "username": "Frost Queen*",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-E4iWdOqDGEGF4fwWGoK_y-main-7d6a53e18c41.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "EJcoqD3WrEiQSyG_aFA1M"
+    },
+    {
+     "userId": "eP1Ry_HG_N46DbpCAKCd_",
+     "username": "Yokai Devil",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eP1Ry_HG_N46DbpCAKCd_-main-b56137469e51.webp",
+     "isSummon": true,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "esmTLgB2igb3ylE9QKz7S",
+     "username": "Specter of the Veilnight",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-esmTLgB2igb3ylE9QKz7S-main-ed3bfc62a7e3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qgEPSRn2yTr-0BhWYs4He"
+    },
+    {
+     "userId": "fDU9jCPZtH7YHbdQPO9RF",
+     "username": "Crowned Captain",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fDU9jCPZtH7YHbdQPO9RF-main-25d24b15223f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "6G3McyVvLGIY1e4_sfTvU"
+    },
+    {
+     "userId": "fHo_dn7STwHkDe4_4geXp",
+     "username": "The Cellarer",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fHo_dn7STwHkDe4_4geXp-main-f5d76b7b932a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "u5mvQv-SRNakFgMJmyREA"
+    },
+    {
+     "userId": "FhRaJlJJoBZgYeeqseBmz",
+     "username": "The Count",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-FhRaJlJJoBZgYeeqseBmz-main-5ff98cfc1881.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2YZ-WmcrwKmhBdI2XFxse"
+    },
+    {
+     "userId": "fOOwL00SnLUTuUQ4IK8-H",
+     "username": "Brassmark Vaultguard",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fOOwL00SnLUTuUQ4IK8-H-main-9b6d8877c3a7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "WCa1MfjLitDUxubxP9zg-"
+    },
+    {
+     "userId": "fsOWJLJC_ZYA_UTN3vpwh",
+     "username": "Vaultshade Guard",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/Y9Fl-qUUSb6HJWuOlHDUx.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "olVFh_t0J4jGyCRbgBnpo"
+    },
+    {
+     "userId": "fviJBCJMx8YAnT91TjK7B",
+     "username": "Royal Jellyfish",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-fviJBCJMx8YAnT91TjK7B-main-e70949e38b48.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "d5qsl4mjc8M9f17Tiqy31"
+    },
+    {
+     "userId": "FVN_wMPLyqWzEUUZQcnBw",
+     "username": "Cult Illusionist",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-FVN_wMPLyqWzEUUZQcnBw-main-604d873d740b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "f3-4aeFZCpa21yOHskKNV"
+    },
+    {
+     "userId": "G8RPruFGyWX818aSlmIwJ",
+     "username": "Sandling",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-G8RPruFGyWX818aSlmIwJ-main-516044048eb0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "LUrZgRQ_d4B0vesJkzH3r"
+    },
+    {
+     "userId": "GAJ_Ui4rqmeeAzNg_VhJi",
+     "username": "Subaku General ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-GAJ_Ui4rqmeeAzNg_VhJi-main-65736c7be3aa.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lPlefMaF0Md-gfnaIrjRB"
+    },
+    {
+     "userId": "GpWTTkyhQT9bUIZVKQsFd",
+     "username": "Black Maw Acolyte (δ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-GpWTTkyhQT9bUIZVKQsFd-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "GT7jOhvMhAubqA5rTVQFc"
+    },
+    {
+     "userId": "h51B5byN5pAWS3BOososr",
+     "username": "The Cellar Warden",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-h51B5byN5pAWS3BOososr-main-335608aa1d58.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2GWWlHQGXQFTOrXqhQ62i"
+    },
+    {
+     "userId": "i3rNym7JgAeB482Oczviy",
+     "username": "Black Maw Acolyte (η)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-i3rNym7JgAeB482Oczviy-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Ob3jxWfp2aCbALWHBDijZ"
+    },
+    {
+     "userId": "IJyI1GSMM96KcasGQPKjI",
+     "username": "Grimjack",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-IJyI1GSMM96KcasGQPKjI-main-6cca59b14899.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "uNq66b3z9uNSmp7aT7Isq"
+    },
+    {
+     "userId": "J0qawUtTaCQ5VuX_LqWT_",
+     "username": "New AI - J0qawUtTaCQ5VuX_LqWT_",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-J0qawUtTaCQ5VuX_LqWT_-main-a2c58e1ce993.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "JIc48VXSU1UCXlIkSX2JD",
+     "username": "Lesser Infernal Reaper",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-JIc48VXSU1UCXlIkSX2JD-main-33822ccf63a4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "s83qXNf9rVvcN1X0m8Fdl"
+    },
+    {
+     "userId": "JnTJIw5G5BAJ7n2pjCvff",
+     "username": "Sandling Summon",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-JnTJIw5G5BAJ7n2pjCvff-main-516044048eb0.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "QohCyU36XTUTQgWTdaNV7"
+    },
+    {
+     "userId": "jP-G9ZBJJGPhA0oDieDfC",
+     "username": "Yokai Marauder",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jP-G9ZBJJGPhA0oDieDfC-main-7801580a139e.webp",
+     "isSummon": true,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "jpgZP-yXSlApXmzDjwLGH",
+     "username": "Charnel Digger",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jpgZP-yXSlApXmzDjwLGH-main-57bc3cbe6af9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lNHN5dN4kuFIYJ784uoKH"
+    },
+    {
+     "userId": "jTB6PFXFDNF2RsIoFhZoz",
+     "username": "Wind Shrine Guardian ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jTB6PFXFDNF2RsIoFhZoz-main-0f700839dd42.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0SlyB9QYbNkjANGxuBYdI"
+    },
+    {
+     "userId": "JU2BgfdcWsBYGeHUgHMi_",
+     "username": "Starless Monk Ascendant",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-JU2BgfdcWsBYGeHUgHMi_-main-61b46c61cd36.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "fw0UV78pfIKUCPnAtd6po"
+    },
+    {
+     "userId": "JWdRhAsPRDODnXy0pfWVM",
+     "username": "Shuten-Doji",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-JWdRhAsPRDODnXy0pfWVM-main-c3e3318d3aa5.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "13pt00-StD7of6Xkp11Kw"
+    },
+    {
+     "userId": "jxVMlt-LhCfyt-bFu3V7X",
+     "username": "Black Maw Acolyte (ζ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jxVMlt-LhCfyt-bFu3V7X-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2YCn4X9YS0X-vrFGpJRSf"
+    },
+    {
+     "userId": "k39_BaK1sl9v5XJtCSVE9",
+     "username": "New AI - k39_BaK1sl9v5XJtCSVE9",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-k39_BaK1sl9v5XJtCSVE9-main-1f2ace64b05b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "k4qMHSTHHZBVsijP5FJ6E",
+     "username": "Umbral Reaver Ascendant",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-k4qMHSTHHZBVsijP5FJ6E-main-08b98532c838.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "tqI4rY5R1A0CweRMavxvF"
+    },
+    {
+     "userId": "KB4S6xvKDDhv4wDvMuQuJ",
+     "username": "Byakuho",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KB4S6xvKDDhv4wDvMuQuJ-main-8ed0034cf55f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3I6HEXjF77x8MNO7ukG-U"
+    },
+    {
+     "userId": "kHYEy1VxYMXj6etdI0LUW",
+     "username": "Chunin Outlaw 1",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-kHYEy1VxYMXj6etdI0LUW-main-31b8c51c1a04.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "hyjxK6RYMp0hIUiRA4Bhh"
+    },
+    {
+     "userId": "kneCDnvpO_gOce7VM6S27",
+     "username": "Kagehira- Dark World",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-kneCDnvpO_gOce7VM6S27-main-dcfa1ab35d5a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "KQapdHD7S1eXPzZ_9pRzs",
+     "username": "Black Maw Acolyte (γ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KQapdHD7S1eXPzZ_9pRzs-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "D4RgNRWqmLkoXsbIV6VaS"
+    },
+    {
+     "userId": "l-QeI1-lml0SMiEGL2qIh",
+     "username": "Nameless Ninja",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-l-QeI1-lml0SMiEGL2qIh-main-b091767b7268.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XyZ8GXwJVdHHIe8h9p5Pn"
+    },
+    {
+     "userId": "l2tJf2Z0MZR9HXa5F6B9v",
+     "username": "Basalt Golem",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-l2tJf2Z0MZR9HXa5F6B9v-main-f2584e1ce746.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "S6kJ2Z4jmXdj4d0VBi_IM"
+    },
+    {
+     "userId": "l5SfWTM89UTN7N5JtbvNU",
+     "username": "Eggzilla",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-l5SfWTM89UTN7N5JtbvNU-main-9f0170796d83.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "K1guAfGw737Bi_InmzcSv"
+    },
+    {
+     "userId": "LIbrBQ9KR3AeHiIwZnGId",
+     "username": "Kinmokuzai",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-LIbrBQ9KR3AeHiIwZnGId-main-a025fce1a38b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "oTFI0MrT7WiT-1fm3Io_y"
+    },
+    {
+     "userId": "LIRaoHHoP0huRdr0vpsPm",
+     "username": "Sandstalker",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-LIRaoHHoP0huRdr0vpsPm-main-bbad7f074162.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "mG29newiBTdb1rp4CAgGX"
+    },
+    {
+     "userId": "LmDfPrPIIJY-f9hzv7IJE",
+     "username": "Samurai Guard",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-LmDfPrPIIJY-f9hzv7IJE-main-4e5cb7f3ea34.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Y-kFaKU6SWu9VmYThDZCY"
+    },
+    {
+     "userId": "lT1MDupdPDB-9flnKzgBC",
+     "username": "Zerakael Seven Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-lT1MDupdPDB-9flnKzgBC-main-70141c74fa8b.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "N4GRSOnr33J0oPt2Ty5NI"
+    },
+    {
+     "userId": "lXBlGQoAunvco255zjSGN",
+     "username": "Rogue Mercenary",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-lXBlGQoAunvco255zjSGN-main-a8018162c677.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RJk7ixUwJy6XHn1QrSHTe"
+    },
+    {
+     "userId": "M8D5xglDK3CHMrR7k2S8B",
+     "username": "Sugar Ant",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-M8D5xglDK3CHMrR7k2S8B-main-f4fa7cd506cc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "_4ZNKLji-o2ZJkynnJUtQ"
+    },
+    {
+     "userId": "Mcuibd-BSYHdiqoLmDQL9",
+     "username": "Subaku Demon Priest",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Mcuibd-BSYHdiqoLmDQL9-main-77ae93aa0006.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "TLsFlqqajSqpiegSiUIQ4"
+    },
+    {
+     "userId": "MGpps-kXOFm4aNBYahJ0_",
+     "username": "Miserable Company - Zakku",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-MGpps-kXOFm4aNBYahJ0_-main-ae828c004b3c.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "7w-vjUUCYNml8-oOw79Sc"
+    },
+    {
+     "userId": "mqFCGJIysT8N5fqPP8e28",
+     "username": "Living Steam",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-mqFCGJIysT8N5fqPP8e28-main-a208fc65ce3d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RE2CNJBHqP71XapYTO-iw"
+    },
+    {
+     "userId": "msKodzIJSH2J_BO-1FCIN",
+     "username": "Jelly Chakra Beast",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-msKodzIJSH2J_BO-1FCIN-main-e70949e38b48.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ePqWnmBprBeubGI3AZg7r"
+    },
+    {
+     "userId": "msNICzu0bP6o2La62YBex",
+     "username": "Werewolf",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-msNICzu0bP6o2La62YBex-main-daeb4bb492d4.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "Mv4vF4sDyM7qEz8JOKqZL"
+    },
+    {
+     "userId": "MxxDyNdkGGi5jO6JMWIv9",
+     "username": "EclipseOmen",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-MxxDyNdkGGi5jO6JMWIv9-main-868722bcbe47.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "n1KapazmeDzkzCOa6lkyi",
+     "username": "Moonprowler- ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-n1KapazmeDzkzCOa6lkyi-main-712ba972678c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "RaNjNrQmZaeO9gJyWqniC"
+    },
+    {
+     "userId": "ncV5vlnTN_yjUCEpteZ0q",
+     "username": "Wyrmspire Elder Vulkar",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ncV5vlnTN_yjUCEpteZ0q-main-6730408051ad.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "K6uLDCNnuQYpfzVQYdcNI"
+    },
+    {
+     "userId": "NGa38UZAGQRMbClwC0rQ6",
+     "username": "Dusk [Summon]",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-NGa38UZAGQRMbClwC0rQ6-main-5245658101ac.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "xD_-vL0As1MoteyUmqMh0"
+    },
+    {
+     "userId": "nyT-FDJIWlOxWQjDBBsCP",
+     "username": "Candelabra Wraith",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-nyT-FDJIWlOxWQjDBBsCP-main-79ce8a1aac70.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ozjkrZNXG4B3ZDF9M0Ba3"
+    },
+    {
+     "userId": "o3f0Z2uojGwDelp3fFnxU",
+     "username": "Mega Triceranuggy",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-o3f0Z2uojGwDelp3fFnxU-main-554948137db1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "G_bC88zGP6M9tj9zuJjP-"
+    },
+    {
+     "userId": "o5bvA2fo9QHDDw-t6hIXv",
+     "username": "Vaelith - Shadow of the Maw",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-o5bvA2fo9QHDDw-t6hIXv-main-da4e422e2f7a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "L6FbZZ-dMYHswQ2RlH9Ov"
+    },
+    {
+     "userId": "OH-TKPtkEc4cgqw6t-_BK",
+     "username": "Raizhen Ten Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-OH-TKPtkEc4cgqw6t-_BK-main-78a8ae8ca4f2.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "oIFtRorw61GwXVLUBQGPI",
+     "username": "Stray Catcher",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-oIFtRorw61GwXVLUBQGPI-main-e3f115dd6037.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lSlOGSBN66R0FQvkvRckT"
+    },
+    {
+     "userId": "oLHZBrmZhEg2qpchCblNw",
+     "username": "Chunin Outlaw 2",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-oLHZBrmZhEg2qpchCblNw-main-31b8c51c1a04.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "hyjxK6RYMp0hIUiRA4Bhh"
+    },
+    {
+     "userId": "oqeo5ssoyR4XlfOEWENbp",
+     "username": "Nue*",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-oqeo5ssoyR4XlfOEWENbp-main-53d044f23599.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "EJ04ipmybGU3fs0hpq-i_"
+    },
+    {
+     "userId": "OrufsY6iocN7hOoKJdwLr",
+     "username": "Subaku Guard",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-OrufsY6iocN7hOoKJdwLr-main-aebdb3412e3f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "8mo1jjP7AkoiJaSsmWB7w"
+    },
+    {
+     "userId": "oYJagQ1G-UZVTsvffYz2b",
+     "username": "Echobound Kin",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-oYJagQ1G-UZVTsvffYz2b-main-baa6816b7105.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "J2UcQWlA592Vwy3DQ0cnt"
+    },
+    {
+     "userId": "p7mO6uq_v-4sP3KsD8VrS",
+     "username": "The Hollow Crucible",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-p7mO6uq_v-4sP3KsD8VrS-main-1676aabc89d3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "eAsK9tusIdx8_SqDdapa7"
+    },
+    {
+     "userId": "pVx2jhi4BfINXbBvcN3L8",
+     "username": "Kilnreach Doorwarden",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-pVx2jhi4BfINXbBvcN3L8-main-6b8def901e34.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "W60VRh3s4tsDTQ78eNlao"
+    },
+    {
+     "userId": "Q7iyQmtGEPk4g3Cai7Bn3",
+     "username": "Colossus*",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Q7iyQmtGEPk4g3Cai7Bn3-main-2ca76f0cdd46.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lWZYKy7Gbk6LJA4bRC4LX"
+    },
+    {
+     "userId": "qRXuFyaqRbO5S0B8zl41r",
+     "username": "Brassjaw, the Crucible Brute",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/CHqcoUkz1xIVq3jnHyXG3.png",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "hgPWa6GJcHm9KY9C_bGMH"
+    },
+    {
+     "userId": "QY69h271Nx9uHrBeR6jwW",
+     "username": "The Captain",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-QY69h271Nx9uHrBeR6jwW-main-b2d624ff6f62.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "BqRv9qUlDNLNCzi-Q45zT"
+    },
+    {
+     "userId": "QZMJYrwFuNGeT6-uvY2dS",
+     "username": "Radiant Echo",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-QZMJYrwFuNGeT6-uvY2dS-main-4c8087ae4f7a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UjWiF8rUJFcLx0NNNnb8c"
+    },
+    {
+     "userId": "RBW5KsIXmTGR710D2y2Y7",
+     "username": "Sealwright",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RBW5KsIXmTGR710D2y2Y7-main-5cda5e3df1ac.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "-Bq13lD10ADCSRIK9qpnK"
+    },
+    {
+     "userId": "rd192n7iA32QKYWJD6o93",
+     "username": "Herald of the House",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rd192n7iA32QKYWJD6o93-main-d45b635239f2.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "-3QTWta1zKRhwfjj4HCFQ"
+    },
+    {
+     "userId": "RDjBjfdMyxSGAeP_FomvB",
+     "username": "New AI - RDjBjfdMyxSGAeP_FomvB",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RDjBjfdMyxSGAeP_FomvB-main-83ade87802f4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "rH4BhUTsiQA2PjUqqjueY",
+     "username": "New AI - rH4BhUTsiQA2PjUqqjueY",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rH4BhUTsiQA2PjUqqjueY-main-f31b44f8385a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "RiwqMrOJE2mip3i88_yux",
+     "username": "Whisperbloom Apparition",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-RiwqMrOJE2mip3i88_yux-main-3bc984fd74db.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "7BnryqTVtatl2cB4lfahQ"
+    },
+    {
+     "userId": "rkNi32zPcZOqfHkZMgCh9",
+     "username": "Ryūjin -Dragon Impact",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rkNi32zPcZOqfHkZMgCh9-main-e1094ee8b512.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "RNgpE8mdc6O-Sd2iH4Q00",
+     "username": "New AI - RNgpE8mdc6O-Sd2iH4Q00",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RNgpE8mdc6O-Sd2iH4Q00-main-d6f2f9ebc9ac.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "RR6OfD7LM1qROoWCQq6hg",
+     "username": "New AI - RR6OfD7LM1qROoWCQq6hg",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RR6OfD7LM1qROoWCQq6hg-main-9e537af4b87a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "RvAdYcQZ1YBglSsduuhoi",
+     "username": "Yokai Thief",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-RvAdYcQZ1YBglSsduuhoi-main-1ab285bec598.webp",
+     "isSummon": true,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "s-XOrHp2hHdEMZxBVzszH",
+     "username": "Black Maw Channeler (ε)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-s-XOrHp2hHdEMZxBVzszH-main-dd3cf5911dfb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "wPrBKRFeYyS3owG2OlpGQ"
+    },
+    {
+     "userId": "SpNR1023KCc-nS5sl8XyA",
+     "username": "Rogue Warden Gale Veil Interceptor",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SpNR1023KCc-nS5sl8XyA-main-efe1a73024dd.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MnMSK7wBORDBCdWeiiBuE"
+    },
+    {
+     "userId": "SWSUdkqrTTBpDKGH1w2yq",
+     "username": "New AI - SWSUdkqrTTBpDKGH1w2yq",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SWSUdkqrTTBpDKGH1w2yq-main-e71ba5ce8a2e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "SzTGAACDnLgHadF64PUfW",
+     "username": "Black Maw Channeler (δ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SzTGAACDnLgHadF64PUfW-main-dd3cf5911dfb.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "1w2qMo9YQYnIR0t8xreYp"
+    },
+    {
+     "userId": "t4tCdrXKXhQ15l3u4XH-c",
+     "username": "Brigg Tusk",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-KT1Yo7CCXkIso1-lDNdrr-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "bcs2bm8CO49lXl1yHiaFO"
+    },
+    {
+     "userId": "t7JRS6URAFqIA_2OojJLa",
+     "username": "Mintwarden, the Sealed Sentinel",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ZQiYx8TmDIV9zlQqiHDAY.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "olVFh_t0J4jGyCRbgBnpo"
+    },
+    {
+     "userId": "texZaFi42S3EvJZBwQ8cd",
+     "username": "Deck Warden",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-texZaFi42S3EvJZBwQ8cd-main-eded2d557ed1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "o1qPfPsuVXk7KzLaRz0n3"
+    },
+    {
+     "userId": "TX6Q2UeZGYAaizQt9XrV-",
+     "username": "ShadowBeast",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TX6Q2UeZGYAaizQt9XrV--main-09715e90bb91.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "xFYMvGdCoejOzxVHZs7HO"
+    },
+    {
+     "userId": "UB_KzUHB9AAYZge8W1AKD",
+     "username": "Tyrant King",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-UB_KzUHB9AAYZge8W1AKD-main-efca1acac281.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "ef4pBRCVlSFEPO5Sc8yoH"
+    },
+    {
+     "userId": "user_2ue4TutSeewDxpR7CqT4IhC7b",
+     "username": "Kazehiko",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-user_2ue4TutSeewDxpR7CqT4IhC7b-main-91bcad7dfc8a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "USYQilNC5mu6XS6b2w22M",
+     "username": "New AI - USYQilNC5mu6XS6b2w22M",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-USYQilNC5mu6XS6b2w22M-main-d505396d7bcc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "usZ5lyaQTr4iYzCPeRr83",
+     "username": "Mist Phantom",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-usZ5lyaQTr4iYzCPeRr83-main-792d412387ed.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "vWuSqby1NeeWMiDQtVbpv"
+    },
+    {
+     "userId": "UTo52RChnsRZDOnIpSTom",
+     "username": "Spectral Windcallers",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-UTo52RChnsRZDOnIpSTom-main-9896a5b78625.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "GWABIL6LlSWoiElC9TzSB"
+    },
+    {
+     "userId": "uzAaQSkGakjsC-xUkEZgQ",
+     "username": "Glacier Shrine Guardian",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uzAaQSkGakjsC-xUkEZgQ-main-e7cb75c6216a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "VEGSwxhvVnX3cLVFxZ-yY"
+    },
+    {
+     "userId": "v4qXpimMiwLzGn9tVzebe",
+     "username": "Riku “Storm Rat” Naraoka",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-v4qXpimMiwLzGn9tVzebe-main-0048bcab041e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "v7T9_XdGMfP46em0dPuBc",
+     "username": "Wayfinder",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-v7T9_XdGMfP46em0dPuBc-main-84598d9f5e8a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0LTa3ZM6eDCRkv4X_uwA-"
+    },
+    {
+     "userId": "vP20ROJaCB7KzViQELW__",
+     "username": "Shroud Shrine Guardian ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vP20ROJaCB7KzViQELW__-main-15a6cdf7bd42.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "wfPNjCtDKvzVGeFiHKVNj"
+    },
+    {
+     "userId": "VvStGchROaGF7RBpdhIKP",
+     "username": "Somen Shoko",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-VvStGchROaGF7RBpdhIKP-main-65f52c97494c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "bL_deKhD8sdi4D4H7-jaq"
+    },
+    {
+     "userId": "W_8Om9rVIdCegbltmXvHQ",
+     "username": "Black Maw Acolyte (ε)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-W_8Om9rVIdCegbltmXvHQ-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "uM3v3EU9Zgo6UeSm5uWDt"
+    },
+    {
+     "userId": "w_KKCdLoN6ReVAOP-KZ5P",
+     "username": " Sun Shrine Guardian ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-w_KKCdLoN6ReVAOP-KZ5P-main-9f45a14d09ca.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "tdMuxPwo3wqVBj_imT6rq"
+    },
+    {
+     "userId": "wIvRTu5-w3t-ztCKLg2_F",
+     "username": "Masquerade Doorman",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-wIvRTu5-w3t-ztCKLg2_F-main-4b4a6638fc6d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "3f0l8mbbH3PjE8kOv8ymB"
+    },
+    {
+     "userId": "WsxviOuT_lkmv2TErd8L3",
+     "username": "Poison Salamander",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-WsxviOuT_lkmv2TErd8L3-main-e96bb579be70.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "wTWrRRGWEaXZ4UA3S75pO"
+    },
+    {
+     "userId": "x8WbnaeJe4fkH-vCi4itG",
+     "username": "Akaibako ",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-x8WbnaeJe4fkH-vCi4itG-main-e58bfa93e1e4.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "bX3OIrPFzOOGHeWq_jTkC"
+    },
+    {
+     "userId": "xGwIYBJ_qB6iidL3GAhy8",
+     "username": "Shaper",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-xGwIYBJ_qB6iidL3GAhy8-main-2d9d7402c73f.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "dyyocnR11Spoh26xRSXAy"
+    },
+    {
+     "userId": "YCgkJxiGrTcaoakjQ9Y83",
+     "username": "Slithraxis Six Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-YCgkJxiGrTcaoakjQ9Y83-main-89f88caf7ea5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "yDcHRalJaI5EqkgVH2viZ",
+     "username": "Vortuun Five Tails",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yDcHRalJaI5EqkgVH2viZ-main-277754073d88.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "yItYDKXEOPSh9X5viec-P",
+     "username": "Frozen Wraith",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yItYDKXEOPSh9X5viec-P-main-df567468db61.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2gjR5qF-nrFRMH1ctB102"
+    },
+    {
+     "userId": "YnT9BoXiZwqwVvhG5zlMt",
+     "username": "Spirit of Veilnight",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-YnT9BoXiZwqwVvhG5zlMt-main-ed3bfc62a7e3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qgEPSRn2yTr-0BhWYs4He"
+    },
+    {
+     "userId": "Z6OlEe7nfAGhoLdXIPHgG",
+     "username": "Rogue Warden Commander Renzu",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Z6OlEe7nfAGhoLdXIPHgG-main-3504194352d1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "GNz4rdoyHpWdVJblnOJt7"
+    },
+    {
+     "userId": "Zap3M6sNddUf3G5YXAzqA",
+     "username": "Drakar of the Maw’s Flame",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Zap3M6sNddUf3G5YXAzqA-main-3a3d7ab95bf9.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "TridD0jMpW1Y4dv_0gdHz"
+    },
+    {
+     "userId": "zIg3AFBvnxx9TVR7llPzy",
+     "username": "Crystal Weaver",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zIg3AFBvnxx9TVR7llPzy-main-8c9cc89d608b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "KsmjWGYzxa1MObybXpOOv"
+    },
+    {
+     "userId": "zkAM4ErznMkOE3ennaAX5",
+     "username": "Thorn Ambusher",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zkAM4ErznMkOE3ennaAX5-main-0fa7a327368e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "u3Sg42zTL8OnXq6vircB8"
+    },
+    {
+     "userId": "zy5IqBD_qGmivUr8abWEY",
+     "username": "Black Maw Acolyte (θ)",
+     "level": 100,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zy5IqBD_qGmivUr8abWEY-main-319c60ea1924.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "fWBKWuHIdo7C3JNp6oMhH"
+    },
+    {
+     "userId": "uyFMFCdXQecgu8YaJZoC9",
+     "username": "Disciple of Sotek",
+     "level": 101,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uyFMFCdXQecgu8YaJZoC9-main-9fb6fda3abcf.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Efbijsrmgf3Oy4J9ukKut"
+    },
+    {
+     "userId": "axTRSadaZbUepfT40-7cM",
+     "username": "The Gloaming Judge",
+     "level": 102,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-axTRSadaZbUepfT40-7cM-main-4edd0cba5c5c.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Ha60aj66Hz4yo-C7V4JH3"
+    },
+    {
+     "userId": "HEjtNpXmuU4ShrOOPg8XK",
+     "username": "Widow of the Waning Moon",
+     "level": 104,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-HEjtNpXmuU4ShrOOPg8XK-main-a01066b5fe37.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "2vpKOl94SuYxGsNHZnyWV"
+    },
+    {
+     "userId": "pln436P8g2ocUBCHavcdb",
+     "username": "The Candlewright",
+     "level": 106,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-pln436P8g2ocUBCHavcdb-main-c1db11da0dba.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "qwvUPKMr1n98leSKHs3i1"
+    },
+    {
+     "userId": "aL1Gf1JmVaP8iWi2zHJoO",
+     "username": "Herald of the Last Dusk",
+     "level": 108,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aL1Gf1JmVaP8iWi2zHJoO-main-c283ef62b673.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "t_batIaeD6PEk4NkLIbrt"
+    },
+    {
+     "userId": "0MvpXaR7OYFP9nDzHkggp",
+     "username": "Subaku Prince",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-0MvpXaR7OYFP9nDzHkggp-main-bbe8005eb36a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "iHJ5UZI1GEtFyVCWqTx-u"
+    },
+    {
+     "userId": "6BeNEyxNcPhqcQL3q1KUM",
+     "username": "Thorn Ambush Captain",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-6BeNEyxNcPhqcQL3q1KUM-main-8f535110b122.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "P3SzdWwKrJiGkbEgrd_XU"
+    },
+    {
+     "userId": "71AN-IjKcA8FrjirWLyDY",
+     "username": "Mizu no Seirei",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-71AN-IjKcA8FrjirWLyDY-main-e04323156f1a.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "t6o-zLKox-tNA0Gf_8j02"
+    },
+    {
+     "userId": "eMj3G_LfPd4RdFJl6QyAI",
+     "username": "Sentinel of Ages",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-eMj3G_LfPd4RdFJl6QyAI-main-9fd6a7a9bc22.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "UJUWZLSjvylQQxjNRBJLC"
+    },
+    {
+     "userId": "i8oFdDcneF7YE-8VpQsu3",
+     "username": "Sovereign Echo of the Godstorm",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-i8oFdDcneF7YE-8VpQsu3-main-662447fc7184.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "HbL9DwQlL42dvPoZE6itD"
+    },
+    {
+     "userId": "mNvh7ddWnV412kGt9zVX8",
+     "username": "Yara Reed",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-HyZ2XR7fpXqX3u6kdHIJb-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "QY_Ed3-SmHqaVLOkT1mAy"
+    },
+    {
+     "userId": "psxanDcHJH0v_MDH5YhyH",
+     "username": "The Endless Night",
+     "level": 110,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-psxanDcHJH0v_MDH5YhyH-main-8daf6a1df6ec.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "LfS6O8LELoNOTeAf1tUzw"
+    },
+    {
+     "userId": "9QPcZ4AYdUUxidb-5kY-P",
+     "username": "The Suture Priest",
+     "level": 112,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-9QPcZ4AYdUUxidb-5kY-P-main-ff161d248841.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "vR8ePSh-e2hz4PVX-shKB"
+    },
+    {
+     "userId": "0nqbnfLnX-2nQnxNMY4bb",
+     "username": "The Twinned Reliquary",
+     "level": 114,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-0nqbnfLnX-2nQnxNMY4bb-main-f361b45afee6.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "rJa2Da1pO7ThCgW2kLLW5"
+    },
+    {
+     "userId": "iv9EJDlqM0Y-ec3jRBh4r",
+     "username": "The Loomwright",
+     "level": 116,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-iv9EJDlqM0Y-ec3jRBh4r-main-a332e0be99f0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "foeh0FHN3Rrj9R-ASmt5p"
+    },
+    {
+     "userId": "GYCvy2Otl6hWZ2uwDS7aX",
+     "username": "Warden of the Severed Dawn",
+     "level": 118,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-GYCvy2Otl6hWZ2uwDS7aX-main-36c6a00d78c8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "7ZJsNDhTxCnCEWpWex5fY"
+    },
+    {
+     "userId": "e02hsRkt4zE-RsxhPrSJ8",
+     "username": "Tetsuboku no Mamori",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-e02hsRkt4zE-RsxhPrSJ8-main-a58d5e761d4f.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "jOXe4AceiivXsX5hDchAD"
+    },
+    {
+     "userId": "fh8BgCYYChLhPNMFKRZ4I",
+     "username": "Goro Blackthorn",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/content-IMZ_Xa0tmtSlwBeN4Fcem-0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "q8Fe_k7Av6S_ESaQLtDYM"
+    },
+    {
+     "userId": "R9JRTtK3cZubEWUMbEkfL",
+     "username": "Rust Ferret",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-R9JRTtK3cZubEWUMbEkfL-main-462575c801e7.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "36iSrF_YfN55HYsG4rM-X"
+    },
+    {
+     "userId": "SA8M7mDelXMgCcQzJ92FA",
+     "username": "Subaku Princess",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SA8M7mDelXMgCcQzJ92FA-main-b0f7682cde31.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "YYQGMwnJ2Ok0M2ttzGYSa"
+    },
+    {
+     "userId": "yEd2Pko-jdUENWxmxPtef",
+     "username": "Beta Sandworm",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-yEd2Pko-jdUENWxmxPtef-main-66fdea28c47a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "FCgiX4mkzyqz9Qbh3rbPL"
+    },
+    {
+     "userId": "YHCBvSzVi9wR3G1EtaCFe",
+     "username": "Chakra Rift",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-YHCBvSzVi9wR3G1EtaCFe-main-a3a939bc32a1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "v9aTVW3AFMWC3qpOxlbYQ"
+    },
+    {
+     "userId": "zNKfCfR5EoZfF5Ulf0fLC",
+     "username": "Subaku Demon",
+     "level": 120,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zNKfCfR5EoZfF5Ulf0fLC-main-c8c30a858625.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "KBBwvtZ8p6UKI2en5CtQw"
+    },
+    {
+     "userId": "TVKloRX_SAakD6WBcQd1S",
+     "username": "Rock Golem",
+     "level": 125,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TVKloRX_SAakD6WBcQd1S-main-087f928c2f99.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "iwAhrTjRhAQKZLKpYYocP"
+    },
+    {
+     "userId": "yMWZ4urBoDnGmztJ6lCnH",
+     "username": "Sand Golem",
+     "level": 125,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-yMWZ4urBoDnGmztJ6lCnH-main-89712109729d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "GIRE4hj4g7-Dv7cU6SctD"
+    },
+    {
+     "userId": "6soBZac1Wtx0Rj5A6RChu",
+     "username": "War Commander",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-6soBZac1Wtx0Rj5A6RChu-main-89462e9d0206.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "ALmXM9MWha5O1jek4Ms-b",
+     "username": "Axel the Elf",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ALmXM9MWha5O1jek4Ms-b-main-115d8662ea47.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "e-Omh7NZwgN9qrUa8Dye9"
+    },
+    {
+     "userId": "BuyM_4fl_NPR0BgF8oKAw",
+     "username": "Toto The Baby Dragon ",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-BuyM_4fl_NPR0BgF8oKAw-main-322317884a0d.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "JGwpfXWuhzDo_xkiVftV1"
+    },
+    {
+     "userId": "H9Ozvg5YEwdaLTBKaF7aP",
+     "username": "Kori no Seirei ",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-H9Ozvg5YEwdaLTBKaF7aP-main-7005b755358f.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "AF_fDSAv_aHzE6jIfDuVU"
+    },
+    {
+     "userId": "Mn8KYRN3sz5ELiJAnKGX9",
+     "username": "The Jester",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Mn8KYRN3sz5ELiJAnKGX9-main-9c5716e84485.webp",
+     "isSummon": true,
+     "inArena": true,
+     "aiProfileId": null
+    },
+    {
+     "userId": "mt3fylpp3DSvKamRuYvJo",
+     "username": "Dagger the Elf",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-mt3fylpp3DSvKamRuYvJo-main-18502289d430.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "Jzi3eYv5ROWEdcvt7MMWr"
+    },
+    {
+     "userId": "ZE25uspi1e9WCfLH-igeP",
+     "username": "Gamma Sandworm",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ZE25uspi1e9WCfLH-igeP-main-9fa41dd69406.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "sCStIGN325_uhfCe8qTGg"
+    },
+    {
+     "userId": "zLSvLqIc-eTorqRBL6qok",
+     "username": "Subaku Winged Captain",
+     "level": 130,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-zLSvLqIc-eTorqRBL6qok-main-94ccbb5098ce.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MgtziY9p9U4wkRoXxcP5y"
+    },
+    {
+     "userId": "-DHFxpBupYMiCUxTOekGf",
+     "username": "Kaeruun One Tail",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018--DHFxpBupYMiCUxTOekGf-main-90889d0e393a.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "BbR5Gew5787_GVY_FIZBq"
+    },
+    {
+     "userId": "2r5LghYdi8AjThUJ4EvEU",
+     "username": "Xerath the Infernal Talon",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-2r5LghYdi8AjThUJ4EvEU-main-281218bd810b.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "4hEnybI4Z-aOrg9XtyI5J"
+    },
+    {
+     "userId": "ne75niX4whUEkou0bYcTC",
+     "username": "Mummy",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ne75niX4whUEkou0bYcTC-main-b8443238b426.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "DrluHeILkx7iUPvZ9i9cb"
+    },
+    {
+     "userId": "nwdAs6QF4NG4huwhh5vmz",
+     "username": "Shimo no Seirei ",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-nwdAs6QF4NG4huwhh5vmz-main-390f497021d8.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "8tYMDyVRet8zEeibs4hoy"
+    },
+    {
+     "userId": "nzobO0iq6lItajGrAVDLz",
+     "username": "Ava-The Snow Terror",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-nzobO0iq6lItajGrAVDLz-main-5789f2b3762d.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "n1bJQTdJsOC8S3MmS3gNL"
+    },
+    {
+     "userId": "oPeKAnZh2Gd57yX1IR9aM",
+     "username": "Azir-The Emerald Dragon",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-oPeKAnZh2Gd57yX1IR9aM-main-23ada361e4ad.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "OoUeOnXiYYQ3OuZH17qwY"
+    },
+    {
+     "userId": "ptmGFL_TzA0UdwCmfhKkB",
+     "username": "Balista - The Diamond Dragon",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ptmGFL_TzA0UdwCmfhKkB-main-ac8a8197aa50.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "r9YNGIOOIIOv1EPG9OzKL"
+    },
+    {
+     "userId": "S18oJw3ucXF3UaE4RWpIH",
+     "username": "Pyrrakai Two Tails",
+     "level": 140,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-S18oJw3ucXF3UaE4RWpIH-main-acb8b1fd80fc.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "ES6YJ-rt5VlltLsGVQ1ty"
+    },
+    {
+     "userId": "_sWndzhX_CS0MP2_b2i07",
+     "username": "Sapphire Dragon",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-_sWndzhX_CS0MP2_b2i07-main-5e207628133b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XzVutLtRc9MUphmoNFatf"
+    },
+    {
+     "userId": "7yrAro3Ug5v2s2NV_Ywxv",
+     "username": "Ariel",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7yrAro3Ug5v2s2NV_Ywxv-main-e774a43f45ec.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "mhQn9oqsSgeUGi9_vmLHv"
+    },
+    {
+     "userId": "Eu67fptoGJR96GmV4ciG8",
+     "username": "Azael",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Eu67fptoGJR96GmV4ciG8-main-991e0b56279b.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lWZYKy7Gbk6LJA4bRC4LX"
+    },
+    {
+     "userId": "h0tkhn358lux6kr4xztqed3s",
+     "username": "Kimiko",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-h0tkhn358lux6kr4xztqed3s-main-6144f84f3bf3.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "EJcoqD3WrEiQSyG_aFA1M"
+    },
+    {
+     "userId": "Htnht8qOq0JuDOVSj7y9F",
+     "username": "Subaku Demon Lord",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Htnht8qOq0JuDOVSj7y9F-main-b94ee0b2b479.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "0Y5eJ6EbXhAO1CuOHAMXw"
+    },
+    {
+     "userId": "jjo-OnbmVjGztH2m4np3r",
+     "username": "Aurex, the Imperial Wyrm",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/fjKEEbBMty6rDK2fTb03U.png",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "XzVutLtRc9MUphmoNFatf"
+    },
+    {
+     "userId": "lrkoOwoDW2utSOeO_poNG",
+     "username": "Baby Wocky",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-lrkoOwoDW2utSOeO_poNG-main-fc27ef0546ab.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": null
+    },
+    {
+     "userId": "mGZm1NTqwcRNkDr5bLsaQ",
+     "username": "Maia of the Pleiades ",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-mGZm1NTqwcRNkDr5bLsaQ-main-5f2587d5e159.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "Q09Byi7MR8I0_aeReLMGb"
+    },
+    {
+     "userId": "OcS9D9dku4tM7s_JvbgLH",
+     "username": "Okami",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-OcS9D9dku4tM7s_JvbgLH-main-5d32c223c13e.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "EJcoqD3WrEiQSyG_aFA1M"
+    },
+    {
+     "userId": "OJ4mfMTWWr0sITFH8C2Au",
+     "username": "Yuki Onna",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-OJ4mfMTWWr0sITFH8C2Au-main-14aa580ddd66.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "ThEdonDtYq_VByUdG8_o2"
+    },
+    {
+     "userId": "rwh7txta9l7y9baz48olnaao",
+     "username": "Junko",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-rwh7txta9l7y9baz48olnaao-main-944739a9a2ae.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "mhQn9oqsSgeUGi9_vmLHv"
+    },
+    {
+     "userId": "s1wwyd11ljbxi9ny3qubtdhi",
+     "username": "Haruto",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-s1wwyd11ljbxi9ny3qubtdhi-main-4c4390661016.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lWZYKy7Gbk6LJA4bRC4LX"
+    },
+    {
+     "userId": "sxd1f3plxebhw4km47pgn4k4",
+     "username": "Hisame",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-sxd1f3plxebhw4km47pgn4k4-main-6c6cfeb5b958.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "MR_fA8wBEo3MTynPFgcsW"
+    },
+    {
+     "userId": "vod382vs003fpvgeujddzcas",
+     "username": "Ryouichi",
+     "level": 150,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-vod382vs003fpvgeujddzcas-main-3258637c4799.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "X_Dc6QIfTw3SQ1JsZCFpW"
+    },
+    {
+     "userId": "3TsBQVWHGoIjvduoYNQlD",
+     "username": "Veylan - Maw of the Pyre",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-3TsBQVWHGoIjvduoYNQlD-main-704c5e1aeee8.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "l35ENBnM0HkoOJQmHyMz-"
+    },
+    {
+     "userId": "aCZRjRc1Iemx41nkjwA94",
+     "username": "Frost Sovereign ",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-aCZRjRc1Iemx41nkjwA94-main-1da9dbd91b29.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "mtkwWopEPAPqNrKnk6Uod"
+    },
+    {
+     "userId": "LLy5QUFtasGU_Elp8RpEz",
+     "username": "Colossus",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-LLy5QUFtasGU_Elp8RpEz-main-2ca76f0cdd46.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "lWZYKy7Gbk6LJA4bRC4LX"
+    },
+    {
+     "userId": "OyR05D8xKtgJ99WJx905t",
+     "username": "Seichin no Mamori",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-OyR05D8xKtgJ99WJx905t-main-9dfd0e8e047a.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "igGCI33E1iIAshoij6Vwr"
+    },
+    {
+     "userId": "pUESbqbSQkf8jZ_RIatnC",
+     "username": "Anbu Chief",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-pUESbqbSQkf8jZ_RIatnC-main-0c94404cdae1.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "EJcoqD3WrEiQSyG_aFA1M"
+    },
+    {
+     "userId": "Vg5Tqp6mBvOJsm5zPMpdv",
+     "username": "Ravena Bloodsilk",
+     "level": 160,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Vg5Tqp6mBvOJsm5zPMpdv-main-6727156fd8c8.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "3k_M3znCtw6u59b-AMfsu"
+    },
+    {
+     "userId": "PABaty97w16YWPOW65iT0",
+     "username": "Yasei no Seirei",
+     "level": 170,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-PABaty97w16YWPOW65iT0-main-815013fbde9f.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "Zrhezx-1T43QHQYWMtKFP"
+    },
+    {
+     "userId": "7LMSPoGX6OMdjtpBu0mRs",
+     "username": "Daigo Muren",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-7LMSPoGX6OMdjtpBu0mRs-main-8d4c7721b095.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "CmREbOTQuaZU96M91aqiX"
+    },
+    {
+     "userId": "ehppLEarYZYcdXxRdz4fR",
+     "username": "Kazu DPS - copy",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-ehppLEarYZYcdXxRdz4fR-main-f0547a4a7b14.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "GMxlkBSJ35CWS48YhKoG6",
+     "username": "Pete-Za",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-GMxlkBSJ35CWS48YhKoG6-main-43e70c10e0b5.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "gY2ltbuVMyBgt3In4b6pP",
+     "username": "Kazu DPS",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-gY2ltbuVMyBgt3In4b6pP-main-f0547a4a7b14.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "jXgvKSBhhLCqhE9t4VzCX",
+     "username": "Kaizen Arakuro",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-jXgvKSBhhLCqhE9t4VzCX-main-f0f6a44e7702.webp",
+     "isSummon": true,
+     "inArena": true,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "kGvLf2fOt7AVSPumJGscA",
+     "username": "Demon of Tsuki",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-kGvLf2fOt7AVSPumJGscA-main-f0547a4a7b14.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "KluiFx_j3tHNZ1AMKaP8G",
+     "username": "Amir-The Hoarder ",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-KluiFx_j3tHNZ1AMKaP8G-main-ac8a8197aa50.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "4FiHLvQuO0wnMFvYvpiKr"
+    },
+    {
+     "userId": "PyOD1yzV9rtQiiMXwW38H",
+     "username": "Nyra Shinkai",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-PyOD1yzV9rtQiiMXwW38H-main-2e944dc607fc.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "HPcOWDYpDRQhFpSltktBF"
+    },
+    {
+     "userId": "SAZrjNFK30GatL9QsPZlN",
+     "username": "Kaze no Seirei ",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-SAZrjNFK30GatL9QsPZlN-main-4266bd4afe06.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "B5-3Oxp6M1_Eju5haKfE7"
+    },
+    {
+     "userId": "T8bCxVBlEMAioBwtqk7Fm",
+     "username": "Kazu DR",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-T8bCxVBlEMAioBwtqk7Fm-main-d0642a12c027.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "OKx6HW7Yxw5wO355KQTGJ"
+    },
+    {
+     "userId": "TOatobUxk7Flq7HWe4EfO",
+     "username": "Sorin Vey",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-TOatobUxk7Flq7HWe4EfO-main-5bd9ce3a2053.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "zEq8f9CwlAJLvzBmgH2oL"
+    },
+    {
+     "userId": "V2qtmcqQ7encMGIbay1TS",
+     "username": "Mira Kagetsu",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-V2qtmcqQ7encMGIbay1TS-main-bd36ddc3bbe7.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "OKx6HW7Yxw5wO355KQTGJ"
+    },
+    {
+     "userId": "XEF1l9ZgsrFqKiPWnanS9",
+     "username": "ANBU Member Crusty",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-XEF1l9ZgsrFqKiPWnanS9-main-9d9406ccd224.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "xRyxJQB3A3dVqGF6OLkGr",
+     "username": "Kazu Heal",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-xRyxJQB3A3dVqGF6OLkGr-main-aa17a230d222.webp",
+     "isSummon": true,
+     "inArena": false,
+     "aiProfileId": "tcx_EtYWPJeSwmOe2idMW"
+    },
+    {
+     "userId": "ZBIkFSPX25psvyIS2Is_y",
+     "username": "ANBU Member Mot-Zoella",
+     "level": 180,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-ZBIkFSPX25psvyIS2Is_y-main-b29d27c797e0.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "M44GVCZGyOIdVrHx4iUFL"
+    },
+    {
+     "userId": "2ynvJXB7NSFaa-Ygyuy_c",
+     "username": "Amaterasu's Avatar",
+     "level": 190,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-2ynvJXB7NSFaa-Ygyuy_c-main-3905dd4ba72b.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "E_dOmL70mzlwSQjxuNPb2"
+    },
+    {
+     "userId": "Q1ufQB8unfxIqkoGmRjuj",
+     "username": "Vulcan-Infernal Reaper",
+     "level": 200,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-Q1ufQB8unfxIqkoGmRjuj-main-b61bc6509ad7.webp",
+     "isSummon": false,
+     "inArena": true,
+     "aiProfileId": "tWxc6jutZfkP9C8w6mtAk"
+    },
+    {
+     "userId": "uO4sBfcUGUZ7SYUTEaq4Q",
+     "username": "Wayward Blade",
+     "level": 200,
+     "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-uO4sBfcUGUZ7SYUTEaq4Q-main-6a3b200cfb61.webp",
+     "isSummon": false,
+     "inArena": false,
+     "aiProfileId": "ut9tduz-TcEUjFf6qje3z"
+    }
+   ]
+  }
+ ]
+}

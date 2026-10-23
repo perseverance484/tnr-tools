@@ -1,0 +1,86 @@
+{
+ "_note": "READ-ONLY step 2 for the six-AI kit ticket (director, 2026-10-23): profile.getAi for Mara Vane (L70), Kellan Flint (L80), Sable Crow (L90), Brigg Tusk (L100), Yara Reed (L110), Goro Blackthorn (L120), plus ai.getAiProfile for the five that have their own profile (Kellan Flint has aiProfileId null). Ids from the public profile.getAllAiNames read in harvests/inbox/tnr_results_1792731029314.json. Zero items, zero writes.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fv33ZNwcZ_eXFWt-d-yrF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "dVr5LmHVke0wYz52uWlZr"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "FQ0ouWe29LXiUficxTACS"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "t4tCdrXKXhQ15l3u4XH-c"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "mNvh7ddWnV412kGt9zVX8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fh8BgCYYChLhPNMFKRZ4I"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "F8eVzXVU3ekx1UzbEio9A"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "opyANA6k6N4lidBPycSqq"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "bcs2bm8CO49lXl1yHiaFO"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "QY_Ed3-SmHqaVLOkT1mAy"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "q8Fe_k7Av6S_ESaQLtDYM"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
