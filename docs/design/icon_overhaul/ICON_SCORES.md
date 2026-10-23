@@ -35,7 +35,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 27 | Inferno Cataclysm | Bakuhatsu | 6/10 | Visuals do not look premium; reads as a lava skill rather than an explosion skill |
 | 28 | Kinetic Nova | Bakuhatsu | 9/10 | Pretty good; maybe a little polish |
 | 29 | Atomic Shield | Aerathiel | 1/10 | Not premium pixel art; wrong color scheme for Aerathiel; loses most of the teal and the particle-barrier look of the original for a generic bubble |
-| 30 | Death's March | Aerathiel |  |  |
+| 30 | Death's March | Aerathiel | 1/10 | Same art-style problem as the other Aerathiel icons; too similar to Windshear Decay and Atomic Shield |
 | 31 | Decaying Touch | Aerathiel |  |  |
 | 32 | Particle Cannon | Aerathiel |  |  |
 | 33 | Windshear Decay | Aerathiel |  |  |
