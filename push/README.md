@@ -586,10 +586,24 @@ Forge stores list procedures as counts only, so the names and ids are not in the
 `persist: "full"` is refused for list reads). The six ids come from the director's editor links instead. Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
-## 222 Six-AI capture: READY TO RUN
+## 222 Six-AI capture: RUN, archived
 
-Read-only step 2 for the six-AI kit ticket: `profile.getAi` ×6 and `ai.getAiProfile` ×5 (11 reads, zero writes). Ids
-come from one public `profile.getAllAiNames` read the director approved for this task (2026-10-23; no credentials,
-`harvests/inbox/tnr_results_1792731029314.json`, 544 AIs): Mara Vane L70 `fv33ZNwcZ_eXFWt-d-yrF`, Kellan Flint L80
-`dVr5LmHVke0wYz52uWlZr` (no own AI profile yet), Sable Crow L90 `FQ0ouWe29LXiUficxTACS`, Brigg Tusk L100
-`t4tCdrXKXhQ15l3u4XH-c`, Yara Reed L110 `mNvh7ddWnV412kGt9zVX8`, Goro Blackthorn L120 `fh8BgCYYChLhPNMFKRZ4I`.
+11/11 reads ok (`harvests/inbox/tnr_results_1792731111886.json`, Forge 0.8.1). All six are blank shells created
+2026-10-23 00:34Z: rank STUDENT (caps every stat at 20k in battle, `combat.ts:3058` at 107d7a8), uniform stats,
+masteries 10, no jutsu, no items, no preferred generals; the five with profiles have zero rules and
+`includeDefaultRules: true`. Avatars: one bandit war camp, weapon fighters. Archived under
+`archive/spent-manifests/push-2026-10-22/`.
+
+## 223 Six-AI kits, rank and rules: READY TO RUN (direct edit)
+
+`push/223_six_ai_kits.json`, built by `push/223_six_ai_kits.gen.py` (director-approved 2026-10-23). Rank JONIN for
+Mara Vane L70, Kellan Flint L80, Sable Crow L90 and Brigg Tusk L100; ELITE JONIN for Yara Reed L110 and Goro Blackthorn
+L120. Shared-pool kits as approved (5 jutsu; 6 for Yara and Goro). Rules: Second Wind only before round 5 and below
+50% HP (once per fight with its 6-round cooldown); stance unconditional; attacks strongest first, each gated at range+1
+(Suppressing Roar is ALL-method, ungated); `move_towards_opponent` last; `includeDefaultRules: false`. Forge creates
+Kellan Flint's AI profile before his rules. Everything else on each record is re-sent live. Ends with a
+`profile.getAi` read-back of all six. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors,
+0 warnings.
+
+Held for a director decision: the approved "Bukijutsu" preference. `preferredStat` no longer exists (stat rework); the
+nearest lever is `bukijutsuMastery`, an absolute number (all six sit at the floor, 10).
