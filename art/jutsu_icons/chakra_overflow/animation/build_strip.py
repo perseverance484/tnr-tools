@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble the Chakra Overflow cast animation from the art director's layers (route A), v3 (dissolve in and out).
+"""Assemble the Chakra Overflow cast animation from the art director's layers (route A), v5 (dissolve in and out, glint during the hold).
 
     python3 art/jutsu_icons/chakra_overflow/animation/build_strip.py [--frames N] [--size PX] [--preview DIR]
 
@@ -14,7 +14,7 @@ Final pose: wings at 0.98 scale, star narrowed to match the slimmer star of K4 (
 """
 import argparse, os
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = 1254          # raw canvas
@@ -83,32 +83,88 @@ def apply_dissolve(img, field, p, soft=0.14):
     return Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
 
 
+def glint_sparkle(size, rot_deg):
+    """A crisp four-point lens glint: long thin horizontal and vertical rays, short diagonal rays, a hot core.
+    Returned as a white RGBA layer of the working canvas size, centered."""
+    yy, xx = np.mgrid[0:W, 0:W].astype(np.float32)
+    cx, cy = W / 2, W / 2 + STAR_DY * U
+    th = np.deg2rad(rot_deg)
+    x = (xx - cx) * np.cos(th) + (yy - cy) * np.sin(th)
+    y = -(xx - cx) * np.sin(th) + (yy - cy) * np.cos(th)
+    L = max(size, 1e-3)
+    ray = lambda u, v, length, width: np.exp(-(v / (width * (1 - 0.7 * np.clip(np.abs(u) / length, 0, 1)) + 0.5)) ** 2) * np.clip(1 - np.abs(u) / length, 0, 1) ** 1.3
+    a = ray(x, y, L, 9.0) + ray(y, x, L * 1.3, 9.0)                       # main cross, vertical ray longest
+    d1, d2 = (x + y) / np.sqrt(2), (x - y) / np.sqrt(2)
+    a += 0.7 * (ray(d1, d2, L * 0.5, 6.0) + ray(d2, d1, L * 0.5, 6.0))   # short diagonal rays
+    a += 1.5 * np.exp(-(x * x + y * y) / (2 * (0.10 * L + 4.0) ** 2))      # hot core
+    a += 0.35 * np.exp(-(x * x + y * y) / (2 * (0.35 * L + 6.0) ** 2))     # soft halo
+    a = np.clip(a, 0, 1)
+    rgb = np.stack([np.full_like(a, 255), np.full_like(a, 250), np.full_like(a, 225)], -1)
+    return Image.fromarray(np.dstack([rgb, a * 255]).astype(np.uint8), 'RGBA')
+
+
+def brighten(img, mask_alpha, amount):
+    """Push the pixels under mask_alpha (0..1) toward white by `amount` (0..1), keeping the alpha."""
+    if amount <= 0.003:
+        return img
+    a = np.asarray(img).astype(np.float32)
+    k = (amount * mask_alpha)[..., None]
+    a[..., :3] = a[..., :3] + (255 - a[..., :3]) * k
+    return Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
+
+
 def build(n_frames):
-    """v3 (director: "faded in and out, like a dissolve effect"): the finished emblem materializes through a particle
-    dissolve, holds while sparks stream upward, then dissolves away. Nothing changes size or position."""
+    """v5 (director): dissolve in and out with a longer hold, and a glimmer while it holds: a band of light sweeps
+    across the star, the star shines brighter, and a crisp four-point glint flares at its heart, then winks out.
+    Timeline over the whole run: dissolve in 0-0.27, hold 0.27-0.73 (glint 0.42-0.64), dissolve out 0.73-1."""
     star, wings, flash, sparks = (load(f) for f in ('anim_co_L1_star.png', 'anim_co_L2_wings.png',
                                                      'anim_co_L3_flash.png', 'anim_co_L4_sparks.png'))
     emblem = Image.new('RGBA', (W, W), (0, 0, 0, 0))
     place(emblem, wings, WING_S, WING_S, dy=WING_DY)
-    place(emblem, star, STAR_SX, STAR_SY, dy=STAR_DY)
-    spark_layer = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    star_only = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    place(star_only, star, STAR_SX, STAR_SY, dy=STAR_DY)
+    emblem.alpha_composite(star_only)
+    star_mask = np.asarray(star_only)[..., 3].astype(np.float32) / 255
     field = dissolve_field()
+    yy, xx = np.mgrid[0:W, 0:W].astype(np.float32)
     frames = []
     for i in range(n_frames):
         t = i / (n_frames - 1)
         c = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-        p_in = ease_in_out(seg(t, 0.0, 0.32))          # dissolve in (about 0.7 s)
-        p_out = 1 - ease_in_out(seg(t, 0.68, 1.0))     # dissolve out (about 0.7 s), after a hold of about 0.8 s
+        p_in = ease_in_out(seg(t, 0.0, 0.27))          # dissolve in (about 0.7 s)
+        p_out = 1 - ease_in_out(seg(t, 0.73, 1.0))     # dissolve out (about 0.7 s), after a hold of about 1.2 s
         p = min(p_in, p_out)
+        # glimmer: a diagonal band of light sweeps across the star (0.42-0.56), the star swells brighter to a peak at
+        # 0.555, and the glint flares (0.52-0.555) then winks out to a point (0.555-0.60)
+        sweep = seg(t, 0.42, 0.56)
+        band_pos = -0.6 + 1.6 * ease_in_out(sweep)
+        diag = ((xx - W / 2) + (yy - W / 2)) / W
+        band = np.exp(-((diag - band_pos) / 0.11) ** 2) * (0 < sweep < 1)
+        glow = np.exp(-((t - 0.57) / 0.06) ** 2)
+        layer = brighten(emblem, np.clip(star_mask * (0.9 * band + 0.8 * glow), 0, 1), 1.0)
+        # a white bloom around the star at the peak, so "shines brighter" reads on top of an already bright star
+        bloom = Image.fromarray(np.dstack([np.full((W, W), 255), np.full((W, W), 248), np.full((W, W), 215),
+                                           np.asarray(Image.fromarray((star_mask * 255).astype(np.uint8)).filter(
+                                               ImageFilter.GaussianBlur(10))).astype(np.float32) * 0.85 * glow]).astype(np.uint8), 'RGBA')
         if p > 0:
-            c.alpha_composite(apply_dissolve(emblem, field, p))
-        # a soft swell of light at the heart as the emblem completes
-        fl = 0.55 * np.exp(-((t - 0.31) / 0.09) ** 2)
+            c.alpha_composite(apply_dissolve(layer, field, p))
+            if glow > 0.01:
+                c.alpha_composite(bloom)
+        # soft swell of light at the heart as the emblem completes, and a smaller one under the glint
+        fl = 0.55 * np.exp(-((t - 0.25) / 0.08) ** 2) + 0.5 * np.exp(-((t - 0.57) / 0.05) ** 2)
         place(c, flash, 0.42, 0.42, alpha=fl, dy=STAR_DY * 0.6)
+        # the glint itself: grows fast, holds a breath, winks out to a point
+        if 0.50 <= t <= 0.64:
+            grow = ease_out(seg(t, 0.50, 0.56))
+            wink = 1 - ease_in_out(seg(t, 0.58, 0.64))
+            size = W * 0.48 * grow * (0.10 + 0.90 * wink)
+            g = glint_sparkle(size, rot_deg=10 * seg(t, 0.50, 0.64))
+            ga = np.asarray(g).astype(np.float32); ga[..., 3] *= min(1, 1.3 * wink + 0.0) * grow
+            c.alpha_composite(Image.fromarray(ga.astype(np.uint8), 'RGBA'))
         # sparks stream upward during the hold and dissolve with the emblem
-        sp = seg(t, 0.24, 1.0)
+        sp = seg(t, 0.20, 1.0)
         s = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-        place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.24, 0.38), dy=60 - 150 * sp)
+        place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.20, 0.32), dy=60 - 160 * sp)
         if p_out < 1:
             s = apply_dissolve(s, 1 - field, p_out)
         c.alpha_composite(s)
@@ -118,8 +174,8 @@ def build(n_frames):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--frames', type=int, default=40)
-    ap.add_argument('--ms', type=int, default=2200, help='total duration in ms')
+    ap.add_argument('--frames', type=int, default=48)
+    ap.add_argument('--ms', type=int, default=2600, help='total duration in ms')
     ap.add_argument('--size', type=int, default=128)
     ap.add_argument('--preview')
     a = ap.parse_args()

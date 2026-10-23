@@ -130,3 +130,12 @@ while sparks stream upward, then dissolves away the same way. Nothing changes si
 Director: "Slower dissolve and longer hold, I feel like it plays too fast." Duration 1.3 s → 2.2 s: dissolve in about 0.7 s,
 hold about 0.8 s, dissolve out about 0.7 s. 40 frames of 128 px at speed 55 ms, 292,432 bytes (ceiling 460,800).
 `build_strip.py --frames N --ms T` sets both.
+
+## 10. Revision 5: longer hold and a glint (director, 2026-10-23)
+
+Director: "Make it hold a .4s longer and... make the star glint a bit, like a high quality glimmer animation that plays while
+it holds. Like it shines brighter then winks out." Duration 2.2 s → 2.6 s (dissolve in about 0.7 s, hold about 1.2 s,
+dissolve out about 0.7 s). During the hold: a diagonal band of light sweeps across the star, the star swells brighter with a
+soft white bloom, and a crisp four-point glint (long vertical ray, short diagonals, hot core, soft halo) flares at its heart,
+turns slightly, then shrinks to a point and winks out (about 0.35 s). Close-up of the glint frames:
+`docs/design/chakra_overflow/animation/glint_closeup.png`. 48 frames of 128 px at speed 54 ms, 421,512 bytes (ceiling 460,800).
