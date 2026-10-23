@@ -13,7 +13,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 5 | Earthen Bastion | Event | 4/10 | Does not read well as a skill icon; too busy and noisy |
 | 6 | Hollow Veil | Event | 9/10 | Very good; maybe a small silhouette upgrade |
 | 7 | Subaku Palace | Event | 6/10 | Good enough rendering, but does not read clearly as a skill icon |
-| 8 | Tempest Cleave | Event |  |  |
+| 8 | Tempest Cleave | Event | 0/10 | Total fail, do not reuse at all. Reads as a shuriken skill, not Tempest Cleave; not intimidating enough; wrong shape and art direction. Inspiration: an older version, a blue-white slicing whirlwind with lightning and cloud curls (`refs/08_tempest_cleave_older_version.png`, director's screenshot) |
 | 9 | Ethereal Nexus | Forbidden |  |  |
 | 10 | Ethereal Rebirth | Forbidden |  |  |
 | 11 | Poisonous Senbon | Normal |  |  |
