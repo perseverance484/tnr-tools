@@ -6,7 +6,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 
 | # | Jutsu | Family | Score | Player feedback |
 |---|---|---|---|---|
-| 1 | Abyss of Shadows | Event |  |  |
+| 1 | Abyss of Shadows | Event | 8/10 | Circular shape and red/black scheme make it hard to tell apart from BEE icons (Ring of Spilled Blood, Hemocure); visual register overlaps too much |
 | 2 | Blazing Fang Strike | Event |  |  |
 | 3 | Celestial Dew | Event |  |  |
 | 4 | Drops of Renewal | Event |  |  |
