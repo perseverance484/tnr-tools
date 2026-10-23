@@ -1,6 +1,6 @@
 {
  "_note": "Jutsu icon revert (director, 2026-10-23: 'Lets revert all our new icons. Players dont like them... prepare a manifest to reverse all jutsu to their original images'; 'We're not unequipping and re adding. Just changing the updated and originals back'). 59 jutsu whose LIVE image (public jutsu.getAll read, harvests/inbox/tnr_results_1792732003454.json) is ours: 49 found as URLs Forge uploaded (bundle idmaps), 10 more (the Blue Blade Eyes set plus Skyfang Burst and Celestial Bind, uploaded outside Forge) found by an exact perceptual match against art/ files. original_image = the earliest image captured for the jutsu that is not one of ours (all committed bundles plus docs/design/bloodright/balance/kits_from_reference_captures.json). Not included: jutsu whose new icons never went live (Sonic Slash, Water's Domain and the other overhaul jutsu), item icons (scrolls), and jutsu changed by other staff.",
- "count": 59,
+ "count": 51,
  "jutsu": [
   {
    "name": "Abyss of Shadows",
@@ -78,16 +78,6 @@
    "jutsuType": "BLOODLINE",
    "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/w91Cw7kZS6FUg7M_vsjKG.webp",
    "original_image": "https://ui0arpl8sm.ufs.sh/f/Pq0SVUbyI7RqGHpoTcLdF.jpg",
-   "original_first_seen": "2026-08-30",
-   "injectableInBattle": false,
-   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
-  },
-  {
-   "name": "Celestial Bind",
-   "id": "tQ_oLpiamgRF7CSIFoQfj",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/Pcn--et0IJ9tQBA_ZtS3g.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQLyPbhmojJ0EqeDCvBrNmZaXVdY97gSpOWi",
    "original_first_seen": "2026-08-30",
    "injectableInBattle": false,
    "evidence": "live image matches our art file exactly (perceptual match 1.00)"
@@ -173,16 +163,6 @@
    "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
-   "name": "Dragon Eye Awakening",
-   "id": "a7Xsm5Zcz9AbKUu_BBlHU",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/FKewqlF9Fk_RLNtE8aUdn.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ4P9JHzlYIif5CL8BKvMsOh2ZnmS7yHt0jTD3",
-   "original_first_seen": "2026-08-30",
-   "injectableInBattle": false,
-   "evidence": "uploaded by Forge (bundle idmap)"
-  },
-  {
    "name": "Drops of Renewal",
    "id": "-7jaNkJCvt3ByWhPJSw3E",
    "jutsuType": "EVENT",
@@ -241,16 +221,6 @@
    "original_first_seen": "2026-08-30",
    "injectableInBattle": false,
    "evidence": "live image matches our art file exactly (perceptual match 1.00)"
-  },
-  {
-   "name": "Heavenly Barrier",
-   "id": "FgmIkbsSAulI9c4PZgAyE",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/nBv-KoN4igj724R1Dj0Md.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0SKvcaIgrYldRWJcD6vE10SjNsXHeA9pVMfQ",
-   "original_first_seen": "2026-08-30",
-   "injectableInBattle": false,
-   "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
    "name": "Hemocure",
@@ -453,16 +423,6 @@
    "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
-   "name": "Skyfang Burst",
-   "id": "d85ZZO9LbAQvhfH9i73JX",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/BD46dAsI-Rf2M7U78E3p8.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAmQvfpKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
-   "original_first_seen": "2026-08-30",
-   "injectableInBattle": false,
-   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
-  },
-  {
    "name": "Soul Shackles",
    "id": "clh4d6psu0004tb0hsa5cshh6",
    "jutsuType": "NORMAL",
@@ -470,16 +430,6 @@
    "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJrtI7N6RhuJPmdY8zI2ptZXAoEj1c6BMKvrQO",
    "original_first_seen": "2023-06-06",
    "injectableInBattle": false,
-   "evidence": "uploaded by Forge (bundle idmap)"
-  },
-  {
-   "name": "Storm Dragons Halo",
-   "id": "GazEyKNZpxgMDuZyAeUfY",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/3qmFWpFGK_FJsjMVr2EXx.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJSY0ooS3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
-   "original_first_seen": "2026-08-30",
-   "injectableInBattle": true,
    "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
@@ -523,26 +473,6 @@
    "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
-   "name": "Tenryūseigan: Celestial Sealing - 86FM95zHP_PgZuJXFlbty",
-   "id": "86FM95zHP_PgZuJXFlbty",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/bK56Lz8O4hsimWBgStdVm.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk",
-   "original_first_seen": "2026-10-19",
-   "injectableInBattle": false,
-   "evidence": "uploaded by Forge (bundle idmap)"
-  },
-  {
-   "name": "Tenryūseigan: Tamashī no Sakeme - nM3rV7Z2uzokyoHD0TqHB",
-   "id": "nM3rV7Z2uzokyoHD0TqHB",
-   "jutsuType": "BLOODLINE",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/FdyHy3pdVlLslbvGPyZZ5.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
-   "original_first_seen": "2026-10-20",
-   "injectableInBattle": false,
-   "evidence": "uploaded by Forge (bundle idmap)"
-  },
-  {
    "name": "Thousand Strike",
    "id": "znPva-HIAz4EkyuKm2oh0",
    "jutsuType": "BLOODLINE",
@@ -573,16 +503,6 @@
    "evidence": "uploaded by Forge (bundle idmap)"
   },
   {
-   "name": "Void Gaze Rift",
-   "id": "nry9aXIAr29hJvvOjh67V",
-   "jutsuType": "SPECIAL",
-   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/DR6BH0l0TSTdGcbEWv2dd.webp",
-   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
-   "original_first_seen": "2026-10-21",
-   "injectableInBattle": true,
-   "evidence": "uploaded by Forge (bundle idmap)"
-  },
-  {
    "name": "Windshear Decay",
    "id": "VmoEzExhfgtzme2b5RuzJ",
    "jutsuType": "BLOODLINE",
@@ -592,5 +512,22 @@
    "injectableInBattle": false,
    "evidence": "uploaded by Forge (bundle idmap)"
   }
- ]
+ ],
+ "excluded_by_director": {
+  "ruling": "Director, 2026-10-23: 'We dont revert Tenryuseigan or ethereal monarch'",
+  "bloodline_ids": [
+   "IxhIoLEmznqdcnc_6MCN9",
+   "ieDD4S_zzLMmVadUuD69s"
+  ],
+  "jutsu": [
+   "Celestial Bind",
+   "Dragon Eye Awakening",
+   "Heavenly Barrier",
+   "Skyfang Burst",
+   "Storm Dragons Halo",
+   "Tenryūseigan: Celestial Sealing - 86FM95zHP_PgZuJXFlbty",
+   "Tenryūseigan: Tamashī no Sakeme - nM3rV7Z2uzokyoHD0TqHB",
+   "Void Gaze Rift"
+  ]
+ }
 }

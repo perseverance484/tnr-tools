@@ -658,6 +658,10 @@ the id does not change) and push/224 and push/225 run.
 
 ## 227 Revert our new jutsu icons: READY TO RUN (direct)
 
+**Revised (director, 2026-10-23): "We dont revert Tenryuseigan or ethereal monarch"** — the 8 Ethereal Monarch jutsu (Celestial Bind,
+Dragon Eye Awakening, Heavenly Barrier, Skyfang Burst, Storm Dragons Halo, the two "Tenryūseigan:" copies, Void Gaze Rift) are
+excluded, so the manifest now edits **51** jutsu (the counts below describe the original 59-jutsu scan).
+
 Director (2026-10-23): "Lets revert all our new icons. Players dont like them. We'll have to start over and go slower. One
 icon at a time, a full premium rework for the entire jutsu." and "We're not unequipping and re adding. Just changing the
 updated and originals back." 59 jutsu get their **original image** back; each edit sends only `image` plus
