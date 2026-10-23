@@ -20,7 +20,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 12 | Replacement Technique | Normal | 3/10 | Good image on its own, but players missed the old one, which captured the skill better. Direction: try working the two together |
 | 13 | Searing Might | Normal | 2/10 | Too literal with the shield; art does not read as TNR premium pixel art |
 | 14 | Soul Shackles | Normal | 4/10 | Decent, but the shackles go nowhere and stop midair. Direction: chains spread straight across the icon |
-| 15 | Venomous Phobia. | Normal |  |  |
+| 15 | Venomous Phobia. | Normal | 7/10 | Pretty good; needs a better silhouette, that's it |
 | 16 | Crimson Impact | Blood-Enchanted Eyes |  |  |
 | 17 | Crimson Tithe | Blood-Enchanted Eyes |  |  |
 | 18 | Hemocure | Blood-Enchanted Eyes |  |  |
