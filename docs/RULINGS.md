@@ -2247,6 +2247,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Amendment (2026-10-23):** concept is **boundless chakra**, not a vessel overflowing. User: "An item doesnt need to overflow, the chakra we're depicting is what's overflowing. You're activitating this flow of energy by using the technique. So we want to convey boundless chakra with this icon." D1 and the hybrids are retired; color C reads as intensity. Round 2 brief: `docs/design/chakra_overflow/DRAFT1_REVIEW.md` section 6.
 
+**Amendment 2 (2026-10-23):** from round 2 the director favors R2-2, R2-4 and R2-6 but found the silhouette unclear; direction for round 3 is **the rising star** (a four-point star core with chakra wings swept upward into a chevron), the chevron **subtle** (user: "Subtler"). Prompt: `docs/handoffs/CHAKRA_OVERFLOW_ROUND3_SESSION_PROMPT.md`.
 
 ## RUL-2026-10-23-003 — Ghost Ship becomes the Skyglass Wreck party dungeon; profession quests retired
 
