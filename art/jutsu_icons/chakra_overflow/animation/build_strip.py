@@ -97,18 +97,18 @@ def build(n_frames):
     for i in range(n_frames):
         t = i / (n_frames - 1)
         c = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-        p_in = ease_in_out(seg(t, 0.0, 0.38))          # dissolve in
-        p_out = 1 - ease_in_out(seg(t, 0.64, 1.0))     # dissolve out
+        p_in = ease_in_out(seg(t, 0.0, 0.32))          # dissolve in (about 0.7 s)
+        p_out = 1 - ease_in_out(seg(t, 0.68, 1.0))     # dissolve out (about 0.7 s), after a hold of about 0.8 s
         p = min(p_in, p_out)
         if p > 0:
             c.alpha_composite(apply_dissolve(emblem, field, p))
         # a soft swell of light at the heart as the emblem completes
-        fl = 0.55 * np.exp(-((t - 0.36) / 0.10) ** 2)
+        fl = 0.55 * np.exp(-((t - 0.31) / 0.09) ** 2)
         place(c, flash, 0.42, 0.42, alpha=fl, dy=STAR_DY * 0.6)
         # sparks stream upward during the hold and dissolve with the emblem
-        sp = seg(t, 0.30, 1.0)
+        sp = seg(t, 0.24, 1.0)
         s = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-        place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.30, 0.44), dy=60 - 140 * sp)
+        place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.24, 0.38), dy=60 - 150 * sp)
         if p_out < 1:
             s = apply_dissolve(s, 1 - field, p_out)
         c.alpha_composite(s)
@@ -118,7 +118,8 @@ def build(n_frames):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--frames', type=int, default=30)
+    ap.add_argument('--frames', type=int, default=40)
+    ap.add_argument('--ms', type=int, default=2200, help='total duration in ms')
     ap.add_argument('--size', type=int, default=128)
     ap.add_argument('--preview')
     a = ap.parse_args()
@@ -129,7 +130,7 @@ def main():
     os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
     out = os.path.join(HERE, 'exports', 'anim_chakra_overflow_v1.webp')
     strip.save(out, 'WEBP', lossless=True, method=6)
-    speed = round(1300 / len(frames))
+    speed = round(a.ms / len(frames))
     print(out, strip.size, os.path.getsize(out), 'bytes', f'{len(frames)} frames, speed {speed} ms')
     if a.preview:
         bgs = [(15, 23, 42), (120, 150, 90), (230, 235, 240)]
