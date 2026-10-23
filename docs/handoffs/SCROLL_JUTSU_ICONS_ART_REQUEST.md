@@ -53,14 +53,15 @@ Each silhouette is unique in this set; pass the others as **text exclusions**, n
 | 4 | Blazing Fang Strike (`l3oXmqSJ7L-r4XI9IBIyh`) | piercing strike with afterburn | Scroll of Blazing: **fang red-orange flame** | **a serpentine fire dragon with bared fangs** (delivered 2026-10-23; was "three flaming fangs") | `icon_jutsu_blazing_fang_strike_v1.webp` |
 | 5 | Celestial Dew (`2vNeMhph6A9Ld--WXa35O`) | self: heal and shield | Scroll of Celestial Dew: **pearl white, pale blue starlight** | a **crescent moon** letting fall **one glowing dew drop** onto a soft dome of light | `icon_jutsu_celestial_dew_v1.webp` |
 | 6 | Hollow Veil (`GAhckNCW8xUES4YGTJPGL`) | on the target: deals less damage; absorb | Scroll of Hollow Veil: **ash grey, bone white** (set-3 redo) | a **drifting translucent veil** with a hollow empty centre, frayed ash edges | `icon_jutsu_hollow_veil_v1.webp` |
-| 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | a **kite shield made of oxblood shadow**, its rim unravelling into reaching tendrils | `icon_jutsu_aegis_of_shadows_v1.webp` |
+| 7 | Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) | on the target: deals less damage, takes more | Scroll of Shadows: **oxblood crimson on black** | **renamed Abyss of Shadows** (director, 2026-10-23): a **gaping oxblood abyss**, a pit of shadow energy yawning open in the dark, a cracked blade and a cracked shield sinking into its depths, tendrils rising round the rim; must read as a pit seen from above, not a ring (Tempest Cleave) or a spiral (Drops of Renewal) | `icon_jutsu_abyss_of_shadows_v1.webp` |
 | 8 | Ethereal Nexus (`iktsCP-RjIhlYlsTg-JTN`), forbidden | damage, lifesteal, target takes more damage | Forbidden Nexus: **magenta seals**, black chain accents | **three magenta energy streams converging into a knot**, a thin red life-thread drawn back out | `icon_jutsu_ethereal_nexus_v1.webp` |
 | 9 | Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`), forbidden | damage, absorb, target deals less damage | Forbidden Rebirth: **emerald green seals**, black chain accents | an **emerald phoenix-like ember rising** out of a cracked seal ring (no bird head detail needed) | `icon_jutsu_ethereal_rebirth_v1.webp` |
 | 10 | Subaku Palace (`jELEiw5W3N4m2R3oJm3Pk`) | area spiral; stats buff/debuff | Demon Scroll: Subaku Palace (new, set-3 #11): **rust sandstone with demon gold** | a **demonic pagoda gate** silhouette of rust sandstone, a gold-lit spiral sigil on the ground before it | `icon_jutsu_subaku_palace_v1.webp` |
 
-Mechanics note for the director: Aegis of Shadows' description says it "creates a shadow barrier that absorbs
-attacks", but its effects are two debuffs on the target. The icon follows the name (a shield) as the director's
-earlier text choices do; the description mismatch is a separate text item.
+Aegis of Shadows is being renamed **Abyss of Shadows** (director, 2026-10-23): it no longer shields the user; it curses
+the target (deals less damage, takes more, 2 rounds). The icon follows the new name; the rename and new texts go in a
+separate text ticket (`docs/design/jutsu_overhaul/ABYSS_OF_SHADOWS_TEXT.md`). Delivery filename
+`icon_jutsu_abyss_of_shadows_v1.webp`.
 
 ## 5. References per session (attach as real image bytes, one or two files, never a collage)
 

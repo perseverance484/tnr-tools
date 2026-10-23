@@ -2208,3 +2208,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/scroll_icons/SCROLL_ICON_ROADMAP.md`.
 
 **Boundary:** Colour slots are proposals until the director approves each raw. No upload without a ticket.
+
+## RUL-2026-10-23-001 — Aegis of Shadows renamed Abyss of Shadows
+
+**Date:** 2026-10-23
+
+**Domain:** Jutsu naming / event jutsu text and icon
+
+**Status:** ACTIVE (name decided; description and battle line pending the director's pick)
+
+**Supersedes:** none
+
+**Ruling:** Event jutsu Aegis of Shadows (`XS08zZhUhK615Dle4j3f3`) is renamed **Abyss of Shadows**: it curses the target (deals less damage, takes more) rather than shielding the user. Its new icon shows a gaping oxblood abyss swallowing a cracked blade and shield; its texts are rewritten in premium event voice; the Scroll of Shadows description names the new jutsu. Oxblood and shadow theme approved.
+
+**Evidence:** User, 2026-10-23: "Aegis needs a rename and jutsu description adjustment along with its icon... Its more of a curse than an Aegis now"; "The oxblood and shadow theme from the scroll is approved. The description needs to be more premium"; "Abyss of Shadows is the one. The enemy is engulfed in an abyss of shadow energy that dulls their offensive moves and cuts their defensive abilities".
+
+**Canonical destination:** `docs/design/jutsu_overhaul/ABYSS_OF_SHADOWS_TEXT.md`; icon row in `docs/handoffs/SCROLL_JUTSU_ICONS_ART_REQUEST.md`.
+
+**Boundary:** The rename ships as a review-desk text suggestion, after the combined icon ticket resolves on this record.
