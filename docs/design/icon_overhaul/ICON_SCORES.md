@@ -11,7 +11,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 3 | Celestial Dew | Event | 10/10 | No notes; well liked |
 | 4 | Drops of Renewal | Event | 6/10 | Too realistic: the drop reads as plain water, not restorative energy; does not read well as a skill icon |
 | 5 | Earthen Bastion | Event | 4/10 | Does not read well as a skill icon; too busy and noisy |
-| 6 | Hollow Veil | Event |  |  |
+| 6 | Hollow Veil | Event | 9/10 | Very good; maybe a small silhouette upgrade |
 | 7 | Subaku Palace | Event |  |  |
 | 8 | Tempest Cleave | Event |  |  |
 | 9 | Ethereal Nexus | Forbidden |  |  |
