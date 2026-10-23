@@ -45,7 +45,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 37 | Scorch Break | Vaporia | 6/10 | Needs more premium art |
 | 38 | Surfing Strike | Vaporia | 6/10 | Needs more premium art; resembles Azure Dragon Palm too much at thumbnail size |
 | 39 | Crystal Cave | Crystal Essence | 10/10 | No notes |
-| 40 | Crystal Sphere | Crystal Essence |  |  |
+| 40 | Crystal Sphere | Crystal Essence | 10/10 | No notes |
 | 41 | Kōsai Shippū | Crystal Essence |  |  |
 | 42 | Prism | Crystal Essence |  |  |
 | 43 | Summoning: Jade | Crystal Essence |  |  |
