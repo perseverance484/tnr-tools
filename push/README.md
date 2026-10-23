@@ -612,3 +612,11 @@ Kellan Flint's AI profile before his rules. Everything else on each record is re
 
 Held for a director decision: the approved "Bukijutsu" preference. `preferredStat` no longer exists (stat rework); the
 nearest lever is `bukijutsuMastery`, an absolute number (all six sit at the floor, 10).
+
+## 224 Jutsu upgrade batch 1 capture: READY TO RUN
+
+Read-only: `jutsu.get` for the ten batch-1 jutsu (Chakra Overflow, Summoning: Titanoboa, Crimson Vein, Abyssal Wraith,
+Clone Technique, Faint Shadow, Body Flicker, Terra Shift, Crescent Strike, Rotting Bite) and `profile.getAi` for the 26
+live AIs no committed bundle has read, to finish the AI-equip check (laws 18, 60). 36 reads, zero writes. Batch plan:
+`docs/design/jutsu_overhaul/PRIORITY_TARGETS_2026-10-23.md`; text drafts `docs/design/jutsu_overhaul/BATCH1_TEXT_DRAFTS.md`;
+art request `docs/handoffs/JUTSU_BATCH1_ICONS_ART_REQUEST.md`.
