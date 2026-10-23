@@ -15,6 +15,8 @@
   census; current icons downloaded from the image CDN 2026-10-22 (`docs/design/scroll_icons/sheet_live_scroll_jutsu_2026-10-22.png`).
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
 
+**Delivered:** 1/10. Earthen Bastion (`art/jutsu_icons/scroll_jutsu/raws/raw_jutsu_earthen_bastion_v1.png` → `exports/icon_jutsu_earthen_bastion_v1.webp`, opaque 256x256 lossless, `artpreflight --type JUTSU_ICON` clean; near-black ground with base glow, as Poisonous Senbon was accepted), 2026-10-23.
+
 ## 1. Why
 
 Every current icon for these jutsu is a small pixel scene of a ninja figure posing (sheet above). At 64 px and below
@@ -113,9 +115,8 @@ with a ledger row (filename, jutsu, pixel size, bytes). Do not process or upload
   (`SCROLL_ICONS_SET3_ART_REQUEST.md`): one suggest-mode manifest for the scroll items, the Colored Jewel and these jutsu.
 - **One suggest-mode manifest** for all delivered icons, one suggestion per jutsu, `image` only, `injectableInBattle`
   re-sent at its live value (law 20), from a fresh capture of the ten jutsu taken just before the build.
-- **Open text suggestions:** at the last ledger (push/203), round-2 text suggestions were still PENDING on Aegis of
-  Shadows, Blazing Fang Strike, Celestial Dew, Subaku Palace and Tempest Cleave. One open suggestion per record: those
-  must be approved or rejected before their icon suggestions go in.
+- **Open text suggestions:** the round-2 text suggestions on Aegis of Shadows, Blazing Fang Strike, Celestial Dew,
+  Subaku Palace and Tempest Cleave were resolved by the director (2026-10-23); no open suggestion blocks the ticket.
 - **Earthen Bastion is equipped by an AI (War Commander, 2026-10-21 census).** Director, 2026-10-22: "Include it. I'll
   reequip later." It goes in the combined ticket like the others; approving its suggestion edits the jutsu and severs
   War Commander's link (laws 18, 60), and the director re-equips War Commander afterwards. The ticket note says so.
