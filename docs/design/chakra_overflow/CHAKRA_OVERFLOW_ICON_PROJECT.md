@@ -103,3 +103,9 @@ the CO-H hybrids are retired; D2's energy rising upward survives, drawn as chakr
 stands, read as intensity (blue at the outer reaches, gold and white-hot at the source). Round 2 brief:
 `DRAFT1_REVIEW.md` section 6.
 
+## 10. Round 2 result and round 3 direction (director, 2026-10-23)
+
+Favorites R2-2, R2-4, R2-6 (`review/round2_in_context.png`); the silhouette was not obvious and all six were far too
+dark and thin (mean luminance 22-31, 12-16% lit). Shape tests (`review/round2_shape_tests.png`) favored the
+**rising star**; the director chose a **subtle** chevron. Round 3 prompt: `docs/handoffs/CHAKRA_OVERFLOW_ROUND3_SESSION_PROMPT.md`.
+
