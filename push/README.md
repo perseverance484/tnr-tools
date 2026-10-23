@@ -594,7 +594,12 @@ masteries 10, no jutsu, no items, no preferred generals; the five with profiles 
 `includeDefaultRules: true`. Avatars: one bandit war camp, weapon fighters. Archived under
 `archive/spent-manifests/push-2026-10-22/`.
 
-## 223 Six-AI kits, rank and rules: READY TO RUN (direct edit)
+## 223 Six-AI kits, rank and rules: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792731720123.json` (Forge 0.8.1): DONE, 6/6 VERIFIED (postflight 6 match, 0 diff),
+rules read back through `ai.getAiProfile`. Read-back: ranks as sent, every kit exact and equipped, stats and HP
+unchanged; Kellan Flint now has AI profile `CM9dKeScfpLepDYMx_KIX`. Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`; the generator stays at `push/223_six_ai_kits.gen.py`. As built:
 
 `push/223_six_ai_kits.json`, built by `push/223_six_ai_kits.gen.py` (director-approved 2026-10-23). Rank JONIN for
 Mara Vane L70, Kellan Flint L80, Sable Crow L90 and Brigg Tusk L100; ELITE JONIN for Yara Reed L110 and Goro Blackthorn
