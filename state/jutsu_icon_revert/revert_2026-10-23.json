@@ -1,0 +1,596 @@
+{
+ "_note": "Jutsu icon revert (director, 2026-10-23: 'Lets revert all our new icons. Players dont like them... prepare a manifest to reverse all jutsu to their original images'; 'We're not unequipping and re adding. Just changing the updated and originals back'). 59 jutsu whose LIVE image (public jutsu.getAll read, harvests/inbox/tnr_results_1792732003454.json) is ours: 49 found as URLs Forge uploaded (bundle idmaps), 10 more (the Blue Blade Eyes set plus Skyfang Burst and Celestial Bind, uploaded outside Forge) found by an exact perceptual match against art/ files. original_image = the earliest image captured for the jutsu that is not one of ours (all committed bundles plus docs/design/bloodright/balance/kits_from_reference_captures.json). Not included: jutsu whose new icons never went live (Sonic Slash, Water's Domain and the other overhaul jutsu), item icons (scrolls), and jutsu changed by other staff.",
+ "count": 59,
+ "jutsu": [
+  {
+   "name": "Abyss of Shadows",
+   "id": "XS08zZhUhK615Dle4j3f3",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/BgrWWbBtyOfngxTlyNrg7.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJtuG8p3UYJDfpFXWm3nrcPluEtIZqyLkaSV1j",
+   "original_first_seen": "2024-12-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Arctic Frost",
+   "id": "0tPhVC7G21Ej99YSICtJO",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/VBbzh_IZNWJx0v-_64wul.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/8nn1XUWHtOK85r5_aVR8h.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Atomic Shield",
+   "id": "FGSJC-7Zd0BYh7-tvsUdH",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/p_PfPraibI9zT2Nmib4R0.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJdTVvgGP62PI3ciLaYzgVX8FopBADxSrGmvQl",
+   "original_first_seen": "2024-02-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Azure Dragon Palm",
+   "id": "pBsG-Jw4TTkSjxfqzjG6b",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/_cUoYZoKioQaTPVOpmKNe.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJHWFqfJQvYURJhgs76VZtf9wxpMa13Cq0iOnr",
+   "original_first_seen": "2023-10-12",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Blade Resonance",
+   "id": "TFRsEeV-VacukUUop-dtN",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/TcryPMpZMXDn6BapE14-w.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/RudaFt_EHPQv89zPp-3zG.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Blast Shield",
+   "id": "Awyd1k1-tw4uzn-PLbcdP",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/RvBMeYkcR92B2RFsY_rv3.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJDGyrUDzEwoh0WXMnscL279N8ayVQUCbRzS3p",
+   "original_first_seen": "2024-03-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Blazing Fang Strike",
+   "id": "l3oXmqSJ7L-r4XI9IBIyh",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/i7JYNmkFS4Q3zPMWH5l3w.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2uD2mSnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+   "original_first_seen": "2024-12-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Blue Crimson",
+   "id": "bxIPWiqiEaCmPYfAysB5a",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/w91Cw7kZS6FUg7M_vsjKG.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Pq0SVUbyI7RqGHpoTcLdF.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Celestial Bind",
+   "id": "tQ_oLpiamgRF7CSIFoQfj",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/Pcn--et0IJ9tQBA_ZtS3g.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJnQLyPbhmojJ0EqeDCvBrNmZaXVdY97gSpOWi",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Celestial Dew",
+   "id": "2vNeMhph6A9Ld--WXa35O",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/G-wjyAHTeK9vk6lnjUxRw.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJd7rEXBP62PI3ciLaYzgVX8FopBADxSrGmvQl",
+   "original_first_seen": "2024-12-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Charge 4 Explosion",
+   "id": "rOqCTqNBSW_A-QYesFBw9",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/3nb2koylbqG-XyO0ochqA.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJmm6g6eHE4IMO5Goa7cgLxPJ0VC6lU8vbt1Ap",
+   "original_first_seen": "2024-03-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Crimson Impact",
+   "id": "fKEHVLvvj6q_b4l_X_k4k",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/MQQ6Eov3AcXB1YImyEjmF.webp",
+   "original_image": "https://utfs.io/f/Hzww9EQvYURJXPgB8JiqIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+   "original_first_seen": "2023-12-31",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Crimson Tithe",
+   "id": "zor6cX3qn2eTObW0fveBk",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/g2SCTEz0Q1fPKM8KQjqz4.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/0FedxTYkHj6qJa7CyIZbt.jpg",
+   "original_first_seen": "2026-07-27",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Crystal Cave",
+   "id": "AggTDO90TarIRTPqGdvvY",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/QsMAIVjSkaEW6kuxu5R4M.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJQlMugrqjhzBPya1rwfCIqOTU0cV5xgsMeo3u",
+   "original_first_seen": "2023-11-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Crystal Sphere",
+   "id": "zKK0rjIJqbpSiTw7McDAv",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/WoJbgO6RQTuUi-_HqQdoH.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJUWxF4S6ILCIhwPniJ69VxpvAbTDWkOyGzS8r",
+   "original_first_seen": "2023-11-15",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Death's March",
+   "id": "UgYXqNIJNjLGkAS5b5udH",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/JU_JG_oMOhnF9anYhAAv1.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJwRWzxAT2j854CWbaITZyegfXimvd7s16cO0h",
+   "original_first_seen": "2024-02-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Decaying Touch",
+   "id": "Zr6Zo2NcXxWuL13ufQsHw",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/6lkOgutxdynF6dYMd77MK.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJlJENRqrWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+   "original_first_seen": "2024-02-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Dragon Eye Awakening",
+   "id": "a7Xsm5Zcz9AbKUu_BBlHU",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/FKewqlF9Fk_RLNtE8aUdn.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ4P9JHzlYIif5CL8BKvMsOh2ZnmS7yHt0jTD3",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Drops of Renewal",
+   "id": "-7jaNkJCvt3ByWhPJSw3E",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/vb-WQAbwuXmAxB_KOBoM5.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJeCQqolbyV3OvUJQExAi0bGoIZDF74LqSnHRd",
+   "original_first_seen": "2024-12-24",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Drowning Strike",
+   "id": "eZqJ9qJ_f43VRg_HhRiyb",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/57Xm-Ip7L9-yDuzmFv25s.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJGvsloHRfoVrha0LP4mAS5KM7wtiZbUNXJxdC",
+   "original_first_seen": "2024-04-04",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Earthen Bastion",
+   "id": "_zNMEZqIzgjTqXoXQRWz0",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/GW6HYydzLHXGy3kfSS43S.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJDMlG4ezEwoh0WXMnscL279N8ayVQUCbRzS3p",
+   "original_first_seen": "2024-12-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Ethereal Nexus",
+   "id": "iktsCP-RjIhlYlsTg-JTN",
+   "jutsuType": "FORBIDDEN",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/zu9rDye8gKYMtluaQxSgV.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJy46PovukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+   "original_first_seen": "2024-10-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Ethereal Rebirth",
+   "id": "K0t6Z-Q4lau1jFt8Tkpot",
+   "jutsuType": "FORBIDDEN",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/Zq5wtCDd-dOa9nUWfiNs8.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJbsEeGmAtYUndMi56GkX19q0A4PzyeIloBrEa",
+   "original_first_seen": "2026-08-24",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Glacial Volley",
+   "id": "Bw2OBS92Xi-4YlfErS632",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/5b9RD4RwXz1vNOE-OrLA8.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/cS8Um_JDzC6dmyDS8jKXr.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Heavenly Barrier",
+   "id": "FgmIkbsSAulI9c4PZgAyE",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/nBv-KoN4igj724R1Dj0Md.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0SKvcaIgrYldRWJcD6vE10SjNsXHeA9pVMfQ",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Hemocure",
+   "id": "9VRW6hqSoQuz5PA203jFE",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/h1PiVus0VgjKb7KCJyPAy.webp",
+   "original_image": "https://utfs.io/f/Hzww9EQvYURJ78weVwXKPBOUWGyFuM4DlL1v5HNTZhkte0z6",
+   "original_first_seen": "2023-09-22",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Hollow Veil",
+   "id": "GAhckNCW8xUES4YGTJPGL",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/fgTC_XZ3ez8tmVkT4xxuQ.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJzIz8wgemvaQu94EYJs8HpxVzofny6iPtbgCZ",
+   "original_first_seen": "2026-08-24",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Howitzer Crash",
+   "id": "hW4IV1Hp59BqVFx0u-gTd",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/xC5I31y-q2J9kk9AnIpii.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJvfTVgNpEmSnXwslYEpV1yOeNL8gMtqhjPdf3",
+   "original_first_seen": "2024-03-15",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Ice Shackles",
+   "id": "Aff56oo9BFTcoLLeEyOja",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/nkjCQfj8t-oonmNL1Vjcf.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Vkmo6njj6uSoj1ik6vFGx.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Icebound Might",
+   "id": "YGBz7eIDvLwWXSVFEcK9j",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/7gw_ineKdEStAODkP-Imc.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/xN2IwEyHvMpnWUy6wp1y5.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Inferno Cataclysm",
+   "id": "FTTl_wnTlbvOfOyiGCc-b",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/hsagpzdhsU1hU9XpdKa2h.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJzDu0tpemvaQu94EYJs8HpxVzofny6iPtbgCZ",
+   "original_first_seen": "2024-08-18",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Kinetic Nova",
+   "id": "y8y01n9jz16bz5EBzl4wr",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/V-YFaBELZfFQ_xL6ZXawP.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJgYZyUAcU9cpECTimBdjaqbNn7vQsxGR1wLk4",
+   "original_first_seen": "2024-03-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Kōsai Shippū",
+   "id": "igPSz82fa_L2XPrtnMvnz",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/Lba0VnegJiA6J6SE0xRLw.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJMIsNab6tsO4cexqW2RDgkE3zZbNXSFGitmna",
+   "original_first_seen": "2023-11-15",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Liquid Ember Shell",
+   "id": "fWb24FYrbTqYvE9GIEA49",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/amWN-ocawQd6-r6utGzAU.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJz1giKsemvaQu94EYJs8HpxVzofny6iPtbgCZ",
+   "original_first_seen": "2024-08-18",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Particle Cannon",
+   "id": "egtCp5UC5pRwxz7egJm7J",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/qpOQwJzGlRyx_nIhdU7DR.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJYf3EJgOMAlNnPZ41ev6fCGcFK3hmjX9I8W7d",
+   "original_first_seen": "2024-02-09",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Poisonous Senbon",
+   "id": "H9XLJiU1YEro03QJ2mH8q",
+   "jutsuType": "NORMAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/pSK7PFd26gAr1dk8ZWW6A.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJZ7MZMTaYQrBIUTu69nkMxWmS4ah0O7LVCp8b",
+   "original_first_seen": "2023-07-10",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Prism",
+   "id": "6XpY1m4rAwrBHBKYsPRDJ",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/jRiw0n1-GSuNPSq-HiSdj.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJxEYSyMWZsq9k0Von5rUfP6OgQ2TyptCKHS4u",
+   "original_first_seen": "2023-11-15",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Quintessential Flake",
+   "id": "dXOjSl1vNp5G5BsFrNPkh",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/QOl6EKXJSsv_DMo4UJ0Nt.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/0qTvniIzxdrBKC3yEYCft.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Reaper's Embrace",
+   "id": "7RtWUduLzfIPOlWdo-NIu",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/b0UhHFlBfP-vdyBIX-d6i.webp",
+   "original_image": "https://utfs.io/f/Hzww9EQvYURJ7W1IP2XKPBOUWGyFuM4DlL1v5HNTZhkte0z6",
+   "original_first_seen": "2024-08-16",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Replacement Technique",
+   "id": "clh4d6pok0002tb0hx1bxro6l",
+   "jutsuType": "NORMAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/_V5I1LkCGjD7Ep16q-gdB.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJZtjLXMaYQrBIUTu69nkMxWmS4ah0O7LVCp8b",
+   "original_first_seen": "2023-06-06",
+   "injectableInBattle": true,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Ring of Spilled Blood",
+   "id": "OeFCfJ--gEL_FioGfQvTY",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/vEOTwBTH7jkUZl3Mle6Se.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/jrFIplTWjhRwxfbBotvrR.jpg",
+   "original_first_seen": "2026-07-27",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Sanguine Plague",
+   "id": "XIcRftgH-UOJCdl91wbRD",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/PUXg9NkuF6NANTNI-aElz.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/dZWrTapEdzbx-wbB9xjn1.jpg",
+   "original_first_seen": "2026-07-26",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Sapphire Command",
+   "id": "gIEy7THAZdXgcak5zs5U6",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/H4IvcMq1Re1Y9bL2uSCcS.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/qz3FGzDMjoWh4zPy0L6-b.jpg",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Scorch Break",
+   "id": "6v7dfraXRVo5K3NbgixzT",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/62fHEuIiD6V-Wzq-WeuDn.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPZbQTzpKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
+   "original_first_seen": "2023-10-12",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Searing Might",
+   "id": "clh4d6q1j0008tb0hzthddb6m",
+   "jutsuType": "NORMAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/qk1LLjcenKz0CHTV5c_WJ.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ3d1evb8pYHJX5rdkUTfOKtvu2eGIELmSWqBx",
+   "original_first_seen": "2023-06-06",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Skyfang Burst",
+   "id": "d85ZZO9LbAQvhfH9i73JX",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/BD46dAsI-Rf2M7U78E3p8.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJPAmQvfpKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": false,
+   "evidence": "live image matches our art file exactly (perceptual match 1.00)"
+  },
+  {
+   "name": "Soul Shackles",
+   "id": "clh4d6psu0004tb0hsa5cshh6",
+   "jutsuType": "NORMAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/kPGu6Cs6VRb8r6CiE2pii.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJrtI7N6RhuJPmdY8zI2ptZXAoEj1c6BMKvrQO",
+   "original_first_seen": "2023-06-06",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Storm Dragons Halo",
+   "id": "GazEyKNZpxgMDuZyAeUfY",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/3qmFWpFGK_FJsjMVr2EXx.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJSY0ooS3jWrEB7TyZlmpoAxMK5Qi16kNPVJuH",
+   "original_first_seen": "2026-08-30",
+   "injectableInBattle": true,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Subaku Palace",
+   "id": "jELEiw5W3N4m2R3oJm3Pk",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/fpOI99HNIDP8gKoXnXSV1.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJu8aoP0CyJLoOFkrcn4gxSwCfEQ9eMNXZlG8b",
+   "original_first_seen": "2025-09-11",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Summoning: Jade",
+   "id": "yuJn_D_zPlHV0xJW01JRA",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/qqeUYO60QH-hVidW2xSPT.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCm4J8aZ26OYrIJuNP1pvSyz29edFtKbngjRc",
+   "original_first_seen": "2023-11-15",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Surfing Strike",
+   "id": "M-iPxOupEp35-KptpG4DV",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/5aG7AAlzPk3WXKOIr-1hk.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJecueCfyV3OvUJQExAi0bGoIZDF74LqSnHRdp",
+   "original_first_seen": "2023-10-12",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Tempest Cleave",
+   "id": "Ul83iTziN__Z0i_UOzZTK",
+   "jutsuType": "EVENT",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/5xdZHSWu0I-Io-YLGC0zd.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJCBy4O426OYrIJuNP1pvSyz29edFtKbngjRcA",
+   "original_first_seen": "2026-08-24",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Tenryūseigan: Celestial Sealing - 86FM95zHP_PgZuJXFlbty",
+   "id": "86FM95zHP_PgZuJXFlbty",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/bK56Lz8O4hsimWBgStdVm.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJaKXk36YYfKMcJ2B5EmWt6VsNgqxpG8OSXAQk",
+   "original_first_seen": "2026-10-19",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Tenryūseigan: Tamashī no Sakeme - nM3rV7Z2uzokyoHD0TqHB",
+   "id": "nM3rV7Z2uzokyoHD0TqHB",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/FdyHy3pdVlLslbvGPyZZ5.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+   "original_first_seen": "2026-10-20",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Thousand Strike",
+   "id": "znPva-HIAz4EkyuKm2oh0",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/VUQo8X4xzF1fDp58wdakX.webp",
+   "original_image": "https://utfs.io/f/Hzww9EQvYURJP8CTX1pKeUGyX2kj6u45AOQiSa1zYH0mqZoc",
+   "original_first_seen": "2023-09-19",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Unholy Enhancement",
+   "id": "Nn75Lmvaep6oBQYH2BvVT",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/ejsOYmbnGHe9-xiRQobMw.webp",
+   "original_image": "https://utfs.io/f/Hzww9EQvYURJnsWhMHmojJ0EqeDCvBrNmZaXVdY97gSpOWiA",
+   "original_first_seen": "2024-04-12",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Venomous Phobia.",
+   "id": "9oirFnLa0wejelNYpewq6",
+   "jutsuType": "NORMAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/Em6qM_UBUhDqMvfC3o1PO.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJunjgDbvCyJLoOFkrcn4gxSwCfEQ9eMNXZlG8",
+   "original_first_seen": "2023-07-10",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Void Gaze Rift",
+   "id": "nry9aXIAr29hJvvOjh67V",
+   "jutsuType": "SPECIAL",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/DR6BH0l0TSTdGcbEWv2dd.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJjry0XP4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+   "original_first_seen": "2026-10-21",
+   "injectableInBattle": true,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  },
+  {
+   "name": "Windshear Decay",
+   "id": "VmoEzExhfgtzme2b5RuzJ",
+   "jutsuType": "BLOODLINE",
+   "live_image_ours": "https://ui0arpl8sm.ufs.sh/f/6yUkVCOnVg3uC2KV8HBRp.webp",
+   "original_image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJj12K2I4XzPI8f1v96qBot0Q3wsUp2nxu7SMb",
+   "original_first_seen": "2024-08-30",
+   "injectableInBattle": false,
+   "evidence": "uploaded by Forge (bundle idmap)"
+  }
+ ]
+}
