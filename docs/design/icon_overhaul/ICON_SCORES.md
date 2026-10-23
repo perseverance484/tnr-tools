@@ -41,7 +41,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 33 | Windshear Decay | Aerathiel | 1/10 | Same Aerathiel art-style problem; resembles Death's March and Atomic Shield too much |
 | 34 | Azure Dragon Palm | Vaporia | 6/10 | Needs more premium art |
 | 35 | Drowning Strike | Vaporia | 6/10 | Needs more premium art |
-| 36 | Liquid Ember Shell | Vaporia |  |  |
+| 36 | Liquid Ember Shell | Vaporia | 8/10 | May just need updating to the same art style as the other Vaporia icons once they are reworked |
 | 37 | Scorch Break | Vaporia |  |  |
 | 38 | Surfing Strike | Vaporia |  |  |
 | 39 | Crystal Cave | Crystal Essence |  |  |
