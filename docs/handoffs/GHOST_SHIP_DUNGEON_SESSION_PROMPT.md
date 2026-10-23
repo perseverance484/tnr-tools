@@ -24,7 +24,9 @@ WHAT TO READ (ghost ship history and current live state)
 - Rulings: RUL-2026-10-10-001/-002/-003/-007, RUL-2026-10-11-001/-002/-004, RUL-2026-10-12-003/-012/-015,
   RUL-2026-10-13-001..003 (crafting caches), RUL-2026-10-20-002 (Ghost Ship chest icons). Read them in full.
 - Design: docs/design/GHOST_SHIP_SKYGLASS_FULL_MANIFEST_ROADMAP.md, docs/design/GHOST_SHIP_CRYSTAL_ENGINE_CORRECTION_PROPOSAL.md,
-  docs/design/crafting_caches/ (caches_draft.json: Medicine Inro, Shinobi Tool Pouch, Sage's Strongbox).
+  the crafting caches (Medicine Inro, Shinobi Tool Pouch, Sage's Strongbox): push/97_crafting_caches_create.json and its
+  generator, art/crafting_caches/README.md. Their design draft (caches_draft.json) is cited by push/97 but is not on
+  main; search other branches before assuming it is lost.
 - Harnesses: harness/ghost_ship_* (legacy baseline, stage2, consume, release dry-run, final) and their READMEs.
 - Push history: push/README.md and archive/spent-manifests/ entries naming Ghost Ship, Skyglass, Keel Walk, the
   Guardian/Sentinel, the crafting caches (push/90-97, 132, 139, 140) and their results bundles in harvests/inbox.
