@@ -613,7 +613,10 @@ Kellan Flint's AI profile before his rules. Everything else on each record is re
 Held for a director decision: the approved "Bukijutsu" preference. `preferredStat` no longer exists (stat rework); the
 nearest lever is `bukijutsuMastery`, an absolute number (all six sit at the floor, 10).
 
-## 224 Jutsu upgrade batch 1 capture: READY TO RUN
+## 224 Jutsu upgrade batch 1 capture: SUPERSEDED, archived unrun
+
+Batch 1 paused (icon revert; reworks restart one jutsu at a time). Its AI reads moved to push/228.
+
 
 Read-only: `jutsu.get` for the ten batch-1 jutsu (Chakra Overflow, Summoning: Titanoboa, Crimson Vein, Abyssal Wraith,
 Clone Technique, Faint Shadow, Body Flicker, Terra Shift, Crescent Strike, Rotting Bite) and `profile.getAi` for the 26
@@ -656,7 +659,12 @@ unchanged. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --stric
 rebuilt from the first-run bundle (`python3 push/225_chakra_overflow.gen.py harvests/inbox/tnr_results_1792774742796.json`;
 the id does not change) and push/224 and push/225 run.
 
-## 227 Revert our new jutsu icons: READY TO RUN (direct)
+## 227 Revert our new jutsu icons: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792779000657.json` (Forge 0.8.1): DONE, 51/51 VERIFIED (postflight 51 match); the read-back
+shows every one of the 51 images equal to its recorded original. Manifest archived under `archive/spent-manifests/push-2026-10-22/`.
+As built:
+
 
 **Revised (director, 2026-10-23): "We dont revert Tenryuseigan or ethereal monarch"** — the 8 Ethereal Monarch jutsu (Celestial Bind,
 Dragon Eye Awakening, Heavenly Barrier, Skyfang Burst, Storm Dragons Halo, the two "Tenryūseigan:" copies, Void Gaze Rift) are
@@ -682,4 +690,11 @@ updated and originals back." 59 jutsu get their **original image** back; each ed
 
 Ends with a `jutsu.get` read-back of all 59. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors,
 0 warnings.
+
+## 228 AI link repair capture: READY TO RUN
+
+Read-only `profile.getAi` (persist full) for 32 AIs: the 6 the 2026-10-21 census shows holding a jutsu push/227 edited (War
+Commander: Earthen Bastion; Mermaid Jade and " Jade": Prism; ANBU Coordinator, Frost Warden, Frost Sovereign: Arctic Frost) and the
+26 live AIs no bundle has read. Editing an equipped jutsu severed those links (law 18); the repair is unequip in one run, then
+re-equip in a later run (law 60), and both are built from this capture's kits so nothing else in a kit changes.
 
