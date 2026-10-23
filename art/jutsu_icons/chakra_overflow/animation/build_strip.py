@@ -23,6 +23,12 @@ FIT = 0.80          # composition scaled into the central 80% so the rise and sp
 U = W * FIT / SRC   # raw-pixel to working-pixel factor
 
 STAR_SX, STAR_SY, STAR_DY = 0.84 * 0.80, 0.84, -90   # final star, measured against K4
+# 'crown' layout (director, 2026-10-23: "I like it on top of the head"): measured from the director's battle recording,
+# the frame is centred on the tile and the character token's centre sits 0.283 of the frame from the top, radius 0.248.
+TOKEN_CY, TOKEN_R = 0.283, 0.248
+WINDOW_R = 0.96 * TOKEN_R                               # clear window, just inside the token's white rim
+CROWN_STAR_Y = 0.075                                    # star centre, frame fraction from the top (on top of the head)
+CROWN_STAR = 0.40                                       # star scale for the top-of-head position
 WING_S, WING_DY = 0.98, 10
 
 
@@ -83,11 +89,12 @@ def apply_dissolve(img, field, p, soft=0.14):
     return Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
 
 
-def glint_sparkle(size, rot_deg):
+def glint_sparkle(size, rot_deg, cy=None):
     """A crisp four-point lens glint: long thin horizontal and vertical rays, short diagonal rays, a hot core.
     Returned as a white RGBA layer of the working canvas size, centered."""
     yy, xx = np.mgrid[0:W, 0:W].astype(np.float32)
-    cx, cy = W / 2, W / 2 + STAR_DY * U
+    cx = W / 2
+    cy = W / 2 + STAR_DY * U if cy is None else cy
     th = np.deg2rad(rot_deg)
     x = (xx - cx) * np.cos(th) + (yy - cy) * np.sin(th)
     y = -(xx - cx) * np.sin(th) + (yy - cy) * np.cos(th)
@@ -113,16 +120,28 @@ def brighten(img, mask_alpha, amount):
     return Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
 
 
-def build(n_frames):
+def build(n_frames, layout="crown"):
     """v5 (director): dissolve in and out with a longer hold, and a glimmer while it holds: a band of light sweeps
     across the star, the star shines brighter, and a crisp four-point glint flares at its heart, then winks out.
     Timeline over the whole run: dissolve in 0-0.27, hold 0.27-0.73 (glint 0.42-0.64), dissolve out 0.73-1."""
     star, wings, flash, sparks = (load(f) for f in ('anim_co_L1_star.png', 'anim_co_L2_wings.png',
                                                      'anim_co_L3_flash.png', 'anim_co_L4_sparks.png'))
-    emblem = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-    place(emblem, wings, WING_S, WING_S, dy=WING_DY)
+    yy0, xx0 = np.mgrid[0:W, 0:W].astype(np.float32)
+    if layout == "crown":
+        # a soft window keeps the character token clear; the star sits on top of the head
+        tcx, tcy, tr = W / 2, TOKEN_CY * W, WINDOW_R * W
+        window = np.clip((np.sqrt((xx0 - tcx) ** 2 + (yy0 - tcy) ** 2) - tr) / (0.35 * tr), 0, 1)
+        star_y = CROWN_STAR_Y * W                            # star centre on the top of the head
+        star_dy, ssx, ssy = (star_y - W / 2) / U, STAR_SX * CROWN_STAR, STAR_SY * CROWN_STAR
+    else:
+        window = np.ones((W, W), np.float32)
+        star_y, star_dy, ssx, ssy = W / 2 + STAR_DY * U, STAR_DY, STAR_SX, STAR_SY
+    wing_img = Image.new('RGBA', (W, W), (0, 0, 0, 0))
+    place(wing_img, wings, WING_S, WING_S, dy=WING_DY)
+    wa = np.asarray(wing_img).astype(np.float32); wa[..., 3] *= window
+    emblem = Image.fromarray(wa.clip(0, 255).astype(np.uint8), 'RGBA')
     star_only = Image.new('RGBA', (W, W), (0, 0, 0, 0))
-    place(star_only, star, STAR_SX, STAR_SY, dy=STAR_DY)
+    place(star_only, star, ssx, ssy, dy=star_dy)
     emblem.alpha_composite(star_only)
     star_mask = np.asarray(star_only)[..., 3].astype(np.float32) / 255
     field = dissolve_field()
@@ -138,27 +157,27 @@ def build(n_frames):
         # 0.555, and the glint flares (0.52-0.555) then winks out to a point (0.555-0.60)
         sweep = seg(t, 0.42, 0.56)
         band_pos = -0.6 + 1.6 * ease_in_out(sweep)
-        diag = ((xx - W / 2) + (yy - W / 2)) / W
+        diag = ((xx - W / 2) + (yy - star_y)) / (W * (0.5 if layout == 'crown' else 1.0))
         band = np.exp(-((diag - band_pos) / 0.11) ** 2) * (0 < sweep < 1)
         glow = np.exp(-((t - 0.57) / 0.06) ** 2)
         layer = brighten(emblem, np.clip(star_mask * (0.9 * band + 0.8 * glow), 0, 1), 1.0)
         # a white bloom around the star at the peak, so "shines brighter" reads on top of an already bright star
         bloom = Image.fromarray(np.dstack([np.full((W, W), 255), np.full((W, W), 248), np.full((W, W), 215),
                                            np.asarray(Image.fromarray((star_mask * 255).astype(np.uint8)).filter(
-                                               ImageFilter.GaussianBlur(10))).astype(np.float32) * 0.85 * glow]).astype(np.uint8), 'RGBA')
+                                               ImageFilter.GaussianBlur(6 if layout == 'crown' else 10))).astype(np.float32) * 0.85 * glow]).astype(np.uint8), 'RGBA')
         if p > 0:
             c.alpha_composite(apply_dissolve(layer, field, p))
             if glow > 0.01:
                 c.alpha_composite(bloom)
         # soft swell of light at the heart as the emblem completes, and a smaller one under the glint
         fl = 0.55 * np.exp(-((t - 0.25) / 0.08) ** 2) + 0.5 * np.exp(-((t - 0.57) / 0.05) ** 2)
-        place(c, flash, 0.42, 0.42, alpha=fl, dy=STAR_DY * 0.6)
+        place(c, flash, 0.42 * (0.5 if layout == 'crown' else 1), 0.42 * (0.5 if layout == 'crown' else 1), alpha=fl, dy=(star_y - W / 2) / U)
         # the glint itself: grows fast, holds a breath, winks out to a point
         if 0.50 <= t <= 0.64:
             grow = ease_out(seg(t, 0.50, 0.56))
             wink = 1 - ease_in_out(seg(t, 0.58, 0.64))
-            size = W * 0.48 * grow * (0.10 + 0.90 * wink)
-            g = glint_sparkle(size, rot_deg=10 * seg(t, 0.50, 0.64))
+            size = W * (0.32 if layout == 'crown' else 0.48) * grow * (0.10 + 0.90 * wink)
+            g = glint_sparkle(size, rot_deg=10 * seg(t, 0.50, 0.64), cy=star_y)
             ga = np.asarray(g).astype(np.float32); ga[..., 3] *= min(1, 1.3 * wink + 0.0) * grow
             c.alpha_composite(Image.fromarray(ga.astype(np.uint8), 'RGBA'))
         # sparks stream upward during the hold and dissolve with the emblem
@@ -167,6 +186,8 @@ def build(n_frames):
         place(s, sparks, 0.95, 0.95, alpha=seg(t, 0.20, 0.32), dy=60 - 160 * sp)
         if p_out < 1:
             s = apply_dissolve(s, 1 - field, p_out)
+        if layout == "crown":
+            sa = np.asarray(s).astype(np.float32); sa[..., 3] *= window; s = Image.fromarray(sa.clip(0, 255).astype(np.uint8), 'RGBA')
         c.alpha_composite(s)
         frames.append(c)
     return frames
@@ -178,8 +199,9 @@ def main():
     ap.add_argument('--ms', type=int, default=2600, help='total duration in ms')
     ap.add_argument('--size', type=int, default=128)
     ap.add_argument('--preview')
+    ap.add_argument('--layout', default='crown', choices=['crown', 'center'])
     a = ap.parse_args()
-    frames = [f.resize((a.size, a.size), Image.LANCZOS) for f in build(a.frames)]
+    frames = [f.resize((a.size, a.size), Image.LANCZOS) for f in build(a.frames, a.layout)]
     strip = Image.new('RGBA', (a.size, a.size * len(frames)), (0, 0, 0, 0))
     for i, f in enumerate(frames):
         strip.paste(f, (0, i * a.size))
