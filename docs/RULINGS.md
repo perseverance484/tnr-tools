@@ -2334,3 +2334,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-23, choosing "Raise to 435k / 105k (Recommended)" over "Trim to fit" and "Whitespace minify".
 
 **Canonical destination:** `forge/tools/check_bundle_budget.mjs` (`BUDGET`).
+
+## RUL-2026-10-23-008 — Jutsu icon overhaul: one batch; 15 of our reverted icons go back unchanged
+
+**Date:** 2026-10-23
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE (staff review open; rework not started)
+
+**Supersedes:** the "one icon at a time" pacing stated with the push/227 revert
+
+**Ruling:** After the push/227 revert, the director scored all 51 reverted icons and opened a staff review. The overhaul ships **all at once in one batch**, not one icon at a time. That batch also puts back, unchanged, our icons for all eight Blood-Enchanted Eyes jutsu (Unholy Enhancement included, although one staff member could not tell what it shows), all five Crystal Essence jutsu, Blazing Fang Strike and Celestial Dew. Reworked icons show no people; people renders are the Jutsu Masters' job.
+
+**Evidence:** User, 2026-10-23: "No, we'll do it all at once."; Discord thread: "BEE, CE, Blazing fang strike and Celestial Dew are getting no changes"; "Are we removing the people from everything?" / "I *think* so. I do have a Jutsu Master for each offense for people renders"; on putting the no-change icons back in the batch and keeping Unholy Enhancement: "Yes to both, include them in the batch".
+
+**Canonical destination:** `docs/design/icon_overhaul/ICON_SCORES.md`, `STAFF_FEEDBACK.md`, `BATCH_PLAN.md`.
