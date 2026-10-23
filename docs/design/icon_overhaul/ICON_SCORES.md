@@ -33,7 +33,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 25 | Charge 4 Explosion | Bakuhatsu | 4/10 | Unique and creative (the blasts spell C4), but not high quality or premium |
 | 26 | Howitzer Crash | Bakuhatsu | 6/10 | Decent execution, but lacks real pop or skill identity |
 | 27 | Inferno Cataclysm | Bakuhatsu | 6/10 | Visuals do not look premium; reads as a lava skill rather than an explosion skill |
-| 28 | Kinetic Nova | Bakuhatsu |  |  |
+| 28 | Kinetic Nova | Bakuhatsu | 9/10 | Pretty good; maybe a little polish |
 | 29 | Atomic Shield | Aerathiel |  |  |
 | 30 | Death's March | Aerathiel |  |  |
 | 31 | Decaying Touch | Aerathiel |  |  |
