@@ -21,7 +21,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 13 | Searing Might | Normal | 2/10 | Too literal with the shield; art does not read as TNR premium pixel art |
 | 14 | Soul Shackles | Normal | 4/10 | Decent, but the shackles go nowhere and stop midair. Direction: chains spread straight across the icon |
 | 15 | Venomous Phobia. | Normal | 7/10 | Pretty good; needs a better silhouette, that's it |
-| 16 | Crimson Impact | Blood-Enchanted Eyes |  |  |
+| 16 | Crimson Impact | Blood-Enchanted Eyes | 8/10 | Needs silhouette refinement |
 | 17 | Crimson Tithe | Blood-Enchanted Eyes |  |  |
 | 18 | Hemocure | Blood-Enchanted Eyes |  |  |
 | 19 | Reaper's Embrace | Blood-Enchanted Eyes |  |  |
