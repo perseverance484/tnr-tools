@@ -10,7 +10,7 @@ idempotent. Raw CDN caches ~5 min; fresher than that takes a capture.
 |---|---|---|---|---|
 | jutsu | 1472 | seed catalog (pre-answers) | 19 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_jutsu.json |
 | item | 766 | seed catalog (pre-answers) | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_item.json |
-| ai | 532 | seed catalog (pre-answers) | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_ai.json |
+| ai | 532 | seed catalog (pre-answers) | 41 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_ai.json |
 | asset | 407 | 2026-08-24 | 0 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_asset.json |
 | quest | 400 | seed catalog (pre-answers) | 8 | https://raw.githubusercontent.com/perseverance484/tnr-tools/main/answers/names_quest.json |
 
