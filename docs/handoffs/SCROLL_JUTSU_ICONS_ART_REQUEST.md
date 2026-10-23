@@ -15,7 +15,7 @@
   census; current icons downloaded from the image CDN 2026-10-22 (`docs/design/scroll_icons/sheet_live_scroll_jutsu_2026-10-22.png`).
 - **Live-game requests/writes:** 0. Nothing here uploads anything.
 
-**Delivered:** 1/10. Earthen Bastion (`art/jutsu_icons/scroll_jutsu/raws/raw_jutsu_earthen_bastion_v1.png` → `exports/icon_jutsu_earthen_bastion_v1.webp`, opaque 256x256 lossless, `artpreflight --type JUTSU_ICON` clean; near-black ground with base glow, as Poisonous Senbon was accepted), 2026-10-23.
+**Delivered:** 2/10. Earthen Bastion (`art/jutsu_icons/scroll_jutsu/raws/raw_jutsu_earthen_bastion_v1.png` → `exports/icon_jutsu_earthen_bastion_v1.webp`, opaque 256x256 lossless, `artpreflight --type JUTSU_ICON` clean; near-black ground with base glow, as Poisonous Senbon was accepted), 2026-10-23. Drops of Renewal (`raw_jutsu_drops_of_renewal_v1.png` → `icon_jutsu_drops_of_renewal_v1.webp`; delivered at 256x256 WebP, so the export is a lossless re-encode, not a downscale; preflight clean).
 
 ## 1. Why
 
