@@ -691,10 +691,36 @@ updated and originals back." 59 jutsu get their **original image** back; each ed
 Ends with a `jutsu.get` read-back of all 59. Gates: `check_manifest.mjs` 0 pre-send problems; `validate.py --strict` 0 errors,
 0 warnings.
 
-## 228 AI link repair capture: READY TO RUN
+## 228 AI link repair capture: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792779130784.json`: 32/32 ok. Eight AIs hold a jutsu push/227 edited, all at level 1 with 0
+experience: the six from the census plus two no bundle had read (New AI - 4BtEg_Y_S6feRX2t0Hk5p: Replacement Technique; Stray
+Catcher: Scorch Break, Drowning Strike, Liquid Ember Shell, Surfing Strike, Azure Dragon Palm). Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`. As built:
+
 
 Read-only `profile.getAi` (persist full) for 32 AIs: the 6 the 2026-10-21 census shows holding a jutsu push/227 edited (War
 Commander: Earthen Bastion; Mermaid Jade and " Jade": Prism; ANBU Coordinator, Frost Warden, Frost Sovereign: Arctic Frost) and the
 26 live AIs no bundle has read. Editing an equipped jutsu severed those links (law 18); the repair is unequip in one run, then
 re-equip in a later run (law 60), and both are built from this capture's kits so nothing else in a kit changes.
+
+## 229 AI link repair (unequip, then re-equip): READY TO RUN
+
+Director (2026-10-23): "Just do unequip and then reequip as one manifest. So long as they're done one after the other its fine."
+One manifest, 16 AI edits run in order: items 1-8 unequip the severed jutsu from each AI (law 60), items 9-16 put back each AI's
+**full original kit in its original order**, then a `profile.getAi` read-back of all 8. Built by
+`push/229_ai_link_repair.gen.py harvests/inbox/tnr_results_1792779130784.json` from push/228's kits, so nothing else in a kit
+changes; the generator refuses any cycled row not at level 1 / 0 experience (nothing is lost by re-adding).
+
+| AI | Jutsu cycled |
+|---|---|
+| War Commander | Earthen Bastion |
+| Mermaid Jade, " Jade" | Prism |
+| ANBU Coordinator, Frost Warden, Frost Sovereign | Arctic Frost |
+| New AI - 4BtEg_Y_S6feRX2t0Hk5p | Replacement Technique (kit is empty between the two steps) |
+| Stray Catcher | Scorch Break, Drowning Strike, Liquid Ember Shell, Surfing Strike, Azure Dragon Palm (kit is empty between the two steps) |
+
+Gates: `check_manifest.mjs` 0 pre-send problems. `validate.py --strict` reports 1 error, a known false positive: Replacement
+Technique's live id `clh4d6pok0002tb0hx1bxro6l` is a legacy 25-character id, and validate.py only accepts 21-character ids. The
+id is copied from the AI's live kit in push/228. Allowing legacy ids in validate.py is tooling work (Lane A), not done here.
 
