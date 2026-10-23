@@ -2247,3 +2247,55 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Amendment (2026-10-23):** concept is **boundless chakra**, not a vessel overflowing. User: "An item doesnt need to overflow, the chakra we're depicting is what's overflowing. You're activitating this flow of energy by using the technique. So we want to convey boundless chakra with this icon." D1 and the hybrids are retired; color C reads as intensity. Round 2 brief: `docs/design/chakra_overflow/DRAFT1_REVIEW.md` section 6.
 
+
+## RUL-2026-10-23-003 — Ghost Ship becomes the Skyglass Wreck party dungeon; profession quests retired
+
+**Date:** 2026-10-23
+
+**Domain:** Ghost Ship / Skyglass / content structure
+
+**Status:** ACTIVE (direction; balance, rates, placement details and art open)
+
+**Supersedes:** the two profession-gated Ghost Ship quests (Gather `6Ri-W5TtUrEMWpyYlnf_F`, Hunt `HckXVOf-qk6ESU9t5rxLh`) as the delivery for Skyglass content. Item, AI and jutsu rulings stay in force.
+
+**Ruling:** The Ghost Ship ensemble becomes a repeatable party dungeon of **two tiers**. Its only completion drop is **exactly one treasure chest per player**. The chest pays regular loot (ryo and themed items); treasure maps are the bonus. The dungeon is placed **in the open, between land and sea**. **Both profession quests are retired**; a brand-new Battle Pyramid carries the original adventure (RUL-2026-10-23-004). Rewards are universal: profession-locked chests leave the plan (Option 1), because the game cannot restrict a reward choice by profession.
+
+**Evidence:** User, 2026-10-23: "Option 1 it is"; "I want a repeatable dungeon groups can run that drops exactly one treasure chest"; "1. Two is fine. 2. Yes the chest should have regular drops too like ryo and themed items, the treasure maps are the bonus ... 6. Needs to be placed in the open somewhere, between land and sea. 7. Both are retired, we make a brand new one."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`.
+
+**Boundary:** Retirement mechanism and timing, the floor roster, sector, rates and art are not settled. No live write is authorized.
+
+## RUL-2026-10-23-004 — Treasure maps open isolated Skyglass treasure-hunt Pyramids
+
+**Date:** 2026-10-23
+
+**Domain:** Ghost Ship / Skyglass / treasure hunts
+
+**Status:** ACTIVE (direction and first slate; content not authored)
+
+**Supersedes:** none
+
+**Ruling:** The dungeon chest drops **tradable treasure maps** ("you can sell it or run it"). Each map is the entry item of one **isolated** `battlepyramid` treasure hunt: short and punchy, Skyglass Project themed. First slate approved for development: **The Silent Bastion, The Drowned Foundry, The Quarantine Vault, and The Skyglass Expedition** (the original Ghost Ship adventure preserved as the rare map). The **Skyglass Katana and Crown fragment are Expedition-only** — "that's the draw". Hunts use **new bosses with reused Ghost Ship crew**. **Map cost is the only intended limit.**
+
+**Evidence:** User, 2026-10-23: "3. Yes, tradeable. You can sell it or run it. 4. Expedition only, that's the draw. 5. Map cost is enough."; "I like the idea of preserving the original ghost ship quest in the Skyglass expedition ... maybe we make shorter punchier 'treasure hunts' that are themed after the Skyglass Project"; "1. Your direction is approved. 2. Mixed, new bosses reuse crew. 3. Isolated. 4. Map cost is the only limit."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+**Open finding:** at game pin `107d7a86`, Battle Pyramids enforce a lifetime attempt cap (`maxAttempts` at most 100), so map cost alone cannot make a hunt unlimited. Design doc §2 lists the alternatives; the choice is the director's.
+
+## RUL-2026-10-23-005 — Reward caches pay finished items; choice lives at hunt completion
+
+**Date:** 2026-10-23
+
+**Domain:** Rewards / caches / reward choice
+
+**Status:** ACTIVE (direction; lines, rates and cache modes open)
+
+**Supersedes:** the crafting-material contents of Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox (push/97; RUL-2026-10-13-001 family scope stays) and their planned `w_B2` placement (RUL-2026-10-13-003).
+
+**Ruling:** Reward caches drop **finished items, not the materials** for them. **Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox are the exemplars for new item-reward setups**, following the live War Cache pattern (shared kit plus a signature line). The **"choose" option** is worked in at treasure-hunt completion, where players pick the cache that fits them.
+
+**Evidence:** User, 2026-10-23: "we change medicine into and the other 2 to instead drop the items rather than the materials themselves"; "Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox are exemplars for new item reward setups"; "Now we need good reward Caches that offer actual items ... Need to work the choose option into this. I had designed elemental kunai Caches for a war mission based on the ability to choose".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §4–§5.
