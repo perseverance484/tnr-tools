@@ -117,3 +117,9 @@ and burning gold toward its heart. Measured at 256 px: mean luminance 58, 34% li
 badge corners empty; reads as one shape at 32 px and in grayscale (`review/final_in_context.png`); artpreflight clean.
 Ships with its premium text (`CHAKRA_OVERFLOW_TEXT.md`) in push/225.
 
+## 12. Animation, and push/225 on hold (director, 2026-10-23)
+
+The director asked for a new cast animation to match the icon (route A: keyframes plus layers;
+`docs/handoffs/CHAKRA_OVERFLOW_ANIMATION_ART_REQUEST.md`, session prompt `docs/handoffs/CHAKRA_OVERFLOW_ANIMATION_SESSION_PROMPT.md`)
+and put push/225 on hold so the icon, text and animation reach the review desk together.
+

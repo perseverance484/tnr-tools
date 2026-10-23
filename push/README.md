@@ -621,7 +621,14 @@ live AIs no committed bundle has read, to finish the AI-equip check (laws 18, 60
 `docs/design/jutsu_overhaul/PRIORITY_TARGETS_2026-10-23.md`; text drafts `docs/design/jutsu_overhaul/BATCH1_TEXT_DRAFTS.md`;
 art request `docs/handoffs/JUTSU_BATCH1_ICONS_ART_REQUEST.md`.
 
-## 225 Chakra Overflow icon and text: READY TO RUN (suggest mode)
+## 225 Chakra Overflow icon, text and animation: ON HOLD (waiting on the animation)
+
+**Held (director, 2026-10-23):** "Hold 225, we'll add the animation to it." The built manifest was removed from `push/` so it
+is not run by accident; `push/225_chakra_overflow.gen.py` stays and will be extended to point the `visual` effect's
+`appearAnimation`/`disappearAnimation` at the new animation asset once it exists
+(`docs/handoffs/CHAKRA_OVERFLOW_ANIMATION_ART_REQUEST.md`; the asset itself is created first, outside suggest mode).
+As built before the hold:
+
 
 One suggestion for Chakra Overflow (`e2eC-x4UXc5m6QexNbx8w`, the most-used jutsu in the game): the final icon, "the
 rising star" (`art/jutsu_icons/chakra_overflow/exports/icon_jutsu_chakra_overflow_v1.webp`, 256x256 lossless, artpreflight
