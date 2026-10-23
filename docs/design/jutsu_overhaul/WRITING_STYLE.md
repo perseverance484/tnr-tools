@@ -89,3 +89,16 @@ From the director's review of push/196 (135 applied, 207 rejected; reasons in
 10. **Ninja-grade imagery.** No parlor tricks ("flicking a spark"); buffs must read as buffs (a "tremor
     rising through the limbs" reads as a debuff).
 
+
+## Premium tier: event and forbidden jutsu (director, 2026-10-23)
+
+These are pinnacle jutsu (Silver-only events, forbidden arts). They override the defaults above:
+
+1. **Description = overview** (1-2 sentences): what the jutsu is, evocative but brief.
+2. **Battle line = the jutsu in full bloom** (3-4 sentences): the cinematic scene, with `%user` and `%target` where allowed.
+3. **Tell it as the story would show it**, not as combat mechanics. The combat system is an abstraction of what the jutsu
+   really does; describe the real thing. No "offense", "defense", "damage" or percentages.
+4. **Plain colour words** in player text ("crimson", "blood-red"), never art-direction terms like "oxblood".
+5. Keep functional notes the players rely on (the red training warning).
+
+Worked examples: `EVENT_JUTSU_STORY_TEXT.md`.
