@@ -5,8 +5,8 @@
   story would show it, not as combat mechanics; no "offense/defense"; plain colour words ("crimson", not "oxblood").
 - **Battle-line rules:** `%target` only on jutsu aimed at an enemy; area jutsu (Tempest Cleave, Subaku Palace) describe the
   area, never assume someone is in it; self jutsu never use `%target`. No `%jutsu`, no gendered placeholders.
-- **Ships:** one text-suggestion manifest after the combined icon ticket resolves on these records (one open suggestion
-  per record). Abyss of Shadows also carries the rename; Scroll of Shadows' description becomes "Learn the jutsu Abyss of
+- **Ships:** in the combined set-3 / jutsu-icon ticket (director, 2026-10-23): one suggestion per jutsu carries its icon and
+  these texts together. Abyss of Shadows also carries the rename; Scroll of Shadows' description becomes "Learn the jutsu Abyss of
   Shadows upon use." (supersedes the D3/B1 split in `ABYSS_OF_SHADOWS_TEXT.md`).
 - **Training warning** (appended to the description where marked): `<br><br><span style="color:#D22B2B">DON'T TRAIN. ALREADY CAPPED. IT HAS NO POWER PER LEVEL</span>`
 

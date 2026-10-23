@@ -116,8 +116,13 @@ with a ledger row (filename, jutsu, pixel size, bytes). Do not process or upload
 
 ## 8. Ticket conditions (Fable)
 
-- **Combined ticket (director, 2026-10-22):** these jutsu icons go in the **same** manifest as scroll icons set 3
+- **Combined ticket (director, 2026-10-22/23):** these jutsu icons go in the **same** manifest as scroll icons set 3
   (`SCROLL_ICONS_SET3_ART_REQUEST.md`): one suggest-mode manifest for the scroll items, the Colored Jewel and these jutsu.
+  **The approved text rides in the same suggestions** (director, 2026-10-23): each of the ten jutsu gets one suggestion
+  carrying its new `image`, `description` and `battleDescription` (Abyss of Shadows also its new `name`), from
+  `docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md`; Scroll of Shadows' suggestion carries its new icon and its new
+  description ("Learn the jutsu Abyss of Shadows upon use."). Forge sends a per-item title/category/rationale
+  (`runner.mjs` `_suggestion`): icon-only items use VISUAL; icon + text items use CONSISTENCY.
 - **One suggest-mode manifest** for all delivered icons, one suggestion per jutsu, `image` only, `injectableInBattle`
   re-sent at its live value (law 20), from a fresh capture of the ten jutsu taken just before the build.
 - **Open text suggestions:** the round-2 text suggestions on Aegis of Shadows, Blazing Fang Strike, Celestial Dew,

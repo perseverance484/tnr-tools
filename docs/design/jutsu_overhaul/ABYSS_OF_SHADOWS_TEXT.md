@@ -10,8 +10,7 @@
 - **Status:** SUPERSEDED for the texts by `EVENT_JUTSU_STORY_TEXT.md` (director, 2026-10-23: description = overview, battle
   line = full scene). Name Abyss of Shadows stands. Earlier: description D3, battle line B1. Voice rule from the
   director: describe the jutsu as a scene (as it would play out in the story), not as combat-system mechanics; no
-  "offense/defense"; plain colour words in player text ("crimson", not "oxblood"). Ships as a text suggestion after the
-  combined icon ticket (one open suggestion per record).
+  "offense/defense"; plain colour words in player text ("crimson", not "oxblood"). Ships with its icon in the combined ticket.
 
 ## Final text
 
