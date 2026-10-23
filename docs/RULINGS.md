@@ -2215,7 +2215,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Domain:** Jutsu naming / event jutsu text and icon
 
-**Status:** ACTIVE (name decided; description and battle line pending the director's pick)
+**Status:** ACTIVE (final: description D3, battle line B1, icon "engulfing wave", 2026-10-23)
 
 **Supersedes:** none
 

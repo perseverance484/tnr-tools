@@ -7,18 +7,17 @@
 - **Director, 2026-10-23:** name **Abyss of Shadows** ("The enemy is engulfed in an abyss of shadow energy that dulls their
   offensive moves and cuts their defensive abilities"); oxblood and shadow theme approved; description must be premium
   (event jutsu bought with Silver).
-- **Status:** name chosen. Description and battle line below are drafts awaiting the director's pick. Ships as a text
-  suggestion after the combined icon ticket (one open suggestion per record).
+- **Status:** FINAL (director, 2026-10-23): name Abyss of Shadows, description D3, battle line B1. Voice rule from the
+  director: describe the jutsu as a scene (as it would play out in the story), not as combat-system mechanics; no
+  "offense/defense"; plain colour words in player text ("crimson", not "oxblood"). Ships as a text suggestion after the
+  combined icon ticket (one open suggestion per record).
 
-## Description
+## Final text
 
-- **D1 (recommended):** The user tears open an abyss of oxblood shadow that rises to engulf the target, swallowing the light around them. Within its depths their strikes are dulled to a whisper and their defenses are cut away, leaving them to deal far less harm and suffer far more for a short time.
-- **D2:** An abyss of shadow energy yawns open beneath the target and drags them into its oxblood depths. While it holds them, every strike they throw is dulled and every defense they raise is cut apart, for a short time.
-
-## Battle line
-
-- **B1 (recommended):** %user drives a hand toward the earth and the ground splits into a churning abyss of oxblood shadow, its darkness surging up to engulf %target. Swallowed by the void, %target's strikes are dulled to nothing and their guard is carved away, leaving them exposed to every blow.
-- **B2:** The light dies around %target as an abyss of shadow energy opens beneath their feet and rises to swallow them whole. In its oxblood depths %target's attacks lose their edge and their defenses are torn apart.
+- **Name:** Abyss of Shadows
+- **Description (D3):** The user's shadow stretches toward the enemy, and where it falls the world simply ends. An abyss opens in its place, a churning well of crimson darkness that drags the target down into a silence older than chakra itself. In that dark their strikes come slow and weightless, and their guard dissolves like mist before the void. For a few precious moments, the abyss makes even the mightiest shinobi small.
+- **Battle line (B1):** %user's shadow stretches across the battlefield, and where it touches %target the world falls away into a churning abyss of crimson darkness. Swallowed by the silence, %target moves as if through deep water, every strike slow and every guard dissolving into the void.
+- **Scroll of Shadows description:** Learn the jutsu Abyss of Shadows upon use.
 
 ## Also in the text ticket
 
