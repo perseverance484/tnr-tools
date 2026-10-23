@@ -43,7 +43,7 @@ originals and ours downloaded to `src/`). Scores and feedback are the director's
 | 35 | Drowning Strike | Vaporia | 6/10 | Needs more premium art |
 | 36 | Liquid Ember Shell | Vaporia | 8/10 | May just need updating to the same art style as the other Vaporia icons once they are reworked |
 | 37 | Scorch Break | Vaporia | 6/10 | Needs more premium art |
-| 38 | Surfing Strike | Vaporia |  |  |
+| 38 | Surfing Strike | Vaporia | 6/10 | Needs more premium art; resembles Azure Dragon Palm too much at thumbnail size |
 | 39 | Crystal Cave | Crystal Essence |  |  |
 | 40 | Crystal Sphere | Crystal Essence |  |  |
 | 41 | Kōsai Shippū | Crystal Essence |  |  |
