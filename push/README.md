@@ -578,3 +578,9 @@ shows DemonCastleFloor. Follow-up: re-equip War Commander with Earthen Bastion (
 Read-only `jutsu.get` for Forbidden Chakra Fury (`Lg_thN-MB8FRAr_Agf9tn`). Zero writes. Shows which effect will carry
 the new purple recoil field (in production in a separate art session) and its current asset, so the field ticket can
 re-send the live effects with only `staticAssetPath` changed, as push/219 did for Subaku Palace.
+
+## 221 Six-AI names capture: READY TO RUN
+
+Read-only `profile.getAllAiNames` (step 1 of 2) for the six-AI kit ticket: Mara Vane, Kellan Flint, Sable Crow, Brigg
+Tusk, Yara Reed, Goro Blackthorn (director, 2026-10-23: equip shared-pool AI jutsu and basic rules). None of the six
+is in the repository catalogs, so this resolves their ids; step 2 point-reads each AI and its AI profile. Zero writes.
