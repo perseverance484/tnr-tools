@@ -16,7 +16,9 @@
 
 **Battle line:** %user raises a hand to the sky, and the light bleeds away as a black sun blooms above %target, its corona burning a deep and terrible crimson. Wisps of shadow spiral down from its rim and wind around %target, dragging them into a silence older than chakra itself. Beneath that dead star %target's strikes come slow and weightless, and their guard dissolves like mist drawn into the void. For a few precious moments, the black sun makes even the mightiest shinobi small.
 
-*Revised 2026-10-23 to match the black-sun icon.* *Effects:* target deals less damage and takes more, 2 rounds.
+*Revised 2026-10-23 to match the black-sun icon.*
+
+*Effects:* target deals less damage and takes more, 2 rounds.
 
 ## Tempest Cleave (`Ul83iTziN__Z0i_UOzZTK`)
 
