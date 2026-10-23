@@ -124,3 +124,9 @@ v3 composes the finished emblem once (wings plus the narrowed star, the v2 final
 dissolve (a smooth noise field biased so the star's heart resolves first and vanishes last) combined with a fade, holds
 while sparks stream upward, then dissolves away the same way. Nothing changes size or position. 30 frames of 128 px,
 275,394 bytes (ceiling 460,800), intended speed 43 ms (1.3 s).
+
+## 9. Revision 4: slower (director, 2026-10-23)
+
+Director: "Slower dissolve and longer hold, I feel like it plays too fast." Duration 1.3 s → 2.2 s: dissolve in about 0.7 s,
+hold about 0.8 s, dissolve out about 0.7 s. 40 frames of 128 px at speed 55 ms, 292,432 bytes (ceiling 460,800).
+`build_strip.py --frames N --ms T` sets both.
