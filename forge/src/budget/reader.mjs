@@ -5,6 +5,7 @@ import { stableStringify } from "../storage/hash.mjs";
 // one 429 still keeps the other answers.
 
 import { procedure } from "../transport/procedures.mjs";
+import { dungeonRow } from "../dungeon/validate.mjs";
 
 // Input shape per read path. Everything takes {id} except the AI record read.
 // Source: profile.ts:1121 getAi .input(z.object({ userId })), everything else .input(z.object({ id })).
@@ -78,6 +79,13 @@ export class CachedReader {
       const r = await this.list(path, { fresh });
       return ids.map(id => r.ok ? { ok: true, data: r.data.find(row => row.id === id) } : r);
     }
+    // dungeon.getAll is the only dungeon read; a "get" is its row, projected to {id, ...content}
+    // so the runner diffs and merges the content the manifest asserts.
+    if (path === "dungeon.getAll") {
+      const r = await this.list(path, { fresh });
+      if (r.ok && !Array.isArray(r.data)) throw new Error("dungeon.getAll did not return an array");
+      return ids.map(id => r.ok ? { ok: true, data: dungeonRow(r.data.find(row => row && row.id === id)) } : r);
+    }
     const out = new Array(ids.length);
     const misses = [];
     for (let i = 0; i < ids.length; i++) {
@@ -128,7 +136,8 @@ export class CachedReader {
     if (procedure(path).kind !== "query") throw new Error("list is for queries: " + path);
     if (path === "skillTree.getAll" || path === "skillTree.getAllFolders") return this.skillInventory(path, { fresh, input });
     // getAll takes a required {limit, cursor} input (jutsu.ts:266-285); only the name lists take none
-    if (!/\.getAll(Ai)?Names$/.test(path)) throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
+    // dungeon.getAll takes no input and returns every definition (staff only), so it lists like a name list.
+    if (!/\.getAll(Ai)?Names$/.test(path) && path !== "dungeon.getAll") throw new Error("list() is for getAllNames/getAllAiNames; " + path + " needs a paged input");
     const sent = input === undefined ? listInput(path) : input;
     const cacheable = sameInput(sent, listInput(path));
     const hit = fresh || !cacheable ? null : await this.cache.get(path, "");

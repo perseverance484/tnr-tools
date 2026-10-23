@@ -1,5 +1,6 @@
 import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
+import { isDungeonEntity, dungeonFields, dungeonProblems } from "../dungeon/validate.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -129,6 +130,7 @@ export class Validator {
 
   knownFields(entity) {
     if (isBloodrightEntity(entity)) return bloodrightFields(entity);
+    if (isDungeonEntity(entity)) return dungeonFields();
     const s = SCHEMA_ENTITY[entity];
     return s ? this.fields[s] ?? null : null;
   }
@@ -142,6 +144,7 @@ export class Validator {
    */
   problems(entity, data, live = null, { preCreate = false } = {}) {
     if (isBloodrightEntity(entity)) return bloodrightProblems(entity, data, live, { preCreate });
+    if (isDungeonEntity(entity)) return dungeonProblems(data, live, { preCreate });
     const out = [];
     if (!data || typeof data !== "object") return ["data is not an object"];
     const keys = Object.keys(data);

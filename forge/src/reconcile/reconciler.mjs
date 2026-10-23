@@ -18,7 +18,7 @@
 //   phase rules: the profile's rules equal the asserted rules -> landed; else ORPHANED.
 // Nothing is ever deleted.
 
-import { recipe } from "../runner/recipes.mjs";
+import { recipe, recipeRows } from "../runner/recipes.mjs";
 import { classifyError } from "../transport/outcome.mjs";
 import { AuthRefused } from "../transport/auth.mjs";
 import { diffAsserted, deepEqualPayload, SERVER_OWNED } from "../runner/validate.mjs";
@@ -71,7 +71,7 @@ export class Reconciler {
     const rc = recipe(entity);
     const list = this._ensureSession(rc.names, await this.reader.list(rc.names, { fresh: true })); // a limited read: one token
     if (!list.ok || !Array.isArray(list.data)) throw new Error(`snapshot failed: ${rc.names} ${list.ok ? "returned no list" : list.error.code}`);
-    const ids = list.data.map((r) => r[rc.idKey]).filter(Boolean);
+    const ids = recipeRows(rc, list.data).map((r) => r[rc.idKey]).filter(Boolean);
     this.storage.setItem(key, JSON.stringify({ entity, at: new Date(this.clock()).toISOString(), path: rc.names, count: ids.length, ids }));
     return key;
   }
@@ -110,7 +110,7 @@ export class Reconciler {
     // would overwrite a row another job created; adversarial review L5)
     const owned = new Set(job.items.filter((it) => it.entity === item.entity && it.entityId && it.idx !== item.idx).map((it) => it.entityId));
     for (const id of this.journal.knownEntityIds(item.entity)) owned.add(id);
-    const rows = list.data.filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
+    const rows = recipeRows(rc, list.data).filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
     const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
     const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
     if (candidates.length === 1 && pending.length === 1) {
@@ -122,6 +122,18 @@ export class Reconciler {
         // A matching concurrent create cannot be distinguished by this API (no idempotency key).
         // Require the operator to bind it explicitly instead of silently claiming ownership.
         return { action: "orphan", candidates, note: "matching Bloodright create found; confirm its ownership before adopting" };
+      }
+      if (rc.oneStep) {
+        // A one-step create has no placeholder to recognise, and the row it made already carries
+        // the whole payload. Adopt only a row whose content matches every asserted key, and go
+        // straight to verify: re-saving it would be a second write for nothing.
+        const planned = ctx.planned;
+        if (!planned) return { action: "orphan", candidates, note: "no planned data to compare the new row against" };
+        const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => undefined));
+        if (unresolved.length) return { action: "orphan", candidates, note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
+        const diffs = diffAsserted(item.entity, data, rows[0]);
+        if (diffs.length) return { action: "orphan", candidates, note: "the single new row differs on " + diffs.map((d) => d.key).join(", "), diffs };
+        return { action: "confirm", entityId: c.id, phase: "verify", landed: true, note: `adopted the single new ${item.entity} ${c.id}: it matches every asserted key` };
       }
       return { action: "confirm", entityId: c.id, phase: "update", note: `adopted the single new ${item.entity} ${c.id}` + (c.placeholderName === false ? " (name is not the placeholder pattern; check it)" : "") };
     }

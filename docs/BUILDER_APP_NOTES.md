@@ -898,6 +898,17 @@ A forge capture-only bundle is still read by the early "nothing to verify" branc
 produce one today (`journal.open()` refuses an empty item list), so that path is unreachable from
 forge; it is listed under "Not finished" rather than guarded speculatively.
 
+## Dungeon definitions (0.9.0)
+
+The game's staff-authored `dungeon` entity is a tenth manifest entity (brief `state/prompt_forge_dungeon_recipe.md`, RUL-2026-10-23-006). It does not fit the two-phase shape, so it has its own scoped contract like Bloodright: `src/dungeon/contract.json`, derived by `tools/derive_dungeon.mjs` from `studie-tech/theninjarpg@107d7a86` with `--check`, and `src/dungeon/validate.mjs`.
+
+- **One procedure writes both ways.** `dungeon.save {content}` creates and answers the id in its own `id` field (`message` is "Dungeon saved."); `{id, content}` replaces the whole content. The recipe is one-step (`createdId`, `updateInput`), and an edit always re-sends the full live content merged with the asserted keys.
+- **No per-id read.** Get, names and the reconciliation snapshot all use `dungeon.getAll` (protected; empty for non-staff). The reader projects a row to `{...content, id, updatedAt}` for gets; `recipeRows` does the same for lists.
+- **Validation mirrors the source** (`dungeonContentSchema` and its superRefine, the drop and wave schemas, `dungeonRewardError` for direct drops) with bounds from the contract. A create must carry `hidden:true`. `structureAssetId` is a map-structure asset (`mapAsset`), so it takes a literal id, never `@scene:`. A sent `package` payload is refused: the server copies the catalog snapshot itself. Existence of AIs, items, jutsu and packages, weighted-cache drops and package contents are checked by the server at save.
+- **Rate limit.** `dungeon.save` composes `ratelimitMiddleware`, the only mutation that does, so its contract row is `limited:true`. The budget meters reads only; a manifest therefore carries at most 30 dungeon writes (`MAX_DUNGEON_WRITES`).
+- **Resume after a lost save** adopts the single new row only when it matches every asserted key, then goes straight to verify; anything else is ORPHANED. Suggest mode refuses dungeons: the review desk has no dungeon entity type.
+- `validate.py` routes dungeon entries to the same validator through `scripts/dungeon_bridge.py` and `tools/validate_dungeon.mjs`.
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run
