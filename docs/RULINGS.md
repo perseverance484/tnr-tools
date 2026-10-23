@@ -2299,3 +2299,21 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-23: "we change medicine into and the other 2 to instead drop the items rather than the materials themselves"; "Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox are exemplars for new item reward setups"; "Now we need good reward Caches that offer actual items ... Need to work the choose option into this. I had designed elemental kunai Caches for a war mission based on the ability to choose".
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §4–§5.
+
+## RUL-2026-10-23-006 — Lane A approved: Forge dungeon recipe
+
+**Date:** 2026-10-23
+
+**Domain:** Forge / tooling (Lane A)
+
+**Status:** ACTIVE
+
+**Supersedes:** the in-game-editor option for building the Skyglass Wreck dungeon (design doc §8).
+
+**Ruling:** Lane A tooling work is approved to build the dungeon: a scoped dungeon contract derived from the pinned game source, a Forge `dungeon` recipe with validation and read-back, the `validate.py` bridge, and tests, on a `fable/*` branch with independent ChatGPT review.
+
+**Evidence:** User, 2026-10-23: "Lane A tooling work is approved for building the dungeon".
+
+**Canonical destination:** `state/prompt_forge_dungeon_recipe.md` (the build contract).
+
+**Boundary:** No live request; the reward-package recipe is a separate follow-up.
