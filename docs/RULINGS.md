@@ -2379,7 +2379,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Domain:** Art direction / jutsu icons; art tooling
 
-**Status:** ACTIVE (abstract vs depicting the move is open)
+**Status:** SUPERSEDED 2026-10-24 by RUL-2026-10-24-003 (direction); its C1–C3 decisions stand
 
 **Supersedes:** suspends RUL-2026-10-24-001
 
@@ -2388,3 +2388,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "All approved. Abstract icons is up in the air. We'll do abstract for now"; asked whether this covered only the game's prompt or the rework too, the user chose "Our rework too".
 
 **Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`; `docs/design/icon_overhaul/VISUAL_DESIGN_DEEP_DIVE.md`.
+
+## RUL-2026-10-24-003 — Icon overhaul: premium upgrades of the originals, keeping the people
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-24-002's "abstract emblems for now" direction (its C1–C3 decisions on grid density, the pixelsnap tool and backlit figures stand) and RUL-2026-10-24-001
+
+**Ruling:** Each reworked jutsu icon is a premium upgrade of its **original** icon: it keeps the people and the scene's identity, takes its colour palette from the original, and is rebuilt to read as an icon at thumbnail size (a clear silhouette, the figure large in the frame, a calm background, premium TNR pixel art). The visual design rules for size (45 px recognition, silhouette first, big and few shapes, dark simple background, one glow) still apply. Ethereal Rebirth is prepared next. The Tempest Cleave pilot (round 1 written from an older version without people) is open for the director to reconcile with this ruling.
+
+**Evidence:** User, 2026-10-24: "I've identified the middle ground. We keep the people but make it read well as an icon at thumbnail size. give each a clear silhouette and color palette based on the original. This way players get to see their favorite skills with a premium upgrade AND our icons read well at size. Let's prepare ethereal rebirth next"
+
+**Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/PROJECT.md` (first project under this ruling); `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (header note).

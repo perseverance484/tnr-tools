@@ -1,5 +1,11 @@
 # Jutsu icon overhaul: art direction for regeneration
 
+> **Superseded direction (2026-10-24, RUL-2026-10-24-003):** reworked icons are now **premium upgrades of the original
+> icons**, keeping the people, with a palette from the original and a clear silhouette that reads at thumbnail size. The
+> abstract-emblem proposals in section 5 are no longer the direction; the visual design rules (section 2.1 V1, V2, V4,
+> V6, V7; section 2.2) and the staff feedback per jutsu still apply. Each icon now gets its own project, one at a time:
+> first `docs/design/icon_overhaul/ethereal_rebirth/PROJECT.md`.
+
 - **For:** the art director
 - **From:** Fable / Claude Code, at the director's request (2026-10-24): "Write up a design document for handoff to the art
   director to regenerate the images."
