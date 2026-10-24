@@ -81,3 +81,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 | 1 | 2026-10-24 | Round-1 candidate r1a reviewed (`ROUND1_REVIEW.md`): big gain on the original; the body is lost and the loop is closed at 45 px; pixel density question raised. |
 | 1 | 2026-10-24 | Director: no pixel conversion (RUL-2026-10-24-005); higher-definition conversion tested and rejected (`round1_hd_test.png`). |
 | 1 | 2026-10-24 | Candidate r1b (gold and blue light) reviewed: more ethereal, weaker at 45 px, drops the battle line's elements. |
+| 2 | 2026-10-24 | Director: non-elemental (no fire, water or lightning; the old text was misaligned). Non-elemental text drafted (`TEXT_V2.md`); round-2 prompt written from r1b with the review's fixes (`docs/handoffs/ETHEREAL_REBIRTH_ROUND2_SESSION_PROMPT.md`). |

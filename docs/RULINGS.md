@@ -2421,6 +2421,8 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Canonical destination:** `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`; the Tempest Cleave and Ethereal Rebirth round-1 prompts.
 
+**Amendment 1 (2026-10-24), Ethereal Rebirth is non-elemental:** its damage has element `None`, so neither its text nor its icon may show elements; the approved fire, water and lightning text is withdrawn and rewritten (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`). Text and icon must match the jutsu's actual element. User: "Old one was misaligned, this is a non-elemental attack so using elements is a no-go. We will rewrite its descriptions as well".
+
 ## RUL-2026-10-24-005 — Jutsu icons: no pixel conversion
 
 **Date:** 2026-10-24
