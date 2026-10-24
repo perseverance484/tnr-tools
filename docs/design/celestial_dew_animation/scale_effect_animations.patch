@@ -1,0 +1,20 @@
+--- a/app/src/libs/threejs/combat.ts
++++ b/app/src/libs/threejs/combat.ts
+@@ -648,7 +648,7 @@
+             const actionSprite = showAnimation({
+               gameAsset: obj,
+               spriteMixer,
+-              scale: EFFECT_ANIMATION_SIZE,
++              scale: h * 2.5,
+               position: { x: w / 2, y: h / 2 },
+               layer: 5,
+             });
+@@ -673,7 +673,7 @@
+               gameAsset: obj,
+               spriteMixer,
+               playInfinite: true,
+-              scale: EFFECT_ANIMATION_SIZE,
++              scale: h * 2.5,
+               position: { x: w / 2, y: h / 2 },
+               layer: 5,
+             });
