@@ -2355,6 +2355,8 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Amendment 2 (2026-10-24), people:** the five jutsu where staff asked for people (Poisonous Senbon, Blast Shield, Decaying Touch, Ethereal Nexus, Crystal Sphere) each get a people and a no-people version for the director to compare; Crystal Sphere's no-people version is the kept icon. User: "Lets do a people vs no people version for those jutsu". The general no-people lean stands elsewhere until the director decides.
 
+**Amendment 3 (2026-10-24), pilot first:** before the batch, exactly one icon is worked until it is the best premium pixel-art icon we can make, and the rest follow from it. Pilot: Tempest Cleave (director's choice). User: "I think we need to start with exactly one icon and just work it to death. Make it the best most fitting premium pixel art icon we can, and go from there." Project: `docs/design/icon_overhaul/tempest_cleave/PILOT.md`.
+
 ## RUL-2026-10-24-001 — Jutsu icons depict the move, not abstractions
 
 **Date:** 2026-10-24
