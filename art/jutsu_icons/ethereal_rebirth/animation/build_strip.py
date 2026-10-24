@@ -34,6 +34,17 @@ THICK = 0.15                              # on-screen height of a straightened r
 SLICES = 70
 
 
+def _behind_mask():
+    """Alpha mask for the behind layer: 0 inside the avatar token (with a 2 px soft edge), 255 outside."""
+    m = Image.new('L', (S * 4, S * 4), 255)
+    r, cx, cy = WINDOW_R * S * 4, 0.5 * S * 4, TOKEN_CY * S * 4
+    ImageDraw.Draw(m).ellipse([cx - r, cy - r, cx + r, cy + r], fill=0)
+    return m.resize((S, S), Image.LANCZOS)
+
+
+BEHIND_MASK = _behind_mask()
+
+
 SET = 'v1'
 
 
@@ -120,7 +131,7 @@ def smooth(v, a, b):
     return ease(seg(v, a, b))
 
 
-def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True):
+def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0):
     """Warp the straight `strip` (its part u0..u1; the strip's right end is the ribbon's head) onto the path `pts`
     (head first) as a chain of quads that share their edges, so the ribbon bends without seams."""
     n = len(pts) - 1
@@ -140,12 +151,9 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True):
         depth = (D[i] + D[i + 1]) / 2 if depth_rule else 1.0
         nearness = smooth(depth, -0.25, 0.25)              # 0 far side, 1 near side, a soft crossover
         a = alpha * (0.55 + 0.45 * nearness)
-        if depth_rule:
-            dist = math.hypot(mx - 0.5, my - TOKEN_CY)
-            hide = smooth(dist, WINDOW_R - 0.03, WINDOW_R + 0.01)   # 0 inside the token, 1 outside
-            a *= nearness + (1 - nearness) * hide              # far side vanishes inside the token
-            if FACE_Y[0] < my < FACE_Y[1] and dist < WINDOW_R:
-                a *= 1 - 0.70 * nearness                        # near side over the face: see-through
+        wf = nearness * front_ok if depth_rule else 1.0     # share drawn in front of the token; the rest goes behind
+        if depth_rule and FACE_Y[0] < my < FACE_Y[1] and math.hypot(mx - 0.5, my - TOKEN_CY) < WINDOW_R:
+            wf *= 0.30                                       # near side over the face: mostly see-through
         a *= smooth(min(i, n - 1 - i), 0, 5)               # soft head and tail, never a square cut
         if a <= 0.01:
             continue
@@ -176,12 +184,15 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True):
         mask = Image.new('L', (bw * 2, bh * 2), 0)
         ImageDraw.Draw(mask).polygon([(qx * 2, qy * 2) for qx, qy in local], fill=255)
         mask = mask.resize((bw, bh), Image.LANCZOS)
-        alpha_ch = ImageChops.multiply(piece.getchannel('A'), mask).point(lambda v, a=a: int(v * a))
-        piece.putalpha(alpha_ch)
-        layer = front if nearness >= 0.5 or not depth_rule else back
-        tile = Image.new('RGBA', layer.size, (0, 0, 0, 0))
-        tile.paste(piece, (x0, y0))
-        layer.paste(lighter(layer, tile))
+        base = ImageChops.multiply(piece.getchannel('A'), mask)
+        for layer, share in ((front, wf), (back, 1 - wf)):
+            if share * a <= 0.01:
+                continue
+            p2 = piece.copy()
+            p2.putalpha(base.point(lambda v, k=a * share: int(v * k)))
+            tile = Image.new('RGBA', layer.size, (0, 0, 0, 0))
+            tile.paste(p2, (x0, y0))
+            layer.paste(lighter(layer, tile))
 
 
 def flecks_from(sheet):
@@ -234,7 +245,10 @@ def build(n, size):
             for k, strip in enumerate((gold, blue)):
                 length = 0.5 + 3.0 * grow
                 pts = helix(spin + k * math.pi, yc, 0.30 + 0.10 * grow, 0.12, length, 0.28 * grow, SLICES)
-                lay_ribbon(strip, pts, 0.97 * fade, back, front, u0=1 - min(1.0, 0.25 + 0.75 * grow), u1=1.0)
+                # opening: everything goes behind the token until the spin has risen (director, 2026-10-24: the
+                # blue ribbon at the start appeared over the player's icon)
+                lay_ribbon(strip, pts, 0.97 * fade, back, front, u0=1 - min(1.0, 0.25 + 0.75 * grow), u1=1.0,
+                           front_ok=ease(seg(t, 0.45, 0.60)))
         lash = seg(t, 0.55, 0.80)                       # the gold ribbon lashes out of frame towards the enemy
         if 0 < lash < 1:
             head = lash * 1.5
@@ -264,6 +278,7 @@ def build(n, size):
                 a = math.sin(math.pi * p)
                 im.putalpha(im.getchannel('A').point(lambda v, a=a: int(v * a)))
                 front.alpha_composite(im, (int(x * S - im.width / 2), int(y * S - im.height / 2)))
+        back.putalpha(ImageChops.multiply(back.getchannel('A'), BEHIND_MASK))
         img = Image.alpha_composite(back, front)
         glow = img.filter(ImageFilter.GaussianBlur(S * 0.010))
         glow.putalpha(glow.getchannel('A').point(lambda v: int(v * 0.5)))
