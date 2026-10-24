@@ -749,7 +749,7 @@ writes a direct edit of `HwkXTjErL_Laxs8WtqBiI` with `hidden: false` (the image 
 record, so it stays). Built from the push/230 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems. **Run 232 first, then 231.**
 
-## 231 Ethereal Rebirth icon, text and animation (suggest mode): READY TO RUN (after 233)
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): HOLD until 234 has run (rebuilt then with the loop)
 
 `python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
 new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
@@ -758,6 +758,18 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 (`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean). Effects as sent:
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 234 Ethereal Rebirth passive loop (create): READY TO RUN (run before 231)
+
+Director (2026-10-24): "a subtler effect of the same ribbons ... passively orbiting and protecting the player so long as
+the absorb is active". Direct create of asset `er_anim_soul_orbit` ("Ethereal Rebirth - Soul Orbit", ANIMATION,
+`anim_ethereal_rebirth_loop1.webp`: one gold and one blue band orbiting the avatar, 48 frames x 80 ms = 3.84 s, seamless,
+179,956 bytes), hidden (law 16b gate). It becomes the absorb effect's `staticAnimation`, which the game loops while the
+absorb is active (theninjarpg `libs/threejs/combat.ts:667`). Preview with the cast animation on top:
+`docs/design/ethereal_rebirth_animation/loop1_in_battle.gif`. Image pack pinned at c014c39. Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its results bundle, push/231 is
+rebuilt to also set the absorb effect's `staticAnimation` (still one suggestion), and push/233 gains a literal-id unhide of
+the new asset (law 16c). So **hold 231 until 234 has run**.
 
 ## 233 Ethereal Rebirth animation swap (v5): READY TO RUN (after the director approves v5)
 
