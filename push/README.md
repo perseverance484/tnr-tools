@@ -759,13 +759,15 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 243 Celestial Dew animations v4 (ring no longer clips): READY TO RUN (any time; 240 unaffected)
+## 243 Celestial Dew animations v5: READY TO RUN (any time; 240 unaffected)
 
-Director (2026-10-24): "The animations circle seems to clip at the top when the ward forms". Direct edits of the three
-existing assets to the v4 strips (the ward ring tucked over the portrait's rim, narrow edge fade, softer glow): appear
-`7PCuqwNbf0s8jOKEFwA_l` (74 x 46 ms), loop `wdir89CrMcvbQNR8OFymV` (64 x 72 ms), break `h7Yg7wmA0BBCjzvNvKTp5`
-(30 x 46 ms); new filenames (law 32), hidden false (law 16c). Same ids, so push/240 needs no change. Pack pinned at
-7fac767. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+Director (2026-10-24): the ring clipped at the top; then "Make its fade in and out look more natural ... like they're
+doing a handoff". Direct edits of the three existing assets to the v5 strips: the ward ring tucked inside the frame; the
+appear flashes the ward up as the ripples touch the rim and holds it while the loop's slower breath (64 x 90 ms = 5.76 s)
+rises underneath and takes over. appear `7PCuqwNbf0s8jOKEFwA_l` (74 x 46 ms), loop `wdir89CrMcvbQNR8OFymV` (64 x 90 ms),
+break `h7Yg7wmA0BBCjzvNvKTp5` (30 x 46 ms); new filenames (law 32), hidden false (law 16c). Same ids, so push/240 needs
+no change. Pack pinned at 1a42f98. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
+problems.
 
 ## 242 Celestial Dew capture with the record kept: RUN (bundle tnr_results_1792883431355.json), archived. Checked against push/240: live icon is the original; heal effect identical; shield differs only by the three new animations; injectableInBattle false both. 240 stands as built.
 
