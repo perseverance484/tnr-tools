@@ -35,11 +35,18 @@ EDGE_FADE = er._edge_fade(0.025)   # a narrow fade: the ring's top runs close to
 
 # Slower (director, 2026-10-24: "it plays way too fast"). Frame times per strip; the appear and the loop start on one
 # tick, and the loop's first glow peak lands when the ripples reach the rim: IGNITE * MS['appear'] = LOOP_N * MS['loop'] / 2.
-MS = {'appear': 46, 'loop': 72, 'break': 46}
+MS = {'appear': 46, 'loop': 90, 'break': 46}
 CAST_N, LOOP_N, BREAK_N, SIZE = 74, 64, 30, 112
 IMPACT = 30          # the drop lands (1.38 s)
 IGNITE = 50          # the ripples reach the rim (2.30 s): the ward's first glow peak
 LOOP_PEAK = 0.95     # the ward's glow at its brightest
+# The hand-off (director, 2026-10-24: "The appear animation can brighten it earlier and faster so then it appears to hold
+# longer when the breathe effect reaches its full effect as the appear animation fades"): the appear's copy of the ring
+# flashes up as the ripples touch the rim (IGNITE), holds, and fades over HAND_OUT; the loop rises gently underneath and
+# is at its peak in the middle of that fade, then breathes on its own.
+HAND_HOLD, HAND_OUT = 12, 10                      # appear frames: hold at full after IGNITE, then fade
+LOOP_PEAK_T = (IGNITE + HAND_HOLD + HAND_OUT / 2) * 46 / (64 * 90)   # loop phase of its peak (about 0.535)
+LOOP_RISE_T = 0.38                                # loop phase where its gentle rise begins (just before the ripples land)
 # the ward band's inner edge, as a frame radius. The portrait reaches to 0.024 of the frame top, so a ring round it has
 # little room there: the band is tucked over the portrait's rim (outer edge about 0.246, its top at about 0.05) so it
 # stays inside the frame (director, 2026-10-24: "the circle seems to clip at the top when the ward forms")
@@ -191,7 +198,11 @@ def appear_frames():
             if 0 < p < 1:
                 r_out = 0.03 + (RIM_R - 0.03) * p ** 0.8           # steady outward run, a touch faster at first
                 put(front, Lr['R1_ripples'], 0.5, PCY, r_out / R1_OUTER, 0.6 * (1 - p ** 4))
-        # 5. where the ripples hit the rim, sparks: the ward itself is the loop (shield static), whose glow peaks now
+        # 5. the ward flashes up where the ripples hit the rim, holds, and hands over to the loop's breath
+        wa = LOOP_PEAK * ease(seg(f, IGNITE - 2, IGNITE + 1)) * (1 - ease(seg(f, IGNITE + HAND_HOLD, IGNITE + HAND_HOLD + HAND_OUT)))
+        if wa > 0:
+            front.alpha_composite(ring_layer(f, wa))
+        # sparks round the rim as it ignites
         for k in range(8):
             p = seg(f, IGNITE - 1 + (k % 3), IGNITE + 11 + (k % 3))
             if 0 < p < 1:
@@ -222,12 +233,16 @@ def loop_frames():
     out = []
     for f in range(LOOP_N):
         t = f / LOOP_N
-        # dark until the ripples are most of the way out, a quick rise to the peak as they reach the rim (t = 0.5),
-        # then a long, slow fade back to dark at the seam
-        a = LOOP_PEAK * (ease(seg(t, 0.40, 0.5)) if t < 0.5 else 0.5 + 0.5 * math.cos(math.pi * (t - 0.5) / 0.5))
+        # dark at the seam; a gentle rise (under the appear's bright copy the first time), the peak as that copy fades,
+        # then a long, soft fade back to dark
+        if t < LOOP_PEAK_T:
+            a = LOOP_PEAK * ease(seg(t, LOOP_RISE_T, LOOP_PEAK_T)) ** 1.4
+        else:
+            a = LOOP_PEAK * (0.5 + 0.5 * math.cos(math.pi * (t - LOOP_PEAK_T) / (1 - LOOP_PEAK_T)))
         front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
         front.alpha_composite(ring_layer(f, a))
-        for ang, ph in ((300, 0.44), (140, 0.50), (40, 0.56)):            # a few stars wink near each peak
+        for ang, dp in ((300, -0.05), (140, 0.0), (40, 0.05)):            # a few stars wink near each peak
+            ph = LOOP_PEAK_T + dp
             q = max(0.0, 1 - abs(t - ph) / 0.08)
             if q > 0:
                 r = RING_INNER + 0.035
@@ -330,4 +345,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     for name, fn in BUILDERS.items():
         if a.only in (None, name):
-            save_strip(fn(), f'{name}_v4')
+            save_strip(fn(), f'{name}_v5')

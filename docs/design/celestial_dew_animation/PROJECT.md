@@ -151,3 +151,17 @@ frame top, so the ring round it (band outer edge 0.278) and its glow ran past th
 Now: the band's inner edge at 0.19 (outer about 0.246, top about 0.05), over the portrait's white rim; the edge fade
 narrowed to 2.5% for Celestial Dew; the ring's outer glow softened (alpha^1.5). The ripples end at the band's middle
 (0.22). Strips `*_v4`: appear 105,974 bytes, loop 161,768, break 75,622. Shipped to the existing assets by push/243.
+
+## 11. v5: a natural hand-off (2026-10-24)
+
+Director: "Make its fade in and out look more natural. The appear animation can brighten it earlier and faster so then it
+appears to hold longer when the breathe effect reaches its full effect as the appear animation fades, like they're doing
+a handoff. Then the breathe animation does the rest."
+- The **appear** draws its own copy of the ring: it flashes up as the ripples touch the rim (frames 48-51, about 2.3 s),
+  holds at full for 12 frames, then fades over 10 (to about 3.3 s).
+- The **loop** (now 64 frames x 90 ms = 5.76 s per breath) rises gently underneath from phase 0.38 and peaks in the middle
+  of that fade (phase 0.535, about 3.1 s), then fades softly (a half cosine) back to dark at the seam; stars wink round its
+  peak.
+- Seen together (measured): dark until 2.2 s; a quick rise to about 0.95 by 2.4 s; a hold near 0.96 to 3.3 s; a soft fade to
+  dark by 5.6 s; then the loop breathes on its own (a gentle rise, a long fade).
+- Strips `*_v5`: appear 176,282 bytes, loop 162,408, break 75,622 (unchanged art). push/243 now ships v5.
