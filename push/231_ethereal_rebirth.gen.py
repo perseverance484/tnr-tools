@@ -43,7 +43,7 @@ effects = [dict(e, appearAnimation=anim) if e['type'] == 'absorb' else dict(e) f
 
 t = open(TEXT).read()
 def quote(label):
-    block = re.search(r'\*\*' + label + r'\*\*[^\n]*\n((?:> .*\n)+)', t).group(1)
+    block = re.search(r'\*\*' + label + r':?\*\*[^\n]*\n((?:> .*\n)+)', t).group(1)
     return ' '.join(l[2:].strip() for l in block.splitlines())
 desc = quote('Description') + WARNING
 battle = quote('Battle line')

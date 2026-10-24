@@ -724,3 +724,22 @@ Gates: `check_manifest.mjs` 0 pre-send problems. `validate.py --strict` reports 
 Technique's live id `clh4d6pok0002tb0hx1bxro6l` is a legacy 25-character id, and validate.py only accepts 21-character ids. The
 id is copied from the AI's live kit in push/228. Allowing legacy ids in validate.py is tooling work (Lane A), not done here.
 
+
+## 230 Ethereal Rebirth cast animation asset: READY TO RUN
+
+Direct create of the ANIMATION asset "Ethereal Rebirth - Soul Ribbons" (hidden, folder `jutsuanimations`, 40 frames x 60
+ms = 2.4 s, 302,386 bytes): gold and blue soul-light ribbons pour out of the user's chest, wrap around their avatar, one
+lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-10-24). Art and build:
+`docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_ART_REQUEST.md`, `docs/design/ethereal_rebirth_animation/V1_NOTES.md`. Built by
+`push/230_ethereal_rebirth_animation.gen.py`; the strip is pinned by SHA-256 at the commit that built it. The jutsu is not
+touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
+
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): GENERATOR READY, WAITING ON THE ICON
+
+`python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
+new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
+kept), and the push/230 asset as the absorb effect's `appearAnimation` (plays on the caster; the damage effect keeps its
+hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). It refuses to build until the
+round-3 icon is approved, exported to `art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp` and
+committed, and until push/230 has run. Dry run (stand-in icon, fake asset id): both gates pass.
