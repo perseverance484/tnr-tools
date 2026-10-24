@@ -388,6 +388,44 @@ def _blue_phase():
 BLUE_PH = _blue_phase()
 
 
+# The attack (director, 2026-10-24: "flow together more smoothly ... like its an attack that you launch at the enemy").
+# The cast's gold band gathers a blue strand into a braid, launches, and the SAME braid arrives on the enemy's tile: the
+# braid's look (radius, coil, spin, width) is shared by the cast and the hit.
+BRAID_R = 0.07          # helix radius (frame fraction)
+BRAID_TPU = 2.4         # coil turns per frame-width of ribbon
+BRAID_SPIN = 0.18       # drill turns per frame (below the strobing rate at 28 fps)
+BRAID_THICK = 1.1
+WRAP_T0, WRAP_T1 = 0.46, 0.57   # the blue strand coils round the gold band (cast time)
+LASH_TD = 0.58                  # the braid leaves the orbit (cast time, frame ~37.7)
+LASH_DIR_BIAS = -0.25           # launch direction: almost straight up the portrait's right side, leaning right
+SPEAR_LEN = 0.55                # only the gold band's leading part is coiled: the spear
+HIT_ENTER, HIT_IMPACT = 43, 48.4  # hit frames: the braid enters the enemy's square, then strikes
+
+
+def braid(pts, r_scale, spin, coil_len=None):
+    """Two strands coiled round the centre line `pts` (head first): returns (strand A, strand B). The coil narrows to a
+    point at the head. With coil_len, only the leading coil_len of the line is coiled (the spear) and strand B stops
+    there."""
+    n = len(pts) - 1
+    s_acc, out_a, out_b = 0.0, [], []
+    for i, (x, y, d) in enumerate(pts):
+        if i:
+            s_acc += math.hypot(x - pts[i - 1][0], y - pts[i - 1][1])
+        ax, ay = pts[max(0, i - 1)][:2]
+        bx, by = pts[min(n, i + 1)][:2]
+        tx, ty = bx - ax, by - ay
+        ln = math.hypot(tx, ty) or 1.0
+        nx, ny = -ty / ln, tx / ln
+        r = BRAID_R * r_scale * smooth(s_acc, 0.0, 0.10)
+        if coil_len is not None:
+            r *= 1 - smooth(s_acc, 0.65 * coil_len, coil_len)
+        c = math.cos(2 * math.pi * BRAID_TPU * s_acc + spin)
+        out_a.append((x + nx * r * c, y + ny * r * c, d))
+        if coil_len is None or s_acc <= coil_len:
+            out_b.append((x - nx * r * c, y - ny * r * c, d))
+    return out_a, out_b
+
+
 # v5 bands, as in the icon: three gold, three blue. Each: strip, height of its orbit above (-) or below (+) the portrait
 # centre, tilt of its orbit plane (radians, + raises the right side), horizontal radius add-on, start angle offset, a
 # delay before it pours out, length and thickness factors, alpha. Band 0 is the gold one that whips out to the upper right.
@@ -401,7 +439,7 @@ V5_BANDS = [
 ]
 
 
-def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
+def spin_ribbons_v5(t, grow, rise, fade, strips, back, front, top=None):
     """v5 (director, 2026-10-24: "Draw the ribbons as they appear in the icon. Exactly."; then: "there are more ribbons
     in the icon"): the icon's six translucent bands, three gold and three blue, on tilted orbits round the portrait at
     different heights (the v4 orbit centred on the portrait). Front passes never cross the face (upper half of the
@@ -411,9 +449,9 @@ def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
         return
     pcy = PORTRAIT_CY
     yc = pcy + 0.04 - 0.10 * rise
-    td = 0.58
+    td = LASH_TD
     base0 = 0.35 + SPIN_RATE * td - 2 * math.pi
-    dx, dy = math.sin(TH_DEPART) + 0.35, -math.cos(TH_DEPART)
+    dx, dy = math.sin(TH_DEPART) + LASH_DIR_BIAS, -math.cos(TH_DEPART)
     ln = math.hypot(dx, dy)
     dx, dy = dx / ln, dy / ln
     for k, b in enumerate(V5_BANDS):
@@ -473,15 +511,46 @@ def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
             # gone before the final front pass (director, 2026-10-24: a gold band came round over the portrait as the
             # animation ended, "lets cut that out")
             al *= 1 - ease(seg(t, 0.74, 0.86))
+            if k >= 2:
+                # clear the stage for the launch: the four added bands are gone as the spear forms and leaves
+                al *= 1 - ease(seg(t, WRAP_T0 - 0.04, LASH_TD + 0.04))
         twist = (lambda u, o=twist_off: o + 2 * math.pi * 0.75 * u)
         # each band on its own layers, then laid over the others normally: a per-channel max between a gold and a
         # blue band turns their overlap pink
         bb = Image.new('RGBA', back.size, (0, 0, 0, 0))
         ff = Image.new('RGBA', front.size, (0, 0, 0, 0))
-        lay_ribbon(strips[b['s']], pts, al, bb, ff, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
-                   thick_k=thick, no_face=True)
+        w = ease(seg(t, WRAP_T0, WRAP_T1)) if k == 0 else 0.0
+        if w > 0:
+            # the wind-up: a blue strand coils round the gold band, and they leave as one drilling braid
+            fr_i = t * (CAST_N - 1)
+            pa, pb = braid(pts, w, 2 * math.pi * BRAID_SPIN * fr_i, coil_len=SPEAR_LEN)
+            thick = thick + (BRAID_THICK - thick) * w
+            lay_ribbon(strips[b['s']], pa, al, bb, ff, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                       thick_k=thick, no_face=True)
+            if len(pb) > 3:
+                # the blue strand on its own layers (a per-channel max with the gold would turn pink)
+                pbb = Image.new('RGBA', back.size, (0, 0, 0, 0))
+                pff = Image.new('RGBA', front.size, (0, 0, 0, 0))
+                lay_ribbon(strips['blue_a'], pb, al * w, pbb, pff, u0=0.45, u1=1.0, front_ok=1.0, face=False,
+                           twist=(lambda u, o=twist_off: o + 1.6 + 2 * math.pi * 0.75 * u), thick_k=BRAID_THICK,
+                           no_face=True)
+                bb.alpha_composite(pbb)
+                ff.alpha_composite(pff)
+        else:
+            lay_ribbon(strips[b['s']], pts, al, bb, ff, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                       thick_k=thick, no_face=True)
         back.alpha_composite(bb)
         front.alpha_composite(ff)
+        if k == 0 and top is not None and strips.get('c2') is not None:
+            # the release: a small flash where the braid leaves the orbit
+            fr_i, f_td = t * (CAST_N - 1), td * (CAST_N - 1)
+            gfl = ease(seg(fr_i, f_td - 1.5, f_td + 0.5)) * (1 - ease(seg(fr_i, f_td + 0.5, f_td + 6)))
+            if gfl > 0:
+                hx, hy, _ = pt(TH_DEPART, 0)
+                dd = max(2, int(2 * 0.16 * S * (0.7 + 0.3 * gfl)))
+                im = strips['c2'].resize((dd, dd), Image.LANCZOS)
+                im.putalpha(im.getchannel('A').point(lambda v, a=gfl: int(min(255, v * 1.6) * a)))
+                top.alpha_composite(im, (int(hx * S - dd / 2), int(hy * S - dd / 2)))
 
 
 def flecks_from(sheet):
@@ -608,7 +677,6 @@ def build_loop(n, size):
 
 
 HIT_N = CAST_N                   # the hit plays on the enemy's tile, started on the same tick as the cast
-HIT_IMPACT = 44                  # frame of impact (1.58 s), just after the cast's gold lash leaves the caster's frame
 
 
 def build_hit(n, size):
@@ -627,11 +695,11 @@ def build_hit(n, size):
     c2 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C2_glow_rays.png')).convert('RGBA')
     fi = HIT_IMPACT
     ix, iy = 0.5, PORTRAIT_CY + 0.03                      # impact point: the portrait's centre
-    sx, sy = 0.58, -0.04                                  # the corkscrew enters from the top, a touch right of centre
+    sx, sy = 0.33, -0.04                                  # enters top left, moving down-right: the launch arc coming down
     ax_len = math.hypot(ix - sx, iy - sy)
     adx, ady = (ix - sx) / ax_len, (iy - sy) / ax_len     # axis direction (down)
     nx_, ny_ = -ady, adx                                  # its normal
-    R_MAX, TURNS, RIB_LEN = 0.075, 2.5, 1.05               # helix radius, turns along the ribbon, ribbon length (route units)
+    RIB_LEN = 1.2                                         # ribbon length (route units), about the cast's braid's
     ALPHA_K = 3.2                                         # route units -> spiral angle after impact
     rnd = random.Random(5)
     sp = [dict(img=flecks[i % len(flecks)], ang=2 * math.pi * i / 7 + rnd.uniform(-0.25, 0.25),
@@ -640,8 +708,8 @@ def build_hit(n, size):
     def route(k, sig, spin, post=False):
         """Point (x, y, depth) at route distance sig for ribbon k: down the corkscrew axis, then out on a spiral."""
         if sig <= ax_len:
-            r = R_MAX * smooth(ax_len - sig, 0.0, 0.12)   # the braid narrows to the impact point
-            ph = 2 * math.pi * TURNS * sig / RIB_LEN + spin + k * math.pi
+            r = BRAID_R * smooth(ax_len - sig, 0.0, 0.12)  # the braid narrows to the impact point
+            ph = 2 * math.pi * BRAID_TPU * sig + spin + k * math.pi
             off = r * math.cos(ph)
             dep = math.sin(ph)
             if post:
@@ -655,14 +723,15 @@ def build_hit(n, size):
 
     def dist(f):
         """Distance the ribbons' heads have travelled along the route at frame f (accelerating in, easing out)."""
-        f0 = fi - 11
+        f0 = HIT_ENTER
         if f < f0:
             return -1.0
+        v = ax_len / (fi - f0)                            # arrives at the launch speed, held to the hit
         if f <= fi:
-            q = (f - f0) / (fi - f0)
-            return ax_len * q ** 1.6                      # accelerates into the hit
+            return v * (f - f0)
         q = (f - fi) / (n - 1 - fi)
-        return ax_len + 1.35 * (1 - (1 - q) ** 2.2)       # springs out, then slows
+        amp = 1.25 * v * (n - 1 - fi) / 2.2               # springs out a little faster than it came in, then slows
+        return ax_len + amp * (1 - (1 - q) ** 2.2)
 
     frames = []
     for f in range(n):
@@ -693,7 +762,7 @@ def build_hit(n, size):
         # 2. the corkscrew and its unravelling: one route per ribbon
         D = dist(f)
         if D > 0:
-            spin = 2 * math.pi * 0.35 * f                 # the braid drills as it comes
+            spin = 2 * math.pi * BRAID_SPIN * f           # the braid drills as it comes (as it left the caster)
             al = 0.97 * (1 - ease(seg(f, fi + 10, n - 3)))
             for k, strip in enumerate((gold, blue)):
                 lo = max(0.0, D - RIB_LEN)
@@ -707,7 +776,7 @@ def build_hit(n, size):
                 tf = Image.new('RGBA', (S, S), (0, 0, 0, 0))
                 twist = (lambda u, k=k, f=f: 0.4 + 1.3 * k + 2 * math.pi * 0.75 * u + 0.25 * f)
                 lay_ribbon(strip, pts, al, tb, tf, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
-                           thick_k=1.15 if D <= ax_len + 0.15 else 0.9)
+                           thick_k=BRAID_THICK + (0.9 - BRAID_THICK) * smooth(D, ax_len, ax_len + 0.5))
                 if D <= ax_len:
                     # in the braid the two ribbons pass round each other; neither goes behind the portrait yet
                     ff.alpha_composite(tb)
@@ -763,7 +832,7 @@ def build(n, size):
     # pre-shrink so warping squeezes less (no fine striping); 560 px is close to the longest on-screen path at 384 px
     gold = gold.resize((560, max(1, round(gold.height * 560 / gold.width))), Image.LANCZOS)
     blue = blue.resize((560, max(1, round(blue.height * 560 / blue.width))), Image.LANCZOS)
-    v5_strips = {'gold_a': gold, 'blue_a': blue}
+    v5_strips = {'gold_a': gold, 'blue_a': blue, 'c2': None}
     if SET == 'v5':
         for key, fn in (('gold_b', 'R1_band_gold_b'), ('blue_b', 'R2_band_blue_b')):
             im = Image.open(os.path.join(HERE, 'raws', f'anim_er_v5_{fn}.png')).convert('RGBA')
@@ -774,6 +843,7 @@ def build(n, size):
     if SET == 'v5':
         c2 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C2_glow_rays.png')).convert('RGBA')
         c3 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C3_cracks.png')).convert('RGBA')
+        v5_strips['c2'] = c2
     flecks = flecks_from(sheet)
     rnd = random.Random(7)
     fl = [dict(img=rnd.choice(flecks), x=0.5 + rnd.uniform(-0.34, 0.34), y=rnd.uniform(0.30, 0.82),
@@ -797,7 +867,7 @@ def build(n, size):
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
         if SET == 'v5':
-            spin_ribbons_v5(t, grow, rise, fade, v5_strips, back, front)
+            spin_ribbons_v5(t, grow, rise, fade, v5_strips, back, front, top)
         elif SET == 'v4':
             spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front)
         elif SET == 'v3':
