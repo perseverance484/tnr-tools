@@ -14,7 +14,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 REC = os.path.join(ROOT, 'docs/design/icon_overhaul/ethereal_rebirth/showcase/battle_recording_2026-10-24.mp4')
 A = os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/animation/')
 spec = importlib.util.spec_from_file_location('cd', A + 'build_strip.py'); cd = importlib.util.module_from_spec(spec); spec.loader.exec_module(cd)
-V = 'v5'
+V = 'v6'
 F = lambda s, b=False: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf' % ('-Bold' if b else ''), s)
 BG, CARD, FG, DIM, ACC = (18, 22, 34), (30, 36, 52), (238, 240, 246), (160, 168, 186), (140, 190, 255)
 BATTLE = ("%user closes their eyes and the night seems to answer, a pale crescent moon blooming into being above them. From "
@@ -27,14 +27,13 @@ ICONS = [('Old', 'the original (live now)', 'art/jutsu_icons/celestial_dew/refs/
 BOARD = [(500, 'Moon appears; heal heart'), (1150, 'A drop of starlight falls'), (1500, 'It splashes'),
          (1950, 'Ripples run out'), (2300, 'They charge the rim: the ward'), (3600, 'The ward breathes while it lasts'),
          (6200, 'It fades in and out'), (-300, 'It shatters when it ends')]
-BOX, CX, CY, FR = (140, 120, 274, 250), 207, 203, 105
+# the director's phone recording (2026-10-24b) and where the game draws the 50 px effect square on it (see preview.py)
+K, L, T = 184.1, 219.3, 132.1
+BOX = (215, 100, 405, 300)
 
 
 def still():
-    with tempfile.TemporaryDirectory() as t:
-        p = os.path.join(t, 'c.png')
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', '4.1', '-i', REC, '-frames:v', '1', p], check=True)
-        return Image.open(p).convert('RGBA')
+    return Image.open(os.path.join(ROOT, 'docs/design/celestial_dew_animation/battle_still_2026-10-24b.png')).convert('RGBA')
 
 
 def strip(n):
@@ -49,7 +48,8 @@ HEAL = [_h.crop((0, i * _h.width, _h.width, (i + 1) * _h.width)) for i in range(
 
 def at(bg, appear, loop, brk, ms, sc):
     c = bg.copy()
-    pos = (CX - FR // 2, CY - FR // 2)
+    pos = (round(L), round(T))
+    FR = round(K)
     if ms >= 0 and ms // HEAL_MS < len(HEAL):
         c.alpha_composite(HEAL[ms // HEAL_MS].resize((FR, FR), Image.LANCZOS), pos)
     if ms >= 0:
@@ -109,7 +109,7 @@ def main():
         d.text((x, yy + im.height + 31), f'{ms / 1000:.1f} s' if ms >= 0 else 'shield ends', font=F(12), fill=DIM)
     y += 2 * (cw + 70) + 10
     y = para(d, G, y, 'How it plays: the cast (moon, drop, ripples) runs 3.4 s; the ward glows up the moment the ripples '
-                      'reach the rim, then breathes slowly (once every 4.6 s) for as long as the shield holds. When the '
+                      'reach the rim, then breathes slowly (once every 5.8 s) for as long as the shield holds. When the '
                       'shield ends, breaks or fails to form, the ward shatters into stardust. The heal keeps its own heart '
                       'effect, which plays alongside as before (step 1 above); before, nothing showed the shield.', 132, F(15), DIM, 21)
     s.crop((0, 0, W, y + 24)).save(os.path.join(HERE, 'celestial_dew_showcase.png'))
