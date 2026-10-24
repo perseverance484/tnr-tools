@@ -759,7 +759,7 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 237 Ethereal Rebirth hit animation (create): READY TO RUN (step 1 of the final ticket)
+## 237 Ethereal Rebirth hit animation (create): RUN, verified (bundle tnr_results_1792874408622.json, id crcBkGqA7Dyx52I-wU3gc), archived
 
 Director (2026-10-24): "corkscrew from the top, timed to the lash". Direct create of asset `er_anim_soul_strike`
 ("Ethereal Rebirth - Soul Strike", ANIMATION, `anim_ethereal_rebirth_hit1.webp`: the gold and blue ribbons wound into a
@@ -773,7 +773,10 @@ Claude Code builds 235 and 236 (`python3 push/235_ethereal_rebirth_loop_unhide.g
 stand-in hit id: gates clean. The hit's id must be literal (Forge resolves `@` refs from its idmap at run time, but
 `check_manifest.mjs` plans without that idmap, so a ref would fail the gate; changing that is Lane A).
 
-## 236 Ethereal Rebirth final ticket (suggest mode): generator ready; built from the 237 bundle (text v3 approved; adds the hit on the damage effect)
+## 236 Ethereal Rebirth final ticket (suggest mode): READY TO RUN (after 235)
+
+Built from the 230, 234 and 237 bundles (pack 77a1617): icon, text v3 (approved), absorb appear `HwkXTjErL_Laxs8WtqBiI` + static `jRU-uhYhX0maaWyaRJr14`, damage appear `crcBkGqA7Dyx52I-wU3gc` (the hit). Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
 
 Replaces push/231, whose suggestion the director cancelled (2026-10-24: "lets make a new one that proposes all of this").
 `python3 push/236_ethereal_rebirth.gen.py <push/230 bundle> <push/234 bundle>` builds one suggestion on Ethereal Rebirth:
@@ -784,7 +787,10 @@ keeps `iDv3rjj81rRgD10shRqSn`; decreased damage given unchanged. Effects array r
 asserts of 231 (absorb had no animations, damage still non-elemental); `injectableInBattle` re-sent (false, law 20).
 Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 235 Ethereal Rebirth animations (cast v7, loop2) + unhide loop and hit: generator ready; built from the 237 bundle
+## 235 Ethereal Rebirth animations (cast v7, loop2) + unhide loop and hit: READY TO RUN (then 236)
+
+Built from the 230, 234 and 237 bundles (pack 77a1617): cast -> v7, loop -> loop2 + unhide, hit `crcBkGqA7Dyx52I-wU3gc` unhide. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
 
 Director (2026-10-24): "polish the animations for appear and static so they are very smooth". Two direct asset edits:
 the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v7.webp` (66 frames x 36 ms, 377,388 bytes; v7 adds the launch: a blue strand coils round the gold band into a spear, a release flash, and the spear climbs out of the top of the frame) and the
