@@ -143,3 +143,11 @@ of cloud; 20 frames of 128 px, `art/jutsu_icons/celestial_dew/refs/ref_cd_heal_a
 cast alongside the shield's appear. The suggestion leaves the heal effect untouched (corrects section 7, which planned to
 clear it). Previews and the showcase now composite it under ours; its frame time is not on record here and is assumed
 60 ms.
+
+## 10. v4: the ring no longer clips at the top (2026-10-24)
+
+Director: "The animations circle seems to clip at the top when the ward forms". The portrait reaches to 0.024 of the
+frame top, so the ring round it (band outer edge 0.278) and its glow ran past the frame edge and under the 7% edge fade.
+Now: the band's inner edge at 0.19 (outer about 0.246, top about 0.05), over the portrait's white rim; the edge fade
+narrowed to 2.5% for Celestial Dew; the ring's outer glow softened (alpha^1.5). The ripples end at the band's middle
+(0.22). Strips `*_v4`: appear 105,974 bytes, loop 161,768, break 75,622. Shipped to the existing assets by push/243.

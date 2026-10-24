@@ -30,7 +30,8 @@ er = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(er)
 S, PCY = er.S, er.PORTRAIT_CY            # working size; portrait centre (measured from the director's recording)
 ease, seg, smooth = er.ease, er.seg, er.smooth
-BEHIND_MASK, EDGE_FADE = er.BEHIND_MASK, er.EDGE_FADE
+BEHIND_MASK = er.BEHIND_MASK
+EDGE_FADE = er._edge_fade(0.025)   # a narrow fade: the ring's top runs close to the frame edge
 
 # Slower (director, 2026-10-24: "it plays way too fast"). Frame times per strip; the appear and the loop start on one
 # tick, and the loop's first glow peak lands when the ripples reach the rim: IGNITE * MS['appear'] = LOOP_N * MS['loop'] / 2.
@@ -39,7 +40,11 @@ CAST_N, LOOP_N, BREAK_N, SIZE = 74, 64, 30, 112
 IMPACT = 30          # the drop lands (1.38 s)
 IGNITE = 50          # the ripples reach the rim (2.30 s): the ward's first glow peak
 LOOP_PEAK = 0.95     # the ward's glow at its brightest
-RING_INNER = 0.215   # the ward band's inner edge, as a frame radius: it sits over the portrait's white rim
+# the ward band's inner edge, as a frame radius. The portrait reaches to 0.024 of the frame top, so a ring round it has
+# little room there: the band is tucked over the portrait's rim (outer edge about 0.246, its top at about 0.05) so it
+# stays inside the frame (director, 2026-10-24: "the circle seems to clip at the top when the ward forms")
+RING_INNER = 0.19
+RIM_R = RING_INNER + 0.03   # where the ripples end: the middle of the ward band
 W1_INNER = 390 / 1254  # the band's inner edge in the W1 art (measured), as a fraction of its canvas
 R1_OUTER = 536 / 1254  # the R1 art's outer crest radius, as a fraction of its canvas width (measured)
 
@@ -105,8 +110,10 @@ def layers():
     if not L:
         for k in ('M1_crescent', 'D1_drop', 'S1_splash'):
             L[k] = raw(k)
-        for k in ('R1_ripples', 'W1_ward_ring'):
-            L[k] = raw(k, crop=False)
+        L['R1_ripples'] = raw('R1_ripples', crop=False)
+        w1 = raw('W1_ward_ring', crop=False)
+        w1.putalpha(w1.getchannel('A').point(lambda v: int(255 * (v / 255) ** 1.5)))   # a softer outer glow
+        L['W1_ward_ring'] = w1
         L['glints'] = er.flecks_from(raw('P1_glints'))
         L['shards'] = er.flecks_from(raw('X1_shards'))
     return L
@@ -182,7 +189,7 @@ def appear_frames():
         for k, (f0, f1) in enumerate(((IMPACT + 1, IGNITE), (IMPACT + 6, IGNITE + 5))):
             p = seg(f, f0, f1)
             if 0 < p < 1:
-                r_out = 0.03 + (0.272 - 0.03) * p ** 0.8           # steady outward run, a touch faster at first
+                r_out = 0.03 + (RIM_R - 0.03) * p ** 0.8           # steady outward run, a touch faster at first
                 put(front, Lr['R1_ripples'], 0.5, PCY, r_out / R1_OUTER, 0.6 * (1 - p ** 4))
         # 5. where the ripples hit the rim, sparks: the ward itself is the loop (shield static), whose glow peaks now
         for k in range(8):
@@ -323,4 +330,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     for name, fn in BUILDERS.items():
         if a.only in (None, name):
-            save_strip(fn(), f'{name}_v3')
+            save_strip(fn(), f'{name}_v4')
