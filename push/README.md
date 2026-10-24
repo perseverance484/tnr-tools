@@ -761,14 +761,14 @@ damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL
 
 ## 238 Celestial Dew animations (3 creates): READY TO RUN (after the director approves the preview)
 
-Director (2026-10-24): one strip on the shield's appear so cast and ward are timed together; a small upright moon above
-the portrait (the Chakra Overflow star placement); the drop falls from it into the portrait's centre; the ripples run out
-and charge the rim into the ward (nothing of the ward before); the moon fades. Direct creates, hidden (law 16b gate):
-`cd_anim_appear` (shield appear, 66 frames), `cd_anim_loop` (shield static, 100, seamless), `cd_anim_break` (shield
-disappear, 30); 112 px at 36 ms. Preview: `docs/design/celestial_dew_animation/v2_over_avatar.gif`. Pack pinned at
-a23368f. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:**
-from its bundle, one direct manifest unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the
-shield and clears the heal's generic appear (re-sending the live effects array).
+Director (2026-10-24): the appear is the moon, the drop and the ripples; the loop is the ward glowing, fading in and
+out, timed so its first glow peaks when the ripples reach the rim; slower. Direct creates, hidden (law 16b gate), all for
+the shield effect: `cd_anim_appear` (appear: 74 frames x 46 ms = 3.4 s), `cd_anim_loop` (static: 64 x 72 ms = 4.6 s, one
+breath, peak at 2.30 s), `cd_anim_break` (disappear: 30 x 46 ms); 112 px. Preview:
+`docs/design/celestial_dew_animation/v3_over_avatar.gif`. Pack pinned at eaeb429. Gates: `validate.py --strict` 0
+errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its bundle, one direct manifest
+unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the shield and clears the heal's generic
+appear (re-sending the live effects array).
 
 ## 237 Ethereal Rebirth hit animation (create): RUN, verified (bundle tnr_results_1792874408622.json, id crcBkGqA7Dyx52I-wU3gc), archived
 
