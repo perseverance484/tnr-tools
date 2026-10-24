@@ -3,7 +3,7 @@
 **State:** READY FOR ONE EXPLORATORY IMAGE EDIT. This is not final visual approval or production approval.
 **Date:** 2026-10-24
 **Plan:** `docs/design/icon_overhaul/tempest_cleave/PREMIUM_REFINEMENT_PLAN_20261024.md`, **Stage 4**, read at the exact frozen handoff SHA; stages 1–3 are background goals, not separately confirmed approvals.
-**Approved text / up-to-date canon:** `RUL-2026-10-24-004` and `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` `1, read from **`main@bb527678fa395b89b2da1844d2f02b661f3bdc7c`**, plus its updated `docs/design/icon_overhaul/tempest_cleave/PILOT.md`. **The plan branch diverges from main and does NOT contain the latest text/pilot update.** New description/battle text is approved *for delivery with the icon* but no live write was verified.
+**Approved text / up-to-date canon:** `RUL-2026-10-24-004` and `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` section 1, read from **`main@bb527678fa395b89b2da1844d2f02b661f3bdc7c`**, plus its updated `docs/design/icon_overhaul/tempest_cleave/PILOT.md`. **The plan branch diverges from main and does NOT contain the latest text/pilot update.** New description/battle text is approved *for delivery with the icon* but no live write was verified.
 **Workstream:** icon overhaul pilot — Tempest Cleave
 **Target ID / field:** `Ul83iTziN__Z0i_UOzZTK` / `jutsu.image`; event A-rank, no bloodline; current per-pilot gameplay is a one-turn, outward ring of razor-wind cuts.
 **Session:** FRESH ISOLATED IMAGE-PRODUCTION session; **executor generates ONE raw; originating ChatGPT art-direction session independently reviews; director alone accepts final art**.
