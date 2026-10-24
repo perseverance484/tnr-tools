@@ -2354,3 +2354,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Amendment 1 (2026-10-24), roles:** the art director only makes the art (raw images). Claude Code handles everything else: processing, previews and sheets, export and preflight, text rewrites (drafted for the director's approval), and the batch manifest. User: "You're handling text rewrites, manifests, processing, etc. Art Director just makes the art". Recorded in `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`.
 
 **Amendment 2 (2026-10-24), people:** the five jutsu where staff asked for people (Poisonous Senbon, Blast Shield, Decaying Touch, Ethereal Nexus, Crystal Sphere) each get a people and a no-people version for the director to compare; Crystal Sphere's no-people version is the kept icon. User: "Lets do a people vs no people version for those jutsu". The general no-people lean stands elsewhere until the director decides.
+
+## RUL-2026-10-24-001 — Jutsu icons depict the move, not abstractions
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** the "one bold emblem that is the ability's metaphor" direction used for the 2026-10 jutsu icon passes (for example the Chakra Overflow and starter briefs), for future jutsu icon work
+
+**Ruling:** Jutsu icons depict the actual move: who does it, what they do, to whom, with what, at the moment it lands, taken from the jutsu's battle text and lore. Abstract emblems (energy swirls, bursts, orbs, halos) are not a subject. Visual design must pass a 45 px name test (a player can say what is happening), with a silhouette-first composition, one peak moment, concrete objects and bodies, big and few shapes, one line of action, and a dark simple background.
+
+**Evidence:** User, 2026-10-24: "A big mistake we've made with all our icons is they are too abstract. They don't convey the move at all. They compress down to the same amorphous blobs at size. They need to depict the actual move, the lore, the actual thing being done. Visual design needs to be better."
+
+**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2. Whether people appear wherever the move needs them is open (D1 there).
