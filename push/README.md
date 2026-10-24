@@ -759,7 +759,14 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 241 Celestial Dew capture: READY TO RUN (reads only)
+## 242 Celestial Dew capture with the record kept: READY TO RUN (optional, before 240)
+
+The same read as 241 with `persist: "full"`, so the record's body lands in the bundle (241's capture asked for no
+persistence, so its bundle confirmed the read but held no record). With its bundle, push/240 is checked against the live
+effects and rebuilt if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0
+pre-send problems.
+
+## 241 Celestial Dew capture: RUN (bundle tnr_results_1792883140850.json; read ok, no record kept: no persist), archived
 
 Capture-only manifest (`jutsu.get` on `2vNeMhph6A9Ld--WXa35O`), changes nothing. Director (2026-10-24): "Only changed the
 icon but go ahead. Make a capture." push/240 as built (from the 2026-10-23 public read) is fine to run on that
@@ -767,7 +774,7 @@ confirmation; with this bundle, `python3 push/240_celestial_dew.gen.py <238 bund
 live record if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
 problems.
 
-## 240 Celestial Dew suggestion: READY TO RUN (after 239)
+## 240 Celestial Dew suggestion: READY TO RUN (239 done)
 
 `python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
 disappear animations to the push/238 assets, and brings back our reworked icon (`icon_jutsu_celestial_dew_v1.webp`;
@@ -775,7 +782,7 @@ the reverted one is not live). The heal keeps `I9aYhT5wMB`; text unchanged; effe
 `injectableInBattle` re-sent from the public read (asserted: shield had no animations, heal appear as expected). No AI
 holds Celestial Dew in recent captures. Dry-run with stand-in ids: gates clean.
 
-## 239 Celestial Dew animations unhide: READY TO RUN (first)
+## 239 Celestial Dew animations unhide: RUN, verified (bundle tnr_results_1792883134619.json: all three unhidden), archived
 
 `python3 push/239_celestial_dew_animations_unhide.gen.py <238 bundle>`: direct edits, `hidden: false` on the three assets
 (law 16c), image not re-sent. Director (2026-10-24): "Let's make the animation unhidden first then send in the suggestion
