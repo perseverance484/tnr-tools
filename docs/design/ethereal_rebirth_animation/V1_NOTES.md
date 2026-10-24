@@ -179,3 +179,21 @@ so they share a clock: `build_strip.py --set hit1 --frames 66 --ms 36 --size 112
 - to 2.4 s: everything fades; the portrait is clear at the end.
 132,072 bytes. Zoom `hit1_zoom.png`; both tiles on one clock: `hit1_duel.gif` (`duel_preview.py`; the director's
 portrait stands in for the enemy's, same token geometry). Replaces the generic hit `iDv3rjj81rRgD10shRqSn` on approval.
+
+## v7 + hit (launch pass): one attack across two tiles (2026-10-24)
+
+Director: "optimize the attack animation and the self buff animation to flow together more smoothly. High quality
+attention to detail, like its an attack that you launch at the enemy." The cast and the hit share a clock (one
+`drawCombatEffects` pass) and now share the projectile:
+- **Wind-up (cast t 0.46-0.57, about 1.1-1.35 s):** a blue strand coils round the gold band's leading 0.55 (the spear),
+  using the tapered tip of the blue art; the four added bands fade out so the stage is clear for the launch.
+- **Release (frame 37.7, 1.36 s):** a flash (starburst C2, radius 0.16) where the spear leaves the orbit, front right.
+- **Climb (frames 38-43):** the spear rises almost straight up the portrait's right side (outside the portrait) and exits
+  the top at 0.074 frame-widths per frame, drilling (0.18 turns per frame).
+- **Arrival (hit frames 43-48.4):** the same braid (`BRAID_R`, `BRAID_TPU`, `BRAID_SPIN`, `BRAID_THICK`, both strands from
+  the same art) enters the enemy's square from the upper left moving down-right, the arc coming down, at the same speed,
+  and strikes at 1.74 s; after impact the ribbons spring out at 1.25x that speed, easing, and their width blends from the
+  braid's to the unravel's (no step).
+- Measured on composited frames: cast mean step 10.1 (max 30.7 at the release flash, intended); hit mean 4.8, no
+  single-frame spikes. Cast `anim_ethereal_rebirth_v7.webp` 377,388 bytes; hit `anim_ethereal_rebirth_hit1.webp`
+  135,030 bytes. Previews: `v7_attack_duel.gif` (both tiles on one clock), `v7_attack_pairs.png` (frames 34-54 paired).
