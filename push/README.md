@@ -765,7 +765,7 @@ Director (2026-10-24): the appear is the moon, the drop and the ripples; the loo
 out, timed so its first glow peaks when the ripples reach the rim; slower. Direct creates, hidden (law 16b gate), all for
 the shield effect: `cd_anim_appear` (appear: 74 frames x 46 ms = 3.4 s), `cd_anim_loop` (static: 64 x 72 ms = 4.6 s, one
 breath, peak at 2.30 s), `cd_anim_break` (disappear: 30 x 46 ms); 112 px. Preview:
-`docs/design/celestial_dew_animation/v3_over_avatar.gif`. Pack pinned at eaeb429. Gates: `validate.py --strict` 0
+`docs/design/celestial_dew_animation/v3_over_avatar.gif`. Pack pinned at 1f1e4ec. Gates: `validate.py --strict` 0
 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its bundle, one direct manifest
 unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the shield (the heal keeps its own appear
 `I9aYhT5wMB`; re-sending the live effects array).
