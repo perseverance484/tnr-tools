@@ -767,8 +767,8 @@ the shield effect: `cd_anim_appear` (appear: 74 frames x 46 ms = 3.4 s), `cd_ani
 breath, peak at 2.30 s), `cd_anim_break` (disappear: 30 x 46 ms); 112 px. Preview:
 `docs/design/celestial_dew_animation/v3_over_avatar.gif`. Pack pinned at eaeb429. Gates: `validate.py --strict` 0
 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its bundle, one direct manifest
-unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the shield and clears the heal's generic
-appear (re-sending the live effects array).
+unhides the three (law 16c), then one suggestion on Celestial Dew sets them on the shield (the heal keeps its own appear
+`I9aYhT5wMB`; re-sending the live effects array).
 
 ## 237 Ethereal Rebirth hit animation (create): RUN, verified (bundle tnr_results_1792874408622.json, id crcBkGqA7Dyx52I-wU3gc), archived
 

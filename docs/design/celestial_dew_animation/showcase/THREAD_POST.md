@@ -9,7 +9,7 @@ moment the jutsu describes.
   and out for as long as the shield holds.
 - **When it ends:** if the shield runs out, breaks, or fails to form, the ward shatters into stardust.
 
-Before, a generic heal effect played and nothing showed the shield.
+The heal keeps its own heart effect, which still plays alongside as before. Before, nothing showed the shield.
 
 Sheet: old and current icons, the text, and the animation step by step over a real player portrait. GIF: the animation
 in battle, from cast to break. Feedback welcome before it goes live.

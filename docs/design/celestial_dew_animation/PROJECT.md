@@ -131,3 +131,12 @@ timed with the static animation which is a looping glow effect. Try to make it s
   every 4.6 s; the ward is dark for about 1.8 s of each breath.
 - **break** (`break_v3`, 30 frames x 46 ms = 1.38 s): the ring flashes and shatters into shards.
 - Preview `v3_over_avatar.gif` (composited on real time, two breaths then the break); stills `v3_key_frames.png`.
+
+## 9. The heal's own animation stays (2026-10-24)
+
+Director: "Here's the heal animation. Do note that appears on the heal tag, not on the shield tag and would still play
+normally. Ours is for the shield tag." The heal effect keeps its appear animation `I9aYhT5wMB` (a heart forming in a puff
+of cloud; 20 frames of 128 px, `art/jutsu_icons/celestial_dew/refs/ref_cd_heal_animation_I9aYhT5wMB.webp`); it plays at
+cast alongside the shield's appear. The suggestion leaves the heal effect untouched (corrects section 7, which planned to
+clear it). Previews and the showcase now composite it under ours; its frame time is not on record here and is assumed
+60 ms.

@@ -24,7 +24,7 @@ BATTLE = ("%user closes their eyes and the night seems to answer, a pale crescen
 ICONS = [('Old', 'the original icon', 'art/jutsu_icons/celestial_dew/refs/ref_cd_original_icon.webp', FG),
          ('Current (kept)', 'our rework, scored 10/10', 'art/jutsu_icons/celestial_dew/refs/ref_cd_live_icon.webp', ACC)]
 # storyboard moments: (ms, caption)
-BOARD = [(500, 'The moon appears'), (1150, 'A drop of starlight falls'), (1500, 'It splashes'),
+BOARD = [(500, 'Moon appears; heal heart'), (1150, 'A drop of starlight falls'), (1500, 'It splashes'),
          (1950, 'Ripples run out'), (2300, 'They charge the rim: the ward'), (3600, 'The ward breathes while it lasts'),
          (6200, 'It fades in and out'), (-300, 'It shatters when it ends')]
 BOX, CX, CY, FR = (140, 120, 274, 250), 207, 203, 105
@@ -42,9 +42,16 @@ def strip(n):
     return [s.crop((0, i * s.width, s.width, (i + 1) * s.width)) for i in range(s.height // s.width)]
 
 
+HEAL_MS = 60   # the heal's own appear animation (I9aYhT5wMB, kept): its frame time is not on record here (assumed)
+_h = Image.open(os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/refs/ref_cd_heal_animation_I9aYhT5wMB.webp')).convert('RGBA')
+HEAL = [_h.crop((0, i * _h.width, _h.width, (i + 1) * _h.width)) for i in range(_h.height // _h.width)]
+
+
 def at(bg, appear, loop, brk, ms, sc):
     c = bg.copy()
     pos = (CX - FR // 2, CY - FR // 2)
+    if ms >= 0 and ms // HEAL_MS < len(HEAL):
+        c.alpha_composite(HEAL[ms // HEAL_MS].resize((FR, FR), Image.LANCZOS), pos)
     if ms >= 0:
         c.alpha_composite(loop[(ms // cd.MS['loop']) % len(loop)].resize((FR, FR), Image.LANCZOS), pos)
         if ms // cd.MS['appear'] < len(appear):
@@ -103,8 +110,8 @@ def main():
     y += 2 * (cw + 70) + 10
     y = para(d, G, y, 'How it plays: the cast (moon, drop, ripples) runs 3.4 s; the ward glows up the moment the ripples '
                       'reach the rim, then breathes slowly (once every 4.6 s) for as long as the shield holds. When the '
-                      'shield ends, breaks or fails to form, the ward shatters into stardust. Before, a generic heal effect '
-                      'played and nothing showed the shield.', 132, F(15), DIM, 21)
+                      'shield ends, breaks or fails to form, the ward shatters into stardust. The heal keeps its own heart '
+                      'effect, which plays alongside as before (step 1 above); before, nothing showed the shield.', 132, F(15), DIM, 21)
     s.crop((0, 0, W, y + 24)).save(os.path.join(HERE, 'celestial_dew_showcase.png'))
     # battle gif (2x, real time, two breaths then the break)
     frames, tick = [], 40
