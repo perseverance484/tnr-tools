@@ -12,7 +12,7 @@ The strip: art/jutsu_icons/chakra_overflow/animation/exports/anim_chakra_overflo
 approved 2026-10-23): 48 square frames of 128 px stacked vertically, played at 54 ms per frame (2.6 s). A new asset,
 because the jutsu's current animation (spellcast_D_large_violet, QgsljoZSCOKhdQxCIGnTU) is shared by six other jutsu.
 Suggest mode cannot carry creates, so this runs on its own; push/225 is then rebuilt with the new asset id from this
-run's results bundle. hidden: true per the create rule (law 16b; gameAsset hidden affects listing only, law 16c).
+run's results bundle. Kept hidden: false on this edit: battles load only unhidden assets (law 16c, corrected 2026-10-24).
 """
 import hashlib, json, os, subprocess
 
@@ -46,7 +46,7 @@ m = {
             "folder": "jutsuanimations",
             "frames": FRAMES,
             "speed": SPEED,
-            "hidden": True,
+            "hidden": False,   # battles load only unhidden assets (law 16c, corrected 2026-10-24)
             "onInitialBattleField": False,
             "licenseDetails": "TNR",
         },

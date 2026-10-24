@@ -47,7 +47,7 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 | 15 | knowledge | **corrected** | `scaleUserStats` re-read line by line; statMod precision added |
 | 16 | generated | **corrected** | `USER_CAPS` now in `45e`, including the previously unrecorded `LVL_CAP` |
 | 16b | validate | verified | `hidden:true` on every create; L13 |
-| 16c | knowledge | carried | gameAsset hidden = listing only |
+| 16c | knowledge | carried | gameAsset hidden = hidden from battles; battle assets must be unhidden (corrected 2026-10-24) |
 | 16d | validate | verified | AI rule shape checked against `45c` `AiRule` |
 | 17 | builder | carried | Ref substitution; unresolved `@` stripped server-side |
 | 18 | knowledge | carried | Unequip -> edit -> re-equip. No offline check possible |
