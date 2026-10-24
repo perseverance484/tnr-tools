@@ -5,12 +5,13 @@
 - **Live effects** (public read 2026-10-23): damage to the target with element `None`, `elementClassification: None`;
   absorb on the user (35%, 3 rounds; damage taken becomes health); decreased damage given on the user (15%, 2 rounds;
   the cost).
-- **Status: DRAFT for the director** (final prose is the director's). Replaces the 2026-10-24 elemental text in
-  `../TEXT_AND_ICON_ROUND1.md` section 2, which is withdrawn.
+- **Status: APPROVED (director, 2026-10-24: "texts approved").** Replaces the 2026-10-24 elemental text in
+  `../TEXT_AND_ICON_ROUND1.md` section 2, which is withdrawn. Ships with the new icon (and the cast animation) in one
+  suggestion.
 - **Rules:** description within 80–220 characters; battle line a 3–4 sentence scene; no element named anywhere; no em
   dashes; `%target` only where the jutsu hits a unit (it does: one opponent).
 
-## Draft text
+## Approved text
 
 **Description** (201 characters):
 > A forbidden art that breaks the seal upon the user's soul, loosing its raw light to strike the enemy. The user is remade

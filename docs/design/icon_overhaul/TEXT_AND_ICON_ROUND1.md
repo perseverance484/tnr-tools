@@ -61,7 +61,7 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 
 > **Section superseded 2026-10-24.** Director: "this is a non-elemental attack so using elements is a no-go. We will
 > rewrite its descriptions as well." The live damage effect has element `None`. The approved fire, water and lightning
-> text below is withdrawn; the non-elemental draft is in `ethereal_rebirth/TEXT_V2.md`.
+> text below is withdrawn; the non-elemental text (approved 2026-10-24) is in `ethereal_rebirth/TEXT_V2.md`.
 
 **Effects:** damages the target; for 3 rounds the user turns damage taken into health (absorb); for 2 rounds the user deals
 less damage (the cost).
