@@ -2369,4 +2369,4 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Evidence:** User, 2026-10-24: "A big mistake we've made with all our icons is they are too abstract. They don't convey the move at all. They compress down to the same amorphous blobs at size. They need to depict the actual move, the lore, the actual thing being done. Visual design needs to be better."
 
-**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2. Whether people appear wherever the move needs them is open (D1 there).
+**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2. People appear wherever the move needs them (director, 2026-10-24: "Confirmed, show people wherever the move needs them."), superseding the earlier no-people lean of RUL-2026-10-23-008.
