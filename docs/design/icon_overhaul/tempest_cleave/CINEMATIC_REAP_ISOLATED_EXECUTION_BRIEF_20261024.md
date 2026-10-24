@@ -2,7 +2,8 @@
 
 **State:** READY FOR ONE EXPLORATORY IMAGE EDIT. This is not final visual approval or production approval.
 **Date:** 2026-10-24
-**Plan:** `docs/design/icon_overhaul/tempest_cleave/PREMIUM_REFINEMENT_PLAN_20261024.md`, **Stage 4**. Read it at the exact frozen handoff SHA; stages 1–3 are background goals, not separate confirmed approvals.
+**Plan:** `docs/design/icon_overhaul/tempest_cleave/PREMIUM_REFINEMENT_PLAN_20261024.md`, **Stage 4**, read at the exact frozen handoff SHA; stages 1–3 are background goals, not separately confirmed approvals.
+**Approved text / up-to-date canon:** `RUL-2026-10-24-004` and `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` `1, read from **`main@bb527678fa395b89b2da1844d2f02b661f3bdc7c`**, plus its updated `docs/design/icon_overhaul/tempest_cleave/PILOT.md`. **The plan branch diverges from main and does NOT contain the latest text/pilot update.** New description/battle text is approved *for delivery with the icon* but no live write was verified.
 **Workstream:** icon overhaul pilot — Tempest Cleave
 **Target ID / field:** `Ul83iTziN__Z0i_UOzZTK` / `jutsu.image`; event A-rank, no bloodline; current per-pilot gameplay is a one-turn, outward ring of razor-wind cuts.
 **Session:** FRESH ISOLATED IMAGE-PRODUCTION session; **executor generates ONE raw; originating ChatGPT art-direction session independently reviews; director alone accepts final art**.
@@ -32,7 +33,7 @@ This is a **refinement of the current image**. Keep the recognizable fox-masked 
 4. **Executioner's face:** same pale generic fox mask with cold narrow blue eyes, chin angled down to stare along the cleave; no new helmet, face, franchise markings or facial portrait emphasis.
 5. **Storm mass:** overhead spiral stays huge, near-black and oppressive. Its bands are drawn into the claw's pull; little unnecessary lighting, a few larger directional fragments rather than scattered debris/confetti.
 
-**Gameplay fidelity:** actual battle text is one planted-foot **turn**, producing an outward **ring** indiscriminately around the user. Show the violent leading *segment of that sweeping ring* in this one frozen camera moment; no new single-target opponent, sword or narrower damage mechanic.
+**Approved text-to-icon fidelity:** the **newly approved battle line** (not yet verified live) describes the user planting their feet, **turning once**, an overhead wheeling vortex, the wind hardening into a **spinning wall of razor air**, lightning crackling through its arms, and a howling **ring** bursting outward indiscriminately. Draw the claw pulling wind as the **physical execution of that wind-hardening/turning moment**, not a separate new power. Keep some **restrained cyan lightning** along wind or hand, consistent with the text. Show only the violent leading *segment of that sweeping ring* in this frozen camera moment; no opponent, sword or narrower damage mechanic. If the image's signature literal grip contradicts the approved wording, or the vortex/lightning/ring disappear, report a **text-image reconciliation issue** rather than silently proposing altered approved text.
 
 ## Composition/value and fail-fast locks
 
@@ -49,6 +50,6 @@ This is a **refinement of the current image**. Keep the recognizable fox-masked 
 
 **ONE square original unprocessed raw** for review. Proposed filename: `raw_tempest_cleave_executioners_reap_R3-01.<actual-format-extension>`. Use the file's *true decoder format*, not a guessed extension; include exact dimensions, bytes and SHA-256 if accessible, plus a brief note identifying the attached reference and its SHA. No collage, second option, color treatment, resizing, WebP export, game upload, repo commit or acceptance claim.
 
-**Review route:** return the one raw to the originating ChatGPT art-direction session for an **independent side-by-side reference/motion/45px check**. Reviewer gives a verdict and targeted corrections. The director retains final art acceptance. Fable / Claude Code performs deterministic intake/snap, previews, spec checks and production export **only after** a raw is director-approved.
+**Review route:** return the one raw to the originating ChatGPT art-direction session for an **independent side-by-side reference/motion/45px check AND alignment review against the approved new battle text at main@bb527678fa395b89b2da1844d2f02b661f3bdc7c**. Reviewer gives a verdict and targeted corrections. The director retains final art acceptance. Fable / Claude Code performs deterministic intake/snap, previews, spec checks and production export **only after** a raw is director-approved.
 
-**Relevant authorities:** `docs/RULINGS.md` RUL-2026-10-24-003; `docs/workflows/ISOLATED_ART_GENERATION.md`; `docs/workflows/ART_PRODUCTION.md`; `skills/producing-tnr-art/SKILL.md`; `docs/agents/IMAGE_PRODUCTION.md`; `docs/design/icon_overhaul/tempest_cleave/PILOT.md` for the specific jutsu text/area behavior (not its superseded no-figure art brief).
+**Relevant authorities:** `docs/RULINGS.md` RUL-2026-10-24-003 **and -004**; `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` section 1 on pinned main; `docs/workflows/ISOLATED_ART_GENERATION.md`; `docs/workflows/ART_PRODUCTION.md`; `skills/producing-tnr-art/SKILL.md`; `docs/agents/IMAGE_PRODUCTION.md`; `docs/design/icon_overhaul/tempest_cleave/PILOT.md` for the specific jutsu text/area behavior (not its superseded no-figure art brief).
