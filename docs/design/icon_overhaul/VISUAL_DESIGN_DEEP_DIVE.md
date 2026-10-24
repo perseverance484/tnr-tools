@@ -7,6 +7,11 @@
   2. how the game draws icons and the game's own art guide (game source `studie-tech/theninjarpg`, local checkout at
      `a744c04`; the files cited are unchanged since the pinned `107d7a8` except an unrelated config line);
   3. a research brief on how other games design ability icons.
+- **Director decisions (2026-10-24):** C1–C3 approved (about 48–64 art pixels across, judged at 45 px; build the
+  snap-and-quantise processing tool as Lane A work; backlit dark figure for figure icons). "Abstract icons is up in the air.
+  We'll do abstract for now": the rework uses abstract emblems for now, so section 6.2's figure layouts are parked and the
+  art direction tags each emblem's silhouette instead; C4 (raise the game's abstract icon prompt) is moot while abstract is
+  the direction. Everything else here (findings, rendering, processing, gates) applies to emblems too.
 - **Status:** analysis and proposed art direction. Art direction is the director's (CLAUDE.md section 10); section 8 lists
   the choices to make. Live-game requests/writes: 0.
 

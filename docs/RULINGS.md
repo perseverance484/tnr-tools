@@ -2361,7 +2361,7 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 
 **Domain:** Art direction / jutsu icons
 
-**Status:** ACTIVE
+**Status:** SUSPENDED 2026-10-24 by RUL-2026-10-24-002 (abstract emblems for now; the question is open)
 
 **Supersedes:** the "one bold emblem that is the ability's metaphor" direction used for the 2026-10 jutsu icon passes (for example the Chakra Overflow and starter briefs), for future jutsu icon work
 
@@ -2370,3 +2370,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "A big mistake we've made with all our icons is they are too abstract. They don't convey the move at all. They compress down to the same amorphous blobs at size. They need to depict the actual move, the lore, the actual thing being done. Visual design needs to be better."
 
 **Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2. People appear wherever the move needs them (director, 2026-10-24: "Confirmed, show people wherever the move needs them."), superseding the earlier no-people lean of RUL-2026-10-23-008.
+
+## RUL-2026-10-24-002 — Icon overhaul: abstract emblems for now; visual design and processing decisions
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons; art tooling
+
+**Status:** ACTIVE (abstract vs depicting the move is open)
+
+**Supersedes:** suspends RUL-2026-10-24-001
+
+**Ruling:** The 35 reworked icons are abstract emblems for now, designed to read at 45 px under the visual design rules of `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` section 2 (recognition test, distinct silhouettes per family, specific over generic, big and few shapes, dark simple backgrounds, one light and one glow). From the visual design deep dive: icons are authored at about 48–64 art pixels across and judged at 45 px (C1); a snap-to-grid and palette-quantise processing tool is to be built as Lane A tooling (C2); figure candidates use a dark figure backlit against the brightest energy (C3). C4 (raising the game's abstract icon prompt with the game team) is moot while abstract is the direction.
+
+**Evidence:** User, 2026-10-24: "All approved. Abstract icons is up in the air. We'll do abstract for now"; asked whether this covered only the game's prompt or the rework too, the user chose "Our rework too".
+
+**Canonical destination:** `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`; `docs/design/icon_overhaul/VISUAL_DESIGN_DEEP_DIVE.md`.
