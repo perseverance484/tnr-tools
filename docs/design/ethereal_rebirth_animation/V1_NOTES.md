@@ -110,3 +110,10 @@ behind and the portrait mask hides it, so the high bands show as arcs above and 
 is drawn on its own layers and laid over the others normally (a per-channel max turned gold-over-blue pink). The added
 bands fade in from a minimum length (no loose scraps). 348,568 bytes. Checked at 4x over the real portrait
 (`v5_zoom.png`, frames 4-36).
+
+### v5 ending trimmed (2026-10-24)
+
+Director: a new gold ribbon started forming as the animation ended, briefly flaring at the top right over the portrait;
+"lets cut that out". It was the gold crescent band (V5_BANDS[2]) coming round to a front pass in frames 35-38. The four
+added bands now fade out over t 0.74-0.86, before that pass; the ending is only the gold whip leaving to the upper right.
+Measured: no alpha inside the portrait from frame 35 on. 305,488 bytes.
