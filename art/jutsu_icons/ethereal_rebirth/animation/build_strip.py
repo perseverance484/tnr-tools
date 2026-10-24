@@ -445,6 +445,38 @@ def flecks_from(sheet):
     return [sheet.crop(b) for b in boxes]
 
 
+C2_R, C3_R = 0.24, 0.30        # frame-fraction radius of the full 1254 px canvas for the glow+rays and the cracks
+
+
+def burst_v6(top, cb, c2, c3):
+    """The icon's starburst (director, 2026-10-24; art director's C2/C3 layers): the cracks spread out from the
+    portrait's centre (a soft radial wipe), the white-hot glow and its rays flare over them, then both fade. Drawn on the
+    unmasked top layer, centred on the portrait. cb runs 0..1 over the first 0.45 of the cast."""
+    cx, cy = 0.5 * S, PORTRAIT_CY * S
+    # cracks: revealed outward over cb 0.05..0.45, fade over 0.65..1
+    reveal = ease(seg(cb, 0.05, 0.45))
+    al3 = 1 - ease(seg(cb, 0.60, 0.85))
+    if reveal > 0 and al3 > 0:
+        d = int(2 * C3_R * S)
+        im = c3.resize((d, d), Image.LANCZOS)
+        m = Image.new('L', (d * 2, d * 2), 0)
+        rr = d * reveal * 1.05
+        ImageDraw.Draw(m).ellipse([d - rr, d - rr, d + rr, d + rr], fill=255)
+        m = m.resize((d, d), Image.LANCZOS).filter(ImageFilter.GaussianBlur(d * 0.04))
+        a = ImageChops.multiply(im.getchannel('A'), m).point(lambda v: int(min(255, v * 1.25) * al3))
+        im.putalpha(a)
+        top.alpha_composite(im, (int(cx - d / 2), int(cy - d / 2)))
+    # glow and rays: flare up over cb 0..0.25 (growing from half size), hold, fade over 0.55..1
+    g = ease(seg(cb, 0.0, 0.25))
+    al2 = g * (1 - ease(seg(cb, 0.45, 0.75)))
+    if al2 > 0:
+        d = max(2, int(2 * C2_R * S * (0.5 + 0.5 * g)))
+        im = c2.resize((d, d), Image.LANCZOS)
+        # the rays are hair-thin at this size: lift their alpha so they still read
+        im.putalpha(im.getchannel('A').point(lambda v: int(min(255, v * 1.6) * al2)))
+        top.alpha_composite(im, (int(cx - d / 2), int(cy - d / 2)))
+
+
 def build_loop(n, size):
     """loop1 (director, 2026-10-24): the absorb effect's staticAnimation, which the game loops for as long as the
     absorb is active (libs/threejs/combat.ts: showAnimation(playInfinite) for effect.staticAnimation). A subtler version
@@ -522,6 +554,10 @@ def build(n, size):
             im = straighten(im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox()))
             v5_strips[key] = im.resize((560, max(1, round(im.height * 560 / im.width))), Image.LANCZOS)
     core, sheet = L('C1_core'), L('F1_flecks')
+    c2 = c3 = None
+    if SET == 'v5':
+        c2 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C2_glow_rays.png')).convert('RGBA')
+        c3 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C3_cracks.png')).convert('RGBA')
     flecks = flecks_from(sheet)
     rnd = random.Random(7)
     fl = [dict(img=rnd.choice(flecks), x=0.5 + rnd.uniform(-0.34, 0.34), y=rnd.uniform(0.30, 0.82),
@@ -573,7 +609,9 @@ def build(n, size):
                 if len(pts) > 3:
                     lay_ribbon(gold, pts, 0.97 * (1 - seg(lash, 0.75, 1.0)), back, front, 0.35, 1.0, depth_rule=False)
         cb = seg(t, 0.0, 0.45)                          # the seal breaking at the chest
-        if cb > 0:
+        if SET == 'v5' and cb > 0:
+            burst_v6(top, cb, c2, c3)
+        elif cb > 0:
             r = S * 0.15 * ease(min(1, cb * 1.6))
             al = 1 - seg(cb, 0.55, 1.0)
             c = core.resize((max(1, int(2 * r)), max(1, int(2 * r))), Image.LANCZOS)

@@ -132,3 +132,13 @@ twist travels along each band once per loop; six sparkles twinkle in turn; front
 under the portrait mask; edge fade. No burst. Seamless: the frame 48 -> frame 1 change (34) is below the mean step (67).
 179,956 bytes. Preview with the cast on top, as the battle plays them: `loop1_in_battle.gif`
 (`battle_preview.py`); stills `loop1_zoom.png`.
+
+### v5 starburst from the icon (2026-10-24)
+
+Director: "I want the animation's starburst to more closely resemble the icons." Art director's layers (brief
+`docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_STARBURST_ART_REQUEST.md`): `raws/anim_er_v6_C2_glow_rays.png` (white-hot
+glow with fine rays) and `raws/anim_er_v6_C3_cracks.png` (branching cracks of light), both 1254 x 1254, real alpha.
+`burst_v6()` replaces the v1 core in v5: the cracks spread out from the portrait's centre by a soft radial wipe (canvas
+radius 0.30 of the frame, so the tips stay inside the portrait) and fade over the burst's 0.60-0.85; the glow and rays
+flare from half size (canvas radius 0.24, alpha lifted 1.6x so the hair-thin rays read at 50 px) and fade over 0.45-0.75.
+Unmasked top layer at the portrait centre, first 0.45 of the cast. 333,928 bytes. Zoom: `v5_burst_zoom.png`.
