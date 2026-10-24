@@ -2454,3 +2454,34 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "You keep putting animations as hidden which as you would expect... hides them during combat. So they dont play. Stop doing that, I have to manually unhide them each time." Source: `app/src/server/api/routers/misc.ts:660` (`fetchGameAssets` filters `hidden = false`), called via `misc.getAllGameAssetNames` from `app/src/layout/Combat.tsx:316`; `combat.ts:2206` filters the same way.
 
 **Canonical destination:** `docs/ENGINE_LAWS.md` law 16c (corrected), with its hand-kept copies in `references/pipeline.md` (packs re-rendered), `producing-tnr-art/references/processing.md` and `12b_LAWS_coverage.md`; push/230 + push/232; push/226's generator.
+
+## RUL-2026-10-24-007 — The Forbidden Master: one masked character for every Forbidden jutsu
+
+**Date:** 2026-10-24
+
+**Domain:** Art direction / jutsu icons / recurring characters
+
+**Status:** ACTIVE (the character's design is open until the director approves a model sheet)
+
+**Supersedes:** for jutsu of type FORBIDDEN only, RUL-2026-10-24-003's "keeps the people" of the original icon (the
+Forbidden Master replaces each original's figure; palette and the moment still come from the original and the text,
+RUL-2026-10-24-004). Pauses the Ethereal Rebirth round-4 icon prompt, which kept the white-haired warrior.
+
+**Ruling:**
+1. Our recurring characters wear **silhouetted ninja masks at all times**: the mask is the silhouette (it replaces the
+   Weapon Master's shadowed void face with glowing eyes).
+2. One character, the **Forbidden Master**, is used for **every Forbidden jutsu render**: intimidating, imposing, a
+   talented and dangerous practitioner wielding top-tier forbidden arts.
+3. **Identity reference:** the Tempest Cleave original's masked fighter (fox mask, dark segmented armour, white scarf,
+   glowing eyes). **Rendering goal:** the Weapon Master renders. Same type of character as the Weapon Master, but masked.
+4. The design is fixed by a model sheet the director approves before any Forbidden jutsu icon is drawn with it.
+
+**Evidence:** User, 2026-10-24: "I want our characters to wear silhouetted ninja masks at all times. I want to define this
+character as the forbidden jutsu master and the one we use for all forbidden jutsu renders. They need to be intimidating
+and imposing, as they will be using all the top of the line forbidden level skills. Need to look like a talented and
+dangerous practitioner. The tempest Cleave subject is the identity reference and the weapon Master is the rendering goal.
+We want the same type of character but with a mask instead of a silhouette face. The mask is the silhouette now. Let's
+make our forbidden master"
+
+**Canonical destination:** `docs/design/characters/FORBIDDEN_MASTER.md` (character brief); references in
+`art/characters/forbidden_master/refs/`; model-sheet prompt `docs/handoffs/FORBIDDEN_MASTER_MODEL_SHEET_SESSION_PROMPT.md`.
