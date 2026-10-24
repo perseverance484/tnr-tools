@@ -10,6 +10,11 @@
 - **Roles:** the art director makes the raws; Claude Code does everything after (RUL-2026-10-23-008 amendment 1). Every
   decision on the art is the director's.
 - **Session prompt:** `docs/handoffs/TEMPEST_CLEAVE_PILOT_SESSION_PROMPT.md`.
+- **Updated 2026-10-24 (round 1 v2):** under RUL-2026-10-24-003 and -004 the icon upgrades the **original** (the
+  fox-masked fighter) and shows the **battle line's moment**: the fighter turning once at the eye of the whirlwind (the
+  older version supplies the whirlwind). Premium text draft: `../TEXT_AND_ICON_ROUND1.md` section 1. Where sections 2–3
+  below say "no figure" or forbid teal, the v2 prompt overrides them: the figure is in, and the palette is the original's
+  (its lightning is cyan).
 - **Live-game requests/writes:** 0.
 
 ## 1. The jutsu
@@ -70,3 +75,4 @@ keeps that ground in TC-1 and tries a dark storm ground in the other five.
 |---|---|---|
 | 0 | 2026-10-24 | Pilot opened; round-1 prompt written. |
 | 0 | 2026-10-24 | `gate_sheet.py` built and run on the references (older version, live icon, ours as a test). |
+| 0 | 2026-10-24 | Round 1 rewritten as v2 (masked fighter at the eye of the whirlwind, tied to the drafted battle line); v1 not run. |

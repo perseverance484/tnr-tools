@@ -2404,3 +2404,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "I've identified the middle ground. We keep the people but make it read well as an icon at thumbnail size. give each a clear silhouette and color palette based on the original. This way players get to see their favorite skills with a premium upgrade AND our icons read well at size. Let's prepare ethereal rebirth next"
 
 **Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/PROJECT.md` (first project under this ruling); `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (header note).
+
+## RUL-2026-10-24-004 — Jutsu text and icon show the same moment
+
+**Date:** 2026-10-24
+
+**Domain:** Jutsu text / art direction
+
+**Status:** ACTIVE
+
+**Supersedes:** none (adds to RUL-2026-10-24-003)
+
+**Ruling:** Reworked jutsu get premium text alongside their icon, and the two tie together: the battle line describes one key moment and the icon draws that moment; the description sums the jutsu up in the same images. Texts are drafted by Claude Code against the live effects and approved by the director; each jutsu's text and icon ship together in one suggestion. First pair: Tempest Cleave and Ethereal Rebirth (`docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`).
+
+**Evidence:** User, 2026-10-24: "I want to look at upgrading both jutsu descriptions to be more premium, and I want our icons to show those descriptions in action. That should be the goal, they should clearly tie in to one another."
+
+**Canonical destination:** `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`; the Tempest Cleave and Ethereal Rebirth round-1 prompts.
