@@ -16,6 +16,7 @@ OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'docs/design/ethe
 BOX = (112, 96, 302, 238)           # clear of the battle tooltip
 CX, CY, F = 207, 203, 105
 SC, MS = 4, 60
+LABEL = sys.argv[3] if len(sys.argv) > 3 else 'Ethereal Rebirth: cast animation over your avatar'
 
 with tempfile.TemporaryDirectory() as t:
     p = os.path.join(t, 'clean.png')
@@ -34,7 +35,7 @@ for i in list(range(n)) + [n - 1] * 10:
     c.alpha_composite(fr, ((CX - F // 2 - BOX[0]) * SC, (CY - F // 2 - BOX[1]) * SC))
     out = Image.new('RGB', (c.width, c.height + 40), (20, 22, 30))
     out.paste(c.convert('RGB'), (0, 40))
-    ImageDraw.Draw(out).text((12, 9), 'Ethereal Rebirth: cast animation over your avatar', font=font, fill=(238, 238, 242))
+    ImageDraw.Draw(out).text((12, 9), LABEL, font=font, fill=(238, 238, 242))
     frames.append(out)
 frames = [frames[0]] * 6 + frames
 frames[0].save(OUT, save_all=True, append_images=frames[1:], duration=MS, loop=0, optimize=True)
