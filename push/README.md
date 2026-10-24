@@ -763,7 +763,8 @@ damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL
 
 Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
 push/231 is unchanged): image -> `anim_ethereal_rebirth_v3.webp` (v3: v2 ribbons and flecks, the original starburst core, one
-continuous gold lash, the opening kept behind the avatar token; 40 frames x 60 ms, 253,444 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c corrected). It replaces push/232, which is
+continuous gold lash, every layer cut by a portrait mask so nothing draws on the avatar; 40 frames x 60 ms, 200,870
+bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c corrected). It replaces push/232, which is
 archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip pinned by SHA-256 at the commit that built
 it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
 
