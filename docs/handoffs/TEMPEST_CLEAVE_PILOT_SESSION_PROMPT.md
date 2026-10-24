@@ -104,6 +104,7 @@ Generate exactly ONE square icon candidate. No collage. Do not process or upload
 ## 3. Intake (Claude Code)
 
 1. Save raws to `art/jutsu_icons/tempest_cleave/candidates/round1/` as delivered.
-2. Run each through `skills/producing-tnr-art/scripts/pixelsnap.py` (on `fable/pixel-art-snap` until it merges).
+2. No pixel conversion (RUL-2026-10-24-005): resize each raw to 256 px for review; the approved one is exported as
+   lossless WebP and checked with `artpreflight.py --type JUTSU_ICON`.
 3. Build the round sheet with `docs/design/icon_overhaul/gate_sheet.py` (the original and the older version as reference
    rows) and send it to the director with notes against `PILOT.md`'s acceptance criteria; log the round there.

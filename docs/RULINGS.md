@@ -2420,3 +2420,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "I want to look at upgrading both jutsu descriptions to be more premium, and I want our icons to show those descriptions in action. That should be the goal, they should clearly tie in to one another."
 
 **Canonical destination:** `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md`; the Tempest Cleave and Ethereal Rebirth round-1 prompts.
+
+## RUL-2026-10-24-005 — Jutsu icons: no pixel conversion
+
+**Date:** 2026-10-24
+
+**Domain:** Art processing / jutsu icons
+
+**Status:** ACTIVE
+
+**Supersedes:** RUL-2026-10-24-002 C1 (48–64 art pixels across) and C2 (build and use the snap-and-quantise tool) for jutsu icons
+
+**Ruling:** Approved jutsu icon raws are exported without pixel conversion: the raw is resized to 256 px and exported as lossless WebP, then checked with `artpreflight.py --type JUTSU_ICON`. The pixelsnap tool (`fable/pixel-art-snap`, frozen at b3382d71, never merged) is parked; it needs no review unless revived. Tested on Ethereal Rebirth round 1: snapping at 64, 96 or 128 art pixels across made the figure blocky and lost the face; at the full 256 grid it only reduced colours and flattened the face's shading; at 45 px every version looked the same.
+
+**Evidence:** User, 2026-10-24: "I think we shouldn't convert at all. Looks too blocky. Unless you can get higher definition out of it". Sheets: `docs/design/icon_overhaul/ethereal_rebirth/round1_grid_density.png`, `round1_hd_test.png`.
+
+**Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/ROUND1_REVIEW.md`; the intake steps of the icon session prompts.

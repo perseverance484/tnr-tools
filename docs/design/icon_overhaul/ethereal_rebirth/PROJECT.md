@@ -51,8 +51,8 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
    behind the figure (an echo of the original's sunset).
 5. **Values:** dark background; the figure in mid and dark navy with a crisp rim light from the top-left; the ribbons
    bright; the core brightest. Hair and scarf give the head a clear read.
-6. **Rendering:** premium TNR pixel art: retro 32-bit, hard pixel edges, about 48–64 art pixels across, 16–24 colours
-   after `pixelsnap.py`, no gradients or blur, mature proportions, a dynamic, slightly foreshortened pose (the game's own
+6. **Rendering:** premium TNR pixel art as the model draws it: retro 32-bit, hard pixel edges, no gradients or blur
+   (no pixel conversion afterwards, RUL-2026-10-24-005), mature proportions, a dynamic, slightly foreshortened pose (the game's own
    art guide).
 7. **Safe area:** head, core and arms in the upper and central 60–70%; the bottom corners (badges) hold only ribbon tails
    or darkness.
@@ -79,3 +79,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 | 0 | 2026-10-24 | Premium text drafted; round-1 prompt tied to the battle line's moment (arms wide, seal cracking, ribbons). |
 | 1 | 2026-10-24 | Texts approved by the director; round-1 art session started by the director. Waiting for raws. |
 | 1 | 2026-10-24 | Round-1 candidate r1a reviewed (`ROUND1_REVIEW.md`): big gain on the original; the body is lost and the loop is closed at 45 px; pixel density question raised. |
+| 1 | 2026-10-24 | Director: no pixel conversion (RUL-2026-10-24-005); higher-definition conversion tested and rejected (`round1_hd_test.png`). |
