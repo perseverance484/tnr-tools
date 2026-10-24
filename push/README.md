@@ -767,7 +767,7 @@ existing assets to the v4 strips (the ward ring tucked over the portrait's rim, 
 (30 x 46 ms); new filenames (law 32), hidden false (law 16c). Same ids, so push/240 needs no change. Pack pinned at
 7fac767. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 242 Celestial Dew capture with the record kept: READY TO RUN (optional, before 240)
+## 242 Celestial Dew capture with the record kept: RUN (bundle tnr_results_1792883431355.json), archived. Checked against push/240: live icon is the original; heal effect identical; shield differs only by the three new animations; injectableInBattle false both. 240 stands as built.
 
 The same read as 241 with `persist: "full"`, so the record's body lands in the bundle (241's capture asked for no
 persistence, so its bundle confirmed the read but held no record). With its bundle, push/240 is checked against the live
