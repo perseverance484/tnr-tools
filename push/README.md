@@ -741,7 +741,7 @@ lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-1
 touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
 
-## 232 Ethereal Rebirth animation unhide: READY TO RUN (before 231)
+## 232 Ethereal Rebirth animation unhide: SUPERSEDED by push/233, archived unrun
 
 Battles load only unhidden assets, so the push/230 animation must be unhidden before it can play (law 16c, corrected
 2026-10-24, RUL-2026-10-24-006). `python3 push/232_ethereal_rebirth_animation_unhide.gen.py <push/230 results bundle>`
@@ -749,7 +749,7 @@ writes a direct edit of `HwkXTjErL_Laxs8WtqBiI` with `hidden: false` (the image 
 record, so it stays). Built from the push/230 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems. **Run 232 first, then 231.**
 
-## 231 Ethereal Rebirth icon, text and animation (suggest mode): READY TO RUN (after 232)
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): READY TO RUN (after 233)
 
 `python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
 new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
@@ -758,3 +758,12 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 (`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean). Effects as sent:
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 233 Ethereal Rebirth animation v2 swap: READY TO RUN (before 231)
+
+Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
+push/231 is unchanged): image -> `anim_ethereal_rebirth_v2.webp` (v2 layers, same motion; 40 frames x 60 ms, 263,544
+bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c corrected). It replaces push/232, which is
+archived unrun. Built by `push/233_ethereal_rebirth_animation_v2.gen.py`, strip pinned by SHA-256 at the commit that built
+it. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. **Run 233, then 231.**
+
