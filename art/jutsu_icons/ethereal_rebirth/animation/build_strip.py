@@ -404,6 +404,10 @@ def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
         al = b['al'] * fade * (smooth(g, 0.0, 0.35) if k < 2 else smooth(g, 0.15, 0.50))          # fade in as it pours out, never a loose blob
         if k == 0:
             al *= 1 - ease(seg(t, 0.85, 0.97))
+        else:
+            # gone before the final front pass (director, 2026-10-24: a gold band came round over the portrait as the
+            # animation ended, "lets cut that out")
+            al *= 1 - ease(seg(t, 0.74, 0.86))
         twist = (lambda u, k=k: 0.4 + k * 1.3 + 2 * math.pi * 0.75 * u + 2.5 * t)
         # each band on its own layers, then laid over the others normally: a per-channel max between a gold and a
         # blue band turns their overlap pink
