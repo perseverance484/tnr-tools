@@ -222,3 +222,13 @@ the source formulas (section 12), the avatar in the 50 px effect square:
 One strip is drawn at a fixed 50 px for every screen, so it can match the portrait at one canvas width only; this is true
 of every effect animation in the game. Options are set out to the director (a game-side change that scales effects with
 the tile; or tuning for a target width and making the design tolerant; or anchoring to the tile instead of the portrait).
+
+## 14. Upstream request (2026-10-24)
+
+The director opened a pull request on `studie-tech/theninjarpg` (from a fork, through the GitHub website) changing the
+two `showAnimation` calls in `drawCombatEffect` from `scale: EFFECT_ANIMATION_SIZE` to `scale: h * 2.5`
+(`REQUEST_scale_effect_animations.md`, `scale_effect_animations.patch`, against main `2af4b32`). Not visible to this
+session (the repository is not attached). If it merges, the effect square becomes 2.5 tile heights on every screen and
+the portrait sits at a fixed place in it (avatar centre 0.3 from the top, radius 0.16, the h = 20 layout); Celestial Dew
+and Ethereal Rebirth are then rebuilt to that one layout and fit every screen. Until then, v7 (tuned to the director's
+phone) ships.
