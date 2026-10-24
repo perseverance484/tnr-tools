@@ -770,11 +770,17 @@ keeps `iDv3rjj81rRgD10shRqSn`; decreased damage given unchanged. Effects array r
 asserts of 231 (absorb had no animations, damage still non-elemental); `injectableInBattle` re-sent (false, law 20).
 Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 235 Ethereal Rebirth passive loop unhide: READY TO RUN
+## 235 Ethereal Rebirth animations, fluidity pass + loop unhide: READY TO RUN (then 236)
 
-Direct edit of `jRU-uhYhX0maaWyaRJr14` (created hidden by push/234) with `hidden: false`, image not re-sent (law 16c:
-battles load only unhidden assets). Built from the push/234 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`check_manifest.mjs` 0 pre-send problems. **Run 235, then 236 straight after** (director, 2026-10-24: "Just unhide then send ticket"). They are two manifests because Forge's suggest mode covers a whole manifest (`forge/src/runner/manifest.mjs`); in one manifest the unhide would itself become a suggestion.
+Director (2026-10-24): "polish the animations for appear and static so they are very smooth". Two direct asset edits:
+the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v6.webp` (66 frames x 36 ms, 422,488 bytes) and the
+passive loop `jRU-uhYhX0maaWyaRJr14` -> `anim_ethereal_rebirth_loop2.webp` (100 frames x 36 ms, 257,236 bytes) with
+`hidden: false` (law 16c). About 28 fps (were 17 and 12); bands fade round behind the face instead of being cut; the
+cast's blue band slows onto the loop's blue band, so the cast flows into the loop. Notes:
+`docs/design/ethereal_rebirth_animation/V1_NOTES.md` "v6 + loop2"; preview `v6_in_battle.gif`. Built from the push/230
+and push/234 bundles; pack pinned at a52fa4b. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs`
+0 pre-send problems. **Run 235, then 236** (director: "Just unhide then send ticket"; two manifests because Forge's suggest
+mode covers a whole manifest).
 
 ## 234 Ethereal Rebirth passive loop (create): RUN, verified (bundle tnr_results_1792867695830.json, id jRU-uhYhX0maaWyaRJr14), archived
 
