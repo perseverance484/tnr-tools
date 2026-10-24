@@ -2,8 +2,8 @@
 
 - **Director, 2026-10-24:** "Lets update the descriptions accordingly as needed" (after the cast animation, the passive
   loop and the hit were built).
-- **Status: DRAFT, for the director's approval** (final prose is the director's, CLAUDE.md section 10). Replaces
-  `TEXT_V2.md` (approved) once approved; push/236 is then rebuilt with it.
+- **Status: APPROVED (director, 2026-10-24: "Let's make the final ticket. All approved").** Replaces `TEXT_V2.md`;
+  ships in push/236.
 - **Live effects** (unchanged): damage to one opponent, element `None`; absorb on the user (35%, 3 rounds; damage taken
   becomes health); decreased damage given on the user (15%, 2 rounds).
 - **Rules:** description 80–220 characters; battle line a 3–4 sentence scene; no element named; no em dashes; `%target`

@@ -759,7 +759,7 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 237 Ethereal Rebirth hit animation (create): READY TO RUN (run first; then 235 and 236 are rebuilt)
+## 237 Ethereal Rebirth hit animation (create): READY TO RUN (step 1 of the final ticket)
 
 Director (2026-10-24): "corkscrew from the top, timed to the lash". Direct create of asset `er_anim_soul_strike`
 ("Ethereal Rebirth - Soul Strike", ANIMATION, `anim_ethereal_rebirth_hit1.webp`: the gold and blue ribbons wound into a
@@ -767,10 +767,13 @@ corkscrew enter the enemy's square from the upper left the frame after the cast'
 speed, and strike at 1.74 s, then burst round it; 66 frames x 36 ms, 135,030 bytes), hidden (law 16b gate). For the damage effect's `appearAnimation` (replaces the generic
 `iDv3rjj81rRgD10shRqSn`). Preview with both tiles on one clock: `docs/design/ethereal_rebirth_animation/v7_attack_duel.gif`.
 Pack pinned at 06b0e05. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
-**After it runs:** push/235 gains the hit's unhide and push/236 sets it on the damage effect; **hold 235 and 236 until
-then.**
+**Final ticket** (director, 2026-10-24: "Let's make the final ticket. All approved"): 1. run 237; 2. from its bundle
+Claude Code builds 235 and 236 (`python3 push/235_ethereal_rebirth_loop_unhide.gen.py <230> <234> <237>` and
+`python3 push/236_ethereal_rebirth.gen.py <230> <234> <237>`); 3. run 235, then 236. Both generators were dry-run with a
+stand-in hit id: gates clean. The hit's id must be literal (Forge resolves `@` refs from its idmap at run time, but
+`check_manifest.mjs` plans without that idmap, so a ref would fail the gate; changing that is Lane A).
 
-## 236 Ethereal Rebirth icon, text, cast animation and passive loop (suggest mode): HOLD for 237 (rebuilt with the hit)
+## 236 Ethereal Rebirth final ticket (suggest mode): generator ready; built from the 237 bundle (text v3 approved; adds the hit on the damage effect)
 
 Replaces push/231, whose suggestion the director cancelled (2026-10-24: "lets make a new one that proposes all of this").
 `python3 push/236_ethereal_rebirth.gen.py <push/230 bundle> <push/234 bundle>` builds one suggestion on Ethereal Rebirth:
@@ -781,7 +784,7 @@ keeps `iDv3rjj81rRgD10shRqSn`; decreased damage given unchanged. Effects array r
 asserts of 231 (absorb had no animations, damage still non-elemental); `injectableInBattle` re-sent (false, law 20).
 Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 235 Ethereal Rebirth animations, fluidity pass + loop unhide: HOLD for 237 (rebuilt with the hit's unhide)
+## 235 Ethereal Rebirth animations (cast v7, loop2) + unhide loop and hit: generator ready; built from the 237 bundle
 
 Director (2026-10-24): "polish the animations for appear and static so they are very smooth". Two direct asset edits:
 the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v7.webp` (66 frames x 36 ms, 377,388 bytes; v7 adds the launch: a blue strand coils round the gold band into a spear, a release flash, and the spear climbs out of the top of the frame) and the
