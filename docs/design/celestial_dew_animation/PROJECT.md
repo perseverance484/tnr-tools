@@ -68,3 +68,30 @@ Shield **disappear** (about 1 s): the halo cracks into curved shards that drift 
 |---|---|
 | 2026-10-24 | Project opened; slots read from source; layout guide; art request and session prompt written. |
 | 2026-10-24 | Director's two motions (ripple, run); ripple proposed; art layers revised to serve both. |
+
+## 6. v1 build (2026-10-24)
+
+Layers delivered by the art director (`art/jutsu_icons/celestial_dew/animation/raws/anim_cd_*`: crescent, drop, splash,
+ripples, ward ring, glints, shards; real alpha). `art/jutsu_icons/celestial_dew/animation/build_strip.py` (Pillow; the
+portrait geometry, mask, edge fade and helpers come from Ethereal Rebirth's script) builds four strips at 36 ms per
+frame, 112 px frames:
+
+| Strip | Slot | Frames | Bytes |
+|---|---|---|---|
+| `anim_celestial_dew_cast_v1.webp` | heal appear | 66 (2.4 s) | 207,750 |
+| `anim_celestial_dew_ward_v1.webp` | shield appear | 66 | 150,784 |
+| `anim_celestial_dew_loop_v1.webp` | shield static | 100 (3.6 s, seamless) | 198,578 |
+| `anim_celestial_dew_break_v1.webp` | shield disappear | 30 (1.1 s) | 83,942 |
+
+- The crescent (turned 45 degrees, 0.80 of the frame wide) rises **behind** the head like a halo, under the portrait
+  mask; its upper horn stands clear at the top right. The drop (located on that horn's tip by measurement) swells, falls
+  into the portrait's centre (frame 24, 0.86 s), splashes (the crown, a flash, glints thrown up), and two ripples run out
+  to the rim, see-through.
+- The ward ring (its band's inner edge at 0.215 of the frame, measured from the art, so it lies over the portrait's white
+  rim) ignites as the ripples arrive (frame 38, 1.37 s), flares, a light runs once round it, a sheen washes the portrait,
+  glints spark round it; then it fades over the loop's copy.
+- The loop: the ring at 30% (still: a turning ring changed every pixel and cost 619 KB), a brighter arc travelling round
+  once per loop, three stars twinkling in turn.
+- The break: the ring flashes and is gone; nine curved shards spring from it, drift out, turn and fade; stardust rises.
+- Preflight `--type ANIMATION`: only `soft_edges` on each (the known gap for glow). Preview `v1_over_avatar.gif` (the
+  whole life of the shield), stills `v1_key_frames.png`.
