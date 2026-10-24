@@ -725,7 +725,12 @@ Technique's live id `clh4d6pok0002tb0hx1bxro6l` is a legacy 25-character id, and
 id is copied from the AI's live kit in push/228. Allowing legacy ids in validate.py is tooling work (Lane A), not done here.
 
 
-## 230 Ethereal Rebirth cast animation asset: READY TO RUN
+## 230 Ethereal Rebirth cast animation asset: RUN, archived
+
+Bundle `harvests/inbox/tnr_results_1792861563123.json`: success, 1/1 VERIFIED (9 fields match); asset id
+`HwkXTjErL_Laxs8WtqBiI` (created hidden; push/232 unhides it). Manifest archived under
+`archive/spent-manifests/push-2026-10-22/`. As built:
+
 
 Direct create of the ANIMATION asset "Ethereal Rebirth - Soul Ribbons" (created hidden as the gates require, then
 unhidden by push/232 so it plays in battle; folder `jutsuanimations`, 40 frames x 60
@@ -736,18 +741,20 @@ lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-1
 touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
 
-## 232 Ethereal Rebirth animation unhide: GENERATOR READY, WAITING ON THE PUSH/230 BUNDLE
+## 232 Ethereal Rebirth animation unhide: READY TO RUN (before 231)
 
 Battles load only unhidden assets, so the push/230 animation must be unhidden before it can play (law 16c, corrected
 2026-10-24, RUL-2026-10-24-006). `python3 push/232_ethereal_rebirth_animation_unhide.gen.py <push/230 results bundle>`
-writes a direct edit of the new asset with `hidden: false`. **Run order: 230, then 232, then 231.** Dry run (fake id): both
-gates pass.
+writes a direct edit of `HwkXTjErL_Laxs8WtqBiI` with `hidden: false` (the image is not re-sent; Forge merges the live
+record, so it stays). Built from the push/230 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems. **Run 232 first, then 231.**
 
-## 231 Ethereal Rebirth icon, text and animation (suggest mode): GENERATOR READY, WAITING ON THE PUSH/230 BUNDLE
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): READY TO RUN (after 232)
 
 `python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
 new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
 kept), and the push/230 asset as the absorb effect's `appearAnimation` (plays on the caster; the damage effect keeps its
-hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). The final icon is approved and exported
-(`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean); it builds once
-push/230 has run. Dry run (stand-in icon, fake asset id): both gates pass.
+hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). Built from the push/230 bundle with the approved icon
+(`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean). Effects as sent:
+damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
+(SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
