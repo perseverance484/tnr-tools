@@ -142,3 +142,21 @@ glow with fine rays) and `raws/anim_er_v6_C3_cracks.png` (branching cracks of li
 radius 0.30 of the frame, so the tips stay inside the portrait) and fade over the burst's 0.60-0.85; the glow and rays
 flare from half size (canvas radius 0.24, alpha lifted 1.6x so the hair-thin rays read at 50 px) and fade over 0.45-0.75.
 Unmasked top layer at the portrait centre, first 0.45 of the cast. 333,928 bytes. Zoom: `v5_burst_zoom.png`.
+
+## v6 + loop2: fluidity pass (2026-10-24)
+
+Director: "polish the animations for appear and static so they are very smooth, seamlessly flow behind and in front of
+the avatar and transition from one to the next smoothly." Same art and design as v5 / loop1; motion only.
+- **Frame rate:** both strips now 36 ms per frame (about 28 fps; were 60 and 80 ms): the cast 66 frames (2.4 s), the loop
+  100 frames (3.6 s, the game's maximum frame count), at 112 px (the art spec's minimum, ContentImage's canvas).
+- **Front and behind:** the face rule was a hard switch (a band's front pass cut off where it met the upper portrait);
+  it is now a soft change-over in height and at the rim, so the band fades round behind the face.
+- **Cast into loop:** the game starts both strips on the same tick (combat.ts adds the appear and static animations in
+  one pass), so cast frame f lines up with loop frame f. Over the cast's t 0.60-0.90 its blue band eases its spin down to
+  the loop's rate (integrated, no jolt) and its orbit, tilt, height, length, thickness, twist and alpha onto the loop's
+  blue band; its phase is chosen so it lands exactly on it; then it fades over the loop's copy (`v6_handoff_zoom.png`,
+  cast + loop composited, frames 40-70). Shared constants: `MS`, `CAST_N`, `LOOP_N`, `LOOP_BANDS` in `build_strip.py`.
+- **Bytes:** alpha under 4/255 cleared before saving (invisible glow tails): cast 422,488, loop 257,236.
+- **Measured** (frames composited over a flat background, mean absolute change per frame): cast mean step 10.1, max 25.7
+  (v5: 15.5, 34.3); loop mean 2.5, max 3.3, seam (last frame to first) 2.6. Exported as `anim_ethereal_rebirth_v6.webp`
+  and `anim_ethereal_rebirth_loop2.webp` (new filenames, law 32). Preview: `v6_in_battle.gif`.
