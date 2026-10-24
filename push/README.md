@@ -749,7 +749,7 @@ writes a direct edit of `HwkXTjErL_Laxs8WtqBiI` with `hidden: false` (the image 
 record, so it stays). Built from the push/230 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems. **Run 232 first, then 231.**
 
-## 231 Ethereal Rebirth icon, text and animation (suggest mode): HOLD until 234 has run (rebuilt then with the loop)
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): RUN (bundle tnr_results_1792862085762.json), suggestion CANCELLED by the director, archived; replaced by push/236
 
 `python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
 new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
@@ -759,7 +759,24 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 234 Ethereal Rebirth passive loop (create): READY TO RUN (run before 231)
+## 236 Ethereal Rebirth icon, text, cast animation and passive loop (suggest mode): READY TO RUN
+
+Replaces push/231, whose suggestion the director cancelled (2026-10-24: "lets make a new one that proposes all of this").
+`python3 push/236_ethereal_rebirth.gen.py <push/230 bundle> <push/234 bundle>` builds one suggestion on Ethereal Rebirth:
+the new icon, the approved non-elemental text (TEXT_V2.md, training warning kept), and on the absorb effect (SELF)
+**appearAnimation `HwkXTjErL_Laxs8WtqBiI`** (the cast animation, now the v5 strip after push/233) and **staticAnimation
+`jRU-uhYhX0maaWyaRJr14`** (the passive orbit loop from push/234; the game loops it while the absorb is active). Damage
+keeps `iDv3rjj81rRgD10shRqSn`; decreased damage given unchanged. Effects array re-sent from the public read with the
+asserts of 231 (absorb had no animations, damage still non-elemental); `injectableInBattle` re-sent (false, law 20).
+Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 235 Ethereal Rebirth passive loop unhide: READY TO RUN
+
+Direct edit of `jRU-uhYhX0maaWyaRJr14` (created hidden by push/234) with `hidden: false`, image not re-sent (law 16c:
+battles load only unhidden assets). Built from the push/234 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems. 235 and 236 run in either order.
+
+## 234 Ethereal Rebirth passive loop (create): RUN, verified (bundle tnr_results_1792867695830.json, id jRU-uhYhX0maaWyaRJr14), archived
 
 Director (2026-10-24): "a subtler effect of the same ribbons ... passively orbiting and protecting the player so long as
 the absorb is active". Direct create of asset `er_anim_soul_orbit` ("Ethereal Rebirth - Soul Orbit", ANIMATION,
@@ -771,7 +788,7 @@ absorb is active (theninjarpg `libs/threejs/combat.ts:667`). Preview with the ca
 rebuilt to also set the absorb effect's `staticAnimation` (still one suggestion), and push/233 gains a literal-id unhide of
 the new asset (law 16c). So **hold 231 until 234 has run**.
 
-## 233 Ethereal Rebirth animation swap (v5): BUILT; waits for 234 (it then gains the loop's unhide)
+## 233 Ethereal Rebirth animation swap (v5): RUN, verified (bundle tnr_results_1792867658063.json; the starburst build, pack ae49da0), archived
 
 Re-pointed at v5 (director, 2026-10-24: "Hold 233, we'll ship v5 instead"). Direct edit of asset
 `HwkXTjErL_Laxs8WtqBiI` (same id, so push/231 is unchanged): image -> `anim_ethereal_rebirth_v5.webp` (the icon's
