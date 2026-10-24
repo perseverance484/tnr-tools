@@ -39,7 +39,7 @@ Art direction for all 36: `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (from `
 | 7 | Subaku Palace | Event |
 | 8 | Tempest Cleave | Event | **pilot** (worked first): `tempest_cleave/PILOT.md` |
 | 9 | Ethereal Nexus | Forbidden |
-| 10 | Ethereal Rebirth | Forbidden |
+| 10 | Ethereal Rebirth | Forbidden | round 1 briefed: `ethereal_rebirth/PROJECT.md` (upgrade of the original, RUL-2026-10-24-003) |
 | 11 | Poisonous Senbon | Normal |
 | 12 | Replacement Technique | Normal | round 1 briefed: `docs/handoffs/REPLACEMENT_TECHNIQUE_REWORK_SESSION_PROMPT.md` |
 | 13 | Searing Might | Normal |
