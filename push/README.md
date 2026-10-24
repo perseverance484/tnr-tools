@@ -759,11 +759,14 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 233 Ethereal Rebirth animation swap: ON HOLD (director, 2026-10-24: "Hold 233, we'll ship v5 instead")
+## 233 Ethereal Rebirth animation swap (v5): READY TO RUN (after the director approves v5)
 
-The built manifest is removed from `push/` (held, like 225/226); the generator stays and is re-pointed at the v5 strip
-once the v5 layers arrive (`docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_V5_ART_REQUEST.md`). push/231 can run without it
-(the asset already exists and plays v1). Previous build notes:
+Re-pointed at v5 (director, 2026-10-24: "Hold 233, we'll ship v5 instead"). Direct edit of asset
+`HwkXTjErL_Laxs8WtqBiI` (same id, so push/231 is unchanged): image -> `anim_ethereal_rebirth_v5.webp` (the icon's
+translucent twisting gold and blue bands and its sparkles, from the art director's v5 layers; v4 motion with a steeper
+orbit; 40 frames x 60 ms, 242,800 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
+`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at bb7ca40. Gates: `validate.py --strict`
+0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. 231 and 233 run in either order. Earlier build notes (v4):
 
 Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
 push/231 is unchanged): image -> `anim_ethereal_rebirth_v4.webp` (v4: centred on the portrait; the ribbons start behind the avatar,
