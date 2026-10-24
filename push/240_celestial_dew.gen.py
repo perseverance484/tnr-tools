@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Build push/240: Celestial Dew's animations (suggest mode, one suggestion).
 
-    python3 push/240_celestial_dew.gen.py <push/238 results bundle>
+    python3 push/240_celestial_dew.gen.py <push/238 results bundle> [push/241 capture bundle]
+
+With the push/241 bundle, the live record comes from that fresh capture (jutsu.get) instead of the 2026-10-23 public
+read.
 
 Sets the SHIELD effect's appearAnimation (the moon, the drop, the splash and the ripples), staticAnimation (the ward
 breathing; its first glow peak when the ripples reach the rim) and disappearAnimation (the ward shattering) to the push/238
@@ -20,17 +23,25 @@ JID = '2vNeMhph6A9Ld--WXa35O'
 PUBLIC = 'harvests/inbox/tnr_results_1792732003454.json'
 OUT = 'push/240_celestial_dew.json'
 ICON = 'art/jutsu_icons/celestial_dew/exports/icon_jutsu_celestial_dew_v1.webp'
-if len(sys.argv) != 2:
+if len(sys.argv) not in (2, 3):
     raise SystemExit(__doc__)
 idmap = json.load(open(sys.argv[1])).get('idmap', {})
 appear, loop, brk = (idmap.get(k) for k in ('cd_anim_appear', 'cd_anim_loop', 'cd_anim_break'))
 assert appear and loop and brk, 'the Celestial Dew assets are not in the bundle idmap: run push/238 first'
 
 live = None
-for c in json.load(open(PUBLIC))['captures'][1:]:
-    for j in c['data']['data']:
-        if j['id'] == JID:
-            live = j
+if len(sys.argv) == 3:
+    for c in json.load(open(sys.argv[2]))['captures']:
+        d = c.get('data')
+        for cand in (d, (d or {}).get('data') if isinstance(d, dict) else None):
+            if isinstance(cand, dict) and cand.get('id') == JID:
+                live = cand
+    assert live, 'Celestial Dew not found in the capture bundle'
+else:
+    for c in json.load(open(PUBLIC))['captures'][1:]:
+        for j in c['data']['data']:
+            if j['id'] == JID:
+                live = j
 assert live and live['name'] == 'Celestial Dew', 'live record not found'
 sh = [e for e in live['effects'] if e['type'] == 'shield']
 hl = [e for e in live['effects'] if e['type'] == 'heal']

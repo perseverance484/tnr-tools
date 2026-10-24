@@ -759,6 +759,14 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
+## 241 Celestial Dew capture: READY TO RUN (reads only)
+
+Capture-only manifest (`jutsu.get` on `2vNeMhph6A9Ld--WXa35O`), changes nothing. Director (2026-10-24): "Only changed the
+icon but go ahead. Make a capture." push/240 as built (from the 2026-10-23 public read) is fine to run on that
+confirmation; with this bundle, `python3 push/240_celestial_dew.gen.py <238 bundle> <241 bundle>` rebuilds it from the
+live record if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
+problems.
+
 ## 240 Celestial Dew suggestion: READY TO RUN (after 239)
 
 `python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
