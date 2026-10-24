@@ -759,20 +759,20 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 240 Celestial Dew suggestion: generator ready; built from the 238 bundle (run after 239)
+## 240 Celestial Dew suggestion: READY TO RUN (after 239)
 
 `python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
 disappear animations to the push/238 assets. The heal keeps `I9aYhT5wMB`; icon and text unchanged; effects array and
 `injectableInBattle` re-sent from the public read (asserted: shield had no animations, heal appear as expected). No AI
 holds Celestial Dew in recent captures. Dry-run with stand-in ids: gates clean.
 
-## 239 Celestial Dew animations unhide: generator ready; built from the 238 bundle (run first)
+## 239 Celestial Dew animations unhide: READY TO RUN (first)
 
 `python3 push/239_celestial_dew_animations_unhide.gen.py <238 bundle>`: direct edits, `hidden: false` on the three assets
 (law 16c), image not re-sent. Director (2026-10-24): "Let's make the animation unhidden first then send in the suggestion
 ticket". Dry-run with stand-in ids: gates clean.
 
-## 238 Celestial Dew animations (3 creates): READY TO RUN (step 1: then send the bundle; 239, then 240)
+## 238 Celestial Dew animations (3 creates): RUN, verified (bundle tnr_results_1792882731698.json: appear `7PCuqwNbf0s8jOKEFwA_l`, loop `wdir89CrMcvbQNR8OFymV`, break `h7Yg7wmA0BBCjzvNvKTp5`), archived
 
 Director (2026-10-24): the appear is the moon, the drop and the ripples; the loop is the ward glowing, fading in and
 out, timed so its first glow peaks when the ripples reach the rim; slower. Direct creates, hidden (law 16b gate), all for
