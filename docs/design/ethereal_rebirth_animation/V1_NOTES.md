@@ -117,3 +117,18 @@ Director: a new gold ribbon started forming as the animation ended, briefly flar
 "lets cut that out". It was the gold crescent band (V5_BANDS[2]) coming round to a front pass in frames 35-38. The four
 added bands now fade out over t 0.74-0.86, before that pass; the ending is only the gold whip leaving to the upper right.
 Measured: no alpha inside the portrait from frame 35 on. 305,488 bytes.
+
+## loop1: the passive loop while the absorb is active (2026-10-24)
+
+Director: "We need a static animation for it too that is a subtler effect of the same ribbons. We want to show them
+passively orbiting and protecting the player so long as the absorb is active." Game source (a744c04,
+`libs/threejs/combat.ts:667`): an effect's `staticAnimation` is drawn like the cast animation (50 px over the avatar,
+layer 5) with `showAnimation(playInfinite)`, so it loops while the effect stands. It is added in the same pass as the
+`appearAnimation`, so the loop and the cast start together and overlap for the cast's 2.4 s.
+
+`build_strip.py --set loop1 --frames 48 --ms 80`: one gold and one blue v5 band (the flatter `a` layers), 0.85x thickness,
+alpha 0.55-0.60, on a steady tilted orbit round the portrait, half an orbit apart; one full orbit per loop (3.84 s); the
+twist travels along each band once per loop; six sparkles twinkle in turn; front passes stay off the face; back passes
+under the portrait mask; edge fade. No burst. Seamless: the frame 48 -> frame 1 change (34) is below the mean step (67).
+179,956 bytes. Preview with the cast on top, as the battle plays them: `loop1_in_battle.gif`
+(`battle_preview.py`); stills `loop1_zoom.png`.
