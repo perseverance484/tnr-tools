@@ -29,3 +29,13 @@
 - **Difference:** harder edges, a cleaner star-shaped core, diamond flecks; ribbons slightly thinner and less luminous on
   screen. Not shipped yet: the live asset `HwkXTjErL_Laxs8WtqBiI` still carries v1. Shipping v2 is an edit of that asset
   with a new image filename (law 32), with `hidden: false` kept.
+
+## v3 (2026-10-24)
+
+Director: the gold ribbon jumped when it came round to the right, and "do the original starburst core on the newer
+ribbons, with the full polish". Cause of the jump: the v1/v2 lash was a second gold ribbon that appeared at the upper
+right while the spinning one faded behind. `build_strip.py --set v3`: v2 ribbons and flecks, the v1 starburst core; the
+spin runs the other way and the gold ribbon's head peels off the spin at t = 0.55 and flies out along the departure
+tangent, curling upward, its body following the same path (one drawing throughout); the opening stays behind the token
+(per-pixel mask). 40 frames of 128 px at 60 ms, 253,444 bytes. Preview over the director's avatar:
+`v3_over_avatar.gif`. Shipped by push/233.

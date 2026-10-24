@@ -51,9 +51,10 @@ SET = 'v1'
 def L(name):
     """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
     cropped to their content."""
-    if SET == 'v1':
+    src = 'v1' if (SET == 'v1' or (SET == 'v3' and name == 'C1_core')) else 'v2'
+    if src == 'v1':
         return Image.open(os.path.join(HERE, 'layers', f'anim_er_{name}.png')).convert('RGBA')
-    im = Image.open(os.path.join(HERE, 'raws', f'anim_er_{SET}_{name}.png')).convert('RGBA')
+    im = Image.open(os.path.join(HERE, 'raws', f'anim_er_{src}_{name}.png')).convert('RGBA')
     return im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
 
 
@@ -195,6 +196,52 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
             layer.paste(lighter(layer, tile))
 
 
+LASH_T = 0.55                  # when the gold ribbon's head leaves the spin
+SPIN_RATE = 2 * math.pi * 1.5  # radians of spin per unit time
+TH_DEPART = 0.35               # helix angle at departure: front right, moving up and to the right
+
+
+def spin_ribbons_v3(t, grow, rise, fade, gold, blue, back, front):
+    """v3 motion: the spin runs the other way, and the gold ribbon's head peels off the spin at LASH_T and flies out of
+    the frame along the departure tangent, its body following the same path (one continuous drawing, no second ribbon)."""
+    if grow <= 0 or fade <= 0:
+        return
+    yc = 0.62 - 0.40 * rise
+    a_r = 0.30 + 0.10 * grow
+    b_r, pitch = 0.12, 0.28 * grow
+    length = 0.5 + 3.0 * grow
+    qd = SPIN_RATE * LASH_T
+    front_ok = ease(seg(t, 0.45, 0.60))
+    u0 = 1 - min(1.0, 0.25 + 0.75 * grow)
+
+    def helix_pt(th, u):
+        return (0.5 + a_r * math.cos(th), yc + b_r * math.sin(th) + pitch * u, math.sin(th))
+
+    # departure point and direction (direction of motion for decreasing th, bent a little to the right)
+    dx, dy = math.sin(TH_DEPART), -math.cos(TH_DEPART)
+    dx, dy = dx + 0.35, dy
+    ln = math.hypot(dx, dy)
+    dx, dy = dx / ln, dy / ln
+    for k, strip in enumerate((gold, blue)):
+        phase0 = TH_DEPART + qd + k * math.pi
+        qh = SPIN_RATE * t
+        pts = []
+        for i in range(SLICES + 1):
+            u = i / SLICES
+            q = qh - u * length
+            if k == 0 and q > qd:
+                px, py, _ = helix_pt(phase0 - qd, (qh - qd) / length)
+                dist = (q - qd) * a_r * 1.15
+                bend = 0.10 * dist * dist                 # the lash curls up as it flies (a whip, not a stick)
+                pts.append((px + dx * dist + 0.25 * bend, py + dy * dist - bend, 1.0))
+            else:
+                pts.append(helix_pt(phase0 - q, u))
+        al = 0.97 * fade
+        if k == 0:
+            al *= 1 - ease(seg(t, 0.82, 0.95))       # gone once it has left the frame
+        lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=front_ok)
+
+
 def flecks_from(sheet):
     """Split the fleck sheet into separate sprites (connected alpha blobs, found on a reduced copy)."""
     small = sheet.getchannel('A').resize((sheet.width // 4, sheet.height // 4)).point(lambda v: 255 if v > 40 else 0)
@@ -239,27 +286,30 @@ def build(n, size):
         grow = ease(seg(t, 0.08, 0.55))
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
-        if grow > 0 and fade > 0:
-            yc = 0.62 - 0.40 * rise
-            spin = 2 * math.pi * 1.5 * t
-            for k, strip in enumerate((gold, blue)):
-                length = 0.5 + 3.0 * grow
-                pts = helix(spin + k * math.pi, yc, 0.30 + 0.10 * grow, 0.12, length, 0.28 * grow, SLICES)
-                # opening: everything goes behind the token until the spin has risen (director, 2026-10-24: the
-                # blue ribbon at the start appeared over the player's icon)
-                lay_ribbon(strip, pts, 0.97 * fade, back, front, u0=1 - min(1.0, 0.25 + 0.75 * grow), u1=1.0,
-                           front_ok=ease(seg(t, 0.45, 0.60)))
-        lash = seg(t, 0.55, 0.80)                       # the gold ribbon lashes out of frame towards the enemy
-        if 0 < lash < 1:
-            head = lash * 1.5
-            pts = []
-            for i in range(31):
-                s_ = head - 0.55 * i / 30
-                if s_ < 0:
-                    break
-                pts.append((0.60 + 0.58 * s_, 0.33 - 0.30 * s_ + 0.04 * math.sin(4 * s_), 1.0))
-            if len(pts) > 3:
-                lay_ribbon(gold, pts, 0.97 * (1 - seg(lash, 0.75, 1.0)), back, front, 0.35, 1.0, depth_rule=False)
+        if SET == 'v3':
+            spin_ribbons_v3(t, grow, rise, fade, gold, blue, back, front)
+        else:
+            if grow > 0 and fade > 0:
+                yc = 0.62 - 0.40 * rise
+                spin = 2 * math.pi * 1.5 * t
+                for k, strip in enumerate((gold, blue)):
+                    length = 0.5 + 3.0 * grow
+                    pts = helix(spin + k * math.pi, yc, 0.30 + 0.10 * grow, 0.12, length, 0.28 * grow, SLICES)
+                    # opening: everything goes behind the token until the spin has risen (director, 2026-10-24: the
+                    # blue ribbon at the start appeared over the player's icon)
+                    lay_ribbon(strip, pts, 0.97 * fade, back, front, u0=1 - min(1.0, 0.25 + 0.75 * grow), u1=1.0,
+                               front_ok=ease(seg(t, 0.45, 0.60)))
+            lash = seg(t, 0.55, 0.80)                       # the gold ribbon lashes out of frame towards the enemy
+            if 0 < lash < 1:
+                head = lash * 1.5
+                pts = []
+                for i in range(31):
+                    s_ = head - 0.55 * i / 30
+                    if s_ < 0:
+                        break
+                    pts.append((0.60 + 0.58 * s_, 0.33 - 0.30 * s_ + 0.04 * math.sin(4 * s_), 1.0))
+                if len(pts) > 3:
+                    lay_ribbon(gold, pts, 0.97 * (1 - seg(lash, 0.75, 1.0)), back, front, 0.35, 1.0, depth_rule=False)
         cb = seg(t, 0.0, 0.45)                          # the seal breaking at the chest
         if cb > 0:
             r = S * 0.15 * ease(min(1, cb * 1.6))
@@ -301,7 +351,7 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
-    ap.add_argument('--set', default='v1', choices=['v1', 'v2'])
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3'])
     a = ap.parse_args()
     global SET
     SET = a.set
