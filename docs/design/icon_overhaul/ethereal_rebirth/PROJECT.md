@@ -80,3 +80,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 | 1 | 2026-10-24 | Texts approved by the director; round-1 art session started by the director. Waiting for raws. |
 | 1 | 2026-10-24 | Round-1 candidate r1a reviewed (`ROUND1_REVIEW.md`): big gain on the original; the body is lost and the loop is closed at 45 px; pixel density question raised. |
 | 1 | 2026-10-24 | Director: no pixel conversion (RUL-2026-10-24-005); higher-definition conversion tested and rejected (`round1_hd_test.png`). |
+| 1 | 2026-10-24 | Candidate r1b (gold and blue light) reviewed: more ethereal, weaker at 45 px, drops the battle line's elements. |
