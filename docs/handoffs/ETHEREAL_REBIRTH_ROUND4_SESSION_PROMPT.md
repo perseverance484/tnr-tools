@@ -1,5 +1,9 @@
 # Ethereal Rebirth: art session prompt (round 4, wider and more aggressive ribbons)
 
+> **PAUSED (2026-10-24, RUL-2026-10-24-007):** Ethereal Rebirth is a Forbidden jutsu, so its icon is to be redrawn with
+> the Forbidden Master (`docs/design/characters/FORBIDDEN_MASTER.md`) once the model sheet is approved. Do not run this
+> prompt unless the director says otherwise.
+
 - **Director, 2026-10-24:** "I think i want to make the icons energy ribbons wider and more aggressive like the
   animations. Its like the player is emitting energy waves that absorb damage."
 - **Base:** the approved final icon (`art/jutsu_icons/ethereal_rebirth/candidates/round3/raw_ethereal_rebirth_final.png`,
