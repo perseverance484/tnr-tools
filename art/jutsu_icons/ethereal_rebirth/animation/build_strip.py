@@ -34,7 +34,12 @@ THICK = 0.15                              # on-screen height of a straightened r
 SLICES = 70
 
 
-PORTRAIT_R = TOKEN_R + 0.006    # the whole portrait, white rim included, plus a hair of margin
+# The portrait's real outer edge is its dark outline, outside the white ring. Measured by hand from brightness
+# profiles of the director's battle recording (2026-10-24): centre (206, 181.6), radius 28.6 px, i.e. 0.296 of the frame
+# from the top and 0.272 of the frame. The earlier mask (0.283 / 0.254) followed the white ring and stopped about
+# 2.5 px short at the bottom, which is where the gold ribbon kept showing. Mask = real edge + about 1.5 px.
+PORTRAIT_CY = 0.296
+PORTRAIT_R = 0.287
 
 
 def _behind_mask(radius=None):
@@ -42,7 +47,7 @@ def _behind_mask(radius=None):
     outside."""
     m = Image.new('L', (S * 4, S * 4), 255)
     k = S * 4
-    r, cx, cy = (radius or PORTRAIT_R) * k, 0.5 * k, TOKEN_CY * k
+    r, cx, cy = (radius or PORTRAIT_R) * k, 0.5 * k, PORTRAIT_CY * k
     d = ImageDraw.Draw(m)
     d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=0)
     # the rank star and its mount hang below the portrait (measured from the director's battle recording: the star
