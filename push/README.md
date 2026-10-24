@@ -774,7 +774,7 @@ Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `che
 
 Direct edit of `jRU-uhYhX0maaWyaRJr14` (created hidden by push/234) with `hidden: false`, image not re-sent (law 16c:
 battles load only unhidden assets). Built from the push/234 bundle. Gates: `validate.py --strict` 0 errors, 0 warnings;
-`check_manifest.mjs` 0 pre-send problems. 235 and 236 run in either order.
+`check_manifest.mjs` 0 pre-send problems. **Run 235, then 236 straight after** (director, 2026-10-24: "Just unhide then send ticket"). They are two manifests because Forge's suggest mode covers a whole manifest (`forge/src/runner/manifest.mjs`); in one manifest the unhide would itself become a suggestion.
 
 ## 234 Ethereal Rebirth passive loop (create): RUN, verified (bundle tnr_results_1792867695830.json, id jRU-uhYhX0maaWyaRJr14), archived
 
