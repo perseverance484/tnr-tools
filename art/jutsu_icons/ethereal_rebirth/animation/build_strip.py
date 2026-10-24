@@ -41,8 +41,13 @@ def _behind_mask(radius=None):
     """Alpha mask: 0 inside the avatar portrait (soft 1 px edge), 255 outside. Applied to the finished frame, so no layer
     (ribbons, core, flecks, glow) ever draws on the portrait (director, 2026-10-24)."""
     m = Image.new('L', (S * 4, S * 4), 255)
-    r, cx, cy = (radius or PORTRAIT_R) * S * 4, 0.5 * S * 4, TOKEN_CY * S * 4
-    ImageDraw.Draw(m).ellipse([cx - r, cy - r, cx + r, cy + r], fill=0)
+    k = S * 4
+    r, cx, cy = (radius or PORTRAIT_R) * k, 0.5 * k, TOKEN_CY * k
+    d = ImageDraw.Draw(m)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=0)
+    # the rank star and its mount hang below the portrait (measured from the director's battle recording: the star
+    # spans x 0.47-0.54, y 0.57-0.63 of the frame); cover x 0.5 +/- 0.07 down to y 0.67 with rounded corners
+    d.rounded_rectangle([cx - 0.07 * k, (TOKEN_CY + 0.15) * k, cx + 0.07 * k, 0.67 * k], radius=0.03 * k, fill=0)
     return m.resize((S, S), Image.LANCZOS)
 
 
@@ -287,6 +292,7 @@ def build(n, size):
         t = f / (n - 1)
         back = Image.new('RGBA', (S, S), (0, 0, 0, 0))
         front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        top = Image.new('RGBA', (S, S), (0, 0, 0, 0))     # above the portrait mask: the seal's burst
         grow = ease(seg(t, 0.08, 0.55))
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
@@ -320,7 +326,7 @@ def build(n, size):
             al = 1 - seg(cb, 0.55, 1.0)
             c = core.resize((max(1, int(2 * r)), max(1, int(2 * r))), Image.LANCZOS)
             c.putalpha(c.getchannel('A').point(lambda v: int(v * al)))
-            front.alpha_composite(c, (int(CORE[0] * S - r), int(CORE[1] * S - r)))
+            top.alpha_composite(c, (int(CORE[0] * S - r), int(CORE[1] * S - r)))
         for d in fl:                                    # flecks peel off and drift up (outside the token)
             p = seg(t, d['start'], d['start'] + d['life'])
             if 0 < p < 1:
@@ -338,6 +344,9 @@ def build(n, size):
         glow.putalpha(glow.getchannel('A').point(lambda v: int(v * 0.5)))
         out = Image.alpha_composite(glow, img)
         out.putalpha(ImageChops.multiply(out.getchannel('A'), BEHIND_MASK))   # portrait mask on every layer
+        tglow = top.filter(ImageFilter.GaussianBlur(S * 0.010))
+        tglow.putalpha(tglow.getchannel('A').point(lambda v: int(v * 0.5)))
+        out = Image.alpha_composite(out, Image.alpha_composite(tglow, top))  # the burst sits on top, unmasked
         frames.append(out.resize((size, size), Image.LANCZOS))
     return frames
 
