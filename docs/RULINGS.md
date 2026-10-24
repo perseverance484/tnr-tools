@@ -2350,3 +2350,5 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-23: "No, we'll do it all at once."; Discord thread: "BEE, CE, Blazing fang strike and Celestial Dew are getting no changes"; "Are we removing the people from everything?" / "I *think* so. I do have a Jutsu Master for each offense for people renders"; on putting the no-change icons back in the batch and keeping Unholy Enhancement: "Yes to both, include them in the batch".
 
 **Canonical destination:** `docs/design/icon_overhaul/ICON_SCORES.md`, `STAFF_FEEDBACK.md`, `BATCH_PLAN.md`.
+
+**Amendment 1 (2026-10-24), roles:** the art director only makes the art (raw images). Claude Code handles everything else: processing, previews and sheets, export and preflight, text rewrites (drafted for the director's approval), and the batch manifest. User: "You're handling text rewrites, manifests, processing, etc. Art Director just makes the art". Recorded in `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`.
