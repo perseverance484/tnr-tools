@@ -84,3 +84,17 @@ come round in front; front passes draw over the portrait, back passes (and their
 portrait mask; no special opening rule is needed. The gold ribbon leaves the orbit on the front right at t = 0.58 and
 lashes out. Burst on top at the portrait centre. 40 frames of 128 px at 60 ms, 213,904 bytes. Checked by eye over the
 real portrait (`v4_zoom.png`, frames 8-30); GIF `v4_over_avatar.gif`.
+
+## v5 (2026-10-24)
+
+Director: "Draw the ribbons as they appear in the icon. Exactly." Art director's v5 layers in `raws/`:
+`anim_er_v5_R1_band_gold_{a,b}.png`, `anim_er_v5_R2_band_blue_{a,b}.png` (2172 x 724, real alpha; `a` flatter, `b` wavier;
+v5 uses `a`, straightened as before) and `anim_er_v5_S1_sparkles.png` (1254 x 1254, ten four-point stars).
+`build_strip.py --set v5`: the v4 orbit, now tilted more steeply (vertical radius 0.17) so the front pass stays on the
+lower half of the portrait and the back pass shows above the head, as the icon's loops do; blue sits higher, gold lower,
+and the gold whips out to the upper right. Each band rolls along its length (scripted twist): it narrows to a bright
+near-white line where it turns edge-on and its back face is a shade darker. Bands 1.6x the v4 thickness. Sparkles twinkle
+once each in a ring round the user. The v1 burst stays on top. Everything fades over the outer 7% of the frame, so the
+whip leaves without a hard cut at the sprite edge. 40 frames of 128 px at 60 ms, 242,800 bytes. Checked by eye at 5x over
+the real portrait (`v5_zoom.png`, frames 4-18): nothing behind the avatar shows over it. GIF `v5_over_avatar.gif`.
+Preflight `--type ANIMATION`: 1 error, `soft_edges` 79.3% (the known gap for glow effects, as on every earlier version).

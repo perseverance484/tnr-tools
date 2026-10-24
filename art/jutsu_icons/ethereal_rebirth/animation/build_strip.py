@@ -59,13 +59,29 @@ def _behind_mask(radius=None):
 BEHIND_MASK = _behind_mask()
 
 
+def _edge_fade(w=0.07):
+    """Alpha ramp over the outer `w` of the frame on every side (the game clips the sprite at its square)."""
+    ramp = [int(255 * (lambda x: x * x * (3 - 2 * x))(min(1.0, min(i, S - 1 - i) / (w * S)))) for i in range(S)]
+    h = Image.new('L', (S, 1)); h.putdata(ramp)
+    v = Image.new('L', (1, S)); v.putdata(ramp)
+    return ImageChops.multiply(h.resize((S, S)), v.resize((S, S)))
+
+
+EDGE_FADE = _edge_fade()
+
+
 SET = 'v1'
 
 
 def L(name):
     """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
     cropped to their content."""
-    src = 'v1' if (SET == 'v1' or (SET in ('v3', 'v4') and name == 'C1_core')) else 'v2'
+    if SET == 'v5' and name != 'C1_core':
+        # v5: the art director's bands and sparkles in the icon's style (raws/anim_er_v5_*); variant a is the flatter one
+        fn = {'R1_ribbon_gold': 'R1_band_gold_a', 'R2_ribbon_blue': 'R2_band_blue_a', 'F1_flecks': 'S1_sparkles'}[name]
+        im = Image.open(os.path.join(HERE, 'raws', f'anim_er_v5_{fn}.png')).convert('RGBA')
+        return im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
+    src = 'v1' if (SET == 'v1' or (SET in ('v3', 'v4', 'v5') and name == 'C1_core')) else 'v2'
     if src == 'v1':
         return Image.open(os.path.join(HERE, 'layers', f'anim_er_{name}.png')).convert('RGBA')
     im = Image.open(os.path.join(HERE, 'raws', f'anim_er_{src}_{name}.png')).convert('RGBA')
@@ -146,12 +162,17 @@ def smooth(v, a, b):
     return ease(seg(v, a, b))
 
 
-def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0, face=True):
+def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0, face=True, twist=None,
+               thick_k=1.0):
     """Warp the straight `strip` (its part u0..u1; the strip's right end is the ribbon's head) onto the path `pts`
-    (head first) as a chain of quads that share their edges, so the ribbon bends without seams."""
+    (head first) as a chain of quads that share their edges, so the ribbon bends without seams.
+
+    `twist(u)` (v5) gives the band's roll angle along its length: the band narrows as cos(angle) goes to 0 (seen edge-on,
+    it brightens to a pale line) and its back face (cos < 0) is drawn darker."""
     n = len(pts) - 1
     sw, sh = strip.size
-    hw = THICK * S / 2
+    hw = THICK * S / 2 * thick_k
+    roll = [twist(j / n) for j in range(n + 1)] if twist else None
     P = [(x * S, y * S) for x, y, _ in pts]
     D = [d for _, _, d in pts]
     normals = []
@@ -173,13 +194,20 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
         if a <= 0.01:
             continue
         thick = 0.7 + 0.3 * nearness
+        tw = [1.0, 1.0]
+        edge, backface = 0.0, False
+        if roll:
+            c0, c1 = math.cos(roll[i]), math.cos(roll[i + 1])
+            tw = [max(0.16, abs(c0)), max(0.16, abs(c1))]
+            edge = 1 - min(1.0, (abs(c0) + abs(c1)) / 2 / 0.45)    # 1 when edge-on
+            backface = (c0 + c1) < 0
         quad = []
-        for j in (i, i + 1):
+        for j, k in ((i, 0), (i + 1, 1)):
             nx, ny = normals[j]
-            quad.append((P[j][0] + nx * hw * thick, P[j][1] + ny * hw * thick))
-        for j in (i + 1, i):
+            quad.append((P[j][0] + nx * hw * thick * tw[k], P[j][1] + ny * hw * thick * tw[k]))
+        for j, k in ((i + 1, 1), (i, 0)):
             nx, ny = normals[j]
-            quad.append((P[j][0] - nx * hw * thick, P[j][1] - ny * hw * thick))
+            quad.append((P[j][0] - nx * hw * thick * tw[k], P[j][1] - ny * hw * thick * tw[k]))
         # head first along the path; the strip's head is its right end
         sx_i = (u1 - (u1 - u0) * i / n) * (sw - 1)
         sx_j = (u1 - (u1 - u0) * (i + 1) / n) * (sw - 1)
@@ -196,6 +224,16 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
         except ZeroDivisionError:
             continue
         piece = strip.transform((bw, bh), Image.PERSPECTIVE, co, Image.BILINEAR)
+        if roll and (edge > 0.02 or backface):
+            pa = piece.getchannel('A')
+            rgb = piece.convert('RGB')
+            if backface:                                     # the far face of the silk: a shade deeper
+                rgb = Image.blend(rgb, ImageChops.multiply(rgb, Image.new('RGB', rgb.size, (185, 185, 185))), 0.5)
+            if edge > 0.02:                                  # edge-on: folds to a bright, near-white line
+                rgb = Image.blend(rgb, Image.new('RGB', rgb.size, (255, 252, 240)), 0.55 * edge)
+                pa = pa.point(lambda v, e=edge: min(255, int(v * (1 + 0.6 * e))))
+            piece = rgb.convert('RGBA')
+            piece.putalpha(pa)
         mask = Image.new('L', (bw * 2, bh * 2), 0)
         ImageDraw.Draw(mask).polygon([(qx * 2, qy * 2) for qx, qy in local], fill=255)
         mask = mask.resize((bw, bh), Image.LANCZOS)
@@ -303,6 +341,58 @@ def spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front):
         lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False)
 
 
+def spin_ribbons_v5(t, grow, rise, fade, gold, blue, back, front):
+    """v5 (director, 2026-10-24: "Draw the ribbons as they appear in the icon. Exactly."): the v4 orbit centred on the
+    portrait, with the icon's broad translucent bands. As in the icon, the blue band loops round the portrait's upper half
+    and the gold band sweeps round the lower half, then whips out to the upper right. Each band rolls along its length
+    (twist), narrowing to a bright edge where it turns."""
+    if grow <= 0 or fade <= 0:
+        return
+    pcy = PORTRAIT_CY
+    yc = pcy + 0.04 - 0.10 * rise
+    a_r = 0.36 + 0.04 * grow
+    # a steeply tilted orbit, as the icon's loops: the front pass stays on the lower half of the portrait (never across
+    # the face) and the back pass shows above the head
+    b_r, pitch = 0.17, 0.05 * grow
+    length = 0.5 + 2.8 * grow
+    td = 0.58
+    th0 = {0: 0.35 + SPIN_RATE * td - 2 * math.pi}
+    th0[1] = th0[0] - 1.2
+    u0 = 1 - min(1.0, 0.25 + 0.75 * grow)
+    lift = {0: 0.06, 1: -0.03}                 # gold low, blue high (the icon's layout)
+
+    def pt(th, u, dy=0.0):
+        return (0.5 + a_r * math.cos(th), yc + dy + b_r * math.sin(th) + pitch * u, math.sin(th))
+
+    dx, dy = math.sin(TH_DEPART) + 0.35, -math.cos(TH_DEPART)
+    ln = math.hypot(dx, dy)
+    dx, dy = dx / ln, dy / ln
+    for k, strip in enumerate((gold, blue)):
+        off = lift[k]
+        thh = th0[k] - SPIN_RATE * t
+        pts = []
+        for i in range(SLICES + 1):
+            u = i / SLICES
+            if k == 0 and t > td:
+                gone = SPIN_RATE * (t - td) - u * length
+                if gone > 0:
+                    hx, hy, _ = pt(TH_DEPART, 0, off)
+                    dist = gone * a_r * 1.15
+                    bend = 0.10 * dist * dist
+                    pts.append((hx + dx * dist + 0.25 * bend, hy + dy * dist - bend, 1.0))
+                    continue
+                pts.append(pt(TH_DEPART - gone, 0, off))
+            else:
+                pts.append(pt(thh + u * length, u, off))
+        al = 0.95 * fade
+        if k == 0:
+            al *= 1 - ease(seg(t, 0.85, 0.97))
+        # one and a half slow rolls along the band, drifting with time, so the twist travels along it like silk
+        twist = (lambda u, k=k: 0.4 + k * 1.3 + 2 * math.pi * 0.75 * u + 2.5 * t)
+        lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                   thick_k=1.6)
+
+
 def flecks_from(sheet):
     """Split the fleck sheet into separate sprites (connected alpha blobs, found on a reduced copy)."""
     small = sheet.getchannel('A').resize((sheet.width // 4, sheet.height // 4)).point(lambda v: 255 if v > 40 else 0)
@@ -339,6 +429,15 @@ def build(n, size):
     rnd = random.Random(7)
     fl = [dict(img=rnd.choice(flecks), x=0.5 + rnd.uniform(-0.34, 0.34), y=rnd.uniform(0.30, 0.82),
                start=rnd.uniform(0.35, 0.80), life=rnd.uniform(0.25, 0.4), s=rnd.uniform(0.045, 0.075)) for _ in range(16)]
+    if SET == 'v5':
+        # the icon's sparkles: scattered round the user, each twinkling once (grow, glint, shrink) with a slight drift up
+        fl = []
+        for i in range(12):
+            ang = 2 * math.pi * i / 12 + rnd.uniform(-0.2, 0.2)
+            rr = rnd.uniform(0.34, 0.44)
+            fl.append(dict(img=flecks[i % len(flecks)], x=0.5 + rr * math.cos(ang),
+                           y=PORTRAIT_CY + 0.05 + rr * 0.95 * math.sin(ang), start=rnd.uniform(0.22, 0.70),
+                           life=rnd.uniform(0.22, 0.32), s=rnd.uniform(0.075, 0.11)))
     frames = []
     for f in range(n):
         t = f / (n - 1)
@@ -348,7 +447,9 @@ def build(n, size):
         grow = ease(seg(t, 0.08, 0.55))
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
-        if SET == 'v4':
+        if SET == 'v5':
+            spin_ribbons_v5(t, grow, rise, fade, gold, blue, back, front)
+        elif SET == 'v4':
             spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front)
         elif SET == 'v3':
             spin_ribbons_v3(t, grow, rise, fade, gold, blue, back, front)
@@ -380,15 +481,19 @@ def build(n, size):
             al = 1 - seg(cb, 0.55, 1.0)
             c = core.resize((max(1, int(2 * r)), max(1, int(2 * r))), Image.LANCZOS)
             c.putalpha(c.getchannel('A').point(lambda v: int(v * al)))
-            ccx, ccy = (0.5, PORTRAIT_CY) if SET == 'v4' else CORE
+            ccx, ccy = (0.5, PORTRAIT_CY) if SET in ('v4', 'v5') else CORE
             top.alpha_composite(c, (int(ccx * S - r), int(ccy * S - r)))
         for d in fl:                                    # flecks peel off and drift up (outside the token)
             p = seg(t, d['start'], d['start'] + d['life'])
             if 0 < p < 1:
-                x, y = d['x'] + 0.02 * math.sin(6 * p), d['y'] - 0.22 * p
-                if in_window(x, y):
+                if SET == 'v5':
+                    x, y = d['x'], d['y'] - 0.06 * p
+                    sz = max(2, int(d['s'] * S * (0.4 + 0.6 * math.sin(math.pi * p))))
+                else:
+                    x, y = d['x'] + 0.02 * math.sin(6 * p), d['y'] - 0.22 * p
+                    sz = int(d['s'] * S)
+                if in_window(x, y) or not (0.03 < x < 0.97 and 0.03 < y < 0.97):
                     continue
-                sz = int(d['s'] * S)
                 im = d['img'].resize((sz, max(1, int(sz * d['img'].height / d['img'].width))), Image.LANCZOS)
                 a = math.sin(math.pi * p)
                 im.putalpha(im.getchannel('A').point(lambda v, a=a: int(v * a)))
@@ -405,6 +510,8 @@ def build(n, size):
         tglow = top.filter(ImageFilter.GaussianBlur(S * 0.010))
         tglow.putalpha(tglow.getchannel('A').point(lambda v: int(v * 0.5)))
         out = Image.alpha_composite(out, Image.alpha_composite(tglow, top))  # the burst sits on top, unmasked
+        if SET == 'v5':
+            out.putalpha(ImageChops.multiply(out.getchannel('A'), EDGE_FADE))   # the whip fades out, no hard cut at the edge
         frames.append(out.resize((size, size), Image.LANCZOS))
     return frames
 
@@ -424,7 +531,7 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
-    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4'])
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4', 'v5'])
     a = ap.parse_args()
     global SET
     SET = a.set
