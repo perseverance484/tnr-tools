@@ -54,3 +54,12 @@ Director: the burst goes above the mask, unaffected; the gold ribbon still showe
 The burst (and its glow) now draws on a top layer composited after the portrait mask. The mask is extended over the
 rank star and its mount hanging below the portrait (measured from the recording: star x 0.47-0.54, y 0.57-0.63 of the
 frame): a rounded block x 0.5 +/- 0.07 from y 0.43 to 0.67. 220,904 bytes.
+
+### v3 opening fixed, all-layer mask reverted (2026-10-24)
+
+Director: the all-layer mask cut the ribbons where they should pass in front; revert it and fix the opening, where the
+gold ribbon's lower edge still showed over the bottom of the avatar. Now: the front layer (the near side of the wrap) is
+unmasked again; the behind layer, its glow and the flecks are hidden by the whole portrait (rim and rank star); the burst
+stays on top. Until the spin has risen (t < 0.45) every ribbon is on the behind layer. Check, burst excluded: inside the
+portrait the opening frames hold nothing above the mask's 1 px soft edge (max 37 of 255); ribbons appear in front only
+from frame 20, as designed. 245,764 bytes.

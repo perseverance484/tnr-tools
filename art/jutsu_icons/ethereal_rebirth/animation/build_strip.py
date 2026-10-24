@@ -38,8 +38,8 @@ PORTRAIT_R = TOKEN_R + 0.006    # the whole portrait, white rim included, plus a
 
 
 def _behind_mask(radius=None):
-    """Alpha mask: 0 inside the avatar portrait (soft 1 px edge), 255 outside. Applied to the finished frame, so no layer
-    (ribbons, core, flecks, glow) ever draws on the portrait (director, 2026-10-24)."""
+    """Alpha mask for everything behind the user: 0 inside the avatar portrait and its rank star (soft 1 px edge), 255
+    outside."""
     m = Image.new('L', (S * 4, S * 4), 255)
     k = S * 4
     r, cx, cy = (radius or PORTRAIT_R) * k, 0.5 * k, TOKEN_CY * k
@@ -337,13 +337,16 @@ def build(n, size):
                 im = d['img'].resize((sz, max(1, int(sz * d['img'].height / d['img'].width))), Image.LANCZOS)
                 a = math.sin(math.pi * p)
                 im.putalpha(im.getchannel('A').point(lambda v, a=a: int(v * a)))
-                front.alpha_composite(im, (int(x * S - im.width / 2), int(y * S - im.height / 2)))
+                back.alpha_composite(im, (int(x * S - im.width / 2), int(y * S - im.height / 2)))  # never over the portrait
+        # behind layer: hidden by the whole portrait (rim and rank star), its glow included, so nothing that goes
+        # behind the user ever shows over them; the front layer (the near side of the wrap) is not masked
+        def glowed(layer):
+            g = layer.filter(ImageFilter.GaussianBlur(S * 0.010))
+            g.putalpha(g.getchannel('A').point(lambda v: int(v * 0.5)))
+            return Image.alpha_composite(g, layer)
+        back = glowed(back)
         back.putalpha(ImageChops.multiply(back.getchannel('A'), BEHIND_MASK))
-        img = Image.alpha_composite(back, front)
-        glow = img.filter(ImageFilter.GaussianBlur(S * 0.010))
-        glow.putalpha(glow.getchannel('A').point(lambda v: int(v * 0.5)))
-        out = Image.alpha_composite(glow, img)
-        out.putalpha(ImageChops.multiply(out.getchannel('A'), BEHIND_MASK))   # portrait mask on every layer
+        out = Image.alpha_composite(back, glowed(front))
         tglow = top.filter(ImageFilter.GaussianBlur(S * 0.010))
         tglow.putalpha(tglow.getchannel('A').point(lambda v: int(v * 0.5)))
         out = Image.alpha_composite(out, Image.alpha_composite(tglow, top))  # the burst sits on top, unmasked
