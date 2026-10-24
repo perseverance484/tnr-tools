@@ -14,7 +14,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 REC = os.path.join(ROOT, 'docs/design/icon_overhaul/ethereal_rebirth/showcase/battle_recording_2026-10-24.mp4')
 A = os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/animation/')
 spec = importlib.util.spec_from_file_location('cd', A + 'build_strip.py'); cd = importlib.util.module_from_spec(spec); spec.loader.exec_module(cd)
-V = 'v4'
+V = 'v5'
 F = lambda s, b=False: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf' % ('-Bold' if b else ''), s)
 BG, CARD, FG, DIM, ACC = (18, 22, 34), (30, 36, 52), (238, 240, 246), (160, 168, 186), (140, 190, 255)
 BATTLE = ("%user closes their eyes and the night seems to answer, a pale crescent moon blooming into being above them. From "
