@@ -735,11 +735,11 @@ lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-1
 touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
 
-## 231 Ethereal Rebirth icon, text and animation (suggest mode): GENERATOR READY, WAITING ON THE ICON
+## 231 Ethereal Rebirth icon, text and animation (suggest mode): GENERATOR READY, WAITING ON THE PUSH/230 BUNDLE
 
 `python3 push/231_ethereal_rebirth.gen.py <push/230 results bundle> [ICON]` builds one suggestion on Ethereal Rebirth: the
 new icon, the approved non-elemental text (`docs/design/icon_overhaul/ethereal_rebirth/TEXT_V2.md`, training warning
 kept), and the push/230 asset as the absorb effect's `appearAnimation` (plays on the caster; the damage effect keeps its
-hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). It refuses to build until the
-round-3 icon is approved, exported to `art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp` and
-committed, and until push/230 has run. Dry run (stand-in icon, fake asset id): both gates pass.
+hit animation). Re-sends the live effects array and `injectableInBattle` (false, law 20). The final icon is approved and exported
+(`art/jutsu_icons/ethereal_rebirth/exports/icon_jutsu_ethereal_rebirth_v1.webp`, artpreflight clean); it builds once
+push/230 has run. Dry run (stand-in icon, fake asset id): both gates pass.
