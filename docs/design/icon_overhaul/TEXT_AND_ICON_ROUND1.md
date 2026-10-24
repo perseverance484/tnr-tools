@@ -10,6 +10,8 @@
 - **Writing rules:** `skills/building-tnr-content/references/jutsu_text.md` (on `claude/tnr-content-tickets-tcbi34`)
   for mechanics and placeholders; the event and forbidden voice rule (2026-10-23): the description is a short overview,
   the battle line a 3–4 sentence scene in action; plain colour words; no em dashes; area jutsu never use `%target`.
+- **Length (director, 2026-10-24):** event jutsu descriptions may run to **260 characters** (the general guide says
+  80–220).
 - **Effects checked against the live records** (public read 2026-10-23). Neither text claims anything the effects do not
   do, and both cover every effect a player will notice.
 
