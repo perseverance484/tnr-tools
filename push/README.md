@@ -763,10 +763,10 @@ damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL
 
 Director (2026-10-24): "corkscrew from the top, timed to the lash". Direct create of asset `er_anim_soul_strike`
 ("Ethereal Rebirth - Soul Strike", ANIMATION, `anim_ethereal_rebirth_hit1.webp`: the gold and blue ribbons wound into a
-corkscrew drill down into the enemy's portrait at 1.58 s, as the cast's lash leaves the caster, then burst round it;
-66 frames x 36 ms, 132,072 bytes), hidden (law 16b gate). For the damage effect's `appearAnimation` (replaces the generic
-`iDv3rjj81rRgD10shRqSn`). Preview with both tiles on one clock: `docs/design/ethereal_rebirth_animation/hit1_duel.gif`.
-Pack pinned at 6888bb7. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+corkscrew enter the enemy's square from the upper left the frame after the cast's spear leaves the caster, at the same
+speed, and strike at 1.74 s, then burst round it; 66 frames x 36 ms, 135,030 bytes), hidden (law 16b gate). For the damage effect's `appearAnimation` (replaces the generic
+`iDv3rjj81rRgD10shRqSn`). Preview with both tiles on one clock: `docs/design/ethereal_rebirth_animation/v7_attack_duel.gif`.
+Pack pinned at 06b0e05. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 **After it runs:** push/235 gains the hit's unhide and push/236 sets it on the damage effect; **hold 235 and 236 until
 then.**
 
@@ -784,12 +784,12 @@ Pack pinned at adf2749. Gates: `validate.py --strict` 0 errors, 0 warnings; `che
 ## 235 Ethereal Rebirth animations, fluidity pass + loop unhide: HOLD for 237 (rebuilt with the hit's unhide)
 
 Director (2026-10-24): "polish the animations for appear and static so they are very smooth". Two direct asset edits:
-the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v6.webp` (66 frames x 36 ms, 422,488 bytes) and the
+the cast animation `HwkXTjErL_Laxs8WtqBiI` -> `anim_ethereal_rebirth_v7.webp` (66 frames x 36 ms, 377,388 bytes; v7 adds the launch: a blue strand coils round the gold band into a spear, a release flash, and the spear climbs out of the top of the frame) and the
 passive loop `jRU-uhYhX0maaWyaRJr14` -> `anim_ethereal_rebirth_loop2.webp` (100 frames x 36 ms, 257,236 bytes) with
 `hidden: false` (law 16c). About 28 fps (were 17 and 12); bands fade round behind the face instead of being cut; the
 cast's blue band slows onto the loop's blue band, so the cast flows into the loop. Notes:
 `docs/design/ethereal_rebirth_animation/V1_NOTES.md` "v6 + loop2"; preview `v6_in_battle.gif`. Built from the push/230
-and push/234 bundles; pack pinned at a52fa4b. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs`
+and push/234 bundles; pack pinned at 06b0e05. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs`
 0 pre-send problems. **Run 235, then 236** (director: "Just unhide then send ticket"; two manifests because Forge's suggest
 mode covers a whole manifest).
 
