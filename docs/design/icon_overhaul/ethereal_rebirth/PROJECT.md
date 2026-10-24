@@ -83,3 +83,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 | 1 | 2026-10-24 | Candidate r1b (gold and blue light) reviewed: more ethereal, weaker at 45 px, drops the battle line's elements. |
 | 2 | 2026-10-24 | Director: non-elemental (no fire, water or lightning; the old text was misaligned). Non-elemental text drafted (`TEXT_V2.md`); round-2 prompt written from r1b with the review's fixes (`docs/handoffs/ETHEREAL_REBIRTH_ROUND2_SESSION_PROMPT.md`). |
 | 2 | 2026-10-24 | Custom cast animation requested (ribbons wrapping the avatar; Chakra Overflow workflow): scripted prototype proves the wrap at 50 px; art request and session prompt written (`docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_*`). |
+| 2 | 2026-10-24 | Round 2 delivered (R2-1..3); director prefers R2-2. Review: every round-1 fix landed; still busy, and the left hand and bottom touch the edges (`ROUND2_REVIEW.md`). |
