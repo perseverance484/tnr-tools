@@ -77,3 +77,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 |---|---|---|
 | 0 | 2026-10-24 | Project opened; original measured at real size (`refs_gate.png`); round-1 prompt written. |
 | 0 | 2026-10-24 | Premium text drafted; round-1 prompt tied to the battle line's moment (arms wide, seal cracking, ribbons). |
+| 1 | 2026-10-24 | Texts approved by the director; round-1 art session started by the director. Waiting for raws. |

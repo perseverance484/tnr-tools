@@ -5,8 +5,8 @@
 - **The rule this sets (RUL-2026-10-24-004):** the battle line describes one key moment, and the icon draws that moment.
   The description sums the jutsu up in the same images. Every visual element of the icon appears in the text, and every
   image the text promises is either in the icon or deliberately off-frame.
-- **Status: DRAFTS for the director.** Final prose is the director's (CLAUDE.md section 10). These replace the texts
-  approved on 2026-10-23 (`docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md`) only once approved.
+- **Status: APPROVED (director, 2026-10-24: "Texts approved").** These replace the texts approved on 2026-10-23
+  (`docs/design/jutsu_overhaul/EVENT_JUTSU_STORY_TEXT.md`) and ship with each jutsu's new icon.
 - **Writing rules:** `skills/building-tnr-content/references/jutsu_text.md` (on `claude/tnr-content-tickets-tcbi34`)
   for mechanics and placeholders; the event and forbidden voice rule (2026-10-23): the description is a short overview,
   the battle line a 3–4 sentence scene in action; plain colour words; no em dashes; area jutsu never use `%target`.
@@ -27,7 +27,7 @@ crackling from their hands, a storm vortex wheeling in the sky behind them. The 
 whirlwind with ink streaks and cloud curls) supplies the vortex. Together: **the masked fighter at the eye of the
 whirlwind, mid-turn, as the razor wind bursts outward around them.**
 
-### Draft text
+### Approved text
 
 **Description:**
 > The user turns once at the eye of a storm and the wind becomes a blade, tearing outward in a howling ring that spares no one. Its cuts never close: guards hang open, and each blow that follows sets the wounds burning.
@@ -67,7 +67,7 @@ a gold-white core blazing at the chest, ribbons of fire and water-light with cra
 The approved text speaks of "green flame", which the original never showed; it goes. **The moment: arms flung wide as the
 seal at the chest breaks open and the elements spin out.**
 
-### Draft text
+### Approved text
 
 **Description:**
 > A forbidden art that breaks the seal on the user's soul, loosing fire, water and lightning to strike the enemy. The user is remade from within, wounds turning to new life as the strength drains from their blows.
