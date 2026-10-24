@@ -201,3 +201,24 @@ Previews and the showcase now use the new recording (`battle_still_2026-10-24b.p
 
 **Also affected:** the Ethereal Rebirth animations (cast, loop, hit) were built on the same assumed portrait; they need
 the same correction.
+
+## 13. v7, and other screens (2026-10-24)
+
+Director: "It also brightens too suddenly with the appear animation, slow it down a lot." The appear's copy of the ward
+now rises over 18 frames (0.83 s) from just before the ripples reach the rim, holds 10, fades over 14; the appear is 92
+frames (4.2 s); the loop is 64 x 100 ms = 6.4 s, peaking (about 3.9 s) in the middle of that fade. Seen together: dark
+until 2.2 s, about 0.7 by 2.75 s, full by 3.0 s, held to about 4.3 s, a soft fade to dark by 6.3 s.
+
+Director: "Will our celestial dew draw properly for everyone's screens? It needs to fit everyone's appropriately." From
+the source formulas (section 12), the avatar in the 50 px effect square:
+
+| Canvas width (CSS px) | h | Avatar centre (from top) | Avatar radius |
+|---|---|---|---|
+| 298 (the director's phone) | 16.1 | 0.34 | 0.13 |
+| 375 (typical phone) | 20.3 | 0.30 | 0.16 |
+| 430 (large phone) | 23.2 | 0.27 | 0.19 |
+| 676 (the widest the layout's main column renders, `Welcome.tsx` comment) | 36.5 | 0.13 | 0.29 |
+
+One strip is drawn at a fixed 50 px for every screen, so it can match the portrait at one canvas width only; this is true
+of every effect animation in the game. Options are set out to the director (a game-side change that scales effects with
+the tile; or tuning for a target width and making the design tolerant; or anchoring to the tile instead of the portrait).
