@@ -15,14 +15,20 @@ Near-white `#f4f8ff`, ice blue `#bcd7ff`, sky blue `#8ab8ff`, deep glow blue `#2
 
 ## Deliverables (each on a fully transparent canvas; nothing else on it)
 
+How they are used (proposed motion): the crescent rests on top of the player's round portrait; a drop falls into the
+portrait's centre and splashes; ripple rings spread outward and, reaching the portrait's edge, light it up as a ring of
+celestial light (the ward). The layers also serve the alternative (the drop runs round the portrait's edge, splashes
+below it, and the ward forms).
+
 | Layer | What | Size |
 |---|---|---|
 | **M1 CRESCENT** | the icon's crescent moon alone: glassy, translucent, swirling lighter streaks inside, crisp near-white edge, soft blue glow; a C shape opening to the right, horns tapering to fine points | 1254 x 1254 |
-| **D1 DROP** | one teardrop of starlight, point up: glassy, a bright highlight, a soft blue glow, a short faint trail of sparkle above it | 600 x 1254 |
-| **S1 SPLASH** | the icon's splash alone, side view: a low dome-shaped crown of glassy water-light with a few droplets thrown up, ripple rings on the ground below it | 1600 x 700 |
-| **W1 WARD** | a celestial ward seen from the front: a round dome or sphere shell of light, almost clear in the middle, bright near-white rim, a few faint swirling streaks like the crescent's, two or three tiny stars on it | 1254 x 1254 |
+| **D1 DROP** | one teardrop of starlight, point up: glassy, a bright highlight, a soft blue glow, a short faint sparkle trail above it | 600 x 1254 |
+| **S1 SPLASH** | a small crown splash of glassy water-light seen from the front and slightly above, a few droplets thrown up, like the icon's splash | 1254 x 1254 |
+| **R1 RIPPLES** | three concentric ripple rings of light seen face-on (round, flat, thin bright crests fading inward), nothing in the middle | 1254 x 1254 |
+| **W1 WARD RING** | the ward as a ring: a soft glowing band of celestial light, a crisp near-white inner edge, faint swirling streaks like the crescent's inside the band, two or three tiny stars on it; the middle completely empty | 1254 x 1254, ring about 80% of the canvas, band about 8% thick |
 | **P1 GLINTS** | 10-12 separate small pieces, spaced apart: four-point stars (thin, long points) and round glassy bubbles, mixed sizes (40-140 px) | 1254 x 1254 |
-| **X1 SHARDS** | 8-10 separate curved shards of the ward's glassy light, glowing edges, mixed sizes, spaced apart (for the ward shattering) | 1254 x 1254 |
+| **X1 SHARDS** | 8-10 separate curved shards of the ward ring's light, glowing edges, mixed sizes, spaced apart (for the ward breaking) | 1254 x 1254 |
 
 Rules: match the icon's finish; real transparency (glows fade to clear, no grey or tinted panel, no dark fringe); no
 text, runes, symbols or figures.

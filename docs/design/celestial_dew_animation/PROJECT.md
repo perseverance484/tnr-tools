@@ -35,31 +35,36 @@ the splash; a disappear would play rounds later), and the shield's **disappear**
 "shield was not created" message). The static dome is there faintly from the first frame; the splash makes it flare into
 full form and settle back (the Ethereal Rebirth hand-off method).
 
-## 3. Layout (`layout_guide.png`)
+## 3. Layout and motion (`layout_guide.png`)
 
-The 50 px effect square is centred on the tile and the round portrait reaches its top edge, so there is no room above
-the portrait: the **crescent rests on the portrait's top rim** like a crown, horns hanging down its sides. The feet are
-directly below the portrait, so a straight fall crosses the face. Two options (director's choice):
-- **A (proposed):** the drop forms at the crescent's right horn and **runs down the outside curve of the coming ward** to
-  the feet, tracing the shape the ward will take; it never crosses the face.
-- **B:** a straight fall from the crescent through the centre, in front of the portrait (fast, about 3 frames over the
-  face).
+The 50 px effect square is centred on the tile and the round portrait reaches its top edge, so the **crescent rests on
+the portrait's top rim** like a crown, horns hanging down its sides. The director's two motions (2026-10-24):
+- **Ripple (proposed):** "a drop falls into the middle of the portrait, splashes and then ripples flow outward and hit
+  the edges of the portrait and energize it with a celestial shield". It matches the live battle line ("falls a single
+  drop of starlight that splashes across %user and spreads into a dome of soft, silver light"), and the ward becomes the
+  portrait's own rim lit up, which reads at 50 px better than a faint dome around it. The splash and ripples cross the
+  face briefly and see-through, like dew on glass.
+- **Run:** "fall, run along the portrait curve, drop and splash at the bottom then form into a celestial ward around the
+  portrait". Never crosses the face; longer travel; the text would need "splashes across %user" softened.
+The art layers serve both, so the choice can be made on a moving preview.
 
-## 4. Storyboard (36 ms frames; all start on the same tick)
+## 4. Storyboard (ripple; 36 ms frames; all start on the same tick)
 
 | Time | heal appear (cast) | shield appear (ward) | shield static (loop) |
 |---|---|---|---|
-| 0-0.5 s | the crescent blooms on the rim from a sliver, glints | - | the dome, very faint |
-| 0.5-0.8 s | a drop swells at the horn's tip | - | " |
-| 0.8-1.2 s | the drop falls (A or B), a faint trail | - | " |
-| 1.2 s | the splash at the feet: a low crown splash, ripple rings, glints | a front of light sweeps up the dome from the splash | " |
-| 1.2-2.0 s | the crescent rises and fades into stars | the dome flares, then settles to the static level | " |
-| then | - | - | a subtle dome: bright rim, clear centre, a slow shimmer band, a few twinkling stars (seamless, 3.6 s) |
+| 0-0.45 s | the crescent blooms on the rim from a sliver, glints | - | the rim halo, very faint |
+| 0.45-0.75 s | a drop swells at the crescent's lowest point | - | " |
+| 0.75-0.95 s | the drop falls into the portrait's centre, accelerating | - | " |
+| 0.95 s | a small crown splash at the centre; glints thrown up | - | " |
+| 0.95-1.45 s | ripple rings spread outward across the portrait (see-through) | as each ring reaches the rim, the rim ignites: a ring of light runs round it | " |
+| 1.45-2.2 s | the crescent rises and fades into stars | the halo flares, a faint glassy sheen washes over the portrait, then both settle to the static level | " |
+| then | - | - | the ward: a soft glowing ring hugging the portrait's rim, a slow light travelling round it, a very faint sheen, two or three twinkling stars (seamless, 3.6 s) |
 
-Shield **disappear** (about 1 s): cracks run down the dome from the top, curved shards fall and fade, stardust drifts up.
+Shield **disappear** (about 1 s): the halo cracks into curved shards that drift outward and fade, stardust rising.
 
 ## 5. Log
 
 | Date | What happened |
 |---|---|
 | 2026-10-24 | Project opened; slots read from source; layout guide; art request and session prompt written. |
+| 2026-10-24 | Director's two motions (ripple, run); ripple proposed; art layers revised to serve both. |
