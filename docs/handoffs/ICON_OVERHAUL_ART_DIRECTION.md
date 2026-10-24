@@ -59,13 +59,13 @@ Every move in section 5 is tagged with a layout, so siblings differ at 45 px:
 
 | Code | Layout | How it is framed |
 |---|---|---|
-| **A** Strike | user (or their fist or weapon) from one side, target on the other, impact flash at contact; diagonal |
-| **B** Projectile | thrower small in a lower corner or out of frame; the projectile big on a diagonal, about to hit |
-| **C** Self-power | figure centred and braced, the effect forming on or around the body; backlit |
-| **D** Affliction | target silhouette afflicted; the source above or to one side |
-| **E** Summon | small user, huge creature looming behind; the scale contrast is the message |
-| **F** Eruption | low camera; the effect erupting from the ground around or in front of the user |
-| **G** Movement | figure in motion with a trail from where they were; the origin visible |
+| **A** | Strike | user (or their fist or weapon) from one side, target on the other, impact flash at contact; diagonal |
+| **B** | Projectile | thrower small in a lower corner or out of frame; the projectile big on a diagonal, about to hit |
+| **C** | Self-power | figure centred and braced, the effect forming on or around the body; backlit |
+| **D** | Affliction | target silhouette afflicted; the source above or to one side |
+| **E** | Summon | small user, huge creature looming behind; the scale contrast is the message |
+| **F** | Eruption | low camera; the effect erupting from the ground around or in front of the user |
+| **G** | Movement | figure in motion with a trail from where they were; the origin visible |
 
 ### 2.3 Rules from the review (apply to every icon)
 
