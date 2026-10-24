@@ -10,8 +10,10 @@
 - **Writing rules:** `skills/building-tnr-content/references/jutsu_text.md` (on `claude/tnr-content-tickets-tcbi34`)
   for mechanics and placeholders; the event and forbidden voice rule (2026-10-23): the description is a short overview,
   the battle line a 3–4 sentence scene in action; plain colour words; no em dashes; area jutsu never use `%target`.
-- **Length (director, 2026-10-24):** event jutsu descriptions may run to **260 characters** (the general guide says
-  80–220).
+- **Length (director, 2026-10-24):** descriptions stay within the guide's 80–220 characters; event and forbidden battle
+  lines may run long (the director's "260" referred to these, not the descriptions).
+- **Revision 1 (director, 2026-10-24):** Tempest Cleave's battle line ends "leaving %target's guard in ribbons."; both
+  descriptions cut down.
 - **Effects checked against the live records** (public read 2026-10-23). Neither text claims anything the effects do not
   do, and both cover every effect a player will notice.
 
@@ -28,9 +30,7 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 ### Draft text
 
 **Description:**
-> The user turns once at the eye of a storm, and the wind becomes a blade that tears outward in a howling ring, sparing
-> neither friend nor foe. Its cuts never quite close: every guard it touches hangs open, and each blow that follows sets
-> the wounds burning anew.
+> The user turns once at the eye of a storm and the wind becomes a blade, tearing outward in a howling ring that spares no one. Its cuts never close: guards hang open, and every blow that follows sets the wounds burning anew.
 
 *(+ the training warning, kept as approved)*
 
@@ -38,8 +38,7 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 > %user plants their feet and turns once, and the storm answers: the sky wheels into a great vortex above them as the
 > wind around them hardens into a spinning wall of razor air, lightning crackling through its arms. The tempest bursts
 > outward in a howling ring and carves through everything within its reach, for it knows no allegiance. Every cut it
-> leaves keeps singing with the wind and flares anew with each blow that lands, until even the hardiest guard lies in
-> ribbons.
+> leaves keeps singing with the wind and flares anew with each blow that lands, leaving %target's guard in ribbons.
 
 ### How the icon shows it
 
@@ -55,8 +54,10 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 ### What changed from the approved text and why
 
 - Adds the vortex and the lightning, so the text names what the icon shows.
-- The description now names the afterburn ("each blow that follows sets the wounds burning anew") and the exposed guard
-  ("every guard it touches hangs open"), which the old one only implied ("its cuts keep singing").
+- The description now names the afterburn ("every blow that follows sets the wounds burning anew") and the exposed guard
+  ("guards hang open"), which the old one only implied ("its cuts keep singing").
+- `%target` in an area jutsu's line prints as the literal text "%target" when the ring hits nobody (jutsu text guide §4);
+  the director chose the wording knowing this, or see the alternative offered in chat.
 
 ## 2. Ethereal Rebirth (`K0t6Z-Q4lau1jFt8Tkpot`)
 
@@ -71,9 +72,7 @@ seal at the chest breaks open and the elements spin out.**
 ### Draft text
 
 **Description:**
-> A forbidden art that breaks the seal upon the user's soul and looses fire, water and lightning through their body. The
-> storm strikes the enemy and remakes the user from within, turning their wounds into new life while it drains the
-> strength from their blows.
+> A forbidden art that breaks the seal on the user's soul, loosing fire, water and lightning to strike the enemy. The user is remade from within, wounds turning to new life as the strength drains from their blows.
 
 *(+ the training warning, kept as approved)*
 
