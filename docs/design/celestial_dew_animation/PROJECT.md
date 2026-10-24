@@ -165,3 +165,39 @@ a handoff. Then the breathe animation does the rest."
 - Seen together (measured): dark until 2.2 s; a quick rise to about 0.95 by 2.4 s; a hold near 0.96 to 3.3 s; a soft fade to
   dark by 5.6 s; then the loop breathes on its own (a gentle rise, a long fade).
 - Strips `*_v5`: appear 176,282 bytes, loop 162,408, break 75,622 (unchanged art). push/243 now ships v5.
+
+## 12. v6: the portrait's real geometry, from the pinned source (2026-10-24)
+
+Director: "The dimensions of our animation dont line up with the portrait. Need to get the exact dimensions correct, not
+estimate from screenshots. Find the information in the pinned source code." (recording:
+`battle_recording_2026-10-24b.mp4`).
+
+**What the source says** (a744c04, `libs/threejs/combat.ts`, `libs/combat/util.ts`, `drizzle/constants.ts`):
+- the effect is a unit sprite scaled to `EFFECT_ANIMATION_SIZE` = 50 world units, centred at (w/2, h/2) of its tile
+  (`drawCombatEffect`); the user's avatar is a circle-masked sprite 0.8 h square at (w/2, 1.0 h); the white marker
+  0.9 h x 1.1 h at (w/2, 0.9 h); the star h/2.5 at (w/2, 0.4 h); the health bar at h + w/3 (`createUserSprite`); both
+  groups sit at the tile origin (-x, -y) (`combat.ts:731`, `:1067`);
+- the camera is orthographic over the canvas width (`Combat.tsx:1038`), so a world unit is a CSS pixel; the grid is 12
+  columns (`getBattleDimensions`), `hexsize = width / (12 - 0.25 x 11)` (`drawCombatBackground`,
+  `HEX_STACKING_DISPLACEMENT` = 0.25) and the tile height `h = hexsize x HEX_ASPECT_RATIO (0.5)` = width / 18.5.
+- So in the effect square: avatar centre at 0.5 - h/100 from the top, radius 0.4 h / 50; star centre 0.5 + h/500.
+  **The effect is a fixed 50 px while h grows with the canvas**, so the portrait's place in the square depends on the
+  screen width: no single strip lines up on every screen (true of every effect animation in the game).
+
+**The error:** every earlier preview placed the effect square on a recording by assuming the portrait's proportions in
+it (inherited from Chakra Overflow), never measuring them. That assumption (portrait centre 0.296, outline radius 0.272)
+was wrong for the director's screen; the real avatar there is centre 0.339, radius 0.130.
+
+**Reference screen:** the director's phone. Measured from the v5 ring in the new recording, the effect square is 184.1
+recording px across at (219.3, 132.1); the source model then gives h = 16.1 (a canvas about 298 CSS px wide) from the
+avatar's centre and predicts its radius as 0.129, matching the measured 0.130. The white marker disc (its art is not in
+source) measures centre 0.325, radius 0.163; the health bar sits at 0.124.
+
+**v6** (`build_strip.py`: `H_REF` = 16.1 and the formulas above): the ward band starts just outside the white disc and is
+centred on it; the drop falls into the avatar's centre; the ripples run from there to the band; the moon (0.11 tall) sits
+above the health bar; splash, glints, sparks and shards scaled to the real portrait. Strips `*_v6`: appear 121,684 bytes,
+loop 133,558, break 50,282. Checked composited onto the recording at the game's placement: `v6_on_your_recording.png`.
+Previews and the showcase now use the new recording (`battle_still_2026-10-24b.png`) at that placement.
+
+**Also affected:** the Ethereal Rebirth animations (cast, loop, hit) were built on the same assumed portrait; they need
+the same correction.
