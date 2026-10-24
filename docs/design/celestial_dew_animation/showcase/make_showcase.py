@@ -108,7 +108,7 @@ def main():
         d.text((x, yy + im.height + 10), f'{k + 1}. {cap}', font=F(15, True), fill=FG)
         d.text((x, yy + im.height + 31), f'{ms / 1000:.1f} s' if ms >= 0 else 'shield ends', font=F(12), fill=DIM)
     y += 2 * (cw + 70) + 10
-    y = para(d, G, y, 'How it plays: the cast (moon, drop, ripples) runs 3.4 s; the ward glows up the moment the ripples '
+    y = para(d, G, y, 'How it plays: the cast (moon, drop, ripples) runs 4.2 s; the ward glows up the moment the ripples '
                       'reach the rim, then breathes slowly (once every 6.4 s) for as long as the shield holds. When the '
                       'shield ends, breaks or fails to form, the ward shatters into stardust. The heal keeps its own heart '
                       'effect, which plays alongside as before (step 1 above); before, nothing showed the shield.', 132, F(15), DIM, 21)
