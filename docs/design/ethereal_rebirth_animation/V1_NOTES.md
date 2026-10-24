@@ -72,3 +72,15 @@ radius 28.6 px, measured by hand from brightness profiles: 0.296 / 0.272 of the 
 short at the bottom, and the numeric checks passed because they tested against the same wrong circle. Mask now: centre
 0.296, radius 0.287 (real edge + about 1.5 px), plus the rank-star block. Verified by eye on 6x zooms of frames 4-15 and
 20-32 over the real portrait (`v3_opening_zoom.png`). 238,636 bytes.
+
+## v4 (2026-10-24)
+
+Director: "The ribbon doesnt even open up rotating the avatar entirely as it should. It needs to wrap from behind then
+come in front. Just create the animation centered on where the portrait will be first, the entire thing. Then do the
+mask and have it only apply to ribbons who are passing behind the avatar." `build_strip.py --set v4` (v3 layers):
+the orbit's axis runs through the portrait centre (0.296); it is wider than the portrait (horizontal radius 0.36-0.40),
+crosses the portrait's middle and rises from chest to brow; both ribbons start on the far side, behind the avatar, and
+come round in front; front passes draw over the portrait, back passes (and their glow and the flecks) are hidden by the
+portrait mask; no special opening rule is needed. The gold ribbon leaves the orbit on the front right at t = 0.58 and
+lashes out. Burst on top at the portrait centre. 40 frames of 128 px at 60 ms, 213,904 bytes. Checked by eye over the
+real portrait (`v4_zoom.png`, frames 8-30); GIF `v4_over_avatar.gif`.

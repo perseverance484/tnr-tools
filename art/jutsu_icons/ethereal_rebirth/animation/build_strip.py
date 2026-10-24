@@ -65,7 +65,7 @@ SET = 'v1'
 def L(name):
     """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
     cropped to their content."""
-    src = 'v1' if (SET == 'v1' or (SET == 'v3' and name == 'C1_core')) else 'v2'
+    src = 'v1' if (SET == 'v1' or (SET in ('v3', 'v4') and name == 'C1_core')) else 'v2'
     if src == 'v1':
         return Image.open(os.path.join(HERE, 'layers', f'anim_er_{name}.png')).convert('RGBA')
     im = Image.open(os.path.join(HERE, 'raws', f'anim_er_{src}_{name}.png')).convert('RGBA')
@@ -146,7 +146,7 @@ def smooth(v, a, b):
     return ease(seg(v, a, b))
 
 
-def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0):
+def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0, face=True):
     """Warp the straight `strip` (its part u0..u1; the strip's right end is the ribbon's head) onto the path `pts`
     (head first) as a chain of quads that share their edges, so the ribbon bends without seams."""
     n = len(pts) - 1
@@ -167,7 +167,7 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
         nearness = smooth(depth, -0.25, 0.25)              # 0 far side, 1 near side, a soft crossover
         a = alpha * (0.55 + 0.45 * nearness)
         wf = nearness * front_ok if depth_rule else 1.0     # share drawn in front of the token; the rest goes behind
-        if depth_rule and FACE_Y[0] < my < FACE_Y[1] and math.hypot(mx - 0.5, my - TOKEN_CY) < WINDOW_R:
+        if face and depth_rule and FACE_Y[0] < my < FACE_Y[1] and math.hypot(mx - 0.5, my - TOKEN_CY) < WINDOW_R:
             wf *= 0.30                                       # near side over the face: mostly see-through
         a *= smooth(min(i, n - 1 - i), 0, 5)               # soft head and tail, never a square cut
         if a <= 0.01:
@@ -256,6 +256,53 @@ def spin_ribbons_v3(t, grow, rise, fade, gold, blue, back, front):
         lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=front_ok)
 
 
+def spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front):
+    """v4 (director, 2026-10-24): the whole spin is centred on the portrait. Both ribbons start on the far side, behind
+    the avatar, and orbit the portrait (axis through its centre), coming round in front; front passes draw over the
+    portrait, back passes are hidden by the portrait mask (applied to the behind layer only). The spin rises from below
+    the portrait's centre to above it. The gold ribbon leaves the orbit on the front right and lashes out of frame."""
+    if grow <= 0 or fade <= 0:
+        return
+    pcy = PORTRAIT_CY
+    yc = pcy + 0.12 - 0.22 * rise            # the orbit crosses the portrait's middle, rising from chest to brow
+    a_r = 0.36 + 0.04 * grow                 # orbit wider than the portrait (radius 0.287) on both sides
+    b_r, pitch = 0.14, 0.08 * grow
+    length = 0.5 + 3.0 * grow
+    td = 0.58                                 # gold departs at this time, on the front right (helix angle 0.35)
+    th0 = {0: 0.35 + SPIN_RATE * td - 2 * math.pi}   # starts on the far right, behind the avatar
+    th0[1] = th0[0] - 1.2                            # blue starts further round, also behind
+    u0 = 1 - min(1.0, 0.25 + 0.75 * grow)
+
+    def pt(th, u, dy=0.0):
+        return (0.5 + a_r * math.cos(th), yc + dy + b_r * math.sin(th) + pitch * u, math.sin(th))
+
+    dx, dy = math.sin(TH_DEPART) + 0.35, -math.cos(TH_DEPART)
+    ln = math.hypot(dx, dy)
+    dx, dy = dx / ln, dy / ln
+    for k, strip in enumerate((gold, blue)):
+        off = 0.0 if k == 0 else 0.05            # blue a little lower, so the two ribbons stack, not overlap
+        thh = th0[k] - SPIN_RATE * t             # head angle; the spin runs towards decreasing angle
+        pts = []
+        for i in range(SLICES + 1):
+            u = i / SLICES
+            if k == 0 and t > td:
+                # arc travelled since departure, measured in angle; the body behind it is still on the orbit
+                gone = SPIN_RATE * (t - td) - u * length
+                if gone > 0:
+                    hx, hy, _ = pt(TH_DEPART, 0)
+                    dist = gone * a_r * 1.15
+                    bend = 0.10 * dist * dist
+                    pts.append((hx + dx * dist + 0.25 * bend, hy + dy * dist - bend, 1.0))
+                    continue
+                pts.append(pt(TH_DEPART - gone, u))
+            else:
+                pts.append(pt(thh + u * length, u, off))
+        al = 0.97 * fade
+        if k == 0:
+            al *= 1 - ease(seg(t, 0.85, 0.97))
+        lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False)
+
+
 def flecks_from(sheet):
     """Split the fleck sheet into separate sprites (connected alpha blobs, found on a reduced copy)."""
     small = sheet.getchannel('A').resize((sheet.width // 4, sheet.height // 4)).point(lambda v: 255 if v > 40 else 0)
@@ -301,7 +348,9 @@ def build(n, size):
         grow = ease(seg(t, 0.08, 0.55))
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
-        if SET == 'v3':
+        if SET == 'v4':
+            spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front)
+        elif SET == 'v3':
             spin_ribbons_v3(t, grow, rise, fade, gold, blue, back, front)
         else:
             if grow > 0 and fade > 0:
@@ -331,7 +380,8 @@ def build(n, size):
             al = 1 - seg(cb, 0.55, 1.0)
             c = core.resize((max(1, int(2 * r)), max(1, int(2 * r))), Image.LANCZOS)
             c.putalpha(c.getchannel('A').point(lambda v: int(v * al)))
-            top.alpha_composite(c, (int(CORE[0] * S - r), int(CORE[1] * S - r)))
+            ccx, ccy = (0.5, PORTRAIT_CY) if SET == 'v4' else CORE
+            top.alpha_composite(c, (int(ccx * S - r), int(ccy * S - r)))
         for d in fl:                                    # flecks peel off and drift up (outside the token)
             p = seg(t, d['start'], d['start'] + d['life'])
             if 0 < p < 1:
@@ -374,7 +424,7 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
-    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3'])
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4'])
     a = ap.parse_args()
     global SET
     SET = a.set
