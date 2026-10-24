@@ -34,8 +34,16 @@ THICK = 0.15                              # on-screen height of a straightened r
 SLICES = 70
 
 
+SET = 'v1'
+
+
 def L(name):
-    return Image.open(os.path.join(HERE, 'layers', f'anim_er_{name}.png')).convert('RGBA')
+    """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
+    cropped to their content."""
+    if SET == 'v1':
+        return Image.open(os.path.join(HERE, 'layers', f'anim_er_{name}.png')).convert('RGBA')
+    im = Image.open(os.path.join(HERE, 'raws', f'anim_er_{SET}_{name}.png')).convert('RGBA')
+    return im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox())
 
 
 def straighten(strip, win=41):
@@ -278,14 +286,17 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2'])
     a = ap.parse_args()
+    global SET
+    SET = a.set
     frames = build(a.frames, a.size)
     os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
     os.makedirs(DOCS, exist_ok=True)
     strip = Image.new('RGBA', (a.size, a.size * len(frames)), (0, 0, 0, 0))
     for i, f in enumerate(frames):
         strip.paste(f, (0, a.size * i))
-    out = os.path.join(HERE, 'exports', 'anim_ethereal_rebirth_v1.webp')
+    out = os.path.join(HERE, 'exports', f'anim_ethereal_rebirth_{SET}.webp')
     strip.save(out, lossless=True, method=6)
     cols = 10
     sheet = Image.new('RGB', (a.size * cols, a.size * math.ceil(len(frames) / cols)), (18, 22, 34))
@@ -294,7 +305,7 @@ def main():
         cell.alpha_composite(stand_in_token(a.size))
         cell.alpha_composite(f)
         sheet.paste(cell.convert('RGB'), ((i % cols) * a.size, (i // cols) * a.size))
-    sheet.save(os.path.join(DOCS, 'v1_frames.png'))
+    sheet.save(os.path.join(DOCS, f'{SET}_frames.png'))
     bgs = [(18, 22, 34), (74, 104, 60), (205, 210, 214)]
     gif = []
     for f in frames:
@@ -309,7 +320,7 @@ def main():
             small.alpha_composite(f.resize((50, 50), Image.LANCZOS))
             canvas.paste(small.convert('RGB'), (460 + i * 70, 55))
         gif.append(canvas)
-    gif[0].save(os.path.join(DOCS, 'v1_preview.gif'), save_all=True, append_images=gif[1:], duration=a.ms, loop=0)
+    gif[0].save(os.path.join(DOCS, f'{SET}_preview.gif'), save_all=True, append_images=gif[1:], duration=a.ms, loop=0)
     print(f'{len(frames)} frames of {a.size} px, {os.path.getsize(out)} bytes (ceiling 460800), speed {a.ms} ms = '
           f'{len(frames) * a.ms / 1000:.1f} s')
 
