@@ -95,3 +95,24 @@ frame, 112 px frames:
 - The break: the ring flashes and is gone; nine curved shards spring from it, drift out, turn and fade; stardust rises.
 - Preflight `--type ANIMATION`: only `soft_edges` on each (the known gap for glow). Preview `v1_over_avatar.gif` (the
   whole life of the shield), stills `v1_key_frames.png`.
+
+## 7. v2 (2026-10-24)
+
+Director: "Have cast and ward form both start from shield appear so they can be timed correctly. The moon is too large.
+It needs to be oriented upright. The ward should not appear until the ripples hit the edge, that is how it forms. Have a
+much smaller moon appear oriented directly above the player portrait like we did for the chakra overflow rising star
+placement of the star. Moon appears, drop falls from it like in the icon, drop hits the portrait while the ripples flow
+outward and charge the portrait edges with a celestial shield, the moon fades out."
+- **One strip on the shield's appear** (`anim_celestial_dew_appear_v2.webp`, 66 frames, 239,140 bytes). The heal's appear
+  is cleared in the suggestion (its generic animation would play over this one); its appear sound stays.
+- **The moon:** upright as in the icon, 0.20 of the frame tall, centred 0.105 from the top (Chakra Overflow's crown star:
+  0.075, about 0.24 tall), placed so its lower horn's tip is directly above the portrait's centre (located by
+  measurement). Appears over frames 0-10 with a glint; fades upward once the ward has formed.
+- **The drop** swells at the horn (frames 8-13) and falls straight into the centre, landing at frame 20 (0.72 s): splash,
+  flash, glints thrown up.
+- **The ripples** run out; the outer one reaches the rim (0.272) exactly at frame 32 (1.15 s), where the ward ring
+  ignites. Nothing of the ward is drawn in this strip before then.
+- **The loop** (`loop_v2`, 172,194 bytes) lowered to 18% ring + a 28% travelling arc: the game starts it on the cast's
+  tick and cannot delay it, so it is faintly there before the ward forms; kept to a whisper. **The break** unchanged
+  (`break_v2`, 81,778 bytes).
+- Previews: `v2_over_avatar.gif`, `v2_key_frames.png`.
