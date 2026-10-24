@@ -14,7 +14,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 REC = os.path.join(ROOT, 'docs/design/icon_overhaul/ethereal_rebirth/showcase/battle_recording_2026-10-24.mp4')
 A = os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/animation/')
 spec = importlib.util.spec_from_file_location('cd', A + 'build_strip.py'); cd = importlib.util.module_from_spec(spec); spec.loader.exec_module(cd)
-V = 'v6'
+V = 'v7'
 F = lambda s, b=False: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf' % ('-Bold' if b else ''), s)
 BG, CARD, FG, DIM, ACC = (18, 22, 34), (30, 36, 52), (238, 240, 246), (160, 168, 186), (140, 190, 255)
 BATTLE = ("%user closes their eyes and the night seems to answer, a pale crescent moon blooming into being above them. From "
@@ -109,7 +109,7 @@ def main():
         d.text((x, yy + im.height + 31), f'{ms / 1000:.1f} s' if ms >= 0 else 'shield ends', font=F(12), fill=DIM)
     y += 2 * (cw + 70) + 10
     y = para(d, G, y, 'How it plays: the cast (moon, drop, ripples) runs 3.4 s; the ward glows up the moment the ripples '
-                      'reach the rim, then breathes slowly (once every 5.8 s) for as long as the shield holds. When the '
+                      'reach the rim, then breathes slowly (once every 6.4 s) for as long as the shield holds. When the '
                       'shield ends, breaks or fails to form, the ward shatters into stardust. The heal keeps its own heart '
                       'effect, which plays alongside as before (step 1 above); before, nothing showed the shield.', 132, F(15), DIM, 21)
     s.crop((0, 0, W, y + 24)).save(os.path.join(HERE, 'celestial_dew_showcase.png'))
