@@ -163,7 +163,7 @@ def smooth(v, a, b):
 
 
 def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, front_ok=1.0, face=True, twist=None,
-               thick_k=1.0):
+               thick_k=1.0, no_face=False):
     """Warp the straight `strip` (its part u0..u1; the strip's right end is the ribbon's head) onto the path `pts`
     (head first) as a chain of quads that share their edges, so the ribbon bends without seams.
 
@@ -190,6 +190,8 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
         wf = nearness * front_ok if depth_rule else 1.0     # share drawn in front of the token; the rest goes behind
         if face and depth_rule and FACE_Y[0] < my < FACE_Y[1] and math.hypot(mx - 0.5, my - TOKEN_CY) < WINDOW_R:
             wf *= 0.30                                       # near side over the face: mostly see-through
+        if no_face and my < PORTRAIT_CY + 0.03 and math.hypot(mx - 0.5, my - PORTRAIT_CY) < PORTRAIT_R + 0.02:
+            wf = 0.0                                         # never in front of the face: behind, under the mask
         a *= smooth(min(i, n - 1 - i), 0, 5)               # soft head and tail, never a square cut
         if a <= 0.01:
             continue
@@ -341,56 +343,76 @@ def spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front):
         lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False)
 
 
-def spin_ribbons_v5(t, grow, rise, fade, gold, blue, back, front):
-    """v5 (director, 2026-10-24: "Draw the ribbons as they appear in the icon. Exactly."): the v4 orbit centred on the
-    portrait, with the icon's broad translucent bands. As in the icon, the blue band loops round the portrait's upper half
-    and the gold band sweeps round the lower half, then whips out to the upper right. Each band rolls along its length
-    (twist), narrowing to a bright edge where it turns."""
-    if grow <= 0 or fade <= 0:
+# v5 bands, as in the icon: three gold, three blue. Each: strip, height of its orbit above (-) or below (+) the portrait
+# centre, tilt of its orbit plane (radians, + raises the right side), horizontal radius add-on, start angle offset, a
+# delay before it pours out, length and thickness factors, alpha. Band 0 is the gold one that whips out to the upper right.
+V5_BANDS = [
+    dict(s='gold_a', lift=0.06, tilt=0.00, ar=0.00, ph=0.0, delay=0.00, ln=1.00, th=1.45, al=0.95),  # lash
+    dict(s='blue_a', lift=-0.03, tilt=0.00, ar=0.00, ph=-1.2, delay=0.00, ln=1.00, th=1.45, al=0.95),
+    dict(s='gold_b', lift=-0.13, tilt=-0.30, ar=-0.03, ph=2.3, delay=0.06, ln=0.70, th=1.15, al=0.85),  # crescent over the head
+    dict(s='blue_b', lift=-0.17, tilt=0.30, ar=0.03, ph=0.9, delay=0.10, ln=0.75, th=1.15, al=0.85),    # loop behind the shoulders
+    dict(s='gold_b', lift=0.13, tilt=-0.18, ar=0.07, ph=3.9, delay=0.12, ln=0.80, th=1.10, al=0.85),    # long low sweep
+    dict(s='blue_b', lift=0.09, tilt=0.40, ar=0.04, ph=5.0, delay=0.16, ln=0.70, th=1.00, al=0.80),     # across the legs
+]
+
+
+def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
+    """v5 (director, 2026-10-24: "Draw the ribbons as they appear in the icon. Exactly."; then: "there are more ribbons
+    in the icon"): the icon's six translucent bands, three gold and three blue, on tilted orbits round the portrait at
+    different heights (the v4 orbit centred on the portrait). Front passes never cross the face (upper half of the
+    portrait); there the band goes behind and the portrait mask hides it. Band 0 (gold) whips out to the upper right.
+    Each band rolls along its length (twist), narrowing to a bright edge where it turns."""
+    if fade <= 0:
         return
     pcy = PORTRAIT_CY
     yc = pcy + 0.04 - 0.10 * rise
-    a_r = 0.36 + 0.04 * grow
-    # a steeply tilted orbit, as the icon's loops: the front pass stays on the lower half of the portrait (never across
-    # the face) and the back pass shows above the head
-    b_r, pitch = 0.17, 0.05 * grow
-    length = 0.5 + 2.8 * grow
     td = 0.58
-    th0 = {0: 0.35 + SPIN_RATE * td - 2 * math.pi}
-    th0[1] = th0[0] - 1.2
-    u0 = 1 - min(1.0, 0.25 + 0.75 * grow)
-    lift = {0: 0.06, 1: -0.03}                 # gold low, blue high (the icon's layout)
-
-    def pt(th, u, dy=0.0):
-        return (0.5 + a_r * math.cos(th), yc + dy + b_r * math.sin(th) + pitch * u, math.sin(th))
-
+    base0 = 0.35 + SPIN_RATE * td - 2 * math.pi
     dx, dy = math.sin(TH_DEPART) + 0.35, -math.cos(TH_DEPART)
     ln = math.hypot(dx, dy)
     dx, dy = dx / ln, dy / ln
-    for k, strip in enumerate((gold, blue)):
-        off = lift[k]
-        thh = th0[k] - SPIN_RATE * t
+    for k, b in enumerate(V5_BANDS):
+        g = ease(seg(t, 0.08 + b['delay'], 0.55 + b['delay']))
+        if g <= 0:
+            continue
+        a_r = 0.36 + 0.04 * g + b['ar']
+        b_r, pitch = 0.17, 0.05 * g
+        length = (0.5 + 2.8 * g) * b['ln'] if k < 2 else 1.0 + 2.3 * g * b['ln']   # the added bands never start as scraps
+        u0 = 1 - min(1.0, 0.25 + 0.75 * g)
+        cy0 = yc + b['lift']
+        ct, st = math.cos(b['tilt']), math.sin(b['tilt'])
+
+        def pt(th, u, cy0=cy0, a_r=a_r, b_r=b_r, pitch=pitch, ct=ct, st=st):
+            x, y = a_r * math.cos(th), b_r * math.sin(th) + pitch * u
+            return (0.5 + x * ct + y * st, cy0 - x * st + y * ct, math.sin(th))
+
+        thh = base0 + b['ph'] - SPIN_RATE * t
         pts = []
         for i in range(SLICES + 1):
             u = i / SLICES
             if k == 0 and t > td:
                 gone = SPIN_RATE * (t - td) - u * length
                 if gone > 0:
-                    hx, hy, _ = pt(TH_DEPART, 0, off)
+                    hx, hy, _ = pt(TH_DEPART, 0)
                     dist = gone * a_r * 1.15
                     bend = 0.10 * dist * dist
                     pts.append((hx + dx * dist + 0.25 * bend, hy + dy * dist - bend, 1.0))
                     continue
-                pts.append(pt(TH_DEPART - gone, 0, off))
+                pts.append(pt(TH_DEPART - gone, 0))
             else:
-                pts.append(pt(thh + u * length, u, off))
-        al = 0.95 * fade
+                pts.append(pt(thh + u * length, u))
+        al = b['al'] * fade * (smooth(g, 0.0, 0.35) if k < 2 else smooth(g, 0.15, 0.50))          # fade in as it pours out, never a loose blob
         if k == 0:
             al *= 1 - ease(seg(t, 0.85, 0.97))
-        # one and a half slow rolls along the band, drifting with time, so the twist travels along it like silk
         twist = (lambda u, k=k: 0.4 + k * 1.3 + 2 * math.pi * 0.75 * u + 2.5 * t)
-        lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
-                   thick_k=1.6)
+        # each band on its own layers, then laid over the others normally: a per-channel max between a gold and a
+        # blue band turns their overlap pink
+        bb = Image.new('RGBA', back.size, (0, 0, 0, 0))
+        ff = Image.new('RGBA', front.size, (0, 0, 0, 0))
+        lay_ribbon(strips[b['s']], pts, al, bb, ff, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                   thick_k=b['th'], no_face=True)
+        back.alpha_composite(bb)
+        front.alpha_composite(ff)
 
 
 def flecks_from(sheet):
@@ -424,6 +446,12 @@ def build(n, size):
     # pre-shrink so warping squeezes less (no fine striping); 560 px is close to the longest on-screen path at 384 px
     gold = gold.resize((560, max(1, round(gold.height * 560 / gold.width))), Image.LANCZOS)
     blue = blue.resize((560, max(1, round(blue.height * 560 / blue.width))), Image.LANCZOS)
+    v5_strips = {'gold_a': gold, 'blue_a': blue}
+    if SET == 'v5':
+        for key, fn in (('gold_b', 'R1_band_gold_b'), ('blue_b', 'R2_band_blue_b')):
+            im = Image.open(os.path.join(HERE, 'raws', f'anim_er_v5_{fn}.png')).convert('RGBA')
+            im = straighten(im.crop(im.getchannel('A').point(lambda v: 255 if v > 8 else 0).getbbox()))
+            v5_strips[key] = im.resize((560, max(1, round(im.height * 560 / im.width))), Image.LANCZOS)
     core, sheet = L('C1_core'), L('F1_flecks')
     flecks = flecks_from(sheet)
     rnd = random.Random(7)
@@ -448,7 +476,7 @@ def build(n, size):
         rise = ease(seg(t, 0.15, 0.85))
         fade = 1 - ease(seg(t, 0.80, 1.0))
         if SET == 'v5':
-            spin_ribbons_v5(t, grow, rise, fade, gold, blue, back, front)
+            spin_ribbons_v5(t, grow, rise, fade, v5_strips, back, front)
         elif SET == 'v4':
             spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front)
         elif SET == 'v3':

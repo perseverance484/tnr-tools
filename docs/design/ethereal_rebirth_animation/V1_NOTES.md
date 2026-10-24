@@ -98,3 +98,15 @@ once each in a ring round the user. The v1 burst stays on top. Everything fades 
 whip leaves without a hard cut at the sprite edge. 40 frames of 128 px at 60 ms, 242,800 bytes. Checked by eye at 5x over
 the real portrait (`v5_zoom.png`, frames 4-18): nothing behind the avatar shows over it. GIF `v5_over_avatar.gif`.
 Preflight `--type ANIMATION`: 1 error, `soft_edges` 79.3% (the known gap for glow effects, as on every earlier version).
+
+### v5 six bands (2026-10-24)
+
+Director: "I feel like there are more ribbons in the icon, there's only 2 in this one." The icon has about six bands:
+three gold (the crescent over the head, the whip to the upper right, the long low sweep) and three blue (the loop behind
+the shoulders, the loop behind the right arm, the band across the legs). `V5_BANDS` in `build_strip.py` now lays six:
+the original pair plus four from the director's wavier `b` layers, on orbits tilted and set at different heights, each
+pouring out a moment after the last. Front passes never cross the face (upper half of the portrait): there a band goes
+behind and the portrait mask hides it, so the high bands show as arcs above and beside the head, as in the icon. Each band
+is drawn on its own layers and laid over the others normally (a per-channel max turned gold-over-blue pink). The added
+bands fade in from a minimum length (no loose scraps). 348,568 bytes. Checked at 4x over the real portrait
+(`v5_zoom.png`, frames 4-36).
