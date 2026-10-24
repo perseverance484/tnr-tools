@@ -76,7 +76,7 @@ SET = 'v1'
 def L(name):
     """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
     cropped to their content."""
-    if SET in ('v5', 'loop1') and name != 'C1_core':
+    if SET in ('v5', 'loop1', 'hit1') and name != 'C1_core':
         # v5: the art director's bands and sparkles in the icon's style (raws/anim_er_v5_*); variant a is the flatter one
         fn = {'R1_ribbon_gold': 'R1_band_gold_a', 'R2_ribbon_blue': 'R2_band_blue_a', 'F1_flecks': 'S1_sparkles'}[name]
         im = Image.open(os.path.join(HERE, 'raws', f'anim_er_v5_{fn}.png')).convert('RGBA')
@@ -607,7 +607,156 @@ def build_loop(n, size):
     return frames
 
 
+HIT_N = CAST_N                   # the hit plays on the enemy's tile, started on the same tick as the cast
+HIT_IMPACT = 44                  # frame of impact (1.58 s), just after the cast's gold lash leaves the caster's frame
+
+
+def build_hit(n, size):
+    """hit1 (director, 2026-10-24: "an impact beam of spiraling ribbons hitting their portrait... corkscrew from the top,
+    timed to the lash"): the damage effect's appearAnimation, played once over the ENEMY's portrait (process.ts:1559,
+    combat.ts:646). The game starts it on the same tick as the cast (one drawCombatEffects pass), so frames line up:
+    gathering sparkles while the cast plays, then the gold and blue bands, wound round each other into one corkscrew,
+    drive down from the top of the frame into the portrait as the cast's lash leaves the caster; on impact a flash, two
+    rings of ribbon light blast outward round the portrait, and the two ribbons spring apart and curl round it (behind
+    passes under the portrait mask) before fading. Each ribbon is one drawing moving along one continuous route."""
+    def band(name):
+        im = straighten(L(name))
+        return im.resize((560, max(1, round(im.height * 560 / im.width))), Image.LANCZOS)
+    gold, blue = band('R1_ribbon_gold'), band('R2_ribbon_blue')
+    flecks = flecks_from(L('F1_flecks'))
+    c2 = Image.open(os.path.join(HERE, 'raws', 'anim_er_v6_C2_glow_rays.png')).convert('RGBA')
+    fi = HIT_IMPACT
+    ix, iy = 0.5, PORTRAIT_CY + 0.03                      # impact point: the portrait's centre
+    sx, sy = 0.58, -0.04                                  # the corkscrew enters from the top, a touch right of centre
+    ax_len = math.hypot(ix - sx, iy - sy)
+    adx, ady = (ix - sx) / ax_len, (iy - sy) / ax_len     # axis direction (down)
+    nx_, ny_ = -ady, adx                                  # its normal
+    R_MAX, TURNS, RIB_LEN = 0.075, 2.5, 1.05               # helix radius, turns along the ribbon, ribbon length (route units)
+    ALPHA_K = 3.2                                         # route units -> spiral angle after impact
+    rnd = random.Random(5)
+    sp = [dict(img=flecks[i % len(flecks)], ang=2 * math.pi * i / 7 + rnd.uniform(-0.25, 0.25),
+               s=rnd.uniform(0.05, 0.075), ph=rnd.uniform(0, 1)) for i in range(7)]
+
+    def route(k, sig, spin, post=False):
+        """Point (x, y, depth) at route distance sig for ribbon k: down the corkscrew axis, then out on a spiral."""
+        if sig <= ax_len:
+            r = R_MAX * smooth(ax_len - sig, 0.0, 0.12)   # the braid narrows to the impact point
+            ph = 2 * math.pi * TURNS * sig / RIB_LEN + spin + k * math.pi
+            off = r * math.cos(ph)
+            dep = math.sin(ph)
+            if post:
+                dep = max(dep, 0.3)                       # the braid still pouring in stays in front of the portrait
+            return (sx + adx * sig + nx_ * off, sy + ady * sig + ny_ * off, dep)
+        al = (sig - ax_len) * ALPHA_K
+        d = 1 if k == 0 else -1
+        th = math.pi / 2 + d * al
+        rr = min(0.40, 0.03 + 0.16 * al)
+        return (ix + rr * math.cos(th), iy + rr * 0.45 * math.sin(th), math.sin(th))
+
+    def dist(f):
+        """Distance the ribbons' heads have travelled along the route at frame f (accelerating in, easing out)."""
+        f0 = fi - 11
+        if f < f0:
+            return -1.0
+        if f <= fi:
+            q = (f - f0) / (fi - f0)
+            return ax_len * q ** 1.6                      # accelerates into the hit
+        q = (f - fi) / (n - 1 - fi)
+        return ax_len + 1.35 * (1 - (1 - q) ** 2.2)       # springs out, then slows
+
+    frames = []
+    for f in range(n):
+        back = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        beam_b = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        beam_f = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        top = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        # 1. sparkles gather round the portrait while the cast plays, then scatter on impact
+        for d in sp:
+            if f < fi:
+                p = seg(f, 14, fi)
+                rr = 0.44 - 0.12 * ease(p)
+                a = smooth(p, 0.0, 0.3) * (0.55 + 0.45 * math.sin(math.pi * ((p * 2 + d['ph']) % 1.0)))
+                sc = 0.7
+            else:
+                p = seg(f, fi, fi + 16)
+                rr = 0.32 + 0.20 * ease(p)
+                a = 1 - ease(p)
+                sc = 1.0 - 0.4 * p
+            if a <= 0.02:
+                continue
+            x, y = 0.5 + rr * math.cos(d['ang']), PORTRAIT_CY + 0.04 + rr * 0.95 * math.sin(d['ang'])
+            sz = max(2, int(d['s'] * S * sc))
+            im = d['img'].resize((sz, max(1, int(sz * d['img'].height / d['img'].width))), Image.LANCZOS)
+            im.putalpha(im.getchannel('A').point(lambda v, a=a: int(v * a)))
+            back.alpha_composite(im, (int(x * S - im.width / 2), int(y * S - im.height / 2)))
+        # 2. the corkscrew and its unravelling: one route per ribbon
+        D = dist(f)
+        if D > 0:
+            spin = 2 * math.pi * 0.35 * f                 # the braid drills as it comes
+            al = 0.97 * (1 - ease(seg(f, fi + 10, n - 3)))
+            for k, strip in enumerate((gold, blue)):
+                lo = max(0.0, D - RIB_LEN)
+                pts = [route(k, D - (D - lo) * i / SLICES, spin, D > ax_len) for i in range(SLICES + 1)]
+                u0 = 0.0                                  # the whole band along the braid (its whip tip leads)
+                if D <= ax_len:                           # still in the corkscrew: in front of the portrait
+                    bb, ff = beam_b, beam_f
+                else:
+                    bb, ff = back, front
+                tb = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+                tf = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+                twist = (lambda u, k=k, f=f: 0.4 + 1.3 * k + 2 * math.pi * 0.75 * u + 0.25 * f)
+                lay_ribbon(strip, pts, al, tb, tf, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                           thick_k=1.15 if D <= ax_len + 0.15 else 0.9)
+                if D <= ax_len:
+                    # in the braid the two ribbons pass round each other; neither goes behind the portrait yet
+                    ff.alpha_composite(tb)
+                    ff.alpha_composite(tf)
+                else:
+                    bb.alpha_composite(tb)
+                    ff.alpha_composite(tf)
+        # 3. two rings of ribbon light blast outward round the portrait (gold, then blue)
+        for k, (strip, f0) in enumerate(((gold, fi), (blue, fi + 3))):
+            p = seg(f, f0, f0 + 13)
+            if 0 < p < 1:
+                a_r = 0.10 + 0.36 * ease(p)
+                pts = []
+                for i in range(SLICES + 1):
+                    th = -math.pi / 2 + 2 * math.pi * i / SLICES   # the seam sits behind the portrait
+                    pts.append((ix + a_r * math.cos(th), iy + a_r * 0.42 * math.sin(th), math.sin(th)))
+                tb = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+                tf = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+                lay_ribbon(strip, pts, 0.9 * (1 - ease(p)), tb, tf, front_ok=1.0, face=False,
+                           thick_k=0.75 - 0.45 * p, no_face=True)
+                back.alpha_composite(tb)
+                front.alpha_composite(tf)
+        # 4. the flash at the point of impact
+        g = ease(seg(f, fi - 1, fi + 2))
+        al2 = g * (1 - ease(seg(f, fi + 2, fi + 10)))
+        if al2 > 0:
+            d = max(2, int(2 * 0.27 * S * (0.6 + 0.4 * g)))
+            im = c2.resize((d, d), Image.LANCZOS)
+            im.putalpha(im.getchannel('A').point(lambda v: int(min(255, v * 1.6) * al2)))
+            top.alpha_composite(im, (int(ix * S - d / 2), int(iy * S - d / 2)))
+
+        def glowed(layer):
+            gl = layer.filter(ImageFilter.GaussianBlur(S * 0.010))
+            gl.putalpha(gl.getchannel('A').point(lambda v: int(v * 0.5)))
+            return Image.alpha_composite(gl, layer)
+        back = glowed(back)
+        back.putalpha(ImageChops.multiply(back.getchannel('A'), BEHIND_MASK))
+        out = Image.alpha_composite(back, glowed(front))
+        out = Image.alpha_composite(out, glowed(beam_b))
+        out = Image.alpha_composite(out, glowed(beam_f))
+        out = Image.alpha_composite(out, glowed(top))
+        out.putalpha(ImageChops.multiply(out.getchannel('A'), EDGE_FADE))
+        frames.append(out.resize((size, size), Image.LANCZOS))
+    return frames
+
+
 def build(n, size):
+    if SET == 'hit1':
+        return build_hit(n, size)
     if SET == 'loop1':
         return build_loop(n, size)
     gold, blue = straighten(L('R1_ribbon_gold')), straighten(L('R2_ribbon_blue'))
@@ -733,12 +882,14 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
-    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4', 'v5', 'loop1'])
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4', 'v5', 'loop1', 'hit1'])
     a = ap.parse_args()
     global SET
     SET = a.set
     if SET == 'v5':
         assert (a.frames, a.ms) == (CAST_N, MS), f'v5 hands off to the loop: use --frames {CAST_N} --ms {MS}'
+    if SET == 'hit1':
+        assert (a.frames, a.ms) == (HIT_N, MS), f'the hit is timed to the cast: use --frames {HIT_N} --ms {MS}'
     if SET == 'loop1':
         assert (a.frames, a.ms) == (LOOP_N, MS), f'the loop pairs with v5: use --frames {LOOP_N} --ms {MS}'
     frames = build(a.frames, a.size)
@@ -748,7 +899,7 @@ def main():
     for i, f in enumerate(frames):
         strip.paste(f, (0, a.size * i))
     out = os.path.join(HERE, 'exports', f'anim_ethereal_rebirth_{SET}.webp')
-    if SET in ('v5', 'loop1'):
+    if SET in ('v5', 'loop1', 'hit1'):
         # clear alpha under 4/255 (invisible glow tails): about 8% smaller, room under the byte ceiling
         strip.putalpha(strip.getchannel('A').point(lambda v: 0 if v < 4 else v))
     strip.save(out, lossless=True, method=6)
