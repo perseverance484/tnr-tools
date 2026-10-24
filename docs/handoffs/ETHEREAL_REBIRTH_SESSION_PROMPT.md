@@ -5,6 +5,10 @@
 - **How to use:** paste section 1 into a new art-director session. It runs each brief in section 2 in its own isolated
   generation session (`docs/workflows/ISOLATED_ART_GENERATION.md`) and returns the raws only. Claude Code does everything
   after.
+- **The icon shows the battle line (RUL-2026-10-24-004).** Draft text and the text-to-icon mapping:
+  `docs/design/icon_overhaul/TEXT_AND_ICON_ROUND1.md` section 2. The moment: "%user throws their arms wide and the seal upon
+  their soul cracks open, a golden core blazing to life at their chest. Fire, water and lightning pour out of them in
+  spinning ribbons that lash across the battlefield..."
 - **Live-game requests/writes:** 0. Credentials: none.
 
 ## 1. Session prompt (paste into the art-director session)
@@ -22,6 +26,13 @@ A white-haired warrior in deep blue armour with a crimson scarf, mid-air above a
 core blazing at the chest, ribbons of cyan water-light and orange fire spinning around the body, small seal rings at the
 hands. The jutsu: an S-rank forbidden technique; the user cracks open the seal on their own soul, the elements burn
 through them, and their body remakes itself.
+
+The icon must show this exact moment from the jutsu's battle text: "%user throws their arms wide and the seal upon their
+soul cracks open, a golden core blazing to life at their chest. Fire, water and lightning pour out of them in spinning
+ribbons that lash across the battlefield." So: arms flung wide; the gold-white core at the chest with thin cracks of light
+spreading across the armour; thick ribbons of orange fire and cyan water-light with forked lightning along them; one
+ribbon whipping out past the frame edge towards an unseen enemy; flecks of light peeling from the body's edges into the
+ribbons (the body remaking itself).
 
 Keep: the character (white hair, crimson scarf, blue armour), the chest core, the spinning cyan and orange elements, the
 mid-air power-up moment, the palette (navy #00336a, cyan #1891c8 to #7ff8ff, crimson #870e2d, fire orange #ec5f36, core
@@ -63,8 +74,10 @@ Jutsu target lock: jutsu ID K0t6Z-Q4lau1jFt8Tkpot, display name Ethereal Rebirth
 Session: ISOLATED GENERATION, one asset only; exploratory until the director approves
 Live-game requests/writes: 0. Credentials: none.
 Reference: ref_er_original.webp (SUBJECT: character, costume, pose energy, elements, palette; NOT its scenery or framing)
-Subject: the white-haired warrior in deep blue armour and crimson scarf, mid-air, the soul's seal breaking open as a
-gold-white core at the chest, thick ribbons of cyan water-light and orange fire spinning around the body
+Subject (the battle line's moment): the white-haired warrior in deep blue armour and crimson scarf, mid-air, arms flung
+wide, the soul's seal cracking open as a gold-white core at the chest with thin cracks of light across the armour; thick
+ribbons of orange fire and cyan water-light, forked lightning along them, spinning around the body, one ribbon whipping
+out past the frame edge; flecks of light peeling from the body into the ribbons
 Rendering lock: premium TNR pixel art, retro 32-bit, hard pixel edges, about 48-64 art pixels across, no gradients or
 blur, rim light top-left, one glow source (the chest core); square, opaque, full-bleed
 Palette lock: navy #00336a, cyan #1891c8 to #7ff8ff, crimson #870e2d, orange #ec5f36, gold #ffe04f, white; dark dusk-navy
@@ -80,7 +93,7 @@ Generate exactly ONE square icon candidate. No collage. Do not process or upload
 |---|---|
 | **ER-1 Faithful** | The original's pose, cropped in to knees-up: arms spread wide, head tilted back slightly, hair and scarf streaming to the right, ribbons looping around the waist and shoulders. The closest to the original. |
 | **ER-2 Rising** | Full figure rising, seen from slightly below (foreshortened): arms flung up and out, hair and scarf streaming upward, the ribbon loop spiralling up around the body like a rising helix. The most dynamic silhouette. |
-| **ER-3 Core close-up** | Waist-up, larger: the chest core cracking open with gold-white light at the centre of the frame, one hand open at shoulder height with a small seal ring, the ribbons sweeping in a big tilted ellipse behind and in front of the figure. The most readable at 45 px. |
+| **ER-3 Core close-up** | Waist-up, larger: arms flung wide to the frame's sides, the chest core cracking open with gold-white light at the centre, cracks of light across the armour, the ribbons sweeping in a big tilted ellipse behind and in front of the figure. The most readable at 45 px. |
 | **ER-4 Backlit** | Knees-up, the figure mostly in dark navy silhouette with a crisp rim light, the spinning cyan and orange ribbons and the gold core blazing against it; hair and scarf catch the light. The strongest dark-against-light contrast (the house look for figure icons). |
 
 ## 3. Intake (Claude Code)

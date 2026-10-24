@@ -16,8 +16,9 @@
 | Live data | FORBIDDEN, S rank, 60 AP; one opponent at range 4; damage; the user absorbs damage and the target deals less |
 | Battle text (live) | "%user cracks open the seal upon their own soul, and the elements burn through them in a roar of green flame that erupts outward to strike %target. In the fire's wake %user's body begins to unmake and remake itself, turning every wound..." |
 
-The text mentions green flame; the original art (which players prefer) shows fire, water and lightning swirling around
-the user. The text will be redrafted to match the approved art; Claude Code does that with the batch (D4).
+The live text mentions green flame; the original art (which players prefer) shows fire, water and lightning swirling
+around the user. **Premium text is drafted in `../TEXT_AND_ICON_ROUND1.md` section 2, and the icon draws its battle line's
+moment** (RUL-2026-10-24-004).
 
 ## 2. The original, and why it fails at size
 
@@ -75,3 +76,4 @@ Our reverted version (a pillar of green flame) scored 0/10 and is never attached
 | Round | Date | What happened |
 |---|---|---|
 | 0 | 2026-10-24 | Project opened; original measured at real size (`refs_gate.png`); round-1 prompt written. |
+| 0 | 2026-10-24 | Premium text drafted; round-1 prompt tied to the battle line's moment (arms wide, seal cracking, ribbons). |
