@@ -4,8 +4,11 @@
   We just need to make a cool animation for it. Crescent moon above the player, single celestial drop falls at their
   feet and splashes, disappear animation shows a celestial ward appearing. So long as the shield is active it displays a
   semi-transparent subtle celestial shield effect."
-- **Icon:** unchanged. The live icon is our reverted version (scored 10/10, "no notes; well liked"):
-  `art/jutsu_icons/celestial_dew/refs/ref_cd_live_icon.webp`; the original: `ref_cd_original_icon.webp`.
+- **Icon:** our reworked ("reverted") icon comes back. It is **not live**: the live record went back to the original
+  (director, 2026-10-24: "The reverted version isnt live, thats why its called reverted"); the public read of 2026-10-23
+  still showed the rework. Ours (scored 10/10, "no notes; well liked"): `art/jutsu_icons/celestial_dew/refs/
+  ref_cd_live_icon.webp` (the filename predates the correction), exported as `exports/icon_jutsu_celestial_dew_v1.webp`;
+  the original (live): `ref_cd_original_icon.webp`. It ships in the push/240 suggestion.
 - **Text:** unchanged. The live text already describes this animation (crescent moon, a single drop of starlight that
   splashes, a dome of silver light that becomes a ward).
 - **Method:** the Ethereal Rebirth route. The art director paints transparent layers in the icon's style; Claude Code

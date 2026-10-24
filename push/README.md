@@ -762,7 +762,8 @@ damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL
 ## 240 Celestial Dew suggestion: READY TO RUN (after 239)
 
 `python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
-disappear animations to the push/238 assets. The heal keeps `I9aYhT5wMB`; icon and text unchanged; effects array and
+disappear animations to the push/238 assets, and brings back our reworked icon (`icon_jutsu_celestial_dew_v1.webp`;
+the reverted one is not live). The heal keeps `I9aYhT5wMB`; text unchanged; effects array and
 `injectableInBattle` re-sent from the public read (asserted: shield had no animations, heal appear as expected). No AI
 holds Celestial Dew in recent captures. Dry-run with stand-in ids: gates clean.
 
