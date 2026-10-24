@@ -76,7 +76,7 @@ SET = 'v1'
 def L(name):
     """v1: layers cut from the first sheet (layers/). v2: the art director's transparent raws (raws/anim_er_v2_*),
     cropped to their content."""
-    if SET == 'v5' and name != 'C1_core':
+    if SET in ('v5', 'loop1') and name != 'C1_core':
         # v5: the art director's bands and sparkles in the icon's style (raws/anim_er_v5_*); variant a is the flatter one
         fn = {'R1_ribbon_gold': 'R1_band_gold_a', 'R2_ribbon_blue': 'R2_band_blue_a', 'F1_flecks': 'S1_sparkles'}[name]
         im = Image.open(os.path.join(HERE, 'raws', f'anim_er_v5_{fn}.png')).convert('RGBA')
@@ -445,7 +445,72 @@ def flecks_from(sheet):
     return [sheet.crop(b) for b in boxes]
 
 
+def build_loop(n, size):
+    """loop1 (director, 2026-10-24): the absorb effect's staticAnimation, which the game loops for as long as the
+    absorb is active (libs/threejs/combat.ts: showAnimation(playInfinite) for effect.staticAnimation). A subtler version
+    of the cast animation: one gold and one blue band, thinner and fainter, on a slow steady orbit round the portrait,
+    and a few sparkles twinkling. It starts at the same moment as the cast animation and runs under it, so it stays
+    quiet. Seamless: the bands make exactly one orbit per loop and every other motion repeats with the same period."""
+    def band(name):
+        im = straighten(L(name))
+        return im.resize((560, max(1, round(im.height * 560 / im.width))), Image.LANCZOS)
+    gold, blue = band('R1_ribbon_gold'), band('R2_ribbon_blue')
+    flecks = flecks_from(L('F1_flecks'))
+    rnd = random.Random(11)
+    sp = []
+    for i in range(6):
+        ang = 2 * math.pi * i / 6 + rnd.uniform(-0.3, 0.3)
+        rr = rnd.uniform(0.36, 0.44)
+        sp.append(dict(img=flecks[(2 * i + 1) % len(flecks)], x=0.5 + rr * math.cos(ang),
+                       y=PORTRAIT_CY + 0.05 + rr * 0.95 * math.sin(ang), ph=i / 6, s=rnd.uniform(0.05, 0.07)))
+    a_r, b_r, length = 0.40, 0.15, 2.2
+    frames = []
+    for f in range(n):
+        t = f / n                                          # 0 .. 1, frame n would equal frame 0
+        back = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+        for k, (strip, lift, tilt, al) in enumerate(((gold, 0.07, -0.12, 0.60), (blue, -0.02, 0.15, 0.55))):
+            ct, st = math.cos(tilt), math.sin(tilt)
+            cy0 = PORTRAIT_CY + lift
+            thh = k * math.pi - 2 * math.pi * t            # one full orbit per loop
+            pts = []
+            for i in range(SLICES + 1):
+                u = i / SLICES
+                th = thh + u * length
+                x, y = a_r * math.cos(th), b_r * math.sin(th)
+                pts.append((0.5 + x * ct + y * st, cy0 - x * st + y * ct, math.sin(th)))
+            # the twist travels along the band once per loop, so it repeats exactly
+            twist = (lambda u, k=k: 0.4 + k * 1.3 + 2 * math.pi * 0.75 * u + 2 * math.pi * t)
+            bb = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+            ff = Image.new('RGBA', (S, S), (0, 0, 0, 0))
+            lay_ribbon(strip, pts, al, bb, ff, u0=0.0, u1=1.0, front_ok=1.0, face=False, twist=twist,
+                       thick_k=0.85, no_face=True)
+            back.alpha_composite(bb)
+            front.alpha_composite(ff)
+        for d in sp:                                       # each sparkle twinkles once per loop, staggered
+            p = (t + d['ph']) % 1.0
+            if p < 0.4:
+                q = math.sin(math.pi * p / 0.4)
+                sz = max(2, int(d['s'] * S * (0.4 + 0.6 * q)))
+                im = d['img'].resize((sz, max(1, int(sz * d['img'].height / d['img'].width))), Image.LANCZOS)
+                im.putalpha(im.getchannel('A').point(lambda v, q=q: int(v * 0.8 * q)))
+                back.alpha_composite(im, (int(d['x'] * S - im.width / 2), int(d['y'] * S - im.height / 2)))
+
+        def glowed(layer):
+            g = layer.filter(ImageFilter.GaussianBlur(S * 0.008))
+            g.putalpha(g.getchannel('A').point(lambda v: int(v * 0.4)))
+            return Image.alpha_composite(g, layer)
+        back = glowed(back)
+        back.putalpha(ImageChops.multiply(back.getchannel('A'), BEHIND_MASK))
+        out = Image.alpha_composite(back, glowed(front))
+        out.putalpha(ImageChops.multiply(out.getchannel('A'), EDGE_FADE))
+        frames.append(out.resize((size, size), Image.LANCZOS))
+    return frames
+
+
 def build(n, size):
+    if SET == 'loop1':
+        return build_loop(n, size)
     gold, blue = straighten(L('R1_ribbon_gold')), straighten(L('R2_ribbon_blue'))
     # pre-shrink so warping squeezes less (no fine striping); 560 px is close to the longest on-screen path at 384 px
     gold = gold.resize((560, max(1, round(gold.height * 560 / gold.width))), Image.LANCZOS)
@@ -563,7 +628,7 @@ def main():
     ap.add_argument('--frames', type=int, default=40)
     ap.add_argument('--ms', type=int, default=60)
     ap.add_argument('--size', type=int, default=128)
-    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4', 'v5'])
+    ap.add_argument('--set', default='v1', choices=['v1', 'v2', 'v3', 'v4', 'v5', 'loop1'])
     a = ap.parse_args()
     global SET
     SET = a.set
