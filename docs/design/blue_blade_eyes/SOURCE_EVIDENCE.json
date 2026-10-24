@@ -1,7 +1,7 @@
 {
   "schema": "tnr.bbe.jutsu-icon-sources/1",
-  "date": "2026-10-14",
-  "context": "Conversation files actually mounted and hashed, director visually approved; this source-evidence record is committed but the binary images are not.",
+  "date": "2026-10-17",
+  "context": "8/8 approved source identities verified with actual received bytes and recomputed hashes; both final raw and output ZIPs exist as conversation deliverables only. Do not infer Git-pinned binaries, upload or readback.",
   "source_kind": "conversation_only_not_git_pinned",
   "live_game_requests": 0,
   "live_game_writes": 0,
@@ -62,6 +62,72 @@
       "approval": "RAW_VISUAL_APPROVED",
       "repo_blob_pinned": false,
       "notes": "User-attached copy with .png filename but JPEG bytes; preserve provenance and use actual decoder."
+    },
+    {
+      "jutsu": "Glacial Volley",
+      "source_filename": "1000018412.png",
+      "detected_format": "JPEG",
+      "mode": "RGB",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "bytes": 720286,
+      "sha256": "d6e43e13b048336481c452e8d1232d8ded9937b356a7fe06c6a6dca5a9dfde50",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Director visually approved exact conversation source."
+    },
+    {
+      "jutsu": "Blade Resonance",
+      "source_filename": "resonant_blue_ice_katana.png",
+      "detected_format": "PNG",
+      "mode": "RGB",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 3201860,
+      "sha256": "dee239465efa10351ce37ea403bd97694dc8f7ed52a65b8a53738e175117aaaf",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Final resonant Blue Blade, director-approved replacement; supersedes older draft."
+    },
+    {
+      "jutsu": "Arctic Frost",
+      "source_filename": "crescent_iceblade_arc.png",
+      "detected_format": "PNG",
+      "mode": "RGB",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 2970818,
+      "sha256": "02545af2fdfa8ed5fe9300a0fd93c5ec2886d1b75643e6c30f4c07a5a2a8d9db",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Final high-contrast crescent, director explicitly approved; replaces earlier draft."
+    },
+    {
+      "jutsu": "Quintessential Flake",
+      "source_filename": "1000018420.png",
+      "detected_format": "JPEG",
+      "mode": "RGB",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "bytes": 879628,
+      "sha256": "ae2be20b05f96c05edab8a7a98b0f36651d98b9285764fdec45af6c57cbdde2c",
+      "approval": "RAW_VISUAL_APPROVED",
+      "repo_blob_pinned": false,
+      "notes": "Director visually approved exact conversation source."
     }
-  ]
+  ],
+  "originals_backup": {
+    "filename": "BBE_Jutsu_Approved_Originals_20261017.zip",
+    "bytes": 17898759,
+    "sha256": "e06ff9d9d9f9dd6110f4926e574c1165fb5169774d081add5c1ffc92ba1b2b65",
+    "git_pinned": false
+  }
 }
