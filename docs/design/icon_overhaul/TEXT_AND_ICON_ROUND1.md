@@ -30,7 +30,7 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 ### Draft text
 
 **Description:**
-> The user turns once at the eye of a storm and the wind becomes a blade, tearing outward in a howling ring that spares no one. Its cuts never close: guards hang open, and every blow that follows sets the wounds burning anew.
+> The user turns once at the eye of a storm and the wind becomes a blade, tearing outward in a howling ring that spares no one. Its cuts never close: guards hang open, and each blow that follows sets the wounds burning.
 
 *(+ the training warning, kept as approved)*
 
@@ -54,7 +54,7 @@ whirlwind, mid-turn, as the razor wind bursts outward around them.**
 ### What changed from the approved text and why
 
 - Adds the vortex and the lightning, so the text names what the icon shows.
-- The description now names the afterburn ("every blow that follows sets the wounds burning anew") and the exposed guard
+- The description now names the afterburn ("each blow that follows sets the wounds burning") and the exposed guard
   ("guards hang open"), which the old one only implied ("its cuts keep singing").
 - `%target` in an area jutsu's line prints as the literal text "%target" when the ring hits nobody (jutsu text guide §4);
   the director chose the wording knowing this, or see the alternative offered in chat.
