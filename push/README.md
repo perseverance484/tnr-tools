@@ -763,9 +763,9 @@ damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL
 
 Re-pointed at v5 (director, 2026-10-24: "Hold 233, we'll ship v5 instead"). Direct edit of asset
 `HwkXTjErL_Laxs8WtqBiI` (same id, so push/231 is unchanged): image -> `anim_ethereal_rebirth_v5.webp` (the icon's
-translucent twisting gold and blue bands and its sparkles, from the art director's v5 layers; v4 motion with a steeper
-orbit; 40 frames x 60 ms, 242,800 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
-`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at bb7ca40. Gates: `validate.py --strict`
+six translucent twisting bands, three gold and three blue, and its sparkles, from the art director's v5 layers; v4
+motion on tilted orbits; 40 frames x 60 ms, 348,568 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
+`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at d17e2ec. Gates: `validate.py --strict`
 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. 231 and 233 run in either order. Earlier build notes (v4):
 
 Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
