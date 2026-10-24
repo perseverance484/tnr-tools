@@ -68,3 +68,10 @@
 | c) no snapping for figure icons; the raw downsized to 256 | keeps all the model's detail; less uniform across the set |
 
 Recommendation: **b)**.
+
+## Director decision (2026-10-24): no conversion
+
+"I think we shouldn't convert at all. Looks too blocky. Unless you can get higher definition out of it." Higher definition
+was tested (`round1_hd_test.png`): at the full 256 grid, conversion only reduces the colours (64 or 24), which hardens
+edges but flattens the face (the eyes and the shading go). The plain resize keeps the most detail. Icons are exported
+from the raw without conversion (RUL-2026-10-24-005).
