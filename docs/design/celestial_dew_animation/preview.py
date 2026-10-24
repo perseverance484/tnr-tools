@@ -28,6 +28,11 @@ def fr(n):
 
 
 appear, loop, brk = fr('appear'), fr('loop'), fr('break')
+# the heal effect's own appear animation (I9aYhT5wMB, kept; supplied by the director; 20 frames of 128 px). Its frame time
+# is not on record here: HEAL_MS is an assumption.
+HEAL_MS = 60
+_h = Image.open(os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/refs/ref_cd_heal_animation_I9aYhT5wMB.webp')).convert('RGBA')
+heal = [_h.crop((0, i * _h.width, _h.width, (i + 1) * _h.width)).resize((F * SC, F * SC), Image.LANCZOS) for i in range(_h.height // _h.width)]
 ma, ml, mb = cd.MS['appear'], cd.MS['loop'], cd.MS['break']
 pos = ((CX - F // 2 - BOX[0]) * SC, (CY - F // 2 - BOX[1]) * SC)
 font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 15)
@@ -36,6 +41,8 @@ out = []
 for ms in range(0, up_ms + len(brk) * mb + 400, TICK):
     c = bg.copy()
     if ms < up_ms:
+        if ms // HEAL_MS < len(heal):
+            c.alpha_composite(heal[ms // HEAL_MS], pos)
         c.alpha_composite(loop[(ms // ml) % len(loop)], pos)
         if ms // ma < len(appear):
             c.alpha_composite(appear[ms // ma], pos)
