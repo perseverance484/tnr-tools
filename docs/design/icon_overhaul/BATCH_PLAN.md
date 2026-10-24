@@ -28,7 +28,7 @@ The image is our earlier upload (`live_image_ours` in `state/jutsu_icon_revert/r
 
 ## Rework (36)
 
-Briefs come from `ICON_SCORES.md` and `STAFF_FEEDBACK.md`.
+Art direction for all 36: `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (from `ICON_SCORES.md` and `STAFF_FEEDBACK.md`).
 
 | # | Jutsu | Family | Status |
 |---|---|---|---|
