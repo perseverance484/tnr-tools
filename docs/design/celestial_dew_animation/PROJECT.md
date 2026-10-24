@@ -116,3 +116,18 @@ outward and charge the portrait edges with a celestial shield, the moon fades ou
   tick and cannot delay it, so it is faintly there before the ward forms; kept to a whisper. **The break** unchanged
   (`break_v2`, 81,778 bytes).
 - Previews: `v2_over_avatar.gif`, `v2_key_frames.png`.
+
+## 8. v3 (2026-10-24)
+
+Director: "Have the shields loop be the ward glowing, like fading in and out, and the static animation is timed to when
+the drops flow outward and power up the shield the first time. So the appear animation is the moon and drop + ripples,
+timed with the static animation which is a looping glow effect. Try to make it slower, it plays way too fast."
+- **appear** (`appear_v3`, 74 frames x 46 ms = 3.40 s, 132,350 bytes): the moon (in over 0.64 s, glint), the drop
+  (swells 0.55-0.92 s, lands 1.38 s), the splash, the ripples (the outer one reaches the rim at frame 50, 2.30 s), sparks
+  round the rim there, the moon fades. No ward drawn here.
+- **loop** (`loop_v3`, 64 frames x 72 ms = 4.61 s, 206,270 bytes): the ward ring breathing. It starts dark on the appear's
+  tick (so nothing of the ward shows before the ripples), rises over loop t 0.40-0.50 and peaks at t = 0.5 = 2.30 s, exactly
+  when the ripples hit the rim, then fades slowly back to dark at the seam; three stars wink near each peak. One breath
+  every 4.6 s; the ward is dark for about 1.8 s of each breath.
+- **break** (`break_v3`, 30 frames x 46 ms = 1.38 s): the ring flashes and shatters into shards.
+- Preview `v3_over_avatar.gif` (composited on real time, two breaths then the break); stills `v3_key_frames.png`.
