@@ -3,7 +3,8 @@
 - **For:** the art director
 - **From:** Fable / Claude Code, at the director's request (2026-10-24): "Write up a design document for handoff to the art
   director to regenerate the images."
-- **Scope:** the **36 jutsu icons being reworked** in the icon overhaul. They ship together in one batch with the 15 icons
+- **Scope:** **35 of the 36 jutsu icons being reworked** in the icon overhaul. Replacement Technique is handled in its own
+  session and is not covered here. They ship together in one batch with the 15 icons
   kept unchanged (RUL-2026-10-23-008).
 - **Sources:** director scores and notes (`docs/design/icon_overhaul/ICON_SCORES.md`); staff review in Discord
   (`docs/design/icon_overhaul/STAFF_FEEDBACK.md`); each jutsu's live name, data and battle text (public reads of 2026-10-23,
@@ -18,8 +19,8 @@
 ## 1. What happened
 
 Our first premium pass replaced 51 jutsu icons. Players disliked many of them, so all 51 were reverted (push/227). The
-director scored every one and opened a staff review. The 15 icons that worked go back unchanged; the 36 below are
-regenerated. The review gives a clear picture of what works and what does not.
+director scored every one and opened a staff review. The 15 icons that worked go back unchanged; the other 36 are
+regenerated (35 in this document, plus Replacement Technique in its own session). The review gives a clear picture of what works and what does not.
 
 ## 2. Rules from the review (apply to every icon)
 
@@ -30,7 +31,7 @@ regenerated. The review gives a clear picture of what works and what does not.
 | R3 | **Show what the jutsu does.** Use its battle text. A generic shield, bubble, explosion or swirl loses the skill. | Blast Shield "a generic shield with a recolor"; Atomic Shield "a generic bubble"; Howitzer Crash "lacks skill identity"; Ethereal Rebirth "reads as poisonous energy". |
 | R4 | **Distinct from every other icon,** in the family and across families, at thumbnail size. Check silhouette, palette and motion against the icons in section 3. | Abyss of Shadows vs BEE; Ethereal Nexus vs Shakunetsu Sakura; Death's March, Windshear Decay and Atomic Shield look alike; Surfing Strike vs Azure Dragon Palm; Tempest Cleave "looks like a shuriken skill". |
 | R5 | **Keep the family palette** of the bloodline. | Atomic Shield: "colour scheme is wrong for Aera... loses most of the teal". |
-| R6 | **Keep what players loved in the old icon.** The old icon is often the subject reference. | Replacement Technique ("players missed the old one"); Icebound Might's looming summon; the older Tempest Cleave. |
+| R6 | **Keep what players loved in the old icon.** The old icon is often the subject reference. | Icebound Might's looming summon; the older Tempest Cleave. |
 | R7 | **Restraint with glow.** Glow is for the subject's energy, not on every surface. | Aven on Aerathiel: "too much going on when there's always a glowing aspect". See also decision D2. |
 | R8 | **Tile rules (game source):** square, opaque, full-bleed; rounded corners and a border clip the tile; jutsu lists cover the **bottom-left and bottom-right corners** with 28 px badges, so nothing important goes there; nothing touches the edges. | `combat/page.tsx`, `CombatActions.tsx`, `ContentImage.tsx` at 107d7a8; JUTSU_ICON spec. |
 | R9 | **No text,** kanji, runes, letters or numbers; no franchise insignia (village headbands, Sharingan, Rasengan, Susano'o armor copied from the anime); no UI or frames. | House rules. |
@@ -54,8 +55,8 @@ Practical consequence: **red-on-black circles and spirals belong to BEE**; **fac
 
 | # | Decision | Options | Default in this document |
 |---|---|---|---|
-| D1 | **People in icons.** The staff thread leaned towards no people ("I *think* so"; Jutsu Masters cover people renders), but Replacement Technique was asked for as a faithful upgrade of the old icon, which shows a ninja. | a) no people anywhere; b) no people except where the old icon's figure is the identity (Replacement Technique, Icebound Might's summon) | b). Where a brief needs a body part (a fist, a palm), it is formed of the element, not a human hand. |
-| D2 | **Glow by tier** (Aven's proposal): basic D-rank jutsu without glowing effects; bloodline, forbidden, event and special jutsu keep the glow. | adopt / do not adopt | Not adopted until the director decides. Briefs for the five Normal jutsu note where it would change them. |
+| D1 | **People in icons.** The staff thread leaned towards no people ("I *think* so"; Jutsu Masters cover people renders). | a) no people anywhere; b) no people except where the old icon's figure is the identity (Icebound Might's summon) | b). Where a brief needs a body part (a fist, a palm), it is formed of the element, not a human hand. |
+| D2 | **Glow by tier** (Aven's proposal): basic D-rank jutsu without glowing effects; bloodline, forbidden, event and special jutsu keep the glow. | adopt / do not adopt | Not adopted until the director decides. Briefs for the four Normal jutsu note where it would change them. |
 | D3 | **Surfing Strike vs Azure Dragon Palm:** flip one so the wave and the dragon move in opposite directions (zaruza), or a new wave composition. | flip / redraw | Redraw with the wave moving left to right, low and horizontal; the dragon faces left. |
 | D4 | **Battle text vs new art.** Abyss of Shadows' text describes a crimson corona, and Ethereal Rebirth's text describes green flame, but the new direction moves both off those colours. | Claude Code's job, not the art director's | Art follows the new direction. Claude Code drafts text that matches the approved art and puts it to the director with the batch. |
 | D5 | **Charge 4 Explosion's "C4" shape:** the explosions spelling C4 were called "unique and creative", but they are letters (R9). | keep the C4 shape / drop it | Two candidates: one with, one without. |
@@ -88,14 +89,13 @@ Forbidden jutsu are the rarest; they should feel the most powerful. The two must
 | **Ethereal Nexus** (`iktsCP-RjIhlYlsTg-JTN`) | S rank, 60 AP, one opponent: damage with lifesteal; they take more damage. Text: fire, water, earth and wind spiral together into one blinding knot of chakra. | 3/10. "Looks like a Shakunetsu Sakura skill and doesn't reflect the ability." | **Four elemental streams** (fire red-orange, water blue, earth amber, wind pale green) **braiding into one white-hot knot**. Compact and dense, like a fist of light. No pink or magenta. |
 | **Ethereal Rebirth** (`K0t6Z-Q4lau1jFt8Tkpot`) | S rank, 60 AP, one opponent: damage; the user absorbs and deals less. Text: the user cracks open the seal on their soul and remakes themselves. | 0/10. "Reads more like poisonous energy explosion than an ethereal rebirth. Bad direction and quality." Director: "spinning energy... more light blues"; multiple colours: "Sure". | **Spinning restorative energy rising**: an open ring or halo of light-blue energy turning upward, edged with soft prismatic colours, with motes ascending. Open and expanding (rebirth), unlike Nexus's tight knot. No green flame. |
 
-### 5.3 Normal (5)
+### 5.3 Normal (4)
 
 Basic D-rank jutsu that every player sees. If the director adopts D2, these lose most of their glow.
 
 | Jutsu | Does | Score and feedback | Proposed subject |
 |---|---|---|---|
 | **Poisonous Senbon** (`H9XLJiU1YEro03QJ2mH8q`) | D rank, 60 AP, one opponent: damage. Text: a handful of poison-laced senbon. | 5/10. "Decent idea but... doesn't read as TNR premium pixel art." | Keep ours' idea (ours = element): **three senbon flying on a diagonal** with poison beading off their tips. Rendered as premium pixel art on a dark green-black background rather than a void. |
-| **Replacement Technique** (`clh4d6pok0002tb0hx1bxro6l`) | D rank, 20 AP, move to an empty tile. Text: vanishes in a puff of smoke, leaving a decoy, and reappears elsewhere. | 3/10. "Players missed the old one... try working the two together." Director: "faithfully upgrade the old icon." | **Already briefed:** `docs/handoffs/REPLACEMENT_TECHNIQUE_REWORK_SESSION_PROMPT.md` (old scene of the ninja leaping from the log, upgraded, plus our smoke puff and swap trail). |
 | **Searing Might** (`clh4d6q1j0008tb0hzthddb6m`) | D rank, 40 AP, self: takes less damage. Text: chakra ignites the user's core into a controlled blaze that reinforces muscles and pathways, a shield of inner strength. | 2/10. "A little too literal with the shield. Art doesn't read as premium pixel art." | **Inner fire, not an object:** a white-hot core whose flames flow outward along curving pathways into a protective aura, like armour made of heat. No shield shape, and no veins (Unholy Enhancement). |
 | **Soul Shackles** (`clh4d6psu0004tb0hsa5cshh6`) | D rank, 60 AP, a line of opponents: damage. Text: cursed chakra chains are hurled, pierce defenses and latch onto the target's spirit. | 4/10. "Where are the shackles going? They just stop midair. Might be better if the shackles were just spread straight across the icon." | **Spectral purple chains running straight across the icon,** edge to edge on a slight diagonal, one link snaring a torn wisp of soul flame at the centre. |
 | **Venomous Phobia.** (`9oirFnLa0wejelNYpewq6`) | D rank, 40 AP, one opponent: they take more damage. Text: an airborne toxin seeps into the mind; illusions of venomous creatures. | 7/10. "Pretty good actually. Might need a better silhouette." | **Refine ours** (ours = subject): the fanged mask of green and purple miasma, with a clearer outer shape and a calmer background. |
@@ -181,6 +181,6 @@ background**, the ice subject brightest, fewer stray shards. Palette: icy white 
 8. The batch manifest once all 36 are approved: the 36 new icons, the 15 kept icons, any approved text, and the AI
    unequip/re-equip cycle where an equipped jutsu changes (`docs/design/icon_overhaul/BATCH_PLAN.md`).
 
-**Suggested order:** Replacement Technique (briefed), then the families with the clearest direction and the most to gain:
+**Suggested order:** the families with the clearest direction and the most to gain:
 Aerathiel, Forbidden, then Event, Normal, Bakuhatsu, Vaporia, and Blue Blade Eyes last (a treatment fix on approved
 concepts).
