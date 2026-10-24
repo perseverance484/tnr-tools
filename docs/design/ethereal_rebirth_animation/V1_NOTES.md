@@ -47,3 +47,10 @@ now cut by one portrait mask (the token plus its white rim, radius 0.254 of the 
 (ribbons, core, flecks, glow) ever draws on the portrait. Check over all 40 frames of the 128 px export: maximum alpha
 inside the portrait 4 of 255 (a resampling edge). The starburst core now shows only where it reaches past the portrait's
 lower edge. 200,870 bytes.
+
+### v3 burst on top, mask extended (2026-10-24)
+
+Director: the burst goes above the mask, unaffected; the gold ribbon still showed in front of the bottom of the avatar.
+The burst (and its glow) now draws on a top layer composited after the portrait mask. The mask is extended over the
+rank star and its mount hanging below the portrait (measured from the recording: star x 0.47-0.54, y 0.57-0.63 of the
+frame): a rounded block x 0.5 +/- 0.07 from y 0.43 to 0.67. 220,904 bytes.
