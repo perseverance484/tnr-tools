@@ -160,3 +160,22 @@ the avatar and transition from one to the next smoothly." Same art and design as
 - **Measured** (frames composited over a flat background, mean absolute change per frame): cast mean step 10.1, max 25.7
   (v5: 15.5, 34.3); loop mean 2.5, max 3.3, seam (last frame to first) 2.6. Exported as `anim_ethereal_rebirth_v6.webp`
   and `anim_ethereal_rebirth_loop2.webp` (new filenames, law 32). Preview: `v6_in_battle.gif`.
+
+## hit1: the attack's impact on the enemy (2026-10-24)
+
+Director: "What about an animation for the attack itself? ... Keep in mind the enemy portrait ... Maybe an impact beam of
+spiraling ribbons hitting their portrait?"; then "Go, corkscrew from the top, timed to the lash". The damage effect's
+`appearAnimation` plays once over the target's portrait (process.ts:1559 -> combat.ts:646); nothing can travel between
+tiles. The hit and the cast are started in the same `drawCombatEffects` pass (combat.ts:482; movement queues only SFX),
+so they share a clock: `build_strip.py --set hit1 --frames 66 --ms 36 --size 112`.
+- 0-1.2 s: seven sparkles gather round the portrait, twinkling, closing in (the light finds them).
+- 1.18-1.58 s: the gold and blue v5 bands, wound round each other (helix radius 0.075, 2.5 turns, the whole band along
+  the braid, whip tips leading), drill down from the top edge (a touch right of centre), accelerating; the braid narrows
+  to the impact point at the portrait's centre. The cast's gold lash leaves the caster's frame at about 1.5 s.
+- 1.58 s (frame 44): a flash (the starburst C2 layer, radius 0.27), two rings of ribbon light (gold, then blue) blast
+  outward round the portrait (back halves under the portrait mask), and the two ribbons spring apart and curl round the
+  portrait in opposite directions (one continuous route per ribbon: down the axis, then out on a spiral), the braid's tail
+  still pouring in from the top; sparkles scatter.
+- to 2.4 s: everything fades; the portrait is clear at the end.
+132,072 bytes. Zoom `hit1_zoom.png`; both tiles on one clock: `hit1_duel.gif` (`duel_preview.py`; the director's
+portrait stands in for the enemy's, same token geometry). Replaces the generic hit `iDv3rjj81rRgD10shRqSn` on approval.
