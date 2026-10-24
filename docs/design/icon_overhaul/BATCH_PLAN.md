@@ -37,7 +37,7 @@ Art direction for all 36: `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md` (from `
 | 5 | Earthen Bastion | Event |
 | 6 | Hollow Veil | Event |
 | 7 | Subaku Palace | Event |
-| 8 | Tempest Cleave | Event |
+| 8 | Tempest Cleave | Event | **pilot** (worked first): `tempest_cleave/PILOT.md` |
 | 9 | Ethereal Nexus | Forbidden |
 | 10 | Ethereal Rebirth | Forbidden |
 | 11 | Poisonous Senbon | Normal |
