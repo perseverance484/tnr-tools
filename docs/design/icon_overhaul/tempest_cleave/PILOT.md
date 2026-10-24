@@ -76,3 +76,4 @@ keeps that ground in TC-1 and tries a dark storm ground in the other five.
 | 0 | 2026-10-24 | Pilot opened; round-1 prompt written. |
 | 0 | 2026-10-24 | `gate_sheet.py` built and run on the references (older version, live icon, ours as a test). |
 | 0 | 2026-10-24 | Round 1 rewritten as v2 (masked fighter at the eye of the whirlwind, tied to the drafted battle line); v1 not run. |
+| 1 | 2026-10-24 | Texts approved by the director; round-1 (v2) art session started by the director. Waiting for raws. |
