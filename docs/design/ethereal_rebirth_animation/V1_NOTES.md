@@ -17,3 +17,15 @@
   replaced scored 51%). Not an art defect; a tooling fix would be Lane A work.
 - **Known v1 limits:** fine striping shows in the gold ribbon where the path turns edge-on (the painting's own strands;
   invisible at 50 px); no battle recording yet, so the preview uses a stand-in token.
+
+## v2 (2026-10-24)
+
+- **Art:** five separate transparent layers from the art director (`raws/anim_er_v2_{R1_ribbon_gold,R2_ribbon_blue,
+  C1_core,F1_flecks,K1_peak}.png`; ribbons 1254 × 260, the rest 1254 px square), crisper pixel art with less baked glow.
+  No cut-out needed.
+- **Built:** `build_strip.py --set v2` (same motion, timing and wrap rule as v1) → `exports/anim_ethereal_rebirth_v2.webp`:
+  40 frames of 128 px at 60 ms (2.4 s), 263,544 bytes. Preview `v2_preview.gif`; v1 against v2 at 384 px over dark and snow:
+  `v1_vs_v2_frames.png`.
+- **Difference:** harder edges, a cleaner star-shaped core, diamond flecks; ribbons slightly thinner and less luminous on
+  screen. Not shipped yet: the live asset `HwkXTjErL_Laxs8WtqBiI` still carries v1. Shipping v2 is an edit of that asset
+  with a new image filename (law 32), with `hidden: false` kept.
