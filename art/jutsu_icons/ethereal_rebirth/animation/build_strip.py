@@ -190,8 +190,12 @@ def lay_ribbon(strip, pts, alpha, back, front, u0=0.0, u1=1.0, depth_rule=True, 
         wf = nearness * front_ok if depth_rule else 1.0     # share drawn in front of the token; the rest goes behind
         if face and depth_rule and FACE_Y[0] < my < FACE_Y[1] and math.hypot(mx - 0.5, my - TOKEN_CY) < WINDOW_R:
             wf *= 0.30                                       # near side over the face: mostly see-through
-        if no_face and my < PORTRAIT_CY + 0.03 and math.hypot(mx - 0.5, my - PORTRAIT_CY) < PORTRAIT_R + 0.02:
-            wf = 0.0                                         # never in front of the face: behind, under the mask
+        if no_face:
+            # never in front of the face: over the upper portrait the band slides behind (under the mask), with a soft
+            # change-over in height and at the rim, so it fades round the face instead of being cut
+            above = 1 - smooth(my, PORTRAIT_CY - 0.01, PORTRAIT_CY + 0.07)
+            inside = 1 - smooth(math.hypot(mx - 0.5, my - PORTRAIT_CY), PORTRAIT_R - 0.03, PORTRAIT_R + 0.04)
+            wf *= 1 - above * inside
         a *= smooth(min(i, n - 1 - i), 0, 5)               # soft head and tail, never a square cut
         if a <= 0.01:
             continue
@@ -343,6 +347,47 @@ def spin_ribbons_v4(t, grow, rise, fade, gold, blue, back, front):
         lay_ribbon(strip, pts, al, back, front, u0=u0, u1=1.0, front_ok=1.0, face=False)
 
 
+# Timing (fluidity pass, director 2026-10-24: "very smooth ... transition from one to the next smoothly"). Both strips run
+# at MS per frame; the game starts them on the same tick (combat.ts adds the appear and static animations in one pass),
+# so cast frame f lines up with loop frame f. The loop phase at cast time t is t * HANDOFF_K.
+MS, CAST_N, LOOP_N = 36, 66, 100
+HANDOFF_K = (CAST_N - 1) / LOOP_N
+# The loop's two bands (shared with the cast's hand-off): strip, lift, tilt, alpha, phase. Orbit: LOOP_A, LOOP_B radii.
+LOOP_BANDS = [('gold_a', 0.07, -0.12, 0.60, 0.0), ('blue_a', -0.02, 0.15, 0.55, math.pi)]
+LOOP_A, LOOP_B, LOOP_LEN, LOOP_THICK = 0.40, 0.15, 2.2, 0.85
+HAND_T0, HAND_T1 = 0.60, 0.90   # the cast's blue band eases onto the loop's blue orbit over this part of the cast
+
+
+def loop_angle(k, tl):
+    return LOOP_BANDS[k][4] - 2 * math.pi * tl
+
+
+def _blue_cast_angle(t, ph):
+    """Head angle of the cast's blue band: spins at SPIN_RATE, then eases down to the loop's rate over HAND_T0..T1
+    (integrated, so the slow-down has no jolt)."""
+    w_l = 2 * math.pi * HANDOFF_K
+    steps = 200
+    acc, prev = 0.0, SPIN_RATE
+    for i in range(1, steps + 1):
+        s_ = t * i / steps
+        w = SPIN_RATE + (w_l - SPIN_RATE) * ease(seg(s_, HAND_T0, HAND_T1))
+        acc += (prev + w) / 2 * (t / steps)
+        prev = w
+    return ph - acc
+
+
+def _blue_phase():
+    """The cast's blue phase, chosen (within half a turn of the v5 design's) so that it arrives exactly on the loop's
+    blue band when the hand-off ends."""
+    ph0 = 0.35 + SPIN_RATE * 0.58 - 2 * math.pi - 1.2
+    d = loop_angle(1, HAND_T1 * HANDOFF_K) - _blue_cast_angle(HAND_T1, ph0)
+    d = (d + math.pi) % (2 * math.pi) - math.pi
+    return ph0 + d
+
+
+BLUE_PH = _blue_phase()
+
+
 # v5 bands, as in the icon: three gold, three blue. Each: strip, height of its orbit above (-) or below (+) the portrait
 # centre, tilt of its orbit plane (radians, + raises the right side), horizontal radius add-on, start angle offset, a
 # delay before it pours out, length and thickness factors, alpha. Band 0 is the gold one that whips out to the upper right.
@@ -380,13 +425,28 @@ def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
         length = (0.5 + 2.8 * g) * b['ln'] if k < 2 else 1.0 + 2.3 * g * b['ln']   # the added bands never start as scraps
         u0 = 1 - min(1.0, 0.25 + 0.75 * g)
         cy0 = yc + b['lift']
-        ct, st = math.cos(b['tilt']), math.sin(b['tilt'])
+        tilt = b['tilt']
+        thick = b['th']
+        twist_off = 0.4 + k * 1.3 + 2.5 * t
+        thh = base0 + b['ph'] - SPIN_RATE * t
+        e = 0.0
+        if k == 1:
+            # the hand-off: the blue band slows and settles onto the loop's blue orbit, then fades over it
+            e = ease(seg(t, HAND_T0, HAND_T1))
+            tl = t * HANDOFF_K
+            lerp = lambda a, c: a + (c - a) * e
+            a_r, b_r, pitch = lerp(a_r, LOOP_A), lerp(b_r, LOOP_B), lerp(pitch, 0.0)
+            length, thick = lerp(length, LOOP_LEN), lerp(thick, LOOP_THICK)
+            cy0, tilt = lerp(cy0, PORTRAIT_CY + LOOP_BANDS[1][1]), lerp(tilt, LOOP_BANDS[1][2])
+            u0 = lerp(u0, 0.0)
+            twist_off = lerp(twist_off, 0.4 + 1.3 + 2 * math.pi * tl)
+            thh = _blue_cast_angle(t, BLUE_PH)
+        ct, st = math.cos(tilt), math.sin(tilt)
 
         def pt(th, u, cy0=cy0, a_r=a_r, b_r=b_r, pitch=pitch, ct=ct, st=st):
             x, y = a_r * math.cos(th), b_r * math.sin(th) + pitch * u
             return (0.5 + x * ct + y * st, cy0 - x * st + y * ct, math.sin(th))
 
-        thh = base0 + b['ph'] - SPIN_RATE * t
         pts = []
         for i in range(SLICES + 1):
             u = i / SLICES
@@ -401,20 +461,25 @@ def spin_ribbons_v5(t, grow, rise, fade, strips, back, front):
                 pts.append(pt(TH_DEPART - gone, 0))
             else:
                 pts.append(pt(thh + u * length, u))
-        al = b['al'] * fade * (smooth(g, 0.0, 0.35) if k < 2 else smooth(g, 0.15, 0.50))          # fade in as it pours out, never a loose blob
-        if k == 0:
+        al = b['al'] * (smooth(g, 0.0, 0.35) if k < 2 else smooth(g, 0.15, 0.50))   # fade in as it pours out, never a loose blob
+        if k != 1:
+            al *= fade
+        if k == 1:
+            # matched to the loop's blue band (which sits under it) by HAND_T1; then it fades, leaving the loop
+            al = (al + (LOOP_BANDS[1][3] - al) * e) * (1 - ease(seg(t, HAND_T1, 1.0)))
+        elif k == 0:
             al *= 1 - ease(seg(t, 0.85, 0.97))
         else:
             # gone before the final front pass (director, 2026-10-24: a gold band came round over the portrait as the
             # animation ended, "lets cut that out")
             al *= 1 - ease(seg(t, 0.74, 0.86))
-        twist = (lambda u, k=k: 0.4 + k * 1.3 + 2 * math.pi * 0.75 * u + 2.5 * t)
+        twist = (lambda u, o=twist_off: o + 2 * math.pi * 0.75 * u)
         # each band on its own layers, then laid over the others normally: a per-channel max between a gold and a
         # blue band turns their overlap pink
         bb = Image.new('RGBA', back.size, (0, 0, 0, 0))
         ff = Image.new('RGBA', front.size, (0, 0, 0, 0))
         lay_ribbon(strips[b['s']], pts, al, bb, ff, u0=u0, u1=1.0, front_ok=1.0, face=False, twist=twist,
-                   thick_k=b['th'], no_face=True)
+                   thick_k=thick, no_face=True)
         back.alpha_composite(bb)
         front.alpha_composite(ff)
 
@@ -495,16 +560,18 @@ def build_loop(n, size):
         rr = rnd.uniform(0.36, 0.44)
         sp.append(dict(img=flecks[(2 * i + 1) % len(flecks)], x=0.5 + rr * math.cos(ang),
                        y=PORTRAIT_CY + 0.05 + rr * 0.95 * math.sin(ang), ph=i / 6, s=rnd.uniform(0.05, 0.07)))
-    a_r, b_r, length = 0.40, 0.15, 2.2
+    a_r, b_r, length = LOOP_A, LOOP_B, LOOP_LEN
+    strips = {'gold_a': gold, 'blue_a': blue}
     frames = []
     for f in range(n):
         t = f / n                                          # 0 .. 1, frame n would equal frame 0
         back = Image.new('RGBA', (S, S), (0, 0, 0, 0))
         front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
-        for k, (strip, lift, tilt, al) in enumerate(((gold, 0.07, -0.12, 0.60), (blue, -0.02, 0.15, 0.55))):
+        for k, (sname, lift, tilt, al, _ph) in enumerate(LOOP_BANDS):
+            strip = strips[sname]
             ct, st = math.cos(tilt), math.sin(tilt)
             cy0 = PORTRAIT_CY + lift
-            thh = k * math.pi - 2 * math.pi * t            # one full orbit per loop
+            thh = loop_angle(k, t)                         # one full orbit per loop
             pts = []
             for i in range(SLICES + 1):
                 u = i / SLICES
@@ -516,7 +583,7 @@ def build_loop(n, size):
             bb = Image.new('RGBA', (S, S), (0, 0, 0, 0))
             ff = Image.new('RGBA', (S, S), (0, 0, 0, 0))
             lay_ribbon(strip, pts, al, bb, ff, u0=0.0, u1=1.0, front_ok=1.0, face=False, twist=twist,
-                       thick_k=0.85, no_face=True)
+                       thick_k=LOOP_THICK, no_face=True)
             back.alpha_composite(bb)
             front.alpha_composite(ff)
         for d in sp:                                       # each sparkle twinkles once per loop, staggered
@@ -670,6 +737,10 @@ def main():
     a = ap.parse_args()
     global SET
     SET = a.set
+    if SET == 'v5':
+        assert (a.frames, a.ms) == (CAST_N, MS), f'v5 hands off to the loop: use --frames {CAST_N} --ms {MS}'
+    if SET == 'loop1':
+        assert (a.frames, a.ms) == (LOOP_N, MS), f'the loop pairs with v5: use --frames {LOOP_N} --ms {MS}'
     frames = build(a.frames, a.size)
     os.makedirs(os.path.join(HERE, 'exports'), exist_ok=True)
     os.makedirs(DOCS, exist_ok=True)
@@ -677,6 +748,9 @@ def main():
     for i, f in enumerate(frames):
         strip.paste(f, (0, a.size * i))
     out = os.path.join(HERE, 'exports', f'anim_ethereal_rebirth_{SET}.webp')
+    if SET in ('v5', 'loop1'):
+        # clear alpha under 4/255 (invisible glow tails): about 8% smaller, room under the byte ceiling
+        strip.putalpha(strip.getchannel('A').point(lambda v: 0 if v < 4 else v))
     strip.save(out, lossless=True, method=6)
     cols = 10
     sheet = Image.new('RGB', (a.size * cols, a.size * math.ceil(len(frames) / cols)), (18, 22, 34))
