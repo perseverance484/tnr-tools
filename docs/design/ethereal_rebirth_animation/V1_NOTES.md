@@ -39,3 +39,11 @@ spin runs the other way and the gold ribbon's head peels off the spin at t = 0.5
 tangent, curling upward, its body following the same path (one drawing throughout); the opening stays behind the token
 (per-pixel mask). 40 frames of 128 px at 60 ms, 253,444 bytes. Preview over the director's avatar:
 `v3_over_avatar.gif`. Shipped by push/233.
+
+### v3 portrait mask (2026-10-24)
+
+Director: the ribbons still touched the portrait in places (the opening gold ribbon animated in front). Every layer is
+now cut by one portrait mask (the token plus its white rim, radius 0.254 of the frame) on the finished frame, so nothing
+(ribbons, core, flecks, glow) ever draws on the portrait. Check over all 40 frames of the 128 px export: maximum alpha
+inside the portrait 4 of 255 (a resampling edge). The starburst core now shows only where it reaches past the portrait's
+lower edge. 200,870 bytes.

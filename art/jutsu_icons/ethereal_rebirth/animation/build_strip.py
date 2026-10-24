@@ -34,10 +34,14 @@ THICK = 0.15                              # on-screen height of a straightened r
 SLICES = 70
 
 
-def _behind_mask():
-    """Alpha mask for the behind layer: 0 inside the avatar token (with a 2 px soft edge), 255 outside."""
+PORTRAIT_R = TOKEN_R + 0.006    # the whole portrait, white rim included, plus a hair of margin
+
+
+def _behind_mask(radius=None):
+    """Alpha mask: 0 inside the avatar portrait (soft 1 px edge), 255 outside. Applied to the finished frame, so no layer
+    (ribbons, core, flecks, glow) ever draws on the portrait (director, 2026-10-24)."""
     m = Image.new('L', (S * 4, S * 4), 255)
-    r, cx, cy = WINDOW_R * S * 4, 0.5 * S * 4, TOKEN_CY * S * 4
+    r, cx, cy = (radius or PORTRAIT_R) * S * 4, 0.5 * S * 4, TOKEN_CY * S * 4
     ImageDraw.Draw(m).ellipse([cx - r, cy - r, cx + r, cy + r], fill=0)
     return m.resize((S, S), Image.LANCZOS)
 
@@ -332,7 +336,9 @@ def build(n, size):
         img = Image.alpha_composite(back, front)
         glow = img.filter(ImageFilter.GaussianBlur(S * 0.010))
         glow.putalpha(glow.getchannel('A').point(lambda v: int(v * 0.5)))
-        frames.append(Image.alpha_composite(glow, img).resize((size, size), Image.LANCZOS))
+        out = Image.alpha_composite(glow, img)
+        out.putalpha(ImageChops.multiply(out.getchannel('A'), BEHIND_MASK))   # portrait mask on every layer
+        frames.append(out.resize((size, size), Image.LANCZOS))
     return frames
 
 
