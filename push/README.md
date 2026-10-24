@@ -771,13 +771,13 @@ absorb is active (theninjarpg `libs/threejs/combat.ts:667`). Preview with the ca
 rebuilt to also set the absorb effect's `staticAnimation` (still one suggestion), and push/233 gains a literal-id unhide of
 the new asset (law 16c). So **hold 231 until 234 has run**.
 
-## 233 Ethereal Rebirth animation swap (v5): READY TO RUN (after the director approves v5)
+## 233 Ethereal Rebirth animation swap (v5): BUILT; waits for 234 (it then gains the loop's unhide)
 
 Re-pointed at v5 (director, 2026-10-24: "Hold 233, we'll ship v5 instead"). Direct edit of asset
 `HwkXTjErL_Laxs8WtqBiI` (same id, so push/231 is unchanged): image -> `anim_ethereal_rebirth_v5.webp` (the icon's
 six translucent twisting bands, three gold and three blue, and its sparkles, from the art director's v5 layers; v4
-motion on tilted orbits; 40 frames x 60 ms, 305,488 bytes; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
-`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at 3ed7e36. Gates: `validate.py --strict`
+motion on tilted orbits; 40 frames x 60 ms, 333,928 bytes, with the icon's starburst; new filename, law 32), `hidden: false` so it plays in battle (law 16c). Preview:
+`docs/design/ethereal_rebirth_animation/v5_over_avatar.gif`. Image pack pinned at ae49da0. Gates: `validate.py --strict`
 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems. 231 and 233 run in either order. Earlier build notes (v4):
 
 Director (2026-10-24): "Use v2, make the swap manifest". Direct edit of asset `HwkXTjErL_Laxs8WtqBiI` (same id, so
