@@ -9,6 +9,8 @@
   (`docs/design/icon_overhaul/STAFF_FEEDBACK.md`); each jutsu's live name, data and battle text (public reads of 2026-10-23,
   `harvests/inbox/tnr_results_1792732003454.json`); the side-by-side cards `docs/design/icon_overhaul/review/NN_<slug>.png`
   (old icon on the left, our reverted icon on the right).
+- **Roles (director, 2026-10-24):** the art director **only makes the art**. Claude Code handles everything else: intake and
+  processing of raws, previews and comparison sheets, export and preflight, jutsu text rewrites, and the batch manifest.
 - **Status:** direction for regeneration. Where this document proposes a subject, it is a proposal: art direction and final
   acceptance are the director's (CLAUDE.md section 10). Open decisions are listed in section 4.
 - **Live-game requests/writes:** 0. Credentials: none.
@@ -55,7 +57,7 @@ Practical consequence: **red-on-black circles and spirals belong to BEE**; **fac
 | D1 | **People in icons.** The staff thread leaned towards no people ("I *think* so"; Jutsu Masters cover people renders), but Replacement Technique was asked for as a faithful upgrade of the old icon, which shows a ninja. | a) no people anywhere; b) no people except where the old icon's figure is the identity (Replacement Technique, Icebound Might's summon) | b). Where a brief needs a body part (a fist, a palm), it is formed of the element, not a human hand. |
 | D2 | **Glow by tier** (Aven's proposal): basic D-rank jutsu without glowing effects; bloodline, forbidden, event and special jutsu keep the glow. | adopt / do not adopt | Not adopted until the director decides. Briefs for the five Normal jutsu note where it would change them. |
 | D3 | **Surfing Strike vs Azure Dragon Palm:** flip one so the wave and the dragon move in opposite directions (zaruza), or a new wave composition. | flip / redraw | Redraw with the wave moving left to right, low and horizontal; the dragon faces left. |
-| D4 | **Battle text vs new art.** Abyss of Shadows' text describes a crimson corona, and Ethereal Rebirth's text describes green flame, but the new direction moves both off those colours. | rewrite the text later / keep the colours | Art follows the new direction; text is flagged for a later edit (final prose is the director's). |
+| D4 | **Battle text vs new art.** Abyss of Shadows' text describes a crimson corona, and Ethereal Rebirth's text describes green flame, but the new direction moves both off those colours. | Claude Code's job, not the art director's | Art follows the new direction. Claude Code drafts text that matches the approved art and puts it to the director with the batch. |
 | D5 | **Charge 4 Explosion's "C4" shape:** the explosions spelling C4 were called "unique and creative", but they are letters (R9). | keep the C4 shape / drop it | Two candidates: one with, one without. |
 
 ## 5. Direction by family
@@ -158,6 +160,8 @@ background**, the ice subject brightest, fewer stray shards. Palette: icy white 
 
 ## 6. How to produce them
 
+**Art director:**
+
 1. **One jutsu per isolated generation session** (`docs/workflows/ISOLATED_ART_GENERATION.md`). Each brief carries the jutsu
    target lock (id and name above), the proposed subject, the family palette, rules R1–R9, and the section 3 exclusions.
 2. **References:** at most two per generation, each with its role stated. Typical pair: the jutsu's old or ours image
@@ -165,13 +169,17 @@ background**, the ice subject brightest, fewer stray shards. Palette: icy white 
    review cards or `docs/design/icon_overhaul/src/NN_<slug>_original|_ours`.
 3. **Fail fast before returning a raw:** unreadable at 45 px; background busier than the subject; looks like a section 3
    icon or a family sibling; text or insignia; anatomy errors.
-4. **Return** raws named `raw_<slug>_<candidate>.png` into `art/jutsu_icons/overhaul_2026_10/candidates/<slug>/`. Do not
-   process, crop, upscale or upload.
-5. **Claude Code** previews every candidate in context (mobile bar, desktop bar, 112 px tile with badge, 32 px, silhouette
-   test) next to the old icon, and makes old / new comparison sheets for the staff thread.
-6. **Approval:** the director picks per jutsu. Approved icons are exported (256 px lossless WebP, `artpreflight --type
-   JUTSU_ICON`) and held until all 36 are ready; then one batch manifest ships them with the 15 kept icons
-   (`docs/design/icon_overhaul/BATCH_PLAN.md`).
+4. **Return the raw images only,** named `raw_<slug>_<candidate>.png`. Do not process, crop, upscale, key or upload them.
+
+**Claude Code** (everything after the raw):
+
+5. Intake into `art/jutsu_icons/overhaul_2026_10/candidates/<slug>/`; previews in context (mobile bar, desktop bar, 112 px
+   tile with badge, 32 px, silhouette test) next to the old icon; old / new sheets for the staff thread.
+6. After the director picks: processing, export (256 px lossless WebP), `artpreflight --type JUTSU_ICON`.
+7. Text: drafts for any jutsu whose name, description or battle text no longer matches its approved art (Abyss of Shadows
+   and Ethereal Rebirth at least), for the director's approval.
+8. The batch manifest once all 36 are approved: the 36 new icons, the 15 kept icons, any approved text, and the AI
+   unequip/re-equip cycle where an equipped jutsu changes (`docs/design/icon_overhaul/BATCH_PLAN.md`).
 
 **Suggested order:** Replacement Technique (briefed), then the families with the clearest direction and the most to gain:
 Aerathiel, Forbidden, then Event, Normal, Bakuhatsu, Vaporia, and Blue Blade Eyes last (a treatment fix on approved
