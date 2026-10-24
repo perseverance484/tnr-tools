@@ -2352,3 +2352,5 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Canonical destination:** `docs/design/icon_overhaul/ICON_SCORES.md`, `STAFF_FEEDBACK.md`, `BATCH_PLAN.md`.
 
 **Amendment 1 (2026-10-24), roles:** the art director only makes the art (raw images). Claude Code handles everything else: processing, previews and sheets, export and preflight, text rewrites (drafted for the director's approval), and the batch manifest. User: "You're handling text rewrites, manifests, processing, etc. Art Director just makes the art". Recorded in `docs/handoffs/ICON_OVERHAUL_ART_DIRECTION.md`.
+
+**Amendment 2 (2026-10-24), people:** the five jutsu where staff asked for people (Poisonous Senbon, Blast Shield, Decaying Touch, Ethereal Nexus, Crystal Sphere) each get a people and a no-people version for the director to compare; Crystal Sphere's no-people version is the kept icon. User: "Lets do a people vs no people version for those jutsu". The general no-people lean stands elsewhere until the director decides.
