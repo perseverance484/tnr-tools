@@ -727,13 +727,21 @@ id is copied from the AI's live kit in push/228. Allowing legacy ids in validate
 
 ## 230 Ethereal Rebirth cast animation asset: READY TO RUN
 
-Direct create of the ANIMATION asset "Ethereal Rebirth - Soul Ribbons" (hidden, folder `jutsuanimations`, 40 frames x 60
+Direct create of the ANIMATION asset "Ethereal Rebirth - Soul Ribbons" (created hidden as the gates require, then
+unhidden by push/232 so it plays in battle; folder `jutsuanimations`, 40 frames x 60
 ms = 2.4 s, 302,386 bytes): gold and blue soul-light ribbons pour out of the user's chest, wrap around their avatar, one
 lashes out, and they dissolve into flecks. Director: "Looks pretty good" (2026-10-24). Art and build:
 `docs/handoffs/ETHEREAL_REBIRTH_ANIMATION_ART_REQUEST.md`, `docs/design/ethereal_rebirth_animation/V1_NOTES.md`. Built by
 `push/230_ethereal_rebirth_animation.gen.py`; the strip is pinned by SHA-256 at the commit that built it. The jutsu is not
 touched; push/231 follows. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 Artpreflight ANIMATION flags `soft_edges` (72.6%), the known gap for glow effects (as on Chakra Overflow).
+
+## 232 Ethereal Rebirth animation unhide: GENERATOR READY, WAITING ON THE PUSH/230 BUNDLE
+
+Battles load only unhidden assets, so the push/230 animation must be unhidden before it can play (law 16c, corrected
+2026-10-24, RUL-2026-10-24-006). `python3 push/232_ethereal_rebirth_animation_unhide.gen.py <push/230 results bundle>`
+writes a direct edit of the new asset with `hidden: false`. **Run order: 230, then 232, then 231.** Dry run (fake id): both
+gates pass.
 
 ## 231 Ethereal Rebirth icon, text and animation (suggest mode): GENERATOR READY, WAITING ON THE PUSH/230 BUNDLE
 

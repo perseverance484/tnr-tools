@@ -2438,3 +2438,19 @@ C balanced add-ons best (about 80–90%) at about 2× today's power. B kept toda
 **Evidence:** User, 2026-10-24: "I think we shouldn't convert at all. Looks too blocky. Unless you can get higher definition out of it". Sheets: `docs/design/icon_overhaul/ethereal_rebirth/round1_grid_density.png`, `round1_hd_test.png`.
 
 **Canonical destination:** `docs/design/icon_overhaul/ethereal_rebirth/ROUND1_REVIEW.md`; the intake steps of the icon session prompts.
+
+## RUL-2026-10-24-006 — Battle assets must not be hidden (law 16c corrected)
+
+**Date:** 2026-10-24
+
+**Domain:** Engine laws / game assets
+
+**Status:** ACTIVE
+
+**Supersedes:** law 16c as written 2026-08-26 ("gameAsset hidden affects listing only, never rendering")
+
+**Ruling:** A hidden game asset does not play in battle. Every animation (and any other asset a battle uses) must end `hidden: false`. Creates still ship `hidden: true` (law 16b, enforced by lint L13 in Forge and validate.py), so each battle asset create is followed by an unhide edit with a literal `targetId`, built from the create's results bundle. Changing the gates so battle-asset creates may ship `hidden: false` directly would be Lane A tooling work and is not done here.
+
+**Evidence:** User, 2026-10-24: "You keep putting animations as hidden which as you would expect... hides them during combat. So they dont play. Stop doing that, I have to manually unhide them each time." Source: `app/src/server/api/routers/misc.ts:660` (`fetchGameAssets` filters `hidden = false`), called via `misc.getAllGameAssetNames` from `app/src/layout/Combat.tsx:316`; `combat.ts:2206` filters the same way.
+
+**Canonical destination:** `docs/ENGINE_LAWS.md` law 16c (corrected), with its hand-kept copies in `references/pipeline.md` (packs re-rendered), `producing-tnr-art/references/processing.md` and `12b_LAWS_coverage.md`; push/230 + push/232; push/226's generator.

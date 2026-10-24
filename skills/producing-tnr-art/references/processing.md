@@ -122,9 +122,10 @@ quest icon or a map pin needs no gameAsset record at all.
 - `licenseDetails` is required and non-empty, with no default. An empty string fails the save.
 - `folder` is strictly alphanumeric. No hyphens, no underscores, no spaces.
 
-`hidden` affects **listing only, never rendering** (law 16c). Live public quests render hidden
-assets today. Assets ship `hidden: true` and there is no unhide step at publish; do not build
-one.
+`hidden` **hides an asset from battles** (law 16c, corrected 2026-10-24): battles load only assets
+with `hidden = false`, so a hidden animation never plays. Creates still ship `hidden: true` (law 16b);
+every asset a battle uses (animations, battle SFX) is then unhidden by an edit with a literal
+`targetId`, built from the create's results bundle.
 
 ---
 
