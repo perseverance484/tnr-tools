@@ -759,6 +759,17 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
+## 238 Celestial Dew animations (4 creates): READY TO RUN (after the director approves the preview)
+
+Director (2026-10-24): Celestial Dew keeps its reverted icon and text and gets animations: "a drop falls into the middle
+of the portrait, splashes and then ripples flow outward and hit the edges of the portrait and energize it with a
+celestial shield". Direct creates, hidden (law 16b gate): `cd_anim_cast` (heal appear: crescent, drop, splash, ripples;
+66 frames), `cd_anim_ward` (shield appear: the rim ignites into the ward; 66), `cd_anim_loop` (shield static: the faint
+ward; 100, seamless), `cd_anim_break` (shield disappear: the ward shatters; 30); all 112 px at 36 ms. Preview:
+`docs/design/celestial_dew_animation/v1_over_avatar.gif`. Pack pinned at dd372c0. Gates: `validate.py --strict` 0 errors,
+0 warnings; `check_manifest.mjs` 0 pre-send problems. **After it runs:** from its bundle, one direct manifest unhides the
+four (law 16c), then one suggestion on Celestial Dew sets the animations (re-sending the live effects array).
+
 ## 237 Ethereal Rebirth hit animation (create): RUN, verified (bundle tnr_results_1792874408622.json, id crcBkGqA7Dyx52I-wU3gc), archived
 
 Director (2026-10-24): "corkscrew from the top, timed to the lash". Direct create of asset `er_anim_soul_strike`
