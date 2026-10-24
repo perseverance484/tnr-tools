@@ -63,3 +63,12 @@ unmasked again; the behind layer, its glow and the flecks are hidden by the whol
 stays on top. Until the spin has risen (t < 0.45) every ribbon is on the behind layer. Check, burst excluded: inside the
 portrait the opening frames hold nothing above the mask's 1 px soft edge (max 37 of 255); ribbons appear in front only
 from frame 20, as designed. 245,764 bytes.
+
+### v3 portrait edge re-measured (2026-10-24)
+
+The gold ribbon still showed at the bottom of the portrait in the opening. Root cause: the mask followed the portrait's
+white ring (radius 26 px in the recording) when the real edge is the dark outline outside it (centre (206, 181.6),
+radius 28.6 px, measured by hand from brightness profiles: 0.296 / 0.272 of the frame). The mask stopped about 2.5 px
+short at the bottom, and the numeric checks passed because they tested against the same wrong circle. Mask now: centre
+0.296, radius 0.287 (real edge + about 1.5 px), plus the rank-star block. Verified by eye on 6x zooms of frames 4-15 and
+20-32 over the real portrait (`v3_opening_zoom.png`). 238,636 bytes.
