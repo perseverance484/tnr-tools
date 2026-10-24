@@ -21,8 +21,8 @@ BATTLE = ("%user closes their eyes and the night seems to answer, a pale crescen
           "its tip falls a single drop of starlight that splashes across %user and spreads into a dome of soft, silver "
           "light. Wounds knit closed beneath its glow as the dome settles into a quiet ward that swallows the blows meant "
           "for its keeper. Within it, for a few heartbeats, the battle seems very far away.")
-ICONS = [('Old', 'the original icon', 'art/jutsu_icons/celestial_dew/refs/ref_cd_original_icon.webp', FG),
-         ('Current (kept)', 'our rework, scored 10/10', 'art/jutsu_icons/celestial_dew/refs/ref_cd_live_icon.webp', ACC)]
+ICONS = [('Old', 'the original (live now)', 'art/jutsu_icons/celestial_dew/refs/ref_cd_original_icon.webp', FG),
+         ('New', 'our rework, back (scored 10/10)', 'art/jutsu_icons/celestial_dew/refs/ref_cd_live_icon.webp', ACC)]
 # storyboard moments: (ms, caption)
 BOARD = [(500, 'Moon appears; heal heart'), (1150, 'A drop of starlight falls'), (1500, 'It splashes'),
          (1950, 'Ripples run out'), (2300, 'They charge the rim: the ward'), (3600, 'The ward breathes while it lasts'),
@@ -75,9 +75,9 @@ def main():
     W, G = 1240, 28
     s = Image.new('RGB', (W, 2400), BG)
     d = ImageDraw.Draw(s)
-    d.text((G, 24), 'Celestial Dew: new animations', font=F(36, True), fill=FG)
-    y = para(d, G, 74, 'The icon stays (players and staff liked it: 10/10) and so does the text. What is new is the animation: '
-                       'it now plays the moment the jutsu describes, from the crescent moon to the ward.', 128, F(16), DIM, 22) + 18
+    d.text((G, 24), 'Celestial Dew: icon and animations', font=F(36, True), fill=FG)
+    y = para(d, G, 74, 'Our reworked icon comes back (staff scored it 10/10), the text stays, and new animations play the '
+                       'moment the jutsu describes, from the crescent moon to the ward.', 128, F(16), DIM, 22) + 18
     # icons
     iw = 300
     for i, (t, sub, p, col) in enumerate(ICONS):
