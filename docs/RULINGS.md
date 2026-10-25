@@ -2761,3 +2761,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "This works. And we can design at least 1 more hunt with the assets remaining"; then, on the Watch proposal with Watch 3% / Beacon 6%: "Swap watch and beacon".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; hunt designs in `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-022 — Skyglass Wreck map structure art
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass art direction
+
+**Status:** ACTIVE.
+
+**Ruling:** The Skyglass Wreck dungeon entrance uses the **Beached wreck** structure sprite (concept 1): the ghost ship heeled over on a sand-and-rock spit with the cracked Skyglass Core half-buried beside the hull.
+
+**Evidence:** User, 2026-10-24, after the three-concept review sheet (Beached, Hovering, Rising): "Beached".
+
+**Canonical destination:** `art/ghost_ship_skyglass/structure/` (README, raw, export, hashes).
