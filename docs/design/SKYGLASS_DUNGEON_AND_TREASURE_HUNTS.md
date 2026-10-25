@@ -49,10 +49,11 @@ The dungeon is where groups farm. The chest is its only drop. Maps turn the ches
 
 Settled by RUL-2026-10-24-008 unless marked open.
 
-- **Party:** exactly three players (engine rule). No level, item or cooldown gate. One-hour run; three idle rounds by any member end it. A party wipe revives everyone to retry the floor.
+- **Party:** exactly three players (engine rule). No level, item or cooldown gate. One-hour run; three idle rounds by any member end it. A party wipe revives everyone; on a mini-boss floor they retry that floor, on any other floor (the final boss included) they go back to the first floor of the tier (`dungeonNextState`, `app/src/libs/dungeon.ts` at the pin).
 - **Availability:** permanent (`expiresAt: null`), created hidden; publishing is the director's.
 - **Placement (set, RUL-2026-10-24-023):** sector **210**, longitude **15**, latitude **6** (sea tile off the coast). Entrance artwork: the "Skyglass Wreck" structure (`art/ghost_ship_skyglass/structure/`), entrance size multiplier **5**. Battle background: default. Expiration: none. Published: off until release. 210 is not in `MAP_RESERVED_SECTORS` at the pin. The manifest must carry the live `structureAssetId` of the uploaded structure (read it back before writing).
 - **Payout model:** dungeon battles pay nothing per fight and the party is fully healed after every floor; all reward is the completion reward and the chest (§4).
+- **Waves are sequential, not reinforcements** (`advanceEncounterWave`, `app/src/libs/combat/encounters.ts`): the next wave spawns only once every living enemy is down AND `delayRounds` have passed since the previous wave started. Waves never overlap; `delayRounds` (0-20) is a minimum length for the wave before it, and waiting rounds still count toward the three-round inactivity rule.
 - **Difficulty:** enemies do not scale to the party and the crew already sit at the JONIN caps, so waves are the lever. Two waves per floor:
 
 | Floor | Kind | Wave 1 (round 0) | Wave 2 (joins after) |
