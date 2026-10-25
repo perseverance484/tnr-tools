@@ -2547,3 +2547,23 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Keep it whole", "Keep the Beacon", "Retry, keep the haul", "We need to review loot tables and rewards for the entire event. There are reward packages and Caches in the game now."
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-011 — Event reward structure: hybrid chest, weighted caches, pick 1 of 4
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Every line, tier weight, quantity and package content is a proposal under review (`docs/design/SKYGLASS_LOOT_TABLES.md`).
+
+**Supersedes:** the standard-only chest table (RUL-2026-10-24-009 presentation); Silent Bastion's Arsenal and Research ingredient caches (RUL-2026-10-16-001/-010) are dropped.
+
+**Ruling:**
+1. **The Wreck chest is a hybrid item**: a standard part (guaranteed ryo, the map and Beacon bonus lines, Lion Token) and a weighted part (two salvage rolls).
+2. **Medicine Inro, Shinobi Tool Pouch and Sage's Strongbox are weighted caches of finished items.**
+3. **Every hunt's completion is a pick of 1 from 4 reward-package cards**: three universal hauls plus that hunt's own card.
+4. **Silent Bastion's ingredient caches are dropped**; its own card is a finished-item haul like the others.
+
+**Evidence:** User, 2026-10-24: "Hybrid", "1 of 4", "Drop them" (Bastion's ingredient caches), "Weighted".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
