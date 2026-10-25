@@ -759,7 +759,7 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 249 Earth Scroll and Heaven Scroll icons (suggest mode): READY TO RUN
+## 249 Earth Scroll and Heaven Scroll icons (suggest mode): RUN (bundle tnr_results_1792889957451.json: both suggested), archived
 
 Director, 2026-10-25: "Here's Earth Scroll, add it's ticket to the manifest" / "And heaven scroll". New icons for the
 two Chunin Exams quest scrolls, colour + seal direction (`docs/design/chunin_exam_scrolls/PROJECT.md`): the live colours
