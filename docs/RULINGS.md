@@ -2567,3 +2567,22 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Hybrid", "1 of 4", "Drop them" (Bastion's ingredient caches), "Weighted".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-012 — Elemental Tool Pouches, cache-only salvage, War Caches dropped
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Pouch contents, the salvage weights and every quantity stay proposals (`docs/design/SKYGLASS_LOOT_TABLES.md`). The hunt that offers the pouches is read as the Silent Bastion; confirm.
+
+**Supersedes:** the single Shinobi Tool Pouch and the "Shinobi's Haul" card (RUL-2026-10-24-011 item 3: picks are no longer a uniform 1 of 4); the supply and valuables salvage tiers in the chest; the five elemental War Caches as the source of elemental kunai.
+
+**Ruling:**
+1. **Five elemental Tool Pouches** (Katon, Wave, Ikazuchi, Stonefall, Zephyrfang), one element each plus shared tools. They **drop only from one hunt**, whose completion pick offers all five so each player takes their own element. Every other hunt's pick drops the Shinobi card.
+2. **The elemental War Caches are dropped**; the pouches replace them. Retirement mechanism and timing are the director's; no captured quest pays them.
+3. **The chest's salvage rolls give caches only** (Medicine Inro, Ornate Chest, Sage's Strongbox), which resolve into items when opened. The supply and valuables bundles leave the chest.
+
+**Evidence:** User, 2026-10-24: "Let's do 4. Then that specific hunt has a choice of 5 kunai pouches. We'll drop the elemental kunai Caches. And the shinobi tool pouches only drop from that hunt, so players can choose the one they want. Also, remove the excessive salvage drops from the initial Skyglass salvage cache. Allow the items it drops to resolve that, like medicine inro".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
