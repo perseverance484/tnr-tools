@@ -52,8 +52,8 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 70% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×10; Chakra Disrupting Needles ×10 |
-| Rare | 25% | That element's kunai ×20; Venom Cask ×10; Paper Bombs ×10 |
+| Common | 70% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Venom Cask ×10; Chakra Disrupting Needles ×10 |
+| Rare | 25% | That element's kunai ×20; Elite Smoke Bomb ×10; Paper Bombs ×10 |
 | Epic | 5% | That element's kunai ×30; Senbon Needles ×10; Saki ×10 |
 
 ## 4. Treasure hunts
