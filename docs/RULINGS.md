@@ -2901,3 +2901,27 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "Crew Footlocker is a pretty lackluster name for a rare drop with even rarer items"; then, from the proposed names: "Sealed Treasury".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-25-004 — Skyglass balance pass
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards and hunts
+
+**Status:** ACTIVE.
+
+**Supersedes:** the Coffer's Legendary tier (Katana or Crystal, 1%) and the Treasury's flat 3% on hunt endings (RUL-2026-10-25-002 items 1 and 3); the Drowned Foundry's leave-early endings (hunt content draft).
+
+**Ruling:**
+1. **Drowned Foundry** is always fought to the Foundry Warden: the two leave-early endings are removed (they paid the same completion pick as a full clear). Ladder step V.
+2. **Skyglass Coffer Legendary tier is the Skyglass Katana alone at 2%** (Common drops to 69). The Skyglass Crystal leaves the Coffer and comes only from crafting 12 Filaments, which the director confirms is live.
+3. The Sealwright's doubled health (push/252) also makes the Quarantined Archive's solo final fight harder; **accepted**.
+4. **Sealed Treasury on hunt endings scales with the ladder: 1% per step** (I 1% … VI 6%), on every hunt's endings. The Wreck clear stays 3%.
+5. **Captain's Watch pick: Medicine Inro ×3.** Bastion's Honor's token amount must be large enough to compete with Coffer ×2 (director sets it).
+6. **Sealed Treasury contents:** **100,000 ryo** every opening (standard reward effect) plus one weighted roll: Rare Jewels ×10 (70) / Imperial Gold ×5 (24) / Unobtanium ×5 (6).
+
+**Open:** the `battlepyramid` lifetime attempt cap (at most 100 runs per player per hunt): accept, switch hunts to special quests, or ask the game owner.
+
+**Evidence:** User, 2026-10-25, on the final review: "1. Approved. 2. Approved. 3. Accept the harder archive 4. Approved. Do this for all scaling endings. 1% drop rate of the treasury per stage on completion. 5. Approved and noted. 6. Approved. Add 100,000 ryo to the chest as well. Filament crafting is live and works."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; `docs/design/SKYGLASS_HUNTS_CONTENT.md` (Foundry).

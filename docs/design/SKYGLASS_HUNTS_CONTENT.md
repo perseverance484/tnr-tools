@@ -38,24 +38,22 @@ A chart marks a chamber missing from every ship plan. Someone aboard the Ghost S
 
 ## The Drowned Foundry
 
-**Chart:** Chart of the Drowned Foundry · **Ladder:** I · III · V by depth · **Scenes:** exterior_keel_walk, lower_hull, hold · **Portraits:** none · **New AI:** Foundry Warden (boss; avatar needed)
+**Chart:** Chart of the Drowned Foundry · **Ladder:** V (always fought to the Warden) · **Scenes:** exterior_keel_walk, lower_hull, hold · **Portraits:** none · **New AI:** Foundry Warden (boss; avatar needed)
 
-Under the warship's keel are the works where the Core grows and pours the Skyglass that repairs the hull. The seawater got in when the ship fell, and the works kept running. The deeper you go, the better the haul and the higher the water. Leave whenever you like; a lost fight costs time, not the haul.
+Under the warship's keel are the works where the Core grows and pours the Skyglass that repairs the hull. The seawater got in when the ship fell, and the works kept running. The water rises the deeper you go, and the haul is at the bottom: there is no way out but through the crucible. A lost fight costs time, not the haul.
 
 | Node | Type | Scene | Src | Text | Next |
 |---|---|---|---|---|---|
 | `d_arrive` | dialog | exterior_keel_walk | N | Beneath the keel, seal channels feed a hatch rimmed with cooled crystal. Seawater pours past it into the dark. Somewhere below, something is still being poured. | Climb down into the keel works → d_intake |
 | `d_intake` | dialog | lower_hull | N | The intake is half flooded. A Deck Warden stands knee-deep in it, counting canisters that bob against the walls. 'No one is relieved,' he says, as if reading it from a list. | Break the intake guard → b_intake |
 | `b_intake` | start_battle | lower_hull | N | The Deck Warden and a Core Canister hold the intake. **vs Deck Warden + Core Canister** | → d_racks |
-| `d_racks` | dialog | hold | N | Cooling racks line the first hall, stacked with fresh Skyglass that no one has collected. The water reaches your ankles and is still rising. A stair goes down into the pour halls. | Take what you can carry and climb out → w_shallow; Go deeper into the pour halls → d_hall |
+| `d_racks` | dialog | hold | N | Cooling racks line the first hall, stacked with fresh Skyglass that no one has collected. The water reaches your ankles and is still rising, and the hatch above has sealed behind you. A stair goes down into the pour halls. | Go deeper into the pour halls → d_hall |
 | `d_hall` | dialog | lower_hull | N | In the pour hall the Arsenal Keeper is checking the same ledger he has checked for decades, beside seal charges wired into every mould. He looks up. 'Unlisted personnel.' | Stop the Arsenal Keeper → b_hall |
 | `b_hall` | start_battle | lower_hull | N | The Arsenal Keeper sets off his charges. **vs Arsenal Keeper + Seal Charge + Seal Charge** | → d_gate |
-| `d_gate` | dialog | lower_hull | N | The water is at your knees. The pour hall's best work sits on the moulds, and below it the crucible glows through the floor grates. Whatever runs the works is down there. | Leave with what you carry → w_middle; Descend to the crucible → d_crucible |
+| `d_gate` | dialog | lower_hull | N | The water is at your knees. The pour hall's best work sits on the moulds, and below it the crucible glows through the floor grates. Whatever runs the works is down there. | Descend to the crucible → d_crucible |
 | `d_crucible` | dialog | hold | N | The crucible chamber is the only dry room in the works, kept dry by heat. The Foundry Warden stands in it, half fused with the pouring gear, a master smelter whose impression never set down his ladle. 'The last pour is not finished,' he says. | Face the Foundry Warden → b_warden |
 | `b_warden` | start_battle | hold | N | The Foundry Warden tips the crucible. **vs Foundry Warden + Core Canister** | → d_pour |
 | `d_pour` | dialog | hold | N | The Warden cools into a shell of crystal. The last pour sits unclaimed in its mould, and the works fall silent for the first time since the ship fell. | Take the last pour and leave → w_deep |
-| `w_shallow` | win_quest | hold | N | You climb out with the racks' easy haul before the water reaches your knees. **Step I** |  |
-| `w_middle` | win_quest | lower_hull | N | You leave with the pour hall's best work, and the crucible still burning below you. **Step III** |  |
 | `w_deep` | win_quest | hold | N | You carry the last pour out of the keel works. Above you the warship sails on, already starting to rebuild what you broke. **Step V** |  |
 
 ## The Captain's Watch
