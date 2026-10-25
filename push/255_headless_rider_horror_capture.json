@@ -1,0 +1,29 @@
+{
+ "_note": "READ-ONLY capture for the Halloween quest Headless Rider Horror! (0lNDtE_VYJOCy8JZQI_sI). Zero mutations. Operator-run only; never an agent request. One quests.get point read with persist:\"full\" so scripts/shotlist.py can derive the scene-background shot list from the quest graph and the Headless Rider AI can be wired to the battle node. The after block lists live AI names (to confirm 'Headless Rider' is free or find the coworkers' existing record) and SCENE_BACKGROUND asset names (to reuse an existing background instead of generating one). Keep the full results bundle.",
+ "capture": {
+  "before": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "0lNDtE_VYJOCy8JZQI_sI"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": [
+   {
+    "proc": "profile.getAllAiNames",
+    "select": ["id", "username"]
+   },
+   {
+    "proc": "gameAsset.getAllNames",
+    "input": {
+     "type": "SCENE_BACKGROUND",
+     "folderPrefix": true
+    },
+    "select": ["id", "name", "folder"]
+   }
+  ]
+ },
+ "items": []
+}
