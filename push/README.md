@@ -769,16 +769,16 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 254 Skyglass event items (10 creates, hidden): ON HOLD - do not run; waiting for the icons in docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md, then regenerated with the real images
+## 254 Skyglass event items (10 creates, hidden): READY TO RUN (after 253)
 
 `254_skyglass_items_create.json`: Skyglass Coffer (weighted cache: Common 70 jewels/gold/unobtanium, Rare 24 Serum x5 /
 Filament x3, Epic 5 Crown Fragment, Legendary 1 Katana or Crystal); Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Tool
 Pouches (that element's kunai x10 every opening + one weighted roll: Common 70 / Rare 25 / Epic 5); Chart of the Drowned
-Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch and Skyglass Signal Beacon (OTHER, tradable, no
-effect; Battle Pyramid entry items later). All hidden. **Icons are placeholders** reused from live items (Ornate Chest,
-Shinobi Tool Pouch, map pieces, Jack's Lantern), director-approved 2026-10-24 ("Placeholders now, art later"). Rarities
-and descriptions are drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not VERIFIED) is
-missing, the Coffer save is refused and reported; the rest still run. Armory Requisition waits for its Special quest.
+Foundry, Chart of the Quarantined Archive, Chart of the Captain's Watch (maps of the wreck's own interior,
+RUL-2026-10-24-026) and Skyglass Signal Beacon (OTHER, tradable, no effect; Battle Pyramid entry items later). All hidden.
+**Final icons** from `art/skyglass_event_icons/exports/`, image pack pinned at `c371a8c`. Rarities and descriptions are
+drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not VERIFIED) is missing, the Coffer save is
+refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
 ## 253 Skyglass caches convert (2 item edits): READY TO RUN
