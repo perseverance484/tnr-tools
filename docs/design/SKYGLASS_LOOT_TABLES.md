@@ -1,6 +1,6 @@
 # Skyglass event — loot tables
 
-**Status:** Reward MAP. Currency amounts are set by the director in game from the reward-package catalog (RUL-2026-10-24-019). Structure ruled by RUL-2026-10-24-011 to -018; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -021; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
 
 ## 1. Wreck clear (each member)
 
@@ -14,9 +14,9 @@
 | Sage's Strongbox | 5% |
 | Skyglass Coffer | 1% |
 | Chart of the Drowned Foundry | 12% |
-| Chart of the Quarantine Vault | 6% |
-| Skyglass Signal Beacon (Silent Bastion) | 6% |
-| Chart of the Skyglass Expedition | 3% |
+| Chart of the Quarantined Archive | 6% |
+| Chart of the Captain's Watch | 6% |
+| Skyglass Signal Beacon (Silent Bastion) | 3% |
 | Lion Token | 0.5% |
 
 ## 3. Reward caches (weighted, finished items)
@@ -64,7 +64,7 @@ Completion pick: **Medic's Haul** (Medicine Inro ×2); **Sage's Haul** (Sage's S
 
 ### The Drowned Foundry
 
-Entry: Chart of the Drowned Foundry (consumed at start). Completion: 100,000 ryo, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Entry: Chart of the Drowned Foundry (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
 
 | Ending | Pays |
 |---|---|
@@ -72,35 +72,32 @@ Entry: Chart of the Drowned Foundry (consumed at start). Completion: 100,000 ryo
 | Leave after the second fight | III: 3,000 exp, Sage's Strongbox ×1 |
 | Defeat the Foundry Warden | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
 
-### The Quarantine Vault
+### The Quarantined Archive
 
-Entry: Chart of the Quarantine Vault (consumed at start). Completion: 75,000 ryo, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Entry: Chart of the Quarantined Archive (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
 
 | Ending | Pays |
 |---|---|
-| Clean run (no alarms) | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
-| Alarm tripped | III: 3,000 exp, Sage's Strongbox ×1 |
+| Clean run: all three seals answered (final: Sealwright) | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
+| Alarm tripped (final: Sealwright) | III: 3,000 exp, Sage's Strongbox ×1 |
+
+### The Captain's Watch
+
+Entry: Chart of the Captain's Watch (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+
+| Ending | Pays |
+|---|---|
+| No terms accepted (final: The Captain) | IV: 4,000 exp, Sage's Strongbox ×1, Skyglass Coffer (50%) |
+| One or two terms accepted | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
+| All three terms accepted | VI: 5,000 exp, Skyglass Coffer ×2 |
 
 ### The Silent Bastion
 
-Entry: Skyglass Signal Beacon (consumed at start). Completion: 150,000 ryo, carried inside every pick card. Pick 1 of 3; own cards: **Armory Requisition** (Tradable token: use it to pick 1 of 5 elemental pouches).
+Entry: Skyglass Signal Beacon (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Armory Requisition** (Tradable token: use it to pick 1 of 5 elemental pouches).
 
 | Ending | Pays |
 |---|---|
 | Defeat Supreme Commander Arakane | VI: 5,000 exp, Skyglass Coffer ×2 |
-
-### The Skyglass Expedition
-
-Entry: Chart of the Skyglass Expedition (consumed at start). Completion: 75,000 ryo, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
-
-| Ending | Pays |
-|---|---|
-| w_B1 accessible hold (final: Deck Warden) | I: 1,000 exp, Medicine Inro ×1 |
-| w_A buried shore cache (final: Skyglass Sentinel, after the dig) | II: 2,000 exp, Medicine Inro ×1, Sage's Strongbox (50%) |
-| w_B2 restricted vault (final: First Blade) | III: 3,000 exp, Sage's Strongbox ×1 |
-| w_C direct Captain (final: The Captain) | IV: 4,000 exp, Sage's Strongbox ×1, Skyglass Coffer (50%) |
-| w_secret archive (seal puzzle, final: Sealwright) | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
-| w_Co oathbound (oath puzzle, final: Crowned Captain) | VI: 5,000 exp, Skyglass Coffer ×2 |
 
 ## 5. To check before the manifests
 

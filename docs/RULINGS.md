@@ -2743,3 +2743,21 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Why dont we forego the skyglass expedition. The hunt structure of these is better. Let's just borrow what content we need. The skyglass wreck dungeon can use some of the scenes and dialog/art perhaps?"; then "This works. And we can design at least 1 more hunt with the assets remaining".
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
+
+## RUL-2026-10-24-021 — The Captain's Watch; final map lines
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content and rewards
+
+**Status:** ACTIVE.
+
+**Supersedes:** the map lines of RUL-2026-10-24-009 item 3 (Expedition and Vault charts, Beacon 6%).
+
+**Ruling:**
+1. **The Captain's Watch** is the third designed hunt: Chart Room, Deck, Helm and Command Observation Gallery, landing at the Cache Site; fights Wayfinder, First Blade, The Captain; the Oathkeeper as keeper of the wager. **Wager ladder:** before each fight the player may accept a term (start that fight with a debuff); no terms pays step IV, one or two step V, all three step VI. A lost fight is retried with the same terms.
+2. **Wreck clear map lines:** Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**.
+
+**Evidence:** User, 2026-10-24: "This works. And we can design at least 1 more hunt with the assets remaining"; then, on the Watch proposal with Watch 3% / Beacon 6%: "Swap watch and beacon".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; hunt designs in `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
