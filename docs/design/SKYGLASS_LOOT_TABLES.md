@@ -1,69 +1,60 @@
 # Skyglass event — loot tables
 
-**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -014; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -015; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
 
 ## 1. Wreck clear (each member)
 
-15,000 exp · 1,000 tokens · 1,000 prestige · one chest.
+25,000 ryo · 15,000 exp · 1,000 tokens · 1,000 prestige.
 
-## 2. Skyglass Salvage Chest (name open) — hybrid, not tradable
-
-**Standard part** (independent lines):
+## 2. Wreck clear drops (no chest; each member rolls every line)
 
 | Line | Chance |
 |---|---|
-| 50,000 ryo | 100% |
-| Skyglass Serum ×2 | 100% |
+| Medicine Inro | 30% |
+| Sage's Strongbox | 5% |
+| Skyglass Coffer | 2% |
 | Chart of the Drowned Foundry | 12% |
 | Chart of the Quarantine Vault | 6% |
 | Skyglass Signal Beacon (Silent Bastion) | 6% |
 | Chart of the Skyglass Expedition | 3% |
-| Lion Token | 1% |
-
-**Weighted part:** 2 rolls; each roll gives one cache, which resolves into items when opened.
-
-| Tier | Weight | Entries (per-roll chance each) |
-|---|---|---|
-| Medicine Inro | 70% | Medicine Inro (70%) |
-| Skyglass Coffer | 20% | Skyglass Coffer (20%) |
-| Sage's Strongbox | 10% | Sage's Strongbox (10%) |
+| Lion Token | 0.5% |
 
 ## 3. Reward caches (weighted, finished items)
 
-**Skyglass Coffer** — Replaces the Ornate Chest; the one home for Skyglass loot; 1 roll(s). Guaranteed: 100,000 ryo.
+**Skyglass Coffer** — Replaces the Ornate Chest; the one home for Skyglass loot; 1 roll(s). Guaranteed: 50,000 ryo.
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 55% | Rare Jewels ×10; Imperial Gold ×5; Unobtanium ×5 |
-| Rare | 30% | Skyglass Serum ×5; Skyglass Filament ×5 |
-| Epic | 12% | Skyglass Reliquary ×1; Fragment of the Skyglass Crown ×1 |
-| Legendary | 3% | Skyglass Katana ×1; Skyglass Crystal ×1 |
+| Common | 65% | Rare Jewels ×10; Imperial Gold ×5; Unobtanium ×5 |
+| Rare | 27% | Skyglass Serum ×5; Skyglass Filament ×3 |
+| Epic | 7% | Fragment of the Skyglass Crown ×1 |
+| Legendary | 1% | Skyglass Katana ×1; Skyglass Crystal ×1 |
 
-**Medicine Inro** — Pills and potions; 2 roll(s).
+**Medicine Inro** — Pills and potions; 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 55% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×10 |
-| Rare | 30% | Small Health Pill ×10; Dr. Kim's Miracle Potion ×10; Panacea ×10 |
-| Epic | 12% | Chakra Pill II ×10; Stamina Pill II ×10 |
-| Legendary | 3% | Pill Pack ×5 |
+| Common | 70% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×10 |
+| Rare | 22% | Small Health Pill ×10; Dr. Kim's Miracle Potion ×10; Panacea ×10 |
+| Epic | 7% | Chakra Pill II ×10; Stamina Pill II ×10 |
+| Legendary | 1% | Pill Pack ×5 |
 
 **Sage's Strongbox** — Elite consumables with a scroll jackpot; 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 45% | Dr. Kim Disaster Potion ×20; Chakra Disrupting Needles ×20 |
-| Epic | 30% | Infernum ×10; Bashōsen ×10; Dr. Kim's Poison Potion ×10 |
-| Legendary | 22% | Pill Pack ×5; Solider Pill ×5; Enemy Pill ×5; Mona's Mermaid Song ×5 |
-| Forbidden | 3% | Forbidden Jutsu Scroll: Nexus ×1; Forbidden Jutsu Scroll: Rebirth ×1 |
+| Common | 65% | Dr. Kim Disaster Potion ×20; Chakra Disrupting Needles ×20 |
+| Epic | 26% | Infernum ×10; Bashōsen ×10; Dr. Kim's Poison Potion ×10 |
+| Legendary | 8% | Pill Pack ×5; Solider Pill ×5; Enemy Pill ×5; Mona's Mermaid Song ×5 |
+| Forbidden | 1% | Forbidden Jutsu Scroll: Nexus ×1; Forbidden Jutsu Scroll: Rebirth ×1 |
 
 **Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, chosen through the Armory Requisition (Silent Bastion only); 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 60% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×10; Chakra Disrupting Needles ×10 |
-| Rare | 30% | That element's kunai ×20; Venom Cask ×10; Paper Bombs ×10 |
-| Epic | 10% | That element's kunai ×30; Senbon Needles ×10; Saki ×10 |
+| Common | 70% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×10; Chakra Disrupting Needles ×10 |
+| Rare | 25% | That element's kunai ×20; Venom Cask ×10; Paper Bombs ×10 |
+| Epic | 5% | That element's kunai ×30; Senbon Needles ×10; Saki ×10 |
 
 ## 4. Treasure hunts
 
@@ -75,9 +66,9 @@ Entry: Chart of the Drowned Foundry (consumed at start). Pick 1 of 3; own cards:
 
 | Ending | Pays automatically |
 |---|---|
-| Leave after the first fight | 50,000 ryo, 5,000 exp, Skyglass Coffer ×1 |
-| Leave after the second fight | 100,000 ryo, 10,000 exp, Skyglass Coffer ×2 |
-| Defeat the Foundry Warden | 200,000 ryo, 20,000 exp, Skyglass Coffer ×3 |
+| Leave after the first fight | 25,000 ryo, 5,000 exp, Medicine Inro ×1 |
+| Leave after the second fight | 50,000 ryo, 10,000 exp, Sage's Strongbox ×1 |
+| Defeat the Foundry Warden | 100,000 ryo, 20,000 exp, Skyglass Coffer ×1 |
 
 ### The Quarantine Vault
 
@@ -85,8 +76,8 @@ Entry: Chart of the Quarantine Vault (consumed at start). Pick 1 of 3; own cards
 
 | Ending | Pays automatically |
 |---|---|
-| Clean run (no alarms) | 150,000 ryo, 15,000 exp, Skyglass Coffer ×2 |
-| Alarm tripped | 150,000 ryo, 15,000 exp, Skyglass Coffer ×1 |
+| Clean run (no alarms) | 75,000 ryo, 15,000 exp, Skyglass Coffer ×1 |
+| Alarm tripped | 75,000 ryo, 15,000 exp, Sage's Strongbox ×1 |
 
 ### The Silent Bastion
 
@@ -94,7 +85,7 @@ Entry: Skyglass Signal Beacon (consumed at start). Pick 1 of 3; own cards: **Arm
 
 | Ending | Pays automatically |
 |---|---|
-| Defeat Supreme Commander Arakane | 300,000 ryo, 30,000 exp, Skyglass Coffer ×2 |
+| Defeat Supreme Commander Arakane | 150,000 ryo, 30,000 exp, Skyglass Coffer ×1 |
 
 ### The Skyglass Expedition
 
@@ -102,17 +93,17 @@ Entry: Chart of the Skyglass Expedition (consumed at start). Pick 1 of 3; own ca
 
 | Ending | Pays automatically |
 |---|---|
-| w_A hidden shore cache | 75,000 ryo, Medicine Inro ×1 |
-| w_B1 accessible hold | 75,000 ryo, Medicine Inro ×1 |
-| w_B2 restricted vault | 100,000 ryo, Skyglass Coffer ×1 |
-| w_C direct Captain | 150,000 ryo, Skyglass Coffer ×1 |
-| w_Co oathbound Crowned Captain | 150,000 ryo, Skyglass Coffer ×2 |
-| w_secret Quarantined Archive | 100,000 ryo, Skyglass Coffer ×2 |
+| w_A hidden shore cache | 25,000 ryo, Medicine Inro ×1 |
+| w_B1 accessible hold | 25,000 ryo, Medicine Inro ×1 |
+| w_B2 restricted vault | 50,000 ryo, Sage's Strongbox ×1 |
+| w_C direct Captain | 50,000 ryo, Sage's Strongbox ×1 |
+| w_Co oathbound Crowned Captain | 75,000 ryo, Skyglass Coffer ×1 |
+| w_secret Quarantined Archive | 75,000 ryo, Skyglass Coffer ×1 |
 
 ## 5. To check before the manifests
 
 - Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
 - Forbidden Jutsu Scrolls at 3% of one Strongbox roll: keep, lower or remove.
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
-- Skyglass items come only from the Coffer. The Reliquary inside it is itself a chest with a 3% Crystal; the Coffer's own 3% Crystal line is a second route. Katana about one per 170 Wreck clears.
+- The Skyglass Reliquary is no longer in the event (the Coffer replaces it). Retire it or reuse it; the Mystery Chest's 10% Reliquary line needs the same decision.
 - The Mystery Chest's 10% Reliquary line was added outside any push.
