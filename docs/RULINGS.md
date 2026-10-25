@@ -2646,3 +2646,21 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Your drop rates are too rewarding and not balanced in some cases. The salvage chest can be done away with, just give players the rolls for clearing the dungeon. Skyglass Coffer giving Skyglass Reliquary defeats the purpose."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-016 — Ryo and exp paid only on completion
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. The balance pass that accompanies it is a proposal for review. Where a hunt's endings paid different amounts (Foundry 25k/50k/100k, Expedition 25k–75k), the top ending's amount was carried to completion.
+
+**Supersedes:** ryo and exp on hunt endings; the Coffer's guaranteed ryo; an earlier request about per-ending picks (withdrawn: "it's fine").
+
+**Ruling:** **Ryo and exp are paid only on completion**: removed from every other node, amounts not otherwise adjusted. Hunt endings pay items only.
+
+**Engine note:** in a `choose` quest, completion ryo and exp become pick cards of their own (`buildRewardChoiceCards`), so a fixed completion payout is carried inside each pick card (a reward package per card); every player receives it whatever they pick. The choose offer is built only from the quest-level reward, so per-ending picks would need a token per ending (Requisition pattern).
+
+**Evidence:** User, 2026-10-24: "OK, you know what, it's fine. Do one more balance pass of the drop rates and show them to me for review. Exp and ryo only paid on completion, just remove the rewards from the other nodes and dont adjust numbers".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.

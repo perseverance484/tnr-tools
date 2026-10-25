@@ -1,6 +1,6 @@
 # Skyglass event — loot tables
 
-**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -015; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -016; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
 
 ## 1. Wreck clear (each member)
 
@@ -10,9 +10,9 @@
 
 | Line | Chance |
 |---|---|
-| Medicine Inro | 30% |
+| Medicine Inro | 25% |
 | Sage's Strongbox | 5% |
-| Skyglass Coffer | 2% |
+| Skyglass Coffer | 1% |
 | Chart of the Drowned Foundry | 12% |
 | Chart of the Quarantine Vault | 6% |
 | Skyglass Signal Beacon (Silent Bastion) | 6% |
@@ -21,13 +21,13 @@
 
 ## 3. Reward caches (weighted, finished items)
 
-**Skyglass Coffer** — Replaces the Ornate Chest; the one home for Skyglass loot; 1 roll(s). Guaranteed: 50,000 ryo.
+**Skyglass Coffer** — Replaces the Ornate Chest; the one home for Skyglass loot; no ryo (ryo is paid on completion only); 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 65% | Rare Jewels ×10; Imperial Gold ×5; Unobtanium ×5 |
-| Rare | 27% | Skyglass Serum ×5; Skyglass Filament ×3 |
-| Epic | 7% | Fragment of the Skyglass Crown ×1 |
+| Common | 70% | Rare Jewels ×10; Imperial Gold ×5; Unobtanium ×5 |
+| Rare | 24% | Skyglass Serum ×5; Skyglass Filament ×3 |
+| Epic | 5% | Fragment of the Skyglass Crown ×1 |
 | Legendary | 1% | Skyglass Katana ×1; Skyglass Crystal ×1 |
 
 **Medicine Inro** — Pills and potions; 1 roll(s).
@@ -62,43 +62,43 @@ Completion pick: **Medic's Haul** (Medicine Inro ×2); **Sage's Haul** (Sage's S
 
 ### The Drowned Foundry
 
-Entry: Chart of the Drowned Foundry (consumed at start). Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Entry: Chart of the Drowned Foundry (consumed at start). Completion: 100,000 ryo · 20,000 exp, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
 
-| Ending | Pays automatically |
+| Ending | Pays (items only) |
 |---|---|
-| Leave after the first fight | 25,000 ryo, 5,000 exp, Medicine Inro ×1 |
-| Leave after the second fight | 50,000 ryo, 10,000 exp, Sage's Strongbox ×1 |
-| Defeat the Foundry Warden | 100,000 ryo, 20,000 exp, Skyglass Coffer ×1 |
+| Leave after the first fight | Medicine Inro ×1 |
+| Leave after the second fight | Sage's Strongbox ×1 |
+| Defeat the Foundry Warden | Skyglass Coffer ×1 |
 
 ### The Quarantine Vault
 
-Entry: Chart of the Quarantine Vault (consumed at start). Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Entry: Chart of the Quarantine Vault (consumed at start). Completion: 75,000 ryo · 15,000 exp, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
 
-| Ending | Pays automatically |
+| Ending | Pays (items only) |
 |---|---|
-| Clean run (no alarms) | 75,000 ryo, 15,000 exp, Skyglass Coffer ×1 |
-| Alarm tripped | 75,000 ryo, 15,000 exp, Sage's Strongbox ×1 |
+| Clean run (no alarms) | Skyglass Coffer ×1 |
+| Alarm tripped | Sage's Strongbox ×1 |
 
 ### The Silent Bastion
 
-Entry: Skyglass Signal Beacon (consumed at start). Pick 1 of 3; own cards: **Armory Requisition** (Tradable token: use it to pick 1 of 5 elemental pouches).
+Entry: Skyglass Signal Beacon (consumed at start). Completion: 150,000 ryo · 30,000 exp, carried inside every pick card. Pick 1 of 3; own cards: **Armory Requisition** (Tradable token: use it to pick 1 of 5 elemental pouches).
 
-| Ending | Pays automatically |
+| Ending | Pays (items only) |
 |---|---|
-| Defeat Supreme Commander Arakane | 150,000 ryo, 30,000 exp, Skyglass Coffer ×1 |
+| Defeat Supreme Commander Arakane | Skyglass Coffer ×1 |
 
 ### The Skyglass Expedition
 
-Entry: Chart of the Skyglass Expedition (consumed at start). Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Entry: Chart of the Skyglass Expedition (consumed at start). Completion: 75,000 ryo, carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
 
-| Ending | Pays automatically |
+| Ending | Pays (items only) |
 |---|---|
-| w_A hidden shore cache | 25,000 ryo, Medicine Inro ×1 |
-| w_B1 accessible hold | 25,000 ryo, Medicine Inro ×1 |
-| w_B2 restricted vault | 50,000 ryo, Sage's Strongbox ×1 |
-| w_C direct Captain | 50,000 ryo, Sage's Strongbox ×1 |
-| w_Co oathbound Crowned Captain | 75,000 ryo, Skyglass Coffer ×1 |
-| w_secret Quarantined Archive | 75,000 ryo, Skyglass Coffer ×1 |
+| w_A hidden shore cache | Medicine Inro ×1 |
+| w_B1 accessible hold | Medicine Inro ×1 |
+| w_B2 restricted vault | Sage's Strongbox ×1 |
+| w_C direct Captain | Sage's Strongbox ×1 |
+| w_Co oathbound Crowned Captain | Skyglass Coffer ×1 |
+| w_secret Quarantined Archive | Skyglass Coffer ×1 |
 
 ## 5. To check before the manifests
 
