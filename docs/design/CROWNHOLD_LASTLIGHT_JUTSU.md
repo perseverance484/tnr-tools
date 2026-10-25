@@ -26,8 +26,8 @@ Earned once, as a take-once pick on Crownhold's completion (RUL-2026-10-25-002).
 | wound (formula, same types; rides the damage on the same action) | 20 | 0.4 | **30%** | **2** |
 | decreaseheal (heal cut) | 30 | 0.4 | **40%** | **3** |
 
-**Note for the director:** Elite Jonin can train jutsu to level 30 (`ELITE_JONIN_JUTSU_LEVEL_CAP`), which takes Lastlight to
-52 damage / 32% wound / 42% heal cut. Accept, or cap the targets at 30 (base 38 / 18 / 28).
+**Elite Jonin:** they can train jutsu to level 30 (`ELITE_JONIN_JUTSU_LEVEL_CAP`), which takes Lastlight to 52 damage /
+32% wound / 42% heal cut. Director 2026-10-25: the level-25 targets stand ("its fine. Thats a worry for another day").
 
 **Build route (director, 2026-10-25):** Lastlight is **suggested first** as a new record (Forge suggest-mode create,
 `fable/forge-suggest-create`, RUL-2026-10-25-001), hidden. The Crownhold pick that offers it is added **later**, by a
