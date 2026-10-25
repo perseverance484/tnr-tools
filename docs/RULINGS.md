@@ -2941,3 +2941,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "Need a better name for Silent Bastion"; "I want to be short, on theme and really pop"; "Crownhold and Lastlight are good... any way we can tie the theme of the entire thing into the name and the item that unlocks it?"; then "Perfect. Approved both renames".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`, `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`; item name and draft description in push/254 (on hold).
+
+## RUL-2026-10-25-006 — Lastlight, the Crownhold jutsu
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards; jutsu
+
+**Status:** ACTIVE (spec). Costs and art open.
+
+**Ruling:** Crownhold's take-once jutsu pick is **Lastlight**: an EVENT jutsu, **PvE only** (`battleUsageType: PVE`), no element, line attack (AOE_LINE_SHOOT), cooldown **8**. Effects scale **0.4 per level** and start 10 below their targets so they reach them at level 25: damage 40 (→50), wound 20 (→30%) for **2 rounds**, decreaseheal 30 (→40%) for **3 rounds**.
+
+**Evidence:** User, 2026-10-25: "I like it as Lastlight, a line nuke that does 50 damage, 30% wound and 40% heal cut. PvE only though. Dont wanna upset the balance of PvP"; then "Cooldown 8, wound 2 rounds, heal cut 3 rounds, element none, jutsu type event. Scaling will be .4 per level so we need to take 10 off every value so that it can scale to the proposed values at max level."
+
+**Canonical destination:** `docs/design/CROWNHOLD_LASTLIGHT_JUTSU.md`.
