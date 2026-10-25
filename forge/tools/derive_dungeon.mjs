@@ -40,11 +40,20 @@ const one = (s, re, what) => { const m = s.match(re); if (!m) fail(`missing ${wh
  */
 function members(body, indent, where) {
   const out = {};
-  let cur = null;
-  for (const line of body.split("\n")) {
+  let cur = null, closed = false;
+  // line 0 is the object's own opener (`z.object({`, `.object({`, `rewards: z.object({`)
+  for (const line of body.split("\n").slice(1)) {
     const lead = line.match(/^ */)[0].length;
     const text = line.trim();
-    if (!text || lead < indent || text.startsWith("//") || text.startsWith("/*") || text.startsWith("*")) continue;
+    if (!text || text.startsWith("//") || text.startsWith("/*") || text.startsWith("*")) continue;
+    // Nothing is skipped for its indentation (review N1): the only shallower line an object body
+    // may hold is its own closing delimiter, and nothing may follow it.
+    if (closed) fail(`${where}: unexpected ${JSON.stringify(text)} after the object closed`);
+    if (lead < indent) {
+      if (!/^[\])}]+[,;]?$/.test(text)) fail(`${where}: unsupported member ${JSON.stringify(text)} at indent ${lead} (members sit at ${indent})`);
+      closed = true;
+      continue;
+    }
     // a closing line (`}),`) at the member indent belongs to the member it closes
     if (lead === indent && !/^[\])}]+[,;]?$/.test(text)) {
       const m = text.match(/^(\w+):(.*)$/);
