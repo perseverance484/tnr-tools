@@ -769,7 +769,7 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 254 Skyglass event items (10 creates, hidden): READY TO RUN (after 253)
+## 254 Skyglass event items (10 creates, hidden): ON HOLD - to go in as suggestions once Forge suggest-mode creates ship (RUL-2026-10-25-001)
 
 `254_skyglass_items_create.json`: Skyglass Coffer (weighted cache: Common 70 jewels/gold/unobtanium, Rare 24 Serum x5 /
 Filament x3, Epic 5 Crown Fragment, Legendary 1 Katana or Crystal); Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Tool

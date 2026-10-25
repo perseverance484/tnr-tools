@@ -2837,3 +2837,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Have decided to make the charts like maps of the wreck itself. The ships layout is always changing but sometimes charts mapping its interior can be found."
 
 **Canonical destination:** `docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md` §7-9; descriptions in push/254 (on hold).
+
+## RUL-2026-10-25-001 — Forge suggest mode may send new records (Lane A approved)
+
+**Date:** 2026-10-25
+
+**Domain:** Forge / content review
+
+**Status:** ACTIVE.
+
+**Ruling:** Forge's suggest mode is extended to send new records to the game's review desk as CREATE suggestions (the desk already accepts `entityId: null`). AI creates and quests stay refused, and a suggested create that another item in the same manifest references is refused. Built on `fable/forge-suggest-create` under Lane A with independent review. push/254 (the Skyglass event items) goes in as suggestions once this ships.
+
+**Evidence:** User, 2026-10-25, choosing between creating hidden then releasing by suggestion, or adding new-record suggestions to Forge: "2".
+
+**Canonical destination:** `state/prompt_forge_suggest_create.md`; implementation on `fable/forge-suggest-create`.
