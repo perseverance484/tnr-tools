@@ -15,5 +15,7 @@ side = round(max(im.size) / 0.95)                                     # ~2.5% ma
 canvas = Image.new('RGBA', (side, side), (0, 0, 0, 0))
 canvas.alpha_composite(im, ((side - im.width) // 2, (side - im.height) // 2))
 canvas = canvas.resize((256, 256), Image.LANCZOS)
+r, g, b, a = canvas.split()                                          # resampling softens the edge; firm it up
+canvas = Image.merge('RGBA', (r, g, b, a.point(lambda v: 0 if v < 80 else (255 if v > 175 else v))))
 canvas.save(out, 'WEBP', lossless=True, quality=100, method=6)
 print(out, canvas.size, 'trimmed', im.size)
