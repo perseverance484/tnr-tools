@@ -1,0 +1,348 @@
+{
+ "_note": "Skyglass caches (push/253): convert the two existing hidden caches from the old material loot tables to weighted caches with the approved contents (docs/design/SKYGLASS_LOOT_TABLES.md; RUL-2026-10-24-011..015). One roll each; tier weights in basis points (CACHE_PROBABILITY_TOTAL 10,000). Both stay hidden. Descriptions are drafts for the director. Edits only; no creates.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "ixEKlJ0MmDrX7JoMNJVhi",
+   "name": "Medicine Inro: weighted cache of pills and potions",
+   "data": {
+    "description": "A lacquered medicine case recovered from the Skyglass wreck. Each tier holds a field medic's supply of pills and tonics.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Medicine Inro: one roll of pills and potions",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Medicine Inro",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 7000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "MnJjf3TDSNI5FaEqkQEmi",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "tZTvqYWiAc_OrY64nDvIo",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "GNGrfEDnxbRBgOHHCjPX3",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2200,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XmFscRje4vUzUorOI5plt",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "6DnJn4x6LWWXtBu7UZybb",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "rsc2uO5QuffXzejfhwF_F",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 700,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "nThwqBAKNrl1_4UTL-D_m",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "CbUq--UpWnawD_7Xk_GCV",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 100,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XX8TLmUNJtqeiGM1T99tD",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "target": "SELF"
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "h-d58UCSuHN8EZKbLjT5R",
+   "name": "Sage's Strongbox: weighted cache of elite consumables",
+   "data": {
+    "description": "A sealed strongbox recovered from the Skyglass wreck. Behind its paper seals lie potent pills, battle reagents and, now and then, a forbidden scroll.",
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Sage's Strongbox: one roll of elite consumables",
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Sage's Strongbox",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 6500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "RM9DjOswzqNTRWnd-FsdE",
+             "quantity": 20
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "nK5tVwfev0Z5-Vjq4n1lD",
+             "quantity": 20
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 2600,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "0BeRbkWe4fkBJcUfvTlbk",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Ll0tEiDfhbAveShhmdKjl",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "FCqGTz3jEFEJoGCeagx1P",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 800,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XX8TLmUNJtqeiGM1T99tD",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "iBKQ2z2sDPZ-7DIe8NX_N",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "D9pEvpmoVE-uW8czNpZ2f",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "ZHHFba1VW9JrDXdWrbtrv",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Forbidden",
+         "probability": 100,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XZfVErGEkHpPiPtPa7_VC",
+             "quantity": 1
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "X5q3Ww-yfCeJ3m6ZqPmmz",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "target": "SELF"
+   }
+  }
+ ]
+}
