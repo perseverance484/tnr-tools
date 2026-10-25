@@ -232,3 +232,17 @@ session (the repository is not attached). If it merges, the effect square become
 the portrait sits at a fixed place in it (avatar centre 0.3 from the top, radius 0.16, the h = 20 layout); Celestial Dew
 and Ethereal Rebirth are then rebuilt to that one layout and fit every screen. Until then, v7 (tuned to the director's
 phone) ships.
+
+## 15. v8: one layout for every screen (2026-10-24)
+
+Director: "Just assume the PR is done and build the version that fits all screens." With the effect drawn at 2.5 h, the
+square is the same in tile heights on every screen: avatar centre 0.30 from the top, radius 0.16; white disc centre
+0.283, radius 0.202; health bar 0.033 (`build_strip.py`: `EFFECT_H` = 2.5 and these formulas). The ward band sits over
+the white disc's edge (inner 0.192, outer about 0.249, its top 0.034 from the square's edge); the moon (0.10 tall) on top
+of the head over the health bar; splash, drop, glints, sparks and shards scaled up to the larger portrait. Strips
+`*_v8`: appear 222,084 bytes, loop 167,732, break 61,066. Checked on the director's recording at the post-change size
+(2.5 x 16.1 = 40.25 units = 148.2 recording px, same centre): `v8_on_your_recording.png`; previews and the showcase use
+that placement.
+
+**Until the upstream change is live,** the game still draws the strip at 50 px, so v8 shows about 25% too large on the
+director's phone (and differently elsewhere). push/243 ships v8 on the director's instruction.
