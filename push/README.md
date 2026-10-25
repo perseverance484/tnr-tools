@@ -759,16 +759,19 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 243 Celestial Dew animations v9: READY TO RUN (before 240)
+## 244 Celestial Dew animations v9: READY TO RUN
 
-v9: exact portrait geometry from the game's own marker and mask images (PROJECT.md section 16), one layout for every
-screen (director, 2026-10-24: "Just assume the PR is done and build the version that fits all screens"), built for the
-upstream change that draws effects at 2.5 tile heights (PROJECT.md section 15), with the slow
-brightening and 6.4 s breath. **Until that change is live the game draws it at 50 px, about 25% too large on the
-director's phone.** Direct edits of the three existing assets: appear `7PCuqwNbf0s8jOKEFwA_l` (92 x 46 ms), loop
-`wdir89CrMcvbQNR8OFymV` (64 x 100 ms), break `h7Yg7wmA0BBCjzvNvKTp5` (30 x 46 ms); new filenames (law 32), hidden false
-(law 16c). Same ids, so push/240 needs no change. Pack pinned at 3552c76. Gates: `validate.py --strict` 0 errors,
-0 warnings; `check_manifest.mjs` 0 pre-send problems.
+push/243 ran the v5 build, so the live strips are three versions behind. v9: exact portrait geometry from the game's own
+marker and mask images (PROJECT.md section 16), one layout for every screen (director, 2026-10-24: "Just assume the PR is
+done and build the version that fits all screens"), built for the upstream change that draws effects at 2.5 tile heights
+(PROJECT.md section 15), with the slow brightening and 6.4 s breath. **Until that change is live the game draws it at
+50 px, about 25% too large on the director's phone.** Direct edits of the three existing assets: appear
+`7PCuqwNbf0s8jOKEFwA_l` (92 x 46 ms), loop `wdir89CrMcvbQNR8OFymV` (64 x 100 ms), break `h7Yg7wmA0BBCjzvNvKTp5`
+(30 x 46 ms); new filenames (law 32), hidden false (law 16c). Assets only, so the open Celestial Dew suggestion (240)
+picks the new strips up with no change. Pack pinned at f8b9ad2. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems (hash `ed348ca0`).
+
+## 243 Celestial Dew animations: RUN (bundle tnr_results_1792883918081.json: all three updated with the v5 strips), archived; v9 ships in push/244
 
 ## 242 Celestial Dew capture with the record kept: RUN (bundle tnr_results_1792883431355.json), archived. Checked against push/240: live icon is the original; heal effect identical; shield differs only by the three new animations; injectableInBattle false both. 240 stands as built.
 
@@ -785,7 +788,7 @@ confirmation; with this bundle, `python3 push/240_celestial_dew.gen.py <238 bund
 live record if anything differs. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send
 problems.
 
-## 240 Celestial Dew suggestion: READY TO RUN (239 done)
+## 240 Celestial Dew suggestion: RUN (bundle tnr_results_1792883926090.json: suggestion sent), archived
 
 `python3 push/240_celestial_dew.gen.py <238 bundle>`: one suggestion setting the shield effect's appear, static and
 disappear animations to the push/238 assets, and brings back our reworked icon (`icon_jutsu_celestial_dew_v1.webp`;
