@@ -759,10 +759,11 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 243 Celestial Dew animations v8: READY TO RUN (before 240)
+## 243 Celestial Dew animations v9: READY TO RUN (before 240)
 
-v8: one layout for every screen (director, 2026-10-24: "Just assume the PR is done and build the version that fits all
-screens"), built for the upstream change that draws effects at 2.5 tile heights (PROJECT.md section 15), with the slow
+v9: exact portrait geometry from the game's own marker and mask images (PROJECT.md section 16), one layout for every
+screen (director, 2026-10-24: "Just assume the PR is done and build the version that fits all screens"), built for the
+upstream change that draws effects at 2.5 tile heights (PROJECT.md section 15), with the slow
 brightening and 6.4 s breath. **Until that change is live the game draws it at 50 px, about 25% too large on the
 director's phone.** Direct edits of the three existing assets: appear `7PCuqwNbf0s8jOKEFwA_l` (92 x 46 ms), loop
 `wdir89CrMcvbQNR8OFymV` (64 x 100 ms), break `h7Yg7wmA0BBCjzvNvKTp5` (30 x 46 ms); new filenames (law 32), hidden false
