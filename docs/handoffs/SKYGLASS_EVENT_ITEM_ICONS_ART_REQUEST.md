@@ -18,9 +18,9 @@
 | 4 | Wave Tool Pouch | `icon-tool-pouch-wave.webp` | lime | approved #2 (style) |
 | 5 | Stonefall Tool Pouch | `icon-tool-pouch-stonefall.webp` | lime | approved #2 (style) |
 | 6 | Zephyrfang Tool Pouch | `icon-tool-pouch-zephyrfang.webp` | **magenta** (green accent) | approved #2 (style) |
-| 7 | Chart of the Drowned Foundry | `icon-chart-drowned-foundry.webp` | lime | Reliquary (style only) |
-| 8 | Chart of the Quarantined Archive | `icon-chart-quarantined-archive.webp` | lime | approved #7 (style) |
-| 9 | Chart of the Captain's Watch | `icon-chart-captains-watch.webp` | lime | approved #7 (style) |
+| 7 | Chart of the Drowned Foundry (map of the wreck: keel and lower decks) | `icon-chart-drowned-foundry.webp` | lime | Reliquary (style only) |
+| 8 | Chart of the Quarantined Archive (map of the wreck: sealed chamber amidships) | `icon-chart-quarantined-archive.webp` | lime | approved #7 (style) |
+| 9 | Chart of the Captain's Watch (map of the wreck: upper command decks) | `icon-chart-captains-watch.webp` | lime | approved #7 (style) |
 | 10 | Skyglass Signal Beacon | `icon-skyglass-signal-beacon.webp` | lime | Reliquary (style only) |
 | 11 | Armory Requisition | `icon-armory-requisition.webp` | lime | Reliquary (style only) |
 
@@ -111,37 +111,59 @@ Raw names: `raw_icon_tool_pouch_<element>.png`. "No lightning / water / rocks / 
 negative.
 
 ### 7. Chart of the Drowned Foundry (locks the chart family)
+
+**Concept (RUL-2026-10-24-026):** the Charts are maps of the wreck itself. The ship's layout is always shifting, but now
+and then a chart of its interior turns up. Every chart is the same half-unrolled sheet showing a side-on plan of the ship
+(hull outline, decks, bulkheads) drawn in faint pale lines that have been redrawn over older lines, with ONE section
+picked out in glowing skyglass ink: the keel and lower decks (Foundry), a sealed chamber amidships (Archive) or the upper
+command decks (Captain's Watch). At 125 px the glowing section's position, bottom, middle or top, tells them apart.
+
+Attach `ref_style_skyglass_reliquary.png`.
 ~~~text
-Draw ONE game item icon for The Ninja RPG: the Chart of the Drowned Foundry, a waterlogged treasure chart that leads to a
-sunken foundry of a shinobi sky-warship project. Generate exactly one image. Do not crop, key or process it.
+Draw ONE game item icon for The Ninja RPG: the Chart of the Drowned Foundry, a chart of the interior of a wrecked shinobi sky-warship whose layout keeps shifting. Generate exactly one image. Do not crop, key or process it.
 
-Reference attached: the Skyglass Reliquary icon. STYLE AND MATERIAL ONLY: match its rendering, palette, outline and
-lighting. Do not copy its shape.
+Reference attached: the Skyglass Reliquary icon. STYLE AND MATERIAL ONLY: match its rendering, palette, outline and lighting. Do not copy its shape.
 
-Subject: a rolled parchment chart, half unrolled at an angle, dark water-stained paper with faint pale map lines and a
-coastline (no writing), held by a blackened iron chart ring around the rolled end. The ring is stamped with a small
-anvil-and-gear seal and set with one small faceted pale cyan skyglass bead. A few water drips at the torn lower edge.
+Subject: a rolled parchment chart, half unrolled at an angle, dark water-stained paper. On the unrolled part, a side-on cutaway plan of a sailing warship: the hull outline, stacked decks, bulkheads and masts drawn in faint pale lines, with older lines showing faintly beneath newer ones as if the plan had been redrawn many times. The KEEL AND LOWEST DECKS are picked out in glowing pale cyan skyglass ink. A blackened iron chart ring holds the rolled end, stamped with a small anvil-and-gear seal and set with one small faceted pale cyan skyglass bead. A few water drips at the torn lower edge.
 
-Style: game item icon, painted digital illustration with a crisp dark outline, dark parchment and blackened iron, one
-accent of pale cyan skyglass with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, strong readable
-silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green
-chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+Style: game item icon, painted digital illustration with a crisp dark outline, dark parchment and blackened iron, one accent of pale cyan skyglass ink and skyglass with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
 
-Negative: no text, no letters, no numbers, no compass rose lettering, no labels, no UI, no frame, no watermark, no table or
-surface, no shadow on the background, no glow halo, no second object, no quill, no bottle.
+Negative: no text, no letters, no numbers, no labels or legends, no compass-rose lettering, no coastline or land map, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no quill, no bottle, no second object.
 
 Return the raw image named raw_icon_chart_drowned_foundry.png.
 ~~~
 
-### 8-9. The other charts
-Attach the approved Foundry chart (style and shape: keep the rolled chart and iron ring). Paste the Foundry prompt with:
+### 8. Chart of the Quarantined Archive
+Attach the approved Foundry chart (processed).
+~~~text
+Draw ONE game item icon for The Ninja RPG: the Chart of the Quarantined Archive, a chart of the interior of a wrecked shinobi sky-warship whose layout keeps shifting. Generate exactly one image. Do not crop, key or process it.
 
-| # | Name | Changes |
-|---|---|---|
-| 8 | Chart of the Quarantined Archive | the chart is clean, not waterlogged; crossed pale paper seal strips bind the rolled end instead of a plain ring, with the skyglass bead set in a small iron seal plate where the strips cross |
-| 9 | Chart of the Captain's Watch | the chart is held by a heavy blackened iron captain's chart ring with a small crown-shaped crest (no letters) and a larger skyglass bead; a slim dark iron spyglass lies across the unrolled part |
+Reference attached: Chart of the Drowned Foundry icon. SHAPE, STYLE AND LAYOUT: keep the same half-unrolled chart, the same side-on ship plan with redrawn faint pale lines, the same camera and rendering. Only the highlighted section and the binding change.
 
-Raw names: `raw_icon_chart_quarantined_archive.png`, `raw_icon_chart_captains_watch.png`.
+Subject: the same chart, clean and dry, not waterlogged. On the ship plan, a single SEALED CHAMBER AMIDSHIPS, in the middle of the hull, is picked out in glowing pale cyan skyglass ink and boxed in by a drawn seal border; the keel is NOT highlighted. Instead of a plain iron ring, crossed pale paper seal strips bind the rolled end, and where they cross sits a small blackened iron seal plate set with one faceted pale cyan skyglass bead.
+
+Style: game item icon, painted digital illustration with a crisp dark outline, dark parchment and blackened iron, one accent of pale cyan skyglass ink and skyglass with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+
+Negative: no text, no letters, no numbers, no labels or legends, no compass-rose lettering, no coastline or land map, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no quill, no bottle, no writing on the seal strips, no water drips, no second object.
+
+Return the raw image named raw_icon_chart_quarantined_archive.png.
+~~~
+
+### 9. Chart of the Captain's Watch
+Attach the approved Foundry chart (processed).
+~~~text
+Draw ONE game item icon for The Ninja RPG: the Chart of the Captain's Watch, the captain's own chart of a wrecked shinobi sky-warship whose layout keeps shifting. Generate exactly one image. Do not crop, key or process it.
+
+Reference attached: Chart of the Drowned Foundry icon. SHAPE, STYLE AND LAYOUT: keep the same half-unrolled chart, the same side-on ship plan with redrawn faint pale lines, the same camera and rendering. Only the highlighted section and the binding change.
+
+Subject: the same chart, clean and dry. On the ship plan, the UPPER COMMAND DECKS, the raised stern decks and the helm at the top of the hull, are picked out in glowing pale cyan skyglass ink; the keel is NOT highlighted. The rolled end is held by a heavier blackened iron captain's chart ring with a small crown-shaped crest (no letters) and a larger faceted pale cyan skyglass bead. A slim dark iron spyglass lies across the unrolled part.
+
+Style: game item icon, painted digital illustration with a crisp dark outline, dark parchment and blackened iron, one accent of pale cyan skyglass ink and skyglass with a soft inner glow, soft cool rim light, camera at eye level, 3/4 view, strong readable silhouette at 125 px, centered, single object, small even margin. Square 1024 x 1024, on a true solid flat lime-green chroma key background (#00FF00) covering the entire canvas, not transparent, not checkerboard.
+
+Negative: no text, no letters, no numbers, no labels or legends, no compass-rose lettering, no coastline or land map, no UI, no frame, no watermark, no table or surface, no shadow on the background, no glow halo, no quill, no bottle, no gold or brass, no water drips.
+
+Return the raw image named raw_icon_chart_captains_watch.png.
+~~~
 
 ### 10. Skyglass Signal Beacon
 ~~~text
