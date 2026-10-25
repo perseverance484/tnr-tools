@@ -2851,3 +2851,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25, choosing between creating hidden then releasing by suggestion, or adding new-record suggestions to Forge: "2".
 
 **Canonical destination:** `state/prompt_forge_suggest_create.md`; implementation on `fable/forge-suggest-create`.
+
+## RUL-2026-10-25-002 — Headless Rider is level 110; quest maxLevel 110 stands
+
+**Date:** 2026-10-25
+
+**Domain:** Halloween / Headless Rider Horror! (`0lNDtE_VYJOCy8JZQI_sI`)
+
+**Status:** ACTIVE.
+
+**Ruling:** The Headless Rider boss is level 110, fought in a new `start_battle` before the quest's `win_quest`. Upstream raised the player level cap: `MAX_PLAYER_LEVEL = 110` and quest `maxLevel` is bounded by it (TheNinjaRPG `f381b7f`, `app/drizzle/constants.ts:203`, `app/src/validators/objectives.ts:905`), and only `ELITE JONIN` carries `LVL_CAP: MAX_PLAYER_LEVEL` with the max stat caps, so the rider is written at that rank. The live quest already holds `maxLevel: 110`. validate.py law 8 (cap 100) is stale against that source; push/256 runs under the recorded exception `state/headless_rider_battle_validate_exception.json` until the pinned contracts are re-extracted.
+
+**Evidence:** User, 2026-10-25: "Level 110. We'll need to make the rider, his rules and the battle node." Capture `harvests/inbox/tnr_results_1792954275867.json`.
+
+**Canonical destination:** `push/256_headless_rider_battle.json`.

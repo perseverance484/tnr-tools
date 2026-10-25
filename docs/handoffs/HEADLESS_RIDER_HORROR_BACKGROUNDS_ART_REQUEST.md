@@ -6,6 +6,7 @@
   locks the set's look once approved.
 - **Quest:** Headless Rider Horror! (`0lNDtE_VYJOCy8JZQI_sI`), Halloween event, C rank, levels
   10 to 110, hidden.
+- **Graph:** includes the rider fight and loss resets added by `push/256_headless_rider_battle.json`.
 - **Evidence:** capture `harvests/inbox/tnr_results_1792954275867.json` (push/255, 2026-10-25).
   `scripts/shotlist.py` on that capture: 24 objectives, every `sceneBackground` empty (quest-level
   and all objectives), STATIC pins all wired. It raises one required shot, the quest-level
@@ -23,8 +24,8 @@
 |---|---|---|---|
 | A. Country road by a harvest field (sector 666) | rfBHq, 7LCTx, RbIyk, NqUdp, 8bLHU, uAVud, i2ZMP, FXLrU | night, full moon; FXLrU ends at first light | a girl runs screaming, the rider runs her down, the player is knocked down by its laugh, smoke bomb, hoofprints left behind |
 | B. A small village at sunrise (sector 736) | iAb4r, hPzkO, D3m0Q, kSn_c, o_NY4, czwsz | sunrise | mostly untouched village, warding paper on every gate, villagers peek out, the village head tells the curse |
-| C. The destroyed village (sector 926) | Vah2P, jjfV9, dKZp2, BrH2S, lrII0 | just after sunset into night | ruined houses, undead everywhere, three zombie waves, escape through the gate |
-| D. The river (sectors 927, 999) | iiiC8, pWxox, 43Z6w, V0IDs, 66Dq0 | night, full moon | searching the riverbank for the rider's skull; the rider materializes and charges |
+| C. The destroyed village (sector 926) | Vah2P, jjfV9, dKZp2, hrZRs (loss reset), BrH2S, lrII0 | just after sunset into night | ruined houses, undead everywhere, three zombie waves, escape through the gate |
+| D. The river (sectors 927, 999) | iiiC8, pWxox, 43Z6w, V0IDs, hrSqd, hrBat, hrRst, 66Dq0 | night, full moon | searching the riverbank for the rider's skull; the rider charges, the squad arrives, the rider fight (push/256) |
 
 ## 2. Targets
 
@@ -138,6 +139,7 @@ Return the original asset after director visual approval.
 - Ledger row per file: filename, type `SCENE_BACKGROUND`, pixel size, bytes.
 - After intake, Fable builds one quest edit from the 255 capture: four gameAsset creates in folder
   `headlessriderhorror`, quest-level background = 1, each objective's background per section 1.
+  Battle nodes take the background's direct `ufs.sh` URL rather than the gameAsset id (quest pack 3.7).
   Whole-record re-assertion, stays hidden.
 
 ## 8. Director decisions
