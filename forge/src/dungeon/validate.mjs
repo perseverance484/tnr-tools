@@ -126,7 +126,7 @@ export function dungeonProblems(data, live = null, { preCreate = false, refreshP
   rewardProblems(d.rewards, out, preCreate || "rewards" in data);
   const packages = packageDrops(d);
   if (!preCreate && packages.length && !refreshPackages) {
-    out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so the stored package rewards may change. Set "refreshPackages": true on this entry to accept that, or edit in the game`);
+    out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
   }
   return out;
 }

@@ -50,6 +50,12 @@
     if (captures.some((capture) => capture && capture.persist === "full" && capture.persistOk !== true)) return "unverified";
     return "success";
   }
+  var StaleItem = class extends Error {
+    constructor(m) {
+      super(m);
+      this.name = "StaleItem";
+    }
+  };
   var JournalError = class extends Error {
     constructor(message, info) {
       super(message);
@@ -287,15 +293,24 @@
         patch = {};
       }
       const prior = structuredClone(this._mustRead(jobId).items[idx]);
-      const sentAt = this.transition(jobId, idx, "SENT", patch).items[idx].sentAt;
+      const attempt = (prior.attempt ?? 0) + 1;
+      this.transition(jobId, idx, "SENT", { ...patch, attempt });
       await this.yieldTask();
+      const ours = () => {
+        const job = this._mustRead(jobId), it = job.items[idx];
+        return job.state === "RUNNING" && it.state === "SENT" && it.attempt === attempt;
+      };
+      if (!ours()) {
+        const job = this._mustRead(jobId);
+        throw new StaleItem(`item ${idx} is ${job.items[idx].state}, job ${job.state}: another tab took over; nothing sent`);
+      }
       if (beforeDispatch) {
         try {
           beforeDispatch();
         } catch (e) {
-          const job = this._mustRead(jobId);
-          if (job.items[idx].state === "SENT" && job.items[idx].sentAt === sentAt) {
-            job.items[idx] = { ...prior, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+          if (ours()) {
+            const job = this._mustRead(jobId);
+            job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
             this._write(job);
           }
           throw e;
@@ -2665,7 +2680,7 @@
     rewardProblems(d.rewards, out, preCreate || "rewards" in data);
     const packages = packageDrops(d);
     if (!preCreate && packages.length && !refreshPackages) {
-      out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so the stored package rewards may change. Set "refreshPackages": true on this entry to accept that, or edit in the game`);
+      out.push(`rewards: package drop(s) ${packages.join(", ")}: dungeon.save re-copies every package snapshot from the CURRENT catalog, which Forge cannot read, so stored package rewards may change. Set "refreshPackages": true to accept that`);
     }
     return out;
   }
@@ -3832,13 +3847,7 @@
     }
   };
   var randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
-  var StaleItem = class extends Error {
-    constructor(m) {
-      super(m);
-      this.name = "StaleItem";
-    }
-  };
-  var moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}; another tab moved it (${e?.message})`);
+  var moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}: another tab moved it (${e?.message})`);
   var Paused = class extends Error {
     constructor(reason, info = {}) {
       super(`paused: ${reason}`);
@@ -4294,7 +4303,7 @@
       this._lease(jobId);
       const job = this.journal.get(jobId), it = job.items[idx];
       if (job.state !== "RUNNING" || it.state !== expect.state || (it.phase ?? null) !== expect.phase) {
-        throw new StaleItem(`item ${idx} is ${it.state}/${it.phase} in a ${job.state} job; another tab moved it; nothing sent`);
+        throw new StaleItem(`item ${idx} is ${it.state}/${it.phase}, job ${job.state}: another tab moved it; nothing sent`);
       }
     }
     async _fill(jobId, item, planned) {

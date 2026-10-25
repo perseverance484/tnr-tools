@@ -87,6 +87,8 @@ export function jobOutcome(job) {
   return "success";
 }
 
+/** The journal operation moved under this tab (another tab advanced or resolved it): stop, write nothing. */
+export class StaleItem extends Error { constructor(m) { super(m); this.name = "StaleItem"; } }
 export class JournalError extends Error {
   constructor(message, info) { super(message); this.name = "JournalError"; this.info = info; }
 }
@@ -384,13 +386,20 @@ export class Journal {
   async withSent(jobId, idx, patch, thunk, beforeDispatch = null) {
     if (typeof patch === "function") { beforeDispatch = thunk; thunk = patch; patch = {}; }
     const prior = structuredClone(this._mustRead(jobId).items[idx]);
-    const sentAt = this.transition(jobId, idx, "SENT", patch).items[idx].sentAt; // synchronous flush
+    // this attempt's identity: each SENT of an item counts up, so any later SENT (another tab's) differs
+    const attempt = (prior.attempt ?? 0) + 1;
+    this.transition(jobId, idx, "SENT", { ...patch, attempt }); // synchronous flush
     await this.yieldTask();
+    // Dispatch must still belong to THIS attempt (review: dispatch ownership). Another tab may have
+    // reconciled, skipped or re-sent the item and finished the job meanwhile, then released the
+    // lease; re-acquiring the lease proves nothing. Its state stands: nothing is sent or withdrawn.
+    const ours = () => { const job = this._mustRead(jobId), it = job.items[idx]; return job.state === "RUNNING" && it.state === "SENT" && it.attempt === attempt; };
+    if (!ours()) { const job = this._mustRead(jobId); throw new StaleItem(`item ${idx} is ${job.items[idx].state}, job ${job.state}: another tab took over; nothing sent`); }
     if (beforeDispatch) {
       try { beforeDispatch(); } catch (e) {
-        const job = this._mustRead(jobId);
-        if (job.items[idx].state === "SENT" && job.items[idx].sentAt === sentAt) {
-          job.items[idx] = { ...prior, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
+        if (ours()) {
+          const job = this._mustRead(jobId);
+          job.items[idx] = { ...prior, attempt, withdrawn: { at: nowIso(this.clock), reason: String(e && e.message).slice(0, MAX_TEXT) } };
           this._write(job);
         }
         throw e;

@@ -35,7 +35,7 @@ import { readIdmap, writeIdmap } from "../storage/compat.mjs";
 import { readAssetUploads, recordAssetUpload, forgetAssetUpload } from "../storage/assets.mjs";
 import { toHex } from "./imgpack.mjs";
 import { snapshotKey, MAX_FULL_CAPTURE_BYTES } from "../storage/captures.mjs";
-import { TERMINAL_ITEM_STATES, jobOutcome } from "../storage/journal.mjs";
+import { TERMINAL_ITEM_STATES, jobOutcome, StaleItem } from "../storage/journal.mjs";
 import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
@@ -53,9 +53,8 @@ export class LeaseHeld extends Error {
 }
 const randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
 
-/** The journal item moved under this tab (another tab advanced or resolved it): stop, write nothing. */
-export class StaleItem extends Error { constructor(m) { super(m); this.name = "StaleItem"; } }
-const moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}; another tab moved it (${e?.message})`);
+export { StaleItem };
+const moved = (journal, jobId, e) => new StaleItem(`job ${jobId} is ${journal.get(jobId).state}: another tab moved it (${e?.message})`);
 export class Paused extends Error {
   constructor(reason, info = {}) { super(`paused: ${reason}`); this.name = "Paused"; this.reason = reason; Object.assign(this, info); }
 }
@@ -674,7 +673,7 @@ export class Runner {
     this._lease(jobId);
     const job = this.journal.get(jobId), it = job.items[idx];
     if (job.state !== "RUNNING" || it.state !== expect.state || (it.phase ?? null) !== expect.phase) {
-      throw new StaleItem(`item ${idx} is ${it.state}/${it.phase} in a ${job.state} job; another tab moved it; nothing sent`);
+      throw new StaleItem(`item ${idx} is ${it.state}/${it.phase}, job ${job.state}: another tab moved it; nothing sent`);
     }
   }
 
