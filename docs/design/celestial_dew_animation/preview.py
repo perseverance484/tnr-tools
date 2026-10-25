@@ -13,7 +13,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')
 # effect square on it: measured from the v5 ward ring shown in that recording (184.1 recording px across, top-left at
 # (219.3, 132.1)); consistent with the pinned source's portrait geometry for h = 16.1 (build_strip.py H_REF).
 STILL = os.path.join(ROOT, 'docs/design/celestial_dew_animation/battle_still_2026-10-24b.png')
-V = sys.argv[1] if len(sys.argv) > 1 else 'v8'
+V = sys.argv[1] if len(sys.argv) > 1 else 'v9'
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, f'docs/design/celestial_dew_animation/{V}_over_avatar.gif')
 A = os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/animation/')
 spec = importlib.util.spec_from_file_location('cd', A + 'build_strip.py'); cd = importlib.util.module_from_spec(spec); spec.loader.exec_module(cd)

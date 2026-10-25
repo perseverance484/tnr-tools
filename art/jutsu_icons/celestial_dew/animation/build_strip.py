@@ -44,10 +44,25 @@ S = er.S                                  # working size
 # (measured on the director's phone, h = 16.1: centre 8.75 units = 0.543 h above the effect centre, radius 8.15 units =
 # 0.506 h); the health bar 1.167 h above it.
 EFFECT_H = 2.5                          # the effect square, in tile heights
-AV_CY = 0.5 - 0.5 / EFFECT_H            # avatar centre, from the square's top (0.30)
-AV_R = 0.4 / EFFECT_H                   # avatar radius (0.16)
-RIM_CY, RIM_OUT = 0.5 - 0.543 / EFFECT_H, 0.506 / EFFECT_H   # the white disc (0.283, 0.202)
-HPBAR_Y = 0.5 - (0.5 + 2 / 3) / EFFECT_H                    # the health bar (0.033)
+# Exact, from the source and the game's own images (art/battle_refs/, downloaded from the constants' CDN URLs):
+#   IMG_SECTOR_USER_SPRITE_MASK (512 x 512): a disc of radius 250.5 px, so the avatar's radius = 0.8 h x 250.5/512;
+#   IMG_SECTOR_USER_MARKER (512 x 639, its own alpha map): a pin whose round head has radius 254.5 px, centred at
+#   (255.5, 255.5); drawn twice: white at 0.9 h x 1.1 h and, behind it, the village-colour outline at 1.0 h x 1.2 h,
+#   both centred at 0.9 h; so both discs are slightly oval. The outline disc is the portrait's visible outer edge.
+# Checked against the director's pre-change recording (h = 16.1, 50 units): the model puts the outer edge at centre
+# 0.3325 / radius 0.160 and the avatar at 0.339 / 0.126; measured 0.325 / 0.163 and 0.339 / 0.130 (within a pixel).
+_T_W, _T_H, _T_C, _T_R = 512, 639, 255.5, 254.5
+def _disc(sw, sh, sy=0.9):
+    """Marker disc drawn at sprite size sw x sh (tile heights), centred at sy: (centre y, rx, ry) in tile heights."""
+    return sy + sh / 2 - _T_C * sh / _T_H, _T_R * sw / _T_W, _T_R * sh / _T_H
+_Y = lambda y: 0.5 - (y - 0.5) / EFFECT_H          # tile-height y (up, tile origin) -> square fraction from the top
+AV_CY, AV_R = _Y(1.0), 0.8 * 250.5 / 512 / EFFECT_H            # 0.300, 0.1566
+_w, _o = _disc(0.9, 1.1), _disc(1.0, 1.2)
+WHITE_CY, WHITE_RX, WHITE_RY = _Y(_w[0]), _w[1] / EFFECT_H, _w[2] / EFFECT_H     # 0.2959, 0.1789, 0.1752
+EDGE_CY, EDGE_RX, EDGE_RY = _Y(_o[0]), _o[1] / EFFECT_H, _o[2] / EFFECT_H        # 0.2919, 0.1988, 0.1912 (outer edge)
+HPBAR_Y = _Y(1 + 2 / 3)                                          # the health bar (0.033)
+RIM_CY, RIM_OUT = EDGE_CY, EDGE_RX
+RING_SY = EDGE_RY / EDGE_RX                                      # the ward ring is drawn with the edge's slight oval
 PCY = RIM_CY                            # the ward and its ring are centred on the white disc
 ease, seg, smooth = er.ease, er.seg, er.smooth
 BEHIND_MASK = er.BEHIND_MASK
@@ -72,7 +87,7 @@ LOOP_RISE_T = 0.36                                # loop phase where its gentle 
 # the ward band's inner edge, as a frame radius. The portrait reaches to 0.024 of the frame top, so a ring round it has
 # little room there: the band is tucked over the portrait's rim (outer edge about 0.246, its top at about 0.05) so it
 # stays inside the frame (director, 2026-10-24: "the circle seems to clip at the top when the ward forms")
-RING_INNER = RIM_OUT - 0.01             # the ward band over the white disc's edge (its top stays inside the square)
+RING_INNER = RIM_OUT - 0.01             # the ward band over the portrait's outer edge (its top stays inside the square)
 RIPPLE_END = RING_INNER + 0.02          # where the ripples end: inside the ward band
 W1_INNER = 390 / 1254  # the band's inner edge in the W1 art (measured), as a fraction of its canvas
 R1_OUTER = 536 / 1254  # the R1 art's outer crest radius, as a fraction of its canvas width (measured)
@@ -87,13 +102,13 @@ def raw(name, crop=True):
     return im
 
 
-def put(layer, img, cx, cy, width, alpha=1.0, rot=0.0):
+def put(layer, img, cx, cy, width, alpha=1.0, rot=0.0, sy=1.0):
     """Composite img centred at (cx, cy) (frame fractions), `width` frame-widths wide, rotated `rot` degrees
     counter-clockwise, at `alpha`."""
     if alpha <= 0.01 or width <= 0:
         return
     w = max(2, int(width * S))
-    h = max(2, int(w * img.height / img.width))
+    h = max(2, int(w * img.height / img.width * sy))
     im = img.resize((w, h), Image.LANCZOS)
     if rot:
         im = im.rotate(rot, resample=Image.BICUBIC, expand=True)
@@ -243,7 +258,7 @@ def ring_layer(f_clock, alpha):
     lay = Image.new('RGBA', (S, S), (0, 0, 0, 0))
     # the ring itself holds still (a turning texture changes every pixel and costs about 3x the bytes); the light
     # travelling round it and the stars carry the motion
-    put(lay, layers()['W1_ward_ring'], 0.5, PCY, ring_width(), alpha)
+    put(lay, layers()['W1_ward_ring'], 0.5, PCY, ring_width(), alpha, sy=RING_SY)
     return lay
 
 
@@ -368,4 +383,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     for name, fn in BUILDERS.items():
         if a.only in (None, name):
-            save_strip(fn(), f'{name}_v8')
+            save_strip(fn(), f'{name}_v9')

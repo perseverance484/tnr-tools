@@ -246,3 +246,24 @@ that placement.
 
 **Until the upstream change is live,** the game still draws the strip at 50 px, so v8 shows about 25% too large on the
 director's phone (and differently elsewhere). push/243 ships v8 on the director's instruction.
+
+## 16. v9: exact geometry from the game's own images (2026-10-25)
+
+Director: "Propose finding source for perfect alignment on all screen sizes." The white disc was the one measured value.
+The marker and the avatar mask are images whose URLs are constants in the source (`drizzle/constants.ts`:
+`IMG_SECTOR_USER_MARKER`, `IMG_SECTOR_USER_SPRITE_MASK`, `IMG_BATTLEFIELD_STAR`); downloaded from the CDN and kept in
+`art/battle_refs/`. Measured in texture pixels:
+- the mask: a disc of radius 250.5 / 512, so the avatar's radius is 0.8 h x 0.489 = 0.391 h;
+- the marker (512 x 639, used as its own alpha map): a pin whose round head has radius 254.5 px centred at (255.5,
+  255.5). It is drawn twice (`createUserSprite`): white at 0.9 h x 1.1 h and, behind it, the village-colour outline at
+  1.0 h x 1.2 h, both centred at 0.9 h. So the discs are slightly oval, and the outline is the visible outer edge.
+
+In the effect square at 2.5 h (same on every screen): avatar centre 0.300, radius 0.1566; white disc centre 0.2959,
+0.1789 x 0.1752; outer edge (outline) centre 0.2919, 0.1988 x 0.1912; star centre 0.54; health bar 0.033. Validated on
+the pre-change recording (h = 16.1): the model gives the outer edge 0.3325 / 0.160 and the avatar 0.339 / 0.126 against
+0.325 / 0.163 and 0.339 / 0.130 measured (within a screen pixel; the measurement includes blur).
+
+v9 (`build_strip.py`, all from these formulas): the ward ring centred on the outer edge, drawn with its oval (0.962),
+its band over the edge; drop and ripples on the avatar. Checked on a portrait built exactly as the game builds it from
+its images (`portrait_mock.py` -> `v9_on_exact_portrait.png`). Strips `*_v9`: appear 211,394 bytes, loop 159,194, break
+59,926. Not covered: original AI units drawn as full art (no marker, `combat.ts:816`) have a different layout.
