@@ -766,7 +766,7 @@ screens"), built for the upstream change that draws effects at 2.5 tile heights 
 brightening and 6.4 s breath. **Until that change is live the game draws it at 50 px, about 25% too large on the
 director's phone.** Direct edits of the three existing assets: appear `7PCuqwNbf0s8jOKEFwA_l` (92 x 46 ms), loop
 `wdir89CrMcvbQNR8OFymV` (64 x 100 ms), break `h7Yg7wmA0BBCjzvNvKTp5` (30 x 46 ms); new filenames (law 32), hidden false
-(law 16c). Same ids, so push/240 needs no change. Pack pinned at PACKREF. Gates: `validate.py --strict` 0 errors,
+(law 16c). Same ids, so push/240 needs no change. Pack pinned at 7cfbf6b. Gates: `validate.py --strict` 0 errors,
 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
 ## 242 Celestial Dew capture with the record kept: RUN (bundle tnr_results_1792883431355.json), archived. Checked against push/240: live icon is the original; heal effect identical; shield differs only by the three new animations; injectableInBattle false both. 240 stands as built.
