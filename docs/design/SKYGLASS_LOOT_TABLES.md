@@ -34,17 +34,17 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 55% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×5 |
-| Rare | 30% | Small Health Pill ×5; Dr. Kim's Miracle Potion; Panacea |
+| Common | 55% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×10 |
+| Rare | 30% | Small Health Pill ×10; Dr. Kim's Miracle Potion ×10; Panacea ×10 |
 | Epic | 12% | Chakra Pill II ×10; Stamina Pill II ×10 |
-| Legendary | 3% | Pill Pack ×2 |
+| Legendary | 3% | Pill Pack ×5 |
 
 **Sage's Strongbox** — High-tier consumables; 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
 | Epic | 60% | Chakra Pill II ×10; Stamina Pill II ×10; Dr. Kim's Poison Potion ×5 |
-| Legendary | 37% | Pill Pack ×2; Solider Pill; Enemy Pill; Mona's Mermaid Song |
+| Legendary | 37% | Pill Pack ×5; Solider Pill; Enemy Pill; Mona's Mermaid Song |
 | Forbidden | 3% | Forbidden Jutsu Scroll: Nexus; Forbidden Jutsu Scroll: Rebirth |
 
 **Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, Silent Bastion only; 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
