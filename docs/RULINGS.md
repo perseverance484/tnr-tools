@@ -2527,3 +2527,23 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Split", "12 / 6 / 6 / 3", "Not tradable", "Chart of the …".
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §4.
+
+## RUL-2026-10-24-010 — Treasure hunts: Silent Bastion whole with its Beacon; Foundry losses retry; event-wide loot review
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass treasure hunts
+
+**Status:** ACTIVE. Hunt outlines for Foundry, Vault and Expedition are the presented proposals (design doc §6); rewards are under review.
+
+**Supersedes:** the "cut Bastion to one or two divisions" hunt format (RUL-2026-10-23-004, design doc §6) and the "Chart of the Silent Bastion" name (RUL-2026-10-24-009 item 4) for Bastion only.
+
+**Ruling:**
+1. **Silent Bastion ships whole**: the authored 99-node, 20-AI design on `claude/silent-bastion-authoring-69za5u@6271e1f` (RUL-2026-10-15-001, RUL-2026-10-16-*).
+2. **Its entry item stays the Skyglass Signal Beacon**, which takes the Bastion map line in the Skyglass Wreck chest (6%). The other three maps keep "Chart of the …".
+3. **Drowned Foundry:** a lost fight on the way down is retried (the Pyramid retry); greed costs time, never the haul.
+4. **Rewards for the whole event are reviewed together**, built on the game's weighted caches and reward packages; Bastion's Arsenal/Research ingredient caches are decided in that review.
+
+**Evidence:** User, 2026-10-24: "Keep it whole", "Keep the Beacon", "Retry, keep the haul", "We need to review loot tables and rewards for the entire event. There are reward packages and Caches in the game now."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
