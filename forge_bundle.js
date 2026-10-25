@@ -2278,12 +2278,15 @@
       }
       return Math.max(strictWake, weightedWake, now + 1);
     }
+    assertNotTripped() {
+      const t = this.log.tripped();
+      if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
+    }
     async acquire(path, n = 1) {
       if (!this.isLimited(path)) return;
       if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
-      const t = this.log.tripped();
-      if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
       for (let guard = 0; ; guard++) {
+        this.assertNotTripped();
         const now = this.clock();
         const wakeAt = this._wakeAt(path, n, now);
         if (wakeAt <= now) break;
@@ -3815,6 +3818,12 @@
     }
   };
   var randomTab = () => Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+  var StaleItem = class extends Error {
+    constructor(m) {
+      super(m);
+      this.name = "StaleItem";
+    }
+  };
   var Paused = class extends Error {
     constructor(reason, info = {}) {
       super(`paused: ${reason}`);
@@ -4150,7 +4159,7 @@
         item = this.journal.get(jobId).items[item.idx];
         if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
       } catch (e) {
-        if (e instanceof Paused || e instanceof LeaseHeld) throw e;
+        if (e instanceof Paused || e instanceof LeaseHeld || e instanceof StaleItem) throw e;
         if (e instanceof AuthRefused) throw this._authRefused(e.error, { idx: item.idx, path: e.path });
         if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
         const cur = this.journal.get(jobId).items[item.idx];
@@ -4202,6 +4211,7 @@
     }
     async _create(jobId, item, planned) {
       const rc = recipe(item.entity);
+      const reserved = await this._throttle(jobId, rc.create.path);
       if (this.reconciler) {
         const key = await this.reconciler.beforeCreate(this.journal.get(jobId), item, item.entity);
         if (key) this.journal.annotate(jobId, item.idx, { snapshotKey: key });
@@ -4211,7 +4221,7 @@
         const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       }
-      const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData));
+      const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData), reserved);
       const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
       if (o.kind === "ok") {
         this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...rc.oneStep ? { asserted: Object.keys(planned.data) } : {} });
@@ -4222,13 +4232,13 @@
       }
       this._failFromOutcome(jobId, item, o, "create");
     }
-    async _send(jobId, item, patch, path, input) {
+    async _send(jobId, item, patch, path, input, reserved = false) {
       this._requireAuth(path, item.idx);
-      if (isLimited(path)) {
-        if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
-        await this.budget.acquire(path, 1);
-        this._lease(jobId);
-      }
+      if (!reserved) await this._throttle(jobId, path);
+      this.budget?.assertNotTripped?.();
+      this._lease(jobId);
+      const cur = this.journal.get(jobId).items[item.idx];
+      if (!["PLANNED", "CONFIRMED"].includes(cur?.state)) throw new StaleItem(`item ${item.idx} is ${cur?.state} in the journal now; another tab moved it, so nothing was sent`);
       const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input));
       if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
         let limited = null;
@@ -4243,11 +4253,19 @@
       }
       return decoded;
     }
+    async _throttle(jobId, path) {
+      if (!isLimited(path)) return false;
+      if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
+      await this.budget.acquire(path, 1);
+      this._lease(jobId);
+      return true;
+    }
     async _fill(jobId, item, planned) {
       const rc = recipe(item.entity);
       const id2 = item.entityId ?? item.targetId;
       if (!id2) throw new Error("no id to fill");
       const data = await this._resolved(planned.data, jobId);
+      const reserved = await this._throttle(jobId, rc.update);
       this._requireAuth(rc.get, item.idx);
       const live = await this.reader.get(rc.get, id2, { fresh: true });
       if (!live.ok) {
@@ -4272,7 +4290,7 @@
       const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
-      const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload));
+      const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload), reserved);
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id2);
       if (o.kind === "ok") {

@@ -169,12 +169,21 @@ export class Budget {
    * A persisted trip (server 429 within the window) refuses with RateLimited: the caller must
    * not send at all until `until`.
    */
+  /**
+   * The global trip guard, separate from per-path metering: while a persisted trip is active NO
+   * mutation may leave, limited or not (Runner._send calls this immediately before every send).
+   */
+  assertNotTripped() {
+    const t = this.log.tripped();
+    if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
+  }
+
   async acquire(path, n = 1) {
     if (!this.isLimited(path)) return;
     if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
-    const t = this.log.tripped();
-    if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
     for (let guard = 0; ; guard++) {
+      // on every pass, so a trip another tab persisted while this one slept is honoured (review R1)
+      this.assertNotTripped();
       const now = this.clock();
       const wakeAt = this._wakeAt(path, n, now);
       if (wakeAt <= now) break;
