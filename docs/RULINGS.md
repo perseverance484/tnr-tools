@@ -2791,3 +2791,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24, screenshot of the dungeon editor (preview, name, artwork, multiplier 5, sector 210, longitude 15, latitude 6): "This is the information needed to set the ships spawn location, size, etc for the dungeon entrance when making the manifest you'll need this."
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3 Placement.
+
+## RUL-2026-10-24-024 — Old Ghost Ship chests become relics
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Ruling:** The Skyglass Reliquary and every other old Ghost Ship chest are relics: no new content drops or references them. They are not edited, hidden or deleted, so unopened copies in player inventories still work.
+
+**Evidence:** User, 2026-10-24: "The skyglass reliquary and all the other old chests will just be relics. We won't use them anymore. But we'll leave them be in case players have unopened ones."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` open items (Reliquary closed).
