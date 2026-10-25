@@ -2823,3 +2823,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Make sure we decide how many rounds between reinforcements. Also, enemies will probably need more health or we need to spawn bosses in last or something."; "Seal Charges and Core Cannisters shouldn't appear on their own. They are extra enemies/hazards, not threats on their own."; "Make it 5 floors but increase the number of waves instead".
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
+
+## RUL-2026-10-24-026 — The Charts are maps of the wreck itself
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass lore and art direction
+
+**Status:** ACTIVE.
+
+**Ruling:** The three hunt Charts are charts of the Skyglass wreck's own interior, not maps of outside places. The ship's layout is always shifting, but charts of parts of its interior sometimes turn up: the keel and lower decks (Drowned Foundry), a sealed chamber amidships (Quarantined Archive) and the upper command decks (Captain's Watch). Chart icons show a side-on plan of the ship with that section picked out in skyglass ink; item descriptions follow.
+
+**Evidence:** User, 2026-10-24: "Have decided to make the charts like maps of the wreck itself. The ships layout is always changing but sometimes charts mapping its interior can be found."
+
+**Canonical destination:** `docs/handoffs/SKYGLASS_EVENT_ITEM_ICONS_ART_REQUEST.md` §7-9; descriptions in push/254 (on hold).
