@@ -792,7 +792,7 @@ Legendary 8 (Solider Pill, Enemy Pill, Mona's Mermaid Song x5; Pill Pack removed
 (Nexus or Rebirth scroll x1). Both stay hidden. Descriptions are drafts. Works on the current Forge (edits).
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 252 Skyglass boss health (2 ai updates): READY TO RUN (any time; independent of 251)
+## 252 Skyglass boss health (2 ai updates): RUN, verified (bundle tnr_results_1792904277241.json, 2/2 match), archived
 
 `252_skyglass_boss_health.json`: Sealwright `poolsMultiplier` 2.5 -> 5 (12,625 -> 25,250 HP, 2x). Crowned Captain 3.6 ->
 12 (18,180 -> 60,600 HP). The director asked for 10x; 12 is the most the game accepts at level 100 (HP/CP/SP columns cap at
@@ -800,7 +800,7 @@ Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-s
 kits and items are re-sent as live. Director (2026-10-24): "Give the Crowned Captain 10x as much health, and the
 sealwright 2x as much". Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 251 Skyglass crew rules + Oathkeeper attack (1 ai + 4 aiProfile updates): READY TO RUN
+## 251 Skyglass crew rules + Oathkeeper attack (1 ai + 4 aiProfile updates): RUN, verified (bundle tnr_results_1792904268435.json, 5/5 match), archived
 
 `251_skyglass_crew_rules.json`: Deck Warden, Oathkeeper, First Blade and Wayfinder get rule sets that use only their
 equipped jutsu (their Quick Strike / Shuriken Storm rows are stored unequipped, so the rules that fire them did nothing).
