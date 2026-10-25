@@ -781,12 +781,13 @@ drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not 
 refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 253 Skyglass caches convert (2 item edits): ON HOLD - contents changed by RUL-2026-10-25-002 (Strongbox loses Pill Pack); regenerate before running
+## 253 Skyglass caches convert (2 item edits, SUGGEST MODE): READY TO RUN
 
-`253_skyglass_caches_convert.json`: Medicine Inro (`ixEKlJ0MmDrX7JoMNJVhi`) and Sage's Strongbox (`h-d58UCSuHN8EZKbLjT5R`)
-switch from the old material loot tables to weighted caches with the approved contents (docs/design/SKYGLASS_LOOT_TABLES.md):
-one roll; Inro Common 70 / Rare 22 / Epic 7 / Legendary 1 (Pill Pack x5, everything else x10); Strongbox Common 65 (x20) /
-Epic 26 (x10) / Legendary 8 (x5) / Forbidden 1 (Nexus or Rebirth scroll x1). Both stay hidden. New descriptions are drafts.
+`253_skyglass_caches_convert.json`: sent to the review desk as two suggestions (category NEW_CONTENT). Medicine Inro
+(`ixEKlJ0MmDrX7JoMNJVhi`) and Sage's Strongbox (`h-d58UCSuHN8EZKbLjT5R`) become weighted caches: one roll; Inro Common
+70 / Rare 22 / Epic 7 / Legendary 1 (Pill Pack x5, everything else x10); Strongbox Common 65 (x20) / Epic 26 (x10) /
+Legendary 8 (Solider Pill, Enemy Pill, Mona's Mermaid Song x5; Pill Pack removed per RUL-2026-10-25-002) / Forbidden 1
+(Nexus or Rebirth scroll x1). Both stay hidden. Descriptions are drafts. Works on the current Forge (edits).
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
 ## 252 Skyglass boss health (2 ai updates): READY TO RUN (any time; independent of 251)

@@ -1,5 +1,5 @@
 {
- "_note": "Skyglass caches (push/253): convert the two existing hidden caches from the old material loot tables to weighted caches with the approved contents (docs/design/SKYGLASS_LOOT_TABLES.md; RUL-2026-10-24-011..015). One roll each; tier weights in basis points (CACHE_PROBABILITY_TOTAL 10,000). Both stay hidden. Descriptions are drafts for the director. Edits only; no creates.",
+ "_note": "Skyglass caches (push/253), SUGGEST MODE: Medicine Inro and Sage's Strongbox switch from the old material loot tables to weighted caches (docs/design/SKYGLASS_LOOT_TABLES.md; RUL-2026-10-25-002/-004). One roll each; tier weights in basis points. Strongbox Legendary: Solider Pill / Enemy Pill / Mona's Mermaid Song x5 (Pill Pack removed, the Inro owns it). Both stay hidden. Descriptions are drafts. Edits only; nothing changes until a reviewer approves.",
  "dedupNames": true,
  "items": [
   {
@@ -284,14 +284,6 @@
           {
            "items": [
             {
-             "itemId": "XX8TLmUNJtqeiGM1T99tD",
-             "quantity": 5
-            }
-           ]
-          },
-          {
-           "items": [
-            {
              "itemId": "iBKQ2z2sDPZ-7DIe8NX_N",
              "quantity": 5
             }
@@ -344,5 +336,11 @@
     "target": "SELF"
    }
   }
- ]
+ ],
+ "mode": "suggest",
+ "suggestion": {
+  "category": "NEW_CONTENT",
+  "title": "Skyglass caches",
+  "rationale": "Medicine Inro and Sage's Strongbox become weighted caches for the Skyglass Wreck event (contents per the approved loot tables)."
+ }
 }
