@@ -759,6 +759,14 @@ hit animation). Re-sends the live effects array and `injectableInBattle` (false,
 damage (INHERIT) keeps `iDv3rjj81rRgD10shRqSn`; **absorb (SELF) plays `HwkXTjErL_Laxs8WtqBiI`**; decreased damage given
 (SELF) unchanged. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
+## 245–248 Item icon census (read-only): READY TO RUN (any order)
+
+Director, 2026-10-25: "Lets identify some dated items to work on. Pull up some sheets for me to pick from." Committed
+bundles hold only 100 item records, so these read every item the seed index marks visible (528) with `item.get`,
+persist full, so each icon lands in the bundle for review sheets. Part 1 also reads `item.getAllNames` (row count shows
+drift from the seed). 133/132/132/132 reads, zero writes. Built by `push/245_item_icon_census.gen.py`. Gates (each part):
+`validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
 ## 244 Celestial Dew animations v9: READY TO RUN
 
 push/243 ran the v5 build, so the live strips are three versions behind. v9: exact portrait geometry from the game's own
