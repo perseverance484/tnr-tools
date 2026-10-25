@@ -2604,3 +2604,5 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Chakra Pill II and Stamina Pill II should be Epic. Panacea should be rate. Pill pack should be legendary."; "Store bought items should be in the common tier except for dr. Kims pink which should be rare"; "X10 for everything but pill pack which is x5."; "Forbidden scrolls", "Move to Strongbox", "1 roll", "Yes, ×10 everywhere".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3.
+
+**Amendment (2026-10-24):** Sage's Strongbox stacks follow its tiers: **Common ×20, Epic ×10, Legendary ×5, Forbidden ×1** (user: "Do x20 common, x10 epic, x5 legendary and x1 forbidden"). The Medicine Inro and pouches keep item 1's ×10 / Pill Pack ×5.

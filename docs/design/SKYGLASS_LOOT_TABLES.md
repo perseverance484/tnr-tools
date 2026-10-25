@@ -43,9 +43,9 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 45% | Dr. Kim Disaster Potion ×10; Chakra Disrupting Needles ×10 |
+| Common | 45% | Dr. Kim Disaster Potion ×20; Chakra Disrupting Needles ×20 |
 | Epic | 30% | Infernum ×10; Bashōsen ×10; Dr. Kim's Poison Potion ×10 |
-| Legendary | 22% | Pill Pack ×5; Solider Pill ×10; Enemy Pill ×10; Mona's Mermaid Song ×10 |
+| Legendary | 22% | Pill Pack ×5; Solider Pill ×5; Enemy Pill ×5; Mona's Mermaid Song ×5 |
 | Forbidden | 3% | Forbidden Jutsu Scroll: Nexus ×1; Forbidden Jutsu Scroll: Rebirth ×1 |
 
 **Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, Silent Bastion only; 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
