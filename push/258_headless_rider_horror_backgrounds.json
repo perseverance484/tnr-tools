@@ -1,0 +1,79 @@
+{
+ "_note": "Creates the four Headless Rider Horror! (0lNDtE_VYJOCy8JZQI_sI) scene backgrounds as SCENE_BACKGROUND gameAssets in the shared folder HeadlessRiderHorror, hidden. Art: art/halloween_headless_rider/ (director-approved, 1536x1024 lossy q85, rawqc ACCEPT, artpreflight 0 errors). Load the four files through the Files/Documents picker. Assets only; the quest wiring edit follows with the live ids.",
+ "items": [
+  {
+   "entity": "asset",
+   "slot": "create",
+   "name": "Headless Rider Horror - Pumpkin Road",
+   "srcId": "hrh_bg_01",
+   "data": {
+    "name": "Headless Rider Horror - Pumpkin Road",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:headless_rider_horror_01_background.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "create",
+   "name": "Headless Rider Horror - Village Dawn",
+   "srcId": "hrh_bg_02",
+   "data": {
+    "name": "Headless Rider Horror - Village Dawn",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:headless_rider_horror_02_village_dawn.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "create",
+   "name": "Headless Rider Horror - Ruined Village",
+   "srcId": "hrh_bg_03",
+   "data": {
+    "name": "Headless Rider Horror - Ruined Village",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:headless_rider_horror_03_ruined_village.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  },
+  {
+   "entity": "asset",
+   "slot": "create",
+   "name": "Headless Rider Horror - River",
+   "srcId": "hrh_bg_04",
+   "data": {
+    "name": "Headless Rider Horror - River",
+    "type": "SCENE_BACKGROUND",
+    "image": "@img:headless_rider_horror_04_river.webp",
+    "folder": "HeadlessRiderHorror",
+    "frames": 1,
+    "speed": 1,
+    "hidden": true,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   }
+  }
+ ],
+ "imgSizes": {
+  "headless_rider_horror_01_background.webp": 305918,
+  "headless_rider_horror_02_village_dawn.webp": 312808,
+  "headless_rider_horror_03_ruined_village.webp": 263972,
+  "headless_rider_horror_04_river.webp": 306426
+ }
+}
