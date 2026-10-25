@@ -769,7 +769,7 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 245–248 Item icon census (read-only): 245 RUN (bundle tnr_results_1792889303274.json: 132/132 reads ok; item.getAllNames = 852 rows, so ~86 items are newer than the seed and not covered), archived; 246–248 READY TO RUN (any order)
+## 245–248 Item icon census (read-only): 245 RUN (bundle tnr_results_1792889303274.json: 132/132 reads ok; item.getAllNames = 852 rows, so ~86 items are newer than the seed and not covered), 246 RUN (bundle tnr_results_1792890285604.json: 132/132 ok), archived; 247–248 READY TO RUN (any order)
 
 Director, 2026-10-25: "Lets identify some dated items to work on. Pull up some sheets for me to pick from." Committed
 bundles hold only 100 item records, so these read every item the seed index marks visible (528) with `item.get`,
