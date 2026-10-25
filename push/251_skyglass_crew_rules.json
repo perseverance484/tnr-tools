@@ -1,0 +1,487 @@
+{
+ "_note": "Skyglass Wreck crew rules (push/251). Deck Warden, Oathkeeper, First Blade and Wayfinder had rules firing Quick Strike / Shuriken Storm, which sit UNEQUIPPED in their kits (battles load only equipped jutsu, RUL-2026-10-18-005), so those rules did nothing. Each rule set now uses only equipped jutsu: a round-1 buff, attacks gated at range+1 (law 40), Stoneward with a player within 2, Springguard within 5, close in beyond 3, highest-power fallback. Kits untouched. Rules read live 2026-10-25 (push/249, tnr_results_1792900120886.json). Update-only.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "texZaFi42S3EvJZBwQ8cd",
+   "name": "Deck Warden: rules use only equipped jutsu",
+   "data": {
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "UnQKfwq_JoRVu10aTX6Uv",
+        "m-ur3A8TS8r5jGb84L9x7"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "UnQKfwq_JoRVu10aTX6Uv",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "0PZU_FvlbM3ErYGlD5r56",
+   "name": "Oathkeeper: rules use only equipped jutsu",
+   "data": {
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "Cw51Wm_Uy0GiIkiEjlQtn",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "d6g0mOM7RBSsYI1hrUVT9",
+   "name": "First Blade: rules use only equipped jutsu",
+   "data": {
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "xGVqWSX93hXZgfmlKZODp",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Cw51Wm_Uy0GiIkiEjlQtn",
+        "m-ur3A8TS8r5jGb84L9x7"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "m-ur3A8TS8r5jGb84L9x7",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "v7T9_XdGMfP46em0dPuBc",
+   "name": "Wayfinder: rules use only equipped jutsu",
+   "data": {
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "3v9c1SHlD2GLPF2HW1_Sc",
+        "_nUaGHlWhn3-U0xbxJHFw"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "effect": "damage",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -769,7 +769,17 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 250 Skyglass Sentinel rules (aiProfile update): READY TO RUN (after 249)
+## 251 Skyglass crew rules (4 aiProfile updates): AWAITING DIRECTOR APPROVAL
+
+`251_skyglass_crew_rules.json`: Deck Warden, Oathkeeper, First Blade and Wayfinder get rule sets that use only their
+equipped jutsu (their Quick Strike / Shuriken Storm rows are stored unequipped, so the rules that fire them do nothing).
+Pattern as push/250: round-1 buff, attacks at range+1, Stoneward with a player within 2, Springguard within 5, close in
+beyond 3, highest-power fallback. Kits untouched. Oathkeeper has only one attack jutsu (Opening Strike); it relies on the
+fallback between casts. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+
+## 250 Skyglass Sentinel rules (aiProfile update): RUN, verified (bundle tnr_results_1792900236721.json), archived
+
+Read-back equals the sent rules except one server default: `use_highest_power_action` gains `"effect": "damage"` (validators/ai.ts prefault). Forge reports that as drift on `rules`; it is not a change. Later rule manifests send the field so they verify clean.
 
 `250_skyglass_sentinel_rules.json`: rewrites the Skyglass Sentinel's (`3V_gdHYaclMB1gTyOPAbV`) rules so it uses its whole
 kit as the Wreck's floor-3 boss: Springguard opener (round 1), Light Barrier below 50% health, Counter Stance with a player
@@ -779,7 +789,9 @@ Springguard gated so it never fired). Kit untouched. **Check 249 first:** run on
 jutsu named in the manifest note. Director (2026-10-24): "Yes". Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems.
 
-## 249 Skyglass Wreck roster capture (read-only): READY TO RUN
+## 249 Skyglass Wreck roster capture (read-only): RUN (bundle tnr_results_1792900120886.json, 24/24 ok), archived
+
+Result: Sentinel kit intact with push/94's rules (QA_LIVE_2026-10-20 finding 8 was stale). Deck Warden, Oathkeeper, First Blade and Wayfinder fire Quick Strike / Shuriken Storm, which are UNEQUIPPED in their kits, so those rules are inert (push/251).
 
 `249_skyglass_wreck_roster_capture.json`: `profile.getAi` + `ai.getAiProfile` for the twelve AIs the Skyglass Wreck
 dungeon uses (24 reads, zero mutations). Why: the only rules capture predates push/94 by 21 minutes, so QA_LIVE_2026-10-20
