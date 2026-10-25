@@ -769,7 +769,7 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 254 Skyglass event items (10 creates, hidden): ON HOLD - to go in as suggestions once Forge suggest-mode creates ship (RUL-2026-10-25-001)
+## 254 Skyglass event items (10 creates, hidden): ON HOLD - to go in as suggestions once Forge suggest-mode creates ship (RUL-2026-10-25-001); contents changed by RUL-2026-10-25-002 (pure-Skyglass Coffer, pouches lose Chakra Disrupting Needles; Footlocker and Chart Case to add); regenerate before running
 
 `254_skyglass_items_create.json`: Skyglass Coffer (weighted cache: Common 70 jewels/gold/unobtanium, Rare 24 Serum x5 /
 Filament x3, Epic 5 Crown Fragment, Legendary 1 Katana or Crystal); Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Tool
@@ -781,7 +781,7 @@ drafts. If the Skyglass Crystal (`Cmo3JU-D9Nl_-xUxrvEJN`, push/90 CONFIRMED not 
 refused and reported; the rest still run. The Armory Requisition (icon ready) waits for its Special quest.
 Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
-## 253 Skyglass caches convert (2 item edits): READY TO RUN
+## 253 Skyglass caches convert (2 item edits): ON HOLD - contents changed by RUL-2026-10-25-002 (Strongbox loses Pill Pack); regenerate before running
 
 `253_skyglass_caches_convert.json`: Medicine Inro (`ixEKlJ0MmDrX7JoMNJVhi`) and Sage's Strongbox (`h-d58UCSuHN8EZKbLjT5R`)
 switch from the old material loot tables to weighted caches with the approved contents (docs/design/SKYGLASS_LOOT_TABLES.md):

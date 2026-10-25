@@ -1,105 +1,77 @@
 # Skyglass event — loot tables
 
-**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -021; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** Structure ruled by RUL-2026-10-25-002 (supersedes the ladder caches and the shared pick of RUL-2026-10-24-014/-017). Weights and quantities below are proposals unless marked ruled; currency amounts are set by the director in game (RUL-2026-10-24-019).
 
-## 1. Wreck clear (each member)
+**Rule: every item has one home.** A reward appears in more than one source only as the same container, never as loose contents. Skyglass items come only from the Skyglass Coffer.
 
-25,000 ryo · 5,000 exp · 1,000 tokens · 1,000 prestige.
+## 1. Who owns what
 
-## 2. Wreck clear drops (no chest; each member rolls every line)
-
-| Line | Chance |
-|---|---|
-| Medicine Inro | 25% |
-| Sage's Strongbox | 5% |
-| Skyglass Coffer | 1% |
-| Chart of the Drowned Foundry | 12% |
-| Chart of the Quarantined Archive | 6% |
-| Chart of the Captain's Watch | 6% |
-| Skyglass Signal Beacon (Silent Bastion) | 3% |
-| Lion Token | 0.5% |
-
-## 3. Reward caches (weighted, finished items)
-
-**Skyglass Coffer** — Replaces the Ornate Chest; the one home for Skyglass loot; no ryo (ryo is paid on completion only); 1 roll(s).
-
-| Tier | Weight | Entries |
+| Container | Owns | Found in |
 |---|---|---|
-| Common | 70% | Rare Jewels ×10; Imperial Gold ×5; Unobtanium ×5 |
-| Rare | 24% | Skyglass Serum ×5; Skyglass Filament ×3 |
-| Epic | 5% | Fragment of the Skyglass Crown ×1 |
-| Legendary | 1% | Skyglass Katana ×1; Skyglass Crystal ×1 |
+| Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1), Silent Bastion pick (×2) |
+| Crew Footlocker | valuables: Rare Jewels, Imperial Gold, Unobtanium | 3% on the Wreck clear and on every hunt ending (ruled) |
+| Archive Chart Case | the four hunt maps | Quarantined Archive pick |
+| Sage's Strongbox | battle reagents, elite pills, forbidden scrolls | Quarantined Archive pick |
+| Medicine Inro | all pills and potions, Pill Pack included | Captain's Watch pick |
+| Tool Pouches ×5 | element kunai, smoke, oil, venom, bombs, senbon, saki | Drowned Foundry pick |
+| Charts / Beacon | hunt access | Wreck clear drops, Archive Chart Case |
 
-**Medicine Inro** — Pills and potions; 1 roll(s).
+## 2. Wreck clear (each member)
 
-| Tier | Weight | Entries |
+Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**, Crew Footlocker **3%** (ruled).
+
+## 3. Caches (weighted, one roll each)
+
+**Skyglass Coffer** — the only source of Skyglass items.
+
+| Tier | Weight | Gives |
 |---|---|---|
-| Common | 70% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×10 |
-| Rare | 22% | Small Health Pill ×10; Dr. Kim's Miracle Potion ×10; Panacea ×10 |
-| Epic | 7% | Chakra Pill II ×10; Stamina Pill II ×10 |
-| Legendary | 1% | Pill Pack ×5 |
+| Common | 70 | Skyglass Filament ×2 |
+| Rare | 24 | Skyglass Serum ×3 |
+| Epic | 5 | Fragment of the Skyglass Crown ×1 |
+| Legendary | 1 | Skyglass Katana ×1 or Skyglass Crystal ×1 |
 
-**Sage's Strongbox** — Elite consumables with a scroll jackpot; 1 roll(s).
+**Crew Footlocker** (new; premium, the Ornate Chest's old role)
 
-| Tier | Weight | Entries |
+| Tier | Weight | Gives |
 |---|---|---|
-| Common | 65% | Dr. Kim Disaster Potion ×20; Chakra Disrupting Needles ×20 |
-| Epic | 26% | Infernum ×10; Bashōsen ×10; Dr. Kim's Poison Potion ×10 |
-| Legendary | 8% | Pill Pack ×5; Solider Pill ×5; Enemy Pill ×5; Mona's Mermaid Song ×5 |
-| Forbidden | 1% | Forbidden Jutsu Scroll: Nexus ×1; Forbidden Jutsu Scroll: Rebirth ×1 |
+| Common | 70 | Rare Jewels (quantity open) |
+| Rare | 24 | Imperial Gold (quantity open) |
+| Epic | 6 | Unobtanium (quantity open) |
 
-**Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, chosen through the Armory Requisition (Silent Bastion only); 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
+**Archive Chart Case** (new; weights ruled)
 
-| Tier | Weight | Entries |
+| Tier | Weight | Gives |
 |---|---|---|
-| Common | 70% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Venom Cask ×10; Chakra Disrupting Needles ×10 |
-| Rare | 25% | That element's kunai ×20; Elite Smoke Bomb ×10; Paper Bombs ×10 |
-| Epic | 5% | That element's kunai ×30; Senbon Needles ×10; Saki ×10 |
+| Common | 60 | Chart of the Drowned Foundry ×1 |
+| Rare | 25 | Chart of the Quarantined Archive ×1 |
+| Epic | 12 | Chart of the Captain's Watch ×1 |
+| Legendary | 3 | Skyglass Signal Beacon ×1 |
+
+**Medicine Inro** — Common 70 (Field Tonic ×10 / Chakra Pill ×10 / Stamina Pill ×10); Rare 22 (Small Health Pill ×10 / Dr. Kim's Miracle Potion ×10 / Panacea ×10); Epic 7 (Chakra Pill II ×10 / Stamina Pill II ×10); Legendary 1 (Pill Pack ×5).
+
+**Sage's Strongbox** — Common 65 (Dr. Kim Disaster Potion ×20 / Chakra Disrupting Needles ×20); Epic 26 (Infernum ×10 / Bashōsen ×10 / Dr. Kim's Poison Potion ×10); Legendary 8 (Solider Pill ×5 / Enemy Pill ×5 / Mona's Mermaid Song ×5; Pill Pack removed, the Inro owns it); Forbidden 1 (Forbidden Jutsu Scroll: Nexus ×1 / Rebirth ×1).
+
+**Tool Pouches** (Katon, Wave, Ikazuchi, Stonefall, Zephyrfang) — that element's kunai ×10 every opening, plus one roll: Common 70 (kunai ×10 / Smoke Pellet ×10 / Whetstone Oil ×10 / Venom Cask ×10; Chakra Disrupting Needles removed, the Strongbox owns them); Rare 25 (kunai ×20 / Elite Smoke Bomb ×10 / Paper Bombs ×10); Epic 5 (kunai ×30 / Senbon Needles ×10 / Saki ×10).
 
 ## 4. Treasure hunts
 
-**Reward ladder** (every ending, every hunt; by final opponent and gating): I = 1,000 exp + Medicine Inro ×1; II = 2,000 exp + Medicine Inro ×1 + Sage's Strongbox (50%); III = 3,000 exp + Sage's Strongbox ×1; IV = 4,000 exp + Sage's Strongbox ×1 + Skyglass Coffer (50%); V = 5,000 exp + Skyglass Coffer ×1 + Sage's Strongbox ×1; VI = 5,000 exp + Skyglass Coffer ×2.
+Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and Crew Footlocker **3%**. No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
 
-Completion pick: **Medic's Haul** (Medicine Inro ×2); **Sage's Haul** (Sage's Strongbox ×1) in every hunt, plus the hunt's own cards.
-
-### The Drowned Foundry
-
-Entry: Chart of the Drowned Foundry (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
-
-| Ending | Pays |
+| Hunt | Pick 1 of |
 |---|---|
-| Leave after the first fight | I: 1,000 exp, Medicine Inro ×1 |
-| Leave after the second fight | III: 3,000 exp, Sage's Strongbox ×1 |
-| Defeat the Foundry Warden | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
+| Drowned Foundry | Katon / Wave / Ikazuchi / Stonefall / Zephyrfang Tool Pouch |
+| Quarantined Archive | Archive Chart Case · Sage's Strongbox · The Records (exp lump) |
+| Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro (quantity open) |
+| Silent Bastion | Skyglass Coffer ×2 · Bastion's Honor (village tokens lump) · **Bastion badge** · **Bastion jutsu** |
 
-### The Quarantined Archive
+The badge and the jutsu grey out once held (the game blocks picking content a player already has), so a player needs at least two Bastion clears to take both; later clears pick the Coffers or Bastion's Honor. Badge and jutsu are still to be designed.
 
-Entry: Chart of the Quarantined Archive (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
+Exp ladder per ending (unchanged): Foundry leave-1 I / leave-2 III / Warden V; Archive clean V / alarm III; Watch no terms IV / one-two V / all VI; Bastion VI. I-VI = 1,000 / 2,000 / 3,000 / 4,000 / 5,000 / 5,000 exp.
 
-| Ending | Pays |
-|---|---|
-| Clean run: all three seals answered (final: Sealwright) | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
-| Alarm tripped (final: Sealwright) | III: 3,000 exp, Sage's Strongbox ×1 |
+**Shelved:** Armory Requisition and its Special quest (icon kept in `art/skyglass_event_icons/` unused); Lion Token as a Wreck drop.
 
-### The Captain's Watch
-
-Entry: Chart of the Captain's Watch (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Skyglass Coffer** (Skyglass Coffer ×1).
-
-| Ending | Pays |
-|---|---|
-| No terms accepted (final: The Captain) | IV: 4,000 exp, Sage's Strongbox ×1, Skyglass Coffer (50%) |
-| One or two terms accepted | V: 5,000 exp, Skyglass Coffer ×1, Sage's Strongbox ×1 |
-| All three terms accepted | VI: 5,000 exp, Skyglass Coffer ×2 |
-
-### The Silent Bastion
-
-Entry: Skyglass Signal Beacon (consumed at start). Completion currency: Set by the director in game (S-Rank Battle Pyramid Level 100 package), carried inside every pick card. Pick 1 of 3; own cards: **Armory Requisition** (Tradable token: use it to pick 1 of 5 elemental pouches).
-
-| Ending | Pays |
-|---|---|
-| Defeat Supreme Commander Arakane | VI: 5,000 exp, Skyglass Coffer ×2 |
-
-## 5. To check before the manifests
+## 6. To check before the manifests
 
 - Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
 - Forbidden Jutsu Scrolls at 3% of one Strongbox roll: keep, lower or remove.

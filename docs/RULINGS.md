@@ -2865,3 +2865,25 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "Level 110. We'll need to make the rider, his rules and the battle node." Capture `harvests/inbox/tnr_results_1792954275867.json`.
 
 **Canonical destination:** `push/256_headless_rider_battle.json`.
+
+## RUL-2026-10-25-002 — Skyglass reward restructure: one home per item, a pick per hunt
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Quantities, currency amounts, the badge and the jutsu are open.
+
+**Supersedes:** the shared hunt pick (Medic's Haul / Sage's Haul / Coffer) and the Armory Requisition of RUL-2026-10-24-014; the caches on the reward ladder (RUL-2026-10-24-017, the exp ladder itself stays); the Wreck's Inro, Strongbox, Coffer and Lion Token drop lines (RUL-2026-10-24-015/-021, map lines unchanged).
+
+**Ruling:**
+1. **One home per item.** A reward appears in more than one source only as the same container. Skyglass items come only from the Skyglass Coffer, which becomes pure Skyglass (its jewels, gold and unobtanium move to the Crew Footlocker). Pill Pack leaves the Strongbox; Chakra Disrupting Needles leave the Tool Pouches.
+2. **Wreck:** currency package, the four map lines, and the **Crew Footlocker at 3%**.
+3. **Crew Footlocker** (new, premium valuables: Rare Jewels / Imperial Gold / Unobtanium) drops at **3%** on the Wreck clear and on every hunt ending.
+4. **Each hunt is an isolated Battle Pyramid with its own completion pick:** Foundry - the five Tool Pouches; Archive - **Archive Chart Case** (new; one roll: Foundry 60 / Archive 25 / Watch 12 / Beacon 3), Sage's Strongbox, The Records (exp); Captain's Watch - Skyglass Coffer, Captain's Purse (ryo), Medicine Inro; Silent Bastion - Skyglass Coffer ×2, Bastion's Honor (village tokens), a **Bastion badge** and a **Bastion jutsu** (take-once picks, so two clears are needed for both).
+5. Hunt endings pay the exp ladder, currency and the Footlocker chance; no caches.
+6. **Shelved:** the Armory Requisition and its Special quest; the Lion Token.
+
+**Evidence:** User, 2026-10-25: "the wreck should have generic rewards and then the chance to drop the treasure maps ... each hunt is an isolated battle pyramid with the choose nodes"; "reward overlap ... a lot of Skyglass items outside the Skyglass Coffer"; "the footlocker ... a rare drop only on completion of the Wreck or any hunt. Lets say 3% chance"; "adding a chest that drops from the archives that can roll the charts ... move medicine inro to Bastion and drop the lions tokens"; "drop captains commendation for medicine inro"; "We'll keep your weights"; "Let's do both the badge and the jutsu ... repeat runs can net them skyglass coffers or the bastion honor node".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
