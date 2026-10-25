@@ -2586,3 +2586,21 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Let's do 4. Then that specific hunt has a choice of 5 kunai pouches. We'll drop the elemental kunai Caches. And the shinobi tool pouches only drop from that hunt, so players can choose the one they want. Also, remove the excessive salvage drops from the initial Skyglass salvage cache. Allow the items it drops to resolve that, like medicine inro".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-013 — Sage's Strongbox and cache quantities
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. Tier weights remain proposals; contents of uncaptured items (Solider Pill, Enemy Pill, Mona's Mermaid Song, Saki, Senbon Needles, Paper Bombs, Pill Pack) are confirmed by capture before the manifest.
+
+**Ruling:**
+1. **Cache stacks are ×10**, except **Pill Pack ×5** and jutsu scrolls ×1; this covers the Medicine Inro, Sage's Strongbox and the five elemental pouches.
+2. **Store-bought items sit in a cache's Common tier**, except Dr. Kim's Miracle Potion (Rare). Chakra Pill II and Stamina Pill II are Epic, Panacea Rare, Pill Pack Legendary. Energy Potion and Full Potion are not in the Inro.
+3. **Sage's Strongbox**: one roll; Common (shop) Dr. Kim Disaster Potion, Chakra Disrupting Needles; Epic Infernum, Bashōsen, Dr. Kim's Poison Potion; Legendary Pill Pack, Solider Pill, Enemy Pill, Mona's Mermaid Song; jackpot the two Forbidden Jutsu Scrolls.
+4. **Infernum and Bashōsen move from the pouches to the Strongbox.**
+
+**Evidence:** User, 2026-10-24: "Chakra Pill II and Stamina Pill II should be Epic. Panacea should be rate. Pill pack should be legendary."; "Store bought items should be in the common tier except for dr. Kims pink which should be rare"; "X10 for everything but pill pack which is x5."; "Forbidden scrolls", "Move to Strongbox", "1 roll", "Yes, ×10 everywhere".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §3.
