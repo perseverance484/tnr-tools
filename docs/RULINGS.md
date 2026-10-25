@@ -2627,3 +2627,22 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "I think we should do away with the skyglass expedition having its own unique drops ... the silent Bastion shouldn't have 7 choices ... I think we should make a new chest instead of the ornate chest"; then "In the Coffer", "Requisition token", "Same three everywhere", "Skyglass Coffer".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-015 — No salvage chest; Wreck clear rolls drops directly; Coffer holds no Reliquary; rebalance
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). The rebalanced rates on `docs/design/SKYGLASS_LOOT_TABLES.md` are a proposal; the map rates of RUL-2026-10-24-009 stand.
+
+**Supersedes:** the Wreck chest (RUL-2026-10-23-003 "exactly one treasure chest", RUL-2026-10-24-009 items 2 and the chest table, RUL-2026-10-24-011 item 1, RUL-2026-10-24-012 item 3); the Skyglass Reliquary as Coffer content (RUL-2026-10-24-014 item 1).
+
+**Ruling:**
+1. **No salvage chest.** A Wreck clear pays its rolls directly as dungeon completion drops, each rolled by every member: ryo on completion, caches, maps and the Beacon as independent drop lines.
+2. **The Skyglass Coffer does not contain the Skyglass Reliquary**: a chest that yields a chest defeats the purpose.
+3. **Rates were too rewarding**: everything is rebalanced down (proposal on the loot tables page).
+
+**Evidence:** User, 2026-10-24: "Your drop rates are too rewarding and not balanced in some cases. The salvage chest can be done away with, just give players the rolls for clearing the dungeon. Skyglass Coffer giving Skyglass Reliquary defeats the purpose."
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
