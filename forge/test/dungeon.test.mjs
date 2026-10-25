@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { IDBFactory } from "fake-indexeddb";
-import { dungeonProblems, dungeonRow, CONTRACT } from "../src/dungeon/validate.mjs";
+import { dungeonProblems, CONTRACT } from "../src/dungeon/validate.mjs";
 import { parseManifest, planOrder, ManifestError, MAX_DUNGEON_WRITES } from "../src/runner/manifest.mjs";
 import { mergeForUpdate, recipe } from "../src/runner/recipes.mjs";
 import { checkManifest } from "../tools/check_manifest.mjs";
@@ -126,7 +126,7 @@ test("validator: drops — types, ids and refs, chance, quantity, jutsu once, pa
 });
 
 test("validator: an edit is checked against live content merged with the asserted keys", () => {
-  const live = dungeonRow({ id: "d1", content: content(), updatedAt: new Date(1) });
+  const live = { id: "d1", content: content(), updatedAt: new Date(1) };
   assert.deepEqual(dungeonProblems({ name: "Skyglass Wreck II" }, live), []);
   assert.match(dungeonProblems({ sector: -4 }, live).join(), /sector/);
   // before the live row is known only the key surface is checkable
@@ -158,13 +158,13 @@ test("manifest: @ai and @item refs inside waves and drops order the plan after t
   assert.ok(order.indexOf("wreck") > order.indexOf("chest") && order.indexOf("wreck") > order.indexOf("captain"), order.join());
 });
 
-test("recipe: one-step save, id from the response field, content-only update input, projected rows", () => {
+test("recipe: one-step save, id from the response field, content-only update input, rows used as they come", () => {
   const rc = recipe("dungeon");
   assert.equal(rc.oneStep, true);
   assert.deepEqual(rc.create.input({ name: "x" }), { content: { name: "x" } });
   assert.equal(rc.createdId({ success: true, message: "Dungeon saved.", id: "abc" }), "abc");
   assert.deepEqual(rc.updateInput("d1", { name: "x" }), { id: "d1", content: { name: "x" } });
-  const live = dungeonRow({ id: "d1", content: content(), updatedAt: new Date(1) });
+  const live = { id: "d1", content: content(), updatedAt: new Date(1) };
   const merged = mergeForUpdate("dungeon", live, { name: "Renamed" }, new Set(CONTRACT.contentFields));
   assert.equal(merged.name, "Renamed");
   assert.ok(!("id" in merged) && !("updatedAt" in merged), "row keys never travel inside content");
@@ -238,7 +238,7 @@ test("dedupNames: a live dungeon of the same name fails the create before it is 
   assert.equal(h.game.calls.filter((c) => c.path === "dungeon.save").length, 0);
 });
 
-test("CRASH after save sent, before response: resume adopts the one matching row and never re-saves", async () => {
+test("CRASH after save sent, before response: the one matching row is a candidate the operator binds; never re-saved", async () => {
   const game = new FakeGame({ crashAt: 2 }); // getAll snapshot (1), save applied server-side (2), tab dies
   const h = harness({ game });
   h.runner.plan(create(), { jobId: "c1" });
@@ -247,7 +247,13 @@ test("CRASH after save sent, before response: resume adopts the one matching row
   assert.equal(game.count("dungeon"), 1);
   const h2 = harness({ game, storage: h.storage.crash(), idb: h.idb });
   h2.runner.attach("c1", create());
-  const s = await h2.runner.resume("c1");
+  const s1 = await h2.runner.resume("c1");
+  // review F2: matching content is evidence, not ownership; nothing is adopted without the operator
+  const it = h2.journal.get("c1").items[0];
+  assert.equal(it.state, "ORPHANED", JSON.stringify(s1));
+  assert.deepEqual(it.candidates.map((c) => [c.id, c.matches]), [[game.rows("dungeon")[0].id, true]]);
+  h2.runner.adopt("c1", 0, it.candidates[0].id);
+  const s = await h2.runner.run("c1");
   assert.equal(s.counts.VERIFIED, 1, JSON.stringify(s));
   assert.equal(game.count("dungeon"), 1, "NEVER double-created");
   assert.equal(game.calls.filter((c) => c.path === "dungeon.save").length, 1, "the adopted row is not saved again");

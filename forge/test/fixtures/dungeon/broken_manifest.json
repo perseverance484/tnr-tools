@@ -1,0 +1,150 @@
+{
+ "_note": "Forge dungeon recipe gate fixture (review corrections). Offline only; never pushed.",
+ "items": [
+  {
+   "entity": "dungeon",
+   "slot": "create",
+   "name": "Skyglass Wreck",
+   "srcId": "fixture-wreck",
+   "data": {
+    "name": "Skyglass Wreck",
+    "description": "A downed warship on the tideline.",
+    "sector": 222,
+    "longitude": 12,
+    "latitude": 7,
+    "expiresAt": null,
+    "hidden": true,
+    "background": "ocean",
+    "tiers": [
+     [
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-1"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-2"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-3"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-4"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "mini-boss",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-5"
+         ]
+        }
+       ]
+      }
+     ],
+     [
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-6"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-7"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-8"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "floor",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-9"
+         ]
+        }
+       ]
+      },
+      {
+       "kind": "mini-boss",
+       "waves": [
+        {
+         "aiIds": [
+          "ai-10"
+         ]
+        }
+       ]
+      }
+     ]
+    ],
+    "rewards": {
+     "money": 5000,
+     "experience": 2000,
+     "drops": [
+      {
+       "type": "item",
+       "id": "chest-1",
+       "chance": 100,
+       "quantity": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "entity": "dungeon",
+   "slot": "edit",
+   "name": "Skyglass Wreck (rename)",
+   "targetId": "fixturedungeon0000001",
+   "refreshPackages": true,
+   "data": {
+    "name": "Skyglass Wreck: Low Tide",
+    "expiresAt": "2027-01-01T01:00:00+01:00"
+   }
+  }
+ ]
+}

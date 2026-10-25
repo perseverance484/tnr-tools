@@ -1,6 +1,6 @@
 import PINNED_FIELDS from "./fields.json" with { type: "json" };
 import { isBloodrightEntity, bloodrightFields, bloodrightProblems } from "../bloodright/validate.mjs";
-import { isDungeonEntity, dungeonFields, dungeonProblems } from "../dungeon/validate.mjs";
+import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from "../dungeon/validate.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -141,10 +141,11 @@ export class Validator {
    * @param {object} data     the manifest's data (refs already resolved)
    * @param {object|null} live  the live record when known (required for ai)
    * @returns {string[]} problems (empty = ok)
+   * @param {{preCreate?: boolean, refreshPackages?: boolean}} [opts] refreshPackages: dungeon only
    */
-  problems(entity, data, live = null, { preCreate = false } = {}) {
+  problems(entity, data, live = null, { preCreate = false, refreshPackages = false } = {}) {
     if (isBloodrightEntity(entity)) return bloodrightProblems(entity, data, live, { preCreate });
-    if (isDungeonEntity(entity)) return dungeonProblems(data, live, { preCreate });
+    if (isDungeonEntity(entity)) return dungeonProblems(data, live, { preCreate, refreshPackages });
     const out = [];
     if (!data || typeof data !== "object") return ["data is not an object"];
     const keys = Object.keys(data);
@@ -327,6 +328,9 @@ const definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== undefined);
  * Numbers within 0.5 are equal for ai (scaleUserStats re-normalises on every write, law 71).
  */
 export function diffAsserted(entity, asserted, live) {
+  // A dungeon is the getAll row {id, content, updatedAt}; its content is compared by the dungeon's
+  // own normalisation (defaults, trimmed name, expiry instants), not eqLoose (review F5).
+  if (isDungeonEntity(entity)) return dungeonDiffs(asserted, live ? live.content : undefined);
   const diffs = [];
   for (const k of Object.keys(asserted)) {
     if (SERVER_OWNED.includes(k)) continue;

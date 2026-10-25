@@ -351,7 +351,7 @@
 
   var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible","aiEditableKeys":"libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"},"notSuggestible":{"quest":"quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"],"aiEditableKeys":["username","npcTitle","avatar","avatar3d","avatarFacing","gender","level","regeneration","rank","bloodlineId","offence","defence","ninjutsuMastery","genjutsuMastery","taijutsuMastery","bukijutsuMastery","bloodlineMastery","sageMastery","statsMultiplier","poolsMultiplier","strength","intelligence","willpower","speed","isSummon","inArena","inShrines","primaryElement","secondaryElement","preferredGeneral1","preferredGeneral2","anbuId","clanId","jutsus","items","effects"]}`);
 
-  var contract_default3 = JSON.parse('{"_meta":{"pin":"107d7a86894f806a4c9cec89effef5992118a0ed","scope":"Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope","sources":{"app/src/validators/dungeon.ts":"3ef77e9821e5b456a80c351b8fb91920d730be364d275d3927f6c22c23df0e27","app/src/server/api/routers/dungeon.ts":"6280604be39691695ea72c6e6026ba8f521586b847fd4130dc30463aee8b6ead","app/src/validators/coop.ts":"e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450","app/src/validators/mapLocation.ts":"274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e","app/drizzle/constants.ts":"4d3cf207812a7ef9403fb4b4e9a5bc74cc2baec8c5ea51b69d4f426bbcedab75","app/src/libs/dungeonRewards.ts":"4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8"}},"contentFields":["name","description","structureAssetId","structureScale","sector","longitude","latitude","expiresAt","hidden","background","tiers","rewards"],"rewardFields":["money","experience","tokens","prestige","drops"],"dropFields":["type","id","chance","quantity","package"],"floorFields":["kind","waves"],"waveFields":["aiIds","delayRounds"],"floorKinds":["floor","mini-boss","boss"],"dropTypes":["item","jutsu","cache","package"],"biomes":["ocean","ground","dessert","ice","snow","arena","default"],"bounds":{"nameMax":100,"descriptionMax":2000,"structureAssetIdMax":191,"structureScale":{"min":0.2,"max":5,"default":1},"sector":{"min":0,"max":1943},"longitude":{"min":0,"max":25},"latitude":{"min":0,"max":25},"maxTiers":4,"floorsPerTier":5,"maxWaves":5,"maxMobs":10,"maxWaveDelayRounds":20,"maxDrops":100,"chance":{"min":1,"max":100},"maxRewardQuantity":100,"maxRewardAmount":1000000000,"maxGrantedItems":2000},"facts":{"partySize":3,"runSeconds":3600,"inactiveRounds":3},"procedures":{"dungeon.getAll":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"dungeon.save":{"kind":"mutation","limited":true,"mcp":false,"auth":"protected"}}}');
+  var contract_default3 = JSON.parse('{"_meta":{"pin":"107d7a86894f806a4c9cec89effef5992118a0ed","scope":"Dungeon definitions only (dungeon.save / dungeon.getAll); lobby, run and claim procedures are out of scope","sources":{"app/src/validators/dungeon.ts":"3ef77e9821e5b456a80c351b8fb91920d730be364d275d3927f6c22c23df0e27","app/src/server/api/routers/dungeon.ts":"6280604be39691695ea72c6e6026ba8f521586b847fd4130dc30463aee8b6ead","app/src/validators/coop.ts":"e4e3c2c5b8e2a7bb865967933b0c51ce5968199fee5e274a27b7b66edf95e450","app/src/validators/mapLocation.ts":"274f5a713ba37c6dea42102071a29fb3ecfca4d563d19a663e3fb6e9f8222b0e","app/drizzle/constants.ts":"4d3cf207812a7ef9403fb4b4e9a5bc74cc2baec8c5ea51b69d4f426bbcedab75","app/src/libs/dungeonRewards.ts":"4db0b8fb142c03d93021a6da08c4b090a4e4566e34c6638b21011a898d054ae8"}},"contentFields":["name","description","structureAssetId","structureScale","sector","longitude","latitude","expiresAt","hidden","background","tiers","rewards"],"rewardFields":["money","experience","tokens","prestige","drops"],"dropFields":["type","id","chance","quantity","package"],"floorFields":["kind","waves"],"waveFields":["aiIds","delayRounds"],"floorKinds":["floor","mini-boss","boss"],"dropTypes":["item","jutsu","cache","package"],"biomes":["ocean","ground","dessert","ice","snow","arena","default"],"bounds":{"nameMax":100,"descriptionMax":2000,"structureAssetIdMax":191,"structureScale":{"min":0.2,"max":5,"default":1},"sector":{"min":0,"max":1943},"longitude":{"min":0,"max":25},"latitude":{"min":0,"max":25},"maxTiers":4,"floorsPerTier":5,"maxWaves":5,"maxMobs":10,"maxWaveDelayRounds":20,"maxDrops":100,"chance":{"min":1,"max":100},"maxRewardQuantity":100,"maxRewardAmount":1000000000,"maxGrantedItems":2000},"defaults":{"content":{"description":"","structureAssetId":"","structureScale":1,"hidden":true,"background":"default"},"rewards":{"money":0,"experience":0,"tokens":0,"prestige":0,"drops":[]},"drop":{"quantity":1},"wave":{"delayRounds":0}},"facts":{"partySize":3,"runSeconds":3600,"inactiveRounds":3},"procedures":{"dungeon.getAll":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"dungeon.save":{"kind":"mutation","limited":true,"mcp":false,"auth":"protected"}}}');
 
   var PROCEDURES = Object.freeze({
     ...contract_default.procedures,
@@ -408,6 +408,9 @@
   }
   function isProtected(path) {
     return procedure(path).auth === "protected";
+  }
+  function isLimited(path) {
+    return procedure(path).limited === true;
   }
   var LIMITED_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].limited));
   var MUTATION_PATHS = Object.freeze(Object.keys(PROCEDURES).filter((p) => PROCEDURES[p].kind === "mutation"));
@@ -2280,10 +2283,11 @@
       if (n > this.allowance) throw new Error(`cannot acquire ${n} > allowance ${this.allowance} on ${path}; chunk smaller`);
       const t = this.log.tripped();
       if (t) throw new RateLimited({ path: t.path, until: t.until, message: `limiter tripped on ${t.path}; wait until ${new Date(t.until).toISOString()}` });
-      for (let guard = 0; guard < 1e3; guard++) {
+      for (let guard = 0; ; guard++) {
         const now = this.clock();
         const wakeAt = this._wakeAt(path, n, now);
         if (wakeAt <= now) break;
+        if (guard >= 1e3) throw new RateLimited({ path, until: wakeAt, message: `local budget for ${path} found no room; nothing was sent (wait until ${new Date(wakeAt).toISOString()})` });
         this.waits++;
         await this.sleep(Math.max(1, wakeAt - now));
       }
@@ -2340,158 +2344,6 @@
     return fnv1a32(stableStringify(payload === void 0 ? null : payload));
   }
 
-  var isDungeonEntity = (e) => e === "dungeon";
-  var dungeonFields = () => new Set(contract_default3.contentFields);
-  var B = contract_default3.bounds;
-  var obj = (v) => v && typeof v === "object" && !Array.isArray(v);
-  var str = (v) => typeof v === "string";
-  var num = (v) => typeof v === "number" && Number.isFinite(v);
-  var int = (v, min, max) => Number.isSafeInteger(v) && v >= min && v <= max;
-  var isRef = (v) => str(v) && v.startsWith("@");
-  var REF_FOR_DROP = Object.freeze({ item: ["item"], cache: ["item"], jutsu: ["jutsu"], package: [] });
-  function idProblem(v, allowed, where) {
-    if (!str(v) || !v.trim()) return `${where} must be a non-empty id`;
-    if (!isRef(v)) return null;
-    const m = v.match(/^@(\w+):(.+)$/);
-    if (!m || !allowed.includes(m[1])) {
-      return allowed.length ? `${where}: ${v} is not a ${allowed.map((p) => `@${p}:`).join(" or ")} ref` : `${where}: ${v} must be a literal id (no ref type exists for it)`;
-    }
-    return null;
-  }
-  function unknownKeys(o, allowed, where, out) {
-    for (const k of Object.keys(o)) if (!allowed.includes(k)) out.push(`${where}: unknown key "${k}" (the server's validator would drop it silently)`);
-  }
-  function dungeonProblems(data, live = null, { preCreate = false } = {}) {
-    if (!obj(data)) return ["data must be the dungeon content object"];
-    const out = [];
-    unknownKeys(data, contract_default3.contentFields, "content", out);
-    if (preCreate && data.hidden !== true) out.push("a dungeon create must carry hidden:true (everything ships hidden; publishing is a separate step)");
-    if (!preCreate && !live) return out;
-    const d = { ...preCreate ? {} : pickContent(live), ...data };
-    const check = (ok, message) => {
-      if (!ok) out.push(message);
-    };
-    check(str(d.name) && d.name.trim().length >= 1 && d.name.trim().length <= B.nameMax, `name must contain 1..${B.nameMax} characters`);
-    check(d.description === void 0 || str(d.description) && d.description.length <= B.descriptionMax, `description must be text of at most ${B.descriptionMax} characters`);
-    check(
-      d.structureAssetId === void 0 || str(d.structureAssetId) && d.structureAssetId.length <= B.structureAssetIdMax && !isRef(d.structureAssetId),
-      "structureAssetId must be a literal map-structure asset id (a mapAsset row, not a gameAsset; no ref type exists for it) or empty"
-    );
-    check(
-      d.structureScale === void 0 || num(d.structureScale) && d.structureScale >= B.structureScale.min && d.structureScale <= B.structureScale.max,
-      `structureScale must be ${B.structureScale.min}..${B.structureScale.max}`
-    );
-    check(int(d.sector, B.sector.min, B.sector.max), `sector must be an integer ${B.sector.min}..${B.sector.max}`);
-    check(int(d.longitude, B.longitude.min, B.longitude.max), `longitude must be an integer ${B.longitude.min}..${B.longitude.max}`);
-    check(int(d.latitude, B.latitude.min, B.latitude.max), `latitude must be an integer ${B.latitude.min}..${B.latitude.max}`);
-    check(
-      "expiresAt" in d && (d.expiresAt === null || d.expiresAt instanceof Date || str(d.expiresAt) && !Number.isNaN(Date.parse(d.expiresAt))),
-      "expiresAt is required: null for no expiry, or a date"
-    );
-    check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
-    check(d.background === void 0 || contract_default3.biomes.includes(d.background), `background must be one of ${contract_default3.biomes.join(", ")}`);
-    tierProblems(d.tiers, out);
-    rewardProblems(d.rewards, out);
-    return out;
-  }
-  function tierProblems(tiers, out) {
-    if (!Array.isArray(tiers) || tiers.length < 1 || tiers.length > B.maxTiers) {
-      out.push(`tiers must hold 1..${B.maxTiers} tiers`);
-      return;
-    }
-    tiers.forEach((tier, ti) => {
-      if (!Array.isArray(tier) || tier.length !== B.floorsPerTier) {
-        out.push(`tiers[${ti}] must hold exactly ${B.floorsPerTier} floors`);
-        return;
-      }
-      tier.forEach((floor, fi) => {
-        const where = `tiers[${ti}][${fi}]`;
-        if (!obj(floor)) {
-          out.push(`${where} must be an object`);
-          return;
-        }
-        unknownKeys(floor, contract_default3.floorFields, where, out);
-        const last = ti === tiers.length - 1 && fi === B.floorsPerTier - 1;
-        const expected = last ? "boss" : fi === B.floorsPerTier - 1 ? "mini-boss" : "floor";
-        if (!contract_default3.floorKinds.includes(floor.kind)) out.push(`${where}.kind must be one of ${contract_default3.floorKinds.join(", ")}`);
-        else if (floor.kind !== expected) out.push(`${where}.kind must be "${expected}" (each non-final tier ends on a mini-boss, the last floor is the boss)`);
-        const waves = floor.waves;
-        if (!Array.isArray(waves) || waves.length < 1 || waves.length > B.maxWaves) {
-          out.push(`${where}.waves must hold 1..${B.maxWaves} waves`);
-          return;
-        }
-        waves.forEach((wave, wi) => {
-          const w = `${where}.waves[${wi}]`;
-          if (!obj(wave)) {
-            out.push(`${w} must be an object`);
-            return;
-          }
-          unknownKeys(wave, contract_default3.waveFields, w, out);
-          if (!Array.isArray(wave.aiIds) || wave.aiIds.length < 1 || wave.aiIds.length > B.maxMobs) out.push(`${w}.aiIds must hold 1..${B.maxMobs} enemies`);
-          else wave.aiIds.forEach((id2, ai) => {
-            const p = idProblem(id2, ["ai"], `${w}.aiIds[${ai}]`);
-            if (p) out.push(p);
-          });
-          const delay = wave.delayRounds ?? 0;
-          if (!int(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds}`);
-          else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
-        });
-      });
-    });
-  }
-  function rewardProblems(rewards, out) {
-    if (!obj(rewards)) {
-      out.push("rewards must be an object {money, experience, tokens, prestige, drops}");
-      return;
-    }
-    unknownKeys(rewards, contract_default3.rewardFields, "rewards", out);
-    for (const k of ["money", "experience"]) {
-      const v = rewards[k];
-      if (v !== void 0 && !(num(v) && v >= 0 && v <= B.maxRewardAmount)) out.push(`rewards.${k} must be 0..${B.maxRewardAmount}`);
-    }
-    for (const k of ["tokens", "prestige"]) {
-      const v = rewards[k];
-      if (v !== void 0 && !int(v, 0, B.maxRewardAmount)) out.push(`rewards.${k} must be an integer 0..${B.maxRewardAmount}`);
-    }
-    const drops = rewards.drops ?? [];
-    if (!Array.isArray(drops) || drops.length > B.maxDrops) {
-      out.push(`rewards.drops must hold at most ${B.maxDrops} drops`);
-      return;
-    }
-    let items = 0;
-    drops.forEach((drop, i) => {
-      const where = `rewards.drops[${i}]`;
-      if (!obj(drop)) {
-        out.push(`${where} must be an object`);
-        return;
-      }
-      unknownKeys(drop, contract_default3.dropFields, where, out);
-      if ("package" in drop) out.push(`${where}.package: the server copies the catalog snapshot at save and ignores a sent payload; omit it`);
-      if (!contract_default3.dropTypes.includes(drop.type)) {
-        out.push(`${where}.type must be one of ${contract_default3.dropTypes.join(", ")}`);
-        return;
-      }
-      const p = idProblem(drop.id, REF_FOR_DROP[drop.type], `${where}.id`);
-      if (p) out.push(p);
-      if (!(num(drop.chance) && drop.chance >= B.chance.min && drop.chance <= B.chance.max)) out.push(`${where}.chance must be ${B.chance.min}..${B.chance.max}`);
-      const quantity = drop.quantity ?? 1;
-      if (!int(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity}`);
-      else if (drop.type === "jutsu" && quantity !== 1) out.push(`${where}.quantity must be 1: jutsu rewards can only be learned once`);
-      else if (drop.type === "item" || drop.type === "cache") items += quantity;
-    });
-    if (items > B.maxGrantedItems) out.push(`rewards: up to ${items} items per player exceeds ${B.maxGrantedItems} (dungeonRewardError)`);
-  }
-  function pickContent(live) {
-    const out = {};
-    if (!obj(live)) return out;
-    for (const k of contract_default3.contentFields) if (live[k] !== void 0) out[k] = live[k];
-    return out;
-  }
-  function dungeonRow(row) {
-    if (!obj(row)) return row ?? void 0;
-    return { ...obj(row.content) ? row.content : {}, id: row.id, updatedAt: row.updatedAt };
-  }
-
   var INPUT_FOR = Object.freeze({
     "profile.getAi": (id2) => ({ userId: id2 })
   });
@@ -2537,7 +2389,7 @@
       if (path === "dungeon.getAll") {
         const r = await this.list(path, { fresh });
         if (r.ok && !Array.isArray(r.data)) throw new Error("dungeon.getAll did not return an array");
-        return ids.map((id2) => r.ok ? { ok: true, data: dungeonRow(r.data.find((row) => row && row.id === id2)) } : r);
+        return ids.map((id2) => r.ok ? { ok: true, data: r.data.find((row) => row && row.id === id2) } : r);
       }
       const out = new Array(ids.length);
       const misses = [];
@@ -2653,11 +2505,11 @@
 
   var isBloodrightEntity = (e) => e === "skillTree" || e === "skillTreeFolder";
   var bloodrightFields = (e) => new Set(e === "skillTree" ? contract_default.skillFields : contract_default.folderFields);
-  var obj2 = (v) => v && typeof v === "object" && !Array.isArray(v);
-  var str2 = (v) => typeof v === "string";
-  var int2 = (v, min, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= min && v <= max;
+  var obj = (v) => v && typeof v === "object" && !Array.isArray(v);
+  var str = (v) => typeof v === "string";
+  var int = (v, min, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= min && v <= max;
   function bloodrightProblems(entity, data, live = null, { preCreate = false } = {}) {
-    if (!obj2(data)) return ["data must be an object"];
+    if (!obj(data)) return ["data must be an object"];
     const out = [];
     const fields = bloodrightFields(entity);
     for (const k of Object.keys(data)) if (!fields.has(k)) out.push(`unknown key ${k} for ${entity}`);
@@ -2665,27 +2517,27 @@
     const check = (ok, message) => {
       if (!ok) out.push(message);
     };
-    check(str2(d.name) && !!d.name.trim() && d.name.length <= 191, "name must contain 1..191 characters");
-    check(d.image === void 0 || str2(d.image) && d.image.length <= (entity === "skillTree" ? 191 : 512), "invalid image");
-    check(d.description === void 0 || str2(d.description) || entity === "skillTreeFolder" && d.description === null, "description must be text");
+    check(str(d.name) && !!d.name.trim() && d.name.length <= 191, "name must contain 1..191 characters");
+    check(d.image === void 0 || str(d.image) && d.image.length <= (entity === "skillTree" ? 191 : 512), "invalid image");
+    check(d.description === void 0 || str(d.description) || entity === "skillTreeFolder" && d.description === null, "description must be text");
     check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
     if (entity === "skillTreeFolder") {
       check(d.order === void 0 || Number.isSafeInteger(d.order), "folder order must be an integer");
       return out;
     }
-    check(str2(d.name) && d.name === d.name.trim(), "skill name must not have surrounding whitespace");
-    check(d.pathType === "BLOODRIGHT" && str2(d.bloodlineId) && !!d.bloodlineId && !d.bloodlineId.startsWith("@"), "requires a literal bloodlineId and pathType BLOODRIGHT");
+    check(str(d.name) && d.name === d.name.trim(), "skill name must not have surrounding whitespace");
+    check(d.pathType === "BLOODRIGHT" && str(d.bloodlineId) && !!d.bloodlineId && !d.bloodlineId.startsWith("@"), "requires a literal bloodlineId and pathType BLOODRIGHT");
     check(d.skillType === "DEFAULT", "Bloodright skillType must be DEFAULT");
     check(["SELF", "ENEMIES", "ALLIES"].includes(d.target), "invalid skill target");
-    check(int2(d.tier, 1, 10), "tier must be 1..10");
-    check(int2(d.costSkillPoints, 1), "costSkillPoints must be a positive integer");
-    check(int2(d.seichiSilverCost, 0, 2147483647), "explicit seichiSilverCost must be 0..2147483647");
-    check(Array.isArray(d.requiredSkillIds) && d.requiredSkillIds.every((v) => str2(v) && !!v) && new Set(d.requiredSkillIds).size === d.requiredSkillIds.length, "invalid prerequisite IDs");
-    check(d.folderId == null || str2(d.folderId) && !!d.folderId, "invalid folderId");
+    check(int(d.tier, 1, 10), "tier must be 1..10");
+    check(int(d.costSkillPoints, 1), "costSkillPoints must be a positive integer");
+    check(int(d.seichiSilverCost, 0, 2147483647), "explicit seichiSilverCost must be 0..2147483647");
+    check(Array.isArray(d.requiredSkillIds) && d.requiredSkillIds.every((v) => str(v) && !!v) && new Set(d.requiredSkillIds).size === d.requiredSkillIds.length, "invalid prerequisite IDs");
+    check(d.folderId == null || str(d.folderId) && !!d.folderId, "invalid folderId");
     check(Array.isArray(d.effects), "effects must be an array");
     for (const [i, e] of (Array.isArray(d.effects) ? d.effects : []).entries()) {
       const where = `effects[${i}]`;
-      if (!obj2(e)) {
+      if (!obj(e)) {
         out.push(`${where} must be an object`);
         continue;
       }
@@ -2693,18 +2545,18 @@
       check(["increasepotency", "decreasepotency"].includes(e.type), `${where}: only audited potency effects supported`);
       check(Number.isFinite(e.power) && e.power >= 0, `${where}: power must be nonnegative`);
       check(Number.isFinite(e.powerPerLevel) && e.powerPerLevel >= 0 && e.powerPerLevel <= 1, `${where}: powerPerLevel must be 0..1`);
-      check(int2(e.rounds, 1, 100), `${where}: explicit rounds must be 1..100`);
+      check(int(e.rounds, 1, 100), `${where}: explicit rounds must be 1..100`);
       check(["static", "percentage"].includes(e.calculation), `${where}: invalid calculation`);
       check(["SELF", "INHERIT"].includes(e.target), `${where}: invalid target`);
       check(e.direction === "offence", `${where}: direction must be offence`);
       check(e.friendlyFire === void 0 || ["ALL", "FRIENDLY", "ENEMIES"].includes(e.friendlyFire), `${where}: invalid friendlyFire`);
       check(contract_default.tags.includes(e.affectedTag), `${where}: choose one supported affectedTag`);
       check(Array.isArray(e.affectedElements) && e.affectedElements.length > 0 && e.affectedElements.every((v) => contract_default.elements.includes(v)), `${where}: resolve affectedElements explicitly`);
-      for (const k of ["description", "staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]) check(str2(e[k]), `${where}: ${k} must be text`);
+      for (const k of ["description", "staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation", "appearSfx", "disappearSfx"]) check(str(e[k]), `${where}: ${k} must be text`);
       check(e.timeTracker === void 0, `${where}: runtime timeTracker is not importable`);
       check(e.coordinateTargeting == null, `${where}: coordinateTargeting is not importable`);
     }
-    if (!preCreate && live) check(str2(d.image) && !!d.image, "skill image must be preserved or supplied");
+    if (!preCreate && live) check(str(d.image) && !!d.image, "skill image must be preserved or supplied");
     return out;
   }
   function writableSnapshot(entity, row) {
@@ -2713,6 +2565,218 @@
     if (entity === "skillTreeFolder" && out.description == null) out.description = "";
     return out;
   }
+
+  var isDungeonEntity = (e) => e === "dungeon";
+  var dungeonFields = () => new Set(contract_default3.contentFields);
+  var B = contract_default3.bounds;
+  var D = contract_default3.defaults;
+  var obj2 = (v) => v && typeof v === "object" && !Array.isArray(v);
+  var str2 = (v) => typeof v === "string";
+  var num = (v) => typeof v === "number" && Number.isFinite(v);
+  var int2 = (v, min, max) => Number.isSafeInteger(v) && v >= min && v <= max;
+  var isRef = (v) => str2(v) && v.startsWith("@");
+  var ISO_INSTANT = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2}))?$/;
+  var validDate = (v) => v instanceof Date ? !Number.isNaN(v.getTime()) : str2(v) && ISO_INSTANT.test(v) && !Number.isNaN(Date.parse(v));
+  var REF_FOR_DROP = Object.freeze({ item: ["item"], cache: ["item"], jutsu: ["jutsu"], package: [] });
+  function idProblem(v, allowed, where) {
+    if (!str2(v) || !v.trim()) return `${where} must be a non-empty id`;
+    if (!isRef(v)) return null;
+    const m = v.match(/^@(\w+):(.+)$/);
+    if (!m || !allowed.includes(m[1])) {
+      return allowed.length ? `${where}: ${v} is not a ${allowed.map((p) => `@${p}:`).join(" or ")} ref` : `${where}: ${v} must be a literal id (no ref type exists for it)`;
+    }
+    return null;
+  }
+  function unknownKeys(o, allowed, where, out, why = "the server's validator would drop it silently") {
+    for (const k of Object.keys(o)) if (!allowed.includes(k)) out.push(`${where}: unknown key "${k}" (${why})`);
+  }
+  function liveDrift(content) {
+    if (!obj2(content)) return ["live dungeon row has no content object; refusing to edit it"];
+    const out = [];
+    const why = "schema drift: the live definition carries a key the pinned contract does not know, and any save would delete it; re-derive src/dungeon/contract.json at the game's current source before editing";
+    unknownKeys(content, contract_default3.contentFields, "live content", out, why);
+    if (Array.isArray(content.tiers)) content.tiers.forEach((tier, ti) => Array.isArray(tier) && tier.forEach((f, fi) => {
+      if (!obj2(f)) return;
+      unknownKeys(f, contract_default3.floorFields, `live tiers[${ti}][${fi}]`, out, why);
+      if (Array.isArray(f.waves)) f.waves.forEach((w, wi) => obj2(w) && unknownKeys(w, contract_default3.waveFields, `live tiers[${ti}][${fi}].waves[${wi}]`, out, why));
+    }));
+    if (obj2(content.rewards)) {
+      unknownKeys(content.rewards, contract_default3.rewardFields, "live rewards", out, why);
+      if (Array.isArray(content.rewards.drops)) content.rewards.drops.forEach((d, i) => obj2(d) && unknownKeys(d, contract_default3.dropFields, `live rewards.drops[${i}]`, out, why));
+    }
+    return out;
+  }
+  function packageDrops(content) {
+    const drops = obj2(content) && obj2(content.rewards) && Array.isArray(content.rewards.drops) ? content.rewards.drops : [];
+    return drops.filter((d) => obj2(d) && d.type === "package").map((d) => d.id);
+  }
+  function dungeonProblems(data, live = null, { preCreate = false, refreshPackages = false } = {}) {
+    if (!obj2(data)) return ["data must be the dungeon content object"];
+    const out = [];
+    unknownKeys(data, contract_default3.contentFields, "content", out);
+    if (preCreate && data.hidden !== true) out.push("a dungeon create must carry hidden:true (everything ships hidden; publishing is a separate step)");
+    if (!preCreate && !live) return out;
+    if (!preCreate) {
+      const drift = liveDrift(live.content);
+      if (drift.length) return [...out, ...drift];
+    }
+    const d = { ...preCreate ? {} : live.content, ...data };
+    const check = (ok, message) => {
+      if (!ok) out.push(message);
+    };
+    check(str2(d.name) && d.name.trim().length >= 1 && d.name.trim().length <= B.nameMax, `name must contain 1..${B.nameMax} characters`);
+    check(!str2(d.name) || d.name === d.name.trim(), "name must not start or end with whitespace (the server trims it, so the read-back would differ)");
+    check(d.description === void 0 || str2(d.description) && d.description.length <= B.descriptionMax, `description must be text of at most ${B.descriptionMax} characters`);
+    check(
+      d.structureAssetId === void 0 || str2(d.structureAssetId) && d.structureAssetId.length <= B.structureAssetIdMax && !isRef(d.structureAssetId),
+      "structureAssetId must be a literal map-structure asset id (a mapAsset row, not a gameAsset; no ref type exists for it) or empty"
+    );
+    check(
+      d.structureScale === void 0 || num(d.structureScale) && d.structureScale >= B.structureScale.min && d.structureScale <= B.structureScale.max,
+      `structureScale must be ${B.structureScale.min}..${B.structureScale.max}`
+    );
+    check(int2(d.sector, B.sector.min, B.sector.max), `sector must be an integer ${B.sector.min}..${B.sector.max}`);
+    check(int2(d.longitude, B.longitude.min, B.longitude.max), `longitude must be an integer ${B.longitude.min}..${B.longitude.max}`);
+    check(int2(d.latitude, B.latitude.min, B.latitude.max), `latitude must be an integer ${B.latitude.min}..${B.latitude.max}`);
+    check(
+      "expiresAt" in d && (d.expiresAt === null || validDate(d.expiresAt)),
+      "expiresAt is required: null for no expiry, or a valid date (YYYY-MM-DD, or a date-time with Z or an offset)"
+    );
+    check(d.hidden === void 0 || typeof d.hidden === "boolean", "hidden must be boolean");
+    check(d.background === void 0 || contract_default3.biomes.includes(d.background), `background must be one of ${contract_default3.biomes.join(", ")}`);
+    tierProblems(d.tiers, out);
+    rewardProblems(d.rewards, out, preCreate || "rewards" in data);
+    const packages = packageDrops(d);
+    if (!preCreate && packages.length && !refreshPackages) {
+      out.push(`rewards: this save would carry package drop(s) ${packages.join(", ")}. dungeon.save re-copies every package snapshot from the CURRENT reward-package catalog on each save, so this edit would replace the stored package rewards with whatever the catalog holds now, and Forge cannot read the catalog to prove they are unchanged. Set "refreshPackages": true on this entry to accept the refresh, or make the edit in the game's editor`);
+    }
+    return out;
+  }
+  function tierProblems(tiers, out) {
+    if (!Array.isArray(tiers) || tiers.length < 1 || tiers.length > B.maxTiers) {
+      out.push(`tiers must hold 1..${B.maxTiers} tiers`);
+      return;
+    }
+    tiers.forEach((tier, ti) => {
+      if (!Array.isArray(tier) || tier.length !== B.floorsPerTier) {
+        out.push(`tiers[${ti}] must hold exactly ${B.floorsPerTier} floors`);
+        return;
+      }
+      tier.forEach((floor, fi) => {
+        const where = `tiers[${ti}][${fi}]`;
+        if (!obj2(floor)) {
+          out.push(`${where} must be an object`);
+          return;
+        }
+        unknownKeys(floor, contract_default3.floorFields, where, out);
+        const last = ti === tiers.length - 1 && fi === B.floorsPerTier - 1;
+        const expected = last ? "boss" : fi === B.floorsPerTier - 1 ? "mini-boss" : "floor";
+        if (!contract_default3.floorKinds.includes(floor.kind)) out.push(`${where}.kind must be one of ${contract_default3.floorKinds.join(", ")}`);
+        else if (floor.kind !== expected) out.push(`${where}.kind must be "${expected}" (each non-final tier ends on a mini-boss, the last floor is the boss)`);
+        const waves = floor.waves;
+        if (!Array.isArray(waves) || waves.length < 1 || waves.length > B.maxWaves) {
+          out.push(`${where}.waves must hold 1..${B.maxWaves} waves`);
+          return;
+        }
+        waves.forEach((wave, wi) => {
+          const w = `${where}.waves[${wi}]`;
+          if (!obj2(wave)) {
+            out.push(`${w} must be an object`);
+            return;
+          }
+          unknownKeys(wave, contract_default3.waveFields, w, out);
+          if (!Array.isArray(wave.aiIds) || wave.aiIds.length < 1 || wave.aiIds.length > B.maxMobs) out.push(`${w}.aiIds must hold 1..${B.maxMobs} enemies`);
+          else wave.aiIds.forEach((id2, ai) => {
+            const p = idProblem(id2, ["ai"], `${w}.aiIds[${ai}]`);
+            if (p) out.push(p);
+          });
+          const delay = wave.delayRounds === void 0 ? D.wave.delayRounds : wave.delayRounds;
+          if (!int2(delay, 0, B.maxWaveDelayRounds)) out.push(`${w}.delayRounds must be an integer 0..${B.maxWaveDelayRounds} (omit it for ${D.wave.delayRounds}; null is not accepted)`);
+          else if (wi === 0 && delay !== 0) out.push(`${w}.delayRounds must be 0: the first wave starts immediately`);
+        });
+      });
+    });
+  }
+  function rewardProblems(rewards, out, authored) {
+    if (!obj2(rewards)) {
+      out.push("rewards must be an object {money, experience, tokens, prestige, drops}");
+      return;
+    }
+    unknownKeys(rewards, contract_default3.rewardFields, "rewards", out);
+    for (const k of ["money", "experience"]) {
+      const v = rewards[k];
+      if (v !== void 0 && !(num(v) && v >= 0 && v <= B.maxRewardAmount)) out.push(`rewards.${k} must be 0..${B.maxRewardAmount}`);
+    }
+    for (const k of ["tokens", "prestige"]) {
+      const v = rewards[k];
+      if (v !== void 0 && !int2(v, 0, B.maxRewardAmount)) out.push(`rewards.${k} must be an integer 0..${B.maxRewardAmount}`);
+    }
+    const drops = rewards.drops === void 0 ? [] : rewards.drops;
+    if (!Array.isArray(drops) || drops.length > B.maxDrops) {
+      out.push(`rewards.drops must be a list of at most ${B.maxDrops} drops (omit it for none; null is not accepted)`);
+      return;
+    }
+    let items = 0;
+    drops.forEach((drop, i) => {
+      const where = `rewards.drops[${i}]`;
+      if (!obj2(drop)) {
+        out.push(`${where} must be an object`);
+        return;
+      }
+      unknownKeys(drop, contract_default3.dropFields, where, out);
+      if ("package" in drop && authored) out.push(`${where}.package: the server copies the catalog snapshot at save and ignores a sent payload; omit it`);
+      if (!contract_default3.dropTypes.includes(drop.type)) {
+        out.push(`${where}.type must be one of ${contract_default3.dropTypes.join(", ")}`);
+        return;
+      }
+      const p = idProblem(drop.id, REF_FOR_DROP[drop.type], `${where}.id`);
+      if (p) out.push(p);
+      if (!(num(drop.chance) && drop.chance >= B.chance.min && drop.chance <= B.chance.max)) out.push(`${where}.chance must be ${B.chance.min}..${B.chance.max}`);
+      const quantity = drop.quantity === void 0 ? D.drop.quantity : drop.quantity;
+      if (!int2(quantity, 1, B.maxRewardQuantity)) out.push(`${where}.quantity must be an integer 1..${B.maxRewardQuantity} (omit it for ${D.drop.quantity}; null is not accepted)`);
+      else if (drop.type === "jutsu" && quantity !== 1) out.push(`${where}.quantity must be 1: jutsu rewards can only be learned once`);
+      else if (drop.type === "item" || drop.type === "cache") items += quantity;
+    });
+    if (items > B.maxGrantedItems) out.push(`rewards: up to ${items} items per player exceeds ${B.maxGrantedItems} (dungeonRewardError)`);
+  }
+  function mergeDungeon(live, data) {
+    const out = { ...obj2(live) && obj2(live.content) ? live.content : {}, ...data };
+    if (obj2(out.rewards) && Array.isArray(out.rewards.drops)) {
+      out.rewards = { ...out.rewards, drops: out.rewards.drops.map((d) => obj2(d) && "package" in d ? (({ package: _p, ...rest }) => rest)(d) : d) };
+    }
+    return out;
+  }
+  function normalizeDungeon(c) {
+    if (!obj2(c)) return c;
+    const fill = (defaults, o) => {
+      const r = { ...o };
+      for (const [k, v] of Object.entries(defaults)) if (r[k] === void 0) r[k] = structuredClone(v);
+      return r;
+    };
+    const n = fill(D.content, c);
+    if (str2(n.name)) n.name = n.name.trim();
+    if (n.expiresAt !== null && validDate(n.expiresAt)) n.expiresAt = new Date(n.expiresAt).toISOString();
+    if (Array.isArray(n.tiers)) {
+      n.tiers = n.tiers.map((t) => Array.isArray(t) ? t.map((f) => obj2(f) && Array.isArray(f.waves) ? { ...f, waves: f.waves.map((w) => obj2(w) ? fill(D.wave, w) : w) } : f) : t);
+    }
+    if (obj2(n.rewards)) {
+      n.rewards = fill(D.rewards, n.rewards);
+      if (Array.isArray(n.rewards.drops)) n.rewards.drops = n.rewards.drops.map((d) => obj2(d) ? fill(D.drop, (({ package: _p, ...rest }) => rest)(d)) : d);
+    }
+    return n;
+  }
+  function dungeonDiffs(asserted, liveContent) {
+    const a = normalizeDungeon(asserted), l = normalizeDungeon(obj2(liveContent) ? liveContent : {});
+    const diffs = [];
+    for (const k of Object.keys(asserted)) if (!deepEqualPayload(a[k], l[k])) diffs.push({ key: k, sent: asserted[k], live: obj2(liveContent) ? liveContent[k] : void 0 });
+    return diffs;
+  }
+  function contentDiffKeys(planned, liveContent) {
+    const a = normalizeDungeon(planned), l = normalizeDungeon(obj2(liveContent) ? liveContent : {});
+    const keys =  new Set([...Object.keys(a), ...Object.keys(l)]);
+    return [...keys].filter((k) => !deepEqualPayload(a[k], l[k]));
+  }
+  var dungeonName = (row) => obj2(row) && obj2(row.content) ? row.content.name : void 0;
 
   var AI_EXTRA_KEYS = Object.freeze(["jutsus", "items", "primaryElement", "secondaryElement", "rules", "includeDefaultRules"]);
   var AI_STRIPPED_OK = Object.freeze(["hidden"]);
@@ -2768,9 +2832,9 @@
       const s = SCHEMA_ENTITY[entity];
       return s ? this.fields[s] ?? null : null;
     }
-    problems(entity, data, live = null, { preCreate = false } = {}) {
+    problems(entity, data, live = null, { preCreate = false, refreshPackages = false } = {}) {
       if (isBloodrightEntity(entity)) return bloodrightProblems(entity, data, live, { preCreate });
-      if (isDungeonEntity(entity)) return dungeonProblems(data, live, { preCreate });
+      if (isDungeonEntity(entity)) return dungeonProblems(data, live, { preCreate, refreshPackages });
       const out = [];
       if (!data || typeof data !== "object") return ["data is not an object"];
       const keys = Object.keys(data);
@@ -2915,6 +2979,7 @@
   }
   var definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== void 0);
   function diffAsserted(entity, asserted, live) {
+    if (isDungeonEntity(entity)) return dungeonDiffs(asserted, live ? live.content : void 0);
     const diffs = [];
     for (const k of Object.keys(asserted)) {
       if (SERVER_OWNED.includes(k)) continue;
@@ -3212,9 +3277,9 @@
       update: "dungeon.save",
       names: "dungeon.getAll",
       updateInput: (id2, payload) => ({ id: id2, content: payload }),
-      row: (r) => dungeonRow(r),
       idKey: "id",
       nameKey: "name",
+      nameOf: dungeonName,
       cacheEntity: "dungeon"
     },
     aiProfile: {
@@ -3232,6 +3297,7 @@
     const rows = Array.isArray(data) ? data : data && Array.isArray(data.data) ? data.data : [];
     return rc.row ? rows.map(rc.row) : rows;
   }
+  var rowName = (rc, r) => rc.nameOf ? rc.nameOf(r) : r?.[rc.nameKey];
   function updateInput(rc, id2, payload) {
     return rc.updateInput ? rc.updateInput(id2, payload) : { id: id2, data: payload };
   }
@@ -3242,6 +3308,7 @@
   }
   function mergeForUpdate(entity, live, data, fields) {
     if (entity === "ai") return mergeAi(live, data);
+    if (entity === "dungeon") return mergeDungeon(live, data);
     const src = { ...live ?? {}, ...data };
     if (!fields) return src;
     const out = {};
@@ -3568,6 +3635,7 @@
         srcIds.add(it.srcId);
       }
       if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
+      if ("refreshPackages" in it && (it.refreshPackages !== true || it.entity !== "dungeon" || it.op !== "update")) problems.push(`item ${it.idx} (${it.name}): refreshPackages is true or absent, and only on a dungeon edit`);
     }
     let poolResolved = 0;
     for (const it of items) {
@@ -3690,6 +3758,7 @@
       data,
       ...it.expected !== void 0 ? { expected: it.expected } : {},
       ...it.reassign === true ? { reassign: true } : {},
+      ...it.refreshPackages !== void 0 ? { refreshPackages: it.refreshPackages } : {},
       ...it.suggestion && typeof it.suggestion === "object" ? { suggestion: it.suggestion } : {}
     };
   }
@@ -4081,7 +4150,7 @@
         item = this.journal.get(jobId).items[item.idx];
         if (item.state === "CONFIRMED") await this._verifyOrSkip(jobId, item, planned, manifest);
       } catch (e) {
-        if (e instanceof Paused) throw e;
+        if (e instanceof Paused || e instanceof LeaseHeld) throw e;
         if (e instanceof AuthRefused) throw this._authRefused(e.error, { idx: item.idx, path: e.path });
         if (e instanceof RateLimited) throw new Paused("TOO_MANY_REQUESTS", { path: e.path, until: e.until, idx: item.idx });
         const cur = this.journal.get(jobId).items[item.idx];
@@ -4142,9 +4211,7 @@
         const problems = this.validator.problems(item.entity, createData, null, { preCreate: true });
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       }
-      const input = rc.create.input(createData);
-      this._requireAuth(rc.create.path, item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "create" }, () => this.client.call(rc.create.path, input));
+      const decoded = await this._send(jobId, item, { phase: "create" }, rc.create.path, rc.create.input(createData));
       const o = rc.createdId ? readCreatedId(rc, decoded) : readCreate(decoded);
       if (o.kind === "ok") {
         this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: o.id, phase: rc.oneStep ? "verify" : "update", ...rc.oneStep ? { asserted: Object.keys(planned.data) } : {} });
@@ -4154,6 +4221,27 @@
         return;
       }
       this._failFromOutcome(jobId, item, o, "create");
+    }
+    async _send(jobId, item, patch, path, input) {
+      this._requireAuth(path, item.idx);
+      if (isLimited(path)) {
+        if (!this.budget) throw new Error(`${path} is rate-limited by the server and no budget is wired; nothing was sent`);
+        await this.budget.acquire(path, 1);
+        this._lease(jobId);
+      }
+      const decoded = await this.journal.withSent(jobId, item.idx, patch, () => this.client.call(path, input));
+      if (decoded && decoded.ok === false && decoded.error && decoded.error.code === "TOO_MANY_REQUESTS") {
+        let limited = null;
+        try {
+          if (this.budget) this.budget.observe([decoded], [path]);
+        } catch (e) {
+          if (!(e instanceof RateLimited)) throw e;
+          limited = e;
+        }
+        this.journal.transition(jobId, item.idx, "FAILED", { error: `${patch.phase} TOO_MANY_REQUESTS: ${decoded.error.message} (refused before it applied; not resent)` });
+        throw new Paused("TOO_MANY_REQUESTS", { idx: item.idx, path, until: limited ? limited.until : null, detail: decoded.error.message });
+      }
+      return decoded;
     }
     async _fill(jobId, item, planned) {
       const rc = recipe(item.entity);
@@ -4181,16 +4269,16 @@
         }
         if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
       }
-      const problems = this.validator.problems(item.entity, data, live.data);
+      const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
       const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
-      this._requireAuth(rc.update, item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "update" }, () => this.client.call(rc.update, updateInput(rc, id2, payload)));
+      const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload));
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id2);
       if (o.kind === "ok") {
         const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id2, phase: next, asserted: Object.keys(data) });
+        const refreshed = item.entity === "dungeon" ? packageDrops(payload) : [];
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id2, phase: next, asserted: Object.keys(data), ...refreshed.length ? { packagesRefreshed: refreshed } : {} });
         if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id2);
         return;
       }
@@ -4235,12 +4323,12 @@
         const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
         if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
         const s = this._suggestion(manifest, planned, jobId, item);
-        this._requireAuth("contentReview.create", item.idx);
-        const decoded = await this.journal.withSent(
+        const decoded = await this._send(
           jobId,
-          item.idx,
+          item,
           { phase: "suggest", entityId: id2, suggestTitle: s.title },
-          () => this.client.call("contentReview.create", { entityType: contract_default2.entityTypes[item.entity], entityId: id2, category: s.category, title: s.title, rationale: s.rationale, data: payload })
+          "contentReview.create",
+          { entityType: contract_default2.entityTypes[item.entity], entityId: id2, category: s.category, title: s.title, rationale: s.rationale, data: payload }
         );
         const o = readMutation(decoded);
         if (o.kind !== "ok") {
@@ -4275,8 +4363,7 @@
       if (!live.ok || !live.data) throw new Error(`profile.getAi failed for ${userId}`);
       let apid = live.data.aiProfileId;
       if (!apid) {
-        this._requireAuth(rc.profileToggle, item.idx);
-        const decoded2 = await this.journal.withSent(jobId, item.idx, { phase: "rules-toggle", entityId: userId }, () => this.client.call(rc.profileToggle, { aiId: userId }));
+        const decoded2 = await this._send(jobId, item, { phase: "rules-toggle", entityId: userId }, rc.profileToggle, { aiId: userId });
         const o2 = readMutation(decoded2);
         if (o2.kind !== "ok") {
           this._failFromOutcome(jobId, item, o2, "toggle");
@@ -4288,8 +4375,7 @@
         apid = live.ok && live.data ? live.data.aiProfileId : null;
         if (!apid) throw new Error("no aiProfileId after toggle");
       }
-      this._requireAuth(rc.profileUpdate, item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "rules", entityId: userId, aiProfileId: apid }, () => this.client.call(rc.profileUpdate, { id: apid, rules, includeDefaultRules }));
+      const decoded = await this._send(jobId, item, { phase: "rules", entityId: userId, aiProfileId: apid }, rc.profileUpdate, { id: apid, rules, includeDefaultRules });
       const o = readMutation(decoded);
       await this.cache.invalidateEntity("ai");
       if (o.kind === "ok") {
@@ -4359,7 +4445,7 @@
         const rows = recipeRows(rc, r.data);
         const live =  new Set();
         for (const row of rows) {
-          const v = row && (row[rc.nameKey] ?? row.name ?? row.username);
+          const v = row && (rowName(rc, row) ?? row.name ?? row.username);
           if (typeof v === "string") live.add(v.trim().toLowerCase());
         }
         for (const e of entries) {
@@ -4594,7 +4680,8 @@
       for (const id2 of this.journal.knownEntityIds(item.entity)) owned.add(id2);
       const rows = recipeRows(rc, list.data).filter((r) => !before.has(r[rc.idKey]) && !owned.has(r[rc.idKey]));
       const pending = job.items.filter((it) => it.entity === item.entity && it.state === "SENT" && (it.phase === "create" || !it.entityId));
-      const candidates = rows.map((r) => ({ id: r[rc.idKey], name: r[rc.nameKey] ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
+      const candidates = rows.map((r) => ({ id: r[rc.idKey], name: rowName(rc, r) ?? null, placeholderName: rc.placeholder ? rc.placeholder(r[rc.idKey]) === (r[rc.nameKey] ?? null) : null }));
+      if (item.entity === "dungeon") return this._dungeonCreate(rows, candidates, pending, ctx);
       if (candidates.length === 1 && pending.length === 1) {
         const c = candidates[0];
         if (item.entity === "skillTree" || item.entity === "skillTreeFolder") {
@@ -4602,18 +4689,29 @@
           if (!planned || item.entity === "skillTree" && (!c.placeholderName || row.pathType !== "BLOODRIGHT" || row.bloodlineId !== planned.data.bloodlineId || !row.hidden) || rc.oneStep && diffAsserted(item.entity, planned.data, row).length) return { action: "orphan", candidates, note: "new row does not match the planned Bloodright create" };
           return { action: "orphan", candidates, note: "matching Bloodright create found; confirm its ownership before adopting" };
         }
-        if (rc.oneStep) {
-          const planned = ctx.planned;
-          if (!planned) return { action: "orphan", candidates, note: "no planned data to compare the new row against" };
-          const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => void 0));
-          if (unresolved.length) return { action: "orphan", candidates, note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
-          const diffs = diffAsserted(item.entity, data, rows[0]);
-          if (diffs.length) return { action: "orphan", candidates, note: "the single new row differs on " + diffs.map((d) => d.key).join(", "), diffs };
-          return { action: "confirm", entityId: c.id, phase: "verify", landed: true, note: `adopted the single new ${item.entity} ${c.id}: it matches every asserted key` };
-        }
         return { action: "confirm", entityId: c.id, phase: "update", note: `adopted the single new ${item.entity} ${c.id}` + (c.placeholderName === false ? " (name is not the placeholder pattern; check it)" : "") };
       }
       return { action: "orphan", candidates, note: `${candidates.length} new ${item.entity} row(s) since the snapshot, ${pending.length} create(s) pending: ambiguous` };
+    }
+    _dungeonCreate(rows, candidates, pending, ctx) {
+      let data = null, why = "";
+      if (!ctx.planned) why = "; no planned data to compare against";
+      else {
+        const r = resolveRefs(ctx.planned.data, ctx.lookup ?? (() => void 0));
+        if (r.unresolved.length) why = "; cannot compare: unresolved refs " + r.unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ");
+        else data = r.value;
+      }
+      const evidence = candidates.map((c, i) => {
+        if (!data) return c;
+        const differs = contentDiffKeys(data, rows[i].content);
+        return { ...c, matches: !differs.length, differs };
+      });
+      const n = evidence.filter((c) => c.matches).length;
+      return {
+        action: "orphan",
+        candidates: evidence,
+        note: `lost dungeon create: ${candidates.length} new dungeon row(s) since the snapshot (${n} matching the planned content in every field), ${pending.length} create(s) pending${why}. dungeon.save has no idempotency key, so even a matching row may be another operator's: check it in the game, then adopt it (read back, never saved again) or skip`
+      };
     }
     async _resolveUpdate(item, rc, ctx) {
       const planned = ctx.planned;
@@ -5269,11 +5367,12 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
       for (const c of cands) {
         const id2 = typeof c === "string" ? c : c.id;
         const name = typeof c === "string" ? "" : c.name;
+        const evidence = typeof c === "object" && c.matches !== void 0 ? c.matches ? "matches the planned content (may still be someone else's)" : `differs on ${c.differs.join(", ")}` : null;
         card.appendChild(h(
           "div",
           { class: "f-row" },
-          h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id2), name ? h("div", { class: "f-mute" }, name) : null),
-          h("button", { onClick: () => app.confirm(`Adopt ${id2} as "${it.name}"? The job will continue with its update.`, () => app.adopt(job.jobId, it.idx, id2)) }, "Adopt")
+          h("div", { class: "f-grow" }, h("div", { class: "f-mono" }, id2), name ? h("div", { class: "f-mute" }, name) : null, evidence ? h("div", { class: "f-mute" }, evidence) : null),
+          h("button", { onClick: () => app.confirm(`Adopt ${id2} as "${it.name}"? ${evidence ? "It will be read back and verified; nothing is saved again." : "The job will continue with its update."}`, () => app.adopt(job.jobId, it.idx, id2)) }, "Adopt")
         ));
       }
     } else if (it.op === "create" || !it.entityId) {
