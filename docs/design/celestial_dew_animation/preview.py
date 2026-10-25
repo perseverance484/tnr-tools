@@ -13,11 +13,11 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')
 # effect square on it: measured from the v5 ward ring shown in that recording (184.1 recording px across, top-left at
 # (219.3, 132.1)); consistent with the pinned source's portrait geometry for h = 16.1 (build_strip.py H_REF).
 STILL = os.path.join(ROOT, 'docs/design/celestial_dew_animation/battle_still_2026-10-24b.png')
-V = sys.argv[1] if len(sys.argv) > 1 else 'v7'
+V = sys.argv[1] if len(sys.argv) > 1 else 'v8'
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, f'docs/design/celestial_dew_animation/{V}_over_avatar.gif')
 A = os.path.join(ROOT, 'art/jutsu_icons/celestial_dew/animation/')
 spec = importlib.util.spec_from_file_location('cd', A + 'build_strip.py'); cd = importlib.util.module_from_spec(spec); spec.loader.exec_module(cd)
-K, L, T = 184.1, 219.3, 132.1
+K, L, T = 148.2, 237.3, 150.1   # after the upstream change: 2.5 h = 40.25 units on this phone, same centre
 BOX, SC, TICK = (215, 100, 405, 300), 2, 40
 bg = Image.open(STILL).convert('RGBA').crop(BOX)
 bg = bg.resize((bg.width * SC, bg.height * SC), Image.LANCZOS)

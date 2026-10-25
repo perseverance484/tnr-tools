@@ -36,14 +36,18 @@ S = er.S                                  # working size
 #   white marker: 0.9 h x 1.1 h at (w/2, 0.9 h); star: h/2.5 at (w/2, 0.4 h); health bar at h + w/3;
 #   both groups sit at the tile origin (-x, -y); the camera is orthographic over the canvas width, so a world unit is a
 #   CSS pixel; the battle grid is 12 columns, so hexsize = width / 9.25 and the tile height h = hexsize / 2.
-# The effect stays 50 units while h grows with the canvas, so the portrait's place in the square depends on the
-# screen. Reference: the director's phone recording of 2026-10-24 (h = 16.1, a canvas about 298 CSS px wide), where the
-# source model matches the measured avatar (centre 0.339, radius 0.130 of the square). Change H_REF to retune.
-H_REF = 16.1
-AV_CY = 0.5 - (H_REF / 2) / 50          # avatar centre, from the square's top (0.339)
-AV_R = 0.4 * H_REF / 50                 # avatar radius (0.129)
-RIM_CY, RIM_OUT = 0.325, 0.163          # the white marker disc round it (measured: the marker art's shape is not in source)
-HPBAR_Y = 0.5 - (H_REF / 2 + 2 * H_REF / 3) / 50   # the health bar (0.124)
+# Before the upstream change the effect stayed 50 units while h grew with the canvas, so the portrait's place in the
+# square depended on the screen (v6/v7 were tuned to the director's phone, h = 16.1).
+# All screens (director, 2026-10-24: "Just assume the PR is done and build the version that fits all screens"): with
+# the upstream change the effect is drawn at 2.5 h (scale: h * 2.5), so the portrait's place in the square is the same on
+# every screen. In tile heights: the avatar centre is h/2 above the effect centre, radius 0.4 h; the white marker disc
+# (measured on the director's phone, h = 16.1: centre 8.75 units = 0.543 h above the effect centre, radius 8.15 units =
+# 0.506 h); the health bar 1.167 h above it.
+EFFECT_H = 2.5                          # the effect square, in tile heights
+AV_CY = 0.5 - 0.5 / EFFECT_H            # avatar centre, from the square's top (0.30)
+AV_R = 0.4 / EFFECT_H                   # avatar radius (0.16)
+RIM_CY, RIM_OUT = 0.5 - 0.543 / EFFECT_H, 0.506 / EFFECT_H   # the white disc (0.283, 0.202)
+HPBAR_Y = 0.5 - (0.5 + 2 / 3) / EFFECT_H                    # the health bar (0.033)
 PCY = RIM_CY                            # the ward and its ring are centred on the white disc
 ease, seg, smooth = er.ease, er.seg, er.smooth
 BEHIND_MASK = er.BEHIND_MASK
@@ -68,7 +72,7 @@ LOOP_RISE_T = 0.36                                # loop phase where its gentle 
 # the ward band's inner edge, as a frame radius. The portrait reaches to 0.024 of the frame top, so a ring round it has
 # little room there: the band is tucked over the portrait's rim (outer edge about 0.246, its top at about 0.05) so it
 # stays inside the frame (director, 2026-10-24: "the circle seems to clip at the top when the ward forms")
-RING_INNER = RIM_OUT + 0.004            # the ward band starts just outside the white disc
+RING_INNER = RIM_OUT - 0.01             # the ward band over the white disc's edge (its top stays inside the square)
 RIPPLE_END = RING_INNER + 0.02          # where the ripples end: inside the ward band
 W1_INNER = 390 / 1254  # the band's inner edge in the W1 art (measured), as a fraction of its canvas
 R1_OUTER = 536 / 1254  # the R1 art's outer crest radius, as a fraction of its canvas width (measured)
@@ -148,7 +152,7 @@ def layers():
 # the chakra overflow rising star"): upright as in the icon (a C opening to the right), about a fifth of the frame tall,
 # on top of the head (Chakra Overflow's crown star sits at 0.075 of the frame from the top, about 0.24 tall). It is
 # placed so its lower horn's tip is directly above the portrait's centre: the drop falls from it straight down.
-MOON_H, MOON_Y = 0.11, 0.062           # above the health bar (0.124), clear of the portrait
+MOON_H, MOON_Y = 0.10, 0.075           # on top of the head, over the health bar (no room above it at 2.5 h)
 
 
 def _moon_place():
@@ -175,7 +179,7 @@ def appear_frames():
     (mx, my, mw), horn = _moon_place()
     rnd = random.Random(3)
     thrown = [dict(img=Lr['glints'][i % len(Lr['glints'])], ang=-math.pi / 2 + rnd.uniform(-1.3, 1.3),
-                   v=rnd.uniform(0.005, 0.008), s=rnd.uniform(0.025, 0.04)) for i in range(6)]
+                   v=rnd.uniform(0.006, 0.010), s=rnd.uniform(0.03, 0.05)) for i in range(6)]
     out = []
     for f in range(CAST_N):
         front = Image.new('RGBA', (S, S), (0, 0, 0, 0))
@@ -193,15 +197,15 @@ def appear_frames():
             sw = ease(seg(f, 12, 20))
             q = seg(f, 20, IMPACT) ** 2
             y = horn[1] + 0.015 + (AV_CY - horn[1] - 0.015) * q
-            put(top, Lr['D1_drop'], 0.5, y, 0.045 * (0.4 + 0.6 * sw), 1.0)
+            put(top, Lr['D1_drop'], 0.5, y, 0.055 * (0.4 + 0.6 * sw), 1.0)
         # 3. the splash at the centre, a flash, glints thrown up
         if IMPACT <= f < IMPACT + 15:
             p = seg(f, IMPACT, IMPACT + 15)
-            put(front, Lr['S1_splash'], 0.5, AV_CY - 0.012, 0.17 * (0.6 + 0.4 * ease(min(1, p * 3))), 0.85 * (1 - ease(p)))
+            put(front, Lr['S1_splash'], 0.5, AV_CY - 0.015, 0.21 * (0.6 + 0.4 * ease(min(1, p * 3))), 0.85 * (1 - ease(p)))
         fl = ease(seg(f, IMPACT - 1, IMPACT + 1)) * (1 - ease(seg(f, IMPACT + 1, IMPACT + 7)))
         if fl > 0:
             g = Image.new('L', (S, S), 0)
-            ImageDraw.Draw(g).ellipse([0.5 * S - 0.035 * S, AV_CY * S - 0.035 * S, 0.5 * S + 0.035 * S, AV_CY * S + 0.035 * S], fill=255)
+            ImageDraw.Draw(g).ellipse([0.5 * S - 0.045 * S, AV_CY * S - 0.045 * S, 0.5 * S + 0.045 * S, AV_CY * S + 0.045 * S], fill=255)
             g = g.filter(ImageFilter.GaussianBlur(S * 0.025)).point(lambda v, a=fl: int(v * a))
             top.alpha_composite(Image.merge('RGBA', (Image.new('L', (S, S), 240), Image.new('L', (S, S), 248), Image.new('L', (S, S), 255), g)))
         for d in thrown:
@@ -229,7 +233,7 @@ def appear_frames():
                 r = RING_INNER + 0.03 + 0.015 * p
                 q = math.sin(math.pi * p)
                 put(top, Lr['glints'][(k * 2 + 1) % len(Lr['glints'])], 0.5 + r * math.cos(ang), PCY + r * math.sin(ang),
-                    0.035 * (0.5 + 0.5 * q), q)
+                    0.04 * (0.5 + 0.5 * q), q)
         out.append(finish(Image.new('RGBA', (S, S), (0, 0, 0, 0)), front, top))
     return out
 
@@ -266,7 +270,7 @@ def loop_frames():
             if q > 0:
                 r = RING_INNER + 0.03
                 put(front, Lr['glints'][1], 0.5 + r * math.cos(math.radians(ang)), PCY + r * math.sin(math.radians(ang)),
-                    0.035 * (0.5 + 0.5 * q), 0.9 * q)
+                    0.04 * (0.5 + 0.5 * q), 0.9 * q)
         out.append(finish(Image.new('RGBA', (S, S), (0, 0, 0, 0)), front))
     return out
 
@@ -331,7 +335,7 @@ def break_frames():
                 r = RING_INNER + 0.025 + d['v'] * tt
                 x, y = 0.5 + r * math.cos(d['ang']), PCY + r * math.sin(d['ang']) + 0.0006 * tt * tt
                 tangent = -math.degrees(d['ang']) - 90
-                put(front, d['img'], x, y, 0.06 * (1 - 0.3 * p), (1 - ease(p)) * min(1, f / 3), tangent + d['spin'] * p)
+                put(front, d['img'], x, y, 0.07 * (1 - 0.3 * p), (1 - ease(p)) * min(1, f / 3), tangent + d['spin'] * p)
         # stardust rises
         for k in range(5):
             p = seg(f, 3 + k, 3 + k + 16)
@@ -364,4 +368,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     for name, fn in BUILDERS.items():
         if a.only in (None, name):
-            save_strip(fn(), f'{name}_v7')
+            save_strip(fn(), f'{name}_v8')
