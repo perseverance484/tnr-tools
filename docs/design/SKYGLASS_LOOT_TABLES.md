@@ -39,21 +39,22 @@
 | Epic | 12% | Chakra Pill II ×10; Stamina Pill II ×10 |
 | Legendary | 3% | Pill Pack ×5 |
 
-**Sage's Strongbox** — High-tier consumables; 1 roll(s).
+**Sage's Strongbox** — Elite consumables with a scroll jackpot; 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Epic | 60% | Chakra Pill II ×10; Stamina Pill II ×10; Dr. Kim's Poison Potion ×5 |
-| Legendary | 37% | Pill Pack ×5; Solider Pill; Enemy Pill; Mona's Mermaid Song |
-| Forbidden | 3% | Forbidden Jutsu Scroll: Nexus; Forbidden Jutsu Scroll: Rebirth |
+| Common | 45% | Dr. Kim Disaster Potion ×10; Chakra Disrupting Needles ×10 |
+| Epic | 30% | Infernum ×10; Bashōsen ×10; Dr. Kim's Poison Potion ×10 |
+| Legendary | 22% | Pill Pack ×5; Solider Pill ×10; Enemy Pill ×10; Mona's Mermaid Song ×10 |
+| Forbidden | 3% | Forbidden Jutsu Scroll: Nexus ×1; Forbidden Jutsu Scroll: Rebirth ×1 |
 
 **Elemental Tool Pouch ×5** — Katon, Wave, Ikazuchi, Stonefall and Zephyrfang Pouch: one per element, Silent Bastion only; 1 roll(s). Guaranteed: That element's kunai ×10, every opening.
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 60% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×5; Chakra Disrupting Needles |
-| Rare | 30% | That element's kunai ×20; Venom Cask ×10; Paper Bombs ×5 |
-| Epic | 10% | Senbon Needles ×5; Saki; Bashōsen; Infernum |
+| Common | 60% | That element's kunai ×10; Smoke Pellet ×10; Whetstone Oil ×10; Elite Smoke Bomb ×10; Chakra Disrupting Needles ×10 |
+| Rare | 30% | Venom Cask ×10; Paper Bombs ×10 |
+| Epic | 10% | Senbon Needles ×10; Saki ×10 |
 
 ## 4. Treasure hunts
 
