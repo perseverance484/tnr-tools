@@ -71,17 +71,31 @@ Settled by RUL-2026-10-24-008 unless marked open.
 - **Open:** the one-hour limit with ten multi-enemy fights; confirm with a hidden test run before publishing.
 - **Prerequisite:** Skyglass Sentinel rules 0, 1, 3, 4 reference jutsu it does not carry (QA 2026-10-20); fix before the dungeon ships.
 
-## 4. The chest
+## 4. Completion reward, the chest and the maps
 
-Standard-mode consumable (independent lines, like Ornate and the War Caches), dropped as a plain `item`:
+Ruled by RUL-2026-10-24-009: the split, chest trade, map rates and map names. Every other value below is the presented proposal, tunable until the content manifest is reviewed.
 
-- **Guaranteed:** ryo and one Skyglass themed item (for example Skyglass Serum).
-- **Regular lines:** finished consumables in ×5/×10/×20 stacks (RUL-2026-10-13-002).
-- **Uncommon lines:** one of the reward caches (§5), Ornate Chest, Rare Jewels.
-- **Bonus lines:** one independent line per treasure map. Independent lines mean a map is **on top of** the regular loot, never instead of it.
-- **Jackpot:** Lion Token, as on the War Caches.
+**Completion (dungeon `rewards`, every member):** 15,000 exp, 1,000 tokens, 1,000 prestige; one chest drop at 100% ×1.
 
-Open: chest name and art, tradability of the chest itself, every rate.
+**The chest** (name and art open): standard-mode CONSUMABLE, **not tradable**, every line independent. A multi-id `reward_items` line grants every id on it (`postProcessRewards`), so each item is its own line.
+
+| Group | Line | Chance |
+|---|---|---|
+| Guaranteed | 50,000 ryo; Skyglass Serum ×2 (`XhilCv1Hq4eNt-Wddok-m`) | 100% |
+| Supplies | Chakra Pill II ×10 (`nThwqBAKNrl1_4UTL-D_m`); Stamina Pill II ×10 (`CbUq--UpWnawD_7Xk_GCV`) | 50% each |
+| | Small Health Pill ×5 (`XmFscRje4vUzUorOI5plt`) | 40% |
+| | Elite Smoke Bomb ×5 (`TtYPd-LcXKeK3sMuhq1TP`); Senbon Needles ×5 (`R_xTf5Fy8EDcrJrRCwAcf`); Venom Cask ×10 (`_5152PR1inHUEZUBjiaHJ`) | 20% each |
+| Valuables | Rare Jewels ×5 (`05hx4hI0I4L2vAME8CcZu`) | 30% |
+| | Imperial Gold ×5 (`FEaV0h7on2ZHy_ST5fSOs`) | 10% |
+| | Ornate Chest (`ONMLl57L7o0MivjhySHMA`) | 5% |
+| Caches | Medicine Inro; Shinobi Tool Pouch | 10% each |
+| | Sage's Strongbox | 5% |
+| **Maps** | Chart of the Drowned Foundry **12%**; Chart of the Quarantine Vault **6%**; Chart of the Silent Bastion **6%**; Chart of the Skyglass Expedition **3%** | ruled |
+| Jackpot | Lion Token (`FG4xYkI8UmRrJCdD3yPxI`) | 1% |
+
+About 0.27 maps per player per clear. Katana: 3% map × 3% Katana ≈ one per 1,100 player-clears; a Crown (five fragments at 20%) ≈ 25 Expeditions ≈ 830 clears.
+
+**Maps:** itemType OTHER (no use effect), tradable, stackable, consumed when the hunt starts (`entryItems`); abandoning or failing does not refund it. Rarity follows the tier: Foundry RARE, Vault and Bastion EPIC, Expedition LEGENDARY. Hunts start from the Battle Arena; one Pyramid run at a time per player.
 
 ## 5. Reward caches — finished items
 

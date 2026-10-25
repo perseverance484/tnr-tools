@@ -2505,3 +2505,25 @@ make our forbidden master"
 **Evidence:** User, 2026-10-24: "Accept 3-only", "Permanent", "Two waves per floor", "We'll put it in a sector near Wake Island. Pvp can't be turned off there anymore btw".
 
 **Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
+
+## RUL-2026-10-24-009 — Skyglass Wreck payout split, chest trade, map rates and names
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass Wreck rewards
+
+**Status:** ACTIVE. Map rates, split, chest trade and map names are ruled. The other chest lines and the completion amounts are the presented proposal, not objected to; they stay tunable until the content manifest is reviewed.
+
+**Supersedes:** the Skyglass Signal Beacon's "10% per Ghost Ship clear" source (RUL-2026-10-16-010) for the Silent Bastion's map, which now drops from the chest at 6%.
+
+**Ruling:**
+1. **Split payout:** exp, tokens and prestige on completion to each player; ryo and items in the chest.
+2. **The chest is not tradable.** One per player per clear.
+3. **Map lines in the chest:** Drowned Foundry **12%**, Quarantine Vault **6%**, Silent Bastion **6%**, Skyglass Expedition **3%**, each an independent line on top of the regular loot.
+4. **Map names:** "Chart of the …" (Chart of the Drowned Foundry, Chart of the Quarantine Vault, Chart of the Silent Bastion, Chart of the Skyglass Expedition).
+
+Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prestige; chest guaranteed 50,000 ryo and Skyglass Serum ×2; supplies, valuables, caches and a 1% Lion Token as in the design doc §4. Maps are OTHER items, tradable, stackable, consumed at hunt start; rarity Foundry RARE, Vault and Bastion EPIC, Expedition LEGENDARY.
+
+**Evidence:** User, 2026-10-24: "Split", "12 / 6 / 6 / 3", "Not tradable", "Chart of the …".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §4.
