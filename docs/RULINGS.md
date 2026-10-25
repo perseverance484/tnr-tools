@@ -2608,3 +2608,22 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Amendment (2026-10-24):** Sage's Strongbox stacks follow its tiers: **Common ×20, Epic ×10, Legendary ×5, Forbidden ×1** (user: "Do x20 common, x10 epic, x5 legendary and x1 forbidden"). The Medicine Inro and pouches keep item 1's ×10 / Pill Pack ×5.
 
 **Amendment (2026-10-24):** each elemental pouch adds its element's kunai **×20 in Rare** and **×30 in Epic**, beside the ×10 guarantee and the ×10 Common entry (user: "Put a x20 roll in rare and a x30 roll in epic of the kunai for the kunai pouches").
+
+## RUL-2026-10-24-014 — Skyglass Coffer replaces the Ornate Chest; hunts lose unique drops; Armory Requisition
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE (structure). Coffer contents, ending payouts and quantities are proposals (`docs/design/SKYGLASS_LOOT_TABLES.md`).
+
+**Supersedes:** "Katana and Crown fragment are Expedition-only" (RUL-2026-10-23-004); the Expedition's bespoke ending lines; the Foundry and Vault signature cards and the Bastion's five pouch cards (RUL-2026-10-24-012 item 1, the 1-of-7 pick); the Ornate Chest's place in the event.
+
+**Ruling:**
+1. **Skyglass Coffer**, a new chest, **replaces the Ornate Chest** in the event and is the **only home of Skyglass loot**: Serum, Filament, Reliquary, Crown fragment, Crystal and the **Skyglass Katana**. It drops from the Wreck's salvage rolls and from hunt endings.
+2. **No hunt has unique drops.** Hunts pay ryo, exp and Coffers or caches by ending; they differ by mechanic. The Skyglass Expedition is converted to this system.
+3. **Every hunt's pick is 1 of 3: Medic's Haul, Sage's Haul, Skyglass Coffer.** The Silent Bastion swaps the Coffer for the **Armory Requisition**, a tradable token whose use starts a one-node Special quest ending in a pick of 1 of 5 elemental pouches (`noncombatquest` item effect; Special quests take no completion caps). Pouches stay Bastion-only.
+
+**Evidence:** User, 2026-10-24: "I think we should do away with the skyglass expedition having its own unique drops ... the silent Bastion shouldn't have 7 choices ... I think we should make a new chest instead of the ornate chest"; then "In the Coffer", "Requisition token", "Same three everywhere", "Skyglass Coffer".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
