@@ -1,0 +1,137 @@
+{
+ "_note": "Skyglass Sentinel rules rewrite (director approved 2026-10-24). Run AFTER push/249 and only if 249 shows the Sentinel still holds its seven-jutsu kit (Twin Kunai, Rigging Snare, Hollow Timber, Light Barrier, Counter Stance, Stoneward, Springguard). Update-only on the AI's profile; the kit is not touched. Every rule uses an equipped jutsu; attack gates follow law 40; self-casts trigger on player_within_range, health or round.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "3V_gdHYaclMB1gTyOPAbV",
+   "name": "Skyglass Sentinel: rules use the whole kit",
+   "data": {
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "mOA1hXNf4CcuwOhnnN7ZK",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "round_lower_than",
+        "value": 2,
+        "description": "Current round is lower than specified value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "05rH3kZNXbtFq9a9iRl-W",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": "Health below given percentage"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 2,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "1jXfTgrtGUaSfqTPSSa83",
+        "Jz4Lb55NcpwZn3nUK5PrJ"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "V3WrfQ3pB-eCq2hojsxWe",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "minRange": 0,
+        "maxRange": 5,
+        "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "RANDOM_OPPONENT",
+       "description": "Move towards opponent"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance higher than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_highest_power_action",
+       "target": "RANDOM_OPPONENT",
+       "description": "Use highest power action"
+      },
+      "conditions": []
+     }
+    ]
+   }
+  }
+ ]
+}

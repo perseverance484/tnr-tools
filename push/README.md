@@ -769,6 +769,16 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
+## 250 Skyglass Sentinel rules (aiProfile update): READY TO RUN (after 249)
+
+`250_skyglass_sentinel_rules.json`: rewrites the Skyglass Sentinel's (`3V_gdHYaclMB1gTyOPAbV`) rules so it uses its whole
+kit as the Wreck's floor-3 boss: Springguard opener (round 1), Light Barrier below 50% health, Counter Stance with a player
+within 2, Rigging Snare -> Hollow Timber combo at 4, Stoneward with a player within 5, Twin Kunai at 6, close in beyond 3,
+then highest-power fallback. Replaces push/94's set (Twin Kunai on three rules; Counter Stance and Stoneward never cast;
+Springguard gated so it never fired). Kit untouched. **Check 249 first:** run only if the Sentinel still carries the seven
+jutsu named in the manifest note. Director (2026-10-24): "Yes". Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
+
 ## 249 Skyglass Wreck roster capture (read-only): READY TO RUN
 
 `249_skyglass_wreck_roster_capture.json`: `profile.getAi` + `ai.getAiProfile` for the twelve AIs the Skyglass Wreck
