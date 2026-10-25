@@ -1,0 +1,16 @@
+{
+ "_note": "READ-ONLY capture of the existing Headless Rider AI (eaMN5CfciNlxfezSKemJ6) for Headless Rider Horror! (0lNDtE_VYJOCy8JZQI_sI). Zero mutations. Operator-run only; never an agent request. One profile.getAi point read with persist:\"full\": the full record with embedded jutsu (ranges, targeting) and items, every stat field and aiProfileId. Needed to build the edit that adds only the avatar and custom rules: an AI edit must resend the complete jutsus and items lists unchanged (law 70) and rules must gate on the AI's own jutsu ranges. Keep the full results bundle.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "eaMN5CfciNlxfezSKemJ6"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}
