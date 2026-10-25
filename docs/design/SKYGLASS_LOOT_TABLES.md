@@ -24,8 +24,8 @@
 
 | Tier | Weight | Entries (per-roll chance each) |
 |---|---|---|
-| Supplies | 60% | Chakra Pill II ×10 (8.6%); Stamina Pill II ×10 (8.6%); Small Health Pill ×5 (8.6%); Field Tonic ×10 (8.6%); Smoke Pellet ×10 (8.6%); Venom Cask ×10 (8.6%); Elite Smoke Bomb ×5 (8.6%) |
-| Valuables | 30% | Rare Jewels ×5 (7.5%); Imperial Gold ×5 (7.5%); Unobtanium ×5 (7.5%); Senbon Needles ×5 (7.5%) |
+| Supplies | 60% | Small Health Pill ×5 (12%); Field Tonic ×10 (12%); Smoke Pellet ×10 (12%); Venom Cask ×10 (12%); Elite Smoke Bomb ×5 (12%) |
+| Valuables | 30% | Rare Jewels ×5 (5%); Imperial Gold ×5 (5%); Unobtanium ×5 (5%); Senbon Needles ×5 (5%); Chakra Pill II ×10 (5%); Stamina Pill II ×10 (5%) |
 | Reward cache | 9% | Medicine Inro (3%); Shinobi Tool Pouch (3%); Sage's Strongbox (3%) |
 | Prize | 1% | Ornate Chest (0.3%); Pill Pack ×2 (0.3%); Skyglass Filament ×2 (0.3%) |
 
@@ -35,9 +35,10 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 70% | Chakra Pill II ×10; Stamina Pill II ×10; Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×5; Panacea |
-| Rare | 25% | Small Health Pill ×5; Dr. Kim's Miracle Potion |
-| Epic | 5% | Pill Pack ×2 |
+| Common | 55% | Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×5 |
+| Rare | 30% | Small Health Pill ×5; Dr. Kim's Miracle Potion; Panacea |
+| Epic | 12% | Chakra Pill II ×10; Stamina Pill II ×10 |
+| Legendary | 3% | Pill Pack ×2 |
 
 **Shinobi Tool Pouch** — Kunai and tools; one element per roll; 2 roll(s).
 
@@ -51,8 +52,8 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Epic | 60% | Pill Pack ×2; Dr. Kim's Poison Potion ×5 |
-| Legendary | 37% | Solider Pill; Enemy Pill; Mona's Mermaid Song |
+| Epic | 60% | Chakra Pill II ×10; Stamina Pill II ×10; Dr. Kim's Poison Potion ×5 |
+| Legendary | 37% | Pill Pack ×2; Solider Pill; Enemy Pill; Mona's Mermaid Song |
 | Forbidden | 3% | Forbidden Jutsu Scroll: Nexus; Forbidden Jutsu Scroll: Rebirth |
 
 ## 4. Treasure hunts
