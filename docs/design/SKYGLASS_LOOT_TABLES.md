@@ -1,6 +1,6 @@
 # Skyglass event — loot tables
 
-**Status:** PROPOSAL. Structure ruled by RUL-2026-10-24-011 to -018; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
+**Status:** Reward MAP. Currency amounts are set by the director in game from the reward-package catalog (RUL-2026-10-24-019). Structure ruled by RUL-2026-10-24-011 to -018; every line, tier weight, quantity and package content below is a proposal for the director. Generated from one data source with the review page; edit both together.
 
 ## 1. Wreck clear (each member)
 
