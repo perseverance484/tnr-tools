@@ -104,5 +104,4 @@ Entry: Skyglass Signal Beacon (consumed at start). Completion currency: Set by t
 - Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
 - Forbidden Jutsu Scrolls at 3% of one Strongbox roll: keep, lower or remove.
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
-- The Skyglass Reliquary is no longer in the event (the Coffer replaces it). Retire it or reuse it; the Mystery Chest's 10% Reliquary line needs the same decision.
-- The Mystery Chest's 10% Reliquary line was added outside any push.
+- Closed (RUL-2026-10-24-024): the Skyglass Reliquary, the Mystery Chest and the other old Ghost Ship chests are retired relics; their contents, including the Mystery Chest's Reliquary line, are left as they are.

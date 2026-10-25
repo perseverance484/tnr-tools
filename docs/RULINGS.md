@@ -2804,6 +2804,8 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 
 **Evidence:** User, 2026-10-24: "The skyglass reliquary and all the other old chests will just be relics. We won't use them anymore. But we'll leave them be in case players have unopened ones."
 
+**Clarification (2026-10-24):** the Mystery Chest is one of these retired chests; its drop lines (including 10% Reliquary) are left untouched. User: "Mystery chest drops dont matter its a retired item alongside skyglass reliquary."
+
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` open items (Reliquary closed).
 
 ## RUL-2026-10-24-025 — Skyglass Wreck: five floors, more waves
