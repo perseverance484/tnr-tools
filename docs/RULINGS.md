@@ -2708,3 +2708,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Swap venom cask and smoke bomb in shinobi tool pouch."; "There are reward packages already made we can use for the ending rewards. Lets examine and use those, or perhaps propose our own. The reward amounts are a bit excessive. 5,000 should be the cap. 1,000 being the low end. 1/2/3/4/5000 should be the ladder."; then "Hunt and Wreck exp", "VI also pays 5,000", "I'll paste or screenshot".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-24-019 — Reward amounts are set by the director in game; content design begins
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards and content
+
+**Status:** ACTIVE.
+
+**Ruling:** The director sets the reward amounts himself in the in-game editor from the game's reward-package catalog (content-type × rank packages such as S-Rank Dungeons Level 100 and S-Rank Battle Pyramid Level 100). `docs/design/SKYGLASS_LOOT_TABLES.md` is the map of where each reward goes (ladder steps, pick cards, caches, drops); its currency figures are guidance, not values to enforce. Manifests leave currency fields to the director unless he supplies values. Work moves to content design.
+
+**Evidence:** User, 2026-10-24 (with screenshots of the Manual → Rewards catalog): "Tell you what, I'll set the rewards myself since its so easy to do. You've got them mapped out. Now we need to design the content".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` (status line) and this ruling.
