@@ -2775,3 +2775,19 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24, after the three-concept review sheet (Beached, Hovering, Rising): "Beached".
 
 **Canonical destination:** `art/ghost_ship_skyglass/structure/` (README, raw, export, hashes).
+
+## RUL-2026-10-24-023 — Skyglass Wreck entrance placement
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the candidate sectors (221, 223, 294) in RUL-2026-10-24-008's placement note.
+
+**Ruling:** The Skyglass Wreck dungeon entrance is at **sector 210, longitude 15, latitude 6**, using the "Skyglass Wreck" structure artwork at entrance size multiplier **5**, battle background **default**, no expiration, unpublished until release. Name "Skyglass Wreck"; description is the short version supplied 2026-10-24.
+
+**Evidence:** User, 2026-10-24, screenshot of the dungeon editor (preview, name, artwork, multiplier 5, sector 210, longitude 15, latitude 6): "This is the information needed to set the ships spawn location, size, etc for the dungeon entrance when making the manifest you'll need this."
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3 Placement.

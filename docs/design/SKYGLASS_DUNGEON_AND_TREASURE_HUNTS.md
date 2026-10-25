@@ -51,7 +51,7 @@ Settled by RUL-2026-10-24-008 unless marked open.
 
 - **Party:** exactly three players (engine rule). No level, item or cooldown gate. One-hour run; three idle rounds by any member end it. A party wipe revives everyone to retry the floor.
 - **Availability:** permanent (`expiresAt: null`), created hidden; publishing is the director's.
-- **Placement:** a sector next to Wake Island (222). Candidates by grid: 221, 223, 294 (150 sits in the north polar band). The exact sector and tile are the director's pick on the map; check against `MAP_RESERVED_SECTORS` before saving. PvP is active there.
+- **Placement (set, RUL-2026-10-24-023):** sector **210**, longitude **15**, latitude **6** (sea tile off the coast). Entrance artwork: the "Skyglass Wreck" structure (`art/ghost_ship_skyglass/structure/`), entrance size multiplier **5**. Battle background: default. Expiration: none. Published: off until release. 210 is not in `MAP_RESERVED_SECTORS` at the pin. The manifest must carry the live `structureAssetId` of the uploaded structure (read it back before writing).
 - **Payout model:** dungeon battles pay nothing per fight and the party is fully healed after every floor; all reward is the completion reward and the chest (§4).
 - **Difficulty:** enemies do not scale to the party and the crew already sit at the JONIN caps, so waves are the lever. Two waves per floor:
 
@@ -161,7 +161,7 @@ From committed evidence only (newest captures listed in the 2026-10-23 research)
 2. Chest name, art, tradability and all rates.
 3. Weighted or standard mode per reward cache; their lines and rates.
 4. Pyramid pick: pick 1 or 2; War Caches as-is or new Skyglass elemental caches; package bundles or not.
-5. Dungeon sector and coordinates, biome, entrance art.
+5. ~~Dungeon sector and coordinates, biome, entrance art.~~ Set (RUL-2026-10-24-022/023).
 6. Silent Bastion: which divisions survive; Bastion signature reward.
 7. Hunt bosses: names, kits, art.
 8. Retirement mechanism and timing.
