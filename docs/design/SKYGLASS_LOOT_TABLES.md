@@ -24,8 +24,8 @@
 
 | Tier | Weight | Entries (per-roll chance each) |
 |---|---|---|
-| Supplies | 60% | Chakra Pill II ×10 (10%); Stamina Pill II ×10 (10%); Small Health Pill ×5 (10%); Field Tonic ×10 (10%); Smoke Pellet ×10 (10%); Venom Cask ×10 (10%) |
-| Valuables | 30% | Rare Jewels ×5 (6%); Imperial Gold ×5 (6%); Unobtanium ×5 (6%); Senbon Needles ×5 (6%); Elite Smoke Bomb ×5 (6%) |
+| Supplies | 60% | Chakra Pill II ×10 (8.6%); Stamina Pill II ×10 (8.6%); Small Health Pill ×5 (8.6%); Field Tonic ×10 (8.6%); Smoke Pellet ×10 (8.6%); Venom Cask ×10 (8.6%); Elite Smoke Bomb ×5 (8.6%) |
+| Valuables | 30% | Rare Jewels ×5 (7.5%); Imperial Gold ×5 (7.5%); Unobtanium ×5 (7.5%); Senbon Needles ×5 (7.5%) |
 | Reward cache | 9% | Medicine Inro (3%); Shinobi Tool Pouch (3%); Sage's Strongbox (3%) |
 | Prize | 1% | Ornate Chest (0.3%); Pill Pack ×2 (0.3%); Skyglass Filament ×2 (0.3%) |
 
@@ -35,25 +35,23 @@
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 55% | Chakra Pill II ×10; Stamina Pill II ×10; Field Tonic ×10 |
-| Rare | 30% | Small Health Pill ×5; Energy Potion ×5; Full Potion ×5 |
-| Epic | 12% | Chakra Pill ×5; Stamina Pill ×5; Pill Pack ×2 |
-| Legendary | 3% | Dr. Kim's Miracle Potion; Panacea |
+| Common | 70% | Chakra Pill II ×10; Stamina Pill II ×10; Field Tonic ×10; Chakra Pill ×10; Stamina Pill ×5; Panacea |
+| Rare | 25% | Small Health Pill ×5; Dr. Kim's Miracle Potion |
+| Epic | 5% | Pill Pack ×2 |
 
 **Shinobi Tool Pouch** — Kunai and tools; one element per roll; 2 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Common | 55% | Katon Kunai ×10; Wave Kunai ×10; Ikazuchi Kunai ×10; Stonefall Kunai ×10; Zephyrfang Kunai ×10 |
+| Common | 60% | Katon Kunai ×10; Wave Kunai ×10; Ikazuchi Kunai ×10; Stonefall Kunai ×10; Zephyrfang Kunai ×10; Elite Smoke Bomb ×5; Chakra Disrupting Needles |
 | Rare | 30% | Smoke Pellet ×10; Whetstone Oil ×10; Venom Cask ×10; Paper Bombs ×5 |
-| Epic | 12% | Senbon Needles ×5; Elite Smoke Bomb ×5; Saki; Bashōsen; Infernum |
-| Legendary | 3% | Chakra Disrupting Needles |
+| Epic | 10% | Senbon Needles ×5; Saki; Bashōsen; Infernum |
 
 **Sage's Strongbox** — High-tier consumables; 1 roll(s).
 
 | Tier | Weight | Entries |
 |---|---|---|
-| Epic | 60% | Pill Pack ×2; Chakra Pill ×5; Stamina Pill ×5 |
+| Epic | 60% | Pill Pack ×2; Dr. Kim's Poison Potion ×5 |
 | Legendary | 37% | Solider Pill; Enemy Pill; Mona's Mermaid Song |
 | Forbidden | 3% | Forbidden Jutsu Scroll: Nexus; Forbidden Jutsu Scroll: Rebirth |
 
@@ -103,7 +101,7 @@ Entry: Chart of the Skyglass Expedition (consumed at start). Own card: **Skyglas
 
 ## 5. To check before the manifests
 
-- Effects of Energy Potion, Full Potion, Paper Bombs, Panacea, Saki, Bashōsen, Infernum and Chakra Disrupting Needles are not captured; confirm each is a finished, visible item.
+- Shop items sit in a cache's Common tier; Dr. Kim's Miracle Potion is the one exception, in Rare. Pill Pack, Small Health Pill, Stamina Pill II, Paper Bombs, Saki, Senbon Needles, Smoke Pellet, Venom Cask, Whetstone Oil, Solider Pill and Mona's Mermaid Song have no capture with a shop flag yet; confirm each before the manifest.
 - Forbidden Jutsu Scrolls at 3% of one Strongbox roll: keep, lower or remove.
 - Reward packages are built in the game's catalog editor until Forge has a package recipe.
 - Skyglass Reliquary stays LEGENDARY, not tradable; Vault and the Expedition secret ending both pay it.
