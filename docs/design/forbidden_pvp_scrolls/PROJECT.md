@@ -15,8 +15,10 @@
 | Dragon King's Scroll | `Apc3YBy_gWux5g9dpN1kB` | Dragon King's Impact (`FytS2iqFInf1go6WhOvUU`): a blade wreathed in a chakra dragon, plunging from the air; fire damage, afterburn, wound | parchment hanging scroll, dark wood rollers, a gold dragon wax seal, the characters 祝福 ("blessing") | the writing is unrelated to the jutsu and is the focus; flat, plain rendering |
 | Tiger's Scroll | `U_vp884X6iwsgUVnGj6GR` | Fury of The White Tiger (`QXE9J0fnu1t-DAGTGbaCX`): seven inner gates, a tiger-shaped shockwave | white hanging scroll, a white tiger head in blue, red cord | flat, low-detail; done after the dragon, to match it |
 
-**Text flag (director's call, not in this ticket unless asked):** Tiger's Scroll's description is a copy of the dragon's,
-"Unseal the power of the forgotten Dragon King." It should name the White Tiger.
+**Tiger's Scroll description (director, 2026-10-25: "Yes, fix the Tiger's description too"):** the live text is a copy of
+the dragon's, "Unseal the power of the forgotten Dragon King." The fix rides in Tiger's icon suggestion. Drafts, awaiting
+the director's pick: (1, recommended) "Unseal the fury of the White Tiger." (2) "Unseal the power of the forgotten
+White Tiger." (3) "Unseal the White Tiger's fury, waiting behind seven inner gates."
 
 Refs in `art/item_icons/forbidden_pvp_scrolls/refs/`: `ref_dragon_kings_scroll_live.webp`, `ref_tigers_scroll_live.webp`,
 `ref_dragon_kings_impact_jutsu.webp` (the jutsu icon: the dragon's look and colours), `style_dragons_scroll.webp`,
