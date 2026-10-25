@@ -2689,3 +2689,22 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "Endings in the Skyglass Expedition having the same drops defeats the purpose of them. Accessible crates is a quick finish compared to the buried cache yet they pay the same. The sealwright fight and direct captain fight having the same drops defeats the purpose of them."; then "Yes, apply that ladder." Route data from the push/98 capture: every regular Expedition route is 3 fights; w_secret and w_Co are 2 fights behind a puzzle.
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` §4.
+
+## RUL-2026-10-24-018 — Exp ladder 1,000 to 5,000; pouch swap; packages from the catalog
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE. The Wreck clear's exp step is read as the cap (its boss is the Crowned Captain); confirm.
+
+**Supersedes:** hunt exp on completion and the Wreck clear's 15,000 exp (RUL-2026-10-24-009 / -016); exp moves onto the ending ladder (RUL-2026-10-24-017), so exp varies by ending; ryo stays on completion inside the pick cards.
+
+**Ruling:**
+1. **Exp is capped at 5,000 with 1,000 the low end.** Ladder steps pay I 1,000, II 2,000, III 3,000, IV 4,000, V 5,000, VI 5,000 exp. A Wreck clear pays 5,000 exp. Ryo, tokens and prestige are not changed by this ruling.
+2. **Elemental pouches:** Venom Cask moves to Common and Elite Smoke Bomb to Rare.
+3. **Ending rewards use the game's existing reward packages where they fit**, new ones proposed only for gaps. The director supplies the catalog from Manual → Rewards; `rewardPackages.getCatalog` is not in Forge's audited procedures.
+
+**Evidence:** User, 2026-10-24: "Swap venom cask and smoke bomb in shinobi tool pouch."; "There are reward packages already made we can use for the ending rewards. Lets examine and use those, or perhaps propose our own. The reward amounts are a bit excessive. 5,000 should be the cap. 1,000 being the low end. 1/2/3/4/5000 should be the ladder."; then "Hunt and Wreck exp", "VI also pays 5,000", "I'll paste or screenshot".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
