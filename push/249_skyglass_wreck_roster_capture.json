@@ -1,0 +1,177 @@
+{
+ "_note": "READ-ONLY Skyglass Wreck roster capture: profile.getAi and ai.getAiProfile for the twelve AIs the dungeon uses (docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md section 3). Why: the only rules capture is 2026-10-12 04:33, taken 21 minutes before push/94 rewrote the Skyglass Sentinel's rules (VERIFIED 04:54), so QA_LIVE_2026-10-20 finding 8 may be stale; and the dungeon manifest needs every rule set confirmed against the kits re-equipped by the 2026-10-21 AI pool pass. Profile ids are from the 2026-10-21 getAi captures; if a fresh getAi reports a different aiProfileId, record it and do not guess. Zero mutations. Operator-run only.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "texZaFi42S3EvJZBwQ8cd"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "o1qPfPsuVXk7KzLaRz0n3"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "wTgO-Q32caSSd0is1QIS7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "q1Rp9dPMlRMcD2JQmFiC7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "frc9LTxqQlM7mncG4VZGK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "zPHaNgwr2J4GQnPFHAWe8"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "AQi-bHJ-5tHXtxrnc0P9E"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "zD6EHeSmnHpcbX4zBOWGn"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "v7T9_XdGMfP46em0dPuBc"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "0LTa3ZM6eDCRkv4X_uwA-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "2OXJEXoktxJcjqMkE851g"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "3y6oASzyyRn5CdkeSlHk6"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "3V_gdHYaclMB1gTyOPAbV"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "AJ8BnFvtpflf57-BsrJRe"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "d6g0mOM7RBSsYI1hrUVT9"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "IUgkMPWyf6jy7xbyTLBqX"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "0PZU_FvlbM3ErYGlD5r56"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "RkkKzrFzJCVBggHTA8bNj"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "QY69h271Nx9uHrBeR6jwW"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "BqRv9qUlDNLNCzi-Q45zT"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "RBW5KsIXmTGR710D2y2Y7"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "-Bq13lD10ADCSRIK9qpnK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "fDU9jCPZtH7YHbdQPO9RF"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "6G3McyVvLGIY1e4_sfTvU"
+    },
+    "persist": "full"
+   }
+  ],
+  "after": []
+ },
+ "items": []
+}

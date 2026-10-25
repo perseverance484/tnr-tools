@@ -769,6 +769,14 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
+## 249 Skyglass Wreck roster capture (read-only): READY TO RUN
+
+`249_skyglass_wreck_roster_capture.json`: `profile.getAi` + `ai.getAiProfile` for the twelve AIs the Skyglass Wreck
+dungeon uses (24 reads, zero mutations). Why: the only rules capture predates push/94 by 21 minutes, so QA_LIVE_2026-10-20
+finding 8 (Sentinel rules point at unequipped jutsu) is probably stale; this confirms it and gives the dungeon manifest
+every live rule set against the kits re-equipped on 2026-10-21. Gates: `validate.py --strict` 0 errors, 0 warnings;
+`check_manifest.mjs` 0 pre-send problems.
+
 ## 245–248 Item icon census (read-only): 245 RUN (bundle tnr_results_1792889303274.json: 132/132 reads ok; item.getAllNames = 852 rows, so ~86 items are newer than the seed and not covered), 246 RUN (bundle tnr_results_1792890285604.json: 132/132 ok), archived; 247–248 READY TO RUN (any order)
 
 Director, 2026-10-25: "Lets identify some dated items to work on. Pull up some sheets for me to pick from." Committed
