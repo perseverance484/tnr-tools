@@ -2925,3 +2925,19 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25, on the final review: "1. Approved. 2. Approved. 3. Accept the harder archive 4. Approved. Do this for all scaling endings. 1% drop rate of the treasury per stage on completion. 5. Approved and noted. 6. Approved. Add 100,000 ryo to the chest as well. Filament crafting is live and works."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`; `docs/design/SKYGLASS_HUNTS_CONTENT.md` (Foundry).
+
+## RUL-2026-10-25-005 — The pinnacle hunt is Crownhold; its key is the Lastlight
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass lore and naming
+
+**Status:** ACTIVE.
+
+**Supersedes:** the names "Silent Bastion" (the hunt) and "Skyglass Signal Beacon" (its entry item) everywhere in the event; the item's icon is unchanged.
+
+**Ruling:** The pinnacle hunt is **Crownhold**: the fortress the Skyglass Project was commanded from, seat of the Crown, source of the last directive the ship still obeys; Supreme Commander Arakane holds it. Its entry item is the **Lastlight**: Crownhold's final signal caught in a skyglass lantern, still burning with that order; following it leads home to Crownhold. Story: Crownhold went dark, but its Lastlight kept burning, and the wreck's afterimages still obey it. Derived names: Crownhold's Honor (village-token pick), Crownhold badge, Crownhold jutsu.
+
+**Evidence:** User, 2026-10-25: "Need a better name for Silent Bastion"; "I want to be short, on theme and really pop"; "Crownhold and Lastlight are good... any way we can tie the theme of the entire thing into the name and the item that unlocks it?"; then "Perfect. Approved both renames".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`, `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`; item name and draft description in push/254 (on hold).
