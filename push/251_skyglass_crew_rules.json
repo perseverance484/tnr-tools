@@ -1,7 +1,24 @@
 {
- "_note": "Skyglass Wreck crew rules (push/251). Deck Warden, Oathkeeper, First Blade and Wayfinder had rules firing Quick Strike / Shuriken Storm, which sit UNEQUIPPED in their kits (battles load only equipped jutsu, RUL-2026-10-18-005), so those rules did nothing. Each rule set now uses only equipped jutsu: a round-1 buff, attacks gated at range+1 (law 40), Stoneward with a player within 2, Springguard within 5, close in beyond 3, highest-power fallback. Kits untouched. Rules read live 2026-10-25 (push/249, tnr_results_1792900120886.json). Update-only.",
+ "_note": "Skyglass Wreck crew rules (push/251). Deck Warden, Oathkeeper, First Blade and Wayfinder had rules firing Quick Strike / Shuriken Storm, which sit UNEQUIPPED in their kits (battles load only equipped jutsu, RUL-2026-10-18-005), so those rules did nothing. Each rule set now uses only equipped jutsu: a round-1 buff, attacks gated at range+1 (law 40), Stoneward with a player within 2, Springguard within 5, close in beyond 3, highest-power fallback. Kits untouched. Rules read live 2026-10-25 (push/249, tnr_results_1792900120886.json). Update-only. Oathkeeper also gains Weakening Strike (YiRdVytsdxFzZtqkEDs5Q, shared pool AI jutsu, not edited) as a second attack (director 2026-10-24: \"give him another attack\"); the kit is re-sent whole so Quick Strike and Shuriken Storm keep their unequipped rows, and the new row is stored equipped. The kit edit runs before the rules.",
  "dedupNames": true,
  "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "0PZU_FvlbM3ErYGlD5r56",
+   "name": "Oathkeeper: equip Weakening Strike (second attack)",
+   "data": {
+    "jutsus": [
+     "_9k7kSYUgMtB-AEFgRly5",
+     "Cw51Wm_Uy0GiIkiEjlQtn",
+     "FeYnH7BBw_usnc1K-TM-J",
+     "Nrxc8m9utE9qaD_gWpLgf",
+     "T3glZGcSd-jS8G-NB43GR",
+     "V3WrfQ3pB-eCq2hojsxWe",
+     "YiRdVytsdxFzZtqkEDs5Q"
+    ]
+   }
+  },
   {
    "entity": "aiProfile",
    "slot": "edit",
@@ -139,7 +156,7 @@
    "entity": "aiProfile",
    "slot": "edit",
    "targetId": "0PZU_FvlbM3ErYGlD5r56",
-   "name": "Oathkeeper: rules use only equipped jutsu",
+   "name": "Oathkeeper: rules use only equipped jutsu, with Weakening Strike",
    "data": {
     "includeDefaultRules": true,
     "rules": [
@@ -171,6 +188,41 @@
         "minRange": 0,
         "maxRange": 2,
         "description": "An enemy player is within the inclusive hex range"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_combo_action",
+       "target": "RANDOM_OPPONENT",
+       "comboIds": [
+        "Cw51Wm_Uy0GiIkiEjlQtn",
+        "YiRdVytsdxFzZtqkEDs5Q"
+       ],
+       "description": "Cycly through a specific combo of jutsu & items"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "YiRdVytsdxFzZtqkEDs5Q",
+       "description": "Select specific jutsu"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "RANDOM_OPPONENT",
+        "description": "Distance lower than or equal given value"
        }
       ]
      },

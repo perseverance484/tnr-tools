@@ -769,13 +769,16 @@ artpreflight clean (`process_icon.py`). Pack pinned at 7d39959. The quest's deli
 old Earth Scroll image (needs a direct quest edit later). Gates: `validate.py --strict` 0 errors, 0 warnings;
 `check_manifest.mjs` 0 pre-send problems (hash `62af0f67`).
 
-## 251 Skyglass crew rules (4 aiProfile updates): AWAITING DIRECTOR APPROVAL
+## 251 Skyglass crew rules + Oathkeeper attack (1 ai + 4 aiProfile updates): READY TO RUN
 
 `251_skyglass_crew_rules.json`: Deck Warden, Oathkeeper, First Blade and Wayfinder get rule sets that use only their
-equipped jutsu (their Quick Strike / Shuriken Storm rows are stored unequipped, so the rules that fire them do nothing).
+equipped jutsu (their Quick Strike / Shuriken Storm rows are stored unequipped, so the rules that fire them did nothing).
 Pattern as push/250: round-1 buff, attacks at range+1, Stoneward with a player within 2, Springguard within 5, close in
-beyond 3, highest-power fallback. Kits untouched. Oathkeeper has only one attack jutsu (Opening Strike); it relies on the
-fallback between casts. Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
+beyond 3, highest-power fallback. Oathkeeper first gains **Weakening Strike** (`YiRdVytsdxFzZtqkEDs5Q`, shared pool AI
+jutsu, not edited; range 5, damage 40 + 20% less damage dealt for 2 rounds) as a second attack: his whole kit is re-sent
+so Quick Strike and Shuriken Storm keep their unequipped rows, and the new row is stored equipped; his rules then use an
+Opening Strike -> Weakening Strike combo. Other kits untouched. Director (2026-10-24): "Yes give him another attack."
+Gates: `validate.py --strict` 0 errors, 0 warnings; `check_manifest.mjs` 0 pre-send problems.
 
 ## 250 Skyglass Sentinel rules (aiProfile update): RUN, verified (bundle tnr_results_1792900236721.json), archived
 
