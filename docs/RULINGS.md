@@ -2485,3 +2485,23 @@ make our forbidden master"
 
 **Canonical destination:** `docs/design/characters/FORBIDDEN_MASTER.md` (character brief); references in
 `art/characters/forbidden_master/refs/`; model-sheet prompt `docs/handoffs/FORBIDDEN_MASTER_MODEL_SHEET_SESSION_PROMPT.md`.
+
+## RUL-2026-10-24-008 — Skyglass Wreck: access, availability, difficulty, placement
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass Wreck dungeon
+
+**Status:** ACTIVE (floor roster to be confirmed by a hidden test run; exact sector and tile open)
+
+**Supersedes:** none (refines RUL-2026-10-23-003)
+
+**Ruling:**
+1. **Party of exactly three**, as the game requires (`DUNGEON_PARTY_SIZE`); no request for 1–3 support. Solo players reach the hunts through traded maps.
+2. **Permanent**: no event window (`expiresAt: null`).
+3. **Two waves per floor**, the roster in `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3, tuned by a test run while hidden. Enemies do not scale to the party and the ten crew AIs already sit at the JONIN caps, so enemy count and waves are the only difficulty levers.
+4. **Placement: a sector near Wake Island** (222). PvP can no longer be switched off there (director, 2026-10-24); the earlier note offering that is withdrawn.
+
+**Evidence:** User, 2026-10-24: "Accept 3-only", "Permanent", "Two waves per floor", "We'll put it in a sector near Wake Island. Pvp can't be turned off there anymore btw".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
