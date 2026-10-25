@@ -1,6 +1,6 @@
 # Skyglass event — loot tables
 
-**Status:** Structure ruled by RUL-2026-10-25-002 (supersedes the ladder caches and the shared pick of RUL-2026-10-24-014/-017). Weights and quantities below are proposals unless marked ruled; currency amounts are set by the director in game (RUL-2026-10-24-019).
+**Status:** Structure ruled by RUL-2026-10-25-002 and the balance pass RUL-2026-10-25-004 (supersedes the ladder caches and the shared pick of RUL-2026-10-24-014/-017). Weights and quantities below are proposals unless marked ruled; currency amounts are set by the director in game (RUL-2026-10-24-019).
 
 **Rule: every item has one home.** A reward appears in more than one source only as the same container, never as loose contents. Skyglass items come only from the Skyglass Coffer.
 
@@ -9,7 +9,7 @@
 | Container | Owns | Found in |
 |---|---|---|
 | Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1), Silent Bastion pick (×2) |
-| Sealed Treasury | valuables: Rare Jewels, Imperial Gold, Unobtanium | 3% on the Wreck clear and on every hunt ending (ruled) |
+| Sealed Treasury | 100,000 ryo + valuables: Rare Jewels, Imperial Gold, Unobtanium | Wreck clear 3%; every hunt ending at 1% per ladder step (ruled) |
 | Archive Chart Case | the four hunt maps | Quarantined Archive pick |
 | Sage's Strongbox | battle reagents, elite pills, forbidden scrolls | Quarantined Archive pick |
 | Medicine Inro | all pills and potions, Pill Pack included | Captain's Watch pick |
@@ -26,18 +26,20 @@ Currency package (director, in game). Independent drops: Chart of the Drowned Fo
 
 | Tier | Weight | Gives |
 |---|---|---|
-| Common | 70 | Skyglass Filament ×2 |
+| Common | 69 | Skyglass Filament ×2 |
 | Rare | 24 | Skyglass Serum ×3 |
 | Epic | 5 | Fragment of the Skyglass Crown ×1 |
-| Legendary | 1 | Skyglass Katana ×1 or Skyglass Crystal ×1 |
+| Legendary | 2 | Skyglass Katana ×1 (ruled) |
 
-**Sealed Treasury** (new; premium, the Ornate Chest's old role)
+The Skyglass Crystal is not in the Coffer: it comes only from crafting 12 Skyglass Filaments (live), about nine Coffers' worth (RUL-2026-10-25-004).
+
+**Sealed Treasury** (new; premium, the Ornate Chest's old role). Two effects on one item: a standard reward of **100,000 ryo** every opening (weighted caches cannot hold ryo) plus one weighted roll (ruled):
 
 | Tier | Weight | Gives |
 |---|---|---|
-| Common | 70 | Rare Jewels (quantity open) |
-| Rare | 24 | Imperial Gold (quantity open) |
-| Epic | 6 | Unobtanium (quantity open) |
+| Common | 70 | Rare Jewels ×10 |
+| Rare | 24 | Imperial Gold ×5 |
+| Epic | 6 | Unobtanium ×5 |
 
 **Archive Chart Case** (new; weights ruled)
 
@@ -56,18 +58,20 @@ Currency package (director, in game). Independent drops: Chart of the Drowned Fo
 
 ## 4. Treasure hunts
 
-Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and Sealed Treasury **3%**. No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
+Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and the Sealed Treasury at **1% per ladder step** (I 1% · II 2% · III 3% · IV 4% · V 5% · VI 6%). No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
 
 | Hunt | Pick 1 of |
 |---|---|
 | Drowned Foundry | Katon / Wave / Ikazuchi / Stonefall / Zephyrfang Tool Pouch |
 | Quarantined Archive | Archive Chart Case · Sage's Strongbox · The Records (exp lump) |
-| Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro (quantity open) |
-| Silent Bastion | Skyglass Coffer ×2 · Bastion's Honor (village tokens lump) · **Bastion badge** · **Bastion jutsu** |
+| Captain's Watch | Skyglass Coffer · Captain's Purse (ryo lump) · Medicine Inro ×3 |
+| Silent Bastion | Skyglass Coffer ×2 · Bastion's Honor (village tokens lump; set it large enough to compete with Coffer ×2) · **Bastion badge** · **Bastion jutsu** |
 
 The badge and the jutsu grey out once held (the game blocks picking content a player already has), so a player needs at least two Bastion clears to take both; later clears pick the Coffers or Bastion's Honor. Badge and jutsu are still to be designed.
 
-Exp ladder per ending (unchanged): Foundry leave-1 I / leave-2 III / Warden V; Archive clean V / alarm III; Watch no terms IV / one-two V / all VI; Bastion VI. I-VI = 1,000 / 2,000 / 3,000 / 4,000 / 5,000 / 5,000 exp.
+Ladder per ending: Foundry V (always fought to the Warden; the leave-early endings are removed, RUL-2026-10-25-004); Archive clean V / alarm III; Watch no terms IV / one-two V / all VI; Bastion VI. Exp I-VI = 1,000 / 2,000 / 3,000 / 4,000 / 5,000 / 5,000; Treasury chance = step number %.
+
+The Sealwright's doubled health (push/252) applies to the Archive's final fight too, solo; accepted (RUL-2026-10-25-004).
 
 **Shelved:** Armory Requisition and its Special quest (icon kept in `art/skyglass_event_icons/` unused); Lion Token as a Wreck drop.
 
