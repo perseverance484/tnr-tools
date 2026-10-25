@@ -2722,3 +2722,24 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24 (with screenshots of the Manual → Rewards catalog): "Tell you what, I'll set the rewards myself since its so easy to do. You've got them mapped out. Now we need to design the content".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` (status line) and this ruling.
+
+## RUL-2026-10-24-020 — The Skyglass Expedition is dropped; its content is borrowed by the hunts
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the Skyglass Expedition hunt and its Chart (RUL-2026-10-23-004 slate, RUL-2026-10-24-009 3% map line, RUL-2026-10-24-017 Expedition ladder rows); the Archivist as the Vault's boss.
+
+**Ruling:**
+1. **No Skyglass Expedition hunt.** The original 83-node quest is not rebuilt; its scenes, dialog, puzzles and AIs are borrowed.
+2. **The Quarantine Vault becomes "The Quarantined Archive"**, borrowing the Expedition's secret route (Lower Hull, Core Horror, Reconstruction Chamber seal puzzle, Quarantined Archive records) with the **Sealwright** as its boss; two more seals reuse the Oathkeeper's time riddle and the Wayfinder's charts.
+3. **The Drowned Foundry moves aboard the wreck** (the keel works), borrowing the Exterior Keel Walk, Lower Hull and Hold scenes; the Foundry Warden stays its one new boss.
+4. **The Skyglass Wreck** borrows the crew, the lore (in its description) and the Crowned Captain; a dungeon shows no scenes or dialog.
+5. **At least one more hunt** is designed from the remaining assets (Deck, Chart Room, Helm, Command Observation Gallery, Cache Site, the Captain and Oathkeeper portraits).
+
+**Evidence:** User, 2026-10-24: "Why dont we forego the skyglass expedition. The hunt structure of these is better. Let's just borrow what content we need. The skyglass wreck dungeon can use some of the scenes and dialog/art perhaps?"; then "This works. And we can design at least 1 more hunt with the assets remaining".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §6.
