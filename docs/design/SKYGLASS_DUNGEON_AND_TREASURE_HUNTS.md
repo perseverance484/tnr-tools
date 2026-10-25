@@ -56,22 +56,20 @@ Settled by RUL-2026-10-24-008 unless marked open.
 - **Waves are sequential, not reinforcements** (`advanceEncounterWave`, `app/src/libs/combat/encounters.ts`): the next wave spawns only once every living enemy is down AND `delayRounds` have passed since the previous wave started. Waves never overlap; `delayRounds` (0-20) is a minimum length for the wave before it, and waiting rounds still count toward the three-round inactivity rule.
 - **Difficulty:** enemies do not scale to the party and the crew already sit at the JONIN caps, so waves are the lever. Two waves per floor:
 
+**Shape (RUL-2026-10-24-025):** one tier of five floors, depth from waves instead of floors. Floors 1-4 are `floor`, floor 5 is the `boss` (the validator's rule for a single tier: no mini-boss). A wipe on any floor sends the party back to floor 1.
+
 Seal Charges and Core Canisters are hazards: they only ever spawn in a wave alongside a real enemy, never alone. The elite or boss of each floor is in the last wave, so it cannot be killed before the adds. Numbers in brackets are `delayRounds`: 0 between add waves, 1 before an elite/boss wave.
 
-| Floor | Kind | Wave 1 (round 0) | Wave 2 | Wave 3 |
-|---|---|---|---|---|
-| 1 | floor | Deck Warden ×2 | Deck Warden + Core Canister (0) | |
-| 2 | floor | Deck Warden ×2 | Core Horror + Core Canister (1) | |
-| 3 | floor | Deck Warden + Seal Charge | Wayfinder + Deck Warden (1) | |
-| 4 | floor | Deck Warden ×2 | Arsenal Keeper + Seal Charge ×2 (1) | |
-| 5 | mini-boss | Deck Warden ×2 | Wayfinder + Seal Charge (0) | Skyglass Sentinel + Core Canister ×2 (1) |
-| 6 | floor | Deck Warden ×2 | Oathkeeper + Wayfinder (1) | |
-| 7 | floor | Deck Warden + Seal Charge ×2 | First Blade + Arsenal Keeper (1) | |
-| 8 | floor | Deck Warden ×2 + Core Canister | The Captain + Seal Charge ×2 (1) | |
-| 9 | floor | Core Horror + Seal Charge | Sealwright + Core Canister ×2 (1) | |
-| 10 | boss | Deck Warden ×2 | Oathkeeper + Seal Charge ×2 (0) | Crowned Captain + Core Canister ×2 (1) |
+| Floor | Kind | Wave 1 (round 0) | Wave 2 | Wave 3 | Wave 4 | Wave 5 |
+|---|---|---|---|---|---|---|
+| 1 | floor | Deck Warden ×2 | Deck Warden + Core Canister (0) | Wayfinder + Deck Warden (1) | | |
+| 2 | floor | Deck Warden + Seal Charge | Deck Warden ×2 (0) | Core Horror + Core Canister (1) | Arsenal Keeper + Seal Charge ×2 (1) | |
+| 3 | floor | Deck Warden ×2 | Deck Warden + Seal Charge ×2 (0) | First Blade + Deck Warden (1) | Skyglass Sentinel + Core Canister ×2 (1) | |
+| 4 | floor | Deck Warden ×2 + Core Canister | Oathkeeper + Wayfinder (1) | Arsenal Keeper + First Blade (1) | The Captain + Seal Charge ×2 (1) | |
+| 5 | boss | Deck Warden ×2 | Core Horror + Seal Charge (0) | Sealwright + Core Canister ×2 (1) | Oathkeeper + Seal Charge ×2 (0) | Crowned Captain + Core Canister ×2 (1) |
 
-- **Open:** the one-hour limit with ten multi-enemy fights; confirm with a hidden test run before publishing.
+- **Battle background:** one biome for the whole dungeon (`background`, a `COMBAT_BIOMES` value); custom scene art cannot be set per floor.
+- **Open:** the one-hour limit with five floors of 3-5 waves (20 waves); confirm with a hidden test run before publishing.
 - **Prerequisite:** Skyglass Sentinel rules 0, 1, 3, 4 reference jutsu it does not carry (QA 2026-10-20); fix before the dungeon ships.
 
 ## 4. Completion reward, the chest and the maps

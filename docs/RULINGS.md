@@ -2805,3 +2805,19 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-24: "The skyglass reliquary and all the other old chests will just be relics. We won't use them anymore. But we'll leave them be in case players have unopened ones."
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md` open items (Reliquary closed).
+
+## RUL-2026-10-24-025 — Skyglass Wreck: five floors, more waves
+
+**Date:** 2026-10-24
+
+**Domain:** Ghost Ship / Skyglass content
+
+**Status:** ACTIVE.
+
+**Supersedes:** the two-tier, ten-floor, two-waves-per-floor shape of RUL-2026-10-24-008.
+
+**Ruling:** The Skyglass Wreck is one tier of five floors (floor 5 the boss), with three to five waves per floor. Each floor's elite or boss arrives in its last wave; Seal Charges and Core Canisters never spawn without a real enemy in the same wave; wave delays are 0 between add waves and 1 before an elite or boss wave.
+
+**Evidence:** User, 2026-10-24: "Make sure we decide how many rounds between reinforcements. Also, enemies will probably need more health or we need to spawn bosses in last or something."; "Seal Charges and Core Cannisters shouldn't appear on their own. They are extra enemies/hazards, not threats on their own."; "Make it 5 floors but increase the number of waves instead".
+
+**Canonical destination:** `docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md` §3.
