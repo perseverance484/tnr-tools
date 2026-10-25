@@ -228,7 +228,7 @@ function SelectedManifest(app) {
   const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` · manifest hash ${s.manifest.hash}` : ""}`));
   const suggest = !!s.manifest.policy?.suggest;
   if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job: zero mutations."));
-  if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
+  if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit or new record goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
   if (fullCount) card.appendChild(h("div", { class: "f-banner warn" },
     h("b", {}, `${fullCount} full capture${fullCount === 1 ? "" : "s"}. `),
     `Each exact record body goes into the results bundle (committed to the repository when GitHub sync is on).${readOnly ? " Still queries only; zero mutations." : ""} Paths: ${[...new Set(captures.filter((c) => c.persist === "full").map((c) => c.proc))].join(", ")}.`));

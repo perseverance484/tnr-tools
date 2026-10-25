@@ -20,7 +20,7 @@ function setup() {
 
 test("suggest mode is for edits of supported records, with a title and rationale", () => {
   assert.ok(parseManifest(manifest()).policy.suggest);
-  assert.throws(() => parseManifest(manifest([{ entity: "jutsu", slot: "create", name: "X", srcId: "x", data: { name: "X", hidden: true } }])), /only change existing records/);
+  assert.throws(() => parseManifest(manifest([{ entity: "jutsu", slot: "delete", name: "X", targetId: "j1", data: {} }])), /slot|sends edits/);
   assert.throws(() => parseManifest(manifest(undefined, { suggestion: { title: "T1" } })), /title and rationale/);
   assert.throws(() => parseManifest(manifest(undefined, { suggestion: { title: "Ember", rationale: "long enough reason", category: "NOPE" } })), /category must be one of/);
   assert.throws(() => parseManifest({ ...manifest(), mode: "maybe" }), /mode must be/);
@@ -176,4 +176,95 @@ test("an icon change is uploaded, then suggested: the review desk sees the new i
   const p = d.game.proposals[0];
   assert.equal(p.category, "VISUAL");
   assert.deepEqual(p.after, { image: "https://x.ufs.sh/f/new.webp" });
+});
+
+// ------------------------------------------------------------------ new records (RUL-2026-10-25-001)
+const create = (extra = {}) => ({ entity: "item", slot: "create", name: "Skyglass Coffer", srcId: "coffer",
+  data: { name: "Skyglass Coffer", description: "A seal-locked coffer.", hidden: true, itemType: "CONSUMABLE", rarity: "LEGENDARY", target: "SELF", effects: [] }, ...extra });
+const newRecords = (items = [create()], extra = {}) => manifest(items, { suggestion: { category: "NEW_CONTENT", title: "Skyglass items", rationale: "New Skyglass event items for this update." }, ...extra });
+
+test("new records: a create is sent for review with no id, and nothing is created", async () => {
+  const d = setup();
+  const before = d.game.rows("item").length;
+  d.runner.plan(JSON.stringify(newRecords()), { jobId: "c1" });
+  await d.runner.run("c1");
+  const job = d.journal.get("c1");
+  assert.equal(job.state, "DONE", JSON.stringify(job.items[0]));
+  assert.equal(d.game.rows("item").length, before, "no record was created");
+  assert.ok(!d.game.calls.some((c) => /^item\.(create|update)$/.test(c.path)), "never saved");
+  const sent = d.game.calls.find((c) => c.path === "contentReview.create").input;
+  assert.equal(sent.entityId, null);
+  assert.equal(sent.entityType, "ITEM");
+  assert.equal(sent.data.name, "Skyglass Coffer");
+  assert.equal(sent.data.expireFromStoreAt, "", "sent as the game's form sends it");
+  const p = d.game.proposals[0];
+  assert.equal(p.targets[0].operation, "CREATE");
+  assert.equal(job.items[0].verify, "suggested");
+  assert.equal(job.items[0].suggestion.id, p.id);
+  assert.equal(job.items[0].entityId ?? null, null);
+});
+
+test("new records: an @img is uploaded and sent as its URL", async () => {
+  const d = setup();
+  d.runner.files.set("coffer.webp", new File([new Uint8Array([82, 73, 70, 70, 1, 2])], "coffer.webp", { type: "image/webp" }));
+  d.runner.uploader = { upload: async () => ({ url: "https://x.ufs.sh/f/coffer.webp" }) };
+  const c = create(); c.data.image = "@img:coffer.webp";
+  d.runner.plan(JSON.stringify(newRecords([c], { imgSizes: { "coffer.webp": 6 } })), { jobId: "c2" });
+  await d.runner.run("c2");
+  assert.equal(d.journal.get("c2").state, "DONE", JSON.stringify(d.journal.get("c2").items[0]));
+  assert.equal(d.game.proposals[0].after.image, "https://x.ufs.sh/f/coffer.webp");
+});
+
+test("new records: nothing may reference a suggested create; AI and quest creates are refused", () => {
+  const ref = { entity: "item", slot: "edit", name: "Inro", targetId: "i1", data: { description: "Holds @coffer." } };
+  assert.throws(() => parseManifest(newRecords([create(), { ...ref, data: { effects: [{ type: "noncombatconsumereward", reward_items: [{ ids: ["@item:coffer"], number: 100, quantity: 1 }] }] } }])), /only suggests; it has no id/);
+  assert.throws(() => parseManifest(newRecords([create({ entity: "ai", name: "Warden", srcId: "w", data: { username: "Warden", level: 10, rank: "GENIN", regeneration: 1, preferredGeneral1: "Strength", preferredGeneral2: "Speed" } })])), /AI cannot be suggested as a new record/);
+  assert.throws(() => parseManifest(newRecords([create({ entity: "quest", name: "Q", srcId: "q", data: { name: "Q", hidden: true, consecutiveObjectives: true } })])), /quest cannot be suggested/);
+  // creates and edits together are fine when nothing points at the create
+  assert.ok(parseManifest(newRecords([create(), edit()])).policy.suggest);
+});
+
+test("new records: a lost response is found by its tagged title as a CREATE, not sent twice", async () => {
+  const d = setup();
+  d.game.dropCreateResponse = true;
+  d.runner.plan(JSON.stringify(newRecords()), { jobId: "c3" });
+  await d.runner.run("c3");
+  assert.equal(d.journal.get("c3").state, "PAUSED");
+  await d.runner.resume("c3");
+  assert.equal(d.game.proposals.length, 1, "found, not resent");
+  assert.equal(d.journal.get("c3").items[0].suggestion.id, d.game.proposals[0].id);
+});
+
+test("new records: a create that never landed is sent again on resume", async () => {
+  const d = setup();
+  d.game.dropCreateResponse = true;
+  d.runner.plan(JSON.stringify(newRecords()), { jobId: "c4" });
+  await d.runner.run("c4");
+  d.game.proposals.length = 0;
+  await d.runner.resume("c4");
+  assert.equal(d.game.proposals.length, 1);
+  assert.equal(d.journal.get("c4").state, "DONE");
+});
+
+test("new records: an edit's suggestion with the same title is not mistaken for the create", async () => {
+  const d = setup();
+  d.game.dropCreateResponse = true;
+  d.runner.plan(JSON.stringify(newRecords()), { jobId: "c5" });
+  await d.runner.run("c5");
+  const title = d.game.proposals[0].title;
+  d.game.proposals.length = 0;
+  d.game.proposals.push({ id: "edit1", source: "STAFF", title, status: "PENDING", targets: [{ entityType: "ITEM", entityId: "i9", operation: "UPDATE" }] });
+  await d.runner.resume("c5");
+  assert.equal(d.game.proposals.length, 2, "the CREATE was sent; the UPDATE with the same title did not satisfy it");
+  assert.notEqual(d.journal.get("c5").items[0].suggestion.id, "edit1");
+});
+
+test("new records: dedupNames fails a live-name collision before anything is sent", async () => {
+  const d = setup();
+  d.game.seed("item", { id: "i7", name: "Skyglass Coffer", description: "x", hidden: true, effects: [] });
+  d.runner.plan(JSON.stringify(newRecords(undefined, { dedupNames: true })), { jobId: "c6" });
+  await d.runner.run("c6");
+  const it = d.journal.get("c6").items[0];
+  assert.equal(it.state, "FAILED"); assert.match(it.error, /LIVE NAME COLLISION/);
+  assert.equal(d.game.proposals.length, 0);
 });

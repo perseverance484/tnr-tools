@@ -13,6 +13,14 @@ export class ReviewGame extends FakeGame {
     const ok = (data) => ({ ok: true, data });
     if (this.signedOut) return { ok: false, error: { code: "UNAUTHORIZED", httpStatus: 401, message: "UNAUTHORIZED", path, zodError: null } };
     if (path === "contentReview.create") {
+      if (input.entityId == null) {
+        // The desk's CREATE: no row, no basis; the record exists only once a reviewer approves it.
+        if (!input.data?.name) return ok({ success: false, message: "The suggestion is invalid: name: Required" });
+        this.proposals.push({ id: nanoidLike(), source: "STAFF", title: input.title, category: input.category, status: "PENDING", rationale: input.rationale,
+          targets: [{ entityType: input.entityType, entityId: null, operation: "CREATE", name: input.data.name, fields: Object.keys(input.data) }], after: structuredClone(input.data) });
+        if (this.dropCreateResponse) { this.dropCreateResponse = false; throw new TypeError("Failed to fetch"); }
+        return ok({ success: true, message: "Sent for review" });
+      }
       const row = this.tables[ROUTER[input.entityType]].get(input.entityId);
       if (!row) return ok({ success: false, message: "Jutsu not found" });
       const after = Object.fromEntries(Object.entries(input.data).filter(([k, v]) => JSON.stringify(row[k]) !== JSON.stringify(v)));

@@ -12,7 +12,8 @@
       "contentReview.create": "contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)",
       "contentReview.getQueue": "contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own",
       "contentReview.getProposal": "contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible",
-      "aiEditableKeys": "libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"
+      "aiEditableKeys": "libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)",
+      "contentReview.create (new record)": "validators/contentReview.ts staffCreateProposalSchema entityId .nullable(); libs/contentReview/submit.ts createStaffProposal: no entityId -> change operation CREATE, entityId null, no basis; routers/contentReview.ts applyProposal -> createEntity on approval; toSummary targets carry operation and entityId null for a CREATE"
     },
     "notSuggestible": {
       "quest": "quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"

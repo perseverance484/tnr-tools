@@ -354,7 +354,10 @@ export class Journal {
     if (from === "CONFIRMED" && to === "SENT") {
       const entityId = p.entityId ?? item.entityId;
       const phase = p.phase ?? item.phase;
-      if (!entityId) throw new JournalError("CONFIRMED -> SENT needs an entityId (phase 2 of a create)", { jobId, idx });
+      // Except a suggested new record being sent again after the review queue proved the first
+      // send never landed: a suggestion has no id until a reviewer approves it (RUL-2026-10-25-001).
+      const suggestResend = phase === "suggest" && item.op === "create";
+      if (!entityId && !suggestResend) throw new JournalError("CONFIRMED -> SENT needs an entityId (phase 2 of a create)", { jobId, idx });
       if (phase === "create") throw new JournalError("CONFIRMED -> SENT may not re-enter the create phase", { jobId, idx });
     }
     if (to === "SENT" && job.state !== "RUNNING") throw new JournalError(`cannot send while job is ${job.state}`, { jobId, idx });
