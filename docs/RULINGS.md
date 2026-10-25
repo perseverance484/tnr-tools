@@ -2887,3 +2887,17 @@ Presented with it (proposal): completion 15,000 exp / 1,000 tokens / 1,000 prest
 **Evidence:** User, 2026-10-25: "the wreck should have generic rewards and then the chance to drop the treasure maps ... each hunt is an isolated battle pyramid with the choose nodes"; "reward overlap ... a lot of Skyglass items outside the Skyglass Coffer"; "the footlocker ... a rare drop only on completion of the Wreck or any hunt. Lets say 3% chance"; "adding a chest that drops from the archives that can roll the charts ... move medicine inro to Bastion and drop the lions tokens"; "drop captains commendation for medicine inro"; "We'll keep your weights"; "Let's do both the badge and the jutsu ... repeat runs can net them skyglass coffers or the bastion honor node".
 
 **Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.
+
+## RUL-2026-10-25-003 — The premium valuables chest is the Sealed Treasury
+
+**Date:** 2026-10-25
+
+**Domain:** Ghost Ship / Skyglass rewards
+
+**Status:** ACTIVE.
+
+**Ruling:** The 3% premium chest of RUL-2026-10-25-002 (Rare Jewels / Imperial Gold / Unobtanium) is named **Sealed Treasury** (was "Crew Footlocker").
+
+**Evidence:** User, 2026-10-25: "Crew Footlocker is a pretty lackluster name for a rare drop with even rarer items"; then, from the proposed names: "Sealed Treasury".
+
+**Canonical destination:** `docs/design/SKYGLASS_LOOT_TABLES.md`.

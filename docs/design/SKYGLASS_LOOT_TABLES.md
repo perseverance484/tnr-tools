@@ -9,7 +9,7 @@
 | Container | Owns | Found in |
 |---|---|---|
 | Skyglass Coffer | every Skyglass item | Captain's Watch pick (×1), Silent Bastion pick (×2) |
-| Crew Footlocker | valuables: Rare Jewels, Imperial Gold, Unobtanium | 3% on the Wreck clear and on every hunt ending (ruled) |
+| Sealed Treasury | valuables: Rare Jewels, Imperial Gold, Unobtanium | 3% on the Wreck clear and on every hunt ending (ruled) |
 | Archive Chart Case | the four hunt maps | Quarantined Archive pick |
 | Sage's Strongbox | battle reagents, elite pills, forbidden scrolls | Quarantined Archive pick |
 | Medicine Inro | all pills and potions, Pill Pack included | Captain's Watch pick |
@@ -18,7 +18,7 @@
 
 ## 2. Wreck clear (each member)
 
-Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**, Crew Footlocker **3%** (ruled).
+Currency package (director, in game). Independent drops: Chart of the Drowned Foundry **12%**, Chart of the Quarantined Archive **6%**, Chart of the Captain's Watch **6%**, Skyglass Signal Beacon **3%**, Sealed Treasury **3%** (ruled).
 
 ## 3. Caches (weighted, one roll each)
 
@@ -31,7 +31,7 @@ Currency package (director, in game). Independent drops: Chart of the Drowned Fo
 | Epic | 5 | Fragment of the Skyglass Crown ×1 |
 | Legendary | 1 | Skyglass Katana ×1 or Skyglass Crystal ×1 |
 
-**Crew Footlocker** (new; premium, the Ornate Chest's old role)
+**Sealed Treasury** (new; premium, the Ornate Chest's old role)
 
 | Tier | Weight | Gives |
 |---|---|---|
@@ -56,7 +56,7 @@ Currency package (director, in game). Independent drops: Chart of the Drowned Fo
 
 ## 4. Treasure hunts
 
-Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and Crew Footlocker **3%**. No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
+Every hunt is an isolated Battle Pyramid. **Ending rewards** (always paid, every ending): the 1,000-5,000 exp ladder by final opponent and gating, the hunt's currency (director, in game) and Sealed Treasury **3%**. No caches on endings. **Completion pick** (choose 1) is the hunt's identity:
 
 | Hunt | Pick 1 of |
 |---|---|
