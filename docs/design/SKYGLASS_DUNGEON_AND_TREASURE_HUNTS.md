@@ -47,25 +47,29 @@ The dungeon is where groups farm. The chest is its only drop. Maps turn the ches
 
 ## 3. The Skyglass Wreck (dungeon)
 
-- **Shape:** two tiers, ten floors (RUL-2026-10-23-003). About six minutes a floor inside the one-hour limit.
-- **Roster:** the Ghost Ship ensemble at its current JONIN caps (RUL-2026-10-12-012). Proposed mapping (balance for parties of three is the director's):
+Settled by RUL-2026-10-24-008 unless marked open.
 
-| Tier | Floor | Kind | Encounter |
+- **Party:** exactly three players (engine rule). No level, item or cooldown gate. One-hour run; three idle rounds by any member end it. A party wipe revives everyone to retry the floor.
+- **Availability:** permanent (`expiresAt: null`), created hidden; publishing is the director's.
+- **Placement:** a sector next to Wake Island (222). Candidates by grid: 221, 223, 294 (150 sits in the north polar band). The exact sector and tile are the director's pick on the map; check against `MAP_RESERVED_SECTORS` before saving. PvP is active there.
+- **Payout model:** dungeon battles pay nothing per fight and the party is fully healed after every floor; all reward is the completion reward and the chest (§4).
+- **Difficulty:** enemies do not scale to the party and the crew already sit at the JONIN caps, so waves are the lever. Two waves per floor:
+
+| Floor | Kind | Wave 1 (round 0) | Wave 2 (joins after) |
 |---|---|---|---|
-| 1 Hull | 1 | floor | Deck Warden + Seal Charge + Core Canister |
-| | 2 | floor | Core Horror |
-| | 3 | floor | Wayfinder |
-| | 4 | floor | Arsenal Keeper + Seal Charge |
-| | 5 | mini-boss | Skyglass Sentinel |
-| 2 Command | 6 | floor | Oathkeeper |
-| | 7 | floor | First Blade, then a Deck Warden wave |
-| | 8 | floor | The Captain |
-| | 9 | floor | Sealwright |
-| | 10 | boss | Crowned Captain |
+| 1 | floor | Deck Warden ×2 | Seal Charge ×2 + Core Canister (3 rounds) |
+| 2 | floor | Core Horror | Deck Warden ×2 (2) |
+| 3 | floor | Wayfinder + Deck Warden | Seal Charge ×2 (3) |
+| 4 | floor | Arsenal Keeper + Seal Charge | Core Canister ×2 (3) |
+| 5 | mini-boss | Skyglass Sentinel + Deck Warden ×2 | Seal Charge ×2 (4) |
+| 6 | floor | Oathkeeper + Wayfinder | Deck Warden ×2 (3) |
+| 7 | floor | First Blade + Arsenal Keeper | Seal Charge ×2 (3) |
+| 8 | floor | The Captain + Deck Warden ×2 | — |
+| 9 | floor | Sealwright | Core Horror (3) |
+| 10 | boss | Crowned Captain | Deck Warden ×2 (3), then Seal Charge ×2 + Core Canister (6) |
 
-- **Placement:** in the open, between land and sea (a shoreline sector). Sector, coordinates, biome and entrance art are open.
-- **Rewards:** direct ryo/exp on clear (optional), plus exactly one chest drop at 100% ×1. Each member rolls it, so each player receives one chest.
-- **Known AI issue to fix before reuse:** Skyglass Sentinel rules 0, 1, 3, 4 reference jutsu it does not carry (QA 2026-10-20).
+- **Open:** the one-hour limit with ten multi-enemy fights; confirm with a hidden test run before publishing.
+- **Prerequisite:** Skyglass Sentinel rules 0, 1, 3, 4 reference jutsu it does not carry (QA 2026-10-20); fix before the dungeon ships.
 
 ## 4. The chest
 
