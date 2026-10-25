@@ -44,10 +44,17 @@ function suggestPolicy(m, items) {
     if (x.rationale !== undefined && (typeof x.rationale !== "string" || x.rationale.trim().length < REVIEW.rationaleLength.min || x.rationale.length > REVIEW.rationaleLength.max)) problems.push(`${where}: rationale needs ${REVIEW.rationaleLength.min}-${REVIEW.rationaleLength.max} characters`);
   };
   check("suggestion", s);
-  if (m.bloodrightImport || m.capture?.before?.length || m.capture?.after?.length) problems.push("suggest mode is for item edits only (no Bloodright import, no captures)");
+  if (m.bloodrightImport || m.capture?.before?.length || m.capture?.after?.length) problems.push("suggest mode is for item edits and new records only (no Bloodright import, no captures)");
+  // A suggested create has no id until a reviewer approves it, so nothing in the same manifest
+  // may point at it (RUL-2026-10-25-001).
+  const createdSrc = new Set(items.filter((it) => it.op === "create" && it.srcId).map((it) => it.srcId));
   for (const it of items) {
     const where = `item ${it.idx + 1} (${it.name})`;
-    if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
+    if (it.op !== "update" && it.op !== "create") problems.push(`${where}: suggest mode sends edits (slot "edit" with a targetId) and new records (slot "create")`);
+    if (it.op === "create" && it.entity === "ai") problems.push(`${where}: an AI cannot be suggested as a new record; the review desk keeps only ${REVIEW.aiEditableKeys.length} AI fields, so its kit would be lost. Create it directly instead`);
+    for (const r of collectRefs({ data: it.data, targetId: it.targetId })) {
+      if (r.pfx !== "img" && createdSrc.has(r.key)) problems.push(`${where}: references @${r.key}, a record this manifest only suggests; it has no id until a reviewer approves it`);
+    }
     if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}${REVIEW._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${REVIEW._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
     // The desk keeps only its own editable fields and would drop the rest without a word.
     if (it.entity === "ai") {

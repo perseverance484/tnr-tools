@@ -1,4 +1,4 @@
-// TNR forge bundle v0.8.1 - full-page content builder, loaded via @require by forge_loader_user.js.
+// TNR forge bundle v0.8.2 - full-page content builder, loaded via @require by forge_loader_user.js.
 // Built from forge/src by forge/build.mjs (esbuild, IIFE). Do not edit by hand.
 // Comments are stripped from this artifact by forge/tools/strip_comments.mjs and the strip is proven
 // equivalent to the unstripped build at build time; every comment is still in forge/src.
@@ -265,7 +265,8 @@
       if (from === "CONFIRMED" && to === "SENT") {
         const entityId = p.entityId ?? item.entityId;
         const phase = p.phase ?? item.phase;
-        if (!entityId) throw new JournalError("CONFIRMED -> SENT needs an entityId (phase 2 of a create)", { jobId, idx });
+        const suggestResend = phase === "suggest" && item.op === "create";
+        if (!entityId && !suggestResend) throw new JournalError("CONFIRMED -> SENT needs an entityId (phase 2 of a create)", { jobId, idx });
         if (phase === "create") throw new JournalError("CONFIRMED -> SENT may not re-enter the create phase", { jobId, idx });
       }
       if (to === "SENT" && job.state !== "RUNNING") throw new JournalError(`cannot send while job is ${job.state}`, { jobId, idx });
@@ -349,7 +350,7 @@
 
   var contract_default = JSON.parse('{"_meta":{"pin":"94f9d84c770004172ba423ada3d6710849acc451","scope":"Bloodright potency import only; other effects intentionally refused","sources":{"app/src/validators/combat.ts":"a7530df9e0537d19aaa2ae3ad06ebe0da6c3f12a636c79b93932f57b4a02ff0a","app/src/server/api/routers/skillTree.ts":"9c8a498cf847639b8638fd296284fc428b82cbf0f0826d0bc3d8de98dc52f374","app/drizzle/constants.ts":"40590ebb64d483677b5fc5cc2629169f6b7f4b6a5ed950d49ae3dae03200603b","app/src/validators/skillTree.ts":"7cea7b987f5db45a21f72717ebec0300ef865b453a7b448d1c5fa8dcc2b97040"}},"skillFields":["name","image","description","target","tier","requiredSkillIds","costSkillPoints","pathType","bloodlineId","seichiSilverCost","hidden","skillType","folderId","effects"],"folderFields":["name","image","description","hidden","order"],"effectFields":["staticAssetPath","staticAnimation","appearAnimation","disappearAnimation","appearSfx","disappearSfx","rounds","timeTracker","power","powerPerLevel","direction","target","coordinateTargeting","friendlyFire","calculation","affectedTag","affectedElements","type","description"],"tags":["damage","increasedamagegiven","decreasedamagegiven","increasedamagetaken","decreasedamagetaken","afterburn","lifesteal","reflect","increaseheal","heal","vamp","absorb","consume","shield","pierce","drain","poison"],"elements":["Fire","Water","Wind","Earth","Lightning","Ice","Crystal","Dust","Shadow","Wood","Scorch","Storm","Magnet","Yin-Yang","Lava","Explosion","Light","Boil","Metal","Sand","None"],"procedures":{"skillTree.get":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.getAll":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.getAllFolders":{"kind":"query","limited":true,"mcp":true,"auth":"public"},"skillTree.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.update":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.createFolder":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"skillTree.updateFolder":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"}}}');
 
-  var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible","aiEditableKeys":"libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)"},"notSuggestible":{"quest":"quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"],"aiEditableKeys":["username","npcTitle","avatar","avatar3d","avatarFacing","gender","level","regeneration","rank","bloodlineId","offence","defence","ninjutsuMastery","genjutsuMastery","taijutsuMastery","bukijutsuMastery","bloodlineMastery","sageMastery","statsMultiplier","poolsMultiplier","strength","intelligence","willpower","speed","isSummon","inArena","inShrines","primaryElement","secondaryElement","preferredGeneral1","preferredGeneral2","anbuId","clanId","jutsus","items","effects"]}`);
+  var contract_default2 = JSON.parse(`{"_meta":{"source":"studie-tech/TheNinjaRPG","pin":"2aed7e4903cc68e18c01e0adb7aec8f39ddffc64","files":{"router":"app/src/server/api/routers/contentReview.ts","validators":"app/src/validators/contentReview.ts","constants":"app/drizzle/constants.ts","submit":"app/src/libs/contentReview/submit.ts"},"citations":{"contentReview.create":"contentReview.ts:305 create: protectedProcedure, input staffCreateProposalSchema, output baseServerResponse {success, message:'Sent for review'}; canSuggestContent(role)","contentReview.getQueue":"contentReview.ts:91 getQueue: protectedProcedure, input reviewQueueSchema {status, entityType?, cursor?, limit<=50}; non-reviewers see only their own","contentReview.getProposal":"contentReview.ts:185 getProposal: protectedProcedure, input {id}; null when absent or not visible","aiEditableKeys":"libs/contentReview/entities.ts AI_EDITABLE_KEYS: the only AI fields the desk keeps (editableOf)","contentReview.create (new record)":"validators/contentReview.ts staffCreateProposalSchema entityId .nullable(); libs/contentReview/submit.ts createStaffProposal: no entityId -> change operation CREATE, entityId null, no basis; routers/contentReview.ts applyProposal -> createEntity on approval; toSummary targets carry operation and entityId null for a CREATE"},"notSuggestible":{"quest":"quests.get masks hideLocation objectives (sector 1337) and tracked coordinates for callers who cannot change content (libs/quest.ts controlShownQuestLocationInformation); a suggestion built from it would overwrite the real objectives on approval"}},"procedures":{"contentReview.create":{"kind":"mutation","limited":false,"mcp":false,"auth":"protected"},"contentReview.getQueue":{"kind":"query","limited":false,"mcp":false,"auth":"protected"},"contentReview.getProposal":{"kind":"query","limited":false,"mcp":false,"auth":"protected"}},"entityTypes":{"jutsu":"JUTSU","item":"ITEM","bloodline":"BLOODLINE","asset":"GAME_ASSET","ai":"AI"},"categories":["GRAMMAR","BALANCE","SOUND","ANIMATION","VISUAL","CONSISTENCY","NEW_CONTENT"],"titleLength":{"min":3,"max":120},"rationaleLength":{"min":10,"max":4000},"statuses":["PENDING","APPLIED","REJECTED","OUTDATED","REVERTED"],"aiEditableKeys":["username","npcTitle","avatar","avatar3d","avatarFacing","gender","level","regeneration","rank","bloodlineId","offence","defence","ninjutsuMastery","genjutsuMastery","taijutsuMastery","bukijutsuMastery","bloodlineMastery","sageMastery","statsMultiplier","poolsMultiplier","strength","intelligence","willpower","speed","isSummon","inArena","inShrines","primaryElement","secondaryElement","preferredGeneral1","preferredGeneral2","anbuId","clanId","jutsus","items","effects"]}`);
 
   var PROCEDURES = Object.freeze({
     ...contract_default.procedures,
@@ -3341,10 +3342,15 @@
       if (x.rationale !== void 0 && (typeof x.rationale !== "string" || x.rationale.trim().length < contract_default2.rationaleLength.min || x.rationale.length > contract_default2.rationaleLength.max)) problems.push(`${where}: rationale needs ${contract_default2.rationaleLength.min}-${contract_default2.rationaleLength.max} characters`);
     };
     check("suggestion", s);
-    if (m.bloodrightImport || m.capture?.before?.length || m.capture?.after?.length) problems.push("suggest mode is for item edits only (no Bloodright import, no captures)");
+    if (m.bloodrightImport || m.capture?.before?.length || m.capture?.after?.length) problems.push("suggest mode is for item edits and new records only (no Bloodright import, no captures)");
+    const createdSrc = new Set(items.filter((it) => it.op === "create" && it.srcId).map((it) => it.srcId));
     for (const it of items) {
       const where = `item ${it.idx + 1} (${it.name})`;
-      if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
+      if (it.op !== "update" && it.op !== "create") problems.push(`${where}: suggest mode sends edits (slot "edit" with a targetId) and new records (slot "create")`);
+      if (it.op === "create" && it.entity === "ai") problems.push(`${where}: an AI cannot be suggested as a new record; the review desk keeps only ${contract_default2.aiEditableKeys.length} AI fields, so its kit would be lost. Create it directly instead`);
+      for (const r of collectRefs({ data: it.data, targetId: it.targetId })) {
+        if (r.pfx !== "img" && createdSrc.has(r.key)) problems.push(`${where}: references @${r.key}, a record this manifest only suggests; it has no id until a reviewer approves it`);
+      }
       if (!contract_default2.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(contract_default2.entityTypes).join(", ")}${contract_default2._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${contract_default2._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
       if (it.entity === "ai") {
         const dropped = Object.keys(it.data ?? {}).filter((k) => !contract_default2.aiEditableKeys.includes(k));
@@ -4028,7 +4034,8 @@
           const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
           if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
           if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });
-          const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id2));
+          const isTarget = id2 ? (t) => t.entityId === id2 : (t) => t.entityId == null && t.operation === "CREATE" && t.entityType === entityType;
+          const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some(isTarget));
           if (hit) return { hit, complete: true };
           if (r.data?.nextCursor == null) break;
           cursor = r.data.nextCursor;
@@ -4041,21 +4048,27 @@
       if (item.state === "CONFIRMED" && item.phase === "verify") return this._verifyOrSkip(jobId, item, planned, manifest);
       if (!(item.state === "CONFIRMED" && item.phase === "suggest-find")) {
         const data = await this._resolved(planned.data, jobId);
-        this._requireAuth(rc.get, item.idx);
-        const live = await this.reader.get(rc.get, id2, { fresh: true });
-        if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
-        if (!live.ok || live.data == null) throw new Error(`${rc.get} returned no record for ${id2}`);
-        const problems = this.validator.problems(item.entity, data, live.data);
+        const creating = item.op === "create";
+        let liveRow = null;
+        if (!creating) {
+          this._requireAuth(rc.get, item.idx);
+          const live = await this.reader.get(rc.get, id2, { fresh: true });
+          if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
+          if (!live.ok || live.data == null) throw new Error(`${rc.get} returned no record for ${id2}`);
+          liveRow = live.data;
+        }
+        const problems = this.validator.problems(item.entity, data, liveRow);
         if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
-        const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+        const payload = mergeForUpdate(item.entity, liveRow, data, this.validator.knownFields(item.entity));
         if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
         const s = this._suggestion(manifest, planned, jobId, item);
         this._requireAuth("contentReview.create", item.idx);
+        const sentId = creating ? null : id2;
         const decoded = await this.journal.withSent(
           jobId,
           item.idx,
-          { phase: "suggest", entityId: id2, suggestTitle: s.title },
-          () => this.client.call("contentReview.create", { entityType: contract_default2.entityTypes[item.entity], entityId: id2, category: s.category, title: s.title, rationale: s.rationale, data: payload })
+          { phase: "suggest", entityId: sentId, suggestTitle: s.title },
+          () => this.client.call("contentReview.create", { entityType: contract_default2.entityTypes[item.entity], entityId: sentId, category: s.category, title: s.title, rationale: s.rationale, data: payload })
         );
         const o = readMutation(decoded);
         if (o.kind !== "ok") {
@@ -5197,7 +5210,7 @@ html, body { margin:0; padding:0; background:#0f1115; color:#e8eaf0; font: 15px/
     const card = h("div", { class: "f-card" }, h("h2", {}, s.entry.name), h("div", { class: "f-mute" }, `${scope}${s.manifest.hash ? ` \xB7 manifest hash ${s.manifest.hash}` : ""}`));
     const suggest = !!s.manifest.policy?.suggest;
     if (readOnly) card.appendChild(h("div", { class: "f-banner info" }, "Read-only capture job: zero mutations."));
-    if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
+    if (suggest) card.appendChild(h("div", { class: "f-banner info" }, h("b", {}, "Suggest mode. "), "Each edit or new record goes to the content review desk. Nothing changes in the game until a reviewer approves it."));
     if (fullCount) card.appendChild(h(
       "div",
       { class: "f-banner warn" },

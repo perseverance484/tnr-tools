@@ -898,6 +898,24 @@ A forge capture-only bundle is still read by the early "nothing to verify" branc
 produce one today (`journal.open()` refuses an empty item list), so that path is unreachable from
 forge; it is listed under "Not finished" rather than guarded speculatively.
 
+## Suggest mode: new records (0.8.2)
+
+A manifest with `"mode": "suggest"` sends each item to the game's content review desk instead of saving it. From 0.8.2
+an item with `slot: "create"` is sent too, as a new-record suggestion: `contentReview.create` with `entityId: null`,
+which the desk stores as a CREATE change and applies with `createEntity` only when a reviewer approves it
+(RUL-2026-10-25-001; `forge/src/review/contract.json` citations).
+
+- Nothing is created by Forge, so a suggested create has no id: no other item in the same manifest may reference its
+  `srcId` (refused at parse). Build anything that points at it in a later manifest, after approval.
+- AI creates are refused (the desk keeps only its AI editable fields, so the kit would be lost). Quests stay
+  unsuggestible.
+- `@img` refs upload first and are sent as URLs, as for edits. `dedupNames` still fails a live-name collision before
+  any send.
+- The queue match is the job-tagged title plus a target with `entityId: null`, `operation: "CREATE"` and the item's
+  desk type. A lost response resumes like an edit: found means landed; a fully searched queue without it means send
+  again (the journal allows this one id-less `CONFIRMED -> SENT`); an incomplete search finishes without the id.
+- The category `NEW_CONTENT` exists on the desk for this.
+
 ## Not finished
 
 - **Pause during a run** is wired (`Runner.requestPause()`, honoured between items; the Run

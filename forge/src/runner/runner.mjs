@@ -667,7 +667,12 @@ export class Runner {
         const r = await this.client.call("contentReview.getQueue", { status, entityType, source: "STAFF", cursor, limit: 50 });
         if (!r.ok && classifyError(r.error) === "SESSION") throw this._authRefused(r.error, { path: "contentReview.getQueue", idx: item.idx });
         if (!r.ok) throw new Paused("NETWORK", { idx: item.idx, detail: `contentReview.getQueue failed: ${r.error?.message ?? "error"}` });
-        const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some((t) => t.entityId === id));
+        // An edit is matched by its target's id; a suggested new record has none until it is
+        // approved, so it is matched as a CREATE of the same type (the title is job-tagged).
+        const isTarget = id
+          ? (t) => t.entityId === id
+          : (t) => t.entityId == null && t.operation === "CREATE" && t.entityType === entityType;
+        const hit = (r.data?.items ?? []).find((p) => p.title === item.suggestTitle && (p.targets ?? []).some(isTarget));
         if (hit) return { hit, complete: true };
         if (r.data?.nextCursor == null) break;
         cursor = r.data.nextCursor;
@@ -688,19 +693,27 @@ export class Runner {
     if (item.state === "CONFIRMED" && item.phase === "verify") return this._verifyOrSkip(jobId, item, planned, manifest);
     if (!(item.state === "CONFIRMED" && item.phase === "suggest-find")) {
       const data = await this._resolved(planned.data, jobId);
-      this._requireAuth(rc.get, item.idx);
-      const live = await this.reader.get(rc.get, id, { fresh: true });
-      if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
-      if (!live.ok || live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
-      const problems = this.validator.problems(item.entity, data, live.data);
+      // A new record (RUL-2026-10-25-001) has no live row: it is validated alone and sent with
+      // entityId null, which the desk stores as a CREATE applied only when a reviewer approves it.
+      const creating = item.op === "create";
+      let liveRow = null;
+      if (!creating) {
+        this._requireAuth(rc.get, item.idx);
+        const live = await this.reader.get(rc.get, id, { fresh: true });
+        if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { path: rc.get, idx: item.idx });
+        if (!live.ok || live.data == null) throw new Error(`${rc.get} returned no record for ${id}`);
+        liveRow = live.data;
+      }
+      const problems = this.validator.problems(item.entity, data, liveRow);
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
-      const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+      const payload = mergeForUpdate(item.entity, liveRow, data, this.validator.knownFields(item.entity));
       // The game's item form and review loader hold a missing store expiry as "", not null.
       if (item.entity === "item" && payload.expireFromStoreAt == null) payload.expireFromStoreAt = "";
       const s = this._suggestion(manifest, planned, jobId, item);
       this._requireAuth("contentReview.create", item.idx);
-      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "suggest", entityId: id, suggestTitle: s.title },
-        () => this.client.call("contentReview.create", { entityType: REVIEW.entityTypes[item.entity], entityId: id, category: s.category, title: s.title, rationale: s.rationale, data: payload }));
+      const sentId = creating ? null : id;
+      const decoded = await this.journal.withSent(jobId, item.idx, { phase: "suggest", entityId: sentId, suggestTitle: s.title },
+        () => this.client.call("contentReview.create", { entityType: REVIEW.entityTypes[item.entity], entityId: sentId, category: s.category, title: s.title, rationale: s.rationale, data: payload }));
       const o = readMutation(decoded);
       if (o.kind !== "ok") {
         if (/nothing changed/i.test(o.message ?? "")) {
