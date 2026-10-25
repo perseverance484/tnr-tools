@@ -58,15 +58,17 @@ Settled by RUL-2026-10-24-008 unless marked open.
 
 **Shape (RUL-2026-10-24-025):** one tier of five floors, depth from waves instead of floors. Floors 1-4 are `floor`, floor 5 is the `boss` (the validator's rule for a single tier: no mini-boss). A wipe on any floor sends the party back to floor 1.
 
-Seal Charges and Core Canisters are hazards: they only ever spawn in a wave alongside a real enemy, never alone. The elite or boss of each floor is in the last wave, so it cannot be killed before the adds. Numbers in brackets are `delayRounds`: 0 between add waves, 1 before an elite/boss wave.
+Seal Charges and Core Canisters are hazards: used sparingly, only alongside real enemies in the same wave, never alone. Most waves field three fighters against the three players. The elite or boss of each floor is in the last wave. Every wave's `delayRounds` is 0 (standard: the next wave arrives as the last one falls; no idle rounds).
 
-| Floor | Kind | Wave 1 (round 0) | Wave 2 | Wave 3 | Wave 4 | Wave 5 |
+Roster (captured, all JONIN): Deck Warden L100 12,625 HP (the rank and file); Core Horror, Oathkeeper, The Captain, Sealwright L100 12,625; Wayfinder, Arsenal Keeper L100 15,150; First Blade, Skyglass Sentinel L100 17,675; Crowned Captain L100 18,180. Hazards: Seal Charge L70 3,550; Core Canister L56 2,850.
+
+| Floor | Kind | Wave 1 | Wave 2 | Wave 3 | Wave 4 | Wave 5 |
 |---|---|---|---|---|---|---|
-| 1 | floor | Deck Warden ×2 | Deck Warden + Core Canister (0) | Wayfinder + Deck Warden (1) | | |
-| 2 | floor | Deck Warden + Seal Charge | Deck Warden ×2 (0) | Core Horror + Core Canister (1) | Arsenal Keeper + Seal Charge ×2 (1) | |
-| 3 | floor | Deck Warden ×2 | Deck Warden + Seal Charge ×2 (0) | First Blade + Deck Warden (1) | Skyglass Sentinel + Core Canister ×2 (1) | |
-| 4 | floor | Deck Warden ×2 + Core Canister | Oathkeeper + Wayfinder (1) | Arsenal Keeper + First Blade (1) | The Captain + Seal Charge ×2 (1) | |
-| 5 | boss | Deck Warden ×2 | Core Horror + Seal Charge (0) | Sealwright + Core Canister ×2 (1) | Oathkeeper + Seal Charge ×2 (0) | Crowned Captain + Core Canister ×2 (1) |
+| 1 | floor | Deck Warden ×3 | Core Horror + Deck Warden ×2 | Wayfinder + Deck Warden ×2 | | |
+| 2 | floor | Deck Warden ×3 | Oathkeeper + Deck Warden ×2 | Core Horror + Wayfinder + Deck Warden | Arsenal Keeper + Deck Warden ×2 + Seal Charge | |
+| 3 | floor | Deck Warden ×3 | Arsenal Keeper + Deck Warden ×2 | First Blade + Wayfinder + Deck Warden | Skyglass Sentinel + Deck Warden ×2 + Core Canister | |
+| 4 | floor | Deck Warden ×3 | Oathkeeper + Wayfinder + Deck Warden | First Blade + Arsenal Keeper + Deck Warden | The Captain + First Blade + Deck Warden | |
+| 5 | boss | Deck Warden ×3 | Core Horror + Arsenal Keeper + Deck Warden | Sealwright + Oathkeeper + Deck Warden | First Blade + Wayfinder + Skyglass Sentinel | Crowned Captain + Deck Warden ×2 + Core Canister ×2 |
 
 - **Battle background:** one biome for the whole dungeon (`background`, a `COMBAT_BIOMES` value); custom scene art cannot be set per floor.
 - **Open:** the one-hour limit with five floors of 3-5 waves (20 waves); confirm with a hidden test run before publishing.
